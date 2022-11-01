@@ -1,12 +1,11 @@
-import * as request from 'request';
-
 import dispatch from '../../__mocks__/dispatch'
 import { getActivity } from '../../actions/activities'
 import { TrackAnalyticsEvent } from '../../actions/analytics'
 import { Events } from '../../modules/analytics'
+import { requestGet, } from '../../../../modules/request/index'
 
-jest.mock('request', () => ({
-  get: jest.fn()
+jest.mock('../../../../modules/request/index', () => ({
+  requestGet: jest.fn()
 }))
 jest.mock('../../actions/analytics', () => ({
   TrackAnalyticsEvent: jest.fn()
@@ -28,7 +27,7 @@ describe('Activities actions', () => {
 
     it('makes a GET request to the activities API', () => {
       const expectedUrl = `${process.env.DEFAULT_URL}/api/v1/evidence/activities/${mockActivityID}`
-      expect(request.get).toBeCalledWith(expectedUrl, expect.anything())
+      expect(requestGet).toBeCalledWith(expectedUrl, expect.anything())
     })
   })
 })

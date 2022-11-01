@@ -1,6 +1,5 @@
 import * as React from 'react';
 import { mount } from 'enzyme';
-import request from 'request';
 
 import LessonsMini from '../lessons_mini.tsx';
 

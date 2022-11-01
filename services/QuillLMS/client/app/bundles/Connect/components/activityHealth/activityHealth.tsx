@@ -1,7 +1,5 @@
 import * as React from 'react'
-
 import { matchSorter } from 'match-sorter';
-import request from 'request'
 import _ from 'underscore'
 import stripHtml from "string-strip-html"
 import { CSVLink } from 'react-csv'
@@ -15,6 +13,7 @@ import { tableSort, sortTableByList } from '../../../../modules/sortingMethods.j
 import { FlagDropdown, ReactTable, expanderColumn, TextFilter, } from '../../../Shared/index'
 import { filterNumbers } from '../../../../modules/filteringMethods.js'
 import actions from '../../actions/activityHealth'
+import { requestGet, } from '../../../../modules/request/index'
 
 const CONNECT_TOOL = "connect"
 const ACTIVITY_HEALTHS_URL = `${process.env.DEFAULT_URL}/api/v1/activities/activities_health.json`
@@ -286,24 +285,21 @@ class ActivityHealth extends React.Component<ActivityHealthProps, ActivityHealth
 
   fetchActivityHealthData() {
     this.setState({ loadingTableData: true })
-    request.get({
-      url: ACTIVITY_HEALTHS_URL,
-    }, (e, r, body) => {
-      let newState = {}
-      if (e || r.statusCode != 200) {
-        newState = {
+    requestGet(
+      ACTIVITY_HEALTHS_URL,
+      (body) => {
+        this.setState({
+          loadingTableData: false,
+          fetchedData: body.activities_health
+        })
+      },
+      (body) => {
+        this.setState({
           loadingTableData: false,
           dataResults: [],
-        }
-      } else {
-        const data = JSON.parse(body);
-        newState = {
-          loadingTableData: false,
-          fetchedData: data.activities_health
-        };
+        })
       }
-      this.setState(newState)
-    });
+    );
   }
 
   getFilteredData() {

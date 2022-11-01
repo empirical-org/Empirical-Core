@@ -1,11 +1,11 @@
 import React from 'react';
 import _ from 'underscore';
-import request from 'request'
 import Pluralize from 'pluralize';
 
 import getAuthToken from '../../modules/get_auth_token'
 import ClassroomActivity from './classroom_activity';
 import AddClassroomActivityRow from './add_classroom_activity_row.jsx';
+import { requestPut, } from '../../../../../modules/request/index'
 
 export default class Unit extends React.Component {
   constructor(props) {
@@ -74,10 +74,6 @@ export default class Unit extends React.Component {
     return <span className="edit-unit" onClick={this.handleSubmit}>Submit</span>;
   };
 
-  onSubmit = () => {
-    request.put('/teachers/units', { name: this.state.unitName, });
-  };
-
   dueDate = () => {
     if (!this.props.report && !this.props.lesson) {
       return <span className="due-date-header">Due Date</span>;
@@ -101,28 +97,25 @@ export default class Unit extends React.Component {
   };
 
   handleSubmit = () => {
-    request.put({
-      url: `${process.env.DEFAULT_URL}/teachers/units/${this.props.data.unitId}`,
-      json: {
-        unit: { name: this.state.unitName, },
-        authenticity_token: getAuthToken()
-      }
-    },
-    (e, r, body) => {
-      if (r.statusCode === 200) {
+    requestPut(
+      `${process.env.DEFAULT_URL}/teachers/units/${this.props.data.unitId}`,
+      { unit: { name: this.state.unitName, }, },
+      (body) => {
         this.setState({
           edit: false,
           errors: undefined,
           savedUnitName: this.state.unitName,
         });
-      } else {
+      },
+      (body) => {
         this.setState({
           errors: body.errors,
           edit: false,
           unitName: this.state.savedUnitName,
         });
       }
-    });
+    )
+
   };
 
   showUnitName = () => {

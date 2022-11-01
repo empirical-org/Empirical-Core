@@ -1,17 +1,13 @@
 import * as React from "react";
 import XLSX from 'xlsx'
-import request from 'request'
 
+import { requestPost, } from '../../../modules/request/index'
 
 export const UploadRosters = () => {
 
   const [schoolId, setSchoolId] = React.useState<Number>();
   const [teachers, setTeachers] = React.useState<Array<any>>([]);
   const [students, setStudents] = React.useState<Array<any>>([])
-
-  function getAuthToken() {
-    return document.getElementsByName('csrf-token')[0] ? document.getElementsByName('csrf-token')[0].content : 0;
-  }
 
   function handleSchoolIdChange(e) {
     setSchoolId(e.target.value)
@@ -41,19 +37,20 @@ export const UploadRosters = () => {
   }
 
   function submitRosters() {
-    request.post(`${process.env.DEFAULT_URL}/cms/rosters/upload_teachers_and_students`, {
-      json: {
-        authenticity_token: getAuthToken(),
+    requestPost(`${process.env.DEFAULT_URL}/cms/rosters/upload_teachers_and_students`,
+      {
         school_id: schoolId,
         teachers: teachers,
         students: students
-      }}, (e, r, response) => {
-      if (response.errors) {
-        alert(response.errors)
-      } else {
+      },
+      (body) => {
         alert("Rosters uploaded successfully!")
+      },
+      (body) => {
+        if (body.errors) {
+          alert(body.errors)
+        }
       }
-    }
     );
   }
 

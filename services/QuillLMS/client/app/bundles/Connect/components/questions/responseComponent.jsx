@@ -1,5 +1,6 @@
 import React from 'react';
 import { connect } from 'react-redux';
+
 import filterActions from '../../actions/filters';
 import _ from 'underscore';
 import ResponseList from './responseList.jsx';
@@ -15,7 +16,6 @@ import {
   rematchOne
 } from '../../libs/grading/rematching.ts';
 import massEdit from '../../actions/massEdit';
-import request from 'request';
 import { submitResponseEdit } from '../../actions/responses';
 import {
   ResponseSortFields,
@@ -23,6 +23,7 @@ import {
   QuestionBar,
   hashToCollection
 } from '../../../Shared/index'
+import { requestGet, } from '../../../../modules/request/index'
 
 const C = require('../../constants').default;
 
@@ -116,31 +117,25 @@ class ResponseComponent extends React.Component {
   };
 
   getGradeBreakdown = () => {
-    request(
-      {
-        url: `${process.env.QUILL_CMS}/questions/${this.props.questionID}/grade_breakdown`,
-        method: 'GET',
-      },
-      (err, httpResponse, data) => {
+    requestGet(
+      `${process.env.QUILL_CMS}/questions/${this.props.questionID}/grade_breakdown`,
+      (body) => {
         this.setState({
-          gradeBreakdown: JSON.parse(data),
+          gradeBreakdown: body,
         });
       }
-    );
+    )
   };
 
   getHealth = () => {
-    request(
-      {
-        url: `${process.env.QUILL_CMS}/questions/${this.props.questionID}/health`,
-        method: 'GET',
-      },
-      (err, httpResponse, data) => {
+    requestGet(
+      `${process.env.QUILL_CMS}/questions/${this.props.questionID}/health`,
+      (body) => {
         this.setState({
-          health: JSON.parse(data),
+          health: body,
         });
       }
-    );
+    )
   };
 
   getNumberOfPages = () => {

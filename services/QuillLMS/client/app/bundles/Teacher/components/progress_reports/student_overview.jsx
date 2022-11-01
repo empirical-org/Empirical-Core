@@ -1,5 +1,4 @@
 import React from 'react';
-import request from 'request';
 import moment from 'moment';
 import _ from 'underscore';
 import l from 'lodash';
@@ -11,6 +10,7 @@ import getParameterByName from '../modules/get_parameter_by_name';
 import LoadingSpinner from '../shared/loading_indicator.jsx';
 import { getTimeSpent } from '../../helpers/studentReports';
 import notLessonsOrDiagnostic from '../../../../modules/activity_classifications.js';
+import { requestGet, } from '../../../../modules/request/index'
 
 export default class extends React.Component {
   constructor() {
@@ -26,12 +26,13 @@ export default class extends React.Component {
     const query = l.get(location);
     const classroomId = l.get(query, 'classroom_id') || getParameterByName('classroom_id', window.location.href);
     const studentId = l.get(query, 'student_id') || getParameterByName('student_id', window.location.href);
-    request.get({
-      url: `${process.env.DEFAULT_URL}/api/v1/progress_reports/student_overview_data/${studentId}/${classroomId}`,
-    }, (e, r, body) => {
-      const data = JSON.parse(body);
-      this.setState({ loading: false, errors: body.errors, studentData: data.student_data, reportData: data.report_data, classroomName: data.classroom_name, });
-    });
+
+    requestGet(
+      `${process.env.DEFAULT_URL}/api/v1/progress_reports/student_overview_data/${studentId}/${classroomId}`,
+      (body) => {
+        this.setState({ loading: false, errors: body.errors, studentData: body.student_data, reportData: body.report_data, classroomName: body.classroom_name, });
+      }
+    )
   }
 
   backButton = () => {

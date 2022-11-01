@@ -1,8 +1,9 @@
 import React from 'react';
 import LessonsSlides from './LessonsSlides';
 import getParameterByName from '../modules/get_parameter_by_name';
-import request from 'request';
 import $ from 'jquery';
+
+import { requestPost, } from '../../../../modules/request/index'
 
 export default class TutorialIndex extends React.Component {
   constructor(props) {
@@ -45,9 +46,7 @@ export default class TutorialIndex extends React.Component {
 
   finishTutorial() {
     if (this.props.match.params.tool === 'lessons') {
-      request.post(`${process.env.DEFAULT_URL}/milestones/complete_view_lesson_tutorial`, {
-        json: { authenticity_token: $('meta[name=csrf-token]').attr('content'), },
-      });
+      requestPost(`${process.env.DEFAULT_URL}/milestones/complete_view_lesson_tutorial`)
     }
   }
 

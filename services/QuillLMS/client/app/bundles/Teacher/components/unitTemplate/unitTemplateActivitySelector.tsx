@@ -1,5 +1,4 @@
 import * as React from 'react'
-import request from 'request';
 
 import UnitTemplateSelectedActivitiesTable from './unitTemplateSelectedActivitiesTable'
 
@@ -7,6 +6,7 @@ import { FlagDropdown, Spinner, DataTable } from '../../../Shared/index'
 import Pagination from '../assignment_flow/create_unit/custom_activity_pack/pagination'
 import { lowerBound, upperBound, } from '../assignment_flow/create_unit/custom_activity_pack/shared'
 import { unitTemplateActivityRows, unitTemplateDataTableFields } from '../../helpers/unitTemplates';
+import { requestGet, } from '../../../../modules/request/index'
 
 const ACTIVITIES_URL = `${process.env.DEFAULT_URL}/activities/index_with_unit_templates`
 const DEFAULT_FLAG = 'All Flags'
@@ -43,13 +43,9 @@ export const UnitTemplateActivitySelector = ({ parentActivities, setParentActivi
   }, []);
 
   function getActivities() {
-    request.get({
-      url: ACTIVITIES_URL,
-    }, (e, r, body) => {
-      if (e || r.statusCode !== 200) {
-        setLoading(false)
-      } else {
-        const data = JSON.parse(body);
+    requestGet(
+      ACTIVITIES_URL,
+      (data) => {
         setLoading(false)
         setActivities(data.activities);
 
@@ -58,8 +54,11 @@ export const UnitTemplateActivitySelector = ({ parentActivities, setParentActivi
         const readFiltered = readUnique.filter(c => c !== '' && c !== null).sort()
         readFiltered.push(DEFAULT_READABILITY)
         setReadabilityOptions(readFiltered)
+      },
+      (body) => {
+        setLoading(false)
       }
-    })
+    )
   }
 
   function getFilteredActivities() {
