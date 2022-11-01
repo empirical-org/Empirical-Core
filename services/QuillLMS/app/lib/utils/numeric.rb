@@ -18,6 +18,6 @@ module Utils::Numeric
   end
 
   def self.seconds_to_human_readable_time(seconds)
-    "%02d:%02d" % [seconds / 60 % 60, seconds % 60]
+    format("%<minutes>02d:%<seconds>02d", minutes: seconds / 60 % 60, seconds: seconds % 60)
   end
 end

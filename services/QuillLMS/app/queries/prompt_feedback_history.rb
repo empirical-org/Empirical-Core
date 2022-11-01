@@ -44,6 +44,7 @@ class PromptFeedbackHistory
     query
   end
 
+  # rubocop:disable Metrics/CyclomaticComplexity
   def self.serialize_results(results)
     serialized_rows = results.map do |result|
       payload = result.serializable_hash(
@@ -59,4 +60,6 @@ class PromptFeedbackHistory
     end
     serialized_rows.map{ |row| [row['prompt_id'], row] }.to_h
   end
+  # rubocop:enable Metrics/CyclomaticComplexity
+
 end
