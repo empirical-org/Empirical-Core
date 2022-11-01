@@ -25,12 +25,11 @@ class TeacherFixController < ApplicationController
     params['changed_names'].each do |id, name|
       Unit.unscoped.where(id: id).first.update_attribute('name', name)
     end
-    Unit.unscoped.where(id: unit_ids).update_all(visible: true)
+    units = Unit.unscoped.where(id: unit_ids)
+    units.update_all(visible: true)
+    TeacherFixes::recover_unit_activities_for_units(units)
     classroom_units = ClassroomUnit.where(unit_id: unit_ids)
-    classroom_units.update_all(visible: true)
-    unit_activities = UnitActivity.where(unit_id: unit_ids)
-    unit_activities.update_all(visible: true)
-    ActivitySession.unscoped.where(classroom_unit_id: classroom_units.ids).update_all(visible: true)
+    TeacherFixes::recover_classroom_units_and_associated_activity_sessions(classroom_units)
     render json: {}, status: 200
   end
 
@@ -38,10 +37,8 @@ class TeacherFixController < ApplicationController
     classroom = Classroom.find_by_code(params['class_code'])
     if classroom
       classroom_units = ClassroomUnit.unscoped.where(classroom_id: classroom.id)
-      unit_ids = classroom_units.map(&:unit_id)
-      Unit.unscoped.where(visible: false, id: unit_ids).update_all(visible: true)
-      classroom_units.update_all(visible: true)
-      ActivitySession.unscoped.where(classroom_unit_id: classroom_units.ids).update_all(visible: true)
+      TeacherFixes::recover_units_by_id(classroom_units.map(&:unit_id))
+      TeacherFixes::recover_classroom_units_and_associated_activity_sessions(classroom_units)
       render json: {}, status: 200
     else
       render json: {error: 'No such classroom'}
@@ -52,9 +49,7 @@ class TeacherFixController < ApplicationController
     user = User.find_by_email(params['email'])
     if user && user.role == 'teacher'
       units = Unit.where(user_id: user.id)
-      units.each do |u|
-        u.unit_activities.update_all(visible: true)
-      end
+      TeacherFixes::recover_unit_activities_for_units(units)
       render json: {}, status: 200
     else
       render json: {error: "Cannot find a teacher with the email #{params['email']}."}
@@ -66,16 +61,8 @@ class TeacherFixController < ApplicationController
     if user && user.role == 'teacher'
       unit = Unit.find_by(name: params['unit_name'], user_id: user.id)
       if unit
-        ClassroomUnit.unscoped.where(unit_id: unit.id).each do |cu|
-          activity_sessions = ActivitySession.unscoped.where(classroom_unit_id: cu.id)
-          recovered_assigned_students = activity_sessions.map(&:user_id)
-          cu.update(visible: true, assigned_student_ids: cu.assigned_student_ids.union(recovered_assigned_students))
-          activity_sessions.update_all(visible: true)
-          # update_all bypasses ActiveRecord callbacks, and thus doesn't
-          # trigger the `touch` bubble-up that we use for cache invalidation.
-          # So we need to do the touches manually.
-          activity_sessions.each(&:touch)
-        end
+        classroom_units = ClassroomUnit.unscoped.where(unit_id: unit.id)
+        TeacherFixes::recover_classroom_units_and_associated_activity_sessions(classroom_units)
         render json: {}, status: 200
       else
         render json: {error: "The user with the email #{user.email} does not have a unit named #{params['unit_name']}"}

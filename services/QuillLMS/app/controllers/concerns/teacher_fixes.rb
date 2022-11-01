@@ -174,4 +174,35 @@ module TeacherFixes
     .where("activity_sessions.state = 'finished'")
   end
 
+  def self.recover_classroom_units_and_associated_activity_sessions(classroom_units)
+    classroom_units.each do |cu|
+      activity_sessions = ActivitySession.unscoped.where(classroom_unit_id: cu.id)
+      recovered_assigned_students = activity_sessions.map(&:user_id)
+      cu.update(visible: true, assigned_student_ids: cu.assigned_student_ids.union(recovered_assigned_students))
+      activity_sessions.update_all(visible: true)
+      # update_all bypasses ActiveRecord callbacks, and thus doesn't
+      # trigger the `touch` bubble-up that we use for cache invalidation.
+      # So we need to do the touches manually.
+      activity_sessions.each(&:touch)
+    end
+  end
+
+  def self.recover_unit_activities_for_units(units)
+    unit_activities = UnitActivity.where(unit: units)
+    unit_activities.update_all(visible: true)
+    # update_all bypasses ActiveRecord callbacks, and thus doesn't
+    # trigger the `touch` bubble-up that we use for cache invalidation.
+    # So we need to do the touches manually.
+    unit_activities.each(&:touch)
+  end
+
+  def self.recover_units_by_id(unit_ids)
+    units = Unit.unscoped.where(id: unit_ids)
+    units.update_all(visible: true)
+    # update_all bypasses ActiveRecord callbacks, and thus doesn't
+    # trigger the `touch` bubble-up that we use for cache invalidation.
+    # So we need to do the touches manually.
+    units.each(&:touch)
+  end
+
 end
