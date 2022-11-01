@@ -1226,7 +1226,7 @@ CREATE TABLE public.comprehension_activities (
     created_at timestamp without time zone NOT NULL,
     updated_at timestamp without time zone NOT NULL,
     notes character varying,
-    version smallint DEFAULT 0 NOT NULL
+    version smallint DEFAULT 1 NOT NULL
 );
 
 
@@ -2320,7 +2320,7 @@ CREATE TABLE public.feedback_histories (
     created_at timestamp without time zone NOT NULL,
     updated_at timestamp without time zone NOT NULL,
     rule_uid character varying,
-    activity_version smallint DEFAULT 0 NOT NULL
+    activity_version smallint DEFAULT 1 NOT NULL
 );
 
 
@@ -8714,6 +8714,8 @@ INSERT INTO "schema_migrations" (version) VALUES
 ('20220920190724'),
 ('20220927124042'),
 ('20221014103417'),
-('20221014103843');
+('20221014103843'),
+('20221019184933'),
+('20221019185354');
 
 
