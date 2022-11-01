@@ -10,7 +10,7 @@ class ActivityFeedbackHistory
       <<-SQL
         SELECT
         AVG(timespent) AS average_time_spent,
-        CAST(COUNT(DISTINCT CASE WHEN state = 'finished' THEN feedback_session_uid END) AS FLOAT) / CAST(COUNT(DISTINCT feedback_session_uid) AS FLOAT) AS average_completion_rate
+        CAST(COUNT(DISTINCT CASE WHEN state = 'finished' THEN feedback_session_uid END) AS FLOAT) / NULLIF(CAST(COUNT(DISTINCT feedback_session_uid) AS FLOAT), 0) AS average_completion_rate
         FROM
         (
           SELECT activity_sessions.timespent AS timespent, feedback_sessions.uid AS feedback_session_uid, activity_sessions.state AS state
