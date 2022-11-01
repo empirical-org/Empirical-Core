@@ -300,15 +300,6 @@ const RulesAnalysis: React.FC<RouteComponentProps<ActivityRouteProps>> = ({ hist
       Cell: ({row}) => (<button className={row.original.className} onClick={row.original.handleClick} type="button">{row.original.rule}</button>),
     },
     {
-      Header: "AutoML Confidence",
-      accessor: "autoMLConfidence",
-      key: "autoMLConfidence",
-      maxWidth: 100,
-      aggregate: (values) => {},
-      Aggregated: (row) => {},
-      Cell: ({row}) => {}
-    },
-    {
       Header: "Total Responses",
       accessor: "totalResponses",
       key: "totalResponses",
