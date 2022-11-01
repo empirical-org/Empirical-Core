@@ -1,6 +1,6 @@
 import React from 'react'
-import request from 'request'
-import getAuthToken from '../modules/get_auth_token'
+
+import { requestPost, } from '../../../../modules/request/index'
 
 export default class RecoverClassroomActivities extends React.Component {
   constructor(props) {
@@ -13,20 +13,19 @@ export default class RecoverClassroomActivities extends React.Component {
 
   submitClassCode = () => {
     const that = this
-    request.post({
-      url: `${process.env.DEFAULT_URL}/teacher_fix/recover_classroom_units`,
-      json: {class_code: that.state.classCode, authenticity_token: getAuthToken()}
-    },
-    (e, r, response) => {
-      if (response.error) {
-        that.setState({error: response.error})
-      } else if (r.statusCode === 200){
-        window.alert('Data has been restored!')
-      } else {
-        // to do, use Sentry to capture error
-      }
-    })
 
+    requestPost(
+      `${process.env.DEFAULT_URL}/teacher_fix/recover_classroom_units`,
+      { class_code: that.state.classCode },
+      (body) => {
+        window.alert('Data has been restored!')
+      },
+      (body) => {
+        if (body.error) {
+          that.setState({error: body.error})
+        }
+      }
+    )
   };
 
   updateClassCode = e => {

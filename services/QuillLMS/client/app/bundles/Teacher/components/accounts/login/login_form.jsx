@@ -1,5 +1,4 @@
 import React from 'react';
-import request from 'request';
 
 import PasswordInfo from './password_info.jsx'
 import AuthGoogleAccessForm from '../AuthGoogleAccessForm';
@@ -8,6 +7,7 @@ import AssignActivityPackBanner from '../assignActivityPackBanner'
 import getAuthToken from '../../modules/get_auth_token'
 import { Input, } from '../../../../Shared/index'
 import { Snackbar } from '../../../../Shared/index'
+import { requestPost, } from '../../../../../modules/request/index'
 
 const smallWhiteCheckSrc = `${process.env.CDN_URL}/images/shared/check-small-white.svg`
 
@@ -67,22 +67,20 @@ class LoginFormApp extends React.Component {
   handleSubmit = (e) => {
     const { timesSubmitted, email, password, keepMeSignedIn, } = this.state;
     e.preventDefault();
-    request({
-      url: `${process.env.DEFAULT_URL}/session/login_through_ajax`,
-      method: 'POST',
-      json: {
+
+    requestPost(
+      `${process.env.DEFAULT_URL}/session/login_through_ajax`,
+      {
         user: {
           email,
           password,
         },
         keep_me_signed_in: keepMeSignedIn,
-        authenticity_token: getAuthToken(),
       },
-    },
-    (err, httpResponse, body) => {
-      if (httpResponse.statusCode === 200 && body.redirect) {
+      (body) => {
         window.location = body.redirect;
-      } else {
+      },
+      (body) => {
         let state;
         if (body.type && body.message) {
           const errors = {};
@@ -97,7 +95,7 @@ class LoginFormApp extends React.Component {
         }
         this.setState(state);
       }
-    });
+    )
   }
 
   submitClass = () => {

@@ -1,5 +1,4 @@
 import React from 'react';
-import request from 'request';
 import ItemDropdown from '../../general_components/dropdown_selectors/item_dropdown.jsx'
 import PreviewCard from '../../shared/preview_card.jsx';
 import BlogPostContent from '../../blog_posts/blog_post_content'
@@ -7,6 +6,7 @@ import { SingleDatePicker } from 'react-dates'
 import Dropzone from 'react-dropzone'
 import getAuthToken from '../../modules/get_auth_token'
 import moment from 'moment'
+import { requestPost, requestPut, } from '../../../../../modules/request/index'
 
 const defaultPreviewCardContent = `<img class='preview-card-image' src='http://cultofthepartyparrot.com/parrots/hd/middleparrot.gif' />
 <div class='preview-card-body'>
@@ -284,46 +284,55 @@ export default class CreateOrEditBlogPost extends React.Component {
     if (unpublish && window.prompt('To unpublish this post, please type UNPUBLISH.') !== 'UNPUBLISH') { return }
     let requestAction
     let url = `${process.env.DEFAULT_URL}/cms/blog_posts/`
-    if (action === 'new' && !unpublish) {
-      requestAction = 'post'
-    } else {
-      requestAction = 'put'
-      url += postToEdit.id
+
+    const blogPost = {
+      blog_post: {
+        title: title,
+        subtitle: subtitle,
+        image_link: imageLink,
+        body: body,
+        topic: topic,
+        author_id: author_id,
+        preview_card_content: preview_card_content,
+        draft: !shouldPublish,
+        premium: premium,
+        published_at: publishedAt ? new Date(publishedAt) : null,
+        external_link: externalLink,
+        center_images: centerImages,
+        press_name: pressName
+      }
     }
 
-    request[requestAction]({
-      url,
-      form: {
-        blog_post: {
-          title: title,
-          subtitle: subtitle,
-          image_link: imageLink,
-          body: body,
-          topic: topic,
-          author_id: author_id,
-          preview_card_content: preview_card_content,
-          draft: !shouldPublish,
-          premium: premium,
-          published_at: publishedAt ? new Date(publishedAt) : null,
-          external_link: externalLink,
-          center_images: centerImages,
-          press_name: pressName
+    if (action === 'new' && !unpublish) {
+      requestPost(
+        url,
+        blogPost,
+        (body) => {
+          alert('Post added successfully!');
+          window.location.href = (`/cms/blog_posts/${body.id}/edit`)
+          callback ? callback() : null
         },
-        authenticity_token: ReactOnRails.authenticityToken()
-      }
-    }, (error, httpStatus, body) => {
-      const parsedBody = JSON.parse(body)
-      if (httpStatus.statusCode === 200 && action === 'new') {
-        alert('Post added successfully!');
-        window.location.href = (`/cms/blog_posts/${parsedBody.id}/edit`)
-      } else if (httpStatus.statusCode === 200) {
-        this.setState({draft: parsedBody.draft})
-        alert('Update successful!');
-      } else {
-        alert("😨 Rut roh. Something went wrong! (Don't worry, it's probably not your fault.)");
-      }
-      callback ? callback() : null
-    })
+        (body) => {
+          alert("😨 Rut roh. Something went wrong! (Don't worry, it's probably not your fault.)");
+          callback ? callback() : null
+        }
+      )
+    } else {
+      url += postToEdit.id
+      requestPut(
+        url,
+        blogPost,
+        (body) => {
+          this.setState({draft: body.draft})
+          alert('Update successful!');
+          callback ? callback() : null
+        },
+        (body) => {
+          alert("😨 Rut roh. Something went wrong! (Don't worry, it's probably not your fault.)");
+          callback ? callback() : null
+        }
+      )
+    }
   }
 
   handleSubtitleChange = (e) => {

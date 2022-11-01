@@ -1,8 +1,9 @@
 import * as React from 'react';
-import request from 'request';
 
 import PreviewCard from '../shared/preview_card.jsx';
 import BlogPostContent from './blog_post_content'
+
+import { requestPost, } from '../../../../modules/request/index'
 
 const RATING_MESSAGES = {
   instructions: 'Was this article helpful?',
@@ -21,20 +22,19 @@ export default class BlogPost extends React.Component {
   }
 
   selectRatingEmoji(rating) {
-    request.post({
-      url: `${process.env.DEFAULT_URL}/rate_blog_post`,
-      json: {
-        authenticity_token: ReactOnRails.authenticityToken(),
+    requestPost(
+      `${process.env.DEFAULT_URL}/rate_blog_post`,
+      {
         rating: rating,
         blog_post_id: this.props.blogPost.id
-      }
-    }, (error, httpStatus, body) => {
-      if(httpStatus.statusCode === 200) {
+      },
+      (body) => {
         this.setState({ ratingMessage: RATING_MESSAGES['success'] })
-      } else {
+      },
+      (body) => {
         this.setState({ ratingMessage: RATING_MESSAGES['sign_up'] })
       }
-    });
+    )
   }
 
   renderMostRecentPosts() {

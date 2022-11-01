@@ -1,11 +1,11 @@
 import React from 'react';
 import { SingleDatePicker } from 'react-dates'
 import _ from 'lodash';
-import request from 'request';
 import { DataTable } from '../../Shared/index'
 import ItemDropdown from '../components/general_components/dropdown_selectors/item_dropdown.jsx';
-import getAuthToken from '../components/modules/get_auth_token';
 import moment from 'moment';
+
+import { requestPut, requestPost, } from '../../../modules/request/index'
 
 export default class EditOrCreateSubscription extends React.Component {
   constructor(props) {
@@ -165,21 +165,18 @@ export default class EditOrCreateSubscription extends React.Component {
     const submitVars = this.submitVars()
     const that = this
 
-    request[submitVars.httpVerb](
-      {
-        url: submitVars.urlString,
-        json: submitVars.data,
-      },
-      (e, httpResponse, _body) => {
-        if (httpResponse.statusCode === 200) {
-          alert('Subscription was saved');
-          if (view === 'new') {
-            // switch to the edit view after submission
-            window.location = window.location.href.replace('new', 'edit')
-          }
-        } else {
-          alert('There was an error. Please try again and contact a dev if you continue to get this warning.')
+    submitVars.requestMethod(
+      submitVars.urlString,
+      submitVars.data,
+      (body) => {
+        alert('Subscription was saved');
+        if (view === 'new') {
+          // switch to the edit view after submission
+          window.location = window.location.href.replace('new', 'edit')
         }
+      },
+      (body) => {
+        alert('There was an error. Please try again and contact a dev if you continue to get this warning.')
       }
     )
   }
@@ -386,18 +383,17 @@ export default class EditOrCreateSubscription extends React.Component {
       data: {
         subscription: subscription,
         schools: schools,
-        authenticity_token: getAuthToken()
       },
       urlString: `${process.env.DEFAULT_URL}/cms/subscriptions`
     }
 
     if (view === 'edit') {
-      varsObj.httpVerb = 'put';
+      varsObj.requestMethod = requestPut;
       varsObj.urlString += `/${subscription.id}`;
     } else if (view == 'new') {
       varsObj.data.subscriber_id = subscriber.id
       varsObj.data.subscriber_type = subscriberType
-      varsObj.httpVerb = 'post'
+      varsObj.requestMethod = requestPost
     }
     return varsObj
   }

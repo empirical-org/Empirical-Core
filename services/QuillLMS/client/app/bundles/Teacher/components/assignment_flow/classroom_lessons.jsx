@@ -1,11 +1,11 @@
 import React from 'react';
-import request from 'request';
 
 import Units from './manage_units/units';
 
 import LoadingIndicator from '../shared/loading_indicator';
 import ItemDropdown from '../general_components/dropdown_selectors/item_dropdown';
 import { PROGRESS_REPORTS_SELECTED_CLASSROOM_ID, } from '../progress_reports/progress_report_constants'
+import { requestGet, } from '../../../../modules/request'
 
 export default class ClassroomLessons extends React.Component {
   constructor(props) {
@@ -24,16 +24,14 @@ export default class ClassroomLessons extends React.Component {
   }
 
   getAllLessons = () => {
-    request.get({
-      url: `${process.env.DEFAULT_URL}/teachers/lesson_units`,
-    }, (error, httpStatus, body) => {
-      this.setState({ allLessons: JSON.parse(body), }, () => this.getLessonsForCurrentClass());
+    requestGet(`${process.env.DEFAULT_URL}/teachers/lesson_units`, (body) => {
+      this.setState({ allLessons: body, }, () => this.getLessonsForCurrentClass());
     });
   }
 
   getClassrooms = (classroomId) => {
-    request.get(`${process.env.DEFAULT_URL}/teachers/classrooms_i_teach_with_lessons`, (error, httpStatus, body) => {
-      const classrooms = JSON.parse(body).classrooms;
+    requestGet(`${process.env.DEFAULT_URL}/teachers/classrooms_i_teach_with_lessons`, (body) => {
+      const classrooms = body.classrooms;
       if (classrooms.length > 0) {
         const localStorageSelectedClassroomId = Number(window.localStorage.getItem(PROGRESS_REPORTS_SELECTED_CLASSROOM_ID))
         const classroomFromLocalStorageClassroomId = classrooms.find(c => Number(c.id) === localStorageSelectedClassroomId)

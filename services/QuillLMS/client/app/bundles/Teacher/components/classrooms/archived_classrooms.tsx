@@ -4,7 +4,7 @@ import Classroom from './classroom'
 import UnarchiveClassroomModal from './unarchive_classroom_modal'
 
 import { Snackbar, defaultSnackbarTimeout } from '../../../Shared/index'
-import { requestGet } from '../../../../modules/request/index.js';
+import { requestGet } from '../../../../modules/request/index';
 
 interface ArchivedClassroomsProps {
   classrooms: Array<any>;

@@ -1,5 +1,4 @@
 import React from 'react';
-import request from 'request';
 import moment from 'moment';
 
 import BlogPostRow from './blog_post_row.jsx';
