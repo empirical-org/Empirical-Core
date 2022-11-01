@@ -428,7 +428,7 @@ module PagesHelper
                 cb_anchor_tag: '1984'
               },
               {
-                title: 'Sentence Combining: Except from The Night Circus by Erin Morgenstern',
+                title: 'Sentence Combining: Excerpt from The Night Circus by Erin Morgenstern',
                 description: 'Explore how second-person point of view sets up a fantastical world',
                 unit_template_id: '233',
                 cb_anchor_tag: 'the-night-circus'
@@ -438,7 +438,7 @@ module PagesHelper
           {
             activities: [
               {
-                title: 'Sentence Combining: Except from Out of My Mind by Sharon M. Draper',
+                title: 'Sentence Combining: Excerpt from Out of My Mind by Sharon M. Draper',
                 description: 'Explore how first-person point of view efficiently establishes a narrator’s experience',
                 unit_template_id: '234',
                 cb_anchor_tag: 'out-of-my-mind'

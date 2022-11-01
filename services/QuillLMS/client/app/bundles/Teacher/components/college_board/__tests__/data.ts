@@ -174,7 +174,7 @@ export const units = [
           },
           {
             title:
-              "Sentence Combining: Except from The Night Circus by Erin Morgenstern",
+              "Sentence Combining: Excerpt from The Night Circus by Erin Morgenstern",
             description:
               "Explore how second-person point of view sets up a fantastical world",
             unit_template_id: 233,
@@ -186,7 +186,7 @@ export const units = [
         activities: [
           {
             title:
-              "Sentence Combining: Except from Out of My Mind by Sharon M. Draper",
+              "Sentence Combining: Excerpt from Out of My Mind by Sharon M. Draper",
             description:
               "Explore how first-person point of view efficiently establishes a narrator’s experience",
             unit_template_id: 234,
