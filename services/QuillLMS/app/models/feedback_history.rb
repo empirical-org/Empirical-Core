@@ -125,7 +125,7 @@ class FeedbackHistory < ApplicationRecord
   end
 
   def serialize_by_activity_session
-    serializable_hash(only: [:session_uid, :start_date, :activity_id, :flags, :because_attempts, :but_attempts, :so_attempts, :scored_count, :weak_count, :strong_count, :complete], include: []).symbolize_keys
+    serializable_hash(only: [:session_uid, :start_date, :activity_id, :flags, :because_attempts, :because_optimal, :but_attempts, :but_optimal, :so_attempts, :so_optimal, :scored_count, :weak_count, :strong_count, :complete], include: []).symbolize_keys
   end
 
   def serialize_by_activity_session_detail
@@ -251,8 +251,11 @@ class FeedbackHistory < ApplicationRecord
         comprehension_prompts.activity_id,
         ARRAY_REMOVE(ARRAY_AGG(DISTINCT feedback_history_flags.flag), NULL) AS flags,
         COUNT(CASE WHEN comprehension_prompts.conjunction = '#{BECAUSE}' THEN 1 END) AS because_attempts,
+        CASE WHEN comprehension_prompts.conjunction = '#{BECAUSE}' AND feedback_histories.optimal THEN true AS because_optimal,
         COUNT(CASE WHEN comprehension_prompts.conjunction = '#{BUT}' THEN 1 END) AS but_attempts,
+        CASE WHEN comprehension_prompts.conjunction = '#{BUT}' AND feedback_histories.optimal THEN true AS but_optimal,
         COUNT(CASE WHEN comprehension_prompts.conjunction = '#{SO}' THEN 1 END) AS so_attempts,
+        CASE WHEN comprehension_prompts.conjunction = '#{SO}' AND feedback_histories.optimal THEN true AS so_optimal,
         COUNT(CASE WHEN feedback_history_ratings.rating IS NOT NULL THEN 1 END) AS scored_count,
         COUNT(CASE WHEN feedback_history_ratings.rating = false THEN 1 END) AS weak_count,
         COUNT(CASE WHEN feedback_history_ratings.rating = true THEN 1 END) AS strong_count,
