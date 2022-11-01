@@ -22,7 +22,7 @@ export default class ConceptResultList extends React.Component<ConceptResultList
 
   handleConceptChange(e: { value: string }) {
     const newConceptResults = Object.assign({}, this.state.conceptResults)
-    if (newConceptResults[e.value]) {
+    if (!newConceptResults[e.value]) {
       newConceptResults[e.value] = false
     }
     this.setState({conceptResults: newConceptResults}, () => this.props.updateConceptResults(this.state.conceptResults))
