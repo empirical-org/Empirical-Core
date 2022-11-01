@@ -6,6 +6,8 @@ require 'new_relic/agent'
 class SessionsController < ApplicationController
   include CleverAuthable
 
+  class OriginalRouteStillInUseError < StandardError; end
+
   CLEAR_ANALYTICS_SESSION_KEY = "clear_analytics_session"
 
   around_action :force_writer_db_role, only: [:destroy]
@@ -142,10 +144,6 @@ class SessionsController < ApplicationController
   end
 
   private def report_that_route_is_still_in_use
-    begin
-      raise 'sessions/create original route still being called here'
-    rescue => e
-      NewRelic::Agent.notice_error(e)
-    end
+    ErrorNotifier.report(OriginalRouteStillInUseError.new)
   end
 end

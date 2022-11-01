@@ -28,7 +28,7 @@ describe CleverIntegration::TeacherClassroomsCacheHydrator do
     it 'does not cache any teacher classrooms and it reports an error' do
       expect(CleverIntegration::TeacherClassroomsCache).not_to receive(:write)
       expect(PusherTrigger).not_to receive(:run)
-      expect(NewRelic::Agent).to receive(:notice_error)
+      expect(ErrorNotifier).to receive(:report)
       subject
     end
   end
@@ -39,7 +39,7 @@ describe CleverIntegration::TeacherClassroomsCacheHydrator do
     it 'does not cache any teacher classrooms and it reports an error' do
       expect(CleverIntegration::TeacherClassroomsCache).not_to receive(:write)
       expect(PusherTrigger).not_to receive(:run)
-      expect(NewRelic::Agent).to receive(:notice_error)
+      expect(ErrorNotifier).to receive(:report)
       subject
     end
   end

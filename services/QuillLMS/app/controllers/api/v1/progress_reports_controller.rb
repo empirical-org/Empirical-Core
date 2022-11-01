@@ -106,6 +106,8 @@ class Api::V1::ProgressReportsController < Api::ApiController
       student_id: student_id
     )
     classroom_teacher!(classroom_id)
+    return if performed?
+
     auth_failed unless student_classrooms
   end
 end

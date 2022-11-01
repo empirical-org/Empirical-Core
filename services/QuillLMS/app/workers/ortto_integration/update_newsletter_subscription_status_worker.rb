@@ -28,7 +28,7 @@ module OrttoIntegration
           'find_strategy': 0
         }.to_json
       end
-    rescue StandardError => e
+    rescue => e
       ErrorNotifier.report(e)
     end
   end

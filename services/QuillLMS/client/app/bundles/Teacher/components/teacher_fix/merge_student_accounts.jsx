@@ -7,8 +7,8 @@ export default class MergeStudentAccounts extends React.Component {
     super(props)
 
     this.state = {
-      student1Identifier: '',
-      student2Identifier: ''
+      sourceStudentIdentifier: '',
+      destinationStudentIdentifier: ''
     }
   }
 
@@ -17,7 +17,7 @@ export default class MergeStudentAccounts extends React.Component {
 
     requestPost(
       `${process.env.DEFAULT_URL}/teacher_fix/merge_student_accounts`,
-      { account1_identifier: that.state.student1Identifier, account2_identifier: that.state.student2Identifier },
+      { source_student_identifier: that.state.sourceStudentIdentifier, destination_student_identifier: that.state.destinationStudentIdentifier },
       (body) => {
         window.alert('Accounts have been merged!')
       },
@@ -29,9 +29,8 @@ export default class MergeStudentAccounts extends React.Component {
     )
   };
 
-  updateStudentIdentifier = (e, studentNumber) => {
-    const key = `student${studentNumber}Identifier`
-    this.setState({[key]: e.target.value})
+  updateStudentIdentifier = (e, identifier) => {
+    this.setState({[identifier]: e.target.value})
   };
 
   renderError() {
@@ -46,15 +45,15 @@ export default class MergeStudentAccounts extends React.Component {
         <h1><a href="/teacher_fix">Teacher Fixes</a></h1>
         <h2>Merge Student Accounts</h2>
         <p>This method will not work unless both students are in the same classroom, and the second student only belongs to this classroom. If you need help with a different case, ask a dev.</p>
-        <p>Also please note that this method will transfer all of the second student's activities to the first student's account. It will not, however, delete the second student's account or remove it from the classroom.</p>
+        <p>Also please note that this method will transfer all of the first student's activities to the second student's account. It will not, however, delete the first student's account or remove it from the classroom.</p>
         <div>
           <div className="input-row">
-            <label>Student One Email Or Username:</label>
-            <input onChange={(e) => this.updateStudentIdentifier(e, 1)} type="text" value={this.state.student1Identifier} />
+            <label>Source Student Email Or Username:</label>
+            <input onChange={(e) => this.updateStudentIdentifier(e, 'sourceStudentIdentifier')} type="text" value={this.state.sourceStudentIdentifier} />
           </div>
           <div className="input-row">
-            <label>Student Two Email Or Username:</label>
-            <input onChange={(e) => this.updateStudentIdentifier(e, 2)} type="text" value={this.state.student2Identifier} />
+            <label>Destination / combined Student Email Or Username:</label>
+            <input onChange={(e) => this.updateStudentIdentifier(e, 'destinationStudentIdentifier')} type="text" value={this.state.destinationStudentIdentifier} />
           </div>
           <button onClick={this.submitStudents}>Merge Student Accounts</button>
           {this.renderError()}
