@@ -69,8 +69,8 @@ const ActivityStats: React.FC<RouteComponentProps<ActivityRouteProps>> = ({ hist
       num_sessions_with_non_consecutive_repeated_rule,
       num_first_attempt_optimal,
       num_first_attempt_not_optimal,
-      time_spent,
-      confidence
+      avg_time_spent,
+      avg_confidence
     } = prompt;
 
     const percentageOptimalFinalAttempt = _.round(num_final_attempt_optimal / session_count * 100, 2)
@@ -91,8 +91,8 @@ const ActivityStats: React.FC<RouteComponentProps<ActivityRouteProps>> = ({ hist
       ruleRepeatedNotConsecutiveData:  `${percentageNotConsecutiveRepeatedRule}% (${num_sessions_with_non_consecutive_repeated_rule})`,
       averageAttempts: _.round(avg_attempts, 2),
       firstAttemptData: `${percentageOptimalFirstAttempt}% (${num_first_attempt_optimal}) | ${percentageNotOptimalFirstAttempt}% (${num_first_attempt_not_optimal})`,
-      timeSpent: time_spent,
-      autoMLConfidence: `${confidence}%`,
+      averageTimeSpent: avg_time_spent,
+      averageAutoMLConfidence: `${avg_confidence}%`,
     }
   })
 
@@ -129,8 +129,8 @@ const ActivityStats: React.FC<RouteComponentProps<ActivityRouteProps>> = ({ hist
     },
     {
       Header: 'AutoML Confidence',
-      accessor: "autoMLConfidence",
-      key: "autoMLConfidence",
+      accessor: "averageAutoMLConfidence",
+      key: "averageAutoMLConfidence",
       width: 120,
     },
     {
@@ -153,8 +153,8 @@ const ActivityStats: React.FC<RouteComponentProps<ActivityRouteProps>> = ({ hist
     },
     {
       Header: 'Time Spent',
-      accessor: "timeSpent",
-      key: "timeSpent",
+      accessor: "averageTimeSpent",
+      key: "averageTimeSpent",
       width: 160,
     }
   ];

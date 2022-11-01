@@ -3,13 +3,18 @@
 require 'rails_helper'
 
 RSpec.describe PromptFeedbackHistory, type: :model do
-  def generate_feedback_history(prompt_id, session_uid: nil, attempts: 1, ends_optimally: true, created_at: Time.current)
+  def generate_feedback_history(prompt_id, session_uid: nil, attempts: 1, ends_optimally: true, created_at: Time.current, time_spent: 0, confidence: 0)
     histories = []
     session_uid ||= SecureRandom.uuid
     (attempts - 1).times do |idx|
-      histories.append(create(:feedback_history, attempt: idx + 1, optimal: false, prompt_id: prompt_id, feedback_session_uid: session_uid, created_at: created_at))
+      histories.append(create(:feedback_history, attempt: idx + 1, optimal: false, prompt_id: prompt_id, feedback_session_uid: session_uid, metadata: {api: {confidence: confidence}}, created_at: created_at))
     end
-    histories.append(create(:feedback_history, attempt: attempts, optimal: ends_optimally, prompt_id: prompt_id, feedback_session_uid: session_uid, created_at: created_at))
+    histories.append(create(:feedback_history, attempt: attempts, optimal: ends_optimally, prompt_id: prompt_id, feedback_session_uid: session_uid, metadata: {api: {confidence: confidence}}, created_at: created_at))
+    histories.each do |h|
+      feedback_session = h.feedback_session
+      act_sesh = create(:activity_session, data: {time_tracking: {because: time_spent}})
+      feedback_session.update(activity_session_uid: act_sesh.uid)
+    end
     histories
   end
 
@@ -88,6 +93,24 @@ RSpec.describe PromptFeedbackHistory, type: :model do
       result = PromptFeedbackHistory.prompt_health_query(activity_id: @main_activity.id)
 
       expect(result.all[0].avg_attempts).to eq(1.5)
+    end
+
+    it 'should calculate the average time spent as time_spent' do
+      generate_feedback_history(@prompt1.id, time_spent: 60)
+      generate_feedback_history(@prompt1.id, time_spent: 120)
+
+      result = PromptFeedbackHistory.prompt_health_query(activity_id: @main_activity.id)
+
+      expect(result.all[0].avg_time_spent).to eq(90)
+    end
+
+    it 'should calculate the average confidence spent as confidence' do
+      generate_feedback_history(@prompt1.id, confidence: 80)
+      generate_feedback_history(@prompt1.id, confidence: 90)
+
+      result = PromptFeedbackHistory.prompt_health_query(activity_id: @main_activity.id)
+
+      expect(result.all[0].avg_confidence).to eq(85)
     end
 
     it 'should count the number of sessions with at least one consecutive-repeated flag as num_sessions_consecutive_repeated' do
@@ -201,7 +224,9 @@ RSpec.describe PromptFeedbackHistory, type: :model do
           num_sessions_with_consecutive_repeated_rule: 0.0,
           num_sessions_with_non_consecutive_repeated_rule: 0.0,
           num_first_attempt_optimal: 0,
-          num_first_attempt_not_optimal: 1
+          num_first_attempt_not_optimal: 1,
+          avg_time_spent: "00:00",
+          avg_confidence: 0.0
   }.stringify_keys,
   @prompt2.id => {
           prompt_id: @prompt2.id,
@@ -214,7 +239,9 @@ RSpec.describe PromptFeedbackHistory, type: :model do
           num_sessions_with_consecutive_repeated_rule: 0.0,
           num_sessions_with_non_consecutive_repeated_rule: 0.0,
           num_first_attempt_optimal: 1,
-          num_first_attempt_not_optimal: 0
+          num_first_attempt_not_optimal: 0,
+          avg_time_spent: "00:00",
+          avg_confidence: 0.0
   }.stringify_keys
       })
     end
