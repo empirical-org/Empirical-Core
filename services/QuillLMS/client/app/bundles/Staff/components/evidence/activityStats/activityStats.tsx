@@ -34,7 +34,7 @@ const ActivityStats: React.FC<RouteComponentProps<ActivityRouteProps>> = ({ hist
 
   // get cached activity data to pass to rule
   const { data: activityHealthData } = useQuery({
-    queryKey: [`activity-${activityId}`, activityId],
+    queryKey: [`activity-health-by-activity-${activityId}`, activityId],
     queryFn: fetchActivityHealth
   });
 
