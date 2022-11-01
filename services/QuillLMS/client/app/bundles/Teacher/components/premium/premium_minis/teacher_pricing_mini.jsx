@@ -16,6 +16,7 @@ export default class TeacherPricingMini extends React.Component {
           </div>
           <div className="premium-button-container">
             {buyNowButton()}
+            <p>Pay with Credit Card</p>
           </div>
         </section>
 
