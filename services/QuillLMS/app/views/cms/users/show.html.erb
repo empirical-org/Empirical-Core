@@ -64,8 +64,8 @@
     <p><%= @user.username || 'N/A' %></p>
     <br />
 
-    <p style='font-weight: 700;'>Flags</p>
-    <p><%= @user.flags.any? ? @user.flags : 'None' %></p>
+    <p style='font-weight: 700;'>Flagset</p>
+    <p><%= @user&.flagset %></p>
     <br />
 
     <p style='font-weight: 700;'>Role</p>

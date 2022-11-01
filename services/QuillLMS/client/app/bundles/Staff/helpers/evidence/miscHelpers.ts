@@ -1,4 +1,5 @@
 import stripHtml from "string-strip-html";
+import moment from 'moment';
 
 import {
   MINIMUM_READING_LEVEL,
@@ -72,54 +73,46 @@ const scoredReadingLevelError = (value: string) => {
 export const handlePageFilterClick = ({
   startDate,
   endDate,
-  turkSessionID,
   filterOption,
+  versionOption,
   setStartDate,
   setEndDate,
-  setShowError,
   setPageNumber,
-  setTurkSessionIDForQuery,
   setFilterOptionForQuery,
   storageKey }: {
     startDate: Date,
     endDate?: Date,
+    versionOption?: DropdownObjectInterface,
     filterOption?: DropdownObjectInterface,
-    turkSessionID?: string,
     setStartDate: (startDate: string) => void,
     setEndDate: (endDate: string) => void,
-    setTurkSessionIDForQuery?: (turkSessionID: string) => void,
     setFilterOptionForQuery?: (filterOption: DropdownObjectInterface) => void,
-    setShowError: (showError: boolean) => void,
     setPageNumber: (pageNumber: DropdownObjectInterface) => void,
     storageKey: string,
   }) => {
-  if(!startDate) {
-    setShowError(true);
-    return;
+  if(versionOption) {
+    const { value } = versionOption
+    const { start_date, end_date } = value
+    setStartDate(start_date);
+    setEndDate(end_date);
+    window.sessionStorage.setItem(`${storageKey}versionOption`, JSON.stringify(versionOption));
   }
-  setShowError(false);
-  setPageNumber && setPageNumber({ value: '1', label: "Page 1" })
-  const startDateString = startDate.toISOString();
-  window.sessionStorage.setItem(`${storageKey}startDate`, startDateString);
-  setStartDate(startDateString);
-  if(!endDate) {
-    // reset to null when user has cleared endDate value
-    setEndDate(null);
-  } else if(endDate)  {
+  if(startDate) {
+    const startDateString = startDate.toISOString();
+    window.sessionStorage.setItem(`${storageKey}startDate`, startDateString);
+    setStartDate(startDateString);
+  }
+  if(endDate) {
     const endDateString = endDate.toISOString();
     window.sessionStorage.setItem(`${storageKey}endDate`, endDateString);
     setEndDate(endDateString);
   }
-  if(turkSessionID === '') {
-    // reset to null so backend doesn't check on empty string
-    setTurkSessionIDForQuery(null);
-  } else if(turkSessionID) {
-    window.sessionStorage.setItem(`${storageKey}turkSessionId`, turkSessionID);
-    setTurkSessionIDForQuery(turkSessionID);
-  }
   if(filterOption) {
     window.sessionStorage.setItem(`${storageKey}filterOption`, JSON.stringify(filterOption));
     setFilterOptionForQuery(filterOption);
+  }
+  if(setPageNumber) {
+    setPageNumber({ value: '1', label: "Page 1" })
   }
 }
 
@@ -237,4 +230,26 @@ export function validateFormSection({
 
 export function titleCase(string: string){
   return string[0].toUpperCase() + string.slice(1).toLowerCase();
+}
+
+export function getVersionOptions(activityVersionData) {
+  if(!activityVersionData || !activityVersionData.changeLogs) { return };
+  const { changeLogs } = activityVersionData;
+  let options = changeLogs.sort((a, b) => b.start_date.localeCompare(a.start_date))
+  options = options.map(changeLog => {
+    const { new_value, session_count, start_date } = changeLog;
+    return {
+      label: `V${new_value}: ${moment(start_date).utcOffset('-0500').format('MM/DD/YY')} (${session_count})`,
+      value: changeLog
+    }
+  });
+  const showAllOption = {
+    label: 'Show all',
+    value: {
+      start_date: options[options.length - 1].value.start_date,
+      end_date: options[0].value.end_date
+    }
+  }
+  options.push(showAllOption);
+  return options;
 }

@@ -218,10 +218,11 @@ describe TimeTrackingCleaner do
            'prompt_4'=>23,
            'prompt_5'=>17,
            'prompt_6'=>42,
-           'proofreading_the_passage'=>99999
+           'proofreading_the_passage'=>600
          },
           'time_tracking_edits' => {
-            'prompt_3'=>9999999
+            'prompt_3'=>9999999,
+            'proofreading_the_passage'=>99999
           }
         }
       end

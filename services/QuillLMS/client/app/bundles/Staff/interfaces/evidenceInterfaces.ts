@@ -146,7 +146,7 @@ export interface ActivitySessionsInterface {
 }
 
 export interface DropdownObjectInterface {
-  value: string,
+  value: any,
   label: string
 }
 

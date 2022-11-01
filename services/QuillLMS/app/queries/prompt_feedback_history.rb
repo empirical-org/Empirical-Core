@@ -1,11 +1,11 @@
 # frozen_string_literal: true
 
 class PromptFeedbackHistory
-  def self.run(activity_id:, start_date: nil, end_date: nil, turk_session_id: nil)
-    serialize_results prompt_health_query(activity_id: activity_id, start_date: start_date, end_date: end_date, turk_session_id: turk_session_id)
+  def self.run(activity_id:, start_date: nil, end_date: nil)
+    serialize_results prompt_health_query(activity_id: activity_id, start_date: start_date, end_date: end_date)
   end
 
-  def self.prompt_health_query(activity_id:, start_date: nil, end_date: nil, turk_session_id: nil)
+  def self.prompt_health_query(activity_id:, start_date: nil, end_date: nil)
     query = FeedbackHistory.select(<<~SELECT
       prompt_id,
       COUNT(DISTINCT feedback_histories.id) AS total_responses,
@@ -36,11 +36,6 @@ class PromptFeedbackHistory
       .group('feedback_histories.prompt_id, comprehension_prompts.text')
     query = query.where("feedback_histories.created_at >= ?", start_date) if start_date
     query = query.where("feedback_histories.created_at <= ?", end_date) if end_date
-    if turk_session_id
-      query = query.joins('LEFT JOIN feedback_sessions ON feedback_histories.feedback_session_uid = feedback_sessions.uid')
-      query = query.joins('LEFT JOIN comprehension_turking_round_activity_sessions ON feedback_sessions.activity_session_uid = comprehension_turking_round_activity_sessions.activity_session_uid')
-      query = query.where("comprehension_turking_round_activity_sessions.turking_round_id = ?", turk_session_id)
-    end
     query
   end
 

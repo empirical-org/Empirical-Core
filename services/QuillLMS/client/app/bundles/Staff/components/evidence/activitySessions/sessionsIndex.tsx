@@ -3,12 +3,12 @@ import { Link } from 'react-router-dom';
 import { useQuery } from 'react-query';
 import * as moment from 'moment';
 import { firstBy } from 'thenby';
-import DateTimePicker from 'react-datetime-picker';
 
-import { handlePageFilterClick } from "../../../helpers/evidence/miscHelpers";
+import FilterWidget from "../shared/filterWidget";
+import { getVersionOptions, handlePageFilterClick } from "../../../helpers/evidence/miscHelpers";
 import { renderHeader } from "../../../helpers/evidence/renderHelpers";
-import { Error, Spinner, DropdownInput, Input, ReactTable, } from '../../../../Shared/index';
-import { fetchActivity, fetchActivitySessions } from '../../../utils/evidence/activityAPIs';
+import { Error, Spinner, DropdownInput, ReactTable, } from '../../../../Shared/index';
+import { fetchActivity, fetchActivitySessions, fetchActivityVersions } from '../../../utils/evidence/activityAPIs';
 import { DropdownObjectInterface, ActivitySessionInterface, ActivitySessionsInterface, InputEvent } from '../../../interfaces/evidenceInterfaces';
 import { activitySessionIndexResponseHeaders, activitySessionFilterOptions, SESSION_INDEX } from '../../../../../constants/evidence';
 
@@ -20,18 +20,17 @@ const SessionsIndex = ({ match }) => {
 
   const initialStartDateString = window.sessionStorage.getItem(`${SESSION_INDEX}startDate`) || '';
   const initialEndDateString = window.sessionStorage.getItem(`${SESSION_INDEX}endDate`) || '';
-  const initialTurkSessionId = window.sessionStorage.getItem(`${SESSION_INDEX}turkSessionId`) || '';
   const initialFilterOption = JSON.parse(window.sessionStorage.getItem(`${SESSION_INDEX}filterOption`)) || activitySessionFilterOptions[0];
+  const initialVersionOption = JSON.parse(window.sessionStorage.getItem(`${SESSION_INDEX}versionOption`)) || null;
   const initialStartDate = initialStartDateString ? new Date(initialStartDateString) : null;
   const initialEndDate = initialEndDateString ? new Date(initialEndDateString) : null;
 
-  const [showError, setShowError] = React.useState<boolean>(false);
   const [pageNumber, setPageNumber] = React.useState<DropdownObjectInterface>(null);
   const [pageDropdownOptions, setPageDropdownOptions] = React.useState<DropdownObjectInterface[]>(null);
+  const [versionOption, setVersionOption] = React.useState<DropdownObjectInterface>(initialVersionOption);
+  const [versionOptions, setVersionOptions] = React.useState<DropdownObjectInterface[]>([]);
   const [filterOption, setFilterOption] = React.useState<DropdownObjectInterface>(initialFilterOption);
   const [filterOptionForQuery, setFilterOptionForQuery] = React.useState<DropdownObjectInterface>(initialFilterOption);
-  const [turkSessionID, setTurkSessionID] = React.useState<string>(initialTurkSessionId);
-  const [turkSessionIDForQuery, setTurkSessionIDForQuery] = React.useState<string>(initialTurkSessionId);
   const [rowData, setRowData] = React.useState<any[]>([]);
   const pageNumberForQuery = pageNumber && pageNumber.value ? pageNumber.value : 1;
   const [startDate, onStartDateChange] = React.useState<Date>(initialStartDate);
@@ -47,9 +46,33 @@ const SessionsIndex = ({ match }) => {
 
   // cache activity sessions data for updates
   const { data: sessionsData } = useQuery({
-    queryKey: [`activity-${activityId}-sessions`, activityId, pageNumberForQuery, startDateForQuery, filterOptionForQuery, endDateForQuery, turkSessionIDForQuery],
+    queryKey: [`activity-${activityId}-sessions`, activityId, pageNumberForQuery, startDateForQuery, filterOptionForQuery, endDateForQuery],
     queryFn: fetchActivitySessions
   });
+
+  const { data: activityVersionData } = useQuery({
+    queryKey: [`change-logs-for-activity-versions-${activityId}`, activityId],
+    queryFn: fetchActivityVersions
+  });
+
+  React.useEffect(() => {
+    if(activityVersionData && activityVersionData.changeLogs && (!versionOption || !versionOptions.length)) {
+      const options = getVersionOptions(activityVersionData);
+      const defaultOption = options[0];
+      !versionOption && setVersionOption(defaultOption);
+      setVersionOptions(options);
+      handleFilterClick(defaultOption);
+    }
+  }, [activityVersionData]);
+
+  React.useEffect(() => {
+    if(versionOption && versionOption.value) {
+      const { value } = versionOption;
+      const { start_date, end_date } = value;
+      onStartDateChange(new Date(start_date))
+      onEndDateChange(new Date(end_date))
+    }
+  }, [versionOption]);
 
   React.useEffect(() => {
     sessionsData && !pageDropdownOptions && getPageDropdownOptions(sessionsData);
@@ -59,19 +82,21 @@ const SessionsIndex = ({ match }) => {
     if(sessionsData && sessionsData.activitySessions && sessionsData.activitySessions.activity_sessions && startDateForQuery) {
       const { activitySessions } = sessionsData;
       const { activity_sessions } = activitySessions;
-      const rows = formatSessionsData(activity_sessions)
+      const rows = formatSessionsData(activity_sessions);
       setRowData(rows);
     }
   }, [sessionsData]);
 
-  function handleSetTurkSessionID(e: InputEvent){ setTurkSessionID(e.target.value) };
-
-  function handleFilterClick() {
-    handlePageFilterClick({ startDate, endDate, turkSessionID, filterOption, setStartDate, setEndDate, setShowError, setPageNumber, setTurkSessionIDForQuery, setFilterOptionForQuery, storageKey: SESSION_INDEX });
+  function handleFilterClick(e: React.SyntheticEvent, passedVersionOption?: DropdownObjectInterface) {
+    handlePageFilterClick({ startDate, endDate, filterOption, versionOption: passedVersionOption || versionOption, setStartDate, setEndDate, setPageNumber, setFilterOptionForQuery, storageKey: SESSION_INDEX });
   }
 
   function handleFilterOptionChange(filterOption: DropdownObjectInterface) {
     setFilterOption(filterOption);
+  }
+
+  function handleVersionSelection(versionOption: DropdownObjectInterface) {
+    setVersionOption(versionOption);
   }
 
   function handleDataUpdate(activitySessions, sorted) {
@@ -192,36 +217,21 @@ const SessionsIndex = ({ match }) => {
             className="session-filters-dropdown"
             handleChange={handleFilterOptionChange}
             isSearchable={false}
-            label=""
+            label="Session filter options"
             options={activitySessionFilterOptions}
             value={filterOption}
           />
-          <p className="date-picker-label">Start Date:</p>
-          <DateTimePicker
-            ampm={false}
-            format='y-MM-dd HH:mm'
-            onChange={onStartDateChange}
-            value={startDate}
+          <FilterWidget
+            endDate={endDate}
+            handleFilterClick={handleFilterClick}
+            handleVersionSelection={handleVersionSelection}
+            onEndDateChange={onEndDateChange}
+            onStartDateChange={onStartDateChange}
+            selectedVersion={versionOption}
+            startDate={startDate}
+            versionOptions={versionOptions}
           />
-          <p className="date-picker-label">End Date (optional):</p>
-          <DateTimePicker
-            ampm={false}
-            format='y-MM-dd HH:mm'
-            onChange={onEndDateChange}
-            value={endDate}
-          />
-          <p className="date-picker-label">Turk Session ID (optional):</p>
-          <Input
-            className="turk-session-id-input"
-            handleChange={handleSetTurkSessionID}
-            label=""
-            value={turkSessionID}
-          />
-          <button className="quill-button fun primary contained" onClick={handleFilterClick} type="submit">Filter</button>
         </section>
-        <div className="error-container">
-          {showError && <p className="error-message">Start date is required.</p>}
-        </div>
         <ReactTable
           className="activity-sessions-table"
           columns={activitySessionIndexResponseHeaders}

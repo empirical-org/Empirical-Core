@@ -26,6 +26,15 @@ class StripeWebhookEvent < ApplicationRecord
 
   validates :external_id, stripe_uid: { prefix: :evt }
 
+  scope :failed, -> { where(status: FAILED) }
+  scope :ignored, -> { where(status: IGNORED) }
+  scope :pending, -> { where(status: PENDING) }
+  scope :processed, -> { where(status: PROCESSED) }
+
+  def external_event
+    Stripe::Event.retrieve(external_id)
+  end
+
   def failed!
     update(status: FAILED)
   end

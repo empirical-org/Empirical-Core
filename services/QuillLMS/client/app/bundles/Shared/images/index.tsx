@@ -172,3 +172,18 @@ export const disclosureIcon = {
   alt: '',
   src: `${process.env.CDN_URL}/images/icons/disclosure.svg`
 }
+
+export const scheduledIcon = {
+  alt: 'Clock icon',
+  src: `${process.env.CDN_URL}/images/icons/scheduled.svg`
+}
+
+export const publishedIcon = {
+  alt: 'Checkmark icon',
+  src: `${process.env.CDN_URL}/images/icons/published.svg`
+}
+
+export const copyIcon = {
+  alt: 'Two identical rectangles, one on top of the other',
+  src: `${process.env.CDN_URL}/images/icons/copy_icon.svg`
+}

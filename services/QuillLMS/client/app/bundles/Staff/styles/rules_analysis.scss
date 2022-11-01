@@ -11,6 +11,17 @@
     margin-right: 40px;
   }
 
+  .date-selection-container {
+    .left-side-container {
+      .version-dropdown {
+        width: 250px;
+      }
+    }
+    .quill-button {
+      margin-right: 40px;
+    }
+  }
+
   .ReactTable .rt-thead .rt-resizable-header-content {
     overflow: visible;
     white-space: pre-wrap;

@@ -25,7 +25,6 @@
 #  fk_rails_...  (unit_id => units.id)
 #
 class ClassroomUnit < ApplicationRecord
-  include ::NewRelic::Agent
   include Archivable
   include AtomicArrays
 

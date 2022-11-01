@@ -26,7 +26,7 @@ module GoogleIntegration
     end
 
     private def import_classrooms_students
-      classrooms_students_data.each { |classroom_student_data| ClassroomStudentsImporter.run(classroom_student_data) }
+      classrooms_students_data.each { |classroom_students_data| ClassroomStudentsImporter.run(classroom_students_data) }
     end
 
     private def teacher_client
