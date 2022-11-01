@@ -19,8 +19,6 @@ import PublicUnitTemplatesApp from './PublicUnitTemplatesAppClient.jsx';
 import AssignActivitiesApp from './AssignActivitiesAppClient';
 import TutorialsApp from './TutorialsAppClient';
 import TeacherFixApp from './TeacherFixAppClient';
-import ActivityCategoriesApp from './ActivityCategoriesAppClient';
-import ActivityCategoryApp from './ActivityCategoryAppClient';
 import ActivityClassificationsApp from './ActivityClassificationsAppClient';
 import SubscriptionApp from './SubscriptionAppClient';
 import BlogPostsApp from './BlogPostsAppClient'
@@ -69,8 +67,6 @@ ReactOnRails.register({ TeacherGuideApp,
   AssignActivitiesApp,
   TutorialsApp,
   TeacherFixApp,
-  ActivityCategoriesApp,
-  ActivityCategoryApp,
   ActivityClassificationsApp,
   SubscriptionApp,
   BlogPostsApp,

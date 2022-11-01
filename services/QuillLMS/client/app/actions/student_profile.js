@@ -1,4 +1,4 @@
-import request from 'request';
+import { requestGet, } from '../modules/request/index'
 
 export const receiveStudentProfile = data => ({
   type: 'RECEIVE_STUDENT_PROFILE',
@@ -7,14 +7,13 @@ export const receiveStudentProfile = data => ({
 
 export const fetchStudentProfile = (classroomId) => {
   return (dispatch) => {
-    request.get({
-      url: `${process.env.DEFAULT_URL}/student_profile_data`,
-      qs: { current_classroom_id: classroomId, }
-    },
-    (e, r, body) => {
-      const parsedBody = JSON.parse(body)
-      dispatch(receiveStudentProfile(parsedBody))
-    });
+    const qs = classroomId ? `?current_classroom_id=${classroomId}` : ''
+    requestGet(
+      `${process.env.DEFAULT_URL}/student_profile_data${qs}`,
+      (body) => {
+        dispatch(receiveStudentProfile(body))
+      }
+    );
   };
 };
 
@@ -41,12 +40,11 @@ export const updateActiveClassworkTab = (activeClassworkTab) => {
 
 export const fetchStudentsClassrooms = () => {
   return (dispatch) => {
-    request.get({
-      url: `${process.env.DEFAULT_URL}/students_classrooms_json`
-    },
-    (e, r, body) => {
-      const parsedBody = JSON.parse(body)
-      dispatch(receiveStudentsClassrooms(parsedBody.classrooms))
-    });
+    requestGet(
+      `${process.env.DEFAULT_URL}/students_classrooms_json`,
+      (body) => {
+        dispatch(receiveStudentsClassrooms(body.classrooms))
+      }
+    );
   };
 };

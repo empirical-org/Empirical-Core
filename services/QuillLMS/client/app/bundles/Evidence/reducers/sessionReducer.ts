@@ -44,7 +44,7 @@ export default (
     case ActionTypes.SET_ACTIVITY_SESSION_ID:
       const { sessionID, } = action
       return Object.assign({}, currentState, { sessionID });
-    case ActionTypes.SESION_HAS_NO_DATA:
+    case ActionTypes.SESSION_HAS_NO_DATA:
       return Object.assign({}, currentState, { hasReceivedData: true });
     case ActionTypes.SET_SUBMITTED_RESPONSES:
       const { submittedResponses, } = action

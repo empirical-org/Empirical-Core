@@ -3,7 +3,7 @@ import {
   mockRequestGet,
   mockRequestPut,
 } from '../__mocks__/request_wrapper'
-jest.mock('../../libs/request', () => ({
+jest.mock('../../../../modules/request/index', () => ({
   requestDelete: mockRequestDelete,
   requestGet: mockRequestGet,
   requestPut: mockRequestPut,
@@ -20,7 +20,7 @@ describe('SessionApi calls', () => {
       const MOCK_ID = 'id'
       const url = `${sessionApiBaseUrl}/${MOCK_ID}.json`
       SessionApi.get(MOCK_ID)
-      expect(mockRequestGet).toHaveBeenLastCalledWith(url)
+      expect(mockRequestGet).toHaveBeenLastCalledWith(url, null, expect.anything())
     })
   })
 
@@ -32,7 +32,7 @@ describe('SessionApi calls', () => {
       }
       const url = `${sessionApiBaseUrl}/${MOCK_ID}.json`
       SessionApi.update(MOCK_ID, MOCK_CONTENT)
-      expect(mockRequestPut).toHaveBeenLastCalledWith(url, {active_activity_session: MOCK_CONTENT})
+      expect(mockRequestPut).toHaveBeenLastCalledWith(url, {active_activity_session: MOCK_CONTENT}, null, expect.anything())
     })
   })
 })

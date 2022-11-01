@@ -18,8 +18,6 @@ import QuestionDashboard from '../dashboards/questionDashboard'
 import ConceptDashboard from '../dashboards/conceptDashboard'
 import TabLink from './tabLink'
 
-import request from 'request';
-
 const usersEndpoint = `${process.env.DEFAULT_URL}/api/v1/users.json`;
 const newSessionEndpoint = `${process.env.DEFAULT_URL}/session/new`;
 

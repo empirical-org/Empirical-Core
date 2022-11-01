@@ -1,9 +1,8 @@
 import React from 'react';
-import request from 'request'
 
 import AssignActivityPackBanner from '../assignActivityPackBanner'
-import getAuthToken from '../../modules/get_auth_token';
 import SchoolSelector from '../../shared/school_selector.jsx'
+import { requestPut, } from '../../../../../modules/request/index'
 
 class SelectUSK12 extends React.Component {
   componentDidMount() {
@@ -18,21 +17,13 @@ class SelectUSK12 extends React.Component {
     // The "Skip this step" link in the school selection module trigger this function
     // with the argument 'non listed', while actually selecting a school triggers it
     // with a school identifier.
-    request({
-      url: `${process.env.DEFAULT_URL}/select_school`,
-      json: {
-        school_id_or_type: idOrType,
-        authenticity_token: getAuthToken(),
-      },
-      method: 'PUT',
-    },
-    (err, httpResponse, body) => {
-      if (httpResponse.statusCode === 200) {
+    requestPut(
+      `${process.env.DEFAULT_URL}/select_school`,
+      { school_id_or_type: idOrType, },
+      (body) => {
         window.location = '/finish_sign_up'
-      } else {
-        // to do, use Sentry to capture error
       }
-    });
+    )
   }
 
   render() {

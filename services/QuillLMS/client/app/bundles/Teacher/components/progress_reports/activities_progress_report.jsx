@@ -1,7 +1,7 @@
 import React from 'react'
 import createReactClass from 'create-react-class';
-import request from 'request'
 import moment from 'moment'
+import queryString from 'query-string'
 
 import ProgressReportFilters from './progress_report_filters.jsx'
 import EmptyStateForReport from './empty_state_for_report.jsx'
@@ -11,6 +11,7 @@ import LoadingSpinner from '../shared/loading_indicator.jsx'
 import TableFilterMixin from '../general_components/table/sortable_table/table_filter_mixin'
 import { getTimeSpent } from '../../helpers/studentReports';
 import { ReactTable, } from '../../../Shared/index'
+import { requestGet, } from '../../../../modules/request/index'
 
 
 export default createReactClass({
@@ -50,56 +51,53 @@ export default createReactClass({
   fetchData: function() {
     const { filtersLoaded, } = this.state
     this.setState({ loadingNewTableData: true });
-    request.get({
-      url: `${process.env.DEFAULT_URL}/teachers/progress_reports/activity_sessions.json`,
-      qs: this.requestParams()
-    }, (e, r, body) => {
-      const data = JSON.parse(body);
+    requestGet(
+      queryString.stringifyUrl({ url: `${process.env.DEFAULT_URL}/teachers/progress_reports/activity_sessions.json`, query: this.requestParams()}),
+      (data) => {
+        const classroomFilters = this.getFilterOptions(data.classrooms, 'name', 'id', 'All classes')
+        const studentFilters = this.getFilterOptions(data.students, 'name', 'id', 'All students')
+        const unitFilters = this.getFilterOptions(data.units, 'name', 'id', 'All activity packs')
 
-      const classroomFilters = this.getFilterOptions(data.classrooms, 'name', 'id', 'All classes')
-      const studentFilters = this.getFilterOptions(data.students, 'name', 'id', 'All students')
-      const unitFilters = this.getFilterOptions(data.units, 'name', 'id', 'All activity packs')
+        const selectedClassroomId = window.localStorage.getItem(PROGRESS_REPORTS_SELECTED_CLASSROOM_ID)
 
-      const selectedClassroomId = window.localStorage.getItem(PROGRESS_REPORTS_SELECTED_CLASSROOM_ID)
+        if (!filtersLoaded && selectedClassroomId && classroomFilters.find(c => Number(c.value) === Number(selectedClassroomId))) {
+          const newState = {
+            classroomFilters,
+            studentFilters,
+            unitFilters,
+            filtersLoaded: true,
+            currentFilters: { classroom_id: Number(selectedClassroomId), }
+          }
+          this.setState(newState, () => this.fetchData())
+        } else {
+          let newState = {
+            loadingFilterOptions: false,
+            loadingNewTableData: false,
+            results: data.activity_sessions,
+            numPages: data.page_count,
+            classroomFilters,
+            studentFilters,
+            unitFilters,
+          };
 
-      if (!filtersLoaded && selectedClassroomId && classroomFilters.find(c => Number(c.value) === Number(selectedClassroomId))) {
-        const newState = {
-          classroomFilters,
-          studentFilters,
-          unitFilters,
-          filtersLoaded: true,
-          currentFilters: { classroom_id: Number(selectedClassroomId), }
+          if (!filtersLoaded) {
+            newState = Object.assign(newState, {
+              filtersLoaded: true
+            })
+          }
+
+          this.setState(newState, () => {
+            const { classroomFilters, selectedStudent, studentFilters, selectedUnit, unitFilters, } = this.state
+            const selectedClassroom = classroomFilters.find(c => Number(c.value) === Number(selectedClassroomId)) || classroomFilters[0]
+            this.setState({
+              selectedClassroom,
+              selectedStudent: selectedStudent || studentFilters[0],
+              selectedUnit: selectedUnit || unitFilters[0]
+            })
+          });
         }
-        this.setState(newState, () => this.fetchData())
-      } else {
-        let newState = {
-          loadingFilterOptions: false,
-          loadingNewTableData: false,
-          results: data.activity_sessions,
-          numPages: data.page_count,
-          classroomFilters,
-          studentFilters,
-          unitFilters,
-        };
-
-        if (!filtersLoaded) {
-          newState = Object.assign(newState, {
-            filtersLoaded: true
-          })
-        }
-
-        this.setState(newState, () => {
-          const { classroomFilters, selectedStudent, studentFilters, selectedUnit, unitFilters, } = this.state
-          const selectedClassroom = classroomFilters.find(c => Number(c.value) === Number(selectedClassroomId)) || classroomFilters[0]
-          this.setState({
-            selectedClassroom,
-            selectedStudent: selectedStudent || studentFilters[0],
-            selectedUnit: selectedUnit || unitFilters[0]
-          })
-        });
       }
-
-    });
+    );
   },
 
   canViewReport: function() {

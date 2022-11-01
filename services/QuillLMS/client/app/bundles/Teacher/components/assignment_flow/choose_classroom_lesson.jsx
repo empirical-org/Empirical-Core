@@ -1,6 +1,7 @@
 import React from 'react';
-import request from 'request';
+
 import LoadingSpinner from '../shared/loading_indicator'
+import { requestGet, } from '../../../../modules/request/index'
 
 export default class ChooseClassroomLesson extends React.Component {
   constructor(props) {
@@ -15,11 +16,10 @@ export default class ChooseClassroomLesson extends React.Component {
   }
 
   getClassroomLessonInfo() {
-    request.get(`${process.env.DEFAULT_URL}/teachers/units/lesson_info_for_activity/${this.props.match.params.activityId}`, (error, httpStatus, body) => {
-      const data = JSON.parse(body)
+    requestGet(`${process.env.DEFAULT_URL}/teachers/units/lesson_info_for_activity/${this.props.match.params.activityId}`, (body) => {
       this.setState({
-        classroomUnits: data.classroom_units,
-        activityName: data.activity_name[0].name,
+        classroomUnits: body.classroom_units,
+        activityName: body.activity_name[0].name,
         loading: false
       })
     })

@@ -1,6 +1,6 @@
 import React from 'react';
-import request from 'request';
 import { connect } from 'react-redux';
+
 import massEdit from '../../actions/massEdit';
 import { TextEditor } from '../../../Shared/index';
 import { EditorState, ContentState } from 'draft-js'
@@ -17,7 +17,7 @@ import {
   submitMassEditConceptResults,
   massEditDeleteResponses
 } from '../../actions/responses';
-
+import { requestPost, } from '../../../../modules/request/index'
 import { clearDisplayMessageAndError } from '../../actions/display';
 
 class MassEditContainer extends React.Component {
@@ -45,19 +45,16 @@ class MassEditContainer extends React.Component {
   }
 
   getResponses = () => {
-    request(
-      {
-        url: `${process.env.QUILL_CMS}/responses/mass_edit/show_many`,
-        method: 'POST',
-        json: { responses: this.props.massEdit.selectedResponses, },
-      },
-      (err, httpResponse, data) => {
+    requestPost(
+      `${process.env.QUILL_CMS}/responses/mass_edit/show_many`,
+      { responses: this.props.massEdit.selectedResponses, },
+      (data) => {
         const parsedResponses = _.indexBy(data.responses, 'id');
         this.setState({
           responses: parsedResponses,
         });
       }
-    );
+    )
   }
 
   boilerplateCategoriesToOptions = () => {

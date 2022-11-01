@@ -1,5 +1,5 @@
 import * as React from 'react';
-import { requestPost } from '../../../modules/request/index.js';
+import { requestPost } from '../../../modules/request/index';
 
 const unlink = (id, refreshData) => {
   return requestPost(`/teachers/unlink/${id}`, null, () => {

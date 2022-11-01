@@ -1,27 +1,17 @@
-import request from 'request';
-import getAuthToken from './get_auth_token';
+import { requestPut, } from '../../../../modules/request/index'
 
 function put(path: string, payload: object, onSuccess: Function, onError: Function): void {
   let uri = `${window.location.protocol}//${window.location.host}${path}`;
-  let authedPayload = Object.assign(payload, {authenticity_token: getAuthToken()});
-  request({
-    method: 'PUT',
-    uri: uri,
-    json: authedPayload,
-  }, (error, response) => {
-    if (error) {
-      // TODO: Replace this with some sort of real error reporting
-      throw error;
+  requestPut(
+    uri,
+    payload,
+    (body) => {
+      if (onSuccess) onSuccess(body);
+    },
+    (body) => {
+      if (onError) onError(body);
     }
-    switch (response.statusCode) {
-      case 200:
-        if (onSuccess) onSuccess(response);
-        break;
-      case 422:
-        if (onError) onError(response);
-        break;
-    }
-  });
+  )
 }
 
 export function changeActivityPackName(activityPackId: Number, name: string, onSuccess: Function, onError: Function): void {

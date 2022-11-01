@@ -1,8 +1,8 @@
 import React from 'react';
 import { connect } from 'react-redux';
 import { withRouter } from 'react-router-dom';
-import * as request from 'request'
 import _ from 'underscore';
+
 import {
   Spinner,
   CarouselAnimation,
@@ -22,6 +22,7 @@ import {
   answeredQuestionCount,
   getProgressPercent
 } from '../../libs/calculateProgress'
+import { requestPost, requestPut, } from '../../../../modules/request/index'
 
 export class TurkActivity extends React.Component {
   constructor(props) {
@@ -57,47 +58,35 @@ export class TurkActivity extends React.Component {
   }
 
   createAnonActivitySession = (lessonID, results, score) => {
-    request(
-      { url: `${process.env.DEFAULT_URL}/api/v1/activity_sessions/`,
-        method: 'POST',
-        json:
-        {
-          state: 'finished',
-          activity_uid: lessonID,
-          concept_results: results,
-          percentage: score,
-        }
+    requestPost(
+      `${process.env.DEFAULT_URL}/api/v1/activity_sessions/`,
+      {
+        state: 'finished',
+        activity_uid: lessonID,
+        concept_results: results,
+        percentage: score,
       },
-      (err, httpResponse, body) => {
-        if (httpResponse && httpResponse.statusCode === 200) {
-          // to do, use Sentry to capture error
-          this.setState({ saved: true, });
-        }
+      (body) => {
+        this.setState({ saved: true, });
       }
-    );
+    )
   }
 
   finishActivitySession = (sessionID, results, score) => {
-    request(
-      { url: `${process.env.DEFAULT_URL}/api/v1/activity_sessions/${sessionID}`,
-        method: 'PUT',
-        json:
-        {
-          state: 'finished',
-          concept_results: results,
-          percentage: score,
-        }
+    requestPut(
+      `${process.env.DEFAULT_URL}/api/v1/activity_sessions/${sessionID}`,
+      {
+        state: 'finished',
+        concept_results: results,
+        percentage: score,
       },
-      (err, httpResponse, body) => {
-        if (httpResponse && httpResponse.statusCode === 200) {
-          // to do, use Sentry to capture error
-          this.setState({ saved: true, });
-        } else {
-          // to do, use Sentry to capture error
-          this.setState({ saved: false, error: true, });
-        }
+      (body) => {
+        this.setState({ saved: true, });
+      },
+      (body) => {
+        this.setState({ saved: false, error: true, });
       }
-    );
+    )
   }
 
   markIdentify = (bool) => {

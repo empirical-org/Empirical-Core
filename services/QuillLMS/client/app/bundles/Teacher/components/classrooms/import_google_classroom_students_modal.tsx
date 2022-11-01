@@ -2,7 +2,7 @@ import * as React from 'react'
 import Pusher from 'pusher-js';
 
 import ButtonLoadingIndicator from '../shared/button_loading_indicator'
-import { requestPut } from '../../../../modules/request/index.js';
+import { requestPut } from '../../../../modules/request/index';
 
 const smallWhiteCheckSrc = `${process.env.CDN_URL}/images/shared/check-small-white.svg`
 

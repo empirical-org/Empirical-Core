@@ -33,8 +33,7 @@ import {
   answeredQuestionCount,
   getProgressPercent
 } from '../../libs/calculateProgress'
-
-const request = require('request');
+import { requestPut, requestPost, } from '../../../../modules/request/index'
 
 const TITLE_CARD_TYPE = "TL"
 
@@ -202,55 +201,42 @@ export class StudentDiagnostic extends React.Component {
   }
 
   finishActivitySession = (sessionID, results, score, data) => {
-    request(
+    requestPut(
+      `${process.env.DEFAULT_URL}/api/v1/activity_sessions/${sessionID}`,
       {
-        url: `${process.env.DEFAULT_URL}/api/v1/activity_sessions/${sessionID}`,
-        method: 'PUT',
-        json:
-        {
-          state: 'finished',
-          concept_results: results,
-          percentage: score,
-          data
-        }
+        state: 'finished',
+        concept_results: results,
+        percentage: score,
+        data
       },
-      (err, httpResponse, body) => {
-        if (httpResponse && httpResponse.statusCode === 200) {
-          // to do, use Sentry to capture error
-          document.location.href = process.env.DEFAULT_URL
-          this.setState({ saved: true, });
-        } else {
-          this.setState({
-            saved: false,
-            error: body.meta.message,
-          });
-        }
+      (body) => {
+        document.location.href = process.env.DEFAULT_URL;
+        this.setState({ saved: true, });
+      },
+      (body) => {
+        this.setState({
+          saved: false,
+          error: body.meta.message,
+        });
       }
-    );
+    )
   }
 
   createAnonActivitySession = (lessonID, results, score, data) => {
-    request(
+    requestPost(
+      `${process.env.DEFAULT_URL}/api/v1/activity_sessions/`,
       {
-        url: `${process.env.DEFAULT_URL}/api/v1/activity_sessions/`,
-        method: 'POST',
-        json:
-        {
-          state: 'finished',
-          activity_uid: lessonID,
-          concept_results: results,
-          percentage: score,
-          data
-        }
+        state: 'finished',
+        activity_uid: lessonID,
+        concept_results: results,
+        percentage: score,
+        data
       },
-      (err, httpResponse, body) => {
-        if (httpResponse && httpResponse.statusCode === 200) {
-          // to do, use Sentry to capture error
-          document.location.href = process.env.DEFAULT_URL
-          this.setState({ saved: true, });
-        }
+      (body) => {
+        document.location.href = process.env.DEFAULT_URL;
+        this.setState({ saved: true, });
       }
-    );
+    )
   }
 
   submitResponse = (response) => {
