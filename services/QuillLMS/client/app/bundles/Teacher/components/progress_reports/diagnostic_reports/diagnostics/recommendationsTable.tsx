@@ -6,7 +6,6 @@ import {
   asteriskIcon,
   correctImage,
   baseDiagnosticImageSrc,
-  WIDE_SCREEN_MINIMUM_WIDTH,
   LEFT_OFFSET,
   DEFAULT_LEFT_PADDING,
   MOBILE_WIDTH,
@@ -140,7 +139,7 @@ const RecommendationsTable = ({ recommendations, responsesLink, students, select
   function paddingLeft() {
     if (MOBILE_WIDTH >= window.innerWidth) { return DEFAULT_LEFT_PADDING_FOR_MOBILE }
     const explanation = document.getElementsByClassName('explanation')[0]
-    return explanation && window.innerWidth >= WIDE_SCREEN_MINIMUM_WIDTH ? explanation.getBoundingClientRect().left - LEFT_OFFSET : DEFAULT_LEFT_PADDING
+    return explanation && DEFAULT_LEFT_PADDING
   }
 
   const handleScroll = React.useCallback(({ top, bottom, left, right, }) => {
@@ -202,12 +201,7 @@ const RecommendationsTable = ({ recommendations, responsesLink, students, select
 
   const renderHeader = (sticky) => {
     let style = { position: 'inherit' }
-    if (window.innerWidth <= MOBILE_WIDTH) {
-      style = { left: stickyTableStyle.left - paddingLeft() }
-    } else if (LEFT_OFFSET > stickyTableStyle.left) {
-      style = { left: -(LEFT_OFFSET - (stickyTableStyle.left - paddingLeft())) + 1 }
-    }
-
+    
     return (
       <thead>
         <tr>

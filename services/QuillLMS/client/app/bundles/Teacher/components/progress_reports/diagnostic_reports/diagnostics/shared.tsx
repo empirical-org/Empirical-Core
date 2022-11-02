@@ -69,7 +69,6 @@ export const NEARLY_PROFICIENT = 'Nearly proficient'
 export const NOT_YET_PROFICIENT = 'Not yet proficient'
 
 // shared consts for handling table scroll at wide view
-export const WIDE_SCREEN_MINIMUM_WIDTH = 1540 // this is also tied to media queries
 export const LEFT_OFFSET = 260 // width of the left-hand navigation
 export const DEFAULT_LEFT_PADDING = 32
 export const MOBILE_WIDTH = 930
