@@ -86,15 +86,15 @@ describe NavigationHelper do
       trial_subscription = create(:subscription)
       premium_subscription = create(:subscription, account_type: 'Not A Trial')
       allow(helper).to receive(:current_user) { double(:user, premium_state: "trial", trial_days_remaining: 5) }
-      expect(helper.premium_tab_copy).to eq "Premium  <img src=""></img> 5 Days Left"
+      expect(helper.premium_tab_copy).to eq "<span>Premium</span><img alt='' src='https://assets.quill.org/images/icons/star.svg'></img><span>5 Days Left</span>"
       allow(helper).to receive(:current_user) { double(:user, premium_state: "locked", last_expired_subscription: premium_subscription) }
-      expect(helper.premium_tab_copy).to eq "Premium  <img src=""></img> Subscription Expired"
+      expect(helper.premium_tab_copy).to eq "<span>Premium</span><img alt='' src='https://assets.quill.org/images/icons/star.svg'></img><span>Subscription Expired</span>"
       allow(helper).to receive(:current_user) { double(:user, premium_state: "locked", last_expired_subscription: trial_subscription) }
-      expect(helper.premium_tab_copy).to eq "Premium  <img src=""></img> Trial Expired"
+      expect(helper.premium_tab_copy).to eq "<span>Premium</span><img alt='' src='https://assets.quill.org/images/icons/star.svg'></img><span>Trial Expired</span>"
       allow(helper).to receive(:current_user) { double(:user, premium_state: nil) }
-      expect(helper.premium_tab_copy).to eq "Try Premium <img src=""></img>"
+      expect(helper.premium_tab_copy).to eq "<span>Try Premium</span><img alt='' src='https://assets.quill.org/images/icons/star.svg'></img>"
       allow(helper).to receive(:current_user) { double(:user, premium_state: "none") }
-      expect(helper.premium_tab_copy).to eq "Try Premium <img src=""></img>"
+      expect(helper.premium_tab_copy).to eq "<span>Try Premium</span><img alt='' src='https://assets.quill.org/images/icons/star.svg'></img>"
     end
   end
 

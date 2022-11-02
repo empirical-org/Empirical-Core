@@ -40,11 +40,11 @@ module NavigationHelper
     star_img = "<img alt='' src='https://assets.quill.org/images/icons/star.svg'></img>"
     case current_user.premium_state
     when 'trial'
-      "<span>Premium</span>  #{star_img} #{current_user.trial_days_remaining} <span>Days Left</span>"
+      "<span>Premium</span>#{star_img}<span>#{current_user.trial_days_remaining} Days Left</span>"
     when 'locked'
-      current_user.last_expired_subscription&.is_trial? ? "<span>Premium</span> #{star_img} <span>Trial Expired</span>" : "<span>Premium</span>  #{star_img} <span>Subscription Expired</span>"
+      current_user.last_expired_subscription&.is_trial? ? "<span>Premium</span>#{star_img}<span>Trial Expired</span>" : "<span>Premium</span>#{star_img}<span>Subscription Expired</span>"
     when 'none', nil
-      "<span>Try Premium</span> #{star_img}"
+      "<span>Try Premium</span>#{star_img}"
     end
   end
 
