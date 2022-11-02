@@ -347,6 +347,18 @@ module Evidence
 
         expect(response).to have_http_status(:success)
       end
+
+      context 'with label_configs' do
+        let(:label_configs) {[]}
+
+      it "should call background worker" do
+        expect(Evidence::ActivitySeedDataWorker).to receive(:perform_async).with(activity.id, [], label_configs)
+        post :seed_data, params: { id: activity.id, nouns: "" }
+
+        expect(response).to have_http_status(:success)
+      end
+
+      end
     end
 
     context "#labeled_synthetic_data" do

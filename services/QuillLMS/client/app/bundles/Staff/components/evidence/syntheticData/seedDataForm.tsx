@@ -18,28 +18,45 @@ const SeedDataForm = ({ history, match }) => {
 
   const [activityNouns, setActivityNouns] = React.useState<string>('');
 
-  const [labelConfigs, setLabelConfigs] = React.useState<any>([
-    { label: '', example1: '', example2: '' },
-  ]);
 
-  const handleLabelConfigsChange = (event, index) => {
-    let data = [...labelConfigs];
-    data[index][event.target.id] = event.target.value;
-    setLabelConfigs(data);
+  const because = 'because';
+  const but = 'but';
+  const so = 'so';
+
+  const blankLabelConfig = { label: '', example1: '', example2: '' };
+
+  const [labelConfigs, setLabelConfigs] = React.useState({
+    because : [ {...blankLabelConfig}],
+    but : [{...blankLabelConfig}],
+    so : [{...blankLabelConfig}],
+  });
+
+  const handleLabelConfigsChange = (event, index, conjunction) => {
+    let data = labelConfigs
+    let conjunctionData = [...data[conjunction]];
+
+    conjunctionData[index][event.target.id] = event.target.value;
+    data[conjunction] = conjunctionData;
+
+    setLabelConfigs(labelConfigs => ({...data}));
   }
 
-  const addLabelConfigs = () => {
-    let object = { label: '', example1: '', example2: '' }
+  const addLabelConfigs = (conjunction) => {
+    let data = labelConfigs
+    let conjunctionData = [...data[conjunction], {...blankLabelConfig}];
 
-    setLabelConfigs([...labelConfigs, object])
+    data[conjunction] = conjunctionData
+    setLabelConfigs(labelConfigs => ({...data}))
   }
 
-  const removeLabelConfig = (index) => {
-    let data = [...labelConfigs];
-    data.splice(index, 1);
-    setLabelConfigs(data);
-  }
+  const removeLabelConfig = (index, conjunction) => {
+    let data = labelConfigs
+    let conjunctionData = [...data[conjunction]]
+    conjunctionData.splice(index, 1)
+    data[conjunction] = conjunctionData
 
+    setLabelConfigs(labelConfigs => ({...data}))
+  }
 
   const { data: activityData } = useQuery({
     queryKey: [`activity-${activityId}`, activityId],
@@ -77,6 +94,42 @@ const SeedDataForm = ({ history, match }) => {
     );
   }
 
+  const renderLabelConfig = (form, index, conjunction) => {
+    return (
+      <div key={index}>
+        <Input
+          id='label'
+          label='Label'
+          handleChange={e => handleLabelConfigsChange(e, index, conjunction)}
+          value={form.label}
+        />
+        <Input
+          id='example1'
+          label='Example1'
+          handleChange={e => handleLabelConfigsChange(e, index, conjunction)}
+          value={form.example1}
+        />
+        <Input
+          id='example2'
+          label='Example2'
+          handleChange={e => handleLabelConfigsChange(e, index, conjunction)}
+          value={form.example2}
+        />
+        <button onClick={() => removeLabelConfig(index, conjunction)}>Remove</button>
+      </div>
+    );
+  }
+
+  const renderLabelSection = (conjunction) => {
+    return (
+      <div>
+        <h4>{conjunction.toUpperCase()} Label Examples</h4>
+        {labelConfigs[conjunction].map((form, index) => renderLabelConfig(form, index, conjunction))}
+        <button onClick={e => addLabelConfigs(conjunction)}>Add {conjunction} Label</button>
+      </div>
+    );
+  }
+
   const { activity } = activityData
 
   return(
@@ -100,34 +153,11 @@ const SeedDataForm = ({ history, match }) => {
         label="Optional: Noun list comma separated"
         value={activityNouns}
       />
-      <h4>Label Examples</h4>
-      {labelConfigs.map((form, index) => {
-          return (
-            <div key={index}>
-              <Input
-                id='label'
-                label='Label'
-                handleChange={e => handleLabelConfigsChange(e, index)}
-                value={labelConfigs[index].label}
-              />
-              <Input
-                id='example1'
-                label='Example1'
-                handleChange={e => handleLabelConfigsChange(e, index)}
-                value={form.example1}
-              />
-              <Input
-                id='example2'
-                label='Example2'
-                handleChange={e => handleLabelConfigsChange(e, index)}
-                value={form.example2}
-              />
-              <button onClick={() => removeLabelConfig(index)}>Remove</button>
-            </div>
-          )
-        })
-      }
-      <button onClick={addLabelConfigs}>Add Label</button>
+
+      {renderLabelSection(because)}
+      {renderLabelSection(but)}
+      {renderLabelSection(so)}
+
       <div className="button-and-id-container">
         <button className="quill-button fun large primary contained focus-on-light" id="activity-submit-button" onClick={handleCreateSeedData} type="submit">
           <span aria-label="robot" role="img">🤖</span>

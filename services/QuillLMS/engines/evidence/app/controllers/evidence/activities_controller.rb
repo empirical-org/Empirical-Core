@@ -4,7 +4,7 @@ require_dependency 'evidence/application_controller'
 
 module Evidence
   class ActivitiesController < ApiController
-    before_action :set_activity, only: [:activity_versions, :create, :show, :update, :destroy, :change_logs, :labeled_synthetic_data]
+    before_action :set_activity, only: [:activity_versions, :create, :show, :update, :destroy, :seed_data, :change_logs, :labeled_synthetic_data]
     append_before_action :set_lms_user_id, only: [:create, :destroy]
 
     # GET /activities.json
@@ -90,12 +90,7 @@ module Evidence
       render json: @activity&.activity_versions
     end
 
-    EXAMPLES_KEY = 'examples'
-    EXAMPLE1_KEY = 'example1'
-    EXAMPLE2_KEY = 'example2'
-    LABEL_KEY = 'label'
-
-    # params [:id, nouns:, labels]
+    # params [:id, nouns:, label_configs]
     def seed_data
       nouns_array = seed_data_params[:nouns]
         .split(',')
@@ -104,11 +99,10 @@ module Evidence
         .uniq
 
       label_configs = seed_data_params[:label_configs]
-        .map{|lc| lc.merge(EXAMPLES_KEY => lc.to_h.fetch_values(EXAMPLE1_KEY, EXAMPLE2_KEY).map(&:strip).uniq.select(&:present?))}
-        .map{|lc| lc.slice(LABEL_KEY, EXAMPLES_KEY)}
+        &.to_h
+        &.transform_values {|label_config| parse_seed_config(label_config) }
 
-      puts label_configs
-      # Evidence::ActivitySeedDataWorker.perform_async(@activity.id, nouns_array, label_configs)
+      Evidence::ActivitySeedDataWorker.perform_async(@activity.id, nouns_array, label_configs || {})
 
       head :no_content
     end
@@ -140,7 +134,7 @@ module Evidence
     end
 
     private def seed_data_params
-      params.permit(:id, :nouns, label_configs: [:label, :example1, :example2], activity: {})
+      params.permit(:id, :nouns, label_configs: {}, activity: {})
     end
 
     private def activity_params
@@ -154,6 +148,17 @@ module Evidence
         passages_attributes: [:id, :text, :image_link, :image_alt_text, :image_caption, :image_attribution, :highlight_prompt, :essential_knowledge_text],
         prompts_attributes: [:id, :conjunction, :text, :max_attempts, :max_attempts_feedback, :first_strong_example, :second_strong_example]
       )
+    end
+
+    EXAMPLES_KEY = 'examples'
+    EXAMPLE1_KEY = 'example1'
+    EXAMPLE2_KEY = 'example2'
+    LABEL_KEY = 'label'
+
+    private def parse_seed_config(label_config)
+      label_config
+        &.map{|lc| lc.merge(EXAMPLES_KEY => lc.to_h.fetch_values(EXAMPLE1_KEY, EXAMPLE2_KEY).map(&:strip).uniq.select(&:present?))}
+        &.map{|lc| lc.slice(LABEL_KEY, EXAMPLES_KEY)}
     end
   end
 end
