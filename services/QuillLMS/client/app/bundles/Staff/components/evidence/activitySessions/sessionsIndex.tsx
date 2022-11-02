@@ -158,7 +158,6 @@ const SessionsIndex = ({ match }) => {
 
   function formatSessionsData(activitySessions: ActivitySessionInterface[]) {
     return activitySessions.map(session => {
-      console.log("🚀 ~ file: sessionsIndex.tsx ~ line 154 ~ formatSessionsData ~ session", session)
       const { start_date, session_uid, because_attempts, because_optimal, but_attempts, but_optimal, so_attempts, so_optimal, complete } = session;
       const dateObject = new Date(start_date);
       const date = moment(dateObject).format("MM/DD/YY");
