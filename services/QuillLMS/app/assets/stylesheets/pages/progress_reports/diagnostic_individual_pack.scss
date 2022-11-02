@@ -143,27 +143,6 @@
     }
   }
 
-  // @media (min-width: 1540px) {
-  //   main {
-  //     > header,
-  //     .skill-group-summary-cards,
-  //     .student-results h2,
-  //     .proficiency-keys,
-  //     .recommendations-empty-state,
-  //     .results-empty-state,
-  //     .scoring-explanation-container,
-  //     &.student-responses-index-container .data-table-container,
-  //     &.individual-student-responses-container .skills-table-container-wrapper,
-  //     &.individual-student-responses-container .concept-results-container,
-  //     &.questions-index-container .data-table-container {
-  //       max-width: 982px;
-  //       margin-left: calc(50% + -100px);
-  //       transform: translateX(-50%);
-  //       width: calc(100vw - 260px);
-  //     }
-  //   }
-  // }
-
   @media (min-width: 931px) {
     main {
       > header,
