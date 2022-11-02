@@ -349,14 +349,33 @@ module Evidence
       end
 
       context 'with label_configs' do
-        let(:label_configs) {[]}
+        let(:label1) {'label1'}
+        let(:label2) {'label2'}
+        let(:example1) {'some sentence'}
+        let(:example2) {'sentence other'}
+        let(:label_config1) {{'label' => label1, 'example1' => example1, 'example2' => example2}}
+        let(:label_config2) {{'label' => label2, 'example1' => example1, 'example2' => example2}}
+        let(:label_configs) {{'so' => [label_config1, label_config2], 'because' => [label_config2]}}
 
-      it "should call background worker" do
-        expect(Evidence::ActivitySeedDataWorker).to receive(:perform_async).with(activity.id, [], label_configs)
-        post :seed_data, params: { id: activity.id, nouns: "" }
+        let(:label_configs_converted) do
+          {
+            'so' => [
+              {'label' => label1, 'examples' => [example1, example2]},
+              {'label' => label2, 'examples' => [example1, example2]}
+            ],
+            'because' => [
+               {'label' => label2, 'examples' => [example1, example2]}
+            ]
+          }
 
-        expect(response).to have_http_status(:success)
-      end
+        end
+
+        it "should call background worker" do
+          expect(Evidence::ActivitySeedDataWorker).to receive(:perform_async).with(activity.id, [], label_configs_converted)
+          post :seed_data, params: { id: activity.id, nouns: "", label_configs: label_configs }
+
+          expect(response).to have_http_status(:success)
+        end
 
       end
     end
