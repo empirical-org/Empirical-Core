@@ -174,7 +174,7 @@ const RulesAnalysis: React.FC<RouteComponentProps<ActivityRouteProps>> = ({ hist
       const formattedRows = ruleFeedbackHistory.ruleFeedbackHistories.filter(rule => {
         return selectedRuleType.value === DEFAULT_RULE_TYPE || rule.api_name === selectedRuleType.value
       }).map(rule => {
-        const { rule_name, rule_uid, api_name, rule_order, note, total_responses, strong_responses, weak_responses, first_feedback, second_feedback, repeated_consecutive_responses, repeated_non_consecutive_responses } = rule;
+        const { rule_name, rule_uid, api_name, rule_order, note, total_responses, strong_responses, weak_responses, first_feedback, second_feedback, repeated_consecutive_responses, repeated_non_consecutive_responses, avg_confidence } = rule;
         const apiOrder = apiOrderLookup[api_name] || Object.keys(apiOrderLookup).length
         return {
           rule_uid,
@@ -187,6 +187,7 @@ const RulesAnalysis: React.FC<RouteComponentProps<ActivityRouteProps>> = ({ hist
           weakResponses: weak_responses,
           repeatedConsecutiveResponses: repeated_consecutive_responses,
           repeatedNonConsecutiveResponses: repeated_non_consecutive_responses,
+          avgConfidence: avg_confidence,
           totalResponses: total_responses,
           scoredResponses: strong_responses + weak_responses,
           activityId,
@@ -308,6 +309,21 @@ const RulesAnalysis: React.FC<RouteComponentProps<ActivityRouteProps>> = ({ hist
       aggregate: vals => '',
       Aggregated: (row) => (<span />),
       Cell: ({row}) => (<button className={row.original.className} onClick={row.original.handleClick} type="button">{row.original.rule}</button>),
+    },
+    {
+      Header: "AutoML Confidence",
+      accessor: "avgConfidence",
+      key: "avgConfidence",
+      maxWidth: 100,
+      aggregate: (values) => {
+        const averageConfidenceForAllRules = _.mean(values)
+        return { averageConfidenceForAllRules }
+      },
+      Aggregated: (row) => (row.value.averageConfidenceForAllRules !== 0 ? <span>{row.value.averageConfidenceForAllRules}%</span> : ''),
+      Cell: ({row}) => {
+        const { avgConfidence } = row.original
+        return (avgConfidence && <span>{avgConfidence}%</span>)
+      }
     },
     {
       Header: "Total Responses",
