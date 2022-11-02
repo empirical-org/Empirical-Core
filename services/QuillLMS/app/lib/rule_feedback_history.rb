@@ -69,6 +69,7 @@ class RuleFeedbackHistory
     }
   end
 
+  # rubocop:disable Metrics/CyclomaticComplexity
   def self.format_sql_results(relations)
     relations.map do |r|
       {
@@ -79,7 +80,7 @@ class RuleFeedbackHistory
           second_feedback: r.feedbacks.order(:order).second&.text || '',
           rule_note: r.rule_note,
           rule_name: r.rule_name,
-          avg_confidence: r.avg_confidence ? r.avg_confidence&.round(2) * 100 : nil,
+          avg_confidence: r.avg_confidence ? r.avg_confidence.round(2) * 100 : nil,
           total_responses: r.total_responses,
           strong_responses: r.total_strong,
           weak_responses: r.total_weak,
@@ -89,4 +90,5 @@ class RuleFeedbackHistory
 
     end
   end
+  # rubocop:enable Metrics/CyclomaticComplexity
 end
