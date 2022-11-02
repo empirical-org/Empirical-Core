@@ -6,7 +6,6 @@ import {
   asteriskIcon,
   correctImage,
   baseDiagnosticImageSrc,
-  LEFT_OFFSET,
   DEFAULT_LEFT_PADDING,
   MOBILE_WIDTH,
   DEFAULT_LEFT_PADDING_FOR_MOBILE
@@ -50,7 +49,8 @@ interface StickyTableStyle {
   top: number,
   left: number,
   right: number,
-  zIndex: number
+  zIndex: number,
+  minWidth: string
 }
 
 const RecommendationCell = ({ student, isAssigned, isRecommended, isSelected, setSelections, selections, selectionIndex, }: RecommendationCellProps) => {
@@ -201,7 +201,7 @@ const RecommendationsTable = ({ recommendations, responsesLink, students, select
 
   const renderHeader = (sticky) => {
     let style = { position: 'inherit' }
-    
+
     return (
       <thead>
         <tr>
@@ -212,16 +212,26 @@ const RecommendationsTable = ({ recommendations, responsesLink, students, select
     )
   }
 
+  const renderStickyTable = () => {
+    const mainTable = document.getElementsByClassName('independent-practice')[0]
+
+    if (!(isSticky && tableHasContent && mainTable)) { return }
+
+    const width = mainTable.getBoundingClientRect().width - paddingLeft()
+
+    return (
+      <table
+        className={`${tableClassName} sticky`}
+        style={{ ...stickyTableStyle, minWidth: width, width }}
+      >
+        {renderHeader(true)}
+      </table>
+    )
+  }
+
   return (
     <div className="recommendations-table-container" onScroll={handleScroll}>
-      {isSticky && tableHasContent && (
-        <table
-          className={`${tableClassName} sticky`}
-          style={stickyTableStyle}
-        >
-          {renderHeader(true)}
-        </table>
-      )}
+      {renderStickyTable()}
       <table className={tableClassName} id="demo-onboarding-tour-spotlight-element" ref={tableRef} style={tableHasContent ? { paddingLeft: paddingLeft() } : { marginLeft: paddingLeft() }}>
         {renderHeader(false)}
         {tableHasContent ? null : noDataYet}

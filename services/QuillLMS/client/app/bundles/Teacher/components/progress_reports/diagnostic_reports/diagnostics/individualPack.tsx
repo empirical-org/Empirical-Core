@@ -208,22 +208,24 @@ const IndividualPack = ({ classrooms, history, match, location, lessonsBannerIsS
   }
 
   return (
-    <div className="diagnostic-individual-pack white-background-accommodate-footer">
-      <nav className="diagnostic-report-navigation hide-on-mobile">
-        {classroomDropdown}
-        <DiagnosticSection activity={activeDiagnostic.pre} search={location.search} />
-        {postDiagnosticContent}
-      </nav>
-      <Switch>
-        <Route path='/diagnostics/:activityId/classroom/:classroomId/growth_summary' render={() => <GrowthSummary {...sharedProps} />} />
-        <Route path='/diagnostics/:activityId/classroom/:classroomId/growth_results' render={() => <GrowthResults {...sharedProps} />} />
-        <Route path='/diagnostics/:activityId/classroom/:classroomId/summary' render={() => <Summary {...sharedProps} />} />
-        <Route path='/diagnostics/:activityId/classroom/:classroomId/results' render={() => <Results {...sharedProps} />} />
-        <Route path='/diagnostics/:activityId/classroom/:classroomId/recommendations' render={() => <Recommendations {...sharedProps} />} />
-        <Route path='/diagnostics/:activityId/classroom/:classroomId/questions' render={() => <Questions {...sharedProps} />} />
-        <Route path='/diagnostics/:activityId/classroom/:classroomId/responses/:studentId' render={() => <IndividualStudentResponses {...sharedProps} />} />
-        <Route path='/diagnostics/:activityId/classroom/:classroomId/responses' render={() => <StudentResponsesIndex {...sharedProps} />} />
-      </Switch>
+    <div className="white-background-accommodate-footer">
+      <div className="diagnostic-individual-pack">
+        <nav className="diagnostic-report-navigation hide-on-mobile">
+          {classroomDropdown}
+          <DiagnosticSection activity={activeDiagnostic.pre} search={location.search} />
+          {postDiagnosticContent}
+        </nav>
+        <Switch>
+          <Route path='/diagnostics/:activityId/classroom/:classroomId/growth_summary' render={() => <GrowthSummary {...sharedProps} />} />
+          <Route path='/diagnostics/:activityId/classroom/:classroomId/growth_results' render={() => <GrowthResults {...sharedProps} />} />
+          <Route path='/diagnostics/:activityId/classroom/:classroomId/summary' render={() => <Summary {...sharedProps} />} />
+          <Route path='/diagnostics/:activityId/classroom/:classroomId/results' render={() => <Results {...sharedProps} />} />
+          <Route path='/diagnostics/:activityId/classroom/:classroomId/recommendations' render={() => <Recommendations {...sharedProps} />} />
+          <Route path='/diagnostics/:activityId/classroom/:classroomId/questions' render={() => <Questions {...sharedProps} />} />
+          <Route path='/diagnostics/:activityId/classroom/:classroomId/responses/:studentId' render={() => <IndividualStudentResponses {...sharedProps} />} />
+          <Route path='/diagnostics/:activityId/classroom/:classroomId/responses' render={() => <StudentResponsesIndex {...sharedProps} />} />
+        </Switch>
+      </div>
     </div>
   )
 }
