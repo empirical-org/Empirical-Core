@@ -102,7 +102,7 @@ RSpec.describe RuleFeedbackHistory, type: :model do
       flag_consecutive = create(:feedback_history_flag, feedback_history_id: f_h1.id, flag: FeedbackHistoryFlag::FLAG_REPEATED_RULE_CONSECUTIVE)
       flag_non_consecutive = create(:feedback_history_flag, feedback_history_id: f_h1.id, flag: FeedbackHistoryFlag::FLAG_REPEATED_RULE_NON_CONSECUTIVE)
 
-      report = RuleFeedbackHistory.generate_report(conjunction: 'so', activity_id: activity1.id, start_date: nil, end_date: nil, turk_session_id: nil)
+      report = RuleFeedbackHistory.generate_report(conjunction: 'so', activity_id: activity1.id, start_date: nil, end_date: nil)
 
       expected = {
         api_name: so_rule1.rule_type,
@@ -148,17 +148,12 @@ RSpec.describe RuleFeedbackHistory, type: :model do
       # activity_session
       activity_session = create(:activity_session)
 
-      # comprehension_turking_round_activity_session
-      comprehension_turking_round = create(:comprehension_turking_round_activity_session, activity_session_uid: activity_session.uid)
-
       # feedbacks
-      create(:feedback_history, prompt: so_prompt1, rule_uid: so_rule1.uid, time: "2021-03-07T19:02:54.814Z", feedback_session_uid: activity_session.uid)
       create(:feedback_history, prompt: so_prompt1, rule_uid: so_rule2.uid, time: "2021-04-07T19:02:54.814Z", feedback_session_uid: "def")
       create(:feedback_history, prompt: so_prompt1, rule_uid: so_rule3.uid, time: "2021-05-07T19:02:54.814Z", feedback_session_uid: "ghi")
       create(:feedback_history, prompt: so_prompt1, rule_uid: so_rule4.uid, time: "2021-06-07T19:02:54.814Z", feedback_session_uid: "abc")
 
-      uid = FeedbackSession.find_by(activity_session_uid: "abc").uid
-      sql_result = RuleFeedbackHistory.exec_query(conjunction: 'so', activity_id: activity1.id, start_date: "2021-03-06T19:02:54.814Z", end_date: "2021-04-10T19:02:54.814Z", turk_session_id: comprehension_turking_round.turking_round_id)
+      sql_result = RuleFeedbackHistory.exec_query(conjunction: 'so', activity_id: activity1.id, start_date: "2021-03-06T19:02:54.814Z", end_date: "2021-04-10T19:02:54.814Z")
       expect(sql_result.all.length).to eq 1
       expect(sql_result[0].rule_type).to eq 'autoML'
     end
@@ -208,26 +203,23 @@ RSpec.describe RuleFeedbackHistory, type: :model do
       expect(responses.length).to eq(0)
     end
 
-    it 'should filter feedback histories by prompt id, used=true, time params and turk session ID' do
+    it 'should filter feedback histories by prompt id, used=true and time params' do
       so_rule1 = rule_factory { { name: 'so_rule1', rule_type: 'autoML'} }
       unused_rule = rule_factory { { name: 'unused', rule_type: 'autoML'} }
       activity_session = create(:activity_session)
-      comprehension_turking_round = create(:comprehension_turking_round_activity_session, activity_session_uid: activity_session.uid)
 
       f_h1 = create(:feedback_history, rule_uid: so_rule1.uid)
       f_h2 = create(:feedback_history, rule_uid: so_rule1.uid, prompt_id: 1, created_at: "2021-02-07T19:02:54.814Z")
       f_h3 = create(:feedback_history, rule_uid: unused_rule.uid)
       f_h4 = create(:feedback_history, rule_uid: so_rule1.uid, prompt_id: 1, used: false)
       f_h5 = create(:feedback_history, rule_uid: so_rule1.uid, prompt_id: 1, created_at: "2021-03-07T19:02:54.814Z", feedback_session_uid: activity_session.uid)
-      f_h6 = create(:feedback_history, rule_uid: so_rule1.uid, prompt_id: 1, created_at: "2021-04-07T19:02:54.814Z", feedback_session_uid: "abc")
-      f_h7 = create(:feedback_history, rule_uid: so_rule1.uid, prompt_id: 1, created_at: "2021-05-07T19:02:54.814Z", feedback_session_uid: activity_session.uid)
+      f_h6 = create(:feedback_history, rule_uid: so_rule1.uid, prompt_id: 1, created_at: "2021-05-07T19:02:54.814Z", feedback_session_uid: activity_session.uid)
 
       result = RuleFeedbackHistory.generate_rulewise_report(
         rule_uid: so_rule1.uid,
         prompt_id: 1,
         start_date: "2021-03-07T19:02:54.814Z",
-        end_date: "2021-04-07T19:02:54.814Z",
-        turk_session_id: comprehension_turking_round.turking_round_id)
+        end_date: "2021-04-07T19:02:54.814Z")
 
       expect(result.keys.length).to eq 1
       expect(result.keys.first.to_s).to eq so_rule1.uid

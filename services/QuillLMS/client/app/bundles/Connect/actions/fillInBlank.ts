@@ -8,7 +8,6 @@ declare global {
   interface Window { pusher: any }
 }
 
-import request from 'request';
 import _ from 'underscore';
 import { goBack } from 'react-router-redux';
 import { submitResponse } from './responses';

@@ -42,6 +42,22 @@ describe 'ScorebookQuery' do
     expect(results.pluck('id')).to include(activity_session2.id)
   end
 
+  it 'returns activities with publish dates in the future as scheduled' do
+    publish_date = Time.now.utc + 1.hour
+    # have to do update_columns here because otherwise the publish date is offset by a callback
+    unit_activity1.update_columns(publish_date: publish_date)
+    results = Scorebook::Query.run(classroom.id)
+    expect(results[0]['scheduled']).to eq(true)
+  end
+
+  it 'returns activities with publish dates in the past as not scheduled' do
+    publish_date = Time.now.utc - 1.hour
+    # have to do update_columns here because otherwise the publish date is offset by a callback
+    unit_activity1.update_columns(publish_date: publish_date)
+    results = Scorebook::Query.run(classroom.id)
+    expect(results[0]['scheduled']).to eq(false)
+  end
+
   describe 'support date constraints' do
     it 'returns activities completed between the specified dates' do
       begin_date = activity_session1.completed_at - 1.day

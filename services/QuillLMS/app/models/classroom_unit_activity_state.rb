@@ -26,8 +26,9 @@
 #  fk_rails_...  (unit_activity_id => unit_activities.id)
 #
 class ClassroomUnitActivityState < ApplicationRecord
-  include ::NewRelic::Agent
   include LessonsCache
+
+  class DuplicateClassroomUnitActivityStateError < StandardError; end
 
   belongs_to :classroom_unit, touch: true
   belongs_to :unit_activity
@@ -61,16 +62,12 @@ class ClassroomUnitActivityState < ApplicationRecord
     )
 
     if cua && (cua.id != id)
-      begin
-        raise 'This classroom unit activity state is a duplicate'
-      rescue => e
-        NewRelic::Agent.add_custom_attributes({
-          classroom_unit_id: classroom_unit_id,
-          unit_activity_id: unit_activity_id
-        })
-        NewRelic::Agent.notice_error(e)
-        errors.add(:duplicate_classroom_unit_activity_state, "this classroom unit activity state is a duplicate")
-      end
+      ErrorNotifier.report(
+        DuplicateClassroomUnitActivityStateError.new,
+        classroom_unit_id: classroom_unit_id,
+        unit_activity_id: unit_activity_id
+      )
+      errors.add(:duplicate_classroom_unit_activity_state, "this classroom unit activity state is a duplicate")
     else
       true
     end

@@ -18,11 +18,10 @@ import {
   rematchOne
 } from '../../libs/grading/rematching.ts';
 import * as massEdit from '../../actions/massEdit';
-import getBoilerplateFeedback from './boilerplateFeedback';
-import request from 'request';
 import {
   submitResponseEdit,
 } from '../../actions/responses';
+import { requestGet, } from '../../../../modules/request/index'
 
 import { ActionTypes } from '../../actions/actionTypes';
 
@@ -123,31 +122,25 @@ class ResponseComponent extends React.Component {
   }
 
   getHealth() {
-    request(
-      {
-        url: `${process.env.QUILL_CMS}/questions/${this.props.questionID}/health`,
-        method: 'GET',
-      },
-      (err, httpResponse, data) => {
+    requestGet(
+      `${process.env.QUILL_CMS}/questions/${this.props.questionID}/health`,
+      (body) => {
         this.setState({
-          health: JSON.parse(data),
+          health: body,
         });
       }
-    );
+    )
   }
 
   getGradeBreakdown() {
-    request(
-      {
-        url: `${process.env.QUILL_CMS}/questions/${this.props.questionID}/grade_breakdown`,
-        method: 'GET',
-      },
-      (err, httpResponse, data) => {
+    requestGet(
+      `${process.env.QUILL_CMS}/questions/${this.props.questionID}/grade_breakdown`,
+      (body) => {
         this.setState({
-          gradeBreakdown: JSON.parse(data),
+          gradeBreakdown: body,
         });
       }
-    );
+    )
   }
 
   clearResponses() {

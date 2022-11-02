@@ -4,6 +4,10 @@ exports[`ReviewActivities component should render 1`] = `
 <div
   className="assignment-section review-activities-section"
 >
+  <Snackbar
+    text="The due date must be after the publish date."
+    visible={false}
+  />
   <div
     className="assignment-section-header"
   >
@@ -35,18 +39,49 @@ exports[`ReviewActivities component should render 1`] = `
             "attribute": "activity",
             "name": "Activity",
             "rowSectionClassName": "tooltip-section review-activities-data-table-section",
-            "width": "350px",
+            "width": "322px",
           },
           Object {
             "attribute": "concept",
             "name": "Concept",
-            "width": "200px",
+            "width": "166px",
           },
           Object {
-            "attribute": "dueDate",
-            "name": "Due date (optional)",
-            "rowSectionClassName": "due-date-picker",
-            "width": "150px",
+            "attribute": "publishDatePicker",
+            "headerClassName": "publish-date-header-container",
+            "name": <Tooltip
+              isTabbable={true}
+              tooltipText="When you schedule an activity, it is displayed in your dashboard, but it is hidden from a student until the publish date."
+              tooltipTriggerText={
+                <span
+                  className="publish-date-header"
+                >
+                  Publish date
+                </span>
+              }
+            />,
+            "rowSectionClassName": "datetime-picker",
+            "width": "123px",
+          },
+          Object {
+            "attribute": "dueDatePicker",
+            "headerClassName": "due-date-header-container",
+            "name": <Tooltip
+              isTabbable={true}
+              tooltipText="Display a due date to students for this activity. Students can still access an activity after the due date."
+              tooltipTriggerText={
+                <span
+                  className="due-date-header"
+                >
+                  Due date 
+                  <span>
+                    (optional)
+                  </span>
+                </span>
+              }
+            />,
+            "rowSectionClassName": "datetime-picker",
+            "width": "123px",
           },
         ]
       }
@@ -61,113 +96,27 @@ exports[`ReviewActivities component should render 1`] = `
               tooltipTriggerTextClass="clipped-content"
               tooltipTriggerTextStyle={
                 Object {
-                  "maxWidth": "350px",
+                  "maxWidth": "322px",
                 }
               }
             />,
+            "className": "",
             "concept": "Diagnostics",
-            "dueDate": <withStyles(SingleDatePicker)
-              anchorDirection="left"
-              appendToBody={false}
-              block={false}
-              calendarInfoPosition="bottom"
-              customCloseIcon={null}
-              customInputIcon={
-                <img
-                  alt="dropdown indicator"
-                  src="https://assets.quill.org/images/icons/dropdown.svg"
-                  style={null}
-                />
-              }
-              date={"2019-09-25T04:00:00.000Z"}
-              dayPickerNavigationInlineStyles={null}
-              daySize={39}
-              disableScroll={false}
-              disabled={false}
-              displayFormat={[Function]}
-              enableOutsideDays={false}
-              firstDayOfWeek={null}
-              focused={false}
-              hideKeyboardShortcutsPanel={false}
-              horizontalMargin={0}
-              horizontalMonthPadding={13}
-              id="413-date-picker"
-              initialVisibleMonth={null}
-              inputIconPosition="after"
-              isDayBlocked={[Function]}
-              isDayHighlighted={[Function]}
-              isOutsideRange={[Function]}
-              isRTL={false}
-              keepFocusOnInput={false}
-              keepOpenOnDateSelect={false}
-              monthFormat="MMMM YYYY"
-              navNext="›"
-              navPosition="navPositionTop"
-              navPrev="‹"
-              noBorder={false}
-              numberOfMonths={1}
-              onClose={[Function]}
-              onDateChange={[Function]}
-              onFocusChange={[Function]}
-              onNextMonthClick={[Function]}
-              onPrevMonthClick={[Function]}
-              openDirection="down"
-              orientation="horizontal"
-              phrases={
-                Object {
-                  "calendarLabel": "Calendar",
-                  "chooseAvailableDate": [Function],
-                  "clearDate": "Clear Date",
-                  "closeDatePicker": "Close",
-                  "dateIsSelected": [Function],
-                  "dateIsUnavailable": [Function],
-                  "enterKey": "Enter key",
-                  "escape": "Escape key",
-                  "hideKeyboardShortcutsPanel": "Close the shortcuts panel.",
-                  "homeEnd": "Home and end keys",
-                  "jumpToNextMonth": "Move forward to switch to the next month.",
-                  "jumpToPrevMonth": "Move backward to switch to the previous month.",
-                  "keyboardBackwardNavigationInstructions": "Navigate backward to interact with the calendar and select a date. Press the question mark key to get the keyboard shortcuts for changing dates.",
-                  "keyboardForwardNavigationInstructions": "Navigate forward to interact with the calendar and select a date. Press the question mark key to get the keyboard shortcuts for changing dates.",
-                  "keyboardShortcuts": "Keyboard Shortcuts",
-                  "leftArrowRightArrow": "Right and left arrow keys",
-                  "moveFocusByOneDay": "Move backward (left) and forward (right) by one day.",
-                  "moveFocusByOneMonth": "Switch months.",
-                  "moveFocusByOneWeek": "Move backward (up) and forward (down) by one week.",
-                  "moveFocustoStartAndEndOfWeek": "Go to the first or last day of a week.",
-                  "openThisPanel": "Open this panel.",
-                  "pageUpPageDown": "page up and page down keys",
-                  "questionMark": "Question mark",
-                  "returnFocusToInput": "Return to the date input field.",
-                  "roleDescription": "datepicker",
-                  "selectFocusedDate": "Select the date in focus.",
-                  "showKeyboardShortcutsPanel": "Open the keyboard shortcuts panel.",
-                  "upArrowDownArrow": "up and down arrow keys",
-                }
-              }
-              placeholder="No due date"
-              readOnly={false}
-              regular={false}
-              renderCalendarInfo={null}
-              renderDayContents={null}
-              renderMonthElement={null}
-              renderMonthText={null}
-              renderNavNextButton={null}
-              renderNavPrevButton={null}
-              renderWeekHeaderElement={null}
-              reopenPickerOnClearDate={false}
-              required={false}
-              screenReaderInputMessage=""
-              showClearDate={false}
-              showDefaultInputIcon={false}
-              small={false}
-              verticalHeight={null}
-              verticalSpacing={22}
-              weekDayFormat="dd"
-              withFullScreenPortal={false}
-              withPortal={false}
+            "dueDatePicker": <DatePickerContainer
+              closeFunction={[Function]}
+              defaultText="No due date"
+              handleClickCopyToAll={[Function]}
+              initialValue={"2019-09-25T04:00:00.000Z"}
+              showCopyToAll={true}
             />,
             "id": 413,
+            "publishDatePicker": <DatePickerContainer
+              closeFunction={[Function]}
+              defaultText="Right away"
+              handleClickCopyToAll={[Function]}
+              initialValue={"2019-08-25T04:00:00.000Z"}
+              showCopyToAll={true}
+            />,
             "removable": true,
             "tool": <Tooltip
               isTabbable={true}
@@ -188,113 +137,27 @@ exports[`ReviewActivities component should render 1`] = `
               tooltipTriggerTextClass="clipped-content"
               tooltipTriggerTextStyle={
                 Object {
-                  "maxWidth": "350px",
+                  "maxWidth": "322px",
                 }
               }
             />,
+            "className": "",
             "concept": "Prepositions",
-            "dueDate": <withStyles(SingleDatePicker)
-              anchorDirection="left"
-              appendToBody={false}
-              block={false}
-              calendarInfoPosition="bottom"
-              customCloseIcon={null}
-              customInputIcon={
-                <img
-                  alt="dropdown indicator"
-                  src="https://assets.quill.org/images/icons/dropdown.svg"
-                  style={null}
-                />
-              }
-              date={null}
-              dayPickerNavigationInlineStyles={null}
-              daySize={39}
-              disableScroll={false}
-              disabled={false}
-              displayFormat={[Function]}
-              enableOutsideDays={false}
-              firstDayOfWeek={null}
-              focused={false}
-              hideKeyboardShortcutsPanel={false}
-              horizontalMargin={0}
-              horizontalMonthPadding={13}
-              id="654-date-picker"
-              initialVisibleMonth={null}
-              inputIconPosition="after"
-              isDayBlocked={[Function]}
-              isDayHighlighted={[Function]}
-              isOutsideRange={[Function]}
-              isRTL={false}
-              keepFocusOnInput={false}
-              keepOpenOnDateSelect={false}
-              monthFormat="MMMM YYYY"
-              navNext="›"
-              navPosition="navPositionTop"
-              navPrev="‹"
-              noBorder={false}
-              numberOfMonths={1}
-              onClose={[Function]}
-              onDateChange={[Function]}
-              onFocusChange={[Function]}
-              onNextMonthClick={[Function]}
-              onPrevMonthClick={[Function]}
-              openDirection="down"
-              orientation="horizontal"
-              phrases={
-                Object {
-                  "calendarLabel": "Calendar",
-                  "chooseAvailableDate": [Function],
-                  "clearDate": "Clear Date",
-                  "closeDatePicker": "Close",
-                  "dateIsSelected": [Function],
-                  "dateIsUnavailable": [Function],
-                  "enterKey": "Enter key",
-                  "escape": "Escape key",
-                  "hideKeyboardShortcutsPanel": "Close the shortcuts panel.",
-                  "homeEnd": "Home and end keys",
-                  "jumpToNextMonth": "Move forward to switch to the next month.",
-                  "jumpToPrevMonth": "Move backward to switch to the previous month.",
-                  "keyboardBackwardNavigationInstructions": "Navigate backward to interact with the calendar and select a date. Press the question mark key to get the keyboard shortcuts for changing dates.",
-                  "keyboardForwardNavigationInstructions": "Navigate forward to interact with the calendar and select a date. Press the question mark key to get the keyboard shortcuts for changing dates.",
-                  "keyboardShortcuts": "Keyboard Shortcuts",
-                  "leftArrowRightArrow": "Right and left arrow keys",
-                  "moveFocusByOneDay": "Move backward (left) and forward (right) by one day.",
-                  "moveFocusByOneMonth": "Switch months.",
-                  "moveFocusByOneWeek": "Move backward (up) and forward (down) by one week.",
-                  "moveFocustoStartAndEndOfWeek": "Go to the first or last day of a week.",
-                  "openThisPanel": "Open this panel.",
-                  "pageUpPageDown": "page up and page down keys",
-                  "questionMark": "Question mark",
-                  "returnFocusToInput": "Return to the date input field.",
-                  "roleDescription": "datepicker",
-                  "selectFocusedDate": "Select the date in focus.",
-                  "showKeyboardShortcutsPanel": "Open the keyboard shortcuts panel.",
-                  "upArrowDownArrow": "up and down arrow keys",
-                }
-              }
-              placeholder="No due date"
-              readOnly={false}
-              regular={false}
-              renderCalendarInfo={null}
-              renderDayContents={null}
-              renderMonthElement={null}
-              renderMonthText={null}
-              renderNavNextButton={null}
-              renderNavPrevButton={null}
-              renderWeekHeaderElement={null}
-              reopenPickerOnClearDate={false}
-              required={false}
-              screenReaderInputMessage=""
-              showClearDate={false}
-              showDefaultInputIcon={false}
-              small={false}
-              verticalHeight={null}
-              verticalSpacing={22}
-              weekDayFormat="dd"
-              withFullScreenPortal={false}
-              withPortal={false}
+            "dueDatePicker": <DatePickerContainer
+              closeFunction={[Function]}
+              defaultText="No due date"
+              handleClickCopyToAll={[Function]}
+              initialValue={null}
+              showCopyToAll={false}
             />,
             "id": 654,
+            "publishDatePicker": <DatePickerContainer
+              closeFunction={[Function]}
+              defaultText="Right away"
+              handleClickCopyToAll={[Function]}
+              initialValue={null}
+              showCopyToAll={false}
+            />,
             "removable": true,
             "tool": <Tooltip
               isTabbable={true}

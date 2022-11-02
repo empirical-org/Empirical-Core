@@ -93,15 +93,14 @@ class ChangeLog < ApplicationRecord
     'Evidence::RegexRule',
     'Evidence::PlagiarismText'
   ]
+
   USER_ACTIONS = {
     index: 'Visited User Directory',
     search: 'Searched Users',
     sign_in: 'Impersonated User',
     show: 'Visited User Admin Page',
     edit: 'Visited User Edit Page',
-    update: 'Edited User',
-    skipped_import: 'Skipped User import',
-    google_access_expired_reset_session: 'User session reset due to expired google access'
+    update: 'Edited User'
   }
 
   GENERIC_USER_ACTIONS = [
@@ -114,7 +113,23 @@ class ChangeLog < ApplicationRecord
     SET_USER_ACCOUNT_TYPE_GOOGLE = 'Set user account type google'
   ]
 
-  ALL_ACTIONS = USER_ACTIONS.values + CONCEPT_ACTIONS + TOPIC_ACTIONS + STANDARD_ACTIONS + STANDARD_CATEGORY_ACTIONS + STANDARD_LEVEL_ACTIONS + EVIDENCE_ACTIONS.values + RAKE_ACTIONS
+  GOOGLE_IMPORT_ACTIONS = {
+    email_updated: 'User email updated',
+    linked_google_id: 'Linked google_id',
+    unlinked_google_id: 'Unlinked google_id',
+    skipped_import: 'Skipped User import'
+  }
+
+  ALL_ACTIONS =
+    EVIDENCE_ACTIONS.values +
+    GOOGLE_IMPORT_ACTIONS.values +
+    USER_ACTIONS.values +
+    CONCEPT_ACTIONS +
+    RAKE_ACTIONS +
+    STANDARD_ACTIONS +
+    STANDARD_CATEGORY_ACTIONS +
+    STANDARD_LEVEL_ACTIONS +
+    TOPIC_ACTIONS
 
   belongs_to :changed_record, polymorphic: true
   belongs_to :user

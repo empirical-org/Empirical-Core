@@ -43,7 +43,7 @@ class Cms::RostersController < Cms::CmsController
     end
 
     render json: {}
-  rescue StandardError => e
+  rescue => e
     render json: {errors: e.message}, status: 422
   end
   # rubocop:enable Metrics/CyclomaticComplexity

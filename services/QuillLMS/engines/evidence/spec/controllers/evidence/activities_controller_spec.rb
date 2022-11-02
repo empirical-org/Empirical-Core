@@ -62,6 +62,7 @@ module Evidence
         expect(response.code.to_i).to(eq(201))
         expect(parsed_response["title"]).to(eq("First Activity"))
         expect(parsed_response["notes"]).to(eq("First Activity - Notes"))
+        expect(parsed_response["version"]).to(eq(1))
         expect(Activity.count).to(eq(1))
       end
 
@@ -74,7 +75,7 @@ module Evidence
         expect(change_log.user_id).to(eq(1))
         expect(change_log.changed_record_type).to(eq("Evidence::Activity"))
         expect(change_log.changed_record_id).to(eq(new_activity.id))
-        expect(change_log.new_value).to(eq(nil))
+        expect(change_log.new_value).to(eq("1"))
       end
 
       it 'should not create an invalid record and return errors as json' do
@@ -283,8 +284,9 @@ module Evidence
 
         expect(response.code.to_i).to(eq(200))
         expect(parsed_response.select {|cl| cl["changed_record_type"] == 'Evidence::Passage'}.count).to(eq(1))
-        expect(parsed_response.select {|cl| cl["changed_record_type"] == 'Evidence::Activity'}.count).to(eq(1))
+        expect(parsed_response.select {|cl| cl["changed_record_type"] == 'Evidence::Activity'}.count).to(eq(2))
         expect(parsed_response.select {|cl| cl["changed_record_type"] == 'Evidence::Prompt'}.count).to(eq(1))
+        expect(parsed_response.select {|cl| cl["changed_attribute"] == 'version'}.count).to(eq(1))
 
       end
 

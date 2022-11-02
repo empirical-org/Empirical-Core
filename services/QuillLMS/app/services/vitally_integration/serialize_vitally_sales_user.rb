@@ -57,6 +57,8 @@ class SerializeVitallySalesUser
         state: state,
         zipcode: zipcode,
         district: district,
+        ip_city: @user.ip_location&.city,
+        ip_state: @user.ip_location&.state,
         total_students: @user.students.count,
         active_students: active_students,
         activities_assigned: activities_assigned,

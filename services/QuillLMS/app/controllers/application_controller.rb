@@ -9,6 +9,9 @@ class ApplicationController < ActionController::Base
   include DemoAccountBannerLinkGenerator
   include SchoolSelectionReminderMilestone
 
+  rescue_from ActionController::InvalidAuthenticityToken,
+    with: :handle_invalid_authenticity_token
+
   # session keys
   CLEVER_REDIRECT = :clever_redirect
   EXPIRED_SESSION_REDIRECT = :expired_session_redirect
@@ -124,6 +127,15 @@ class ApplicationController < ActionController::Base
     )
   end
 
+  private def handle_invalid_authenticity_token
+    flash[:error] = t('actioncontroller.errors.invalid_authenticity_token')
+
+    respond_to do |format|
+      format.html { redirect_back(fallback_location: root_path) }
+      format.json { render json: { redirect: URI.parse(request.referer).path }, status: 303 }
+    end
+  end
+
   protected def check_staff_for_extended_session
     return unless current_user&.staff_session_duration_exceeded?
 
@@ -153,7 +165,6 @@ class ApplicationController < ActionController::Base
   end
 
   protected def reset_session_and_redirect_to_sign_in
-    log_google_auth_credential
     reset_session
     session[EXPIRED_SESSION_REDIRECT] = true
 
@@ -169,15 +180,4 @@ class ApplicationController < ActionController::Base
 
     current_user.inactive_too_long?
   end
-
-  protected def log_google_auth_credential
-    return unless current_user.google_access_expired?
-
-    LogGoogleAuthCredentialWorker.perform_async(
-      current_user.id,
-      current_user.auth_credential&.id,
-      current_user.auth_credential&.refresh_token_expires_at
-    )
-  end
 end
-

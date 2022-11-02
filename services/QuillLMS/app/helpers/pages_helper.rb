@@ -109,6 +109,11 @@ module PagesHelper
             img: 'team-shannon-browne@2x.png'
           },
           {
+            name: 'Nattalie Dai',
+            title: 'Partnerships Specialist I',
+            img: 'team-nattalie-dai@2x.png'
+          },
+          {
             name: 'Rachel Dantzler',
             title: 'Senior Curriculum Developer',
             img: 'team-rachel-dantzler@2x.png'
@@ -122,6 +127,11 @@ module PagesHelper
             name: 'Daniel Giovanniello',
             title: 'Senior Partnerships Specialist ',
             img: 'team-daniel-giovanniello@2x.png'
+          },
+          {
+            name: 'Sarah Kelly',
+            title: 'Managing Director of Strategic Impact',
+            img: 'team-sarah-kelly@2x.png'
           },
           {
             name: 'Peter Kong',
@@ -147,6 +157,11 @@ module PagesHelper
             name: 'Katie Moylan',
             title: 'Curriculum Developer II',
             img: 'team-katie-moylan@2x.png'
+          },
+          {
+            name: 'Alex Otstott',
+            title: 'Director of District Partnerships',
+            img: 'team-alex-otstott@2x.png'
           },
           {
             name: 'Erika Parker-Havens',
@@ -413,7 +428,7 @@ module PagesHelper
                 cb_anchor_tag: '1984'
               },
               {
-                title: 'Sentence Combining: Except from The Night Circus by Erin Morgenstern',
+                title: 'Sentence Combining: Excerpt from The Night Circus by Erin Morgenstern',
                 description: 'Explore how second-person point of view sets up a fantastical world',
                 unit_template_id: '233',
                 cb_anchor_tag: 'the-night-circus'
@@ -423,7 +438,7 @@ module PagesHelper
           {
             activities: [
               {
-                title: 'Sentence Combining: Except from Out of My Mind by Sharon M. Draper',
+                title: 'Sentence Combining: Excerpt from Out of My Mind by Sharon M. Draper',
                 description: 'Explore how first-person point of view efficiently establishes a narrator’s experience',
                 unit_template_id: '234',
                 cb_anchor_tag: 'out-of-my-mind'

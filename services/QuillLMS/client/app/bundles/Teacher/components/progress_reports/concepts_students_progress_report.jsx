@@ -1,7 +1,6 @@
 // The progress report showing all students in a given classroom
 // along with their result counts.
 import React from 'react'
-import request from 'request'
 import queryString from 'query-string';
 
 import CSVDownloadForProgressReport from './csv_download_for_progress_report.jsx'
@@ -13,6 +12,7 @@ import LoadingSpinner from '../shared/loading_indicator.jsx'
 import ItemDropdown from '../general_components/dropdown_selectors/item_dropdown'
 import userIsPremium from '../modules/user_is_premium'
 import { ReactTable, } from '../../../Shared/index'
+import { requestGet, } from '../../../../modules/request/index'
 
 const showAllClassroomKey = 'All Classrooms'
 
@@ -29,26 +29,26 @@ export default class ConceptsStudentsProgressReport extends React.Component {
 
   componentDidMount() {
     const that = this;
-    request.get({
-      url: `${process.env.DEFAULT_URL}/${this.props.sourceUrl}`
-    }, (e, r, body) => {
-      const data = JSON.parse(body)
-      const parsedClassrooms = this.parseClassrooms(data.classrooms_with_student_ids)
-      const dropdownClassrooms = parsedClassrooms.dropdownClassrooms;
-      const classroomsWithStudentIds = parsedClassrooms.classroomsWithStudentIds
+    requestGet(
+      `${process.env.DEFAULT_URL}/${this.props.sourceUrl}`,
+      (body) => {
+        const parsedClassrooms = this.parseClassrooms(body.classrooms_with_student_ids)
+        const dropdownClassrooms = parsedClassrooms.dropdownClassrooms;
+        const classroomsWithStudentIds = parsedClassrooms.classroomsWithStudentIds
 
-      const newState = {loading: false, errors: body.errors, reportData: data.students, filteredReportData: data.students, dropdownClassrooms, classroomsWithStudentIds}
+        const newState = {loading: false, errors: body.errors, reportData: body.students, filteredReportData: body.students, dropdownClassrooms, classroomsWithStudentIds}
 
-      const selectedClassroomId = queryString.parse(window.location.search).classroom_id
-      const localStorageSelectedClassroomId = window.localStorage.getItem(PROGRESS_REPORTS_SELECTED_CLASSROOM_ID)
+        const selectedClassroomId = queryString.parse(window.location.search).classroom_id
+        const localStorageSelectedClassroomId = window.localStorage.getItem(PROGRESS_REPORTS_SELECTED_CLASSROOM_ID)
 
-      if (selectedClassroomId) {
-        newState.selectedClassroomId = selectedClassroomId
-      } else if (localStorageSelectedClassroomId && dropdownClassrooms.find(c => Number(c.id) === Number(localStorageSelectedClassroomId))) {
-        newState.selectedClassroomId = Number(localStorageSelectedClassroomId)
+        if (selectedClassroomId) {
+          newState.selectedClassroomId = selectedClassroomId
+        } else if (localStorageSelectedClassroomId && dropdownClassrooms.find(c => Number(c.id) === Number(localStorageSelectedClassroomId))) {
+          newState.selectedClassroomId = Number(localStorageSelectedClassroomId)
+        }
+        that.setState(newState, this.filterReportData);
       }
-      that.setState(newState, this.filterReportData);
-    });
+    )
   }
 
   columns() {

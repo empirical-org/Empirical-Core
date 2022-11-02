@@ -1,8 +1,8 @@
 import React from 'react';
 import createReactClass from 'create-react-class';
 import $ from 'jquery';
-import request from 'request';
 import _ from 'underscore';
+import moment from 'moment';
 
 import Scrollify from '../components/modules/scrollify';
 import { PROGRESS_REPORTS_SELECTED_CLASSROOM_ID, } from '../components/progress_reports/progress_report_constants'
@@ -13,7 +13,7 @@ import ScorebookFilters from '../components/scorebook/scorebook_filters';
 import ScoreLegend from '../components/scorebook/score_legend';
 import { AppLegend } from '../components/scorebook/app_legend.tsx';
 import EmptyProgressReport from '../components/shared/EmptyProgressReport';
-import moment from 'moment';
+import { requestGet, } from '../../../modules/request/index'
 
 export default createReactClass({
   displayName: 'Scorebook',
@@ -159,28 +159,28 @@ export default createReactClass({
     const loadingUnit = { name: 'Loading...', value: '', };
     this.setState({ unitFilters: [loadingUnit], selectedUnit: loadingUnit, });
     const that = this;
-    request.get({
-      url: `${process.env.DEFAULT_URL}/teachers/classrooms/${classroomId}/units`,
-    }, (error, httpStatus, body) => {
-      const parsedBody = JSON.parse(body);
-      const units = parsedBody.units;
-      const { scores, } = this.state
-      if (units.length === 1) {
-        const selectedUnit = units[0];
-        that.setState({
-          unitFilters: units,
-          selectedUnit,
-          missing: this.checkMissing(scores),
-        });
-      } else {
-        const selectedUnit = { name: 'All activity packs', value: '', };
-        that.setState({
-          unitFilters: [selectedUnit].concat(units),
-          selectedUnit,
-          missing: this.checkMissing(scores),
-        });
+    requestGet(
+      `${process.env.DEFAULT_URL}/teachers/classrooms/${classroomId}/units`,
+      (body) => {
+        const units = body.units;
+        const { scores, } = this.state
+        if (units.length === 1) {
+          const selectedUnit = units[0];
+          that.setState({
+            unitFilters: units,
+            selectedUnit,
+            missing: this.checkMissing(scores),
+          });
+        } else {
+          const selectedUnit = { name: 'All activity packs', value: '', };
+          that.setState({
+            unitFilters: [selectedUnit].concat(units),
+            selectedUnit,
+            missing: this.checkMissing(scores),
+          });
+        }
       }
-    });
+    )
   },
 
   checkMissing(scores) {
@@ -229,6 +229,10 @@ export default createReactClass({
         marked_complete: s.marked_complete,
         activity_description: s.activity_description,
         activity_classification_id: s.activity_classification_id,
+        dueDate: s.due_date,
+        publishDate: s.publish_date,
+        unitActivityCreatedAt: s.unit_activity_created_at,
+        scheduled: s.scheduled
       });
     });
     this.setState({ loading: false, scores: newScores, missing: this.checkMissing(newScores), });

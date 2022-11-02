@@ -144,12 +144,12 @@ export const renderActivityPackTooltipElement = (data) => {
           <th>Grade Level Range</th>
         </tr>
         {activities && activities.length && activities.map((activity: Activity) => {
-          const { name, grade_level_range, classification } = activity
+          const { name, readability, classification } = activity
           return(
             <tr>
               <td>{name}</td>
               <td>{classification.name}</td>
-              <td>{grade_level_range}</td>
+              <td>{readability}</td>
             </tr>
           )
         })}

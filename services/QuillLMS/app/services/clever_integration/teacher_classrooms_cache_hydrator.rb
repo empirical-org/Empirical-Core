@@ -18,8 +18,8 @@ module CleverIntegration
       load_teacher
       cache_classrooms_data
       notify_pusher
-    rescue StandardError => e
-      NewRelic::Agent.notice_error(e, user_id: teacher.id)
+    rescue => e
+      ErrorNotifier.report(e, user_id: teacher.id)
     end
 
     private def cache_classrooms_data

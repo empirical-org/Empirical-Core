@@ -401,7 +401,7 @@ exports[`StudentProfileUnits component should not render the pinned activity mod
                   "name": "Activity",
                   "noTooltip": true,
                   "rowSectionClassName": "name-section",
-                  "width": "633px",
+                  "width": "623px",
                 },
                 Object {
                   "attribute": "tool",
@@ -417,7 +417,7 @@ exports[`StudentProfileUnits component should not render the pinned activity mod
                   "name": "Due date",
                   "noTooltip": true,
                   "rowSectionClassName": "due-date-section",
-                  "width": "85px",
+                  "width": "100px",
                 },
                 Object {
                   "attribute": "actionButton",
@@ -478,9 +478,9 @@ exports[`StudentProfileUnits component should not render the pinned activity mod
                   scope="col"
                   style={
                     Object {
-                      "minWidth": "633px",
+                      "minWidth": "623px",
                       "textAlign": "left",
-                      "width": "633px",
+                      "width": "623px",
                     }
                   }
                 >
@@ -504,9 +504,9 @@ exports[`StudentProfileUnits component should not render the pinned activity mod
                   scope="col"
                   style={
                     Object {
-                      "minWidth": "85px",
+                      "minWidth": "100px",
                       "textAlign": "right",
-                      "width": "85px",
+                      "width": "100px",
                     }
                   }
                 >
@@ -536,9 +536,9 @@ exports[`StudentProfileUnits component should not render the pinned activity mod
                     key="name-41"
                     style={
                       Object {
-                        "minWidth": "633px",
+                        "minWidth": "623px",
                         "textAlign": "left",
-                        "width": "633px",
+                        "width": "623px",
                       }
                     }
                   >
@@ -560,9 +560,9 @@ exports[`StudentProfileUnits component should not render the pinned activity mod
                     key="dueDate-41"
                     style={
                       Object {
-                        "minWidth": "85px",
+                        "minWidth": "100px",
                         "textAlign": "right",
-                        "width": "85px",
+                        "width": "100px",
                       }
                     }
                   />
@@ -593,9 +593,9 @@ exports[`StudentProfileUnits component should not render the pinned activity mod
                     key="name-42"
                     style={
                       Object {
-                        "minWidth": "633px",
+                        "minWidth": "623px",
                         "textAlign": "left",
-                        "width": "633px",
+                        "width": "623px",
                       }
                     }
                   >
@@ -617,9 +617,9 @@ exports[`StudentProfileUnits component should not render the pinned activity mod
                     key="dueDate-42"
                     style={
                       Object {
-                        "minWidth": "85px",
+                        "minWidth": "100px",
                         "textAlign": "right",
-                        "width": "85px",
+                        "width": "100px",
                       }
                     }
                   />
@@ -650,9 +650,9 @@ exports[`StudentProfileUnits component should not render the pinned activity mod
                     key="name-43"
                     style={
                       Object {
-                        "minWidth": "633px",
+                        "minWidth": "623px",
                         "textAlign": "left",
-                        "width": "633px",
+                        "width": "623px",
                       }
                     }
                   >
@@ -674,9 +674,9 @@ exports[`StudentProfileUnits component should not render the pinned activity mod
                     key="dueDate-43"
                     style={
                       Object {
-                        "minWidth": "85px",
+                        "minWidth": "100px",
                         "textAlign": "right",
-                        "width": "85px",
+                        "width": "100px",
                       }
                     }
                   />
@@ -917,7 +917,7 @@ exports[`StudentProfileUnits component should not render the pinned activity mod
                   "name": "Activity",
                   "noTooltip": true,
                   "rowSectionClassName": "name-section",
-                  "width": "633px",
+                  "width": "623px",
                 },
                 Object {
                   "attribute": "tool",
@@ -933,7 +933,7 @@ exports[`StudentProfileUnits component should not render the pinned activity mod
                   "name": "Due date",
                   "noTooltip": true,
                   "rowSectionClassName": "due-date-section",
-                  "width": "85px",
+                  "width": "100px",
                 },
                 Object {
                   "attribute": "actionButton",
@@ -955,7 +955,7 @@ exports[`StudentProfileUnits component should not render the pinned activity mod
                   >
                     Start
                   </a>,
-                  "dueDate": "Feb 29, 2020",
+                  "dueDate": "Feb 29, 5am",
                   "id": 1,
                   "name": "The Travels of Marco Polo",
                   "tool": undefined,
@@ -968,7 +968,7 @@ exports[`StudentProfileUnits component should not render the pinned activity mod
                   >
                     Start
                   </a>,
-                  "dueDate": "Feb 29, 2020",
+                  "dueDate": "Feb 29, 5am",
                   "id": 2,
                   "name": "Christopher Columbus",
                   "tool": undefined,
@@ -981,7 +981,7 @@ exports[`StudentProfileUnits component should not render the pinned activity mod
                   >
                     Start
                   </a>,
-                  "dueDate": "Feb 29, 2020",
+                  "dueDate": "Feb 29, 5am",
                   "id": 10,
                   "name": "A, An, The",
                   "tool": undefined,
@@ -994,7 +994,7 @@ exports[`StudentProfileUnits component should not render the pinned activity mod
                   >
                     Start
                   </a>,
-                  "dueDate": "Feb 29, 2020",
+                  "dueDate": "Feb 29, 5am",
                   "id": 3,
                   "name": "Magellan",
                   "tool": undefined,
@@ -1007,7 +1007,7 @@ exports[`StudentProfileUnits component should not render the pinned activity mod
                   >
                     Start
                   </a>,
-                  "dueDate": "Feb 29, 2020",
+                  "dueDate": "Feb 29, 5am",
                   "id": 4,
                   "name": "Jamestown",
                   "tool": undefined,
@@ -1020,7 +1020,7 @@ exports[`StudentProfileUnits component should not render the pinned activity mod
                   >
                     Start
                   </a>,
-                  "dueDate": "Feb 29, 2020",
+                  "dueDate": "Feb 29, 5am",
                   "id": 6,
                   "name": "Age of Exploration: Sailing with the Stars",
                   "tool": undefined,
@@ -1033,7 +1033,7 @@ exports[`StudentProfileUnits component should not render the pinned activity mod
                   >
                     Start
                   </a>,
-                  "dueDate": "Feb 29, 2020",
+                  "dueDate": "Feb 29, 5am",
                   "id": 7,
                   "name": "Age of Exploration: The Cape of Good Hope",
                   "tool": undefined,
@@ -1046,7 +1046,7 @@ exports[`StudentProfileUnits component should not render the pinned activity mod
                   >
                     Start
                   </a>,
-                  "dueDate": "Feb 29, 2020",
+                  "dueDate": "Feb 29, 5am",
                   "id": 8,
                   "name": "Age of Exploration: Roanoke",
                   "tool": undefined,
@@ -1065,9 +1065,9 @@ exports[`StudentProfileUnits component should not render the pinned activity mod
                   scope="col"
                   style={
                     Object {
-                      "minWidth": "633px",
+                      "minWidth": "623px",
                       "textAlign": "left",
-                      "width": "633px",
+                      "width": "623px",
                     }
                   }
                 >
@@ -1091,9 +1091,9 @@ exports[`StudentProfileUnits component should not render the pinned activity mod
                   scope="col"
                   style={
                     Object {
-                      "minWidth": "85px",
+                      "minWidth": "100px",
                       "textAlign": "left",
-                      "width": "85px",
+                      "width": "100px",
                     }
                   }
                 >
@@ -1123,9 +1123,9 @@ exports[`StudentProfileUnits component should not render the pinned activity mod
                     key="name-1"
                     style={
                       Object {
-                        "minWidth": "633px",
+                        "minWidth": "623px",
                         "textAlign": "left",
-                        "width": "633px",
+                        "width": "623px",
                       }
                     }
                   >
@@ -1147,13 +1147,13 @@ exports[`StudentProfileUnits component should not render the pinned activity mod
                     key="dueDate-1"
                     style={
                       Object {
-                        "minWidth": "85px",
+                        "minWidth": "100px",
                         "textAlign": "left",
-                        "width": "85px",
+                        "width": "100px",
                       }
                     }
                   >
-                    Feb 29, 2020
+                    Feb 29, 5am
                   </td>
                   <td
                     className="data-table-row-section action-button-section"
@@ -1184,9 +1184,9 @@ exports[`StudentProfileUnits component should not render the pinned activity mod
                     key="name-2"
                     style={
                       Object {
-                        "minWidth": "633px",
+                        "minWidth": "623px",
                         "textAlign": "left",
-                        "width": "633px",
+                        "width": "623px",
                       }
                     }
                   >
@@ -1208,13 +1208,13 @@ exports[`StudentProfileUnits component should not render the pinned activity mod
                     key="dueDate-2"
                     style={
                       Object {
-                        "minWidth": "85px",
+                        "minWidth": "100px",
                         "textAlign": "left",
-                        "width": "85px",
+                        "width": "100px",
                       }
                     }
                   >
-                    Feb 29, 2020
+                    Feb 29, 5am
                   </td>
                   <td
                     className="data-table-row-section action-button-section"
@@ -1245,9 +1245,9 @@ exports[`StudentProfileUnits component should not render the pinned activity mod
                     key="name-10"
                     style={
                       Object {
-                        "minWidth": "633px",
+                        "minWidth": "623px",
                         "textAlign": "left",
-                        "width": "633px",
+                        "width": "623px",
                       }
                     }
                   >
@@ -1269,13 +1269,13 @@ exports[`StudentProfileUnits component should not render the pinned activity mod
                     key="dueDate-10"
                     style={
                       Object {
-                        "minWidth": "85px",
+                        "minWidth": "100px",
                         "textAlign": "left",
-                        "width": "85px",
+                        "width": "100px",
                       }
                     }
                   >
-                    Feb 29, 2020
+                    Feb 29, 5am
                   </td>
                   <td
                     className="data-table-row-section action-button-section"
@@ -1306,9 +1306,9 @@ exports[`StudentProfileUnits component should not render the pinned activity mod
                     key="name-3"
                     style={
                       Object {
-                        "minWidth": "633px",
+                        "minWidth": "623px",
                         "textAlign": "left",
-                        "width": "633px",
+                        "width": "623px",
                       }
                     }
                   >
@@ -1330,13 +1330,13 @@ exports[`StudentProfileUnits component should not render the pinned activity mod
                     key="dueDate-3"
                     style={
                       Object {
-                        "minWidth": "85px",
+                        "minWidth": "100px",
                         "textAlign": "left",
-                        "width": "85px",
+                        "width": "100px",
                       }
                     }
                   >
-                    Feb 29, 2020
+                    Feb 29, 5am
                   </td>
                   <td
                     className="data-table-row-section action-button-section"
@@ -1367,9 +1367,9 @@ exports[`StudentProfileUnits component should not render the pinned activity mod
                     key="name-4"
                     style={
                       Object {
-                        "minWidth": "633px",
+                        "minWidth": "623px",
                         "textAlign": "left",
-                        "width": "633px",
+                        "width": "623px",
                       }
                     }
                   >
@@ -1391,13 +1391,13 @@ exports[`StudentProfileUnits component should not render the pinned activity mod
                     key="dueDate-4"
                     style={
                       Object {
-                        "minWidth": "85px",
+                        "minWidth": "100px",
                         "textAlign": "left",
-                        "width": "85px",
+                        "width": "100px",
                       }
                     }
                   >
-                    Feb 29, 2020
+                    Feb 29, 5am
                   </td>
                   <td
                     className="data-table-row-section action-button-section"
@@ -1428,9 +1428,9 @@ exports[`StudentProfileUnits component should not render the pinned activity mod
                     key="name-6"
                     style={
                       Object {
-                        "minWidth": "633px",
+                        "minWidth": "623px",
                         "textAlign": "left",
-                        "width": "633px",
+                        "width": "623px",
                       }
                     }
                   >
@@ -1452,13 +1452,13 @@ exports[`StudentProfileUnits component should not render the pinned activity mod
                     key="dueDate-6"
                     style={
                       Object {
-                        "minWidth": "85px",
+                        "minWidth": "100px",
                         "textAlign": "left",
-                        "width": "85px",
+                        "width": "100px",
                       }
                     }
                   >
-                    Feb 29, 2020
+                    Feb 29, 5am
                   </td>
                   <td
                     className="data-table-row-section action-button-section"
@@ -1489,9 +1489,9 @@ exports[`StudentProfileUnits component should not render the pinned activity mod
                     key="name-7"
                     style={
                       Object {
-                        "minWidth": "633px",
+                        "minWidth": "623px",
                         "textAlign": "left",
-                        "width": "633px",
+                        "width": "623px",
                       }
                     }
                   >
@@ -1513,13 +1513,13 @@ exports[`StudentProfileUnits component should not render the pinned activity mod
                     key="dueDate-7"
                     style={
                       Object {
-                        "minWidth": "85px",
+                        "minWidth": "100px",
                         "textAlign": "left",
-                        "width": "85px",
+                        "width": "100px",
                       }
                     }
                   >
-                    Feb 29, 2020
+                    Feb 29, 5am
                   </td>
                   <td
                     className="data-table-row-section action-button-section"
@@ -1550,9 +1550,9 @@ exports[`StudentProfileUnits component should not render the pinned activity mod
                     key="name-8"
                     style={
                       Object {
-                        "minWidth": "633px",
+                        "minWidth": "623px",
                         "textAlign": "left",
-                        "width": "633px",
+                        "width": "623px",
                       }
                     }
                   >
@@ -1574,13 +1574,13 @@ exports[`StudentProfileUnits component should not render the pinned activity mod
                     key="dueDate-8"
                     style={
                       Object {
-                        "minWidth": "85px",
+                        "minWidth": "100px",
                         "textAlign": "left",
-                        "width": "85px",
+                        "width": "100px",
                       }
                     }
                   >
-                    Feb 29, 2020
+                    Feb 29, 5am
                   </td>
                   <td
                     className="data-table-row-section action-button-section"
@@ -2013,7 +2013,7 @@ exports[`StudentProfileUnits component should not render the pinned activity mod
                   "name": "Activity",
                   "noTooltip": true,
                   "rowSectionClassName": "name-section",
-                  "width": "633px",
+                  "width": "623px",
                 },
                 Object {
                   "attribute": "tool",
@@ -2029,7 +2029,7 @@ exports[`StudentProfileUnits component should not render the pinned activity mod
                   "name": "Due date",
                   "noTooltip": true,
                   "rowSectionClassName": "due-date-section",
-                  "width": "85px",
+                  "width": "100px",
                 },
                 Object {
                   "attribute": "actionButton",
@@ -2090,9 +2090,9 @@ exports[`StudentProfileUnits component should not render the pinned activity mod
                   scope="col"
                   style={
                     Object {
-                      "minWidth": "633px",
+                      "minWidth": "623px",
                       "textAlign": "left",
-                      "width": "633px",
+                      "width": "623px",
                     }
                   }
                 >
@@ -2116,9 +2116,9 @@ exports[`StudentProfileUnits component should not render the pinned activity mod
                   scope="col"
                   style={
                     Object {
-                      "minWidth": "85px",
+                      "minWidth": "100px",
                       "textAlign": "right",
-                      "width": "85px",
+                      "width": "100px",
                     }
                   }
                 >
@@ -2148,9 +2148,9 @@ exports[`StudentProfileUnits component should not render the pinned activity mod
                     key="name-41"
                     style={
                       Object {
-                        "minWidth": "633px",
+                        "minWidth": "623px",
                         "textAlign": "left",
-                        "width": "633px",
+                        "width": "623px",
                       }
                     }
                   >
@@ -2172,9 +2172,9 @@ exports[`StudentProfileUnits component should not render the pinned activity mod
                     key="dueDate-41"
                     style={
                       Object {
-                        "minWidth": "85px",
+                        "minWidth": "100px",
                         "textAlign": "right",
-                        "width": "85px",
+                        "width": "100px",
                       }
                     }
                   />
@@ -2205,9 +2205,9 @@ exports[`StudentProfileUnits component should not render the pinned activity mod
                     key="name-42"
                     style={
                       Object {
-                        "minWidth": "633px",
+                        "minWidth": "623px",
                         "textAlign": "left",
-                        "width": "633px",
+                        "width": "623px",
                       }
                     }
                   >
@@ -2229,9 +2229,9 @@ exports[`StudentProfileUnits component should not render the pinned activity mod
                     key="dueDate-42"
                     style={
                       Object {
-                        "minWidth": "85px",
+                        "minWidth": "100px",
                         "textAlign": "right",
-                        "width": "85px",
+                        "width": "100px",
                       }
                     }
                   />
@@ -2262,9 +2262,9 @@ exports[`StudentProfileUnits component should not render the pinned activity mod
                     key="name-43"
                     style={
                       Object {
-                        "minWidth": "633px",
+                        "minWidth": "623px",
                         "textAlign": "left",
-                        "width": "633px",
+                        "width": "623px",
                       }
                     }
                   >
@@ -2286,9 +2286,9 @@ exports[`StudentProfileUnits component should not render the pinned activity mod
                     key="dueDate-43"
                     style={
                       Object {
-                        "minWidth": "85px",
+                        "minWidth": "100px",
                         "textAlign": "right",
-                        "width": "85px",
+                        "width": "100px",
                       }
                     }
                   />
@@ -2529,7 +2529,7 @@ exports[`StudentProfileUnits component should not render the pinned activity mod
                   "name": "Activity",
                   "noTooltip": true,
                   "rowSectionClassName": "name-section",
-                  "width": "633px",
+                  "width": "623px",
                 },
                 Object {
                   "attribute": "tool",
@@ -2545,7 +2545,7 @@ exports[`StudentProfileUnits component should not render the pinned activity mod
                   "name": "Due date",
                   "noTooltip": true,
                   "rowSectionClassName": "due-date-section",
-                  "width": "85px",
+                  "width": "100px",
                 },
                 Object {
                   "attribute": "actionButton",
@@ -2567,7 +2567,7 @@ exports[`StudentProfileUnits component should not render the pinned activity mod
                   >
                     Start
                   </a>,
-                  "dueDate": "Feb 29, 2020",
+                  "dueDate": "Feb 29, 5am",
                   "id": 1,
                   "name": "The Travels of Marco Polo",
                   "tool": undefined,
@@ -2580,7 +2580,7 @@ exports[`StudentProfileUnits component should not render the pinned activity mod
                   >
                     Start
                   </a>,
-                  "dueDate": "Feb 29, 2020",
+                  "dueDate": "Feb 29, 5am",
                   "id": 2,
                   "name": "Christopher Columbus",
                   "tool": undefined,
@@ -2593,7 +2593,7 @@ exports[`StudentProfileUnits component should not render the pinned activity mod
                   >
                     Start
                   </a>,
-                  "dueDate": "Feb 29, 2020",
+                  "dueDate": "Feb 29, 5am",
                   "id": 10,
                   "name": "A, An, The",
                   "tool": undefined,
@@ -2606,7 +2606,7 @@ exports[`StudentProfileUnits component should not render the pinned activity mod
                   >
                     Start
                   </a>,
-                  "dueDate": "Feb 29, 2020",
+                  "dueDate": "Feb 29, 5am",
                   "id": 3,
                   "name": "Magellan",
                   "tool": undefined,
@@ -2619,7 +2619,7 @@ exports[`StudentProfileUnits component should not render the pinned activity mod
                   >
                     Start
                   </a>,
-                  "dueDate": "Feb 29, 2020",
+                  "dueDate": "Feb 29, 5am",
                   "id": 4,
                   "name": "Jamestown",
                   "tool": undefined,
@@ -2632,7 +2632,7 @@ exports[`StudentProfileUnits component should not render the pinned activity mod
                   >
                     Start
                   </a>,
-                  "dueDate": "Feb 29, 2020",
+                  "dueDate": "Feb 29, 5am",
                   "id": 6,
                   "name": "Age of Exploration: Sailing with the Stars",
                   "tool": undefined,
@@ -2645,7 +2645,7 @@ exports[`StudentProfileUnits component should not render the pinned activity mod
                   >
                     Start
                   </a>,
-                  "dueDate": "Feb 29, 2020",
+                  "dueDate": "Feb 29, 5am",
                   "id": 7,
                   "name": "Age of Exploration: The Cape of Good Hope",
                   "tool": undefined,
@@ -2658,7 +2658,7 @@ exports[`StudentProfileUnits component should not render the pinned activity mod
                   >
                     Start
                   </a>,
-                  "dueDate": "Feb 29, 2020",
+                  "dueDate": "Feb 29, 5am",
                   "id": 8,
                   "name": "Age of Exploration: Roanoke",
                   "tool": undefined,
@@ -2677,9 +2677,9 @@ exports[`StudentProfileUnits component should not render the pinned activity mod
                   scope="col"
                   style={
                     Object {
-                      "minWidth": "633px",
+                      "minWidth": "623px",
                       "textAlign": "left",
-                      "width": "633px",
+                      "width": "623px",
                     }
                   }
                 >
@@ -2703,9 +2703,9 @@ exports[`StudentProfileUnits component should not render the pinned activity mod
                   scope="col"
                   style={
                     Object {
-                      "minWidth": "85px",
+                      "minWidth": "100px",
                       "textAlign": "left",
-                      "width": "85px",
+                      "width": "100px",
                     }
                   }
                 >
@@ -2735,9 +2735,9 @@ exports[`StudentProfileUnits component should not render the pinned activity mod
                     key="name-1"
                     style={
                       Object {
-                        "minWidth": "633px",
+                        "minWidth": "623px",
                         "textAlign": "left",
-                        "width": "633px",
+                        "width": "623px",
                       }
                     }
                   >
@@ -2759,13 +2759,13 @@ exports[`StudentProfileUnits component should not render the pinned activity mod
                     key="dueDate-1"
                     style={
                       Object {
-                        "minWidth": "85px",
+                        "minWidth": "100px",
                         "textAlign": "left",
-                        "width": "85px",
+                        "width": "100px",
                       }
                     }
                   >
-                    Feb 29, 2020
+                    Feb 29, 5am
                   </td>
                   <td
                     className="data-table-row-section action-button-section"
@@ -2796,9 +2796,9 @@ exports[`StudentProfileUnits component should not render the pinned activity mod
                     key="name-2"
                     style={
                       Object {
-                        "minWidth": "633px",
+                        "minWidth": "623px",
                         "textAlign": "left",
-                        "width": "633px",
+                        "width": "623px",
                       }
                     }
                   >
@@ -2820,13 +2820,13 @@ exports[`StudentProfileUnits component should not render the pinned activity mod
                     key="dueDate-2"
                     style={
                       Object {
-                        "minWidth": "85px",
+                        "minWidth": "100px",
                         "textAlign": "left",
-                        "width": "85px",
+                        "width": "100px",
                       }
                     }
                   >
-                    Feb 29, 2020
+                    Feb 29, 5am
                   </td>
                   <td
                     className="data-table-row-section action-button-section"
@@ -2857,9 +2857,9 @@ exports[`StudentProfileUnits component should not render the pinned activity mod
                     key="name-10"
                     style={
                       Object {
-                        "minWidth": "633px",
+                        "minWidth": "623px",
                         "textAlign": "left",
-                        "width": "633px",
+                        "width": "623px",
                       }
                     }
                   >
@@ -2881,13 +2881,13 @@ exports[`StudentProfileUnits component should not render the pinned activity mod
                     key="dueDate-10"
                     style={
                       Object {
-                        "minWidth": "85px",
+                        "minWidth": "100px",
                         "textAlign": "left",
-                        "width": "85px",
+                        "width": "100px",
                       }
                     }
                   >
-                    Feb 29, 2020
+                    Feb 29, 5am
                   </td>
                   <td
                     className="data-table-row-section action-button-section"
@@ -2918,9 +2918,9 @@ exports[`StudentProfileUnits component should not render the pinned activity mod
                     key="name-3"
                     style={
                       Object {
-                        "minWidth": "633px",
+                        "minWidth": "623px",
                         "textAlign": "left",
-                        "width": "633px",
+                        "width": "623px",
                       }
                     }
                   >
@@ -2942,13 +2942,13 @@ exports[`StudentProfileUnits component should not render the pinned activity mod
                     key="dueDate-3"
                     style={
                       Object {
-                        "minWidth": "85px",
+                        "minWidth": "100px",
                         "textAlign": "left",
-                        "width": "85px",
+                        "width": "100px",
                       }
                     }
                   >
-                    Feb 29, 2020
+                    Feb 29, 5am
                   </td>
                   <td
                     className="data-table-row-section action-button-section"
@@ -2979,9 +2979,9 @@ exports[`StudentProfileUnits component should not render the pinned activity mod
                     key="name-4"
                     style={
                       Object {
-                        "minWidth": "633px",
+                        "minWidth": "623px",
                         "textAlign": "left",
-                        "width": "633px",
+                        "width": "623px",
                       }
                     }
                   >
@@ -3003,13 +3003,13 @@ exports[`StudentProfileUnits component should not render the pinned activity mod
                     key="dueDate-4"
                     style={
                       Object {
-                        "minWidth": "85px",
+                        "minWidth": "100px",
                         "textAlign": "left",
-                        "width": "85px",
+                        "width": "100px",
                       }
                     }
                   >
-                    Feb 29, 2020
+                    Feb 29, 5am
                   </td>
                   <td
                     className="data-table-row-section action-button-section"
@@ -3040,9 +3040,9 @@ exports[`StudentProfileUnits component should not render the pinned activity mod
                     key="name-6"
                     style={
                       Object {
-                        "minWidth": "633px",
+                        "minWidth": "623px",
                         "textAlign": "left",
-                        "width": "633px",
+                        "width": "623px",
                       }
                     }
                   >
@@ -3064,13 +3064,13 @@ exports[`StudentProfileUnits component should not render the pinned activity mod
                     key="dueDate-6"
                     style={
                       Object {
-                        "minWidth": "85px",
+                        "minWidth": "100px",
                         "textAlign": "left",
-                        "width": "85px",
+                        "width": "100px",
                       }
                     }
                   >
-                    Feb 29, 2020
+                    Feb 29, 5am
                   </td>
                   <td
                     className="data-table-row-section action-button-section"
@@ -3101,9 +3101,9 @@ exports[`StudentProfileUnits component should not render the pinned activity mod
                     key="name-7"
                     style={
                       Object {
-                        "minWidth": "633px",
+                        "minWidth": "623px",
                         "textAlign": "left",
-                        "width": "633px",
+                        "width": "623px",
                       }
                     }
                   >
@@ -3125,13 +3125,13 @@ exports[`StudentProfileUnits component should not render the pinned activity mod
                     key="dueDate-7"
                     style={
                       Object {
-                        "minWidth": "85px",
+                        "minWidth": "100px",
                         "textAlign": "left",
-                        "width": "85px",
+                        "width": "100px",
                       }
                     }
                   >
-                    Feb 29, 2020
+                    Feb 29, 5am
                   </td>
                   <td
                     className="data-table-row-section action-button-section"
@@ -3162,9 +3162,9 @@ exports[`StudentProfileUnits component should not render the pinned activity mod
                     key="name-8"
                     style={
                       Object {
-                        "minWidth": "633px",
+                        "minWidth": "623px",
                         "textAlign": "left",
-                        "width": "633px",
+                        "width": "623px",
                       }
                     }
                   >
@@ -3186,13 +3186,13 @@ exports[`StudentProfileUnits component should not render the pinned activity mod
                     key="dueDate-8"
                     style={
                       Object {
-                        "minWidth": "85px",
+                        "minWidth": "100px",
                         "textAlign": "left",
-                        "width": "85px",
+                        "width": "100px",
                       }
                     }
                   >
-                    Feb 29, 2020
+                    Feb 29, 5am
                   </td>
                   <td
                     className="data-table-row-section action-button-section"
@@ -3698,7 +3698,7 @@ exports[`StudentProfileUnits component should render only completed activities i
                   "headerClassName": "name-section",
                   "name": "Activity",
                   "rowSectionClassName": "name-section",
-                  "width": "465px",
+                  "width": "450px",
                 },
                 Object {
                   "attribute": "score",
@@ -3722,7 +3722,7 @@ exports[`StudentProfileUnits component should render only completed activities i
                   "name": "Due date",
                   "noTooltip": true,
                   "rowSectionClassName": "completed-due-date-section",
-                  "width": "85px",
+                  "width": "100px",
                 },
                 Object {
                   "attribute": "actionButton",
@@ -3744,7 +3744,7 @@ exports[`StudentProfileUnits component should render only completed activities i
                   >
                     Replay
                   </a>,
-                  "dueDate": "Feb 29, 2020",
+                  "dueDate": "Feb 29, 5am",
                   "id": 9,
                   "name": "A, An",
                   "score": <div
@@ -3767,7 +3767,7 @@ exports[`StudentProfileUnits component should render only completed activities i
                   >
                     Replay
                   </a>,
-                  "dueDate": "Feb 29, 2020",
+                  "dueDate": "Feb 29, 5am",
                   "id": 5,
                   "name": "Age of Exploration: Spices",
                   "score": <div
@@ -3796,9 +3796,9 @@ exports[`StudentProfileUnits component should render only completed activities i
                   scope="col"
                   style={
                     Object {
-                      "minWidth": "465px",
+                      "minWidth": "450px",
                       "textAlign": "left",
-                      "width": "465px",
+                      "width": "450px",
                     }
                   }
                 >
@@ -3835,9 +3835,9 @@ exports[`StudentProfileUnits component should render only completed activities i
                   scope="col"
                   style={
                     Object {
-                      "minWidth": "85px",
+                      "minWidth": "100px",
                       "textAlign": "left",
-                      "width": "85px",
+                      "width": "100px",
                     }
                   }
                 >
@@ -3867,9 +3867,9 @@ exports[`StudentProfileUnits component should render only completed activities i
                     key="name-9"
                     style={
                       Object {
-                        "minWidth": "465px",
+                        "minWidth": "450px",
                         "textAlign": "left",
-                        "width": "465px",
+                        "width": "450px",
                       }
                     }
                   >
@@ -3913,13 +3913,13 @@ exports[`StudentProfileUnits component should render only completed activities i
                     key="dueDate-9"
                     style={
                       Object {
-                        "minWidth": "85px",
+                        "minWidth": "100px",
                         "textAlign": "left",
-                        "width": "85px",
+                        "width": "100px",
                       }
                     }
                   >
-                    Feb 29, 2020
+                    Feb 29, 5am
                   </td>
                   <td
                     className="data-table-row-section action-button-section"
@@ -3950,9 +3950,9 @@ exports[`StudentProfileUnits component should render only completed activities i
                     key="name-5"
                     style={
                       Object {
-                        "minWidth": "465px",
+                        "minWidth": "450px",
                         "textAlign": "left",
-                        "width": "465px",
+                        "width": "450px",
                       }
                     }
                   >
@@ -3996,13 +3996,13 @@ exports[`StudentProfileUnits component should render only completed activities i
                     key="dueDate-5"
                     style={
                       Object {
-                        "minWidth": "85px",
+                        "minWidth": "100px",
                         "textAlign": "left",
-                        "width": "85px",
+                        "width": "100px",
                       }
                     }
                   >
-                    Feb 29, 2020
+                    Feb 29, 5am
                   </td>
                   <td
                     className="data-table-row-section action-button-section"
@@ -4553,7 +4553,7 @@ exports[`StudentProfileUnits component should render only incomplete activities 
                   "name": "Activity",
                   "noTooltip": true,
                   "rowSectionClassName": "name-section",
-                  "width": "633px",
+                  "width": "623px",
                 },
                 Object {
                   "attribute": "tool",
@@ -4569,7 +4569,7 @@ exports[`StudentProfileUnits component should render only incomplete activities 
                   "name": "Due date",
                   "noTooltip": true,
                   "rowSectionClassName": "due-date-section",
-                  "width": "85px",
+                  "width": "100px",
                 },
                 Object {
                   "attribute": "actionButton",
@@ -4643,9 +4643,9 @@ exports[`StudentProfileUnits component should render only incomplete activities 
                   scope="col"
                   style={
                     Object {
-                      "minWidth": "633px",
+                      "minWidth": "623px",
                       "textAlign": "left",
-                      "width": "633px",
+                      "width": "623px",
                     }
                   }
                 >
@@ -4669,9 +4669,9 @@ exports[`StudentProfileUnits component should render only incomplete activities 
                   scope="col"
                   style={
                     Object {
-                      "minWidth": "85px",
+                      "minWidth": "100px",
                       "textAlign": "right",
-                      "width": "85px",
+                      "width": "100px",
                     }
                   }
                 >
@@ -4701,9 +4701,9 @@ exports[`StudentProfileUnits component should render only incomplete activities 
                     key="name-40"
                     style={
                       Object {
-                        "minWidth": "633px",
+                        "minWidth": "623px",
                         "textAlign": "left",
-                        "width": "633px",
+                        "width": "623px",
                       }
                     }
                   >
@@ -4725,9 +4725,9 @@ exports[`StudentProfileUnits component should render only incomplete activities 
                     key="dueDate-40"
                     style={
                       Object {
-                        "minWidth": "85px",
+                        "minWidth": "100px",
                         "textAlign": "right",
-                        "width": "85px",
+                        "width": "100px",
                       }
                     }
                   />
@@ -4760,9 +4760,9 @@ exports[`StudentProfileUnits component should render only incomplete activities 
                     key="name-41"
                     style={
                       Object {
-                        "minWidth": "633px",
+                        "minWidth": "623px",
                         "textAlign": "left",
-                        "width": "633px",
+                        "width": "623px",
                       }
                     }
                   >
@@ -4784,9 +4784,9 @@ exports[`StudentProfileUnits component should render only incomplete activities 
                     key="dueDate-41"
                     style={
                       Object {
-                        "minWidth": "85px",
+                        "minWidth": "100px",
                         "textAlign": "right",
-                        "width": "85px",
+                        "width": "100px",
                       }
                     }
                   />
@@ -4817,9 +4817,9 @@ exports[`StudentProfileUnits component should render only incomplete activities 
                     key="name-42"
                     style={
                       Object {
-                        "minWidth": "633px",
+                        "minWidth": "623px",
                         "textAlign": "left",
-                        "width": "633px",
+                        "width": "623px",
                       }
                     }
                   >
@@ -4841,9 +4841,9 @@ exports[`StudentProfileUnits component should render only incomplete activities 
                     key="dueDate-42"
                     style={
                       Object {
-                        "minWidth": "85px",
+                        "minWidth": "100px",
                         "textAlign": "right",
-                        "width": "85px",
+                        "width": "100px",
                       }
                     }
                   />
@@ -4874,9 +4874,9 @@ exports[`StudentProfileUnits component should render only incomplete activities 
                     key="name-43"
                     style={
                       Object {
-                        "minWidth": "633px",
+                        "minWidth": "623px",
                         "textAlign": "left",
-                        "width": "633px",
+                        "width": "623px",
                       }
                     }
                   >
@@ -4898,9 +4898,9 @@ exports[`StudentProfileUnits component should render only incomplete activities 
                     key="dueDate-43"
                     style={
                       Object {
-                        "minWidth": "85px",
+                        "minWidth": "100px",
                         "textAlign": "right",
-                        "width": "85px",
+                        "width": "100px",
                       }
                     }
                   />
@@ -5141,7 +5141,7 @@ exports[`StudentProfileUnits component should render only incomplete activities 
                   "name": "Activity",
                   "noTooltip": true,
                   "rowSectionClassName": "name-section",
-                  "width": "633px",
+                  "width": "623px",
                 },
                 Object {
                   "attribute": "tool",
@@ -5157,7 +5157,7 @@ exports[`StudentProfileUnits component should render only incomplete activities 
                   "name": "Due date",
                   "noTooltip": true,
                   "rowSectionClassName": "due-date-section",
-                  "width": "85px",
+                  "width": "100px",
                 },
                 Object {
                   "attribute": "actionButton",
@@ -5179,7 +5179,7 @@ exports[`StudentProfileUnits component should render only incomplete activities 
                   >
                     Start
                   </a>,
-                  "dueDate": "Feb 29, 2020",
+                  "dueDate": "Feb 29, 5am",
                   "id": 1,
                   "name": "The Travels of Marco Polo",
                   "tool": undefined,
@@ -5192,7 +5192,7 @@ exports[`StudentProfileUnits component should render only incomplete activities 
                   >
                     Start
                   </a>,
-                  "dueDate": "Feb 29, 2020",
+                  "dueDate": "Feb 29, 5am",
                   "id": 2,
                   "name": "Christopher Columbus",
                   "tool": undefined,
@@ -5205,7 +5205,7 @@ exports[`StudentProfileUnits component should render only incomplete activities 
                   >
                     Start
                   </a>,
-                  "dueDate": "Feb 29, 2020",
+                  "dueDate": "Feb 29, 5am",
                   "id": 10,
                   "name": "A, An, The",
                   "tool": undefined,
@@ -5218,7 +5218,7 @@ exports[`StudentProfileUnits component should render only incomplete activities 
                   >
                     Start
                   </a>,
-                  "dueDate": "Feb 29, 2020",
+                  "dueDate": "Feb 29, 5am",
                   "id": 3,
                   "name": "Magellan",
                   "tool": undefined,
@@ -5231,7 +5231,7 @@ exports[`StudentProfileUnits component should render only incomplete activities 
                   >
                     Start
                   </a>,
-                  "dueDate": "Feb 29, 2020",
+                  "dueDate": "Feb 29, 5am",
                   "id": 4,
                   "name": "Jamestown",
                   "tool": undefined,
@@ -5244,7 +5244,7 @@ exports[`StudentProfileUnits component should render only incomplete activities 
                   >
                     Start
                   </a>,
-                  "dueDate": "Feb 29, 2020",
+                  "dueDate": "Feb 29, 5am",
                   "id": 6,
                   "name": "Age of Exploration: Sailing with the Stars",
                   "tool": undefined,
@@ -5257,7 +5257,7 @@ exports[`StudentProfileUnits component should render only incomplete activities 
                   >
                     Start
                   </a>,
-                  "dueDate": "Feb 29, 2020",
+                  "dueDate": "Feb 29, 5am",
                   "id": 7,
                   "name": "Age of Exploration: The Cape of Good Hope",
                   "tool": undefined,
@@ -5270,7 +5270,7 @@ exports[`StudentProfileUnits component should render only incomplete activities 
                   >
                     Start
                   </a>,
-                  "dueDate": "Feb 29, 2020",
+                  "dueDate": "Feb 29, 5am",
                   "id": 8,
                   "name": "Age of Exploration: Roanoke",
                   "tool": undefined,
@@ -5289,9 +5289,9 @@ exports[`StudentProfileUnits component should render only incomplete activities 
                   scope="col"
                   style={
                     Object {
-                      "minWidth": "633px",
+                      "minWidth": "623px",
                       "textAlign": "left",
-                      "width": "633px",
+                      "width": "623px",
                     }
                   }
                 >
@@ -5315,9 +5315,9 @@ exports[`StudentProfileUnits component should render only incomplete activities 
                   scope="col"
                   style={
                     Object {
-                      "minWidth": "85px",
+                      "minWidth": "100px",
                       "textAlign": "left",
-                      "width": "85px",
+                      "width": "100px",
                     }
                   }
                 >
@@ -5347,9 +5347,9 @@ exports[`StudentProfileUnits component should render only incomplete activities 
                     key="name-1"
                     style={
                       Object {
-                        "minWidth": "633px",
+                        "minWidth": "623px",
                         "textAlign": "left",
-                        "width": "633px",
+                        "width": "623px",
                       }
                     }
                   >
@@ -5371,13 +5371,13 @@ exports[`StudentProfileUnits component should render only incomplete activities 
                     key="dueDate-1"
                     style={
                       Object {
-                        "minWidth": "85px",
+                        "minWidth": "100px",
                         "textAlign": "left",
-                        "width": "85px",
+                        "width": "100px",
                       }
                     }
                   >
-                    Feb 29, 2020
+                    Feb 29, 5am
                   </td>
                   <td
                     className="data-table-row-section action-button-section"
@@ -5408,9 +5408,9 @@ exports[`StudentProfileUnits component should render only incomplete activities 
                     key="name-2"
                     style={
                       Object {
-                        "minWidth": "633px",
+                        "minWidth": "623px",
                         "textAlign": "left",
-                        "width": "633px",
+                        "width": "623px",
                       }
                     }
                   >
@@ -5432,13 +5432,13 @@ exports[`StudentProfileUnits component should render only incomplete activities 
                     key="dueDate-2"
                     style={
                       Object {
-                        "minWidth": "85px",
+                        "minWidth": "100px",
                         "textAlign": "left",
-                        "width": "85px",
+                        "width": "100px",
                       }
                     }
                   >
-                    Feb 29, 2020
+                    Feb 29, 5am
                   </td>
                   <td
                     className="data-table-row-section action-button-section"
@@ -5469,9 +5469,9 @@ exports[`StudentProfileUnits component should render only incomplete activities 
                     key="name-10"
                     style={
                       Object {
-                        "minWidth": "633px",
+                        "minWidth": "623px",
                         "textAlign": "left",
-                        "width": "633px",
+                        "width": "623px",
                       }
                     }
                   >
@@ -5493,13 +5493,13 @@ exports[`StudentProfileUnits component should render only incomplete activities 
                     key="dueDate-10"
                     style={
                       Object {
-                        "minWidth": "85px",
+                        "minWidth": "100px",
                         "textAlign": "left",
-                        "width": "85px",
+                        "width": "100px",
                       }
                     }
                   >
-                    Feb 29, 2020
+                    Feb 29, 5am
                   </td>
                   <td
                     className="data-table-row-section action-button-section"
@@ -5530,9 +5530,9 @@ exports[`StudentProfileUnits component should render only incomplete activities 
                     key="name-3"
                     style={
                       Object {
-                        "minWidth": "633px",
+                        "minWidth": "623px",
                         "textAlign": "left",
-                        "width": "633px",
+                        "width": "623px",
                       }
                     }
                   >
@@ -5554,13 +5554,13 @@ exports[`StudentProfileUnits component should render only incomplete activities 
                     key="dueDate-3"
                     style={
                       Object {
-                        "minWidth": "85px",
+                        "minWidth": "100px",
                         "textAlign": "left",
-                        "width": "85px",
+                        "width": "100px",
                       }
                     }
                   >
-                    Feb 29, 2020
+                    Feb 29, 5am
                   </td>
                   <td
                     className="data-table-row-section action-button-section"
@@ -5591,9 +5591,9 @@ exports[`StudentProfileUnits component should render only incomplete activities 
                     key="name-4"
                     style={
                       Object {
-                        "minWidth": "633px",
+                        "minWidth": "623px",
                         "textAlign": "left",
-                        "width": "633px",
+                        "width": "623px",
                       }
                     }
                   >
@@ -5615,13 +5615,13 @@ exports[`StudentProfileUnits component should render only incomplete activities 
                     key="dueDate-4"
                     style={
                       Object {
-                        "minWidth": "85px",
+                        "minWidth": "100px",
                         "textAlign": "left",
-                        "width": "85px",
+                        "width": "100px",
                       }
                     }
                   >
-                    Feb 29, 2020
+                    Feb 29, 5am
                   </td>
                   <td
                     className="data-table-row-section action-button-section"
@@ -5652,9 +5652,9 @@ exports[`StudentProfileUnits component should render only incomplete activities 
                     key="name-6"
                     style={
                       Object {
-                        "minWidth": "633px",
+                        "minWidth": "623px",
                         "textAlign": "left",
-                        "width": "633px",
+                        "width": "623px",
                       }
                     }
                   >
@@ -5676,13 +5676,13 @@ exports[`StudentProfileUnits component should render only incomplete activities 
                     key="dueDate-6"
                     style={
                       Object {
-                        "minWidth": "85px",
+                        "minWidth": "100px",
                         "textAlign": "left",
-                        "width": "85px",
+                        "width": "100px",
                       }
                     }
                   >
-                    Feb 29, 2020
+                    Feb 29, 5am
                   </td>
                   <td
                     className="data-table-row-section action-button-section"
@@ -5713,9 +5713,9 @@ exports[`StudentProfileUnits component should render only incomplete activities 
                     key="name-7"
                     style={
                       Object {
-                        "minWidth": "633px",
+                        "minWidth": "623px",
                         "textAlign": "left",
-                        "width": "633px",
+                        "width": "623px",
                       }
                     }
                   >
@@ -5737,13 +5737,13 @@ exports[`StudentProfileUnits component should render only incomplete activities 
                     key="dueDate-7"
                     style={
                       Object {
-                        "minWidth": "85px",
+                        "minWidth": "100px",
                         "textAlign": "left",
-                        "width": "85px",
+                        "width": "100px",
                       }
                     }
                   >
-                    Feb 29, 2020
+                    Feb 29, 5am
                   </td>
                   <td
                     className="data-table-row-section action-button-section"
@@ -5774,9 +5774,9 @@ exports[`StudentProfileUnits component should render only incomplete activities 
                     key="name-8"
                     style={
                       Object {
-                        "minWidth": "633px",
+                        "minWidth": "623px",
                         "textAlign": "left",
-                        "width": "633px",
+                        "width": "623px",
                       }
                     }
                   >
@@ -5798,13 +5798,13 @@ exports[`StudentProfileUnits component should render only incomplete activities 
                     key="dueDate-8"
                     style={
                       Object {
-                        "minWidth": "85px",
+                        "minWidth": "100px",
                         "textAlign": "left",
-                        "width": "85px",
+                        "width": "100px",
                       }
                     }
                   >
-                    Feb 29, 2020
+                    Feb 29, 5am
                   </td>
                   <td
                     className="data-table-row-section action-button-section"
@@ -6355,7 +6355,7 @@ exports[`StudentProfileUnits component should render the pinned activity bar if 
                   "name": "Activity",
                   "noTooltip": true,
                   "rowSectionClassName": "name-section",
-                  "width": "633px",
+                  "width": "623px",
                 },
                 Object {
                   "attribute": "tool",
@@ -6371,7 +6371,7 @@ exports[`StudentProfileUnits component should render the pinned activity bar if 
                   "name": "Due date",
                   "noTooltip": true,
                   "rowSectionClassName": "due-date-section",
-                  "width": "85px",
+                  "width": "100px",
                 },
                 Object {
                   "attribute": "actionButton",
@@ -6445,9 +6445,9 @@ exports[`StudentProfileUnits component should render the pinned activity bar if 
                   scope="col"
                   style={
                     Object {
-                      "minWidth": "633px",
+                      "minWidth": "623px",
                       "textAlign": "left",
-                      "width": "633px",
+                      "width": "623px",
                     }
                   }
                 >
@@ -6471,9 +6471,9 @@ exports[`StudentProfileUnits component should render the pinned activity bar if 
                   scope="col"
                   style={
                     Object {
-                      "minWidth": "85px",
+                      "minWidth": "100px",
                       "textAlign": "right",
-                      "width": "85px",
+                      "width": "100px",
                     }
                   }
                 >
@@ -6503,9 +6503,9 @@ exports[`StudentProfileUnits component should render the pinned activity bar if 
                     key="name-40"
                     style={
                       Object {
-                        "minWidth": "633px",
+                        "minWidth": "623px",
                         "textAlign": "left",
-                        "width": "633px",
+                        "width": "623px",
                       }
                     }
                   >
@@ -6527,9 +6527,9 @@ exports[`StudentProfileUnits component should render the pinned activity bar if 
                     key="dueDate-40"
                     style={
                       Object {
-                        "minWidth": "85px",
+                        "minWidth": "100px",
                         "textAlign": "right",
-                        "width": "85px",
+                        "width": "100px",
                       }
                     }
                   />
@@ -6562,9 +6562,9 @@ exports[`StudentProfileUnits component should render the pinned activity bar if 
                     key="name-41"
                     style={
                       Object {
-                        "minWidth": "633px",
+                        "minWidth": "623px",
                         "textAlign": "left",
-                        "width": "633px",
+                        "width": "623px",
                       }
                     }
                   >
@@ -6586,9 +6586,9 @@ exports[`StudentProfileUnits component should render the pinned activity bar if 
                     key="dueDate-41"
                     style={
                       Object {
-                        "minWidth": "85px",
+                        "minWidth": "100px",
                         "textAlign": "right",
-                        "width": "85px",
+                        "width": "100px",
                       }
                     }
                   />
@@ -6619,9 +6619,9 @@ exports[`StudentProfileUnits component should render the pinned activity bar if 
                     key="name-42"
                     style={
                       Object {
-                        "minWidth": "633px",
+                        "minWidth": "623px",
                         "textAlign": "left",
-                        "width": "633px",
+                        "width": "623px",
                       }
                     }
                   >
@@ -6643,9 +6643,9 @@ exports[`StudentProfileUnits component should render the pinned activity bar if 
                     key="dueDate-42"
                     style={
                       Object {
-                        "minWidth": "85px",
+                        "minWidth": "100px",
                         "textAlign": "right",
-                        "width": "85px",
+                        "width": "100px",
                       }
                     }
                   />
@@ -6676,9 +6676,9 @@ exports[`StudentProfileUnits component should render the pinned activity bar if 
                     key="name-43"
                     style={
                       Object {
-                        "minWidth": "633px",
+                        "minWidth": "623px",
                         "textAlign": "left",
-                        "width": "633px",
+                        "width": "623px",
                       }
                     }
                   >
@@ -6700,9 +6700,9 @@ exports[`StudentProfileUnits component should render the pinned activity bar if 
                     key="dueDate-43"
                     style={
                       Object {
-                        "minWidth": "85px",
+                        "minWidth": "100px",
                         "textAlign": "right",
-                        "width": "85px",
+                        "width": "100px",
                       }
                     }
                   />
@@ -6943,7 +6943,7 @@ exports[`StudentProfileUnits component should render the pinned activity bar if 
                   "name": "Activity",
                   "noTooltip": true,
                   "rowSectionClassName": "name-section",
-                  "width": "633px",
+                  "width": "623px",
                 },
                 Object {
                   "attribute": "tool",
@@ -6959,7 +6959,7 @@ exports[`StudentProfileUnits component should render the pinned activity bar if 
                   "name": "Due date",
                   "noTooltip": true,
                   "rowSectionClassName": "due-date-section",
-                  "width": "85px",
+                  "width": "100px",
                 },
                 Object {
                   "attribute": "actionButton",
@@ -6981,7 +6981,7 @@ exports[`StudentProfileUnits component should render the pinned activity bar if 
                   >
                     Start
                   </a>,
-                  "dueDate": "Feb 29, 2020",
+                  "dueDate": "Feb 29, 5am",
                   "id": 1,
                   "name": "The Travels of Marco Polo",
                   "tool": undefined,
@@ -6994,7 +6994,7 @@ exports[`StudentProfileUnits component should render the pinned activity bar if 
                   >
                     Start
                   </a>,
-                  "dueDate": "Feb 29, 2020",
+                  "dueDate": "Feb 29, 5am",
                   "id": 2,
                   "name": "Christopher Columbus",
                   "tool": undefined,
@@ -7007,7 +7007,7 @@ exports[`StudentProfileUnits component should render the pinned activity bar if 
                   >
                     Start
                   </a>,
-                  "dueDate": "Feb 29, 2020",
+                  "dueDate": "Feb 29, 5am",
                   "id": 10,
                   "name": "A, An, The",
                   "tool": undefined,
@@ -7020,7 +7020,7 @@ exports[`StudentProfileUnits component should render the pinned activity bar if 
                   >
                     Start
                   </a>,
-                  "dueDate": "Feb 29, 2020",
+                  "dueDate": "Feb 29, 5am",
                   "id": 3,
                   "name": "Magellan",
                   "tool": undefined,
@@ -7033,7 +7033,7 @@ exports[`StudentProfileUnits component should render the pinned activity bar if 
                   >
                     Start
                   </a>,
-                  "dueDate": "Feb 29, 2020",
+                  "dueDate": "Feb 29, 5am",
                   "id": 4,
                   "name": "Jamestown",
                   "tool": undefined,
@@ -7046,7 +7046,7 @@ exports[`StudentProfileUnits component should render the pinned activity bar if 
                   >
                     Start
                   </a>,
-                  "dueDate": "Feb 29, 2020",
+                  "dueDate": "Feb 29, 5am",
                   "id": 6,
                   "name": "Age of Exploration: Sailing with the Stars",
                   "tool": undefined,
@@ -7059,7 +7059,7 @@ exports[`StudentProfileUnits component should render the pinned activity bar if 
                   >
                     Start
                   </a>,
-                  "dueDate": "Feb 29, 2020",
+                  "dueDate": "Feb 29, 5am",
                   "id": 7,
                   "name": "Age of Exploration: The Cape of Good Hope",
                   "tool": undefined,
@@ -7072,7 +7072,7 @@ exports[`StudentProfileUnits component should render the pinned activity bar if 
                   >
                     Start
                   </a>,
-                  "dueDate": "Feb 29, 2020",
+                  "dueDate": "Feb 29, 5am",
                   "id": 8,
                   "name": "Age of Exploration: Roanoke",
                   "tool": undefined,
@@ -7091,9 +7091,9 @@ exports[`StudentProfileUnits component should render the pinned activity bar if 
                   scope="col"
                   style={
                     Object {
-                      "minWidth": "633px",
+                      "minWidth": "623px",
                       "textAlign": "left",
-                      "width": "633px",
+                      "width": "623px",
                     }
                   }
                 >
@@ -7117,9 +7117,9 @@ exports[`StudentProfileUnits component should render the pinned activity bar if 
                   scope="col"
                   style={
                     Object {
-                      "minWidth": "85px",
+                      "minWidth": "100px",
                       "textAlign": "left",
-                      "width": "85px",
+                      "width": "100px",
                     }
                   }
                 >
@@ -7149,9 +7149,9 @@ exports[`StudentProfileUnits component should render the pinned activity bar if 
                     key="name-1"
                     style={
                       Object {
-                        "minWidth": "633px",
+                        "minWidth": "623px",
                         "textAlign": "left",
-                        "width": "633px",
+                        "width": "623px",
                       }
                     }
                   >
@@ -7173,13 +7173,13 @@ exports[`StudentProfileUnits component should render the pinned activity bar if 
                     key="dueDate-1"
                     style={
                       Object {
-                        "minWidth": "85px",
+                        "minWidth": "100px",
                         "textAlign": "left",
-                        "width": "85px",
+                        "width": "100px",
                       }
                     }
                   >
-                    Feb 29, 2020
+                    Feb 29, 5am
                   </td>
                   <td
                     className="data-table-row-section action-button-section"
@@ -7210,9 +7210,9 @@ exports[`StudentProfileUnits component should render the pinned activity bar if 
                     key="name-2"
                     style={
                       Object {
-                        "minWidth": "633px",
+                        "minWidth": "623px",
                         "textAlign": "left",
-                        "width": "633px",
+                        "width": "623px",
                       }
                     }
                   >
@@ -7234,13 +7234,13 @@ exports[`StudentProfileUnits component should render the pinned activity bar if 
                     key="dueDate-2"
                     style={
                       Object {
-                        "minWidth": "85px",
+                        "minWidth": "100px",
                         "textAlign": "left",
-                        "width": "85px",
+                        "width": "100px",
                       }
                     }
                   >
-                    Feb 29, 2020
+                    Feb 29, 5am
                   </td>
                   <td
                     className="data-table-row-section action-button-section"
@@ -7271,9 +7271,9 @@ exports[`StudentProfileUnits component should render the pinned activity bar if 
                     key="name-10"
                     style={
                       Object {
-                        "minWidth": "633px",
+                        "minWidth": "623px",
                         "textAlign": "left",
-                        "width": "633px",
+                        "width": "623px",
                       }
                     }
                   >
@@ -7295,13 +7295,13 @@ exports[`StudentProfileUnits component should render the pinned activity bar if 
                     key="dueDate-10"
                     style={
                       Object {
-                        "minWidth": "85px",
+                        "minWidth": "100px",
                         "textAlign": "left",
-                        "width": "85px",
+                        "width": "100px",
                       }
                     }
                   >
-                    Feb 29, 2020
+                    Feb 29, 5am
                   </td>
                   <td
                     className="data-table-row-section action-button-section"
@@ -7332,9 +7332,9 @@ exports[`StudentProfileUnits component should render the pinned activity bar if 
                     key="name-3"
                     style={
                       Object {
-                        "minWidth": "633px",
+                        "minWidth": "623px",
                         "textAlign": "left",
-                        "width": "633px",
+                        "width": "623px",
                       }
                     }
                   >
@@ -7356,13 +7356,13 @@ exports[`StudentProfileUnits component should render the pinned activity bar if 
                     key="dueDate-3"
                     style={
                       Object {
-                        "minWidth": "85px",
+                        "minWidth": "100px",
                         "textAlign": "left",
-                        "width": "85px",
+                        "width": "100px",
                       }
                     }
                   >
-                    Feb 29, 2020
+                    Feb 29, 5am
                   </td>
                   <td
                     className="data-table-row-section action-button-section"
@@ -7393,9 +7393,9 @@ exports[`StudentProfileUnits component should render the pinned activity bar if 
                     key="name-4"
                     style={
                       Object {
-                        "minWidth": "633px",
+                        "minWidth": "623px",
                         "textAlign": "left",
-                        "width": "633px",
+                        "width": "623px",
                       }
                     }
                   >
@@ -7417,13 +7417,13 @@ exports[`StudentProfileUnits component should render the pinned activity bar if 
                     key="dueDate-4"
                     style={
                       Object {
-                        "minWidth": "85px",
+                        "minWidth": "100px",
                         "textAlign": "left",
-                        "width": "85px",
+                        "width": "100px",
                       }
                     }
                   >
-                    Feb 29, 2020
+                    Feb 29, 5am
                   </td>
                   <td
                     className="data-table-row-section action-button-section"
@@ -7454,9 +7454,9 @@ exports[`StudentProfileUnits component should render the pinned activity bar if 
                     key="name-6"
                     style={
                       Object {
-                        "minWidth": "633px",
+                        "minWidth": "623px",
                         "textAlign": "left",
-                        "width": "633px",
+                        "width": "623px",
                       }
                     }
                   >
@@ -7478,13 +7478,13 @@ exports[`StudentProfileUnits component should render the pinned activity bar if 
                     key="dueDate-6"
                     style={
                       Object {
-                        "minWidth": "85px",
+                        "minWidth": "100px",
                         "textAlign": "left",
-                        "width": "85px",
+                        "width": "100px",
                       }
                     }
                   >
-                    Feb 29, 2020
+                    Feb 29, 5am
                   </td>
                   <td
                     className="data-table-row-section action-button-section"
@@ -7515,9 +7515,9 @@ exports[`StudentProfileUnits component should render the pinned activity bar if 
                     key="name-7"
                     style={
                       Object {
-                        "minWidth": "633px",
+                        "minWidth": "623px",
                         "textAlign": "left",
-                        "width": "633px",
+                        "width": "623px",
                       }
                     }
                   >
@@ -7539,13 +7539,13 @@ exports[`StudentProfileUnits component should render the pinned activity bar if 
                     key="dueDate-7"
                     style={
                       Object {
-                        "minWidth": "85px",
+                        "minWidth": "100px",
                         "textAlign": "left",
-                        "width": "85px",
+                        "width": "100px",
                       }
                     }
                   >
-                    Feb 29, 2020
+                    Feb 29, 5am
                   </td>
                   <td
                     className="data-table-row-section action-button-section"
@@ -7576,9 +7576,9 @@ exports[`StudentProfileUnits component should render the pinned activity bar if 
                     key="name-8"
                     style={
                       Object {
-                        "minWidth": "633px",
+                        "minWidth": "623px",
                         "textAlign": "left",
-                        "width": "633px",
+                        "width": "623px",
                       }
                     }
                   >
@@ -7600,13 +7600,13 @@ exports[`StudentProfileUnits component should render the pinned activity bar if 
                     key="dueDate-8"
                     style={
                       Object {
-                        "minWidth": "85px",
+                        "minWidth": "100px",
                         "textAlign": "left",
-                        "width": "85px",
+                        "width": "100px",
                       }
                     }
                   >
-                    Feb 29, 2020
+                    Feb 29, 5am
                   </td>
                   <td
                     className="data-table-row-section action-button-section"
@@ -8157,7 +8157,7 @@ exports[`StudentProfileUnits component should render the pinned activity modal i
                   "name": "Activity",
                   "noTooltip": true,
                   "rowSectionClassName": "name-section",
-                  "width": "633px",
+                  "width": "623px",
                 },
                 Object {
                   "attribute": "tool",
@@ -8173,7 +8173,7 @@ exports[`StudentProfileUnits component should render the pinned activity modal i
                   "name": "Due date",
                   "noTooltip": true,
                   "rowSectionClassName": "due-date-section",
-                  "width": "85px",
+                  "width": "100px",
                 },
                 Object {
                   "attribute": "actionButton",
@@ -8247,9 +8247,9 @@ exports[`StudentProfileUnits component should render the pinned activity modal i
                   scope="col"
                   style={
                     Object {
-                      "minWidth": "633px",
+                      "minWidth": "623px",
                       "textAlign": "left",
-                      "width": "633px",
+                      "width": "623px",
                     }
                   }
                 >
@@ -8273,9 +8273,9 @@ exports[`StudentProfileUnits component should render the pinned activity modal i
                   scope="col"
                   style={
                     Object {
-                      "minWidth": "85px",
+                      "minWidth": "100px",
                       "textAlign": "right",
-                      "width": "85px",
+                      "width": "100px",
                     }
                   }
                 >
@@ -8305,9 +8305,9 @@ exports[`StudentProfileUnits component should render the pinned activity modal i
                     key="name-40"
                     style={
                       Object {
-                        "minWidth": "633px",
+                        "minWidth": "623px",
                         "textAlign": "left",
-                        "width": "633px",
+                        "width": "623px",
                       }
                     }
                   >
@@ -8329,9 +8329,9 @@ exports[`StudentProfileUnits component should render the pinned activity modal i
                     key="dueDate-40"
                     style={
                       Object {
-                        "minWidth": "85px",
+                        "minWidth": "100px",
                         "textAlign": "right",
-                        "width": "85px",
+                        "width": "100px",
                       }
                     }
                   />
@@ -8364,9 +8364,9 @@ exports[`StudentProfileUnits component should render the pinned activity modal i
                     key="name-41"
                     style={
                       Object {
-                        "minWidth": "633px",
+                        "minWidth": "623px",
                         "textAlign": "left",
-                        "width": "633px",
+                        "width": "623px",
                       }
                     }
                   >
@@ -8388,9 +8388,9 @@ exports[`StudentProfileUnits component should render the pinned activity modal i
                     key="dueDate-41"
                     style={
                       Object {
-                        "minWidth": "85px",
+                        "minWidth": "100px",
                         "textAlign": "right",
-                        "width": "85px",
+                        "width": "100px",
                       }
                     }
                   />
@@ -8421,9 +8421,9 @@ exports[`StudentProfileUnits component should render the pinned activity modal i
                     key="name-42"
                     style={
                       Object {
-                        "minWidth": "633px",
+                        "minWidth": "623px",
                         "textAlign": "left",
-                        "width": "633px",
+                        "width": "623px",
                       }
                     }
                   >
@@ -8445,9 +8445,9 @@ exports[`StudentProfileUnits component should render the pinned activity modal i
                     key="dueDate-42"
                     style={
                       Object {
-                        "minWidth": "85px",
+                        "minWidth": "100px",
                         "textAlign": "right",
-                        "width": "85px",
+                        "width": "100px",
                       }
                     }
                   />
@@ -8478,9 +8478,9 @@ exports[`StudentProfileUnits component should render the pinned activity modal i
                     key="name-43"
                     style={
                       Object {
-                        "minWidth": "633px",
+                        "minWidth": "623px",
                         "textAlign": "left",
-                        "width": "633px",
+                        "width": "623px",
                       }
                     }
                   >
@@ -8502,9 +8502,9 @@ exports[`StudentProfileUnits component should render the pinned activity modal i
                     key="dueDate-43"
                     style={
                       Object {
-                        "minWidth": "85px",
+                        "minWidth": "100px",
                         "textAlign": "right",
-                        "width": "85px",
+                        "width": "100px",
                       }
                     }
                   />
@@ -8745,7 +8745,7 @@ exports[`StudentProfileUnits component should render the pinned activity modal i
                   "name": "Activity",
                   "noTooltip": true,
                   "rowSectionClassName": "name-section",
-                  "width": "633px",
+                  "width": "623px",
                 },
                 Object {
                   "attribute": "tool",
@@ -8761,7 +8761,7 @@ exports[`StudentProfileUnits component should render the pinned activity modal i
                   "name": "Due date",
                   "noTooltip": true,
                   "rowSectionClassName": "due-date-section",
-                  "width": "85px",
+                  "width": "100px",
                 },
                 Object {
                   "attribute": "actionButton",
@@ -8783,7 +8783,7 @@ exports[`StudentProfileUnits component should render the pinned activity modal i
                   >
                     Start
                   </a>,
-                  "dueDate": "Feb 29, 2020",
+                  "dueDate": "Feb 29, 5am",
                   "id": 1,
                   "name": "The Travels of Marco Polo",
                   "tool": undefined,
@@ -8796,7 +8796,7 @@ exports[`StudentProfileUnits component should render the pinned activity modal i
                   >
                     Start
                   </a>,
-                  "dueDate": "Feb 29, 2020",
+                  "dueDate": "Feb 29, 5am",
                   "id": 2,
                   "name": "Christopher Columbus",
                   "tool": undefined,
@@ -8809,7 +8809,7 @@ exports[`StudentProfileUnits component should render the pinned activity modal i
                   >
                     Start
                   </a>,
-                  "dueDate": "Feb 29, 2020",
+                  "dueDate": "Feb 29, 5am",
                   "id": 10,
                   "name": "A, An, The",
                   "tool": undefined,
@@ -8822,7 +8822,7 @@ exports[`StudentProfileUnits component should render the pinned activity modal i
                   >
                     Start
                   </a>,
-                  "dueDate": "Feb 29, 2020",
+                  "dueDate": "Feb 29, 5am",
                   "id": 3,
                   "name": "Magellan",
                   "tool": undefined,
@@ -8835,7 +8835,7 @@ exports[`StudentProfileUnits component should render the pinned activity modal i
                   >
                     Start
                   </a>,
-                  "dueDate": "Feb 29, 2020",
+                  "dueDate": "Feb 29, 5am",
                   "id": 4,
                   "name": "Jamestown",
                   "tool": undefined,
@@ -8848,7 +8848,7 @@ exports[`StudentProfileUnits component should render the pinned activity modal i
                   >
                     Start
                   </a>,
-                  "dueDate": "Feb 29, 2020",
+                  "dueDate": "Feb 29, 5am",
                   "id": 6,
                   "name": "Age of Exploration: Sailing with the Stars",
                   "tool": undefined,
@@ -8861,7 +8861,7 @@ exports[`StudentProfileUnits component should render the pinned activity modal i
                   >
                     Start
                   </a>,
-                  "dueDate": "Feb 29, 2020",
+                  "dueDate": "Feb 29, 5am",
                   "id": 7,
                   "name": "Age of Exploration: The Cape of Good Hope",
                   "tool": undefined,
@@ -8874,7 +8874,7 @@ exports[`StudentProfileUnits component should render the pinned activity modal i
                   >
                     Start
                   </a>,
-                  "dueDate": "Feb 29, 2020",
+                  "dueDate": "Feb 29, 5am",
                   "id": 8,
                   "name": "Age of Exploration: Roanoke",
                   "tool": undefined,
@@ -8893,9 +8893,9 @@ exports[`StudentProfileUnits component should render the pinned activity modal i
                   scope="col"
                   style={
                     Object {
-                      "minWidth": "633px",
+                      "minWidth": "623px",
                       "textAlign": "left",
-                      "width": "633px",
+                      "width": "623px",
                     }
                   }
                 >
@@ -8919,9 +8919,9 @@ exports[`StudentProfileUnits component should render the pinned activity modal i
                   scope="col"
                   style={
                     Object {
-                      "minWidth": "85px",
+                      "minWidth": "100px",
                       "textAlign": "left",
-                      "width": "85px",
+                      "width": "100px",
                     }
                   }
                 >
@@ -8951,9 +8951,9 @@ exports[`StudentProfileUnits component should render the pinned activity modal i
                     key="name-1"
                     style={
                       Object {
-                        "minWidth": "633px",
+                        "minWidth": "623px",
                         "textAlign": "left",
-                        "width": "633px",
+                        "width": "623px",
                       }
                     }
                   >
@@ -8975,13 +8975,13 @@ exports[`StudentProfileUnits component should render the pinned activity modal i
                     key="dueDate-1"
                     style={
                       Object {
-                        "minWidth": "85px",
+                        "minWidth": "100px",
                         "textAlign": "left",
-                        "width": "85px",
+                        "width": "100px",
                       }
                     }
                   >
-                    Feb 29, 2020
+                    Feb 29, 5am
                   </td>
                   <td
                     className="data-table-row-section action-button-section"
@@ -9012,9 +9012,9 @@ exports[`StudentProfileUnits component should render the pinned activity modal i
                     key="name-2"
                     style={
                       Object {
-                        "minWidth": "633px",
+                        "minWidth": "623px",
                         "textAlign": "left",
-                        "width": "633px",
+                        "width": "623px",
                       }
                     }
                   >
@@ -9036,13 +9036,13 @@ exports[`StudentProfileUnits component should render the pinned activity modal i
                     key="dueDate-2"
                     style={
                       Object {
-                        "minWidth": "85px",
+                        "minWidth": "100px",
                         "textAlign": "left",
-                        "width": "85px",
+                        "width": "100px",
                       }
                     }
                   >
-                    Feb 29, 2020
+                    Feb 29, 5am
                   </td>
                   <td
                     className="data-table-row-section action-button-section"
@@ -9073,9 +9073,9 @@ exports[`StudentProfileUnits component should render the pinned activity modal i
                     key="name-10"
                     style={
                       Object {
-                        "minWidth": "633px",
+                        "minWidth": "623px",
                         "textAlign": "left",
-                        "width": "633px",
+                        "width": "623px",
                       }
                     }
                   >
@@ -9097,13 +9097,13 @@ exports[`StudentProfileUnits component should render the pinned activity modal i
                     key="dueDate-10"
                     style={
                       Object {
-                        "minWidth": "85px",
+                        "minWidth": "100px",
                         "textAlign": "left",
-                        "width": "85px",
+                        "width": "100px",
                       }
                     }
                   >
-                    Feb 29, 2020
+                    Feb 29, 5am
                   </td>
                   <td
                     className="data-table-row-section action-button-section"
@@ -9134,9 +9134,9 @@ exports[`StudentProfileUnits component should render the pinned activity modal i
                     key="name-3"
                     style={
                       Object {
-                        "minWidth": "633px",
+                        "minWidth": "623px",
                         "textAlign": "left",
-                        "width": "633px",
+                        "width": "623px",
                       }
                     }
                   >
@@ -9158,13 +9158,13 @@ exports[`StudentProfileUnits component should render the pinned activity modal i
                     key="dueDate-3"
                     style={
                       Object {
-                        "minWidth": "85px",
+                        "minWidth": "100px",
                         "textAlign": "left",
-                        "width": "85px",
+                        "width": "100px",
                       }
                     }
                   >
-                    Feb 29, 2020
+                    Feb 29, 5am
                   </td>
                   <td
                     className="data-table-row-section action-button-section"
@@ -9195,9 +9195,9 @@ exports[`StudentProfileUnits component should render the pinned activity modal i
                     key="name-4"
                     style={
                       Object {
-                        "minWidth": "633px",
+                        "minWidth": "623px",
                         "textAlign": "left",
-                        "width": "633px",
+                        "width": "623px",
                       }
                     }
                   >
@@ -9219,13 +9219,13 @@ exports[`StudentProfileUnits component should render the pinned activity modal i
                     key="dueDate-4"
                     style={
                       Object {
-                        "minWidth": "85px",
+                        "minWidth": "100px",
                         "textAlign": "left",
-                        "width": "85px",
+                        "width": "100px",
                       }
                     }
                   >
-                    Feb 29, 2020
+                    Feb 29, 5am
                   </td>
                   <td
                     className="data-table-row-section action-button-section"
@@ -9256,9 +9256,9 @@ exports[`StudentProfileUnits component should render the pinned activity modal i
                     key="name-6"
                     style={
                       Object {
-                        "minWidth": "633px",
+                        "minWidth": "623px",
                         "textAlign": "left",
-                        "width": "633px",
+                        "width": "623px",
                       }
                     }
                   >
@@ -9280,13 +9280,13 @@ exports[`StudentProfileUnits component should render the pinned activity modal i
                     key="dueDate-6"
                     style={
                       Object {
-                        "minWidth": "85px",
+                        "minWidth": "100px",
                         "textAlign": "left",
-                        "width": "85px",
+                        "width": "100px",
                       }
                     }
                   >
-                    Feb 29, 2020
+                    Feb 29, 5am
                   </td>
                   <td
                     className="data-table-row-section action-button-section"
@@ -9317,9 +9317,9 @@ exports[`StudentProfileUnits component should render the pinned activity modal i
                     key="name-7"
                     style={
                       Object {
-                        "minWidth": "633px",
+                        "minWidth": "623px",
                         "textAlign": "left",
-                        "width": "633px",
+                        "width": "623px",
                       }
                     }
                   >
@@ -9341,13 +9341,13 @@ exports[`StudentProfileUnits component should render the pinned activity modal i
                     key="dueDate-7"
                     style={
                       Object {
-                        "minWidth": "85px",
+                        "minWidth": "100px",
                         "textAlign": "left",
-                        "width": "85px",
+                        "width": "100px",
                       }
                     }
                   >
-                    Feb 29, 2020
+                    Feb 29, 5am
                   </td>
                   <td
                     className="data-table-row-section action-button-section"
@@ -9378,9 +9378,9 @@ exports[`StudentProfileUnits component should render the pinned activity modal i
                     key="name-8"
                     style={
                       Object {
-                        "minWidth": "633px",
+                        "minWidth": "623px",
                         "textAlign": "left",
-                        "width": "633px",
+                        "width": "623px",
                       }
                     }
                   >
@@ -9402,13 +9402,13 @@ exports[`StudentProfileUnits component should render the pinned activity modal i
                     key="dueDate-8"
                     style={
                       Object {
-                        "minWidth": "85px",
+                        "minWidth": "100px",
                         "textAlign": "left",
-                        "width": "85px",
+                        "width": "100px",
                       }
                     }
                   >
-                    Feb 29, 2020
+                    Feb 29, 5am
                   </td>
                   <td
                     className="data-table-row-section action-button-section"

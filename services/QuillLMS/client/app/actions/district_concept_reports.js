@@ -1,5 +1,6 @@
-import request from 'request';
 import Pusher from 'pusher-js';
+
+import { requestGet, } from '../modules/request/index'
 
 export const recieveDistrictConceptReports = (body) => {
   return { type: 'RECIEVE_DISTRICT_CONCEPT_REPORTS', body, };
@@ -32,16 +33,15 @@ export const initializePusherForDistrictConceptReports = (adminId) => {
 
 export const getDistrictConceptReports = () => {
   return (dispatch) => {
-    request.get({
-      url: `${process.env.DEFAULT_URL}/api/v1/progress_reports/district_concept_reports`
-    },
-    (e, r, body) => {
-      const parsedBody = JSON.parse(body)
-      if (parsedBody.id) {
-        dispatch(initializePusherForDistrictConceptReports(String(parsedBody.id)))
-      } else {
-        dispatch(recieveDistrictConceptReports(parsedBody))
+    requestGet(
+      `${process.env.DEFAULT_URL}/api/v1/progress_reports/district_concept_reports`,
+      (body) => {
+        if (body.id) {
+          dispatch(initializePusherForDistrictConceptReports(String(body.id)))
+        } else {
+          dispatch(recieveDistrictConceptReports(body))
+        }
       }
-    });
+    );
   }
 };

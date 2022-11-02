@@ -31,8 +31,8 @@ describe SyncVitallyOrganizationWorker do
       end
 
       it 'should report an error to Sentry and NewRelic whenever we hit an API rate limit' do
-        expected_error = SyncVitallyOrganizationWorker::VitallyApiRateLimitException.new("Hit the Vitally REST API rate limit trying to sync District ##{district.id}.  Automatically enqueueing to retry.")
-        expect(ErrorNotifier).to receive(:report).with(expected_error)
+        expected_error = SyncVitallyOrganizationWorker::VitallyApiRateLimitException.new("Hit the Vitally REST API rate limit trying to sync Districts.  Automatically enqueueing to retry.")
+        expect(ErrorNotifier).to receive(:report).with(expected_error, {district_id: district.id})
 
         subject.perform(district.id)
       end

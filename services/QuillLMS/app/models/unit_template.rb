@@ -141,9 +141,20 @@ class UnitTemplate < ApplicationRecord
   end
 
   private def delete_relevant_caches
-    $redis.del("unit_template_id:#{id}_serialized", "#{flag || 'production'}_unit_templates")
+    $redis.del("unit_template_id:#{id}_serialized")
+    # We need to blow up caches for all flags because of cascading access:
+    # setting a flag from 'production' to 'beta' should remove the UnitTemplate
+    # from both the 'production' and 'gamma' caches while leaving it as-is in
+    # 'beta'.  It's rare enough to make these changes that we should just flush
+    # all the caches.
+    %w(private_ production_ gamma_ beta_ alpha_).each do |flag|
+      $redis.del("#{flag}unit_templates")
+    end
     yield
-    $redis.del("unit_template_id:#{id}_serialized", "#{flag || 'production'}_unit_templates")
+    $redis.del("unit_template_id:#{id}_serialized")
+    %w(private_ production_ gamma_ beta_ alpha_).each do |flag|
+      $redis.del("#{flag}unit_templates")
+    end
   end
 
 end

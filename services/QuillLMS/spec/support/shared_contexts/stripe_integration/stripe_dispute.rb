@@ -11,7 +11,7 @@ RSpec.shared_context 'Stripe Dispute' do
       currency: 'usd',
       metadata: {},
       reason: 'subscription_canceled',
-      status: 'needs_response'
+      status: stripe_dispute_status
     )
   end
 end

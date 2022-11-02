@@ -44,7 +44,7 @@ describe UnitActivity, type: :model, redis: true do
   let!(:diagnostic_activity) { create(:diagnostic_activity, activity_classification_id: diagnostic_activity_classification.id, name: 'diagnostic activity') }
   let!(:student) { create(:user, role: 'student', username: 'great', name: 'hi hi', password: 'pwd') }
   let!(:classroom) { create(:classroom, students: [student]) }
-  let!(:teacher) {classroom.owner}
+  let!(:teacher) { classroom.owner }
   let!(:unit) { create(:unit, name: 'Tapioca', user: teacher) }
   let!(:unit_activity) { create(:unit_activity, unit: unit, activity: activity) }
   let!(:lessons_activity) { create(:activity, activity_classification_id: 6, name: 'lesson activity') }
@@ -141,6 +141,117 @@ describe UnitActivity, type: :model, redis: true do
     end
   end
 
+  describe '#save_new_attributes_and_adjust_dates!' do
+    it 'takes new attributes and saves them to the unit activity' do
+      old_order_number = 0
+      new_order_number = 1
+      unit_activity.update(order_number: old_order_number)
+      unit_activity.save_new_attributes_and_adjust_dates!(order_number: new_order_number)
+      expect(UnitActivity.find(unit_activity.id).order_number).to eq(new_order_number)
+    end
+
+    it 'calls the due date adjustment method if the due date has changed' do
+      expect(unit_activity).to receive(:adjust_due_date_for_timezone)
+      unit_activity.save_new_attributes_and_adjust_dates!(due_date: Date.tomorrow)
+    end
+
+    it 'does not call the due date adjustment method if the due date has not changed' do
+      existing_due_date = Date.tomorrow
+      unit_activity.update(due_date: existing_due_date)
+      expect(unit_activity).not_to receive(:adjust_due_date_for_timezone)
+      unit_activity.save_new_attributes_and_adjust_dates!(due_date: existing_due_date)
+
+    end
+
+    it 'calls the publish date adjustment method if the publish date has changed' do
+      expect(unit_activity).to receive(:adjust_publish_date_for_timezone)
+      unit_activity.save_new_attributes_and_adjust_dates!(publish_date: Date.tomorrow)
+    end
+
+    it 'does not call the publish date adjustment method if the publish date has not changed' do
+      existing_publish_date = Date.tomorrow
+      unit_activity.update(publish_date: existing_publish_date)
+      expect(unit_activity).not_to receive(:adjust_publish_date_for_timezone)
+      unit_activity.save_new_attributes_and_adjust_dates!(publish_date: existing_publish_date)
+    end
+  end
+
+  describe 'adjust_due_date_for_timezone' do
+    it 'adjusts the submitted time to the utc equivalent of that time in the timezone of the teacher' do
+      tz_string = 'America/New_York'
+      teacher.update(time_zone: tz_string)
+      teacher_offset = TZInfo::Timezone.get(tz_string).period_for_utc(Time.new.utc).utc_total_offset
+      due_date = Time.now.utc - 1.hour
+      unit_activity.due_date = due_date
+      unit_activity.adjust_due_date_for_timezone
+      expect(unit_activity.due_date).to eq(due_date - teacher_offset)
+    end
+
+    it 'adjusts the submitted time to utc if the teacher has no time zone but the submitted time is not in utc' do
+      teacher.update_columns(time_zone: nil)
+      due_date = Time.now.utc - 1.hour
+      due_date_in_los_angeles = due_date.in_time_zone('America/Los_Angeles')
+      unit_activity.due_date = due_date_in_los_angeles
+      unit_activity.adjust_due_date_for_timezone
+      expect(unit_activity.due_date).to eq(due_date)
+    end
+
+    it 'does not adjust the submitted time if the teacher has no time zone and the time is in utc' do
+      teacher.update_columns(time_zone: nil)
+      due_date = Time.now.utc - 1.hour
+      unit_activity.due_date = due_date
+      unit_activity.adjust_due_date_for_timezone
+      expect(unit_activity.due_date).to eq(due_date)
+    end
+
+    it 'does not adjust the submitted time if there is no due date' do
+      tz_string = 'America/New_York'
+      teacher.update(time_zone: tz_string)
+      due_date = nil
+      unit_activity.due_date = due_date
+      unit_activity.adjust_due_date_for_timezone
+      expect(unit_activity.due_date).to eq(due_date)
+    end
+  end
+
+  describe 'adjust_publish_date_for_timezone' do
+    it 'adjusts the submitted time to the utc equivalent of that time in the timezone of the teacher' do
+      tz_string = 'America/New_York'
+      teacher.update(time_zone: tz_string)
+      teacher_offset = TZInfo::Timezone.get(tz_string).period_for_utc(Time.new.utc).utc_total_offset
+      publish_date = Time.now.utc - 1.hour
+      unit_activity.publish_date = publish_date
+      unit_activity.adjust_publish_date_for_timezone
+      expect(unit_activity.publish_date).to eq(publish_date - teacher_offset)
+    end
+
+    it 'adjusts the submitted time to utc if the teacher has no time zone but the submitted time is not in utc' do
+      teacher.update_columns(time_zone: nil)
+      publish_date = Time.now.utc - 1.hour
+      publish_date_in_los_angeles = publish_date.in_time_zone('America/Los_Angeles')
+      unit_activity.publish_date = publish_date_in_los_angeles
+      unit_activity.adjust_publish_date_for_timezone
+      expect(unit_activity.publish_date).to eq(publish_date)
+    end
+
+    it 'does not adjust the submitted time if the teacher has no time zone and the time is in utc' do
+      teacher.update_columns(time_zone: nil)
+      publish_date = Time.now.utc - 1.hour
+      unit_activity.publish_date = publish_date
+      unit_activity.adjust_publish_date_for_timezone
+      expect(unit_activity.publish_date).to eq(publish_date)
+    end
+
+    it 'does not adjust the submitted time if there is no publish date' do
+      tz_string = 'America/New_York'
+      teacher.update(time_zone: tz_string)
+      publish_date = nil
+      unit_activity.publish_date = publish_date
+      unit_activity.adjust_publish_date_for_timezone
+      expect(unit_activity.publish_date).to eq(publish_date)
+    end
+  end
+
   context 'self.get_classroom_user_profile' do
     it 'get user profile data' do
       unit_activities = UnitActivity.get_classroom_user_profile(classroom.id, student.id)
@@ -187,9 +298,12 @@ describe UnitActivity, type: :model, redis: true do
         tz_string = 'America/New_York'
         teacher.update(time_zone: tz_string)
         publish_date = Time.now.utc - 1.hour
-        unit_activity.update(publish_date: publish_date)
+        # have to do update_columns here because otherwise the publish date is offset by a callback
+        unit_activity.update_columns(publish_date: publish_date)
         unit_activities = UnitActivity.get_classroom_user_profile(classroom.id, student.id)
-        expect(unit_activities.find{ |ua| ua['ua_id'].to_i == unit_activity.id}['publish_date'].to_time.strftime('%a %b %d %H:%M:%S %Z %Y')).to eq((publish_date - teacher.utc_offset).to_time.strftime('%a %b %d %H:%M:%S %Z %Y'))
+        publish_date_result = unit_activities.find { |ua| ua['ua_id'].to_i == unit_activity.id }['publish_date']
+
+        expect(publish_date_result.in_time_zone(tz_string).to_i).to eq publish_date.to_i
       end
 
       it 'leaves the publish date in utc if the teacher does not have a time zone' do
@@ -198,7 +312,9 @@ describe UnitActivity, type: :model, redis: true do
         publish_date = Time.now.utc - 1.hour
         unit_activity.update(publish_date: publish_date)
         unit_activities = UnitActivity.get_classroom_user_profile(classroom.id, student.id)
-        expect(unit_activities.find{ |ua| ua['ua_id'].to_i == unit_activity.id}['publish_date'].to_time.strftime('%a %b %d %H:%M:%S %Z %Y')).to eq(publish_date.to_time.strftime('%a %b %d %H:%M:%S %Z %Y'))
+        publish_date_result = unit_activities.find { |ua| ua['ua_id'].to_i == unit_activity.id }['publish_date']
+
+        expect(publish_date_result.in_time_zone.to_i).to eq publish_date.to_i
       end
 
     end

@@ -3,6 +3,7 @@ import moment from 'moment'
 
 import { onMobile, DataTable, Tooltip } from '../../../Shared/index'
 import activityLaunchLink from '../modules/generate_activity_launch_link.js';
+import { formatDateTimeForDisplay, } from '../../helpers/unitActivityDates'
 
 const diagnosticSrc = `${process.env.CDN_URL}/images/icons/tool-diagnostic-gray.svg`
 const connectSrc = `${process.env.CDN_URL}/images/icons/tool-connect-gray.svg`
@@ -23,7 +24,7 @@ const NEARLY_PROFICIENT_CUTOFF = 0.6
 
 const incompleteHeaders = [
   {
-    width: '633px',
+    width: '623px',
     name: 'Activity',
     attribute: 'name',
     noTooltip: onMobile(), // On mobile we don't want a tooltip wrapper since they basically don't work there
@@ -37,7 +38,7 @@ const incompleteHeaders = [
     headerClassName: 'tool-icon-section',
     rowSectionClassName: 'tool-icon-section'
   }, {
-    width: '85px',
+    width: '100px',
     name: 'Due date',
     attribute: 'dueDate',
     noTooltip: true,
@@ -55,7 +56,7 @@ const incompleteHeaders = [
 
 const completeHeaders = [
   {
-    width: '465px',
+    width: '450px',
     name: 'Activity',
     attribute: 'name',
     headerClassName: 'name-section',
@@ -75,7 +76,7 @@ const completeHeaders = [
     headerClassName: 'tool-icon-section',
     rowSectionClassName: 'tool-icon-section'
   }, {
-    width: '85px',
+    width: '100px',
     name: 'Due date',
     attribute: 'dueDate',
     noTooltip: true,
@@ -198,7 +199,7 @@ export default class StudentProfileUnit extends React.Component {
         score: this.score(act),
         tool: this.toolIcon(activity_classification_key),
         actionButton: this.actionButton(act, nextActivitySession),
-        dueDate: due_date ? moment(due_date).format('MMM D, YYYY') : null,
+        dueDate: due_date ? formatDateTimeForDisplay(moment.utc(due_date)) : null,
         id: ua_id
       }
     })
@@ -222,7 +223,7 @@ export default class StudentProfileUnit extends React.Component {
       return {
         name,
         tool: this.toolIcon(activity_classification_key),
-        dueDate: due_date ? moment(due_date).format('MMM D, YYYY') : null,
+        dueDate: due_date ? formatDateTimeForDisplay(moment.utc(due_date)) : null,
         actionButton: this.actionButton(act, nextActivitySession),
         id: ua_id
       }

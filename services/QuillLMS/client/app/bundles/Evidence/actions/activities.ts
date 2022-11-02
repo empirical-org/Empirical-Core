@@ -1,9 +1,8 @@
-import * as request from 'request';
-
 import { ActionTypes } from './actionTypes'
 import { TrackAnalyticsEvent } from './analytics'
 
 import { Events } from '../modules/analytics'
+import { requestGet, } from '../../../modules/request/index'
 
 export const getActivity = (sessionID: string, activityUID: string) => {
   return async (dispatch: Function) => {
@@ -15,10 +14,9 @@ export const getActivity = (sessionID: string, activityUID: string) => {
 
     const activityUrl = `${process.env.DEFAULT_URL}/api/v1/evidence/activities/${activityUID}`
 
-    await request.get(activityUrl, (e, r, body) => {
-      const activity = JSON.parse(body)
-      if (activity) {
-        dispatch({ type: ActionTypes.RECEIVE_ACTIVITY_DATA, data: activity, });
+    await requestGet(activityUrl, (body) => {
+      if (body) {
+        dispatch({ type: ActionTypes.RECEIVE_ACTIVITY_DATA, data: body, });
       } else {
         dispatch({ type: ActionTypes.NO_ACTIVITY_FOUND })
       }

@@ -158,7 +158,7 @@ exports[`PreAp component should render when it is not part of the assignment flo
               Object {
                 "cb_anchor_tag": "the-night-circus",
                 "description": "Explore how second-person point of view sets up a fantastical world",
-                "title": "Sentence Combining: Except from The Night Circus by Erin Morgenstern",
+                "title": "Sentence Combining: Excerpt from The Night Circus by Erin Morgenstern",
                 "unit_template_id": 233,
               },
             ],
@@ -168,7 +168,7 @@ exports[`PreAp component should render when it is not part of the assignment flo
               Object {
                 "cb_anchor_tag": "out-of-my-mind",
                 "description": "Explore how first-person point of view efficiently establishes a narrator’s experience",
-                "title": "Sentence Combining: Except from Out of My Mind by Sharon M. Draper",
+                "title": "Sentence Combining: Excerpt from Out of My Mind by Sharon M. Draper",
                 "unit_template_id": 234,
               },
               Object {
@@ -1296,7 +1296,7 @@ exports[`PreAp component should render when it is not part of the assignment flo
                                     tabindex="-1"
                                     target="_blank"
                                   >
-                                    Sentence Combining: Except from The Night Circus by Erin Morgenstern
+                                    Sentence Combining: Excerpt from The Night Circus by Erin Morgenstern
                                   </a>
                                   <a
                                     class="quill-button medium primary outlined focus-on-light"
@@ -1344,7 +1344,7 @@ exports[`PreAp component should render when it is not part of the assignment flo
                                     tabindex="-1"
                                     target="_blank"
                                   >
-                                    Sentence Combining: Except from Out of My Mind by Sharon M. Draper
+                                    Sentence Combining: Excerpt from Out of My Mind by Sharon M. Draper
                                   </a>
                                   <a
                                     class="quill-button medium primary outlined focus-on-light"
@@ -3458,7 +3458,7 @@ exports[`PreAp component should render when it is not part of the assignment flo
                       Object {
                         "cb_anchor_tag": "the-night-circus",
                         "description": "Explore how second-person point of view sets up a fantastical world",
-                        "title": "Sentence Combining: Except from The Night Circus by Erin Morgenstern",
+                        "title": "Sentence Combining: Excerpt from The Night Circus by Erin Morgenstern",
                         "unit_template_id": 233,
                       },
                     ],
@@ -3468,7 +3468,7 @@ exports[`PreAp component should render when it is not part of the assignment flo
                       Object {
                         "cb_anchor_tag": "out-of-my-mind",
                         "description": "Explore how first-person point of view efficiently establishes a narrator’s experience",
-                        "title": "Sentence Combining: Except from Out of My Mind by Sharon M. Draper",
+                        "title": "Sentence Combining: Excerpt from Out of My Mind by Sharon M. Draper",
                         "unit_template_id": 234,
                       },
                       Object {
@@ -3607,7 +3607,7 @@ exports[`PreAp component should render when it is not part of the assignment flo
                             tabIndex={-1}
                             target="_blank"
                           >
-                            Sentence Combining: Except from The Night Circus by Erin Morgenstern
+                            Sentence Combining: Excerpt from The Night Circus by Erin Morgenstern
                           </a>
                           <a
                             className="quill-button medium primary outlined focus-on-light"
@@ -3657,7 +3657,7 @@ exports[`PreAp component should render when it is not part of the assignment flo
                             tabIndex={-1}
                             target="_blank"
                           >
-                            Sentence Combining: Except from Out of My Mind by Sharon M. Draper
+                            Sentence Combining: Excerpt from Out of My Mind by Sharon M. Draper
                           </a>
                           <a
                             className="quill-button medium primary outlined focus-on-light"
@@ -4812,7 +4812,7 @@ exports[`PreAp component should render when it is part of the assignment flow 1`
               Object {
                 "cb_anchor_tag": "the-night-circus",
                 "description": "Explore how second-person point of view sets up a fantastical world",
-                "title": "Sentence Combining: Except from The Night Circus by Erin Morgenstern",
+                "title": "Sentence Combining: Excerpt from The Night Circus by Erin Morgenstern",
                 "unit_template_id": 233,
               },
             ],
@@ -4822,7 +4822,7 @@ exports[`PreAp component should render when it is part of the assignment flow 1`
               Object {
                 "cb_anchor_tag": "out-of-my-mind",
                 "description": "Explore how first-person point of view efficiently establishes a narrator’s experience",
-                "title": "Sentence Combining: Except from Out of My Mind by Sharon M. Draper",
+                "title": "Sentence Combining: Excerpt from Out of My Mind by Sharon M. Draper",
                 "unit_template_id": 234,
               },
               Object {
@@ -5942,7 +5942,7 @@ exports[`PreAp component should render when it is part of the assignment flow 1`
                                     tabindex="-1"
                                     target=""
                                   >
-                                    Sentence Combining: Except from The Night Circus by Erin Morgenstern
+                                    Sentence Combining: Excerpt from The Night Circus by Erin Morgenstern
                                   </a>
                                   <a
                                     class="quill-button medium primary outlined focus-on-light"
@@ -5990,7 +5990,7 @@ exports[`PreAp component should render when it is part of the assignment flow 1`
                                     tabindex="-1"
                                     target=""
                                   >
-                                    Sentence Combining: Except from Out of My Mind by Sharon M. Draper
+                                    Sentence Combining: Excerpt from Out of My Mind by Sharon M. Draper
                                   </a>
                                   <a
                                     class="quill-button medium primary outlined focus-on-light"
@@ -8108,7 +8108,7 @@ exports[`PreAp component should render when it is part of the assignment flow 1`
                       Object {
                         "cb_anchor_tag": "the-night-circus",
                         "description": "Explore how second-person point of view sets up a fantastical world",
-                        "title": "Sentence Combining: Except from The Night Circus by Erin Morgenstern",
+                        "title": "Sentence Combining: Excerpt from The Night Circus by Erin Morgenstern",
                         "unit_template_id": 233,
                       },
                     ],
@@ -8118,7 +8118,7 @@ exports[`PreAp component should render when it is part of the assignment flow 1`
                       Object {
                         "cb_anchor_tag": "out-of-my-mind",
                         "description": "Explore how first-person point of view efficiently establishes a narrator’s experience",
-                        "title": "Sentence Combining: Except from Out of My Mind by Sharon M. Draper",
+                        "title": "Sentence Combining: Excerpt from Out of My Mind by Sharon M. Draper",
                         "unit_template_id": 234,
                       },
                       Object {
@@ -8257,7 +8257,7 @@ exports[`PreAp component should render when it is part of the assignment flow 1`
                             tabIndex={-1}
                             target=""
                           >
-                            Sentence Combining: Except from The Night Circus by Erin Morgenstern
+                            Sentence Combining: Excerpt from The Night Circus by Erin Morgenstern
                           </a>
                           <a
                             className="quill-button medium primary outlined focus-on-light"
@@ -8307,7 +8307,7 @@ exports[`PreAp component should render when it is part of the assignment flow 1`
                             tabIndex={-1}
                             target=""
                           >
-                            Sentence Combining: Except from Out of My Mind by Sharon M. Draper
+                            Sentence Combining: Excerpt from Out of My Mind by Sharon M. Draper
                           </a>
                           <a
                             className="quill-button medium primary outlined focus-on-light"

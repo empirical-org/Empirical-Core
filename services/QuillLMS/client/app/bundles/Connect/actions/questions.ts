@@ -8,7 +8,6 @@ declare global {
   interface Window { pusher: any }
 }
 
-import request from 'request';
 import _ from 'underscore';
 import { submitResponse } from './responses';
 import { Questions, Question, FocusPoint, IncorrectSequence } from '../interfaces/questions'
@@ -20,7 +19,7 @@ import {
 } from '../libs/questions_api'
 import { LessonApi, TYPE_CONNECT_LESSON} from  '../libs/lessons_api'
 import lessonActions from '../actions/lessons'
-
+import { requestPost, } from '../../../modules/request/index'
 
 function startListeningToQuestions() {
   return loadQuestions();
@@ -229,13 +228,10 @@ function searchResponses(qid) {
   return (dispatch, getState) => {
     const requestNumber = getState().filters.requestCount
     // check for request number in state, save as const
-    request(
-      {
-        url: `${process.env.QUILL_CMS}/questions/${qid}/responses/search`,
-        method: 'POST',
-        json: { search: getFormattedSearchData(getState()), },
-      },
-      (err, httpResponse, data) => {
+    requestPost(
+      `${process.env.QUILL_CMS}/questions/${qid}/responses/search`,
+      { search: getFormattedSearchData(getState()), },
+      (data) => {
         // check again for number in state
         // if equal to const set earlier, update the state
         // otherwise, do nothing

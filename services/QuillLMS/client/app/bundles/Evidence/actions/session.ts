@@ -1,10 +1,9 @@
-import * as request from 'request';
-
 import { ActionTypes } from './actionTypes'
 import { TrackAnalyticsEvent } from './analytics'
 
 import { Events } from '../modules/analytics'
 import { FeedbackObject } from '../interfaces/feedback'
+import { requestGet, requestPut, requestPost, } from '../../../modules/request/index'
 
 interface GetFeedbackArguments {
   sessionID: string,
@@ -42,27 +41,29 @@ interface SaveActiveActivitySessionArguments {
 export const completeActivitySession = (sessionID, activityId, percentage, conceptResults, data, callback) => {
   return (dispatch: Function) => {
     const activitySessionUrl = `${process.env.DEFAULT_URL}/api/v1/activity_sessions/${sessionID}`
-    const requestObject = {
-      url: activitySessionUrl,
-      body: {
+
+    requestPut(
+      activitySessionUrl,
+      {
         state: 'finished',
         percentage,
         concept_results: conceptResults,
         activity_id: activityId,
         data
       },
-      json: true,
-    }
-
-    request.put(requestObject, (e, r, body) => {
-      if (callback) callback()
-    })
+      (body) => {
+        if (callback) callback()
+      },
+      (body) => {
+        if (callback) callback()
+      }
+    )
   }
 }
 
 export const processUnfetchableSession = () => {
   return (dispatch: Function) => {
-    dispatch({ type: ActionTypes.SESION_HAS_NO_DATA })
+    dispatch({ type: ActionTypes.SESSION_HAS_NO_DATA })
   }
 }
 
@@ -90,20 +91,17 @@ export const fetchActiveActivitySession = ({ sessionID, activityUID, callback, }
 
     dispatch({ type: ActionTypes.SET_ACTIVITY_SESSION_ID, sessionID });
 
-    const requestObject = {
-      url: activeActivitySessionUrl,
-      json: true,
-    }
-
-    request.get(requestObject, (e, r, body) => {
-      if (r.statusCode < 200 || r.statusCode >= 300) {
-        dispatch({ type: ActionTypes.SESION_HAS_NO_DATA })
-        return
+    requestGet(
+      activeActivitySessionUrl,
+      (body) => {
+        const { submittedResponses, } = body
+        dispatch({ type: ActionTypes.SET_SUBMITTED_RESPONSES, submittedResponses });
+        if (callback) callback(body)
+      },
+      (body) => {
+        dispatch({ type: ActionTypes.SESSION_HAS_NO_DATA })
       }
-      const { submittedResponses, } = body
-      dispatch({ type: ActionTypes.SET_SUBMITTED_RESPONSES, submittedResponses });
-      if (callback) callback(body)
-    })
+    )
   }
 }
 
@@ -112,9 +110,9 @@ export const saveActiveActivitySession = ({ completedSteps, timeTracking, studen
     const { sessionID, submittedResponses, activeStep, } = getState().session
     const activeActivitySessionUrl = `${process.env.DEFAULT_URL}/api/v1/active_activity_sessions/${sessionID}`
 
-    const requestObject = {
-      url: activeActivitySessionUrl,
-      body: {
+    requestPut(
+      activeActivitySessionUrl,
+      {
         active_activity_session: {
           submittedResponses,
           activeStep,
@@ -123,49 +121,50 @@ export const saveActiveActivitySession = ({ completedSteps, timeTracking, studen
           studentHighlights,
         }
       },
-      json: true,
-    }
-
-    request.put(requestObject, (e, r, body) => {
-      if (callback) callback()
-    })
+      (body) => {
+        if (callback) callback()
+      },
+      (body) => {
+        if (callback) callback()
+      }
+    )
   }
 }
 
 export const saveActivitySurveyResponse = ({ sessionID, activitySurveyResponse, callback, }) => {
-  const activeActivitySessionUrl = `${process.env.DEFAULT_URL}/api/v1/activity_survey_responses`
-
-  const requestObject = {
-    url: activeActivitySessionUrl,
-    body: {
+  requestPost(
+    `${process.env.DEFAULT_URL}/api/v1/activity_survey_responses`,
+    {
       activity_survey_response: activitySurveyResponse,
       activity_session_uid: sessionID
     },
-    json: true,
-  }
-
-  request.post(requestObject, (e, r, body) => {
-    if (callback) callback()
-  })
+    (body) => {
+      if (callback) callback()
+    },
+    (body) => {
+      if (callback) callback()
+    }
+  )
 }
 
 export const reportAProblem = ({ sessionID, entry, report, callback, isOptimal }) => {
   const reportAProblemUrl = `${process.env.DEFAULT_URL}/api/v1/student_problem_reports`
 
-  const requestObject = {
-    url: reportAProblemUrl,
-    body: {
+  requestPost(
+    reportAProblemUrl,
+    {
       entry,
       report,
       activity_session_uid: sessionID,
       optimal: isOptimal
     },
-    json: true,
-  }
-
-  request.post(requestObject, (e, r, body) => {
-    if (callback) callback()
-  })
+    (body) => {
+      if (callback) callback()
+    },
+    (body) => {
+      if (callback) callback()
+    }
+  )
 }
 
 export const getFeedback = (args: GetFeedbackArguments) => {
@@ -177,20 +176,6 @@ export const getFeedback = (args: GetFeedbackArguments) => {
     const entryWithoutStem = entry.replace(promptRegex, "").trim()
     const mostRecentFeedback = previousFeedback.slice(-1)[0] || {}
 
-    const requestObject = {
-      url: feedbackURL,
-      body: {
-        prompt_id: promptID,
-        session_id: sessionID,
-        entry: entryWithoutStem,
-        previous_feedback: previousFeedback,
-        prompt_text: promptText,
-        attempt,
-        activity_version: activityVersion
-      },
-      json: true,
-    }
-
     dispatch(TrackAnalyticsEvent(Events.EVIDENCE_ENTRY_SUBMITTED, {
       activityID: activityUID,
       attemptNumber: attempt,
@@ -201,31 +186,44 @@ export const getFeedback = (args: GetFeedbackArguments) => {
       submittedEntry: entry
     }));
 
-    request.post(requestObject, (e, r, body) => {
-      const { concept_uid, feedback, feedback_type, optimal, highlight, labels, hint, } = body
-      const feedbackObj: FeedbackObject = {
-        concept_uid,
-        entry,
-        feedback,
-        feedback_type,
-        optimal,
-        highlight,
-        labels,
-        hint,
+    requestPost(
+      feedbackURL,
+      {
+        prompt_id: promptID,
+        session_id: sessionID,
+        entry: entryWithoutStem,
+        previous_feedback: previousFeedback,
+        prompt_text: promptText,
+        attempt,
+        activity_version: activityVersion
+      },
+      (body) => {
+        const { concept_uid, feedback, feedback_type, optimal, highlight, labels, hint, } = body
+        const feedbackObj: FeedbackObject = {
+          concept_uid,
+          entry,
+          feedback,
+          feedback_type,
+          optimal,
+          highlight,
+          labels,
+          hint,
+        }
+        dispatch({ type: ActionTypes.RECORD_FEEDBACK, promptID, feedbackObj });
+        dispatch(TrackAnalyticsEvent(Events.EVIDENCE_FEEDBACK_RECEIVED, {
+          activityID: activityUID,
+          attemptNumber: attempt,
+          promptID,
+          hint,
+          promptStemText: promptText,
+          returnedFeedback: feedbackObj.feedback,
+          sessionID,
+          startingFeedback: mostRecentFeedback.feedback,
+          submittedEntry: entry
+        }));
+        callback()
       }
-      dispatch({ type: ActionTypes.RECORD_FEEDBACK, promptID, feedbackObj });
-      dispatch(TrackAnalyticsEvent(Events.EVIDENCE_FEEDBACK_RECEIVED, {
-        activityID: activityUID,
-        attemptNumber: attempt,
-        promptID,
-        hint,
-        promptStemText: promptText,
-        returnedFeedback: feedbackObj.feedback,
-        sessionID,
-        startingFeedback: mostRecentFeedback.feedback,
-        submittedEntry: entry
-      }));
-      callback()
-    })
+    )
+
   }
 }

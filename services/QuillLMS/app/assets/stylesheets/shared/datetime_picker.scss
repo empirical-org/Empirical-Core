@@ -1,0 +1,86 @@
+.due-date-picker, .publish-date-picker, .datetime-picker {
+  overflow: visible !important;
+
+  .rdtOpen {
+    .dropdown-indicator {
+      transform: rotate(180deg);
+    }
+  }
+
+  .datetime-input {
+    width: 100%;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    input {
+      padding: 0px;
+      border: none;
+      box-shadow: none;
+      background-color: inherit;
+      height: min-content;
+      color: black;
+    }
+  }
+
+  .SingleDatePickerInput {
+    background-color: inherit;
+    border: none;
+  }
+  .DayPicker {
+    margin-top: -1px;
+  }
+  .DateInput {
+    background-color: transparent;
+    padding: 0px;
+    width: 80px;
+  }
+  .CalendarDay__blocked_out_of_range, .CalendarDay__blocked_out_of_range:active, .CalendarDay__blocked_out_of_range:hover {
+    background: #fff;
+    border: 1px solid #e4e7e7;
+    color: #cacccd;
+  }
+  .CalendarDay__selected, .CalendarDay__selected:active, .CalendarDay__selected:hover {
+    background: #00a699;
+    border: 1px double #00a699;
+    color: #fff;
+  }
+  .DateInput_input {
+    font-size: 14px;
+    background-color: transparent;
+    padding-left: 0px;
+    padding-right: 0px;
+  }
+  .DateInput__display-text--focused {
+    background: inherit;
+    border-color: inherit;
+    border-radius: inherit;
+    color: inherit;
+  }
+  .SingleDatePicker__picker--open-down {
+    top: 38px;
+  }
+  .transition-container--horizontal {
+    margin-top: 0px;
+    padding-top: 5px;
+  }
+  .DayPickerNavigation--horizontal .DayPickerNavigation__prev, .DayPickerNavigation--horizontal .DayPickerNavigation__next {
+    padding: 2px 20px !important;
+  }
+  .DateInput--open-down.DateInput--with-caret::after {
+    top: 29px;
+    border-bottom-color: #fafafa;
+  }
+  .DateInput--open-down.DateInput--with-caret::before {
+    top: 28px;
+    border-bottom-color: rgba(0, 0, 0, 0.1);
+  }
+  .SingleDatePickerInput__calendar-icon {
+    box-shadow: none !important;
+    width: min-content;
+    padding: 0px;
+    &:focus {
+      outline: dashed 2px #06806b;
+      outline-offset: 6px;
+    }
+  }
+}

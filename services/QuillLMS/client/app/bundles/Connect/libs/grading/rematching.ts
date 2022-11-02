@@ -1,5 +1,4 @@
 declare function require(name:string);
-const request = require('request-promise');
 // import AWS from 'aws-sdk'
 import * as _ from 'underscore';
 import { hashToCollection, } from '../../../Shared/index'
@@ -7,6 +6,7 @@ import { hashToCollection, } from '../../../Shared/index'
 // const qml = require('quill-marking-logic')
 import { checkSentenceCombining, checkSentenceFragment, checkDiagnosticQuestion, checkFillInTheBlankQuestion, ConceptResult } from 'quill-marking-logic'
 import objectWithSnakeKeysFromCamel from '../objectWithSnakeKeysFromCamel';
+import { requestGet, requestPost, requestPut, } from '../../../../modules/request/index'
 
 // AWS.config.update({ region:'us-east-1', accessKeyId: 'akid', secretAccessKey: 'secret' });
 
@@ -95,30 +95,24 @@ export function rematchOne(response: string, mode: string, question: Question, q
 }
 
 export function paginatedNonHumanResponses(matcher, matcherFields, qid, page, callback) {
-
-  return request(
-    {
-      uri: `${process.env.QUILL_CMS}/questions/${qid}/responses/search`,
-      method: 'POST',
-      body: getResponseBody(page),
-      json: true,
-    },
-  ).then((data) => {
-    const parsedResponses = _.indexBy(data.results, 'id');
-    const responseData = {
-      responses: parsedResponses,
-      numberOfResponses: data.numberOfResults,
-      numberOfPages: data.numberOfPages,
-    };
-    const rematchedResponses = rematchResponses(matcher, matcherFields, responseData.responses);
-    if (page < data.numberOfPages) {
-      callback({ progress: Math.round(page / data.numberOfPages * 100), });
-      return paginatedNonHumanResponses(matcher, matcherFields, qid, page + 1, callback);
+  requestPost(
+    `${process.env.QUILL_CMS}/questions/${qid}/responses/search`,
+    getResponseBody(page),
+    (data) => {
+      const parsedResponses = _.indexBy(data.results, 'id');
+      const responseData = {
+        responses: parsedResponses,
+        numberOfResponses: data.numberOfResults,
+        numberOfPages: data.numberOfPages,
+      };
+      const rematchedResponses = rematchResponses(matcher, matcherFields, responseData.responses);
+      if (page < data.numberOfPages) {
+        callback({ progress: Math.round(page / data.numberOfPages * 100), });
+        return paginatedNonHumanResponses(matcher, matcherFields, qid, page + 1, callback);
+      }
+      callback({ progress: undefined, }, true);
     }
-    callback({ progress: undefined, }, true);
-  }).catch((err) => {
-    // to do - do something with this error
-  });
+  )
 }
 
 function rematchResponses(matcher, matcherFields, responses) {
@@ -180,12 +174,10 @@ function deleteRematchedResponse(response) {
 
 function updateResponse(rid, content) {
   const rubyConvertedResponse = objectWithSnakeKeysFromCamel(content, false);
-  return request({
-    method: 'PUT',
-    uri: `${process.env.QUILL_CMS}/responses/${rid}`,
-    body: { response: rubyConvertedResponse, },
-    json: true,
-  });
+  return requestPut(
+    `${process.env.QUILL_CMS}/responses/${rid}`,
+    { response: rubyConvertedResponse, }
+  )
 }
 
 function determineDelta(response, newResponse) {
@@ -268,12 +260,12 @@ function getResponseBody(pageNumber) {
 }
 
 function getGradedResponses(questionID) {
-  return request(`${process.env.QUILL_CMS}/questions/${questionID}/responses`);
+  return requestGet(`${process.env.QUILL_CMS}/questions/${questionID}/responses`);
 }
 
 function formatGradedResponses(jsonString):{[key:string]: Response} {
   const bodyToObj = {};
-  JSON.parse(jsonString).forEach((resp) => {
+  jsonString.forEach((resp) => {
     bodyToObj[resp.id] = resp;
     if (typeof resp.concept_results === 'string') {
       resp.concept_results = JSON.parse(resp.concept_results);

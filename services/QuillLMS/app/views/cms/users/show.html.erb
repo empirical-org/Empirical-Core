@@ -64,8 +64,8 @@
     <p><%= @user.username || 'N/A' %></p>
     <br />
 
-    <p style='font-weight: 700;'>Flags</p>
-    <p><%= @user.flags.any? ? @user.flags : 'None' %></p>
+    <p style='font-weight: 700;'>Flagset</p>
+    <p><%= @user&.flagset %></p>
     <br />
 
     <p style='font-weight: 700;'>Role</p>
@@ -108,6 +108,13 @@
     <p><%= @user.ip_address || 'N/A' %></p>
     <br />
 
+    <p style='font-weight: 700;'>IP City</p>
+    <p><%= @user.ip_location&.city || 'N/A' %></p>
+    <br />
+
+    <p style='font-weight: 700;'>IP State</p>
+    <p><%= @user.ip_location&.state || 'N/A' %></p>
+    <br />
 
     <p style='font-weight: 700;'>Created</p>
     <p><%= @user.created_at || 'N/A' %></p>

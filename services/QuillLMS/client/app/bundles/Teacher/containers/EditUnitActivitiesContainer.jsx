@@ -1,9 +1,9 @@
 import React from 'react'
-import UnitStage1 from '../components/assignment_flow/create_unit/select_activities_container.jsx'
-import request from 'request'
-import getAuthToken from '../components/modules/get_auth_token';
 
-export default class extends React.Component {
+import UnitStage1 from '../components/assignment_flow/create_unit/select_activities_container.jsx'
+import { requestPut, } from '../../../modules/request/index'
+
+export default class EditUnitActivitiesContainer extends React.Component {
   constructor(props) {
     super(props)
 
@@ -24,19 +24,18 @@ export default class extends React.Component {
 
   updateActivities = () => {
     const that = this;
-    request.put({
-      url: `${process.env.DEFAULT_URL}/teachers/units/${that.props.match.params.unitId}/update_activities`,
-      json: {
-        authenticity_token: getAuthToken(),
+    requestPut(
+      `${process.env.DEFAULT_URL}/teachers/units/${that.props.match.params.unitId}/update_activities`,
+      {
         data: { activities_data: that.getActivityIds(), }
-      }
-    }, (error, httpStatus, body) => {
-      if (body.errors) {
-        this.setState({ errors: body.errors, loading: false, })
-      } else {
+      },
+      (body) => {
         window.location = '/teachers/classrooms/lesson_planner'
+      },
+      (body) => {
+        this.setState({ errors: body.errors, loading: false, })
       }
-    })
+    )
   };
 
   render() {

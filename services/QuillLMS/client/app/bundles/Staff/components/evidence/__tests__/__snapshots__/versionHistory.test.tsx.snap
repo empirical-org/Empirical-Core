@@ -1,0 +1,68 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`VersionHistory component should render VersionHistory 1`] = `
+<ContextProvider
+  value={true}
+>
+  <ContextProvider
+    value={
+      DefaultReactQueryClient {
+        "defaultOptions": Object {
+          "queries": Object {
+            "cacheTime": Infinity,
+            "staleTime": Infinity,
+          },
+        },
+        "mutationCache": MutationCache {
+          "config": Object {},
+          "listeners": Array [],
+          "mutationId": 0,
+          "mutations": Array [],
+        },
+        "mutationDefaults": Array [],
+        "queryCache": QueryCache {
+          "config": Object {},
+          "listeners": Array [],
+          "queries": Array [],
+          "queriesMap": Object {},
+        },
+        "queryDefaults": Array [],
+      }
+    }
+  >
+    <VersionHistory
+      history={
+        Object {
+          "createHref": [Function],
+          "createKey": [Function],
+          "createLocation": [Function],
+          "createPath": [Function],
+          "go": [Function],
+          "goBack": [Function],
+          "goForward": [Function],
+          "listen": [Function],
+          "listenBefore": [Function],
+          "push": [Function],
+          "pushState": [Function],
+          "registerTransitionHook": [Function],
+          "replace": [Function],
+          "replaceState": [Function],
+          "setState": [Function],
+          "transitionTo": [Function],
+          "unregisterTransitionHook": [Function],
+        }
+      }
+      match={
+        Object {
+          "isExact": true,
+          "params": Object {
+            "activityId": "1",
+          },
+          "path": "",
+          "url": "",
+        }
+      }
+    />
+  </ContextProvider>
+</ContextProvider>
+`;

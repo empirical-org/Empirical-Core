@@ -18,7 +18,7 @@ class StudentsClassroomsController < ApplicationController
         # rubocop:enable Style/GuardClause
       end
       Associators::StudentsToClassrooms.run(@user, classroom)
-      render json: classroom.attributes
+      render json: classroom.reload.attributes
     else
       render status: 403, json: {error: "Student not logged in."}, text: "Student not logged in."
     end
