@@ -122,7 +122,7 @@ module Evidence
 
       private def generate_label_paraphrases
         label_configs.each do |label_config|
-          label_config.examples.each.with_index do |example, index|
+          label_config.examples.map(&:strip).uniq.each.with_index do |example, index|
             prompt = PARAPHRASE_INSTRUCTION + example
             run_prompt(
               prompt: prompt,

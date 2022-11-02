@@ -22,13 +22,10 @@ const SeedDataForm = ({ history, match }) => {
   const but = 'but';
   const so = 'so';
 
-  const blankLabelConfig = { label: '', examples: ['',''] };
+  const blankLabelConfig = { label: '', examples: ['',''],};
+  const blankLabelConfigs = {because : [], but : [], so : [],};
 
-  const [labelConfigs, setLabelConfigs] = React.useState({
-    because : [],
-    but : [],
-    so : [],
-  });
+  const [labelConfigs, setLabelConfigs] = React.useState({...blankLabelConfigs});
 
   const handleLabelConfigsChange = (event, index, conjunction, key) => {
     let data = labelConfigs
@@ -83,6 +80,7 @@ const SeedDataForm = ({ history, match }) => {
         setErrors([]);
         setErrorOrSuccessMessage('Seed Data started! You will receive an email with the csv files');
         setActivityNouns('');
+        setLabelConfigs({...blankLabelConfigs});
         toggleSubmissionModal();
       }
     });
@@ -106,8 +104,8 @@ const SeedDataForm = ({ history, match }) => {
   const renderExample = (value, index, conjunction, exampleIndex) => {
     return (
       <Input
-        label={`Example${exampleIndex + 1}`}
         handleChange={e => handleExampleChange(e, index, conjunction, exampleIndex)}
+        label={`Example ${exampleIndex + 1}`}
         value={value}
       />
     );
@@ -116,14 +114,17 @@ const SeedDataForm = ({ history, match }) => {
   const renderLabelConfig = (labelConfig, index, conjunction) => {
     return (
       <div key={index} className="seed-label-form">
-        <button onClick={() => removeLabelConfig(index, conjunction)} className='right quill-button fun secondary outlined'>
+        <button
+          className='right quill-button fun secondary outlined'
+          onClick={() => removeLabelConfig(index, conjunction)}
+        >
           Remove
         </button>
         <div>
           <Input
-            label='Label'
             className="label-input"
             handleChange={e => handleLabelConfigsChange(e, index, conjunction, 'label')}
+            label='Label'
             value={labelConfig.label}
           />
         </div>
@@ -143,7 +144,9 @@ const SeedDataForm = ({ history, match }) => {
         </h4>
         {labelConfigs[conjunction].map((labelConfig, index) => renderLabelConfig(labelConfig, index, conjunction))}
         <button className='quill-button small primary outlined' onClick={e => addLabelConfigs(conjunction)}>
-          Add {capitalizeConjunction} Label Example
+          <span className='plus'>+</span>
+
+          &nbsp;Add {capitalizeConjunction} Label
         </button>
       </div>
     );
