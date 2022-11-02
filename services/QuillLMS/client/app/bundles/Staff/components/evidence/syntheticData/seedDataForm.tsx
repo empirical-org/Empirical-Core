@@ -23,7 +23,7 @@ const SeedDataForm = ({ history, match }) => {
   const but = 'but';
   const so = 'so';
 
-  const blankLabelConfig = { label: '', example1: '', example2: '' };
+  const blankLabelConfig = { label: '', examples: ['',''] };
 
   const [labelConfigs, setLabelConfigs] = React.useState({
     because : [ {...blankLabelConfig}],
@@ -31,11 +31,21 @@ const SeedDataForm = ({ history, match }) => {
     so : [{...blankLabelConfig}],
   });
 
-  const handleLabelConfigsChange = (event, index, conjunction) => {
+  const handleLabelConfigsChange = (event, index, conjunction, key) => {
     let data = labelConfigs
     let conjunctionData = [...data[conjunction]];
 
-    conjunctionData[index][event.target.id] = event.target.value;
+    conjunctionData[index][key] = event.target.value;
+    data[conjunction] = conjunctionData;
+
+    setLabelConfigs(labelConfigs => ({...data}));
+  }
+
+  const handleExampleChange = (event, index, conjunction, exampleIndex) => {
+    let data = labelConfigs
+    let conjunctionData = [...data[conjunction]];
+
+    conjunctionData[index].examples[exampleIndex] = event.target.value;
     data[conjunction] = conjunctionData;
 
     setLabelConfigs(labelConfigs => ({...data}));
@@ -94,27 +104,25 @@ const SeedDataForm = ({ history, match }) => {
     );
   }
 
-  const renderLabelConfig = (form, index, conjunction) => {
+  const renderExample = (value, index, conjunction, exampleIndex) => {
+    return (
+      <Input
+        label={`Example${exampleIndex + 1}`}
+        handleChange={e => handleExampleChange(e, index, conjunction, exampleIndex)}
+        value={value}
+      />
+    );
+  }
+
+  const renderLabelConfig = (labelConfig, index, conjunction) => {
     return (
       <div key={index}>
         <Input
-          id='label'
           label='Label'
-          handleChange={e => handleLabelConfigsChange(e, index, conjunction)}
-          value={form.label}
+          handleChange={e => handleLabelConfigsChange(e, index, conjunction, 'label')}
+          value={labelConfig.label}
         />
-        <Input
-          id='example1'
-          label='Example1'
-          handleChange={e => handleLabelConfigsChange(e, index, conjunction)}
-          value={form.example1}
-        />
-        <Input
-          id='example2'
-          label='Example2'
-          handleChange={e => handleLabelConfigsChange(e, index, conjunction)}
-          value={form.example2}
-        />
+        {labelConfig.examples.map((example, exampleIndex) => renderExample(example, index, conjunction, exampleIndex))}
         <button onClick={() => removeLabelConfig(index, conjunction)}>Remove</button>
       </div>
     );
@@ -124,7 +132,7 @@ const SeedDataForm = ({ history, match }) => {
     return (
       <div>
         <h4>{conjunction.toUpperCase()} Label Examples</h4>
-        {labelConfigs[conjunction].map((form, index) => renderLabelConfig(form, index, conjunction))}
+        {labelConfigs[conjunction].map((labelConfig, index) => renderLabelConfig(labelConfig, index, conjunction))}
         <button onClick={e => addLabelConfigs(conjunction)}>Add {conjunction} Label</button>
       </div>
     );
