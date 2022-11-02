@@ -213,11 +213,13 @@ const RecommendationsTable = ({ recommendations, responsesLink, students, select
   }
 
   const renderStickyTable = () => {
-    const mainTable = document.getElementsByClassName('independent-practice')[0]
+    // an arbitrary, non-resizing element that is the same width that we need this table to be
+    const anchorElement = document.getElementsByClassName('independent-practice')[0]
 
-    if (!(isSticky && tableHasContent && mainTable)) { return }
+    if (!(isSticky && tableHasContent && anchorElement)) { return }
 
-    const width = mainTable.getBoundingClientRect().width - paddingLeft()
+    // table doesn't get padding so we have to remove that from the width we're using
+    const width = anchorElement.getBoundingClientRect().width - paddingLeft()
 
     return (
       <table
