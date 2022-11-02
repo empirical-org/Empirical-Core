@@ -18,7 +18,6 @@ const SeedDataForm = ({ history, match }) => {
 
   const [activityNouns, setActivityNouns] = React.useState<string>('');
 
-
   const because = 'because';
   const but = 'but';
   const so = 'so';
@@ -116,24 +115,36 @@ const SeedDataForm = ({ history, match }) => {
 
   const renderLabelConfig = (labelConfig, index, conjunction) => {
     return (
-      <div key={index}>
-        <Input
-          label='Label'
-          handleChange={e => handleLabelConfigsChange(e, index, conjunction, 'label')}
-          value={labelConfig.label}
-        />
+      <div key={index} className="seed-label-form">
+        <button onClick={() => removeLabelConfig(index, conjunction)} className='right quill-button fun secondary outlined'>
+          Remove
+        </button>
+        <div>
+          <Input
+            label='Label'
+            className="label-input"
+            handleChange={e => handleLabelConfigsChange(e, index, conjunction, 'label')}
+            value={labelConfig.label}
+          />
+        </div>
         {labelConfig.examples.map((example, exampleIndex) => renderExample(example, index, conjunction, exampleIndex))}
-        <button onClick={() => removeLabelConfig(index, conjunction)}>Remove</button>
+
       </div>
     );
   }
 
   const renderLabelSection = (conjunction) => {
+    let capitalizeConjunction = conjunction.charAt(0).toUpperCase() + conjunction.substring(1)
     return (
-      <div>
-        <h4>{conjunction.toUpperCase()} Label Examples</h4>
+      <div className='label-section'>
+        <h4 className='bg-quillteal label-title'>
+          <span className='highlight'>{capitalizeConjunction}</span>
+          &nbsp;Label Examples
+        </h4>
         {labelConfigs[conjunction].map((labelConfig, index) => renderLabelConfig(labelConfig, index, conjunction))}
-        <button onClick={e => addLabelConfigs(conjunction)}>Add {conjunction} Label</button>
+        <button className='quill-button small primary outlined' onClick={e => addLabelConfigs(conjunction)}>
+          Add {capitalizeConjunction} Label Example
+        </button>
       </div>
     );
   }
@@ -150,7 +161,7 @@ const SeedDataForm = ({ history, match }) => {
         {activity && activity.prompts.map((prompt, i) => <li key={i}>{prompt.text}</li>)}
       </ul>
       <details>
-        <summary className="quill-button fun secondary outlined focus-on-light">Toggle Passage</summary>
+        <summary className="quill-button fun primary outlined focus-on-light">Toggle Passage</summary>
         <br />
         <div className="passage">{ReactHtmlParser(activity && activity.passages[0].text)}</div>
       </details>
@@ -165,7 +176,7 @@ const SeedDataForm = ({ history, match }) => {
       {renderLabelSection(because)}
       {renderLabelSection(but)}
       {renderLabelSection(so)}
-
+      <br />
       <div className="button-and-id-container">
         <button className="quill-button fun large primary contained focus-on-light" id="activity-submit-button" onClick={handleCreateSeedData} type="submit">
           <span aria-label="robot" role="img">🤖</span>
