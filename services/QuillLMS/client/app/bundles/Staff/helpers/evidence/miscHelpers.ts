@@ -79,15 +79,19 @@ export const handlePageFilterClick = ({
   setEndDate,
   setPageNumber,
   setFilterOptionForQuery,
+  responsesForScoring,
+  setResponsesForScoringForQuery,
   storageKey }: {
     startDate: Date,
     endDate?: Date,
     versionOption?: DropdownObjectInterface,
     filterOption?: DropdownObjectInterface,
+    responsesForScoring?: boolean,
     setStartDate: (startDate: string) => void,
     setEndDate: (endDate: string) => void,
     setFilterOptionForQuery?: (filterOption: DropdownObjectInterface) => void,
     setPageNumber: (pageNumber: DropdownObjectInterface) => void,
+    setResponsesForScoringForQuery: (responsesForScoringQuery: boolean) => void,
     storageKey: string,
   }) => {
   if(versionOption) {
@@ -113,6 +117,9 @@ export const handlePageFilterClick = ({
   }
   if(setPageNumber) {
     setPageNumber({ value: '1', label: "Page 1" })
+  }
+  if(responsesForScoring) {
+    setResponsesForScoringForQuery(true)
   }
 }
 

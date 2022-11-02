@@ -39,6 +39,7 @@ const SessionsIndex = ({ match }) => {
   const [endDate, onEndDateChange] = React.useState<Date>(initialEndDate);
   const [endDateForQuery, setEndDate] = React.useState<string>(initialEndDateString);
   const [responsesForScoring, setResponsesForScoring] = React.useState<boolean>(false)
+  const [responsesForScoringForQuery, setResponsesForScoringForQuery] = React.useState<boolean>(false)
 
   // cache activity data for updates
   const { data: activityData } = useQuery({
@@ -48,7 +49,7 @@ const SessionsIndex = ({ match }) => {
 
   // cache activity sessions data for updates
   const { data: sessionsData } = useQuery({
-    queryKey: [`activity-${activityId}-sessions`, activityId, pageNumberForQuery, startDateForQuery, filterOptionForQuery, endDateForQuery],
+    queryKey: [`activity-${activityId}-sessions`, activityId, pageNumberForQuery, startDateForQuery, filterOptionForQuery, endDateForQuery, responsesForScoringForQuery],
     queryFn: fetchActivitySessions
   });
 
@@ -90,7 +91,7 @@ const SessionsIndex = ({ match }) => {
   }, [sessionsData]);
 
   function handleFilterClick(e: React.SyntheticEvent, passedVersionOption?: DropdownObjectInterface) {
-    handlePageFilterClick({ startDate, endDate, filterOption, versionOption: passedVersionOption || versionOption, setStartDate, setEndDate, setPageNumber, setFilterOptionForQuery, storageKey: SESSION_INDEX });
+    handlePageFilterClick({ startDate, endDate, filterOption, versionOption: passedVersionOption || versionOption, responsesForScoring, setStartDate, setEndDate, setPageNumber, setFilterOptionForQuery, setResponsesForScoringForQuery, storageKey: SESSION_INDEX });
   }
 
   function handleFilterOptionChange(filterOption: DropdownObjectInterface) {
@@ -230,7 +231,7 @@ const SessionsIndex = ({ match }) => {
             <DropdownInput
               className="session-filters-dropdown"
               handleChange={handleFilterOptionChange}
-              isSearchable={false}
+              isSearchable={true}
               label="Session filter options"
               options={activitySessionFilterOptions}
               value={filterOption}

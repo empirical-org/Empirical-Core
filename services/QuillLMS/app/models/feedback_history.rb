@@ -221,6 +221,21 @@ class FeedbackHistory < ApplicationRecord
     SQL
   end
 
+  def self.responses_for_scoring
+    <<-SQL
+    (
+      CASE WHEN
+        BOOL_OR(CASE WHEN comprehension_prompts.conjunction = '#{BECAUSE}' AND feedback_histories.optimal = true THEN true ELSE false END) AND
+        BOOL_OR(CASE WHEN comprehension_prompts.conjunction = '#{BUT}' AND feedback_histories.optimal = true THEN true ELSE false END) AND
+        BOOL_OR(CASE WHEN comprehension_prompts.conjunction = '#{SO}' AND feedback_histories.optimal = true THEN true ELSE false END) AND
+        COUNT(CASE WHEN comprehension_prompts.conjunction = '#{BECAUSE}' THEN 1 END) +
+        COUNT(CASE WHEN comprehension_prompts.conjunction = '#{BUT}' THEN 1 END) +
+        COUNT(CASE WHEN comprehension_prompts.conjunction = '#{SO}' THEN 1 END) > 8
+      THEN true ELSE false END
+    ) = true
+    SQL
+  end
+
   # rubocop:disable Lint/DuplicateBranch
   def self.apply_activity_session_filter(query, filter_type)
     case filter_type
@@ -243,7 +258,7 @@ class FeedbackHistory < ApplicationRecord
   # rubocop:enable Lint/DuplicateBranch
 
   # rubocop:disable Metrics/CyclomaticComplexity
-  def self.list_by_activity_session(activity_id: nil, page: 1, start_date: nil, end_date: nil, page_size: DEFAULT_PAGE_SIZE, filter_type: nil)
+  def self.list_by_activity_session(activity_id: nil, page: 1, start_date: nil, end_date: nil, page_size: DEFAULT_PAGE_SIZE, filter_type: nil, responses_for_scoring: false)
     query = select(
       <<-SQL
         feedback_histories.feedback_session_uid AS session_uid,
@@ -281,19 +296,23 @@ class FeedbackHistory < ApplicationRecord
     query = query.where("feedback_histories.created_at >= ?", start_date) if start_date
     query = query.where("feedback_histories.created_at <= ?", end_date) if end_date
     query = FeedbackHistory.apply_activity_session_filter(query, filter_type) if filter_type
+    query = query.having(FeedbackHistory.responses_for_scoring) if responses_for_scoring
     query = query.limit(page_size) if page_size
     query = query.offset((page.to_i - 1) * page_size.to_i) if page && page.to_i > 1
     query
   end
   # rubocop:enable Metrics/CyclomaticComplexity
 
-  def self.get_total_count(activity_id: nil, start_date: nil, end_date: nil)
+  def self.get_total_count(activity_id: nil, start_date: nil, end_date: nil, filter_type: nil, responses_for_scoring: false)
     query = FeedbackHistory.select(:feedback_session_uid)
       .joins("LEFT OUTER JOIN comprehension_prompts ON feedback_histories.prompt_id = comprehension_prompts.id")
+      .joins("LEFT OUTER JOIN feedback_history_ratings ON feedback_histories.id = feedback_history_ratings.feedback_history_id")
       .group(:feedback_session_uid, :activity_id)
     query = query.where(comprehension_prompts: {activity_id: activity_id.to_i}) if activity_id
     query = query.where("feedback_histories.created_at >= ?", start_date) if start_date
     query = query.where("feedback_histories.created_at <= ?", end_date) if end_date
+    query = FeedbackHistory.apply_activity_session_filter(query, filter_type) if filter_type
+    query = query.having(FeedbackHistory.responses_for_scoring) if responses_for_scoring
     query.length
   end
 
