@@ -70,6 +70,11 @@
         }
       }
     }
+    .sub-optimal-attempt {
+      color: #ff0000;
+      font-weight: 700;
+      margin: 0;
+    }
   }
   .session-overview-table {
     margin: 30px 0px 30px 0px;
@@ -133,4 +138,11 @@
       }
     }
   }
+}
+
+.data-link {
+  color: #00c2a2;
+}
+.data-link:hover {
+  color: #29d8bc;
 }

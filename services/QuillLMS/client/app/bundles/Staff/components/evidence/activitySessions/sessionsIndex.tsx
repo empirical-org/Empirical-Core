@@ -149,9 +149,17 @@ const SessionsIndex = ({ match }) => {
     }
   }
 
+  function colorCodeAttemptsCount(attemptCount, isOptimal) {
+    if(isOptimal) {
+      return attemptCount
+    }
+    return <p className="sub-optimal-attempt">{attemptCount}</p>
+  }
+
   function formatSessionsData(activitySessions: ActivitySessionInterface[]) {
     return activitySessions.map(session => {
-      const { start_date, session_uid, because_attempts, but_attempts, so_attempts, complete } = session;
+      console.log("🚀 ~ file: sessionsIndex.tsx ~ line 154 ~ formatSessionsData ~ session", session)
+      const { start_date, session_uid, because_attempts, because_optimal, but_attempts, but_optimal, so_attempts, so_optimal, complete } = session;
       const dateObject = new Date(start_date);
       const date = moment(dateObject).format("MM/DD/YY");
       const time = moment(dateObject).format("hh:mm a");
@@ -161,9 +169,9 @@ const SessionsIndex = ({ match }) => {
         id: session_uid,
         session_uid: session_uid ? session_uid.substring(0,6) : '',
         datetime: `${date} ${time}`,
-        because_attempts: because_attempts,
-        but_attempts: but_attempts,
-        so_attempts: so_attempts,
+        because_attempts: colorCodeAttemptsCount(because_attempts, because_optimal),
+        but_attempts: colorCodeAttemptsCount(but_attempts, but_optimal),
+        so_attempts: colorCodeAttemptsCount(so_attempts, so_optimal),
         total_attempts: total,
         view_link: <Link className="data-link" rel="noopener noreferrer" target="_blank" to={`/activities/${activityId}/activity-sessions/${session_uid}/overview`}>View</Link>,
         completed: complete ? <img alt="quill-circle-checkmark" src={quillCheckmark} /> : ""
