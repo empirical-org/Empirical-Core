@@ -3,11 +3,12 @@ import { Link } from 'react-router-dom';
 import { useQuery } from 'react-query';
 import * as moment from 'moment';
 import { firstBy } from 'thenby';
+import { renderToString } from 'react-dom/server'
 
 import FilterWidget from "../shared/filterWidget";
 import { getVersionOptions, handlePageFilterClick } from "../../../helpers/evidence/miscHelpers";
 import { renderHeader } from "../../../helpers/evidence/renderHelpers";
-import { Error, Spinner, DropdownInput, ReactTable, } from '../../../../Shared/index';
+import { Error, Spinner, DropdownInput, ReactTable, Tooltip, informationIcon } from '../../../../Shared/index';
 import { fetchActivity, fetchActivitySessions, fetchActivityVersions } from '../../../utils/evidence/activityAPIs';
 import { DropdownObjectInterface, ActivitySessionInterface, ActivitySessionsInterface } from '../../../interfaces/evidenceInterfaces';
 import { activitySessionIndexResponseHeaders, activitySessionFilterOptions, SESSION_INDEX } from '../../../../../constants/evidence';
@@ -37,6 +38,7 @@ const SessionsIndex = ({ match }) => {
   const [startDateForQuery, setStartDate] = React.useState<string>(initialStartDateString);
   const [endDate, onEndDateChange] = React.useState<Date>(initialEndDate);
   const [endDateForQuery, setEndDate] = React.useState<string>(initialEndDateString);
+  const [responsesForScoring, setResponsesForScoring] = React.useState<boolean>(false)
 
   // cache activity data for updates
   const { data: activityData } = useQuery({
@@ -129,6 +131,10 @@ const SessionsIndex = ({ match }) => {
     setPageNumber(number);
   }
 
+  function handleResponsesForScoringChange() {
+    setResponsesForScoring(!responsesForScoring);
+  }
+
   function getSortedRows({ activitySessions, id, directionOfSort }) {
     const columnOptions  = ['total_attempts', 'because_attempts', 'but_attempts', 'so_attempts'];
     if(columnOptions.includes(id)) {
@@ -219,15 +225,27 @@ const SessionsIndex = ({ match }) => {
             value={pageNumber}
           />
         </section>
-        <section className="top-section">
-          <DropdownInput
-            className="session-filters-dropdown"
-            handleChange={handleFilterOptionChange}
-            isSearchable={false}
-            label="Session filter options"
-            options={activitySessionFilterOptions}
-            value={filterOption}
-          />
+        <section className="middle-section">
+          <section className="response-filters-container">
+            <DropdownInput
+              className="session-filters-dropdown"
+              handleChange={handleFilterOptionChange}
+              isSearchable={false}
+              label="Session filter options"
+              options={activitySessionFilterOptions}
+              value={filterOption}
+            />
+            <section className="responses-for-scoring-container">
+              <section className="label-section">
+                <label>Responses for Scoring</label>
+                <Tooltip
+                  tooltipText="At least 1 optimal response, between 9 and 15 responses"
+                  tooltipTriggerText={<img alt={informationIcon.alt} src={informationIcon.src} />}
+                />
+              </section>
+              <input checked={responsesForScoring} onChange={handleResponsesForScoringChange} type="checkbox" />
+            </section>
+          </section>
           <FilterWidget
             endDate={endDate}
             handleFilterClick={handleFilterClick}
