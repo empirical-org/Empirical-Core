@@ -147,7 +147,7 @@ exports[`ActivityFeed component not on mobile should render when there are activ
           Object {
             "attribute": "activityName",
             "name": "Activity",
-            "width": "245px",
+            "width": "380px",
           },
           Object {
             "attribute": "scoreTag",
@@ -336,9 +336,9 @@ exports[`ActivityFeed component not on mobile should render when there are activ
             scope="col"
             style={
               Object {
-                "minWidth": "245px",
+                "minWidth": "380px",
                 "textAlign": "left",
-                "width": "245px",
+                "width": "380px",
               }
             }
           >
@@ -393,70 +393,18 @@ exports[`ActivityFeed component not on mobile should render when there are activ
               >
                 Angie Thomas
               </td>
-              <td>
-                <Tooltip
-                  isTabbable={true}
-                  key="activityName-33"
-                  tooltipText="Subject and Object Pronoun Agreement 1"
-                  tooltipTriggerStyle={
-                    Object {
-                      "minWidth": "245px",
-                      "textAlign": "left",
-                      "width": "245px",
-                    }
+              <td
+                className="data-table-row-section undefined"
+                key="activityName-33"
+                style={
+                  Object {
+                    "minWidth": "380px",
+                    "textAlign": "left",
+                    "width": "380px",
                   }
-                  tooltipTriggerText="Subject and Object Pronoun Agreement 1"
-                  tooltipTriggerTextClass="data-table-row-section undefined"
-                  tooltipTriggerTextStyle={
-                    Object {
-                      "minWidth": "245px",
-                      "textAlign": "left",
-                      "width": "245px",
-                    }
-                  }
-                >
-                  <span
-                    aria-hidden={false}
-                    className="quill-tooltip-trigger "
-                    role="tooltip"
-                    style={
-                      Object {
-                        "minWidth": "245px",
-                        "textAlign": "left",
-                        "width": "245px",
-                      }
-                    }
-                  >
-                    <span
-                      className="data-table-row-section undefined"
-                      onBlur={[Function]}
-                      onClick={[Function]}
-                      onFocus={[Function]}
-                      onKeyDown={[Function]}
-                      onMouseEnter={[Function]}
-                      onMouseLeave={[Function]}
-                      role="button"
-                      style={
-                        Object {
-                          "minWidth": "245px",
-                          "textAlign": "left",
-                          "width": "245px",
-                        }
-                      }
-                      tabIndex={0}
-                    >
-                      Subject and Object Pronoun Agreement 1
-                    </span>
-                    <span
-                      className="quill-tooltip-wrapper"
-                    >
-                      <span
-                        aria-live="polite"
-                        className="quill-tooltip"
-                      />
-                    </span>
-                  </span>
-                </Tooltip>
+                }
+              >
+                Subject and Object Pronoun Agreement 1
               </td>
               <td
                 className="data-table-row-section undefined"
@@ -509,70 +457,18 @@ exports[`ActivityFeed component not on mobile should render when there are activ
               >
                 Angie Thomas
               </td>
-              <td>
-                <Tooltip
-                  isTabbable={true}
-                  key="activityName-32"
-                  tooltipText="Capitalize Names of People and the Pronoun \\"I\\""
-                  tooltipTriggerStyle={
-                    Object {
-                      "minWidth": "245px",
-                      "textAlign": "left",
-                      "width": "245px",
-                    }
+              <td
+                className="data-table-row-section undefined"
+                key="activityName-32"
+                style={
+                  Object {
+                    "minWidth": "380px",
+                    "textAlign": "left",
+                    "width": "380px",
                   }
-                  tooltipTriggerText="Capitalize Names of People and the Pronoun \\"I\\""
-                  tooltipTriggerTextClass="data-table-row-section undefined"
-                  tooltipTriggerTextStyle={
-                    Object {
-                      "minWidth": "245px",
-                      "textAlign": "left",
-                      "width": "245px",
-                    }
-                  }
-                >
-                  <span
-                    aria-hidden={false}
-                    className="quill-tooltip-trigger "
-                    role="tooltip"
-                    style={
-                      Object {
-                        "minWidth": "245px",
-                        "textAlign": "left",
-                        "width": "245px",
-                      }
-                    }
-                  >
-                    <span
-                      className="data-table-row-section undefined"
-                      onBlur={[Function]}
-                      onClick={[Function]}
-                      onFocus={[Function]}
-                      onKeyDown={[Function]}
-                      onMouseEnter={[Function]}
-                      onMouseLeave={[Function]}
-                      role="button"
-                      style={
-                        Object {
-                          "minWidth": "245px",
-                          "textAlign": "left",
-                          "width": "245px",
-                        }
-                      }
-                      tabIndex={0}
-                    >
-                      Capitalize Names of People and the Pronoun "I"
-                    </span>
-                    <span
-                      className="quill-tooltip-wrapper"
-                    >
-                      <span
-                        aria-live="polite"
-                        className="quill-tooltip"
-                      />
-                    </span>
-                  </span>
-                </Tooltip>
+                }
+              >
+                Capitalize Names of People and the Pronoun "I"
               </td>
               <td
                 className="data-table-row-section undefined"
@@ -630,9 +526,9 @@ exports[`ActivityFeed component not on mobile should render when there are activ
                 key="activityName-29"
                 style={
                   Object {
-                    "minWidth": "245px",
+                    "minWidth": "380px",
                     "textAlign": "left",
-                    "width": "245px",
+                    "width": "380px",
                   }
                 }
               >
@@ -694,9 +590,9 @@ exports[`ActivityFeed component not on mobile should render when there are activ
                 key="activityName-28"
                 style={
                   Object {
-                    "minWidth": "245px",
+                    "minWidth": "380px",
                     "textAlign": "left",
-                    "width": "245px",
+                    "width": "380px",
                   }
                 }
               >
@@ -758,9 +654,9 @@ exports[`ActivityFeed component not on mobile should render when there are activ
                 key="activityName-27"
                 style={
                   Object {
-                    "minWidth": "245px",
+                    "minWidth": "380px",
                     "textAlign": "left",
-                    "width": "245px",
+                    "width": "380px",
                   }
                 }
               >
@@ -822,9 +718,9 @@ exports[`ActivityFeed component not on mobile should render when there are activ
                 key="activityName-26"
                 style={
                   Object {
-                    "minWidth": "245px",
+                    "minWidth": "380px",
                     "textAlign": "left",
-                    "width": "245px",
+                    "width": "380px",
                   }
                 }
               >
@@ -881,70 +777,18 @@ exports[`ActivityFeed component not on mobile should render when there are activ
               >
                 Angie Thomas
               </td>
-              <td>
-                <Tooltip
-                  isTabbable={true}
-                  key="activityName-25"
-                  tooltipText="Capitalize Holidays and Geographic Names"
-                  tooltipTriggerStyle={
-                    Object {
-                      "minWidth": "245px",
-                      "textAlign": "left",
-                      "width": "245px",
-                    }
+              <td
+                className="data-table-row-section undefined"
+                key="activityName-25"
+                style={
+                  Object {
+                    "minWidth": "380px",
+                    "textAlign": "left",
+                    "width": "380px",
                   }
-                  tooltipTriggerText="Capitalize Holidays and Geographic Names"
-                  tooltipTriggerTextClass="data-table-row-section undefined"
-                  tooltipTriggerTextStyle={
-                    Object {
-                      "minWidth": "245px",
-                      "textAlign": "left",
-                      "width": "245px",
-                    }
-                  }
-                >
-                  <span
-                    aria-hidden={false}
-                    className="quill-tooltip-trigger "
-                    role="tooltip"
-                    style={
-                      Object {
-                        "minWidth": "245px",
-                        "textAlign": "left",
-                        "width": "245px",
-                      }
-                    }
-                  >
-                    <span
-                      className="data-table-row-section undefined"
-                      onBlur={[Function]}
-                      onClick={[Function]}
-                      onFocus={[Function]}
-                      onKeyDown={[Function]}
-                      onMouseEnter={[Function]}
-                      onMouseLeave={[Function]}
-                      role="button"
-                      style={
-                        Object {
-                          "minWidth": "245px",
-                          "textAlign": "left",
-                          "width": "245px",
-                        }
-                      }
-                      tabIndex={0}
-                    >
-                      Capitalize Holidays and Geographic Names
-                    </span>
-                    <span
-                      className="quill-tooltip-wrapper"
-                    >
-                      <span
-                        aria-live="polite"
-                        className="quill-tooltip"
-                      />
-                    </span>
-                  </span>
-                </Tooltip>
+                }
+              >
+                Capitalize Holidays and Geographic Names
               </td>
               <td
                 className="data-table-row-section undefined"
@@ -1002,9 +846,9 @@ exports[`ActivityFeed component not on mobile should render when there are activ
                 key="activityName-24"
                 style={
                   Object {
-                    "minWidth": "245px",
+                    "minWidth": "380px",
                     "textAlign": "left",
-                    "width": "245px",
+                    "width": "380px",
                   }
                 }
               >
@@ -1066,9 +910,9 @@ exports[`ActivityFeed component not on mobile should render when there are activ
                 key="activityName-23"
                 style={
                   Object {
-                    "minWidth": "245px",
+                    "minWidth": "380px",
                     "textAlign": "left",
-                    "width": "245px",
+                    "width": "380px",
                   }
                 }
               >
@@ -1130,9 +974,9 @@ exports[`ActivityFeed component not on mobile should render when there are activ
                 key="activityName-3"
                 style={
                   Object {
-                    "minWidth": "245px",
+                    "minWidth": "380px",
                     "textAlign": "left",
-                    "width": "245px",
+                    "width": "380px",
                   }
                 }
               >
@@ -1194,9 +1038,9 @@ exports[`ActivityFeed component not on mobile should render when there are activ
                 key="activityName-2"
                 style={
                   Object {
-                    "minWidth": "245px",
+                    "minWidth": "380px",
                     "textAlign": "left",
-                    "width": "245px",
+                    "width": "380px",
                   }
                 }
               >
