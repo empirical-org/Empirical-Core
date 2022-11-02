@@ -24,6 +24,8 @@ class ActivityFeedbackHistory
       SQL
     ).to_a
 
+    return { average_time_spent: 0, average_completion_rate: 0 } if activity_sessions_agg.empty?
+
     average_time_spent = activity_sessions_agg[0]['average_time_spent']
     average_completion_rate = activity_sessions_agg[0]['average_completion_rate']
 
