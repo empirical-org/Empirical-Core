@@ -188,7 +188,7 @@ class UnitActivity < ApplicationRecord
           AND cu.id = cuas.classroom_unit_id
         JOIN users AS teachers ON unit.user_id = teachers.id
         LEFT JOIN pack_sequence_items AS psi
-          ON psi.item_id = unit.id
+          ON psi.unit_id = unit.id
         LEFT JOIN pack_sequences AS ps
           ON ps.id = psi.pack_sequence_id
         WHERE #{user_id.to_i} = ANY (cu.assigned_student_ids::int[])

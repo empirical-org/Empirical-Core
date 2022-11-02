@@ -8,18 +8,18 @@
 #  order            :integer
 #  created_at       :datetime         not null
 #  updated_at       :datetime         not null
-#  item_id          :bigint
 #  pack_sequence_id :bigint
+#  unit_id          :bigint
 #
 # Indexes
 #
-#  index_pack_sequence_items_on_item_id           (item_id)
 #  index_pack_sequence_items_on_pack_sequence_id  (pack_sequence_id)
+#  index_pack_sequence_items_on_unit_id           (unit_id)
 #
 # Foreign Keys
 #
-#  fk_rails_...  (item_id => units.id)
 #  fk_rails_...  (pack_sequence_id => pack_sequences.id)
+#  fk_rails_...  (unit_id => units.id)
 #
 class PackSequenceItem < ApplicationRecord
   ID_KEY = 'pack_sequence_item_id'
@@ -33,5 +33,7 @@ class PackSequenceItem < ApplicationRecord
   ]
 
   belongs_to :pack_sequence
-  belongs_to :item, class_name: 'Unit'
+  belongs_to :unit
+
+  has_many :user_pack_sequence_items
 end

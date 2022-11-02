@@ -2843,7 +2843,7 @@ ALTER SEQUENCE public.objectives_id_seq OWNED BY public.objectives.id;
 
 CREATE TABLE public.pack_sequence_items (
     id bigint NOT NULL,
-    item_id bigint,
+    unit_id bigint,
     pack_sequence_id bigint,
     "order" integer,
     created_at timestamp(6) without time zone NOT NULL,
@@ -7122,17 +7122,17 @@ CREATE UNIQUE INDEX index_oauth_applications_on_uid ON public.oauth_applications
 
 
 --
--- Name: index_pack_sequence_items_on_item_id; Type: INDEX; Schema: public; Owner: -
---
-
-CREATE INDEX index_pack_sequence_items_on_item_id ON public.pack_sequence_items USING btree (item_id);
-
-
---
 -- Name: index_pack_sequence_items_on_pack_sequence_id; Type: INDEX; Schema: public; Owner: -
 --
 
 CREATE INDEX index_pack_sequence_items_on_pack_sequence_id ON public.pack_sequence_items USING btree (pack_sequence_id);
+
+
+--
+-- Name: index_pack_sequence_items_on_unit_id; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX index_pack_sequence_items_on_unit_id ON public.pack_sequence_items USING btree (unit_id);
 
 
 --
@@ -8130,7 +8130,7 @@ ALTER TABLE ONLY public.comprehension_highlights
 --
 
 ALTER TABLE ONLY public.pack_sequence_items
-    ADD CONSTRAINT fk_rails_a1e39dcd4a FOREIGN KEY (item_id) REFERENCES public.units(id);
+    ADD CONSTRAINT fk_rails_a1e39dcd4a FOREIGN KEY (unit_id) REFERENCES public.units(id);
 
 
 --
@@ -8795,6 +8795,7 @@ INSERT INTO "schema_migrations" (version) VALUES
 ('20221014103843'),
 ('20221019184933'),
 ('20221019185354'),
-('20221020131338');
+('20221020131338'),
+('20221021134756');
 
 
