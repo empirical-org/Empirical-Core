@@ -113,7 +113,7 @@ const SeedDataForm = ({ history, match }) => {
 
   const renderLabelConfig = (labelConfig, index, conjunction) => {
     return (
-      <div key={index} className="seed-label-form">
+      <div className="seed-label-form" key={index}>
         <button
           className='right quill-button fun secondary outlined'
           onClick={() => removeLabelConfig(index, conjunction)}
