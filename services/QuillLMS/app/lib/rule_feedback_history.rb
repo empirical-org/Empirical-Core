@@ -69,7 +69,6 @@ class RuleFeedbackHistory
     }
   end
 
-  # rubocop:disable Metrics/CyclomaticComplexity
   def self.format_sql_results(relations)
     relations.map do |r|
       {
@@ -90,5 +89,4 @@ class RuleFeedbackHistory
 
     end
   end
-  # rubocop:enable Metrics/CyclomaticComplexity
 end
