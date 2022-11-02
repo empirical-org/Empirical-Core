@@ -30,7 +30,7 @@ const tableHeaders = (isOwner) => ([
   {
     name: <span className="tool-and-name-header"><span>Tool</span><span>Activity</span></span>,
     attribute: 'toolAndNameSection',
-    width: isOwner ? '437px' : '577px',
+    width: isOwner ? '624px' : '764px',
     rowSectionClassName: 'tool-and-name-section'
   },
   {
