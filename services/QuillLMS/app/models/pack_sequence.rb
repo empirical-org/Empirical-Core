@@ -35,5 +35,7 @@ class PackSequence < ApplicationRecord
   has_many :pack_sequence_items, dependent: :destroy
   has_many :user_pack_sequence_items, through: :pack_sequence_items
 
+  scope :staggered, -> { where(release_method: STAGGERED_RELEASE) }
+
   validates :release_method, inclusion: { in: RELEASE_METHODS }
 end
