@@ -86,15 +86,15 @@ describe NavigationHelper do
       trial_subscription = create(:subscription)
       premium_subscription = create(:subscription, account_type: 'Not A Trial')
       allow(helper).to receive(:current_user) { double(:user, premium_state: "trial", trial_days_remaining: 5) }
-      expect(helper.premium_tab_copy).to eq "Premium  <i class='fas fa-star'></i> 5 Days Left"
+      expect(helper.premium_tab_copy).to eq "Premium  <img src=""></img> 5 Days Left"
       allow(helper).to receive(:current_user) { double(:user, premium_state: "locked", last_expired_subscription: premium_subscription) }
-      expect(helper.premium_tab_copy).to eq "Premium  <i class='fas fa-star'></i> Subscription Expired"
+      expect(helper.premium_tab_copy).to eq "Premium  <img src=""></img> Subscription Expired"
       allow(helper).to receive(:current_user) { double(:user, premium_state: "locked", last_expired_subscription: trial_subscription) }
-      expect(helper.premium_tab_copy).to eq "Premium  <i class='fas fa-star'></i> Trial Expired"
+      expect(helper.premium_tab_copy).to eq "Premium  <img src=""></img> Trial Expired"
       allow(helper).to receive(:current_user) { double(:user, premium_state: nil) }
-      expect(helper.premium_tab_copy).to eq "Try Premium <i class='fas fa-star'></i>"
+      expect(helper.premium_tab_copy).to eq "Try Premium <img src=""></img>"
       allow(helper).to receive(:current_user) { double(:user, premium_state: "none") }
-      expect(helper.premium_tab_copy).to eq "Try Premium <i class='fas fa-star'></i>"
+      expect(helper.premium_tab_copy).to eq "Try Premium <img src=""></img>"
     end
   end
 

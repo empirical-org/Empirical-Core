@@ -115,6 +115,10 @@
       i, svg {
         color: white;
       }
+
+      img {
+        filter: brightness(0) invert(1);
+      }
     }
 
     i, svg {
@@ -129,7 +133,15 @@
       i, svg {
         color: white;
       }
+      
+      img {
+        filter: brightness(0) invert(1);
+      }
     }
+  }
+
+  li a img {
+    margin-top: -3px;
   }
 }
 
