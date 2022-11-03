@@ -13,8 +13,9 @@
 #
 # Indexes
 #
-#  index_pack_sequence_items_on_pack_sequence_id  (pack_sequence_id)
-#  index_pack_sequence_items_on_unit_id           (unit_id)
+#  index_pack_sequence_items_on_pack_sequence_id              (pack_sequence_id)
+#  index_pack_sequence_items_on_pack_sequence_id_and_unit_id  (pack_sequence_id,unit_id) UNIQUE
+#  index_pack_sequence_items_on_unit_id                       (unit_id)
 #
 # Foreign Keys
 #
@@ -22,13 +23,8 @@
 #  fk_rails_...  (unit_id => units.id)
 #
 class PackSequenceItem < ApplicationRecord
-  ID_KEY = 'pack_sequence_item_id'
-  ORDER_KEY = 'pack_sequence_item_order'
-  STATUS_KEY = 'pack_sequence_item_status'
-
   STATUSES = [
     LOCKED = 'locked',
-    NO_LOCK = 'no lock',
     UNLOCKED = 'unlocked'
   ]
 

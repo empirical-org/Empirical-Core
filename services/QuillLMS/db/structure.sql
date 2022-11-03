@@ -1189,7 +1189,7 @@ CREATE TABLE public.classrooms_teachers (
     created_at timestamp without time zone,
     updated_at timestamp without time zone,
     "order" integer,
-    CONSTRAINT check_role_is_valid CHECK ((((role)::text = ANY ((ARRAY['owner'::character varying, 'coteacher'::character varying])::text[])) AND (role IS NOT NULL)))
+    CONSTRAINT check_role_is_valid CHECK ((((role)::text = ANY (ARRAY[('owner'::character varying)::text, ('coteacher'::character varying)::text])) AND (role IS NOT NULL)))
 );
 
 
@@ -7129,6 +7129,13 @@ CREATE INDEX index_pack_sequence_items_on_pack_sequence_id ON public.pack_sequen
 
 
 --
+-- Name: index_pack_sequence_items_on_pack_sequence_id_and_unit_id; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE UNIQUE INDEX index_pack_sequence_items_on_pack_sequence_id_and_unit_id ON public.pack_sequence_items USING btree (pack_sequence_id, unit_id);
+
+
+--
 -- Name: index_pack_sequence_items_on_unit_id; Type: INDEX; Schema: public; Owner: -
 --
 
@@ -7140,6 +7147,13 @@ CREATE INDEX index_pack_sequence_items_on_unit_id ON public.pack_sequence_items 
 --
 
 CREATE INDEX index_pack_sequences_on_classroom_id ON public.pack_sequences USING btree (classroom_id);
+
+
+--
+-- Name: index_pack_sequences_on_classroom_id_and_diagnostic_activity_id; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE UNIQUE INDEX index_pack_sequences_on_classroom_id_and_diagnostic_activity_id ON public.pack_sequences USING btree (classroom_id, diagnostic_activity_id);
 
 
 --
@@ -7742,6 +7756,13 @@ CREATE UNIQUE INDEX index_zipcode_infos_on_zipcode ON public.zipcode_infos USING
 --
 
 CREATE INDEX name_idx ON public.users USING gin (name public.gin_trgm_ops);
+
+
+--
+-- Name: on_user_pack_sequence_items_on_user_and_pack_sequence_item; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE UNIQUE INDEX on_user_pack_sequence_items_on_user_and_pack_sequence_item ON public.user_pack_sequence_items USING btree (user_id, pack_sequence_item_id);
 
 
 --
@@ -8796,6 +8817,9 @@ INSERT INTO "schema_migrations" (version) VALUES
 ('20221019184933'),
 ('20221019185354'),
 ('20221020131338'),
-('20221021134756');
+('20221021134756'),
+('20221103152535'),
+('20221103152545'),
+('20221103152559');
 
 
