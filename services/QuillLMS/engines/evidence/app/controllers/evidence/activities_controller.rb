@@ -98,7 +98,7 @@ module Evidence
         .map(&:strip)
         .uniq
 
-      label_configs = seed_data_params[:label_configs] || {}
+      label_configs = seed_data_params[:label_configs]&.to_h || {}
 
       Evidence::ActivitySeedDataWorker.perform_async(@activity.id, nouns_array, label_configs)
 
