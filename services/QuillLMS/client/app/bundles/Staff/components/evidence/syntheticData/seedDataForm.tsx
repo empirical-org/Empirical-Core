@@ -6,7 +6,7 @@ import SubmissionModal from '../shared/submissionModal';
 import { fetchActivity, createSeedData } from '../../../utils/evidence/activityAPIs';
 import { renderHeader } from "../../../helpers/evidence/renderHelpers";
 import { Input, Spinner } from '../../../../Shared/index';
-import { TITLE } from "../../../../../constants/evidence";
+import { TITLE, BECAUSE, BUT, SO } from "../../../../../constants/evidence";
 
 const SeedDataForm = ({ history, match }) => {
   const { params } = match;
@@ -18,12 +18,8 @@ const SeedDataForm = ({ history, match }) => {
 
   const [activityNouns, setActivityNouns] = React.useState<string>('');
 
-  const because = 'because';
-  const but = 'but';
-  const so = 'so';
-
   const blankLabelConfig = { label: '', examples: ['',''], };
-  const blankLabelConfigs = { because : [], but : [], so : [], };
+  const blankLabelConfigs = { [BECAUSE] : [], [BUT] : [], [SO] : [], };
 
   const [labelConfigs, setLabelConfigs] = React.useState({...blankLabelConfigs});
 
@@ -176,9 +172,9 @@ const SeedDataForm = ({ history, match }) => {
         value={activityNouns}
       />
 
-      {renderLabelSection(because)}
-      {renderLabelSection(but)}
-      {renderLabelSection(so)}
+      {renderLabelSection(BECAUSE)}
+      {renderLabelSection(BUT)}
+      {renderLabelSection(SO)}
       <br />
       <div className="button-and-id-container">
         <button className="quill-button fun large primary contained focus-on-light" id="activity-submit-button" onClick={handleCreateSeedData} type="submit">
