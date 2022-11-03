@@ -86,7 +86,7 @@ RSpec.describe RuleFeedbackHistory, type: :model do
 
       first_confidence_level = 0.9599
       second_confidence_level = 0.8523
-      average_confidence_level = (((first_confidence_level + second_confidence_level) / 2) * 100).round(2)
+      average_confidence_level = (((first_confidence_level + second_confidence_level) / 2) * 100).round
 
       # feedback_histories
       f_h1 = create(:feedback_history, prompt: so_prompt1, rule_uid: so_rule1.uid, entry: "f_h1 lorem", metadata: {api: {confidence: first_confidence_level}})

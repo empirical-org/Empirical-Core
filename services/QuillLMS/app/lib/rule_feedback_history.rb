@@ -79,7 +79,7 @@ class RuleFeedbackHistory
           second_feedback: r.feedbacks.order(:order).second&.text || '',
           rule_note: r.rule_note,
           rule_name: r.rule_name,
-          avg_confidence: r.avg_confidence ? r.avg_confidence.round(4) * 100 : nil,
+          avg_confidence: r.avg_confidence ? (r.avg_confidence * 100).round : nil,
           total_responses: r.total_responses,
           strong_responses: r.total_strong,
           weak_responses: r.total_weak,
