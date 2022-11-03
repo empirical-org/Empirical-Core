@@ -3,15 +3,14 @@ import { Link } from 'react-router-dom';
 import { useQuery } from 'react-query';
 import * as moment from 'moment';
 import { firstBy } from 'thenby';
-import { renderToString } from 'react-dom/server'
 
 import FilterWidget from "../shared/filterWidget";
-import { getVersionOptions, handlePageFilterClick } from "../../../helpers/evidence/miscHelpers";
+import { getVersionOptions, handlePageFilterClick, activitySessionIndexResponseHeaders } from "../../../helpers/evidence/miscHelpers";
 import { renderHeader } from "../../../helpers/evidence/renderHelpers";
 import { Error, Spinner, DropdownInput, ReactTable, Tooltip, informationIcon } from '../../../../Shared/index';
 import { fetchActivity, fetchActivitySessions, fetchActivityVersions } from '../../../utils/evidence/activityAPIs';
 import { DropdownObjectInterface, ActivitySessionInterface, ActivitySessionsInterface } from '../../../interfaces/evidenceInterfaces';
-import { activitySessionIndexResponseHeaders, activitySessionFilterOptions, SESSION_INDEX } from '../../../../../constants/evidence';
+import { activitySessionFilterOptions, SESSION_INDEX } from '../../../../../constants/evidence';
 
 const quillCheckmark = 'https://assets.quill.org/images/icons/check-circle-small.svg';
 
@@ -263,6 +262,7 @@ const SessionsIndex = ({ match }) => {
           columns={activitySessionIndexResponseHeaders}
           data={rowData}
           defaultPageSize={rowData.length < 100 ? rowData.length : 100}
+          filterable
           manualSortBy
           /* eslint-disable-next-line react/jsx-no-bind */
           onSortedChange={(sorted) => handleDataUpdate(activity_sessions, sorted)}
