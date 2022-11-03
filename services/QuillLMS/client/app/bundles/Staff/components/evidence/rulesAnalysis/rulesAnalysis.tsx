@@ -316,10 +316,10 @@ const RulesAnalysis: React.FC<RouteComponentProps<ActivityRouteProps>> = ({ hist
       key: "avgConfidence",
       maxWidth: 100,
       aggregate: (values) => {
-        const averageConfidenceForAllRules = Math.round(_.mean(values))
+        const averageConfidenceForAllRules = Math.round(_.mean(values.filter(Number)))
         return { averageConfidenceForAllRules }
       },
-      Aggregated: (row) => (row.value.averageConfidenceForAllRules !== 0 ? <span>{row.value.averageConfidenceForAllRules}%</span> : ''),
+      Aggregated: (row) => (isNaN(row.value.averageConfidenceForAllRules) ? '' : <span>{row.value.averageConfidenceForAllRules}%</span>),
       Cell: ({row}) => {
         const { avgConfidence } = row.original
         return (avgConfidence && <span>{avgConfidence}%</span>)
