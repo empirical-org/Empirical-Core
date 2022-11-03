@@ -23,7 +23,7 @@ const SeedDataForm = ({ history, match }) => {
 
   const [labelConfigs, setLabelConfigs] = React.useState({...blankLabelConfigs});
 
-  const handleLabelConfigsChange = (event, index, conjunction, key) => {
+  function handleLabelConfigsChange(event, index, conjunction, key) {
     const data = labelConfigs
     const conjunctionData = [...data[conjunction]];
 
@@ -33,7 +33,7 @@ const SeedDataForm = ({ history, match }) => {
     setLabelConfigs(labelConfigs => ({...data}));
   }
 
-  const handleExampleChange = (event, index, conjunction, exampleIndex) => {
+  function handleExampleChange(event, index, conjunction, exampleIndex) {
     const data = labelConfigs
     const conjunctionData = [...data[conjunction]];
 
@@ -43,7 +43,7 @@ const SeedDataForm = ({ history, match }) => {
     setLabelConfigs(labelConfigs => ({...data}));
   }
 
-  const addLabelConfigs = (conjunction) => {
+  function addLabelConfigs(conjunction) {
     const data = labelConfigs
     const conjunctionData = [...data[conjunction], {...blankLabelConfig}];
 
@@ -51,7 +51,7 @@ const SeedDataForm = ({ history, match }) => {
     setLabelConfigs(labelConfigs => ({...data}))
   }
 
-  const removeLabelConfig = (index, conjunction) => {
+  function removeLabelConfig(index, conjunction) {
     const data = labelConfigs
     const conjunctionData = [...data[conjunction]]
     conjunctionData.splice(index, 1)
@@ -65,7 +65,7 @@ const SeedDataForm = ({ history, match }) => {
     queryFn: fetchActivity
   });
 
-  const handleCreateSeedData = () => {
+  function handleCreateSeedData() {
     if (!confirm('⚠️ Are you sure you want to generate seed data?')) return
 
     createSeedData(activityNouns, labelConfigs, activityId).then((response) => {
@@ -82,7 +82,7 @@ const SeedDataForm = ({ history, match }) => {
     });
   }
 
-  const toggleSubmissionModal = () => setShowSubmissionModal(!showSubmissionModal);
+  function toggleSubmissionModal() { setShowSubmissionModal(!showSubmissionModal) };
 
   function renderSubmissionModal() {
     const message = errorOrSuccessMessage || 'Seed Data started!';
@@ -97,7 +97,7 @@ const SeedDataForm = ({ history, match }) => {
     );
   }
 
-  const renderExample = (value, index, conjunction, exampleIndex) => {
+  function renderExample(value, index, conjunction, exampleIndex) {
     return (
       <Input
         handleChange={e => handleExampleChange(e, index, conjunction, exampleIndex)}
@@ -107,7 +107,7 @@ const SeedDataForm = ({ history, match }) => {
     );
   }
 
-  const renderLabelConfig = (labelConfig, index, conjunction) => {
+  function renderLabelConfig(labelConfig, index, conjunction) {
     return (
       <div className="seed-label-form" key={index}>
         <button
@@ -130,7 +130,7 @@ const SeedDataForm = ({ history, match }) => {
     );
   }
 
-  const renderLabelSection = (conjunction) => {
+  function renderLabelSection(conjunction) {
     const capitalizeConjunction = conjunction.charAt(0).toUpperCase() + conjunction.substring(1)
     return (
       <div className='label-section'>
