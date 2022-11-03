@@ -225,12 +225,12 @@ class FeedbackHistory < ApplicationRecord
     <<-SQL
     (
       CASE WHEN
-        BOOL_OR(CASE WHEN comprehension_prompts.conjunction = '#{BECAUSE}' AND feedback_histories.optimal = true THEN true ELSE false END) AND
-        BOOL_OR(CASE WHEN comprehension_prompts.conjunction = '#{BUT}' AND feedback_histories.optimal = true THEN true ELSE false END) AND
-        BOOL_OR(CASE WHEN comprehension_prompts.conjunction = '#{SO}' AND feedback_histories.optimal = true THEN true ELSE false END) AND
-        COUNT(CASE WHEN comprehension_prompts.conjunction = '#{BECAUSE}' THEN 1 END) +
+        (COUNT(CASE WHEN comprehension_prompts.conjunction = '#{BECAUSE}' THEN 1 END) +
         COUNT(CASE WHEN comprehension_prompts.conjunction = '#{BUT}' THEN 1 END) +
-        COUNT(CASE WHEN comprehension_prompts.conjunction = '#{SO}' THEN 1 END) > 8
+        COUNT(CASE WHEN comprehension_prompts.conjunction = '#{SO}' THEN 1 END)) > 5 OR
+        (COUNT(CASE WHEN comprehension_prompts.conjunction = '#{BECAUSE}' THEN 1 END) > 1 AND
+        COUNT(CASE WHEN comprehension_prompts.conjunction = '#{BUT}' THEN 1 END) > 1 AND
+        COUNT(CASE WHEN comprehension_prompts.conjunction = '#{SO}' THEN 1 END) > 1)
       THEN true ELSE false END
     ) = true
     SQL

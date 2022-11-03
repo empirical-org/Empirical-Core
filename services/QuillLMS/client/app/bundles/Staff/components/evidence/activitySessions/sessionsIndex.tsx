@@ -239,7 +239,7 @@ const SessionsIndex = ({ match }) => {
               <section className="label-section">
                 <label>Responses for Scoring</label>
                 <Tooltip
-                  tooltipText="At least 1 optimal response, between 9 and 15 responses"
+                  tooltipText="6+ responses per session OR sessions with 2+ responses for each conjunction"
                   tooltipTriggerText={<img alt={informationIcon.alt} src={informationIcon.src} />}
                 />
               </section>

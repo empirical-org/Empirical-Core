@@ -39,7 +39,7 @@ const PromptTable = ({ activity, rules, prompt, showHeader, sessionId }: PromptT
         });
       });
       completed = usedAttempts.some((attempt) => attempt.optimal);
-      optimal = completed ? true : false
+      optimal = completed
     }
     return {
       attemptsLabel: 'Attempts',
