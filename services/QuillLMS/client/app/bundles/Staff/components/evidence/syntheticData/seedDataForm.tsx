@@ -43,12 +43,24 @@ const SeedDataForm = ({ history, match }) => {
     setLabelConfigs(labelConfigs => ({...data}));
   }
 
+  function onAddLabelConfigs(e) {
+    const { target } = e;
+    const { value } = target;
+    addLabelConfigs(value);
+  }
+
   function addLabelConfigs(conjunction) {
     const data = labelConfigs
     const conjunctionData = [...data[conjunction], {...blankLabelConfig}];
 
     data[conjunction] = conjunctionData
     setLabelConfigs(labelConfigs => ({...data}))
+  }
+
+  function onRemoveLabelConfig(e) {
+    const { target } = e;
+    const { id, value } = target;
+    removeLabelConfig(id, value);
   }
 
   function removeLabelConfig(index, conjunction) {
@@ -112,7 +124,9 @@ const SeedDataForm = ({ history, match }) => {
       <div className="seed-label-form" key={index}>
         <button
           className='right quill-button fun secondary outlined'
-          onClick={() => removeLabelConfig(index, conjunction)}
+          id={index}
+          onClick={onRemoveLabelConfig}
+          value={conjunction}
         >
           Remove
         </button>
@@ -139,7 +153,11 @@ const SeedDataForm = ({ history, match }) => {
           &nbsp;Label Examples
         </h4>
         {labelConfigs[conjunction].map((labelConfig, index) => renderLabelConfig(labelConfig, index, conjunction))}
-        <button className='quill-button small primary outlined' onClick={e => addLabelConfigs(conjunction)}>
+        <button
+          className='quill-button small primary outlined'
+          onClick={onAddLabelConfigs}
+          value={conjunction}
+        >
           <span className='plus'>+</span>
 
           &nbsp;Add {capitalizeConjunction} Label
