@@ -37,9 +37,7 @@
         background: $white;
         border-bottom: none;
         border-left-width: 0;
-        border-top: 3px solid #027360;
         color: #027360;
-        padding-top: 0;
         position: relative;
 
         &:after {
@@ -79,7 +77,9 @@
     li {
       float: left;
       padding: 5px;
-
+      &:first-of-type {
+        padding-left: 0px;
+      }
       a {
         border-radius: 6px;
         color: #3b3b3b;
@@ -133,7 +133,7 @@
       i, svg {
         color: white;
       }
-      
+
       img {
         filter: brightness(0) invert(1);
       }
@@ -251,10 +251,6 @@
         li {
           flex-grow: 1;
           text-align: center;
-
-          &.active {
-            border-top: 3px solid #027360;
-          }
 
           a {
             padding-left: 0;
