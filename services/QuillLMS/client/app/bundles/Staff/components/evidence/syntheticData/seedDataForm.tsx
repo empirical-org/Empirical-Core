@@ -24,8 +24,8 @@ const SeedDataForm = ({ history, match }) => {
   const [labelConfigs, setLabelConfigs] = React.useState({...blankLabelConfigs});
 
   const handleLabelConfigsChange = (event, index, conjunction, key) => {
-    let data = labelConfigs
-    let conjunctionData = [...data[conjunction]];
+    const data = labelConfigs
+    const conjunctionData = [...data[conjunction]];
 
     conjunctionData[index][key] = event.target.value;
     data[conjunction] = conjunctionData;
@@ -34,8 +34,8 @@ const SeedDataForm = ({ history, match }) => {
   }
 
   const handleExampleChange = (event, index, conjunction, exampleIndex) => {
-    let data = labelConfigs
-    let conjunctionData = [...data[conjunction]];
+    const data = labelConfigs
+    const conjunctionData = [...data[conjunction]];
 
     conjunctionData[index].examples[exampleIndex] = event.target.value;
     data[conjunction] = conjunctionData;
@@ -44,16 +44,16 @@ const SeedDataForm = ({ history, match }) => {
   }
 
   const addLabelConfigs = (conjunction) => {
-    let data = labelConfigs
-    let conjunctionData = [...data[conjunction], {...blankLabelConfig}];
+    const data = labelConfigs
+    const conjunctionData = [...data[conjunction], {...blankLabelConfig}];
 
     data[conjunction] = conjunctionData
     setLabelConfigs(labelConfigs => ({...data}))
   }
 
   const removeLabelConfig = (index, conjunction) => {
-    let data = labelConfigs
-    let conjunctionData = [...data[conjunction]]
+    const data = labelConfigs
+    const conjunctionData = [...data[conjunction]]
     conjunctionData.splice(index, 1)
     data[conjunction] = conjunctionData
 
@@ -131,7 +131,7 @@ const SeedDataForm = ({ history, match }) => {
   }
 
   const renderLabelSection = (conjunction) => {
-    let capitalizeConjunction = conjunction.charAt(0).toUpperCase() + conjunction.substring(1)
+    const capitalizeConjunction = conjunction.charAt(0).toUpperCase() + conjunction.substring(1)
     return (
       <div className='label-section'>
         <h4 className='bg-quillteal label-title'>
