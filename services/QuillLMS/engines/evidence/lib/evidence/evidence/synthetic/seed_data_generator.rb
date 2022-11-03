@@ -120,14 +120,17 @@ module Evidence
         results
       end
 
+      LABEL_KEY = 'label'
+      EXAMPLES_KEY = 'examples'
+
       private def generate_label_paraphrases
         label_configs.each do |label_config|
-          label_config.examples.map(&:strip).uniq.each.with_index do |example, index|
+          label_config[EXAMPLES_KEY].map(&:strip).uniq.compact.each.with_index do |example, index|
             prompt = PARAPHRASE_INSTRUCTION + example
             run_prompt(
               prompt: prompt,
               count: EXAMPLE_COUNT,
-              seed: "label_#{label_config.label}_example#{index + 1}_temp#{TEMP_PARAPHRASE}",
+              seed: "label_#{label_config[LABEL_KEY]}_example#{index + 1}_temp#{TEMP_PARAPHRASE}",
               temperature: TEMP_PARAPHRASE,
               options: OPTIONS_PARAPHRASE
             )

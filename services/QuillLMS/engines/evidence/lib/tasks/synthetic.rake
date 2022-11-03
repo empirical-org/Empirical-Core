@@ -16,9 +16,9 @@ namespace :synthetic do
     run_number = args[:run_number]
     conjunctions = args.extras.presence || Evidence::Synthetic::SeedDataGenerator::CONJUNCTIONS
 
-    label_config1 = Evidence::Synthetic::SeedLabelConfig.new(label: 'label11', examples: ["it allows officials to view the same play from different angles.", "coaches and players trust the officials to make the correct call."])
-    label_config2 = Evidence::Synthetic::SeedLabelConfig.new(label: 'label7', examples: ["66\% of public schools in the U.S. ban cell phone use anyway.", "students can easily be distracted by their phones."])
-    label_config3 = Evidence::Synthetic::SeedLabelConfig.new(label: 'label7', examples: ["the International Handball Federation rewrote its rules in 2022 to allow players on women’s teams to wear tank tops and shorts.", "the Norwegian team protested."])
+    label_config1 = {'label' => 'label11', 'examples' => ["it allows officials to view the same play from different angles.", "coaches and players trust the officials to make the correct call."])}
+    label_config2 = {'label' => 'label7', 'examples' => ["66\% of public schools in the U.S. ban cell phone use anyway.", "students can easily be distracted by their phones."])}
+    label_config3 = {'label' => 'label7', 'examples' => ["the International Handball Federation rewrote its rules in 2022 to allow players on women’s teams to wear tank tops and shorts.", "the Norwegian team protested."])}
 
     label_configs = {'because' => [label_config1, label_config2, label_config3]}
 

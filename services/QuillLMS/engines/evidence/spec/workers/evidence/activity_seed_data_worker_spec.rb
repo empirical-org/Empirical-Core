@@ -18,7 +18,7 @@ module Evidence
       let(:generator_response) { double }
       let(:email_subject) {"Evidence Seed Data: Activity #{activity.id} - #{activity.title}"}
       let(:mailer) { double('mailer', deliver_now!: true) }
-      let(:label_configs) {{'key' => 'value'}}
+      let(:label_configs) {{'because' => [{'label' => 'Label1', 'examples' => ['hello', 'goodbye']}]}}
 
       it 'call generate and call file_mailer' do
         expect(Evidence::Synthetic::SeedDataGenerator).to receive(:csvs_for_activity)
