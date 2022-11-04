@@ -13,38 +13,6 @@ exports[`LowerFormFields Component should match snapshot 1`] = `
     autoComplete="on"
     className="form-input estimate"
     handleChange={[MockFunction]}
-    id="Estimated number of schools that will receive Quill Premium"
-    label="Estimated number of schools that will receive Quill Premium"
-    placeholder=""
-    value={1}
-  >
-    <div
-      className="input-container  inactive has-text form-input estimate "
-      onClick={[Function]}
-      onKeyDown={[Function]}
-      role="button"
-      tabIndex={-1}
-    >
-      <label
-        htmlFor="Estimated number of schools that will receive Quill Premium"
-      >
-        Estimated number of schools that will receive Quill Premium
-      </label>
-      <input
-        autoComplete="on"
-        id="Estimated number of schools that will receive Quill Premium"
-        maxLength={10000}
-        onChange={[MockFunction]}
-        onFocus={[Function]}
-        placeholder={false}
-        value={1}
-      />
-    </div>
-  </Input>
-  <Input
-    autoComplete="on"
-    className="form-input estimate"
-    handleChange={[MockFunction]}
     id="Estimated number of teachers that will receive Quill Premium"
     label="Estimated number of teachers that will receive Quill Premium"
     placeholder=""
@@ -70,38 +38,6 @@ exports[`LowerFormFields Component should match snapshot 1`] = `
         onFocus={[Function]}
         placeholder={false}
         value={20}
-      />
-    </div>
-  </Input>
-  <Input
-    autoComplete="on"
-    className="form-input estimate"
-    handleChange={[MockFunction]}
-    id="Estimated number of students that will receive Quill Premium"
-    label="Estimated number of students that will receive Quill Premium"
-    placeholder=""
-    value={400}
-  >
-    <div
-      className="input-container  inactive has-text form-input estimate "
-      onClick={[Function]}
-      onKeyDown={[Function]}
-      role="button"
-      tabIndex={-1}
-    >
-      <label
-        htmlFor="Estimated number of students that will receive Quill Premium"
-      >
-        Estimated number of students that will receive Quill Premium
-      </label>
-      <input
-        autoComplete="on"
-        id="Estimated number of students that will receive Quill Premium"
-        maxLength={10000}
-        onChange={[MockFunction]}
-        onFocus={[Function]}
-        placeholder={false}
-        value={400}
       />
     </div>
   </Input>

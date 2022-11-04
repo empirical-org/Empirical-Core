@@ -17,6 +17,7 @@ exports[`SalesForm Component should match snapshot 1`] = `
         handleUpdateField={[Function]}
         lastName=""
         phoneNumber=""
+        title=""
         type="renewal request"
         zipcode=""
       >
@@ -130,6 +131,38 @@ exports[`SalesForm Component should match snapshot 1`] = `
         </Input>
         <Input
           autoComplete="on"
+          className="form-input title"
+          handleChange={[Function]}
+          id="Title"
+          label="Title"
+          placeholder=""
+          value=""
+        >
+          <div
+            className="input-container  inactive  form-input title "
+            onClick={[Function]}
+            onKeyDown={[Function]}
+            role="button"
+            tabIndex={-1}
+          >
+            <label
+              htmlFor="Title"
+            >
+              Title
+            </label>
+            <input
+              autoComplete="on"
+              id="Title"
+              maxLength={10000}
+              onChange={[Function]}
+              onFocus={[Function]}
+              placeholder={false}
+              value=""
+            />
+          </div>
+        </Input>
+        <Input
+          autoComplete="on"
           characterLimit={10}
           className="form-input phone"
           handleChange={[Function]}
@@ -168,48 +201,6 @@ exports[`SalesForm Component should match snapshot 1`] = `
                 0
                 /
                 10
-              </span>
-            </div>
-          </div>
-        </Input>
-        <Input
-          autoComplete="on"
-          characterLimit={5}
-          className="form-input zipcode"
-          handleChange={[Function]}
-          id="ZIP code"
-          label="ZIP code"
-          placeholder=""
-          value=""
-        >
-          <div
-            className="input-container  inactive  form-input zipcode has-character-limit"
-            onClick={[Function]}
-            onKeyDown={[Function]}
-            role="button"
-            tabIndex={-1}
-          >
-            <label
-              htmlFor="ZIP code"
-            >
-              ZIP code
-            </label>
-            <input
-              autoComplete="on"
-              id="ZIP code"
-              maxLength={5}
-              onChange={[Function]}
-              onFocus={[Function]}
-              placeholder={false}
-              value=""
-            />
-            <div
-              className="character-limit"
-            >
-              <span>
-                0
-                /
-                5
               </span>
             </div>
           </div>
@@ -297,42 +288,8 @@ exports[`SalesForm Component should match snapshot 1`] = `
         comments=""
         errors={Object {}}
         handleUpdateField={[Function]}
-        schoolPremiumEstimate=""
-        studentPremiumEstimate=""
         teacherPremiumEstimate=""
       >
-        <Input
-          autoComplete="on"
-          className="form-input estimate"
-          handleChange={[Function]}
-          id="Estimated number of schools that will receive Quill Premium"
-          label="Estimated number of schools that will receive Quill Premium"
-          placeholder=""
-          value=""
-        >
-          <div
-            className="input-container  inactive  form-input estimate "
-            onClick={[Function]}
-            onKeyDown={[Function]}
-            role="button"
-            tabIndex={-1}
-          >
-            <label
-              htmlFor="Estimated number of schools that will receive Quill Premium"
-            >
-              Estimated number of schools that will receive Quill Premium
-            </label>
-            <input
-              autoComplete="on"
-              id="Estimated number of schools that will receive Quill Premium"
-              maxLength={10000}
-              onChange={[Function]}
-              onFocus={[Function]}
-              placeholder={false}
-              value=""
-            />
-          </div>
-        </Input>
         <Input
           autoComplete="on"
           className="form-input estimate"
@@ -357,38 +314,6 @@ exports[`SalesForm Component should match snapshot 1`] = `
             <input
               autoComplete="on"
               id="Estimated number of teachers that will receive Quill Premium"
-              maxLength={10000}
-              onChange={[Function]}
-              onFocus={[Function]}
-              placeholder={false}
-              value=""
-            />
-          </div>
-        </Input>
-        <Input
-          autoComplete="on"
-          className="form-input estimate"
-          handleChange={[Function]}
-          id="Estimated number of students that will receive Quill Premium"
-          label="Estimated number of students that will receive Quill Premium"
-          placeholder=""
-          value=""
-        >
-          <div
-            className="input-container  inactive  form-input estimate "
-            onClick={[Function]}
-            onKeyDown={[Function]}
-            role="button"
-            tabIndex={-1}
-          >
-            <label
-              htmlFor="Estimated number of students that will receive Quill Premium"
-            >
-              Estimated number of students that will receive Quill Premium
-            </label>
-            <input
-              autoComplete="on"
-              id="Estimated number of students that will receive Quill Premium"
               maxLength={10000}
               onChange={[Function]}
               onFocus={[Function]}

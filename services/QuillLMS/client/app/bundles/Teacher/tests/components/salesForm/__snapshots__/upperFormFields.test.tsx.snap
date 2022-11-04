@@ -121,6 +121,36 @@ exports[`UpperFormFields Component should match snapshot 1`] = `
   </Input>
   <Input
     autoComplete="on"
+    className="form-input title"
+    handleChange={[MockFunction]}
+    id="Title"
+    label="Title"
+    placeholder=""
+  >
+    <div
+      className="input-container  inactive  form-input title "
+      onClick={[Function]}
+      onKeyDown={[Function]}
+      role="button"
+      tabIndex={-1}
+    >
+      <label
+        htmlFor="Title"
+      >
+        Title
+      </label>
+      <input
+        autoComplete="on"
+        id="Title"
+        maxLength={10000}
+        onChange={[MockFunction]}
+        onFocus={[Function]}
+        placeholder={false}
+      />
+    </div>
+  </Input>
+  <Input
+    autoComplete="on"
     characterLimit={10}
     className="form-input phone"
     handleChange={[MockFunction]}
@@ -159,48 +189,6 @@ exports[`UpperFormFields Component should match snapshot 1`] = `
           7
           /
           10
-        </span>
-      </div>
-    </div>
-  </Input>
-  <Input
-    autoComplete="on"
-    characterLimit={5}
-    className="form-input zipcode"
-    handleChange={[MockFunction]}
-    id="ZIP code"
-    label="ZIP code"
-    placeholder=""
-    value="10009"
-  >
-    <div
-      className="input-container  inactive has-text form-input zipcode has-character-limit"
-      onClick={[Function]}
-      onKeyDown={[Function]}
-      role="button"
-      tabIndex={-1}
-    >
-      <label
-        htmlFor="ZIP code"
-      >
-        ZIP code
-      </label>
-      <input
-        autoComplete="on"
-        id="ZIP code"
-        maxLength={5}
-        onChange={[MockFunction]}
-        onFocus={[Function]}
-        placeholder={false}
-        value="10009"
-      />
-      <div
-        className="character-limit"
-      >
-        <span>
-          5
-          /
-          5
         </span>
       </div>
     </div>
