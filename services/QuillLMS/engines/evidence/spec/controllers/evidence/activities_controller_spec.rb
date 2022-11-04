@@ -331,19 +331,39 @@ module Evidence
 
     context "#seed_data" do
       let(:activity) { create(:evidence_activity) }
+      # TODO: fill out test when frontend is complete
+      let(:label_configs) {{}}
 
       it "should call background worker" do
-        expect(Evidence::ActivitySeedDataWorker).to receive(:perform_async).with(activity.id, [])
+        expect(Evidence::ActivitySeedDataWorker).to receive(:perform_async).with(activity.id, [], label_configs)
         post :seed_data, params: { id: activity.id, nouns: "" }
 
         expect(response).to have_http_status(:success)
       end
 
       it "should call background worker with noun string converted to array" do
-        expect(Evidence::ActivitySeedDataWorker).to receive(:perform_async).with(activity.id, ['noun1','noun two','noun3'])
+        expect(Evidence::ActivitySeedDataWorker).to receive(:perform_async).with(activity.id, ['noun1','noun two','noun3'], label_configs)
         post :seed_data, params: { id: activity.id, nouns: "noun1, noun two,,noun3" }
 
         expect(response).to have_http_status(:success)
+      end
+
+      context 'with label_configs' do
+        let(:label1) {'label1'}
+        let(:label2) {'label2'}
+        let(:example1) {'some sentence'}
+        let(:example2) {'sentence other'}
+        let(:label_config1) {{'label' => label1, 'example1' => example1, 'example2' => example2}}
+        let(:label_config2) {{'label' => label2, 'example1' => example1, 'example2' => example2}}
+        let(:label_configs) {{'so' => [label_config1, label_config2], 'because' => [label_config2]}}
+
+        it "should call background worker" do
+          expect(Evidence::ActivitySeedDataWorker).to receive(:perform_async).with(activity.id, [], label_configs)
+          post :seed_data, params: { id: activity.id, nouns: "", label_configs: label_configs }
+
+          expect(response).to have_http_status(:success)
+        end
+
       end
     end
 

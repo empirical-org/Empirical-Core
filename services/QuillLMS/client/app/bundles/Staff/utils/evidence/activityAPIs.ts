@@ -53,10 +53,10 @@ export const updateActivityVersion = async (activityNote: string, activityId: st
   return { errors: [] };
 }
 
-export const createSeedData = async (nouns: string, activityId: string) => {
+export const createSeedData = async (nouns: string, labelConfigs: object, activityId: string) => {
   const response = await apiFetch(`activities/${activityId}/seed_data`, {
     method: 'POST',
-    body: JSON.stringify({nouns: nouns})
+    body: JSON.stringify({nouns: nouns, label_configs: labelConfigs})
   });
   const { status } = response;
 
