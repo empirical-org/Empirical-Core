@@ -30,7 +30,7 @@ const SeedDataForm = ({ history, match }) => {
     conjunctionData[index][key] = event.target.value;
     data[conjunction] = conjunctionData;
 
-    setLabelConfigs(labelConfigs => ({...data}));
+    setLabelConfigs({...data});
   }
 
   function handleExampleChange(event, index, conjunction, exampleIndex) {
@@ -40,7 +40,7 @@ const SeedDataForm = ({ history, match }) => {
     conjunctionData[index].examples[exampleIndex] = event.target.value;
     data[conjunction] = conjunctionData;
 
-    setLabelConfigs(labelConfigs => ({...data}));
+    setLabelConfigs({...data});
   }
 
   function onAddLabelConfigs(e) {
@@ -54,7 +54,7 @@ const SeedDataForm = ({ history, match }) => {
     const conjunctionData = [...data[conjunction], {...blankLabelConfig}];
 
     data[conjunction] = conjunctionData
-    setLabelConfigs(labelConfigs => ({...data}))
+    setLabelConfigs({...data})
   }
 
   function onRemoveLabelConfig(e) {
@@ -69,7 +69,7 @@ const SeedDataForm = ({ history, match }) => {
     conjunctionData.splice(index, 1)
     data[conjunction] = conjunctionData
 
-    setLabelConfigs(labelConfigs => ({...data}))
+    setLabelConfigs({...data})
   }
 
   const { data: activityData } = useQuery({
