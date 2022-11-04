@@ -13,11 +13,9 @@
 #  last_name                      :string           not null
 #  phone_number                   :string
 #  school_name                    :string
-#  school_premium_count_estimate  :integer          default(0), not null
-#  student_premium_count_estimate :integer          default(0), not null
 #  submission_type                :string           not null
 #  teacher_premium_count_estimate :integer          default(0), not null
-#  zipcode                        :string
+#  title                          :string
 #  created_at                     :datetime         not null
 #  updated_at                     :datetime         not null
 #
@@ -52,9 +50,7 @@ class SalesFormSubmission < ApplicationRecord
   validates :last_name, presence: true
   validates :email, presence: true
   validates_email_format_of :email, message: :invalid
-  validates :school_premium_count_estimate, presence: true, numericality: { greater_than_or_equal_to: 0 }
   validates :teacher_premium_count_estimate, presence: true, numericality: { greater_than_or_equal_to: 0 }
-  validates :student_premium_count_estimate, presence: true, numericality: { greater_than_or_equal_to: 0 }
   validates :collection_type, presence: true, inclusion: { in: COLLECTION_TYPES }
   validates :submission_type, presence: true, inclusion: { in: SUBMISSION_TYPES }
 
@@ -85,6 +81,10 @@ class SalesFormSubmission < ApplicationRecord
     @school ||= School.find_by(name: school_name) || School.find_by(name: FALLBACK_SCHOOL_NAME)
   end
 
+  def user
+    @user ||= User.find_by(email: email)
+  end
+
   def district_collection?
     collection_type == DISTRICT_COLLECTION_TYPE
   end
@@ -99,7 +99,7 @@ class SalesFormSubmission < ApplicationRecord
     @user ||= User.find_by(email: email)
     return @user if @user.present?
 
-    @user ||= User.create!(email: email, role: User::SALES_CONTACT, name: "#{first_name} #{last_name}", password: SecureRandom.uuid)
+    @user ||= User.create!(email: email, role: User::SALES_CONTACT, name: "#{first_name} #{last_name}", password: SecureRandom.uuid, title: title)
   end
 
   private def api
@@ -127,17 +127,15 @@ class SalesFormSubmission < ApplicationRecord
     {
       "vitally.custom.name": "#{first_name} #{last_name}",
       "vitally.custom.email": email,
+      "vitally.custom.title": title,
       "vitally.custom.phoneNumber": phone_number,
       "vitally.custom.schoolName": school_name,
       "vitally.custom.districtName": district_name,
-      "vitally.custom.zipCode": zipcode,
-      "vitally.custom.numberOfSchools": school_premium_count_estimate,
       "vitally.custom.numberOfTeachers": teacher_premium_count_estimate,
-      "vitally.custom.numberOfStudents": student_premium_count_estimate,
       "vitally.custom.formComments": comment,
       "vitally.custom.opportunitySource": source,
       "vitally.custom.intercomLink": intercom_link,
-      "vitally.custom.metabaseId": id
+      "vitally.custom.metabaseId": id,
     }
   end
 end

@@ -13,10 +13,6 @@ class SalesFormSubmissionController < ApplicationController
   end
 
   def request_quote
-    # Temporarily redirecting to the old wufoo form to avoid creating SalesFormSubmission
-    # records until we resolve how we want to handle 'sales-contact' User roles
-    # TODO: re-enable these after we figure that out
-    redirect_to "https://quillpremium.wufoo.com/forms/quill-premium-quote/"
     @type = QUOTE_REQUEST
   end
 
@@ -43,7 +39,6 @@ class SalesFormSubmissionController < ApplicationController
   end
 
   private def sales_form_submission_params
-    params.require(:sales_form_submission).permit(:first_name, :last_name, :email, :phone_number,:zipcode, :collection_type, :school_name, :district_name,
-                   :school_premium_count_estimate, :teacher_premium_count_estimate, :student_premium_count_estimate, :submission_type, :comment)
+    params.require(:sales_form_submission).permit(:first_name, :last_name, :email, :title, :phone_number, :collection_type, :school_name, :district_name, :teacher_premium_count_estimate, :submission_type, :comment)
   end
 end

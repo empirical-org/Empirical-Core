@@ -7,8 +7,7 @@ import UpperFormFields from './upperFormFields';
 import { getSchoolsAndDistricts, validateSalesForm, submitSalesForm } from '../../helpers/salesForms';
 import { DropdownObjectInterface, InputEvent } from '../../../Staff/interfaces/evidenceInterfaces';
 import {
-  FIRST_NAME, LAST_NAME, EMAIL, PHONE_NUMBER, ZIPCODE, SCHOOL_PREMIUM_ESTIMATE, TEACHER_PREMIUM_ESTIMATE,
-  STUDENT_PREMIUM_ESTIMATE, COMMENTS, SCHOOL, DISTRICT, SCHOOL_OR_DISTRICT, SCHOOL_NOT_LISTED, DISTRICT_NOT_LISTED, SUBMISSION_ERROR
+  FIRST_NAME, LAST_NAME, EMAIL, TITLE, PHONE_NUMBER, ZIPCODE, TEACHER_PREMIUM_ESTIMATE, COMMENTS, SCHOOL, DISTRICT, SCHOOL_OR_DISTRICT, SCHOOL_NOT_LISTED, DISTRICT_NOT_LISTED, SUBMISSION_ERROR
 } from '../../../../constants/salesForm';
 
 export const SalesForm = ({ type }) => {
@@ -16,11 +15,10 @@ export const SalesForm = ({ type }) => {
   const [firstName, setFirstName] = React.useState<string>('');
   const [lastName, setLastName] = React.useState<string>('');
   const [email, setEmail] = React.useState<string>('');
+  const [title, setTitle] = React.useState<string>('');
   const [phoneNumber, setPhoneNumber] = React.useState<string>('');
   const [zipcode, setZipcode] = React.useState<string>('');
-  const [schoolPremiumEstimate, setSchoolPremiumEstimate] = React.useState<string>('');
   const [teacherPremiumEstimate, setTeacherPremiumEstimate] = React.useState<string>('');
-  const [studentPremiumEstimate, setStudentPremiumEstimate] = React.useState<string>('');
   const [comments, setComments] = React.useState<string>('');
   const [schools, setSchools] = React.useState<any[]>([]);
   const [districts, setDistricts] = React.useState<any[]>([]);
@@ -53,11 +51,10 @@ export const SalesForm = ({ type }) => {
     [FIRST_NAME]: setFirstName,
     [LAST_NAME]: setLastName,
     [EMAIL]: setEmail,
+    [TITLE]: setTitle,
     [PHONE_NUMBER]: setPhoneNumber,
     [ZIPCODE]: setZipcode,
-    [SCHOOL_PREMIUM_ESTIMATE]: setSchoolPremiumEstimate,
     [TEACHER_PREMIUM_ESTIMATE]: setTeacherPremiumEstimate,
-    [STUDENT_PREMIUM_ESTIMATE]: setStudentPremiumEstimate,
     [COMMENTS]: setComments,
     [SCHOOL]: setSelectedSchool,
     [DISTRICT]: setSelectedDistrict,
@@ -112,14 +109,13 @@ export const SalesForm = ({ type }) => {
       first_name: firstName,
       last_name: lastName,
       email: email,
+      title: title,
       phone_number: phoneNumber,
       zipcode: zipcode,
       collection_type: schoolOrDistrict.toLowerCase(),
       school_name: selectedSchool && selectedSchool.value ? selectedSchool.value : selectedSchool,
       district_name: selectedDistrict && selectedDistrict.value ? selectedDistrict.value : selectedDistrict,
-      school_premium_count_estimate: parseInt(schoolPremiumEstimate),
       teacher_premium_count_estimate: parseInt(teacherPremiumEstimate),
-      student_premium_count_estimate: parseInt(studentPremiumEstimate),
       submission_type: type,
       comment: comments
     }
@@ -154,6 +150,7 @@ export const SalesForm = ({ type }) => {
           handleUpdateField={handleUpdateField}
           lastName={lastName}
           phoneNumber={phoneNumber}
+          title={title}
           type={type}
           zipcode={zipcode}
         />
@@ -177,8 +174,6 @@ export const SalesForm = ({ type }) => {
           comments={comments}
           errors={errors}
           handleUpdateField={handleUpdateField}
-          schoolPremiumEstimate={schoolPremiumEstimate}
-          studentPremiumEstimate={studentPremiumEstimate}
           teacherPremiumEstimate={teacherPremiumEstimate}
         />
         {errors[SUBMISSION_ERROR] && <p className="error-text">{errors[SUBMISSION_ERROR]}</p>}

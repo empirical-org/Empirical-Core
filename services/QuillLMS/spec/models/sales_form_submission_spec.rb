@@ -13,11 +13,9 @@
 #  last_name                      :string           not null
 #  phone_number                   :string
 #  school_name                    :string
-#  school_premium_count_estimate  :integer          default(0), not null
-#  student_premium_count_estimate :integer          default(0), not null
 #  submission_type                :string           not null
 #  teacher_premium_count_estimate :integer          default(0), not null
-#  zipcode                        :string
+#  title                          :string
 #  created_at                     :datetime         not null
 #  updated_at                     :datetime         not null
 #
@@ -38,9 +36,7 @@ RSpec.describe SalesFormSubmission, type: :model do
     it { should validate_presence_of(:last_name) }
     it { should validate_presence_of(:email) }
     it { should validate_presence_of(:collection_type) }
-    it { should validate_presence_of(:school_premium_count_estimate) }
     it { should validate_presence_of(:teacher_premium_count_estimate) }
-    it { should validate_presence_of(:student_premium_count_estimate) }
     it { should validate_presence_of(:submission_type) }
   end
 
@@ -53,7 +49,7 @@ RSpec.describe SalesFormSubmission, type: :model do
 
     it 'creates a new user record with the email from the sales form submission' do
       sales_form_submission = create(:sales_form_submission, school_name: school.name)
-      expect(User.find_by(email: sales_form_submission.email, role: User::SALES_CONTACT)).to be
+      expect(User.find_by(email: sales_form_submission.email, role: User::SALES_CONTACT, name: "#{sales_form_submission.first_name} #{sales_form_submission.last_name}", title: sales_form_submission.title)).to be
     end
 
     it 'does not create a new user record if a User already exists' do

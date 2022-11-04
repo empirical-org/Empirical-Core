@@ -1,9 +1,9 @@
 import * as React from 'react';
 
 import { titleCase, Input } from '../../../Shared';
-import { FIRST_NAME, LAST_NAME, EMAIL, PHONE_NUMBER, ZIPCODE } from '../../../../constants/salesForm';
+import { FIRST_NAME, LAST_NAME, EMAIL, TITLE, PHONE_NUMBER, } from '../../../../constants/salesForm';
 
-export const UpperFormFields = ({ type, errors, handleUpdateField, firstName, lastName, email, phoneNumber, zipcode }) => {
+export const UpperFormFields = ({ type, errors, handleUpdateField, firstName, lastName, email, title, phoneNumber }) => {
 
   return(
     <React.Fragment>
@@ -38,6 +38,15 @@ export const UpperFormFields = ({ type, errors, handleUpdateField, firstName, la
         value={email}
       />
       <Input
+        className="form-input title"
+        error={errors[TITLE]}
+        handleChange={handleUpdateField}
+        id={TITLE}
+        label={TITLE}
+        placeholder=""
+        value={title}
+      />
+      <Input
         characterLimit={10}
         className="form-input phone"
         error={errors[PHONE_NUMBER]}
@@ -47,16 +56,6 @@ export const UpperFormFields = ({ type, errors, handleUpdateField, firstName, la
         placeholder=""
         type="tel"
         value={phoneNumber}
-      />
-      <Input
-        characterLimit={5}
-        className="form-input zipcode"
-        error={errors[ZIPCODE]}
-        handleChange={handleUpdateField}
-        id={ZIPCODE}
-        label={ZIPCODE}
-        placeholder=""
-        value={zipcode}
       />
     </React.Fragment>
   )

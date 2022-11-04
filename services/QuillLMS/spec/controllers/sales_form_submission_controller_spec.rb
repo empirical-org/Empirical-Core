@@ -13,15 +13,14 @@ describe SalesFormSubmissionController, type: :controller do
           sales_form_submission: {
             first_name: 'Bianca',
             last_name: 'Del Rio',
+            title: 'Chief Awesome Officer',
             email: 'test@gmail.com',
             phone_number: '3334445555',
             zipcode: '10009',
             collection_type: 'school',
             school_name: school.name,
             district_name: 'NYPS',
-            school_premium_count_estimate: 1,
             teacher_premium_count_estimate: 20,
-            student_premium_count_estimate: 400,
             submission_type: 'renewal request',
             comment: ''
           }
