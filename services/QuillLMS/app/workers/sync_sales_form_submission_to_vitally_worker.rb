@@ -66,7 +66,7 @@ class SyncSalesFormSubmissionToVitallyWorker
       email: @sales_form_submission.email,
       traits: {
         phone_number: @sales_form_submission.phone_number,
-        zipcode: @sales_form_submission.zipcode,
+        title: @sales_form_submission.title,
         "vitally.custom.opportunityOwner": true
       }
     }

@@ -42,7 +42,6 @@ module IntercomIntegration
           last_name: user.name.split[1],
           email: user.email,
           phone_number: user_params["phone"],
-          zipcode: user_params["location_data"]["postal_code"],
           school_name: user&.school&.name,
           district_name: user&.school&.district&.name,
           source: SalesFormSubmission::INTERCOM_SOURCE,
