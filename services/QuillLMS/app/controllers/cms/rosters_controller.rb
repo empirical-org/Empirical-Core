@@ -25,14 +25,19 @@ class Cms::RostersController < Cms::CmsController
 
       params[:students]&.each do |s|
         next unless s[:email]
-        raise "Student with email #{s[:email]} already exists." if User.find_by(email: s[:email]).present?
         raise "Teacher with email #{s[:teacher_email]} does not exist." if User.find_by(email: s[:teacher_email]).blank?
         raise "Please provide a last name or password for student #{s[:name]}, otherwise this account will have no password." if s[:password].blank? && s[:name].split[1].blank?
 
         password = s[:password].present? ? s[:password] : s[:name].split[1]
-        student = User.create!(name: s[:name], email: s[:email], password: password, password_confirmation: password, role: 'student')
+        student = User.find_by(email: s[:email])
+
+        if !student
+          student = User.create!(name: s[:name], email: s[:email], password: password, password_confirmation: password, role: 'student')
+        end
+
         teacher = User.find_by(email: s[:teacher_email])
         classroom = Classroom.joins(:classrooms_teachers).where("classrooms_teachers.user_id = ?", teacher.id).where(name: s[:classroom]).first
+
         if !classroom
           classroom = Classroom.create!(name: s[:classroom])
           ClassroomsTeacher.create!(user: teacher, classroom: classroom, role: 'owner')
