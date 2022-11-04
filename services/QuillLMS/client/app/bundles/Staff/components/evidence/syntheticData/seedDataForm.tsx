@@ -24,23 +24,23 @@ const SeedDataForm = ({ history, match }) => {
   const [labelConfigs, setLabelConfigs] = React.useState({...blankLabelConfigs});
 
   function handleLabelConfigsChange(event, index, conjunction, key) {
-    const data = labelConfigs
+    const data = {...labelConfigs}
     const conjunctionData = [...data[conjunction]];
 
     conjunctionData[index][key] = event.target.value;
     data[conjunction] = conjunctionData;
 
-    setLabelConfigs({...data});
+    setLabelConfigs(data);
   }
 
   function handleExampleChange(event, index, conjunction, exampleIndex) {
-    const data = labelConfigs
+    const data = {...labelConfigs}
     const conjunctionData = [...data[conjunction]];
 
     conjunctionData[index].examples[exampleIndex] = event.target.value;
     data[conjunction] = conjunctionData;
 
-    setLabelConfigs({...data});
+    setLabelConfigs(data)
   }
 
   function onAddLabelConfigs(e) {
@@ -50,11 +50,11 @@ const SeedDataForm = ({ history, match }) => {
   }
 
   function addLabelConfigs(conjunction) {
-    const data = labelConfigs
+    const data = {...labelConfigs}
     const conjunctionData = [...data[conjunction], {...blankLabelConfig}];
 
     data[conjunction] = conjunctionData
-    setLabelConfigs({...data})
+    setLabelConfigs(data)
   }
 
   function onRemoveLabelConfig(e) {
@@ -64,12 +64,13 @@ const SeedDataForm = ({ history, match }) => {
   }
 
   function removeLabelConfig(index, conjunction) {
-    const data = labelConfigs
+    const data = {...labelConfigs}
     const conjunctionData = [...data[conjunction]]
+
     conjunctionData.splice(index, 1)
     data[conjunction] = conjunctionData
 
-    setLabelConfigs({...data})
+    setLabelConfigs(data)
   }
 
   const { data: activityData } = useQuery({
