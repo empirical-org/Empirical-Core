@@ -3,7 +3,7 @@
 module Evidence
   module Synthetic
     class SeedDataGenerator
-      Result = Struct.new(:text, :seed, keyword_init: true)
+      Result = Struct.new(:text, :seed, :label, keyword_init: true)
 
       WORD_SPLIT_COUNT = 70
       SPACE = ' '
@@ -132,24 +132,25 @@ module Evidence
               count: EXAMPLE_COUNT,
               seed: "label_#{label_config[LABEL_KEY]}_example#{index + 1}_temp#{TEMP_PARAPHRASE}",
               temperature: TEMP_PARAPHRASE,
-              options: OPTIONS_PARAPHRASE
+              options: OPTIONS_PARAPHRASE,
+              label: label_config[LABEL_KEY]
             )
           end
         end
       end
 
-      private def run_prompt(prompt:, count:, seed:, noun: nil, temperature: 1, options: {})
+      private def run_prompt(prompt:, count:, seed:, noun: nil, temperature: 1, options: {}, label: nil)
         api_results = Evidence::OpenAI::Completion.run(prompt: prompt, count: count, temperature: temperature, options: options)
         current_result_texts = results.map(&:text)
 
-        new_results = parse_completion_api_results(api_results, current_texts: current_result_texts, noun: noun, seed: seed)
+        new_results = parse_completion_api_results(api_results, current_texts: current_result_texts, noun: noun, seed: seed, label: label)
 
         @results += new_results
       end
 
-      private def parse_completion_api_results(api_results, current_texts:, seed:, noun: nil)
+      private def parse_completion_api_results(api_results, current_texts:, seed:, noun: nil, label: nil)
         api_results
-          .map {|s| Result.new(text: [noun, s].join(SPACE).strip, seed: seed)}
+          .map {|s| Result.new(text: [noun, s].join(SPACE).strip, seed: seed, label: label)}
           .uniq {|r| r.text }
           .reject {|r| r.text.in?(current_texts)}
           .reject {|r| regex_exclude?(r.text) }
@@ -207,8 +208,8 @@ module Evidence
 
       def results_csv_string
         CSV.generate do |csv|
-          csv << ['Text', 'Seed']
-          results.each {|r| csv << [r.text, r.seed]}
+          csv << ['Text', 'Seed', 'Initial Label']
+          results.each {|r| csv << [r.text, r.seed, r.label]}
         end
       end
 

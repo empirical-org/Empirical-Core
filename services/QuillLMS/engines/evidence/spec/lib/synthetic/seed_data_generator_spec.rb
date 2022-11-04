@@ -157,6 +157,7 @@ module Evidence
 
         expect(subject.results.count).to be(10)
         expect(subject.results.map(&:seed)).to eq(seed_labels)
+        expect(subject.results.map(&:label)).to eq([nil, nil, nil, nil, nil, nil, nil, nil, nil, "label1"])
       end
     end
 
@@ -284,7 +285,7 @@ module Evidence
         # values should be a multi-line valid CSV
         csv = CSV.parse(output.values.first)
         expect(csv.size).to be 3
-        expect(csv.first).to eq(["Text", "Seed"])
+        expect(csv.first).to eq(["Text", "Seed", "Initial Label"])
       end
     end
   end
