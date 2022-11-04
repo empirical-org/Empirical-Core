@@ -14,9 +14,12 @@ module Evidence
       FULL_COUNT = ENV.fetch('SYNTHETIC_SEED_PASSAGE_COUNT', 50).to_i
       FULL_NOUN_COUNT = ENV.fetch('SYNTHETIC_SEED_NOUN_COUNT', 50).to_i
       SECTION_COUNT = ENV.fetch('SYNTHETIC_SEED_SECTION_COUNT', 25).to_i
+      EXAMPLE_COUNT = ENV.fetch('SYNTHETIC_SEED_EXAMPLE_COUNT', 15).to_i
 
       TEMPS_PASSAGE = [0.8, 0.7, 0.5, 0.4]
       TEMP_SECTION = 0.4 # give a lower temp (creativity) when it has less info
+      TEMP_PARAPHRASE = 1
+      OPTIONS_PARAPHRASE = {max_tokens: 40}
 
       STEM_KEY = '%<stem>s'
       CONJUNCTIONS = [
@@ -43,10 +46,12 @@ module Evidence
         BECAUSE => [/^of/],
       }
 
-      attr_reader :passage, :stem, :conjunction, :nouns, :results
+      PARAPHRASE_INSTRUCTION = "rephrase with some synonyms:\n\n"
+
+      attr_reader :passage, :stem, :conjunction, :nouns, :results, :label_configs
 
       # returns a hash of the form {'csv name' => CSVString, 'csv name2' =>...}
-      def self.csvs_for_activity(activity_id:, nouns: [], conjunctions: nil)
+      def self.csvs_for_activity(activity_id:, nouns: [], conjunctions: nil, label_configs: {})
         activity = Evidence::Activity.find(activity_id)
         passage = activity.passages.first.text
         prompts = conjunctions.present? ? activity.prompts.where(conjunction: conjunctions) : activity.prompts
@@ -55,14 +60,15 @@ module Evidence
 
         csvs = {}
 
-        prompts.each.with_index do |prompt, index|
+        prompts.each do |prompt|
           csv_name = "#{short_name}_#{prompt.conjunction}#{CSV_SUFFIX}"
 
           generator = new(
             passage: passage,
             stem: prompt.text,
             conjunction: prompt.conjunction,
-            nouns: nouns
+            nouns: nouns,
+            label_configs: label_configs[prompt.conjunction] || []
           )
           generator.run
 
@@ -75,11 +81,12 @@ module Evidence
         csvs
       end
 
-      def initialize(passage:, stem:, conjunction:, nouns: [])
+      def initialize(passage:, stem:, conjunction:, nouns: [], label_configs: [])
         @passage = Evidence::HTMLTagRemover.run(passage)
         @stem = stem
         @conjunction = conjunction
         @nouns = nouns
+        @label_configs = label_configs
         @results = []
         raise InvalidConjunctionError unless conjunction.in?(CONJUNCTIONS)
       end
@@ -107,11 +114,32 @@ module Evidence
           end
         end
 
+        # label examples to paraphrase
+        generate_label_paraphrases
+
         results
       end
 
-      private def run_prompt(prompt:, count:, seed:, noun: nil, temperature: 1)
-        api_results = Evidence::OpenAI::Completion.run(prompt: prompt, count: count, temperature: temperature)
+      LABEL_KEY = 'label'
+      EXAMPLES_KEY = 'examples'
+
+      private def generate_label_paraphrases
+        label_configs.each do |label_config|
+          label_config[EXAMPLES_KEY].map(&:strip).uniq.compact.each.with_index do |example, index|
+            prompt = PARAPHRASE_INSTRUCTION + example
+            run_prompt(
+              prompt: prompt,
+              count: EXAMPLE_COUNT,
+              seed: "label_#{label_config[LABEL_KEY]}_example#{index + 1}_temp#{TEMP_PARAPHRASE}",
+              temperature: TEMP_PARAPHRASE,
+              options: OPTIONS_PARAPHRASE
+            )
+          end
+        end
+      end
+
+      private def run_prompt(prompt:, count:, seed:, noun: nil, temperature: 1, options: {})
+        api_results = Evidence::OpenAI::Completion.run(prompt: prompt, count: count, temperature: temperature, options: options)
         current_result_texts = results.map(&:text)
 
         new_results = parse_completion_api_results(api_results, current_texts: current_result_texts, noun: noun, seed: seed)
