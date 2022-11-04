@@ -123,6 +123,9 @@ export const handlePageFilterClick = ({
   if(responsesForScoring) {
     setResponsesForScoringForQuery(true)
   }
+  if(!responsesForScoring) {
+    setResponsesForScoringForQuery(false)
+  }
 }
 
 export const validateForm = (keys: string[], state: any[], ruleType?: string) => {
