@@ -30,7 +30,7 @@ $tool-grey: #f8f9f9;
 .tool-header {
   background-color: $quillgreen;
   .q-nav-bar {
-    max-width: 1165px;
+    max-width: $sitewidepagewidth;
   }
 }
 

@@ -4,7 +4,7 @@ import { connect } from 'react-redux';
 import { LanguageOptions } from '../shared/languageOptions';
 import { closeLanguageMenu } from '../../actions/diagnostics'
 
-const quillLogoSrc = `${process.env.CDN_URL}/images/logos/quill-logo-white.svg`
+const quillLogoSrc = `${process.env.CDN_URL}/images/logos/quill-logo-white-2022.svg`
 const closeSrc = `${process.env.CDN_URL}/images/icons/close-white.svg`
 
 const handleSaveAndExitClick = () => {

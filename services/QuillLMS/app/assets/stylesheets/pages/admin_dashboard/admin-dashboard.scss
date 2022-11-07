@@ -35,9 +35,9 @@
   }
 
   .sub-container {
-    max-width: 950px;
+    max-width: $sitewidepagewidth;;
     margin: 0 auto;
-    @media (max-width: 1000px) {
+    @media (max-width: 1210px) {
       margin: 0 10px;
     }
   }
@@ -75,7 +75,7 @@
       display: flex;
       margin-top: 70px;
       .feature {
-        width: 320px;
+        flex: 1;
         &:first-of-type, &:nth-of-type(2) {
           padding-right: 60px;
         }

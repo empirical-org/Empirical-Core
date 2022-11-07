@@ -121,12 +121,12 @@ exports[`ClassroomStudentSection component with students should render 1`] = `
         Object {
           "attribute": "name",
           "name": "Name",
-          "width": "190px",
+          "width": "380px",
         },
         Object {
           "attribute": "username",
           "name": "Username",
-          "width": "486px",
+          "width": "566px",
         },
         Object {
           "attribute": "actions",

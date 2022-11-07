@@ -2,7 +2,6 @@
   background-color: white;
   .container {
     width: 100%;
-    max-width: 980px;
   }
   &:not(.tools-navbar) {
     border-bottom: solid 1px #e9e9e9;
@@ -161,7 +160,6 @@
 
 @media (max-width: 1165px) and (min-width: 800px) {
   .subnav .q-nav-bar {
-    padding: 0 15px;
     width: calc(100% - 30px);
   }
 }

@@ -11,7 +11,6 @@ import {
   accountCommentIcon,
   proficiencyTextToTag,
   lightGreenTriangleUpIcon,
-  WIDE_SCREEN_MINIMUM_WIDTH,
   LEFT_OFFSET,
   DEFAULT_LEFT_PADDING,
   MOBILE_WIDTH,
@@ -149,7 +148,7 @@ const StudentResultsTable = ({ skillGroupSummaries, studentResults, openPopover,
   function paddingLeft() {
     if (MOBILE_WIDTH >= window.innerWidth) { return DEFAULT_LEFT_PADDING_FOR_MOBILE }
     const skillGroupSummaryCards = document.getElementsByClassName('results-header')[0]
-    return skillGroupSummaryCards && window.innerWidth >= WIDE_SCREEN_MINIMUM_WIDTH ? skillGroupSummaryCards.getBoundingClientRect().left - LEFT_OFFSET : DEFAULT_LEFT_PADDING
+    return skillGroupSummaryCards && DEFAULT_LEFT_PADDING
   }
 
   React.useEffect(() => {
@@ -228,8 +227,6 @@ const StudentResultsTable = ({ skillGroupSummaries, studentResults, openPopover,
       </thead>
     )
   }
-
-  if (window.innerWidth >= WIDE_SCREEN_MINIMUM_WIDTH && paddingLeft() === DEFAULT_LEFT_PADDING) { return <span /> }
 
   return (
     <div className="student-results-table-container" onScroll={handleScroll}>

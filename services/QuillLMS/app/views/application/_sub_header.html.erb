@@ -35,9 +35,9 @@
       </a>
     </div>
   <% else %>
-	  <div class="navbar-header">
-			<a aria-label="Quill" class="focus-on-dark navbar-brand" href=<%= root_path %> >
-  			<img src="https://assets.quill.org/images/logos/quill-logo-white.svg" alt="Quill.org logo">
+	  <div>
+			<a aria-label="Quill" class="focus-on-dark" href=<%= root_path %> >
+  			<img src="https://assets.quill.org/images/logos/quill-logo-white-2022.svg" alt="Quill.org logo">
   		</a>
   	</div>
 
@@ -59,11 +59,9 @@
 				<a class="text-white nav-element" href="/session/new">Log In</a>
 				<a class="text-white nav-element sign-up-button" href="/account/new">Sign Up</a>
   		<%- elsif current_user.role == 'teacher' %>
-  			<div class='navigation-vertical-rule hide-on-mobile nav-element'></div>
   			<div id="nav-user-dropdown" class="dropdown-closed hide-on-mobile nav-element <%= show_notification_badges_class %> <%= user_dropdown_class %>">
   				<span onclick="toggleDropdown()" class='user-dropdown-button notification-badge-relative'>
-            <img class='user-dropdown-button-img' src=<%="#{user_dropdown_img}"%>></img>
-            <%="#{current_user.name}"%>
+            <%="#{truncate(current_user.name, length: 50)}"%>
           </span>
   				<div>
   					<i class="fas fa-caret-up"></i>
@@ -176,7 +174,7 @@
 
 	function closeDropdownIfOpen(e) {
 		const dropdown = document.querySelector('#nav-user-dropdown');
-		if (!e.target.classList.contains('user-dropdown-button') && e.target.classList.value !== 'user-dropdown-button-img' && e.target.parentElement.classList.value !== 'user-dropdown-button' && dropdown && dropdown.classList.contains('dropdown-open')) {
+		if (!e.target.classList.contains('user-dropdown-button') && e.target.parentElement.classList.value !== 'user-dropdown-button' && dropdown && dropdown.classList.contains('dropdown-open')) {
 				dropdown.classList.remove('dropdown-open');
 				dropdown.classList.add('dropdown-closed');
 		}

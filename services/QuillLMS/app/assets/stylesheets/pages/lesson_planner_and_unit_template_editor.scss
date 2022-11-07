@@ -422,14 +422,18 @@
   }
   &.scorebook-filters {
     display: flex;
-    padding-left: 15px;
-    .button-select-wrapper {
+    width: 100%;
+    justify-content: space-between;
+    .scorebook-filter-group {
+      width: 100%;
       display: flex;
-      align-items: center;
-      padding: 0px 14px;
+    }
+    .DateRangePicker {
+      min-width: 300px;
     }
     .input-container {
       min-height: 50px;
+      margin-right: 20px;
       &.active {
         min-height: 0px;
       }
