@@ -118,9 +118,7 @@ export const handlePageFilterClick = ({
   if(setPageNumber) {
     setPageNumber({ value: '1', label: "Page 1" })
   }
-  if(responsesForScoring) {
-    setResponsesForScoringForQuery(true)
-  }
+  setResponsesForScoringForQuery(responsesForScoring)
 }
 
 export const validateForm = (keys: string[], state: any[], ruleType?: string) => {
