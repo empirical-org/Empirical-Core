@@ -26,8 +26,14 @@
     }
   }
   .top-section {
-    display: flex;
     align-items: center;
+  }
+  .middle-section {
+    flex-direction: column;
+    align-items: flex-start;
+  }
+  .top-section, .middle-section {
+    display: flex;
     margin: 16px 0px 8px 0px;
     .total-container {
       display: flex;
@@ -41,6 +47,26 @@
         border: 1px solid lightgray;
         padding: 3px 7px;
         margin-bottom: 0px;
+      }
+    }
+    .response-filters-container {
+      display: flex;
+      align-items: center;
+      .responses-for-scoring-container {
+        display: flex;
+        .label-section {
+          label {
+            font-size: 16px;
+            font-weight: normal;
+          }
+          .quill-tooltip-trigger {
+            margin: 0px 8px 0px 4px;
+          }
+        }
+        input {
+          margin-top: 0px;
+          margin-bottom: 3px;
+        }
       }
     }
     .left-side-container {
@@ -74,6 +100,14 @@
       color: #ff0000;
       font-weight: 700;
       margin: 0;
+    }
+    .rt-th {
+      height: min-content;
+      .column-filter {
+        input {
+          width: 80px !important;
+        }
+      }
     }
   }
   .session-overview-table {
