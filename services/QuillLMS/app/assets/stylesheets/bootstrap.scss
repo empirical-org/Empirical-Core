@@ -765,22 +765,20 @@ pre code {
 .container {
   margin-right: auto;
   margin-left: auto;
-  padding-left: 15px;
-  padding-right: 15px;
 }
 @media (min-width: 768px) {
   .container {
     width: 750px;
   }
 }
-@media (min-width: 992px) {
+@media (max-width: 1199px) {
   .container {
-    width: 980px;
+    width: calc(100% - 30px)
   }
 }
 @media (min-width: 1200px) {
   .container {
-    width: 980px;
+    width: $sitewidepagewidth;
   }
 }
 .container-fluid {
@@ -3244,7 +3242,6 @@ select[multiple].input-group-sm > .input-group-btn > .btn {
   padding: 15px 15px;
   font-size: 18px;
   line-height: 20px;
-  height: 50px;
 }
 .navbar-brand:hover,
 .navbar-brand:focus {

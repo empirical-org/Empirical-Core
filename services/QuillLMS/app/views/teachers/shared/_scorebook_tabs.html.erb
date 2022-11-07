@@ -33,7 +33,7 @@
 
         <% unless current_user.premium_state == 'paid' %>
           <li class="premium-tab <%= 'active' if premium_page_should_be_active? %>">
-            <%= link_to raw("<span class='hide-on-mobile'>#{premium_tab_copy}</span><span class='hide-on-desktop'>Premium</span>"), premium_path %>
+            <%= link_to raw("<span class='hide-on-mobile premium-tab-copy'>#{premium_tab_copy}</span><span class='hide-on-desktop'>Premium</span>"), premium_path %>
           </li>
         <% end %>
 
@@ -67,10 +67,10 @@
             <li><%= active_link_to 'Activity Summary', scorebook_teachers_classrooms_path, class: 'default'%></li>
             <li><%= active_link_to 'Activity Analysis', '/teachers/progress_reports/diagnostic_reports/#/activity_packs', class: 'default activity-analysis-tab'%></li>
             <li><%= active_link_to 'Diagnostics', '/teachers/progress_reports/diagnostic_reports/#/diagnostics', class: 'default diagnostic-tab'%></li>
-            <li><a href='/teachers/progress_reports/activities_scores_by_classroom' class=<%=%w(/teachers/progress_reports/student_overview /teachers/progress_reports/activities_scores_by_classroom).include?(request.path) ? 'active' : nil%> >Activity Scores  <i class="fas fa-star"></i></a></li>
-            <li><%= active_link_to raw('Concepts  <i class="fas fa-star"></i>'), teachers_progress_reports_concepts_students_path%></li>
-            <li><%= active_link_to raw('Standards  <i class="fas fa-star"></i>'), teachers_progress_reports_standards_classrooms_path %></li>
-            <li><%= active_link_to raw('Data Export  <i class="fas fa-star"></i>'), teachers_progress_reports_activity_sessions_path %></li>
+            <li><a href='/teachers/progress_reports/activities_scores_by_classroom' class=<%=%w(/teachers/progress_reports/student_overview /teachers/progress_reports/activities_scores_by_classroom).include?(request.path) ? 'active' : nil%> >Activity Scores <img alt="" src="https://assets.quill.org/images/icons/gold_star.svg"></img></a></li>
+            <li><%= active_link_to raw('Concepts  <img alt="" src="https://assets.quill.org/images/icons/gold_star.svg"></img>'), teachers_progress_reports_concepts_students_path%></li>
+            <li><%= active_link_to raw('Standards  <img alt="" src="https://assets.quill.org/images/icons/gold_star.svg"></img>'), teachers_progress_reports_standards_classrooms_path %></li>
+            <li><%= active_link_to raw('Data Export  <img alt="" src="https://assets.quill.org/images/icons/gold_star.svg"></img>'), teachers_progress_reports_activity_sessions_path %></li>
           <% end %>
 
         </ul>

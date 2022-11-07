@@ -56,7 +56,6 @@
     align-items: center;
     justify-content: space-between;
     margin-top: 16px;
-    max-width: 950px;
     width: 100%;
     div {
       display: flex;
@@ -89,12 +88,13 @@
     > table {
       font-size: 12px;
       color: #5c5c5c;
-      width: max-content;
       margin: 0;
       border: none;
       border-collapse: separate;
       border-spacing: 0;
       table-layout: fixed;
+      min-width: 100%;
+      padding-right: 32px;
       &.empty {
         border-right: 1px solid #e0e0e0;
         border-bottom: 1px solid #e0e0e0;
@@ -125,12 +125,16 @@
           border-radius: 0px 0px 8px 0px;
         }
       }
+      > tbody > tr, > thead > tr {
+        display: flex;
+      }
       > tbody > tr > td, > tbody > tr > th, > thead > tr > th {
         padding: 8px 16px;
-        width: 144px;
+        min-width: 144px;
         border-bottom: 1px solid #e0e0e0;
         border-right: 1px solid #e0e0e0;
         background-color: white;
+        flex: 1;
       }
       th {
         text-align: left;
@@ -143,7 +147,6 @@
         position: sticky;
         top: 0;
         z-index: 2;
-        height: 65px;
         > th {
           border-top: 1px solid #e0e0e0;
         }
@@ -170,8 +173,6 @@
           opacity: 0;
         }
       }
-      width: 216px;
-      height: 48px;
       a {
         height: 100%;
         width: 100%;
@@ -230,11 +231,13 @@
       vertical-align: bottom;
       border-radius: 8px 0px 0px;
       border-left: 1px solid #e0e0e0;
-      width: 216px;
       position: sticky;
       left: 0px;
-      height: 65px;
       z-index: 1;
+    }
+    .corner-header, .name-cell {
+      flex: 0;
+      min-width: 216px;
     }
     .corner-header, .recommendation-header {
       border-top: 1px solid #e0e0e0;
@@ -286,7 +289,6 @@
     .lessons-recommendation {
       border-radius: 8px;
       border: solid 1px #e0e0e0;
-      max-width: 950px;
       width: 100%;
       margin-top: 16px;
       .top-row {

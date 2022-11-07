@@ -9,8 +9,8 @@ import getParameterByName from '../helpers/getParameterByName';
 import { Tooltip, READ_PASSAGE_STEP_NUMBER, BECAUSE_PASSAGE_STEP_NUMBER, BUT_PASSAGE_STEP_NUMBER, SO_PASSAGE_STEP_NUMBER, whiteCheckGreenBackgroundIcon } from '../../Shared/index'
 import { onMobile } from '../helpers/containerActionHelpers';
 
-const logoSrc = `${process.env.CDN_URL}/images/logos/quill-logo-white.svg`
-const mobileLogoSrc = `${process.env.CDN_URL}/images/logos/quill-logo-white-mobile.svg`
+const logoSrc = `${process.env.CDN_URL}/images/logos/quill-logo-white-2022.svg`
+const mobileLogoSrc = `${process.env.CDN_URL}/images/logos/quill-logo-white-2022-mobile.svg`
 const helpIcon = `${process.env.CDN_URL}/images/icons/icons-help-white.svg`
 const checkIcon = <img alt={whiteCheckGreenBackgroundIcon.alt} src={whiteCheckGreenBackgroundIcon.src} />;
 

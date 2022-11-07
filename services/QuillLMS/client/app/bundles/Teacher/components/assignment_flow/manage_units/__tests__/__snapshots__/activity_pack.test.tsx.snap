@@ -866,7 +866,7 @@ exports[`ActivityPack component renders if the current user created the unit 1`]
                 </span>
               </span>,
               "rowSectionClassName": "tool-and-name-section",
-              "width": "437px",
+              "width": "624px",
             },
             Object {
               "attribute": "publishDatePicker",
@@ -1274,9 +1274,9 @@ exports[`ActivityPack component renders if the current user created the unit 1`]
               scope="col"
               style={
                 Object {
-                  "minWidth": "437px",
+                  "minWidth": "624px",
                   "textAlign": "left",
-                  "width": "437px",
+                  "width": "624px",
                 }
               }
             >
@@ -1443,9 +1443,9 @@ exports[`ActivityPack component renders if the current user created the unit 1`]
                         className="data-table-row-section tool-and-name-section"
                         style={
                           Object {
-                            "minWidth": "437px",
+                            "minWidth": "624px",
                             "textAlign": "left",
-                            "width": "437px",
+                            "width": "624px",
                           }
                         }
                       >
@@ -1563,9 +1563,9 @@ exports[`ActivityPack component renders if the current user created the unit 1`]
                         className="data-table-row-section tool-and-name-section"
                         style={
                           Object {
-                            "minWidth": "437px",
+                            "minWidth": "624px",
                             "textAlign": "left",
-                            "width": "437px",
+                            "width": "624px",
                           }
                         }
                       >
@@ -1683,9 +1683,9 @@ exports[`ActivityPack component renders if the current user created the unit 1`]
                         className="data-table-row-section tool-and-name-section"
                         style={
                           Object {
-                            "minWidth": "437px",
+                            "minWidth": "624px",
                             "textAlign": "left",
-                            "width": "437px",
+                            "width": "624px",
                           }
                         }
                       >
@@ -1803,9 +1803,9 @@ exports[`ActivityPack component renders if the current user created the unit 1`]
                         className="data-table-row-section tool-and-name-section"
                         style={
                           Object {
-                            "minWidth": "437px",
+                            "minWidth": "624px",
                             "textAlign": "left",
-                            "width": "437px",
+                            "width": "624px",
                           }
                         }
                       >
@@ -1923,9 +1923,9 @@ exports[`ActivityPack component renders if the current user created the unit 1`]
                         className="data-table-row-section tool-and-name-section"
                         style={
                           Object {
-                            "minWidth": "437px",
+                            "minWidth": "624px",
                             "textAlign": "left",
-                            "width": "437px",
+                            "width": "624px",
                           }
                         }
                       >
@@ -2058,9 +2058,9 @@ exports[`ActivityPack component renders if the current user created the unit 1`]
                           className="data-table-row-section tool-and-name-section"
                           style={
                             Object {
-                              "minWidth": "437px",
+                              "minWidth": "624px",
                               "textAlign": "left",
-                              "width": "437px",
+                              "width": "624px",
                             }
                           }
                         >
@@ -2178,9 +2178,9 @@ exports[`ActivityPack component renders if the current user created the unit 1`]
                           className="data-table-row-section tool-and-name-section"
                           style={
                             Object {
-                              "minWidth": "437px",
+                              "minWidth": "624px",
                               "textAlign": "left",
-                              "width": "437px",
+                              "width": "624px",
                             }
                           }
                         >
@@ -2298,9 +2298,9 @@ exports[`ActivityPack component renders if the current user created the unit 1`]
                           className="data-table-row-section tool-and-name-section"
                           style={
                             Object {
-                              "minWidth": "437px",
+                              "minWidth": "624px",
                               "textAlign": "left",
-                              "width": "437px",
+                              "width": "624px",
                             }
                           }
                         >
@@ -2418,9 +2418,9 @@ exports[`ActivityPack component renders if the current user created the unit 1`]
                           className="data-table-row-section tool-and-name-section"
                           style={
                             Object {
-                              "minWidth": "437px",
+                              "minWidth": "624px",
                               "textAlign": "left",
-                              "width": "437px",
+                              "width": "624px",
                             }
                           }
                         >
@@ -2538,9 +2538,9 @@ exports[`ActivityPack component renders if the current user created the unit 1`]
                           className="data-table-row-section tool-and-name-section"
                           style={
                             Object {
-                              "minWidth": "437px",
+                              "minWidth": "624px",
                               "textAlign": "left",
-                              "width": "437px",
+                              "width": "624px",
                             }
                           }
                         >
@@ -2695,9 +2695,9 @@ exports[`ActivityPack component renders if the current user created the unit 1`]
                             className="data-table-row-section tool-and-name-section"
                             style={
                               Object {
-                                "minWidth": "437px",
+                                "minWidth": "624px",
                                 "textAlign": "left",
-                                "width": "437px",
+                                "width": "624px",
                               }
                             }
                           >
@@ -2815,9 +2815,9 @@ exports[`ActivityPack component renders if the current user created the unit 1`]
                             className="data-table-row-section tool-and-name-section"
                             style={
                               Object {
-                                "minWidth": "437px",
+                                "minWidth": "624px",
                                 "textAlign": "left",
-                                "width": "437px",
+                                "width": "624px",
                               }
                             }
                           >
@@ -2935,9 +2935,9 @@ exports[`ActivityPack component renders if the current user created the unit 1`]
                             className="data-table-row-section tool-and-name-section"
                             style={
                               Object {
-                                "minWidth": "437px",
+                                "minWidth": "624px",
                                 "textAlign": "left",
-                                "width": "437px",
+                                "width": "624px",
                               }
                             }
                           >
@@ -3055,9 +3055,9 @@ exports[`ActivityPack component renders if the current user created the unit 1`]
                             className="data-table-row-section tool-and-name-section"
                             style={
                               Object {
-                                "minWidth": "437px",
+                                "minWidth": "624px",
                                 "textAlign": "left",
-                                "width": "437px",
+                                "width": "624px",
                               }
                             }
                           >
@@ -3175,9 +3175,9 @@ exports[`ActivityPack component renders if the current user created the unit 1`]
                             className="data-table-row-section tool-and-name-section"
                             style={
                               Object {
-                                "minWidth": "437px",
+                                "minWidth": "624px",
                                 "textAlign": "left",
-                                "width": "437px",
+                                "width": "624px",
                               }
                             }
                           >
@@ -3306,9 +3306,9 @@ exports[`ActivityPack component renders if the current user created the unit 1`]
                               className="data-table-row-section tool-and-name-section"
                               style={
                                 Object {
-                                  "minWidth": "437px",
+                                  "minWidth": "624px",
                                   "textAlign": "left",
-                                  "width": "437px",
+                                  "width": "624px",
                                 }
                               }
                             >
@@ -3430,9 +3430,9 @@ exports[`ActivityPack component renders if the current user created the unit 1`]
                                 className="data-table-row-section tool-and-name-section"
                                 style={
                                   Object {
-                                    "minWidth": "437px",
+                                    "minWidth": "624px",
                                     "textAlign": "left",
-                                    "width": "437px",
+                                    "width": "624px",
                                   }
                                 }
                               >
@@ -3570,9 +3570,9 @@ exports[`ActivityPack component renders if the current user created the unit 1`]
                               key="toolAndNameSection-7543552"
                               style={
                                 Object {
-                                  "minWidth": "437px",
+                                  "minWidth": "624px",
                                   "textAlign": "left",
-                                  "width": "437px",
+                                  "width": "624px",
                                 }
                               }
                             >
@@ -5087,9 +5087,9 @@ exports[`ActivityPack component renders if the current user created the unit 1`]
                               className="data-table-row-section tool-and-name-section"
                               style={
                                 Object {
-                                  "minWidth": "437px",
+                                  "minWidth": "624px",
                                   "textAlign": "left",
-                                  "width": "437px",
+                                  "width": "624px",
                                 }
                               }
                             >
@@ -5211,9 +5211,9 @@ exports[`ActivityPack component renders if the current user created the unit 1`]
                                 className="data-table-row-section tool-and-name-section"
                                 style={
                                   Object {
-                                    "minWidth": "437px",
+                                    "minWidth": "624px",
                                     "textAlign": "left",
-                                    "width": "437px",
+                                    "width": "624px",
                                   }
                                 }
                               >
@@ -5351,9 +5351,9 @@ exports[`ActivityPack component renders if the current user created the unit 1`]
                               key="toolAndNameSection-7543553"
                               style={
                                 Object {
-                                  "minWidth": "437px",
+                                  "minWidth": "624px",
                                   "textAlign": "left",
-                                  "width": "437px",
+                                  "width": "624px",
                                 }
                               }
                             >
@@ -6834,9 +6834,9 @@ exports[`ActivityPack component renders if the current user created the unit 1`]
                               className="data-table-row-section tool-and-name-section"
                               style={
                                 Object {
-                                  "minWidth": "437px",
+                                  "minWidth": "624px",
                                   "textAlign": "left",
-                                  "width": "437px",
+                                  "width": "624px",
                                 }
                               }
                             >
@@ -6958,9 +6958,9 @@ exports[`ActivityPack component renders if the current user created the unit 1`]
                                 className="data-table-row-section tool-and-name-section"
                                 style={
                                   Object {
-                                    "minWidth": "437px",
+                                    "minWidth": "624px",
                                     "textAlign": "left",
-                                    "width": "437px",
+                                    "width": "624px",
                                   }
                                 }
                               >
@@ -7098,9 +7098,9 @@ exports[`ActivityPack component renders if the current user created the unit 1`]
                               key="toolAndNameSection-7543554"
                               style={
                                 Object {
-                                  "minWidth": "437px",
+                                  "minWidth": "624px",
                                   "textAlign": "left",
-                                  "width": "437px",
+                                  "width": "624px",
                                 }
                               }
                             >
@@ -8581,9 +8581,9 @@ exports[`ActivityPack component renders if the current user created the unit 1`]
                               className="data-table-row-section tool-and-name-section"
                               style={
                                 Object {
-                                  "minWidth": "437px",
+                                  "minWidth": "624px",
                                   "textAlign": "left",
-                                  "width": "437px",
+                                  "width": "624px",
                                 }
                               }
                             >
@@ -8705,9 +8705,9 @@ exports[`ActivityPack component renders if the current user created the unit 1`]
                                 className="data-table-row-section tool-and-name-section"
                                 style={
                                   Object {
-                                    "minWidth": "437px",
+                                    "minWidth": "624px",
                                     "textAlign": "left",
-                                    "width": "437px",
+                                    "width": "624px",
                                   }
                                 }
                               >
@@ -8845,9 +8845,9 @@ exports[`ActivityPack component renders if the current user created the unit 1`]
                               key="toolAndNameSection-7543555"
                               style={
                                 Object {
-                                  "minWidth": "437px",
+                                  "minWidth": "624px",
                                   "textAlign": "left",
-                                  "width": "437px",
+                                  "width": "624px",
                                 }
                               }
                             >
@@ -10328,9 +10328,9 @@ exports[`ActivityPack component renders if the current user created the unit 1`]
                               className="data-table-row-section tool-and-name-section"
                               style={
                                 Object {
-                                  "minWidth": "437px",
+                                  "minWidth": "624px",
                                   "textAlign": "left",
-                                  "width": "437px",
+                                  "width": "624px",
                                 }
                               }
                             >
@@ -10452,9 +10452,9 @@ exports[`ActivityPack component renders if the current user created the unit 1`]
                                 className="data-table-row-section tool-and-name-section"
                                 style={
                                   Object {
-                                    "minWidth": "437px",
+                                    "minWidth": "624px",
                                     "textAlign": "left",
-                                    "width": "437px",
+                                    "width": "624px",
                                   }
                                 }
                               >
@@ -10592,9 +10592,9 @@ exports[`ActivityPack component renders if the current user created the unit 1`]
                               key="toolAndNameSection-7543556"
                               style={
                                 Object {
-                                  "minWidth": "437px",
+                                  "minWidth": "624px",
                                   "textAlign": "left",
-                                  "width": "437px",
+                                  "width": "624px",
                                 }
                               }
                             >
@@ -13077,7 +13077,7 @@ exports[`ActivityPack component renders if the current user did not create the u
                 </span>
               </span>,
               "rowSectionClassName": "tool-and-name-section",
-              "width": "577px",
+              "width": "764px",
             },
             Object {
               "attribute": "publishDatePicker",
@@ -13576,9 +13576,9 @@ exports[`ActivityPack component renders if the current user did not create the u
               scope="col"
               style={
                 Object {
-                  "minWidth": "577px",
+                  "minWidth": "764px",
                   "textAlign": "left",
-                  "width": "577px",
+                  "width": "764px",
                 }
               }
             >
@@ -13733,9 +13733,9 @@ exports[`ActivityPack component renders if the current user did not create the u
                 key="toolAndNameSection-7543506"
                 style={
                   Object {
-                    "minWidth": "577px",
+                    "minWidth": "764px",
                     "textAlign": "left",
-                    "width": "577px",
+                    "width": "764px",
                   }
                 }
               >
@@ -13819,9 +13819,9 @@ exports[`ActivityPack component renders if the current user did not create the u
                 key="toolAndNameSection-7543505"
                 style={
                   Object {
-                    "minWidth": "577px",
+                    "minWidth": "764px",
                     "textAlign": "left",
-                    "width": "577px",
+                    "width": "764px",
                   }
                 }
               >
@@ -13905,9 +13905,9 @@ exports[`ActivityPack component renders if the current user did not create the u
                 key="toolAndNameSection-7543508"
                 style={
                   Object {
-                    "minWidth": "577px",
+                    "minWidth": "764px",
                     "textAlign": "left",
-                    "width": "577px",
+                    "width": "764px",
                   }
                 }
               >
@@ -13991,9 +13991,9 @@ exports[`ActivityPack component renders if the current user did not create the u
                 key="toolAndNameSection-7543509"
                 style={
                   Object {
-                    "minWidth": "577px",
+                    "minWidth": "764px",
                     "textAlign": "left",
-                    "width": "577px",
+                    "width": "764px",
                   }
                 }
               >
@@ -14077,9 +14077,9 @@ exports[`ActivityPack component renders if the current user did not create the u
                 key="toolAndNameSection-7543507"
                 style={
                   Object {
-                    "minWidth": "577px",
+                    "minWidth": "764px",
                     "textAlign": "left",
-                    "width": "577px",
+                    "width": "764px",
                   }
                 }
               >
@@ -14163,9 +14163,9 @@ exports[`ActivityPack component renders if the current user did not create the u
                 key="toolAndNameSection-7543510"
                 style={
                   Object {
-                    "minWidth": "577px",
+                    "minWidth": "764px",
                     "textAlign": "left",
-                    "width": "577px",
+                    "width": "764px",
                   }
                 }
               >
@@ -14249,9 +14249,9 @@ exports[`ActivityPack component renders if the current user did not create the u
                 key="toolAndNameSection-7543504"
                 style={
                   Object {
-                    "minWidth": "577px",
+                    "minWidth": "764px",
                     "textAlign": "left",
-                    "width": "577px",
+                    "width": "764px",
                   }
                 }
               >
@@ -14335,9 +14335,9 @@ exports[`ActivityPack component renders if the current user did not create the u
                 key="toolAndNameSection-7543503"
                 style={
                   Object {
-                    "minWidth": "577px",
+                    "minWidth": "764px",
                     "textAlign": "left",
-                    "width": "577px",
+                    "width": "764px",
                   }
                 }
               >
@@ -14421,9 +14421,9 @@ exports[`ActivityPack component renders if the current user did not create the u
                 key="toolAndNameSection-7543502"
                 style={
                   Object {
-                    "minWidth": "577px",
+                    "minWidth": "764px",
                     "textAlign": "left",
-                    "width": "577px",
+                    "width": "764px",
                   }
                 }
               >

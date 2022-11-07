@@ -316,7 +316,7 @@ exports[`RecommendationsTable component should render when no students have comp
           id="demo-onboarding-tour-spotlight-element"
           style={
             Object {
-              "paddingLeft": 32,
+              "paddingLeft": undefined,
             }
           }
         >
@@ -11222,7 +11222,7 @@ exports[`RecommendationsTable component should render when there are recommendat
           id="demo-onboarding-tour-spotlight-element"
           style={
             Object {
-              "paddingLeft": 32,
+              "paddingLeft": undefined,
             }
           }
         >

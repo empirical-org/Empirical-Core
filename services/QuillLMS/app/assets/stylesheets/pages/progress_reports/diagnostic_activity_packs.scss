@@ -45,6 +45,9 @@
           color: #262626;
         }
       }
+      .growth-summary {
+        flex: 1;
+      }
       .pre-and-post-wrapper {
         display: flex;
         height: 176px;
@@ -102,8 +105,7 @@
             background-color: transparent;
           }
           &.pre, &.post {
-            max-width: 356px;
-            width: 100%;
+            flex: 1;
             p span {
               white-space: nowrap;
               overflow: hidden;
