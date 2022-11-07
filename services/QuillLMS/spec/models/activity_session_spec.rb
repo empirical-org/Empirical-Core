@@ -1079,7 +1079,7 @@ end
       subject { activity_session.destroy }
 
       it do
-        expect(activity_session).to receive(:blah)
+        expect(activity_session).to receive(:save_user_pack_sequence_items)
         subject
       end
     end

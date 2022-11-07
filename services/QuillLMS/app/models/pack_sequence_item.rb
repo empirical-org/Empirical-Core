@@ -23,11 +23,6 @@
 #  fk_rails_...  (unit_id => units.id)
 #
 class PackSequenceItem < ApplicationRecord
-  STATUSES = [
-    LOCKED = 'locked',
-    UNLOCKED = 'unlocked'
-  ]
-
   belongs_to :pack_sequence
   belongs_to :unit
 

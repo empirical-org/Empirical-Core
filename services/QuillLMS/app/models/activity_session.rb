@@ -87,7 +87,7 @@ class ActivitySession < ApplicationRecord
 
   after_commit :invalidate_activity_session_count_if_completed
 
-  after_destroy :recalculate_user_pack_sequence_items
+  after_destroy :save_user_pack_sequence_items
 
   around_save   :trigger_events
 
@@ -381,8 +381,7 @@ class ActivitySession < ApplicationRecord
     $redis.del("classroom_id:#{classroom_id}_completed_activity_count")
   end
 
-  def recalculate_user_pack_sequence_items
-    binding.pry
+  def save_user_pack_sequence_items
     UserPackSequenceItemSaver.run(classroom.id, user_id)
   end
 

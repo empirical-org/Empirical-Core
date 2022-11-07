@@ -128,8 +128,8 @@ class UnitActivity < ApplicationRecord
     teacher_timezone_offset_string = "+ INTERVAL '#{offset}' SECOND"
 
     # Generate a rich profile of Classroom Activities for a given user in a given classroom
-    results = RawSqlRunner.execute(
-      <<-SQL
+    RawSqlRunner.execute(
+     <<-SQL
         SELECT
           unit.name,
           activity.name,
@@ -150,10 +150,7 @@ class UnitActivity < ApplicationRecord
           ua.publish_date #{teacher_timezone_offset_string} AS publish_date,
           pre_activity.id AS pre_activity_id,
           cu.created_at AS unit_activity_created_at,
-          ps.release_method AS #{PackSequence::RELEASE_METHOD_KEY},
-          ps.id AS #{PackSequence::ID_KEY},
-          psi.id AS #{PackSequenceItem::ID_KEY},
-          psi.order AS #{PackSequenceItem::ORDER_KEY},
+          COALESCE(upsi.status, '#{UserPackSequenceItem::NO_LOCK}') AS user_pack_sequence_item_status,
           COALESCE(cuas.locked, false) AS locked,
           COALESCE(cuas.pinned, false) AS pinned,
           MAX(acts.percentage) AS max_percentage,
@@ -189,8 +186,9 @@ class UnitActivity < ApplicationRecord
         JOIN users AS teachers ON unit.user_id = teachers.id
         LEFT JOIN pack_sequence_items AS psi
           ON psi.unit_id = unit.id
-        LEFT JOIN pack_sequences AS ps
-          ON ps.id = psi.pack_sequence_id
+        LEFT JOIN user_pack_sequence_items AS upsi
+          ON upsi.pack_sequence_item_id = psi.id
+          AND upsi.user_id = #{user_id.to_i}
         WHERE #{user_id.to_i} = ANY (cu.assigned_student_ids::int[])
           AND cu.classroom_id = #{classroom_id.to_i}
           AND cu.visible = true
@@ -217,10 +215,9 @@ class UnitActivity < ApplicationRecord
           activity_classifications.key,
           pre_activity.id,
           teachers.time_zone,
-          ps.id,
-          ps.release_method,
           psi.id,
-          psi.order
+          upsi.id,
+          upsi.status
         ORDER BY
           pinned DESC,
           locked ASC,
@@ -229,10 +226,8 @@ class UnitActivity < ApplicationRecord
           ua.order_number ASC,
           ua.due_date ASC,
           ua.id ASC
-      SQL
-    ).to_a
-
-    PackSequenceItemStatusCombiner.run(results)
+     SQL
+    )
   end
 
 end

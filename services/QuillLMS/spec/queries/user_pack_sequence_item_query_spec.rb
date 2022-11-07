@@ -2,8 +2,11 @@
 
 require 'rails_helper'
 
-RSpec.describe UserPackSequenceItemCompletedQuery do
+RSpec.describe UserPackSequenceItemQuery do
   subject { described_class.call(classroom.id, student.id).as_json(except: :id) }
+
+  let(:completed) { described_class::COMPLETED_KEY }
+  let(:pack_sequence_item_id) { described_class::PACK_SEQUENCE_ITEM_ID_KEY }
 
   let!(:student) { create(:student) }
   let!(:classroom) { create(:classroom) }
@@ -43,8 +46,8 @@ RSpec.describe UserPackSequenceItemCompletedQuery do
 
       it do
         expect(subject).to eq [
-          { "completed" => true, "pack_sequence_item_id" => pack_sequence_item1.id },
-          { "completed" => true, "pack_sequence_item_id" => pack_sequence_item2.id }
+          { completed => true, pack_sequence_item_id => pack_sequence_item1.id },
+          { completed => true, pack_sequence_item_id => pack_sequence_item2.id }
         ]
       end
     end
@@ -54,8 +57,8 @@ RSpec.describe UserPackSequenceItemCompletedQuery do
 
       it do
         expect(subject).to eq [
-          { "completed" => true, "pack_sequence_item_id" => pack_sequence_item1.id },
-          { "completed" => false, "pack_sequence_item_id" => pack_sequence_item2.id }
+          { completed => true, pack_sequence_item_id => pack_sequence_item1.id },
+          { completed => false, pack_sequence_item_id => pack_sequence_item2.id }
         ]
       end
     end
@@ -68,10 +71,9 @@ RSpec.describe UserPackSequenceItemCompletedQuery do
       let(:state2) { finished }
 
       it do
-        activity_session1.destroy!
         expect(subject).to eq [
-          { "completed" => false, "pack_sequence_item_id" => pack_sequence_item1.id },
-          { "completed" => true, "pack_sequence_item_id" => pack_sequence_item2.id }
+          { completed => false, pack_sequence_item_id => pack_sequence_item1.id },
+          { completed => true, pack_sequence_item_id => pack_sequence_item2.id }
         ]
       end
     end
@@ -81,8 +83,8 @@ RSpec.describe UserPackSequenceItemCompletedQuery do
 
       it do
         expect(subject).to eq [
-          { "completed" => false, "pack_sequence_item_id" => pack_sequence_item1.id },
-          { "completed" => false, "pack_sequence_item_id" => pack_sequence_item2.id }
+          { completed => false, pack_sequence_item_id => pack_sequence_item1.id },
+          { completed => false, pack_sequence_item_id => pack_sequence_item2.id }
         ]
       end
     end

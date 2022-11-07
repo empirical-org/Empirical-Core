@@ -1,6 +1,6 @@
 # frozen_string_literal: true
 
-class UserPackSequenceItemCompletedQuery
+class UserPackSequenceItemQuery
   FINISHED = ActivitySession::STATE_FINISHED
   COMPLETED_KEY = 'completed'
   PACK_SEQUENCE_ITEM_ID_KEY = 'pack_sequence_item_id'

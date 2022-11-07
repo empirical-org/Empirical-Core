@@ -235,17 +235,13 @@ describe ProfilesController, type: :controller do
                 'publish_date' => unit_activity.publish_date,
                 'pre_activity_id' => pre_test&.id,
                 'unit_activity_created_at' => classroom_unit.created_at,
-                'pack_sequence_release_method' => nil,
-                'pack_sequence_id' => nil,
-                'pack_sequence_item_id' => nil,
-                'pack_sequence_item_order' => nil,
+                'user_pack_sequence_item_status' => UserPackSequenceItem::NO_LOCK,
                 'locked' => unit_activity.classroom_unit_activity_states[0].locked,
                 'pinned' => unit_activity.classroom_unit_activity_states[0].pinned,
                 'max_percentage' => activity_session&.percentage,
                 'completed_pre_activity_session' => pre_test_completed_session.present?,
                 'finished' => activity_session&.percentage ? true : false,
                 'resume_link' => activity_session&.state == 'started' ? 1 : 0,
-                'pack_sequence_item_status' => PackSequenceItem::NO_LOCK
               }
             end
           end

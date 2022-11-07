@@ -5,8 +5,8 @@ class UserPackSequenceItemSaver < ApplicationService
 
   LOCKED = UserPackSequenceItem::LOCKED
   UNLOCKED = UserPackSequenceItem::UNLOCKED
-  COMPLETED_KEY = UserPackSequenceItemCompletedQuery::COMPLETED_KEY
-  PACK_SEQUENCE_ITEM_ID_KEY = UserPackSequenceItemCompletedQuery::PACK_SEQUENCE_ITEM_ID_KEY
+  COMPLETED_KEY = UserPackSequenceItemQuery::COMPLETED_KEY
+  PACK_SEQUENCE_ITEM_ID_KEY = UserPackSequenceItemQuery::PACK_SEQUENCE_ITEM_ID_KEY
 
   def initialize(classroom_id, user_id)
     @classroom_id = classroom_id
@@ -47,6 +47,6 @@ class UserPackSequenceItemSaver < ApplicationService
   end
 
   private def user_pack_sequence_item_results
-    @user_pack_sequence_item_results ||= UserPackSequenceItemCompletedQuery.call(classroom_id, user_id)
+    @user_pack_sequence_item_results ||= UserPackSequenceItemQuery.call(classroom_id, user_id)
   end
 end
