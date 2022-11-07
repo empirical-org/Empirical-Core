@@ -107,9 +107,9 @@ export const archiveParentActivity = async (parentActivityId: string) => {
 }
 
 export const fetchActivitySessions = async ({ queryKey, }) => {
-  const [key, activityId, pageNumber, startDate, filterOptionForQuery, endDate]: [string, string, number, string, DropdownObjectInterface, string, string] = queryKey
+  const [key, activityId, pageNumber, startDate, filterOptionForQuery, endDate, responsesForScoring]: [string, string, number, string, DropdownObjectInterface, string, string, boolean] = queryKey
   const { value } = filterOptionForQuery
-  const url = getActivitySessionsUrl({ activityId, pageNumber, startDate, endDate, filterType: value });
+  const url = getActivitySessionsUrl({ activityId, pageNumber, startDate, endDate, filterType: value, responsesForScoring: responsesForScoring });
   const response = await mainApiFetch(url);
   const activitySessions = await response.json();
 

@@ -128,12 +128,15 @@ export interface RuleFeedbackInterface {
 export interface ActivitySessionInterface {
   activity_id: number,
   because_attempts: number,
+  because_optimal: boolean,
   but_attempts: number,
+  but_optimal: boolean,
   complete: boolean,
   flags: string[],
   scored_count: number,
   session_uid: string,
   so_attempts: number,
+  so_optimal: boolean,
   start_date: string,
   strong_count: number,
   weak_count: number
