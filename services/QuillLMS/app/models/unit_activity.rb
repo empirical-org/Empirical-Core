@@ -124,9 +124,6 @@ class UnitActivity < ApplicationRecord
   def self.get_classroom_user_profile(classroom_id, user_id)
     return [] unless classroom_id && user_id
 
-    teacher_offset = Classroom.find(classroom_id).owner.utc_offset || 0
-    teacher_timezone_offset_string = "+ INTERVAL '#{teacher_offset}' SECOND"
-
     student_timezone_offset_string = "+ INTERVAL '#{User.find(user_id).utc_offset || 0}' SECOND"
 
     # Generate a rich profile of Classroom Activities for a given user in a given classroom
