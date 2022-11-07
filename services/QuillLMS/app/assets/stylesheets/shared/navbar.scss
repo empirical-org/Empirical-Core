@@ -56,7 +56,7 @@
 
 #nav-user-dropdown {
   position: relative;
-  margin-top: 3px;
+  margin-top: 2px;
   &.on-dashboard {
     .user-dropdown-button {
       background: #fff;
@@ -194,9 +194,9 @@ nav.q-navbar-home {
 
     .nav-element, .navbar-tooltip-trigger {
       margin-left: 20px;
-      &:not(.sign-up-button) {
-        padding: 20px 0px;
-      }
+      // &:not(.sign-up-button) {
+      //   padding: 20px 0px;
+      // }
     }
 
     .nav-element:not(.sign-up-button):hover {

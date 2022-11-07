@@ -91,14 +91,15 @@
 
 	.overview-section {
 		margin: 0 auto;
-		max-width: calc(#{$sitewidepagewidth} + 15px); // accounting for right padding on each activity icon
+		max-width: calc(#{$sitewidepagewidth} + 20px); // accounting for right padding on each activity icon
+    padding-left: 10px; // accounting for overflow
 	}
 
 	.student-header {
 		align-items: center;
 		display: flex;
 		margin-bottom: 26px;
-    margin-right: 15px;  // accounting for right padding on each activity icon
+    margin-right: 10px;  // accounting for right padding on each activity icon
 
 		.average-score {
       margin-left: 16px;
