@@ -403,7 +403,7 @@ exports[`Subscriptions UI state iterations district paid via invoice the current
                       </a>
                        or 
                       <a
-                        href="mailto:sales@quill.org"
+                        href="/request_renewal"
                       >
                         the Quill team
                       </a>
@@ -790,7 +790,7 @@ exports[`Subscriptions UI state iterations district paid via invoice the current
           </div>
           <a
             className="quill-button medium contained primary focus-on-light"
-            href="mailto:sales@quill.org"
+            href="/request_renewal"
           >
             Contact us to renew
           </a>
@@ -1972,7 +1972,7 @@ exports[`Subscriptions UI state iterations district paid via invoice the current
           </div>
           <a
             className="quill-button medium contained primary focus-on-light"
-            href="mailto:sales@quill.org"
+            href="/request_renewal"
           >
             Contact us to renew
           </a>
@@ -4895,7 +4895,7 @@ exports[`Subscriptions UI state iterations school paid via invoice the current u
                       </a>
                        or 
                       <a
-                        href="mailto:sales@quill.org"
+                        href="/request_renewal"
                       >
                         the Quill team
                       </a>
