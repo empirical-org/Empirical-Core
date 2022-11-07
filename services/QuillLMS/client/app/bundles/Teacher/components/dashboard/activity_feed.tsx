@@ -11,7 +11,7 @@ const headers = [
     name: 'Student',
     attribute: 'studentName',
   }, {
-    width: '245px',
+    width: '380px',
     name: 'Activity',
     attribute: 'activityName',
   }, {

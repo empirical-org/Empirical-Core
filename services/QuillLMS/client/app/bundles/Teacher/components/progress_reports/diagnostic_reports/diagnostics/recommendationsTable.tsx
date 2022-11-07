@@ -6,8 +6,6 @@ import {
   asteriskIcon,
   correctImage,
   baseDiagnosticImageSrc,
-  WIDE_SCREEN_MINIMUM_WIDTH,
-  LEFT_OFFSET,
   DEFAULT_LEFT_PADDING,
   MOBILE_WIDTH,
   DEFAULT_LEFT_PADDING_FOR_MOBILE
@@ -51,7 +49,8 @@ interface StickyTableStyle {
   top: number,
   left: number,
   right: number,
-  zIndex: number
+  zIndex: number,
+  minWidth: string
 }
 
 const RecommendationCell = ({ student, isAssigned, isRecommended, isSelected, setSelections, selections, selectionIndex, }: RecommendationCellProps) => {
@@ -140,7 +139,7 @@ const RecommendationsTable = ({ recommendations, responsesLink, students, select
   function paddingLeft() {
     if (MOBILE_WIDTH >= window.innerWidth) { return DEFAULT_LEFT_PADDING_FOR_MOBILE }
     const explanation = document.getElementsByClassName('explanation')[0]
-    return explanation && window.innerWidth >= WIDE_SCREEN_MINIMUM_WIDTH ? explanation.getBoundingClientRect().left - LEFT_OFFSET : DEFAULT_LEFT_PADDING
+    return explanation && DEFAULT_LEFT_PADDING
   }
 
   const handleScroll = React.useCallback(({ top, bottom, left, right, }) => {
@@ -202,11 +201,6 @@ const RecommendationsTable = ({ recommendations, responsesLink, students, select
 
   const renderHeader = (sticky) => {
     let style = { position: 'inherit' }
-    if (window.innerWidth <= MOBILE_WIDTH) {
-      style = { left: stickyTableStyle.left - paddingLeft() }
-    } else if (LEFT_OFFSET > stickyTableStyle.left) {
-      style = { left: -(LEFT_OFFSET - (stickyTableStyle.left - paddingLeft())) + 1 }
-    }
 
     return (
       <thead>
@@ -218,16 +212,28 @@ const RecommendationsTable = ({ recommendations, responsesLink, students, select
     )
   }
 
+  const renderStickyTable = () => {
+    // an arbitrary, non-resizing element that is the same width that we need this table to be
+    const anchorElement = document.getElementsByClassName('independent-practice')[0]
+
+    if (!(isSticky && tableHasContent && anchorElement)) { return }
+
+    // table doesn't get padding so we have to remove that from the width we're using
+    const width = anchorElement.getBoundingClientRect().width - paddingLeft()
+
+    return (
+      <table
+        className={`${tableClassName} sticky`}
+        style={{ ...stickyTableStyle, minWidth: width, width }}
+      >
+        {renderHeader(true)}
+      </table>
+    )
+  }
+
   return (
     <div className="recommendations-table-container" onScroll={handleScroll}>
-      {isSticky && tableHasContent && (
-        <table
-          className={`${tableClassName} sticky`}
-          style={stickyTableStyle}
-        >
-          {renderHeader(true)}
-        </table>
-      )}
+      {renderStickyTable()}
       <table className={tableClassName} id="demo-onboarding-tour-spotlight-element" ref={tableRef} style={tableHasContent ? { paddingLeft: paddingLeft() } : { marginLeft: paddingLeft() }}>
         {renderHeader(false)}
         {tableHasContent ? null : noDataYet}

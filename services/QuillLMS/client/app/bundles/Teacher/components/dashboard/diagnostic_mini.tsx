@@ -25,12 +25,12 @@ const headers = [
   {
     name: 'Diagnostic',
     attribute: 'diagnostic',
-    width: '300px'
+    width: '290px'
   },
   {
     name: 'Class',
     attribute: 'classroom',
-    width: '180px'
+    width: '290px'
   },
   {
     name: 'Completed',

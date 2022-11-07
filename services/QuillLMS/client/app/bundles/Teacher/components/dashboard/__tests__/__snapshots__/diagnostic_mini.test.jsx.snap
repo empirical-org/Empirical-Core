@@ -196,12 +196,12 @@ exports[`DiagnosticMini component not on mobile should render when there are dia
           Object {
             "attribute": "diagnostic",
             "name": "Diagnostic",
-            "width": "300px",
+            "width": "290px",
           },
           Object {
             "attribute": "classroom",
             "name": "Class",
-            "width": "180px",
+            "width": "290px",
           },
           Object {
             "attribute": "completed",
@@ -330,9 +330,9 @@ exports[`DiagnosticMini component not on mobile should render when there are dia
             scope="col"
             style={
               Object {
-                "minWidth": "300px",
+                "minWidth": "290px",
                 "textAlign": "left",
-                "width": "300px",
+                "width": "290px",
               }
             }
           >
@@ -343,9 +343,9 @@ exports[`DiagnosticMini component not on mobile should render when there are dia
             scope="col"
             style={
               Object {
-                "minWidth": "180px",
+                "minWidth": "290px",
                 "textAlign": "left",
-                "width": "180px",
+                "width": "290px",
               }
             }
           >
@@ -390,9 +390,9 @@ exports[`DiagnosticMini component not on mobile should render when there are dia
               key="diagnostic-447-484134-826269"
               style={
                 Object {
-                  "minWidth": "300px",
+                  "minWidth": "290px",
                   "textAlign": "left",
-                  "width": "300px",
+                  "width": "290px",
                 }
               }
             >
@@ -405,18 +405,18 @@ exports[`DiagnosticMini component not on mobile should render when there are dia
                 tooltipText="Quill Classroom Extremely Long So Long SUper Duper"
                 tooltipTriggerStyle={
                   Object {
-                    "minWidth": "180px",
+                    "minWidth": "290px",
                     "textAlign": "left",
-                    "width": "180px",
+                    "width": "290px",
                   }
                 }
                 tooltipTriggerText="Quill Classroom Extremely Long So Long SUper Duper"
                 tooltipTriggerTextClass="data-table-row-section undefined"
                 tooltipTriggerTextStyle={
                   Object {
-                    "minWidth": "180px",
+                    "minWidth": "290px",
                     "textAlign": "left",
-                    "width": "180px",
+                    "width": "290px",
                   }
                 }
               >
@@ -426,9 +426,9 @@ exports[`DiagnosticMini component not on mobile should render when there are dia
                   role="tooltip"
                   style={
                     Object {
-                      "minWidth": "180px",
+                      "minWidth": "290px",
                       "textAlign": "left",
-                      "width": "180px",
+                      "width": "290px",
                     }
                   }
                 >
@@ -443,9 +443,9 @@ exports[`DiagnosticMini component not on mobile should render when there are dia
                     role="button"
                     style={
                       Object {
-                        "minWidth": "180px",
+                        "minWidth": "290px",
                         "textAlign": "left",
-                        "width": "180px",
+                        "width": "290px",
                       }
                     }
                     tabIndex={0}
@@ -510,9 +510,9 @@ exports[`DiagnosticMini component not on mobile should render when there are dia
               key="diagnostic-447-484135-826269"
               style={
                 Object {
-                  "minWidth": "300px",
+                  "minWidth": "290px",
                   "textAlign": "left",
-                  "width": "300px",
+                  "width": "290px",
                 }
               }
             >
@@ -523,9 +523,9 @@ exports[`DiagnosticMini component not on mobile should render when there are dia
               key="classroom-447-484135-826269"
               style={
                 Object {
-                  "minWidth": "180px",
+                  "minWidth": "290px",
                   "textAlign": "left",
-                  "width": "180px",
+                  "width": "290px",
                 }
               }
             >
@@ -578,9 +578,9 @@ exports[`DiagnosticMini component not on mobile should render when there are dia
               key="diagnostic-849-484134-826268"
               style={
                 Object {
-                  "minWidth": "300px",
+                  "minWidth": "290px",
                   "textAlign": "left",
-                  "width": "300px",
+                  "width": "290px",
                 }
               }
             >
@@ -593,18 +593,18 @@ exports[`DiagnosticMini component not on mobile should render when there are dia
                 tooltipText="Quill Classroom Extremely Long So Long SUper Duper"
                 tooltipTriggerStyle={
                   Object {
-                    "minWidth": "180px",
+                    "minWidth": "290px",
                     "textAlign": "left",
-                    "width": "180px",
+                    "width": "290px",
                   }
                 }
                 tooltipTriggerText="Quill Classroom Extremely Long So Long SUper Duper"
                 tooltipTriggerTextClass="data-table-row-section undefined"
                 tooltipTriggerTextStyle={
                   Object {
-                    "minWidth": "180px",
+                    "minWidth": "290px",
                     "textAlign": "left",
-                    "width": "180px",
+                    "width": "290px",
                   }
                 }
               >
@@ -614,9 +614,9 @@ exports[`DiagnosticMini component not on mobile should render when there are dia
                   role="tooltip"
                   style={
                     Object {
-                      "minWidth": "180px",
+                      "minWidth": "290px",
                       "textAlign": "left",
-                      "width": "180px",
+                      "width": "290px",
                     }
                   }
                 >
@@ -631,9 +631,9 @@ exports[`DiagnosticMini component not on mobile should render when there are dia
                     role="button"
                     style={
                       Object {
-                        "minWidth": "180px",
+                        "minWidth": "290px",
                         "textAlign": "left",
-                        "width": "180px",
+                        "width": "290px",
                       }
                     }
                     tabIndex={0}
@@ -698,9 +698,9 @@ exports[`DiagnosticMini component not on mobile should render when there are dia
               key="diagnostic-849-484134-826269"
               style={
                 Object {
-                  "minWidth": "300px",
+                  "minWidth": "290px",
                   "textAlign": "left",
-                  "width": "300px",
+                  "width": "290px",
                 }
               }
             >
@@ -713,18 +713,18 @@ exports[`DiagnosticMini component not on mobile should render when there are dia
                 tooltipText="Quill Classroom Extremely Long So Long SUper Duper"
                 tooltipTriggerStyle={
                   Object {
-                    "minWidth": "180px",
+                    "minWidth": "290px",
                     "textAlign": "left",
-                    "width": "180px",
+                    "width": "290px",
                   }
                 }
                 tooltipTriggerText="Quill Classroom Extremely Long So Long SUper Duper"
                 tooltipTriggerTextClass="data-table-row-section undefined"
                 tooltipTriggerTextStyle={
                   Object {
-                    "minWidth": "180px",
+                    "minWidth": "290px",
                     "textAlign": "left",
-                    "width": "180px",
+                    "width": "290px",
                   }
                 }
               >
@@ -734,9 +734,9 @@ exports[`DiagnosticMini component not on mobile should render when there are dia
                   role="tooltip"
                   style={
                     Object {
-                      "minWidth": "180px",
+                      "minWidth": "290px",
                       "textAlign": "left",
-                      "width": "180px",
+                      "width": "290px",
                     }
                   }
                 >
@@ -751,9 +751,9 @@ exports[`DiagnosticMini component not on mobile should render when there are dia
                     role="button"
                     style={
                       Object {
-                        "minWidth": "180px",
+                        "minWidth": "290px",
                         "textAlign": "left",
-                        "width": "180px",
+                        "width": "290px",
                       }
                     }
                     tabIndex={0}
@@ -818,9 +818,9 @@ exports[`DiagnosticMini component not on mobile should render when there are dia
               key="diagnostic-849-484135-826269"
               style={
                 Object {
-                  "minWidth": "300px",
+                  "minWidth": "290px",
                   "textAlign": "left",
-                  "width": "300px",
+                  "width": "290px",
                 }
               }
             >
@@ -831,9 +831,9 @@ exports[`DiagnosticMini component not on mobile should render when there are dia
               key="classroom-849-484135-826269"
               style={
                 Object {
-                  "minWidth": "180px",
+                  "minWidth": "290px",
                   "textAlign": "left",
-                  "width": "180px",
+                  "width": "290px",
                 }
               }
             >

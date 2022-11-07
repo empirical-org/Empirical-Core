@@ -35,7 +35,7 @@ exports[`Navbar component renders 1`] = `
         <img
           alt="Quill.org logo"
           className="quill-logo"
-          src="undefined/images/logos/quill-logo-white.svg"
+          src="undefined/images/logos/quill-logo-white-2022.svg"
         />
       </button>
       <p

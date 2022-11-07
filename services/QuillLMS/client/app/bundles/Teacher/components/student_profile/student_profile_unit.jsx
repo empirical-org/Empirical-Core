@@ -24,7 +24,7 @@ const NEARLY_PROFICIENT_CUTOFF = 0.6
 
 const incompleteHeaders = [
   {
-    width: '623px',
+    width: '823px',
     name: 'Activity',
     attribute: 'name',
     noTooltip: onMobile(), // On mobile we don't want a tooltip wrapper since they basically don't work there
@@ -56,7 +56,7 @@ const incompleteHeaders = [
 
 const completeHeaders = [
   {
-    width: '450px',
+    width: '560px',
     name: 'Activity',
     attribute: 'name',
     headerClassName: 'name-section',

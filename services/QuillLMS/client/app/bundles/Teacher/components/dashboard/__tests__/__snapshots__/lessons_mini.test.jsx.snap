@@ -291,12 +291,12 @@ exports[`LessonsMini component not on mobile should render when there are lesson
           Object {
             "attribute": "lesson",
             "name": "Quill Lesson",
-            "width": "289px",
+            "width": "290px",
           },
           Object {
             "attribute": "classroom",
             "name": "Class",
-            "width": "180px",
+            "width": "300px",
           },
           Object {
             "attribute": "actions",
@@ -640,9 +640,9 @@ exports[`LessonsMini component not on mobile should render when there are lesson
             scope="col"
             style={
               Object {
-                "minWidth": "289px",
+                "minWidth": "290px",
                 "textAlign": "left",
-                "width": "289px",
+                "width": "290px",
               }
             }
           >
@@ -653,9 +653,9 @@ exports[`LessonsMini component not on mobile should render when there are lesson
             scope="col"
             style={
               Object {
-                "minWidth": "180px",
+                "minWidth": "300px",
                 "textAlign": "left",
-                "width": "180px",
+                "width": "300px",
               }
             }
           >
@@ -695,18 +695,18 @@ exports[`LessonsMini component not on mobile should render when there are lesson
                 tooltipText="Advanced Combining: Complex Sentences with Modifiers"
                 tooltipTriggerStyle={
                   Object {
-                    "minWidth": "289px",
+                    "minWidth": "290px",
                     "textAlign": "left",
-                    "width": "289px",
+                    "width": "290px",
                   }
                 }
                 tooltipTriggerText="Advanced Combining: Complex Sentences with Modifiers"
                 tooltipTriggerTextClass="data-table-row-section undefined"
                 tooltipTriggerTextStyle={
                   Object {
-                    "minWidth": "289px",
+                    "minWidth": "290px",
                     "textAlign": "left",
-                    "width": "289px",
+                    "width": "290px",
                   }
                 }
               >
@@ -716,9 +716,9 @@ exports[`LessonsMini component not on mobile should render when there are lesson
                   role="tooltip"
                   style={
                     Object {
-                      "minWidth": "289px",
+                      "minWidth": "290px",
                       "textAlign": "left",
-                      "width": "289px",
+                      "width": "290px",
                     }
                   }
                 >
@@ -733,9 +733,9 @@ exports[`LessonsMini component not on mobile should render when there are lesson
                     role="button"
                     style={
                       Object {
-                        "minWidth": "289px",
+                        "minWidth": "290px",
                         "textAlign": "left",
-                        "width": "289px",
+                        "width": "290px",
                       }
                     }
                     tabIndex={0}
@@ -758,9 +758,9 @@ exports[`LessonsMini component not on mobile should render when there are lesson
               key="classroom-649-1-undefined"
               style={
                 Object {
-                  "minWidth": "180px",
+                  "minWidth": "300px",
                   "textAlign": "left",
-                  "width": "180px",
+                  "width": "300px",
                 }
               }
             >
@@ -814,9 +814,9 @@ exports[`LessonsMini component not on mobile should render when there are lesson
               key="lesson-563-6-undefined"
               style={
                 Object {
-                  "minWidth": "289px",
+                  "minWidth": "290px",
                   "textAlign": "left",
-                  "width": "289px",
+                  "width": "290px",
                 }
               }
             >
@@ -827,9 +827,9 @@ exports[`LessonsMini component not on mobile should render when there are lesson
               key="classroom-563-6-undefined"
               style={
                 Object {
-                  "minWidth": "180px",
+                  "minWidth": "300px",
                   "textAlign": "left",
-                  "width": "180px",
+                  "width": "300px",
                 }
               }
             >
@@ -883,9 +883,9 @@ exports[`LessonsMini component not on mobile should render when there are lesson
               key="lesson-829-6-undefined"
               style={
                 Object {
-                  "minWidth": "289px",
+                  "minWidth": "290px",
                   "textAlign": "left",
-                  "width": "289px",
+                  "width": "290px",
                 }
               }
             >
@@ -896,9 +896,9 @@ exports[`LessonsMini component not on mobile should render when there are lesson
               key="classroom-829-6-undefined"
               style={
                 Object {
-                  "minWidth": "180px",
+                  "minWidth": "300px",
                   "textAlign": "left",
-                  "width": "180px",
+                  "width": "300px",
                 }
               }
             >
@@ -954,18 +954,18 @@ exports[`LessonsMini component not on mobile should render when there are lesson
                 tooltipText="Lesson 1: Conjunctions of Time (After, Until, Before, etc.)"
                 tooltipTriggerStyle={
                   Object {
-                    "minWidth": "289px",
+                    "minWidth": "290px",
                     "textAlign": "left",
-                    "width": "289px",
+                    "width": "290px",
                   }
                 }
                 tooltipTriggerText="Lesson 1: Conjunctions of Time (After, Until, Before, etc.)"
                 tooltipTriggerTextClass="data-table-row-section undefined"
                 tooltipTriggerTextStyle={
                   Object {
-                    "minWidth": "289px",
+                    "minWidth": "290px",
                     "textAlign": "left",
-                    "width": "289px",
+                    "width": "290px",
                   }
                 }
               >
@@ -975,9 +975,9 @@ exports[`LessonsMini component not on mobile should render when there are lesson
                   role="tooltip"
                   style={
                     Object {
-                      "minWidth": "289px",
+                      "minWidth": "290px",
                       "textAlign": "left",
-                      "width": "289px",
+                      "width": "290px",
                     }
                   }
                 >
@@ -992,9 +992,9 @@ exports[`LessonsMini component not on mobile should render when there are lesson
                     role="button"
                     style={
                       Object {
-                        "minWidth": "289px",
+                        "minWidth": "290px",
                         "textAlign": "left",
-                        "width": "289px",
+                        "width": "290px",
                       }
                     }
                     tabIndex={0}
@@ -1017,9 +1017,9 @@ exports[`LessonsMini component not on mobile should render when there are lesson
               key="classroom-566-6-undefined"
               style={
                 Object {
-                  "minWidth": "180px",
+                  "minWidth": "300px",
                   "textAlign": "left",
-                  "width": "180px",
+                  "width": "300px",
                 }
               }
             >
@@ -1073,9 +1073,9 @@ exports[`LessonsMini component not on mobile should render when there are lesson
               key="lesson-568-6-undefined"
               style={
                 Object {
-                  "minWidth": "289px",
+                  "minWidth": "290px",
                   "textAlign": "left",
-                  "width": "289px",
+                  "width": "290px",
                 }
               }
             >
@@ -1086,9 +1086,9 @@ exports[`LessonsMini component not on mobile should render when there are lesson
               key="classroom-568-6-undefined"
               style={
                 Object {
-                  "minWidth": "180px",
+                  "minWidth": "300px",
                   "textAlign": "left",
-                  "width": "180px",
+                  "width": "300px",
                 }
               }
             >

@@ -189,8 +189,9 @@
       margin-bottom: 32px;
     }
     .data-table {
-      overflow: visible;
       margin: 32px 32px 16px;
+      background-color: white;
+      width: min-content;
       .data-table-headers {
         max-width: min-content;
       }

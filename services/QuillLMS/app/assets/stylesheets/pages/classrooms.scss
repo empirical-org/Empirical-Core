@@ -260,7 +260,7 @@
 .sortable-classroom, .classrooms-page .list-item {
   display: flex;
   align-items: baseline;
-  width: 992px;
+  width: calc(#{$sitewidepagewidth} + 38px); // to make up for negative margin left below
   margin-left: -38px;
   h2 {
     font-weight: bold;

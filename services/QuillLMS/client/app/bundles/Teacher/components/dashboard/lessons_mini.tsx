@@ -33,12 +33,12 @@ const headers = [
   {
     name: 'Quill Lesson',
     attribute: 'lesson',
-    width: '289px'
+    width: '290px'
   },
   {
     name: 'Class',
     attribute: 'classroom',
-    width: '180px'
+    width: '300px'
   },
   {
     name: 'More',
