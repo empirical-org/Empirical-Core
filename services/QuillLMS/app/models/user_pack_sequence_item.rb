@@ -34,4 +34,12 @@ class UserPackSequenceItem < ApplicationRecord
   validates :status, inclusion: { in: STATUSES }
   validates :pack_sequence_item, presence: true
   validates :user, presence: true
+
+  def locked?
+    status == LOCKED
+  end
+
+  def unlocked?
+    status == UNLOCKED
+  end
 end

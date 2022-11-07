@@ -31,5 +31,5 @@ class PackSequenceItem < ApplicationRecord
   belongs_to :pack_sequence
   belongs_to :unit
 
-  has_many :user_pack_sequence_items
+  has_many :user_pack_sequence_items, dependent: :destroy
 end
