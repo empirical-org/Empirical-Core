@@ -17,6 +17,8 @@ export {
   ReactTable,
   TextFilter,
   expanderColumn,
+  NumberFilterInput,
+  CheckboxFilter
 } from './components/reactTable/reactTable'
 
 export {
@@ -105,7 +107,8 @@ export {
   getIconForActivityClassification,
   isTrackableStudentEvent,
   hexToRGBA,
-  uniqueValuesArray
+  uniqueValuesArray,
+  filterNumbers
 } from './libs/index'
 
 export {
