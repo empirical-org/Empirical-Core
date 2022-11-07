@@ -30,10 +30,7 @@ class Cms::RostersController < Cms::CmsController
 
         password = s[:password].present? ? s[:password] : s[:name].split[1]
         student = User.find_by(email: s[:email])
-
-        if !student
-          student = User.create!(name: s[:name], email: s[:email], password: password, password_confirmation: password, role: 'student')
-        end
+        student ||= User.create!(name: s[:name], email: s[:email.downcase], password: password, password_confirmation: password, role: 'student')
 
         teacher = User.find_by(email: s[:teacher_email])
         classroom = Classroom.joins(:classrooms_teachers).where("classrooms_teachers.user_id = ?", teacher.id).where(name: s[:classroom]).first
