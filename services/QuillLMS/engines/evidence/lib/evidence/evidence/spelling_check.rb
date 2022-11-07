@@ -30,7 +30,7 @@ module Evidence
       'worldwatch',
       'wilmut',
       '#quokkaselfie',
-      '#quokkaselfies',
+      '#quokkaselfies'
     ]
 
     attr_reader :entry
