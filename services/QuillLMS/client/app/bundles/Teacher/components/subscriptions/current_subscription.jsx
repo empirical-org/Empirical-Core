@@ -43,7 +43,7 @@ export default class CurrentSubscription extends React.Component {
       return <span>{baseText} To renew your subscription for next year, <a href="https://quill.org/request_renewal" rel="noopener noreferrer">contact us</a>.</span>
     }
     if (payment_method !== CREDIT_CARD && !authorityLevel) {
-      return <span>{baseText} To renew your subscription for next year, contact the purchaser at <a href={`mailto:${purchaser_email}`}>{purchaser_email}</a> or <a href="mailto:sales@quill.org">the Quill team</a>.</span>
+      return <span>{baseText} To renew your subscription for next year, contact the purchaser at <a href={`mailto:${purchaser_email}`}>{purchaser_email}</a> or <a href="/request_renewal">the Quill team</a>.</span>
     }
     return baseText
   }

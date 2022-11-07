@@ -171,7 +171,7 @@ const SubscriptionStatus = ({
         content.buttonOrDate = (
           <a
             className={CTA_BUTTON_CLASSNAME}
-            href="mailto:sales@quill.org"
+            href="/request_renewal"
           >
             Contact us to renew
           </a>

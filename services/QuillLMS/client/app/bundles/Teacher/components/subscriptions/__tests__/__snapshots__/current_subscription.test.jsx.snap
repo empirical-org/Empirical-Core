@@ -281,7 +281,7 @@ exports[`CurrentSubscription container when there is a current subscription shou
                   </a>
                    or 
                   <a
-                    href="mailto:sales@quill.org"
+                    href="/request_renewal"
                   >
                     the Quill team
                   </a>
@@ -564,7 +564,7 @@ exports[`CurrentSubscription container when there is a current subscription shou
                   </a>
                    or 
                   <a
-                    href="mailto:sales@quill.org"
+                    href="/request_renewal"
                   >
                     the Quill team
                   </a>
@@ -832,7 +832,7 @@ exports[`CurrentSubscription container when there is a current subscription shou
                   </a>
                    or 
                   <a
-                    href="mailto:sales@quill.org"
+                    href="/request_renewal"
                   >
                     the Quill team
                   </a>

@@ -26,7 +26,7 @@ const SchoolSelectionStage = ({ eligibleSchools, selectedSchool, goToStripeWithS
             placeholder="Select school"
             value={selectedSchool}
           />
-          <p>Your account is linked to multiple schools. To purchase multiple school subscriptions, please complete the purchase checkout for each school, or contact us at sales@quill.org for one invoice for multiple schools.</p>
+          <p>Your account is linked to multiple schools. To purchase multiple school subscriptions, please complete the purchase checkout for each school, or <a href="/request_quote">contact us</a> for one invoice for multiple schools.</p>
           <div className="form-buttons">
             <button className="quill-button outlined secondary medium focus-on-light" onClick={closeModal} type="button">Cancel</button>
             {continueButton}
@@ -122,7 +122,7 @@ const SchoolAndDistrictPremiumModal = ({ stripeSchoolPlan, eligibleSchools, hand
   }
 
   if (stage === PLAN_SELECTION_STAGE_NUMBER) {
-    const requestAQuoteButton = <a className="quill-button outlined medium secondary focus-on-light" href="https://quillpremium.wufoo.com/forms/quill-premium-quote/">Request a quote</a>
+    const requestAQuoteButton = <a className="quill-button outlined medium secondary focus-on-light" href="/request_quote">Request a quote</a>
     let schoolBuyNowButton = <button className="quill-button contained medium primary focus-on-light" onClick={goToSchoolSelectionStage} type="button">Buy now</button>
 
     if (!userIsSignedIn) {
