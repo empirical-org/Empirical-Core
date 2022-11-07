@@ -443,6 +443,12 @@ RSpec.describe FeedbackHistory, type: :model do
       create(:feedback_history_rating, user_id: @user.id, rating: false, feedback_history_id: @first_session_feedback4.id)
     end
 
+    context '#responses_for_scoring' do
+      it 'should return query block for at least 2 responses per prompt or at least 6 total responses' do
+        expect(FeedbackHistory.responses_for_scoring).to eq(FeedbackHistory.six_or_more_total_responses)
+      end
+    end
+
     context '#list_by_activity_session' do
       it 'should identify two records when there are two unique feedback_session_uids' do
         expect(FeedbackHistory.list_by_activity_session.length).to eq(2)
@@ -490,6 +496,7 @@ RSpec.describe FeedbackHistory, type: :model do
     context '#serialize_list_by_activity_session' do
       it 'should take the query from #list_by_activity_session and return a shaped payload' do
         responses = FeedbackHistory.list_by_activity_session
+        responses_for_scoring = FeedbackHistory.list_by_activity_session(responses_for_scoring: true)
         RSpec::Support::ObjectFormatter.default_instance.max_formatted_output_length = 10000
         expect(responses.map { |r| r.serialize_by_activity_session }.to_json).to eq([
           {
@@ -508,6 +515,25 @@ RSpec.describe FeedbackHistory, type: :model do
             strong_count: 0,
             complete: false
           }, {
+            session_uid: @feedback_session1_uid,
+            start_date: @first_session_feedback1.time.iso8601(3),
+            activity_id: @activity1.id,
+            flags: [FeedbackHistoryFlag::FLAG_REPEATED_RULE_CONSECUTIVE],
+            because_attempts: 2,
+            because_optimal: true,
+            but_attempts: 1,
+            but_optimal: true,
+            so_attempts: 3,
+            so_optimal: true,
+            scored_count: 2,
+            weak_count: 1,
+            strong_count: 1,
+            complete: true
+          }
+        ].to_json)
+
+        expect(responses_for_scoring.map { |r| r.serialize_by_activity_session }.to_json).to eq([
+          {
             session_uid: @feedback_session1_uid,
             start_date: @first_session_feedback1.time.iso8601(3),
             activity_id: @activity1.id,

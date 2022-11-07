@@ -221,19 +221,32 @@ class FeedbackHistory < ApplicationRecord
     SQL
   end
 
-  def self.responses_for_scoring
+  def self.six_or_more_total_responses
     <<-SQL
     (
       CASE WHEN
         (COUNT(CASE WHEN comprehension_prompts.conjunction = '#{BECAUSE}' THEN 1 END) +
         COUNT(CASE WHEN comprehension_prompts.conjunction = '#{BUT}' THEN 1 END) +
-        COUNT(CASE WHEN comprehension_prompts.conjunction = '#{SO}' THEN 1 END)) > 5 OR
+        COUNT(CASE WHEN comprehension_prompts.conjunction = '#{SO}' THEN 1 END)) > 5
+      THEN true ELSE false END
+    ) = true
+    SQL
+  end
+
+  def self.two_or_more_responses_per_conjunction
+    <<-SQL
+    (
+      CASE WHEN
         (COUNT(CASE WHEN comprehension_prompts.conjunction = '#{BECAUSE}' THEN 1 END) > 1 AND
         COUNT(CASE WHEN comprehension_prompts.conjunction = '#{BUT}' THEN 1 END) > 1 AND
         COUNT(CASE WHEN comprehension_prompts.conjunction = '#{SO}' THEN 1 END) > 1)
       THEN true ELSE false END
     ) = true
     SQL
+  end
+
+  def self.responses_for_scoring
+    six_or_more_total_responses || two_or_more_responses_per_conjunction
   end
 
   # rubocop:disable Lint/DuplicateBranch
