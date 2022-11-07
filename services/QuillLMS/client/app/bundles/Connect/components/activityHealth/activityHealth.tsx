@@ -6,12 +6,10 @@ import { CSVLink } from 'react-csv'
 import { connect } from 'react-redux';
 
 import PromptHealth from './promptHealth'
-import { NumberFilterInput } from './numberFilterInput'
 
 import LoadingSpinner from '../shared/loading_indicator.jsx'
 import { tableSort, sortTableByList } from '../../../../modules/sortingMethods.js'
-import { FlagDropdown, ReactTable, expanderColumn, TextFilter, } from '../../../Shared/index'
-import { filterNumbers } from '../../../../modules/filteringMethods.js'
+import { FlagDropdown, ReactTable, expanderColumn, TextFilter, NumberFilterInput, filterNumbers } from '../../../Shared/index'
 import actions from '../../actions/activityHealth'
 import { requestGet, } from '../../../../modules/request/index'
 

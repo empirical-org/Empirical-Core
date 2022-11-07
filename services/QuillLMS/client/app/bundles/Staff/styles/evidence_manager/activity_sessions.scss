@@ -101,6 +101,14 @@
       font-weight: 700;
       margin: 0;
     }
+    .rt-th {
+      height: min-content;
+      .column-filter {
+        input {
+          width: 80px !important;
+        }
+      }
+    }
   }
   .session-overview-table {
     margin: 30px 0px 30px 0px;

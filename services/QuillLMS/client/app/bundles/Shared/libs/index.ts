@@ -12,3 +12,4 @@ export { getIconForActivityClassification } from './getIconForActivityClassifica
 export { isTrackableStudentEvent } from './isTrackableStudentEvent'
 export { hexToRGBA } from './hexToRGBA'
 export { uniqueValuesArray } from './uniqueValuesArray'
+export { filterNumbers } from './filterFunctions'

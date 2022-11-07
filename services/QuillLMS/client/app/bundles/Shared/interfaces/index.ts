@@ -1,2 +1,2 @@
-export { UserIdsForEvent } from './misc'
+export { UserIdsForEvent, NumberFilterInputProps } from './misc'
 export { Question, QuestionObject } from './question'
