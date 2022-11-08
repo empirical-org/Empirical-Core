@@ -54,13 +54,15 @@ export const AppLegend = () => {
     </a>
   )
 
-  const evidence = (<div className="icon">
-    <img alt="Book representing Quill Reading for Evidence" className="icon-wrapper evidence-icon" src={EVIDENCE_ICON_SRC} />
-    <div className="icons-description-wrapper">
-      <p className="title">Quill Reading for Evidence</p>
-      <p className="description">Use a text to write with evidence</p>
-    </div>
-  </div>)
+  const evidence = (
+    <a className="icon focus-on-light" href={`${process.env.DEFAULT_URL}/tools/grammar`} rel="noopener noreferrer" target="_blank">
+      <img alt="Book representing Quill Reading for Evidence" className="icon-wrapper evidence-icon" src={EVIDENCE_ICON_SRC} />
+      <div className="icons-description-wrapper">
+        <p className="title">Quill Reading for Evidence</p>
+        <p className="description">Use a text to write with evidence</p>
+      </div>
+    </a>
+  )
 
 
   const icons = [evidence, diagnostic, lessons, connect, proofreader, grammar]
@@ -68,12 +70,7 @@ export const AppLegend = () => {
   return(
     <div className="icons-wrapper icon-legend app-legend">
       <div className="icons">
-        <div className="first-row">
-          {icons.slice(0, 3)}
-        </div>
-        <div className="second-row">
-          {icons.slice(3, 6)}
-        </div>
+        {icons}
       </div>
     </div>
   );

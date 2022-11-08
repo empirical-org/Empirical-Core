@@ -12,7 +12,7 @@ exports[`NavBar Component should match snapshot 1`] = `
     >
       <img
         alt="Quill logo"
-        src="undefined/images/logos/quill-logo-white.svg"
+        src="undefined/images/logos/quill-logo-white-2022.svg"
       />
     </a>
     <a

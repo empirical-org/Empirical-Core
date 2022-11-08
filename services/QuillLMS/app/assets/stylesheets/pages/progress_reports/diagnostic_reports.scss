@@ -1,7 +1,7 @@
 /* individual-activity-reports*/
 .diagnostic-nav-container, .activity-analysis  {
   margin: 0 auto;
-  max-width: 950px;
+  max-width: $sitewidepagewidth;
   padding-top: 44px;
   h1 {
     font-size: 24px;

@@ -1,7 +1,7 @@
 import * as React from "react";
 
 import { TeacherPreviewMenuButton } from '../../../Shared/index';
-const quillLogoSrc = `${process.env.CDN_URL}/images/logos/quill-logo-white.svg`;
+const quillLogoSrc = `${process.env.CDN_URL}/images/logos/quill-logo-white-2022.svg`;
 
 interface NavBarProps {
   isOnMobile?: boolean;

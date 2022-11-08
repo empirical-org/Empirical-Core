@@ -1,7 +1,7 @@
 import React from 'react';
 import { connect } from 'react-redux';
 
-const quillLogoSrc = `${process.env.CDN_URL}/images/logos/quill-logo-white.svg`
+const quillLogoSrc = `${process.env.CDN_URL}/images/logos/quill-logo-white-2022.svg`
 
 const handleLogoClick = () => {
   if (window.confirm('Are you sure you want to leave your lesson?')) {

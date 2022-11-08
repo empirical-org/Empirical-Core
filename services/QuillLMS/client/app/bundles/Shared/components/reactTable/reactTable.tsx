@@ -3,6 +3,8 @@ import { useTable, useSortBy, usePagination, useFilters, useExpanded, useGroupBy
 
 import ReactTablePagination from './reactTablePagination'
 
+import { NumberFilterInputProps } from "../../interfaces";
+
 const DEFAULT_PAGE_SIZE = 100
 
 function columnClassName(isSorted, isSortedDesc) {
@@ -22,6 +24,21 @@ export const TextFilter = ({ column, setFilter, }) => {
       value={column.filterValue}
     />
   )
+}
+
+export const NumberFilterInput = ({ handleChange, label, column }: NumberFilterInputProps) => {
+  return (
+    <div style={{ display: 'flex' }}>
+      <input
+        aria-label={label}
+        defaultValue={column.filterValue || ''}
+        onChange={e => handleChange(column.id, e.target.value)}
+        placeholder={`0-5, >1, <1`}
+        style={{width: '100px', marginRight: '0.5rem'}}
+        type="text"
+      />
+    </div>
+  );
 }
 
 export const expanderColumn = {
@@ -144,7 +161,7 @@ export const ReactTable = ({
                   className={columnClassName(column.isSorted, column.isSortedDesc)}
                 >
                   <div className="sortable-header" {...column.getSortByToggleProps()}>{column.render("Header")}</div>
-                  <div>{filterable && column.canFilter ? column.render("Filter") : null}</div>
+                  <div className="column-filter">{filterable && column.canFilter ? column.render("Filter") : null}</div>
                 </th>
               ))}
             </tr>

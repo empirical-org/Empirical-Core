@@ -18,14 +18,21 @@
 
 .premium-tab {
   a {
-    background-color: #EA9A1A !important;
+    background-color: #DF9E3D !important;
     color: #FFFFFF !important;
     padding-left: 40px;
     padding-right: 40px;
     border-right: none !important;
     cursor: pointer !important;
   }
-
+  .premium-tab-copy {
+    display: flex;
+    align-items: center;
+    img {
+      margin-left: 4px;
+      margin-right: 4px;
+    }
+  }
 }
 
 .modal-content {

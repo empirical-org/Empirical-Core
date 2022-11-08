@@ -7,6 +7,7 @@ import { createOrUpdateFeedbackHistoryRating } from '../../../utils/evidence/fee
 import { DataTable, Spinner, ButtonLoadingSpinner } from '../../../../Shared/index';
 import { PROMPT_ATTEMPTS_FEEDBACK_LABELS, PROMPT_HEADER_LABELS, DEFAULT_MAX_ATTEMPTS, NONE, STRONG, WEAK } from '../../../../../constants/evidence';
 import { ActivityInterface, PromptInterface, RuleInterface } from "../../../interfaces/evidenceInterfaces";
+import { getCheckIcon } from "../../../helpers/evidence/renderHelpers";
 
 interface PromptTableProps {
   activity: ActivityInterface;
@@ -25,6 +26,7 @@ const PromptTable = ({ activity, rules, prompt, showHeader, sessionId }: PromptT
     const { attempts } = prompt;
     const keys = attempts && Object.keys(attempts);
     let completed: boolean;
+    let optimal: boolean;
     if(keys && keys.length === DEFAULT_MAX_ATTEMPTS) {
       completed = true;
     } else {
@@ -37,12 +39,15 @@ const PromptTable = ({ activity, rules, prompt, showHeader, sessionId }: PromptT
         });
       });
       completed = usedAttempts.some((attempt) => attempt.optimal);
+      optimal = completed
     }
     return {
       attemptsLabel: 'Attempts',
       attemptsValue: keys.length,
       completedLabel: 'Completed',
-      completedValue: completed ? 'True' : 'False'
+      completedValue: getCheckIcon(completed),
+      optimalLabel: 'Reached Optimal',
+      optimalValue: getCheckIcon(optimal)
     }
   }
 
@@ -158,7 +163,7 @@ const PromptTable = ({ activity, rules, prompt, showHeader, sessionId }: PromptT
 
   const { conjunction } = prompt;
   const firstTableData = formatFirstTableData(prompt);
-  const { attemptsLabel, attemptsValue, completedLabel, completedValue } = firstTableData
+  const { attemptsLabel, attemptsValue, completedLabel, completedValue, optimalLabel, optimalValue } = firstTableData
 
   return(
     <section className="prompt-table-container">
@@ -170,6 +175,10 @@ const PromptTable = ({ activity, rules, prompt, showHeader, sessionId }: PromptT
       <section className="completed-section">
         <p className="completed-label">{completedLabel}</p>
         <p className="completed-value">{completedValue}</p>
+      </section>
+      <section className="optimal-section">
+        <p className="completed-label">{optimalLabel}</p>
+        <p className="completed-value">{optimalValue}</p>
       </section>
       <DataTable
         className="attempts-feedback-table"

@@ -27,11 +27,12 @@ export function getModelsUrl(promptId: string | number, state: string) {
   return url;
 }
 
-export function getActivitySessionsUrl({ activityId, pageNumber, startDate, endDate, filterType }) {
+export function getActivitySessionsUrl({ activityId, pageNumber, startDate, endDate, filterType, responsesForScoring}) {
   let url = `session_feedback_histories.json?page=${pageNumber}&activity_id=${activityId}`;
   url = startDate ? url + `&start_date=${startDate}` : url;
   url = endDate ? url + `&end_date=${endDate}` : url;
   url = filterType ? url + `&filter_type=${filterType}` : url;
+  url = responsesForScoring ? url + '&responses_for_scoring=true' : url;
   return url;
 }
 

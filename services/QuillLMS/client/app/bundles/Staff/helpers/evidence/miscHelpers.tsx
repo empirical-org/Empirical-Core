@@ -1,5 +1,7 @@
+import * as React from 'react';
 import stripHtml from "string-strip-html";
 import moment from 'moment';
+import { matchSorter } from 'match-sorter';
 
 import {
   MINIMUM_READING_LEVEL,
@@ -21,8 +23,8 @@ import {
   PROMPTS,
   BREAK_TAG
 } from '../../../../constants/evidence';
-import { DEFAULT_HIGHLIGHT_PROMPT } from "../../../Shared";
-import { DropdownObjectInterface, PromptInterface } from '../../interfaces/evidenceInterfaces'
+import { DEFAULT_HIGHLIGHT_PROMPT, TextFilter, NumberFilterInput, CheckboxFilter, filterNumbers } from "../../../Shared";
+import { DropdownObjectInterface } from '../../interfaces/evidenceInterfaces'
 import { getCheckIcon } from "./renderHelpers";
 
 export const buildActivity = ({
@@ -79,15 +81,19 @@ export const handlePageFilterClick = ({
   setEndDate,
   setPageNumber,
   setFilterOptionForQuery,
+  responsesForScoring,
+  setResponsesForScoringForQuery,
   storageKey }: {
     startDate: Date,
     endDate?: Date,
     versionOption?: DropdownObjectInterface,
     filterOption?: DropdownObjectInterface,
+    responsesForScoring?: boolean,
     setStartDate: (startDate: string) => void,
     setEndDate: (endDate: string) => void,
     setFilterOptionForQuery?: (filterOption: DropdownObjectInterface) => void,
     setPageNumber: (pageNumber: DropdownObjectInterface) => void,
+    setResponsesForScoringForQuery: (responsesForScoringQuery: boolean) => void,
     storageKey: string,
   }) => {
   if(versionOption) {
@@ -114,6 +120,7 @@ export const handlePageFilterClick = ({
   if(setPageNumber) {
     setPageNumber({ value: '1', label: "Page 1" })
   }
+  setResponsesForScoringForQuery(responsesForScoring)
 }
 
 export const validateForm = (keys: string[], state: any[], ruleType?: string) => {
@@ -253,3 +260,154 @@ export function getVersionOptions(activityVersionData) {
   options.push(showAllOption);
   return options;
 }
+
+export const activitySessionIndexResponseHeaders = [
+  {
+    Header: "Date | Time",
+    accessor: "datetime",
+    width: 135,
+    minWidth: 135,
+    disableFilters: true,
+    Cell: props => props.value
+  },
+  {
+    Header: "Session ID",
+    accessor: "session_uid",
+    width: 100,
+    minWidth: 100,
+    filterAll: true,
+    filter: (rows, idArray, filterValue) => {
+      return matchSorter(rows, filterValue, { keys: ['original.session_uid']})
+    },
+    Filter: TextFilter,
+    Cell: props => props.value,
+  },
+  {
+    Header: "Total Responses",
+    accessor: "total_attempts",
+    minWidth: 120,
+    width: 120,
+    filter: filterNumbers,
+    Filter: ({ column, setFilter }) =>
+      (
+        <NumberFilterInput
+          column={column}
+          handleChange={setFilter}
+          label="Filter for total responses"
+        />
+      ),
+    Cell: props => props.value
+  },
+  {
+    Header: "Because",
+    accessor: "because_attempts",
+    width: 104,
+    minWidth: 104,
+    filter: filterNumbers,
+    Filter: ({ column, setFilter }) =>
+      (
+        <NumberFilterInput
+          column={column}
+          handleChange={setFilter}
+          label="Filter for because attempts"
+        />
+      ),
+    Cell: props => props.value
+  },
+  {
+    Header: "But",
+    accessor: "but_attempts",
+    width: 104,
+    minWidth: 104,
+    filter: filterNumbers,
+    Filter: ({ column, setFilter }) =>
+      (
+        <NumberFilterInput
+          column={column}
+          handleChange={setFilter}
+          label="Filter for but attempts"
+        />
+      ),
+    Cell: props => props.value
+  },
+  {
+    Header: "So",
+    accessor: "so_attempts",
+    width: 104,
+    minWidth: 104,
+    filter: filterNumbers,
+    Filter: ({ column, setFilter }) =>
+      (
+        <NumberFilterInput
+          column={column}
+          handleChange={setFilter}
+          label="Filter for so attempts"
+        />
+      ),
+    Cell: props => props.value
+  },
+  {
+    Header: "Scored",
+    accessor: "scored_count",
+    width: 104,
+    minWidth: 104,
+    filter: filterNumbers,
+    Filter: ({ column, setFilter }) =>
+      (
+        <NumberFilterInput
+          column={column}
+          handleChange={setFilter}
+          label="Filter for scored count"
+        />
+      ),
+    Cell: props => props.value
+  },
+  {
+    Header: "Weak",
+    accessor: "weak_count",
+    width: 104,
+    minWidth: 104,
+    filter: filterNumbers,
+    Filter: ({ column, setFilter }) =>
+      (
+        <NumberFilterInput
+          column={column}
+          handleChange={setFilter}
+          label="Filter for weak count"
+        />
+      ),
+    Cell: props => props.value
+  },
+  {
+    Header: "Strong",
+    accessor: "strong_count",
+    width: 104,
+    minWidth: 104,
+    filter: filterNumbers,
+    Filter: ({ column, setFilter }) =>
+      (
+        <NumberFilterInput
+          column={column}
+          handleChange={setFilter}
+          label="Filter for strong count"
+        />
+      ),
+    Cell: props => props.value
+  },
+  {
+    Header: "Completed?",
+    accessor: "completed",
+    width: 104,
+    minWidth: 110,
+    disableFilters: true,
+    Cell: props => props.value
+  },
+  {
+    Header: "",
+    accessor: "view_link",
+    minWidth: 50,
+    width: 50,
+    disableFilters: true,
+    Cell: props => props.value
+  },
+]

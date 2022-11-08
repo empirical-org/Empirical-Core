@@ -16,13 +16,13 @@ const googleSetupInstructionsPdf = `${process.env.CDN_URL}/documents/setup_instr
 
 function activeHeaders(hasProviderClassroom: boolean) {
   const name = {
-    width: '190px',
+    width: '380px',
     name: 'Name',
     attribute: 'name'
   }
 
   const username = {
-    width: hasProviderClassroom ? '362px' : '486px',
+    width: hasProviderClassroom ? '442px' : '566px',
     name: 'Username',
     attribute: 'username'
   }

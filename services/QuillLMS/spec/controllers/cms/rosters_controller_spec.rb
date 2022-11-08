@@ -11,6 +11,7 @@ describe Cms::RostersController do
 
   describe '#upload_teachers_and_students' do
     let!(:school) { create(:school)}
+    let!(:existing_student) { create(:student) }
 
     it 'should create teachers and students based on the data provided, and it should ignore empty items in payload arrays' do
       teacher_email = "email@test.org"
@@ -64,6 +65,23 @@ describe Cms::RostersController do
       expect(StudentsClassrooms.find_by(classroom: classroom, student: another_student)).to be
       expect(response.status).to eq 200
       expect(JSON.parse(response.body)).to be_empty
+
+      post :upload_teachers_and_students, params: {
+        school_id: school.id,
+        students: [
+          {
+            name: existing_student.name,
+            email: existing_student.email,
+            teacher_name: teacher.name,
+            teacher_email: teacher.email,
+            classroom: classroom.name,
+            password: "password"
+          }
+        ]
+      }
+      expect(StudentsClassrooms.find_by(classroom: classroom, student: existing_student)).to be
+      expect(response.status).to eq 200
+      expect(JSON.parse(response.body)).to be_empty
     end
 
     it 'should flash error if school is not found' do
@@ -72,27 +90,8 @@ describe Cms::RostersController do
       expect(JSON.parse(response.body)["errors"]).to eq("School not found. Check that the ID is correct and try again.")
     end
 
-    it 'should flash error if teacher or student already exists' do
-      student = create(:student)
+    it 'should flash error if teacher already exists' do
       teacher = create(:teacher)
-
-      post :upload_teachers_and_students, params: {
-        school_id: school.id,
-        teachers: [],
-        students: [
-          {
-            name: "Test Student",
-            email: student.email,
-            teacher_name: teacher.name,
-            teacher_email: teacher.email,
-            classroom: "classroom name",
-            password: "password"
-          }
-        ]
-      }
-
-      expect(response.status).to eq 422
-      expect(JSON.parse(response.body)["errors"]).to eq("Student with email #{student.email} already exists.")
 
       post :upload_teachers_and_students, params: {
         school_id: school.id,

@@ -4,7 +4,7 @@ require_dependency 'evidence/application_controller'
 
 module Evidence
   class ActivitiesController < ApiController
-    before_action :set_activity, only: [:activity_versions, :create, :show, :update, :destroy, :change_logs, :seed_data, :labeled_synthetic_data]
+    before_action :set_activity, only: [:activity_versions, :create, :show, :update, :destroy, :seed_data, :change_logs, :labeled_synthetic_data]
     append_before_action :set_lms_user_id, only: [:create, :destroy, :update]
 
     # GET /activities.json
@@ -90,15 +90,17 @@ module Evidence
       render json: @activity&.activity_versions
     end
 
-    # params [:id, nouns:]
+    # params [:id, nouns:, label_configs]
     def seed_data
-      nouns_array = params[:nouns]
+      nouns_array = seed_data_params[:nouns]
         .split(',')
         .select(&:present?)
         .map(&:strip)
         .uniq
 
-      Evidence::ActivitySeedDataWorker.perform_async(@activity.id, nouns_array)
+      label_configs = seed_data_params[:label_configs]&.to_h || {}
+
+      Evidence::ActivitySeedDataWorker.perform_async(@activity.id, nouns_array, label_configs)
 
       head :no_content
     end
@@ -127,6 +129,10 @@ module Evidence
 
     private def increment_version_params
       params.require(:note)
+    end
+
+    private def seed_data_params
+      params.permit(:id, :nouns, label_configs: {}, activity: {})
     end
 
     private def activity_params

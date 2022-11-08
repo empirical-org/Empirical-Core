@@ -26,8 +26,14 @@
     }
   }
   .top-section {
-    display: flex;
     align-items: center;
+  }
+  .middle-section {
+    flex-direction: column;
+    align-items: flex-start;
+  }
+  .top-section, .middle-section {
+    display: flex;
     margin: 16px 0px 8px 0px;
     .total-container {
       display: flex;
@@ -41,6 +47,26 @@
         border: 1px solid lightgray;
         padding: 3px 7px;
         margin-bottom: 0px;
+      }
+    }
+    .response-filters-container {
+      display: flex;
+      align-items: center;
+      .responses-for-scoring-container {
+        display: flex;
+        .label-section {
+          label {
+            font-size: 16px;
+            font-weight: normal;
+          }
+          .quill-tooltip-trigger {
+            margin: 0px 8px 0px 4px;
+          }
+        }
+        input {
+          margin-top: 0px;
+          margin-bottom: 3px;
+        }
       }
     }
     .left-side-container {
@@ -70,6 +96,19 @@
         }
       }
     }
+    .sub-optimal-attempt {
+      color: #ff0000;
+      font-weight: 700;
+      margin: 0;
+    }
+    .rt-th {
+      height: min-content;
+      .column-filter {
+        input {
+          width: 80px !important;
+        }
+      }
+    }
   }
   .session-overview-table {
     margin: 30px 0px 30px 0px;
@@ -88,7 +127,7 @@
   }
   .prompt-table-container {
     margin-top: 30px;
-    .attempts-section, .completed-section {
+    .attempts-section, .completed-section, .optimal-section {
       display: flex;
       align-items: center;
       justify-content: space-between;
@@ -133,4 +172,11 @@
       }
     }
   }
+}
+
+.data-link {
+  color: #00c2a2;
+}
+.data-link:hover {
+  color: #29d8bc;
 }

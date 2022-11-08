@@ -5,12 +5,12 @@ import * as moment from 'moment';
 import { firstBy } from 'thenby';
 
 import FilterWidget from "../shared/filterWidget";
-import { getVersionOptions, handlePageFilterClick } from "../../../helpers/evidence/miscHelpers";
+import { getVersionOptions, handlePageFilterClick, activitySessionIndexResponseHeaders } from "../../../helpers/evidence/miscHelpers";
 import { renderHeader } from "../../../helpers/evidence/renderHelpers";
-import { Error, Spinner, DropdownInput, ReactTable, } from '../../../../Shared/index';
+import { Error, Spinner, DropdownInput, ReactTable, Tooltip, informationIcon } from '../../../../Shared/index';
 import { fetchActivity, fetchActivitySessions, fetchActivityVersions } from '../../../utils/evidence/activityAPIs';
-import { DropdownObjectInterface, ActivitySessionInterface, ActivitySessionsInterface, InputEvent } from '../../../interfaces/evidenceInterfaces';
-import { activitySessionIndexResponseHeaders, activitySessionFilterOptions, SESSION_INDEX } from '../../../../../constants/evidence';
+import { DropdownObjectInterface, ActivitySessionInterface, ActivitySessionsInterface } from '../../../interfaces/evidenceInterfaces';
+import { activitySessionFilterOptions, SESSION_INDEX } from '../../../../../constants/evidence';
 
 const quillCheckmark = 'https://assets.quill.org/images/icons/check-circle-small.svg';
 
@@ -37,6 +37,8 @@ const SessionsIndex = ({ match }) => {
   const [startDateForQuery, setStartDate] = React.useState<string>(initialStartDateString);
   const [endDate, onEndDateChange] = React.useState<Date>(initialEndDate);
   const [endDateForQuery, setEndDate] = React.useState<string>(initialEndDateString);
+  const [responsesForScoring, setResponsesForScoring] = React.useState<boolean>(false)
+  const [responsesForScoringForQuery, setResponsesForScoringForQuery] = React.useState<boolean>(false)
 
   // cache activity data for updates
   const { data: activityData } = useQuery({
@@ -46,7 +48,7 @@ const SessionsIndex = ({ match }) => {
 
   // cache activity sessions data for updates
   const { data: sessionsData } = useQuery({
-    queryKey: [`activity-${activityId}-sessions`, activityId, pageNumberForQuery, startDateForQuery, filterOptionForQuery, endDateForQuery],
+    queryKey: [`activity-${activityId}-sessions`, activityId, pageNumberForQuery, startDateForQuery, filterOptionForQuery, endDateForQuery, responsesForScoringForQuery],
     queryFn: fetchActivitySessions
   });
 
@@ -88,7 +90,7 @@ const SessionsIndex = ({ match }) => {
   }, [sessionsData]);
 
   function handleFilterClick(e: React.SyntheticEvent, passedVersionOption?: DropdownObjectInterface) {
-    handlePageFilterClick({ startDate, endDate, filterOption, versionOption: passedVersionOption || versionOption, setStartDate, setEndDate, setPageNumber, setFilterOptionForQuery, storageKey: SESSION_INDEX });
+    handlePageFilterClick({ startDate, endDate, filterOption, versionOption: passedVersionOption || versionOption, responsesForScoring, setStartDate, setEndDate, setPageNumber, setFilterOptionForQuery, setResponsesForScoringForQuery, storageKey: SESSION_INDEX });
   }
 
   function handleFilterOptionChange(filterOption: DropdownObjectInterface) {
@@ -129,6 +131,10 @@ const SessionsIndex = ({ match }) => {
     setPageNumber(number);
   }
 
+  function handleResponsesForScoringChange() {
+    setResponsesForScoring(!responsesForScoring);
+  }
+
   function getSortedRows({ activitySessions, id, directionOfSort }) {
     const columnOptions  = ['total_attempts', 'because_attempts', 'but_attempts', 'so_attempts'];
     if(columnOptions.includes(id)) {
@@ -149,9 +155,16 @@ const SessionsIndex = ({ match }) => {
     }
   }
 
+  function colorCodeAttemptsCount(attemptCount, isOptimal) {
+    if(isOptimal) {
+      return attemptCount
+    }
+    return <p className="sub-optimal-attempt">{attemptCount}</p>
+  }
+
   function formatSessionsData(activitySessions: ActivitySessionInterface[]) {
     return activitySessions.map(session => {
-      const { start_date, session_uid, because_attempts, but_attempts, so_attempts, complete } = session;
+      const { start_date, session_uid, because_attempts, because_optimal, but_attempts, but_optimal, so_attempts, so_optimal, complete } = session;
       const dateObject = new Date(start_date);
       const date = moment(dateObject).format("MM/DD/YY");
       const time = moment(dateObject).format("hh:mm a");
@@ -161,9 +174,9 @@ const SessionsIndex = ({ match }) => {
         id: session_uid,
         session_uid: session_uid ? session_uid.substring(0,6) : '',
         datetime: `${date} ${time}`,
-        because_attempts: because_attempts,
-        but_attempts: but_attempts,
-        so_attempts: so_attempts,
+        because_attempts: colorCodeAttemptsCount(because_attempts, because_optimal),
+        but_attempts: colorCodeAttemptsCount(but_attempts, but_optimal),
+        so_attempts: colorCodeAttemptsCount(so_attempts, so_optimal),
         total_attempts: total,
         view_link: <Link className="data-link" rel="noopener noreferrer" target="_blank" to={`/activities/${activityId}/activity-sessions/${session_uid}/overview`}>View</Link>,
         completed: complete ? <img alt="quill-circle-checkmark" src={quillCheckmark} /> : ""
@@ -212,15 +225,27 @@ const SessionsIndex = ({ match }) => {
             value={pageNumber}
           />
         </section>
-        <section className="top-section">
-          <DropdownInput
-            className="session-filters-dropdown"
-            handleChange={handleFilterOptionChange}
-            isSearchable={false}
-            label="Session filter options"
-            options={activitySessionFilterOptions}
-            value={filterOption}
-          />
+        <section className="middle-section">
+          <section className="response-filters-container">
+            <DropdownInput
+              className="session-filters-dropdown"
+              handleChange={handleFilterOptionChange}
+              isSearchable={true}
+              label="Session filter options"
+              options={activitySessionFilterOptions}
+              value={filterOption}
+            />
+            <section className="responses-for-scoring-container">
+              <section className="label-section">
+                <label>Responses for Scoring</label>
+                <Tooltip
+                  tooltipText="6+ responses per session OR sessions with 2+ responses for each conjunction"
+                  tooltipTriggerText={<img alt={informationIcon.alt} src={informationIcon.src} />}
+                />
+              </section>
+              <input checked={responsesForScoring} onChange={handleResponsesForScoringChange} type="checkbox" />
+            </section>
+          </section>
           <FilterWidget
             endDate={endDate}
             handleFilterClick={handleFilterClick}
@@ -237,6 +262,7 @@ const SessionsIndex = ({ match }) => {
           columns={activitySessionIndexResponseHeaders}
           data={rowData}
           defaultPageSize={rowData.length < 100 ? rowData.length : 100}
+          filterable
           manualSortBy
           /* eslint-disable-next-line react/jsx-no-bind */
           onSortedChange={(sorted) => handleDataUpdate(activity_sessions, sorted)}
