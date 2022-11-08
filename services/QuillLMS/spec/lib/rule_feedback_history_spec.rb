@@ -84,9 +84,13 @@ RSpec.describe RuleFeedbackHistory, type: :model do
       so_feedback1 = feedback_factory { { rule: so_rule1 } }
       so_feedback2 = feedback_factory { { rule: so_rule1, order: 2 } }
 
+      first_confidence_level = 0.9599
+      second_confidence_level = 0.8523
+      average_confidence_level = (((first_confidence_level + second_confidence_level) / 2) * 100).round
+
       # feedback_histories
-      f_h1 = create(:feedback_history, prompt: so_prompt1, rule_uid: so_rule1.uid, entry: "f_h1 lorem")
-      f_h2 = create(:feedback_history, prompt: so_prompt1, rule_uid: so_rule1.uid, entry: "f_h2 ipsum")
+      f_h1 = create(:feedback_history, prompt: so_prompt1, rule_uid: so_rule1.uid, entry: "f_h1 lorem", metadata: {api: {confidence: first_confidence_level}})
+      f_h2 = create(:feedback_history, prompt: so_prompt1, rule_uid: so_rule1.uid, entry: "f_h2 ipsum", metadata: {api: {confidence: second_confidence_level}})
 
       # users
       user1 = create(:user)
@@ -109,6 +113,7 @@ RSpec.describe RuleFeedbackHistory, type: :model do
         rule_order: so_rule1.suborder,
         first_feedback: so_feedback1.text,
         second_feedback: so_feedback2.text,
+        avg_confidence: average_confidence_level,
         rule_name: so_rule1.name,
         rule_note: so_rule1.note,
         rule_uid: so_rule1.uid,
