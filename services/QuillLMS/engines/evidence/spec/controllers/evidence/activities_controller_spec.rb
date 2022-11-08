@@ -138,8 +138,10 @@ module Evidence
     end
 
     context 'should update' do
+      let!(:staff_user_id) { 1 }
+
       before do
-        session[:user_id] = 1
+        session[:user_id] = staff_user_id
       end
 
       let!(:activity) { create(:evidence_activity, :parent_activity_id => 1, :title => "First Activity", :target_level => 8, :scored_level => "4th grade") }
@@ -190,7 +192,7 @@ module Evidence
 
         change_log = Evidence.change_log_class.last
         expect(change_log.action).to eq("updated")
-        expect(change_log.user_id).to eq(1)
+        expect(change_log.user_id).to eq(staff_user_id)
         expect(change_log.changed_record_type).to eq(new_activity.class.name)
         expect(change_log.changed_record_id).to eq(new_activity.id)
         expect(change_log.changed_attribute).to eq("flags")
