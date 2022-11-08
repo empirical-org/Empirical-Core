@@ -1,22 +1,26 @@
 import React, { Component } from 'react';
-import { Input, } from '../../../../Shared/index'
+
+import { timeZoneOptions, } from './shared'
+
+import { Input, DropdownInput, } from '../../../../Shared/index'
 
 export default class StudentGeneralAccountInfo extends Component {
   constructor(props) {
     super(props);
-    const { email, firstName, lastName, userName} = props;
+    const { email, firstName, lastName, userName, timeZone, } = props;
 
     this.state = {
       email: email,
       firstName: firstName,
       lastName: lastName,
       showButtonSection: false,
-      userName: userName
+      userName: userName,
+      timeZone
     };
   }
 
   componentDidUpdate(prevProps) {
-    const { active, email, firstName, lastName, userName } = this.props;
+    const { active, email, firstName, lastName, userName, timeZone, } = this.props;
 
     if (prevProps.active && !active) {
       this.reset();
@@ -26,12 +30,14 @@ export default class StudentGeneralAccountInfo extends Component {
       || firstName !== prevProps.firstName
       || lastName !== prevProps.lastName
       || userName !== prevProps.userName
+      || timeZone !== prevProps.timeZone
     ) {
       this.setState({
         email,
         firstName,
         lastName,
-        userName
+        userName,
+        timeZone
       });
     }
   }
@@ -43,6 +49,10 @@ export default class StudentGeneralAccountInfo extends Component {
   onLastNameChange = e => this.updateField(e, 'lastName')
 
   onUsernameChange = e => this.updateField(e, 'userName')
+
+  onTimezoneChange = timeZone => {
+    this.setState({ timeZone: timeZone.name, });
+  };
 
   activateSection = () => {
     const { active, activateSection } = this.props;
@@ -61,7 +71,7 @@ export default class StudentGeneralAccountInfo extends Component {
   handleSubmit = (e) => {
     e.preventDefault();
     const { updateUser, } = this.props
-    const { email, firstName, lastName, userName } = this.state;
+    const { email, firstName, lastName, userName, timeZone, } = this.state;
     const name = `${firstName} ${lastName}`;
     const errorMessages = ['First name cannot be blank', 'Last name cannot be blank', 'Username cannot be blank'];
     let errors = {};
@@ -80,24 +90,26 @@ export default class StudentGeneralAccountInfo extends Component {
     const data = {
       name,
       email,
-      username: userName
+      username: userName,
+      time_zone: timeZone,
     };
     updateUser(data, '/students/update_account', 'Settings saved', errors);
   }
 
   reset = () => {
-    const { email, firstName, lastName, userName } = this.props
+    const { email, firstName, lastName, userName, timeZone, } = this.props
     this.setState({
       email,
       firstName,
       lastName,
       userName,
+      timeZone,
       showButtonSection: false
     });
   }
 
   submitClass = () => {
-    const { email, firstName, lastName, userName } = this.state;
+    const { email, firstName, lastName, userName, timeZone, } = this.state;
     let buttonClass = 'quill-button contained primary medium focus-on-light';
     // disabling destructuring because destructuring would cause a namespace collision
     /* eslint-disable react/destructuring-assignment */
@@ -105,6 +117,7 @@ export default class StudentGeneralAccountInfo extends Component {
       && lastName === this.props.lastName
       && email === this.props.email
       && userName === this.props.userName
+      && timeZone === this.props.timeZone
     ) {
       /* eslint-enable react/destructuring-assignment */
       buttonClass += ' disabled';
@@ -129,12 +142,13 @@ export default class StudentGeneralAccountInfo extends Component {
   }
 
   render() {
-    const { email, firstName, lastName, userName } = this.state;
+    const { email, firstName, lastName, userName, timeZone, } = this.state;
     const { accountType, cleverId, errors, googleId, timesSubmitted, isBeingPreviewed } = this.props;
+    const selectedTimeZone = timeZoneOptions.find(tz => tz.name === timeZone)
     const oAuthed = (cleverId || googleId);
     const isDisabled = !!oAuthed || isBeingPreviewed;
     const editStatus = isDisabled ? '-not-editable' : '';
-    const emailLabel = oAuthed ? 'Email' : 'Email (Optional)';
+    const emailLabel = oAuthed ? 'Email' : 'Email (optional)';
     const teacherCreated = accountType === "Teacher Created Account";
 
     return (
@@ -192,6 +206,14 @@ export default class StudentGeneralAccountInfo extends Component {
               timesSubmitted={timesSubmitted}
               type="text"
               value={email}
+            />
+            <DropdownInput
+              error={errors.timeZone}
+              handleChange={this.onTimezoneChange}
+              label="Time zone"
+              onClick={this.activateSection}
+              options={timeZoneOptions}
+              value={selectedTimeZone}
             />
           </div>
           {this.renderButtonSection()}

@@ -95,21 +95,15 @@ describe StudentsController do
   end
 
   describe '#update_account' do
-    let!(:user) { create(:user, name: "Maya Angelou", email: 'maya_angelou_demo@quill.org', username: "maya-angelou", role: "student") }
+    let!(:user) { create(:user, name: "Maya Angelou", email: 'maya_angelou_demo@quill.org', username: "maya-angelou", role: "student", time_zone: 'America/Anchorage') }
     let!(:second_user) { create(:user, name: "Harvey Milk", email: 'harvey@quill.org', username: "harvey-milk", role: "student") }
 
-    it 'should update the name, email and username' do
-      put :update_account, params: { email: "pablo@quill.org", username: "pabllo-vittar", name: "Pabllo Vittar" }
+    it 'should update the name, email, time_zone, and username' do
+      put :update_account, params: { email: "pablo@quill.org", username: "pabllo-vittar", name: "Pabllo Vittar", time_zone: 'America/New_York' }
       expect(user.reload.email).to eq "pablo@quill.org"
       expect(user.reload.username).to eq "pabllo-vittar"
       expect(user.reload.name).to eq "Pabllo Vittar"
-    end
-
-    it 'should update only the fields that are changed' do
-      put :update_account, params: { email: "pablo@quill.org", username: "rainha-do-carnaval", name: "Pabllo Vittar" }
-      expect(user.reload.email).to eq "pablo@quill.org"
-      expect(user.reload.username).to eq "rainha-do-carnaval"
-      expect(user.reload.name).to eq "Pabllo Vittar"
+      expect(user.reload.time_zone).to eq 'America/New_York'
     end
 
     it 'should not update the email or username if already taken' do

@@ -50,7 +50,7 @@ describe UnitActivity, type: :model, redis: true do
   let!(:lessons_activity) { create(:activity, activity_classification_id: 6, name: 'lesson activity') }
   let!(:lessons_unit_activity) { create(:unit_activity, unit: unit, activity: lessons_activity) }
   let!(:classroom_unit ) { create(:classroom_unit , unit: unit, classroom: classroom, assigned_student_ids: [student.id]) }
-  let!(:activity_session) {create(:activity_session, user_id: student.id, state: 'unstarted', classroom_unit_id: classroom_unit.id, unit: unit, activity: activity)}
+  let!(:activity_session) {create(:activity_session, :finished, user_id: student.id, classroom_unit_id: classroom_unit.id, unit: unit, activity: activity)}
 
   describe '#formatted_due_date' do
     context 'when due date exists' do
@@ -294,29 +294,30 @@ describe UnitActivity, type: :model, redis: true do
         expect(unit_activities.count).to eq(0)
       end
 
-      it 'converts the publish date to the time zone of the assigning teacher if the teacher has a time zone' do
+    end
+
+    describe 'completed dates' do
+      it 'converts the completed date to the time zone of the student if the student has a time zone' do
         tz_string = 'America/New_York'
-        teacher.update(time_zone: tz_string)
-        publish_date = Time.now.utc - 1.hour
-        # have to do update_columns here because otherwise the publish date is offset by a callback
-        unit_activity.update_columns(publish_date: publish_date)
+        student.update(time_zone: tz_string)
+        completed_date = Time.now.utc - 1.hour
+        activity_session.update_columns(completed_at: completed_date)
         unit_activities = UnitActivity.get_classroom_user_profile(classroom.id, student.id)
-        publish_date_result = unit_activities.find { |ua| ua['ua_id'].to_i == unit_activity.id }['publish_date']
+        completed_date_result = unit_activities.find { |ua| ua['ua_id'].to_i == unit_activity.id }['completed_date']
 
-        expect(publish_date_result.in_time_zone(tz_string).to_i).to eq publish_date.to_i
+        expect(completed_date_result.in_time_zone(tz_string).to_i).to eq completed_date.to_i
       end
 
-      it 'leaves the publish date in utc if the teacher does not have a time zone' do
+      it 'leaves the completed date in utc if the student does not have a time zone' do
         # have to do update_columns here because time_zone is set by a callback
-        teacher.update_columns(time_zone: nil)
-        publish_date = Time.now.utc - 1.hour
-        unit_activity.update(publish_date: publish_date)
+        student.update_columns(time_zone: nil)
+        completed_date = Time.now.utc - 1.hour
+        activity_session.update(completed_at: completed_date)
         unit_activities = UnitActivity.get_classroom_user_profile(classroom.id, student.id)
-        publish_date_result = unit_activities.find { |ua| ua['ua_id'].to_i == unit_activity.id }['publish_date']
+        completed_date_result = unit_activities.find { |ua| ua['ua_id'].to_i == unit_activity.id }['completed_date']
 
-        expect(publish_date_result.in_time_zone.to_i).to eq publish_date.to_i
+        expect(completed_date_result.in_time_zone.to_i).to eq completed_date.to_i
       end
-
     end
 
   end
