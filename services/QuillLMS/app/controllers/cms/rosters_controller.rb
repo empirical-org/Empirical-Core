@@ -18,6 +18,7 @@ class Cms::RostersController < Cms::CmsController
         next unless email
         raise "Teacher with email #{email} already exists." if User.find_by(email: email).present?
         raise "Please provide a last name or password for teacher #{t[:name]}, otherwise this account will have no password." if t[:password].blank? && t[:name].split[1].blank?
+
         password = t[:password].present? ? t[:password] : t[:name].split[1]
         teacher = User.create!(name: t[:name], email: email, password: password, password_confirmation: password, role: 'teacher')
         SchoolsUsers.create!(school: school, user: teacher)
