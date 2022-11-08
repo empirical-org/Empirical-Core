@@ -12,7 +12,6 @@ class UserPackSequenceItemQuery
       .select("pack_sequence_items.id AS #{PACK_SEQUENCE_ITEM_ID_KEY}")
       .joins(pack_sequence_items: { unit: :classroom_units })
       .joins(pack_sequence_items: { unit: { unit_activities: :activity } } )
-      .left_outer_joins(:user_pack_sequence_items)
       .joins(
         <<-SQL
           LEFT JOIN activity_sessions

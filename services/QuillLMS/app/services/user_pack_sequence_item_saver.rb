@@ -28,7 +28,7 @@ class UserPackSequenceItemSaver < ApplicationService
       current_pack_sequence_id = user_pack_sequence_item_result[PACK_SEQUENCE_ITEM_ID_KEY]
       pack_sequence_item_changed = previous_pack_sequence_id != current_pack_sequence_id
 
-      status = LOCKED if status == UNLOCKED && previous_packs_unfinished && pack_sequence_item_changed
+      status = LOCKED if previous_packs_unfinished && pack_sequence_item_changed
       user_pack_sequence_item_statuses[current_pack_sequence_id] = status
 
       previous_packs_unfinished ||= !user_pack_sequence_item_result[COMPLETED_KEY]

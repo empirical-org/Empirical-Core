@@ -27,14 +27,6 @@ RSpec.describe UserPackSequenceItemQuery do
   let!(:classroom_unit3) { create(:classroom_unit, unit: unit3, classroom: classroom) }
   let!(:activity_session3) { create(:activity_session, classroom_unit: classroom_unit3) }
 
-  let!(:user_pack_sequence_item1) do
-    create(:user_pack_sequence_item, pack_sequence_item: pack_sequence_item1, user: student)
-  end
-
-  let!(:user_pack_sequence_item2) do
-    create(:user_pack_sequence_item, pack_sequence_item: pack_sequence_item2, user: student)
-  end
-
   let(:finished) { ActivitySession::STATE_FINISHED }
   let(:unfinished) { ActivitySession::STATE_UNSTARTED }
 
