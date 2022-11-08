@@ -48,6 +48,23 @@ class ActivitySession < ApplicationRecord
   include Uid
   include Concepts
 
+  COMPLETED = 'Completed'
+
+  CONCEPT_UIDS_TO_EXCLUDE_FROM_REPORT = [
+    'JVJhNIHGZLbHF6LYw605XA',
+    'H-2lrblngQAQ8_s-ctye4g',
+    '5E8cleeh-dUUFncVhLy9AQ',
+    'jaUtRoHeqvvNhiEBOhjvhg'
+  ]
+
+  MAX_4_BYTE_INTEGER_SIZE = 2147483647
+
+  NEARLY_PROFICIENT = 'Nearly proficient'
+  NOT_YET_PROFICIENT = 'Not yet proficient'
+  PROFICIENT = 'Proficient'
+
+  RESULTS_PER_PAGE = 25
+
   STATE_UNSTARTED = 'unstarted'
   STATE_STARTED = 'started'
   STATE_FINISHED = 'finished'
@@ -56,8 +73,6 @@ class ActivitySession < ApplicationRecord
 
   TIME_TRACKING_KEY = 'time_tracking'
   TIME_TRACKING_EDITS_KEY = 'time_tracking_edits'
-
-  MAX_4_BYTE_INTEGER_SIZE = 2147483647
 
   default_scope { where(visible: true)}
 
@@ -80,16 +95,17 @@ class ActivitySession < ApplicationRecord
   belongs_to :user
 
   before_create :set_state
-  before_save   :set_completed_at, :set_activity_id
+  before_save :set_completed_at, :set_activity_id
 
-  after_save    :determine_if_final_score, :update_milestones, :increment_counts
+  after_save :determine_if_final_score, :update_milestones, :increment_counts
   after_save :record_teacher_activity_feed, if: [:saved_change_to_completed_at?, :completed?]
+  after_save :save_user_pack_sequence_items, if: -> { saved_change_to_state? || saved_change_to_visible? }
 
   after_commit :invalidate_activity_session_count_if_completed
 
   after_destroy :save_user_pack_sequence_items
 
-  around_save   :trigger_events
+  around_save :trigger_events
 
   # FIXME: do we need the below? if we omit it, may make things faster
   default_scope -> { joins(:activity) }
@@ -110,20 +126,6 @@ class ActivitySession < ApplicationRecord
     .where(user_id: user_ids)
     .group(:user_id)
   }
-
-  RESULTS_PER_PAGE = 25
-
-  CONCEPT_UIDS_TO_EXCLUDE_FROM_REPORT = [
-    'JVJhNIHGZLbHF6LYw605XA',
-    'H-2lrblngQAQ8_s-ctye4g',
-    '5E8cleeh-dUUFncVhLy9AQ',
-    'jaUtRoHeqvvNhiEBOhjvhg'
-  ]
-
-  PROFICIENT = 'Proficient'
-  NEARLY_PROFICIENT = 'Nearly proficient'
-  NOT_YET_PROFICIENT = 'Not yet proficient'
-  COMPLETED = 'Completed'
 
   def self.paginate(current_page, per_page)
     offset = (current_page.to_i - 1) * per_page
@@ -381,10 +383,6 @@ class ActivitySession < ApplicationRecord
     $redis.del("classroom_id:#{classroom_id}_completed_activity_count")
   end
 
-  def save_user_pack_sequence_items
-    UserPackSequenceItemSaver.run(classroom.id, user_id)
-  end
-
   def self.save_concept_results(activity_sessions, concept_results)
     concept_results.each do |concept_result|
       activity_session_id = activity_sessions.find do |activity_session|
@@ -617,5 +615,9 @@ class ActivitySession < ApplicationRecord
 
   private def record_teacher_activity_feed
     teachers.each { |teacher| TeacherActivityFeed.add(teacher.id, id) }
+  end
+
+  private def save_user_pack_sequence_items
+    SaveUserPackSequenceItemsWorker.perform_async(classroom.id, user_id)
   end
 end

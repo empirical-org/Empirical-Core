@@ -1072,16 +1072,27 @@ end
     end
   end
 
-  context 'callbacks' do
-    let(:activity_session) { create(:activity_session)}
+  context 'save_user_pack_sequence_items' do
+    let!(:activity_session) { create(:activity_session, :unstarted) }
+
+    context 'after_save' do
+      context 'state has changed' do
+        subject { activity_session.update(state: described_class::STATE_FINISHED) }
+
+        it { expect { subject }.to change { SaveUserPackSequenceItemsWorker.jobs.size }.by(1) }
+      end
+
+      context 'visible has changed' do
+        subject { activity_session.update(visible: false) }
+
+        it { expect { subject }.to change { SaveUserPackSequenceItemsWorker.jobs.size }.by(1) }
+      end
+    end
 
     context 'after_destroy' do
       subject { activity_session.destroy }
 
-      it do
-        expect(activity_session).to receive(:save_user_pack_sequence_items)
-        subject
-      end
+      it { expect { subject }.to change { SaveUserPackSequenceItemsWorker.jobs.size }.by(1) }
     end
   end
 end
