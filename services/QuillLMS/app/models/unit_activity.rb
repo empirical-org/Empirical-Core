@@ -146,7 +146,7 @@ class UnitActivity < ApplicationRecord
           MAX(acts.updated_at) AS act_sesh_updated_at,
           ua.order_number,
           ua.due_date #{student_timezone_offset_string} AS due_date,
-          MAX(acts.completed_at) #{student_timezone_offset_string} AS completed_date,
+          MIN(acts.completed_at) #{student_timezone_offset_string} AS completed_date,
           pre_activity.id AS pre_activity_id,
           cu.created_at AS unit_activity_created_at,
           COALESCE(cuas.locked, false) AS locked,
