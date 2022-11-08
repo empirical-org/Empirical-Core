@@ -182,6 +182,22 @@ module Evidence
         expect(change_log.new_value).to(eq('Goodbye' * 20))
       end
 
+      it 'should make a change log record after updating the flag' do
+        new_activity = create(:evidence_activity)
+        parent_activity = Evidence.parent_activity_class.find_by_name(new_activity.title)
+        parent_activity.update!(flag: "beta")
+        put :update, params: {id: new_activity.id, activity: { flag: "alpha" }}
+
+        change_log = Evidence.change_log_class.last
+        expect(change_log.action).to eq("updated")
+        expect(change_log.user_id).to eq(1)
+        expect(change_log.changed_record_type).to eq(new_activity.class.name)
+        expect(change_log.changed_record_id).to eq(new_activity.id)
+        expect(change_log.changed_attribute).to eq("flags")
+        expect(change_log.previous_value).to eq("[\"beta\"]")
+        expect(change_log.new_value).to eq("[\"alpha\"]")
+      end
+
       it 'should update passage if valid, return nothing' do
         put(:update, :params => ({ :id => activity.id, :activity => ({ :passages_attributes => ([{ :id => passage.id, :text => ("Goodbye" * 20) }]) }) }))
         expect(response.body).to(eq(""))

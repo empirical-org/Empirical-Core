@@ -293,7 +293,7 @@ class Activity < ApplicationRecord
   end
 
   private def update_evidence_flags?
-    is_evidence? && saved_change_to_flags?
+    is_evidence? && child_activity && saved_change_to_flags?
   end
 
   private def update_evidence_child_title
