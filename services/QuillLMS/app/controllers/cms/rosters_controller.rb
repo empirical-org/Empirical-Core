@@ -27,7 +27,7 @@ class Cms::RostersController < Cms::CmsController
         teacher_email = s[:teacher_email].downcase
         student_email = s[:email].downcase
         next unless student_email
-        raise "Teacher with email #{s[:teacher_email]} does not exist." if User.find_by(email: teacher_email).blank?
+        raise "Teacher with email #{teacher_email} does not exist." if User.find_by(email: teacher_email).blank?
         raise "Please provide a last name or password for student #{s[:name]}, otherwise this account will have no password." if s[:password].blank? && s[:name].split[1].blank?
 
         password = s[:password].present? ? s[:password] : s[:name].split[1]
