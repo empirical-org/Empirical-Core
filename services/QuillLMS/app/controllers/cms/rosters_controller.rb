@@ -43,7 +43,7 @@ class Cms::RostersController < Cms::CmsController
           ClassroomsTeacher.create!(user: teacher, classroom: classroom, role: 'owner')
         end
 
-        StudentsClassrooms.create!(student: student, classroom: classroom)
+        StudentsClassrooms.create!(student: student, classroom: classroom) if StudentsClassrooms.find_by(student: student, classroom: classroom).nil?
       end
     end
 
