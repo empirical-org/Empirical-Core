@@ -77,43 +77,55 @@ class CreateNewAccounts extends React.Component<any, any> {
   render() {
     const { firstName, lastName, email, school, } = this.state
     /* eslint-disable react/jsx-no-target-blank */
-    const supportLink = <a className="green-link" href="http://support.quill.org/getting-started-for-teachers/manage-classes/how-can-i-connect-my-account-to-my-school" target="_blank"> Here&#39;s the guide.</a>
+    const supportLink = <a className="green-link" href="http://support.quill.org/getting-started-for-teachers/manage-classes/how-can-i-connect-my-account-to-my-school" target="_blank"> Here&#39;s the guide</a>
     /* eslint-enable react/jsx-no-target-blank */
     return (
       <div id="create_new_accounts">
-        <div className="header">
-          <h2>Create New Accounts and Link Existing Teachers</h2>
-          <a className="quill-button secondary outlined fun focus-on-light" href="mailto:hello@quill.org?subject=Bulk Upload Teachers via CSV&body=Please attach your CSV file to this email.">Upload teachers via CSV</a>
-        </div>
-        <p><span>Teachers New to Quill?</span> Input their information to create new Quill accounts.</p>
-        <p>
-          <span>Teachers Have Quill Accounts?</span> When you submit their information, they will receive an email instructing them to link their accounts to your school. Teachers can link to their school from the My Account page.
-          {supportLink}
-        </p>
-        <div className="form-and-schools-list">
+        <section className="left-section">
+          <div className="header">
+            <h2>Create New Accounts & Link Existing Teachers</h2>
+          </div>
           <div className="form">
-            <div className="first-line">
-              <input aria-label="First Name" className="first-name" onChange={this.handleFirstNameChange} placeholder="First Name" type="text" value={firstName} />
-              <input aria-label="Last Name" className="last-name" onChange={this.handleLastNameChange} placeholder="Last Name" type="text" value={lastName} />
+            <section className="first-section">
+              <section className="name-inputs-container">
+                <input aria-label="First Name" className="first-name" onChange={this.handleFirstNameChange} placeholder="First Name" type="text" value={firstName} />
+                <input aria-label="Last Name" className="last-name" onChange={this.handleLastNameChange} placeholder="Last Name" type="text" value={lastName} />
+              </section>
               <input aria-label="Email Address" className="email" onChange={this.handleEmailChange} placeholder="Email Address" type="text" value={email} />
-            </div>
-            <DropdownInput
-              className='second-line'
-              handleChange={this.updateSchool}
-              options={this.schoolOptions()}
-              placeholder='Select School for Teacher'
-              value={this.schoolOptions().find(s => s.value === school.id || s.value === school.value)}
-            />
-            <button className="button-green pull-right" onClick={this.handleAddTeacherAccountClick} type="button">Add Teacher Account</button>
+            </section>
+            <section className="second-section">
+              <DropdownInput
+                className='second-line'
+                handleChange={this.updateSchool}
+                isSearchable={true}
+                options={this.schoolOptions()}
+                placeholder='Select School for Teacher'
+                value={this.schoolOptions().find(s => s.value === school.id || s.value === school.value)}
+              />
+              <button className="quill-button small primary contained add-teacher-account-button" onClick={this.handleAddTeacherAccountClick} type="button">Add Teacher Account</button>
+            </section>
+            <div className='light-divider' />
+            <section className="info-section first">
+              <span>Teachers New to Quill?</span>
+              <p>Input their information to create new Quill accounts.</p>
+            </section>
+            <section className="info-section">
+              <span>Teachers Have Quill Accounts?</span>
+              <p>When you submit their information, they will receive an email instructing them to link their accounts to your school. Teachers can link to their school from the My Account page. {supportLink}</p>
+            </section>
           </div>
-          <div className="schools">
-            <p>You have admin access to these schools:</p>
-            <div className="schools-list">
-              {this.schoolsList()}
+        </section>
+        <section className="right-section">
+          <div className="form-and-schools-list">
+            <div className="schools">
+              <p>You have admin access to these schools:</p>
+              <div className="schools-list">
+                {this.schoolsList()}
+              </div>
+              <p className="need-access pull-right">Need access to additional schools? <a className="green-link" href="mailto:hello@quill.org">Email Quill</a></p>
             </div>
-            <p className="need-access pull-right">Need access to additional schools? <a className="green-link" href="mailto:hello@quill.org">Email Quill</a></p>
           </div>
-        </div>
+        </section>
         {this.renderError()}
         {this.renderMessage()}
       </div>

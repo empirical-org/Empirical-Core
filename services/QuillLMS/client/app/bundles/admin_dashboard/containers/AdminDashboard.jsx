@@ -81,30 +81,44 @@ export default class AdminDashboard extends React.Component {
     );
   };
 
+  scrollToCreateNewAccounts = () => {
+    const section = document.querySelector('#create_new_accounts');
+    section.scrollIntoView( { behavior: 'smooth', block: 'start' } );
+  }
+
   render() {
-    if (!this.state.loading) {
-      return (
-        <div >
-          <div className="sub-container">
-            <PremiumFeatures />
-            <AdminsTeachers
-              data={this.state.model.teachers}
-              refreshData={this.getData}
-            />
-            <CreateNewAccounts
-              addTeacherAccount={this.addTeacherAccount}
-              error={this.state.error}
-              message={this.state.message}
-              schools={this.state.model.schools}
-            />
-            <QuestionsAndAnswers
-              questionsAndAnswersFile="admin"
-              supportLink="https://support.quill.org/quill-premium"
-            />
-          </div>
-        </div>
-      );
+    const { loading, error, message, model } = this.state
+
+    if(loading) {
+      return <LoadingSpinner />;
     }
-    return <LoadingSpinner />;
+    return (
+      <div >
+        <div className="sub-container">
+          <PremiumFeatures handleClick={this.scrollToCreateNewAccounts} />
+          <div className='dark-divider' />
+          <CreateNewAccounts
+            addTeacherAccount={this.addTeacherAccount}
+            error={error}
+            message={message}
+            schools={model.schools}
+          />
+          <div className='dark-divider' />
+          <div className="header">
+            <h2>Upload Teachers via CSV</h2>
+            <a className="quill-button secondary outlined fun focus-on-light csv-button" href="mailto:hello@quill.org?subject=Bulk Upload Teachers via CSV&body=Please attach your CSV file to this email.">Upload teachers via CSV</a>
+          </div>
+          <div className='dark-divider' />
+          <AdminsTeachers
+            data={model.teachers}
+            refreshData={this.getData}
+          />
+          <QuestionsAndAnswers
+            questionsAndAnswersFile="admin"
+            supportLink="https://support.quill.org/quill-premium"
+          />
+        </div>
+      </div>
+    );
   }
 }
