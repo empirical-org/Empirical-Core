@@ -20,6 +20,7 @@ describe SegmentAnalyticsUserSerializer do
         ip_address
         subscription
         school
+        time_zone
       }
     end
   end
