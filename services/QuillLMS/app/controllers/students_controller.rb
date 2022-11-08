@@ -45,7 +45,7 @@ class StudentsController < ApplicationController
   end
 
   def update_account
-    if current_user.update(student_params.slice(:email, :name, :username))
+    if current_user.update(student_params.slice(:email, :name, :username, :time_zone))
       render json: current_user, serializer: UserSerializer
     else
       render json: {errors: current_user.errors.messages}, status: 422
@@ -130,7 +130,7 @@ class StudentsController < ApplicationController
   end
 
   private def student_params
-    params.permit(:name, :email, :username, :authenticity_token, student: [:name, :email, :username])
+    params.permit(:name, :email, :username, :time_zone)
   end
 
 end

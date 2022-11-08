@@ -76,12 +76,19 @@ const completeHeaders = [
     headerClassName: 'tool-icon-section',
     rowSectionClassName: 'tool-icon-section'
   }, {
-    width: '100px',
+    width: '110px',
     name: 'Due date',
     attribute: 'dueDate',
     noTooltip: true,
     headerClassName: 'completed-due-date-section',
     rowSectionClassName: 'completed-due-date-section'
+  }, {
+    width: '110px',
+    name: 'Completed date',
+    attribute: 'completedDate',
+    noTooltip: true,
+    headerClassName: 'completed-date-section',
+    rowSectionClassName: 'completed-date-section'
   }, {
     width: '88px',
     name: '',
@@ -193,13 +200,14 @@ export default class StudentProfileUnit extends React.Component {
     if (!(data.complete && data.complete.length)) { return null}
 
     const rows = data.complete.map(act => {
-      const { name, activity_classification_key, ua_id, due_date, } = act
+      const { name, activity_classification_key, ua_id, due_date, completed_date, } = act
       return {
         name,
         score: this.score(act),
         tool: this.toolIcon(activity_classification_key),
         actionButton: this.actionButton(act, nextActivitySession),
         dueDate: due_date ? formatDateTimeForDisplay(moment.utc(due_date)) : null,
+        completedDate: completed_date ? formatDateTimeForDisplay(moment.utc(completed_date)) : null,
         id: ua_id
       }
     })

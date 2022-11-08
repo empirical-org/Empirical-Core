@@ -3722,7 +3722,15 @@ exports[`StudentProfileUnits component should render only completed activities i
                   "name": "Due date",
                   "noTooltip": true,
                   "rowSectionClassName": "completed-due-date-section",
-                  "width": "100px",
+                  "width": "110px",
+                },
+                Object {
+                  "attribute": "completedDate",
+                  "headerClassName": "completed-date-section",
+                  "name": "Completed date",
+                  "noTooltip": true,
+                  "rowSectionClassName": "completed-date-section",
+                  "width": "110px",
                 },
                 Object {
                   "attribute": "actionButton",
@@ -3744,6 +3752,7 @@ exports[`StudentProfileUnits component should render only completed activities i
                   >
                     Replay
                   </a>,
+                  "completedDate": null,
                   "dueDate": "Feb 29, 5am",
                   "id": 9,
                   "name": "A, An",
@@ -3767,6 +3776,7 @@ exports[`StudentProfileUnits component should render only completed activities i
                   >
                     Replay
                   </a>,
+                  "completedDate": null,
                   "dueDate": "Feb 29, 5am",
                   "id": 5,
                   "name": "Age of Exploration: Spices",
@@ -3835,13 +3845,26 @@ exports[`StudentProfileUnits component should render only completed activities i
                   scope="col"
                   style={
                     Object {
-                      "minWidth": "100px",
+                      "minWidth": "110px",
                       "textAlign": "left",
-                      "width": "100px",
+                      "width": "110px",
                     }
                   }
                 >
                   Due date
+                </th>
+                <th
+                  className="data-table-header completed-date-section"
+                  scope="col"
+                  style={
+                    Object {
+                      "minWidth": "110px",
+                      "textAlign": "right",
+                      "width": "110px",
+                    }
+                  }
+                >
+                  Completed date
                 </th>
                 <th
                   className="data-table-header action-button-section"
@@ -3913,14 +3936,25 @@ exports[`StudentProfileUnits component should render only completed activities i
                     key="dueDate-9"
                     style={
                       Object {
-                        "minWidth": "100px",
+                        "minWidth": "110px",
                         "textAlign": "left",
-                        "width": "100px",
+                        "width": "110px",
                       }
                     }
                   >
                     Feb 29, 5am
                   </td>
+                  <td
+                    className="data-table-row-section completed-date-section"
+                    key="completedDate-9"
+                    style={
+                      Object {
+                        "minWidth": "110px",
+                        "textAlign": "right",
+                        "width": "110px",
+                      }
+                    }
+                  />
                   <td
                     className="data-table-row-section action-button-section"
                     key="actionButton-9"
@@ -3996,14 +4030,25 @@ exports[`StudentProfileUnits component should render only completed activities i
                     key="dueDate-5"
                     style={
                       Object {
-                        "minWidth": "100px",
+                        "minWidth": "110px",
                         "textAlign": "left",
-                        "width": "100px",
+                        "width": "110px",
                       }
                     }
                   >
                     Feb 29, 5am
                   </td>
+                  <td
+                    className="data-table-row-section completed-date-section"
+                    key="completedDate-5"
+                    style={
+                      Object {
+                        "minWidth": "110px",
+                        "textAlign": "right",
+                        "width": "110px",
+                      }
+                    }
+                  />
                   <td
                     className="data-table-row-section action-button-section"
                     key="actionButton-5"

@@ -124,8 +124,7 @@ class UnitActivity < ApplicationRecord
   def self.get_classroom_user_profile(classroom_id, user_id)
     return [] unless classroom_id && user_id
 
-    offset = Classroom.find(classroom_id).owner.utc_offset || 0
-    teacher_timezone_offset_string = "+ INTERVAL '#{offset}' SECOND"
+    student_timezone_offset_string = "+ INTERVAL '#{User.find(user_id).utc_offset || 0}' SECOND"
 
     # Generate a rich profile of Classroom Activities for a given user in a given classroom
     RawSqlRunner.execute(
@@ -146,8 +145,8 @@ class UnitActivity < ApplicationRecord
           ua.activity_id,
           MAX(acts.updated_at) AS act_sesh_updated_at,
           ua.order_number,
-          ua.due_date #{teacher_timezone_offset_string} AS due_date,
-          ua.publish_date #{teacher_timezone_offset_string} AS publish_date,
+          ua.due_date #{student_timezone_offset_string} AS due_date,
+          MIN(acts.completed_at) #{student_timezone_offset_string} AS completed_date,
           pre_activity.id AS pre_activity_id,
           cu.created_at AS unit_activity_created_at,
           COALESCE(cuas.locked, false) AS locked,
