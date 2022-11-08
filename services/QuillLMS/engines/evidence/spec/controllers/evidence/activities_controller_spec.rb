@@ -139,14 +139,13 @@ module Evidence
 
     context 'should update' do
       let!(:staff_user_id) { 1 }
+      let!(:activity) { create(:evidence_activity, :parent_activity_id => 1, :title => "First Activity", :target_level => 8, :scored_level => "4th grade") }
+      let!(:passage) { create(:evidence_passage, :activity => (activity)) }
+      let!(:prompt) { create(:evidence_prompt, :activity => (activity)) }
 
       before do
         session[:user_id] = staff_user_id
       end
-
-      let!(:activity) { create(:evidence_activity, :parent_activity_id => 1, :title => "First Activity", :target_level => 8, :scored_level => "4th grade") }
-      let!(:passage) { create(:evidence_passage, :activity => (activity)) }
-      let!(:prompt) { create(:evidence_prompt, :activity => (activity)) }
 
       it 'should update record if valid, return nothing' do
         put(:update, :params => ({ :id => activity.id, :activity => ({ :parent_activity_id => 2, :scored_level => "5th grade", :target_level => 9, :title => "New title" }) }))
