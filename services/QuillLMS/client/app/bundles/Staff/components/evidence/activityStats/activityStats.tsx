@@ -29,6 +29,8 @@ const ActivityStats: React.FC<RouteComponentProps<ActivityRouteProps>> = ({ hist
   const [startDateForQuery, setStartDate] = React.useState<string>(initialStartDateString);
   const [endDate, onEndDateChange] = React.useState<Date>(initialEndDate);
   const [endDateForQuery, setEndDate] = React.useState<string>(initialEndDateString);
+  const [responsesForScoring, setResponsesForScoring] = React.useState<boolean>(false);
+  const [responsesForScoringForQuery, setResponsesForScoringForQuery] = React.useState<boolean>(false);
 
   // get cached activity data to pass to rule
   const { data: activityHealthData } = useQuery({
@@ -78,7 +80,7 @@ const ActivityStats: React.FC<RouteComponentProps<ActivityRouteProps>> = ({ hist
 
 
   function handleFilterClick(e: React.SyntheticEvent, passedVersionOption?: DropdownObjectInterface) {
-    handlePageFilterClick({ startDate, endDate, versionOption: passedVersionOption || versionOption, setStartDate, setEndDate, setPageNumber: null, storageKey: ACTIVITY_STATS });
+    handlePageFilterClick({ startDate, endDate, versionOption: passedVersionOption || versionOption, setStartDate, setEndDate, setPageNumber: null, responsesForScoring, setResponsesForScoringForQuery, storageKey: ACTIVITY_STATS,  });
   }
 
   const formattedRows = promptHealth && promptHealth.prompts && Object.values(promptHealth.prompts).map((prompt: PromptHealthInterface) => {
