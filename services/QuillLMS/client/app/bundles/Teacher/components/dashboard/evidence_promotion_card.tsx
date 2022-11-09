@@ -2,8 +2,6 @@ import * as React from 'react'
 
 import { arrowPointingRightIcon } from '../../../Shared/index'
 
-const bookIllustrationSrc = `${process.env.CDN_URL}/images/pages/dashboard/books-on-shelf.svg`
-
 const EvidencePromotionCard = () => {
 
   return (
@@ -20,7 +18,6 @@ const EvidencePromotionCard = () => {
           <a href={`${process.env.DEFAULT_URL}/tools/evidence`}><span>See tool demo</span><img alt={arrowPointingRightIcon.alt} src={arrowPointingRightIcon.src} /></a>
         </div>
       </div>
-      <img alt="Books on a shelf" className="book-illustration" src={bookIllustrationSrc} />
     </section>
   )
 }
