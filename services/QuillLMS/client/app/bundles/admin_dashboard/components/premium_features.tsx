@@ -2,7 +2,7 @@ import * as React from 'react'
 
 const PremiumFeatures = ({ handleClick }) => {
   return(
-    <section id="features">
+    <section className="features">
       <section className="features-list">
         <section className="feature">
           <img alt="" src="https://assets.quill.org/images/icons/student_icon_admin.svg" />

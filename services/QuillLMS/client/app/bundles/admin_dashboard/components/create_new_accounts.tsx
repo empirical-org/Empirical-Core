@@ -87,7 +87,7 @@ class CreateNewAccounts extends React.Component<any, any> {
     const supportLink = <a className="green-link" href="http://support.quill.org/getting-started-for-teachers/manage-classes/how-can-i-connect-my-account-to-my-school" target="_blank"> Here&#39;s the guide</a>
     /* eslint-enable react/jsx-no-target-blank */
     return (
-      <div id="create_new_accounts">
+      <div className="create-new-accounts">
         <section className="left-section">
           <h2>Create New Accounts & Link Existing Teachers</h2>
           <div className="form">

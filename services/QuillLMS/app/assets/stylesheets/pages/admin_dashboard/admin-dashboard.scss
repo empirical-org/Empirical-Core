@@ -61,31 +61,65 @@
       }
     }
   }
-  // input {
-  //   max-width: 150px;
-  //   margin-right: 10px;
-  // }
   .add-user {
     margin-left: 20px;
   }
-
-  #teacher_account_access {
-    .header-and-dropdown {
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      .dropdown-container {
-        min-width: 300px;
-        min-height: 60px !important;
-        justify-content: center;
+  .teacher-account-access-container {
+    .dropdown-container {
+      width: max-content;
+      justify-content:  flex-start;
+      min-width: 552px;
+      min-height: 60px !important;
+      margin-top: 32px;
+      font-weight: 700;
+    }
+    .dropdown__control {
+      background-color: transparent;
+    }
+    .progress-report {
+      table {
+        thead {
+          tr {
+            border-bottom: 1px solid #E0E0E0;
+            th {
+              font-size: 12px;
+              color: #5C5C5C;
+              background-color: #ffffff;
+              border: none;
+            }
+          }
+        }
+        tbody {
+          div {
+            tr {
+              padding: 8px 0px;
+              td {
+                font-weight: 700;
+                color: #5C5C5C;
+                padding-left: 14px;
+              }
+            }
+          }
+        }
       }
-      .dropdown__control {
-        background-color: transparent;
+    }
+    .warning-section {
+      background-color: #FFFFFF;
+      padding: 24px 14px;
+      border: 1px solid #E0E0E0;
+      border-top: none;
+      color: #5C5C5C;
+      font-size: 16px;
+      margin-bottom: 48px;
+      .warning {
+        font-weight: bold;
+        margin: 0px;
+        color: #EB4F47;
       }
     }
   }
 
-  #features {
+  .features {
     color: #3b3b3b;
     margin-top: 22px;
     h2 {
@@ -142,26 +176,6 @@
         }
       }
     }
-    .pd-session {
-      height: 48px;
-      border-radius: 100px;
-      background-color: #ae55e2;
-      align-items: center;
-      display: flex;
-      justify-content: space-between;
-      color: white;
-      padding: 0px 24px;
-      margin-top: 25px;
-      span:first-of-type {
-        font-weight: bold;
-      }
-      span:nth-of-type(2) {
-        text-decoration: underline;
-      }
-      &:hover {
-        text-decoration: none;
-      }
-    }
     @media (max-width: 800px) {
       text-align: center;
       .features-list {
@@ -182,21 +196,8 @@
       }
     }
   }
-  #teacher_account_access {
-    h2 {
-      margin-bottom: 15px;
-    }
-    .warning {
-      font-weight: bold;
-      margin: 0px;
-    }
-    .teacher-link {
-      font-size: 14px;
-      font-weight: 600;
-    }
-  }
 
-  #create_new_accounts {
+  .create-new-accounts {
     position:relative;
     display: grid;
     grid-template-columns: repeat(2, 1fr);
@@ -295,6 +296,8 @@
               margin-right: 8px;
             }
           }
+        }
+        .bottom-section {
           .need-access-text {
             font-style: italic;
             color: #969696;
@@ -307,24 +310,6 @@
       }
     }
   }
-
-  #q-and-a {
-    position: relative;
-    width: 100vw;
-    left: calc(-50vw + 50%);
-    h1 {
-      margin-bottom: 50px;
-    }
-    .qa-section {
-      padding: 15px 0px;
-      .answer {
-        p, ol, ul {
-          margin-top: 15px;
-        }
-      }
-    }
-  }
-
   .tab-subnavigation-wrapper {
     .active, a:hover {
       text-decoration: none;
@@ -345,5 +330,4 @@
       }
     }
   }
-
 }

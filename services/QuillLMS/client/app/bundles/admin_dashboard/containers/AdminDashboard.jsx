@@ -82,7 +82,7 @@ export default class AdminDashboard extends React.Component {
   };
 
   scrollToCreateNewAccounts = () => {
-    const section = document.querySelector('#create_new_accounts');
+    const section = document.querySelector('.create_new_accounts');
     section.scrollIntoView( { behavior: 'smooth', block: 'start' } );
   }
 
@@ -92,8 +92,8 @@ export default class AdminDashboard extends React.Component {
     if(loading) {
       return <LoadingSpinner />;
     }
-    return (
-      <div >
+    return(
+      <React.Fragment>
         <div className="sub-container">
           <PremiumFeatures handleClick={this.scrollToCreateNewAccounts} />
           <div className='dark-divider' />
@@ -113,12 +113,12 @@ export default class AdminDashboard extends React.Component {
             data={model.teachers}
             refreshData={this.getData}
           />
-          <QuestionsAndAnswers
-            questionsAndAnswersFile="admin"
-            supportLink="https://support.quill.org/quill-premium"
-          />
         </div>
-      </div>
+        <QuestionsAndAnswers
+          questionsAndAnswersFile="admin"
+          supportLink="https://support.quill.org/quill-premium"
+        />
+      </React.Fragment>
     );
   }
 }
