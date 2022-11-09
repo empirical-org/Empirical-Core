@@ -80,4 +80,37 @@ describe Api::V1::RuleFeedbackHistoriesController, type: :controller do
     end
   end
 
+  describe '#activity_health' do
+    context 'no associated feedback sessions' do
+      it 'should return successfully' do
+        get :activity_health, params: { activity_id: 1 }, as: :json
+        expect(response.status).to eq 200
+        expect(JSON.parse(response.body)['average_time_spent']).to eq(0)
+        expect(JSON.parse(response.body)['average_completion_rate']).to eq(0)
+      end
+    end
+
+    context 'associated feedback sessions' do
+      it 'should return successfully' do
+        main_activity = create(:activity)
+
+        prompt = Evidence::Prompt.create!(
+          text: 'foobarbazbat',
+          conjunction: 'so',
+          activity: main_activity,
+          max_attempts: 3
+         )
+
+        as1 = create(:activity_session, state: 'finished', activity_id: main_activity.id, timespent: 61)
+
+        f_h1 = create(:feedback_history, feedback_session_uid: as1.uid, attempt: 1, optimal: false, prompt_id: prompt.id)
+
+        get :activity_health, params: { activity_id: main_activity.id }, as: :json
+        expect(response.status).to eq 200
+        expect(JSON.parse(response.body)['average_time_spent']).to eq("01:01")
+        expect(JSON.parse(response.body)['average_completion_rate']).to eq(100)
+      end
+    end
+  end
+
 end
