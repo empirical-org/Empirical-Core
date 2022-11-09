@@ -26,14 +26,12 @@ class StudentsClassrooms < ApplicationRecord
 
   # validates uniqueness of student/classroom on db
   after_save :checkbox, :run_associator
-
-  after_save :archive_student_associations_for_classroom,
-    if: proc { |sc| sc.archived? && sc.student && sc.classroom },
-    unless: :skip_archive_student_associations
+  after_save :archive_student_associations_for_classroom, if: -> { archived? && student && classroom }
+  after_save :save_user_pack_sequence_items, if: [:saved_change_to_visible?]
 
   after_commit :invalidate_classroom_minis
 
-  default_scope { where(visible: true)}
+  default_scope { where(visible: true) }
 
   attr_accessor :skip_archive_student_associations
 
@@ -42,6 +40,8 @@ class StudentsClassrooms < ApplicationRecord
   end
 
   def archive_student_associations_for_classroom
+    return if skip_archive_student_associations
+
     ArchiveStudentAssociationsForClassroomWorker.perform_async(student_id, classroom_id)
   end
 
@@ -61,5 +61,9 @@ class StudentsClassrooms < ApplicationRecord
     return unless classroom&.owner.present?
 
     $redis.del("user_id:#{classroom.owner.id}_classroom_minis")
+  end
+
+  private def save_user_pack_sequence_items
+    SaveUserPackSequenceItemsWorker.perform_async(classroom_id, student_id)
   end
 end
