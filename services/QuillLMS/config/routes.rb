@@ -525,6 +525,7 @@ EmpiricalGrammar::Application.routes.draw do
   get '/sign-up/pick-school-type', to: 'accounts#new'
   get '/sign-up/add-k12', to: 'accounts#new'
   get '/sign-up/add-non-k12', to: 'accounts#new'
+  get '/sign-up/add-teacher-info', to: 'accounts#new'
 
   get Auth::Google::OFFLINE_ACCESS_CALLBACK_PATH => 'auth/google#offline_access_callback'
   get Auth::Google::ONLINE_ACCESS_CALLBACK_PATH => 'auth/google#online_access_callback'
