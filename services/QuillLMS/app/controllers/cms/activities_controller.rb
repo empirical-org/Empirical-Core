@@ -5,7 +5,7 @@ class Cms::ActivitiesController < Cms::CmsController
   before_action :set_activity, only: [:update, :destroy, :edit]
   before_action :set_style_and_javascript_file, only: [:new, :edit]
   before_action :set_raw_score_options_and_raw_score_to_readability_grade_band, only: [:new, :edit]
-  append_before_action :set_lms_user_id_if_evidence, only: [:update]
+  before_action :set_lms_user_id_if_evidence, only: [:update]
 
   def index
     @flag = params[:flag].to_s.to_sym.presence || :production
