@@ -1,6 +1,7 @@
 import * as React from 'react';
 import TeacherLinks from './teacher_links';
 import UnlinkLink from './unlink_link';
+import _ from 'underscore'
 
 import { ReactTable, DropdownInput, } from '../../Shared/index'
 
@@ -11,7 +12,7 @@ interface AdminsTeachersProps {
 
 const ALL_SCHOOLS_OPTION = 'All Schools'
 
-const AdminsTeachers: React.SFC<AdminsTeachersProps> = ({
+export const AdminsTeachers: React.SFC<AdminsTeachersProps> = ({
   data,
   refreshData,
 }) => {
@@ -66,9 +67,8 @@ const AdminsTeachers: React.SFC<AdminsTeachersProps> = ({
     }
   ];
 
-  const schoolOptions = _.uniq([ALL_SCHOOLS_OPTION, ...data.map(d => d.school)]).map(school => ({ value: school, label: school}))
-
-  const filteredData = selectedSchool === ALL_SCHOOLS_OPTION ? data : data.filter(d => d.school === selectedSchool)
+  const schoolOptions = _.uniq([ALL_SCHOOLS_OPTION, ...data.map((d: { school: string }) => d.school)]).map(school => ({ value: school, label: school}))
+  const filteredData = selectedSchool === ALL_SCHOOLS_OPTION ? data : data.filter((d: { school: string }) => d.school === selectedSchool)
 
   return (
     <div className="teacher-account-access-container">

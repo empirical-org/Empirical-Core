@@ -2,7 +2,7 @@ import * as React from 'react'
 
 import { DropdownInput, } from '../../Shared/index'
 
-class CreateNewAccounts extends React.Component<any, any> {
+export class CreateNewAccounts extends React.Component<any, any> {
   constructor(props) {
     super(props)
 
@@ -12,9 +12,6 @@ class CreateNewAccounts extends React.Component<any, any> {
       email: '',
       school: props.schools[0]
     }
-
-    this.renderMessage = this.renderMessage.bind(this)
-    this.renderError = this.renderError.bind(this)
   }
 
   updateField = (e, fieldName) => this.setState({[fieldName]: e.target.value})
@@ -67,14 +64,14 @@ class CreateNewAccounts extends React.Component<any, any> {
     addTeacherAccount(data)
   }
 
-  renderError() {
+  renderError = () => {
     const { error, } = this.props
     if (!error) { return }
 
     return <div className="error">{error}</div>
   }
 
-  renderMessage() {
+  renderMessage = () => {
     const { message, } = this.props
     if (!message) { return }
 
@@ -83,11 +80,10 @@ class CreateNewAccounts extends React.Component<any, any> {
 
   render() {
     const { firstName, lastName, email, school, } = this.state
-    /* eslint-disable react/jsx-no-target-blank */
     const supportLink = <a className="green-link" href="http://support.quill.org/getting-started-for-teachers/manage-classes/how-can-i-connect-my-account-to-my-school" target="_blank"> Here&#39;s the guide</a>
-    /* eslint-enable react/jsx-no-target-blank */
+
     return (
-      <div className="create-new-accounts">
+      <div className="create-new-accounts-container">
         <section className="left-section">
           <h2>Create New Accounts & Link Existing Teachers</h2>
           <div className="form">

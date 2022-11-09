@@ -1,8 +1,8 @@
 import * as React from 'react'
 
-const PremiumFeatures = ({ handleClick }) => {
+export const PremiumFeatures = ({ handleClick }) => {
   return(
-    <section className="features">
+    <section className="admin-features-container">
       <section className="features-list">
         <section className="feature">
           <img alt="" src="https://assets.quill.org/images/icons/student_icon_admin.svg" />

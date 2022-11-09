@@ -1,0 +1,163 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`CreateNewAccounts component should match snapshot 1`] = `
+<div
+  className="create-new-accounts-container"
+>
+  <section
+    className="left-section"
+  >
+    <h2>
+      Create New Accounts & Link Existing Teachers
+    </h2>
+    <div
+      className="form"
+    >
+      <section
+        className="first-section"
+      >
+        <section
+          className="name-inputs-container"
+        >
+          <input
+            aria-label="First Name"
+            className="first-name"
+            onChange={[Function]}
+            placeholder="First Name"
+            type="text"
+            value=""
+          />
+          <input
+            aria-label="Last Name"
+            className="last-name"
+            onChange={[Function]}
+            placeholder="Last Name"
+            type="text"
+            value=""
+          />
+        </section>
+        <input
+          aria-label="Email Address"
+          className="email"
+          onChange={[Function]}
+          placeholder="Email Address"
+          type="text"
+          value=""
+        />
+      </section>
+      <section
+        className="second-section"
+      >
+        <DropdownInput
+          className="second-line"
+          handleChange={[Function]}
+          isSearchable={true}
+          options={
+            Array [
+              Object {
+                "label": "Test School",
+                "name": "Test School",
+                "value": 1,
+              },
+            ]
+          }
+          placeholder="Select School for Teacher"
+          value={
+            Object {
+              "label": "Test School",
+              "name": "Test School",
+              "value": 1,
+            }
+          }
+        />
+        <button
+          className="quill-button small primary contained add-teacher-account-button"
+          onClick={[Function]}
+          type="button"
+        >
+          Add Teacher Account
+        </button>
+      </section>
+      <div
+        className="light-divider"
+      />
+      <section
+        className="info-section-container"
+      >
+        <section
+          className="info-section"
+        >
+          <span>
+            Teachers New to Quill?
+          </span>
+          <p>
+            Input their information to create new Quill accounts.
+          </p>
+        </section>
+        <section
+          className="info-section"
+        >
+          <span>
+            Teachers Have Quill Accounts?
+          </span>
+          <p>
+            When you submit their information, they will receive an email instructing them to link their accounts to your school. Teachers can link to their school from the My Account page. 
+            <a
+              className="green-link"
+              href="http://support.quill.org/getting-started-for-teachers/manage-classes/how-can-i-connect-my-account-to-my-school"
+              target="_blank"
+            >
+               Here's the guide
+            </a>
+          </p>
+        </section>
+      </section>
+    </div>
+  </section>
+  <section
+    className="right-section"
+  >
+    <h2>
+      You have admin access to these schools:
+    </h2>
+    <section
+      className="content-section"
+    >
+      <div
+        className="schools-list"
+      >
+        <div
+          className="school"
+          key="1"
+        >
+          <img
+            alt=""
+            src="https://assets.quill.org/images/icons/school_icon_admin.svg"
+          />
+          <p>
+            Test School
+          </p>
+        </div>
+      </div>
+      <section
+        className="bottom-section"
+      >
+        <div
+          className="light-divider"
+        />
+        <p
+          className="need-access-text"
+        >
+          Need access to additional schools? 
+          <a
+            className="green-link"
+            href="mailto:hello@quill.org"
+          >
+            Email support@quill.org
+          </a>
+        </p>
+      </section>
+    </section>
+  </section>
+</div>
+`;

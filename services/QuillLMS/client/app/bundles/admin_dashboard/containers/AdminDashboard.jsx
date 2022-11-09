@@ -1,15 +1,15 @@
 import React from 'react';
 import Pusher from 'pusher-js';
 
-import AdminsTeachers from '../components/admins_teachers.tsx';
-import PremiumFeatures from '../components/premium_features.tsx';
-import CreateNewAccounts from '../components/create_new_accounts.tsx';
+import AdminsTeachers from '../components/adminsTeachers.tsx';
+import PremiumFeatures from '../components/premiumFeatures.tsx';
+import CreateNewAccounts from '../components/createNewAccounts.tsx';
 import LoadingSpinner from '../../Teacher/components/shared/loading_indicator';
 import QuestionsAndAnswers from '../../Teacher/containers/QuestionsAndAnswers.tsx';
 import getAuthToken from '../../Teacher/components/modules/get_auth_token';
 import { requestGet, requestPost, } from '../../../modules/request/index'
 
-export default class AdminDashboard extends React.Component {
+export class AdminDashboard extends React.Component {
   constructor(props) {
     super(props)
 
@@ -82,8 +82,8 @@ export default class AdminDashboard extends React.Component {
   };
 
   scrollToCreateNewAccounts = () => {
-    const section = document.querySelector('.create_new_accounts');
-    section.scrollIntoView( { behavior: 'smooth', block: 'start' } );
+    const section = document.querySelector('#scroll-location');
+    section.scrollIntoView({ behavior: 'smooth', block: 'start' });
   }
 
   render() {
@@ -96,7 +96,7 @@ export default class AdminDashboard extends React.Component {
       <React.Fragment>
         <div className="sub-container">
           <PremiumFeatures handleClick={this.scrollToCreateNewAccounts} />
-          <div className='dark-divider' />
+          <div className='dark-divider' id="scroll-location" />
           <CreateNewAccounts
             addTeacherAccount={this.addTeacherAccount}
             error={error}
@@ -122,3 +122,5 @@ export default class AdminDashboard extends React.Component {
     );
   }
 }
+
+export default AdminDashboard
