@@ -197,31 +197,30 @@
   }
 
   #create_new_accounts {
-    display: flex;
-    flex-direction: row;
-    .header {
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      margin-bottom: 15px;
-      .text-black {
-        border-radius: 6px;
-        border: solid 1px black;
-      }
-    }
-    p {
-      font-size: 16px;
-      line-height: 1.62;
-      max-width: 850px;
-      span {
-        font-weight: bold;
-      }
+    position:relative;
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    grid-column-gap: 64px;
+    .left-section:before {
+      content:"";
+      position:absolute;
+      top:0;
+      left: 50%;
+      height:100%;
+      width:1px;
+      background:#CFCFCF;
     }
     .left-section {
-      flex: 1;
-      padding-right: 32px;
-      border-right: 1px solid #CFCFCF;
+      grid-column: 1;
+      display: contents;
+      box-sizing: border-box;
+      h2 {
+        grid-row: 1;
+        grid-column: 1;
+      }
       .form {
+        grid-row: 2;
+        grid-column: 1;
         background-color: #ffffff;
         padding: 24px;
         border: 1px solid #C0C0C0;
@@ -247,167 +246,66 @@
             width: 100%;
           }
         }
-        .info-section {
-          font-size: 16px;
-          color: #666666;
-          span {
-            font-weight: 700;
+        .info-section-container {
+          .info-section {
+            font-size: 16px;
+            color: #666666;
+            span {
+              font-weight: 700;
+            }
+            p {
+              font-weight: 400;
+            }
           }
-          p {
-            font-weight: 400;
-          }
-          &.first {
+          .info-section:first-of-type {
             margin-bottom: 24px;
           }
         }
       }
     }
     .right-section {
-      flex: 1;
-      padding-left: 32px;
-      .schools-list {
+      grid-column: 2;
+      display: contents;
+      box-sizing: border-box;
+      h2 {
+        grid-row: 1;
+        grid-column: 2;
+      }
+      .content-section {
+        display: flex;
+        flex-direction: column;
+        justify-content: space-between;
+        grid-row: 2;
+        grid-column: 2;
         background-color: #ffffff;
         padding: 24px;
         border: 1px solid #C0C0C0;
         border-radius: 12px;
         margin-top: 32px;
-        .school {
-          display: flex;
-          align-items: center;
-          border: 1px solid #C0C0C0;
-          border-radius: 8px;
-          padding: 16px;
-          img {
-            width: 21px;
-            height: auto;
-            margin-right: 8px;
+        .schools-list {
+          .school {
+            display: flex;
+            align-items: center;
+            border: 1px solid #C0C0C0;
+            border-radius: 8px;
+            padding: 16px;
+            img {
+              width: 21px;
+              height: auto;
+              margin-right: 8px;
+            }
           }
-        }
-        .need-access-text {
-          font-style: italic;
-          color: #969696;
-          a {
-            font-style: normal;
-            font-weight: 700;
+          .need-access-text {
+            font-style: italic;
+            color: #969696;
+            a {
+              font-style: normal;
+              font-weight: 700;
+            }
           }
         }
       }
     }
-    // .left-section {
-    //   display: flex;
-    //   margin-top: 50px;
-    //   @media (max-width: 475px){
-    //     flex-direction: column;
-    //     .form {
-    //       margin-right: none;
-    //       padding-right: 0px;
-    //       margin-bottom: 30px;
-    //     }
-    //   }
-    //   .form {
-    //     max-width: 586px;
-    //     width: 100%;
-    //     border: 1px solid #C0C0C0;
-    //     border-radius: 12px;
-    //     padding-right: 55px;
-    //     background-color: #ffffff;
-    //     padding: 24px
-    //     input {
-    //       margin-right: 0px;
-    //     }
-    //     .dropdown__control {
-    //       background-color: transparent;
-    //     }
-    //     .first-line, .second-line {
-    //       margin-bottom: 20px;
-    //     }
-    //     .first-line {
-    //       display: flex;
-    //       justify-content: space-between;
-    //       @media (max-width: 1000px) {
-    //         flex-direction: column;
-    //         margin-bottom: 0px;
-    //         input {
-    //           margin-bottom: 20px;
-    //           width: 100%;
-    //           max-width: 520px !important;
-    //         }
-    //       }
-    //     }
-    //     .second-line {
-    //       position: relative;
-    //       max-width: 521px;
-    //       width: 100%;
-    //       &:focus {
-    //         outline: none;
-    //       }
-    //       button {
-    //         &.select-gray {
-    //           background: white;
-    //           color: #757575;
-    //           margin-top: 0px !important;
-    //         }
-    //         &:focus {
-    //           outline: none;
-    //         }
-    //       }
-    //       .dropdown-menu {
-    //         margin: 0px;
-    //         cursor: pointer;
-    //         width: 100%;
-    //         border-radius: 5px;
-    //         li {
-    //           height: 25px;
-    //           color: #757575;
-    //           display: flex;
-    //           align-items: center;
-    //           padding-left: 14px;
-    //         }
-    //       }
-    //     }
-    //     .first-name, .last-name {
-    //       width: 150px;
-    //     }
-    //     .email {
-    //       max-width: 200px;
-    //       width: 100%;
-    //     }
-    //   }
-    //   .schools {
-    //     margin-left: 25px;
-    //     max-width: 350px;
-    //     width: 100%;
-    //     .schools-list {
-    //       background-color: white;
-    //       padding: 0 20px;
-    //       margin: 15px 0px;
-    //       max-width: 350px;
-    //       width: 100%;
-    //       .school {
-    //         font-size: 14px;
-    //         height: 45px;
-    //         display: flex;
-    //         align-items: center;
-    //         border-bottom: solid 1px #e9e9e9;
-    //         &:last-of-type {
-    //           border-bottom: none;
-    //         }
-    //         img {
-    //           height: 20px;
-    //           margin-right: 15px;
-    //         }
-    //       }
-    //     }
-    //   .need-access {
-    //     font-size: 14px;
-    //     font-style: italic;
-    //     color: #969696;
-    //     a {
-    //       text-decoration: underline;
-    //     }
-    //   }
-    //   }
-    // }
   }
 
   #q-and-a {

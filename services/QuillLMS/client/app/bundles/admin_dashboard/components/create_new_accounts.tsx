@@ -110,23 +110,29 @@ class CreateNewAccounts extends React.Component<any, any> {
               <button className="quill-button small primary contained add-teacher-account-button" onClick={this.handleAddTeacherAccountClick} type="button">Add Teacher Account</button>
             </section>
             <div className='light-divider' />
-            <section className="info-section first">
-              <span>Teachers New to Quill?</span>
-              <p>Input their information to create new Quill accounts.</p>
-            </section>
-            <section className="info-section">
-              <span>Teachers Have Quill Accounts?</span>
-              <p>When you submit their information, they will receive an email instructing them to link their accounts to your school. Teachers can link to their school from the My Account page. {supportLink}</p>
+            <section className="info-section-container">
+              <section className="info-section">
+                <span>Teachers New to Quill?</span>
+                <p>Input their information to create new Quill accounts.</p>
+              </section>
+              <section className="info-section">
+                <span>Teachers Have Quill Accounts?</span>
+                <p>When you submit their information, they will receive an email instructing them to link their accounts to your school. Teachers can link to their school from the My Account page. {supportLink}</p>
+              </section>
             </section>
           </div>
         </section>
         <section className="right-section">
           <h2>You have admin access to these schools:</h2>
-          <div className="schools-list">
-            {this.schoolsList()}
-            <div className='light-divider' />
-            <p className="need-access-text">Need access to additional schools? <a className="green-link" href="mailto:hello@quill.org">Email support@quill.org</a></p>
-          </div>
+          <section className="content-section">
+            <div className="schools-list">
+              {this.schoolsList()}
+            </div>
+            <section className="bottom-section">
+              <div className='light-divider' />
+              <p className="need-access-text">Need access to additional schools? <a className="green-link" href="mailto:hello@quill.org">Email support@quill.org</a></p>
+            </section>
+          </section>
         </section>
         {this.renderError()}
         {this.renderMessage()}
