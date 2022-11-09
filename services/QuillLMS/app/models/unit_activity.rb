@@ -105,20 +105,17 @@ class UnitActivity < ApplicationRecord
     self.publish_date = publish_date.in_time_zone('UTC') - unit.user.utc_offset
   end
 
+  def hide_all_activity_sessions
+    unit
+      &.activity_sessions
+      &.where(activity: activity)
+      &.update_all(visible: false)
+  end
+
   private def hide_appropriate_activity_sessions
     return if visible
 
     hide_all_activity_sessions
-  end
-
-  private def hide_all_activity_sessions
-    return unless unit&.classroom_units
-
-    unit.classroom_units.each do |cu|
-      cu.activity_sessions.each do |as|
-        as.update(visible: false) if as.activity == activity
-      end
-    end
   end
 
   def self.get_classroom_user_profile(classroom_id, user_id)
