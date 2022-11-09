@@ -29,18 +29,25 @@ class CreateNewAccounts extends React.Component<any, any> {
 
   schoolsList = () => {
     const { schools, } = this.props
-    return schools.map(school =>
-      <div className="school" key={school.id}><img alt="" src="https://assets.quill.org/images/icons/school_icon_admin.svg" />{school.name}</div>
-    )
+    return schools.map(school => {
+      const { id, name } = school
+      return(
+        <div className="school" key={id}>
+          <img alt="" src="https://assets.quill.org/images/icons/school_icon_admin.svg" />
+          <p>{name}</p>
+        </div>
+      )
+    })
   }
 
   schoolOptions = () => {
     const { schools, } = this.props
     return schools.map(school => {
+      const { name, id } = school
       return {
-        name: school.name,
-        value: school.id,
-        label: school.name
+        name: name,
+        value: id,
+        label: name
       }
     })
   }
@@ -82,9 +89,7 @@ class CreateNewAccounts extends React.Component<any, any> {
     return (
       <div id="create_new_accounts">
         <section className="left-section">
-          <div className="header">
-            <h2>Create New Accounts & Link Existing Teachers</h2>
-          </div>
+          <h2>Create New Accounts & Link Existing Teachers</h2>
           <div className="form">
             <section className="first-section">
               <section className="name-inputs-container">
@@ -116,14 +121,11 @@ class CreateNewAccounts extends React.Component<any, any> {
           </div>
         </section>
         <section className="right-section">
-          <div className="form-and-schools-list">
-            <div className="schools">
-              <p>You have admin access to these schools:</p>
-              <div className="schools-list">
-                {this.schoolsList()}
-              </div>
-              <p className="need-access pull-right">Need access to additional schools? <a className="green-link" href="mailto:hello@quill.org">Email Quill</a></p>
-            </div>
+          <h2>You have admin access to these schools:</h2>
+          <div className="schools-list">
+            {this.schoolsList()}
+            <div className='light-divider' />
+            <p className="need-access-text">Need access to additional schools? <a className="green-link" href="mailto:hello@quill.org">Email support@quill.org</a></p>
           </div>
         </section>
         {this.renderError()}

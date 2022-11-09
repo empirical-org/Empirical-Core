@@ -14,8 +14,8 @@
   }
 
   h2 {
-    font-size: 24px;
-    font-weight: 600;
+    font-size: 26px;
+    font-weight: 700;
   }
 
   section {
@@ -198,6 +198,7 @@
 
   #create_new_accounts {
     display: flex;
+    flex-direction: row;
     .header {
       display: flex;
       justify-content: space-between;
@@ -217,10 +218,15 @@
       }
     }
     .left-section {
+      flex: 1;
+      padding-right: 32px;
+      border-right: 1px solid #CFCFCF;
       .form {
         background-color: #ffffff;
         padding: 24px;
+        border: 1px solid #C0C0C0;
         border-radius: 12px;
+        margin-top: 32px;
         .first-section {
           .name-inputs-container {
             display: flex;
@@ -252,6 +258,37 @@
           }
           &.first {
             margin-bottom: 24px;
+          }
+        }
+      }
+    }
+    .right-section {
+      flex: 1;
+      padding-left: 32px;
+      .schools-list {
+        background-color: #ffffff;
+        padding: 24px;
+        border: 1px solid #C0C0C0;
+        border-radius: 12px;
+        margin-top: 32px;
+        .school {
+          display: flex;
+          align-items: center;
+          border: 1px solid #C0C0C0;
+          border-radius: 8px;
+          padding: 16px;
+          img {
+            width: 21px;
+            height: auto;
+            margin-right: 8px;
+          }
+        }
+        .need-access-text {
+          font-style: italic;
+          color: #969696;
+          a {
+            font-style: normal;
+            font-weight: 700;
           }
         }
       }
