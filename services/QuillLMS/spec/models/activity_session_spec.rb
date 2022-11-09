@@ -1071,4 +1071,17 @@ end
       expect(teacher_feed.size).to eq(1)
     end
   end
+
+  context 'callbacks' do
+    let(:activity_session) { create(:activity_session)}
+
+    context 'after_destroy' do
+      subject { activity_session.destroy }
+
+      it do
+        expect(activity_session).to receive(:save_user_pack_sequence_items)
+        subject
+      end
+    end
+  end
 end

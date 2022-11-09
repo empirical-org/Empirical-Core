@@ -152,6 +152,8 @@ class User < ApplicationRecord
   has_many :change_logs
   has_many :stripe_checkout_sessions, dependent: :destroy
 
+  has_many :user_pack_sequence_items, dependent: :destroy
+
   accepts_nested_attributes_for :auth_credential
 
   delegate :name, :mail_city, :mail_state,

@@ -13,8 +13,9 @@
 #
 # Indexes
 #
-#  index_pack_sequences_on_classroom_id            (classroom_id)
-#  index_pack_sequences_on_diagnostic_activity_id  (diagnostic_activity_id)
+#  index_pack_sequences_on_classroom_id                             (classroom_id)
+#  index_pack_sequences_on_classroom_id_and_diagnostic_activity_id  (classroom_id,diagnostic_activity_id) UNIQUE
+#  index_pack_sequences_on_diagnostic_activity_id                   (diagnostic_activity_id)
 #
 # Foreign Keys
 #
@@ -26,14 +27,13 @@ class PackSequence < ApplicationRecord
     STAGGERED_RELEASE = 'staggered'
   ]
 
-  ID_KEY = 'pack_sequence_id'
-  RELEASE_METHOD_KEY = 'pack_sequence_release_method'
-
   belongs_to :classroom
   belongs_to :diagnostic_activity, class_name: 'Activity'
 
   has_many :pack_sequence_items, dependent: :destroy
   has_many :user_pack_sequence_items, through: :pack_sequence_items
+
+  scope :staggered, -> { where(release_method: STAGGERED_RELEASE) }
 
   validates :release_method, inclusion: { in: RELEASE_METHODS }
 end

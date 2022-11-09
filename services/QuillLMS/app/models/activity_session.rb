@@ -60,6 +60,7 @@ class ActivitySession < ApplicationRecord
   MAX_4_BYTE_INTEGER_SIZE = 2147483647
 
   default_scope { where(visible: true)}
+
   has_many :feedback_sessions, foreign_key: :activity_session_uid, primary_key: :uid
   has_many :feedback_histories, through: :feedback_sessions
   belongs_to :classroom_unit, touch: true
@@ -76,8 +77,6 @@ class ActivitySession < ApplicationRecord
 
   validate :correctly_assigned, :on => :create
 
-
-  # ownable :user
   belongs_to :user
 
   before_create :set_state
@@ -87,6 +86,8 @@ class ActivitySession < ApplicationRecord
   after_save :record_teacher_activity_feed, if: [:saved_change_to_completed_at?, :completed?]
 
   after_commit :invalidate_activity_session_count_if_completed
+
+  after_destroy :save_user_pack_sequence_items
 
   around_save   :trigger_events
 
@@ -110,14 +111,6 @@ class ActivitySession < ApplicationRecord
     .group(:user_id)
   }
 
-  # scope :started_or_better, -> { where("state != 'unstarted'") }
-  #
-  # scope :current_session, -> {
-  #   complete_session   = completed.first
-  #   incomplete_session = incomplete.first
-  #   (complete_session || incomplete_session)
-  # }
-
   RESULTS_PER_PAGE = 25
 
   CONCEPT_UIDS_TO_EXCLUDE_FROM_REPORT = [
@@ -131,7 +124,6 @@ class ActivitySession < ApplicationRecord
   NEARLY_PROFICIENT = 'Nearly proficient'
   NOT_YET_PROFICIENT = 'Not yet proficient'
   COMPLETED = 'Completed'
-  FINISHED_STATE = 'finished'
 
   def self.paginate(current_page, per_page)
     offset = (current_page.to_i - 1) * per_page
@@ -164,7 +156,11 @@ class ActivitySession < ApplicationRecord
   end
 
   def finished?
-    state == FINISHED_STATE
+    state == STATE_FINISHED
+  end
+
+  def unstarted?
+    state == STATE_UNSTARTED
   end
 
   def self.time_tracking_sum(time_tracking)
@@ -383,6 +379,10 @@ class ActivitySession < ApplicationRecord
     return unless state == 'finished' && classroom_id
 
     $redis.del("classroom_id:#{classroom_id}_completed_activity_count")
+  end
+
+  def save_user_pack_sequence_items
+    UserPackSequenceItemSaver.run(classroom.id, user_id)
   end
 
   def self.save_concept_results(activity_sessions, concept_results)

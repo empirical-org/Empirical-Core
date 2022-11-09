@@ -2850,7 +2850,7 @@ ALTER SEQUENCE public.objectives_id_seq OWNED BY public.objectives.id;
 
 CREATE TABLE public.pack_sequence_items (
     id bigint NOT NULL,
-    item_id bigint,
+    unit_id bigint,
     pack_sequence_id bigint,
     "order" integer,
     created_at timestamp(6) without time zone NOT NULL,
@@ -7270,13 +7270,6 @@ CREATE UNIQUE INDEX index_oauth_applications_on_uid ON public.oauth_applications
 
 
 --
--- Name: index_pack_sequence_items_on_item_id; Type: INDEX; Schema: public; Owner: -
---
-
-CREATE INDEX index_pack_sequence_items_on_item_id ON public.pack_sequence_items USING btree (item_id);
-
-
---
 -- Name: index_pack_sequence_items_on_pack_sequence_id; Type: INDEX; Schema: public; Owner: -
 --
 
@@ -7284,10 +7277,31 @@ CREATE INDEX index_pack_sequence_items_on_pack_sequence_id ON public.pack_sequen
 
 
 --
+-- Name: index_pack_sequence_items_on_pack_sequence_id_and_unit_id; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE UNIQUE INDEX index_pack_sequence_items_on_pack_sequence_id_and_unit_id ON public.pack_sequence_items USING btree (pack_sequence_id, unit_id);
+
+
+--
+-- Name: index_pack_sequence_items_on_unit_id; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX index_pack_sequence_items_on_unit_id ON public.pack_sequence_items USING btree (unit_id);
+
+
+--
 -- Name: index_pack_sequences_on_classroom_id; Type: INDEX; Schema: public; Owner: -
 --
 
 CREATE INDEX index_pack_sequences_on_classroom_id ON public.pack_sequences USING btree (classroom_id);
+
+
+--
+-- Name: index_pack_sequences_on_classroom_id_and_diagnostic_activity_id; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE UNIQUE INDEX index_pack_sequences_on_classroom_id_and_diagnostic_activity_id ON public.pack_sequences USING btree (classroom_id, diagnostic_activity_id);
 
 
 --
@@ -7914,6 +7928,13 @@ CREATE INDEX name_idx ON public.users USING gin (name public.gin_trgm_ops);
 
 
 --
+-- Name: on_user_pack_sequence_items_on_user_and_pack_sequence_item; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE UNIQUE INDEX on_user_pack_sequence_items_on_user_and_pack_sequence_item ON public.user_pack_sequence_items USING btree (user_id, pack_sequence_item_id);
+
+
+--
 -- Name: tsv_idx; Type: INDEX; Schema: public; Owner: -
 --
 
@@ -8315,7 +8336,7 @@ ALTER TABLE ONLY public.comprehension_highlights
 --
 
 ALTER TABLE ONLY public.pack_sequence_items
-    ADD CONSTRAINT fk_rails_a1e39dcd4a FOREIGN KEY (item_id) REFERENCES public.units(id);
+    ADD CONSTRAINT fk_rails_a1e39dcd4a FOREIGN KEY (unit_id) REFERENCES public.units(id);
 
 
 --
@@ -8989,6 +9010,10 @@ INSERT INTO "schema_migrations" (version) VALUES
 ('20221019184933'),
 ('20221019185354'),
 ('20221020131338'),
+('20221021134756'),
+('20221103152535'),
+('20221103152545'),
+('20221103152559'),
 ('20221109181742'),
 ('20221109182042'),
 ('20221109182145');
