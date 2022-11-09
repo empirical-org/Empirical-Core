@@ -15,8 +15,10 @@ class UserPackSequenceItemSaver < ApplicationService
   end
 
   def run
-    compute_statuses
-    save_statuses
+    ActiveRecord::Base.transaction do
+      compute_statuses
+      save_statuses
+    end
   end
 
   private def compute_statuses
@@ -37,12 +39,10 @@ class UserPackSequenceItemSaver < ApplicationService
   end
 
   private def save_statuses
-    ActiveRecord::Base.transaction do
-      user_pack_sequence_item_statuses.each_pair do |pack_sequence_item_id, status|
-        UserPackSequenceItem
-          .find_or_create_by!(user_id: user_id, pack_sequence_item_id: pack_sequence_item_id)
-          .tap { |upsi| upsi.update!(status: status) unless status == upsi.status }
-      end
+    user_pack_sequence_item_statuses.each_pair do |pack_sequence_item_id, status|
+      UserPackSequenceItem
+        .find_or_create_by!(user_id: user_id, pack_sequence_item_id: pack_sequence_item_id)
+        .tap { |upsi| upsi.update!(status: status) unless status == upsi.status }
     end
   end
 

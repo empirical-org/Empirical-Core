@@ -28,8 +28,6 @@ class UserPackSequenceItem < ApplicationRecord
     UNLOCKED = 'unlocked'
   ]
 
-  NO_LOCK = 'no_lock'
-
   belongs_to :user
   belongs_to :pack_sequence_item
 

@@ -235,7 +235,7 @@ describe ProfilesController, type: :controller do
                 'publish_date' => unit_activity.publish_date,
                 'pre_activity_id' => pre_test&.id,
                 'unit_activity_created_at' => classroom_unit.created_at,
-                'user_pack_sequence_item_status' => UserPackSequenceItem::NO_LOCK,
+                'user_pack_sequence_item_status' => nil,
                 'locked' => unit_activity.classroom_unit_activity_states[0].locked,
                 'pinned' => unit_activity.classroom_unit_activity_states[0].pinned,
                 'max_percentage' => activity_session&.percentage,

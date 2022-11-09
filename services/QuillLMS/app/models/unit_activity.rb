@@ -150,7 +150,7 @@ class UnitActivity < ApplicationRecord
           ua.publish_date #{teacher_timezone_offset_string} AS publish_date,
           pre_activity.id AS pre_activity_id,
           cu.created_at AS unit_activity_created_at,
-          COALESCE(upsi.status, '#{UserPackSequenceItem::NO_LOCK}') AS user_pack_sequence_item_status,
+          upsi.status AS user_pack_sequence_item_status,
           COALESCE(cuas.locked, false) AS locked,
           COALESCE(cuas.pinned, false) AS pinned,
           MAX(acts.percentage) AS max_percentage,
