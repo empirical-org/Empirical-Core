@@ -13,8 +13,9 @@
 #
 # Indexes
 #
-#  index_pack_sequences_on_classroom_id            (classroom_id)
-#  index_pack_sequences_on_diagnostic_activity_id  (diagnostic_activity_id)
+#  index_pack_sequences_on_classroom_id                             (classroom_id)
+#  index_pack_sequences_on_classroom_id_and_diagnostic_activity_id  (classroom_id,diagnostic_activity_id) UNIQUE
+#  index_pack_sequences_on_diagnostic_activity_id                   (diagnostic_activity_id)
 #
 # Foreign Keys
 #

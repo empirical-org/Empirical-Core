@@ -60,7 +60,7 @@ class AssignRecommendationsWorker
     return if pack_sequence_id.nil? || unit.nil?
 
     PackSequenceItem.find_or_create_by!(
-      item_id: unit.id,
+      unit: unit,
       pack_sequence_id: pack_sequence_id,
       order: order
     )

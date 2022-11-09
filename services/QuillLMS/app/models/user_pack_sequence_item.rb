@@ -13,8 +13,9 @@
 #
 # Indexes
 #
-#  index_user_pack_sequence_items_on_pack_sequence_item_id  (pack_sequence_item_id)
-#  index_user_pack_sequence_items_on_user_id                (user_id)
+#  index_user_pack_sequence_items_on_pack_sequence_item_id     (pack_sequence_item_id)
+#  index_user_pack_sequence_items_on_user_id                   (user_id)
+#  on_user_pack_sequence_items_on_user_and_pack_sequence_item  (user_id,pack_sequence_item_id) UNIQUE
 #
 # Foreign Keys
 #
