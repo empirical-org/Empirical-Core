@@ -107,6 +107,7 @@ class User < ApplicationRecord
 
   has_secure_password validations: false
   has_one :auth_credential, dependent: :destroy
+  has_one :teacher_info, dependent: :destroy
   has_many :checkboxes
   has_many :credit_transactions
   has_many :invitations, foreign_key: 'inviter_id'
