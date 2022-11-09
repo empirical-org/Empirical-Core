@@ -13,8 +13,9 @@
 #
 # Indexes
 #
-#  index_pack_sequences_on_classroom_id            (classroom_id)
-#  index_pack_sequences_on_diagnostic_activity_id  (diagnostic_activity_id)
+#  index_pack_sequences_on_classroom_id                             (classroom_id)
+#  index_pack_sequences_on_classroom_id_and_diagnostic_activity_id  (classroom_id,diagnostic_activity_id) UNIQUE
+#  index_pack_sequences_on_diagnostic_activity_id                   (diagnostic_activity_id)
 #
 # Foreign Keys
 #
@@ -32,4 +33,19 @@ RSpec.describe PackSequence, type: :model do
   it { expect(subject).to be_valid }
 
   it { expect(subject.release_method).to eq PackSequence::STAGGERED_RELEASE }
+
+  context 'constraints' do
+    context 'uniqueness of classroom and diagnostic_activity' do
+      let(:pack_sequence) { create(:pack_sequence) }
+
+      let(:duplicate_pack_sequence) do
+        create(:pack_sequence,
+          classroom: pack_sequence.classroom,
+          diagnostic_activity: pack_sequence.diagnostic_activity
+        )
+      end
+
+      it { expect { duplicate_pack_sequence }.to raise_error ActiveRecord::RecordNotUnique }
+    end
+  end
 end
