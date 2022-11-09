@@ -44,6 +44,8 @@ class ClassroomUnit < ApplicationRecord
   # on save or touch, and touch explicitly bypasses after_save hooks
   after_commit :touch_classroom_without_callbacks
 
+  after_destroy :save_user_pack_sequence_items
+
   # this method does not seem to be getting used, but leaving it in for the tests for now
   def assigned_students
     User.where(id: assigned_student_ids)
@@ -124,4 +126,9 @@ class ClassroomUnit < ApplicationRecord
   private def touch_classroom_without_callbacks
     classroom&.update_columns(updated_at: current_time_from_proper_timezone) unless classroom&.destroyed?
   end
+
+  private def save_user_pack_sequence_items
+    assigned_student_ids.each { |student_id| SaveUserPackSequenceItemsWorker.perform_async(classroom.id, student_id)}
+  end
 end
+

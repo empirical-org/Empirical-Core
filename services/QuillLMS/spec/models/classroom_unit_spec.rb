@@ -37,16 +37,17 @@ describe ClassroomUnit, type: :model, redis: true do
   it { is_expected.to callback(:hide_appropriate_activity_sessions).after(:save) }
 
   let!(:activity) { create(:activity) }
-  let!(:student) { create(:user, role: 'student', username: 'great', name: 'hi hi', password: 'pwd') }
-  let!(:student2) { create(:user, role: 'student', username: 'good', name: 'bye bye', password: 'pwd') }
+  let!(:student) { create(:student, username: 'great', name: 'hi hi', password: 'pwd') }
+  let!(:student2) { create(:student, username: 'good', name: 'bye bye', password: 'pwd') }
   let!(:classroom) { create(:classroom, students: [student]) }
   let!(:classroom2) { create(:classroom) }
   let!(:teacher) {classroom.owner}
   let!(:unit) { create(:unit) }
   let!(:unit2) { create(:unit) }
   let!(:unit3) { create(:unit) }
-  let!(:classroom_unit) { create(:classroom_unit, classroom: classroom, unit: unit, assigned_student_ids: [student.id]) }
-  let!(:activity_session) {create(:activity_session, classroom_unit_id: classroom_unit.id, user_id: student.id, state: 'unstarted')}
+  let!(:assigned_student_ids) { [student.id] }
+  let!(:classroom_unit) { create(:classroom_unit, classroom: classroom, unit: unit, assigned_student_ids: assigned_student_ids) }
+  let!(:activity_session) {create(:activity_session, :unstarted, classroom_unit: classroom_unit, user: student) }
 
   describe '#assigned_students' do
     let(:classroom_unit_with_no_assigned_students) { create(:classroom_unit, unit: unit2, classroom: classroom2, assigned_student_ids: []) }
@@ -187,6 +188,16 @@ describe ClassroomUnit, type: :model, redis: true do
       it "should not raise an error" do
         expect {classroom_unit.save}.to_not raise_error
       end
+    end
+  end
+
+  describe '#save_user_pack_sequence_items' do
+    context 'after_destroy' do
+      subject { classroom_unit.destroy }
+
+      let(:num_assigned_students) { assigned_student_ids.count }
+
+      it { expect { subject }.to change { SaveUserPackSequenceItemsWorker.jobs.size }.by(num_assigned_students) }
     end
   end
 end
