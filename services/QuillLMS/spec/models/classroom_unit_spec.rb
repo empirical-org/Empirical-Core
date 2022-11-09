@@ -37,8 +37,8 @@ describe ClassroomUnit, type: :model, redis: true do
   it { is_expected.to callback(:hide_appropriate_activity_sessions).after(:save) }
 
   let!(:activity) { create(:activity) }
-  let!(:student) { create(:student, username: 'great', name: 'hi hi', password: 'pwd') }
-  let!(:student2) { create(:student, username: 'good', name: 'bye bye', password: 'pwd') }
+  let!(:student) { create(:student) }
+  let!(:student2) { create(:student) }
   let!(:classroom) { create(:classroom, students: [student]) }
   let!(:classroom2) { create(:classroom) }
   let!(:teacher) {classroom.owner}
@@ -192,6 +192,26 @@ describe ClassroomUnit, type: :model, redis: true do
   end
 
   describe '#save_user_pack_sequence_items' do
+    context 'after_save' do
+      context 'assigned_student_ids has changed' do
+        let!(:activity_session) {create(:activity_session, :unstarted, classroom_unit: classroom_unit, user: student2) }
+        let(:new_assigned_student_ids) { [student.id, student2.id] }
+        let(:num_assigned_students) { new_assigned_student_ids.count }
+
+        subject { classroom_unit.update(assigned_student_ids: new_assigned_student_ids) }
+
+        it { expect { subject }.to change { SaveUserPackSequenceItemsWorker.jobs.size }.by(num_assigned_students) }
+      end
+
+      context 'visible has changed' do
+        let(:num_assigned_students) { assigned_student_ids.count }
+
+        subject { classroom_unit.update(visible: false) }
+
+        it { expect { subject }.to change { SaveUserPackSequenceItemsWorker.jobs.size }.by(num_assigned_students) }
+      end
+    end
+
     context 'after_destroy' do
       subject { classroom_unit.destroy }
 
