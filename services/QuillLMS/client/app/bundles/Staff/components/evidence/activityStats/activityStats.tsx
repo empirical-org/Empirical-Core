@@ -5,9 +5,9 @@ import { useQuery } from 'react-query';
 import * as _ from 'lodash'
 
 import FilterWidget from "../shared/filterWidget";
+import { fetchActivityHealth, fetchPromptHealth } from '../../../utils/evidence/ruleFeedbackHistoryAPIs';
 import { ActivityRouteProps, PromptHealthInterface, DropdownObjectInterface } from '../../../interfaces/evidenceInterfaces';
 import { fetchActivity, fetchActivityVersions } from '../../../utils/evidence/activityAPIs';
-import { fetchPromptHealth } from '../../../utils/evidence/ruleFeedbackHistoryAPIs';
 import { Spinner, ReactTable, } from '../../../../Shared/index';
 import { handlePageFilterClick, getVersionOptions } from '../../../helpers/evidence/miscHelpers';
 import { renderHeader } from '../../../helpers/evidence/renderHelpers';
@@ -29,6 +29,12 @@ const ActivityStats: React.FC<RouteComponentProps<ActivityRouteProps>> = ({ hist
   const [startDateForQuery, setStartDate] = React.useState<string>(initialStartDateString);
   const [endDate, onEndDateChange] = React.useState<Date>(initialEndDate);
   const [endDateForQuery, setEndDate] = React.useState<string>(initialEndDateString);
+
+  // get cached activity data to pass to rule
+  const { data: activityHealthData } = useQuery({
+    queryKey: [`activity-health-by-activity-${activityId}`, activityId],
+    queryFn: fetchActivityHealth
+  });
 
   // get cached activity data to pass to rule
   const { data: activityData } = useQuery({
@@ -87,6 +93,8 @@ const ActivityStats: React.FC<RouteComponentProps<ActivityRouteProps>> = ({ hist
       num_sessions_with_non_consecutive_repeated_rule,
       num_first_attempt_optimal,
       num_first_attempt_not_optimal,
+      avg_time_spent,
+      avg_confidence
     } = prompt;
 
     const percentageOptimalFinalAttempt = _.round(num_final_attempt_optimal / session_count * 100, 2)
@@ -107,6 +115,8 @@ const ActivityStats: React.FC<RouteComponentProps<ActivityRouteProps>> = ({ hist
       ruleRepeatedNotConsecutiveData:  `${percentageNotConsecutiveRepeatedRule}% (${num_sessions_with_non_consecutive_repeated_rule})`,
       averageAttempts: _.round(avg_attempts, 2),
       firstAttemptData: `${percentageOptimalFirstAttempt}% (${num_first_attempt_optimal}) | ${percentageNotOptimalFirstAttempt}% (${num_first_attempt_not_optimal})`,
+      averageTimeSpent: avg_time_spent,
+      averageAutoMLConfidence: `${avg_confidence}%`,
     }
   })
 
@@ -142,6 +152,12 @@ const ActivityStats: React.FC<RouteComponentProps<ActivityRouteProps>> = ({ hist
       width: 120,
     },
     {
+      Header: 'AutoML Confidence',
+      accessor: "averageAutoMLConfidence",
+      key: "averageAutoMLConfidence",
+      width: 120,
+    },
+    {
       Header: 'Rule Repeated: Consecutive Attempt',
       accessor: "ruleRepeatedConsecutiveData",
       key: "ruleRepeatedConsecutiveData",
@@ -158,12 +174,25 @@ const ActivityStats: React.FC<RouteComponentProps<ActivityRouteProps>> = ({ hist
       accessor: "firstAttemptData",
       key: "firstAttemptData",
       width: 160,
+    },
+    {
+      Header: 'Time Spent',
+      accessor: "averageTimeSpent",
+      key: "averageTimeSpent",
+      width: 160,
     }
   ];
 
   if (!formattedRows) {
     return <Spinner />
   }
+
+  const activityHealth = (
+    <div>
+      <p><strong>Average Time Spent: </strong>{activityHealthData && activityHealthData.activity ? activityHealthData.activity.average_time_spent : "Loading..."}</p>
+      <p><strong>Average Completion Rate: </strong> {activityHealthData && activityHealthData.activity ? `${activityHealthData.activity.average_completion_rate}% Completed` : "Loading..."}</p>
+    </div>
+  )
 
   return(
     <div className="activity-stats-container">
@@ -178,6 +207,7 @@ const ActivityStats: React.FC<RouteComponentProps<ActivityRouteProps>> = ({ hist
         startDate={startDate}
         versionOptions={versionOptions}
       />
+      {activityHealth}
       {formattedRows && (<ReactTable
         className="activity-stats-table"
         columns={dataTableFields}

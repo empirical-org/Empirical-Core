@@ -57,6 +57,10 @@ export const getActivityStatsUrl = ({ activityId, startDate, endDate }) => {
   return url;
 };
 
+export const getActivityHealthUrl = ({ activityId }) => {
+  return `activity_health?activity_id=${activityId}`;
+}
+
 // not a 2xx status
 export const requestFailed = (status: number ) => Math.round(status / 100) !== 2;
 
