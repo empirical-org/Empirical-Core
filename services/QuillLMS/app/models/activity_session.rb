@@ -618,6 +618,6 @@ class ActivitySession < ApplicationRecord
   end
 
   private def save_user_pack_sequence_items
-    SaveUserPackSequenceItemsWorker.perform_async(classroom.id, user_id)
+    SaveUserPackSequenceItemsWorker.perform_async(classroom&.id, user_id)
   end
 end
