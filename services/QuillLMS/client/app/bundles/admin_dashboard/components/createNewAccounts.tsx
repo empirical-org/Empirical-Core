@@ -80,7 +80,7 @@ export class CreateNewAccounts extends React.Component<any, any> {
 
   render() {
     const { firstName, lastName, email, school, } = this.state
-    const supportLink = <a className="green-link" href="http://support.quill.org/getting-started-for-teachers/manage-classes/how-can-i-connect-my-account-to-my-school" target="_blank"> Here&#39;s the guide</a>
+    const supportLink = <a className="green-link" href="http://support.quill.org/getting-started-for-teachers/manage-classes/how-can-i-connect-my-account-to-my-school" rel="noopener noreferrer" target="_blank"> Here&#39;s the guide</a>
 
     return (
       <div className="create-new-accounts-container">
