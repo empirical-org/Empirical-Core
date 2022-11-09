@@ -39,22 +39,53 @@ class PromptFeedbackHistory
     query
   end
 
-  # rubocop:disable Metrics/CyclomaticComplexity
   def self.serialize_results(results)
-    serialized_rows = results.map do |result|
-      payload = result.serializable_hash(
-        only: [:prompt_id, :total_responses, :session_count, :display_name, :num_final_attempt_optimal, :num_final_attempt_not_optimal, :avg_attempts, :num_first_attempt_optimal, :num_first_attempt_not_optimal, :avg_time_spent, :avg_confidence],
-        include: []
-      )
-      payload['num_sessions_with_consecutive_repeated_rule'] = result.num_sessions_consecutive_repeated
-      payload['num_sessions_with_non_consecutive_repeated_rule'] = result.num_sessions_non_consecutive_repeated
-      payload['avg_attempts'] = payload['avg_attempts']&.round(2)&.to_f || 0
-      payload['avg_confidence'] = payload['avg_confidence'] ? payload['avg_confidence'].round(2) * 100 : 0
-      payload['avg_time_spent'] = payload['avg_time_spent'] ? Utils::Numeric.seconds_to_human_readable_time(payload['avg_time_spent']) : 0
-      payload
-    end
-    serialized_rows.map{ |row| [row['prompt_id'], row] }.to_h
+    results.to_h { |result| [result.prompt_id, ResultSerializer.new(result).run] }
   end
-  # rubocop:enable Metrics/CyclomaticComplexity
+
+  class ResultSerializer
+    SERIALIZED_ATTRIBUTES = [
+      :avg_attempts,
+      :avg_confidence,
+      :avg_time_spent,
+      :display_name,
+      :num_final_attempt_not_optimal,
+      :num_final_attempt_optimal,
+      :num_first_attempt_not_optimal,
+      :num_first_attempt_optimal,
+      :prompt_id,
+      :session_count,
+      :total_responses
+    ]
+
+    attr_reader :payload, :result
+
+    def initialize(result)
+      @result = result
+      @payload = result.serializable_hash(only: SERIALIZED_ATTRIBUTES, include: [])
+    end
+
+    def run
+      payload.merge(
+        'avg_attempts' => avg_attempts,
+        'avg_confidence' => avg_confidence,
+        'avg_time_spent' => avg_time_spent,
+        'num_sessions_with_consecutive_repeated_rule' =>  result.num_sessions_consecutive_repeated,
+        'num_sessions_with_non_consecutive_repeated_rule' => result.num_sessions_non_consecutive_repeated
+      )
+    end
+
+    def avg_attempts
+      payload['avg_attempts']&.round(2)&.to_f || 0
+    end
+
+    def avg_confidence
+      payload['avg_confidence'] ? payload['avg_confidence'].round(2) * 100 : 0
+    end
+
+    def avg_time_spent
+      payload['avg_time_spent'] ? Utils::Numeric.seconds_to_human_readable_time(payload['avg_time_spent']) : 0
+    end
+  end
 
 end
