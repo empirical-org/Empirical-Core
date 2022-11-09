@@ -33,6 +33,9 @@ class UnitActivity < ApplicationRecord
   has_many :classroom_unit_activity_states
 
   after_save :hide_appropriate_activity_sessions, :teacher_checkbox
+  after_save :save_user_pack_sequence_items, if: :saved_change_to_visible?
+
+  after_destroy :save_user_pack_sequence_items
 
   def teacher_checkbox
     return unless unit
@@ -116,6 +119,14 @@ class UnitActivity < ApplicationRecord
     return if visible
 
     hide_all_activity_sessions
+  end
+
+  private def save_user_pack_sequence_items
+    unit.classroom_units.each do |classroom_unit|
+      classroom_unit.assigned_student_ids.each do |student_id|
+        SaveUserPackSequenceItemsWorker.perform_async(classroom_unit.classroom_id, student_id)
+      end
+    end
   end
 
   def self.get_classroom_user_profile(classroom_id, user_id)
@@ -225,5 +236,4 @@ class UnitActivity < ApplicationRecord
      SQL
     )
   end
-
 end
