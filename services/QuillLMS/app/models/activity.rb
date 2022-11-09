@@ -71,6 +71,9 @@ class Activity < ApplicationRecord
   before_save :set_minimum_and_maximum_grade_levels_to_default_values, unless: :minimum_grade_level
   after_commit :clear_activity_search_cache
   after_save :update_evidence_child_title, if: :update_evidence_title?
+  after_save :log_evidence_flag_change, if: :update_evidence_flags?
+
+  attr_accessor :lms_user_id
 
   delegate :form_url, to: :classification, prefix: true
 
@@ -289,8 +292,26 @@ class Activity < ApplicationRecord
     is_evidence? && saved_change_to_name?
   end
 
+  private def update_evidence_flags?
+    is_evidence? && saved_change_to_flags? && child_activity
+  end
+
   private def update_evidence_child_title
     child_activity&.update(title: name)
+  end
+
+  private def log_evidence_flag_change
+    change_log = {
+      user_id: @lms_user_id,
+      action: ChangeLog::EVIDENCE_ACTIONS[:update],
+      changed_record_type: 'Evidence::Activity',
+      changed_record_id: child_activity&.id,
+      explanation: nil,
+      changed_attribute: "flags",
+      previous_value: previous_changes["flags"][0],
+      new_value: previous_changes["flags"][1]
+    }
+    ChangeLog.create(change_log)
   end
 
   private def data_must_be_hash

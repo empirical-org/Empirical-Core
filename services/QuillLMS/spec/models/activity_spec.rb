@@ -110,6 +110,30 @@ describe Activity, type: :model, redis: true do
           expect(activity.flags).to eq([:archived])
         end
       end
+
+      describe 'activity is evidence and the flag is being changed' do
+        let!(:evidence_activity) { create(:evidence_activity, flag: 'alpha') }
+        let!(:child_activity) { Evidence::Activity.create(title: "this is a child activity", notes: "note", parent_activity_id: evidence_activity.id)}
+        let!(:staff_user) { create(:user, role: 'staff') }
+
+        before do
+          evidence_activity.lms_user_id = staff_user.id
+        end
+
+        it 'creates a change log record' do
+          evidence_activity.update(flag: 'production')
+          child_activity = evidence_activity.child_activity
+
+          change_log = ChangeLog.last
+          expect(change_log.action).to eq(ChangeLog::EVIDENCE_ACTIONS[:update])
+          expect(change_log.user_id).to eq(staff_user.id)
+          expect(change_log.changed_record_type).to eq(child_activity.class.name)
+          expect(change_log.changed_record_id).to eq(child_activity.id)
+          expect(change_log.changed_attribute).to eq("flags")
+          expect(change_log.previous_value).to eq("[\"alpha\"]")
+          expect(change_log.new_value).to eq("[\"production\"]")
+        end
+      end
     end
   end
 

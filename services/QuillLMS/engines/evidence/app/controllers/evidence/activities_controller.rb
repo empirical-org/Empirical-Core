@@ -5,7 +5,7 @@ require_dependency 'evidence/application_controller'
 module Evidence
   class ActivitiesController < ApiController
     before_action :set_activity, only: [:activity_versions, :create, :show, :update, :destroy, :seed_data, :change_logs, :labeled_synthetic_data]
-    append_before_action :set_lms_user_id, only: [:create, :destroy]
+    before_action :set_lms_user_id, only: [:create, :destroy, :update]
 
     # GET /activities.json
     def index
