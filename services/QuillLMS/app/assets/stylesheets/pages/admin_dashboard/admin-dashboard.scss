@@ -224,6 +224,16 @@
         .second-section {
           display: flex;
           flex-direction: column;
+          .input-container  {
+            min-height: auto;
+            margin: 24px 0px;
+            .dropdown {
+              margin: 0;
+              .dropdown__control {
+                margin-bottom: 0;
+              }
+            }
+          }
           .add-teacher-account-button {
             width: 100%;
           }
