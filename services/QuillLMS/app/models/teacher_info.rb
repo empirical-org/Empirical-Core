@@ -1,5 +1,16 @@
 # frozen_string_literal: true
 
+# == Schema Information
+#
+# Table name: teacher_infos
+#
+#  id                  :bigint           not null, primary key
+#  minimum_grade_level :integer
+#  maximum_grade_level :integer
+#  teacher_id          :bigint
+#  created_at          :datetime         not null
+#  updated_at          :datetime         not null
+#
 class TeacherInfo < ApplicationRecord
   belongs_to :teacher, :class_name => 'User'
 
@@ -8,6 +19,7 @@ class TeacherInfo < ApplicationRecord
 
   validates :minimum_grade_level, numericality: { in: 0..12 }
   validates :maximum_grade_level, numericality: { in: 0..12 }
+  validates :teacher_id, presence: true, uniqueness: true
 
   KINDERGARTEN_DISPLAY_STRING = 'K'
   KINDERGARTEN_DATABASE_INTEGER = 0

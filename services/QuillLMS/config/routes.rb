@@ -161,7 +161,9 @@ EmpiricalGrammar::Application.routes.draw do
     delete :destroy_by_activity_id_for_current_user, on: :collection
   end
 
-  resources :teacher_infos, only: [:create, :update]
+  resources :teacher_infos, only: [:create] do
+    put :update, on: :collection
+  end
 
   get 'grades/tooltip/classroom_unit_id/:classroom_unit_id/user_id/:user_id/activity_id/:activity_id/completed/:completed' => 'grades#tooltip'
 
