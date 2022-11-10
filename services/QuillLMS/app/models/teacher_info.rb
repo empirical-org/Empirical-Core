@@ -12,14 +12,13 @@
 #  updated_at          :datetime         not null
 #
 class TeacherInfo < ApplicationRecord
-  belongs_to :teacher, :class_name => 'User'
+  belongs_to :teacher, :class_name => 'User', foreign_key: :teacher_id
 
   has_many :teacher_info_subject_areas, dependent: :destroy
   has_many :subject_areas, through: :teacher_info_subject_areas
 
   validates :minimum_grade_level, numericality: { in: 0..12 }
   validates :maximum_grade_level, numericality: { in: 0..12 }
-  validates :teacher_id, presence: true, uniqueness: true
 
   KINDERGARTEN_DISPLAY_STRING = 'K'
   KINDERGARTEN_DATABASE_INTEGER = 0
@@ -42,7 +41,7 @@ class TeacherInfo < ApplicationRecord
 
   def maximum_grade_level
     return KINDERGARTEN_DISPLAY_STRING if self[:maximum_grade_level] == KINDERGARTEN_DATABASE_INTEGER
-    
+
     super()
   end
 end

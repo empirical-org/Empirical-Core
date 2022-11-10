@@ -20,8 +20,6 @@ describe TeacherInfo, type: :model, redis: true do
 
   it {should validate_numericality_of(:minimum_grade_level)}
   it {should validate_numericality_of(:maximum_grade_level)}
-  it {should validate_presence_of(:teacher_id)}
-  it {should validate_uniqueness_of(:teacher_id)}
 
   describe 'minimum_grade_level=' do
     it 'should set the minimum grade level to 0 if it is passed in as K' do
