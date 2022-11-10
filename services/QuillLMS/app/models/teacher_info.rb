@@ -36,11 +36,13 @@ class TeacherInfo < ApplicationRecord
 
   def minimum_grade_level
     return KINDERGARTEN_DISPLAY_STRING if self[:minimum_grade_level] == KINDERGARTEN_DATABASE_INTEGER
+
     super()
   end
 
   def maximum_grade_level
     return KINDERGARTEN_DISPLAY_STRING if self[:maximum_grade_level] == KINDERGARTEN_DATABASE_INTEGER
+    
     super()
   end
 end
