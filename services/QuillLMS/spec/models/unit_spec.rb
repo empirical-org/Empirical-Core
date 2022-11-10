@@ -32,11 +32,7 @@ describe Unit, type: :model do
   it { should have_many(:standards).through(:activities) }
   it { should belong_to(:unit_template) }
 
-  it do
-    expect(subject)
-      .to callback(:hide_classroom_units_and_unit_activities_if_visible_false)
-      .after(:save)
-  end
+  it { is_expected.to callback(:hide_classroom_units_and_unit_activities_if_visible_false).after(:save) }
 
   let!(:classroom) {create(:classroom)}
   let!(:teacher) {create(:teacher)}
@@ -182,6 +178,19 @@ describe Unit, type: :model do
 
       expect(classroom.reload.updated_at.to_i).not_to equal(classroom_updated_at.to_i)
       expect(classroom_unit.reload.updated_at.to_i).not_to equal(classroom_unit_updated_at.to_i)
+    end
+  end
+
+  describe 'save_user_pack_sequence_items' do
+    context 'visible has changed' do
+      let(:assigned_student_ids) { create_list(:student, 2).map(&:id) }
+      let(:num_jobs) { unit.classroom_units.map(&:assigned_student_ids).map(&:count).sum }
+
+      before { create(:classroom_unit, assigned_student_ids: assigned_student_ids, unit: unit) }
+
+      subject { unit.update(visible: false) }
+
+      it { expect { subject }.to change { SaveUserPackSequenceItemsWorker.jobs.size }.from(0).to(num_jobs) }
     end
   end
 end

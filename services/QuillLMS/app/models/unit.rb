@@ -39,14 +39,18 @@ class Unit < ApplicationRecord
   belongs_to :unit_template
   has_many :unit_activities, dependent: :destroy
   has_many :classroom_units, dependent: :destroy
+  has_many :activity_sessions, through: :classroom_units
   has_many :classrooms, through: :classroom_units
   has_many :activities, through: :unit_activities
   has_many :standards, through: :activities
+  has_many :pack_sequence_items, dependent: :destroy
 
   default_scope { where(visible: true)}
 
   after_save :hide_classroom_units_and_unit_activities_if_visible_false
   after_save :create_any_new_classroom_unit_activity_states
+  after_save :save_user_pack_sequence_items, if: :saved_change_to_visible?
+
   # Using an after_commit hook here because we want to trigger the callback
   # on save or touch, and touch explicitly bypasses after_save hooks
   after_commit :touch_all_classrooms_and_classroom_units
@@ -108,5 +112,13 @@ class Unit < ApplicationRecord
   private def touch_all_classrooms_and_classroom_units
     classroom_units.update_all(updated_at: current_time_from_proper_timezone)
     classrooms.update_all(updated_at: current_time_from_proper_timezone)
+  end
+
+  private def save_user_pack_sequence_items
+    classroom_units.each do |classroom_unit|
+      classroom_unit.assigned_student_ids.each do |student_id|
+        SaveUserPackSequenceItemsWorker.perform_async(classroom_unit.classroom_id, student_id)
+      end
+    end
   end
 end
