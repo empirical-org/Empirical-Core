@@ -47,6 +47,6 @@ class SyncVitallyWorker
   end
 
   def districts_to_sync
-    schools_to_sync.map(&:district).compact.uniq.select { |district| district&.schools&.any?(&:subscription) }
+    schools_to_sync.map(&:district).compact.uniq
   end
 end
