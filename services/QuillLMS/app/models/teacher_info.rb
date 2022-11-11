@@ -17,8 +17,8 @@ class TeacherInfo < ApplicationRecord
   has_many :teacher_info_subject_areas, dependent: :destroy
   has_many :subject_areas, through: :teacher_info_subject_areas
 
-  validates :minimum_grade_level, numericality: { in: 0..12 }
-  validates :maximum_grade_level, numericality: { in: 0..12 }
+  validates :minimum_grade_level, numericality: { in: 0..12 }, :allow_nil => true
+  validates :maximum_grade_level, numericality: { in: 0..12 }, :allow_nil => true
   validates :user_id, presence: true, uniqueness: true
 
   KINDERGARTEN_DISPLAY_STRING = 'K'
