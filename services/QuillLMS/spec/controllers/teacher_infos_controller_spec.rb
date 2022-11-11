@@ -26,7 +26,7 @@ describe TeacherInfosController do
     it 'should create a teacher info record with the data populated' do
       post :create, params: {minimum_grade_level: 4, maximum_grade_level: 12, subject_area_ids: [subject_area1.id]}
 
-      teacher_info = TeacherInfo.find_by(teacher: user)
+      teacher_info = TeacherInfo.find_by(user: user)
 
       expect(teacher_info.minimum_grade_level).to eq(4)
       expect(teacher_info.maximum_grade_level).to eq(12)
