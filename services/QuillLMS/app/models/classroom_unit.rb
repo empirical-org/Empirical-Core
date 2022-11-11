@@ -39,8 +39,9 @@ class ClassroomUnit < ApplicationRecord
 
   validates :unit, uniqueness: { scope: :classroom }
   before_save :check_for_assign_on_join_and_update_students_array_if_true
-  after_save  :hide_appropriate_activity_sessions
+  after_save :hide_appropriate_activity_sessions
   after_save :save_user_pack_sequence_items, if: -> { saved_change_to_assigned_student_ids? || saved_change_to_visible? }
+
   # Using an after_commit hook here because we want to trigger the callback
   # on save or touch, and touch explicitly bypasses after_save hooks
   after_commit :touch_classroom_without_callbacks
@@ -128,7 +129,7 @@ class ClassroomUnit < ApplicationRecord
   end
 
   private def save_user_pack_sequence_items
-    assigned_student_ids.each { |student_id| SaveUserPackSequenceItemsWorker.perform_async(classroom.id, student_id)}
+    assigned_student_ids.each { |student_id| SaveUserPackSequenceItemsWorker.perform_async(classroom.id, student_id) }
   end
 end
 

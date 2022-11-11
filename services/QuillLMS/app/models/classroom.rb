@@ -222,6 +222,6 @@ class Classroom < ApplicationRecord
   end
 
   private def save_user_pack_sequence_items
-    students.each { |student| SaveUserPackSequenceItemsWorker.perform_async(id, student.id)}
+    students.each { |student| SaveUserPackSequenceItemsWorker.perform_async(id, student.id) }
   end
 end

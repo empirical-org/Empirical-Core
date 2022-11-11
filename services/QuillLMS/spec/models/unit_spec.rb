@@ -182,15 +182,29 @@ describe Unit, type: :model do
   end
 
   describe 'save_user_pack_sequence_items' do
-    context 'visible has changed' do
-      let(:assigned_student_ids) { create_list(:student, 2).map(&:id) }
+    let(:num_students) { 2 }
+    let(:assigned_student_ids) { create_list(:student, num_students).map(&:id) }
+
+    before { create(:classroom_unit, assigned_student_ids: assigned_student_ids, unit: unit) }
+
+    context 'after_save' do
+      context 'visible has changed' do
+        subject { unit.update(visible: false) }
+
+        # num_students offset is due to the call hide_classroom_units_and_unit_activities_if_visible_false
+        # which updates visible on classroom_units which in turn calls the worker per assigned_student
+        let(:num_jobs) { unit.classroom_units.map(&:assigned_student_ids).map(&:count).sum + num_students }
+
+        it { expect { subject }.to change { SaveUserPackSequenceItemsWorker.jobs.size }.by(num_jobs) }
+      end
+    end
+
+    context 'after_destroy' do
+      subject { unit.destroy }
+
       let(:num_jobs) { unit.classroom_units.map(&:assigned_student_ids).map(&:count).sum }
 
-      before { create(:classroom_unit, assigned_student_ids: assigned_student_ids, unit: unit) }
-
-      subject { unit.update(visible: false) }
-
-      it { expect { subject }.to change { SaveUserPackSequenceItemsWorker.jobs.size }.from(0).to(num_jobs) }
+      it { expect { subject }.to change { SaveUserPackSequenceItemsWorker.jobs.size }.by(num_jobs) }
     end
   end
 end
