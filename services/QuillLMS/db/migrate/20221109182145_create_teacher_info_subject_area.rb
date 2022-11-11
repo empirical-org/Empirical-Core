@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 class CreateTeacherInfoSubjectArea < ActiveRecord::Migration[6.1]
   def change
     create_table :teacher_info_subject_areas do |t|
