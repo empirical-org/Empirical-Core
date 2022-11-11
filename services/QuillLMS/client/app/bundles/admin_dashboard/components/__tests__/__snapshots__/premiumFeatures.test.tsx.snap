@@ -11,8 +11,8 @@ exports[`PremiumFeatures component should match snapshot 1`] = `
       className="feature"
     >
       <img
-        alt=""
-        src="https://assets.quill.org/images/icons/student_icon_admin.svg"
+        alt="black single line graph icon"
+        src="https://assets.quill.org/images/icons/line-graph-icon.svg"
       />
       <h3>
         Admin Premium Reports
@@ -30,8 +30,8 @@ exports[`PremiumFeatures component should match snapshot 1`] = `
       className="feature"
     >
       <img
-        alt=""
-        src="https://assets.quill.org/images/icons/teacher_icon_admin.svg"
+        alt="black outline of a pen"
+        src="https://assets.quill.org/images/icons/vector-pen-icon.svg"
       />
       <h3>
         Teacher Access and Usage
@@ -50,8 +50,8 @@ exports[`PremiumFeatures component should match snapshot 1`] = `
       className="feature"
     >
       <img
-        alt=""
-        src="https://assets.quill.org/images/icons/school_icon_admin.svg"
+        alt="black outline of a school"
+        src="https://assets.quill.org/images/icons/school-outline-icon.svg"
       />
       <h3>
         School-wide Educator Support
