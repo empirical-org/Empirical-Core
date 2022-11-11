@@ -87,6 +87,17 @@ export class CreateNewAccounts extends React.Component<any, any> {
         <section className="left-section">
           <h2>Create New Accounts & Link Existing Teachers</h2>
           <div className="form">
+            <section className="info-section-container">
+              <section className="info-section">
+                <span>Teachers New to Quill?</span>
+                <p>Input their information to create new Quill accounts.</p>
+              </section>
+              <section className="info-section">
+                <span>Teachers Have Quill Accounts?</span>
+                <p>When you submit their information, they will receive an email instructing them to link their accounts to your school. Teachers can link to their school from the My Account page. {supportLink}</p>
+              </section>
+            </section>
+            <div className='light-divider' />
             <section className="first-section">
               <section className="name-inputs-container">
                 <input aria-label="First Name" className="first-name" onChange={this.handleFirstNameChange} placeholder="First Name" type="text" value={firstName} />
@@ -104,17 +115,6 @@ export class CreateNewAccounts extends React.Component<any, any> {
                 value={this.schoolOptions().find(s => s.value === school.id || s.value === school.value)}
               />
               <button className="quill-button small primary contained add-teacher-account-button" onClick={this.handleAddTeacherAccountClick} type="button">Add Teacher Account</button>
-            </section>
-            <div className='light-divider' />
-            <section className="info-section-container">
-              <section className="info-section">
-                <span>Teachers New to Quill?</span>
-                <p>Input their information to create new Quill accounts.</p>
-              </section>
-              <section className="info-section">
-                <span>Teachers Have Quill Accounts?</span>
-                <p>When you submit their information, they will receive an email instructing them to link their accounts to your school. Teachers can link to their school from the My Account page. {supportLink}</p>
-              </section>
             </section>
           </div>
         </section>

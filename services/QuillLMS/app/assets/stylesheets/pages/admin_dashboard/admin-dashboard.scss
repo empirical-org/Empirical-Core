@@ -139,7 +139,7 @@
         flex: 1;
         text-align: center;
         &:first-of-type, &:nth-of-type(2) {
-          margin-right: 60px;
+          margin-right: 32px;
         }
         img {
           height: 72px;
@@ -226,7 +226,7 @@
           flex-direction: column;
           .input-container  {
             min-height: auto;
-            margin: 24px 0px;
+            margin: 40px 0px 24px 0px;
             .dropdown {
               margin: 0;
               .dropdown__control {

@@ -14,6 +14,41 @@ exports[`CreateNewAccounts component should match snapshot 1`] = `
       className="form"
     >
       <section
+        className="info-section-container"
+      >
+        <section
+          className="info-section"
+        >
+          <span>
+            Teachers New to Quill?
+          </span>
+          <p>
+            Input their information to create new Quill accounts.
+          </p>
+        </section>
+        <section
+          className="info-section"
+        >
+          <span>
+            Teachers Have Quill Accounts?
+          </span>
+          <p>
+            When you submit their information, they will receive an email instructing them to link their accounts to your school. Teachers can link to their school from the My Account page. 
+            <a
+              className="green-link"
+              href="http://support.quill.org/getting-started-for-teachers/manage-classes/how-can-i-connect-my-account-to-my-school"
+              rel="noopener noreferrer"
+              target="_blank"
+            >
+               Here's the guide
+            </a>
+          </p>
+        </section>
+      </section>
+      <div
+        className="light-divider"
+      />
+      <section
         className="first-section"
       >
         <section
@@ -77,41 +112,6 @@ exports[`CreateNewAccounts component should match snapshot 1`] = `
         >
           Add Teacher Account
         </button>
-      </section>
-      <div
-        className="light-divider"
-      />
-      <section
-        className="info-section-container"
-      >
-        <section
-          className="info-section"
-        >
-          <span>
-            Teachers New to Quill?
-          </span>
-          <p>
-            Input their information to create new Quill accounts.
-          </p>
-        </section>
-        <section
-          className="info-section"
-        >
-          <span>
-            Teachers Have Quill Accounts?
-          </span>
-          <p>
-            When you submit their information, they will receive an email instructing them to link their accounts to your school. Teachers can link to their school from the My Account page. 
-            <a
-              className="green-link"
-              href="http://support.quill.org/getting-started-for-teachers/manage-classes/how-can-i-connect-my-account-to-my-school"
-              rel="noopener noreferrer"
-              target="_blank"
-            >
-               Here's the guide
-            </a>
-          </p>
-        </section>
       </section>
     </div>
   </section>

@@ -114,10 +114,6 @@ export class AdminDashboard extends React.Component {
             refreshData={this.getData}
           />
         </div>
-        <QuestionsAndAnswers
-          questionsAndAnswersFile="admin"
-          supportLink="https://support.quill.org/quill-premium"
-        />
       </React.Fragment>
     );
   }
