@@ -36,12 +36,13 @@ describe TeacherInfosController do
   end
 
   describe '#update' do
-    let!(:teacher_info) { create(:teacher_info, minimum_grade_level: 1, maximum_grade_level: 7) }
+    let!(:teacher_info) { create(:teacher_info, minimum_grade_level: 1, maximum_grade_level: 7, user: user) }
 
     before { teacher_info.subject_areas.push(subject_area1) }
 
     it 'should update the teacher info record with the data populated' do
       put :update, params: {minimum_grade_level: 4, maximum_grade_level: 12, subject_area_ids: [subject_area2.id]}
+
       expect(teacher_info.reload.minimum_grade_level).to eq(4)
       expect(teacher_info.reload.maximum_grade_level).to eq(12)
       expect(teacher_info.reload.subject_areas).to eq([subject_area2])
