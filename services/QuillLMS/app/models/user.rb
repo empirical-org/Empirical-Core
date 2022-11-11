@@ -107,7 +107,7 @@ class User < ApplicationRecord
 
   has_secure_password validations: false
   has_one :auth_credential, dependent: :destroy
-  has_one :teacher_info, dependent: :destroy, foreign_key: 'teacher_id'
+  has_one :teacher_info, dependent: :destroy
   has_many :teacher_info_subject_areas, through: :teacher_info
   has_many :subject_areas, through: :teacher_info_subject_areas
   has_many :checkboxes

@@ -13,4 +13,7 @@
 class TeacherInfoSubjectArea < ApplicationRecord
   belongs_to :teacher_info
   belongs_to :subject_area
+
+  validates :teacher_info_id, presence: true
+  validates :subject_area_id, presence: true
 end

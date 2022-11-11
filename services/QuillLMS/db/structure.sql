@@ -3974,7 +3974,7 @@ ALTER SEQUENCE public.students_classrooms_id_seq OWNED BY public.students_classr
 
 CREATE TABLE public.subject_areas (
     id bigint NOT NULL,
-    name character varying,
+    name character varying NOT NULL,
     created_at timestamp(6) without time zone NOT NULL,
     updated_at timestamp(6) without time zone NOT NULL
 );
@@ -4047,8 +4047,8 @@ ALTER SEQUENCE public.subscriptions_id_seq OWNED BY public.subscriptions.id;
 
 CREATE TABLE public.teacher_info_subject_areas (
     id bigint NOT NULL,
-    teacher_info_id bigint,
-    subject_area_id bigint,
+    teacher_info_id bigint NOT NULL,
+    subject_area_id bigint NOT NULL,
     created_at timestamp(6) without time zone NOT NULL,
     updated_at timestamp(6) without time zone NOT NULL
 );
@@ -4081,7 +4081,7 @@ CREATE TABLE public.teacher_infos (
     id bigint NOT NULL,
     minimum_grade_level integer,
     maximum_grade_level integer,
-    teacher_id bigint,
+    user_id bigint NOT NULL,
     created_at timestamp(6) without time zone NOT NULL,
     updated_at timestamp(6) without time zone NOT NULL
 );
@@ -7614,10 +7614,10 @@ CREATE INDEX index_teacher_info_subject_areas_on_teacher_info_id ON public.teach
 
 
 --
--- Name: index_teacher_infos_on_teacher_id; Type: INDEX; Schema: public; Owner: -
+-- Name: index_teacher_infos_on_user_id; Type: INDEX; Schema: public; Owner: -
 --
 
-CREATE INDEX index_teacher_infos_on_teacher_id ON public.teacher_infos USING btree (teacher_id);
+CREATE INDEX index_teacher_infos_on_user_id ON public.teacher_infos USING btree (user_id);
 
 
 --
@@ -8014,14 +8014,6 @@ ALTER TABLE ONLY public.teacher_saved_activities
 
 ALTER TABLE ONLY public.skill_group_activities
     ADD CONSTRAINT fk_rails_08a611be08 FOREIGN KEY (activity_id) REFERENCES public.activities(id);
-
-
---
--- Name: teacher_infos fk_rails_093884b26b; Type: FK CONSTRAINT; Schema: public; Owner: -
---
-
-ALTER TABLE ONLY public.teacher_infos
-    ADD CONSTRAINT fk_rails_093884b26b FOREIGN KEY (teacher_id) REFERENCES public.users(id);
 
 
 --
