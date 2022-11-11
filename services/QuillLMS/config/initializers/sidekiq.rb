@@ -4,10 +4,17 @@ sidekiq_url = ENV['SIDEKIQ_REDIS_URL'] || 'redis://localhost:6379'
 
 Sidekiq.configure_server do |config|
   config.redis = { url: sidekiq_url, namespace: 'sidekiq' }
+
+  config.client_middleware { |chain| chain.add SidekiqUniqueJobs::Middleware::Client }
+  config.server_middleware { |chain| chain.add SidekiqUniqueJobs::Middleware::Server }
+
+  SidekiqUniqueJobs::Server.configure(config)
 end
 
 Sidekiq.configure_client do |config|
   config.redis = { url: sidekiq_url, namespace: 'sidekiq' }
+
+  config.client_middleware { |chain| chain.add SidekiqUniqueJobs::Middleware::Client }
 end
 
 module SidekiqQueue
