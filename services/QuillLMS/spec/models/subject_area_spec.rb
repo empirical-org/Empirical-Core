@@ -12,7 +12,9 @@
 require 'rails_helper'
 
 describe SubjectArea, type: :model, redis: true do
+  let!(:subject_area) { create(:subject_area) }
+
   it { should have_many(:teacher_info_subject_areas) }
-  it { is_expected.to validate_presence_of :name }
-  it { is_expected.to validate_uniqueness_of :name }
+  it { should validate_presence_of(:name) }
+  it { should validate_uniqueness_of(:name) }
 end

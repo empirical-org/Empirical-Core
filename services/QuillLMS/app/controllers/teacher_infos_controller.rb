@@ -24,8 +24,7 @@ class TeacherInfosController < ApplicationController
 
     if subject_area_ids
       teacher_info.teacher_info_subject_areas.destroy_all
-      subject_areas = SubjectArea.where(id: subject_area_ids)
-      teacher_info.subject_areas.push(subject_areas)
+      subject_area_ids.each { |subject_area_id| TeacherInfoSubjectArea.create!(teacher_info: teacher_info, subject_area_id: subject_area_id) }
     end
 
     render json: {}, status: 200
