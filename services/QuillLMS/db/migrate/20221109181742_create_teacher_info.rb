@@ -5,7 +5,7 @@ class CreateTeacherInfo < ActiveRecord::Migration[6.1]
     create_table :teacher_infos do |t|
       t.integer :minimum_grade_level
       t.integer :maximum_grade_level
-      t.references :user, null: false, presence: true
+      t.references :user, null: false, foreign_key: true, unique: true
 
       t.timestamps
     end

@@ -8105,6 +8105,14 @@ ALTER TABLE ONLY public.classroom_unit_activity_states
 
 
 --
+-- Name: teacher_info_subject_areas fk_rails_45c8f41e5e; Type: FK CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY public.teacher_info_subject_areas
+    ADD CONSTRAINT fk_rails_45c8f41e5e FOREIGN KEY (subject_area_id) REFERENCES public.subject_areas(id);
+
+
+--
 -- Name: unit_activities fk_rails_48bcb0b8a0; Type: FK CONSTRAINT; Schema: public; Owner: -
 --
 
@@ -8174,6 +8182,14 @@ ALTER TABLE ONLY public.criteria
 
 ALTER TABLE ONLY public.recommendations
     ADD CONSTRAINT fk_rails_6745e4bc86 FOREIGN KEY (unit_template_id) REFERENCES public.unit_templates(id);
+
+
+--
+-- Name: teacher_info_subject_areas fk_rails_69cab8704b; Type: FK CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY public.teacher_info_subject_areas
+    ADD CONSTRAINT fk_rails_69cab8704b FOREIGN KEY (teacher_info_id) REFERENCES public.teacher_infos(id);
 
 
 --
@@ -8294,6 +8310,14 @@ ALTER TABLE ONLY public.classroom_unit_activity_states
 
 ALTER TABLE ONLY public.comprehension_plagiarism_texts
     ADD CONSTRAINT fk_rails_bcd03e8630 FOREIGN KEY (rule_id) REFERENCES public.comprehension_rules(id) ON DELETE CASCADE;
+
+
+--
+-- Name: teacher_infos fk_rails_bff7948d7b; Type: FK CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY public.teacher_infos
+    ADD CONSTRAINT fk_rails_bff7948d7b FOREIGN KEY (user_id) REFERENCES public.users(id);
 
 
 --
