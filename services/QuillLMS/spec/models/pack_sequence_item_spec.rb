@@ -47,8 +47,7 @@ RSpec.describe PackSequenceItem, type: :model do
     end
   end
 
-  # describe 'save_user_pack_sequence_items' do
-  describe do
+  describe 'save_user_pack_sequence_items' do
     let(:pack_sequence_item) { create(:pack_sequence_item) }
     let(:num_user_pack_sequence_items) { 2 }
     let(:num_jobs) { num_user_pack_sequence_items }
@@ -69,5 +68,4 @@ RSpec.describe PackSequenceItem, type: :model do
       it { expect { subject }.to change { SaveUserPackSequenceItemsWorker.jobs.size }.by(num_jobs) }
     end
   end
-
 end

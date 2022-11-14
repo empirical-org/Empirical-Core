@@ -122,9 +122,9 @@ class UnitActivity < ApplicationRecord
   end
 
   private def save_user_pack_sequence_items
-    unit.classroom_units.each do |classroom_unit|
-      classroom_unit.assigned_student_ids.each do |student_id|
-        SaveUserPackSequenceItemsWorker.perform_async(classroom_unit.classroom_id, student_id)
+    unit.pack_sequence_items.each do |pack_sequence_item|
+      pack_sequence_item.users.each do |user_id|
+        SaveUserPackSequenceItemsWorker.perform_async(pack_sequence_item&.classroom&.id, user_id)
       end
     end
   end
