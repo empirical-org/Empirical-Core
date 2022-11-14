@@ -72,18 +72,17 @@ class Unit < ApplicationRecord
     # limiting to production so teachers don't get emailed when we assign lessons from their account locally
     return unless Rails.env.production? || user.email.match('quill.org')
 
-    activity_ids =
+    activity =
       Activity
         .select('DISTINCT(activities.id)')
         .joins("JOIN unit_activities ON unit_activities.activity_id = activities.id")
-        .joins("JOIN units ON unit_activities.unit_id = #{gd}")
+        .joins("JOIN units ON unit_activities.unit_id = #{id}")
         .where( "activities.activity_classification_id = 6 AND activities.supporting_info IS NOT NULL")
+        .pluck(:id)
 
-    return unless activity_ids.any?
+    return unless activity_ids.empty?
 
-    activity_ids = activity_ids.map(&:id)
-    teacher_id = user_id
-    LessonPlanEmailWorker.perform_async(teacher_id, activity_ids, id)
+    LessonPlanEmailWorker.perform_async(user_id, activity_ids, id)
   end
 
   def self.create_with_incremented_name(user_id:, name: )
