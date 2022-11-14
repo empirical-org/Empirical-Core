@@ -37,8 +37,6 @@ class UnitActivity < ApplicationRecord
 
   after_destroy :save_user_pack_sequence_items
 
-  delegate :save_user_pack_sequence_items, to: :unit
-
   def teacher_checkbox
     return unless unit
     return unless unit.user
@@ -115,6 +113,10 @@ class UnitActivity < ApplicationRecord
       &.activity_sessions
       &.where(activity: activity)
       &.update_all(visible: false)
+  end
+
+  def save_user_pack_sequence_items
+    unit&.save_user_pack_sequence_items
   end
 
   private def hide_appropriate_activity_sessions

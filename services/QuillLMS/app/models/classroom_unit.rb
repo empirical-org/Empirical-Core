@@ -30,6 +30,7 @@ class ClassroomUnit < ApplicationRecord
 
   belongs_to :unit # Note, there is a touch in the unit -> classroom_unit direction, so don't add one here.
   belongs_to :classroom
+
   has_many :activity_sessions
   has_many :unit_activities, through: :unit
   has_many :completed_activity_sessions, -> {completed}, class_name: 'ActivitySession'
@@ -38,6 +39,7 @@ class ClassroomUnit < ApplicationRecord
   scope :visible, -> { where(visible: true) }
 
   validates :unit, uniqueness: { scope: :classroom }
+
   before_save :check_for_assign_on_join_and_update_students_array_if_true
   after_save :hide_appropriate_activity_sessions
   after_save :save_user_pack_sequence_items, if: -> { saved_change_to_assigned_student_ids? || saved_change_to_visible? }
@@ -47,8 +49,6 @@ class ClassroomUnit < ApplicationRecord
   after_commit :touch_classroom_without_callbacks
 
   after_destroy :save_user_pack_sequence_items
-
-  delegate :save_user_pack_sequence_items, to: :unit
 
   def assigned_students
     User.where(id: assigned_student_ids)
@@ -80,6 +80,9 @@ class ClassroomUnit < ApplicationRecord
     update(assigned_student_ids: new_assigned_student_ids, assign_on_join: false)
   end
 
+  def save_user_pack_sequence_items
+    unit&.save_user_pack_sequence_items
+  end
 
   private def hide_unassigned_activity_sessions
     #validate or hides any other related activity sessions

@@ -119,5 +119,4 @@ class Unit < ApplicationRecord
     classroom_units.update_all(updated_at: current_time_from_proper_timezone)
     classrooms.update_all(updated_at: current_time_from_proper_timezone)
   end
-
 end

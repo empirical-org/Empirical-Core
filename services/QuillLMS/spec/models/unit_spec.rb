@@ -183,23 +183,18 @@ describe Unit, type: :model do
 
   describe 'save_user_pack_sequence_items' do
     let!(:unit) { create(:unit, user: teacher, visible: visible) }
-    let(:num_students) { 2 }
-    let(:assigned_student_ids) { create_list(:student, num_students).map(&:id) }
-    let(:num_jobs) { unit.classroom_units.map(&:assigned_student_ids).map(&:count).sum + num_students_offset }
-    let(:num_students_offset) { 0 }
+    let!(:num_students) { 2 }
+    let!(:num_jobs) { num_students }
+    let!(:pack_sequence_item) { create(:pack_sequence_item, unit: unit) }
 
-    before { create(:classroom_unit, assigned_student_ids: assigned_student_ids, unit: unit) }
+    before { create_list(:user_pack_sequence_item, num_students, pack_sequence_item: pack_sequence_item) }
 
     context 'after_save' do
       context 'visible has changed' do
         context 'to false' do
           let(:visible) { true }
 
-          # num_students offset is for the hide_classroom_units_and_unit_activities_if_visible_false after_save callback
-          # which updates visible on classroom_units which in turn calls the worker per assigned_student
-          let(:num_students_offset) { 2 }
-
-          subject { unit.update(visible: false) }
+          subject { unit.reload.update(visible: false) }
 
           it { expect { subject }.to change { SaveUserPackSequenceItemsWorker.jobs.size }.by(num_jobs) }
         end
@@ -207,7 +202,7 @@ describe Unit, type: :model do
         context 'to true' do
           let(:visible) { false }
 
-          subject { unit.update(visible: true) }
+          subject { unit.reload.update(visible: true) }
 
           it { expect { subject }.to change { SaveUserPackSequenceItemsWorker.jobs.size }.by(num_jobs) }
         end
@@ -215,7 +210,7 @@ describe Unit, type: :model do
     end
 
     context 'after_destroy' do
-      subject { unit.destroy }
+      subject { unit.reload.destroy }
 
       let(:visible) { true }
 
