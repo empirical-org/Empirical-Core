@@ -95,13 +95,15 @@ class ActivitySession < ApplicationRecord
   belongs_to :user
 
   before_create :set_state
-  before_save :set_completed_at, :set_activity_id, :trigger_events
+  before_save :set_completed_at, :set_activity_id
 
   after_save :determine_if_final_score, :update_milestones, :increment_counts
   after_save :record_teacher_activity_feed, if: [:saved_change_to_completed_at?, :completed?]
   after_save :save_user_pack_sequence_items, if: -> { saved_change_to_state? || saved_change_to_visible? }
 
   after_commit :invalidate_activity_session_count_if_completed
+
+  after_save :trigger_events
 
   after_destroy :save_user_pack_sequence_items
 

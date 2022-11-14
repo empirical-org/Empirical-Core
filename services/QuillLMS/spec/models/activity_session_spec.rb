@@ -61,7 +61,7 @@ describe ActivitySession, type: :model, redis: true do
   it { is_expected.to callback(:update_milestones).after(:save) }
   it { is_expected.to callback(:increment_counts).after(:save) }
   it { is_expected.to callback(:invalidate_activity_session_count_if_completed).after(:commit) }
-  it { is_expected.to callback(:trigger_events).around(:save) }
+  it { is_expected.to callback(:trigger_events).after(:save) }
 
   describe "can behave like an uid class" do
     context "when behaves like uid" do
