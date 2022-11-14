@@ -72,7 +72,7 @@ class Unit < ApplicationRecord
     # limiting to production so teachers don't get emailed when we assign lessons from their account locally
     return unless Rails.env.production? || user.email.match('quill.org')
 
-    activity =
+    activity_ids =
       Activity
         .select('DISTINCT(activities.id)')
         .joins("JOIN unit_activities ON unit_activities.activity_id = activities.id")
@@ -80,7 +80,7 @@ class Unit < ApplicationRecord
         .where( "activities.activity_classification_id = 6 AND activities.supporting_info IS NOT NULL")
         .pluck(:id)
 
-    return unless activity_ids.empty?
+    return if activity_ids.empty?
 
     LessonPlanEmailWorker.perform_async(user_id, activity_ids, id)
   end
