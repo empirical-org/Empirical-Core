@@ -200,7 +200,10 @@ describe ClassroomUnit, type: :model, redis: true do
 
         subject { classroom_unit.update(assigned_student_ids: new_assigned_student_ids) }
 
-        it { expect { subject }.to change { SaveUserPackSequenceItemsWorker.jobs.size }.by(num_assigned_students) }
+        it do
+          expect(classroom_unit).to receive(:save_user_pack_sequence_items)
+          subject
+        end
       end
 
       context 'visible has changed' do
@@ -208,7 +211,10 @@ describe ClassroomUnit, type: :model, redis: true do
 
         subject { classroom_unit.update(visible: false) }
 
-        it { expect { subject }.to change { SaveUserPackSequenceItemsWorker.jobs.size }.by(num_assigned_students) }
+        it do
+          expect(classroom_unit).to receive(:save_user_pack_sequence_items)
+          subject
+        end
       end
     end
 
@@ -217,7 +223,10 @@ describe ClassroomUnit, type: :model, redis: true do
 
       let(:num_assigned_students) { assigned_student_ids.count }
 
-      it { expect { subject }.to change { SaveUserPackSequenceItemsWorker.jobs.size }.by(num_assigned_students) }
+      it do
+        expect(classroom_unit).to receive(:save_user_pack_sequence_items)
+        subject
+      end
     end
   end
 end

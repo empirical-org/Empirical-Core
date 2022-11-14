@@ -322,22 +322,22 @@ describe UnitActivity, type: :model, redis: true do
   end
 
   describe 'save_user_pack_sequence_items' do
-    let!(:num_students) { 2 }
-    let!(:num_jobs) { unit.pack_sequence_items.map(&:users).map(&:count).sum }
-    let!(:pack_sequence_item) { create(:pack_sequence_item, unit: unit_activity.unit) }
-
-    before { create_list(:user_pack_sequence_item, num_students, pack_sequence_item: pack_sequence_item) }
-
     context 'visible has changed' do
       subject { unit_activity.update(visible: false) }
 
-      it { expect { subject }.to change { SaveUserPackSequenceItemsWorker.jobs.size }.by(num_jobs) }
+      it do
+        expect(unit_activity).to receive(:save_user_pack_sequence_items)
+        subject
+      end
     end
 
     context 'after_destroy' do
       subject { unit_activity.destroy }
 
-      it { expect { subject }.to change { SaveUserPackSequenceItemsWorker.jobs.size }.by(num_jobs) }
+      it do
+        expect(unit_activity).to receive(:save_user_pack_sequence_items)
+        subject
+      end
     end
   end
 end

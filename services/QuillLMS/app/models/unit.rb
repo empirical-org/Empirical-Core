@@ -85,6 +85,14 @@ class Unit < ApplicationRecord
     LessonPlanEmailWorker.perform_async(user_id, activity_ids, id)
   end
 
+  def save_user_pack_sequence_items
+    pack_sequence_items.each do |pack_sequence_item|
+      pack_sequence_item.users.pluck(:id).each do |user_id|
+        SaveUserPackSequenceItemsWorker.perform_async(pack_sequence_item.classroom&.id, user_id)
+      end
+    end
+  end
+
   def self.create_with_incremented_name(user_id:, name: )
     unit = Unit.create(user_id: user_id, name: name)
     return unit if unit.persisted?
@@ -112,11 +120,4 @@ class Unit < ApplicationRecord
     classrooms.update_all(updated_at: current_time_from_proper_timezone)
   end
 
-  private def save_user_pack_sequence_items
-    classroom_units.each do |classroom_unit|
-      classroom_unit.assigned_student_ids.each do |student_id|
-        SaveUserPackSequenceItemsWorker.perform_async(classroom_unit.classroom_id, student_id)
-      end
-    end
-  end
 end

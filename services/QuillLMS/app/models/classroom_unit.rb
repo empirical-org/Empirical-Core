@@ -48,6 +48,8 @@ class ClassroomUnit < ApplicationRecord
 
   after_destroy :save_user_pack_sequence_items
 
+  delegate :save_user_pack_sequence_items, to: :unit
+
   def assigned_students
     User.where(id: assigned_student_ids)
   end
@@ -126,10 +128,6 @@ class ClassroomUnit < ApplicationRecord
 
   private def touch_classroom_without_callbacks
     classroom&.update_columns(updated_at: current_time_from_proper_timezone) unless classroom&.destroyed?
-  end
-
-  private def save_user_pack_sequence_items
-    assigned_student_ids.each { |student_id| SaveUserPackSequenceItemsWorker.perform_async(classroom&.id, student_id) }
   end
 end
 

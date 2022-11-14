@@ -37,6 +37,8 @@ class UnitActivity < ApplicationRecord
 
   after_destroy :save_user_pack_sequence_items
 
+  delegate :save_user_pack_sequence_items, to: :unit
+
   def teacher_checkbox
     return unless unit
     return unless unit.user
@@ -119,14 +121,6 @@ class UnitActivity < ApplicationRecord
     return if visible
 
     hide_all_activity_sessions
-  end
-
-  private def save_user_pack_sequence_items
-    unit.pack_sequence_items.each do |pack_sequence_item|
-      pack_sequence_item.users.each do |user_id|
-        SaveUserPackSequenceItemsWorker.perform_async(pack_sequence_item&.classroom&.id, user_id)
-      end
-    end
   end
 
   def self.get_classroom_user_profile(classroom_id, user_id)
