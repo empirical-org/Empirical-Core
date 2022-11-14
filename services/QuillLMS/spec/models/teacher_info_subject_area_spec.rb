@@ -16,6 +16,6 @@ describe TeacherInfoSubjectArea, type: :model, redis: true do
   it { should belong_to(:subject_area) }
   it { should belong_to(:teacher_info) }
 
-  it { is_expected.to validate_presence_of :subject_area }
-  it { is_expected.to validate_presence_of :teacher_info }
+  it { is_expected.to validate_presence_of :subject_area_id }
+  it { is_expected.to validate_presence_of :teacher_info_id }
 end
