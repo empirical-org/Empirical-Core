@@ -74,19 +74,18 @@ class Unit < ApplicationRecord
     # limiting to production so teachers don't get emailed when we assign lessons from their account locally
     return unless Rails.env.production? || user.email.match('quill.org')
 
-    unit_id = id
     activity_ids =
       Activity
         .select('DISTINCT(activities.id)')
         .joins("JOIN unit_activities ON unit_activities.activity_id = activities.id")
-        .joins("JOIN units ON unit_activities.unit_id = #{unit_id}")
+        .joins("JOIN units ON unit_activities.unit_id = #{id}")
         .where( "activities.activity_classification_id = 6 AND activities.supporting_info IS NOT NULL")
 
     return unless activity_ids.any?
 
     activity_ids = activity_ids.map(&:id)
     teacher_id = user_id
-    LessonPlanEmailWorker.perform_async(teacher_id, activity_ids, unit_id)
+    LessonPlanEmailWorker.perform_async(teacher_id, activity_ids, id)
   end
 
   def self.create_with_incremented_name(user_id:, name: )
@@ -101,7 +100,7 @@ class Unit < ApplicationRecord
   end
 
   private def create_any_new_classroom_unit_activity_states
-    lesson_unit_activities = unit_activities.select { |ua| ua.activity.is_lesson? }
+    lesson_unit_activities = unit_activities.select { |ua| ua.activity.lesson? }
     lesson_unit_activities.each do |ua|
       classroom_units.each do |cu|
         ClassroomUnitActivityState.find_or_create_by(unit_activity_id: ua.id, classroom_unit_id: cu.id)

@@ -50,7 +50,7 @@ class ClassroomUnitActivityState < ApplicationRecord
 
 
   private def lock_if_lesson
-    return unless unit_activity.activity.is_lesson?
+    return unless unit_activity.activity.lesson?
 
     update(locked: true)
   end
