@@ -4,18 +4,19 @@ class AssignRecommendationsWorker
   include Sidekiq::Worker
   sidekiq_options queue: SidekiqQueue::CRITICAL
 
-  # rubocop:disable Metrics/ParameterLists
-  def perform(
-    classroom_id:,
-    lesson:,
-    student_ids:,
-    unit_template_id:,
-    pack_sequence_id: nil,
-    assign_on_join: false,
-    assigning_all_recommendations: false,
-    is_last_recommendation: true,
-    order: nil
-  )
+  # rubocop:disable Metrics/CyclomaticComplexity
+  def perform(options={})
+    options = options.with_indifferent_access
+
+    assign_on_join = options[:assign_on_join] || false
+    assigning_all_recommendations = options[:assigning_all_recommendations] || false
+    classroom_id = options[:classroom_id]
+    is_last_recommendation = options[:is_last_recommendation]
+    lesson = options[:lesson]
+    order = option[:order]
+    pack_sequence_id = options[:pack_sequence_id]
+    student_ids = options[:student_ids]
+    unit_template_id = options[:unit_template_id]
 
     classroom = Classroom.find(classroom_id)
     teacher = classroom.owner
@@ -45,12 +46,19 @@ class AssignRecommendationsWorker
     PusherRecommendationCompleted.run(classroom, unit_template_id, lesson)
     track_assign_all_recommendations(teacher) if assigning_all_recommendations
   end
-  # rubocop:enable Metrics/ParameterLists
+  # rubocop:enable Metrics/CyclomaticComplexity
 
   def assign_unit_to_one_class(unit, classroom_id, classroom_data, unit_template_id, teacher_id)
     if unit.present?
       show_classroom_units(unit.id, classroom_id)
-      Units::Updater.assign_unit_template_to_one_class(unit.id, classroom_data, unit_template_id, teacher_id, concatenate_existing_student_ids: true)
+
+      Units::Updater.assign_unit_template_to_one_class(
+        unit.id,
+        classroom_data,
+        unit_template_id,
+        teacher_id,
+        concatenate_existing_student_ids: true
+      )
     else
       Units::Creator.assign_unit_template_to_one_class(teacher_id, unit_template_id, classroom_data)
     end
