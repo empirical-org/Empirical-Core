@@ -51,8 +51,6 @@ class Unit < ApplicationRecord
   after_save :create_any_new_classroom_unit_activity_states
   after_save :save_user_pack_sequence_items, if: :saved_change_to_visible?
 
-  after_destroy :save_user_pack_sequence_items
-
   # Using an after_commit hook here because we want to trigger the callback
   # on save or touch, and touch explicitly bypasses after_save hooks
   after_commit :touch_all_classrooms_and_classroom_units
@@ -78,7 +76,7 @@ class Unit < ApplicationRecord
       Activity
         .select('DISTINCT(activities.id)')
         .joins("JOIN unit_activities ON unit_activities.activity_id = activities.id")
-        .joins("JOIN units ON unit_activities.unit_id = #{id}")
+        .joins("JOIN units ON unit_activities.unit_id = #{gd}")
         .where( "activities.activity_classification_id = 6 AND activities.supporting_info IS NOT NULL")
 
     return unless activity_ids.any?
