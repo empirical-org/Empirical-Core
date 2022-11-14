@@ -78,6 +78,11 @@ module PagesHelper
             img: 'team-peter-gault@2x.png'
           },
           {
+            name: 'Sarah Kelly',
+            title: 'Managing Director of Strategic Impact',
+            img: 'team-sarah-kelly@2x.png'
+          },
+          {
             name: 'Lila Jane Mabe',
             title: 'Managing Director of Strategy & Impact',
             img: 'team-lila-jane-mabe@2x.png'
@@ -127,11 +132,6 @@ module PagesHelper
             name: 'Daniel Giovanniello',
             title: 'Senior Partnerships Specialist ',
             img: 'team-daniel-giovanniello@2x.png'
-          },
-          {
-            name: 'Sarah Kelly',
-            title: 'Managing Director of Strategic Impact',
-            img: 'team-sarah-kelly@2x.png'
           },
           {
             name: 'Peter Kong',

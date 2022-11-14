@@ -2254,7 +2254,7 @@ exports[`ViewAsStudentModal component without a defaultClassroomId should render
                 style={
                   Object {
                     "minWidth": "361px",
-                    "textAlign": "right",
+                    "textAlign": "left",
                     "width": "361px",
                   }
                 }
@@ -2299,7 +2299,7 @@ exports[`ViewAsStudentModal component without a defaultClassroomId should render
                   style={
                     Object {
                       "minWidth": "361px",
-                      "textAlign": "right",
+                      "textAlign": "left",
                       "width": "361px",
                     }
                   }
@@ -4778,7 +4778,7 @@ exports[`ViewAsStudentModal component without a defaultClassroomId should render
                 style={
                   Object {
                     "minWidth": "361px",
-                    "textAlign": "right",
+                    "textAlign": "left",
                     "width": "361px",
                   }
                 }
@@ -4823,7 +4823,7 @@ exports[`ViewAsStudentModal component without a defaultClassroomId should render
                   style={
                     Object {
                       "minWidth": "361px",
-                      "textAlign": "right",
+                      "textAlign": "left",
                       "width": "361px",
                     }
                   }
@@ -4871,7 +4871,7 @@ exports[`ViewAsStudentModal component without a defaultClassroomId should render
                   style={
                     Object {
                       "minWidth": "361px",
-                      "textAlign": "right",
+                      "textAlign": "left",
                       "width": "361px",
                     }
                   }
@@ -4919,7 +4919,7 @@ exports[`ViewAsStudentModal component without a defaultClassroomId should render
                   style={
                     Object {
                       "minWidth": "361px",
-                      "textAlign": "right",
+                      "textAlign": "left",
                       "width": "361px",
                     }
                   }
@@ -4967,7 +4967,7 @@ exports[`ViewAsStudentModal component without a defaultClassroomId should render
                   style={
                     Object {
                       "minWidth": "361px",
-                      "textAlign": "right",
+                      "textAlign": "left",
                       "width": "361px",
                     }
                   }

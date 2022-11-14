@@ -11,11 +11,9 @@ describe SyncVitallyWorker, type: :worker do
       stub_const('ENV', {'SYNC_TO_VITALLY' => 'true'})
     end
 
-    it "make queries for schools, users, and districts and enqueue them for further jobs" do
+    it "make queries for schools and users and enqueue them for further jobs" do
       district = create(:district)
       school = create(:school, district: district)
-      subscription = create(:subscription, account_type: Subscription::SCHOOL_PAID)
-      create(:school_subscription, school: school, subscription: subscription)
       user = create(:user, role: 'teacher')
       SchoolsUsers.create(school: school, user: user)
 
@@ -42,18 +40,6 @@ describe SyncVitallyWorker, type: :worker do
     it 'does not kick off job for districts without schools with teachers' do
       district = create(:district)
       school = create(:school, district: district)
-      subscription = create(:subscription, account_type: Subscription::SCHOOL_PAID)
-      create(:school_subscription, school: school, subscription: subscription)
-
-      expect(SyncVitallyOrganizationWorker).not_to receive(:perform_async).with([district.id])
-      worker.perform
-    end
-
-    it 'does not kick off job for districts that have 0 schools with current subscriptions attached to them' do
-      district = create(:district)
-      school = create(:school, district: district)
-      user = create(:user, role: 'teacher')
-      SchoolsUsers.create(school: school, user: user)
 
       expect(SyncVitallyOrganizationWorker).not_to receive(:perform_async).with([district.id])
       worker.perform
@@ -65,8 +51,6 @@ describe SyncVitallyWorker, type: :worker do
       (SyncVitallyWorker::ORGANIZATION_RATE_LIMIT_PER_MINUTE * 3).times do
         district = create(:district)
         school = create(:school, district: district)
-        subscription = create(:subscription, account_type: Subscription::SCHOOL_PAID)
-        create(:school_subscription, school: school, subscription: subscription)
         user = create(:user, role: 'teacher')
         SchoolsUsers.create(school: school, user: user)
       end
