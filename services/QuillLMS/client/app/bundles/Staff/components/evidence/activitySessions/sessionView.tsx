@@ -33,6 +33,7 @@ const SessionView = ({ match }) => {
     queryKey: [`activity-${activityId}-session-${sessionId}`, sessionId],
     queryFn: fetchActivitySession
   });
+  console.log("🚀 ~ file: sessionView.tsx ~ line 36 ~ SessionView ~ sessionData", sessionData)
 
   if(!rulesData || !sessionData) {
     return(

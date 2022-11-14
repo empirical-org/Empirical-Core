@@ -16,6 +16,16 @@ class Api::V1::SessionFeedbackHistoriesController < Api::ApiController
     }
   end
 
+  def session_data_for_csv
+    options = params.permit(:activity_id, :start_date, :end_date, :filter_type, :responses_for_scoring).to_h.symbolize_keys
+    results = FeedbackHistory.session_data_for_csv(**options)
+    if results
+      render json: results
+    else
+      render plain: "The resource you were looking for does not exist", status: 404
+    end
+  end
+
   # GET /feedback_histories/1.json
   def show
     feedback_session_uid = params[:id]

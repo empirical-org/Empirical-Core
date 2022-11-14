@@ -3,12 +3,13 @@ import { Link } from 'react-router-dom';
 import { useQuery } from 'react-query';
 import * as moment from 'moment';
 import { firstBy } from 'thenby';
+import { CSVLink } from 'react-csv'
 
 import FilterWidget from "../shared/filterWidget";
 import { getVersionOptions, handlePageFilterClick, activitySessionIndexResponseHeaders } from "../../../helpers/evidence/miscHelpers";
 import { renderHeader } from "../../../helpers/evidence/renderHelpers";
 import { Error, Spinner, DropdownInput, ReactTable, Tooltip, informationIcon } from '../../../../Shared/index';
-import { fetchActivity, fetchActivitySessions, fetchActivityVersions } from '../../../utils/evidence/activityAPIs';
+import { fetchActivity, fetchActivitySessions, fetchActivityVersions, fetchActivitySessionsDataForCSV } from '../../../utils/evidence/activityAPIs';
 import { DropdownObjectInterface, ActivitySessionInterface, ActivitySessionsInterface } from '../../../interfaces/evidenceInterfaces';
 import { activitySessionFilterOptions, SESSION_INDEX } from '../../../../../constants/evidence';
 
@@ -51,6 +52,13 @@ const SessionsIndex = ({ match }) => {
     queryKey: [`activity-${activityId}-sessions`, activityId, pageNumberForQuery, startDateForQuery, filterOptionForQuery, endDateForQuery, responsesForScoringForQuery],
     queryFn: fetchActivitySessions
   });
+
+  // cache activity sessions data for updates
+  const { data: sessionsCSVData } = useQuery({
+    queryKey: [`activity-${activityId}-sessions-csv-data`, activityId, pageNumberForQuery, startDateForQuery, filterOptionForQuery, endDateForQuery, responsesForScoringForQuery],
+    queryFn: fetchActivitySessionsDataForCSV
+  });
+  // console.log("🚀 ~ file: sessionsIndex.tsx ~ line 62 ~ SessionsIndex ~ sessionsCSVData", sessionsCSVData)
 
   const { data: activityVersionData } = useQuery({
     queryKey: [`change-logs-for-activity-versions-${activityId}`, activityId],
@@ -246,16 +254,20 @@ const SessionsIndex = ({ match }) => {
               <input checked={responsesForScoring} onChange={handleResponsesForScoringChange} type="checkbox" />
             </section>
           </section>
-          <FilterWidget
-            endDate={endDate}
-            handleFilterClick={handleFilterClick}
-            handleVersionSelection={handleVersionSelection}
-            onEndDateChange={onEndDateChange}
-            onStartDateChange={onStartDateChange}
-            selectedVersion={versionOption}
-            startDate={startDate}
-            versionOptions={versionOptions}
-          />
+          <section className="bottom-section">
+            <FilterWidget
+              endDate={endDate}
+              handleFilterClick={handleFilterClick}
+              handleVersionSelection={handleVersionSelection}
+              onEndDateChange={onEndDateChange}
+              onStartDateChange={onStartDateChange}
+              selectedVersion={versionOption}
+              startDate={startDate}
+              versionOptions={versionOptions}
+            />
+            {/* <CSVLink data={csvData}>Download me</CSVLink>; */}
+            <button className="quill-button fun primary contained csv-download-button">Download CSV</button>
+          </section>
         </section>
         <ReactTable
           className="activity-sessions-table"

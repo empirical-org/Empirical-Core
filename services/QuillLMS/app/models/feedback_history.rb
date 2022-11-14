@@ -114,15 +114,15 @@ class FeedbackHistory < ApplicationRecord
     }
   end
 
-  def serializable_hash(options = nil)
-    options ||= {}
+  # def serializable_hash(options = nil)
+  #   options ||= {}
 
-    super(options.reverse_merge(
-      only: [:id, :feedback_session_uid, :concept_uid, :attempt, :entry, :optimal, :used,
-             :feedback_text, :feedback_type, :time, :metadata, :rule_uid],
-      include: [:prompt]
-    ))
-  end
+  #   super(options.reverse_merge(
+  #     only: [:id, :feedback_session_uid, :concept_uid, :attempt, :entry, :optimal, :used,
+  #            :feedback_text, :feedback_type, :time, :metadata, :rule_uid],
+  #     include: [:prompt]
+  #   ))
+  # end
 
   def serialize_by_activity_session
     serializable_hash(only: [:session_uid, :start_date, :activity_id, :flags, :because_attempts, :because_optimal, :but_attempts, :but_optimal, :so_attempts, :so_optimal, :scored_count, :weak_count, :strong_count, :complete], include: []).symbolize_keys
@@ -358,4 +358,34 @@ class FeedbackHistory < ApplicationRecord
     output.symbolize_keys
   end
   # rubocop:enable Metrics/CyclomaticComplexity
+
+  def self.session_data_for_csv(activity_id: nil, start_date: nil, end_date: nil, filter_type: nil, responses_for_scoring: false)
+    query = select(
+      <<-SQL
+        feedback_histories.feedback_session_uid AS session_uid,
+        feedback_histories.time AS datetime,
+        comprehension_prompts.conjunction,
+        COUNT(CASE WHEN comprehension_prompts.conjunction = '#{BECAUSE}' THEN 1 END) AS because_attempts,
+        COUNT(CASE WHEN comprehension_prompts.conjunction = '#{BUT}' THEN 1 END) AS but_attempts,
+        COUNT(CASE WHEN comprehension_prompts.conjunction = '#{SO}' THEN 1 END) AS so_attempts,
+        feedback_histories.optimal,
+        feedback_histories.attempt,
+        feedback_histories.entry as response,
+        feedback_histories.feedback_text as feedback,
+        feedback_histories.feedback_type,
+        comprehension_rules.name
+      SQL
+      )
+      .joins("LEFT OUTER JOIN comprehension_prompts ON feedback_histories.prompt_id = comprehension_prompts.id")
+      .joins("LEFT OUTER JOIN comprehension_rules ON comprehension_rules.uid = feedback_histories.rule_uid")
+      .where(used: true)
+      .group(:session_uid, :datetime, :conjunction, :optimal, :attempt, :response, :feedback, :feedback_type, :name)
+      .order('datetime DESC')
+    query = query.where(comprehension_prompts: {activity_id: activity_id.to_i}) if activity_id
+    query = query.where("feedback_histories.created_at >= ?", start_date) if start_date
+    query = query.where("feedback_histories.created_at <= ?", end_date) if end_date
+    query = FeedbackHistory.apply_activity_session_filter(query, filter_type) if filter_type
+    query = query.having(FeedbackHistory.responses_for_scoring) if responses_for_scoring
+    query
+  end
 end

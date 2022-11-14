@@ -1,5 +1,5 @@
 import { ActivityInterface, DropdownObjectInterface } from '../../interfaces/evidenceInterfaces';
-import { handleApiError, apiFetch, mainApiFetch, handleRequestErrors, requestFailed, getActivitySessionsUrl } from '../../helpers/evidence/routingHelpers';
+import { handleApiError, apiFetch, mainApiFetch, handleRequestErrors, requestFailed, getActivitySessionsUrl, getActivitySessionsCSVUrl } from '../../helpers/evidence/routingHelpers';
 
 export const fetchActivities = async () => {
   let activities: ActivityInterface[];
@@ -112,6 +112,22 @@ export const fetchActivitySessions = async ({ queryKey, }) => {
   const url = getActivitySessionsUrl({ activityId, pageNumber, startDate, endDate, filterType: value, responsesForScoring: responsesForScoring });
   const response = await mainApiFetch(url);
   const activitySessions = await response.json();
+
+  return {
+    activitySessions,
+    error: handleApiError('Failed to fetch activity sessions, please refresh the page.', response),
+  };
+}
+
+export const fetchActivitySessionsDataForCSV = async ({ queryKey, }) => {
+  const [key, activityId, pageNumber, startDate, filterOptionForQuery, endDate, responsesForScoring]: [string, string, number, string, DropdownObjectInterface, string, string, boolean] = queryKey
+  const { value } = filterOptionForQuery
+  const url = getActivitySessionsCSVUrl({ activityId, pageNumber, startDate, endDate, filterType: value, responsesForScoring: responsesForScoring });
+  console.log("🚀 ~ file: activityAPIs.ts ~ line 126 ~ fetchActivitySessionsDataForCSV ~ url", url)
+  const response = await mainApiFetch(url);
+  console.log("🚀 ~ file: activityAPIs.ts ~ line 127 ~ fetchActivitySessionsDataForCSV ~ response", response)
+  const activitySessions = await response.json();
+  console.log("🚀 ~ file: activityAPIs.ts ~ line 129 ~ fetchActivitySessionsDataForCSV ~ activitySessions", activitySessions)
 
   return {
     activitySessions,

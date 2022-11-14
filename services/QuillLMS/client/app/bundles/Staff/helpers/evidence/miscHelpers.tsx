@@ -93,7 +93,7 @@ export const handlePageFilterClick = ({
     setEndDate: (endDate: string) => void,
     setFilterOptionForQuery?: (filterOption: DropdownObjectInterface) => void,
     setPageNumber: (pageNumber: DropdownObjectInterface) => void,
-    setResponsesForScoringForQuery: (responsesForScoringQuery: boolean) => void,
+    setResponsesForScoringForQuery?: (responsesForScoringQuery: boolean) => void,
     storageKey: string,
   }) => {
   if(versionOption) {
@@ -120,7 +120,9 @@ export const handlePageFilterClick = ({
   if(setPageNumber) {
     setPageNumber({ value: '1', label: "Page 1" })
   }
-  setResponsesForScoringForQuery(responsesForScoring)
+  if(setResponsesForScoringForQuery) {
+    setResponsesForScoringForQuery(responsesForScoring)
+  }
 }
 
 export const validateForm = (keys: string[], state: any[], ruleType?: string) => {
@@ -411,3 +413,9 @@ export const activitySessionIndexResponseHeaders = [
     Cell: props => props.value
   },
 ]
+
+// export const csvHeaders = [
+//   { label: 'Date/Time', key: 'datetime'},
+//   { label: 'Session ID', key: 'id'},
+//   Date/Time	Session ID	Conjunction	Attempt	Optimal?	Completed?	Response	Feedback	Rule
+// ]

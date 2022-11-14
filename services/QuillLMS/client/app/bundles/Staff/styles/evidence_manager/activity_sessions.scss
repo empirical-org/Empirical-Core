@@ -32,6 +32,14 @@
     flex-direction: column;
     align-items: flex-start;
   }
+  .bottom-section {
+    display: flex;
+    align-items: center;
+    .csv-download-button {
+      margin-top: 19px;
+      margin-left: 24px;
+    }
+  }
   .top-section, .middle-section {
     display: flex;
     margin: 16px 0px 8px 0px;
