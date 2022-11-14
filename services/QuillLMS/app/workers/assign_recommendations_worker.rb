@@ -13,7 +13,7 @@ class AssignRecommendationsWorker
     classroom_id = options[:classroom_id]
     is_last_recommendation = options[:is_last_recommendation]
     lesson = options[:lesson]
-    order = option[:order]
+    order = options[:order]
     pack_sequence_id = options[:pack_sequence_id]
     student_ids = options[:student_ids]
     unit_template_id = options[:unit_template_id]
