@@ -322,7 +322,11 @@ describe UnitActivity, type: :model, redis: true do
   end
 
   describe 'save_user_pack_sequence_items' do
-    let(:num_jobs) { unit.classroom_units.map(&:assigned_student_ids).map(&:count).sum }
+    let!(:num_students) { 2 }
+    let!(:num_jobs) { unit.pack_sequence_items.map(&:users).map(&:count).sum }
+    let!(:pack_sequence_item) { create(:pack_sequence_item, unit: unit_activity.unit) }
+
+    before { create_list(:user_pack_sequence_item, num_students, pack_sequence_item: pack_sequence_item) }
 
     context 'visible has changed' do
       subject { unit_activity.update(visible: false) }

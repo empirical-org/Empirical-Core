@@ -129,7 +129,7 @@ class ClassroomUnit < ApplicationRecord
   end
 
   private def save_user_pack_sequence_items
-    assigned_student_ids.each { |student_id| SaveUserPackSequenceItemsWorker.perform_async(classroom.id, student_id) }
+    assigned_student_ids.each { |student_id| SaveUserPackSequenceItemsWorker.perform_async(classroom&.id, student_id) }
   end
 end
 
