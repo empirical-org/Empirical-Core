@@ -95,7 +95,7 @@ class ActivitySession < ApplicationRecord
   belongs_to :user
 
   before_create :set_state
-  before_save :set_completed_at, :set_activity_id
+  before_save :set_completed_at, :set_activity_id, :trigger_events
 
   after_save :determine_if_final_score, :update_milestones, :increment_counts
   after_save :record_teacher_activity_feed, if: [:saved_change_to_completed_at?, :completed?]
@@ -104,8 +104,6 @@ class ActivitySession < ApplicationRecord
   after_commit :invalidate_activity_session_count_if_completed
 
   after_destroy :save_user_pack_sequence_items
-
-  around_save :trigger_events
 
   # FIXME: do we need the below? if we omit it, may make things faster
   default_scope -> { joins(:activity) }
@@ -119,6 +117,7 @@ class ActivitySession < ApplicationRecord
     joins(classroom_unit: {classroom: :teachers})
     .where(users: { id: teacher_id})
   }
+
   scope :averages_for_user_ids, lambda {|user_ids|
     select('user_id, AVG(percentage) as avg')
     .joins(activity: :classification)
@@ -139,8 +138,8 @@ class ActivitySession < ApplicationRecord
   # returns {user_id: average}
   def self.average_scores_by_student(user_ids)
     averages_for_user_ids(user_ids)
-    .map{|as| [as['user_id'], (as['avg'].to_f * 100).to_i]}
-    .to_h
+      .map { |as| [as['user_id'], (as['avg'].to_f * 100).to_i] }
+      .to_h
   end
 
   def timespent
@@ -290,11 +289,7 @@ class ActivitySession < ApplicationRecord
   end
 
   def percentage_as_percent
-    if percentage.nil?
-      "no percentage"
-    else
-      "#{(percentage*100).round}%"
-    end
+    percentage.nil? ? 'no percentage' : "#{(percentage*100).round}%"
   end
 
   def score
@@ -306,7 +301,7 @@ class ActivitySession < ApplicationRecord
   end
 
   def start
-    return if state != 'unstarted'
+    return unless unstarted?
 
     self.started_at ||= Time.current
     self.state = 'started'
@@ -508,7 +503,7 @@ class ActivitySession < ApplicationRecord
     correct_skills.map(&:id)
   end
 
-  # when using this method, you should eager load ass
+  # when using this method, you should eager load as
   # e.g. .includes(:concept_results, activity: {skills: :concepts})
   def correct_skills
     @correct_skills ||= begin
@@ -566,10 +561,8 @@ class ActivitySession < ApplicationRecord
   # rubocop:enable Metrics/CyclomaticComplexity
 
   private def trigger_events
-    yield # http://stackoverflow.com/questions/4998553/rails-around-callbacks
-
     return unless saved_change_to_state?
-    return unless state == 'finished'
+    return unless finished?
 
     FinishActivityWorker.perform_async(uid)
   end
@@ -584,16 +577,13 @@ class ActivitySession < ApplicationRecord
   end
 
   private def set_completed_at
-    return unless state == 'finished'
+    return unless finished?
 
     self.completed_at ||= Time.current
   end
 
   private def update_milestones
-    # we check to see if it is finished because the only milestone we're checking for is the copleted idagnostic.
-    # at a later date, we might have to update this check in case we want a milestone for sessions being assigned
-    # or started.
-    return unless self.state == 'finished'
+    return unless finished?
 
     UpdateMilestonesWorker.perform_async(uid)
   end
@@ -606,11 +596,11 @@ class ActivitySession < ApplicationRecord
   end
 
   def self.has_a_completed_session?(activity_id_or_ids, classroom_unit_id_or_ids)
-    !!ActivitySession.find_by(classroom_unit_id: classroom_unit_id_or_ids, activity_id: activity_id_or_ids, state: "finished")
+    ActivitySession.exists?(classroom_unit_id: classroom_unit_id_or_ids, activity_id: activity_id_or_ids, state: "finished")
   end
 
   def self.has_a_started_session?(activity_id_or_ids, classroom_unit_id_or_ids)
-    !!ActivitySession.find_by(classroom_unit_id: classroom_unit_id_or_ids, activity_id: activity_id_or_ids, state: "started")
+    ActivitySession.exists?(classroom_unit_id: classroom_unit_id_or_ids, activity_id: activity_id_or_ids, state: "started")
   end
 
   private def record_teacher_activity_feed
