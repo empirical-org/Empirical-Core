@@ -268,7 +268,7 @@ describe Api::V1::SessionFeedbackHistoriesController, type: :controller do
       parsed_response = JSON.parse(response.body)
 
       expect(response).to have_http_status(200)
-      expect(parsed_response.length).to eq(3)
+      expect(parsed_response.length).to eq(6)
       expect(parsed_response[0]).to eq(@feedback_history6)
       expect(parsed_response[1]).to eq(@feedback_history5)
       expect(parsed_response[2]).to eq(@feedback_history4)

@@ -644,7 +644,6 @@ RSpec.describe FeedbackHistory, type: :model do
     context '#session_data_for_csv' do
       it 'should take the query from #session_data_for_csv and return a shaped payload' do
         responses = FeedbackHistory.session_data_for_csv
-        responses_for_scoring = FeedbackHistory.session_data_for_csv(responses_for_scoring: true)
         RSpec::Support::ObjectFormatter.default_instance.max_formatted_output_length = 10000
         expect(responses.map { |r| r.serialize_csv_data }.to_json).to eq([
           {
@@ -655,8 +654,7 @@ RSpec.describe FeedbackHistory, type: :model do
             attempt: @first_session_feedback1.attempt,
             response: @first_session_feedback1.entry,
             feedback: @first_session_feedback1.feedback_text,
-            feedback_type: @first_session_feedback1.feedback_type,
-            name: Evidence::Rule.find_by(rule_uid: @first_session_feedback1.rule_uid)&.rule_type
+            feedback_type: @first_session_feedback1.feedback_type
           },
           {
             feedback_session_uid: @first_session_feedback2.feedback_session_uid,
@@ -666,8 +664,7 @@ RSpec.describe FeedbackHistory, type: :model do
             attempt: @first_session_feedback2.attempt,
             response: @first_session_feedback2.entry,
             feedback: @first_session_feedback2.feedback_text,
-            feedback_type: @first_session_feedback2.feedback_type,
-            name: Evidence::Rule.find_by(rule_uid: @first_session_feedback2.rule_uid)&.rule_type
+            feedback_type: @first_session_feedback2.feedback_type
           },
           {
             feedback_session_uid: @first_session_feedback3.feedback_session_uid,
@@ -677,8 +674,7 @@ RSpec.describe FeedbackHistory, type: :model do
             attempt: @first_session_feedback3.attempt,
             response: @first_session_feedback3.entry,
             feedback: @first_session_feedback3.feedback_text,
-            feedback_type: @first_session_feedback3.feedback_type,
-            name: Evidence::Rule.find_by(rule_uid: @first_session_feedback3.rule_uid)&.rule_type
+            feedback_type: @first_session_feedback3.feedback_type
           },
           {
             feedback_session_uid: @first_session_feedback4.feedback_session_uid,
@@ -688,8 +684,7 @@ RSpec.describe FeedbackHistory, type: :model do
             attempt: @first_session_feedback4.attempt,
             response: @first_session_feedback4.entry,
             feedback: @first_session_feedback4.feedback_text,
-            feedback_type: @first_session_feedback4.feedback_type,
-            name: Evidence::Rule.find_by(rule_uid: @first_session_feedback4.rule_uid)&.rule_type
+            feedback_type: @first_session_feedback4.feedback_type
           },
           {
             feedback_session_uid: @first_session_feedback5.feedback_session_uid,
@@ -699,8 +694,7 @@ RSpec.describe FeedbackHistory, type: :model do
             attempt: @first_session_feedback5.attempt,
             response: @first_session_feedback5.entry,
             feedback: @first_session_feedback5.feedback_text,
-            feedback_type: @first_session_feedback5.feedback_type,
-            name: Evidence::Rule.find_by(rule_uid: @first_session_feedback5.rule_uid)&.rule_type
+            feedback_type: @first_session_feedback5.feedback_type
           },
           {
             feedback_session_uid: @first_session_feedback6.feedback_session_uid,
@@ -710,8 +704,7 @@ RSpec.describe FeedbackHistory, type: :model do
             attempt: @first_session_feedback6.attempt,
             response: @first_session_feedback6.entry,
             feedback: @first_session_feedback6.feedback_text,
-            feedback_type: @first_session_feedback6.feedback_type,
-            name: Evidence::Rule.find_by(rule_uid: @first_session_feedback6.rule_uid)&.rule_type
+            feedback_type: @first_session_feedback6.feedback_type
           },
           {
             feedback_session_uid: @second_session_feedback.feedback_session_uid,
@@ -721,11 +714,14 @@ RSpec.describe FeedbackHistory, type: :model do
             attempt: @second_session_feedback.attempt,
             response: @second_session_feedback.entry,
             feedback: @second_session_feedback.feedback_text,
-            feedback_type: @second_session_feedback.feedback_type,
-            name: Evidence::Rule.find_by(rule_uid: @second_session_feedback.rule_uid)&.rule_type
+            feedback_type: @second_session_feedback.feedback_type
           }
         ].to_json)
+      end
 
+      it 'should take the query from #session_data_for_csv and return a shaped payload with records qualifying for scoring' do
+        responses = FeedbackHistory.session_data_for_csv(responses_for_scoring: true)
+        RSpec::Support::ObjectFormatter.default_instance.max_formatted_output_length = 10000
         expect(responses.map { |r| r.serialize_csv_data }.to_json).to eq([
           {
             feedback_session_uid: @first_session_feedback1.feedback_session_uid,
@@ -735,8 +731,7 @@ RSpec.describe FeedbackHistory, type: :model do
             attempt: @first_session_feedback1.attempt,
             response: @first_session_feedback1.entry,
             feedback: @first_session_feedback1.feedback_text,
-            feedback_type: @first_session_feedback1.feedback_type,
-            name: Evidence::Rule.find_by(rule_uid: @first_session_feedback1.rule_uid)&.rule_type
+            feedback_type: @first_session_feedback1.feedback_type
           },
           {
             feedback_session_uid: @first_session_feedback2.feedback_session_uid,
@@ -746,8 +741,7 @@ RSpec.describe FeedbackHistory, type: :model do
             attempt: @first_session_feedback2.attempt,
             response: @first_session_feedback2.entry,
             feedback: @first_session_feedback2.feedback_text,
-            feedback_type: @first_session_feedback2.feedback_type,
-            name: Evidence::Rule.find_by(rule_uid: @first_session_feedback2.rule_uid)&.rule_type
+            feedback_type: @first_session_feedback2.feedback_type
           },
           {
             feedback_session_uid: @first_session_feedback3.feedback_session_uid,
@@ -757,8 +751,7 @@ RSpec.describe FeedbackHistory, type: :model do
             attempt: @first_session_feedback3.attempt,
             response: @first_session_feedback3.entry,
             feedback: @first_session_feedback3.feedback_text,
-            feedback_type: @first_session_feedback3.feedback_type,
-            name: Evidence::Rule.find_by(rule_uid: @first_session_feedback3.rule_uid)&.rule_type
+            feedback_type: @first_session_feedback3.feedback_type
           },
           {
             feedback_session_uid: @first_session_feedback4.feedback_session_uid,
@@ -768,8 +761,7 @@ RSpec.describe FeedbackHistory, type: :model do
             attempt: @first_session_feedback4.attempt,
             response: @first_session_feedback4.entry,
             feedback: @first_session_feedback4.feedback_text,
-            feedback_type: @first_session_feedback4.feedback_type,
-            name: Evidence::Rule.find_by(rule_uid: @first_session_feedback4.rule_uid)&.rule_type
+            feedback_type: @first_session_feedback4.feedback_type
           },
           {
             feedback_session_uid: @first_session_feedback5.feedback_session_uid,
@@ -779,8 +771,7 @@ RSpec.describe FeedbackHistory, type: :model do
             attempt: @first_session_feedback5.attempt,
             response: @first_session_feedback5.entry,
             feedback: @first_session_feedback5.feedback_text,
-            feedback_type: @first_session_feedback5.feedback_type,
-            name: Evidence::Rule.find_by(rule_uid: @first_session_feedback5.rule_uid)&.rule_type
+            feedback_type: @first_session_feedback5.feedback_type
           },
           {
             feedback_session_uid: @first_session_feedback6.feedback_session_uid,
@@ -790,8 +781,7 @@ RSpec.describe FeedbackHistory, type: :model do
             attempt: @first_session_feedback6.attempt,
             response: @first_session_feedback6.entry,
             feedback: @first_session_feedback6.feedback_text,
-            feedback_type: @first_session_feedback6.feedback_type,
-            name: Evidence::Rule.find_by(rule_uid: @first_session_feedback6.rule_uid)&.rule_type
+            feedback_type: @first_session_feedback6.feedback_type
           }
         ].to_json)
       end
