@@ -1,7 +1,7 @@
 import React from 'react';
 import { shallow } from 'enzyme';
 import AdminDashboard from 'bundles/admin_dashboard/containers/AdminDashboard';
-import AdminsTeachers from 'bundles/admin_dashboard/components/admins_teachers';
+import AdminsTeachers from 'bundles/admin_dashboard/components/adminsTeachers';
 
 describe('AdminDashboard container', () => {
   process.env.PUSHER_KEY = 'pusher';
