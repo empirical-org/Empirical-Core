@@ -18,7 +18,8 @@ class Api::V1::SessionFeedbackHistoriesController < Api::ApiController
 
   def session_data_for_csv
     options = params.permit(:activity_id, :start_date, :end_date, :filter_type, :responses_for_scoring).to_h.symbolize_keys
-    results = FeedbackHistory.session_data_for_csv(**options)
+    feedback_histories = FeedbackHistory.session_data_for_csv(**options)
+    results = feedback_histories.map { |fh| fh.serialize_csv_data }
     if results
       render json: results
     else

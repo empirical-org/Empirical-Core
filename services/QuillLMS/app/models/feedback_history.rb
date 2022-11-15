@@ -114,15 +114,15 @@ class FeedbackHistory < ApplicationRecord
     }
   end
 
-  # def serializable_hash(options = nil)
-  #   options ||= {}
+  def serializable_hash(options = nil)
+    options ||= {}
 
-  #   super(options.reverse_merge(
-  #     only: [:id, :feedback_session_uid, :concept_uid, :attempt, :entry, :optimal, :used,
-  #            :feedback_text, :feedback_type, :time, :metadata, :rule_uid],
-  #     include: [:prompt]
-  #   ))
-  # end
+    super(options.reverse_merge(
+      only: [:id, :feedback_session_uid, :concept_uid, :attempt, :entry, :optimal, :used,
+             :feedback_text, :feedback_type, :time, :metadata, :rule_uid],
+      include: [:prompt]
+    ))
+  end
 
   def serialize_by_activity_session
     serializable_hash(only: [:session_uid, :start_date, :activity_id, :flags, :because_attempts, :because_optimal, :but_attempts, :but_optimal, :so_attempts, :so_optimal, :scored_count, :weak_count, :strong_count, :complete], include: []).symbolize_keys
@@ -130,6 +130,10 @@ class FeedbackHistory < ApplicationRecord
 
   def serialize_by_activity_session_detail
     serializable_hash(only: [:id, :entry, :feedback_text, :feedback_type, :optimal, :used, :rule_uid], include: [], methods: [:most_recent_rating]).symbolize_keys
+  end
+
+  def serialize_csv_data
+    serializable_hash(only: [:session_uid, :datetime, :conjunction, :optimal, :attempt, :response, :feedback, :feedback_type, :name], include: []).symbolize_keys
   end
 
   def most_recent_rating

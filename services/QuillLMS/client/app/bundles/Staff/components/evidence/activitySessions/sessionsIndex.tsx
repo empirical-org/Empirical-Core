@@ -55,7 +55,7 @@ const SessionsIndex = ({ match }) => {
 
   // cache activity sessions data for updates
   const { data: sessionsCSVData } = useQuery({
-    queryKey: [`activity-${activityId}-sessions-csv-data`, activityId, pageNumberForQuery, startDateForQuery, filterOptionForQuery, endDateForQuery, responsesForScoringForQuery],
+    queryKey: [`activity-${activityId}-sessions-csv-data`, activityId, startDateForQuery, filterOptionForQuery, endDateForQuery, responsesForScoringForQuery],
     queryFn: fetchActivitySessionsDataForCSV
   });
 

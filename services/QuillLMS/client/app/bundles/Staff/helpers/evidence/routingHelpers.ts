@@ -36,8 +36,8 @@ export function getActivitySessionsUrl({ activityId, pageNumber, startDate, endD
   return url;
 }
 
-export function getActivitySessionsCSVUrl({ activityId, pageNumber, startDate, endDate, filterType, responsesForScoring}) {
-  let url = `session_data_for_csv?page=${pageNumber}&activity_id=${activityId}`;
+export function getActivitySessionsCSVUrl({ activityId, startDate, endDate, filterType, responsesForScoring}) {
+  let url = `session_data_for_csv?&activity_id=${activityId}`;
   url = startDate ? url + `&start_date=${startDate}` : url;
   url = endDate ? url + `&end_date=${endDate}` : url;
   url = filterType ? url + `&filter_type=${filterType}` : url;

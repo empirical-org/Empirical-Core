@@ -120,9 +120,9 @@ export const fetchActivitySessions = async ({ queryKey, }) => {
 }
 
 export const fetchActivitySessionsDataForCSV = async ({ queryKey, }) => {
-  const [key, activityId, pageNumber, startDate, filterOptionForQuery, endDate, responsesForScoring]: [string, string, number, string, DropdownObjectInterface, string, string, boolean] = queryKey
+  const [key, activityId, startDate, filterOptionForQuery, endDate, responsesForScoring]: [string, string, string, DropdownObjectInterface, string, string, boolean] = queryKey
   const { value } = filterOptionForQuery
-  const url = getActivitySessionsCSVUrl({ activityId, pageNumber, startDate, endDate, filterType: value, responsesForScoring: responsesForScoring });
+  const url = getActivitySessionsCSVUrl({ activityId, startDate, endDate, filterType: value, responsesForScoring: responsesForScoring });
   const response = await mainApiFetch(url);
   const csvResponseData = await response.json();
 
