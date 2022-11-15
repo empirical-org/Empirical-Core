@@ -38,6 +38,9 @@
     .csv-download-button {
       margin-top: 19px;
       margin-left: 24px;
+      .spinner {
+        height: 24px;
+      }
     }
   }
   .top-section, .middle-section {

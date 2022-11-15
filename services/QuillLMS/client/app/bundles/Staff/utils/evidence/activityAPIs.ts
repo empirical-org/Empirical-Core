@@ -123,14 +123,11 @@ export const fetchActivitySessionsDataForCSV = async ({ queryKey, }) => {
   const [key, activityId, pageNumber, startDate, filterOptionForQuery, endDate, responsesForScoring]: [string, string, number, string, DropdownObjectInterface, string, string, boolean] = queryKey
   const { value } = filterOptionForQuery
   const url = getActivitySessionsCSVUrl({ activityId, pageNumber, startDate, endDate, filterType: value, responsesForScoring: responsesForScoring });
-  console.log("🚀 ~ file: activityAPIs.ts ~ line 126 ~ fetchActivitySessionsDataForCSV ~ url", url)
   const response = await mainApiFetch(url);
-  console.log("🚀 ~ file: activityAPIs.ts ~ line 127 ~ fetchActivitySessionsDataForCSV ~ response", response)
-  const activitySessions = await response.json();
-  console.log("🚀 ~ file: activityAPIs.ts ~ line 129 ~ fetchActivitySessionsDataForCSV ~ activitySessions", activitySessions)
+  const csvResponseData = await response.json();
 
   return {
-    activitySessions,
+    csvResponseData,
     error: handleApiError('Failed to fetch activity sessions, please refresh the page.', response),
   };
 }

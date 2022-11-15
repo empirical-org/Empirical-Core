@@ -3,7 +3,7 @@ import { Link } from 'react-router-dom';
 import { useQuery } from 'react-query';
 import * as moment from 'moment';
 import { firstBy } from 'thenby';
-import { CSVLink } from 'react-csv'
+import { CSVLink } from 'react-csv';
 
 import FilterWidget from "../shared/filterWidget";
 import { getVersionOptions, handlePageFilterClick, activitySessionIndexResponseHeaders } from "../../../helpers/evidence/miscHelpers";
@@ -11,7 +11,7 @@ import { renderHeader } from "../../../helpers/evidence/renderHelpers";
 import { Error, Spinner, DropdownInput, ReactTable, Tooltip, informationIcon } from '../../../../Shared/index';
 import { fetchActivity, fetchActivitySessions, fetchActivityVersions, fetchActivitySessionsDataForCSV } from '../../../utils/evidence/activityAPIs';
 import { DropdownObjectInterface, ActivitySessionInterface, ActivitySessionsInterface } from '../../../interfaces/evidenceInterfaces';
-import { activitySessionFilterOptions, SESSION_INDEX } from '../../../../../constants/evidence';
+import { activitySessionFilterOptions, SESSION_INDEX, sessionsCSVHeaders, DEFAULT_MAX_ATTEMPTS } from '../../../../../constants/evidence';
 
 const quillCheckmark = 'https://assets.quill.org/images/icons/check-circle-small.svg';
 
@@ -58,7 +58,6 @@ const SessionsIndex = ({ match }) => {
     queryKey: [`activity-${activityId}-sessions-csv-data`, activityId, pageNumberForQuery, startDateForQuery, filterOptionForQuery, endDateForQuery, responsesForScoringForQuery],
     queryFn: fetchActivitySessionsDataForCSV
   });
-  // console.log("🚀 ~ file: sessionsIndex.tsx ~ line 62 ~ SessionsIndex ~ sessionsCSVData", sessionsCSVData)
 
   const { data: activityVersionData } = useQuery({
     queryKey: [`change-logs-for-activity-versions-${activityId}`, activityId],
@@ -193,6 +192,30 @@ const SessionsIndex = ({ match }) => {
     });
   }
 
+  function getCSVData(sessionsCSVData) {
+    if(!sessionsCSVData || !sessionsCSVData.csvResponseData) { return [] }
+    const { csvResponseData } = sessionsCSVData
+    return csvResponseData.map(data => {
+      const { attempt, conjunction, datetime, feedback, feedback_type, name, optimal, response, session_uid } = data;
+      return {
+        attempt: attempt?.toString(),
+        conjunction,
+        datetime,
+        feedback: feedback,
+        rule: `${feedback_type}: ${name}`,
+        optimal: `${optimal}`,
+        completed: `${optimal || attempt === DEFAULT_MAX_ATTEMPTS}`,
+        response,
+        session_uid
+      }
+    });
+  }
+
+  function renderCSVDownloadButton() {
+    if(!sessionsCSVData || !sessionsCSVData.csvResponseData) { return <button className="quill-button fun primary contained csv-download-button"><Spinner /></button> }
+    return <CSVLink className="quill-button fun primary contained csv-download-button" data={getCSVData(sessionsCSVData)} headers={sessionsCSVHeaders}>Download CSV</CSVLink>
+  }
+
   if(!sessionsData) {
     return(
       <div className="loading-spinner-container">
@@ -265,8 +288,7 @@ const SessionsIndex = ({ match }) => {
               startDate={startDate}
               versionOptions={versionOptions}
             />
-            {/* <CSVLink data={csvData}>Download me</CSVLink>; */}
-            <button className="quill-button fun primary contained csv-download-button">Download CSV</button>
+            {renderCSVDownloadButton()}
           </section>
         </section>
         <ReactTable

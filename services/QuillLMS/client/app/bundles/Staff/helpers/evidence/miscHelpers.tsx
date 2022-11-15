@@ -413,9 +413,3 @@ export const activitySessionIndexResponseHeaders = [
     Cell: props => props.value
   },
 ]
-
-// export const csvHeaders = [
-//   { label: 'Date/Time', key: 'datetime'},
-//   { label: 'Session ID', key: 'id'},
-//   Date/Time	Session ID	Conjunction	Attempt	Optimal?	Completed?	Response	Feedback	Rule
-// ]
