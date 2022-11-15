@@ -2,7 +2,13 @@
 
 class VitallyRestApi
   BASE_URL = 'https://rest.vitally.io/resources'
+  RATE_LIMIT_CODE = 429
+  ENDPOINT_ORGANIZATIONS = "organizations"
   API_KEY = ENV['VITALLY_REST_API_KEY']
+
+
+  class RateLimitError < StandardError; end
+  class ApiError < StandardError; end
 
   def create(type, payload)
     HTTParty.post("#{VITALLY_REST_API_BASE_URL}/#{type}",

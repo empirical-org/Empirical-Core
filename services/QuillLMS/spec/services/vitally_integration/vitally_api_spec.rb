@@ -51,30 +51,10 @@ describe VitallyApi do
     end
 
     context 'Other error' do
-      let(:response) {sample_response.merge(status: 500) }
 
-      it { expect{subject}.to raise_error(VitallyApi::ApiError) }
+      let(:response) {sample_response.merge(status: 500)}
+
+      it { expect{subject}.to raise_error(VitallyApi::ApiError).with_message("500") }
     end
   end
-
-  # describe '#unlink' do
-  #   it 'should post the payload to the unlink endpoint' do
-  #     mock_payload = 'payload'
-  #     expect(api).to receive(:send).with('unlink', mock_payload)
-  #     api.unlink(mock_payload)
-  #   end
-
-  #   it 'should make a POST call to the Vitally API with the specified command and payload' do
-  #     ENV['VITALLY_API_KEY'] = 'test api key'
-  #     payload = 'test payload'
-  #     expect(HTTParty).to receive(:post).with("#{VitallyApi::VITALLY_API_BASE_URL}/unlink",
-  #       headers: {
-  #         Authorization: "Basic #{ENV['VITALLY_API_KEY']}",
-  #         "Content-Type": "application/json"
-  #       },
-  #       body: payload.to_json
-  #     )
-  #     api.unlink(payload)
-  #   end
-  # end
 end
