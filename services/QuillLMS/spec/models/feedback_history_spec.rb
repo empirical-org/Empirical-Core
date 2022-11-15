@@ -647,7 +647,7 @@ RSpec.describe FeedbackHistory, type: :model do
         RSpec::Support::ObjectFormatter.default_instance.max_formatted_output_length = 10000
         expect(responses.map { |r| r.serialize_csv_data }.to_json).to eq([
           {
-            feedback_session_uid: @first_session_feedback1.feedback_session_uid,
+            session_uid: @first_session_feedback1.feedback_session_uid,
             datetime: @first_session_feedback1.time,
             conjunction: @because_prompt1.conjunction,
             optimal: @first_session_feedback1.optimal,
@@ -657,7 +657,7 @@ RSpec.describe FeedbackHistory, type: :model do
             feedback_type: @first_session_feedback1.feedback_type
           },
           {
-            feedback_session_uid: @first_session_feedback2.feedback_session_uid,
+            session_uid: @first_session_feedback2.feedback_session_uid,
             datetime: @first_session_feedback2.time,
             conjunction: @because_prompt1.conjunction,
             optimal: @first_session_feedback2.optimal,
@@ -667,7 +667,7 @@ RSpec.describe FeedbackHistory, type: :model do
             feedback_type: @first_session_feedback2.feedback_type
           },
           {
-            feedback_session_uid: @first_session_feedback3.feedback_session_uid,
+            session_uid: @first_session_feedback3.feedback_session_uid,
             datetime: @first_session_feedback3.time,
             conjunction: @but_prompt1.conjunction,
             optimal: @first_session_feedback3.optimal,
@@ -677,7 +677,7 @@ RSpec.describe FeedbackHistory, type: :model do
             feedback_type: @first_session_feedback3.feedback_type
           },
           {
-            feedback_session_uid: @first_session_feedback4.feedback_session_uid,
+            session_uid: @first_session_feedback4.feedback_session_uid,
             datetime: @first_session_feedback4.time,
             conjunction: @so_prompt1.conjunction,
             optimal: @first_session_feedback4.optimal,
@@ -687,7 +687,7 @@ RSpec.describe FeedbackHistory, type: :model do
             feedback_type: @first_session_feedback4.feedback_type
           },
           {
-            feedback_session_uid: @first_session_feedback5.feedback_session_uid,
+            session_uid: @first_session_feedback5.feedback_session_uid,
             datetime: @first_session_feedback5.time,
             conjunction: @so_prompt1.conjunction,
             optimal: @first_session_feedback5.optimal,
@@ -697,7 +697,7 @@ RSpec.describe FeedbackHistory, type: :model do
             feedback_type: @first_session_feedback5.feedback_type
           },
           {
-            feedback_session_uid: @first_session_feedback6.feedback_session_uid,
+            session_uid: @first_session_feedback6.feedback_session_uid,
             datetime: @first_session_feedback6.time,
             conjunction: @so_prompt1.conjunction,
             optimal: @first_session_feedback6.optimal,
@@ -707,7 +707,7 @@ RSpec.describe FeedbackHistory, type: :model do
             feedback_type: @first_session_feedback6.feedback_type
           },
           {
-            feedback_session_uid: @second_session_feedback.feedback_session_uid,
+            session_uid: @second_session_feedback.feedback_session_uid,
             datetime: @second_session_feedback.time,
             conjunction: @because_prompt2.conjunction,
             optimal: @second_session_feedback.optimal,
@@ -724,7 +724,7 @@ RSpec.describe FeedbackHistory, type: :model do
         RSpec::Support::ObjectFormatter.default_instance.max_formatted_output_length = 10000
         expect(responses.map { |r| r.serialize_csv_data }.to_json).to eq([
           {
-            feedback_session_uid: @first_session_feedback1.feedback_session_uid,
+            session_uid: @first_session_feedback1.feedback_session_uid,
             datetime: @first_session_feedback1.time,
             conjunction: @because_prompt1.conjunction,
             optimal: @first_session_feedback1.optimal,
@@ -734,7 +734,7 @@ RSpec.describe FeedbackHistory, type: :model do
             feedback_type: @first_session_feedback1.feedback_type
           },
           {
-            feedback_session_uid: @first_session_feedback2.feedback_session_uid,
+            session_uid: @first_session_feedback2.feedback_session_uid,
             datetime: @first_session_feedback2.time,
             conjunction: @because_prompt1.conjunction,
             optimal: @first_session_feedback2.optimal,
@@ -744,7 +744,7 @@ RSpec.describe FeedbackHistory, type: :model do
             feedback_type: @first_session_feedback2.feedback_type
           },
           {
-            feedback_session_uid: @first_session_feedback3.feedback_session_uid,
+            session_uid: @first_session_feedback3.feedback_session_uid,
             datetime: @first_session_feedback3.time,
             conjunction: @but_prompt1.conjunction,
             optimal: @first_session_feedback3.optimal,
@@ -754,7 +754,7 @@ RSpec.describe FeedbackHistory, type: :model do
             feedback_type: @first_session_feedback3.feedback_type
           },
           {
-            feedback_session_uid: @first_session_feedback4.feedback_session_uid,
+            session_uid: @first_session_feedback4.feedback_session_uid,
             datetime: @first_session_feedback4.time,
             conjunction: @so_prompt1.conjunction,
             optimal: @first_session_feedback4.optimal,
@@ -764,7 +764,7 @@ RSpec.describe FeedbackHistory, type: :model do
             feedback_type: @first_session_feedback4.feedback_type
           },
           {
-            feedback_session_uid: @first_session_feedback5.feedback_session_uid,
+            session_uid: @first_session_feedback5.feedback_session_uid,
             datetime: @first_session_feedback5.time,
             conjunction: @so_prompt1.conjunction,
             optimal: @first_session_feedback5.optimal,
@@ -774,7 +774,7 @@ RSpec.describe FeedbackHistory, type: :model do
             feedback_type: @first_session_feedback5.feedback_type
           },
           {
-            feedback_session_uid: @first_session_feedback6.feedback_session_uid,
+            session_uid: @first_session_feedback6.feedback_session_uid,
             datetime: @first_session_feedback6.time,
             conjunction: @so_prompt1.conjunction,
             optimal: @first_session_feedback6.optimal,
