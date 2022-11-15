@@ -11,7 +11,7 @@ import SelectUSK12 from './select_us_k12';
 import SelectNonUSK12 from './select_non_us_k12';
 import AddTeacherInfo from './add_teacher_info';
 
-const App = () => {
+const App = ({ subjectAreas, }) => {
   return (
     <BrowserRouter>
       <div id='sign-up'>
@@ -23,7 +23,7 @@ const App = () => {
         <Route component={SelectUSK12} path="/sign-up/add-k12" />
         <Route component={SelectNonUSK12} path="/sign-up/add-non-k12" />
 
-        <Route component={AddTeacherInfo} path="/sign-up/add-teacher-info" />
+        <Route component={routerProps => <AddTeacherInfo subjectAreas={subjectAreas} {...routerProps} />} path="/sign-up/add-teacher-info" />
       </div>
     </BrowserRouter>
   )

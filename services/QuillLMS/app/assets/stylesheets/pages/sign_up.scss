@@ -152,8 +152,17 @@
     font-size: 16px;
     line-height: 26px;
   }
-  .user-account-section {
+  .grade-level-section {
     padding-bottom: 24px;
+  }
+  .subject-area-section {
+    padding-bottom: 32px;
+  }
+  .subject-area-row {
+    margin-top: 16px;
+    display: flex;
+    align-items: center;
+    line-height: 14px;
   }
   .grade-dropdowns-wrapper {
     display: flex;
@@ -169,6 +178,9 @@
     margin: 8px 0px;
     line-height: 18px;
     color: #888888;
+  }
+  .quill-button {
+    margin-top: 8px;
   }
 }
 
