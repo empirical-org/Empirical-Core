@@ -5,23 +5,35 @@ class SyncVitallyWorker
 
   USER_ROLES_TO_SYNC = ['teacher', 'admin', 'auditor']
 
-  # We actually have a 1000/minute rate limit, but we can play it safe
-  ORGANIZATION_RATE_LIMIT_PER_MINUTE = 500
+  # Note, We have a 1000/minute rate limit, spacing these out to stay under
+  # Note, batch size has a limit of 100, staying just under that
   BATCH_SIZE = 99
 
   def perform
     # Don't synchronize non-production data
     return unless ENV['SYNC_TO_VITALLY'] == 'true'
 
+    queue_district_syncs
+    queue_school_syncs
+    queue_user_syncs
+  end
+
+  private def queue_district_syncs
     # ~12.5 K of these
     districts_to_sync.find_each.with_index do |district, index|
       SyncVitallyOrganizationWorker.perform_in(index.seconds, district.id)
     end
-    # ~55K of these, 550 batches
+  end
+
+  private def queue_school_syncs
+    # ~55K of these, ~550 batches
     schools_to_sync.find_in_batches(batch_size: BATCH_SIZE).with_index do |schools, index|
       SyncVitallyAccountsWorker.perform_in(index.seconds, schools.map(&:id))
     end
-    # ~275K of these, 2,750 batches
+  end
+
+  private def queue_user_syncs
+    # ~275K of these, ~2,750 batches
     users_to_sync.find_in_batches(batch_size: BATCH_SIZE).with_index do |users, index|
       SyncVitallyUsersWorker.perform_in(index.seconds, users.map(&:id))
     end
