@@ -4,17 +4,12 @@ class SyncVitallyWorker
   include Sidekiq::Worker
 
   USER_ROLES_TO_SYNC = ['teacher', 'admin', 'auditor']
-  FIRST_DAY_OF_SCHOOL_YEAR_MONTH = 7
-  FIRST_DAY_OF_SCHOOL_YEAR_DAY = 1
+
   # We actually have a 1000/minute rate limit, but we can play it safe
   ORGANIZATION_RATE_LIMIT_PER_MINUTE = 500
 
   # rubocop:disable Metrics/CyclomaticComplexity
   def perform
-    today = Date.current
-    if today.month == FIRST_DAY_OF_SCHOOL_YEAR_MONTH && today.day == FIRST_DAY_OF_SCHOOL_YEAR_DAY
-      PopulateAnnualVitallyWorker.perform_async
-    end
     # Don't synchronize non-production data
     return unless ENV['SYNC_TO_VITALLY'] == 'true'
 

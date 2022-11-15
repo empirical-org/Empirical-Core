@@ -61,21 +61,5 @@ describe SyncVitallyWorker, type: :worker do
 
       worker.perform
     end
-
-    it "#will kick off the PopulateAnnualVitallyWorker if it is July 1" do
-      allow(Date).to receive(:current).and_return Date.new(2020,7,1)
-      school = create(:school)
-      user = create(:user)
-      expect(PopulateAnnualVitallyWorker).to receive(:perform_async)
-      worker.perform
-    end
-
-    it "#will NOT kick off the PopulateAnnualVitallyWorker if it is NOT July 1" do
-      allow(Date).to receive(:current).and_return Date.new(2020,7,2)
-      school = create(:school)
-      user = create(:user)
-      expect(PopulateAnnualVitallyWorker).not_to receive(:perform_async)
-      worker.perform
-    end
   end
 end
