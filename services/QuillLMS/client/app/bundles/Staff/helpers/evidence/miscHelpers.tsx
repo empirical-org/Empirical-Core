@@ -2,6 +2,8 @@ import * as React from 'react';
 import stripHtml from "string-strip-html";
 import moment from 'moment';
 import { matchSorter } from 'match-sorter';
+import { CSVLink } from 'react-csv';
+import { Link } from 'react-router-dom';
 
 import {
   MINIMUM_READING_LEVEL,
@@ -21,11 +23,15 @@ import {
   HIGHLIGHTING_PROMPT,
   IMAGE,
   PROMPTS,
-  BREAK_TAG
+  BREAK_TAG,
+  DEFAULT_MAX_ATTEMPTS,
+  sessionsCSVHeaders
 } from '../../../../constants/evidence';
-import { DEFAULT_HIGHLIGHT_PROMPT, TextFilter, NumberFilterInput, CheckboxFilter, filterNumbers } from "../../../Shared";
-import { DropdownObjectInterface } from '../../interfaces/evidenceInterfaces'
+import { DEFAULT_HIGHLIGHT_PROMPT, TextFilter, NumberFilterInput, filterNumbers, Spinner } from "../../../Shared";
+import { DropdownObjectInterface, ActivitySessionInterface } from '../../interfaces/evidenceInterfaces'
 import { getCheckIcon } from "./renderHelpers";
+
+const quillCheckmark = 'https://assets.quill.org/images/icons/check-circle-small.svg';
 
 export const buildActivity = ({
   activityFlag,
@@ -413,3 +419,57 @@ export const activitySessionIndexResponseHeaders = [
     Cell: props => props.value
   },
 ]
+
+export function colorCodeAttemptsCount(attemptCount, isOptimal) {
+  if(isOptimal) {
+    return attemptCount
+  }
+  return <p className="sub-optimal-attempt">{attemptCount}</p>
+}
+
+export function formatSessionsData(activityId, activitySessions: ActivitySessionInterface[]) {
+  return activitySessions.map(session => {
+    const { start_date, session_uid, because_attempts, because_optimal, but_attempts, but_optimal, so_attempts, so_optimal, complete } = session;
+    const dateObject = new Date(start_date);
+    const date = moment(dateObject).format("MM/DD/YY");
+    const time = moment(dateObject).format("hh:mm a");
+    const total = because_attempts + but_attempts + so_attempts;
+    const formattedSession = {
+      ...session,
+      id: session_uid,
+      session_uid: session_uid ? session_uid.substring(0,6) : '',
+      datetime: `${date} ${time}`,
+      because_attempts: colorCodeAttemptsCount(because_attempts, because_optimal),
+      but_attempts: colorCodeAttemptsCount(but_attempts, but_optimal),
+      so_attempts: colorCodeAttemptsCount(so_attempts, so_optimal),
+      total_attempts: total,
+      view_link: <Link className="data-link" rel="noopener noreferrer" target="_blank" to={`/activities/${activityId}/activity-sessions/${session_uid}/overview`}>View</Link>,
+      completed: complete ? <img alt="quill-circle-checkmark" src={quillCheckmark} /> : ""
+    };
+    return formattedSession;
+  });
+}
+
+export function getCSVData(sessionsCSVData) {
+  if(!sessionsCSVData || !sessionsCSVData.csvResponseData) { return [] }
+  const { csvResponseData } = sessionsCSVData
+  return csvResponseData.map(data => {
+    const { attempt, conjunction, datetime, feedback, feedback_type, name, optimal, response, session_uid } = data;
+    return {
+      attempt: attempt?.toString(),
+      conjunction,
+      datetime,
+      feedback: feedback,
+      rule: `${feedback_type}: ${name}`,
+      optimal: `${optimal}`,
+      completed: `${optimal || attempt === DEFAULT_MAX_ATTEMPTS}`,
+      response,
+      session_uid
+    }
+  });
+}
+
+export function renderCSVDownloadButton(sessionsCSVData) {
+  if(!sessionsCSVData || !sessionsCSVData.csvResponseData) { return <button className="quill-button fun primary contained csv-download-button"><Spinner /></button> }
+  return <CSVLink className="quill-button fun primary contained csv-download-button" data={getCSVData(sessionsCSVData)} headers={sessionsCSVHeaders}>Download CSV</CSVLink>
+}

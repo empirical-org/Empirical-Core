@@ -644,7 +644,7 @@ RSpec.describe FeedbackHistory, type: :model do
     context '#session_data_for_csv' do
       it 'should take the query from #session_data_for_csv and return a shaped payload' do
         responses = FeedbackHistory.session_data_for_csv
-        responses_for_scoring = FeedbackHistory.list_by_activity_session(responses_for_scoring: true)
+        responses_for_scoring = FeedbackHistory.session_data_for_csv(responses_for_scoring: true)
         RSpec::Support::ObjectFormatter.default_instance.max_formatted_output_length = 10000
         expect(responses.map { |r| r.serialize_csv_data }.to_json).to eq([
           {
@@ -723,7 +723,7 @@ RSpec.describe FeedbackHistory, type: :model do
             feedback: @second_session_feedback.feedback_text,
             feedback_type: @second_session_feedback.feedback_type,
             name: Evidence::Rule.find_by(rule_uid: @second_session_feedback.rule_uid)&.rule_type
-          },
+          }
         ].to_json)
 
         expect(responses.map { |r| r.serialize_csv_data }.to_json).to eq([

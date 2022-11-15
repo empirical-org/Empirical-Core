@@ -363,6 +363,7 @@ class FeedbackHistory < ApplicationRecord
   end
   # rubocop:enable Metrics/CyclomaticComplexity
 
+  # rubocop:disable Metrics/CyclomaticComplexity
   def self.session_data_for_csv(activity_id: nil, start_date: nil, end_date: nil, filter_type: nil, responses_for_scoring: false)
     sub_query = select(
       <<-SQL
@@ -398,7 +399,8 @@ class FeedbackHistory < ApplicationRecord
     query = query.where(comprehension_prompts: {activity_id: activity_id.to_i}) if activity_id
     query = query.where("feedback_histories.created_at >= ?", start_date) if start_date
     query = query.where("feedback_histories.created_at <= ?", end_date) if end_date
-    query = query.where(feedback_session_uid: sub_query) if (responses_for_scoring || filter_type)
+    query = query.where(feedback_session_uid: sub_query) if responses_for_scoring || filter_type
     query
   end
+  # rubocop:enable Metrics/CyclomaticComplexity
 end
