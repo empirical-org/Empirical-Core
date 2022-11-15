@@ -3,12 +3,14 @@
 class UnitTemplatePseudoSerializer
   # attributes :id, :name, :time, :grades, :order_number, :number_of_standards, :activity_info, :unit_template_category, :activities, :standards, :readability, :activities_recommended_by
 
-  def initialize(unit_template, flag=nil)
+  def initialize(unit_template, flag=nil, current_user=nil)
     @unit_template = unit_template
+    @current_user = current_user
   end
 
   def data
     ut = @unit_template
+    ut_activities = activities
     {
       id: ut.id,
       name: ut.name,
@@ -19,7 +21,8 @@ class UnitTemplatePseudoSerializer
       number_of_standards: number_of_standards,
       activity_info: ut.activity_info,
       unit_template_category: unit_template_category,
-      activities: activities,
+      activities: ut_activities,
+      previously_assigned_activity_data: previously_assigned_activity_data(ut_activities),
       type: type,
       readability: ut.readability,
       grade_level_range: ut.grade_level_range,
@@ -127,6 +130,11 @@ class UnitTemplatePseudoSerializer
     end
 
     activity_hashes.uniq { |a| a[:id] }
+  end
+
+  def previously_assigned_activity_data(ut_activities)
+    classroom_units = ClassroomUnit
+      .where(classroom_id: @current_user.classrooms_i_teach.map(&:id))
   end
 
   # rubocop:disable Metrics/CyclomaticComplexity

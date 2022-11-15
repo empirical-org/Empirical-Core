@@ -113,6 +113,7 @@ export class UnitTemplateProfile extends React.Component<RouteComponentProps, Un
 
   render() {
     const { data, loading, referralCode } = this.state
+    console.log("🚀 ~ file: unit_template_profile.tsx ~ line 116 ~ UnitTemplateProfile ~ render ~ data", data)
     if (loading) {
       return <LoadingIndicator />
     } else {

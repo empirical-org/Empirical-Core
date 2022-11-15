@@ -107,15 +107,15 @@ class UnitTemplate < ApplicationRecord
     USER_SCOPES.fetch(user_flag, UnitTemplate.production)
   end
 
-  def get_cached_serialized_unit_template(flag=nil)
+  def get_cached_serialized_unit_template(flag=nil, current_user=nil)
     cache_expiration_time = 600
     cached = $redis.get("unit_template_id:#{id}_serialized")
     serialized_unit_template = cached.nil? || cached&.blank? ? nil : JSON.parse(cached)
-    unless serialized_unit_template
-      serializable_unit_template = UnitTemplatePseudoSerializer.new(self, flag)
+    # unless serialized_unit_template
+      serializable_unit_template = UnitTemplatePseudoSerializer.new(self, flag, current_user)
       serialized_unit_template = serializable_unit_template.data
       $redis.set("unit_template_id:#{id}_serialized", serialized_unit_template.to_json, {ex: cache_expiration_time})
-    end
+    # end
     serialized_unit_template
   end
 
