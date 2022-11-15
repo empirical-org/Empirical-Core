@@ -360,14 +360,25 @@ class FeedbackHistory < ApplicationRecord
   # rubocop:enable Metrics/CyclomaticComplexity
 
   def self.session_data_for_csv(activity_id: nil, start_date: nil, end_date: nil, filter_type: nil, responses_for_scoring: false)
+    sub_query = select(
+      <<-SQL
+        feedback_histories.feedback_session_uid AS session_uid
+      SQL
+      )
+      .joins("LEFT OUTER JOIN feedback_history_flags ON feedback_histories.id = feedback_history_flags.feedback_history_id")
+      .joins("LEFT OUTER JOIN comprehension_prompts ON feedback_histories.prompt_id = comprehension_prompts.id")
+      .joins("LEFT OUTER JOIN feedback_history_ratings ON feedback_histories.id = feedback_history_ratings.feedback_history_id")
+      .where(used: true)
+      .group(:feedback_session_uid)
+    sub_query = sub_query.where(comprehension_prompts: {activity_id: activity_id.to_i}) if activity_id
+    sub_query = FeedbackHistory.apply_activity_session_filter(sub_query, filter_type) if filter_type
+    sub_query = sub_query.having(FeedbackHistory.responses_for_scoring) if responses_for_scoring
+
     query = select(
       <<-SQL
         feedback_histories.feedback_session_uid AS session_uid,
         feedback_histories.time AS datetime,
         comprehension_prompts.conjunction,
-        COUNT(CASE WHEN comprehension_prompts.conjunction = '#{BECAUSE}' THEN 1 END) AS because_attempts,
-        COUNT(CASE WHEN comprehension_prompts.conjunction = '#{BUT}' THEN 1 END) AS but_attempts,
-        COUNT(CASE WHEN comprehension_prompts.conjunction = '#{SO}' THEN 1 END) AS so_attempts,
         feedback_histories.optimal,
         feedback_histories.attempt,
         feedback_histories.entry as response,
@@ -379,13 +390,11 @@ class FeedbackHistory < ApplicationRecord
       .joins("LEFT OUTER JOIN comprehension_prompts ON feedback_histories.prompt_id = comprehension_prompts.id")
       .joins("LEFT OUTER JOIN comprehension_rules ON comprehension_rules.uid = feedback_histories.rule_uid")
       .where(used: true)
-      .group(:session_uid, :datetime, :conjunction, :optimal, :attempt, :response, :feedback, :feedback_type, :name)
       .order('datetime DESC')
     query = query.where(comprehension_prompts: {activity_id: activity_id.to_i}) if activity_id
     query = query.where("feedback_histories.created_at >= ?", start_date) if start_date
     query = query.where("feedback_histories.created_at <= ?", end_date) if end_date
-    query = FeedbackHistory.apply_activity_session_filter(query, filter_type) if filter_type
-    query = query.having(FeedbackHistory.responses_for_scoring) if responses_for_scoring
+    query = query.where(feedback_session_uid: sub_query) if (responses_for_scoring || filter_type)
     query
   end
 end
