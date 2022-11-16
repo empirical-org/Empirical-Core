@@ -144,7 +144,8 @@ class UnitTemplatePseudoSerializer
   end
 
   def previously_assigned_activity_data(ut_activities)
-    results = ut_activities.map do |activity|
+    results = {}
+    ut_activities.map do |activity|
       id = activity[:id]
       units = Unit.joins(
         " JOIN classroom_units ON classroom_units.unit_id = units.id
@@ -153,19 +154,17 @@ class UnitTemplatePseudoSerializer
       ).where("classroom_units.classroom_id IN (?)", @current_user.classrooms_i_teach.map(&:id)
       ).where("unit_activities.activity_id = ?", id)
       next if units.empty?
-      {
-        id => units.map do |unit|
-          classrooms = unit.classrooms
-          {
-            name: unit[:name],
-            assigned_date: unit[:created_at],
-            classrooms: classrooms.pluck(:name),
-            students: student_counts_for_previously_assigned_activity(unit, classrooms)
-          }
-        end
-      }
+      results[id] = units.map do |unit|
+        classrooms = unit.classrooms
+        {
+          name: unit[:name],
+          assigned_date: unit[:created_at],
+          classrooms: classrooms.pluck(:name),
+          students: student_counts_for_previously_assigned_activity(unit, classrooms)
+        }
+      end
     end
-    results.compact
+    results
   end
 
   # rubocop:disable Metrics/CyclomaticComplexity

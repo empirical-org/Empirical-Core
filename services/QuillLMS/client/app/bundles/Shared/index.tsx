@@ -150,6 +150,7 @@ export {
   copyIcon,
   scheduledIcon,
   publishedIcon,
+  assignedBadgeIcon
 } from './images/index'
 
 export {

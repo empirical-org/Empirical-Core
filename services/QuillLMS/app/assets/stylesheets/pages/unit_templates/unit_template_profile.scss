@@ -25,8 +25,26 @@
     }
 
     .ReactTable.unit-template-profile-activities {
+      thead {
+        background-color: #ffffff;
+        padding: 18px 0px 18px 6px;
+        border-top-left-radius: 6px;
+        border-top-right-radius: 6px;
+        tr {
+          th {
+            color:#5C5C5C;
+            font-size: 12px;
+            background-color: #ffffff;;
+          }
+        }
+      }
+      tbody .rt-tr-group:last-of-type {
+        border-bottom-left-radius: 6px;
+        border-bottom-right-radius: 6px;
+      }
       tbody tr {
         min-height: 46.5px;
+        padding-left: 6px;
         td {
           overflow: visible;
         }
@@ -70,7 +88,7 @@
     .ReactTable .rt-th, .ReactTable .rt-td {
       padding-top: 2.5px;
       padding-bottom: 4px;
-      .activity-name {
+      .activity-name, .activity-preview {
         color: #027360;
       }
     }
