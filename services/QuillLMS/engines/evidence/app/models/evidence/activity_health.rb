@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 module Evidence
   class ActivityHealth < ApplicationRecord
     ALLOWED_TOOLS = %w(connect grammar)
@@ -28,7 +30,8 @@ module Evidence
       options ||= {}
 
       super(options.reverse_merge(
-        only: [:id, :name, :flag, :activity_id, :version,
+        only: [
+          :id, :name, :flag, :activity_id, :version,
           :version_plays, :total_plays, :completion_rate,
           :because_avg_attempts, :but_avg_attempts, :so_avg_attempts,
           :avg_completion_time

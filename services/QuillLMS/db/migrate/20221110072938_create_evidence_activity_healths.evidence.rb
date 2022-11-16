@@ -1,5 +1,7 @@
 # frozen_string_literal: true
+
 # This migration comes from evidence (originally 20221110063831)
+
 
 class CreateEvidenceActivityHealths < ActiveRecord::Migration[6.1]
   def change
