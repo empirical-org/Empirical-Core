@@ -54,7 +54,7 @@ describe SyncVitallyWorker, type: :worker do
       end
 
       expect(SyncVitallyOrganizationWorker).to receive(:perform_in).with(0.seconds, anything).once
-      expect(SyncVitallyOrganizationWorker).to receive(:perform_in).with(1.seconds, anything).once
+      expect(SyncVitallyOrganizationWorker).to receive(:perform_in).with(1.second, anything).once
       expect(SyncVitallyOrganizationWorker).to receive(:perform_in).with(2.seconds, anything).once
 
       worker.perform

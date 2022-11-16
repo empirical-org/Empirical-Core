@@ -12,6 +12,7 @@ class SyncVitallyOrganizationWorker
     return if response.success?
 
     raise VitallyRestApi::RateLimitError if response.code == VitallyRestApi::RATE_LIMIT_CODE
+
     raise VitallyRestApi::ApiError, response.code.to_s
   end
 end

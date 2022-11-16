@@ -31,6 +31,7 @@ class VitallyApi
     return response if response.success?
 
     raise RateLimitError if response.code == RATE_LIMIT_CODE
+
     raise ApiError, response.code.to_s
   end
 end

@@ -30,7 +30,7 @@ describe SyncVitallyOrganizationWorker do
       end
     end
 
-    context 'RateLimitError' do
+    context 'Other Error' do
       let(:response_double) { double(success?: false, code: 500) }
 
       it 'build payload from district object and send them to Vitally' do

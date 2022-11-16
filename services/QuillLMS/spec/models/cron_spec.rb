@@ -46,7 +46,7 @@ describe "Cron", type: :model do
       Cron.interval_1_day
     end
 
-    it "calls run_school_year_start if is July 1" do
+    it "calls run_school_year_start if is NOT July 1" do
       july_second = Time.utc(2022, 7, 2)
       allow(Cron).to receive(:now).and_return(july_second)
       expect(Cron).not_to receive(:run_school_year_start)

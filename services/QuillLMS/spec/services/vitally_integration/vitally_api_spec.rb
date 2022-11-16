@@ -14,9 +14,9 @@ describe VitallyApi do
   end
 
   describe '#batch' do
-    let(:endpoint) { VitallyApi::BASE_URL + '/' + VitallyApi::ENDPOINT_BATCH }
-    let(:subject) {api.batch(mock_payload)}
+    let(:endpoint) { "#{VitallyApi::BASE_URL}/#{VitallyApi::ENDPOINT_BATCH}"}
     let(:response) {sample_response.merge(status: 200) }
+    subject {api.batch(mock_payload)}
 
     it 'should post the payload to the batch endpoint' do
       expect(subject.success?).to be true
@@ -36,9 +36,9 @@ describe VitallyApi do
   end
 
   describe '#unlink' do
-    let(:endpoint) { VitallyApi::BASE_URL + '/' + VitallyApi::ENDPOINT_UNLINK }
-    let(:subject) {api.unlink(mock_payload)}
+    let(:endpoint) { "#{VitallyApi::BASE_URL}/#{VitallyApi::ENDPOINT_UNLINK}" }
     let(:response) {sample_response.merge(status: 200) }
+    subject {api.unlink(mock_payload)}
 
     it 'should post the payload to the batch endpoint' do
       expect(subject.success?).to be true
