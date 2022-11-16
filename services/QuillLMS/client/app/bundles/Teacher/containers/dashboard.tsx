@@ -3,6 +3,7 @@ import * as React from 'react';
 import { requestGet } from '../../../modules/request';
 import WelcomeModal from '../components/dashboard/welcome_modal'
 import DemoModal from '../components/dashboard/demo_modal'
+import TeacherInfoModal from '../components/dashboard/teacher_info_modal'
 import OnboardingChecklist from '../components/dashboard/onboarding_checklist'
 import DiagnosticMini from '../components/dashboard/diagnostic_mini'
 import LessonsMini from '../components/dashboard/lessons_mini'
@@ -19,20 +20,23 @@ import { Spinner, } from '../../Shared/index'
 
 const MAX_VIEW_WIDTH_FOR_MOBILE = 1103
 
-const Dashboard = ({ onboardingChecklist, firstName, mustSeeModal, linkedToClever, featuredBlogPosts, showEvidencePromotionCard, }) => {
+const Dashboard = ({ onboardingChecklist, firstName, mustSeeWelcomeModal, mustSeeTeacherInfoModal, linkedToClever, featuredBlogPosts, showEvidencePromotionCard, subjectAreas, }) => {
   const size = useWindowSize();
   const className = "dashboard white-background-accommodate-footer"
   const onMobile = () => size.width <= MAX_VIEW_WIDTH_FOR_MOBILE
 
-  const [showWelcomeModal, setShowWelcomeModal] = React.useState(mustSeeModal)
+  const [showWelcomeModal, setShowWelcomeModal] = React.useState(mustSeeWelcomeModal)
+  const [showTeacherInfoModal, setShowTeacherInfoModal] = React.useState(mustSeeTeacherInfoModal)
   const [showDemoModal, setShowDemoModal] = React.useState(false)
 
   function closeWelcomeModal() { setShowWelcomeModal(false) }
   function closeDemoModal() { setShowDemoModal(false) }
+  function closeTeacherInfoModal() { setShowTeacherInfoModal(false) }
 
   if (!onboardingChecklist.every(obj => obj.checked)) {
     return (
       <div className={className}>
+        {showTeacherInfoModal && <TeacherInfoModal close={closeTeacherInfoModal} subjectAreas={subjectAreas} />}
         {showWelcomeModal && <WelcomeModal close={closeWelcomeModal} size={size} />}
         {showDemoModal && <DemoModal close={closeDemoModal} size={size} />}
         <OnboardingChecklist firstName={firstName} onboardingChecklist={onboardingChecklist} />
