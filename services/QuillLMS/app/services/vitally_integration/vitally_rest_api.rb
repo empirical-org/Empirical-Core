@@ -6,12 +6,11 @@ class VitallyRestApi
   ENDPOINT_ORGANIZATIONS = "organizations"
   API_KEY = ENV['VITALLY_REST_API_KEY']
 
-
   class RateLimitError < StandardError; end
   class ApiError < StandardError; end
 
   def create(type, payload)
-    HTTParty.post("#{VITALLY_REST_API_BASE_URL}/#{type}",
+    HTTParty.post("#{BASE_URL}/#{type}",
       headers: headers,
       body: payload.to_json
     )
