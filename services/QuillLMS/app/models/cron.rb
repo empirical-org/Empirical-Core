@@ -1,6 +1,7 @@
 # frozen_string_literal: true
 
 class Cron
+
   # Configured in Heroku Scheduler to run every 10 minutes
   def self.interval_10_min
     run_at_20_minute_mark if now.min.between?(20, 29)
@@ -16,6 +17,8 @@ class Cron
   # Which is 02:00 or 03:00 Eastern depending on Daylight Savings
   def self.interval_1_day
     run_saturday if now.wday == 6
+    run_school_year_start if now.month == 7 && now.day == 1
+
     # pass yesterday's date for stats email queries and labels
     date = Time.current.getlocal('-05:00').yesterday
 
@@ -55,6 +58,10 @@ class Cron
     UploadLeapReportWorker.perform_async(29_087)
     PopulateAllActivityHealthsWorker.perform_async
     DeleteObsoleteActiveActivitySessionsWorker.perform_async
+  end
+
+  def self.run_school_year_start
+    PopulateAnnualVitallyWorker.perform_async
   end
 
   def self.now
