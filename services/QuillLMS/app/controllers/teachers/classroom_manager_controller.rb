@@ -80,7 +80,8 @@ class Teachers::ClassroomManagerController < ApplicationController
 
     teacher_info_milestone = Milestone.find_by_name(Milestone::TYPES[:dismiss_teacher_info_modal])
     teacher_info_user_milestone = UserMilestone.find_by(milestone_id: teacher_info_milestone&.id, user_id: current_user&.id)
-    @must_see_teacher_info_modal = current_user&.teacher_info.nil? && teacher_info_user_milestone&.updated_at < 1.month.ago && teacher_info_user_milestone&.created_at > 6.months.ago
+    teacher_info_user_milestone_in_right_timeframe = teacher_info_user_milestone.nil? || (teacher_info_user_milestone.updated_at < 1.month.ago && teacher_info_user_milestone.created_at > 6.months.ago)
+    @must_see_teacher_info_modal = current_user&.teacher_info.nil? && teacher_info_user_milestone_in_right_timeframe
 
     welcome_milestone = Milestone.find_by_name(Milestone::TYPES[:see_welcome_modal])
     @must_see_welcome_modal = !UserMilestone.find_by(milestone_id: welcome_milestone&.id, user_id: current_user&.id) && Unit.unscoped.find_by_user_id(current_user&.id).nil?
