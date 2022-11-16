@@ -152,36 +152,59 @@
     font-size: 16px;
     line-height: 26px;
   }
-  .grade-level-section {
-    padding-bottom: 24px;
-  }
-  .subject-area-section {
-    padding-bottom: 32px;
-  }
-  .subject-area-row {
-    margin-top: 16px;
-    display: flex;
-    align-items: center;
-    line-height: 14px;
-  }
-  .grade-dropdowns-wrapper {
-    display: flex;
-    justify-content: space-between;
-    margin-top: 16px;
-    .dropdown-container {
-      width: 100%;
-      max-width: 225px;
-      margin-bottom: 0px;
-    }
-  }
-  .grade-level-explanation {
-    margin: 8px 0px;
-    line-height: 18px;
-    color: #888888;
-  }
   .quill-button {
     margin-top: 8px;
   }
+}
+
+.grade-level-section {
+  padding-bottom: 24px;
+  .button-section {
+    padding: 24px 0px 0px;
+  }
+  .input-container.active.not-editable {
+    margin-bottom: 0px;
+    .dropdown__menu {
+      margin-top: -50px;
+    }
+  }
+}
+
+.subject-area-section {
+  padding-bottom: 32px;
+  .button-section {
+    padding: 32px 0px 0px;
+  }
+}
+
+.grade-level-section, .subject-area-section {
+  form {
+    margin-bottom: 0px;
+  }
+}
+
+.subject-area-row {
+  margin-top: 16px;
+  display: flex;
+  align-items: center;
+  line-height: 14px;
+}
+
+.grade-dropdowns-wrapper {
+  display: flex;
+  justify-content: space-between;
+  margin-top: 16px;
+  .dropdown-container {
+    width: 100%;
+    max-width: 225px;
+    margin-bottom: 0px;
+  }
+}
+
+.grade-level-explanation {
+  margin: 8px 0px;
+  line-height: 18px;
+  color: #888888;
 }
 
 .school-search-container {
