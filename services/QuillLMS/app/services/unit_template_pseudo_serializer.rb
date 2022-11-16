@@ -2,6 +2,7 @@
 
 class UnitTemplatePseudoSerializer
   # attributes :id, :name, :time, :grades, :order_number, :number_of_standards, :activity_info, :unit_template_category, :activities, :standards, :readability, :activities_recommended_by
+  include UnitQueries
 
   def initialize(unit_template, flag=nil, current_user=nil)
     @unit_template = unit_template
@@ -132,9 +133,39 @@ class UnitTemplatePseudoSerializer
     activity_hashes.uniq { |a| a[:id] }
   end
 
+  def student_counts_for_previously_assigned_activity(unit, classrooms)
+    classrooms.map do |classroom|
+      classroom_unit = unit.classroom_units.where(classroom_id: classroom[:id]).first
+      {
+        total_students: classroom.students&.length,
+        assigned_students: classroom_unit.assigned_student_ids&.length
+      }
+    end
+  end
+
   def previously_assigned_activity_data(ut_activities)
-    classroom_units = ClassroomUnit
-      .where(classroom_id: @current_user.classrooms_i_teach.map(&:id))
+    results = ut_activities.map do |activity|
+      id = activity[:id]
+      units = Unit.joins(
+        " JOIN classroom_units ON classroom_units.unit_id = units.id
+          JOIN unit_activities ON unit_activities.unit_id = units.id
+        "
+      ).where("classroom_units.classroom_id IN (?)", @current_user.classrooms_i_teach.map(&:id)
+      ).where("unit_activities.activity_id = ?", id)
+      next if units.empty?
+      {
+        id => units.map do |unit|
+          classrooms = unit.classrooms
+          {
+            name: unit[:name],
+            assigned_date: unit[:created_at],
+            classrooms: classrooms.pluck(:name),
+            students: student_counts_for_previously_assigned_activity(unit, classrooms)
+          }
+        end
+      }
+    end
+    results.compact
   end
 
   # rubocop:disable Metrics/CyclomaticComplexity
