@@ -18,6 +18,13 @@ module Evidence
         let!(:rule) do
           create(:evidence_rule, uid: 'e4cf078b-a838-445e-a873-c795da9f7ed8', optimal: false, rule_type: 'grammar')
         end
+        let!(:feedback1) do
+          create(:evidence_feedback, rule: rule, text: "this is the text for feedback 1", order: 1)
+        end
+        let!(:feedback2) do
+          create(:evidence_feedback, rule: rule, text: "this is the text for feedback 2", order: 2)
+        end
+
         let(:error_name) { 'their_vs_there_vs_they_re_they_re_optimal' }
 
         context 'specific rule checks' do
@@ -26,7 +33,7 @@ module Evidence
               uid = rule.uid
               expect(
                 FeedbackAssembler.run(
-                  client_response.merge({FeedbackAssembler.error_name => error_name})
+                  client_response: client_response.merge({FeedbackAssembler.error_name => error_name})
                 )[:rule_uid]
               ).to eq uid
             end
@@ -37,12 +44,37 @@ module Evidence
           it 'should return optimal=true' do
             expect(
               FeedbackAssembler.run(
-                client_response.merge({FeedbackAssembler.error_name => ''})
+                client_response: client_response.merge({FeedbackAssembler.error_name => ''})
               )[:optimal]
             ).to eq true
           end
         end
 
+        context 'previous feedback does not exist' do
+          it 'should return secondary feedback' do
+
+            result = FeedbackAssembler.run(
+              client_response: client_response.merge({FeedbackAssembler.error_name => error_name}),
+              previous_feedback: []
+            )
+            expect(result[:feedback]).to eq feedback1.text
+          end
+        end
+
+        context 'previous feedback exists' do
+          it 'should return secondary feedback' do
+            mocked_feedback_history = {
+              'feedback_type' => 'grammar',
+              'feedback'      => feedback1.text
+            }
+
+            result = FeedbackAssembler.run(
+              client_response: client_response.merge({FeedbackAssembler.error_name => error_name}),
+              previous_feedback: [mocked_feedback_history]
+            )
+            expect(result[:feedback]).to eq feedback2.text
+          end
+        end
 
         context 'grammar highlight has an exception' do
           before do
@@ -51,7 +83,7 @@ module Evidence
 
           let(:exceptions) { ['some phrase', 'other']}
 
-          subject { FeedbackAssembler.run(client_response.merge({FeedbackAssembler.error_name => error_name}))}
+          subject { FeedbackAssembler.run(client_response: client_response.merge({FeedbackAssembler.error_name => error_name}))}
 
           context 'exact match' do
             let(:client_response) do
