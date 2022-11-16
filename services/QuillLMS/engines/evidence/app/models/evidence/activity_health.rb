@@ -13,7 +13,7 @@ module Evidence
       "College Board"
     ]
 
-    has_many :prompt_healths
+    has_many :prompt_healths, foreign_key: "evidence_activity_health_id", dependent: :destroy
 
     validates :flag, inclusion: { in: FLAGS, allow_nil: true}
     validates :version, numericality: { greater_than_or_equal_to: 1, allow_nil: true }

@@ -5,7 +5,7 @@ module Evidence
 
     context 'associations' do
 
-      it { should belong_to(:activity_health).dependent(:destroy) }
+      it { should belong_to(:activity_health) }
 
     end
 

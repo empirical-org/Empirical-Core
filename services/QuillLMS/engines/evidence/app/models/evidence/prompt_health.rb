@@ -1,7 +1,7 @@
 module Evidence
   class PromptHealth < ApplicationRecord
 
-    belongs_to :activity_health
+    belongs_to :activity_health, foreign_key: "evidence_activity_health_id"
 
     validates :current_version, numericality: { greater_than_or_equal_to: 1, allow_nil: true }
     validates :version_responses, numericality: { greater_than_or_equal_to: 0, allow_nil: true }
