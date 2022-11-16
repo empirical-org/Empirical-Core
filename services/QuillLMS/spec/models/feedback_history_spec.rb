@@ -651,13 +651,13 @@ RSpec.describe FeedbackHistory, type: :model do
 
         responses.map { |r| r.serialize_csv_data }.each_with_index do |response, i|
           expect(response[:session_uid]).to eq(@histories[i].feedback_session_uid)
-          expect(response[:datetime]).to eq(@histories[i].time)
           expect(response[:conjunction]).to eq(@prompts[i].conjunction)
           expect(response[:optimal]).to eq(@histories[i].optimal)
           expect(response[:attempt]).to eq(@histories[i].attempt)
           expect(response[:response]).to eq(@histories[i].entry)
           expect(response[:feedback]).to eq(@histories[i].feedback_text)
           expect(response[:feedback_type]).to eq(@histories[i].feedback_type)
+          expect(response[:datetime]).to be_within(1.second).of @histories[i].time
         end
       end
 
@@ -669,13 +669,13 @@ RSpec.describe FeedbackHistory, type: :model do
 
         responses.map { |r| r.serialize_csv_data }.each_with_index do |response, i|
           expect(response[:session_uid]).to eq(histories_for_scoring[i].feedback_session_uid)
-          expect(response[:datetime]).to eq(histories_for_scoring[i].time)
           expect(response[:conjunction]).to eq(prompts_for_scoring[i].conjunction)
           expect(response[:optimal]).to eq(histories_for_scoring[i].optimal)
           expect(response[:attempt]).to eq(histories_for_scoring[i].attempt)
           expect(response[:response]).to eq(histories_for_scoring[i].entry)
           expect(response[:feedback]).to eq(histories_for_scoring[i].feedback_text)
           expect(response[:feedback_type]).to eq(histories_for_scoring[i].feedback_type)
+          expect(response[:datetime]).to be_within(1.second).of @histories[i].time
         end
       end
     end
