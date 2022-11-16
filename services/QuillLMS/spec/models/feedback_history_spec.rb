@@ -436,11 +436,14 @@ RSpec.describe FeedbackHistory, type: :model do
       @first_session_feedback4 = create(:feedback_history, feedback_session_uid: @activity_session1_uid, prompt_id: @so_prompt1.id, optimal: false)
       @first_session_feedback5 = create(:feedback_history, feedback_session_uid: @activity_session1_uid, prompt_id: @so_prompt1.id, attempt: 2, optimal: false)
       @first_session_feedback6 = create(:feedback_history, feedback_session_uid: @activity_session1_uid, prompt_id: @so_prompt1.id, attempt: 3, optimal: true)
-      @second_session_feedback = create(:feedback_history, feedback_session_uid: @activity_session2_uid, prompt_id: @because_prompt2.id, optimal: true)
-      create(:feedback_history, feedback_session_uid: @activity_session2_uid, prompt_id: @because_prompt2.id, attempt: 2, optimal: false)
+      @second_session_feedback1 = create(:feedback_history, feedback_session_uid: @activity_session2_uid, prompt_id: @because_prompt2.id, optimal: true)
+      @second_session_feedback2 = create(:feedback_history, feedback_session_uid: @activity_session2_uid, prompt_id: @because_prompt2.id, attempt: 2, optimal: false)
       create(:feedback_history_flag, feedback_history: @first_session_feedback1, flag: FeedbackHistoryFlag::FLAG_REPEATED_RULE_CONSECUTIVE)
       create(:feedback_history_rating, user_id: @user.id, rating: true, feedback_history_id: @first_session_feedback3.id)
       create(:feedback_history_rating, user_id: @user.id, rating: false, feedback_history_id: @first_session_feedback4.id)
+
+      @histories = [@second_session_feedback2, @second_session_feedback1, @first_session_feedback6, @first_session_feedback5, @first_session_feedback4, @first_session_feedback3, @first_session_feedback2, @first_session_feedback1]
+      @prompts = [@because_prompt2, @because_prompt2, @so_prompt1, @so_prompt1, @so_prompt1, @but_prompt1, @because_prompt1, @because_prompt1]
     end
 
     context '#responses_for_scoring' do
@@ -501,7 +504,7 @@ RSpec.describe FeedbackHistory, type: :model do
         expect(responses.map { |r| r.serialize_by_activity_session }.to_json).to eq([
           {
             session_uid: @feedback_session2_uid,
-            start_date: @second_session_feedback.time.iso8601(3),
+            start_date: @second_session_feedback1.time.iso8601(3),
             activity_id: @activity2.id,
             flags: [],
             because_attempts: 2,
@@ -645,145 +648,35 @@ RSpec.describe FeedbackHistory, type: :model do
       it 'should take the query from #session_data_for_csv and return a shaped payload' do
         responses = FeedbackHistory.session_data_for_csv
         RSpec::Support::ObjectFormatter.default_instance.max_formatted_output_length = 10000
-        expect(responses.map { |r| r.serialize_csv_data }.to_json).to eq([
-          {
-            session_uid: @first_session_feedback1.feedback_session_uid,
-            datetime: @first_session_feedback1.time,
-            conjunction: @because_prompt1.conjunction,
-            optimal: @first_session_feedback1.optimal,
-            attempt: @first_session_feedback1.attempt,
-            response: @first_session_feedback1.entry,
-            feedback: @first_session_feedback1.feedback_text,
-            feedback_type: @first_session_feedback1.feedback_type
-          },
-          {
-            session_uid: @first_session_feedback2.feedback_session_uid,
-            datetime: @first_session_feedback2.time,
-            conjunction: @because_prompt1.conjunction,
-            optimal: @first_session_feedback2.optimal,
-            attempt: @first_session_feedback2.attempt,
-            response: @first_session_feedback2.entry,
-            feedback: @first_session_feedback2.feedback_text,
-            feedback_type: @first_session_feedback2.feedback_type
-          },
-          {
-            session_uid: @first_session_feedback3.feedback_session_uid,
-            datetime: @first_session_feedback3.time,
-            conjunction: @but_prompt1.conjunction,
-            optimal: @first_session_feedback3.optimal,
-            attempt: @first_session_feedback3.attempt,
-            response: @first_session_feedback3.entry,
-            feedback: @first_session_feedback3.feedback_text,
-            feedback_type: @first_session_feedback3.feedback_type
-          },
-          {
-            session_uid: @first_session_feedback4.feedback_session_uid,
-            datetime: @first_session_feedback4.time,
-            conjunction: @so_prompt1.conjunction,
-            optimal: @first_session_feedback4.optimal,
-            attempt: @first_session_feedback4.attempt,
-            response: @first_session_feedback4.entry,
-            feedback: @first_session_feedback4.feedback_text,
-            feedback_type: @first_session_feedback4.feedback_type
-          },
-          {
-            session_uid: @first_session_feedback5.feedback_session_uid,
-            datetime: @first_session_feedback5.time,
-            conjunction: @so_prompt1.conjunction,
-            optimal: @first_session_feedback5.optimal,
-            attempt: @first_session_feedback5.attempt,
-            response: @first_session_feedback5.entry,
-            feedback: @first_session_feedback5.feedback_text,
-            feedback_type: @first_session_feedback5.feedback_type
-          },
-          {
-            session_uid: @first_session_feedback6.feedback_session_uid,
-            datetime: @first_session_feedback6.time,
-            conjunction: @so_prompt1.conjunction,
-            optimal: @first_session_feedback6.optimal,
-            attempt: @first_session_feedback6.attempt,
-            response: @first_session_feedback6.entry,
-            feedback: @first_session_feedback6.feedback_text,
-            feedback_type: @first_session_feedback6.feedback_type
-          },
-          {
-            session_uid: @second_session_feedback.feedback_session_uid,
-            datetime: @second_session_feedback.time,
-            conjunction: @because_prompt2.conjunction,
-            optimal: @second_session_feedback.optimal,
-            attempt: @second_session_feedback.attempt,
-            response: @second_session_feedback.entry,
-            feedback: @second_session_feedback.feedback_text,
-            feedback_type: @second_session_feedback.feedback_type
-          }
-        ].to_json)
+
+        responses.map { |r| r.serialize_csv_data }.each_with_index do |response, i|
+          expect(response[:session_uid]).to eq(@histories[i].feedback_session_uid)
+          expect(response[:datetime]).to eq(@histories[i].time)
+          expect(response[:conjunction]).to eq(@prompts[i].conjunction)
+          expect(response[:optimal]).to eq(@histories[i].optimal)
+          expect(response[:attempt]).to eq(@histories[i].attempt)
+          expect(response[:response]).to eq(@histories[i].entry)
+          expect(response[:feedback]).to eq(@histories[i].feedback_text)
+          expect(response[:feedback_type]).to eq(@histories[i].feedback_type)
+        end
       end
 
       it 'should take the query from #session_data_for_csv and return a shaped payload with records qualifying for scoring' do
         responses = FeedbackHistory.session_data_for_csv(responses_for_scoring: true)
         RSpec::Support::ObjectFormatter.default_instance.max_formatted_output_length = 10000
-        expect(responses.map { |r| r.serialize_csv_data }.to_json).to eq([
-          {
-            session_uid: @first_session_feedback1.feedback_session_uid,
-            datetime: @first_session_feedback1.time,
-            conjunction: @because_prompt1.conjunction,
-            optimal: @first_session_feedback1.optimal,
-            attempt: @first_session_feedback1.attempt,
-            response: @first_session_feedback1.entry,
-            feedback: @first_session_feedback1.feedback_text,
-            feedback_type: @first_session_feedback1.feedback_type
-          },
-          {
-            session_uid: @first_session_feedback2.feedback_session_uid,
-            datetime: @first_session_feedback2.time,
-            conjunction: @because_prompt1.conjunction,
-            optimal: @first_session_feedback2.optimal,
-            attempt: @first_session_feedback2.attempt,
-            response: @first_session_feedback2.entry,
-            feedback: @first_session_feedback2.feedback_text,
-            feedback_type: @first_session_feedback2.feedback_type
-          },
-          {
-            session_uid: @first_session_feedback3.feedback_session_uid,
-            datetime: @first_session_feedback3.time,
-            conjunction: @but_prompt1.conjunction,
-            optimal: @first_session_feedback3.optimal,
-            attempt: @first_session_feedback3.attempt,
-            response: @first_session_feedback3.entry,
-            feedback: @first_session_feedback3.feedback_text,
-            feedback_type: @first_session_feedback3.feedback_type
-          },
-          {
-            session_uid: @first_session_feedback4.feedback_session_uid,
-            datetime: @first_session_feedback4.time,
-            conjunction: @so_prompt1.conjunction,
-            optimal: @first_session_feedback4.optimal,
-            attempt: @first_session_feedback4.attempt,
-            response: @first_session_feedback4.entry,
-            feedback: @first_session_feedback4.feedback_text,
-            feedback_type: @first_session_feedback4.feedback_type
-          },
-          {
-            session_uid: @first_session_feedback5.feedback_session_uid,
-            datetime: @first_session_feedback5.time,
-            conjunction: @so_prompt1.conjunction,
-            optimal: @first_session_feedback5.optimal,
-            attempt: @first_session_feedback5.attempt,
-            response: @first_session_feedback5.entry,
-            feedback: @first_session_feedback5.feedback_text,
-            feedback_type: @first_session_feedback5.feedback_type
-          },
-          {
-            session_uid: @first_session_feedback6.feedback_session_uid,
-            datetime: @first_session_feedback6.time,
-            conjunction: @so_prompt1.conjunction,
-            optimal: @first_session_feedback6.optimal,
-            attempt: @first_session_feedback6.attempt,
-            response: @first_session_feedback6.entry,
-            feedback: @first_session_feedback6.feedback_text,
-            feedback_type: @first_session_feedback6.feedback_type
-          }
-        ].to_json)
+        histories_for_scoring = @histories[2..-1]
+        prompts_for_scoring = @prompts[2..-1]
+
+        responses.map { |r| r.serialize_csv_data }.each_with_index do |response, i|
+          expect(response[:session_uid]).to eq(histories_for_scoring[i].feedback_session_uid)
+          expect(response[:datetime]).to eq(histories_for_scoring[i].time)
+          expect(response[:conjunction]).to eq(prompts_for_scoring[i].conjunction)
+          expect(response[:optimal]).to eq(histories_for_scoring[i].optimal)
+          expect(response[:attempt]).to eq(histories_for_scoring[i].attempt)
+          expect(response[:response]).to eq(histories_for_scoring[i].entry)
+          expect(response[:feedback]).to eq(histories_for_scoring[i].feedback_text)
+          expect(response[:feedback_type]).to eq(histories_for_scoring[i].feedback_type)
+        end
       end
     end
   end

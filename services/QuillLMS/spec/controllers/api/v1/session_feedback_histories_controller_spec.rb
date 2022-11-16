@@ -241,13 +241,13 @@ describe Api::V1::SessionFeedbackHistoriesController, type: :controller do
 
       expect(response).to have_http_status(200)
       expect(parsed_response.length).to eq(7)
-      expect(parsed_response[0]["session_uid"]).to eq(@feedback_history7.session_uid)
-      expect(parsed_response[1]["session_uid"]).to eq(@feedback_history6.session_uid)
-      expect(parsed_response[2]["session_uid"]).to eq(@feedback_history5.session_uid)
-      expect(parsed_response[3]["session_uid"]).to eq(@feedback_history4.session_uid)
-      expect(parsed_response[4]["session_uid"]).to eq(@feedback_history3.session_uid)
-      expect(parsed_response[5]["session_uid"]).to eq(@feedback_history2.session_uid)
-      expect(parsed_response[6]["session_uid"]).to eq(@feedback_history1.session_uid)
+      expect(parsed_response[0]["session_uid"]).to eq(@feedback_history7.feedback_session_uid)
+      expect(parsed_response[1]["session_uid"]).to eq(@feedback_history6.feedback_session_uid)
+      expect(parsed_response[2]["session_uid"]).to eq(@feedback_history5.feedback_session_uid)
+      expect(parsed_response[3]["session_uid"]).to eq(@feedback_history4.feedback_session_uid)
+      expect(parsed_response[4]["session_uid"]).to eq(@feedback_history3.feedback_session_uid)
+      expect(parsed_response[5]["session_uid"]).to eq(@feedback_history2.feedback_session_uid)
+      expect(parsed_response[6]["session_uid"]).to eq(@feedback_history1.feedback_session_uid)
     end
 
     it 'should retrieve all feedback histories between date params' do
@@ -257,9 +257,9 @@ describe Api::V1::SessionFeedbackHistoriesController, type: :controller do
 
       expect(response).to have_http_status(200)
       expect(parsed_response.length).to eq(3)
-      expect(parsed_response[0]["session_uid"]).to eq(@feedback_history4.session_uid)
-      expect(parsed_response[1]["session_uid"]).to eq(@feedback_history3.session_uid)
-      expect(parsed_response[2]["session_uid"]).to eq(@feedback_history2.session_uid)
+      expect(parsed_response[0]["session_uid"]).to eq(@feedback_history4.feedback_session_uid)
+      expect(parsed_response[1]["session_uid"]).to eq(@feedback_history3.feedback_session_uid)
+      expect(parsed_response[2]["session_uid"]).to eq(@feedback_history2.feedback_session_uid)
     end
 
     it 'should retrieve all feedback histories qualifying for scoring' do
@@ -269,12 +269,12 @@ describe Api::V1::SessionFeedbackHistoriesController, type: :controller do
 
       expect(response).to have_http_status(200)
       expect(parsed_response.length).to eq(6)
-      expect(parsed_response[0]["session_uid"]).to eq(@feedback_history6.session_uid)
-      expect(parsed_response[1]["session_uid"]).to eq(@feedback_history5.session_uid)
-      expect(parsed_response[2]["session_uid"]).to eq(@feedback_history4.session_uid)
-      expect(parsed_response[3]["session_uid"]).to eq(@feedback_history3.session_uid)
-      expect(parsed_response[4]["session_uid"]).to eq(@feedback_history2.session_uid)
-      expect(parsed_response[5]["session_uid"]).to eq(@feedback_history1.session_uid)
+      expect(parsed_response[0]["session_uid"]).to eq(@feedback_history6.feedback_session_uid)
+      expect(parsed_response[1]["session_uid"]).to eq(@feedback_history5.feedback_session_uid)
+      expect(parsed_response[2]["session_uid"]).to eq(@feedback_history4.feedback_session_uid)
+      expect(parsed_response[3]["session_uid"]).to eq(@feedback_history3.feedback_session_uid)
+      expect(parsed_response[4]["session_uid"]).to eq(@feedback_history2.feedback_session_uid)
+      expect(parsed_response[5]["session_uid"]).to eq(@feedback_history1.feedback_session_uid)
     end
   end
 end
