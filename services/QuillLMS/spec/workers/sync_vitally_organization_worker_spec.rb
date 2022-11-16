@@ -5,7 +5,7 @@ require 'rails_helper'
 describe SyncVitallyOrganizationWorker do
   subject { described_class.new }
 
-  let(:endpoint) { VitallyRestApi::BASE_URL + '/' + VitallyRestApi::ENDPOINT_ORGANIZATIONS }
+  let(:endpoint) { "#{VitallyRestApi::BASE_URL}/#{VitallyRestApi::ENDPOINT_ORGANIZATIONS}" }
 
   let(:district) { create(:district) }
   let(:response_double) { double(success?: true) }

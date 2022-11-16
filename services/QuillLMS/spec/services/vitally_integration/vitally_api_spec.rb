@@ -16,6 +16,7 @@ describe VitallyApi do
   describe '#batch' do
     let(:endpoint) { "#{VitallyApi::BASE_URL}/#{VitallyApi::ENDPOINT_BATCH}"}
     let(:response) {sample_response.merge(status: 200) }
+
     subject {api.batch(mock_payload)}
 
     it 'should post the payload to the batch endpoint' do
@@ -38,6 +39,7 @@ describe VitallyApi do
   describe '#unlink' do
     let(:endpoint) { "#{VitallyApi::BASE_URL}/#{VitallyApi::ENDPOINT_UNLINK}" }
     let(:response) {sample_response.merge(status: 200) }
+
     subject {api.unlink(mock_payload)}
 
     it 'should post the payload to the batch endpoint' do
