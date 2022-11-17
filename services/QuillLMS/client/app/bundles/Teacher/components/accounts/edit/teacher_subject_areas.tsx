@@ -1,4 +1,4 @@
-import React from 'react';
+import * as React from 'react';
 
 import SubjectAreaSection from '../shared/subject_area_section'
 

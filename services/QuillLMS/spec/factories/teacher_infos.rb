@@ -16,5 +16,11 @@ FactoryBot.define do
     teacher { create(:user) }
     minimum_grade_level { 0 }
     maximum_grade_level { 12 }
+
+    factory :teacher_info_with_subject_area do
+      after(:create) do |teacher_info|
+        create(:teacher_info_subject_area, teacher_info: teacher_info)
+      end
+    end
   end
 end

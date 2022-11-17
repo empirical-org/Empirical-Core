@@ -52,5 +52,9 @@ FactoryBot.define do
       name { 'Dismiss School Selection Reminder' }
     end
 
+    factory :dismiss_teacher_info_modal do
+      name { 'Dismiss Teacher Info Modal' }
+    end
+
   end
 end

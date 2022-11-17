@@ -1,0 +1,244 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`SubjectAreaSection component should render 1`] = `
+<SubjectAreaSection
+  selectedSubjectAreaIds={Array []}
+  setSelectedSubjectAreaIds={[MockFunction]}
+  subjectAreas={
+    Array [
+      Object {
+        "created_at": "2022-11-15T17:26:58.917Z",
+        "id": 1,
+        "name": "English / Language Arts / Reading",
+        "updated_at": "2022-11-15T17:26:58.917Z",
+      },
+      Object {
+        "created_at": "2022-11-15T17:26:59.053Z",
+        "id": 2,
+        "name": "English as a New Language",
+        "updated_at": "2022-11-15T17:26:59.053Z",
+      },
+      Object {
+        "created_at": "2022-11-15T17:26:59.056Z",
+        "id": 3,
+        "name": "General Elementary",
+        "updated_at": "2022-11-15T17:26:59.056Z",
+      },
+      Object {
+        "created_at": "2022-11-15T17:26:59.059Z",
+        "id": 4,
+        "name": "Math",
+        "updated_at": "2022-11-15T17:26:59.059Z",
+      },
+      Object {
+        "created_at": "2022-11-15T17:26:59.065Z",
+        "id": 5,
+        "name": "Science",
+        "updated_at": "2022-11-15T17:26:59.065Z",
+      },
+      Object {
+        "created_at": "2022-11-15T17:26:59.068Z",
+        "id": 6,
+        "name": "History / Social Studies",
+        "updated_at": "2022-11-15T17:26:59.068Z",
+      },
+      Object {
+        "created_at": "2022-11-15T17:26:59.070Z",
+        "id": 7,
+        "name": "Other",
+        "updated_at": "2022-11-15T17:26:59.070Z",
+      },
+    ]
+  }
+>
+  <SubjectAreaRow
+    key="1"
+    selectedSubjectAreaIds={Array []}
+    setSelectedSubjectAreaIds={[MockFunction]}
+    subjectArea={
+      Object {
+        "created_at": "2022-11-15T17:26:58.917Z",
+        "id": 1,
+        "name": "English / Language Arts / Reading",
+        "updated_at": "2022-11-15T17:26:58.917Z",
+      }
+    }
+  >
+    <div
+      className="subject-area-row"
+    >
+      <button
+        aria-label="Unchecked checkbox"
+        className="quill-checkbox unselected"
+        onClick={[Function]}
+        type="button"
+      />
+      <span>
+        English / Language Arts / Reading
+      </span>
+    </div>
+  </SubjectAreaRow>
+  <SubjectAreaRow
+    key="2"
+    selectedSubjectAreaIds={Array []}
+    setSelectedSubjectAreaIds={[MockFunction]}
+    subjectArea={
+      Object {
+        "created_at": "2022-11-15T17:26:59.053Z",
+        "id": 2,
+        "name": "English as a New Language",
+        "updated_at": "2022-11-15T17:26:59.053Z",
+      }
+    }
+  >
+    <div
+      className="subject-area-row"
+    >
+      <button
+        aria-label="Unchecked checkbox"
+        className="quill-checkbox unselected"
+        onClick={[Function]}
+        type="button"
+      />
+      <span>
+        English as a New Language
+      </span>
+    </div>
+  </SubjectAreaRow>
+  <SubjectAreaRow
+    key="3"
+    selectedSubjectAreaIds={Array []}
+    setSelectedSubjectAreaIds={[MockFunction]}
+    subjectArea={
+      Object {
+        "created_at": "2022-11-15T17:26:59.056Z",
+        "id": 3,
+        "name": "General Elementary",
+        "updated_at": "2022-11-15T17:26:59.056Z",
+      }
+    }
+  >
+    <div
+      className="subject-area-row"
+    >
+      <button
+        aria-label="Unchecked checkbox"
+        className="quill-checkbox unselected"
+        onClick={[Function]}
+        type="button"
+      />
+      <span>
+        General Elementary
+      </span>
+    </div>
+  </SubjectAreaRow>
+  <SubjectAreaRow
+    key="4"
+    selectedSubjectAreaIds={Array []}
+    setSelectedSubjectAreaIds={[MockFunction]}
+    subjectArea={
+      Object {
+        "created_at": "2022-11-15T17:26:59.059Z",
+        "id": 4,
+        "name": "Math",
+        "updated_at": "2022-11-15T17:26:59.059Z",
+      }
+    }
+  >
+    <div
+      className="subject-area-row"
+    >
+      <button
+        aria-label="Unchecked checkbox"
+        className="quill-checkbox unselected"
+        onClick={[Function]}
+        type="button"
+      />
+      <span>
+        Math
+      </span>
+    </div>
+  </SubjectAreaRow>
+  <SubjectAreaRow
+    key="5"
+    selectedSubjectAreaIds={Array []}
+    setSelectedSubjectAreaIds={[MockFunction]}
+    subjectArea={
+      Object {
+        "created_at": "2022-11-15T17:26:59.065Z",
+        "id": 5,
+        "name": "Science",
+        "updated_at": "2022-11-15T17:26:59.065Z",
+      }
+    }
+  >
+    <div
+      className="subject-area-row"
+    >
+      <button
+        aria-label="Unchecked checkbox"
+        className="quill-checkbox unselected"
+        onClick={[Function]}
+        type="button"
+      />
+      <span>
+        Science
+      </span>
+    </div>
+  </SubjectAreaRow>
+  <SubjectAreaRow
+    key="6"
+    selectedSubjectAreaIds={Array []}
+    setSelectedSubjectAreaIds={[MockFunction]}
+    subjectArea={
+      Object {
+        "created_at": "2022-11-15T17:26:59.068Z",
+        "id": 6,
+        "name": "History / Social Studies",
+        "updated_at": "2022-11-15T17:26:59.068Z",
+      }
+    }
+  >
+    <div
+      className="subject-area-row"
+    >
+      <button
+        aria-label="Unchecked checkbox"
+        className="quill-checkbox unselected"
+        onClick={[Function]}
+        type="button"
+      />
+      <span>
+        History / Social Studies
+      </span>
+    </div>
+  </SubjectAreaRow>
+  <SubjectAreaRow
+    key="7"
+    selectedSubjectAreaIds={Array []}
+    setSelectedSubjectAreaIds={[MockFunction]}
+    subjectArea={
+      Object {
+        "created_at": "2022-11-15T17:26:59.070Z",
+        "id": 7,
+        "name": "Other",
+        "updated_at": "2022-11-15T17:26:59.070Z",
+      }
+    }
+  >
+    <div
+      className="subject-area-row"
+    >
+      <button
+        aria-label="Unchecked checkbox"
+        className="quill-checkbox unselected"
+        onClick={[Function]}
+        type="button"
+      />
+      <span>
+        Other
+      </span>
+    </div>
+  </SubjectAreaRow>
+</SubjectAreaSection>
+`;

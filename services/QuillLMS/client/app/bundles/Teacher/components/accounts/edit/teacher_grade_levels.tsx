@@ -1,4 +1,4 @@
-import React from 'react';
+import * as React from 'react';
 
 import GradeLevelSection from '../shared/grade_level_section'
 
