@@ -33,6 +33,9 @@ class UnitActivity < ApplicationRecord
   has_many :classroom_unit_activity_states
 
   after_save :hide_appropriate_activity_sessions, :teacher_checkbox
+  after_save :save_user_pack_sequence_items, if: :saved_change_to_visible?
+
+  after_destroy :save_user_pack_sequence_items
 
   def teacher_checkbox
     return unless unit
@@ -105,20 +108,21 @@ class UnitActivity < ApplicationRecord
     self.publish_date = publish_date.in_time_zone('UTC') - unit.user.utc_offset
   end
 
+  def save_user_pack_sequence_items
+    unit&.save_user_pack_sequence_items
+  end
+
+  private def hide_all_activity_sessions
+    unit
+      &.activity_sessions
+      &.where(activity: activity)
+      &.each { |activity_session| activity_session.update(visible: false) }
+  end
+
   private def hide_appropriate_activity_sessions
     return if visible
 
     hide_all_activity_sessions
-  end
-
-  private def hide_all_activity_sessions
-    return unless unit&.classroom_units
-
-    unit.classroom_units.each do |cu|
-      cu.activity_sessions.each do |as|
-        as.update(visible: false) if as.activity == activity
-      end
-    end
   end
 
   def self.get_classroom_user_profile(classroom_id, user_id)
@@ -228,5 +232,4 @@ class UnitActivity < ApplicationRecord
      SQL
     )
   end
-
 end

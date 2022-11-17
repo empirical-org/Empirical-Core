@@ -40,16 +40,16 @@ describe UnitActivity, type: :model, redis: true do
   let!(:activity_classification2) { create(:grammar)}
   let!(:activity_classification6) { create(:lesson_classification)}
   let!(:diagnostic_activity_classification ) { create(:diagnostic) }
-  let!(:activity) { create(:activity, name: 'activity') }
+  let!(:activity) { create(:activity) }
   let!(:diagnostic_activity) { create(:diagnostic_activity, activity_classification_id: diagnostic_activity_classification.id, name: 'diagnostic activity') }
-  let!(:student) { create(:user, role: 'student', username: 'great', name: 'hi hi', password: 'pwd') }
+  let!(:student) { create(:student) }
   let!(:classroom) { create(:classroom, students: [student]) }
   let!(:teacher) { classroom.owner }
-  let!(:unit) { create(:unit, name: 'Tapioca', user: teacher) }
+  let!(:unit) { create(:unit, user: teacher) }
   let!(:unit_activity) { create(:unit_activity, unit: unit, activity: activity) }
-  let!(:lessons_activity) { create(:activity, activity_classification_id: 6, name: 'lesson activity') }
+  let!(:lessons_activity) { create(:activity, activity_classification_id: 6) }
   let!(:lessons_unit_activity) { create(:unit_activity, unit: unit, activity: lessons_activity) }
-  let!(:classroom_unit ) { create(:classroom_unit , unit: unit, classroom: classroom, assigned_student_ids: [student.id]) }
+  let!(:classroom_unit) { create(:classroom_unit , unit: unit, classroom: classroom, assigned_student_ids: [student.id]) }
   let!(:activity_session) {create(:activity_session, :finished, user_id: student.id, classroom_unit_id: classroom_unit.id, unit: unit, activity: activity)}
 
   describe '#formatted_due_date' do
@@ -319,7 +319,25 @@ describe UnitActivity, type: :model, redis: true do
         expect(completed_date_result.in_time_zone.to_i).to eq completed_date.to_i
       end
     end
-
   end
 
+  describe 'save_user_pack_sequence_items' do
+    context 'visible has changed' do
+      subject { unit_activity.update(visible: false) }
+
+      it do
+        expect(unit_activity).to receive(:save_user_pack_sequence_items)
+        subject
+      end
+    end
+
+    context 'after_destroy' do
+      subject { unit_activity.destroy }
+
+      it do
+        expect(unit_activity).to receive(:save_user_pack_sequence_items)
+        subject
+      end
+    end
+  end
 end

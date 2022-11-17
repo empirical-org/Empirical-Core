@@ -48,6 +48,23 @@ class ActivitySession < ApplicationRecord
   include Uid
   include Concepts
 
+  COMPLETED = 'Completed'
+
+  CONCEPT_UIDS_TO_EXCLUDE_FROM_REPORT = [
+    'JVJhNIHGZLbHF6LYw605XA',
+    'H-2lrblngQAQ8_s-ctye4g',
+    '5E8cleeh-dUUFncVhLy9AQ',
+    'jaUtRoHeqvvNhiEBOhjvhg'
+  ]
+
+  MAX_4_BYTE_INTEGER_SIZE = 2147483647
+
+  NEARLY_PROFICIENT = 'Nearly proficient'
+  NOT_YET_PROFICIENT = 'Not yet proficient'
+  PROFICIENT = 'Proficient'
+
+  RESULTS_PER_PAGE = 25
+
   STATE_UNSTARTED = 'unstarted'
   STATE_STARTED = 'started'
   STATE_FINISHED = 'finished'
@@ -56,8 +73,6 @@ class ActivitySession < ApplicationRecord
 
   TIME_TRACKING_KEY = 'time_tracking'
   TIME_TRACKING_EDITS_KEY = 'time_tracking_edits'
-
-  MAX_4_BYTE_INTEGER_SIZE = 2147483647
 
   default_scope { where(visible: true)}
 
@@ -80,16 +95,17 @@ class ActivitySession < ApplicationRecord
   belongs_to :user
 
   before_create :set_state
-  before_save   :set_completed_at, :set_activity_id
+  before_save :set_completed_at, :set_activity_id
 
-  after_save    :determine_if_final_score, :update_milestones, :increment_counts
+  after_save :determine_if_final_score, :update_milestones, :increment_counts
   after_save :record_teacher_activity_feed, if: [:saved_change_to_completed_at?, :completed?]
+  after_save :save_user_pack_sequence_items, if: -> { saved_change_to_state? || saved_change_to_visible? }
 
   after_commit :invalidate_activity_session_count_if_completed
 
-  after_destroy :save_user_pack_sequence_items
+  after_save :trigger_events
 
-  around_save   :trigger_events
+  after_destroy :save_user_pack_sequence_items
 
   # FIXME: do we need the below? if we omit it, may make things faster
   default_scope -> { joins(:activity) }
@@ -103,6 +119,7 @@ class ActivitySession < ApplicationRecord
     joins(classroom_unit: {classroom: :teachers})
     .where(users: { id: teacher_id})
   }
+
   scope :averages_for_user_ids, lambda {|user_ids|
     select('user_id, AVG(percentage) as avg')
     .joins(activity: :classification)
@@ -110,20 +127,6 @@ class ActivitySession < ApplicationRecord
     .where(user_id: user_ids)
     .group(:user_id)
   }
-
-  RESULTS_PER_PAGE = 25
-
-  CONCEPT_UIDS_TO_EXCLUDE_FROM_REPORT = [
-    'JVJhNIHGZLbHF6LYw605XA',
-    'H-2lrblngQAQ8_s-ctye4g',
-    '5E8cleeh-dUUFncVhLy9AQ',
-    'jaUtRoHeqvvNhiEBOhjvhg'
-  ]
-
-  PROFICIENT = 'Proficient'
-  NEARLY_PROFICIENT = 'Nearly proficient'
-  NOT_YET_PROFICIENT = 'Not yet proficient'
-  COMPLETED = 'Completed'
 
   def self.paginate(current_page, per_page)
     offset = (current_page.to_i - 1) * per_page
@@ -137,8 +140,8 @@ class ActivitySession < ApplicationRecord
   # returns {user_id: average}
   def self.average_scores_by_student(user_ids)
     averages_for_user_ids(user_ids)
-    .map{|as| [as['user_id'], (as['avg'].to_f * 100).to_i]}
-    .to_h
+      .map { |as| [as['user_id'], (as['avg'].to_f * 100).to_i] }
+      .to_h
   end
 
   def timespent
@@ -288,11 +291,7 @@ class ActivitySession < ApplicationRecord
   end
 
   def percentage_as_percent
-    if percentage.nil?
-      "no percentage"
-    else
-      "#{(percentage*100).round}%"
-    end
+    percentage.nil? ? 'no percentage' : "#{(percentage*100).round}%"
   end
 
   def score
@@ -304,10 +303,10 @@ class ActivitySession < ApplicationRecord
   end
 
   def start
-    return if state != 'unstarted'
+    return unless unstarted?
 
     self.started_at ||= Time.current
-    self.state = 'started'
+    self.state = STATE_STARTED
   end
 
   def data=(input)
@@ -379,10 +378,6 @@ class ActivitySession < ApplicationRecord
     return unless state == 'finished' && classroom_id
 
     $redis.del("classroom_id:#{classroom_id}_completed_activity_count")
-  end
-
-  def save_user_pack_sequence_items
-    UserPackSequenceItemSaver.run(classroom.id, user_id)
   end
 
   def self.save_concept_results(activity_sessions, concept_results)
@@ -478,12 +473,12 @@ class ActivitySession < ApplicationRecord
       activity: activity
     )
 
-    started_session = activity_sessions.find { |as| as.state == 'started' }
+    started_session = activity_sessions.find { |as| as.state == STATE_STARTED }
     return started_session if started_session
 
-    unstarted_session = activity_sessions.find { |as| as.state == 'unstarted' }
+    unstarted_session = activity_sessions.find { |as| as.state == STATE_UNSTARTED }
     if unstarted_session
-      unstarted_session.update(state: 'started')
+      unstarted_session.update(state: STATE_STARTED)
       return unstarted_session
     end
 
@@ -491,7 +486,7 @@ class ActivitySession < ApplicationRecord
       classroom_unit_id: classroom_unit_id,
       user_id: student_id,
       activity: activity,
-      state: 'started',
+      state: STATE_STARTED,
       started_at: Time.current
     )
   end
@@ -510,7 +505,7 @@ class ActivitySession < ApplicationRecord
     correct_skills.map(&:id)
   end
 
-  # when using this method, you should eager load ass
+  # when using this method, you should eager load as
   # e.g. .includes(:concept_results, activity: {skills: :concepts})
   def correct_skills
     @correct_skills ||= begin
@@ -568,16 +563,14 @@ class ActivitySession < ApplicationRecord
   # rubocop:enable Metrics/CyclomaticComplexity
 
   private def trigger_events
-    yield # http://stackoverflow.com/questions/4998553/rails-around-callbacks
-
     return unless saved_change_to_state?
-    return unless state == 'finished'
+    return unless finished?
 
     FinishActivityWorker.perform_async(uid)
   end
 
   private def set_state
-    self.state ||= 'unstarted'
+    self.state ||= STATE_UNSTARTED
     self.data ||= {}
   end
 
@@ -586,16 +579,13 @@ class ActivitySession < ApplicationRecord
   end
 
   private def set_completed_at
-    return unless state == 'finished'
+    return unless finished?
 
     self.completed_at ||= Time.current
   end
 
   private def update_milestones
-    # we check to see if it is finished because the only milestone we're checking for is the copleted idagnostic.
-    # at a later date, we might have to update this check in case we want a milestone for sessions being assigned
-    # or started.
-    return unless self.state == 'finished'
+    return unless finished?
 
     UpdateMilestonesWorker.perform_async(uid)
   end
@@ -608,14 +598,18 @@ class ActivitySession < ApplicationRecord
   end
 
   def self.has_a_completed_session?(activity_id_or_ids, classroom_unit_id_or_ids)
-    !!ActivitySession.find_by(classroom_unit_id: classroom_unit_id_or_ids, activity_id: activity_id_or_ids, state: "finished")
+    exists?(classroom_unit_id: classroom_unit_id_or_ids, activity_id: activity_id_or_ids, state: STATE_FINISHED)
   end
 
   def self.has_a_started_session?(activity_id_or_ids, classroom_unit_id_or_ids)
-    !!ActivitySession.find_by(classroom_unit_id: classroom_unit_id_or_ids, activity_id: activity_id_or_ids, state: "started")
+    exists?(classroom_unit_id: classroom_unit_id_or_ids, activity_id: activity_id_or_ids, state: STATE_STARTED)
   end
 
   private def record_teacher_activity_feed
     teachers.each { |teacher| TeacherActivityFeed.add(teacher.id, id) }
+  end
+
+  private def save_user_pack_sequence_items
+    SaveUserPackSequenceItemsWorker.perform_async(classroom&.id, user_id)
   end
 end

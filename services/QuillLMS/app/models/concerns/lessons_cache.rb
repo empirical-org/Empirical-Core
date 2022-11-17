@@ -24,7 +24,7 @@ module LessonsCache
 
     teacher = classroom.owner
 
-    return unless cua.unit_activity.activity.is_lesson?
+    return unless cua.unit_activity.activity.lesson?
 
     user_ids = ClassroomsTeacher.where(classroom_id: classroom_id).map(&:user_id)
     user_ids.each do |user_id|
@@ -52,7 +52,7 @@ module LessonsCache
     cuas = []
     teacher.units.each do |u|
       u.unit_activities.each do |ua|
-        if ua.activity.is_lesson?
+        if ua.activity.lesson?
           cuas.push(ua.classroom_unit_activity_states)
         end
       end
