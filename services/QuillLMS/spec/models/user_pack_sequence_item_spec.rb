@@ -48,4 +48,14 @@ RSpec.describe UserPackSequenceItem, type: :model do
       it { expect { duplicate_user_pack_sequence_item }.to raise_error ActiveRecord::RecordNotUnique }
     end
   end
+
+  describe 'save_user_pack_sequence_items' do
+    let!(:user_pack_sequence_item) { create(:user_pack_sequence_item) }
+
+    context 'after_destroy' do
+      subject { user_pack_sequence_item.destroy }
+
+      it { expect { subject }.to change { SaveUserPackSequenceItemsWorker.jobs.size }.by(1) }
+    end
+  end
 end

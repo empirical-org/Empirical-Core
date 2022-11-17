@@ -214,7 +214,7 @@ class Activity < ApplicationRecord
     $redis.set('default_activity_search', ActivitySearchWrapper.new('production').search.to_json)
   end
 
-  def is_lesson?
+  def lesson?
     activity_classification_id == 6
   end
 

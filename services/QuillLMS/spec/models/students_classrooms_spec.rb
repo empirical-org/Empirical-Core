@@ -41,8 +41,8 @@ describe StudentsClassrooms, type: :model, redis: true do
     end
   end
 
-  describe 'callbacks' do
-    context '#checkbox' do
+  context 'callbacks' do
+    describe '#checkbox' do
       let(:students_classrooms) { build(:students_classrooms) }
 
       it 'should find or create a checkbox' do
@@ -51,7 +51,7 @@ describe StudentsClassrooms, type: :model, redis: true do
       end
     end
 
-    context '#run_associator' do
+    describe '#run_associator' do
       let(:students_classrooms) { build(:students_classrooms, visible: true) }
 
       it 'should run the students to classrooms associator' do
@@ -60,7 +60,7 @@ describe StudentsClassrooms, type: :model, redis: true do
       end
     end
 
-    context '#archive_student_associations_for_classroom' do
+    describe '#archive_student_associations_for_classroom' do
       let(:student) { create(:student_in_two_classrooms_with_many_activities) }
       let(:student_classroom) { StudentsClassrooms.find_by(student_id: student.id) }
 
@@ -76,13 +76,23 @@ describe StudentsClassrooms, type: :model, redis: true do
       end
     end
 
-    context 'invalidate_classroom_minis' do
+    describe '#invalidate_classroom_minis' do
       let(:classrooms) { create(:students_classrooms) }
 
       it "should invalidate the classroom minis" do
         $redis.set("user_id:#{classrooms.classroom.owner.id}_classroom_minis", "something")
         classrooms.run_callbacks(:commit)
         expect($redis.get("user_id:#{classrooms.classroom.owner.id}_classroom_minis")).to eq nil
+      end
+    end
+
+    describe '#save_user_pack_sequence_items' do
+      let!(:student_classroom) { create(:students_classrooms) }
+
+      context 'visible has changed' do
+        subject { student_classroom.update(visible: false) }
+
+        it { expect { subject }.to change { SaveUserPackSequenceItemsWorker.jobs.size }.by(1) }
       end
     end
   end
