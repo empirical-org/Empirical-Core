@@ -1379,7 +1379,6 @@
   box-shadow: 0 0 1px rgba(255, 255, 255, .5);
 }
 
-
 .teacher-info-modal {
   overflow: scroll;
   max-width: 610px;
@@ -1387,6 +1386,10 @@
   background: #F8F6F6;
   max-height: 90vh;
   height: min-content;
+  .modal-body {
+    margin-bottom: 0px;
+    padding-bottom: 0px;
+  }
   .account-form {
     padding: 0px;
   }
