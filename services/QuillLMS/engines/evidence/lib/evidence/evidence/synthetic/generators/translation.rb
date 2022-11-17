@@ -47,14 +47,14 @@ module Evidence
         private def fetch_synthetic_translations_for(language: )
           strings.each_slice(BATCH_SIZE).each do |strings_slice|
             begin
-              translations = translator.translate(strings_slice, from: ENGLISH, to: language)
-              english_texts = translator.translate(Array(translations).map(&:text), from: language, to: ENGLISH)
+              translations = Array(translator.translate(strings_slice, from: ENGLISH, to: language))
+              english_texts = Array(translator.translate(translations.map(&:text), from: language, to: ENGLISH))
             rescue => e
               debugger
             end
 
             strings_slice.each.with_index do |string, index|
-              results_hash[string][language.to_s] = Array(english_texts)[index].text
+              results_hash[string][language.to_s] = english_texts[index].text
             end
           end
         end
