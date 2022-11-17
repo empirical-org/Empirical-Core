@@ -37,10 +37,7 @@ module Evidence
         @generators = GENERATORS.slice(*generators)
         @passage = passage if passage
 
-        clean_text_and_labels = texts_and_labels
-          .keep_if(&:last) # remove blank labels
-          .keep_if(&:first) # remove blank texts
-          .uniq(&:first) # remove duplicate texts
+        clean_text_and_labels = labeled_data_cleaner(texts_and_labels)
 
         @labels = clean_text_and_labels.map(&:last).uniq
 
@@ -146,6 +143,13 @@ module Evidence
           .map(&:to_detail_rows)
           .flatten(1)
           .reject(&:empty?)
+      end
+
+      private def labeled_data_cleaner(texts_and_labels)
+        texts_and_labels
+          .keep_if(&:last) # remove blank labels
+          .keep_if(&:first) # remove blank texts
+          .uniq(&:first) # remove duplicate texts
       end
     end
   end
