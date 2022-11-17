@@ -306,7 +306,7 @@ class ActivitySession < ApplicationRecord
     return unless unstarted?
 
     self.started_at ||= Time.current
-    self.state = 'started'
+    self.state = STATE_STARTED
   end
 
   def data=(input)
@@ -473,12 +473,12 @@ class ActivitySession < ApplicationRecord
       activity: activity
     )
 
-    started_session = activity_sessions.find { |as| as.state == 'started' }
+    started_session = activity_sessions.find { |as| as.state == STATE_STARTED }
     return started_session if started_session
 
-    unstarted_session = activity_sessions.find { |as| as.state == 'unstarted' }
+    unstarted_session = activity_sessions.find { |as| as.state == STATE_UNSTARTED }
     if unstarted_session
-      unstarted_session.update(state: 'started')
+      unstarted_session.update(state: STATE_STARTED)
       return unstarted_session
     end
 
@@ -486,7 +486,7 @@ class ActivitySession < ApplicationRecord
       classroom_unit_id: classroom_unit_id,
       user_id: student_id,
       activity: activity,
-      state: 'started',
+      state: STATE_STARTED,
       started_at: Time.current
     )
   end
@@ -570,7 +570,7 @@ class ActivitySession < ApplicationRecord
   end
 
   private def set_state
-    self.state ||= 'unstarted'
+    self.state ||= STATE_UNSTARTED
     self.data ||= {}
   end
 
@@ -598,11 +598,11 @@ class ActivitySession < ApplicationRecord
   end
 
   def self.has_a_completed_session?(activity_id_or_ids, classroom_unit_id_or_ids)
-    ActivitySession.exists?(classroom_unit_id: classroom_unit_id_or_ids, activity_id: activity_id_or_ids, state: "finished")
+    exists?(classroom_unit_id: classroom_unit_id_or_ids, activity_id: activity_id_or_ids, state: STATE_FINISHED)
   end
 
   def self.has_a_started_session?(activity_id_or_ids, classroom_unit_id_or_ids)
-    ActivitySession.exists?(classroom_unit_id: classroom_unit_id_or_ids, activity_id: activity_id_or_ids, state: "started")
+    exists?(classroom_unit_id: classroom_unit_id_or_ids, activity_id: activity_id_or_ids, state: STATE_STARTED)
   end
 
   private def record_teacher_activity_feed

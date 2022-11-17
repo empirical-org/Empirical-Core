@@ -56,10 +56,10 @@ class Classroom < ApplicationRecord
 
   before_validation :set_code, if: proc {|c| c.code.blank?}
 
+  after_save :reset_teacher_activity_feed, :save_user_pack_sequence_items, if: :saved_change_to_visible?
+
   after_commit :hide_appropriate_classroom_units
   after_commit :trigger_analytics_for_classroom_creation, on: :create
-
-  after_save :reset_teacher_activity_feed, :save_user_pack_sequence_items, if: :saved_change_to_visible?
 
   accepts_nested_attributes_for :classrooms_teachers
 
