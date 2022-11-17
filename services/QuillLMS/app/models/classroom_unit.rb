@@ -30,6 +30,7 @@ class ClassroomUnit < ApplicationRecord
 
   belongs_to :unit # Note, there is a touch in the unit -> classroom_unit direction, so don't add one here.
   belongs_to :classroom
+
   has_many :activity_sessions
   has_many :unit_activities, through: :unit
   has_many :completed_activity_sessions, -> {completed}, class_name: 'ActivitySession'
@@ -38,13 +39,17 @@ class ClassroomUnit < ApplicationRecord
   scope :visible, -> { where(visible: true) }
 
   validates :unit, uniqueness: { scope: :classroom }
+
   before_save :check_for_assign_on_join_and_update_students_array_if_true
-  after_save  :hide_appropriate_activity_sessions
+  after_update :save_user_pack_sequence_items, if: -> { saved_change_to_assigned_student_ids? || saved_change_to_visible? }
+  after_save :hide_appropriate_activity_sessions
+
   # Using an after_commit hook here because we want to trigger the callback
   # on save or touch, and touch explicitly bypasses after_save hooks
   after_commit :touch_classroom_without_callbacks
 
-  # this method does not seem to be getting used, but leaving it in for the tests for now
+  after_destroy :save_user_pack_sequence_items
+
   def assigned_students
     User.where(id: assigned_student_ids)
   end
@@ -75,6 +80,9 @@ class ClassroomUnit < ApplicationRecord
     update(assigned_student_ids: new_assigned_student_ids, assign_on_join: false)
   end
 
+  def save_user_pack_sequence_items
+    unit&.save_user_pack_sequence_items
+  end
 
   private def hide_unassigned_activity_sessions
     #validate or hides any other related activity sessions
@@ -125,3 +133,4 @@ class ClassroomUnit < ApplicationRecord
     classroom&.update_columns(updated_at: current_time_from_proper_timezone) unless classroom&.destroyed?
   end
 end
+

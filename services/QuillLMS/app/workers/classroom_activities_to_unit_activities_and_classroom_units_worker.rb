@@ -36,7 +36,7 @@ class ClassroomActivitiesToUnitActivitiesAndClassroomUnitsWorker
             ca.activity_sessions.update_all(classroom_unit_id: cu.id)
           end
 
-          if ca.activity.is_lesson? && cu && ua && cu.id && ua.id
+          if ca.activity.lesson? && cu && ua && cu.id && ua.id
             ClassroomUnitActivityState.find_or_create_by(
               unit_activity_id: ua.id,
               classroom_unit_id: cu.id,

@@ -34,4 +34,12 @@ class UserPackSequenceItem < ApplicationRecord
   validates :status, inclusion: { in: STATUSES }
   validates :pack_sequence_item, presence: true
   validates :user, presence: true
+
+  after_destroy :save_user_pack_sequence_items
+
+  delegate :classroom, to: :pack_sequence_item
+
+  def save_user_pack_sequence_items
+    SaveUserPackSequenceItemsWorker.perform_async(classroom&.id, user_id)
+  end
 end
