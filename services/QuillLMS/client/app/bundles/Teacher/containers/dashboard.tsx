@@ -36,7 +36,6 @@ const Dashboard = ({ onboardingChecklist, firstName, mustSeeWelcomeModal, mustSe
   if (!onboardingChecklist.every(obj => obj.checked)) {
     return (
       <div className={className}>
-        {showTeacherInfoModal && <TeacherInfoModal close={closeTeacherInfoModal} subjectAreas={subjectAreas} />}
         {showWelcomeModal && <WelcomeModal close={closeWelcomeModal} size={size} />}
         {showDemoModal && <DemoModal close={closeDemoModal} size={size} />}
         <OnboardingChecklist firstName={firstName} onboardingChecklist={onboardingChecklist} />
@@ -112,6 +111,7 @@ const Dashboard = ({ onboardingChecklist, firstName, mustSeeWelcomeModal, mustSe
           pageKey={DEMO_ONBOARDING_DASHBOARD}
         />
         {showDemoModal && <DemoModal close={closeDemoModal} size={size} />}
+        {showTeacherInfoModal && <TeacherInfoModal close={closeTeacherInfoModal} subjectAreas={subjectAreas} />}
         <main>
           {showEvidencePromotionCard && <EvidencePromotionCard />}
           <KeyMetrics firstName={firstName} metrics={metrics} />

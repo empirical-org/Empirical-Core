@@ -267,6 +267,7 @@ module Demo::ReportDemoCreator
   def self.create_demo(email = nil, teacher_demo: false)
     ActiveRecord::Base.transaction do
       teacher = create_teacher(email)
+      create_teacher_info(teacher)
       create_subscription(teacher)
       create_demo_classroom_data(teacher, teacher_demo: teacher_demo)
     end
@@ -348,6 +349,11 @@ module Demo::ReportDemoCreator
       password_confirmation: 'password',
       flags: ["beta"]
     )
+  end
+
+  def self.create_teacher_info(teacher)
+    teacher_info = TeacherInfo.create(user: teacher, minimum_grade_level: 'K', maximum_grade_level: 12)
+    TeacherInfoSubjectArea.create(teacher_info: teacher_info, subject_area: SubjectArea.first)
   end
 
   def self.create_classroom(teacher)
