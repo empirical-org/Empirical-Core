@@ -39,6 +39,7 @@ module Evidence
 
         clean_text_and_labels = texts_and_labels
           .keep_if(&:last) # remove blank labels
+          .keep_if(&:first) # remove blank texts
           .uniq(&:first) # remove duplicate texts
 
         @labels = clean_text_and_labels.map(&:last).uniq
