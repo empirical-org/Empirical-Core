@@ -6,12 +6,12 @@
 class CreateEvidenceActivityHealths < ActiveRecord::Migration[6.1]
   def change
     create_table :evidence_activity_healths do |t|
-      t.string               :name
-      t.string               :flag
-      t.integer              :activity_id
-      t.integer              :version
-      t.integer              :version_plays
-      t.integer              :total_plays
+      t.string               :name, null: false
+      t.string               :flag, null: false
+      t.integer              :activity_id, null: false
+      t.integer              :version, null: false
+      t.integer              :version_plays, null: false
+      t.integer              :total_plays, null: false
       t.integer              :completion_rate
       t.float                :because_avg_attempts
       t.float                :but_avg_attempts

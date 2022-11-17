@@ -13,7 +13,7 @@ module Evidence
 
     context 'validations' do
 
-      it { should validate_inclusion_of(:flags).in?(ActivityHealth::FLAGS) }
+      it { should validate_inclusion_of(:flags).in?(Evidence.flags_class::FLAGS) }
 
       it { should validate_numericality_of(:version).is_greater_than_or_equal_to(1) }
 

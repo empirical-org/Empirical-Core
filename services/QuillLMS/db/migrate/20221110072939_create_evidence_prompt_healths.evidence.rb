@@ -6,11 +6,11 @@
 class CreateEvidencePromptHealths < ActiveRecord::Migration[6.1]
   def change
     create_table :evidence_prompt_healths do |t|
-      t.integer     :prompt_id
-      t.string      :activity_short_name
-      t.string      :text
-      t.integer     :current_version
-      t.integer     :version_responses
+      t.integer     :prompt_id, null: false
+      t.string      :activity_short_name, null: false
+      t.string      :text, null: false
+      t.integer     :current_version, null: false
+      t.integer     :version_responses, null: false
       t.integer     :first_attempt_optimal
       t.integer     :final_attempt_optimal
       t.float       :avg_attempts
