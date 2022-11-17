@@ -31,7 +31,7 @@ class StudentsClassrooms < ApplicationRecord
     if: proc { |sc| sc.archived? && sc.student && sc.classroom },
     unless: :skip_archive_student_associations
 
-  after_save :save_user_pack_sequence_items, if: [:saved_change_to_visible?]
+  after_update :save_user_pack_sequence_items, if: :saved_change_to_visible?
 
   after_commit :invalidate_classroom_minis
 
@@ -54,6 +54,10 @@ class StudentsClassrooms < ApplicationRecord
     ArchiveStudentAssociationsForClassroomWorker.perform_async(student_id, classroom_id)
   end
 
+  def save_user_pack_sequence_items
+    SaveUserPackSequenceItemsWorker.perform_async(classroom_id, student_id)
+  end
+
   private def run_associator
     return unless student && classroom && visible
 
@@ -70,9 +74,5 @@ class StudentsClassrooms < ApplicationRecord
     return unless classroom&.owner.present?
 
     $redis.del("user_id:#{classroom.owner.id}_classroom_minis")
-  end
-
-  private def save_user_pack_sequence_items
-    SaveUserPackSequenceItemsWorker.perform_async(classroom_id, student_id)
   end
 end

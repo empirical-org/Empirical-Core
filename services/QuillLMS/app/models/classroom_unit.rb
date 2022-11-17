@@ -42,7 +42,8 @@ class ClassroomUnit < ApplicationRecord
 
   before_save :check_for_assign_on_join_and_update_students_array_if_true
   after_save :hide_appropriate_activity_sessions
-  after_save :save_user_pack_sequence_items, if: -> { saved_change_to_assigned_student_ids? || saved_change_to_visible? }
+
+  after_update :save_user_pack_sequence_items, if: -> { saved_change_to_assigned_student_ids? || saved_change_to_visible? }
 
   # Using an after_commit hook here because we want to trigger the callback
   # on save or touch, and touch explicitly bypasses after_save hooks

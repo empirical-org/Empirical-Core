@@ -108,15 +108,15 @@ class UnitActivity < ApplicationRecord
     self.publish_date = publish_date.in_time_zone('UTC') - unit.user.utc_offset
   end
 
-  def hide_all_activity_sessions
+  def save_user_pack_sequence_items
+    unit&.save_user_pack_sequence_items
+  end
+
+  private def hide_all_activity_sessions
     unit
       &.activity_sessions
       &.where(activity: activity)
-      &.update_all(visible: false)
-  end
-
-  def save_user_pack_sequence_items
-    unit&.save_user_pack_sequence_items
+      &.each { |activity_session| activity_session.update(visible: false) }
   end
 
   private def hide_appropriate_activity_sessions

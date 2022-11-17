@@ -49,7 +49,8 @@ class Unit < ApplicationRecord
 
   after_save :hide_classroom_units_and_unit_activities_if_visible_false
   after_save :create_any_new_classroom_unit_activity_states
-  after_save :save_user_pack_sequence_items, if: :saved_change_to_visible?
+
+  after_update :save_user_pack_sequence_items, if: :saved_change_to_visible?
 
   # Using an after_commit hook here because we want to trigger the callback
   # on save or touch, and touch explicitly bypasses after_save hooks
