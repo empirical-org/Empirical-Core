@@ -3,13 +3,13 @@
 require 'rails_helper'
 
 RSpec.describe PromptFeedbackHistory, type: :model do
-  def generate_feedback_history(prompt_id, session_uid: nil, attempts: 1, ends_optimally: true, created_at: Time.current, time_spent: 0, confidence: 0)
+  def generate_feedback_history(prompt_id, session_uid: nil, attempts: 1, ends_optimally: true, created_at: Time.current, time_spent: 0, confidence: 0, activity_version: 0)
     histories = []
     session_uid ||= SecureRandom.uuid
     (attempts - 1).times do |idx|
-      histories.append(create(:feedback_history, attempt: idx + 1, optimal: false, prompt_id: prompt_id, feedback_session_uid: session_uid, metadata: {api: {confidence: confidence}}, created_at: created_at))
+      histories.append(create(:feedback_history, attempt: idx + 1, optimal: false, prompt_id: prompt_id, feedback_session_uid: session_uid, metadata: {api: {confidence: confidence}}, created_at: created_at, activity_version: activity_version))
     end
-    histories.append(create(:feedback_history, attempt: attempts, optimal: ends_optimally, prompt_id: prompt_id, feedback_session_uid: session_uid, metadata: {api: {confidence: confidence}}, created_at: created_at))
+    histories.append(create(:feedback_history, attempt: attempts, optimal: ends_optimally, prompt_id: prompt_id, feedback_session_uid: session_uid, metadata: {api: {confidence: confidence}}, created_at: created_at, activity_version: activity_version))
     histories.each do |h|
       feedback_session = h.feedback_session
       act_sesh = create(:activity_session, data: {time_tracking: {because: time_spent}})
@@ -45,6 +45,18 @@ RSpec.describe PromptFeedbackHistory, type: :model do
       generate_feedback_history(@prompt3.id, attempts: 3)
 
       result = PromptFeedbackHistory.prompt_health_query(activity_id: @main_activity.id)
+
+      expect(result.all.length).to eq(1)
+    end
+
+    it 'should not count feedback_history records from a different activity version' do
+      current_version = 2
+      unused_version = 1
+
+      generate_feedback_history(@prompt1.id, attempts: 3, activity_version: current_version)
+      generate_feedback_history(@prompt2.id, attempts: 3, activity_version: unused_version)
+
+      result = PromptFeedbackHistory.prompt_health_query(activity_id: @main_activity.id, activity_version: current_version)
 
       expect(result.all.length).to eq(1)
     end

@@ -1,11 +1,11 @@
 # frozen_string_literal: true
 
 class PromptFeedbackHistory
-  def self.run(activity_id:, start_date: nil, end_date: nil)
-    serialize_results prompt_health_query(activity_id: activity_id, start_date: start_date, end_date: end_date)
+  def self.run(activity_id:, start_date: nil, end_date: nil, activity_version: nil)
+    serialize_results prompt_health_query(activity_id: activity_id, start_date: start_date, end_date: end_date, activity_version: activity_version)
   end
 
-  def self.prompt_health_query(activity_id:, start_date: nil, end_date: nil)
+  def self.prompt_health_query(activity_id:, start_date: nil, end_date: nil, activity_version: nil)
     query = FeedbackHistory.select(<<~SELECT
       prompt_id,
       COUNT(DISTINCT feedback_histories.id) AS total_responses,
@@ -34,6 +34,7 @@ class PromptFeedbackHistory
       .where(used: true)
       .where('comprehension_prompts.activity_id = ?', activity_id)
       .group('feedback_histories.prompt_id, comprehension_prompts.text')
+    query = query.where("feedback_histories.activity_version = ?", activity_version) if activity_version
     query = query.where("feedback_histories.created_at >= ?", start_date) if start_date
     query = query.where("feedback_histories.created_at <= ?", end_date) if end_date
     query
