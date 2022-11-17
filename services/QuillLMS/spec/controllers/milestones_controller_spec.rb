@@ -94,7 +94,7 @@ describe MilestonesController do
       Timecop.freeze
 
       post :create_or_touch_dismiss_teacher_info_modal
-      expect(user_milestone.reload.updated_at).to be_within(1.second).of Time.now
+      expect(user_milestone.reload.updated_at).to be_within(1.second).of Time.now.utc
     end
   end
 
