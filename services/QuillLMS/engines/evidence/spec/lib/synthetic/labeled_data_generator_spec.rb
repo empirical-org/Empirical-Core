@@ -7,6 +7,7 @@ describe Evidence::Synthetic::LabeledDataGenerator do
   let(:label1) {'label_5'}
   let(:text2) {'other text'}
   let(:labeled_data) { [[text1, label1], [text2, 'label_11']] }
+
   let(:mock_translator) { double }
 
   let(:translation_response) do
@@ -23,18 +24,32 @@ describe Evidence::Synthetic::LabeledDataGenerator do
   end
 
   describe '#new' do
-    let(:generator) { described_class.new(labeled_data, languages: [:es])}
+    subject { described_class.new(labeled_data, languages: [:es])}
 
     it 'should setup properly with empty translations' do
-      expect(generator.languages.count).to eq 1
-      expect(generator.results.count).to eq 2
-      expect(generator.manual_types).to be false
+      expect(subject.languages.count).to eq 1
+      expect(subject.results.count).to eq 2
+      expect(subject.manual_types).to be false
 
-      first_result = generator.results.first
+      first_result = subject.results.first
 
       expect(first_result.text).to eq 'text string'
       expect(first_result.label).to eq 'label_5'
       expect(first_result.generated).to eq({})
+    end
+
+    context 'nil entries' do
+      let(:labeled_data) { [[text1, label1], [nil, 'label_11'], [text2, nil]] }
+
+      it 'should remove empty results and load' do
+        expect(subject.results.count).to eq 1
+
+        first_result = subject.results.first
+
+        expect(first_result.text).to eq 'text string'
+        expect(first_result.label).to eq 'label_5'
+        expect(first_result.generated).to eq({})
+      end
     end
   end
 
