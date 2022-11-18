@@ -17,6 +17,8 @@ import {
   Snackbar,
   defaultSnackbarTimeout,
 } from '../../../../../Shared/index'
+import { requestGet } from '../../../../../../modules/request';
+import PreviouslyAssignedTooltip from '../../previouslyAssignedTooltip';
 
 const PUBLISH_DATE_ATTRIBUTE_KEY = 'publishDates'
 const DUE_DATE_ATTRIBUTE_KEY = 'dueDates'
@@ -65,7 +67,13 @@ const tableHeaders = [
     width: '123px',
     headerClassName: 'due-date-header-container',
     rowSectionClassName: 'datetime-picker'
-  }
+  },
+  {
+    name: 'Previously assigned',
+    attribute: 'previouslyAssigned',
+    width: '60px',
+    rowSectionClassName: rowSectionTooltipClassName
+  },
 ]
 
 export default class ReviewActivities extends React.Component {
@@ -74,8 +82,24 @@ export default class ReviewActivities extends React.Component {
 
     this.state = {
       snackbarVisible: false,
-      erroredActivityIds: []
+      erroredActivityIds: [],
+      previouslyAssignedActivityData: {}
     }
+  }
+
+  componentDidMount() {
+    const { unitTemplateId } = this.props
+    if(unitTemplateId) {
+      this.getProfileInfo(unitTemplateId)
+    }
+  }
+
+  getProfileInfo = (id) => {
+    requestGet(`/teachers/unit_templates/profile_info?id=${id}`, (response) => {
+      const { data } = response
+      const { previously_assigned_activity_data } = data
+      this.setState({ previouslyAssignedActivityData: previously_assigned_activity_data })
+    })
   }
 
   handleDateChange = (date, id, dateAttributeKey) => {
@@ -161,7 +185,7 @@ export default class ReviewActivities extends React.Component {
 
   rows() {
     const { activities, dueDates, publishDates, } = this.props
-    const { erroredActivityIds, } = this.state
+    const { erroredActivityIds, previouslyAssignedActivityData } = this.state
 
     return activities.map((activity, i) => {
       const {
@@ -231,6 +255,7 @@ export default class ReviewActivities extends React.Component {
         concept: activity_category.name,
         dueDatePicker,
         publishDatePicker,
+        previouslyAssigned: <PreviouslyAssignedTooltip previouslyAssignedActivityData={previouslyAssignedActivityData[id]} />,
         removable: true
       }
     })

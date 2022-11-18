@@ -1,6 +1,7 @@
 import * as React from 'react';
 
-import { Tooltip, ReactTable, getIconForActivityClassification, assignedBadgeIcon } from '../../../../../Shared/index'
+import PreviouslyAssignedTooltip from '../../previouslyAssignedTooltip';
+import { Tooltip, ReactTable, getIconForActivityClassification } from '../../../../../Shared/index'
 
 export const UnitTemplateProfileActivityTable = ({ data }) => {
   const { activities } = data;
@@ -71,7 +72,7 @@ export const UnitTemplateProfileActivityTable = ({ data }) => {
           const { original } = row;
           const { id } = original;
           if(previously_assigned_activity_data[id]) {
-            return <img alt={assignedBadgeIcon.alt} src={assignedBadgeIcon.src} />
+            return(<PreviouslyAssignedTooltip previouslyAssignedActivityData={previously_assigned_activity_data[id]} />)
           }
           return <span />
         },

@@ -104,6 +104,11 @@
           .data-table-header, .data-table-row-section:not(.removable), .quill-tooltip-trigger {
             margin-right: 16px;
           }
+          .data-table-row-section {
+            .date-picker-container {
+              margin-top: -2px;
+            }
+          }
         }
         .data-table-row:first-of-type {
           height: 80px;

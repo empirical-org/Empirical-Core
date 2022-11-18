@@ -187,6 +187,7 @@ export class Stage2 extends React.Component {
       assignActivityDate,
       dueDates,
       publishDates,
+      unitTemplateId
     } = this.props
     return (
       <ReviewActivities
@@ -195,6 +196,7 @@ export class Stage2 extends React.Component {
         dueDates={dueDates}
         publishDates={publishDates}
         toggleActivitySelection={toggleActivitySelection}
+        unitTemplateId={unitTemplateId}
       />
     )
   }
