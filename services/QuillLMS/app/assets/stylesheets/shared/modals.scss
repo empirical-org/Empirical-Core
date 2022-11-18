@@ -1368,24 +1368,20 @@
   cursor: pointer;
 }
 
-.teacher-info-modal::-webkit-scrollbar {
-  -webkit-appearance: none;
-  width: 7px;
-}
-
-.teacher-info-modal::-webkit-scrollbar-thumb {
-  border-radius: 4px;
-  background-color: rgba(0, 0, 0, .5);
-  box-shadow: 0 0 1px rgba(255, 255, 255, .5);
-}
-
 .teacher-info-modal {
-  overflow: scroll;
+  background: #F8F6F6;
+  display: flex;
+  height: min-content;
+  position: absolute;
+  border-radius: 6px;
+  z-index: 3;
+  top: 150px;
+  left: 50%;
+  bottom: 72px;
+  transform: translate(-50%, 0);
+  padding-bottom: 32px;
   max-width: 610px;
   width: 100%;
-  background: #F8F6F6;
-  max-height: 90vh;
-  height: min-content;
   .modal-body {
     margin-bottom: 0px;
     padding-bottom: 0px;

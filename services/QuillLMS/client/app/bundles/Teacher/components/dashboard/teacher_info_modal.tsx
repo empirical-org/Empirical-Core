@@ -43,9 +43,9 @@ const TeacherInfoModal = ({ close, subjectAreas, }) => {
   }
 
   return (
-    <div className="modal-container welcome-modal-container">
+    <React.Fragment>
       <div className="modal-background" />
-      <div className="quill-modal teacher-info-modal">
+      <div className="teacher-info-modal">
         <div className="modal-body">
           <div className="account-form add-teacher-info">
             <img alt="" src={teacherAtBoardSrc} />
@@ -76,7 +76,7 @@ const TeacherInfoModal = ({ close, subjectAreas, }) => {
           </div>
         </div>
       </div>
-    </div>
+    </React.Fragment>
   )
 }
 
