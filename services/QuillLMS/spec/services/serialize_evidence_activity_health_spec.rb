@@ -45,7 +45,7 @@ describe 'SerializeEvidenceActivityHealth' do
   it 'gets the correct basic data for that activity' do
     data = SerializeEvidenceActivityHealth.new(@activity).data
     expect(data[:name]).to eq(@activity.title)
-    expect(data[:flag]).to eq(@activity.flag)
+    expect(data[:flag]).to eq(@activity.flag.to_s)
     expect(data[:version]).to eq(@activity.version)
     expect(data[:activity_id]).to eq(@activity.id)
   end
