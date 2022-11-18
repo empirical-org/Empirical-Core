@@ -21,7 +21,7 @@ module Evidence
         only: [
           :id, :name, :flag, :activity_id, :version,
           :version_plays, :total_plays, :completion_rate,
-          :because_avg_attempts, :but_avg_attempts, :so_avg_attempts,
+          :because_final_optimal, :but_final_optimal, :so_final_optimal,
           :avg_completion_time
         ],
         include: [:prompt_healths]
