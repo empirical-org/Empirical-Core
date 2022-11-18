@@ -3,6 +3,8 @@
 require 'rails_helper'
 
 RSpec.describe PromptFeedbackHistory, type: :model do
+
+  # rubocop:disable Metrics/ParameterLists
   def generate_feedback_history(prompt_id, session_uid: nil, attempts: 1, ends_optimally: true, created_at: Time.current, time_spent: 0, confidence: 0, activity_version: 0)
     histories = []
     session_uid ||= SecureRandom.uuid
@@ -17,6 +19,7 @@ RSpec.describe PromptFeedbackHistory, type: :model do
     end
     histories
   end
+  # rubocop:enable Metrics/ParameterLists
 
   before do
     @main_activity = Evidence::Activity.create!(notes: 'Title_1', title: 'Title 1', parent_activity_id: 1, target_level: 1)
