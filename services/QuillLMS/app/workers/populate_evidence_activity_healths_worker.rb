@@ -11,7 +11,7 @@ class PopulateEvidenceActivityHealthsWorker
     ActiveRecord::Base.connection.execute("TRUNCATE evidence_activity_healths RESTART IDENTITY CASCADE")
 
     # spread these, to cut down on DB resource contention.
-    Evidence::Activities.all.each.with_index do |activity, index|
+    Evidence::Activity.all.each.with_index do |activity, index|
       PopulateEvidenceActivityHealthWorker.perform_in(index * INTERVAL, activity.id)
     end
   end

@@ -61,4 +61,32 @@ RSpec.describe Utils::Numeric do
     end
   end
 
+  describe '#human_readable_time_to_seconds' do
+    it 'should format times under one minute correctly' do
+      expect(Utils::Numeric.human_readable_time_to_seconds("00:02")).to eq(
+       2
+      )
+
+      expect(Utils::Numeric.human_readable_time_to_seconds("00:59")).to eq(
+       59
+      )
+    end
+
+    it 'should format times over one minute correctly' do
+      expect(Utils::Numeric.human_readable_time_to_seconds("05:00")).to eq(
+        300
+      )
+
+      expect(Utils::Numeric.human_readable_time_to_seconds("01:37")).to eq(
+        97
+      )
+    end
+
+    it 'should format 0 seconds correctly' do
+      expect(Utils::Numeric.human_readable_time_to_seconds("00:00")).to eq(
+        0
+      )
+    end
+  end
+
 end

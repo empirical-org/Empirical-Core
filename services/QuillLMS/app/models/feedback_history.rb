@@ -326,7 +326,7 @@ class FeedbackHistory < ApplicationRecord
     query = query.where("feedback_histories.created_at <= ?", end_date) if end_date
     query = FeedbackHistory.apply_activity_session_filter(query, filter_type) if filter_type
     query = query.having(FeedbackHistory.responses_for_scoring) if responses_for_scoring
-    query = query.where("feedback_histories.version = ?", activity_version) if activity_version
+    query = query.where("feedback_histories.activity_version = ?", activity_version) if activity_version
     query.length
   end
 
