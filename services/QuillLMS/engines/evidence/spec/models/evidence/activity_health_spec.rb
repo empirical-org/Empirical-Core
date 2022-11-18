@@ -23,11 +23,11 @@ module Evidence
 
       it { should validate_inclusion_of(:completion_rate).in?(0..100)}
 
-      it { should validate_inclusion_of(:because_avg_attempts).in?(0..5)}
+      it { should validate_inclusion_of(:because_final_optimal).in?(0..100)}
 
-      it { should validate_inclusion_of(:but_avg_attempts).in?(0..5)}
+      it { should validate_inclusion_of(:but_final_optimal).in?(0..100)}
 
-      it { should validate_inclusion_of(:so_avg_attempts).in?(0..5)}
+      it { should validate_inclusion_of(:so_final_optimal).in?(0..100)}
     end
   end
 end

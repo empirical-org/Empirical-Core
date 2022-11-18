@@ -10,9 +10,9 @@ class CreateEvidenceActivityHealths < ActiveRecord::Migration[6.1]
       t.integer              :version_plays, null: false
       t.integer              :total_plays, null: false
       t.integer              :completion_rate
-      t.float                :because_avg_attempts
-      t.float                :but_avg_attempts
-      t.float                :so_avg_attempts
+      t.integer              :because_final_optimal
+      t.integer              :but_final_optimal
+      t.integer              :so_final_optimal
       t.integer              :avg_completion_time
 
       t.timestamps

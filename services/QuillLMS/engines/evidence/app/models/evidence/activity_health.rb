@@ -10,9 +10,9 @@ module Evidence
     validates :version_plays, numericality: { greater_than_or_equal_to: 0, allow_nil: true }
     validates :total_plays, numericality: { greater_than_or_equal_to: 0, allow_nil: true }
     validates :completion_rate, inclusion: { in: 0..100, allow_nil: true }
-    validates :because_avg_attempts, inclusion: { in: 0..5, allow_nil: true }
-    validates :but_avg_attempts, inclusion: { in: 0..5, allow_nil: true }
-    validates :so_avg_attempts, inclusion: { in: 0..5, allow_nil: true }
+    validates :because_final_optimal, inclusion: { in: 0..100, allow_nil: true }
+    validates :but_final_optimal, inclusion: { in: 0..100, allow_nil: true }
+    validates :so_final_optimal, inclusion: { in: 0..100, allow_nil: true }
 
     def serializable_hash(options = nil)
       options ||= {}
