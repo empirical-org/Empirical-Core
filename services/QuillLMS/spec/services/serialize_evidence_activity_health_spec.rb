@@ -75,7 +75,7 @@ describe 'SerializeEvidenceActivityHealth' do
     expect(data[:but_final_optimal]).to eq(100)
   end
 
-  it 'gets the correct because_final_optimal percent' do
+  it 'gets the correct so_final_optimal percent' do
     data = SerializeEvidenceActivityHealth.new(@activity).data
     expect(data[:so_final_optimal]).to eq(0)
   end
