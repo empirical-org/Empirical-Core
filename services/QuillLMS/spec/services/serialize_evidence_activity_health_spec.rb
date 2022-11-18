@@ -89,7 +89,7 @@ describe 'SerializeEvidenceActivityHealth' do
     @activity.increment_version!
     data = SerializeEvidenceActivityHealth.new(@activity).data
     expect(data[:name]).to eq(@activity.title)
-    expect(data[:flag]).to eq(@activity.flag)
+    expect(data[:flag]).to eq(@activity.flag.to_s)
     expect(data[:version]).to eq(@activity.version)
     expect(data[:activity_id]).to eq(@activity.id)
     expect(data[:version_plays]).to eq(0)
