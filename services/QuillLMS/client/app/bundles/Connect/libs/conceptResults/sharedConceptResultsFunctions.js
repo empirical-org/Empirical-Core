@@ -17,8 +17,10 @@ export function getConceptResultsForAttempt(question, attemptIndex, question_typ
   const answer = question.attempts[attemptIndex].response.text;
   const attemptNumber = attemptIndex + 1;
   let conceptResults = [];
-  if (question.attempts[attemptIndex].response) {
-    conceptResults = hashToCollection(question.attempts[attemptIndex].response.conceptResults) || [];
+  if (question.attempts[attemptIndex].response?.conceptResults) {
+    conceptResults = hashToCollection(question.attempts[attemptIndex].response.conceptResults) || hashToCollection(question.attempts[attemptIndex].response.concept_results) || [];
+  } else if (question.attempts[attemptIndex].response?.concept_results) {
+    conceptResults = hashToCollection(question.attempts[attemptIndex].response.concept_results) || [];
   }
   if (conceptResults.length === 0 && question_type === 'sentence-fragment-expansion') {
     return;
