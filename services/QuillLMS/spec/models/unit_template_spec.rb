@@ -143,6 +143,7 @@ describe UnitTemplate, redis: true, type: :model do
   end
 
   describe '#get_cached_serialized_unit_template' do
+    let(:current_user) { create(:teacher) }
     let(:category) { create(:unit_template_category) }
     let(:author) { create(:author) }
     let(:raw_score) { create(:raw_score, :five_hundred_to_six_hundred )}
@@ -185,6 +186,7 @@ describe UnitTemplate, redis: true, type: :model do
         order_number: 999999999,
         readability: activity.readability_grade_level,
         time: nil,
+        previously_assigned_activity_data: {},
         unit_template_category: {
           primary_color: category.primary_color,
           secondary_color: category.secondary_color,

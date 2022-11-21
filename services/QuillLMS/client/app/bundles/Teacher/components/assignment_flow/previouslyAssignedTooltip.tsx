@@ -4,7 +4,7 @@ import { Tooltip, assignedBadgeIconGray } from '../../../Shared';
 import { renderPreviouslyAssignedActivitiesTooltipElement } from '../../helpers/unitTemplates';
 
 export const PreviouslyAssignedTooltip = ({ previouslyAssignedActivityData }) => {
-  if(!previouslyAssignedActivityData) { return <span/> }
+  if(!previouslyAssignedActivityData) { return <span /> }
   return(
     <Tooltip
       tooltipText={renderPreviouslyAssignedActivitiesTooltipElement(previouslyAssignedActivityData)}

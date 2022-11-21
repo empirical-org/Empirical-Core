@@ -169,7 +169,7 @@ export const renderPreviouslyAssignedActivitiesTooltipElement = (data) => {
         <img alt={assignedBadgeIconWhite.alt} src={assignedBadgeIconWhite.src} />
         <section className="assigned-activity-text-section">
           <p>You've previously assigned this activity in another activity pack. You can remove individual activities from a pre-created pack on the next page.</p>
-          <br/>
+          <br />
           <p>Tip: If you want to add individual students to a previously created Activity Pack, go to "My Activities" to add students.</p>
         </section>
       </section>

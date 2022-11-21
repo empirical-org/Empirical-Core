@@ -3,9 +3,16 @@
 require 'rails_helper'
 
 describe UnitTemplatePseudoSerializer do
+  let(:current_user) { create(:teacher) }
+  let(:student) { create(:student) }
+  let(:unit) {create(:unit)}
+  let(:classroom) {create(:classroom)}
+  let(:students_classroom) { create(:students_classrooms, classroom: classroom, student: student)}
+  let!(:classroom_unit) { create(:classroom_unit, unit: unit, classroom: classroom) }
   let(:diagnostic) { create(:diagnostic_activity) }
   let(:lesson) { create(:lesson_activity) }
   let(:grammar) { create(:grammar_activity) }
+  let!(:unit_activity) { create(:unit_activity, unit: unit, activity: grammar)}
   let(:archived_activity) { create(:activity, flags: ['archived']) }
   let(:unit_template) { create(:unit_template, unit_template_category_id: 0, activities: [grammar] ) }
   let(:unit_template_with_diagnostic) { create(:unit_template, activities: [diagnostic] ) }
@@ -50,5 +57,20 @@ describe UnitTemplatePseudoSerializer do
     unit_template.activities.each { |a| ActivityCategoryActivity.where(activity_id: a.id).destroy_all }
     serialized_ut = UnitTemplatePseudoSerializer.new(unit_template)
     expect(serialized_ut.activities.length).to eq 1
+  end
+
+  it('will have previously assigned activity data if activity in unit has been previously assigned') do
+    serialized_ut = UnitTemplatePseudoSerializer.new(unit_template)
+    expect(serialized_ut.previously_assigned_activity_data).to eq({
+      grammar.id => [{
+        name: unit.name,
+        assigned_date: unit.created_at,
+        classrooms: [classroom.name],
+        students: {
+          assigned_students: 1,
+          total_students: 1
+        }
+      }]
+    })
   end
 end
