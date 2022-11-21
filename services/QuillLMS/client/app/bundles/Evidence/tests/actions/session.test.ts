@@ -60,7 +60,7 @@ describe('Session actions', () => {
         previous_feedback: mockPreviousFeedback,
         attempt: mockAttempt
       }
-      expect(mockPost).toBeCalledWith(process.env.GOLANG_FANOUT_URL, body, expect.anything())
+      expect(mockPost).toBeCalledWith(process.env.EVIDENCE_FEEDBACK_URL, body, expect.anything())
     })
   })
 })

@@ -1,1 +1,1 @@
-process.env.GOLANG_FANOUT_URL = 'https://staging.comprehension-feedback.quill.org/';
+process.env.EVIDENCE_FEEDBACK_URL = 'https://staging.comprehension-feedback.quill.org/';
