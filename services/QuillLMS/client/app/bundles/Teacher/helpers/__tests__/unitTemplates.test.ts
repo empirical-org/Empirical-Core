@@ -65,7 +65,7 @@ describe('Unit Templates helper functions', () => {
     it('should render the expected activity details', () => {
       const tooltipElementString = renderPreviouslyAssignedActivitiesTooltipElement(data2);
       const containsUnitName = tooltipElementString.includes('Unit 1') && tooltipElementString.includes('Unit 2');
-      const containsAssignedDate = tooltipElementString.includes('12/06/2021');
+      const containsAssignedDate = tooltipElementString.includes('12/06/21');
       const containsClasses = tooltipElementString.includes('Class One') && tooltipElementString.includes('Class Two');
       const containsAssignedCount = tooltipElementString.includes('3/5') && tooltipElementString.includes('1/5');
       expect(containsUnitName).toBeTruthy();
