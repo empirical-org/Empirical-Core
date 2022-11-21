@@ -24,10 +24,12 @@ const data2 = [
     name: 'Unit 1',
     assigned_date: '2021-04-05T20:43:27.698Z',
     classrooms: ['Class One'],
-    students: {
-      assigned_students: 3,
-      total_students: 5
-    }
+    students: [
+      {
+        assigned_students: 3,
+        total_students: 5
+      }
+    ]
   },
   {
     name: 'Unit 2',
