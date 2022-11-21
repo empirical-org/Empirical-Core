@@ -25,6 +25,10 @@ export function getConceptResultsForAttempt(question, attemptIndex, question_typ
     conceptResults = hashToCollection(conceptResultObject) || [];
   }
 
+  if (conceptResults.length === 0 && question_type === 'sentence-fragment-expansion') {
+    return;
+  }
+
   if (conceptResults.length === 0) {
     conceptResults = [{
       conceptUID: question.conceptID,
