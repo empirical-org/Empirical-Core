@@ -74,10 +74,22 @@ module Evidence
         "texas"
       ]
 
-      def self.run(client_response)
-        return default_payload if contains_exception?(client_response)
+      def self.run(client_response:, previous_feedback: [])
+        error = client_response[error_name]
+        return default_payload if contains_exception?(client_response) || error.empty?
 
-        super(client_response)
+        rule_uid = error_to_rule_uid.fetch(error)
+        rule = Evidence::Rule.where(uid: rule_uid).includes(:feedbacks).first
+        feedback = rule.determine_feedback_from_history(previous_feedback)
+
+        default_payload.merge({
+          'concept_uid': rule&.concept_uid,
+          'feedback': feedback&.text,
+          'optimal': rule&.optimal.nil? ? true : rule&.optimal,
+          'highlight': client_response['highlight'],
+          'rule_uid': rule&.uid,
+          'hint': rule&.hint
+        })
       end
 
       def self.contains_exception?(client_response)
