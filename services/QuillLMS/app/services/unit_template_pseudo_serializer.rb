@@ -153,6 +153,7 @@ class UnitTemplatePseudoSerializer
         "
       ).where("classroom_units.classroom_id IN (?)", @current_user.classrooms_i_teach.map(&:id)
       ).where("unit_activities.activity_id = ?", id)
+      .uniq
       next if units.empty?
       results[id] = units.map do |unit|
         classrooms = unit.classrooms

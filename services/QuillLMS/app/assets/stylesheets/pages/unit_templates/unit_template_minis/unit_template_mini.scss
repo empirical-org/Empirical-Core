@@ -209,6 +209,7 @@
     }
   }
   .previously-assigned-activities-table {
+    width: 100%;
     tbody {
       tr:first-of-type {
         th {
@@ -218,7 +219,13 @@
       tr {
         border-bottom: 1px solid#D3D3D3;
         th, td {
+          padding-top: 8px !important;
           padding-right: 16px !important;
+          line-height: 22px;
+          vertical-align: baseline;
+          p {
+            margin: 0 !important;
+          }
         }
       }
     }

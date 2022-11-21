@@ -1,8 +1,9 @@
 
 import * as React from 'react';
-import { renderToString } from 'react-dom/server'
-import { Activity } from '../../../interfaces/activity';
+import { renderToString } from 'react-dom/server';
+import * as moment from 'moment';
 
+import { Activity } from '../../../interfaces/activity';
 import { Tooltip, getIconForActivityClassification, NOT_APPLICABLE, assignedBadgeIconWhite } from '../../Shared';
 
 export const ALL_FLAGS = 'all flags';
@@ -184,7 +185,7 @@ export const renderPreviouslyAssignedActivitiesTooltipElement = (data) => {
           return(
             <tr>
               <td>{name}</td>
-              <td>{assigned_date}</td>
+              <td>{moment(assigned_date).format("MM/DD/YY")}</td>
               <td>{classrooms.map(classroom => (<p>{classroom}</p>))}</td>
               <td>
                 {students.map(student => {
