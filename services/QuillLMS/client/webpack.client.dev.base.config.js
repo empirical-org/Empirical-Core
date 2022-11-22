@@ -6,7 +6,6 @@ const NodePolyfillPlugin = require("node-polyfill-webpack-plugin")
 const devBuild = process.env.RAILS_ENV === 'development';
 const railsEnv = process.env.RAILS_ENV || process.env.NODE_ENV
 
-const goFanoutUrl = process.env.EVIDENCE_FEEDBACK_URL;
 const pusherKey = process.env.PUSHER_KEY;
 const defaultUrl = process.env.DEFAULT_URL || 'http://localhost:3000'
 const cdnUrl = process.env.CDN_URL || 'https://assets.quill.org'
@@ -29,7 +28,6 @@ const basePlugins = [
     'process.env.QUILL_GRAMMAR_URL': JSON.stringify(grammarUrl),
     'process.env.LESSONS_WEBSOCKETS_URL': JSON.stringify(lessonsWebsocketsUrl),
     'process.env.QUILL_CMS': JSON.stringify(quillCmsUrl),
-    'process.env.EVIDENCE_FEEDBACK_URL': JSON.stringify(goFanoutUrl),
     TRACE_TURBOLINKS: devBuild,
   }),
   new webpack.LoaderOptionsPlugin({

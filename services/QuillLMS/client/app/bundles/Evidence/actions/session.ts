@@ -170,7 +170,7 @@ export const reportAProblem = ({ sessionID, entry, report, callback, isOptimal }
 export const getFeedback = (args: GetFeedbackArguments) => {
   const { sessionID, activityUID, entry, promptID, promptText, attempt, previousFeedback, callback, activityVersion } = args
   return (dispatch: Function) => {
-    const feedbackURL = `${process.env.EVIDENCE_FEEDBACK_URL}`
+    const feedbackURL = `${process.env.DEFAULT_URL}/api/v1/evidence/feedback/`
 
     const promptRegex = new RegExp(`^${promptText}`)
     const entryWithoutStem = entry.replace(promptRegex, "").trim()

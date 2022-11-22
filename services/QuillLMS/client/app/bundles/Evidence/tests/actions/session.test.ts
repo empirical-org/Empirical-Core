@@ -60,7 +60,7 @@ describe('Session actions', () => {
         previous_feedback: mockPreviousFeedback,
         attempt: mockAttempt
       }
-      expect(mockPost).toBeCalledWith(process.env.EVIDENCE_FEEDBACK_URL, body, expect.anything())
+      expect(mockPost).toBeCalledWith(`${process.env.DEFAULT_URL}/api/v1/evidence/feedback/`, body, expect.anything())
     })
   })
 })
