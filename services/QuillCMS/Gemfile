@@ -22,7 +22,7 @@ gem 'scenic', '~> 1.5.4'
 
 # QUEUE/CACHING
 gem 'connection_pool', '~> 2.2.5'
-gem 'dalli', '~> 2.7'
+gem 'dalli', '~> 3.2'
 gem 'redis', '~> 4.5'
 gem "redis-rails", "~> 5.0"
 gem "redis-store", "~> 1.9"
