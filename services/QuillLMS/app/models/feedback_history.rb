@@ -364,8 +364,8 @@ class FeedbackHistory < ApplicationRecord
   # rubocop:enable Metrics/CyclomaticComplexity
 
   # rubocop:disable Metrics/CyclomaticComplexity
-  def self.session_data_for_csv(activity_id: nil, start_date: nil, end_date: nil, filter_type: nil, responses_for_scoring: false)
-    sub_query = select(
+  def self.session_data_uids(activity_id: nil, start_date: nil, end_date: nil, filter_type: nil, responses_for_scoring: false)
+    query = select(
       <<-SQL
         feedback_histories.feedback_session_uid AS session_uid
       SQL
@@ -375,10 +375,16 @@ class FeedbackHistory < ApplicationRecord
       .joins("LEFT OUTER JOIN feedback_history_ratings ON feedback_histories.id = feedback_history_ratings.feedback_history_id")
       .where(used: true)
       .group(:feedback_session_uid)
-    sub_query = sub_query.where(comprehension_prompts: {activity_id: activity_id.to_i}) if activity_id
-    sub_query = FeedbackHistory.apply_activity_session_filter(sub_query, filter_type) if filter_type
-    sub_query = sub_query.having(FeedbackHistory.responses_for_scoring) if responses_for_scoring
+    query = query.where(comprehension_prompts: {activity_id: activity_id.to_i}) if activity_id
+    query = FeedbackHistory.apply_activity_session_filter(query, filter_type) if filter_type
+    query = query.having(FeedbackHistory.responses_for_scoring) if responses_for_scoring
+    query
+  end
+  # rubocop:enable Metrics/CyclomaticComplexity
 
+  # rubocop:disable Metrics/CyclomaticComplexity
+  def self.session_data_for_csv(activity_id: nil, start_date: nil, end_date: nil, filter_type: nil, responses_for_scoring: false)
+    session_uids = session_data_uids(activity_id: activity_id, filter_type: filter_type, responses_for_scoring: responses_for_scoring)
     query = select(
       <<-SQL
         feedback_histories.feedback_session_uid AS session_uid,
@@ -399,7 +405,7 @@ class FeedbackHistory < ApplicationRecord
     query = query.where(comprehension_prompts: {activity_id: activity_id.to_i}) if activity_id
     query = query.where("feedback_histories.created_at >= ?", start_date) if start_date
     query = query.where("feedback_histories.created_at <= ?", end_date) if end_date
-    query = query.where(feedback_session_uid: sub_query) if responses_for_scoring || filter_type
+    query = query.where(feedback_session_uid: session_uids) if responses_for_scoring || filter_type
     query
   end
   # rubocop:enable Metrics/CyclomaticComplexity

@@ -78,7 +78,15 @@ const ActivityStats: React.FC<RouteComponentProps<ActivityRouteProps>> = ({ hist
 
 
   function handleFilterClick(e: React.SyntheticEvent, passedVersionOption?: DropdownObjectInterface) {
-    handlePageFilterClick({ startDate, endDate, versionOption: passedVersionOption || versionOption, setStartDate, setEndDate, setPageNumber: null, storageKey: ACTIVITY_STATS,  });
+    handlePageFilterClick({
+      startDate,
+      endDate,
+      versionOption: passedVersionOption || versionOption,
+      setStartDate,
+      setEndDate,
+      setPageNumber: null,
+      storageKey: ACTIVITY_STATS
+    });
   }
 
   const formattedRows = promptHealth && promptHealth.prompts && Object.values(promptHealth.prompts).map((prompt: PromptHealthInterface) => {

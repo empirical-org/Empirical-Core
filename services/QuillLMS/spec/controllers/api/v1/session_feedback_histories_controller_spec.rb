@@ -218,63 +218,63 @@ describe Api::V1::SessionFeedbackHistoriesController, type: :controller do
 
   context "session_data_for_csv" do
     before do
-      user = create(:user)
-      @activity = Evidence::Activity.create!(notes: 'Title_1', title: 'Title 1', parent_activity_id: 1, target_level: 1)
-      @because_prompt = Evidence::Prompt.create!(activity: @activity, conjunction: 'because', text: 'Some feedback text', max_attempts_feedback: 'Feedback')
-      @but_prompt = Evidence::Prompt.create!(activity: @activity, conjunction: 'but', text: 'Some feedback text', max_attempts_feedback: 'Feedback')
-      @so_prompt = Evidence::Prompt.create!(activity: @activity, conjunction: 'so', text: 'Some feedback text', max_attempts_feedback: 'Feedback')
-      @activity_session1_uid = SecureRandom.uuid
-      @activity_session2_uid = SecureRandom.uuid
-      @feedback_history1 = create(:feedback_history, feedback_session_uid: @activity_session1_uid, created_at: '2021-04-05T20:43:27.698Z', prompt_id: @because_prompt.id)
-      @feedback_history2 = create(:feedback_history, feedback_session_uid: @activity_session1_uid, created_at: '2021-04-06T20:43:27.698Z', prompt_id: @because_prompt.id)
-      @feedback_history3 = create(:feedback_history, feedback_session_uid: @activity_session1_uid, created_at: '2021-04-07T20:43:27.698Z', prompt_id: @but_prompt.id)
-      @feedback_history4 = create(:feedback_history, feedback_session_uid: @activity_session1_uid, created_at: '2021-04-08T20:43:27.698Z', prompt_id: @but_prompt.id)
-      @feedback_history5 = create(:feedback_history, feedback_session_uid: @activity_session1_uid, created_at: '2021-04-09T20:43:27.698Z', prompt_id: @so_prompt.id)
-      @feedback_history6 = create(:feedback_history, feedback_session_uid: @activity_session1_uid, created_at: '2021-04-10T20:43:27.698Z', prompt_id: @so_prompt.id)
-      @feedback_history7 = create(:feedback_history, feedback_session_uid: @activity_session2_uid, created_at: '2021-04-11T20:43:27.698Z', prompt_id: @because_prompt.id)
+      let!(:user) { create(:user)}
+      let!(:activity) { create(:evidence_activity, notes: 'Title_1', title: 'Title 1', parent_activity_id: 1, target_level: 1)}
+      let!(:because_prompt) {create(:evidence_prompt, activity: activity, conjunction: 'because', text: 'Some feedback text', max_attempts_feedback: 'Feedback')}
+      let!(:but_prompt) {create(:evidence_prompt, activity: activity, conjunction: 'but', text: 'Some feedback text', max_attempts_feedback: 'Feedback')}
+      let!(:so_prompt) {create(:evidence_prompt, activity: activity, conjunction: 'so', text: 'Some feedback text', max_attempts_feedback: 'Feedback')}
+      let!(:activity_session1_uid) { SecureRandom.uuid }
+      let!(:activity_session2_uid) { SecureRandom.uuid }
+      let!(:feedback_history1) { create(:feedback_history, feedback_session_uid: @activity_session1_uid, created_at: '2021-04-05T20:43:27.698Z', prompt_id: @because_prompt.id) }
+      let!(:feedback_history2) { create(:feedback_history, feedback_session_uid: @activity_session1_uid, created_at: '2021-04-06T20:43:27.698Z', prompt_id: @because_prompt.id) }
+      let!(:feedback_history3) { create(:feedback_history, feedback_session_uid: @activity_session1_uid, created_at: '2021-04-07T20:43:27.698Z', prompt_id: @but_prompt.id) }
+      let!(:feedback_history4) { create(:feedback_history, feedback_session_uid: @activity_session1_uid, created_at: '2021-04-08T20:43:27.698Z', prompt_id: @but_prompt.id) }
+      let!(:feedback_history5) { create(:feedback_history, feedback_session_uid: @activity_session1_uid, created_at: '2021-04-09T20:43:27.698Z', prompt_id: @so_prompt.id) }
+      let!(:feedback_history6) { create(:feedback_history, feedback_session_uid: @activity_session1_uid, created_at: '2021-04-10T20:43:27.698Z', prompt_id: @so_prompt.id) }
+      let!(:feedback_history7) { create(:feedback_history, feedback_session_uid: @activity_session2_uid, created_at: '2021-04-11T20:43:27.698Z', prompt_id: @because_prompt.id) }
     end
 
     it 'should retrieve all feedback histories with no filters' do
-      get :session_data_for_csv, params: { activity_id: @activity.id }, as: :json
+      get :session_data_for_csv, params: { activity_id: activity.id }, as: :json
 
       parsed_response = JSON.parse(response.body)
 
       expect(response).to have_http_status(200)
       expect(parsed_response.length).to eq(7)
-      expect(parsed_response[0]["session_uid"]).to eq(@feedback_history7.feedback_session_uid)
-      expect(parsed_response[1]["session_uid"]).to eq(@feedback_history6.feedback_session_uid)
-      expect(parsed_response[2]["session_uid"]).to eq(@feedback_history5.feedback_session_uid)
-      expect(parsed_response[3]["session_uid"]).to eq(@feedback_history4.feedback_session_uid)
-      expect(parsed_response[4]["session_uid"]).to eq(@feedback_history3.feedback_session_uid)
-      expect(parsed_response[5]["session_uid"]).to eq(@feedback_history2.feedback_session_uid)
-      expect(parsed_response[6]["session_uid"]).to eq(@feedback_history1.feedback_session_uid)
+      expect(parsed_response[0]["session_uid"]).to eq(feedback_history7.feedback_session_uid)
+      expect(parsed_response[1]["session_uid"]).to eq(feedback_history6.feedback_session_uid)
+      expect(parsed_response[2]["session_uid"]).to eq(feedback_history5.feedback_session_uid)
+      expect(parsed_response[3]["session_uid"]).to eq(feedback_history4.feedback_session_uid)
+      expect(parsed_response[4]["session_uid"]).to eq(feedback_history3.feedback_session_uid)
+      expect(parsed_response[5]["session_uid"]).to eq(feedback_history2.feedback_session_uid)
+      expect(parsed_response[6]["session_uid"]).to eq(feedback_history1.feedback_session_uid)
     end
 
     it 'should retrieve all feedback histories between date params' do
-      get :session_data_for_csv, params: { activity_id: @activity.id, start_date: '2021-04-06T20:43:27.698Z', end_date: '2021-04-08T20:43:27.698Z' }, as: :json
+      get :session_data_for_csv, params: { activity_id: activity.id, start_date: '2021-04-06T20:43:27.698Z', end_date: '2021-04-08T20:43:27.698Z' }, as: :json
 
       parsed_response = JSON.parse(response.body)
 
       expect(response).to have_http_status(200)
       expect(parsed_response.length).to eq(3)
-      expect(parsed_response[0]["session_uid"]).to eq(@feedback_history4.feedback_session_uid)
-      expect(parsed_response[1]["session_uid"]).to eq(@feedback_history3.feedback_session_uid)
-      expect(parsed_response[2]["session_uid"]).to eq(@feedback_history2.feedback_session_uid)
+      expect(parsed_response[0]["session_uid"]).to eq(feedback_history4.feedback_session_uid)
+      expect(parsed_response[1]["session_uid"]).to eq(feedback_history3.feedback_session_uid)
+      expect(parsed_response[2]["session_uid"]).to eq(feedback_history2.feedback_session_uid)
     end
 
     it 'should retrieve all feedback histories qualifying for scoring' do
-      get :session_data_for_csv, params: { activity_id: @activity.id, responses_for_scoring: true }, as: :json
+      get :session_data_for_csv, params: { activity_id: activity.id, responses_for_scoring: true }, as: :json
 
       parsed_response = JSON.parse(response.body)
 
       expect(response).to have_http_status(200)
       expect(parsed_response.length).to eq(6)
-      expect(parsed_response[0]["session_uid"]).to eq(@feedback_history6.feedback_session_uid)
-      expect(parsed_response[1]["session_uid"]).to eq(@feedback_history5.feedback_session_uid)
-      expect(parsed_response[2]["session_uid"]).to eq(@feedback_history4.feedback_session_uid)
-      expect(parsed_response[3]["session_uid"]).to eq(@feedback_history3.feedback_session_uid)
-      expect(parsed_response[4]["session_uid"]).to eq(@feedback_history2.feedback_session_uid)
-      expect(parsed_response[5]["session_uid"]).to eq(@feedback_history1.feedback_session_uid)
+      expect(parsed_response[0]["session_uid"]).to eq(feedback_history6.feedback_session_uid)
+      expect(parsed_response[1]["session_uid"]).to eq(feedback_history5.feedback_session_uid)
+      expect(parsed_response[2]["session_uid"]).to eq(feedback_history4.feedback_session_uid)
+      expect(parsed_response[3]["session_uid"]).to eq(feedback_history3.feedback_session_uid)
+      expect(parsed_response[4]["session_uid"]).to eq(feedback_history2.feedback_session_uid)
+      expect(parsed_response[5]["session_uid"]).to eq(feedback_history1.feedback_session_uid)
     end
   end
 end

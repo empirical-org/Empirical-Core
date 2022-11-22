@@ -431,14 +431,13 @@ export function formatSessionsData(activityId, activitySessions: ActivitySession
   return activitySessions.map(session => {
     const { start_date, session_uid, because_attempts, because_optimal, but_attempts, but_optimal, so_attempts, so_optimal, complete } = session;
     const dateObject = new Date(start_date);
-    const date = moment(dateObject).format("MM/DD/YY");
-    const time = moment(dateObject).format("hh:mm a");
+    const dateTime = moment(dateObject).format("MM/DD/YY hh:mm a")
     const total = because_attempts + but_attempts + so_attempts;
     const formattedSession = {
       ...session,
       id: session_uid,
       session_uid: session_uid ? session_uid.substring(0,6) : '',
-      datetime: `${date} ${time}`,
+      datetime: dateTime,
       because_attempts: colorCodeAttemptsCount(because_attempts, because_optimal),
       but_attempts: colorCodeAttemptsCount(but_attempts, but_optimal),
       so_attempts: colorCodeAttemptsCount(so_attempts, so_optimal),

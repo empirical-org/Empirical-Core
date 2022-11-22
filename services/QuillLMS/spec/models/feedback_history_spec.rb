@@ -647,8 +647,6 @@ RSpec.describe FeedbackHistory, type: :model do
     context '#session_data_for_csv' do
       it 'should take the query from #session_data_for_csv and return a shaped payload' do
         responses = FeedbackHistory.session_data_for_csv
-        RSpec::Support::ObjectFormatter.default_instance.max_formatted_output_length = 10000
-
         responses.map { |r| r.serialize_csv_data }.each_with_index do |response, i|
           expect(response[:session_uid]).to eq(@histories[i].feedback_session_uid)
           expect(response[:conjunction]).to eq(@prompts[i].conjunction)
@@ -663,7 +661,6 @@ RSpec.describe FeedbackHistory, type: :model do
 
       it 'should take the query from #session_data_for_csv and return a shaped payload with records qualifying for scoring' do
         responses = FeedbackHistory.session_data_for_csv(responses_for_scoring: true)
-        RSpec::Support::ObjectFormatter.default_instance.max_formatted_output_length = 10000
         histories_for_scoring = @histories[2..-1]
         prompts_for_scoring = @prompts[2..-1]
 
