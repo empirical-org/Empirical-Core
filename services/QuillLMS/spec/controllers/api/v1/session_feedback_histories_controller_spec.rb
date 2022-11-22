@@ -224,13 +224,13 @@ describe Api::V1::SessionFeedbackHistoriesController, type: :controller do
     let!(:so_prompt) { Evidence::Prompt.create!(activity: activity, conjunction: 'so', text: 'Some feedback text', max_attempts_feedback: 'Feedback') }
     let!(:activity_session1_uid) { SecureRandom.uuid }
     let!(:activity_session2_uid) { SecureRandom.uuid }
-    let!(:feedback_history1) { create(:feedback_history, feedback_session_uid: @activity_session1_uid, created_at: '2021-04-05T20:43:27.698Z', prompt_id: @because_prompt.id) }
-    let!(:feedback_history2) { create(:feedback_history, feedback_session_uid: @activity_session1_uid, created_at: '2021-04-06T20:43:27.698Z', prompt_id: @because_prompt.id) }
-    let!(:feedback_history3) { create(:feedback_history, feedback_session_uid: @activity_session1_uid, created_at: '2021-04-07T20:43:27.698Z', prompt_id: @but_prompt.id) }
-    let!(:feedback_history4) { create(:feedback_history, feedback_session_uid: @activity_session1_uid, created_at: '2021-04-08T20:43:27.698Z', prompt_id: @but_prompt.id) }
-    let!(:feedback_history5) { create(:feedback_history, feedback_session_uid: @activity_session1_uid, created_at: '2021-04-09T20:43:27.698Z', prompt_id: @so_prompt.id) }
-    let!(:feedback_history6) { create(:feedback_history, feedback_session_uid: @activity_session1_uid, created_at: '2021-04-10T20:43:27.698Z', prompt_id: @so_prompt.id) }
-    let!(:feedback_history7) { create(:feedback_history, feedback_session_uid: @activity_session2_uid, created_at: '2021-04-11T20:43:27.698Z', prompt_id: @because_prompt.id) }
+    let!(:feedback_history1) { create(:feedback_history, feedback_session_uid: activity_session1_uid, created_at: '2021-04-05T20:43:27.698Z', prompt_id: because_prompt.id) }
+    let!(:feedback_history2) { create(:feedback_history, feedback_session_uid: activity_session1_uid, created_at: '2021-04-06T20:43:27.698Z', prompt_id: because_prompt.id) }
+    let!(:feedback_history3) { create(:feedback_history, feedback_session_uid: activity_session1_uid, created_at: '2021-04-07T20:43:27.698Z', prompt_id: but_prompt.id) }
+    let!(:feedback_history4) { create(:feedback_history, feedback_session_uid: activity_session1_uid, created_at: '2021-04-08T20:43:27.698Z', prompt_id: but_prompt.id) }
+    let!(:feedback_history5) { create(:feedback_history, feedback_session_uid: activity_session1_uid, created_at: '2021-04-09T20:43:27.698Z', prompt_id: so_prompt.id) }
+    let!(:feedback_history6) { create(:feedback_history, feedback_session_uid: activity_session1_uid, created_at: '2021-04-10T20:43:27.698Z', prompt_id: so_prompt.id) }
+    let!(:feedback_history7) { create(:feedback_history, feedback_session_uid: activity_session2_uid, created_at: '2021-04-11T20:43:27.698Z', prompt_id: because_prompt.id) }
 
     it 'should retrieve all feedback histories with no filters' do
       get :session_data_for_csv, params: { activity_id: activity.id }, as: :json
