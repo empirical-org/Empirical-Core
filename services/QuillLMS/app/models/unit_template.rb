@@ -107,12 +107,12 @@ class UnitTemplate < ApplicationRecord
     USER_SCOPES.fetch(user_flag, UnitTemplate.production)
   end
 
-  def get_cached_serialized_unit_template(flag=nil, current_user=nil)
+  def get_cached_serialized_unit_template(flag=nil)
     cache_expiration_time = 600
     cached = $redis.get("unit_template_id:#{id}_serialized")
     serialized_unit_template = cached.nil? || cached&.blank? ? nil : JSON.parse(cached)
     unless serialized_unit_template
-      serializable_unit_template = UnitTemplatePseudoSerializer.new(self, flag, current_user)
+      serializable_unit_template = UnitTemplatePseudoSerializer.new(self, flag)
       serialized_unit_template = serializable_unit_template.data
       $redis.set("unit_template_id:#{id}_serialized", serialized_unit_template.to_json, {ex: cache_expiration_time})
     end
@@ -159,9 +159,8 @@ class UnitTemplate < ApplicationRecord
         "
         ).where("classroom_units.classroom_id IN (?)", current_user&.classrooms_i_teach&.map(&:id)
         )
-        # .where("unit_activities.activity_id = ?", id)
-        # .uniq
-        binding.pry
+        .where("unit_activities.activity_id = ?", id)
+        .uniq
 
       next if units.empty?
 

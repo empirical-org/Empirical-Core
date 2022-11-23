@@ -122,7 +122,7 @@ class Teachers::UnitTemplatesController < ApplicationController
   private def get_formatted_unit_template_for_profile(id)
     # TODO: remove this where and replace with find, and then figure out why there is a map
     ut = UnitTemplate.includes(:author, :unit_template_category).find id
-    ut.get_cached_serialized_unit_template('profile', current_user)
+    ut.get_cached_serialized_unit_template('profile')
   end
 
   private def set_root_url
