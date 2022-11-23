@@ -8,7 +8,7 @@ class ActivityFeedbackHistory
   def self.activity_stats_query(activity_id:, activity_version: nil)
 
     inner_query = ActivitySession.unscoped
-      .joins("INNER JOIN feedback_sessions ON feedback_sessions.activity_session_uid = activity_sessions.uid")
+      .joins(:feedback_sessions)
       .joins(:feedback_histories)
       .joins("LEFT JOIN comprehension_prompts ON feedback_histories.prompt_id = comprehension_prompts.id")
       .where("comprehension_prompts.activity_id = ?", activity_id)
