@@ -68,4 +68,73 @@ describe Teachers::UnitTemplatesController, type: :controller do
       }.to_json)
     end
   end
+
+  describe '#previously_assigned_activities' do
+    let!(:current_user) { create(:teacher_with_a_couple_classrooms_with_one_student_each) }
+    let!(:classroom) { current_user.classrooms_i_teach.first }
+    let!(:unit_one) {create(:unit, user_id: current_user.id)}
+    let!(:unit_two) {create(:unit, user_id: current_user.id)}
+    let!(:classroom_unit) { create(:classroom_unit, unit: unit_one, classroom: classroom) }
+    let!(:classroom_unit) { create(:classroom_unit, unit: unit_two, classroom: classroom) }
+    let!(:activity_one) { create(:activity) }
+    let!(:activity_two) { create(:activity) }
+    let!(:activity_three) { create(:activity) }
+    let!(:activity_four) { create(:activity) }
+    let!(:unit_activity_one) { create(:unit_activity, unit: unit_one, activity: activity_one) }
+    let!(:unit_activity_two) { create(:unit_activity, unit: unit_one, activity: activity_two) }
+    let!(:unit_activity_three) { create(:unit_activity, unit: unit_two, activity: activity_two) }
+    let!(:unit_activity_four) { create(:unit_activity, unit: unit_two, activity: activity_three) }
+
+    it 'should render the correct json' do
+      activity_ids = "#{[activity_one.id, activity_two.id, activity_three.id, activity_four.id]}"
+      get :previously_assigned_activities, params: { activity_ids: activity_ids }, as: :json
+
+      expect(response.body).to eq({
+        previously_assigned_activity_data: {
+          activity_one.id => [
+            {
+              name: unit_one.name,
+              assigned_date: unit_one.created_at,
+              classrooms: [classroom.name],
+              students: {
+                assigned_students: 1,
+                total_students: 1
+              }
+            }
+          ],
+          activity_two.id => [
+            {
+              name: unit_one.name,
+              assigned_date: unit_one.created_at,
+              classrooms: [classroom.name],
+              students: {
+                assigned_students: 1,
+                total_students: 1
+              }
+            },
+            {
+              name: unit_two.name,
+              assigned_date: unit_two.created_at,
+              classrooms: [classroom.name],
+              students: {
+                assigned_students: 1,
+                total_students: 1
+              }
+            }
+          ],
+          activity_three.id => [
+            {
+              name: unit_two.name,
+              assigned_date: unit_two.created_at,
+              classrooms: [classroom.name],
+              students: {
+                assigned_students: 1,
+                total_students: 1
+              }
+            }
+          ]
+        }
+      })
+    end
+  end
 end

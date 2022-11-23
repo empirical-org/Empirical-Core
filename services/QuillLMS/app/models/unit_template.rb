@@ -157,8 +157,8 @@ class UnitTemplate < ApplicationRecord
         " JOIN classroom_units ON classroom_units.unit_id = units.id
         JOIN unit_activities ON unit_activities.unit_id = units.id
         "
-        ).where("classroom_units.classroom_id IN (?)", current_user&.classrooms_i_teach&.map(&:id)
         )
+        .where("classroom_units.classroom_id IN (?)", current_user&.classrooms_i_teach&.map(&:id))
         .where("unit_activities.activity_id = ?", id)
         .uniq
 
