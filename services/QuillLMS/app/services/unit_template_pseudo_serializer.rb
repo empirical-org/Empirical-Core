@@ -2,7 +2,6 @@
 
 class UnitTemplatePseudoSerializer
   # attributes :id, :name, :time, :grades, :order_number, :number_of_standards, :activity_info, :unit_template_category, :activities, :standards, :readability, :activities_recommended_by
-  include UnitQueries
 
   def initialize(unit_template, flag=nil)
     @unit_template = unit_template
@@ -10,7 +9,6 @@ class UnitTemplatePseudoSerializer
 
   def data
     ut = @unit_template
-    ut_activities = activities
     {
       id: ut.id,
       name: ut.name,
@@ -21,7 +19,7 @@ class UnitTemplatePseudoSerializer
       number_of_standards: number_of_standards,
       activity_info: ut.activity_info,
       unit_template_category: unit_template_category,
-      activities: ut_activities,
+      activities: activities,
       type: type,
       readability: ut.readability,
       grade_level_range: ut.grade_level_range,
