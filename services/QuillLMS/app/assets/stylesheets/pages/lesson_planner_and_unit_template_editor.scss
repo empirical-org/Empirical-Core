@@ -104,6 +104,14 @@
           .data-table-header, .data-table-row-section:not(.removable), .quill-tooltip-trigger {
             margin-right: 16px;
           }
+          .quill-tooltip-trigger {
+            .quill-tooltip {
+              display: inline-block !important;
+              .previously-assigned-activities-table {
+                width: max-content;
+              }
+            }
+          }
           .data-table-row-section {
             .date-picker-container {
               margin-top: -2px;

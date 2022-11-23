@@ -186,7 +186,6 @@ describe UnitTemplate, redis: true, type: :model do
         order_number: 999999999,
         readability: activity.readability_grade_level,
         time: nil,
-        previously_assigned_activity_data: {},
         unit_template_category: {
           primary_color: category.primary_color,
           secondary_color: category.secondary_color,
@@ -203,6 +202,74 @@ describe UnitTemplate, redis: true, type: :model do
         expect(serialized_template_from_db).to include(k)
         expect(serialized_template_from_db[k]).to eq(v)
       end
+    end
+  end
+
+  describe 'previously_assigned_activity_data' do
+    let(:current_user) { create(:teacher_with_a_couple_classrooms_with_one_student_each) }
+    let(:classroom) { current_user.classrooms_i_teach.first }
+    let(:student) { classroom.students.first }
+    let!(:unit_one) {create(:unit, user_id: current_user.id), unit_activities:}
+    let!(:unit_two) {create(:unit, user_id: current_user.id)}
+    let!(:classroom_unit) { create(:classroom_unit, unit: unit_one, classroom: classroom) }
+    let!(:classroom_unit) { create(:classroom_unit, unit: unit_two, classroom: classroom) }
+    let!(:activity_one) { create(:activity) }
+    let!(:activity_two) { create(:activity) }
+    let!(:activity_three) { create(:activity) }
+    let!(:activity_four) { create(:activity) }
+    let!(:unit_activity_one) { create(:unit_activity, unit: unit_one, activity: activity_one) }
+    let!(:unit_activity_two) { create(:unit_activity, unit: unit_one, activity: activity_two) }
+    let!(:unit_activity_three) { create(:unit_activity, unit: unit_two, activity: activity_two) }
+    let!(:unit_activity_four) { create(:unit_activity, unit: unit_two, activity: activity_three) }
+    it 'will have previously assigned activity data if activity in unit has been previously assigned' do
+      activity_ids = [activity_one.id, activity_two.id, activity_three.id, activity_four.id]
+      results = UnitTemplate.previously_assigned_activity_data(activity_ids, current_user)
+      expect(results).to eq({
+        previously_assigned_activity_data: {
+          activity_one.id => [
+            {
+              name: unit_one.name,
+              assigned_date: unit_one.created_at,
+              classrooms: [classroom.name],
+              students: {
+                assigned_students: 1,
+                total_students: 1
+              }
+            }
+          ],
+          activity_two.id => [
+            {
+              name: unit_one.name,
+              assigned_date: unit_one.created_at,
+              classrooms: [classroom.name],
+              students: {
+                assigned_students: 1,
+                total_students: 1
+              }
+            },
+            {
+              name: unit_two.name,
+              assigned_date: unit_two.created_at,
+              classrooms: [classroom.name],
+              students: {
+                assigned_students: 1,
+                total_students: 1
+              }
+            }
+          ],
+          activity_three.id => [
+            {
+              name: unit_two.name,
+              assigned_date: unit_two.created_at,
+              classrooms: [classroom.name],
+              students: {
+                assigned_students: 1,
+                total_students: 1
+              }
+            }
+          ],
+        }
+      })
     end
   end
 

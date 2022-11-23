@@ -83,22 +83,26 @@ export default class ReviewActivities extends React.Component {
     this.state = {
       snackbarVisible: false,
       erroredActivityIds: [],
-      previouslyAssignedActivityData: {}
+      previouslyAssignedActivityData: null
     }
   }
 
-  componentDidMount() {
-    const { unitTemplateId } = this.props
-    if(unitTemplateId) {
-      this.getProfileInfo(unitTemplateId)
+  componentDidUpdate() {
+    const { activities } = this.props
+    const { previouslyAssignedActivityData } = this.state
+    if(!previouslyAssignedActivityData && activities) {
+      this.getPreviouslyAssignedActivityData()
     }
   }
 
-  getProfileInfo = (id) => {
-    requestGet(`/teachers/unit_templates/profile_info?id=${id}`, (response) => {
-      const { data } = response
-      const { previously_assigned_activity_data } = data
-      this.setState({ previouslyAssignedActivityData: previously_assigned_activity_data })
+  getPreviouslyAssignedActivityData = () => {
+    const { activities } = this.props
+    const activityIds = JSON.stringify(activities.map(activity => activity.id))
+    requestGet(`${process.env.DEFAULT_URL}/teachers/unit_templates/previously_assigned_activities?activity_ids=${activityIds}`, (response) => {
+      if(response.previously_assigned_activity_data && Object.keys(response.previously_assigned_activity_data).length) {
+        const { previously_assigned_activity_data } = response
+        this.setState({ previouslyAssignedActivityData: previously_assigned_activity_data })
+      }
     })
   }
 
@@ -246,6 +250,7 @@ export default class ReviewActivities extends React.Component {
       );
 
       const className = erroredActivityIds.includes(activity.id) ? 'checked' : ''
+      const data = previouslyAssignedActivityData && previouslyAssignedActivityData[id] ? previouslyAssignedActivityData[id] : null
 
       return {
         id,
@@ -255,7 +260,7 @@ export default class ReviewActivities extends React.Component {
         concept: activity_category.name,
         dueDatePicker,
         publishDatePicker,
-        previouslyAssigned: <PreviouslyAssignedTooltip previouslyAssignedActivityData={previouslyAssignedActivityData[id]} />,
+        previouslyAssigned: <PreviouslyAssignedTooltip previouslyAssignedActivityData={data} />,
         removable: true
       }
     })

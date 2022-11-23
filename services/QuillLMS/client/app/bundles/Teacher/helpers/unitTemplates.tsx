@@ -189,8 +189,8 @@ export const renderPreviouslyAssignedActivitiesTooltipElement = (data) => {
               <td>{classrooms.map(classroom => (<p>{classroom}</p>))}</td>
               <td>
                 {students.map(student => {
-                  const { assigned_students, total_students } = student;
-                  return <p>{`${assigned_students}/${total_students}`}</p>
+                  const { assigned_student_count, total_student_count } = student;
+                  return <p>{`${assigned_student_count}/${total_student_count}`}</p>
                 })}
               </td>
             </tr>

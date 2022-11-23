@@ -215,6 +215,7 @@ EmpiricalGrammar::Application.routes.draw do
       collection do
         get :profile_info, controller: 'unit_templates', action: 'profile_info'
         get :assigned_info, controller: 'unit_templates', action: 'assigned_info'
+        get :previously_assigned_activities, controller: 'unit_templates', action: 'previously_assigned_activities'
         post :fast_assign, controller: 'unit_templates', action: 'fast_assign'
       end
     end

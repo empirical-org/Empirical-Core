@@ -2,9 +2,23 @@ import * as React from 'react';
 
 import PreviouslyAssignedTooltip from '../../previouslyAssignedTooltip';
 import { Tooltip, ReactTable, getIconForActivityClassification } from '../../../../../Shared/index'
+import { requestGet } from '../../../../../../modules/request';
 
 export const UnitTemplateProfileActivityTable = ({ data }) => {
   const { activities } = data;
+  const [previouslyAssignedActivityData, setPreviouslyAssignedActivityData] = React.useState(null)
+
+  React.useEffect(() => {
+    if(!previouslyAssignedActivityData && activities) {
+      const activityIds = JSON.stringify(activities.map(activity => activity.id))
+      requestGet(`${process.env.DEFAULT_URL}/teachers/unit_templates/previously_assigned_activities?activity_ids=${activityIds}`, (response) => {
+        if(response.previously_assigned_activity_data && Object.keys(response.previously_assigned_activity_data).length) {
+          const { previously_assigned_activity_data } = response
+          setPreviouslyAssignedActivityData(previously_assigned_activity_data)
+        }
+      })
+    }
+  }, [])
 
   function redirectToActivity(activityId) {
     window.open(`/activity_sessions/anonymous?activity_id=${activityId}`, '_blank');
@@ -68,13 +82,9 @@ export const UnitTemplateProfileActivityTable = ({ data }) => {
         maxWidth: 80,
         id: 'previouslyAssigned',
         Cell: ({row}) => {
-          const { previously_assigned_activity_data } = data
           const { original } = row;
-          const { id } = original;
-          if(previously_assigned_activity_data[id]) {
-            return(<PreviouslyAssignedTooltip previouslyAssignedActivityData={previously_assigned_activity_data[id]} />)
-          }
-          return <span />
+          const { previouslyAssignedActivityData } = original;
+          return <PreviouslyAssignedTooltip previouslyAssignedActivityData={previouslyAssignedActivityData} />
         },
       },
       {
@@ -104,6 +114,7 @@ export const UnitTemplateProfileActivityTable = ({ data }) => {
     const topics = a.topic_names ? `${divider}<p>Topics: ${a.topic_names.join(', ')}</p>` : ''
     const tooltipText = `<p>Tool: ${a.classification.name}</p>${standardLevelName}${standardName}${readability}${topics}<p>${a.description}</p>`
     formattedActivity.tooltipText = tooltipText
+    formattedActivity.previouslyAssignedActivityData = previouslyAssignedActivityData && previouslyAssignedActivityData[a.id] ? previouslyAssignedActivityData[a.id] : null
     return formattedActivity
   })
 

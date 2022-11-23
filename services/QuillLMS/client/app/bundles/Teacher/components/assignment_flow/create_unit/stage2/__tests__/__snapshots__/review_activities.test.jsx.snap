@@ -116,7 +116,9 @@ exports[`ReviewActivities component should render 1`] = `
               showCopyToAll={true}
             />,
             "id": 413,
-            "previouslyAssigned": <PreviouslyAssignedTooltip />,
+            "previouslyAssigned": <PreviouslyAssignedTooltip
+              previouslyAssignedActivityData={null}
+            />,
             "publishDatePicker": <DatePickerContainer
               closeFunction={[Function]}
               defaultText="Right away"
@@ -158,7 +160,9 @@ exports[`ReviewActivities component should render 1`] = `
               showCopyToAll={false}
             />,
             "id": 654,
-            "previouslyAssigned": <PreviouslyAssignedTooltip />,
+            "previouslyAssigned": <PreviouslyAssignedTooltip
+              previouslyAssignedActivityData={null}
+            />,
             "publishDatePicker": <DatePickerContainer
               closeFunction={[Function]}
               defaultText="Right away"
