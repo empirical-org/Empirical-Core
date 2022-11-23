@@ -24,7 +24,7 @@
     "jsonwebtoken": "^8.2.1",
     "newrelic": "^6.11.0",
     "rethinkdb": "^2.3.3",
-    "socket.io": "^2.4.1"
+    "socket.io": "^2.5.0"
   },
   "devDependencies": {
     "jest": "^25.5.4",
