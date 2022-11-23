@@ -1,6 +1,6 @@
 # frozen_string_literal: true
 
-class PopulateEvidenceActivityHealthsWorker
+class PopulateAggregatedEvidenceActivityHealthsWorker
   include Sidekiq::Worker
 
   INTERVAL = 180 # 3 minutes
@@ -11,8 +11,8 @@ class PopulateEvidenceActivityHealthsWorker
     ActiveRecord::Base.connection.execute("TRUNCATE evidence_activity_healths RESTART IDENTITY CASCADE")
 
     # spread these, to cut down on DB resource contention.
-    Evidence::Activity.all.each.with_index do |activity, index|
-      PopulateEvidenceActivityHealthWorker.perform_in(index * INTERVAL, activity.id)
+    Evidence::Activity.pluck(:id).each.with_index do |id, index|
+      PopulateEvidenceActivityHealthWorker.perform_in(index * INTERVAL, id)
     end
   end
 end

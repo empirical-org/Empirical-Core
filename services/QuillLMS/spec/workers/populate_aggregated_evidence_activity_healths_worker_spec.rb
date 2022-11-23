@@ -6,7 +6,7 @@ RSpec::Matchers.define :a_multiple_of do |x|
   match { |actual| (actual % x).zero? }
 end
 
-describe PopulateEvidenceActivityHealthsWorker do
+describe PopulateAggregatedEvidenceActivityHealthsWorker do
   subject { described_class.new }
 
   let(:connect) { create(:activity_classification, key: "connect") }

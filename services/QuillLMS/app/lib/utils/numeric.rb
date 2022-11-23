@@ -21,6 +21,7 @@ module Utils::Numeric
     format("%<minutes>02d:%<seconds>02d", minutes: seconds / 60 % 60, seconds: seconds % 60)
   end
 
+  # time must be in the format "MM:SS"
   def self.human_readable_time_to_seconds(time)
     (time.split(":")[0].to_i * 60) + (time.split(":")[1].to_i)
   end
