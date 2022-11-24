@@ -14,8 +14,8 @@ class SerializeEvidencePromptHealth
       text: @prompt.text,
       current_version: @prompt.activity.version,
       version_responses: @prompt_feedback_history[@prompt.id]["total_responses"],
-      first_attempt_optimal: @prompt_feedback_history[@prompt.id]["num_first_attempt_optimal"],
-      final_attempt_optimal: @prompt_feedback_history[@prompt.id]["num_final_attempt_optimal"],
+      first_attempt_optimal: num_first_attempts > 0 ? ((@prompt_feedback_history[@prompt.id]["num_first_attempt_optimal"] / num_first_attempts.to_f) * 100).round : nil,
+      final_attempt_optimal: num_final_attempts > 0 ? ((@prompt_feedback_history[@prompt.id]["num_final_attempt_optimal"] / num_final_attempts.to_f) * 100).round : nil,
       avg_attempts: @prompt_feedback_history[@prompt.id]["avg_attempts"],
       confidence: @prompt_feedback_history[@prompt.id]["avg_confidence"],
       percent_automl_consecutive_repeated: percent_automl_consecutive_repeated,
@@ -34,6 +34,14 @@ class SerializeEvidencePromptHealth
 
   private def total_responses
     @total_responses ||= rule_feedback_histories.map { |fh| fh.total_responses }.sum || 0
+  end
+
+  private def num_first_attempts
+    @prompt_feedback_history[@prompt.id]["num_first_attempt_optimal"] + @prompt_feedback_history[@prompt.id]["num_first_attempt_not_optimal"]
+  end
+
+  private def num_final_attempts
+    @prompt_feedback_history[@prompt.id]["num_final_attempt_optimal"] + @prompt_feedback_history[@prompt.id]["num_final_attempt_not_optimal"]
   end
 
   private def percent_responses_for_api(api_type)

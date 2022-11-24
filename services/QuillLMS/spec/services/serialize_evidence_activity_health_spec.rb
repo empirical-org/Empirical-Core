@@ -10,9 +10,9 @@ describe 'SerializeEvidenceActivityHealth' do
     @previous_version = @activity.version
     @activity.increment_version!
 
-    @because_prompt1 = Evidence::Prompt.create!(activity: @activity, conjunction: 'because', text: 'Some feedback text', max_attempts_feedback: 'Feedback')
-    @but_prompt1 = Evidence::Prompt.create!(activity: @activity, conjunction: 'but', text: 'Some feedback text', max_attempts_feedback: 'Feedback')
-    @so_prompt1 = Evidence::Prompt.create!(activity: @activity, conjunction: 'so', text: 'Some feedback text', max_attempts_feedback: 'Feedback')
+    @because_prompt1 = Evidence::Prompt.create!(activity: @activity, conjunction: 'because', text: 'Some feedback text because', max_attempts_feedback: 'Feedback')
+    @but_prompt1 = Evidence::Prompt.create!(activity: @activity, conjunction: 'but', text: 'Some feedback text but', max_attempts_feedback: 'Feedback')
+    @so_prompt1 = Evidence::Prompt.create!(activity: @activity, conjunction: 'so', text: 'Some feedback text so', max_attempts_feedback: 'Feedback')
 
     @activity_session1 = create(:activity_session, state: "finished", timespent: 600)
     @activity_session2 = create(:activity_session, state: "finished", timespent: 300)
@@ -50,6 +50,24 @@ describe 'SerializeEvidenceActivityHealth' do
     expect(data[:flag]).to eq(@activity.flag.to_s)
     expect(data[:version]).to eq(@activity.version)
     expect(data[:activity_id]).to eq(@activity.id)
+  end
+
+  it 'returns prompt data for the activity' do
+    prompt_data = SerializeEvidenceActivityHealth.new(@activity, @prompt_feedback_history).prompt_data
+    expect(prompt_data.size).to eq(3)
+
+    because_data = prompt_data.select {|pd| pd[:prompt_id] == @because_prompt1.id}.first
+    but_data = prompt_data.select {|pd| pd[:prompt_id] == @but_prompt1.id}.first
+    so_data = prompt_data.select {|pd| pd[:prompt_id] == @so_prompt1.id}.first
+
+    expect(because_data).to be
+    expect(because_data[:text]).to eq(@because_prompt1.text)
+    expect(because_data[:current_version]).to eq(@activity.version)
+    expect(because_data[:version_responses]).to eq(3)
+    expect(but_data[:first_attempt_optimal]).to eq(100)
+    expect(so_data[:first_attempt_optimal]).to eq(0)
+    expect(so_data[:final_attempt_optimal]).to eq(0)
+    expect(because_data[:avg_attempts]).to eq(1.5)
   end
 
   it 'gets the correct data for version plays' do
