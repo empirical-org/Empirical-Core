@@ -88,6 +88,11 @@ describe "Cron", type: :model do
       Cron.interval_1_day
     end
 
+    it "enqueues PopulateAggregatedEvidenceActivityHealthsWorker" do
+      expect(PopulateAggregatedEvidenceActivityHealthsWorker).to receive(:perform_async)
+      Cron.interval_1_day
+    end
+
     it "enqueues AlertSoonToExpireSubscriptionsWorker" do
       expect(AlertSoonToExpireSubscriptionsWorker).to receive(:perform_async)
       Cron.interval_1_day
