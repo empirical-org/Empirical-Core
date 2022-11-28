@@ -103,12 +103,12 @@ class ClassroomUnit < ApplicationRecord
   end
 
   private def hide_appropriate_activity_sessions
-    # on save callback that checks if archived
-    if visible == false
+    if visible
+      hide_unassigned_activity_sessions
+    else
       hide_all_activity_sessions
-      return
+      save_user_pack_sequence_items
     end
-    hide_unassigned_activity_sessions
   end
 
   private def check_for_assign_on_join_and_update_students_array_if_true
