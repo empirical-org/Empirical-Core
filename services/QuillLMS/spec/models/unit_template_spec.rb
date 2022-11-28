@@ -240,20 +240,23 @@ describe UnitTemplate, redis: true, type: :model do
     let!(:classroom) { current_user.classrooms_i_teach.first }
     let!(:unit_one) {create(:unit, user_id: current_user.id)}
     let!(:unit_two) {create(:unit, user_id: current_user.id)}
-    let!(:classroom_unit) { create(:classroom_unit, unit: unit_one, classroom: classroom) }
-    let!(:classroom_unit) { create(:classroom_unit, unit: unit_two, classroom: classroom) }
     let!(:activity_one) { create(:activity) }
     let!(:activity_two) { create(:activity) }
     let!(:activity_three) { create(:activity) }
     let!(:activity_four) { create(:activity) }
-    let!(:unit_activity_one) { create(:unit_activity, unit: unit_one, activity: activity_one) }
-    let!(:unit_activity_two) { create(:unit_activity, unit: unit_one, activity: activity_two) }
-    let!(:unit_activity_three) { create(:unit_activity, unit: unit_two, activity: activity_two) }
-    let!(:unit_activity_four) { create(:unit_activity, unit: unit_two, activity: activity_three) }
+    let!(:activity_five) { create(:activity) }
+    let!(:classroom_unit_one) { create(:classroom_unit, unit: unit_one, classroom: classroom, assigned_student_ids: classroom.student_ids) }
+    let!(:classroom_unit_two) { create(:classroom_unit, unit: unit_two, classroom: classroom) }
+    let!(:unit_activity_one) { create(:unit_activity, unit: classroom_unit_one.unit, activity: activity_one) }
+    let!(:unit_activity_two) { create(:unit_activity, unit: classroom_unit_one.unit, activity: activity_two) }
+    let!(:unit_activity_three) { create(:unit_activity, unit: classroom_unit_two.unit, activity: activity_two) }
+    let!(:unit_activity_four) { create(:unit_activity, unit: classroom_unit_two.unit, activity: activity_three) }
 
     it 'will have previously assigned activity data if activity in unit has been previously assigned' do
-      activity_ids = [activity_one.id, activity_two.id, activity_three.id, activity_four.id]
+      activity_ids = [activity_one.id, activity_two.id, activity_three.id, activity_four.id, activity_five.id]
+      count = classroom.student_ids.length
       results = UnitTemplate.previously_assigned_activity_data(activity_ids, current_user)
+
       expect(results).to eq({
         previously_assigned_activity_data: {
           activity_one.id => [
@@ -261,10 +264,10 @@ describe UnitTemplate, redis: true, type: :model do
               name: unit_one.name,
               assigned_date: unit_one.created_at,
               classrooms: [classroom.name],
-              students: {
-                assigned_students: 1,
-                total_students: 1
-              }
+              students: [{
+                assigned_student_count: count,
+                total_student_count: count
+              }]
             }
           ],
           activity_two.id => [
@@ -272,19 +275,19 @@ describe UnitTemplate, redis: true, type: :model do
               name: unit_one.name,
               assigned_date: unit_one.created_at,
               classrooms: [classroom.name],
-              students: {
-                assigned_students: 1,
-                total_students: 1
-              }
+              students: [{
+                assigned_student_count: count,
+                total_student_count: count
+              }]
             },
             {
               name: unit_two.name,
               assigned_date: unit_two.created_at,
               classrooms: [classroom.name],
-              students: {
-                assigned_students: 1,
-                total_students: 1
-              }
+              students: [{
+                assigned_student_count: 0,
+                total_student_count: count
+              }]
             }
           ],
           activity_three.id => [
@@ -292,10 +295,10 @@ describe UnitTemplate, redis: true, type: :model do
               name: unit_two.name,
               assigned_date: unit_two.created_at,
               classrooms: [classroom.name],
-              students: {
-                assigned_students: 1,
-                total_students: 1
-              }
+              students: [{
+                assigned_student_count: 0,
+                total_student_count: count
+              }]
             }
           ]
         }

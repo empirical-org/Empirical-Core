@@ -141,27 +141,23 @@ class UnitTemplate < ApplicationRecord
   end
 
   def self.student_counts_for_previously_assigned_activity(unit=nil, classrooms=[])
-    classrooms&.map do |classroom|
+    classrooms.map do |classroom|
       classroom_unit = unit.classroom_units.find_by(classroom_id: classroom[:id])
       {
-        total_student_count: classroom.students&.length,
-        assigned_student_count: classroom_unit&.assigned_student_ids&.length
+        assigned_student_count: classroom_unit&.assigned_student_ids&.length,
+        total_student_count: classroom.students&.length
       }
     end
   end
 
+  # rubocop:disable Metrics/CyclomaticComplexity
   def self.previously_assigned_activity_data(activity_ids=[], current_user=nil)
     results = {}
-    activity_ids&.map do |id|
-      units = Unit.joins(
-        " JOIN classroom_units ON classroom_units.unit_id = units.id
-        JOIN unit_activities ON unit_activities.unit_id = units.id
-        "
-        )
+    activity_ids.map do |id|
+      units = Unit.joins(:classroom_units, :unit_activities)
         .where("classroom_units.classroom_id IN (?)", current_user&.classrooms_i_teach&.map(&:id))
         .where("unit_activities.activity_id = ?", id)
         .uniq
-
       next if units.empty?
 
       results[id] = units.map do |unit|
@@ -176,6 +172,7 @@ class UnitTemplate < ApplicationRecord
     end
     { previously_assigned_activity_data: results }
   end
+  # rubocop:enable Metrics/CyclomaticComplexity
 
   private def delete_relevant_caches
     $redis.del("unit_template_id:#{id}_serialized")

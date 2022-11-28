@@ -86,7 +86,8 @@ exports[`ReviewActivities component should render 1`] = `
           Object {
             "attribute": "previouslyAssigned",
             "name": "Previously assigned",
-            "rowSectionClassName": "tooltip-section review-activities-data-table-section",
+            "noTooltip": true,
+            "rowSectionClassName": "tooltip-section review-activities-data-table-section previously-assigned-section",
             "width": "60px",
           },
         ]

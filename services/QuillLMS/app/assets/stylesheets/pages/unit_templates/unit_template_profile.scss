@@ -48,6 +48,17 @@
         td {
           overflow: visible;
         }
+        td:first-of-type {
+          .quill-tooltip {
+            left: 80px;
+          }
+        }
+        td:nth-of-type(4) {
+          .quill-tooltip {
+            width: 752px;
+            right: 8px;
+          }
+        }
         .quill-tooltip-wrapper {
           width: 595px;
           background-color: #5C5C5C;
@@ -75,6 +86,19 @@
             }
             &:last-of-type {
               margin-bottom: 8px;
+            }
+          }
+        }
+        @media (max-width: 1100px) {
+          td:first-of-type {
+            .quill-tooltip {
+              left: 300px;
+            }
+          }
+          td:nth-of-type(4) {
+            .quill-tooltip {
+              width: min-content;
+              right: 300px;
             }
           }
         }

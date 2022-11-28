@@ -26,8 +26,8 @@ const data2 = [
     classrooms: ['Class One'],
     students: [
       {
-        assigned_students: 3,
-        total_students: 5
+        assigned_student_count: 3,
+        total_student_count: 5
       }
     ]
   },
@@ -37,12 +37,12 @@ const data2 = [
     classrooms: ['Class One, Class Two'],
     students: [
       {
-        assigned_students: 3,
-        total_students: 5
+        assigned_student_count: 3,
+        total_student_count: 5
       },
       {
-        assigned_students: 1,
-        total_students: 5
+        assigned_student_count: 1,
+        total_student_count: 5
       }
     ]
   },
@@ -67,7 +67,7 @@ describe('Unit Templates helper functions', () => {
       const containsUnitName = tooltipElementString.includes('Unit 1') && tooltipElementString.includes('Unit 2');
       const containsAssignedDate = tooltipElementString.includes('12/06/21');
       const containsClasses = tooltipElementString.includes('Class One') && tooltipElementString.includes('Class Two');
-      const containsAssignedCount = tooltipElementString.includes('3/5') && tooltipElementString.includes('1/5');
+      const containsAssignedCount = tooltipElementString.includes('3/5 students') && tooltipElementString.includes('1/5 students');
       expect(containsUnitName).toBeTruthy();
       expect(containsAssignedDate).toBeTruthy();
       expect(containsClasses).toBeTruthy();

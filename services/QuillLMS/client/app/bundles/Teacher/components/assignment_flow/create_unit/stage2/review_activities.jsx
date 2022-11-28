@@ -72,7 +72,8 @@ const tableHeaders = [
     name: 'Previously assigned',
     attribute: 'previouslyAssigned',
     width: '60px',
-    rowSectionClassName: rowSectionTooltipClassName
+    rowSectionClassName: `${rowSectionTooltipClassName} previously-assigned-section`,
+    noTooltip: true
   },
 ]
 
