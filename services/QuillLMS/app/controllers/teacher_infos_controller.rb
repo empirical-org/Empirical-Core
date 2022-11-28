@@ -27,7 +27,11 @@ class TeacherInfosController < ApplicationController
       subject_area_ids.each { |subject_area_id| TeacherInfoSubjectArea.create!(teacher_info: teacher_info, subject_area_id: subject_area_id) }
     end
 
-    render json: {}, status: 200
+    render json: {
+      minimum_grade_level: teacher_info.minimum_grade_level,
+      maximum_grade_level: teacher_info.maximum_grade_level,
+      subject_area_ids: teacher_info.subject_area_ids
+    }, status: 200
   end
 
   private def teacher_info_params

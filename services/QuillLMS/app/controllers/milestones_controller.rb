@@ -30,6 +30,15 @@ class MilestonesController < ApplicationController
     complete_milestone(Milestone::TYPES[:dismiss_school_selection_reminder])
   end
 
+  def create_or_touch_dismiss_teacher_info_modal
+    milestone =  Milestone.find_by_name(Milestone::TYPES[:dismiss_teacher_info_modal])
+
+    user_milestone = UserMilestone.find_or_create_by!(milestone: milestone, user: current_user)
+    user_milestone.touch
+
+    render json: {}
+  end
+
   private def complete_milestone(milestone_name)
     if current_user
       milestone = Milestone.find_by_name(milestone_name)
