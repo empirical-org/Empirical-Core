@@ -511,6 +511,8 @@ nav.q-navbar-home {
 .navbar-tooltip-trigger {
   cursor: pointer;
   position: relative;
+  margin-bottom: -40px;
+  padding-bottom: 40px;
   span {
     color: #fff;
   }
