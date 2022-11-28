@@ -1,0 +1,44 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`TeacherSubjectAreas component should render 1`] = `
+<TeacherSubjectAreas
+  activateSection={[MockFunction]}
+  active={false}
+  deactivateSection={[MockFunction]}
+  passedSelectedSubjectAreaIds={
+    Array [
+      1,
+    ]
+  }
+  subjectAreas={Array []}
+  updateTeacherInfo={[MockFunction]}
+>
+  <section
+    className="user-account-section subject-area-section"
+  >
+    <h1>
+      Subject areas
+    </h1>
+    <form
+      acceptCharset="UTF-8"
+      onSubmit={[Function]}
+    >
+      <div
+        className="fields"
+        onClick={[MockFunction]}
+        onKeyDown={[MockFunction]}
+      >
+        <SubjectAreaSection
+          selectedSubjectAreaIds={
+            Array [
+              1,
+            ]
+          }
+          setSelectedSubjectAreaIds={[Function]}
+          subjectAreas={Array []}
+        />
+      </div>
+    </form>
+  </section>
+</TeacherSubjectAreas>
+`;

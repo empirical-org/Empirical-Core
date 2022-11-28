@@ -76,19 +76,24 @@ class Teachers::ClassroomManagerController < ApplicationController
   def dashboard
     if current_user.classrooms_i_teach.empty? && current_user.archived_classrooms.none? && !current_user.has_outstanding_coteacher_invitation? && current_user.schools_admins.any?
       redirect_to teachers_admin_dashboard_path
-      end
+    end
+
+    teacher_info_milestone = Milestone.find_by_name(Milestone::TYPES[:dismiss_teacher_info_modal])
+    teacher_info_user_milestone = UserMilestone.find_by(milestone_id: teacher_info_milestone&.id, user_id: current_user&.id)
+    teacher_info_user_milestone_in_right_timeframe = teacher_info_user_milestone.nil? || (teacher_info_user_milestone.updated_at < 1.month.ago && teacher_info_user_milestone.created_at > 6.months.ago)
+    @must_see_teacher_info_modal = current_user&.teacher_info.nil? && teacher_info_user_milestone_in_right_timeframe
+
     welcome_milestone = Milestone.find_by_name(Milestone::TYPES[:see_welcome_modal])
-    @must_see_modal = !UserMilestone.find_by(milestone_id: welcome_milestone&.id, user_id: current_user&.id) && Unit.unscoped.find_by_user_id(current_user&.id).nil?
-    @featured_blog_posts = BlogPost.where.not(featured_order_number: nil).order(:featured_order_number)
-    if @must_see_modal && current_user && welcome_milestone
+    @must_see_welcome_modal = !UserMilestone.find_by(milestone_id: welcome_milestone&.id, user_id: current_user&.id) && Unit.unscoped.find_by_user_id(current_user&.id).nil?
+
+    if @must_see_welcome_modal && current_user && welcome_milestone
       UserMilestone.find_or_create_by(user_id: current_user.id, milestone_id: welcome_milestone.id)
     end
 
+    @featured_blog_posts = BlogPost.where.not(featured_order_number: nil).order(:featured_order_number)
+
     @objective_checklist = generate_onboarding_checklist
     @first_name = current_user.first_name
-
-    growth_diagnostic_promotion_card_milestone = Milestone.find_by_name(Milestone::TYPES[:acknowledge_growth_diagnostic_promotion_card])
-    @show_diagnostic_promotion_card = !UserMilestone.find_by(milestone_id: growth_diagnostic_promotion_card_milestone&.id, user_id: current_user&.id) && (current_user.created_at < "2021-11-29".to_date || current_user&.unit_activities&.where(activity_id: Activity.diagnostic_activity_ids)&.any?)
   end
   # rubocop:enable Metrics/CyclomaticComplexity
 
