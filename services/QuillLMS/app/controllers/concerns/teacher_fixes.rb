@@ -105,29 +105,29 @@ module TeacherFixes
     SchoolsUsers.where(school_id: from_school_id).update_all(school_id: to_school_id)
   end
 
-  def self.merge_two_classrooms(classroom_id1, classroom_id2)
-    move_students_from_one_class_to_another(classroom_id1, classroom_id2)
+  def self.merge_two_classrooms(source_classroom_id, target_classroom_id)
+    move_students_from_one_class_to_another(source_classroom_id, target_classroom_id)
 
-    move_classroom_units_and_activity_sessions_from_one_class_to_another(classroom_id1, classroom_id2)
+    move_classroom_units_and_activity_sessions_from_one_class_to_another(source_classroom_id, target_classroom_id)
 
-    assign_teachers_to_other_class(classroom_id1, classroom_id2)
-    Classroom.find(classroom_id1).update(visible: false)
+    assign_teachers_to_other_class(source_classroom_id, target_classroom_id)
+    Classroom.find(source_classroom_id).update(visible: false)
   end
 
-  def self.move_students_from_one_class_to_another(classroom_id1, classroom_id2)
-    StudentsClassrooms.where(classroom_id: classroom_id1).each do |sc|
-      if StudentsClassrooms.unscoped.find_by(classroom_id: classroom_id2, student_id: sc.student_id)
+  def self.move_students_from_one_class_to_another(source_classroom_id, target_classroom_id)
+    StudentsClassrooms.where(classroom_id: source_classroom_id).each do |sc|
+      if StudentsClassrooms.unscoped.find_by(classroom_id: target_classroom_id, student_id: sc.student_id)
         sc.skip_archive_student_associations = true
         sc.update(visible: false)
       else
-        sc.update(classroom_id: classroom_id2)
+        sc.update(classroom_id: target_classroom_id)
       end
     end
   end
 
-  def self.move_classroom_units_and_activity_sessions_from_one_class_to_another(classroom_id1, classroom_id2)
-    ClassroomUnit.where(classroom_id: classroom_id1).each do |cu|
-      existing_cu = ClassroomUnit.find_by(classroom_id: classroom_id2, unit_id: cu.unit_id)
+  def self.move_classroom_units_and_activity_sessions_from_one_class_to_another(source_classroom_id, target_classroom_id)
+    ClassroomUnit.where(classroom_id: source_classroom_id).each do |cu|
+      existing_cu = ClassroomUnit.find_by(classroom_id: target_classroom_id, unit_id: cu.unit_id)
       if existing_cu
         cu.activity_sessions.update_all(classroom_unit_id: existing_cu.id)
         existing_cu.update(assigned_student_ids: cu.assigned_student_ids.concat(existing_cu.assigned_student_ids).uniq)
@@ -137,17 +137,17 @@ module TeacherFixes
         end
         cu.update(visible: false)
       else
-        cu.update(classroom_id: classroom_id2)
+        cu.update(classroom_id: target_classroom_id)
       end
     end
   end
 
-  def self.assign_teachers_to_other_class(classroom_id1, classroom_id2)
-    ClassroomsTeacher.where(classroom_id: classroom_id1).each do |ct|
-      if ClassroomsTeacher.where(user_id: ct.user_id, classroom_id: classroom_id2).any?
+  def self.assign_teachers_to_other_class(source_classroom_id, target_classroom_id)
+    ClassroomsTeacher.where(classroom_id: source_classroom_id).each do |ct|
+      if ClassroomsTeacher.where(user_id: ct.user_id, classroom_id: target_classroom_id).any?
         ct.destroy
       else
-        ct.update(classroom_id: classroom_id2, role: 'coteacher')
+        ct.update(classroom_id: target_classroom_id, role: 'coteacher')
       end
     end
   end

@@ -42,9 +42,8 @@ class Teachers::UnitActivitiesController < ApplicationController
 
   private def set_activity_sessions
     activity_ids = @unit_activities.map(&:activity_id).flatten.uniq
-    classroom_unit_ids = []
-    @unit_activities.each { |ua| classroom_unit_ids << ua.unit.classroom_unit_ids }
-    @activity_sessions = ActivitySession.where(activity: activity_ids, classroom_unit: classroom_unit_ids.flatten.uniq)
+    classroom_unit_ids = @unit_activities.map { |ua| ua.unit.classroom_unit_ids }.flatten.uniq
+    @activity_sessions = ActivitySession.where(activity: activity_ids, classroom_unit: classroom_unit_ids)
   end
 
   private def set_unit_activities
