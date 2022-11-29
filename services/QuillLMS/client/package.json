@@ -38,7 +38,7 @@
     "babel-polyfill": "^6.7.4",
     "bootstrap-loader": "^3.0.4",
     "bootstrap-sass": "^3.4.1",
-    "bulma": "^0.8.0",
+    "bulma": "^0.9.4",
     "compression-webpack-plugin": "^5.0.2",
     "create-react-class": "^15.7.0",
     "css-loader": "^3.2.0",
