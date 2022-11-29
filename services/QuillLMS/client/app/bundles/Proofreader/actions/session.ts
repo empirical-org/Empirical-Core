@@ -1,4 +1,4 @@
-import uuid4 from 'uuid';
+import uuid from 'uuid4';
 
 import { ActionTypes } from './actionTypes'
 
@@ -18,7 +18,7 @@ export const updateSessionOnFirebase = (sessionID: string, session: { passage: A
 
 export const updateConceptResultsOnFirebase = (sessionID: string|null, activityUID: string, sessionObj: { conceptResults: ConceptResultObject[], timeTracking: {[key:string]: number} } ) => {
   if (!sessionID) {
-    sessionID = uuid4()
+    sessionID = uuid()
   }
   SessionApi.update(sessionID, { ...sessionObj, activityUID, anonymous: !sessionID })
   return sessionID
