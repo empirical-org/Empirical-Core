@@ -1,4 +1,4 @@
-import uuid from 'uuid4';
+import {v4 as uuid} from 'uuid';
 
 import { ActionTypes } from './actionTypes'
 

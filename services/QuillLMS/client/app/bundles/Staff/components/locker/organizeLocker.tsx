@@ -1,5 +1,6 @@
 import * as React from 'react';
-import uuid from 'uuid4';
+import {v4 as uuid} from 'uuid';
+
 import _ from 'lodash';
 import { useQueryClient } from 'react-query';
 
