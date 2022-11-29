@@ -150,7 +150,6 @@ class UnitTemplate < ApplicationRecord
     end
   end
 
-  # rubocop:disable Metrics/CyclomaticComplexity
   def self.previously_assigned_activity_data(activity_ids=[], current_user=nil)
     results = {}
     activity_ids.map do |id|
@@ -172,7 +171,6 @@ class UnitTemplate < ApplicationRecord
     end
     { previously_assigned_activity_data: results }
   end
-  # rubocop:enable Metrics/CyclomaticComplexity
 
   private def delete_relevant_caches
     $redis.del("unit_template_id:#{id}_serialized")
