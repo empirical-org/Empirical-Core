@@ -3,7 +3,7 @@
 module Evidence
   class FeedbackAssembler
     def self.error_to_rule_uid
-      raise NotImplementedError, 'Cannot call #error_to_rule_uid on abstract class FeedbakAssembler'
+      raise NotImplementedError, 'Cannot call #error_to_rule_uid on abstract class FeedbackAssembler'
     end
 
     def self.run(client_response)

@@ -151,6 +151,7 @@ EmpiricalGrammar::Application.routes.draw do
     post :complete_acknowledge_growth_diagnostic_promotion_card, on: :collection
     post :complete_dismiss_grade_level_warning, on: :collection
     post :complete_dismiss_school_selection_reminder, on: :collection
+    post :create_or_touch_dismiss_teacher_info_modal, on: :collection
   end
 
   resources :grades, only: [:index]
@@ -159,6 +160,10 @@ EmpiricalGrammar::Application.routes.draw do
     get :saved_activity_ids_for_current_user, on: :collection
     post :create_by_activity_id_for_current_user, on: :collection
     delete :destroy_by_activity_id_for_current_user, on: :collection
+  end
+
+  resources :teacher_infos, only: [:create] do
+    put :update, on: :collection
   end
 
   get 'grades/tooltip/classroom_unit_id/:classroom_unit_id/user_id/:user_id/activity_id/:activity_id/completed/:completed' => 'grades#tooltip'
@@ -525,6 +530,7 @@ EmpiricalGrammar::Application.routes.draw do
   get '/sign-up/pick-school-type', to: 'accounts#new'
   get '/sign-up/add-k12', to: 'accounts#new'
   get '/sign-up/add-non-k12', to: 'accounts#new'
+  get '/sign-up/add-teacher-info', to: 'accounts#new'
 
   get Auth::Google::OFFLINE_ACCESS_CALLBACK_PATH => 'auth/google#offline_access_callback'
   get Auth::Google::ONLINE_ACCESS_CALLBACK_PATH => 'auth/google#online_access_callback'

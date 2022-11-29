@@ -10,6 +10,13 @@ SET client_min_messages = warning;
 SET row_security = off;
 
 --
+-- Name: public; Type: SCHEMA; Schema: -; Owner: -
+--
+
+-- *not* creating schema, since initdb creates it
+
+
+--
 -- Name: hstore; Type: EXTENSION; Schema: -; Owner: -
 --
 
@@ -1189,7 +1196,7 @@ CREATE TABLE public.classrooms_teachers (
     created_at timestamp without time zone,
     updated_at timestamp without time zone,
     "order" integer,
-    CONSTRAINT check_role_is_valid CHECK ((((role)::text = ANY ((ARRAY['owner'::character varying, 'coteacher'::character varying])::text[])) AND (role IS NOT NULL)))
+    CONSTRAINT check_role_is_valid CHECK ((((role)::text = ANY (ARRAY[('owner'::character varying)::text, ('coteacher'::character varying)::text])) AND (role IS NOT NULL)))
 );
 
 
@@ -3962,6 +3969,37 @@ ALTER SEQUENCE public.students_classrooms_id_seq OWNED BY public.students_classr
 
 
 --
+-- Name: subject_areas; Type: TABLE; Schema: public; Owner: -
+--
+
+CREATE TABLE public.subject_areas (
+    id bigint NOT NULL,
+    name character varying NOT NULL,
+    created_at timestamp(6) without time zone NOT NULL,
+    updated_at timestamp(6) without time zone NOT NULL
+);
+
+
+--
+-- Name: subject_areas_id_seq; Type: SEQUENCE; Schema: public; Owner: -
+--
+
+CREATE SEQUENCE public.subject_areas_id_seq
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+
+--
+-- Name: subject_areas_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: -
+--
+
+ALTER SEQUENCE public.subject_areas_id_seq OWNED BY public.subject_areas.id;
+
+
+--
 -- Name: subscriptions; Type: TABLE; Schema: public; Owner: -
 --
 
@@ -4001,6 +4039,71 @@ CREATE SEQUENCE public.subscriptions_id_seq
 --
 
 ALTER SEQUENCE public.subscriptions_id_seq OWNED BY public.subscriptions.id;
+
+
+--
+-- Name: teacher_info_subject_areas; Type: TABLE; Schema: public; Owner: -
+--
+
+CREATE TABLE public.teacher_info_subject_areas (
+    id bigint NOT NULL,
+    teacher_info_id bigint NOT NULL,
+    subject_area_id bigint NOT NULL,
+    created_at timestamp(6) without time zone NOT NULL,
+    updated_at timestamp(6) without time zone NOT NULL
+);
+
+
+--
+-- Name: teacher_info_subject_areas_id_seq; Type: SEQUENCE; Schema: public; Owner: -
+--
+
+CREATE SEQUENCE public.teacher_info_subject_areas_id_seq
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+
+--
+-- Name: teacher_info_subject_areas_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: -
+--
+
+ALTER SEQUENCE public.teacher_info_subject_areas_id_seq OWNED BY public.teacher_info_subject_areas.id;
+
+
+--
+-- Name: teacher_infos; Type: TABLE; Schema: public; Owner: -
+--
+
+CREATE TABLE public.teacher_infos (
+    id bigint NOT NULL,
+    minimum_grade_level integer,
+    maximum_grade_level integer,
+    user_id bigint NOT NULL,
+    created_at timestamp(6) without time zone NOT NULL,
+    updated_at timestamp(6) without time zone NOT NULL
+);
+
+
+--
+-- Name: teacher_infos_id_seq; Type: SEQUENCE; Schema: public; Owner: -
+--
+
+CREATE SEQUENCE public.teacher_infos_id_seq
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+
+--
+-- Name: teacher_infos_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: -
+--
+
+ALTER SEQUENCE public.teacher_infos_id_seq OWNED BY public.teacher_infos.id;
 
 
 --
@@ -5210,10 +5313,31 @@ ALTER TABLE ONLY public.students_classrooms ALTER COLUMN id SET DEFAULT nextval(
 
 
 --
+-- Name: subject_areas id; Type: DEFAULT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY public.subject_areas ALTER COLUMN id SET DEFAULT nextval('public.subject_areas_id_seq'::regclass);
+
+
+--
 -- Name: subscriptions id; Type: DEFAULT; Schema: public; Owner: -
 --
 
 ALTER TABLE ONLY public.subscriptions ALTER COLUMN id SET DEFAULT nextval('public.subscriptions_id_seq'::regclass);
+
+
+--
+-- Name: teacher_info_subject_areas id; Type: DEFAULT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY public.teacher_info_subject_areas ALTER COLUMN id SET DEFAULT nextval('public.teacher_info_subject_areas_id_seq'::regclass);
+
+
+--
+-- Name: teacher_infos id; Type: DEFAULT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY public.teacher_infos ALTER COLUMN id SET DEFAULT nextval('public.teacher_infos_id_seq'::regclass);
 
 
 --
@@ -6164,11 +6288,35 @@ ALTER TABLE ONLY public.students_classrooms
 
 
 --
+-- Name: subject_areas subject_areas_pkey; Type: CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY public.subject_areas
+    ADD CONSTRAINT subject_areas_pkey PRIMARY KEY (id);
+
+
+--
 -- Name: subscriptions subscriptions_pkey; Type: CONSTRAINT; Schema: public; Owner: -
 --
 
 ALTER TABLE ONLY public.subscriptions
     ADD CONSTRAINT subscriptions_pkey PRIMARY KEY (id);
+
+
+--
+-- Name: teacher_info_subject_areas teacher_info_subject_areas_pkey; Type: CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY public.teacher_info_subject_areas
+    ADD CONSTRAINT teacher_info_subject_areas_pkey PRIMARY KEY (id);
+
+
+--
+-- Name: teacher_infos teacher_infos_pkey; Type: CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY public.teacher_infos
+    ADD CONSTRAINT teacher_infos_pkey PRIMARY KEY (id);
 
 
 --
@@ -7452,6 +7600,27 @@ CREATE UNIQUE INDEX index_subscriptions_on_stripe_invoice_id ON public.subscript
 
 
 --
+-- Name: index_teacher_info_subject_areas_on_subject_area_id; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX index_teacher_info_subject_areas_on_subject_area_id ON public.teacher_info_subject_areas USING btree (subject_area_id);
+
+
+--
+-- Name: index_teacher_info_subject_areas_on_teacher_info_id; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX index_teacher_info_subject_areas_on_teacher_info_id ON public.teacher_info_subject_areas USING btree (teacher_info_id);
+
+
+--
+-- Name: index_teacher_infos_on_user_id; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX index_teacher_infos_on_user_id ON public.teacher_infos USING btree (user_id);
+
+
+--
 -- Name: index_teacher_saved_activities_on_activity_id; Type: INDEX; Schema: public; Owner: -
 --
 
@@ -7936,6 +8105,14 @@ ALTER TABLE ONLY public.classroom_unit_activity_states
 
 
 --
+-- Name: teacher_info_subject_areas fk_rails_45c8f41e5e; Type: FK CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY public.teacher_info_subject_areas
+    ADD CONSTRAINT fk_rails_45c8f41e5e FOREIGN KEY (subject_area_id) REFERENCES public.subject_areas(id);
+
+
+--
 -- Name: unit_activities fk_rails_48bcb0b8a0; Type: FK CONSTRAINT; Schema: public; Owner: -
 --
 
@@ -8005,6 +8182,14 @@ ALTER TABLE ONLY public.criteria
 
 ALTER TABLE ONLY public.recommendations
     ADD CONSTRAINT fk_rails_6745e4bc86 FOREIGN KEY (unit_template_id) REFERENCES public.unit_templates(id);
+
+
+--
+-- Name: teacher_info_subject_areas fk_rails_69cab8704b; Type: FK CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY public.teacher_info_subject_areas
+    ADD CONSTRAINT fk_rails_69cab8704b FOREIGN KEY (teacher_info_id) REFERENCES public.teacher_infos(id);
 
 
 --
@@ -8125,6 +8310,14 @@ ALTER TABLE ONLY public.classroom_unit_activity_states
 
 ALTER TABLE ONLY public.comprehension_plagiarism_texts
     ADD CONSTRAINT fk_rails_bcd03e8630 FOREIGN KEY (rule_id) REFERENCES public.comprehension_rules(id) ON DELETE CASCADE;
+
+
+--
+-- Name: teacher_infos fk_rails_bff7948d7b; Type: FK CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY public.teacher_infos
+    ADD CONSTRAINT fk_rails_bff7948d7b FOREIGN KEY (user_id) REFERENCES public.users(id);
 
 
 --
@@ -8716,6 +8909,9 @@ INSERT INTO "schema_migrations" (version) VALUES
 ('20221014103417'),
 ('20221014103843'),
 ('20221019184933'),
-('20221019185354');
+('20221019185354'),
+('20221109181742'),
+('20221109182042'),
+('20221109182145');
 
 

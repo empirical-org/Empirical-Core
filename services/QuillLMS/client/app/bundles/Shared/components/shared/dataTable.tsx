@@ -92,6 +92,9 @@ export class DataTable extends React.Component<DataTableProps, DataTableState> {
   attributeAlignment(attributeName): CSS.TextAlignProperty {
     const { rows, } = this.props
     const numbersRegex = new RegExp(/^[\d#%\.\$]+$/)
+
+    if (attributeName === 'username') { return left }
+
     return rows.every(row => numbersRegex.test(row[attributeName]) || !row[attributeName]) ? right : left
   }
 

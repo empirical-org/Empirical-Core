@@ -1,27 +1,37 @@
 # frozen_string_literal: true
 
 class VitallyApi
-  VITALLY_API_BASE_URL = 'https://api.vitally.io/analytics/v1'
+  BASE_URL = 'https://api.vitally.io/analytics/v1'
+  RATE_LIMIT_CODE = 429
+  ENDPOINT_BATCH = 'batch'
+  ENDPOINT_UNLINK = 'unlink'
+  API_KEY = ENV['VITALLY_API_KEY']
 
-  def initialize
-    @api_key = ENV['VITALLY_API_KEY']
-  end
+
+  class RateLimitError < StandardError; end
+  class ApiError < StandardError; end
 
   def batch(payload)
-    send('batch', payload)
+    call(ENDPOINT_BATCH, payload)
   end
 
   def unlink(payload)
-    send('unlink', payload)
+    call(ENDPOINT_UNLINK, payload)
   end
 
-  private def send(command, payload)
-    HTTParty.post("#{VITALLY_API_BASE_URL}/#{command}",
+  private def call(endpoint, payload)
+    response = HTTParty.post("#{BASE_URL}/#{endpoint}",
       headers: {
-        Authorization: "Basic #{@api_key}",
+        Authorization: "Basic #{API_KEY}",
         "Content-Type": "application/json"
       },
       body: payload.to_json
     )
+
+    return response if response.success?
+
+    raise RateLimitError if response.code == RATE_LIMIT_CODE
+
+    raise ApiError, response.code.to_s
   end
 end

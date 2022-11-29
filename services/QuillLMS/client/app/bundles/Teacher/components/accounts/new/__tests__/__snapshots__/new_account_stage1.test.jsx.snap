@@ -26,6 +26,10 @@ exports[`NewAccountStage1 component should render  1`] = `
       component={[Function]}
       path="/sign-up/add-non-k12"
     />
+    <Route
+      component={[Function]}
+      path="/sign-up/add-teacher-info"
+    />
   </div>
 </BrowserRouter>
 `;

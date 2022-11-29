@@ -41,5 +41,24 @@ RSpec.describe ActivityFeedbackHistory, type: :model do
 
       expect(result[:average_completion_rate]).to eq(66.67)
     end
+
+    it 'should only capture the sessions for the designated activity version' do
+      current_version = 2
+      previous_version = 1
+
+      fh1 = create(:feedback_history, prompt: @prompt1, activity_version: current_version)
+      as1 = create(:activity_session, state: "started")
+      fh1.feedback_session.update(activity_session_uid: as1.uid)
+      fh2 = create(:feedback_history, prompt: @prompt1, activity_version: current_version)
+      as2 = create(:activity_session, state: "finished")
+      fh2.feedback_session.update(activity_session_uid: as2.uid)
+      fh3 = create(:feedback_history, prompt: @prompt1, activity_version: previous_version)
+      as3 = create(:activity_session, state: "finished")
+      fh3.feedback_session.update(activity_session_uid: as3.uid)
+
+      result = ActivityFeedbackHistory.activity_stats_query(activity_id: @main_activity.id, activity_version: current_version)
+
+      expect(result[:average_completion_rate]).to eq(50)
+    end
   end
 end

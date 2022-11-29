@@ -77,6 +77,8 @@ module Evidence
     end
 
     def determine_feedback_from_history(feedback_history)
+      return feedbacks.order(:order).first if feedback_history.blank?
+
       relevant_history = feedback_history.filter { |fb| fb['feedback_type'] == rule_type }
       relevant_feedback_text = relevant_history.map { |fb| fb['feedback'] }
 
