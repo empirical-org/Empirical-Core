@@ -10,6 +10,11 @@ class UserMailer < ActionMailer::Base
     signatures: {
       quill_team: 'The Quill Team'
     }
+    links: {
+      admin_dashboard: 'https://www.quill.org/teachers/admin_dashboard',
+      link_account: 'https://support.quill.org/en/articles/4249829-how-do-i-link-my-account',
+      premium: 'https://support.quill.org/en/collections/64410-quill-premium'
+    }
   }
 
   before_action { @constants = CONSTANTS }
@@ -38,6 +43,98 @@ class UserMailer < ActionMailer::Base
     @temp_password = temp_password
     @admin_name = admin_name
     mail to: user.email, subject: 'Welcome to Quill, An Administrator Created A Quill Account For You!'
+  end
+
+  def admin_dashboard_teacher_account_created(user, admin_name, school_name, set_password_link, is_reminder)
+    @user = user
+    @admin_name = admin_name
+    @school_name = school_name
+    @set_password_link = set_password_link
+    subject = is_reminder ? "🔔 Reminder: #{user.first_name}, a Quill account was created for you" : "Complete Account Setup: #{user.first_name}, a Quill account was created for you"
+    mail to: user.email, subject: subject
+  end
+
+  def admin_dashboard_admin_account_created(user, admin_name, school_name, set_password_link, is_reminder)
+    @user = user
+    @admin_name = admin_name
+    @school_name = school_name
+    @set_password_link = set_password_link
+    subject = is_reminder ? "🔔 Reminder: #{user.first_name}, a Quill school admin account was created for you" : "Complete Account Setup: #{user.first_name}, a Quill school admin account was created for you"
+    mail to: user.email, subject: subject
+  end
+
+  def admin_dashboard_teacher_link_school(user, admin_name, school)
+    @user = user
+    @admin_name = admin_name
+    @school = school
+    @link_school_link = "#{ENV['DEFAULT_URL']}/teachers/#{@user.id}/schools/#{@school.id}"
+    mail to: user.email, subject: "Link school: #{user.first_name}, please link your Quill account to #{school.name}"
+  end
+
+  def admin_dashboard_made_school_admin(user, admin_name, school_name)
+    @user = user
+    @admin_name = admin_name
+    @school_name = school_name
+    mail to: user.email, subject: "#{user.first_name}, you are now a Quill admin for #{school_name}"
+  end
+
+  def admin_dashboard_made_school_admin_link_school(user, admin_name, school)
+    @user = user
+    @admin_name = admin_name
+    @school = school
+    @link_school_link = "#{ENV['DEFAULT_URL']}/teachers/#{@user.id}/schools/#{@school.id}"
+    mail to: user.email, subject: "#{user.first_name}, you are now a Quill admin for #{school.name}"
+  end
+
+  def admin_dashboard_made_school_admin_change_school(user, admin_name, new_school, existing_school, link_school_link)
+    @user = user
+    @admin_name = admin_name
+    @new_school = new_school
+    @existing_school = existing_school
+    @link_school_link = "#{ENV['DEFAULT_URL']}/teachers/#{@user.id}/schools/#{@school.id}"
+    mail to: user.email, subject: "#{user.first_name}, you are now a Quill admin for #{new_school.name}"
+  end
+
+  def internal_tool_admin_account_created(user, school_name, set_password_link)
+    @user = user
+    @school_name = school_name
+    @set_password_link = set_password_link
+    mail to: user.email, subject: "Complete Account Setup: #{user.first_name}, a Quill school admin account was created for you"
+  end
+
+  def internal_tool_made_school_admin(user, school_name)
+    @user = user
+    @school_name = school_name
+    mail to: user.email, subject: "#{user.first_name}, you are now a Quill admin for #{school_name}"
+  end
+
+  def internal_tool_made_school_admin_link_school(user, school)
+    @user = user
+    @school = school
+    @link_school_link = "#{ENV['DEFAULT_URL']}/teachers/#{@user.id}/schools/#{@school.id}"
+    mail to: user.email, subject: "#{user.first_name}, you are now a Quill admin for #{school.name}"
+  end
+
+  def internal_tool_made_school_admin_change_school(user, new_school, existing_school)
+    @user = user
+    @new_school = new_school
+    @existing_school = existing_school
+    @link_school_link = "#{ENV['DEFAULT_URL']}/teachers/#{@user.id}/schools/#{@school.id}"
+    mail to: user.email, subject: "#{user.first_name}, you are now a Quill admin for #{new_school.name}"
+  end
+
+  def internal_tool_district_admin_account_created(user, district_name, set_password_link)
+    @user = user
+    @district_name = district_name
+    @set_password_link = set_password_link
+    mail to: user.email, subject: "Complete Account Setup: #{user.first_name}, a Quill district admin account was created for you"
+  end
+
+  def internal_tool_made_district_admin(user, district_name, set_password_link)
+    @user = user
+    @district_name = district_name
+    @set_password_link = set_password_link
+    mail to: user.email, subject: "#{user.first_name}, you are now a Quill admin for #{district_name}"
   end
 
   # Sent when an admin requests an existing teacher to join one of their schools.

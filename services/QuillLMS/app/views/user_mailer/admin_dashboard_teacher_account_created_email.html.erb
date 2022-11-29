@@ -1,0 +1,23 @@
+<p>Hi <%= @user.first_name %>,</p>
+
+<p>A Quill account was created for you by <%= @admin_name %> at <%= @school_name %></p>
+
+<p>🛎️ <strong>Complete your account setup</strong></p>
+
+<p>To complete your account setup, please set a password.<p>
+
+<a href=<%= @set_password_link%>Set my password and log in</a>
+
+<p>ℹ️ <strong>How to log in using Google or Clever</strong></p>
+
+<p>You can link your account with Google or Clever to make it easier to log in. Confirm with your admin your school or district’s preference, and then <a href=<%= @constants[:links][:link_account]%> rel="noopener noreferrer" target="_blank">complete the steps in this guide</a>.</p>
+
+<p>ℹ️ <strong>About Quill</strong></p>
+
+<p>Quill is a nonprofit, educational technology organization dedicated to strengthening student writing. Quill provides 10-15 minute exercises that help students build sentence construction skills. Quill provides specific, automatic feedback and hints to help students improve it. The personalized, immediate responses to student submissions enable students to build their writing skills quickly, and allow teachers to prioritize data-driven intervention by removing the need for hours of grading.<p/>
+
+<p>We’re excited that you have joined our community of learners, and welcome your questions and feedback!</p>
+
+<p>Best regards,</p>
+
+<p><%= @constants[:signatures][:quill_team]%></p>
