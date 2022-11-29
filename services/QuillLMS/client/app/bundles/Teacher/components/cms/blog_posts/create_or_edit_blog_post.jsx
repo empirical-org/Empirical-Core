@@ -183,7 +183,7 @@ export default class CreateOrEditBlogPost extends React.Component {
         body: data
       })
         .then(response => response.json()) // if the response is a JSON object
-        .then(response => this.setState({uploadedImageLink: response.url})); // Handle the success response object
+        .then(response => this.setState({uploadedMediaLink: response.url})); // Handle the success response object
     });
   }
 
@@ -208,6 +208,8 @@ export default class CreateOrEditBlogPost extends React.Component {
   handleInsertBold = () => this.insertMarkdown('**', '**')
 
   handleInsertFileImage = () => this.insertMarkdown('![', '](http://cultofthepartyparrot.com/parrots/hd/parrot.gif)')
+
+  handleInsertIFrame = () => this.insertMarkdown('<iframe width="560" height="315" src="https://www.youtube.com/embed/dQw4w9WgXcQ" frameborder="0" allowfullscreen></iframe>')
 
   handleInsertH1 = () => this.insertMarkdown('# ')
 
@@ -558,6 +560,7 @@ export default class CreateOrEditBlogPost extends React.Component {
         <i className="fas fa-quote-left" onClick={this.handleInsertQuote} />
         <i className="fas fa-link" onClick={this.handleInsertLink} />
         <i className="fas fa-file-image" onClick={this.handleInsertFileImage} />
+        <i className="fas fa-video" onClick={this.handleInsertIFrame} />
         <i className="fas fa-square" onClick={this.handleInsertPrimaryButton} />
         <i className="far fa-square" onClick={this.handleInsertSecondaryButton} />
       </div>)
@@ -711,7 +714,7 @@ export default class CreateOrEditBlogPost extends React.Component {
       author_id,
       topic,
       externalLink,
-      uploadedImageLink,
+      uploadedMediaLink,
       preview_card_content,
       premium,
       centerImages,
@@ -759,11 +762,11 @@ export default class CreateOrEditBlogPost extends React.Component {
           </div>
 
           <div>
-            <label>Click the square below or drag an image into it to upload an image:</label>
+            <label>Click the square below or drag an image into it to upload an image or video:</label>
             <Dropzone onDrop={this.handleDrop} />
-            <label style={{marginTop: '10px'}}>Here is the link to your uploaded image:</label>
-            <input style={{marginBottom: '0px'}} value={uploadedImageLink} />
-            <a className="link" href="/cms/images" style={{marginBottom: '10px'}} target="_blank">All Uploaded Images</a>
+            <label style={{marginTop: '10px'}}>Here is the link to your uploaded image or video:</label>
+            <input style={{marginBottom: '0px'}} value={uploadedMediaLink} />
+            <a className="link" href="/cms/images" style={{marginBottom: '10px'}} target="_blank">All Uploaded Media</a>
           </div>
 
           <div className="side-by-side">

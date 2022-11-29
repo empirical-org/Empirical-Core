@@ -17,7 +17,8 @@ SecureHeaders::Configuration.default do |config|
       "https://stripe.com",
       "https://*.stripe.com",
       "https://youtube.com",
-      "https://*.youtube.com"
+      "https://*.youtube.com",
+      "https://*.amazonaws.com"
     ],
 
     object_src: %w('none'),                                       # addresses <embed>, <object>, and <applet>
