@@ -570,6 +570,10 @@ class User < ApplicationRecord
     user_attributes = attributes
     user_attributes[:subscription] = subscription ? subscription.attributes : {}
     user_attributes[:subscription]['subscriptionType'] = premium_state
+    user_attributes[:minimum_grade_level] = teacher_info&.minimum_grade_level
+    user_attributes[:maximum_grade_level] = teacher_info&.maximum_grade_level
+    user_attributes[:subject_area_ids] = subject_area_ids
+
     if school && school.name
       user_attributes[:school] = school
       user_attributes[:school_type] = School::ALTERNATIVE_SCHOOLS_DISPLAY_NAME_MAP[school.name] || School::US_K12_SCHOOL_DISPLAY_NAME

@@ -23,7 +23,7 @@ class SelectUSK12 extends React.Component {
       `${process.env.DEFAULT_URL}/select_school`,
       { school_id_or_type: idOrType, },
       (body) => {
-        window.location = '/finish_sign_up'
+        window.location = '/sign-up/add-teacher-info'
       }
     )
   }

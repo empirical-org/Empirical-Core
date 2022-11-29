@@ -1,2 +1,5 @@
-<%= react_component('NewAccountApp', props: {teacherFromGoogleSignUp: @teacher_from_google_signup})%>
+<%= react_component('NewAccountApp', props: {
+  teacherFromGoogleSignUp: @teacher_from_google_signup,
+  subjectAreas: SubjectArea.all
+})%>
 <%= javascript_include_tag('cookie_warning.js') %>

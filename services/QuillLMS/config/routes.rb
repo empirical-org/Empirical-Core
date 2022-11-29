@@ -151,6 +151,7 @@ EmpiricalGrammar::Application.routes.draw do
     post :complete_acknowledge_growth_diagnostic_promotion_card, on: :collection
     post :complete_dismiss_grade_level_warning, on: :collection
     post :complete_dismiss_school_selection_reminder, on: :collection
+    post :create_or_touch_dismiss_teacher_info_modal, on: :collection
   end
 
   resources :grades, only: [:index]
@@ -529,6 +530,7 @@ EmpiricalGrammar::Application.routes.draw do
   get '/sign-up/pick-school-type', to: 'accounts#new'
   get '/sign-up/add-k12', to: 'accounts#new'
   get '/sign-up/add-non-k12', to: 'accounts#new'
+  get '/sign-up/add-teacher-info', to: 'accounts#new'
 
   get Auth::Google::OFFLINE_ACCESS_CALLBACK_PATH => 'auth/google#offline_access_callback'
   get Auth::Google::ONLINE_ACCESS_CALLBACK_PATH => 'auth/google#online_access_callback'

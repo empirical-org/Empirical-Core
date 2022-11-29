@@ -529,6 +529,7 @@ describe User, type: :model do
   describe '#generate_teacher_account_info' do
     let(:user) { create(:user) }
     let(:premium_state) { double(:premium_state) }
+    let!(:teacher_info) { create(:teacher_info_with_subject_area, user: user) }
 
     before do
       allow(user).to receive(:subscription).and_return(nil)
@@ -542,7 +543,10 @@ describe User, type: :model do
       hash = user.attributes.merge!({
         subscription: {'subscriptionType' => premium_state},
         school: school,
-        school_type: School::US_K12_SCHOOL_DISPLAY_NAME
+        school_type: School::US_K12_SCHOOL_DISPLAY_NAME,
+        minimum_grade_level: teacher_info.minimum_grade_level,
+        maximum_grade_level: teacher_info.maximum_grade_level,
+        subject_area_ids: teacher_info.subject_area_ids
       })
       expect(user.generate_teacher_account_info).to eq(hash)
     end
@@ -552,7 +556,10 @@ describe User, type: :model do
       hash = user.attributes.merge!({
         subscription: {'subscriptionType' => premium_state},
         school: school,
-        school_type: School::US_K12_SCHOOL_DISPLAY_NAME
+        school_type: School::US_K12_SCHOOL_DISPLAY_NAME,
+        minimum_grade_level: teacher_info.minimum_grade_level,
+        maximum_grade_level: teacher_info.maximum_grade_level,
+        subject_area_ids: teacher_info.subject_area_ids
       })
       expect(user.generate_teacher_account_info).to eq(hash)
     end
