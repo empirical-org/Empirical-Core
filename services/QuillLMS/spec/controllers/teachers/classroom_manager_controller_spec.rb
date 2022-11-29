@@ -374,6 +374,7 @@ describe Teachers::ClassroomManagerController, type: :controller do
     let!(:explore_our_library) { create(:explore_our_library)}
     let!(:explore_our_diagnostics) { create(:explore_our_diagnostics)}
     let!(:create_a_classroom_checkbox) { create(:checkbox, user: teacher, objective: create_a_classroom)}
+    let!(:teacher_info_milestone) { create(:dismiss_teacher_info_modal) }
 
     before do
       allow(controller).to receive(:current_user) { teacher }
@@ -385,6 +386,48 @@ describe Teachers::ClassroomManagerController, type: :controller do
     it 'should set the featured_blog_posts variable to the array of featured blog posts' do
       get :dashboard
       expect(assigns(:featured_blog_posts)).to eq [blog_post1, blog_post2, blog_post3]
+    end
+
+    describe 'teacher info milestone' do
+
+      describe 'when the teacher already has teacher info' do
+        it 'assigns must_see_teacher_info_modal to false' do
+          create(:teacher_info, user: teacher)
+
+          get :dashboard
+          expect(assigns(:must_see_teacher_info_modal)).to eq false
+        end
+      end
+
+      describe 'when the teacher does not have teacher info' do
+
+        it 'assigns must_see_teacher_info_modal to true if the user_milestone does not exist' do
+          get :dashboard
+          expect(assigns(:must_see_teacher_info_modal)).to eq true
+        end
+
+        it 'assigns must_see_teacher_info_modal to false if the user_milestone exists but was updated less than a month ago' do
+          create(:user_milestone, milestone: teacher_info_milestone, user: teacher)
+
+          get :dashboard
+          expect(assigns(:must_see_teacher_info_modal)).to eq false
+        end
+
+        it 'assigns must_see_teacher_info_modal to false if the user_milestone exists but was created more than six months ago' do
+          create(:user_milestone, milestone: teacher_info_milestone, user: teacher, updated_at: 7.months.ago, created_at: 7.months.ago)
+
+          get :dashboard
+          expect(assigns(:must_see_teacher_info_modal)).to eq false
+        end
+
+        it 'assigns must_see_teacher_info_modal to true if the user_milestone exists, has been updated more than a month ago, and was created less than six months ago' do
+          create(:user_milestone, milestone: teacher_info_milestone, user: teacher, updated_at: 2.months.ago, created_at: 2.months.ago)
+
+          get :dashboard
+          expect(assigns(:must_see_teacher_info_modal)).to eq true
+        end
+
+      end
     end
 
     describe 'onboarding checklist' do

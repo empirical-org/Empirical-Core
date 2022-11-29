@@ -92,7 +92,7 @@ gem 'sidekiq', '~> 5.2.10'
 gem 'sidekiq-retries', require: false
 gem 'sidekiq-unique-jobs'
 gem 'redis', '~> 4.5'
-gem 'redis-namespace'
+gem 'redis-namespace', '~> 1.8'
 gem 'redis-rails'
 gem 'redis-rack-cache'
 gem 'actionpack-action_caching'

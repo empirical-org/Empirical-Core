@@ -6,6 +6,7 @@ RSpec.describe 'Activity Pack Assignment' do
   include AuthenticationHelper
 
   let!(:teacher) { create(:teacher_with_a_couple_classrooms_with_one_student_each) }
+  let!(:teacher_info) { create(:teacher_info, user: teacher) }
   let!(:student) { teacher.students.first }
   let!(:classroom) { student.classrooms.first }
 

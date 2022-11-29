@@ -7,7 +7,7 @@
   background: rgba(44, 127, 155, 0.1);
   background-image: url("https://assets.quill.org/images/pages/dashboard/books-on-shelf.svg");
   background-repeat: no-repeat;
-  background-position: 92% 50%;
+  background-position: 97% 50%;
   .badge-section {
     display: inline-block;
     height: 20px;
@@ -47,7 +47,7 @@
     line-height: 26px;
     font-weight: 700;
     margin-top: 13px;
-    max-width: 511px;
+    max-width: 606px;
   }
   a {
     margin-top: 32px;
@@ -87,5 +87,11 @@
     .book-illustration {
       display: none;
     }
+  }
+}
+
+@media (max-width: 755px) {
+  .post-checklist-container main section.evidence-promotion-card {
+    background-position: 93% 50%;
   }
 }

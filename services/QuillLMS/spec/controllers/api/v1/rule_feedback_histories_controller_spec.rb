@@ -85,8 +85,8 @@ describe Api::V1::RuleFeedbackHistoriesController, type: :controller do
       it 'should return successfully' do
         get :activity_health, params: { activity_id: 1 }, as: :json
         expect(response.status).to eq 200
-        expect(JSON.parse(response.body)['average_time_spent']).to eq(0)
-        expect(JSON.parse(response.body)['average_completion_rate']).to eq(0)
+        expect(JSON.parse(response.body)['average_time_spent']).to eq(nil)
+        expect(JSON.parse(response.body)['average_completion_rate']).to eq(nil)
       end
     end
 

@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2022_10_19_185954) do
+ActiveRecord::Schema.define(version: 2022_11_10_063922) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -178,6 +178,22 @@ ActiveRecord::Schema.define(version: 2022_10_19_185954) do
     t.index ["uuid"], name: "index_comprehension_turking_rounds_on_uuid", unique: true
   end
 
+  create_table "evidence_activity_healths", force: :cascade do |t|
+    t.string "name"
+    t.string "flag"
+    t.integer "activity_id"
+    t.integer "version"
+    t.integer "version_plays"
+    t.integer "total_plays"
+    t.integer "completion_rate"
+    t.integer "because_final_optimal"
+    t.integer "but_final_optimal"
+    t.integer "so_final_optimal"
+    t.integer "avg_completion_time"
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+  end
+
   create_table "evidence_hints", force: :cascade do |t|
     t.string "explanation", null: false
     t.string "image_link", null: false
@@ -186,6 +202,29 @@ ActiveRecord::Schema.define(version: 2022_10_19_185954) do
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.index ["rule_id"], name: "index_evidence_hints_on_rule_id"
+  end
+
+  create_table "evidence_prompt_healths", force: :cascade do |t|
+    t.integer "prompt_id"
+    t.string "activity_short_name"
+    t.string "text"
+    t.integer "current_version"
+    t.integer "version_responses"
+    t.integer "first_attempt_optimal"
+    t.integer "final_attempt_optimal"
+    t.float "avg_attempts"
+    t.float "confidence"
+    t.integer "percent_automl_consecutive_repeated"
+    t.integer "percent_automl"
+    t.integer "percent_plagiarism"
+    t.integer "percent_opinion"
+    t.integer "percent_grammar"
+    t.integer "percent_spelling"
+    t.integer "avg_time_spent_per_prompt"
+    t.bigint "evidence_activity_health_id"
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.index ["evidence_activity_health_id"], name: "index_evidence_prompt_healths_on_evidence_activity_health_id"
   end
 
   create_table "users", id: :serial, force: :cascade do |t|
@@ -197,4 +236,5 @@ ActiveRecord::Schema.define(version: 2022_10_19_185954) do
   add_foreign_key "comprehension_labels", "comprehension_rules", column: "rule_id", on_delete: :cascade
   add_foreign_key "comprehension_plagiarism_texts", "comprehension_rules", column: "rule_id", on_delete: :cascade
   add_foreign_key "comprehension_regex_rules", "comprehension_rules", column: "rule_id", on_delete: :cascade
+  add_foreign_key "evidence_prompt_healths", "evidence_activity_healths", on_delete: :cascade
 end

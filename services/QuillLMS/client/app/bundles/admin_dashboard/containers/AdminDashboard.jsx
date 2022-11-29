@@ -1,15 +1,15 @@
 import React from 'react';
 import Pusher from 'pusher-js';
 
-import AdminsTeachers from '../components/admins_teachers.tsx';
-import PremiumFeatures from '../components/premium_features.tsx';
-import CreateNewAccounts from '../components/create_new_accounts.tsx';
+import AdminsTeachers from '../components/adminsTeachers.tsx';
+import PremiumFeatures from '../components/premiumFeatures.tsx';
+import CreateNewAccounts from '../components/createNewAccounts.tsx';
 import LoadingSpinner from '../../Teacher/components/shared/loading_indicator';
 import QuestionsAndAnswers from '../../Teacher/containers/QuestionsAndAnswers.tsx';
 import getAuthToken from '../../Teacher/components/modules/get_auth_token';
 import { requestGet, requestPost, } from '../../../modules/request/index'
 
-export default class AdminDashboard extends React.Component {
+export class AdminDashboard extends React.Component {
   constructor(props) {
     super(props)
 
@@ -81,30 +81,40 @@ export default class AdminDashboard extends React.Component {
     );
   };
 
+  scrollToCreateNewAccounts = () => {
+    const section = document.querySelector('#scroll-location');
+    section.scrollIntoView({ behavior: 'smooth', block: 'start' });
+  }
+
   render() {
-    if (!this.state.loading) {
-      return (
-        <div >
-          <div className="sub-container">
-            <PremiumFeatures />
-            <AdminsTeachers
-              data={this.state.model.teachers}
-              refreshData={this.getData}
-            />
-            <CreateNewAccounts
-              addTeacherAccount={this.addTeacherAccount}
-              error={this.state.error}
-              message={this.state.message}
-              schools={this.state.model.schools}
-            />
-            <QuestionsAndAnswers
-              questionsAndAnswersFile="admin"
-              supportLink="https://support.quill.org/quill-premium"
-            />
-          </div>
-        </div>
-      );
+    const { loading, error, message, model } = this.state
+
+    if(loading) {
+      return <LoadingSpinner />;
     }
-    return <LoadingSpinner />;
+    return(
+      <div className="sub-container">
+        <PremiumFeatures handleClick={this.scrollToCreateNewAccounts} />
+        <div className='dark-divider' id="scroll-location" />
+        <CreateNewAccounts
+          addTeacherAccount={this.addTeacherAccount}
+          error={error}
+          message={message}
+          schools={model.schools}
+        />
+        <div className='dark-divider' />
+        <div className="header">
+          <h2>Upload Teachers via CSV</h2>
+          <a className="quill-button secondary outlined fun focus-on-light csv-button" href="mailto:hello@quill.org?subject=Bulk Upload Teachers via CSV&body=Please attach your CSV file to this email.">Upload teachers via CSV</a>
+        </div>
+        <div className='dark-divider' />
+        <AdminsTeachers
+          data={model.teachers}
+          refreshData={this.getData}
+        />
+      </div>
+    );
   }
 }
+
+export default AdminDashboard

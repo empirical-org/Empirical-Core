@@ -134,6 +134,86 @@
   }
 }
 
+.account-form.add-teacher-info {
+  display: flex;
+  align-items: center;
+  flex-direction: column;
+  max-width: 546px;
+  h1 {
+    margin: 32px 0px 4px;
+  }
+  .sub-header {
+    max-width: 100%;
+    margin-bottom: 32px;
+  }
+  h2 {
+    font-weight: 700;
+    font-size: 16px;
+    line-height: 26px;
+  }
+  .quill-button {
+    margin-top: 8px;
+  }
+  @media (min-width: 560px) {
+    h1 {
+      white-space: nowrap;
+    }
+  }
+}
+
+.grade-level-section {
+  padding-bottom: 24px;
+  .button-section {
+    padding: 24px 0px 0px;
+  }
+  .input-container.active.not-editable {
+    margin-bottom: 0px;
+    .dropdown__menu {
+      margin-top: -50px;
+    }
+  }
+}
+
+.subject-area-section {
+  padding-bottom: 32px;
+  .button-section {
+    padding: 32px 0px 0px;
+  }
+}
+
+.grade-level-section, .subject-area-section {
+  form {
+    margin-bottom: 0px;
+  }
+}
+
+.subject-area-row {
+  margin-top: 16px;
+  display: flex;
+  align-items: center;
+  line-height: 14px;
+}
+
+.grade-dropdowns-wrapper {
+  display: flex;
+  justify-content: space-between;
+  margin-top: 16px;
+  .dropdown-container {
+    width: 100%;
+    max-width: 225px;
+    margin-bottom: 0px;
+  }
+  @media (max-width: 600px) {
+    flex-direction: column;
+  }
+}
+
+.grade-level-explanation {
+  margin: 8px 0px;
+  line-height: 18px;
+  color: #888888;
+}
+
 .school-search-container {
   max-width: 577px;
   border-radius: 6px;
