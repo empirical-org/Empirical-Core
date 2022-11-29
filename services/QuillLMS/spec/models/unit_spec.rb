@@ -32,7 +32,7 @@ describe Unit, type: :model do
   it { should have_many(:standards).through(:activities) }
   it { should belong_to(:unit_template) }
 
-  it { is_expected.to callback(:hide_classroom_units_and_unit_activities_if_visible_false).after(:save) }
+  it { is_expected.to callback(:hide_classroom_units_and_unit_activities).after(:save) }
 
   let!(:classroom) { create(:classroom) }
   let!(:teacher) { create(:teacher) }
@@ -125,9 +125,9 @@ describe Unit, type: :model do
     end
   end
 
-  describe '#hide_classroom_units_and_unit_activities_if_visible_false' do
+  describe '#hide_classroom_units_and_unit_activities' do
     it 'is called when the unit is saved' do
-      expect(unit).to receive(:hide_classroom_units_and_unit_activities_if_visible_false)
+      expect(unit).to receive(:hide_classroom_units_and_unit_activities)
       unit.update(name: 'new name')
     end
   end
