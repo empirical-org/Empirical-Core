@@ -1,9 +1,9 @@
 GIT
-  remote: https://github.com/cm-studios/omniauth-clever
-  revision: 9b32b15a3daca46aee1011e18e578fd61ec9c23e
+  remote: https://github.com/Pioneer-Valley-Books/omniauth-clever
+  revision: 62d7266cf2d6ac75011af7c72aacc05395d3f467
   specs:
-    omniauth-clever (1.1.1)
-      omniauth-oauth2 (~> 1.2)
+    omniauth-clever (1.2.2)
+      omniauth-oauth2 (>= 1.1)
 
 PATH
   remote: engines/evidence
