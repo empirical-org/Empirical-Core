@@ -19,7 +19,7 @@ SecureHeaders::Configuration.default do |config|
       "https://youtube.com",
       "https://*.youtube.com",
       "https://*.amazonaws.com",
-      "https://loom.com"
+      "https://*.loom.com"
     ],
 
     object_src: %w('none'),                                       # addresses <embed>, <object>, and <applet>
