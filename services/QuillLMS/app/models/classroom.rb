@@ -150,16 +150,21 @@ class Classroom < ApplicationRecord
   def hide_all_classroom_units
     ActivitySession.where(classroom_unit: classroom_units).update_all(visible: false)
     classroom_units.update_all(visible: false)
+    classroom_units.each(&:save_user_pack_sequence_items)
     return if owner.nil?
 
     SetTeacherLessonCache.perform_async(owner.id)
+
     ids = Unit.find_by_sql("
       SELECT unit.id FROM units unit
       LEFT JOIN classroom_units as cu ON cu.unit_id = unit.id AND cu.visible = true
       WHERE unit.visible = true
       AND cu.id IS null
       AND unit.user_id = #{owner.id}")
-    Unit.where(id: ids).update_all(visible: false)
+
+    units = Unit.where(id: ids)
+    units.update_all(visible: false)
+    units.each(&:save_user_pack_sequence_items)
   end
 
   def with_students
