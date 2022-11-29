@@ -35,6 +35,7 @@ describe ClassroomUnit, type: :model, redis: true do
 
   it { is_expected.to callback(:check_for_assign_on_join_and_update_students_array_if_true).before(:save) }
   it { is_expected.to callback(:hide_appropriate_activity_sessions).after(:save) }
+  it { is_expected.to callback(:save_user_pack_sequence_items).after(:save) }
 
   let!(:activity) { create(:activity) }
   let!(:student) { create(:student) }
@@ -187,45 +188,6 @@ describe ClassroomUnit, type: :model, redis: true do
 
       it "should not raise an error" do
         expect {classroom_unit.save}.to_not raise_error
-      end
-    end
-  end
-
-  describe '#save_user_pack_sequence_items' do
-    context 'after_save' do
-      context 'assigned_student_ids has changed' do
-        let!(:activity_session) {create(:activity_session, :unstarted, classroom_unit: classroom_unit, user: student2) }
-        let(:new_assigned_student_ids) { [student.id, student2.id] }
-        let(:num_assigned_students) { new_assigned_student_ids.count }
-
-        subject { classroom_unit.update(assigned_student_ids: new_assigned_student_ids) }
-
-        it do
-          expect(classroom_unit).to receive(:save_user_pack_sequence_items)
-          subject
-        end
-      end
-
-      context 'visible has changed' do
-        let(:num_assigned_students) { assigned_student_ids.count }
-
-        subject { classroom_unit.update(visible: false) }
-
-        it do
-          expect(classroom_unit).to receive(:save_user_pack_sequence_items)
-          subject
-        end
-      end
-    end
-
-    context 'after_destroy' do
-      subject { classroom_unit.destroy }
-
-      let(:num_assigned_students) { assigned_student_ids.count }
-
-      it do
-        expect(classroom_unit).to receive(:save_user_pack_sequence_items)
-        subject
       end
     end
   end

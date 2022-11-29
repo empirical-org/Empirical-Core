@@ -47,7 +47,7 @@ class Unit < ApplicationRecord
 
   default_scope { where(visible: true)}
 
-  after_save :hide_classroom_units_and_unit_activities_if_visible_false
+  after_save :hide_classroom_units_and_unit_activities
   after_save :create_any_new_classroom_unit_activity_states
 
   after_update :save_user_pack_sequence_items, if: :saved_change_to_visible?
@@ -62,7 +62,7 @@ class Unit < ApplicationRecord
     update(visible: false)
   end
 
-  def hide_classroom_units_and_unit_activities_if_visible_false
+  def hide_classroom_units_and_unit_activities
     return if visible
 
     unit_activities.where(visible: true).update(visible: false)
