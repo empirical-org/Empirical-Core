@@ -497,10 +497,17 @@ RSpec.describe FeedbackHistory, type: :model do
     end
 
     context '#serialize_list_by_activity_session' do
+      around do |example|
+        default_length = RSpec::Support::ObjectFormatter.default_instance.max_formatted_output_length
+        RSpec::Support::ObjectFormatter.default_instance.max_formatted_output_length = 10000
+        example.run
+        RSpec::Support::ObjectFormatter.default_instance.max_formatted_output_length = default_length
+      end
+
       it 'should take the query from #list_by_activity_session and return a shaped payload' do
         responses = FeedbackHistory.list_by_activity_session
         responses_for_scoring = FeedbackHistory.list_by_activity_session(responses_for_scoring: true)
-        RSpec::Support::ObjectFormatter.default_instance.max_formatted_output_length = 10000
+
         expect(responses.map { |r| r.serialize_by_activity_session }.to_json).to eq([
           {
             session_uid: @feedback_session2_uid,
@@ -645,6 +652,13 @@ RSpec.describe FeedbackHistory, type: :model do
     end
 
     context '#session_data_for_csv' do
+      around do |example|
+        default_length = RSpec::Support::ObjectFormatter.default_instance.max_formatted_output_length
+        RSpec::Support::ObjectFormatter.default_instance.max_formatted_output_length = 10000
+        example.run
+        RSpec::Support::ObjectFormatter.default_instance.max_formatted_output_length = default_length
+      end
+
       it 'should take the query from #session_data_for_csv and return a shaped payload' do
         responses = FeedbackHistory.session_data_for_csv
         responses.map { |r| r.serialize_csv_data }.each_with_index do |response, i|
