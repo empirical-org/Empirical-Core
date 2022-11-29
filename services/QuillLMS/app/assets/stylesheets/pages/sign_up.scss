@@ -309,10 +309,13 @@
   justify-content: center;
 }
 
-.select-non-k12 {
+.account-form.select-non-k12 {
   display: flex;
   flex-direction: column;
   align-items: center;
+  h1 {
+    margin-bottom: 32px;
+  }
   .quill-card {
     max-width: 546px;
     min-height: 158px;
