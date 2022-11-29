@@ -24,7 +24,7 @@ gem 'bcrypt', '~> 3.1.12'
 gem "doorkeeper", "5.0.3"
 gem 'omniauth', '~> 1.9'
 gem 'omniauth-google-oauth2', '0.6.0'
-gem 'omniauth-clever', '~> 1.2'
+gem 'omniauth-clever', git: 'https://github.com/cm-studios/omniauth-clever'
 gem 'omniauth-rails_csrf_protection'
 gem 'cancancan', '~> 2.3'
 gem 'firebase_token_generator'
