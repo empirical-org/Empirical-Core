@@ -1,6 +1,5 @@
 import React from 'react';
 import moment from 'moment';
-import "react-dates/initialize";
 import * as _ from 'lodash'
 
 import {
