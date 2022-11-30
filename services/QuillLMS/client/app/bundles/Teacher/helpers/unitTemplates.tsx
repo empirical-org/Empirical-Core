@@ -1,9 +1,10 @@
 
 import * as React from 'react';
-import { renderToString } from 'react-dom/server'
-import { Activity } from '../../../interfaces/activity';
+import { renderToString } from 'react-dom/server';
+import * as moment from 'moment';
 
-import { Tooltip, getIconForActivityClassification, NOT_APPLICABLE } from '../../Shared';
+import { Activity } from '../../../interfaces/activity';
+import { Tooltip, getIconForActivityClassification, NOT_APPLICABLE, assignedBadgeIconWhite } from '../../Shared';
 
 export const ALL_FLAGS = 'all flags';
 export const ALL_DIAGNOSTICS = 'all diagnostics';
@@ -150,6 +151,49 @@ export const renderActivityPackTooltipElement = (data) => {
               <td>{name}</td>
               <td>{classification.name}</td>
               <td>{readability}</td>
+            </tr>
+          )
+        })}
+      </tbody>
+    </table>
+  )
+  return renderToString(table)
+}
+
+export const renderPreviouslyAssignedActivitiesTooltipElement = (data) => {
+  if (!data) { return }
+
+  const table = (
+    <table className="previously-assigned-activities-table">
+      <section className="assigned-activity-info-section">
+        <img alt={assignedBadgeIconWhite.alt} src={assignedBadgeIconWhite.src} />
+        <section className="assigned-activity-text-section">
+          <p>You've previously assigned this activity in another activity pack. You can remove individual activities from a pre-created pack on the next page.</p>
+          <br />
+          <p>Tip: If you want to add individual students to a previously created Activity Pack, go to "My Activities" to add students.</p>
+        </section>
+      </section>
+      <tbody>
+        <tr>
+          <th>Assigned in Other Activity Packs</th>
+          <th>Date Assigned</th>
+          <th>Classes</th>
+          <th>Students</th>
+        </tr>
+        {data.length && data.map((unit) => {
+          const { name, assigned_date, classrooms, students } = unit;
+          return(
+            <tr>
+              <td>{name}</td>
+              <td>{moment(assigned_date).format("MM/DD/YY")}</td>
+              <td>{classrooms.map(classroom => (<p>{classroom}</p>))}</td>
+              <td>
+                {students.map(student => {
+                  const { assigned_student_count, total_student_count } = student;
+                  const label = total_student_count === 1 ? 'student' : 'students';
+                  return <p>{`${assigned_student_count}/${total_student_count} ${label}`}</p>
+                })}
+              </td>
             </tr>
           )
         })}

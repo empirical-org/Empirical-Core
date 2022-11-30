@@ -1,0 +1,14 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`PreviouslyAssignedTooltip component should render PreviouslyAssignedTooltip 1`] = `
+<Tooltip
+  isTabbable={true}
+  tooltipText="<table class=\\"previously-assigned-activities-table\\" data-reactroot=\\"\\"><section class=\\"assigned-activity-info-section\\"><img alt=\\"White silhouette of person with checkmark icon\\" src=\\"undefined/images/icons/assigned_badge_white.svg\\"/><section class=\\"assigned-activity-text-section\\"><p>You&#x27;ve previously assigned this activity in another activity pack. You can remove individual activities from a pre-created pack on the next page.</p><br/><p>Tip: If you want to add individual students to a previously created Activity Pack, go to &quot;My Activities&quot; to add students.</p></section></section><tbody><tr><th>Assigned in Other Activity Packs</th><th>Date Assigned</th><th>Classes</th><th>Students</th></tr></tbody></table>"
+  tooltipTriggerText={
+    <img
+      alt="Gray silhouette of person with checkmark icon"
+      src="undefined/images/icons/assigned_badge.svg"
+    />
+  }
+/>
+`;
