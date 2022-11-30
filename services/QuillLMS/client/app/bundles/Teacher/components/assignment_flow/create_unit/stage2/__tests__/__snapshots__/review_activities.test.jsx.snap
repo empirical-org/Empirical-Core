@@ -83,6 +83,13 @@ exports[`ReviewActivities component should render 1`] = `
             "rowSectionClassName": "datetime-picker",
             "width": "123px",
           },
+          Object {
+            "attribute": "previouslyAssigned",
+            "name": "Previously assigned",
+            "noTooltip": true,
+            "rowSectionClassName": "tooltip-section review-activities-data-table-section previously-assigned-section",
+            "width": "60px",
+          },
         ]
       }
       removeRow={[Function]}
@@ -110,6 +117,9 @@ exports[`ReviewActivities component should render 1`] = `
               showCopyToAll={true}
             />,
             "id": 413,
+            "previouslyAssigned": <PreviouslyAssignedTooltip
+              previouslyAssignedActivityData={null}
+            />,
             "publishDatePicker": <DatePickerContainer
               closeFunction={[Function]}
               defaultText="Right away"
@@ -151,6 +161,9 @@ exports[`ReviewActivities component should render 1`] = `
               showCopyToAll={false}
             />,
             "id": 654,
+            "previouslyAssigned": <PreviouslyAssignedTooltip
+              previouslyAssignedActivityData={null}
+            />,
             "publishDatePicker": <DatePickerContainer
               closeFunction={[Function]}
               defaultText="Right away"
