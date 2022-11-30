@@ -104,6 +104,16 @@
           .data-table-header, .data-table-row-section:not(.removable), .quill-tooltip-trigger {
             margin-right: 16px;
           }
+          .quill-tooltip-trigger {
+            .quill-tooltip {
+              display: inline-block !important;
+            }
+          }
+          .data-table-row-section {
+            .date-picker-container {
+              margin-top: -2px;
+            }
+          }
         }
         .data-table-row:first-of-type {
           height: 80px;
@@ -262,6 +272,19 @@
         .review-activities-data-table-section {
           .quill-tooltip {
             display: initial !important;
+          }
+        }
+        .previously-assigned-section {
+          .quill-tooltip {
+            width: 752px;
+            right: 8px;
+          }
+        }
+        @media (max-width: 1100px) {
+          .previously-assigned-section {
+            .quill-tooltip {
+              right: 88px;
+            }
           }
         }
       }

@@ -140,6 +140,39 @@ class UnitTemplate < ApplicationRecord
     end
   end
 
+  def self.student_counts_for_previously_assigned_activity(unit=nil, classrooms=[])
+    classrooms.map do |classroom|
+      classroom_unit = unit.classroom_units.find_by(classroom_id: classroom[:id])
+      {
+        assigned_student_count: classroom_unit&.assigned_student_ids&.length,
+        total_student_count: classroom.students&.length
+      }
+    end
+  end
+
+  def self.previously_assigned_activity_data(activity_ids=[], current_user=nil)
+    results = {}
+    activity_ids.map do |id|
+      units = Unit.joins(:classroom_units, :unit_activities)
+        .where("classroom_units.classroom_id IN (?)", current_user&.classrooms_i_teach&.map(&:id))
+        .where("unit_activities.activity_id = ?", id)
+        .where("units.visible AND classroom_units.visible AND unit_activities.visible = ?", true)
+        .uniq
+      next if units.empty?
+
+      results[id] = units.map do |unit|
+        classrooms = unit.classrooms
+        {
+          name: unit[:name],
+          assigned_date: unit[:created_at],
+          classrooms: classrooms.pluck(:name),
+          students: student_counts_for_previously_assigned_activity(unit, classrooms)
+        }
+      end
+    end
+    { previously_assigned_activity_data: results }
+  end
+
   private def delete_relevant_caches
     $redis.del("unit_template_id:#{id}_serialized")
     # We need to blow up caches for all flags because of cascading access:

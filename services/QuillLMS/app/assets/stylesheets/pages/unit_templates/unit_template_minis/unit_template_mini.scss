@@ -178,9 +178,8 @@
 
 .quill-tooltip {
   max-width: max-content;
-  .activity-tooltip-table {
+  .activity-tooltip-table, .previously-assigned-activities-table {
     color: #FFFFFF;
-    width: max-content;
     tbody {
       tr:first-of-type {
         border-bottom: 1px solid #ffffff;
@@ -205,6 +204,47 @@
           padding: 8px 48px 8px 0px;
           max-width: 360px;
         }
+      }
+    }
+  }
+  .previously-assigned-activities-table {
+    width: 100%;
+    tbody {
+      tr:first-of-type {
+        th {
+          font-size: 12px;
+        }
+      }
+      tr {
+        border-bottom: 1px solid#D3D3D3;
+        th, td {
+          padding-top: 8px !important;
+          padding-right: 16px !important;
+          line-height: 22px;
+          vertical-align: baseline;
+          p {
+            margin: 0 !important;
+          }
+        }
+      }
+    }
+  }
+  .assigned-activity-info-section {
+    display: flex;
+    align-items: flex-start;
+    padding: 8px 0px 24px 0px;
+    img {
+      margin-top: 4px;
+      margin-right: 8px;
+    }
+    .assigned-activity-text-section {
+      padding: 0;
+      border-bottom: none;
+      font-size: 14px;
+      font-weight: 400;
+      line-height: 22px;
+      p {
+        margin: 0 !important;
       }
     }
   }
