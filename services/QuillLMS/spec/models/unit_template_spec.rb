@@ -236,6 +236,7 @@ describe UnitTemplate, redis: true, type: :model do
   end
 
   describe '#previously_assigned_activity_data' do
+    subject { UnitTemplate.previously_assigned_activity_data(activity_ids, current_user) }
     let!(:current_user) { create(:teacher_with_a_couple_classrooms_with_one_student_each) }
     let!(:classroom) { current_user.classrooms_i_teach.first }
     let!(:unit_one) {create(:unit, user_id: current_user.id)}
@@ -253,39 +254,39 @@ describe UnitTemplate, redis: true, type: :model do
     let!(:unit_activity_four) { create(:unit_activity, unit: classroom_unit_two.unit, activity: activity_three) }
     let!(:activity_ids) { [activity_one.id, activity_two.id, activity_three.id, activity_four.id, activity_five.id] }
     let!(:count) { classroom.student_ids.length }
-    let!(:results) { UnitTemplate.previously_assigned_activity_data(activity_ids, current_user) }
+    let!(:results) { subject[:previously_assigned_activity_data] }
 
     it 'should return the expected results for the first activity' do
-      expect(results[:previously_assigned_activity_data][activity_one.id].length).to eq(1)
-      expect(results[:previously_assigned_activity_data][activity_one.id][0][:name]).to eq(unit_one.name)
-      expect(results[:previously_assigned_activity_data][activity_one.id][0][:assigned_date]).to be_within(1.second).of(unit_one.created_at)
-      expect(results[:previously_assigned_activity_data][activity_one.id][0][:classrooms]).to eq([classroom.name])
-      expect(results[:previously_assigned_activity_data][activity_one.id][0][:students]).to eq([{ assigned_student_count: count, total_student_count: count }])
+      expect(results[activity_one.id].length).to eq(1)
+      expect(results[activity_one.id][0][:name]).to eq(unit_one.name)
+      expect(results[activity_one.id][0][:assigned_date]).to be_within(1.second).of(unit_one.created_at)
+      expect(results[activity_one.id][0][:classrooms]).to eq([classroom.name])
+      expect(results[activity_one.id][0][:students]).to eq([{ assigned_student_count: count, total_student_count: count }])
     end
 
     it 'should return the expected results for the second activity' do
-      expect(results[:previously_assigned_activity_data][activity_two.id].length).to eq(2)
-      expect(results[:previously_assigned_activity_data][activity_two.id][0][:name]).to eq(unit_one.name)
-      expect(results[:previously_assigned_activity_data][activity_two.id][0][:assigned_date]).to be_within(1.second).of(unit_one.created_at)
-      expect(results[:previously_assigned_activity_data][activity_two.id][0][:classrooms]).to eq([classroom.name])
-      expect(results[:previously_assigned_activity_data][activity_two.id][0][:students]).to eq([{ assigned_student_count: count, total_student_count: count }])
-      expect(results[:previously_assigned_activity_data][activity_two.id][1][:name]).to eq(unit_two.name)
-      expect(results[:previously_assigned_activity_data][activity_two.id][1][:assigned_date]).to be_within(1.second).of(unit_two.created_at)
-      expect(results[:previously_assigned_activity_data][activity_two.id][1][:classrooms]).to eq([classroom.name])
-      expect(results[:previously_assigned_activity_data][activity_two.id][1][:students]).to eq([{ assigned_student_count: 0, total_student_count: count }])
+      expect(results[activity_two.id].length).to eq(2)
+      expect(results[activity_two.id][0][:name]).to eq(unit_one.name)
+      expect(results[activity_two.id][0][:assigned_date]).to be_within(1.second).of(unit_one.created_at)
+      expect(results[activity_two.id][0][:classrooms]).to eq([classroom.name])
+      expect(results[activity_two.id][0][:students]).to eq([{ assigned_student_count: count, total_student_count: count }])
+      expect(results[activity_two.id][1][:name]).to eq(unit_two.name)
+      expect(results[activity_two.id][1][:assigned_date]).to be_within(1.second).of(unit_two.created_at)
+      expect(results[activity_two.id][1][:classrooms]).to eq([classroom.name])
+      expect(results[activity_two.id][1][:students]).to eq([{ assigned_student_count: 0, total_student_count: count }])
     end
 
     it 'should return the expected results for the third activity' do
-      expect(results[:previously_assigned_activity_data][activity_three.id].length).to eq(1)
-      expect(results[:previously_assigned_activity_data][activity_three.id][0][:name]).to eq(unit_two.name)
-      expect(results[:previously_assigned_activity_data][activity_three.id][0][:assigned_date]).to be_within(1.second).of(unit_two.created_at)
-      expect(results[:previously_assigned_activity_data][activity_three.id][0][:classrooms]).to eq([classroom.name])
-      expect(results[:previously_assigned_activity_data][activity_three.id][0][:students]).to eq([{ assigned_student_count: 0, total_student_count: count }])
+      expect(results[activity_three.id].length).to eq(1)
+      expect(results[activity_three.id][0][:name]).to eq(unit_two.name)
+      expect(results[activity_three.id][0][:assigned_date]).to be_within(1.second).of(unit_two.created_at)
+      expect(results[activity_three.id][0][:classrooms]).to eq([classroom.name])
+      expect(results[activity_three.id][0][:students]).to eq([{ assigned_student_count: 0, total_student_count: count }])
     end
 
     it 'should not have any results for the fourth and fifth activities' do
-      expect(results[:previously_assigned_activity_data][activity_four.id]).to be nil
-      expect(results[:previously_assigned_activity_data][activity_five.id]).to be nil
+      expect(results[activity_four.id]).to be nil
+      expect(results[activity_five.id]).to be nil
     end
   end
 
