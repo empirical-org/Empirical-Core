@@ -189,17 +189,17 @@ a.q-button {
 $list: (quillgreen: $quillgreen, quillred: $quillred, quillnavbar: $quillnavbar, quillforestgreen: $quillforestgreen, quillblue: $quillblue, quillteal: $quillteal, white: $white, black: $black, orange: $orange, red: $red, darkred: $darkred, darkorange: $darkorange, darkblue: $darkblue, green: $green, darkgreen2: $darkgreen2, lightgray: $lightgray, darkgray: $darkgray, purple: $purple, lessonspurple: $lessonspurple);
 
 @each $name, $color in $list {
-  .text-#{$name} {
+  .text-#{"" + $name} {
     color: $color;
     &:hover, &:focus {
       color: $color;
       text-decoration: none;
     }
   }
-  .bg-#{$name} {
+  .bg-#{"" + $name} {
     background-color: $color;
   }
-  .q-button.bg-#{$name} {
+  .q-button.bg-#{"" + $name} {
     &:hover {
       background-color: darken($color, 5%);
     }
@@ -208,10 +208,10 @@ $list: (quillgreen: $quillgreen, quillred: $quillred, quillnavbar: $quillnavbar,
       background-color: darken($color, 10%);
     }
   }
-  .border-#{$name} {
+  .border-#{"" + $name} {
     border: 1px solid $color;
   }
-  .border-dashed-#{$name} {
+  .border-dashed-#{"" + $name} {
     border: 1px dashed $color;
   }
 }
