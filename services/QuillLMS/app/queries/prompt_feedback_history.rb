@@ -18,7 +18,7 @@ class PromptFeedbackHistory
       COUNT(DISTINCT CASE WHEN flag = 'repeated-non-consecutive' THEN feedback_histories.feedback_session_uid END) AS num_sessions_non_consecutive_repeated,
       COUNT(DISTINCT CASE WHEN attempt = 1 AND optimal = true THEN feedback_histories.feedback_session_uid END) AS num_first_attempt_optimal,
       COUNT(DISTINCT CASE WHEN attempt = 1 AND optimal = false THEN feedback_histories.feedback_session_uid END) AS num_first_attempt_not_optimal,
-      AVG(CAST(CASE
+      AVG(DISTINCT CAST(CASE
         WHEN comprehension_prompts.conjunction = 'because' THEN (data->>'time_tracking')::json->>'because'
         WHEN comprehension_prompts.conjunction = 'but' THEN (data->>'time_tracking')::json->>'but'
         WHEN comprehension_prompts.conjunction = 'so' THEN (data->>'time_tracking')::json->>'so'
