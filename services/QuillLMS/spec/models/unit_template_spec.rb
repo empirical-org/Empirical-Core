@@ -237,6 +237,7 @@ describe UnitTemplate, redis: true, type: :model do
 
   describe '#previously_assigned_activity_data' do
     subject { UnitTemplate.previously_assigned_activity_data(activity_ids, current_user) }
+
     let!(:current_user) { create(:teacher_with_a_couple_classrooms_with_one_student_each) }
     let!(:classroom) { current_user.classrooms_i_teach.first }
     let!(:unit_one) {create(:unit, user_id: current_user.id)}
