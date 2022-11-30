@@ -1,6 +1,5 @@
 import React from 'react';
 import moment from 'moment';
-import "react-dates/initialize";
 import * as _ from 'lodash'
 
 import {
@@ -17,6 +16,8 @@ import {
   Snackbar,
   defaultSnackbarTimeout,
 } from '../../../../../Shared/index'
+import { requestGet } from '../../../../../../modules/request';
+import PreviouslyAssignedTooltip from '../../previouslyAssignedTooltip';
 
 const PUBLISH_DATE_ATTRIBUTE_KEY = 'publishDates'
 const DUE_DATE_ATTRIBUTE_KEY = 'dueDates'
@@ -65,7 +66,14 @@ const tableHeaders = [
     width: '123px',
     headerClassName: 'due-date-header-container',
     rowSectionClassName: 'datetime-picker'
-  }
+  },
+  {
+    name: 'Previously assigned',
+    attribute: 'previouslyAssigned',
+    width: '60px',
+    rowSectionClassName: `${rowSectionTooltipClassName} previously-assigned-section`,
+    noTooltip: true
+  },
 ]
 
 export default class ReviewActivities extends React.Component {
@@ -74,8 +82,28 @@ export default class ReviewActivities extends React.Component {
 
     this.state = {
       snackbarVisible: false,
-      erroredActivityIds: []
+      erroredActivityIds: [],
+      previouslyAssignedActivityData: null
     }
+  }
+
+  componentDidUpdate() {
+    const { activities } = this.props
+    const { previouslyAssignedActivityData } = this.state
+    if(!previouslyAssignedActivityData && activities) {
+      this.getPreviouslyAssignedActivityData()
+    }
+  }
+
+  getPreviouslyAssignedActivityData = () => {
+    const { activities } = this.props
+    const activityIds = JSON.stringify(activities.map(activity => activity.id))
+    requestGet(`${process.env.DEFAULT_URL}/teachers/unit_templates/previously_assigned_activities?activity_ids=${activityIds}`, (response) => {
+      if(response.previously_assigned_activity_data && Object.keys(response.previously_assigned_activity_data).length) {
+        const { previously_assigned_activity_data } = response
+        this.setState({ previouslyAssignedActivityData: previously_assigned_activity_data })
+      }
+    })
   }
 
   handleDateChange = (date, id, dateAttributeKey) => {
@@ -161,7 +189,7 @@ export default class ReviewActivities extends React.Component {
 
   rows() {
     const { activities, dueDates, publishDates, } = this.props
-    const { erroredActivityIds, } = this.state
+    const { erroredActivityIds, previouslyAssignedActivityData } = this.state
 
     return activities.map((activity, i) => {
       const {
@@ -222,6 +250,7 @@ export default class ReviewActivities extends React.Component {
       );
 
       const className = erroredActivityIds.includes(activity.id) ? 'checked' : ''
+      const data = previouslyAssignedActivityData && previouslyAssignedActivityData[id] ? previouslyAssignedActivityData[id] : null
 
       return {
         id,
@@ -231,6 +260,7 @@ export default class ReviewActivities extends React.Component {
         concept: activity_category.name,
         dueDatePicker,
         publishDatePicker,
+        previouslyAssigned: <PreviouslyAssignedTooltip previouslyAssignedActivityData={data} />,
         removable: true
       }
     })

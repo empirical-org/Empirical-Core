@@ -187,3 +187,13 @@ export const copyIcon = {
   alt: 'Two identical rectangles, one on top of the other',
   src: `${process.env.CDN_URL}/images/icons/copy_icon.svg`
 }
+
+export const assignedBadgeIconGray = {
+  alt: 'Gray silhouette of person with checkmark icon',
+  src: `${process.env.CDN_URL}/images/icons/assigned_badge.svg`
+}
+
+export const assignedBadgeIconWhite = {
+  alt: 'White silhouette of person with checkmark icon',
+  src: `${process.env.CDN_URL}/images/icons/assigned_badge_white.svg`
+}

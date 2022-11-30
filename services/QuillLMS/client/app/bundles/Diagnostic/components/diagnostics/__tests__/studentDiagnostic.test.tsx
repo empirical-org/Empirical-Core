@@ -20,7 +20,6 @@ import * as diagnosticHelper from '../../../libs/conceptResults/diagnostic';
 import * as parameterHelper from '../../../libs/getParameterByName';
 
 // required mocked functions
-jest.mock('request', () => jest.fn(() => {}));
 progressHelpers.questionCount = jest.fn();
 progressHelpers.answeredQuestionCount = jest.fn();
 progressHelpers.getProgressPercent = jest.fn(() => {return 0});

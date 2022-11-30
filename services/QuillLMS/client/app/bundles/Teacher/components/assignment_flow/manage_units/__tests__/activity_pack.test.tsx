@@ -1,5 +1,4 @@
 import * as React from 'react';
-import 'react-dates/initialize';
 import { mount } from 'enzyme';
 
 import data from './data'
