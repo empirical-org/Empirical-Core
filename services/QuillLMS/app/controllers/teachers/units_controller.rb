@@ -261,6 +261,7 @@ class Teachers::UnitsController < ApplicationController
             ELSE ua.created_at #{user_timezone_offset_string}
           END AS publish_date,
           state.completed,
+          ua.publish_date AS ua_publish_date,
           activities.id AS activity_id,
           activities.uid as activity_uid,
           #{scores}
@@ -341,7 +342,7 @@ class Teachers::UnitsController < ApplicationController
       else
         unit['number_of_assigned_students'] = 0
       end
-      unit['scheduled'] = unit['publish_date'].to_time >= time_now_utc
+      unit['scheduled'] = unit['ua_publish_date'].to_time(:utc) >= time_now_utc
       unit
     end
   end
