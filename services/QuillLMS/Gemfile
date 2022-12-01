@@ -22,7 +22,7 @@ gem 'atomic_arrays', '~> 1.1.0'
 # USER AUTH, ETC
 gem 'bcrypt', '~> 3.1.12'
 gem "doorkeeper", "5.0.3"
-gem 'omniauth', '~> 1.9'
+gem 'omniauth', '~> 2.1'
 gem 'omniauth-google-oauth2', '0.6.0'
 gem 'omniauth-clever', git: 'https://github.com/Pioneer-Valley-Books/omniauth-clever'
 gem 'omniauth-rails_csrf_protection'
