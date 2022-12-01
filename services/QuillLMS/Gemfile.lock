@@ -1,3 +1,10 @@
+GIT
+  remote: https://github.com/Pioneer-Valley-Books/omniauth-clever
+  revision: 62d7266cf2d6ac75011af7c72aacc05395d3f467
+  specs:
+    omniauth-clever (1.2.2)
+      omniauth-oauth2 (>= 1.1)
+
 PATH
   remote: engines/evidence
   specs:
@@ -439,8 +446,6 @@ GEM
     omniauth (1.9.0)
       hashie (>= 3.4.6, < 3.7.0)
       rack (>= 1.6.2, < 3)
-    omniauth-clever (1.2.2)
-      omniauth-oauth2 (>= 1.1, <= 1.5)
     omniauth-google-oauth2 (0.6.0)
       jwt (>= 2.0)
       omniauth (>= 1.1.1)
@@ -845,7 +850,7 @@ DEPENDENCIES
   newrelic_rpm (~> 7.2)
   nokogiri (>= 1.13.2)
   omniauth (~> 1.9)
-  omniauth-clever (~> 1.2)
+  omniauth-clever!
   omniauth-google-oauth2 (= 0.6.0)
   omniauth-rails_csrf_protection
   paperclip
