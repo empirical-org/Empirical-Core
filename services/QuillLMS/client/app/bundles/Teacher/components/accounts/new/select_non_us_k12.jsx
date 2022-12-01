@@ -8,6 +8,7 @@ const homeSchoolSrc = `${process.env.CDN_URL}/images/onboarding/home-building.sv
 const internationalSrc = `${process.env.CDN_URL}/images/onboarding/globe.svg`
 const higherEdSrc = `${process.env.CDN_URL}/images/onboarding/school-campus.svg`
 const otherSrc = `${process.env.CDN_URL}/images/onboarding/business-building.svg`
+const mapSearchImgSrc = `${process.env.CDN_URL}/images/accounts/map-search.svg`
 
 class SelectUSNonK12 extends React.Component {
   componentDidMount() {
@@ -37,6 +38,7 @@ class SelectUSNonK12 extends React.Component {
       <div>
         <AssignActivityPackBanner />
         <div className="container account-form select-non-k12">
+          <img alt="" className="top-graphic" src={mapSearchImgSrc} />
           <h1>Where do you teach?</h1>
           <div className="quill-cards">
             <Card
