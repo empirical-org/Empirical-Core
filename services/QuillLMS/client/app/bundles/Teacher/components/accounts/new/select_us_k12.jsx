@@ -4,6 +4,8 @@ import AssignActivityPackBanner from '../assignActivityPackBanner'
 import SchoolSelector from '../../shared/school_selector.jsx'
 import { requestPut, } from '../../../../../modules/request/index'
 
+const schoolBuildingImgSrc = `${process.env.CDN_URL}/images/accounts/school-building.svg`
+
 class SelectUSK12 extends React.Component {
   componentDidMount() {
     document.title = 'Quill.org | Teacher Sign Up | Add School'
@@ -31,6 +33,7 @@ class SelectUSK12 extends React.Component {
       <div>
         <AssignActivityPackBanner />
         <div className="container account-form select-k12">
+          <img alt="" className="top-graphic" src={schoolBuildingImgSrc} />
           <h1>Let&#39;s find your school</h1>
           <p className="subheader">Select a school so that if your school has Quill Premium, your account will have access to it.</p>
           <SchoolSelector selectSchool={this.selectSchool} />
