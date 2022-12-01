@@ -417,6 +417,182 @@ describe User, type: :model do
     end
   end
 
+  describe '#send_admin_dashboard_teacher_account_created_email' do
+    let(:user) { create(:user) }
+    let(:admin_user) { create(:user) }
+    let(:school) { create(:school) }
+
+    before do
+      allow(UserMailer).to receive(:admin_dashboard_teacher_account_created_email).and_return(double(:email, deliver_now!: true))
+    end
+
+    it 'should send the mail with user mailer' do
+      expect(UserMailer).to receive(:admin_dashboard_teacher_account_created_email).with(user, admin_user.name, school.name, true)
+      user.send_admin_dashboard_teacher_account_created_email(admin_user.name, school.name, true)
+    end
+  end
+
+  describe '#send_admin_dashboard_admin_account_created_email' do
+    let(:user) { create(:user) }
+    let(:admin_user) { create(:user) }
+    let(:school) { create(:school) }
+
+    before do
+      allow(UserMailer).to receive(:admin_dashboard_admin_account_created_email).and_return(double(:email, deliver_now!: true))
+    end
+
+    it 'should send the mail with user mailer' do
+      expect(UserMailer).to receive(:admin_dashboard_admin_account_created_email).with(user, admin_user.name, school.name, true)
+      user.send_admin_dashboard_admin_account_created_email(admin_user.name, school.name, true)
+    end
+  end
+
+  describe '#send_admin_dashboard_teacher_link_school_email' do
+    let(:user) { create(:user) }
+    let(:admin_user) { create(:user) }
+    let(:school) { create(:school) }
+
+    before do
+      allow(UserMailer).to receive(:admin_dashboard_teacher_link_school_email).and_return(double(:email, deliver_now!: true))
+    end
+
+    it 'should send the mail with user mailer' do
+      expect(UserMailer).to receive(:admin_dashboard_teacher_link_school_email).with(user, admin_user.name, school)
+      user.send_admin_dashboard_teacher_link_school_email(admin_user.name, school)
+    end
+  end
+
+  describe '#send_admin_dashboard_made_school_admin_email' do
+    let(:user) { create(:user) }
+    let(:admin_user) { create(:user) }
+    let(:school) { create(:school) }
+
+    before do
+      allow(UserMailer).to receive(:admin_dashboard_made_school_admin_email).and_return(double(:email, deliver_now!: true))
+    end
+
+    it 'should send the mail with user mailer' do
+      expect(UserMailer).to receive(:admin_dashboard_made_school_admin_email).with(user, admin_user.name, school.name)
+      user.send_admin_dashboard_made_school_admin_email(admin_user.name, school.name)
+    end
+  end
+
+  describe '#send_admin_dashboard_made_school_admin_link_school_email' do
+    let(:user) { create(:user) }
+    let(:admin_user) { create(:user) }
+    let(:school) { create(:school) }
+
+    before do
+      allow(UserMailer).to receive(:admin_dashboard_made_school_admin_link_school_email).and_return(double(:email, deliver_now!: true))
+    end
+
+    it 'should send the mail with user mailer' do
+      expect(UserMailer).to receive(:admin_dashboard_made_school_admin_link_school_email).with(user, admin_user.name, school.name)
+      user.send_admin_dashboard_made_school_admin_link_school_email(admin_user.name, school.name)
+    end
+  end
+
+  describe '#send_admin_dashboard_made_school_admin_change_school_email' do
+    let(:user) { create(:user) }
+    let(:admin_user) { create(:user) }
+    let(:new_school) { create(:school) }
+    let(:existing_school) { create(:school) }
+
+    before do
+      allow(UserMailer).to receive(:admin_dashboard_made_school_admin_change_school_email).and_return(double(:email, deliver_now!: true))
+    end
+
+    it 'should send the mail with user mailer' do
+      expect(UserMailer).to receive(:admin_dashboard_made_school_admin_change_school_email).with(user, admin_user.name, new_school, existing_school)
+      user.send_admin_dashboard_made_school_admin_change_school_email(admin_user.name, new_school, existing_school)
+    end
+  end
+
+  describe '#send_internal_tool_admin_account_created_email' do
+    let(:user) { create(:user) }
+    let(:school) { create(:school) }
+
+    before do
+      allow(UserMailer).to receive(:internal_tool_admin_account_created_email).and_return(double(:email, deliver_now!: true))
+    end
+
+    it 'should send the mail with user mailer' do
+      expect(UserMailer).to receive(:internal_tool_admin_account_created_email).with(user, school.name)
+      user.send_internal_tool_admin_account_created_email(school.name)
+    end
+  end
+
+  describe '#send_internal_tool_made_school_admin_email' do
+    let(:user) { create(:user) }
+    let(:school) { create(:school) }
+
+    before do
+      allow(UserMailer).to receive(:internal_tool_made_school_admin_email).and_return(double(:email, deliver_now!: true))
+    end
+
+    it 'should send the mail with user mailer' do
+      expect(UserMailer).to receive(:internal_tool_made_school_admin_email).with(user, school.name)
+      user.send_internal_tool_made_school_admin_email(school.name)
+    end
+  end
+
+  describe '#send_internal_tool_made_school_admin_link_school_email' do
+    let(:user) { create(:user) }
+    let(:school) { create(:school) }
+
+    before do
+      allow(UserMailer).to receive(:internal_tool_made_school_admin_link_school_email).and_return(double(:email, deliver_now!: true))
+    end
+
+    it 'should send the mail with user mailer' do
+      expect(UserMailer).to receive(:internal_tool_made_school_admin_link_school_email).with(user, school.name)
+      user.send_internal_tool_made_school_admin_link_school_email(school.name)
+    end
+  end
+
+  describe '#send_internal_tool_made_school_admin_change_school_email' do
+    let(:user) { create(:user) }
+    let(:new_school) { create(:school) }
+    let(:existing_school) { create(:school) }
+
+    before do
+      allow(UserMailer).to receive(:internal_tool_made_school_admin_change_school_email).and_return(double(:email, deliver_now!: true))
+    end
+
+    it 'should send the mail with user mailer' do
+      expect(UserMailer).to receive(:internal_tool_made_school_admin_change_school_email).with(user, new_school, existing_school)
+      user.send_internal_tool_made_school_admin_change_school_email(new_school, existing_school)
+    end
+  end
+
+  describe '#send_internal_tool_district_admin_account_created_email' do
+    let(:user) { create(:user) }
+    let(:district) { create(:district) }
+
+    before do
+      allow(UserMailer).to receive(:internal_tool_district_admin_account_created_email).and_return(double(:email, deliver_now!: true))
+    end
+
+    it 'should send the mail with user mailer' do
+      expect(UserMailer).to receive(:internal_tool_district_admin_account_created_email).with(user, district.name)
+      user.send_internal_tool_district_admin_account_created_email(district.name)
+    end
+  end
+
+  describe '#send_internal_tool_made_district_admin_email' do
+    let(:user) { create(:user) }
+    let(:district) { create(:district) }
+
+    before do
+      allow(UserMailer).to receive(:internal_tool_made_district_admin_email).and_return(double(:email, deliver_now!: true))
+    end
+
+    it 'should send the mail with user mailer' do
+      expect(UserMailer).to receive(:internal_tool_made_district_admin_email).with(user, district.name)
+      user.send_internal_tool_made_district_admin_email(district.name)
+    end
+  end
+
   describe '#send_invitation_to_non_existing_user' do
     let(:user) { create(:user) }
 

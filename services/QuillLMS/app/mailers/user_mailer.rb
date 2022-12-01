@@ -50,7 +50,7 @@ class UserMailer < ActionMailer::Base
     @admin_name = admin_name
     @school_name = school_name
     # placeholder url-- will get updated in subsequent PR for new account setup landing page
-    @set_password_link = "#{ENV['DEFAULT_URL']}"
+    @set_password_link = ENV['DEFAULT_URL']
     subject = is_reminder ? "🔔 Reminder: #{user.first_name}, a Quill account was created for you" : "[Action Required] #{user.first_name}, a Quill account was created for you"
     mail to: user.email, subject: subject
   end
@@ -59,7 +59,7 @@ class UserMailer < ActionMailer::Base
     @user = user
     @admin_name = admin_name
     @school_name = school_name
-    @set_password_link = "#{ENV['DEFAULT_URL']}"
+    @set_password_link = ENV['DEFAULT_URL']
     subject = is_reminder ? "🔔 Reminder: #{user.first_name}, a Quill school admin account was created for you" : "[Action Required] #{user.first_name}, a Quill school admin account was created for you"
     mail to: user.email, subject: subject
   end
@@ -99,7 +99,7 @@ class UserMailer < ActionMailer::Base
   def internal_tool_admin_account_created_email(user, school_name)
     @user = user
     @school_name = school_name
-    @set_password_link = "#{ENV['DEFAULT_URL']}"
+    @set_password_link = ENV['DEFAULT_URL']
     mail to: user.email, subject: "[Action Required] #{user.first_name}, a Quill school admin account was created for you"
   end
 
@@ -127,14 +127,14 @@ class UserMailer < ActionMailer::Base
   def internal_tool_district_admin_account_created_email(user, district_name)
     @user = user
     @district_name = district_name
-    @set_password_link = "#{ENV['DEFAULT_URL']}"
+    @set_password_link = ENV['DEFAULT_URL']
     mail to: user.email, subject: "[Action Required] #{user.first_name}, a Quill district admin account was created for you"
   end
 
   def internal_tool_made_district_admin_email(user, district_name)
     @user = user
     @district_name = district_name
-    @set_password_link = "#{ENV['DEFAULT_URL']}"
+    @set_password_link = ENV['DEFAULT_URL']
     mail to: user.email, subject: "#{user.first_name}, you are now a Quill admin for #{district_name}"
   end
 
