@@ -215,7 +215,7 @@
         margin: 0 3px;
         text-align: center;
         transition: all 0.3s ease-out;
-        width: 30px;
+        width: min-content;
 
         &:hover {
           box-shadow: 0 2px 1px rgba(0, 0, 0, 0.1);
