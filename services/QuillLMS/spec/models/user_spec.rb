@@ -57,7 +57,7 @@
 #
 require 'rails_helper'
 
-describe User, type: :model do # rubocop:disable BlockLength
+describe User, type: :model do # rubocop:disable Metrics/BlockLength
 
   it { is_expected.to callback(:capitalize_name).before(:save) }
   it { is_expected.to callback(:generate_student_username_if_absent).before(:validation) }
