@@ -342,7 +342,7 @@ class Teachers::UnitsController < ApplicationController
       else
         unit['number_of_assigned_students'] = 0
       end
-      unit['scheduled'] = unit['ua_publish_date'].to_time(:utc) >= time_now_utc
+      unit['scheduled'] = unit['ua_publish_date']&.to_time(:utc) >= time_now_utc
       unit
     end
   end
