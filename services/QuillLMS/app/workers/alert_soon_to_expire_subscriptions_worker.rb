@@ -24,16 +24,16 @@ class AlertSoonToExpireSubscriptionsWorker
     in_7_days = current_time + 7.days
 
     # renewing subscriptions (credit card only)
-    track_teachers(renewing_subs.for_teachers.expiring(in_30_days), TEACHER_RENEW_IN_30)
-    track_teachers(renewing_subs.for_teachers.expiring(in_7_days), TEACHER_RENEW_IN_7)
-    track_schools(renewing_subs.for_schools.expiring(in_30_days), SCHOOL_RENEW_IN_30)
-    track_schools(renewing_subs.for_schools.expiring(in_7_days), SCHOOL_RENEW_IN_7)
+    track_teachers(renewing_subs.expiring(in_30_days), TEACHER_RENEW_IN_30)
+    track_teachers(renewing_subs.expiring(in_7_days), TEACHER_RENEW_IN_7)
+    track_schools(renewing_subs.expiring(in_30_days), SCHOOL_RENEW_IN_30)
+    track_schools(renewing_subs.expiring(in_7_days), SCHOOL_RENEW_IN_7)
 
     # expiring subscriptions (credit card only)
-    track_teachers(expiring_subs.for_teachers.expiring(in_30_days), TEACHER_EXPIRE_IN_30)
-    track_teachers(expiring_subs.for_teachers.expiring(in_14_days), TEACHER_EXPIRE_IN_14)
-    track_schools(expiring_subs.for_schools.expiring(in_30_days), SCHOOL_EXPIRE_IN_30)
-    track_schools(expiring_subs.for_schools.expiring(in_14_days), SCHOOL_EXPIRE_IN_14)
+    track_teachers(expiring_subs.expiring(in_30_days), TEACHER_EXPIRE_IN_30)
+    track_teachers(expiring_subs.expiring(in_14_days), TEACHER_EXPIRE_IN_14)
+    track_schools(expiring_subs.expiring(in_30_days), SCHOOL_EXPIRE_IN_30)
+    track_schools(expiring_subs.expiring(in_14_days), SCHOOL_EXPIRE_IN_14)
   end
 
   private def renewing_subs
@@ -49,10 +49,10 @@ class AlertSoonToExpireSubscriptionsWorker
   end
 
   private def track_teachers(finder, event)
-    finder.each {|sub| analytics.track_teacher_subscription(sub, event) }
+    finder.for_teachers.each {|sub| analytics.track_teacher_subscription(sub, event) }
   end
 
   private def track_schools(finder, event)
-    finder.each {|sub| analytics.track_school_subscription(sub, event) }
+    finder.for_schools.each {|sub| analytics.track_school_subscription(sub, event) }
   end
 end
