@@ -82,6 +82,9 @@
         justify-content: space-between;
       }
     }
+    .quill-tooltip {
+      width: max-content;
+    }
     .all-packs-section:not(:first-child) {
       margin-top: 48px;
     }
