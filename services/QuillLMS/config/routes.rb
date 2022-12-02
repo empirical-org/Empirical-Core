@@ -528,6 +528,7 @@ EmpiricalGrammar::Application.routes.draw do
   end
 
   get 'account/:id/finish_set_up', to: 'accounts#edit'
+  put 'account/:id', to: 'accounts#update'
 
   get '/sign-up/teacher', to: 'accounts#new'
   get '/sign-up/student', to: 'accounts#new'

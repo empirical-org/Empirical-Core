@@ -7,7 +7,9 @@ describe AccountsController, type: :controller do
 
   before { allow(controller).to receive(:current_user) { user } }
 
-  it { should use_before_action :signed_in! }
+  it { should use_before_action :set_js_file }
+  it { should use_before_action :set_user }
+  it { should use_before_action :set_user_by_token }
 
   describe '#new' do
     before { session[:role] = "something" }
@@ -142,25 +144,43 @@ describe AccountsController, type: :controller do
   end
 
   describe '#update' do
+    before do
+      user.refresh_token!
+    end
+
     context 'user got updated' do
-      it 'should redirect to updated_account_path' do
-        post :update, params: { user: { email: "new@email.com" } }
-        expect(response).to redirect_to root_path
+      it 'should update the user and return the redirect path' do
+        new_name = 'Brandy Oleson'
+        new_password = 'some-password'
+        post :update, params: { id: user.token, user: { name: new_name, password: new_password } }
+        expect(user.reload.name).to eq(new_name)
+        expect(response.body).to eq({ redirect: profile_path }.to_json)
       end
     end
 
     context 'user did not get updated' do
-      it 'should render accounts edit' do
-        post :update, params: { user: { email: "new" } }
-        expect(response).to render_template "accounts/edit"
+      it 'should render the errors json' do
+        post :update, params: { id: user.token, user: { name: '', password: 'some-password' } }
+        expect(response.status).to eq 422
+        expect(response.body).to eq({errors: {name: ["can't be blank"]}}.to_json)
       end
     end
   end
 
   describe '#edit' do
-    it 'should set the user' do
-      get :edit
+    before do
+      user.refresh_token!
+    end
+
+    it 'should set the user based on the token' do
+      get :edit, params: { id: user.token }
       expect(assigns(:user)).to eq user
+    end
+
+    it 'should redirect with a flash error if the token is not present' do
+      get :edit, params: { id: 'not-a-token' }
+      expect(response).to redirect_to profile_path
+      expect(flash[:notice]).to eq("Sorry, this link has expired. Please contact your Quill admin or the <a href='mailto:hello@quill.org'>Quill support team</a>".html_safe)
     end
   end
 end

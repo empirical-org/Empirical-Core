@@ -5,6 +5,12 @@
   flex-direction: column;
   position: relative;
 
+  &.disabled {
+    input {
+      color: #7f7f7f;
+    }
+  }
+
   &.textfield-container {
     margin-bottom: 25px;
     label {

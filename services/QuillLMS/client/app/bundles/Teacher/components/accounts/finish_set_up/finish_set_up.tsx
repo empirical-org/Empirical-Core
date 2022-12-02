@@ -7,8 +7,15 @@ import TeacherSignUpInfo from '../shared/teacher_sign_up_info'
 import { Input, } from '../../../../Shared/index'
 import { requestPut, } from '../../../../../modules/request/index'
 
-const SCHOOL_ADMIN = 'school_admin'
-const DISTRICT_ADMIN = 'district_admin'
+const SCHOOL_ADMIN = 'school admin'
+const DISTRICT_ADMIN = 'district admin'
+
+jest.mock('qs', () => ({
+  default: {
+    parse: jest.fn(() => ({}))
+  }
+})
+)
 
 const accountTypeCopy = (accountType) => {
   switch(accountType) {
@@ -65,7 +72,7 @@ const FinishSetUp = ({ email, passedFirstName, passedLastName, token, }) => {
   }
 
   return (
-    <div className="container account-form teacher-sign-up">
+    <div className="container account-form finish-set-up">
       <h1>Finish setting up your account</h1>
       <p className="sub-header">A Quill {accountTypeCopy(accountType)} was created for you{creatorCopy}. To complete your account setup, please set a password.</p>
       <div className="info-and-form-container">
@@ -101,10 +108,9 @@ const FinishSetUp = ({ email, passedFirstName, passedLastName, token, }) => {
                 </div>
                 <Input
                   autoComplete="email"
-                  className="email"
+                  className="email disabled"
                   disabled={true}
                   id="email"
-                  label="Email"
                   type="email"
                   value={email}
                 />

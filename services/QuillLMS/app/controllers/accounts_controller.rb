@@ -42,12 +42,14 @@ class AccountsController < ApplicationController
     @user = User.find_by_token(params[:id])
     return if @user.present?
 
-    redirect_to profile, notice: "Sorry, this link has expired. Please contact your Quill admin or the <a href='mailto:hello@quill.org'>Quill support team</a>".html_safe
+    redirect_to profile_path, notice: "Sorry, this link has expired. Please contact your Quill admin or the <a href='mailto:hello@quill.org'>Quill support team</a>".html_safe
   end
 
   def update
     if @user.update(update_user_params)
       sign_in @user
+      puts '@user.attributes', @user.attributes
+      puts '@user.password', @user.password
       @user.update(token: nil)
       render json: creation_json
     else
@@ -80,7 +82,7 @@ end
     elsif @user.has_outstanding_coteacher_invitation?
       { redirect: teachers_classrooms_path }
     else
-      { redirect: '/profile'}
+      { redirect: profile_path }
     end
   end
 
