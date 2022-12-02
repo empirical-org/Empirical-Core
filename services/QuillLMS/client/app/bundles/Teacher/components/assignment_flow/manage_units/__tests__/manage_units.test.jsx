@@ -11,12 +11,6 @@ import ManageUnits from '../manage_units.jsx';
 jest.mock('../../../modules/get_parameter_by_name', () => jest.fn());
 const getParameterByName = require('../../../modules/get_parameter_by_name');
 
-import 'request';
-jest.mock('request', () => ({
-  get: jest.fn(),
-  put: jest.fn()
-}));
-
 const mockClassrooms = [
   {
     id: 42,
