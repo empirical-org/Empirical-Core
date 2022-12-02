@@ -157,7 +157,9 @@ class UnitTemplate < ApplicationRecord
         .where("classroom_units.classroom_id IN (?)", current_user&.classrooms_i_teach&.map(&:id))
         .where("unit_activities.activity_id = ?", id)
         .where("units.visible AND classroom_units.visible AND unit_activities.visible = ?", true)
+        .order("units.created_at")
         .uniq
+
       next if units.empty?
 
       results[id] = units.map do |unit|
