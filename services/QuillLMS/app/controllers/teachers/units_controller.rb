@@ -260,8 +260,8 @@ class Teachers::UnitsController < ApplicationController
             THEN ua.publish_date #{user_timezone_offset_string}
             ELSE ua.created_at #{user_timezone_offset_string}
           END AS publish_date,
-          ua.publish_date >= NOW() AS scheduled,
           state.completed,
+          ua.publish_date AS ua_publish_date,
           activities.id AS activity_id,
           activities.uid as activity_uid,
           #{scores}
@@ -332,6 +332,8 @@ class Teachers::UnitsController < ApplicationController
       SQL
     ).to_a
 
+    time_now_utc = Time.now.utc
+
     units.map do |unit|
       classroom_student_ids = Classroom.find(unit['classroom_id']).students.ids
       if unit['assigned_student_ids'] && classroom_student_ids
@@ -340,6 +342,7 @@ class Teachers::UnitsController < ApplicationController
       else
         unit['number_of_assigned_students'] = 0
       end
+      unit['scheduled'] = unit['ua_publish_date'].nil? ? nil : unit['ua_publish_date'].to_time(:utc) >= time_now_utc
       unit
     end
   end

@@ -233,55 +233,77 @@ describe Teachers::UnitsController, type: :controller do
       expect(parsed_response.length).to eq(1)
     end
 
-    describe 'when the teacher has a time zone' do
-      it 'should return activities with publish dates in the future as scheduled' do
-        tz_string = 'America/New_York'
-        teacher.update(time_zone: tz_string)
-        publish_date = Time.now.utc + 1.hour
-        # have to do update_columns here because otherwise the publish date is offset by a callback
-        unit_activity.update_columns(publish_date: publish_date)
-        response = get :index, params: { report: false }
-        parsed_response = JSON.parse(response.body)
-        expect(parsed_response[0]['scheduled']).to eq(true)
+    context 'publish dates' do
+      let(:response) { get :index, params: { report: false } }
+      let(:scheduled) { JSON.parse(response.body)[0]['scheduled'] }
+
+      describe 'when the teacher has a time zone' do
+        before do
+          teacher.update(time_zone: 'America/New_York')
+
+          # have to do update_columns here because otherwise the publish date is offset by a callback
+          unit_activity.update_columns(publish_date: publish_date)
+        end
+
+        context 'publish date is in one hour' do
+          let(:publish_date) { Time.now.utc + 1.hour }
+
+          it 'should return activities with publish dates in the future as scheduled' do
+            expect(scheduled).to eq true
+          end
+        end
+
+        context 'publish date is one hour ago' do
+          let(:publish_date) { Time.now.utc - 1.hour }
+
+          it 'should return activities with publish dates in the past as not scheduled' do
+            expect(scheduled).to eq false
+          end
+        end
+
+        context 'no publish date' do
+          let(:publish_date) { nil }
+
+          it 'should return activities with no publish dates as nil scheduled' do
+            expect(scheduled).to eq nil
+          end
+        end
       end
 
-      it 'should return activities with publish dates in the past as not scheduled' do
-        tz_string = 'America/New_York'
-        teacher.update(time_zone: tz_string)
-        publish_date = Time.now.utc - 1.hour
-        # have to do update_columns here because otherwise the publish date is offset by a callback
-        unit_activity.update_columns(publish_date: publish_date)
-        response = get :index, params: { report: false }
-        parsed_response = JSON.parse(response.body)
-        expect(parsed_response[0]['scheduled']).to eq(false)
+      describe 'when the teacher has no time zone' do
+        before do
+          # have to do update columns here because the time zone is set by a callback
+          teacher.update_columns(time_zone: nil)
+
+          # have to do update_columns here because otherwise the publish date is offset by a callback
+          unit_activity.update_columns(publish_date: publish_date)
+        end
+
+        context 'publish date is in one hour' do
+          let(:publish_date) { Time.now.utc + 1.hour }
+
+          it 'should return activities with publish dates in the future as scheduled' do
+            expect(scheduled).to eq true
+          end
+        end
+
+        context 'publish date is one hour ago' do
+          let(:publish_date) { Time.now.utc - 1.hour }
+
+          it 'should return activities with publish dates in the past as not scheduled' do
+            expect(scheduled).to eq false
+          end
+        end
+
+        context 'no publish date' do
+          let(:publish_date) { nil }
+
+          it 'should return activities with no publish dates as nil scheduled' do
+            expect(scheduled).to eq nil
+          end
+        end
       end
     end
-
-    describe 'when the teacher has no time zone' do
-      it 'should return activities with publish dates in the future as scheduled' do
-        # have to do update columns here because the time zone is set by a callback
-        teacher.update_columns(time_zone: nil)
-        publish_date = Time.now.utc + 1.hour
-        # have to do update_columns here because otherwise the publish date is offset by a callback
-        unit_activity.update_columns(publish_date: publish_date)
-        response = get :index, params: { report: false }
-        parsed_response = JSON.parse(response.body)
-        expect(parsed_response[0]['scheduled']).to eq(true)
-      end
-
-      it 'should return activities with publish dates in the past as not scheduled' do
-        # have to do update columns here because the time zone is set by a callback
-        teacher.update_columns(time_zone: nil)
-        publish_date = Time.now.utc - 1.hour
-        # have to do update_columns here because otherwise the publish date is offset by a callback
-        unit_activity.update_columns(publish_date: publish_date)
-        response = get :index, params: { report: false }
-        parsed_response = JSON.parse(response.body)
-        expect(parsed_response[0]['scheduled']).to eq(false)
-      end
-    end
-
-    # TODO: write a VCR-like test to check when this request returns something other than what we expect.
   end
 
   describe '#update' do
