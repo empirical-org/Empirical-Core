@@ -3,6 +3,7 @@ import React from 'react';
 import AuthSignUp from './auth_sign_up'
 
 import PasswordWrapper from '../shared/password_wrapper'
+import TeacherSignUpInfo from '../shared/teacher_sign_up_info'
 import AnalyticsWrapper from '../../shared/analytics_wrapper'
 import AgreementsAndLinkToLogin from './agreements_and_link_to_login'
 import AssignActivityPackBanner from '../assignActivityPackBanner'
@@ -116,14 +117,7 @@ class SignUpTeacher extends React.Component {
           <h1>Create an account</h1>
           <p className="sub-header">Are you a student? <span className="inline-link" onClick={this.handleClickSignUpAsStudent} onKeyDown={this.handleKeyDownOnSignUpAsStudent} role="link" tabIndex={0}>Sign up here</span></p>
           <div className="info-and-form-container">
-            <div className="info">
-              <h2>More than 5,000 schools use Quill&#39;s free online tools to help their students become strong&nbsp;writers.</h2>
-              <ul>
-                <li>Quill provides free access to 700 writing and grammar&nbsp;activities</li>
-                <li>Students receive immediate feedback on their&nbsp;work</li>
-                <li>Teachers or guardians identify student needs and measure growth with diagnostics and&nbsp;reports</li>
-              </ul>
-            </div>
+            <TeacherSignUpInfo />
             <div className="account-container text-center">
               <AuthSignUp />
               <div className='break'><span />or<span /></div>
