@@ -277,7 +277,6 @@ describe Teachers::UnitsController, type: :controller do
         unit_activity.update_columns(publish_date: publish_date)
         response = get :index, params: { report: false }
         parsed_response = JSON.parse(response.body)
-        # this one here
         expect(parsed_response[0]['scheduled']).to eq(false)
       end
     end
