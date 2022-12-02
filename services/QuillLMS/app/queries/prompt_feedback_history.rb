@@ -85,7 +85,7 @@ class PromptFeedbackHistory
     end
 
     def avg_time_spent
-      payload['avg_time_spent'] ? Utils::Numeric.seconds_to_human_readable_time(payload['avg_time_spent']) : nil
+      payload['avg_time_spent'] && Utils::Numeric.seconds_to_human_readable_time(payload['avg_time_spent'])
     end
   end
 

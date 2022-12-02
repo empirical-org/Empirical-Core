@@ -7,7 +7,7 @@ class PopulateEvidenceActivityHealthWorker
   def perform(id)
     @activity = Evidence::Activity.find(id)
 
-    prompt_feedback_history = PromptFeedbackHistory.run({activity_id: @activity.id, activity_version: @activity.version})
+    prompt_feedback_history = PromptFeedbackHistory.run(activity_id: @activity.id, activity_version: @activity.version)
     serializer = SerializeEvidenceActivityHealth.new(@activity, prompt_feedback_history)
     activity_health = Evidence::ActivityHealth.create(serializer.data)
 
