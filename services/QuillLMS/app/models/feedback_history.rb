@@ -133,7 +133,7 @@ class FeedbackHistory < ApplicationRecord
   end
 
   def serialize_csv_data
-    serializable_hash(only: [:session_uid, :datetime, :conjunction, :optimal, :attempt, :response, :feedback, :feedback_type, :name], include: []).symbolize_keys
+    serializable_hash(only: [:session_uid, :datetime, :conjunction, :optimal, :attempt, :response, :feedback, :feedback_type, :name], include: [])
   end
 
   def most_recent_rating

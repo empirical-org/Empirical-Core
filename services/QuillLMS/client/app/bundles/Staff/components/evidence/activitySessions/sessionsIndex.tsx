@@ -34,8 +34,9 @@ const SessionsIndex = ({ match }) => {
   const [startDateForQuery, setStartDate] = React.useState<string>(initialStartDateString);
   const [endDate, onEndDateChange] = React.useState<Date>(initialEndDate);
   const [endDateForQuery, setEndDate] = React.useState<string>(initialEndDateString);
-  const [responsesForScoring, setResponsesForScoring] = React.useState<boolean>(false)
-  const [responsesForScoringForQuery, setResponsesForScoringForQuery] = React.useState<boolean>(false)
+  const [responsesForScoring, setResponsesForScoring] = React.useState<boolean>(false);
+  const [responsesForScoringForQuery, setResponsesForScoringForQuery] = React.useState<boolean>(false);
+  const [csvDataLoadInitiated, setCsvDataLoadInitiated] = React.useState<boolean>(false);
 
   // cache activity data for updates
   const { data: activityData } = useQuery({
@@ -51,7 +52,7 @@ const SessionsIndex = ({ match }) => {
 
   // cache activity sessions data for updates
   const { data: sessionsCSVData } = useQuery({
-    queryKey: [`activity-${activityId}-sessions-csv-data`, activityId, startDateForQuery, filterOptionForQuery, endDateForQuery, responsesForScoringForQuery],
+    queryKey: [`activity-${activityId}-sessions-csv-data`, activityId, startDateForQuery, filterOptionForQuery, endDateForQuery, responsesForScoringForQuery, csvDataLoadInitiated],
     queryFn: fetchActivitySessionsDataForCSV
   });
 
@@ -93,6 +94,7 @@ const SessionsIndex = ({ match }) => {
   }, [sessionsData]);
 
   function handleFilterClick(e: React.SyntheticEvent, passedVersionOption?: DropdownObjectInterface) {
+    setCsvDataLoadInitiated(false);
     handlePageFilterClick({ startDate, endDate, filterOption, versionOption: passedVersionOption || versionOption, responsesForScoring, setStartDate, setEndDate, setPageNumber, setFilterOptionForQuery, setResponsesForScoringForQuery, storageKey: SESSION_INDEX });
   }
 
@@ -136,6 +138,10 @@ const SessionsIndex = ({ match }) => {
 
   function handleResponsesForScoringChange() {
     setResponsesForScoring(!responsesForScoring);
+  }
+
+  function handleLoadCSVDataClick() {
+    setCsvDataLoadInitiated(true);
   }
 
   function getSortedRows({ activitySessions, id, directionOfSort }) {
@@ -230,7 +236,7 @@ const SessionsIndex = ({ match }) => {
               startDate={startDate}
               versionOptions={versionOptions}
             />
-            {renderCSVDownloadButton(sessionsCSVData)}
+            {renderCSVDownloadButton(csvDataLoadInitiated, handleLoadCSVDataClick, sessionsCSVData)}
           </section>
         </section>
         <ReactTable

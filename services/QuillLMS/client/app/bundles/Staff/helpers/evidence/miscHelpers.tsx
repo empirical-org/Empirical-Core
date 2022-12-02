@@ -468,7 +468,12 @@ export function getCSVData(sessionsCSVData) {
   });
 }
 
-export function renderCSVDownloadButton(sessionsCSVData) {
-  if(!sessionsCSVData || !sessionsCSVData.csvResponseData) { return <button className="quill-button fun primary contained csv-download-button"><Spinner /></button> }
-  return <CSVLink className="quill-button fun primary contained csv-download-button" data={getCSVData(sessionsCSVData)} headers={sessionsCSVHeaders}>Download CSV</CSVLink>
+export function renderCSVDownloadButton(csvDataLoadInitiated, handleLoadCSVDataClick, sessionsCSVData) {
+  if(csvDataLoadInitiated) {
+    if(!sessionsCSVData || !sessionsCSVData.csvResponseData) {
+      return <button className="quill-button fun primary contained csv-download-button"><Spinner /></button>
+    }
+    return <CSVLink className="quill-button fun primary contained csv-download-button" data={getCSVData(sessionsCSVData)} headers={sessionsCSVHeaders}>Download CSV</CSVLink>
+  }
+  return <button className="quill-button fun primary contained csv-download-button" onClick={handleLoadCSVDataClick}>Load CSV Data</button>
 }
