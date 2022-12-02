@@ -442,7 +442,7 @@ exports[`SessionsIndex component should render SessionsIndex 1`] = `
                 "currentRefetchInterval": false,
                 "currentResult": Object {
                   "data": undefined,
-                  "dataUpdatedAt": 1670006997202,
+                  "dataUpdatedAt": 1670008688893,
                   "error": null,
                   "errorUpdatedAt": 0,
                   "failureCount": 0,
@@ -486,7 +486,7 @@ exports[`SessionsIndex component should render SessionsIndex 1`] = `
                 "currentResultState": Object {
                   "data": undefined,
                   "dataUpdateCount": 1,
-                  "dataUpdatedAt": 1670006997202,
+                  "dataUpdatedAt": 1670008688893,
                   "error": null,
                   "errorUpdateCount": 0,
                   "errorUpdatedAt": 0,
@@ -592,7 +592,7 @@ exports[`SessionsIndex component should render SessionsIndex 1`] = `
             "state": Object {
               "data": undefined,
               "dataUpdateCount": 1,
-              "dataUpdatedAt": 1670006997202,
+              "dataUpdatedAt": 1670008688893,
               "error": null,
               "errorUpdateCount": 0,
               "errorUpdatedAt": 0,
@@ -1200,7 +1200,7 @@ exports[`SessionsIndex component should render SessionsIndex 1`] = `
                 "currentRefetchInterval": false,
                 "currentResult": Object {
                   "data": undefined,
-                  "dataUpdatedAt": 1670006997202,
+                  "dataUpdatedAt": 1670008688893,
                   "error": null,
                   "errorUpdatedAt": 0,
                   "failureCount": 0,
@@ -1244,7 +1244,7 @@ exports[`SessionsIndex component should render SessionsIndex 1`] = `
                 "currentResultState": Object {
                   "data": undefined,
                   "dataUpdateCount": 1,
-                  "dataUpdatedAt": 1670006997202,
+                  "dataUpdatedAt": 1670008688893,
                   "error": null,
                   "errorUpdateCount": 0,
                   "errorUpdatedAt": 0,
@@ -1350,7 +1350,7 @@ exports[`SessionsIndex component should render SessionsIndex 1`] = `
             "state": Object {
               "data": undefined,
               "dataUpdateCount": 1,
-              "dataUpdatedAt": 1670006997202,
+              "dataUpdatedAt": 1670008688893,
               "error": null,
               "errorUpdateCount": 0,
               "errorUpdatedAt": 0,
