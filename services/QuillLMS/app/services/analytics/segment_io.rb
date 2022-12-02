@@ -50,6 +50,8 @@ module SegmentIo
     # renewing subscriptions
     TEACHER_SUB_WILL_RENEW_IN_30 = 'Teacher Premium Renews in 30 Days | Automatic Renewal On'
     SCHOOL_SUB_WILL_RENEW_IN_30 = 'School Premium Renews in 30 Days | Automatic Renewal On'
+    TEACHER_SUB_WILL_RENEW_IN_7 = 'Teacher Premium Renews in 7 Days | Automatic Renewal On'
+    SCHOOL_SUB_WILL_RENEW_IN_7 = 'School Premium Renews in 7 Days | Automatic Renewal On'
     # expiring subscriptions
     TEACHER_SUB_WILL_EXPIRE_IN_30 = 'Teacher Premium Expires in 30 Days | Automatic Renewal Off'
     SCHOOL_SUB_WILL_EXPIRE_IN_30 = 'School Premium Expires in 30 Days | Automatic Renewal Off'
