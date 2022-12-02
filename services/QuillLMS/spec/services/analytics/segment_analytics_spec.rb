@@ -164,7 +164,7 @@ describe 'SegmentAnalytics' do
     it 'sends an event with information about the subscription for recurring subscriptions' do
       analytics.track_school_subscription(subscription, SegmentIo::BackgroundEvents::SCHOOL_SUB_WILL_RENEW_IN_30)
       expect(track_calls.size).to eq(1)
-      expect(track_calls[0][:event]).to eq(SegmentIo::BackgroundEvents::SCHOOL_SUB_WILL_RENEW)
+      expect(track_calls[0][:event]).to eq(SegmentIo::BackgroundEvents::SCHOOL_SUB_WILL_RENEW_IN_30)
       expect(track_calls[0][:properties][:school_id]).to eq(school.id)
       expect(track_calls[0][:properties][:subscription_id]).to eq(subscription.id)
     end

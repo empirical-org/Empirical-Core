@@ -129,7 +129,7 @@ class Subscription < ApplicationRecord
   scope :paid_with_card, -> { where.not(stripe_invoice_id: nil).or(where(payment_method: 'Credit Card')) }
   scope :for_schools, -> { where(account_type: OFFICIAL_SCHOOL_TYPES) }
   scope :for_teachers, -> { where(account_type: OFFICIAL_TEACHER_TYPES) }
-  scope :expiring, -> (date) { where(expiration: date) }
+  scope :expiring, ->(date) { where(expiration: date) }
 
   def self.create_and_attach_subscriber(subscription_attrs, subscriber)
     if !subscription_attrs[:expiration]
