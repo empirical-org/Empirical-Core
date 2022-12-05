@@ -6,36 +6,57 @@ class TeachersController < ApplicationController
   before_action :require_user, only: [:classrooms_i_teach_with_students, :classrooms_i_own_with_students]
 
   def create
-    school = School.find_by(id: params[:id])
+    @school = School.find_by(id: params[:id])
     # TODO, create auth function that we can use in this controller to verify admin rights.
-    if SchoolsAdmins.find_by(school: school, user: current_user)
-      @teacher = User.find_by(email: teacher_params[:email])
-      if @teacher
-        # Teacher exists.
-        if SchoolsUsers.find_by(user: @teacher, school: school)
-          # Teacher is already in the school, let the admin know.
-          message = "#{teacher_params[:first_name]} #{teacher_params[:last_name]} is already registered to #{school.name}."
+
+    if SchoolsAdmins.find_by(school: @school, user: current_user).nil?
+      render json: {errors: 'Something went wrong. If this problem persists, please contact us at hello@quill.org'}, status: 422
+      return
+    end
+
+    @teacher = User.find_by(email: teacher_params[:email])
+
+    is_admin = teacher_params[:role] === 'admin'
+    teacher_params.delete(:role)
+
+    if @teacher
+      if is_admin
+        if SchoolsAdmins.find_by(user: @teacher, school: @school)
+          message = t('admincreatedaccount.existing_account.admin.linked', school_name: @school.name)
         else
-          # Send invite to the school to the teacher via email.
-          message = "An email has been sent to #{teacher_params[:email]} asking them to join #{school.name}."
-          JoinSchoolEmailWorker.perform_async(@teacher.id, school.id)
+          message = t('admincreatedaccount.existing_account.admin.new')
+          handle_new_school_admin_email
         end
       else
-        # Create a new teacher, and automatically join them to the school.
-        teacher_attributes = teacher_params.merge({password: teacher_params[:last_name]})
-        @teacher = school.users.create(teacher_attributes)
-        AccountCreatedEmailWorker.perform_async(@teacher.id, teacher_params[:last_name], current_user.name)
-        message = "An email has been sent to #{teacher_params[:email]} asking them to set up their account."
-      end
-      if @teacher.errors.empty?
-        # Return the message to the admin
-        render json: {message: message}, status: 200
-      else
-         # Return errors if there are any.
-        render json: @teacher.errors, status: 422
+        if SchoolsUsers.find_by(user: @teacher, school: @school)
+          # Teacher is already in the school, let the admin know.
+          message = t('admincreatedaccount.existing_account.teacher.linked', school_name: @school.name)
+        else
+          # Send invite to the school to the teacher via email.
+          message = t('admincreatedaccount.existing_account.teacher.new', school_name: @school.name)
+          # @TODO replace email worker
+          JoinSchoolEmailWorker.perform_async(@teacher.id, @school.id)
+        end
       end
     else
-      render json: {errors: 'Something went wrong. If this problem persists, please contact us at hello@quill.org'}, status: 422
+      # Create a new teacher, and automatically join them to the school.
+      @teacher = school.users.create(teacher_params)
+      if is_admin
+        SchoolsAdmins.create(user: @teacher, school: @school)
+        message = t('admincreatedaccount.new_account.admin')
+        # @TODO set email
+      else
+        message = t('admincreatedaccount.new_account.teacher')
+        # @TODO set email
+      end
+    end
+
+    if @teacher.errors.empty?
+      # Return the message to the admin
+      render json: {message: message}, status: 200
+    else
+       # Return errors if there are any.
+      render json: @teacher.errors, status: 422
     end
   end
 
@@ -188,6 +209,15 @@ class TeachersController < ApplicationController
     render json: { units: units }
   end
 
+  private def handle_new_school_admin_email
+    if @teacher.school.nil?
+      # @TODO set email
+    elsif @teacher.school === @school
+      # @TODO set email
+    else
+      # @TODO set email
+    end
+  end
 
   private def teacher_params
     params.require(:teacher).permit(:admin_id, :first_name, :last_name, :email)

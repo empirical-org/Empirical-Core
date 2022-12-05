@@ -2,15 +2,22 @@ import * as React from 'react'
 
 import { DropdownInput, } from '../../Shared/index'
 
+const roleOptions = [{ value: 'teacher', label: 'Teacher' }, { value: 'admin', label: 'Admin' }]
+
 export class CreateNewAccounts extends React.Component<any, any> {
   constructor(props) {
     super(props)
+
+    const { adminAssociatedSchool, schools, } = props
+
+    const defaultSchool = schools.find(s => s.id === adminAssociatedSchool?.id) || schools[0]
 
     this.state = {
       firstName: '',
       lastName: '',
       email: '',
-      school: props.schools[0]
+      school: defaultSchool,
+      role: null
     }
   }
 
@@ -21,6 +28,8 @@ export class CreateNewAccounts extends React.Component<any, any> {
   handleLastNameChange = (e) => this.updateField(e, 'lastName')
 
   handleEmailChange = (e) => this.updateField(e, 'email')
+
+  updateRole = (role) => this.setState(role)
 
   updateSchool = (school) => this.setState({ school })
 
@@ -49,14 +58,15 @@ export class CreateNewAccounts extends React.Component<any, any> {
     })
   }
 
-  handleAddTeacherAccountClick = () => {
-    const { firstName, lastName, email, school, } = this.state
+  handleSubmitClick = () => {
+    const { firstName, lastName, email, school, role, } = this.state
     const { addTeacherAccount, } = this.props
 
     const data = {
       teacher: {
         first_name: firstName,
         last_name: lastName,
+        role,
         email
       },
       id: school.value || school.id
@@ -79,25 +89,14 @@ export class CreateNewAccounts extends React.Component<any, any> {
   }
 
   render() {
-    const { firstName, lastName, email, school, } = this.state
-    const supportLink = <a className="green-link" href="http://support.quill.org/getting-started-for-teachers/manage-classes/how-can-i-connect-my-account-to-my-school" rel="noopener noreferrer" target="_blank"> Here&#39;s the guide</a>
+    const { firstName, lastName, email, school, role, } = this.state
+    const supportLink = <a href="http://support.quill.org/getting-started-for-teachers/manage-classes/how-can-i-connect-my-account-to-my-school" rel="noopener noreferrer" target="_blank"> Here&#39;s the guide</a>
 
     return (
       <div className="create-new-accounts-container">
         <section className="left-section">
-          <h2>Create New Accounts & Link Existing Teachers</h2>
+          <h2>Create and Link Accounts</h2>
           <div className="form">
-            <section className="info-section-container">
-              <section className="info-section">
-                <span>Teachers New to Quill?</span>
-                <p>Input their information to create new Quill accounts.</p>
-              </section>
-              <section className="info-section">
-                <span>Teachers Have Quill Accounts?</span>
-                <p>When you submit their information, they will receive an email instructing them to link their accounts to your school. Teachers can link to their school from the My Account page. {supportLink}</p>
-              </section>
-            </section>
-            <div className='light-divider' />
             <section className="first-section">
               <section className="name-inputs-container">
                 <input aria-label="First Name" className="first-name" onChange={this.handleFirstNameChange} placeholder="First Name" type="text" value={firstName} />
@@ -111,10 +110,28 @@ export class CreateNewAccounts extends React.Component<any, any> {
                 handleChange={this.updateSchool}
                 isSearchable={true}
                 options={this.schoolOptions()}
-                placeholder='Select School for Teacher'
+                placeholder='Select school for teacher'
                 value={this.schoolOptions().find(s => s.value === school.id || s.value === school.value)}
               />
-              <button className="quill-button small primary contained add-teacher-account-button" onClick={this.handleAddTeacherAccountClick} type="button">Add Teacher Account</button>
+              <DropdownInput
+                className='second-line'
+                handleChange={this.updateRole}
+                options={roleOptions}
+                placeholder='Select role'
+                value={role}
+              />
+              <button className="quill-button small primary contained add-teacher-account-button" onClick={this.handleSubmitClick} type="button">Submit</button>
+            </section>
+            <div className='light-divider' />
+            <section className="info-section-container">
+              <section className="info-section">
+                <span>How does this work for new accounts?</span>
+                <p>An account linked to the selected school will be created on their behalf and they will receive an email with the login details.</p>
+              </section>
+              <section className="info-section">
+                <span>How does this work for existing accounts?</span>
+                <p>They will receive an email asking them to link their account to the selected school. They can also link to their school from the <a href="/teachers/my_account">My Account</a> page. {supportLink}.</p>
+              </section>
             </section>
           </div>
         </section>

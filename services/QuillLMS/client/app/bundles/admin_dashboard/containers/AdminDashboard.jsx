@@ -31,9 +31,10 @@ export class AdminDashboard extends React.Component {
   }
 
   getData = () => {
+    const { adminId, } = this.props
     this.initializePusher();
     requestGet(
-      `${process.env.DEFAULT_URL}/admins/${this.props.adminId}`,
+      `${process.env.DEFAULT_URL}/admins/${adminId}`,
       (body) => {
         this.receiveData(body)
       }
@@ -64,7 +65,6 @@ export class AdminDashboard extends React.Component {
   addTeacherAccount = (data) => {
     const { adminId } = this.props;
     this.setState({ message: '', error: '', });
-    data.authenticity_token = getAuthToken();
     requestPost(
       `${process.env.DEFAULT_URL}/admins/${adminId}/teachers`,
       data,
@@ -98,6 +98,7 @@ export class AdminDashboard extends React.Component {
         <div className='dark-divider' id="scroll-location" />
         <CreateNewAccounts
           addTeacherAccount={this.addTeacherAccount}
+          adminAssociatedSchool={model.associated_school}
           error={error}
           message={message}
           schools={model.schools}

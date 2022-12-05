@@ -54,3 +54,14 @@ en:
           attributes:
             name:
               taken: "That class name already exists. Try another."
+    admincreatedaccount:
+      existing_account:
+        admin:
+          linked: "This account already exists and is an admin of %{school_name}."
+          new: "This account already exists. They were made an admin and notified by email."
+        teacher:
+          linked: "This account already exists and is linked to %{school_name}."
+          new: "This account already exists. They were sent an email asking them to link their account to %{school_name}."
+      new_account:
+        admin: "Admin added. They were notified by email."
+        teacher: "Teacher added. They were notified by email."
