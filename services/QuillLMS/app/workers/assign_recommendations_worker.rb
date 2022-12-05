@@ -6,17 +6,15 @@ class AssignRecommendationsWorker
 
   # rubocop:disable Metrics/CyclomaticComplexity
   def perform(options={})
-    options = options.with_indifferent_access
-
-    assign_on_join = options[:assign_on_join] || false
-    assigning_all_recommendations = options[:assigning_all_recommendations] || false
-    classroom_id = options[:classroom_id]
-    is_last_recommendation = options[:is_last_recommendation]
-    lesson = options[:lesson]
-    order = options[:order]
-    pack_sequence_id = options[:pack_sequence_id]
-    student_ids = options[:student_ids]
-    unit_template_id = options[:unit_template_id]
+    assign_on_join = options['assign_on_join'] || false
+    assigning_all_recommendations = options['assigning_all_recommendations'] || false
+    classroom_id = options['classroom_id']
+    is_last_recommendation = options['is_last_recommendation']
+    lesson = options['lesson']
+    order = options['order']
+    pack_sequence_id = options['pack_sequence_id']
+    student_ids = options['student_ids']
+    unit_template_id = options['unit_template_id']
 
     classroom = Classroom.find(classroom_id)
     teacher = classroom.owner

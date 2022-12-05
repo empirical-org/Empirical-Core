@@ -19,8 +19,8 @@ class IndependentPracticePacksAssigner < ApplicationService
     user:
   )
     @assigning_all_recommendations = assigning_all_recommendations
-    @classroom_id = classroom_id
-    @diagnostic_activity_id = diagnostic_activity_id
+    @classroom_id = classroom_id.to_i
+    @diagnostic_activity_id = diagnostic_activity_id.to_i
     @release_method = release_method
     @selections = selections
     @user = user
@@ -49,18 +49,11 @@ class IndependentPracticePacksAssigner < ApplicationService
   private def assign_recommendations
     pack_sequence = staggered_release? ? pack_sequence_getter : nil
 
-    selections_with_students.each_with_index do |selection, index|
-      AssignRecommendationsWorker.perform_async(
-        pack_sequence_id: pack_sequence&.id,
-        assigning_all_recommendations: assigning_all_recommendations,
-        classroom_id: classroom_id,
-        is_last_recommendation: index == last_recommendation_index,
-        lesson: false,
-        order: selection[:order],
-        student_ids: selection[:classrooms][0][:student_ids].compact,
-        unit_template_id: selection[:id]
-      )
-    end
+    BatchAssignRecommendationsWorker.perform_async(
+      assigning_all_recommendations,
+      pack_sequence&.id,
+      selections_with_students
+    )
   end
 
   private def destroy_existing_pack_sequences
@@ -79,12 +72,11 @@ class IndependentPracticePacksAssigner < ApplicationService
     end
   end
 
-  private def last_recommendation_index
-    @last_selected_recommendation_index ||= selections_with_students.length - 1
-  end
-
   private def selections_with_students
-    @selections_with_students ||= selections.select { |ut| ut[:classrooms][0][:student_ids]&.compact&.any? }
+    @selections_with_students ||=
+      selections
+        .select { |selection| selection[:classrooms][0][:student_ids]&.compact&.any? }
+        .map { |selection| selection.permit(:id, classrooms: [:id, :order, student_ids: []]).to_h }
   end
 
   private def set_diagnostic_recommendations_start_time
