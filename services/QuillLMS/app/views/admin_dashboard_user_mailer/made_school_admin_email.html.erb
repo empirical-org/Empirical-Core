@@ -1,0 +1,15 @@
+<p>You were made a Quill admin for <%= @school_name %> by <%= @admin_name %>. As an admin, you will have school-wide access to teacher accounts and student reports for your school. </p>
+
+<p>ℹ️ <strong>How to access the School Dashboard</strong></p>
+
+<p>The next time you log in to your account, you will see a “School Dashboard” tab. This tab will show you a list of all teachers who have signed up for Quill at your school.</p>
+
+<a href=<%= @constants[:links][:link_account]%> rel="noopener noreferrer" target="_blank">View the School Dashboard</a>
+
+<p>ℹ️ <strong>Need help?</strong></p>
+
+<p>If you have any questions or issues with your account, please reply to this email. You can also <a href=<%= @constants[:links][:premium]%> rel="noopener noreferrer" target="_blank">learn more about Quill Premium here</a>.</p>
+
+<p>Best regards,</p>
+
+<p><%= @constants[:signatures][:quill_team]%></p>

@@ -662,6 +662,10 @@ class User < ApplicationRecord
     SegmentIntegration::User.new(self)
   end
 
+  def mailer_user
+    Mailer::User.new(self)
+  end
+
   # With the introduction of the SALES_CONTACT we now have a sort of
   # "prospective user" type of user.  These people haven't signed up
   # through our onboarding flow, but are given a User record so that we
