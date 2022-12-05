@@ -41,7 +41,9 @@ class AccountsController < ApplicationController
   def edit
     return if @user.present?
 
+    # rubocop:disable Rails/OutputSafety
     redirect_to profile_path, notice: t('accounts.edit.expired_link').html_safe
+    # rubocop:enable Rails/OutputSafety
   end
 
   def update
