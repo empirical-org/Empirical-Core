@@ -1,6 +1,6 @@
 import * as React from 'react';
 import 'whatwg-fetch';
-import { mount } from 'enzyme';
+import { shallow } from 'enzyme';
 import { createMemoryHistory, createLocation } from 'history';
 import { QueryClientProvider } from 'react-query'
 
@@ -23,7 +23,7 @@ const mockProps = {
 }
 
 describe('SessionsIndex component', () => {
-  const container = mount(
+  const container = shallow(
     <QueryClientProvider client={queryClient} contextSharing={true}>
       <SessionsIndex {...mockProps} />
     </QueryClientProvider>
