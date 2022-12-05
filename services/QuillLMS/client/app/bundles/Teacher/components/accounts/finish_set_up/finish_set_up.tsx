@@ -14,8 +14,7 @@ jest.mock('qs', () => ({
   default: {
     parse: jest.fn(() => ({}))
   }
-})
-)
+}))
 
 const accountTypeCopy = (accountType) => {
   switch(accountType) {

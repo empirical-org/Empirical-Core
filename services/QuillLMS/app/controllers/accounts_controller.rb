@@ -74,7 +74,7 @@ class AccountsController < ApplicationController
 
   protected def update_user_params
     params.require(:user).permit(:name, :password)
-end
+  end
 
   protected def creation_json
     if session[:post_sign_up_redirect]
