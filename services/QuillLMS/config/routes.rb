@@ -529,7 +529,7 @@ EmpiricalGrammar::Application.routes.draw do
 
   get 'account/:token/finish_set_up', to: 'accounts#edit'
   put 'account/:token', to: 'accounts#update'
-  
+
   get '/sign-up/teacher', to: 'accounts#new'
   get '/sign-up/student', to: 'accounts#new'
   get '/sign-up/pick-school-type', to: 'accounts#new'
