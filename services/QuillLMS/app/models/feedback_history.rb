@@ -385,6 +385,7 @@ class FeedbackHistory < ApplicationRecord
     session_uids = session_data_uids(activity_id: activity_id, filter_type: filter_type, responses_for_scoring: responses_for_scoring)
     query = select(
       <<-SQL
+        feedback_histories.id,
         feedback_histories.feedback_session_uid AS session_uid,
         feedback_histories.time AS datetime,
         comprehension_prompts.conjunction,
