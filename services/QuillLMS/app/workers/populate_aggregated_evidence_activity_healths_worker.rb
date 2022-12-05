@@ -3,7 +3,7 @@
 class PopulateAggregatedEvidenceActivityHealthsWorker
   include Sidekiq::Worker
 
-  INTERVAL = 140 # 2:20 minutes
+  INTERVAL = 180 # 3 minutes
 
   def perform
     Evidence::ActivityHealth.destroy_all
