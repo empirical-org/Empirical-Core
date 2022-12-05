@@ -39,7 +39,7 @@ class SerializeEvidenceActivityHealth
   end
 
   private def activity_feedback_history
-    activity_feedback_history ||= ActivityFeedbackHistory.run({activity_id: activity.id, activity_version: activity.version})
+    @activity_feedback_history ||= ActivityFeedbackHistory.run({activity_id: activity.id, activity_version: activity.version})
   end
 
 end

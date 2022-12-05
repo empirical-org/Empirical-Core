@@ -3,6 +3,7 @@
 require 'rails_helper'
 
 describe 'SerializeEvidencePromptHealth' do
+
   before do
     @activity = Evidence::Activity.create!(notes: 'Title_1', title: 'Title 1', parent_activity_id: 1, target_level: 1)
     @activity.update(flag: "production")
@@ -59,78 +60,30 @@ describe 'SerializeEvidencePromptHealth' do
     @prompt_feedback_history = PromptFeedbackHistory.run({activity_id: @activity.id, activity_version: @activity.version})
   end
 
-  it 'gets the correct basic data for that prompt' do
-    prompt = @because_prompt1
-    data = SerializeEvidencePromptHealth.new(prompt, @prompt_feedback_history).data
-    expect(data[:prompt_id]).to eq(prompt.id)
-    expect(data[:activity_short_name]).to eq(@activity.notes)
-    expect(data[:text]).to eq(prompt.text)
-    expect(data[:current_version]).to eq(@activity.version)
+  let(:expected_results) do
+    {
+      prompt_id: @because_prompt1.id,
+      activity_short_name: @activity.notes,
+      text: @because_prompt1.text,
+      current_version: @activity.version,
+      version_responses: 10,
+      first_attempt_optimal: 25,
+      final_attempt_optimal: 75,
+      avg_attempts: 2.5,
+      confidence: 0.85,
+      percent_automl_consecutive_repeated: 0,
+      percent_automl: 30,
+      percent_plagiarism: 10,
+      percent_opinion: 20,
+      percent_grammar: 30,
+      percent_spelling: 10,
+      avg_time_spent_per_prompt: 287
+    }
   end
 
-  it 'gets the correct version responses #' do
+  it 'correct basic data for that prompt' do
     prompt = @because_prompt1
     data = SerializeEvidencePromptHealth.new(prompt, @prompt_feedback_history).data
-    expect(data[:version_responses]).to eq(10)
-  end
-
-  it 'gets the correct first attempt optimal #' do
-    prompt = @because_prompt1
-    data = SerializeEvidencePromptHealth.new(prompt, @prompt_feedback_history).data
-    expect(data[:first_attempt_optimal]).to eq(25)
-  end
-
-  it 'gets the correct final attempt optimal #' do
-    prompt = @because_prompt1
-    data = SerializeEvidencePromptHealth.new(prompt, @prompt_feedback_history).data
-    expect(data[:final_attempt_optimal]).to eq(75)
-  end
-
-  it 'gets the correct avg_attempts #' do
-    prompt = @because_prompt1
-    data = SerializeEvidencePromptHealth.new(prompt, @prompt_feedback_history).data
-    expect(data[:avg_attempts]).to eq(2.5)
-  end
-
-  it 'gets the correct avg_confidence #' do
-    prompt = @because_prompt1
-    data = SerializeEvidencePromptHealth.new(prompt, @prompt_feedback_history).data
-    expect(data[:confidence]).to eq(0.85)
-  end
-
-  it 'gets the correct avg_time_spent' do
-    prompt = @because_prompt1
-    data = SerializeEvidencePromptHealth.new(prompt, @prompt_feedback_history).data
-    expect(data[:avg_time_spent_per_prompt]).to eq(287)
-  end
-
-  it 'gets the correct percent_automl' do
-    prompt = @because_prompt1
-    data = SerializeEvidencePromptHealth.new(prompt, @prompt_feedback_history).data
-    expect(data[:percent_automl]).to eq(30)
-  end
-
-  it 'gets the correct percent_plagiarism' do
-    prompt = @because_prompt1
-    data = SerializeEvidencePromptHealth.new(prompt, @prompt_feedback_history).data
-    expect(data[:percent_plagiarism]).to eq(10)
-  end
-
-  it 'gets the correct percent_opinion' do
-    prompt = @because_prompt1
-    data = SerializeEvidencePromptHealth.new(prompt, @prompt_feedback_history).data
-    expect(data[:percent_opinion]).to eq(20)
-  end
-
-  it 'gets the correct percent_grammar' do
-    prompt = @because_prompt1
-    data = SerializeEvidencePromptHealth.new(prompt, @prompt_feedback_history).data
-    expect(data[:percent_grammar]).to eq(30)
-  end
-
-  it 'gets the correct percent_spelling' do
-    prompt = @because_prompt1
-    data = SerializeEvidencePromptHealth.new(prompt, @prompt_feedback_history).data
-    expect(data[:percent_spelling]).to eq(10)
+    expect(data).to eq expected_results
   end
 end
