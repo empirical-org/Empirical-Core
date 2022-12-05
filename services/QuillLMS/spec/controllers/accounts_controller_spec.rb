@@ -180,7 +180,7 @@ describe AccountsController, type: :controller do
     it 'should redirect with a flash error if the token is not present' do
       get :edit, params: { id: 'not-a-token' }
       expect(response).to redirect_to profile_path
-      expect(flash[:notice]).to eq("Sorry, this link has expired. Please contact your Quill admin or the <a href='mailto:hello@quill.org'>Quill support team</a>".html_safe)
+      expect(flash[:notice]).to eq(t('accounts.edit.expired_link').html_safe)
     end
   end
 end

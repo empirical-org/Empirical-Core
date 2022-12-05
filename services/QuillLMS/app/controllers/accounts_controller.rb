@@ -31,7 +31,7 @@ class AccountsController < ApplicationController
       sign_in @user
       trigger_account_creation_callbacks
       create_referral_if_teacher_and_referrer
-      render json: creation_json
+      render json: redirect_json
     else
       errors = @user.errors
       render json: {errors: errors}, status: 422
@@ -39,19 +39,16 @@ class AccountsController < ApplicationController
   end
 
   def edit
-    @user = User.find_by_token(params[:id])
     return if @user.present?
 
-    redirect_to profile_path, notice: "Sorry, this link has expired. Please contact your Quill admin or the <a href='mailto:hello@quill.org'>Quill support team</a>".html_safe
+    redirect_to profile_path, notice: t('accounts.edit.expired_link').html_safe
   end
 
   def update
     if @user.update(update_user_params)
       sign_in @user
-      puts '@user.attributes', @user.attributes
-      puts '@user.password', @user.password
       @user.update(token: nil)
-      render json: creation_json
+      render json: redirect_json
     else
       errors = @user.errors
       render json: {errors: errors}, status: 422
@@ -76,7 +73,7 @@ class AccountsController < ApplicationController
     params.require(:user).permit(:name, :password)
   end
 
-  protected def creation_json
+  protected def redirect_json
     if session[:post_sign_up_redirect]
       { redirect: session.delete(:post_sign_up_redirect) }
     elsif @user.has_outstanding_coteacher_invitation?
@@ -91,7 +88,7 @@ class AccountsController < ApplicationController
   end
 
   protected def set_user_by_token
-    @user = User.find_by_token(params[:id])
+    @user = User.find_by_token(params[:token])
   end
 
   protected def trigger_account_creation_callbacks
