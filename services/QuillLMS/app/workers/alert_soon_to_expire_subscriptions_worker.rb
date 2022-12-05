@@ -4,23 +4,55 @@ class AlertSoonToExpireSubscriptionsWorker
   include Sidekiq::Worker
   sidekiq_options queue: SidekiqQueue::LOW
 
+  TEACHER_RENEW_IN_30 = SegmentIo::BackgroundEvents::TEACHER_SUB_WILL_RENEW_IN_30
+  SCHOOL_RENEW_IN_30 = SegmentIo::BackgroundEvents::SCHOOL_SUB_WILL_RENEW_IN_30
+  TEACHER_RENEW_IN_7 = SegmentIo::BackgroundEvents::TEACHER_SUB_WILL_RENEW_IN_7
+  SCHOOL_RENEW_IN_7 = SegmentIo::BackgroundEvents::SCHOOL_SUB_WILL_RENEW_IN_7
+
+  TEACHER_EXPIRE_IN_30 = SegmentIo::BackgroundEvents::TEACHER_SUB_WILL_EXPIRE_IN_30
+  TEACHER_EXPIRE_IN_14 = SegmentIo::BackgroundEvents::TEACHER_SUB_WILL_EXPIRE_IN_14
+  SCHOOL_EXPIRE_IN_30 = SegmentIo::BackgroundEvents::SCHOOL_SUB_WILL_EXPIRE_IN_30
+  SCHOOL_EXPIRE_IN_14 = SegmentIo::BackgroundEvents::SCHOOL_SUB_WILL_EXPIRE_IN_14
+
+  # Send a segment event for each credit card subscription that is expiring soon
+  # to trigger specific reminder emails from Intercom
+  # Events/emails differ on time, school/teacher, and whether auto-renew is on (renewing vs. expiring)
   def perform
     current_time = Time.current
+    in_30_days = current_time + 30.days
+    in_14_days = current_time + 14.days
+    in_7_days = current_time + 7.days
 
-    subs_expiring_in_thirty = Subscription.paid_with_card.where(expiration: current_time + 30.days)
-    teacher_subs_renewing_in_thirty = subs_expiring_in_thirty.where(account_type: Subscription::OFFICIAL_TEACHER_TYPES, recurring: true)
-    school_subs_renewing_in_thirty = subs_expiring_in_thirty.where(account_type: Subscription::OFFICIAL_SCHOOL_TYPES, recurring: true)
-    teacher_subs_expiring_in_thirty = subs_expiring_in_thirty.where(account_type: Subscription::OFFICIAL_TEACHER_TYPES, recurring: false)
-    school_subs_expiring_in_thirty = subs_expiring_in_thirty.where(account_type: Subscription::OFFICIAL_SCHOOL_TYPES, recurring: false)
-    teacher_subs_expiring_in_fourteen = Subscription.paid_with_card.where(account_type: Subscription::OFFICIAL_TEACHER_TYPES, expiration: current_time + 14.days, recurring: false)
-    school_subs_expiring_in_fourteen = Subscription.paid_with_card.where(account_type: Subscription::OFFICIAL_SCHOOL_TYPES, expiration: current_time + 14.days, recurring: false)
+    # renewing subscriptions (credit card only)
+    track_teachers(renewing_subs.expiring(in_30_days), TEACHER_RENEW_IN_30)
+    track_teachers(renewing_subs.expiring(in_7_days), TEACHER_RENEW_IN_7)
+    track_schools(renewing_subs.expiring(in_30_days), SCHOOL_RENEW_IN_30)
+    track_schools(renewing_subs.expiring(in_7_days), SCHOOL_RENEW_IN_7)
 
-    analytics = SegmentAnalytics.new
-    teacher_subs_renewing_in_thirty.each { |sub| analytics.track_teacher_subscription(sub, SegmentIo::BackgroundEvents::TEACHER_SUB_WILL_RENEW) }
-    school_subs_renewing_in_thirty.each { |sub| analytics.track_school_subscription(sub, SegmentIo::BackgroundEvents::SCHOOL_SUB_WILL_RENEW) }
-    teacher_subs_expiring_in_thirty.each { |sub| analytics.track_teacher_subscription(sub, SegmentIo::BackgroundEvents::TEACHER_SUB_WILL_EXPIRE_IN_30) }
-    school_subs_expiring_in_thirty.each { |sub| analytics.track_school_subscription(sub, SegmentIo::BackgroundEvents::SCHOOL_SUB_WILL_EXPIRE_IN_30) }
-    teacher_subs_expiring_in_fourteen.each { |sub| analytics.track_teacher_subscription(sub, SegmentIo::BackgroundEvents::TEACHER_SUB_WILL_EXPIRE_IN_14) }
-    school_subs_expiring_in_fourteen.each { |sub| analytics.track_school_subscription(sub, SegmentIo::BackgroundEvents::SCHOOL_SUB_WILL_EXPIRE_IN_14) }
+    # expiring subscriptions (credit card only)
+    track_teachers(expiring_subs.expiring(in_30_days), TEACHER_EXPIRE_IN_30)
+    track_teachers(expiring_subs.expiring(in_14_days), TEACHER_EXPIRE_IN_14)
+    track_schools(expiring_subs.expiring(in_30_days), SCHOOL_EXPIRE_IN_30)
+    track_schools(expiring_subs.expiring(in_14_days), SCHOOL_EXPIRE_IN_14)
+  end
+
+  private def renewing_subs
+    Subscription.paid_with_card.recurring
+  end
+
+  private def expiring_subs
+    Subscription.paid_with_card.not_recurring
+  end
+
+  private def analytics
+    @analytics ||= SegmentAnalytics.new
+  end
+
+  private def track_teachers(finder, event)
+    finder.for_teachers.each {|sub| analytics.track_teacher_subscription(sub, event) }
+  end
+
+  private def track_schools(finder, event)
+    finder.for_schools.each {|sub| analytics.track_school_subscription(sub, event) }
   end
 end
