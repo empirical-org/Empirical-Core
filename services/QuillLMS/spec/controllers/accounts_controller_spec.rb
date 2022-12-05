@@ -152,7 +152,7 @@ describe AccountsController, type: :controller do
       it 'should update the user and return the redirect path' do
         new_name = 'Brandy Oleson'
         new_password = 'some-password'
-        post :update, params: { id: user.token, user: { name: new_name, password: new_password } }
+        post :update, params: { token: user.token, user: { name: new_name, password: new_password } }
         expect(user.reload.name).to eq(new_name)
         expect(response.body).to eq({ redirect: profile_path }.to_json)
       end
@@ -160,7 +160,7 @@ describe AccountsController, type: :controller do
 
     context 'user did not get updated' do
       it 'should render the errors json' do
-        post :update, params: { id: user.token, user: { name: '', password: 'some-password' } }
+        post :update, params: { token: user.token, user: { name: '', password: 'some-password' } }
         expect(response.status).to eq 422
         expect(response.body).to eq({errors: {name: ["can't be blank"]}}.to_json)
       end
@@ -173,12 +173,12 @@ describe AccountsController, type: :controller do
     end
 
     it 'should set the user based on the token' do
-      get :edit, params: { id: user.token }
+      get :edit, params: { token: user.token }
       expect(assigns(:user)).to eq user
     end
 
     it 'should redirect with a flash error if the token is not present' do
-      get :edit, params: { id: 'not-a-token' }
+      get :edit, params: { token: 'not-a-token' }
       expect(response).to redirect_to profile_path
       expect(flash[:notice]).to eq(t('accounts.edit.expired_link').html_safe)
     end
