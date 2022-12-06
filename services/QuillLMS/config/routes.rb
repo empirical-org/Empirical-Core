@@ -523,9 +523,13 @@ EmpiricalGrammar::Application.routes.draw do
   post '/session/set_post_auth_redirect', to: 'sessions#set_post_auth_redirect'
   resource :session
 
-  resource :account, only: [:new, :create, :edit, :update] do
+  resource :account, only: [:new, :create, :edit, :update, :show] do
     post :role, on: :member
   end
+
+  get 'account/:token/finish_set_up', to: 'accounts#edit'
+  put 'account/:token', to: 'accounts#update'
+
   get '/sign-up/teacher', to: 'accounts#new'
   get '/sign-up/student', to: 'accounts#new'
   get '/sign-up/pick-school-type', to: 'accounts#new'
