@@ -182,7 +182,8 @@ const RuleAnalysis = ({ match }) => {
   function filterResponsesBySearch(r) {
     if (search.length) {
       try {
-        return new RegExp(search, 'i').test(r.entry) || new RegExp(search, 'i').test(r.api?.original_rule_name)
+        const searchParticles = search.split('&&');
+        return searchParticles.every(sp => new RegExp(sp, 'i').test(r.entry) || new RegExp(sp, 'i').test(r.api?.original_rule_name))
       } catch (e) {
         return false
       }
