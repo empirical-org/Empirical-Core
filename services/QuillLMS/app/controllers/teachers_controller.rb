@@ -40,14 +40,14 @@ class TeachersController < ApplicationController
       end
     else
       # Create a new teacher, and automatically join them to the school.
-      @teacher = school.users.create(teacher_params)
+      @teacher = @school.users.create(teacher_params)
       if is_admin
         SchoolsAdmins.create(user: @teacher, school: @school)
         message = t('admincreatedaccount.new_account.admin')
         # @TODO set email
       else
         message = t('admincreatedaccount.new_account.teacher')
-        # @TODO set email
+        AdminDashboard::TeacherAccountCreatedEmailWorker.perform(@teacher.id, current_user.id, @school.id, false)
       end
     end
 
