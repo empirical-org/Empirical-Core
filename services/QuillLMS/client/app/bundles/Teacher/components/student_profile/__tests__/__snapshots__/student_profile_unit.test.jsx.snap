@@ -64,10 +64,10 @@ exports[`StudentProfileUnit component should render 1`] = `
           "max_percentage": null,
           "name": "The Travels of Marco Polo",
           "order_number": 1,
+          "pack_sequence_item_status": "unlocked",
           "pinned": false,
           "repeatable": true,
           "resume_link": 0,
-          "pack_sequence_item_status": "unlocked",
           "ua_id": 1,
           "unit_activity_created_at": "2020-01-16 17:57:24.712361",
           "unit_created_at": "2020-01-16 17:57:24.518561",
@@ -87,10 +87,10 @@ exports[`StudentProfileUnit component should render 1`] = `
           "max_percentage": null,
           "name": "Christopher Columbus",
           "order_number": 2,
+          "pack_sequence_item_status": "locked",
           "pinned": false,
           "repeatable": true,
           "resume_link": 0,
-          "pack_sequence_item_status": "locked",
           "ua_id": 2,
           "unit_activity_created_at": "2020-01-16 17:57:24.712361",
           "unit_created_at": "2020-01-16 17:57:24.518561",
@@ -260,7 +260,7 @@ exports[`StudentProfileUnit component should render 1`] = `
               "name": "Activity",
               "noTooltip": true,
               "rowSectionClassName": "name-section",
-              "width": "633px",
+              "width": "823px",
             },
             Object {
               "attribute": "tool",
@@ -276,7 +276,7 @@ exports[`StudentProfileUnit component should render 1`] = `
               "name": "Due date",
               "noTooltip": true,
               "rowSectionClassName": "due-date-section",
-              "width": "85px",
+              "width": "100px",
             },
             Object {
               "attribute": "actionButton",
@@ -298,7 +298,7 @@ exports[`StudentProfileUnit component should render 1`] = `
               >
                 Start
               </a>,
-              "dueDate": "Feb 29, 2020",
+              "dueDate": "Feb 29, 5am",
               "id": 1,
               "name": "The Travels of Marco Polo",
               "tool": undefined,
@@ -311,7 +311,7 @@ exports[`StudentProfileUnit component should render 1`] = `
               >
                 Start
               </a>,
-              "dueDate": "Feb 29, 2020",
+              "dueDate": "Feb 29, 5am",
               "id": 2,
               "name": "Christopher Columbus",
               "tool": undefined,
@@ -324,7 +324,7 @@ exports[`StudentProfileUnit component should render 1`] = `
               >
                 Start
               </a>,
-              "dueDate": "Feb 29, 2020",
+              "dueDate": "Feb 29, 5am",
               "id": 10,
               "name": "A, An, The",
               "tool": undefined,
@@ -337,7 +337,7 @@ exports[`StudentProfileUnit component should render 1`] = `
               >
                 Start
               </a>,
-              "dueDate": "Feb 29, 2020",
+              "dueDate": "Feb 29, 5am",
               "id": 3,
               "name": "Magellan",
               "tool": undefined,
@@ -350,7 +350,7 @@ exports[`StudentProfileUnit component should render 1`] = `
               >
                 Start
               </a>,
-              "dueDate": "Feb 29, 2020",
+              "dueDate": "Feb 29, 5am",
               "id": 4,
               "name": "Jamestown",
               "tool": undefined,
@@ -363,7 +363,7 @@ exports[`StudentProfileUnit component should render 1`] = `
               >
                 Start
               </a>,
-              "dueDate": "Feb 29, 2020",
+              "dueDate": "Feb 29, 5am",
               "id": 6,
               "name": "Age of Exploration: Sailing with the Stars",
               "tool": undefined,
@@ -376,7 +376,7 @@ exports[`StudentProfileUnit component should render 1`] = `
               >
                 Start
               </a>,
-              "dueDate": "Feb 29, 2020",
+              "dueDate": "Feb 29, 5am",
               "id": 7,
               "name": "Age of Exploration: The Cape of Good Hope",
               "tool": undefined,
@@ -389,7 +389,7 @@ exports[`StudentProfileUnit component should render 1`] = `
               >
                 Start
               </a>,
-              "dueDate": "Feb 29, 2020",
+              "dueDate": "Feb 29, 5am",
               "id": 8,
               "name": "Age of Exploration: Roanoke",
               "tool": undefined,
@@ -408,9 +408,9 @@ exports[`StudentProfileUnit component should render 1`] = `
               scope="col"
               style={
                 Object {
-                  "minWidth": "633px",
+                  "minWidth": "823px",
                   "textAlign": "left",
-                  "width": "633px",
+                  "width": "823px",
                 }
               }
             >
@@ -434,9 +434,9 @@ exports[`StudentProfileUnit component should render 1`] = `
               scope="col"
               style={
                 Object {
-                  "minWidth": "85px",
+                  "minWidth": "100px",
                   "textAlign": "left",
-                  "width": "85px",
+                  "width": "100px",
                 }
               }
             >
@@ -466,9 +466,9 @@ exports[`StudentProfileUnit component should render 1`] = `
                 key="name-1"
                 style={
                   Object {
-                    "minWidth": "633px",
+                    "minWidth": "823px",
                     "textAlign": "left",
-                    "width": "633px",
+                    "width": "823px",
                   }
                 }
               >
@@ -490,13 +490,13 @@ exports[`StudentProfileUnit component should render 1`] = `
                 key="dueDate-1"
                 style={
                   Object {
-                    "minWidth": "85px",
+                    "minWidth": "100px",
                     "textAlign": "left",
-                    "width": "85px",
+                    "width": "100px",
                   }
                 }
               >
-                Feb 29, 2020
+                Feb 29, 5am
               </td>
               <td
                 className="data-table-row-section action-button-section"
@@ -527,9 +527,9 @@ exports[`StudentProfileUnit component should render 1`] = `
                 key="name-2"
                 style={
                   Object {
-                    "minWidth": "633px",
+                    "minWidth": "823px",
                     "textAlign": "left",
-                    "width": "633px",
+                    "width": "823px",
                   }
                 }
               >
@@ -551,13 +551,13 @@ exports[`StudentProfileUnit component should render 1`] = `
                 key="dueDate-2"
                 style={
                   Object {
-                    "minWidth": "85px",
+                    "minWidth": "100px",
                     "textAlign": "left",
-                    "width": "85px",
+                    "width": "100px",
                   }
                 }
               >
-                Feb 29, 2020
+                Feb 29, 5am
               </td>
               <td
                 className="data-table-row-section action-button-section"
@@ -588,9 +588,9 @@ exports[`StudentProfileUnit component should render 1`] = `
                 key="name-10"
                 style={
                   Object {
-                    "minWidth": "633px",
+                    "minWidth": "823px",
                     "textAlign": "left",
-                    "width": "633px",
+                    "width": "823px",
                   }
                 }
               >
@@ -612,13 +612,13 @@ exports[`StudentProfileUnit component should render 1`] = `
                 key="dueDate-10"
                 style={
                   Object {
-                    "minWidth": "85px",
+                    "minWidth": "100px",
                     "textAlign": "left",
-                    "width": "85px",
+                    "width": "100px",
                   }
                 }
               >
-                Feb 29, 2020
+                Feb 29, 5am
               </td>
               <td
                 className="data-table-row-section action-button-section"
@@ -649,9 +649,9 @@ exports[`StudentProfileUnit component should render 1`] = `
                 key="name-3"
                 style={
                   Object {
-                    "minWidth": "633px",
+                    "minWidth": "823px",
                     "textAlign": "left",
-                    "width": "633px",
+                    "width": "823px",
                   }
                 }
               >
@@ -673,13 +673,13 @@ exports[`StudentProfileUnit component should render 1`] = `
                 key="dueDate-3"
                 style={
                   Object {
-                    "minWidth": "85px",
+                    "minWidth": "100px",
                     "textAlign": "left",
-                    "width": "85px",
+                    "width": "100px",
                   }
                 }
               >
-                Feb 29, 2020
+                Feb 29, 5am
               </td>
               <td
                 className="data-table-row-section action-button-section"
@@ -710,9 +710,9 @@ exports[`StudentProfileUnit component should render 1`] = `
                 key="name-4"
                 style={
                   Object {
-                    "minWidth": "633px",
+                    "minWidth": "823px",
                     "textAlign": "left",
-                    "width": "633px",
+                    "width": "823px",
                   }
                 }
               >
@@ -734,13 +734,13 @@ exports[`StudentProfileUnit component should render 1`] = `
                 key="dueDate-4"
                 style={
                   Object {
-                    "minWidth": "85px",
+                    "minWidth": "100px",
                     "textAlign": "left",
-                    "width": "85px",
+                    "width": "100px",
                   }
                 }
               >
-                Feb 29, 2020
+                Feb 29, 5am
               </td>
               <td
                 className="data-table-row-section action-button-section"
@@ -771,9 +771,9 @@ exports[`StudentProfileUnit component should render 1`] = `
                 key="name-6"
                 style={
                   Object {
-                    "minWidth": "633px",
+                    "minWidth": "823px",
                     "textAlign": "left",
-                    "width": "633px",
+                    "width": "823px",
                   }
                 }
               >
@@ -795,13 +795,13 @@ exports[`StudentProfileUnit component should render 1`] = `
                 key="dueDate-6"
                 style={
                   Object {
-                    "minWidth": "85px",
+                    "minWidth": "100px",
                     "textAlign": "left",
-                    "width": "85px",
+                    "width": "100px",
                   }
                 }
               >
-                Feb 29, 2020
+                Feb 29, 5am
               </td>
               <td
                 className="data-table-row-section action-button-section"
@@ -832,9 +832,9 @@ exports[`StudentProfileUnit component should render 1`] = `
                 key="name-7"
                 style={
                   Object {
-                    "minWidth": "633px",
+                    "minWidth": "823px",
                     "textAlign": "left",
-                    "width": "633px",
+                    "width": "823px",
                   }
                 }
               >
@@ -856,13 +856,13 @@ exports[`StudentProfileUnit component should render 1`] = `
                 key="dueDate-7"
                 style={
                   Object {
-                    "minWidth": "85px",
+                    "minWidth": "100px",
                     "textAlign": "left",
-                    "width": "85px",
+                    "width": "100px",
                   }
                 }
               >
-                Feb 29, 2020
+                Feb 29, 5am
               </td>
               <td
                 className="data-table-row-section action-button-section"
@@ -893,9 +893,9 @@ exports[`StudentProfileUnit component should render 1`] = `
                 key="name-8"
                 style={
                   Object {
-                    "minWidth": "633px",
+                    "minWidth": "823px",
                     "textAlign": "left",
-                    "width": "633px",
+                    "width": "823px",
                   }
                 }
               >
@@ -917,13 +917,13 @@ exports[`StudentProfileUnit component should render 1`] = `
                 key="dueDate-8"
                 style={
                   Object {
-                    "minWidth": "85px",
+                    "minWidth": "100px",
                     "textAlign": "left",
-                    "width": "85px",
+                    "width": "100px",
                   }
                 }
               >
-                Feb 29, 2020
+                Feb 29, 5am
               </td>
               <td
                 className="data-table-row-section action-button-section"
@@ -961,7 +961,7 @@ exports[`StudentProfileUnit component should render 1`] = `
               "headerClassName": "name-section",
               "name": "Activity",
               "rowSectionClassName": "name-section",
-              "width": "465px",
+              "width": "560px",
             },
             Object {
               "attribute": "score",
@@ -985,7 +985,15 @@ exports[`StudentProfileUnit component should render 1`] = `
               "name": "Due date",
               "noTooltip": true,
               "rowSectionClassName": "completed-due-date-section",
-              "width": "85px",
+              "width": "110px",
+            },
+            Object {
+              "attribute": "completedDate",
+              "headerClassName": "completed-date-section",
+              "name": "Completed date",
+              "noTooltip": true,
+              "rowSectionClassName": "completed-date-section",
+              "width": "110px",
             },
             Object {
               "attribute": "actionButton",
@@ -1007,7 +1015,8 @@ exports[`StudentProfileUnit component should render 1`] = `
               >
                 Replay
               </a>,
-              "dueDate": "Feb 29, 2020",
+              "completedDate": null,
+              "dueDate": "Feb 29, 5am",
               "id": 9,
               "name": "A, An",
               "score": <div
@@ -1030,7 +1039,8 @@ exports[`StudentProfileUnit component should render 1`] = `
               >
                 Replay
               </a>,
-              "dueDate": "Feb 29, 2020",
+              "completedDate": null,
+              "dueDate": "Feb 29, 5am",
               "id": 5,
               "name": "Age of Exploration: Spices",
               "score": <div
@@ -1059,9 +1069,9 @@ exports[`StudentProfileUnit component should render 1`] = `
               scope="col"
               style={
                 Object {
-                  "minWidth": "465px",
+                  "minWidth": "560px",
                   "textAlign": "left",
-                  "width": "465px",
+                  "width": "560px",
                 }
               }
             >
@@ -1098,13 +1108,26 @@ exports[`StudentProfileUnit component should render 1`] = `
               scope="col"
               style={
                 Object {
-                  "minWidth": "85px",
+                  "minWidth": "110px",
                   "textAlign": "left",
-                  "width": "85px",
+                  "width": "110px",
                 }
               }
             >
               Due date
+            </th>
+            <th
+              className="data-table-header completed-date-section"
+              scope="col"
+              style={
+                Object {
+                  "minWidth": "110px",
+                  "textAlign": "right",
+                  "width": "110px",
+                }
+              }
+            >
+              Completed date
             </th>
             <th
               className="data-table-header action-button-section"
@@ -1130,9 +1153,9 @@ exports[`StudentProfileUnit component should render 1`] = `
                 key="name-9"
                 style={
                   Object {
-                    "minWidth": "465px",
+                    "minWidth": "560px",
                     "textAlign": "left",
-                    "width": "465px",
+                    "width": "560px",
                   }
                 }
               >
@@ -1176,14 +1199,25 @@ exports[`StudentProfileUnit component should render 1`] = `
                 key="dueDate-9"
                 style={
                   Object {
-                    "minWidth": "85px",
+                    "minWidth": "110px",
                     "textAlign": "left",
-                    "width": "85px",
+                    "width": "110px",
                   }
                 }
               >
-                Feb 29, 2020
+                Feb 29, 5am
               </td>
+              <td
+                className="data-table-row-section completed-date-section"
+                key="completedDate-9"
+                style={
+                  Object {
+                    "minWidth": "110px",
+                    "textAlign": "right",
+                    "width": "110px",
+                  }
+                }
+              />
               <td
                 className="data-table-row-section action-button-section"
                 key="actionButton-9"
@@ -1213,9 +1247,9 @@ exports[`StudentProfileUnit component should render 1`] = `
                 key="name-5"
                 style={
                   Object {
-                    "minWidth": "465px",
+                    "minWidth": "560px",
                     "textAlign": "left",
-                    "width": "465px",
+                    "width": "560px",
                   }
                 }
               >
@@ -1259,14 +1293,25 @@ exports[`StudentProfileUnit component should render 1`] = `
                 key="dueDate-5"
                 style={
                   Object {
-                    "minWidth": "85px",
+                    "minWidth": "110px",
                     "textAlign": "left",
-                    "width": "85px",
+                    "width": "110px",
                   }
                 }
               >
-                Feb 29, 2020
+                Feb 29, 5am
               </td>
+              <td
+                className="data-table-row-section completed-date-section"
+                key="completedDate-5"
+                style={
+                  Object {
+                    "minWidth": "110px",
+                    "textAlign": "right",
+                    "width": "110px",
+                  }
+                }
+              />
               <td
                 className="data-table-row-section action-button-section"
                 key="actionButton-5"
