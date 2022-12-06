@@ -10,12 +10,6 @@ import { requestPut, } from '../../../../../modules/request/index'
 const SCHOOL_ADMIN = 'school admin'
 const DISTRICT_ADMIN = 'district admin'
 
-jest.mock('qs', () => ({
-  default: {
-    parse: jest.fn(() => ({}))
-  }
-}))
-
 const accountTypeCopy = (accountType) => {
   switch(accountType) {
     case SCHOOL_ADMIN:
