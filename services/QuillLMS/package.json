@@ -54,7 +54,7 @@
     "react-select": "^1.1.0"
   },
   "devDependencies": {
-    "qs": "^6.9.0",
+    "qs": "^6.9.7",
     "redux-test-utils": "^0.2.2"
   },
   "jest": {
