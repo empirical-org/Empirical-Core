@@ -28,8 +28,9 @@ module Auth
       else
         ErrorNotifier.report(
           CleverAccountConflictError.new, {
+            clever_redirect: session[ApplicationController::CLEVER_REDIRECT],
             current_user_email: current_user&.email,
-            auth_hash_email: auth_hash['info']['email'],
+            new_email: auth_hash['info']['email'],
             validation_errors: current_user&.errors&.full_messages&.join('|')
           }
         )
