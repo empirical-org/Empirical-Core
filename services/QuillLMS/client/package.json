@@ -82,7 +82,7 @@
     "postcss-smart-import": "^0.7.6",
     "promise-polyfill": "^6.1.0",
     "pusher-js": "^5.0.1",
-    "qs": "^6.9.2",
+    "qs": "^6.10.3",
     "query-string": "^6.13.6",
     "quill-marking-logic": "^0.15.9",
     "quill-string-normalizer": "0.0.9",
