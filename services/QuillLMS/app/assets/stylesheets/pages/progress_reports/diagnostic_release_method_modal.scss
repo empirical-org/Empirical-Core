@@ -6,7 +6,9 @@
     z-index: 5;
     height: min-content;
     width: 1020px;
-    transform: translate(-50%, 40%);
+    top: 50%;
+    bottom: 0px;
+    transform: translate(-50%, -50%);
     h1 {
       font-weight: 700;
       font-size: 24px;

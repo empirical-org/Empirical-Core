@@ -12,6 +12,7 @@ import {
   informationIcon,
   expandIcon,
   releaseMethodToDisplayName,
+  IMMEDIATE,
 } from './shared'
 import RecommendationsTable from './recommendationsTable'
 import ReleaseMethodModal from './releaseMethodModal'
@@ -339,8 +340,9 @@ export const Recommendations = ({ passedPreviouslyAssignedRecommendations, passe
     requestGet(`/teachers/progress_reports/previously_assigned_recommendations/${classroomId}/activity/${activityId}${unitQueryString}`, ((data) => {
       setPreviouslyAssignedIndependentRecommendations(data.previouslyAssignedIndependentRecommendations)
       setPreviouslyAssignedLessonsRecommendations(data.previouslyAssignedLessonsRecommendations)
-      // TODO confirm before launch that releaseMethod comes up as null when teacher hasn't previously assigned recs for this class/diagnostic
-      setOriginalReleaseMethod(data.releaseMethod)
+      const anyIndependentRecommendationsPreviouslyAssigned = data.previouslyAssignedIndependentRecommendations.some(rec => rec.students.length)
+      const releaseMethod = anyIndependentRecommendationsPreviouslyAssigned ? data.releaseMethod || IMMEDIATE : data.releaseMethod
+      setOriginalReleaseMethod(releaseMethod)
     }));
   }
 
