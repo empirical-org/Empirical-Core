@@ -27,38 +27,39 @@ export function getModelsUrl(promptId: string | number, state: string) {
   return url;
 }
 
-export function getActivitySessionsUrl({ activityId, pageNumber, startDate, endDate, turkSessionID, filterType }) {
+export function getActivitySessionsUrl({ activityId, pageNumber, startDate, endDate, filterType, responsesForScoring}) {
   let url = `session_feedback_histories.json?page=${pageNumber}&activity_id=${activityId}`;
   url = startDate ? url + `&start_date=${startDate}` : url;
   url = endDate ? url + `&end_date=${endDate}` : url;
-  url = turkSessionID ? url + `&turk_session_id=${turkSessionID}` : url;
   url = filterType ? url + `&filter_type=${filterType}` : url;
+  url = responsesForScoring ? url + '&responses_for_scoring=true' : url;
   return url;
 }
 
-export const getRuleFeedbackHistoriesUrl = ({ activityId, selectedConjunction, startDate, endDate, turkSessionID }) => {
+export const getRuleFeedbackHistoriesUrl = ({ activityId, selectedConjunction, startDate, endDate }) => {
   let url = `rule_feedback_histories?activity_id=${activityId}&conjunction=${selectedConjunction}`;
   url = startDate ? url + `&start_date=${startDate}` : url;
   url = endDate ? url + `&end_date=${endDate}` : url;
-  url = turkSessionID ? url + `&turk_session_id=${turkSessionID}` : url;
   return url;
 }
 
-export const getRuleFeedbackHistoryUrl = ({ ruleUID, promptId, startDate, endDate, turkSessionID }) => {
+export const getRuleFeedbackHistoryUrl = ({ ruleUID, promptId, startDate, endDate }) => {
   let url = `rule_feedback_history/${ruleUID}?prompt_id=${promptId}`;
   url = startDate ? url + `&start_date=${startDate}` : url;
   url = endDate ? url + `&end_date=${endDate}` : url;
-  url = turkSessionID ? url + `&turk_session_id=${turkSessionID}` : url;
   return url;
 };
 
-export const getActivityStatsUrl = ({ activityId, startDate, endDate, turkSessionID }) => {
+export const getActivityStatsUrl = ({ activityId, startDate, endDate }) => {
   let url = `prompt_health?activity_id=${activityId}`;
   url = startDate ? url + `&start_date=${startDate}` : url;
   url = endDate ? url + `&end_date=${endDate}` : url;
-  url = turkSessionID ? url + `&turk_session_id=${turkSessionID}` : url;
   return url;
 };
+
+export const getActivityHealthUrl = ({ activityId }) => {
+  return `activity_health?activity_id=${activityId}`;
+}
 
 // not a 2xx status
 export const requestFailed = (status: number ) => Math.round(status / 100) !== 2;

@@ -1,14 +1,15 @@
 import React from 'react';
-import request from 'request'
 
 import AuthSignUp from './auth_sign_up'
 
 import PasswordWrapper from '../shared/password_wrapper'
+import TeacherSignUpInfo from '../shared/teacher_sign_up_info'
 import AnalyticsWrapper from '../../shared/analytics_wrapper'
 import AgreementsAndLinkToLogin from './agreements_and_link_to_login'
 import AssignActivityPackBanner from '../assignActivityPackBanner'
 import getAuthToken from '../../modules/get_auth_token';
 import { Input, } from '../../../../Shared/index'
+import { requestPost, } from '../../../../../modules/request/index'
 
 const smallWhiteCheckSrc = `${process.env.CDN_URL}/images/shared/check-small-white.svg`
 
@@ -50,25 +51,22 @@ class SignUpTeacher extends React.Component {
   handleSubmit = (e) => {
     const { firstName, lastName, email, password, sendNewsletter, timesSubmitted, } = this.state
     e.preventDefault();
-    request({
-      url: `${process.env.DEFAULT_URL}/account`,
-      method: 'POST',
-      json: {
+
+    requestPost(
+      `${process.env.DEFAULT_URL}/account`,
+      {
         user: {
           name: `${firstName} ${lastName}`,
           password,
           email,
           role: 'teacher',
           send_newsletter: sendNewsletter,
-        },
-        authenticity_token: getAuthToken(),
+        }
       },
-    },
-    (err, httpResponse, body) => {
-      if (httpResponse.statusCode === 200) {
-        // console.log(body);
+      (body) => {
         window.location = '/sign-up/add-k12'
-      } else {
+      },
+      (body) => {
         let state
         if (body.errors) {
           state = { lastUpdate: new Date(), errors: body.errors, timesSubmitted: timesSubmitted + 1}
@@ -81,7 +79,7 @@ class SignUpTeacher extends React.Component {
         }
         this.setState(state)
       }
-    });
+    )
   }
 
   handleToggleNewsletter = () => {
@@ -110,17 +108,6 @@ class SignUpTeacher extends React.Component {
     this.setState(newState);
   }
 
-  renderNewsletterRow = () => {
-    const { sendNewsletter, } = this.state
-    let checkbox
-    if (sendNewsletter) {
-      checkbox = <div aria-checked={true} className="quill-checkbox selected focus-on-light" onClick={this.handleToggleNewsletter} onKeyDown={this.handleKeyDownOnToggleNewsletter} role="checkbox" tabIndex={0}><img alt="check" src={smallWhiteCheckSrc} /></div>
-    } else {
-      checkbox = <div aria-checked={false} aria-label="Unchecked" className="quill-checkbox unselected focus-on-light" onClick={this.handleToggleNewsletter} onKeyDown={this.handleKeyDownOnToggleNewsletter} role="checkbox" tabIndex={0} />
-    }
-    return <div className="newsletter-row">{checkbox} <p>Send me a monthly update on new&nbsp;content</p></div>
-  }
-
   render() {
     const { authToken, timesSubmitted, firstName, errors, lastName, email, password, } = this.state
     return (
@@ -130,14 +117,7 @@ class SignUpTeacher extends React.Component {
           <h1>Create an account</h1>
           <p className="sub-header">Are you a student? <span className="inline-link" onClick={this.handleClickSignUpAsStudent} onKeyDown={this.handleKeyDownOnSignUpAsStudent} role="link" tabIndex={0}>Sign up here</span></p>
           <div className="info-and-form-container">
-            <div className="info">
-              <h2>More than 5,000 schools use Quill&#39;s free online tools to help their students become strong&nbsp;writers.</h2>
-              <ul>
-                <li>Quill provides free access to 700 writing and grammar&nbsp;activities</li>
-                <li>Students receive immediate feedback on their&nbsp;work</li>
-                <li>Teachers or guardians identify student needs and measure growth with diagnostics and&nbsp;reports</li>
-              </ul>
-            </div>
+            <TeacherSignUpInfo />
             <div className="account-container text-center">
               <AuthSignUp />
               <div className='break'><span />or<span /></div>
@@ -191,7 +171,6 @@ class SignUpTeacher extends React.Component {
                       timesSubmitted={timesSubmitted}
                       value={password}
                     />
-                    {this.renderNewsletterRow()}
                     <input aria-label="Sign up" className={this.submitClass()} name="commit" type="submit" value="Sign up" />
                   </form>
                 </div>

@@ -53,10 +53,25 @@ export const updateActivityVersion = async (activityNote: string, activityId: st
   return { errors: [] };
 }
 
-export const createSeedData = async (nouns: string, activityId: string) => {
+export const createSeedData = async (nouns: string, labelConfigs: object, activityId: string) => {
   const response = await apiFetch(`activities/${activityId}/seed_data`, {
     method: 'POST',
-    body: JSON.stringify({nouns: nouns})
+    body: JSON.stringify({nouns: nouns, label_configs: labelConfigs})
+  });
+  const { status } = response;
+
+  if(requestFailed(status)) {
+    const errors = await response.json();
+    const returnedErrors = await handleRequestErrors(errors);
+    return { errors: returnedErrors };
+  }
+  return { errors: [] };
+}
+
+export const createLabeledSyntheticData = async (filenames: string[], activityId: string) => {
+  const response = await apiFetch(`activities/${activityId}/labeled_synthetic_data`, {
+    method: 'POST',
+    body: JSON.stringify({filenames})
   });
   const { status } = response;
 
@@ -92,9 +107,9 @@ export const archiveParentActivity = async (parentActivityId: string) => {
 }
 
 export const fetchActivitySessions = async ({ queryKey, }) => {
-  const [key, activityId, pageNumber, startDate, filterOptionForQuery, endDate, turkSessionID]: [string, string, number, string, DropdownObjectInterface, string, string] = queryKey
+  const [key, activityId, pageNumber, startDate, filterOptionForQuery, endDate, responsesForScoring]: [string, string, number, string, DropdownObjectInterface, string, string, boolean] = queryKey
   const { value } = filterOptionForQuery
-  const url = getActivitySessionsUrl({ activityId, pageNumber, startDate, endDate, turkSessionID, filterType: value });
+  const url = getActivitySessionsUrl({ activityId, pageNumber, startDate, endDate, filterType: value, responsesForScoring: responsesForScoring });
   const response = await mainApiFetch(url);
   const activitySessions = await response.json();
 

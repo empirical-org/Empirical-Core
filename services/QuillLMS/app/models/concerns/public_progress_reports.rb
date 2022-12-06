@@ -47,18 +47,18 @@ module PublicProgressReports
     activity = Activity.includes(:classification).find(activity_id)
     questions = Hash.new{|h,k| h[k]={} }
 
-    all_answers = ActivitySession.activity_session_metadata(@activity_sessions)
+    all_answers = @activity_sessions.map(&:concept_results).flatten
 
     all_answers.each do |answer|
-      curr_quest = questions[answer["questionNumber"]]
+      curr_quest = questions[answer.question_number]
       curr_quest[:correct] ||= 0
       curr_quest[:total] ||= 0
-      curr_quest[:correct] += answer["questionScore"] || answer["correct"]
+      curr_quest[:correct] += answer.question_score || answer.correct ? 1 : 0
       curr_quest[:total] += 1
-      curr_quest[:prompt] ||= answer["prompt"]
-      curr_quest[:question_number] ||= answer["question_number"]
-      if answer["attemptNumber"] == 1 || !curr_quest[:instructions]
-        direct = answer["directions"] || answer["instructions"] || ""
+      curr_quest[:prompt] ||= answer.concept_result_prompt&.text
+      curr_quest[:question_number] ||= answer.question_number
+      if answer.attempt_number == 1 || !curr_quest[:instructions]
+        direct = answer.concept_result_directions&.text || answer.concept_result_instructions&.text || ""
         curr_quest[:instructions] = direct.gsub(/(<([^>]+)>)/i, "").gsub("()", "").gsub("&nbsp;", "")
       end
     end
@@ -71,10 +71,9 @@ module PublicProgressReports
        instructions: v[:instructions]}
     end
 
-    if questions_arr.empty?
-      questions_arr = generic_questions_for_report(params[:activity_id])
-    end
-    questions_arr
+    return questions_arr unless questions_arr.empty?
+
+    generic_questions_for_report(activity)
   end
   # rubocop:enable Metrics/CyclomaticComplexity
 
@@ -142,7 +141,7 @@ module PublicProgressReports
     # Use DISTINCT ON to only pull one session per user
     final_sessions_by_user = ActivitySession
       .select("DISTINCT ON (activity_sessions.user_id) user_id, activity_sessions.*")
-      .includes(old_concept_results: :concept)
+      .includes(concept_results: :concept)
       .where(
         user_id: students.map(&:id),
         is_final_score: true,
@@ -179,7 +178,7 @@ module PublicProgressReports
   end
 
   def formatted_score_obj(final_activity_session, classification_key, student, average_score_on_quill)
-    formatted_concept_results = format_concept_results(final_activity_session, final_activity_session.old_concept_results)
+    formatted_concept_results = format_concept_results(final_activity_session, final_activity_session.concept_results)
     if [ActivityClassification::LESSONS_KEY, ActivityClassification::DIAGNOSTIC_KEY].include?(classification_key)
       score = get_average_score(formatted_concept_results)
     elsif [ActivityClassification::EVIDENCE_KEY].include?(classification_key)
@@ -209,35 +208,35 @@ module PublicProgressReports
 
   # rubocop:disable Metrics/CyclomaticComplexity
   def format_concept_results(activity_session, concept_results)
-    concept_results.group_by{|cr| cr[:metadata]["questionNumber"]}.map { |key, cr|
+    concept_results.group_by{|cr| cr.question_number}.map { |key, cr|
       # if we don't sort them, we can't rely on the first result being the first attemptNum
       # however, it would be more efficient to make them a hash with attempt numbers as keys
-      cr.sort!{|x,y| (x[:metadata]['attemptNumber'] || 0) <=> (y[:metadata]['attemptNumber'] || 0)}
-      directfirst = cr.first[:metadata]["directions"] || cr.first[:metadata]["instructions"] || ""
-      prompt_text = cr.first[:metadata]["prompt"]
+      cr.sort!{|x,y| (x.attempt_number || 0) <=> (y.attempt_number || 0)}
+      directfirst = cr.first.concept_result_directions&.text || cr.first.concept_result_instructions&.text || ""
+      prompt_text = cr.first.concept_result_prompt&.text
       hash = {
         directions: directfirst.gsub(/(<([^>]+)>)/i, "").gsub("()", "").gsub("&nbsp;", ""),
         prompt: prompt_text,
-        answer: cr.first[:metadata]["answer"],
+        answer: cr.first.answer,
         score: get_score_for_question(cr),
         concepts: cr.map { |crs|
-          attempt_number = crs[:metadata]["attemptNumber"]
-          direct = crs[:metadata]["directions"] || crs[:metadata]["instructions"] || ""
+          attempt_number = crs.attempt_number
+          direct = crs.concept_result_directions&.text || crs.concept_result_instructions&.text || ""
           {
             id: crs.concept_id,
-            name: crs.concept.name,
-            correct: crs[:metadata]["correct"] == 1,
+            name: crs.concept&.name,
+            correct: crs.correct,
             feedback: get_feedback_from_feedback_history(activity_session, prompt_text, attempt_number),
-            lastFeedback: crs[:metadata]["lastFeedback"],
+            lastFeedback: crs.concept_result_previous_feedback&.text,
             attempt: attempt_number || 1,
-            answer: crs[:metadata]["answer"],
+            answer: crs.answer,
             directions: direct.gsub(/(<([^>]+)>)/i, "").gsub("()", "").gsub("&nbsp;", "")
           }
         },
-        question_number: cr.first[:metadata]["questionNumber"]
+        question_number: cr.first.question_number
       }
-      if cr.first[:metadata]['questionScore']
-        hash[:questionScore] = cr.first[:metadata]['questionScore']
+      if cr.first.question_score
+        hash[:questionScore] = cr.first.question_score
       end
       hash
     }
@@ -245,10 +244,10 @@ module PublicProgressReports
   # rubocop:enable Metrics/CyclomaticComplexity
 
   def get_score_for_question(concept_results)
-    if !concept_results.empty? && concept_results.first[:metadata]['questionScore']
-      concept_results.first[:metadata]['questionScore'] * 100
+    if !concept_results.empty? && concept_results.first.question_score
+      concept_results.first.question_score * 100
     else
-      concept_results.inject(0) {|sum, crs| sum + crs[:metadata]["correct"]} / concept_results.length * 100
+      concept_results.inject(0) {|sum, crs| sum + (crs.correct ? 1 : 0)} / concept_results.length * 100
     end
   end
 
@@ -358,16 +357,19 @@ module PublicProgressReports
 
   def concept_results_by_count(activity_session)
     hash = Hash.new { |h, k| h[k] = Hash.new { |j, l| j[l] = 0 } }
-    activity_session.old_concept_results.each do |concept_result|
-      hash[concept_result.concept.uid]["correct"] += concept_result["metadata"]["correct"]
+    activity_session.concept_results.each do |concept_result|
+      hash[concept_result.concept.uid]["correct"] += concept_result.correct ? 1 : 0
       hash[concept_result.concept.uid]["total"] += 1
     end
     hash
   end
 
-  def generic_questions_for_report(activity_id)
-    questions = Activity.find_by_id(activity_id).data['questions'].map { |q| Question.find_by_uid(q['key']) }
+  def generic_questions_for_report(activity)
     question_array = []
+    return question_array unless activity.data['questions'].respond_to?(:map)
+
+    questions = activity.data['questions'].map { |q| Question.find_by_uid(q['key']) }
+
     questions.compact.each do |q|
       next if !q.data['prompt']
 

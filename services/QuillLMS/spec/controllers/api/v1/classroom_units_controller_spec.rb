@@ -49,6 +49,21 @@ describe Api::V1::ClassroomUnitsController, type: :controller do
       get :student_names, params: { activity_id: activity.uid, classroom_unit_id: classroom_unit.id }, as: :json
       expect(JSON.parse(response.body)['student_ids'].keys.count).to eq(5)
     end
+
+    it 'only returns visible ActivitySessions' do
+      removed_activity_session = activity_sessions.first
+      removed_activity_session.update(visible: false)
+      replacement_activity_session = create(:activity_session,
+        classroom_unit: removed_activity_session.classroom_unit,
+        activity: removed_activity_session.activity,
+        user: removed_activity_session.user
+      )
+      session[:user_id] = teacher.id
+      get :student_names, params: { activity_id: activity.uid, classroom_unit_id: classroom_unit.id }, as: :json
+      expect(JSON.parse(response.body)['activity_sessions_and_names'].keys.count).to eq(5)
+      expect(JSON.parse(response.body)['activity_sessions_and_names'].keys).not_to include(removed_activity_session.uid)
+      expect(JSON.parse(response.body)['activity_sessions_and_names'].keys).to include(replacement_activity_session.uid)
+    end
   end
 
   context '#teacher_and_classroom_name' do
@@ -92,7 +107,7 @@ describe Api::V1::ClassroomUnitsController, type: :controller do
 
     it 'authenticates a teacher who does own the classroom activity' do
       session[:user_id] = teacher.id
-      concept_result = create(:old_concept_result)
+      concept_result = create(:concept_result)
 
       put :finish_lesson,
         params: {
@@ -109,7 +124,6 @@ describe Api::V1::ClassroomUnitsController, type: :controller do
     it 'sends the appropriate methods to ActivitySession' do
       expect(ActivitySession).to receive(:mark_all_activity_sessions_complete).with(match_array(activity_sessions), {})
       expect(ActivitySession).to receive(:save_concept_results).with(match_array(activity_sessions), [])
-      expect(ActivitySession).to receive(:delete_activity_sessions_with_no_concept_results).with(match_array(activity_sessions))
       expect(ActivitySession).to receive(:save_timetracking_data_from_active_activity_session).with(match_array(activity_sessions))
       session[:user_id] = teacher.id
       put :finish_lesson,
@@ -152,6 +166,88 @@ describe Api::V1::ClassroomUnitsController, type: :controller do
         as: :json
 
       expect(JSON.parse(response.body)).to eq({"follow_up_url"=> (ENV['DEFAULT_URL']).to_s})
+    end
+
+    it 'destroys ActivitySessions with no ConceptResults related to them' do
+      concept = create(:concept)
+
+      session[:user_id] = teacher.id
+
+      concept_result_payload = {
+        "concept_id": concept.uid,
+        "question_type": "lessons-slide",
+        "metadata": {
+          "activity_session_uid": activity_sessions.first.uid,
+          "correct": 1,
+          "directions": "",
+          "prompt": "<p>What is one reason to use time order joining words in your writing instead of using two shorter sentences?</p>",
+          "answer": "It makes causal relationships more obvious.",
+          "attemptNumber": 1,
+          "questionNumber": 1
+        },
+        "activity_session_uid": activity_sessions.first.uid
+      }
+      concept_results_payload = [concept_result_payload]
+
+      # There are 5 students with ActivitySessions assigned, but we're only submitting
+      # one ConceptResult here, so the other 4 ActivitySessions should be orphaned and
+      # removed
+      expect do
+        put :finish_lesson,
+          params: {
+            activity_id: activity.uid,
+            classroom_unit_id: classroom_unit.id,
+            concept_results: concept_results_payload,
+            follow_up: false
+          },
+          as: :json
+      end.to change(ActivitySession, :count).by(-4)
+    end
+
+    it 'saves ConceptResults related to the ActivitySession' do
+      concept = create(:concept)
+
+      session[:user_id] = teacher.id
+
+      concept_result_payload = {
+        "concept_id": concept.uid,
+        "question_type": "lessons-slide",
+        "metadata": {
+          "activity_session_uid": activity_sessions.first.uid,
+          "correct": 1,
+          "directions": "",
+          "prompt": "<p>What is one reason to use time order joining words in your writing instead of using two shorter sentences?</p>",
+          "answer": "It makes causal relationships more obvious.",
+          "attemptNumber": 1,
+          "questionNumber": 1
+        },
+        "activity_session_uid": activity_sessions.first.uid
+      }
+      concept_results_payload = [concept_result_payload, concept_result_payload]
+
+      # The "twice" here is a convenience because we're passing two identical concept_result payloads to the controller.
+      # In normal operation, these would be different payloads, so we'd expect this worker
+      # to receive multiple calls with different payloads.  But this is shorter to write,
+      # and less cluttered to read
+      expect(SaveActivitySessionConceptResultsWorker).to receive(:perform_async).with(
+        concept_id: concept.id,
+        question_type: concept_result_payload[:question_type],
+        activity_session_id: activity_sessions.first.id,
+        metadata: concept_result_payload[:metadata]
+      ).twice.and_call_original
+
+      Sidekiq::Testing.inline! do
+        expect do
+          put :finish_lesson,
+            params: {
+              activity_id: activity.uid,
+              classroom_unit_id: classroom_unit.id,
+              concept_results: concept_results_payload,
+              follow_up: false
+            },
+            as: :json
+        end.to change(ConceptResult, :count).by(2)
+      end
     end
   end
 

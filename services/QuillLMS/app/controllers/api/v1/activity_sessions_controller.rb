@@ -82,10 +82,10 @@ class Api::V1::ActivitySessionsController < Api::ApiController
   private def handle_concept_results
     return if !@concept_results
 
-    concept_results_to_save = @concept_results.map { |c| concept_results_hash(c) }.reject(&:empty?)
-    return if concept_results_to_save.empty?
-
-    SaveActivitySessionOldConceptResultsWorker.perform_async(concept_results_to_save)
+    @concept_results
+      .map { |cr| concept_results_hash(cr) }
+      .reject(&:empty?)
+      .each { |crh| SaveActivitySessionConceptResultsWorker.perform_async(crh) }
   end
 
   private def concept_results_hash(concept_result)
@@ -119,11 +119,12 @@ class Api::V1::ActivitySessionsController < Api::ApiController
     return if timespent.nil?
     return if timespent <= 3600
 
-    begin
-      raise ActivitySession::LongTimeTrackingError, "#{timespent} seconds for user #{user_id} and activity session #{activity_session_id}"
-    rescue => e
-      ErrorNotifier.report(e)
-    end
+    ErrorNotifier.report(
+      ActivitySession::LongTimeTrackingError.new,
+      activity_session_id: activity_session_id,
+      timespent: timespent,
+      user_id: user_id
+    )
   end
 
   private def transform_incoming_request

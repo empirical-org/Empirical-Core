@@ -175,7 +175,7 @@ class GetConceptsInUseIndividualConceptWorker
       end
       $redis.set("CONCEPTS_IN_USE", concepts_in_use.to_json)
       $redis.unwatch
-    rescue StandardError => e
+    rescue => e
       set_concepts_in_use_cache
     end
   end

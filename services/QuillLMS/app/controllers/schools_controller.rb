@@ -6,7 +6,7 @@ class SchoolsController < ApplicationController
   before_action :require_user, only: [:select_school]
 
   include CheckboxCallback
-  MIN_PREFIX_LENGHT_WHEN_LAT_LON_NOT_PRESENT = 4
+  MIN_PREFIX_LENGTH = 2
 
   # rubocop:disable Metrics/CyclomaticComplexity
   def index
@@ -70,7 +70,7 @@ class SchoolsController < ApplicationController
       end
     end
 
-    if @schools.empty? and @prefix.length < MIN_PREFIX_LENGHT_WHEN_LAT_LON_NOT_PRESENT
+    if @schools.empty? and @prefix.length < MIN_PREFIX_LENGTH
       @schools = []
     elsif @schools.empty?
       @schools = School.select("schools.id, name, zipcode, mail_zipcode, street, mail_street, city, mail_city, state, mail_state, COUNT(schools_users.id) AS number_of_teachers")
@@ -107,9 +107,16 @@ class SchoolsController < ApplicationController
         school_user.school_id = school.id
         school_user.save
         find_or_create_checkbox('Add School', current_user)
+        current_user.set_time_zone
+        current_user.save
         render json: { school: school, subscription: school.subscription }
       }
     end
+  end
+
+  def submit_unlisted_school_information
+    TrackUnlistedSchoolInformationWorker.perform_async(current_user.id, params[:school_name], params[:school_zipcode])
+    render json: {}
   end
 
   def array_to_postgres_array_helper(ruby_array)

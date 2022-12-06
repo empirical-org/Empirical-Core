@@ -1,5 +1,5 @@
 <% current_path = request.env['PATH_INFO'] %>
-<% on_sign_up_or_log_in = ['account/new', '/session', 'password_reset', 'sign-up'].any? { |str| current_path.include?(str)} %>
+<% on_sign_up_or_log_in = ['account/new', '/session', 'password_reset', 'sign-up', 'finish_set_up'].any? { |str| current_path.include?(str)} %>
 
 <% if current_path.include?('teachers') %>
 	<% user_dropdown_class = 'on-dashboard' %>
@@ -7,6 +7,12 @@
 <% else %>
 	<% user_dropdown_class = 'not-on-dashboard' %>
 	<% user_dropdown_img = 'https://assets.quill.org/images/navbar/navbar-dashboard-white.svg' %>
+<% end %>
+
+<% if show_school_selection_reminders %>
+  <% show_notification_badges_class = 'show-notification-badges' %>
+<% else %>
+  <% show_notification_badges_class = '' %>
 <% end %>
 
 <% if current_path.include?('tools') %>
@@ -29,9 +35,9 @@
       </a>
     </div>
   <% else %>
-	  <div class="navbar-header">
-			<a aria-label="Quill" class="focus-on-dark navbar-brand" href=<%= root_path %> >
-  			<img src="https://assets.quill.org/images/logos/quill-logo-white.svg" alt="Quill.org logo">
+	  <div>
+			<a aria-label="Quill" class="focus-on-dark" href=<%= root_path %> >
+  			<img src="https://assets.quill.org/images/logos/quill-logo-white-2022.svg" alt="Quill.org logo">
   		</a>
   	</div>
 
@@ -53,9 +59,10 @@
 				<a class="text-white nav-element" href="/session/new">Log In</a>
 				<a class="text-white nav-element sign-up-button" href="/account/new">Sign Up</a>
   		<%- elsif current_user.role == 'teacher' %>
-  			<div class='navigation-vertical-rule hide-on-mobile nav-element'></div>
-  			<div id="nav-user-dropdown" class="dropdown-closed hide-on-mobile nav-element <%= user_dropdown_class %>">
-  				<span onclick="toggleDropdown()" class='user-dropdown-button'><img class='user-dropdown-button-img' src=<%="#{user_dropdown_img}"%>></img><%="#{current_user.name}"%></span>
+  			<div id="nav-user-dropdown" class="dropdown-closed hide-on-mobile nav-element <%= show_notification_badges_class %> <%= user_dropdown_class %>">
+  				<span onclick="toggleDropdown()" class='user-dropdown-button notification-badge-relative'>
+            <%="#{truncate(current_user.name, length: 50)}"%>
+          </span>
   				<div>
   					<i class="fas fa-caret-up"></i>
   					<%= link_to raw(
@@ -66,10 +73,12 @@
   						dashboard_teachers_classrooms_path
    					%>
   					<%= link_to raw(
-  						"<span class='image-container'><img class='static' src='https://assets.quill.org/images/navbar/navbar-account-gradient-1.svg'></img>
-  						<img class='hover' src='https://assets.quill.org/images/navbar/navbar-account-solid-1.svg'></img></span>
-  						My Account"
-  					),
+  						"<span class='image-container'>
+                <img class='static' src='https://assets.quill.org/images/navbar/navbar-account-gradient-1.svg'></img>
+  						  <img class='hover' src='https://assets.quill.org/images/navbar/navbar-account-solid-1.svg'></img>
+              </span>
+  						<span class='notification-badge-relative'>My Account</span>"
+            ),
   						teachers_my_account_path
   					%>
   					<%= link_to raw(
@@ -165,7 +174,7 @@
 
 	function closeDropdownIfOpen(e) {
 		const dropdown = document.querySelector('#nav-user-dropdown');
-		if (e.target.classList.value !== 'user-dropdown-button' && e.target.classList.value !== 'user-dropdown-button-img' && e.target.parentElement.classList.value !== 'user-dropdown-button' && dropdown && dropdown.classList.contains('dropdown-open')) {
+		if (!e.target.classList.contains('user-dropdown-button') && e.target.parentElement.classList.value !== 'user-dropdown-button' && dropdown && dropdown.classList.contains('dropdown-open')) {
 				dropdown.classList.remove('dropdown-open');
 				dropdown.classList.add('dropdown-closed');
 		}

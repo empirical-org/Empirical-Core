@@ -28,7 +28,7 @@ exports[`StudentViewContainer component when the activity has loaded renders 1`]
             <img
               alt="Quill.org logo"
               className="hide-on-mobile"
-              src="undefined/images/logos/quill-logo-white.svg"
+              src="undefined/images/logos/quill-logo-white-2022.svg"
             />
           </a>
           <Tooltip

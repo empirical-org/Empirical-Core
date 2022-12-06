@@ -49,7 +49,10 @@ export default class CreateUnit extends React.Component {
       name,
       classrooms,
       assignSuccess,
-      model: { dueDates: {}, },
+      model: {
+        dueDates: {},
+        publishDates: {}
+      },
     }
   }
 
@@ -94,7 +97,7 @@ export default class CreateUnit extends React.Component {
   getActivities = () => {
     const { match, } = this.props
     const { stage, } = this.state
-    const privateFlag = [2, 3].includes(stage) ? "?flag=private" : ''
+    const privateFlag = [2, 3].includes(stage) ? "?flagset=private" : ''
     requestGet(`/activities/search${privateFlag}`, (body) => {
       const { activities, } = body
       const activityIdsArray = match.params.activityIdsArray || window.localStorage.getItem(ACTIVITY_IDS_ARRAY)
@@ -154,9 +157,9 @@ export default class CreateUnit extends React.Component {
     return (classroomsWithSelectedStudents.length > 0);
   }
 
-  assignActivityDueDate = (activity, dueDate) => {
+  assignActivityDate = (activity, date, dateKey) => {
     const { model, } = this.state
-    model.dueDates[activity.id] = dueDate;
+    model[dateKey][activity.id] = date;
     this.setState({ model, });
   }
 
@@ -191,6 +194,13 @@ export default class CreateUnit extends React.Component {
     const { model, } = this.state
     if (model.dueDates && model.dueDates[id]) {
       return model.dueDates[id];
+    }
+  }
+
+  publishDate = (id) => {
+    const { model, } = this.state
+    if (model.publishDates && model.publishDates[id]) {
+      return model.publishDates[id];
     }
   }
 
@@ -244,6 +254,7 @@ export default class CreateUnit extends React.Component {
       return {
         id: sa.id,
         due_date: this.dueDate(sa.id),
+        publish_date: this.publishDate(sa.id)
       }
     })
 
@@ -273,13 +284,14 @@ export default class CreateUnit extends React.Component {
 
   stage1SpecificComponents = () => {
     const { activities, } = this.state
-    const { showLessonsBanner, showEvidenceBanner} = this.props
+    const { showLessonsBanner, showEvidenceBanner, flagset, } = this.props
     return (
       <Stage1
         activities={activities}
         clickContinue={this.clickContinue}
         determineIfInputProvidedAndValid={this.determineIfInputProvidedAndValid}
         errorMessage={this.determineStage1ErrorMessage()}
+        flagset={flagset}
         selectedActivities={this.getSelectedActivities()}
         setSelectedActivities={this.setSelectedActivities}
         showEvidenceBanner={showEvidenceBanner}
@@ -381,7 +393,7 @@ export default class CreateUnit extends React.Component {
       <Stage2
         alreadyCompletedDiagnosticStudentNames={this.alreadyCompletedDiagnosticStudentNames()}
         areAnyStudentsSelected={this.areAnyStudentsSelected()}
-        assignActivityDueDate={this.assignActivityDueDate}
+        assignActivityDate={this.assignActivityDate}
         classrooms={this.getClassrooms()}
         cleverLink={cleverLink}
         data={this.assignSuccess}
@@ -392,6 +404,7 @@ export default class CreateUnit extends React.Component {
         isFromDiagnosticPath={!!parsedQueryParams().diagnostic_unit_template_id}
         lockedClassroomIds={this.lockedClassroomIds()}
         notYetCompletedPreTestStudentNames={this.notYetCompletedPreTestStudentNames()}
+        publishDates={model.publishDates}
         restrictedActivity={restrictedActivity}
         selectedActivities={this.getSelectedActivities()}
         showGradeLevelWarning={showGradeLevelWarning}

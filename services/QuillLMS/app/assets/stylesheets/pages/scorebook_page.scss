@@ -1,7 +1,7 @@
 #scorebook {
 	margin-bottom: 300px;
 	.section-content-wrapper {
-		padding-bottom: 25px;
+		padding-bottom: 5px;
 	}
 
 	.icons-wrapper.score-legend {
@@ -14,6 +14,7 @@
 			display: flex;
 			align-items: center;
 			justify-content: space-between;
+      flex-wrap: wrap;
 			.icon {
 				display: flex;
 				align-items: center;
@@ -31,22 +32,12 @@
 
 	.app-legend {
 		padding-top: 25px;
-    .icons {
-      flex-direction: column;
-    }
-    .first-row {
-      margin-bottom: 20px;
-    }
-    .first-row, .second-row {
-      display: flex;
-      justify-content: space-between;
-      width: 100%;
-    }
 		.icon {
       background-color: #f7f5f5;
       text-align: left;
-			cursor: pointer;
-      min-width: 250px;
+      min-width: min-content;
+      margin-right: 20px;
+      margin-bottom: 20px;
     }
     .icon:focus, .icon:hover {
       outline-offset: 6px;
@@ -73,12 +64,17 @@
 		}
 	}
 
-	.in-progress-symbol, .attempt-symbol {
+	.in-progress-symbol, .attempt-symbol, .scheduled-symbol {
 		vertical-align: middle;
 		position: absolute;
 		top: -8px;
 		right: -8px;
 	}
+
+  .scheduled-symbol {
+    height: 16px;
+    background-color: #f7f5f5;
+  }
 
 	.missed-indicator {
 		height: 38px;
@@ -95,13 +91,15 @@
 
 	.overview-section {
 		margin: 0 auto;
-		max-width: 950px;
+		max-width: calc(#{$sitewidepagewidth} + 20px); // accounting for right padding on each activity icon
+    padding-left: 10px; // accounting for overflow
 	}
 
 	.student-header {
 		align-items: center;
 		display: flex;
 		margin-bottom: 26px;
+    margin-right: 10px;  // accounting for right padding on each activity icon
 
 		.average-score {
       margin-left: 16px;

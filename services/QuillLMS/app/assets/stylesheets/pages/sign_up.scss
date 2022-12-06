@@ -33,7 +33,17 @@
   flex-direction: column;
 }
 
-.account-form.student-sign-up, .account-form.teacher-sign-up {
+.account-form.select-k12 {
+  h1 {
+    margin-bottom: 12px;
+  }
+  .subheader {
+    text-align: center;
+    margin-bottom: 24px;
+  }
+}
+
+.account-form.student-sign-up, .account-form.teacher-sign-up, .account-form.finish-set-up {
   h1 {
     margin-bottom: 4px !important;
   }
@@ -51,15 +61,15 @@
   }
 }
 
-.account-form.teacher-sign-up {
+.account-form.teacher-sign-up, .account-form.finish-set-up {
   .info-and-form-container {
     display: flex;
     justify-content: center;
     margin: 40px 0px 32px;
+    min-height: 584px;
     .account-container {
       border-radius: 0px 6px 6px 0px;
       margin: 0px;
-      height: 584px;
       border-left: none;
       .quill-button {
         margin-top: 46px;
@@ -79,7 +89,6 @@
     .info {
       max-width: 427px;
       width: 100%;
-      height: 584px;
       border-radius: 6px 0px 0px 6px;
       border: solid 1px #e0e0e0;
       border-right: none;
@@ -126,6 +135,86 @@
   }
 }
 
+.account-form.add-teacher-info {
+  display: flex;
+  align-items: center;
+  flex-direction: column;
+  max-width: 546px;
+  h1 {
+    margin: 32px 0px 4px;
+  }
+  .sub-header {
+    max-width: 100%;
+    margin-bottom: 32px;
+  }
+  h2 {
+    font-weight: 700;
+    font-size: 16px;
+    line-height: 26px;
+  }
+  .quill-button {
+    margin-top: 8px;
+  }
+  @media (min-width: 560px) {
+    h1 {
+      white-space: nowrap;
+    }
+  }
+}
+
+.grade-level-section {
+  padding-bottom: 24px;
+  .button-section {
+    padding: 24px 0px 0px;
+  }
+  .input-container.active.not-editable {
+    margin-bottom: 0px;
+    .dropdown__menu {
+      margin-top: -50px;
+    }
+  }
+}
+
+.subject-area-section {
+  padding-bottom: 32px;
+  .button-section {
+    padding: 32px 0px 0px;
+  }
+}
+
+.grade-level-section, .subject-area-section {
+  form {
+    margin-bottom: 0px;
+  }
+}
+
+.subject-area-row {
+  margin-top: 16px;
+  display: flex;
+  align-items: center;
+  line-height: 14px;
+}
+
+.grade-dropdowns-wrapper {
+  display: flex;
+  justify-content: space-between;
+  margin-top: 16px;
+  .dropdown-container {
+    width: 100%;
+    max-width: 225px;
+    margin-bottom: 0px;
+  }
+  @media (max-width: 600px) {
+    flex-direction: column;
+  }
+}
+
+.grade-level-explanation {
+  margin: 8px 0px;
+  line-height: 18px;
+  color: #888888;
+}
+
 .school-search-container {
   max-width: 577px;
   border-radius: 6px;
@@ -164,10 +253,19 @@
       font-size: 14px;
       padding: 16px 16px 18px;
       line-height: 1;
+      display: flex;
+      justify-content: space-between;
       .interactive-wrapper {
         cursor: pointer;
         color: #009a80;
         font-weight: 600;
+      }
+      .checkbox-wrapper {
+        display: flex;
+        align-items: center;
+        .quill-checkbox {
+          margin-right: 8px;
+        }
       }
     }
     .no-school-found, .default-school-search {
@@ -212,10 +310,13 @@
   justify-content: center;
 }
 
-.select-non-k12 {
+.account-form.select-non-k12 {
   display: flex;
   flex-direction: column;
   align-items: center;
+  h1 {
+    margin-bottom: 32px;
+  }
   .quill-card {
     max-width: 546px;
     min-height: 158px;

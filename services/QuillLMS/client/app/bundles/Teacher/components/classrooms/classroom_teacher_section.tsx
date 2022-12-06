@@ -11,7 +11,7 @@ const OwnerDisplayName = 'Owner'
 
 const activeHeaders = [
   {
-    width: '200px',
+    width: '370px',
     name: 'Name',
     attribute: 'name'
   }, {
@@ -19,7 +19,7 @@ const activeHeaders = [
     name: 'Role',
     attribute: 'role'
   }, {
-    width: '375px',
+    width: '445px',
     name: 'Email',
     attribute: 'email'
   },

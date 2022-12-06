@@ -14,6 +14,8 @@ module Evidence
   mattr_accessor :error_notifier
   mattr_accessor :sidekiq_module
   mattr_accessor :file_mailer
+  mattr_accessor :file_uploader
+  mattr_accessor :flags_class
 
   def self.parent_activity_class
     @@parent_activity_class.constantize
@@ -49,5 +51,13 @@ module Evidence
 
   def self.file_mailer
     @@file_mailer.constantize
+  end
+
+  def self.file_uploader
+    @@file_uploader.constantize
+  end
+
+  def self.flags_class
+    @@flags_class.constantize
   end
 end

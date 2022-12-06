@@ -40,6 +40,18 @@ describe Cms::SchoolsController do
       get :search
       expect(response.body).to eq({numberOfPages: 0, schoolSearchQueryResults: [school_hash]}.to_json)
     end
+
+    context 'when a school has an expired subscription and an active subscription' do
+      it 'should only one record of that school, without duplicates' do
+        school = create(:school)
+        expired_sub = create(:subscription, expiration: 15.days.ago.to_date)
+        active_sub = create(:subscription)
+        create(:school_subscription, school: school, subscription: expired_sub)
+        create(:school_subscription, school: school, subscription: active_sub)
+        get :search, params: {:school_name => school.name}
+        expect(JSON.parse(response.body)['schoolSearchQueryResults'].size).to eq(1)
+      end
+    end
   end
 
   describe '#show' do
@@ -112,13 +124,13 @@ describe Cms::SchoolsController do
           name: "test",
           city: "test city",
           state: "test state",
-          zipcode: "1100",
+          zipcode: "11000",
           free_lunches: 2
       } }
       expect(School.last.name).to eq "test"
       expect(School.last.city).to eq "test city"
       expect(School.last.state).to eq "test state"
-      expect(School.last.zipcode).to eq "1100"
+      expect(School.last.zipcode).to eq "11000"
       expect(School.last.free_lunches).to eq 2
       expect(response).to redirect_to cms_school_path(School.last.id)
     end

@@ -3,7 +3,7 @@
 exports[`PremiumPricingGuide container should render 1`] = `
 <div>
   <div
-    className="container premium-page"
+    className="container premium-page white-background-accommodate-footer"
   >
     <Snackbar
       text="Sorry, you need to select a school to purchase School Premium."

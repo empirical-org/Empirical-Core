@@ -153,6 +153,20 @@ describe TeacherFixController do
           expect(classroom_unit.reload.assigned_student_ids).to eq [another_user.id]
           expect(response.code).to eq "200"
         end
+
+        it 'should not un-assign students from the ClassroomUnit just because they are missing an ActivitySession' do
+          other_student = create(:user)
+          classroom_unit.update(assigned_student_ids: [other_student.id])
+
+          post :recover_activity_sessions, params: { email: user.email, unit_name: "some name" }
+          expect(classroom_unit.reload.assigned_student_ids).to include(another_user.id, other_student.id)
+        end
+
+        it 'should touch ActivitySessions to bubble up touch for cache invalidation purposes' do
+          # Testing that a ClassroomUnit gets a touch bubbled up to it from the underlying ActivitySession
+          expect_any_instance_of(ClassroomUnit).to receive(:touch)
+          post :recover_activity_sessions, params: { email: user.email, unit_name: "some name" }
+        end
       end
 
       context 'when unit does not exist' do
@@ -189,7 +203,7 @@ describe TeacherFixController do
           let!(:student1) { create(:student, classrooms: [classroom]) }
 
           it 'should return a 200' do
-            post :merge_student_accounts, params: { account1_identifier: student.email, account2_identifier: student1.email }
+            post :merge_student_accounts, params: { destination_student_identifier: student.email, source_student_identifier: student1.email }
             expect(response.status).to eq(200)
           end
         end
@@ -201,7 +215,7 @@ describe TeacherFixController do
           let!(:student1) { create(:student, classrooms: [classroom2] ) }
 
           it 'should return that students are not in the same classroom' do
-            post :merge_student_accounts, params: { account1_identifier: student.email, account2_identifier: student1.email }
+            post :merge_student_accounts, params: { destination_student_identifier: student.email, source_student_identifier: student1.email }
             expect(response.body).to eq({error: "#{student1.email} is in at least one class that #{student.email} is not in, so we can't merge them."}.to_json)
           end
         end
@@ -212,7 +226,7 @@ describe TeacherFixController do
         let!(:user) { create(:user) }
 
         it 'should render that student is not a student' do
-          post :merge_student_accounts, params: { account1_identifier: student.email, account2_identifier: user.email }
+          post :merge_student_accounts, params: { destination_student_identifier: student.email, source_student_identifier: user.email }
           expect(response.body).to eq({error: "#{user.email} is not a student."}.to_json)
         end
       end
@@ -222,7 +236,7 @@ describe TeacherFixController do
       let!(:student) { create(:student) }
 
       it 'should render that we do not have an account for the user' do
-        post :merge_student_accounts, params: { account1_identifier: student.email, account2_identifier: "test@email.com" }
+        post :merge_student_accounts, params: { destination_student_identifier: student.email, source_student_identifier: "test@email.com" }
         expect(response.body).to eq({error: "We do not have an account for test@email.com"}.to_json)
 
       end

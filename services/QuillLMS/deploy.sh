@@ -8,7 +8,6 @@ case $1 in
     DEPLOY_GIT_BRANCH=deploy-lms-prod
     HEROKU_APP=empirical-grammar
     URL="https://www.quill.org/"
-    AUTOSCALE_URL="https://app.railsautoscale.com/empirical-grammar/settings/edit"
     NR_URL="https://rpm.newrelic.com/accounts/2639113/applications/548856875"
     current_branch="origin/production"
     ;;
@@ -91,7 +90,6 @@ then
     if [ $1 == 'prod' ]
     then
         sh ../../scripts/post_slack_deploy_description.sh $app_name
-        open $AUTOSCALE_URL
 
         # For production, push directly from the remote production branch without going local
         # This 'remote merge' requires your local git history/pointers of the remote branches to be up-to-date, so we run a 'git fetch' to do that.

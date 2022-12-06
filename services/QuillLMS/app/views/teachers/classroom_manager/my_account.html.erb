@@ -5,5 +5,7 @@
   alternativeSchools: @alternative_schools,
   alternativeSchoolsNameMap: @alternative_schools_name_map,
   cleverLink: "https://clever.com/oauth/authorize?#{ {response_type: 'code', redirect_uri: Clever::REDIRECT_URL, client_id: Clever::CLIENT_ID, scope: QuillClever.scope}.to_param }",
-  googleOrCleverJustSet: @google_or_clever_just_set
+  googleOrCleverJustSet: @google_or_clever_just_set,
+  showDismissSchoolSelectionReminderCheckbox: @show_dismiss_school_selection_reminder_checkbox,
+  subjectAreas: SubjectArea.all
 })%>

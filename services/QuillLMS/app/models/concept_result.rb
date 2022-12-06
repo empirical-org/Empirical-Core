@@ -19,17 +19,14 @@
 #  concept_result_previous_feedback_id :integer
 #  concept_result_prompt_id            :integer
 #  concept_result_question_type_id     :integer
-#  old_concept_result_id               :integer
 #
 # Indexes
 #
-#  index_concept_results_on_activity_session_id    (activity_session_id)
-#  index_concept_results_on_old_concept_result_id  (old_concept_result_id) UNIQUE
+#  index_concept_results_on_activity_session_id  (activity_session_id)
 #
 class ConceptResult < ApplicationRecord
   belongs_to :activity_session
   belongs_to :concept
-  belongs_to :old_concept_result
   belongs_to :concept_result_directions
   belongs_to :concept_result_instructions
   belongs_to :concept_result_previous_feedback
@@ -64,7 +61,7 @@ class ConceptResult < ApplicationRecord
   def self.init_from_json(data_hash)
     data_hash = data_hash.deep_symbolize_keys
 
-    metadata = data_hash[:metadata]
+    metadata = parse_metadata(data_hash[:metadata])
 
     response = new(
       activity_session_id: data_hash[:activity_session_id],
@@ -72,12 +69,11 @@ class ConceptResult < ApplicationRecord
       concept_id: data_hash[:concept_id],
       attempt_number: metadata[:attemptNumber],
       correct: ActiveModel::Type::Boolean.new.cast(metadata[:correct]),
-      old_concept_result_id: data_hash[:old_concept_result_id],
       question_number: metadata[:questionNumber],
       question_score: metadata[:questionScore]
     )
 
-    response.assign_normalized_text(data_hash)
+    response.assign_normalized_text(metadata, data_hash[:question_type])
     response.assign_extra_metadata(metadata)
 
     response
@@ -87,13 +83,18 @@ class ConceptResult < ApplicationRecord
     data_hash_array.map { |data_hash| create_from_json(data_hash) }
   end
 
-  def self.find_or_create_from_old_concept_result(old_concept_result)
-    return old_concept_result.concept_result if old_concept_result.concept_result
+  def self.parse_metadata(metadata)
+    return metadata unless metadata.is_a?(String)
 
-    data_hash = old_concept_result.as_json
-    data_hash['old_concept_result_id'] = old_concept_result.id
-
-    create_from_json(data_hash)
+    begin
+      JSON.parse(metadata).deep_symbolize_keys
+    # A number of items got into the Sidekiq queue with their metadata
+    # serialized using Ruby .to_s instead of .to_json.  The bug causing
+    # that should be fixed, but we want to clear the queue of the weirdly
+    # serialized data.
+    rescue JSON::ParserError
+      JSON.parse(metadata.gsub('=>', ':')).deep_symbolize_keys
+    end
   end
 
   def self.parse_extra_metadata(metadata)
@@ -114,14 +115,12 @@ class ConceptResult < ApplicationRecord
     }
   end
 
-  def assign_normalized_text(data_hash)
-    metadata = data_hash[:metadata]
-
+  def assign_normalized_text(metadata, question_type)
     self.concept_result_directions = ConceptResultDirections.find_or_create_by(text: metadata[:directions])
     self.concept_result_instructions = ConceptResultInstructions.find_or_create_by(text: metadata[:instructions])
     self.concept_result_previous_feedback = ConceptResultPreviousFeedback.find_or_create_by(text: metadata[:lastFeedback])
     self.concept_result_prompt = ConceptResultPrompt.find_or_create_by(text: metadata[:prompt])
-    self.concept_result_question_type = ConceptResultQuestionType.find_or_create_by(text: data_hash[:question_type])
+    self.concept_result_question_type = ConceptResultQuestionType.find_or_create_by(text: question_type)
   end
 
   def assign_extra_metadata(metadata)

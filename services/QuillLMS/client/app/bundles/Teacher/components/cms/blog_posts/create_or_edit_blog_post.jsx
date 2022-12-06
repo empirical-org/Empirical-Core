@@ -1,5 +1,4 @@
 import React from 'react';
-import request from 'request';
 import ItemDropdown from '../../general_components/dropdown_selectors/item_dropdown.jsx'
 import PreviewCard from '../../shared/preview_card.jsx';
 import BlogPostContent from '../../blog_posts/blog_post_content'
@@ -7,6 +6,7 @@ import { SingleDatePicker } from 'react-dates'
 import Dropzone from 'react-dropzone'
 import getAuthToken from '../../modules/get_auth_token'
 import moment from 'moment'
+import { requestPost, requestPut, } from '../../../../../modules/request/index'
 
 const defaultPreviewCardContent = `<img class='preview-card-image' src='http://cultofthepartyparrot.com/parrots/hd/middleparrot.gif' />
 <div class='preview-card-body'>
@@ -183,7 +183,7 @@ export default class CreateOrEditBlogPost extends React.Component {
         body: data
       })
         .then(response => response.json()) // if the response is a JSON object
-        .then(response => this.setState({uploadedImageLink: response.url})); // Handle the success response object
+        .then(response => this.setState({uploadedMediaLink: response.url})); // Handle the success response object
     });
   }
 
@@ -208,6 +208,8 @@ export default class CreateOrEditBlogPost extends React.Component {
   handleInsertBold = () => this.insertMarkdown('**', '**')
 
   handleInsertFileImage = () => this.insertMarkdown('![', '](http://cultofthepartyparrot.com/parrots/hd/parrot.gif)')
+
+  handleInsertIFrame = () => this.insertMarkdown('<iframe width="560" height="315" src="https://www.youtube.com/embed/dQw4w9WgXcQ" frameborder="0" allowfullscreen></iframe>')
 
   handleInsertH1 = () => this.insertMarkdown('# ')
 
@@ -284,46 +286,55 @@ export default class CreateOrEditBlogPost extends React.Component {
     if (unpublish && window.prompt('To unpublish this post, please type UNPUBLISH.') !== 'UNPUBLISH') { return }
     let requestAction
     let url = `${process.env.DEFAULT_URL}/cms/blog_posts/`
-    if (action === 'new' && !unpublish) {
-      requestAction = 'post'
-    } else {
-      requestAction = 'put'
-      url += postToEdit.id
+
+    const blogPost = {
+      blog_post: {
+        title: title,
+        subtitle: subtitle,
+        image_link: imageLink,
+        body: body,
+        topic: topic,
+        author_id: author_id,
+        preview_card_content: preview_card_content,
+        draft: !shouldPublish,
+        premium: premium,
+        published_at: publishedAt ? new Date(publishedAt) : null,
+        external_link: externalLink,
+        center_images: centerImages,
+        press_name: pressName
+      }
     }
 
-    request[requestAction]({
-      url,
-      form: {
-        blog_post: {
-          title: title,
-          subtitle: subtitle,
-          image_link: imageLink,
-          body: body,
-          topic: topic,
-          author_id: author_id,
-          preview_card_content: preview_card_content,
-          draft: !shouldPublish,
-          premium: premium,
-          published_at: publishedAt ? new Date(publishedAt) : null,
-          external_link: externalLink,
-          center_images: centerImages,
-          press_name: pressName
+    if (action === 'new' && !unpublish) {
+      requestPost(
+        url,
+        blogPost,
+        (body) => {
+          alert('Post added successfully!');
+          window.location.href = (`/cms/blog_posts/${body.id}/edit`)
+          callback ? callback() : null
         },
-        authenticity_token: ReactOnRails.authenticityToken()
-      }
-    }, (error, httpStatus, body) => {
-      const parsedBody = JSON.parse(body)
-      if (httpStatus.statusCode === 200 && action === 'new') {
-        alert('Post added successfully!');
-        window.location.href = (`/cms/blog_posts/${parsedBody.id}/edit`)
-      } else if (httpStatus.statusCode === 200) {
-        this.setState({draft: parsedBody.draft})
-        alert('Update successful!');
-      } else {
-        alert("😨 Rut roh. Something went wrong! (Don't worry, it's probably not your fault.)");
-      }
-      callback ? callback() : null
-    })
+        (body) => {
+          alert("😨 Rut roh. Something went wrong! (Don't worry, it's probably not your fault.)");
+          callback ? callback() : null
+        }
+      )
+    } else {
+      url += postToEdit.id
+      requestPut(
+        url,
+        blogPost,
+        (body) => {
+          this.setState({draft: body.draft})
+          alert('Update successful!');
+          callback ? callback() : null
+        },
+        (body) => {
+          alert("😨 Rut roh. Something went wrong! (Don't worry, it's probably not your fault.)");
+          callback ? callback() : null
+        }
+      )
+    }
   }
 
   handleSubtitleChange = (e) => {
@@ -549,6 +560,7 @@ export default class CreateOrEditBlogPost extends React.Component {
         <i className="fas fa-quote-left" onClick={this.handleInsertQuote} />
         <i className="fas fa-link" onClick={this.handleInsertLink} />
         <i className="fas fa-file-image" onClick={this.handleInsertFileImage} />
+        <i className="fas fa-video" onClick={this.handleInsertIFrame} />
         <i className="fas fa-square" onClick={this.handleInsertPrimaryButton} />
         <i className="far fa-square" onClick={this.handleInsertSecondaryButton} />
       </div>)
@@ -702,7 +714,7 @@ export default class CreateOrEditBlogPost extends React.Component {
       author_id,
       topic,
       externalLink,
-      uploadedImageLink,
+      uploadedMediaLink,
       preview_card_content,
       premium,
       centerImages,
@@ -750,11 +762,11 @@ export default class CreateOrEditBlogPost extends React.Component {
           </div>
 
           <div>
-            <label>Click the square below or drag an image into it to upload an image:</label>
+            <label>Click the square below or drag an image into it to upload an image or video:</label>
             <Dropzone onDrop={this.handleDrop} />
-            <label style={{marginTop: '10px'}}>Here is the link to your uploaded image:</label>
-            <input style={{marginBottom: '0px'}} value={uploadedImageLink} />
-            <a className="link" href="/cms/images" style={{marginBottom: '10px'}} target="_blank">All Uploaded Images</a>
+            <label style={{marginTop: '10px'}}>Here is the link to your uploaded image or video:</label>
+            <input style={{marginBottom: '0px'}} value={uploadedMediaLink} />
+            <a className="link" href="/cms/images" style={{marginBottom: '10px'}} target="_blank">All Uploaded Media</a>
           </div>
 
           <div className="side-by-side">

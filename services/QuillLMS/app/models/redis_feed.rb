@@ -55,7 +55,7 @@ class RedisFeed
 
   def reset!
     temp_ids = ids
-    $redis.ltrim(redis_key, 0, 0)
+    $redis.del(redis_key)
     temp_ids
   end
 

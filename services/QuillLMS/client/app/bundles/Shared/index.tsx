@@ -17,6 +17,8 @@ export {
   ReactTable,
   TextFilter,
   expanderColumn,
+  NumberFilterInput,
+  CheckboxFilter
 } from './components/reactTable/reactTable'
 
 export {
@@ -103,7 +105,10 @@ export {
   onMobile,
   fillInBlankInputLabel,
   getIconForActivityClassification,
-  isTrackableStudentEvent
+  isTrackableStudentEvent,
+  hexToRGBA,
+  uniqueValuesArray,
+  filterNumbers
 } from './libs/index'
 
 export {
@@ -145,6 +150,11 @@ export {
   infoIcon,
   closedLockIcon,
   openLockIcon,
+  copyIcon,
+  scheduledIcon,
+  publishedIcon,
+  assignedBadgeIconGray,
+  assignedBadgeIconWhite
 } from './images/index'
 
 export {

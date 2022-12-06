@@ -25,8 +25,7 @@ class StudentsController < ApplicationController
   def student_demo
     @user = User.find_by_email 'angie_thomas_demo@quill.org'
     if @user.nil?
-      Demo::ReportDemoDestroyer.destroy_demo(nil)
-      Demo::ReportDemoCreator.create_demo(nil)
+      Demo::ReportDemoCreator.create_demo(nil, teacher_demo: true)
       redirect_to "/student_demo"
     else
       sign_in @user
@@ -46,7 +45,7 @@ class StudentsController < ApplicationController
   end
 
   def update_account
-    if current_user.update(student_params.slice(:email, :name, :username))
+    if current_user.update(student_params.slice(:email, :name, :username, :time_zone))
       render json: current_user, serializer: UserSerializer
     else
       render json: {errors: current_user.errors.messages}, status: 422
@@ -131,7 +130,7 @@ class StudentsController < ApplicationController
   end
 
   private def student_params
-    params.permit(:name, :email, :username, :authenticity_token, student: [:name, :email, :username])
+    params.permit(:name, :email, :username, :time_zone)
   end
 
 end

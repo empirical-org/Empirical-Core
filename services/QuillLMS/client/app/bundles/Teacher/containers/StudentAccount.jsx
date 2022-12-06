@@ -3,8 +3,7 @@ import { Snackbar, defaultSnackbarTimeout } from '../../Shared/index';
 import StudentGeneralAccountInfo from '../components/accounts/edit/student_general.jsx';
 import StudentPasswordAccountInfo from '../components/accounts/edit/update_password';
 import getAuthToken from '../components/modules/get_auth_token';
-import { requestPut } from '../../../modules/request/index.js';
-import request from 'request';
+import { requestPut } from '../../../modules/request/index';
 import _ from 'lodash';
 
 const GENERAL = 'general'
@@ -13,12 +12,13 @@ const PASSWORD = 'password'
 export default class StudentAccount extends Component {
   constructor(props) {
     super(props);
-    const { name, userName, email } = props;
+    const { name, userName, email, timeZone, } = props;
     this.state = {
       firstName: name.split(' ')[0],
       lastName: name.split(' ').slice(1).join(' '),
       userName,
       email,
+      timeZone,
       snackbarCopy: '',
       activeSection: null,
       timesSubmitted: 0,
@@ -56,10 +56,11 @@ export default class StudentAccount extends Component {
       // combine front and backend errors if any lingering backend errors remain
       this.setState(prevState => {
         const errorsObject = {...prevState.errors}
-        const { firstName, lastName, username } = errors;
+        const { firstName, lastName, username, time_zone, } = errors;
         errorsObject.firstName = firstName;
         errorsObject.lastName = lastName;
         errorsObject.username = username ? username : errorsObject.username;
+        errorsObject.timeZone = time_zone;
         return { errors: errorsObject }
       });
     } else {
@@ -70,12 +71,14 @@ export default class StudentAccount extends Component {
         const {
           name,
           username,
-          email
+          email,
+          time_zone,
         } = body.user;
         this.setState({
           firstName: name.split(' ')[0],
           lastName: name.split(' ').slice(1).join(' '),
           userName: username,
+          timeZone: time_zone,
           email,
           snackbarCopy,
           errors: {}
@@ -128,8 +131,8 @@ export default class StudentAccount extends Component {
   }
 
   render() {
-    const { firstName, lastName, userName, email, timesSubmitted, activeSection, errors } = this.state;
-    const { googleId, cleverId, accountType, role, isBeingPreviewed } = this.props;
+    const { firstName, lastName, userName, email, timeZone, timesSubmitted, activeSection, errors } = this.state;
+    const { googleId, cleverId, accountType, role, isBeingPreviewed, } = this.props;
     return(
       <div className="user-account">
         {(cleverId || googleId) && this.renderExplanation()}
@@ -146,6 +149,7 @@ export default class StudentAccount extends Component {
           isBeingPreviewed={isBeingPreviewed}
           lastName={lastName}
           timesSubmitted={timesSubmitted}
+          timeZone={timeZone}
           updateUser={this.updateUser}
           userName={userName}
         />

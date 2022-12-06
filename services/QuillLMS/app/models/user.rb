@@ -70,6 +70,18 @@ class User < ApplicationRecord
   USER_INACTIVITY_DURATION = 30.days
   USER_SESSION_DURATION = 30.days
 
+  CLEVER_ID_UNIQUENESS_CONSTRAINT_MINIMUM_ID = 5593155 + 1
+  EMAIL_UNIQUENESS_CONSTRAINT_MINIMUM_ID = 1641954 + 1
+  GOOGLE_ID_UNIQUENESS_CONSTRAINT_MINIMUM_ID = 1641954 + 1
+  USERNAME_UNIQUENESS_CONSTRAINT_MINIMUM_ID = 1641954 + 1
+
+  UNIQUENESS_CONSTRAINT_MINIMUM_ID = [
+    CLEVER_ID_UNIQUENESS_CONSTRAINT_MINIMUM_ID,
+    EMAIL_UNIQUENESS_CONSTRAINT_MINIMUM_ID,
+    GOOGLE_ID_UNIQUENESS_CONSTRAINT_MINIMUM_ID,
+    USERNAME_UNIQUENESS_CONSTRAINT_MINIMUM_ID
+  ].max
+
   TEACHER = 'teacher'
   STUDENT = 'student'
   STAFF = 'staff'
@@ -77,7 +89,6 @@ class User < ApplicationRecord
   ROLES      = [TEACHER, STUDENT, STAFF, SALES_CONTACT]
   SAFE_ROLES = [STUDENT, TEACHER, SALES_CONTACT]
   VALID_EMAIL_REGEX = /\A[\w+\-.]+@[a-z\d\-]+(\.[a-z\d\-]+)*\.[a-z]+\z/i
-
 
   ALPHA = 'alpha'
   BETA = 'beta'
@@ -96,6 +107,9 @@ class User < ApplicationRecord
 
   has_secure_password validations: false
   has_one :auth_credential, dependent: :destroy
+  has_one :teacher_info, dependent: :destroy
+  has_many :teacher_info_subject_areas, through: :teacher_info
+  has_many :subject_areas, through: :teacher_info_subject_areas
   has_many :checkboxes
   has_many :credit_transactions
   has_many :invitations, foreign_key: 'inviter_id'
@@ -157,15 +171,13 @@ class User < ApplicationRecord
   validates :email,
     presence: { if: :email_required? },
     uniqueness:  { message: :taken, if: :email_required_or_present? },
+    format: { without: /\s/, message: :no_spaces_allowed },
     length: { maximum: CHAR_FIELD_MAX_LENGTH }
 
   validate :username_cannot_be_an_email
 
-  validates :clever_id,
-    uniqueness:   { if: :clever_id_present_and_has_changed? }
-
-  validates :google_id,
-    uniqueness: { if: ->(u) { u.google_id.present? && u.student? } }
+  validates :clever_id, uniqueness: { if: :clever_id_present_and_has_changed? }
+  validates :google_id, uniqueness: { if: ->(u) { u.google_id.present? && u.student? } }
 
   validates_email_format_of :email,
     if: :email_required_or_present?,
@@ -182,6 +194,7 @@ class User < ApplicationRecord
   before_validation :generate_student_username_if_absent
   before_validation :prep_authentication_terms
   before_save :capitalize_name
+  before_save :set_time_zone, unless: :time_zone
   after_save  :update_invitee_email_address, if: proc { saved_change_to_email? }
   after_save :check_for_school
   after_create :generate_referrer_id, if: proc { teacher? }
@@ -314,11 +327,11 @@ class User < ApplicationRecord
   def username_cannot_be_an_email
     return unless username =~ VALID_EMAIL_REGEX
 
-    if id
+    if new_record?
+      errors.add(:username, :invalid)
+    else
       db_self = User.find(id)
       errors.add(:username, :invalid) unless db_self.username == username
-    else
-      errors.add(:username, :invalid)
     end
   end
 
@@ -528,18 +541,6 @@ class User < ApplicationRecord
     UserMailer.premium_missing_school_email(self).deliver_now! if email.present?
   end
 
-  def subscribe_to_newsletter
-    return unless role.teacher?
-
-    SubscribeToNewsletterWorker.perform_async(id)
-  end
-
-  def unsubscribe_from_newsletter
-    return unless role.teacher?
-
-    UnsubscribeFromNewsletterWorker.perform_async(id)
-  end
-
   def self.create_from_clever(hash, role_override = nil)
     user = User.where(email: hash[:info][:email]).first_or_initialize
     user = User.new if user.email.nil?
@@ -569,11 +570,15 @@ class User < ApplicationRecord
     user_attributes = attributes
     user_attributes[:subscription] = subscription ? subscription.attributes : {}
     user_attributes[:subscription]['subscriptionType'] = premium_state
+    user_attributes[:minimum_grade_level] = teacher_info&.minimum_grade_level
+    user_attributes[:maximum_grade_level] = teacher_info&.maximum_grade_level
+    user_attributes[:subject_area_ids] = subject_area_ids
+
     if school && school.name
       user_attributes[:school] = school
       user_attributes[:school_type] = School::ALTERNATIVE_SCHOOLS_DISPLAY_NAME_MAP[school.name] || School::US_K12_SCHOOL_DISPLAY_NAME
     else
-      user_attributes[:school] = School.find_by_name(School::NOT_LISTED_SCHOOL_NAME)
+      user_attributes[:school] = School.find_by_name(School::NO_SCHOOL_SELECTED_SCHOOL_NAME)
       user_attributes[:school_type] = School::US_K12_SCHOOL_DISPLAY_NAME
     end
     user_attributes
@@ -657,6 +662,39 @@ class User < ApplicationRecord
     SegmentIntegration::User.new(self)
   end
 
+  def mailer_user
+    Mailer::User.new(self)
+  end
+
+  # With the introduction of the SALES_CONTACT we now have a sort of
+  # "prospective user" type of user.  These people haven't signed up
+  # through our onboarding flow, but are given a User record so that we
+  # can sync their data to Vitally.  We need to treat these users specially
+  # during auth flows because they haven't actually signed up.
+  def sales_contact?
+    role == SALES_CONTACT
+  end
+
+  def set_time_zone
+    z = ::Ziptz.new
+    school_timezone = z.time_zone_name(school&.zipcode || school&.mail_zipcode)
+
+    if school_timezone.present?
+      self.time_zone = school_timezone
+    else
+      geocoder_results = Geocoder.search(ip_address.to_s)
+      self.time_zone = geocoder_results.first&.data&.dig('location', 'time_zone')
+    end
+  end
+
+  def duplicate_empty_student_accounts
+    User
+      .student
+      .where(email: email)
+      .where.not(id: id)
+      .where.missing(:activity_sessions, :students_classrooms)
+  end
+
   private def validate_flags
     invalid_flags = flags - VALID_FLAGS
 
@@ -690,7 +728,7 @@ class User < ApplicationRecord
 
   private def clever_id_present_and_has_changed?
     return false if !clever_id
-    return true if !id
+    return true if new_record?
 
     existing_user = User.find_by_id(id)
     existing_user.clever_id != clever_id

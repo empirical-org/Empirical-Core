@@ -200,11 +200,9 @@ class PagesController < ApplicationController
             },
           {
             question: "How are Quill activities named?",
-            answer: "<p>We have a lot of activities in our library! Most of these activities are named based on the specific grammar concept they cover.</p>
+            answer: "<p>We have a lot of activities in our library! Most of these activities are named based on the specific grammar concept they cover and the topic they discuss.</p>
               <br />
-              <p>You'll notice that some activities also include words like \"Starter\" or \"Intermediate\" in the name. These words indicate the general level of the activity. Because intermediate activities build on the skills practiced in starter activities, we typically recommend having students complete a starter activity for a given skill before moving on to that skill's intermediate activities.</p>
-             <br />
-             <p>Some activities also include a number. If an activity includes a number, that means there are other activities that cover the same grammar concept at the same level. For example, if your students complete Parallel Structure 1 but you feel they need additional practice at that level, you can assign Parallel Structure 2.</p>"
+              <p>Some activities also include a number. If an activity includes a number, that means there are other activities that cover the same grammar concept at the same level. For example, if your students complete Parallel Structure 1 but you feel they need additional practice at that level, you can assign Parallel Structure 2.</p>"
             },
           {
             question: "What does it mean if an activity is labeled as \"Advanced Combining\"?",
@@ -404,7 +402,7 @@ class PagesController < ApplicationController
   # for link to premium within 'about' (discover) pages
   # rubocop:disable Metrics/CyclomaticComplexity
   def premium
-    @user_is_eligible_for_new_subscription= current_user&.eligible_for_new_subscription?
+    @user_is_eligible_for_new_subscription = current_user&.eligible_for_new_subscription? && session[:demo_id].nil?
     @user_is_eligible_for_trial = current_user&.subscriptions&.none?
     @user_has_school = !!current_user&.school && !current_user.school.alternative?
     @user_belongs_to_school_that_has_paid = !!current_user&.school&.ever_paid_for_subscription?

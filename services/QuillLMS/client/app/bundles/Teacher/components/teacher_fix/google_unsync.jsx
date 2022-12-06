@@ -1,6 +1,6 @@
 import React from 'react'
-import request from 'request'
-import getAuthToken from '../modules/get_auth_token'
+
+import { requestPut, } from '../../../../modules/request/index'
 
 export default class GoogleUnsync extends React.Component {
   constructor(props) {
@@ -15,22 +15,23 @@ export default class GoogleUnsync extends React.Component {
 
   submit = () => {
     const that = this
-    request.put({
-      url: `${process.env.DEFAULT_URL}/teacher_fix/google_unsync_account`,
-      json: {original_email: that.state.originalEmail,
+
+    requestPut(
+      `${process.env.DEFAULT_URL}/teacher_fix/google_unsync_account`,
+      {
+        original_email: that.state.originalEmail,
         new_email: that.state.newEmail,
-        password: that.state.password,
-        authenticity_token: getAuthToken()}
-    },
-    (e, r, response) => {
-      if (response.error) {
-        that.setState({error: response.error})
-      } else if (r.statusCode === 200){
+        password: that.state.password
+      },
+      (body) => {
         window.alert('User has been unsynced!')
-      } else {
-        // to do, use Sentry to capture error
+      },
+      (body) => {
+        if (body.error) {
+          that.setState({error: body.error})
+        }
       }
-    })
+    )
   };
 
   updateField = (e, key) => {

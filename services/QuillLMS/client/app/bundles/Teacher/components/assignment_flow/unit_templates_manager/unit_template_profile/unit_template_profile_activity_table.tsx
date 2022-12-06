@@ -1,9 +1,24 @@
 import * as React from 'react';
 
+import PreviouslyAssignedTooltip from '../../previouslyAssignedTooltip';
 import { Tooltip, ReactTable, getIconForActivityClassification } from '../../../../../Shared/index'
+import { requestGet } from '../../../../../../modules/request';
 
 export const UnitTemplateProfileActivityTable = ({ data }) => {
   const { activities } = data;
+  const [previouslyAssignedActivityData, setPreviouslyAssignedActivityData] = React.useState(null)
+
+  React.useEffect(() => {
+    if(!previouslyAssignedActivityData && activities) {
+      const activityIds = JSON.stringify(activities.map(activity => activity.id))
+      requestGet(`${process.env.DEFAULT_URL}/teachers/unit_templates/previously_assigned_activities?activity_ids=${activityIds}`, (response) => {
+        if(response.previously_assigned_activity_data && Object.keys(response.previously_assigned_activity_data).length) {
+          const { previously_assigned_activity_data } = response
+          setPreviouslyAssignedActivityData(previously_assigned_activity_data)
+        }
+      })
+    }
+  }, [])
 
   function redirectToActivity(activityId) {
     window.open(`/activity_sessions/anonymous?activity_id=${activityId}`, '_blank');
@@ -62,12 +77,23 @@ export const UnitTemplateProfileActivityTable = ({ data }) => {
         },
       },
       {
+        Header: 'Previously assigned',
+        accessor: a => a,
+        maxWidth: 80,
+        id: 'previouslyAssigned',
+        Cell: ({row}) => {
+          const { original } = row;
+          const { previouslyAssignedActivityData } = original;
+          return <PreviouslyAssignedTooltip previouslyAssignedActivityData={previouslyAssignedActivityData} />
+        },
+      },
+      {
         accessor: 'id',
         maxWidth: 81,
         textAlign: 'right',
         id: 'chevron',
         Cell: ({row}) => {
-          const tooltipTriggerElement = <button className='interactive-wrapper focus-on-light highlight-on-hover' onClick={() => redirectToActivity(row.original.id)}>Preview</button>
+          const tooltipTriggerElement = <button className='interactive-wrapper activity-preview focus-on-light highlight-on-hover' onClick={() => redirectToActivity(row.original.id)}>Preview</button>
           return(
             <Tooltip
               tooltipText={row.original.tooltipText}
@@ -75,7 +101,6 @@ export const UnitTemplateProfileActivityTable = ({ data }) => {
             />
           );
         },
-        style: {marginLeft: '14px'}
       }
     ];
   };
@@ -86,9 +111,10 @@ export const UnitTemplateProfileActivityTable = ({ data }) => {
     const standardLevelName = a.standard_level_name ? `${divider}<p>${a.standard_level_name}</p>` : ''
     const standardName = a.standard.name ? `${divider}<p>${a.standard.name}</p>` : ''
     const readability = a.readability ? `${divider}<p>Readability: ${a.readability}</p>` : ''
-    const topic = a.level_zero_topic_name ? `${divider}<p>Topic: ${a.level_zero_topic_name}</p>` : ''
-    const tooltipText = `<p>Tool: ${a.classification.name}</p>${standardLevelName}${standardName}${readability}${topic}<p>${a.description}</p>`
+    const topics = a.topic_names ? `${divider}<p>Topics: ${a.topic_names.join(', ')}</p>` : ''
+    const tooltipText = `<p>Tool: ${a.classification.name}</p>${standardLevelName}${standardName}${readability}${topics}<p>${a.description}</p>`
     formattedActivity.tooltipText = tooltipText
+    formattedActivity.previouslyAssignedActivityData = previouslyAssignedActivityData && previouslyAssignedActivityData[a.id] ? previouslyAssignedActivityData[a.id] : null
     return formattedActivity
   })
 

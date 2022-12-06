@@ -230,6 +230,7 @@ describe ProfilesController, type: :controller do
                 'marked_complete' => false,
                 'activity_id' => activity.id,
                 'act_sesh_updated_at' => activity_session&.updated_at,
+                'completed_date' => activity_session&.completed_at,
                 'order_number' => unit_activity.order_number,
                 'due_date' => unit_activity.due_date,
                 'pre_activity_id' => pre_test&.id,

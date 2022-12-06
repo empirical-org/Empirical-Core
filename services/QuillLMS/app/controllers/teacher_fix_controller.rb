@@ -25,12 +25,11 @@ class TeacherFixController < ApplicationController
     params['changed_names'].each do |id, name|
       Unit.unscoped.where(id: id).first.update_attribute('name', name)
     end
-    Unit.unscoped.where(id: unit_ids).update_all(visible: true)
+    units = Unit.unscoped.where(id: unit_ids)
+    units.update_all(visible: true)
+    TeacherFixes::recover_unit_activities_for_units(units)
     classroom_units = ClassroomUnit.where(unit_id: unit_ids)
-    classroom_units.update_all(visible: true)
-    unit_activities = UnitActivity.where(unit_id: unit_ids)
-    unit_activities.update_all(visible: true)
-    ActivitySession.unscoped.where(classroom_unit_id: classroom_units.ids).update_all(visible: true)
+    TeacherFixes::recover_classroom_units_and_associated_activity_sessions(classroom_units)
     render json: {}, status: 200
   end
 
@@ -38,10 +37,8 @@ class TeacherFixController < ApplicationController
     classroom = Classroom.find_by_code(params['class_code'])
     if classroom
       classroom_units = ClassroomUnit.unscoped.where(classroom_id: classroom.id)
-      unit_ids = classroom_units.map(&:unit_id)
-      Unit.unscoped.where(visible: false, id: unit_ids).update_all(visible: true)
-      classroom_units.update_all(visible: true)
-      ActivitySession.unscoped.where(classroom_unit_id: classroom_units.ids).update_all(visible: true)
+      TeacherFixes::recover_units_by_id(classroom_units.map(&:unit_id))
+      TeacherFixes::recover_classroom_units_and_associated_activity_sessions(classroom_units)
       render json: {}, status: 200
     else
       render json: {error: 'No such classroom'}
@@ -52,9 +49,7 @@ class TeacherFixController < ApplicationController
     user = User.find_by_email(params['email'])
     if user && user.role == 'teacher'
       units = Unit.where(user_id: user.id)
-      units.each do |u|
-        u.unit_activities.update_all(visible: true)
-      end
+      TeacherFixes::recover_unit_activities_for_units(units)
       render json: {}, status: 200
     else
       render json: {error: "Cannot find a teacher with the email #{params['email']}."}
@@ -66,11 +61,8 @@ class TeacherFixController < ApplicationController
     if user && user.role == 'teacher'
       unit = Unit.find_by(name: params['unit_name'], user_id: user.id)
       if unit
-        ClassroomUnit.unscoped.where(unit_id: unit.id).each do |cu|
-          activity_sessions = ActivitySession.unscoped.where(classroom_unit_id: cu.id)
-          cu.update(visible: true, assigned_student_ids: activity_sessions.map(&:user_id))
-          activity_sessions.update_all(visible: true)
-        end
+        classroom_units = ClassroomUnit.unscoped.where(unit_id: unit.id)
+        TeacherFixes::recover_classroom_units_and_associated_activity_sessions(classroom_units)
         render json: {}, status: 200
       else
         render json: {error: "The user with the email #{user.email} does not have a unit named #{params['unit_name']}"}
@@ -82,21 +74,21 @@ class TeacherFixController < ApplicationController
 
   # rubocop:disable Metrics/CyclomaticComplexity
   def merge_student_accounts
-    primary_account = User.find_by_username_or_email(params['account1_identifier'])
-    secondary_account = User.find_by_username_or_email(params['account2_identifier'])
+    primary_account = User.find_by_username_or_email(params['destination_student_identifier'])
+    secondary_account = User.find_by_username_or_email(params['source_student_identifier'])
     if primary_account && secondary_account
       if primary_account.role == 'student' && secondary_account.role == 'student'
         if primary_account.merge_student_account(secondary_account)
           render json: {}, status: 200
         else
-          render json: {error: "#{params['account2_identifier']} is in at least one class that #{params['account1_identifier']} is not in, so we can't merge them."}
+          render json: {error: "#{params['source_student_identifier']} is in at least one class that #{params['destination_student_identifier']} is not in, so we can't merge them."}
         end
       else
-        nonstudent_account_identifier = primary_account.role == 'student' ? params['account2_identifier'] : params['account1_identifier']
+        nonstudent_account_identifier = primary_account.role == 'student' ? params['source_student_identifier'] : params['destination_student_identifier']
         render json: {error: "#{nonstudent_account_identifier} is not a student."}
       end
     else
-      missing_account_identifier = primary_account ? params['account2_identifier'] : params['account1_identifier']
+      missing_account_identifier = primary_account ? params['source_student_identifier'] : params['destination_student_identifier']
       render json: {error: "We do not have an account for #{missing_account_identifier}"}
     end
   end
@@ -251,7 +243,7 @@ class TeacherFixController < ApplicationController
       provider_classrooms_with_unsynced_students.each do |provider_classroom|
         StudentsClassrooms
           .where(classroom_id: provider_classroom.id, student_id: provider_classroom.unsynced_students.pluck(:id))
-          .each { |sc| sc.archive }
+          .each { |sc| sc.archive! }
       end
 
       render json: {}, status: 200

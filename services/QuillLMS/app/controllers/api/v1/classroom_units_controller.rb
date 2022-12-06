@@ -7,7 +7,8 @@ class Api::V1::ClassroomUnitsController < Api::ApiController
     activity          = Activity.find_by(uid: params[:activity_id])
     activity_sessions = ActivitySession.includes(:user).where(
       activity: activity,
-      classroom_unit_id: params[:classroom_unit_id]
+      classroom_unit_id: params[:classroom_unit_id],
+      visible: true
     )
 
     render json: assigned_students(activity_sessions)
@@ -43,13 +44,13 @@ class Api::V1::ClassroomUnitsController < Api::ApiController
 
     states.update_all(locked: true, pinned: false, completed: true)
 
+    concept_results = concept_result_params[:concept_results].map(&:to_h)
+
+    delete_activity_sessions_for_absent_students(activity_sessions, concept_results)
+
     ActivitySession.save_concept_results(
       activity_sessions,
-      params[:concept_results]
-    )
-
-    ActivitySession.delete_activity_sessions_with_no_concept_results(
-      activity_sessions
+      concept_results
     )
 
     ActivitySession.save_timetracking_data_from_active_activity_session(
@@ -135,5 +136,36 @@ class Api::V1::ClassroomUnitsController < Api::ApiController
       activity_sessions_and_names: assigned_student_hash,
       student_ids: assigned_student_ids_hash
     }
+  end
+
+  private def concept_result_params
+    params.permit(
+      concept_results: [
+        :activity_session_uid,
+        :concept_id,
+        :question_type,
+        metadata: [
+          :activity_session_uid,
+          :answer,
+          :attemptNumber,
+          :correct,
+          :directions,
+          :prompt,
+          :questionNumber
+        ]
+      ]
+    )
+  end
+
+  private def delete_activity_sessions_for_absent_students(activity_sessions, concept_results)
+    # The incoming ActivitySession payload that reaches this controller from the
+    # front-end includes ActivitySessions for students assigned to take the Lesson
+    # who didn't show up.  For students who "miss" a Lesson in this manner, we mark
+    # that by deleting their related ActivitySession.  So if a student submitted no
+    # ConceptResults, we delete their ActivitySession for reporting purposes.
+    activity_session_uids = activity_sessions.map(&:uid)
+    activity_session_uids_with_concept_results = concept_results.map{ |cr| cr[:activity_session_uid] }.uniq
+    activity_session_uids_without_concept_results = activity_session_uids - activity_session_uids_with_concept_results
+    ActivitySession.where(uid: activity_session_uids_without_concept_results).destroy_all
   end
 end

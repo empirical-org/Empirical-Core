@@ -32,6 +32,18 @@ describe SessionsController, type: :controller do
       end
     end
 
+    context 'when user has signed up with clever' do
+      before do
+        allow_any_instance_of(User).to receive(:clever_id) { 1 }
+      end
+
+      it 'should report login failiure' do
+        post :create, params: { user: { email: user.email } }
+        expect(flash[:error]).to eq 'You signed up with Clever, please log in with Clever using the link above.'
+        expect(response).to redirect_to "/session/new"
+      end
+    end
+
     context 'when user has no password digest' do
       before do
         allow_any_instance_of(User).to receive(:password_digest) { nil }
@@ -39,7 +51,7 @@ describe SessionsController, type: :controller do
 
       it 'should report login failiure' do
         post :create, params: { user: { email: user.email } }
-        expect(flash[:error]).to eq 'Login failed. Did you sign up with Google? If so, please log in with Google using the link above.'
+        expect(flash[:error]).to eq 'Something went wrong verifying your password. Please use the "Forgot password?" link below to reset it.'
         expect(response).to redirect_to "/session/new"
       end
     end
@@ -80,6 +92,14 @@ describe SessionsController, type: :controller do
       end
     end
 
+    context 'when user has a non-authenticating role' do
+      it 'should report login failiure' do
+        user.update(role: User::SALES_CONTACT)
+        post :login_through_ajax, params: { user: { email: user.email } }, as: :json
+        expect(response.body).to eq({message: 'An account with this email or username does not exist. Try again.', type: 'email'}.to_json)
+      end
+    end
+
     context 'when user has signed up with google' do
       before do
         allow_any_instance_of(User).to receive(:signed_up_with_google) { true }
@@ -98,7 +118,7 @@ describe SessionsController, type: :controller do
 
       it 'should report login failiure' do
         post :login_through_ajax, params: { user: { email: user.email } }, as: :json
-        expect(response.body).to eq({message: 'Did you sign up with Google? If so, please log in with Google using the link above.', type: 'email'}.to_json)
+        expect(response.body).to eq({message: 'Something went wrong verifying your password. Please use the "Forgot password?" link below to reset it.', type: 'email'}.to_json)
       end
     end
 
@@ -158,7 +178,7 @@ describe SessionsController, type: :controller do
     before { allow(controller).to receive(:current_user) { user } }
 
     context 'when session admin id present' do
-      let!(:admin) { create(:admin) }
+      let!(:admin) { create(:teacher) }
 
       before { session[:admin_id] = admin.id }
 

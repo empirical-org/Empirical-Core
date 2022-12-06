@@ -101,6 +101,17 @@ describe ApplicationController, type: :controller do
           expect(controller).to receive(:reset_session_and_redirect_to_sign_in)
           subject
         end
+
+        context 'when admin is impersonating current user' do
+          let(:admin) { create(:user) }
+
+          before { session[:admin_id] = admin.id }
+
+          it do
+            expect(controller).not_to receive(:reset_session_and_redirect_to_sign_in)
+            subject
+          end
+        end
       end
     end
 
@@ -146,14 +157,15 @@ describe ApplicationController, type: :controller do
 
     describe '#reset_session_and_redirect_to_sign_in' do
       controller { def custom; end }
+      subject { get :custom, as: format }
 
       before do
-        routes.draw { get 'custom' => "anonymous#custom", format: [:html, :json] }
+        routes.draw { get 'custom' => "anonymous#custom", format: [:html, :json, :pdf] }
         allow(user).to receive(:staff_session_duration_exceeded?).and_return(true)
       end
 
       context 'html request' do
-        subject { get :custom }
+        let(:format) { :html }
 
         it 'resets the session' do
           expect(controller).to receive(:reset_session)
@@ -165,7 +177,7 @@ describe ApplicationController, type: :controller do
       end
 
       context 'json request' do
-        subject { get :custom, as: :json }
+        let(:format) { :json }
 
         it 'resets the session' do
           expect(controller).to receive(:reset_session)
@@ -181,6 +193,48 @@ describe ApplicationController, type: :controller do
           expect(response.body).to eq({ redirect: new_session_path }.to_json )
         end
       end
+
+      context 'pdf request' do
+        let(:format) { :pdf }
+
+        it 'resets the session' do
+          expect(controller).to receive(:reset_session)
+          subject
+        end
+
+        it { expect { subject }.to change { session[described_class::EXPIRED_SESSION_REDIRECT] }.from(nil).to(true) }
+        it { expect(subject).to redirect_to new_session_path }
+      end
+    end
+  end
+
+  context '#handle_invalid_inauthenticity_token' do
+    controller do
+      def custom
+        raise ActionController::InvalidAuthenticityToken
+      end
+    end
+
+    let(:referer) { 'http://test.host/referer_path' }
+    let(:redirect_path) { URI.parse(referer).path }
+
+    before do
+      routes.draw { post 'custom' => "anonymous#custom" }
+      request.headers['HTTP_REFERER'] = referer
+    end
+
+    it 'handles InvalidAuthenticityToken error with format: :json' do
+      post :custom, params: {}, as: :json
+
+      expect(flash[:error]).to eq(I18n.t('actioncontroller.errors.invalid_authenticity_token'))
+      expect(response.body).to eq({ redirect: redirect_path }.to_json)
+    end
+
+    it 'handles InvalidAuthenticityToken error with format: :html' do
+      post :custom, params: {}
+
+      expect(flash[:error]).to eq(I18n.t('actioncontroller.errors.invalid_authenticity_token'))
+      expect(response).to redirect_to(redirect_path)
     end
   end
 end

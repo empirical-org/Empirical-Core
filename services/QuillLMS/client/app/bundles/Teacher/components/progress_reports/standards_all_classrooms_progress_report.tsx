@@ -1,5 +1,4 @@
 import * as React from 'react'
-import request from 'request'
 import queryString from 'query-string';
 import _ from 'underscore'
 
@@ -15,6 +14,7 @@ import userIsPremium from '../modules/user_is_premium'
 import {sortTableByStandardLevel} from '../../../../modules/sortingMethods.js'
 import { Tooltip, ReactTable, } from '../../../Shared/index'
 import { getTimeSpent } from '../../helpers/studentReports'
+import { requestGet, } from '../../../../modules/request/index'
 
 interface StandardsAllClassroomsProgressReportProps {
 }
@@ -57,28 +57,30 @@ export default class StandardsAllClassroomsProgressReport extends React.Componen
     const { selectedClassroomId, } = this.state
 
     const that = this;
-    let qs = null
+    let qs = ''
 
-    if (selectedClassroomId !== null) {
-      qs = {classroom_id: selectedClassroomId}
+    if (selectedClassroomId) {
+      qs = `?classroom_id=${selectedClassroomId}`
     }
-    request.get({
-      url: `${process.env.DEFAULT_URL}/teachers/progress_reports/standards/classrooms.json`, qs
-    }, (e, r, body) => {
-      const standardsData = this.formatStandardsData(JSON.parse(body).data)
-      // gets unique classroom names
-      const classrooms = JSON.parse(body).classrooms
-      const students = Array.from(new Set(JSON.parse(body).students))
-      classrooms.unshift({name: showAllClassroomKey})
-      students.unshift({name: showAllStudentsKey})
-      const localStorageSelectedClassroomId = window.localStorage.getItem(PROGRESS_REPORTS_SELECTED_CLASSROOM_ID)
-      const classroomFromLocalStorageId = !selectedClassroomId && localStorageSelectedClassroomId && classrooms.find(c => Number(c.id) === Number(localStorageSelectedClassroomId))
-      if (classroomFromLocalStorageId) {
-        this.switchClassrooms(classroomFromLocalStorageId)
-      } else {
-        that.setState({loading: false, updatingData: false, errors: body.errors, standardsData, classrooms, students});
+
+    requestGet(
+      `${process.env.DEFAULT_URL}/teachers/progress_reports/standards/classrooms.json${qs}`,
+      (body) => {
+        const standardsData = this.formatStandardsData(body.data)
+        // gets unique classroom names
+        const classrooms = body.classrooms
+        const students = Array.from(new Set(body.students))
+        classrooms.unshift({name: showAllClassroomKey})
+        students.unshift({name: showAllStudentsKey})
+        const localStorageSelectedClassroomId = window.localStorage.getItem(PROGRESS_REPORTS_SELECTED_CLASSROOM_ID)
+        const classroomFromLocalStorageId = !selectedClassroomId && localStorageSelectedClassroomId && classrooms.find(c => Number(c.id) === Number(localStorageSelectedClassroomId))
+        if (classroomFromLocalStorageId) {
+          this.switchClassrooms(classroomFromLocalStorageId)
+        } else {
+          that.setState({loading: false, updatingData: false, errors: body.errors, standardsData, classrooms, students});
+        }
       }
-    });
+    )
   }
 
   columns() {
@@ -178,8 +180,10 @@ export default class StandardsAllClassroomsProgressReport extends React.Componen
       ['Standard Level', 'Standard Name', 'Students', 'Proficient', 'Activities', 'Time Spent']
     ]
     standardsData.forEach((row) => {
+      const profiencyRow = row.is_evidence ? NOT_SCORED_DISPLAY_TEXT : `${row.proficient_count} of ${row.total_student_count}`
+
       csvData.push([
-        row['standard_level_name'], row['name'], row['total_student_count'], `${row['proficient_count']} of ${row['total_student_count']}`, row['total_activity_count'], getTimeSpent(row['timespent'])
+        row['standard_level_name'], row['name'], row['total_student_count'], profiencyRow, row['total_activity_count'], getTimeSpent(row['timespent'])
       ])
     })
     return csvData

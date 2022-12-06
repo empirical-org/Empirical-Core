@@ -5,7 +5,7 @@
 # Table name: feedback_histories
 #
 #  id                   :integer          not null, primary key
-#  activity_version     :integer          default(0), not null
+#  activity_version     :integer          default(1), not null
 #  attempt              :integer          not null
 #  concept_uid          :text
 #  entry                :text             not null
@@ -429,18 +429,26 @@ RSpec.describe FeedbackHistory, type: :model do
       @feedback_session2_uid = FeedbackSession.get_uid_for_activity_session(@activity_session2_uid)
       @comprehension_turking_round = create(:comprehension_turking_round_activity_session, activity_session_uid: @activity_session1_uid)
 
+      @current_activity_version = 2
+      @previous_activity_version = 1
       @user = create(:user)
-      @first_session_feedback1 = create(:feedback_history, feedback_session_uid: @activity_session1_uid, prompt_id: @because_prompt1.id, optimal: false)
-      @first_session_feedback2 = create(:feedback_history, feedback_session_uid: @activity_session1_uid, prompt_id: @because_prompt1.id, attempt: 2, optimal: true)
-      @first_session_feedback3 = create(:feedback_history, feedback_session_uid: @activity_session1_uid, prompt_id: @but_prompt1.id, optimal: true)
-      @first_session_feedback4 = create(:feedback_history, feedback_session_uid: @activity_session1_uid, prompt_id: @so_prompt1.id, optimal: false)
-      @first_session_feedback5 = create(:feedback_history, feedback_session_uid: @activity_session1_uid, prompt_id: @so_prompt1.id, attempt: 2, optimal: false)
-      @first_session_feedback6 = create(:feedback_history, feedback_session_uid: @activity_session1_uid, prompt_id: @so_prompt1.id, attempt: 3, optimal: true)
-      @second_session_feedback = create(:feedback_history, feedback_session_uid: @activity_session2_uid, prompt_id: @because_prompt2.id, optimal: true)
-      create(:feedback_history, feedback_session_uid: @activity_session2_uid, prompt_id: @because_prompt2.id, attempt: 2, optimal: false)
+      @first_session_feedback1 = create(:feedback_history, feedback_session_uid: @activity_session1_uid, prompt_id: @because_prompt1.id, optimal: false, activity_version: @current_activity_version)
+      @first_session_feedback2 = create(:feedback_history, feedback_session_uid: @activity_session1_uid, prompt_id: @because_prompt1.id, attempt: 2, optimal: true, activity_version: @current_activity_version)
+      @first_session_feedback3 = create(:feedback_history, feedback_session_uid: @activity_session1_uid, prompt_id: @but_prompt1.id, optimal: true, activity_version: @current_activity_version)
+      @first_session_feedback4 = create(:feedback_history, feedback_session_uid: @activity_session1_uid, prompt_id: @so_prompt1.id, optimal: false, activity_version: @current_activity_version)
+      @first_session_feedback5 = create(:feedback_history, feedback_session_uid: @activity_session1_uid, prompt_id: @so_prompt1.id, attempt: 2, optimal: false, activity_version: @current_activity_version)
+      @first_session_feedback6 = create(:feedback_history, feedback_session_uid: @activity_session1_uid, prompt_id: @so_prompt1.id, attempt: 3, optimal: true, activity_version: @current_activity_version)
+      @second_session_feedback = create(:feedback_history, feedback_session_uid: @activity_session2_uid, prompt_id: @because_prompt2.id, optimal: true, activity_version: @previous_activity_version)
+      create(:feedback_history, feedback_session_uid: @activity_session2_uid, prompt_id: @because_prompt2.id, attempt: 2, optimal: false, activity_version: @previous_activity_version)
       create(:feedback_history_flag, feedback_history: @first_session_feedback1, flag: FeedbackHistoryFlag::FLAG_REPEATED_RULE_CONSECUTIVE)
       create(:feedback_history_rating, user_id: @user.id, rating: true, feedback_history_id: @first_session_feedback3.id)
       create(:feedback_history_rating, user_id: @user.id, rating: false, feedback_history_id: @first_session_feedback4.id)
+    end
+
+    context '#responses_for_scoring' do
+      it 'should return query block for at least 2 responses per prompt or at least 6 total responses' do
+        expect(FeedbackHistory.responses_for_scoring).to eq(FeedbackHistory.six_or_more_total_responses)
+      end
     end
 
     context '#list_by_activity_session' do
@@ -484,13 +492,15 @@ RSpec.describe FeedbackHistory, type: :model do
         expect(FeedbackHistory.get_total_count).to eq(2)
         expect(FeedbackHistory.get_total_count(activity_id: @activity1.id)).to eq(1)
         expect(FeedbackHistory.get_total_count(start_date: Time.current)).to eq(0)
-        expect(FeedbackHistory.get_total_count(turk_session_id: @comprehension_turking_round.turking_round_id)).to eq(1)
+        expect(FeedbackHistory.get_total_count(activity_version: @current_activity_version)).to eq(1)
+        expect(FeedbackHistory.get_total_count(activity_version: @previous_activity_version)).to eq(1)
       end
     end
 
     context '#serialize_list_by_activity_session' do
       it 'should take the query from #list_by_activity_session and return a shaped payload' do
         responses = FeedbackHistory.list_by_activity_session
+        responses_for_scoring = FeedbackHistory.list_by_activity_session(responses_for_scoring: true)
         RSpec::Support::ObjectFormatter.default_instance.max_formatted_output_length = 10000
         expect(responses.map { |r| r.serialize_by_activity_session }.to_json).to eq([
           {
@@ -499,8 +509,11 @@ RSpec.describe FeedbackHistory, type: :model do
             activity_id: @activity2.id,
             flags: [],
             because_attempts: 2,
+            because_optimal: true,
             but_attempts: 0,
+            but_optimal: false,
             so_attempts: 0,
+            so_optimal: false,
             scored_count: 0,
             weak_count: 0,
             strong_count: 0,
@@ -511,8 +524,30 @@ RSpec.describe FeedbackHistory, type: :model do
             activity_id: @activity1.id,
             flags: [FeedbackHistoryFlag::FLAG_REPEATED_RULE_CONSECUTIVE],
             because_attempts: 2,
+            because_optimal: true,
             but_attempts: 1,
+            but_optimal: true,
             so_attempts: 3,
+            so_optimal: true,
+            scored_count: 2,
+            weak_count: 1,
+            strong_count: 1,
+            complete: true
+          }
+        ].to_json)
+
+        expect(responses_for_scoring.map { |r| r.serialize_by_activity_session }.to_json).to eq([
+          {
+            session_uid: @feedback_session1_uid,
+            start_date: @first_session_feedback1.time.iso8601(3),
+            activity_id: @activity1.id,
+            flags: [FeedbackHistoryFlag::FLAG_REPEATED_RULE_CONSECUTIVE],
+            because_attempts: 2,
+            because_optimal: true,
+            but_attempts: 1,
+            but_optimal: true,
+            so_attempts: 3,
+            so_optimal: true,
             scored_count: 2,
             weak_count: 1,
             strong_count: 1,

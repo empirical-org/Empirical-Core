@@ -1,5 +1,5 @@
 <% current_path = request.env['PATH_INFO'] %>
-<% on_sign_up_or_log_in = ['account/new', '/session', 'password_reset', 'sign-up'].any? { |str| current_path.include?(str)} %>
+<% on_sign_up_or_log_in = ['account/new', '/session', 'password_reset', 'sign-up', 'finish_set_up'].any? { |str| current_path.include?(str)} %>
 <% current_user_is_student = current_user&.student? %>
 
 <% navbar_class_name = on_sign_up_or_log_in || current_user_is_student ? "non-standard-navbar navbar" : "navbar" %>

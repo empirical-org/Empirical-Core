@@ -1,5 +1,4 @@
 import React from 'react';
-import request from 'request';
 
 import { PROGRESS_REPORTS_SELECTED_CLASSROOM_ID, } from '../progress_report_constants'
 import { Spinner } from '../../../../Shared/index';
@@ -7,6 +6,7 @@ import Units from '../../assignment_flow/manage_units/activities_units.jsx';
 import EmptyProgressReport from '../../shared/EmptyProgressReport.jsx';
 import ItemDropdown from '../../general_components/dropdown_selectors/item_dropdown';
 import getParameterByName from '../../modules/get_parameter_by_name';
+import { requestGet, } from '../../../../../modules/request/index'
 
 export default class ActivityPacks extends React.Component {
   constructor(props) {
@@ -37,19 +37,23 @@ export default class ActivityPacks extends React.Component {
 
   getClassrooms = () => {
     const { selectedClassroomId, } = this.state
-    request.get(`${process.env.DEFAULT_URL}/teachers/classrooms/classrooms_i_teach`, (error, httpStatus, body) => {
-      const classrooms = JSON.parse(body).classrooms;
-      if (classrooms.length > 0) {
-        const newState = { classrooms, }
-        const localStorageSelectedClassroomId = window.localStorage.getItem(PROGRESS_REPORTS_SELECTED_CLASSROOM_ID)
-        if (!selectedClassroomId && localStorageSelectedClassroomId && classrooms.find(c => Number(c.id) === Number(localStorageSelectedClassroomId))) {
-          newState.selectedClassroomId = Number(localStorageSelectedClassroomId)
+
+    requestGet(
+      `${process.env.DEFAULT_URL}/teachers/classrooms/classrooms_i_teach`,
+      (body) => {
+        const classrooms = body.classrooms;
+        if (classrooms.length > 0) {
+          const newState = { classrooms, }
+          const localStorageSelectedClassroomId = window.localStorage.getItem(PROGRESS_REPORTS_SELECTED_CLASSROOM_ID)
+          if (!selectedClassroomId && localStorageSelectedClassroomId && classrooms.find(c => Number(c.id) === Number(localStorageSelectedClassroomId))) {
+            newState.selectedClassroomId = Number(localStorageSelectedClassroomId)
+          }
+          this.setState(newState, () => this.getUnits());
+        } else {
+          this.setState({ empty: true, loaded: true, });
         }
-        this.setState(newState, () => this.getUnits());
-      } else {
-        this.setState({ empty: true, loaded: true, });
       }
-  	});
+    )
   }
 
   getRecommendationIds = () => {
@@ -70,10 +74,13 @@ export default class ActivityPacks extends React.Component {
   }
 
   getUnits = () => {
-    request.get(`${process.env.DEFAULT_URL}/teachers/units?report=true`, (error, httpStatus, body) => {
-      this.setAllUnits(JSON.parse(body));
-      this.populateCompletionAndAverageScore(JSON.parse(body));
-    })
+    requestGet(
+      `${process.env.DEFAULT_URL}/teachers/units?report=true`,
+      (body) => {
+        this.setAllUnits(body);
+        this.populateCompletionAndAverageScore(body);
+      }
+    )
   }
 
   getUnitsForCurrentClass = () => {
@@ -189,16 +196,19 @@ export default class ActivityPacks extends React.Component {
     const { allUnits, } = this.state
     const requests = data.map((u) => {
       return new Promise(resolve => {
-        request.get(`${process.env.DEFAULT_URL}/teachers/units/score_info_for_activity/${u.activity_id}?classroom_unit_id=${u.classroom_unit_id}`, (error, httpStatus, body) => {
-          allUnits.forEach((stateUnit) => {
-            const unitActivity = stateUnit.classroomActivities.get(u.activity_id)
-            if (typeof unitActivity != 'undefined' && stateUnit.classrooms.find(c => Number(c.cuId) === Number(u.classroom_unit_id))) {
-              unitActivity.cumulativeScore += JSON.parse(body).cumulative_score;
-              unitActivity.completedCount += JSON.parse(body).completed_count;
-            }
-          })
-          resolve()
-        })
+        requestGet(
+          `${process.env.DEFAULT_URL}/teachers/units/score_info_for_activity/${u.activity_id}?classroom_unit_id=${u.classroom_unit_id}`,
+          (body) => {
+            allUnits.forEach((stateUnit) => {
+              const unitActivity = stateUnit.classroomActivities.get(u.activity_id)
+              if (typeof unitActivity != 'undefined' && stateUnit.classrooms.find(c => Number(c.cuId) === Number(u.classroom_unit_id))) {
+                unitActivity.cumulativeScore += body.cumulative_score;
+                unitActivity.completedCount += body.completed_count;
+              }
+            })
+            resolve()
+          }
+        )
       })
     });
     Promise.all(requests).then(() => this.setState({ loaded: true }));

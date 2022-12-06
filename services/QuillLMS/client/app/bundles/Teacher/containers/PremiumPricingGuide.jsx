@@ -135,7 +135,7 @@ export const PremiumPricingGuide = ({
 
   return (
     <div>
-      <div className="container premium-page">
+      <div className="container premium-page white-background-accommodate-footer">
         <Snackbar text="Sorry, you need to select a school to purchase School Premium." visible={showSnackbar} />
         {userIsSignedIn() && <PremiumBannerBuilder originPage="premium" upgradeToPremiumNowButton={upgradeToPremiumNowButton} />}
         {showSchoolAndDistrictPremiumModal && (

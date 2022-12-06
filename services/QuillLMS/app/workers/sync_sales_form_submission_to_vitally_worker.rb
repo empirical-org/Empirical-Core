@@ -39,6 +39,20 @@ class SyncSalesFormSubmissionToVitallyWorker
 
   def send_opportunity_to_vitally
     api.create(SalesFormSubmission::VITALLY_SALES_FORMS_TYPE, @sales_form_submission.vitally_sales_form_data)
+
+    flag_school_and_district_in_vitally
+  end
+
+  def flag_school_and_district_in_vitally
+    if @sales_form_submission.district_collection? && @sales_form_submission.district.present?
+      api.update(SalesFormSubmission::VITALLY_DISTRICTS_TYPE, @sales_form_submission.district.id, vitally_has_opportunity_trait)
+    elsif @sales_form_submission.school_collection? && @sales_form_submission.school.present?
+      api.update(SalesFormSubmission::VITALLY_SCHOOLS_TYPE, @sales_form_submission.school.id, vitally_has_opportunity_trait)
+
+      if @sales_form_submission.school.district.present?
+        api.update(SalesFormSubmission::VITALLY_DISTRICTS_TYPE, @sales_form_submission.school.district.id, vitally_has_opportunity_trait)
+      end
+    end
   end
 
   private def api
@@ -85,7 +99,7 @@ class SyncSalesFormSubmissionToVitallyWorker
 
   private def school_array_for_existing_user
     previous_school = @sales_form_submission.find_or_create_user&.school
-    if previous_school.present? && previous_school != school
+    if previous_school.present? && previous_school != @sales_form_submission.school
       [api.get(SalesFormSubmission::VITALLY_SCHOOLS_TYPE, previous_school.id)["id"], school_vitally_id]
     else
       [school_vitally_id]
@@ -94,10 +108,18 @@ class SyncSalesFormSubmissionToVitallyWorker
 
   private def district_array_for_existing_user
     previous_district = @sales_form_submission.find_or_create_user&.school&.district
-    if previous_district.present? && previous_district != district
+    if previous_district.present? && previous_district != @sales_form_submission.district
       [api.get(SalesFormSubmission::VITALLY_DISTRICTS_TYPE, previous_district.id)["id"], district_vitally_id]
     else
       [district_vitally_id]
     end
+  end
+
+  private def vitally_has_opportunity_trait
+    {
+      traits: {
+        "vitally.custom.hasOpportunity": true
+      }
+    }
   end
 end

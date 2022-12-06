@@ -67,12 +67,14 @@ class School < ApplicationRecord
 
   validate :lower_grade_within_bounds, :upper_grade_within_bounds,
            :lower_grade_greater_than_upper_grade
+  validates :zipcode, length: { minimum: 5 }, allow_blank: true
 
   ALTERNATIVE_SCHOOL_NAMES = [
     HOME_SCHOOL_SCHOOL_NAME = 'home school',
     US_HIGHER_ED_SCHOOL_NAME = 'us higher ed',
     INTERNATIONAL_SCHOOL_NAME = 'international',
     NOT_LISTED_SCHOOL_NAME = 'not listed',
+    NO_SCHOOL_SELECTED_SCHOOL_NAME = 'no school selected',
     OTHER_SCHOOL_NAME = 'other'
   ]
 
@@ -81,6 +83,7 @@ class School < ApplicationRecord
   OTHER_SCHOOL_DISPLAY_NAME = 'Other'
   HOME_SCHOOL_SCHOOL_DISPLAY_NAME = 'Home school'
   US_HIGHER_ED_SCHOOL_DISPLAY_NAME = 'U.S. higher education institution'
+  NO_SCHOOL_SELECTED_DISPLAY_NAME = 'No school selected'
 
   # have to stringify keys because rails will convert them to symbols otherwise
   ALTERNATIVE_SCHOOLS_DISPLAY_NAME_MAP = {
@@ -88,7 +91,8 @@ class School < ApplicationRecord
     US_HIGHER_ED_SCHOOL_NAME => US_HIGHER_ED_SCHOOL_DISPLAY_NAME,
     OTHER_SCHOOL_NAME => OTHER_SCHOOL_DISPLAY_NAME,
     INTERNATIONAL_SCHOOL_NAME => INTERNATIONAL_SCHOOL_DISPLAY_NAME,
-    NOT_LISTED_SCHOOL_NAME => US_K12_SCHOOL_DISPLAY_NAME
+    NOT_LISTED_SCHOOL_NAME => US_K12_SCHOOL_DISPLAY_NAME,
+    NO_SCHOOL_SELECTED_SCHOOL_NAME => US_K12_SCHOOL_DISPLAY_NAME
   }
 
   SCHOOL_YEAR_START_MONTH = 7
@@ -205,5 +209,11 @@ class School < ApplicationRecord
     schools_admins
       .where(user: old_district_admins)
       .destroy_all
+  end
+
+  private def zipcode_length
+    return true unless zipcode && zipcode.length != 5
+
+    errors.add(:zipcode, 'must be 5 digits')
   end
 end

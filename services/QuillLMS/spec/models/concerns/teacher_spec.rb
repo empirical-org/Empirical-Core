@@ -282,6 +282,42 @@ describe User, type: :model do
       end
     end
 
+    describe '#teaches_eighth_through_twelfth?' do
+      let!(:one_classroom_teacher) { create(:teacher_with_one_classroom) }
+
+      context 'when the classroom is not eighth through twelfth' do
+        it 'returns false' do
+          one_classroom_teacher.classrooms_i_teach.first.update(grade: 1)
+          expect(one_classroom_teacher.teaches_eighth_through_twelfth?).not_to be
+        end
+      end
+
+      context 'when the classroom is eighth through twelfth' do
+        it 'returns true' do
+          one_classroom_teacher.classrooms_i_teach.first.update(grade: 9)
+          expect(one_classroom_teacher.teaches_eighth_through_twelfth?).to be
+        end
+      end
+
+      context 'when a teacher has multiple classrooms and one is eighth through twelfth' do
+        it 'returns true' do
+          one_classroom_teacher.classrooms_i_teach.first.update(grade: 9)
+          new_classroom = create(:classroom, grade: 1)
+          create(:classrooms_teacher, classroom: new_classroom, user: one_classroom_teacher)
+
+          expect(one_classroom_teacher.teaches_eighth_through_twelfth?).to be
+        end
+      end
+
+      context 'when the classroom grade is null' do
+        it 'returns false' do
+          one_classroom_teacher.classrooms_i_teach.first.update(grade: nil)
+
+          expect(one_classroom_teacher.teaches_eighth_through_twelfth?).not_to be
+        end
+      end
+    end
+
     describe '#unlink' do
       let!(:bronx_teacher) { create(:teacher_with_school) }
 
@@ -548,6 +584,29 @@ describe User, type: :model do
 
     it 'should return false if the user does not teach this student' do
       expect(other_teacher.teaches_student?(student_id)).to be(false)
+    end
+  end
+
+  context 'callbacks' do
+    describe '#update_ortto_newsletter_subscription_status' do
+
+      it 'should call UpdateNewsletterSubscriptionStatusWorker when User.send_newsletter is changed false -> true' do
+        teacher = create(:teacher, send_newsletter: false)
+        expect(OrttoIntegration::UpdateNewsletterSubscriptionStatusWorker).to receive(:perform_async).with(teacher.email, true).once
+        teacher.update!(send_newsletter: true)
+      end
+
+      it 'should call UpdateNewsletterSubscriptionStatusWorker when User.send_newsletter is changed true -> false' do
+        teacher = create(:teacher, send_newsletter: true)
+        expect(OrttoIntegration::UpdateNewsletterSubscriptionStatusWorker).to receive(:perform_async).with(teacher.email, false).once
+        teacher.update!(send_newsletter: false)
+      end
+
+      it 'should not call UpdateNewsletterSubscriptionStatusWorker called when User.send_newsletter is unchanged' do
+        teacher = create(:teacher, send_newsletter: true)
+        expect(OrttoIntegration::UpdateNewsletterSubscriptionStatusWorker).not_to receive(:perform_async)
+        teacher.update!(role: 'staff')
+      end
     end
   end
 

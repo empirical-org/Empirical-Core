@@ -71,6 +71,9 @@ class Activity < ApplicationRecord
   before_save :set_minimum_and_maximum_grade_levels_to_default_values, unless: :minimum_grade_level
   after_commit :clear_activity_search_cache
   after_save :update_evidence_child_title, if: :update_evidence_title?
+  after_save :log_evidence_flag_change, if: :update_evidence_flags?
+
+  attr_accessor :lms_user_id
 
   delegate :form_url, to: :classification, prefix: true
 
@@ -202,13 +205,13 @@ class Activity < ApplicationRecord
   end
 
   def self.clear_activity_search_cache
-    %w(private_ production_ gamma_ beta_ alpha_ archived_).push('').each do |flag|
-      $redis.del("default_#{flag}activity_search")
+    User::FLAGSETS.keys.map{|x| "#{x}_"}.push("").each do |flagset|
+      $redis.del("default_#{flagset}activity_search")
     end
   end
 
   def self.set_activity_search_cache
-    $redis.set('default_activity_search', ActivitySearchWrapper.new.search.to_json)
+    $redis.set('default_activity_search', ActivitySearchWrapper.new('production').search.to_json)
   end
 
   def is_lesson?
@@ -219,10 +222,10 @@ class Activity < ApplicationRecord
     is_evidence?
   end
 
-  def self.search_results(flag)
-    substring = flag ? "#{flag}_" : ""
+  def self.search_results(flagset)
+    substring = flagset ? "#{flagset}_" : ""
     activity_search_results = $redis.get("default_#{substring}activity_search")
-    activity_search_results ||= ActivitySearchWrapper.search_cache_data(flag)
+    activity_search_results ||= ActivitySearchWrapper.search_cache_data(flagset)
     JSON.parse(activity_search_results)
   end
 
@@ -289,8 +292,26 @@ class Activity < ApplicationRecord
     is_evidence? && saved_change_to_name?
   end
 
+  private def update_evidence_flags?
+    is_evidence? && saved_change_to_flags? && child_activity
+  end
+
   private def update_evidence_child_title
     child_activity&.update(title: name)
+  end
+
+  private def log_evidence_flag_change
+    change_log = {
+      user_id: @lms_user_id,
+      action: ChangeLog::EVIDENCE_ACTIONS[:update],
+      changed_record_type: 'Evidence::Activity',
+      changed_record_id: child_activity&.id,
+      explanation: nil,
+      changed_attribute: "flags",
+      previous_value: previous_changes["flags"][0],
+      new_value: previous_changes["flags"][1]
+    }
+    ChangeLog.create(change_log)
   end
 
   private def data_must_be_hash
@@ -320,6 +341,7 @@ class Activity < ApplicationRecord
     # Rename "student" to "session" because it's called "student" in all tools other than Evidence
     initial_params[:session] = initial_params.delete :student if initial_params[:student]
     initial_params[:uid] = Evidence::Activity.find_by(parent_activity_id: id).id
+    initial_params[:skipToPrompts] = true if initial_params[:anonymous]
     construct_redirect_url(base_url, initial_params)
   end
 

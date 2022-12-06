@@ -17,22 +17,21 @@ describe Cms::UsersController do
   describe '#index' do
     before { allow(RawSqlRunner).to receive(:execute) { ["results"] } }
 
-    it 'should assign the search query, the results, user flags and number of spaces' do
+    it 'should assign the search query, the results, and number of spaces' do
       get :index
       expect(assigns(:user_search_query)).to eq({sort: 'last_sign_in', sort_direction: 'desc'})
       expect(assigns(:user_search_query_results)).to eq []
-      expect(assigns(:user_flags)).to eq User::VALID_FLAGS
       expect(ChangeLog.last.action).to eq(ChangeLog::USER_ACTIONS[:index])
     end
   end
 
   describe '#search' do
 
-    it 'should search for the users with user_flag' do
-      get :search, params: { user_flag: "auditor" }
-      expect(response.body).to eq({numberOfPages: 0, userSearchQueryResults: [], userSearchQuery: {user_flag: "auditor"}}.to_json)
+    it 'should search for the users with given flagset' do
+      get :search, params: { flagset: 'alpha' }
+      expect(response.body).to eq({numberOfPages: 0, userSearchQueryResults: [], userSearchQuery: {flagset: 'alpha'}}.to_json)
       expect(ChangeLog.last.action).to eq(ChangeLog::USER_ACTIONS[:search])
-      expect(ChangeLog.last.explanation).to include('auditor')
+      expect(ChangeLog.last.explanation).to include('alpha')
     end
 
     context 'email search' do
@@ -133,10 +132,9 @@ describe Cms::UsersController do
     let(:new_user) { build(:user) }
 
     it 'should create the user with the given params' do
-      post :create, params: { user: new_user.attributes.merge({password: "test123"}) }
+      post :create, params: { user: new_user.attributes.merge(password: "test123") }
       expect(response).to redirect_to cms_users_path
-      expect(User.last.email).to eq new_user.email
-      expect(User.last.role).to eq new_user.role
+      expect(User.exists?(email: new_user.email, role: new_user.role)).to be true
     end
   end
 
@@ -231,12 +229,11 @@ describe Cms::UsersController do
     let!(:another_user) { create(:user) }
 
     it 'should update the attributes for the given user and update change_log' do
-      post :update, params: { id: another_user.id, user: { email: "new@test.com", flags: ["purchaser"] } }
+      post :update, params: { id: another_user.id, user: { email: "new@test.com" } }
       expect(another_user.reload.email).to eq "new@test.com"
       expect(response).to redirect_to cms_users_path
       expect(ChangeLog.last.action).to eq(ChangeLog::USER_ACTIONS[:update])
-      expect(ChangeLog.last.changed_attribute).to eq('flags')
-      expect(ChangeLog.last.new_value).to include('purchaser')
+      expect(ChangeLog.last.new_value).to include('new@test.com')
     end
   end
 

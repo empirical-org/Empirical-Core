@@ -1,6 +1,6 @@
 import * as React from 'react';
 
-import { Activity, ActivityCategoryEditor } from './interfaces'
+import { Activity, ActivityCategoryEditor, Topic } from './interfaces'
 import FilterColumn from './filter_column'
 
 const closeIconSrc = `${process.env.CDN_URL}/images/icons/close.svg`
@@ -25,6 +25,8 @@ interface MobileFilterMenuProps {
   showMobileFilterMenu: boolean,
   contentPartnerFilters: number[],
   handleContentPartnerFilterChange: (contentPartnerFilters: number[]) => void,
+  earlyAccessFilters: string[],
+  handleEarlyAccessFilterChange: (earlyAccessFilters: string[]) => void,
   readabilityGradeLevelFilters: number[],
   handleReadabilityGradeLevelFilterChange: (readabilityGradeLevelFilters: number[]) => void,
   topicFilters: number[],
@@ -34,8 +36,10 @@ interface MobileFilterMenuProps {
   savedActivityIds: number[],
   flagFilters: string[],
   handleFlagFilterChange: () => void,
+  flagset: string,
   isStaff?: boolean,
-  activityCategoryEditor?: ActivityCategoryEditor
+  activityCategoryEditor?: ActivityCategoryEditor,
+  topics: Topic[],
 }
 
 const MobileFilterMenu = ({
@@ -68,7 +72,11 @@ const MobileFilterMenu = ({
   isStaff,
   flagFilters,
   handleFlagFilterChange,
-  activityCategoryEditor
+  activityCategoryEditor,
+  earlyAccessFilters,
+  handleEarlyAccessFilterChange,
+  flagset,
+  topics,
 }: MobileFilterMenuProps) => {
   if (!showMobileFilterMenu) { return <span /> }
 
@@ -102,7 +110,11 @@ const MobileFilterMenu = ({
     handleFlagFilterChange,
     flagFilters,
     isStaff,
-    activityCategoryEditor
+    activityCategoryEditor,
+    earlyAccessFilters,
+    handleEarlyAccessFilterChange,
+    flagset,
+    topics,
   }
 
   return (

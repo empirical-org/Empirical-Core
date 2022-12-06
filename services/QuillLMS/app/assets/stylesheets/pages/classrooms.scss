@@ -260,7 +260,7 @@
 .sortable-classroom, .classrooms-page .list-item {
   display: flex;
   align-items: baseline;
-  width: 992px;
+  width: calc(#{$sitewidepagewidth} + 38px); // to make up for negative margin left below
   margin-left: -38px;
   h2 {
     font-weight: bold;
@@ -406,10 +406,19 @@
       }
     }
   }
+  .student-actions-dropdown-wrapper {
+    display: flex;
+    align-items: center;
+    margin-bottom: 32px;
+    .quill-tooltip-trigger {
+      margin-top: 12px;
+      margin-left: 10px;
+    }
+  }
   .student-actions-dropdown {
     width: 200px;
-    height: 91px;
     justify-content: flex-start;
+    min-height: 59px !important;
     .dropdown {
       font-size: 16px;
     }

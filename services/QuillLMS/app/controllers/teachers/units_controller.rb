@@ -9,14 +9,13 @@ class Teachers::UnitsController < ApplicationController
   before_action :authorize!
 
   def create
-    if params[:unit][:create]
-      params[:unit][:classrooms] = JSON.parse(params[:unit][:classrooms])
-      params[:unit][:activities] = JSON.parse(params[:unit][:activities])
-    end
     units_with_same_name = units_with_same_name_by_current_user(params[:unit][:name], current_user.id)
     includes_ell_starter_diagnostic = params[:unit][:activities].include?({"id"=>1161})
+
     if units_with_same_name.any?
-      Units::Updater.run(units_with_same_name.first.id, params[:unit][:activities], params[:unit][:classrooms], current_user.id)
+      activities_data = unit_params[:activities].map(&:to_h)
+      classrooms_data = unit_params[:classrooms].map(&:to_h)
+      Units::Updater.run(units_with_same_name.first.id, activities_data, classrooms_data, current_user.id)
     else
       Units::Creator.run(current_user, params[:unit][:name], params[:unit][:activities], params[:unit][:classrooms], params[:unit][:unit_template_id], current_user.id)
     end
@@ -27,7 +26,7 @@ class Teachers::UnitsController < ApplicationController
   end
 
   def prohibited_unit_names
-    unit_names = current_user.units.pluck(:name).map(&:downcase)
+    unit_names = current_user.units.joins(:classrooms).where(classrooms: {visible: true}).pluck(:name).map(&:downcase)
     render json: { prohibitedUnitNames: unit_names }.to_json
   end
 
@@ -54,6 +53,7 @@ class Teachers::UnitsController < ApplicationController
 
   def update_classroom_unit_assigned_students
     activities_data = UnitActivity.where(unit_id: params[:id]).order(:order_number).pluck(:activity_id).map { |id| { id: id } }
+
     if activities_data.any?
       classroom_data = JSON.parse(params[:unit][:classrooms], symbolize_names: true)
       Units::Updater.run(params[:id], activities_data, classroom_data, current_user.id)
@@ -64,10 +64,11 @@ class Teachers::UnitsController < ApplicationController
   end
 
   def update_activities
-    data = params[:data]
+    activities_data = params[:data].permit(activities_data: [:id, :due_date, :publish_date])[:activities_data].map(&:to_h)
     classrooms_data = formatted_classrooms_data(params[:id])
+
     if classrooms_data.any?
-      Units::Updater.run(params[:id], data[:activities_data], classrooms_data, current_user.id)
+      Units::Updater.run(params[:id], activities_data, classrooms_data, current_user.id)
       render json: {}
     else
       render json: {errors: 'Unit can not be found'}, status: 422
@@ -183,7 +184,16 @@ class Teachers::UnitsController < ApplicationController
   end
 
   private def unit_params
-    params.require(:unit).permit(:id, :create, :name, classrooms: [:id, :all_students, student_ids: []], activities: [:id, :due_date])
+    params
+      .require(:unit)
+      .permit(
+        :id,
+        :create,
+        :name,
+        :unit_template_id,
+        activities: [:id, :due_date, :publish_date],
+        classrooms: [:id, :assign_on_join, student_ids: []]
+      )
   end
 
   private def authorize!
@@ -215,12 +225,10 @@ class Teachers::UnitsController < ApplicationController
 
     return [] if teach_own_or_coteach_classrooms_array.empty?
 
-    scores, completed, archived_activities = ''
+    scores, completed = ''
 
     if report
       completed = lessons ? "HAVING ca.completed" : "HAVING SUM(CASE WHEN act_sesh.visible = true AND act_sesh.state = 'finished' THEN 1 ELSE 0 END) > 0"
-    else
-      archived_activities = "AND 'archived' != ANY(activities.flags)"
     end
 
     if lessons
@@ -229,6 +237,8 @@ class Teachers::UnitsController < ApplicationController
       lessons = ''
     end
     teach_own_or_coteach_string = "(#{teach_own_or_coteach_classrooms_array.join(', ')})"
+
+    user_timezone_offset_string = "+ INTERVAL '#{current_user.utc_offset}' SECOND"
 
     units = RawSqlRunner.execute(
       <<-SQL
@@ -244,8 +254,14 @@ class Teachers::UnitsController < ApplicationController
           cu.unit_id AS unit_id,
           array_to_json(cu.assigned_student_ids) AS assigned_student_ids,
           COUNT(DISTINCT students_classrooms.id) AS class_size,
-          ua.due_date,
+          ua.due_date #{user_timezone_offset_string} AS due_date,
+          CASE
+            WHEN ua.publish_date IS NOT NULL
+            THEN ua.publish_date #{user_timezone_offset_string}
+            ELSE ua.created_at #{user_timezone_offset_string}
+          END AS publish_date,
           state.completed,
+          ua.publish_date AS ua_publish_date,
           activities.id AS activity_id,
           activities.uid as activity_uid,
           #{scores}
@@ -291,7 +307,6 @@ class Teachers::UnitsController < ApplicationController
           AND units.visible = true
           AND cu.visible = true
           AND ua.visible = true
-          #{archived_activities}
           #{lessons}
         GROUP BY
           units.name,
@@ -305,6 +320,7 @@ class Teachers::UnitsController < ApplicationController
           unit_owner.name,
           unit_owner.id,
           ua.due_date,
+          ua.publish_date,
           ua.created_at,
           unit_activity_id,
           state.completed,
@@ -316,6 +332,8 @@ class Teachers::UnitsController < ApplicationController
       SQL
     ).to_a
 
+    time_now_utc = Time.now.utc
+
     units.map do |unit|
       classroom_student_ids = Classroom.find(unit['classroom_id']).students.ids
       if unit['assigned_student_ids'] && classroom_student_ids
@@ -324,6 +342,7 @@ class Teachers::UnitsController < ApplicationController
       else
         unit['number_of_assigned_students'] = 0
       end
+      unit['scheduled'] = unit['ua_publish_date'].nil? ? nil : unit['ua_publish_date'].to_time(:utc) >= time_now_utc
       unit
     end
   end

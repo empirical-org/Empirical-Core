@@ -67,7 +67,7 @@ const SessionView = ({ match }) => {
   return(
     <div className="session-view-container">
       {renderHeader(activityData, 'View Sessions - Individual Session')}
-      <Link className="return-link" to={`/activities/${activityId}/activity-sessions`}>← Return to Sessions Index</Link>
+      <Link className="return-link data-link" to={`/activities/${activityId}/activity-sessions`}>← Return to Sessions Index</Link>
       <div className="tabs-container">
         <NavLink activeClassName="is-active" to={`/activities/${activityId}/activity-sessions/${session_uid}/overview`}>
           <div className="tab-option">

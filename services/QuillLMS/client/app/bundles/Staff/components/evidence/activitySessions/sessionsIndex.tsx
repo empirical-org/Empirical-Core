@@ -3,14 +3,14 @@ import { Link } from 'react-router-dom';
 import { useQuery } from 'react-query';
 import * as moment from 'moment';
 import { firstBy } from 'thenby';
-import DateTimePicker from 'react-datetime-picker';
 
-import { handlePageFilterClick } from "../../../helpers/evidence/miscHelpers";
+import FilterWidget from "../shared/filterWidget";
+import { getVersionOptions, handlePageFilterClick, activitySessionIndexResponseHeaders } from "../../../helpers/evidence/miscHelpers";
 import { renderHeader } from "../../../helpers/evidence/renderHelpers";
-import { Error, Spinner, DropdownInput, Input, ReactTable, } from '../../../../Shared/index';
-import { fetchActivity, fetchActivitySessions } from '../../../utils/evidence/activityAPIs';
-import { DropdownObjectInterface, ActivitySessionInterface, ActivitySessionsInterface, InputEvent } from '../../../interfaces/evidenceInterfaces';
-import { activitySessionIndexResponseHeaders, activitySessionFilterOptions, SESSION_INDEX } from '../../../../../constants/evidence';
+import { Error, Spinner, DropdownInput, ReactTable, Tooltip, informationIcon } from '../../../../Shared/index';
+import { fetchActivity, fetchActivitySessions, fetchActivityVersions } from '../../../utils/evidence/activityAPIs';
+import { DropdownObjectInterface, ActivitySessionInterface, ActivitySessionsInterface } from '../../../interfaces/evidenceInterfaces';
+import { activitySessionFilterOptions, SESSION_INDEX } from '../../../../../constants/evidence';
 
 const quillCheckmark = 'https://assets.quill.org/images/icons/check-circle-small.svg';
 
@@ -20,24 +20,25 @@ const SessionsIndex = ({ match }) => {
 
   const initialStartDateString = window.sessionStorage.getItem(`${SESSION_INDEX}startDate`) || '';
   const initialEndDateString = window.sessionStorage.getItem(`${SESSION_INDEX}endDate`) || '';
-  const initialTurkSessionId = window.sessionStorage.getItem(`${SESSION_INDEX}turkSessionId`) || '';
   const initialFilterOption = JSON.parse(window.sessionStorage.getItem(`${SESSION_INDEX}filterOption`)) || activitySessionFilterOptions[0];
+  const initialVersionOption = JSON.parse(window.sessionStorage.getItem(`${SESSION_INDEX}versionOption`)) || null;
   const initialStartDate = initialStartDateString ? new Date(initialStartDateString) : null;
   const initialEndDate = initialEndDateString ? new Date(initialEndDateString) : null;
 
-  const [showError, setShowError] = React.useState<boolean>(false);
   const [pageNumber, setPageNumber] = React.useState<DropdownObjectInterface>(null);
   const [pageDropdownOptions, setPageDropdownOptions] = React.useState<DropdownObjectInterface[]>(null);
+  const [versionOption, setVersionOption] = React.useState<DropdownObjectInterface>(initialVersionOption);
+  const [versionOptions, setVersionOptions] = React.useState<DropdownObjectInterface[]>([]);
   const [filterOption, setFilterOption] = React.useState<DropdownObjectInterface>(initialFilterOption);
   const [filterOptionForQuery, setFilterOptionForQuery] = React.useState<DropdownObjectInterface>(initialFilterOption);
-  const [turkSessionID, setTurkSessionID] = React.useState<string>(initialTurkSessionId);
-  const [turkSessionIDForQuery, setTurkSessionIDForQuery] = React.useState<string>(initialTurkSessionId);
   const [rowData, setRowData] = React.useState<any[]>([]);
   const pageNumberForQuery = pageNumber && pageNumber.value ? pageNumber.value : 1;
   const [startDate, onStartDateChange] = React.useState<Date>(initialStartDate);
   const [startDateForQuery, setStartDate] = React.useState<string>(initialStartDateString);
   const [endDate, onEndDateChange] = React.useState<Date>(initialEndDate);
   const [endDateForQuery, setEndDate] = React.useState<string>(initialEndDateString);
+  const [responsesForScoring, setResponsesForScoring] = React.useState<boolean>(false)
+  const [responsesForScoringForQuery, setResponsesForScoringForQuery] = React.useState<boolean>(false)
 
   // cache activity data for updates
   const { data: activityData } = useQuery({
@@ -47,9 +48,33 @@ const SessionsIndex = ({ match }) => {
 
   // cache activity sessions data for updates
   const { data: sessionsData } = useQuery({
-    queryKey: [`activity-${activityId}-sessions`, activityId, pageNumberForQuery, startDateForQuery, filterOptionForQuery, endDateForQuery, turkSessionIDForQuery],
+    queryKey: [`activity-${activityId}-sessions`, activityId, pageNumberForQuery, startDateForQuery, filterOptionForQuery, endDateForQuery, responsesForScoringForQuery],
     queryFn: fetchActivitySessions
   });
+
+  const { data: activityVersionData } = useQuery({
+    queryKey: [`change-logs-for-activity-versions-${activityId}`, activityId],
+    queryFn: fetchActivityVersions
+  });
+
+  React.useEffect(() => {
+    if(activityVersionData && activityVersionData.changeLogs && (!versionOption || !versionOptions.length)) {
+      const options = getVersionOptions(activityVersionData);
+      const defaultOption = options[0];
+      !versionOption && setVersionOption(defaultOption);
+      setVersionOptions(options);
+      handleFilterClick(defaultOption);
+    }
+  }, [activityVersionData]);
+
+  React.useEffect(() => {
+    if(versionOption && versionOption.value) {
+      const { value } = versionOption;
+      const { start_date, end_date } = value;
+      onStartDateChange(new Date(start_date))
+      onEndDateChange(new Date(end_date))
+    }
+  }, [versionOption]);
 
   React.useEffect(() => {
     sessionsData && !pageDropdownOptions && getPageDropdownOptions(sessionsData);
@@ -59,19 +84,21 @@ const SessionsIndex = ({ match }) => {
     if(sessionsData && sessionsData.activitySessions && sessionsData.activitySessions.activity_sessions && startDateForQuery) {
       const { activitySessions } = sessionsData;
       const { activity_sessions } = activitySessions;
-      const rows = formatSessionsData(activity_sessions)
+      const rows = formatSessionsData(activity_sessions);
       setRowData(rows);
     }
   }, [sessionsData]);
 
-  function handleSetTurkSessionID(e: InputEvent){ setTurkSessionID(e.target.value) };
-
-  function handleFilterClick() {
-    handlePageFilterClick({ startDate, endDate, turkSessionID, filterOption, setStartDate, setEndDate, setShowError, setPageNumber, setTurkSessionIDForQuery, setFilterOptionForQuery, storageKey: SESSION_INDEX });
+  function handleFilterClick(e: React.SyntheticEvent, passedVersionOption?: DropdownObjectInterface) {
+    handlePageFilterClick({ startDate, endDate, filterOption, versionOption: passedVersionOption || versionOption, responsesForScoring, setStartDate, setEndDate, setPageNumber, setFilterOptionForQuery, setResponsesForScoringForQuery, storageKey: SESSION_INDEX });
   }
 
   function handleFilterOptionChange(filterOption: DropdownObjectInterface) {
     setFilterOption(filterOption);
+  }
+
+  function handleVersionSelection(versionOption: DropdownObjectInterface) {
+    setVersionOption(versionOption);
   }
 
   function handleDataUpdate(activitySessions, sorted) {
@@ -104,6 +131,10 @@ const SessionsIndex = ({ match }) => {
     setPageNumber(number);
   }
 
+  function handleResponsesForScoringChange() {
+    setResponsesForScoring(!responsesForScoring);
+  }
+
   function getSortedRows({ activitySessions, id, directionOfSort }) {
     const columnOptions  = ['total_attempts', 'because_attempts', 'but_attempts', 'so_attempts'];
     if(columnOptions.includes(id)) {
@@ -124,9 +155,16 @@ const SessionsIndex = ({ match }) => {
     }
   }
 
+  function colorCodeAttemptsCount(attemptCount, isOptimal) {
+    if(isOptimal) {
+      return attemptCount
+    }
+    return <p className="sub-optimal-attempt">{attemptCount}</p>
+  }
+
   function formatSessionsData(activitySessions: ActivitySessionInterface[]) {
     return activitySessions.map(session => {
-      const { start_date, session_uid, because_attempts, but_attempts, so_attempts, complete } = session;
+      const { start_date, session_uid, because_attempts, because_optimal, but_attempts, but_optimal, so_attempts, so_optimal, complete } = session;
       const dateObject = new Date(start_date);
       const date = moment(dateObject).format("MM/DD/YY");
       const time = moment(dateObject).format("hh:mm a");
@@ -136,9 +174,9 @@ const SessionsIndex = ({ match }) => {
         id: session_uid,
         session_uid: session_uid ? session_uid.substring(0,6) : '',
         datetime: `${date} ${time}`,
-        because_attempts: because_attempts,
-        but_attempts: but_attempts,
-        so_attempts: so_attempts,
+        because_attempts: colorCodeAttemptsCount(because_attempts, because_optimal),
+        but_attempts: colorCodeAttemptsCount(but_attempts, but_optimal),
+        so_attempts: colorCodeAttemptsCount(so_attempts, so_optimal),
         total_attempts: total,
         view_link: <Link className="data-link" rel="noopener noreferrer" target="_blank" to={`/activities/${activityId}/activity-sessions/${session_uid}/overview`}>View</Link>,
         completed: complete ? <img alt="quill-circle-checkmark" src={quillCheckmark} /> : ""
@@ -187,46 +225,44 @@ const SessionsIndex = ({ match }) => {
             value={pageNumber}
           />
         </section>
-        <section className="top-section">
-          <DropdownInput
-            className="session-filters-dropdown"
-            handleChange={handleFilterOptionChange}
-            isSearchable={false}
-            label=""
-            options={activitySessionFilterOptions}
-            value={filterOption}
+        <section className="middle-section">
+          <section className="response-filters-container">
+            <DropdownInput
+              className="session-filters-dropdown"
+              handleChange={handleFilterOptionChange}
+              isSearchable={true}
+              label="Session filter options"
+              options={activitySessionFilterOptions}
+              value={filterOption}
+            />
+            <section className="responses-for-scoring-container">
+              <section className="label-section">
+                <label>Responses for Scoring</label>
+                <Tooltip
+                  tooltipText="6+ responses per session OR sessions with 2+ responses for each conjunction"
+                  tooltipTriggerText={<img alt={informationIcon.alt} src={informationIcon.src} />}
+                />
+              </section>
+              <input checked={responsesForScoring} onChange={handleResponsesForScoringChange} type="checkbox" />
+            </section>
+          </section>
+          <FilterWidget
+            endDate={endDate}
+            handleFilterClick={handleFilterClick}
+            handleVersionSelection={handleVersionSelection}
+            onEndDateChange={onEndDateChange}
+            onStartDateChange={onStartDateChange}
+            selectedVersion={versionOption}
+            startDate={startDate}
+            versionOptions={versionOptions}
           />
-          <p className="date-picker-label">Start Date:</p>
-          <DateTimePicker
-            ampm={false}
-            format='y-MM-dd HH:mm'
-            onChange={onStartDateChange}
-            value={startDate}
-          />
-          <p className="date-picker-label">End Date (optional):</p>
-          <DateTimePicker
-            ampm={false}
-            format='y-MM-dd HH:mm'
-            onChange={onEndDateChange}
-            value={endDate}
-          />
-          <p className="date-picker-label">Turk Session ID (optional):</p>
-          <Input
-            className="turk-session-id-input"
-            handleChange={handleSetTurkSessionID}
-            label=""
-            value={turkSessionID}
-          />
-          <button className="quill-button fun primary contained" onClick={handleFilterClick} type="submit">Filter</button>
         </section>
-        <div className="error-container">
-          {showError && <p className="error-message">Start date is required.</p>}
-        </div>
         <ReactTable
           className="activity-sessions-table"
           columns={activitySessionIndexResponseHeaders}
           data={rowData}
           defaultPageSize={rowData.length < 100 ? rowData.length : 100}
+          filterable
           manualSortBy
           /* eslint-disable-next-line react/jsx-no-bind */
           onSortedChange={(sorted) => handleDataUpdate(activity_sessions, sorted)}

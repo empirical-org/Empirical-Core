@@ -8,7 +8,7 @@ describe Api::V1::ProgressReportsController, type: :controller do
   let(:unaffiliated_teacher) { create(:teacher) }
   let(:student) { classroom.students.first }
   let(:unaffiliated_student) { create(:student) }
-  let(:admin) { create(:admin) }
+  let(:admin) { create(:teacher) }
 
   context '#activities_scores_by_classroom_data' do
     it 'should return ProgressReports::ActivitiesScoresByClassroom for my classes' do
@@ -21,6 +21,14 @@ describe Api::V1::ProgressReportsController, type: :controller do
   end
 
   context '#student_overview_data' do
+    context 'StudentsClassrooms instance does not exist' do
+      it 'should not double render' do
+        session[:user_id] = teacher.id
+        get :student_overview_data, params: { student_id: unaffiliated_student.id, classroom_id: classroom.id+1 }, as: :json
+        expect(response).to redirect_to new_session_path
+      end
+    end
+
     it 'should not allow access if no teacher classroom relationship exists' do
       session[:user_id] = unaffiliated_teacher.id
       get :student_overview_data, params: { student_id: student.id, classroom_id: classroom.id }, as: :json

@@ -148,6 +148,17 @@ describe School, type: :model do
       expect(school.errors[:lower_grade]).to eq(['must be less than or equal to upper grade'])
     end
 
+    it 'zipcode is present and is not 5 digits' do
+      school.zipcode = "123"
+      expect(school).not_to be_valid
+      expect(school.errors.messages).to eq(zipcode: ["is too short (minimum is 5 characters)"])
+    end
+
+    it 'zipcode is present and is 5 digits' do
+      school.zipcode = "12345"
+
+      expect(school).to be_valid
+    end
   end
 
   describe 'school_year_start method' do

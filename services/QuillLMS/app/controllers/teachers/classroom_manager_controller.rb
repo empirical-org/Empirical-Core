@@ -76,19 +76,24 @@ class Teachers::ClassroomManagerController < ApplicationController
   def dashboard
     if current_user.classrooms_i_teach.empty? && current_user.archived_classrooms.none? && !current_user.has_outstanding_coteacher_invitation? && current_user.schools_admins.any?
       redirect_to teachers_admin_dashboard_path
-      end
+    end
+
+    teacher_info_milestone = Milestone.find_by_name(Milestone::TYPES[:dismiss_teacher_info_modal])
+    teacher_info_user_milestone = UserMilestone.find_by(milestone_id: teacher_info_milestone&.id, user_id: current_user&.id)
+    teacher_info_user_milestone_in_right_timeframe = teacher_info_user_milestone.nil? || (teacher_info_user_milestone.updated_at < 1.month.ago && teacher_info_user_milestone.created_at > 6.months.ago)
+    @must_see_teacher_info_modal = current_user&.teacher_info.nil? && teacher_info_user_milestone_in_right_timeframe
+
     welcome_milestone = Milestone.find_by_name(Milestone::TYPES[:see_welcome_modal])
-    @must_see_modal = !UserMilestone.find_by(milestone_id: welcome_milestone&.id, user_id: current_user&.id) && Unit.unscoped.find_by_user_id(current_user&.id).nil?
-    @featured_blog_posts = BlogPost.where.not(featured_order_number: nil).order(:featured_order_number)
-    if @must_see_modal && current_user && welcome_milestone
+    @must_see_welcome_modal = !UserMilestone.find_by(milestone_id: welcome_milestone&.id, user_id: current_user&.id) && Unit.unscoped.find_by_user_id(current_user&.id).nil?
+
+    if @must_see_welcome_modal && current_user && welcome_milestone
       UserMilestone.find_or_create_by(user_id: current_user.id, milestone_id: welcome_milestone.id)
     end
 
+    @featured_blog_posts = BlogPost.where.not(featured_order_number: nil).order(:featured_order_number)
+
     @objective_checklist = generate_onboarding_checklist
     @first_name = current_user.first_name
-
-    growth_diagnostic_promotion_card_milestone = Milestone.find_by_name(Milestone::TYPES[:acknowledge_growth_diagnostic_promotion_card])
-    @show_diagnostic_promotion_card = !UserMilestone.find_by(milestone_id: growth_diagnostic_promotion_card_milestone&.id, user_id: current_user&.id) && (current_user.created_at < "2021-11-29".to_date || current_user&.unit_activities&.where(activity_id: Activity.diagnostic_activity_ids)&.any?)
   end
   # rubocop:enable Metrics/CyclomaticComplexity
 
@@ -162,6 +167,7 @@ class Teachers::ClassroomManagerController < ApplicationController
     @google_or_clever_just_set = session[ApplicationController::GOOGLE_OR_CLEVER_JUST_SET]
     session[ApplicationController::GOOGLE_OR_CLEVER_JUST_SET] = nil
     @account_info = current_user.generate_teacher_account_info
+    @show_dismiss_school_selection_reminder_checkbox = show_school_selection_reminders
   end
 
   def update_my_account
@@ -232,14 +238,18 @@ class Teachers::ClassroomManagerController < ApplicationController
   end
 
   def view_demo
-    demo = User.find_by_email('hello+demoteacher@quill.org')
+    demo = User.find_by_email(Demo::ReportDemoCreator::EMAIL)
     return render json: {errors: "Demo Account does not exist"}, status: 422 if demo.nil?
+
+    Demo::ResetAccountWorker.perform_async(demo.id)
 
     self.current_user_demo_id = demo.id
     redirect_to '/profile'
   end
 
   def unset_view_demo
+    Demo::ResetAccountWorker.perform_async(session[:demo_id])
+
     self.current_user_demo_id = nil
     return redirect_to params[:redirect] if params[:redirect]
 
@@ -362,6 +372,7 @@ class Teachers::ClassroomManagerController < ApplicationController
           ON ct.classroom_id = classrooms.id
           AND classrooms.visible = true
         WHERE ct.user_id = #{current_user.id}
+        ORDER BY ct.order ASC
       SQL
     ).to_a
   end

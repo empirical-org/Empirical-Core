@@ -153,19 +153,17 @@ export class PlayFillInTheBlankQuestion extends React.Component<any, any> {
     const width = longestCue ? (longestCue.length * 15) + 10 : 50
     const styling = { width: `${width}px`}
     return (
-      <span key={`span${i}`}>
-        <input
-          aria-label={fillInBlankInputLabel(cues, blankAllowed)}
-          className={className}
-          id={`input${i}`}
-          key={i + 100}
-          onBlur={this.getBlurHandler(i)}
-          onChange={this.getChangeHandler(i)}
-          style={styling}
-          type="text"
-          value={inputVals[i]}
-        />
-      </span>
+      <input
+        aria-label={fillInBlankInputLabel(cues, blankAllowed)}
+        className={className}
+        id={`input${i}`}
+        key={i + 100}
+        onBlur={this.getBlurHandler(i)}
+        onChange={this.getChangeHandler(i)}
+        style={styling}
+        type="text"
+        value={inputVals[i]}
+      />
     );
   }
 

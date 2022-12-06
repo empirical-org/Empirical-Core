@@ -1,7 +1,8 @@
 declare function require(name:string);
-import C from '../constants';
-import * as request from 'request';
 import _ from 'lodash';
+import {v4 as uuid} from 'uuid';
+
+import C from '../constants';
 import {
   ClassroomLessonSessions,
   ClassroomLessonSession,
@@ -16,8 +17,8 @@ import {
   ClassroomLesson
 } from '../interfaces/classroomLessons';
 import * as CustomizeIntf from '../interfaces/customize';
-import uuid from 'uuid/v4';
 import socket from '../utils/socketStore';
+import { requestGet, requestPut, } from '../../../modules/request/index'
 
 export function startListeningToSession(classroomSessionId: ClassroomSessionId) {
   return function(dispatch, getState) {
@@ -65,32 +66,33 @@ export function startLesson(classroomUnitId: ClassroomUnitId, classroomSessionId
 export const fetchActiveActivitySession = ({ sessionID, callback, }) => {
   const activeActivitySessionUrl = `${process.env.DEFAULT_URL}/api/v1/active_activity_sessions/${sessionID}`
 
-  const requestObject = {
-    url: activeActivitySessionUrl,
-    json: true,
-  }
-
-  request.get(requestObject, (e, r, body) => {
-    if (callback) callback(body)
-  })
+  requestGet(activeActivitySessionUrl,
+    (body) => {
+      if (callback) callback(body)
+    },
+    (body) => {
+      if (callback) callback(body)
+    }
+  )
 }
 
 export const saveActiveActivitySession = ({ sessionID, timeTracking, callback, }) => {
   const activeActivitySessionUrl = `${process.env.DEFAULT_URL}/api/v1/active_activity_sessions/${sessionID}`
 
-  const requestObject = {
-    url: activeActivitySessionUrl,
-    body: {
+  requestPut(
+    activeActivitySessionUrl,
+    {
       active_activity_session: {
         timeTracking,
       }
     },
-    json: true,
-  }
-
-  request.put(requestObject, (e, r, body) => {
-    if (callback) callback()
-  })
+    (body) => {
+      if (callback) callback()
+    },
+    (body) => {
+      if (callback) callback()
+    }
+  )
 }
 
 export function finishActivity(

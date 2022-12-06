@@ -7,6 +7,7 @@
 #  id           :integer          not null, primary key
 #  due_date     :datetime
 #  order_number :integer
+#  publish_date :datetime
 #  visible      :boolean          default(TRUE)
 #  created_at   :datetime
 #  updated_at   :datetime
@@ -25,14 +26,11 @@
 #  fk_rails_...  (unit_id => units.id)
 #
 class UnitActivity < ApplicationRecord
-  include ::NewRelic::Agent
   include CheckboxCallback
 
   belongs_to :unit, touch: true
   belongs_to :activity
   has_many :classroom_unit_activity_states
-
-  # validates :unit, uniqueness: { scope: :activity }
 
   after_save :hide_appropriate_activity_sessions, :teacher_checkbox
 
@@ -84,6 +82,29 @@ class UnitActivity < ApplicationRecord
     end
   end
 
+  def save_new_attributes_and_adjust_dates!(unit_activity_data)
+    assign_attributes(unit_activity_data)
+    adjust_dates_for_timezone
+    save!
+  end
+
+  def adjust_dates_for_timezone
+    adjust_due_date_for_timezone if will_save_change_to_due_date?
+    adjust_publish_date_for_timezone if will_save_change_to_publish_date?
+  end
+
+  def adjust_due_date_for_timezone
+    return unless due_date.present?
+
+    self.due_date = due_date.in_time_zone('UTC') - unit.user.utc_offset
+  end
+
+  def adjust_publish_date_for_timezone
+    return unless publish_date.present?
+
+    self.publish_date = publish_date.in_time_zone('UTC') - unit.user.utc_offset
+  end
+
   private def hide_appropriate_activity_sessions
     return if visible
 
@@ -102,6 +123,8 @@ class UnitActivity < ApplicationRecord
 
   def self.get_classroom_user_profile(classroom_id, user_id)
     return [] unless classroom_id && user_id
+
+    student_timezone_offset_string = "+ INTERVAL '#{User.find(user_id).utc_offset || 0}' SECOND"
 
     # Generate a rich profile of Classroom Activities for a given user in a given classroom
     RawSqlRunner.execute(
@@ -122,7 +145,8 @@ class UnitActivity < ApplicationRecord
           ua.activity_id,
           MAX(acts.updated_at) AS act_sesh_updated_at,
           ua.order_number,
-          ua.due_date,
+          ua.due_date #{student_timezone_offset_string} AS due_date,
+          MIN(acts.completed_at) #{student_timezone_offset_string} AS completed_date,
           pre_activity.id AS pre_activity_id,
           cu.created_at AS unit_activity_created_at,
           COALESCE(cuas.locked, false) AS locked,
@@ -162,7 +186,7 @@ class UnitActivity < ApplicationRecord
           AND cu.visible = true
           AND unit.visible = true
           AND ua.visible = true
-          AND 'archived' != ANY(activity.flags)
+          AND (ua.publish_date IS NULL OR ua.publish_date <= NOW())
         GROUP BY
           unit.id,
           unit.name,
@@ -173,6 +197,7 @@ class UnitActivity < ApplicationRecord
           activity.id,
           activity.uid,
           ua.due_date,
+          ua.publish_date,
           ua.created_at,
           unit_activity_id,
           cuas.completed,

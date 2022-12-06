@@ -23,7 +23,7 @@ RSpec.describe GoogleIntegration::ClassroomStudentImporter do
     let(:importer) { described_class.new(data) }
 
     it 'does not run import' do
-      expect(importer).not_to receive(:update_student_with_google_id_and_different_email)
+      expect(importer).not_to receive(:update_student_containing_inconsistent_email_and_google_id)
       importer.run
     end
   end

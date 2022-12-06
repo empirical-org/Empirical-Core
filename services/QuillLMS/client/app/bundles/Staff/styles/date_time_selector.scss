@@ -1,7 +1,12 @@
 .date-selection-container {
   display: flex;
-  align-items: center;
+  align-items: flex-end;
+  width: 100%;
+  justify-content: space-between;
   margin-top: 16px;
+  .left-side-container {
+    display: flex;
+  }
   .start-date-picker {
     margin-right: 22px;
   }
@@ -18,12 +23,6 @@
       input:nth-of-type(3), input:nth-of-type(4), input:nth-of-type(5), input:nth-of-type(6) {
         width: 16px !important;
       }
-    }
-  }
-  .turk-session-id-input {
-    margin-right: 16px;
-    input {
-      margin-bottom: 12px;
     }
   }
 }

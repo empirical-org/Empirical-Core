@@ -11,7 +11,7 @@ describe Cms::ActivitiesController, type: :controller do
   let!(:classification) { create(:activity_classification) }
   let(:activities) { double(:activities, production: "production set", flagged: "flagged set") }
   let(:user) { create(:staff) }
-  let(:topic) { create(:topic) }
+  let(:topic) { create(:topic, level: 1) }
   let(:content_partner) { create(:content_partner) }
   let(:raw_score) { create(:raw_score, order: 1) }
   let(:activity_category) { create(:activity_category) }
@@ -96,6 +96,12 @@ describe Cms::ActivitiesController, type: :controller do
 
   describe '#update' do
     let!(:activity) { create(:activity, classification: classification) }
+    let!(:staff_user) { create(:user, role: 'staff')}
+
+    before do
+      session[:user_id] = staff_user.id
+      Evidence.parent_activity_classification_class.create(:key => "evidence")
+    end
 
     it 'should update the given activity' do
       selected_attributes = activity.attributes.slice(
@@ -125,6 +131,21 @@ describe Cms::ActivitiesController, type: :controller do
       expect(updated_activity.activity_categories.to_a).to eq([activity_category])
       expect(updated_activity.raw_score).to eq(raw_score)
       expect(updated_activity.standard).to eq(standard)
+    end
+
+    it 'should create a change log record if the activity is an evidence activity and the flag was updated' do
+      parent_activity = create(:activity, activity_classification_id: ActivityClassification.find_by_key("evidence").id, flags: ["beta"])
+      evidence_activity = Evidence::Activity.create!(parent_activity_id: parent_activity.id, title: "This is a test evidence activity", notes: "notes")
+      put :update, params: { id: parent_activity.id, activity_classification_id: parent_activity.activity_classification_id, activity: {flags: ["alpha"]} }
+
+      change_log = Evidence.change_log_class.last
+      expect(change_log.action).to eq(ChangeLog::EVIDENCE_ACTIONS[:update])
+      expect(change_log.user_id).to eq(staff_user.id)
+      expect(change_log.changed_record_type).to eq(evidence_activity.class.name)
+      expect(change_log.changed_record_id).to eq(evidence_activity.id)
+      expect(change_log.changed_attribute).to eq("flags")
+      expect(change_log.previous_value).to eq("[\"beta\"]")
+      expect(change_log.new_value).to eq("[\"alpha\"]")
     end
   end
 end

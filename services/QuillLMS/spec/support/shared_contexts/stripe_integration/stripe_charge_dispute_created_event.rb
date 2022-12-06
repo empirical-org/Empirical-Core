@@ -5,6 +5,7 @@ RSpec.shared_context 'Stripe Charge Dispute Created Event' do
 
   let(:stripe_event_id) { "evt_#{SecureRandom.hex}"}
   let(:stripe_event_type) { 'charge.dispute.created' }
+  let(:stripe_dispute_status) { 'needs_response' }
 
   let(:stripe_event) do
     Stripe::Event.construct_from(

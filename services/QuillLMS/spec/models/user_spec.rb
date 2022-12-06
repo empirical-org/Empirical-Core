@@ -64,9 +64,6 @@ describe User, type: :model do
   it { is_expected.to callback(:prep_authentication_terms).before(:validation) }
   it { is_expected.to callback(:check_for_school).after(:save) }
 
-  #TODO: the validation uses a proc, figure out how to stub that
-  #it { is_expected.to callback(:update_invitiee_email_address).after(:save).if(proc) }
-
   it { should have_many(:checkboxes) }
   it { should have_many(:invitations).with_foreign_key('inviter_id') }
   it { should have_many(:objectives).through(:checkboxes) }
@@ -91,12 +88,6 @@ describe User, type: :model do
 
   it { should validate_presence_of(:name) }
   it { should validate_presence_of(:password) }
-
-  #TODO: matchers don't support if conditions
-  #it { should validate_presence_of(:email).on(:create) }
-  #it { should validate_uniqueness_of(:email).on(:create) }
-  #it { should validate_presence_of(:username).on(:create) }
-  #it { should validate_uniqueness_of(:username).on(:create) }
 
   it { should validate_presence_of(:username).on(:create) }
   it { should validate_length_of(:username).is_at_most(User::CHAR_FIELD_MAX_LENGTH) }
@@ -538,22 +529,38 @@ describe User, type: :model do
   describe '#generate_teacher_account_info' do
     let(:user) { create(:user) }
     let(:premium_state) { double(:premium_state) }
-    let(:school) { create(:school) }
-    let(:hash) {
-      user.attributes.merge!({
-        subscription: {'subscriptionType' => premium_state},
-        school: school,
-        school_type: School::US_K12_SCHOOL_DISPLAY_NAME
-        })
-    }
+    let!(:teacher_info) { create(:teacher_info_with_subject_area, user: user) }
 
     before do
-      allow(user).to receive(:school).and_return(school)
-      allow(user).to receive(:subscription).and_return(false)
+      allow(user).to receive(:subscription).and_return(nil)
       allow(user).to receive(:premium_state).and_return(premium_state)
     end
 
     it 'should give the correct hash' do
+      school = create(:school)
+      SchoolsUsers.create(school: school, user: user)
+      user.reload
+      hash = user.attributes.merge!({
+        subscription: {'subscriptionType' => premium_state},
+        school: school,
+        school_type: School::US_K12_SCHOOL_DISPLAY_NAME,
+        minimum_grade_level: teacher_info.minimum_grade_level,
+        maximum_grade_level: teacher_info.maximum_grade_level,
+        subject_area_ids: teacher_info.subject_area_ids
+      })
+      expect(user.generate_teacher_account_info).to eq(hash)
+    end
+
+    it 'should have the no school selected school if the user has no school' do
+      school = create(:school, name: School::NO_SCHOOL_SELECTED_SCHOOL_NAME)
+      hash = user.attributes.merge!({
+        subscription: {'subscriptionType' => premium_state},
+        school: school,
+        school_type: School::US_K12_SCHOOL_DISPLAY_NAME,
+        minimum_grade_level: teacher_info.minimum_grade_level,
+        maximum_grade_level: teacher_info.maximum_grade_level,
+        subject_area_ids: teacher_info.subject_area_ids
+      })
       expect(user.generate_teacher_account_info).to eq(hash)
     end
   end
@@ -896,9 +903,27 @@ describe User, type: :model do
         expect(user).to_not be_valid
       end
 
-      it 'is valid when email is not unique' do
-        user = build(:user,  email: 'unique@test.lan')
+      it 'is does not save records with non unique emails' do
+        create(:user, email: 'test@test.lan')
+        user = build(:user,  email: 'test@test.lan')
+        expect { user.save!(validate: false) }.to raise_error ActiveRecord::RecordNotSaved
+      end
+
+      it 'is does save for records below the uniqueness constraint minimum' do
+        create(:user, id: described_class::EMAIL_UNIQUENESS_CONSTRAINT_MINIMUM_ID - 1, email: 'test@test.lan')
+        user = build(:user,  email: 'test@test.lan')
+        expect { user.save!(validate: false) }.to change(User, :count).from(1).to(2)
+      end
+
+      it 'is valid when email is unique' do
+        user = build(:user, email: 'unique@test.lan')
         expect(user).to be_valid
+      end
+
+      it 'is invalid when there is a space in it' do
+        user = build(:user,  email: 'test@test.lan ')
+        user.save
+        expect(user.errors[:email]).to include("That email is not valid because it has a space. Try another.")
       end
 
       context 'when role requires email' do
@@ -942,6 +967,18 @@ describe User, type: :model do
         create(:user, username: 'testtest.lan')
         user = build(:user, username: 'testtest.lan')
         expect(user).to_not be_valid
+      end
+
+      it 'is does not save records with non unique usernames' do
+        user1 = create(:user)
+        user2 = build(:user, username: user1.username)
+        expect { user2.save!(validate: false) }.to raise_error ActiveRecord::RecordNotSaved
+      end
+
+      it 'is does save for records below the uniqueness constraint minimum' do
+        user1 = create(:user, id: described_class::USERNAME_UNIQUENESS_CONSTRAINT_MINIMUM_ID - 1)
+        user2 = build(:user, username: user1.username)
+        expect { user2.save!(validate: false) }.to change(User, :count).from(1).to(2)
       end
 
       it 'uniqueness is enforced on existing users changing to an existing username' do
@@ -1103,50 +1140,6 @@ describe User, type: :model do
     end
   end
 
-  describe '#subscribe_to_newsletter' do
-    let(:user) { build(:user, role: role, send_newsletter: newsletter) }
-
-    context 'role = teacher and send_newsletter = false' do
-      let(:newsletter) { false }
-      let(:role) { 'teacher' }
-
-      it 'does call the newsletter worker' do
-        expect(SubscribeToNewsletterWorker).to receive(:perform_async)
-        user.subscribe_to_newsletter
-      end
-    end
-
-    context 'role = teacher and send_newsletter = true' do
-      let(:newsletter) { true }
-      let(:role) { 'teacher' }
-
-      it 'does call the newsletter worker' do
-        expect(SubscribeToNewsletterWorker).to receive(:perform_async)
-        user.subscribe_to_newsletter
-      end
-    end
-
-    context 'role = student and send_newsletter = false' do
-      let(:newsletter) { false }
-      let(:role) { 'student' }
-
-      it 'does not call the newsletter worker' do
-        expect(SubscribeToNewsletterWorker).to_not receive(:perform_async)
-        user.subscribe_to_newsletter
-      end
-    end
-
-    context 'role = student and send_newsletter = true' do
-      let(:newsletter) { true }
-      let(:role) { 'student' }
-
-      it 'does not call the newsletter worker' do
-        expect(SubscribeToNewsletterWorker).to_not receive(:perform_async)
-        user.subscribe_to_newsletter
-      end
-    end
-  end
-
   describe 'can behave as either a student or teacher' do
     context 'when behaves like student' do
       it_behaves_like 'student'
@@ -1206,12 +1199,18 @@ describe User, type: :model do
       expect(new_user.valid?).not_to be
     end
 
-    it 'should pass the validation if the user already exists and has not changed their clever id, even if another user already has it' do
-      create(:teacher, clever_id: 'already_used')
+    it 'should pass the validation if the user already exists and is and has not changed their clever id, even if another user already has it' do
+      create(:teacher, id: described_class::CLEVER_ID_UNIQUENESS_CONSTRAINT_MINIMUM_ID - 1, clever_id: 'already_used')
       second_user = build(:teacher, clever_id: 'already_used')
       second_user.save!(validate: false)
       second_user.name = 'Clever User'
-      expect(second_user.valid?).to be
+      expect(second_user).to be_valid
+    end
+
+    it 'should not pass the validation if the user already exists and a duplicate clever_id is attempted to be saved' do
+      create(:teacher, clever_id: 'already_used')
+      second_user = build(:teacher, clever_id: 'already_used')
+      expect { second_user.save!(validate: false) }.to raise_error ActiveRecord::RecordNotSaved
     end
 
     it 'should not pass the validation if the user already exists and is changing their clever id to a non-unique one' do
@@ -1241,11 +1240,17 @@ describe User, type: :model do
     end
 
     it 'should pass the validation if the user already exists and has not changed their google id, even if another user already has it' do
-      create(:teacher, google_id: 'already_used')
+      create(:teacher, id: described_class::GOOGLE_ID_UNIQUENESS_CONSTRAINT_MINIMUM_ID - 1, google_id: 'already_used')
       second_user = build(:teacher, google_id: 'already_used')
       second_user.save!(validate: false)
       second_user.name = 'google User'
-      expect(second_user.valid?).to be
+      expect(second_user).to be_valid
+    end
+
+    it 'should not pass the validation if the user already exists and a duplicate google_id is attempted to be saved' do
+      create(:teacher, google_id: 'already_used')
+      second_user = build(:teacher, google_id: 'already_used')
+      expect { second_user.save!(validate: false) }.to raise_error ActiveRecord::RecordNotSaved
     end
 
     it 'should pass the validation if the user already exists and changes their google id to a unique one' do
@@ -1399,6 +1404,78 @@ describe User, type: :model do
       before { user.update(last_active: described_class::USER_INACTIVITY_DURATION.ago - 1.day) }
 
       it { expect(subject).to eq true }
+    end
+  end
+
+  describe '#set_time_zone' do
+    describe 'if the user has a school' do
+      it 'sets the timezone to the school timezone if the school has a zipcode' do
+        school = create(:school, zipcode: 87505)
+        user.school = school
+        user.set_time_zone
+        user.save
+        expect(user.reload.time_zone).to eq('America/Denver')
+      end
+
+      it 'sets the timezone to the school timezone if the school has a mail_zipcode' do
+        school = create(:school, mail_zipcode: 19130)
+        user.school = school
+        user.set_time_zone
+        user.save
+        expect(user.reload.time_zone).to eq('America/New_York')
+      end
+
+      it 'sets the timezone based on the ip address if the school does not have a zipcode or a mail_zipcode' do
+        school = create(:school, mail_zipcode: nil, zipcode: nil)
+        user.school = school
+        user.update(ip_address: "179.61.239.7")
+        user.set_time_zone
+        expect(user.time_zone).to eq('America/New_York')
+      end
+    end
+
+    describe 'if the user does not have a school' do
+      it 'sets the timezone based on the ip address' do
+        user.update(ip_address: "73.9.149.0")
+        user.set_time_zone
+        expect(user.time_zone).to eq('America/New_York')
+      end
+    end
+  end
+
+  describe '#duplicate_empty_student_accounts' do
+    subject { student.duplicate_empty_student_accounts }
+
+    let(:student) { create(:student, id: described_class::EMAIL_UNIQUENESS_CONSTRAINT_MINIMUM_ID - 1) }
+
+    it { expect(subject).to be_empty }
+
+    context 'duplicates exist' do
+      let!(:duplicate) do
+        s = build(:student, email: student.email)
+        s.save(validate: false)
+        s
+      end
+
+      it { expect(subject).to eq [duplicate] }
+
+      context 'duplicate is not a student' do
+        before { duplicate.update_columns(role: 'teacher') }
+
+        it { expect(subject).to be_empty }
+      end
+
+      context 'duplicate has activity session' do
+        before { create(:activity_session, user: duplicate) }
+
+        it { expect(subject).to be_empty}
+      end
+
+      context 'duplicate has students_classrooms' do
+        before { create(:students_classrooms, student: duplicate) }
+
+        it { expect(subject).to be_empty }
+      end
     end
   end
 

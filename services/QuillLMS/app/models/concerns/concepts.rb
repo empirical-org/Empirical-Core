@@ -8,7 +8,7 @@ module Concepts
     return '' unless activity_session.present?
 
     @concepts = activity_session.concepts
-    @concept_results_by_question_type = activity_session.old_concept_results.group_by{|c| c.question_type}.values
+    @concept_results_by_question_type = activity_session.concept_results.group_by{|c| c.question_type}.values
     organize_by_type
   end
 
@@ -22,7 +22,7 @@ module Concepts
     @concepts.map do |concept|
       @concept_results_by_question_type.map do |cr|
         if cr.any?
-          type = human_readable_question_type(cr.first['question_type'])
+          type = human_readable_question_type(cr.first.question_type)
           hash_object[type].push(stats_for_concept(concept, cr))
         end
       end
@@ -37,7 +37,7 @@ module Concepts
     concept_results.each do |result|
       next unless result.concept == concept
 
-      if result.correct?
+      if result.correct
         correct_count += 1
       else
         incorrect_count += 1

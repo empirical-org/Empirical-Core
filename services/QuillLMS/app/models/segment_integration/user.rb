@@ -11,7 +11,8 @@ module SegmentIntegration
           first_name: first_name,
           last_name: last_name,
           email: email,
-          flags: flags&.join(", ")
+          flags: flags&.join(", "),
+          flagset: flagset
         }.reject {|_,v| v.nil? },
         integrations: integration_rules
       }
@@ -25,6 +26,14 @@ module SegmentIntegration
         premium_state: premium_state,
         premium_type: subscription&.account_type,
         is_admin: admin?
+      }.reject {|_,v| v.nil? }
+    end
+
+    def premium_params
+      {
+        email: email,
+        premium_state: premium_state,
+        premium_type: subscription&.account_type,
       }.reject {|_,v| v.nil? }
     end
 

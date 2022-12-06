@@ -72,9 +72,10 @@ describe 'SegmentAnalytics' do
     let(:teacher) { create(:teacher) }
     let(:activity) { create(:diagnostic_activity) }
     let(:student) { create(:student) }
+    let(:activity_session) { create(:activity_session) }
 
     it 'sends an event with information about the activity' do
-      analytics.track_activity_completion(teacher, student.id, activity)
+      analytics.track_activity_completion(teacher, student.id, activity, activity_session)
       expect(identify_calls.size).to eq(0)
       expect(track_calls.size).to eq(1)
       expect(track_calls[0][:event]).to eq(SegmentIo::BackgroundEvents::ACTIVITY_COMPLETION)
@@ -137,9 +138,9 @@ describe 'SegmentAnalytics' do
     let!(:other_user_subscription) { create(:user_subscription, user: teacher, subscription: other_subscription)}
 
     it 'sends an event with information about the subscription for recurring subscriptions' do
-      analytics.track_teacher_subscription(subscription, SegmentIo::BackgroundEvents::TEACHER_SUB_WILL_RENEW)
+      analytics.track_teacher_subscription(subscription, SegmentIo::BackgroundEvents::TEACHER_SUB_WILL_RENEW_IN_30)
       expect(track_calls.size).to eq(1)
-      expect(track_calls[0][:event]).to eq(SegmentIo::BackgroundEvents::TEACHER_SUB_WILL_RENEW)
+      expect(track_calls[0][:event]).to eq(SegmentIo::BackgroundEvents::TEACHER_SUB_WILL_RENEW_IN_30)
       expect(track_calls[0][:user_id]).to eq(teacher.id)
       expect(track_calls[0][:properties][:subscription_id]).to eq(subscription.id)
     end
@@ -161,9 +162,9 @@ describe 'SegmentAnalytics' do
     let!(:other_school_subscription) { create(:school_subscription, school: school, subscription: other_subscription)}
 
     it 'sends an event with information about the subscription for recurring subscriptions' do
-      analytics.track_school_subscription(subscription, SegmentIo::BackgroundEvents::SCHOOL_SUB_WILL_RENEW)
+      analytics.track_school_subscription(subscription, SegmentIo::BackgroundEvents::SCHOOL_SUB_WILL_RENEW_IN_30)
       expect(track_calls.size).to eq(1)
-      expect(track_calls[0][:event]).to eq(SegmentIo::BackgroundEvents::SCHOOL_SUB_WILL_RENEW)
+      expect(track_calls[0][:event]).to eq(SegmentIo::BackgroundEvents::SCHOOL_SUB_WILL_RENEW_IN_30)
       expect(track_calls[0][:properties][:school_id]).to eq(school.id)
       expect(track_calls[0][:properties][:subscription_id]).to eq(subscription.id)
     end
@@ -178,12 +179,28 @@ describe 'SegmentAnalytics' do
     end
 
     it 'sends an event with anonymous ID if there is no purchaser id' do
-      analytics.track_school_subscription(subscription, SegmentIo::BackgroundEvents::SCHOOL_SUB_WILL_RENEW)
+      analytics.track_school_subscription(subscription, SegmentIo::BackgroundEvents::SCHOOL_SUB_WILL_RENEW_IN_30)
       expect(track_calls.size).to eq(1)
       expect(track_calls[0][:user_id]).to eq(nil)
       expect(track_calls[0][:anonymous_id]).to be
     end
   end
+
+  context 'track teacher school not listed' do
+    let(:teacher) { create(:teacher) }
+
+    it 'sends an event with information about the teacher and the missing school' do
+      school_name = 'Nonexistent'
+      zipcode = 55555
+      analytics.track_teacher_school_not_listed(teacher, 'Nonexistent', 55555)
+      expect(track_calls.size).to eq(1)
+      expect(track_calls[0][:event]).to eq(SegmentIo::BackgroundEvents::TEACHER_SCHOOL_NOT_LISTED)
+      expect(track_calls[0][:user_id]).to eq(teacher.id)
+      expect(track_calls[0][:properties][:school_name]).to eq(school_name)
+      expect(track_calls[0][:properties][:zipcode]).to eq(zipcode)
+    end
+  end
+
 
   context '#track' do
     let(:teacher) { create(:teacher) }
@@ -217,6 +234,41 @@ describe 'SegmentAnalytics' do
     end
   end
 
+  context 'track activity pack completion' do
+    let(:teacher) { create(:teacher) }
+    let(:student) { create(:student) }
+    let(:unit) { create(:unit) }
+    let(:classroom) { create(:classroom) }
+    let(:students_classroom1) { create(:students_classrooms, classroom: classroom, student: student)}
+    let(:classroom_unit) { create(:classroom_unit, unit: unit, classroom: classroom, assigned_student_ids: [student.id]) }
+    let(:unit_activity1) { create(:unit_activity, unit: unit) }
+    let(:unit_activity2) { create(:unit_activity, unit: unit) }
+    let!(:activity_session1) { create(:activity_session, :finished, user: student, classroom_unit: classroom_unit, activity: unit_activity1.activity) }
+    let!(:activity_session2) { create(:activity_session, :started, user: student, classroom_unit: classroom_unit, activity: unit_activity2.activity) }
+
+    it '#activity_pack_completed? returns false if activity pack has not been completed' do
+      expect(analytics.activity_pack_completed?(student.id, activity_session1)).to eq false
+    end
+
+    it '#activity_pack_completed? returns true if activity pack has been completed' do
+      activity_session2.state = ActivitySession::STATE_FINISHED
+      activity_session2.save!
+      expect(analytics.activity_pack_completed?(student.id, activity_session2)).to eq true
+    end
+
+    it '#track_activity_pack_completion sends the expected data' do
+      activity_session2.state = ActivitySession::STATE_FINISHED
+      activity_session2.save!
+      analytics.track_activity_completion(teacher, student.id, unit_activity2.activity, activity_session2)
+      expect(identify_calls.size).to eq(0)
+      expect(track_calls.size).to eq(2)
+      expect(track_calls[1][:event]).to eq(SegmentIo::BackgroundEvents::ACTIVITY_PACK_COMPLETION)
+      expect(track_calls[1][:user_id]).to eq(teacher.id)
+      expect(track_calls[1][:properties][:activity_pack_name]).to eq(unit.name)
+      expect(track_calls[1][:properties][:student_id]).to eq(student.id)
+    end
+  end
+
   context '#identify' do
 
     let(:district) { create(:district) }
@@ -238,7 +290,8 @@ describe 'SegmentAnalytics' do
       expect(identify_calls[0][:traits][:school_name]).to eq(school.name)
       expect(identify_calls[0][:traits][:school_id]).to eq(school.id)
       expect(identify_calls[0][:traits][:district]).to eq(district.name)
-      expect(identify_calls[0][:traits].length).to eq(10)
+      expect(identify_calls[0][:traits][:flagset]).to eq(teacher1.flagset)
+      expect(identify_calls[0][:traits].length).to eq(11)
     end
 
     it 'sends events to Intercom when the user is an admin' do
@@ -252,14 +305,15 @@ describe 'SegmentAnalytics' do
       expect(identify_calls[0][:traits][:school_name]).to eq(school.name)
       expect(identify_calls[0][:traits][:school_id]).to eq(school.id)
       expect(identify_calls[0][:traits][:district]).to eq(district.name)
-      expect(identify_calls[0][:traits].length).to eq(10)
+      expect(identify_calls[0][:traits][:flagset]).to eq(teacher2.flagset)
+      expect(identify_calls[0][:traits].length).to eq(11)
     end
 
     it 'omits trait properties that have nil values' do
       analytics.identify(teacher3)
       expect(identify_calls.size).to eq(1)
       expect(track_calls.size).to eq(0)
-      expect(identify_calls[0][:traits].length).to eq(9)
+      expect(identify_calls[0][:traits].length).to eq(10)
     end
   end
 end

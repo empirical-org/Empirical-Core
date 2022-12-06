@@ -12,11 +12,16 @@
       padding-top: 24px;
       margin-bottom: 8px;
       min-width: 288px;
-      &.readability, &.ccss-grade-level, &.grade-level {
+      &.readability, &.ccss-grade-level, &.grade-level, &.ell-filters {
         .quill-tooltip-wrapper {
           left: 302px;
           transform: unset;
           top: -20px;
+        }
+      }
+      &.readability, &.ccss-grade-level, &.grade-level {
+        .hoverbox {
+          height: 124px;
         }
       }
       &.grade-level {
@@ -28,7 +33,6 @@
           align-items: flex-start;
         }
         .quill-checkbox {
-          z-index: 2;
           margin-top: -7px;
           margin-right: 8px;
         }
@@ -36,15 +40,47 @@
           width: 234px;
         }
       }
+      &.early-access-filter-section {
+        .quill-tooltip-wrapper {
+          left: 302px;
+          transform: unset;
+          top: -20px;
+        }
+        .individual-row-tooltip-trigger {
+          position: relative;
+        }
+        .individual-row-tooltip-trigger:hover, .quill-tooltip-trigger.active {
+          .individual-row-hoverbox {
+            background-color: rgba(6, 127, 107, 0.06);
+            height: 28px;
+            width: 292px;
+            position: absolute;
+            border-radius: 10px;
+            top: -5px;
+            left: 6px;
+          }
+        }
+      }
+      &.ell-filters {
+        .hoverbox {
+          height: 76px;
+        }
+        &.toggle-expanded {
+          .hoverbox {
+            height: 178px;
+          }
+        }
+      }
+      .hoverbox {
+        width: 288px;
+        position: absolute;
+        border-radius: 10px;
+        top: -12px;
+        left: 8px;
+      }
       .tooltip-trigger-filter-section-content:hover, .quill-tooltip-trigger.active {
         .hoverbox {
           background-color: rgba(6, 127, 107, 0.06);
-          height: 124px;
-          width: 288px;
-          position: absolute;
-          border-radius: 10px;
-          top: -12px;
-          left: 8px;
         }
       }
       h2 {
@@ -146,7 +182,7 @@
           float: right;
         }
       }
-      &.content-partner-filter-section, &.activity-category-filter-section, &.flag-filter-section {
+      &.content-partner-filter-section, &.activity-category-filter-section, &.flag-filter-section, &.early-access-filter-section {
         .individual-row {
           margin-left: 24px;
         }
@@ -201,6 +237,7 @@
       justify-content: space-between;
       .quill-checkbox {
         margin-right: 8px;
+        z-index: 2;
       }
       span {
         line-height: normal;
@@ -243,6 +280,7 @@
         }
         .filter-toggle-button {
           margin: 0px 4px;
+          z-index: 2;
           .is-closed {
             transform: rotate(270deg);
           }
@@ -253,6 +291,9 @@
       }
       .individual-row {
         margin-left: 48px;
+        .filter-toggle-button {
+          margin: 0px 4px;
+        }
         .activity-classification-data {
           flex-direction: column;
           .description {
@@ -280,6 +321,13 @@
             align-items: center;
             justify-content: center;
           }
+        }
+      }
+      .level-one-row {
+        margin-left: 84px;
+        margin-top: 16px;
+        .checkbox-row {
+          display: flex;
         }
       }
     }

@@ -9,14 +9,10 @@ class PremiumAnalyticsWorker
     return unless @user
 
     analytics = Analyzer.new
-    if Subscription::OFFICIAL_FREE_TYPES.include?(account_type)
-      event = SegmentIo::BackgroundEvents::BEGAN_PREMIUM_TRIAL
-    elsif Subscription::OFFICIAL_SCHOOL_TYPES.include?(account_type)
-      event = SegmentIo::BackgroundEvents::BEGAN_SCHOOL_PREMIUM
-    else
-      event = SegmentIo::BackgroundEvents::BEGAN_TEACHER_PREMIUM
-    end
-    # tell segment.io
-    analytics.track(@user, event)
+    analytics.track_with_attributes(
+      @user,
+      SegmentIo::BackgroundEvents::TEACHER_BEGAN_PREMIUM,
+      properties: @user.segment_user.premium_params
+    )
   end
 end

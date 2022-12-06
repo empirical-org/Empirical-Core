@@ -1,9 +1,9 @@
 @import "../../../node_modules/react-select/dist/react-select";
-@import "../../../client/node_modules/react-dates/lib/css/_datepicker";
+@import "../../../client/node_modules/react-datetime/css/react-datetime";
 
+@import "variables";
 @import "bootstrap-sprockets";
 @import "bootstrap";
-@import "variables";
 @import "mixins";
 @import "custom";
 @import "pages/**/*";

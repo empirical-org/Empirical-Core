@@ -130,23 +130,21 @@ exports[`FillInTheBlank component projector view inactive renders 1`] = `
                 }
               }
             />
-            <span>
-              <input
-                aria-label="Complete the sentence with one of the following options: the, a"
-                autoComplete="off"
-                className="disabled"
-                disabled={true}
-                id="input0"
-                onChange={[Function]}
-                style={
-                  Object {
-                    "width": "70px",
-                  }
+            <input
+              aria-label="Choose which one of the following options fits best in the blank : the, a."
+              autoComplete="off"
+              className="disabled"
+              disabled={true}
+              id="input0"
+              onChange={[Function]}
+              style={
+                Object {
+                  "width": "70px",
                 }
-                type="text"
-                value=""
-              />
-            </span>
+              }
+              type="text"
+              value=""
+            />
             <div
               dangerouslySetInnerHTML={
                 Object {
@@ -237,26 +235,22 @@ exports[`FillInTheBlank component projector view inactive renders 1`] = `
             }
             key="store.6"
           />
-          <span
-            key="span0"
-          >
-            <input
-              aria-label="Complete the sentence with one of the following options: the, a"
-              autoComplete="off"
-              className="disabled"
-              disabled={true}
-              id="input0"
-              key="100"
-              onChange={[Function]}
-              style={
-                Object {
-                  "width": "70px",
-                }
+          <input
+            aria-label="Choose which one of the following options fits best in the blank : the, a."
+            autoComplete="off"
+            className="disabled"
+            disabled={true}
+            id="input0"
+            key="100"
+            onChange={[Function]}
+            style={
+              Object {
+                "width": "70px",
               }
-              type="text"
-              value=""
-            />
-          </span>
+            }
+            type="text"
+            value=""
+          />
           <div
             dangerouslySetInnerHTML={
               Object {
@@ -545,23 +539,21 @@ exports[`FillInTheBlank component projector view when an answer is being display
                 }
               }
             />
-            <span>
-              <input
-                aria-label="Complete the sentence with one of the following options: the, a"
-                autoComplete="off"
-                className="disabled"
-                disabled={true}
-                id="input0"
-                onChange={[Function]}
-                style={
-                  Object {
-                    "width": "70px",
-                  }
+            <input
+              aria-label="Choose which one of the following options fits best in the blank : the, a."
+              autoComplete="off"
+              className="disabled"
+              disabled={true}
+              id="input0"
+              onChange={[Function]}
+              style={
+                Object {
+                  "width": "70px",
                 }
-                type="text"
-                value=""
-              />
-            </span>
+              }
+              type="text"
+              value=""
+            />
             <div
               dangerouslySetInnerHTML={
                 Object {
@@ -652,26 +644,22 @@ exports[`FillInTheBlank component projector view when an answer is being display
             }
             key="store.6"
           />
-          <span
-            key="span0"
-          >
-            <input
-              aria-label="Complete the sentence with one of the following options: the, a"
-              autoComplete="off"
-              className="disabled"
-              disabled={true}
-              id="input0"
-              key="100"
-              onChange={[Function]}
-              style={
-                Object {
-                  "width": "70px",
-                }
+          <input
+            aria-label="Choose which one of the following options fits best in the blank : the, a."
+            autoComplete="off"
+            className="disabled"
+            disabled={true}
+            id="input0"
+            key="100"
+            onChange={[Function]}
+            style={
+              Object {
+                "width": "70px",
               }
-              type="text"
-              value=""
-            />
-          </span>
+            }
+            type="text"
+            value=""
+          />
           <div
             dangerouslySetInnerHTML={
               Object {
@@ -914,22 +902,20 @@ exports[`FillInTheBlank component student view inactive renders 1`] = `
                 }
               }
             />
-            <span>
-              <input
-                aria-label="Complete the sentence with one of the following options: the, a"
-                autoComplete="off"
-                className=""
-                id="input0"
-                onChange={[Function]}
-                style={
-                  Object {
-                    "width": "70px",
-                  }
+            <input
+              aria-label="Choose which one of the following options fits best in the blank : the, a."
+              autoComplete="off"
+              className=""
+              id="input0"
+              onChange={[Function]}
+              style={
+                Object {
+                  "width": "70px",
                 }
-                type="text"
-                value=""
-              />
-            </span>
+              }
+              type="text"
+              value=""
+            />
             <div
               dangerouslySetInnerHTML={
                 Object {
@@ -1020,25 +1006,21 @@ exports[`FillInTheBlank component student view inactive renders 1`] = `
             }
             key="store.6"
           />
-          <span
-            key="span0"
-          >
-            <input
-              aria-label="Complete the sentence with one of the following options: the, a"
-              autoComplete="off"
-              className=""
-              id="input0"
-              key="100"
-              onChange={[Function]}
-              style={
-                Object {
-                  "width": "70px",
-                }
+          <input
+            aria-label="Choose which one of the following options fits best in the blank : the, a."
+            autoComplete="off"
+            className=""
+            id="input0"
+            key="100"
+            onChange={[Function]}
+            style={
+              Object {
+                "width": "70px",
               }
-              type="text"
-              value=""
-            />
-          </span>
+            }
+            type="text"
+            value=""
+          />
           <div
             dangerouslySetInnerHTML={
               Object {
@@ -1294,22 +1276,20 @@ exports[`FillInTheBlank component student view when an answer is being displayed
                 }
               }
             />
-            <span>
-              <input
-                aria-label="Complete the sentence with one of the following options: the, a"
-                autoComplete="off"
-                className=""
-                id="input0"
-                onChange={[Function]}
-                style={
-                  Object {
-                    "width": "70px",
-                  }
+            <input
+              aria-label="Choose which one of the following options fits best in the blank : the, a."
+              autoComplete="off"
+              className=""
+              id="input0"
+              onChange={[Function]}
+              style={
+                Object {
+                  "width": "70px",
                 }
-                type="text"
-                value=""
-              />
-            </span>
+              }
+              type="text"
+              value=""
+            />
             <div
               dangerouslySetInnerHTML={
                 Object {
@@ -1400,25 +1380,21 @@ exports[`FillInTheBlank component student view when an answer is being displayed
             }
             key="store.6"
           />
-          <span
-            key="span0"
-          >
-            <input
-              aria-label="Complete the sentence with one of the following options: the, a"
-              autoComplete="off"
-              className=""
-              id="input0"
-              key="100"
-              onChange={[Function]}
-              style={
-                Object {
-                  "width": "70px",
-                }
+          <input
+            aria-label="Choose which one of the following options fits best in the blank : the, a."
+            autoComplete="off"
+            className=""
+            id="input0"
+            key="100"
+            onChange={[Function]}
+            style={
+              Object {
+                "width": "70px",
               }
-              type="text"
-              value=""
-            />
-          </span>
+            }
+            type="text"
+            value=""
+          />
           <div
             dangerouslySetInnerHTML={
               Object {
@@ -1668,22 +1644,20 @@ exports[`FillInTheBlank component student view when the student has submitted an
                 }
               }
             />
-            <span>
-              <input
-                aria-label="Complete the sentence with one of the following options: the, a"
-                autoComplete="off"
-                className=""
-                id="input0"
-                onChange={[Function]}
-                style={
-                  Object {
-                    "width": "70px",
-                  }
+            <input
+              aria-label="Choose which one of the following options fits best in the blank : the, a."
+              autoComplete="off"
+              className=""
+              id="input0"
+              onChange={[Function]}
+              style={
+                Object {
+                  "width": "70px",
                 }
-                type="text"
-                value=""
-              />
-            </span>
+              }
+              type="text"
+              value=""
+            />
             <div
               dangerouslySetInnerHTML={
                 Object {
@@ -1774,25 +1748,21 @@ exports[`FillInTheBlank component student view when the student has submitted an
             }
             key="store.6"
           />
-          <span
-            key="span0"
-          >
-            <input
-              aria-label="Complete the sentence with one of the following options: the, a"
-              autoComplete="off"
-              className=""
-              id="input0"
-              key="100"
-              onChange={[Function]}
-              style={
-                Object {
-                  "width": "70px",
-                }
+          <input
+            aria-label="Choose which one of the following options fits best in the blank : the, a."
+            autoComplete="off"
+            className=""
+            id="input0"
+            key="100"
+            onChange={[Function]}
+            style={
+              Object {
+                "width": "70px",
               }
-              type="text"
-              value=""
-            />
-          </span>
+            }
+            type="text"
+            value=""
+          />
           <div
             dangerouslySetInnerHTML={
               Object {

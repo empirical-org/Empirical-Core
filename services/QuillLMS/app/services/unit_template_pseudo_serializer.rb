@@ -23,7 +23,8 @@ class UnitTemplatePseudoSerializer
       type: type,
       readability: ut.readability,
       grade_level_range: ut.grade_level_range,
-      diagnostics_recommended_by: ut.diagnostics_recommended_by
+      diagnostics_recommended_by: ut.diagnostics_recommended_by,
+      image_link: ut.image_link
     }
   end
 
@@ -60,8 +61,7 @@ class UnitTemplatePseudoSerializer
           standards.name AS standard_name,
           standard_levels.name AS standard_level_name,
           standard_categories.id AS standard_category_id,
-          standard_categories.name AS standard_category_name,
-          topics.name AS level_zero_topic_name
+          standard_categories.name AS standard_category_name
         FROM activities
         LEFT JOIN standards
           ON standards.id = activities.standard_id
@@ -77,10 +77,6 @@ class UnitTemplatePseudoSerializer
           ON activities.id = activity_category_activities.activity_id
         LEFT JOIN activity_categories
           ON activity_categories.id = activity_category_activities.activity_category_id
-        LEFT JOIN activity_topics
-          ON activity_topics.activity_id = activities.id
-        LEFT JOIN topics
-          ON activity_topics.topic_id = topics.id AND topics.level = 0
         WHERE activities_unit_templates.unit_template_id = #{@unit_template.id}
           AND NOT 'archived' = ANY(activities.flags)
         GROUP BY
@@ -96,15 +92,13 @@ class UnitTemplatePseudoSerializer
           standard_levels.name,
           standard_categories.id,
           standard_categories.name,
-          topics.name,
           activities_unit_templates.order_number,
           activity_categories.order_number,
           activity_category_activities.order_number
         ORDER BY
           activities_unit_templates.order_number,
           activity_categories.order_number,
-          activity_category_activities.order_number,
-          topics.name
+          activity_category_activities.order_number
       SQL
     ).to_a
 
@@ -128,7 +122,7 @@ class UnitTemplatePseudoSerializer
           name: act['activity_classification_name']
         },
         readability: Activity.find(act['id']).readability_grade_level,
-        level_zero_topic_name: act['level_zero_topic_name']
+        topic_names: Activity.find(act['id']).topics.map(&:name)
       }
     end
 

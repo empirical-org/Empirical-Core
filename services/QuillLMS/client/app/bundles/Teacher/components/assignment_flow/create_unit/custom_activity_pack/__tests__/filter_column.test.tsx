@@ -1,9 +1,10 @@
 import * as React from 'react'
 import { mount } from 'enzyme';
 
-import { activities } from './data'
+import { activities, topics } from './data'
 
 import FilterColumn from '../filter_column'
+import { EVIDENCE_BETA1, EVIDENCE_BETA2, PRODUCTION, } from '../../../../../../../constants/flagOptions'
 
 describe('FilterColumn component', () => {
   const props = {
@@ -19,6 +20,10 @@ describe('FilterColumn component', () => {
     handleGradeLevelFilterChange: () => {},
     ellFilters: [],
     handleELLFilterChange: () => {},
+    flagFilters: [],
+    handleFlagFilterChange: () => {},
+    earlyAccessFilters: [],
+    handleEarlyAccessFilterChange: () => {},
     readabilityGradeLevelFilters: [],
     handleReadabilityGradeLevelFilterChange: () => {},
     activityCategoryFilters: [],
@@ -30,12 +35,27 @@ describe('FilterColumn component', () => {
     filterActivities: (ignoredKey?: string) => activities,
     handleSavedActivityFilterChange: () => {},
     savedActivityFilters: [],
-    savedActivityIds: []
+    savedActivityIds: [],
+    flagset: PRODUCTION,
+    topics: topics,
   }
 
   it('should render', () => {
     const wrapper = mount(<FilterColumn {...props} />)
     expect(wrapper).toMatchSnapshot();
   });
+
+  describe('if flagset is one of the evidence betas', () => {
+    it('should render', () => {
+      const wrapper = mount(<FilterColumn {...props} flagset={EVIDENCE_BETA1} />)
+      expect(wrapper).toMatchSnapshot();
+    })
+
+    it('should render', () => {
+      const wrapper = mount(<FilterColumn {...props} flagset={EVIDENCE_BETA2} />)
+      expect(wrapper).toMatchSnapshot();
+    })
+  });
+
 
 })

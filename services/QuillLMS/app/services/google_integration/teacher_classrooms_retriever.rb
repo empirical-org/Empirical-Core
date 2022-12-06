@@ -20,7 +20,7 @@ module GoogleIntegration
       cache_classrooms_data
       notify_pusher
     rescue *ACCESS_TOKEN_ERRORS => e
-      NewRelic::Agent.notice_error(e, user_id: user_id)
+      ErrorNotifier.report(e, user_id: user_id)
       e.message
     end
 

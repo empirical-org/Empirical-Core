@@ -62,6 +62,7 @@ module Evidence
         expect(response.code.to_i).to(eq(201))
         expect(parsed_response["title"]).to(eq("First Activity"))
         expect(parsed_response["notes"]).to(eq("First Activity - Notes"))
+        expect(parsed_response["version"]).to(eq(1))
         expect(Activity.count).to(eq(1))
       end
 
@@ -74,7 +75,7 @@ module Evidence
         expect(change_log.user_id).to(eq(1))
         expect(change_log.changed_record_type).to(eq("Evidence::Activity"))
         expect(change_log.changed_record_id).to(eq(new_activity.id))
-        expect(change_log.new_value).to(eq(nil))
+        expect(change_log.new_value).to(eq("1"))
       end
 
       it 'should not create an invalid record and return errors as json' do
@@ -137,13 +138,14 @@ module Evidence
     end
 
     context 'should update' do
-      before do
-        session[:user_id] = 1
-      end
-
+      let!(:staff_user_id) { 1 }
       let!(:activity) { create(:evidence_activity, :parent_activity_id => 1, :title => "First Activity", :target_level => 8, :scored_level => "4th grade") }
       let!(:passage) { create(:evidence_passage, :activity => (activity)) }
       let!(:prompt) { create(:evidence_prompt, :activity => (activity)) }
+
+      before do
+        session[:user_id] = staff_user_id
+      end
 
       it 'should update record if valid, return nothing' do
         put(:update, :params => ({ :id => activity.id, :activity => ({ :parent_activity_id => 2, :scored_level => "5th grade", :target_level => 9, :title => "New title" }) }))
@@ -179,6 +181,22 @@ module Evidence
         expect(change_log.changed_record_type).to(eq("Evidence::Passage"))
         expect(change_log.previous_value).to(eq(nil))
         expect(change_log.new_value).to(eq('Goodbye' * 20))
+      end
+
+      it 'should make a change log record after updating the flag' do
+        new_activity = create(:evidence_activity)
+        parent_activity = Evidence.parent_activity_class.find_by_name(new_activity.title)
+        parent_activity.update!(flag: "beta")
+        put :update, params: {id: new_activity.id, activity: { flag: "alpha" }}
+
+        change_log = Evidence.change_log_class.last
+        expect(change_log.action).to eq("updated")
+        expect(change_log.user_id).to eq(staff_user_id)
+        expect(change_log.changed_record_type).to eq(new_activity.class.name)
+        expect(change_log.changed_record_id).to eq(new_activity.id)
+        expect(change_log.changed_attribute).to eq("flags")
+        expect(change_log.previous_value).to eq("[\"beta\"]")
+        expect(change_log.new_value).to eq("[\"alpha\"]")
       end
 
       it 'should update passage if valid, return nothing' do
@@ -283,8 +301,9 @@ module Evidence
 
         expect(response.code.to_i).to(eq(200))
         expect(parsed_response.select {|cl| cl["changed_record_type"] == 'Evidence::Passage'}.count).to(eq(1))
-        expect(parsed_response.select {|cl| cl["changed_record_type"] == 'Evidence::Activity'}.count).to(eq(1))
+        expect(parsed_response.select {|cl| cl["changed_record_type"] == 'Evidence::Activity'}.count).to(eq(2))
         expect(parsed_response.select {|cl| cl["changed_record_type"] == 'Evidence::Prompt'}.count).to(eq(1))
+        expect(parsed_response.select {|cl| cl["changed_attribute"] == 'version'}.count).to(eq(1))
 
       end
 
@@ -329,17 +348,58 @@ module Evidence
 
     context "#seed_data" do
       let(:activity) { create(:evidence_activity) }
+      # TODO: fill out test when frontend is complete
+      let(:label_configs) {{}}
 
       it "should call background worker" do
-        expect(Evidence::ActivitySeedDataWorker).to receive(:perform_async).with(activity.id, [])
+        expect(Evidence::ActivitySeedDataWorker).to receive(:perform_async).with(activity.id, [], label_configs)
         post :seed_data, params: { id: activity.id, nouns: "" }
 
         expect(response).to have_http_status(:success)
       end
 
       it "should call background worker with noun string converted to array" do
-        expect(Evidence::ActivitySeedDataWorker).to receive(:perform_async).with(activity.id, ['noun1','noun two','noun3'])
+        expect(Evidence::ActivitySeedDataWorker).to receive(:perform_async).with(activity.id, ['noun1','noun two','noun3'], label_configs)
         post :seed_data, params: { id: activity.id, nouns: "noun1, noun two,,noun3" }
+
+        expect(response).to have_http_status(:success)
+      end
+
+      context 'with label_configs' do
+        let(:label1) {'label1'}
+        let(:label2) {'label2'}
+        let(:example1) {'some sentence'}
+        let(:example2) {'sentence other'}
+        let(:label_config1) {{'label' => label1, 'example1' => example1, 'example2' => example2}}
+        let(:label_config2) {{'label' => label2, 'example1' => example1, 'example2' => example2}}
+        let(:label_configs) {{'so' => [label_config1, label_config2], 'because' => [label_config2]}}
+
+        it "should call background worker" do
+          expect(Evidence::ActivitySeedDataWorker).to receive(:perform_async).with(activity.id, [], label_configs)
+          post :seed_data, params: { id: activity.id, nouns: "", label_configs: label_configs }
+
+          expect(response).to have_http_status(:success)
+        end
+
+      end
+    end
+
+    context "#labeled_synthetic_data" do
+      let(:activity) { create(:evidence_activity) }
+
+      it "should NOT call background worker if no filenames" do
+        expect(Evidence::SyntheticLabeledDataWorker).to_not receive(:perform_async)
+
+        post :labeled_synthetic_data, params: { id: activity.id, filenames: [] }
+
+        expect(response).to have_http_status(:success)
+      end
+
+      it "should call background worker for each filename" do
+        expect(Evidence::SyntheticLabeledDataWorker).to receive(:perform_async).with('one', activity.id)
+        expect(Evidence::SyntheticLabeledDataWorker).to receive(:perform_async).with('two', activity.id)
+
+        post :labeled_synthetic_data, params: { id: activity.id, filenames: ['one', 'two'] }
 
         expect(response).to have_http_status(:success)
       end

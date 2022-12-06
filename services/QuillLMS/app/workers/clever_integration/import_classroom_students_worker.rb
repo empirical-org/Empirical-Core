@@ -13,8 +13,8 @@ module CleverIntegration
 
       TeacherClassroomsStudentsImporter.run(teacher, classroom_ids)
       PusherTrigger.run(teacher_id, PUSHER_EVENT, "clever classroom students imported for #{teacher_id}.")
-    rescue StandardError => e
-      NewRelic::Agent.notice_error(e, user_id: teacher_id)
+    rescue => e
+      ErrorNotifier.report(e, user_id: teacher_id)
     end
   end
 end

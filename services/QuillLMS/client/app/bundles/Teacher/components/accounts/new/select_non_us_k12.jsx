@@ -1,14 +1,14 @@
 import React from 'react';
-import request from 'request'
 import { Card } from '../../../../Shared/index'
 
 import AssignActivityPackBanner from '../assignActivityPackBanner'
-import getAuthToken from '../../modules/get_auth_token';
+import { requestPut, } from '../../../../../modules/request/index'
 
 const homeSchoolSrc = `${process.env.CDN_URL}/images/onboarding/home-building.svg`
 const internationalSrc = `${process.env.CDN_URL}/images/onboarding/globe.svg`
 const higherEdSrc = `${process.env.CDN_URL}/images/onboarding/school-campus.svg`
 const otherSrc = `${process.env.CDN_URL}/images/onboarding/business-building.svg`
+const mapSearchImgSrc = `${process.env.CDN_URL}/images/accounts/map-search.svg`
 
 class SelectUSNonK12 extends React.Component {
   componentDidMount() {
@@ -24,21 +24,13 @@ class SelectUSNonK12 extends React.Component {
   handleClickUSHigherEd = () => this.selectSchool('us higher ed')
 
   selectSchool(idOrType) {
-    request({
-      url: `${process.env.DEFAULT_URL}/select_school`,
-      json: {
-        school_id_or_type: idOrType,
-        authenticity_token: getAuthToken(),
-      },
-      method: 'PUT',
-    },
-    (err, httpResponse, body) => {
-      if (httpResponse.statusCode === 200) {
-        window.location = '/finish_sign_up'
-      } else {
-        // to do, use Sentry to capture error
+    requestPut(
+      `${process.env.DEFAULT_URL}/select_school`,
+      { school_id_or_type: idOrType, },
+      (body) => {
+        window.location = '/sign-up/add-teacher-info'
       }
-    });
+    )
   }
 
   render() {
@@ -46,6 +38,7 @@ class SelectUSNonK12 extends React.Component {
       <div>
         <AssignActivityPackBanner />
         <div className="container account-form select-non-k12">
+          <img alt="" className="top-graphic" src={mapSearchImgSrc} />
           <h1>Where do you teach?</h1>
           <div className="quill-cards">
             <Card

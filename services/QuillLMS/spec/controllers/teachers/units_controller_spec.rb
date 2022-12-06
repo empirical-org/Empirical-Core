@@ -18,9 +18,17 @@ describe Teachers::UnitsController, type: :controller do
    )
   end
 
+  let!(:classroom_unit2) do
+    create(:classroom_unit,
+     unit: unit2,
+     classroom: classroom,
+     assigned_student_ids: [student.id]
+   )
+  end
+
   let!(:diagnostic) { create(:diagnostic) }
   let!(:diagnostic_activity) { create(:diagnostic_activity)}
-  let!(:unit_activity) { create(:unit_activity, unit: unit, activity: diagnostic_activity, due_date: Time.current )}
+  let!(:unit_activity) { create(:unit_activity, unit: unit, activity: diagnostic_activity, due_date: Time.current, publish_date: 1.hour.ago )}
 
   let!(:completed_activity_session) do
     create(:activity_session,
@@ -61,9 +69,21 @@ describe Teachers::UnitsController, type: :controller do
 
     it 'should render the correct json' do
       get :prohibited_unit_names, as: :json
-      expect(response.body).to eq({
-          prohibitedUnitNames: unit_names.concat(unit_template_names)
-      }.to_json)
+      expect(JSON.parse(response.body)['prohibitedUnitNames']).to match_array(unit_names.concat(unit_template_names))
+    end
+
+    it 'should not include unit names from archived classrooms' do
+      classroom2 = create(:classroom, visible: false)
+      create(:classrooms_teacher, classroom: classroom2, user: teacher, role: 'owner')
+      unit3 = create(:unit, user: teacher)
+      create(:classroom_unit,
+        unit: unit3,
+        classroom: classroom2,
+        assigned_student_ids: [student.id]
+      )
+
+      get :prohibited_unit_names, as: :json
+      expect(JSON.parse(response.body)['prohibitedUnitNames']).not_to include(unit3.name.downcase)
     end
   end
 
@@ -190,6 +210,7 @@ describe Teachers::UnitsController, type: :controller do
       expect(parsed_response[0]['number_of_assigned_students']).to eq(classroom_unit.assigned_student_ids.length)
       expect(parsed_response[0]['activity_uid']).to eq(diagnostic_activity.uid)
       expect(DateTime.parse(parsed_response[0]['due_date']).to_i).to eq(unit_activity.due_date.to_i)
+      expect(DateTime.parse(parsed_response[0]['publish_date']).to_i).to eq(unit_activity.publish_date.to_i)
       expect(parsed_response[0]['unit_created_at'].to_i).to eq(unit.created_at.to_i)
       expect(parsed_response[0]['unit_activity_created_at'].to_i).to eq(unit_activity.created_at.to_i)
     end
@@ -203,7 +224,86 @@ describe Teachers::UnitsController, type: :controller do
       expect(parsed_response[0]['number_of_assigned_students']).to eq(original_assigned_student_ids_length)
     end
 
-    # TODO: write a VCR-like test to check when this request returns something other than what we expect.
+    it 'should return activities even if they have been archived' do
+      diagnostic_activity.update(flags: [Activity::ARCHIVED])
+
+      response = get :index, params: { report: false }
+      parsed_response = JSON.parse(response.body)
+
+      expect(parsed_response.length).to eq(1)
+    end
+
+    context 'publish dates' do
+      let(:response) { get :index, params: { report: false } }
+      let(:scheduled) { JSON.parse(response.body)[0]['scheduled'] }
+
+      describe 'when the teacher has a time zone' do
+        before do
+          teacher.update(time_zone: 'America/New_York')
+
+          # have to do update_columns here because otherwise the publish date is offset by a callback
+          unit_activity.update_columns(publish_date: publish_date)
+        end
+
+        context 'publish date is in one hour' do
+          let(:publish_date) { Time.now.utc + 1.hour }
+
+          it 'should return activities with publish dates in the future as scheduled' do
+            expect(scheduled).to eq true
+          end
+        end
+
+        context 'publish date is one hour ago' do
+          let(:publish_date) { Time.now.utc - 1.hour }
+
+          it 'should return activities with publish dates in the past as not scheduled' do
+            expect(scheduled).to eq false
+          end
+        end
+
+        context 'no publish date' do
+          let(:publish_date) { nil }
+
+          it 'should return activities with no publish dates as nil scheduled' do
+            expect(scheduled).to eq nil
+          end
+        end
+      end
+
+      describe 'when the teacher has no time zone' do
+        before do
+          # have to do update columns here because the time zone is set by a callback
+          teacher.update_columns(time_zone: nil)
+
+          # have to do update_columns here because otherwise the publish date is offset by a callback
+          unit_activity.update_columns(publish_date: publish_date)
+        end
+
+        context 'publish date is in one hour' do
+          let(:publish_date) { Time.now.utc + 1.hour }
+
+          it 'should return activities with publish dates in the future as scheduled' do
+            expect(scheduled).to eq true
+          end
+        end
+
+        context 'publish date is one hour ago' do
+          let(:publish_date) { Time.now.utc - 1.hour }
+
+          it 'should return activities with publish dates in the past as not scheduled' do
+            expect(scheduled).to eq false
+          end
+        end
+
+        context 'no publish date' do
+          let(:publish_date) { nil }
+
+          it 'should return activities with no publish dates as nil scheduled' do
+            expect(scheduled).to eq nil
+          end
+        end
+      end
+    end
   end
 
   describe '#update' do
@@ -266,10 +366,15 @@ describe Teachers::UnitsController, type: :controller do
 
     it "sends a 200 status code when it is passed valid data" do
       activity = unit_activity.activity
-      put :update_activities, params: { id: unit.id.to_s, data: {
+      put :update_activities,
+        params: {
+          id: unit.id,
+          data: {
             unit_id: unit.id,
-            activities_data: [{id: activity.id, due_date: nil}]
-          } }
+            activities_data: [{ id: activity.id, due_date: nil }]
+          }
+        }
+
       expect(response.status).to eq(200)
     end
 

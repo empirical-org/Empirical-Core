@@ -5,7 +5,7 @@ require 'rails_helper'
 describe StudentsClassroomsController, type: :controller do
   describe '#create' do
     context 'when current user exists' do
-      let(:user) { create(:user) }
+      let(:user) { create(:user, role: User::STUDENT) }
 
       before do
         allow(controller).to receive(:current_user) { user }
@@ -15,9 +15,27 @@ describe StudentsClassroomsController, type: :controller do
         let!(:classroom) { create(:classroom) }
 
         it 'should kick off the students to classroom associator and join classroom worker' do
-          expect(Associators::StudentsToClassrooms).to receive(:run).with(user, classroom)
+          expect(StudentJoinedClassroomWorker).to receive(:perform_async)
+          # There's a weird setup here where this Associator calls `save` if
+          # it creates a new record, and there's an `after_save` hook on the
+          # model that that triggers the Associator a second time.
+          expect(Associators::StudentsToClassrooms).to receive(:run).with(user, classroom).twice.and_call_original
           post :create, params: { classcode: classroom.code }
-          expect(response.body).to eq classroom.attributes.to_json
+          expect(JSON.parse(response.body)).to eq classroom.reload.as_json
+        end
+
+        it 'should set visibility to true, but not kick off a join classroom worker if a record already exists' do
+          sc = create(:students_classrooms, student: user, classroom: classroom, visible: false)
+
+          expect(StudentJoinedClassroomWorker).not_to receive(:perform_async)
+          # There's a weird setup here where this Associator calls `save` if
+          # it creates a new record, and there's an `after_save` hook on the
+          # model that that triggers the Associator a second time.
+          expect(Associators::StudentsToClassrooms).to receive(:run).with(user, classroom).twice.and_call_original
+          expect do
+            post :create, params: { classcode: classroom.code }
+          end.to not_change(StudentsClassrooms.unscoped, :count)
+          expect(sc.reload.visible).to be(true)
         end
       end
 

@@ -36,39 +36,12 @@ export const HIGHLIGHT_REMOVAL = 'highlight removal'
 export const HIGHLIGHT_TYPE = 'highlight type'
 export const FEEDBACK_LAYER_ADDITION = 'feedback layer addition'
 export const FEEDBACK_LAYER_REMOVAL = 'feedback layer removal'
-export const ESSENTIAL_KNOWLEDGE_TEXT_FILLER = '<p>In this activity, you’ll read about how skateboarding gained popularity through a process called hierarchical diffusion.</p><br/><p><i>Hierarchical diffusion</i>, happens when an idea spreads through an established social structure (a hierarchy), usually from a person or place with more power and connections to people or places with less power and fewer connections.</p>'
 export const BREAK_TAG = '<br/>';
 
 export const TEXT = 'text';
 export const FIRST_STRONG_EXAMPLE = 'first_strong_example';
 export const SECOND_STRONG_EXAMPLE = 'second_strong_example';
 
-export const flagOptions = [
-  {
-    label: 'alpha',
-    value: 'alpha'
-  },
-  {
-    label: 'private',
-    value: 'private'
-  },
-  {
-    label: 'beta',
-    value: 'beta'
-  },
-  {
-    label: 'gamma',
-    value: 'gamma'
-  },
-  {
-    label: 'production',
-    value: 'production'
-  },
-  {
-    label: 'archived',
-    value: 'archived'
-  },
-];
 
 export const courseOptions = [
   {
@@ -320,61 +293,3 @@ export const numericalWordOptions = {
   3: 'Fourth',
   4: 'Fifth'
 }
-
-export const activitySessionIndexResponseHeaders = [
-  {
-    Header: "Date | Time",
-    accessor: "datetime",
-    width: 150
-  },
-  {
-    Header: "Session ID",
-    accessor: "session_uid",
-    width: 100
-  },
-  {
-    Header: "Total Responses",
-    accessor: "total_attempts",
-    width: 150
-  },
-  {
-    Header: "Because",
-    accessor: "because_attempts",
-    width: 100
-  },
-  {
-    Header: "But",
-    accessor: "but_attempts",
-    width: 100
-  },
-  {
-    Header: "So",
-    accessor: "so_attempts",
-    width: 100
-  },
-  {
-    Header: "Scored",
-    accessor: "scored_count",
-    width: 100
-  },
-  {
-    Header: "Weak",
-    accessor: "weak_count",
-    width: 100
-  },
-  {
-    Header: "Strong",
-    accessor: "strong_count",
-    width: 100
-  },
-  {
-    Header: "Completed?",
-    accessor: "completed",
-    width: 100
-  },
-  {
-    Header: "",
-    accessor: "view_link",
-    width: 100
-  },
-]

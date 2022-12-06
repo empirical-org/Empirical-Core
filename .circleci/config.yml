@@ -2,7 +2,7 @@ version: 2
 jobs:
   lms_rails_build:
     working_directory: ~/Empirical-Core
-    parallelism: 4
+    parallelism: 6
     docker:
       - image: cimg/ruby:2.7.6
         environment:
@@ -64,7 +64,7 @@ jobs:
           command: |
             cd services/QuillLMS
             TESTFILES=$(circleci tests glob "spec/**/*_spec.rb" | grep -v "spec/system/" | grep -v "/skip_ci/" | circleci tests split)
-            bundle exec rspec -- ${TESTFILES}
+            bin/rspec -- ${TESTFILES}
           environment:
             SUPPRESS_PUTS: "true"
   lms_integration_build:
@@ -142,7 +142,7 @@ jobs:
           command: |
             cd services/QuillLMS
             TESTFILES=$(circleci tests glob "spec/system/*_spec.rb" | circleci tests split)
-            bundle exec rspec ${TESTFILES}
+            bin/rspec ${TESTFILES}
       - store_artifacts:
           path: /home/circleci/Empirical-Core/services/QuillLMS/tmp/screenshots
   lms_node_build:
@@ -152,6 +152,10 @@ jobs:
       - image: circleci/node:erbium
     steps:
       - checkout
+      - run:
+          name: Install npm 8
+          command: |
+            sudo npm install npm@8.19.2 -g
 
       - restore_cache:
           keys:

@@ -192,7 +192,9 @@ export class PromptStep extends React.Component<PromptStepProps, PromptStepState
     const regex = this.promptAsRegex()
     const caretPosition = EditCaretPositioning.saveSelection(this.editor)
     if (text.match(regex)) {
-      this.setState({ html: value, }, () => EditCaretPositioning.restoreSelection(this.editor, caretPosition))
+      // when a user deletes the last period, a &nbsp; gets appended as the end of the string so we need to remove this
+      const lastSpaceCorrectedValue = value.replace(/&nbsp;<\/p>/, ' </p>')
+      this.setState({ html: lastSpaceCorrectedValue, }, () => EditCaretPositioning.restoreSelection(this.editor, caretPosition))
       // if the student has deleted everything, we want to remove everything but the prompt stem
     } else if (!text.length) {
       this.resetText()

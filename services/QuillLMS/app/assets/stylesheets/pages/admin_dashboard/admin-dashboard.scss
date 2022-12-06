@@ -14,13 +14,18 @@
   }
 
   h2 {
-    font-size: 24px;
-    font-weight: 600;
+    font-size: 26px;
+    font-weight: 700;
+  }
+
+  section {
+    padding: 0;
+    border-bottom: none;
   }
 
   .blur {
     tr {
-      td:nth-of-type(2),td:nth-of-type(3),td:nth-of-type(4), {
+      td:nth-of-type(2), td:nth-of-type(3), td:nth-of-type(4) {
         -webkit-filter: blur(5px);
        -moz-filter: blur(5px);
        -o-filter: blur(5px);
@@ -35,37 +40,86 @@
   }
 
   .sub-container {
-    max-width: 950px;
+    max-width: $sitewidepagewidth;;
     margin: 0 auto;
-    @media (max-width: 1000px) {
+    @media (max-width: 1210px) {
       margin: 0 10px;
     }
-  }
-  input {
-    max-width: 150px;
-    margin-right: 10px;
+    .dark-divider {
+      background: #989898;
+      height: 1px;
+      margin: 48px 0px;
+    }
+    .light-divider {
+      background: #E0E0E0;;
+      height: 1px;
+      margin: 24px 0px;
+    }
+    .header {
+      .csv-button {
+        margin-top: 32px;
+      }
+    }
   }
   .add-user {
     margin-left: 20px;
   }
-
-  #teacher_account_access {
-    .header-and-dropdown {
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      .dropdown-container {
-        min-width: 300px;
-        min-height: 60px !important;
-        justify-content: center;
+  .teacher-account-access-container {
+    .dropdown-container {
+      width: max-content;
+      justify-content:  flex-start;
+      min-width: 552px;
+      min-height: 60px !important;
+      margin-top: 32px;
+      font-weight: 700;
+    }
+    .dropdown__control {
+      background-color: transparent;
+    }
+    .progress-report {
+      table {
+        thead {
+          tr {
+            border-bottom: 1px solid #E0E0E0;
+            th {
+              font-size: 12px;
+              color: #5C5C5C;
+              background-color: #ffffff;
+              border: none;
+            }
+          }
+        }
+        tbody {
+          div {
+            tr {
+              padding: 8px 0px;
+              td {
+                font-weight: 700;
+                color: #5C5C5C;
+                padding-left: 14px;
+              }
+            }
+          }
+        }
       }
-      .dropdown__control {
-        background-color: transparent;
+    }
+    .warning-section {
+      background-color: #FFFFFF;
+      padding: 24px 14px;
+      border: 1px solid #E0E0E0;
+      border-top: none;
+      color: #5C5C5C;
+      font-size: 16px;
+      margin-bottom: 48px;
+      .warning {
+        font-weight: bold;
+        margin: 0px;
+        color: #EB4F47;
       }
     }
   }
 
-  #features {
+  .admin-features-container {
     color: #3b3b3b;
     margin-top: 22px;
     h2 {
@@ -75,23 +129,39 @@
       display: flex;
       margin-top: 70px;
       .feature {
-        width: 320px;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: space-around;
+        background-color: #ffffff;
+        padding: 32px;
+        border-radius: 16px;
+        flex: 1;
+        text-align: center;
         &:first-of-type, &:nth-of-type(2) {
-          padding-right: 60px;
+          margin-right: 32px;
         }
         img {
+          height: 72px;
+          width: auto;
           margin-bottom: 15px;
         }
         h3 {
-          font-size: 20px;
-          font-weight: 600;
+          font-size: 24px;
+          font-weight: 700;
+          margin-bottom: 16px;
         }
-        .dividing-line {
-          width: 45px;
-          margin-bottom: 15px;
-          margin-top: 10px;
-          height: 1px;
-          border-top: solid 1px #3b3b3b;
+        p {
+          font-size: 16px;
+          font-weight: 400;
+        }
+        a, button {
+          margin-top: 32px;
+          font-weight: 300;
+        }
+        // we will display this button once we have a live link
+        .admin-reports-button {
+          visibility: hidden;
         }
         .contact {
           margin-top: 15px;
@@ -106,213 +176,132 @@
         }
       }
     }
-    .pd-session {
-      height: 48px;
-      border-radius: 100px;
-      background-color: #ae55e2;
-      align-items: center;
-      display: flex;
-      justify-content: space-between;
-      color: white;
-      padding: 0px 24px;
-      margin-top: 25px;
-      span:first-of-type {
-        font-weight: bold;
-      }
-      span:nth-of-type(2) {
-        text-decoration: underline;
-      }
-      &:hover {
-        text-decoration: none;
-      }
-    }
-    @media (max-width: 800px) {
-      text-align: center;
-      .features-list {
-        flex-direction: column;
-        align-items: center;
-        .feature {
-          margin-bottom: 30px;
-          &:first-of-type, &:nth-of-type(2) {
-            padding-right: 0px;
-          }
-          .dividing-line {
-            display: none;
-          }
-          .contact {
-            justify-content: center;
-          }
-        }
-      }
-    }
-  }
-  #teacher_account_access {
-    padding-top: 55px;
-    h2 {
-      margin-bottom: 15px;
-    }
-    .warning {
-      font-weight: bold;
-      margin: 0px;
-    }
-    .teacher-link {
-      font-size: 14px;
-      font-weight: 600;
-    }
   }
 
-  #create_new_accounts {
-    padding-top:70px;
-    margin-bottom: 150px;
-    .header {
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      margin-bottom: 15px;
-      .text-black {
-        border-radius: 6px;
-        border: solid 1px black;
-      }
+  .create-new-accounts-container {
+    position:relative;
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    grid-column-gap: 64px;
+    .left-section:before {
+      content:"";
+      position:absolute;
+      top:0;
+      left: 50%;
+      height:100%;
+      width:1px;
+      background:#CFCFCF;
     }
-    p {
-      font-size: 16px;
-      line-height: 1.62;
-      max-width: 850px;
-      span {
-        font-weight: bold;
-      }
-    }
-    .form-and-schools-list {
-      display: flex;
-      margin-top: 50px;
-      @media (max-width: 475px){
-        flex-direction: column;
-        .form {
-          margin-right: none;
-          padding-right: 0px;
-          margin-bottom: 30px;
-        }
+    .left-section {
+      grid-column: 1;
+      display: contents;
+      box-sizing: border-box;
+      h2 {
+        grid-row: 1;
+        grid-column: 1;
       }
       .form {
-        max-width: 586px;
-        width: 100%;
-        border-right: 1px solid #c0c0c0;
-        padding-right: 55px;
-        input {
-          margin-right: 0px;
-        }
-        .dropdown__control {
-          background-color: transparent;
-        }
-        .first-line, .second-line {
-          margin-bottom: 20px;
-        }
-        .first-line {
-          display: flex;
-          justify-content: space-between;
-          @media (max-width: 1000px) {
-            flex-direction: column;
-            margin-bottom: 0px;
-            input {
-              margin-bottom: 20px;
-              width: 100%;
-              max-width: 520px !important;
+        grid-row: 2;
+        grid-column: 1;
+        background-color: #ffffff;
+        padding: 24px;
+        border: 1px solid #C0C0C0;
+        border-radius: 12px;
+        margin-top: 32px;
+        .first-section {
+          .name-inputs-container {
+            display: flex;
+            margin-bottom: 8px;
+            .first-name {
+              margin-right: 8px;
             }
           }
-        }
-        .second-line {
-          position: relative;
-          max-width: 521px;
-          width: 100%;
-          &:focus {
-            outline: none;
-          }
-          button {
-            &.select-gray {
-              background: white;
-              color: #757575;
-              margin-top: 0px !important;
-            }
-            &:focus {
-              outline: none;
-            }
-          }
-          .dropdown-menu {
-            margin: 0px;
-            cursor: pointer;
+          input {
             width: 100%;
-            border-radius: 5px;
-            li {
-              height: 25px;
-              color: #757575;
-              display: flex;
-              align-items: center;
-              padding-left: 14px;
-            }
+            font-size: 16px;
           }
         }
-        .first-name, .last-name {
-          width: 150px;
+        .second-section {
+          display: flex;
+          flex-direction: column;
+          .input-container  {
+            min-height: auto;
+            margin: 40px 0px 24px 0px;
+            .dropdown {
+              margin: 0;
+              .dropdown__control {
+                margin-bottom: 0;
+              }
+            }
+          }
+          .add-teacher-account-button {
+            width: 100%;
+          }
         }
-        .email {
-          max-width: 200px;
-          width: 100%;
+        .info-section-container {
+          .info-section {
+            font-size: 16px;
+            color: #666666;
+            span {
+              font-weight: 700;
+            }
+            p {
+              font-weight: 400;
+            }
+          }
+          .info-section:first-of-type {
+            margin-bottom: 24px;
+          }
         }
       }
-      .schools {
-        margin-left: 25px;
-        max-width: 350px;
-        width: 100%;
+    }
+    .right-section {
+      grid-column: 2;
+      display: contents;
+      box-sizing: border-box;
+      h2 {
+        grid-row: 1;
+        grid-column: 2;
+      }
+      .content-section {
+        display: flex;
+        flex-direction: column;
+        justify-content: space-between;
+        grid-row: 2;
+        grid-column: 2;
+        background-color: #ffffff;
+        padding: 24px;
+        border: 1px solid #C0C0C0;
+        border-radius: 12px;
+        margin-top: 32px;
         .schools-list {
-          background-color: white;
-          padding: 0 20px;
-          margin: 15px 0px;
-          max-width: 350px;
-          width: 100%;
           .school {
-            font-size: 14px;
-            height: 45px;
             display: flex;
             align-items: center;
-            border-bottom: solid 1px #e9e9e9;
-            &:last-of-type {
-              border-bottom: none;
-            }
+            border: 1px solid #C0C0C0;
+            border-radius: 8px;
+            padding: 16px;
+            margin-bottom: 8px;
             img {
-              height: 20px;
-              margin-right: 15px;
+              width: 21px;
+              height: auto;
+              margin-right: 8px;
             }
           }
         }
-      .need-access {
-        font-size: 14px;
-        font-style: italic;
-        color: #969696;
-        a {
-          text-decoration: underline;
-        }
-      }
-      }
-    }
-  }
-
-  #q-and-a {
-    position: relative;
-    width: 100vw;
-    left: calc(-50vw + 50%);
-    h1 {
-      margin-bottom: 50px;
-    }
-    .qa-section {
-      padding: 15px 0px;
-      .answer {
-        p, ol, ul {
-          margin-top: 15px;
+        .bottom-section {
+          .need-access-text {
+            font-style: italic;
+            color: #969696;
+            a {
+              font-style: normal;
+              font-weight: 700;
+            }
+          }
         }
       }
     }
   }
-
   .tab-subnavigation-wrapper {
     .active, a:hover {
       text-decoration: none;
@@ -333,5 +322,34 @@
       }
     }
   }
+}
 
+@media (max-width: 991px) {
+  .sub-container {
+    .admin-features-container {
+      .features-list {
+        flex-direction: column;
+        align-items: center;
+        .feature {
+          margin-right: 0 !important;
+          margin-bottom: 24px;
+          max-width: 500px;
+        }
+      }
+    }
+    .create-new-accounts-container {
+      display: flex !important;
+      flex-direction: column;
+      .left-section, .right-section {
+        display: flex !important;
+        flex-direction: column;
+      }
+      .left-section {
+        margin-bottom: 32px;
+      }
+      .left-section:before {
+        position: relative !important;
+      }
+    }
+  }
 }

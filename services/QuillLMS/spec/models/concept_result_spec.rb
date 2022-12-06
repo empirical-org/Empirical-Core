@@ -19,12 +19,10 @@
 #  concept_result_previous_feedback_id :integer
 #  concept_result_prompt_id            :integer
 #  concept_result_question_type_id     :integer
-#  old_concept_result_id               :integer
 #
 # Indexes
 #
-#  index_concept_results_on_activity_session_id    (activity_session_id)
-#  index_concept_results_on_old_concept_result_id  (old_concept_result_id) UNIQUE
+#  index_concept_results_on_activity_session_id  (activity_session_id)
 #
 require 'rails_helper'
 
@@ -36,7 +34,6 @@ RSpec.describe ConceptResult, type: :model do
   context 'associations' do
     it { should belong_to(:activity_session) }
     it { should belong_to(:concept) }
-    it { should belong_to(:old_concept_result) }
     it { should belong_to(:concept_result_directions) }
     it { should belong_to(:concept_result_instructions) }
     it { should belong_to(:concept_result_previous_feedback) }
@@ -67,7 +64,7 @@ RSpec.describe ConceptResult, type: :model do
           "questionScore": 0.8
         }
       end
-      let(:json) do
+      let!(:json) do
         {
           "concept_uid": concept.uid,
           "question_type": "sentence-combining",
@@ -130,6 +127,22 @@ RSpec.describe ConceptResult, type: :model do
           .to not_change(ConceptResultDirections, :count)
       end
 
+      it 'should parse metadata into an object if it is provided as a JSON string' do
+        temp_json = json.clone
+        temp_json[:metadata] = json[:metadata].to_json
+
+        concept_result = ConceptResult.create_from_json(temp_json)
+        expect(concept_result.answer).to eq(json[:metadata][:answer])
+      end
+
+      it 'should parse metadata into an object if it is provided as a to_s serialized string' do
+        temp_json = json.clone
+        temp_json[:metadata] = json[:metadata].stringify_keys.to_s
+
+        concept_result = ConceptResult.create_from_json(temp_json)
+        expect(concept_result.answer).to eq(json[:metadata][:answer])
+      end
+
       it 'should extra_metadata containing any keys not part of the normalization process' do
         extra_metadata = {'foo' => 'bar', 'baz' => 'qux'}
         metadata.merge!(extra_metadata)
@@ -141,39 +154,6 @@ RSpec.describe ConceptResult, type: :model do
       it 'should leave extra_metadat nil if no unknown keys are provided' do
         concept_result = ConceptResult.create_from_json(json)
         expect(concept_result.extra_metadata).to be(nil)
-      end
-    end
-
-    context 'self.find_or_create_from_old_concept_result' do
-      let(:question) { create(:question) }
-      let(:activity) { create(:activity, data: {questions: [{key: question.uid}]}) }
-      let(:activity_session) { create(:activity_session, activity: activity) }
-      let(:metadata) do
-        {
-          "correct": 1,
-          "directions": "Combine the sentences. (And)",
-          "lastFeedback": "Proofread your work. Check your spelling.",
-          "prompt": "Deserts are very dry. Years go by without rain.",
-          "attemptNumber": 2,
-          "answer": "Deserts are very dry, and years go by without rain.",
-          "questionNumber": 1,
-          "questionScore": 0.8
-        }
-      end
-      let(:old_concept_result) { create(:sentence_combining, activity_session: activity_session, metadata: metadata) }
-
-      it 'should create a new ConceptResult if none exists for the activity_session-attempt_number-question_number combination of the source ConceptResult' do
-        expect do
-          concept_result = ConceptResult.find_or_create_from_old_concept_result(old_concept_result)
-          expect(concept_result.valid?).to be(true)
-        end.to change(ConceptResult, :count).by(1)
-      end
-
-      it 'should return early if the old_concept_result is already in a concept_results record' do
-        create(:concept_result, old_concept_result: old_concept_result)
-
-        expect(ConceptResult).not_to receive(:create_from_json)
-        ConceptResult.find_or_create_from_old_concept_result(old_concept_result)
       end
     end
 
@@ -233,45 +213,17 @@ RSpec.describe ConceptResult, type: :model do
           "questionScore": 0.8
         }
       end
-      let(:old_concept_result) { create(:sentence_combining, concept: concept, activity_session: activity_session, concept_uid: concept.uid, metadata: metadata, activity_classification_id: activity.activity_classification_id) }
+      let(:concept_result) { ConceptResult.create_from_json({concept_id: concept.id, activity_session_id: activity_session.id, metadata: metadata, activity_classification_id: activity.activity_classification_id, question_type: 'sentence-combining'}) }
 
-      it 'should return data in the same shape as a ConceptResult' do
-        concept_result = ConceptResult.find_or_create_from_old_concept_result(old_concept_result)
-
-        expect(concept_result.legacy_format.except(:id)).to eq(old_concept_result.as_json.deep_symbolize_keys.except(:id))
+      it 'should return data in the same shape as a legacy ConceptResult model' do
+        expect(concept_result.legacy_format.except(:id)).to eq({
+          activity_classification_id: activity.activity_classification_id,
+          activity_session_id: activity_session.id,
+          concept_id: concept.id,
+          metadata: metadata,
+          question_type: 'sentence-combining'
+        })
       end
-    end
-  end
-
-  context 'performance benchmarking', :benchmarking do
-    let(:question) { create(:question) }
-    let(:activity) { create(:activity, data: {questions: [{key: question.uid}]}) }
-    let(:samples) { 100 }
-    let!(:old_concept_results) do
-      samples.times do |i|
-        metadata = {
-          "correct": 1,
-          "directions": "Combine the sentences. (And)#{rand(10)}",
-          "lastFeedback": "Proofread your work. Check your spelling.#{rand(10)}",
-          "prompt": "Deserts are very dry. Years go by without rain.#{rand(10)}",
-          "attemptNumber": rand(1..10),
-          "answer": "Deserts are very dry, and years go by without rain.#{rand(10)}",
-          "questionNumber": 1,
-          "questionScore": 0.8
-        }
-        activity_session = create(:activity_session_without_concept_results, activity: activity)
-        create(:sentence_combining, activity_session: activity_session, metadata: metadata)
-      end
-    end
-
-    it 'performance migration from ConceptResults' do
-      runtime = Benchmark.realtime do
-        OldConceptResult.all.each do |cr|
-          ConceptResult.find_or_create_from_old_concept_result(cr)
-        end
-      end
-      puts format('Average ConceptResult migration runtime for %<count> items: %<runtime>.3f seconds', {runtime: (runtime / ConceptResult.count), count: ConceptResult.count})
-      expect(ConceptResult.count).to eq(OldConceptResult.count)
     end
   end
 end

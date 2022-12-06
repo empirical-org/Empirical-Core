@@ -30,16 +30,6 @@
       height: inherit;
       margin-left: 0px !important;
     }
-    @media only screen and (max-width: 1165px) and (min-width: 600px) {
-      nav.q-navbar-home {
-        width: 100%;
-        padding: 0px;
-      }
-    }
-  }
-  .container {
-    width: 100%;
-    max-width: 980px;
   }
 }
 
@@ -60,19 +50,9 @@
   }
 }
 
-  .navigation-vertical-rule {
-    background: $white;
-    display: inline-block;
-    height: 32px;
-    position: relative;
-    top: 2px;
-    width: 1px;
-  }
-
-
 #nav-user-dropdown {
   position: relative;
-  margin-top: 3px;
+  margin-top: 2px;
   &.on-dashboard {
     .user-dropdown-button {
       background: #fff;
@@ -86,7 +66,7 @@
     }
   }
   .user-dropdown-button {
-    border-radius: 2px;
+    border-radius: 6px;
     float: right;
     height: 30px;
     align-items: center;
@@ -94,8 +74,8 @@
     padding: 0px 12px;
     font-size: 14px;
     cursor: pointer;
-    min-width: 144px;
     justify-content: space-between;
+    min-width: 135px;
     span {
       display: flex;
       align-items: center;
@@ -106,10 +86,13 @@
     &:focus, &:hover {
       text-decoration: none;
     }
+    &::before {
+      right: -6px;
+    }
   }
   div {
     padding: 0;
-    top: 58px;
+    top: 40px;
     width: 100%;
     border-radius: 2px;
     box-shadow: 0 1px 2px 0 #c0c0c0;
@@ -179,11 +162,12 @@
 }
 
 nav.q-navbar-home {
-  max-width: 1165px;
+  max-width: $sitewidepagewidth;
   width: 100%;
   display: flex;
   justify-content: space-between;
   align-content: center;
+  align-items: center;
   position:relative;
   margin: 0px auto;
 
@@ -200,7 +184,6 @@ nav.q-navbar-home {
   }
 
   .home-nav-right {
-    max-width: 700px;
     width: 100%;
     display: flex;
     justify-content: flex-end;
@@ -208,9 +191,9 @@ nav.q-navbar-home {
 
     .nav-element, .navbar-tooltip-trigger {
       margin-left: 20px;
-      &:not(.sign-up-button) {
-        padding: 20px 0px;
-      }
+      // &:not(.sign-up-button) {
+      //   padding: 20px 0px;
+      // }
     }
 
     .nav-element:not(.sign-up-button):hover {
@@ -369,7 +352,6 @@ nav.q-navbar-home {
     }
   }
   @media only screen and (max-width : 1165px) and (min-width: 600px) {
-    padding: 0 15px;
     width: calc(100% - 30px);
   }
 
@@ -377,11 +359,7 @@ nav.q-navbar-home {
 
 .q-nav-bar {
   margin: auto;
-  max-width: 965px;
-  padding-left: 7px;
-  @media (max-width: 990px) {
-    padding-left: 0px;
-  }
+  max-width: $sitewidepagewidth;
   ul {
     display: flex;
     flex-wrap: wrap;
@@ -533,6 +511,8 @@ nav.q-navbar-home {
 .navbar-tooltip-trigger {
   cursor: pointer;
   position: relative;
+  margin-bottom: -40px;
+  padding-bottom: 40px;
   span {
     color: #fff;
   }
@@ -562,7 +542,7 @@ nav.q-navbar-home {
     background-color: #ffffff;
     box-shadow: 0 1px 5px 0 #c0c0c0;
     flex-direction: column;
-    top: 52px;
+    top: 40px;
     left: 50%;
     transform: translateX(-50%);
     padding: 10px 0px;

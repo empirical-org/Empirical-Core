@@ -16,7 +16,7 @@ class SerializeVitallySalesAccount
     activities_finished_this_year = activities_finished_query(@school).where("activity_sessions.updated_at >= ?", school_year_start).count("DISTINCT activity_sessions.id")
     {
       accountId: @school.id.to_s,
-      organizationId: @school.district&.id&.to_s || "",
+      organizationId: organization_id,
       # Type is used by Vitally to determine which data type the payload contains in batches
       type: 'account',
       # Vitally requires a unique messageId for dedupication purposes
@@ -101,5 +101,11 @@ class SerializeVitallySalesAccount
     School.joins(users: {classrooms_i_teach: :activity_sessions})
           .where(id: @school.id)
           .maximum('activity_sessions.completed_at')
+  end
+
+  private def organization_id
+    return @school.district.id.to_s if @school.district&.schools&.any?(&:subscription)
+
+    ""
   end
 end

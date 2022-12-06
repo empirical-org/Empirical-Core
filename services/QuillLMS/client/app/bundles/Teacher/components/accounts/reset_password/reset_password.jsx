@@ -1,8 +1,8 @@
 import React from 'react'
-import request from 'request'
 
 import PasswordWrapper from '../shared/password_wrapper'
 import getAuthToken from '../../modules/get_auth_token';
+import { requestPut, } from '../../../../../modules/request/index'
 
 export default class ForgotPassword extends React.Component {
   constructor() {
@@ -22,21 +22,17 @@ export default class ForgotPassword extends React.Component {
   handleSubmit = (e) => {
     const { timesSubmitted, password, } = this.state
     e.preventDefault();
-    request({
-      url: window.location.href,
-      method: 'PUT',
-      json: {
+    requestPut(
+      window.location.href,
+      {
         user: {
           password
-        },
-        authenticity_token: getAuthToken(),
+        }
       },
-    },
-    (err, httpResponse, body) => {
-      if (httpResponse.statusCode === 200 && body.redirect) {
-        // console.log(body);
+      (body) => {
         window.location = `${process.env.DEFAULT_URL}${body.redirect}`;
-      } else {
+      },
+      (body) => {
         let state
         if (body.type && body.message) {
           const errors = {}
@@ -51,7 +47,7 @@ export default class ForgotPassword extends React.Component {
         }
         this.setState(state)
       }
-    });
+    )
   }
 
   submitClass() {

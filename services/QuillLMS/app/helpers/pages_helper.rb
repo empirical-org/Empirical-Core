@@ -78,6 +78,11 @@ module PagesHelper
             img: 'team-peter-gault@2x.png'
           },
           {
+            name: 'Sarah Kelly',
+            title: 'Managing Director of Strategic Impact',
+            img: 'team-sarah-kelly@2x.png'
+          },
+          {
             name: 'Lila Jane Mabe',
             title: 'Managing Director of Strategy & Impact',
             img: 'team-lila-jane-mabe@2x.png'
@@ -86,11 +91,6 @@ module PagesHelper
             name: 'Hannah Monk',
             title: 'Managing Director of Curriculum',
             img: 'team-hannah-monk@2x.png'
-          },
-          {
-            name: 'Phil Weinberg',
-            title: 'Senior Partner',
-            img: 'team-phil-weinberg@2x.png'
           }
         ]
       },
@@ -104,16 +104,6 @@ module PagesHelper
             img: 'team-eric-adams@2x.png'
           },
           {
-            name: 'Taha Adib',
-            title: 'Associate Data Product Manager',
-            img: 'team-taha-adib@2x.png'
-          },
-          {
-            name: 'Jessica Azani',
-            title: 'Director of Research & Instruction',
-            img: 'team-jessica-azani@2x.png'
-          },
-          {
             name: 'Devin Kawailani Barricklow',
             title: 'Senior Curriculum Developer',
             img: 'team-devin-barricklow@2x.png'
@@ -122,6 +112,11 @@ module PagesHelper
             name: 'Shannon Browne',
             title: 'Professional Learning Manager',
             img: 'team-shannon-browne@2x.png'
+          },
+          {
+            name: 'Nattalie Dai',
+            title: 'Partnerships Specialist I',
+            img: 'team-nattalie-dai@2x.png'
           },
           {
             name: 'Rachel Dantzler',
@@ -159,14 +154,14 @@ module PagesHelper
             img: 'team-scarlet-melo@2x.png'
           },
           {
-            name: 'Robert Morgan',
-            title: 'Partnerships Specialist I',
-            img: 'team-robert-morgan@2x.png'
-          },
-          {
             name: 'Katie Moylan',
             title: 'Curriculum Developer II',
             img: 'team-katie-moylan@2x.png'
+          },
+          {
+            name: 'Alex Otstott',
+            title: 'Director of District Partnerships',
+            img: 'team-alex-otstott@2x.png'
           },
           {
             name: 'Erika Parker-Havens',
@@ -433,7 +428,7 @@ module PagesHelper
                 cb_anchor_tag: '1984'
               },
               {
-                title: 'Sentence Combining: Except from The Night Circus by Erin Morgenstern',
+                title: 'Sentence Combining: Excerpt from The Night Circus by Erin Morgenstern',
                 description: 'Explore how second-person point of view sets up a fantastical world',
                 unit_template_id: '233',
                 cb_anchor_tag: 'the-night-circus'
@@ -443,7 +438,7 @@ module PagesHelper
           {
             activities: [
               {
-                title: 'Sentence Combining: Except from Out of My Mind by Sharon M. Draper',
+                title: 'Sentence Combining: Excerpt from Out of My Mind by Sharon M. Draper',
                 description: 'Explore how first-person point of view efficiently establishes a narrator’s experience',
                 unit_template_id: '234',
                 cb_anchor_tag: 'out-of-my-mind'

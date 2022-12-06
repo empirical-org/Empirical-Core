@@ -8,7 +8,7 @@ module Evidence
     let(:temperature) { 0.9 }
     let(:count) { 10 }
     let(:model_key) { :curie }
-    let(:options_hash) {{key: 'value'}}
+    let(:options) {{key: 'value'}}
     let(:endpoint) {'https://api.openai.com/v1/completions'}
 
     let(:sample_response_body) do
@@ -37,7 +37,7 @@ module Evidence
           temperature: temperature,
           count: count,
           model_key: model_key,
-          options_hash: options_hash)
+          options: options)
     end
 
     describe "#new" do
@@ -46,7 +46,7 @@ module Evidence
         expect(completion.temperature).to eq(temperature)
         expect(completion.count).to eq(count)
         expect(completion.model_key).to eq(model_key)
-        expect(completion.options_hash).to eq(options_hash)
+        expect(completion.options).to eq(options)
       end
     end
 

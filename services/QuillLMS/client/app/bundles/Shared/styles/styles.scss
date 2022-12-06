@@ -18,7 +18,9 @@
 @import './toggle_component_section';
 @import './text_editor';
 @import './react_table';
+@import './react_dates';
 @import './screenreader_instructions';
+@import './video_players.scss';
 @import "~react-select-search/style.css";
 
 #main-content {
@@ -35,4 +37,9 @@
   &:focus {
     outline: none;
   }
+}
+
+.flex-column-reverse {
+  display: flex;
+  flex-direction: column-reverse;
 }

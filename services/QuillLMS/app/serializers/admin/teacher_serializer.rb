@@ -8,7 +8,8 @@ class Admin::TeacherSerializer < ApplicationSerializer
             :links,
             :number_of_students,
             :number_of_activities_completed,
-            :time_spent
+            :time_spent,
+            :has_valid_subscription
 
   type :teacher
 

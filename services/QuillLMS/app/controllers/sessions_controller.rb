@@ -6,6 +6,8 @@ require 'new_relic/agent'
 class SessionsController < ApplicationController
   include CleverAuthable
 
+  class OriginalRouteStillInUseError < StandardError; end
+
   CLEAR_ANALYTICS_SESSION_KEY = "clear_analytics_session"
 
   around_action :force_writer_db_role, only: [:destroy]
@@ -19,12 +21,15 @@ class SessionsController < ApplicationController
     if @user.nil?
       report_that_route_is_still_in_use
       login_failure_message
-    elsif @user.signed_up_with_google
+    elsif @user.signed_up_with_google || @user.google_id
       report_that_route_is_still_in_use
       login_failure 'You signed up with Google, please log in with Google using the link above.'
+    elsif @user.clever_id
+      report_that_route_is_still_in_use
+      login_failure 'You signed up with Clever, please log in with Clever using the link above.'
     elsif @user.password_digest.nil?
       report_that_route_is_still_in_use
-      login_failure 'Login failed. Did you sign up with Google? If so, please log in with Google using the link above.'
+      login_failure 'Something went wrong verifying your password. Please use the "Forgot password?" link below to reset it.'
     elsif @user.authenticate(params[:user][:password])
       sign_in(@user)
       if session[ApplicationController::POST_AUTH_REDIRECT].present?
@@ -46,14 +51,14 @@ class SessionsController < ApplicationController
   def login_through_ajax
     email_or_username = params[:user][:email].downcase.strip unless params[:user][:email].nil?
     @user =  User.find_by_username_or_email(email_or_username)
-    if @user.nil?
+    if @user.nil? || @user.sales_contact?
       render json: {message: 'An account with this email or username does not exist. Try again.', type: 'email'}, status: :unauthorized
-    elsif @user.signed_up_with_google
+    elsif @user.signed_up_with_google || @user.google_id
       render json: {message: 'Oops! You have a Google account. Log in that way instead.', type: 'email'}, status: :unauthorized
     elsif @user.clever_id
       render json: {message: 'Oops! You have a Clever account. Log in that way instead.', type: 'email'}, status: :unauthorized
     elsif @user.password_digest.nil?
-      render json: {message: 'Did you sign up with Google? If so, please log in with Google using the link above.', type: 'email'}, status: :unauthorized
+      render json: {message: 'Something went wrong verifying your password. Please use the "Forgot password?" link below to reset it.', type: 'email'}, status: :unauthorized
     elsif @user.authenticate(params[:user][:password])
       sign_in(@user)
 
@@ -139,10 +144,6 @@ class SessionsController < ApplicationController
   end
 
   private def report_that_route_is_still_in_use
-    begin
-      raise 'sessions/create original route still being called here'
-    rescue => e
-      NewRelic::Agent.notice_error(e)
-    end
+    ErrorNotifier.report(OriginalRouteStillInUseError.new)
   end
 end

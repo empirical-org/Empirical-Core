@@ -47,5 +47,14 @@ FactoryBot.define do
     factory :dismiss_grade_level_warning do
       name { 'Dismiss Grade Level Warning' }
     end
+
+    factory :dismiss_school_selection_reminder do
+      name { 'Dismiss School Selection Reminder' }
+    end
+
+    factory :dismiss_teacher_info_modal do
+      name { 'Dismiss Teacher Info Modal' }
+    end
+
   end
 end

@@ -19,4 +19,18 @@ namespace :concept_results_migration do
       puts "Failed to enqueue worker for range (#{row['start_id']}..#{row['max_id']})"
     end
   end
+
+  desc 'Enqueue all ConceptResult records for clean-up of their possibly duplicated "instructions" values'
+  task clean_up_instructions: :environment do
+    BATCH_SIZE=1_000_000
+
+    start = 1
+    finish = ConceptResult.maximum(:id)
+
+    while start < finish
+      end_of_batch = [start + BATCH_SIZE - 1, finish].min
+      CleanConceptResultInstructionsWorker.perform_async(start, end_of_batch)
+      start += BATCH_SIZE
+    end
+  end
 end

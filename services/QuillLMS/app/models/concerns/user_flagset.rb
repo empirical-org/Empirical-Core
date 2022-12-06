@@ -4,7 +4,6 @@
 module UserFlagset
   extend ActiveSupport::Concern
 
-
   included do
     FLAGSETS = {
 
@@ -56,12 +55,36 @@ module UserFlagset
         display_name: 'College Board',
         flags: {
           Flags::COLLEGE_BOARD  =>    { display_name: 'College Board' },
-          Flags::PRODUCTION=>         { display_name: 'Production' }
+          Flags::PRODUCTION =>        { display_name: 'Production' }
         }
-      }
+      },
+
+      private: {
+        display_name: 'Private',
+        flags: {
+          Flags::ALPHA =>             { display_name: 'Alpha' },
+          Flags::EVIDENCE_BETA1 =>    { display_name: 'Evidence Beta 1' },
+          Flags::EVIDENCE_BETA2 =>    { display_name: 'Evidence Beta 2' },
+          Flags::BETA =>              { display_name: 'Beta' },
+          Flags::COLLEGE_BOARD =>     { display_name: 'College Board' },
+          Flags::PRODUCTION =>        { display_name: 'Production' },
+          Flags::PRIVATE =>           { display_name: 'Private' }
+        }
+      },
+
     }
 
     validates :flagset, inclusion: { in: FLAGSETS.keys.map(&:to_s) }
+  end
+
+  def self.decorated
+    FLAGSETS.map{|key, value| {value: key.to_s, label: value[:display_name]}}
+  end
+
+  def self.flags_for_flagset(flagset)
+    return nil unless flagset
+
+    FLAGSETS[flagset.to_sym][:flags].keys.map{|k| "'#{k}'"}.join(',')
   end
 
   def activity_viewable?(activity)

@@ -69,7 +69,7 @@ class ConceptReplacementGrammarWorker
         end
       end
     rescue => e
-      NewRelic::Agent.notice_error(e)
+      ErrorNotifier.report(e)
     end
     new_fp_or_is
   end

@@ -1,9 +1,10 @@
 import React from 'react';
-import request from 'request'
 
 import AssignActivityPackBanner from '../assignActivityPackBanner'
-import getAuthToken from '../../modules/get_auth_token';
 import SchoolSelector from '../../shared/school_selector.jsx'
+import { requestPut, } from '../../../../../modules/request/index'
+
+const schoolBuildingImgSrc = `${process.env.CDN_URL}/images/accounts/school-building.svg`
 
 class SelectUSK12 extends React.Component {
   componentDidMount() {
@@ -18,21 +19,13 @@ class SelectUSK12 extends React.Component {
     // The "Skip this step" link in the school selection module trigger this function
     // with the argument 'non listed', while actually selecting a school triggers it
     // with a school identifier.
-    request({
-      url: `${process.env.DEFAULT_URL}/select_school`,
-      json: {
-        school_id_or_type: idOrType,
-        authenticity_token: getAuthToken(),
-      },
-      method: 'PUT',
-    },
-    (err, httpResponse, body) => {
-      if (httpResponse.statusCode === 200) {
-        window.location = '/finish_sign_up'
-      } else {
-        // to do, use Sentry to capture error
+    requestPut(
+      `${process.env.DEFAULT_URL}/select_school`,
+      { school_id_or_type: idOrType, },
+      (body) => {
+        window.location = '/sign-up/add-teacher-info'
       }
-    });
+    )
   }
 
   render() {
@@ -40,7 +33,9 @@ class SelectUSK12 extends React.Component {
       <div>
         <AssignActivityPackBanner />
         <div className="container account-form select-k12">
+          <img alt="" className="top-graphic" src={schoolBuildingImgSrc} />
           <h1>Let&#39;s find your school</h1>
+          <p className="subheader">Select a school so that if your school has Quill Premium, your account will have access to it.</p>
           <SchoolSelector selectSchool={this.selectSchool} />
           <button
             className="non-k12-link focus-on-light"

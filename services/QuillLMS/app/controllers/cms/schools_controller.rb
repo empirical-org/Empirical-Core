@@ -94,7 +94,7 @@ class Cms::SchoolsController < Cms::CmsController
     if new_school.save
       redirect_to cms_school_path(new_school.id)
     else
-      render :new
+      redirect_to new_cms_school_path, flash: { error: new_school.errors }
     end
   end
 
@@ -242,9 +242,11 @@ class Cms::SchoolsController < Cms::CmsController
     'HAVING COUNT(schools_users.*) != 0'
   end
 
-  # rubocop:disable Metrics/CyclomaticComplexity
   private def where_query_string_builder
-    conditions = []
+    conditions = [
+      "(subscriptions.expiration IS NULL OR subscriptions.expiration > '#{Date.current}')",
+      "subscriptions.de_activated_date IS NULL"
+    ]
     # This converts all of the search inputs into strings so we can iterate
     # over them and grab the value from params. The weird ternary here is in
     # case we have arrays as inputs (e.g. the 'premium_status' field).
@@ -255,9 +257,8 @@ class Cms::SchoolsController < Cms::CmsController
       end
     end
     conditions = conditions.reject(&:nil?)
-    "WHERE #{conditions.join(' AND ')}" unless conditions.empty?
+    "WHERE #{conditions.join(' AND ')}"
   end
-  # rubocop:enable Metrics/CyclomaticComplexity
 
   private def where_query_string_clause_for(param, param_value)
     # Potential params by which to search:
@@ -274,7 +275,7 @@ class Cms::SchoolsController < Cms::CmsController
     when 'school_name'
       "schools.name ILIKE #{sanitized_fuzzy_param_value}"
     when 'school_city'
-      "schools.city ILIKE #{sanitized_fuzzy_param_value} OR schools.mail_city ILIKE #{sanitized_fuzzy_param_value}"
+      "(schools.city ILIKE #{sanitized_fuzzy_param_value} OR schools.mail_city ILIKE #{sanitized_fuzzy_param_value})"
     when 'school_state'
       "(UPPER(schools.state) = UPPER(#{sanitized_param_value}) OR UPPER(schools.mail_state) = UPPER(#{sanitized_param_value}))"
     when 'school_zip'

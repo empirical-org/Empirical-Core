@@ -41,272 +41,53 @@ Completa el espacio en blanco con una de estas palabras: a, an, the. Si no se ne
           }
         }
       >
-        <div>
-          <Prompt
-            elements={
-              Array [
-                <span
-                  style={
-                    Object {
-                      "marginRight": 5,
-                    }
+        <div
+          className="flex-column-reverse"
+        >
+          <Feedback
+            feedback={
+              <p
+                dangerouslySetInnerHTML={
+                  Object {
+                    "__html": "Rewrite the sentence. Fill in the blank with one of these articles: a, an, the. If no article is needed, remove the blank.
+<br/><br/>
+Completa el espacio en blanco con una de estas palabras: a, an, the. Si no se necesita ninguna palabra, quite el espacio en blanco.",
                   }
-                >
-                  I
-                </span>,
-                <span
-                  style={
-                    Object {
-                      "marginRight": 5,
-                    }
-                  }
-                >
-                  have
-                </span>,
-                <span
-                  style={
-                    Object {
-                      "marginRight": 5,
-                    }
-                  }
-                >
-                  
-                </span>,
-                <span>
-                  <input
-                    aria-label="Complete the sentence with one of the following options or leave it blank: the, an, a"
-                    autoComplete="off"
-                    className="fill-in-blank-input"
-                    disabled={false}
-                    id="input0"
-                    onChange={[Function]}
-                    style={
-                      Object {
-                        "width": "55px",
-                      }
-                    }
-                    type="text"
-                    value=""
-                  />
-                </span>,
-                <span
-                  style={
-                    Object {
-                      "marginRight": 5,
-                    }
-                  }
-                >
-                  
-                </span>,
-                <span
-                  style={
-                    Object {
-                      "marginRight": 5,
-                    }
-                  }
-                >
-                  friend
-                </span>,
-                <span
-                  style={
-                    Object {
-                      "marginRight": 5,
-                    }
-                  }
-                >
-                  named
-                </span>,
-                <span
-                  style={
-                    Object {
-                      "marginRight": 5,
-                    }
-                  }
-                >
-                  Marco
-                </span>,
-                <span
-                  style={
-                    Object {
-                      "marginRight": 5,
-                    }
-                  }
-                >
-                  who
-                </span>,
-                <span
-                  style={
-                    Object {
-                      "marginRight": 5,
-                    }
-                  }
-                >
-                  loves
-                </span>,
-                <span
-                  style={
-                    Object {
-                      "marginRight": 5,
-                    }
-                  }
-                >
-                  
-                </span>,
-                <span>
-                  <input
-                    aria-label="Complete the sentence with one of the following options or leave it blank: the, an, a"
-                    autoComplete="off"
-                    className="fill-in-blank-input"
-                    disabled={false}
-                    id="input1"
-                    onChange={[Function]}
-                    style={
-                      Object {
-                        "width": "55px",
-                      }
-                    }
-                    type="text"
-                    value=""
-                  />
-                </span>,
-                <span
-                  style={
-                    Object {
-                      "marginRight": 5,
-                    }
-                  }
-                >
-                  
-                </span>,
-                <span
-                  style={
-                    Object {
-                      "marginRight": 5,
-                    }
-                  }
-                >
-                  football.
-                </span>,
-              ]
+                }
+              />
             }
-            style={
-              Object {
-                "alignItems": "center",
-                "display": "flex",
-                "flexWrap": "wrap",
-                "fontSize": 24,
-                "marginBottom": 18,
-                "marginTop": 35,
-              }
-            }
+            feedbackType="instructions"
           >
             <div
-              style={
-                Object {
-                  "alignItems": "center",
-                  "display": "flex",
-                  "flexWrap": "wrap",
-                  "fontSize": 24,
-                  "marginBottom": 18,
-                  "marginTop": 35,
-                }
-              }
+              aria-live="assertive"
+              className="student-feedback-container default"
+              role="status"
             >
-              <span
-                dangerouslySetInnerHTML={
-                  Object {
-                    "__html": "I have ",
-                  }
-                }
-                key="0"
-                style={
-                  Object {
-                    "marginRight": 5,
-                  }
-                }
-              />
-              <span
-                style={
-                  Object {
-                    "marginRight": 5,
-                  }
-                }
-              />
-              <span
-                key="span0"
+              <div
+                className="feedback-row student-feedback-inner-container"
               >
-                <input
-                  aria-label="Complete the sentence with one of the following options or leave it blank: the, an, a"
-                  autoComplete="off"
-                  className="fill-in-blank-input"
-                  disabled={false}
-                  id="input0"
-                  key="100"
-                  onChange={[Function]}
-                  style={
+                <img
+                  alt="Directions Icon"
+                  className="info"
+                  src="https://assets.quill.org/images/icons/direction.svg"
+                />
+                <p
+                  dangerouslySetInnerHTML={
                     Object {
-                      "width": "55px",
+                      "__html": "Rewrite the sentence. Fill in the blank with one of these articles: a, an, the. If no article is needed, remove the blank.
+<br/><br/>
+Completa el espacio en blanco con una de estas palabras: a, an, the. Si no se necesita ninguna palabra, quite el espacio en blanco.",
                     }
                   }
-                  type="text"
-                  value=""
                 />
-              </span>
-              <span
-                dangerouslySetInnerHTML={
-                  Object {
-                    "__html": " friend named Marco who loves ",
-                  }
-                }
-                key="3"
-                style={
-                  Object {
-                    "marginRight": 5,
-                  }
-                }
-              />
-              <span
-                style={
-                  Object {
-                    "marginRight": 5,
-                  }
-                }
-              />
-              <span
-                key="span1"
-              >
-                <input
-                  aria-label="Complete the sentence with one of the following options or leave it blank: the, an, a"
-                  autoComplete="off"
-                  className="fill-in-blank-input"
-                  disabled={false}
-                  id="input1"
-                  key="101"
-                  onChange={[Function]}
-                  style={
-                    Object {
-                      "width": "55px",
-                    }
-                  }
-                  type="text"
-                  value=""
-                />
-              </span>
-              <span
-                dangerouslySetInnerHTML={
-                  Object {
-                    "__html": " football.",
-                  }
-                }
-                key="6"
-                style={
-                  Object {
-                    "marginRight": 5,
-                  }
-                }
-              />
+              </div>
             </div>
-          </Prompt>
+          </Feedback>
+          <span
+            className="sr-only"
+          >
+            Screenreader users: make sure to read through the whole sentence before filling in the blanks.
+          </span>
           <Cues
             displayArrowAndText={true}
             question={
@@ -375,45 +156,259 @@ Completa el espacio en blanco con una de estas palabras: a, an, the. Si no se ne
               </CueExplanation>
             </div>
           </Cues>
-          <Feedback
-            feedback={
-              <p
+          <Prompt
+            elements={
+              Array [
+                <span
+                  style={
+                    Object {
+                      "marginRight": 5,
+                    }
+                  }
+                >
+                  I
+                </span>,
+                <span
+                  style={
+                    Object {
+                      "marginRight": 5,
+                    }
+                  }
+                >
+                  have
+                </span>,
+                <span
+                  style={
+                    Object {
+                      "marginRight": 5,
+                    }
+                  }
+                >
+                  
+                </span>,
+                <input
+                  aria-label="Choose which one of the following options fits best in the blank  or leave it empty: the, an, a."
+                  autoComplete="off"
+                  className="fill-in-blank-input"
+                  disabled={false}
+                  id="input0"
+                  onChange={[Function]}
+                  style={
+                    Object {
+                      "width": "55px",
+                    }
+                  }
+                  type="text"
+                  value=""
+                />,
+                <span
+                  style={
+                    Object {
+                      "marginRight": 5,
+                    }
+                  }
+                >
+                  
+                </span>,
+                <span
+                  style={
+                    Object {
+                      "marginRight": 5,
+                    }
+                  }
+                >
+                  friend
+                </span>,
+                <span
+                  style={
+                    Object {
+                      "marginRight": 5,
+                    }
+                  }
+                >
+                  named
+                </span>,
+                <span
+                  style={
+                    Object {
+                      "marginRight": 5,
+                    }
+                  }
+                >
+                  Marco
+                </span>,
+                <span
+                  style={
+                    Object {
+                      "marginRight": 5,
+                    }
+                  }
+                >
+                  who
+                </span>,
+                <span
+                  style={
+                    Object {
+                      "marginRight": 5,
+                    }
+                  }
+                >
+                  loves
+                </span>,
+                <span
+                  style={
+                    Object {
+                      "marginRight": 5,
+                    }
+                  }
+                >
+                  
+                </span>,
+                <input
+                  aria-label="Choose which one of the following options fits best in the blank  or leave it empty: the, an, a."
+                  autoComplete="off"
+                  className="fill-in-blank-input"
+                  disabled={false}
+                  id="input1"
+                  onChange={[Function]}
+                  style={
+                    Object {
+                      "width": "55px",
+                    }
+                  }
+                  type="text"
+                  value=""
+                />,
+                <span
+                  style={
+                    Object {
+                      "marginRight": 5,
+                    }
+                  }
+                >
+                  
+                </span>,
+                <span
+                  style={
+                    Object {
+                      "marginRight": 5,
+                    }
+                  }
+                >
+                  football.
+                </span>,
+              ]
+            }
+            style={
+              Object {
+                "alignItems": "center",
+                "display": "flex",
+                "flexWrap": "wrap",
+                "fontSize": 24,
+                "marginBottom": 18,
+                "marginTop": 35,
+              }
+            }
+          >
+            <div
+              style={
+                Object {
+                  "alignItems": "center",
+                  "display": "flex",
+                  "flexWrap": "wrap",
+                  "fontSize": 24,
+                  "marginBottom": 18,
+                  "marginTop": 35,
+                }
+              }
+            >
+              <span
                 dangerouslySetInnerHTML={
                   Object {
-                    "__html": "Rewrite the sentence. Fill in the blank with one of these articles: a, an, the. If no article is needed, remove the blank.
-<br/><br/>
-Completa el espacio en blanco con una de estas palabras: a, an, the. Si no se necesita ninguna palabra, quite el espacio en blanco.",
+                    "__html": "I have ",
+                  }
+                }
+                key="0"
+                style={
+                  Object {
+                    "marginRight": 5,
                   }
                 }
               />
-            }
-            feedbackType="instructions"
-          >
-            <div
-              aria-live="assertive"
-              className="student-feedback-container default"
-              role="status"
-            >
-              <div
-                className="feedback-row student-feedback-inner-container"
-              >
-                <img
-                  alt="Directions Icon"
-                  className="info"
-                  src="https://assets.quill.org/images/icons/direction.svg"
-                />
-                <p
-                  dangerouslySetInnerHTML={
-                    Object {
-                      "__html": "Rewrite the sentence. Fill in the blank with one of these articles: a, an, the. If no article is needed, remove the blank.
-<br/><br/>
-Completa el espacio en blanco con una de estas palabras: a, an, the. Si no se necesita ninguna palabra, quite el espacio en blanco.",
-                    }
+              <span
+                style={
+                  Object {
+                    "marginRight": 5,
                   }
-                />
-              </div>
+                }
+              />
+              <input
+                aria-label="Choose which one of the following options fits best in the blank  or leave it empty: the, an, a."
+                autoComplete="off"
+                className="fill-in-blank-input"
+                disabled={false}
+                id="input0"
+                key="100"
+                onChange={[Function]}
+                style={
+                  Object {
+                    "width": "55px",
+                  }
+                }
+                type="text"
+                value=""
+              />
+              <span
+                dangerouslySetInnerHTML={
+                  Object {
+                    "__html": " friend named Marco who loves ",
+                  }
+                }
+                key="3"
+                style={
+                  Object {
+                    "marginRight": 5,
+                  }
+                }
+              />
+              <span
+                style={
+                  Object {
+                    "marginRight": 5,
+                  }
+                }
+              />
+              <input
+                aria-label="Choose which one of the following options fits best in the blank  or leave it empty: the, an, a."
+                autoComplete="off"
+                className="fill-in-blank-input"
+                disabled={false}
+                id="input1"
+                key="101"
+                onChange={[Function]}
+                style={
+                  Object {
+                    "width": "55px",
+                  }
+                }
+                type="text"
+                value=""
+              />
+              <span
+                dangerouslySetInnerHTML={
+                  Object {
+                    "__html": " football.",
+                  }
+                }
+                key="6"
+                style={
+                  Object {
+                    "marginRight": 5,
+                  }
+                }
+              />
             </div>
-          </Feedback>
+          </Prompt>
         </div>
       </div>
     </div>

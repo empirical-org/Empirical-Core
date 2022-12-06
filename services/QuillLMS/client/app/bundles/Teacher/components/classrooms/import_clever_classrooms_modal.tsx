@@ -5,7 +5,7 @@ import GradeOptions from './grade_options'
 
 import { DropdownInput, DataTable } from '../../../Shared/index'
 import ButtonLoadingIndicator from '../shared/button_loading_indicator'
-import { requestPost } from '../../../../modules/request/index.js';
+import { requestPost } from '../../../../modules/request/index';
 
 interface ImportCleverClassroomsModalProps {
   close: (event) => void;

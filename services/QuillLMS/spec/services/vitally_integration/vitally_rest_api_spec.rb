@@ -17,7 +17,7 @@ describe VitallyRestApi do
   describe '#create' do
     it 'should make a POST call to the Vitally API with the specified command and payload' do
       payload = 'test payload'
-      expect(HTTParty).to receive(:post).with("#{VitallyRestApi::VITALLY_REST_API_BASE_URL}/#{type}",
+      expect(HTTParty).to receive(:post).with("#{VitallyRestApi::BASE_URL}/#{type}",
         headers: {
           Authorization: "Basic #{api_key}",
           "Content-Type": "application/json"
@@ -31,7 +31,7 @@ describe VitallyRestApi do
   describe '#get' do
     it 'should make a GET call to the Vitally API with the specified type and ID' do
 
-      expect(HTTParty).to receive(:get).with("#{VitallyRestApi::VITALLY_REST_API_BASE_URL}/#{type}/#{id}",
+      expect(HTTParty).to receive(:get).with("#{VitallyRestApi::BASE_URL}/#{type}/#{id}",
         headers: {
           Authorization: "Basic #{api_key}",
           "Content-Type": "application/json"
@@ -61,7 +61,7 @@ describe VitallyRestApi do
     it 'should make a GET call to the Vitally API with the specified ID and payload' do
       httparty_double = double
       expect(httparty_double).to receive(:parsed_response).and_return({})
-      expect(HTTParty).to receive(:get).with("#{VitallyRestApi::VITALLY_REST_API_BASE_URL}/#{type}/#{id}",
+      expect(HTTParty).to receive(:get).with("#{VitallyRestApi::BASE_URL}/#{type}/#{id}",
         headers: {
           Authorization: "Basic #{api_key}",
           "Content-Type": "application/json"
@@ -89,7 +89,7 @@ describe VitallyRestApi do
 
   describe '#update' do
     it 'should make a PUT call to the Vitally API with the specified type, ID and payload' do
-      expect(HTTParty).to receive(:put).with("#{VitallyRestApi::VITALLY_REST_API_BASE_URL}/#{type}/#{id}",
+      expect(HTTParty).to receive(:put).with("#{VitallyRestApi::BASE_URL}/#{type}/#{id}",
         headers: {
           Authorization: "Basic #{api_key}",
           "Content-Type": "application/json"

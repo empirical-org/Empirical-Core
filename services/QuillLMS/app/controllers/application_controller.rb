@@ -7,6 +7,10 @@ class ApplicationController < ActionController::Base
   include NewRelicAttributable
   include QuillAuthentication
   include DemoAccountBannerLinkGenerator
+  include SchoolSelectionReminderMilestone
+
+  rescue_from ActionController::InvalidAuthenticityToken,
+    with: :handle_invalid_authenticity_token
 
   # session keys
   CLEVER_REDIRECT = :clever_redirect
@@ -123,6 +127,15 @@ class ApplicationController < ActionController::Base
     )
   end
 
+  private def handle_invalid_authenticity_token
+    flash[:error] = t('actioncontroller.errors.invalid_authenticity_token')
+
+    respond_to do |format|
+      format.html { redirect_back(fallback_location: root_path) }
+      format.json { render json: { redirect: URI.parse(request.referer).path }, status: 303 }
+    end
+  end
+
   protected def check_staff_for_extended_session
     return unless current_user&.staff_session_duration_exceeded?
 
@@ -145,7 +158,7 @@ class ApplicationController < ActionController::Base
   end
 
   protected def confirm_valid_session
-    return if current_user.nil? || session.nil? || session[:staff_id]
+    return if current_user.nil? || session.nil? || session[:staff_id] || admin_impersonating_user?(current_user)
     return unless reset_session? || current_user.google_access_expired?
 
     reset_session_and_redirect_to_sign_in
@@ -158,6 +171,7 @@ class ApplicationController < ActionController::Base
     respond_to do |format|
       format.html { redirect_to new_session_path }
       format.json { render json: { redirect: new_session_path }, status: 303 }
+      format.pdf { redirect_to new_session_path }
     end
   end
 

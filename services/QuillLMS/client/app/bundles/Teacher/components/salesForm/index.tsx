@@ -134,6 +134,7 @@ export const SalesForm = ({ type }) => {
           setErrors(submissionError)
         } else {
           setShowSubmissionConfirmation(true);
+          window.scrollTo(0, 0);
         }
       });
     }

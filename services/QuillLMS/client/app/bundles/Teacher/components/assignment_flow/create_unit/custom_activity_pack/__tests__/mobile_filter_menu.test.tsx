@@ -1,7 +1,7 @@
 import * as React from 'react'
 import { mount } from 'enzyme';
 
-import { activities } from './data'
+import { activities, topics } from './data'
 
 import MobileFilterMenu from '../mobile_filter_menu'
 
@@ -32,7 +32,8 @@ describe('MobileFilterMenu component', () => {
     showMobileFilterMenu: false,
     handleSavedActivityFilterChange: () => {},
     savedActivityFilters: [],
-    savedActivityIds: []
+    savedActivityIds: [],
+    topics: topics,
   }
 
   describe('with showMobileFilterMenu false', () => {

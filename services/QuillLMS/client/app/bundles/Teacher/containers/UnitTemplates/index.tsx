@@ -1,19 +1,21 @@
 import * as React from 'react'
-import request from 'request'
 
 import UnitTemplateRow from './unitTemplateRow'
 import UnitTemplateFilterInputs from './unitTemplateFilterInputs'
 
 import LoadingSpinner from '../../../Connect/components/shared/loading_indicator.jsx'
-import { SortableList, Tooltip, PRODUCTION_FLAG, ALPHA_FLAG, BETA_FLAG, GAMMA_FLAG, PRIVATE_FLAG } from  '../../../Shared/index'
+import { SortableList, Tooltip } from  '../../../Shared/index'
 import getAuthToken from '../../components/modules/get_auth_token'
 import { orderedUnitTemplates, sortUnitTemplates, ALL_FLAGS, ALL_DIAGNOSTICS, NOT_ARCHIVED_FLAG, ARCHIVED_FLAG } from '../../helpers/unitTemplates'
+import { flagOptions } from '../../../../constants/flagOptions'
+import { requestGet, } from '../../../../modules/request/index'
 
 const UNIT_TEMPLATES_URL = `${process.env.DEFAULT_URL}/cms/unit_templates.json`
 const DIAGNOSTICS_URL = `${process.env.DEFAULT_URL}/api/v1/activities/diagnostic_activities.json`
 const UPDATE_ORDER_URL = `${process.env.DEFAULT_URL}/cms/unit_templates/update_order_numbers`
 
-const options = [ALL_FLAGS, NOT_ARCHIVED_FLAG, ARCHIVED_FLAG, ALPHA_FLAG, BETA_FLAG, GAMMA_FLAG, PRODUCTION_FLAG, PRIVATE_FLAG]
+// TODO: flag display
+const flagOptionValues = flagOptions.map(option => option.value)
 const headerHash = {
   'Accept': 'application/json',
   'Content-Type': 'application/json',
@@ -52,33 +54,31 @@ export const UnitTemplates = () => {
 
   function fetchUnitTemplatesData() {
     setLoadingTableData(true)
-    request.get({
-      url: UNIT_TEMPLATES_URL,
-    }, (e, r, body) => {
-      if (e || r.statusCode !== 200) {
+    requestGet(
+      UNIT_TEMPLATES_URL,
+      (body) => {
+        setError(null);
+        setFetchedData(body.unit_templates)
+      },
+      (body) => {
         setLoadingTableData(false);
         setError(ERROR_MESSAGE)
-      } else {
-        setError(null);
-        const data = JSON.parse(body);
-        setFetchedData(data.unit_templates)
       }
-    });
+    )
   }
 
   function fetchDiagnosticsData() {
-    request.get({
-      url: DIAGNOSTICS_URL,
-    }, (e, r, body) => {
-      if (e || r.statusCode !== 200) {
+    requestGet(
+      DIAGNOSTICS_URL,
+      (body) => {
+        setError(null);
+        setDiagnostics(body.diagnostics)
+      },
+      (body) => {
         setLoadingTableData(false);
         setError(ERROR_MESSAGE)
-      } else {
-        setError(null);
-        const data = JSON.parse(body);
-        setDiagnostics(data.diagnostics)
       }
-    });
+    )
   }
 
   function updateOrder(sortInfo) {
@@ -242,7 +242,7 @@ export const UnitTemplates = () => {
           flag={flag}
           handleRadioChange={handleRadioChange}
           handleSearch={handleSearch}
-          options={options}
+          options={flagOptionValues}
           searchByActivityPack={searchByActivityPack}
           searchInput={searchInput}
           switchDiagnostic={switchDiagnostic}

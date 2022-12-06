@@ -5,7 +5,7 @@
 # Table name: feedback_histories
 #
 #  id                   :integer          not null, primary key
-#  activity_version     :integer          default(0), not null
+#  activity_version     :integer          default(1), not null
 #  attempt              :integer          not null
 #  concept_uid          :text
 #  entry                :text             not null
@@ -33,6 +33,7 @@ class FeedbackHistory < ApplicationRecord
   CONCEPT_UID_LENGTH = 22
   DEFAULT_PAGE_SIZE = 25
   DEFAULT_PROMPT_TYPE = "Evidence::Prompt"
+  DEFAULT_VERSION = 1
   MIN_ATTEMPT = 1
   MAX_ATTEMPT = 5
   MIN_FEEDBACK_LENGTH = 10
@@ -124,7 +125,7 @@ class FeedbackHistory < ApplicationRecord
   end
 
   def serialize_by_activity_session
-    serializable_hash(only: [:session_uid, :start_date, :activity_id, :flags, :because_attempts, :but_attempts, :so_attempts, :scored_count, :weak_count, :strong_count, :complete], include: []).symbolize_keys
+    serializable_hash(only: [:session_uid, :start_date, :activity_id, :flags, :because_attempts, :because_optimal, :but_attempts, :but_optimal, :so_attempts, :so_optimal, :scored_count, :weak_count, :strong_count, :complete], include: []).symbolize_keys
   end
 
   def serialize_by_activity_session_detail
@@ -142,7 +143,7 @@ class FeedbackHistory < ApplicationRecord
     prompt_id:,
     activity_session_uid:,
     attempt:,
-    activity_version: 0,
+    activity_version: DEFAULT_VERSION,
     api_metadata: nil
   )
     feedback_hash = feedback_hash_raw.deep_stringify_keys
@@ -220,6 +221,34 @@ class FeedbackHistory < ApplicationRecord
     SQL
   end
 
+  def self.six_or_more_total_responses
+    <<-SQL
+    (
+      CASE WHEN
+        (COUNT(CASE WHEN comprehension_prompts.conjunction = '#{BECAUSE}' THEN 1 END) +
+        COUNT(CASE WHEN comprehension_prompts.conjunction = '#{BUT}' THEN 1 END) +
+        COUNT(CASE WHEN comprehension_prompts.conjunction = '#{SO}' THEN 1 END)) > 5
+      THEN true ELSE false END
+    ) = true
+    SQL
+  end
+
+  def self.two_or_more_responses_per_conjunction
+    <<-SQL
+    (
+      CASE WHEN
+        (COUNT(CASE WHEN comprehension_prompts.conjunction = '#{BECAUSE}' THEN 1 END) > 1 AND
+        COUNT(CASE WHEN comprehension_prompts.conjunction = '#{BUT}' THEN 1 END) > 1 AND
+        COUNT(CASE WHEN comprehension_prompts.conjunction = '#{SO}' THEN 1 END) > 1)
+      THEN true ELSE false END
+    ) = true
+    SQL
+  end
+
+  def self.responses_for_scoring
+    six_or_more_total_responses || two_or_more_responses_per_conjunction
+  end
+
   # rubocop:disable Lint/DuplicateBranch
   def self.apply_activity_session_filter(query, filter_type)
     case filter_type
@@ -242,7 +271,7 @@ class FeedbackHistory < ApplicationRecord
   # rubocop:enable Lint/DuplicateBranch
 
   # rubocop:disable Metrics/CyclomaticComplexity
-  def self.list_by_activity_session(activity_id: nil, page: 1, start_date: nil, end_date: nil, page_size: DEFAULT_PAGE_SIZE, turk_session_id: nil, filter_type: nil)
+  def self.list_by_activity_session(activity_id: nil, page: 1, start_date: nil, end_date: nil, page_size: DEFAULT_PAGE_SIZE, filter_type: nil, responses_for_scoring: false)
     query = select(
       <<-SQL
         feedback_histories.feedback_session_uid AS session_uid,
@@ -250,8 +279,11 @@ class FeedbackHistory < ApplicationRecord
         comprehension_prompts.activity_id,
         ARRAY_REMOVE(ARRAY_AGG(DISTINCT feedback_history_flags.flag), NULL) AS flags,
         COUNT(CASE WHEN comprehension_prompts.conjunction = '#{BECAUSE}' THEN 1 END) AS because_attempts,
+        BOOL_OR(CASE WHEN comprehension_prompts.conjunction = '#{BECAUSE}' AND feedback_histories.optimal = true THEN true ELSE false END) AS because_optimal,
         COUNT(CASE WHEN comprehension_prompts.conjunction = '#{BUT}' THEN 1 END) AS but_attempts,
+        BOOL_OR(CASE WHEN comprehension_prompts.conjunction = '#{BUT}' AND feedback_histories.optimal = true THEN true ELSE false END) AS but_optimal,
         COUNT(CASE WHEN comprehension_prompts.conjunction = '#{SO}' THEN 1 END) AS so_attempts,
+        BOOL_OR(CASE WHEN comprehension_prompts.conjunction = '#{SO}' AND feedback_histories.optimal = true THEN true ELSE false END) AS so_optimal,
         COUNT(CASE WHEN feedback_history_ratings.rating IS NOT NULL THEN 1 END) AS scored_count,
         COUNT(CASE WHEN feedback_history_ratings.rating = false THEN 1 END) AS weak_count,
         COUNT(CASE WHEN feedback_history_ratings.rating = true THEN 1 END) AS strong_count,
@@ -276,30 +308,25 @@ class FeedbackHistory < ApplicationRecord
     query = query.where(comprehension_prompts: {activity_id: activity_id.to_i}) if activity_id
     query = query.where("feedback_histories.created_at >= ?", start_date) if start_date
     query = query.where("feedback_histories.created_at <= ?", end_date) if end_date
-    if turk_session_id
-      query = query.joins('LEFT JOIN feedback_sessions ON feedback_histories.feedback_session_uid = feedback_sessions.uid')
-      .joins('LEFT JOIN comprehension_turking_round_activity_sessions ON feedback_sessions.activity_session_uid = comprehension_turking_round_activity_sessions.activity_session_uid')
-      .where("comprehension_turking_round_activity_sessions.turking_round_id = ?", turk_session_id)
-    end
     query = FeedbackHistory.apply_activity_session_filter(query, filter_type) if filter_type
-    query = query.limit(page_size)
+    query = query.having(FeedbackHistory.responses_for_scoring) if responses_for_scoring
+    query = query.limit(page_size) if page_size
     query = query.offset((page.to_i - 1) * page_size.to_i) if page && page.to_i > 1
     query
   end
   # rubocop:enable Metrics/CyclomaticComplexity
 
-  def self.get_total_count(activity_id: nil, start_date: nil, end_date: nil, turk_session_id: nil)
+  def self.get_total_count(activity_id: nil, start_date: nil, end_date: nil, filter_type: nil, responses_for_scoring: false, activity_version: nil)
     query = FeedbackHistory.select(:feedback_session_uid)
       .joins("LEFT OUTER JOIN comprehension_prompts ON feedback_histories.prompt_id = comprehension_prompts.id")
+      .joins("LEFT OUTER JOIN feedback_history_ratings ON feedback_histories.id = feedback_history_ratings.feedback_history_id")
       .group(:feedback_session_uid, :activity_id)
     query = query.where(comprehension_prompts: {activity_id: activity_id.to_i}) if activity_id
     query = query.where("feedback_histories.created_at >= ?", start_date) if start_date
     query = query.where("feedback_histories.created_at <= ?", end_date) if end_date
-    if turk_session_id
-      query = query.joins('LEFT JOIN feedback_sessions ON feedback_histories.feedback_session_uid = feedback_sessions.uid')
-      .joins('LEFT JOIN comprehension_turking_round_activity_sessions ON feedback_sessions.activity_session_uid = comprehension_turking_round_activity_sessions.activity_session_uid')
-      .where("comprehension_turking_round_activity_sessions.turking_round_id = ?", turk_session_id)
-    end
+    query = FeedbackHistory.apply_activity_session_filter(query, filter_type) if filter_type
+    query = query.having(FeedbackHistory.responses_for_scoring) if responses_for_scoring
+    query = query.where("feedback_histories.activity_version = ?", activity_version) if activity_version
     query.length
   end
 

@@ -4,6 +4,8 @@ module Auth
   class CleverController < ApplicationController
     around_action :force_writer_db_role, only: [:clever]
 
+    class CleverAccountConflictError < StandardError; end
+
     def clever
       update_current_user_email
       result = CleverIntegration::SignUp::Main.run(auth_hash)
@@ -24,6 +26,14 @@ module Auth
       if current_user.update(email: auth_hash['info']['email'])
         session[ApplicationController::GOOGLE_OR_CLEVER_JUST_SET] = true
       else
+        ErrorNotifier.report(
+          CleverAccountConflictError.new, {
+            clever_redirect: session[ApplicationController::CLEVER_REDIRECT],
+            current_user_email: current_user&.email,
+            new_email: auth_hash['info']['email'],
+            validation_errors: current_user&.errors&.full_messages&.join('|')
+          }
+        )
         flash[:error] = t('clever.account_conflict')
         flash.keep(:error)
       end

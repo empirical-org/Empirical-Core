@@ -138,17 +138,17 @@
   -moz-transition: 0.1s ease-out;
   -webkit-transition: 0.1s ease-out;
 }
-@media screen and(min-width: 992px) {
+@media screen and (min-width: 992px) {
   #new-home-page .container {
     width: 1040px;
   }
 }
-@media screen and(min-width: 1200px) {
+@media screen and (min-width: 1200px) {
   #new-home-page .container {
     width: 1090px;
   }
 }
-@media screen and(max-width: 1050px) {
+@media screen and (max-width: 1050px) {
   #new-home-page {
     .container {
       width: auto;
@@ -161,7 +161,7 @@
     }
   }
 }
-@media screen and(max-width: 991px) {
+@media screen and (max-width: 991px) {
   .home-page {
     section {
       padding: 35px 120px;

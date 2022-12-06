@@ -1,6 +1,6 @@
 import * as React from "react";
-import request from 'request'
-import getAuthToken from '../modules/get_auth_token'
+
+import { requestPost, } from '../../../../modules/request/index'
 
 export default class MergeActivityPacks extends React.Component {
   constructor(props) {
@@ -14,17 +14,19 @@ export default class MergeActivityPacks extends React.Component {
 
   submitStudents = () => {
     const that = this
-    request.post({
-      url: `${process.env.DEFAULT_URL}/teacher_fix/merge_activity_packs`,
-      json: {from_activity_pack_id: that.state.activityPack1Id, to_activity_pack_id: that.state.activityPack2Id, authenticity_token: getAuthToken()}
-    },
-    (e, r, response) => {
-      if (response.error) {
-        that.setState({error: response.error})
-      } else if (r.statusCode === 200){
+
+    requestPost(
+      `${process.env.DEFAULT_URL}/teacher_fix/merge_activity_packs`,
+      { from_activity_pack_id: that.state.activityPack1Id, to_activity_pack_id: that.state.activityPack2Id },
+      (body) => {
         window.alert('Activity Packs have been merged!')
+      },
+      (body) => {
+        if (body.error) {
+          that.setState({error: body.error})
+        }
       }
-    })
+    )
   };
 
   updateActivityPackId = (e, activityPackNumber) => {

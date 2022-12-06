@@ -184,20 +184,18 @@ export class PlayFillInTheBlankQuestion extends React.Component<PlayFillInTheBla
     const styling = { width: `${width}px` }
     const inputProperties = this.getInputProperties(i);
     return (
-      <span key={`span${i}`}>
-        <input
-          aria-label={fillInBlankInputLabel(cues, blankAllowed)}
-          autoComplete="off"
-          className={className}
-          disabled={inputProperties['disabled']}
-          id={`input${i}`}
-          key={i + 100}
-          onChange={this.getChangeHandler(i)}
-          style={styling}
-          type="text"
-          value={inputProperties['value']}
-        />
-      </span>
+      <input
+        aria-label={fillInBlankInputLabel(cues, blankAllowed)}
+        autoComplete="off"
+        className={className}
+        disabled={inputProperties['disabled']}
+        id={`input${i}`}
+        key={i + 100}
+        onChange={this.getChangeHandler(i)}
+        style={styling}
+        type="text"
+        value={inputProperties['value']}
+      />
     );
   }
 
@@ -362,8 +360,9 @@ export class PlayFillInTheBlankQuestion extends React.Component<PlayFillInTheBla
       <div className="student-container-inner-diagnostic">
         <div style={{ display: 'flex', justifyContent: 'space-between' }}>
           <div style={fullPageInstructions}>
-            <div>
-              <Prompt elements={this.getPromptElements()} style={styles.container} />
+            <div className="flex-column-reverse">
+              {this.renderFeedback()}
+              <span className="sr-only">Screenreader users: make sure to read through the whole sentence before filling in the blanks.</span>
               <Cues
                 diagnosticID={diagnosticID}
                 displayArrowAndText={true}
@@ -371,7 +370,7 @@ export class PlayFillInTheBlankQuestion extends React.Component<PlayFillInTheBla
                 question={question}
                 translate={translate}
               />
-              {this.renderFeedback()}
+              <Prompt elements={this.getPromptElements()} style={styles.container} />
             </div>
           </div>
           {this.renderMedia()}

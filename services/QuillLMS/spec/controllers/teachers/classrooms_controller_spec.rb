@@ -192,6 +192,7 @@ describe Teachers::ClassroomsController, type: :controller do
       let!(:classroom1) { create(:classroom)}
       let!(:classroom2) { create(:classroom)}
       let!(:classroom3) { create(:classroom)}
+      let!(:classrooms) { [classroom1, classroom2, classroom3]}
       let!(:classrooms_teacher1) { create(:classrooms_teacher, classroom: classroom1, user: teacher )}
       let!(:classrooms_teacher2) { create(:classrooms_teacher, classroom: classroom2, user: teacher )}
       let!(:classrooms_teacher3) { create(:classrooms_teacher, classroom: classroom3, user: teacher )}
@@ -205,32 +206,33 @@ describe Teachers::ClassroomsController, type: :controller do
 
           parsed_response = JSON.parse(response.body)
 
-          expect(parsed_response["classrooms"][0]["id"]).to eq(classroom3.id)
-          expect(parsed_response["classrooms"][1]["id"]).to eq(classroom2.id)
-          expect(parsed_response["classrooms"][2]["id"]).to eq(classroom1.id)
+          classrooms.sort_by(&:created_at).reverse.each.with_index do |classroom, i|
+            expect(parsed_response["classrooms"][i]["id"]).to eq classroom.id
+          end
         end
 
         it 'should assign the classrooms and classroom and no students' do
           get :index
-          expect(assigns(:classrooms)[0]['id']).to eq classroom3.id
-          expect(assigns(:classrooms)[1]['id']).to eq classroom2.id
-          expect(assigns(:classrooms)[2]['id']).to eq classroom1.id
-          expect(assigns(:classrooms)[0][:students]).to be_empty
-          expect(assigns(:classrooms)[1][:students]).to be_empty
-          expect(assigns(:classrooms)[2][:students]).to be_empty
+
+          classrooms.count.times { |i| expect(assigns(:classrooms)[i][:students]).to be_empty }
         end
 
         context "with activity sesions" do
+          let!(:classroom) { classroom3 }
           let!(:activity) { create(:activity) }
-          let!(:student) { create(:user, classcode: classroom3.code) }
-          let!(:cu) { create(:classroom_unit, classroom: classroom3, assigned_student_ids: [student.id])}
+          let!(:student) { create(:user, classcode: classroom.code) }
+          let!(:cu) { create(:classroom_unit, classroom: classroom, assigned_student_ids: [student.id])}
           let!(:ua) { create(:unit_activity, unit: cu.unit, activity: activity)}
           let!(:activity_session) { create(:activity_session, user: student, activity: activity, classroom_unit: cu, state: 'finished') }
 
           it 'should assign students and number_of_completed_activities' do
             get :index
-            expect(assigns(:classrooms)[0]['id']).to eq classroom3.id
-            expect(assigns(:classrooms)[0][:students][0][:number_of_completed_activities]).to eq 1
+
+            classrooms.count.times do |i|
+              next unless assigns(:classrooms)[i]['id'] == classroom.id
+
+              expect(assigns(:classrooms)[i][:students][0][:number_of_completed_activities]).to eq 1
+            end
           end
         end
 
@@ -253,12 +255,15 @@ describe Teachers::ClassroomsController, type: :controller do
             get :index, as: :json
 
             parsed_response = JSON.parse(response.body)
+
             expect(parsed_response["classrooms"][0]["id"]).to eq(classroom1.id)
-            expect(parsed_response["classrooms"][1]["id"]).to eq(classroom3.id)
-            expect(parsed_response["classrooms"][2]["id"]).to eq(classroom2.id)
+
+            ordered_remaining_classrooms = classrooms.sort_by(&:created_at).reverse.reject { |c| c.id == classroom1.id }
+            expect(parsed_response["classrooms"][1]["id"]).to eq ordered_remaining_classrooms[0].id
+            expect(parsed_response["classrooms"][2]["id"]).to eq ordered_remaining_classrooms[1].id
           end
 
-          it 'should return classrooms ordered by order properity if all classrooms_teacher entries have order property' do
+          it 'should return classrooms ordered by order property if all classrooms_teacher entries have order property' do
             ct1 = ClassroomsTeacher.where(classroom_id: classroom1.id).first
             ct1.order = 1
             ct1.save!

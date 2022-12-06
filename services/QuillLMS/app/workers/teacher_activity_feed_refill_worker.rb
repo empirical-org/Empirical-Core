@@ -13,9 +13,10 @@ class TeacherActivityFeedRefillWorker
 
     ids = ids_for_activity_feed(teacher)
 
+    TeacherActivityFeed.reset!(user_id)
+
     return if ids.empty?
 
-    TeacherActivityFeed.reset!(user_id)
     TeacherActivityFeed.add(user_id, ids)
   end
 

@@ -141,7 +141,7 @@ export default class ClassroomActivity extends React.Component {
 
   handleChange = (date) => {
     const { updateDueDate, } = this.props
-    const formattedDate = date ? date : null
+    const formattedDate = date || null
     this.setState({ startDate: date, });
     updateDueDate(this.uaId(), formattedDate);
   }

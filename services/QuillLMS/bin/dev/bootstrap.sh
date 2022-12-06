@@ -108,10 +108,8 @@ source ~/.bashrc
 cd .
 nvm install
 
-brew install npm
+brew install npm@8.19.2
 npm install
-
-cd client && npm rebuild node-sass && cd ..
 
 echo 'Copy config files'
 # Note, -n is for 'no clobber', it won't overwrite if the file exists

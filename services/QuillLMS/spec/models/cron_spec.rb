@@ -34,8 +34,22 @@ describe "Cron", type: :model do
   describe "#interval_1_day" do
     it "calls run_saturday is now is a Saturday" do
       a_saturday = Time.utc(2019, 10, 19)
-      expect(Cron).to receive(:now).and_return(a_saturday)
+      allow(Cron).to receive(:now).and_return(a_saturday)
       expect(Cron).to receive(:run_saturday)
+      Cron.interval_1_day
+    end
+
+    it "calls run_school_year_start if is July 1" do
+      july_first = Time.utc(2022, 7, 1)
+      allow(Cron).to receive(:now).and_return(july_first)
+      expect(Cron).to receive(:run_school_year_start)
+      Cron.interval_1_day
+    end
+
+    it "calls run_school_year_start if is NOT July 1" do
+      july_second = Time.utc(2022, 7, 2)
+      allow(Cron).to receive(:now).and_return(july_second)
+      expect(Cron).not_to receive(:run_school_year_start)
       Cron.interval_1_day
     end
 
@@ -54,8 +68,8 @@ describe "Cron", type: :model do
       Cron.interval_1_day
     end
 
-    it "enqueues ResetDemoAccountWorker" do
-      expect(ResetDemoAccountWorker).to receive(:perform_async)
+    it "enqueues Demo::RecreateAccountWorker" do
+      expect(Demo::RecreateAccountWorker).to receive(:perform_async)
       Cron.interval_1_day
     end
 
@@ -71,6 +85,11 @@ describe "Cron", type: :model do
 
     it "enqueues PreCacheAdminDashboardsWorker" do
       expect(PreCacheAdminDashboardsWorker).to receive(:perform_async)
+      Cron.interval_1_day
+    end
+
+    it "enqueues PopulateAggregatedEvidenceActivityHealthsWorker" do
+      expect(PopulateAggregatedEvidenceActivityHealthsWorker).to receive(:perform_async)
       Cron.interval_1_day
     end
 
@@ -99,6 +118,13 @@ describe "Cron", type: :model do
     it 'enqueues DeleteObsoleteActiveActivitySessionsWorker' do
       expect(DeleteObsoleteActiveActivitySessionsWorker).to receive(:perform_async)
       Cron.run_saturday
+    end
+  end
+
+  describe "#run_school_year_start" do
+    it "enqueues PopulateAnnualVitallyWorker" do
+      expect(PopulateAnnualVitallyWorker).to receive(:perform_async)
+      Cron.run_school_year_start
     end
   end
 end

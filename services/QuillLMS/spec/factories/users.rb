@@ -57,25 +57,25 @@
 #
 FactoryBot.define do
   factory :simple_user, class: 'User' do
+    sequence(:id) { |n| n + User::UNIQUENESS_CONSTRAINT_MINIMUM_ID }
     name 'Jane Doe'
     email 'fake@example.com'
     password 'password'
+    time_zone 'UTC'
   end
 
   factory :user do
+    sequence(:id) { |n| n + User::UNIQUENESS_CONSTRAINT_MINIMUM_ID }
     sequence(:name) { |n| "FirstName LastName #{n}" }
     username   { name.gsub(' ', '-') }
     password   { "password" }
     email      { "#{name.gsub(' ', '.').downcase}@fake-email.com" }
     ip_address { "192.168.0.0" }
     flagset    { 'production' }
+    time_zone 'UTC'
 
     factory :staff do
       role 'staff'
-    end
-
-    factory :admin do
-      role 'admin'
     end
 
     factory :teacher do

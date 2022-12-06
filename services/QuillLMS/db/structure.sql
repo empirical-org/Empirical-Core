@@ -9,6 +9,12 @@ SET xmloption = content;
 SET client_min_messages = warning;
 SET row_security = off;
 
+--
+-- Name: public; Type: SCHEMA; Schema: -; Owner: -
+--
+
+-- *not* creating schema, since initdb creates it
+
 
 --
 -- Name: hstore; Type: EXTENSION; Schema: -; Owner: -
@@ -54,18 +60,6 @@ CREATE FUNCTION public.blog_posts_search_trigger() RETURNS trigger
         return new;
       end
       $$;
-
-
---
--- Name: my_jsonb_to_hstore(jsonb); Type: FUNCTION; Schema: public; Owner: -
---
-
-CREATE FUNCTION public.my_jsonb_to_hstore(jsonb) RETURNS public.hstore
-    LANGUAGE sql IMMUTABLE STRICT
-    AS $_$
-            SELECT hstore(array_agg(key), array_agg(value))
-            FROM   jsonb_each_text($1)
-          $_$;
 
 
 --
@@ -775,8 +769,8 @@ ALTER SEQUENCE public.app_settings_id_seq OWNED BY public.app_settings.id;
 CREATE TABLE public.ar_internal_metadata (
     key character varying NOT NULL,
     value character varying,
-    created_at timestamp without time zone NOT NULL,
-    updated_at timestamp without time zone NOT NULL
+    created_at timestamp(6) without time zone NOT NULL,
+    updated_at timestamp(6) without time zone NOT NULL
 );
 
 
@@ -971,8 +965,8 @@ CREATE TABLE public.change_logs (
     id integer NOT NULL,
     explanation text,
     action character varying NOT NULL,
-    changed_record_id integer,
     changed_record_type character varying NOT NULL,
+    changed_record_id integer,
     user_id integer,
     created_at timestamp without time zone,
     updated_at timestamp without time zone,
@@ -1239,7 +1233,7 @@ CREATE TABLE public.comprehension_activities (
     created_at timestamp without time zone NOT NULL,
     updated_at timestamp without time zone NOT NULL,
     notes character varying,
-    version smallint DEFAULT 0 NOT NULL
+    version smallint DEFAULT 1 NOT NULL
 );
 
 
@@ -1888,7 +1882,6 @@ CREATE TABLE public.concept_results (
     answer jsonb,
     attempt_number integer,
     concept_id integer,
-    old_concept_result_id integer,
     correct boolean NOT NULL,
     extra_metadata jsonb,
     question_number integer,
@@ -2067,8 +2060,8 @@ CREATE TABLE public.credit_transactions (
     id integer NOT NULL,
     amount integer NOT NULL,
     user_id integer NOT NULL,
-    source_id integer,
     source_type character varying,
+    source_id integer,
     created_at timestamp without time zone,
     updated_at timestamp without time zone
 );
@@ -2320,8 +2313,8 @@ ALTER SEQUENCE public.evidence_hints_id_seq OWNED BY public.evidence_hints.id;
 CREATE TABLE public.feedback_histories (
     id integer NOT NULL,
     feedback_session_uid text,
-    prompt_id integer,
     prompt_type character varying,
+    prompt_id integer,
     concept_uid text,
     attempt integer NOT NULL,
     entry text NOT NULL,
@@ -2334,7 +2327,7 @@ CREATE TABLE public.feedback_histories (
     created_at timestamp without time zone NOT NULL,
     updated_at timestamp without time zone NOT NULL,
     rule_uid character varying,
-    activity_version smallint DEFAULT 0 NOT NULL
+    activity_version smallint DEFAULT 1 NOT NULL
 );
 
 
@@ -2852,25 +2845,24 @@ ALTER SEQUENCE public.objectives_id_seq OWNED BY public.objectives.id;
 
 
 --
--- Name: old_concept_results; Type: TABLE; Schema: public; Owner: -
+-- Name: pack_sequence_items; Type: TABLE; Schema: public; Owner: -
 --
 
-CREATE TABLE public.old_concept_results (
-    id integer NOT NULL,
-    activity_session_id integer,
-    concept_id integer NOT NULL,
-    metadata json,
-    activity_classification_id integer,
-    question_type character varying
+CREATE TABLE public.pack_sequence_items (
+    id bigint NOT NULL,
+    item_id bigint,
+    pack_sequence_id bigint,
+    "order" integer,
+    created_at timestamp(6) without time zone NOT NULL,
+    updated_at timestamp(6) without time zone NOT NULL
 );
 
 
 --
--- Name: old_concept_results_id_seq; Type: SEQUENCE; Schema: public; Owner: -
+-- Name: pack_sequence_items_id_seq; Type: SEQUENCE; Schema: public; Owner: -
 --
 
-CREATE SEQUENCE public.old_concept_results_id_seq
-    AS integer
+CREATE SEQUENCE public.pack_sequence_items_id_seq
     START WITH 1
     INCREMENT BY 1
     NO MINVALUE
@@ -2879,10 +2871,43 @@ CREATE SEQUENCE public.old_concept_results_id_seq
 
 
 --
--- Name: old_concept_results_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: -
+-- Name: pack_sequence_items_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: -
 --
 
-ALTER SEQUENCE public.old_concept_results_id_seq OWNED BY public.old_concept_results.id;
+ALTER SEQUENCE public.pack_sequence_items_id_seq OWNED BY public.pack_sequence_items.id;
+
+
+--
+-- Name: pack_sequences; Type: TABLE; Schema: public; Owner: -
+--
+
+CREATE TABLE public.pack_sequences (
+    id bigint NOT NULL,
+    classroom_id bigint,
+    diagnostic_activity_id bigint,
+    release_method character varying,
+    created_at timestamp(6) without time zone NOT NULL,
+    updated_at timestamp(6) without time zone NOT NULL
+);
+
+
+--
+-- Name: pack_sequences_id_seq; Type: SEQUENCE; Schema: public; Owner: -
+--
+
+CREATE SEQUENCE public.pack_sequences_id_seq
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+
+--
+-- Name: pack_sequences_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: -
+--
+
+ALTER SEQUENCE public.pack_sequences_id_seq OWNED BY public.pack_sequences.id;
 
 
 --
@@ -3944,6 +3969,37 @@ ALTER SEQUENCE public.students_classrooms_id_seq OWNED BY public.students_classr
 
 
 --
+-- Name: subject_areas; Type: TABLE; Schema: public; Owner: -
+--
+
+CREATE TABLE public.subject_areas (
+    id bigint NOT NULL,
+    name character varying NOT NULL,
+    created_at timestamp(6) without time zone NOT NULL,
+    updated_at timestamp(6) without time zone NOT NULL
+);
+
+
+--
+-- Name: subject_areas_id_seq; Type: SEQUENCE; Schema: public; Owner: -
+--
+
+CREATE SEQUENCE public.subject_areas_id_seq
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+
+--
+-- Name: subject_areas_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: -
+--
+
+ALTER SEQUENCE public.subject_areas_id_seq OWNED BY public.subject_areas.id;
+
+
+--
 -- Name: subscriptions; Type: TABLE; Schema: public; Owner: -
 --
 
@@ -3983,6 +4039,71 @@ CREATE SEQUENCE public.subscriptions_id_seq
 --
 
 ALTER SEQUENCE public.subscriptions_id_seq OWNED BY public.subscriptions.id;
+
+
+--
+-- Name: teacher_info_subject_areas; Type: TABLE; Schema: public; Owner: -
+--
+
+CREATE TABLE public.teacher_info_subject_areas (
+    id bigint NOT NULL,
+    teacher_info_id bigint NOT NULL,
+    subject_area_id bigint NOT NULL,
+    created_at timestamp(6) without time zone NOT NULL,
+    updated_at timestamp(6) without time zone NOT NULL
+);
+
+
+--
+-- Name: teacher_info_subject_areas_id_seq; Type: SEQUENCE; Schema: public; Owner: -
+--
+
+CREATE SEQUENCE public.teacher_info_subject_areas_id_seq
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+
+--
+-- Name: teacher_info_subject_areas_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: -
+--
+
+ALTER SEQUENCE public.teacher_info_subject_areas_id_seq OWNED BY public.teacher_info_subject_areas.id;
+
+
+--
+-- Name: teacher_infos; Type: TABLE; Schema: public; Owner: -
+--
+
+CREATE TABLE public.teacher_infos (
+    id bigint NOT NULL,
+    minimum_grade_level integer,
+    maximum_grade_level integer,
+    user_id bigint NOT NULL,
+    created_at timestamp(6) without time zone NOT NULL,
+    updated_at timestamp(6) without time zone NOT NULL
+);
+
+
+--
+-- Name: teacher_infos_id_seq; Type: SEQUENCE; Schema: public; Owner: -
+--
+
+CREATE SEQUENCE public.teacher_infos_id_seq
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+
+--
+-- Name: teacher_infos_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: -
+--
+
+ALTER SEQUENCE public.teacher_infos_id_seq OWNED BY public.teacher_infos.id;
 
 
 --
@@ -4134,7 +4255,8 @@ CREATE TABLE public.unit_activities (
     due_date timestamp without time zone,
     created_at timestamp without time zone,
     updated_at timestamp without time zone,
-    order_number smallint
+    order_number smallint,
+    publish_date timestamp without time zone
 );
 
 
@@ -4967,10 +5089,17 @@ ALTER TABLE ONLY public.objectives ALTER COLUMN id SET DEFAULT nextval('public.o
 
 
 --
--- Name: old_concept_results id; Type: DEFAULT; Schema: public; Owner: -
+-- Name: pack_sequence_items id; Type: DEFAULT; Schema: public; Owner: -
 --
 
-ALTER TABLE ONLY public.old_concept_results ALTER COLUMN id SET DEFAULT nextval('public.old_concept_results_id_seq'::regclass);
+ALTER TABLE ONLY public.pack_sequence_items ALTER COLUMN id SET DEFAULT nextval('public.pack_sequence_items_id_seq'::regclass);
+
+
+--
+-- Name: pack_sequences id; Type: DEFAULT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY public.pack_sequences ALTER COLUMN id SET DEFAULT nextval('public.pack_sequences_id_seq'::regclass);
 
 
 --
@@ -5184,10 +5313,31 @@ ALTER TABLE ONLY public.students_classrooms ALTER COLUMN id SET DEFAULT nextval(
 
 
 --
+-- Name: subject_areas id; Type: DEFAULT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY public.subject_areas ALTER COLUMN id SET DEFAULT nextval('public.subject_areas_id_seq'::regclass);
+
+
+--
 -- Name: subscriptions id; Type: DEFAULT; Schema: public; Owner: -
 --
 
 ALTER TABLE ONLY public.subscriptions ALTER COLUMN id SET DEFAULT nextval('public.subscriptions_id_seq'::regclass);
+
+
+--
+-- Name: teacher_info_subject_areas id; Type: DEFAULT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY public.teacher_info_subject_areas ALTER COLUMN id SET DEFAULT nextval('public.teacher_info_subject_areas_id_seq'::regclass);
+
+
+--
+-- Name: teacher_infos id; Type: DEFAULT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY public.teacher_infos ALTER COLUMN id SET DEFAULT nextval('public.teacher_infos_id_seq'::regclass);
 
 
 --
@@ -5874,11 +6024,19 @@ ALTER TABLE ONLY public.objectives
 
 
 --
--- Name: old_concept_results old_concept_results_pkey; Type: CONSTRAINT; Schema: public; Owner: -
+-- Name: pack_sequence_items pack_sequence_items_pkey; Type: CONSTRAINT; Schema: public; Owner: -
 --
 
-ALTER TABLE ONLY public.old_concept_results
-    ADD CONSTRAINT old_concept_results_pkey PRIMARY KEY (id);
+ALTER TABLE ONLY public.pack_sequence_items
+    ADD CONSTRAINT pack_sequence_items_pkey PRIMARY KEY (id);
+
+
+--
+-- Name: pack_sequences pack_sequences_pkey; Type: CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY public.pack_sequences
+    ADD CONSTRAINT pack_sequences_pkey PRIMARY KEY (id);
 
 
 --
@@ -5991,6 +6149,14 @@ ALTER TABLE ONLY public.sales_stage_types
 
 ALTER TABLE ONLY public.sales_stages
     ADD CONSTRAINT sales_stages_pkey PRIMARY KEY (id);
+
+
+--
+-- Name: schema_migrations schema_migrations_pkey; Type: CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY public.schema_migrations
+    ADD CONSTRAINT schema_migrations_pkey PRIMARY KEY (version);
 
 
 --
@@ -6122,11 +6288,35 @@ ALTER TABLE ONLY public.students_classrooms
 
 
 --
+-- Name: subject_areas subject_areas_pkey; Type: CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY public.subject_areas
+    ADD CONSTRAINT subject_areas_pkey PRIMARY KEY (id);
+
+
+--
 -- Name: subscriptions subscriptions_pkey; Type: CONSTRAINT; Schema: public; Owner: -
 --
 
 ALTER TABLE ONLY public.subscriptions
     ADD CONSTRAINT subscriptions_pkey PRIMARY KEY (id);
+
+
+--
+-- Name: teacher_info_subject_areas teacher_info_subject_areas_pkey; Type: CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY public.teacher_info_subject_areas
+    ADD CONSTRAINT teacher_info_subject_areas_pkey PRIMARY KEY (id);
+
+
+--
+-- Name: teacher_infos teacher_infos_pkey; Type: CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY public.teacher_infos
+    ADD CONSTRAINT teacher_infos_pkey PRIMARY KEY (id);
 
 
 --
@@ -6794,13 +6984,6 @@ CREATE INDEX index_concept_results_on_activity_session_id ON public.concept_resu
 
 
 --
--- Name: index_concept_results_on_old_concept_result_id; Type: INDEX; Schema: public; Owner: -
---
-
-CREATE UNIQUE INDEX index_concept_results_on_old_concept_result_id ON public.concept_results USING btree (old_concept_result_id);
-
-
---
 -- Name: index_content_partner_activities_on_activity_id; Type: INDEX; Schema: public; Owner: -
 --
 
@@ -7039,17 +7222,31 @@ CREATE UNIQUE INDEX index_oauth_applications_on_uid ON public.oauth_applications
 
 
 --
--- Name: index_old_concept_results_on_activity_session_id; Type: INDEX; Schema: public; Owner: -
+-- Name: index_pack_sequence_items_on_item_id; Type: INDEX; Schema: public; Owner: -
 --
 
-CREATE INDEX index_old_concept_results_on_activity_session_id ON public.old_concept_results USING btree (activity_session_id);
+CREATE INDEX index_pack_sequence_items_on_item_id ON public.pack_sequence_items USING btree (item_id);
 
 
 --
--- Name: index_old_concept_results_on_concept_id; Type: INDEX; Schema: public; Owner: -
+-- Name: index_pack_sequence_items_on_pack_sequence_id; Type: INDEX; Schema: public; Owner: -
 --
 
-CREATE INDEX index_old_concept_results_on_concept_id ON public.old_concept_results USING btree (concept_id);
+CREATE INDEX index_pack_sequence_items_on_pack_sequence_id ON public.pack_sequence_items USING btree (pack_sequence_id);
+
+
+--
+-- Name: index_pack_sequences_on_classroom_id; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX index_pack_sequences_on_classroom_id ON public.pack_sequences USING btree (classroom_id);
+
+
+--
+-- Name: index_pack_sequences_on_diagnostic_activity_id; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX index_pack_sequences_on_diagnostic_activity_id ON public.pack_sequences USING btree (diagnostic_activity_id);
 
 
 --
@@ -7403,6 +7600,27 @@ CREATE UNIQUE INDEX index_subscriptions_on_stripe_invoice_id ON public.subscript
 
 
 --
+-- Name: index_teacher_info_subject_areas_on_subject_area_id; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX index_teacher_info_subject_areas_on_subject_area_id ON public.teacher_info_subject_areas USING btree (subject_area_id);
+
+
+--
+-- Name: index_teacher_info_subject_areas_on_teacher_info_id; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX index_teacher_info_subject_areas_on_teacher_info_id ON public.teacher_info_subject_areas USING btree (teacher_info_id);
+
+
+--
+-- Name: index_teacher_infos_on_user_id; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX index_teacher_infos_on_user_id ON public.teacher_infos USING btree (user_id);
+
+
+--
 -- Name: index_teacher_saved_activities_on_activity_id; Type: INDEX; Schema: public; Owner: -
 --
 
@@ -7697,13 +7915,6 @@ CREATE UNIQUE INDEX unique_index_users_on_username ON public.users USING btree (
 
 
 --
--- Name: unique_schema_migrations; Type: INDEX; Schema: public; Owner: -
---
-
-CREATE UNIQUE INDEX unique_schema_migrations ON public.schema_migrations USING btree (version);
-
-
---
 -- Name: user_activity_classification_unique_index; Type: INDEX; Schema: public; Owner: -
 --
 
@@ -7870,6 +8081,14 @@ ALTER TABLE ONLY public.sales_stages
 
 
 --
+-- Name: pack_sequences fk_rails_4239cff1e5; Type: FK CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY public.pack_sequences
+    ADD CONSTRAINT fk_rails_4239cff1e5 FOREIGN KEY (classroom_id) REFERENCES public.classrooms(id);
+
+
+--
 -- Name: stripe_checkout_sessions fk_rails_428a7d5f1b; Type: FK CONSTRAINT; Schema: public; Owner: -
 --
 
@@ -7883,6 +8102,14 @@ ALTER TABLE ONLY public.stripe_checkout_sessions
 
 ALTER TABLE ONLY public.classroom_unit_activity_states
     ADD CONSTRAINT fk_rails_457a11a3eb FOREIGN KEY (classroom_unit_id) REFERENCES public.classroom_units(id);
+
+
+--
+-- Name: teacher_info_subject_areas fk_rails_45c8f41e5e; Type: FK CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY public.teacher_info_subject_areas
+    ADD CONSTRAINT fk_rails_45c8f41e5e FOREIGN KEY (subject_area_id) REFERENCES public.subject_areas(id);
 
 
 --
@@ -7958,6 +8185,30 @@ ALTER TABLE ONLY public.recommendations
 
 
 --
+-- Name: teacher_info_subject_areas fk_rails_69cab8704b; Type: FK CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY public.teacher_info_subject_areas
+    ADD CONSTRAINT fk_rails_69cab8704b FOREIGN KEY (teacher_info_id) REFERENCES public.teacher_infos(id);
+
+
+--
+-- Name: pack_sequence_items fk_rails_712efc80a2; Type: FK CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY public.pack_sequence_items
+    ADD CONSTRAINT fk_rails_712efc80a2 FOREIGN KEY (pack_sequence_id) REFERENCES public.pack_sequences(id);
+
+
+--
+-- Name: pack_sequences fk_rails_79fa628e65; Type: FK CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY public.pack_sequences
+    ADD CONSTRAINT fk_rails_79fa628e65 FOREIGN KEY (diagnostic_activity_id) REFERENCES public.activities(id);
+
+
+--
 -- Name: standards fk_rails_7c2e427970; Type: FK CONSTRAINT; Schema: public; Owner: -
 --
 
@@ -7987,6 +8238,14 @@ ALTER TABLE ONLY public.activity_topics
 
 ALTER TABLE ONLY public.comprehension_highlights
     ADD CONSTRAINT fk_rails_9d58aa0a3c FOREIGN KEY (feedback_id) REFERENCES public.comprehension_feedbacks(id) ON DELETE CASCADE;
+
+
+--
+-- Name: pack_sequence_items fk_rails_a1e39dcd4a; Type: FK CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY public.pack_sequence_items
+    ADD CONSTRAINT fk_rails_a1e39dcd4a FOREIGN KEY (item_id) REFERENCES public.units(id);
 
 
 --
@@ -8054,19 +8313,19 @@ ALTER TABLE ONLY public.comprehension_plagiarism_texts
 
 
 --
+-- Name: teacher_infos fk_rails_bff7948d7b; Type: FK CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY public.teacher_infos
+    ADD CONSTRAINT fk_rails_bff7948d7b FOREIGN KEY (user_id) REFERENCES public.users(id);
+
+
+--
 -- Name: standards fk_rails_c84477fd6e; Type: FK CONSTRAINT; Schema: public; Owner: -
 --
 
 ALTER TABLE ONLY public.standards
     ADD CONSTRAINT fk_rails_c84477fd6e FOREIGN KEY (standard_category_id) REFERENCES public.standard_categories(id);
-
-
---
--- Name: old_concept_results fk_rails_cebe4a6023; Type: FK CONSTRAINT; Schema: public; Owner: -
---
-
-ALTER TABLE ONLY public.old_concept_results
-    ADD CONSTRAINT fk_rails_cebe4a6023 FOREIGN KEY (activity_classification_id) REFERENCES public.activity_classifications(id);
 
 
 --
@@ -8641,7 +8900,18 @@ INSERT INTO "schema_migrations" (version) VALUES
 ('20220708201219'),
 ('20220721183005'),
 ('20220819175814'),
+('20220824192650'),
 ('20220825144048'),
-('20220824192650');
+('20220830201825'),
+('20220830205005'),
+('20220920190724'),
+('20220927124042'),
+('20221014103417'),
+('20221014103843'),
+('20221019184933'),
+('20221019185354'),
+('20221109181742'),
+('20221109182042'),
+('20221109182145');
 
 

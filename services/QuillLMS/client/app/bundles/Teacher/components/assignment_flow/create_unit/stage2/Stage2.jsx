@@ -12,7 +12,7 @@ import AssignmentFlowNavigation from '../../assignment_flow_navigation.tsx'
 import ScrollToTop from '../../../shared/scroll_to_top'
 import { postTestClassAssignmentLockedMessages, } from '../../assignmentFlowConstants'
 
-export default class Stage2 extends React.Component {
+export class Stage2 extends React.Component {
   constructor(props) {
     super(props)
 
@@ -31,7 +31,6 @@ export default class Stage2 extends React.Component {
   }
 
   determineAssignButtonClass() {
-    const { areAnyStudentsSelected, selectedActivities, } = this.props
     let buttonClass = 'quill-button contained primary medium';
     if (!this.buttonEnabled()) {
       buttonClass += ' disabled';
@@ -40,8 +39,8 @@ export default class Stage2 extends React.Component {
   }
 
   buttonEnabled() {
-    const { areAnyStudentsSelected, selectedActivities, } = this.props
-    return areAnyStudentsSelected && selectedActivities.length
+    const { areAnyStudentsSelected, selectedActivities, errorMessage } = this.props
+    return areAnyStudentsSelected && selectedActivities.length && !errorMessage
   }
 
   selectedClassrooms() {
@@ -185,14 +184,16 @@ export default class Stage2 extends React.Component {
     const {
       selectedActivities,
       toggleActivitySelection,
-      assignActivityDueDate,
+      assignActivityDate,
       dueDates,
+      publishDates,
     } = this.props
     return (
       <ReviewActivities
         activities={selectedActivities}
-        assignActivityDueDate={assignActivityDueDate}
+        assignActivityDate={assignActivityDate}
         dueDates={dueDates}
+        publishDates={publishDates}
         toggleActivitySelection={toggleActivitySelection}
       />
     )
@@ -222,3 +223,5 @@ export default class Stage2 extends React.Component {
     );
   }
 }
+
+export default Stage2

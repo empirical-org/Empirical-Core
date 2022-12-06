@@ -79,24 +79,38 @@ exports[`ClassroomStudentSection component with students should render 1`] = `
       </div>
     </div>
   </div>
-  <DropdownInput
-    className="student-actions-dropdown"
-    disabled={true}
-    handleChange={[Function]}
-    label="Actions"
-    options={
-      Array [
-        Object {
-          "label": "View as student",
-          "value": undefined,
-        },
-        Object {
-          "label": "Remove from class",
-          "value": [Function],
-        },
-      ]
-    }
-  />
+  <div
+    className="student-actions-dropdown-wrapper"
+  >
+    <DropdownInput
+      className="student-actions-dropdown"
+      disabled={true}
+      handleChange={[Function]}
+      label="Actions"
+      options={
+        Array [
+          Object {
+            "label": "View as student",
+            "value": undefined,
+          },
+          Object {
+            "label": "Remove from class",
+            "value": [Function],
+          },
+        ]
+      }
+    />
+    <Tooltip
+      isTabbable={true}
+      tooltipText="Please select students from the list below to take action"
+      tooltipTriggerText={
+        <img
+          alt="Warning icon"
+          src="undefined/images/icons/warning-icon.svg"
+        />
+      }
+    />
+  </div>
   <DataTable
     averageFontWidth={7}
     checkAllRows={[Function]}
@@ -107,12 +121,12 @@ exports[`ClassroomStudentSection component with students should render 1`] = `
         Object {
           "attribute": "name",
           "name": "Name",
-          "width": "190px",
+          "width": "380px",
         },
         Object {
           "attribute": "username",
           "name": "Username",
-          "width": "486px",
+          "width": "566px",
         },
         Object {
           "attribute": "actions",

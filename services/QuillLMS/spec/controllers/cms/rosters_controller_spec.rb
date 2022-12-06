@@ -11,11 +11,15 @@ describe Cms::RostersController do
 
   describe '#upload_teachers_and_students' do
     let!(:school) { create(:school)}
+    let!(:existing_student) { create(:student) }
 
     it 'should create teachers and students based on the data provided, and it should ignore empty items in payload arrays' do
-      teacher_email = "email@test.org"
-      student_email = "studentemail@test.org"
+      teacher_email = "Email@test.org"
+      student_email = "StudentEmail@test.org"
       another_student_email = "anotheremail@test.org"
+      teacher_email_downcased = teacher_email.downcase
+      student_email_downcased = student_email.downcase
+      another_student_email_downcased = another_student_email.downcase
       classroom_name = "Class A"
       post :upload_teachers_and_students, params: {
         school_id: school.id,
@@ -48,20 +52,37 @@ describe Cms::RostersController do
         ]
       }
 
-      teacher = User.find_by(email: teacher_email)
-      student = User.find_by(email: student_email)
-      another_student = User.find_by(email: another_student_email)
+      teacher = User.find_by(email: teacher_email_downcased)
+      student = User.find_by(email: student_email_downcased)
+      another_student = User.find_by(email: another_student_email_downcased)
       classroom = Classroom.find_by(name: classroom_name)
       expect(teacher).to be
       expect(student).to be
       expect(another_student).to be
-      expect(teacher.email).to eq(teacher_email)
-      expect(student.email).to eq(student_email)
+      expect(teacher.email).to eq(teacher_email_downcased)
+      expect(student.email).to eq(student_email_downcased)
       expect(SchoolsUsers.find_by(school: school, user: teacher)).to be
       expect(classroom).to be
       expect(ClassroomsTeacher.find_by(classroom: classroom, user: teacher)).to be
       expect(StudentsClassrooms.find_by(classroom: classroom, student: student)).to be
       expect(StudentsClassrooms.find_by(classroom: classroom, student: another_student)).to be
+      expect(response.status).to eq 200
+      expect(JSON.parse(response.body)).to be_empty
+
+      post :upload_teachers_and_students, params: {
+        school_id: school.id,
+        students: [
+          {
+            name: existing_student.name,
+            email: existing_student.email,
+            teacher_name: teacher.name,
+            teacher_email: teacher.email,
+            classroom: classroom.name,
+            password: "password"
+          }
+        ]
+      }
+      expect(StudentsClassrooms.find_by(classroom: classroom, student: existing_student)).to be
       expect(response.status).to eq 200
       expect(JSON.parse(response.body)).to be_empty
     end
@@ -72,27 +93,8 @@ describe Cms::RostersController do
       expect(JSON.parse(response.body)["errors"]).to eq("School not found. Check that the ID is correct and try again.")
     end
 
-    it 'should flash error if teacher or student already exists' do
-      student = create(:student)
+    it 'should flash error if teacher already exists' do
       teacher = create(:teacher)
-
-      post :upload_teachers_and_students, params: {
-        school_id: school.id,
-        teachers: [],
-        students: [
-          {
-            name: "Test Student",
-            email: student.email,
-            teacher_name: teacher.name,
-            teacher_email: teacher.email,
-            classroom: "classroom name",
-            password: "password"
-          }
-        ]
-      }
-
-      expect(response.status).to eq 422
-      expect(JSON.parse(response.body)["errors"]).to eq("Student with email #{student.email} already exists.")
 
       post :upload_teachers_and_students, params: {
         school_id: school.id,

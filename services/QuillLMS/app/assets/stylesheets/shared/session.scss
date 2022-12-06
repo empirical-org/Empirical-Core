@@ -49,6 +49,11 @@
     line-height: 32px;
   }
 
+  .top-graphic {
+    margin: 0px auto 32px;
+    display: block;
+  }
+
   .account-container {
     max-width: 444px;
     width: 100%;
@@ -57,11 +62,12 @@
     background-color: #ffffff;
     margin: auto;
     min-height: 480px;
-    padding: 40px 32px 20px;
+    padding: 40px 32px;
 
     form {
       display: flex;
       flex-direction: column;
+      margin-bottom: 0px;
     }
 
     .password-wrapper {
@@ -72,7 +78,6 @@
     }
 
     .auth-section {
-      padding-bottom: 29px;
       button, a {
         max-width: 380px;
         width: 100%;

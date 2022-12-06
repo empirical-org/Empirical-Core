@@ -1,5 +1,4 @@
 import React from 'react'
-import request from 'request'
 import _ from 'underscore'
 import queryString from 'query-string';
 import moment from 'moment'
@@ -13,6 +12,7 @@ import LoadingSpinner from '../shared/loading_indicator.jsx'
 import {sortTableByLastName, sortTableFromSQLTimeStamp} from '../../../../modules/sortingMethods.js'
 import { getTimeSpent } from '../../helpers/studentReports';
 import { ReactTable, Tooltip } from '../../../Shared/index'
+import { requestGet, } from '../../../../modules/request/index'
 
 const showAllClassroomKey = 'All classes'
 
@@ -27,30 +27,30 @@ export class ActivitiesScoresByClassroomProgressReport extends React.Component {
   }
 
   componentDidMount() {
-    request.get({
-      url: `${process.env.DEFAULT_URL}/api/v1/progress_reports/activities_scores_by_classroom_data`
-    }, (e, r, body) => {
-      const data = JSON.parse(body).data
-      const classroomsData = data;
-      // gets unique classroom names
-      const classroomNames = Array.from(new Set(classroomsData.map(row => row.classroom_name)))
-      classroomNames.unshift(showAllClassroomKey)
+    requestGet(
+      `${process.env.DEFAULT_URL}/api/v1/progress_reports/activities_scores_by_classroom_data`,
+      (body) => {
+        const classroomsData = body.data;
+        // gets unique classroom names
+        const classroomNames = Array.from(new Set(classroomsData.map(row => row.classroom_name)))
+        classroomNames.unshift(showAllClassroomKey)
 
-      const newState = {loading: false, errors: body.errors, classroomsData, classroomNames}
-      const selectedClassroomId = queryString.parse(window.location.search).classroom_id
+        const newState = {loading: false, errors: body.errors, classroomsData, classroomNames}
+        const selectedClassroomId = queryString.parse(window.location.search).classroom_id
 
-      const localStorageSelectedClassroomId = window.localStorage.getItem(PROGRESS_REPORTS_SELECTED_CLASSROOM_ID)
-      const localStorageSelectedClassroom = localStorageSelectedClassroomId && classroomsData.find(c => Number(c.classroom_id) === Number(localStorageSelectedClassroomId))
+        const localStorageSelectedClassroomId = window.localStorage.getItem(PROGRESS_REPORTS_SELECTED_CLASSROOM_ID)
+        const localStorageSelectedClassroom = localStorageSelectedClassroomId && classroomsData.find(c => Number(c.classroom_id) === Number(localStorageSelectedClassroomId))
 
-      if (selectedClassroomId) {
-        const selectedClassroom = classroomsData.find(c => Number(c.classroom_id) === Number(selectedClassroomId))
-        newState.selectedClassroom = selectedClassroom.classroom_name || showAllClassroomKey
-      } else if (localStorageSelectedClassroom) {
-        newState.selectedClassroom = localStorageSelectedClassroom.classroom_name
+        if (selectedClassroomId) {
+          const selectedClassroom = classroomsData.find(c => Number(c.classroom_id) === Number(selectedClassroomId))
+          newState.selectedClassroom = selectedClassroom.classroom_name || showAllClassroomKey
+        } else if (localStorageSelectedClassroom) {
+          newState.selectedClassroom = localStorageSelectedClassroom.classroom_name
+        }
+
+        this.setState(newState);
       }
-
-      this.setState(newState);
-    });
+    )
   }
 
   columns() {

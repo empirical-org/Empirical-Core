@@ -61,6 +61,12 @@ class Teachers::UnitTemplatesController < ApplicationController
     }
   end
 
+  def previously_assigned_activities
+    ids = JSON.parse(params[:activity_ids])
+    results = UnitTemplate.previously_assigned_activity_data(ids, current_user)
+    render json: results
+  end
+
   private def is_teacher?
     @is_teacher = (current_user && current_user.role == 'teacher')
   end

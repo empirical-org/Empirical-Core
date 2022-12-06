@@ -1,0 +1,104 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`AdminsTeachers component should match snapshot 1`] = `
+<div
+  className="teacher-account-access-container"
+>
+  <h2>
+    Teacher Account Access
+  </h2>
+  <DropdownInput
+    handleChange={[Function]}
+    isSearchable={true}
+    options={
+      Array [
+        Object {
+          "label": "All Schools",
+          "value": "All Schools",
+        },
+        Object {
+          "label": "Test School",
+          "value": "Test School",
+        },
+      ]
+    }
+    value={
+      Object {
+        "label": "All Schools",
+        "value": "All Schools",
+      }
+    }
+  />
+  <div
+    className="admins-teachers"
+  >
+    <ReactTable
+      className="progress-report has-green-arrow"
+      columns={
+        Array [
+          Object {
+            "Header": "Name",
+            "accessor": "name",
+            "resizable": false,
+          },
+          Object {
+            "Header": "School",
+            "accessor": "school",
+            "resizable": false,
+          },
+          Object {
+            "Header": "Students",
+            "accessor": "number_of_students",
+            "maxWidth": 90,
+            "resizable": false,
+          },
+          Object {
+            "Header": "Activities Completed",
+            "accessor": "number_of_activities_completed",
+            "minWidth": 165,
+            "resizable": false,
+          },
+          Object {
+            "Header": "Time Spent",
+            "accessor": "time_spent",
+            "maxWidth": 120,
+            "resizable": false,
+          },
+          Object {
+            "Cell": [Function],
+            "Header": "Log In As Teacher",
+            "accessor": "link_components",
+            "resizable": false,
+          },
+          Object {
+            "Cell": [Function],
+            "Header": "Manage",
+            "minWidth": 130,
+            "resizable": false,
+          },
+        ]
+      }
+      data={
+        Array [
+          Object {
+            "school": "Test School",
+          },
+        ]
+      }
+    />
+  </div>
+  <p
+    className="warning-section"
+  >
+    <span
+      className="warning"
+    >
+      Warning:
+    </span>
+     Any changes you make when you access a teacher account will impact the teacher and student facing dashboards. This list provides you with the ability to sign in to all of the teacher accounts for the schools you have admin access.
+    <strong>
+      The data below represents usage from this school year, beginning July 1st.
+    </strong>
+  </p>
+</div>
+`;

@@ -1,8 +1,6 @@
 # frozen_string_literal: true
 
 ENV["RAILS_ENV"] = 'test'
-require 'simplecov'
-SimpleCov.start "rails"
 
 require File.expand_path("../../config/environment", __FILE__)
 
@@ -86,6 +84,8 @@ RSpec.configure do |config|
   config.silence_filter_announcements = true
   config.run_all_when_everything_filtered = true
 
+  config.before { SidekiqUniqueJobs.config.enabled = false }
+
   config.around(:each, :caching) do |example|
     caching = ActionController::Base.perform_caching
     ActionController::Base.perform_caching = example.metadata[:caching]
@@ -99,10 +99,6 @@ RSpec.configure do |config|
       allow($stdout).to receive(:write)
     end
   end
-end
-
-if defined?(Coveralls)
-  Coveralls.wear!('rails')
 end
 
 def vcr_ignores_localhost

@@ -45,6 +45,7 @@ en:
             email:
               invalid: "Enter a valid email"
               taken: "That email is taken. Try another."
+              no_spaces_allowed: "That email is not valid because it has a space. Try another."
             username:
               invalid: "Enter a valid username"
               taken: "That username is taken. Try another."
@@ -53,3 +54,6 @@ en:
           attributes:
             name:
               taken: "That class name already exists. Try another."
+    accounts:
+      edit:
+        expired_link: "Sorry, this link has expired. Please contact your Quill admin or the <a href='mailto:hello@quill.org'>Quill support team</a>"

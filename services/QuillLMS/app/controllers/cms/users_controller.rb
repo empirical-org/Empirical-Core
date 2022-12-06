@@ -147,12 +147,12 @@ class Cms::UsersController < Cms::CmsController
   end
 
   protected def user_params
-    params.require(:user).permit([:name, :email, :username, :title, :role, :classcode, :password, :password_confirmation, :flags =>[]] + default_params
+    params.require(:user).permit([:name, :email, :flagset, :username, :title, :role, :classcode, :password, :password_confirmation, :flags =>[]] + default_params
     )
   end
 
   protected def user_query_params
-    params.permit(@text_search_inputs.map(&:to_sym) + default_params + [:page, :user_role, :user_flag, :sort, :sort_direction, :user_premium_status, :class_code])
+    params.permit(@text_search_inputs.map(&:to_sym) + default_params + [:flagset, :page, :user_role, :user_flag, :sort, :sort_direction, :user_premium_status, :class_code])
   end
 
   protected def user_query(params)
@@ -228,7 +228,7 @@ class Cms::UsersController < Cms::CmsController
     # User email: users.email
     # User IP: users.ip_address
     # School name: schools.name
-    # User flag: user.flags
+    # User flagset: user.flagset
     # Premium status: subscriptions.account_type
     sanitized_fuzzy_param_value = ActiveRecord::Base.connection.quote("%#{param_value}%")
     sanitized_param_value = ActiveRecord::Base.connection.quote(param_value)
@@ -244,8 +244,8 @@ class Cms::UsersController < Cms::CmsController
       "users.email = LOWER(TRIM(#{(sanitized_param_value)}))"
     when 'user_email'
       "users.email ILIKE #{(sanitized_fuzzy_param_value)}"
-    when 'user_flag'
-      "#{(sanitized_param_value)} = ANY (users.flags::text[])"
+    when 'flagset'
+      "users.flagset = #{(sanitized_param_value)}"
     when 'user_ip'
       "users.ip_address = #{(sanitized_param_value)}"
     when 'school_name'
@@ -291,7 +291,7 @@ class Cms::UsersController < Cms::CmsController
     @text_search_inputs = ['user_name', 'user_username', 'user_email', 'user_email_exact', 'user_ip', 'school_name', 'class_code']
     @school_premium_types = Subscription.account_types
     @user_role_types = User::ROLES
-    @all_search_inputs = @text_search_inputs + ['user_premium_status', 'user_role', 'page', 'user_flag']
+    @all_search_inputs = @text_search_inputs + ['user_premium_status', 'user_role', 'page', 'flagset']
   end
 
   protected def filter_zeroes_from_checkboxes
