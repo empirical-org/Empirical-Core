@@ -1,21 +1,5 @@
-<div class='container'>
-  <article class='simple-rounded-box cms-container'>
-    <%= link_to 'District Directory', cms_districts_path %> > <%= link_to @district.name, cms_district_path(@district) %> > New Admin
-    <br /><br />
-    <h2>New Admin</h2>
-    <br />
-    <div class='cms-form'>
-      <%= form_tag cms_district_district_admins_path(@district) do %>
-        <div class='cms-form-row'>
-          <%= label_tag 'email_address', 'Email Address' %>
-          <%= text_field_tag 'email' %>
-        </div>
-
-        <div class='cms-submit-row'>
-          <%= submit_tag 'Save' %><br /><br />
-          <%= link_to 'Cancel', cms_district_path(@district.id)  %>
-        </div>
-      <% end %>
-    </div>
-  </article>
-</div>
+<%= react_component('NewAdminOrDistrictUserApp', props: {
+  type: 'district',
+  district: @district,
+  return_url: @cms_district_path
+})%>

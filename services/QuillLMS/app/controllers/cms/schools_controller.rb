@@ -99,7 +99,11 @@ class Cms::SchoolsController < Cms::CmsController
   end
 
   def new_admin
-    @school = School.find(params[:id])
+    id = params[:id]
+    @js_file = 'staff'
+    @style_file = 'staff'
+    @school = School.find(id)
+    @cms_school_path = cms_school_path(id)
   end
 
   def add_existing_user

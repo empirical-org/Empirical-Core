@@ -1,21 +1,5 @@
-<div class='container'>
-  <article class='simple-rounded-box cms-container'>
-    <%= link_to 'School Directory', cms_schools_path %> > New Admin
-    <br /><br />
-    <h2>New Admin</h2>
-    <br />
-    <div class='cms-form'>
-      <%= form_tag add_admin_by_email_cms_school_path(params[:id]) do %>
-        <div class='cms-form-row'>
-          <%= label_tag 'email_address', 'Email Address' %>
-          <%= text_field_tag 'email_address' %>
-        </div>
-
-        <div class='cms-submit-row'>
-          <%= submit_tag 'Save' %><br /><br />
-          <%= link_to 'Cancel', cms_school_path(@school.id)  %>
-        </div>
-      <% end %>
-    </div>
-  </article>
-</div>
+<%= react_component('NewAdminOrDistrictUserApp', props: {
+  type: 'admin',
+  school: @school,
+  return_url: @cms_school_path
+})%>
