@@ -13,9 +13,9 @@ describe('StudentProfileUnits component', () => {
     const wrapper = mount(
       <StudentProfileUnits
         data={[
-          {unit_id: 1, unit_name: 'Same ID', staggered_release_unit_status: UNLOCKED, },
-          {unit_id: 1, unit_name: 'Same ID', staggered_release_unit_status: UNLOCKED, },
-          {unit_id: 2, unit_name: 'Different', staggered_release_unit_status: LOCKED,},
+          {unit_id: 1, unit_name: 'Same ID', pack_sequence_item_status: UNLOCKED, },
+          {unit_id: 1, unit_name: 'Same ID', pack_sequence_item_status: UNLOCKED, },
+          {unit_id: 2, unit_name: 'Different', pack_sequence_item_status: LOCKED,},
         ]}
       />
     );
@@ -23,12 +23,12 @@ describe('StudentProfileUnits component', () => {
     expect(wrapper.find(StudentProfileUnit).at(0).props().data.incomplete[0].unit_name).toBe('Same ID');
     expect(wrapper.find(StudentProfileUnit).at(0).props().data.incomplete[1].unit_name).toBe('Same ID');
     expect(wrapper.find(StudentProfileUnit).at(0).props().unitName).toBe('Same ID');
-    expect(wrapper.find(StudentProfileUnit).at(0).props().data.incomplete[0].staggered_release_unit_status).toBe(UNLOCKED);
-    expect(wrapper.find(StudentProfileUnit).at(0).props().data.incomplete[1].staggered_release_unit_status).toBe(UNLOCKED);
+    expect(wrapper.find(StudentProfileUnit).at(0).props().data.incomplete[0].pack_sequence_item_status).toBe(UNLOCKED);
+    expect(wrapper.find(StudentProfileUnit).at(0).props().data.incomplete[1].pack_sequence_item_status).toBe(UNLOCKED);
     expect(wrapper.find(StudentProfileUnit).at(0).props().staggeredReleaseStatus).toBe(UNLOCKED);
     expect(wrapper.find(StudentProfileUnit).at(1).props().data.incomplete[0].unit_name).toBe('Different');
     expect(wrapper.find(StudentProfileUnit).at(1).props().unitName).toBe('Different');
-    expect(wrapper.find(StudentProfileUnit).at(1).props().data.incomplete[0].staggered_release_unit_status).toBe(LOCKED);
+    expect(wrapper.find(StudentProfileUnit).at(1).props().data.incomplete[0].pack_sequence_item_status).toBe(LOCKED);
     expect(wrapper.find(StudentProfileUnit).at(1).props().staggeredReleaseStatus).toBe(LOCKED);
   });
 
