@@ -1,4 +1,6 @@
-import React from 'react'
+import * as React from 'react'
+
+import Agreements from '../shared/agreements'
 
 export default class AgreementsAndLinkToLogin extends React.Component {
 
@@ -18,7 +20,7 @@ export default class AgreementsAndLinkToLogin extends React.Component {
         <p className="return-to-login">Already have an account?
           <span className="inline-link" onClick={this.handleLogInClick} onKeyDown={this.handleKeyDownOnLogIn} role="link" tabIndex={0}>Log in</span>
         </p>
-        <p className="agreements">By signing up, you agree to our <a href="/tos">Terms of Service</a> and <a href="/privacy">Privacy&nbsp;Policy.</a></p>
+        <Agreements />
       </div>
     )
   }

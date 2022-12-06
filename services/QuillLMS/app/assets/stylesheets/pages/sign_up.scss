@@ -43,7 +43,7 @@
   }
 }
 
-.account-form.student-sign-up, .account-form.teacher-sign-up {
+.account-form.student-sign-up, .account-form.teacher-sign-up, .account-form.finish-set-up {
   h1 {
     margin-bottom: 4px !important;
   }
@@ -61,11 +61,12 @@
   }
 }
 
-.account-form.teacher-sign-up {
+.account-form.teacher-sign-up, .account-form.finish-set-up {
   .info-and-form-container {
     display: flex;
     justify-content: center;
     margin: 40px 0px 32px;
+    min-height: 584px;
     .account-container {
       border-radius: 0px 6px 6px 0px;
       margin: 0px;

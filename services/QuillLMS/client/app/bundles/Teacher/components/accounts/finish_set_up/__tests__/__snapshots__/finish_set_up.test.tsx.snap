@@ -1,0 +1,254 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`FinishSetUp component should render 1`] = `
+<FinishSetUp
+  email="emilia@quill.org"
+  firstName="Emilia"
+  lastName="Friedberg"
+  token="token"
+>
+  <div
+    className="container account-form finish-set-up"
+  >
+    <h1>
+      Finish setting up your account
+    </h1>
+    <p
+      className="sub-header"
+    >
+      A Quill 
+      account
+       was created for you
+      . To complete your account setup, please set a password.
+    </p>
+    <div
+      className="info-and-form-container"
+    >
+      <TeacherSignUpInfo>
+        <div
+          className="info"
+        >
+          <h2>
+            More than 5,000 schools use Quill's free online tools to help their students become strong writers.
+          </h2>
+          <ul>
+            <li>
+              Quill provides free access to 700 writing and grammar activities
+            </li>
+            <li>
+              Students receive immediate feedback on their work
+            </li>
+            <li>
+              Teachers or guardians identify student needs and measure growth with diagnostics and reports
+            </li>
+          </ul>
+        </div>
+      </TeacherSignUpInfo>
+      <div
+        className="account-container text-center"
+      >
+        <div
+          className="teacher-signup-form"
+        >
+          <div>
+            <form
+              acceptCharset="UTF-8"
+              onSubmit={[Function]}
+            >
+              <input
+                aria-hidden="true"
+                aria-label="utf8"
+                name="utf8"
+                type="hidden"
+                value="✓"
+              />
+              <div
+                className="name"
+              >
+                <Input
+                  autoComplete="given-name"
+                  className="first-name"
+                  handleChange={[Function]}
+                  id="firstName"
+                  label="First name"
+                  timesSubmitted={0}
+                  type="text"
+                >
+                  <div
+                    className="input-container  inactive  first-name "
+                    onClick={[Function]}
+                    onKeyDown={[Function]}
+                    role="button"
+                    tabIndex={-1}
+                  >
+                    <label
+                      htmlFor="firstName"
+                    >
+                      First name
+                    </label>
+                    <input
+                      autoComplete="given-name"
+                      id="firstName"
+                      maxLength={10000}
+                      onChange={[Function]}
+                      onFocus={[Function]}
+                      placeholder={false}
+                      type="text"
+                    />
+                  </div>
+                </Input>
+                <Input
+                  autoComplete="family-name"
+                  className="last-name"
+                  handleChange={[Function]}
+                  id="lastName"
+                  label="Last name"
+                  timesSubmitted={0}
+                  type="text"
+                >
+                  <div
+                    className="input-container  inactive  last-name "
+                    onClick={[Function]}
+                    onKeyDown={[Function]}
+                    role="button"
+                    tabIndex={-1}
+                  >
+                    <label
+                      htmlFor="lastName"
+                    >
+                      Last name
+                    </label>
+                    <input
+                      autoComplete="family-name"
+                      id="lastName"
+                      maxLength={10000}
+                      onChange={[Function]}
+                      onFocus={[Function]}
+                      placeholder={false}
+                      type="text"
+                    />
+                  </div>
+                </Input>
+              </div>
+              <Input
+                autoComplete="email"
+                className="email disabled"
+                disabled={true}
+                id="email"
+                type="email"
+                value="emilia@quill.org"
+              >
+                <div
+                  className="input-container  inactive has-text email disabled "
+                  onClick={[Function]}
+                  onKeyDown={[Function]}
+                  role="button"
+                  tabIndex={-1}
+                >
+                  <label
+                    htmlFor="email"
+                  />
+                  <input
+                    autoComplete="email"
+                    disabled={true}
+                    id="email"
+                    maxLength={10000}
+                    onFocus={[Function]}
+                    placeholder={false}
+                    type="email"
+                    value="emilia@quill.org"
+                  />
+                </div>
+              </Input>
+              <PasswordWrapper
+                autoComplete="new-password"
+                className="password inspectletIgnore"
+                id="password"
+                label="Set your password"
+                onChange={[Function]}
+                timesSubmitted={0}
+                value=""
+              >
+                <div
+                  className="password-wrapper"
+                >
+                  <Input
+                    autoComplete="new-password"
+                    className="password inspectletIgnore"
+                    handleChange={[Function]}
+                    id="password"
+                    label="Set your password"
+                    timesSubmitted={0}
+                    type="password"
+                    value=""
+                  >
+                    <div
+                      className="input-container  inactive  password inspectletIgnore "
+                      onClick={[Function]}
+                      onKeyDown={[Function]}
+                      role="button"
+                      tabIndex={-1}
+                    >
+                      <label
+                        htmlFor="password"
+                      >
+                        Set your password
+                      </label>
+                      <input
+                        autoComplete="new-password"
+                        id="password"
+                        maxLength={10000}
+                        onChange={[Function]}
+                        onFocus={[Function]}
+                        placeholder={false}
+                        type="password"
+                        value=""
+                      />
+                    </div>
+                  </Input>
+                  <button
+                    aria-label="Show password"
+                    className="interactive-wrapper focus-on-light"
+                    onClick={[Function]}
+                    type="button"
+                  >
+                    <img
+                      alt=""
+                      src="undefined/images/icons/icons-visibility-on.svg"
+                    />
+                  </button>
+                </div>
+              </PasswordWrapper>
+              <input
+                aria-label="Sign up"
+                className="quill-button contained primary medium focus-on-light disabled"
+                name="commit"
+                type="submit"
+                value="Log in"
+              />
+            </form>
+          </div>
+        </div>
+      </div>
+    </div>
+    <Agreements>
+      <p
+        className="agreements"
+      >
+        By signing up, you agree to our 
+        <a
+          href="/tos"
+        >
+          Terms of Service
+        </a>
+         and 
+        <a
+          href="/privacy"
+        >
+          Privacy Policy.
+        </a>
+      </p>
+    </Agreements>
+  </div>
+</FinishSetUp>
+`;
