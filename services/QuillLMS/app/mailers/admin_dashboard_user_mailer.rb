@@ -4,7 +4,7 @@ class AdminDashboardUserMailer < UserMailer
   include EmailApiHelper
   include ActionView::Helpers::NumberHelper
 
-  default from: 'hello@quill.org', foo: 'bar'
+  default from: "The Quill Team <hello@quill.org>"
 
   def teacher_account_created_email(user, admin_name, school_name, is_reminder)
     @user = user
@@ -63,7 +63,7 @@ class AdminDashboardUserMailer < UserMailer
       adminFullName: @admin_name,
       schoolName: @school_name
     }
-    @set_password_link = "#{ENV['DEFAULT_URL']}/account/#{@user.token}/finish_setup?#{params.to_query}"
+    @set_password_link = "#{ENV['DEFAULT_URL']}/account/#{@user.token}/finish_set_up?#{params.to_query}"
   end
 
 end
