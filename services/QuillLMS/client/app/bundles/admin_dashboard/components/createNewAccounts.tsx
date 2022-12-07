@@ -66,7 +66,7 @@ export class CreateNewAccounts extends React.Component<any, any> {
       teacher: {
         first_name: firstName,
         last_name: lastName,
-        role,
+        role: role.value,
         email
       },
       school_id: school.value || school.id
