@@ -18,7 +18,7 @@ const SeedDataForm = ({ history, match }) => {
 
   const [activityNouns, setActivityNouns] = React.useState<string>('');
 
-  const blankLabelConfig = { label: '', examples: ['',''], };
+  const blankLabelConfig = { label: '', examples: ['','',''], };
   const blankLabelConfigs = { [BECAUSE] : [], [BUT] : [], [SO] : [], };
 
   const [labelConfigs, setLabelConfigs] = React.useState({...blankLabelConfigs});
