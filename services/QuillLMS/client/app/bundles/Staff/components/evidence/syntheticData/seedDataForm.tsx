@@ -43,13 +43,6 @@ const SeedDataForm = ({ history, match }) => {
     setLabelConfigs(data)
   }
 
-  function onRemoveExample(e) {
-    const { target } = e;
-    const { id, name, value, } = target;
-
-    removeExample(value, id, name);
-  }
-
   function removeExample(conjunction, index, exampleIndex) {
     const data = {...labelConfigs}
     const exampleData = data[conjunction][index].examples
