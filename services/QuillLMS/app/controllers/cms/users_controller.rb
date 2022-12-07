@@ -385,6 +385,7 @@ class Cms::UsersController < Cms::CmsController
   end
 
   private def create_new_account_for_admin_user
+    user_params = params.permit(:name, :email)
     user_params.merge!(role: "teacher", password: SecureRandom.uuid)
     user = User.new(user_params)
 
