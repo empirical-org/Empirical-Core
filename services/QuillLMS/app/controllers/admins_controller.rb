@@ -53,49 +53,27 @@ class AdminsController < ApplicationController
 
     @teacher = User.find_by(email: teacher_params[:email])
 
-    is_admin = teacher_params[:role] === 'admin'
+    is_admin = teacher_params[:role] == 'admin'
     teacher_params.delete(:role)
 
     if @teacher
       if is_admin
-        if SchoolsAdmins.find_by(user: @teacher, school: @school)
-          message = t('admin_created_account.existing_account.admin.linked', school_name: @school.name)
-        else
-          message = t('admin_created_account.existing_account.admin.new')
-          handle_new_school_admin_email
-        end
+        handle_existing_user_submitted_as_admin
       else
-        if SchoolsUsers.find_by(user: @teacher, school: @school)
-          # Teacher is already in the school, let the admin know.
-          message = t('admin_created_account.existing_account.teacher.linked', school_name: @school.name)
-        else
-          # Send invite to the school to the teacher via email.
-          message = t('admin_created_account.existing_account.teacher.new', school_name: @school.name)
-          AdminDashboard::TeacherLinkSchoolEmailWorker.perform_async(@teacher.id, current_user.id, @school.id)
-        end
+        handle_existing_user_submitted_as_teacher
       end
     else
       # Create a new teacher, and automatically join them to the school.
-      @teacher = @school.users.create(teacher_params.merge({ role: 'teacher', password: teacher_params[:last_name] }))
-      @teacher.refresh_token!
-      ExpirePasswordTokenWorker.perform_in(30.days, @teacher.id)
-      if is_admin
-        SchoolsAdmins.create(user: @teacher, school: @school)
-        message = t('admin_created_account.new_account.admin')
-        AdminDashboard::AdminAccountCreatedEmailWorker.perform_async(@teacher.id, current_user.id, @school.id, false)
-      else
-        message = t('admin_created_account.new_account.teacher')
-        AdminDashboard::TeacherAccountCreatedEmailWorker.perform_async(@teacher.id, current_user.id, @school.id, false)
-      end
+      handle_new_user
     end
 
     if @teacher.errors.empty?
       # Return the message to the admin and reset the cache so the next request can load fresh data
       $redis.del("SERIALIZED_ADMIN_USERS_FOR_#{current_user.id}")
       FindAdminUsersWorker.perform_async(current_user.id)
-      render json: {message: message}, status: 200
+      render json: {message: @message}, status: 200
     else
-       # Return errors if there are any.
+      # Return errors if there are any.
       render json: @teacher.errors, status: 422
     end
   end
@@ -118,10 +96,44 @@ class AdminsController < ApplicationController
   private def handle_new_school_admin_email
     if @teacher.school.nil? || @teacher.school.name == School::NOT_LISTED_SCHOOL_NAME
       AdminDashboard::MadeSchoolAdminLinkSchoolEmailWorker.perform_async(@teacher.id, current_user.id, @school.id)
-    elsif @teacher.school === @school
+    elsif @teacher.school == @school
       AdminDashboard::MadeSchoolAdminEmailWorker.perform_async(@teacher.id, current_user.id, @school.id)
     else
       AdminDashboard::MadeSchoolAdminChangeSchoolEmailWorker.perform_async(@teacher.id, current_user.id, @school.id, @teacher.school.id)
+    end
+  end
+
+  private def handle_existing_user_submitted_as_admin
+    if SchoolsAdmins.find_by(user: @teacher, school: @school)
+      @message = t('admin_created_account.existing_account.admin.linked', school_name: @school.name)
+    else
+      @message = t('admin_created_account.existing_account.admin.new')
+      handle_new_school_admin_email
+    end
+  end
+
+  private def handle_existing_user_submitted_as_teacher
+    if SchoolsUsers.find_by(user: @teacher, school: @school)
+      # Teacher is already in the school, let the admin know.
+      @message = t('admin_created_account.existing_account.teacher.linked', school_name: @school.name)
+    else
+      # Send invite to the school to the teacher via email.
+      @message = t('admin_created_account.existing_account.teacher.new', school_name: @school.name)
+      AdminDashboard::TeacherLinkSchoolEmailWorker.perform_async(@teacher.id, current_user.id, @school.id)
+    end
+  end
+
+  private def handle_new_user
+    @teacher = @school.users.create(teacher_params.merge({ role: 'teacher', password: teacher_params[:last_name] }))
+    @teacher.refresh_token!
+    ExpirePasswordTokenWorker.perform_in(30.days, @teacher.id)
+    if is_admin
+      SchoolsAdmins.create(user: @teacher, school: @school)
+      @message = t('admin_created_account.new_account.admin')
+      AdminDashboard::AdminAccountCreatedEmailWorker.perform_async(@teacher.id, current_user.id, @school.id, false)
+    else
+      @message = t('admin_created_account.new_account.teacher')
+      AdminDashboard::TeacherAccountCreatedEmailWorker.perform_async(@teacher.id, current_user.id, @school.id, false)
     end
   end
 

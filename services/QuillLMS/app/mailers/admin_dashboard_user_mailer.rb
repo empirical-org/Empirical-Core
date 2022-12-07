@@ -10,7 +10,7 @@ class AdminDashboardUserMailer < UserMailer
     @user = user
     @admin_name = admin_name
     @school_name = school_name
-    @set_password_link = set_password_link('teacher')
+    @set_password_link = link_for_setting_password('teacher')
     subject = is_reminder ? "🔔 Reminder: #{user.first_name}, a Quill account was created for you" : "[Action Required] #{user.first_name}, a Quill account was created for you"
     mail to: user.email, subject: subject
   end
@@ -20,7 +20,7 @@ class AdminDashboardUserMailer < UserMailer
     @admin_name = admin_name
     @school_name = school_name
     # placeholder url-- will get updated in subsequent PR for new account setup landing page
-    @set_password_link = set_password_link('school admin')
+    @set_password_link = link_for_setting_password('school admin')
     subject = is_reminder ? "🔔 Reminder: #{user.first_name}, a Quill school admin account was created for you" : "[Action Required] #{user.first_name}, a Quill school admin account was created for you"
     mail to: user.email, subject: subject
   end
@@ -57,7 +57,7 @@ class AdminDashboardUserMailer < UserMailer
     mail to: user.email, subject: "#{user.first_name}, you are now a Quill admin for #{new_school.name}"
   end
 
-  private def set_password_link(role)
+  private def link_for_setting_password(role)
     params = {
       accountType: role,
       adminFullName: @admin_name,
