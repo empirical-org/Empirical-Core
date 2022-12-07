@@ -4,7 +4,7 @@ import ReactHtmlParser from 'react-html-parser'
 
 import SubmissionModal from '../shared/submissionModal';
 import { fetchActivity, createSeedData } from '../../../utils/evidence/activityAPIs';
-import { renderHeader } from "../../../helpers/evidence/renderHelpers";
+import { renderHeader, quillCloseX } from "../../../helpers/evidence/renderHelpers";
 import { Input, Spinner } from '../../../../Shared/index';
 import { TITLE, BECAUSE, BUT, SO } from "../../../../../constants/evidence";
 
@@ -39,6 +39,23 @@ const SeedDataForm = ({ history, match }) => {
 
     conjunctionData[index].examples[exampleIndex] = event.target.value;
     data[conjunction] = conjunctionData;
+
+    setLabelConfigs(data)
+  }
+
+  function onRemoveExample(e) {
+    const { target } = e;
+    const { id, name, value, } = target;
+
+    removeExample(value, id, name);
+  }
+
+  function removeExample(conjunction, index, exampleIndex) {
+    const data = {...labelConfigs}
+    const exampleData = data[conjunction][index].examples
+
+    exampleData.splice(exampleIndex, 1)
+    data[conjunction][index].examples = exampleData
 
     setLabelConfigs(data)
   }
@@ -125,11 +142,22 @@ const SeedDataForm = ({ history, match }) => {
 
   function renderExample(value, index, conjunction, exampleIndex) {
     return (
-      <Input
-        handleChange={e => handleExampleChange(e, index, conjunction, exampleIndex)}
-        label={`Example ${exampleIndex + 1}`}
-        value={value}
-      />
+      <div className='example-container'>
+        <Input
+          className="example-input"
+          handleChange={e => handleExampleChange(e, index, conjunction, exampleIndex)}
+          label={`Example ${exampleIndex + 1}`}
+          value={value}
+        />
+        <button
+          className='x-button'
+          id={index}
+          onClick={e => removeExample(conjunction, index, exampleIndex}
+          value={conjunction}
+        >
+          <img alt="quill-circle-checkmark" src={quillCloseX} />
+        </button>
+      </div>
     );
   }
 
