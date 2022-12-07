@@ -43,6 +43,19 @@ const SeedDataForm = ({ history, match }) => {
     setLabelConfigs(data)
   }
 
+  function onAddExample(e) {
+    const { target } = e;
+    const { id, value } = target;
+    addExample(value, id);
+  }
+
+  function addExample(conjunction, index) {
+    const data = {...labelConfigs}
+
+    data[conjunction][index].examples.push('')
+    setLabelConfigs(data)
+  }
+
   function onAddLabelConfigs(e) {
     const { target } = e;
     const { value } = target;
@@ -140,7 +153,16 @@ const SeedDataForm = ({ history, match }) => {
           />
         </div>
         {labelConfig.examples.map((example, exampleIndex) => renderExample(example, index, conjunction, exampleIndex))}
+        <button
+          className='quill-button fun secondary outlined'
+          id={index}
+          onClick={onAddExample}
+          value={conjunction}
+        >
+          <span className='plus'>+</span>
 
+          &nbsp;Add Example
+        </button>
       </div>
     );
   }
