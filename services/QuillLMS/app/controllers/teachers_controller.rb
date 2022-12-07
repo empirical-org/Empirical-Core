@@ -154,16 +154,6 @@ class TeachersController < ApplicationController
     render json: { units: units }
   end
 
-  private def handle_new_school_admin_email
-    if @teacher.school.nil?
-      # @TODO set email
-    elsif @teacher.school === @school
-      # @TODO set email
-    else
-      # @TODO set email
-    end
-  end
-
   private def teacher_params
     params.require(:teacher).permit(:admin_id, :first_name, :last_name, :email)
            .merge({role: 'teacher'})
