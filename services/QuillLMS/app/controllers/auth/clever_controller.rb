@@ -20,8 +20,13 @@ module Auth
       render status: 200, nothing: true # Don't bother rendering anything.
     end
 
+    # rubocop:disable Metrics/CyclomaticComplexity
     private def update_current_user_email
       return unless route_redirects_to_my_account?(session[ApplicationController::CLEVER_REDIRECT])
+
+      current_user_id = current_user&.id
+      new_email = auth_hash['info']['email']
+      old_email = current_user&.email
 
       if current_user.update(email: auth_hash['info']['email'])
         session[ApplicationController::GOOGLE_OR_CLEVER_JUST_SET] = true
@@ -29,8 +34,10 @@ module Auth
         ErrorNotifier.report(
           CleverAccountConflictError.new, {
             clever_redirect: session[ApplicationController::CLEVER_REDIRECT],
-            current_user_email: current_user&.email,
-            new_email: auth_hash['info']['email'],
+            current_user_id: current_user_id,
+            new_email: new_email,
+            old_email: old_email,
+            user_id: session[:user_id],
             validation_errors: current_user&.errors&.full_messages&.join('|')
           }
         )
@@ -38,6 +45,7 @@ module Auth
         flash.keep(:error)
       end
     end
+    # rubocop:enable Metrics/CyclomaticComplexity
 
     private def user_success(user, redirect=nil)
       CompleteAccountCreation.new(user, request.remote_ip).call if user.previous_changes["id"]

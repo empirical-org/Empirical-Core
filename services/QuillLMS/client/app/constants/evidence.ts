@@ -293,3 +293,15 @@ export const numericalWordOptions = {
   3: 'Fourth',
   4: 'Fifth'
 }
+
+export const sessionsCSVHeaders = [
+  { label: 'Date/Time', key: 'datetime'},
+  { label: 'Session ID', key: 'session_uid'},
+  { label: 'Conjunction', key: 'conjunction'},
+  { label: 'Attempt', key: 'attempt'},
+  { label: 'Optimal?', key: 'optimal'},
+  { label: 'Completed?', key: 'completed'},
+  { label: 'Response', key: 'response'},
+  { label: 'Feedback', key: 'feedback'},
+  { label: 'Rule', key: 'rule'}
+]
