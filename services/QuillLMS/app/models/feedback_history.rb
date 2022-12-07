@@ -132,6 +132,10 @@ class FeedbackHistory < ApplicationRecord
     serializable_hash(only: [:id, :entry, :feedback_text, :feedback_type, :optimal, :used, :rule_uid], include: [], methods: [:most_recent_rating]).symbolize_keys
   end
 
+  def serialize_csv_data
+    serializable_hash(only: [:session_uid, :datetime, :conjunction, :optimal, :attempt, :response, :feedback, :feedback_type, :name], include: [])
+  end
+
   def most_recent_rating
     feedback_history_ratings.order(updated_at: :desc).first&.rating
   end
@@ -359,4 +363,48 @@ class FeedbackHistory < ApplicationRecord
     output.symbolize_keys
   end
   # rubocop:enable Metrics/CyclomaticComplexity
+
+  def self.session_data_uids(activity_id: nil, start_date: nil, end_date: nil, filter_type: nil, responses_for_scoring: false)
+    query = select(
+      <<-SQL
+        feedback_histories.feedback_session_uid AS session_uid
+      SQL
+      )
+      .joins("LEFT OUTER JOIN feedback_history_flags ON feedback_histories.id = feedback_history_flags.feedback_history_id")
+      .joins("LEFT OUTER JOIN comprehension_prompts ON feedback_histories.prompt_id = comprehension_prompts.id")
+      .joins("LEFT OUTER JOIN feedback_history_ratings ON feedback_histories.id = feedback_history_ratings.feedback_history_id")
+      .where(used: true)
+      .group(:feedback_session_uid)
+    query = query.where(comprehension_prompts: {activity_id: activity_id.to_i}) if activity_id
+    query = FeedbackHistory.apply_activity_session_filter(query, filter_type) if filter_type
+    query = query.having(FeedbackHistory.responses_for_scoring) if responses_for_scoring
+    query
+  end
+
+  def self.session_data_for_csv(activity_id: nil, start_date: nil, end_date: nil, filter_type: nil, responses_for_scoring: false)
+    session_uids = session_data_uids(activity_id: activity_id, filter_type: filter_type, responses_for_scoring: responses_for_scoring)
+    query = select(
+      <<-SQL
+        feedback_histories.id,
+        feedback_histories.feedback_session_uid AS session_uid,
+        feedback_histories.time AS datetime,
+        comprehension_prompts.conjunction,
+        feedback_histories.optimal,
+        feedback_histories.attempt,
+        feedback_histories.entry as response,
+        feedback_histories.feedback_text as feedback,
+        feedback_histories.feedback_type,
+        comprehension_rules.name
+      SQL
+      )
+      .joins("LEFT OUTER JOIN comprehension_prompts ON feedback_histories.prompt_id = comprehension_prompts.id")
+      .joins("LEFT OUTER JOIN comprehension_rules ON comprehension_rules.uid = feedback_histories.rule_uid")
+      .where(used: true)
+      .order('datetime DESC')
+    query = query.where(comprehension_prompts: {activity_id: activity_id.to_i}) if activity_id
+    query = query.where("feedback_histories.created_at >= ?", start_date) if start_date
+    query = query.where("feedback_histories.created_at <= ?", end_date) if end_date
+    query = query.where(feedback_session_uid: session_uids) if responses_for_scoring || filter_type
+    query
+  end
 end
