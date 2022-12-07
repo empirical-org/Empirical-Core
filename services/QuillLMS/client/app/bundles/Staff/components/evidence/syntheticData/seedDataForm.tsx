@@ -151,7 +151,7 @@ const SeedDataForm = ({ history, match }) => {
         />
         <button
           className='x-button'
-          onClick={() => removeExample(conjunction, index, exampleIndex}
+          onClick={() => removeExample(conjunction, index, exampleIndex)}
         >
           <img alt="quill-circle-checkmark" src={quillCloseX} />
         </button>
