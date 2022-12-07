@@ -63,7 +63,7 @@ describe AdminsController  do
               create(:schools_admins, user: existing_teacher, school: school)
 
               post :create_and_link_accounts, params: { id: admin.id, school_id: school.id, teacher: { role: 'admin', email: existing_teacher.email }}
-              expect(response.body).to eq ({message: I18n.t('admincreatedaccount.existing_account.admin.linked')}.to_json)
+              expect(response.body).to eq ({message: I18n.t('admin_created_account.existing_account.admin.linked')}.to_json)
             end
           end
 
@@ -72,7 +72,7 @@ describe AdminsController  do
               it 'returns a message and fires an email worker' do
                 expect(AdminDashboard::MadeSchoolAdminLinkSchoolEmailWorker).to receive(:perform_async)
                 post :create_and_link_accounts, params: { id: admin.id, school_id: school.id, teacher: { role: 'admin', email: existing_teacher.email }}
-                expect(response.body).to eq ({message: I18n.t('admincreatedaccount.existing_account.admin.new')}.to_json)
+                expect(response.body).to eq ({message: I18n.t('admin_created_account.existing_account.admin.new')}.to_json)
               end
             end
 
@@ -82,7 +82,7 @@ describe AdminsController  do
 
                 expect(AdminDashboard::MadeSchoolAdminEmailWorker).to receive(:perform_async)
                 post :create_and_link_accounts, params: { id: admin.id, school_id: school.id, teacher: { role: 'admin', email: existing_teacher.email }}
-                expect(response.body).to eq ({message: I18n.t('admincreatedaccount.existing_account.admin.new')}.to_json)
+                expect(response.body).to eq ({message: I18n.t('admin_created_account.existing_account.admin.new')}.to_json)
               end
             end
 
@@ -93,7 +93,7 @@ describe AdminsController  do
 
                 expect(AdminDashboard::MadeSchoolAdminChangeSchoolEmailWorker).to receive(:perform_async)
                 post :create_and_link_accounts, params: { id: admin.id, school_id: school.id, teacher: { role: 'admin', email: existing_teacher.email }}
-                expect(response.body).to eq ({message: I18n.t('admincreatedaccount.existing_account.admin.new')}.to_json)
+                expect(response.body).to eq ({message: I18n.t('admin_created_account.existing_account.admin.new')}.to_json)
               end
             end
 
@@ -107,7 +107,7 @@ describe AdminsController  do
               create(:schools_users, user: existing_teacher, school: school)
 
               post :create_and_link_accounts, params: { id: admin.id, school_id: school.id, teacher: { role: 'teacher', email: existing_teacher.email }}
-              expect(response.body).to eq ({message: I18n.t('admincreatedaccount.existing_account.teacher.linked')}.to_json)
+              expect(response.body).to eq ({message: I18n.t('admin_created_account.existing_account.teacher.linked')}.to_json)
             end
           end
 
@@ -115,7 +115,7 @@ describe AdminsController  do
             it 'returns a message and fires an email worker' do
               expect(AdminDashboard::TeacherLinkSchoolEmailWorker).to receive(:perform_async)
               post :create_and_link_accounts, params: { id: admin.id, school_id: school.id, teacher: { role: 'teacher', email: existing_teacher.email }}
-              expect(response.body).to eq ({message: I18n.t('admincreatedaccount.existing_account.teacher.new')}.to_json)
+              expect(response.body).to eq ({message: I18n.t('admin_created_account.existing_account.teacher.new')}.to_json)
             end
           end
         end
@@ -140,7 +140,7 @@ describe AdminsController  do
             post :create_and_link_accounts, params: { id: admin.id, school_id: school.id, teacher: { role: 'admin', email: email, first_name: first_name, last_name: last_name }}
             user = User.find_by(email: email)
             expect(SchoolsAdmins.find_by(user: user, school: school)).to be
-            expect(response.body).to eq ({message: I18n.t('admincreatedaccount.new_account.admin')}.to_json)
+            expect(response.body).to eq ({message: I18n.t('admin_created_account.new_account.admin')}.to_json)
           end
         end
 
@@ -148,7 +148,7 @@ describe AdminsController  do
           it 'returns a message and fires an email worker' do
             expect(AdminDashboard::TeacherAccountCreatedEmailWorker).to receive(:perform_async)
             post :create_and_link_accounts, params: { id: admin.id, school_id: school.id, teacher: { role: 'teacher', email: email, first_name: first_name, last_name: last_name }}
-            expect(response.body).to eq ({message: I18n.t('admincreatedaccount.new_account.teacher')}.to_json)
+            expect(response.body).to eq ({message: I18n.t('admin_created_account.new_account.teacher')}.to_json)
           end
         end
 

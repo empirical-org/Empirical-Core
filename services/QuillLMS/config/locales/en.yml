@@ -35,6 +35,17 @@ en:
   actioncontroller:
     errors:
       invalid_authenticity_token: 'Whoops, something went wrong. Please refresh your browser and try your request again.'
+  admin_created_account:
+    existing_account:
+      admin:
+        linked: "This account already exists and is an admin of %{school_name}."
+        new: "This account already exists. They were made an admin and notified by email."
+      teacher:
+        linked: "This account already exists and is linked to %{school_name}."
+        new: "This account already exists. They were sent an email asking them to link their account to %{school_name}."
+    new_account:
+      admin: "Admin added. They were notified by email."
+      teacher: "Teacher added. They were notified by email."
   activerecord:
     errors:
       models:
@@ -57,14 +68,3 @@ en:
     accounts:
       edit:
         expired_link: "Sorry, this link has expired. Please contact your Quill admin or the <a href='mailto:hello@quill.org'>Quill support team</a>"
-    admincreatedaccount:
-      existing_account:
-        admin:
-          linked: "This account already exists and is an admin of %{school_name}."
-          new: "This account already exists. They were made an admin and notified by email."
-        teacher:
-          linked: "This account already exists and is linked to %{school_name}."
-          new: "This account already exists. They were sent an email asking them to link their account to %{school_name}."
-      new_account:
-        admin: "Admin added. They were notified by email."
-        teacher: "Teacher added. They were notified by email."

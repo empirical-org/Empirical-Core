@@ -59,18 +59,18 @@ class AdminsController < ApplicationController
     if @teacher
       if is_admin
         if SchoolsAdmins.find_by(user: @teacher, school: @school)
-          message = t('admincreatedaccount.existing_account.admin.linked', school_name: @school.name)
+          message = t('admin_created_account.existing_account.admin.linked', school_name: @school.name)
         else
-          message = t('admincreatedaccount.existing_account.admin.new')
+          message = t('admin_created_account.existing_account.admin.new')
           handle_new_school_admin_email
         end
       else
         if SchoolsUsers.find_by(user: @teacher, school: @school)
           # Teacher is already in the school, let the admin know.
-          message = t('admincreatedaccount.existing_account.teacher.linked', school_name: @school.name)
+          message = t('admin_created_account.existing_account.teacher.linked', school_name: @school.name)
         else
           # Send invite to the school to the teacher via email.
-          message = t('admincreatedaccount.existing_account.teacher.new', school_name: @school.name)
+          message = t('admin_created_account.existing_account.teacher.new', school_name: @school.name)
           AdminDashboard::TeacherLinkSchoolEmailWorker.perform_async(@teacher.id, current_user.id, @school.id)
         end
       end
@@ -81,10 +81,10 @@ class AdminsController < ApplicationController
       ExpirePasswordTokenWorker.perform_in(30.days, @teacher.id)
       if is_admin
         SchoolsAdmins.create(user: @teacher, school: @school)
-        message = t('admincreatedaccount.new_account.admin')
+        message = t('admin_created_account.new_account.admin')
         AdminDashboard::AdminAccountCreatedEmailWorker.perform_async(@teacher.id, current_user.id, @school.id, false)
       else
-        message = t('admincreatedaccount.new_account.teacher')
+        message = t('admin_created_account.new_account.teacher')
         AdminDashboard::TeacherAccountCreatedEmailWorker.perform_async(@teacher.id, current_user.id, @school.id, false)
       end
     end

@@ -29,7 +29,7 @@ export class CreateNewAccounts extends React.Component<any, any> {
 
   handleEmailChange = (e) => this.updateField(e, 'email')
 
-  updateRole = (role) => this.setState(role)
+  updateRole = (role) => this.setState({ role, })
 
   updateSchool = (school) => this.setState({ school })
 
@@ -81,13 +81,6 @@ export class CreateNewAccounts extends React.Component<any, any> {
     return <div className="error">{error}</div>
   }
 
-  renderMessage = () => {
-    const { message, } = this.props
-    if (!message) { return }
-
-    return <div className="message">{message}</div>
-  }
-
   render() {
     const { firstName, lastName, email, school, role, } = this.state
     const supportLink = <a href="http://support.quill.org/getting-started-for-teachers/manage-classes/how-can-i-connect-my-account-to-my-school" rel="noopener noreferrer" target="_blank"> Here&#39;s the guide</a>
@@ -106,7 +99,7 @@ export class CreateNewAccounts extends React.Component<any, any> {
             </section>
             <section className="second-section">
               <DropdownInput
-                className='second-line'
+                className='school-selector'
                 handleChange={this.updateSchool}
                 isSearchable={true}
                 options={this.schoolOptions()}
@@ -114,10 +107,10 @@ export class CreateNewAccounts extends React.Component<any, any> {
                 value={this.schoolOptions().find(s => s.value === school.id || s.value === school.value)}
               />
               <DropdownInput
-                className='second-line'
+                className='role-selector'
                 handleChange={this.updateRole}
+                label='Select role'
                 options={roleOptions}
-                placeholder='Select role'
                 value={role}
               />
               <button className="quill-button small primary contained add-teacher-account-button" onClick={this.handleSubmitClick} type="button">Submit</button>
@@ -148,7 +141,6 @@ export class CreateNewAccounts extends React.Component<any, any> {
           </section>
         </section>
         {this.renderError()}
-        {this.renderMessage()}
       </div>
     )
   }
