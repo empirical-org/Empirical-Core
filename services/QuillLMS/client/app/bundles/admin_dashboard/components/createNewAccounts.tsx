@@ -69,7 +69,7 @@ export class CreateNewAccounts extends React.Component<any, any> {
         role,
         email
       },
-      id: school.value || school.id
+      school_id: school.value || school.id
     }
     addTeacherAccount(data)
   }

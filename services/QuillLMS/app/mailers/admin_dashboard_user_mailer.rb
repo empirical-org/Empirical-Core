@@ -10,8 +10,7 @@ class AdminDashboardUserMailer < UserMailer
     @user = user
     @admin_name = admin_name
     @school_name = school_name
-    # placeholder url-- will get updated in subsequent PR for new account setup landing page
-    @set_password_link = ENV['DEFAULT_URL']
+    @set_password_link = set_password_link('teacher')
     subject = is_reminder ? "🔔 Reminder: #{user.first_name}, a Quill account was created for you" : "[Action Required] #{user.first_name}, a Quill account was created for you"
     mail to: user.email, subject: subject
   end
@@ -20,7 +19,8 @@ class AdminDashboardUserMailer < UserMailer
     @user = user
     @admin_name = admin_name
     @school_name = school_name
-    @set_password_link = ENV['DEFAULT_URL']
+    # placeholder url-- will get updated in subsequent PR for new account setup landing page
+    @set_password_link = set_password_link('school admin')
     subject = is_reminder ? "🔔 Reminder: #{user.first_name}, a Quill school admin account was created for you" : "[Action Required] #{user.first_name}, a Quill school admin account was created for you"
     mail to: user.email, subject: subject
   end
@@ -55,6 +55,15 @@ class AdminDashboardUserMailer < UserMailer
     @existing_school = existing_school
     @link_school_link = "#{ENV['DEFAULT_URL']}/teachers/#{@user.id}/schools/#{@new_school.id}"
     mail to: user.email, subject: "#{user.first_name}, you are now a Quill admin for #{new_school.name}"
+  end
+
+  private def set_password_link(role)
+    params = {
+      accountType: role,
+      adminFullName: @admin_name,
+      schoolName: @school_name
+    }
+    @set_password_link = "#{ENV['DEFAULT_URL']}/account/#{@user.token}/finish_setup?#{params.to_query}"
   end
 
 end

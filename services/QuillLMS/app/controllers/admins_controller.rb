@@ -43,6 +43,61 @@ class AdminsController < ApplicationController
     redirect_to teachers_my_account_path
   end
 
+  def create_and_link_accounts
+    @school = School.find_by(id: params[:school_id])
+
+    if SchoolsAdmins.find_by(school: @school, user: current_user).nil?
+      render json: {errors: 'Something went wrong. If this problem persists, please contact us at hello@quill.org'}, status: 422
+      return
+    end
+
+    @teacher = User.find_by(email: teacher_params[:email])
+
+    is_admin = teacher_params[:role] === 'admin'
+    teacher_params.delete(:role)
+
+    if @teacher
+      if is_admin
+        if SchoolsAdmins.find_by(user: @teacher, school: @school)
+          message = t('admincreatedaccount.existing_account.admin.linked', school_name: @school.name)
+        else
+          message = t('admincreatedaccount.existing_account.admin.new')
+          handle_new_school_admin_email
+        end
+      else
+        if SchoolsUsers.find_by(user: @teacher, school: @school)
+          # Teacher is already in the school, let the admin know.
+          message = t('admincreatedaccount.existing_account.teacher.linked', school_name: @school.name)
+        else
+          # Send invite to the school to the teacher via email.
+          message = t('admincreatedaccount.existing_account.teacher.new', school_name: @school.name)
+          AdminDashboard::TeacherLinkSchoolEmailWorker.perform_async(@teacher.id, current_user.id, @school.id)
+        end
+      end
+    else
+      # Create a new teacher, and automatically join them to the school.
+      @teacher = @school.users.create(teacher_params.merge({ role: 'teacher', password: teacher_params[:last_name] }))
+      @teacher.refresh_token!
+      ExpirePasswordTokenWorker.perform_in(30.days, @teacher.id)
+      if is_admin
+        SchoolsAdmins.create(user: @teacher, school: @school)
+        message = t('admincreatedaccount.new_account.admin')
+        AdminDashboard::AdminAccountCreatedEmailWorker.perform_async(@teacher.id, current_user.id, @school.id, false)
+      else
+        message = t('admincreatedaccount.new_account.teacher')
+        AdminDashboard::TeacherAccountCreatedEmailWorker.perform_async(@teacher.id, current_user.id, @school.id, false)
+      end
+    end
+
+    if @teacher.errors.empty?
+      # Return the message to the admin
+      render json: {message: message}, status: 200
+    else
+       # Return errors if there are any.
+      render json: @teacher.errors, status: 422
+    end
+  end
+
   private def set_teacher
     @teacher = User.find(params[:id])
   end
@@ -56,6 +111,20 @@ class AdminsController < ApplicationController
   private def sign_in
     session[:admin_id] = current_user.id
     super(@teacher)
+  end
+
+  private def handle_new_school_admin_email
+    if @teacher.school.nil?
+      AdminDashboard::MadeSchoolAdminLinkSchoolEmailWorker.perform_async(@teacher.id, current_user.id, @school.id)
+    elsif @teacher.school === @school
+      AdminDashboard::MadeSchoolAdminEmailWorker.perform_async(@teacher.id, current_user.id, @school.id)
+    else
+      AdminDashboard::MadeSchoolAdminChangeSchoolEmailWorker.perform_async(@teacher.id, current_user.id, @school.id, @teacher.school.id)
+    end
+  end
+
+  private def teacher_params
+    params.require(:teacher).permit(:admin_id, :first_name, :last_name, :email, :role)
   end
 
 end

@@ -66,7 +66,7 @@ export class AdminDashboard extends React.Component {
     const { adminId } = this.props;
     this.setState({ message: '', error: '', });
     requestPost(
-      `${process.env.DEFAULT_URL}/admins/${adminId}/teachers`,
+      `${process.env.DEFAULT_URL}/admins/${adminId}/create_and_link_accounts`,
       data,
       (response) => {
         this.setState({ message: response.message, }, () => this.getData());

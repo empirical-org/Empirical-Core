@@ -21,9 +21,7 @@ EmpiricalGrammar::Application.routes.draw do
   get '/study', to: "students#index"
   get '/classes', to: "students#index"
 
-  resources :admins, only: [:show], format: 'json' do
-    resources :teachers, only: [:index, :create]
-  end
+  resources :admins, only: [:show], format: 'json'
 
   # for admins to sign in as teachers
   resources :users do
@@ -33,6 +31,8 @@ EmpiricalGrammar::Application.routes.draw do
       get :admin_sign_in_account_settings, to: 'admins#sign_in_account_settings'
     end
   end
+
+  post 'admins/:id/create_and_link_accounts', to: 'admins#create_and_link_accounts'
 
   # this blog post needs to be redirected
   get '/teacher-center/4-tips-to-maximize-remote-learning-with-quill' => redirect('teacher-center/teacher-toolbox-setting-up-remote-routines-with-quill')
