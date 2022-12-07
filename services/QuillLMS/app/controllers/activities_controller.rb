@@ -75,7 +75,13 @@ class ActivitiesController < ApplicationController
     return redirect_to profile_path unless current_user.student?
 
     if authorized_activity_access?
-      redirect_to activity_session_from_classroom_unit_and_activity_path(classroom_unit, activity)
+      if activity.locked_user_pack_sequence_item?(current_user)
+        flash[:error] = t('activity_link.errors.activity_locked')
+        flash.keep(:error)
+        redirect_to classes_path
+      else
+        redirect_to activity_session_from_classroom_unit_and_activity_path(classroom_unit, activity)
+      end
     else
       flash[:error] = t('activity_link.errors.activity_not_assigned')
       flash.keep(:error)

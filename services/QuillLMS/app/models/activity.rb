@@ -40,24 +40,24 @@ class Activity < ApplicationRecord
 
   validate :data_must_be_hash
 
-  has_many :skill_group_activities
-  has_many :skill_groups, through: :skill_group_activities
-  has_many :skills, through: :skill_groups
-
   has_and_belongs_to_many :unit_templates
 
   belongs_to :classification, class_name: 'ActivityClassification', foreign_key: 'activity_classification_id'
   belongs_to :standard
   belongs_to :raw_score
+  belongs_to :follow_up_activity, class_name: "Activity", foreign_key: "follow_up_activity_id"
 
   has_one :standard_level, through: :standard
 
-  belongs_to :follow_up_activity, class_name: "Activity", foreign_key: "follow_up_activity_id"
-
+  has_many :skill_group_activities
+  has_many :skill_groups, through: :skill_group_activities
+  has_many :skills, through: :skill_groups
   has_many :unit_activities, dependent: :destroy
   has_many :units, through: :unit_activities
   has_many :classroom_units, through: :units
   has_many :classrooms, through: :classroom_units
+  has_many :pack_sequence_items, through: :units
+  has_many :user_pack_sequence_items, through: :pack_sequence_items
   has_many :recommendations, dependent: :destroy
   has_many :activity_category_activities, dependent: :destroy
   has_many :activity_categories, through: :activity_category_activities
@@ -67,6 +67,7 @@ class Activity < ApplicationRecord
   has_many :teachers, through: :teacher_saved_activities, foreign_key: 'teacher_id'
   has_many :activity_topics, dependent: :destroy
   has_many :topics, through: :activity_topics
+
   before_create :flag_as_beta, unless: :flags?
   before_save :set_minimum_and_maximum_grade_levels_to_default_values, unless: :minimum_grade_level
   after_commit :clear_activity_search_cache
@@ -286,6 +287,10 @@ class Activity < ApplicationRecord
 
   def segment_activity
     SegmentIntegration::Activity.new(self)
+  end
+
+  def locked_user_pack_sequence_item?(user)
+    user_pack_sequence_items.locked.exists?(user: user)
   end
 
   private def update_evidence_title?
