@@ -90,7 +90,9 @@ class AdminsController < ApplicationController
     end
 
     if @teacher.errors.empty?
-      # Return the message to the admin
+      # Return the message to the admin and reset the cache so the next request can load fresh data
+      $redis.del("SERIALIZED_ADMIN_USERS_FOR_#{current_user.id}")
+      FindAdminUsersWorker.perform_async(current_user.id)
       render json: {message: message}, status: 200
     else
        # Return errors if there are any.
@@ -114,7 +116,7 @@ class AdminsController < ApplicationController
   end
 
   private def handle_new_school_admin_email
-    if @teacher.school.nil?
+    if @teacher.school.nil? || @teacher.school.name == School::NOT_LISTED_SCHOOL_NAME
       AdminDashboard::MadeSchoolAdminLinkSchoolEmailWorker.perform_async(@teacher.id, current_user.id, @school.id)
     elsif @teacher.school === @school
       AdminDashboard::MadeSchoolAdminEmailWorker.perform_async(@teacher.id, current_user.id, @school.id)
