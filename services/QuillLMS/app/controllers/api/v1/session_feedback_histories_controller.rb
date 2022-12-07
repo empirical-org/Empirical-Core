@@ -16,6 +16,19 @@ class Api::V1::SessionFeedbackHistoriesController < Api::ApiController
     }
   end
 
+  def session_data_for_csv
+    options = params.permit(:activity_id, :start_date, :end_date, :filter_type, :responses_for_scoring).to_h.symbolize_keys
+    feedback_histories = FeedbackHistory.session_data_for_csv(**options)
+    results = []
+    feedback_histories.find_each(batch_size: 10_000) { |feedback_history| results << feedback_history.serialize_csv_data }
+    results.sort! { |a,b| b["datetime"] <=> a["datetime"] }
+    if results
+      render json: results
+    else
+      render plain: "The resource you were looking for does not exist", status: 404
+    end
+  end
+
   # GET /feedback_histories/1.json
   def show
     feedback_session_uid = params[:id]
