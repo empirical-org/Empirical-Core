@@ -83,6 +83,15 @@ class Cms::UsersController < Cms::CmsController
     redirect_back(fallback_location: cms_users_path)
   end
 
+  def create_admin_user
+    user = User.find_by(email: params[:email])
+    if user
+      create_admin_user_for_existing_user(user)
+    else
+      create_new_account_for_admin_user
+    end
+  end
+
   def remove_admin
     admin = SchoolsAdmins.find_by(user_id: params[:user_id], school_id: params[:school_id])
     flash[:error] = 'Something went wrong.' unless admin.destroy
@@ -351,5 +360,40 @@ class Cms::UsersController < Cms::CmsController
   private def subscription_data
     @premium_types = Subscription::OFFICIAL_TEACHER_TYPES
     @subscription_payment_methods = Subscription::CMS_PAYMENT_METHODS
+  end
+
+  private def create_admin_user_for_existing_user(user, new_user=false)
+    school_id = params[:school_id]
+    if user.admin?
+      school_name = SchoolsAdmins.find_by(school_id: school_id).school.name
+      render json: { message: "This account already exists and is an admin of #{school_name}." }
+    else
+      admin = SchoolsAdmins.new
+      admin.school_id = school_id
+      admin.user_id = user.id
+
+      begin
+        admin.save!
+      rescue => e
+        return render json: { error: e.message }
+      end
+
+      user.mailer_user.determine_email_and_send(school_id: school_id, new_user: new_user)
+      returned_message = new_user ? "School admin added. They were notified by email." : "This account already exists. They were made an admin and notified by email."
+      render json: { message: returned_message }, status: 200
+    end
+  end
+
+  private def create_new_account_for_admin_user
+    user_params.merge!(role: "teacher", password: SecureRandom.uuid)
+    user = User.new(user_params)
+
+    begin
+      user.save!
+    rescue => e
+      return render json: { error: e.message }
+    end
+
+    create_admin_user_for_existing_user(user, new_user: true)
   end
 end

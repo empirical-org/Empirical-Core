@@ -3,7 +3,7 @@
 class Cms::SchoolsController < Cms::CmsController
   before_action :signed_in!
   before_action :text_search_inputs, only: [:index, :search]
-  before_action :set_school, only: [:new_subscription, :edit_subscription, :show, :complete_sales_stage]
+  before_action :set_school, only: [:new_subscription, :edit_subscription, :show, :complete_sales_stage, :new_admin]
   before_action :subscription_data, only: [:new_subscription, :edit_subscription]
 
   SCHOOLS_PER_PAGE = 30.0
@@ -102,7 +102,6 @@ class Cms::SchoolsController < Cms::CmsController
     id = params[:id]
     @js_file = 'staff'
     @style_file = 'staff'
-    @school = School.find(id)
     @cms_school_path = cms_school_path(id)
   end
 

@@ -2,6 +2,21 @@
 
 module Mailer
   class User < SimpleDelegator
+    def determine_email_and_send(school_id=nil, new_user=nil)
+      school = School.find_by(id: school_id)
+      linked_school = self.school
+
+      if school && new_user
+        send_internal_tool_admin_account_created_email(school_name: school.name)
+      elsif school && new_user == false && !linked_school
+        send_internal_tool_made_school_admin_link_school_email(school: school)
+      elsif school && new_user == false && school == linked_school
+        send_internal_tool_made_school_admin_email(school_name: school.name)
+      elsif school && new_user == false && school != linked_school
+        send_internal_tool_made_school_admin_change_school_email(new_school: school, existing_school: linked_school)
+      end
+    end
+
     def send_admin_dashboard_teacher_account_created_email(admin_name, school_name, is_reminder)
       AdminDashboardUserMailer.teacher_account_created_email(self, admin_name, school_name, is_reminder).deliver_now! if email.present?
     end
