@@ -33,7 +33,7 @@ class PackSequenceItem < ApplicationRecord
 
   delegate :classroom, to: :pack_sequence
 
-  private def save_user_pack_sequence_items
+  def save_user_pack_sequence_items
     users.each { |user_id| SaveUserPackSequenceItemsWorker.perform_async(classroom&.id, user_id) }
   end
 end

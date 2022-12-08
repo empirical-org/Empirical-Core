@@ -210,7 +210,10 @@ class Classroom < ApplicationRecord
     return 'Clever' if clever_classroom?
   end
 
-  # Clever integration
+  def save_user_pack_sequence_items
+    students.each { |student| SaveUserPackSequenceItemsWorker.perform_async(id, student.id) }
+  end
+
   private def clever_classroom
     Clever::Section.retrieve(clever_id, teacher.districts.first.token)
   end
@@ -224,9 +227,5 @@ class Classroom < ApplicationRecord
     teachers.each do |teacher|
       TeacherActivityFeedRefillWorker.perform_async(teacher.id)
     end
-  end
-
-  private def save_user_pack_sequence_items
-    students.each { |student| SaveUserPackSequenceItemsWorker.perform_async(id, student.id) }
   end
 end

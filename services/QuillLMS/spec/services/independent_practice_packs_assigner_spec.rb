@@ -61,8 +61,8 @@ RSpec.describe IndependentPracticePacksAssigner do
 
     it { expect { subject }.to change(Unit, :count).from(0).to(1) }
 
-    it 'assigns no recommendations' do
-      expect(AssignRecommendationsWorker).not_to receive(:perform_async)
+    it 'initiates BatchAssignRecommendationsWorker' do
+      expect(BatchAssignRecommendationsWorker).not_to receive(:perform_async)
       subject
     end
   end
@@ -74,8 +74,8 @@ RSpec.describe IndependentPracticePacksAssigner do
 
     it { expect { subject }.to change(Unit, :count).from(0).to(2) }
 
-    it 'assigns two recommendations' do
-      expect(AssignRecommendationsWorker).to receive(:perform_async).twice
+    it 'initiates BatchAssignRecommendationsWorker' do
+      expect(BatchAssignRecommendationsWorker).to receive(:perform_async)
       subject
     end
   end

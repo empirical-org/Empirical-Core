@@ -1,6 +1,7 @@
 # frozen_string_literal: true
 
 require 'sidekiq/web'
+require 'sidekiq/pro/web'
 require 'staff_constraint'
 
 EmpiricalGrammar::Application.routes.draw do
