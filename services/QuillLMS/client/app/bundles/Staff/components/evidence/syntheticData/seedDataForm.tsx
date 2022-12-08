@@ -4,7 +4,7 @@ import ReactHtmlParser from 'react-html-parser'
 
 import SubmissionModal from '../shared/submissionModal';
 import { fetchActivity, createSeedData } from '../../../utils/evidence/activityAPIs';
-import { renderHeader } from "../../../helpers/evidence/renderHelpers";
+import { renderHeader, quillCloseX } from "../../../helpers/evidence/renderHelpers";
 import { Input, Spinner } from '../../../../Shared/index';
 import { TITLE, BECAUSE, BUT, SO } from "../../../../../constants/evidence";
 
@@ -18,7 +18,7 @@ const SeedDataForm = ({ history, match }) => {
 
   const [activityNouns, setActivityNouns] = React.useState<string>('');
 
-  const blankLabelConfig = { label: '', examples: ['',''], };
+  const blankLabelConfig = { label: '', examples: ['','',''], };
   const blankLabelConfigs = { [BECAUSE] : [], [BUT] : [], [SO] : [], };
 
   const [labelConfigs, setLabelConfigs] = React.useState({...blankLabelConfigs});
@@ -40,6 +40,29 @@ const SeedDataForm = ({ history, match }) => {
     conjunctionData[index].examples[exampleIndex] = event.target.value;
     data[conjunction] = conjunctionData;
 
+    setLabelConfigs(data)
+  }
+
+  function removeExample(conjunction, index, exampleIndex) {
+    const data = {...labelConfigs}
+    const exampleData = data[conjunction][index].examples
+
+    exampleData.splice(exampleIndex, 1)
+    data[conjunction][index].examples = exampleData
+
+    setLabelConfigs(data)
+  }
+
+  function onAddExample(e) {
+    const { target } = e;
+    const { id, value } = target;
+    addExample(value, id);
+  }
+
+  function addExample(conjunction, index) {
+    const data = {...labelConfigs}
+
+    data[conjunction][index].examples.push('')
     setLabelConfigs(data)
   }
 
@@ -112,11 +135,20 @@ const SeedDataForm = ({ history, match }) => {
 
   function renderExample(value, index, conjunction, exampleIndex) {
     return (
-      <Input
-        handleChange={e => handleExampleChange(e, index, conjunction, exampleIndex)}
-        label={`Example ${exampleIndex + 1}`}
-        value={value}
-      />
+      <div className='example-container'>
+        <Input
+          className="example-input"
+          handleChange={e => handleExampleChange(e, index, conjunction, exampleIndex)}
+          label={`Example ${exampleIndex + 1}`}
+          value={value}
+        />
+        <button
+          className='x-button'
+          onClick={() => removeExample(conjunction, index, exampleIndex)}
+        >
+          <img alt="quill-circle-checkmark" src={quillCloseX} />
+        </button>
+      </div>
     );
   }
 
@@ -140,7 +172,16 @@ const SeedDataForm = ({ history, match }) => {
           />
         </div>
         {labelConfig.examples.map((example, exampleIndex) => renderExample(example, index, conjunction, exampleIndex))}
+        <button
+          className='quill-button fun secondary outlined'
+          id={index}
+          onClick={onAddExample}
+          value={conjunction}
+        >
+          <span className='plus'>+</span>
 
+          &nbsp;Add Example
+        </button>
       </div>
     );
   }

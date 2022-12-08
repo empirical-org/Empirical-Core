@@ -25,6 +25,15 @@
     width: 25%;
     min-width: 100px;
   }
+  .example-container {
+    position: relative
+  }
+  .x-button {
+    position: absolute;
+    right: 0;
+    bottom: 20px;
+    z-index: 1;
+  }
   .plus {
     font-size: 30px;
   }
