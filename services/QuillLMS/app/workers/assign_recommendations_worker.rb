@@ -7,7 +7,7 @@ class AssignRecommendationsWorker
   # rubocop:disable Metrics/CyclomaticComplexity
   def perform(options={})
     assign_on_join = options['assign_on_join'] || false
-    assigning_all_recommendations = options['assigning_all_recommendations'] || false
+    assigning_all_recommended_packs = options['assigning_all_recommended_packs'] || false
     classroom_id = options['classroom_id']
     is_last_recommendation = options['is_last_recommendation']
     lesson = options['lesson']
@@ -42,7 +42,7 @@ class AssignRecommendationsWorker
 
     handle_error_tracking_for_diagnostic_recommendation_assignment_time(teacher.id, lesson)
     PusherRecommendationCompleted.run(classroom, unit_template_id, lesson)
-    track_assign_all_recommendations(teacher) if assigning_all_recommendations
+    track_assign_all_recommendations(teacher) if assigning_all_recommended_packs
   end
   # rubocop:enable Metrics/CyclomaticComplexity
 

@@ -5,7 +5,7 @@ require 'rails_helper'
 RSpec.describe IndependentPracticePacksAssigner do
   subject do
     described_class.run(
-      assigning_all_recommendations: true,
+      assigning_all_recommended_packs: true,
       classroom_id: classroom.id,
       diagnostic_activity_id: diagnostic_activity.id,
       release_method: release_method,

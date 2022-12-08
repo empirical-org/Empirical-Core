@@ -12,13 +12,13 @@ describe AssignRecommendationsWorker do
   let(:analyzer) { double(:analyzer, track: true) }
   let(:is_last_recommendation) { true }
   let(:lesson) { 'lesson' }
-  let(:assigning_all_recommendations) { false }
+  let(:assigning_all_recommended_packs) { false }
   let(:pack_sequence_id) { nil }
   let(:order) { 0 }
 
   let(:args) do
     {
-      'assigning_all_recommendations' => assigning_all_recommendations,
+      'assigning_all_recommended_packs' => assigning_all_recommended_packs,
       'classroom_id' => classroom['id'],
       'is_last_recommendation' => is_last_recommendation,
       'lesson' => lesson,
@@ -67,26 +67,26 @@ describe AssignRecommendationsWorker do
     it { should_update_the_unit_and_assign_it_to_one_class }
   end
 
-  context 'when it is the last recommendation and assigning_all_recommendations is false' do
+  context 'when it is the last recommendation and assigning_all_recommended_packs is false' do
     let(:is_last_recommendation) { true }
-    let(:assigning_all_recommendations) { false }
+    let(:assigning_all_recommended_packs) { false }
     let(:lesson) { false }
 
     it { should_not_track_that_all_recommendations_are_being_assigned }
   end
 
-  context 'when it is not the last recommendation and assigning_all_recommendations is true' do
+  context 'when it is not the last recommendation and assigning_all_recommended_packs is true' do
     let(:is_last_recommendation) { false }
     let(:lesson) { false }
-    let(:assigning_all_recommendations) { true }
+    let(:assigning_all_recommended_packs) { true }
 
     it { should_not_track_that_all_recommendations_are_being_assigned }
   end
 
-  context 'when it is the last recommendation and assigning_all_recommendations is true' do
+  context 'when it is the last recommendation and assigning_all_recommended_packs is true' do
     let(:is_last_recommendation) { true }
     let(:lesson) { false }
-    let(:assigning_all_recommendations) { true }
+    let(:assigning_all_recommended_packs) { true }
 
     it { should_track_that_all_recommendations_are_being_assigned }
   end

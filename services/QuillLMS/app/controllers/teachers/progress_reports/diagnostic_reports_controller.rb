@@ -203,7 +203,7 @@ class Teachers::ProgressReports::DiagnosticReportsController < Teachers::Progres
 
   def assign_independent_practice_packs
     IndependentPracticePacksAssigner.run(
-      assigning_all_recommendations: params[:assigning_all_recommendations],
+      assigning_all_recommended_packs: params[:assigning_all_recommended_packs],
       classroom_id: params[:classroom_id],
       diagnostic_activity_id: params[:diagnostic_activity_id],
       release_method: params[:release_method],
