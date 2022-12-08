@@ -146,6 +146,9 @@ export const ReactTable = ({
       onPageChange(pageIndex);
     }
   }, [pageIndex]);
+  console.log("re render")
+  console.log(data)
+  console.log(page)
 
   return (
     <div className={`${className} ReactTable`}>

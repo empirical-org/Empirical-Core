@@ -5,6 +5,7 @@ import Activities from './activities';
 import Activity from './activity';
 import UniversalRulesIndex from './universalRules/universalRules';
 import UniversalRule from './universalRules/universalRule';
+import HealthDashboard from './healthDashboards/healthDashboard'
 
 const EvidenceLanding = () => (
   <div className="main-admin-container">
@@ -14,6 +15,7 @@ const EvidenceLanding = () => (
       <Route component={UniversalRule} path='/universal-rules/:ruleId' />
       <Route component={UniversalRulesIndex} path='/universal-rules' />
       <Route component={Activities} path='/activities' />
+      <Route component={HealthDashboard} path='/health-dashboard' />
     </Switch>
   </div>
 )

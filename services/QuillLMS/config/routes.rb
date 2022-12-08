@@ -411,6 +411,8 @@ EmpiricalGrammar::Application.routes.draw do
       get 'activities/uids_and_flags' => 'activities#uids_and_flags'
       get 'activities/activities_health' => 'activities#activities_health'
       get 'activities/diagnostic_activities' => 'activities#diagnostic_activities'
+      get 'activities/evidence_activity_healths' => 'activities#evidence_activity_healths'
+      get 'activities/evidence_prompt_healths' => 'activities#evidence_prompt_healths'
       get 'rule_feedback_histories' => 'rule_feedback_histories#by_conjunction'
       get 'rule_feedback_history/:rule_uid' => 'rule_feedback_histories#rule_detail'
       get 'prompt_health' => 'rule_feedback_histories#prompt_health'

@@ -61,6 +61,10 @@ export const getActivityHealthUrl = ({ activityId }) => {
   return `activity_health?activity_id=${activityId}`;
 }
 
+export const getAggregatedActivityHealthsUrl = () => {
+  return `activities/evidence_activity_healths.json`;
+}
+
 // not a 2xx status
 export const requestFailed = (status: number ) => Math.round(status / 100) !== 2;
 

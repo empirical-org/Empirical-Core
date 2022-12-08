@@ -1,4 +1,4 @@
-import { handleApiError, mainApiFetch, getRuleFeedbackHistoriesUrl, getRuleFeedbackHistoryUrl, getActivityStatsUrl, getActivityHealthUrl } from '../../helpers/evidence/routingHelpers';
+import { handleApiError, mainApiFetch, getRuleFeedbackHistoriesUrl, getRuleFeedbackHistoryUrl, getActivityStatsUrl, getActivityHealthUrl, getAggregatedActivityHealthsUrl } from '../../helpers/evidence/routingHelpers';
 
 export const fetchRuleFeedbackHistories = async ({ queryKey, }) => {
   const [key, activityId, selectedConjunction, startDate, endDate]: [string, string, string, string?, string?, string?] = queryKey
@@ -48,3 +48,16 @@ export const fetchActivityHealth = async({queryKey, }) => {
     activity: activityHealth
   };
 }
+
+export const fetchActivityHealths = async({queryKey, }) => {
+  const [key]: [string] = queryKey
+
+  const url = getAggregatedActivityHealthsUrl();
+  const response = await mainApiFetch(url);
+  const activityHealths = await response.json();
+  return {
+    error: handleApiError('Failed to fetch activity healths, please refresh the page.', response),
+    activityHealths: activityHealths
+  };
+}
+

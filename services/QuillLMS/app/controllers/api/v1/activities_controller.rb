@@ -4,7 +4,7 @@ class Api::V1::ActivitiesController < Api::ApiController
   CLASSIFICATION_TO_TOOL = {:connect => "connect", :sentence => "grammar"}
 
   before_action :doorkeeper_authorize!, only: [:create, :update, :destroy], unless: :staff?
-  before_action :find_activity, except: [:index, :create, :uids_and_flags, :published_edition, :activities_health, :diagnostic_activities]
+  before_action :find_activity, except: [:index, :create, :uids_and_flags, :published_edition, :activities_health, :diagnostic_activitie, :evidence_activity_healths, :evidence_prompt_healths]
 
   def show
     render json: @activity, meta: {status: 'success', message: nil, errors: nil}, serializer: ActivitySerializer
@@ -89,6 +89,14 @@ class Api::V1::ActivitiesController < Api::ApiController
 
   def activities_health
     render json: {activities_health: ActivityHealth.all.includes(:prompt_healths).as_json}
+  end
+
+  def evidence_activity_healths
+    render json: {activity_healths: Evidence::ActivityHealth.all.includes(:prompt_healths).as_json}
+  end
+
+  def evidence_prompt_healths
+    render json: {prompt_healths: Evidence::PromptHealth.all.as_json}
   end
 
   def question_health
