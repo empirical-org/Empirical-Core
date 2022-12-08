@@ -39,6 +39,9 @@ class UserPackSequenceItem < ApplicationRecord
 
   delegate :classroom, to: :pack_sequence_item
 
+  scope :locked, -> { where(status: LOCKED) }
+  scope :unlocked, -> { where(status: UNLOCKED) }
+
   def save_user_pack_sequence_items
     SaveUserPackSequenceItemsWorker.perform_async(classroom&.id, user_id)
   end
