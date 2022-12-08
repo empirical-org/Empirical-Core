@@ -73,10 +73,11 @@ class IndependentPracticePacksAssigner < ApplicationService
   end
 
   private def selections_with_students
-    @selections_with_students ||=
+    @selections_with_students ||= begin
       selections
         .select { |selection| selection[:classrooms][0][:student_ids]&.compact&.any? }
         .map { |selection| selection.permit(:id, classrooms: [:id, :order, student_ids: []]).to_h }
+    end
   end
 
   private def set_diagnostic_recommendations_start_time
