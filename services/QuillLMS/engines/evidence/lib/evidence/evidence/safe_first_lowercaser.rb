@@ -2,19 +2,22 @@
 
 module Evidence
   class SafeFirstLowercaser
-    attr_reader :safe_word_list
+    attr_reader :word_list
 
     COMMON_WORD_LIST = Evidence::Configs.from_yml(:common_lowercase_words)
     BLANK = ' '
 
-    def initialize(safe_word_list)
-      @safe_word_list = safe_word_list&.map(&:downcase)
+    def initialize(passage = "")
+      passage_lowercase_words = passage
+        .scan(/[\w']+/)
+        .select {|i| i[0] == i[0].downcase}
+        .map(&:downcase)
+
+      @word_list = (COMMON_WORD_LIST + passage_lowercase_words).to_set
     end
 
-    def word_list
-      @word_list ||= (COMMON_WORD_LIST + (safe_word_list || [])).to_set
-    end
-
+    # Lowercase first word of text if it is a common word
+    # or if it appears lowercase in the passage
     def run(text)
       first_in_word_list(text) ? downcase_first_letter(text) : text
     end
