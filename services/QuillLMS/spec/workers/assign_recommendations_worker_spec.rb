@@ -18,14 +18,14 @@ describe AssignRecommendationsWorker do
 
   let(:args) do
     {
-      pack_sequence_id: pack_sequence_id,
-      assigning_all_recommendations: assigning_all_recommendations,
-      classroom_id: classroom.id,
-      is_last_recommendation: is_last_recommendation,
-      lesson: lesson,
-      order: order,
-      student_ids: [student.id],
-      unit_template_id: unit_template.id
+      'assigning_all_recommendations' => assigning_all_recommendations,
+      'classroom_id' => classroom['id'],
+      'is_last_recommendation' => is_last_recommendation,
+      'lesson' => lesson,
+      'order' => order,
+      'pack_sequence_id' => pack_sequence_id,
+      'student_ids' => [student.id],
+      'unit_template_id' => unit_template.id
     }
   end
 

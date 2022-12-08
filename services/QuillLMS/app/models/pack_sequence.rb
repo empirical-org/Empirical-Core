@@ -30,10 +30,16 @@ class PackSequence < ApplicationRecord
   belongs_to :classroom
   belongs_to :diagnostic_activity, class_name: 'Activity'
 
+  has_many :students, through: :classroom
+
   has_many :pack_sequence_items, dependent: :destroy
   has_many :user_pack_sequence_items, through: :pack_sequence_items
 
   scope :staggered, -> { where(release_method: STAGGERED_RELEASE) }
 
   validates :release_method, inclusion: { in: RELEASE_METHODS }
+
+  def save_user_pack_sequence_items
+    students.pluck(:id).each { |user_id| SaveUserPackSequenceItemsWorker.perform_async(classroom&.id, user_id) }
+  end
 end

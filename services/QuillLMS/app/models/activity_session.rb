@@ -605,11 +605,11 @@ class ActivitySession < ApplicationRecord
     exists?(classroom_unit_id: classroom_unit_id_or_ids, activity_id: activity_id_or_ids, state: STATE_STARTED)
   end
 
-  private def record_teacher_activity_feed
-    teachers.each { |teacher| TeacherActivityFeed.add(teacher.id, id) }
+  def save_user_pack_sequence_items
+    SaveUserPackSequenceItemsWorker.perform_async(classroom&.id, user_id)
   end
 
-  private def save_user_pack_sequence_items
-    SaveUserPackSequenceItemsWorker.perform_async(classroom&.id, user_id)
+  private def record_teacher_activity_feed
+    teachers.each { |teacher| TeacherActivityFeed.add(teacher.id, id) }
   end
 end
