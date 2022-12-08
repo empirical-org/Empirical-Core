@@ -5,7 +5,7 @@ class BatchAssignRecommendationsWorker
 
   sidekiq_options queue: SidekiqQueue::CRITICAL
 
-  def perform(assigning_all_recommendations, pack_sequence_id, selections_with_students)
+  def perform(assigning_all_recommended_packs, pack_sequence_id, selections_with_students)
     return if selections_with_students.empty?
 
     last_recommendation_index = selections_with_students.length - 1
@@ -16,7 +16,7 @@ class BatchAssignRecommendationsWorker
 
         AssignRecommendationsWorker.perform_async(
           {
-            'assigning_all_recommendations' => assigning_all_recommendations,
+            'assigning_all_recommended_packs' => assigning_all_recommended_packs,
             'classroom_id' => classroom['id'],
             'is_last_recommendation' => index == last_recommendation_index,
             'lesson' => false,

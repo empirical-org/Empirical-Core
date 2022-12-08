@@ -1,7 +1,7 @@
 # frozen_string_literal: true
 
 class IndependentPracticePacksAssigner < ApplicationService
-  attr_reader :assigning_all_recommendations,
+  attr_reader :assigning_all_recommended_packs,
     :classroom_id,
     :diagnostic_activity_id,
     :release_method,
@@ -11,14 +11,14 @@ class IndependentPracticePacksAssigner < ApplicationService
   class TeacherNotAssociatedWithClassroomError < StandardError; end
 
   def initialize(
-    assigning_all_recommendations:,
+    assigning_all_recommended_packs:,
     classroom_id:,
     diagnostic_activity_id:,
     release_method:,
     selections:,
     user:
   )
-    @assigning_all_recommendations = assigning_all_recommendations
+    @assigning_all_recommended_packs = assigning_all_recommended_packs
     @classroom_id = classroom_id.to_i
     @diagnostic_activity_id = diagnostic_activity_id.to_i
     @release_method = release_method
@@ -50,7 +50,7 @@ class IndependentPracticePacksAssigner < ApplicationService
     pack_sequence = staggered_release? ? pack_sequence_getter : nil
 
     BatchAssignRecommendationsWorker.perform_async(
-      assigning_all_recommendations,
+      assigning_all_recommended_packs,
       pack_sequence&.id,
       selections_with_students
     )
