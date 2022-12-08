@@ -3,7 +3,7 @@
 require 'rails_helper'
 
 module Evidence
-  RSpec.describe(LowercaseFirst, type: :module) do
+  RSpec.describe(SafeFirstLowercaser, type: :module) do
     let(:word_list) { ['word2', 'Word1'] }
 
     subject { described_class.new(word_list) }

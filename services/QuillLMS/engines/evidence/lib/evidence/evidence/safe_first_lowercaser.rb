@@ -1,18 +1,18 @@
 # frozen_string_literal: true
 
 module Evidence
-  class LowercaseFirst
-    attr_reader :custom_word_list
+  class SafeFirstLowercaser
+    attr_reader :safe_word_list
 
     COMMON_WORD_LIST = Evidence::Configs.from_yml(:common_lowercase_words)
     BLANK = ' '
 
-    def initialize(custom_word_list)
-      @custom_word_list = custom_word_list&.map(&:downcase)
+    def initialize(safe_word_list)
+      @safe_word_list = safe_word_list&.map(&:downcase)
     end
 
     def word_list
-      @word_list ||= (COMMON_WORD_LIST + (custom_word_list || [])).to_set
+      @word_list ||= (COMMON_WORD_LIST + (safe_word_list || [])).to_set
     end
 
     def run(text)
