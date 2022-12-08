@@ -8,6 +8,8 @@ import { RULE_TYPE_TO_ROUTE_PART, RULE_TYPE_TO_NAME } from "../../../../constant
 const quillCheckmark = `/images/green_check.svg`;
 const quillX = '/images/red_x.svg';
 
+export const quillCloseX = '/images/x.svg';
+
 export const getCheckIcon = (value: boolean) => {
   if(value) {
     return (<img alt="quill-circle-checkmark" src={quillCheckmark} />)
