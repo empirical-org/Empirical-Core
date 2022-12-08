@@ -10,9 +10,9 @@ describe 'SerializeEvidenceActivityHealth' do
     @previous_version = @activity.version
     @activity.increment_version!
 
-    @because_prompt1 = Evidence::Prompt.create!(activity: @activity, conjunction: 'because', text: 'Some feedback text', max_attempts_feedback: 'Feedback')
-    @but_prompt1 = Evidence::Prompt.create!(activity: @activity, conjunction: 'but', text: 'Some feedback text', max_attempts_feedback: 'Feedback')
-    @so_prompt1 = Evidence::Prompt.create!(activity: @activity, conjunction: 'so', text: 'Some feedback text', max_attempts_feedback: 'Feedback')
+    @because_prompt1 = Evidence::Prompt.create!(activity: @activity, conjunction: 'because', text: 'Some feedback text because', max_attempts_feedback: 'Feedback')
+    @but_prompt1 = Evidence::Prompt.create!(activity: @activity, conjunction: 'but', text: 'Some feedback text but', max_attempts_feedback: 'Feedback')
+    @so_prompt1 = Evidence::Prompt.create!(activity: @activity, conjunction: 'so', text: 'Some feedback text so', max_attempts_feedback: 'Feedback')
 
     @activity_session1 = create(:activity_session, state: "finished", timespent: 600)
     @activity_session2 = create(:activity_session, state: "finished", timespent: 300)
@@ -40,54 +40,75 @@ describe 'SerializeEvidenceActivityHealth' do
     create(:feedback_history_flag, feedback_history: @first_session_feedback1, flag: FeedbackHistoryFlag::FLAG_REPEATED_RULE_CONSECUTIVE)
     create(:feedback_history_rating, user_id: @user.id, rating: true, feedback_history_id: @first_session_feedback3.id)
     create(:feedback_history_rating, user_id: @user.id, rating: false, feedback_history_id: @first_session_feedback4.id)
+
+    @prompt_feedback_history = PromptFeedbackHistory.run({activity_id: @activity.id, activity_version: @activity.version})
   end
 
   it 'gets the correct basic data for that activity' do
-    data = SerializeEvidenceActivityHealth.new(@activity).data
+    data = SerializeEvidenceActivityHealth.new(@activity, @prompt_feedback_history).data
     expect(data[:name]).to eq(@activity.title)
     expect(data[:flag]).to eq(@activity.flag.to_s)
     expect(data[:version]).to eq(@activity.version)
     expect(data[:activity_id]).to eq(@activity.id)
   end
 
+  it 'returns prompt data for the activity' do
+    prompt_data = SerializeEvidenceActivityHealth.new(@activity, @prompt_feedback_history).prompt_data
+    expect(prompt_data.size).to eq(3)
+
+    because_data = prompt_data.select {|pd| pd[:prompt_id] == @because_prompt1.id}.first
+    but_data = prompt_data.select {|pd| pd[:prompt_id] == @but_prompt1.id}.first
+    so_data = prompt_data.select {|pd| pd[:prompt_id] == @so_prompt1.id}.first
+
+    expect(because_data).to be
+    expect(because_data[:text]).to eq(@because_prompt1.text)
+    expect(because_data[:current_version]).to eq(@activity.version)
+    expect(because_data[:version_responses]).to eq(3)
+    expect(but_data[:first_attempt_optimal]).to eq(100)
+    expect(so_data[:first_attempt_optimal]).to eq(0)
+    expect(so_data[:final_attempt_optimal]).to eq(0)
+    expect(because_data[:avg_attempts]).to eq(1.5)
+  end
+
   it 'gets the correct data for version plays' do
-    data = SerializeEvidenceActivityHealth.new(@activity).data
+    data = SerializeEvidenceActivityHealth.new(@activity, @prompt_feedback_history).data
     expect(data[:version_plays]).to eq(2)
   end
 
   it 'gets the correct data for total plays' do
-    data = SerializeEvidenceActivityHealth.new(@activity).data
+    data = SerializeEvidenceActivityHealth.new(@activity, @prompt_feedback_history).data
     expect(data[:total_plays]).to eq(3)
   end
 
   it 'gets the correct completion rate' do
-    data = SerializeEvidenceActivityHealth.new(@activity).data
+    data = SerializeEvidenceActivityHealth.new(@activity, @prompt_feedback_history).data
     expect(data[:completion_rate]).to eq(50)
   end
 
   it 'gets the correct because_final_optimal percent' do
-    data = SerializeEvidenceActivityHealth.new(@activity).data
+    data = SerializeEvidenceActivityHealth.new(@activity, @prompt_feedback_history).data
     expect(data[:because_final_optimal]).to eq(50)
   end
 
   it 'gets the correct but_final_optimal percent' do
-    data = SerializeEvidenceActivityHealth.new(@activity).data
+    data = SerializeEvidenceActivityHealth.new(@activity, @prompt_feedback_history).data
     expect(data[:but_final_optimal]).to eq(100)
   end
 
   it 'gets the correct so_final_optimal percent' do
-    data = SerializeEvidenceActivityHealth.new(@activity).data
+    data = SerializeEvidenceActivityHealth.new(@activity, @prompt_feedback_history).data
     expect(data[:so_final_optimal]).to eq(0)
   end
 
   it 'gets the correct average completion time' do
-    data = SerializeEvidenceActivityHealth.new(@activity).data
+    data = SerializeEvidenceActivityHealth.new(@activity, @prompt_feedback_history).data
     expect(data[:avg_completion_time]).to eq(400)
   end
 
   it 'returns nil for relevent columns if there are no feedback histories yet' do
     @activity.increment_version!
-    data = SerializeEvidenceActivityHealth.new(@activity).data
+    prompt_feedback_history = PromptFeedbackHistory.run({activity_id: @activity.id, activity_version: @activity.version})
+    data = SerializeEvidenceActivityHealth.new(@activity, prompt_feedback_history).data
     expect(data[:name]).to eq(@activity.title)
     expect(data[:flag]).to eq(@activity.flag.to_s)
     expect(data[:version]).to eq(@activity.version)
