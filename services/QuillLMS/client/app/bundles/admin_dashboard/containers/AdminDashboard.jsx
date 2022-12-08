@@ -45,8 +45,8 @@ export class AdminDashboard extends React.Component {
   receiveData = (data, skipLoading) => {
     if (Object.keys(data).length > 1) {
       this.setState({ model: data, loading: false, });
-    } else {
-      this.setState({ model: data, loading: skipLoading ? false : true, });
+    } else if (!skipLoading) {
+      this.setState({ model: data, loading: true, });
     }
   };
 
