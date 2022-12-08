@@ -114,9 +114,9 @@ RSpec.describe PromptFeedbackHistory, type: :model do
       generate_feedback_history(@prompt1.id, time_spent: 60)
       generate_feedback_history(@prompt1.id, time_spent: 120)
 
-      result = PromptFeedbackHistory.prompt_health_query(activity_id: @main_activity.id)
+      result = PromptFeedbackHistory.average_time_spent_query(prompt_id: @prompt1.id)
 
-      expect(result.all[0].avg_time_spent).to eq(90)
+      expect(result).to eq(90)
     end
 
     it 'should calculate the average confidence spent as confidence' do
