@@ -1,0 +1,12 @@
+<% if admin_impersonating_user?(current_user) %>
+  <div class="teacher-dashboard" id="admin-dashboard-header">
+    <div class="admin-nav-bar">
+      <h4>
+        <%= link_to("Administrator Dashboard", "/session") %>
+        <i class="fa fa-chevron-right"></i>
+        <%= "#{current_user.name} Account" %>
+      </h4>
+    </div>
+    <hr>
+  </div>
+<% end %>
