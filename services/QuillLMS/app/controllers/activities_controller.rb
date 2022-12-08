@@ -76,7 +76,7 @@ class ActivitiesController < ApplicationController
 
     if authorized_activity_access?
       if activity.locked_user_pack_sequence_item?(current_user)
-        flash[:error] = t('activity_link.errors.activity_locked')
+        flash[:error] = t('activity_link.errors.user_pack_sequence_item_locked')
         flash.keep(:error)
         redirect_to classes_path
       else

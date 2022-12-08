@@ -120,7 +120,7 @@ describe ActivitiesController, type: :controller, redis: true do
           it 'redirects and raises an error' do
             subject
             expect(response).to redirect_to classes_path
-            expect(flash[:error]).to eq I18n.t('activity_link.errors.activity_locked')
+            expect(flash[:error]).to match I18n.t('activity_link.errors.user_pack_sequence_item_locked')
           end
         end
 
