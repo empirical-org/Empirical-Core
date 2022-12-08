@@ -44,6 +44,7 @@ class Unit < ApplicationRecord
   has_many :activities, through: :unit_activities
   has_many :standards, through: :activities
   has_many :pack_sequence_items, dependent: :destroy
+  has_many :user_pack_sequence_items, through: :pack_sequence_items
 
   default_scope { where(visible: true)}
 

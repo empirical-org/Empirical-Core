@@ -702,4 +702,33 @@ describe Activity, type: :model, redis: true do
       end
     end
   end
+
+  describe '#locked_user_pack_sequence_item?' do
+    subject { activity.locked_user_pack_sequence_item?(user) }
+
+    let(:user) { create(:student) }
+
+    context 'no user_pack_sequence_items' do
+      it { expect(subject).to eq false }
+    end
+
+    context 'user_pack_sequence_item exists' do
+      let(:unit) { create(:unit_activity, activity: activity).unit }
+      let(:pack_sequence_item) { create(:pack_sequence_item, unit: unit) }
+
+      before { create(:user_pack_sequence_item, status, user: user, pack_sequence_item: pack_sequence_item) }
+
+      context 'user_pack_sequence_item is locked' do
+        let(:status) { :locked }
+
+        it { expect(subject).to eq true }
+      end
+
+      context 'user_pack_sequence_item is unlocked' do
+        let(:status) { :unlocked }
+
+        it { expect(subject).to eq false }
+      end
+    end
+  end
 end
