@@ -185,8 +185,22 @@ module Evidence
 
         subject { because.send(:run_prompt, prompt: '', count: 1, seed: '') }
 
-        it "should reject response" do
+        it "should not reject response" do
           expect(subject.count).to eq 1
+        end
+      end
+
+      context 'lowercasing responses' do
+        let(:response) {['They is a common word', 'Romeo dies (spoiler)', 'Calls out to him', 'lowercase']}
+        let(:because) {described_class.new(passage: 'Juliet calls out to Romeo', stem: stem, conjunction: 'because')}
+
+        subject { because.send(:run_prompt, prompt: '', count: 1, seed: '') }
+
+        it "should downcase first letter if common word or lowercase in passage" do
+          expect(subject.first.text).to eq 'they is a common word'
+          expect(subject.second.text).to eq 'Romeo dies (spoiler)'
+          expect(subject.third.text).to eq 'calls out to him'
+          expect(subject.fourth.text).to eq 'lowercase'
         end
       end
 
