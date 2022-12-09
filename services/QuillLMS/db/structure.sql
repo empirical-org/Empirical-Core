@@ -2964,9 +2964,9 @@ ALTER SEQUENCE public.pack_sequence_items_id_seq OWNED BY public.pack_sequence_i
 
 CREATE TABLE public.pack_sequences (
     id bigint NOT NULL,
-    classroom_id bigint,
-    diagnostic_activity_id bigint,
-    release_method character varying,
+    classroom_id bigint NOT NULL,
+    diagnostic_activity_id bigint NOT NULL,
+    release_method character varying DEFAULT 'staggered'::character varying,
     created_at timestamp(6) without time zone NOT NULL,
     updated_at timestamp(6) without time zone NOT NULL
 );
@@ -9146,6 +9146,7 @@ INSERT INTO "schema_migrations" (version) VALUES
 ('20221110072938'),
 ('20221110072939'),
 ('20221209134742'),
-('20221209141047');
+('20221209141047'),
+('20221209151611');
 
 
