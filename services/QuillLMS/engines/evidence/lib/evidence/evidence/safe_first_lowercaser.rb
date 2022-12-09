@@ -6,10 +6,11 @@ module Evidence
 
     COMMON_WORD_LIST = Evidence::Configs.from_yml(:common_lowercase_words)
     BLANK = ' '
+    WORD_REGEX = /[\w']+/
 
     def initialize(passage = "")
       passage_lowercase_words = passage
-        .scan(/[\w']+/)
+        .scan(WORD_REGEX)
         .select {|i| i[0] == i[0].downcase}
         .map(&:downcase)
 
@@ -19,13 +20,11 @@ module Evidence
     # Lowercase first word of text if it is a common word
     # or if it appears lowercase in the passage
     def run(text)
-      first_in_word_list(text) ? downcase_first_letter(text) : text
+      first_word(text).in?(word_list) ? downcase_first_letter(text) : text
     end
 
-    private def first_in_word_list(text)
-      word = text.split(BLANK)&.first&.downcase
-
-      word.in?(word_list)
+    private def first_word(text)
+      text.slice(WORD_REGEX)&.downcase
     end
 
     private def downcase_first_letter(text)
