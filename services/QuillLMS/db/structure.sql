@@ -2934,7 +2934,8 @@ CREATE TABLE public.pack_sequence_items (
     pack_sequence_id bigint,
     "order" integer,
     created_at timestamp(6) without time zone NOT NULL,
-    updated_at timestamp(6) without time zone NOT NULL
+    updated_at timestamp(6) without time zone NOT NULL,
+    classroom_unit_id bigint NOT NULL
 );
 
 
@@ -7387,6 +7388,20 @@ CREATE UNIQUE INDEX index_oauth_applications_on_uid ON public.oauth_applications
 
 
 --
+-- Name: index_pack_sequence_items__classroom_unit_id__pack_sequence_id; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE UNIQUE INDEX index_pack_sequence_items__classroom_unit_id__pack_sequence_id ON public.pack_sequence_items USING btree (classroom_unit_id, pack_sequence_id);
+
+
+--
+-- Name: index_pack_sequence_items_on_classroom_unit_id; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX index_pack_sequence_items_on_classroom_unit_id ON public.pack_sequence_items USING btree (classroom_unit_id);
+
+
+--
 -- Name: index_pack_sequence_items_on_pack_sequence_id; Type: INDEX; Schema: public; Owner: -
 --
 
@@ -8443,6 +8458,14 @@ ALTER TABLE ONLY public.comprehension_highlights
 
 
 --
+-- Name: pack_sequence_items fk_rails_a1d2cd07cb; Type: FK CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY public.pack_sequence_items
+    ADD CONSTRAINT fk_rails_a1d2cd07cb FOREIGN KEY (classroom_unit_id) REFERENCES public.classroom_units(id);
+
+
+--
 -- Name: classroom_units fk_rails_a3c514fc6d; Type: FK CONSTRAINT; Schema: public; Owner: -
 --
 
@@ -9122,6 +9145,7 @@ INSERT INTO "schema_migrations" (version) VALUES
 ('20221109182145'),
 ('20221110072938'),
 ('20221110072939'),
-('20221209134742');
+('20221209134742'),
+('20221209141047');
 
 

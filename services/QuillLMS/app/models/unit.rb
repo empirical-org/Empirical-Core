@@ -43,8 +43,6 @@ class Unit < ApplicationRecord
   has_many :classrooms, through: :classroom_units
   has_many :activities, through: :unit_activities
   has_many :standards, through: :activities
-  has_many :pack_sequence_items, dependent: :destroy
-  has_many :user_pack_sequence_items, through: :pack_sequence_items
 
   default_scope { where(visible: true)}
 
@@ -88,7 +86,7 @@ class Unit < ApplicationRecord
   end
 
   def save_user_pack_sequence_items
-    pack_sequence_items.each(&:save_user_pack_sequence_items)
+    classroom_units.each(&:save_user_pack_sequence_items)
   end
 
   def self.create_with_incremented_name(user_id:, name: )

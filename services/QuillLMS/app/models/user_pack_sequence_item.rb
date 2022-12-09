@@ -37,12 +37,12 @@ class UserPackSequenceItem < ApplicationRecord
 
   after_destroy :save_user_pack_sequence_items
 
-  delegate :classroom, to: :pack_sequence_item
+  delegate :classroom_id, to: :pack_sequence_item
 
   scope :locked, -> { where(status: LOCKED) }
   scope :unlocked, -> { where(status: UNLOCKED) }
 
   def save_user_pack_sequence_items
-    SaveUserPackSequenceItemsWorker.perform_async(classroom&.id, user_id)
+    SaveUserPackSequenceItemsWorker.perform_async(classroom_id, user_id)
   end
 end

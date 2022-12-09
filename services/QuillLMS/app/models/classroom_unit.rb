@@ -85,7 +85,7 @@ class ClassroomUnit < ApplicationRecord
   def manage_user_pack_sequence_items; end
 
   def save_user_pack_sequence_items
-    unit&.save_user_pack_sequence_items
+    nil
   end
 
   private def hide_unassigned_activity_sessions
