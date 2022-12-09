@@ -35,6 +35,7 @@ describe ClassroomUnit, type: :model, redis: true do
 
   it { is_expected.to callback(:check_for_assign_on_join_and_update_students_array_if_true).before(:save) }
   it { is_expected.to callback(:hide_appropriate_activity_sessions).after(:save) }
+  it { is_expected.to callback(:manage_user_pack_sequence_items).after(:save) }
   it { is_expected.to callback(:save_user_pack_sequence_items).after(:save) }
 
   let!(:activity) { create(:activity) }
@@ -191,4 +192,5 @@ describe ClassroomUnit, type: :model, redis: true do
       end
     end
   end
+
 end

@@ -88,11 +88,7 @@ class Unit < ApplicationRecord
   end
 
   def save_user_pack_sequence_items
-    pack_sequence_items.each do |pack_sequence_item|
-      pack_sequence_item.users.pluck(:id).each do |user_id|
-        SaveUserPackSequenceItemsWorker.perform_async(pack_sequence_item.classroom&.id, user_id)
-      end
-    end
+    pack_sequence_items.each(&:save_user_pack_sequence_items)
   end
 
   def self.create_with_incremented_name(user_id:, name: )

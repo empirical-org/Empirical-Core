@@ -33,6 +33,8 @@ class ClassroomUnit < ApplicationRecord
 
   has_many :activity_sessions
   has_many :unit_activities, through: :unit
+  has_many :pack_sequence_items, through: :unit
+  has_many :user_pack_sequence_items, through: :pack_sequence_items
   has_many :completed_activity_sessions, -> {completed}, class_name: 'ActivitySession'
   has_many :classroom_unit_activity_states
 
@@ -41,6 +43,7 @@ class ClassroomUnit < ApplicationRecord
   validates :unit, uniqueness: { scope: :classroom }
 
   before_save :check_for_assign_on_join_and_update_students_array_if_true
+  after_save :manage_user_pack_sequence_items, if: :saved_change_to_assigned_student_ids?
   after_save :hide_appropriate_activity_sessions, :save_user_pack_sequence_items
 
   # Using an after_commit hook here because we want to trigger the callback
@@ -78,6 +81,8 @@ class ClassroomUnit < ApplicationRecord
     # if assign on join should still be true the aforementioned method will set it.
     update(assigned_student_ids: new_assigned_student_ids, assign_on_join: false)
   end
+
+  def manage_user_pack_sequence_items; end
 
   def save_user_pack_sequence_items
     unit&.save_user_pack_sequence_items
