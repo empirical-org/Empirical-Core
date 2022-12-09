@@ -33,7 +33,7 @@ class ClassroomUnit < ApplicationRecord
 
   has_many :activity_sessions
   has_many :unit_activities, through: :unit
-  has_many :pack_sequence_items, through: :unit
+  has_many :pack_sequence_items, dependent: :destroy
   has_many :user_pack_sequence_items, through: :pack_sequence_items
   has_many :completed_activity_sessions, -> {completed}, class_name: 'ActivitySession'
   has_many :classroom_unit_activity_states
@@ -49,8 +49,6 @@ class ClassroomUnit < ApplicationRecord
   # Using an after_commit hook here because we want to trigger the callback
   # on save or touch, and touch explicitly bypasses after_save hooks
   after_commit :touch_classroom_without_callbacks
-
-  after_destroy :save_user_pack_sequence_items
 
   def assigned_students
     User.where(id: assigned_student_ids)
@@ -85,7 +83,7 @@ class ClassroomUnit < ApplicationRecord
   def manage_user_pack_sequence_items; end
 
   def save_user_pack_sequence_items
-    nil
+    assigned_student_ids.each { |user_id| SaveUserPackSequenceItemsWorker.perform_async(classroom_id, user_id) }
   end
 
   private def hide_unassigned_activity_sessions

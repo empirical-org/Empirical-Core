@@ -34,6 +34,7 @@ class PackSequence < ApplicationRecord
 
   has_many :pack_sequence_items, dependent: :destroy
   has_many :user_pack_sequence_items, through: :pack_sequence_items
+  has_many :users, through: :user_pack_sequence_items
 
   scope :staggered, -> { where(release_method: STAGGERED_RELEASE) }
 

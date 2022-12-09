@@ -49,8 +49,6 @@ class Unit < ApplicationRecord
   after_save :hide_classroom_units_and_unit_activities
   after_save :create_any_new_classroom_unit_activity_states
 
-  after_update :save_user_pack_sequence_items, if: :saved_change_to_visible?
-
   # Using an after_commit hook here because we want to trigger the callback
   # on save or touch, and touch explicitly bypasses after_save hooks
   after_commit :touch_all_classrooms_and_classroom_units
@@ -62,10 +60,12 @@ class Unit < ApplicationRecord
   end
 
   def hide_classroom_units_and_unit_activities
-    return if visible
-
-    unit_activities.where(visible: true).update(visible: false)
-    classroom_units.where(visible: true).update(visible: false)
+    if visible
+      save_user_pack_sequence_items
+    else
+      unit_activities.where(visible: true).update(visible: false)
+      classroom_units.where(visible: true).update(visible: false)
+    end
   end
 
   def email_lesson_plan

@@ -30,11 +30,11 @@ class PackSequenceItem < ApplicationRecord
 
   after_save :save_user_pack_sequence_items, if: :saved_change_to_order?
 
+  after_destroy :save_user_pack_sequence_items
+
   delegate :classroom_id, :unit_id, to: :classroom_unit
 
   def save_user_pack_sequence_items
-    user_pack_sequence_items
-      .pluck(:user_id)
-      .each { |user_id| SaveUserPackSequenceItemsWorker.perform_async(classroom_id, user_id) }
+    pack_sequence.users.each { |user| SaveUserPackSequenceItemsWorker.perform_async(classroom_id, user.id) }
   end
 end

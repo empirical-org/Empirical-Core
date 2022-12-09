@@ -10,8 +10,7 @@ class UserPackSequenceItemQuery
       .staggered
       .select("SUM(CASE WHEN activity_sessions.state = '#{FINISHED}' THEN 1 ELSE 0 END) > 0 AS #{COMPLETED_KEY}")
       .select("pack_sequence_items.id AS #{PACK_SEQUENCE_ITEM_ID_KEY}")
-      .joins(pack_sequence_items: { unit: :classroom_units })
-      .joins(pack_sequence_items: { unit: { unit_activities: :activity } } )
+      .joins(pack_sequence_items: { classroom_unit: { unit: { unit_activities: :activity } } })
       .joins(
         <<-SQL
           LEFT JOIN activity_sessions

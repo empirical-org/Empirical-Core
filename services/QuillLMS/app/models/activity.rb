@@ -56,7 +56,7 @@ class Activity < ApplicationRecord
   has_many :units, through: :unit_activities
   has_many :classroom_units, through: :units
   has_many :classrooms, through: :classroom_units
-  has_many :pack_sequence_items, through: :units
+  has_many :pack_sequence_items, through: :classroom_units
   has_many :user_pack_sequence_items, through: :pack_sequence_items
   has_many :recommendations, dependent: :destroy
   has_many :activity_category_activities, dependent: :destroy

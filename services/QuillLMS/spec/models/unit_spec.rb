@@ -184,8 +184,10 @@ describe Unit, type: :model do
   describe 'save_user_pack_sequence_items' do
     let!(:unit) { create(:unit, user: teacher, visible: visible) }
     let!(:num_students) { 2 }
+    let!(:student_ids) { create_list(:student, num_students).pluck(:id) }
+    let!(:classroom_unit) { create(:classroom_unit, unit: unit, assigned_student_ids: student_ids) }
     let!(:num_jobs) { num_students }
-    let!(:pack_sequence_item) { create(:pack_sequence_item, unit: unit) }
+    let!(:pack_sequence_item) { create(:pack_sequence_item, classroom_unit: classroom_unit) }
 
     before { create_list(:user_pack_sequence_item, num_students, pack_sequence_item: pack_sequence_item) }
 
