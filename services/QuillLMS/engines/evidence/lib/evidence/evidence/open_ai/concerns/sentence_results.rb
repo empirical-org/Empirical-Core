@@ -6,13 +6,14 @@ module Evidence
       extend ActiveSupport::Concern
 
       BLANK = ''
+      MIN_LENGTH = 10
 
       def cleaned_results
         result_texts_removed_characters
           .map{|r| r&.split(/\n/)&.first } # drop anything after a \n
           .map{|r| r&.strip } # remove leading/ending spaces
           .compact
-          .select {|r| r.length >= 10}
+          .select {|r| r.length >= MIN_LENGTH}
           .uniq
       end
 
