@@ -193,4 +193,46 @@ describe ClassroomUnit, type: :model, redis: true do
     end
   end
 
+  describe 'manage_user_pack_sequence_items' do
+    context 'after_save' do
+      context 'assigned_student_ids has changed' do
+        subject { classroom_unit.reload.update(assigned_student_ids: new_assigned_student_ids, assign_on_join: false) }
+
+        let(:another_student) { create(:student) }
+
+        context 'no user_pack_sequence_items exist' do
+          context 'student was removed' do
+            let(:new_assigned_student_ids) { [] }
+
+            it { expect { subject }.not_to change(UserPackSequenceItem, :count) }
+          end
+
+          context 'new student was added' do
+            let(:new_assigned_student_ids) { [student.id, another_student.id]}
+
+            it { expect { subject }.not_to change(UserPackSequenceItem, :count) }
+          end
+        end
+
+        context 'user_pack_sequence_items exist' do
+          let!(:pack_sequence_item) { create(:pack_sequence_item, classroom_unit: classroom_unit) }
+
+          before { create(:user_pack_sequence_item, user: student, pack_sequence_item: pack_sequence_item) }
+
+          context 'student was removed' do
+            let(:new_assigned_student_ids) { [] }
+
+            it { expect { subject }.to change(UserPackSequenceItem, :count).from(1).to(0) }
+          end
+
+          context 'new student was added' do
+            let(:new_assigned_student_ids) { [student.id, another_student.id]}
+
+            it { expect { subject }.to change(UserPackSequenceItem, :count).from(1).to(2) }
+          end
+        end
+      end
+    end
+  end
+
 end

@@ -35,6 +35,7 @@ class UserPackSequenceItem < ApplicationRecord
   validates :pack_sequence_item, presence: true
   validates :user, presence: true
 
+  after_save :save_user_pack_sequence_items
   after_destroy :save_user_pack_sequence_items
 
   delegate :classroom_id, to: :pack_sequence_item

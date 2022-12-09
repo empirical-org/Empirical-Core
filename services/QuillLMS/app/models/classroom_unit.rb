@@ -43,6 +43,7 @@ class ClassroomUnit < ApplicationRecord
   validates :unit, uniqueness: { scope: :classroom }
 
   before_save :check_for_assign_on_join_and_update_students_array_if_true
+
   after_save :manage_user_pack_sequence_items, if: :saved_change_to_assigned_student_ids?
   after_save :hide_appropriate_activity_sessions, :save_user_pack_sequence_items
 
@@ -80,7 +81,20 @@ class ClassroomUnit < ApplicationRecord
     update(assigned_student_ids: new_assigned_student_ids, assign_on_join: false)
   end
 
-  def manage_user_pack_sequence_items; end
+  def manage_user_pack_sequence_items
+    pack_sequence_items.reload.each do |pack_sequence_item|
+      existing_user_ids = pack_sequence_item.users.pluck(:id)
+      new_user_ids = assigned_student_ids - existing_user_ids
+      deleted_user_ids = existing_user_ids - assigned_student_ids
+
+      new_user_ids.each { |user_id| pack_sequence_item.user_pack_sequence_items.create!(user_id: user_id) }
+
+      pack_sequence_item
+        .user_pack_sequence_items
+        .where(user_id: deleted_user_ids)
+        .destroy_all
+    end
+  end
 
   def save_user_pack_sequence_items
     assigned_student_ids.each { |user_id| SaveUserPackSequenceItemsWorker.perform_async(classroom_id, user_id) }
