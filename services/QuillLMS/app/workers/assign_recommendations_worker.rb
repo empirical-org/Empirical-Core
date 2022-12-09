@@ -37,7 +37,7 @@ class AssignRecommendationsWorker
     unit = find_unit(find_units(unit_template_id, teacher.id)) if unit.nil?
     classroom_unit = ClassroomUnit.find_by(unit: unit, classroom_id: classroom_id)
 
-    save_pack_sequence_item(classroom_unit, pack_sequence_id, order, classroom_unit)
+    save_pack_sequence_item(classroom_unit, pack_sequence_id, order)
 
     track_recommendation_assignment(teacher)
     return unless is_last_recommendation
