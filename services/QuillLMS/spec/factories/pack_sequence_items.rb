@@ -5,11 +5,11 @@
 # Table name: pack_sequence_items
 #
 #  id                :bigint           not null, primary key
-#  order             :integer
+#  order             :integer          not null
 #  created_at        :datetime         not null
 #  updated_at        :datetime         not null
 #  classroom_unit_id :bigint           not null
-#  pack_sequence_id  :bigint
+#  pack_sequence_id  :bigint           not null
 #
 # Indexes
 #

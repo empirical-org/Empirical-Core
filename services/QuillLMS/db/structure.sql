@@ -2931,8 +2931,8 @@ ALTER SEQUENCE public.objectives_id_seq OWNED BY public.objectives.id;
 
 CREATE TABLE public.pack_sequence_items (
     id bigint NOT NULL,
-    pack_sequence_id bigint,
-    "order" integer,
+    pack_sequence_id bigint NOT NULL,
+    "order" integer NOT NULL,
     created_at timestamp(6) without time zone NOT NULL,
     updated_at timestamp(6) without time zone NOT NULL,
     classroom_unit_id bigint NOT NULL
@@ -9147,6 +9147,7 @@ INSERT INTO "schema_migrations" (version) VALUES
 ('20221110072939'),
 ('20221209134742'),
 ('20221209141047'),
-('20221209151611');
+('20221209151611'),
+('20221209151957');
 
 
