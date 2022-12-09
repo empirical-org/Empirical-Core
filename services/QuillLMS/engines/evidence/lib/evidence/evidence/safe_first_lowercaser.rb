@@ -5,7 +5,6 @@ module Evidence
     attr_reader :word_list
 
     COMMON_WORD_LIST = Evidence::Configs.from_yml(:common_lowercase_words)
-    BLANK = ' '
     WORD_REGEX = /[\w']+/
 
     def initialize(passage = "")
