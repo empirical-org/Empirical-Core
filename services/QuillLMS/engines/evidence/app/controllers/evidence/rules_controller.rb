@@ -45,6 +45,8 @@ module Evidence
 
     # DELETE /rules/1.json
     def destroy
+      return head :not_found unless @rule
+
       @rule.destroy
       head :no_content
     end
@@ -95,6 +97,10 @@ module Evidence
     end
 
     private def set_lms_user_id
+      # If the ID provided to :update or :destroy doesn't correspond to an
+      # existing Rule, there's no need to try to set the user_id
+      return unless @rule
+
       @rule.lms_user_id = lms_user_id
     end
   end
