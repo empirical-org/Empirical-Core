@@ -19,6 +19,8 @@ Evidence::Engine.routes.draw do
   end
   resource :feedback, only: [:create], controller: :feedback
 
+  resources :hints, only: [:index, :show, :create, :update, :destroy]
+
   put 'rules/update_rule_order' => 'rules#update_rule_order'
 
   resources :rules, only: [:index, :show, :create, :update, :destroy] do
