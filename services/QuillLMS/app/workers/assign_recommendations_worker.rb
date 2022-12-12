@@ -35,7 +35,9 @@ class AssignRecommendationsWorker
     assign_unit_to_one_class(unit, classroom_id, classroom_data, unit_template_id, teacher.id)
 
     unit = find_unit(find_units(unit_template_id, teacher.id)) if unit.nil?
-    save_pack_sequence_item(pack_sequence_id, order, unit)
+    classroom_unit = ClassroomUnit.find_by(unit: unit, classroom_id: classroom_id)
+
+    save_pack_sequence_item(classroom_unit, pack_sequence_id, order)
 
     track_recommendation_assignment(teacher)
     return unless is_last_recommendation
@@ -62,11 +64,12 @@ class AssignRecommendationsWorker
     end
   end
 
-  def save_pack_sequence_item(pack_sequence_id, order, unit)
-    return if pack_sequence_id.nil? || unit.nil?
+  def save_pack_sequence_item(classroom_unit, pack_sequence_id, order)
+    return if pack_sequence_id.nil? || classroom_unit.nil?
+
 
     PackSequenceItem.find_or_create_by!(
-      unit: unit,
+      classroom_unit: classroom_unit,
       pack_sequence_id: pack_sequence_id,
       order: order
     )

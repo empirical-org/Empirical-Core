@@ -714,7 +714,8 @@ describe Activity, type: :model, redis: true do
 
     context 'user_pack_sequence_item exists' do
       let(:unit) { create(:unit_activity, activity: activity).unit }
-      let(:pack_sequence_item) { create(:pack_sequence_item, unit: unit) }
+      let(:classroom_unit) { create(:classroom_unit, unit: unit) }
+      let(:pack_sequence_item) { create(:pack_sequence_item, classroom_unit: classroom_unit) }
 
       before { create(:user_pack_sequence_item, status, user: user, pack_sequence_item: pack_sequence_item) }
 

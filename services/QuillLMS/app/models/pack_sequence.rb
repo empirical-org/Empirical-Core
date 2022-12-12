@@ -5,11 +5,11 @@
 # Table name: pack_sequences
 #
 #  id                     :bigint           not null, primary key
-#  release_method         :string
+#  release_method         :string           default("staggered")
 #  created_at             :datetime         not null
 #  updated_at             :datetime         not null
-#  classroom_id           :bigint
-#  diagnostic_activity_id :bigint
+#  classroom_id           :bigint           not null
+#  diagnostic_activity_id :bigint           not null
 #
 # Indexes
 #
@@ -34,6 +34,7 @@ class PackSequence < ApplicationRecord
 
   has_many :pack_sequence_items, dependent: :destroy
   has_many :user_pack_sequence_items, through: :pack_sequence_items
+  has_many :users, through: :user_pack_sequence_items
 
   scope :staggered, -> { where(release_method: STAGGERED_RELEASE) }
 

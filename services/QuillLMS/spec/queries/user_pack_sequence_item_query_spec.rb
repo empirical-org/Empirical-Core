@@ -12,19 +12,16 @@ RSpec.describe UserPackSequenceItemQuery do
   let!(:classroom) { create(:classroom) }
   let!(:pack_sequence) { create(:pack_sequence, classroom: classroom) }
 
-  let!(:unit1) { create(:unit) }
-  let!(:pack_sequence_item1) { create(:pack_sequence_item, pack_sequence: pack_sequence, unit: unit1, order: 1) }
-  let!(:classroom_unit1) { create(:classroom_unit, unit: unit1, classroom: classroom) }
+  let!(:classroom_unit1) { create(:classroom_unit, classroom: classroom) }
+  let!(:pack_sequence_item1) { create(:pack_sequence_item, pack_sequence: pack_sequence, classroom_unit: classroom_unit1, order: 1) }
   let!(:activity_session1) { create(:activity_session, state1.to_sym, classroom_unit: classroom_unit1, user: student) }
 
-  let!(:unit2) { create(:unit) }
-  let!(:pack_sequence_item2) { create(:pack_sequence_item, pack_sequence: pack_sequence, unit: unit2, order: 2) }
-  let!(:classroom_unit2) { create(:classroom_unit, unit: unit2, classroom: classroom) }
+  let!(:classroom_unit2) { create(:classroom_unit, classroom: classroom) }
+  let!(:pack_sequence_item2) { create(:pack_sequence_item, pack_sequence: pack_sequence, classroom_unit: classroom_unit2, order: 2) }
   let!(:activity_session2) { create(:activity_session, state2.to_sym, classroom_unit: classroom_unit2, user: student) }
 
-  let!(:unit3) { create(:unit) }
-  let!(:pack_sequence_item3) { create(:pack_sequence_item, pack_sequence: pack_sequence, unit: unit3, order: 3) }
-  let!(:classroom_unit3) { create(:classroom_unit, unit: unit3, classroom: classroom) }
+  let!(:classroom_unit3) { create(:classroom_unit, classroom: classroom) }
+  let!(:pack_sequence_item3) { create(:pack_sequence_item, pack_sequence: pack_sequence, classroom_unit: classroom_unit3, order: 3) }
   let!(:activity_session3) { create(:activity_session, classroom_unit: classroom_unit3) }
 
   let(:finished) { ActivitySession::STATE_FINISHED }

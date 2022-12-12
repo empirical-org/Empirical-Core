@@ -188,7 +188,7 @@ class UnitActivity < ApplicationRecord
           AND cu.id = cuas.classroom_unit_id
         JOIN users AS teachers ON unit.user_id = teachers.id
         LEFT JOIN pack_sequence_items AS psi
-          ON psi.unit_id = unit.id
+          ON psi.classroom_unit_id = cu.id
         LEFT JOIN user_pack_sequence_items AS upsi
           ON upsi.pack_sequence_item_id = psi.id
           AND upsi.user_id = #{user_id.to_i}

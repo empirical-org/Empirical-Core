@@ -104,8 +104,9 @@ describe AssignRecommendationsWorker do
 
     context 'when pack_sequence_item already exists' do
       let(:unit) { create(:unit, unit_template: unit_template, user: teacher) }
+      let(:classroom_unit) { create(:classroom_unit, classroom: classroom, unit: unit) }
 
-      before { create(:pack_sequence_item, unit: unit, pack_sequence_id: pack_sequence_id, order: 0) }
+      before { create(:pack_sequence_item, classroom_unit: classroom_unit, pack_sequence_id: pack_sequence_id, order: 0) }
 
       it { expect { subject }.not_to change(PackSequenceItem, :count).from(1) }
     end

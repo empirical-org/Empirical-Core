@@ -22,7 +22,8 @@ class UnitActivitiesSaver < ApplicationService
       activity_id = activity_data[:id].to_i
       due_date = activity_data[:due_date]
       publish_date = activity_data[:publish_date]
-      unit_activity = unit_activities.find { |ua| ua.activity_id == activity_id }
+
+      unit_activity = UnitActivity.find_by(unit_id: unit_id, activity_id: activity_id)
 
       if unit_activity
         unit_activity.save_new_attributes_and_adjust_dates!(
@@ -32,7 +33,7 @@ class UnitActivitiesSaver < ApplicationService
           visible: true
         )
       else
-        UnitActivity.create!(
+        UnitActivity.create(
           activity_id: activity_id,
           due_date: due_date,
           publish_date: publish_date,
@@ -41,9 +42,5 @@ class UnitActivitiesSaver < ApplicationService
         )
       end
     end
-  end
-
-  private def unit_activities
-    @unit_activities ||= UnitActivity.where(unit_id: unit_id)
   end
 end

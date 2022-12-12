@@ -43,15 +43,12 @@ class Unit < ApplicationRecord
   has_many :classrooms, through: :classroom_units
   has_many :activities, through: :unit_activities
   has_many :standards, through: :activities
-  has_many :pack_sequence_items, dependent: :destroy
-  has_many :user_pack_sequence_items, through: :pack_sequence_items
 
   default_scope { where(visible: true)}
 
+  after_save :save_user_pack_sequence_items, if: :visible
   after_save :hide_classroom_units_and_unit_activities
   after_save :create_any_new_classroom_unit_activity_states
-
-  after_update :save_user_pack_sequence_items, if: :saved_change_to_visible?
 
   # Using an after_commit hook here because we want to trigger the callback
   # on save or touch, and touch explicitly bypasses after_save hooks
@@ -88,11 +85,7 @@ class Unit < ApplicationRecord
   end
 
   def save_user_pack_sequence_items
-    pack_sequence_items.each do |pack_sequence_item|
-      pack_sequence_item.users.pluck(:id).each do |user_id|
-        SaveUserPackSequenceItemsWorker.perform_async(pack_sequence_item.classroom&.id, user_id)
-      end
-    end
+    classroom_units.each(&:save_user_pack_sequence_items)
   end
 
   def self.create_with_incremented_name(user_id:, name: )

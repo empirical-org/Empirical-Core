@@ -13,9 +13,9 @@
 #
 # Indexes
 #
-#  index_user_pack_sequence_items_on_pack_sequence_item_id     (pack_sequence_item_id)
-#  index_user_pack_sequence_items_on_user_id                   (user_id)
-#  on_user_pack_sequence_items_on_user_and_pack_sequence_item  (user_id,pack_sequence_item_id) UNIQUE
+#  index_user_pack_sequence_items__user_id__pack_sequence_item_id  (user_id,pack_sequence_item_id) UNIQUE
+#  index_user_pack_sequence_items_on_pack_sequence_item_id         (pack_sequence_item_id)
+#  index_user_pack_sequence_items_on_user_id                       (user_id)
 #
 # Foreign Keys
 #
@@ -35,14 +35,15 @@ class UserPackSequenceItem < ApplicationRecord
   validates :pack_sequence_item, presence: true
   validates :user, presence: true
 
+  after_save :save_user_pack_sequence_items
   after_destroy :save_user_pack_sequence_items
 
-  delegate :classroom, to: :pack_sequence_item
+  delegate :classroom_id, to: :pack_sequence_item
 
   scope :locked, -> { where(status: LOCKED) }
   scope :unlocked, -> { where(status: UNLOCKED) }
 
   def save_user_pack_sequence_items
-    SaveUserPackSequenceItemsWorker.perform_async(classroom&.id, user_id)
+    SaveUserPackSequenceItemsWorker.perform_async(classroom_id, user_id)
   end
 end
