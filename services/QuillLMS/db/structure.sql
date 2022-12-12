@@ -10,13 +10,6 @@ SET client_min_messages = warning;
 SET row_security = off;
 
 --
--- Name: public; Type: SCHEMA; Schema: -; Owner: -
---
-
--- *not* creating schema, since initdb creates it
-
-
---
 -- Name: hstore; Type: EXTENSION; Schema: -; Owner: -
 --
 
@@ -60,6 +53,18 @@ CREATE FUNCTION public.blog_posts_search_trigger() RETURNS trigger
         return new;
       end
       $$;
+
+
+--
+-- Name: my_jsonb_to_hstore(jsonb); Type: FUNCTION; Schema: public; Owner: -
+--
+
+CREATE FUNCTION public.my_jsonb_to_hstore(jsonb) RETURNS public.hstore
+    LANGUAGE sql IMMUTABLE STRICT
+    AS $_$
+            SELECT hstore(array_agg(key), array_agg(value))
+            FROM   jsonb_each_text($1)
+          $_$;
 
 
 --
@@ -276,7 +281,8 @@ CREATE TABLE public.activities (
     standard_id integer,
     raw_score_id integer,
     minimum_grade_level smallint,
-    maximum_grade_level smallint
+    maximum_grade_level smallint,
+    foo character varying DEFAULT 'a_value'::character varying
 );
 
 
@@ -769,8 +775,8 @@ ALTER SEQUENCE public.app_settings_id_seq OWNED BY public.app_settings.id;
 CREATE TABLE public.ar_internal_metadata (
     key character varying NOT NULL,
     value character varying,
-    created_at timestamp(6) without time zone NOT NULL,
-    updated_at timestamp(6) without time zone NOT NULL
+    created_at timestamp without time zone NOT NULL,
+    updated_at timestamp without time zone NOT NULL
 );
 
 
@@ -965,8 +971,8 @@ CREATE TABLE public.change_logs (
     id integer NOT NULL,
     explanation text,
     action character varying NOT NULL,
-    changed_record_type character varying NOT NULL,
     changed_record_id integer,
+    changed_record_type character varying NOT NULL,
     user_id integer,
     created_at timestamp without time zone,
     updated_at timestamp without time zone,
@@ -2060,8 +2066,8 @@ CREATE TABLE public.credit_transactions (
     id integer NOT NULL,
     amount integer NOT NULL,
     user_id integer NOT NULL,
-    source_type character varying,
     source_id integer,
+    source_type character varying,
     created_at timestamp without time zone,
     updated_at timestamp without time zone
 );
@@ -2273,6 +2279,47 @@ CREATE TABLE public.districts_users (
 
 
 --
+-- Name: evidence_activity_healths; Type: TABLE; Schema: public; Owner: -
+--
+
+CREATE TABLE public.evidence_activity_healths (
+    id bigint NOT NULL,
+    name character varying NOT NULL,
+    flag character varying NOT NULL,
+    activity_id integer NOT NULL,
+    version integer NOT NULL,
+    version_plays integer NOT NULL,
+    total_plays integer NOT NULL,
+    completion_rate integer,
+    because_final_optimal integer,
+    but_final_optimal integer,
+    so_final_optimal integer,
+    avg_completion_time integer,
+    created_at timestamp(6) without time zone NOT NULL,
+    updated_at timestamp(6) without time zone NOT NULL
+);
+
+
+--
+-- Name: evidence_activity_healths_id_seq; Type: SEQUENCE; Schema: public; Owner: -
+--
+
+CREATE SEQUENCE public.evidence_activity_healths_id_seq
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+
+--
+-- Name: evidence_activity_healths_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: -
+--
+
+ALTER SEQUENCE public.evidence_activity_healths_id_seq OWNED BY public.evidence_activity_healths.id;
+
+
+--
 -- Name: evidence_hints; Type: TABLE; Schema: public; Owner: -
 --
 
@@ -2307,14 +2354,61 @@ ALTER SEQUENCE public.evidence_hints_id_seq OWNED BY public.evidence_hints.id;
 
 
 --
+-- Name: evidence_prompt_healths; Type: TABLE; Schema: public; Owner: -
+--
+
+CREATE TABLE public.evidence_prompt_healths (
+    id bigint NOT NULL,
+    prompt_id integer NOT NULL,
+    activity_short_name character varying NOT NULL,
+    text character varying NOT NULL,
+    current_version integer NOT NULL,
+    version_responses integer NOT NULL,
+    first_attempt_optimal integer,
+    final_attempt_optimal integer,
+    avg_attempts double precision,
+    confidence double precision,
+    percent_automl_consecutive_repeated integer,
+    percent_automl integer,
+    percent_plagiarism integer,
+    percent_opinion integer,
+    percent_grammar integer,
+    percent_spelling integer,
+    avg_time_spent_per_prompt integer,
+    evidence_activity_health_id bigint,
+    created_at timestamp(6) without time zone NOT NULL,
+    updated_at timestamp(6) without time zone NOT NULL
+);
+
+
+--
+-- Name: evidence_prompt_healths_id_seq; Type: SEQUENCE; Schema: public; Owner: -
+--
+
+CREATE SEQUENCE public.evidence_prompt_healths_id_seq
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+
+--
+-- Name: evidence_prompt_healths_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: -
+--
+
+ALTER SEQUENCE public.evidence_prompt_healths_id_seq OWNED BY public.evidence_prompt_healths.id;
+
+
+--
 -- Name: feedback_histories; Type: TABLE; Schema: public; Owner: -
 --
 
 CREATE TABLE public.feedback_histories (
     id integer NOT NULL,
     feedback_session_uid text,
-    prompt_type character varying,
     prompt_id integer,
+    prompt_type character varying,
     concept_uid text,
     attempt integer NOT NULL,
     entry text NOT NULL,
@@ -4977,10 +5071,24 @@ ALTER TABLE ONLY public.districts ALTER COLUMN id SET DEFAULT nextval('public.di
 
 
 --
+-- Name: evidence_activity_healths id; Type: DEFAULT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY public.evidence_activity_healths ALTER COLUMN id SET DEFAULT nextval('public.evidence_activity_healths_id_seq'::regclass);
+
+
+--
 -- Name: evidence_hints id; Type: DEFAULT; Schema: public; Owner: -
 --
 
 ALTER TABLE ONLY public.evidence_hints ALTER COLUMN id SET DEFAULT nextval('public.evidence_hints_id_seq'::regclass);
+
+
+--
+-- Name: evidence_prompt_healths id; Type: DEFAULT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY public.evidence_prompt_healths ALTER COLUMN id SET DEFAULT nextval('public.evidence_prompt_healths_id_seq'::regclass);
 
 
 --
@@ -5896,11 +6004,27 @@ ALTER TABLE ONLY public.districts
 
 
 --
+-- Name: evidence_activity_healths evidence_activity_healths_pkey; Type: CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY public.evidence_activity_healths
+    ADD CONSTRAINT evidence_activity_healths_pkey PRIMARY KEY (id);
+
+
+--
 -- Name: evidence_hints evidence_hints_pkey; Type: CONSTRAINT; Schema: public; Owner: -
 --
 
 ALTER TABLE ONLY public.evidence_hints
     ADD CONSTRAINT evidence_hints_pkey PRIMARY KEY (id);
+
+
+--
+-- Name: evidence_prompt_healths evidence_prompt_healths_pkey; Type: CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY public.evidence_prompt_healths
+    ADD CONSTRAINT evidence_prompt_healths_pkey PRIMARY KEY (id);
 
 
 --
@@ -6149,14 +6273,6 @@ ALTER TABLE ONLY public.sales_stage_types
 
 ALTER TABLE ONLY public.sales_stages
     ADD CONSTRAINT sales_stages_pkey PRIMARY KEY (id);
-
-
---
--- Name: schema_migrations schema_migrations_pkey; Type: CONSTRAINT; Schema: public; Owner: -
---
-
-ALTER TABLE ONLY public.schema_migrations
-    ADD CONSTRAINT schema_migrations_pkey PRIMARY KEY (version);
 
 
 --
@@ -7103,6 +7219,13 @@ CREATE INDEX index_evidence_hints_on_rule_id ON public.evidence_hints USING btre
 
 
 --
+-- Name: index_evidence_prompt_healths_on_evidence_activity_health_id; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX index_evidence_prompt_healths_on_evidence_activity_health_id ON public.evidence_prompt_healths USING btree (evidence_activity_health_id);
+
+
+--
 -- Name: index_feedback_histories_on_concept_uid; Type: INDEX; Schema: public; Owner: -
 --
 
@@ -7915,6 +8038,13 @@ CREATE UNIQUE INDEX unique_index_users_on_username ON public.users USING btree (
 
 
 --
+-- Name: unique_schema_migrations; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE UNIQUE INDEX unique_schema_migrations ON public.schema_migrations USING btree (version);
+
+
+--
 -- Name: user_activity_classification_unique_index; Type: INDEX; Schema: public; Owner: -
 --
 
@@ -8038,6 +8168,14 @@ ALTER TABLE ONLY public.change_logs
 
 ALTER TABLE ONLY public.activities
     ADD CONSTRAINT fk_rails_1b6bf425e3 FOREIGN KEY (raw_score_id) REFERENCES public.raw_scores(id);
+
+
+--
+-- Name: evidence_prompt_healths fk_rails_2126b1922f; Type: FK CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY public.evidence_prompt_healths
+    ADD CONSTRAINT fk_rails_2126b1922f FOREIGN KEY (evidence_activity_health_id) REFERENCES public.evidence_activity_healths(id) ON DELETE CASCADE;
 
 
 --
@@ -8912,6 +9050,9 @@ INSERT INTO "schema_migrations" (version) VALUES
 ('20221019185354'),
 ('20221109181742'),
 ('20221109182042'),
-('20221109182145');
+('20221109182145'),
+('20221110072938'),
+('20221110072939'),
+('20221212180029');
 
 

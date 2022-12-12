@@ -8,6 +8,7 @@
 #  data                       :jsonb
 #  description                :text
 #  flags                      :string           default([]), not null, is an Array
+#  foo                        :string           default("a_value")
 #  maximum_grade_level        :integer
 #  minimum_grade_level        :integer
 #  name                       :string
