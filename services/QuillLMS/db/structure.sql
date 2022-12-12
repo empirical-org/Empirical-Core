@@ -7934,6 +7934,13 @@ CREATE UNIQUE INDEX index_user_milestones_on_user_id_and_milestone_id ON public.
 
 
 --
+-- Name: index_user_pack_sequence_items__user_id__pack_sequence_item_id; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE UNIQUE INDEX index_user_pack_sequence_items__user_id__pack_sequence_item_id ON public.user_pack_sequence_items USING btree (user_id, pack_sequence_item_id);
+
+
+--
 -- Name: index_user_pack_sequence_items_on_pack_sequence_item_id; Type: INDEX; Schema: public; Owner: -
 --
 
@@ -8043,13 +8050,6 @@ CREATE UNIQUE INDEX index_zipcode_infos_on_zipcode ON public.zipcode_infos USING
 --
 
 CREATE INDEX name_idx ON public.users USING gin (name public.gin_trgm_ops);
-
-
---
--- Name: on_user_pack_sequence_items_on_user_and_pack_sequence_item; Type: INDEX; Schema: public; Owner: -
---
-
-CREATE UNIQUE INDEX on_user_pack_sequence_items_on_user_and_pack_sequence_item ON public.user_pack_sequence_items USING btree (user_id, pack_sequence_item_id);
 
 
 --
