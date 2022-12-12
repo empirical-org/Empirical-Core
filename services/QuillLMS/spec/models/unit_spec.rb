@@ -32,6 +32,7 @@ describe Unit, type: :model do
   it { should have_many(:standards).through(:activities) }
   it { should belong_to(:unit_template) }
 
+  it { is_expected.to callback(:save_user_pack_sequence_items).after(:save) }
   it { is_expected.to callback(:hide_classroom_units_and_unit_activities).after(:save) }
 
   let!(:classroom) { create(:classroom) }
