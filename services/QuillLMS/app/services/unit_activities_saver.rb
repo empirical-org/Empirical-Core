@@ -42,7 +42,7 @@ class UnitActivitiesSaver < ApplicationService
             unit_id: unit_id
           )
         end
-      rescue ActiveRecord::RecordNotUnique
+      rescue ActiveRecord::StatementInvalid
         retry
       end
     end
