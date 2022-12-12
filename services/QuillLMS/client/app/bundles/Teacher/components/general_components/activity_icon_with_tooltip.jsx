@@ -1,11 +1,13 @@
 import _ from 'lodash';
 import React from 'react';
-import ScorebookTooltip from '../modules/componentGenerators/tooltip_title/scorebook_tooltip_title';
 import $ from 'jquery';
-import request from 'request';
+
+import ScorebookTooltip from '../modules/componentGenerators/tooltip_title/scorebook_tooltip_title';
 import gradeColor from '../modules/grade_color.js';
 import { nonRelevantActivityClassificationIds, } from '../../../../modules/activity_classifications'
 import activityFromClassificationId from '../modules/activity_from_classification_id.js';
+import { scheduledIcon, } from '../../../Shared/index'
+import { requestGet, } from '../../../../modules/request/index'
 
 export default class ActivityIconWithTooltip extends React.Component {
   constructor(props) {
@@ -30,12 +32,12 @@ export default class ActivityIconWithTooltip extends React.Component {
 
   getConceptResultInfo() {
     const that = this;
-    request.get({
-      url: `${process.env.DEFAULT_URL}/grades/tooltip/classroom_unit_id/${this.props.data.cuId}/user_id/${this.props.data.userId}/activity_id/${this.activityId()}/completed/${!!this.props.data.completed_attempts}`,
-    }, (error, httpStatus, body) => {
-      const parsedBody = JSON.parse(body);
-      that.loadTooltipTitle(parsedBody);
-    });
+    requestGet(
+      `${process.env.DEFAULT_URL}/grades/tooltip/classroom_unit_id/${this.props.data.cuId}/user_id/${this.props.data.userId}/activity_id/${this.activityId()}/completed/${!!this.props.data.completed_attempts}`,
+      (body) => {
+        that.loadTooltipTitle(body);
+      }
+    );
   }
 
   activityId = () => {
@@ -104,8 +106,11 @@ export default class ActivityIconWithTooltip extends React.Component {
   };
 
   statusIndicator() {
-    const {started, completed_attempts} = this.props.data
-    if (started) {
+    const { data, } = this.props
+    const { started, completed_attempts, scheduled, } = data
+    if (scheduled && completed_attempts < 1) {
+      return <img alt="" className="scheduled-symbol" src={scheduledIcon.src} />
+    } else if (started) {
       return <img alt="" className="in-progress-symbol" src="https://assets.quill.org/images/scorebook/blue-circle-sliced.svg" />
     } else if (completed_attempts > 1) {
       const completedNumber = completed_attempts > 9 ? '+' : completed_attempts

@@ -151,6 +151,7 @@ EmpiricalGrammar::Application.routes.draw do
     post :complete_acknowledge_growth_diagnostic_promotion_card, on: :collection
     post :complete_dismiss_grade_level_warning, on: :collection
     post :complete_dismiss_school_selection_reminder, on: :collection
+    post :create_or_touch_dismiss_teacher_info_modal, on: :collection
   end
 
   resources :grades, only: [:index]
@@ -159,6 +160,10 @@ EmpiricalGrammar::Application.routes.draw do
     get :saved_activity_ids_for_current_user, on: :collection
     post :create_by_activity_id_for_current_user, on: :collection
     delete :destroy_by_activity_id_for_current_user, on: :collection
+  end
+
+  resources :teacher_infos, only: [:create] do
+    put :update, on: :collection
   end
 
   get 'grades/tooltip/classroom_unit_id/:classroom_unit_id/user_id/:user_id/activity_id/:activity_id/completed/:completed' => 'grades#tooltip'
@@ -211,6 +216,7 @@ EmpiricalGrammar::Application.routes.draw do
       collection do
         get :profile_info, controller: 'unit_templates', action: 'profile_info'
         get :assigned_info, controller: 'unit_templates', action: 'assigned_info'
+        get :previously_assigned_activities, controller: 'unit_templates', action: 'previously_assigned_activities'
         post :fast_assign, controller: 'unit_templates', action: 'fast_assign'
       end
     end
@@ -220,7 +226,7 @@ EmpiricalGrammar::Application.routes.draw do
         get '/:slug', to: redirect('teacher-center/%{slug}')
         get 'lessons_activities_cache', to: redirect('teachers/classroom_units/lesson_activities_cache')
         get 'lessons_units_and_activities', to: redirect('teachers/classroom_units/lessons_units_and_activities')
-        put 'update_multiple_due_dates', to: redirect('teachers/unit_activities/update_multiple_due_dates')
+        put 'update_multiple_dates', to: redirect('teachers/unit_activities/update_multiple_dates')
         get ':id/post_to_google', to: redirect('teachers/classroom_units/%{id}/post_to_google')
         put ':id/hide', to: redirect('teachers/unit_activities/%{id}/hide')
         get ':id/launch_lesson/:lesson_uid', to: redirect('teachers/classroom_units/%{id}/launch_lesson/%{lesson_uid}')
@@ -240,7 +246,7 @@ EmpiricalGrammar::Application.routes.draw do
 
     resources :unit_activities, only: [:destroy, :update], as: 'unit_activities_path' do
       collection do
-        put 'update_multiple_due_dates'
+        put 'update_multiple_dates'
         put ':id/hide' => 'unit_activities#hide'
       end
     end
@@ -410,7 +416,8 @@ EmpiricalGrammar::Application.routes.draw do
       get 'rule_feedback_histories' => 'rule_feedback_histories#by_conjunction'
       get 'rule_feedback_history/:rule_uid' => 'rule_feedback_histories#rule_detail'
       get 'prompt_health' => 'rule_feedback_histories#prompt_health'
-
+      get 'activity_health' => 'rule_feedback_histories#activity_health'
+      get 'session_data_for_csv' => 'session_feedback_histories#session_data_for_csv'
 
       resources :activities,              except: [:index, :new, :edit]
       resources :activity_flags,          only: [:index]
@@ -516,14 +523,19 @@ EmpiricalGrammar::Application.routes.draw do
   post '/session/set_post_auth_redirect', to: 'sessions#set_post_auth_redirect'
   resource :session
 
-  resource :account, only: [:new, :create, :edit, :update] do
+  resource :account, only: [:new, :create, :edit, :update, :show] do
     post :role, on: :member
   end
+
+  get 'account/:token/finish_set_up', to: 'accounts#edit'
+  put 'account/:token', to: 'accounts#update'
+
   get '/sign-up/teacher', to: 'accounts#new'
   get '/sign-up/student', to: 'accounts#new'
   get '/sign-up/pick-school-type', to: 'accounts#new'
   get '/sign-up/add-k12', to: 'accounts#new'
   get '/sign-up/add-non-k12', to: 'accounts#new'
+  get '/sign-up/add-teacher-info', to: 'accounts#new'
 
   get Auth::Google::OFFLINE_ACCESS_CALLBACK_PATH => 'auth/google#offline_access_callback'
   get Auth::Google::ONLINE_ACCESS_CALLBACK_PATH => 'auth/google#online_access_callback'

@@ -467,19 +467,24 @@ export const StudentViewContainer = ({ dispatch, session, isTurk, location, acti
     callSaveActiveActivitySession()
   }, [studentHighlights])
 
+  function stringifiedInnerElementsHelper(node) {
+    if (node.data) { return node.data }
+    if (node.children.length > 0) { return node.children.map(n => stringifiedInnerElementsHelper(n)).join(''); }
+    return ''
+  }
+
   function transformMarkTags(node) {
     const { activeStep } = session;
     const strippedPassageHighlights = getStrippedPassageHighlights({ activities, session, activeStep });
 
     if (['p'].includes(node.name) && activeStep > 1 && strippedPassageHighlights && strippedPassageHighlights.length) {
-      const stringifiedInnerElements = node.children.map(n => {
-        if (n.data) { return n.data }
-        if (n.children[0]) { return n.children[0].data}
-        return ''
-      }).join('')
+      const stringifiedInnerElements = node.children.map(n => stringifiedInnerElementsHelper(n)).join('');
+
       if (!stringifiedInnerElements) { return }
+
       const highlightIncludesElement = strippedPassageHighlights.find(ph => ph.includes(stringifiedInnerElements)) // handles case where passage highlight spans more than one paragraph
       const elementIncludesHighlight = strippedPassageHighlights.find(ph => stringifiedInnerElements.includes(ph)) // handles case where passage highlight is only part of paragraph
+
       if (highlightIncludesElement) {
         return (
           <p>
@@ -501,11 +506,7 @@ export const StudentViewContainer = ({ dispatch, session, isTurk, location, acti
     if (node.name === 'mark') {
       const shouldBeHighlightable = !doneHighlighting && !showReadTheDirectionsButton && hasStartedReadPassageStep
       let innerElements = node.children.map((n, i) => convertNodeToElement(n, i, transformMarkTags))
-      const stringifiedInnerElements = node.children.map(n => {
-        if (n.data) { return n.data }
-        if (n.children[0]) { return n.children[0].data}
-        return ''
-      }).join('')
+      const stringifiedInnerElements = node.children.map(n => stringifiedInnerElementsHelper(n)).join('');
       let className = ''
       const highlighted = studentHighlights.includes(stringifiedInnerElements)
       if(activeStep === 1 && highlighted) {

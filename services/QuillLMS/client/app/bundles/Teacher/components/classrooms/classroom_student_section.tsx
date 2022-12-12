@@ -7,7 +7,7 @@ import MergeStudentAccountsModal from './merge_student_accounts_modal'
 import MoveStudentsModal from './move_students_modal'
 import RemoveStudentsModal from './remove_students_modal'
 
-import { DropdownInput, DataTable, Tooltip, helpIcon } from '../../../Shared/index'
+import { DropdownInput, DataTable, Tooltip, helpIcon, warningIcon, } from '../../../Shared/index'
 
 const emptyDeskSrc = `${process.env.CDN_URL}/images/illustrations/empty-desks.svg`
 const bulbSrc = `${process.env.CDN_URL}/images/illustrations/bulb.svg`
@@ -16,13 +16,13 @@ const googleSetupInstructionsPdf = `${process.env.CDN_URL}/documents/setup_instr
 
 function activeHeaders(hasProviderClassroom: boolean) {
   const name = {
-    width: '190px',
+    width: '380px',
     name: 'Name',
     attribute: 'name'
   }
 
   const username = {
-    width: hasProviderClassroom ? '362px' : '486px',
+    width: hasProviderClassroom ? '442px' : '566px',
     name: 'Username',
     attribute: 'username'
   }
@@ -410,13 +410,19 @@ export default class ClassroomStudentSection
       return null
     } else {
       return (
-        <DropdownInput
-          className="student-actions-dropdown"
-          disabled={selectedStudentIds.length === 0}
-          handleChange={this.selectAction}
-          label="Actions"
-          options={this.optionsForStudentActions()}
-        />
+        <div className="student-actions-dropdown-wrapper">
+          <DropdownInput
+            className="student-actions-dropdown"
+            disabled={selectedStudentIds.length === 0}
+            handleChange={this.selectAction}
+            label="Actions"
+            options={this.optionsForStudentActions()}
+          />
+          {selectedStudentIds.length === 0 && <Tooltip
+            tooltipText="Please select students from the list below to take action"
+            tooltipTriggerText={<img alt={warningIcon.alt} src={warningIcon.src} />}
+          />}
+        </div>
       )
     }
   }

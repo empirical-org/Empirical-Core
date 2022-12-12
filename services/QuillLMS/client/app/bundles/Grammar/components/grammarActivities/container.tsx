@@ -1,7 +1,6 @@
 import * as React from "react";
 import * as Redux from "redux";
 import {connect} from "react-redux";
-import * as request from 'request';
 import * as _ from 'lodash';
 import { Response } from 'quill-marking-logic';
 
@@ -39,6 +38,7 @@ import {
   VISIBILITYCHANGE,
   SCROLL,
 } from '../../../Shared/index'
+import { requestPut, requestPost, } from '../../../../modules/request/index'
 
 interface PlayGrammarContainerState {
   showTurkCode: boolean;
@@ -272,54 +272,46 @@ export class PlayGrammarContainer extends React.Component<PlayGrammarContainerPr
     }
 
     finishActivitySession = (sessionID: string, results: FormattedConceptResult[], score: number, data) => {
-      request(
-        { url: `${process.env.DEFAULT_URL}/api/v1/activity_sessions/${sessionID}`,
-          method: 'PUT',
-          json:
-          {
-            state: 'finished',
-            concept_results: results,
-            percentage: score,
-            data
-          },
+      requestPut(
+        `${process.env.DEFAULT_URL}/api/v1/activity_sessions/${sessionID}`,
+        {
+          state: 'finished',
+          concept_results: results,
+          percentage: score,
+          data
         },
-        (err, httpResponse, body) => {
-          if (httpResponse && httpResponse.statusCode === 200) {
-            this.setState({ saved: true, });
-            document.location.href = `${process.env.DEFAULT_URL}/activity_sessions/${body.activity_session.uid}`;
-          } else {
-            this.setState({
-              saved: false,
-              error: true,
-            });
-          }
+        (body) => {
+          document.location.href = `${process.env.DEFAULT_URL}/activity_sessions/${body.activity_session.uid}`;
+          this.setState({ saved: true, });
+        },
+        (body) => {
+          this.setState({
+            saved: false,
+            error: true,
+          });
         }
-      );
+      )
     }
 
     createAnonActivitySession = (lessonID: string, results: FormattedConceptResult[], score: number, data) => {
       const { showTurkCode, } = this.state;
       const { previewMode } = this.props;
-      request(
-        { url: `${process.env.DEFAULT_URL}/api/v1/activity_sessions/`,
-          method: 'POST',
-          json:
-          {
-            state: 'finished',
-            activity_uid: lessonID,
-            concept_results: results,
-            percentage: score,
-            data,
-          },
+
+      requestPost(
+        `${process.env.DEFAULT_URL}/api/v1/activity_sessions/`,
+        {
+          state: 'finished',
+          activity_uid: lessonID,
+          concept_results: results,
+          percentage: score,
+          data
         },
-        (err, httpResponse, body) => {
-          if (httpResponse && httpResponse.statusCode === 200) {
-            if (!showTurkCode && !previewMode) {
-              document.location.href = `${process.env.DEFAULT_URL}/activity_sessions/${body.activity_session.uid}`;
-            }
+        (body) => {
+          if (!showTurkCode && !previewMode) {
+            document.location.href = `${process.env.DEFAULT_URL}/activity_sessions/${body.activity_session.uid}`;
           }
         }
-      );
+      )
     }
 
     checkAnswer = (response: string, question: Question, responses: Response[], isFirstAttempt: Boolean) => {

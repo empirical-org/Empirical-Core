@@ -19,6 +19,16 @@ describe ActivitiesController, type: :controller, redis: true do
     end
   end
 
+  describe '#search' do
+    let!(:topic) { create(:topic) }
+    let!(:another_topic) { create(:topic) }
+
+    it 'should return an object with all the topics' do
+      get :search
+      expect(JSON.parse(response.body)["topics"].pluck("id")).to match_array Topic.all.pluck(:id)
+    end
+  end
+
   describe '#preview_lesson' do
     let!(:activity) { create(:activity) }
     let(:preview_url) { "#{activity.classification_form_url}teach/class-lessons/#{activity.uid}/preview" }

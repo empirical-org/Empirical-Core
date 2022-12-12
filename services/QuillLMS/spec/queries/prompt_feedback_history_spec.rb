@@ -3,15 +3,23 @@
 require 'rails_helper'
 
 RSpec.describe PromptFeedbackHistory, type: :model do
-  def generate_feedback_history(prompt_id, session_uid: nil, attempts: 1, ends_optimally: true, created_at: Time.current)
+
+  # rubocop:disable Metrics/ParameterLists
+  def generate_feedback_history(prompt_id, session_uid: nil, attempts: 1, ends_optimally: true, created_at: Time.current, time_spent: 0, confidence: 0, activity_version: 0)
     histories = []
     session_uid ||= SecureRandom.uuid
     (attempts - 1).times do |idx|
-      histories.append(create(:feedback_history, attempt: idx + 1, optimal: false, prompt_id: prompt_id, feedback_session_uid: session_uid, created_at: created_at))
+      histories.append(create(:feedback_history, attempt: idx + 1, optimal: false, prompt_id: prompt_id, feedback_session_uid: session_uid, metadata: {api: {confidence: confidence}}, created_at: created_at, activity_version: activity_version))
     end
-    histories.append(create(:feedback_history, attempt: attempts, optimal: ends_optimally, prompt_id: prompt_id, feedback_session_uid: session_uid, created_at: created_at))
+    histories.append(create(:feedback_history, attempt: attempts, optimal: ends_optimally, prompt_id: prompt_id, feedback_session_uid: session_uid, metadata: {api: {confidence: confidence}}, created_at: created_at, activity_version: activity_version))
+    histories.each do |h|
+      feedback_session = h.feedback_session
+      act_sesh = create(:activity_session, data: {time_tracking: {because: time_spent}})
+      feedback_session.update(activity_session_uid: act_sesh.uid)
+    end
     histories
   end
+  # rubocop:enable Metrics/ParameterLists
 
   before do
     @main_activity = Evidence::Activity.create!(notes: 'Title_1', title: 'Title 1', parent_activity_id: 1, target_level: 1)
@@ -40,6 +48,18 @@ RSpec.describe PromptFeedbackHistory, type: :model do
       generate_feedback_history(@prompt3.id, attempts: 3)
 
       result = PromptFeedbackHistory.prompt_health_query(activity_id: @main_activity.id)
+
+      expect(result.all.length).to eq(1)
+    end
+
+    it 'should not count feedback_history records from a different activity version' do
+      current_version = 2
+      unused_version = 1
+
+      generate_feedback_history(@prompt1.id, attempts: 3, activity_version: current_version)
+      generate_feedback_history(@prompt2.id, attempts: 3, activity_version: unused_version)
+
+      result = PromptFeedbackHistory.prompt_health_query(activity_id: @main_activity.id, activity_version: current_version)
 
       expect(result.all.length).to eq(1)
     end
@@ -88,6 +108,24 @@ RSpec.describe PromptFeedbackHistory, type: :model do
       result = PromptFeedbackHistory.prompt_health_query(activity_id: @main_activity.id)
 
       expect(result.all[0].avg_attempts).to eq(1.5)
+    end
+
+    it 'should calculate the average time spent as time_spent' do
+      generate_feedback_history(@prompt1.id, time_spent: 60)
+      generate_feedback_history(@prompt1.id, time_spent: 120)
+
+      result = PromptFeedbackHistory.average_time_spent_query(prompt_id: @prompt1.id)
+
+      expect(result).to eq(90)
+    end
+
+    it 'should calculate the average confidence spent as confidence' do
+      generate_feedback_history(@prompt1.id, confidence: 80)
+      generate_feedback_history(@prompt1.id, confidence: 90)
+
+      result = PromptFeedbackHistory.prompt_health_query(activity_id: @main_activity.id)
+
+      expect(result.all[0].avg_confidence).to eq(85)
     end
 
     it 'should count the number of sessions with at least one consecutive-repeated flag as num_sessions_consecutive_repeated' do
@@ -157,18 +195,6 @@ RSpec.describe PromptFeedbackHistory, type: :model do
       result = PromptFeedbackHistory.prompt_health_query(activity_id: @main_activity.id, end_date: '2021-08-04T05:00:00.000Z')
       expect(result.all[0].session_count).to eq(1)
     end
-
-    it 'should return sessions that match the filter params for turk_session_id' do
-      activity_session1_uid = SecureRandom.uuid
-      activity_session2_uid = SecureRandom.uuid
-      feedback_session1_uid = FeedbackSession.get_uid_for_activity_session(activity_session1_uid)
-      comprehension_turking_round = create(:comprehension_turking_round_activity_session, activity_session_uid: activity_session1_uid)
-      first_session_feedback1 = create(:feedback_history, feedback_session_uid: activity_session1_uid, prompt_id: @prompt1.id)
-      first_session_feedback2 = create(:feedback_history, feedback_session_uid: activity_session2_uid, prompt_id: @prompt1.id)
-
-      result = PromptFeedbackHistory.prompt_health_query(activity_id: @main_activity.id, turk_session_id: comprehension_turking_round.turking_round_id)
-      expect(result.all[0].session_count).to eq(1)
-    end
   end
 
   describe '#serialize_results' do
@@ -201,7 +227,9 @@ RSpec.describe PromptFeedbackHistory, type: :model do
           num_sessions_with_consecutive_repeated_rule: 0.0,
           num_sessions_with_non_consecutive_repeated_rule: 0.0,
           num_first_attempt_optimal: 0,
-          num_first_attempt_not_optimal: 1
+          num_first_attempt_not_optimal: 1,
+          avg_time_spent: "00:00",
+          avg_confidence: 0.0
   }.stringify_keys,
   @prompt2.id => {
           prompt_id: @prompt2.id,
@@ -214,7 +242,9 @@ RSpec.describe PromptFeedbackHistory, type: :model do
           num_sessions_with_consecutive_repeated_rule: 0.0,
           num_sessions_with_non_consecutive_repeated_rule: 0.0,
           num_first_attempt_optimal: 1,
-          num_first_attempt_not_optimal: 0
+          num_first_attempt_not_optimal: 0,
+          avg_time_spent: "00:00",
+          avg_confidence: 0.0
   }.stringify_keys
       })
     end

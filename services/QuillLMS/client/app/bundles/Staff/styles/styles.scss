@@ -6,7 +6,6 @@
 @import '../../../../../app/assets/stylesheets/pages/custom_activity_pack/empty_state.scss';
 @import '../../../../../app/assets/stylesheets/pages/custom_activity_pack/filter_column.scss';
 @import '../../../../../app/assets/stylesheets/pages/custom_activity_pack/mobile_sort_and_filter_menus.scss';
-@import "../../../../node_modules/react-dates/lib/css/_datepicker";
 
 @import './concept_manager.scss';
 @import './attributes_manager.scss';
@@ -31,11 +30,13 @@
 @import './evidence_manager/rule_form.scss';
 @import './evidence_manager/rules.scss';
 @import './evidence_manager/rule.scss';
+@import './evidence_manager/seed_data.scss';
 @import './evidence_manager/semantic_labels.scss';
 @import './evidence_manager/semantic_label_form.scss';
 @import './evidence_manager/turk_sessions.scss';
 @import './evidence_manager/universal_rule.scss';
 @import './evidence_manager/universal_rules.scss';
+@import './evidence_manager/version_history.scss';
 
 @import './locker/main.scss';
 @import './locker/teamLocker.scss';

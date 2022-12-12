@@ -192,32 +192,20 @@ describe Api::V1::ActivitySessionsController, type: :controller do
       end
 
       it 'should log long session' do
+        # lots of keys to hit Tracking error but avoid time_tracking cleaner
         data = {
-          'time_tracking' => {
-            'so' => 9999,
-            'but' => 9999,
-            'because' => 9999
-          }
+          'time_tracking' => ('a'..'z').to_h {|k| [k,600]}
         }
 
-        expect(ErrorNotifier).to receive(:report).with(ActivitySession::LongTimeTrackingError).once
+        reporting_params = {
+          activity_session_id: activity_session.id,
+          timespent: 15600,
+          user_id: activity_session.user_id
+        }
+
+        expect(ErrorNotifier).to receive(:report).with(ActivitySession::LongTimeTrackingError, reporting_params).once
 
         put :update, params: { id: activity_session.uid, data: data }, as: :json
-      end
-
-      describe 'the total time tracking value is larger than the maximum 4-byte integer size' do
-        it 'saves timespent with the maximum 4-byte integer size' do
-          data = {
-            'time_tracking' => {
-              'so' => 2147483648
-            }
-          }
-
-          put :update, params: { id: activity_session.uid, data: data }, as: :json
-          activity_session.reload
-
-          expect(activity_session.timespent).to eq 2147483647
-        end
       end
     end
 

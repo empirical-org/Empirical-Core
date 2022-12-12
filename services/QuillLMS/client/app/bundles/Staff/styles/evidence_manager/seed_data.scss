@@ -1,0 +1,41 @@
+.seed-data-form-container {
+  .label-section {
+    margin: 20px 0;
+  }
+  .seed-label-form {
+    border: 1px solid #b0bec5;
+    padding: 10px;
+    margin: 20px 0;
+    border-radius: 16px;
+  }
+  .label-title {
+    padding: 10px 10px;
+    color: white;
+    border-radius: 4px;
+    font-weight: 700;
+  }
+  .highlight {
+    color: #ffff8d;
+  }
+
+  .right {
+    float: right;
+  }
+  .label-input {
+    width: 25%;
+    min-width: 100px;
+  }
+  .example-container {
+    position: relative
+  }
+  .x-button {
+    position: absolute;
+    right: 0;
+    bottom: 20px;
+    z-index: 1;
+  }
+  .plus {
+    font-size: 30px;
+  }
+}
+

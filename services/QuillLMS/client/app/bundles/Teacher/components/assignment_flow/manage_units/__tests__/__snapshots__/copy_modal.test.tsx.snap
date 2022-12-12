@@ -1,0 +1,53 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`CopyModal component renders 1`] = `
+<CopyModal
+  attributeName="publish date"
+  closeFunction={[Function]}
+  copyFunction={[Function]}
+>
+  <div
+    aria-live="polite"
+    className="modal-container copy-dates-modal-container"
+    tabIndex={-1}
+  >
+    <div
+      className="modal-background"
+    />
+    <div
+      className="copy-dates-modal quill-modal modal-body"
+    >
+      <div
+        className="top-section"
+      >
+        <h1>
+          Copy 
+          publish date
+           to all activities?
+        </h1>
+        <p>
+          Copying will overwrite the settings you previously entered. Please confirm that you want to continue.
+        </p>
+      </div>
+      <div
+        className="button-section"
+      >
+        <button
+          className="quill-button medium secondary outlined focus-on-light"
+          onClick={[Function]}
+          type="button"
+        >
+          Cancel
+        </button>
+        <button
+          className="quill-button medium primary contained focus-on-light"
+          onClick={[Function]}
+          type="button"
+        >
+          Yes, copy
+        </button>
+      </div>
+    </div>
+  </div>
+</CopyModal>
+`;

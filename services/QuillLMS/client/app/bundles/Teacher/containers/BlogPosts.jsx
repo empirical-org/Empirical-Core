@@ -1,5 +1,4 @@
 import React from 'react';
-import request from 'request';
 import moment from 'moment';
 
 import CreateOrEditBlogPost from '../components/cms/blog_posts/create_or_edit_blog_post.jsx';

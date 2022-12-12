@@ -71,7 +71,7 @@ module GoogleIntegration
     private def parse_attributes(data)
       {}.tap do |attributes|
         attributes[:access_token] = data['access_token'] if data['access_token'].present?
-        attributes[:expires_at] = data['expires_in'] if data['expires_in'].present?
+        attributes[:expires_at] = data['expires_in'].seconds.from_now if data['expires_in'].is_a?(Integer)
         attributes[:timestamp] = data['issued_at'] if data['issued_at'].present?
       end
     end

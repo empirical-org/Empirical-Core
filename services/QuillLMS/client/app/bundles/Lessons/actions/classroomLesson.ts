@@ -7,7 +7,7 @@ import {setEditionMetadata} from './customize'
 import lessonBoilerplate from '../components/classroomLessons/shared/classroomLessonBoilerplate'
 import lessonSlideBoilerplates from '../components/classroomLessons/shared/lessonSlideBoilerplates'
 import scriptItemBoilerplates from '../components/classroomLessons/shared/scriptItemBoilerplates'
-import uuid from 'uuid/v4';
+import {v4 as uuid} from 'uuid';
 import socket from '../utils/socketStore'
 
 export function getClassLesson(classroomLessonUid: string) {

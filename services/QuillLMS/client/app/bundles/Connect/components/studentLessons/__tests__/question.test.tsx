@@ -11,7 +11,6 @@ import PlayLessonQuestion from '../question.tsx';
 
 
 // required function mocks
-jest.mock('request', () => jest.fn(() => {}));
 getGradedResponsesWithCallback = jest.fn();
 getMultipleChoiceResponseOptionsWithCallback = jest.fn()
 submitQuestionResponse = jest.fn();

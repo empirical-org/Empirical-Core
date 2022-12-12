@@ -2,7 +2,7 @@ import * as React from 'react'
 import * as moment from 'moment'
 
 import { Input, DataTable, } from '../../../Shared/index'
-import { requestPost, } from '../../../../modules/request/index.js';
+import { requestPost, } from '../../../../modules/request/index';
 
 interface InviteCoteachersModalProps {
   close: () => void;

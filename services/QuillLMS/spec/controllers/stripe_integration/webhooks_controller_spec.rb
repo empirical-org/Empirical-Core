@@ -70,7 +70,7 @@ RSpec.describe StripeIntegration::WebhooksController, type: :controller do
 
       it 'unexpected errors' do
         expect(handle_event_worker).not_to receive(:perform_async)
-        expect(NewRelic::Agent).to receive(:notice_error)
+        expect(ErrorNotifier).to receive(:report)
         post :create
         expect(response.status).to eq 400
       end

@@ -6,13 +6,13 @@ import qs from 'qs';
 import _ from 'lodash';
 
 import FilterWidget from "../shared/filterWidget";
-import { handlePageFilterClick } from "../../../helpers/evidence/miscHelpers";
+import { handlePageFilterClick, getVersionOptions } from "../../../helpers/evidence/miscHelpers";
 import { renderHeader } from "../../../helpers/evidence/renderHelpers";
 import { calculatePercentageForResponses } from "../../../helpers/evidence/ruleHelpers";
-import { ActivityRouteProps, PromptInterface, InputEvent } from '../../../interfaces/evidenceInterfaces';
-import { fetchActivity } from '../../../utils/evidence/activityAPIs';
+import { ActivityRouteProps, PromptInterface, DropdownObjectInterface } from '../../../interfaces/evidenceInterfaces';
+import { fetchActivity, fetchActivityVersions } from '../../../utils/evidence/activityAPIs';
 import { fetchRuleFeedbackHistories } from '../../../utils/evidence/ruleFeedbackHistoryAPIs';
-import { DropdownInput, Spinner, ReactTable, expanderColumn, } from '../../../../Shared/index';
+import { DropdownInput, Spinner, ReactTable } from '../../../../Shared/index';
 import { RULES_ANALYSIS } from '../../../../../constants/evidence';
 import { fetchModels } from "../../../utils/evidence/modelAPIs";
 
@@ -67,48 +67,39 @@ const getDateFromLatestAutoMLModel = (models) => {
 const RulesAnalysis: React.FC<RouteComponentProps<ActivityRouteProps>> = ({ history, match }) => {
   const { params } = match;
   const { activityId, promptConjunction, } = params;
-  const today = new Date();
-  const thirtyDaysAgo = new Date().setDate(today.getDate()-30);
 
   const ruleTypeValues = [DEFAULT_RULE_TYPE].concat(Object.keys(apiOrderLookup))
   const ruleTypeOptions = ruleTypeValues.map(val => ({ label: val, value: val, }))
   const ruleTypeFromUrl = (history.location && qs.parse(history.location.search.replace('?', '')).selected_rule_type) || DEFAULT_RULE_TYPE
   const initialStartDateString = window.sessionStorage.getItem(`${RULES_ANALYSIS}startDate`) || '';
   const initialEndDateString = window.sessionStorage.getItem(`${RULES_ANALYSIS}endDate`) || '';
-  const initialTurkSessionId = window.sessionStorage.getItem(`${RULES_ANALYSIS}turkSessionId`) || '';
-  const initialStartDate = initialStartDateString ? new Date(initialStartDateString) : new Date(thirtyDaysAgo);
+  const initialStartDate = initialStartDateString ? new Date(initialStartDateString) : null;
   const initialEndDate = initialEndDateString ? new Date(initialEndDateString) : null;
   const selectedRuleTypeOption = ruleTypeOptions.find(opt => opt.value === ruleTypeFromUrl)
+  const initialVersionOption = JSON.parse(window.sessionStorage.getItem(`${RULES_ANALYSIS}versionOption`)) || null;
 
-  const [showError, setShowError] = React.useState<boolean>(false);
   const [selectedPrompt, setSelectedPrompt] = React.useState(null)
   const [selectedRuleType, setSelectedRuleType] = React.useState(selectedRuleTypeOption)
   const [sorted, setSorted] = React.useState([])
+  const [versionOption, setVersionOption] = React.useState<DropdownObjectInterface>(initialVersionOption);
+  const [versionOptions, setVersionOptions] = React.useState<DropdownObjectInterface[]>([]);
   const [startDateForQuery, setStartDate] = React.useState<string>(initialStartDateString);
   const [endDate, onEndDateChange] = React.useState<Date>(initialEndDate);
   const [endDateForQuery, setEndDate] = React.useState<string>(initialEndDateString);
   const [totalResponsesByConjunction, setTotalResponsesByConjunction] = React.useState<number>(null);
-  const [turkSessionID, setTurkSessionID] = React.useState<string>(initialTurkSessionId);
-  const [turkSessionIDForQuery, setTurkSessionIDForQuery] = React.useState<string>(initialTurkSessionId);
   const [formattedRows, setFormattedRows] = React.useState<any[]>(null);
   const [startDate, onStartDateChange] = React.useState<Date>(initialStartDate);
 
   const selectedConjunction = selectedPrompt ? selectedPrompt.conjunction : promptConjunction
 
-  const { data: modelsData } = useQuery({
-    queryKey: [`models-${selectedPrompt?.id}`, selectedPrompt?.id],
-    queryFn: fetchModels,
-    enabled: !!selectedPrompt
-  });
-
   // cache rules data for updates
   const { data: ruleFeedbackHistory } = useQuery({
-    queryKey: [`rule-feedback-history-by-conjunction-${selectedConjunction}-and-activity-${activityId}`, activityId, selectedConjunction, startDateForQuery, endDateForQuery, turkSessionIDForQuery],
+    queryKey: [`rule-feedback-history-by-conjunction-${selectedConjunction}-and-activity-${activityId}`, activityId, selectedConjunction, startDateForQuery, endDateForQuery],
     queryFn: fetchRuleFeedbackHistories
   });
 
   const { data: dataForTotalResponseCount } = useQuery({
-    queryKey: [`rule-feedback-history-for-total-response-count`, activityId, selectedConjunction, startDateForQuery, endDateForQuery, turkSessionIDForQuery],
+    queryKey: [`rule-feedback-history-for-total-response-count`, activityId, selectedConjunction, startDateForQuery, endDateForQuery],
     queryFn: fetchRuleFeedbackHistories
   });
 
@@ -118,13 +109,28 @@ const RulesAnalysis: React.FC<RouteComponentProps<ActivityRouteProps>> = ({ hist
     queryFn: fetchActivity
   });
 
-  React.useEffect(() => {
-    if (modelsData?.models) {
-      onStartDateChange(new Date(getDateFromLatestAutoMLModel(modelsData.models)))
-      setStartDate(getDateFromLatestAutoMLModel(modelsData.models))
-    }
+  const { data: activityVersionData } = useQuery({
+    queryKey: [`change-logs-for-activity-versions-${activityId}`, activityId],
+    queryFn: fetchActivityVersions
+  });
 
-  }, [modelsData])
+  React.useEffect(() => {
+    if(activityVersionData && activityVersionData.changeLogs && (!versionOption || !versionOptions.length)) {
+      const options = getVersionOptions(activityVersionData);
+      const defaultOption = options[0];
+      !versionOption && setVersionOption(defaultOption);
+      setVersionOptions(options);
+    }
+  }, [activityVersionData]);
+
+  React.useEffect(() => {
+    if(versionOption && versionOption.value) {
+      const { value } = versionOption;
+      const { start_date, end_date } = value;
+      onStartDateChange(new Date(start_date))
+      onEndDateChange(new Date(end_date))
+    }
+  }, [versionOption]);
 
   React.useEffect(() => {
     if (selectedPrompt) { return }
@@ -168,7 +174,7 @@ const RulesAnalysis: React.FC<RouteComponentProps<ActivityRouteProps>> = ({ hist
       const formattedRows = ruleFeedbackHistory.ruleFeedbackHistories.filter(rule => {
         return selectedRuleType.value === DEFAULT_RULE_TYPE || rule.api_name === selectedRuleType.value
       }).map(rule => {
-        const { rule_name, rule_uid, api_name, rule_order, note, total_responses, strong_responses, weak_responses, first_feedback, second_feedback, repeated_consecutive_responses, repeated_non_consecutive_responses } = rule;
+        const { rule_name, rule_uid, api_name, rule_order, note, total_responses, strong_responses, weak_responses, first_feedback, second_feedback, repeated_consecutive_responses, repeated_non_consecutive_responses, avg_confidence } = rule;
         const apiOrder = apiOrderLookup[api_name] || Object.keys(apiOrderLookup).length
         return {
           rule_uid,
@@ -181,6 +187,7 @@ const RulesAnalysis: React.FC<RouteComponentProps<ActivityRouteProps>> = ({ hist
           weakResponses: weak_responses,
           repeatedConsecutiveResponses: repeated_consecutive_responses,
           repeatedNonConsecutiveResponses: repeated_non_consecutive_responses,
+          avgConfidence: avg_confidence,
           totalResponses: total_responses,
           scoredResponses: strong_responses + weak_responses,
           activityId,
@@ -194,10 +201,12 @@ const RulesAnalysis: React.FC<RouteComponentProps<ActivityRouteProps>> = ({ hist
     }
   }, [ruleFeedbackHistory, selectedRuleType])
 
-  function handleSetTurkSessionID(e: InputEvent){ setTurkSessionID(e.target.value) };
+  function handleVersionSelection(versionOption: DropdownObjectInterface) {
+    setVersionOption(versionOption);
+  }
 
   function handleFilterClick() {
-    handlePageFilterClick({ startDate, endDate, turkSessionID, setStartDate, setEndDate, setShowError, setTurkSessionIDForQuery, setPageNumber: null, storageKey: RULES_ANALYSIS });
+    handlePageFilterClick({ startDate, endDate, versionOption, setStartDate, setEndDate, setPageNumber: null, storageKey: RULES_ANALYSIS });
   }
 
   function setPromptBasedOnActivity() {
@@ -215,6 +224,8 @@ const RulesAnalysis: React.FC<RouteComponentProps<ActivityRouteProps>> = ({ hist
           columns={dataTableFields}
           data={formattedRows ? formattedRows : []}
           defaultGroupBy={["apiName"]}
+          // the first row will be the toggle rule identifier row, so we need to increment by 1
+          defaultPageSize={formattedRows && formattedRows.length < 100 ? (formattedRows.length + 1) : 100}
           defaultSorted={sorted}
           manualSortBy
           onSortedChange={setSorted}
@@ -298,6 +309,21 @@ const RulesAnalysis: React.FC<RouteComponentProps<ActivityRouteProps>> = ({ hist
       aggregate: vals => '',
       Aggregated: (row) => (<span />),
       Cell: ({row}) => (<button className={row.original.className} onClick={row.original.handleClick} type="button">{row.original.rule}</button>),
+    },
+    {
+      Header: "AutoML Confidence",
+      accessor: "avgConfidence",
+      key: "avgConfidence",
+      maxWidth: 100,
+      aggregate: (values) => {
+        const averageConfidenceForAllRules = Math.round(_.mean(values.filter(Number)))
+        return { averageConfidenceForAllRules }
+      },
+      Aggregated: (row) => (isNaN(row.value.averageConfidenceForAllRules) ? '' : <span>{row.value.averageConfidenceForAllRules}%</span>),
+      Cell: ({row}) => {
+        const { avgConfidence } = row.original
+        return (avgConfidence && <span>{avgConfidence}%</span>)
+      }
     },
     {
       Header: "Total Responses",
@@ -468,12 +494,12 @@ const RulesAnalysis: React.FC<RouteComponentProps<ActivityRouteProps>> = ({ hist
       <FilterWidget
         endDate={endDate}
         handleFilterClick={handleFilterClick}
-        handleSetTurkSessionID={handleSetTurkSessionID}
+        handleVersionSelection={handleVersionSelection}
         onEndDateChange={onEndDateChange}
         onStartDateChange={onStartDateChange}
-        showError={showError}
+        selectedVersion={versionOption}
         startDate={startDate}
-        turkSessionID={turkSessionID}
+        versionOptions={versionOptions}
       />
       {renderDataSection()}
     </div>

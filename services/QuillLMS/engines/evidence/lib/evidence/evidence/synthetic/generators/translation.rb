@@ -46,8 +46,8 @@ module Evidence
         # TODO: only fetch results for items with type 'TRAIN' if using manual_types
         private def fetch_synthetic_translations_for(language: )
           strings.each_slice(BATCH_SIZE).each do |strings_slice|
-            translations = translator.translate(strings_slice, from: ENGLISH, to: language)
-            english_texts = translator.translate(translations.map(&:text), from: language, to: ENGLISH)
+            translations = Array(translator.translate(strings_slice, from: ENGLISH, to: language))
+            english_texts = Array(translator.translate(translations.map(&:text), from: language, to: ENGLISH))
 
             strings_slice.each.with_index do |string, index|
               results_hash[string][language.to_s] = english_texts[index].text

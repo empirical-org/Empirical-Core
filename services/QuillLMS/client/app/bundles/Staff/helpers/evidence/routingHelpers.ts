@@ -18,47 +18,57 @@ export const mainFetch = fetchDefaults(fetch, process.env.DEFAULT_URL, headerHas
 export function getModelsUrl(promptId: string | number, state: string) {
   let url = 'automl_models';
   if(promptId && !state) {
-    url = url + `?prompt_id=${promptId}`;
+    url += `?prompt_id=${promptId}`;
   } else if(!promptId && state) {
-    url = url + `?state=${state}`;
+    url += `?state=${state}`;
   } else if(promptId && state) {
-    url = url + `?prompt_id=${promptId}&state=${state}`;
+    url += `?prompt_id=${promptId}&state=${state}`;
   }
   return url;
 }
 
-export function getActivitySessionsUrl({ activityId, pageNumber, startDate, endDate, turkSessionID, filterType }) {
+export function getActivitySessionsUrl({ activityId, pageNumber, startDate, endDate, filterType, responsesForScoring}) {
   let url = `session_feedback_histories.json?page=${pageNumber}&activity_id=${activityId}`;
-  url = startDate ? url + `&start_date=${startDate}` : url;
-  url = endDate ? url + `&end_date=${endDate}` : url;
-  url = turkSessionID ? url + `&turk_session_id=${turkSessionID}` : url;
-  url = filterType ? url + `&filter_type=${filterType}` : url;
+  url += startDate ? `&start_date=${startDate}` : ''
+  url += endDate ? `&end_date=${endDate}` : ''
+  url += filterType ? `&filter_type=${filterType}` : ''
+  url += responsesForScoring ? '&responses_for_scoring=true' : ''
   return url;
 }
 
-export const getRuleFeedbackHistoriesUrl = ({ activityId, selectedConjunction, startDate, endDate, turkSessionID }) => {
+export function getActivitySessionsCSVUrl({ activityId, startDate, endDate, filterType, responsesForScoring}) {
+  let url = `session_data_for_csv?&activity_id=${activityId}`;
+  url += startDate ? `&start_date=${startDate}` : ''
+  url += endDate ? `&end_date=${endDate}` : ''
+  url += filterType ? `&filter_type=${filterType}` : ''
+  url += responsesForScoring ? '&responses_for_scoring=true' : ''
+  return url;
+}
+
+export const getRuleFeedbackHistoriesUrl = ({ activityId, selectedConjunction, startDate, endDate }) => {
   let url = `rule_feedback_histories?activity_id=${activityId}&conjunction=${selectedConjunction}`;
-  url = startDate ? url + `&start_date=${startDate}` : url;
-  url = endDate ? url + `&end_date=${endDate}` : url;
-  url = turkSessionID ? url + `&turk_session_id=${turkSessionID}` : url;
+  url += startDate ? `&start_date=${startDate}` : ''
+  url += endDate ? `&end_date=${endDate}` : ''
   return url;
 }
 
-export const getRuleFeedbackHistoryUrl = ({ ruleUID, promptId, startDate, endDate, turkSessionID }) => {
+export const getRuleFeedbackHistoryUrl = ({ ruleUID, promptId, startDate, endDate }) => {
   let url = `rule_feedback_history/${ruleUID}?prompt_id=${promptId}`;
-  url = startDate ? url + `&start_date=${startDate}` : url;
-  url = endDate ? url + `&end_date=${endDate}` : url;
-  url = turkSessionID ? url + `&turk_session_id=${turkSessionID}` : url;
+  url += startDate ? `&start_date=${startDate}` : ''
+  url += endDate ? `&end_date=${endDate}` : ''
   return url;
 };
 
-export const getActivityStatsUrl = ({ activityId, startDate, endDate, turkSessionID }) => {
+export const getActivityStatsUrl = ({ activityId, startDate, endDate }) => {
   let url = `prompt_health?activity_id=${activityId}`;
-  url = startDate ? url + `&start_date=${startDate}` : url;
-  url = endDate ? url + `&end_date=${endDate}` : url;
-  url = turkSessionID ? url + `&turk_session_id=${turkSessionID}` : url;
+  url += startDate ? `&start_date=${startDate}` : ''
+  url += endDate ? `&end_date=${endDate}` : ''
   return url;
 };
+
+export const getActivityHealthUrl = ({ activityId }) => {
+  return `activity_health?activity_id=${activityId}`;
+}
 
 // not a 2xx status
 export const requestFailed = (status: number ) => Math.round(status / 100) !== 2;

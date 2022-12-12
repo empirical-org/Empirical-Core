@@ -1,7 +1,4 @@
 const C = require('../constants').default;
-
-import { requestDelete, requestGet, requestPost, requestPut } from '../utils/request';
-
 const moment = require('moment');
 
 import Pusher from 'pusher-js';
@@ -10,19 +7,18 @@ declare global {
   interface Window { pusher: any }
 }
 
-import request from 'request';
 import _ from 'underscore';
 import _l from 'lodash';
 import { push } from 'react-router-redux';
 import { submitResponse } from './responses';
 import sessionActions from './sessions';
-import { Questions, Question, FocusPoint, IncorrectSequence } from '../interfaces/questions'
 import {
   QuestionApi,
   FocusPointApi,
   IncorrectSequenceApi,
   SENTENCE_COMBINING_TYPE
 } from '../libs/questions_api'
+import { requestPost, } from '../../../modules/request/index'
 
 function loadQuestions() {
   return (dispatch, getState) => {
@@ -226,26 +222,23 @@ function searchResponses(qid) {
   return (dispatch, getState) => {
     const requestNumber = getState().filters.requestCount
     // check for request number in state, save as const
-    request(
-      {
-        url: `${process.env.QUILL_CMS}/questions/${qid}/responses/search`,
-        method: 'POST',
-        json: { search: getFormattedSearchData(getState()), },
-      },
-      (err, httpResponse, data) => {
+    requestPost(
+      `${process.env.QUILL_CMS}/questions/${qid}/responses/search`,
+      { search: getFormattedSearchData(getState()), },
+      (body) => {
         // check again for number in state
         // if equal to const set earlier, update the state
         // otherwise, do nothing
-        if (getState().filters.requestCount === requestNumber) {
-          const embeddedOrder = _.map(data.results, (response: any, i: number) => {
+        if (getState().filters.requestCount === requestNumber && body) {
+          const embeddedOrder = _.map(body.results, (response, i) => {
             response.sortOrder = i;
             return response;
           });
           const parsedResponses = _.indexBy(embeddedOrder, 'id');
           const responseData = {
             responses: parsedResponses,
-            numberOfResponses: data.numberOfResults,
-            numberOfPages: data.numberOfPages,
+            numberOfResponses: body.numberOfResults,
+            numberOfPages: body.numberOfPages,
           };
           dispatch(updateResponses(responseData));
         }

@@ -26,9 +26,26 @@
     }
   }
   .top-section {
+    align-items: center;
+  }
+  .middle-section {
+    flex-direction: column;
+    align-items: flex-start;
+  }
+  .bottom-section {
     display: flex;
     align-items: center;
-    margin: 24px 0px 8px 0px;
+    .csv-download-button {
+      margin-top: 19px;
+      margin-left: 24px;
+      .spinner {
+        height: 24px;
+      }
+    }
+  }
+  .top-section, .middle-section {
+    display: flex;
+    margin: 16px 0px 8px 0px;
     .total-container {
       display: flex;
       align-items: center;
@@ -43,6 +60,29 @@
         margin-bottom: 0px;
       }
     }
+    .response-filters-container {
+      display: flex;
+      align-items: center;
+      .responses-for-scoring-container {
+        display: flex;
+        .label-section {
+          label {
+            font-size: 16px;
+            font-weight: normal;
+          }
+          .quill-tooltip-trigger {
+            margin: 0px 8px 0px 4px;
+          }
+        }
+        input {
+          margin-top: 0px;
+          margin-bottom: 3px;
+        }
+      }
+    }
+    .left-side-container {
+      margin-top: 8px;
+    }
     .dropdown-container {
       margin-right: 24px;
       min-height: auto;
@@ -53,9 +93,8 @@
         }
       }
     }
-    .turk-session-id-input {
-      min-height: 40px;
-      margin-right: 16px;
+    .session-filters-dropdown {
+      width: 300px;
     }
   }
   .activity-sessions-table {
@@ -65,6 +104,19 @@
       .data-table-row {
         span:nth-of-type(4), span:nth-of-type(5), span:nth-of-type(6), span:nth-of-type(7) {
           text-align: left !important;
+        }
+      }
+    }
+    .sub-optimal-attempt {
+      color: #ff0000;
+      font-weight: 700;
+      margin: 0;
+    }
+    .rt-th {
+      height: min-content;
+      .column-filter {
+        input {
+          width: 80px !important;
         }
       }
     }
@@ -86,7 +138,7 @@
   }
   .prompt-table-container {
     margin-top: 30px;
-    .attempts-section, .completed-section {
+    .attempts-section, .completed-section, .optimal-section {
       display: flex;
       align-items: center;
       justify-content: space-between;
@@ -131,4 +183,11 @@
       }
     }
   }
+}
+
+.data-link {
+  color: #00c2a2;
+}
+.data-link:hover {
+  color: #29d8bc;
 }

@@ -200,11 +200,9 @@ class PagesController < ApplicationController
             },
           {
             question: "How are Quill activities named?",
-            answer: "<p>We have a lot of activities in our library! Most of these activities are named based on the specific grammar concept they cover.</p>
+            answer: "<p>We have a lot of activities in our library! Most of these activities are named based on the specific grammar concept they cover and the topic they discuss.</p>
               <br />
-              <p>You'll notice that some activities also include words like \"Starter\" or \"Intermediate\" in the name. These words indicate the general level of the activity. Because intermediate activities build on the skills practiced in starter activities, we typically recommend having students complete a starter activity for a given skill before moving on to that skill's intermediate activities.</p>
-             <br />
-             <p>Some activities also include a number. If an activity includes a number, that means there are other activities that cover the same grammar concept at the same level. For example, if your students complete Parallel Structure 1 but you feel they need additional practice at that level, you can assign Parallel Structure 2.</p>"
+              <p>Some activities also include a number. If an activity includes a number, that means there are other activities that cover the same grammar concept at the same level. For example, if your students complete Parallel Structure 1 but you feel they need additional practice at that level, you can assign Parallel Structure 2.</p>"
             },
           {
             question: "What does it mean if an activity is labeled as \"Advanced Combining\"?",

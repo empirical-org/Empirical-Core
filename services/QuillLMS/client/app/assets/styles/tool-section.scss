@@ -30,7 +30,7 @@ $tool-grey: #f8f9f9;
 .tool-header {
   background-color: $quillgreen;
   .q-nav-bar {
-    max-width: 1165px;
+    max-width: $sitewidepagewidth;
   }
 }
 
@@ -572,47 +572,38 @@ $tool-grey: #f8f9f9;
     }
 }
 @media only screen and (max-width : 1305px) {
-    padding: 15px;
-
-    .info-section.right {
-        margin-left: 15px;
-        margin-right: 35px;
-    }
+  .info-section.right {
+      margin-left: 15px;
+      margin-right: 35px;
+  }
 }
 @media only screen and (max-width : 1100px) {
-    padding: 15px;
-    min-height: 450px;
+  .video-section img {
+    display: none !important;
+  }
 
-    .video-section img {
-      display: none !important;
-    }
-
-    .info-section {
-        margin-top: 0;
-        display: flex;
-        flex-direction: column;
-        justify-content: center;
-    }
+  .info-section {
+    margin-top: 0;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+  }
 }
 @media only screen and (max-width : 850px) {
-    padding: 15px;
+  .tool {
+    min-height: 450px;
+  }
 
-    .tool {
-        min-height: 450px;
-    }
+  .info-section {
+    margin-left: 35px;
+  }
 
-    .info-section {
-        margin-left: 35px;
-    }
-
-    .info-section.right {
-        margin-left: 15px;
-        margin-right: 15px;
-    }
+  .info-section.right {
+    margin-left: 15px;
+    margin-right: 15px;
+  }
 }
 @media only screen and (max-width : 730px) {
-    padding-bottom: 25px;
-
     .tool {
         flex-direction: column;
 

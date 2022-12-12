@@ -3,6 +3,7 @@ import * as React from 'react';
 import { requestGet } from '../../../modules/request';
 import WelcomeModal from '../components/dashboard/welcome_modal'
 import DemoModal from '../components/dashboard/demo_modal'
+import TeacherInfoModal from '../components/dashboard/teacher_info_modal'
 import OnboardingChecklist from '../components/dashboard/onboarding_checklist'
 import DiagnosticMini from '../components/dashboard/diagnostic_mini'
 import LessonsMini from '../components/dashboard/lessons_mini'
@@ -12,23 +13,25 @@ import DailyTinyTip from '../components/dashboard/daily_tiny_tip'
 import TeacherCenterHighlights from '../components/dashboard/teacher_center_highlights'
 import CollegeBoard from '../components/dashboard/college_board'
 import KeyMetrics from '../components/dashboard/key_metrics'
-import GrowthDiagnosticsPromotionCard from '../components/dashboard/growth_diagnostics_promotion_card'
+import EvidencePromotionCard from '../components/dashboard/evidence_promotion_card'
 import DemoOnboardingTour, { DEMO_ONBOARDING_DASHBOARD, } from '../components/shared/demo_onboarding_tour'
 import useWindowSize from '../../Shared/hooks/useWindowSize'
 import { Spinner, } from '../../Shared/index'
 
 const MAX_VIEW_WIDTH_FOR_MOBILE = 1103
 
-const Dashboard = ({ onboardingChecklist, firstName, mustSeeModal, linkedToClever, featuredBlogPosts, showDiagnosticPromotionCard, }) => {
+const Dashboard = ({ onboardingChecklist, firstName, mustSeeWelcomeModal, mustSeeTeacherInfoModal, linkedToClever, featuredBlogPosts, showEvidencePromotionCard, subjectAreas, }) => {
   const size = useWindowSize();
   const className = "dashboard white-background-accommodate-footer"
   const onMobile = () => size.width <= MAX_VIEW_WIDTH_FOR_MOBILE
 
-  const [showWelcomeModal, setShowWelcomeModal] = React.useState(mustSeeModal)
+  const [showWelcomeModal, setShowWelcomeModal] = React.useState(mustSeeWelcomeModal)
+  const [showTeacherInfoModal, setShowTeacherInfoModal] = React.useState(mustSeeTeacherInfoModal)
   const [showDemoModal, setShowDemoModal] = React.useState(false)
 
   function closeWelcomeModal() { setShowWelcomeModal(false) }
   function closeDemoModal() { setShowDemoModal(false) }
+  function closeTeacherInfoModal() { setShowTeacherInfoModal(false) }
 
   if (!onboardingChecklist.every(obj => obj.checked)) {
     return (
@@ -108,8 +111,9 @@ const Dashboard = ({ onboardingChecklist, firstName, mustSeeModal, linkedToCleve
           pageKey={DEMO_ONBOARDING_DASHBOARD}
         />
         {showDemoModal && <DemoModal close={closeDemoModal} size={size} />}
+        {showTeacherInfoModal && <TeacherInfoModal close={closeTeacherInfoModal} subjectAreas={subjectAreas} />}
         <main>
-          {showDiagnosticPromotionCard && <GrowthDiagnosticsPromotionCard />}
+          {showEvidencePromotionCard && <EvidencePromotionCard />}
           <KeyMetrics firstName={firstName} metrics={metrics} />
           <DiagnosticMini diagnostics={diagnostics} onMobile={onMobile()} />
           <LessonsMini lessons={lessons} onMobile={onMobile()} />

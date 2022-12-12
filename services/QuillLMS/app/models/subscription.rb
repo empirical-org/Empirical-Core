@@ -42,7 +42,6 @@ class Subscription < ApplicationRecord
   has_many :user_subscriptions
   has_many :users, through: :user_subscriptions
   belongs_to :purchaser, class_name: "User"
-  belongs_to :subscription_type
   belongs_to :plan, optional: true
 
   validates :expiration, presence: true
@@ -128,6 +127,9 @@ class Subscription < ApplicationRecord
   scope :not_stripe, -> { where(stripe_invoice_id: nil) }
   scope :started, -> { where("start_date <= ?", Date.current) }
   scope :paid_with_card, -> { where.not(stripe_invoice_id: nil).or(where(payment_method: 'Credit Card')) }
+  scope :for_schools, -> { where(account_type: OFFICIAL_SCHOOL_TYPES) }
+  scope :for_teachers, -> { where(account_type: OFFICIAL_TEACHER_TYPES) }
+  scope :expiring, ->(date) { where(expiration: date) }
 
   def self.create_and_attach_subscriber(subscription_attrs, subscriber)
     if !subscription_attrs[:expiration]
@@ -279,14 +281,6 @@ class Subscription < ApplicationRecord
   def self.set_cb_lifetime_expiration_and_start_date
     today = Date.current
     { expiration: today + CB_LIFETIME_DURATION, start_date: today }
-  end
-
-  protected def report_to_new_relic(error)
-    begin
-      raise error
-    rescue => e
-      NewRelic::Agent.notice_error(e)
-    end
   end
 
   protected def set_null_start_date_to_today

@@ -85,7 +85,7 @@ exports[`StudentResultsTable component should render when there is no student da
       className="empty student-results-table"
       style={
         Object {
-          "marginLeft": 32,
+          "marginLeft": undefined,
         }
       }
     >
@@ -1588,7 +1588,7 @@ exports[`StudentResultsTable component should render when there is student data 
       className="student-results-table"
       style={
         Object {
-          "paddingLeft": 32,
+          "paddingLeft": undefined,
         }
       }
     >

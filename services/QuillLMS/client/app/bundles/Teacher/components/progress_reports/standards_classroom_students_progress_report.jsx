@@ -1,7 +1,6 @@
 // The progress report showing all students in a given classroom
 // along with their result counts.
 import React from 'react'
-import request from 'request'
 import CSVDownloadForProgressReport from './csv_download_for_progress_report.jsx'
 
 import {sortTableByLastName} from '../../../../modules/sortingMethods.js'
@@ -9,6 +8,7 @@ import LoadingSpinner from '../shared/loading_indicator.jsx'
 import ItemDropdown from '../general_components/dropdown_selectors/item_dropdown'
 import userIsPremium from '../modules/user_is_premium'
 import { ReactTable, } from '../../../Shared/index'
+import { requestGet, } from '../../../../modules/request/index'
 
 const showAllClassroomKey = 'All Classrooms'
 
@@ -25,15 +25,16 @@ export default class extends React.Component {
 
   componentDidMount() {
     const that = this;
-    request.get({
-      url: `${process.env.DEFAULT_URL}/${this.props.sourceUrl}`
-    }, (e, r, body) => {
-      const data = JSON.parse(body)
-      const parsedClassrooms = this.parseClassrooms(data.classrooms_with_student_ids)
-      const dropdownClassrooms = parsedClassrooms.dropdownClassrooms;
-      const classroomsWithStudentIds = parsedClassrooms.classroomsWithStudentIds
-      that.setState({loading: false, errors: body.errors, reportData: data.students, filteredReportData: data.students, dropdownClassrooms, classroomsWithStudentIds});
-    });
+
+    requestGet(
+      `${process.env.DEFAULT_URL}/${this.props.sourceUrl}`,
+      (body) => {
+        const parsedClassrooms = this.parseClassrooms(body.classrooms_with_student_ids)
+        const dropdownClassrooms = parsedClassrooms.dropdownClassrooms;
+        const classroomsWithStudentIds = parsedClassrooms.classroomsWithStudentIds
+        that.setState({loading: false, errors: body.errors, reportData: body.students, filteredReportData: body.students, dropdownClassrooms, classroomsWithStudentIds});
+      }
+    )
   }
 
   columns() {

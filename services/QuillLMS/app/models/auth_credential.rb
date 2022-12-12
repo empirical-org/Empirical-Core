@@ -57,7 +57,7 @@ class AuthCredential < ApplicationRecord
   end
 
   def refresh_token_expires_at
-    return nil if !google_provider?
+    return nil if !google_provider? || expires_at.nil?
 
     expires_at + GOOGLE_EXPIRATION_DURATION
   end

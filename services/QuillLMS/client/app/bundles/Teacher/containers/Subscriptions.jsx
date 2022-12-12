@@ -1,5 +1,4 @@
 import React from 'react';
-import request from 'request';
 import Pusher from 'pusher-js';
 import _ from 'lodash';
 
@@ -12,7 +11,7 @@ import RefundPolicy from '../components/subscriptions/refund_policy';
 import PremiumCreditsTable from '../components/subscriptions/premium_credits_table';
 import getAuthToken from '../components/modules/get_auth_token';
 import { ACCOUNT_TYPE_TO_SUBSCRIPTION_TYPES } from '../components/subscriptions/constants';
-import { requestGet } from '../../../modules/request';
+import { requestGet, requestPut, } from '../../../modules/request';
 
 export default class Subscriptions extends React.Component {
   constructor(props) {
@@ -125,23 +124,22 @@ export default class Subscriptions extends React.Component {
 
   redeemPremiumCredits = () => {
     const { subscriptions, } = this.state
-    request.put({
-      url: `${process.env.DEFAULT_URL}/credit_transactions/redeem_credits_for_premium`,
-      json: {
-        authenticity_token: getAuthToken(),
-      },
-    }, (error, httpStatus, body) => {
-      if (body.error) {
-        alert(body.error);
-      } else {
+
+    requestPut(
+      `${process.env.DEFAULT_URL}/credit_transactions/redeem_credits_for_premium`,
+      null,
+      (body) => {
         this.setState({
           subscriptions: [body.subscription].concat(subscriptions),
           subscriptionStatus: this.currentSubscription(body.subscription),
           availableCredits: 0,
           showPremiumConfirmationModal: true,
         });
+      },
+      (body) => {
+        alert(body.error);
       }
-    });
+    )
   };
 
   showPremiumConfirmationModal = () => {
@@ -157,16 +155,16 @@ export default class Subscriptions extends React.Component {
   }
 
   updateSubscription = (params, subscriptionId, callback) => {
-    request.put({
-      url: `${process.env.DEFAULT_URL}/subscriptions/${subscriptionId}`,
-      json: { subscription: params, authenticity_token: getAuthToken(), },
-    }, (error, httpStatus, body) => {
-      if (httpStatus.statusCode === 200) {
+    requestPut(
+      `${process.env.DEFAULT_URL}/subscriptions/${subscriptionId}`,
+      { subscription: params, },
+      (body) => {
         this.getSubscriptionData(callback)
-      } else {
+      },
+      (body) => {
         alert('There was an error updating your subscription. Please try again or contact hello@quill.org.');
       }
-    });
+    )
   };
 
   getSubscriptionData(callback) {

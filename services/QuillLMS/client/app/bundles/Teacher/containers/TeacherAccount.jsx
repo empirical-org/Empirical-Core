@@ -1,13 +1,23 @@
 import React from 'react';
-import request from 'request';
 
 import { Snackbar, defaultSnackbarTimeout } from '../../Shared/index'
 import TeacherGeneralAccountInfo from '../components/accounts/edit/teacher_general'
 import TeacherPasswordAccountInfo from '../components/accounts/edit/update_password'
 import TeacherLinkedAccounts from '../components/accounts/edit/teacher_linked_accounts'
 import TeacherEmailNotifications from '../components/accounts/edit/teacher_email_notifications'
+import TeacherGradeLevels from '../components/accounts/edit/teacher_grade_levels'
+import TeacherSubjectAreas from '../components/accounts/edit/teacher_subject_areas'
 import TeacherDangerZone from '../components/accounts/edit/teacher_danger_zone'
-import getAuthToken from '../components/modules/get_auth_token'
+import { requestPut, requestPost, } from '../../../modules/request/index';
+
+function gradeLevelToOption(gradeLevel) {
+  return gradeLevel ? { value: gradeLevel, label: gradeLevel, } : null
+}
+
+const PASSWORD = 'password'
+const GRADE_LEVEL = 'gradeLevel'
+const SUBJECT_AREAS = 'subjectAreas'
+const GENERAL = 'general'
 
 export default class TeacherAccount extends React.Component {
   constructor(props) {
@@ -22,6 +32,9 @@ export default class TeacherAccount extends React.Component {
       school,
       school_type,
       send_newsletter,
+      minimum_grade_level,
+      maximum_grade_level,
+      subject_area_ids,
     } = props.accountInfo
     this.state = {
       activeSection: null,
@@ -33,6 +46,9 @@ export default class TeacherAccount extends React.Component {
       googleId: google_id,
       cleverId: clever_id,
       sendNewsletter: send_newsletter,
+      minimumGradeLevel: minimum_grade_level,
+      maximumGradeLevel: maximum_grade_level,
+      selectedSubjectAreaIds: subject_area_ids,
       snackbarCopy: '',
       showSnackbar: false,
       errors: {},
@@ -69,12 +85,11 @@ export default class TeacherAccount extends React.Component {
     const { accountInfo } = this.props
     const { id, } = accountInfo
 
-    request.post({
-      url: `${process.env.DEFAULT_URL}/teachers/clear_data/${id}`,
-      json: { authenticity_token: getAuthToken(), },
-    }, () => {
-      window.location.href = window.location.origin;
-    })
+    requestPost(
+      `${process.env.DEFAULT_URL}/teachers/clear_data/${id}`,
+      {},
+      () => window.location.href = window.location.origin
+    )
   };
 
   showSnackbar = () => {
@@ -83,13 +98,39 @@ export default class TeacherAccount extends React.Component {
     })
   };
 
+  updateTeacherInfo = (data, snackbarCopy) => {
+    requestPut(
+      '/teacher_infos',
+      data,
+      (body) => {
+        const {
+          minimum_grade_level,
+          maximum_grade_level,
+          subject_area_ids
+        } = body
+        this.setState({
+          minimumGradeLevel: minimum_grade_level,
+          maximumGradeLevel: maximum_grade_level,
+          selectedSubjectAreaIds: subject_area_ids,
+          snackbarCopy,
+          errors: {}
+        }, () => {
+          this.showSnackbar()
+          this.setState({ activeSection: null, })
+        })
+      },
+      (body) => {
+        this.setState({ errors: body.errors, timesSubmitted: timesSubmitted + 1, })
+      }
+    )
+  }
+
   updateUser = (data, url, snackbarCopy) => {
     const { timesSubmitted, } = this.state
-    request.put({
-      url: `${process.env.DEFAULT_URL}${url}`,
-      json: { ...data, authenticity_token: getAuthToken(), },
-    }, (error, httpStatus, body) => {
-      if (httpStatus && httpStatus.statusCode === 200) {
+    requestPut(
+      `${process.env.DEFAULT_URL}${url}`,
+      data,
+      (body) => {
         const {
           name,
           email,
@@ -115,10 +156,11 @@ export default class TeacherAccount extends React.Component {
           this.showSnackbar()
           this.setState({ activeSection: null, })
         })
-      } else if (body.errors) {
+      },
+      (body) => {
         this.setState({ errors: body.errors, timesSubmitted: timesSubmitted + 1, })
       }
-    });
+    )
   };
 
   renderSnackbar = () => {
@@ -140,17 +182,20 @@ export default class TeacherAccount extends React.Component {
       activeSection,
       sendNewsletter,
       postGoogleClassroomAssignments,
+      minimumGradeLevel,
+      maximumGradeLevel,
+      selectedSubjectAreaIds,
     } = this.state
-    const { accountInfo, alternativeSchools, alternativeSchoolsNameMap, cleverLink, showDismissSchoolSelectionReminderCheckbox, } = this.props
+    const { accountInfo, alternativeSchools, alternativeSchoolsNameMap, cleverLink, showDismissSchoolSelectionReminderCheckbox, subjectAreas, } = this.props
     return (
       <div className="user-account">
         <TeacherGeneralAccountInfo
-          activateSection={() => this.activateSection('general')}
-          active={activeSection === 'general'}
+          activateSection={() => this.activateSection(GENERAL)}
+          active={activeSection === GENERAL}
           alternativeSchools={alternativeSchools}
           alternativeSchoolsNameMap={alternativeSchoolsNameMap}
           cleverId={cleverId}
-          deactivateSection={() => this.deactivateSection('general')}
+          deactivateSection={() => this.deactivateSection(GENERAL)}
           email={email}
           errors={errors}
           googleId={googleId}
@@ -163,10 +208,10 @@ export default class TeacherAccount extends React.Component {
           updateUser={this.updateUser}
         />
         <TeacherPasswordAccountInfo
-          activateSection={() => this.activateSection('password')}
-          active={activeSection === 'password'}
+          activateSection={() => this.activateSection(PASSWORD)}
+          active={activeSection === PASSWORD}
           cleverId={cleverId}
-          deactivateSection={() => this.deactivateSection('password')}
+          deactivateSection={() => this.deactivateSection(PASSWORD)}
           errors={errors}
           googleId={googleId}
           role={accountInfo.role}
@@ -186,6 +231,22 @@ export default class TeacherAccount extends React.Component {
         <TeacherEmailNotifications
           sendNewsletter={sendNewsletter}
           updateUser={this.updateUser}
+        />
+        <TeacherGradeLevels
+          activateSection={() => this.activateSection(GRADE_LEVEL)}
+          active={activeSection === GRADE_LEVEL}
+          deactivateSection={() => this.deactivateSection(GRADE_LEVEL)}
+          passedMaximumGradeLevel={gradeLevelToOption(maximumGradeLevel)}
+          passedMinimumGradeLevel={gradeLevelToOption(minimumGradeLevel)}
+          updateTeacherInfo={this.updateTeacherInfo}
+        />
+        <TeacherSubjectAreas
+          activateSection={() => this.activateSection(SUBJECT_AREAS)}
+          active={activeSection === SUBJECT_AREAS}
+          deactivateSection={() => this.deactivateSection(SUBJECT_AREAS)}
+          passedSelectedSubjectAreaIds={selectedSubjectAreaIds}
+          subjectAreas={subjectAreas}
+          updateTeacherInfo={this.updateTeacherInfo}
         />
         <TeacherDangerZone
           deleteAccount={this.deleteAccount}

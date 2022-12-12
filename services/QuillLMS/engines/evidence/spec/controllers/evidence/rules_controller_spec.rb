@@ -770,6 +770,12 @@ module Evidence
         expect(rule.id).to(be_truthy)
         expect(Rule.find_by_id(rule.id)).to(be_nil)
       end
+
+      it 'should not error if provided an ID that does not exist' do
+        expect do
+          delete(:destroy, :params => ({ :id => 'not_a_real_id' }))
+        end.not_to raise_error
+      end
     end
 
     context 'should update_rule_order' do

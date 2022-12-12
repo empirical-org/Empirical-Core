@@ -17,7 +17,9 @@ SecureHeaders::Configuration.default do |config|
       "https://stripe.com",
       "https://*.stripe.com",
       "https://youtube.com",
-      "https://*.youtube.com"
+      "https://*.youtube.com",
+      "https://*.amazonaws.com",
+      "https://*.loom.com"
     ],
 
     object_src: %w('none'),                                       # addresses <embed>, <object>, and <applet>
@@ -55,9 +57,7 @@ SecureHeaders::Configuration.default do |config|
       "https://*.intercomcdn.com",
       "https://*.coview.com",
       "https://*.sentry.io",
-      "https://*.heapanalytics.com",
-      "https://cdn3l.ink/app.js",
-      "https://capture-api.ap3prod.com"
+      "https://*.heapanalytics.com"
     ],
 
     font_src: [

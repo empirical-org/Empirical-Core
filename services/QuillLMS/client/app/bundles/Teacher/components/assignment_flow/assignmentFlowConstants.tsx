@@ -13,6 +13,7 @@ export const CLASSROOMS = 'classrooms'
 export const UNIT_ID = 'unitId'
 export const ASSIGNED_CLASSROOMS = 'assignedClassrooms'
 export const CLICKED_ACTIVITY_PACK_ID = 'clickedActivityPackId'
+export const CREATE_YOUR_OWN_ID = 'createYourOwn'
 
 export const STARTER_DIAGNOSTIC_UNIT_TEMPLATE_ID = 99
 export const STARTER_DIAGNOSTIC_POST_UNIT_TEMPLATE_ID = 217
@@ -223,3 +224,34 @@ export const imageTagForClassification = (classificationKey: string): JSX.Elemen
 
   return <img alt={imgAlt} src={imgSrc} />
 }
+
+export const READING_TEXTS = 'Reading Texts'
+export const WHOLE_CLASS_LESSONS = 'Whole Class Lessons'
+export const LANGUAGE_SKILLS = 'Language Skills'
+export const READING_FOR_EVIDENCE = 'Reading for Evidence'
+export const DAILY_PROOFREADING = 'Daily Proofreading'
+export const CONNECT = 'Connect'
+export const DIAGNOSTIC = 'Diagnostic'
+export const GRAMMAR = 'Grammar'
+export const PROOFREADER = 'Proofreader'
+export const LESSONS = 'Lessons'
+
+export const ACTIVITY_PACK_TYPES = [
+  {
+    name: 'Reading Texts',
+    id: 'reading-texts'
+  },
+  {
+    name: 'Diagnostic',
+    id: 'diagnostic'
+  },
+  {
+    name: 'Language Skills',
+    id: 'independent-practice',
+    types: ['Language Skill Review', 'Language Skills for Writing Genres', 'Language Skills Themed Practice']
+  },
+  {
+    name: 'Whole Class Lessons',
+    id: 'whole-class'
+  },
+]

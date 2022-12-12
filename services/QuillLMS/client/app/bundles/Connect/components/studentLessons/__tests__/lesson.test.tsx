@@ -13,7 +13,6 @@ import SessionActions from '../../../actions/sessions.js';
 import * as progressHelpers from '../../../libs/calculateProgress';
 
 // required function mocks
-jest.mock('request', () => jest.fn(() => {}));
 SessionActions.update = jest.fn();
 progressHelpers.questionCount = jest.fn();
 progressHelpers.answeredQuestionCount = jest.fn();

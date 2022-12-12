@@ -302,60 +302,14 @@ export const numericalWordOptions = {
   4: 'Fifth'
 }
 
-export const activitySessionIndexResponseHeaders = [
-  {
-    Header: "Date | Time",
-    accessor: "datetime",
-    width: 150
-  },
-  {
-    Header: "Session ID",
-    accessor: "session_uid",
-    width: 100
-  },
-  {
-    Header: "Total Responses",
-    accessor: "total_attempts",
-    width: 150
-  },
-  {
-    Header: "Because",
-    accessor: "because_attempts",
-    width: 100
-  },
-  {
-    Header: "But",
-    accessor: "but_attempts",
-    width: 100
-  },
-  {
-    Header: "So",
-    accessor: "so_attempts",
-    width: 100
-  },
-  {
-    Header: "Scored",
-    accessor: "scored_count",
-    width: 100
-  },
-  {
-    Header: "Weak",
-    accessor: "weak_count",
-    width: 100
-  },
-  {
-    Header: "Strong",
-    accessor: "strong_count",
-    width: 100
-  },
-  {
-    Header: "Completed?",
-    accessor: "completed",
-    width: 100
-  },
-  {
-    Header: "",
-    accessor: "view_link",
-    width: 100
-  },
+export const sessionsCSVHeaders = [
+  { label: 'Date/Time', key: 'datetime'},
+  { label: 'Session ID', key: 'session_uid'},
+  { label: 'Conjunction', key: 'conjunction'},
+  { label: 'Attempt', key: 'attempt'},
+  { label: 'Optimal?', key: 'optimal'},
+  { label: 'Completed?', key: 'completed'},
+  { label: 'Response', key: 'response'},
+  { label: 'Feedback', key: 'feedback'},
+  { label: 'Rule', key: 'rule'}
 ]

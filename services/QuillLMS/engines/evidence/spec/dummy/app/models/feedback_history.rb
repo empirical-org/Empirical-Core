@@ -1,4 +1,5 @@
 class FeedbackHistory
+  DEFAULT_VERSION = 1
   def self.save_feedback(
     feedback_hash_raw:,
     entry:,

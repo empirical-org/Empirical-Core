@@ -84,6 +84,8 @@ RSpec.configure do |config|
   config.silence_filter_announcements = true
   config.run_all_when_everything_filtered = true
 
+  config.before { SidekiqUniqueJobs.config.enabled = false }
+
   config.around(:each, :caching) do |example|
     caching = ActionController::Base.perform_caching
     ActionController::Base.perform_caching = example.metadata[:caching]

@@ -1,15 +1,10 @@
 import React from 'react';
 
+import { timeZoneOptions, } from './shared'
+
 import SchoolSelector from '../../shared/school_selector'
-import timezones from '../../../../../modules/timezones'
 import { Input, DropdownInput, } from '../../../../Shared/index'
 import { requestPost, } from '../../../../../modules/request'
-
-const timeZoneOptions = timezones.map((tz) => {
-  const newTz = tz
-  newTz.label = `(GMT${tz.offset}) ${tz.label}`
-  return newTz
-}).concat({ label: 'None selected', value: null, name: null, })
 
 const HOME_SCHOOL_SCHOOL_NAME = 'home school'
 const US_HIGHER_ED_SCHOOL_NAME = 'us higher ed'

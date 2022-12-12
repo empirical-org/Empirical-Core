@@ -1,7 +1,7 @@
 import * as React from 'react'
 import { mount } from 'enzyme';
 
-import { activities } from './data'
+import { activities, topics } from './data'
 
 import TopicFilters from '../topic_filters'
 
@@ -15,6 +15,7 @@ describe('TopicFilters component', () => {
       filterActivities={filterActivities}
       handleTopicFilterChange={() => {}}
       topicFilters={[]}
+      topics={topics}
     />)
     expect(wrapper).toMatchSnapshot();
   });
@@ -25,6 +26,7 @@ describe('TopicFilters component', () => {
       filterActivities={filterActivities}
       handleTopicFilterChange={() => {}}
       topicFilters={[1, 2, 3]}
+      topics={topics}
     />)
     expect(wrapper).toMatchSnapshot();
   });

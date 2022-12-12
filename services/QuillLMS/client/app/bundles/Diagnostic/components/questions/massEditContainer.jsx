@@ -1,5 +1,4 @@
 import React from 'react';
-import request from 'request';
 import { connect } from 'react-redux';
 import massEdit from '../../actions/massEdit';
 import { TextEditor } from '../../../Shared/index';
@@ -13,6 +12,7 @@ import {
   submitMassEditConceptResults,
   massEditDeleteResponses
 } from '../../actions/responses';
+import { requestPost, } from '../../../../modules/request/index'
 
 import { clearDisplayMessageAndError } from '../../actions/display';
 
@@ -43,19 +43,16 @@ class MassEditContainer extends React.Component {
   }
 
   getResponses() {
-    request(
-      {
-        url: `${process.env.QUILL_CMS}/responses/mass_edit/show_many`,
-        method: 'POST',
-        json: { responses: this.props.massEdit.selectedResponses, },
-      },
-      (err, httpResponse, data) => {
-        const parsedResponses = _.indexBy(data.responses, 'id');
+    requestPost(
+      `${process.env.QUILL_CMS}/responses/mass_edit/show_many`,
+      { responses: this.props.massEdit.selectedResponses, },
+      (body) => {
+        const parsedResponses = _.indexBy(body.responses, 'id');
         this.setState({
           responses: parsedResponses,
         });
       }
-    );
+    )
   }
 
   clearResponsesFromMassEditArray() {
@@ -81,16 +78,16 @@ class MassEditContainer extends React.Component {
   }
 
   updateResponseFeedbackInMassEditArray() {
-    const { dispatch, massEdit, params } = this.props;
+    const { dispatch, massEdit, match } = this.props;
     const { selectedResponses } = massEdit;
-    const { questionID } = params;
+    const { questionID } = match.params;
     const { massEditFeedback } = this.state;
     const { massEditOptimal } = this.refs;
     const optimal = massEditOptimal.checked || false;
     const parent_id = null;
     const author = null;
     const payload = {
-      massEditFeedback,
+      feedback: massEditFeedback,
       optimal,
       parent_id,
       author,
@@ -113,17 +110,17 @@ class MassEditContainer extends React.Component {
   };
 
   updateResponseConceptResultInMassEditArray() {
-    const { dispatch, massEdit, params } = this.props;
+    const { dispatch, massEdit, match } = this.props;
     const { selectedResponses } = massEdit;
-    const { questionID } = params;
+    const { questionID } = match.params;
     const { conceptResults } = this.state;
     dispatch(submitMassEditConceptResults(selectedResponses, conceptResults, questionID));
   }
 
   deleteAllResponsesInMassEditArray() {
-    const { dispatch, massEdit, params } = this.props;
+    const { dispatch, massEdit, match, } = this.props;
     const { selectedResponses } = massEdit;
-    const { questionID } = params;
+    const { questionID } = match.params;
 
     if (window.confirm(`⚠️ Delete ${selectedResponses.length} responses?! 😱`)) {
       dispatch(massEditDeleteResponses(selectedResponses, questionID));

@@ -26,5 +26,6 @@ Geocoder.configure(
   #   expiration: 2.days,
   #   prefix: 'geocoder:'
   # }
-  api_key: ENV.fetch('IPINFO_IO_KEY', '')               # API key for geocoding service
+  ip_lookup: :geoip2,
+  geoip2: { file: File.join('lib/data/GeoLite2-City_20221004', 'GeoLite2-City.mmdb') }
 )

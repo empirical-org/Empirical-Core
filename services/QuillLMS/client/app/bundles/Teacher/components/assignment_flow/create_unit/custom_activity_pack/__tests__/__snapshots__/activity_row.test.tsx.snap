@@ -37,28 +37,16 @@ exports[`ActivityRow component with showCheckbox false and showRemoveButton true
       "standard_name": "87",
       "topics": Array [
         Object {
-          "id": 16,
-          "level": 3,
-          "name": "History",
-          "parent_id": null,
-        },
-        Object {
-          "id": 93,
-          "level": 2,
-          "name": "World Historical Figures",
-          "parent_id": 16,
-        },
-        Object {
           "id": 171,
-          "level": 0,
+          "level": 1,
           "name": "Hernan Cortes & the Aztec Empire",
-          "parent_id": null,
+          "parent_id": 93,
         },
         Object {
           "id": 172,
           "level": 1,
           "name": "Maya, Aztec, & Inca Civilizations",
-          "parent_id": null,
+          "parent_id": 48,
         },
       ],
       "uid": "-KqcjgL00W0ro-Wr4Bts",
@@ -212,28 +200,16 @@ exports[`ActivityRow component with showCheckbox false and showRemoveButton true
           topics={
             Array [
               Object {
-                "id": 16,
-                "level": 3,
-                "name": "History",
-                "parent_id": null,
-              },
-              Object {
-                "id": 93,
-                "level": 2,
-                "name": "World Historical Figures",
-                "parent_id": 16,
-              },
-              Object {
                 "id": 171,
-                "level": 0,
+                "level": 1,
                 "name": "Hernan Cortes & the Aztec Empire",
-                "parent_id": null,
+                "parent_id": 93,
               },
               Object {
                 "id": 172,
                 "level": 1,
                 "name": "Maya, Aztec, & Inca Civilizations",
-                "parent_id": null,
+                "parent_id": 48,
               },
             ]
           }
@@ -340,28 +316,16 @@ exports[`ActivityRow component with showCheckbox false and showRemoveButton true
         topics={
           Array [
             Object {
-              "id": 16,
-              "level": 3,
-              "name": "History",
-              "parent_id": null,
-            },
-            Object {
-              "id": 93,
-              "level": 2,
-              "name": "World Historical Figures",
-              "parent_id": 16,
-            },
-            Object {
               "id": 171,
-              "level": 0,
+              "level": 1,
               "name": "Hernan Cortes & the Aztec Empire",
-              "parent_id": null,
+              "parent_id": 93,
             },
             Object {
               "id": 172,
               "level": 1,
               "name": "Maya, Aztec, & Inca Civilizations",
-              "parent_id": null,
+              "parent_id": 48,
             },
           ]
         }
@@ -374,7 +338,21 @@ exports[`ActivityRow component with showCheckbox false and showRemoveButton true
             src="undefined/images/icons/icons-description-topic.svg"
           />
           <span>
-            Maya, Aztec, & Inca Civilizations: Hernan Cortes & the Aztec Empire
+            Hernan Cortes & the Aztec Empire
+          </span>
+          <span
+            className="vertical-divider"
+          />
+        </span>
+        <span
+          className="attribute-section topic"
+        >
+          <img
+            alt="Globe icon"
+            src="undefined/images/icons/icons-description-topic.svg"
+          />
+          <span>
+            Maya, Aztec, & Inca Civilizations
           </span>
         </span>
       </ActivityRowTopics>
@@ -415,28 +393,16 @@ exports[`ActivityRow component with showCheckbox false and showRemoveButton true
           "standard_name": "87",
           "topics": Array [
             Object {
-              "id": 16,
-              "level": 3,
-              "name": "History",
-              "parent_id": null,
-            },
-            Object {
-              "id": 93,
-              "level": 2,
-              "name": "World Historical Figures",
-              "parent_id": 16,
-            },
-            Object {
               "id": 171,
-              "level": 0,
+              "level": 1,
               "name": "Hernan Cortes & the Aztec Empire",
-              "parent_id": null,
+              "parent_id": 93,
             },
             Object {
               "id": 172,
               "level": 1,
               "name": "Maya, Aztec, & Inca Civilizations",
-              "parent_id": null,
+              "parent_id": 48,
             },
           ],
           "uid": "-KqcjgL00W0ro-Wr4Bts",
@@ -487,28 +453,16 @@ exports[`ActivityRow component with showCheckbox false and showRemoveButton true
       "standard_name": "87",
       "topics": Array [
         Object {
-          "id": 16,
-          "level": 3,
-          "name": "History",
-          "parent_id": null,
-        },
-        Object {
-          "id": 93,
-          "level": 2,
-          "name": "World Historical Figures",
-          "parent_id": 16,
-        },
-        Object {
           "id": 171,
-          "level": 0,
+          "level": 1,
           "name": "Hernan Cortes & the Aztec Empire",
-          "parent_id": null,
+          "parent_id": 93,
         },
         Object {
           "id": 172,
           "level": 1,
           "name": "Maya, Aztec, & Inca Civilizations",
-          "parent_id": null,
+          "parent_id": 48,
         },
       ],
       "uid": "-KqcjgL00W0ro-Wr4Bts",
@@ -662,28 +616,16 @@ exports[`ActivityRow component with showCheckbox false and showRemoveButton true
           topics={
             Array [
               Object {
-                "id": 16,
-                "level": 3,
-                "name": "History",
-                "parent_id": null,
-              },
-              Object {
-                "id": 93,
-                "level": 2,
-                "name": "World Historical Figures",
-                "parent_id": 16,
-              },
-              Object {
                 "id": 171,
-                "level": 0,
+                "level": 1,
                 "name": "Hernan Cortes & the Aztec Empire",
-                "parent_id": null,
+                "parent_id": 93,
               },
               Object {
                 "id": 172,
                 "level": 1,
                 "name": "Maya, Aztec, & Inca Civilizations",
-                "parent_id": null,
+                "parent_id": 48,
               },
             ]
           }
@@ -790,28 +732,16 @@ exports[`ActivityRow component with showCheckbox false and showRemoveButton true
         topics={
           Array [
             Object {
-              "id": 16,
-              "level": 3,
-              "name": "History",
-              "parent_id": null,
-            },
-            Object {
-              "id": 93,
-              "level": 2,
-              "name": "World Historical Figures",
-              "parent_id": 16,
-            },
-            Object {
               "id": 171,
-              "level": 0,
+              "level": 1,
               "name": "Hernan Cortes & the Aztec Empire",
-              "parent_id": null,
+              "parent_id": 93,
             },
             Object {
               "id": 172,
               "level": 1,
               "name": "Maya, Aztec, & Inca Civilizations",
-              "parent_id": null,
+              "parent_id": 48,
             },
           ]
         }
@@ -824,7 +754,21 @@ exports[`ActivityRow component with showCheckbox false and showRemoveButton true
             src="undefined/images/icons/icons-description-topic.svg"
           />
           <span>
-            Maya, Aztec, & Inca Civilizations: Hernan Cortes & the Aztec Empire
+            Hernan Cortes & the Aztec Empire
+          </span>
+          <span
+            className="vertical-divider"
+          />
+        </span>
+        <span
+          className="attribute-section topic"
+        >
+          <img
+            alt="Globe icon"
+            src="undefined/images/icons/icons-description-topic.svg"
+          />
+          <span>
+            Maya, Aztec, & Inca Civilizations
           </span>
         </span>
       </ActivityRowTopics>
@@ -865,28 +809,16 @@ exports[`ActivityRow component with showCheckbox false and showRemoveButton true
           "standard_name": "87",
           "topics": Array [
             Object {
-              "id": 16,
-              "level": 3,
-              "name": "History",
-              "parent_id": null,
-            },
-            Object {
-              "id": 93,
-              "level": 2,
-              "name": "World Historical Figures",
-              "parent_id": 16,
-            },
-            Object {
               "id": 171,
-              "level": 0,
+              "level": 1,
               "name": "Hernan Cortes & the Aztec Empire",
-              "parent_id": null,
+              "parent_id": 93,
             },
             Object {
               "id": 172,
               "level": 1,
               "name": "Maya, Aztec, & Inca Civilizations",
-              "parent_id": null,
+              "parent_id": 48,
             },
           ],
           "uid": "-KqcjgL00W0ro-Wr4Bts",
@@ -937,28 +869,16 @@ exports[`ActivityRow component with showCheckbox true and showRemoveButton false
       "standard_name": "87",
       "topics": Array [
         Object {
-          "id": 16,
-          "level": 3,
-          "name": "History",
-          "parent_id": null,
-        },
-        Object {
-          "id": 93,
-          "level": 2,
-          "name": "World Historical Figures",
-          "parent_id": 16,
-        },
-        Object {
           "id": 171,
-          "level": 0,
+          "level": 1,
           "name": "Hernan Cortes & the Aztec Empire",
-          "parent_id": null,
+          "parent_id": 93,
         },
         Object {
           "id": 172,
           "level": 1,
           "name": "Maya, Aztec, & Inca Civilizations",
-          "parent_id": null,
+          "parent_id": 48,
         },
       ],
       "uid": "-KqcjgL00W0ro-Wr4Bts",
@@ -1018,28 +938,16 @@ exports[`ActivityRow component with showCheckbox true and showRemoveButton false
               "standard_name": "87",
               "topics": Array [
                 Object {
-                  "id": 16,
-                  "level": 3,
-                  "name": "History",
-                  "parent_id": null,
-                },
-                Object {
-                  "id": 93,
-                  "level": 2,
-                  "name": "World Historical Figures",
-                  "parent_id": 16,
-                },
-                Object {
                   "id": 171,
-                  "level": 0,
+                  "level": 1,
                   "name": "Hernan Cortes & the Aztec Empire",
-                  "parent_id": null,
+                  "parent_id": 93,
                 },
                 Object {
                   "id": 172,
                   "level": 1,
                   "name": "Maya, Aztec, & Inca Civilizations",
-                  "parent_id": null,
+                  "parent_id": 48,
                 },
               ],
               "uid": "-KqcjgL00W0ro-Wr4Bts",
@@ -1186,28 +1094,16 @@ exports[`ActivityRow component with showCheckbox true and showRemoveButton false
           topics={
             Array [
               Object {
-                "id": 16,
-                "level": 3,
-                "name": "History",
-                "parent_id": null,
-              },
-              Object {
-                "id": 93,
-                "level": 2,
-                "name": "World Historical Figures",
-                "parent_id": 16,
-              },
-              Object {
                 "id": 171,
-                "level": 0,
+                "level": 1,
                 "name": "Hernan Cortes & the Aztec Empire",
-                "parent_id": null,
+                "parent_id": 93,
               },
               Object {
                 "id": 172,
                 "level": 1,
                 "name": "Maya, Aztec, & Inca Civilizations",
-                "parent_id": null,
+                "parent_id": 48,
               },
             ]
           }
@@ -1315,28 +1211,16 @@ exports[`ActivityRow component with showCheckbox true and showRemoveButton false
         topics={
           Array [
             Object {
-              "id": 16,
-              "level": 3,
-              "name": "History",
-              "parent_id": null,
-            },
-            Object {
-              "id": 93,
-              "level": 2,
-              "name": "World Historical Figures",
-              "parent_id": 16,
-            },
-            Object {
               "id": 171,
-              "level": 0,
+              "level": 1,
               "name": "Hernan Cortes & the Aztec Empire",
-              "parent_id": null,
+              "parent_id": 93,
             },
             Object {
               "id": 172,
               "level": 1,
               "name": "Maya, Aztec, & Inca Civilizations",
-              "parent_id": null,
+              "parent_id": 48,
             },
           ]
         }
@@ -1349,7 +1233,21 @@ exports[`ActivityRow component with showCheckbox true and showRemoveButton false
             src="undefined/images/icons/icons-description-topic.svg"
           />
           <span>
-            Maya, Aztec, & Inca Civilizations: Hernan Cortes & the Aztec Empire
+            Hernan Cortes & the Aztec Empire
+          </span>
+          <span
+            className="vertical-divider"
+          />
+        </span>
+        <span
+          className="attribute-section topic"
+        >
+          <img
+            alt="Globe icon"
+            src="undefined/images/icons/icons-description-topic.svg"
+          />
+          <span>
+            Maya, Aztec, & Inca Civilizations
           </span>
         </span>
       </ActivityRowTopics>
@@ -1390,28 +1288,16 @@ exports[`ActivityRow component with showCheckbox true and showRemoveButton false
           "standard_name": "87",
           "topics": Array [
             Object {
-              "id": 16,
-              "level": 3,
-              "name": "History",
-              "parent_id": null,
-            },
-            Object {
-              "id": 93,
-              "level": 2,
-              "name": "World Historical Figures",
-              "parent_id": 16,
-            },
-            Object {
               "id": 171,
-              "level": 0,
+              "level": 1,
               "name": "Hernan Cortes & the Aztec Empire",
-              "parent_id": null,
+              "parent_id": 93,
             },
             Object {
               "id": 172,
               "level": 1,
               "name": "Maya, Aztec, & Inca Civilizations",
-              "parent_id": null,
+              "parent_id": 48,
             },
           ],
           "uid": "-KqcjgL00W0ro-Wr4Bts",
@@ -1462,28 +1348,16 @@ exports[`ActivityRow component with showCheckbox true and showRemoveButton false
       "standard_name": "87",
       "topics": Array [
         Object {
-          "id": 16,
-          "level": 3,
-          "name": "History",
-          "parent_id": null,
-        },
-        Object {
-          "id": 93,
-          "level": 2,
-          "name": "World Historical Figures",
-          "parent_id": 16,
-        },
-        Object {
           "id": 171,
-          "level": 0,
+          "level": 1,
           "name": "Hernan Cortes & the Aztec Empire",
-          "parent_id": null,
+          "parent_id": 93,
         },
         Object {
           "id": 172,
           "level": 1,
           "name": "Maya, Aztec, & Inca Civilizations",
-          "parent_id": null,
+          "parent_id": 48,
         },
       ],
       "uid": "-KqcjgL00W0ro-Wr4Bts",
@@ -1543,28 +1417,16 @@ exports[`ActivityRow component with showCheckbox true and showRemoveButton false
               "standard_name": "87",
               "topics": Array [
                 Object {
-                  "id": 16,
-                  "level": 3,
-                  "name": "History",
-                  "parent_id": null,
-                },
-                Object {
-                  "id": 93,
-                  "level": 2,
-                  "name": "World Historical Figures",
-                  "parent_id": 16,
-                },
-                Object {
                   "id": 171,
-                  "level": 0,
+                  "level": 1,
                   "name": "Hernan Cortes & the Aztec Empire",
-                  "parent_id": null,
+                  "parent_id": 93,
                 },
                 Object {
                   "id": 172,
                   "level": 1,
                   "name": "Maya, Aztec, & Inca Civilizations",
-                  "parent_id": null,
+                  "parent_id": 48,
                 },
               ],
               "uid": "-KqcjgL00W0ro-Wr4Bts",
@@ -1715,28 +1577,16 @@ exports[`ActivityRow component with showCheckbox true and showRemoveButton false
           topics={
             Array [
               Object {
-                "id": 16,
-                "level": 3,
-                "name": "History",
-                "parent_id": null,
-              },
-              Object {
-                "id": 93,
-                "level": 2,
-                "name": "World Historical Figures",
-                "parent_id": 16,
-              },
-              Object {
                 "id": 171,
-                "level": 0,
+                "level": 1,
                 "name": "Hernan Cortes & the Aztec Empire",
-                "parent_id": null,
+                "parent_id": 93,
               },
               Object {
                 "id": 172,
                 "level": 1,
                 "name": "Maya, Aztec, & Inca Civilizations",
-                "parent_id": null,
+                "parent_id": 48,
               },
             ]
           }
@@ -1844,28 +1694,16 @@ exports[`ActivityRow component with showCheckbox true and showRemoveButton false
         topics={
           Array [
             Object {
-              "id": 16,
-              "level": 3,
-              "name": "History",
-              "parent_id": null,
-            },
-            Object {
-              "id": 93,
-              "level": 2,
-              "name": "World Historical Figures",
-              "parent_id": 16,
-            },
-            Object {
               "id": 171,
-              "level": 0,
+              "level": 1,
               "name": "Hernan Cortes & the Aztec Empire",
-              "parent_id": null,
+              "parent_id": 93,
             },
             Object {
               "id": 172,
               "level": 1,
               "name": "Maya, Aztec, & Inca Civilizations",
-              "parent_id": null,
+              "parent_id": 48,
             },
           ]
         }
@@ -1878,7 +1716,21 @@ exports[`ActivityRow component with showCheckbox true and showRemoveButton false
             src="undefined/images/icons/icons-description-topic.svg"
           />
           <span>
-            Maya, Aztec, & Inca Civilizations: Hernan Cortes & the Aztec Empire
+            Hernan Cortes & the Aztec Empire
+          </span>
+          <span
+            className="vertical-divider"
+          />
+        </span>
+        <span
+          className="attribute-section topic"
+        >
+          <img
+            alt="Globe icon"
+            src="undefined/images/icons/icons-description-topic.svg"
+          />
+          <span>
+            Maya, Aztec, & Inca Civilizations
           </span>
         </span>
       </ActivityRowTopics>
@@ -1919,28 +1771,16 @@ exports[`ActivityRow component with showCheckbox true and showRemoveButton false
           "standard_name": "87",
           "topics": Array [
             Object {
-              "id": 16,
-              "level": 3,
-              "name": "History",
-              "parent_id": null,
-            },
-            Object {
-              "id": 93,
-              "level": 2,
-              "name": "World Historical Figures",
-              "parent_id": 16,
-            },
-            Object {
               "id": 171,
-              "level": 0,
+              "level": 1,
               "name": "Hernan Cortes & the Aztec Empire",
-              "parent_id": null,
+              "parent_id": 93,
             },
             Object {
               "id": 172,
               "level": 1,
               "name": "Maya, Aztec, & Inca Civilizations",
-              "parent_id": null,
+              "parent_id": 48,
             },
           ],
           "uid": "-KqcjgL00W0ro-Wr4Bts",

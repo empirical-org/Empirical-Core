@@ -61,7 +61,7 @@ module Evidence
       end
       log_activation
       self
-    rescue StandardError => e
+    rescue => e
       raise e unless e.is_a?(ActiveRecord::RecordInvalid)
 
       return false

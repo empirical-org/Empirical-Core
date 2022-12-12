@@ -479,6 +479,7 @@
 .unarchive-class-modal,
 .edit-student-account-modal,
 .reset-student-password-modal,
+.copy-dates-modal,
 .school-not-listed-modal,
 .merge-student-accounts-modal,
 .move-students-modal,
@@ -1365,4 +1366,43 @@
   z-index: 99;
   position: relative;
   cursor: pointer;
+}
+
+.teacher-info-modal {
+  background: #F8F6F6;
+  display: flex;
+  height: min-content;
+  position: absolute;
+  border-radius: 6px;
+  z-index: 3;
+  top: 150px;
+  left: 50%;
+  bottom: 72px;
+  transform: translate(-50%, 0);
+  padding-bottom: 32px;
+  max-width: 610px;
+  width: 100%;
+  .modal-body {
+    margin-bottom: 0px;
+    padding-bottom: 0px;
+  }
+  .account-form {
+    padding: 0px;
+  }
+  .button-wrapper {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    p {
+      color: #646464;
+    }
+    .quill-button {
+      min-width: 150px;
+    }
+    .skip-for-now {
+      font-weight: 600;
+      color: #009A80;
+      margin-top: 24px;
+    }
+  }
 }

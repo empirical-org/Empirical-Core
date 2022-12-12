@@ -1,0 +1,7 @@
+<%= react_component('FinishSetUpApp', props: {
+  passedFirstName: @user.first_name,
+  passedLastName: @user.last_name,
+  email: @user.email,
+  token: @user.token
+})%>
+<%= javascript_include_tag('cookie_warning.js') %>

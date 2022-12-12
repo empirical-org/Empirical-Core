@@ -14,7 +14,6 @@ const tooltipText = 'Quill’s ELL activities are designed based on ELL standard
 interface ELLLevel {
   standardLevelName: string,
   displayName: string,
-  filterNumber: number,
 }
 
 interface Grouping {
@@ -23,17 +22,17 @@ interface Grouping {
 }
 
 interface IndividualELLFilterRowProps {
-  ellFilters: number[],
+  ellFilters: string[],
   level: ELLLevel,
-  handleELLFilterChange: (ellFilters: number[]) => void,
+  handleELLFilterChange: (ellFilters: string[]) => void,
   filteredActivities: Activity[],
 }
 
 interface ELLToggleProps {
   filteredActivities: Activity[],
   grouping: Grouping,
-  ellFilters: number[],
-  handleELLFilterChange: (ellFilters: number[]) => void,
+  ellFilters: string[],
+  handleELLFilterChange: (ellFilters: string[]) => void,
   isOpen: boolean,
   setIsOpen: (isOpen: boolean) => void
 }
@@ -41,47 +40,44 @@ interface ELLToggleProps {
 interface ELLFiltersProps {
   activities: Activity[],
   filterActivities: (ignoredKey?: string) => Activity[]
-  ellFilters: number[],
-  handleELLFilterChange: (ellFilters: number[]) => void,
+  ellFilters: string[],
+  handleELLFilterChange: (ellFilters: string[]) => void,
 }
 
 const levelOne = {
-  standardLevelName: 'ELL Level 1',
+  standardLevelName: 'ELL Starter',
   displayName: 'ELL Starter',
-  filterNumber: 1
 }
 
 const levelTwo = {
-  standardLevelName: 'ELL Level 2',
+  standardLevelName: 'ELL Intermediate',
   displayName: 'ELL Intermediate',
-  filterNumber: 2
 }
 
 const levelThree = {
-  standardLevelName: 'ELL Level 3',
+  standardLevelName: 'ELL Advanced',
   displayName: 'ELL Advanced',
-  filterNumber: 3
 }
 
 const allELLOptions = [levelOne, levelTwo, levelThree]
 
 const IndividualELLFilterRow = ({ ellFilters, level, handleELLFilterChange, filteredActivities, }: IndividualELLFilterRowProps) => {
-  const { filterNumber, displayName, standardLevelName, } = level
+  const { displayName, standardLevelName, } = level
 
   function checkIndividualFilter() {
-    const newELLFilters = Array.from(new Set(ellFilters.concat([filterNumber])))
+    const newELLFilters = Array.from(new Set(ellFilters.concat([standardLevelName])))
     handleELLFilterChange(newELLFilters)
   }
 
   function uncheckIndividualFilter() {
-    const newELLFilters = ellFilters.filter(k => k !== filterNumber)
+    const newELLFilters = ellFilters.filter(k => k !== standardLevelName)
     handleELLFilterChange(newELLFilters)
   }
 
   const activityCount = filteredActivities.filter(act => act.standard_level_name === standardLevelName).length
   let checkbox = <button aria-label={`Check ${displayName}`} className="focus-on-light quill-checkbox unselected" onClick={checkIndividualFilter} type="button" />
 
-  if (ellFilters.includes(filterNumber)) {
+  if (ellFilters.includes(standardLevelName)) {
     checkbox = (<button aria-label={`Uncheck ${displayName}`} className="focus-on-light quill-checkbox selected" onClick={uncheckIndividualFilter} type="button">
       <img alt="Checked checkbox" src={smallWhiteCheckSrc} />
     </button>)
@@ -90,7 +86,7 @@ const IndividualELLFilterRow = ({ ellFilters, level, handleELLFilterChange, filt
   }
 
   return (
-    <div className="individual-row filter-row topic-row" key={filterNumber}>
+    <div className="individual-row filter-row topic-row" key={standardLevelName}>
       <div>
         {checkbox}
         <span>{displayName}</span>
@@ -108,7 +104,7 @@ const ELLToggle = ({filteredActivities, grouping, ellFilters, handleELLFilterCha
   }
 
   function checkAllFilters() {
-    handleELLFilterChange(allELLOptions.map(opt => opt.filterNumber))
+    handleELLFilterChange(allELLOptions.map(opt => opt.standardLevelName))
   }
 
   const toggleArrow = <button aria-label="Toggle menu" className="interactive-wrapper focus-on-light filter-toggle-button" onClick={toggleIsOpen} type="button"><img alt="" className={isOpen ? 'is-open' : 'is-closed'} src={dropdownIconSrc} /></button>
@@ -135,7 +131,7 @@ const ELLToggle = ({filteredActivities, grouping, ellFilters, handleELLFilterCha
         ellFilters={ellFilters}
         filteredActivities={filteredActivities}
         handleELLFilterChange={handleELLFilterChange}
-        key={ellOption.filterNumber}
+        key={ellOption.standardLevelName}
         level={ellOption}
       />)
     )

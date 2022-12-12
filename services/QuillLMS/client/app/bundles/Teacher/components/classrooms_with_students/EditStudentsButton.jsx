@@ -1,7 +1,8 @@
 import React from 'react'
-import request from 'request'
+
 import ButtonLoadingIndicator from '../shared/button_loading_indicator'
 import getAuthToken from '../modules/get_auth_token'
+import { requestPut, requestPost, } from '../../../../modules/request/index'
 
 export default class UpdateUnitButton extends React.Component {
   constructor(props) {
@@ -21,20 +22,29 @@ export default class UpdateUnitButton extends React.Component {
       this.setState({errors: data.classrooms_data.errors})
     } else {
       this.setState({ loading: true, })
-      request({
-        method: requestType,
-        url: `${process.env.DEFAULT_URL}${url}`,
-        json: {
-          unit: data,
-          authenticity_token: getAuthToken()
-        }
-      }, (e, r, body) => {
-        if (r.statusCode === 200) {
-          successCallback()
-        } else {
-          this.setState({ loading: false, errors: body.errors, })
-        }
-      })
+      if (requestType === 'POST') {
+        requestPost(
+          `${process.env.DEFAULT_URL}${url}`,
+          { unit: data, },
+          (body) => {
+            successCallback()
+          },
+          (body) => {
+            this.setState({ loading: false, errors: body.errors, })
+          }
+        )
+      } else if (requestType === 'PUT') {
+        requestPut(
+          `${process.env.DEFAULT_URL}${url}`,
+          { unit: data, },
+          (body) => {
+            successCallback()
+          },
+          (body) => {
+            this.setState({ loading: false, errors: body.errors, })
+          }
+        )
+      }
     }
   };
 

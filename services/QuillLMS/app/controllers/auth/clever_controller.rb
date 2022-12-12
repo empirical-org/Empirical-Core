@@ -4,6 +4,8 @@ module Auth
   class CleverController < ApplicationController
     around_action :force_writer_db_role, only: [:clever]
 
+    class CleverAccountConflictError < StandardError; end
+
     def clever
       update_current_user_email
       result = CleverIntegration::SignUp::Main.run(auth_hash)
@@ -18,16 +20,32 @@ module Auth
       render status: 200, nothing: true # Don't bother rendering anything.
     end
 
+    # rubocop:disable Metrics/CyclomaticComplexity
     private def update_current_user_email
       return unless route_redirects_to_my_account?(session[ApplicationController::CLEVER_REDIRECT])
+
+      current_user_id = current_user&.id
+      new_email = auth_hash['info']['email']
+      old_email = current_user&.email
 
       if current_user.update(email: auth_hash['info']['email'])
         session[ApplicationController::GOOGLE_OR_CLEVER_JUST_SET] = true
       else
+        ErrorNotifier.report(
+          CleverAccountConflictError.new, {
+            clever_redirect: session[ApplicationController::CLEVER_REDIRECT],
+            current_user_id: current_user_id,
+            new_email: new_email,
+            old_email: old_email,
+            user_id: session[:user_id],
+            validation_errors: current_user&.errors&.full_messages&.join('|')
+          }
+        )
         flash[:error] = t('clever.account_conflict')
         flash.keep(:error)
       end
     end
+    # rubocop:enable Metrics/CyclomaticComplexity
 
     private def user_success(user, redirect=nil)
       CompleteAccountCreation.new(user, request.remote_ip).call if user.previous_changes["id"]

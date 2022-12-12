@@ -24,7 +24,7 @@ exports[`ClassroomTeacherSection component should render 1`] = `
         Object {
           "attribute": "name",
           "name": "Name",
-          "width": "200px",
+          "width": "370px",
         },
         Object {
           "attribute": "role",
@@ -34,7 +34,7 @@ exports[`ClassroomTeacherSection component should render 1`] = `
         Object {
           "attribute": "email",
           "name": "Email",
-          "width": "375px",
+          "width": "445px",
         },
         Object {
           "attribute": "status",

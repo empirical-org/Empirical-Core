@@ -18,7 +18,7 @@ module Units::Creator
         WHERE unit_template_id = #{unit_template_id}
         ORDER BY activities_unit_templates.id;
       SQL
-    ).map { |a| { id: a["id"], due_date: nil } }
+    ).map { |a| { id: a["id"], due_date: nil, publish_date: nil } }
 
     # unit fix: may be able to better optimize this one, but possibly not
     classrooms_data = teacher.classrooms_i_teach.map{ |c| {id: c.id, student_ids: [], assign_on_join: true} }
@@ -40,7 +40,7 @@ module Units::Creator
         WHERE unit_template_id = #{unit_template_id}
         ORDER BY activities_unit_templates.id;
       SQL
-    ).map { |a| {id: a["id"], due_date: nil}}
+    ).map { |a| {id: a["id"], due_date: nil, publish_date: nil}}
     create_helper(teacher, unit_template.name, activities_data, classroom_array, unit_template_id, current_user_id)
   end
 
@@ -52,15 +52,18 @@ module Units::Creator
     )
     # makes a permutation of each classroom with each activity to
     # create all necessary activity sessions
-    act_data = activities_data.uniq.map.with_index do |activity, index|
-      {
+    activities_data.uniq.each.with_index do |activity, index|
+      act_data = {
         unit_id: unit.id,
         activity_id: activity[:id],
         due_date: activity[:due_date],
+        publish_date: activity[:publish_date],
         order_number: index + 1
       }
+      ua = UnitActivity.new
+      ua.save_new_attributes_and_adjust_dates!(act_data)
     end
-    UnitActivity.create(act_data)
+
     class_data = classrooms.map do |classroom|
       {
         classroom_id: classroom[:id],
@@ -74,8 +77,7 @@ module Units::Creator
     unit.reload
     unit.save
     unit.email_lesson_plan
-    # unit.hide_if_no_visible_unit_activities
-    # activity_sessions in the state of 'unstarted' are automatically created in an after_create callback in the classroom_activity model
+
     AssignActivityWorker.perform_async((current_user_id || teacher.id), unit.id)
   end
 end

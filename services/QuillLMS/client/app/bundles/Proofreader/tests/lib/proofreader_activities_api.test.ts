@@ -4,7 +4,7 @@ import {
   mockRequestPost,
   mockRequestPut,
 } from '../__mocks__/request_wrapper'
-jest.mock('../../lib/request', () => ({
+jest.mock('../../../../modules/request/index', () => ({
   requestDelete: mockRequestDelete,
   requestGet: mockRequestGet,
   requestPost: mockRequestPost,
@@ -26,7 +26,7 @@ describe('ProofreaderPassageApi calls', () => {
     it('should call requestGet', () => {
       const url = `${lessonApiBaseUrl}.json?lesson_type=${PROOFREADER_PASSAGE_TYPE}`
       ProofreaderPassageApi.getAll()
-      expect(mockRequestGet).toHaveBeenLastCalledWith(url)
+      expect(mockRequestGet).toHaveBeenLastCalledWith(url, null, expect.anything())
     })
   })
 
@@ -35,7 +35,7 @@ describe('ProofreaderPassageApi calls', () => {
       const MOCK_ID = 'id'
       const url = `${lessonApiBaseUrl}/${MOCK_ID}.json`
       ProofreaderPassageApi.get(MOCK_ID)
-      expect(mockRequestGet).toHaveBeenLastCalledWith(url)
+      expect(mockRequestGet).toHaveBeenLastCalledWith(url, null, expect.anything())
     })
   })
 
@@ -62,7 +62,7 @@ describe('ProofreaderPassageApi calls', () => {
       }
       const url = `${lessonApiBaseUrl}.json?lesson_type=${PROOFREADER_PASSAGE_TYPE}`
       ProofreaderPassageApi.create(MOCK_CONTENT)
-      expect(mockRequestPost).toHaveBeenLastCalledWith(url, {lesson: MOCK_CONTENT})
+      expect(mockRequestPost).toHaveBeenLastCalledWith(url, {lesson: MOCK_CONTENT}, null, expect.anything())
     })
   })
 
@@ -90,7 +90,7 @@ describe('ProofreaderPassageApi calls', () => {
       }
       const url = `${lessonApiBaseUrl}/${MOCK_ID}.json`
       ProofreaderPassageApi.update(MOCK_ID, MOCK_CONTENT)
-      expect(mockRequestPut).toHaveBeenLastCalledWith(url, {lesson: MOCK_CONTENT})
+      expect(mockRequestPut).toHaveBeenLastCalledWith(url, {lesson: MOCK_CONTENT}, null, expect.anything())
     })
   })
 
@@ -99,7 +99,8 @@ describe('ProofreaderPassageApi calls', () => {
       const MOCK_ID = 'id'
       const url = `${lessonApiBaseUrl}/${MOCK_ID}.json`
       ProofreaderPassageApi.remove(MOCK_ID)
-      expect(mockRequestDelete).toHaveBeenLastCalledWith(url)
+      expect(mockRequestDelete).toHaveBeenLastCalledWith(url, null, null, expect.anything())
+
     })
   })
 })

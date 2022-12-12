@@ -132,10 +132,9 @@ describe Cms::UsersController do
     let(:new_user) { build(:user) }
 
     it 'should create the user with the given params' do
-      post :create, params: { user: new_user.attributes.merge({password: "test123"}) }
+      post :create, params: { user: new_user.attributes.merge(password: "test123") }
       expect(response).to redirect_to cms_users_path
-      expect(User.last.email).to eq new_user.email
-      expect(User.last.role).to eq new_user.role
+      expect(User.exists?(email: new_user.email, role: new_user.role)).to be true
     end
   end
 

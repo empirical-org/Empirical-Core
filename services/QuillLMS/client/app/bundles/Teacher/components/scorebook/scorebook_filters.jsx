@@ -43,31 +43,31 @@ const ScorebookFilters = (
   const selectedActivityPackOption = activityPackFilterOptions.find(c => c.value === selectedUnit.value)
 
   return (
-    <div className="row activity-page-dropdown-wrapper scorebook-filters">
-      <div style={inputDropdownStyle}>
-        <DropdownInput
-          handleChange={selectClassroom}
-          options={classroomFilterOptions}
-          value={selectedClassroomOption}
-        />
+    <div className="activity-page-dropdown-wrapper scorebook-filters">
+      <div className="scorebook-filter-group">
+        <div style={inputDropdownStyle}>
+          <DropdownInput
+            handleChange={selectClassroom}
+            options={classroomFilterOptions}
+            value={selectedClassroomOption}
+          />
+        </div>
+        <div style={inputDropdownStyle}>
+          <DropdownInput
+            handleChange={selectUnit}
+            options={activityPackFilterOptions}
+            value={selectedActivityPackOption}
+          />
+        </div>
       </div>
-      <div style={inputDropdownStyle}>
-        <DropdownInput
-          handleChange={selectUnit}
-          options={activityPackFilterOptions}
-          value={selectedActivityPackOption}
-        />
-      </div>
-      <div style={datepickerDropdownStyle}>
-        <DateRangeFilter
-          beginDate={beginDate}
-          dateFilterName={dateFilterName}
-          endDate={endDate}
-          filterOptions={dateRangeFilterOptions}
-          icon="fa-calendar"
-          selectDates={selectDates}
-        />
-      </div>
+      <DateRangeFilter
+        beginDate={beginDate}
+        dateFilterName={dateFilterName}
+        endDate={endDate}
+        filterOptions={dateRangeFilterOptions}
+        icon="fa-calendar"
+        selectDates={selectDates}
+      />
     </div>
   );
 };

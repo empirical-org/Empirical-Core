@@ -3,13 +3,15 @@
 FactoryBot.define do
   factory :topic do
     sequence(:name) { |i| "Topic #{i}" }
-    level           { rand(4) }
+    level           { rand(1..3) }
     visible         true
     parent_id       nil
 
-    after(:build) do |t|
-      if t.level == 2
-        t.parent_id = Topic.find_by_level(3)&.id || create(:topic, level: 3).id
+    after(:build) do |topic|
+      topic.parent_id = Topic.find_or_create_by!(level: 3, name: 'level three').id if topic.level_two?
+      if topic.level_one?
+        level_three_topic = Topic.find_or_create_by!(level: 3, name: 'level three')
+        topic.parent_id = Topic.find_or_create_by!(level: 2, name: 'level two', parent_id: level_three_topic.id).id
       end
     end
 

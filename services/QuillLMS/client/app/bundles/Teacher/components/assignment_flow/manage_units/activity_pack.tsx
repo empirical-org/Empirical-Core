@@ -132,7 +132,7 @@ const ActivityPack = ({
         singleActivity={activityClicked}
         unitId={data && data.unitId}
       />}
-      <div className="top-section">
+      <div className="activity-pack-top-section">
         <div className="top-section-header">
           {isOwner && <ActivityPackUpdateButtons handleClickShareActivityPack={handleClickShareActivityPack} handleClickShowRemove={handleClickShowRemove} handleClickShowRename={handleClickShowRename} />}
           <div className="left-side">

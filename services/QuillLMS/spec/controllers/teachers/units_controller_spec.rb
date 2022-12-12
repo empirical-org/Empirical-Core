@@ -28,7 +28,7 @@ describe Teachers::UnitsController, type: :controller do
 
   let!(:diagnostic) { create(:diagnostic) }
   let!(:diagnostic_activity) { create(:diagnostic_activity)}
-  let!(:unit_activity) { create(:unit_activity, unit: unit, activity: diagnostic_activity, due_date: Time.current )}
+  let!(:unit_activity) { create(:unit_activity, unit: unit, activity: diagnostic_activity, due_date: Time.current, publish_date: 1.hour.ago )}
 
   let!(:completed_activity_session) do
     create(:activity_session,
@@ -210,6 +210,7 @@ describe Teachers::UnitsController, type: :controller do
       expect(parsed_response[0]['number_of_assigned_students']).to eq(classroom_unit.assigned_student_ids.length)
       expect(parsed_response[0]['activity_uid']).to eq(diagnostic_activity.uid)
       expect(DateTime.parse(parsed_response[0]['due_date']).to_i).to eq(unit_activity.due_date.to_i)
+      expect(DateTime.parse(parsed_response[0]['publish_date']).to_i).to eq(unit_activity.publish_date.to_i)
       expect(parsed_response[0]['unit_created_at'].to_i).to eq(unit.created_at.to_i)
       expect(parsed_response[0]['unit_activity_created_at'].to_i).to eq(unit_activity.created_at.to_i)
     end
@@ -232,7 +233,77 @@ describe Teachers::UnitsController, type: :controller do
       expect(parsed_response.length).to eq(1)
     end
 
-    # TODO: write a VCR-like test to check when this request returns something other than what we expect.
+    context 'publish dates' do
+      let(:response) { get :index, params: { report: false } }
+      let(:scheduled) { JSON.parse(response.body)[0]['scheduled'] }
+
+      describe 'when the teacher has a time zone' do
+        before do
+          teacher.update(time_zone: 'America/New_York')
+
+          # have to do update_columns here because otherwise the publish date is offset by a callback
+          unit_activity.update_columns(publish_date: publish_date)
+        end
+
+        context 'publish date is in one hour' do
+          let(:publish_date) { Time.now.utc + 1.hour }
+
+          it 'should return activities with publish dates in the future as scheduled' do
+            expect(scheduled).to eq true
+          end
+        end
+
+        context 'publish date is one hour ago' do
+          let(:publish_date) { Time.now.utc - 1.hour }
+
+          it 'should return activities with publish dates in the past as not scheduled' do
+            expect(scheduled).to eq false
+          end
+        end
+
+        context 'no publish date' do
+          let(:publish_date) { nil }
+
+          it 'should return activities with no publish dates as nil scheduled' do
+            expect(scheduled).to eq nil
+          end
+        end
+      end
+
+      describe 'when the teacher has no time zone' do
+        before do
+          # have to do update columns here because the time zone is set by a callback
+          teacher.update_columns(time_zone: nil)
+
+          # have to do update_columns here because otherwise the publish date is offset by a callback
+          unit_activity.update_columns(publish_date: publish_date)
+        end
+
+        context 'publish date is in one hour' do
+          let(:publish_date) { Time.now.utc + 1.hour }
+
+          it 'should return activities with publish dates in the future as scheduled' do
+            expect(scheduled).to eq true
+          end
+        end
+
+        context 'publish date is one hour ago' do
+          let(:publish_date) { Time.now.utc - 1.hour }
+
+          it 'should return activities with publish dates in the past as not scheduled' do
+            expect(scheduled).to eq false
+          end
+        end
+
+        context 'no publish date' do
+          let(:publish_date) { nil }
+
+          it 'should return activities with no publish dates as nil scheduled' do
+            expect(scheduled).to eq nil
+          end
+        end
+      end
+    end
   end
 
   describe '#update' do
@@ -295,10 +366,15 @@ describe Teachers::UnitsController, type: :controller do
 
     it "sends a 200 status code when it is passed valid data" do
       activity = unit_activity.activity
-      put :update_activities, params: { id: unit.id.to_s, data: {
+      put :update_activities,
+        params: {
+          id: unit.id,
+          data: {
             unit_id: unit.id,
-            activities_data: [{id: activity.id, due_date: nil}]
-          } }
+            activities_data: [{ id: activity.id, due_date: nil }]
+          }
+        }
+
       expect(response.status).to eq(200)
     end
 

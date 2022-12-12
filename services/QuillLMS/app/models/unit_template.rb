@@ -140,10 +140,56 @@ class UnitTemplate < ApplicationRecord
     end
   end
 
+  def self.student_counts_for_previously_assigned_activity(unit=nil, classrooms=[])
+    classrooms.map do |classroom|
+      classroom_unit = unit.classroom_units.find_by(classroom_id: classroom[:id])
+      {
+        assigned_student_count: classroom_unit&.assigned_student_ids&.length,
+        total_student_count: classroom.students&.length
+      }
+    end
+  end
+
+  def self.previously_assigned_activity_data(activity_ids=[], current_user=nil)
+    results = {}
+    activity_ids.map do |id|
+      units = Unit.joins(:classroom_units, :unit_activities)
+        .where("classroom_units.classroom_id IN (?)", current_user&.classrooms_i_teach&.map(&:id))
+        .where("unit_activities.activity_id = ?", id)
+        .where("units.visible AND classroom_units.visible AND unit_activities.visible = ?", true)
+        .order("units.created_at")
+        .uniq
+
+      next if units.empty?
+
+      results[id] = units.map do |unit|
+        classrooms = unit.classrooms
+        {
+          name: unit[:name],
+          assigned_date: unit[:created_at],
+          classrooms: classrooms.pluck(:name),
+          students: student_counts_for_previously_assigned_activity(unit, classrooms)
+        }
+      end
+    end
+    { previously_assigned_activity_data: results }
+  end
+
   private def delete_relevant_caches
-    $redis.del("unit_template_id:#{id}_serialized", "#{flag || 'production'}_unit_templates")
+    $redis.del("unit_template_id:#{id}_serialized")
+    # We need to blow up caches for all flags because of cascading access:
+    # setting a flag from 'production' to 'beta' should remove the UnitTemplate
+    # from both the 'production' and 'gamma' caches while leaving it as-is in
+    # 'beta'.  It's rare enough to make these changes that we should just flush
+    # all the caches.
+    %w(private_ production_ gamma_ beta_ alpha_).each do |flag|
+      $redis.del("#{flag}unit_templates")
+    end
     yield
-    $redis.del("unit_template_id:#{id}_serialized", "#{flag || 'production'}_unit_templates")
+    $redis.del("unit_template_id:#{id}_serialized")
+    %w(private_ production_ gamma_ beta_ alpha_).each do |flag|
+      $redis.del("#{flag}unit_templates")
+    end
   end
 
 end

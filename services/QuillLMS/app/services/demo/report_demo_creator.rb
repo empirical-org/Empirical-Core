@@ -267,6 +267,7 @@ module Demo::ReportDemoCreator
   def self.create_demo(email = nil, teacher_demo: false)
     ActiveRecord::Base.transaction do
       teacher = create_teacher(email)
+      create_teacher_info(teacher)
       create_subscription(teacher)
       create_demo_classroom_data(teacher, teacher_demo: teacher_demo)
     end
@@ -291,28 +292,33 @@ module Demo::ReportDemoCreator
   end
 
   def self.reset_units(teacher)
-    teacher.units.reload # this relation is empty until it is reloaded for some reason
-    return teacher.units if teacher.units.count == UNITS_COUNT
-
     teacher.units&.destroy_all
 
     create_units(teacher)
   end
 
   def self.reset_account(teacher_id)
+    teacher = User.find_by(id: teacher_id, role: User::TEACHER)
+
+    return unless teacher
+
+    non_demo_classrooms(teacher).each {|c| c.update(visible: false)}
+    teacher.auth_credential&.destroy
+    teacher.update(google_id: nil, clever_id: nil)
+
+    reset_demo_classroom_if_needed(teacher_id)
+  end
+
+  def self.reset_demo_classroom_if_needed(teacher_id)
     # Wrap the lookup and actions within a transaction to avoid race conditions
     ActiveRecord::Base.transaction do
       teacher = User.find_by(id: teacher_id, role: User::TEACHER)
-      # Note, you can't early return within a transaction in Rails 6.1+
-      if teacher
-        non_demo_classrooms(teacher).each(&:destroy)
-        teacher.auth_credential&.destroy
-        teacher.update(google_id: nil, clever_id: nil)
 
-        if demo_classroom_modified?(teacher)
-          demo_classroom(teacher)&.destroy
-          create_demo_classroom_data(teacher, teacher_demo: true)
-        end
+      # Note, you can't early return within a transaction in Rails 6.1+
+      if teacher && demo_classroom_modified?(teacher)
+        # mark as invisible and reset class code (since the demo logic uses a specific class code)
+        demo_classroom(teacher)&.update(visible: false, code: nil)
+        create_demo_classroom_data(teacher, teacher_demo: true)
       end
     end
   rescue ActiveRecord::RecordInvalid
@@ -343,6 +349,11 @@ module Demo::ReportDemoCreator
       password_confirmation: 'password',
       flags: ["beta"]
     )
+  end
+
+  def self.create_teacher_info(teacher)
+    teacher_info = TeacherInfo.create(user: teacher, minimum_grade_level: 'K', maximum_grade_level: 12)
+    TeacherInfoSubjectArea.create(teacher_info: teacher_info, subject_area: SubjectArea.first)
   end
 
   def self.create_classroom(teacher)
@@ -461,7 +472,13 @@ module Demo::ReportDemoCreator
         classroom_unit = ClassroomUnit.find_by(classroom: classroom, unit: unit)
         act_sessions = activity_pack[:activity_sessions]
         act_sessions[num].each do |clone_activity_id, clone_user_id|
-          clone_activity_session(student.id, classroom_unit.id, clone_user_id, clone_activity_id, session_data)
+          clone_activity_session(
+            student.id,
+            classroom_unit.id,
+            clone_user_id,
+            clone_activity_id,
+            session_data
+          )
         end
       end
     end

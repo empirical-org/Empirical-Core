@@ -1,5 +1,5 @@
 import { ActivityInterface, DropdownObjectInterface } from '../../interfaces/evidenceInterfaces';
-import { handleApiError, apiFetch, mainApiFetch, handleRequestErrors, requestFailed, getActivitySessionsUrl } from '../../helpers/evidence/routingHelpers';
+import { handleApiError, apiFetch, mainApiFetch, handleRequestErrors, requestFailed, getActivitySessionsUrl, getActivitySessionsCSVUrl } from '../../helpers/evidence/routingHelpers';
 
 export const fetchActivities = async () => {
   let activities: ActivityInterface[];
@@ -53,10 +53,10 @@ export const updateActivityVersion = async (activityNote: string, activityId: st
   return { errors: [] };
 }
 
-export const createSeedData = async (nouns: string, activityId: string) => {
+export const createSeedData = async (nouns: string, labelConfigs: object, activityId: string) => {
   const response = await apiFetch(`activities/${activityId}/seed_data`, {
     method: 'POST',
-    body: JSON.stringify({nouns: nouns})
+    body: JSON.stringify({nouns: nouns, label_configs: labelConfigs})
   });
   const { status } = response;
 
@@ -107,14 +107,28 @@ export const archiveParentActivity = async (parentActivityId: string) => {
 }
 
 export const fetchActivitySessions = async ({ queryKey, }) => {
-  const [key, activityId, pageNumber, startDate, filterOptionForQuery, endDate, turkSessionID]: [string, string, number, string, DropdownObjectInterface, string, string] = queryKey
+  const [key, activityId, pageNumber, startDate, filterOptionForQuery, endDate, responsesForScoring]: [string, string, number, string, DropdownObjectInterface, string, string, boolean] = queryKey
   const { value } = filterOptionForQuery
-  const url = getActivitySessionsUrl({ activityId, pageNumber, startDate, endDate, turkSessionID, filterType: value });
+  const url = getActivitySessionsUrl({ activityId, pageNumber, startDate, endDate, filterType: value, responsesForScoring: responsesForScoring });
   const response = await mainApiFetch(url);
   const activitySessions = await response.json();
 
   return {
     activitySessions,
+    error: handleApiError('Failed to fetch activity sessions, please refresh the page.', response),
+  };
+}
+
+export const fetchActivitySessionsDataForCSV = async ({ queryKey, }) => {
+  const [key, activityId, startDate, filterOptionForQuery, endDate, responsesForScoring, csvDataLoadInitiated]: [string, string, string, DropdownObjectInterface, string, string, boolean, boolean] = queryKey
+  if(!csvDataLoadInitiated) { return }
+  const { value } = filterOptionForQuery
+  const url = getActivitySessionsCSVUrl({ activityId, startDate, endDate, filterType: value, responsesForScoring: responsesForScoring });
+  const response = await mainApiFetch(url);
+  const csvResponseData = await response.json();
+
+  return {
+    csvResponseData,
     error: handleApiError('Failed to fetch activity sessions, please refresh the page.', response),
   };
 }
