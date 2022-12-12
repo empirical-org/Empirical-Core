@@ -274,6 +274,10 @@ class Teachers::UnitsController < ApplicationController
             WHEN unit_owner.id = #{current_user.id} THEN true
             ELSE false
           END AS owned_by_current_user,
+          CASE
+            WHEN count(pack_sequence_items.id) > 0 THEN true
+            ELSE false
+          END AS staggered,
           (
             SELECT COUNT(DISTINCT user_id)
             FROM activity_sessions
@@ -302,6 +306,8 @@ class Teachers::UnitsController < ApplicationController
         LEFT JOIN classroom_unit_activity_states AS state
           ON state.unit_activity_id = ua.id
           AND state.classroom_unit_id = cu.id
+        LEFT JOIN pack_sequence_items
+          ON cu.id = pack_sequence_items.classroom_unit_id
         WHERE cu.classroom_id IN #{teach_own_or_coteach_string}
           AND classrooms.visible = true
           AND units.visible = true

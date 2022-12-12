@@ -26,6 +26,8 @@ export const AVERAGE_FONT_WIDTH = 7
 const PUBLISH_DATE_ATTRIBUTE_KEY = 'publish_date'
 const DUE_DATE_ATTRIBUTE_KEY = 'due_date'
 
+const STAGGERED_RELEASE_DATE_TEXT = "This activity is set for staggered release. This means that it will be unlocked when a student completes the previous activity pack in the sequence. As a result, you cannot set the publish date or due date."
+
 const tableHeaders = (isOwner) => ([
   {
     name: <span className="tool-and-name-header"><span>Tool</span><span>Activity</span></span>,
@@ -165,9 +167,23 @@ const ActivityTable = ({ data, onSuccess, isOwner, handleActivityClicked, handle
     let activityDueDatePicker = dueDateInMoment ? formatDateTimeForDisplay(dueDateInMoment) : DUE_DATE_DEFAULT_TEXT
     let activityPublishDatePicker = publishDateInMoment ? formatDateTimeForDisplay(publishDateInMoment) : PUBLISH_DATE_DEFAULT_TEXT
 
-    const showCopyToAll = i === 0 && activityOrder.length > 1
+    const showCopyToAll = i === 0 && activityOrder.length > 1 && !activity.staggered
 
-    if (isOwner) {
+    if (activity.staggered) {
+      activityDueDatePicker = (
+        <Tooltip
+          tooltipText={STAGGERED_RELEASE_DATE_TEXT}
+          tooltipTriggerText={activityDueDatePicker}
+        />
+      )
+
+      activityPublishDatePicker = (
+        <Tooltip
+          tooltipText={STAGGERED_RELEASE_DATE_TEXT}
+          tooltipTriggerText={activityPublishDatePicker}
+        />
+      )
+    } else if (isOwner) {
       activityDueDatePicker = (
         <DatePickerContainer
           closeFunction={(date) => closeDatePicker(date, activity.uaId, DUE_DATE_ATTRIBUTE_KEY)}
