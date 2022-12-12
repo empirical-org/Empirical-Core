@@ -1,0 +1,1601 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`ReleaseMethodModal component with IMMEDIATE as the original release method should render on initial load 1`] = `
+<ReleaseMethodModal
+  handleClickAssign={[Function]}
+  handleClickCancel={[Function]}
+  originalReleaseMethod="immediate"
+  releaseMethod="immediate"
+  setReleaseMethod={[Function]}
+  visible={true}
+>
+  <div
+    className="modal-container release-method-modal-container"
+  >
+    <div
+      className="modal-background"
+    />
+    <div
+      className="release-method-modal quill-modal modal-body"
+    >
+      <h1>
+        How would you like to release activity packs to students?
+      </h1>
+      <div
+        className="release-method-options"
+      >
+        <ReleaseMethodOption
+          descriptionText="Rather than assign all of the activity packs up front, you can choose to unlock only one activity pack at a time. Once students complete that pack, Quill will unlock the next activity pack in the sequence."
+          headerText="Staggered Release"
+          illustration={
+            <img
+              alt=""
+              className="illustration"
+              src="undefined/images/pages/diagnostic_reports/staggered_release/staggered_release_illustration_gray.svg"
+            />
+          }
+          isSelected={false}
+          onClick={[Function]}
+          subheaderText="Unlock selected activity packs one at a time"
+          tooltipText="The benefit of this approach is that students don’t feel overwhelmed with too many assignments and it requires them to complete the activity packs in order."
+        >
+          <div
+            className="release-method-option "
+            onClick={[Function]}
+          >
+            <img
+              alt=""
+              className="illustration"
+              src="undefined/images/pages/diagnostic_reports/staggered_release/staggered_release_illustration_gray.svg"
+            />
+            <h2>
+              <button
+                className="interactive-wrapper focus-on-light"
+                onClick={[Function]}
+                type="button"
+              >
+                Staggered Release
+              </button>
+              <Tooltip
+                isTabbable={true}
+                tooltipText="The benefit of this approach is that students don’t feel overwhelmed with too many assignments and it requires them to complete the activity packs in order."
+                tooltipTriggerText={
+                  <img
+                    alt=""
+                    src="undefined/images/icons/info.svg"
+                  />
+                }
+              >
+                <span
+                  aria-hidden={false}
+                  className="quill-tooltip-trigger "
+                  role="tooltip"
+                >
+                  <span
+                    className="undefined"
+                    onBlur={[Function]}
+                    onClick={[Function]}
+                    onFocus={[Function]}
+                    onKeyDown={[Function]}
+                    onMouseEnter={[Function]}
+                    onMouseLeave={[Function]}
+                    role="button"
+                    tabIndex={0}
+                  >
+                    <img
+                      alt=""
+                      src="undefined/images/icons/info.svg"
+                    />
+                  </span>
+                  <span
+                    className="quill-tooltip-wrapper"
+                  >
+                    <span
+                      aria-live="polite"
+                      className="quill-tooltip"
+                    />
+                  </span>
+                </span>
+              </Tooltip>
+            </h2>
+            <p
+              className="subheader"
+            >
+              Unlock selected activity packs one at a time
+            </p>
+            <p
+              className="description"
+            >
+              Rather than assign all of the activity packs up front, you can choose to unlock only one activity pack at a time. Once students complete that pack, Quill will unlock the next activity pack in the sequence.
+            </p>
+          </div>
+        </ReleaseMethodOption>
+        <ReleaseMethodOption
+          descriptionText="Students will see all of the activity packs you have assigned to them at once. You can choose to assign all of the recommendations at once, or you can select some of the packs to assign now and then come back to this page to assign additional packs at a later date. "
+          headerText="Immediate Release"
+          illustration={
+            <img
+              alt=""
+              className="illustration"
+              src="undefined/images/pages/diagnostic_reports/staggered_release/immediate_release_illustration_green.svg"
+            />
+          }
+          isSelected={true}
+          onClick={[Function]}
+          subheaderText="Make all selected activity packs available at once"
+          tooltipText="The benefit of this approach is that students can see all of their assignments at once, and they can choose which activities they want to work on."
+        >
+          <div
+            className="release-method-option selected"
+            onClick={[Function]}
+          >
+            <img
+              alt=""
+              className="illustration"
+              src="undefined/images/pages/diagnostic_reports/staggered_release/immediate_release_illustration_green.svg"
+            />
+            <h2>
+              <button
+                className="interactive-wrapper focus-on-light"
+                onClick={[Function]}
+                type="button"
+              >
+                Immediate Release
+              </button>
+              <Tooltip
+                isTabbable={true}
+                tooltipText="The benefit of this approach is that students can see all of their assignments at once, and they can choose which activities they want to work on."
+                tooltipTriggerText={
+                  <img
+                    alt=""
+                    src="undefined/images/icons/info.svg"
+                  />
+                }
+              >
+                <span
+                  aria-hidden={false}
+                  className="quill-tooltip-trigger "
+                  role="tooltip"
+                >
+                  <span
+                    className="undefined"
+                    onBlur={[Function]}
+                    onClick={[Function]}
+                    onFocus={[Function]}
+                    onKeyDown={[Function]}
+                    onMouseEnter={[Function]}
+                    onMouseLeave={[Function]}
+                    role="button"
+                    tabIndex={0}
+                  >
+                    <img
+                      alt=""
+                      src="undefined/images/icons/info.svg"
+                    />
+                  </span>
+                  <span
+                    className="quill-tooltip-wrapper"
+                  >
+                    <span
+                      aria-live="polite"
+                      className="quill-tooltip"
+                    />
+                  </span>
+                </span>
+              </Tooltip>
+            </h2>
+            <p
+              className="subheader"
+            >
+              Make all selected activity packs available at once
+            </p>
+            <p
+              className="description"
+            >
+              Students will see all of the activity packs you have assigned to them at once. You can choose to assign all of the recommendations at once, or you can select some of the packs to assign now and then come back to this page to assign additional packs at a later date. 
+            </p>
+          </div>
+        </ReleaseMethodOption>
+      </div>
+      <div
+        className="footer"
+      >
+        <p
+          className="footer-note"
+        >
+          Note: Your selection will be applied to the entire class
+        </p>
+        <div
+          className="buttons-wrapper"
+        >
+          <button
+            className="quill-button large outlined secondary focus-on-light"
+            onClick={[Function]}
+            type="button"
+          >
+            Cancel
+          </button>
+          <button
+            className="quill-button large contained primary focus-on-light "
+            disabled={false}
+            onClick={[Function]}
+            type="button"
+          >
+            Save
+          </button>
+        </div>
+      </div>
+    </div>
+  </div>
+</ReleaseMethodModal>
+`;
+
+exports[`ReleaseMethodModal component with IMMEDIATE as the original release method should render when STAGGERED is selected 1`] = `
+<ReleaseMethodModal
+  handleClickAssign={[Function]}
+  handleClickCancel={[Function]}
+  originalReleaseMethod="immediate"
+  releaseMethod="staggered"
+  setReleaseMethod={[Function]}
+  visible={true}
+>
+  <div
+    className="modal-container release-method-modal-container"
+  >
+    <div
+      className="modal-background"
+    />
+    <div
+      className="release-method-modal quill-modal modal-body"
+    >
+      <h1>
+        How would you like to release activity packs to students?
+      </h1>
+      <div
+        className="release-method-options"
+      >
+        <ReleaseMethodOption
+          descriptionText="Rather than assign all of the activity packs up front, you can choose to unlock only one activity pack at a time. Once students complete that pack, Quill will unlock the next activity pack in the sequence."
+          headerText="Staggered Release"
+          illustration={
+            <img
+              alt=""
+              className="illustration"
+              src="undefined/images/pages/diagnostic_reports/staggered_release/staggered_release_illustration_green.svg"
+            />
+          }
+          isSelected={true}
+          onClick={[Function]}
+          subheaderText="Unlock selected activity packs one at a time"
+          tooltipText="The benefit of this approach is that students don’t feel overwhelmed with too many assignments and it requires them to complete the activity packs in order."
+        >
+          <div
+            className="release-method-option selected"
+            onClick={[Function]}
+          >
+            <img
+              alt=""
+              className="illustration"
+              src="undefined/images/pages/diagnostic_reports/staggered_release/staggered_release_illustration_green.svg"
+            />
+            <h2>
+              <button
+                className="interactive-wrapper focus-on-light"
+                onClick={[Function]}
+                type="button"
+              >
+                Staggered Release
+              </button>
+              <Tooltip
+                isTabbable={true}
+                tooltipText="The benefit of this approach is that students don’t feel overwhelmed with too many assignments and it requires them to complete the activity packs in order."
+                tooltipTriggerText={
+                  <img
+                    alt=""
+                    src="undefined/images/icons/info.svg"
+                  />
+                }
+              >
+                <span
+                  aria-hidden={false}
+                  className="quill-tooltip-trigger "
+                  role="tooltip"
+                >
+                  <span
+                    className="undefined"
+                    onBlur={[Function]}
+                    onClick={[Function]}
+                    onFocus={[Function]}
+                    onKeyDown={[Function]}
+                    onMouseEnter={[Function]}
+                    onMouseLeave={[Function]}
+                    role="button"
+                    tabIndex={0}
+                  >
+                    <img
+                      alt=""
+                      src="undefined/images/icons/info.svg"
+                    />
+                  </span>
+                  <span
+                    className="quill-tooltip-wrapper"
+                  >
+                    <span
+                      aria-live="polite"
+                      className="quill-tooltip"
+                    />
+                  </span>
+                </span>
+              </Tooltip>
+            </h2>
+            <p
+              className="subheader"
+            >
+              Unlock selected activity packs one at a time
+            </p>
+            <p
+              className="description"
+            >
+              Rather than assign all of the activity packs up front, you can choose to unlock only one activity pack at a time. Once students complete that pack, Quill will unlock the next activity pack in the sequence.
+            </p>
+          </div>
+        </ReleaseMethodOption>
+        <ReleaseMethodOption
+          descriptionText="Students will see all of the activity packs you have assigned to them at once. You can choose to assign all of the recommendations at once, or you can select some of the packs to assign now and then come back to this page to assign additional packs at a later date. "
+          headerText="Immediate Release"
+          illustration={
+            <img
+              alt=""
+              className="illustration"
+              src="undefined/images/pages/diagnostic_reports/staggered_release/immediate_release_illustration_gray.svg"
+            />
+          }
+          isSelected={false}
+          onClick={[Function]}
+          subheaderText="Make all selected activity packs available at once"
+          tooltipText="The benefit of this approach is that students can see all of their assignments at once, and they can choose which activities they want to work on."
+        >
+          <div
+            className="release-method-option "
+            onClick={[Function]}
+          >
+            <img
+              alt=""
+              className="illustration"
+              src="undefined/images/pages/diagnostic_reports/staggered_release/immediate_release_illustration_gray.svg"
+            />
+            <h2>
+              <button
+                className="interactive-wrapper focus-on-light"
+                onClick={[Function]}
+                type="button"
+              >
+                Immediate Release
+              </button>
+              <Tooltip
+                isTabbable={true}
+                tooltipText="The benefit of this approach is that students can see all of their assignments at once, and they can choose which activities they want to work on."
+                tooltipTriggerText={
+                  <img
+                    alt=""
+                    src="undefined/images/icons/info.svg"
+                  />
+                }
+              >
+                <span
+                  aria-hidden={false}
+                  className="quill-tooltip-trigger "
+                  role="tooltip"
+                >
+                  <span
+                    className="undefined"
+                    onBlur={[Function]}
+                    onClick={[Function]}
+                    onFocus={[Function]}
+                    onKeyDown={[Function]}
+                    onMouseEnter={[Function]}
+                    onMouseLeave={[Function]}
+                    role="button"
+                    tabIndex={0}
+                  >
+                    <img
+                      alt=""
+                      src="undefined/images/icons/info.svg"
+                    />
+                  </span>
+                  <span
+                    className="quill-tooltip-wrapper"
+                  >
+                    <span
+                      aria-live="polite"
+                      className="quill-tooltip"
+                    />
+                  </span>
+                </span>
+              </Tooltip>
+            </h2>
+            <p
+              className="subheader"
+            >
+              Make all selected activity packs available at once
+            </p>
+            <p
+              className="description"
+            >
+              Students will see all of the activity packs you have assigned to them at once. You can choose to assign all of the recommendations at once, or you can select some of the packs to assign now and then come back to this page to assign additional packs at a later date. 
+            </p>
+          </div>
+        </ReleaseMethodOption>
+      </div>
+      <div
+        className="footer"
+      >
+        <p
+          className="footer-note"
+        >
+          Note: Your selection will be applied to the entire class
+        </p>
+        <div
+          className="buttons-wrapper"
+        >
+          <button
+            className="quill-button large outlined secondary focus-on-light"
+            onClick={[Function]}
+            type="button"
+          >
+            Cancel
+          </button>
+          <button
+            className="quill-button large contained primary focus-on-light "
+            disabled={false}
+            onClick={[Function]}
+            type="button"
+          >
+            Save
+          </button>
+        </div>
+      </div>
+    </div>
+  </div>
+</ReleaseMethodModal>
+`;
+
+exports[`ReleaseMethodModal component with STAGGERED as the original release method should render on initial load 1`] = `
+<ReleaseMethodModal
+  handleClickAssign={[Function]}
+  handleClickCancel={[Function]}
+  originalReleaseMethod="staggered"
+  releaseMethod="staggered"
+  setReleaseMethod={[Function]}
+  visible={true}
+>
+  <div
+    className="modal-container release-method-modal-container"
+  >
+    <div
+      className="modal-background"
+    />
+    <div
+      className="release-method-modal quill-modal modal-body"
+    >
+      <h1>
+        How would you like to release activity packs to students?
+      </h1>
+      <div
+        className="release-method-options"
+      >
+        <ReleaseMethodOption
+          descriptionText="Rather than assign all of the activity packs up front, you can choose to unlock only one activity pack at a time. Once students complete that pack, Quill will unlock the next activity pack in the sequence."
+          headerText="Staggered Release"
+          illustration={
+            <img
+              alt=""
+              className="illustration"
+              src="undefined/images/pages/diagnostic_reports/staggered_release/staggered_release_illustration_green.svg"
+            />
+          }
+          isSelected={true}
+          onClick={[Function]}
+          subheaderText="Unlock selected activity packs one at a time"
+          tooltipText="The benefit of this approach is that students don’t feel overwhelmed with too many assignments and it requires them to complete the activity packs in order."
+        >
+          <div
+            className="release-method-option selected"
+            onClick={[Function]}
+          >
+            <img
+              alt=""
+              className="illustration"
+              src="undefined/images/pages/diagnostic_reports/staggered_release/staggered_release_illustration_green.svg"
+            />
+            <h2>
+              <button
+                className="interactive-wrapper focus-on-light"
+                onClick={[Function]}
+                type="button"
+              >
+                Staggered Release
+              </button>
+              <Tooltip
+                isTabbable={true}
+                tooltipText="The benefit of this approach is that students don’t feel overwhelmed with too many assignments and it requires them to complete the activity packs in order."
+                tooltipTriggerText={
+                  <img
+                    alt=""
+                    src="undefined/images/icons/info.svg"
+                  />
+                }
+              >
+                <span
+                  aria-hidden={false}
+                  className="quill-tooltip-trigger "
+                  role="tooltip"
+                >
+                  <span
+                    className="undefined"
+                    onBlur={[Function]}
+                    onClick={[Function]}
+                    onFocus={[Function]}
+                    onKeyDown={[Function]}
+                    onMouseEnter={[Function]}
+                    onMouseLeave={[Function]}
+                    role="button"
+                    tabIndex={0}
+                  >
+                    <img
+                      alt=""
+                      src="undefined/images/icons/info.svg"
+                    />
+                  </span>
+                  <span
+                    className="quill-tooltip-wrapper"
+                  >
+                    <span
+                      aria-live="polite"
+                      className="quill-tooltip"
+                    />
+                  </span>
+                </span>
+              </Tooltip>
+            </h2>
+            <p
+              className="subheader"
+            >
+              Unlock selected activity packs one at a time
+            </p>
+            <p
+              className="description"
+            >
+              Rather than assign all of the activity packs up front, you can choose to unlock only one activity pack at a time. Once students complete that pack, Quill will unlock the next activity pack in the sequence.
+            </p>
+          </div>
+        </ReleaseMethodOption>
+        <ReleaseMethodOption
+          descriptionText="Students will see all of the activity packs you have assigned to them at once. You can choose to assign all of the recommendations at once, or you can select some of the packs to assign now and then come back to this page to assign additional packs at a later date. "
+          headerText="Immediate Release"
+          illustration={
+            <img
+              alt=""
+              className="illustration"
+              src="undefined/images/pages/diagnostic_reports/staggered_release/immediate_release_illustration_gray.svg"
+            />
+          }
+          isSelected={false}
+          onClick={[Function]}
+          subheaderText="Make all selected activity packs available at once"
+          tooltipText="The benefit of this approach is that students can see all of their assignments at once, and they can choose which activities they want to work on."
+        >
+          <div
+            className="release-method-option "
+            onClick={[Function]}
+          >
+            <img
+              alt=""
+              className="illustration"
+              src="undefined/images/pages/diagnostic_reports/staggered_release/immediate_release_illustration_gray.svg"
+            />
+            <h2>
+              <button
+                className="interactive-wrapper focus-on-light"
+                onClick={[Function]}
+                type="button"
+              >
+                Immediate Release
+              </button>
+              <Tooltip
+                isTabbable={true}
+                tooltipText="The benefit of this approach is that students can see all of their assignments at once, and they can choose which activities they want to work on."
+                tooltipTriggerText={
+                  <img
+                    alt=""
+                    src="undefined/images/icons/info.svg"
+                  />
+                }
+              >
+                <span
+                  aria-hidden={false}
+                  className="quill-tooltip-trigger "
+                  role="tooltip"
+                >
+                  <span
+                    className="undefined"
+                    onBlur={[Function]}
+                    onClick={[Function]}
+                    onFocus={[Function]}
+                    onKeyDown={[Function]}
+                    onMouseEnter={[Function]}
+                    onMouseLeave={[Function]}
+                    role="button"
+                    tabIndex={0}
+                  >
+                    <img
+                      alt=""
+                      src="undefined/images/icons/info.svg"
+                    />
+                  </span>
+                  <span
+                    className="quill-tooltip-wrapper"
+                  >
+                    <span
+                      aria-live="polite"
+                      className="quill-tooltip"
+                    />
+                  </span>
+                </span>
+              </Tooltip>
+            </h2>
+            <p
+              className="subheader"
+            >
+              Make all selected activity packs available at once
+            </p>
+            <p
+              className="description"
+            >
+              Students will see all of the activity packs you have assigned to them at once. You can choose to assign all of the recommendations at once, or you can select some of the packs to assign now and then come back to this page to assign additional packs at a later date. 
+            </p>
+          </div>
+        </ReleaseMethodOption>
+      </div>
+      <div
+        className="footer"
+      >
+        <p
+          className="footer-note"
+        >
+          Note: Your selection will be applied to the entire class
+        </p>
+        <div
+          className="buttons-wrapper"
+        >
+          <button
+            className="quill-button large outlined secondary focus-on-light"
+            onClick={[Function]}
+            type="button"
+          >
+            Cancel
+          </button>
+          <button
+            className="quill-button large contained primary focus-on-light "
+            disabled={false}
+            onClick={[Function]}
+            type="button"
+          >
+            Save
+          </button>
+        </div>
+      </div>
+    </div>
+  </div>
+</ReleaseMethodModal>
+`;
+
+exports[`ReleaseMethodModal component with STAGGERED as the original release method should render when IMMEDIATE is selected 1`] = `
+<ReleaseMethodModal
+  handleClickAssign={[Function]}
+  handleClickCancel={[Function]}
+  originalReleaseMethod="staggered"
+  releaseMethod="immediate"
+  setReleaseMethod={[Function]}
+  visible={true}
+>
+  <div
+    className="modal-container release-method-modal-container"
+  >
+    <div
+      className="modal-background"
+    />
+    <div
+      className="release-method-modal quill-modal modal-body"
+    >
+      <h1>
+        How would you like to release activity packs to students?
+      </h1>
+      <div
+        className="release-method-options"
+      >
+        <ReleaseMethodOption
+          descriptionText="Rather than assign all of the activity packs up front, you can choose to unlock only one activity pack at a time. Once students complete that pack, Quill will unlock the next activity pack in the sequence."
+          headerText="Staggered Release"
+          illustration={
+            <img
+              alt=""
+              className="illustration"
+              src="undefined/images/pages/diagnostic_reports/staggered_release/staggered_release_illustration_gray.svg"
+            />
+          }
+          isSelected={false}
+          onClick={[Function]}
+          subheaderText="Unlock selected activity packs one at a time"
+          tooltipText="The benefit of this approach is that students don’t feel overwhelmed with too many assignments and it requires them to complete the activity packs in order."
+        >
+          <div
+            className="release-method-option "
+            onClick={[Function]}
+          >
+            <img
+              alt=""
+              className="illustration"
+              src="undefined/images/pages/diagnostic_reports/staggered_release/staggered_release_illustration_gray.svg"
+            />
+            <h2>
+              <button
+                className="interactive-wrapper focus-on-light"
+                onClick={[Function]}
+                type="button"
+              >
+                Staggered Release
+              </button>
+              <Tooltip
+                isTabbable={true}
+                tooltipText="The benefit of this approach is that students don’t feel overwhelmed with too many assignments and it requires them to complete the activity packs in order."
+                tooltipTriggerText={
+                  <img
+                    alt=""
+                    src="undefined/images/icons/info.svg"
+                  />
+                }
+              >
+                <span
+                  aria-hidden={false}
+                  className="quill-tooltip-trigger "
+                  role="tooltip"
+                >
+                  <span
+                    className="undefined"
+                    onBlur={[Function]}
+                    onClick={[Function]}
+                    onFocus={[Function]}
+                    onKeyDown={[Function]}
+                    onMouseEnter={[Function]}
+                    onMouseLeave={[Function]}
+                    role="button"
+                    tabIndex={0}
+                  >
+                    <img
+                      alt=""
+                      src="undefined/images/icons/info.svg"
+                    />
+                  </span>
+                  <span
+                    className="quill-tooltip-wrapper"
+                  >
+                    <span
+                      aria-live="polite"
+                      className="quill-tooltip"
+                    />
+                  </span>
+                </span>
+              </Tooltip>
+            </h2>
+            <p
+              className="subheader"
+            >
+              Unlock selected activity packs one at a time
+            </p>
+            <p
+              className="description"
+            >
+              Rather than assign all of the activity packs up front, you can choose to unlock only one activity pack at a time. Once students complete that pack, Quill will unlock the next activity pack in the sequence.
+            </p>
+          </div>
+        </ReleaseMethodOption>
+        <ReleaseMethodOption
+          descriptionText="Students will see all of the activity packs you have assigned to them at once. You can choose to assign all of the recommendations at once, or you can select some of the packs to assign now and then come back to this page to assign additional packs at a later date. "
+          headerText="Immediate Release"
+          illustration={
+            <img
+              alt=""
+              className="illustration"
+              src="undefined/images/pages/diagnostic_reports/staggered_release/immediate_release_illustration_green.svg"
+            />
+          }
+          isSelected={true}
+          onClick={[Function]}
+          subheaderText="Make all selected activity packs available at once"
+          tooltipText="The benefit of this approach is that students can see all of their assignments at once, and they can choose which activities they want to work on."
+        >
+          <div
+            className="release-method-option selected"
+            onClick={[Function]}
+          >
+            <img
+              alt=""
+              className="illustration"
+              src="undefined/images/pages/diagnostic_reports/staggered_release/immediate_release_illustration_green.svg"
+            />
+            <h2>
+              <button
+                className="interactive-wrapper focus-on-light"
+                onClick={[Function]}
+                type="button"
+              >
+                Immediate Release
+              </button>
+              <Tooltip
+                isTabbable={true}
+                tooltipText="The benefit of this approach is that students can see all of their assignments at once, and they can choose which activities they want to work on."
+                tooltipTriggerText={
+                  <img
+                    alt=""
+                    src="undefined/images/icons/info.svg"
+                  />
+                }
+              >
+                <span
+                  aria-hidden={false}
+                  className="quill-tooltip-trigger "
+                  role="tooltip"
+                >
+                  <span
+                    className="undefined"
+                    onBlur={[Function]}
+                    onClick={[Function]}
+                    onFocus={[Function]}
+                    onKeyDown={[Function]}
+                    onMouseEnter={[Function]}
+                    onMouseLeave={[Function]}
+                    role="button"
+                    tabIndex={0}
+                  >
+                    <img
+                      alt=""
+                      src="undefined/images/icons/info.svg"
+                    />
+                  </span>
+                  <span
+                    className="quill-tooltip-wrapper"
+                  >
+                    <span
+                      aria-live="polite"
+                      className="quill-tooltip"
+                    />
+                  </span>
+                </span>
+              </Tooltip>
+            </h2>
+            <p
+              className="subheader"
+            >
+              Make all selected activity packs available at once
+            </p>
+            <p
+              className="description"
+            >
+              Students will see all of the activity packs you have assigned to them at once. You can choose to assign all of the recommendations at once, or you can select some of the packs to assign now and then come back to this page to assign additional packs at a later date. 
+            </p>
+          </div>
+        </ReleaseMethodOption>
+      </div>
+      <div
+        className="footer"
+      >
+        <p
+          className="footer-note"
+        >
+          Note: Your selection will be applied to the entire class
+        </p>
+        <div
+          className="buttons-wrapper"
+        >
+          <button
+            className="quill-button large outlined secondary focus-on-light"
+            onClick={[Function]}
+            type="button"
+          >
+            Cancel
+          </button>
+          <button
+            className="quill-button large contained primary focus-on-light "
+            disabled={false}
+            onClick={[Function]}
+            type="button"
+          >
+            Save
+          </button>
+        </div>
+      </div>
+    </div>
+  </div>
+</ReleaseMethodModal>
+`;
+
+exports[`ReleaseMethodModal component with no original release method should render on initial load 1`] = `
+<ReleaseMethodModal
+  handleClickAssign={[Function]}
+  handleClickCancel={[Function]}
+  setReleaseMethod={[Function]}
+  visible={true}
+>
+  <div
+    className="modal-container release-method-modal-container"
+  >
+    <div
+      className="modal-background"
+    />
+    <div
+      className="release-method-modal quill-modal modal-body"
+    >
+      <h1>
+        How would you like to release activity packs to students?
+      </h1>
+      <div
+        className="release-method-options"
+      >
+        <ReleaseMethodOption
+          descriptionText="Rather than assign all of the activity packs up front, you can choose to unlock only one activity pack at a time. Once students complete that pack, Quill will unlock the next activity pack in the sequence."
+          headerText="Staggered Release"
+          illustration={
+            <img
+              alt=""
+              className="illustration"
+              src="undefined/images/pages/diagnostic_reports/staggered_release/staggered_release_illustration_gray.svg"
+            />
+          }
+          isSelected={false}
+          onClick={[Function]}
+          subheaderText="Unlock selected activity packs one at a time"
+          tooltipText="The benefit of this approach is that students don’t feel overwhelmed with too many assignments and it requires them to complete the activity packs in order."
+        >
+          <div
+            className="release-method-option "
+            onClick={[Function]}
+          >
+            <img
+              alt=""
+              className="illustration"
+              src="undefined/images/pages/diagnostic_reports/staggered_release/staggered_release_illustration_gray.svg"
+            />
+            <h2>
+              <button
+                className="interactive-wrapper focus-on-light"
+                onClick={[Function]}
+                type="button"
+              >
+                Staggered Release
+              </button>
+              <Tooltip
+                isTabbable={true}
+                tooltipText="The benefit of this approach is that students don’t feel overwhelmed with too many assignments and it requires them to complete the activity packs in order."
+                tooltipTriggerText={
+                  <img
+                    alt=""
+                    src="undefined/images/icons/info.svg"
+                  />
+                }
+              >
+                <span
+                  aria-hidden={false}
+                  className="quill-tooltip-trigger "
+                  role="tooltip"
+                >
+                  <span
+                    className="undefined"
+                    onBlur={[Function]}
+                    onClick={[Function]}
+                    onFocus={[Function]}
+                    onKeyDown={[Function]}
+                    onMouseEnter={[Function]}
+                    onMouseLeave={[Function]}
+                    role="button"
+                    tabIndex={0}
+                  >
+                    <img
+                      alt=""
+                      src="undefined/images/icons/info.svg"
+                    />
+                  </span>
+                  <span
+                    className="quill-tooltip-wrapper"
+                  >
+                    <span
+                      aria-live="polite"
+                      className="quill-tooltip"
+                    />
+                  </span>
+                </span>
+              </Tooltip>
+            </h2>
+            <p
+              className="subheader"
+            >
+              Unlock selected activity packs one at a time
+            </p>
+            <p
+              className="description"
+            >
+              Rather than assign all of the activity packs up front, you can choose to unlock only one activity pack at a time. Once students complete that pack, Quill will unlock the next activity pack in the sequence.
+            </p>
+          </div>
+        </ReleaseMethodOption>
+        <ReleaseMethodOption
+          descriptionText="Students will see all of the activity packs you have assigned to them at once. You can choose to assign all of the recommendations at once, or you can select some of the packs to assign now and then come back to this page to assign additional packs at a later date. "
+          headerText="Immediate Release"
+          illustration={
+            <img
+              alt=""
+              className="illustration"
+              src="undefined/images/pages/diagnostic_reports/staggered_release/immediate_release_illustration_gray.svg"
+            />
+          }
+          isSelected={false}
+          onClick={[Function]}
+          subheaderText="Make all selected activity packs available at once"
+          tooltipText="The benefit of this approach is that students can see all of their assignments at once, and they can choose which activities they want to work on."
+        >
+          <div
+            className="release-method-option "
+            onClick={[Function]}
+          >
+            <img
+              alt=""
+              className="illustration"
+              src="undefined/images/pages/diagnostic_reports/staggered_release/immediate_release_illustration_gray.svg"
+            />
+            <h2>
+              <button
+                className="interactive-wrapper focus-on-light"
+                onClick={[Function]}
+                type="button"
+              >
+                Immediate Release
+              </button>
+              <Tooltip
+                isTabbable={true}
+                tooltipText="The benefit of this approach is that students can see all of their assignments at once, and they can choose which activities they want to work on."
+                tooltipTriggerText={
+                  <img
+                    alt=""
+                    src="undefined/images/icons/info.svg"
+                  />
+                }
+              >
+                <span
+                  aria-hidden={false}
+                  className="quill-tooltip-trigger "
+                  role="tooltip"
+                >
+                  <span
+                    className="undefined"
+                    onBlur={[Function]}
+                    onClick={[Function]}
+                    onFocus={[Function]}
+                    onKeyDown={[Function]}
+                    onMouseEnter={[Function]}
+                    onMouseLeave={[Function]}
+                    role="button"
+                    tabIndex={0}
+                  >
+                    <img
+                      alt=""
+                      src="undefined/images/icons/info.svg"
+                    />
+                  </span>
+                  <span
+                    className="quill-tooltip-wrapper"
+                  >
+                    <span
+                      aria-live="polite"
+                      className="quill-tooltip"
+                    />
+                  </span>
+                </span>
+              </Tooltip>
+            </h2>
+            <p
+              className="subheader"
+            >
+              Make all selected activity packs available at once
+            </p>
+            <p
+              className="description"
+            >
+              Students will see all of the activity packs you have assigned to them at once. You can choose to assign all of the recommendations at once, or you can select some of the packs to assign now and then come back to this page to assign additional packs at a later date. 
+            </p>
+          </div>
+        </ReleaseMethodOption>
+      </div>
+      <div
+        className="footer"
+      >
+        <p
+          className="footer-note"
+        />
+        <div
+          className="buttons-wrapper"
+        >
+          <button
+            className="quill-button large outlined secondary focus-on-light"
+            onClick={[Function]}
+            type="button"
+          >
+            Cancel
+          </button>
+          <button
+            className="quill-button large contained primary focus-on-light disabled"
+            disabled={true}
+            onClick={[Function]}
+            type="button"
+          >
+            Assign
+          </button>
+        </div>
+      </div>
+    </div>
+  </div>
+</ReleaseMethodModal>
+`;
+
+exports[`ReleaseMethodModal component with no original release method should render when IMMEDIATE is selected 1`] = `
+<ReleaseMethodModal
+  handleClickAssign={[Function]}
+  handleClickCancel={[Function]}
+  releaseMethod="immediate"
+  setReleaseMethod={[Function]}
+  visible={true}
+>
+  <div
+    className="modal-container release-method-modal-container"
+  >
+    <div
+      className="modal-background"
+    />
+    <div
+      className="release-method-modal quill-modal modal-body"
+    >
+      <h1>
+        How would you like to release activity packs to students?
+      </h1>
+      <div
+        className="release-method-options"
+      >
+        <ReleaseMethodOption
+          descriptionText="Rather than assign all of the activity packs up front, you can choose to unlock only one activity pack at a time. Once students complete that pack, Quill will unlock the next activity pack in the sequence."
+          headerText="Staggered Release"
+          illustration={
+            <img
+              alt=""
+              className="illustration"
+              src="undefined/images/pages/diagnostic_reports/staggered_release/staggered_release_illustration_gray.svg"
+            />
+          }
+          isSelected={false}
+          onClick={[Function]}
+          subheaderText="Unlock selected activity packs one at a time"
+          tooltipText="The benefit of this approach is that students don’t feel overwhelmed with too many assignments and it requires them to complete the activity packs in order."
+        >
+          <div
+            className="release-method-option "
+            onClick={[Function]}
+          >
+            <img
+              alt=""
+              className="illustration"
+              src="undefined/images/pages/diagnostic_reports/staggered_release/staggered_release_illustration_gray.svg"
+            />
+            <h2>
+              <button
+                className="interactive-wrapper focus-on-light"
+                onClick={[Function]}
+                type="button"
+              >
+                Staggered Release
+              </button>
+              <Tooltip
+                isTabbable={true}
+                tooltipText="The benefit of this approach is that students don’t feel overwhelmed with too many assignments and it requires them to complete the activity packs in order."
+                tooltipTriggerText={
+                  <img
+                    alt=""
+                    src="undefined/images/icons/info.svg"
+                  />
+                }
+              >
+                <span
+                  aria-hidden={false}
+                  className="quill-tooltip-trigger "
+                  role="tooltip"
+                >
+                  <span
+                    className="undefined"
+                    onBlur={[Function]}
+                    onClick={[Function]}
+                    onFocus={[Function]}
+                    onKeyDown={[Function]}
+                    onMouseEnter={[Function]}
+                    onMouseLeave={[Function]}
+                    role="button"
+                    tabIndex={0}
+                  >
+                    <img
+                      alt=""
+                      src="undefined/images/icons/info.svg"
+                    />
+                  </span>
+                  <span
+                    className="quill-tooltip-wrapper"
+                  >
+                    <span
+                      aria-live="polite"
+                      className="quill-tooltip"
+                    />
+                  </span>
+                </span>
+              </Tooltip>
+            </h2>
+            <p
+              className="subheader"
+            >
+              Unlock selected activity packs one at a time
+            </p>
+            <p
+              className="description"
+            >
+              Rather than assign all of the activity packs up front, you can choose to unlock only one activity pack at a time. Once students complete that pack, Quill will unlock the next activity pack in the sequence.
+            </p>
+          </div>
+        </ReleaseMethodOption>
+        <ReleaseMethodOption
+          descriptionText="Students will see all of the activity packs you have assigned to them at once. You can choose to assign all of the recommendations at once, or you can select some of the packs to assign now and then come back to this page to assign additional packs at a later date. "
+          headerText="Immediate Release"
+          illustration={
+            <img
+              alt=""
+              className="illustration"
+              src="undefined/images/pages/diagnostic_reports/staggered_release/immediate_release_illustration_green.svg"
+            />
+          }
+          isSelected={true}
+          onClick={[Function]}
+          subheaderText="Make all selected activity packs available at once"
+          tooltipText="The benefit of this approach is that students can see all of their assignments at once, and they can choose which activities they want to work on."
+        >
+          <div
+            className="release-method-option selected"
+            onClick={[Function]}
+          >
+            <img
+              alt=""
+              className="illustration"
+              src="undefined/images/pages/diagnostic_reports/staggered_release/immediate_release_illustration_green.svg"
+            />
+            <h2>
+              <button
+                className="interactive-wrapper focus-on-light"
+                onClick={[Function]}
+                type="button"
+              >
+                Immediate Release
+              </button>
+              <Tooltip
+                isTabbable={true}
+                tooltipText="The benefit of this approach is that students can see all of their assignments at once, and they can choose which activities they want to work on."
+                tooltipTriggerText={
+                  <img
+                    alt=""
+                    src="undefined/images/icons/info.svg"
+                  />
+                }
+              >
+                <span
+                  aria-hidden={false}
+                  className="quill-tooltip-trigger "
+                  role="tooltip"
+                >
+                  <span
+                    className="undefined"
+                    onBlur={[Function]}
+                    onClick={[Function]}
+                    onFocus={[Function]}
+                    onKeyDown={[Function]}
+                    onMouseEnter={[Function]}
+                    onMouseLeave={[Function]}
+                    role="button"
+                    tabIndex={0}
+                  >
+                    <img
+                      alt=""
+                      src="undefined/images/icons/info.svg"
+                    />
+                  </span>
+                  <span
+                    className="quill-tooltip-wrapper"
+                  >
+                    <span
+                      aria-live="polite"
+                      className="quill-tooltip"
+                    />
+                  </span>
+                </span>
+              </Tooltip>
+            </h2>
+            <p
+              className="subheader"
+            >
+              Make all selected activity packs available at once
+            </p>
+            <p
+              className="description"
+            >
+              Students will see all of the activity packs you have assigned to them at once. You can choose to assign all of the recommendations at once, or you can select some of the packs to assign now and then come back to this page to assign additional packs at a later date. 
+            </p>
+          </div>
+        </ReleaseMethodOption>
+      </div>
+      <div
+        className="footer"
+      >
+        <p
+          className="footer-note"
+        />
+        <div
+          className="buttons-wrapper"
+        >
+          <button
+            className="quill-button large outlined secondary focus-on-light"
+            onClick={[Function]}
+            type="button"
+          >
+            Cancel
+          </button>
+          <button
+            className="quill-button large contained primary focus-on-light "
+            disabled={false}
+            onClick={[Function]}
+            type="button"
+          >
+            Assign
+          </button>
+        </div>
+      </div>
+    </div>
+  </div>
+</ReleaseMethodModal>
+`;
+
+exports[`ReleaseMethodModal component with no original release method should render when STAGGERED is selected 1`] = `
+<ReleaseMethodModal
+  handleClickAssign={[Function]}
+  handleClickCancel={[Function]}
+  releaseMethod="staggered"
+  setReleaseMethod={[Function]}
+  visible={true}
+>
+  <div
+    className="modal-container release-method-modal-container"
+  >
+    <div
+      className="modal-background"
+    />
+    <div
+      className="release-method-modal quill-modal modal-body"
+    >
+      <h1>
+        How would you like to release activity packs to students?
+      </h1>
+      <div
+        className="release-method-options"
+      >
+        <ReleaseMethodOption
+          descriptionText="Rather than assign all of the activity packs up front, you can choose to unlock only one activity pack at a time. Once students complete that pack, Quill will unlock the next activity pack in the sequence."
+          headerText="Staggered Release"
+          illustration={
+            <img
+              alt=""
+              className="illustration"
+              src="undefined/images/pages/diagnostic_reports/staggered_release/staggered_release_illustration_green.svg"
+            />
+          }
+          isSelected={true}
+          onClick={[Function]}
+          subheaderText="Unlock selected activity packs one at a time"
+          tooltipText="The benefit of this approach is that students don’t feel overwhelmed with too many assignments and it requires them to complete the activity packs in order."
+        >
+          <div
+            className="release-method-option selected"
+            onClick={[Function]}
+          >
+            <img
+              alt=""
+              className="illustration"
+              src="undefined/images/pages/diagnostic_reports/staggered_release/staggered_release_illustration_green.svg"
+            />
+            <h2>
+              <button
+                className="interactive-wrapper focus-on-light"
+                onClick={[Function]}
+                type="button"
+              >
+                Staggered Release
+              </button>
+              <Tooltip
+                isTabbable={true}
+                tooltipText="The benefit of this approach is that students don’t feel overwhelmed with too many assignments and it requires them to complete the activity packs in order."
+                tooltipTriggerText={
+                  <img
+                    alt=""
+                    src="undefined/images/icons/info.svg"
+                  />
+                }
+              >
+                <span
+                  aria-hidden={false}
+                  className="quill-tooltip-trigger "
+                  role="tooltip"
+                >
+                  <span
+                    className="undefined"
+                    onBlur={[Function]}
+                    onClick={[Function]}
+                    onFocus={[Function]}
+                    onKeyDown={[Function]}
+                    onMouseEnter={[Function]}
+                    onMouseLeave={[Function]}
+                    role="button"
+                    tabIndex={0}
+                  >
+                    <img
+                      alt=""
+                      src="undefined/images/icons/info.svg"
+                    />
+                  </span>
+                  <span
+                    className="quill-tooltip-wrapper"
+                  >
+                    <span
+                      aria-live="polite"
+                      className="quill-tooltip"
+                    />
+                  </span>
+                </span>
+              </Tooltip>
+            </h2>
+            <p
+              className="subheader"
+            >
+              Unlock selected activity packs one at a time
+            </p>
+            <p
+              className="description"
+            >
+              Rather than assign all of the activity packs up front, you can choose to unlock only one activity pack at a time. Once students complete that pack, Quill will unlock the next activity pack in the sequence.
+            </p>
+          </div>
+        </ReleaseMethodOption>
+        <ReleaseMethodOption
+          descriptionText="Students will see all of the activity packs you have assigned to them at once. You can choose to assign all of the recommendations at once, or you can select some of the packs to assign now and then come back to this page to assign additional packs at a later date. "
+          headerText="Immediate Release"
+          illustration={
+            <img
+              alt=""
+              className="illustration"
+              src="undefined/images/pages/diagnostic_reports/staggered_release/immediate_release_illustration_gray.svg"
+            />
+          }
+          isSelected={false}
+          onClick={[Function]}
+          subheaderText="Make all selected activity packs available at once"
+          tooltipText="The benefit of this approach is that students can see all of their assignments at once, and they can choose which activities they want to work on."
+        >
+          <div
+            className="release-method-option "
+            onClick={[Function]}
+          >
+            <img
+              alt=""
+              className="illustration"
+              src="undefined/images/pages/diagnostic_reports/staggered_release/immediate_release_illustration_gray.svg"
+            />
+            <h2>
+              <button
+                className="interactive-wrapper focus-on-light"
+                onClick={[Function]}
+                type="button"
+              >
+                Immediate Release
+              </button>
+              <Tooltip
+                isTabbable={true}
+                tooltipText="The benefit of this approach is that students can see all of their assignments at once, and they can choose which activities they want to work on."
+                tooltipTriggerText={
+                  <img
+                    alt=""
+                    src="undefined/images/icons/info.svg"
+                  />
+                }
+              >
+                <span
+                  aria-hidden={false}
+                  className="quill-tooltip-trigger "
+                  role="tooltip"
+                >
+                  <span
+                    className="undefined"
+                    onBlur={[Function]}
+                    onClick={[Function]}
+                    onFocus={[Function]}
+                    onKeyDown={[Function]}
+                    onMouseEnter={[Function]}
+                    onMouseLeave={[Function]}
+                    role="button"
+                    tabIndex={0}
+                  >
+                    <img
+                      alt=""
+                      src="undefined/images/icons/info.svg"
+                    />
+                  </span>
+                  <span
+                    className="quill-tooltip-wrapper"
+                  >
+                    <span
+                      aria-live="polite"
+                      className="quill-tooltip"
+                    />
+                  </span>
+                </span>
+              </Tooltip>
+            </h2>
+            <p
+              className="subheader"
+            >
+              Make all selected activity packs available at once
+            </p>
+            <p
+              className="description"
+            >
+              Students will see all of the activity packs you have assigned to them at once. You can choose to assign all of the recommendations at once, or you can select some of the packs to assign now and then come back to this page to assign additional packs at a later date. 
+            </p>
+          </div>
+        </ReleaseMethodOption>
+      </div>
+      <div
+        className="footer"
+      >
+        <p
+          className="footer-note"
+        />
+        <div
+          className="buttons-wrapper"
+        >
+          <button
+            className="quill-button large outlined secondary focus-on-light"
+            onClick={[Function]}
+            type="button"
+          >
+            Cancel
+          </button>
+          <button
+            className="quill-button large contained primary focus-on-light "
+            disabled={false}
+            onClick={[Function]}
+            type="button"
+          >
+            Assign
+          </button>
+        </div>
+      </div>
+    </div>
+  </div>
+</ReleaseMethodModal>
+`;
