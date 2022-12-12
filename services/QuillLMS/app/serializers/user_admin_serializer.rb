@@ -9,7 +9,7 @@ class UserAdminSerializer < ApplicationSerializer
   end
 
   def teachers
-    teacher_ids = User.find(object.id).admins_teachers
+    teacher_ids = User.find(object.id).admins_users
     teachers_data = TeachersData.run(teacher_ids)
     teachers_data.map { |teacher_data| Admin::TeacherSerializer.new(teacher_data).as_json(root: false) }
   end

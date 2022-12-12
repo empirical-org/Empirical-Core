@@ -18,6 +18,14 @@ class AdminsController < ApplicationController
       sign_in_account_settings
     }
 
+  before_action :set_teacher, :admin_of_this_teacher!,
+    only: %w{
+      resend_login_details
+      remove_as_admin
+      make_admin
+      unlink_from_school
+    }
+
   def show
     serialized_admin_users_json = $redis.get("SERIALIZED_ADMIN_USERS_FOR_#{current_user.id}")
     if serialized_admin_users_json
@@ -41,6 +49,37 @@ class AdminsController < ApplicationController
 
   def sign_in_account_settings
     redirect_to teachers_my_account_path
+  end
+
+  def resend_login_details
+    @teacher.refresh_token!
+    ExpirePasswordTokenWorker.perform_in(30.days, @teacher.id)
+
+    if params[:role] == 'admin'
+      AdminDashboard::AdminAccountCreatedEmailWorker.perform_async(@teacher.id, current_user.id, params[:school_id], true)
+    else
+      AdminDashboard::TeacherAccountCreatedEmailWorker.perform_async(@teacher.id, current_user.id, params[:school_id], true)
+    end
+
+    render json: {message: t('admin.resend_login_details')}, status: 200
+  end
+
+  def remove_as_admin
+    SchoolsAdmins.find_by(user_id: params[:teacher_id], school: params[:school_id]).destroy
+    reset_admin_users_cache
+    render json: {message: t('admin.remove_admin')}, status: 200
+  end
+
+  def make_admin
+    SchoolsAdmins.create(user_id: params[:teacher_id], school: params[:school_id])
+    reset_admin_users_cache
+    render json: {message: t('admin.make_admin')}, status: 200
+  end
+
+  def unlink_from_school
+    User.find_by_id(params[:teacher_id])&.unlink
+    reset_admin_users_cache
+    render json: {message: t('admin.unlink_teacher_from_school')}, status: 200
   end
 
   def create_and_link_accounts
@@ -69,8 +108,7 @@ class AdminsController < ApplicationController
 
     if @teacher.errors.empty?
       # Return the message to the admin and reset the cache so the next request can load fresh data
-      $redis.del("SERIALIZED_ADMIN_USERS_FOR_#{current_user.id}")
-      FindAdminUsersWorker.perform_async(current_user.id)
+      reset_admin_users_cache
       render json: {message: @message}, status: 200
     else
       # Return errors if there are any.
@@ -107,6 +145,7 @@ class AdminsController < ApplicationController
     if SchoolsAdmins.find_by(user: @teacher, school: @school)
       @message = t('admin_created_account.existing_account.admin.linked', school_name: @school.name)
     else
+      SchoolsAdmins.create(user: @teacher, school: @school)
       @message = t('admin_created_account.existing_account.admin.new')
       handle_new_school_admin_email
     end
@@ -135,6 +174,11 @@ class AdminsController < ApplicationController
       @message = t('admin_created_account.new_account.teacher')
       AdminDashboard::TeacherAccountCreatedEmailWorker.perform_async(@teacher.id, current_user.id, @school.id, false)
     end
+  end
+
+  private def reset_admin_users_cache
+    $redis.del("SERIALIZED_ADMIN_USERS_FOR_#{current_user.id}")
+    FindAdminUsersWorker.perform_async(current_user.id)
   end
 
   private def teacher_params

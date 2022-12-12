@@ -83,6 +83,45 @@ export class AdminDashboard extends React.Component {
     );
   };
 
+  handleUserAction = (link, data) => {
+    requestPost(
+      link,
+      data,
+      (response) => {
+        this.getData(true)
+        this.showSnackbar(response.message)
+      },
+      (response) => {
+        if (response.error) {
+          this.setState({ error: response.error, });
+        } else {
+          // to do, use Sentry to capture error
+        }
+      }
+    );
+  }
+
+  resendLoginDetails = (data) => {
+    const { adminId } = this.props;
+    this.setState({ error: '', });
+    requestPost(
+      `${process.env.DEFAULT_URL}/admins/${adminId}/create_and_link_accounts`,
+      data,
+      (response) => {
+        this.getData(true)
+        this.showSnackbar(response.message)
+      },
+      (response) => {
+        if (response.error) {
+          this.setState({ error: response.error, });
+        } else {
+          // to do, use Sentry to capture error
+        }
+      }
+    );
+
+  }
+
   showSnackbar = snackbarCopy => {
     this.setState({ showSnackbar: true, snackbarCopy }, () => {
       setTimeout(() => this.setState({ showSnackbar: false, }), defaultSnackbarTimeout)
@@ -118,8 +157,11 @@ export class AdminDashboard extends React.Component {
         </div>
         <div className='dark-divider' />
         <AdminsTeachers
+          adminAssociatedSchool={model.associated_school}
           data={model.teachers}
+          handleUserAction={this.handleUserAction}
           refreshData={this.getData}
+          schools={model.schools}
         />
       </div>
     );

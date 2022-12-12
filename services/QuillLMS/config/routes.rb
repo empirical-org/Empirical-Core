@@ -26,6 +26,10 @@ EmpiricalGrammar::Application.routes.draw do
   # for admins to sign in as teachers
   resources :users do
     member do
+      get :admin_resend_login_details, to: 'admins#resend_login_details'
+      get :admin_remove_as_admin, to: 'admins#remove_as_admin'
+      get :admin_make_admin, to: 'admins#make_admin'
+      get :admin_unlink_from_school, to: 'admins#unlink_from_school'
       get :admin_sign_in_classroom_manager, to: 'admins#sign_in_classroom_manager'
       get :admin_sign_in_progress_reports, to: 'admins#sign_in_progress_reports'
       get :admin_sign_in_account_settings, to: 'admins#sign_in_account_settings'

@@ -3,87 +3,143 @@ import TeacherLinks from './teacher_links';
 import UnlinkLink from './unlink_link';
 import _ from 'underscore'
 
-import { ReactTable, DropdownInput, } from '../../Shared/index'
+import { DataTable, DropdownInput, } from '../../Shared/index'
 
 interface AdminsTeachersProps {
   data: Array<Object>;
-  refreshData(): void;
+  schools: Array<{ name: string, id: number, role: string }>;
+  adminAssociatedSchool: any;
+  handleUserAction(url: string, data: Object): void;
 }
-
-const ALL_SCHOOLS_OPTION = 'All Schools'
 
 export const AdminsTeachers: React.SFC<AdminsTeachersProps> = ({
   data,
-  refreshData,
+  handleUserAction,
+  schools,
+  adminAssociatedSchool,
 }) => {
-  const [selectedSchool, setSelectedSchool] = React.useState(ALL_SCHOOLS_OPTION)
+  const defaultSchool = schools.find(s => s.id === adminAssociatedSchool?.id) || schools[0]
+  const [selectedSchoolId, setSelectedSchoolId] = React.useState(defaultSchool.id)
+  const [userIdForModal, setUserIdForModal] = React.useState(null)
+  const [showModal, setShowModal] = React.useState(null)
 
-  function onChangeSelectedSchool(selectedSchoolOption) { setSelectedSchool(selectedSchoolOption.value) }
+  function onChangeSelectedSchool(selectedSchoolOption) { setSelectedSchoolId(selectedSchoolOption.value) }
+
+  function loginAsUser(id) {
+    window.location.href = `/users/${id}/admin_sign_in_classroom_manager`
+  }
+
+  function viewPremiumReports(id) {
+    window.location.href = `/users/${id}/admin_sign_in_progress_reports`
+  }
+
+  function resendLoginDetailsForTeacher(id) {
+    handleUserAction(`/users/${id}/resend_login_details`, { role: 'teacher', school_id: selectedSchoolId, })
+  }
+
+  function resendLoginDetailsForAdmin(id) {
+    handleUserAction(`/users/${id}/resend_login_details`, { role: 'admin', school_id: selectedSchoolId, })
+  }
+
+  const actions = () => {
+    return {
+      resendLoginDetailsAdmin: {
+        name: 'Resend login details',
+        action: (id) => resendLoginDetailsForAdmin(id)
+      },
+      resendLoginDetailsTeacher: {
+        name: 'Resend login details',
+        action: (id) => resendLoginDetailsForTeacher(id)
+      },
+      loginAsAdmin: {
+        name: 'Login as admin',
+        action: (id) => loginAsUser(id)
+      },
+      loginAsTeacher: {
+        name: 'Login as teacher',
+        action: (id) => loginAsUser(id)
+      },
+      viewPremiumReports: {
+        name: 'View premium reports',
+        action: (id) => viewPremiumReports(id)
+      },
+      removeAsAdmin: {
+        name: 'Remove as admin',
+        action: (id) => removeAsAdmin(id)
+      },
+      makeAdmin: {
+        name: 'Make admin',
+        action: (id) => viewAsStudent(id)
+      },
+      unlinkFromSchool: {
+        name: 'Unlink from school',
+        action: (id) => viewAsStudent(id)
+      },
+    }
+  }
+
+  function actionsForUser(user, relevantSchool) {
+    if (relevantSchool.role === 'Admin') {
+      
+    }
+  }
 
   const teacherColumns = [
     {
-      Header: 'Name',
-      accessor: 'name',
-      resizable: false,
+      name: 'Name',
+      attribute: 'name',
+      width: '350px'
     },
     {
-      Header: 'School',
-      accessor: 'school',
-      resizable: false,
+      name: 'Role',
+      attribute: 'role',
+      width: '350px'
     },
     {
-      Header: 'Students',
-      accessor: 'number_of_students',
-      resizable: false,
-      maxWidth: 90,
+      name: 'Students',
+      attribute: 'number_of_students',
+      width: '118px',
     },
     {
-      Header: 'Activities Completed',
-      accessor: 'number_of_activities_completed',
-      minWidth: 165,
-      resizable: false,
+      name: 'Activities Completed',
+      attribute: 'number_of_activities_completed',
+      width: '118px',
     },
     {
-      Header: 'Time Spent',
-      accessor: 'time_spent',
-      maxWidth: 120,
-      resizable: false,
+      name: 'Time Spent',
+      attribute: 'time_spent',
+      width: '91px',
     },
     {
-      Header: 'Log In As Teacher',
-      accessor: 'link_components',
-      Cell: ({row}) => {
-        return <TeacherLinks isValid={row.original.has_valid_subscription} links={row.original.links} />;
-      },
-      resizable: false,
-    },
-    {
-      Header: 'Manage',
-      Cell: ({row}) => {
-        return <UnlinkLink id={row.original.id} refreshData={refreshData} />;
-      },
-      minWidth: 130,
-      resizable: false,
+      name: 'Actions',
+      attribute: 'actions',
+      isActions: true,
+      width: '48px'
     }
   ];
 
-  const schoolOptions = _.uniq([ALL_SCHOOLS_OPTION, ...data.map((d: { school: string }) => d.school)]).map(school => ({ value: school, label: school}))
-  const filteredData = selectedSchool === ALL_SCHOOLS_OPTION ? data : data.filter((d: { school: string }) => d.school === selectedSchool)
+  const schoolOptions = schools.map(school => ({ value: school.id, label: school.name}))
+  const filteredData = data.filter((d: { school: string }) => d.schools.include(s => s.id === selectedSchoolId)).map(user => {
+    const relevantSchool = user.schools.find(s => s.id === selectedSchoolId)
+    user.actions = actionsForUser(user, relevantSchool)
+    user.role = relevantSchool.role
+    return
+  })
 
   return (
     <div className="teacher-account-access-container">
-      <h2>Teacher Account Access</h2>
+      <h2>Account Management</h2>
       <DropdownInput
         handleChange={onChangeSelectedSchool}
         isSearchable={true}
         options={schoolOptions}
-        value={schoolOptions.find(so => so.value === selectedSchool)}
+        value={schoolOptions.find(so => so.value === selectedSchoolId)}
       />
       <div className="admins-teachers">
-        <ReactTable
+        <DataTable
           className='progress-report has-green-arrow'
-          columns={teacherColumns}
-          data={filteredData}
+          headers={teacherColumns}
+          rows={filteredData}
         />
       </div>
       <p className="warning-section">

@@ -445,11 +445,11 @@ class User < ApplicationRecord
 
   ## End satismeter
 
-  def admins_teachers
-    schools = administered_schools.includes(:users)
+  def admins_users
+    schools = administered_schools.includes(:users, :admins)
     return if schools.none?
 
-    schools.map{|school| school.users.ids}.flatten
+    schools.map{|school| school.users.ids && school.admins.ids }.flatten.uniq
   end
 
   def refresh_token!

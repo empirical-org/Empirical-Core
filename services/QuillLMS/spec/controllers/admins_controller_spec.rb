@@ -68,31 +68,34 @@ describe AdminsController  do
 
         describe 'and the user is not already an admin for the school' do
           describe 'and they are not linked to a school' do
-            it 'returns a message and fires an email worker' do
+            it 'creates a school admin record, returns a message and fires an email worker' do
               expect(AdminDashboard::MadeSchoolAdminLinkSchoolEmailWorker).to receive(:perform_async)
               post :create_and_link_accounts, params: { id: admin.id, school_id: school.id, teacher: { role: 'admin', email: existing_teacher.email }}
               expect(response.body).to eq({message: I18n.t('admin_created_account.existing_account.admin.new')}.to_json)
+              expect (SchoolsAdmins.find_by(school: school, user: existing_teacher)).to be
             end
           end
 
           describe 'and they are linked to that school' do
-            it 'returns a message and fires an email worker' do
+            it 'creates a school admin record, returns a message and fires an email worker' do
               create(:schools_users, school: school, user: existing_teacher)
 
               expect(AdminDashboard::MadeSchoolAdminEmailWorker).to receive(:perform_async)
               post :create_and_link_accounts, params: { id: admin.id, school_id: school.id, teacher: { role: 'admin', email: existing_teacher.email }}
               expect(response.body).to eq({message: I18n.t('admin_created_account.existing_account.admin.new')}.to_json)
+              expect (SchoolsAdmins.find_by(school: school, user: existing_teacher)).to be
             end
           end
 
           describe 'and they are linked to a different school' do
-            it 'returns a message and fires an email worker' do
+            it 'creates a school admin record, returns a message and fires an email worker' do
               other_school = create(:school)
               create(:schools_users, school: other_school, user: existing_teacher)
 
               expect(AdminDashboard::MadeSchoolAdminChangeSchoolEmailWorker).to receive(:perform_async)
               post :create_and_link_accounts, params: { id: admin.id, school_id: school.id, teacher: { role: 'admin', email: existing_teacher.email }}
               expect(response.body).to eq({message: I18n.t('admin_created_account.existing_account.admin.new')}.to_json)
+              expect (SchoolsAdmins.find_by(school: school, user: existing_teacher)).to be
             end
           end
 
@@ -153,5 +156,15 @@ describe AdminsController  do
 
     end
   end
+
+  describe '#unlink_from_school' do
+    it 'unlinks teacher from school' do
+      expect(SchoolsUsers.find_by(user: teacher)).to be
+      expect($redis).to receive(:del).with("SERIALIZED_ADMIN_USERS_FOR_#{teacher.id}")
+      post :unlink_from_school, params: { teacher_id: teacher.id }
+      expect(SchoolsUsers.find_by(user: teacher)).not_to be
+    end
+  end
+
 
 end
