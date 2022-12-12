@@ -82,7 +82,7 @@ module Evidence
     end
 
     private def rule_params
-      params.require(:rule).permit(:name, :note, :universal, :rule_type, :optimal, :state, :suborder, :concept_uid,
+      params.require(:rule).permit(:name, :note, :universal, :rule_type, :optimal, :state, :suborder, :concept_uid, :hint_id,
          prompt_ids: [],
          plagiarism_texts_attributes: [:id, :text, :_destroy],
          regex_rules_attributes: [:id, :regex_text, :case_sensitive, :sequence_type, :conditional],
