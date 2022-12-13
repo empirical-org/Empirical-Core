@@ -40,7 +40,8 @@ module Units::Creator
         WHERE unit_template_id = #{unit_template_id}
         ORDER BY activities_unit_templates.id;
       SQL
-    ).map { |a| {id: a["id"], due_date: nil, publish_date: nil}}
+    ).map { |a| {id: a["id"], due_date: nil}}
+
     create_helper(teacher, unit_template.name, activities_data, classroom_array, unit_template_id, current_user_id)
   end
 
@@ -60,19 +61,19 @@ module Units::Creator
         publish_date: activity[:publish_date],
         order_number: index + 1
       }
+
       ua = UnitActivity.new
       ua.save_new_attributes_and_adjust_dates!(act_data)
     end
 
-    class_data = classrooms.map do |classroom|
-      {
+    classrooms.each do |classroom|
+      ClassroomUnit.create!(
         classroom_id: classroom[:id],
         assigned_student_ids: classroom[:student_ids],
         assign_on_join: classroom[:assign_on_join],
         unit_id: unit.id
-      }
+      )
     end
-    ClassroomUnit.create(class_data)
 
     unit.reload
     unit.save

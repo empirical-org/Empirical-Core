@@ -10,13 +10,6 @@ SET client_min_messages = warning;
 SET row_security = off;
 
 --
--- Name: public; Type: SCHEMA; Schema: -; Owner: -
---
-
--- *not* creating schema, since initdb creates it
-
-
---
 -- Name: hstore; Type: EXTENSION; Schema: -; Owner: -
 --
 
@@ -2273,6 +2266,47 @@ CREATE TABLE public.districts_users (
 
 
 --
+-- Name: evidence_activity_healths; Type: TABLE; Schema: public; Owner: -
+--
+
+CREATE TABLE public.evidence_activity_healths (
+    id bigint NOT NULL,
+    name character varying NOT NULL,
+    flag character varying NOT NULL,
+    activity_id integer NOT NULL,
+    version integer NOT NULL,
+    version_plays integer NOT NULL,
+    total_plays integer NOT NULL,
+    completion_rate integer,
+    because_final_optimal integer,
+    but_final_optimal integer,
+    so_final_optimal integer,
+    avg_completion_time integer,
+    created_at timestamp(6) without time zone NOT NULL,
+    updated_at timestamp(6) without time zone NOT NULL
+);
+
+
+--
+-- Name: evidence_activity_healths_id_seq; Type: SEQUENCE; Schema: public; Owner: -
+--
+
+CREATE SEQUENCE public.evidence_activity_healths_id_seq
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+
+--
+-- Name: evidence_activity_healths_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: -
+--
+
+ALTER SEQUENCE public.evidence_activity_healths_id_seq OWNED BY public.evidence_activity_healths.id;
+
+
+--
 -- Name: evidence_hints; Type: TABLE; Schema: public; Owner: -
 --
 
@@ -2304,6 +2338,53 @@ CREATE SEQUENCE public.evidence_hints_id_seq
 --
 
 ALTER SEQUENCE public.evidence_hints_id_seq OWNED BY public.evidence_hints.id;
+
+
+--
+-- Name: evidence_prompt_healths; Type: TABLE; Schema: public; Owner: -
+--
+
+CREATE TABLE public.evidence_prompt_healths (
+    id bigint NOT NULL,
+    prompt_id integer NOT NULL,
+    activity_short_name character varying NOT NULL,
+    text character varying NOT NULL,
+    current_version integer NOT NULL,
+    version_responses integer NOT NULL,
+    first_attempt_optimal integer,
+    final_attempt_optimal integer,
+    avg_attempts double precision,
+    confidence double precision,
+    percent_automl_consecutive_repeated integer,
+    percent_automl integer,
+    percent_plagiarism integer,
+    percent_opinion integer,
+    percent_grammar integer,
+    percent_spelling integer,
+    avg_time_spent_per_prompt integer,
+    evidence_activity_health_id bigint,
+    created_at timestamp(6) without time zone NOT NULL,
+    updated_at timestamp(6) without time zone NOT NULL
+);
+
+
+--
+-- Name: evidence_prompt_healths_id_seq; Type: SEQUENCE; Schema: public; Owner: -
+--
+
+CREATE SEQUENCE public.evidence_prompt_healths_id_seq
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+
+--
+-- Name: evidence_prompt_healths_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: -
+--
+
+ALTER SEQUENCE public.evidence_prompt_healths_id_seq OWNED BY public.evidence_prompt_healths.id;
 
 
 --
@@ -2850,11 +2931,11 @@ ALTER SEQUENCE public.objectives_id_seq OWNED BY public.objectives.id;
 
 CREATE TABLE public.pack_sequence_items (
     id bigint NOT NULL,
-    item_id bigint,
-    pack_sequence_id bigint,
-    "order" integer,
+    pack_sequence_id bigint NOT NULL,
+    "order" integer NOT NULL,
     created_at timestamp(6) without time zone NOT NULL,
-    updated_at timestamp(6) without time zone NOT NULL
+    updated_at timestamp(6) without time zone NOT NULL,
+    classroom_unit_id bigint NOT NULL
 );
 
 
@@ -2883,9 +2964,9 @@ ALTER SEQUENCE public.pack_sequence_items_id_seq OWNED BY public.pack_sequence_i
 
 CREATE TABLE public.pack_sequences (
     id bigint NOT NULL,
-    classroom_id bigint,
-    diagnostic_activity_id bigint,
-    release_method character varying,
+    classroom_id bigint NOT NULL,
+    diagnostic_activity_id bigint NOT NULL,
+    release_method character varying DEFAULT 'staggered'::character varying,
     created_at timestamp(6) without time zone NOT NULL,
     updated_at timestamp(6) without time zone NOT NULL
 );
@@ -4452,6 +4533,39 @@ ALTER SEQUENCE public.user_milestones_id_seq OWNED BY public.user_milestones.id;
 
 
 --
+-- Name: user_pack_sequence_items; Type: TABLE; Schema: public; Owner: -
+--
+
+CREATE TABLE public.user_pack_sequence_items (
+    id bigint NOT NULL,
+    user_id bigint NOT NULL,
+    pack_sequence_item_id bigint NOT NULL,
+    status character varying DEFAULT 'locked'::character varying,
+    created_at timestamp(6) without time zone NOT NULL,
+    updated_at timestamp(6) without time zone NOT NULL
+);
+
+
+--
+-- Name: user_pack_sequence_items_id_seq; Type: SEQUENCE; Schema: public; Owner: -
+--
+
+CREATE SEQUENCE public.user_pack_sequence_items_id_seq
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+
+--
+-- Name: user_pack_sequence_items_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: -
+--
+
+ALTER SEQUENCE public.user_pack_sequence_items_id_seq OWNED BY public.user_pack_sequence_items.id;
+
+
+--
 -- Name: user_subscriptions; Type: TABLE; Schema: public; Owner: -
 --
 
@@ -4977,10 +5091,24 @@ ALTER TABLE ONLY public.districts ALTER COLUMN id SET DEFAULT nextval('public.di
 
 
 --
+-- Name: evidence_activity_healths id; Type: DEFAULT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY public.evidence_activity_healths ALTER COLUMN id SET DEFAULT nextval('public.evidence_activity_healths_id_seq'::regclass);
+
+
+--
 -- Name: evidence_hints id; Type: DEFAULT; Schema: public; Owner: -
 --
 
 ALTER TABLE ONLY public.evidence_hints ALTER COLUMN id SET DEFAULT nextval('public.evidence_hints_id_seq'::regclass);
+
+
+--
+-- Name: evidence_prompt_healths id; Type: DEFAULT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY public.evidence_prompt_healths ALTER COLUMN id SET DEFAULT nextval('public.evidence_prompt_healths_id_seq'::regclass);
 
 
 --
@@ -5408,6 +5536,13 @@ ALTER TABLE ONLY public.user_activity_classifications ALTER COLUMN id SET DEFAUL
 --
 
 ALTER TABLE ONLY public.user_milestones ALTER COLUMN id SET DEFAULT nextval('public.user_milestones_id_seq'::regclass);
+
+
+--
+-- Name: user_pack_sequence_items id; Type: DEFAULT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY public.user_pack_sequence_items ALTER COLUMN id SET DEFAULT nextval('public.user_pack_sequence_items_id_seq'::regclass);
 
 
 --
@@ -5896,11 +6031,27 @@ ALTER TABLE ONLY public.districts
 
 
 --
+-- Name: evidence_activity_healths evidence_activity_healths_pkey; Type: CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY public.evidence_activity_healths
+    ADD CONSTRAINT evidence_activity_healths_pkey PRIMARY KEY (id);
+
+
+--
 -- Name: evidence_hints evidence_hints_pkey; Type: CONSTRAINT; Schema: public; Owner: -
 --
 
 ALTER TABLE ONLY public.evidence_hints
     ADD CONSTRAINT evidence_hints_pkey PRIMARY KEY (id);
+
+
+--
+-- Name: evidence_prompt_healths evidence_prompt_healths_pkey; Type: CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY public.evidence_prompt_healths
+    ADD CONSTRAINT evidence_prompt_healths_pkey PRIMARY KEY (id);
 
 
 --
@@ -6397,6 +6548,14 @@ ALTER TABLE ONLY public.user_activity_classifications
 
 ALTER TABLE ONLY public.user_milestones
     ADD CONSTRAINT user_milestones_pkey PRIMARY KEY (id);
+
+
+--
+-- Name: user_pack_sequence_items user_pack_sequence_items_pkey; Type: CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY public.user_pack_sequence_items
+    ADD CONSTRAINT user_pack_sequence_items_pkey PRIMARY KEY (id);
 
 
 --
@@ -7103,6 +7262,13 @@ CREATE INDEX index_evidence_hints_on_rule_id ON public.evidence_hints USING btre
 
 
 --
+-- Name: index_evidence_prompt_healths_on_evidence_activity_health_id; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX index_evidence_prompt_healths_on_evidence_activity_health_id ON public.evidence_prompt_healths USING btree (evidence_activity_health_id);
+
+
+--
 -- Name: index_feedback_histories_on_concept_uid; Type: INDEX; Schema: public; Owner: -
 --
 
@@ -7222,10 +7388,17 @@ CREATE UNIQUE INDEX index_oauth_applications_on_uid ON public.oauth_applications
 
 
 --
--- Name: index_pack_sequence_items_on_item_id; Type: INDEX; Schema: public; Owner: -
+-- Name: index_pack_sequence_items__classroom_unit_id__pack_sequence_id; Type: INDEX; Schema: public; Owner: -
 --
 
-CREATE INDEX index_pack_sequence_items_on_item_id ON public.pack_sequence_items USING btree (item_id);
+CREATE UNIQUE INDEX index_pack_sequence_items__classroom_unit_id__pack_sequence_id ON public.pack_sequence_items USING btree (classroom_unit_id, pack_sequence_id);
+
+
+--
+-- Name: index_pack_sequence_items_on_classroom_unit_id; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX index_pack_sequence_items_on_classroom_unit_id ON public.pack_sequence_items USING btree (classroom_unit_id);
 
 
 --
@@ -7240,6 +7413,13 @@ CREATE INDEX index_pack_sequence_items_on_pack_sequence_id ON public.pack_sequen
 --
 
 CREATE INDEX index_pack_sequences_on_classroom_id ON public.pack_sequences USING btree (classroom_id);
+
+
+--
+-- Name: index_pack_sequences_on_classroom_id_and_diagnostic_activity_id; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE UNIQUE INDEX index_pack_sequences_on_classroom_id_and_diagnostic_activity_id ON public.pack_sequences USING btree (classroom_id, diagnostic_activity_id);
 
 
 --
@@ -7754,6 +7934,27 @@ CREATE UNIQUE INDEX index_user_milestones_on_user_id_and_milestone_id ON public.
 
 
 --
+-- Name: index_user_pack_sequence_items__user_id__pack_sequence_item_id; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE UNIQUE INDEX index_user_pack_sequence_items__user_id__pack_sequence_item_id ON public.user_pack_sequence_items USING btree (user_id, pack_sequence_item_id);
+
+
+--
+-- Name: index_user_pack_sequence_items_on_pack_sequence_item_id; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX index_user_pack_sequence_items_on_pack_sequence_item_id ON public.user_pack_sequence_items USING btree (pack_sequence_item_id);
+
+
+--
+-- Name: index_user_pack_sequence_items_on_user_id; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX index_user_pack_sequence_items_on_user_id ON public.user_pack_sequence_items USING btree (user_id);
+
+
+--
 -- Name: index_user_subscriptions_on_subscription_id; Type: INDEX; Schema: public; Owner: -
 --
 
@@ -8041,6 +8242,14 @@ ALTER TABLE ONLY public.activities
 
 
 --
+-- Name: evidence_prompt_healths fk_rails_2126b1922f; Type: FK CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY public.evidence_prompt_healths
+    ADD CONSTRAINT fk_rails_2126b1922f FOREIGN KEY (evidence_activity_health_id) REFERENCES public.evidence_activity_healths(id) ON DELETE CASCADE;
+
+
+--
 -- Name: comprehension_automl_models fk_rails_35c32f80fc; Type: FK CONSTRAINT; Schema: public; Owner: -
 --
 
@@ -8217,6 +8426,14 @@ ALTER TABLE ONLY public.standards
 
 
 --
+-- Name: user_pack_sequence_items fk_rails_8011bf338d; Type: FK CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY public.user_pack_sequence_items
+    ADD CONSTRAINT fk_rails_8011bf338d FOREIGN KEY (pack_sequence_item_id) REFERENCES public.pack_sequence_items(id);
+
+
+--
 -- Name: activities fk_rails_8b159cf902; Type: FK CONSTRAINT; Schema: public; Owner: -
 --
 
@@ -8241,11 +8458,11 @@ ALTER TABLE ONLY public.comprehension_highlights
 
 
 --
--- Name: pack_sequence_items fk_rails_a1e39dcd4a; Type: FK CONSTRAINT; Schema: public; Owner: -
+-- Name: pack_sequence_items fk_rails_a1d2cd07cb; Type: FK CONSTRAINT; Schema: public; Owner: -
 --
 
 ALTER TABLE ONLY public.pack_sequence_items
-    ADD CONSTRAINT fk_rails_a1e39dcd4a FOREIGN KEY (item_id) REFERENCES public.units(id);
+    ADD CONSTRAINT fk_rails_a1d2cd07cb FOREIGN KEY (classroom_unit_id) REFERENCES public.classroom_units(id);
 
 
 --
@@ -8294,6 +8511,14 @@ ALTER TABLE ONLY public.criteria
 
 ALTER TABLE ONLY public.unit_activities
     ADD CONSTRAINT fk_rails_b921d87b04 FOREIGN KEY (activity_id) REFERENCES public.activities(id);
+
+
+--
+-- Name: user_pack_sequence_items fk_rails_ba92ed65d8; Type: FK CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY public.user_pack_sequence_items
+    ADD CONSTRAINT fk_rails_ba92ed65d8 FOREIGN KEY (user_id) REFERENCES public.users(id);
 
 
 --
@@ -8910,8 +9135,19 @@ INSERT INTO "schema_migrations" (version) VALUES
 ('20221014103843'),
 ('20221019184933'),
 ('20221019185354'),
+('20221020131338'),
+('20221021134756'),
+('20221103152535'),
+('20221103152545'),
+('20221103152559'),
 ('20221109181742'),
 ('20221109182042'),
-('20221109182145');
+('20221109182145'),
+('20221110072938'),
+('20221110072939'),
+('20221209134742'),
+('20221209141047'),
+('20221209151611'),
+('20221209151957');
 
 

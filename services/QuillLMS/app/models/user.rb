@@ -152,6 +152,8 @@ class User < ApplicationRecord
   has_many :change_logs
   has_many :stripe_checkout_sessions, dependent: :destroy
 
+  has_many :user_pack_sequence_items, dependent: :destroy
+
   accepts_nested_attributes_for :auth_credential
 
   delegate :name, :mail_city, :mail_state,
@@ -693,6 +695,10 @@ class User < ApplicationRecord
       .where(email: email)
       .where.not(id: id)
       .where.missing(:activity_sessions, :students_classrooms)
+  end
+
+  def units_with_same_name(name)
+    units.where('name ILIKE ?', name)
   end
 
   private def validate_flags

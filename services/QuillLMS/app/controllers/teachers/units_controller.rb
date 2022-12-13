@@ -1,7 +1,6 @@
 # frozen_string_literal: true
 
 class Teachers::UnitsController < ApplicationController
-  include Units
   include UnitQueries
 
   respond_to :json
@@ -9,7 +8,7 @@ class Teachers::UnitsController < ApplicationController
   before_action :authorize!
 
   def create
-    units_with_same_name = units_with_same_name_by_current_user(params[:unit][:name], current_user.id)
+    units_with_same_name = current_user.units_with_same_name(params[:unit][:name])
     includes_ell_starter_diagnostic = params[:unit][:activities].include?({"id"=>1161})
 
     if units_with_same_name.any?

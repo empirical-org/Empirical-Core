@@ -350,4 +350,25 @@ describe Classroom, type: :model do
     end
   end
 
+  describe '#save_user_pack_sequence_items' do
+    let(:classroom) { create(:classroom) }
+
+    context 'after_save' do
+      context 'visible changed' do
+        subject { classroom.update(visible: false) }
+
+        let(:num_students) { classroom.students.count }
+
+        context 'no students' do
+          it { expect { subject }.to change { SaveUserPackSequenceItemsWorker.jobs.size }.by(num_students) }
+        end
+
+        context 'one student' do
+          before { create(:students_classrooms, classroom: classroom) }
+
+          it { expect { subject }.to change { SaveUserPackSequenceItemsWorker.jobs.size }.by(num_students) }
+        end
+      end
+    end
+  end
 end

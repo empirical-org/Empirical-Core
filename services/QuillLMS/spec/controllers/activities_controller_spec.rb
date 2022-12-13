@@ -107,6 +107,32 @@ describe ActivitiesController, type: :controller, redis: true do
         subject
         expect(response).to redirect_to activity_session_from_classroom_unit_and_activity_path(classroom_unit, activity)
       end
+
+      context 'check for locked user_pack_sequence_item' do
+        before do
+          allow(Activity).to receive(:find_by_id_or_uid).with(activity.id.to_s).and_return(activity)
+          allow(activity).to receive(:locked_user_pack_sequence_item?).and_return(locked)
+        end
+
+        context 'activity is locked' do
+          let(:locked) { true }
+
+          it 'redirects and raises an error' do
+            subject
+            expect(response).to redirect_to classes_path
+            expect(flash[:error]).to match I18n.t('activity_link.errors.user_pack_sequence_item_locked')
+          end
+        end
+
+        context 'activity is unlocked' do
+          let(:locked) { false }
+
+          it 'redirects the appropriate activity session' do
+            subject
+            expect(response).to redirect_to activity_session_from_classroom_unit_and_activity_path(classroom_unit, activity)
+          end
+        end
+      end
     end
 
     context 'student is not assigned to classroom_unit' do
@@ -129,9 +155,10 @@ describe ActivitiesController, type: :controller, redis: true do
     context 'unit activity does not exist' do
       let(:another_activity) { create(:activity) }
 
-      it 'redirects to the classrooms page' do
+      it 'redirects and raises an error' do
         get :activity_session, params: { id: another_activity.id, classroom_unit_id: classroom_unit.id }
         expect(response).to redirect_to classes_path
+        expect(flash[:error]).to match I18n.t('activity_link.errors.activity_not_assigned')
       end
     end
   end

@@ -65,9 +65,18 @@
       color: #262626;
       margin-right: 24px;
     }
-    div:first-of-type {
+    .selection-buttons {
       .quill-button {
         margin-right: 8px;
+      }
+    }
+    .release-method-and-assign-buttons {
+      .quill-button, .interactive-wrapper {
+        margin-left: 16px;
+      }
+      .interactive-wrapper {
+        font-weight: 700;
+        text-decoration: underline;
       }
     }
   }
@@ -387,20 +396,22 @@
       margin: 16px 16px 0px;
       flex-direction: column;
       max-width: calc(100vw - 32px);
-      div {
+      .selection-buttons {
         flex-direction: column;
-        &:first-of-type {
-          .quill-button {
-            margin-top: 8px;
-            margin-right: 0px;
-          }
+        .quill-button {
+          margin-top: 8px;
+          margin-right: 0px;
         }
-        &:last-of-type {
-          margin-top: 24px;
-          .number-selected {
-            margin-right: 0px;
-            margin-bottom: 8px;
-          }
+      }
+      .release-method-and-assign-buttons {
+        flex-direction: column;
+        margin-top: 24px;
+        .release-method-text-and-edit-button {
+          margin-bottom: 20px;
+        }
+        .number-selected {
+          margin-right: 0px;
+          margin-bottom: 8px;
         }
       }
     }
@@ -408,6 +419,9 @@
       .lessons-recommendation {
         margin: 16px 16px 0px;
         max-width: calc(100vw - 32px);
+        .quill-tooltip-trigger {
+          transform: translateX(-100%);
+        }
         .top-row {
           padding: 24px 16px;
           > div:last-of-type {
