@@ -1592,7 +1592,8 @@ CREATE TABLE public.comprehension_rules (
     concept_uid character varying,
     created_at timestamp without time zone NOT NULL,
     updated_at timestamp without time zone NOT NULL,
-    state character varying NOT NULL
+    state character varying NOT NULL,
+    hint_id bigint
 );
 
 
@@ -2281,9 +2282,10 @@ CREATE TABLE public.evidence_hints (
     explanation character varying NOT NULL,
     image_link character varying NOT NULL,
     image_alt_text character varying NOT NULL,
-    rule_id bigint NOT NULL,
+    rule_id bigint,
     created_at timestamp without time zone NOT NULL,
-    updated_at timestamp without time zone NOT NULL
+    updated_at timestamp without time zone NOT NULL,
+    name text
 );
 
 
@@ -6907,6 +6909,13 @@ CREATE INDEX index_comprehension_regex_rules_on_rule_id ON public.comprehension_
 
 
 --
+-- Name: index_comprehension_rules_on_hint_id; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX index_comprehension_rules_on_hint_id ON public.comprehension_rules USING btree (hint_id);
+
+
+--
 -- Name: index_comprehension_rules_on_uid; Type: INDEX; Schema: public; Owner: -
 --
 
@@ -8906,6 +8915,7 @@ INSERT INTO "schema_migrations" (version) VALUES
 ('20220830205005'),
 ('20220920190724'),
 ('20220927124042'),
+('20221006201923'),
 ('20221014103417'),
 ('20221014103843'),
 ('20221019184933'),

@@ -73,4 +73,9 @@ module NavigationHelper
   def should_render_subnav?
     home_page_should_be_active? || classes_page_should_be_active? || student_reports_page_should_be_active?
   end
+
+  # this is a duplicate of the QuillAuthentication method, used here because we can't import it directly
+  def admin_impersonating_user?(user)
+    session[:admin_id].present? && session[:admin_id] != user.id
+  end
 end

@@ -61,13 +61,12 @@ module QuillAuthentication
   def sign_in(user)
     TestForEarnedCheckboxesWorker.perform_async(user.id) if user.teacher?
 
-    unless staff_impersonating_user?(user)
+    unless staff_impersonating_user?(user) || admin_impersonating_user?(user)
       user.update(ip_address: request&.remote_ip, last_sign_in: Time.current)
       UserLoginWorker.perform_async(user.id)
     end
 
     session[:user_id] = user.id
-    session[:admin_id] = user.id if user.admin?
     @current_user = user
   end
 
@@ -166,11 +165,11 @@ module QuillAuthentication
     @token = Doorkeeper::OAuth::Token.authenticate(request, *methods)
   end
 
-  private def staff_impersonating_user?(user)
-    session[:staff_id].present? && session[:staff_id] != user.id
+  def admin_impersonating_user?(user)
+    session[:admin_id].present? && session[:admin_id] != user.id
   end
 
-  private def admin_impersonating_user?(user)
-    session[:admin_id].present? && session[:admin_id] != user.id
+  private def staff_impersonating_user?(user)
+    session[:staff_id].present? && session[:staff_id] != user.id
   end
 end
