@@ -61,7 +61,7 @@ class TeachersController < ApplicationController
   end
 
   def admin_dashboard
-    if current_user.present? && current_user.admin?
+    if current_user.present? && current_user.admin? && !admin_impersonating_user?(current_user)
       render 'admin'
     else
       redirect_to profile_path

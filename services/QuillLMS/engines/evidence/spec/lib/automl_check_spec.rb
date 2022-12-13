@@ -77,7 +77,8 @@ module Evidence
 
       it 'should include hint data when there is an associated hint' do
         AutomlModel.stub_any_instance(:fetch_automl_label, [label.name, automl_confidence]) do
-          hint = create(:evidence_hint, :rule => (rule))
+          hint = create(:evidence_hint)
+          rule.update(hint: hint)
           automl_check = Evidence::AutomlCheck.new("whatever", prompt)
           expect(hint).to(eq(automl_check.feedback_object[:hint]))
         end

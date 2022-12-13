@@ -8,7 +8,7 @@ import RuleSemanticAttributes from '../configureRules/ruleSemanticAttributes';
 import RuleRegexAttributes from '../configureRules/ruleRegexAttributes';
 import RulePrompts from '../configureRules/rulePrompts';
 import RuleUniversalAttributes from '../configureRules/ruleUniversalAttributes';
-import RuleHint from '../configureRules/ruleHint'
+import RuleHintPicker from '../configureRules/ruleHintPicker'
 import { Spinner } from '../../../../Shared/index';
 import { deleteRule, fetchRules, fetchUniversalRules } from '../../../utils/evidence/ruleAPIs';
 import { fetchConcepts, } from '../../../utils/evidence/conceptAPIs';
@@ -276,10 +276,9 @@ const RuleViewForm = ({
           setUniversalFeedback={setRuleFeedbacks}
           universalFeedback={ruleFeedbacks}
         />}
-        <RuleHint
-          errors={errors}
+        <RuleHintPicker
           hint={ruleHint}
-          setHint={setRuleHint}
+          onHintChange={setRuleHint}
         />
         <div className="submit-button-container">
           {showErrorsContainer && renderErrorsContainer(formErrorsPresent, requestErrors)}
