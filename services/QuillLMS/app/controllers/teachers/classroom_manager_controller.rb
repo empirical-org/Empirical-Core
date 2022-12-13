@@ -74,7 +74,7 @@ class Teachers::ClassroomManagerController < ApplicationController
 
   # rubocop:disable Metrics/CyclomaticComplexity
   def dashboard
-    if current_user.classrooms_i_teach.empty? && current_user.archived_classrooms.none? && !current_user.has_outstanding_coteacher_invitation? && current_user.schools_admins.any?
+    if current_user.classrooms_i_teach.empty? && current_user.archived_classrooms.none? && !current_user.has_outstanding_coteacher_invitation? && current_user.schools_admins.any? && !admin_impersonating_user?(current_user)
       redirect_to teachers_admin_dashboard_path
     end
 
