@@ -66,6 +66,7 @@ export class AdminDashboard extends React.Component {
   addTeacherAccount = (data) => {
     const { adminId } = this.props;
     this.setState({ error: '', });
+    this.initializePusher(true)
     requestPost(
       `${process.env.DEFAULT_URL}/admins/${adminId}/create_and_link_accounts`,
       data,
@@ -84,6 +85,7 @@ export class AdminDashboard extends React.Component {
   };
 
   handleUserAction = (link, data) => {
+    this.initializePusher(true)
     requestPost(
       link,
       data,

@@ -67,19 +67,20 @@ class AdminsController < ApplicationController
   end
 
   def remove_as_admin
-    SchoolsAdmins.find_by(user_id: params[:teacher_id], school: params[:school_id]).destroy
+    SchoolsAdmins.find_by(user_id: params[:id], school_id: params[:school_id]).destroy
     reset_admin_users_cache
     render json: {message: t('admin.remove_admin')}, status: 200
   end
 
   def make_admin
-    SchoolsAdmins.create(user_id: params[:teacher_id], school: params[:school_id])
+    SchoolsAdmins.create(user_id: params[:id], school_id: params[:school_id])
+    AdminDashboard::MadeSchoolAdminEmailWorker.perform_async(params[:id], current_user.id, params[:school_id])
     reset_admin_users_cache
     render json: {message: t('admin.make_admin')}, status: 200
   end
 
   def unlink_from_school
-    User.find_by_id(params[:teacher_id])&.unlink
+    @teacher&.unlink
     reset_admin_users_cache
     render json: {message: t('admin.unlink_teacher_from_school')}, status: 200
   end
@@ -119,7 +120,6 @@ class AdminsController < ApplicationController
   end
 
   private def set_teacher
-    puts 'SET TEACHER GETS CALLED'
     @teacher = User.find(params[:id])
   end
 

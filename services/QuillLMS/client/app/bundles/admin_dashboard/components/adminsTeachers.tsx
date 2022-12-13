@@ -71,23 +71,25 @@ export const AdminsTeachers: React.SFC<AdminsTeachersProps> = ({
   }
 
   function resendLoginDetailsForTeacher(id) {
-    handleUserAction(`/users/${id}/resend_login_details`, { role: 'teacher', school_id: selectedSchoolId, })
+    handleUserAction(`/users/${id}/admin_resend_login_details`, { role: 'teacher', school_id: selectedSchoolId, })
   }
 
   function unlinkFromSchool(id) {
-    handleUserAction(`/users/${id}/unlink_from_school`, { role: 'teacher', })
+    handleUserAction(`/users/${id}/admin_unlink_from_school`, { role: 'teacher', })
   }
 
   function resendLoginDetailsForAdmin(id) {
-    handleUserAction(`/users/${id}/resend_login_details`, { role: 'admin', school_id: selectedSchoolId, })
+    handleUserAction(`/users/${id}/admin_resend_login_details`, { role: 'admin', school_id: selectedSchoolId, })
   }
 
-  function handleConfirmMakeAdmin(id) {
-    handleUserAction(`/users/${id}/make_admin`, { school_id: selectedSchoolId, })
+  function handleConfirmMakeAdmin() {
+    handleUserAction(`/users/${userIdForModal}/admin_make_admin`, { school_id: selectedSchoolId, })
+    closeModal()
   }
 
-  function handleConfirmRemoveAsAdmin(id) {
-    handleUserAction(`/users/${id}/remove_as_admin`, { school_id: selectedSchoolId, })
+  function handleConfirmRemoveAsAdmin() {
+    handleUserAction(`/users/${userIdForModal}/admin_remove_as_admin`, { school_id: selectedSchoolId, })
+    closeModal()
   }
 
   function removeAsAdmin(id) {
