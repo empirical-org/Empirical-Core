@@ -22,6 +22,7 @@ module TeachersData
         users.id,
         users.name,
         users.email,
+        users.last_sign_in,
         COUNT(DISTINCT students_classrooms.id) AS number_of_students
       FROM users
       LEFT OUTER JOIN classrooms_teachers ON users.id = classrooms_teachers.user_id
