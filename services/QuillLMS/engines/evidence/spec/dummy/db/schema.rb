@@ -156,6 +156,8 @@ ActiveRecord::Schema.define(version: 2022_11_10_063922) do
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.string "state", null: false
+    t.bigint "hint_id"
+    t.index ["hint_id"], name: "index_comprehension_rules_on_hint_id"
     t.index ["uid"], name: "index_comprehension_rules_on_uid", unique: true
   end
 
@@ -198,10 +200,20 @@ ActiveRecord::Schema.define(version: 2022_11_10_063922) do
     t.string "explanation", null: false
     t.string "image_link", null: false
     t.string "image_alt_text", null: false
-    t.bigint "rule_id", null: false
+    t.bigint "rule_id"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.text "name"
     t.index ["rule_id"], name: "index_evidence_hints_on_rule_id"
+  end
+
+  create_table "evidence_rule_hints", force: :cascade do |t|
+    t.bigint "rule_id", null: false
+    t.bigint "hint_id", null: false
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.index ["hint_id"], name: "index_evidence_rule_hints_on_hint_id"
+    t.index ["rule_id"], name: "index_evidence_rule_hints_on_rule_id"
   end
 
   create_table "evidence_prompt_healths", force: :cascade do |t|
@@ -236,5 +248,7 @@ ActiveRecord::Schema.define(version: 2022_11_10_063922) do
   add_foreign_key "comprehension_labels", "comprehension_rules", column: "rule_id", on_delete: :cascade
   add_foreign_key "comprehension_plagiarism_texts", "comprehension_rules", column: "rule_id", on_delete: :cascade
   add_foreign_key "comprehension_regex_rules", "comprehension_rules", column: "rule_id", on_delete: :cascade
+  add_foreign_key "evidence_rule_hints", "comprehension_rules", column: "rule_id", on_delete: :cascade
+  add_foreign_key "evidence_rule_hints", "evidence_hints", column: "hint_id", on_delete: :cascade
   add_foreign_key "evidence_prompt_healths", "evidence_activity_healths", on_delete: :cascade
 end

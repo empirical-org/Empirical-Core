@@ -10,11 +10,10 @@ module Evidence
       it { should validate_presence_of(:explanation) }
       it { should validate_presence_of(:image_link) }
       it { should validate_presence_of(:image_alt_text) }
-      it { should validate_presence_of(:rule) }
     end
 
     context 'should relationships' do
-      it { should belong_to(:rule) }
+      it { should have_many(:rules) }
     end
 
   end

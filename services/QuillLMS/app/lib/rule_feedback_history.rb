@@ -1,12 +1,12 @@
 # frozen_string_literal: true
 
 class RuleFeedbackHistory
-  def self.generate_report(conjunction:, activity_id:, start_date: nil, end_date: nil)
-    sql_result = exec_query(conjunction: conjunction, activity_id: activity_id, start_date: start_date, end_date: end_date)
+  def self.generate_report(conjunction:, activity_id:, start_date: nil, end_date: nil, activity_version: nil)
+    sql_result = exec_query(conjunction: conjunction, activity_id: activity_id, start_date: start_date, end_date: end_date, activity_version: activity_version)
     format_sql_results(sql_result)
   end
 
-  def self.exec_query(conjunction:, activity_id:, start_date:, end_date:)
+  def self.exec_query(conjunction:, activity_id:, start_date:, end_date:, activity_version: nil)
     query = Evidence::Rule.select(<<~SELECT
       comprehension_rules.id,
       comprehension_rules.uid AS rules_uid,
@@ -34,6 +34,7 @@ class RuleFeedbackHistory
     .includes(:feedbacks)
     query = query.where("feedback_histories.time >= ?", start_date) if start_date
     query = query.where("feedback_histories.time <= ?", end_date) if end_date
+    query = query.where("feedback_histories.activity_version = ?", activity_version) if activity_version
     query
   end
 

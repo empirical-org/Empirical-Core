@@ -9,7 +9,7 @@
           <%= link_to 'Home', dashboard_teachers_classrooms_path %>
         </li>
 
-        <% if current_user.admin? %>
+        <% if current_user.admin? && !admin_impersonating_user?(current_user) %>
           <li class="admin-tab <%= 'active' if admin_page_should_be_active? %>">
             <%= link_to 'School Dashboard', teachers_admin_dashboard_path, role: 'tab' %>
           </li>

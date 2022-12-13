@@ -56,7 +56,7 @@ class ProfilesController < ApplicationController
   end
 
   def teacher
-    if @user.schools_admins.any?
+    if @user.schools_admins.any? && !admin_impersonating_user?(@user)
       redirect_to teachers_admin_dashboard_path
     else
       redirect_to dashboard_teachers_classrooms_path
