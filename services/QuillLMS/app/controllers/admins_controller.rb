@@ -9,14 +9,6 @@ class AdminsController < ApplicationController
     ]
 
   before_action :admin!
-  before_action :set_teacher,
-    :admin_of_this_teacher!,
-    :sign_in,
-    only: %w{
-      sign_in_classroom_manager
-      sign_in_progress_reports
-      sign_in_account_settings
-    }
 
   before_action :set_teacher, :admin_of_this_teacher!,
     only: %w{
@@ -24,6 +16,16 @@ class AdminsController < ApplicationController
       remove_as_admin
       make_admin
       unlink_from_school
+      sign_in_classroom_manager
+      sign_in_progress_reports
+      sign_in_account_settings
+    }
+
+  before_action :sign_in,
+    only: %w{
+      sign_in_classroom_manager
+      sign_in_progress_reports
+      sign_in_account_settings
     }
 
   def show
@@ -103,7 +105,7 @@ class AdminsController < ApplicationController
       end
     else
       # Create a new teacher, and automatically join them to the school.
-      handle_new_user
+      handle_new_user(is_admin)
     end
 
     if @teacher.errors.empty?
@@ -117,6 +119,7 @@ class AdminsController < ApplicationController
   end
 
   private def set_teacher
+    puts 'SET TEACHER GETS CALLED'
     @teacher = User.find(params[:id])
   end
 
@@ -162,7 +165,7 @@ class AdminsController < ApplicationController
     end
   end
 
-  private def handle_new_user
+  private def handle_new_user(is_admin)
     @teacher = @school.users.create(teacher_params.merge({ role: 'teacher', password: teacher_params[:last_name] }))
     @teacher.refresh_token!
     ExpirePasswordTokenWorker.perform_in(30.days, @teacher.id)

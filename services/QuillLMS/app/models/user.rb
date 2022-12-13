@@ -449,7 +449,7 @@ class User < ApplicationRecord
     schools = administered_schools.includes(:users, :admins)
     return if schools.none?
 
-    schools.map{|school| school.users.ids && school.admins.ids }.flatten.uniq
+    schools.map{|school| school.users.ids + school.admins.ids }.flatten.uniq
   end
 
   def refresh_token!
