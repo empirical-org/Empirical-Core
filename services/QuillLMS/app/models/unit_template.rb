@@ -119,20 +119,6 @@ class UnitTemplate < ApplicationRecord
     serialized_unit_template
   end
 
-  def self.assign_to_whole_class(class_id, unit_template_id, last)
-    assign_on_join = true
-    student_ids = [] # student ids will be populated in the classroom activity assign_on_join callback
-    argument_hash = {
-      unit_template_id: unit_template_id,
-      classroom_id: class_id,
-      student_ids: student_ids,
-      last: last,
-      lesson: true,
-      assign_on_join: assign_on_join
-    }
-    AssignRecommendationsWorker.perform_async(**argument_hash)
-  end
-
   def self.delete_all_caches
     UnitTemplate.all.each { |ut| $redis.del("unit_template_id:#{ut.id}_serialized") }
     %w(private_ production_ gamma_ beta_ alpha_).each do |flag|
