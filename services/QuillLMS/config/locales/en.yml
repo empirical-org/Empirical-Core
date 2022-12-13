@@ -51,6 +51,9 @@ en:
     new_account:
       admin: "Admin added. They were notified by email."
       teacher: "Teacher added. They were notified by email."
+  accounts:
+    edit:
+      expired_link: "Sorry, this link has expired. Please contact your Quill admin or the <a href='mailto:hello@quill.org'>Quill support team</a>"
   activerecord:
     errors:
       models:
@@ -70,6 +73,3 @@ en:
           attributes:
             name:
               taken: "That class name already exists. Try another."
-    accounts:
-      edit:
-        expired_link: "Sorry, this link has expired. Please contact your Quill admin or the <a href='mailto:hello@quill.org'>Quill support team</a>"
