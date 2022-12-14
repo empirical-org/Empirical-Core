@@ -148,7 +148,6 @@ export const ReactTable = ({
   }, [pageIndex]);
   console.log("re render")
   console.log(data)
-  console.log(page)
 
   return (
     <div className={`${className} ReactTable`}>

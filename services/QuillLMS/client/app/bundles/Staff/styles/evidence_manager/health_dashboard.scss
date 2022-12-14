@@ -1,0 +1,28 @@
+.health-dashboards-index-container {
+  padding: 20px;
+  .search-box {
+    width: 600px;
+  }
+  .control {
+    float: left;
+  }
+  .csv-download-button {
+    float: right;
+  }
+  .second-input-row {
+    width: 700px;
+    padding-bottom: 30px;
+  }
+  .rt-th {
+    min-width: 100px;
+    width: 100px;
+    max-width: 9.0072e15px;
+    .sortable-header {
+      height: 80px;
+      display: block;
+    }
+    input {
+      width: 80px !important;
+    }
+  }
+}

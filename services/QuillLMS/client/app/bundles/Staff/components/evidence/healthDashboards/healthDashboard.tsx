@@ -196,14 +196,22 @@ export const HealthDashboard = ({ location, match }) => {
   const handleSearchByPrompt = (e) => {setPromptSearchInput(e.target.value)}
 
   const getFilteredData = (data) => {
+    console.log("getting filtered data")
+    console.log(data)
+    if (!data || !data.activity_healths) return []
 
     let filteredData = flag === ALL_FLAGS ? data.activity_healths : data.activity_healths.filter(data => data.flag === flag)
+
+    if (!filteredData) return []
     filteredData = filteredData.filter(value => {
       return (
         value.name && value.name.toLowerCase().includes(promptSearchInput.toLowerCase())
         // value.prompt_healths && value.prompt_healths.map(x => x.text || '').some(y => stripHtml(y).toLowerCase().includes(promptSearchInput.toLowerCase()))
       );
     })
+    console.log("filtered data is")
+    filteredData = {activity_healths: filteredData}
+    console.log(filteredData)
     return filteredData
   }
 
@@ -238,19 +246,23 @@ export const HealthDashboard = ({ location, match }) => {
   }
 
   function handleDataUpdate(sorted) {
+    console.log("data update being handled")
     console.log(sorted)
     const sortInfo = sorted[0];
     if (!sortInfo) { return }
 
-
-    const sortedRows = getSortedRows(rows, sortInfo)
-    const newIdSortedRows = sortedRows.map((r, i) => {
+    console.log("rows is")
+    console.log(rows)
+    const sortedRows = getSortedRows(rows.activity_healths, sortInfo)
+    const newIdSortedRows = {activity_healths: sortedRows.map((r, i) => {
       r.id = i
       return r
-    })
+    })}
+    console.log("sorted rows")
     console.log(sortedRows)
-    setRows(newIdSortedRows)
-    console.log(rows)
+    console.log("filtered data")
+    console.log(getFilteredData(newIdSortedRows))
+    setRows(getFilteredData(newIdSortedRows))
   }
 
 
@@ -284,20 +296,28 @@ export const HealthDashboard = ({ location, match }) => {
       <div className="health-dashboards-index-container">
         <section className="header-section">
           <h2>Activities Health Dashboard</h2>
-          <FlagDropdown flag={flag} handleFlagChange={handleFlagChange} isLessons={true} />
-          <input
-            aria-label="Search by prompt"
-            className="search-box"
-            name="searchInput"
-            onChange={handleSearchByPrompt}
-            placeholder="Search by prompt or activity name"
-            value={promptSearchInput || ""}
-          />
-          <div className="csv-download-button">
-            <button onClick={formatTableForCSV} style={{cursor: 'pointer'}} type="button">
-                Download CSV
-            </button>
+          <div className="first-input-row">
+            <FlagDropdown flag={flag} handleFlagChange={handleFlagChange} isLessons={true} />
+            <div className="csv-download-button">
+              <button onClick={formatTableForCSV} style={{cursor: 'pointer'}} type="button">
+                  Download CSV
+              </button>
+            </div>
           </div>
+
+          <div className="second-input-row">
+            <input
+              aria-label="Search by prompt"
+              className="search-box"
+              name="searchInput"
+              onChange={handleSearchByPrompt}
+              placeholder="Search by prompt or activity name"
+              value={promptSearchInput || ""}
+            />
+          </div>
+
+
+
           <div>
             {/* <CSVLink
               data={dataToDownload}
@@ -310,12 +330,12 @@ export const HealthDashboard = ({ location, match }) => {
           <ReactTable
             className="activity-healths-table"
             columns={dataTableFields}
-            data={rows || []}
+            data={(rows && getFilteredData(rows).activity_healths) || []}
             defaultPageSize={(rows && rows.length) || 0}
             manualSortBy
             onSortedChange={handleDataUpdate}
-            filterable={true}
-          />)
+            filterable
+          />
         </section>
       </div>
     </React.Fragment>
