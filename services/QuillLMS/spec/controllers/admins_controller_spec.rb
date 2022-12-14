@@ -83,7 +83,7 @@ describe AdminsController  do
     before do
       create(:schools_admins, school: school, user: teacher)
     end
-    
+
     it 'should destroy the schools admins record and return a message' do
       post :remove_as_admin, params: { id: teacher.id, school_id: school.id  }
       expect(SchoolsAdmins.find_by(user_id: teacher.id, school_id: school.id)).not_to be
