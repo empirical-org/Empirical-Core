@@ -56,14 +56,5 @@ class AdminDashboardUserMailer < UserMailer
     @link_school_link = "#{ENV['DEFAULT_URL']}/teachers/#{@user.id}/schools/#{@new_school.id}"
     mail to: user.email, subject: "#{user.first_name}, you are now a Quill admin for #{new_school.name}"
   end
-
-  private def link_for_setting_password(role)
-    params = {
-      accountType: role,
-      adminFullName: @admin_name,
-      schoolName: @school_name
-    }
-    @set_password_link = "#{ENV['DEFAULT_URL']}/account/#{@user.token}/finish_set_up?#{params.to_query}"
-  end
-
+  
 end

@@ -13,6 +13,7 @@ describe UserAdminSerializer do
 
     let(:expected_serialized_keys) do
       %w{
+        associated_school
         id
         name
         email
