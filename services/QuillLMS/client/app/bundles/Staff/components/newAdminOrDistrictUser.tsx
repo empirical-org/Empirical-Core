@@ -48,8 +48,8 @@ const NewAdminOrDistrictUser = ({ type, return_url, school_id, district_id }: Ne
     } else {
       setError('');
       const params = {
-        name: `${firstName} ${lastName}`,
-        email
+        name: `${firstName.trim()} ${lastName.trim()}`,
+        email: email.trim()
       }
       requestPost(`/cms/users/create_admin_user/${school_id}`, params, (body) => {
         if(body.error) {

@@ -364,6 +364,7 @@ class Cms::UsersController < Cms::CmsController
 
   private def create_admin_user_for_existing_user(user, new_user=false)
     school_id = params[:school_id]
+    should_render_school_view = params[:is_make_admin_button]
     if user.admin?
       school_name = SchoolsAdmins.find_by(school_id: school_id).school.name
       render json: { message: "This account already exists and is an admin of #{school_name}." }
@@ -378,9 +379,15 @@ class Cms::UsersController < Cms::CmsController
         return render json: { error: e.message }
       end
 
-      user.mailer_user.determine_email_and_send(school_id: school_id, new_user: new_user)
+      user.mailer_user.determine_email_and_send(school_id, new_user)
       returned_message = new_user ? "School admin added. They were notified by email." : "This account already exists. They were made an admin and notified by email."
-      render json: { message: returned_message }, status: 200
+
+      if should_render_school_view
+        flash[:success] = returned_message
+        redirect_to cms_school_path(school_id)
+      else
+        render json: { message: returned_message }, status: 200
+      end
     end
   end
 

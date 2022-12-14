@@ -29,7 +29,7 @@
                 <% if !teacher['admin_id'].blank? %>
                   <%= button_to 'Remove Admin', cms_user_remove_admin_url(:user_id => teacher['user_id'], :school_id => params[:id]), method: :put, class: 'fake-button-link' %>
                 <% else %>
-                  <%= button_to 'Make Admin', cms_user_make_admin_url(:user_id => teacher['user_id'], :school_id => params[:id]), method: :put, class: 'fake-button-link' %>
+                  <%= button_to 'Make Admin', create_admin_user_cms_users_path(email: teacher['email'], school_id: params[:id], is_make_admin_button: true), method: :post, class: 'fake-button-link' %>
                 <% end %>
                 <%= button_to 'Unlink from School', unlink_cms_school_path(teacher_id: teacher['user_id']), method: :post, remote: true, class: 'fake-button-link' %>
 

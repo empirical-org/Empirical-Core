@@ -7,13 +7,13 @@ module Mailer
       linked_school = self.school
 
       if school && new_user
-        send_internal_tool_admin_account_created_email(school_name: school.name)
+        send_internal_tool_admin_account_created_email(school.name)
       elsif school && new_user == false && !linked_school
-        send_internal_tool_made_school_admin_link_school_email(school: school)
+        send_internal_tool_made_school_admin_link_school_email(school)
       elsif school && new_user == false && school == linked_school
-        send_internal_tool_made_school_admin_email(school_name: school.name)
+        send_internal_tool_made_school_admin_email(school.name)
       elsif school && new_user == false && school != linked_school
-        send_internal_tool_made_school_admin_change_school_email(new_school: school, existing_school: linked_school)
+        send_internal_tool_made_school_admin_change_school_email(school, linked_school)
       end
     end
 
