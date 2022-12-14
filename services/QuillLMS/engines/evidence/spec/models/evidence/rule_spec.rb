@@ -29,6 +29,7 @@ module Evidence
       it { should have_many(:prompts_rules) }
       it { should have_many(:prompts).through(:prompts_rules) }
       it { should have_many(:regex_rules).dependent(:destroy) }
+      it { should belong_to(:hint) }
     end
 
     context 'should before_validation' do

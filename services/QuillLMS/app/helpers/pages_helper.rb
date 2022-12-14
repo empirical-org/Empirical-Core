@@ -129,11 +129,6 @@ module PagesHelper
             img: 'team-emilia-friedberg@2x.png'
           },
           {
-            name: 'Daniel Giovanniello',
-            title: 'Senior Partnerships Specialist ',
-            img: 'team-daniel-giovanniello@2x.png'
-          },
-          {
             name: 'Peter Kong',
             title: 'Senior Software Engineer II',
             img: 'team-peter-kong@2x.png'

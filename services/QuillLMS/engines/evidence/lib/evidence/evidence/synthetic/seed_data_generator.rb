@@ -150,11 +150,16 @@ module Evidence
 
       private def parse_completion_api_results(api_results, current_texts:, seed:, noun: nil, label: nil)
         api_results
+          .map {|s| lowercaser.run(s) }
           .map {|s| Result.new(text: [noun, s].join(SPACE).strip, seed: seed, label: label)}
           .uniq {|r| r.text }
           .reject {|r| r.text.in?(current_texts)}
           .reject {|r| regex_exclude?(r.text) }
           .reject {|r| opinion_api_flagged?(r.text) }
+      end
+
+      private def lowercaser
+        @lowercaser ||= Evidence::SafeFirstLowercaser.new(passage)
       end
 
       private def prompt_text(context: BLANK, noun: BLANK, stem_variant: stem)

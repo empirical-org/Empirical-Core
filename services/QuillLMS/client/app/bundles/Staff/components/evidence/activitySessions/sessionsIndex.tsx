@@ -1,18 +1,15 @@
 import * as React from "react";
-import { Link } from 'react-router-dom';
 import { useQuery } from 'react-query';
-import * as moment from 'moment';
 import { firstBy } from 'thenby';
 
 import FilterWidget from "../shared/filterWidget";
-import { getVersionOptions, handlePageFilterClick, activitySessionIndexResponseHeaders } from "../../../helpers/evidence/miscHelpers";
+import { getVersionOptions, handlePageFilterClick, activitySessionIndexResponseHeaders, colorCodeAttemptsCount, formatSessionsData } from "../../../helpers/evidence/miscHelpers";
 import { renderHeader } from "../../../helpers/evidence/renderHelpers";
 import { Error, Spinner, DropdownInput, ReactTable, Tooltip, informationIcon } from '../../../../Shared/index';
-import { fetchActivity, fetchActivitySessions, fetchActivityVersions } from '../../../utils/evidence/activityAPIs';
+import { fetchActivity, fetchActivitySessions, fetchActivityVersions, fetchActivitySessionsDataForCSV } from '../../../utils/evidence/activityAPIs';
 import { DropdownObjectInterface, ActivitySessionInterface, ActivitySessionsInterface } from '../../../interfaces/evidenceInterfaces';
 import { activitySessionFilterOptions, SESSION_INDEX } from '../../../../../constants/evidence';
-
-const quillCheckmark = 'https://assets.quill.org/images/icons/check-circle-small.svg';
+import { renderCSVDownloadButton } from "../../../helpers/evidence/miscHelpers";
 
 const SessionsIndex = ({ match }) => {
   const { params } = match;
@@ -37,8 +34,9 @@ const SessionsIndex = ({ match }) => {
   const [startDateForQuery, setStartDate] = React.useState<string>(initialStartDateString);
   const [endDate, onEndDateChange] = React.useState<Date>(initialEndDate);
   const [endDateForQuery, setEndDate] = React.useState<string>(initialEndDateString);
-  const [responsesForScoring, setResponsesForScoring] = React.useState<boolean>(false)
-  const [responsesForScoringForQuery, setResponsesForScoringForQuery] = React.useState<boolean>(false)
+  const [responsesForScoring, setResponsesForScoring] = React.useState<boolean>(false);
+  const [responsesForScoringForQuery, setResponsesForScoringForQuery] = React.useState<boolean>(false);
+  const [csvDataLoadInitiated, setCsvDataLoadInitiated] = React.useState<boolean>(false);
 
   // cache activity data for updates
   const { data: activityData } = useQuery({
@@ -50,6 +48,12 @@ const SessionsIndex = ({ match }) => {
   const { data: sessionsData } = useQuery({
     queryKey: [`activity-${activityId}-sessions`, activityId, pageNumberForQuery, startDateForQuery, filterOptionForQuery, endDateForQuery, responsesForScoringForQuery],
     queryFn: fetchActivitySessions
+  });
+
+  // cache activity sessions data for updates
+  const { data: sessionsCSVData } = useQuery({
+    queryKey: [`activity-${activityId}-sessions-csv-data`, activityId, startDateForQuery, filterOptionForQuery, endDateForQuery, responsesForScoringForQuery, csvDataLoadInitiated],
+    queryFn: fetchActivitySessionsDataForCSV
   });
 
   const { data: activityVersionData } = useQuery({
@@ -84,12 +88,13 @@ const SessionsIndex = ({ match }) => {
     if(sessionsData && sessionsData.activitySessions && sessionsData.activitySessions.activity_sessions && startDateForQuery) {
       const { activitySessions } = sessionsData;
       const { activity_sessions } = activitySessions;
-      const rows = formatSessionsData(activity_sessions);
+      const rows = formatSessionsData(activityId, activity_sessions);
       setRowData(rows);
     }
   }, [sessionsData]);
 
   function handleFilterClick(e: React.SyntheticEvent, passedVersionOption?: DropdownObjectInterface) {
+    setCsvDataLoadInitiated(false);
     handlePageFilterClick({ startDate, endDate, filterOption, versionOption: passedVersionOption || versionOption, responsesForScoring, setStartDate, setEndDate, setPageNumber, setFilterOptionForQuery, setResponsesForScoringForQuery, storageKey: SESSION_INDEX });
   }
 
@@ -104,7 +109,7 @@ const SessionsIndex = ({ match }) => {
   function handleDataUpdate(activitySessions, sorted) {
     if(startDateForQuery)  {
       const sortInfo = sorted[0];
-      const rows = formatSessionsData(activity_sessions);
+      const rows = formatSessionsData(activityId, activitySessions);
       const sortedRows = sortedSessions(rows, sortInfo)
       setRowData(sortedRows);
     }
@@ -135,6 +140,10 @@ const SessionsIndex = ({ match }) => {
     setResponsesForScoring(!responsesForScoring);
   }
 
+  function handleLoadCSVDataClick() {
+    setCsvDataLoadInitiated(true);
+  }
+
   function getSortedRows({ activitySessions, id, directionOfSort }) {
     const columnOptions  = ['total_attempts', 'because_attempts', 'but_attempts', 'so_attempts'];
     if(columnOptions.includes(id)) {
@@ -153,36 +162,6 @@ const SessionsIndex = ({ match }) => {
     } else {
       return activitySessions;
     }
-  }
-
-  function colorCodeAttemptsCount(attemptCount, isOptimal) {
-    if(isOptimal) {
-      return attemptCount
-    }
-    return <p className="sub-optimal-attempt">{attemptCount}</p>
-  }
-
-  function formatSessionsData(activitySessions: ActivitySessionInterface[]) {
-    return activitySessions.map(session => {
-      const { start_date, session_uid, because_attempts, because_optimal, but_attempts, but_optimal, so_attempts, so_optimal, complete } = session;
-      const dateObject = new Date(start_date);
-      const date = moment(dateObject).format("MM/DD/YY");
-      const time = moment(dateObject).format("hh:mm a");
-      const total = because_attempts + but_attempts + so_attempts;
-      const formattedSession = {
-        ...session,
-        id: session_uid,
-        session_uid: session_uid ? session_uid.substring(0,6) : '',
-        datetime: `${date} ${time}`,
-        because_attempts: colorCodeAttemptsCount(because_attempts, because_optimal),
-        but_attempts: colorCodeAttemptsCount(but_attempts, but_optimal),
-        so_attempts: colorCodeAttemptsCount(so_attempts, so_optimal),
-        total_attempts: total,
-        view_link: <Link className="data-link" rel="noopener noreferrer" target="_blank" to={`/activities/${activityId}/activity-sessions/${session_uid}/overview`}>View</Link>,
-        completed: complete ? <img alt="quill-circle-checkmark" src={quillCheckmark} /> : ""
-      };
-      return formattedSession;
-    });
   }
 
   if(!sessionsData) {
@@ -246,16 +225,19 @@ const SessionsIndex = ({ match }) => {
               <input checked={responsesForScoring} onChange={handleResponsesForScoringChange} type="checkbox" />
             </section>
           </section>
-          <FilterWidget
-            endDate={endDate}
-            handleFilterClick={handleFilterClick}
-            handleVersionSelection={handleVersionSelection}
-            onEndDateChange={onEndDateChange}
-            onStartDateChange={onStartDateChange}
-            selectedVersion={versionOption}
-            startDate={startDate}
-            versionOptions={versionOptions}
-          />
+          <section className="bottom-section">
+            <FilterWidget
+              endDate={endDate}
+              handleFilterClick={handleFilterClick}
+              handleVersionSelection={handleVersionSelection}
+              onEndDateChange={onEndDateChange}
+              onStartDateChange={onStartDateChange}
+              selectedVersion={versionOption}
+              startDate={startDate}
+              versionOptions={versionOptions}
+            />
+            {renderCSVDownloadButton(csvDataLoadInitiated, handleLoadCSVDataClick, sessionsCSVData)}
+          </section>
         </section>
         <ReactTable
           className="activity-sessions-table"

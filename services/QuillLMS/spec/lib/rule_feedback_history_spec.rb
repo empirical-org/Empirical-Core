@@ -67,20 +67,15 @@ RSpec.describe RuleFeedbackHistory, type: :model do
 
   describe '#generate_report' do
     it 'should format' do
-      # activities
       activity1 = activity_factory { {title: 'Title 1', parent_activity_id: 1, target_level: 1, notes: 'an_activity_1'} }
 
-      # prompts
       so_prompt1 = prompt_factory { {activity: activity1, conjunction: 'so', text: 'Some feedback text', max_attempts_feedback: 'Feedback'} }
       because_prompt1 = prompt_factory { {activity: activity1, conjunction: 'because', text: 'Some feedback text', max_attempts_feedback: 'Feedback'} }
 
-      # rules
       so_rule1 = rule_factory { { name: 'so_rule1', rule_type: 'autoML'} }
 
-      # prompts_rules
       prompt_rule = prompt_rule_factory { {prompt: so_prompt1, rule: so_rule1} }
 
-      # feedback
       so_feedback1 = feedback_factory { { rule: so_rule1 } }
       so_feedback2 = feedback_factory { { rule: so_rule1, order: 2 } }
 
@@ -88,21 +83,17 @@ RSpec.describe RuleFeedbackHistory, type: :model do
       second_confidence_level = 0.8523
       average_confidence_level = (((first_confidence_level + second_confidence_level) / 2) * 100).round
 
-      # feedback_histories
       f_h1 = create(:feedback_history, prompt: so_prompt1, rule_uid: so_rule1.uid, entry: "f_h1 lorem", metadata: {api: {confidence: first_confidence_level}})
       f_h2 = create(:feedback_history, prompt: so_prompt1, rule_uid: so_rule1.uid, entry: "f_h2 ipsum", metadata: {api: {confidence: second_confidence_level}})
 
-      # users
       user1 = create(:user)
       user2 = create(:user)
 
-      #feedback ratings
       f_rating_1a = FeedbackHistoryRating.create!(feedback_history_id: f_h1.id, user_id: user1.id, rating: true)
       f_rating_1b = FeedbackHistoryRating.create!(feedback_history_id: f_h1.id, user_id: user2.id, rating: false)
       f_rating_2a = FeedbackHistoryRating.create!(feedback_history_id: f_h2.id, user_id: user1.id, rating: true)
       f_rating_2b = FeedbackHistoryRating.create!(feedback_history_id: f_h2.id, user_id: user2.id, rating: nil)
 
-      #feedback flags
       flag_consecutive = create(:feedback_history_flag, feedback_history_id: f_h1.id, flag: FeedbackHistoryFlag::FLAG_REPEATED_RULE_CONSECUTIVE)
       flag_non_consecutive = create(:feedback_history_flag, feedback_history_id: f_h1.id, flag: FeedbackHistoryFlag::FLAG_REPEATED_RULE_NON_CONSECUTIVE)
 
@@ -131,35 +122,58 @@ RSpec.describe RuleFeedbackHistory, type: :model do
 
   describe '#exec_query' do
     it 'should aggregate feedbacks for a given rule' do
-      # activities
       activity1 = Evidence::Activity.create!(title: 'Title 1', parent_activity_id: 1, target_level: 1, notes: 'an_activity_1')
 
-      # prompts
       so_prompt1 = Evidence::Prompt.create!(activity: activity1, conjunction: 'so', text: 'Some feedback text', max_attempts_feedback: 'Feedback')
       because_prompt1 = Evidence::Prompt.create!(activity: activity1, conjunction: 'because', text: 'Some feedback text', max_attempts_feedback: 'Feedback')
 
-      # rules
       so_rule1 = rule_factory { { name: 'so_rule1', rule_type: 'autoML' } }
       so_rule2 = rule_factory { { name: 'so_rule2', rule_type: 'autoML' } }
       so_rule3 = rule_factory { { name: 'so_rule3', rule_type: 'autoML' } }
       so_rule4 = rule_factory { { name: 'so_rule4', rule_type: 'autoML' } }
 
-      # prompts_rules
       prompt_rule = prompt_rule_factory { {prompt: so_prompt1, rule: so_rule1} }
       prompt_rule = prompt_rule_factory { {prompt: so_prompt1, rule: so_rule2} }
       prompt_rule = prompt_rule_factory { {prompt: so_prompt1, rule: so_rule3} }
       prompt_rule = prompt_rule_factory { {prompt: so_prompt1, rule: so_rule4} }
 
-      # activity_session
       activity_session = create(:activity_session)
 
-      # feedbacks
       create(:feedback_history, prompt: so_prompt1, rule_uid: so_rule2.uid, time: "2021-04-07T19:02:54.814Z", feedback_session_uid: "def")
       create(:feedback_history, prompt: so_prompt1, rule_uid: so_rule3.uid, time: "2021-05-07T19:02:54.814Z", feedback_session_uid: "ghi")
       create(:feedback_history, prompt: so_prompt1, rule_uid: so_rule4.uid, time: "2021-06-07T19:02:54.814Z", feedback_session_uid: "abc")
 
       sql_result = RuleFeedbackHistory.exec_query(conjunction: 'so', activity_id: activity1.id, start_date: "2021-03-06T19:02:54.814Z", end_date: "2021-04-10T19:02:54.814Z")
       expect(sql_result.all.length).to eq 1
+      expect(sql_result[0].rule_type).to eq 'autoML'
+    end
+
+    it 'should filter by activity_version if specified' do
+      activity1 = Evidence::Activity.create!(title: 'Title 1', parent_activity_id: 1, target_level: 1, notes: 'an_activity_1')
+
+      so_prompt1 = Evidence::Prompt.create!(activity: activity1, conjunction: 'so', text: 'Some feedback text', max_attempts_feedback: 'Feedback')
+      because_prompt1 = Evidence::Prompt.create!(activity: activity1, conjunction: 'because', text: 'Some feedback text', max_attempts_feedback: 'Feedback')
+
+      so_rule1 = rule_factory { { name: 'so_rule1', rule_type: 'autoML' } }
+      so_rule2 = rule_factory { { name: 'so_rule2', rule_type: 'autoML' } }
+      so_rule3 = rule_factory { { name: 'so_rule3', rule_type: 'autoML' } }
+      so_rule4 = rule_factory { { name: 'so_rule4', rule_type: 'autoML' } }
+
+      prompt_rule = prompt_rule_factory { {prompt: so_prompt1, rule: so_rule1} }
+      prompt_rule = prompt_rule_factory { {prompt: so_prompt1, rule: so_rule2} }
+      prompt_rule = prompt_rule_factory { {prompt: so_prompt1, rule: so_rule3} }
+      prompt_rule = prompt_rule_factory { {prompt: so_prompt1, rule: so_rule4} }
+
+      activity_session = create(:activity_session)
+
+      create(:feedback_history, prompt: so_prompt1, rule_uid: so_rule2.uid, time: "2021-04-07T19:02:54.814Z", feedback_session_uid: "def", activity_version: 2)
+      create(:feedback_history, prompt: so_prompt1, rule_uid: so_rule3.uid, time: "2021-04-07T19:02:54.814Z", feedback_session_uid: "ghi", activity_version: 2)
+      create(:feedback_history, prompt: so_prompt1, rule_uid: so_rule4.uid, time: "2021-04-07T19:02:54.814Z", feedback_session_uid: "abc", activity_version: 1)
+
+      sql_result = RuleFeedbackHistory.exec_query(conjunction: 'so', activity_id: activity1.id, start_date: "2021-03-06T19:02:54.814Z", end_date: "2021-04-10T19:02:54.814Z", activity_version: 2)
+      expect(sql_result.all.length).to eq 2
+      expect(sql_result.select {|rf| rf['rules_uid'] == so_rule4.uid}.empty?).to be
+
       expect(sql_result[0].rule_type).to eq 'autoML'
     end
   end
@@ -243,16 +257,13 @@ RSpec.describe RuleFeedbackHistory, type: :model do
       so_rule1 = rule_factory { { name: 'so_rule1', rule_type: 'autoML'} }
       unused_rule = rule_factory { { name: 'unused', rule_type: 'autoML'} }
 
-      # users
       user1 = create(:user)
       user2 = create(:user)
 
-      # feedback histories
       f_h1 = create(:feedback_history, rule_uid: so_rule1.uid, prompt_id: 1)
       f_h2 = create(:feedback_history, rule_uid: so_rule1.uid, prompt_id: 1)
       f_h3 = create(:feedback_history, rule_uid: unused_rule.uid, prompt_id: 1)
 
-      # feedback history ratings
       f_h_r1_old = FeedbackHistoryRating.create!(
         feedback_history_id: f_h1.id,
         user_id: user1.id,

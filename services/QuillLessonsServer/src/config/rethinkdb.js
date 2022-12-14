@@ -5,13 +5,13 @@ export const rethinkdbConfig = (hosts, server, authKey, publicKey, useSSL) => {
   const db = 'quill_lessons';
   const hostWithPort = rethinkDBHost(hosts, server);
   const [host, port] = splitStringOnLast(hostWithPort, ':');
-  const ssl = (useSSL === 'true') ? { ca: Buffer.from(publicKey, 'utf8') } : undefined;
+  const ssl = (useSSL === 'true') ? { ca_certs: Buffer.from(publicKey, 'utf8') } : undefined;
 
   return {
     host,
     port,
     db,
-    authKey,
+    password: authKey,
     ssl,
   }
 }

@@ -3,6 +3,7 @@ import { Redirect, Route, Switch, withRouter } from 'react-router-dom';
 
 import Activities from './activities';
 import Activity from './activity';
+import Hints from './hints';
 import UniversalRulesIndex from './universalRules/universalRules';
 import UniversalRule from './universalRules/universalRule';
 
@@ -14,6 +15,7 @@ const EvidenceLanding = () => (
       <Route component={UniversalRule} path='/universal-rules/:ruleId' />
       <Route component={UniversalRulesIndex} path='/universal-rules' />
       <Route component={Activities} path='/activities' />
+      <Route component={Hints} path='/hints/:hintId?' />
     </Switch>
   </div>
 )

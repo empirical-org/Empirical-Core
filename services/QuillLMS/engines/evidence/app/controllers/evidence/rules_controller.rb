@@ -45,6 +45,8 @@ module Evidence
 
     # DELETE /rules/1.json
     def destroy
+      return head :not_found unless @rule
+
       @rule.destroy
       head :no_content
     end
@@ -80,7 +82,7 @@ module Evidence
     end
 
     private def rule_params
-      params.require(:rule).permit(:name, :note, :universal, :rule_type, :optimal, :state, :suborder, :concept_uid,
+      params.require(:rule).permit(:name, :note, :universal, :rule_type, :optimal, :state, :suborder, :concept_uid, :hint_id,
          prompt_ids: [],
          plagiarism_texts_attributes: [:id, :text, :_destroy],
          regex_rules_attributes: [:id, :regex_text, :case_sensitive, :sequence_type, :conditional],
@@ -95,6 +97,10 @@ module Evidence
     end
 
     private def set_lms_user_id
+      # If the ID provided to :update or :destroy doesn't correspond to an
+      # existing Rule, there's no need to try to set the user_id
+      return unless @rule
+
       @rule.lms_user_id = lms_user_id
     end
   end
