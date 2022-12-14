@@ -15,6 +15,7 @@ module Evidence
       # 2) Write a 'generate' function (also overwrite 'initialize' if you need passed-in options)
       # 3) Add type and class to this mapping
       GENERATORS = {
+        paraphrase: Synthetic::Generators::Paraphrase,
         translation: Synthetic::Generators::Translation,
         spelling: Synthetic::Generators::Spelling,
         spelling_passage_specific: Synthetic::Generators::SpellingPassageSpecific

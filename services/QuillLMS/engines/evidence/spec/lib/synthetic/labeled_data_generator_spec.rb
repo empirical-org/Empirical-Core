@@ -23,6 +23,12 @@ describe Evidence::Synthetic::LabeledDataGenerator do
     }
   end
 
+  let(:paraphrase_response) do
+    {
+      text1 => {'0' => 'word string', '1' => 'sentence string'}
+    }
+  end
+
   describe '#new' do
     subject { described_class.new(labeled_data, languages: [:es])}
 
@@ -80,6 +86,26 @@ describe Evidence::Synthetic::LabeledDataGenerator do
       expect(first_result.text).to eq text1
       expect(first_result.label).to eq label1
       expect(first_result.generated[:spelling]['their']).to eq 'ther response'
+    end
+  end
+
+
+  describe '#run paraphrase' do
+    let(:passage) {'passage text'}
+    let(:generator) { described_class.run(labeled_data, generators: [:paraphrase], languages: [:es], passage: passage)}
+
+    it 'fetch and store paraphrases' do
+      expect(Evidence::Synthetic::Generators::Paraphrase).to receive(:run)
+        .with([text1, text2], {:languages=>[:es], passage: passage})
+        .and_return(paraphrase_response)
+
+      expect(generator.results.count).to eq 2
+
+      first_result = generator.results.first
+
+      expect(first_result.text).to eq text1
+      expect(first_result.label).to eq label1
+      expect(first_result.generated[:paraphrase]['0']).to eq 'word string'
     end
   end
 
@@ -179,6 +205,7 @@ describe Evidence::Synthetic::LabeledDataGenerator do
 
       allow(Evidence::Synthetic::Generators::Translation).to receive(:run).with([text1, text2], {:languages=>[:es], passage: nil}).and_return(translation_response)
       allow(Evidence::Synthetic::Generators::Spelling).to receive(:run).with([text1, text2], {:languages=>[:es], passage: nil}).and_return(spelling_response)
+      allow(Evidence::Synthetic::Generators::Paraphrase).to receive(:run).with([text1, text2], {:languages=>[:es], passage: nil}).and_return(paraphrase_response)
     end
 
     it "should generate a hash of csv_strings" do
@@ -193,7 +220,7 @@ describe Evidence::Synthetic::LabeledDataGenerator do
 
       # values should be a multi-line valid CSV
       csv = CSV.parse(output[automl_name])
-      expect(csv.size).to be 7
+      expect(csv.size).to be 9
       first_row = csv.first
       expect(first_row.first).to(satisfy {|v| v.in?(["TRAIN", "TEST", "VALIDATION"])})
       expect(first_row.second).to eq text1
