@@ -46,8 +46,6 @@ module Evidence
         BECAUSE => [/^of/],
       }
 
-      PARAPHRASE_INSTRUCTION = "rephrase with some synonyms:\n\n"
-
       attr_reader :passage, :stem, :conjunction, :nouns, :results, :label_configs
 
       # returns a hash of the form {'csv name' => CSVString, 'csv name2' =>...}
@@ -126,7 +124,7 @@ module Evidence
       private def generate_label_paraphrases
         label_configs.each do |label_config|
           label_config[EXAMPLES_KEY].map(&:strip).uniq.compact.each.with_index do |example, index|
-            prompt = PARAPHRASE_INSTRUCTION + example
+            prompt = Evidence::OpenAI::PARAPHRASE_INSTRUCTION + example
             run_prompt(
               prompt: prompt,
               count: EXAMPLE_COUNT,
