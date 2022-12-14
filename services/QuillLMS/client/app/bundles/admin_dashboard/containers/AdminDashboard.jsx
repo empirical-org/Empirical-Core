@@ -19,11 +19,6 @@ export class AdminDashboard extends React.Component {
       model: {
         teachers: [],
       },
-      newTeacher: {
-        first_name: null,
-        last_name: null,
-        email: null,
-      },
     };
   }
 

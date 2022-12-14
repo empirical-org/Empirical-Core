@@ -72,6 +72,7 @@ export class CreateNewAccounts extends React.Component<any, any> {
       school_id: school.value || school.id
     }
     addTeacherAccount(data)
+    this.setState({ firstName: '', lastName: '', email: '', role: null })
   }
 
   renderError = () => {
