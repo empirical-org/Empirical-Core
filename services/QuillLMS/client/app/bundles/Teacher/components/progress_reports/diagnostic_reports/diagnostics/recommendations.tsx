@@ -358,6 +358,7 @@ export const Recommendations = ({ passedPreviouslyAssignedRecommendations, passe
         setLessonsAssigned(true)
         setLessonsAssigning(false)
         getPreviouslyAssignedRecommendationData();
+        pusher.unsubscribe(classroomId)
       });
     } else {
       channel.bind('personalized-recommendations-assigned', (data) => {
@@ -365,6 +366,7 @@ export const Recommendations = ({ passedPreviouslyAssignedRecommendations, passe
         setIndependentAssigned(true)
         setIndependentAssigning(false)
         getPreviouslyAssignedRecommendationData();
+        pusher.unsubscribe(classroomId)
       });
     }
   }
