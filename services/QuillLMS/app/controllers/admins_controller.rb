@@ -53,11 +53,11 @@ class AdminsController < ApplicationController
 
     @teacher = User.find_by(email: teacher_params[:email])
 
-    is_admin = teacher_params[:role] == 'admin'
+    @is_admin = teacher_params[:role] == 'admin'
     teacher_params.delete(:role)
 
     if @teacher
-      if is_admin
+      if @is_admin
         handle_existing_user_submitted_as_admin
       else
         handle_existing_user_submitted_as_teacher
@@ -127,7 +127,7 @@ class AdminsController < ApplicationController
     @teacher = @school.users.create(teacher_params.merge({ role: 'teacher', password: teacher_params[:last_name] }))
     @teacher.refresh_token!
     ExpirePasswordTokenWorker.perform_in(30.days, @teacher.id)
-    if is_admin
+    if @is_admin
       SchoolsAdmins.create(user: @teacher, school: @school)
       @message = t('admin_created_account.new_account.admin')
       AdminDashboard::AdminAccountCreatedEmailWorker.perform_async(@teacher.id, current_user.id, @school.id, false)
