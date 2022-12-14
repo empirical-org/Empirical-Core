@@ -67,13 +67,13 @@ class AdminsController < ApplicationController
   end
 
   def remove_as_admin
-    SchoolsAdmins.find_by(user_id: params[:id], school_id: params[:school_id]).destroy
+    SchoolsAdmins.find_by(user_id: params[:id], school_id: params[:school_id]).destroy!
     reset_admin_users_cache
     render json: {message: t('admin.remove_admin')}, status: 200
   end
 
   def make_admin
-    SchoolsAdmins.create(user_id: params[:id], school_id: params[:school_id])
+    SchoolsAdmins.create!(user_id: params[:id], school_id: params[:school_id])
     AdminDashboard::MadeSchoolAdminEmailWorker.perform_async(params[:id], current_user.id, params[:school_id])
     reset_admin_users_cache
     render json: {message: t('admin.make_admin')}, status: 200
@@ -106,7 +106,7 @@ class AdminsController < ApplicationController
       end
     else
       # Create a new teacher, and automatically join them to the school.
-      handle_new_user(is_admin)
+      handle_new_user
     end
 
     if @teacher.errors.empty?
@@ -165,7 +165,7 @@ class AdminsController < ApplicationController
     end
   end
 
-  private def handle_new_user(is_admin)
+  private def handle_new_user
     @teacher = @school.users.create(teacher_params.merge({ role: 'teacher', password: teacher_params[:last_name] }))
     @teacher.refresh_token!
     ExpirePasswordTokenWorker.perform_in(30.days, @teacher.id)

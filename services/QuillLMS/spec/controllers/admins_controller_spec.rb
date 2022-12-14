@@ -45,6 +45,61 @@ describe AdminsController  do
     end
   end
 
+  describe '#resend_login_details' do
+    it 'sets the user token and schedules a worker to expire the token in 30 days' do
+      expect(ExpirePasswordTokenWorker).to receive(:perform_in)
+      post :resend_login_details, params: { id: teacher.id, school_id: school.id, role: 'teacher' }
+      expect(teacher.reload.token.present?).to be
+    end
+
+    describe 'and the submitted role is admin' do
+      it 'creates a school admin record, returns a message, and fires an email worker' do
+        expect(AdminDashboard::AdminAccountCreatedEmailWorker).to receive(:perform_async)
+        post :resend_login_details, params: { id: teacher.id, school_id: school.id, role: 'admin' }
+        expect(response.body).to eq({message: I18n.t('admin.resend_login_details')}.to_json)
+      end
+    end
+
+    describe 'and the submitted role is teacher' do
+      it 'returns a message and fires an email worker' do
+        expect(AdminDashboard::TeacherAccountCreatedEmailWorker).to receive(:perform_async)
+        post :resend_login_details, params: { id: teacher.id, school_id: school.id, role: 'teacher' }
+        expect(response.body).to eq({message: I18n.t('admin.resend_login_details')}.to_json)
+      end
+    end
+  end
+
+  describe '#make_admin' do
+    it 'should create a schools admins record, fire an email worker, and return a message' do
+      expect(AdminDashboard::MadeSchoolAdminEmailWorker).to receive(:perform_async)
+      post :make_admin, params: { id: teacher.id, school_id: school.id  }
+      expect(SchoolsAdmins.find_by(user_id: teacher.id, school_id: school.id)).to be
+      expect(response.body).to eq({message: I18n.t('admin.make_admin')}.to_json)
+    end
+  end
+
+  describe '#remove_as_admin' do
+
+    before do
+      create(:schools_admins, school: school, user: teacher)
+    end
+    
+    it 'should destroy the schools admins record and return a message' do
+      post :remove_as_admin, params: { id: teacher.id, school_id: school.id  }
+      expect(SchoolsAdmins.find_by(user_id: teacher.id, school_id: school.id)).not_to be
+      expect(response.body).to eq({message: I18n.t('admin.remove_admin')}.to_json)
+    end
+  end
+
+  describe '#unlink_from_school' do
+    it 'should destroy the schools users record and return a message' do
+      post :unlink_from_school, params: { id: teacher.id }
+      expect(teacher.reload.school).not_to be
+      expect(response.body).to eq({message: I18n.t('admin.unlink_teacher_from_school')}.to_json)
+    end
+  end
+
+
   describe '#create_and_link_accounts' do
     describe 'when the current user is not an admin of the school' do
       it 'should have a 422 status code' do
@@ -156,15 +211,5 @@ describe AdminsController  do
 
     end
   end
-
-  describe '#unlink_from_school' do
-    it 'unlinks teacher from school' do
-      expect(SchoolsUsers.find_by(user: teacher)).to be
-      expect($redis).to receive(:del).with("SERIALIZED_ADMIN_USERS_FOR_#{teacher.id}")
-      post :unlink_from_school, params: { teacher_id: teacher.id }
-      expect(SchoolsUsers.find_by(user: teacher)).not_to be
-    end
-  end
-
 
 end
