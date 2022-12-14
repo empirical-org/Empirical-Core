@@ -72,7 +72,7 @@ describe AdminsController  do
               expect(AdminDashboard::MadeSchoolAdminLinkSchoolEmailWorker).to receive(:perform_async)
               post :create_and_link_accounts, params: { id: admin.id, school_id: school.id, teacher: { role: 'admin', email: existing_teacher.email }}
               expect(response.body).to eq({message: I18n.t('admin_created_account.existing_account.admin.new')}.to_json)
-              expect (SchoolsAdmins.find_by(school: school, user: existing_teacher)).to be
+              expect(SchoolsAdmins.find_by(school: school, user: existing_teacher)).to be
             end
           end
 
@@ -83,7 +83,7 @@ describe AdminsController  do
               expect(AdminDashboard::MadeSchoolAdminEmailWorker).to receive(:perform_async)
               post :create_and_link_accounts, params: { id: admin.id, school_id: school.id, teacher: { role: 'admin', email: existing_teacher.email }}
               expect(response.body).to eq({message: I18n.t('admin_created_account.existing_account.admin.new')}.to_json)
-              expect (SchoolsAdmins.find_by(school: school, user: existing_teacher)).to be
+              expect(SchoolsAdmins.find_by(school: school, user: existing_teacher)).to be
             end
           end
 
@@ -95,7 +95,7 @@ describe AdminsController  do
               expect(AdminDashboard::MadeSchoolAdminChangeSchoolEmailWorker).to receive(:perform_async)
               post :create_and_link_accounts, params: { id: admin.id, school_id: school.id, teacher: { role: 'admin', email: existing_teacher.email }}
               expect(response.body).to eq({message: I18n.t('admin_created_account.existing_account.admin.new')}.to_json)
-              expect (SchoolsAdmins.find_by(school: school, user: existing_teacher)).to be
+              expect(SchoolsAdmins.find_by(school: school, user: existing_teacher)).to be
             end
           end
 
