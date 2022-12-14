@@ -21,9 +21,11 @@ module Evidence
         spelling_passage_specific: Synthetic::Generators::SpellingPassageSpecific
       }
 
+      DEFAULT_GENERATORS = GENERATORS.slice(:paraphrase, :spelling, :spelling_passage_specific)
+
       TEST_GENERATOR_KEYS = [:spelling_passage_specific]
 
-      FREE_GENERATORS = GENERATORS.except(:translations)
+      FREE_GENERATORS = GENERATORS.except(:translations, :paraphrase)
       DEFAULT_LANGUAGES = Evidence::Synthetic::Generators::Translation::TRAIN_LANGUAGES.keys
 
       attr_reader :results, :languages, :labels, :generators, :passage
@@ -32,7 +34,7 @@ module Evidence
       # texts_and_labels: [['text', 'label_5'],['text', 'label_1'],...]
       # languages: [:es, :ja, ...]
       # manual_types: bool, whether to assign TEXT,VALIDATION,TRAIN to each row
-      def initialize(texts_and_labels, languages: DEFAULT_LANGUAGES, generators: GENERATORS.keys, passage: nil, manual_types: false)
+      def initialize(texts_and_labels, languages: DEFAULT_LANGUAGES, generators: DEFAULT_GENERATORS.keys, passage: nil, manual_types: false)
         @languages = languages
         @manual_types = manual_types
         @generators = GENERATORS.slice(*generators)
