@@ -9,14 +9,14 @@ class UserAdminSerializer < ApplicationSerializer
   end
 
   def teachers
-    teacher_ids = User.find(object.id).admins_users
+    teacher_ids = User.find(object.id).admins_user_ids
     teachers_data = TeachersData.run(teacher_ids)
     teachers_data.map { |teacher_data| Admin::TeacherSerializer.new(teacher_data).as_json(root: false) }
   end
 
   def schools
     admin = User.find(object.id)
-    admin.administered_schools.select("schools.id, schools.nces_id, schools.name").sort_by(&:name)
+    admin.administered_schools.select(:id, :nces_id, :name).order(:name)
   end
 
 end

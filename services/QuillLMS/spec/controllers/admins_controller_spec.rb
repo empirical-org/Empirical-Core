@@ -47,7 +47,7 @@ describe AdminsController  do
 
   describe '#resend_login_details' do
     it 'sets the user token and schedules a worker to expire the token in 30 days' do
-      expect(ExpirePasswordTokenWorker).to receive(:perform_in)
+      expect(ExpirePasswordTokenWorker).to receive(:perform_in).with(30.days, teacher.id)
       post :resend_login_details, params: { id: teacher.id, school_id: school.id, role: 'teacher' }
       expect(teacher.reload.token.present?).to be
     end

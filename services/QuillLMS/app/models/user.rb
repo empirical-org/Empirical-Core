@@ -445,7 +445,7 @@ class User < ApplicationRecord
 
   ## End satismeter
 
-  def admins_users
+  def admins_user_ids
     schools = administered_schools.includes(:users, :admins)
     return if schools.none?
 

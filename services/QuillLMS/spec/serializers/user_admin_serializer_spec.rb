@@ -29,7 +29,7 @@ describe UserAdminSerializer do
     let!(:school) { create(:school) }
     let!(:schools_admins) { create(:schools_admins, school: school, user: record_instance) }
 
-    it 'the #teachers method returns an empty array' do
+    it 'the #teachers method returns one user (the existing schools admin)' do
       expect(UserAdminSerializer.new(record_instance).teachers.length).to be 1
     end
   end

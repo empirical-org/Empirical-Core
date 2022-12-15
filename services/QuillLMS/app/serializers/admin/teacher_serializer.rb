@@ -18,7 +18,7 @@ class Admin::TeacherSerializer < ApplicationSerializer
   def schools
     [object&.school].concat(object&.administered_schools).compact.uniq.map do |school|
       school_hash = { name: school.name, id: school.id }
-      school_hash[:role] = SchoolsAdmins.find_by(school: school, user: object) ? ADMIN : TEACHER
+      school_hash[:role] = SchoolsAdmins.exists?(school: school, user: object) ? ADMIN : TEACHER
       school_hash
     end
   end

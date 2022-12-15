@@ -67,7 +67,7 @@ class AdminsController < ApplicationController
   end
 
   def remove_as_admin
-    SchoolsAdmins.find_by(user_id: params[:id], school_id: params[:school_id]).destroy!
+    SchoolsAdmins&.find_by(user_id: params[:id], school_id: params[:school_id]).destroy!
     reset_admin_users_cache
     render json: {message: t('admin.remove_admin')}, status: 200
   end
@@ -88,8 +88,8 @@ class AdminsController < ApplicationController
   def create_and_link_accounts
     @school = School.find_by(id: params[:school_id])
 
-    if SchoolsAdmins.find_by(school: @school, user: current_user).nil?
-      render json: {errors: 'Something went wrong. If this problem persists, please contact us at hello@quill.org'}, status: 422
+    if SchoolsAdmins.exists?(school: @school, user: current_user).nil?
+      render json: {errors: t('admin.current_user_is_not_an_admin')}, status: 422
       return
     end
 
@@ -105,7 +105,6 @@ class AdminsController < ApplicationController
         handle_existing_user_submitted_as_teacher
       end
     else
-      # Create a new teacher, and automatically join them to the school.
       handle_new_user
     end
 
@@ -145,7 +144,7 @@ class AdminsController < ApplicationController
   end
 
   private def handle_existing_user_submitted_as_admin
-    if SchoolsAdmins.find_by(user: @teacher, school: @school)
+    if SchoolsAdmins.exists?(user: @teacher, school: @school)
       @message = t('admin_created_account.existing_account.admin.linked', school_name: @school.name)
     else
       SchoolsAdmins.create(user: @teacher, school: @school)
@@ -155,7 +154,7 @@ class AdminsController < ApplicationController
   end
 
   private def handle_existing_user_submitted_as_teacher
-    if SchoolsUsers.find_by(user: @teacher, school: @school)
+    if SchoolsUsers.exists?(user: @teacher, school: @school)
       # Teacher is already in the school, let the admin know.
       @message = t('admin_created_account.existing_account.teacher.linked', school_name: @school.name)
     else
@@ -166,6 +165,7 @@ class AdminsController < ApplicationController
   end
 
   private def handle_new_user
+    # Create a new teacher, and automatically join them to the school.
     @teacher = @school.users.create(teacher_params.merge({ role: 'teacher', password: teacher_params[:last_name] }))
     @teacher.refresh_token!
     ExpirePasswordTokenWorker.perform_in(30.days, @teacher.id)
