@@ -19,6 +19,7 @@ module Evidence
           strings.each do |string|
             results = api_results(string)
               .map {|s| lowercaser.run(s) }
+              .uniq
 
             # convert array to {'index' => item} hash to fit protocol
             result_hash = results
