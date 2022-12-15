@@ -18,7 +18,8 @@ export {
   TextFilter,
   expanderColumn,
   NumberFilterInput,
-  CheckboxFilter
+  CheckboxFilter,
+  CustomTextFilter,
 } from './components/reactTable/reactTable'
 
 export {

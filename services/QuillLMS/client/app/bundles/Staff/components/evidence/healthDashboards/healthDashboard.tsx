@@ -8,7 +8,7 @@ import { firstBy } from 'thenby';
 
 import Navigation from '../navigation'
 import { tableSort, sortTableByList } from '../../../../../../app/modules/sortingMethods.js'
-import { FlagDropdown, ReactTable, expanderColumn, TextFilter, NumberFilterInput, filterNumbers } from '../../../../Shared/index'
+import { FlagDropdown, ReactTable, expanderColumn, CustomTextFilter, TextFilter, NumberFilterInput, filterNumbers } from '../../../../Shared/index'
 import { fetchActivityHealths, fetchPromptHealth } from '../../../utils/evidence/ruleFeedbackHistoryAPIs';
 
 const ALL_FLAGS = "All Flags"
@@ -34,11 +34,11 @@ export const HealthDashboard = ({ location, match }) => {
   let reactTable = useRef(null);
   let csvLink = useRef(null);
 
-  // React.useEffect(() => {
-  //   if (dataToDownload.length > 1) {
-  //     csvLink.link.click();
-  //   }
-  // }, [dataToDownload]);
+  React.useEffect(() => {
+    if (dataToDownload.length > 0) {
+      csvLink.link.click();
+    }
+  }, [dataToDownload]);
 
   // get cached activity data to pass to rule
   const { data: activityHealthsData } = useQuery({
@@ -48,6 +48,8 @@ export const HealthDashboard = ({ location, match }) => {
 
   React.useEffect(() => {
     if (activityHealthsData && activityHealthsData.activityHealths) {
+      console.log("got new activity healths")
+      console.log(activityHealthsData.activityHealths)
       setRows(getFilteredData(activityHealthsData.activityHealths))
     }
   }, [activityHealthsData])
@@ -69,14 +71,7 @@ export const HealthDashboard = ({ location, match }) => {
       accessor: "version",
       key: "version",
       filter: filterNumbers,
-      Filter: ({ column, setFilter }) =>
-        (
-          <NumberFilterInput
-            column={column}
-            handleChange={setFilter}
-            label="Filter for version"
-          />
-        ),
+      Filter: TextFilter,
       width: 80,
     },
     {
@@ -84,14 +79,7 @@ export const HealthDashboard = ({ location, match }) => {
       accessor: "version_plays",
       key: "versionPlays",
       filter: filterNumbers,
-      Filter: ({ column, setFilter }) =>
-        (
-          <NumberFilterInput
-            column={column}
-            handleChange={setFilter}
-            label="Filter for version plays"
-          />
-        ),
+      Filter: TextFilter,
       width: 80,
       Cell: ({row}) => <span className="versionPlays">{addCommasToThousands(row.original.version_plays)}</span>
     },
@@ -100,14 +88,7 @@ export const HealthDashboard = ({ location, match }) => {
       accessor: "total_plays",
       key: "totalPlays",
       filter: filterNumbers,
-      Filter: ({ column, setFilter }) =>
-        (
-          <NumberFilterInput
-            column={column}
-            handleChange={setFilter}
-            label="Filter for total plays"
-          />
-        ),
+      Filter: TextFilter,
       width: 80,
       Cell: ({row}) => <span className="versionPlays">{addCommasToThousands(row.original.total_plays)}</span>
     },
@@ -116,14 +97,7 @@ export const HealthDashboard = ({ location, match }) => {
       accessor: "completion_rate",
       key: "completionRate",
       filter: filterNumbers,
-      Filter: ({ column, setFilter }) =>
-        (
-          <NumberFilterInput
-            column={column}
-            handleChange={setFilter}
-            label="Filter for completion rate"
-          />
-        ),
+      Filter: TextFilter,
       width: 80,
       Cell: ({row}) => row.original.completion_rate && <span className="name">{row.original.completion_rate}%</span>
     },
@@ -132,14 +106,7 @@ export const HealthDashboard = ({ location, match }) => {
       accessor: "because_final_optimal",
       key: "becauseFinalOptimal",
       filter: filterNumbers,
-      Filter: ({ column, setFilter }) =>
-        (
-          <NumberFilterInput
-            column={column}
-            handleChange={setFilter}
-            label="Filter for because final optimal"
-          />
-        ),
+      Filter: TextFilter,
       width: 80,
       Cell: ({row}) => row.original.because_final_optimal && <span className="name">{row.original.because_final_optimal}%</span>
     },
@@ -148,14 +115,7 @@ export const HealthDashboard = ({ location, match }) => {
       accessor: "but_final_optimal",
       key: "butFinalOptimal",
       filter: filterNumbers,
-      Filter: ({ column, setFilter }) =>
-        (
-          <NumberFilterInput
-            column={column}
-            handleChange={setFilter}
-            label="Filter for but final optimal"
-          />
-        ),
+      Filter: TextFilter,
       width: 80,
       Cell: ({row}) => row.original.but_final_optimal && <span className="name">{row.original.but_final_optimal}%</span>
     },
@@ -164,14 +124,7 @@ export const HealthDashboard = ({ location, match }) => {
       accessor: "so_final_optimal",
       key: "soFinalOptimal",
       filter: filterNumbers,
-      Filter: ({ column, setFilter }) =>
-        (
-          <NumberFilterInput
-            column={column}
-            handleChange={setFilter}
-            label="Filter for so final optimal"
-          />
-        ),
+      Filter: TextFilter,
       width: 80,
       Cell: ({row}) => row.original.so_final_optimal && <span className="name">{row.original.so_final_optimal}%</span>
     },
@@ -180,14 +133,7 @@ export const HealthDashboard = ({ location, match }) => {
       accessor: "avg_completion_time",
       key: "avgCompletionTime",
       filter: filterNumbers,
-      Filter: ({ column, setFilter }) =>
-        (
-          <NumberFilterInput
-            column={column}
-            handleChange={setFilter}
-            label="Filter for avg completion time"
-          />
-        ),
+      Filter: CustomTextFilter,
       width: 160,
     }
   ];
@@ -245,6 +191,36 @@ export const HealthDashboard = ({ location, match }) => {
     }
   }
 
+  function filterRowsByColumnValue(rows, column, value) {
+    if (column === 'name') {
+      return matchSorter(rows, value, { keys: [column]})
+    } else {
+      console.log("filtereed numbers are")
+      console.log(rows.map(r => {return {original: r}}))
+      return filterNumbers(rows.map(r => {return {original: r}}), [column], value).map(r => r.original)
+    }
+
+  }
+
+  function handleFiltersChange(filters) {
+    console.log("filters")
+    console.log(filters)
+    if (!rows || !rows.activity_healths) return;
+    let newRows = activityHealthsData.activityHealths.activity_healths
+    filters.forEach((filter) => {
+        const column = filter.id
+        const value = filter.value
+
+        newRows = filterRowsByColumnValue(newRows, column, value)
+
+      }
+    )
+    console.log("new rows")
+    console.log(newRows)
+    newRows = {activity_healths: newRows}
+    setRows(getFilteredData(newRows))
+  }
+
   function handleDataUpdate(sorted) {
     console.log("data update being handled")
     console.log(sorted)
@@ -267,19 +243,21 @@ export const HealthDashboard = ({ location, match }) => {
 
 
   const formatTableForCSV = (e) => {
-    console.log("data to download")
-    console.log(dataToDownload)
+    if (!rows || !rows.activity_healths) return;
+    const currentRecords = rows.activity_healths
 
     const columns = dataTableFields
-    // let dataToDownload = []
-    // for (let index = 0; index < currentRecords.length; index++) {
-    //   let recordToDownload = {}
-    //   for(let colIndex = 0; colIndex < columns.length ; colIndex ++) {
-    //     recordToDownload[columns[colIndex].Header] = currentRecords[index][columns[colIndex].accessor]
-    //   }
-    //   dataToDownload.push(recordToDownload)
-    // }
+    let dataToDownload = []
+    for (let index = 0; index < currentRecords.length; index++) {
+      let recordToDownload = {}
+      for(let colIndex = 0; colIndex < columns.length ; colIndex ++) {
+        recordToDownload[columns[colIndex].Header] = currentRecords[index][columns[colIndex].accessor]
+      }
+      dataToDownload.push(recordToDownload)
+    }
 
+    console.log("rows to download")
+    console.log(dataToDownload)
     // // Map Activity Packs to strings because JSON objects dont display in CSVs
     // let clonedDataToDownload = JSON.parse(JSON.stringify(dataToDownload));
     // clonedDataToDownload.forEach(item=> {
@@ -316,23 +294,23 @@ export const HealthDashboard = ({ location, match }) => {
             />
           </div>
 
-
-
           <div>
-            {/* <CSVLink
+            <CSVLink
               data={dataToDownload}
               filename="activity_health_report"
               ref={(c) => (csvLink = c)}
               rel="noopener noreferrer"
               target="_blank"
-            /> */}
+            />
           </div>
           <ReactTable
             className="activity-healths-table"
             columns={dataTableFields}
             data={(rows && getFilteredData(rows).activity_healths) || []}
             defaultPageSize={(rows && rows.length) || 0}
+            manualFilters
             manualSortBy
+            onFiltersChange={handleFiltersChange}
             onSortedChange={handleDataUpdate}
             filterable
           />
