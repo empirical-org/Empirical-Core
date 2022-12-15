@@ -30,19 +30,27 @@ class ClassroomUnit < ApplicationRecord
 
   belongs_to :unit # Note, there is a touch in the unit -> classroom_unit direction, so don't add one here.
   belongs_to :classroom
+
   has_many :activity_sessions
   has_many :unit_activities, through: :unit
+  has_many :pack_sequence_items, dependent: :destroy
+  has_many :user_pack_sequence_items, through: :pack_sequence_items
   has_many :completed_activity_sessions, -> {completed}, class_name: 'ActivitySession'
   has_many :classroom_unit_activity_states
 
+  scope :visible, -> { where(visible: true) }
+
   validates :unit, uniqueness: { scope: :classroom }
+
   before_save :check_for_assign_on_join_and_update_students_array_if_true
-  after_save  :hide_appropriate_activity_sessions
+
+  after_save :manage_user_pack_sequence_items, if: :saved_change_to_assigned_student_ids?
+  after_save :hide_appropriate_activity_sessions, :save_user_pack_sequence_items
+
   # Using an after_commit hook here because we want to trigger the callback
   # on save or touch, and touch explicitly bypasses after_save hooks
   after_commit :touch_classroom_without_callbacks
 
-  # this method does not seem to be getting used, but leaving it in for the tests for now
   def assigned_students
     User.where(id: assigned_student_ids)
   end
@@ -73,6 +81,24 @@ class ClassroomUnit < ApplicationRecord
     update(assigned_student_ids: new_assigned_student_ids, assign_on_join: false)
   end
 
+  def manage_user_pack_sequence_items
+    pack_sequence_items.reload.each do |pack_sequence_item|
+      existing_user_ids = pack_sequence_item.users.pluck(:id)
+      new_user_ids = assigned_student_ids - existing_user_ids
+      deleted_user_ids = existing_user_ids - assigned_student_ids
+
+      new_user_ids.each { |user_id| pack_sequence_item.user_pack_sequence_items.create!(user_id: user_id) }
+
+      pack_sequence_item
+        .user_pack_sequence_items
+        .where(user_id: deleted_user_ids)
+        .destroy_all
+    end
+  end
+
+  def save_user_pack_sequence_items
+    assigned_student_ids.each { |user_id| SaveUserPackSequenceItemsWorker.perform_async(classroom_id, user_id) }
+  end
 
   private def hide_unassigned_activity_sessions
     #validate or hides any other related activity sessions
@@ -93,12 +119,7 @@ class ClassroomUnit < ApplicationRecord
   end
 
   private def hide_appropriate_activity_sessions
-    # on save callback that checks if archived
-    if visible == false
-      hide_all_activity_sessions
-      return
-    end
-    hide_unassigned_activity_sessions
+    visible ? hide_unassigned_activity_sessions : hide_all_activity_sessions
   end
 
   private def check_for_assign_on_join_and_update_students_array_if_true
@@ -123,3 +144,4 @@ class ClassroomUnit < ApplicationRecord
     classroom&.update_columns(updated_at: current_time_from_proper_timezone) unless classroom&.destroyed?
   end
 end
+

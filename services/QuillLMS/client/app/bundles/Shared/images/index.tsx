@@ -197,3 +197,18 @@ export const assignedBadgeIconWhite = {
   alt: 'White silhouette of person with checkmark icon',
   src: `${process.env.CDN_URL}/images/icons/assigned_badge_white.svg`
 }
+
+export const infoIcon = {
+  alt: '',
+  src: `${process.env.CDN_URL}/images/icons/info.svg`
+}
+
+export const closedLockIcon = {
+  alt: 'Closed lock',
+  src: `${process.env.CDN_URL}/images/icons/locked.svg`
+}
+
+export const openLockIcon = {
+  alt: 'Open lock',
+  src: `${process.env.CDN_URL}/images/icons/unlocked.svg`
+}

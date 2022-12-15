@@ -1,7 +1,6 @@
 # frozen_string_literal: true
 
 class Teachers::UnitsController < ApplicationController
-  include Units
   include UnitQueries
 
   respond_to :json
@@ -9,7 +8,7 @@ class Teachers::UnitsController < ApplicationController
   before_action :authorize!
 
   def create
-    units_with_same_name = units_with_same_name_by_current_user(params[:unit][:name], current_user.id)
+    units_with_same_name = current_user.units_with_same_name(params[:unit][:name])
     includes_ell_starter_diagnostic = params[:unit][:activities].include?({"id"=>1161})
 
     if units_with_same_name.any?
@@ -274,6 +273,10 @@ class Teachers::UnitsController < ApplicationController
             WHEN unit_owner.id = #{current_user.id} THEN true
             ELSE false
           END AS owned_by_current_user,
+          CASE
+            WHEN count(pack_sequence_items.id) > 0 THEN true
+            ELSE false
+          END AS staggered,
           (
             SELECT COUNT(DISTINCT user_id)
             FROM activity_sessions
@@ -302,6 +305,8 @@ class Teachers::UnitsController < ApplicationController
         LEFT JOIN classroom_unit_activity_states AS state
           ON state.unit_activity_id = ua.id
           AND state.classroom_unit_id = cu.id
+        LEFT JOIN pack_sequence_items
+          ON cu.id = pack_sequence_items.classroom_unit_id
         WHERE cu.classroom_id IN #{teach_own_or_coteach_string}
           AND classrooms.visible = true
           AND units.visible = true

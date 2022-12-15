@@ -35,18 +35,21 @@ describe ClassroomUnit, type: :model, redis: true do
 
   it { is_expected.to callback(:check_for_assign_on_join_and_update_students_array_if_true).before(:save) }
   it { is_expected.to callback(:hide_appropriate_activity_sessions).after(:save) }
+  it { is_expected.to callback(:manage_user_pack_sequence_items).after(:save) }
+  it { is_expected.to callback(:save_user_pack_sequence_items).after(:save) }
 
   let!(:activity) { create(:activity) }
-  let!(:student) { create(:user, role: 'student', username: 'great', name: 'hi hi', password: 'pwd') }
-  let!(:student2) { create(:user, role: 'student', username: 'good', name: 'bye bye', password: 'pwd') }
+  let!(:student) { create(:student) }
+  let!(:student2) { create(:student) }
   let!(:classroom) { create(:classroom, students: [student]) }
   let!(:classroom2) { create(:classroom) }
   let!(:teacher) {classroom.owner}
   let!(:unit) { create(:unit) }
   let!(:unit2) { create(:unit) }
   let!(:unit3) { create(:unit) }
-  let!(:classroom_unit) { create(:classroom_unit, classroom: classroom, unit: unit, assigned_student_ids: [student.id]) }
-  let!(:activity_session) {create(:activity_session, classroom_unit_id: classroom_unit.id, user_id: student.id, state: 'unstarted')}
+  let!(:assigned_student_ids) { [student.id] }
+  let!(:classroom_unit) { create(:classroom_unit, classroom: classroom, unit: unit, assigned_student_ids: assigned_student_ids) }
+  let!(:activity_session) {create(:activity_session, :unstarted, classroom_unit: classroom_unit, user: student) }
 
   describe '#assigned_students' do
     let(:classroom_unit_with_no_assigned_students) { create(:classroom_unit, unit: unit2, classroom: classroom2, assigned_student_ids: []) }
@@ -189,4 +192,47 @@ describe ClassroomUnit, type: :model, redis: true do
       end
     end
   end
+
+  describe 'manage_user_pack_sequence_items' do
+    context 'after_save' do
+      context 'assigned_student_ids has changed' do
+        subject { classroom_unit.reload.update(assigned_student_ids: new_assigned_student_ids, assign_on_join: false) }
+
+        let(:another_student) { create(:student) }
+
+        context 'no user_pack_sequence_items exist' do
+          context 'student was removed' do
+            let(:new_assigned_student_ids) { [] }
+
+            it { expect { subject }.not_to change(UserPackSequenceItem, :count) }
+          end
+
+          context 'new student was added' do
+            let(:new_assigned_student_ids) { [student.id, another_student.id]}
+
+            it { expect { subject }.not_to change(UserPackSequenceItem, :count) }
+          end
+        end
+
+        context 'user_pack_sequence_items exist' do
+          let!(:pack_sequence_item) { create(:pack_sequence_item, classroom_unit: classroom_unit) }
+
+          before { create(:user_pack_sequence_item, user: student, pack_sequence_item: pack_sequence_item) }
+
+          context 'student was removed' do
+            let(:new_assigned_student_ids) { [] }
+
+            it { expect { subject }.to change(UserPackSequenceItem, :count).from(1).to(0) }
+          end
+
+          context 'new student was added' do
+            let(:new_assigned_student_ids) { [student.id, another_student.id]}
+
+            it { expect { subject }.to change(UserPackSequenceItem, :count).from(1).to(2) }
+          end
+        end
+      end
+    end
+  end
+
 end
