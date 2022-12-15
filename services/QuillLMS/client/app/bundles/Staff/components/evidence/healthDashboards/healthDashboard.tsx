@@ -136,8 +136,7 @@ export const HealthDashboard = ({ location, match }) => {
       minWidth: 70,
       maxWidth: 70,
       Cell: ({row}) => {
-        const colorClass = row.original.because_final_optimal && row.original.because_final_optimal <= 75 ? "poor-health" : ""
-        return row.original.because_final_optimal && <span className={colorClass + " name"}>{row.original.because_final_optimal}%</span>;                                                  )
+        row.original.because_final_optimal && <span className={row.original.because_final_optimal <= 75 ? "poor-health" : "" + " name"}>{row.original.because_final_optimal}%</span>;
       }
     },
     {
@@ -150,9 +149,7 @@ export const HealthDashboard = ({ location, match }) => {
       minWidth: 70,
       maxWidth: 70,
       Cell: ({row}) => {
-        const colorClass = row.original.but_final_optimal && row.original.but_final_optimal <= 75 ? "poor-health" : ""
-
-        return row.original.but_final_optimal && <span className={colorClass + " name"}>{row.original.but_final_optimal}%</span>;                                                  )
+        row.original.but_final_optimal && <span className={row.original.but_final_optimal <= 75 ? "poor-health" : "" + " name"}>{row.original.but_final_optimal}%</span>;
       }
     },
     {
@@ -165,9 +162,7 @@ export const HealthDashboard = ({ location, match }) => {
       minWidth: 70,
       maxWidth: 70,
       Cell: ({row}) => {
-        const colorClass = row.original.so_final_optimal && row.original.so_final_optimal <= 75 ? "poor-health" : ""
-
-        return row.original.so_final_optimal && <span className={colorClass + " name"}>{row.original.so_final_optimal}%</span>;                                                  )
+        row.original.so_final_optimal && <span className={row.original.so_final_optimal <= 75 ? "poor-health" : "" + " name"}>{row.original.so_final_optimal}%</span>;
       }
     },
     {
@@ -180,7 +175,7 @@ export const HealthDashboard = ({ location, match }) => {
       minWidth: 70,
       maxWidth: 70,
       Cell: ({row}) => {
-        return secondsToHumanReadableTime(row.original.avg_completion_time)                                               )
+        secondsToHumanReadableTime(row.original.avg_completion_time);
       }
     },
     {
