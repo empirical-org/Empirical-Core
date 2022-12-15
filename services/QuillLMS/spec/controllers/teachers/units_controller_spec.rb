@@ -233,7 +233,28 @@ describe Teachers::UnitsController, type: :controller do
       expect(parsed_response.length).to eq(1)
     end
 
-    context 'publish dates' do
+    describe 'staggered' do
+      let(:response) { get :index, params: { report: false } }
+      let(:staggered) { JSON.parse(response.body)[0]['staggered'] }
+
+      describe 'when at least one classroom unit in the pack is associated with a pack sequence item' do
+        before do
+          create(:pack_sequence_item, classroom_unit: classroom_unit)
+        end
+
+        it 'should return the value of staggered as true' do
+          expect(staggered).to eq true
+        end
+      end
+
+      describe 'when none of the classroom units in the pack are associated with pack sequence items' do
+        it 'should return the value of staggered as false' do
+          expect(staggered).to eq false
+        end
+      end
+    end
+
+    describe 'publish dates' do
       let(:response) { get :index, params: { report: false } }
       let(:scheduled) { JSON.parse(response.body)[0]['scheduled'] }
 

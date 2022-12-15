@@ -33,6 +33,9 @@ class UnitActivity < ApplicationRecord
   has_many :classroom_unit_activity_states
 
   after_save :hide_appropriate_activity_sessions, :teacher_checkbox
+  after_save :save_user_pack_sequence_items, if: :saved_change_to_visible?
+
+  after_destroy :save_user_pack_sequence_items
 
   def teacher_checkbox
     return unless unit
@@ -105,20 +108,21 @@ class UnitActivity < ApplicationRecord
     self.publish_date = publish_date.in_time_zone('UTC') - unit.user.utc_offset
   end
 
+  def save_user_pack_sequence_items
+    unit&.save_user_pack_sequence_items
+  end
+
+  private def hide_all_activity_sessions
+    unit
+      &.activity_sessions
+      &.where(activity: activity)
+      &.each { |activity_session| activity_session.update(visible: false) }
+  end
+
   private def hide_appropriate_activity_sessions
     return if visible
 
     hide_all_activity_sessions
-  end
-
-  private def hide_all_activity_sessions
-    return unless unit&.classroom_units
-
-    unit.classroom_units.each do |cu|
-      cu.activity_sessions.each do |as|
-        as.update(visible: false) if as.activity == activity
-      end
-    end
   end
 
   def self.get_classroom_user_profile(classroom_id, user_id)
@@ -128,7 +132,7 @@ class UnitActivity < ApplicationRecord
 
     # Generate a rich profile of Classroom Activities for a given user in a given classroom
     RawSqlRunner.execute(
-      <<-SQL
+     <<-SQL
         SELECT
           unit.name,
           activity.name,
@@ -149,11 +153,12 @@ class UnitActivity < ApplicationRecord
           MIN(acts.completed_at) #{student_timezone_offset_string} AS completed_date,
           pre_activity.id AS pre_activity_id,
           cu.created_at AS unit_activity_created_at,
+          upsi.status AS user_pack_sequence_item_status,
           COALESCE(cuas.locked, false) AS locked,
           COALESCE(cuas.pinned, false) AS pinned,
           MAX(acts.percentage) AS max_percentage,
           SUM(CASE WHEN pre_activity_sessions_classroom_units.id > 0 AND pre_activity_sessions.state = '#{ActivitySession::STATE_FINISHED}' THEN 1 ELSE 0 END) > 0 AS completed_pre_activity_session,
-          SUM(CASE WHEN acts.state = '#{ActivitySession::STATE_FINISHED}' THEN 1 ELSE 0 END) > 0 AS finished,
+          SUM(CASE WHEN acts.state = '#{ActivitySession::STATE_FINISHED}' THEN 1 ELSE 0 END) > 0 AS #{ActivitySession::STATE_FINISHED_KEY},
           SUM(CASE WHEN acts.state = '#{ActivitySession::STATE_STARTED}' THEN 1 ELSE 0 END) AS resume_link
         FROM unit_activities AS ua
         JOIN units AS unit
@@ -181,6 +186,12 @@ class UnitActivity < ApplicationRecord
         LEFT JOIN classroom_unit_activity_states AS cuas
           ON ua.id = cuas.unit_activity_id
           AND cu.id = cuas.classroom_unit_id
+        JOIN users AS teachers ON unit.user_id = teachers.id
+        LEFT JOIN pack_sequence_items AS psi
+          ON psi.classroom_unit_id = cu.id
+        LEFT JOIN user_pack_sequence_items AS upsi
+          ON upsi.pack_sequence_item_id = psi.id
+          AND upsi.user_id = #{user_id.to_i}
         WHERE #{user_id.to_i} = ANY (cu.assigned_student_ids::int[])
           AND cu.classroom_id = #{classroom_id.to_i}
           AND cu.visible = true
@@ -205,7 +216,11 @@ class UnitActivity < ApplicationRecord
           cuas.pinned,
           ua.id,
           activity_classifications.key,
-          pre_activity.id
+          pre_activity.id,
+          teachers.time_zone,
+          psi.id,
+          upsi.id,
+          upsi.status
         ORDER BY
           pinned DESC,
           locked ASC,
@@ -214,8 +229,7 @@ class UnitActivity < ApplicationRecord
           ua.order_number ASC,
           ua.due_date ASC,
           ua.id ASC
-      SQL
-    ).to_a
+     SQL
+    )
   end
-
 end

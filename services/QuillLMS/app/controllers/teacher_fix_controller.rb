@@ -30,6 +30,7 @@ class TeacherFixController < ApplicationController
     TeacherFixes::recover_unit_activities_for_units(units)
     classroom_units = ClassroomUnit.where(unit_id: unit_ids)
     TeacherFixes::recover_classroom_units_and_associated_activity_sessions(classroom_units)
+    units.each(&:save_user_pack_sequence_items)
     render json: {}, status: 200
   end
 
