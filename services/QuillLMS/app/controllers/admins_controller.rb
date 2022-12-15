@@ -67,7 +67,7 @@ class AdminsController < ApplicationController
   end
 
   def remove_as_admin
-    SchoolsAdmins&.find_by(user_id: params[:id], school_id: params[:school_id]).destroy!
+    SchoolsAdmins&.find_by(user_id: params[:id], school_id: params[:school_id])&.destroy!
     reset_admin_users_cache
     render json: {message: t('admin.remove_admin')}, status: 200
   end
