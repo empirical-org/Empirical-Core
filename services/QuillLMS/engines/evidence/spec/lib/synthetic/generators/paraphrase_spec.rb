@@ -30,7 +30,7 @@ describe Evidence::Synthetic::Generators::Paraphrase do
 
     it 'should return paraphrases in hash format' do
       expect(Evidence::OpenAI::Completion).to receive(:run)
-        .with(prompt: prompt, count: 4, temperature: 0.6)
+        .with(prompt: prompt, count: 4, temperature: 0.7)
         .and_return(api_results)
 
       expect(subject).to eq paraphrase_response
@@ -38,7 +38,7 @@ describe Evidence::Synthetic::Generators::Paraphrase do
 
     it 'should lowercase result when applicable' do
       expect(Evidence::OpenAI::Completion).to receive(:run)
-        .with(prompt: prompt, count: 4, temperature: 0.6)
+        .with(prompt: prompt, count: 4, temperature: 0.7)
         .and_return(api_result_with_uppercase)
 
       expect(subject).to eq paraphrase_uppercase_response

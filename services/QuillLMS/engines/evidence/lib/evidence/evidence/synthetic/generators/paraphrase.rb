@@ -5,7 +5,7 @@ module Evidence
     module Generators
       class Paraphrase < Synthetic::Generators::Base
         COUNT = 4
-        TEMPERATURE = 0.6
+        TEMPERATURE = 0.7
 
         attr_reader :passage
 
