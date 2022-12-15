@@ -45,7 +45,7 @@ namespace :synthetic do
 
     csv_hash.each do |filename, contents|
       # insert run_number in filename
-      filename_with_number = filename.sub(/.*\K\//, "/#{run_number}_")
+      filename_with_number = filename.sub(%r{.*\K/}, "/#{run_number}_")
 
       File.write(filename_with_number, contents)
     end
