@@ -601,8 +601,6 @@ EmpiricalGrammar::Application.routes.draw do
       collection do
         get 'new_with_school/:school_id', to: 'users#new_with_school', as: :new_with_school
         post 'create_with_school/:school_id', to: 'users#create_with_school', as: :create_with_school
-        post 'create_admin_user/:school_id', to: 'users#create_admin_user', as: :create_admin_user
-        post 'create_district_admin_user/:district_id', to: 'users#create_district_admin_user', as: :create_district_admin_user
         post :search
         get :search, to: 'users#index'
       end

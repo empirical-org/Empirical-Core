@@ -14,11 +14,11 @@ module Mailer
         linked_school = self.school
         if school && new_user
           send_internal_tool_admin_account_created_email(school.name)
-        elsif school && new_user == false && !linked_school
+        elsif school && !new_user && !linked_school
           send_internal_tool_made_school_admin_link_school_email(school)
-        elsif school && new_user == false && school == linked_school
+        elsif school && !new_user && school == linked_school
           send_internal_tool_made_school_admin_email(school.name)
-        elsif school && new_user == false && school != linked_school
+        elsif school && !new_user && school != linked_school
           send_internal_tool_made_school_admin_change_school_email(school, linked_school)
         end
       elsif district_id
