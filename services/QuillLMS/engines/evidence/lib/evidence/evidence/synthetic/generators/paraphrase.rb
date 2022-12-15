@@ -31,9 +31,11 @@ module Evidence
         end
 
         private def api_results(string)
-          prompt = Evidence::OpenAI::PARAPHRASE_INSTRUCTION + string
-
-          Evidence::OpenAI::Completion.run(prompt: prompt, count: COUNT, temperature: TEMPERATURE)
+          Evidence::OpenAI::Completion.run(
+            prompt: Evidence::OpenAI::PARAPHRASE_INSTRUCTION + string,
+            count: COUNT,
+            temperature: TEMPERATURE
+          )
         end
 
         private def lowercaser
