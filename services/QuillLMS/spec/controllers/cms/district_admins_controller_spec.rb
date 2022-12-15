@@ -4,8 +4,6 @@ require 'rails_helper'
 
 describe Cms::DistrictAdminsController do
   let(:user) { create(:staff) }
-  let(:new_user_email) { 'test@email.com' }
-  let(:new_user_name) { 'Test User' }
   let!(:district1) { create(:district) }
   let!(:district2) { create(:district) }
   let!(:admin) { create(:user) }
@@ -16,13 +14,13 @@ describe Cms::DistrictAdminsController do
 
   describe '#create' do
     it 'creates a new user account and district admin for a new user, and sends the expected email' do
-      post :create, params: { district_id: district1.id, email: new_user_email, name: new_user_name}
+      post :create, params: { district_id: district1.id, email: 'test@email.com', first_name: 'Test', last_name: 'User' }
 
-      new_user = User.find_by(email: new_user_email)
+      new_user = User.find_by(email: 'test@email.com')
       expect(new_user).to be
       expect(DistrictAdmin.find_by_user_id(new_user.id)).to be
-      expect(ActionMailer::Base.deliveries.last.subject).to eq("[Action Required] #{new_user.first_name}, a Quill district admin account was created for you")
-      expect(ActionMailer::Base.deliveries.last.to).to eq([new_user_email])
+      expect(ActionMailer::Base.deliveries.last.subject).to eq('[Action Required] Test, a Quill district admin account was created for you')
+      expect(ActionMailer::Base.deliveries.last.to).to eq(['test@email.com'])
     end
 
     it 'creates a new district admin for an existing user and sends the expected email' do

@@ -35,7 +35,7 @@ class Cms::DistrictAdminsController < Cms::CmsController
     params.require(:email)
   end
 
-  private def create_district_admin_user_for_existing_user(user, new_user=false)
+  private def create_district_admin_user_for_existing_user(user, new_user: false)
 
     if @district.district_admins.find_by(user_id: user.id)
       return render json: { message: t('district_admin.already_assigned', district_name: @district.name) }
@@ -69,6 +69,6 @@ class Cms::DistrictAdminsController < Cms::CmsController
 
     user.refresh_token!
     ExpirePasswordTokenWorker.perform_in(30.days, user.id)
-    create_district_admin_user_for_existing_user(user, true)
+    create_district_admin_user_for_existing_user(user, new_user: true)
   end
 end

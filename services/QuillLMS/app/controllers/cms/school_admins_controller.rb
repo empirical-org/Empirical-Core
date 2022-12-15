@@ -16,7 +16,7 @@ class Cms::SchoolAdminsController < Cms::CmsController
     @school = School.find(params[:school_id])
   end
 
-  private def create_admin_user_for_existing_user(user, new_user=false)
+  private def create_admin_user_for_existing_user(user, new_user: false)
     school_id = params[:school_id]
     should_render_school_view = params[:is_make_admin_button]
 
