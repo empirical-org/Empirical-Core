@@ -24,6 +24,11 @@ describe Teachers::UnitActivitiesController, type: :controller do
       put :hide, params: { id: unit_activity.id }
       expect(unit_activity.reload.visible).to eq false
     end
+
+    it 'should touch the parent unit in order to bubble up cache clearing' do
+      expect_any_instance_of(Unit).to receive(:touch)
+      put :hide, params: { id: unit_activity.id }
+    end
   end
 
   describe '#update' do
