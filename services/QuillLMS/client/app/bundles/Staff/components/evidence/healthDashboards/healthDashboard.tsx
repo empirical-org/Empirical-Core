@@ -26,11 +26,25 @@ function getLinkToActivity(id) {
   return `${process.env.DEFAULT_URL}/cms/evidence#/activities/${id}/settings`
 }
 
+function secondsToHumanReadableTime(seconds) {
+
+  let numhours = Math.floor(((seconds % 31536000) % 86400) / 3600).toString();
+  let numminutes = Math.floor((((seconds % 31536000) % 86400) % 3600) / 60).toString();
+  let numseconds = Math.floor((((seconds % 31536000) % 86400) % 3600) % 60).toString();
+
+  if (numhours.length === 1) numhours = "0" + numhours
+  if (numminutes.length === 1) numminutes = "0" + numminutes
+  if (numseconds.length === 1) numseconds = "0" + numseconds
+
+  return numhours + ":" + numminutes + ":" + numseconds;
+}
+
 export const HealthDashboard = ({ location, match }) => {
   const [flag, setFlag] = React.useState<string>(ALL_FLAGS)
   const [promptSearchInput, setPromptSearchInput] = React.useState<string>("")
   const [dataToDownload, setDataToDownload] = React.useState<Array<{}>>([])
   const [rows, setRows] = React.useState<Array<{}>>(null)
+  const [poorHealthFlag, setPoorHealthFlag] = React.useState<boolean>(false)
   let reactTable = useRef(null);
   let csvLink = useRef(null);
 
@@ -64,7 +78,10 @@ export const HealthDashboard = ({ location, match }) => {
       },
       Filter: TextFilter,
       filterAll: true,
-      Cell: ({row}) => <span className="name"><a href={getLinkToActivity(row.original.activity_id)} rel="noopener noreferrer" target="_blank">{row.original.name}</a></span> // eslint-disable-line react/display-name
+      Cell: ({row}) => <span className="name"><a href={getLinkToActivity(row.original.activity_id)} rel="noopener noreferrer" target="_blank">{row.original.name}</a></span>, // eslint-disable-line react/display-name
+      width: 330,
+      minWidth: 330,
+      maxWidth: 330,
     },
     {
       Header: 'Version #',
@@ -72,7 +89,9 @@ export const HealthDashboard = ({ location, match }) => {
       key: "version",
       filter: filterNumbers,
       Filter: TextFilter,
-      width: 80,
+      width: 70,
+      minWidth: 70,
+      maxWidth: 70,
     },
     {
       Header: 'Version Plays',
@@ -80,7 +99,9 @@ export const HealthDashboard = ({ location, match }) => {
       key: "versionPlays",
       filter: filterNumbers,
       Filter: TextFilter,
-      width: 80,
+      width: 70,
+      minWidth: 70,
+      maxWidth: 70,
       Cell: ({row}) => <span className="versionPlays">{addCommasToThousands(row.original.version_plays)}</span>
     },
     {
@@ -89,7 +110,9 @@ export const HealthDashboard = ({ location, match }) => {
       key: "totalPlays",
       filter: filterNumbers,
       Filter: TextFilter,
-      width: 80,
+      width: 70,
+      minWidth: 70,
+      maxWidth: 70,
       Cell: ({row}) => <span className="versionPlays">{addCommasToThousands(row.original.total_plays)}</span>
     },
     {
@@ -98,7 +121,9 @@ export const HealthDashboard = ({ location, match }) => {
       key: "completionRate",
       filter: filterNumbers,
       Filter: TextFilter,
-      width: 80,
+      width: 70,
+      minWidth: 70,
+      maxWidth: 70,
       Cell: ({row}) => row.original.completion_rate && <span className="name">{row.original.completion_rate}%</span>
     },
     {
@@ -107,8 +132,13 @@ export const HealthDashboard = ({ location, match }) => {
       key: "becauseFinalOptimal",
       filter: filterNumbers,
       Filter: TextFilter,
-      width: 80,
-      Cell: ({row}) => row.original.because_final_optimal && <span className="name">{row.original.because_final_optimal}%</span>
+      width: 70,
+      minWidth: 70,
+      maxWidth: 70,
+      Cell: ({row}) => {
+        const colorClass = row.original.because_final_optimal && row.original.because_final_optimal <= 75 ? "poor-health" : ""
+        return row.original.because_final_optimal && <span className={colorClass + " name"}>{row.original.because_final_optimal}%</span>;                                                  )
+      }
     },
     {
       Header: 'But Final Optimal',
@@ -116,8 +146,14 @@ export const HealthDashboard = ({ location, match }) => {
       key: "butFinalOptimal",
       filter: filterNumbers,
       Filter: TextFilter,
-      width: 80,
-      Cell: ({row}) => row.original.but_final_optimal && <span className="name">{row.original.but_final_optimal}%</span>
+      width: 70,
+      minWidth: 70,
+      maxWidth: 70,
+      Cell: ({row}) => {
+        const colorClass = row.original.but_final_optimal && row.original.but_final_optimal <= 75 ? "poor-health" : ""
+
+        return row.original.but_final_optimal && <span className={colorClass + " name"}>{row.original.but_final_optimal}%</span>;                                                  )
+      }
     },
     {
       Header: 'So Final Optimal',
@@ -125,16 +161,38 @@ export const HealthDashboard = ({ location, match }) => {
       key: "soFinalOptimal",
       filter: filterNumbers,
       Filter: TextFilter,
-      width: 80,
-      Cell: ({row}) => row.original.so_final_optimal && <span className="name">{row.original.so_final_optimal}%</span>
+      width: 70,
+      minWidth: 70,
+      maxWidth: 70,
+      Cell: ({row}) => {
+        const colorClass = row.original.so_final_optimal && row.original.so_final_optimal <= 75 ? "poor-health" : ""
+
+        return row.original.so_final_optimal && <span className={colorClass + " name"}>{row.original.so_final_optimal}%</span>;                                                  )
+      }
     },
     {
       Header: 'Avg Time Spent - Activity',
       accessor: "avg_completion_time",
       key: "avgCompletionTime",
       filter: filterNumbers,
-      Filter: CustomTextFilter,
-      width: 160,
+      Filter: TextFilter,
+      width: 70,
+      minWidth: 70,
+      maxWidth: 70,
+      Cell: ({row}) => {
+        return secondsToHumanReadableTime(row.original.avg_completion_time)                                               )
+      }
+    },
+    {
+      Header: 'Poor Health Flag',
+      accessor: "poor_health_flag",
+      key: "poorHealthFlag",
+      filter: filterNumbers,
+      Filter: TextFilter,
+      width: 70,
+      minWidth: 70,
+      maxWidth: 70,
+      Cell: ({row}) => row.original.poor_health_flag === true && <span className="poor-health-flag">X</span>
     }
   ];
 
@@ -155,6 +213,11 @@ export const HealthDashboard = ({ location, match }) => {
         // value.prompt_healths && value.prompt_healths.map(x => x.text || '').some(y => stripHtml(y).toLowerCase().includes(promptSearchInput.toLowerCase()))
       );
     })
+
+    if (poorHealthFlag) {
+      filteredData = filteredData.filter(value => value.poor_health_flag)
+    }
+
     console.log("filtered data is")
     filteredData = {activity_healths: filteredData}
     console.log(filteredData)
@@ -179,6 +242,10 @@ export const HealthDashboard = ({ location, match }) => {
   //     </div>
   //   )
   // }
+
+  function handlePoorHealthFlagToggle() {
+    setPoorHealthFlag(!poorHealthFlag)
+  }
 
   function getSortedRows(rows, sortInfo) {
     if(sortInfo) {
@@ -294,6 +361,11 @@ export const HealthDashboard = ({ location, match }) => {
             />
           </div>
 
+          <div className="poor-health-filter">
+            <input checked={poorHealthFlag} onChange={handlePoorHealthFlagToggle} type="checkbox" />
+            <label className="poor-health-label">Poor Health Flag</label>
+          </div>
+
           <div>
             <CSVLink
               data={dataToDownload}
@@ -303,6 +375,9 @@ export const HealthDashboard = ({ location, match }) => {
               target="_blank"
             />
           </div>
+        </section>
+
+        <section className="table-section">
           <ReactTable
             className="activity-healths-table"
             columns={dataTableFields}
