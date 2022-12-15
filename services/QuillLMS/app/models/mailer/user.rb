@@ -2,6 +2,8 @@
 
 module Mailer
   class User < SimpleDelegator
+
+    # rubocop:disable Metrics/CyclomaticComplexity
     def determine_email_and_send(params)
       school_id = params[:school_id]
       district_id = params[:district_id]
@@ -28,6 +30,7 @@ module Mailer
         end
       end
     end
+    # rubocop:enable Metrics/CyclomaticComplexity
 
     def send_admin_dashboard_teacher_account_created_email(admin_name, school_name, is_reminder)
       AdminDashboardUserMailer.teacher_account_created_email(self, admin_name, school_name, is_reminder).deliver_now! if email.present?
