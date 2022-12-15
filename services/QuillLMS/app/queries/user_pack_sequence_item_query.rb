@@ -3,6 +3,7 @@
 class UserPackSequenceItemQuery
   FINISHED = ActivitySession::STATE_FINISHED
   COMPLETED_KEY = 'completed'
+  PACK_SEQUENCE_ID_KEY = 'pack_sequence_id'
   PACK_SEQUENCE_ITEM_ID_KEY = 'pack_sequence_item_id'
 
   def self.call(classroom_id, user_id)
@@ -10,6 +11,7 @@ class UserPackSequenceItemQuery
       .staggered
       .select("SUM(CASE WHEN activity_sessions.state = '#{FINISHED}' THEN 1 ELSE 0 END) > 0 AS #{COMPLETED_KEY}")
       .select("pack_sequence_items.id AS #{PACK_SEQUENCE_ITEM_ID_KEY}")
+      .select("pack_sequences.id AS #{PACK_SEQUENCE_ID_KEY}")
       .joins(pack_sequence_items: { classroom_unit: { unit: { unit_activities: :activity } } })
       .joins(
         <<-SQL
@@ -33,7 +35,7 @@ class UserPackSequenceItemQuery
         'units.id',
         'unit_activities.id'
       )
-      .order('pack_sequence_items.order')
+      .order('pack_sequences.id, pack_sequence_items.order')
   end
 end
 
