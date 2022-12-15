@@ -6,6 +6,7 @@ class UserPackSequenceItemSaver < ApplicationService
   LOCKED = UserPackSequenceItem::LOCKED
   UNLOCKED = UserPackSequenceItem::UNLOCKED
   COMPLETED_KEY = UserPackSequenceItemQuery::COMPLETED_KEY
+  PACK_SEQUENCE_ID_KEY = UserPackSequenceItemQuery::PACK_SEQUENCE_ID_KEY
   PACK_SEQUENCE_ITEM_ID_KEY = UserPackSequenceItemQuery::PACK_SEQUENCE_ITEM_ID_KEY
 
   def initialize(classroom_id, user_id)
@@ -22,19 +23,30 @@ class UserPackSequenceItemSaver < ApplicationService
   end
 
   private def compute_statuses
-    previous_packs_unfinished = false
     previous_pack_sequence_id = nil
+    previous_pack_sequence_item_id = nil
+    previous_packs_unfinished = false
     status = UNLOCKED
 
     user_pack_sequence_item_results.each do |user_pack_sequence_item_result|
-      current_pack_sequence_id = user_pack_sequence_item_result[PACK_SEQUENCE_ITEM_ID_KEY]
-      pack_sequence_item_changed = previous_pack_sequence_id != current_pack_sequence_id
+      current_pack_sequence_id = user_pack_sequence_item_result[PACK_SEQUENCE_ID_KEY]
+
+      unless previous_pack_sequence_id == current_pack_sequence_id
+        status = UNLOCKED
+        previous_packs_unfinished = false
+      end
+
+      current_pack_sequence_item_id = user_pack_sequence_item_result[PACK_SEQUENCE_ITEM_ID_KEY]
+      pack_sequence_item_changed = previous_pack_sequence_item_id != current_pack_sequence_item_id
 
       status = LOCKED if previous_packs_unfinished && pack_sequence_item_changed
-      user_pack_sequence_item_statuses[current_pack_sequence_id] = status
+
+      user_pack_sequence_item_statuses[current_pack_sequence_item_id] = status
 
       previous_packs_unfinished ||= !user_pack_sequence_item_result[COMPLETED_KEY]
+
       previous_pack_sequence_id = current_pack_sequence_id
+      previous_pack_sequence_item_id = current_pack_sequence_item_id
     end
   end
 
