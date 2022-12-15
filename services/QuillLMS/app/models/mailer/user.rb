@@ -2,18 +2,30 @@
 
 module Mailer
   class User < SimpleDelegator
-    def determine_email_and_send(school_id=nil, new_user=nil)
-      school = School.find_by(id: school_id)
-      linked_school = self.school
+    def determine_email_and_send(params)
+      school_id = params[:school_id]
+      district_id = params[:district_id]
+      new_user = params[:new_user]
 
-      if school && new_user
-        send_internal_tool_admin_account_created_email(school.name)
-      elsif school && new_user == false && !linked_school
-        send_internal_tool_made_school_admin_link_school_email(school)
-      elsif school && new_user == false && school == linked_school
-        send_internal_tool_made_school_admin_email(school.name)
-      elsif school && new_user == false && school != linked_school
-        send_internal_tool_made_school_admin_change_school_email(school, linked_school)
+      if school_id
+        school = School.find_by(id: school_id)
+        linked_school = self.school
+        if school && new_user
+          send_internal_tool_admin_account_created_email(school.name)
+        elsif school && new_user == false && !linked_school
+          send_internal_tool_made_school_admin_link_school_email(school)
+        elsif school && new_user == false && school == linked_school
+          send_internal_tool_made_school_admin_email(school.name)
+        elsif school && new_user == false && school != linked_school
+          send_internal_tool_made_school_admin_change_school_email(school, linked_school)
+        end
+      elsif district_id
+        district_name = District.find_by(id: district_id)&.name
+        if new_user
+          send_internal_tool_district_admin_account_created_email(district_name)
+        else
+          send_internal_tool_made_district_admin_email(district_name)
+        end
       end
     end
 

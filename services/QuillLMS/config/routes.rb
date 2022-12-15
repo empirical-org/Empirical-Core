@@ -633,6 +633,7 @@ EmpiricalGrammar::Application.routes.draw do
         post :add_existing_user_by_email
         post :unlink
       end
+      resources :school_admins, only: [:create]
     end
 
     resources :districts do

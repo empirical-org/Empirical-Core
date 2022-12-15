@@ -4,7 +4,7 @@ class UserMailer < ActionMailer::Base
   include EmailApiHelper
   include ActionView::Helpers::NumberHelper
 
-  default from: 'hello@quill.org', foo: 'bar'
+  default from: "The Quill Team <hello@quill.org>"
 
   CONSTANTS = {
     signatures: {
@@ -143,6 +143,15 @@ class UserMailer < ActionMailer::Base
   def ell_starter_diagnostic_info_email(name, email)
     @name = name
     mail from: "The Quill Team <hello@quill.org>", to: email, subject: "ELL Starter Diagnostic Next Steps"
+  end
+
+  private def link_for_setting_password(role)
+    params = {
+      accountType: role,
+      adminFullName: @admin_name,
+      schoolName: @school_name
+    }
+    @set_password_link = "#{ENV['DEFAULT_URL']}/account/#{@user.token}/finish_set_up?#{params.to_query}"
   end
 
 end

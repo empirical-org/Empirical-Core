@@ -47,11 +47,13 @@ const NewAdminOrDistrictUser = ({ type, return_url, school_id, district_id }: Ne
       setError('Form fields cannot be blank.');
     } else {
       setError('');
+      const requestUrl = type === ADMIN ? `/cms/schools/${school_id}/school_admins` : `/cms/districts/${district_id}/district_admins`
       const params = {
-        name: `${firstName.trim()} ${lastName.trim()}`,
+        first_name: `${firstName.trim()}`,
+        last_name: `${lastName.trim()}`,
         email: email.trim()
       }
-      requestPost(`/cms/users/create_admin_user/${school_id}`, params, (body) => {
+      requestPost(requestUrl, params, (body) => {
         if(body.error) {
           setSnackbarText(body.error);
           setShowSnackbar(true);

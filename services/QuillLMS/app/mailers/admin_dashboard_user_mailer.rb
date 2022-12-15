@@ -4,7 +4,7 @@ class AdminDashboardUserMailer < UserMailer
   include EmailApiHelper
   include ActionView::Helpers::NumberHelper
 
-  default from: 'hello@quill.org', foo: 'bar'
+  default from: "The Quill Team <hello@quill.org>"
 
   def teacher_account_created_email(user, admin_name, school_name, is_reminder)
     @user = user
