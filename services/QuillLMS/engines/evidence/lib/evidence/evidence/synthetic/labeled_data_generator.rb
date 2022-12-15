@@ -21,7 +21,7 @@ module Evidence
         spelling_passage_specific: Synthetic::Generators::SpellingPassageSpecific
       }
 
-      DEFAULT_GENERATORS = GENERATORS.slice(:paraphrase, :spelling, :spelling_passage_specific)
+      DEFAULT_GENERATORS = GENERATORS.slice(:translation, :spelling, :spelling_passage_specific)
 
       TEST_GENERATOR_KEYS = [:spelling_passage_specific]
 

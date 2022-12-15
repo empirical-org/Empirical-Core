@@ -203,8 +203,8 @@ describe Evidence::Synthetic::LabeledDataGenerator do
       stub_const("Evidence::Synthetic::ManualTypes::MIN_TEST_PER_LABEL", 0)
       stub_const("Evidence::Synthetic::ManualTypes::MIN_TRAIN_PER_LABEL", 0)
 
+      allow(Evidence::Synthetic::Generators::Translation).to receive(:run).with([text1, text2], {:languages=>[:es], passage: nil}).and_return(translation_response)
       allow(Evidence::Synthetic::Generators::Spelling).to receive(:run).with([text1, text2], {:languages=>[:es], passage: nil}).and_return(spelling_response)
-      allow(Evidence::Synthetic::Generators::Paraphrase).to receive(:run).with([text1, text2], {:languages=>[:es], passage: nil}).and_return(paraphrase_response)
     end
 
     it "should generate a hash of csv_strings" do
@@ -219,7 +219,7 @@ describe Evidence::Synthetic::LabeledDataGenerator do
 
       # values should be a multi-line valid CSV
       csv = CSV.parse(output[automl_name])
-      expect(csv.size).to be 5
+      expect(csv.size).to be 7
       first_row = csv.first
       expect(first_row.first).to(satisfy {|v| v.in?(["TRAIN", "TEST", "VALIDATION"])})
       expect(first_row.second).to eq text1
