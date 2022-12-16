@@ -179,12 +179,12 @@ ActiveRecord::Schema.define(version: 2022_11_10_063922) do
   end
 
   create_table "evidence_activity_healths", force: :cascade do |t|
-    t.string "name"
-    t.string "flag"
-    t.integer "activity_id"
-    t.integer "version"
-    t.integer "version_plays"
-    t.integer "total_plays"
+    t.string "name", null: false
+    t.string "flag", null: false
+    t.integer "activity_id", null: false
+    t.integer "version", null: false
+    t.integer "version_plays", null: false
+    t.integer "total_plays", null: false
     t.integer "completion_rate"
     t.integer "because_final_optimal"
     t.integer "but_final_optimal"
@@ -205,11 +205,11 @@ ActiveRecord::Schema.define(version: 2022_11_10_063922) do
   end
 
   create_table "evidence_prompt_healths", force: :cascade do |t|
-    t.integer "prompt_id"
-    t.string "activity_short_name"
-    t.string "text"
-    t.integer "current_version"
-    t.integer "version_responses"
+    t.integer "prompt_id", null: false
+    t.string "activity_short_name", null: false
+    t.string "text", null: false
+    t.integer "current_version", null: false
+    t.integer "version_responses", null: false
     t.integer "first_attempt_optimal"
     t.integer "final_attempt_optimal"
     t.float "avg_attempts"

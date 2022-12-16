@@ -19,6 +19,7 @@ function columnClassName(isSorted, isSortedDesc) {
 export const TextFilter = ({ column, setFilter, }) => {
   return (
     <input
+      aria-label="text-filter"
       onChange={event => setFilter(column.id, event.target.value)}
       style={{ width: "100%" }}
       value={column.filterValue}
@@ -39,16 +40,6 @@ export const NumberFilterInput = ({ handleChange, label, column }: NumberFilterI
       />
     </div>
   );
-}
-
-export const CustomTextFilter = ({ column, setFilter, placeholder }) => {
-  return (
-    <input
-      onChange={event => setFilter(column.id, event.target.value)}
-      style={{ width: "100%" }}
-      value={column.filterValue}
-    />
-  )
 }
 
 export const expanderColumn = {
@@ -169,8 +160,6 @@ export const ReactTable = ({
     }
 
   }, [filters]);
-  console.log("re render")
-  console.log(data)
 
   return (
     <div className={`${className} ReactTable`}>

@@ -71,7 +71,7 @@ export const getActivityHealthUrl = ({ activityId }) => {
 }
 
 export const getAggregatedActivityHealthsUrl = () => {
-  return `activities/evidence_activity_healths.json`;
+  return `evidence/activity_healths.json`;
 }
 
 // not a 2xx status

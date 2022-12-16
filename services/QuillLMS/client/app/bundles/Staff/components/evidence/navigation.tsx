@@ -155,9 +155,6 @@ const Navigation = ({ location, match }) => {
           <NavLink activeClassName='is-active' to="/universal-rules">
             View Universal Rules
           </NavLink>
-          <NavLink activeClassName='is-active' to="/universal-rules">
-            View Universal Rules
-          </NavLink>
           <NavLink activeClassName='is-active' to="/health-dashboard">
             Health Dashboard
           </NavLink>
