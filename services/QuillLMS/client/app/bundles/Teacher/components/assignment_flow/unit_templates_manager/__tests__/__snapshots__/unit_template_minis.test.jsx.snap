@@ -138,17 +138,17 @@ exports[`UnitTemplateMinis component should render dropdowns when on mobile 1`] 
           <section
             className="all-packs-section"
           >
-            <p
-              className="pack-type-header"
-            >
-              Diagnostic
-            </p>
             <section
               className="packs-section"
             >
               <div
                 className="unit-template-mini-wrapper"
               >
+                <p
+                  className="pack-type-header"
+                >
+                  Diagnostic
+                </p>
                 <UnitTemplateMini
                   data={
                     Object {
@@ -190,17 +190,17 @@ exports[`UnitTemplateMinis component should render dropdowns when on mobile 1`] 
           <section
             className="all-packs-section"
           >
-            <p
-              className="pack-type-header"
-            >
-              Whole Class Lessons
-            </p>
             <section
               className="packs-section"
             >
               <div
                 className="unit-template-mini-wrapper"
               >
+                <p
+                  className="pack-type-header"
+                >
+                  Whole Class Lessons
+                </p>
                 <UnitTemplateMini
                   data={
                     Object {
@@ -356,17 +356,17 @@ exports[`UnitTemplateMinis component should render without createYourOwn mini wh
           <section
             className="all-packs-section"
           >
-            <p
-              className="pack-type-header"
-            >
-              Diagnostic
-            </p>
             <section
               className="packs-section"
             >
               <div
                 className="unit-template-mini-wrapper"
               >
+                <p
+                  className="pack-type-header"
+                >
+                  Diagnostic
+                </p>
                 <UnitTemplateMini
                   data={
                     Object {
