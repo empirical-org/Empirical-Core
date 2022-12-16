@@ -48,4 +48,18 @@ RSpec.describe PackSequence, type: :model do
       it { expect { duplicate_pack_sequence }.to raise_error ActiveRecord::RecordNotUnique }
     end
   end
+
+  context 'after_destroy callback' do
+    subject { pack_sequence.destroy! }
+
+    let!(:student) { create(:student) }
+    let!(:classroom) { create(:classroom) }
+    let!(:pack_sequence) { create(:pack_sequence, classroom: classroom) }
+    let!(:classroom_unit) { create(:classroom_unit, classroom: classroom) }
+    let!(:pack_sequence_item) { create(:pack_sequence_item, pack_sequence: pack_sequence, classroom_unit: classroom_unit) }
+    let!(:activity_session) { create(:activity_session, classroom_unit: classroom_unit, user: student) }
+
+    # We need sidekiq here so that workers can create new user_pack_sequence_items
+    it { Sidekiq::Testing.inline! { expect { subject }.not_to raise_error } }
+  end
 end
