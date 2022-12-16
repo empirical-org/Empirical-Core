@@ -7,5 +7,14 @@ class InternalTool::DistrictAdminAccountCreatedEmailWorker
     @user = User.find_by(id: user_id)
     @district_name = District.find_by(id: district_id)&.name
     @user&.mailer_user&.send_internal_tool_district_admin_account_created_email(@district_name)
+
+    analytics = Analyzer.new
+    analytics.track_with_attributes(
+      @user,
+      SegmentIo::BackgroundEvents::STAFF_CREATED_DISTRICT_ADMIN_ACCOUNT,
+      properties: {
+        admin_full_name: SegmentIo::Properties::STAFF_USER
+      }
+    )
   end
 end
