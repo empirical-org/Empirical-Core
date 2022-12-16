@@ -54,14 +54,11 @@ class UserPackSequenceItemSaver < ApplicationService
 
   private def save_statuses
     user_pack_sequence_item_statuses.each_pair do |pack_sequence_item_id, status|
-      begin
-        UserPackSequenceItem
-          .find_or_create_by!(pack_sequence_item_id: pack_sequence_item_id, user_id: user_id)
-          .tap { |upsi| upsi.update!(status: status) unless status == upsi.status }
-      rescue ActiveRecord::RecordInvalid => e
-        next if e.message == "Validation failed: Pack sequence item can't be blank"
+      UserPackSequenceItem.transaction(requires_new: true) do
+        upsi = UserPackSequenceItem.find_or_create_by!(pack_sequence_item_id: pack_sequence_item_id, user_id: user_id)
+        next if status == upsi.status
 
-        raise UserPackSequenceItemSaverError, e.message
+        upsi.update!(status: status)
       end
     end
   end
