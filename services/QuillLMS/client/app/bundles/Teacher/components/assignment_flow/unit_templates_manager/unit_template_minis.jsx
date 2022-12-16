@@ -92,13 +92,15 @@ export default class UnitTemplateMinis extends React.Component {
   generateUnitTemplateView = (model, index) => {
     const { actions, signedInTeacher, } = this.props
     return (
-      <UnitTemplateMini
-        actions={actions}
-        data={model}
-        index={index}
-        key={model.id}
-        signedInTeacher={signedInTeacher}
-      />
+      <div className="unit-template-mini-wrapper">
+        <UnitTemplateMini
+          actions={actions}
+          data={model}
+          index={index}
+          key={model.id}
+          signedInTeacher={signedInTeacher}
+        />
+      </div>
     )
   };
 
