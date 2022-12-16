@@ -24,8 +24,13 @@ module Evidence
           :because_final_optimal, :but_final_optimal, :so_final_optimal,
           :avg_completion_time
         ],
-        include: [:prompt_healths]
+        include: [:prompt_healths],
+        methods: [:poor_health_flag]
       ))
+    end
+
+    private def poor_health_flag
+      return ((because_final_optimal && because_final_optimal < 75) || (but_final_optimal && but_final_optimal < 75) || (so_final_optimal && so_final_optimal < 75))
     end
   end
 end
