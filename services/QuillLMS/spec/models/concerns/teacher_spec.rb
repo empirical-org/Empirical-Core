@@ -324,11 +324,13 @@ describe User, type: :model do
 
         context 'teacher info grades in range' do
           let!(:teacher_info) {create(:teacher_info, user: new_teacher, minimum_grade_level: 6, maximum_grade_level: 10)}
+
           it { expect(new_teacher.teaches_eighth_through_twelfth?).to be true }
         end
 
         context 'teacher info grades out of range' do
           let!(:teacher_info) {create(:teacher_info, user: new_teacher, minimum_grade_level: 6, maximum_grade_level: 7)}
+
           it { expect(new_teacher.teaches_eighth_through_twelfth?).to be false}
         end
       end
