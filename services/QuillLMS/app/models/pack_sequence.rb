@@ -41,6 +41,6 @@ class PackSequence < ApplicationRecord
   validates :release_method, inclusion: { in: RELEASE_METHODS }
 
   def save_user_pack_sequence_items
-    students.pluck(:id).each { |user_id| SaveUserPackSequenceItemsWorker.perform_async(classroom&.id, user_id) }
+    students.pluck(:id).each { |user_id| SaveUserPackSequenceItemsWorker.perform_async(classroom.id, user_id) }
   end
 end
