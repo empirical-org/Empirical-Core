@@ -32,7 +32,7 @@ class BatchAssignRecommendationsWorker
 
   def on_success(_status, options)
     PackSequence
-      .find(options['pack_sequence_id'])
+      .find_by(id: options['pack_sequence_id'])
       &.save_user_pack_sequence_items
   end
 
