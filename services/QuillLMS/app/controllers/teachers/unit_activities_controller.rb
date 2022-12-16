@@ -8,7 +8,7 @@ class Teachers::UnitActivitiesController < ApplicationController
   before_action :authorize!, :except => ["update_multiple_dates"]
   before_action :teacher!
   before_action :set_unit_activities, only: [:update, :hide]
-  before_action :set_activity_session, only: :hide
+  before_action :set_activity_sessions, only: :hide
 
   def update
     @unit_activities.each { |unit_activity| unit_activity&.save_new_attributes_and_adjust_dates!(unit_activity_params) }
@@ -19,6 +19,7 @@ class Teachers::UnitActivitiesController < ApplicationController
     @unit_activities.update_all(visible: false)
     @unit_activity&.unit&.hide_if_no_visible_unit_activities
     @activity_sessions.update_all(visible: false)
+    @unit_activities.each(&:save_user_pack_sequence_items)
     ResetLessonCacheWorker.new.perform(current_user.id)
     render json: {}
   end
@@ -39,13 +40,10 @@ class Teachers::UnitActivitiesController < ApplicationController
     render json: {}
   end
 
-  private def set_activity_session
+  private def set_activity_sessions
     activity_ids = @unit_activities.map(&:activity_id).flatten.uniq
-    classroom_unit_ids = []
-    @unit_activities.each do |ua|
-      classroom_unit_ids << ua.unit.classroom_unit_ids
-    end
-    @activity_sessions = ActivitySession.where(activity: activity_ids, classroom_unit: classroom_unit_ids.flatten.uniq)
+    classroom_unit_ids = @unit_activities.map { |ua| ua.unit.classroom_unit_ids }.flatten.uniq
+    @activity_sessions = ActivitySession.where(activity: activity_ids, classroom_unit: classroom_unit_ids)
   end
 
   private def set_unit_activities

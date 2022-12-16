@@ -83,6 +83,7 @@ module Student
             .update_all(classroom_unit_id: sibling_cu.id)
 
           hide_extra_activity_sessions(cu.id)
+          cu.save_user_pack_sequence_items
         end
       else
         new_unit_name = "#{name}'s Activities from #{old_classroom.name}"
@@ -102,6 +103,7 @@ module Student
           activity_sessions.update_all(classroom_unit_id: new_cu.id)
 
           hide_extra_activity_sessions(cu.id)
+          cu.save_user_pack_sequence_items
         end
       end
     end

@@ -36,12 +36,8 @@ class Classroom < ApplicationRecord
   validates_uniqueness_of :code
   validates_presence_of :name
   validate :validate_name
+
   default_scope { where(visible: true)}
-
-  after_commit :hide_appropriate_classroom_units
-  after_commit :trigger_analytics_for_classroom_creation, on: :create
-
-  after_save :reset_teacher_activity_feed, if: :saved_change_to_visible?
 
   has_many :classroom_units, dependent: :destroy
   has_many :units, through: :classroom_units
@@ -50,6 +46,7 @@ class Classroom < ApplicationRecord
   has_many :activity_sessions, through: :classroom_units
   has_many :standard_levels, through: :activities
   has_many :coteacher_classroom_invitations, dependent: :destroy
+  has_many :pack_sequences, dependent: :destroy
 
   has_many :students_classrooms, foreign_key: 'classroom_id', dependent: :destroy, class_name: "StudentsClassrooms"
   has_many :students, through: :students_classrooms, source: :student, inverse_of: :classrooms, class_name: "User"
@@ -58,6 +55,11 @@ class Classroom < ApplicationRecord
   has_many :teachers, through: :classrooms_teachers, source: :user
 
   before_validation :set_code, if: proc {|c| c.code.blank?}
+
+  after_save :reset_teacher_activity_feed, :save_user_pack_sequence_items, if: :saved_change_to_visible?
+
+  after_commit :hide_appropriate_classroom_units
+  after_commit :trigger_analytics_for_classroom_creation, on: :create
 
   accepts_nested_attributes_for :classrooms_teachers
 
@@ -148,16 +150,21 @@ class Classroom < ApplicationRecord
   def hide_all_classroom_units
     ActivitySession.where(classroom_unit: classroom_units).update_all(visible: false)
     classroom_units.update_all(visible: false)
+    classroom_units.each(&:save_user_pack_sequence_items)
     return if owner.nil?
 
     SetTeacherLessonCache.perform_async(owner.id)
+
     ids = Unit.find_by_sql("
       SELECT unit.id FROM units unit
       LEFT JOIN classroom_units as cu ON cu.unit_id = unit.id AND cu.visible = true
       WHERE unit.visible = true
       AND cu.id IS null
       AND unit.user_id = #{owner.id}")
-    Unit.where(id: ids).update_all(visible: false)
+
+    units = Unit.where(id: ids)
+    units.update_all(visible: false)
+    units.each(&:save_user_pack_sequence_items)
   end
 
   def with_students
@@ -203,7 +210,10 @@ class Classroom < ApplicationRecord
     return 'Clever' if clever_classroom?
   end
 
-  # Clever integration
+  def save_user_pack_sequence_items
+    students.each { |student| SaveUserPackSequenceItemsWorker.perform_async(id, student.id) }
+  end
+
   private def clever_classroom
     Clever::Section.retrieve(clever_id, teacher.districts.first.token)
   end
@@ -218,5 +228,4 @@ class Classroom < ApplicationRecord
       TeacherActivityFeedRefillWorker.perform_async(teacher.id)
     end
   end
-
 end

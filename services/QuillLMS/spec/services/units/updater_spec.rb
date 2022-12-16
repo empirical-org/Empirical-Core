@@ -9,8 +9,6 @@ describe Units::Updater do
     let!(:unit_template) { create(:unit_template_with_activities )}
     let!(:unit_based_on_unit_template) { create(:unit, user_id: teacher.id, unit_template_id: unit_template.id)}
     let!(:classroom_unit_for_unit_template) { create(:classroom_unit, classroom_id: classroom.id, unit_id: unit_based_on_unit_template.id, assigned_student_ids: [student.id])}
-    # let activities_data = [{id: activity.id, due_date: nil}]
-    # classroom_unit.update(unit_id: unit.id)
 
     def activities_data
       [{id: activity.id, due_date: nil}]

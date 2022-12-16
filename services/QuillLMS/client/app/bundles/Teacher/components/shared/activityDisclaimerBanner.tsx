@@ -8,7 +8,7 @@ const headerOptions = {
   [EVIDENCE]: <h2>Heads up, you’ve selected a Quill Reading for Evidence activity</h2>
 }
 const bodyOptions = {
-  [LESSONS]: <p>Quill Lessons requires the teacher to launch and lead an interactive lesson synchronously with their students. <a href="https://support.quill.org/en/articles/1173157-getting-started-how-to-set-up-your-first-quill-lesson">Learn more about how Quill Lessons works.</a></p>,
+  [LESSONS]: <p>Quill Lessons requires the teacher to launch and lead an interactive lesson synchronously with their students. The activities are locked until a teacher launches the lesson. <a href="https://support.quill.org/en/articles/1173157-getting-started-how-to-set-up-your-first-quill-lesson">Learn more about how Quill Lessons works.</a></p>,
   [EVIDENCE]: <p>Quill Reading for Evidence activities are designed for 8th-12th grade students. The learning tool provides students with reading texts paired with evidence-based writing activities.</p>
 }
 

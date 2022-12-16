@@ -68,9 +68,8 @@
   }
 
   .unit-template-minis {
-    display: flex;
-    flex-wrap: wrap;
-    justify-content: space-between;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
     .all-packs-section {
       padding: 0;
       border-bottom: none;
@@ -81,6 +80,14 @@
         flex-wrap: wrap;
         justify-content: space-between;
       }
+    }
+    .unit-template-mini-wrapper:nth-child(odd) {
+      justify-self: right;
+      margin-right: 19px;
+    }
+    .unit-template-mini-wrapper:nth-child(even) {
+      justify-self: left;
+      margin-left: 19px;
     }
     .quill-tooltip {
       width: max-content;
