@@ -29,6 +29,8 @@ RSpec.describe PackSequenceItem, type: :model do
 
   it { should belong_to(:pack_sequence) }
   it { should belong_to(:classroom_unit) }
+  it { is_expected.to callback(:save_user_pack_sequence_items).after(:save).if(:saved_change_to_order?) }
+  it { is_expected.to callback(:save_user_pack_sequence_items).after(:destroy) }
 
   it { expect(subject).to be_valid }
 
@@ -44,28 +46,6 @@ RSpec.describe PackSequenceItem, type: :model do
       end
 
       it { expect { duplicate_pack_sequence_item }.to raise_error ActiveRecord::RecordNotUnique }
-    end
-  end
-
-  describe 'save_user_pack_sequence_items' do
-    let(:pack_sequence_item) { create(:pack_sequence_item) }
-    let(:num_user_pack_sequence_items) { 2 }
-    let(:num_jobs) { num_user_pack_sequence_items }
-
-    before { create_list(:user_pack_sequence_item, num_user_pack_sequence_items, pack_sequence_item: pack_sequence_item) }
-
-    context 'after_save' do
-      context 'order has changed' do
-        subject { pack_sequence_item.reload.update(order: pack_sequence_item.order + 1) }
-
-        it { expect { subject }.to change { SaveUserPackSequenceItemsWorker.jobs.size }.by(num_jobs) }
-      end
-    end
-
-    context 'after_destroy' do
-      subject { pack_sequence_item.destroy }
-
-      it { expect { subject }.to change { SaveUserPackSequenceItemsWorker.jobs.size }.by(num_jobs) }
     end
   end
 end
