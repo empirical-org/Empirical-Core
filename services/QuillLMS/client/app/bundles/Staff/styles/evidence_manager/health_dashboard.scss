@@ -1,0 +1,55 @@
+.health-dashboards-index-container {
+  padding: 20px;
+  .header-section {
+    .search-box {
+      width: 600px;
+    }
+    .control {
+      float: left;
+    }
+    .csv-download-button {
+      float: right;
+    }
+    .second-input-row {
+      width: 700px;
+    }
+    .poor-health-filter {
+      padding-top: 5px;
+    }
+    .poor-health-label {
+      padding-left: 5px;
+      font-weight: normal;
+    }
+    padding-bottom: 30px;
+  }
+
+  .table-section {
+    .rt-th {
+      min-width: 100px;
+      width: 100px;
+      max-width: 9.0072e15px;
+      .sortable-header {
+        height: 80px;
+        display: block;
+      }
+      input {
+        width: 60px !important;
+      }
+    }
+
+    .poor-health {
+      background-color: lightpink;
+      color: red;
+      font-weight: bold;
+      width: 70px;
+      padding: 3px;
+      display: block;
+    }
+    .poor-health-flag {
+      color: red;
+      font-weight: bold;
+    }
+  }
+
+
+}

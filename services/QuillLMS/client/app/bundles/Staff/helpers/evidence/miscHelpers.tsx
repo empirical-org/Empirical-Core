@@ -477,3 +477,29 @@ export function renderCSVDownloadButton(csvDataLoadInitiated, handleLoadCSVDataC
   }
   return <button className="quill-button fun primary contained csv-download-button" onClick={handleLoadCSVDataClick}>Load CSV Data</button>
 }
+
+
+export function addCommasToThousands(num)
+{
+  if (!num) return ""
+  let num_parts = num.toString().split(".");
+  num_parts[0] = num_parts[0].replace(/\B(?=(\d{3})+(?!\d))/g, ",");
+  return num_parts.join(".");
+}
+
+export function getLinkToActivity(id) {
+  return `${process.env.DEFAULT_URL}/cms/evidence#/activities/${id}/settings`
+}
+
+export function secondsToHumanReadableTime(seconds) {
+
+  let numhours = Math.floor(((seconds % 31536000) % 86400) / 3600).toString();
+  let numminutes = Math.floor((((seconds % 31536000) % 86400) % 3600) / 60).toString();
+  let numseconds = Math.floor((((seconds % 31536000) % 86400) % 3600) % 60).toString();
+
+  if (numhours.length === 1) numhours = "0" + numhours
+  if (numminutes.length === 1) numminutes = "0" + numminutes
+  if (numseconds.length === 1) numseconds = "0" + numseconds
+
+  return numhours + ":" + numminutes + ":" + numseconds;
+}
