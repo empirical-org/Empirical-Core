@@ -29,8 +29,6 @@ RSpec.describe PackSequenceItem, type: :model do
 
   it { should belong_to(:pack_sequence) }
   it { should belong_to(:classroom_unit) }
-  it { is_expected.to callback(:save_user_pack_sequence_items).after(:save).if(:saved_change_to_order?) }
-  it { is_expected.to callback(:save_user_pack_sequence_items).after(:destroy) }
 
   it { expect(subject).to be_valid }
 
