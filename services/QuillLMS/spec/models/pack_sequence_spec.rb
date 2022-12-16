@@ -62,4 +62,13 @@ RSpec.describe PackSequence, type: :model do
     # We need sidekiq here so that workers can create new user_pack_sequence_items
     it { Sidekiq::Testing.inline! { expect { subject }.not_to raise_error } }
   end
+
+  context 'save_user_pack_sequence_items' do
+    subject { pack_sequence.save_user_pack_sequence_items }
+
+    let!(:classroom) { create(:classroom_with_a_couple_students) }
+    let!(:pack_sequence) { create(:pack_sequence, classroom: classroom) }
+
+    it { expect { subject }.to change { SaveUserPackSequenceItemsWorker.jobs.size }.by(classroom.students.count) }
+  end
 end
