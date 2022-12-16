@@ -29,7 +29,7 @@ module Evidence
       ))
     end
 
-    private def poor_health_flag
+    def poor_health_flag
       return ((because_final_optimal && because_final_optimal < 75) || (but_final_optimal && but_final_optimal < 75) || (so_final_optimal && so_final_optimal < 75))
     end
   end
