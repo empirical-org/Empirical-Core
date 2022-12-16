@@ -51,6 +51,8 @@ export const HealthDashboard = ({ location, match }) => {
       filterAll: true,
       Cell: ({row}) => <span className="name"><a href={getLinkToActivity(row.original.activity_id)} rel="noopener noreferrer" target="_blank">{row.original.name}</a></span>, // eslint-disable-line react/display-name
       minWidth: 330,
+      width: 330,
+      maxWidth: 330
     },
     {
       Header: 'Version #',
@@ -223,7 +225,6 @@ export const HealthDashboard = ({ location, match }) => {
 
     setDataToDownload(clonedDataToDownload)
   }
-
 
   return(
     <React.Fragment>
