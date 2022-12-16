@@ -135,9 +135,7 @@ export const HealthDashboard = ({ location, match }) => {
       width: 70,
       minWidth: 70,
       maxWidth: 70,
-      Cell: ({row}) => {
-        row.original.because_final_optimal && <span className={row.original.because_final_optimal <= 75 ? "poor-health" : "" + " name"}>{row.original.because_final_optimal}%</span>;
-      }
+      Cell: ({row}) => row.original.because_final_optimal && <span className={row.original.because_final_optimal <= 75 ? "poor-health" : "" + " name"}>{row.original.because_final_optimal}%</span>
     },
     {
       Header: 'But Final Optimal',
@@ -148,9 +146,7 @@ export const HealthDashboard = ({ location, match }) => {
       width: 70,
       minWidth: 70,
       maxWidth: 70,
-      Cell: ({row}) => {
-        row.original.but_final_optimal && <span className={row.original.but_final_optimal <= 75 ? "poor-health" : "" + " name"}>{row.original.but_final_optimal}%</span>;
-      }
+      Cell: ({row}) => row.original.but_final_optimal && <span className={row.original.but_final_optimal <= 75 ? "poor-health" : "" + " name"}>{row.original.but_final_optimal}%</span>
     },
     {
       Header: 'So Final Optimal',
@@ -161,9 +157,7 @@ export const HealthDashboard = ({ location, match }) => {
       width: 70,
       minWidth: 70,
       maxWidth: 70,
-      Cell: ({row}) => {
-        row.original.so_final_optimal && <span className={row.original.so_final_optimal <= 75 ? "poor-health" : "" + " name"}>{row.original.so_final_optimal}%</span>;
-      }
+      Cell: ({row}) => row.original.so_final_optimal && <span className={row.original.so_final_optimal <= 75 ? "poor-health" : "" + " name"}>{row.original.so_final_optimal}%</span>
     },
     {
       Header: 'Avg Time Spent - Activity',
@@ -174,9 +168,8 @@ export const HealthDashboard = ({ location, match }) => {
       width: 70,
       minWidth: 70,
       maxWidth: 70,
-      Cell: ({row}) => {
-        secondsToHumanReadableTime(row.original.avg_completion_time);
-      }
+      Cell: ({row}) => secondsToHumanReadableTime(row.original.avg_completion_time)
+
     },
     {
       Header: 'Poor Health Flag',
