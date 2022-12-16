@@ -52,11 +52,9 @@ class UserPackSequenceItemSaver < ApplicationService
 
   private def save_statuses
     user_pack_sequence_item_statuses.each_pair do |pack_sequence_item_id, status|
-      PackSequenceItem
-        .find_by(id: pack_sequence_item_id)
-        &.user_pack_sequence_items
-        &.find_or_create_by!(user_id: user_id)
-        &.tap { |upsi| upsi.update!(status: status) unless status == upsi.status }
+      UserPackSequenceItem
+        .find_or_create_by!(pack_sequence_item_id: pack_sequence_item_id, user_id: user_id)
+        .tap { |upsi| upsi.update!(status: status) unless status == upsi.status }
     end
   end
 
