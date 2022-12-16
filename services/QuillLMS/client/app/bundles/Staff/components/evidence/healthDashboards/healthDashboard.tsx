@@ -313,13 +313,13 @@ export const HealthDashboard = ({ location, match }) => {
 
     console.log("rows to download")
     console.log(dataToDownload)
-    // // Map Activity Packs to strings because JSON objects dont display in CSVs
-    // let clonedDataToDownload = JSON.parse(JSON.stringify(dataToDownload));
-    // clonedDataToDownload.forEach(item=> {
-    //   item["Activity Packs"] = item["Activity Packs"] ? item["Activity Packs"].map(v => v.name) : ''
-    // });
+    // Map Activity Packs to strings because JSON objects dont display in CSVs
+    let clonedDataToDownload = JSON.parse(JSON.stringify(dataToDownload));
+    clonedDataToDownload.forEach(item=> {
+      item["Avg Time Spent - Activity"] = item["Avg Time Spent - Activity"] ? secondsToHumanReadableTime(item["Avg Time Spent - Activity"]) : ''
+    });
 
-    setDataToDownload(dataToDownload)
+    setDataToDownload(clonedDataToDownload)
   }
 
 
