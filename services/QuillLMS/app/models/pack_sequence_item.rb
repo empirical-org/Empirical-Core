@@ -29,13 +29,6 @@ class PackSequenceItem < ApplicationRecord
   has_many :user_pack_sequence_items, dependent: :destroy
   has_many :users, through: :user_pack_sequence_items
 
-  after_save :save_user_pack_sequence_items, if: :saved_change_to_order?
-
-  after_destroy :save_user_pack_sequence_items
-
   delegate :classroom_id, :unit_id, to: :classroom_unit
-
-  def save_user_pack_sequence_items
-    pack_sequence.users.each { |user| SaveUserPackSequenceItemsWorker.perform_async(classroom_id, user.id) }
-  end
+  delegate :save_user_pack_sequence_items, to: :pack_sequence
 end

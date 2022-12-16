@@ -211,13 +211,5 @@ describe Unit, type: :model do
         end
       end
     end
-
-    context 'after_destroy' do
-      subject { unit.reload.destroy }
-
-      let(:visible) { true }
-
-      it { expect { subject }.to change { SaveUserPackSequenceItemsWorker.jobs.size }.by(num_jobs) }
-    end
   end
 end
