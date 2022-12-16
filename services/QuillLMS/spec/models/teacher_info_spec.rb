@@ -33,6 +33,7 @@ describe TeacherInfo, type: :model, redis: true do
 
   context 'uniqueness' do
     let!(:teacher_info) {create(:teacher_info)}
+
     it {should validate_uniqueness_of(:user_id)}
   end
 
