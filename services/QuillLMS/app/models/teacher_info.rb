@@ -32,6 +32,8 @@ class TeacherInfo < ApplicationRecord
   KINDERGARTEN_DISPLAY_STRING = 'K'
   KINDERGARTEN_DATABASE_INTEGER = 0
 
+  EIGHT_TO_TWELVE = (8..12).to_a
+
   def minimum_grade_level=(value)
     value = KINDERGARTEN_DATABASE_INTEGER if value == KINDERGARTEN_DISPLAY_STRING
     super(value)
@@ -68,5 +70,22 @@ class TeacherInfo < ApplicationRecord
 
   def teacher_id=(value)
     self.user_id = value
+  end
+
+  def grade_levels
+    return [] if no_grade_levels?
+
+    return [maximum_grade_level] if minimum_grade_level.nil?
+    return [minimum_grade_level] if maximum_grade_level.nil?
+
+    (self[:minimum_grade_level]..self[:maximum_grade_level]).to_a
+  end
+
+  def in_eighth_through_twelfth?
+    grade_levels.intersection(EIGHT_TO_TWELVE).present?
+  end
+
+  private def no_grade_levels?
+    minimum_grade_level.nil? && maximum_grade_level.nil?
   end
 end

@@ -323,7 +323,13 @@ module Teacher
   end
 
   def teaches_eighth_through_twelfth?
-    return classrooms_i_teach.map(&:grade).compact.any? { |grade| grade.to_i.between?(8, 12) }
+    return true if teacher_info&.in_eighth_through_twelfth?
+
+    classrooms_i_teach
+      .map(&:grade)
+      .compact
+      .uniq
+      .any? { |grade| grade.to_i.in?(TeacherInfo::EIGHT_TO_TWELVE) }
   end
 
   def google_classrooms
