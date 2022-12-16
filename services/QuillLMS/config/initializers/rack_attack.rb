@@ -14,6 +14,12 @@ class Rack::Attack
     end
   end
 
+  Rack::Attack.throttle('account creation per IP', limit: 5, period: 60.minutes) do |req|
+    if req.path == '/account' && req.post?
+      req.ip
+    end
+  end
+
   Rack::Attack.throttled_response = lambda do |request|
     # NB: you have access to the name and other data about the matched throttle
     #  request.env['rack.attack.matched'],
@@ -23,7 +29,7 @@ class Rack::Attack
 
     # Using 503 because it may make attacker think that they have successfully
     # DOSed the site. Rack::Attack returns 429 for throttling by default
-    [503, {}, [{ message: 'Too many login attempts. Please try again later.', type: 'password' }.to_json]]
+    [503, {}, [{ message: 'Too many attempts. Please try again later.', type: 'password' }.to_json]]
   end
 
 end
