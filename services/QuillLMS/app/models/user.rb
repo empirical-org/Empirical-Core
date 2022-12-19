@@ -161,6 +161,8 @@ class User < ApplicationRecord
     allow_nil: true,
     prefix: :school
 
+  delegate :last_four, to: :stripe_user
+
   validates :name,
     presence: true,
     format: { without: /\t/, message: 'cannot contain tabs' },
@@ -287,14 +289,6 @@ class User < ApplicationRecord
 
   def eligible_for_new_subscription?
     subscription.nil? || Subscription::TRIAL_TYPES.include?(subscription.account_type)
-  end
-
-  def last_four
-    return nil unless stripe_customer_id
-
-    Stripe::Customer.retrieve(id: stripe_customer_id, expand: ['sources']).sources.data.first&.last4
-  rescue Stripe::InvalidRequestError
-    nil
   end
 
   def present_and_future_subscriptions
@@ -662,6 +656,10 @@ class User < ApplicationRecord
 
   def segment_user
     SegmentIntegration::User.new(self)
+  end
+
+  def stripe_user
+    StripeIntegration::User.new(self)
   end
 
   def mailer_user
