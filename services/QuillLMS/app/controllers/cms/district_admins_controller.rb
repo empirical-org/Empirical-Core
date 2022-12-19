@@ -37,7 +37,7 @@ class Cms::DistrictAdminsController < Cms::CmsController
 
   private def create_district_admin_user_for_existing_user(user, new_user: false)
 
-    if @district.district_admins.find_by(user_id: user.id)
+    if @district.district_admins.exists?(user_id: user.id)
       return render json: { message: t('district_admin.already_assigned', district_name: @district.name) }
     end
 
@@ -67,6 +67,6 @@ class Cms::DistrictAdminsController < Cms::CmsController
   private def user_params
     first_name = params[:first_name]
     last_name = params[:last_name]
-    user_params = { role: "teacher", email: params[:email], name: "#{first_name} #{last_name}", password: last_name }
+    { role: "teacher", email: params[:email], name: "#{first_name} #{last_name}", password: last_name }
   end
 end

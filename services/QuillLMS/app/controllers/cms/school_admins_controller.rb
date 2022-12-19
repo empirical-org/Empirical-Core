@@ -36,11 +36,9 @@ class Cms::SchoolAdminsController < Cms::CmsController
       return render json: { message: t('admin_created_account.existing_account.admin.linked', school_name: school_name) }
     end
 
-    admin = SchoolsAdmins.new
-    admin.school_id = school_id
-    admin.user_id = user.id
+    school_admin = user.schools_admins.build(school_id: school_id)
 
-    if admin.save!
+    if school_admin.save!
       handle_admin_save(user, school_id, new_user)
     else
       render json: { error: admin.errors.messages }
@@ -48,7 +46,7 @@ class Cms::SchoolAdminsController < Cms::CmsController
   end
 
   private def create_new_account_for_admin_user
-    user = @school.users.create(user_params)
+    user = @school.users.build(user_params)
 
     if user.save!
       user.refresh_token!
@@ -62,6 +60,6 @@ class Cms::SchoolAdminsController < Cms::CmsController
   private def user_params
     first_name = params[:first_name]
     last_name = params[:last_name]
-    user_params = { role: "teacher", email: params[:email], name: "#{first_name} #{last_name}", password: last_name }
+    { role: "teacher", email: params[:email], name: "#{first_name} #{last_name}", password: last_name }
   end
 end
