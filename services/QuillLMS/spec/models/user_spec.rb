@@ -1456,7 +1456,7 @@ describe User, type: :model do
   end
 
   describe '.find_by_stripe_customer_id_or_email!' do
-    subject { User.find_by_stripe_customer_id_or_email!(stripe_customer_id, email) }
+    subject { described_class.find_by_stripe_customer_id_or_email!(stripe_customer_id, email) }
 
     let(:email) { 'text@example.com' }
 
