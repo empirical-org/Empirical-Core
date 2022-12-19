@@ -9,12 +9,11 @@ class InternalTool::MadeDistrictAdminEmailWorker
     @user&.mailer_user&.send_internal_tool_made_district_admin_email(@district_name)
 
     analytics = Analyzer.new
-    analytics.track_with_attributes(
-      @user,
+    analytics.track_district_admin_user(
+      user,
       SegmentIo::BackgroundEvents::STAFF_MADE_EXISTING_USER_DISTRICT_ADMIN,
-      properties: {
-        admin_full_name: SegmentIo::Properties::STAFF_USER
-      }
+      @district_name,
+      SegmentIo::Properties::STAFF_USER
     )
   end
 end

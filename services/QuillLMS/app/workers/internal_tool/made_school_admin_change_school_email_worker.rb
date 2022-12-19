@@ -10,12 +10,11 @@ class InternalTool::MadeSchoolAdminChangeSchoolEmailWorker
     @user&.mailer_user&.send_internal_tool_made_school_admin_change_school_email(@new_school, @existing_school)
 
     analytics = Analyzer.new
-    analytics.track_with_attributes(
-      @user,
+    analytics.track_school_admin_user(
+      user,
       SegmentIo::BackgroundEvents::STAFF_MADE_EXISTING_USER_ADMIN,
-      properties: {
-        admin_full_name: SegmentIo::Properties::STAFF_USER
-      }
+      @existing_school&.name,
+      SegmentIo::Properties::STAFF_USER
     )
   end
 end
