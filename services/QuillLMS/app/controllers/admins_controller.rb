@@ -88,7 +88,7 @@ class AdminsController < ApplicationController
   def create_and_link_accounts
     @school = School.find_by(id: params[:school_id])
 
-    if SchoolsAdmins.exists?(school: @school, user: current_user).nil?
+    unless SchoolsAdmins.exists?(school: @school, user: current_user)
       render json: {errors: t('admin.current_user_is_not_an_admin')}, status: 422
       return
     end

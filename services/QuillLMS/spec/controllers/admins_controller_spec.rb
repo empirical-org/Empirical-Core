@@ -103,7 +103,7 @@ describe AdminsController  do
   describe '#create_and_link_accounts' do
     describe 'when the current user is not an admin of the school' do
       it 'should have a 422 status code' do
-        post :create_and_link_accounts, params: { id: admin.id }
+        post :create_and_link_accounts, params: { id: admin.id, school_id: create(:school).id, teacher: { role: 'admin' } }
         expect(response.status).to eq 422
       end
     end
