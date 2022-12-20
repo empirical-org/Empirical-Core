@@ -1,7 +1,6 @@
 import * as React from "react";
 import { useRef } from 'react';
 import { useQuery } from 'react-query';
-import { matchSorter } from 'match-sorter';
 import { CSVLink } from 'react-csv';
 import { firstBy } from 'thenby';
 
@@ -12,6 +11,42 @@ import { fetchAggregatedActivityHealths } from '../../../utils/evidence/ruleFeed
 import { getLinkToActivity, secondsToHumanReadableTime, addCommasToThousands } from "../../../helpers/evidence/miscHelpers";
 
 const ALL_FLAGS = "All Flags"
+
+const CustomTextFilter = ({ column, setFilter, placeholder }) => {
+  return (
+    <input
+      aria-label="text-filter"
+      onChange={event => setFilter(column.id, event.target.value)}
+      placeholder={placeholder}
+      style={{ width: "100%" }}
+      value={column.filterValue}
+    />
+  )
+}
+
+const RenderNumberFilter = ({ column, setFilter }) => (
+  <CustomTextFilter
+    column={column}
+    placeholder="1-2, <1, >1"
+    setFilter={setFilter}
+  />
+)
+
+const RenderTimeFilter = ({ column, setFilter }) => (
+  <CustomTextFilter
+    column={column}
+    placeholder="in seconds: 1-2, <1, >1"
+    setFilter={setFilter}
+  />
+)
+
+const RenderTrueFalseFilter = ({ column, setFilter }) => (
+  <CustomTextFilter
+    column={column}
+    placeholder="1 / 0"
+    setFilter={setFilter}
+  />
+)
 
 export const HealthDashboard = ({ location, match }) => {
   const [flag, setFlag] = React.useState<string>(ALL_FLAGS)
@@ -44,10 +79,7 @@ export const HealthDashboard = ({ location, match }) => {
       Header: 'Name',
       accessor: "name",
       key: "name",
-      filter: (rows, idArray, filterValue) => {
-        return matchSorter(rows, filterValue, { keys: ['original.name']})
-      },
-      Filter: TextFilter,
+      Filter: CustomTextFilter,
       filterAll: true,
       Cell: ({row}) => <span className="name"><a href={getLinkToActivity(row.original.activity_id)} rel="noopener noreferrer" target="_blank">{row.original.name}</a></span>, // eslint-disable-line react/display-name
       minWidth: 330,
@@ -58,16 +90,14 @@ export const HealthDashboard = ({ location, match }) => {
       Header: 'Version #',
       accessor: "version",
       key: "version",
-      filter: filterNumbers,
-      Filter: TextFilter,
+      Filter: RenderNumberFilter,
       minWidth: 70,
     },
     {
       Header: 'Version Plays',
       accessor: "version_plays",
       key: "versionPlays",
-      filter: filterNumbers,
-      Filter: TextFilter,
+      Filter: RenderNumberFilter,
       minWidth: 70,
       Cell: ({row}) => row.original.version_plays && <span className="versionPlays">{addCommasToThousands(row.original.version_plays)}</span>
     },
@@ -75,26 +105,23 @@ export const HealthDashboard = ({ location, match }) => {
       Header: 'Total Plays',
       accessor: "total_plays",
       key: "totalPlays",
-      filter: filterNumbers,
-      Filter: TextFilter,
+      Filter: RenderNumberFilter,
       minWidth: 70,
       Cell: ({row}) => row.original.total_plays && <span className="versionPlays">{addCommasToThousands(row.original.total_plays)}</span>
     },
     {
-      Header: 'Completion Rate',
+      Header: 'Completed Rate',
       accessor: "completion_rate",
       key: "completionRate",
-      filter: filterNumbers,
-      Filter: TextFilter,
-      minWidth: 70,
+      Filter: RenderNumberFilter,
+      minWidth: 80,
       Cell: ({row}) => row.original.completion_rate && <span className="name">{row.original.completion_rate}%</span>
     },
     {
       Header: 'Because Final Optimal',
       accessor: "because_final_optimal",
       key: "becauseFinalOptimal",
-      filter: filterNumbers,
-      Filter: TextFilter,
+      Filter: RenderNumberFilter,
       minWidth: 70,
       Cell: ({row}) => row.original.because_final_optimal && <span className={row.original.because_final_optimal <= 75 ? "poor-health" : "" + " name"}>{row.original.because_final_optimal}%</span>
     },
@@ -102,8 +129,7 @@ export const HealthDashboard = ({ location, match }) => {
       Header: 'But Final Optimal',
       accessor: "but_final_optimal",
       key: "butFinalOptimal",
-      filter: filterNumbers,
-      Filter: TextFilter,
+      Filter: RenderNumberFilter,
       minWidth: 70,
       Cell: ({row}) => row.original.but_final_optimal && <span className={row.original.but_final_optimal <= 75 ? "poor-health" : "" + " name"}>{row.original.but_final_optimal}%</span>
     },
@@ -111,8 +137,7 @@ export const HealthDashboard = ({ location, match }) => {
       Header: 'So Final Optimal',
       accessor: "so_final_optimal",
       key: "soFinalOptimal",
-      filter: filterNumbers,
-      Filter: TextFilter,
+      Filter: RenderNumberFilter,
       minWidth: 70,
       Cell: ({row}) => row.original.so_final_optimal && <span className={row.original.so_final_optimal <= 75 ? "poor-health" : "" + " name"}>{row.original.so_final_optimal}%</span>
     },
@@ -120,8 +145,7 @@ export const HealthDashboard = ({ location, match }) => {
       Header: 'Avg Time Spent - Activity',
       accessor: "avg_completion_time",
       key: "avgCompletionTime",
-      filter: filterNumbers,
-      Filter: TextFilter,
+      Filter: RenderTimeFilter,
       minWidth: 70,
       Cell: ({row}) => secondsToHumanReadableTime(row.original.avg_completion_time)
     },
@@ -129,8 +153,7 @@ export const HealthDashboard = ({ location, match }) => {
       Header: 'Poor Health Flag',
       accessor: "poor_health_flag",
       key: "poorHealthFlag",
-      filter: filterNumbers,
-      Filter: TextFilter,
+      Filter: RenderTrueFalseFilter,
       minWidth: 70,
       Cell: ({row}) => row.original.poor_health_flag === true && <span className="poor-health-flag">X</span>
     }
@@ -173,7 +196,11 @@ export const HealthDashboard = ({ location, match }) => {
 
   const filterRowsByColumnValue = (rows, column, value) => {
     if (column === 'name') {
-      return matchSorter(rows, value, { keys: [column]})
+      return rows.filter(r => r.name.toLowerCase().includes(value.toLowerCase()))
+    } else if (column === 'poor_health_flag') {
+      if (value === '1') return rows.filter(r => r.poor_health_flag === true)
+      else if (value === '0') return rows.filter(r => !r.poor_health_flag)
+      else return rows
     } else {
       return filterNumbers(rows.map(r => {return {original: r}}), [column], value).map(r => r.original)
     }
