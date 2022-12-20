@@ -16,7 +16,7 @@ class Cms::SchoolAdminsController < Cms::CmsController
     @school = School.find(params[:school_id])
   end
 
-  private def handle_admin_save(user, school_id, new_user)
+  private def handle_school_admin_save(user, school_id, new_user)
     user.mailer_user.send_school_admin_email(school_id, new_user)
     returned_message = new_user ? t('admin.make_admin') : t('admin_created_account.existing_account.admin.new')
 
@@ -39,9 +39,9 @@ class Cms::SchoolAdminsController < Cms::CmsController
     school_admin = user.schools_admins.build(school_id: school_id)
 
     if school_admin.save!
-      handle_admin_save(user, school_id, new_user)
+      handle_school_admin_save(user, school_id, new_user)
     else
-      render json: { error: admin.errors.messages }
+      render json: { error: school_admin.errors.messages }
     end
   end
 
