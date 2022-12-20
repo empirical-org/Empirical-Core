@@ -226,7 +226,7 @@ class SegmentAnalytics
     })
   end
 
-  def track_district_admin_user(user, event, district_name)
+  def track_district_admin_user(user, event, district_name, referring_admin_name)
     track({
       user_id: user.id,
       event: event,
@@ -234,7 +234,8 @@ class SegmentAnalytics
         first_name: user.first_name,
         last_name: user.last_name,
         email: user.email,
-        district_name: district_name
+        district_name: district_name,
+        admin_name: referring_admin_name
       }
     })
   end

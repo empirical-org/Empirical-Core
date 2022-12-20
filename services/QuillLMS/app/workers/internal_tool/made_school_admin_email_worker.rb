@@ -8,9 +8,9 @@ class InternalTool::MadeSchoolAdminEmailWorker
     @school_name = School.find_by(id: school_id)&.name
     @user&.mailer_user&.send_internal_tool_made_school_admin_email(@school_name)
 
-    analytics = Analyzer.new
+    analytics = SegmentAnalytics.new
     analytics.track_school_admin_user(
-      user,
+      @user,
       SegmentIo::BackgroundEvents::STAFF_MADE_EXISTING_USER_ADMIN,
       @school_name,
       SegmentIo::Properties::STAFF_USER

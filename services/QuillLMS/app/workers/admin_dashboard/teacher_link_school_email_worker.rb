@@ -9,9 +9,9 @@ class AdminDashboard::TeacherLinkSchoolEmailWorker
     @school = School.find_by(id: school_id)
     @user&.mailer_user&.send_admin_dashboard_teacher_link_school_email(@admin_name, @school)
 
-    analytics = Analyzer.new
+    analytics = SegmentAnalytics.new
     analytics.track_school_admin_user(
-      user,
+      @user,
       SegmentIo::BackgroundEvents::ADMIN_SENT_LINK_REQUEST,
       @school&.name,
       @admin_name

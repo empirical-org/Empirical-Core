@@ -10,11 +10,11 @@ class AdminDashboard::TeacherAccountCreatedEmailWorker
     @is_reminder = is_reminder
     @user&.mailer_user&.send_admin_dashboard_teacher_account_created_email(@admin_name, @school_name, @is_reminder)
 
-    analytics = Analyzer.new
+    analytics = SegmentAnalytics.new
     analytics.track_school_admin_user(
-      user,
+      @user,
       SegmentIo::BackgroundEvents::ADMIN_CREATED_TEACHER_ACCOUNT,
-      @new_school&.name,
+      @school_name,
       @admin_name
     )
   end

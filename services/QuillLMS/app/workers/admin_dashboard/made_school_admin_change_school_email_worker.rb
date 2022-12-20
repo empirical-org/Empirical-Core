@@ -10,9 +10,9 @@ class AdminDashboard::MadeSchoolAdminChangeSchoolEmailWorker
     @existing_school = School.find_by(id: existing_school_id)
     @user&.mailer_user&.send_admin_dashboard_made_school_admin_change_school_email(@admin_name, @new_school, @existing_school)
 
-    analytics = Analyzer.new
+    analytics = SegmentAnalytics.new
     analytics.track_school_admin_user(
-      user,
+      @user,
       SegmentIo::BackgroundEvents::ADMIN_MADE_EXISTING_USER_ADMIN,
       @new_school&.name,
       @admin_name
