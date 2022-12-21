@@ -157,6 +157,11 @@ class UnitActivity < ApplicationRecord
           COALESCE(cuas.locked, false) AS locked,
           COALESCE(cuas.pinned, false) AS pinned,
           MAX(acts.percentage) AS max_percentage,
+          unit.visible AS unit_visible,
+          ua.visible AS ua_visible,
+          cu.visible AS cu_visible,
+          acts.visible AS acts_visible,
+          CASE WHEN unit.visible = false OR ua.visible = false OR cu.visible = false OR acts.visible = false THEN true ELSE false END as archived,
           SUM(CASE WHEN pre_activity_sessions_classroom_units.id > 0 AND pre_activity_sessions.state = '#{ActivitySession::STATE_FINISHED}' THEN 1 ELSE 0 END) > 0 AS completed_pre_activity_session,
           SUM(CASE WHEN acts.state = '#{ActivitySession::STATE_FINISHED}' THEN 1 ELSE 0 END) > 0 AS #{ActivitySession::STATE_FINISHED_KEY},
           SUM(CASE WHEN acts.state = '#{ActivitySession::STATE_STARTED}' THEN 1 ELSE 0 END) AS resume_link
@@ -168,7 +173,6 @@ class UnitActivity < ApplicationRecord
         LEFT JOIN activity_sessions AS acts
           ON cu.id = acts.classroom_unit_id
           AND acts.activity_id = ua.activity_id
-          AND acts.visible = true
           AND acts.user_id = #{user_id.to_i}
         JOIN activities AS activity
           ON activity.id = ua.activity_id
@@ -192,11 +196,7 @@ class UnitActivity < ApplicationRecord
         LEFT JOIN user_pack_sequence_items AS upsi
           ON upsi.pack_sequence_item_id = psi.id
           AND upsi.user_id = #{user_id.to_i}
-        WHERE #{user_id.to_i} = ANY (cu.assigned_student_ids::int[])
-          AND cu.classroom_id = #{classroom_id.to_i}
-          AND cu.visible = true
-          AND unit.visible = true
-          AND ua.visible = true
+        WHERE cu.classroom_id = #{classroom_id.to_i}
           AND (ua.publish_date IS NULL OR ua.publish_date <= NOW())
         GROUP BY
           unit.id,
@@ -220,7 +220,8 @@ class UnitActivity < ApplicationRecord
           teachers.time_zone,
           psi.id,
           upsi.id,
-          upsi.status
+          upsi.status,
+          acts.visible
         ORDER BY
           pinned DESC,
           locked ASC,

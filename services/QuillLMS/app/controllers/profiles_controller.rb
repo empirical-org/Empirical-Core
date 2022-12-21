@@ -110,7 +110,7 @@ class ProfilesController < ApplicationController
   protected def student_profile_data_sql(classroom_id=nil)
     @current_classroom = current_classroom(classroom_id)
     if @current_classroom && current_user
-      @act_sesh_records = UnitActivity.get_classroom_user_profile(@current_classroom.id, current_user.id)
+      @act_sesh_records = UnitActivity.get_classroom_user_profile(@current_classroom.id, current_user.id).filter { |ua| ua['finished'] || !ua['archived'] }
     else
       @act_sesh_records = []
     end
