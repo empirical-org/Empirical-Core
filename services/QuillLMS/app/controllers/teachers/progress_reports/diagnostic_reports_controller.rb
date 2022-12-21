@@ -217,7 +217,7 @@ class Teachers::ProgressReports::DiagnosticReportsController < Teachers::Progres
   end
 
   def assign_whole_class_instruction_packs
-    return render json: {}, status: 401 unless params[:classroom_id].in?(current_user.classrooms_i_teach.pluck(:id))
+    return render json: {}, status: 401 unless params[:classroom_id].to_i.in?(current_user.classrooms_i_teach.pluck(:id))
 
     set_lesson_diagnostic_recommendations_start_time
     last_recommendation_index = params[:unit_template_ids].length - 1
