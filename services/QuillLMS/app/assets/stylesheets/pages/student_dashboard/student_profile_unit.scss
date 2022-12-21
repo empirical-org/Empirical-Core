@@ -67,6 +67,12 @@
       overflow: visible;
       display: flex !important;
       justify-content: flex-end;
+      .quill-tooltip-trigger {
+        margin-right: 0px;
+      }
+      .disabled {
+        pointer-events: auto;
+      }
     }
     .score {
       display: flex;

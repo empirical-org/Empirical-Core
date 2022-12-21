@@ -102,8 +102,8 @@ const completeHeaders = [
     name: '',
     attribute: 'actionButton',
     noTooltip: true,
-    headerClassName: 'action-button-section',
-    rowSectionClassName: 'action-button-section'
+    headerClassName: 'action-button-section tooltip-section',
+    rowSectionClassName: 'action-button-section tooltip-section'
   }
 ]
 
@@ -115,7 +115,7 @@ export default class StudentProfileUnit extends React.Component {
 
     if (activity_classification_key === DIAGNOSTIC_ACTIVITY_CLASSIFICATION_KEY && pre_activity_id && !completed_pre_activity_session) { return <span className="complete-baseline">Complete Baseline first</span>}
 
-    if ((!repeatable && finished) || archived) { return <span /> }
+    if (!repeatable && finished) { return <span /> }
 
     if (!finished && marked_complete) { return <span>Missed</span> }
 
@@ -124,6 +124,16 @@ export default class StudentProfileUnit extends React.Component {
         <Tooltip
           tooltipText="This is a Quill Lessons activity. Your teacher launches a Quill Lesson from their dashboard, and you complete the lesson together. To join the lesson, your teacher first needs to launch the lesson."
           tooltipTriggerText={<span className="needs-teacher">Needs teacher</span>}
+        />
+      )
+    }
+
+    if (archived) {
+      return (
+        <Tooltip
+          tooltipText="Sorry, you can't replay this activity. Your teacher archived this activity pack."
+          tooltipTriggerText="Replay"
+          tooltipTriggerTextClass="quill-button disabled medium secondary outlined"
         />
       )
     }
