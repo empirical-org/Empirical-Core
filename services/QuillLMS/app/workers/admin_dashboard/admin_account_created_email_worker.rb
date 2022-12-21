@@ -8,7 +8,10 @@ class AdminDashboard::AdminAccountCreatedEmailWorker
     @admin_name = User.find_by(id: admin_user_id)&.name
     @school_name = School.find_by(id: school_id)&.name
     @is_reminder = is_reminder
-    @user&.mailer_user&.send_admin_dashboard_admin_account_created_email(@admin_name, @school_name, @is_reminder)
+
+    return unless @user && @admin_name && @school_name
+
+    @user.mailer_user.send_admin_dashboard_admin_account_created_email(@admin_name, @school_name, @is_reminder)
 
     analytics = SegmentAnalytics.new
     analytics.track_school_admin_user(
