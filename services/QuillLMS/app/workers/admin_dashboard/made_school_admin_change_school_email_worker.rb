@@ -16,7 +16,7 @@ class AdminDashboard::MadeSchoolAdminChangeSchoolEmailWorker
     analytics = SegmentAnalytics.new
     analytics.track_school_admin_user(
       @user,
-      SegmentIo::BackgroundEvents::ADMIN_MADE_EXISTING_USER_ADMIN,
+      SegmentIo::BackgroundEvents::ADMIN_MADE_EXISTING_USER_SCHOOL_ADMIN,
       @new_school.name,
       @admin_name
     )

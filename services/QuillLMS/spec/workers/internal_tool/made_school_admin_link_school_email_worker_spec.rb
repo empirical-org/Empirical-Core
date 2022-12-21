@@ -2,18 +2,18 @@
 
 require 'rails_helper'
 
-describe InternalTool::AdminAccountCreatedEmailWorker, type: :worker do
+describe InternalTool::MadeSchoolAdminLinkSchoolEmailWorker, type: :worker do
   let!(:teacher) { create(:teacher) }
   let!(:school) { create(:school) }
   let!(:mailer_user) { Mailer::User.new(teacher) }
   let!(:mailer_class)  { InternalToolUserMailer }
-  let!(:mailer_method) { :admin_account_created_email}
-  let!(:worker) { InternalTool::AdminAccountCreatedEmailWorker.new }
+  let!(:mailer_method) { :made_school_admin_link_school_email}
+  let!(:worker) { InternalTool::MadeSchoolAdminLinkSchoolEmailWorker.new }
   let!(:analytics) { double(:analytics).as_null_object }
 
   before do
     allow(School).to receive(:find_by).and_return(school)
-    allow(mailer_class).to receive(mailer_method).with(mailer_user, school.name).and_return(double(:email, deliver_now!: true))
+    allow(mailer_class).to receive(mailer_method).with(mailer_user, school).and_return(double(:email, deliver_now!: true))
     allow(teacher).to receive(:mailer_user).and_return(mailer_user)
     allow(SegmentAnalytics).to receive(:new) { analytics }
   end
@@ -42,14 +42,14 @@ describe InternalTool::AdminAccountCreatedEmailWorker, type: :worker do
     end
 
     it 'should send the mail with user mailer' do
-      expect(mailer_class).to receive(mailer_method).with(mailer_user, school.name)
+      expect(mailer_class).to receive(mailer_method).with(mailer_user, school)
       worker.perform(teacher.id, school.id)
     end
 
-    it 'should send a segment.io event' do
+    it 'should send a segment.io event if user or school is nil' do
       expect(analytics).to receive(:track_school_admin_user).with(
         teacher,
-        SegmentIo::BackgroundEvents::STAFF_CREATED_SCHOOL_ADMIN_ACCOUNT,
+        SegmentIo::BackgroundEvents::STAFF_MADE_EXISTING_USER_SCHOOL_ADMIN,
         school.name,
         SegmentIo::Properties::STAFF_USER
       )

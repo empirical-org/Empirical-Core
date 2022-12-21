@@ -2,13 +2,13 @@
 
 require 'rails_helper'
 
-describe InternalTool::AdminAccountCreatedEmailWorker, type: :worker do
+describe InternalTool::MadeSchoolAdminEmailWorker, type: :worker do
   let!(:teacher) { create(:teacher) }
   let!(:school) { create(:school) }
   let!(:mailer_user) { Mailer::User.new(teacher) }
   let!(:mailer_class)  { InternalToolUserMailer }
-  let!(:mailer_method) { :admin_account_created_email}
-  let!(:worker) { InternalTool::AdminAccountCreatedEmailWorker.new }
+  let!(:mailer_method) { :made_school_admin_email}
+  let!(:worker) { InternalTool::MadeSchoolAdminEmailWorker.new }
   let!(:analytics) { double(:analytics).as_null_object }
 
   before do
@@ -46,10 +46,10 @@ describe InternalTool::AdminAccountCreatedEmailWorker, type: :worker do
       worker.perform(teacher.id, school.id)
     end
 
-    it 'should send a segment.io event' do
+    it 'should send a segment.io event if user or school is nil' do
       expect(analytics).to receive(:track_school_admin_user).with(
         teacher,
-        SegmentIo::BackgroundEvents::STAFF_CREATED_SCHOOL_ADMIN_ACCOUNT,
+        SegmentIo::BackgroundEvents::STAFF_MADE_EXISTING_USER_SCHOOL_ADMIN,
         school.name,
         SegmentIo::Properties::STAFF_USER
       )

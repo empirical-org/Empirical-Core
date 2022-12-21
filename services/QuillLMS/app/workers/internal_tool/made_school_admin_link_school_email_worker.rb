@@ -14,7 +14,7 @@ class InternalTool::MadeSchoolAdminLinkSchoolEmailWorker
     analytics = SegmentAnalytics.new
     analytics.track_school_admin_user(
       @user,
-      SegmentIo::BackgroundEvents::STAFF_MADE_EXISTING_USER_ADMIN,
+      SegmentIo::BackgroundEvents::STAFF_MADE_EXISTING_USER_SCHOOL_ADMIN,
       @school.name,
       SegmentIo::Properties::STAFF_USER
     )
