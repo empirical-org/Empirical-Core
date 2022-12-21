@@ -4013,10 +4013,10 @@ exports[`StudentProfileUnits component should render only completed activities i
                 },
                 Object {
                   "attribute": "actionButton",
-                  "headerClassName": "action-button-section",
+                  "headerClassName": "action-button-section tooltip-section",
                   "name": "",
                   "noTooltip": true,
-                  "rowSectionClassName": "action-button-section",
+                  "rowSectionClassName": "action-button-section tooltip-section",
                   "width": "88px",
                 },
               ]
@@ -4146,7 +4146,7 @@ exports[`StudentProfileUnits component should render only completed activities i
                   Completed date
                 </th>
                 <th
-                  className="data-table-header action-button-section"
+                  className="data-table-header action-button-section tooltip-section"
                   scope="col"
                   style={
                     Object {
@@ -4235,7 +4235,7 @@ exports[`StudentProfileUnits component should render only completed activities i
                     }
                   />
                   <td
-                    className="data-table-row-section action-button-section"
+                    className="data-table-row-section action-button-section tooltip-section"
                     key="actionButton-9"
                     style={
                       Object {
@@ -4329,7 +4329,7 @@ exports[`StudentProfileUnits component should render only completed activities i
                     }
                   />
                   <td
-                    className="data-table-row-section action-button-section"
+                    className="data-table-row-section action-button-section tooltip-section"
                     key="actionButton-5"
                     style={
                       Object {
