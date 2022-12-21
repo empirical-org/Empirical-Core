@@ -157,7 +157,6 @@ group :production, :staging do
   gem 'rails-autoscale-web'
   gem 'rails-autoscale-sidekiq'
   gem 'lograge'
-  gem 'sqreen'
 end
 
 group :development do
