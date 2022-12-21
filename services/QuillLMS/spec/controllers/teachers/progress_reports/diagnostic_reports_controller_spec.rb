@@ -315,6 +315,61 @@ describe Teachers::ProgressReports::DiagnosticReportsController, type: :controll
     end
   end
 
+  describe '#assign_whole_class_instruction_packs' do
+    let(:unit_template_ids) { [unit_template1, unit_template2].map(&:id) }
+
+    subject do
+      post 'assign_whole_class_instruction_packs',
+        params: { classroom_id: classroom.id, unit_template_ids: unit_template_ids },
+        as: :json
+    end
+
+    context 'current_user does not teach classroom' do
+      let(:teacher) { create(:teacher) }
+
+      it 'returns unauthorized status' do
+        subject
+        expect(response).to have_http_status :unauthorized
+      end
+    end
+
+    context 'current_user teaches classroom' do
+      it 'returns ok status' do
+        subject
+        expect(response).to have_http_status :ok
+      end
+
+      let(:worker_args1) do
+        {
+          'assign_on_join' => true,
+          'classroom_id' => classroom.id,
+          'is_last_recommendation' => false,
+          'lesson' => true,
+          'student_ids' => [],
+          'unit_template_id' => unit_template1.id
+        }
+      end
+
+      let(:worker_args2) do
+        {
+          'assign_on_join' => true,
+          'classroom_id' => classroom.id,
+          'is_last_recommendation' => true,
+          'lesson' => true,
+          'student_ids' => [],
+          'unit_template_id' => unit_template2.id
+        }
+      end
+
+      it 'creates units but does not create new classroom activities if passed no students ids' do
+        expect(AssignRecommendationsWorker).to receive(:perform_async).with(worker_args1)
+        expect(AssignRecommendationsWorker).to receive(:perform_async).with(worker_args2)
+        subject
+      end
+    end
+
+  end
+
   describe 'skills_growth' do
     let!(:pre_test_unit) { create(:unit) }
     let!(:post_test_unit) { create(:unit, user: pre_test_unit.user) }

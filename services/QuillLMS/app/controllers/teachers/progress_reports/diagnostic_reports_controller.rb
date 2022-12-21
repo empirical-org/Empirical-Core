@@ -224,12 +224,14 @@ class Teachers::ProgressReports::DiagnosticReportsController < Teachers::Progres
 
     params[:unit_template_ids].each_with_index do |unit_template_id, index|
       AssignRecommendationsWorker.perform_async(
-        assign_on_join: true,
-        classroom_id: params[:classroom_id],
-        is_last_recommendation: index == last_recommendation_index,
-        lesson: true,
-        student_ids: [],
-        unit_template_id: unit_template_id
+        {
+          'assign_on_join' => true,
+          'classroom_id' => params[:classroom_id],
+          'is_last_recommendation' => (index == last_recommendation_index),
+          'lesson' => true,
+          'student_ids' => [],
+          'unit_template_id' => unit_template_id
+        }
       )
     end
 
