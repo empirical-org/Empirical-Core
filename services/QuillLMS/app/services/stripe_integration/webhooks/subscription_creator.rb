@@ -60,7 +60,7 @@ module StripeIntegration
       end
 
       private def purchaser
-        @purchaser ||= User.find_by_stripe_customer_id_or_email!(stripe_customer_id, purchaser_email)
+        @purchaser ||= ::User.find_by_stripe_customer_id_or_email!(stripe_customer_id, purchaser_email)
       rescue ActiveRecord::RecordNotFound
         raise PurchaserNotFoundError
       end
