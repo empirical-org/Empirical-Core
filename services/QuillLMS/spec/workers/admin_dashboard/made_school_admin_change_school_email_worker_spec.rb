@@ -3,6 +3,7 @@
 require 'rails_helper'
 
 describe AdminDashboard::MadeSchoolAdminChangeSchoolEmailWorker, type: :worker do
+  subject { described_class.new.perform(teacher.id, referring_admin.id, new_school.id, existing_school.id) }
   let!(:teacher) { create(:teacher) }
   let!(:referring_admin) { create(:teacher) }
   let!(:new_school) { create(:school) }
@@ -28,12 +29,12 @@ describe AdminDashboard::MadeSchoolAdminChangeSchoolEmailWorker, type: :worker d
 
     it 'should not send the mail with user mailer' do
       expect(mailer_class).not_to receive(mailer_method)
-      worker.perform(nil, referring_admin.id, new_school.id, existing_school.id)
+      subject
     end
 
     it 'should not send a segment.io event' do
       expect(analytics).not_to receive(:track_school_admin_user)
-      worker.perform(nil, referring_admin.id, new_school.id, existing_school.id)
+      subject
     end
   end
 
@@ -45,7 +46,7 @@ describe AdminDashboard::MadeSchoolAdminChangeSchoolEmailWorker, type: :worker d
 
     it 'should send the mail with user mailer' do
       expect(mailer_class).to receive(mailer_method).with(mailer_user, referring_admin.name, new_school, existing_school)
-      worker.perform(teacher.id, referring_admin.id, new_school.id, existing_school.id)
+      subject
     end
 
     it 'should send a segment.io event' do
@@ -55,7 +56,7 @@ describe AdminDashboard::MadeSchoolAdminChangeSchoolEmailWorker, type: :worker d
         new_school.name,
         referring_admin.name
       )
-      worker.perform(teacher.id, referring_admin.id, new_school.id, existing_school.id)
+      subject
     end
   end
 end

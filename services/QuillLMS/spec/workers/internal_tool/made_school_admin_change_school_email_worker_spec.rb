@@ -3,13 +3,13 @@
 require 'rails_helper'
 
 describe InternalTool::MadeSchoolAdminChangeSchoolEmailWorker, type: :worker do
+  subject { described_class.new.perform(teacher.id, new_school.id, existing_school.id) }
   let!(:teacher) { create(:teacher) }
   let!(:new_school) { create(:school) }
   let!(:existing_school) { create(:school) }
   let!(:mailer_user) { Mailer::User.new(teacher) }
   let!(:mailer_class)  { InternalToolUserMailer }
   let!(:mailer_method) { :made_school_admin_change_school_email}
-  let!(:worker) { InternalTool::MadeSchoolAdminChangeSchoolEmailWorker.new }
   let!(:analytics) { double(:analytics).as_null_object }
 
   before do
@@ -27,12 +27,12 @@ describe InternalTool::MadeSchoolAdminChangeSchoolEmailWorker, type: :worker do
 
     it 'should not send the mail with user mailer' do
       expect(mailer_class).not_to receive(mailer_method)
-      worker.perform(nil, new_school.id, existing_school.id)
+      subject
     end
 
     it 'should not send a segment.io event' do
       expect(analytics).not_to receive(:track_school_admin_user)
-      worker.perform(nil, new_school.id, existing_school.id)
+      subject
     end
   end
 
@@ -44,7 +44,7 @@ describe InternalTool::MadeSchoolAdminChangeSchoolEmailWorker, type: :worker do
 
     it 'should send the mail with user mailer' do
       expect(mailer_class).to receive(mailer_method).with(mailer_user, new_school, existing_school)
-      worker.perform(teacher.id, new_school.id, existing_school.id)
+      subject
     end
 
     it 'should send a segment.io event' do
@@ -54,7 +54,7 @@ describe InternalTool::MadeSchoolAdminChangeSchoolEmailWorker, type: :worker do
         new_school.name,
         SegmentIo::Properties::STAFF_USER
       )
-      worker.perform(teacher.id, new_school.id, existing_school.id)
+      subject
     end
   end
 end

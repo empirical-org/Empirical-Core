@@ -2,16 +2,14 @@
 
 require 'rails_helper'
 
-# perform(user_id, admin_user_id, school_id, is_reminder)
-
 describe AdminDashboard::AdminAccountCreatedEmailWorker, type: :worker do
+  subject { described_class.new.perform(teacher.id, referring_admin.id, school.id, is_reminder) }
   let!(:teacher) { create(:teacher) }
   let!(:referring_admin) { create(:teacher) }
   let!(:school) { create(:school) }
   let!(:mailer_user) { Mailer::User.new(teacher) }
   let!(:mailer_class)  { AdminDashboardUserMailer }
   let!(:mailer_method) { :admin_account_created_email}
-  let!(:worker) { AdminDashboard::AdminAccountCreatedEmailWorker.new }
   let!(:analytics) { double(:analytics).as_null_object }
   let!(:is_reminder) { false }
 
@@ -30,12 +28,12 @@ describe AdminDashboard::AdminAccountCreatedEmailWorker, type: :worker do
 
     it 'should not send the mail with user mailer' do
       expect(mailer_class).not_to receive(mailer_method)
-      worker.perform(nil, referring_admin.id, school.id, is_reminder)
+      subject
     end
 
     it 'should not send a segment.io event' do
       expect(analytics).not_to receive(:track_school_admin_user)
-      worker.perform(nil, referring_admin.id, school.id, is_reminder)
+      subject
     end
   end
 
@@ -47,7 +45,7 @@ describe AdminDashboard::AdminAccountCreatedEmailWorker, type: :worker do
 
     it 'should send the mail with user mailer' do
       expect(mailer_class).to receive(mailer_method).with(mailer_user, referring_admin.name, school.name, is_reminder)
-      worker.perform(teacher.id, referring_admin.id, school.id, is_reminder)
+      subject
     end
 
     it 'should send a segment.io event' do
@@ -57,7 +55,7 @@ describe AdminDashboard::AdminAccountCreatedEmailWorker, type: :worker do
         school.name,
         referring_admin.name
       )
-      worker.perform(teacher.id, referring_admin.id, school.id, is_reminder)
+      subject
     end
   end
 end
