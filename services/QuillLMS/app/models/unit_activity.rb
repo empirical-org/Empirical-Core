@@ -158,10 +158,7 @@ class UnitActivity < ApplicationRecord
           COALESCE(cuas.pinned, false) AS pinned,
           MAX(acts.percentage) AS max_percentage,
           CASE WHEN
-            unit.visible = false
-            OR ua.visible = false
-            OR cu.visible = false
-            OR acts.visible = false
+            false IN (unit.visible, ua.visible, cua.visible, acts.visible)
             OR #{user_id.to_i} = ALL(cu.assigned_student_ids::int[])
           THEN true ELSE false END as archived,
           SUM(CASE WHEN pre_activity_sessions_classroom_units.id > 0 AND pre_activity_sessions.state = '#{ActivitySession::STATE_FINISHED}' THEN 1 ELSE 0 END) > 0 AS completed_pre_activity_session,
