@@ -482,9 +482,9 @@ export function renderCSVDownloadButton(csvDataLoadInitiated, handleLoadCSVDataC
 export function addCommasToThousands(num)
 {
   if (!num) return ""
-  let num_parts = num.toString().split(".");
-  num_parts[0] = num_parts[0].replace(/\B(?=(\d{3})+(?!\d))/g, ",");
-  return num_parts.join(".");
+  let numParts = num.toString().split(".");
+  numParts[0] = numParts[0].replace(/\B(?=(\d{3})+(?!\d))/g, ",");
+  return numParts.join(".");
 }
 
 export function getLinkToActivity(id) {

@@ -3,6 +3,8 @@
 module Evidence
   class ActivityHealth < ApplicationRecord
 
+    POOR_HEALTH_CUTOFF = 75
+
     has_many :prompt_healths, foreign_key: "evidence_activity_health_id", dependent: :destroy
 
     validates :flag, inclusion: { in: Evidence.flags_class::FLAGS, allow_nil: true}
@@ -30,7 +32,7 @@ module Evidence
     end
 
     def poor_health_flag
-      return ((because_final_optimal && because_final_optimal < 75) || (but_final_optimal && but_final_optimal < 75) || (so_final_optimal && so_final_optimal < 75))
+      (because_final_optimal && because_final_optimal < POOR_HEALTH_CUTOFF) || (but_final_optimal && but_final_optimal < POOR_HEALTH_CUTOFF) || (so_final_optimal && so_final_optimal < POOR_HEALTH_CUTOFF)
     end
   end
 end

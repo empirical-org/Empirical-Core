@@ -6,11 +6,13 @@ import { firstBy } from 'thenby';
 
 
 import Navigation from '../navigation'
-import { FlagDropdown, ReactTable, TextFilter, filterNumbers } from '../../../../Shared/index'
+import { FlagDropdown, ReactTable, filterNumbers } from '../../../../Shared/index'
 import { fetchAggregatedActivityHealths } from '../../../utils/evidence/ruleFeedbackHistoryAPIs';
 import { getLinkToActivity, secondsToHumanReadableTime, addCommasToThousands } from "../../../helpers/evidence/miscHelpers";
 
 const ALL_FLAGS = "All Flags"
+const NAME_COLUMN = "name"
+const POOR_HEALTH_FLAG_COLUMN = "poor_health_flag"
 
 const CustomTextFilter = ({ column, setFilter, placeholder }) => {
   return (
@@ -24,7 +26,7 @@ const CustomTextFilter = ({ column, setFilter, placeholder }) => {
   )
 }
 
-const RenderNumberFilter = ({ column, setFilter }) => (
+const NumberFilter = ({ column, setFilter }) => (
   <CustomTextFilter
     column={column}
     placeholder="1-2, <1, >1"
@@ -32,7 +34,7 @@ const RenderNumberFilter = ({ column, setFilter }) => (
   />
 )
 
-const RenderTimeFilter = ({ column, setFilter }) => (
+const TimeFilter = ({ column, setFilter }) => (
   <CustomTextFilter
     column={column}
     placeholder="in seconds: 1-2, <1, >1"
@@ -40,7 +42,7 @@ const RenderTimeFilter = ({ column, setFilter }) => (
   />
 )
 
-const RenderTrueFalseFilter = ({ column, setFilter }) => (
+const TrueFalseFilter = ({ column, setFilter }) => (
   <CustomTextFilter
     column={column}
     placeholder="1 / 0"
@@ -90,14 +92,14 @@ export const HealthDashboard = ({ location, match }) => {
       Header: 'Version #',
       accessor: "version",
       key: "version",
-      Filter: RenderNumberFilter,
+      Filter: NumberFilter,
       minWidth: 70,
     },
     {
       Header: 'Version Plays',
       accessor: "version_plays",
       key: "versionPlays",
-      Filter: RenderNumberFilter,
+      Filter: NumberFilter,
       minWidth: 70,
       Cell: ({row}) => row.original.version_plays && <span className="versionPlays">{addCommasToThousands(row.original.version_plays)}</span>
     },
@@ -105,7 +107,7 @@ export const HealthDashboard = ({ location, match }) => {
       Header: 'Total Plays',
       accessor: "total_plays",
       key: "totalPlays",
-      Filter: RenderNumberFilter,
+      Filter: NumberFilter,
       minWidth: 70,
       Cell: ({row}) => row.original.total_plays && <span className="versionPlays">{addCommasToThousands(row.original.total_plays)}</span>
     },
@@ -113,7 +115,7 @@ export const HealthDashboard = ({ location, match }) => {
       Header: 'Completed Rate',
       accessor: "completion_rate",
       key: "completionRate",
-      Filter: RenderNumberFilter,
+      Filter: NumberFilter,
       minWidth: 80,
       Cell: ({row}) => row.original.completion_rate && <span className="name">{row.original.completion_rate}%</span>
     },
@@ -121,7 +123,7 @@ export const HealthDashboard = ({ location, match }) => {
       Header: 'Because Final Optimal',
       accessor: "because_final_optimal",
       key: "becauseFinalOptimal",
-      Filter: RenderNumberFilter,
+      Filter: NumberFilter,
       minWidth: 70,
       Cell: ({row}) => row.original.because_final_optimal && <span className={row.original.because_final_optimal <= 75 ? "poor-health" : "" + " name"}>{row.original.because_final_optimal}%</span>
     },
@@ -129,7 +131,7 @@ export const HealthDashboard = ({ location, match }) => {
       Header: 'But Final Optimal',
       accessor: "but_final_optimal",
       key: "butFinalOptimal",
-      Filter: RenderNumberFilter,
+      Filter: NumberFilter,
       minWidth: 70,
       Cell: ({row}) => row.original.but_final_optimal && <span className={row.original.but_final_optimal <= 75 ? "poor-health" : "" + " name"}>{row.original.but_final_optimal}%</span>
     },
@@ -137,7 +139,7 @@ export const HealthDashboard = ({ location, match }) => {
       Header: 'So Final Optimal',
       accessor: "so_final_optimal",
       key: "soFinalOptimal",
-      Filter: RenderNumberFilter,
+      Filter: NumberFilter,
       minWidth: 70,
       Cell: ({row}) => row.original.so_final_optimal && <span className={row.original.so_final_optimal <= 75 ? "poor-health" : "" + " name"}>{row.original.so_final_optimal}%</span>
     },
@@ -145,7 +147,7 @@ export const HealthDashboard = ({ location, match }) => {
       Header: 'Avg Time Spent - Activity',
       accessor: "avg_completion_time",
       key: "avgCompletionTime",
-      Filter: RenderTimeFilter,
+      Filter: TimeFilter,
       minWidth: 70,
       Cell: ({row}) => secondsToHumanReadableTime(row.original.avg_completion_time)
     },
@@ -153,7 +155,7 @@ export const HealthDashboard = ({ location, match }) => {
       Header: 'Poor Health Flag',
       accessor: "poor_health_flag",
       key: "poorHealthFlag",
-      Filter: RenderTrueFalseFilter,
+      Filter: TrueFalseFilter,
       minWidth: 70,
       Cell: ({row}) => row.original.poor_health_flag === true && <span className="poor-health-flag">X</span>
     }
@@ -184,25 +186,29 @@ export const HealthDashboard = ({ location, match }) => {
 
 
   const getSortedRows = (rows, sortInfo) => {
-    if(sortInfo) {
-      const { id, desc } = sortInfo;
-      // we have this reversed so that the first click will sort from highest to lowest by default
-      const directionOfSort = desc ? `asc` : 'desc';
-      return rows.sort(firstBy(id, { direction: directionOfSort }));
-    } else {
-      return rows;
-    }
+    if (!sortInfo) return rows;
+
+    const { id, desc } = sortInfo;
+    // we have this reversed so that the first click will sort from highest to lowest by default
+    const directionOfSort = desc ? 'asc' : 'desc';
+    return rows.sort(firstBy(id, { direction: directionOfSort }));
+  }
+
+  const filterPoorHealthRows = (value, rows) => {
+    if (value === '1') return rows.filter(r => r.poor_health_flag === true)
+    else if (value === '0') return rows.filter(r => !r.poor_health_flag)
+    else return rows
   }
 
   const filterRowsByColumnValue = (rows, column, value) => {
-    if (column === 'name') {
+    if (value === '' || !value) return rows
+
+    if (column === NAME_COLUMN) {
       return rows.filter(r => r.name.toLowerCase().includes(value.toLowerCase()))
-    } else if (column === 'poor_health_flag') {
-      if (value === '1') return rows.filter(r => r.poor_health_flag === true)
-      else if (value === '0') return rows.filter(r => !r.poor_health_flag)
-      else return rows
+    } else if (column === POOR_HEALTH_FLAG_COLUMN) {
+      return filterPoorHealthRows(value, rows)
     } else {
-      return filterNumbers(rows.map(r => {return {original: r}}), [column], value).map(r => r.original)
+      return filterNumbers(rows.map(r => {return {original: r}}), [column], value.replaceAll(',','')).map(r => r.original)
     }
   }
 
@@ -213,7 +219,7 @@ export const HealthDashboard = ({ location, match }) => {
       const column = filter.id
       const value = filter.value
 
-      newRows = filterRowsByColumnValue(newRows, column, value)
+      newRows = filterRowsByColumnValue(activityHealthsData.activityHealths, column, value)
     })
     setRows(getFilteredData(newRows))
   }
@@ -262,7 +268,7 @@ export const HealthDashboard = ({ location, match }) => {
           <div className="first-input-row">
             <FlagDropdown flag={flag} handleFlagChange={handleFlagChange} isLessons={true} />
             <div className="csv-download-button">
-              <button onClick={formatTableForCSV} style={{cursor: 'pointer'}} type="button">
+              <button onClick={formatTableForCSV} type="button">
                 Download CSV
               </button>
             </div>

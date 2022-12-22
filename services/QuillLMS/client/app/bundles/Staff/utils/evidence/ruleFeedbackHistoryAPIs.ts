@@ -1,4 +1,4 @@
-import { handleApiError, mainApiFetch, getRuleFeedbackHistoriesUrl, getRuleFeedbackHistoryUrl, getActivityStatsUrl, getActivityHealthUrl, getAggregatedActivityHealthsUrl } from '../../helpers/evidence/routingHelpers';
+import { handleApiError, mainApiFetch, getRuleFeedbackHistoriesUrl, getRuleFeedbackHistoryUrl, getActivityStatsUrl, getActivityHealthUrl, aggregatedActivityHealthsUrl } from '../../helpers/evidence/routingHelpers';
 
 export const fetchRuleFeedbackHistories = async ({ queryKey, }) => {
   const [key, activityId, selectedConjunction, startDate, endDate]: [string, string, string, string?, string?, string?] = queryKey
@@ -52,7 +52,7 @@ export const fetchActivityHealth = async({queryKey, }) => {
 export const fetchAggregatedActivityHealths = async({queryKey, }) => {
   const [key]: [string] = queryKey
 
-  const url = getAggregatedActivityHealthsUrl();
+  const url = aggregatedActivityHealthsUrl;
   const response = await mainApiFetch(url);
   const activityHealths = await response.json();
   return {
