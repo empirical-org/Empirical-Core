@@ -71,7 +71,7 @@ module StripeIntegration
     end
 
     private def stripe_customer_id
-      User.find_by(email: customer_email).stripe_customer_id
+      ::User.find_by(email: customer_email).stripe_customer_id
     end
 
     private def success_url
