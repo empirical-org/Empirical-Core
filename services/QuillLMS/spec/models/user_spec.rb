@@ -147,30 +147,6 @@ describe User, type: :model do
     end
   end
 
-  describe '#last_four' do
-    it 'returns nil if a user does not have a stripe_customer_id' do
-      expect(user.last_four).to eq(nil)
-    end
-
-    context 'user has a stripe customer_id' do
-      let(:user) { create(:user, stripe_customer_id: stripe_customer_id)}
-      let(:stripe_customer_id) { 'cus_abcdefg' }
-      let(:last4) { 1000 }
-      let(:customer) { double('customer') }
-      let(:customer_with_sources) { double('customer', sources: double(data: double(first: double(last4: last4)))) }
-      let(:retrieve_sources_args) { { id: stripe_customer_id, expand: ['sources'] } }
-
-      before do
-        allow(Stripe::Customer).to receive(:retrieve).with(stripe_customer_id).and_return(customer)
-        allow(Stripe::Customer).to receive(:retrieve).with(retrieve_sources_args).and_return(customer_with_sources)
-      end
-
-      it "calls Stripe::Customer.retrieve with the current user's stripe_customer_id" do
-        expect(user.last_four).to eq last4
-      end
-    end
-  end
-
   describe '#stripe_customer?' do
     let(:user) { create(:teacher, :has_a_stripe_customer_id) }
     let(:stripe_customer_id) { user.stripe_customer_id }
@@ -1480,7 +1456,7 @@ describe User, type: :model do
   end
 
   describe '.find_by_stripe_customer_id_or_email!' do
-    subject { User.find_by_stripe_customer_id_or_email!(stripe_customer_id, email) }
+    subject { described_class.find_by_stripe_customer_id_or_email!(stripe_customer_id, email) }
 
     let(:email) { 'text@example.com' }
 
@@ -1518,6 +1494,21 @@ describe User, type: :model do
           it { expect { subject }.to raise_error(ActiveRecord::RecordNotFound) }
         end
       end
+    end
+  end
+
+  describe '#units_with_same_name' do
+    let(:user) { create(:user) }
+    let(:name) { 'name' }
+
+    context 'user has no units' do
+      it { expect(user.units_with_same_name(name)).to eq [] }
+    end
+
+    context 'user has a unit' do
+      let!(:unit) { create(:unit, user: user, name: 'NaMe') }
+
+      it { expect(user.reload.units_with_same_name(name)).to eq [unit] }
     end
   end
 end

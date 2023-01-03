@@ -15,6 +15,7 @@ describe('StudentProfileUnit component', () => {
         unitName="Unit"
       />
     );
+    expect(wrapper).toMatchSnapshot()
     expect(wrapper.find('.unit-name').text()).toBe('Unit');
   });
 

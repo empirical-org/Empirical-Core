@@ -18,7 +18,6 @@
 #
 #  index_plans_on_name  (name) UNIQUE
 #
-require 'rails_helper'
 
 FactoryBot.define do
   factory :plan, aliases: [:teacher_premium_plan] do

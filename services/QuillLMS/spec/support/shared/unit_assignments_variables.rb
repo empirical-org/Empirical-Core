@@ -37,12 +37,18 @@ shared_context 'Unit Assignments Variables' do
   end
 
   def unit_templates_have_a_corresponding_unit?(unit_template_ids)
-    names_from_templates = UnitTemplate.where(id: unit_template_ids).pluck(:name)
-    (Unit.all.map(&:name).flatten & names_from_templates).length == names_from_templates.length
+    UnitTemplate
+      .where(id: unit_template_ids)
+      .pluck(:name)
+      .difference(Unit.pluck(:name))
+      .none?
   end
 
   def units_have_corresponding_unit_activities?(unit_template_ids)
-    names_from_templates = UnitTemplate.where(id: unit_template_ids).pluck(:name)
-    (UnitActivity.all.map(&:unit).map(&:name).flatten & names_from_templates).length == names_from_templates.length
+    UnitTemplate
+      .where(id: unit_template_ids)
+      .pluck(:name)
+      .difference(UnitActivity.joins(:unit).pluck(:name))
+      .none?
   end
 end

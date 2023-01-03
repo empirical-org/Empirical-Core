@@ -138,74 +138,82 @@ exports[`UnitTemplateMinis component should render dropdowns when on mobile 1`] 
           <section
             className="all-packs-section"
           >
-            <p
-              className="pack-type-header"
-            >
-              Diagnostic
-            </p>
             <section
               className="packs-section"
             >
-              <UnitTemplateMini
-                data={
-                  Object {
-                    "activities": Array [],
-                    "activity_info": "test activity",
-                    "author": Object {
-                      "avatar_url": "avatar",
-                      "name": "author",
-                    },
-                    "created_at": 0,
-                    "grades": Array [
-                      "1",
-                      "2",
-                    ],
-                    "id": 20,
-                    "name": "Sentence Structure Diagnostic",
-                    "number_of_standards": 1,
-                    "order_number": 0,
-                    "time": 30,
-                    "type": Object {
-                      "name": "Diagnostic",
-                      "primary_color": "#ea9a1a",
-                    },
-                    "unit_template_category": Object {
-                      "id": 9,
-                      "name": "Diagnostic",
-                      "primary_color": "#00c2a2",
-                      "secondary_color": "#027360",
-                    },
+              <div
+                className="unit-template-mini-wrapper"
+              >
+                <p
+                  className="pack-type-header"
+                >
+                  Diagnostic
+                </p>
+                <UnitTemplateMini
+                  data={
+                    Object {
+                      "activities": Array [],
+                      "activity_info": "test activity",
+                      "author": Object {
+                        "avatar_url": "avatar",
+                        "name": "author",
+                      },
+                      "created_at": 0,
+                      "grades": Array [
+                        "1",
+                        "2",
+                      ],
+                      "id": 20,
+                      "name": "Sentence Structure Diagnostic",
+                      "number_of_standards": 1,
+                      "order_number": 0,
+                      "time": 30,
+                      "type": Object {
+                        "name": "Diagnostic",
+                        "primary_color": "#ea9a1a",
+                      },
+                      "unit_template_category": Object {
+                        "id": 9,
+                        "name": "Diagnostic",
+                        "primary_color": "#00c2a2",
+                        "secondary_color": "#027360",
+                      },
+                    }
                   }
-                }
-                index={0}
-                key="20"
-                signedInTeacher={true}
-              />
+                  index={0}
+                  key="20"
+                  signedInTeacher={true}
+                />
+              </div>
             </section>
           </section>
           <section
             className="all-packs-section"
           >
-            <p
-              className="pack-type-header"
-            >
-              Whole Class Lessons
-            </p>
             <section
               className="packs-section"
             >
-              <UnitTemplateMini
-                data={
-                  Object {
-                    "id": "createYourOwn",
-                    "non_authenticated": undefined,
-                    "unit_template_category": null,
+              <div
+                className="unit-template-mini-wrapper"
+              >
+                <p
+                  className="pack-type-header"
+                >
+                  Whole Class Lessons
+                </p>
+                <UnitTemplateMini
+                  data={
+                    Object {
+                      "id": "createYourOwn",
+                      "non_authenticated": undefined,
+                      "unit_template_category": null,
+                    }
                   }
-                }
-                index={0}
-                key="createYourOwn"
-                signedInTeacher={true}
-              />
+                  index={0}
+                  key="createYourOwn"
+                  signedInTeacher={true}
+                />
+              </div>
             </section>
           </section>
         </div>
@@ -348,49 +356,53 @@ exports[`UnitTemplateMinis component should render without createYourOwn mini wh
           <section
             className="all-packs-section"
           >
-            <p
-              className="pack-type-header"
-            >
-              Diagnostic
-            </p>
             <section
               className="packs-section"
             >
-              <UnitTemplateMini
-                data={
-                  Object {
-                    "activities": Array [],
-                    "activity_info": "test activity",
-                    "author": Object {
-                      "avatar_url": "avatar",
-                      "name": "author",
-                    },
-                    "created_at": 0,
-                    "grades": Array [
-                      "1",
-                      "2",
-                    ],
-                    "id": 20,
-                    "name": "Sentence Structure Diagnostic",
-                    "number_of_standards": 1,
-                    "order_number": 0,
-                    "time": 30,
-                    "type": Object {
-                      "name": "Diagnostic",
-                      "primary_color": "#ea9a1a",
-                    },
-                    "unit_template_category": Object {
-                      "id": 9,
-                      "name": "Diagnostic",
-                      "primary_color": "#00c2a2",
-                      "secondary_color": "#027360",
-                    },
+              <div
+                className="unit-template-mini-wrapper"
+              >
+                <p
+                  className="pack-type-header"
+                >
+                  Diagnostic
+                </p>
+                <UnitTemplateMini
+                  data={
+                    Object {
+                      "activities": Array [],
+                      "activity_info": "test activity",
+                      "author": Object {
+                        "avatar_url": "avatar",
+                        "name": "author",
+                      },
+                      "created_at": 0,
+                      "grades": Array [
+                        "1",
+                        "2",
+                      ],
+                      "id": 20,
+                      "name": "Sentence Structure Diagnostic",
+                      "number_of_standards": 1,
+                      "order_number": 0,
+                      "time": 30,
+                      "type": Object {
+                        "name": "Diagnostic",
+                        "primary_color": "#ea9a1a",
+                      },
+                      "unit_template_category": Object {
+                        "id": 9,
+                        "name": "Diagnostic",
+                        "primary_color": "#00c2a2",
+                        "secondary_color": "#027360",
+                      },
+                    }
                   }
-                }
-                index={0}
-                key="20"
-                signedInTeacher={false}
-              />
+                  index={0}
+                  key="20"
+                  signedInTeacher={false}
+                />
+              </div>
             </section>
           </section>
         </div>

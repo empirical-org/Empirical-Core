@@ -24,14 +24,13 @@ RSpec.describe GoogleIntegration::TeacherClassroomsCache do
       expect(cache.read(user_id)).to eq data
     end
 
-    it 'allows for expiration' do
-      cache.write(user_id, data, 0.1)
-      sleep 0.1
-      expect(cache.read(user_id)).to eq nil
-    end
-
     it 'deletes data' do
       expect { cache.delete(user_id) }.to change { cache.read(user_id) }.from(data).to(nil)
     end
+  end
+
+  it 'allows for expiration' do
+    cache.write(user_id, data, 0)
+    expect(cache.read(user_id)).to eq nil
   end
 end

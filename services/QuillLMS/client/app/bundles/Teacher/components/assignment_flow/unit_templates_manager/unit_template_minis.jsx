@@ -89,16 +89,19 @@ export default class UnitTemplateMinis extends React.Component {
     }
   }
 
-  generateUnitTemplateView = (model, index) => {
+  generateUnitTemplateView = (model, index, type) => {
     const { actions, signedInTeacher, } = this.props
     return (
-      <UnitTemplateMini
-        actions={actions}
-        data={model}
-        index={index}
-        key={model.id}
-        signedInTeacher={signedInTeacher}
-      />
+      <div className="unit-template-mini-wrapper">
+        {type && index === 0 && <p className="pack-type-header">{type}</p>}
+        <UnitTemplateMini
+          actions={actions}
+          data={model}
+          index={index}
+          key={model.id}
+          signedInTeacher={signedInTeacher}
+        />
+      </div>
     )
   };
 
@@ -116,7 +119,9 @@ export default class UnitTemplateMinis extends React.Component {
 
       return unit_template_category.name === type
     })
-    return filteredModels.map(this.generateUnitTemplateView);
+    return filteredModels.map((model, index) => {
+      return this.generateUnitTemplateView(model, index, type)
+    });
   }
 
   generateUnitTemplateViews() {
@@ -143,31 +148,26 @@ export default class UnitTemplateMinis extends React.Component {
       return(
         <React.Fragment>
           {!!readingTextModels.length && <section className="all-packs-section">
-            <p className="pack-type-header">{READING_TEXTS}</p>
             <section className="packs-section">
               {readingTextModels}
             </section>
           </section>}
           {!!diagnosticModels.length && <section className="all-packs-section">
-            <p className="pack-type-header">{DIAGNOSTIC}</p>
             <section className="packs-section">
               {diagnosticModels}
             </section>
           </section>}
           {!!languageSkillsModels.length && <section className="all-packs-section">
-            <p className="pack-type-header">{LANGUAGE_SKILLS}</p>
             <section className="packs-section">
               {languageSkillsModels}
             </section>
           </section>}
           {!!dailyProofreadingModels.length && <section className="all-packs-section">
-            <p className="pack-type-header">{DAILY_PROOFREADING}</p>
             <section className="packs-section">
               {dailyProofreadingModels}
             </section>
           </section>}
           {!!wholeClassModels.length && <section className="all-packs-section">
-            <p className="pack-type-header">{WHOLE_CLASS_LESSONS}</p>
             <section className="packs-section">
               {wholeClassModels}
             </section>
@@ -175,7 +175,7 @@ export default class UnitTemplateMinis extends React.Component {
         </React.Fragment>
       )
     }
-    const modelCards = models.map(this.generateUnitTemplateView);
+    const modelCards = models.map((model, index) => this.generateUnitTemplateView(model, index));
     return modelCards;
   }
 

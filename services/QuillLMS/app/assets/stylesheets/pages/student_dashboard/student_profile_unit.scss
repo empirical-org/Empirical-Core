@@ -4,7 +4,7 @@
   background-color: #ffffff;
   margin-bottom: 24px;
   &.selected-unit {
-    .unit-name {
+    .unit-name-and-staggered-release-status {
       animation: highlight 5s 1;
 
       @keyframes highlight {
@@ -18,12 +18,18 @@
 
     }
   }
-  .unit-name {
+  .unit-name-and-staggered-release-status {
     padding: 24px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
     h2 {
       font-size: 20px;
       font-weight: bold;
       line-height: normal;
+    }
+    .quill-tooltip-wrapper {
+      transform: translateX(-70%);
     }
   }
   .activities-container {
