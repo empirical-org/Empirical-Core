@@ -10,6 +10,7 @@ module StripeIntegration
       class NilStripeCustomerIdError < Error; end
       class NilStripeInvoiceIdError < Error; end
       class NilStripePriceIdError < Error; end
+      class NilSubscriptionStatusError < Error; end
       class PlanNotFoundError < Error; end
       class PurchaserNotFoundError < Error; end
       class StripeInvoiceIdNotUniqueError < Error; end
@@ -25,6 +26,7 @@ module StripeIntegration
         raise NilStripePriceIdError if stripe_price_id.nil?
         raise NilStripeInvoiceIdError if stripe_invoice.id.nil?
         raise DuplicateSubscriptionError if duplicate_subscription?
+        raise NilSubscriptionStatusError unless stripe_subscription.respond_to?(:status)
         raise AmountPaidMismatchError if payment_amount != plan.price
 
         subscription

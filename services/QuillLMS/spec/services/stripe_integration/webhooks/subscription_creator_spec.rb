@@ -95,6 +95,12 @@ RSpec.describe StripeIntegration::Webhooks::SubscriptionCreator do
     end
   end
 
+  context 'nil subscription status' do
+    before { allow(stripe_subscription).to receive(:respond_to?).with(:status).and_return(false) }
+
+    it { expect { subject }.to raise_error described_class::NilSubscriptionStatusError }
+  end
+
   context 'nil stripe_price_id' do
     before { allow(stripe_subscription.items.data.first.price).to receive(:id).and_return(nil) }
 
