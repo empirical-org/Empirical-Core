@@ -29,7 +29,8 @@ class Scorebook::Query
           SUM(acts.timespent) AS timespent,
           SUM(CASE WHEN acts.state = '#{ActivitySession::STATE_FINISHED}' THEN 1 ELSE 0 END) AS completed_attempts,
           SUM(CASE WHEN acts.state = '#{ActivitySession::STATE_STARTED}' THEN 1 ELSE 0 END) AS started,
-          SUM(CASE WHEN acts.is_final_score = true THEN acts.id ELSE 0 END) AS id
+          SUM(CASE WHEN acts.is_final_score = true THEN acts.id ELSE 0 END) AS id,
+          CASE WHEN SUM(CASE WHEN upsi.status = '#{UserPackSequenceItem::LOCKED}' THEN 1 ELSE 0 END) > 0 THEN true ELSE false END AS locked
         FROM classroom_units AS cu
         LEFT JOIN students_classrooms AS sc
           ON cu.classroom_id = sc.classroom_id
@@ -49,6 +50,11 @@ class Scorebook::Query
         LEFT JOIN units AS u ON cu.unit_id = u.id
         JOIN users AS unit_owner
           ON unit_owner.id = u.user_id
+        LEFT JOIN pack_sequence_items AS psi
+          ON psi.classroom_unit_id = cu.id
+        LEFT JOIN user_pack_sequence_items AS upsi
+          ON upsi.pack_sequence_item_id = psi.id
+          AND upsi.user_id = students.id
         WHERE cu.classroom_id = #{classroom_id}
           AND students.id = ANY (cu.assigned_student_ids::int[])
           AND unit_activities.visible
@@ -68,11 +74,15 @@ class Scorebook::Query
           unit_activities.publish_date,
           unit_activities.due_date,
           unit_activities.created_at,
-          unit_owner.time_zone
+          unit_owner.time_zone,
+          psi.id,
+          upsi.id,
+          upsi.status
         ORDER BY split_part( students.name, ' ' , 2),
           CASE WHEN SUM(CASE WHEN acts.percentage IS NOT NULL THEN 1 ELSE 0 END) > 0 THEN true ELSE false END DESC,
           MIN(acts.completed_at),
           CASE WHEN SUM(CASE WHEN acts.state = '#{ActivitySession::STATE_STARTED}' THEN 1 ELSE 0 END) > 0 THEN true ELSE false END DESC,
+          locked ASC,
           cu.created_at ASC
       SQL
     ).to_a
