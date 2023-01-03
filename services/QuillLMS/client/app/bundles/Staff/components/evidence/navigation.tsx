@@ -158,6 +158,9 @@ const Navigation = ({ location, match }) => {
           <NavLink activeClassName='is-active' to="/hints">
             View Hints
           </NavLink>
+          <NavLink activeClassName='is-active' to="/health-dashboard">
+            Health Dashboard
+          </NavLink>
         </ul>
         {activityEditorAndResults}
       </section>
