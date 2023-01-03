@@ -37,6 +37,7 @@ class Unit < ApplicationRecord
 
   belongs_to :user
   belongs_to :unit_template
+
   has_many :unit_activities, dependent: :destroy
   has_many :classroom_units, dependent: :destroy
   has_many :activity_sessions, through: :classroom_units

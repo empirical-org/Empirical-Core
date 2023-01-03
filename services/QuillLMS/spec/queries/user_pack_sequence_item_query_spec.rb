@@ -38,9 +38,9 @@ RSpec.describe UserPackSequenceItemQuery do
 
       it do
         expect(subject).to eq [
-          result(true, pack_sequence1, pack_sequence_item1),
-          result(true, pack_sequence1, pack_sequence_item2),
-          result(true, pack_sequence2, pack_sequence_item4)
+          result(true, pack_sequence_item1),
+          result(true, pack_sequence_item2),
+          result(true, pack_sequence_item4)
         ]
       end
     end
@@ -50,9 +50,9 @@ RSpec.describe UserPackSequenceItemQuery do
 
       it do
         expect(subject).to eq [
-          result(true, pack_sequence1, pack_sequence_item1),
-          result(false, pack_sequence1, pack_sequence_item2),
-          result(true, pack_sequence2, pack_sequence_item4)
+          result(true, pack_sequence_item1),
+          result(false, pack_sequence_item2),
+          result(true, pack_sequence_item4)
         ]
       end
     end
@@ -66,9 +66,9 @@ RSpec.describe UserPackSequenceItemQuery do
 
       it do
         expect(subject).to eq [
-          result(false, pack_sequence1, pack_sequence_item1),
-          result(true, pack_sequence1, pack_sequence_item2),
-          result(true, pack_sequence2, pack_sequence_item4)
+          result(false, pack_sequence_item1),
+          result(true, pack_sequence_item2),
+          result(true, pack_sequence_item4)
         ]
       end
     end
@@ -78,18 +78,18 @@ RSpec.describe UserPackSequenceItemQuery do
 
       it do
         expect(subject).to eq [
-          result(false, pack_sequence1, pack_sequence_item1),
-          result(false, pack_sequence1, pack_sequence_item2),
-          result(true, pack_sequence2, pack_sequence_item4)
+          result(false, pack_sequence_item1),
+          result(false, pack_sequence_item2),
+          result(true, pack_sequence_item4)
         ]
       end
     end
   end
 
-  def result(completed, pack_sequence, pack_sequence_item)
+  def result(completed, pack_sequence_item)
     {
       described_class::COMPLETED_KEY => completed,
-      described_class::PACK_SEQUENCE_ID_KEY => pack_sequence.id,
+      described_class::PACK_SEQUENCE_ID_KEY => pack_sequence_item.pack_sequence.id,
       described_class::PACK_SEQUENCE_ITEM_ID_KEY => pack_sequence_item.id
     }
   end
