@@ -5,12 +5,8 @@ const evidence = () => [
     question: 'How does Quill Reading for Evidence build reading, writing, and critical thinking skills?',
     answer: (
       <div>
-        <p><a href="https://www.quill.org/tools/evidence" rel="noopener noreferrer" target="_blank">Quill Reading for Evidence</a> is our newest learning tool—and our first tool that supports students in building both language and reading skills. Each Reading for Evidence activity provides a high-interest, nonfiction text for students to read, and then engages them in expressing their understanding of that text through open-ended writing prompts.</p>
-        <p>Students are asked to write about a key idea from the text using the connectives <i>because</i>, <i>but</i>, and <i>so</i>. As students write and revise, Quill&apos;s artificial intelligence (AI) Feedback Bot coaches them to improve the accuracy and specificity of their evidence, refine their logic and syntax, and correct any grammatical errors. Like in Quill Connect, students can make up to 4 revisions for each prompt. Designed for students in grades 8-12, these activities take about 15-20 minutes for students to complete. <a href="https://youtu.be/vN3Rd-kJgFI" rel="noopener noreferrer" target="_blank">In this video, a Quill Professional Learning Manager demos the student experience in a Reading for Evidence activity</a>.</p>
-        <ul>
-          <li><a href="https://www.quill.org/evidence/#/play?uid=176&skipToPrompts=true" rel="noopener noreferrer" target="_blank">Click here to try a Reading for Evidence activity yourself</a>.</li>
-          <li><a href="https://www.youtube.com/watch?v=OdUEgsW5ewQ" rel="noopener noreferrer" target="_blank">Click here to view the full 30-minute webinar from which the demo above was taken</a>.</li>
-        </ul>
+        <p>Quill Reading for Evidence is our newest learning tool—and our first tool that supports students in building both language and reading skills. Each Reading for Evidence activity provides a high-interest, nonfiction text for students to read, and then engages them in expressing their understanding of that text through open-ended writing prompts.</p>
+        <p>Students are asked to write about a key idea from the text using the connectives <i>because</i>, <i>but</i>, and <i>so</i>. As students write and revise, Quill&apos;s artificial intelligence (AI) Feedback Bot coaches them to improve the accuracy and specificity of their evidence, refine their logic and syntax, and correct any grammatical errors. Like in Quill Connect, students can make up to 4 revisions for each prompt. Designed for students in grades 8-12, these activities take about 15-20 minutes for students to complete.</p>
       </div>
     )
   },
@@ -74,15 +70,18 @@ const evidence = () => [
     question: 'What do students need to know about Quill Reading for Evidence?',
     answer: (
       <div>
-        <p>First, it&apos;s important students know this is a new tool, which means the feedback may sometimes be off. Each activity&apos;s feedback gets more accurate and precise as more students complete it, allowing us to retrain its algorithms. If students do receive feedback they find unhelpful, please encourage them to click the “Report a Problem” button under any piece of feedback or to complete the emoji survey at the end of every activity.</p>
-        <p>It might also be helpful to explain that the activities are not graded—and why: because we want students to focus on comprehension, revision, and progress, not on the score they will get. <a href="https://support.quill.org/en/articles/6070182-how-are-quill-reading-for-evidence-activities-graded" rel="noopener noreferrer" target="_blank">For more on this topic, check out this article</a>.</p>
-        <p>It also can be helpful for students to know what the activities will encourage and discourage:</p>
+        <p>You may want to share the following with students before they complete a Reading for Evidence activity:</p>
         <ul>
-          <li>Reading for Evidence focuses on the specificity and accuracy of evidence in students&apos; responses. This means students may give an accurate response, but still be pushed for further specificity.</li>
-          <li>Similarly, if students write a response that is valid but not based on evidence from the text, they will be encouraged to revise using evidence from the text. Likewise, students will be discouraged from incorporating direct quotations— Evidence will prompt them to put the ideas into their own words.</li>
-          <li>Reading for Evidence will also discourage students from drawing conclusions or making claims. If a student starts their “so” response with “we should” or a command like “start”— they will be redirected to use evidence from the text instead.</li>
+          <li><strong>Sometimes Quill&apos;s AI Feedback Bot will give the wrong feedback.</strong> Try your best to use the feedback you&apos;ve been given, and let Quill know when you&apos;ve received unhelpful feedback (just click the “Report a Problem” button under that piece of feedback). You can also share general feedback on the tool through the optional emoji survey at the end of every activity. </li>
+          <li><strong>You won&apos;t receive a score for these activities.</strong> Why? Quill wants you to focus on your comprehension, revision, and progress. <a href="https://support.quill.org/en/articles/6070182-how-are-quill-reading-for-evidence-activities-graded" rel="noopener noreferrer" target="_blank">(For more on this topic, check out this article.)</a></li>
+          <li><strong>What kind of writing will Quill&apos;s AI Feedback Bot encourage and discourage?</strong></li>
+          <ul>
+            <li>These activities are all about specificity and accuracy. This means the Bot may ask for more detail if your response is accurate, but short.</li>
+            <li>If you write a response that is accurate but not based on evidence from the text, the Bot will ask you to revise using evidence from the text. Likewise, you will be discouraged from using direct quotations—the Bot will prompt you to put ideas into your own words.</li>
+            <li>The Bot will also discourage you from drawing your own conclusions or making claims or recommendations. (Of course, your teacher may <i>want</i> you to do this outside of these activities! But in Reading for Evidence, it&apos;s all about what&apos;s in the text.)</li>
+          </ul>
         </ul>
-        <p>For more on introducing the tool to students, check out <a href="https://www.quill.org/teacher-center/using-quill-evidence-with-students-best-practices" rel="noopener noreferrer" target="_blank">this article</a>.</p>
+        <p>For more on introducing Reading for Evidence to students, check out <a href="https://www.quill.org/teacher-center/using-quill-evidence-with-students-best-practices" rel="noopener noreferrer" target="_blank">this article</a>.</p>
       </div>
     ),
   },
