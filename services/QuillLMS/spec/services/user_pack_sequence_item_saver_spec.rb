@@ -24,7 +24,7 @@ RSpec.describe UserPackSequenceItemSaver do
   end
 
   context 'one pack_sequence_item with one result' do
-    let(:result1) { result(completed1, pack_sequence1, pack_sequence_item1) }
+    let(:result1) { result(completed1, pack_sequence_item1) }
     let(:results) { [result1] }
 
     context 'result is completed' do
@@ -43,8 +43,8 @@ RSpec.describe UserPackSequenceItemSaver do
   end
 
   context 'one pack_sequence_item with two results' do
-    let(:result1) { result(completed1, pack_sequence1, pack_sequence_item1) }
-    let(:result2) { result(completed2, pack_sequence1, pack_sequence_item1) }
+    let(:result1) { result(completed1, pack_sequence_item1) }
+    let(:result2) { result(completed2, pack_sequence_item1) }
     let(:results) { [result1, result2] }
 
     context 'results are completed, uncompleted' do
@@ -65,8 +65,8 @@ RSpec.describe UserPackSequenceItemSaver do
   end
 
   context 'two pack_sequences_items with one result each' do
-    let(:result1) { result(completed1, pack_sequence1, pack_sequence_item1) }
-    let(:result2) { result(completed2, pack_sequence1, pack_sequence_item2) }
+    let(:result1) { result(completed1, pack_sequence_item1) }
+    let(:result2) { result(completed2, pack_sequence_item2) }
     let(:results) { [result1, result2] }
 
     context 'results are uncompleted, completed' do
@@ -89,9 +89,9 @@ RSpec.describe UserPackSequenceItemSaver do
   end
 
   context 'two pack_sequence_items, one with two results and the other with one result' do
-    let(:result1) { result(completed1, pack_sequence1, pack_sequence_item1) }
-    let(:result2) { result(completed2, pack_sequence1, pack_sequence_item1) }
-    let(:result3) { result(completed3, pack_sequence1, pack_sequence_item2) }
+    let(:result1) { result(completed1, pack_sequence_item1) }
+    let(:result2) { result(completed2, pack_sequence_item1) }
+    let(:result3) { result(completed3, pack_sequence_item2) }
     let(:results) { [result1, result2, result3] }
 
     context 'results are uncompleted, completed, completed' do
@@ -110,10 +110,10 @@ RSpec.describe UserPackSequenceItemSaver do
     let(:pack_sequence_item3) { create(:pack_sequence_item, pack_sequence: pack_sequence2) }
     let(:pack_sequence_item4) { create(:pack_sequence_item, pack_sequence: pack_sequence2) }
 
-    let(:result1) { result(completed1, pack_sequence1, pack_sequence_item1) }
-    let(:result2) { result(completed2, pack_sequence1, pack_sequence_item2) }
-    let(:result3) { result(completed3, pack_sequence2, pack_sequence_item3) }
-    let(:result4) { result(completed3, pack_sequence2, pack_sequence_item4) }
+    let(:result1) { result(completed1, pack_sequence_item1) }
+    let(:result2) { result(completed2, pack_sequence_item2) }
+    let(:result3) { result(completed3, pack_sequence_item3) }
+    let(:result4) { result(completed3, pack_sequence_item4) }
     let(:results) { [result1, result2, result3, result4] }
 
     context 'results are uncompleted, completed, completed, uncompleted' do
@@ -143,11 +143,10 @@ RSpec.describe UserPackSequenceItemSaver do
     end
   end
 
-
-  def result(completed, pack_sequence, pack_sequence_item)
+  def result(completed, pack_sequence_item)
     {
       described_class::COMPLETED_KEY => completed,
-      described_class::PACK_SEQUENCE_ID_KEY => pack_sequence.id,
+      described_class::PACK_SEQUENCE_ID_KEY => pack_sequence_item.pack_sequence.id,
       described_class::PACK_SEQUENCE_ITEM_ID_KEY => pack_sequence_item.id
     }
   end

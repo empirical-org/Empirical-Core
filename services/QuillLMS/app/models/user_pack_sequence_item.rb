@@ -35,15 +35,8 @@ class UserPackSequenceItem < ApplicationRecord
   validates :pack_sequence_item, presence: true
   validates :user, presence: true
 
-  after_save :save_user_pack_sequence_items
-  after_destroy :save_user_pack_sequence_items
-
   delegate :classroom_id, to: :pack_sequence_item
 
   scope :locked, -> { where(status: LOCKED) }
   scope :unlocked, -> { where(status: UNLOCKED) }
-
-  def save_user_pack_sequence_items
-    SaveUserPackSequenceItemsWorker.perform_async(classroom_id, user_id)
-  end
 end

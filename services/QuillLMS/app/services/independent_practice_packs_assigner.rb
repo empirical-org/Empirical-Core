@@ -34,11 +34,13 @@ class IndependentPracticePacksAssigner < ApplicationService
     return if selections_with_students.empty?
 
     set_diagnostic_recommendations_start_time
-    destroy_existing_pack_sequences
+    destroy_existing_pack_sequence
     assign_recommendations
   end
 
-  private def pack_sequence_getter
+  private def pack_sequence
+    return nil unless staggered_release?
+
     PackSequence.find_or_create_by!(
       classroom_id: classroom_id,
       diagnostic_activity_id: diagnostic_activity_id,
@@ -47,8 +49,6 @@ class IndependentPracticePacksAssigner < ApplicationService
   end
 
   private def assign_recommendations
-    pack_sequence = staggered_release? ? pack_sequence_getter : nil
-
     BatchAssignRecommendationsWorker.perform_async(
       assigning_all_recommended_packs,
       pack_sequence&.id,
@@ -56,12 +56,12 @@ class IndependentPracticePacksAssigner < ApplicationService
     )
   end
 
-  private def destroy_existing_pack_sequences
+  private def destroy_existing_pack_sequence
     return if staggered_release?
 
     PackSequence
-      .where(classroom_id: classroom_id, diagnostic_activity_id: diagnostic_activity_id)
-      .destroy_all
+      .find_by(classroom_id: classroom_id, diagnostic_activity_id: diagnostic_activity_id)
+      &.destroy
   end
 
   private def find_or_create_activity_packs
