@@ -4,6 +4,7 @@ require 'rails_helper'
 
 describe AdminDashboard::MadeSchoolAdminChangeSchoolEmailWorker, type: :worker do
   subject { described_class.new.perform(teacher.id, referring_admin.id, new_school.id, existing_school.id) }
+
   let!(:teacher) { create(:teacher) }
   let!(:referring_admin) { create(:teacher) }
   let!(:new_school) { create(:school) }
@@ -11,7 +12,6 @@ describe AdminDashboard::MadeSchoolAdminChangeSchoolEmailWorker, type: :worker d
   let!(:mailer_user) { Mailer::User.new(teacher) }
   let!(:mailer_class)  { AdminDashboardUserMailer }
   let!(:mailer_method) { :made_school_admin_change_school_email}
-  let!(:worker) { AdminDashboard::MadeSchoolAdminChangeSchoolEmailWorker.new }
   let!(:analytics) { double(:analytics).as_null_object }
 
   before do

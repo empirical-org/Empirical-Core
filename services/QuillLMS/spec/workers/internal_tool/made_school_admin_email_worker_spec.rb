@@ -4,6 +4,7 @@ require 'rails_helper'
 
 describe InternalTool::MadeSchoolAdminEmailWorker, type: :worker do
   subject { described_class.new.perform(teacher.id, school.id) }
+
   let!(:teacher) { create(:teacher) }
   let!(:school) { create(:school) }
   let!(:mailer_user) { Mailer::User.new(teacher) }

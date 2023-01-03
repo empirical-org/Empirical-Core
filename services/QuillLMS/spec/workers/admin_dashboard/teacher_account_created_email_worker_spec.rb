@@ -6,6 +6,7 @@ require 'rails_helper'
 
 describe AdminDashboard::TeacherAccountCreatedEmailWorker, type: :worker do
   subject { described_class.new.perform(teacher.id, referring_admin.id, school.id, is_reminder) }
+
   let!(:teacher) { create(:teacher) }
   let!(:referring_admin) { create(:teacher) }
   let!(:school) { create(:school) }

@@ -7,7 +7,6 @@ class AdminDashboard::TeacherAccountCreatedEmailWorker
     user = User.find_by(id: user_id)
     admin_name = User.find_by(id: admin_user_id)&.name
     school_name = School.find_by(id: school_id)&.name
-    is_reminder = is_reminder
 
     return unless user && admin_name && school_name
 
