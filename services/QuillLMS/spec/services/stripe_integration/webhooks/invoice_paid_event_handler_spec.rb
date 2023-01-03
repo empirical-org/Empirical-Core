@@ -26,6 +26,12 @@ RSpec.describe StripeIntegration::Webhooks::InvoicePaidEventHandler do
     end
 
     it { expect { subject }.to change(stripe_webhook_event, :status).to(StripeWebhookEvent::PROCESSED) }
+
+    context 'trialing subscription' do
+      let(:stripe_subscription_status) { described_class::TRIALING }
+
+      it { expect { subject }.to change(stripe_webhook_event, :status).to(StripeWebhookEvent::PROCESSED) }
+    end
   end
 
   context 'manual invoice' do

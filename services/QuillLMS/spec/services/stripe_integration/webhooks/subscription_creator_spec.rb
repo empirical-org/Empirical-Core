@@ -95,6 +95,7 @@ RSpec.describe StripeIntegration::Webhooks::SubscriptionCreator do
     end
   end
 
+
   context 'nil subscription status' do
     before { allow(stripe_subscription).to receive(:respond_to?).with(:status).and_return(false) }
 
@@ -142,6 +143,12 @@ RSpec.describe StripeIntegration::Webhooks::SubscriptionCreator do
     let!(:stripe_invoice_amount_paid) { stripe_plan.plan.amount - 1  }
 
     it { expect { subject }.to raise_error described_class::AmountPaidMismatchError }
+
+    context 'trialing plan' do
+      let(:stripe_subscription_status) { described_class::TRIALING }
+
+      it { expect { subject }.not_to raise_error }
+    end
   end
 end
 

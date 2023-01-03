@@ -15,6 +15,8 @@ module StripeIntegration
       class PurchaserNotFoundError < Error; end
       class StripeInvoiceIdNotUniqueError < Error; end
 
+      TRIALING = 'trialing'
+
       attr_reader :stripe_invoice, :stripe_subscription
 
       def initialize(stripe_invoice, stripe_subscription)
@@ -27,8 +29,8 @@ module StripeIntegration
         raise NilStripeInvoiceIdError if stripe_invoice.id.nil?
         raise DuplicateSubscriptionError if duplicate_subscription?
         raise NilSubscriptionStatusError unless stripe_subscription.respond_to?(:status)
-        raise AmountPaidMismatchError if payment_amount != plan.price
 
+        validate_amount_paid_mismatch
         subscription
         save_stripe_customer_id
         run_plan_custom_tasks
@@ -123,6 +125,13 @@ module StripeIntegration
         )
       rescue ActiveRecord::RecordNotUnique
         raise StripeInvoiceIdNotUniqueError
+      end
+
+      private def validate_amount_paid_mismatch
+        return if payment_amount == plan.price
+        return if stripe_subscription.status == TRIALING
+
+        raise AmountPaidMismatchError
       end
     end
   end
