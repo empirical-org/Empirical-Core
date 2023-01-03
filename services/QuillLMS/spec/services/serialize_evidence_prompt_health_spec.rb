@@ -86,4 +86,29 @@ describe 'SerializeEvidencePromptHealth' do
     data = SerializeEvidencePromptHealth.new(prompt, @prompt_feedback_history).data
     expect(data).to eq expected_results
   end
+
+  it 'will return without errring if prompt_feedback_history object is empty' do
+    nil_data_object = {
+      prompt_id: @because_prompt1.id,
+      activity_short_name: @activity.notes,
+      text: @because_prompt1.text,
+      current_version: @activity.version,
+      version_responses: 0,
+      first_attempt_optimal: nil,
+      final_attempt_optimal: nil,
+      avg_attempts: nil,
+      confidence: nil,
+      percent_automl_consecutive_repeated: nil,
+      percent_automl: nil,
+      percent_plagiarism: nil,
+      percent_opinion: nil,
+      percent_grammar: nil,
+      percent_spelling: nil,
+      avg_time_spent_per_prompt: nil
+    }
+
+    prompt = @because_prompt1
+    data = SerializeEvidencePromptHealth.new(prompt, {}).data
+    expect(data).to eq nil_data_object
+  end
 end
