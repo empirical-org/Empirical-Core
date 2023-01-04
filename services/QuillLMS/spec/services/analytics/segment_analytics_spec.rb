@@ -70,15 +70,18 @@ describe 'SegmentAnalytics' do
 
   context 'tracking activity completion' do
     let(:teacher) { create(:teacher) }
-    let(:topic) { create(:topic, level: 1) }
-    let(:second_topic) { create(:topic, level: 1) }
+    let(:topic1) { create(:topic, level: 1) }
+    let(:topic2) { create(:topic, level: 1) }
     let(:activity) { create(:diagnostic_activity) }
     let(:student) { create(:student) }
     let(:activity_session) { create(:activity_session) }
 
+    before do
+      create(:activity_topic, topic: topic1, activity: activity)
+      create(:activity_topic, topic: topic2, activity: activity)
+    end
+
     it 'sends an event with information about the activity' do
-      create(:activity_topic, topic: topic, activity: activity)
-      create(:activity_topic, topic: second_topic, activity: activity)
       analytics.track_activity_completion(teacher, student.id, activity, activity_session)
       expect(identify_calls.size).to eq(0)
       expect(track_calls.size).to eq(2)
@@ -87,11 +90,11 @@ describe 'SegmentAnalytics' do
       expect(track_calls[0][:properties][:activity_name]).to eq(activity.name)
       expect(track_calls[0][:properties][:tool_name]).to eq('Diagnostic')
       expect(track_calls[0][:properties][:student_id]).to eq(student.id)
-      expect(track_calls[0][:properties][:topic_level_one]).to eq(topic.name)
-      expect(track_calls[0][:properties][:topic_level_two]).to eq(Topic.find(topic.parent_id).name)
-      expect(track_calls[0][:properties][:topic_level_three]).to eq(Topic.find(Topic.find(topic.parent_id).parent_id).name)
+      expect(track_calls[0][:properties][:topic_level_one]).to eq(topic1.name)
+      expect(track_calls[0][:properties][:topic_level_two]).to eq(Topic.find(topic1.parent_id).name)
+      expect(track_calls[0][:properties][:topic_level_three]).to eq(Topic.find(Topic.find(topic1.parent_id).parent_id).name)
       expect(track_calls[1][:event]).to eq(SegmentIo::BackgroundEvents::ACTIVITY_COMPLETION)
-      expect(track_calls[1][:properties][:topic_level_one]).to eq(second_topic.name)
+      expect(track_calls[1][:properties][:topic_level_one]).to eq(topic2.name)
     end
   end
 
@@ -256,6 +259,8 @@ describe 'SegmentAnalytics' do
     let!(:activity_session2) { create(:activity_session, :started, user: student, classroom_unit: classroom_unit, activity: unit_activity2.activity) }
     let!(:topic) { create(:topic, level: 1) }
 
+    before { create(:activity_topic, topic: topic, activity: unit_activity2.activity) }
+
     it '#activity_pack_completed? returns false if activity pack has not been completed' do
       expect(analytics.activity_pack_completed?(student.id, activity_session1)).to eq false
     end
@@ -267,7 +272,6 @@ describe 'SegmentAnalytics' do
     end
 
     it '#track_activity_pack_completion sends the expected data' do
-      create(:activity_topic, topic: topic, activity: unit_activity2.activity)
       activity_session2.state = ActivitySession::STATE_FINISHED
       activity_session2.save!
       analytics.track_activity_completion(teacher, student.id, unit_activity2.activity, activity_session2)
@@ -275,6 +279,8 @@ describe 'SegmentAnalytics' do
       expect(track_calls.size).to eq(2)
       expect(track_calls[0][:event]).to eq(SegmentIo::BackgroundEvents::ACTIVITY_COMPLETION)
       expect(track_calls[0][:properties][:topic_level_one]).to eq(topic.name)
+      expect(track_calls[0][:properties][:topic_level_two]).to eq(Topic.find(topic.parent_id).name)
+      expect(track_calls[0][:properties][:topic_level_three]).to eq(Topic.find(Topic.find(topic.parent_id).parent_id).name)
       expect(track_calls[1][:event]).to eq(SegmentIo::BackgroundEvents::ACTIVITY_PACK_COMPLETION)
       expect(track_calls[1][:user_id]).to eq(teacher.id)
       expect(track_calls[1][:properties][:activity_pack_name]).to eq(unit.name)
