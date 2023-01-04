@@ -2,6 +2,10 @@
 
 module Evidence
   class PromptHealth < ApplicationRecord
+    FIRST_ATTEMPT_OPTIMAL_CUTOFF = 25
+    FINAL_ATTEMPT_OPTIMAL_CUTFF = 75
+    CONFIDENCE_CUTOFF = 0.9
+    PERCENT_AUTOML_CONSECUTIVE_REPEATED_CUTOFF = 30
 
     belongs_to :activity_health, foreign_key: "evidence_activity_health_id"
 
@@ -28,8 +32,15 @@ module Evidence
           :percent_plagiarism, :percent_opinion, :percent_grammar, :percent_spelling, :text,
           :avg_time_spent_per_prompt, :prompt_id, :activity_short_name
         ],
-        methods: [:conjunction, :activity_id, :flag]
+        methods: [:conjunction, :activity_id, :flag, :poor_health_flag]
       ))
+    end
+
+    def poor_health_flag
+      (first_attempt_optimal && first_attempt_optimal < FIRST_ATTEMPT_OPTIMAL_CUTOFF) ||
+      (final_attempt_optimal && final_attempt_optimal < FINAL_ATTEMPT_OPTIMAL_CUTFF) ||
+      (confidence && confidence < CONFIDENCE_CUTOFF) ||
+      (percent_automl_consecutive_repeated && percent_automl_consecutive_repeated > PERCENT_AUTOML_CONSECUTIVE_REPEATED_CUTOFF)
     end
 
     def conjunction

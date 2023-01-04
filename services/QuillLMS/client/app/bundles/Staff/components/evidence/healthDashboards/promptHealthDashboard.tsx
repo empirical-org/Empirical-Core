@@ -119,6 +119,7 @@ export const PromptHealthDashboard = ({ handleDashboardToggle }) => {
       key: "first_attempt_optimal",
       Filter: NumberFilter,
       minWidth: 70,
+      Cell: ({row}) => row.original.first_attempt_optimal && <span className={row.original.first_attempt_optimal < 25 ? "poor-health" : "" + " name"}>{row.original.first_attempt_optimal}%</span>
     },
     {
       Header: 'Final Attempt Optimal',
@@ -126,6 +127,7 @@ export const PromptHealthDashboard = ({ handleDashboardToggle }) => {
       key: "final_attempt_optimal",
       Filter: NumberFilter,
       minWidth: 70,
+      Cell: ({row}) => row.original.final_attempt_optimal && <span className={row.original.final_attempt_optimal < 75 ? "poor-health" : "" + " name"}>{row.original.final_attempt_optimal}%</span>
     },
     {
       Header: 'Average Attempts',
@@ -140,6 +142,7 @@ export const PromptHealthDashboard = ({ handleDashboardToggle }) => {
       key: "confidence",
       Filter: NumberFilter,
       minWidth: 70,
+      Cell: ({row}) => row.original.confidence && <span className={row.original.confidence < 0.9 ? "poor-health" : "" + " name"}>{row.original.confidence}%</span>
     },
     {
       Header: '% AutoML Consecut- ive Repeated',
@@ -147,6 +150,7 @@ export const PromptHealthDashboard = ({ handleDashboardToggle }) => {
       key: "percent_automl_consecutive_repeated",
       Filter: NumberFilter,
       minWidth: 70,
+      Cell: ({row}) => row.original.percent_automl_consecutive_repeated && <span className={row.original.percent_automl_consecutive_repeated > 30 ? "poor-health" : "" + " name"}>{row.original.percent_automl_consecutive_repeated}%</span>
     },
     {
       Header: '% AutoML',
@@ -190,6 +194,14 @@ export const PromptHealthDashboard = ({ handleDashboardToggle }) => {
       Filter: TimeFilter,
       minWidth: 70,
       Cell: ({row}) => secondsToHumanReadableTime(row.original.avg_time_spent_per_prompt)
+    },
+    {
+      Header: 'Poor Health Flag',
+      accessor: "poor_health_flag",
+      key: "poorHealthFlag",
+      Filter: TrueFalseFilter,
+      minWidth: 70,
+      Cell: ({row}) => row.original.poor_health_flag === true && <span className="poor-health-flag">X</span>
     }
   ];
 
