@@ -73,23 +73,17 @@ class SegmentAnalytics
 
   def track_activity_completion(user, student_id, activity, activity_session)
     activity_topics = activity.topics
-    activity_topics.each do |topic_level_one|
-      topic_level_two = Topic.find(topic_level_one.parent_id)
-      topic_level_three = Topic.find(topic_level_two.parent_id)
-
-      properties = {
-        student_id: student_id,
-        topic_level_one: topic_level_one.name,
-        topic_level_two: topic_level_two.name,
-        topic_level_three: topic_level_three.name,
-      }
-
+    activity_topics.each do |topic|
+      level_one_topic = topic
+      level_two_topic = Topic.find(topic.parent_id)
+      level_three_topic = Topic.find(level_two_topic.parent_id)
       track({
-          user_id: user&.id,
-          event: SegmentIo::BackgroundEvents::ACTIVITY_COMPLETION,
-          properties: activity.segment_activity.content_params.merge(properties)
+        user_id: user&.id,
+        event: SegmentIo::BackgroundEvents::ACTIVITY_COMPLETION,
+        properties: activity.segment_activity.content_params.merge({student_id: student_id, topic_level_one: level_one_topic.name, topic_level_two: level_two_topic.name, topic_level_three: level_three_topic.name})
       })
     end
+
     track_activity_pack_completion(user, student_id, activity_session) if activity_pack_completed?(student_id, activity_session)
   end
 
