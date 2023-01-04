@@ -6,7 +6,7 @@ import ScorebookTooltip from '../modules/componentGenerators/tooltip_title/score
 import gradeColor from '../modules/grade_color.js';
 import { nonRelevantActivityClassificationIds, } from '../../../../modules/activity_classifications'
 import activityFromClassificationId from '../modules/activity_from_classification_id.js';
-import { scheduledIcon, closedLockIcon, } from '../../../Shared/index'
+import { scheduledIcon, } from '../../../Shared/index'
 import { requestGet, } from '../../../../modules/request/index'
 
 export default class ActivityIconWithTooltip extends React.Component {
@@ -107,10 +107,8 @@ export default class ActivityIconWithTooltip extends React.Component {
 
   statusIndicator() {
     const { data, } = this.props
-    const { started, completed_attempts, scheduled, locked, } = data
-    if (locked) {
-      return <img alt="" className="locked-symbol" src={closedLockIcon.src} />
-    } else if (scheduled && completed_attempts < 1) {
+    const { started, completed_attempts, scheduled, } = data
+    if (scheduled && completed_attempts < 1) {
       return <img alt="" className="scheduled-symbol" src={scheduledIcon.src} />
     } else if (started) {
       return <img alt="" className="in-progress-symbol" src="https://assets.quill.org/images/scorebook/blue-circle-sliced.svg" />

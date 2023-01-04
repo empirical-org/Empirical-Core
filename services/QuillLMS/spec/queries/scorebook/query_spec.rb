@@ -58,27 +58,6 @@ describe 'ScorebookQuery' do
     expect(results[0]['scheduled']).to eq(false)
   end
 
-  describe 'pack sequence status' do
-    it 'returns activities with locked pack sequence statuses as locked: true' do
-      psi = create(:pack_sequence_item, classroom_unit: classroom_unit)
-      create(:user_pack_sequence_item, pack_sequence_item: psi, user: student, status: UserPackSequenceItem::LOCKED)
-      results = Scorebook::Query.run(classroom.id)
-      expect(results[0]['locked']).to eq(true)
-    end
-
-    it 'returns activities with unlocked pack sequence statuses as locked: false' do
-      psi = create(:pack_sequence_item, classroom_unit: classroom_unit)
-      create(:user_pack_sequence_item, pack_sequence_item: psi, user: student, status: UserPackSequenceItem::UNLOCKED)
-      results = Scorebook::Query.run(classroom.id)
-      expect(results[0]['locked']).to eq(false)
-    end
-
-    it 'returns activities with no pack sequence as locked: false' do
-      results = Scorebook::Query.run(classroom.id)
-      expect(results[0]['locked']).to eq(false)
-    end
-  end
-
   describe 'support date constraints' do
     it 'returns activities completed between the specified dates' do
       begin_date = activity_session1.completed_at - 1.day
@@ -101,7 +80,7 @@ describe 'ScorebookQuery' do
       expect(results.map{|res| res['id']}).not_to include(activity_session1.id)
     end
 
-    describe 'time zones' do
+    context 'time zones' do
       def activity_session_completed_at_to_time_midnight_minus_offset(activity_session, offset)
         original_completed_at = activity_session.completed_at.to_date.to_s
         new_completed_at = Scorebook::Query.to_offset_datetime(original_completed_at, offset)
