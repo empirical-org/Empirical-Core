@@ -53,11 +53,6 @@ const ONBOARDING = 'onboarding'
 const ALL_STEPS = [READ_PASSAGE_STEP_NUMBER, 2, 3, 4]
 const MINIMUM_STUDENT_HIGHLIGHT_COUNT = 2
 
-const STUDENT_HIGHLIGHT_STARTS_TEXT = "(highlighted text begins here)"
-const STUDENT_HIGHLIGHT_ENDS_TEXT = "(highlighted text ends here)"
-const PASSAGE_HIGHLIGHT_STARTS_TEXT = "(yellow underlined text begins here)"
-const PASSAGE_HIGHLIGHT_ENDS_TEXT = "(yellow underlined text ends here)"
-
 export const StudentViewContainer = ({ dispatch, session, isTurk, location, activities, handleFinishActivity, user }: StudentViewContainerProps) => {
   const skipToSpecificStep = window.location.href.includes('skipToStep')
   const shouldSkipToPrompts = window.location.href.includes('turk') || window.location.href.includes('skipToPrompts') || skipToSpecificStep
@@ -451,11 +446,10 @@ export const StudentViewContainer = ({ dispatch, session, isTurk, location, acti
   }
 
   function toggleStudentHighlight(text, callback=null) {
-    const textWithHighlightContentRemoved = text.replace(STUDENT_HIGHLIGHT_STARTS_TEXT, '').replace(STUDENT_HIGHLIGHT_ENDS_TEXT, '')
     let newHighlights = []
 
-    if (studentHighlights.includes(textWithHighlightContentRemoved)) {
-      newHighlights = studentHighlights.filter(hl => hl !== textWithHighlightContentRemoved)
+    if (studentHighlights.includes(text)) {
+      newHighlights = studentHighlights.filter(hl => hl !== text)
     } else {
       newHighlights = studentHighlights.concat(text)
     }
@@ -495,16 +489,16 @@ export const StudentViewContainer = ({ dispatch, session, isTurk, location, acti
         return (
           <p>
             <span className="passage-highlight">
-              <span className="sr-only">{PASSAGE_HIGHLIGHT_STARTS_TEXT}</span>
+              <span className="sr-only">(yellow underlined text begins here)</span>
               {stringifiedInnerElements}
-              <span className="sr-only">{PASSAGE_HIGHLIGHT_ENDS_TEXT}</span>
+              <span className="sr-only">(yellow underlined text ends here)</span>
             </span>
           </p>
         )
       }
       if (elementIncludesHighlight) {
         let newStringifiedInnerElements = stringifiedInnerElements
-        strippedPassageHighlights.forEach(ph => newStringifiedInnerElements = newStringifiedInnerElements.replace(ph, `<span class="passage-highlight"><span class="sr-only">${PASSAGE_HIGHLIGHT_STARTS_TEXT}</span>${ph}<span class="sr-only">${PASSAGE_HIGHLIGHT_ENDS_TEXT}</span></span>`))
+        strippedPassageHighlights.forEach(ph => newStringifiedInnerElements = newStringifiedInnerElements.replace(ph, `<span class="passage-highlight"><span class="sr-only">(yellow underlined text begins here)</span>${ph}<span class="sr-only">(yellow underlined text ends here)</span></span>`))
         return <p dangerouslySetInnerHTML={{ __html: newStringifiedInnerElements }} />
       }
     }
@@ -517,8 +511,8 @@ export const StudentViewContainer = ({ dispatch, session, isTurk, location, acti
       const highlighted = studentHighlights.includes(stringifiedInnerElements)
       if(activeStep === 1 && highlighted) {
         className += ' highlighted'
-        const firstElement = <span className="sr-only">{STUDENT_HIGHLIGHT_STARTS_TEXT}</span>
-        const lastElement = <span className="sr-only">{STUDENT_HIGHLIGHT_ENDS_TEXT}</span>
+        const firstElement = <span className="sr-only">(highlighted text begins here)</span>
+        const lastElement = <span className="sr-only">(highlighted text ends here)</span>
         innerElements = [firstElement, ...innerElements, lastElement]
       }
       className += shouldBeHighlightable  ? ' highlightable' : ''
