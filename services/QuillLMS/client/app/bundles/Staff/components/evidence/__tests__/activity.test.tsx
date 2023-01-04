@@ -12,7 +12,7 @@ describe('Activity component', () => {
     </MemoryRouter>
   );
 
-  it('should render 5 NavLinks', () => {
-    expect(container.find(NavLink).length).toEqual(5);
+  it('should render 4 NavLinks', () => {
+    expect(container.find(NavLink).length).toEqual(4);
   });
 });

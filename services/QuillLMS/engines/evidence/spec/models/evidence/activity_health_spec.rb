@@ -29,27 +29,5 @@ module Evidence
 
       it { should validate_inclusion_of(:so_final_optimal).in?(0..100)}
     end
-
-    context 'methods' do
-      describe 'poor_health_flag' do
-        it 'should return true if one of the final_optimal values is less than 75' do
-          activity_health = create(:evidence_activity_health, but_final_optimal: 6)
-
-          expect(activity_health.poor_health_flag).to eq(true)
-        end
-
-        it 'should return false if all of the final_optimal values is greater than 75' do
-          activity_health = create(:evidence_activity_health, but_final_optimal: 100, because_final_optimal: 100, so_final_optimal: 100)
-
-          expect(activity_health.poor_health_flag).to eq(false)
-        end
-
-        it 'should return false if there are nil values in the final_optimal columns' do
-          activity_health = create(:evidence_activity_health, but_final_optimal: nil, because_final_optimal: 100, so_final_optimal: 100)
-
-          expect(activity_health.poor_health_flag).to eq(false)
-        end
-      end
-    end
   end
 end
