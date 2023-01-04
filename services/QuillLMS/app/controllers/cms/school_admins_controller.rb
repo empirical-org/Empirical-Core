@@ -16,8 +16,28 @@ class Cms::SchoolAdminsController < Cms::CmsController
     @school = School.find(params[:school_id])
   end
 
+  private def determine_school_admin_worker(user, school_id, new_user)
+    user_id = user.id
+    school = School.find_by(id: school_id)
+    linked_school = user.school
+
+    return unless school
+
+    if new_user
+      InternalTool::AdminAccountCreatedEmailWorker.perform_async(user_id, school_id) && return
+    end
+
+    if !linked_school || linked_school && linked_school.name == "no school selected"
+      InternalTool::MadeSchoolAdminLinkSchoolEmailWorker.perform_async(user_id, school_id)
+    elsif school == linked_school
+      InternalTool::MadeSchoolAdminEmailWorker.perform_async(user_id, school_id)
+    elsif school != linked_school
+      InternalTool::MadeSchoolAdminChangeSchoolEmailWorker.perform_async(user_id, school_id, linked_school.id)
+    end
+  end
+
   private def handle_school_admin_save(user, school_id, new_user)
-    user.mailer_user.send_school_admin_email(school_id, new_user)
+    determine_school_admin_worker(user, school_id, new_user)
     returned_message = new_user ? t('admin.make_admin') : t('admin_created_account.existing_account.admin.new')
 
     if params[:is_make_admin_button]

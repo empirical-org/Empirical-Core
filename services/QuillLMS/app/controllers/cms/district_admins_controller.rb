@@ -35,6 +35,14 @@ class Cms::DistrictAdminsController < Cms::CmsController
     params.require(:email)
   end
 
+  private def determine_district_admin_worker(user_id, district_id, new_user)
+    if new_user
+      InternalTool::DistrictAdminAccountCreatedEmailWorker.perform_async(user_id, district_id)
+    else
+      InternalTool::MadeDistrictAdminEmailWorker.perform_async(user_id, district_id)
+    end
+  end
+
   private def create_district_admin_user_for_existing_user(user, new_user: false)
 
     if @district.district_admins.exists?(user_id: user.id)
@@ -44,7 +52,7 @@ class Cms::DistrictAdminsController < Cms::CmsController
     district_admin = @district.district_admins.build(user_id: user.id)
 
     if district_admin.save!
-      user.mailer_user.send_district_admin_email(@district.id, new_user)
+      determine_district_admin_worker(user.id, @district.id, new_user)
       returned_message = new_user ? t('district_admin.new_account') : t('district_admin.existing_account')
       render json: { message: returned_message }, status: 200
     else
