@@ -201,7 +201,7 @@ export const PromptHealthDashboard = ({ handleDashboardToggle }) => {
       key: "poorHealthFlag",
       Filter: TrueFalseFilter,
       minWidth: 70,
-      Cell: ({row}) => row.original.poor_health_flag === true && <span className="poor-health-flag">X</span>
+      Cell: ({row}) => row.original.poor_health_flag === true && <span className="poor-health-flag">X</span>,
     }
   ];
 
@@ -313,7 +313,7 @@ export const PromptHealthDashboard = ({ handleDashboardToggle }) => {
         <div className="first-input-row">
           <FlagDropdown flag={flag} handleFlagChange={handleFlagChange} isLessons={true} />
           <div className="right-side-div">
-            <a onClick={handleDashboardToggle}>Switch to Activity View</a>
+            <button className="switch-view" onClick={handleDashboardToggle} type="button">Switch to Activity View</button>
             <div className="csv-download-button">
               <button onClick={formatTableForCSV} type="button">
                 Download CSV

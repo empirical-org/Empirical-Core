@@ -89,8 +89,8 @@ export const ActivityHealthDashboard = ({ handleDashboardToggle }) => {
     },
     {
       Header: 'Version #',
-      accessor: "current_version",
-      key: "current_version",
+      accessor: "version",
+      key: "version",
       Filter: NumberFilter,
       minWidth: 70,
     },
@@ -259,62 +259,62 @@ export const ActivityHealthDashboard = ({ handleDashboardToggle }) => {
   }
 
   return(
-      <div>
-        <section className="header-section">
-          <h2>Activities Health Dashboard</h2>
-          <div className="first-input-row">
-            <FlagDropdown flag={flag} handleFlagChange={handleFlagChange} isLessons={true} />
-            <div className="right-side-div">
-              <a onClick={handleDashboardToggle}>Switch to Prompt View</a>
-              <div className="csv-download-button">
-                <button onClick={formatTableForCSV} type="button">
-                  Download CSV
-                </button>
-              </div>
+    <div>
+      <section className="header-section">
+        <h2>Activities Health Dashboard</h2>
+        <div className="first-input-row">
+          <FlagDropdown flag={flag} handleFlagChange={handleFlagChange} isLessons={true} />
+          <div className="right-side-div">
+            <button className="switch-view" onClick={handleDashboardToggle} type="button">Switch to Prompt View</button>
+            <div className="csv-download-button">
+              <button onClick={formatTableForCSV} type="button">
+                Download CSV
+              </button>
             </div>
           </div>
+        </div>
 
-          <div className="second-input-row">
-            <input
-              aria-label="Search by prompt"
-              className="search-box"
-              name="searchInput"
-              onChange={handleSearchByPrompt}
-              placeholder="Search by prompt or activity name"
-              value={promptSearchInput || ""}
-            />
-          </div>
-
-          <div className="poor-health-filter">
-            <input aria-label="poor-health-check" checked={poorHealthFlag} onChange={handlePoorHealthFlagToggle} type="checkbox" />
-            <label className="poor-health-label" htmlFor="poor-health-check">Poor Health Flag</label>
-          </div>
-
-          <div>
-            <CSVLink
-              data={dataToDownload}
-              filename="activity_health_report"
-              ref={(c) => (csvLink = c)}
-              rel="noopener noreferrer"
-              target="_blank"
-            />
-          </div>
-        </section>
-
-        <section className="table-section">
-          <ReactTable
-            className="activity-healths-table"
-            columns={dataTableFields}
-            data={(rows && getFilteredData(rows)) || []}
-            defaultPageSize={(rows && rows.length) || 0}
-            filterable
-            manualFilters
-            manualSortBy
-            onFiltersChange={handleFiltersChange}
-            onSortedChange={handleDataUpdate}
+        <div className="second-input-row">
+          <input
+            aria-label="Search by prompt"
+            className="search-box"
+            name="searchInput"
+            onChange={handleSearchByPrompt}
+            placeholder="Search by prompt or activity name"
+            value={promptSearchInput || ""}
           />
-        </section>
-      </div>
+        </div>
+
+        <div className="poor-health-filter">
+          <input aria-label="poor-health-check" checked={poorHealthFlag} onChange={handlePoorHealthFlagToggle} type="checkbox" />
+          <label className="poor-health-label" htmlFor="poor-health-check">Poor Health Flag</label>
+        </div>
+
+        <div>
+          <CSVLink
+            data={dataToDownload}
+            filename="activity_health_report"
+            ref={(c) => (csvLink = c)}
+            rel="noopener noreferrer"
+            target="_blank"
+          />
+        </div>
+      </section>
+
+      <section className="table-section">
+        <ReactTable
+          className="activity-healths-table"
+          columns={dataTableFields}
+          data={(rows && getFilteredData(rows)) || []}
+          defaultPageSize={(rows && rows.length) || 0}
+          filterable
+          manualFilters
+          manualSortBy
+          onFiltersChange={handleFiltersChange}
+          onSortedChange={handleDataUpdate}
+        />
+      </section>
+    </div>
   );
 
 }

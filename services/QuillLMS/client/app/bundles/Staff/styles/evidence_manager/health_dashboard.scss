@@ -20,8 +20,9 @@
     .right-side-div {
       float: right;
       display: flex;
-      a {
-        padding: 5px;
+      .switch-view {
+        border: none;
+        background: none;
       }
     }
     padding-bottom: 30px;
