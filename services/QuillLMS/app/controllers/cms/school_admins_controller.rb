@@ -27,9 +27,11 @@ class Cms::SchoolAdminsController < Cms::CmsController
       InternalTool::AdminAccountCreatedEmailWorker.perform_async(user_id, school_id) && return
     end
 
-    if !linked_school
-      InternalTool::MadeSchoolAdminLinkSchoolEmailWorker.perform_async(user_id, school_id)
-    elsif linked_school.name == "no school selected"
+    trigger_worker_for_existing_user(user_id, school, linked_school)
+  end
+
+  private def trigger_worker_for_existing_user(user_id, school, linked_school)
+    if !linked_school || (linked_school && linked_school.name == 'no school selected')
       InternalTool::MadeSchoolAdminLinkSchoolEmailWorker.perform_async(user_id, school_id)
     elsif school == linked_school
       InternalTool::MadeSchoolAdminEmailWorker.perform_async(user_id, school_id)
