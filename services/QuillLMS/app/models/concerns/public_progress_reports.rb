@@ -53,7 +53,7 @@ module PublicProgressReports
       curr_quest = questions[answer.question_number]
       curr_quest[:correct] ||= 0
       curr_quest[:total] ||= 0
-      curr_quest[:correct] += answer.question_score || answer.correct ? 1 : 0
+      curr_quest[:correct] += answer.question_score_for_correct_count
       curr_quest[:total] += 1
       curr_quest[:prompt] ||= answer.concept_result_prompt&.text
       curr_quest[:question_number] ||= answer.question_number
