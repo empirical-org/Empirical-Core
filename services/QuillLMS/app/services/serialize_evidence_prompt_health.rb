@@ -10,28 +10,11 @@ class SerializeEvidencePromptHealth
   end
 
   def data
-    serialized_data = {
+    {
       prompt_id: prompt.id,
       activity_short_name: prompt.activity.notes,
       text: prompt.text,
       current_version: prompt.activity.version,
-      version_responses: 0,
-      first_attempt_optimal: nil,
-      final_attempt_optimal: nil,
-      avg_attempts: nil,
-      confidence: nil,
-      percent_automl_consecutive_repeated: nil,
-      percent_automl: nil,
-      percent_plagiarism: nil,
-      percent_opinion: nil,
-      percent_grammar: nil,
-      percent_spelling: nil,
-      avg_time_spent_per_prompt: nil
-    }
-
-    return serialized_data if prompt_feedback_history.empty?
-
-    feedback_history_data = {
       version_responses: prompt_feedback_history[prompt.id]["total_responses"],
       first_attempt_optimal: num_first_attempts > 0 ? ((prompt_feedback_history[prompt.id]["num_first_attempt_optimal"] / num_first_attempts.to_f) * 100).round : nil,
       final_attempt_optimal: num_final_attempts > 0 ? ((prompt_feedback_history[prompt.id]["num_final_attempt_optimal"] / num_final_attempts.to_f) * 100).round : nil,
@@ -45,8 +28,6 @@ class SerializeEvidencePromptHealth
       percent_spelling: percent_responses_for_api(FeedbackHistory::SPELLING),
       avg_time_spent_per_prompt: prompt_feedback_history[prompt.id]["avg_time_spent"] ? Utils::Numeric.human_readable_time_to_seconds(prompt_feedback_history[prompt.id]["avg_time_spent"]) : nil
     }
-
-    serialized_data.merge!(feedback_history_data)
   end
 
   private def rule_feedback_histories
