@@ -17,5 +17,35 @@ module Evidence
     validates :percent_opinion, inclusion: { in: 0..100, allow_nil: true }
     validates :percent_grammar, inclusion: { in: 0..100, allow_nil: true }
     validates :percent_spelling, inclusion: { in: 0..100, allow_nil: true }
+
+    def serializable_hash(options = nil)
+      options ||= {}
+
+      super(options.reverse_merge(
+        only: [
+          :id, :current_version, :version_responses, :first_attempt_optimal, :final_attempt_optimal,
+          :avg_attempts, :confidence, :percent_automl_consecutive_repeated, :percent_automl,
+          :percent_plagiarism, :percent_opinion, :percent_grammar, :percent_spelling, :text,
+          :avg_time_spent_per_prompt, :prompt_id, :activity_short_name
+        ],
+        methods: [:conjunction, :activity_id, :flag]
+      ))
+    end
+
+    def conjunction
+      prompt.conjunction
+    end
+
+    def activity_id
+      prompt.activity_id
+    end
+
+    def flag
+      prompt.activity.flag
+    end
+
+    private def prompt
+      @prompt ||= Prompt.find(prompt_id)
+    end
   end
 end

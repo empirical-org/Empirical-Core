@@ -72,6 +72,8 @@ export const getActivityHealthUrl = ({ activityId }) => {
 
 export const aggregatedActivityHealthsUrl = `evidence/activity_healths.json`;
 
+export const aggregatedPromptHealthsUrl = `evidence/prompt_healths.json`;
+
 
 // not a 2xx status
 export const requestFailed = (status: number ) => Math.round(status / 100) !== 2;

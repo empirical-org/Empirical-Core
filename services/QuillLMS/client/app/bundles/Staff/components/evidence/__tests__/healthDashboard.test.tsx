@@ -5,7 +5,7 @@ import { createMemoryHistory, createLocation } from 'history';
 import { QueryClientProvider } from 'react-query'
 
 import { DefaultReactQueryClient } from '../../../../Shared/index';
-import HealthDashboard from '../healthDashboards/healthDashboard';
+import HealthDashboard from '../healthDashboards/activityHealthDashboard';
 
 const queryClient = new DefaultReactQueryClient();
 

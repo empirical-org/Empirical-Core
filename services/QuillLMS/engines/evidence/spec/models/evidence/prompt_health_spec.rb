@@ -37,5 +37,36 @@ module Evidence
 
       it { should validate_inclusion_of(:percent_spelling).in?(0..100)}
     end
+
+    context 'methods' do
+      describe 'flag' do
+        it 'should return the flag of the associated activity' do
+          activity = create(:evidence_activity)
+          prompt = create(:evidence_prompt, activity: activity)
+          prompt_health = create(:evidence_prompt_health, prompt_id: prompt.id)
+
+          expect(prompt_health.flag).to eq(activity.flag)
+        end
+      end
+
+      describe 'conjunction' do
+        it 'should return the conjunction of the associated prompt' do
+          prompt = create(:evidence_prompt)
+          prompt_health = create(:evidence_prompt_health, prompt_id: prompt.id)
+
+          expect(prompt_health.conjunction).to eq(prompt.conjunction)
+        end
+      end
+
+      describe 'conjunction' do
+        it 'should return the id of the associated activity' do
+          activity = create(:evidence_activity)
+          prompt = create(:evidence_prompt, activity: activity)
+          prompt_health = create(:evidence_prompt_health, prompt_id: prompt.id)
+
+          expect(prompt_health.activity_id).to eq(activity.id)
+        end
+      end
+    end
   end
 end

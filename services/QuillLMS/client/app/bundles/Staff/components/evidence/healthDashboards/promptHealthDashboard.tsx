@@ -5,13 +5,13 @@ import { CSVLink } from 'react-csv';
 import { firstBy } from 'thenby';
 
 
-import Navigation from '../navigation'
 import { FlagDropdown, ReactTable, filterNumbers } from '../../../../Shared/index'
-import { fetchAggregatedActivityHealths } from '../../../utils/evidence/ruleFeedbackHistoryAPIs';
-import { getLinkToActivity, secondsToHumanReadableTime, addCommasToThousands } from "../../../helpers/evidence/miscHelpers";
+import { fetchAggregatedPromptHealths } from '../../../utils/evidence/ruleFeedbackHistoryAPIs';
+import { getLinkToPrompt, secondsToHumanReadableTime, addCommasToThousands } from "../../../helpers/evidence/miscHelpers";
 
 const ALL_FLAGS = "All Flags"
-const NAME_COLUMN = "name"
+const SHORT_NAME_COLUMN = "activity_short_name"
+const TEXT_COLUMN = "text"
 const POOR_HEALTH_FLAG_COLUMN = "poor_health_flag"
 
 const CustomTextFilter = ({ column, setFilter, placeholder }) => {
@@ -50,7 +50,7 @@ const TrueFalseFilter = ({ column, setFilter }) => (
   />
 )
 
-export const HealthDashboard = ({ location, match }) => {
+export const PromptHealthDashboard = ({ handleDashboardToggle }) => {
   const [flag, setFlag] = React.useState<string>(ALL_FLAGS)
   const [promptSearchInput, setPromptSearchInput] = React.useState<string>("")
   const [dataToDownload, setDataToDownload] = React.useState<Array<{}>>([])
@@ -59,9 +59,9 @@ export const HealthDashboard = ({ location, match }) => {
   let csvLink = useRef(null);
 
   // get cached activity data to pass to rule
-  const { data: activityHealthsData } = useQuery({
-    queryKey: [`evidence-activity-healths`],
-    queryFn: fetchAggregatedActivityHealths
+  const { data: promptHealthsData } = useQuery({
+    queryKey: [`evidence-prompt-healths`],
+    queryFn: fetchAggregatedPromptHealths
   });
 
   React.useEffect(() => {
@@ -71,93 +71,125 @@ export const HealthDashboard = ({ location, match }) => {
   }, [dataToDownload]);
 
   React.useEffect(() => {
-    if (activityHealthsData && activityHealthsData.activityHealths) {
-      setRows(getFilteredData(activityHealthsData.activityHealths))
+    if (promptHealthsData && promptHealthsData.promptHealths) {
+      setRows(getFilteredData(promptHealthsData.promptHealths))
     }
-  }, [activityHealthsData])
+  }, [promptHealthsData])
 
   const dataTableFields = [
     {
-      Header: 'Name',
-      accessor: "name",
-      key: "name",
+      Header: 'Activity Short Name',
+      accessor: "activity_short_name",
+      key: "activity_short_name",
       Filter: CustomTextFilter,
       filterAll: true,
-      Cell: ({row}) => <span className="name"><a href={getLinkToActivity(row.original.activity_id)} rel="noopener noreferrer" target="_blank">{row.original.name}</a></span>, // eslint-disable-line react/display-name
+      Cell: ({row}) => <span>{row.original.activity_short_name}</span>, // eslint-disable-line react/display-name
+      minWidth: 100,
+      width: 100,
+      maxWidth: 100
+    },
+    {
+      Header: 'Prompt',
+      accessor: "text",
+      key: "text",
+      Filter: CustomTextFilter,
+      filterAll: true,
+      Cell: ({row}) => <span className="name"><a href={getLinkToPrompt(row.original.activity_id, row.original.conjunction)} rel="noopener noreferrer" target="_blank">{row.original.text}</a></span>, // eslint-disable-line react/display-name
       minWidth: 330,
       width: 330,
       maxWidth: 330
     },
     {
       Header: 'Version #',
-      accessor: "version",
-      key: "version",
+      accessor: "current_version",
+      key: "current_version",
       Filter: NumberFilter,
       minWidth: 70,
     },
     {
-      Header: 'Version Plays',
-      accessor: "version_plays",
-      key: "versionPlays",
+      Header: 'Version responses',
+      accessor: "version_responses",
+      key: "version_responses",
       Filter: NumberFilter,
       minWidth: 70,
-      Cell: ({row}) => row.original.version_plays && <span className="versionPlays">{addCommasToThousands(row.original.version_plays)}</span>
     },
     {
-      Header: 'Total Plays',
-      accessor: "total_plays",
-      key: "totalPlays",
+      Header: 'First Attempt Optimal',
+      accessor: "first_attempt_optimal",
+      key: "first_attempt_optimal",
       Filter: NumberFilter,
       minWidth: 70,
-      Cell: ({row}) => row.original.total_plays && <span className="versionPlays">{addCommasToThousands(row.original.total_plays)}</span>
     },
     {
-      Header: 'Completed Rate',
-      accessor: "completion_rate",
-      key: "completionRate",
-      Filter: NumberFilter,
-      minWidth: 80,
-      Cell: ({row}) => row.original.completion_rate && <span className="name">{row.original.completion_rate}%</span>
-    },
-    {
-      Header: 'Because Final Optimal',
-      accessor: "because_final_optimal",
-      key: "becauseFinalOptimal",
+      Header: 'Final Attempt Optimal',
+      accessor: "final_attempt_optimal",
+      key: "final_attempt_optimal",
       Filter: NumberFilter,
       minWidth: 70,
-      Cell: ({row}) => row.original.because_final_optimal && <span className={row.original.because_final_optimal <= 75 ? "poor-health" : "" + " name"}>{row.original.because_final_optimal}%</span>
     },
     {
-      Header: 'But Final Optimal',
-      accessor: "but_final_optimal",
-      key: "butFinalOptimal",
+      Header: 'Average Attempts',
+      accessor: "avg_attempts",
+      key: "avg_attempts",
       Filter: NumberFilter,
       minWidth: 70,
-      Cell: ({row}) => row.original.but_final_optimal && <span className={row.original.but_final_optimal <= 75 ? "poor-health" : "" + " name"}>{row.original.but_final_optimal}%</span>
     },
     {
-      Header: 'So Final Optimal',
-      accessor: "so_final_optimal",
-      key: "soFinalOptimal",
+      Header: 'Confid- ence',
+      accessor: "confidence",
+      key: "confidence",
       Filter: NumberFilter,
       minWidth: 70,
-      Cell: ({row}) => row.original.so_final_optimal && <span className={row.original.so_final_optimal <= 75 ? "poor-health" : "" + " name"}>{row.original.so_final_optimal}%</span>
     },
     {
-      Header: 'Avg Time Spent - Activity',
-      accessor: "avg_completion_time",
-      key: "avgCompletionTime",
+      Header: '% AutoML Consecut- ive Repeated',
+      accessor: "percent_automl_consecutive_repeated",
+      key: "percent_automl_consecutive_repeated",
+      Filter: NumberFilter,
+      minWidth: 70,
+    },
+    {
+      Header: '% AutoML',
+      accessor: "percent_automl",
+      key: "percent_automl",
+      Filter: NumberFilter,
+      minWidth: 70,
+    },
+    {
+      Header: '% Plagiar- ism',
+      accessor: "percent_plagiarism",
+      key: "percent_plagiarism",
+      Filter: NumberFilter,
+      minWidth: 70,
+    },
+    {
+      Header: '% Opinion',
+      accessor: "percent_opinion",
+      key: "percent_opinion",
+      Filter: NumberFilter,
+      minWidth: 70,
+    },
+    {
+      Header: '% Grammar',
+      accessor: "percent_grammar",
+      key: "percent_grammar",
+      Filter: NumberFilter,
+      minWidth: 70,
+    },
+    {
+      Header: '% Spelling',
+      accessor: "percent_spelling",
+      key: "percent_spelling",
+      Filter: NumberFilter,
+      minWidth: 70,
+    },
+    {
+      Header: 'Avg Time Spent - Prompt',
+      accessor: "avg_time_spent_per_prompt",
+      key: "avg_time_spent_per_prompt",
       Filter: TimeFilter,
       minWidth: 70,
-      Cell: ({row}) => secondsToHumanReadableTime(row.original.avg_completion_time)
-    },
-    {
-      Header: 'Poor Health Flag',
-      accessor: "poor_health_flag",
-      key: "poorHealthFlag",
-      Filter: TrueFalseFilter,
-      minWidth: 70,
-      Cell: ({row}) => row.original.poor_health_flag === true && <span className="poor-health-flag">X</span>
+      Cell: ({row}) => secondsToHumanReadableTime(row.original.avg_time_spent_per_prompt)
     }
   ];
 
@@ -173,7 +205,8 @@ export const HealthDashboard = ({ location, match }) => {
     if (!filteredData) return []
     filteredData = filteredData.filter(value => {
       return (
-        value.name && value.name.toLowerCase().includes(promptSearchInput.toLowerCase())
+        ((value.text && value.text.toLowerCase().includes(promptSearchInput.toLowerCase())) ||
+        (value.activity_short_name && value.activity_short_name.toLowerCase().includes(promptSearchInput.toLowerCase())))
       );
     })
 
@@ -203,8 +236,10 @@ export const HealthDashboard = ({ location, match }) => {
   const filterRowsByColumnValue = (rows, column, value) => {
     if (value === '' || !value) return rows
 
-    if (column === NAME_COLUMN) {
-      return rows.filter(r => r.name.toLowerCase().includes(value.toLowerCase()))
+    if (column === TEXT_COLUMN) {
+      return rows.filter(r => r.text.toLowerCase().includes(value.toLowerCase()))
+    } else if (column === SHORT_NAME_COLUMN) {
+      return rows.filter(r => r.activity_short_name.toLowerCase().includes(value.toLowerCase()))
     } else if (column === POOR_HEALTH_FLAG_COLUMN) {
       return filterPoorHealthRows(value, rows)
     } else {
@@ -214,12 +249,12 @@ export const HealthDashboard = ({ location, match }) => {
 
   const handleFiltersChange = (filters) => {
     if (!rows) return;
-    let newRows = activityHealthsData.activityHealths
+    let newRows = promptHealthsData.promptHealths
     filters.forEach((filter) => {
       const column = filter.id
       const value = filter.value
 
-      newRows = filterRowsByColumnValue(activityHealthsData.activityHealths, column, value)
+      newRows = filterRowsByColumnValue(promptHealthsData.promptHealths, column, value)
     })
     setRows(getFilteredData(newRows))
   }
@@ -260,64 +295,64 @@ export const HealthDashboard = ({ location, match }) => {
   }
 
   return(
-    <React.Fragment>
-      <Navigation location={location} match={match} />
-      <div className="health-dashboards-index-container">
-        <section className="header-section">
-          <h2>Activities Health Dashboard</h2>
-          <div className="first-input-row">
-            <FlagDropdown flag={flag} handleFlagChange={handleFlagChange} isLessons={true} />
+    <div>
+      <section className="header-section">
+        <h2>Prompt Health Dashboard</h2>
+        <div className="first-input-row">
+          <FlagDropdown flag={flag} handleFlagChange={handleFlagChange} isLessons={true} />
+          <div className="right-side-div">
+            <a onClick={handleDashboardToggle}>Switch to Activity View</a>
             <div className="csv-download-button">
               <button onClick={formatTableForCSV} type="button">
                 Download CSV
               </button>
             </div>
           </div>
+        </div>
 
-          <div className="second-input-row">
-            <input
-              aria-label="Search by prompt"
-              className="search-box"
-              name="searchInput"
-              onChange={handleSearchByPrompt}
-              placeholder="Search by prompt or activity name"
-              value={promptSearchInput || ""}
-            />
-          </div>
-
-          <div className="poor-health-filter">
-            <input aria-label="poor-health-check" checked={poorHealthFlag} onChange={handlePoorHealthFlagToggle} type="checkbox" />
-            <label className="poor-health-label" htmlFor="poor-health-check">Poor Health Flag</label>
-          </div>
-
-          <div>
-            <CSVLink
-              data={dataToDownload}
-              filename="activity_health_report"
-              ref={(c) => (csvLink = c)}
-              rel="noopener noreferrer"
-              target="_blank"
-            />
-          </div>
-        </section>
-
-        <section className="table-section">
-          <ReactTable
-            className="activity-healths-table"
-            columns={dataTableFields}
-            data={(rows && getFilteredData(rows)) || []}
-            defaultPageSize={(rows && rows.length) || 0}
-            filterable
-            manualFilters
-            manualSortBy
-            onFiltersChange={handleFiltersChange}
-            onSortedChange={handleDataUpdate}
+        <div className="second-input-row">
+          <input
+            aria-label="Search by prompt"
+            className="search-box"
+            name="searchInput"
+            onChange={handleSearchByPrompt}
+            placeholder="Search by prompt or activity name"
+            value={promptSearchInput || ""}
           />
-        </section>
-      </div>
-    </React.Fragment>
+        </div>
+
+        <div className="poor-health-filter">
+          <input aria-label="poor-health-check" checked={poorHealthFlag} onChange={handlePoorHealthFlagToggle} type="checkbox" />
+          <label className="poor-health-label" htmlFor="poor-health-check">Poor Health Flag</label>
+        </div>
+
+        <div>
+          <CSVLink
+            data={dataToDownload}
+            filename="activity_health_report"
+            ref={(c) => (csvLink = c)}
+            rel="noopener noreferrer"
+            target="_blank"
+          />
+        </div>
+      </section>
+
+      <section className="table-section">
+        <ReactTable
+          className="activity-healths-table"
+          columns={dataTableFields}
+          data={(rows && getFilteredData(rows)) || []}
+          defaultPageSize={(rows && rows.length) || 0}
+          filterable
+          manualFilters
+          manualSortBy
+          onFiltersChange={handleFiltersChange}
+          onSortedChange={handleDataUpdate}
+        />
+      </section>
+    </div>
   );
 
 }
 
-export default HealthDashboard
+export default PromptHealthDashboard
