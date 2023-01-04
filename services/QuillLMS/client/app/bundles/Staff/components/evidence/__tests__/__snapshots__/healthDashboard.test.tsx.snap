@@ -30,7 +30,7 @@ exports[`HealthDashboard component should render HealthDashboard 1`] = `
       }
     }
   >
-    <HealthDashboard
+    <ActivityHealthDashboard
       history={
         Object {
           "createHref": [Function],

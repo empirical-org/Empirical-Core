@@ -58,7 +58,7 @@ module Evidence
         end
       end
 
-      describe 'conjunction' do
+      describe 'activity_id' do
         it 'should return the id of the associated activity' do
           activity = create(:evidence_activity)
           prompt = create(:evidence_prompt, activity: activity)

@@ -26,37 +26,63 @@ module Evidence
       options ||= {}
 
       super(options.reverse_merge(
-        only: [
-          :id, :current_version, :version_responses, :first_attempt_optimal, :final_attempt_optimal,
-          :avg_attempts, :confidence, :percent_automl_consecutive_repeated, :percent_automl,
-          :percent_plagiarism, :percent_opinion, :percent_grammar, :percent_spelling, :text,
-          :avg_time_spent_per_prompt, :prompt_id, :activity_short_name
-        ],
-        methods: [:conjunction, :activity_id, :flag, :poor_health_flag]
+        only:
+          %i(
+            id
+            current_version
+            version_responses
+            first_attempt_optimal
+            final_attempt_optimal
+            avg_attempts
+            confidence
+            percent_automl_consecutive_repeated
+            percent_automl
+            percent_plagiarism
+            percent_opinion
+            percent_grammar
+            percent_spelling
+            text
+            avg_time_spent_per_prompt
+            prompt_id
+            activity_short_name
+          ),
+        methods:
+          %i(
+            conjunction
+            activity_id
+            flag
+            poor_health_flag
+          )
       ))
     end
 
     def poor_health_flag
-      (first_attempt_optimal && first_attempt_optimal < FIRST_ATTEMPT_OPTIMAL_CUTOFF) ||
-      (final_attempt_optimal && final_attempt_optimal < FINAL_ATTEMPT_OPTIMAL_CUTFF) ||
-      (confidence && confidence < CONFIDENCE_CUTOFF) ||
-      (percent_automl_consecutive_repeated && percent_automl_consecutive_repeated > PERCENT_AUTOML_CONSECUTIVE_REPEATED_CUTOFF)
+      (
+        failed_cutoff(first_attempt_optimal, FIRST_ATTEMPT_OPTIMAL_CUTOFF) ||
+        failed_cutoff(final_attempt_optimal, FINAL_ATTEMPT_OPTIMAL_CUTFF) ||
+        failed_cutoff(confidence, CONFIDENCE_CUTOFF) ||
+        (percent_automl_consecutive_repeated && percent_automl_consecutive_repeated > PERCENT_AUTOML_CONSECUTIVE_REPEATED_CUTOFF)
+      )
     end
 
     def conjunction
-      prompt.conjunction
+      prompt && prompt.conjunction
     end
 
     def activity_id
-      prompt.activity_id
+      prompt && prompt.activity_id
     end
 
     def flag
-      prompt.activity.flag
+      prompt && prompt.activity.flag
     end
 
     private def prompt
       @prompt ||= Prompt.find(prompt_id)
+    end
+
+    private def failed_cutoff(number, cutoff)
+      number && number < cutoff
     end
   end
 end
