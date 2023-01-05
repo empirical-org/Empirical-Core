@@ -14,7 +14,7 @@ class Rack::Attack
     end
   end
 
-  Rack::Attack.throttle('account creation per IP', limit: 5, period: 60.minutes) do |req|
+  Rack::Attack.throttle('account creation per IP', limit: 10, period: 30.minutes) do |req|
     if req.path == '/account' && req.post?
       req.ip
     end
