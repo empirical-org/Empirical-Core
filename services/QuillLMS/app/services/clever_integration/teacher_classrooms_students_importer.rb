@@ -26,7 +26,7 @@ module CleverIntegration
     private def import_classroom_students
       classrooms.each do |classroom|
         students_data = client.get_classroom_students(classroom.clever_id)
-        ClassroomStudentsImporter.run(classroom, students_data)
+        ClassroomStudentsImporter.run(classroom, students_data, teacher.id)
       end
     end
   end
