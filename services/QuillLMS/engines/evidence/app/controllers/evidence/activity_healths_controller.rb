@@ -6,7 +6,7 @@ module Evidence
   class ActivityHealthsController < ApiController
 
     def index
-      render json: ActivityHealth.all.includes(:prompt_healths).as_json
+      render json: ActivityHealth.includes([:prompt_healths]).all.to_json(include: :prompt_healths)
     end
   end
 end
