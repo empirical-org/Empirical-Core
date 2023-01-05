@@ -5,7 +5,7 @@ module Evidence
 
     def run
       opinion_client = ::Evidence::Opinion::Client.new(entry: entry, prompt_text: prompt.text)
-      @response = ::Evidence::Opinion::FeedbackAssembler.run(opinion_client.post, feedback_history)
+      @response = ::Evidence::Opinion::FeedbackAssembler.run(opinion_client.post, previous_feedback)
     end
 
   end
