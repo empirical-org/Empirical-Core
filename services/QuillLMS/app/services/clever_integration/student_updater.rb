@@ -2,15 +2,16 @@
 
 module CleverIntegration
   class StudentUpdater < ApplicationService
-    attr_reader :clever_id, :data, :student, :username
+    attr_reader :clever_id, :data, :student, :teacher_id, :username
 
     ACCOUNT_TYPE = ::User::CLEVER_ACCOUNT
     ROLE = ::User::STUDENT
 
-    def initialize(student, data)
+    def initialize(student, data, teacher_id)
       @student = student
       @data = data
       @clever_id = data[:clever_id]
+      @teacher_id = teacher_id
       @username = data[:username]
     end
 
@@ -29,7 +30,7 @@ module CleverIntegration
       return unless clever_id_and_email_disjointed?
 
       clever_student = ::User.find_by(clever_id: clever_id)
-      student.merge_student_account(clever_student)
+      student.merge_student_account(clever_student, teacher_id)
       clever_student.update!(clever_id: nil, account_type: 'unknown')
     end
 
