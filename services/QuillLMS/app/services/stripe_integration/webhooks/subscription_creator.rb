@@ -29,8 +29,8 @@ module StripeIntegration
         raise NilStripeInvoiceIdError if stripe_invoice.id.nil?
         raise DuplicateSubscriptionError if duplicate_subscription?
         raise NilSubscriptionStatusError unless stripe_subscription.respond_to?(:status)
+        raise AmountPaidMismatchError if amount_paid_mismatch?
 
-        validate_amount_paid_mismatch
         subscription
         save_stripe_customer_id
         run_plan_custom_tasks
@@ -127,11 +127,8 @@ module StripeIntegration
         raise StripeInvoiceIdNotUniqueError
       end
 
-      private def validate_amount_paid_mismatch
-        return if payment_amount == plan.price
-        return if stripe_subscription.status == TRIALING
-
-        raise AmountPaidMismatchError
+      private def amount_paid_mismatch?
+        payment_amount != plan.price && stripe_subscription.status != TRIALING
       end
     end
   end
