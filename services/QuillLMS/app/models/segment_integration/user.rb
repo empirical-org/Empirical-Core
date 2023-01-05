@@ -12,7 +12,10 @@ module SegmentIntegration
           last_name: last_name,
           email: email,
           flags: flags&.join(", "),
-          flagset: flagset
+          flagset: flagset,
+          minimum_grade_level: teacher_info&.minimum_grade_level,
+          maximum_grade_level: teacher_info&.maximum_grade_level,
+          subject_areas: teacher_info&.subject_areas&.map(&:name)&.join(", ")
         }.reject {|_,v| v.nil? },
         integrations: integration_rules
       }
@@ -25,7 +28,10 @@ module SegmentIntegration
         school_name: school&.name,
         premium_state: premium_state,
         premium_type: subscription&.account_type,
-        is_admin: admin?
+        is_admin: admin?,
+        minimum_grade_level: teacher_info&.minimum_grade_level,
+        maximum_grade_level: teacher_info&.maximum_grade_level,
+        subject_areas: teacher_info&.subject_areas&.map(&:name)&.join(", ")
       }.reject {|_,v| v.nil? }
     end
 
