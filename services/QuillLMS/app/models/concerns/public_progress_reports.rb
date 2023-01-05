@@ -341,7 +341,7 @@ module PublicProgressReports
       {
         activity_count: recommendation[:activityCount],
         activity_pack_id: recommendation[:activityPackId],
-        diagnostic_progress: DiagnosticProgressQuery.call(classroom, student_ids, units),
+        diagnostic_progress: ClassroomStudentsDiagnosticProgressAggregator.run(classroom, student_ids, units),
         name: recommendation[:recommendation],
         students: student_ids
       }
