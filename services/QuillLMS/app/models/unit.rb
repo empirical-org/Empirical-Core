@@ -6,6 +6,7 @@
 #
 #  id               :integer          not null, primary key
 #  name             :string
+#  open             :boolean          default(TRUE), not null
 #  visible          :boolean          default(TRUE), not null
 #  created_at       :datetime
 #  updated_at       :datetime
@@ -47,6 +48,8 @@ class Unit < ApplicationRecord
 
   default_scope { where(visible: true)}
 
+  before_save :set_open_to_false
+
   after_save :save_user_pack_sequence_items, if: :visible
   after_save :hide_classroom_units_and_unit_activities
   after_save :create_any_new_classroom_unit_activity_states
@@ -54,6 +57,12 @@ class Unit < ApplicationRecord
   # Using an after_commit hook here because we want to trigger the callback
   # on save or touch, and touch explicitly bypasses after_save hooks
   after_commit :touch_all_classrooms_and_classroom_units
+
+  def set_open_to_false
+    return if visible
+
+    self.open = false
+  end
 
   def hide_if_no_visible_unit_activities
     return if unit_activities.exists?(visible: true)

@@ -225,5 +225,55 @@ RSpec.describe ConceptResult, type: :model do
         })
       end
     end
+
+    context 'question_score_for_correct_count' do
+      let(:question) { create(:question) }
+      let(:activity) { create(:activity, data: {questions: [{key: question.uid}]}) }
+      let(:activity_session) { create(:activity_session, activity: activity) }
+      let(:concept) { create(:concept) }
+      let(:metadata1) do
+        {
+          "correct": 1,
+          "directions": "Combine the sentences. (And)",
+          "lastFeedback": "Proofread your work. Check your spelling.",
+          "prompt": "Deserts are very dry. Years go by without rain.",
+          "attemptNumber": 2,
+          "answer": "Deserts are very dry, and years go by without rain.",
+          "questionNumber": 1,
+          "questionScore": 0.8
+        }
+      end
+      let(:metadata2) do
+        {
+          "correct": 1,
+          "directions": "Combine the sentences. (And)",
+          "lastFeedback": "Proofread your work. Check your spelling.",
+          "prompt": "Deserts are very dry. Years go by without rain.",
+          "attemptNumber": 2,
+          "answer": "Deserts are very dry, and years go by without rain.",
+          "questionNumber": 1,
+        }
+      end
+      let(:metadata3) do
+        {
+          "correct": 0,
+          "directions": "Combine the sentences. (And)",
+          "lastFeedback": "Proofread your work. Check your spelling.",
+          "prompt": "Deserts are very dry. Years go by without rain.",
+          "attemptNumber": 2,
+          "answer": "Deserts are very dry, and years go by without rain.",
+          "questionNumber": 1,
+        }
+      end
+      let(:concept_result1) { ConceptResult.create_from_json({concept_id: concept.id, activity_session_id: activity_session.id, metadata: metadata1, activity_classification_id: activity.activity_classification_id, question_type: 'sentence-combining'}) }
+      let(:concept_result2) { ConceptResult.create_from_json({concept_id: concept.id, activity_session_id: activity_session.id, metadata: metadata2, activity_classification_id: activity.activity_classification_id, question_type: 'sentence-combining'}) }
+      let(:concept_result3) { ConceptResult.create_from_json({concept_id: concept.id, activity_session_id: activity_session.id, metadata: metadata3, activity_classification_id: activity.activity_classification_id, question_type: 'sentence-combining'}) }
+
+      it 'should return the expected value' do
+        expect(concept_result1.question_score_for_correct_count).to eq(0.8)
+        expect(concept_result2.question_score_for_correct_count).to eq(1)
+        expect(concept_result3.question_score_for_correct_count).to eq(0)
+      end
+    end
   end
 end

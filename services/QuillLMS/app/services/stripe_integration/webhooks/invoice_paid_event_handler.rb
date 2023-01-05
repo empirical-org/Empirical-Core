@@ -4,6 +4,7 @@ module StripeIntegration
   module Webhooks
     class InvoicePaidEventHandler < EventHandler
       ACTIVE = 'active'
+      TRIALING = 'trialing'
       PUSHER_EVENT = 'stripe-subscription-created'
 
       def run
@@ -17,9 +18,13 @@ module StripeIntegration
         stripe_subscription.respond_to?(:status) && stripe_subscription.status == ACTIVE
       end
 
+      private def trialing_subscription?
+        stripe_subscription.respond_to?(:status) && stripe_subscription.status == TRIALING
+      end
+
       private def create_subscription
         return if manual_invoice?
-        return unless active_subscription?
+        return unless active_subscription? || trialing_subscription?
 
         SubscriptionCreator.run(stripe_invoice, stripe_subscription)
         PusherTrigger.run(stripe_invoice.id, PUSHER_EVENT, PUSHER_EVENT.titleize)
