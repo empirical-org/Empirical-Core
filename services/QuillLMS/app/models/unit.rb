@@ -5,8 +5,8 @@
 # Table name: units
 #
 #  id               :integer          not null, primary key
-#  active           :boolean          default(TRUE), not null
 #  name             :string
+#  open             :boolean          default(TRUE), not null
 #  visible          :boolean          default(TRUE), not null
 #  created_at       :datetime
 #  updated_at       :datetime
@@ -48,7 +48,7 @@ class Unit < ApplicationRecord
 
   default_scope { where(visible: true)}
 
-  before_save :set_active_to_false
+  before_save :set_open_to_false
 
   after_save :save_user_pack_sequence_items, if: :visible
   after_save :hide_classroom_units_and_unit_activities
@@ -58,10 +58,10 @@ class Unit < ApplicationRecord
   # on save or touch, and touch explicitly bypasses after_save hooks
   after_commit :touch_all_classrooms_and_classroom_units
 
-  def set_active_to_false
+  def set_open_to_false
     return if visible
 
-    self.active = false
+    self.open = false
   end
 
   def hide_if_no_visible_unit_activities

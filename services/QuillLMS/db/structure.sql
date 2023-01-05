@@ -4447,7 +4447,7 @@ CREATE TABLE public.units (
     visible boolean DEFAULT true NOT NULL,
     user_id integer,
     unit_template_id integer,
-    active boolean DEFAULT true NOT NULL
+    open boolean DEFAULT true NOT NULL
 );
 
 
