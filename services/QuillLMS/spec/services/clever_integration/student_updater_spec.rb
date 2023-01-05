@@ -16,8 +16,9 @@ describe CleverIntegration::StudentUpdater do
   let(:email) { 'student@gmail.com' }
   let(:name) { 'Student Name' }
   let(:username) { 'student.username' }
+  let(:teacher_id) { create(:teacher).id }
 
-  subject { described_class.run(student, data) }
+  subject { described_class.run(student, data, teacher_id) }
 
   context 'student with email exists' do
     let!(:student) { create(:student, email: email) }

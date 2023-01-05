@@ -2,12 +2,13 @@
 
 module CleverIntegration
   class StudentImporter < ApplicationService
-    attr_reader :data, :clever_id, :email, :username
+    attr_reader :data, :clever_id, :email, :teacher_id, :username
 
-    def initialize(data)
+    def initialize(data, teacher_id)
       @data = data
       @clever_id = data[:clever_id]
       @email = data[:email]
+      @teacher_id = teacher_id
       @username = data[:username]
     end
 
@@ -16,7 +17,7 @@ module CleverIntegration
     end
 
     private def importer
-      student ? StudentUpdater.new(student, data) : StudentCreator.new(data)
+      student ? StudentUpdater.new(student, data, teacher_id) : StudentCreator.new(data)
     end
 
     private def student
