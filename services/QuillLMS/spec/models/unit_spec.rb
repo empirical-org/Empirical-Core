@@ -6,6 +6,7 @@
 #
 #  id               :integer          not null, primary key
 #  name             :string
+#  open             :boolean          default(TRUE), not null
 #  visible          :boolean          default(TRUE), not null
 #  created_at       :datetime
 #  updated_at       :datetime
@@ -32,6 +33,7 @@ describe Unit, type: :model do
   it { should have_many(:standards).through(:activities) }
   it { should belong_to(:unit_template) }
 
+  it { is_expected.to callback(:set_open_to_false).before(:save) }
   it { is_expected.to callback(:save_user_pack_sequence_items).after(:save) }
   it { is_expected.to callback(:hide_classroom_units_and_unit_activities).after(:save) }
 
@@ -130,6 +132,23 @@ describe Unit, type: :model do
     it 'is called when the unit is saved' do
       expect(unit).to receive(:hide_classroom_units_and_unit_activities)
       unit.update(name: 'new name')
+    end
+  end
+
+  describe '#set_open_to_false' do
+    it 'is called when the unit is saved' do
+      expect(unit).to receive(:set_open_to_false)
+      unit.update(name: 'new name')
+    end
+
+    it 'is sets open to false if the unit is not visible' do
+      unit.update(visible: false)
+      expect(unit.open).to eq(false)
+    end
+
+    it 'leaves open value alone if the unit is visible' do
+      unit.update(visible: true)
+      expect(unit.open).to eq(true)
     end
   end
 
