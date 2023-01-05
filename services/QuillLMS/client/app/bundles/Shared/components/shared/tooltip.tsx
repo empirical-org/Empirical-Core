@@ -12,9 +12,13 @@ interface TooltipProps {
   tooltipTriggerStyle?: { [key:string]: any }
 }
 
+const VISIBLE = 'visible'
+const RIGHT_JUSTIFY = 'right-justify'
+
 class Tooltip extends React.Component<TooltipProps, { clickedFromMobile: boolean, tooltipVisible: boolean }> {
   private tooltip: any // eslint-disable-line react/sort-comp
   private tooltipTrigger: any // eslint-disable-line react/sort-comp
+  private tooltipWrapper: any // eslint-disable-line react/sort-comp
 
   constructor(props) {
     super(props)
@@ -36,11 +40,15 @@ class Tooltip extends React.Component<TooltipProps, { clickedFromMobile: boolean
     const activeTooltips = document.getElementsByClassName('visible quill-tooltip')
     Array.from(activeTooltips).forEach(tooltip => tooltip.classList.remove('visible'))
     this.tooltip.innerHTML = tooltipText
-    this.tooltip.classList.add('visible')
+    this.tooltip.classList.add(VISIBLE)
+    if (this.tooltip.getBoundingClientRect().right >= window.innerWidth) {
+      this.tooltipWrapper.classList.add(RIGHT_JUSTIFY)
+    }
   }
 
   hideTooltip() {
-    this.tooltip.classList.remove('visible')
+    this.tooltip.classList.remove(VISIBLE)
+    this.tooltipWrapper.classList.remove(RIGHT_JUSTIFY)
     this.tooltip.innerHTML = ''
     this.setState({ tooltipVisible: false });
   }
@@ -109,7 +117,7 @@ class Tooltip extends React.Component<TooltipProps, { clickedFromMobile: boolean
         >
           {tooltipTriggerText}
         </span>
-        <span className="quill-tooltip-wrapper">
+        <span className="quill-tooltip-wrapper" ref={node => this.tooltipWrapper = node}>
           <span
             aria-live="polite"
             className="quill-tooltip"
