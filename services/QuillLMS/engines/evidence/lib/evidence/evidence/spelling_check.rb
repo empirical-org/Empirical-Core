@@ -35,8 +35,9 @@ module Evidence
 
     attr_reader :entry
 
-    def initialize(entry)
+    def initialize(entry, feedback_history = [])
       @entry = entry
+      @feedback_history = feedback_history
     end
 
     # rubocop:disable Metrics/CyclomaticComplexity
@@ -57,7 +58,7 @@ module Evidence
     # rubocop:enable Metrics/CyclomaticComplexity
 
     def non_optimal_feedback_string
-      spelling_rule&.feedbacks&.first&.text || FALLBACK_INCORRECT_FEEDBACK
+      spelling_rule&.determine_feedback_from_history(@feedback_history)&.text || FALLBACK_INCORRECT_FEEDBACK
     end
 
     def error
