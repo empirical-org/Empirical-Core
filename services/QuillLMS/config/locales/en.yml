@@ -34,8 +34,8 @@ en:
   clever:
     account_conflict: "This Clever account is already associated with another Quill account. Contact support@quill.org for further assistance."
   actioncontroller:
-  errors:
-    invalid_authenticity_token: 'Whoops, something went wrong. Please refresh your browser and try your request again.'
+    errors:
+      invalid_authenticity_token: 'Whoops, something went wrong. Please refresh your browser and try your request again.'
   district_admin:
     already_assigned: "This account already exists and is an admin of %{district_name}."
     existing_account: "This account already exists. They were made a district admin and notified by email."

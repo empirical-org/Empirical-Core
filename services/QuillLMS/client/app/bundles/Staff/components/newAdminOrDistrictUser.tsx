@@ -9,12 +9,12 @@ const ADMIN = 'admin'
 
 interface NewAdminOrDistrictUserProps {
   type: string,
-  return_url: string,
-  school_id?: any,
-  district_id?: any
+  returnUrl: string,
+  schoolId?: any,
+  districtId?: any
 }
 
-const NewAdminOrDistrictUser = ({ type, return_url, school_id, district_id }: NewAdminOrDistrictUserProps) => {
+const NewAdminOrDistrictUser = ({ type, returnUrl, schoolId, districtId }: NewAdminOrDistrictUserProps) => {
   const [firstName, setFirstName] = React.useState<string>('');
   const [lastName, setLastName] = React.useState<string>('');
   const [email, setEmail] = React.useState<string>('');
@@ -47,10 +47,10 @@ const NewAdminOrDistrictUser = ({ type, return_url, school_id, district_id }: Ne
       setError('Form fields cannot be blank.');
     } else {
       setError('');
-      const requestUrl = type === ADMIN ? `/cms/schools/${school_id}/school_admins` : `/cms/districts/${district_id}/district_admins`
+      const requestUrl = type === ADMIN ? `/cms/schools/${schoolId}/school_admins` : `/cms/districts/${districtId}/district_admins`
       const params = {
-        first_name: `${firstName.trim()}`,
-        last_name: `${lastName.trim()}`,
+        first_name: firstName.trim(),
+        last_name: lastName.trim(),
         email: email.trim()
       }
       requestPost(requestUrl, params, (body) => {
@@ -66,7 +66,7 @@ const NewAdminOrDistrictUser = ({ type, return_url, school_id, district_id }: Ne
   }
 
   function handleCancelClick() {
-    window.location.href = return_url
+    window.location.href = returnUrl
   }
 
   const header = type === ADMIN ? 'New Admin' : 'New District Admin'
@@ -75,7 +75,7 @@ const NewAdminOrDistrictUser = ({ type, return_url, school_id, district_id }: Ne
   return (
     <section className='container new-admin-user-container'>
       <Snackbar text={snackbarText} visible={showSnackbar} />
-      <a className="data-link" href={return_url}>{linkLabel}</a>
+      <a className="data-link" href={returnUrl}>{linkLabel}</a>
       <h2>{header}</h2>
       <p className="instructions">Please enter the details of a new or existing user that you want to make an admin. They will receive an email with the login details.</p>
       <section className='cms-form'>
