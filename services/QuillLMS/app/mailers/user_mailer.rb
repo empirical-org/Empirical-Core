@@ -11,7 +11,7 @@ class UserMailer < ActionMailer::Base
       quill_team: 'The Quill Team'
     },
     links: {
-      admin_dashboard: 'https://www.quill.org/teachers/admin_dashboard',
+      admin_dashboard: "#{ENV['DEFAULT_URL']}/teachers/admin_dashboard",
       link_account: 'https://support.quill.org/en/articles/4249829-how-do-i-link-my-account',
       premium: 'https://support.quill.org/en/collections/64410-quill-premium'
     }

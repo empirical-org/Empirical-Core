@@ -22,6 +22,7 @@ module TeachersData
         users.id,
         users.name,
         users.email,
+        users.last_sign_in,
         COUNT(DISTINCT students_classrooms.id) AS number_of_students
       FROM users
       LEFT OUTER JOIN classrooms_teachers ON users.id = classrooms_teachers.user_id
@@ -63,6 +64,7 @@ module TeachersData
         name: row.name,
         email: row.email,
         school: row.school,
+        last_sign_in: row.last_sign_in,
         number_of_students: row.number_of_students
       }
     end
@@ -83,7 +85,8 @@ module TeachersData
         id: key,
         name: hash_value[:name],
         email: hash_value[:email],
-        school: hash_value[:school]
+        school: hash_value[:school],
+        last_sign_in: hash_value[:last_sign_in]
       )
 
       user.define_singleton_method(:number_of_students) do

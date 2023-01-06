@@ -8,46 +8,11 @@ exports[`CreateNewAccounts component should match snapshot 1`] = `
     className="left-section"
   >
     <h2>
-      Create New Accounts & Link Existing Teachers
+      Create and Link Accounts
     </h2>
     <div
       className="form"
     >
-      <section
-        className="info-section-container"
-      >
-        <section
-          className="info-section"
-        >
-          <span>
-            Teachers New to Quill?
-          </span>
-          <p>
-            Input their information to create new Quill accounts.
-          </p>
-        </section>
-        <section
-          className="info-section"
-        >
-          <span>
-            Teachers Have Quill Accounts?
-          </span>
-          <p>
-            When you submit their information, they will receive an email instructing them to link their accounts to your school. Teachers can link to their school from the My Account page. 
-            <a
-              className="green-link"
-              href="http://support.quill.org/getting-started-for-teachers/manage-classes/how-can-i-connect-my-account-to-my-school"
-              rel="noopener noreferrer"
-              target="_blank"
-            >
-               Here's the guide
-            </a>
-          </p>
-        </section>
-      </section>
-      <div
-        className="light-divider"
-      />
       <section
         className="first-section"
       >
@@ -84,7 +49,7 @@ exports[`CreateNewAccounts component should match snapshot 1`] = `
         className="second-section"
       >
         <DropdownInput
-          className="second-line"
+          className="school-selector"
           handleChange={[Function]}
           isSearchable={true}
           options={
@@ -96,7 +61,7 @@ exports[`CreateNewAccounts component should match snapshot 1`] = `
               },
             ]
           }
-          placeholder="Select School for Teacher"
+          placeholder="Select school for teacher"
           value={
             Object {
               "label": "Test School",
@@ -105,13 +70,72 @@ exports[`CreateNewAccounts component should match snapshot 1`] = `
             }
           }
         />
+        <DropdownInput
+          className="role-selector"
+          handleChange={[Function]}
+          label="Select role"
+          options={
+            Array [
+              Object {
+                "label": "Teacher",
+                "value": "teacher",
+              },
+              Object {
+                "label": "Admin",
+                "value": "admin",
+              },
+            ]
+          }
+          value={null}
+        />
         <button
           className="quill-button small primary contained add-teacher-account-button"
           onClick={[Function]}
           type="button"
         >
-          Add Teacher Account
+          Submit
         </button>
+      </section>
+      <div
+        className="light-divider"
+      />
+      <section
+        className="info-section-container"
+      >
+        <section
+          className="info-section"
+        >
+          <span>
+            How does this work for new accounts?
+          </span>
+          <p>
+            An account linked to the selected school will be created on their behalf and they will receive an email with the login details.
+          </p>
+        </section>
+        <section
+          className="info-section"
+        >
+          <span>
+            How does this work for existing accounts?
+          </span>
+          <p>
+            They will receive an email asking them to link their account to the selected school. They can also link to their school from the 
+            <a
+              href="/teachers/my_account"
+            >
+              My Account
+            </a>
+             page. 
+            <a
+              href="http://support.quill.org/getting-started-for-teachers/manage-classes/how-can-i-connect-my-account-to-my-school"
+              rel="noopener noreferrer"
+              target="_blank"
+            >
+               Here's the guide
+            </a>
+            .
+          </p>
+        </section>
       </section>
     </div>
   </section>
