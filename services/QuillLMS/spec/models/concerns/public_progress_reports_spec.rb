@@ -248,7 +248,6 @@ describe PublicProgressReports, type: :model do
       {
         activity_count: 0,
         activity_pack_id: unit_template1.id,
-        diagnostic_progress: { student1.id => 0, student2.id => 0},
         name: recommendation1.name,
         students: [student1.id, student2.id]
       }
