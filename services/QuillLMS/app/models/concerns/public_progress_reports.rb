@@ -283,27 +283,21 @@ module PublicProgressReports
 
     sorted_students = students.compact.sort_by {|stud| stud[:name].split().second || ''}
 
-    recommendations = RecommendationsQuery.new(diagnostic.id).activity_recommendations.map do |recommendation|
-      student_ids = []
+    recommendations = RecommendationsQuery.new(diagnostic.id).activity_recommendations.map do |activity_pack_recommendation|
+      students = []
       activity_sessions_counted.each do |activity_session|
-        recommendation[:requirements].each do |req|
+        activity_pack_recommendation[:requirements].each do |req|
           if req[:noIncorrect] && activity_session[:concept_scores][req[:concept_id]]["total"] > activity_session[:concept_scores][req[:concept_id]]["correct"]
-            student_ids.push(activity_session[:user_id])
+            students.push(activity_session[:user_id])
             break
           end
           if activity_session[:concept_scores][req[:concept_id]]["correct"] < req[:count]
-            student_ids.push(activity_session[:user_id])
+            students.push(activity_session[:user_id])
             break
           end
         end
       end
-
-      {
-        activity_count: recommendation[:activityCount],
-        activity_pack_id: recommendation[:activityPackId],
-        name: recommendation[:recommendation],
-        students: student_ids
-      }
+      return_value_for_recommendation(students, activity_pack_recommendation)
     end
 
     {
@@ -312,6 +306,15 @@ module PublicProgressReports
     }
   end
   # rubocop:enable Metrics/CyclomaticComplexity
+
+  def return_value_for_recommendation(students, activity_pack_recommendation)
+    {
+      activity_count: activity_pack_recommendation[:activityCount],
+      activity_pack_id: activity_pack_recommendation[:activityPackId],
+      name: activity_pack_recommendation[:recommendation],
+      students: students
+    }
+  end
 
   def get_previously_assigned_recommendations_by_classroom(classroom_id, activity_id)
     classroom = Classroom.find(classroom_id)
@@ -338,13 +341,7 @@ module PublicProgressReports
           .flatten
           .uniq
 
-      {
-        activity_count: recommendation[:activityCount],
-        activity_pack_id: recommendation[:activityPackId],
-        diagnostic_progress: ClassroomStudentsDiagnosticProgressAggregator.run(classroom, student_ids, units),
-        name: recommendation[:recommendation],
-        students: student_ids
-      }
+      return_value_for_recommendation(student_ids, recommendation)
     end
 
     recommended_lesson_activity_ids =
