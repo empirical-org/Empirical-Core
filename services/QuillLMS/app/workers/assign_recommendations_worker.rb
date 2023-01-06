@@ -39,7 +39,8 @@ class AssignRecommendationsWorker
 
     save_pack_sequence_item(classroom_unit, pack_sequence_id, order)
 
-    track_recommendation_assignment(teacher)
+    release_method = pack_sequence_id.nil? ? :Immediate : :Staggered
+    track_recommendation_assignment(teacher, release_method)
     return unless is_last_recommendation
 
     handle_error_tracking_for_diagnostic_recommendation_assignment_time(teacher.id, lesson)
@@ -80,9 +81,12 @@ class AssignRecommendationsWorker
     end
   end
 
-  def track_recommendation_assignment(teacher)
-    analytics = Analyzer.new
-    analytics.track(teacher, SegmentIo::BackgroundEvents::ASSIGN_RECOMMENDATIONS)
+  def track_recommendation_assignment(teacher, release_method)
+    Analyzer.new.track(
+      teacher,
+      SegmentIo::BackgroundEvents::ASSIGN_RECOMMENDATIONS,
+      properties: { release_method: release_method }
+    )
   end
 
   def track_assign_all_recommendations(teacher)

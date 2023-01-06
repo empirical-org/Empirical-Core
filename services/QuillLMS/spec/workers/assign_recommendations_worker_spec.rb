@@ -15,6 +15,8 @@ describe AssignRecommendationsWorker do
   let(:assigning_all_recommended_packs) { false }
   let(:pack_sequence_id) { nil }
   let(:order) { 0 }
+  let(:properties) { { properties: { release_method: release_method } } }
+  let(:release_method) { pack_sequence_id.nil? ? :Immediate : :Staggered }
 
   let(:args) do
     {
@@ -100,6 +102,7 @@ describe AssignRecommendationsWorker do
   context 'when pack_sequence_id exists' do
     let(:pack_sequence_id) { create(:pack_sequence).id }
 
+    it { should_track_that_all_recommendations_are_being_assigned }
     it { expect { subject }.to change(PackSequenceItem, :count).from(0).to(1) }
 
     context 'when pack_sequence_item already exists' do
@@ -113,7 +116,7 @@ describe AssignRecommendationsWorker do
   end
 
   def should_track_that_all_recommendations_are_being_assigned
-    expect(analyzer).to receive(:track).with(teacher, SegmentIo::BackgroundEvents::ASSIGN_RECOMMENDATIONS)
+    expect(analyzer).to receive(:track).with(teacher, SegmentIo::BackgroundEvents::ASSIGN_RECOMMENDATIONS, properties)
     subject
   end
 
