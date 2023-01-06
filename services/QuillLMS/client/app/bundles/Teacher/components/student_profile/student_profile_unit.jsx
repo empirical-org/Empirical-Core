@@ -131,7 +131,7 @@ export default class StudentProfileUnit extends React.Component {
     if (archived) {
       return (
         <Tooltip
-          tooltipText="Sorry, you can't replay this activity. Your teacher deleted this activity pack."
+          tooltipText="Sorry, you can't replay this activity. Your teacher closed or deleted this activity pack."
           tooltipTriggerText="Replay"
           tooltipTriggerTextClass="quill-button disabled medium secondary outlined"
         />
