@@ -13,7 +13,10 @@ module SegmentIntegration
       {
         **common_params,
         concepts: activity_categories.pluck(:name).join(", "),
-        content_partners: content_partners.pluck(:name).join(", ")
+        content_partners: content_partners.pluck(:name).join(", "),
+        first_topic: topics.first&.name,
+        second_topic: topics.second&.name,
+        third_topic: topics.third&.name
       }.reject {|_,v| v.nil? }
     end
 
