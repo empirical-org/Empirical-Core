@@ -14,5 +14,4 @@ describe SchoolsAdmins, type: :model, redis: true do
       expect(admins.admin).to eq(admins.user)
     end
   end
-
 end

@@ -11,8 +11,11 @@ import {
   correctImage,
   informationIcon,
   expandIcon,
+  releaseMethodToDisplayName,
+  IMMEDIATE,
 } from './shared'
 import RecommendationsTable from './recommendationsTable'
+import ReleaseMethodModal from './releaseMethodModal'
 import {
   Recommendation,
   LessonRecommendation,
@@ -112,7 +115,7 @@ const LessonsRecommendations = ({ assigningLessonsBanner, previouslyAssignedReco
   )
 }
 
-const RecommendationsButtons = ({numberSelected, assigning, assigned, assignActivityPacks, deselectAll, selectAll, selectAllRecommended}) => {
+const RecommendationsButtons = ({numberSelected, assigning, assigned, handleClickAssignActivityPacks, deselectAll, selectAll, selectAllRecommended, releaseMethod, handleClickEditReleaseMethod}) => {
   let assignButton = <button className="quill-button primary contained small disabled focus-on-light" type="button">Assign activity packs</button>
 
   if (assigning) {
@@ -120,18 +123,33 @@ const RecommendationsButtons = ({numberSelected, assigning, assigned, assignActi
   } else if (assigned) {
     assignButton = <button className="quill-button primary contained small disabled focus-on-light" type="button">Assigned</button>
   } else if (numberSelected) {
-    assignButton = <button className="quill-button primary contained small focus-on-light" onClick={assignActivityPacks} type="button">Assign activity packs</button>
+    assignButton = <button className="quill-button primary contained small focus-on-light" onClick={handleClickAssignActivityPacks} type="button">Assign activity packs</button>
+  }
+
+  let releaseMethodText
+  let showReleaseMethodModalButton
+
+  if (releaseMethod) {
+    releaseMethodText = <span>Release Method: <b>{releaseMethod}</b></span>
+  }
+
+  if (releaseMethod && handleClickEditReleaseMethod) {
+    showReleaseMethodModalButton = <button className="interactive-wrapper focus-on-light edit-release-method-button" onClick={handleClickEditReleaseMethod} type="button">Edit</button>
   }
 
   return (
     <div className="recommendations-buttons-container">
       <div className="recommendations-buttons">
-        <div>
+        <div className="selection-buttons">
           <button className="quill-button fun secondary outlined focus-on-light" onClick={selectAll} type="button">Select all</button>
           <button className="quill-button fun secondary outlined focus-on-light" onClick={selectAllRecommended} type="button">Select all recommended</button>
           <button className="quill-button fun secondary outlined focus-on-light" onClick={deselectAll} type="button">Deselect all</button>
         </div>
-        <div>
+        <div className="release-method-and-assign-buttons">
+          <div className="release-method-text-and-edit-button">
+            {releaseMethodText}
+            {showReleaseMethodModalButton}
+          </div>
           {assignButton}
         </div>
       </div>
@@ -139,7 +157,9 @@ const RecommendationsButtons = ({numberSelected, assigning, assigned, assignActi
   )
 }
 
-const IndependentRecommendationsButtons = ({ assignActivityPacks, independentSelections, setIndependentSelections, recommendations, students, assigned, assigning, previouslyAssignedRecommendations, }) => {
+const IndependentRecommendationsButtons = ({ handleClickAssignActivityPacks, independentSelections, setIndependentSelections, recommendations, students, assigned, assigning, previouslyAssignedRecommendations, releaseMethod, setShowReleaseMethodModal, }) => {
+  function handleClickEditReleaseMethod() { setShowReleaseMethodModal(true) }
+
   function handleSelectAllClick() {
     const newSelections = independentSelections.map((selection, index) => {
       selection.students = students.filter(s => s.completed).map(s => s.id)
@@ -169,7 +189,20 @@ const IndependentRecommendationsButtons = ({ assignActivityPacks, independentSel
     const selectedStudents = selection.students.filter(id => !previouslyAssignedActivity.students.includes(id))
     return previousValue += selectedStudents.length
   }, 0)
-  return <RecommendationsButtons assignActivityPacks={assignActivityPacks} assigned={assigned} assigning={assigning} deselectAll={handleDeselectAllClick} numberSelected={numberSelected} selectAll={handleSelectAllClick} selectAllRecommended={handleSelectAllRecommendedClick} />
+
+  return (
+    <RecommendationsButtons
+      assigned={assigned}
+      assigning={assigning}
+      deselectAll={handleDeselectAllClick}
+      handleClickAssignActivityPacks={handleClickAssignActivityPacks}
+      handleClickEditReleaseMethod={releaseMethod && handleClickEditReleaseMethod}
+      numberSelected={numberSelected}
+      releaseMethod={releaseMethodToDisplayName[releaseMethod]}
+      selectAll={handleSelectAllClick}
+      selectAllRecommended={handleSelectAllRecommendedClick}
+    />
+  )
 }
 
 const LessonsRecommendationsButtons = ({ lessonsSelections, assignLessonsActivityPacks, setLessonsSelections, lessonsRecommendations, assigned, assigning, }) => {
@@ -187,7 +220,18 @@ const LessonsRecommendationsButtons = ({ lessonsSelections, assignLessonsActivit
     setLessonsSelections([])
   }
 
-  return <RecommendationsButtons assignActivityPacks={assignLessonsActivityPacks} assigned={assigned} assigning={assigning} deselectAll={handleDeselectAllClick} numberSelected={lessonsSelections.length} selectAll={handleSelectAllClick} selectAllRecommended={handleSelectAllRecommendedClick} />
+  return (
+    <RecommendationsButtons
+      assigned={assigned}
+      assigning={assigning}
+      deselectAll={handleDeselectAllClick}
+      handleClickAssignActivityPacks={assignLessonsActivityPacks}
+      numberSelected={lessonsSelections.length}
+      releaseMethod="Unlocked by Teacher"
+      selectAll={handleSelectAllClick}
+      selectAllRecommended={handleSelectAllRecommendedClick}
+    />
+  )
 }
 
 export const Recommendations = ({ passedPreviouslyAssignedRecommendations, passedPreviouslyAssignedLessonRecommendations, passedIndependentRecommendations, passedLessonRecommendations, match, mobileNavigation, activityName, location, lessonsBannerIsShowable, }) => {
@@ -206,6 +250,9 @@ export const Recommendations = ({ passedPreviouslyAssignedRecommendations, passe
   const [showSnackbar, setShowSnackbar] = React.useState(false)
   const [snackbarText, setSnackbarText] = React.useState('')
   const [lessonsBannerEnabled, setLessonsBannerEnabled] = React.useState(lessonsBannerIsShowable)
+  const [releaseMethod, setReleaseMethod] = React.useState(null)
+  const [originalReleaseMethod, setOriginalReleaseMethod] = React.useState(null)
+  const [showReleaseMethodModal, setShowReleaseMethodModal] = React.useState(false)
 
   useSnackbarMonitor(showSnackbar, setShowSnackbar, defaultSnackbarTimeout)
 
@@ -270,6 +317,10 @@ export const Recommendations = ({ passedPreviouslyAssignedRecommendations, passe
     }
   }, [independentRecommendations, lessonsRecommendations, previouslyAssignedLessonsRecommendations, previouslyAssignedIndependentRecommendations])
 
+  React.useEffect(() => {
+    setReleaseMethod(originalReleaseMethod)
+  }, [originalReleaseMethod])
+
   function closeLessonsBanner() {
     setLessonsBannerEnabled(false)
     requestPost('/milestones/complete_acknowledge_lessons_banner')
@@ -289,6 +340,9 @@ export const Recommendations = ({ passedPreviouslyAssignedRecommendations, passe
     requestGet(`/teachers/progress_reports/previously_assigned_recommendations/${classroomId}/activity/${activityId}${unitQueryString}`, ((data) => {
       setPreviouslyAssignedIndependentRecommendations(data.previouslyAssignedIndependentRecommendations)
       setPreviouslyAssignedLessonsRecommendations(data.previouslyAssignedLessonsRecommendations)
+      const anyIndependentRecommendationsPreviouslyAssigned = data.previouslyAssignedIndependentRecommendations.some(rec => rec.students.length)
+      const releaseMethod = anyIndependentRecommendationsPreviouslyAssigned ? data.releaseMethod || IMMEDIATE : data.releaseMethod
+      setOriginalReleaseMethod(releaseMethod)
     }));
   }
 
@@ -304,6 +358,7 @@ export const Recommendations = ({ passedPreviouslyAssignedRecommendations, passe
         setLessonsAssigned(true)
         setLessonsAssigning(false)
         getPreviouslyAssignedRecommendationData();
+        pusher.unsubscribe(classroomId)
       });
     } else {
       channel.bind('personalized-recommendations-assigned', (data) => {
@@ -311,6 +366,7 @@ export const Recommendations = ({ passedPreviouslyAssignedRecommendations, passe
         setIndependentAssigned(true)
         setIndependentAssigning(false)
         getPreviouslyAssignedRecommendationData();
+        pusher.unsubscribe(classroomId)
       });
     }
   }
@@ -320,9 +376,14 @@ export const Recommendations = ({ passedPreviouslyAssignedRecommendations, passe
     setShowSnackbar(true)
   }
 
+  function onClickCancelReleaseMethod() {
+    setReleaseMethod(originalReleaseMethod)
+    setShowReleaseMethodModal(false)
+  }
+
   function assignLessonsActivityPacks() {
     initializePusher(true)
-    requestPost('/teachers/progress_reports/assign_selected_packs/', { whole_class: true, unit_template_ids: lessonsSelections, classroom_id: params.classroomId }, (data) => {}, (data) => {
+    requestPost('/teachers/progress_reports/assign_whole_class_instruction_packs/', { unit_template_ids: lessonsSelections, classroom_id: params.classroomId }, (data) => {}, (data) => {
       alert('We had trouble processing your request. Please check your network connection and try again.');
     })
   }
@@ -336,24 +397,37 @@ export const Recommendations = ({ passedPreviouslyAssignedRecommendations, passe
           {
             id: classroomId,
             student_ids: students,
+            order: index
           }
-        ],
+        ]
       }
     });
     return { selections: independentSelectionsArr ,};
   }
 
   function assignIndependentActivityPacks() {
+    setShowReleaseMethodModal(false)
     const dataToPass = {
+      classroom_id: classroomId,
+      diagnostic_activity_id: activityId,
       ...formatSelectionsForAssignment(),
-      assigning_all_recommended_packs: _.isEqual(independentSelections, independentRecommendations)
+      assigning_all_recommended_packs: _.isEqual(independentSelections, independentRecommendations),
+      release_method: releaseMethod
     }
     setIndependentAssigning(true)
     initializePusher()
-    requestPost('/teachers/progress_reports/assign_selected_packs/', dataToPass, (data) => {}, (data) => {
+    requestPost('/teachers/progress_reports/assign_independent_practice_packs/', dataToPass, (data) => {}, (data) => {
       alert('We had trouble processing your request. Please check your network connection and try again.');
       setIndependentAssigning(false)
     })
+  }
+
+  function handleClickAssignIndependentActivityPacks() {
+    if (releaseMethod) {
+      assignIndependentActivityPacks()
+    } else {
+      setShowReleaseMethodModal(true)
+    }
   }
 
   const responsesLink = (studentId: number) => unitId ? `/diagnostics/${activityId}/classroom/${classroomId}/responses/${studentId}?unit=${unitId}` : `/diagnostics/${activityId}/classroom/${classroomId}/responses/${studentId}`
@@ -372,7 +446,18 @@ export const Recommendations = ({ passedPreviouslyAssignedRecommendations, passe
       <p className="explanation">Based on the results of the diagnostic, we created a personalized learning plan for each student. Customize your learning plan by selecting the activity packs you would like to assign.</p>
       <section className="independent-practice">
         <div className="section-header"><h2>Independent practice</h2>{recommendedKey}</div>
-        <IndependentRecommendationsButtons assignActivityPacks={assignIndependentActivityPacks} assigned={independentAssigned} assigning={independentAssigning} independentSelections={independentSelections} previouslyAssignedRecommendations={previouslyAssignedIndependentRecommendations} recommendations={independentRecommendations} setIndependentSelections={setIndependentSelections} students={students} />
+        <IndependentRecommendationsButtons
+          assigned={independentAssigned}
+          assigning={independentAssigning}
+          handleClickAssignActivityPacks={handleClickAssignIndependentActivityPacks}
+          independentSelections={independentSelections}
+          previouslyAssignedRecommendations={previouslyAssignedIndependentRecommendations}
+          recommendations={independentRecommendations}
+          releaseMethod={releaseMethod}
+          setIndependentSelections={setIndependentSelections}
+          setShowReleaseMethodModal={setShowReleaseMethodModal}
+          students={students}
+        />
         <RecommendationsTable previouslyAssignedRecommendations={previouslyAssignedIndependentRecommendations} recommendations={independentRecommendations} responsesLink={responsesLink} selections={independentSelections} setSelections={setIndependentSelections} students={students} />
       </section>
     </React.Fragment>)
@@ -415,6 +500,14 @@ export const Recommendations = ({ passedPreviouslyAssignedRecommendations, passe
 
   return (
     <main className="diagnostic-recommendations-container">
+      <ReleaseMethodModal
+        handleClickAssign={assignIndependentActivityPacks}
+        handleClickCancel={onClickCancelReleaseMethod}
+        originalReleaseMethod={originalReleaseMethod}
+        releaseMethod={releaseMethod}
+        setReleaseMethod={setReleaseMethod}
+        visible={showReleaseMethodModal}
+      />
       <DemoOnboardingTour pageKey={DEMO_ONBOARDING_DIAGNOSTIC_RECOMMENDATIONS} />
       <Snackbar text={snackbarText} visible={showSnackbar} />
       <header>

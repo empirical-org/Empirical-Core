@@ -4,7 +4,7 @@ class UserMailer < ActionMailer::Base
   include EmailApiHelper
   include ActionView::Helpers::NumberHelper
 
-  default from: 'hello@quill.org', foo: 'bar'
+  default from: "The Quill Team <hello@quill.org>"
 
   CONSTANTS = {
     signatures: {

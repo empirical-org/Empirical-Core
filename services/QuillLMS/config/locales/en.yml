@@ -30,11 +30,16 @@ en:
     errors:
       activity_not_assigned: 'Sorry, you do not have access to this activity because it has not been assigned to you. Please contact your teacher.'
       activity_pack_not_assigned: 'Sorry, you do not have access to this activity pack because it has not been assigned to you. Please contact your teacher.'
+      user_pack_sequence_item_locked: 'Sorry, this activity is locked.  To unlock it, you will have to complete the activity packs that come before it.'
   clever:
     account_conflict: "This Clever account is already associated with another Quill account. Contact support@quill.org for further assistance."
   actioncontroller:
     errors:
       invalid_authenticity_token: 'Whoops, something went wrong. Please refresh your browser and try your request again.'
+  district_admin:
+    already_assigned: "This account already exists and is an admin of %{district_name}."
+    existing_account: "This account already exists. They were made a district admin and notified by email."
+    new_account: "District admin added. They were notified by email."
   admin:
     current_user_is_not_an_admin: "Something went wrong. If this problem persists, please contact us at hello@quill.org."
     resend_login_details: "Login details sent"

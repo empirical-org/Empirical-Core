@@ -64,14 +64,14 @@
 		}
 	}
 
-	.in-progress-symbol, .attempt-symbol, .scheduled-symbol {
+	.in-progress-symbol, .attempt-symbol, .scheduled-symbol, .locked-symbol {
 		vertical-align: middle;
 		position: absolute;
 		top: -8px;
 		right: -8px;
 	}
 
-  .scheduled-symbol {
+  .scheduled-symbol, .locked-symbol {
     height: 16px;
     background-color: #f7f5f5;
   }

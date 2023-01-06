@@ -23,5 +23,4 @@ class SchoolsAdmins < ApplicationRecord
   def admin
     user
   end
-
 end

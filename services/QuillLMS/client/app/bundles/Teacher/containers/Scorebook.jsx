@@ -232,7 +232,8 @@ export default createReactClass({
         dueDate: s.due_date,
         publishDate: s.publish_date,
         unitActivityCreatedAt: s.unit_activity_created_at,
-        scheduled: s.scheduled
+        scheduled: s.scheduled,
+        locked: s.locked
       });
     });
     this.setState({ loading: false, scores: newScores, missing: this.checkMissing(newScores), });

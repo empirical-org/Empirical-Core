@@ -23,20 +23,21 @@
   display: flex;
   align-items: flex-start;
   justify-content: center;
-  left: 50%;
-  transform: translateX(-50%);
   z-index: 2;
+  &:not(.right-justify) {
+    left: 50%;
+    transform: translateX(-50%);
+  }
+  &.right-justify {
+    right: 0%;
+  }
 }
 
 .quill-tooltip {
   height: min-content;
-  border-radius: 4px;
-  background-color: #757575;
-  font-size: 12px;
-  font-weight: 600;
   display: inline-block;
   color: white;
-  padding: 8px 16px;
+  padding: 16px;
   opacity: 1;
   white-space: normal;
   transition: opacity .5s;
@@ -44,4 +45,9 @@
   position: absolute;
   top: 8px;
   bottom: 0px;
+  background: #5C5C5C;
+  border-radius: 6px;
+  font-weight: 400;
+  font-size: 14px;
+  line-height: 22px;
 }

@@ -1,0 +1,28 @@
+.new-admin-user-container {
+  margin-top: 24px;
+  .instructions {
+    max-width: 700px;
+    margin: 24px 0;
+  }
+  .cms-form {
+    max-width: 700px;
+    .name-inputs-container, .buttons-container {
+      display: flex;
+      .user-details-input {
+        width: 100%;
+      }
+      .user-details-input:first-of-type {
+        margin-right: 16px;
+      }
+    }
+    .error-message {
+      margin: 16px 0px;
+    }
+    .buttons-container {
+      margin-top: 32px;
+      .quill-button:first-of-type {
+        margin-right: 16px;
+      }
+    }
+  }
+}

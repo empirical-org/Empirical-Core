@@ -152,12 +152,16 @@ class User < ApplicationRecord
   has_many :change_logs
   has_many :stripe_checkout_sessions, dependent: :destroy
 
+  has_many :user_pack_sequence_items, dependent: :destroy
+
   accepts_nested_attributes_for :auth_credential
 
   delegate :name, :mail_city, :mail_state,
     to: :school,
     allow_nil: true,
     prefix: :school
+
+  delegate :last_four, to: :stripe_user
 
   validates :name,
     presence: true,
@@ -285,14 +289,6 @@ class User < ApplicationRecord
 
   def eligible_for_new_subscription?
     subscription.nil? || Subscription::TRIAL_TYPES.include?(subscription.account_type)
-  end
-
-  def last_four
-    return nil unless stripe_customer_id
-
-    Stripe::Customer.retrieve(id: stripe_customer_id, expand: ['sources']).sources.data.first&.last4
-  rescue Stripe::InvalidRequestError
-    nil
   end
 
   def present_and_future_subscriptions
@@ -662,6 +658,10 @@ class User < ApplicationRecord
     SegmentIntegration::User.new(self)
   end
 
+  def stripe_user
+    StripeIntegration::User.new(self)
+  end
+
   def mailer_user
     Mailer::User.new(self)
   end
@@ -693,6 +693,10 @@ class User < ApplicationRecord
       .where(email: email)
       .where.not(id: id)
       .where.missing(:activity_sessions, :students_classrooms)
+  end
+
+  def units_with_same_name(name)
+    units.where('name ILIKE ?', name)
   end
 
   private def validate_flags
