@@ -12,10 +12,11 @@ const ArchiveModal = ({ onSuccess, closeModal, unitId, unitName, }) => {
       <div className="modal-background" />
       <div className="archive-activity-pack-modal quill-modal modal-body">
         <div>
-          <h3 className="title">Delete this activity pack?</h3>
+          <h3 className="title">Permanently delete this activity pack?</h3>
         </div>
         <div className="archive-activity-pack-modal-text">
-          <p>If you delete the activity pack &#34;{unitName},&#34; you will no longer have access to it on the Student Reports page. Students who completed or were assigned activities will no longer be able to access them.</p>
+          <p>Deleting an activity pack is permanent and cannot be undone. You will no longer have access to it in your student reports.</p>
+          <p>If you no longer want students to see an activity pack and wish to retain access to it in your student reports, we suggest using the “Close activity pack” option instead.</p>
         </div>
         <div className="form-buttons">
           <button className="quill-button outlined secondary medium" onClick={closeModal} type="button">Cancel</button>

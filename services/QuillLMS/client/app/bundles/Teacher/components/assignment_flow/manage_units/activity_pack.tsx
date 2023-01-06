@@ -5,6 +5,8 @@ import ActivityPackUpdateButtons from './activity_pack_update_buttons'
 import IndividualClassroom from './individual_classroom'
 import ArchiveModal from './archive_modal'
 import RenameModal from './rename_modal'
+import CloseUnitModal from './close_unit_modal'
+import ReopenUnitModal from './reopen_unit_modal'
 
 import {
   Snackbar,
@@ -21,11 +23,13 @@ const lockSrc = `${process.env.CDN_URL}/images/icons/icons-lock.svg`
 const RENAME = 'rename'
 const ARCHIVE = 'archive'
 const SHARE = 'share'
+const CLOSE = 'close'
+const REOPEN = 'reopen'
 
 const ActivityPack = ({
   data,
   getUnits,
-  selectedClassroomId
+  selectedClassroomId,
 }) => {
   const [showIndividualClassroomInfo, setShowIndividualClassroomInfo] = React.useState(false)
   const [showSnackbar, setShowSnackbar] = React.useState(false)
@@ -49,6 +53,10 @@ const ActivityPack = ({
   function handleClickShowRename() { setShowModal(RENAME) }
 
   function handleClickShowRemove() { setShowModal(ARCHIVE) }
+
+  function handleClickShowCloseUnit() { setShowModal(CLOSE) }
+
+  function handleClickShowReopenUnit() { setShowModal(REOPEN) }
 
   function handleClickShareActivity() { setShowModal(SHARE) }
 
@@ -107,6 +115,17 @@ const ActivityPack = ({
   const firstActivity = Array.from(data.classroomActivities)[0][1]
   const isOwner = firstActivity.ownedByCurrentUser
 
+  const activityPackUpdateButtons = isOwner && (
+    <ActivityPackUpdateButtons
+      handleClickShareActivityPack={handleClickShareActivityPack}
+      handleClickShowCloseUnit={handleClickShowCloseUnit}
+      handleClickShowRemove={handleClickShowRemove}
+      handleClickShowRename={handleClickShowRename}
+      handleClickShowReopenUnit={handleClickShowReopenUnit}
+      isOpen={data.open}
+    />
+  )
+
   return (
     <section className="activity-pack">
       <Snackbar text={snackbarText} visible={showSnackbar} />
@@ -117,6 +136,18 @@ const ActivityPack = ({
         unitName={data.unitName}
       />}
       {showModal === ARCHIVE && <ArchiveModal
+        closeModal={closeModal}
+        onSuccess={onSuccess}
+        unitId={data.unitId}
+        unitName={data.unitName}
+      />}
+      {showModal === CLOSE && <CloseUnitModal
+        closeModal={closeModal}
+        onSuccess={onSuccess}
+        unitId={data.unitId}
+        unitName={data.unitName}
+      />}
+      {showModal === REOPEN && <ReopenUnitModal
         closeModal={closeModal}
         onSuccess={onSuccess}
         unitId={data.unitId}
@@ -134,7 +165,7 @@ const ActivityPack = ({
       />}
       <div className="activity-pack-top-section">
         <div className="top-section-header">
-          {isOwner && <ActivityPackUpdateButtons handleClickShareActivityPack={handleClickShareActivityPack} handleClickShowRemove={handleClickShowRemove} handleClickShowRename={handleClickShowRename} />}
+          {activityPackUpdateButtons}
           <div className="left-side">
             <h2>{data.unitName}</h2>
             {!isOwner && (<div className="coteacher-explanation">

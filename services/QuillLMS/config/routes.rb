@@ -266,6 +266,8 @@ EmpiricalGrammar::Application.routes.draw do
     put 'update_my_password' => 'classroom_manager#update_my_password'
     post 'clear_data/:id' => 'classroom_manager#clear_data'
     put 'units/:id/hide' => 'units#hide', as: 'hide_units_path'
+    put 'units/:id/close' => 'units#close', as: 'close_units_path'
+    put 'units/:id/reopen' => 'units#reopen', as: 'reopen_units_path'
     get 'progress_reports/landing_page' => 'progress_reports#landing_page'
     get 'progress_reports/activities_scores_by_classroom' => 'progress_reports#activities_scores_by_classroom'
     get 'progress_reports/real_time' => 'progress_reports#real_time'
