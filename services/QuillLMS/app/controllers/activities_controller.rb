@@ -74,7 +74,11 @@ class ActivitiesController < ApplicationController
   def activity_session
     return redirect_to profile_path unless current_user.student?
 
-    if authorized_activity_access?
+    if classroom_unit.unit.closed?
+      flash[:error] = t('activity_link.errors.activity_belongs_to_closed_pack')
+      flash.keep(:error)
+      redirect_to classes_path
+    elsif authorized_activity_access?
       if activity.locked_user_pack_sequence_item?(current_user)
         flash[:error] = t('activity_link.errors.user_pack_sequence_item_locked')
         flash.keep(:error)
