@@ -26,6 +26,7 @@ describe Teachers::UnitActivitiesController, type: :controller do
     end
 
     it 'should touch the parent unit in order to bubble up cache clearing' do
+      allow(UnitActivity).to receive(:find).with(unit_activity.id.to_s).and_return(unit_activity)
       expect_any_instance_of(Unit).to receive(:touch)
       put :hide, params: { id: unit_activity.id }
     end
