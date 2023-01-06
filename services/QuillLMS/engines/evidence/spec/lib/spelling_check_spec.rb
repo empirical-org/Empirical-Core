@@ -104,6 +104,33 @@ module Evidence
         spelling_check = Evidence::SpellingCheck.new("")
         expect(feedback.text).to(eq(spelling_check.non_optimal_feedback_string))
       end
+
+      it 'should use the higher ordered feedback if lower ordered feedback is in feedback_history' do
+        rule = create(:evidence_rule, :rule_type => (Evidence::Rule::TYPE_SPELLING))
+        feedback = create(:evidence_feedback, :text => 'First feedback', :rule => rule, :order => 1)
+        feedback2 = create(:evidence_feedback, :text => 'Second feedback', :rule => rule, :order => 2)
+        feedback_history = [{
+          'feedback_type' => feedback.rule.rule_type,
+          'feedback' => feedback.text
+        }]
+        spelling_check = Evidence::SpellingCheck.new("", feedback_history)
+        expect(feedback2.text).to(eq(spelling_check.non_optimal_feedback_string))
+      end
+
+      it 'should use the highest ordered feedback if all feedback options are in feedback_history' do
+        rule = create(:evidence_rule, :rule_type => (Evidence::Rule::TYPE_SPELLING))
+        feedback = create(:evidence_feedback, :text => 'First feedback', :rule => rule, :order => 1)
+        feedback2 = create(:evidence_feedback, :text => 'Second feedback', :rule => rule, :order => 2)
+        feedback_history = [{
+          'feedback_type' => feedback.rule.rule_type,
+          'feedback' => feedback.text
+        },{
+          'feedback_type' => feedback2.rule.rule_type,
+          'feedback' => feedback2.text
+        }]
+        spelling_check = Evidence::SpellingCheck.new("", feedback_history)
+        expect(feedback2.text).to(eq(spelling_check.non_optimal_feedback_string))
+      end
     end
 
     context 'should handle appropriate Bing API errors' do
