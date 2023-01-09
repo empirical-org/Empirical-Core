@@ -83,7 +83,10 @@ module Evidence
             create(:evidence_rule, **rule_factory_overrides, uid: violation[:rule_uid])
           end
           let!(:feedback) do
-            create(:evidence_feedback, text: "#{violation[:name]} feedback", rule_id: Evidence::Rule.first.id)
+            create(:evidence_feedback, text: "#{violation[:name]} feedback", rule_id: Evidence::Rule.first.id, order: 1)
+          end
+          let!(:feedback2) do
+            create(:evidence_feedback, text: "#{violation[:name]} feedback layer 2", rule_id: Evidence::Rule.first.id, order: 2)
           end
 
           it 'returns a valid response' do
@@ -93,6 +96,33 @@ module Evidence
             expect(response[:optimal]).to eq false
             expect(response[:feedback]).to eq "#{violation[:name]} feedback"
             expect(response[:concept_uid]).to eq rule_factory_overrides[:concept_uid]
+          end
+
+          it 'returns higher "order" feedback when lower order feedback is in feedback history' do
+            feedback_history = [{
+              'feedback_type' => feedback.rule.rule_type,
+              'feedback' => feedback.text
+            }]
+
+            prefilter_check = Evidence::PrefilterCheck.new(violation[:entry], feedback_history)
+            response = prefilter_check.feedback_object
+
+            expect(response[:feedback]).to eq feedback2.text
+          end
+
+          it 'returns the highest "order" feedback all feedbacks are in history' do
+            feedback_history = [{
+              'feedback_type' => feedback.rule.rule_type,
+              'feedback' => feedback.text
+            },{
+              'feedback_type' => feedback2.rule.rule_type,
+              'feedback' => feedback2.text
+            }]
+
+            prefilter_check = Evidence::PrefilterCheck.new(violation[:entry], feedback_history)
+            response = prefilter_check.feedback_object
+
+            expect(response[:feedback]).to eq feedback2.text
           end
         end
       end

@@ -4446,7 +4446,8 @@ CREATE TABLE public.units (
     updated_at timestamp without time zone,
     visible boolean DEFAULT true NOT NULL,
     user_id integer,
-    unit_template_id integer
+    unit_template_id integer,
+    open boolean DEFAULT true NOT NULL
 );
 
 
@@ -9158,6 +9159,7 @@ INSERT INTO "schema_migrations" (version) VALUES
 ('20221209134742'),
 ('20221209141047'),
 ('20221209151611'),
-('20221209151957');
+('20221209151957'),
+('20230104183416');
 
 

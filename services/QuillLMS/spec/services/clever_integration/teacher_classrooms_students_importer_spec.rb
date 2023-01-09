@@ -20,7 +20,7 @@ RSpec.describe CleverIntegration::TeacherClassroomsStudentsImporter do
   it 'runs the importer only on clever classrooms' do
     expect(CleverIntegration::ClientFetcher).to receive(:run).with(teacher).and_return(client)
     expect(client).to receive(:get_classroom_students).with(clever_classroom.clever_id).and_return(students_data)
-    expect(CleverIntegration::ClassroomStudentsImporter).to receive(:run).with(clever_classroom, students_data)
+    expect(CleverIntegration::ClassroomStudentsImporter).to receive(:run).with(clever_classroom, students_data, teacher.id)
     subject
   end
 end

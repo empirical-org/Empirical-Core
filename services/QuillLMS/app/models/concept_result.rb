@@ -131,6 +131,12 @@ class ConceptResult < ApplicationRecord
     self.extra_metadata = extra_metadata
   end
 
+  def question_score_for_correct_count
+    return question_score unless question_score.nil?
+
+    correct ? 1 : 0
+  end
+
   private def legacy_format_metadata
     legacy_format_base_metadata
       .merge(extra_metadata || {})
