@@ -7,9 +7,6 @@
     .control {
       float: left;
     }
-    .csv-download-button {
-      float: right;
-    }
     .second-input-row {
       width: 700px;
     }
@@ -19,6 +16,14 @@
     .poor-health-label {
       padding-left: 5px;
       font-weight: normal;
+    }
+    .right-side-div {
+      float: right;
+      display: flex;
+      .switch-view {
+        border: none;
+        background: none;
+      }
     }
     padding-bottom: 30px;
   }
@@ -32,7 +37,7 @@
       width: 100px;
       max-width: 100px;
       .sortable-header {
-        height: 80px;
+        height: 100px;
         display: block;
       }
       input {
