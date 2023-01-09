@@ -18,6 +18,10 @@ class DualGoogleIdAndCleverIdResolver < ApplicationService
     RESOLVERS.find { |resolver| send(resolver) }
   end
 
+  private def last_classroom
+    @last_classroom ||= user&.classrooms_i_teach&.sort_by(&:updated_at)&.last
+  end
+
   private def log_account_type_change(changed_attribute, previous_value, action)
     ChangeLog.create(
       action: action,
@@ -41,8 +45,6 @@ class DualGoogleIdAndCleverIdResolver < ApplicationService
   end
 
   private def resolve_by_last_classroom
-    last_classroom = user&.classrooms&.order(:updated_at)&.last
-
     return false unless last_classroom.present?
     return set_user_account_type_google if last_classroom.google_classroom_id.present?
     return set_user_account_type_clever if last_classroom.clever_id.present?
