@@ -85,6 +85,10 @@ class TeacherInfo < ApplicationRecord
     grade_levels.intersection(EIGHT_TO_TWELVE).present?
   end
 
+  def subject_areas_string
+    subject_areas&.map(&:name)&.join(", ")
+  end
+
   private def no_grade_levels?
     minimum_grade_level.nil? && maximum_grade_level.nil?
   end
