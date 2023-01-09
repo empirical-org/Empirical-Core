@@ -36,6 +36,13 @@
     display: flex;
     width: 100%;
     margin: 16px 0px 20px;
+    .quill-tooltip-trigger {
+      &:first-of-type {
+        .key-metric {
+          border-right: 1px solid #e0e0e0;
+        }
+      }
+    }
     .key-metric {
       min-width: 236px;
       padding: 0px 20px;
@@ -50,9 +57,6 @@
         font-size: 14px;
         line-height: 1.43;
         color: #5c5c5c;
-      }
-      &:first-of-type {
-        border-right: 1px solid #e0e0e0;
       }
     }
   }
