@@ -14,7 +14,7 @@ module Evidence
     PROFANITY_RULE_UID          = 'fdee458a-f017-4f9a-a7d4-a72d1143abeb'
     MINIMUM_WORD_RULE_UID       = '408d4544-5492-46e7-a6b7-3b1ffdd632af'
 
-    def initialize(entry)
+    def initialize(entry, feedback_history = [])
       # When a prefilter lambda identifies a violation, it returns true
       @prefilters = {
         QUESTION_MARK_RULE_UID      => ->(the_entry) { the_entry.match?(/\?$/) },
@@ -27,6 +27,7 @@ module Evidence
       @prefilter_rules = Evidence::Rule.where(rule_type: Evidence::Rule::TYPE_PREFILTER).includes(:feedbacks)
       @violated_rule = nil
       @profanity_instance = Profanity.profane(entry)
+      @feedback_history = feedback_history
     end
 
     def profanity?
@@ -53,7 +54,7 @@ module Evidence
       end
       return default_response unless @violated_rule
 
-      feedback = @violated_rule.feedbacks.first
+      feedback = @violated_rule.determine_feedback_from_history(@feedback_history)
 
       default_response.merge(
         {

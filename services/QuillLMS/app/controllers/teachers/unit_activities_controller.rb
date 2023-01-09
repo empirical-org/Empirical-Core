@@ -20,6 +20,8 @@ class Teachers::UnitActivitiesController < ApplicationController
     @unit_activity&.unit&.hide_if_no_visible_unit_activities
     @activity_sessions.update_all(visible: false)
     @unit_activities.each(&:save_user_pack_sequence_items)
+    # touch the parent unit in order to clear our caches
+    @unit_activity&.unit&.touch
     ResetLessonCacheWorker.new.perform(current_user.id)
     render json: {}
   end

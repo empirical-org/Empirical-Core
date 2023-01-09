@@ -6,7 +6,7 @@ module Evidence
     class BingException < StandardError; end
 
     def run
-      spelling_check = Evidence::SpellingCheck.new(entry)
+      spelling_check = Evidence::SpellingCheck.new(entry, previous_feedback)
 
       if spelling_check.error
         raise BingException, spelling_check.error
