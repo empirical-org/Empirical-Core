@@ -34,4 +34,6 @@ Evidence::Engine.routes.draw do
   resources :turking_rounds, only: [:index, :show, :create, :update, :destroy]
 
   resources :activity_healths, only: [:index]
+
+  resources :prompt_healths, only: [:index]
 end
