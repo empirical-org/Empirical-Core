@@ -21,6 +21,7 @@ module SegmentIntegration
       }
     end
 
+    # rubocop:disable Metrics/CyclomaticComplexity
     def common_params
       {
         district: school&.district_name,
@@ -34,6 +35,7 @@ module SegmentIntegration
         subject_areas: teacher_info&.subject_areas_string
       }.reject {|_,v| v.nil? }
     end
+    # rubocop:enable Metrics/CyclomaticComplexity
 
     def premium_params
       {

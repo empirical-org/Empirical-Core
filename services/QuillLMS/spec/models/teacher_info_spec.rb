@@ -129,9 +129,9 @@ describe TeacherInfo, type: :model, redis: true do
     end
 
     context 'when no subject areas are attached' do
-      it 'should return empty string' do
+      it 'should return nil' do
         teacher_info2 = create(:teacher_info)
-        expect(teacher_info2.subject_areas_string).to eq("")
+        expect(teacher_info2.subject_areas_string).to eq(nil)
       end
     end
   end
