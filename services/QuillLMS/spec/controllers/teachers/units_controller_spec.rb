@@ -194,6 +194,22 @@ describe Teachers::UnitsController, type: :controller do
     end
   end
 
+  describe '#close' do
+    it 'should close the unit; kick off ResetLessonCacheWorker' do
+      expect(ResetLessonCacheWorker).to receive_message_chain(:new, :perform).with(no_args).with(teacher.id)
+      put :close, params: { id: unit.id }
+      expect(unit.reload.open).to eq false
+    end
+  end
+
+  describe '#reopen' do
+    it 'should open the unit; kick off ResetLessonCacheWorker' do
+      expect(ResetLessonCacheWorker).to receive_message_chain(:new, :perform).with(no_args).with(teacher.id)
+      put :open, params: { id: unit.id }
+      expect(unit.reload.open).to eq true
+    end
+  end
+
   describe '#index' do
     it 'should return json in the appropriate format' do
       response = get :index, params: { report: false }

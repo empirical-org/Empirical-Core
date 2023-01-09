@@ -231,4 +231,17 @@ describe Unit, type: :model do
       end
     end
   end
+
+  describe '#closed?' do
+    let!(:open_unit) { create(:unit, open: true) }
+    let!(:closed_unit) { create(:unit, closed: true) }
+
+    it 'should return true if the unit is closed' do
+      expect(closed_unit.closed?).to eq(true)
+    end
+
+    it 'should return false if the unit is open' do
+      expect(open_unit.closed?).to eq(false)
+    end
+  end
 end

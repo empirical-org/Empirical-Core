@@ -1,0 +1,308 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`ActivityPackUpdateButtons component renders when the pack is closed 1`] = `
+<ActivityPackUpdateButtons
+  handleClickShareActivityPack={[MockFunction]}
+  handleClickShowCloseUnit={[MockFunction]}
+  handleClickShowRemove={[MockFunction]}
+  handleClickShowRename={[MockFunction]}
+  handleClickShowReopenUnit={[MockFunction]}
+  isOpen={false}
+>
+  <div
+    className="right-side"
+  >
+    <button
+      className="interactive-wrapper focus-on-light"
+      onClick={[MockFunction]}
+      type="button"
+    >
+      <img
+        alt="Rename icon"
+        src="undefined/images/icons/icons-rename.svg"
+      />
+      <span>
+        Rename activity pack
+      </span>
+    </button>
+    <Tooltip
+      isTabbable={true}
+      tooltipText="Reopening an activity pack makes it visible to students."
+      tooltipTriggerText={
+        <button
+          className="interactive-wrapper focus-on-light"
+          onClick={[MockFunction]}
+          type="button"
+        >
+          <img
+            alt="Remove icon"
+            src="undefined/images/icons/remove-in-circle.svg"
+          />
+          <span>
+            Reopen activity pack
+          </span>
+        </button>
+      }
+    >
+      <span
+        aria-hidden={false}
+        className="quill-tooltip-trigger "
+        role="tooltip"
+      >
+        <span
+          className="undefined"
+          onBlur={[Function]}
+          onClick={[Function]}
+          onFocus={[Function]}
+          onKeyDown={[Function]}
+          onMouseEnter={[Function]}
+          onMouseLeave={[Function]}
+          role="button"
+          tabIndex={0}
+        >
+          <button
+            className="interactive-wrapper focus-on-light"
+            onClick={[MockFunction]}
+            type="button"
+          >
+            <img
+              alt="Remove icon"
+              src="undefined/images/icons/remove-in-circle.svg"
+            />
+            <span>
+              Reopen activity pack
+            </span>
+          </button>
+        </span>
+        <span
+          className="quill-tooltip-wrapper"
+        >
+          <span
+            aria-live="polite"
+            className="quill-tooltip"
+          />
+        </span>
+      </span>
+    </Tooltip>
+    <Tooltip
+      isTabbable={true}
+      tooltipText="Deleting an activity pack is permanent and removes it from your reports."
+      tooltipTriggerText={
+        <button
+          className="interactive-wrapper focus-on-light"
+          onClick={[MockFunction]}
+          type="button"
+        >
+          <img
+            alt="Remove icon"
+            src="undefined/images/icons/remove-in-circle.svg"
+          />
+          <span>
+            Delete activity pack
+          </span>
+        </button>
+      }
+    >
+      <span
+        aria-hidden={false}
+        className="quill-tooltip-trigger "
+        role="tooltip"
+      >
+        <span
+          className="undefined"
+          onBlur={[Function]}
+          onClick={[Function]}
+          onFocus={[Function]}
+          onKeyDown={[Function]}
+          onMouseEnter={[Function]}
+          onMouseLeave={[Function]}
+          role="button"
+          tabIndex={0}
+        >
+          <button
+            className="interactive-wrapper focus-on-light"
+            onClick={[MockFunction]}
+            type="button"
+          >
+            <img
+              alt="Remove icon"
+              src="undefined/images/icons/remove-in-circle.svg"
+            />
+            <span>
+              Delete activity pack
+            </span>
+          </button>
+        </span>
+        <span
+          className="quill-tooltip-wrapper"
+        >
+          <span
+            aria-live="polite"
+            className="quill-tooltip"
+          />
+        </span>
+      </span>
+    </Tooltip>
+  </div>
+</ActivityPackUpdateButtons>
+`;
+
+exports[`ActivityPackUpdateButtons component renders when the pack is open 1`] = `
+<ActivityPackUpdateButtons
+  handleClickShareActivityPack={[MockFunction]}
+  handleClickShowCloseUnit={[MockFunction]}
+  handleClickShowRemove={[MockFunction]}
+  handleClickShowRename={[MockFunction]}
+  handleClickShowReopenUnit={[MockFunction]}
+  isOpen={true}
+>
+  <div
+    className="right-side"
+  >
+    <button
+      className="interactive-wrapper focus-on-light"
+      onClick={[MockFunction]}
+      type="button"
+    >
+      <img
+        alt="Share icon"
+        src="undefined/images/icons/icons-share.svg"
+      />
+      <span>
+        Share activity pack
+      </span>
+    </button>
+    <button
+      className="interactive-wrapper focus-on-light"
+      onClick={[MockFunction]}
+      type="button"
+    >
+      <img
+        alt="Rename icon"
+        src="undefined/images/icons/icons-rename.svg"
+      />
+      <span>
+        Rename activity pack
+      </span>
+    </button>
+    <Tooltip
+      isTabbable={true}
+      tooltipText="Closing an activity pack hides it from students. You can still access it in your reports."
+      tooltipTriggerText={
+        <button
+          className="interactive-wrapper focus-on-light"
+          onClick={[MockFunction]}
+          type="button"
+        >
+          <img
+            alt="Remove icon"
+            src="undefined/images/icons/remove-in-circle.svg"
+          />
+          <span>
+            Close activity pack
+          </span>
+        </button>
+      }
+    >
+      <span
+        aria-hidden={false}
+        className="quill-tooltip-trigger "
+        role="tooltip"
+      >
+        <span
+          className="undefined"
+          onBlur={[Function]}
+          onClick={[Function]}
+          onFocus={[Function]}
+          onKeyDown={[Function]}
+          onMouseEnter={[Function]}
+          onMouseLeave={[Function]}
+          role="button"
+          tabIndex={0}
+        >
+          <button
+            className="interactive-wrapper focus-on-light"
+            onClick={[MockFunction]}
+            type="button"
+          >
+            <img
+              alt="Remove icon"
+              src="undefined/images/icons/remove-in-circle.svg"
+            />
+            <span>
+              Close activity pack
+            </span>
+          </button>
+        </span>
+        <span
+          className="quill-tooltip-wrapper"
+        >
+          <span
+            aria-live="polite"
+            className="quill-tooltip"
+          />
+        </span>
+      </span>
+    </Tooltip>
+    <Tooltip
+      isTabbable={true}
+      tooltipText="Deleting an activity pack is permanent and removes it from your reports."
+      tooltipTriggerText={
+        <button
+          className="interactive-wrapper focus-on-light"
+          onClick={[MockFunction]}
+          type="button"
+        >
+          <img
+            alt="Remove icon"
+            src="undefined/images/icons/remove-in-circle.svg"
+          />
+          <span>
+            Delete activity pack
+          </span>
+        </button>
+      }
+    >
+      <span
+        aria-hidden={false}
+        className="quill-tooltip-trigger "
+        role="tooltip"
+      >
+        <span
+          className="undefined"
+          onBlur={[Function]}
+          onClick={[Function]}
+          onFocus={[Function]}
+          onKeyDown={[Function]}
+          onMouseEnter={[Function]}
+          onMouseLeave={[Function]}
+          role="button"
+          tabIndex={0}
+        >
+          <button
+            className="interactive-wrapper focus-on-light"
+            onClick={[MockFunction]}
+            type="button"
+          >
+            <img
+              alt="Remove icon"
+              src="undefined/images/icons/remove-in-circle.svg"
+            />
+            <span>
+              Delete activity pack
+            </span>
+          </button>
+        </span>
+        <span
+          className="quill-tooltip-wrapper"
+        >
+          <span
+            aria-live="polite"
+            className="quill-tooltip"
+          />
+        </span>
+      </span>
+    </Tooltip>
+  </div>
+</ActivityPackUpdateButtons>
+`;
