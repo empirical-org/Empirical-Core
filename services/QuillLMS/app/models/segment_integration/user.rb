@@ -23,7 +23,7 @@ module SegmentIntegration
 
     def common_params
       {
-        district: school&.district&.name,
+        district: school&.district_name,
         school_id: school&.id,
         school_name: school&.name,
         premium_state: premium_state,
