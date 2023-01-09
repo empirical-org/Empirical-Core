@@ -9,7 +9,7 @@ describe AssignRecommendationsWorker do
   let(:classroom) { create(:classroom) }
   let(:teacher) { classroom.owner }
   let(:student) { create(:student) }
-  let(:analyzer) { double(:analyzer, track: true) }
+  let(:analyzer) { double(:analyzer, track: true, track_with_attributes: true) }
   let(:is_last_recommendation) { true }
   let(:lesson) { 'lesson' }
   let(:assigning_all_recommended_packs) { false }
@@ -116,7 +116,10 @@ describe AssignRecommendationsWorker do
   end
 
   def should_track_that_all_recommendations_are_being_assigned
-    expect(analyzer).to receive(:track).with(teacher, SegmentIo::BackgroundEvents::ASSIGN_RECOMMENDATIONS, properties)
+    expect(analyzer)
+      .to receive(:track_with_attributes)
+      .with(teacher, SegmentIo::BackgroundEvents::ASSIGN_RECOMMENDATIONS, properties)
+
     subject
   end
 
