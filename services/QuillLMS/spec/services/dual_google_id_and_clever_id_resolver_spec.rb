@@ -47,26 +47,32 @@ RSpec.describe DualGoogleIdAndCleverIdResolver do
   end
 
   context 'resolve_by_last_classroom' do
-    before { allow(user).to receive(:classrooms).and_return(Classroom.all) }
+    before do
+      allow(user).to receive(:classrooms_i_teach).and_return(classrooms)
+      allow(classrooms).to receive(:sort_by).and_return(ordered_classrooms)
+    end
 
-    let(:quill_classroom) { create(:simple_classroom) }
-    let(:google_classroom) { create(:simple_classroom, google_classroom_id: '54321') }
-    let(:clever_classroom) { create(:simple_classroom, clever_id: '54321') }
+    let(:classrooms) { double(:classroom) }
+    let(:ordered_classrooms) { double(:ordered_classrooms, last: last_classroom) }
+
+    let!(:quill_classroom) { create(:simple_classroom) }
+    let!(:google_classroom) { create(:simple_classroom, google_classroom_id: '54321') }
+    let!(:clever_classroom) { create(:simple_classroom, clever_id: '54321') }
 
     context 'last classroom is google classroom' do
-      let!(:classrooms) { [quill_classroom, clever_classroom, google_classroom] }
+      let!(:last_classroom) { google_classroom }
 
       it { sets_the_account_to_google }
     end
 
     context 'last classroom is clever classroom' do
-      let!(:classrooms) { [google_classroom, quill_classroom, clever_classroom] }
+      let!(:last_classroom) { clever_classroom }
 
       it { sets_the_account_to_clever }
     end
 
     context 'last classroom is quill classroom' do
-      let(:classrooms) { [google_classroom, clever_classroom, quill_classroom] }
+      let(:last_classroom) { quill_classroom }
 
       it { does_not_change_the_account_type }
     end
