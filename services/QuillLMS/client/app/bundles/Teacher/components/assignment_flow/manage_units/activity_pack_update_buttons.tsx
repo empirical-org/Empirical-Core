@@ -3,8 +3,10 @@ import * as React from 'react'
 import { Tooltip, } from '../../../../Shared/index'
 
 const renameSrc = `${process.env.CDN_URL}/images/icons/icons-rename.svg`
-const removeInCircleSrc = `${process.env.CDN_URL}/images/icons/remove-in-circle.svg`
 const shareActivitySrc = `${process.env.CDN_URL}/images/icons/icons-share.svg`
+const deleteActivityPackSrc = `${process.env.CDN_URL}/images/pages/my_activities/delete_activity_pack_icon.svg`
+const closeActivityPackSrc = `${process.env.CDN_URL}/images/pages/my_activities/close_activity_pack_icon.svg`
+const openActivityPackSrc = `${process.env.CDN_URL}/images/pages/my_activities/open_activity_pack_icon.svg`
 
 const ActivityPackUpdateButtons = ({
   handleClickShareActivityPack,
@@ -30,7 +32,7 @@ const ActivityPackUpdateButtons = ({
 
   const closeButton = (
     <button className="interactive-wrapper focus-on-light" onClick={handleClickShowCloseUnit} type="button">
-      <img alt="Remove icon" src={removeInCircleSrc} />
+      <img alt="" src={closeActivityPackSrc} />
       <span>Close activity pack</span>
     </button>
   )
@@ -44,7 +46,7 @@ const ActivityPackUpdateButtons = ({
 
   const reopenButton = (
     <button className="interactive-wrapper focus-on-light" onClick={handleClickShowReopenUnit} type="button">
-      <img alt="Remove icon" src={removeInCircleSrc} />
+      <img alt="" src={openActivityPackSrc} />
       <span>Reopen activity pack</span>
     </button>
   )
@@ -58,7 +60,7 @@ const ActivityPackUpdateButtons = ({
 
   const deleteButton = (
     <button className="interactive-wrapper focus-on-light" onClick={handleClickShowRemove} type="button">
-      <img alt="Remove icon" src={removeInCircleSrc} />
+      <img alt="" src={deleteActivityPackSrc} />
       <span>Delete activity pack</span>
     </button>
   )

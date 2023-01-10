@@ -415,8 +415,8 @@ exports[`ActivityPack component renders if the current user created the unit 1`]
                   type="button"
                 >
                   <img
-                    alt="Remove icon"
-                    src="undefined/images/icons/remove-in-circle.svg"
+                    alt=""
+                    src="undefined/images/pages/my_activities/open_activity_pack_icon.svg"
                   />
                   <span>
                     Reopen activity pack
@@ -446,8 +446,8 @@ exports[`ActivityPack component renders if the current user created the unit 1`]
                     type="button"
                   >
                     <img
-                      alt="Remove icon"
-                      src="undefined/images/icons/remove-in-circle.svg"
+                      alt=""
+                      src="undefined/images/pages/my_activities/open_activity_pack_icon.svg"
                     />
                     <span>
                       Reopen activity pack
@@ -474,8 +474,8 @@ exports[`ActivityPack component renders if the current user created the unit 1`]
                   type="button"
                 >
                   <img
-                    alt="Remove icon"
-                    src="undefined/images/icons/remove-in-circle.svg"
+                    alt=""
+                    src="undefined/images/pages/my_activities/delete_activity_pack_icon.svg"
                   />
                   <span>
                     Delete activity pack
@@ -505,8 +505,8 @@ exports[`ActivityPack component renders if the current user created the unit 1`]
                     type="button"
                   >
                     <img
-                      alt="Remove icon"
-                      src="undefined/images/icons/remove-in-circle.svg"
+                      alt=""
+                      src="undefined/images/pages/my_activities/delete_activity_pack_icon.svg"
                     />
                     <span>
                       Delete activity pack
