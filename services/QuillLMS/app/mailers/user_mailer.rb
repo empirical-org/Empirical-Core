@@ -13,7 +13,8 @@ class UserMailer < ActionMailer::Base
     links: {
       admin_dashboard: "#{ENV['DEFAULT_URL']}/teachers/admin_dashboard",
       link_account: 'https://support.quill.org/en/articles/4249829-how-do-i-link-my-account',
-      premium: 'https://support.quill.org/en/collections/64410-quill-premium'
+      premium: 'https://support.quill.org/en/collections/64410-quill-premium',
+      school_dashboard: 'https://support.quill.org/en/articles/1588988-how-do-i-navigate-the-school-dashboard'
     }
   }
 
