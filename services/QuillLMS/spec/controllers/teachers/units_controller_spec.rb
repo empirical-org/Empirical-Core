@@ -205,7 +205,7 @@ describe Teachers::UnitsController, type: :controller do
   describe '#reopen' do
     it 'should open the unit; kick off ResetLessonCacheWorker' do
       expect(ResetLessonCacheWorker).to receive_message_chain(:new, :perform).with(no_args).with(teacher.id)
-      put :open, params: { id: unit.id }
+      put :reopen, params: { id: unit.id }
       expect(unit.reload.open).to eq true
     end
   end

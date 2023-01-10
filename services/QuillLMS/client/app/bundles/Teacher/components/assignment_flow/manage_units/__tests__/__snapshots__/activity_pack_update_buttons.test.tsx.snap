@@ -35,8 +35,8 @@ exports[`ActivityPackUpdateButtons component renders when the pack is closed 1`]
           type="button"
         >
           <img
-            alt="Remove icon"
-            src="undefined/images/icons/remove-in-circle.svg"
+            alt=""
+            src="undefined/images/pages/my_activities/open_activity_pack_icon.svg"
           />
           <span>
             Reopen activity pack
@@ -66,8 +66,8 @@ exports[`ActivityPackUpdateButtons component renders when the pack is closed 1`]
             type="button"
           >
             <img
-              alt="Remove icon"
-              src="undefined/images/icons/remove-in-circle.svg"
+              alt=""
+              src="undefined/images/pages/my_activities/open_activity_pack_icon.svg"
             />
             <span>
               Reopen activity pack
@@ -94,8 +94,8 @@ exports[`ActivityPackUpdateButtons component renders when the pack is closed 1`]
           type="button"
         >
           <img
-            alt="Remove icon"
-            src="undefined/images/icons/remove-in-circle.svg"
+            alt=""
+            src="undefined/images/pages/my_activities/delete_activity_pack_icon.svg"
           />
           <span>
             Delete activity pack
@@ -125,8 +125,8 @@ exports[`ActivityPackUpdateButtons component renders when the pack is closed 1`]
             type="button"
           >
             <img
-              alt="Remove icon"
-              src="undefined/images/icons/remove-in-circle.svg"
+              alt=""
+              src="undefined/images/pages/my_activities/delete_activity_pack_icon.svg"
             />
             <span>
               Delete activity pack
@@ -195,8 +195,8 @@ exports[`ActivityPackUpdateButtons component renders when the pack is open 1`] =
           type="button"
         >
           <img
-            alt="Remove icon"
-            src="undefined/images/icons/remove-in-circle.svg"
+            alt=""
+            src="undefined/images/pages/my_activities/close_activity_pack_icon.svg"
           />
           <span>
             Close activity pack
@@ -226,8 +226,8 @@ exports[`ActivityPackUpdateButtons component renders when the pack is open 1`] =
             type="button"
           >
             <img
-              alt="Remove icon"
-              src="undefined/images/icons/remove-in-circle.svg"
+              alt=""
+              src="undefined/images/pages/my_activities/close_activity_pack_icon.svg"
             />
             <span>
               Close activity pack
@@ -254,8 +254,8 @@ exports[`ActivityPackUpdateButtons component renders when the pack is open 1`] =
           type="button"
         >
           <img
-            alt="Remove icon"
-            src="undefined/images/icons/remove-in-circle.svg"
+            alt=""
+            src="undefined/images/pages/my_activities/delete_activity_pack_icon.svg"
           />
           <span>
             Delete activity pack
@@ -285,8 +285,8 @@ exports[`ActivityPackUpdateButtons component renders when the pack is open 1`] =
             type="button"
           >
             <img
-              alt="Remove icon"
-              src="undefined/images/icons/remove-in-circle.svg"
+              alt=""
+              src="undefined/images/pages/my_activities/delete_activity_pack_icon.svg"
             />
             <span>
               Delete activity pack
