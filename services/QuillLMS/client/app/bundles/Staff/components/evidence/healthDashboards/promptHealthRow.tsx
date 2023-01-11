@@ -43,7 +43,11 @@ export const PromptHealthRows = ({ data }) => {
       accessor: "first_attempt_optimal",
       key: "first_attempt_optimal",
       minWidth: 70,
-      Cell: ({row}) => row.original.first_attempt_optimal && <span className={row.original.first_attempt_optimal < 25 ? "poor-health" : "" + " name"}>{row.original.first_attempt_optimal}%</span>
+      Cell: ({row}) => {
+        if (!row.original.first_attempt_optimal) { return }
+        const className = row.original.first_attempt_optimal < 25 ? "poor-health" : "" + " name"
+        return <span className={className}>{row.original.first_attempt_optimal}%</span>
+      }
     },
     {
       Header: 'Final Attempt Optimal',
@@ -118,15 +122,10 @@ export const PromptHealthRows = ({ data }) => {
     }
   ];
 
-  const renderTable = () => {
-    return tableOrEmptyMessage()
-  }
-
-  const tableOrEmptyMessage = () => {
-    let tableOrEmptyMessage
+  const renderTableOrEmptyMessage = () => {
 
     if (data.length) {
-      tableOrEmptyMessage = (<ReactTable
+      return (<ReactTable
         className='prompt-health-dropdown-table'
         collapseOnDataChange={false}
         columns={dataTableFields}
@@ -135,20 +134,14 @@ export const PromptHealthRows = ({ data }) => {
         loading={false}
         pages={1}
       />)
-    } else {
-      tableOrEmptyMessage = NO_DATA_FOUND_MESSAGE
     }
-    return (
-      <div>
-        {tableOrEmptyMessage}
-      </div>
-    )
+    return <p>NO_DATA_FOUND_MESSAGE</p>
   }
 
 
   return (
     <div className="standard-columns">
-      {renderTable()}
+      {renderTableOrEmptyMessage()}
     </div>
   )
 
