@@ -8,11 +8,6 @@ import RenameModal from './rename_modal'
 import CloseUnitModal from './close_unit_modal'
 import ReopenUnitModal from './reopen_unit_modal'
 
-import {
-  Snackbar,
-  defaultSnackbarTimeout,
-} from '../../../../Shared/index'
-import useSnackbarMonitor from '../../../../Shared/hooks/useSnackbarMonitor'
 import ShareActivityPackModal from '../create_unit/share_activity_pack/shareActivityPackModal';
 import { requestGet } from '../../../../../modules/request';
 
@@ -30,10 +25,9 @@ const ActivityPack = ({
   data,
   getUnits,
   selectedClassroomId,
+  showSnackbar,
 }) => {
   const [showIndividualClassroomInfo, setShowIndividualClassroomInfo] = React.useState(false)
-  const [showSnackbar, setShowSnackbar] = React.useState(false)
-  const [snackbarText, setSnackbarText] = React.useState('')
   const [showModal, setShowModal] = React.useState('')
   const [classrooms, setClassrooms] = React.useState([]);
   const [activityClicked, setActivityClicked] = React.useState(null);
@@ -45,8 +39,6 @@ const ActivityPack = ({
       })
     }
   }, [])
-
-  useSnackbarMonitor(showSnackbar, setShowSnackbar, defaultSnackbarTimeout)
 
   function toggleShowIndividualClassroomInfo() { setShowIndividualClassroomInfo(!showIndividualClassroomInfo) }
 
@@ -75,10 +67,7 @@ const ActivityPack = ({
   function onSuccess(snackbarCopy) {
     getUnits()
     closeModal()
-    if (snackbarCopy) {
-      setSnackbarText(snackbarCopy)
-      setShowSnackbar(true)
-    }
+    showSnackbar(snackbarCopy)
   }
 
   function getActivityPackData() {
@@ -128,7 +117,6 @@ const ActivityPack = ({
 
   return (
     <section className="activity-pack">
-      <Snackbar text={snackbarText} visible={showSnackbar} />
       {showModal === RENAME && <RenameModal
         closeModal={closeModal}
         onSuccess={onSuccess}
@@ -183,10 +171,10 @@ const ActivityPack = ({
               </button>
             </p>
             <div className="individual-classroom-info small-screen">{individualClassroomInfo}</div>
+            {isOwner && <a className="quill-button secondary outlined medium focus-on-light" href={`/teachers/classrooms/activity_planner/units/${data.unitId}/students/edit`}>Add/remove students assigned</a>}
           </div>
         </div>
         <div className="individual-classroom-info big-screen">{individualClassroomInfo}</div>
-        {isOwner && <a className="quill-button secondary outlined medium focus-on-light" href={`/teachers/classrooms/activity_planner/units/${data.unitId}/students/edit`}>Add/remove students assigned</a>}
       </div>
       <ActivityTable
         data={data}

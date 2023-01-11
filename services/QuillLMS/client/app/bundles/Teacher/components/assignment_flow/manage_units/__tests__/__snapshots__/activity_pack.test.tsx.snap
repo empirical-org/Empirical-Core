@@ -368,14 +368,6 @@ exports[`ActivityPack component renders if the current user created the unit 1`]
   <section
     className="activity-pack"
   >
-    <Snackbar
-      text=""
-      visible={false}
-    >
-      <div
-        className="quill-snackbar "
-      />
-    </Snackbar>
     <div
       className="activity-pack-top-section"
     >
@@ -555,17 +547,17 @@ exports[`ActivityPack component renders if the current user created the unit 1`]
           <div
             className="individual-classroom-info small-screen"
           />
+          <a
+            className="quill-button secondary outlined medium focus-on-light"
+            href="/teachers/classrooms/activity_planner/units/826300/students/edit"
+          >
+            Add/remove students assigned
+          </a>
         </div>
       </div>
       <div
         className="individual-classroom-info big-screen"
       />
-      <a
-        className="quill-button secondary outlined medium focus-on-light"
-        href="/teachers/classrooms/activity_planner/units/826300/students/edit"
-      >
-        Add/remove students assigned
-      </a>
     </div>
     <ActivityTable
       data={
@@ -12624,14 +12616,6 @@ exports[`ActivityPack component renders if the current user did not create the u
   <section
     className="activity-pack"
   >
-    <Snackbar
-      text=""
-      visible={false}
-    >
-      <div
-        className="quill-snackbar "
-      />
-    </Snackbar>
     <div
       className="activity-pack-top-section"
     >

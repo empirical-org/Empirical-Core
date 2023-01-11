@@ -138,7 +138,7 @@ class Teachers::UnitsController < ApplicationController
     render json: {}
   end
 
-  def reopen
+  def open
     unit = Unit.find(params[:id])
     unit.update(open: true)
     ResetLessonCacheWorker.new.perform(current_user.id)

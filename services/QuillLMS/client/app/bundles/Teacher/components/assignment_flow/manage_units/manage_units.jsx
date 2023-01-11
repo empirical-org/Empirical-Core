@@ -7,7 +7,7 @@ import LoadingIndicator from '../../shared/loading_indicator';
 import ItemDropdown from '../../general_components/dropdown_selectors/item_dropdown';
 import getParameterByName from '../../modules/get_parameter_by_name';
 import getAuthToken from '../../modules/get_auth_token';
-import { DropdownInput, } from '../../../../Shared/index'
+import { DropdownInput, Snackbar, defaultSnackbarTimeout, } from '../../../../Shared/index'
 import { PROGRESS_REPORTS_SELECTED_CLASSROOM_ID, } from '../../progress_reports/progress_report_constants'
 import { requestGet, } from '../../../../../modules/request'
 
@@ -26,7 +26,8 @@ export default class ManageUnits extends React.Component {
       classrooms: [],
       selectedClassroomId: getParameterByName('classroom_id') || allClassroomKey,
       activityWithRecommendationsIds: [],
-      open: !window.location.pathname.includes('closed')
+      snackbarCopy: null,
+      showSnackbar: false
     };
   }
 
@@ -96,7 +97,8 @@ export default class ManageUnits extends React.Component {
   };
 
   getUnitsForCurrentClassAndOpenState = () => {
-    const { selectedClassroomId, classrooms, allUnits, open, } = this.state
+    const { open, } = this.props
+    const { selectedClassroomId, classrooms, allUnits, } = this.state
     if (selectedClassroomId && selectedClassroomId !== allClassroomKey) {
       // TODO: Refactor this. It is ridiculous that we need to find a classroom and match on name. Instead, the units should just have a list of classroom_ids that we can match on.
       const selectedClassroom = classrooms.find(c => c.id === Number(selectedClassroomId));
@@ -183,7 +185,7 @@ export default class ManageUnits extends React.Component {
   };
 
   switchClassrooms = (classroom) => {
-    const { open, } = this.state
+    const { open, } = this.props
     window.localStorage.setItem(PROGRESS_REPORTS_SELECTED_CLASSROOM_ID, classroom.id)
     let baseLink = '/teachers/classrooms/activity_planner'
     baseLink += open ? '' : '/closed'
@@ -196,8 +198,8 @@ export default class ManageUnits extends React.Component {
   };
 
   stateBasedComponent = () => {
-    const { actions, } = this.props
-    const { units, selectedClassroomId, classrooms, open, } = this.state
+    const { actions, open, } = this.props
+    const { units, selectedClassroomId, classrooms, } = this.state
 
     if (!units.length && open) {
       return (
@@ -225,6 +227,7 @@ export default class ManageUnits extends React.Component {
         getUnits={this.getUnits}
         key={unit.unitId}
         selectedClassroomId={selectedClassroomId}
+        showSnackbar={this.showSnackbar}
       />
     ))
 
@@ -239,8 +242,15 @@ export default class ManageUnits extends React.Component {
     return unit.unitId || unit.unit.id;
   };
 
+  showSnackbar = (snackbarCopy) => {
+    this.setState({ showSnackbar: true, snackbarCopy }, () => {
+      setTimeout(() => this.setState({ showSnackbar: false, }), defaultSnackbarTimeout)
+    })
+  }
+
   render() {
-    const { classrooms, selectedClassroomId, loaded, open, } = this.state
+    const { open, } = this.props
+    const { classrooms, selectedClassroomId, loaded, showSnackbar, snackbarCopy, } = this.state
 
     if (!loaded) { return <LoadingIndicator /> }
 
@@ -255,6 +265,7 @@ export default class ManageUnits extends React.Component {
 
     return (
       <div className="my-activities">
+        <Snackbar text={snackbarCopy} visible={showSnackbar} />
         <section className="my-activities-header">
           <div className="container">
             <div className="top-line">

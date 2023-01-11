@@ -1,7 +1,7 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
 exports[`ReopenUnitModal component renders 1`] = `
-<CloseUnitModal
+<ReopenUnitModal
   closeModal={[MockFunction]}
   onSuccess={[MockFunction]}
   unitId={1}
@@ -53,5 +53,5 @@ exports[`ReopenUnitModal component renders 1`] = `
       </div>
     </div>
   </div>
-</CloseUnitModal>
+</ReopenUnitModal>
 `;

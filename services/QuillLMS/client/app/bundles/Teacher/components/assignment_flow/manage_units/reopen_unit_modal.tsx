@@ -2,9 +2,9 @@ import * as React from 'react'
 
 import { requestPut } from '../../../../../modules/request/index';
 
-const CloseUnitModal = ({ onSuccess, closeModal, unitId, unitName, }) => {
+const ReopenUnitModal = ({ onSuccess, closeModal, unitId, unitName, }) => {
   function handleReopenUnitButtonClick() {
-    requestPut(`/teachers/units/${unitId}/reopen`, {}, () => onSuccess('Activity pack reopened'))
+    requestPut(`/teachers/units/${unitId}/open`, {}, () => onSuccess('Activity pack reopened'))
   }
 
   return (
@@ -27,4 +27,4 @@ const CloseUnitModal = ({ onSuccess, closeModal, unitId, unitName, }) => {
   )
 }
 
-export default CloseUnitModal
+export default ReopenUnitModal
