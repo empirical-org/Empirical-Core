@@ -2,6 +2,7 @@
 
 module Mailer
   class User < SimpleDelegator
+
     def send_admin_dashboard_teacher_account_created_email(admin_name, school_name, is_reminder)
       AdminDashboardUserMailer.teacher_account_created_email(self, admin_name, school_name, is_reminder).deliver_now! if email.present?
     end

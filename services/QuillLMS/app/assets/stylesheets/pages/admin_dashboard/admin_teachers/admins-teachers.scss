@@ -1,3 +1,11 @@
 .admins-teachers {
   margin: 15px 0px 0px 0px;
+  .data-table {
+    border: #E0E0E0 1px solid;
+    background-color: white;
+    overflow: auto;
+  }
+  .data-table-row-section {
+    text-align: left !important;
+  }
 }

@@ -13,8 +13,8 @@ describe Admin::TeacherSerializer do
         id
         name
         email
-        school
-        links
+        last_sign_in
+        schools
         number_of_students
         number_of_activities_completed
         time_spent

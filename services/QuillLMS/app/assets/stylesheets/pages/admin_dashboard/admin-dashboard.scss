@@ -228,13 +228,19 @@
           flex-direction: column;
           .input-container  {
             min-height: auto;
-            margin: 40px 0px 24px 0px;
             .dropdown {
               margin: 0;
               .dropdown__control {
                 margin-bottom: 0;
               }
             }
+          }
+          .school-selector {
+            margin: 40px 0px 24px 0px;
+          }
+          .role-selector {
+            margin: 0px 0px 24px;
+            min-height: 46px;
           }
           .add-teacher-account-button {
             width: 100%;
@@ -249,6 +255,11 @@
             }
             p {
               font-weight: 400;
+            }
+            a {
+              color: #666666;
+              font-weight: 700;
+              text-decoration: underline;
             }
           }
           .info-section:first-of-type {

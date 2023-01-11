@@ -201,6 +201,49 @@ describe 'SegmentAnalytics' do
     end
   end
 
+  context 'track_school_admin_user' do
+    let(:teacher) { create(:teacher) }
+    let(:school) { create(:school) }
+
+    it 'sends an event with information about the new school admin user' do
+      analytics.track_school_admin_user(
+        teacher,
+        SegmentIo::BackgroundEvents::STAFF_CREATED_SCHOOL_ADMIN_ACCOUNT,
+        school.name,
+        SegmentIo::Properties::STAFF_USER
+      )
+      expect(track_calls.size).to eq(1)
+      expect(track_calls[0][:event]).to eq('Quill team member created a school admin account')
+      expect(track_calls[0][:user_id]).to eq(teacher.id)
+      expect(track_calls[0][:properties][:first_name]).to eq(teacher.first_name)
+      expect(track_calls[0][:properties][:last_name]).to eq(teacher.last_name)
+      expect(track_calls[0][:properties][:email]).to eq(teacher.email)
+      expect(track_calls[0][:properties][:school_name]).to eq(school.name)
+      expect(track_calls[0][:properties][:admin_name]).to eq('The Quill Team')
+    end
+  end
+
+  context 'track_district_admin_user' do
+    let(:teacher) { create(:teacher) }
+    let(:district) { create(:district) }
+
+    it 'sends an event with information about the new district admin user' do
+      analytics.track_district_admin_user(
+        teacher,
+        SegmentIo::BackgroundEvents::STAFF_CREATED_DISTRICT_ADMIN_ACCOUNT,
+        district.name,
+        SegmentIo::Properties::STAFF_USER
+      )
+      expect(track_calls.size).to eq(1)
+      expect(track_calls[0][:event]).to eq('Quill team member created a district admin account')
+      expect(track_calls[0][:user_id]).to eq(teacher.id)
+      expect(track_calls[0][:properties][:first_name]).to eq(teacher.first_name)
+      expect(track_calls[0][:properties][:last_name]).to eq(teacher.last_name)
+      expect(track_calls[0][:properties][:email]).to eq(teacher.email)
+      expect(track_calls[0][:properties][:district_name]).to eq(district.name)
+      expect(track_calls[0][:properties][:admin_name]).to eq('The Quill Team')
+    end
+  end
 
   context '#track' do
     let(:teacher) { create(:teacher) }

@@ -28,6 +28,7 @@ describe Cms::TeacherSearchQuery do
 
       expected = {
         teacher_name: user.name,
+        email: user.email,
         number_classrooms: 1,
         number_students: 1,
         last_active: (todays_date).strftime("%b %d,\u00A0%Y"),
