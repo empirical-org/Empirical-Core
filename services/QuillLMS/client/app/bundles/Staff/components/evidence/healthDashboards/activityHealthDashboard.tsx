@@ -5,7 +5,9 @@ import { CSVLink } from 'react-csv';
 import { firstBy } from 'thenby';
 
 
-import { FlagDropdown, ReactTable, filterNumbers } from '../../../../Shared/index'
+import { PromptHealthRows } from './promptHealthRow'
+
+import { FlagDropdown, ReactTable, filterNumbers, expanderColumn } from '../../../../Shared/index'
 import { fetchAggregatedActivityHealths } from '../../../utils/evidence/ruleFeedbackHistoryAPIs';
 import { getLinkToActivity, secondsToHumanReadableTime, addCommasToThousands } from "../../../helpers/evidence/miscHelpers";
 
@@ -76,6 +78,7 @@ export const ActivityHealthDashboard = ({ handleDashboardToggle }) => {
   }, [activityHealthsData])
 
   const dataTableFields = [
+    expanderColumn,
     {
       Header: 'Name',
       accessor: "name",
@@ -312,6 +315,13 @@ export const ActivityHealthDashboard = ({ handleDashboardToggle }) => {
           manualSortBy
           onFiltersChange={handleFiltersChange}
           onSortedChange={handleDataUpdate}
+          SubComponent={(row) => {
+            return (
+              <PromptHealthRows
+                data={row.original && row.original.prompt_healths || []}
+              />
+            );
+          }}
         />
       </section>
     </div>
