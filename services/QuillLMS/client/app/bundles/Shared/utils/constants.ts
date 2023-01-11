@@ -28,3 +28,7 @@ export const GAMMA_FLAG = 'gamma'
 export const PRIVATE_FLAG = 'private'
 
 export const NOT_APPLICABLE = 'N/A'
+
+export const STUDENT = 'student'
+export const TEACHER = 'teacher'
+export const INDIVIDUAL_CONTRIBUTOR = 'individual contributor'
