@@ -125,15 +125,17 @@ export const PromptHealthRows = ({ data }) => {
   const renderTableOrEmptyMessage = () => {
 
     if (data.length) {
-      return (<ReactTable
-        className='prompt-health-dropdown-table'
-        collapseOnDataChange={false}
-        columns={dataTableFields}
-        data={data}
-        defaultPageSize={data.length}
-        loading={false}
-        pages={1}
-      />)
+      return (
+        <ReactTable
+          className='prompt-health-dropdown-table'
+          collapseOnDataChange={false}
+          columns={dataTableFields}
+          data={data}
+          defaultPageSize={data.length}
+          loading={false}
+          pages={1}
+        />
+      )
     }
     return <p>NO_DATA_FOUND_MESSAGE</p>
   }
