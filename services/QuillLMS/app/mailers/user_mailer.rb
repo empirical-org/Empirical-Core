@@ -4,16 +4,17 @@ class UserMailer < ActionMailer::Base
   include EmailApiHelper
   include ActionView::Helpers::NumberHelper
 
-  default from: 'hello@quill.org', foo: 'bar'
+  default from: "The Quill Team <hello@quill.org>"
 
   CONSTANTS = {
     signatures: {
       quill_team: 'The Quill Team'
     },
     links: {
-      admin_dashboard: 'https://www.quill.org/teachers/admin_dashboard',
+      admin_dashboard: "#{ENV['DEFAULT_URL']}/teachers/admin_dashboard",
       link_account: 'https://support.quill.org/en/articles/4249829-how-do-i-link-my-account',
-      premium: 'https://support.quill.org/en/collections/64410-quill-premium'
+      premium: 'https://support.quill.org/en/collections/64410-quill-premium',
+      school_dashboard: 'https://support.quill.org/en/articles/1588988-how-do-i-navigate-the-school-dashboard'
     }
   }
 
@@ -143,6 +144,15 @@ class UserMailer < ActionMailer::Base
   def ell_starter_diagnostic_info_email(name, email)
     @name = name
     mail from: "The Quill Team <hello@quill.org>", to: email, subject: "ELL Starter Diagnostic Next Steps"
+  end
+
+  private def link_for_setting_password(role)
+    params = {
+      accountType: role,
+      adminFullName: @admin_name,
+      schoolName: @school_name
+    }
+    @set_password_link = "#{ENV['DEFAULT_URL']}/account/#{@user.token}/finish_set_up?#{params.to_query}"
   end
 
 end
