@@ -37,6 +37,13 @@ class Cms::DistrictsController < Cms::CmsController
     @editable_attributes = editable_district_attributes
   end
 
+  def new_admin
+    id = params[:id]
+    @js_file = 'staff'
+    @style_file = 'staff'
+    @cms_district_path = cms_district_path(id)
+  end
+
   def new_subscription
     @subscription = Subscription.new(
       account_type: Subscription::SCHOOL_DISTRICT_PAID,
@@ -59,8 +66,6 @@ class Cms::DistrictsController < Cms::CmsController
       redirect_to cms_districts_path, error: new_district.errors, flash: { error: new_district.errors.full_messages }
     end
   end
-
-  def new_admin; end
 
   def edit
     @editable_attributes = editable_district_attributes

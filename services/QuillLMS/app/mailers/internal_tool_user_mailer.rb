@@ -4,12 +4,12 @@ class InternalToolUserMailer < UserMailer
   include EmailApiHelper
   include ActionView::Helpers::NumberHelper
 
-  default from: 'hello@quill.org', foo: 'bar'
+  default from: "The Quill Team <hello@quill.org>"
 
   def admin_account_created_email(user, school_name)
     @user = user
     @school_name = school_name
-    @set_password_link = ENV['DEFAULT_URL']
+    @set_password_link = link_for_setting_password('school admin')
     mail to: user.email, subject: "[Action Required] #{user.first_name}, a Quill school admin account was created for you"
   end
 
@@ -37,14 +37,14 @@ class InternalToolUserMailer < UserMailer
   def district_admin_account_created_email(user, district_name)
     @user = user
     @district_name = district_name
-    @set_password_link = ENV['DEFAULT_URL']
+    @set_password_link = link_for_setting_password('district admin')
     mail to: user.email, subject: "[Action Required] #{user.first_name}, a Quill district admin account was created for you"
   end
 
   def made_district_admin_email(user, district_name)
     @user = user
     @district_name = district_name
-    @set_password_link = ENV['DEFAULT_URL']
+    @set_password_link = link_for_setting_password('district admin')
     mail to: user.email, subject: "#{user.first_name}, you are now a Quill admin for #{district_name}"
   end
 

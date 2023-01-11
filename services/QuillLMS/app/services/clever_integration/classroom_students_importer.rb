@@ -2,11 +2,12 @@
 
 module CleverIntegration
   class ClassroomStudentsImporter < ApplicationService
-    attr_reader :classroom, :students_data
+    attr_reader :classroom, :students_data, :teacher_id
 
-    def initialize(classroom, students_data)
+    def initialize(classroom, students_data, teacher_id)
       @classroom = classroom
       @students_data = students_data
+      @teacher_id = teacher_id
     end
 
     def run
@@ -30,7 +31,7 @@ module CleverIntegration
     end
 
     private def students
-      @students ||= students_data.map { |student_data| CleverIntegration::StudentImporter.run(student_data) }
+      @students ||= students_data.map { |student_data| CleverIntegration::StudentImporter.run(student_data, teacher_id) }
     end
   end
 end

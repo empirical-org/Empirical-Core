@@ -491,6 +491,10 @@ export function getLinkToActivity(id) {
   return `${process.env.DEFAULT_URL}/cms/evidence#/activities/${id}/settings`
 }
 
+export function getLinkToPrompt(activity_id, conjunction) {
+  return `${process.env.DEFAULT_URL}/cms/evidence#/activities/${activity_id}/rules-analysis/${conjunction}?selected_rule_type=All%20Rules`
+}
+
 export function secondsToHumanReadableTime(seconds) {
 
   let numhours = Math.floor(((seconds % 31536000) % 86400) / 3600).toString();

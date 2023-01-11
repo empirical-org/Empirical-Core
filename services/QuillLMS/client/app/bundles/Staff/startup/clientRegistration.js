@@ -8,11 +8,13 @@ import EvidenceIndex from './EvidenceIndex.tsx';
 import BackpackIndex from '../containers/BackpackIndex.tsx'
 import AttributesManagerIndex from './AttributesManagerIndex'
 import ActivityFormIndex from './ActivityFormIndex'
+import NewAdminOrDistrictUserApp from './NewAdminOrDistrictUserApp'
 
 ReactOnRails.register({
   ConceptsIndex,
   BackpackIndex,
   EvidenceIndex,
   AttributesManagerIndex,
-  ActivityFormIndex
+  ActivityFormIndex,
+  NewAdminOrDistrictUserApp
 });

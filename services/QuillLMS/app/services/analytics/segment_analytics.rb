@@ -212,6 +212,34 @@ class SegmentAnalytics
     })
   end
 
+  def track_school_admin_user(user, event, school_name, referring_admin_name)
+    track({
+      user_id: user.id,
+      event: event,
+      properties: {
+        first_name: user.first_name,
+        last_name: user.last_name,
+        email: user.email,
+        school_name: school_name,
+        admin_name: referring_admin_name
+      }
+    })
+  end
+
+  def track_district_admin_user(user, event, district_name, referring_admin_name)
+    track({
+      user_id: user.id,
+      event: event,
+      properties: {
+        first_name: user.first_name,
+        last_name: user.last_name,
+        email: user.email,
+        district_name: district_name,
+        admin_name: referring_admin_name
+      }
+    })
+  end
+
   def default_integration_rules
     { all: true, Intercom: false }
   end

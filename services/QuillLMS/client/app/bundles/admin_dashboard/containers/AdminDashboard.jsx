@@ -8,6 +8,7 @@ import LoadingSpinner from '../../Teacher/components/shared/loading_indicator';
 import QuestionsAndAnswers from '../../Teacher/containers/QuestionsAndAnswers.tsx';
 import getAuthToken from '../../Teacher/components/modules/get_auth_token';
 import { requestGet, requestPost, } from '../../../modules/request/index'
+import { Snackbar, defaultSnackbarTimeout } from '../../Shared/index'
 
 export class AdminDashboard extends React.Component {
   constructor(props) {
@@ -18,11 +19,6 @@ export class AdminDashboard extends React.Component {
       model: {
         teachers: [],
       },
-      newTeacher: {
-        first_name: null,
-        last_name: null,
-        email: null,
-      },
     };
   }
 
@@ -30,25 +26,26 @@ export class AdminDashboard extends React.Component {
     this.getData();
   }
 
-  getData = () => {
-    this.initializePusher();
+  getData = (skipLoading=false) => {
+    const { adminId, } = this.props
+    this.initializePusher(skipLoading);
     requestGet(
-      `${process.env.DEFAULT_URL}/admins/${this.props.adminId}`,
+      `${process.env.DEFAULT_URL}/admins/${adminId}`,
       (body) => {
-        this.receiveData(body)
+        this.receiveData(body, skipLoading)
       }
     );
   };
 
-  receiveData = (data) => {
+  receiveData = (data, skipLoading) => {
     if (Object.keys(data).length > 1) {
       this.setState({ model: data, loading: false, });
-    } else {
+    } else if (!skipLoading) {
       this.setState({ model: data, loading: true, });
     }
   };
 
-  initializePusher = () => {
+  initializePusher = (skipLoading) => {
     const { adminId } = this.props
     if (process.env.RAILS_ENV === 'development') {
       Pusher.logToConsole = true;
@@ -57,19 +54,20 @@ export class AdminDashboard extends React.Component {
     const channel = pusher.subscribe(String(adminId));
     const that = this;
     channel.bind('admin-users-found', () => {
-      that.getData()
+      that.getData(skipLoading)
     });
   };
 
   addTeacherAccount = (data) => {
     const { adminId } = this.props;
-    this.setState({ message: '', error: '', });
-    data.authenticity_token = getAuthToken();
+    this.setState({ error: '', });
+    this.initializePusher(true)
     requestPost(
-      `${process.env.DEFAULT_URL}/admins/${adminId}/teachers`,
+      `${process.env.DEFAULT_URL}/admins/${adminId}/create_and_link_accounts`,
       data,
       (response) => {
-        this.setState({ message: response.message, }, () => this.getData());
+        this.getData(true)
+        this.showSnackbar(response.message)
       },
       (response) => {
         if (response.error) {
@@ -81,25 +79,72 @@ export class AdminDashboard extends React.Component {
     );
   };
 
+  handleUserAction = (link, data) => {
+    this.initializePusher(true)
+    requestPost(
+      link,
+      data,
+      (response) => {
+        this.getData(true)
+        this.showSnackbar(response.message)
+      },
+      (response) => {
+        if (response.error) {
+          this.setState({ error: response.error, });
+        } else {
+          // to do, use Sentry to capture error
+        }
+      }
+    );
+  }
+
+  resendLoginDetails = (data) => {
+    const { adminId } = this.props;
+    this.setState({ error: '', });
+    requestPost(
+      `${process.env.DEFAULT_URL}/admins/${adminId}/create_and_link_accounts`,
+      data,
+      (response) => {
+        this.getData(true)
+        this.showSnackbar(response.message)
+      },
+      (response) => {
+        if (response.error) {
+          this.setState({ error: response.error, });
+        } else {
+          // to do, use Sentry to capture error
+        }
+      }
+    );
+
+  }
+
+  showSnackbar = snackbarCopy => {
+    this.setState({ showSnackbar: true, snackbarCopy }, () => {
+      setTimeout(() => this.setState({ showSnackbar: false, }), defaultSnackbarTimeout)
+    })
+  };
+
   scrollToCreateNewAccounts = () => {
     const section = document.querySelector('#scroll-location');
     section.scrollIntoView({ behavior: 'smooth', block: 'start' });
   }
 
   render() {
-    const { loading, error, message, model } = this.state
+    const { loading, error, snackbarCopy, model, showSnackbar, } = this.state
 
     if(loading) {
       return <LoadingSpinner />;
     }
     return(
       <div className="sub-container">
+        <Snackbar text={snackbarCopy} visible={showSnackbar} />
         <PremiumFeatures handleClick={this.scrollToCreateNewAccounts} />
         <div className='dark-divider' id="scroll-location" />
         <CreateNewAccounts
           addTeacherAccount={this.addTeacherAccount}
+          adminAssociatedSchool={model.associated_school}
           error={error}
-          message={message}
           schools={model.schools}
         />
         <div className='dark-divider' />
@@ -109,8 +154,11 @@ export class AdminDashboard extends React.Component {
         </div>
         <div className='dark-divider' />
         <AdminsTeachers
+          adminAssociatedSchool={model.associated_school}
           data={model.teachers}
+          handleUserAction={this.handleUserAction}
           refreshData={this.getData}
+          schools={model.schools}
         />
       </div>
     );

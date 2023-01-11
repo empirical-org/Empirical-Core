@@ -5,7 +5,6 @@ import { CSVLink } from 'react-csv';
 import { firstBy } from 'thenby';
 
 
-import Navigation from '../navigation'
 import { FlagDropdown, ReactTable, filterNumbers } from '../../../../Shared/index'
 import { fetchAggregatedActivityHealths } from '../../../utils/evidence/ruleFeedbackHistoryAPIs';
 import { getLinkToActivity, secondsToHumanReadableTime, addCommasToThousands } from "../../../helpers/evidence/miscHelpers";
@@ -50,7 +49,7 @@ const TrueFalseFilter = ({ column, setFilter }) => (
   />
 )
 
-export const HealthDashboard = ({ location, match }) => {
+export const ActivityHealthDashboard = ({ handleDashboardToggle }) => {
   const [flag, setFlag] = React.useState<string>(ALL_FLAGS)
   const [promptSearchInput, setPromptSearchInput] = React.useState<string>("")
   const [dataToDownload, setDataToDownload] = React.useState<Array<{}>>([])
@@ -260,64 +259,64 @@ export const HealthDashboard = ({ location, match }) => {
   }
 
   return(
-    <React.Fragment>
-      <Navigation location={location} match={match} />
-      <div className="health-dashboards-index-container">
-        <section className="header-section">
-          <h2>Activities Health Dashboard</h2>
-          <div className="first-input-row">
-            <FlagDropdown flag={flag} handleFlagChange={handleFlagChange} isLessons={true} />
+    <div>
+      <section className="header-section">
+        <h2>Activities Health Dashboard</h2>
+        <div className="first-input-row">
+          <FlagDropdown flag={flag} handleFlagChange={handleFlagChange} isLessons={true} />
+          <div className="right-side-div">
+            <button className="switch-view" onClick={handleDashboardToggle} type="button">Switch to Prompt View</button>
             <div className="csv-download-button">
               <button onClick={formatTableForCSV} type="button">
                 Download CSV
               </button>
             </div>
           </div>
+        </div>
 
-          <div className="second-input-row">
-            <input
-              aria-label="Search by prompt"
-              className="search-box"
-              name="searchInput"
-              onChange={handleSearchByPrompt}
-              placeholder="Search by prompt or activity name"
-              value={promptSearchInput || ""}
-            />
-          </div>
-
-          <div className="poor-health-filter">
-            <input aria-label="poor-health-check" checked={poorHealthFlag} onChange={handlePoorHealthFlagToggle} type="checkbox" />
-            <label className="poor-health-label" htmlFor="poor-health-check">Poor Health Flag</label>
-          </div>
-
-          <div>
-            <CSVLink
-              data={dataToDownload}
-              filename="activity_health_report"
-              ref={(c) => (csvLink = c)}
-              rel="noopener noreferrer"
-              target="_blank"
-            />
-          </div>
-        </section>
-
-        <section className="table-section">
-          <ReactTable
-            className="activity-healths-table"
-            columns={dataTableFields}
-            data={(rows && getFilteredData(rows)) || []}
-            defaultPageSize={(rows && rows.length) || 0}
-            filterable
-            manualFilters
-            manualSortBy
-            onFiltersChange={handleFiltersChange}
-            onSortedChange={handleDataUpdate}
+        <div className="second-input-row">
+          <input
+            aria-label="Search by prompt"
+            className="search-box"
+            name="searchInput"
+            onChange={handleSearchByPrompt}
+            placeholder="Search by prompt or activity name"
+            value={promptSearchInput || ""}
           />
-        </section>
-      </div>
-    </React.Fragment>
+        </div>
+
+        <div className="poor-health-filter">
+          <input aria-label="poor-health-check" checked={poorHealthFlag} onChange={handlePoorHealthFlagToggle} type="checkbox" />
+          <label className="poor-health-label" htmlFor="poor-health-check">Poor Health Flag</label>
+        </div>
+
+        <div>
+          <CSVLink
+            data={dataToDownload}
+            filename="activity_health_report"
+            ref={(c) => (csvLink = c)}
+            rel="noopener noreferrer"
+            target="_blank"
+          />
+        </div>
+      </section>
+
+      <section className="table-section">
+        <ReactTable
+          className="activity-healths-table"
+          columns={dataTableFields}
+          data={(rows && getFilteredData(rows)) || []}
+          defaultPageSize={(rows && rows.length) || 0}
+          filterable
+          manualFilters
+          manualSortBy
+          onFiltersChange={handleFiltersChange}
+          onSortedChange={handleDataUpdate}
+        />
+      </section>
+    </div>
   );
 
 }
 
-export default HealthDashboard
+export default ActivityHealthDashboard

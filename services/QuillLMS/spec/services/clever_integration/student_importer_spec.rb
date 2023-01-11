@@ -10,18 +10,19 @@ describe CleverIntegration::StudentImporter do
   let!(:existing_student1) { create(:student, email: existing_email) }
   let!(:existing_student2) { create(:student, clever_id: existing_clever_id) }
   let!(:existing_student3) { create(:student, username: existing_username) }
+  let(:teacher_id) { create(:teacher).id }
 
-  subject { described_class.run(data) }
+  subject { described_class.run(data, teacher_id) }
 
   context 'student with email exists' do
-    let(:data) {
+    let(:data) do
       {
         clever_id: '1',
         email: existing_email,
         name: 'John Smith',
         username: 'username'
       }
-    }
+    end
 
     it { expect { subject }.not_to change(User.student, :count) }
   end
