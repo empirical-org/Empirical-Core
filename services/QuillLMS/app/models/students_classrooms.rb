@@ -58,6 +58,12 @@ class StudentsClassrooms < ApplicationRecord
     SaveUserPackSequenceItemsWorker.perform_async(classroom_id, student_id)
   end
 
+  def validate_assigned_student
+    classroom
+      &.classroom_units
+      &.each { |classroom_unit| classroom_unit.validate_assigned_student(student_id) }
+  end
+
   private def run_associator
     return unless student && classroom && visible
 
