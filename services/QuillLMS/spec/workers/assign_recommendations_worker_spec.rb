@@ -113,6 +113,12 @@ describe AssignRecommendationsWorker do
 
       it { expect { subject }.not_to change(PackSequenceItem, :count).from(1) }
     end
+
+    context 'when pack_sequence does not exist' do
+      before { allow(PackSequence).to receive(:exists?).with(id: pack_sequence_id).and_return(false) }
+
+      it { expect { subject }.not_to change(PackSequenceItem, :count).from(0) }
+    end
   end
 
   def should_track_that_all_recommendations_are_being_assigned
