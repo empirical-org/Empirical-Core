@@ -4,20 +4,21 @@
 #
 # Table name: subscriptions
 #
-#  id                :integer          not null, primary key
-#  account_type      :string
-#  de_activated_date :date
-#  expiration        :date
-#  payment_amount    :integer
-#  payment_method    :string
-#  purchaser_email   :string
-#  recurring         :boolean          default(FALSE)
-#  start_date        :date
-#  created_at        :datetime
-#  updated_at        :datetime
-#  plan_id           :integer
-#  purchaser_id      :integer
-#  stripe_invoice_id :string
+#  id                    :integer          not null, primary key
+#  account_type          :string
+#  de_activated_date     :date
+#  expiration            :date
+#  payment_amount        :integer
+#  payment_method        :string
+#  purchase_order_number :string
+#  purchaser_email       :string
+#  recurring             :boolean          default(FALSE)
+#  start_date            :date
+#  created_at            :datetime
+#  updated_at            :datetime
+#  plan_id               :integer
+#  purchaser_id          :integer
+#  stripe_invoice_id     :string
 #
 # Indexes
 #
@@ -310,6 +311,17 @@ class Subscription < ApplicationRecord
 
   def stripe_subscription
     StripeIntegration::Subscription.new(self)
+  end
+
+  def stripe_invoice
+    @stripe_invoice ||= Stripe::Invoice.retrieve(stripe_invoice_id)
+  end
+
+  def populate_data_from_stripe_invoice
+    return unless stripe?
+
+    self.payment_amount = stripe_invoice.total
+    self.purchaser_email = stripe_invoice.customer_email
   end
 
   def renewal_stripe_price_id
