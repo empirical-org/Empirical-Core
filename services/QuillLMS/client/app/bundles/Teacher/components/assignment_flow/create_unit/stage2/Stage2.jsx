@@ -95,13 +95,13 @@ export class Stage2 extends React.Component {
 
   renderOverrideWarningModal() {
     const { showOverrideWarningModal, } = this.state
-    const { alreadyCompletedDiagnosticStudentNames, unitTemplateName, } = this.props
+    const { alreadyCompletedDiagnosticStudentNames, unitTemplateName, unitName } = this.props
 
     if (!showOverrideWarningModal) { return }
 
     return (
       <OverrideWarningModal
-        activityName={unitTemplateName}
+        activityName={unitTemplateName || unitName}
         handleClickAssign={this.onAssignDespiteWarning}
         handleCloseModal={this.closeOverrideWarningModal}
         studentNames={alreadyCompletedDiagnosticStudentNames}
