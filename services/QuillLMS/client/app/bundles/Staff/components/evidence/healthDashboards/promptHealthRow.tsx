@@ -137,7 +137,7 @@ export const PromptHealthRows = ({ data }) => {
         />
       )
     }
-    return <p>NO_DATA_FOUND_MESSAGE</p>
+    return <p>{NO_DATA_FOUND_MESSAGE}</p>
   }
 
 
