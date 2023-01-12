@@ -66,6 +66,7 @@ class AssignRecommendationsWorker
   end
 
   def save_pack_sequence_item(classroom_unit, pack_sequence_id, order)
+    return unless PackSequence.exists?(id: pack_sequence_id)
     return if pack_sequence_id.nil? || classroom_unit.nil?
 
     PackSequenceItem.find_or_create_by!(
