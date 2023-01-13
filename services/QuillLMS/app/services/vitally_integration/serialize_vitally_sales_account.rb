@@ -52,6 +52,9 @@ class SerializeVitallySalesAccount
         school_link: school_link,
         created_at: @school.created_at,
         premium_expiry_date: subscription_expiration_date,
+        premium_start_date: subscription_start_date,
+        annual_revenue_current_contract: @school.subscription&.payment_amount || 'N/A',
+        stripe_invoice_id_current_contract: @school.subscription&.stripe_invoice_id || 'N/A',
         last_active: last_active
       }
     }
@@ -73,7 +76,7 @@ class SerializeVitallySalesAccount
     if @school.subscription
       @school.subscription.account_type
     else
-      'NA'
+      'N/A'
     end
   end
 
@@ -92,9 +95,14 @@ class SerializeVitallySalesAccount
     "https://www.quill.org/cms/schools/#{@school.id}"
   end
 
+  private def subscription_start_date
+    subscription = @school&.present_and_future_subscriptions&.first
+    subscription&.start_date || 'N/A'
+  end
+
   private def subscription_expiration_date
     subscription = @school&.present_and_future_subscriptions&.last
-    subscription&.expiration || 'NA'
+    subscription&.expiration || 'N/A'
   end
 
   private def last_active

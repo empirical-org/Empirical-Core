@@ -64,7 +64,8 @@ class District < ApplicationRecord
         phone: phone,
         total_students: total_students,
         total_schools: total_schools,
-        **vitally_diagnostic_rollups
+        **vitally_diagnostic_rollups,
+        **vitally_subscription_rollups
       }
     }
   end
@@ -86,6 +87,18 @@ class District < ApplicationRecord
       diagnostics_completed_last_year: diagnostics_completed_last_year,
       percent_diagnostics_completed_this_year: percent_completed_this_year,
       percent_diagnostics_completed_last_year: percent_completed_last_year
+    }
+  end
+
+  def vitally_subscription_rollups
+    latest_subscription = subscriptions.not_expired.not_de_activated.order(expiration: :desc).first
+
+    {
+      premium_start_date: subscription&.start_date || 'N/A',
+      premium_expiry_date: latest_subscription&.expiration || 'N/A',
+      district_subscription: subscription&.account_type || 'N/A',
+      annual_revenue_current_contract: subscription&.payment_amount || 'N/A',
+      stripe_invoice_id_current_contract: subscription&.stripe_invoice_id || 'N/A',
     }
   end
 

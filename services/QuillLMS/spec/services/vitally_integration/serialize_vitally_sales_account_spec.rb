@@ -84,7 +84,7 @@ describe 'SerializeVitallySalesAccount' do
       frl: 0,
       ppin: nil,
       nces_id: '111111111',
-      school_subscription: 'NA',
+      school_subscription: 'N/A',
       school_type: 'Rural, Fringe',
       employee_count: 0,
       paid_teacher_subscriptions: 0,
@@ -96,14 +96,20 @@ describe 'SerializeVitallySalesAccount' do
       activities_per_student: 0,
       activities_per_student_this_year: 0,
       activities_finished: 0,
-      school_link: "https://www.quill.org/cms/schools/#{school.id}"
+      school_link: "https://www.quill.org/cms/schools/#{school.id}",
+      premium_expiry_date: 'N/A',
+      premium_start_date: 'N/A',
+      annual_revenue_current_contract: 'N/A',
+      stripe_invoice_id_current_contract: 'N/A',
     )
   end
 
   it 'generates school premium status' do
     school_subscription = create(:subscription,
       account_type: 'SUPER SAVER PREMIUM',
-      expiration: Date.tomorrow
+      expiration: Date.tomorrow,
+      payment_amount: '1800',
+      stripe_invoice_id: 'in_12345678'
     )
     create(:school_subscription,
       subscription_id: school_subscription.id,
@@ -113,10 +119,11 @@ describe 'SerializeVitallySalesAccount' do
     school_data = SerializeVitallySalesAccount.new(school).data
 
     expect(school_data[:traits]).to include(
-      school_subscription: 'SUPER SAVER PREMIUM'
-    )
-    expect(school_data[:traits]).to include(
-      premium_expiry_date: Date.tomorrow
+      school_subscription: school_subscription.account_type,
+      premium_expiry_date: school_subscription.expiration,
+      premium_start_date: school_subscription.start_date,
+      annual_revenue_current_contract: school_subscription.payment_amount,
+      stripe_invoice_id_current_contract: school_subscription.stripe_invoice_id,
     )
   end
 
