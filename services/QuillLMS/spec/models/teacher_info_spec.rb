@@ -4,12 +4,13 @@
 #
 # Table name: teacher_infos
 #
-#  id                  :bigint           not null, primary key
-#  maximum_grade_level :integer
-#  minimum_grade_level :integer
-#  created_at          :datetime         not null
-#  updated_at          :datetime         not null
-#  user_id             :bigint           not null
+#  id                      :bigint           not null, primary key
+#  maximum_grade_level     :integer
+#  minimum_grade_level     :integer
+#  role_selected_at_signup :string           default("")
+#  created_at              :datetime         not null
+#  updated_at              :datetime         not null
+#  user_id                 :bigint           not null
 #
 # Indexes
 #
