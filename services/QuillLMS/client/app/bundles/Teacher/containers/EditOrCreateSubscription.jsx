@@ -181,6 +181,25 @@ export default class EditOrCreateSubscription extends React.Component {
     )
   }
 
+  isInvoice = () => {
+    const { subscription } = this.state
+
+    return (subscription.payment_method === "Invoice")
+  }
+
+  stripeInvoiceInput = () => {
+    const { subscription } = this.state
+
+    return (
+      <React.Fragment>
+        <label>Stripe Invoice ID (required for all "Invoice" subscriptions)</label>
+        <input type="text" value={subscription.stripe_invoice_id} />
+        <label>Payment Order Number (if provided by customer)</label>
+        <input type="text" value={subscription.payment_order_number} />
+      </React.Fragment>
+    )
+  }
+
   paymentInformation = () => {
     const { subscriptionPaymentMethods  } = this.props
     const { subscription } = this.state
@@ -196,8 +215,13 @@ export default class EditOrCreateSubscription extends React.Component {
           items={subscriptionPaymentOptions}
           selectedItem={subscription.payment_method || 'N/A'}
         />
-        <label>Purchase Amount (dollar value as integer -- no decimal or symbol)</label>
-        <input onChange={this.handlePaymentAmountChange} type="text" value={subscription.payment_amount / 100} />
+        {this.isInvoice() && this.stripeInvoiceInput()}
+        {!this.isInvoice() && (
+          <React.Fragment>
+          <label>Purchase Amount (dollar value as integer -- no decimal or symbol)</label>
+          <input onChange={this.handlePaymentAmountChange} type="text" value={subscription.payment_amount / 100} />
+          </React.Fragment>
+        )}
       </React.Fragment>
     )
   }
