@@ -14,7 +14,6 @@
 require 'rails_helper'
 
 describe TeacherInfosController do
-  let(:user) { create(:user) }
   let(:subject_area1) { create(:subject_area) }
   let(:subject_area2) { create(:subject_area)}
 
@@ -23,6 +22,8 @@ describe TeacherInfosController do
   end
 
   describe '#create' do
+    let(:user) { create(:user) }
+
     it 'should create a teacher info record with the data populated' do
       post :create, params: {minimum_grade_level: 4, maximum_grade_level: 12, subject_area_ids: [subject_area1.id]}
 
@@ -35,7 +36,36 @@ describe TeacherInfosController do
     end
   end
 
+  describe '#create with valid role_selected_at_signup' do
+    let(:user) { create(:user) }
+
+    it 'should create a teacher info record with the data populated' do
+      session[:role] = User::INDIVIDUAL_CONTRIBUTOR
+      post :create, params: {minimum_grade_level: 4, maximum_grade_level: 12, subject_area_ids: [subject_area1.id]}
+
+      teacher_info = TeacherInfo.find_by(user: user)
+
+      expect(teacher_info.role_selected_at_signup).to eq(User::INDIVIDUAL_CONTRIBUTOR)
+      expect(response.status).to be(200)
+    end
+  end
+
+  describe '#create with invalid role_selected_at_signup' do
+    let(:user) { create(:user) }
+
+    it 'should create a teacher info record with role_selected_at_signup defaulted to an empty string' do
+      session[:role] = 'invalid-role'
+      post :create, params: {minimum_grade_level: 4, maximum_grade_level: 12, subject_area_ids: [subject_area1.id]}
+
+      teacher_info = TeacherInfo.find_by(user: user)
+
+      expect(teacher_info.role_selected_at_signup).to eq('')
+      expect(response.status).to be(200)
+    end
+  end
+
   describe '#update' do
+    let!(:user) { create(:user) }
     let!(:teacher_info) { create(:teacher_info, minimum_grade_level: 1, maximum_grade_level: 7, user: user) }
 
     before { teacher_info.subject_areas.push(subject_area1) }
