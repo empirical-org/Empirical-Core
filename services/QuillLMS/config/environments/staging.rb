@@ -116,6 +116,12 @@ EmpiricalGrammar::Application.configure do
     'staging.quill.org.' => 'staging.quill.org'
   }
 
+  if ENV['STAGING_AUTH']
+    config.middleware.use Rack::Auth::Basic do |username, password|
+      ENV['STAGING_AUTH'].split(':') == [username, password]
+    end
+  end
+
   config.active_record.database_selector = { delay: 2.seconds }
   config.active_record.database_resolver = ActiveRecord::Middleware::DatabaseSelector::Resolver
   config.active_record.database_resolver_context = ActiveRecord::Middleware::DatabaseSelector::Resolver::Session
