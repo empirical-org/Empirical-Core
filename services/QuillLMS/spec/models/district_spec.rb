@@ -214,10 +214,13 @@ describe District, type: :model do
     end
 
     context 'subscription rollups' do
-      let!(:subscription) { create(:subscription, districts: [district],
-        payment_amount: 1800,
-        stripe_invoice_id: 'in_12345678'
-      ) }
+      let!(:subscription) {
+        create(:subscription,
+          districts: [district],
+          payment_amount: 1800,
+          stripe_invoice_id: 'in_12345678'
+        )
+      }
 
       it 'pulls current subscription data' do
         expect(district.vitally_data[:traits]).to include(

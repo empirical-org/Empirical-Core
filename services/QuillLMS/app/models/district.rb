@@ -91,14 +91,12 @@ class District < ApplicationRecord
   end
 
   def vitally_subscription_rollups
-    latest_subscription = subscriptions.not_expired.not_de_activated.order(expiration: :desc).first
-
     {
-      premium_start_date: subscription&.start_date || 'N/A',
-      premium_expiry_date: latest_subscription&.expiration || 'N/A',
-      district_subscription: subscription&.account_type || 'N/A',
-      annual_revenue_current_contract: subscription&.payment_amount || 'N/A',
-      stripe_invoice_id_current_contract: subscription&.stripe_invoice_id || 'N/A',
+      premium_start_date: premium_start_date,
+      premium_expiry_date: premium_expiry_date,
+      district_subscription: district_subscription,
+      annual_revenue_current_contract: annual_revenue_current_contract,
+      stripe_invoice_id_current_contract: stripe_invoice_id_current_contract
     }
   end
 
@@ -131,4 +129,29 @@ class District < ApplicationRecord
       .distinct
       .count
   end
+
+  private def latest_subscription
+    subscriptions.not_expired.not_de_activated.order(expiration: :desc).first
+  end
+
+  private def premium_start_date
+    subscription&.start_date || 'N/A'
+  end
+
+  private def premium_expiry_date
+    latest_subscription&.expiration || 'N/A'
+  end
+
+  private def district_subscription
+    subscription&.account_type || 'N/A'
+  end
+
+  private def annual_revenue_current_contract
+    subscription&.payment_amount || 'N/A'
+  end
+
+  private def stripe_invoice_id_current_contract
+    subscription&.stripe_invoice_id || 'N/A'
+  end
+
 end

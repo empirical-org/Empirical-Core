@@ -100,7 +100,7 @@ describe 'SerializeVitallySalesAccount' do
       premium_expiry_date: 'N/A',
       premium_start_date: 'N/A',
       annual_revenue_current_contract: 'N/A',
-      stripe_invoice_id_current_contract: 'N/A',
+      stripe_invoice_id_current_contract: 'N/A'
     )
   end
 
@@ -123,7 +123,7 @@ describe 'SerializeVitallySalesAccount' do
       premium_expiry_date: school_subscription.expiration,
       premium_start_date: school_subscription.start_date,
       annual_revenue_current_contract: school_subscription.payment_amount,
-      stripe_invoice_id_current_contract: school_subscription.stripe_invoice_id,
+      stripe_invoice_id_current_contract: school_subscription.stripe_invoice_id
     )
   end
 
