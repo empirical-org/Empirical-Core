@@ -3,10 +3,12 @@
 class TeacherInfosController < ApplicationController
 
   def create
+    role = User::TEACHER_INFO_ROLES.include?(session[:role]) ? session[:role] : ''
     teacher_info = TeacherInfo.create!(
       user: current_user,
       minimum_grade_level: minimum_grade_level,
-      maximum_grade_level: maximum_grade_level
+      maximum_grade_level: maximum_grade_level,
+      role_selected_at_signup: role
     )
 
     subject_areas = SubjectArea.where(id: subject_area_ids)

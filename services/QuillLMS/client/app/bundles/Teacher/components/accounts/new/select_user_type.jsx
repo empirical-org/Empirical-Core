@@ -8,11 +8,12 @@ const studentPencilImg = `${process.env.CDN_URL}/images/onboarding/student-penci
 const teacherChalkboardImg = `${process.env.CDN_URL}/images/onboarding/teacher-chalkboard-colored.svg`
 const homeSchoolImg = `${process.env.CDN_URL}/images/onboarding/home-building-colored.svg`
 
-class SelectUserType extends React.Component {
+export class SelectUserType extends React.Component {
   setRoleOnSession = (role) => {
+    const urlParam = role === INDIVIDUAL_CONTRIBUTOR ? TEACHER : role
     requestPost(`${process.env.DEFAULT_URL}/account/role`, { role, },
       (body) => {
-        window.location = `/sign-up/${role}`;
+        window.location = `/sign-up/${urlParam}`;
       },
       (body) => {
         this.setRoleOnSessionError()

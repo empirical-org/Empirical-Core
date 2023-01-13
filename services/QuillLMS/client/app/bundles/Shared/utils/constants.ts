@@ -31,4 +31,4 @@ export const NOT_APPLICABLE = 'N/A'
 
 export const STUDENT = 'student'
 export const TEACHER = 'teacher'
-export const INDIVIDUAL_CONTRIBUTOR = 'individual contributor'
+export const INDIVIDUAL_CONTRIBUTOR = 'individual-contributor'

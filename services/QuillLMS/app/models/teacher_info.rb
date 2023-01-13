@@ -4,12 +4,13 @@
 #
 # Table name: teacher_infos
 #
-#  id                  :bigint           not null, primary key
-#  maximum_grade_level :integer
-#  minimum_grade_level :integer
-#  created_at          :datetime         not null
-#  updated_at          :datetime         not null
-#  user_id             :bigint           not null
+#  id                      :bigint           not null, primary key
+#  maximum_grade_level     :integer
+#  minimum_grade_level     :integer
+#  role_selected_at_signup :string           default("")
+#  created_at              :datetime         not null
+#  updated_at              :datetime         not null
+#  user_id                 :bigint           not null
 #
 # Indexes
 #
@@ -83,6 +84,12 @@ class TeacherInfo < ApplicationRecord
 
   def in_eighth_through_twelfth?
     grade_levels.intersection(EIGHT_TO_TWELVE).present?
+  end
+
+  def subject_areas_string
+    return nil if subject_areas.empty?
+
+    subject_areas&.map(&:name)&.join(", ")
   end
 
   private def no_grade_levels?

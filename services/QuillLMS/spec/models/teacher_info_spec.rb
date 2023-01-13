@@ -4,12 +4,13 @@
 #
 # Table name: teacher_infos
 #
-#  id                  :bigint           not null, primary key
-#  maximum_grade_level :integer
-#  minimum_grade_level :integer
-#  created_at          :datetime         not null
-#  updated_at          :datetime         not null
-#  user_id             :bigint           not null
+#  id                      :bigint           not null, primary key
+#  maximum_grade_level     :integer
+#  minimum_grade_level     :integer
+#  role_selected_at_signup :string           default("")
+#  created_at              :datetime         not null
+#  updated_at              :datetime         not null
+#  user_id                 :bigint           not null
 #
 # Indexes
 #
@@ -109,5 +110,30 @@ describe TeacherInfo, type: :model, redis: true do
     it { expect(build(:teacher_info, minimum_grade_level: nil, maximum_grade_level: nil).in_eighth_through_twelfth?).to eq false }
     it { expect(build(:teacher_info, minimum_grade_level: nil, maximum_grade_level: 9).in_eighth_through_twelfth?).to eq true }
     it { expect(build(:teacher_info, minimum_grade_level: 5, maximum_grade_level: nil).in_eighth_through_twelfth?).to eq false}
+  end
+
+  describe '#subject_areas_string' do
+    let(:subject1) { create(:subject_area, name: "subject 1")}
+    let(:subject2) { create(:subject_area, name: "subject 2")}
+    let(:subject3) { create(:subject_area, name: "subject 3")}
+
+    before do
+      create(:teacher_info_subject_area, teacher_info: teacher_info, subject_area: subject1)
+      create(:teacher_info_subject_area, teacher_info: teacher_info, subject_area: subject2)
+      create(:teacher_info_subject_area, teacher_info: teacher_info, subject_area: subject3)
+    end
+
+    context 'when multiple subject areas are attached' do
+      it 'should return a list of attached subject areas in a comma-separated string' do
+        expect(teacher_info.subject_areas_string).to eq("#{subject1.name}, #{subject2.name}, #{subject3.name}")
+      end
+    end
+
+    context 'when no subject areas are attached' do
+      it 'should return nil' do
+        teacher_info2 = create(:teacher_info)
+        expect(teacher_info2.subject_areas_string).to eq(nil)
+      end
+    end
   end
 end
