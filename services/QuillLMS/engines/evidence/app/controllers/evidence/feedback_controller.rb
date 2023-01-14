@@ -27,7 +27,7 @@ module Evidence
       @session_id = params[:session_id]
       @previous_feedback = params[:previous_feedback]
       @feedback_types = params[:feedback_types]
-      @activity_version = params[:activity_version] || Evidence.feedback_history_class::DEFAULT_VERSION
+      @activity_version = params[:activity_version] || @prompt.activity.version || Evidence.feedback_history_class::DEFAULT_VERSION
     end
 
     private def save_feedback_history(feedback)
