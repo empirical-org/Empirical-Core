@@ -148,11 +148,6 @@ exports[`IndividualFeaturesTable container should render for each type 1`] = `
             "tooltipText": "Access 160+ best practices and implementation articles as needed to improve your understanding and implementation of Quill.",
           },
           Object {
-            "label": "Getting started training",
-            "school": true,
-            "tooltipText": "Work with your assigned Senior Instructional Coach for a live, hour-long virtual training to get teachers set up for success on Quill.",
-          },
-          Object {
             "label": "Guided onboarding",
             "school": true,
             "tooltipText": "Work with your assigned Senior Instructional Coach to get all users on your license set up quickly.",
@@ -166,6 +161,11 @@ exports[`IndividualFeaturesTable container should render for each type 1`] = `
             "label": "Priority technical support",
             "school": true,
             "tooltipText": "Support tickets identified with priority user status to resolve tech issues swiftly.",
+          },
+          Object {
+            "label": "Getting started training",
+            "schoolText": "Included with District Premium",
+            "tooltipText": "Work with your assigned Senior Instructional Coach for a live, hour-long virtual training to get teachers set up for success on Quill.",
           },
         ],
         "header": "Professional development and support",
@@ -340,11 +340,6 @@ exports[`IndividualFeaturesTable container should render for each type 2`] = `
             "tooltipText": "Access 160+ best practices and implementation articles as needed to improve your understanding and implementation of Quill.",
           },
           Object {
-            "label": "Getting started training",
-            "school": true,
-            "tooltipText": "Work with your assigned Senior Instructional Coach for a live, hour-long virtual training to get teachers set up for success on Quill.",
-          },
-          Object {
             "label": "Guided onboarding",
             "school": true,
             "tooltipText": "Work with your assigned Senior Instructional Coach to get all users on your license set up quickly.",
@@ -358,6 +353,11 @@ exports[`IndividualFeaturesTable container should render for each type 2`] = `
             "label": "Priority technical support",
             "school": true,
             "tooltipText": "Support tickets identified with priority user status to resolve tech issues swiftly.",
+          },
+          Object {
+            "label": "Getting started training",
+            "schoolText": "Included with District Premium",
+            "tooltipText": "Work with your assigned Senior Instructional Coach for a live, hour-long virtual training to get teachers set up for success on Quill.",
           },
         ],
         "header": "Professional development and support",
@@ -532,11 +532,6 @@ exports[`IndividualFeaturesTable container should render for each type 3`] = `
             "tooltipText": "Access 160+ best practices and implementation articles as needed to improve your understanding and implementation of Quill.",
           },
           Object {
-            "label": "Getting started training",
-            "school": true,
-            "tooltipText": "Work with your assigned Senior Instructional Coach for a live, hour-long virtual training to get teachers set up for success on Quill.",
-          },
-          Object {
             "label": "Guided onboarding",
             "school": true,
             "tooltipText": "Work with your assigned Senior Instructional Coach to get all users on your license set up quickly.",
@@ -550,6 +545,11 @@ exports[`IndividualFeaturesTable container should render for each type 3`] = `
             "label": "Priority technical support",
             "school": true,
             "tooltipText": "Support tickets identified with priority user status to resolve tech issues swiftly.",
+          },
+          Object {
+            "label": "Getting started training",
+            "schoolText": "Included with District Premium",
+            "tooltipText": "Work with your assigned Senior Instructional Coach for a live, hour-long virtual training to get teachers set up for success on Quill.",
           },
         ],
         "header": "Professional development and support",
