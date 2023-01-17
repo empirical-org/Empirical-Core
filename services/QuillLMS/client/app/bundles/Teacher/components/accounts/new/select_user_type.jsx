@@ -10,10 +10,9 @@ const homeSchoolImg = `${process.env.CDN_URL}/images/onboarding/home-building-co
 
 export class SelectUserType extends React.Component {
   setRoleOnSession = (role) => {
-    const urlParam = role === INDIVIDUAL_CONTRIBUTOR ? TEACHER : role
     requestPost(`${process.env.DEFAULT_URL}/account/role`, { role, },
       (body) => {
-        window.location = `/sign-up/${urlParam}`;
+        window.location = `/sign-up/${role}`;
       },
       (body) => {
         this.setRoleOnSessionError()

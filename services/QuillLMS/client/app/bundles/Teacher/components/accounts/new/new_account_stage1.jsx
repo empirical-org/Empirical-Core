@@ -2,7 +2,6 @@ import React from 'react';
 import {
   BrowserRouter,
   Route,
-  Link
 } from 'react-router-dom'
 import SelectUserType from './select_user_type';
 import SignUpTeacher from './sign_up_teacher';
@@ -17,6 +16,7 @@ const App = ({ subjectAreas, }) => {
       <div id='sign-up'>
         <Route component={SelectUserType} exact path="/account/new" />
 
+        <Route component={SignUpTeacher} path="/sign-up/individual-contributor" />
         <Route component={SignUpTeacher} path="/sign-up/teacher" />
         <Route component={SignUpStudent} path="/sign-up/student" />
 
