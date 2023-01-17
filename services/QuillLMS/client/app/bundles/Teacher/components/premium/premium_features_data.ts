@@ -144,11 +144,6 @@ export const premiumFeatures = ({ independentPracticeActivityCount, diagnosticAc
         tooltipText: "Access 160+ best practices and implementation articles as needed to improve your understanding and implementation of Quill.",
       },
       {
-        label: "Getting started training",
-        school: true,
-        tooltipText: "Work with your assigned Senior Instructional Coach for a live, hour-long virtual training to get teachers set up for success on Quill.",
-      },
-      {
         label: "Guided onboarding",
         school: true,
         tooltipText: "Work with your assigned Senior Instructional Coach to get all users on your license set up quickly.",
@@ -163,6 +158,11 @@ export const premiumFeatures = ({ independentPracticeActivityCount, diagnosticAc
         school: true,
         tooltipText: "Support tickets identified with priority user status to resolve tech issues swiftly.",
       },
+      {
+        label: "Getting started training",
+        schoolText: "Included with District Premium",
+        tooltipText: "Work with your assigned Senior Instructional Coach for a live, hour-long virtual training to get teachers set up for success on Quill.",
+      }
     ]
   }
 ])
