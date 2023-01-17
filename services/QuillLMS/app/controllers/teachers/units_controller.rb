@@ -131,6 +131,20 @@ class Teachers::UnitsController < ApplicationController
     render json: {}
   end
 
+  def close
+    unit = Unit.find(params[:id])
+    unit.update(open: false)
+    ResetLessonCacheWorker.new.perform(current_user.id)
+    render json: {}
+  end
+
+  def open
+    unit = Unit.find(params[:id])
+    unit.update(open: true)
+    ResetLessonCacheWorker.new.perform(current_user.id)
+    render json: {}
+  end
+
   def destroy
     # Unit.find(params[:id]).update(visible: false)
     render json: {}
@@ -269,6 +283,7 @@ class Teachers::UnitsController < ApplicationController
           #{ActiveRecord::Base.connection.quote(teach_own_or_coteach)} AS teach_own_or_coteach,
           unit_owner.name AS owner_name,
           ua.id AS unit_activity_id,
+          units.open AS open,
           CASE
             WHEN unit_owner.id = #{current_user.id} THEN true
             ELSE false
@@ -314,8 +329,7 @@ class Teachers::UnitsController < ApplicationController
           AND ua.visible = true
           #{lessons}
         GROUP BY
-          units.name,
-          units.created_at,
+          units.id,
           cu.id, classrooms.name,
           classrooms.id,
           activities.name,

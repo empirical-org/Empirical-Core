@@ -122,6 +122,12 @@
           margin-right: 4px;
           width: 24px;
         }
+      }
+      .quill-tooltip-trigger {
+        margin-bottom: 16px;
+        button {
+          margin-bottom: 0px;
+        }
         &:last-of-type {
           margin-bottom: 0px;
         }

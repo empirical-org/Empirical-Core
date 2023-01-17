@@ -5,12 +5,9 @@ import ActivityPackUpdateButtons from './activity_pack_update_buttons'
 import IndividualClassroom from './individual_classroom'
 import ArchiveModal from './archive_modal'
 import RenameModal from './rename_modal'
+import CloseUnitModal from './close_unit_modal'
+import ReopenUnitModal from './reopen_unit_modal'
 
-import {
-  Snackbar,
-  defaultSnackbarTimeout,
-} from '../../../../Shared/index'
-import useSnackbarMonitor from '../../../../Shared/hooks/useSnackbarMonitor'
 import ShareActivityPackModal from '../create_unit/share_activity_pack/shareActivityPackModal';
 import { requestGet } from '../../../../../modules/request';
 
@@ -21,15 +18,16 @@ const lockSrc = `${process.env.CDN_URL}/images/icons/icons-lock.svg`
 const RENAME = 'rename'
 const ARCHIVE = 'archive'
 const SHARE = 'share'
+const CLOSE = 'close'
+const REOPEN = 'reopen'
 
 const ActivityPack = ({
   data,
   getUnits,
-  selectedClassroomId
+  selectedClassroomId,
+  showSnackbar,
 }) => {
   const [showIndividualClassroomInfo, setShowIndividualClassroomInfo] = React.useState(false)
-  const [showSnackbar, setShowSnackbar] = React.useState(false)
-  const [snackbarText, setSnackbarText] = React.useState('')
   const [showModal, setShowModal] = React.useState('')
   const [classrooms, setClassrooms] = React.useState([]);
   const [activityClicked, setActivityClicked] = React.useState(null);
@@ -42,13 +40,15 @@ const ActivityPack = ({
     }
   }, [])
 
-  useSnackbarMonitor(showSnackbar, setShowSnackbar, defaultSnackbarTimeout)
-
   function toggleShowIndividualClassroomInfo() { setShowIndividualClassroomInfo(!showIndividualClassroomInfo) }
 
   function handleClickShowRename() { setShowModal(RENAME) }
 
   function handleClickShowRemove() { setShowModal(ARCHIVE) }
+
+  function handleClickShowCloseUnit() { setShowModal(CLOSE) }
+
+  function handleClickShowReopenUnit() { setShowModal(REOPEN) }
 
   function handleClickShareActivity() { setShowModal(SHARE) }
 
@@ -67,10 +67,7 @@ const ActivityPack = ({
   function onSuccess(snackbarCopy) {
     getUnits()
     closeModal()
-    if (snackbarCopy) {
-      setSnackbarText(snackbarCopy)
-      setShowSnackbar(true)
-    }
+    showSnackbar(snackbarCopy)
   }
 
   function getActivityPackData() {
@@ -107,9 +104,19 @@ const ActivityPack = ({
   const firstActivity = Array.from(data.classroomActivities)[0][1]
   const isOwner = firstActivity.ownedByCurrentUser
 
+  const activityPackUpdateButtons = isOwner && (
+    <ActivityPackUpdateButtons
+      handleClickShareActivityPack={handleClickShareActivityPack}
+      handleClickShowCloseUnit={handleClickShowCloseUnit}
+      handleClickShowRemove={handleClickShowRemove}
+      handleClickShowRename={handleClickShowRename}
+      handleClickShowReopenUnit={handleClickShowReopenUnit}
+      isOpen={data.open}
+    />
+  )
+
   return (
     <section className="activity-pack">
-      <Snackbar text={snackbarText} visible={showSnackbar} />
       {showModal === RENAME && <RenameModal
         closeModal={closeModal}
         onSuccess={onSuccess}
@@ -117,6 +124,18 @@ const ActivityPack = ({
         unitName={data.unitName}
       />}
       {showModal === ARCHIVE && <ArchiveModal
+        closeModal={closeModal}
+        onSuccess={onSuccess}
+        unitId={data.unitId}
+        unitName={data.unitName}
+      />}
+      {showModal === CLOSE && <CloseUnitModal
+        closeModal={closeModal}
+        onSuccess={onSuccess}
+        unitId={data.unitId}
+        unitName={data.unitName}
+      />}
+      {showModal === REOPEN && <ReopenUnitModal
         closeModal={closeModal}
         onSuccess={onSuccess}
         unitId={data.unitId}
@@ -134,7 +153,7 @@ const ActivityPack = ({
       />}
       <div className="activity-pack-top-section">
         <div className="top-section-header">
-          {isOwner && <ActivityPackUpdateButtons handleClickShareActivityPack={handleClickShareActivityPack} handleClickShowRemove={handleClickShowRemove} handleClickShowRename={handleClickShowRename} />}
+          {activityPackUpdateButtons}
           <div className="left-side">
             <h2>{data.unitName}</h2>
             {!isOwner && (<div className="coteacher-explanation">
@@ -152,10 +171,10 @@ const ActivityPack = ({
               </button>
             </p>
             <div className="individual-classroom-info small-screen">{individualClassroomInfo}</div>
+            {isOwner && <a className="quill-button secondary outlined medium focus-on-light" href={`/teachers/classrooms/activity_planner/units/${data.unitId}/students/edit`}>Add/remove students assigned</a>}
           </div>
         </div>
         <div className="individual-classroom-info big-screen">{individualClassroomInfo}</div>
-        {isOwner && <a className="quill-button secondary outlined medium focus-on-light" href={`/teachers/classrooms/activity_planner/units/${data.unitId}/students/edit`}>Add/remove students assigned</a>}
       </div>
       <ActivityTable
         data={data}
