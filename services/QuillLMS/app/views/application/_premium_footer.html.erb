@@ -1,0 +1,12 @@
+<% if !current_user || (current_user.teacher? && !current_user.is_premium?) %>
+  <div class="banner-with-button premium-footer">
+    <div class="content-container">
+      <div class="text-section">
+        <h2>Learn More About Quill Premium</h2>
+        <p>Premium subscriptions for schools and districts interested in priority technical support, additional reporting, and support from Quill's professional learning team--plus an option for individual teachers</p>
+      </div>
+
+      <a class="quill-button primary medium focus-on-light explore-premium-button" href="/premium">Explore Premium</a>
+    </div>
+  </div>
+<% end %>

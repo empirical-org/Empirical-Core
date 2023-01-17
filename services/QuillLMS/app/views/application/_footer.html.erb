@@ -2,6 +2,7 @@
 
 	<% is_student = current_user&.role == 'student' %>
 	<% footer_class = is_student ? 'footer-white student-footer' : 'footer-white' %>
+	<%= render partial: 'application/premium_footer' %>
 
 	<footer class="<%=footer_class%>">
 		<div class="footer-content">
