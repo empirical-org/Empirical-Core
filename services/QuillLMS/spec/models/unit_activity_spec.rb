@@ -269,6 +269,71 @@ describe UnitActivity, type: :model, redis: true do
       expect(unit_activities.count).to eq(2)
     end
 
+    describe 'behavior around archived data' do
+      describe 'when an activity session has been completed' do
+        it 'includes the unit activity even if the activity session has been archived' do
+          activity_session.update(visible: false)
+          relevant_ua = UnitActivity.get_classroom_user_profile(classroom.id, student.id).find { |ua| ua['ua_id'] == unit_activity.id}
+          expect(relevant_ua['archived']).to eq(true)
+          expect(relevant_ua[ActivitySession::STATE_FINISHED_KEY]).to eq(true)
+        end
+
+        it 'includes the unit activity even if the student has been removed from the list of assigned students' do
+          classroom_unit.update!(assigned_student_ids: [], assign_on_join: false)
+          relevant_ua = UnitActivity.get_classroom_user_profile(classroom.id, student.id).find { |ua| ua['ua_id'] == unit_activity.id}
+          expect(relevant_ua['archived']).to eq(true)
+          expect(relevant_ua[ActivitySession::STATE_FINISHED_KEY]).to eq(true)
+        end
+
+        it 'includes the unit activity even if the classroom unit has been archived' do
+          classroom_unit.update(visible: false)
+          relevant_ua = UnitActivity.get_classroom_user_profile(classroom.id, student.id).find { |ua| ua['ua_id'] == unit_activity.id}
+          expect(relevant_ua['archived']).to eq(true)
+          expect(relevant_ua[ActivitySession::STATE_FINISHED_KEY]).to eq(true)
+        end
+
+        it 'includes the unit activity even if the unit activity has been archived' do
+          unit_activity.update(visible: false)
+          relevant_ua = UnitActivity.get_classroom_user_profile(classroom.id, student.id).find { |ua| ua['ua_id'] == unit_activity.id}
+          expect(relevant_ua['archived']).to eq(true)
+          expect(relevant_ua[ActivitySession::STATE_FINISHED_KEY]).to eq(true)
+        end
+
+        it 'includes the unit activity even if the unit has been archived' do
+          unit.update(visible: false)
+          relevant_ua = UnitActivity.get_classroom_user_profile(classroom.id, student.id).find { |ua| ua['ua_id'] == unit_activity.id}
+          expect(relevant_ua['archived']).to eq(true)
+          expect(relevant_ua[ActivitySession::STATE_FINISHED_KEY]).to eq(true)
+        end
+      end
+
+      describe 'when an activity session has not been completed' do
+        it 'does not include the unit activity even if the student has been removed from the list of assigned students' do
+          classroom_unit.update!(assigned_student_ids: [], assign_on_join: false)
+          relevant_ua = UnitActivity.get_classroom_user_profile(classroom.id, student.id).find { |ua| ua['ua_id'] == lessons_unit_activity.id}
+          expect(relevant_ua).not_to be
+        end
+
+        it 'does not include the unit activity even if the classroom unit has been archived' do
+          classroom_unit.update(visible: false)
+          relevant_ua = UnitActivity.get_classroom_user_profile(classroom.id, student.id).find { |ua| ua['ua_id'] == lessons_unit_activity.id}
+          expect(relevant_ua).not_to be
+        end
+
+        it 'does not include the unit activity even if the unit activity has been archived' do
+          lessons_unit_activity.update(visible: false)
+          relevant_ua = UnitActivity.get_classroom_user_profile(classroom.id, student.id).find { |ua| ua['ua_id'] == lessons_unit_activity.id}
+          expect(relevant_ua).not_to be
+        end
+
+        it 'does not include the unit activity even if the unit has been archived' do
+          unit.update(visible: false)
+          relevant_ua = UnitActivity.get_classroom_user_profile(classroom.id, student.id).find { |ua| ua['ua_id'] == lessons_unit_activity.id}
+          expect(relevant_ua).not_to be
+        end
+      end
+    end
+
     describe 'publish dates' do
 
       it 'includes unit activities that do not have a publish date' do
