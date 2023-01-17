@@ -162,6 +162,10 @@ class School < ApplicationRecord
     subscription&.subscription_status || last_expired_subscription&.subscription_status
   end
 
+  def district_name
+    district&.name
+  end
+
   private def generate_leap_csv_row(student, teacher, classroom, activity_session)
     [
       student.id,

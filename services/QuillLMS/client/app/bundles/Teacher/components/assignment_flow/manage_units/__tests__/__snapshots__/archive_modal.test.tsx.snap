@@ -1,0 +1,57 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`ArchiveModal component renders 1`] = `
+<ArchiveModal
+  closeModal={[MockFunction]}
+  onSuccess={[MockFunction]}
+  unitId={1}
+  unitName="Unit"
+>
+  <div
+    className="modal-container archive-activity-pack-modal-container"
+  >
+    <div
+      className="modal-background"
+    />
+    <div
+      className="archive-activity-pack-modal quill-modal modal-body"
+    >
+      <div>
+        <h3
+          className="title"
+        >
+          Permanently delete this activity pack?
+        </h3>
+      </div>
+      <div
+        className="archive-activity-pack-modal-text"
+      >
+        <p>
+          Deleting an activity pack is permanent and cannot be undone. You will no longer have access to it in your student reports.
+        </p>
+        <p>
+          If you no longer want students to see an activity pack and wish to retain access to it in your student reports, we suggest using the “Close activity pack” option instead.
+        </p>
+      </div>
+      <div
+        className="form-buttons"
+      >
+        <button
+          className="quill-button outlined secondary medium"
+          onClick={[MockFunction]}
+          type="button"
+        >
+          Cancel
+        </button>
+        <button
+          className="quill-button contained primary medium"
+          onClick={[Function]}
+          type="button"
+        >
+          Delete
+        </button>
+      </div>
+    </div>
+  </div>
+</ArchiveModal>
+`;
