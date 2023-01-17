@@ -28,6 +28,8 @@ en:
     staff: Profile
   activity_link:
     errors:
+      activity_belongs_to_closed_pack: 'Sorry, you do not have access to this activity because it belongs to an activity pack that has been closed. Please contact your teacher.'
+      activity_pack_closed: 'Sorry, you do not have access to this activity pack because it has been closed. Please contact your teacher.'
       activity_not_assigned: 'Sorry, you do not have access to this activity because it has not been assigned to you. Please contact your teacher.'
       activity_pack_not_assigned: 'Sorry, you do not have access to this activity pack because it has not been assigned to you. Please contact your teacher.'
       user_pack_sequence_item_locked: 'Sorry, this activity is locked.  To unlock it, you will have to complete the activity packs that come before it.'

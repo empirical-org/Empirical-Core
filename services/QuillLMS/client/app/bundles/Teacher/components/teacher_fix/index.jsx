@@ -9,7 +9,7 @@ export default class TeacherFixIndex extends React.Component {
     return (
       <div>
         <h1><a href="/teacher_fix">Teacher Fixes</a></h1>
-        <p><a href="/teacher_fix/unarchive_units">Unarchive Units</a> - <span>Use when a teacher has purposefully or accidentally deleted an activity pack and wants it back.</span></p>
+        <p><a href="/teacher_fix/unarchive_units">Restore Deleted Units (fka Unarchive Units)</a> - <span>Use when a teacher has purposefully or accidentally deleted an activity pack and wants it back.</span></p>
         <p><a href="/teacher_fix/recover_classroom_units">Restore Classroom Units</a> - <span>Use this when a teacher has archived and then unarchived a classroom and wants their data back.</span></p>
         <p><a href="/teacher_fix/recover_unit_activities">Restore Unit Activities</a> - <span>Use when a teacher has purposefully or accidentally deleted an activity from an activity pack and wants it back.</span></p>
         <p><a href="/teacher_fix/recover_activity_sessions">Restore Activity Sessions</a> - <span>Use as a first line of defense when teachers complain about missing activity sessions, frequently seen with the diagnostic.</span></p>

@@ -368,14 +368,6 @@ exports[`ActivityPack component renders if the current user created the unit 1`]
   <section
     className="activity-pack"
   >
-    <Snackbar
-      text=""
-      visible={false}
-    >
-      <div
-        className="quill-snackbar "
-      />
-    </Snackbar>
     <div
       className="activity-pack-top-section"
     >
@@ -384,25 +376,14 @@ exports[`ActivityPack component renders if the current user created the unit 1`]
       >
         <ActivityPackUpdateButtons
           handleClickShareActivityPack={[Function]}
+          handleClickShowCloseUnit={[Function]}
           handleClickShowRemove={[Function]}
           handleClickShowRename={[Function]}
+          handleClickShowReopenUnit={[Function]}
         >
           <div
             className="right-side"
           >
-            <button
-              className="interactive-wrapper focus-on-light"
-              onClick={[Function]}
-              type="button"
-            >
-              <img
-                alt="Share icon"
-                src="undefined/images/icons/icons-share.svg"
-              />
-              <span>
-                Share activity pack
-              </span>
-            </button>
             <button
               className="interactive-wrapper focus-on-light"
               onClick={[Function]}
@@ -416,19 +397,124 @@ exports[`ActivityPack component renders if the current user created the unit 1`]
                 Rename activity pack
               </span>
             </button>
-            <button
-              className="interactive-wrapper focus-on-light"
-              onClick={[Function]}
-              type="button"
+            <Tooltip
+              isTabbable={true}
+              tooltipText="Reopening an activity pack makes it visible to students."
+              tooltipTriggerText={
+                <button
+                  className="interactive-wrapper focus-on-light"
+                  onClick={[Function]}
+                  type="button"
+                >
+                  <img
+                    alt=""
+                    src="undefined/images/pages/my_activities/open_activity_pack_icon.svg"
+                  />
+                  <span>
+                    Reopen activity pack
+                  </span>
+                </button>
+              }
             >
-              <img
-                alt="Remove icon"
-                src="undefined/images/icons/remove-in-circle.svg"
-              />
-              <span>
-                Delete activity pack
+              <span
+                aria-hidden={false}
+                className="quill-tooltip-trigger "
+                role="tooltip"
+              >
+                <span
+                  className="undefined"
+                  onBlur={[Function]}
+                  onClick={[Function]}
+                  onFocus={[Function]}
+                  onKeyDown={[Function]}
+                  onMouseEnter={[Function]}
+                  onMouseLeave={[Function]}
+                  role="button"
+                  tabIndex={0}
+                >
+                  <button
+                    className="interactive-wrapper focus-on-light"
+                    onClick={[Function]}
+                    type="button"
+                  >
+                    <img
+                      alt=""
+                      src="undefined/images/pages/my_activities/open_activity_pack_icon.svg"
+                    />
+                    <span>
+                      Reopen activity pack
+                    </span>
+                  </button>
+                </span>
+                <span
+                  className="quill-tooltip-wrapper"
+                >
+                  <span
+                    aria-live="polite"
+                    className="quill-tooltip"
+                  />
+                </span>
               </span>
-            </button>
+            </Tooltip>
+            <Tooltip
+              isTabbable={true}
+              tooltipText="Deleting an activity pack is permanent and removes it from your reports."
+              tooltipTriggerText={
+                <button
+                  className="interactive-wrapper focus-on-light"
+                  onClick={[Function]}
+                  type="button"
+                >
+                  <img
+                    alt=""
+                    src="undefined/images/pages/my_activities/delete_activity_pack_icon.svg"
+                  />
+                  <span>
+                    Delete activity pack
+                  </span>
+                </button>
+              }
+            >
+              <span
+                aria-hidden={false}
+                className="quill-tooltip-trigger "
+                role="tooltip"
+              >
+                <span
+                  className="undefined"
+                  onBlur={[Function]}
+                  onClick={[Function]}
+                  onFocus={[Function]}
+                  onKeyDown={[Function]}
+                  onMouseEnter={[Function]}
+                  onMouseLeave={[Function]}
+                  role="button"
+                  tabIndex={0}
+                >
+                  <button
+                    className="interactive-wrapper focus-on-light"
+                    onClick={[Function]}
+                    type="button"
+                  >
+                    <img
+                      alt=""
+                      src="undefined/images/pages/my_activities/delete_activity_pack_icon.svg"
+                    />
+                    <span>
+                      Delete activity pack
+                    </span>
+                  </button>
+                </span>
+                <span
+                  className="quill-tooltip-wrapper"
+                >
+                  <span
+                    aria-live="polite"
+                    className="quill-tooltip"
+                  />
+                </span>
+              </span>
+            </Tooltip>
           </div>
         </ActivityPackUpdateButtons>
         <div
@@ -461,17 +547,17 @@ exports[`ActivityPack component renders if the current user created the unit 1`]
           <div
             className="individual-classroom-info small-screen"
           />
+          <a
+            className="quill-button secondary outlined medium focus-on-light"
+            href="/teachers/classrooms/activity_planner/units/826300/students/edit"
+          >
+            Add/remove students assigned
+          </a>
         </div>
       </div>
       <div
         className="individual-classroom-info big-screen"
       />
-      <a
-        className="quill-button secondary outlined medium focus-on-light"
-        href="/teachers/classrooms/activity_planner/units/826300/students/edit"
-      >
-        Add/remove students assigned
-      </a>
     </div>
     <ActivityTable
       data={
@@ -12530,14 +12616,6 @@ exports[`ActivityPack component renders if the current user did not create the u
   <section
     className="activity-pack"
   >
-    <Snackbar
-      text=""
-      visible={false}
-    >
-      <div
-        className="quill-snackbar "
-      />
-    </Snackbar>
     <div
       className="activity-pack-top-section"
     >

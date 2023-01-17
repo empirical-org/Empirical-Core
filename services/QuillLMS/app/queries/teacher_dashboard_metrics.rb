@@ -17,7 +17,7 @@ class TeacherDashboardMetrics
 
   def count_of_assigned_activities(start_date)
     classroom_units = ClassroomUnit
-      .where(classroom_id: classroom_ids, visible: true)
+      .where(classroom_id: classroom_ids)
       .where("created_at >= ?", start_date)
 
     activity_counts_by_unit = UnitActivity
@@ -38,7 +38,7 @@ class TeacherDashboardMetrics
 
       ActivitySession
         .unscoped
-        .where(classroom_unit_id: classroom_unit_ids, visible: true)
+        .where(classroom_unit_id: classroom_unit_ids)
         .where.not(completed_at: nil)
         .pluck(:completed_at)
     end

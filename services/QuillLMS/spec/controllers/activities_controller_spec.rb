@@ -143,6 +143,15 @@ describe ActivitiesController, type: :controller, redis: true do
       end
     end
 
+    context 'unit is closed' do
+      it 'redirects and raises an error' do
+        classroom_unit.unit.update(open: false)
+        subject
+        expect(response).to redirect_to classes_path
+        expect(flash[:error]).to match I18n.t('activity_link.errors.activity_belongs_to_closed_pack')
+      end
+    end
+
     context 'non-student user attempts to access link' do
       before { session[:user_id] = create(:teacher).id }
 
