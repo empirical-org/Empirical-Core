@@ -142,7 +142,7 @@ export const PromptHealthDashboard = ({ handleDashboardToggle }) => {
       key: "confidence",
       Filter: NumberFilter,
       minWidth: 70,
-      Cell: ({row}) => row.original.confidence && <span className={row.original.confidence < 0.9 ? "poor-health" : "" + " name"}>{row.original.confidence}%</span>
+      Cell: ({row}) => row.original.confidence && <span className={row.original.confidence < 0.9 ? "poor-health" : "" + " name"}>{(row.original.confidence * 100)}%</span>
     },
     {
       Header: '% AutoML Consecut- ive Repeated',
