@@ -269,7 +269,6 @@
       vertical-align: top;
       position: relative;
       > .interactive-wrapper {
-        padding: 16px 8px;
         align-items: center;
         display: flex;
         height: 100%;
@@ -280,7 +279,19 @@
           position: absolute;
           left: 8px;
         }
-        &.recommended-and-selected {
+        .progress-indicator {
+          display: flex;
+          flex-direction: column;
+          font-weight: 400;
+          font-size: 11px;
+          line-height: 16px;
+          color: #06806B;
+          .counts {
+            font-weight: 700;
+            font-size: 12px;
+          }
+        }
+        &.recommended {
           background-color: #eef8f7;
         }
         &:focus, &:hover {

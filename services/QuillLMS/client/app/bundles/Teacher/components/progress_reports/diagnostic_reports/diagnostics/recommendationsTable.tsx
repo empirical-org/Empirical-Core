@@ -43,6 +43,8 @@ interface RecommendationCellProps {
   setSelections: (selections: Recommendation[]) => void;
   selections: Recommendation[];
   selectionIndex: number;
+  completedCount?: number;
+  activityCount?: number;
 }
 
 interface StickyTableStyle {
@@ -54,7 +56,17 @@ interface StickyTableStyle {
   minWidth: string
 }
 
-const RecommendationCell = ({ student, isAssigned, isRecommended, isSelected, setSelections, selections, selectionIndex, }: RecommendationCellProps) => {
+const RecommendationCell = ({ student, isAssigned, isRecommended, isSelected, setSelections, selections, selectionIndex, activityCount, completedCount, }: RecommendationCellProps) => {
+  const [wasAssignedAtLoad, setWasAssignedAtLead] = React.useState(isAssigned)
+  const [showAssignedText, setShowAssignedText] = React.useState(false)
+
+  React.useEffect(() => {
+    if (isAssigned && !wasAssignedAtLoad) {
+      setShowAssignedText(true)
+      setTimeout(() => { setShowAssignedText(false)}, 5000)
+    }
+  }, [isAssigned])
+
   function toggleSelection() {
     const newSelections = [...selections];
     if (isSelected) {
@@ -64,8 +76,11 @@ const RecommendationCell = ({ student, isAssigned, isRecommended, isSelected, se
     }
     setSelections(newSelections)
   }
+
   let checkbox = <span aria-label="Unchecked checkbox" className="quill-checkbox unselected" />
-  const assigned = isAssigned && <div className="assigned">{correctImage}<span>Assigned</span></div>
+  const assignedText = showAssignedText && <div className="assigned">{correctImage}<span>Assigned</span></div>
+  const progressIndicator = isAssigned && <p className="progress-indicator"><span className="counts">{completedCount} of {activityCount}</span><span>Activities Completed</span></p>
+
   if (isSelected) {
     checkbox = (<span aria-label="Checked checkbox" className="quill-checkbox selected" >
       <img alt={smallWhiteCheckIcon.alt} src={smallWhiteCheckIcon.src} />
@@ -73,9 +88,9 @@ const RecommendationCell = ({ student, isAssigned, isRecommended, isSelected, se
   }
   return (
     <td className="recommendation-cell">
-      <button className={`interactive-wrapper ${isRecommended && isSelected && !isAssigned ? 'recommended-and-selected' : ''}`} onClick={isAssigned ? () => {} : toggleSelection} type="button">
+      <button className={`interactive-wrapper ${isRecommended && !showAssignedText ? 'recommended' : ''}`} onClick={isAssigned ? () => {} : toggleSelection} type="button">
         {isRecommended ? recommendedGlyph : <span />}
-        {assigned || checkbox}
+        {assignedText || progressIndicator || checkbox}
         <span />
       </button>
     </td>
@@ -104,11 +119,15 @@ const StudentRow = ({ student, selections, recommendations, previouslyAssignedRe
     )
 
     selectionCells = selections.map((selection: Recommendation, i: number) => {
-      const isAssigned = previouslyAssignedRecommendations.find(r => r.activity_pack_id === selection.activity_pack_id).students.includes(id)
+      const previouslyAssignedRecommendation = previouslyAssignedRecommendations.find(r => r.activity_pack_id === selection.activity_pack_id)
+      const isAssigned = previouslyAssignedRecommendation.students.includes(id)
+      const completedCount = isAssigned && previouslyAssignedRecommendation.diagnostic_progress[id]
       const isRecommended = recommendations.find(r => r.activity_pack_id === selection.activity_pack_id).students.includes(id)
       const isSelected = selection.students.includes(id)
       return (
         <RecommendationCell
+          activityCount={previouslyAssignedRecommendation.activity_count}
+          completedCount={completedCount}
           isAssigned={isAssigned}
           isRecommended={isRecommended}
           isSelected={isSelected}

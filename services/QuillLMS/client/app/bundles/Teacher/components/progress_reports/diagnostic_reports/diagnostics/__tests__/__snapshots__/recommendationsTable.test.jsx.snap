@@ -12047,7 +12047,7 @@ exports[`RecommendationsTable component should render when there are recommendat
                     className="recommendation-cell"
                   >
                     <button
-                      className="interactive-wrapper recommended-and-selected"
+                      className="interactive-wrapper recommended"
                       onClick={[Function]}
                       type="button"
                     >
@@ -12178,7 +12178,7 @@ exports[`RecommendationsTable component should render when there are recommendat
                     className="recommendation-cell"
                   >
                     <button
-                      className="interactive-wrapper recommended-and-selected"
+                      className="interactive-wrapper recommended"
                       onClick={[Function]}
                       type="button"
                     >
@@ -12960,7 +12960,7 @@ exports[`RecommendationsTable component should render when there are recommendat
                     className="recommendation-cell"
                   >
                     <button
-                      className="interactive-wrapper recommended-and-selected"
+                      className="interactive-wrapper recommended"
                       onClick={[Function]}
                       type="button"
                     >
@@ -13091,7 +13091,7 @@ exports[`RecommendationsTable component should render when there are recommendat
                     className="recommendation-cell"
                   >
                     <button
-                      className="interactive-wrapper recommended-and-selected"
+                      className="interactive-wrapper recommended"
                       onClick={[Function]}
                       type="button"
                     >
@@ -13222,7 +13222,7 @@ exports[`RecommendationsTable component should render when there are recommendat
                     className="recommendation-cell"
                   >
                     <button
-                      className="interactive-wrapper recommended-and-selected"
+                      className="interactive-wrapper recommended"
                       onClick={[Function]}
                       type="button"
                     >
@@ -13353,7 +13353,7 @@ exports[`RecommendationsTable component should render when there are recommendat
                     className="recommendation-cell"
                   >
                     <button
-                      className="interactive-wrapper recommended-and-selected"
+                      className="interactive-wrapper recommended"
                       onClick={[Function]}
                       type="button"
                     >
@@ -13484,7 +13484,7 @@ exports[`RecommendationsTable component should render when there are recommendat
                     className="recommendation-cell"
                   >
                     <button
-                      className="interactive-wrapper recommended-and-selected"
+                      className="interactive-wrapper recommended"
                       onClick={[Function]}
                       type="button"
                     >
@@ -15168,7 +15168,7 @@ exports[`RecommendationsTable component should render when there are recommendat
                     className="recommendation-cell"
                   >
                     <button
-                      className="interactive-wrapper recommended-and-selected"
+                      className="interactive-wrapper recommended"
                       onClick={[Function]}
                       type="button"
                     >
@@ -15561,7 +15561,7 @@ exports[`RecommendationsTable component should render when there are recommendat
                     className="recommendation-cell"
                   >
                     <button
-                      className="interactive-wrapper recommended-and-selected"
+                      className="interactive-wrapper recommended"
                       onClick={[Function]}
                       type="button"
                     >
@@ -15977,7 +15977,7 @@ exports[`RecommendationsTable component should render when there are recommendat
                     className="recommendation-cell"
                   >
                     <button
-                      className="interactive-wrapper recommended-and-selected"
+                      className="interactive-wrapper recommended"
                       onClick={[Function]}
                       type="button"
                     >
@@ -16108,7 +16108,7 @@ exports[`RecommendationsTable component should render when there are recommendat
                     className="recommendation-cell"
                   >
                     <button
-                      className="interactive-wrapper recommended-and-selected"
+                      className="interactive-wrapper recommended"
                       onClick={[Function]}
                       type="button"
                     >
@@ -16372,7 +16372,7 @@ exports[`RecommendationsTable component should render when there are recommendat
                     className="recommendation-cell"
                   >
                     <button
-                      className="interactive-wrapper recommended-and-selected"
+                      className="interactive-wrapper recommended"
                       onClick={[Function]}
                       type="button"
                     >
@@ -16636,7 +16636,7 @@ exports[`RecommendationsTable component should render when there are recommendat
                     className="recommendation-cell"
                   >
                     <button
-                      className="interactive-wrapper recommended-and-selected"
+                      className="interactive-wrapper recommended"
                       onClick={[Function]}
                       type="button"
                     >
@@ -17296,7 +17296,7 @@ exports[`RecommendationsTable component should render when there are recommendat
                     className="recommendation-cell"
                   >
                     <button
-                      className="interactive-wrapper recommended-and-selected"
+                      className="interactive-wrapper recommended"
                       onClick={[Function]}
                       type="button"
                     >
@@ -18085,7 +18085,7 @@ exports[`RecommendationsTable component should render when there are recommendat
                     className="recommendation-cell"
                   >
                     <button
-                      className="interactive-wrapper recommended-and-selected"
+                      className="interactive-wrapper recommended"
                       onClick={[Function]}
                       type="button"
                     >
@@ -18216,7 +18216,7 @@ exports[`RecommendationsTable component should render when there are recommendat
                     className="recommendation-cell"
                   >
                     <button
-                      className="interactive-wrapper recommended-and-selected"
+                      className="interactive-wrapper recommended"
                       onClick={[Function]}
                       type="button"
                     >
@@ -18347,7 +18347,7 @@ exports[`RecommendationsTable component should render when there are recommendat
                     className="recommendation-cell"
                   >
                     <button
-                      className="interactive-wrapper recommended-and-selected"
+                      className="interactive-wrapper recommended"
                       onClick={[Function]}
                       type="button"
                     >
@@ -18478,7 +18478,7 @@ exports[`RecommendationsTable component should render when there are recommendat
                     className="recommendation-cell"
                   >
                     <button
-                      className="interactive-wrapper recommended-and-selected"
+                      className="interactive-wrapper recommended"
                       onClick={[Function]}
                       type="button"
                     >
@@ -18609,7 +18609,7 @@ exports[`RecommendationsTable component should render when there are recommendat
                     className="recommendation-cell"
                   >
                     <button
-                      className="interactive-wrapper recommended-and-selected"
+                      className="interactive-wrapper recommended"
                       onClick={[Function]}
                       type="button"
                     >
@@ -18740,7 +18740,7 @@ exports[`RecommendationsTable component should render when there are recommendat
                     className="recommendation-cell"
                   >
                     <button
-                      className="interactive-wrapper recommended-and-selected"
+                      className="interactive-wrapper recommended"
                       onClick={[Function]}
                       type="button"
                     >
@@ -19757,7 +19757,7 @@ exports[`RecommendationsTable component should render when there are recommendat
                     className="recommendation-cell"
                   >
                     <button
-                      className="interactive-wrapper recommended-and-selected"
+                      className="interactive-wrapper recommended"
                       onClick={[Function]}
                       type="button"
                     >
@@ -20010,7 +20010,7 @@ exports[`RecommendationsTable component should render when there are recommendat
                     className="recommendation-cell"
                   >
                     <button
-                      className="interactive-wrapper recommended-and-selected"
+                      className="interactive-wrapper recommended"
                       onClick={[Function]}
                       type="button"
                     >
@@ -20141,7 +20141,7 @@ exports[`RecommendationsTable component should render when there are recommendat
                     className="recommendation-cell"
                   >
                     <button
-                      className="interactive-wrapper recommended-and-selected"
+                      className="interactive-wrapper recommended"
                       onClick={[Function]}
                       type="button"
                     >
@@ -20272,7 +20272,7 @@ exports[`RecommendationsTable component should render when there are recommendat
                     className="recommendation-cell"
                   >
                     <button
-                      className="interactive-wrapper recommended-and-selected"
+                      className="interactive-wrapper recommended"
                       onClick={[Function]}
                       type="button"
                     >
@@ -21096,7 +21096,7 @@ exports[`RecommendationsTable component should render when there are recommendat
                     className="recommendation-cell"
                   >
                     <button
-                      className="interactive-wrapper recommended-and-selected"
+                      className="interactive-wrapper recommended"
                       onClick={[Function]}
                       type="button"
                     >
@@ -21227,7 +21227,7 @@ exports[`RecommendationsTable component should render when there are recommendat
                     className="recommendation-cell"
                   >
                     <button
-                      className="interactive-wrapper recommended-and-selected"
+                      className="interactive-wrapper recommended"
                       onClick={[Function]}
                       type="button"
                     >
@@ -21358,7 +21358,7 @@ exports[`RecommendationsTable component should render when there are recommendat
                     className="recommendation-cell"
                   >
                     <button
-                      className="interactive-wrapper recommended-and-selected"
+                      className="interactive-wrapper recommended"
                       onClick={[Function]}
                       type="button"
                     >
@@ -21489,7 +21489,7 @@ exports[`RecommendationsTable component should render when there are recommendat
                     className="recommendation-cell"
                   >
                     <button
-                      className="interactive-wrapper recommended-and-selected"
+                      className="interactive-wrapper recommended"
                       onClick={[Function]}
                       type="button"
                     >
@@ -21620,7 +21620,7 @@ exports[`RecommendationsTable component should render when there are recommendat
                     className="recommendation-cell"
                   >
                     <button
-                      className="interactive-wrapper recommended-and-selected"
+                      className="interactive-wrapper recommended"
                       onClick={[Function]}
                       type="button"
                     >
@@ -21751,7 +21751,7 @@ exports[`RecommendationsTable component should render when there are recommendat
                     className="recommendation-cell"
                   >
                     <button
-                      className="interactive-wrapper recommended-and-selected"
+                      className="interactive-wrapper recommended"
                       onClick={[Function]}
                       type="button"
                     >
@@ -22167,7 +22167,7 @@ exports[`RecommendationsTable component should render when there are recommendat
                     className="recommendation-cell"
                   >
                     <button
-                      className="interactive-wrapper recommended-and-selected"
+                      className="interactive-wrapper recommended"
                       onClick={[Function]}
                       type="button"
                     >
@@ -22298,7 +22298,7 @@ exports[`RecommendationsTable component should render when there are recommendat
                     className="recommendation-cell"
                   >
                     <button
-                      className="interactive-wrapper recommended-and-selected"
+                      className="interactive-wrapper recommended"
                       onClick={[Function]}
                       type="button"
                     >
@@ -22429,7 +22429,7 @@ exports[`RecommendationsTable component should render when there are recommendat
                     className="recommendation-cell"
                   >
                     <button
-                      className="interactive-wrapper recommended-and-selected"
+                      className="interactive-wrapper recommended"
                       onClick={[Function]}
                       type="button"
                     >
@@ -22560,7 +22560,7 @@ exports[`RecommendationsTable component should render when there are recommendat
                     className="recommendation-cell"
                   >
                     <button
-                      className="interactive-wrapper recommended-and-selected"
+                      className="interactive-wrapper recommended"
                       onClick={[Function]}
                       type="button"
                     >
@@ -22691,7 +22691,7 @@ exports[`RecommendationsTable component should render when there are recommendat
                     className="recommendation-cell"
                   >
                     <button
-                      className="interactive-wrapper recommended-and-selected"
+                      className="interactive-wrapper recommended"
                       onClick={[Function]}
                       type="button"
                     >
@@ -22822,7 +22822,7 @@ exports[`RecommendationsTable component should render when there are recommendat
                     className="recommendation-cell"
                   >
                     <button
-                      className="interactive-wrapper recommended-and-selected"
+                      className="interactive-wrapper recommended"
                       onClick={[Function]}
                       type="button"
                     >
@@ -23961,7 +23961,7 @@ exports[`RecommendationsTable component should render when there are recommendat
                     className="recommendation-cell"
                   >
                     <button
-                      className="interactive-wrapper recommended-and-selected"
+                      className="interactive-wrapper recommended"
                       onClick={[Function]}
                       type="button"
                     >
@@ -24092,7 +24092,7 @@ exports[`RecommendationsTable component should render when there are recommendat
                     className="recommendation-cell"
                   >
                     <button
-                      className="interactive-wrapper recommended-and-selected"
+                      className="interactive-wrapper recommended"
                       onClick={[Function]}
                       type="button"
                     >
@@ -24223,7 +24223,7 @@ exports[`RecommendationsTable component should render when there are recommendat
                     className="recommendation-cell"
                   >
                     <button
-                      className="interactive-wrapper recommended-and-selected"
+                      className="interactive-wrapper recommended"
                       onClick={[Function]}
                       type="button"
                     >
@@ -24354,7 +24354,7 @@ exports[`RecommendationsTable component should render when there are recommendat
                     className="recommendation-cell"
                   >
                     <button
-                      className="interactive-wrapper recommended-and-selected"
+                      className="interactive-wrapper recommended"
                       onClick={[Function]}
                       type="button"
                     >
@@ -24485,7 +24485,7 @@ exports[`RecommendationsTable component should render when there are recommendat
                     className="recommendation-cell"
                   >
                     <button
-                      className="interactive-wrapper recommended-and-selected"
+                      className="interactive-wrapper recommended"
                       onClick={[Function]}
                       type="button"
                     >
