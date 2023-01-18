@@ -31,13 +31,13 @@
   <% if on_sign_up_or_log_in %>
     <div class="logo-only">
       <a aria-label="Quill" class="focus-on-dark" href=<%= root_path %>>
-        <img src="/images/quill_header_logo.svg" alt="Quill logo">
+        <img data-src="/images/quill_header_logo.svg" alt="Quill logo" class='lazyload'>
       </a>
     </div>
   <% else %>
 	  <div>
 			<a aria-label="Quill" class="focus-on-dark" href=<%= root_path %> >
-  			<img src="https://assets.quill.org/images/logos/quill-logo-white-2022.svg" alt="Quill.org logo">
+  			<img data-src="https://assets.quill.org/images/logos/quill-logo-white-2022.svg" alt="Quill.org logo" class='lazyload'>
   		</a>
   	</div>
 
