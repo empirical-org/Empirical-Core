@@ -212,3 +212,8 @@ export const openLockIcon = {
   alt: 'Open lock',
   src: `${process.env.CDN_URL}/images/icons/unlocked.svg`
 }
+
+export const networkIcon = {
+  alt: 'Black silhouette of group of 4 people',
+  src: `${process.env.CDN_URL}/images/onboarding/network.svg`
+}

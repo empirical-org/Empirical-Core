@@ -16,7 +16,7 @@
         <% end %>
 
         <li class="<%= 'active' if classes_page_should_be_active? %>">
-          <%= link_to 'Classes', teachers_classrooms_path %>
+          <%= link_to 'My Classes', teachers_classrooms_path %>
         </li>
 
         <li class="<%= 'active' if assign_activity_page_should_be_active? %>">
@@ -28,7 +28,7 @@
         </li>
 
         <li class="<%= 'active' if student_reports_page_should_be_active? %>" id="student-reports-link">
-          <%= link_to raw("<span class='hide-on-mobile'>Student </span>Reports"), teachers_progress_reports_landing_page_path %>
+          <%= link_to raw("<span class='hide-on-mobile'>My Student </span>Reports"), teachers_progress_reports_landing_page_path %>
         </li>
 
         <% unless current_user.premium_state == 'paid' %>

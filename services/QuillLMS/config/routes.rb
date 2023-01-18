@@ -540,6 +540,7 @@ EmpiricalGrammar::Application.routes.draw do
 
   get '/sign-up/teacher', to: 'accounts#new'
   get '/sign-up/student', to: 'accounts#new'
+  get '/sign-up/individual-contributor', to: 'accounts#new'
   get '/sign-up/pick-school-type', to: 'accounts#new'
   get '/sign-up/add-k12', to: 'accounts#new'
   get '/sign-up/add-non-k12', to: 'accounts#new'
