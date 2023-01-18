@@ -23,7 +23,7 @@ class AssignRecommendationsWorker
 
     if units.present?
       unit = find_unit(units)
-      unit.update(visible: true) if unit && !unit.visible
+      unit.update(visible: true, open: true) if unit && !unit.visible
     end
 
     classroom_data = {
