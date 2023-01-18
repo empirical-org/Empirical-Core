@@ -3,7 +3,7 @@ import { Link, } from 'react-router-dom'
 
 import {
   noDataYet,
-  asteriskIcon,
+  recommendedGlyph,
   correctImage,
   baseDiagnosticImageSrc,
   DEFAULT_LEFT_PADDING,
@@ -24,6 +24,7 @@ import {
 import useWindowSize from '../../../../../Shared/hooks/useWindowSize'
 
 const openInNewTabIcon = <img alt="Open in new tab icon" src={`${baseDiagnosticImageSrc}/icons-open-in-new.svg`} />
+const ellipsesIcon = <img alt="Open menu icon" src={`${baseDiagnosticImageSrc}/ellipses_icon.svg`} />
 
 interface RecommendationsTableProps {
   recommendations: Recommendation[];
@@ -73,7 +74,7 @@ const RecommendationCell = ({ student, isAssigned, isRecommended, isSelected, se
   return (
     <td className="recommendation-cell">
       <button className={`interactive-wrapper ${isRecommended && isSelected && !isAssigned ? 'recommended-and-selected' : ''}`} onClick={isAssigned ? () => {} : toggleSelection} type="button">
-        {isRecommended ? asteriskIcon : <span />}
+        {isRecommended ? recommendedGlyph : <span />}
         {assigned || checkbox}
         <span />
       </button>
@@ -169,15 +170,36 @@ const RecommendationsTable = ({ recommendations, responsesLink, students, select
     };
   }, [handleScroll]);
 
+  function onSelectAllColumnClick(activityPackId) {
+    const newSelections = [...selections];
+    const selectionIndex = newSelections.findIndex(sel => sel.activity_pack_id === activityPackId)
+    const studentIdsWhoHaveCompletedDiagnostic = students.filter(s => s.completed).map(s => s.id)
+
+    newSelections[selectionIndex].students = studentIdsWhoHaveCompletedDiagnostic
+
+    setSelections(newSelections)
+  }
+
   const tableHeaders = recommendations && recommendations.map(recommendation => {
     const { activity_pack_id, name, activity_count, } = recommendation
+
+    function handleSelectAllClick() {
+      onSelectAllColumnClick(activity_pack_id)
+    }
+
     return (
       <th className="recommendation-header" key={name}>
         <div className="name-and-tooltip">
           <span>{name}</span>
           <a aria-label="Preview the activity pack" href={`/activities/packs/${activity_pack_id}`} rel="noopener noreferrer" target="_blank"><img alt="" src={helpIcon.src} /></a>
         </div>
-        <span className="activity-count">{activity_count} activities</span>
+        <div className="activity-count-and-select-all">
+          <span className="activity-count">{activity_count} activities</span>
+          <Tooltip
+            tooltipText="Select all column"
+            tooltipTriggerText={<button aria-label="Select all column" className="interactive-wrapper" onClick={handleSelectAllClick} type="button">{ellipsesIcon}</button>}
+          />
+        </div>
       </th>
     )
   })

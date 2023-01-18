@@ -7,7 +7,7 @@ import * as _ from 'lodash'
 import {
   baseDiagnosticImageSrc,
   fileDocumentIcon,
-  asteriskIcon,
+  recommendedGlyph,
   correctImage,
   informationIcon,
   expandIcon,
@@ -86,7 +86,7 @@ const LessonRecommendation = ({ previouslyAssignedRecommendations, selections, s
     <section className={`lessons-recommendation ${isExpanded? 'is-expanded' : ''} ${isRecommended && !isAssigned ? 'is-recommended-and-not-assigned' : ''}`}>
       <div className="top-row">
         <div>
-          {isRecommended ? asteriskIcon : <span className="asterisk-placeholder" />}
+          {isRecommended ? recommendedGlyph : <span className="recommended-glyph-placeholder" />}
           {isAssigned ? <span className="checkbox-placeholder" /> : checkbox}
           <h3>{name}</h3>
         </div>
@@ -435,8 +435,11 @@ export const Recommendations = ({ passedPreviouslyAssignedRecommendations, passe
   if (loading) { return <LoadingSpinner /> }
 
   const recommendedKey = (<div className="recommended-key">
-    <div className="recommended-image">{asteriskIcon}</div>
-    <span>Recommended practice - not yet proficient</span>
+    <div className="recommended-image">{recommendedGlyph}</div>
+    <div>
+      <span>Recommended practice - not yet proficient</span>
+      <p>Each cell highlighted in green is an area for growth for the student - the student did not demonstrate full proficiency in this skill on the diagnostic, and Quill recommends that the student practices this skill. You can see their exact proficiency for each skill on the student results page.</p>
+    </div>
   </div>)
 
   let independentRecommendationsSection

@@ -22,25 +22,29 @@
   }
   .section-header {
     display: flex;
-    align-items: center;
+    align-items: flex-start;
     .quill-tooltip-trigger {
       margin-left: 4px;
     }
     .recommended-key {
       margin-left: 16px;
+      max-width: 920px;
       .recommended-image {
-        background-color: #eef8f7;
-        padding: 6px;
+        background: #EEF8F7;
         border-radius: 4px;
+        padding: 2px;
         margin-right: 8px;
       }
+      p {
+        color: #5C5C5C;
+      }
       span {
-        color: #5c5c5c;
+        font-weight: 700px;
       }
     }
     > div {
       display: flex;
-      align-items: center;
+      align-items: flex-start;
     }
   }
   .assigned {
@@ -122,6 +126,9 @@
             border-bottom: none;
           }
         }
+        td:empty {
+          visibility: hidden;
+        }
       }
       > thead > th:last-of-type {
         border-radius: 0px 8px 0px 0px;
@@ -170,6 +177,7 @@
     }
     .name-cell {
       padding: 0px;
+      min-height: 50px;
       &:hover {
         background-color: #f5f5f5;
         z-index: 2;
@@ -227,10 +235,12 @@
     }
     .name-and-tooltip {
       display: flex;
-      justify-content: space-between;
       align-items: flex-end;
       .quill-tooltip-trigger {
         margin-left: 16px;
+      }
+      a {
+        margin-left: 4px;
       }
       .quill-tooltip {
         z-index: 10;
@@ -250,6 +260,9 @@
     }
     .corner-header, .recommendation-header {
       border-top: 1px solid #e0e0e0;
+      flex-direction: column;
+      justify-content: flex-end;
+      display: flex;
     }
     .recommendation-cell {
       padding: 0px;
@@ -263,7 +276,7 @@
         min-height: 48px;
         width: 100%;
         justify-content: center;
-        .asterisk-icon {
+        .recommended-glyph {
           position: absolute;
           left: 8px;
         }
@@ -287,6 +300,11 @@
       .quill-tooltip a {
         color: white;
         text-decoration: underline;
+      }
+      .activity-count-and-select-all {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
       }
       &:last-of-type {
         border-radius: 0px 8px 0px 0px;
@@ -312,10 +330,10 @@
           display: flex;
           align-items: center;
           &:first-of-type {
-            .asterisk-icon, span, .quill-checkbox {
+            .recommended-glyph, span, .quill-checkbox {
               margin-right: 16px;
             }
-            .asterisk-placeholder {
+            .recommended-glyph-placeholder {
               width: 12px;
             }
             .checkbox-placeholder {
@@ -438,7 +456,7 @@
             }
           }
           > div:first-of-type {
-              .asterisk-icon, span, .quill-checkbox {
+              .recommended-glyph, span, .quill-checkbox {
                 margin-right: 8px;
               }
             }
