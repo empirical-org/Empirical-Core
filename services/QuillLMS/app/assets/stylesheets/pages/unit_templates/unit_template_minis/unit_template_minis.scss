@@ -207,7 +207,24 @@
   }
 }
 
-@media only screen and (max-width: 800px) {
+@media (max-width: 800px) {
+  .unit-template-minis-container {
+    .unit-template-minis {
+      display: flex;
+      .all-packs-section {
+        .packs-section {
+          display: flex;
+          flex-direction: column;
+          .unit-template-mini-wrapper {
+            margin: 0 !important;
+          }
+        }
+      }
+      .unit-template-mini-wrapper {
+        margin: 0 !important;;
+      }
+    }
+  }
   .small-screen-unit-templates-container {
     margin-left: auto;
     margin-right: auto;
