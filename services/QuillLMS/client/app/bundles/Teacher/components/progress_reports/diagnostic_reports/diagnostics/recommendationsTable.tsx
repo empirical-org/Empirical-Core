@@ -143,7 +143,7 @@ const StudentRow = ({ student, selections, recommendations, previouslyAssignedRe
   return <tr key={name}>{firstCell}{selectionCells}</tr>
 }
 
-const RecommendationsTable = ({ recommendations, responsesLink, students, selections, previouslyAssignedRecommendations, setSelections, }: RecommendationsTableProps) => {
+const RecommendationsTable = ({ recommendations, responsesLink, students, selections, previouslyAssignedRecommendations, setSelections, studentsWhoCompletedDiagnostic, studentsWhoCompletedAssignedRecommendations, }: RecommendationsTableProps) => {
   const size = useWindowSize();
 
   const [isSticky, setIsSticky] = React.useState(false);
@@ -235,12 +235,11 @@ const RecommendationsTable = ({ recommendations, responsesLink, students, select
     />)
   )
 
-  const completedStudentResults = students.filter(sr => sr.completed)
-  const tableHasContent = completedStudentResults.length
+  const tableHasContent = studentsWhoCompletedDiagnostic.length
 
-  const tableClassName = tableHasContent ? 'recommendations-table' : 'empty recommendations-table'
+  const recommendationsTableClassName = tableHasContent ? 'recommendations-table' : 'empty recommendations-table'
 
-  const renderHeader = (sticky) => {
+  const renderRecommendationsTableHeader = (sticky) => {
     let style = { position: 'inherit' }
 
     return (
@@ -253,9 +252,9 @@ const RecommendationsTable = ({ recommendations, responsesLink, students, select
     )
   }
 
-  const renderStickyTable = () => {
+  const renderStickyRecommendationsTable = () => {
     // an arbitrary, non-resizing element that is the same width that we need this table to be
-    const anchorElement = document.getElementsByClassName('independent-practice')[0]
+    const anchorElement = document.getElementsByClassName('independent-practice-recommendations-buttons')[0]
 
     if (!(isSticky && tableHasContent && anchorElement)) { return }
 
@@ -264,19 +263,19 @@ const RecommendationsTable = ({ recommendations, responsesLink, students, select
 
     return (
       <table
-        className={`${tableClassName} sticky`}
+        className={`${recommendationsTableClassName} sticky`}
         style={{ ...stickyTableStyle, minWidth: width, width }}
       >
-        {renderHeader(true)}
+        {renderRecommendationsTableHeader(true)}
       </table>
     )
   }
 
   return (
     <div className="recommendations-table-container" onScroll={handleScroll}>
-      {renderStickyTable()}
-      <table className={tableClassName} id="demo-onboarding-tour-spotlight-element" ref={tableRef} style={tableHasContent ? { paddingLeft: paddingLeft() } : { marginLeft: paddingLeft() }}>
-        {renderHeader(false)}
+      {renderStickyRecommendationsTable()}
+      <table className={recommendationsTableClassName} id="demo-onboarding-tour-spotlight-element" ref={tableRef} style={tableHasContent ? { paddingLeft: paddingLeft() } : { marginLeft: paddingLeft() }}>
+        {renderRecommendationsTableHeader(false)}
         {tableHasContent ? null : noDataYet}
         <tbody>
           {studentRows}

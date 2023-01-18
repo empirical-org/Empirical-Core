@@ -115,7 +115,7 @@ const LessonsRecommendations = ({ assigningLessonsBanner, previouslyAssignedReco
   )
 }
 
-const RecommendationsButtons = ({numberSelected, assigning, assigned, handleClickAssignActivityPacks, deselectAll, selectAll, selectAllRecommended, releaseMethod, handleClickEditReleaseMethod}) => {
+const RecommendationsButtons = ({ className, numberSelected, assigning, assigned, handleClickAssignActivityPacks, deselectAll, selectAll, selectAllRecommended, releaseMethod, handleClickEditReleaseMethod, postTestAssignmentButton }) => {
   let assignButton = <button className="quill-button primary contained small disabled focus-on-light" type="button">Assign activity packs</button>
 
   if (assigning) {
@@ -139,7 +139,7 @@ const RecommendationsButtons = ({numberSelected, assigning, assigned, handleClic
 
   return (
     <div className="recommendations-buttons-container">
-      <div className="recommendations-buttons">
+      <div className={`recommendations-buttons ${className}`}>
         <div className="selection-buttons">
           <button className="quill-button fun secondary outlined focus-on-light" onClick={selectAll} type="button">Select all</button>
           <button className="quill-button fun secondary outlined focus-on-light" onClick={selectAllRecommended} type="button">Select all recommended</button>
@@ -153,11 +153,30 @@ const RecommendationsButtons = ({numberSelected, assigning, assigned, handleClic
           {assignButton}
         </div>
       </div>
+      {postTestAssignmentButton}
     </div>
   )
 }
 
-const IndependentRecommendationsButtons = ({ handleClickAssignActivityPacks, independentSelections, setIndependentSelections, recommendations, students, assigned, assigning, previouslyAssignedRecommendations, releaseMethod, setShowReleaseMethodModal, }) => {
+const PostTestAssignmentButton = ({ assigningPostTest, assignedPostTest, assignPostTest, numberSelectedForPostTest, }) => {
+  let assignButton = <button className="quill-button primary contained small disabled focus-on-light" type="button">Assign test</button>
+
+  if (assigningPostTest) {
+    assignButton = <button className="quill-button primary contained small disabled focus-on-light" type="button">Assigning...</button>
+  } else if (assignedPostTest) {
+    assignButton = <button className="quill-button primary contained small disabled focus-on-light" type="button">Assigned</button>
+  } else if (numberSelectedForPostTest) {
+    assignButton = <button className="quill-button primary contained small focus-on-light" onClick={assignPostTest} type="button">Assign test</button>
+  }
+
+  return (
+    <div className="recommendations-buttons post-test-assignment-button">
+      {assignButton}
+    </div>
+  )
+}
+
+const IndependentRecommendationsButtons = ({ handleClickAssignActivityPacks, independentSelections, setIndependentSelections, recommendations, students, assigned, assigning, previouslyAssignedRecommendations, releaseMethod, setShowReleaseMethodModal, showPostTestAssignment, assignPostTest, assignedPostTest, assigningPostTest, numberSelectedForPostTest, }) => {
   function handleClickEditReleaseMethod() { setShowReleaseMethodModal(true) }
 
   function handleSelectAllClick() {
@@ -194,10 +213,12 @@ const IndependentRecommendationsButtons = ({ handleClickAssignActivityPacks, ind
     <RecommendationsButtons
       assigned={assigned}
       assigning={assigning}
+      className="independent-practice-recommendations-buttons"
       deselectAll={handleDeselectAllClick}
       handleClickAssignActivityPacks={handleClickAssignActivityPacks}
       handleClickEditReleaseMethod={releaseMethod && handleClickEditReleaseMethod}
       numberSelected={numberSelected}
+      postTestAssignmentButton={showPostTestAssignment && <PostTestAssignmentButton assignedPostTest={assignedPostTest} assigningPostTest={assigningPostTest} assignPostTest={assignPostTest} numberSelectedForPostTest={numberSelectedForPostTest} />}
       releaseMethod={releaseMethodToDisplayName[releaseMethod]}
       selectAll={handleSelectAllClick}
       selectAllRecommended={handleSelectAllRecommendedClick}
@@ -234,7 +255,7 @@ const LessonsRecommendationsButtons = ({ lessonsSelections, assignLessonsActivit
   )
 }
 
-export const Recommendations = ({ passedPreviouslyAssignedRecommendations, passedPreviouslyAssignedLessonRecommendations, passedIndependentRecommendations, passedLessonRecommendations, match, mobileNavigation, activityName, location, lessonsBannerIsShowable, }) => {
+export const Recommendations = ({ passedPreviouslyAssignedRecommendations, passedPreviouslyAssignedLessonRecommendations, passedIndependentRecommendations, passedLessonRecommendations, match, mobileNavigation, activityName, location, lessonsBannerIsShowable, postDiagnosticId, }) => {
   const [loading, setLoading] = React.useState<boolean>(!passedPreviouslyAssignedRecommendations && !passedIndependentRecommendations && !passedLessonRecommendations);
   const [previouslyAssignedIndependentRecommendations, setPreviouslyAssignedIndependentRecommendations] = React.useState<Recommendation[]>(passedPreviouslyAssignedRecommendations);
   const [previouslyAssignedLessonsRecommendations, setPreviouslyAssignedLessonsRecommendations] = React.useState<LessonRecommendation[]>(passedPreviouslyAssignedLessonRecommendations);
@@ -245,6 +266,8 @@ export const Recommendations = ({ passedPreviouslyAssignedRecommendations, passe
   const [students, setStudents] = React.useState<Student[]>([]);
   const [independentAssigning, setIndependentAssigning] = React.useState(false)
   const [independentAssigned, setIndependentAssigned] = React.useState(false)
+  const [postTestAssigning, setPostTestAssigning] = React.useState(false)
+  const [postTestAssigned, setPostTestAssigned] = React.useState(false)
   const [lessonsAssigning, setLessonsAssigning] = React.useState(false)
   const [lessonsAssigned, setLessonsAssigned] = React.useState(false)
   const [showSnackbar, setShowSnackbar] = React.useState(false)
@@ -422,6 +445,10 @@ export const Recommendations = ({ passedPreviouslyAssignedRecommendations, passe
     })
   }
 
+  function assignPostTest() {
+
+  }
+
   function handleClickAssignIndependentActivityPacks() {
     if (releaseMethod) {
       assignIndependentActivityPacks()
@@ -429,6 +456,16 @@ export const Recommendations = ({ passedPreviouslyAssignedRecommendations, passe
       setShowReleaseMethodModal(true)
     }
   }
+
+  const studentsWhoCompletedDiagnostic = students.filter(sr => sr.completed)
+  const studentsWhoCompletedAssignedRecommendations = studentsWhoCompletedDiagnostic.filter(sr => {
+    const assignedPacks = previouslyAssignedIndependentRecommendations.filter(rec => rec.students.includes(sr.id))
+    if (assignedPacks.length === 0) { return false }
+
+    return assignedPacks.every(pack => pack.activity_count === pack.diagnostic_progress[sr.id])
+  })
+
+  const showPostTestAssignmentColumn = studentsWhoCompletedDiagnostic.length && !postDiagnosticId
 
   const responsesLink = (studentId: number) => unitId ? `/diagnostics/${activityId}/classroom/${classroomId}/responses/${studentId}?unit=${unitId}` : `/diagnostics/${activityId}/classroom/${classroomId}/responses/${studentId}`
 
@@ -451,7 +488,10 @@ export const Recommendations = ({ passedPreviouslyAssignedRecommendations, passe
         <div className="section-header"><h2>Independent practice</h2>{recommendedKey}</div>
         <IndependentRecommendationsButtons
           assigned={independentAssigned}
+          assignedPostTest={postTestAssigned}
           assigning={independentAssigning}
+          assigningPostTest={postTestAssigning}
+          assignPostTest={assignPostTest}
           handleClickAssignActivityPacks={handleClickAssignIndependentActivityPacks}
           independentSelections={independentSelections}
           previouslyAssignedRecommendations={previouslyAssignedIndependentRecommendations}
@@ -459,9 +499,20 @@ export const Recommendations = ({ passedPreviouslyAssignedRecommendations, passe
           releaseMethod={releaseMethod}
           setIndependentSelections={setIndependentSelections}
           setShowReleaseMethodModal={setShowReleaseMethodModal}
+          showPostTestAssignmentColumn={showPostTestAssignmentColumn}
           students={students}
         />
-        <RecommendationsTable previouslyAssignedRecommendations={previouslyAssignedIndependentRecommendations} recommendations={independentRecommendations} responsesLink={responsesLink} selections={independentSelections} setSelections={setIndependentSelections} students={students} />
+        <RecommendationsTable
+          previouslyAssignedRecommendations={previouslyAssignedIndependentRecommendations}
+          recommendations={independentRecommendations}
+          responsesLink={responsesLink}
+          selections={independentSelections}
+          setSelections={setIndependentSelections}
+          showPostTestAssignmentColumn={showPostTestAssignmentColumn}
+          students={students}
+          studentsWhoCompletedAssignedRecommendations={studentsWhoCompletedAssignedRecommendations}
+          studentsWhoCompletedDiagnostic={studentsWhoCompletedDiagnostic}
+        />
       </section>
     </React.Fragment>)
   }
