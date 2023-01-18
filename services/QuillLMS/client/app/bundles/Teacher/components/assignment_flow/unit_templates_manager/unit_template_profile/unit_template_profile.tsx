@@ -3,10 +3,11 @@ import _ from 'underscore';
 import { RouteComponentProps } from 'react-router-dom';
 
 import UnitTemplateProfileDescription from './unit_template_profile_description';
-import UnitTemplateProfileAssignButton from './unit_template_profile_assign_button';
+import UnitTemplateProfileDisclaimer from './unit_template_profile_assign_button';
 import UnitTemplateProfileShareButtons from './unit_template_profile_share_buttons';
 import UnitTemplateProfileStandards from './unit_template_profile_standards';
 import UnitTemplateProfileActivityTable from './unit_template_profile_activity_table';
+import UnitTemplateAuthenticationButtons from './unit_template_authentication_buttons';
 
 import LoadingIndicator from '../../../shared/loading_indicator';
 import ScrollToTop from '../../../shared/scroll_to_top';
@@ -113,6 +114,7 @@ export class UnitTemplateProfile extends React.Component<RouteComponentProps, Un
 
   render() {
     const { data, loading, referralCode } = this.state
+
     if (loading) {
       return <LoadingIndicator />
     } else {
@@ -143,8 +145,9 @@ export class UnitTemplateProfile extends React.Component<RouteComponentProps, Un
                 <UnitTemplateProfileDescription data={data} />
               </div>
               <div className="assign-buttons-and-standards">
-                <UnitTemplateProfileAssignButton data={data} />
+                <UnitTemplateProfileDisclaimer data={data} />
                 <UnitTemplateProfileStandards data={data} />
+                {non_authenticated && <UnitTemplateAuthenticationButtons name={name} />}
                 {showSocials && <UnitTemplateProfileShareButtons data={data} text={this.socialText(name, referralCode)} url={this.socialShareUrl(referralCode)} />}
               </div>
             </div>

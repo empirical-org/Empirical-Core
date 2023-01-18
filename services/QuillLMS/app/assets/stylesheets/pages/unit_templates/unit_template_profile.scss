@@ -194,7 +194,7 @@
 
     .login-or-signup-container {
       background-color: white;
-      margin-bottom: 24px;
+      margin: 24px 0px;
       .login-or-signup-buttons {
         display: flex;
         margin-top: 16px;
@@ -213,7 +213,7 @@
         background-color: #ffffe0;
         padding: 16px 24px;
         border: 1px solid #cecece;
-        margin-bottom: 1.9em;
+        margin-bottom: 24px;
         .header {
           font-weight: 600;
           margin-bottom: 8px;
@@ -223,7 +223,7 @@
 
 
     .standards-and-concepts {
-      margin: 1.9em 0em 0em;
+      margin: 32px 0px 0px 0px;
       background-color: white;
 
       dl {
@@ -251,7 +251,7 @@
     }
 
     .share {
-      margin-top: 1.9em;
+      margin-top: 24px;
       background-color: white;
     }
   }
@@ -268,5 +268,31 @@
 
   .card {
     width: 460px;
+  }
+}
+
+@media (max-width: 970px) {
+  .unit-template-profile {
+    padding-bottom: 0px;
+    .unit-template-profile-container {
+      max-width: 85vw;
+      .unit-template-profile-activities {
+        display: none;
+      }
+      .first-content-section {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        margin-top: 32px;
+        font-size: 18px;
+        .assign-buttons-and-standards {
+          max-width: 500px;
+          .time {
+            margin-top: 32px;
+            text-align: left;
+          }
+        }
+      }
+    }
   }
 }
