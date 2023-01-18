@@ -26,7 +26,7 @@ const SchoolPricingMini = ({ plan, premiumFeatureData, showBadges, handleClickPu
       </div>
       {showBadges && <div className="school-premium-badge-container">
         <div className="school-premium-badge"><img alt="Check icon" src={greenCheckSrc} /> Quill Academy</div>
-        <div className="school-premium-badge"><img alt="Check icon" src={greenCheckSrc} /> Admin Dashboard</div>
+        <div className="school-premium-badge"><img alt="Check icon" src={greenCheckSrc} /> Admin dashboard</div>
         <div className="school-premium-badge"><img alt="Check icon" src={greenCheckSrc} /> Custom reports</div>
       </div>}
     </section>
