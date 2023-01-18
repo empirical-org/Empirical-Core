@@ -7,11 +7,9 @@ import TeacherSignUpInfo from '../shared/teacher_sign_up_info'
 import AnalyticsWrapper from '../../shared/analytics_wrapper'
 import AgreementsAndLinkToLogin from './agreements_and_link_to_login'
 import AssignActivityPackBanner from '../assignActivityPackBanner'
-import getAuthToken from '../../modules/get_auth_token';
 import { Input, } from '../../../../Shared/index'
 import { requestPost, } from '../../../../../modules/request/index'
-
-const smallWhiteCheckSrc = `${process.env.CDN_URL}/images/shared/check-small-white.svg`
+import { INDIVIDUAL_CONTRIBUTOR } from '../../../../Shared/index';
 
 class SignUpTeacher extends React.Component {
   constructor(props) {
@@ -64,7 +62,12 @@ class SignUpTeacher extends React.Component {
         }
       },
       (body) => {
-        window.location = '/sign-up/add-k12'
+        const isIndvidualContributor = window.location.href.includes(INDIVIDUAL_CONTRIBUTOR);
+        if(isIndvidualContributor) {
+          window.location = '/sign-up/add-teacher-info'
+        } else {
+          window.location = '/sign-up/add-k12'
+        }
       },
       (body) => {
         let state
