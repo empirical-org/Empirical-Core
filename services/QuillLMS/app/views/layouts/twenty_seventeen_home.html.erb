@@ -24,7 +24,7 @@
 
     <script defer src="<%= ENV['FONT_AWESOME_KIT_LINK'] %>" crossorigin="anonymous" integrity="sha384-p7JrABPXxZLpj1XoHTzkPyVs8ekVssRFXc4B7XU6Z1c8XVDA7sVPem/lQ9UouxqE"></script>
     <%= render partial: 'typekit' unless Rails.env.test? %>
-    <%= javascript_pack_tag((@js_file || 'home'), 'crossorigin': 'anonymous') %>
+    <%= javascript_pack_tag((@js_file || 'home'), defer: true, 'crossorigin': 'anonymous') %>
     <%= stylesheet_pack_tag('home') %>
     <%= stylesheet_pack_tag('shared') %>
     <%= csrf_meta_tags %>
