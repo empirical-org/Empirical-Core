@@ -41,7 +41,7 @@ export const EvidenceWidget = () => {
   return(
     <div className="image-container">
       {reversedUrls.map(url => (
-        <img alt="" className={`evidence-image ${evidenceImageUrl === url ? '' : INACTIVE}`} src={url} />
+        <img alt="Example Evidence Activity" className={`evidence-image lazyload ${evidenceImageUrl === url ? '' : INACTIVE}`} data-src={url} />
       ))}
     </div>
   )
