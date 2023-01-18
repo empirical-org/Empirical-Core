@@ -33,10 +33,28 @@
 .premium-footer {
   background-color: #DF9E3D;
   color: white;
+  .content-container {
+    max-width: 1030px;
+    width: calc(100% - 30px);
+    margin: 0px auto;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    font-size: 16px;
+    @media (max-width: 410px) {
+      flex-direction: column;
+      align-items: flex-start;
+      .quill-button {
+        margin-top: 8px;
+      }
+      span {
+        width: 100%;
+      }
+    }
+  }
   .text-section {
     width: 703px;
-    padding-top: 28px;
-    padding-left: 57px;
+    padding-top: 32px;
     padding-bottom: 32px;
 
     h2 {
@@ -60,6 +78,22 @@
     font-weight: 700;
     font-size: 14px;
     line-height: 14px;
+    min-width: min-content;
+  }
+  @media (max-width: 750px) {
+    .text-section {
+      display: inline;
+      width: auto;
+      h2 {
+        font-size: 20px;
+      }
+      p {
+        width: auto;
+      }
+    }
+    .explore-premium-button {
+      margin-bottom: 15px;
+    }
   }
 }
 
