@@ -259,7 +259,7 @@ GEM
       ffi (~> 1.0)
     global (1.1.0)
       activesupport (>= 2.0)
-    globalid (1.0.0)
+    globalid (1.0.1)
       activesupport (>= 5.0)
     google-api-client (0.8.6)
       activesupport (>= 3.2)
@@ -422,7 +422,7 @@ GEM
     mini_portile2 (2.8.0)
     mini_racer (0.4.0)
       libv8-node (~> 15.14.0.0)
-    minitest (5.16.2)
+    minitest (5.17.0)
     multi_json (1.15.0)
     multi_xml (0.6.0)
     multipart-post (2.1.1)
@@ -775,7 +775,7 @@ GEM
     websocket-extensions (0.1.5)
     xpath (3.2.0)
       nokogiri (~> 1.8)
-    zeitwerk (2.6.0)
+    zeitwerk (2.6.6)
     ziptz (3.0.11)
 
 PLATFORMS
