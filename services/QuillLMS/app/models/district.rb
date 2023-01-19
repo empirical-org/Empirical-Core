@@ -26,6 +26,8 @@
 class District < ApplicationRecord
   include Subscriber
 
+  VITALLY_NOT_APPLICABLE = 'N/A'
+
   validates :name, presence: true
   validates_uniqueness_of :nces_id, allow_blank: true, message: "A district with this NCES ID already exists."
 
@@ -64,7 +66,8 @@ class District < ApplicationRecord
         phone: phone,
         total_students: total_students,
         total_schools: total_schools,
-        **vitally_diagnostic_rollups
+        **vitally_diagnostic_rollups,
+        **vitally_subscription_rollups
       }
     }
   end
@@ -86,6 +89,16 @@ class District < ApplicationRecord
       diagnostics_completed_last_year: diagnostics_completed_last_year,
       percent_diagnostics_completed_this_year: percent_completed_this_year,
       percent_diagnostics_completed_last_year: percent_completed_last_year
+    }
+  end
+
+  def vitally_subscription_rollups
+    {
+      premium_start_date: premium_start_date,
+      premium_expiry_date: premium_expiry_date,
+      district_subscription: district_subscription,
+      annual_revenue_current_contract: annual_revenue_current_contract,
+      stripe_invoice_id_current_contract: stripe_invoice_id_current_contract
     }
   end
 
@@ -118,4 +131,29 @@ class District < ApplicationRecord
       .distinct
       .count
   end
+
+  private def latest_subscription
+    subscriptions.not_expired.not_de_activated.order(expiration: :desc).first
+  end
+
+  private def premium_start_date
+    subscription&.start_date || VITALLY_NOT_APPLICABLE
+  end
+
+  private def premium_expiry_date
+    latest_subscription&.expiration || VITALLY_NOT_APPLICABLE
+  end
+
+  private def district_subscription
+    subscription&.account_type || VITALLY_NOT_APPLICABLE
+  end
+
+  private def annual_revenue_current_contract
+    subscription&.payment_amount || VITALLY_NOT_APPLICABLE
+  end
+
+  private def stripe_invoice_id_current_contract
+    subscription&.stripe_invoice_id || VITALLY_NOT_APPLICABLE
+  end
+
 end
