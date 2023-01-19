@@ -3,6 +3,8 @@
 class SerializeVitallySalesAccount
   include VitallySchoolStats
 
+  NOT_APPLICABLE = 'N/A'
+
   def initialize(school)
     @school = school
   end
@@ -52,6 +54,9 @@ class SerializeVitallySalesAccount
         school_link: school_link,
         created_at: @school.created_at,
         premium_expiry_date: subscription_expiration_date,
+        premium_start_date: subscription_start_date,
+        annual_revenue_current_contract: @school.subscription&.payment_amount || NOT_APPLICABLE,
+        stripe_invoice_id_current_contract: @school.subscription&.stripe_invoice_id || NOT_APPLICABLE,
         last_active: last_active
       }
     }
@@ -73,7 +78,7 @@ class SerializeVitallySalesAccount
     if @school.subscription
       @school.subscription.account_type
     else
-      'NA'
+      NOT_APPLICABLE
     end
   end
 
@@ -92,9 +97,14 @@ class SerializeVitallySalesAccount
     "https://www.quill.org/cms/schools/#{@school.id}"
   end
 
+  private def subscription_start_date
+    subscription = @school&.present_and_future_subscriptions&.first
+    subscription&.start_date || NOT_APPLICABLE
+  end
+
   private def subscription_expiration_date
     subscription = @school&.present_and_future_subscriptions&.last
-    subscription&.expiration || 'NA'
+    subscription&.expiration || NOT_APPLICABLE
   end
 
   private def last_active

@@ -88,7 +88,12 @@ describe District, type: :model do
           diagnostics_completed_this_year: 0,
           diagnostics_completed_last_year: 0,
           percent_diagnostics_completed_this_year: 0,
-          percent_diagnostics_completed_last_year: 0
+          percent_diagnostics_completed_last_year: 0,
+          premium_start_date: District::VITALLY_NOT_APPLICABLE,
+          premium_expiry_date: District::VITALLY_NOT_APPLICABLE,
+          district_subscription: District::VITALLY_NOT_APPLICABLE,
+          annual_revenue_current_contract: District::VITALLY_NOT_APPLICABLE,
+          stripe_invoice_id_current_contract: District::VITALLY_NOT_APPLICABLE
         }
       })
     end
@@ -205,6 +210,33 @@ describe District, type: :model do
         expect(district.vitally_data[:traits]).to include(
           percent_diagnostics_completed_this_year: 0.0
         )
+      end
+    end
+
+    context 'subscription rollups' do
+      let!(:subscription) {
+        create(:subscription,
+          districts: [district],
+          payment_amount: 1800,
+          stripe_invoice_id: 'in_12345678'
+        )
+      }
+
+      it 'pulls current subscription data' do
+        expect(district.vitally_data[:traits]).to include(
+          premium_start_date: subscription.start_date,
+          premium_expiry_date: subscription.expiration,
+          district_subscription: subscription.account_type,
+          annual_revenue_current_contract: subscription.payment_amount,
+          stripe_invoice_id_current_contract: subscription.stripe_invoice_id
+        )
+      end
+
+      it 'pulls the latest expiration date when multiple subscriptions are active' do
+        later_subscription = create(:subscription, districts: [district], start_date: subscription.start_date, expiration: subscription.expiration + 1.year)
+        earlier_subscription = create(:subscription, districts: [district], start_date: subscription.start_date - 1.year, expiration: subscription.expiration + 10.days)
+
+        expect(district.vitally_data[:traits][:premium_expiry_date]).to eq(later_subscription.expiration)
       end
     end
   end
