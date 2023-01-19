@@ -84,7 +84,7 @@ describe 'SerializeVitallySalesAccount' do
       frl: 0,
       ppin: nil,
       nces_id: '111111111',
-      school_subscription: 'N/A',
+      school_subscription: SerializeVitallySalesAccount::NOT_APPLICABLE,
       school_type: 'Rural, Fringe',
       employee_count: 0,
       paid_teacher_subscriptions: 0,
@@ -97,10 +97,10 @@ describe 'SerializeVitallySalesAccount' do
       activities_per_student_this_year: 0,
       activities_finished: 0,
       school_link: "https://www.quill.org/cms/schools/#{school.id}",
-      premium_expiry_date: 'N/A',
-      premium_start_date: 'N/A',
-      annual_revenue_current_contract: 'N/A',
-      stripe_invoice_id_current_contract: 'N/A'
+      premium_expiry_date: SerializeVitallySalesAccount::NOT_APPLICABLE,
+      premium_start_date: SerializeVitallySalesAccount::NOT_APPLICABLE,
+      annual_revenue_current_contract: SerializeVitallySalesAccount::NOT_APPLICABLE,
+      stripe_invoice_id_current_contract: SerializeVitallySalesAccount::NOT_APPLICABLE
     )
   end
 

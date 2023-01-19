@@ -89,11 +89,11 @@ describe District, type: :model do
           diagnostics_completed_last_year: 0,
           percent_diagnostics_completed_this_year: 0,
           percent_diagnostics_completed_last_year: 0,
-          premium_start_date: 'N/A',
-          premium_expiry_date: 'N/A',
-          district_subscription: 'N/A',
-          annual_revenue_current_contract: 'N/A',
-          stripe_invoice_id_current_contract: 'N/A'
+          premium_start_date: District::VITALLY_NOT_APPLICABLE,
+          premium_expiry_date: District::VITALLY_NOT_APPLICABLE,
+          district_subscription: District::VITALLY_NOT_APPLICABLE,
+          annual_revenue_current_contract: District::VITALLY_NOT_APPLICABLE,
+          stripe_invoice_id_current_contract: District::VITALLY_NOT_APPLICABLE
         }
       })
     end
