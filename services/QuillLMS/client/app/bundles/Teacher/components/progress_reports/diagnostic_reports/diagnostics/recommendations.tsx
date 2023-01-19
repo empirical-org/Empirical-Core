@@ -176,7 +176,7 @@ const PostTestAssignmentButton = ({ assigningPostTest, assignedPostTest, assignP
   )
 }
 
-const IndependentRecommendationsButtons = ({ handleClickAssignActivityPacks, independentSelections, setIndependentSelections, recommendations, students, assigned, assigning, previouslyAssignedRecommendations, releaseMethod, setShowReleaseMethodModal, showPostTestAssignment, assignPostTest, assignedPostTest, assigningPostTest, numberSelectedForPostTest, }) => {
+const IndependentRecommendationsButtons = ({ handleClickAssignActivityPacks, independentSelections, setIndependentSelections, recommendations, students, assigned, assigning, previouslyAssignedRecommendations, releaseMethod, setShowReleaseMethodModal, showPostTestAssignmentColumn, assignPostTest, assignedPostTest, assigningPostTest, numberSelectedForPostTest, }) => {
   function handleClickEditReleaseMethod() { setShowReleaseMethodModal(true) }
 
   function handleSelectAllClick() {
@@ -218,7 +218,7 @@ const IndependentRecommendationsButtons = ({ handleClickAssignActivityPacks, ind
       handleClickAssignActivityPacks={handleClickAssignActivityPacks}
       handleClickEditReleaseMethod={releaseMethod && handleClickEditReleaseMethod}
       numberSelected={numberSelected}
-      postTestAssignmentButton={showPostTestAssignment && <PostTestAssignmentButton assignedPostTest={assignedPostTest} assigningPostTest={assigningPostTest} assignPostTest={assignPostTest} numberSelectedForPostTest={numberSelectedForPostTest} />}
+      postTestAssignmentButton={showPostTestAssignmentColumn ? <PostTestAssignmentButton assignedPostTest={assignedPostTest} assigningPostTest={assigningPostTest} assignPostTest={assignPostTest} numberSelectedForPostTest={numberSelectedForPostTest} /> : null}
       releaseMethod={releaseMethodToDisplayName[releaseMethod]}
       selectAll={handleSelectAllClick}
       selectAllRecommended={handleSelectAllRecommendedClick}
@@ -255,7 +255,7 @@ const LessonsRecommendationsButtons = ({ lessonsSelections, assignLessonsActivit
   )
 }
 
-export const Recommendations = ({ passedPreviouslyAssignedRecommendations, passedPreviouslyAssignedLessonRecommendations, passedIndependentRecommendations, passedLessonRecommendations, match, mobileNavigation, activityName, location, lessonsBannerIsShowable, postDiagnosticId, }) => {
+export const Recommendations = ({ passedPreviouslyAssignedRecommendations, passedPreviouslyAssignedLessonRecommendations, passedIndependentRecommendations, passedLessonRecommendations, match, mobileNavigation, activityName, location, lessonsBannerIsShowable, postDiagnosticUnitTemplateId, postDiagnosticActivityId, isPostDiagnostic, }) => {
   const [loading, setLoading] = React.useState<boolean>(!passedPreviouslyAssignedRecommendations && !passedIndependentRecommendations && !passedLessonRecommendations);
   const [previouslyAssignedIndependentRecommendations, setPreviouslyAssignedIndependentRecommendations] = React.useState<Recommendation[]>(passedPreviouslyAssignedRecommendations);
   const [previouslyAssignedLessonsRecommendations, setPreviouslyAssignedLessonsRecommendations] = React.useState<LessonRecommendation[]>(passedPreviouslyAssignedLessonRecommendations);
@@ -263,6 +263,7 @@ export const Recommendations = ({ passedPreviouslyAssignedRecommendations, passe
   const [lessonsRecommendations, setLessonsRecommendations] = React.useState<LessonRecommendation[]>(passedLessonRecommendations);
   const [independentSelections, setIndependentSelections] = React.useState<Recommendation[]>([]);
   const [lessonsSelections, setLessonsSelections] = React.useState<number[]>([]);
+  const [postTestSelections, setPostTestSelections] = React.useState<number[]>([])
   const [students, setStudents] = React.useState<Student[]>([]);
   const [independentAssigning, setIndependentAssigning] = React.useState(false)
   const [independentAssigned, setIndependentAssigned] = React.useState(false)
@@ -457,6 +458,10 @@ export const Recommendations = ({ passedPreviouslyAssignedRecommendations, passe
     }
   }
 
+  const responsesLink = (studentId: number) => unitId ? `/diagnostics/${activityId}/classroom/${classroomId}/responses/${studentId}?unit=${unitId}` : `/diagnostics/${activityId}/classroom/${classroomId}/responses/${studentId}`
+
+  if (loading) { return <LoadingSpinner /> }
+
   const studentsWhoCompletedDiagnostic = students.filter(sr => sr.completed)
   const studentsWhoCompletedAssignedRecommendations = studentsWhoCompletedDiagnostic.filter(sr => {
     const assignedPacks = previouslyAssignedIndependentRecommendations.filter(rec => rec.students.includes(sr.id))
@@ -465,11 +470,7 @@ export const Recommendations = ({ passedPreviouslyAssignedRecommendations, passe
     return assignedPacks.every(pack => pack.activity_count === pack.diagnostic_progress[sr.id])
   })
 
-  const showPostTestAssignmentColumn = studentsWhoCompletedDiagnostic.length && !postDiagnosticId
-
-  const responsesLink = (studentId: number) => unitId ? `/diagnostics/${activityId}/classroom/${classroomId}/responses/${studentId}?unit=${unitId}` : `/diagnostics/${activityId}/classroom/${classroomId}/responses/${studentId}`
-
-  if (loading) { return <LoadingSpinner /> }
+  const showPostTestAssignmentColumn = studentsWhoCompletedDiagnostic.length && postDiagnosticUnitTemplateId && !isPostDiagnostic
 
   const recommendedKey = (<div className="recommended-key">
     <div className="recommended-image">{recommendedGlyph}</div>
@@ -494,6 +495,7 @@ export const Recommendations = ({ passedPreviouslyAssignedRecommendations, passe
           assignPostTest={assignPostTest}
           handleClickAssignActivityPacks={handleClickAssignIndependentActivityPacks}
           independentSelections={independentSelections}
+          numberSelectedForPostTest={postTestSelections.length}
           previouslyAssignedRecommendations={previouslyAssignedIndependentRecommendations}
           recommendations={independentRecommendations}
           releaseMethod={releaseMethod}
@@ -503,10 +505,15 @@ export const Recommendations = ({ passedPreviouslyAssignedRecommendations, passe
           students={students}
         />
         <RecommendationsTable
+          postDiagnosticActivityId={postDiagnosticActivityId}
+          postDiagnosticUnitTemplateId={postDiagnosticUnitTemplateId}
+          postTestSelections={postTestSelections}
+          previouslyAssignedPostTestStudentIds={[]}
           previouslyAssignedRecommendations={previouslyAssignedIndependentRecommendations}
           recommendations={independentRecommendations}
           responsesLink={responsesLink}
           selections={independentSelections}
+          setPostTestSelections={setPostTestSelections}
           setSelections={setIndependentSelections}
           showPostTestAssignmentColumn={showPostTestAssignmentColumn}
           students={students}

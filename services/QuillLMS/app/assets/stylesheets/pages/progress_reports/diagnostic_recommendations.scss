@@ -52,6 +52,9 @@
       margin-right: 4px;
     }
   }
+  .recommendations-buttons-container {
+    display: flex;
+  }
   .recommendations-buttons {
     padding: 16px 24px;
     border-radius: 8px;
@@ -83,6 +86,14 @@
         text-decoration: underline;
       }
     }
+    &.post-test-assignment-button {
+      margin-left: 32px;
+      width: 172px;
+      min-width: min-content;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+    }
   }
   .recommendations-table-container {
     margin-top: 16px;
@@ -92,13 +103,15 @@
     padding-bottom: 40px;
     margin-left: -365px;
     padding-left: 364px;
+    display: flex;
+    min-width: 100vw;
     .no-data-yet {
       position: absolute;
       top: 100px;
       left: 45%;
       width: 274px;
     }
-    > table {
+    table {
       font-size: 12px;
       color: #5c5c5c;
       margin: 0;
@@ -115,6 +128,7 @@
         empty-cells: hide;
         position: relative;
         min-height: 160px;
+        padding-right: 0px;
         thead th:last-of-type {
           border-right: none;
         }
@@ -146,7 +160,7 @@
       }
       > tbody > tr > td, > tbody > tr > th, > thead > tr > th {
         padding: 8px 16px;
-        min-width: 144px;
+        min-width: 160px;
         border-bottom: 1px solid #e0e0e0;
         border-right: 1px solid #e0e0e0;
         background-color: white;
@@ -175,6 +189,28 @@
         border-left: 1px solid #e0e0e0;
       }
     }
+
+    .recommendations-table-wrapper {
+      width: 100%;
+    }
+
+    .post-test-table-wrapper {
+      width: 211px;
+      .recommendation-header {
+        border-radius: 8px 8px 0px 0px !important;
+        border: 1px solid #e0e0e0;
+        background-color: white;
+      }
+      .recommendation-cell {
+        border-left: 1px solid #e0e0e0;
+      }
+      table > tbody > tr:last-of-type > td:last-of-type {
+        border-radius: 0px 0px 8px 8px;
+        border: 1px solid #e0e0e0;
+        border-top: none;
+      }
+    }
+
     .name-cell {
       padding: 0px;
       min-height: 50px;
@@ -272,7 +308,7 @@
         align-items: center;
         display: flex;
         height: 100%;
-        min-height: 48px;
+        min-height: 49px;
         width: 100%;
         justify-content: center;
         .recommended-glyph {
@@ -316,6 +352,9 @@
         display: flex;
         justify-content: space-between;
         align-items: center;
+        .quill-tooltip-wrapper {
+          width: 146px;
+        }
       }
       &:last-of-type {
         border-radius: 0px 8px 0px 0px;
@@ -402,12 +441,12 @@
       }
     }
   }
-  @media (max-width: 1500px) and (min-width: 931px) {
+  @media (max-width: 1500px) and (min-width: 1319px) {
     .assigning-activity-disclaimer-banner {
       max-width: calc(100vw - 260px - 64px); // 260 for the navigation bar on the left, 64 for the padding around it on both sides
     }
   }
-  @media (max-width: 930px) {
+  @media (max-width: 1318px) {
     padding: 40px 0px !important;
     header, .mobile-navigation, .explanation, .section-header, .recommendations-empty-state {
       padding: 0px 16px;
