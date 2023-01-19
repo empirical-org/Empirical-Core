@@ -525,7 +525,7 @@ GEM
       pusher-signature (~> 0.1.8)
     pusher-signature (0.1.8)
     racc (1.6.0)
-    rack (2.2.4)
+    rack (2.2.6.2)
     rack-affiliates (0.4.0)
       rack
     rack-attack (6.3.1)
