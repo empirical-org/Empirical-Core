@@ -26,6 +26,8 @@
 class District < ApplicationRecord
   include Subscriber
 
+  VITALLY_NOT_APPLICABLE = 'N/A'
+
   validates :name, presence: true
   validates_uniqueness_of :nces_id, allow_blank: true, message: "A district with this NCES ID already exists."
 
@@ -135,23 +137,23 @@ class District < ApplicationRecord
   end
 
   private def premium_start_date
-    subscription&.start_date || 'N/A'
+    subscription&.start_date || VITALLY_NOT_APPLICABLE
   end
 
   private def premium_expiry_date
-    latest_subscription&.expiration || 'N/A'
+    latest_subscription&.expiration || VITALLY_NOT_APPLICABLE
   end
 
   private def district_subscription
-    subscription&.account_type || 'N/A'
+    subscription&.account_type || VITALLY_NOT_APPLICABLE
   end
 
   private def annual_revenue_current_contract
-    subscription&.payment_amount || 'N/A'
+    subscription&.payment_amount || VITALLY_NOT_APPLICABLE
   end
 
   private def stripe_invoice_id_current_contract
-    subscription&.stripe_invoice_id || 'N/A'
+    subscription&.stripe_invoice_id || VITALLY_NOT_APPLICABLE
   end
 
 end
