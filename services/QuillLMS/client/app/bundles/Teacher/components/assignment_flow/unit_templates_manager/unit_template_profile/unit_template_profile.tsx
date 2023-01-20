@@ -85,10 +85,6 @@ export class UnitTemplateProfile extends React.Component<RouteComponentProps, Un
     return `Check out the '${name}' activity pack I just assigned on Quill.org! ${this.socialShareUrl(referralCode)}`
   }
 
-  getMetaText = (name: string) => {
-    return `Check out the '${name}' activity pack I just assigned on Quill.org!`;
-  }
-
   handleGoToEditStudents = () => {
     const { history } = this.props;
     const { data } = this.state;
@@ -117,7 +113,6 @@ export class UnitTemplateProfile extends React.Component<RouteComponentProps, Un
       return <LoadingIndicator />
     } else {
       let navigation: any;
-      let container: HTMLMetaElement | null = document.querySelector("meta[name='og:description']");
       const { name, id, non_authenticated, flag } = data
       const showSocials = flag === 'production';
       if (!non_authenticated) {
@@ -126,9 +121,6 @@ export class UnitTemplateProfile extends React.Component<RouteComponentProps, Un
           unitTemplateId={id}
           unitTemplateName={name}
         />)
-      }
-      if (container instanceof HTMLMetaElement) {
-        container.content = this.getMetaText(name);
       }
       return (
         <div className="unit-template-profile">
