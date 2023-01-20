@@ -16,25 +16,9 @@ class AssignRecommendationsWorker
     student_ids = options['student_ids']
     unit_template_id = options['unit_template_id']
 
-    classroom = Classroom.find(classroom_id)
-    teacher = classroom.owner
-    units = find_units(unit_template_id, teacher.id)
-    unit = nil
+    assign_unit_to_one_class(classroom_id, unit_template_id, student_ids, assign_on_join)
 
-    if units.present?
-      unit = find_unit(units)
-      unit.update(visible: true) if unit && !unit.visible
-    end
-
-    classroom_data = {
-      id: classroom_id,
-      student_ids: student_ids,
-      assign_on_join: assign_on_join
-    }
-
-    assign_unit_to_one_class(unit, classroom_id, classroom_data, unit_template_id, teacher.id)
-
-    unit = find_unit(find_units(unit_template_id, teacher.id)) if unit.nil?
+    unit = Unit::AssignmentHelpers.find_unit_from_units(Unit::AssignmentHelpers.find_units_from_unit_template_and_teacher(unit_template_id, teacher.id)) if unit.nil?
     classroom_unit = ClassroomUnit.find_by(unit: unit, classroom_id: classroom_id)
 
     save_pack_sequence_item(classroom_unit, pack_sequence_id, order)
@@ -49,22 +33,6 @@ class AssignRecommendationsWorker
   end
   # rubocop:enable Metrics/CyclomaticComplexity
 
-  def assign_unit_to_one_class(unit, classroom_id, classroom_data, unit_template_id, teacher_id)
-    if unit.present?
-      show_classroom_units(unit.id, classroom_id)
-
-      Units::Updater.assign_unit_template_to_one_class(
-        unit.id,
-        classroom_data,
-        unit_template_id,
-        teacher_id,
-        concatenate_existing_student_ids: true
-      )
-    else
-      Units::Creator.assign_unit_template_to_one_class(teacher_id, unit_template_id, classroom_data)
-    end
-  end
-
   def save_pack_sequence_item(classroom_unit, pack_sequence_id, order)
     return if pack_sequence_id.nil? || classroom_unit.nil?
 
@@ -73,12 +41,6 @@ class AssignRecommendationsWorker
       pack_sequence_id: pack_sequence_id,
       order: order
     )
-  end
-
-  def show_classroom_units(unit_id, classroom_id)
-    ClassroomUnit.unscoped.where(unit_id: unit_id, classroom_id: classroom_id, visible: false).each do |classroom_unit|
-      classroom_unit.update(visible: true, assigned_student_ids: [])
-    end
   end
 
   def track_recommendation_assignment(teacher, release_method)
@@ -92,25 +54,6 @@ class AssignRecommendationsWorker
   def track_assign_all_recommendations(teacher)
     analytics = Analyzer.new
     analytics.track(teacher, SegmentIo::BackgroundEvents::ASSIGN_ALL_RECOMMENDATIONS)
-  end
-
-  def find_unit(units)
-    if units.length > 1
-      visible_units = units.where(visible: true)
-      visible_units.empty? ? units.order('updated_at DESC').first : visible_units.first
-    elsif units.length == 1
-      units.first
-    end
-  end
-
-  def find_units(unit_template_id, teacher_id)
-    # try to find by new unit_template_id first, and then old method if that fails
-    units = Unit.unscoped.where(unit_template_id: unit_template_id, user_id: teacher_id)
-    if units.empty?
-      Unit.unscoped.where(name: UnitTemplate.find(unit_template_id).name, user_id: teacher_id)
-    else
-      units
-    end
   end
 
   def handle_error_tracking_for_diagnostic_recommendation_assignment_time(teacher_id, lesson)

@@ -313,6 +313,24 @@ module PublicProgressReports
   end
   # rubocop:enable Metrics/CyclomaticComplexity
 
+  def get_student_ids_for_previously_assigned_activity_pack_by_classroom(classroom_id, activity_pack_id)
+    classroom = Classroom.find(classroom_id)
+    teacher_id = classroom.owner.id
+
+    units = find_units_from_unit_template_and_teacher(activity_pack_id, teacher_id)
+
+    student_ids = classroom
+        .classroom_units
+        .visible
+        .where(unit: units)
+        .visible
+        .pluck(:assigned_student_ids)
+        .flatten
+        .uniq
+
+    student_ids
+  end
+
   def get_previously_assigned_recommendations_by_classroom(classroom_id, activity_id)
     classroom = Classroom.find(classroom_id)
     teacher_id = classroom.owner.id

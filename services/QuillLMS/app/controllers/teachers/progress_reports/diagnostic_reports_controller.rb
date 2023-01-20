@@ -163,6 +163,10 @@ class Teachers::ProgressReports::DiagnosticReportsController < Teachers::Progres
     render json: get_previously_assigned_recommendations_by_classroom(params[:classroom_id], params[:activity_id])
   end
 
+  def student_ids_for_previously_assigned_activity_pack
+    render json: get_student_ids_for_previously_assigned_activity_pack_by_classroom(params[:classroom_id], params[:activity_id])
+  end
+
   def skills_growth
     classroom = Classroom.find(params[:classroom_id])
     cache_keys = {
@@ -200,6 +204,12 @@ class Teachers::ProgressReports::DiagnosticReportsController < Teachers::Progres
     # rubocop:enable Style/GuardClause
   end
   # rubocop:enable Metrics/CyclomaticComplexity
+
+  def assign_post_test
+    Unit::AssignmentHelpers.assign_unit_to_one_class(params[:classroom_id], params[:unit_template_id], params[:student_ids], false)
+
+    render json: {}
+  end
 
   def assign_independent_practice_packs
     IndependentPracticePacksAssigner.run(

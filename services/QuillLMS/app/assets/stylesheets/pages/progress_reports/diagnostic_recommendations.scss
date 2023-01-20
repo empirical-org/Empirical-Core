@@ -203,11 +203,17 @@
       }
       .recommendation-cell {
         border-left: 1px solid #e0e0e0;
+        > .interactive-wrapper.recommended {
+          background-color: #FFF8EE;
+        }
       }
       table > tbody > tr:last-of-type > td:last-of-type {
         border-radius: 0px 0px 8px 8px;
         border: 1px solid #e0e0e0;
         border-top: none;
+      }
+      .empty-cell {
+        height: 49px;
       }
     }
 

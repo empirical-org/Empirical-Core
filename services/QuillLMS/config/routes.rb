@@ -301,6 +301,7 @@ EmpiricalGrammar::Application.routes.draw do
       get 'previously_assigned_recommendations/:classroom_id/activity/:activity_id' => 'diagnostic_reports#previously_assigned_recommendations'
       get 'report_from_unit_and_activity/u/:unit_id/a/:activity_id' => 'diagnostic_reports#redirect_to_report_for_most_recent_activity_session_associated_with_activity_and_unit'
       post 'assign_independent_practice_packs' => 'diagnostic_reports#assign_independent_practice_packs'
+      post 'assign_post_test' => 'diagnostic_reports#assign_post_test'
       post 'assign_whole_class_instruction_packs' => 'diagnostic_reports#assign_whole_class_instruction_packs'
 
       namespace :concepts do

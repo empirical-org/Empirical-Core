@@ -121,12 +121,12 @@ const PostTestStudentRow = ({ student, postTestSelections, setPostTestSelections
   const { name, completed, id, } = student
 
   if (!completed) {
-    return <tr key={name}><td /></tr>
+    return <tr key={name}><td className="recommendation-cell empty-cell"/></tr>
   }
 
   const isAssigned = previouslyAssignedPostTestStudentIds.includes(id)
   const isSelected = postTestSelections.includes(id)
-  const isRecommended = studentsWhoCompletedAssignedRecommendations.includes(id)
+  const isRecommended = studentsWhoCompletedAssignedRecommendations.some(student => student.id === id)
 
   function toggleSelection() {
     const newSelections = [...postTestSelections];
@@ -150,7 +150,7 @@ const PostTestStudentRow = ({ student, postTestSelections, setPostTestSelections
     <tr>
       <td className="recommendation-cell">
         <button className={`interactive-wrapper ${isRecommended && !isAssigned ? 'recommended' : ''}`} onClick={isAssigned ? () => {} : toggleSelection} type="button">
-          {assignedText || checkbox}
+          {isAssigned ? assignedText : checkbox}
           <span />
         </button>
       </td>

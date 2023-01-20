@@ -447,7 +447,18 @@ export const Recommendations = ({ passedPreviouslyAssignedRecommendations, passe
   }
 
   function assignPostTest() {
-
+    const dataToPass = {
+      classroom_id: classroomId,
+      student_ids: postTestSelections,
+      unit_template_id: postDiagnosticUnitTemplateId
+    }
+    setPostTestAssigning(true)
+    requestPost('/teachers/progress_reports/assign_post_test/', dataToPass, (data) => {
+      setPostTestAssigned(true)
+    }, (data) => {
+      alert('We had trouble processing your request. Please check your network connection and try again.');
+      setPostTestAssigning(false)
+    })
   }
 
   function handleClickAssignIndependentActivityPacks() {
