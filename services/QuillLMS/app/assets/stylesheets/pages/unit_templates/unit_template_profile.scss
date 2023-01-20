@@ -315,6 +315,9 @@
         }
         .assign-buttons-and-standards {
           max-width: 500px;
+          .evidence-warning {
+            margin-top: 32px;
+          }
           .time {
             margin-top: 32px;
             text-align: left;
