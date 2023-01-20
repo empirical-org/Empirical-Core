@@ -142,6 +142,37 @@ describe UnitTemplate, redis: true, type: :model do
     end
   end
 
+  describe '#meta_description' do
+    let(:connect_classification) { create(:connect) }
+    let(:activity1) { create(:activity, name: 'Conjunctions', classification: connect_classification) }
+    let(:activity2) { create(:activity, name: 'Americana', classification: connect_classification) }
+    let(:description) {"Free online writing activities on Template Name for teachers of school students. Lesson goals: Improve students\' writing of compound sentences, sentence construction, and conjunctions. Activities in this pack: Conjunctions and Americana."}
+
+    subject { create(:unit_template, name: 'Template Name', activities: [activity1, activity2]) }
+
+    it 'populate a meta decription' do
+      expect(subject.meta_description).to eq description
+    end
+
+    context 'with grades' do
+      let(:description) {"Free online writing activities on Template Name for teachers of middle school students grades 6, 7, and 8. Lesson goals: Improve students\' writing of compound sentences, sentence construction, and conjunctions. Activities in this pack: Conjunctions and Americana."}
+      subject { create(:unit_template, name: 'Template Name', grades: ['6','7','8'], activities: [activity1, activity2]) }
+
+      it 'populate a meta decription' do
+        expect(subject.meta_description).to eq description
+      end
+    end
+
+    context 'no activities' do
+      let(:description) {"Free online writing activities on Template Name for teachers of school students. ."}
+      subject { create(:unit_template, name: 'Template Name') }
+
+      it 'populate a meta decription' do
+        expect(subject.meta_description).to eq description
+      end
+    end
+  end
+
   describe '#get_cached_serialized_unit_template' do
     let(:category) { create(:unit_template_category) }
     let(:author) { create(:author) }
