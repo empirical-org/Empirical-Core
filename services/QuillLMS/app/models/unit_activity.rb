@@ -169,6 +169,7 @@ class UnitActivity < ApplicationRecord
         LEFT JOIN activity_sessions AS acts
           ON cu.id = acts.classroom_unit_id
           AND acts.activity_id = ua.activity_id
+          AND acts.visible = true
           AND acts.user_id = #{user_id.to_i}
         JOIN activities AS activity
           ON activity.id = ua.activity_id
@@ -177,7 +178,6 @@ class UnitActivity < ApplicationRecord
         LEFT JOIN activity_sessions AS pre_activity_sessions
           ON pre_activity_sessions.activity_id = pre_activity.id
           AND pre_activity_sessions.visible = true
-          AND acts.visible = true
           AND pre_activity_sessions.user_id = #{user_id.to_i}
         LEFT JOIN classroom_units AS pre_activity_sessions_classroom_units
           ON pre_activity_sessions_classroom_units.id = pre_activity_sessions.classroom_unit_id
