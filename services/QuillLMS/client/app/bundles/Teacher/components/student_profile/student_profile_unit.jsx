@@ -110,7 +110,7 @@ const completeHeaders = [
 export default class StudentProfileUnit extends React.Component {
   actionButton = (act, nextActivitySession) => {
     const { isBeingPreviewed, onShowPreviewModal, } = this.props
-    const { repeatable, locked, marked_complete, resume_link, classroom_unit_id, activity_id, finished, pre_activity_id, completed_pre_activity_session, activity_classification_key, name, archived, } = act
+    const { repeatable, locked, marked_complete, resume_link, classroom_unit_id, activity_id, finished, pre_activity_id, completed_pre_activity_session, activity_classification_key, name, closed, } = act
     let linkText = 'Start'
 
     if (activity_classification_key === DIAGNOSTIC_ACTIVITY_CLASSIFICATION_KEY && pre_activity_id && !completed_pre_activity_session) { return <span className="complete-baseline">Complete Baseline first</span>}
@@ -128,10 +128,10 @@ export default class StudentProfileUnit extends React.Component {
       )
     }
 
-    if (archived) {
+    if (closed) {
       return (
         <Tooltip
-          tooltipText="Sorry, you can't replay this activity. Your teacher closed or deleted this activity pack."
+          tooltipText="Sorry, you can't replay this activity. Your teacher closed this activity pack."
           tooltipTriggerText="Replay"
           tooltipTriggerTextClass="quill-button disabled medium secondary outlined"
         />
