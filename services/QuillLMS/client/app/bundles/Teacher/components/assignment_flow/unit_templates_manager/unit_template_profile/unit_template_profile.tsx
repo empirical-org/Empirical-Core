@@ -24,6 +24,7 @@ import parsedQueryParams from '../../parsedQueryParams'
 import { requestGet } from '../../../../../../modules/request/index';
 import { Activity } from '../../../../../../interfaces/activity';
 import { UnitTemplateProfileInterface } from '../../../../../../interfaces/unitTemplate';
+import { redirectToActivity } from '../../../../../Shared';
 
 interface UnitTemplateProfileState {
   data: UnitTemplateProfile,
@@ -108,12 +109,35 @@ export class UnitTemplateProfile extends React.Component<RouteComponentProps, Un
     history.push(link)
   }
 
+  handleActivityClick = (e) => {
+    const { target } = e
+    const { value } = target
+    redirectToActivity(value)
+  }
+
   renderAssignButton = () => {
     return <button className="quill-button contained primary medium" onClick={this.handleGoToEditStudents} type="submit">Select pack</button>
   }
 
+  renderMobileActivitiesList = ({ activities }) => {
+    if(!activities) { return }
+
+    return(
+      <section className="mobile-activities-list-section">
+        <h3>Activities</h3>
+        <ul>
+          {activities.map(activity => {
+            const { id, name } = activity
+            return <li><button className="interactive-wrapper" onClick={this.handleActivityClick} value={id}>{name}</button></li>
+          })}
+        </ul>
+      </section>
+    )
+  }
+
   render() {
     const { data, loading, referralCode } = this.state
+    console.log("🚀 ~ file: unit_template_profile.tsx:117 ~ UnitTemplateProfile ~ render ~ data", data)
 
     if (loading) {
       return <LoadingIndicator />
@@ -142,6 +166,7 @@ export class UnitTemplateProfile extends React.Component<RouteComponentProps, Un
             <UnitTemplateProfileActivityTable data={data} />
             <div className="first-content-section flex-row space-between first-content-section">
               <div className="description">
+                {this.renderMobileActivitiesList(data)}
                 <UnitTemplateProfileDescription data={data} />
               </div>
               <div className="assign-buttons-and-standards">
