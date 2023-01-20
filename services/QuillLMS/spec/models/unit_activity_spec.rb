@@ -271,10 +271,10 @@ describe UnitActivity, type: :model, redis: true do
 
     describe 'behavior around archived (deleted) and closed data' do
       describe 'when an activity session has been completed' do
-        it 'does not include the unit activity if the activity session has been archived' do
+        it 'include the unit activity, but not as completed, if the activity session has been archived' do
           activity_session.update(visible: false)
           relevant_ua = UnitActivity.get_classroom_user_profile(classroom.id, student.id).find { |ua| ua['ua_id'] == unit_activity.id}
-          expect(relevant_ua).not_to be
+          expect(relevant_ua[ActivitySession::STATE_FINISHED_KEY]).to eq false
         end
 
         it 'does not include the unit activity if the student has been removed from the list of assigned students' do
