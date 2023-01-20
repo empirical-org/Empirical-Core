@@ -76,6 +76,30 @@ class UnitTemplate < ApplicationRecord
     "#{lowest_readability_range.split('-')[0]}-#{highest_readability_range.split('-')[1]}"
   end
 
+  def meta_description
+    "Free online writing activities on #{name} for teachers of #{meta_grade_description}. #{meta_activities_description}."
+  end
+
+  def meta_grade_description
+    return "school students" if grades.blank?
+
+    levels = grades
+      .sort_by(&:to_i)
+      .map{|g| School::GRADE_DESCRIPTIONS[g.to_i]}
+      .compact
+      .uniq
+
+    "#{levels.to_sentence} school students grades #{grades.sort_by(&:to_i).to_sentence}"
+  end
+
+  def meta_activities_description
+    return nil if activities.blank?
+
+    classifications = activities.map {|a| a.classification.meta_description }.compact.uniq
+
+    "Lesson goals: #{classifications.to_sentence}. Activities in this pack: #{activities.map(&:name).to_sentence}"
+  end
+
   def grade_level_range
     activities_with_minimum_grade_levels = activities.where.not(minimum_grade_level: nil).reorder("minimum_grade_level ASC")
     return nil if activities_with_minimum_grade_levels.empty?
