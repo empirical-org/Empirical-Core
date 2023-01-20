@@ -185,7 +185,6 @@
       }
     }
   }
-
 }
 
 .unit-template-container {
@@ -222,6 +221,22 @@
       }
       .unit-template-mini-wrapper {
         margin: 0 !important;;
+      }
+    }
+  }
+  .unit-templates-table {
+    .data-table-body {
+      .data-table-row {
+        .data-table-row-section {
+          &.pack-name-section {
+            .quill-tooltip-trigger {
+              width: 40vw !important;
+            }
+          }
+        }
+      }
+      .data-table-row:hover {
+        text-decoration: none;
       }
     }
   }

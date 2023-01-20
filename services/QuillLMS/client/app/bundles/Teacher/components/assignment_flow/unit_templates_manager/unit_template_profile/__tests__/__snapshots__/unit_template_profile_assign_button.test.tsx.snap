@@ -61,7 +61,7 @@ exports[`UnitTemplateProfileDescription component should match snapshot 1`] = `
       <i
         className="far fa-clock"
       />
-      Estimated Time:
+      Estimated Time: 
       60
        mins
     </p>
