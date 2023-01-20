@@ -65,6 +65,15 @@ describe LoginPdf do
 
   end
 
+  describe 'student name is not whitespace delineable' do
+    let(:students) { [create(:student, name: 'betty'), create(:student)] }
+    let(:classroom) { create(:classroom, students: students) }
+
+    it 'will not error' do
+      expect { LoginPdf.new(classroom) }.not_to raise_error
+    end
+  end
+
   describe 'when given a student with a username containing non-Windows-1252 characters' do
     let(:student_with_weird_username) { create(:student, username: 'studentツ' )}
     let(:students) { [student, clever_student, google_student, normal_student] }
@@ -73,6 +82,5 @@ describe LoginPdf do
     it 'will not error' do
       expect { LoginPdf.new(classroom) }.not_to raise_error
     end
-
   end
 end
