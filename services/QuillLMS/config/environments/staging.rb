@@ -116,8 +116,20 @@ EmpiricalGrammar::Application.configure do
     'staging.quill.org.' => 'staging.quill.org'
   }
 
+  class BasicAuthGetOnly < ::Rack::Auth::Basic
+    def call(env)
+      request = Rack::Request.new(env)
+
+      if request.get?
+        super
+      else
+        @app.call(env)
+      end
+    end
+  end
+
   if ENV['STAGING_AUTH']
-    config.middleware.use Rack::Auth::Basic do |username, password|
+    config.middleware.use BasicAuthGetOnly do |username, password|
       ENV['STAGING_AUTH'].split(':') == [username, password]
     end
   end
