@@ -114,8 +114,6 @@ class Subscription < ApplicationRecord
 
   ALL_TYPES = OFFICIAL_FREE_TYPES.dup.concat(OFFICIAL_PAID_TYPES).freeze
 
-  validates :stripe_invoice_id, allow_blank: true, stripe_uid: { prefix: :in }
-
   delegate :stripe_cancel_at_period_end, :stripe_subscription_id, :stripe_subscription_url,
     to: :stripe_subscription
 
@@ -320,8 +318,8 @@ class Subscription < ApplicationRecord
   def populate_data_from_stripe_invoice
     return unless stripe?
 
-    self.payment_amount = stripe_invoice.total
-    self.purchaser_email = stripe_invoice.customer_email
+    self.payment_amount = stripe_invoice.total unless payment_amount
+    self.purchaser_email = stripe_invoice.customer_email unless purchaser_email
   end
 
   def renewal_stripe_price_id

@@ -57,17 +57,14 @@ class SubscriptionsController < ApplicationController
     attributes = subscription_params
     attributes[:purchaser_id] ||= current_user.id
     attributes.delete(:authenticity_token)
-    Subscription.transaction do
-      @subscription = Subscription.create_and_attach_subscriber(attributes, current_user)
+    @subscription = Subscription.create_and_attach_subscriber(attributes, current_user)
+    begin
       @subscription.populate_data_from_stripe_invoice
       @subscription.save
     rescue ActiveRecord::RecordInvalid, Stripe::InvalidRequestError
-      render json: { error: { stripe_invoice_id: 'invalid' } }, status: :bad_request
-
-      raise ActiveRecord::Rollback
-    else
-      render json: @subscription, status: :created
+      # We don't actually want to do anything when this happens
     end
+    render json: @subscription, status: :created
   end
 
   def update

@@ -369,6 +369,15 @@ describe Subscription, type: :model do
       expect(subscription.purchaser_email).to eq(customer_email)
     end
 
+    it 'should not set new values for payment_amount and purchaser_email if they are already set' do
+      pre_set_payment_amount = 10000
+      pre_set_purchaser_email = 'someone@somewhere.email'
+      subscription = create(:subscription, payment_amount: pre_set_payment_amount, purchaser_email: pre_set_purchaser_email)
+      subscription.populate_data_from_stripe_invoice
+      expect(subscription.payment_amount).to eq(pre_set_payment_amount)
+      expect(subscription.purchaser_email).to eq(pre_set_purchaser_email)
+    end
+
     it 'should silently not set values for payment_amount and purchaser_email if stripe_invoice_id is not set' do
       subscription = create(:subscription, stripe_invoice_id: nil)
       subscription.populate_data_from_stripe_invoice

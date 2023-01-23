@@ -95,9 +95,10 @@ describe SubscriptionsController do
         expect(user.reload.subscriptions.last.purchase_order_number).to eq purchase_order_number
       end
 
-      it 'should not save a record with a stripe_invoice_id that is not in a valid pattern' do
+      it 'should save a record even with a stripe_invoice_id that is not in a valid pattern' do
         invalid_stripe_invoice_id = 'not_valid'
 
+        allow(Stripe::Invoice).to receive(:retrieve).and_raise(Stripe::InvalidRequestError.new('', {}))
         expect do
           post :create,
             params: {
@@ -109,13 +110,13 @@ describe SubscriptionsController do
                 recurring: false
               }
             }
-        end.to change(Subscription, :count).by(0)
+        end.to change(Subscription, :count).by(1)
 
-        expect(response.status).to eq(400)
-        expect(JSON.parse(response.body)).to have_key('error')
+        expect(response.status).to eq(201)
+        expect(JSON.parse(response.body)['stripe_invoice_id']).to eq(invalid_stripe_invoice_id)
       end
 
-      it 'should not save a record with a stripe_invoice_id that does not point to a real Stripe Invoice' do
+      it 'should not save a record with a stripe_invoice_id even if it does not point to a real Stripe Invoice' do
         valid_stripe_invoice_id = 'in_12345678'
 
         expect(Stripe::Invoice).to receive(:retrieve).with(valid_stripe_invoice_id).once.and_raise(Stripe::InvalidRequestError.new('Message', {}))
@@ -130,10 +131,10 @@ describe SubscriptionsController do
                 recurring: false
               }
             }
-        end.to change(Subscription, :count).by(0)
+        end.to change(Subscription, :count).by(1)
 
-        expect(response.status).to eq(400)
-        expect(JSON.parse(response.body)).to have_key('error')
+        expect(response.status).to eq(201)
+        expect(JSON.parse(response.body)['stripe_invoice_id']).to eq(valid_stripe_invoice_id)
       end
     end
 
