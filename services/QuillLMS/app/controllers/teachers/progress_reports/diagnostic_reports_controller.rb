@@ -164,7 +164,12 @@ class Teachers::ProgressReports::DiagnosticReportsController < Teachers::Progres
   end
 
   def student_ids_for_previously_assigned_activity_pack
-    render json: get_student_ids_for_previously_assigned_activity_pack_by_classroom(params[:classroom_id], params[:activity_id])
+    classroom = Classroom.find(params[:classroom_id])
+    teacher_id = classroom.owner.id
+
+    units = Units::AssignmentHelpers.find_units_from_unit_template_and_teacher(params[:activity_pack_id], teacher_id)
+
+    render json: { student_ids: assigned_student_ids_for_classroom_and_units(classroom, units) }
   end
 
   def skills_growth
@@ -206,7 +211,7 @@ class Teachers::ProgressReports::DiagnosticReportsController < Teachers::Progres
   # rubocop:enable Metrics/CyclomaticComplexity
 
   def assign_post_test
-    Unit::AssignmentHelpers.assign_unit_to_one_class(params[:classroom_id], params[:unit_template_id], params[:student_ids], false)
+    Units::AssignmentHelpers.assign_unit_to_one_class(params[:classroom_id], params[:unit_template_id], params[:student_ids], false)
 
     render json: {}
   end

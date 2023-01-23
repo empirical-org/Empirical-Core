@@ -16,9 +16,12 @@ class AssignRecommendationsWorker
     student_ids = options['student_ids']
     unit_template_id = options['unit_template_id']
 
-    assign_unit_to_one_class(classroom_id, unit_template_id, student_ids, assign_on_join)
+    classroom = Classroom.find_by_id(classroom_id)
+    teacher = classroom.owner
 
-    unit = Unit::AssignmentHelpers.find_unit_from_units(Unit::AssignmentHelpers.find_units_from_unit_template_and_teacher(unit_template_id, teacher.id)) if unit.nil?
+    Units::AssignmentHelpers.assign_unit_to_one_class(classroom_id, unit_template_id, student_ids, assign_on_join)
+
+    unit = Units::AssignmentHelpers.find_unit_from_units(Units::AssignmentHelpers.find_units_from_unit_template_and_teacher(unit_template_id, teacher.id)) if unit.nil?
     classroom_unit = ClassroomUnit.find_by(unit: unit, classroom_id: classroom_id)
 
     save_pack_sequence_item(classroom_unit, pack_sequence_id, order)

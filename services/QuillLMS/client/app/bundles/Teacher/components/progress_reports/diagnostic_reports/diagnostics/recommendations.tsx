@@ -259,6 +259,7 @@ export const Recommendations = ({ passedPreviouslyAssignedRecommendations, passe
   const [loading, setLoading] = React.useState<boolean>(!passedPreviouslyAssignedRecommendations && !passedIndependentRecommendations && !passedLessonRecommendations);
   const [previouslyAssignedIndependentRecommendations, setPreviouslyAssignedIndependentRecommendations] = React.useState<Recommendation[]>(passedPreviouslyAssignedRecommendations);
   const [previouslyAssignedLessonsRecommendations, setPreviouslyAssignedLessonsRecommendations] = React.useState<LessonRecommendation[]>(passedPreviouslyAssignedLessonRecommendations);
+  const [previouslyAssignedPostTestStudentIds, setPreviouslyAssignedPostTestStudentIds] = React.useState<number[]>([])
   const [independentRecommendations, setIndependentRecommendations] = React.useState<Recommendation[]>(passedIndependentRecommendations);
   const [lessonsRecommendations, setLessonsRecommendations] = React.useState<LessonRecommendation[]>(passedLessonRecommendations);
   const [independentSelections, setIndependentSelections] = React.useState<Recommendation[]>([]);
@@ -298,8 +299,10 @@ export const Recommendations = ({ passedPreviouslyAssignedRecommendations, passe
     setLessonsRecommendations(null)
     setPreviouslyAssignedIndependentRecommendations(null)
     setPreviouslyAssignedLessonsRecommendations(null)
+    setPreviouslyAssignedPostTestStudentIds([])
     getRecommendations()
     getPreviouslyAssignedRecommendationData()
+    getPreviouslyAssignedPostTestData()
   }, [activityId, classroomId, unitId])
 
   React.useEffect(() => {
@@ -333,7 +336,10 @@ export const Recommendations = ({ passedPreviouslyAssignedRecommendations, passe
     if (lessonsAssigned) {
       setTimeout(() => setLessonsAssigned(false), 5000)
     }
-  }, [independentAssigned, lessonsAssigned])
+    if (postTestAssigned) {
+      setTimeout(() => setPostTestAssigned(false), 5000)
+    }
+  }, [independentAssigned, lessonsAssigned, postTestAssigned])
 
   React.useEffect(() => {
     if (independentRecommendations && lessonsRecommendations && previouslyAssignedLessonsRecommendations && previouslyAssignedIndependentRecommendations) {
@@ -367,6 +373,13 @@ export const Recommendations = ({ passedPreviouslyAssignedRecommendations, passe
       const anyIndependentRecommendationsPreviouslyAssigned = data.previouslyAssignedIndependentRecommendations.some(rec => rec.students.length)
       const releaseMethod = anyIndependentRecommendationsPreviouslyAssigned ? data.releaseMethod || IMMEDIATE : data.releaseMethod
       setOriginalReleaseMethod(releaseMethod)
+    }));
+  }
+
+  function getPreviouslyAssignedPostTestData() {
+    if (!postDiagnosticUnitTemplateId) { return }
+    requestGet(`/teachers/progress_reports/student_ids_for_previously_assigned_activity_pack/${classroomId}/activity_pack/${postDiagnosticUnitTemplateId}`, ((data) => {
+      setPreviouslyAssignedPostTestStudentIds(data.student_ids)
     }));
   }
 
@@ -454,7 +467,9 @@ export const Recommendations = ({ passedPreviouslyAssignedRecommendations, passe
     }
     setPostTestAssigning(true)
     requestPost('/teachers/progress_reports/assign_post_test/', dataToPass, (data) => {
+      setPostTestAssigning(false)
       setPostTestAssigned(true)
+      getPreviouslyAssignedPostTestData()
     }, (data) => {
       alert('We had trouble processing your request. Please check your network connection and try again.');
       setPostTestAssigning(false)
@@ -519,7 +534,7 @@ export const Recommendations = ({ passedPreviouslyAssignedRecommendations, passe
           postDiagnosticActivityId={postDiagnosticActivityId}
           postDiagnosticUnitTemplateId={postDiagnosticUnitTemplateId}
           postTestSelections={postTestSelections}
-          previouslyAssignedPostTestStudentIds={[]}
+          previouslyAssignedPostTestStudentIds={previouslyAssignedPostTestStudentIds}
           previouslyAssignedRecommendations={previouslyAssignedIndependentRecommendations}
           recommendations={independentRecommendations}
           responsesLink={responsesLink}

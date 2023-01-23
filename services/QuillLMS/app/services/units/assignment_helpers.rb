@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 module Units::AssignmentHelpers
 
   def self.find_unit_from_units(units)
@@ -22,12 +24,12 @@ module Units::AssignmentHelpers
   def self.assign_unit_to_one_class(classroom_id, unit_template_id, student_ids, assign_on_join)
     classroom = Classroom.find(classroom_id)
     teacher = classroom.owner
-    units = Unit::AssignmentHelpers.find_units_from_unit_template_and_teacher(unit_template_id, teacher.id)
+    units = Units::AssignmentHelpers.find_units_from_unit_template_and_teacher(unit_template_id, teacher.id)
     unit = nil
 
     if units.present?
-      unit = Unit::AssignmentHelpers.find_unit_from_units(units)
-      unit.update(visible: true) if unit && !unit.visible
+      unit = Units::AssignmentHelpers.find_unit_from_units(units)
+      unit.update(visible: true, open: true) if unit && !unit.visible
     end
 
     classroom_data = {
@@ -37,21 +39,21 @@ module Units::AssignmentHelpers
     }
 
     if unit.present?
-      show_classroom_units(unit.id, classroom_id)
+      self.show_classroom_units(unit.id, classroom_id)
 
       Units::Updater.assign_unit_template_to_one_class(
         unit.id,
         classroom_data,
         unit_template_id,
-        teacher_id,
+        teacher.id,
         concatenate_existing_student_ids: true
       )
     else
-      Units::Creator.assign_unit_template_to_one_class(teacher_id, unit_template_id, classroom_data)
+      Units::Creator.assign_unit_template_to_one_class(teacher.id, unit_template_id, classroom_data)
     end
   end
 
-  def show_classroom_units(unit_id, classroom_id)
+  def self.show_classroom_units(unit_id, classroom_id)
     ClassroomUnit.unscoped.where(unit_id: unit_id, classroom_id: classroom_id, visible: false).each do |classroom_unit|
       classroom_unit.update(visible: true, assigned_student_ids: [])
     end

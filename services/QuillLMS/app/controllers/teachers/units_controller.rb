@@ -409,9 +409,9 @@ class Teachers::UnitsController < ApplicationController
   end
 
   private def fetch_diagnostic_units_cache
-    current_user.all_classrooms_cache(key: 'teachers.classrooms.diagnostic_units') do
+    # current_user.all_classrooms_cache(key: 'teachers.classrooms.diagnostic_units') do
       diagnostics_organized_by_classroom
-    end
+    # end
   end
 
   # rubocop:disable Metrics/CyclomaticComplexity
