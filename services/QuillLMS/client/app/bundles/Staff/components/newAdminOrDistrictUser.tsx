@@ -1,6 +1,6 @@
 import * as React from 'react';
 
-import { Input, Snackbar, defaultSnackbarTimeout, } from '../../Shared';
+import { Input, Snackbar, defaultSnackbarTimeout, Spinner, } from '../../Shared';
 import useSnackbarMonitor from '../../Shared/hooks/useSnackbarMonitor'
 import { InputEvent } from '../interfaces/evidenceInterfaces';
 import { requestPost } from '../../../modules/request';
@@ -19,8 +19,9 @@ const NewAdminOrDistrictUser = ({ type, returnUrl, schoolId, districtId }: NewAd
   const [lastName, setLastName] = React.useState<string>('');
   const [email, setEmail] = React.useState<string>('');
   const [error, setError] = React.useState<string>('');
-  const [showSnackbar, setShowSnackbar] = React.useState(false)
-  const [snackbarText, setSnackbarText] = React.useState('')
+  const [showSnackbar, setShowSnackbar] = React.useState<boolean>(false);
+  const [snackbarText, setSnackbarText] = React.useState<string>('');
+  const [loading, setLoading] = React.useState<boolean>(false)
 
   useSnackbarMonitor(showSnackbar, setShowSnackbar, defaultSnackbarTimeout)
 
@@ -46,6 +47,7 @@ const NewAdminOrDistrictUser = ({ type, returnUrl, schoolId, districtId }: NewAd
     if(!firstName || !lastName || !email) {
       setError('Form fields cannot be blank.');
     } else {
+      setLoading(true);
       setError('');
       const requestUrl = type === ADMIN ? `/cms/schools/${schoolId}/school_admins` : `/cms/districts/${districtId}/district_admins`
       const params = {
@@ -57,9 +59,14 @@ const NewAdminOrDistrictUser = ({ type, returnUrl, schoolId, districtId }: NewAd
         if(body.error) {
           setSnackbarText(body.error);
           setShowSnackbar(true);
+          setLoading(false);
         } else {
           setSnackbarText(body.message);
           setShowSnackbar(true);
+          setLoading(false);
+          setFirstName('');
+          setLastName('');
+          setEmail('');
         }
       })
     }
@@ -71,7 +78,7 @@ const NewAdminOrDistrictUser = ({ type, returnUrl, schoolId, districtId }: NewAd
 
   const header = type === ADMIN ? 'New Admin' : 'New District Admin'
   const linkLabel = type === ADMIN ? 'School Directory > Add New Admin User' : 'District Directory > Add New District Admin User'
-
+  const innerSubmitButtonElement = loading ? <Spinner /> : 'Submit';
   return (
     <section className='container new-admin-user-container'>
       <Snackbar text={snackbarText} visible={showSnackbar} />
@@ -100,7 +107,7 @@ const NewAdminOrDistrictUser = ({ type, returnUrl, schoolId, districtId }: NewAd
           value={email}
         />
         <section className="buttons-container">
-          <button className="quill-button small primary contained" onClick={handleSubmitClick}>Submit</button>
+          <button className="quill-button small primary contained" onClick={handleSubmitClick}>{innerSubmitButtonElement}</button>
           <button className="quill-button small secondary outlined" onClick={handleCancelClick}>Cancel</button>
         </section>
         {error && <p className="error-message">{error}</p>}
