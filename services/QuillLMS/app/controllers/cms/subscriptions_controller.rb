@@ -18,6 +18,12 @@ class Cms::SubscriptionsController < Cms::CmsController
     else
       @subscription = Subscription.create!(subscription_params)
     end
+    begin
+      @subscription.populate_data_from_stripe_invoice
+      @subscription.save
+    rescue ActiveRecord::RecordInvalid, Stripe::InvalidRequestError
+      # We don't actually want to do anything when this happens
+    end
     render json: @subscription
   end
 
@@ -71,7 +77,9 @@ class Cms::SubscriptionsController < Cms::CmsController
       :recurring,
       :de_activated_date,
       :payment_method,
-      :payment_amount
+      :payment_amount,
+      :stripe_invoice_id,
+      :purchase_order_number
     ])
   end
 end

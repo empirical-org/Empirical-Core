@@ -25,6 +25,16 @@ describe Cms::SubscriptionsController do
       expect(school.reload.subscriptions.last.payment_amount).to eq subscription.payment_amount
     end
 
+    it 'should call populate_data_from_stripe_invoice to try to auto-populate data' do
+      expect_any_instance_of(Subscription).to receive(:populate_data_from_stripe_invoice)      
+      post :create,
+        params: {
+          subscriber_id: school.id,
+          subscriber_type: 'School',
+          subscription: subscription.attributes
+        }
+    end
+
     it 'should change current subscription to non-recurring' do
       subscription = create(:subscription, recurring: true)
       create(:school_subscription, school: school, subscription: subscription)
