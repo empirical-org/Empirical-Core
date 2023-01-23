@@ -1,17 +1,17 @@
 import * as React from 'react';
 
-import { Input, Snackbar, defaultSnackbarTimeout, Spinner, } from '../../Shared';
+import { Input, Snackbar, defaultSnackbarTimeout, Spinner } from '../../Shared';
 import useSnackbarMonitor from '../../Shared/hooks/useSnackbarMonitor'
 import { InputEvent } from '../interfaces/evidenceInterfaces';
 import { requestPost } from '../../../modules/request';
 
-const ADMIN = 'admin'
+const ADMIN = 'admin';
 
 interface NewAdminOrDistrictUserProps {
   type: string,
   returnUrl: string,
-  schoolId?: any,
-  districtId?: any
+  schoolId?: number,
+  districtId?: number
 }
 
 const NewAdminOrDistrictUser = ({ type, returnUrl, schoolId, districtId }: NewAdminOrDistrictUserProps) => {
@@ -21,7 +21,7 @@ const NewAdminOrDistrictUser = ({ type, returnUrl, schoolId, districtId }: NewAd
   const [error, setError] = React.useState<string>('');
   const [showSnackbar, setShowSnackbar] = React.useState<boolean>(false);
   const [snackbarText, setSnackbarText] = React.useState<string>('');
-  const [loading, setLoading] = React.useState<boolean>(false)
+  const [loading, setLoading] = React.useState<boolean>(false);
 
   useSnackbarMonitor(showSnackbar, setShowSnackbar, defaultSnackbarTimeout)
 
@@ -79,6 +79,7 @@ const NewAdminOrDistrictUser = ({ type, returnUrl, schoolId, districtId }: NewAd
   const header = type === ADMIN ? 'New Admin' : 'New District Admin'
   const linkLabel = type === ADMIN ? 'School Directory > Add New Admin User' : 'District Directory > Add New District Admin User'
   const innerSubmitButtonElement = loading ? <Spinner /> : 'Submit';
+
   return (
     <section className='container new-admin-user-container'>
       <Snackbar text={snackbarText} visible={showSnackbar} />
