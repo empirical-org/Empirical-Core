@@ -156,6 +156,7 @@ describe UnitTemplate, redis: true, type: :model do
 
     context 'with grades' do
       let(:description) {"Free online writing activity pack on Template Name for teachers of middle school students grades 6, 7, and 8. Lessons: Conjunctions and Americana."}
+
       subject { create(:unit_template, name: 'Template Name', grades: ['6','7','8'], activities: [activity1, activity2]) }
 
       it 'populate a meta decription' do
@@ -165,6 +166,7 @@ describe UnitTemplate, redis: true, type: :model do
 
     context 'no activities' do
       let(:description) {"Free online writing activity pack on Template Name for teachers of school students. ."}
+
       subject { create(:unit_template, name: 'Template Name') }
 
       it 'populate a meta decription' do
