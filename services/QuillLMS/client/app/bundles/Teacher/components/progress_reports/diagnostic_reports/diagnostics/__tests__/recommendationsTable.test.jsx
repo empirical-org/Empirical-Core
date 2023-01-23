@@ -21,16 +21,46 @@ const selectionsNoStudentData = [{"activity_count":4,"activity_pack_id":320,"nam
 
 const selectionsWithStudentData = [{"activity_count":7,"activity_pack_id":308,"name":"Capitalization","students":[11115784,11115786,11115796,11115769,11115787]},{"activity_count":5,"activity_pack_id":310,"name":"Plural and Possessive Nouns","students":[11115784,11115782,11115796,11115769,11115787,11115797]},{"activity_count":12,"activity_pack_id":312,"name":"Adjectives and Adverbs","students":[11115791,11115784,11115786,11115782,11115796,11115769,11115774,11115787,11115797,11115764]},{"activity_count":5,"activity_pack_id":314,"name":"Prepositional Phrases","students":[11115784,11115786,11115782,11115796,11115769,11115787,11115797,11115764]},{"activity_count":7,"activity_pack_id":316,"name":"Compound Subjects, Objects, and Predicates","students":[11115784,11115786,11115782,11115796,11115769,11115774,11115787,11115797]},{"activity_count":4,"activity_pack_id":318,"name":"Commonly Confused Words","students":[11115784,11115782,11115796,11115769,11115774,11115787,11115797]}]
 
+const sharedProps = {
+  responsesLink: jest.fn(),
+  setSelections: jest.fn(),
+  students: students
+}
+
+const hiddenPostTestProps = {
+  postDiagnosticUnitTemplateId: 1,
+  postTestSelections: [],
+  studentsWhoCompletedAssignedRecommendations: [],
+  studentsWhoCompletedDiagnostic: [],
+  showPostTestAssignmentColumn: false,
+  previouslyAssignedPostTestStudentIds: []
+}
+
+const shownPostTestProps = {
+  ...hiddenPostTestProps,
+  showPostTestAssignmentColumn: true,
+  studentsWhoCompletedDiagnostic: students.filter(s => s.completed)
+}
+
+const noCompletedStudentsProps = {
+  previouslyAssignedRecommendations: previouslyAssignedIndependentRecommendationsNoStudentData,
+  recommendations: independentRecommendationsNoStudentData,
+  selections: selectionsNoStudentData,
+}
+
+const recommendationsProps = {
+  previouslyAssignedRecommendations: previouslyAssignedIndependentRecommendationsWithStudentData,
+  recommendations: independentRecommendationsWithStudentData,
+  selections: selectionsWithStudentData,
+}
+
 describe('RecommendationsTable component', () => {
   it('should render when no students have completed the diagnostic yet', () => {
     const wrapper = mount(<Router>
       <RecommendationsTable
-        previouslyAssignedRecommendations={previouslyAssignedIndependentRecommendationsNoStudentData}
-        recommendations={independentRecommendationsNoStudentData}
-        responsesLink={() => ''}
-        selections={selectionsNoStudentData}
-        setSelections={() => {}}
-        students={students}
+        {...sharedProps}
+        {...hiddenPostTestProps}
+        {...noCompletedStudentsProps}
       />
     </Router>)
     expect(wrapper).toMatchSnapshot()
@@ -39,12 +69,20 @@ describe('RecommendationsTable component', () => {
   it('should render when there are recommendations', () => {
     const wrapper = mount(<Router>
       <RecommendationsTable
-        previouslyAssignedRecommendations={previouslyAssignedIndependentRecommendationsWithStudentData}
-        recommendations={independentRecommendationsWithStudentData}
-        responsesLink={() => ''}
-        selections={selectionsWithStudentData}
-        setSelections={() => {}}
-        students={students}
+        {...sharedProps}
+        {...hiddenPostTestProps}
+        {...recommendationsProps}
+      />
+    </Router>)
+    expect(wrapper).toMatchSnapshot()
+  })
+
+  it('should render when there is data to assign a post test', () => {
+    const wrapper = mount(<Router>
+      <RecommendationsTable
+        {...sharedProps}
+        {...shownPostTestProps}
+        {...recommendationsProps}
       />
     </Router>)
     expect(wrapper).toMatchSnapshot()

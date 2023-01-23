@@ -222,8 +222,7 @@ const IndividualPack = ({ classrooms, history, match, location, lessonsBannerIsS
     mobileNavigation: (<section className="mobile-navigation hide-on-desktop">{classroomDropdown}{linkDropdown}</section>),
     lessonsBannerIsShowable,
     isPostDiagnostic: activeDiagnosticIsPost(),
-    postDiagnosticUnitTemplateId: activeDiagnostic.post?.unit_template_id,
-    postDiagnosticActivityId: activeDiagnostic.pre?.post_test_id
+    postDiagnosticUnitTemplateId: activeDiagnostic.post?.unit_template_id
   }
 
   return (

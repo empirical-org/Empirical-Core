@@ -255,7 +255,7 @@ const LessonsRecommendationsButtons = ({ lessonsSelections, assignLessonsActivit
   )
 }
 
-export const Recommendations = ({ passedPreviouslyAssignedRecommendations, passedPreviouslyAssignedLessonRecommendations, passedIndependentRecommendations, passedLessonRecommendations, match, mobileNavigation, activityName, location, lessonsBannerIsShowable, postDiagnosticUnitTemplateId, postDiagnosticActivityId, isPostDiagnostic, }) => {
+export const Recommendations = ({ passedPreviouslyAssignedRecommendations, passedPreviouslyAssignedLessonRecommendations, passedIndependentRecommendations, passedLessonRecommendations, match, mobileNavigation, activityName, location, lessonsBannerIsShowable, postDiagnosticUnitTemplateId, isPostDiagnostic, }) => {
   const [loading, setLoading] = React.useState<boolean>(!passedPreviouslyAssignedRecommendations && !passedIndependentRecommendations && !passedLessonRecommendations);
   const [previouslyAssignedIndependentRecommendations, setPreviouslyAssignedIndependentRecommendations] = React.useState<Recommendation[]>(passedPreviouslyAssignedRecommendations);
   const [previouslyAssignedLessonsRecommendations, setPreviouslyAssignedLessonsRecommendations] = React.useState<LessonRecommendation[]>(passedPreviouslyAssignedLessonRecommendations);
@@ -531,7 +531,6 @@ export const Recommendations = ({ passedPreviouslyAssignedRecommendations, passe
           students={students}
         />
         <RecommendationsTable
-          postDiagnosticActivityId={postDiagnosticActivityId}
           postDiagnosticUnitTemplateId={postDiagnosticUnitTemplateId}
           postTestSelections={postTestSelections}
           previouslyAssignedPostTestStudentIds={previouslyAssignedPostTestStudentIds}

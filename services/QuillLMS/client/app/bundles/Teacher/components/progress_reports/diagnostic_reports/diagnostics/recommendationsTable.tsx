@@ -35,6 +35,13 @@ interface RecommendationsTableProps {
   students: Student[];
   selections: Recommendation[];
   setSelections: (selections: Recommendation[]) => void;
+  studentsWhoCompletedDiagnostic: Student[];
+  studentsWhoCompletedAssignedRecommendations: Student[];
+  postDiagnosticUnitTemplateId?: number;
+  setPostTestSelections: (ids: number[]) => void;
+  postTestSelections: number[];
+  showPostTestAssignmentColumn: boolean;
+  previouslyAssignedPostTestStudentIds: number[]
 }
 
 interface RecommendationCellProps {
@@ -121,7 +128,7 @@ const PostTestStudentRow = ({ student, postTestSelections, setPostTestSelections
   const { name, completed, id, } = student
 
   if (!completed) {
-    return <tr key={name}><td className="recommendation-cell empty-cell"/></tr>
+    return <tr key={name}><td className="recommendation-cell empty-cell" /></tr>
   }
 
   const isAssigned = previouslyAssignedPostTestStudentIds.includes(id)

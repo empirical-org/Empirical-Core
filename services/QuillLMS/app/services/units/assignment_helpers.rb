@@ -39,7 +39,7 @@ module Units::AssignmentHelpers
     }
 
     if unit.present?
-      self.show_classroom_units(unit.id, classroom_id)
+      show_classroom_units(unit.id, classroom_id)
 
       Units::Updater.assign_unit_template_to_one_class(
         unit.id,

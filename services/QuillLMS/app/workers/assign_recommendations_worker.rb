@@ -4,7 +4,6 @@ class AssignRecommendationsWorker
   include Sidekiq::Worker
   sidekiq_options queue: SidekiqQueue::CRITICAL
 
-  # rubocop:disable Metrics/CyclomaticComplexity
   def perform(options={})
     assign_on_join = options['assign_on_join'] || false
     assigning_all_recommended_packs = options['assigning_all_recommended_packs'] || false
@@ -34,7 +33,6 @@ class AssignRecommendationsWorker
     PusherRecommendationCompleted.run(classroom, unit_template_id, lesson)
     track_assign_all_recommendations(teacher) if assigning_all_recommended_packs
   end
-  # rubocop:enable Metrics/CyclomaticComplexity
 
   def save_pack_sequence_item(classroom_unit, pack_sequence_id, order)
     return unless PackSequence.exists?(id: pack_sequence_id)
