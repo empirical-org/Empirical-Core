@@ -2,6 +2,7 @@ import * as React from 'react'
 import * as moment from 'moment';
 
 import CopyModal from './copy_modal'
+import RemoveActivityModal from './remove_activity_modal';
 
 import * as api from '../../modules/call_api';
 import {
@@ -73,6 +74,8 @@ const ActivityTable = ({ data, onSuccess, isOwner, handleActivityClicked, handle
   const [activityOrder, setActivityOrder] = React.useState(classroomActivityArray.map(ca => ca.activityId) || [])
   const [showCopyPublishDateModal, setShowCopyPublishDateModal] = React.useState(false)
   const [showCopyDueDateModal, setShowCopyDueDateModal] = React.useState(false)
+  const [showRemoveActivityModal, setShowRemoveActivityModal] = React.useState(false)
+  const [unitActivityIdToRemove, setUnitActivityIdToRemove] = React.useState(null)
   const [erroredUnitActivityIds, setErroredUnitActivityIds] = React.useState([])
   const [showSnackbar, setShowSnackbar] = React.useState(false)
   const [snackbarText, setSnackbarText] = React.useState('')
@@ -83,8 +86,9 @@ const ActivityTable = ({ data, onSuccess, isOwner, handleActivityClicked, handle
     setErroredUnitActivityIds([])
   }, [data])
 
-  function hideUnitActivity(unitActivityId) {
+  function removeActivity(unitActivityId) {
     requestPut(`${process.env.DEFAULT_URL}/teachers/unit_activities/${unitActivityId}/hide`, {}, () => onSuccess('Activity removed'))
+    setShowRemoveActivityModal(false)
   }
 
   function closeDatePicker(date, unitActivityId, dateAttributeKey) {
@@ -104,9 +108,16 @@ const ActivityTable = ({ data, onSuccess, isOwner, handleActivityClicked, handle
 
   function closeCopyDueDateModal() { setShowCopyDueDateModal(false) }
 
+  function closeRemoveActivityModal() { setShowRemoveActivityModal(false) }
+
   function openCopyPublishDateModal() { setShowCopyPublishDateModal(true) }
 
   function openCopyDueDateModal() { setShowCopyDueDateModal(true) }
+
+  function openRemoveActivityModal(unitActivityId) {
+    setUnitActivityIdToRemove(unitActivityId)
+    setShowRemoveActivityModal(true)
+  }
 
   function copyPublishDateToAll() {
     const publishDate = classroomActivityArray[0].publishDate
@@ -149,6 +160,10 @@ const ActivityTable = ({ data, onSuccess, isOwner, handleActivityClicked, handle
   function handleShareActivityClick(activity) {
     handleActivityClicked(activity)
     handleToggleModal()
+  }
+
+  function getActivityNameToRemove() {
+    return classroomActivityArray.find(act => act.uaId === unitActivityIdToRemove).name
   }
 
   const activityRows = activityOrder.map((activityId, i) => {
@@ -239,11 +254,18 @@ const ActivityTable = ({ data, onSuccess, isOwner, handleActivityClicked, handle
           copyFunction={copyPublishDateToAll}
         />
       )}
+      {showRemoveActivityModal && (
+        <RemoveActivityModal
+          activityName={getActivityNameToRemove()}
+          closeFunction={closeRemoveActivityModal}
+          removeFunction={() => removeActivity(unitActivityIdToRemove)}
+        />
+      )}
       <DataTable
         className={isOwner ? 'is-owner' : ''}
         headers={tableHeaders(isOwner)}
         isReorderable={isOwner}
-        removeRow={hideUnitActivity}
+        removeRow={openRemoveActivityModal}
         reorderCallback={reorderCallback}
         rows={activityRows}
         showRemoveIcon={isOwner}
