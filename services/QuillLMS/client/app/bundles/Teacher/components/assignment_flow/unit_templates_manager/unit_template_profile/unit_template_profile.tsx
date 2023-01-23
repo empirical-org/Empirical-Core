@@ -111,8 +111,8 @@ export class UnitTemplateProfile extends React.Component<RouteComponentProps, Un
 
   handleActivityClick = (e) => {
     const { target } = e
-    const { value } = target
-    redirectToActivity(value)
+    const { id } = target
+    redirectToActivity(id)
   }
 
   renderAssignButton = () => {
@@ -128,7 +128,7 @@ export class UnitTemplateProfile extends React.Component<RouteComponentProps, Un
         <ul>
           {activities.map(activity => {
             const { id, name } = activity
-            return <li><button className="interactive-wrapper" onClick={this.handleActivityClick} value={id}>{name}</button></li>
+            return <li><a className="interactive-wrapper" id={id} onClick={this.handleActivityClick}>{name}</a></li>
           })}
         </ul>
       </section>
