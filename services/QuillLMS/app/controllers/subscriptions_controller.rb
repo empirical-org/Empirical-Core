@@ -58,13 +58,7 @@ class SubscriptionsController < ApplicationController
     attributes[:purchaser_id] ||= current_user.id
     attributes.delete(:authenticity_token)
     @subscription = Subscription.create_and_attach_subscriber(attributes, current_user)
-    begin
-      @subscription.populate_data_from_stripe_invoice
-      @subscription.save
-    rescue ActiveRecord::RecordInvalid, Stripe::InvalidRequestError
-      # We don't actually want to do anything when this happens
-    end
-    render json: @subscription, status: :created
+    render json: @subscription
   end
 
   def update
@@ -119,7 +113,7 @@ class SubscriptionsController < ApplicationController
   end
 
   private def subscription_params
-    params.require(:subscription).permit(:id, :purchaser_id, :expiration, :account_type, :authenticity_token, :recurring, :stripe_invoice_id, :purchase_order_number)
+    params.require(:subscription).permit(:id, :purchaser_id, :expiration, :account_type, :authenticity_token, :recurring)
   end
 
   private def set_subscription

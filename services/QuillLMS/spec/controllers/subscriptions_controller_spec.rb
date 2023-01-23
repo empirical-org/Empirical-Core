@@ -71,70 +71,17 @@ describe SubscriptionsController do
 
     describe '#create' do
       it 'should create the subscription' do
-        account_type = "some_type"
-        stripe_invoice_id = "in_1234567890"
-        purchase_order_number = "PO#1"
-        recurring = false
-
-        expect_any_instance_of(Subscription).to receive(:populate_data_from_stripe_invoice)
         post :create,
           params: {
             subscription: {
               purchaser_id: user.id,
               expiration: 10.days.from_now.to_date,
-              account_type: account_type,
-              stripe_invoice_id: stripe_invoice_id,
-              purchase_order_number: purchase_order_number,
-              recurring: recurring
+              account_type: "some_type",
+              recurring: false
             }
           }
-        expect(response.status).to eq(201)
-        expect(user.reload.subscriptions.last.account_type).to eq account_type
-        expect(user.reload.subscriptions.last.recurring).to eq recurring
-        expect(user.reload.subscriptions.last.stripe_invoice_id).to eq stripe_invoice_id
-        expect(user.reload.subscriptions.last.purchase_order_number).to eq purchase_order_number
-      end
-
-      it 'should save a record even with a stripe_invoice_id that is not in a valid pattern' do
-        invalid_stripe_invoice_id = 'not_valid'
-
-        allow(Stripe::Invoice).to receive(:retrieve).and_raise(Stripe::InvalidRequestError.new('', {}))
-        expect do
-          post :create,
-            params: {
-              subscription: {
-                purchaser_id: user.id,
-                expiration: 10.days.from_now.to_date,
-                account_type: 'type',
-                stripe_invoice_id: invalid_stripe_invoice_id,
-                recurring: false
-              }
-            }
-        end.to change(Subscription, :count).by(1)
-
-        expect(response.status).to eq(201)
-        expect(JSON.parse(response.body)['stripe_invoice_id']).to eq(invalid_stripe_invoice_id)
-      end
-
-      it 'should not save a record with a stripe_invoice_id even if it does not point to a real Stripe Invoice' do
-        valid_stripe_invoice_id = 'in_12345678'
-
-        expect(Stripe::Invoice).to receive(:retrieve).with(valid_stripe_invoice_id).once.and_raise(Stripe::InvalidRequestError.new('Message', {}))
-        expect do
-          post :create,
-            params: {
-              subscription: {
-                purchaser_id: user.id,
-                expiration: 10.days.from_now.to_date,
-                account_type: 'type',
-                stripe_invoice_id: valid_stripe_invoice_id,
-                recurring: false
-              }
-            }
-        end.to change(Subscription, :count).by(1)
-
-        expect(response.status).to eq(201)
-        expect(JSON.parse(response.body)['stripe_invoice_id']).to eq(valid_stripe_invoice_id)
+        expect(user.reload.subscriptions.last.account_type).to eq "some_type"
+        expect(user.reload.subscriptions.last.recurring).to eq false
       end
     end
 
