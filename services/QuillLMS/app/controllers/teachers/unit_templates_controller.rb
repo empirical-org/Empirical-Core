@@ -10,7 +10,7 @@ class Teachers::UnitTemplatesController < ApplicationController
       format.html do
         if params[:id]
           unit_template = UnitTemplate
-            .includes(activities: :classification)
+            .includes(activities: :standard)
             .find(params[:id])
 
           @image_link = unit_template&.image_link
