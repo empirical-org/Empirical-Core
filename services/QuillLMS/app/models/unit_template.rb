@@ -95,14 +95,14 @@ class UnitTemplate < ApplicationRecord
   def meta_activities_description
     return nil if activities.blank?
 
-    standard_codes = activities
+    standards = activities
       .map {|a| a.standard&.name}
       .flatten
       .compact
       .uniq
       .to_sentence
 
-    "Standards: #{standard_codes}."
+    "Standards: #{standards}."
   end
 
   def grade_level_range
