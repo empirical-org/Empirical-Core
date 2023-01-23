@@ -10,13 +10,20 @@ describe CheckboxAnalyticsWorker do
     let!(:activity) { create(:activity) }
     let(:analyzer) { double(:analyzer) }
 
-    before do
-      allow(SegmentAnalytics).to receive(:new) { analyzer }
-    end
+    before { allow(SegmentAnalytics).to receive(:new) { analyzer } }
 
     it 'should track the event' do
       expect(analyzer).to receive(:track_activity_assignment).with(user.id, activity.id)
       subject.perform(user.id, activity.id)
+    end
+
+    context 'user_id refers to nil user' do
+      before { allow(User).to receive(:exists?).with(id: user.id).and_return(false) }
+
+      it 'does not track the event' do
+        expect(analyzer).not_to receive(:track_activity_assignment).with(user.id, activity.id)
+        subject.perform(user.id, activity.id)
+      end
     end
   end
 end

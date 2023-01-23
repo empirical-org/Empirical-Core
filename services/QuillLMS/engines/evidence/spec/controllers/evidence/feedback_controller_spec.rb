@@ -15,8 +15,10 @@ module Evidence
       create(:evidence_plagiarism_text, :text => (plagiarized_text2), :rule => (rule))
     end
 
+    let(:activity_version) { 2 }
     let(:entry) {'hello you'}
-    let!(:prompt) { create(:evidence_prompt) }
+    let(:activity) { create(:evidence_activity, version: activity_version)}
+    let!(:prompt) { create(:evidence_prompt, activity: activity) }
     let!(:hint) { create(:evidence_hint) }
     let!(:rule) { create(:evidence_rule, :rule_type => "plagiarism", :hint => hint) }
     let!(:rule_regex) { create(:evidence_rule, :rule_type => "rules-based-1") }
@@ -42,7 +44,7 @@ module Evidence
           prompt_id: prompt.id,
           activity_session_uid: session_id,
           attempt: attempt,
-          activity_version: Evidence.feedback_history_class::DEFAULT_VERSION,
+          activity_version: activity_version,
           api_metadata: feedback.response[:api]
         )
 

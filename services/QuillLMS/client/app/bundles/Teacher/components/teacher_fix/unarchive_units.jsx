@@ -106,7 +106,7 @@ export default class UnarchiveUnits extends React.Component {
         <div>
           <button className="unselect-all-button" onClick={this.toggleSelectAllUnits}>{selectAllCopy}</button>
           {unitsList}
-          <button onClick={this.unarchiveUnits}>Unarchive Units</button>
+          <button onClick={this.unarchiveUnits}>Restore Units</button>
         </div>
       )
     }

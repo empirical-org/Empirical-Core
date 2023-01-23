@@ -41,13 +41,13 @@ describe TeacherDashboardMetrics do
       expect(result[:yearly_completed_activities_count]).to eq(9)
     end
 
-    it 'should not include data from archived units' do
+    it 'should include data from archived units' do
       unit2.update(visible: false)
       result = TeacherDashboardMetrics.new(teacher).run
-      expect(result[:weekly_assigned_activities_count]).to eq(0)
-      expect(result[:yearly_assigned_activities_count]).to eq(9)
-      expect(result[:weekly_completed_activities_count]).to eq(0)
-      expect(result[:yearly_completed_activities_count]).to eq(6)
+      expect(result[:weekly_assigned_activities_count]).to eq(12)
+      expect(result[:yearly_assigned_activities_count]).to eq(21)
+      expect(result[:weekly_completed_activities_count]).to eq(3)
+      expect(result[:yearly_completed_activities_count]).to eq(9)
     end
   end
 

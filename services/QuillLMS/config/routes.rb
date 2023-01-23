@@ -270,6 +270,8 @@ EmpiricalGrammar::Application.routes.draw do
     put 'update_my_password' => 'classroom_manager#update_my_password'
     post 'clear_data/:id' => 'classroom_manager#clear_data'
     put 'units/:id/hide' => 'units#hide', as: 'hide_units_path'
+    put 'units/:id/close' => 'units#close', as: 'close_units_path'
+    put 'units/:id/open' => 'units#open', as: 'open_units_path'
     get 'progress_reports/landing_page' => 'progress_reports#landing_page'
     get 'progress_reports/activities_scores_by_classroom' => 'progress_reports#activities_scores_by_classroom'
     get 'progress_reports/real_time' => 'progress_reports#real_time'
@@ -539,6 +541,7 @@ EmpiricalGrammar::Application.routes.draw do
 
   get '/sign-up/teacher', to: 'accounts#new'
   get '/sign-up/student', to: 'accounts#new'
+  get '/sign-up/individual-contributor', to: 'accounts#new'
   get '/sign-up/pick-school-type', to: 'accounts#new'
   get '/sign-up/add-k12', to: 'accounts#new'
   get '/sign-up/add-non-k12', to: 'accounts#new'
