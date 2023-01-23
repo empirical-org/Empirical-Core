@@ -88,7 +88,7 @@
     }
     &.post-test-assignment-button {
       margin-left: 32px;
-      width: 172px;
+      width: 178px;
       min-width: min-content;
       display: flex;
       justify-content: center;
@@ -192,6 +192,7 @@
 
     .recommendations-table-wrapper {
       width: 100%;
+      min-width: min-content;
     }
 
     .post-test-table-wrapper {
