@@ -136,9 +136,9 @@ const PostTestStudentRow = ({ student, postTestSelections, setPostTestSelections
   const isRecommended = studentsWhoCompletedAssignedRecommendations.some(student => student.id === id)
 
   function toggleSelection() {
-    const newSelections = [...postTestSelections];
+    let newSelections = [...postTestSelections];
     if (isSelected) {
-      newSelections.filter(s => s !== student.id)
+      newSelections = newSelections.filter(s => s !== student.id)
     } else {
       newSelections.push(student.id);
     }

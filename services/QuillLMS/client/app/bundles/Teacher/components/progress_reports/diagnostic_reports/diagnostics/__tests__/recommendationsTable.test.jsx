@@ -19,12 +19,13 @@ const students = [{"id":11115764,"name":"Ja'shonda Abbott","completed":true},{"i
 
 const selectionsNoStudentData = [{"activity_count":4,"activity_pack_id":320,"name":"Compound-Complex Sentences","students":[]},{"activity_count":5,"activity_pack_id":322,"name":"Appositive Phrases","students":[]},{"activity_count":6,"activity_pack_id":324,"name":"Relative Clauses","students":[]},{"activity_count":5,"activity_pack_id":327,"name":"Participial Phrases","students":[]},{"activity_count":3,"activity_pack_id":329,"name":"Parallel Structure","students":[]},{"activity_count":5,"activity_pack_id":331,"name":"Advanced Combining","students":[]}]
 
-const selectionsWithStudentData = [{"activity_count":7,"activity_pack_id":308,"name":"Capitalization","students":[11115784,11115786,11115796,11115769,11115787]},{"activity_count":5,"activity_pack_id":310,"name":"Plural and Possessive Nouns","students":[11115784,11115782,11115796,11115769,11115787,11115797]},{"activity_count":12,"activity_pack_id":312,"name":"Adjectives and Adverbs","students":[11115791,11115784,11115786,11115782,11115796,11115769,11115774,11115787,11115797,11115764]},{"activity_count":5,"activity_pack_id":314,"name":"Prepositional Phrases","students":[11115784,11115786,11115782,11115796,11115769,11115787,11115797,11115764]},{"activity_count":7,"activity_pack_id":316,"name":"Compound Subjects, Objects, and Predicates","students":[11115784,11115786,11115782,11115796,11115769,11115774,11115787,11115797]},{"activity_count":4,"activity_pack_id":318,"name":"Commonly Confused Words","students":[11115784,11115782,11115796,11115769,11115774,11115787,11115797]}]
+const selectionsWithStudentData = [{"activity_count":7,"activity_pack_id":308,"diagnostic_progress":{},"name":"Capitalization","students":[11115784,11115786,11115796,11115769,11115787]},{"activity_count":5,"activity_pack_id":310,"diagnostic_progress":{},"name":"Plural and Possessive Nouns","students":[11115784,11115782,11115796,11115769,11115787,11115797]},{"activity_count":12,"activity_pack_id":312,"diagnostic_progress":{},"name":"Adjectives and Adverbs","students":[11115791,11115784,11115786,11115782,11115796,11115769,11115774,11115787,11115797,11115764]},{"activity_count":5,"activity_pack_id":314,"diagnostic_progress":{},"name":"Prepositional Phrases","students":[11115784,11115786,11115782,11115796,11115769,11115787,11115797,11115764]},{"activity_count":7,"activity_pack_id":316,"diagnostic_progress":{},"name":"Compound Subjects, Objects, and Predicates","students":[11115784,11115786,11115782,11115796,11115769,11115774,11115787,11115797]},{"activity_count":4,"activity_pack_id":318,"diagnostic_progress":{},"name":"Commonly Confused Words","students":[11115784,11115782,11115796,11115769,11115774,11115787,11115797]}]
 
 const sharedProps = {
   responsesLink: jest.fn(),
   setSelections: jest.fn(),
-  students: students
+  students: students,
+  previouslyAssignedRecommendations: []
 }
 
 const hiddenPostTestProps = {
