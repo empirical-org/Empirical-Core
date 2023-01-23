@@ -37,6 +37,7 @@ class Teachers::UnitTemplatesController < ApplicationController
 
   def show
     @content = @unit_template.meta_description
+    @title = "Activity Pack: #{unit_template&.name}"
     @image_link = @unit_template.image_link
     @unit_template_id = @unit_template.id
     render 'public_show' if !@is_teacher
