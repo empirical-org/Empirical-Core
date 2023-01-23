@@ -77,7 +77,7 @@ class UnitTemplate < ApplicationRecord
   end
 
   def meta_description
-    "Free online writing activities on #{name} for teachers of #{meta_grade_description}. #{meta_activities_description}."
+    "Free online writing activity pack on #{name} for teachers of #{meta_grade_description}. #{meta_activities_description}."
   end
 
   def meta_grade_description
@@ -95,9 +95,7 @@ class UnitTemplate < ApplicationRecord
   def meta_activities_description
     return nil if activities.blank?
 
-    classifications = activities.map {|a| a.classification.meta_description }.compact.uniq
-
-    "Lesson goals: #{classifications.to_sentence}. Activities in this pack: #{activities.map(&:name).to_sentence}"
+    "Lessons: #{activities.map(&:name).to_sentence}"
   end
 
   def grade_level_range

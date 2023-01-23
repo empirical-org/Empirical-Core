@@ -146,7 +146,7 @@ describe UnitTemplate, redis: true, type: :model do
     let(:connect_classification) { create(:connect) }
     let(:activity1) { create(:activity, name: 'Conjunctions', classification: connect_classification) }
     let(:activity2) { create(:activity, name: 'Americana', classification: connect_classification) }
-    let(:description) {"Free online writing activities on Template Name for teachers of school students. Lesson goals: Improve students\' writing of compound sentences, sentence construction, and conjunctions. Activities in this pack: Conjunctions and Americana."}
+    let(:description) {"Free online writing activity pack on Template Name for teachers of school students. Lessons: Conjunctions and Americana."}
 
     subject { create(:unit_template, name: 'Template Name', activities: [activity1, activity2]) }
 
@@ -155,7 +155,7 @@ describe UnitTemplate, redis: true, type: :model do
     end
 
     context 'with grades' do
-      let(:description) {"Free online writing activities on Template Name for teachers of middle school students grades 6, 7, and 8. Lesson goals: Improve students\' writing of compound sentences, sentence construction, and conjunctions. Activities in this pack: Conjunctions and Americana."}
+      let(:description) {"Free online writing activity pack on Template Name for teachers of middle school students grades 6, 7, and 8. Lessons: Conjunctions and Americana."}
       subject { create(:unit_template, name: 'Template Name', grades: ['6','7','8'], activities: [activity1, activity2]) }
 
       it 'populate a meta decription' do
@@ -164,7 +164,7 @@ describe UnitTemplate, redis: true, type: :model do
     end
 
     context 'no activities' do
-      let(:description) {"Free online writing activities on Template Name for teachers of school students. ."}
+      let(:description) {"Free online writing activity pack on Template Name for teachers of school students. ."}
       subject { create(:unit_template, name: 'Template Name') }
 
       it 'populate a meta decription' do
