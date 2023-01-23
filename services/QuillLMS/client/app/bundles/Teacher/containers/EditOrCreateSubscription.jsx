@@ -124,6 +124,20 @@ export default class EditOrCreateSubscription extends React.Component {
     this.setState({ subscription: newSub, });
   }
 
+  handleStripeInvoiceIdChange = (e) => {
+    const { subscription, } = this.state
+    const newSub = Object.assign({}, subscription);
+    newSub.stripe_invoice_id = e.target.value;
+    this.setState({ subscription: newSub, });
+  }
+
+  handlePurchaseOrderNumberChange = (e) => {
+    const { subscription, } = this.state
+    const newSub = Object.assign({}, subscription);
+    newSub.purchase_order_number = e.target.value;
+    this.setState({ subscription: newSub, });
+  }
+
   handleExpirationDateChange = (e) => {
     const { subscription, } = this.state
     const newSub = Object.assign({}, subscription);
@@ -193,9 +207,9 @@ export default class EditOrCreateSubscription extends React.Component {
     return (
       <React.Fragment>
         <label>Stripe Invoice ID (required for all "Invoice" subscriptions)</label>
-        <input type="text" value={subscription.stripe_invoice_id} />
-        <label>Payment Order Number (if provided by customer)</label>
-        <input type="text" value={subscription.payment_order_number} />
+        <input onChange={this.handleStripeInvoiceIdChange} type="text" value={subscription.stripe_invoice_id} />
+        <label>Purchase Order Number (if provided by customer)</label>
+        <input onChange={this.handlePurchaseOrderNumberChange} type="text" value={subscription.purchase_order_number} />
       </React.Fragment>
     )
   }
