@@ -145,7 +145,7 @@ module PagesHelper
           },
           {
             name: 'Charlie Looper',
-            title: 'Partnerhips Specialist II',
+            title: 'Partnerships Specialist II',
             img: 'team-charlie-looper@2x.png'
           },
           {
