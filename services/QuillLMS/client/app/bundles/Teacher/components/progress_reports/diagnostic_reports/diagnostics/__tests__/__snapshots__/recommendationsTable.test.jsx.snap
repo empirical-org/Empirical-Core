@@ -498,7 +498,7 @@ exports[`RecommendationsTable component should render when no students have comp
             id="demo-onboarding-tour-spotlight-element"
             style={
               Object {
-                "marginLeft": 0,
+                "marginLeft": undefined,
               }
             }
           >
@@ -17655,7 +17655,7 @@ exports[`RecommendationsTable component should render when there are recommendat
             id="demo-onboarding-tour-spotlight-element"
             style={
               Object {
-                "marginLeft": 0,
+                "marginLeft": undefined,
               }
             }
           >
@@ -47550,7 +47550,7 @@ exports[`RecommendationsTable component should render when there is data to assi
             id="demo-onboarding-tour-spotlight-element"
             style={
               Object {
-                "paddingLeft": 0,
+                "paddingLeft": undefined,
               }
             }
           >

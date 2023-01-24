@@ -11,6 +11,8 @@ class Teachers::ProgressReports::DiagnosticReportsController < Teachers::Progres
       :growth_results_summary,
       :lesson_recommendations_for_classroom,
       :previously_assigned_recommendations,
+      :student_ids_for_previously_assigned_activity_pack,
+      :assign_post_test,
       :question_view,
       :recommendations_for_classroom,
       :results_summary,
