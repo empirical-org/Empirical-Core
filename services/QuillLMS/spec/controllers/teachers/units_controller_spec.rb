@@ -7,7 +7,8 @@ describe Teachers::UnitsController, type: :controller do
   let!(:classroom) { create(:classroom) }
   let!(:students_classrooms) { create(:students_classrooms, classroom: classroom, student: student)}
   let!(:teacher) { classroom.owner }
-  let!(:unit) {create(:unit, user: teacher)}
+  let!(:unit_template) { create(:unit_template) }
+  let!(:unit) {create(:unit, user: teacher, unit_template: unit_template)}
   let!(:unit2) {create(:unit, user: teacher)}
 
   let!(:classroom_unit) do
@@ -28,6 +29,7 @@ describe Teachers::UnitsController, type: :controller do
 
   let!(:diagnostic) { create(:diagnostic) }
   let!(:diagnostic_activity) { create(:diagnostic_activity)}
+  let!(:activities_unit_template) { create(:activities_unit_template, activity: diagnostic_activity, unit_template: unit_template) }
   let!(:unit_activity) { create(:unit_activity, unit: unit, activity: diagnostic_activity, due_date: Time.current, publish_date: 1.hour.ago )}
 
   let!(:completed_activity_session) do
@@ -65,11 +67,10 @@ describe Teachers::UnitsController, type: :controller do
 
   describe '#prohibited_unit_names' do
     let(:unit_names) { teacher.units.pluck(:name).map(&:downcase) }
-    let(:unit_template_names) { UnitTemplate.pluck(:name).map(&:downcase) }
 
     it 'should render the correct json' do
       get :prohibited_unit_names, as: :json
-      expect(JSON.parse(response.body)['prohibitedUnitNames']).to match_array(unit_names.concat(unit_template_names))
+      expect(JSON.parse(response.body)['prohibitedUnitNames']).to match_array(unit_names)
     end
 
     it 'should not include unit names from archived classrooms' do
@@ -148,6 +149,7 @@ describe Teachers::UnitsController, type: :controller do
               assigned_date: unit_activity.created_at,
               post_test_id: diagnostic_activity.follow_up_activity_id,
               classroom_unit_id: classroom_unit.id,
+              unit_template_id: unit.unit_template_id,
               completed_count: 1,
               assigned_count: 1
             }
