@@ -86,6 +86,7 @@ class Auth::GoogleController < ApplicationController
     @user = GoogleIntegration::User.new(@profile).update_or_initialize
 
     update_role_from_sales_contact
+    update_role_from_individual_contributor
     show_user_not_found_if_necessary
   end
 
@@ -99,6 +100,12 @@ class Auth::GoogleController < ApplicationController
     return unless @user.sales_contact? && in_sign_up_flow?
 
     @user.update(role: session[:role])
+  end
+
+  private def update_role_from_individual_contributor
+    return unless in_sign_up_flow? && session[:role] == User::INDIVIDUAL_CONTRIBUTOR
+
+    @user.update(role: User::TEACHER)
   end
 
   private def show_user_not_found_if_necessary
