@@ -19,6 +19,23 @@ export default class UnitTemplateMinis extends React.Component {
 
   state =  { onMobile: window.innerWidth < 770, currentView: GRID_VIEW_OPTION }
 
+  componentDidMount() {
+    window.addEventListener('resize', this.updateDimensions);
+  }
+  componentWillUnmount() {
+    window.removeEventListener('resize', this.updateDimensions);
+  }
+
+  updateDimensions = () => {
+    const { currentView, onMobile } = this.state
+    if(window.innerWidth < 770 !== onMobile) {
+      this.setState({ onMobile: window.innerWidth < 770 })
+    }
+    if(window.innerWidth < 970 && currentView === LIST_VIEW_OPTION) {
+      this.setState({ currentView: GRID_VIEW_OPTION })
+    }
+  }
+
   getIndexLink() {
     const { signedInTeacher } = this.props;
     return signedInTeacher ? '/assign/featured-activity-packs' : '/activities/packs'
@@ -316,7 +333,7 @@ export default class UnitTemplateMinis extends React.Component {
             value={currentCategory || categoryOptions[0]}
           />
           <DropdownInput
-            className="category-dropdown"
+            className="category-dropdown view-options"
             handleChange={(option) => this.selectView(option)}
             label="View"
             options={viewOptions}
