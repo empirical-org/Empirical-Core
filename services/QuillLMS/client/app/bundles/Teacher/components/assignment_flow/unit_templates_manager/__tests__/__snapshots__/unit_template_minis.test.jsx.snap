@@ -86,7 +86,7 @@ exports[`UnitTemplateMinis component should render dropdowns when on mobile 1`] 
               }
             />
             <DropdownInput
-              className="category-dropdown"
+              className="category-dropdown view-options"
               handleChange={[Function]}
               label="View"
               options={
@@ -309,7 +309,7 @@ exports[`UnitTemplateMinis component should render without createYourOwn mini wh
               }
             />
             <DropdownInput
-              className="category-dropdown"
+              className="category-dropdown view-options"
               handleChange={[Function]}
               label="View"
               options={
