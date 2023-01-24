@@ -151,6 +151,7 @@ export const premiumFeatures = ({ independentPracticeActivityCount, diagnosticAc
       {
         label: "Quill Academy",
         school: true,
+        tooltipText: "Engaging on-demand training course library to help teachers get the most out of Quill.",
       },
       {
         label: "Getting started training",
