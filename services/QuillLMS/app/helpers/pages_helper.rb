@@ -144,6 +144,11 @@ module PagesHelper
             img: 'team-sherry-lewkowicz@2x.png'
           },
           {
+            name: 'Charlie Looper',
+            title: 'Partnerhips Specialist II',
+            img: 'team-charlie-looper@2x.png'
+          },
+          {
             name: 'Stephanee McCadney',
             title: 'Curriculum Developer II',
             img: 'team-stephanee-mccadney@2x.png'
