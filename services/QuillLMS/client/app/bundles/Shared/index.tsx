@@ -108,7 +108,8 @@ export {
   isTrackableStudentEvent,
   hexToRGBA,
   uniqueValuesArray,
-  filterNumbers
+  filterNumbers,
+  redirectToActivity
 } from './libs/index'
 
 export {

@@ -38,6 +38,10 @@
     }
   }
   .check-or-empty-wrapper {
+    font-style: italic;
+    font-size: 12px;
+    line-height: 20px;
+    color: #5C5C5C;
     width: 190px;
     padding: 16px;
     &:nth-of-type(3) {
