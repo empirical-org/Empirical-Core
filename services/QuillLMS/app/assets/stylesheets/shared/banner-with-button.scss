@@ -30,6 +30,73 @@
   }
 }
 
+.premium-footer {
+  background-color: #DF9E3D;
+  color: white;
+  .content-container {
+    max-width: 1200px;
+    width: calc(100% - 30px);
+    margin: 0px auto;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    font-size: 16px;
+    @media (max-width: 410px) {
+      flex-direction: column;
+      align-items: flex-start;
+      .quill-button {
+        margin-top: 8px;
+      }
+      span {
+        width: 100%;
+      }
+    }
+  }
+  .text-section {
+    width: 703px;
+    padding-top: 32px;
+    padding-bottom: 32px;
+
+    h2 {
+      font-style: normal;
+      font-weight: 700;
+      font-size: 24px;
+      line-height: 30px;
+    }
+    p {
+      padding-top: 8px;
+      width: 703px;
+      font-style: normal;
+      font-weight: 400;
+      font-size: 15px;
+      line-height: 19px;
+    }
+  }
+  .explore-premium-button {
+    color: #DF9E3D;
+    background-color: white;
+    font-weight: 700;
+    font-size: 14px;
+    line-height: 14px;
+    min-width: min-content;
+  }
+  @media (max-width: 750px) {
+    .text-section {
+      display: inline;
+      width: auto;
+      h2 {
+        font-size: 20px;
+      }
+      p {
+        width: auto;
+      }
+    }
+    .explore-premium-button {
+      margin-bottom: 15px;
+    }
+  }
+}
+
 .demo-account-banner {
   background-color: #FFEFC7;
   color: #9B5F05;

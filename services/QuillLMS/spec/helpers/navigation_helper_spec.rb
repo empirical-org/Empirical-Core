@@ -92,9 +92,9 @@ describe NavigationHelper do
       allow(helper).to receive(:current_user) { double(:user, premium_state: "locked", last_expired_subscription: trial_subscription) }
       expect(helper.premium_tab_copy).to eq "<span>Premium</span><img alt='' src='https://assets.quill.org/images/icons/star.svg'></img><span>Trial Expired</span>"
       allow(helper).to receive(:current_user) { double(:user, premium_state: nil) }
-      expect(helper.premium_tab_copy).to eq "<span>Try Premium</span><img alt='' src='https://assets.quill.org/images/icons/star.svg'></img>"
+      expect(helper.premium_tab_copy).to eq "<span>Explore Premium</span><img alt='' src='https://assets.quill.org/images/icons/star.svg'></img>"
       allow(helper).to receive(:current_user) { double(:user, premium_state: "none") }
-      expect(helper.premium_tab_copy).to eq "<span>Try Premium</span><img alt='' src='https://assets.quill.org/images/icons/star.svg'></img>"
+      expect(helper.premium_tab_copy).to eq "<span>Explore Premium</span><img alt='' src='https://assets.quill.org/images/icons/star.svg'></img>"
     end
   end
 

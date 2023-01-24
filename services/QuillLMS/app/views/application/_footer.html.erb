@@ -4,6 +4,10 @@
 	<% footer_class = is_student ? 'footer-white student-footer' : 'footer-white' %>
 
 	<footer class="<%=footer_class%>">
+		<div class="footer-banner">
+			<%= render partial: 'application/premium_footer' %>
+		</div>
+		<br />
 		<div class="footer-content">
 			<% if !is_student %>
 				<div class="top-half">

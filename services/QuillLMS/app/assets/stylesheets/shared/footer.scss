@@ -1,16 +1,16 @@
 .footer-white {
   background-color: #fff;
-  padding: 78px 0px 172px;
   width: 100%;
-  max-width: 950px;
-  display: flex;
+  display: inherit;
   justify-content: center;
   box-shadow: 0 100vh 0 100vh #fff;
   margin: 300px auto auto auto;
   .footer-content {
     display: flex;
     flex-direction: column;
-    max-width: 1300px;
+    max-width: 950px;
+    margin: auto;
+    padding: 78px 0px 172px;
     width: 100%;
     > * {
       flex-grow: 1;
