@@ -1,7 +1,7 @@
 import * as React from 'react';
 import useWindowSize from '../../hooks/useWindowSize';
 
-export const SubNavbar = ({ activeTab, desktopTabs, mobileTabs }) => {
+const SubNavbar = ({ activeTab, desktopTabs, mobileTabs }) => {
   const size = useWindowSize();
 console.log("🚀 ~ file: subNavbar.tsx:4 ~ SubNavbar ~ desktopTabs", desktopTabs)
 console.log("🚀 ~ file: subNavbar.tsx:4 ~ SubNavbar ~ mobileTabs", mobileTabs)
@@ -24,4 +24,4 @@ console.log("🚀 ~ file: subNavbar.tsx:4 ~ SubNavbar ~ mobileTabs", mobileTabs)
   )
 }
 
-export default SubNavbar
+export { SubNavbar }

@@ -49,7 +49,8 @@ export {
   ToggleComponentSection,
   Tooltip,
   TwoThumbSlider,
-  UploadOptimalResponses
+  UploadOptimalResponses,
+  SubNavbar
 } from './components/shared/index'
 
 export { richButtonsPlugin, } from './components/draftJSRichButtonsPlugin/index'
