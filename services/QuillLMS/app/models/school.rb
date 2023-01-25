@@ -97,6 +97,24 @@ class School < ApplicationRecord
 
   SCHOOL_YEAR_START_MONTH = 7
   HALF_A_YEAR = 6.months
+  ELEMENTARY = 'elementary'
+  MIDDLE = 'middle'
+  HIGH = 'high'
+
+  GRADE_DESCRIPTIONS = {
+    1 => ELEMENTARY,
+    2 => ELEMENTARY,
+    3 => ELEMENTARY,
+    4 => ELEMENTARY,
+    5 => ELEMENTARY,
+    6 => MIDDLE,
+    7 => MIDDLE,
+    8 => MIDDLE,
+    9 => HIGH,
+    10 => HIGH,
+    11 => HIGH,
+    12 => HIGH,
+  }
 
   def self.school_year_start(time)
     time.month >= SCHOOL_YEAR_START_MONTH ? time.beginning_of_year + HALF_A_YEAR : time.beginning_of_year - HALF_A_YEAR

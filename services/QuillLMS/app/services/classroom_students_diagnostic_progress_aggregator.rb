@@ -20,7 +20,7 @@ class ClassroomStudentsDiagnosticProgressAggregator < ApplicationService
   private def student_ids_with_completed_activity_sessions_counts
     ActivitySession
       .joins(:classroom_unit)
-      .where(activity_sessions: { user_id: student_ids, state: ActivitySession::STATE_FINISHED })
+      .where(activity_sessions: { user_id: student_ids, is_final_score: true })
       .where(classroom_unit: { classroom: classroom, unit: units })
       .group('activity_sessions.user_id')
       .count

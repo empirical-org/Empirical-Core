@@ -160,7 +160,10 @@
         display: flex;
       }
       .activities-count {
-        margin-right: 16px;
+        margin: 0px 16px 0px 8px;
+        i {
+          margin-top: 0px;
+        }
       }
       .time {
         .fa-clock {
@@ -249,3 +252,5 @@
     }
   }
 }
+
+

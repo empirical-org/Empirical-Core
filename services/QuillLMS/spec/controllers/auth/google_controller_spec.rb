@@ -34,4 +34,17 @@ describe Auth::GoogleController, type: :controller do
     expect(flash[:error]).to be(nil)
     expect(user.reload.role).to eq(session_role)
   end
+
+  it 'updates role to teacher for user when session[:role] is set to individual contributor' do
+    session_role = User::INDIVIDUAL_CONTRIBUTOR
+    user = create(:user, role: User::INDIVIDUAL_CONTRIBUTOR)
+
+    google_user_double = double
+    expect(GoogleIntegration::User).to receive(:new).and_return(google_user_double)
+    expect(google_user_double).to receive(:update_or_initialize).and_return(user)
+
+    get 'online_access_callback', params: { email: user.email, role: nil }, session: { role: session_role }
+    expect(flash[:error]).to be(nil)
+    expect(user.reload.role).to eq(User::TEACHER)
+  end
 end

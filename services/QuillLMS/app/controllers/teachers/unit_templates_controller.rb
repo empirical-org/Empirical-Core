@@ -9,12 +9,16 @@ class Teachers::UnitTemplatesController < ApplicationController
     respond_to do |format|
       format.html do
         if params[:id]
-          unit_template = UnitTemplate.find(params[:id])
-          if unit_template&.image_link
-            @image_link = unit_template.image_link
-          end
+          unit_template = UnitTemplate
+            .includes(activities: :standard)
+            .find(params[:id])
+
+          @image_link = unit_template&.image_link
+          @title = "Activity Pack: #{unit_template&.name}"
+          @content = unit_template&.meta_description
         end
         redirect_to "/assign/featured-activity-packs/#{params[:id]}" if @is_teacher
+        @defer_js = true # opt for faster page load for public page, i.e. !@is_teacher
       end
       format.json do
         render json: { unit_templates: cached_formatted_unit_templates }
@@ -32,7 +36,9 @@ class Teachers::UnitTemplatesController < ApplicationController
   end
 
   def show
-    @content = "Try out the #{@unit_template.name} Activity Pack I’m using at Quill.org"
+    @content = @unit_template.meta_description
+    @title = "Activity Pack: #{unit_template&.name}"
+    @image_link = @unit_template.image_link
     @unit_template_id = @unit_template.id
     render 'public_show' if !@is_teacher
   end

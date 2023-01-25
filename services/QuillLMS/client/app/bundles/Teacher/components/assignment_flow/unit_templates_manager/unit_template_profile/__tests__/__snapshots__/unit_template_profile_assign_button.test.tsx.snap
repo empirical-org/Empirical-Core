@@ -1,7 +1,7 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
 exports[`UnitTemplateProfileDescription component should match snapshot 1`] = `
-<UnitTemplateProfileAssignButton
+<UnitTemplateProfileDisclaimer
   data={
     Object {
       "activities": Array [
@@ -66,5 +66,5 @@ exports[`UnitTemplateProfileDescription component should match snapshot 1`] = `
        mins
     </p>
   </section>
-</UnitTemplateProfileAssignButton>
+</UnitTemplateProfileDisclaimer>
 `;
