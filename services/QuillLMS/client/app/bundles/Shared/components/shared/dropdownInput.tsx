@@ -15,7 +15,7 @@ interface DropdownInputProps {
   handleCancel?: (event: any) => void;
   handleChange?: (selection: any|any[]) => void;
   helperText?: string;
-  label?: string;
+  label?: string|JSX.Element;
   id?: string;
   isMulti?: boolean;
   isSearchable?: boolean;

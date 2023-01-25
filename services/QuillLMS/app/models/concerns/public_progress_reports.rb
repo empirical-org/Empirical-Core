@@ -329,21 +329,14 @@ module PublicProgressReports
         units = Unit.where(user_id: teacher_id, name: name, visible: true)
       end
 
-      student_ids =
-        classroom
-          .classroom_units
-          .visible
-          .where(unit: units)
-          .pluck(:assigned_student_ids)
-          .flatten
-          .uniq
+      assigned_student_ids = assigned_student_ids_for_classroom_and_units(classroom, units)
 
       {
         activity_count: recommendation[:activityCount],
         activity_pack_id: recommendation[:activityPackId],
-        diagnostic_progress: ClassroomStudentsDiagnosticProgressAggregator.run(classroom, student_ids, units),
+        diagnostic_progress: ClassroomStudentsDiagnosticProgressAggregator.run(classroom, assigned_student_ids, units),
         name: recommendation[:recommendation],
-        students: student_ids
+        students: assigned_student_ids
       }
     end
 
@@ -367,6 +360,16 @@ module PublicProgressReports
       previouslyAssignedLessonsRecommendations: assigned_lesson_ids,
       releaseMethod: release_method
     }
+  end
+
+  def assigned_student_ids_for_classroom_and_units(classroom, units)
+    classroom
+      .classroom_units
+      .visible
+      .where(unit: units)
+      .pluck(:assigned_student_ids)
+      .flatten
+      .uniq
   end
 
   def activity_sessions_with_counted_concepts(activity_sessions)

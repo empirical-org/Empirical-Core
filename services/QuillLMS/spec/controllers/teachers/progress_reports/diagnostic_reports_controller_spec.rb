@@ -403,4 +403,60 @@ describe Teachers::ProgressReports::DiagnosticReportsController, type: :controll
     end
 
   end
+
+  describe '#student_ids_for_previously_assigned_activity_pack' do
+    let!(:activity_pack) { create(:unit_template) }
+    let!(:student1) { create(:student, name: 'Alphabetical A')}
+    let!(:students_classroom1) { create(:students_classrooms, classroom: classroom, student: student1)}
+    let!(:student2) { create(:student, name: 'Alphabetical B')}
+    let!(:students_classroom2) { create(:students_classrooms, classroom: classroom, student: student2)}
+    let!(:unit_based_on_activity_pack1) { create(:unit, user: teacher, unit_template: activity_pack, name: 'First Unit') }
+    let!(:classroom_unit1) { create(:classroom_unit, classroom: classroom, unit: unit_based_on_activity_pack1, assigned_student_ids: [student1.id] ) }
+    let!(:unit_based_on_activity_pack2) { create(:unit, user: teacher, unit_template: activity_pack, name: 'Second Unit') }
+    let!(:classroom_unit2) { create(:classroom_unit, classroom: classroom, unit: unit_based_on_activity_pack2, assigned_student_ids: [student2.id] ) }
+
+    it 'should return all the student ids for the assigned pack' do
+      get :student_ids_for_previously_assigned_activity_pack, params: { classroom_id: classroom.id, activity_pack_id: activity_pack.id }
+
+      expect(response).to be_successful
+      json = JSON.parse(response.body)
+      expect(json['student_ids']).to eq [student1.id, student2.id]
+    end
+  end
+
+  describe '#assign_post_test' do
+    let!(:activity_pack) { create(:unit_template) }
+    let!(:student1) { create(:student, name: 'Alphabetical A')}
+    let!(:students_classroom1) { create(:students_classrooms, classroom: classroom, student: student1)}
+    let!(:student2) { create(:student, name: 'Alphabetical B')}
+    let!(:students_classroom2) { create(:students_classrooms, classroom: classroom, student: student2)}
+
+    it 'creates a new pack and assigns it if there is no existing pack' do
+      expect do
+        get :assign_post_test, params: { classroom_id: classroom.id, unit_template_id: activity_pack.id, student_ids: [student1.id] }
+      end.to change(ClassroomUnit, :count).by(1)
+
+      expect(response).to be_successful
+
+      unit = Unit.find_by(user_id: teacher.id, unit_template_id: activity_pack.id)
+      classroom_unit = ClassroomUnit.find_by(unit_id: unit.id, classroom_id: classroom.id)
+
+      expect(unit).to be
+      expect(classroom_unit).to be
+      expect(classroom_unit.assigned_student_ids).to eq([student1.id])
+    end
+
+    it 'updates an existing pack if there already is one by concatenating new ids to existing ones' do
+      unit = create(:unit, unit_template: activity_pack, user: teacher)
+      classroom_unit = create(:classroom_unit, unit: unit, classroom: classroom, assigned_student_ids: [student1.id])
+
+      expect do
+        get :assign_post_test, params: { classroom_id: classroom.id, unit_template_id: activity_pack.id, student_ids: [student2.id] }
+      end.to change(ClassroomUnit, :count).by(0)
+
+      expect(response).to be_successful
+
+      expect(classroom_unit.reload.assigned_student_ids).to eq([student1.id, student2.id])
+    end
+  end
 end
