@@ -55,12 +55,20 @@ describe Cms::SchoolAdminsController do
       end
     end
 
+    it 'makes school admin the admin of an additional school' do
+      Sidekiq::Testing.inline! do
+        school2.users.push(admin2)
+        admin2.reload
+        post :create, params: { school_id: school1.id, email: admin2.email}
+        expect(SchoolsAdmins.where(user_id: admin2.id).count).to eq 2
+      end
+    end
+
     it 'creates a new school admin for an existing user linked to a different school and sends the expected email' do
       Sidekiq::Testing.inline! do
         school2.users.push(admin2)
         admin2.reload
         post :create, params: { school_id: school1.id, email: admin2.email}
-
         body_contains_expected_content = ActionMailer::Base.deliveries.last.encoded.include?("Your account is currently linked to #{school2.name}")
         expect(SchoolsAdmins.find_by_user_id(admin2.id)).to be
         expect(ActionMailer::Base.deliveries.last.subject).to eq("#{admin2.first_name}, you are now a Quill admin for #{school1.name}")
