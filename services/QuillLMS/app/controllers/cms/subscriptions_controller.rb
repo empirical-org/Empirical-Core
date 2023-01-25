@@ -8,32 +8,22 @@ class Cms::SubscriptionsController < Cms::CmsController
   end
 
   def create
-    logger.debug('About to check for subscriber_id and subscriber_type')
     if params[:subscriber_id] && params[:subscriber_type]
-      logger.debug('about to find subscriber')
       @subscriber = params[:subscriber_type].constantize.find(params[:subscriber_id])
-      logger.debug('about to enter transaction')
 
       ActiveRecord::Base.transaction do
-        logger.debug('about to create_and_attach_subscriber')
         @subscription = Subscription.create_and_attach_subscriber(subscription_params, @subscriber)
-        logger.debug('about to run Cms::SchoolSubscriptionsUpdater')
         Cms::SchoolSubscriptionsUpdater.run(@subscription, params[:schools])
       end
     else
-      logger.debug('about to create! subscription')
       @subscription = Subscription.create!(subscription_params)
     end
     begin
-      logger.debug('about to populate_data_from_stripe_invoice')
       @subscription.populate_data_from_stripe_invoice
-      logger.debug('about to save')
       @subscription.save
     rescue ActiveRecord::RecordInvalid, Stripe::InvalidRequestError
-      logger.debug('inside do nothing rescue')
       # We don't actually want to do anything when this happens
     end
-    logger.debug('about to render')
     render json: @subscription
   end
 
