@@ -325,4 +325,25 @@ describe PublicProgressReports, type: :model do
 
     end
   end
+
+  describe '#assigned_student_ids_for_classroom_and_units' do
+    let!(:unit1) { create(:unit) }
+    let!(:unit2) { create(:unit) }
+    let!(:classroom) { create(:classroom) }
+
+    let!(:student1) { create(:student) }
+    let!(:student2) { create(:student) }
+    let!(:student3) { create(:student) }
+    let!(:student4) { create(:student) }
+    let!(:students_classrooms1) { create(:students_classrooms, classroom: classroom, student: student1)}
+    let!(:students_classrooms2) { create(:students_classrooms, classroom: classroom, student: student2)}
+    let!(:students_classrooms3) { create(:students_classrooms, classroom: classroom, student: student3)}
+    let!(:students_classrooms4) { create(:students_classrooms, classroom: classroom, student: student4)}
+    let!(:classroom_unit1) { create(:classroom_unit, classroom: classroom, unit: unit1, assigned_student_ids: [student1.id, student2.id] )}
+    let!(:classroom_unit2) { create(:classroom_unit, classroom: classroom, unit: unit2, assigned_student_ids: [student2.id, student3.id] )}
+
+    it 'returns a flattened and unique-d array of all the assigned student ids for that classroom and those units' do
+      expect(FakeReports.new.assigned_student_ids_for_classroom_and_units(classroom, [unit1, unit2])).to eq([student1.id, student2.id, student3.id])
+    end
+  end
 end

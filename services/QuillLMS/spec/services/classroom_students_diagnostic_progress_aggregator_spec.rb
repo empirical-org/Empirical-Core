@@ -53,6 +53,12 @@ RSpec.describe ClassroomStudentsDiagnosticProgressAggregator do
       it { expect(subject).to eq({ student1.id => num_completed1 }) }
     end
 
+    context 'multiple completed sessions for the same activity exist' do
+      before { create_list(:activity_session, num_completed1, :finished, activity: ActivitySession.first.activity, classroom_unit: classroom_unit1, user: student1) }
+
+      it { expect(subject).to eq({ student1.id => num_completed1 }) }
+    end
+
     context 'unstarted activity sessions exist' do
       let(:num_unstarted) { 2 }
 
