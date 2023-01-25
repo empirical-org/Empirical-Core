@@ -8,11 +8,11 @@ describe TeacherCenterHelper do
     let(:app_setting) { create(:app_setting, name: "comprehension") }
     let(:tabs) {
       [
-        { id: "All resources", name: "All", url: "teacher-center" },
-        { id: "Getting started", name: "Getting started", url: "teacher-center/topic/getting-started" },
-        { id: "Best practices", name: "Best practices", url: "teacher-center/topic/best-practices" },
-        { id: "Writing instruction research", name: "Research", url: "teacher-center/topic/writing-instruction-research" },
-        { id: "FAQ", name: "FAQ", url: "faq" }
+        { id: "All resources", name: "All", url: "/teacher-center" },
+        { id: "Getting started", name: "Getting started", url: "/teacher-center/topic/getting-started" },
+        { id: "Best practices", name: "Best practices", url: "/teacher-center/topic/best-practices" },
+        { id: "Writing instruction research", name: "Research", url: "/teacher-center/topic/writing-instruction-research" },
+        { id: "FAQ", name: "FAQ", url: "/faq" }
       ]
     }
 
@@ -21,7 +21,7 @@ describe TeacherCenterHelper do
     end
 
     it 'should return the tabs with comprehension if app setting is true' do
-      comprehension_tab = { id: "Using quill for reading comprehension", name: "Reading comprehension", url: "teacher-center/topic/using-quill-for-reading-comprehension" }
+      comprehension_tab = { id: "Using quill for reading comprehension", name: "Reading comprehension", url: "/teacher-center/topic/using-quill-for-reading-comprehension" }
       app_setting.enabled = true
       app_setting.user_ids_allow_list = [current_user.id]
       app_setting.save!
@@ -34,12 +34,12 @@ describe TeacherCenterHelper do
     let(:tabs) {
       [
         { id: "All resources", name: "All", url: "teacher-center" },
-        { id: BlogPost::USING_QUILL_FOR_READING_COMPREHENSION, name: 'Reading comprehension', url: 'teacher-center/topic/using-quill-for-reading-comprehension' },
-        { id: "Getting started", name: "Getting started", url: "teacher-center/topic/getting-started" },
-        { id: "Best practices", name: "Best practices", url: "teacher-center/topic/best-practices" },
-        { id: "Writing instruction research", name: "Research", url: "teacher-center/topic/writing-instruction-research" },
-        { id: "FAQ", name: "FAQ", url: "faq" },
-        { id: "Premium", name: "Premium", url: "premium"}
+        { id: BlogPost::USING_QUILL_FOR_READING_COMPREHENSION, name: 'Reading comprehension', url: '/teacher-center/topic/using-quill-for-reading-comprehension' },
+        { id: "Getting started", name: "Getting started", url: "/teacher-center/topic/getting-started" },
+        { id: "Best practices", name: "Best practices", url: "/teacher-center/topic/best-practices" },
+        { id: "Writing instruction research", name: "Research", url: "/teacher-center/topic/writing-instruction-research" },
+        { id: "FAQ", name: "FAQ", url: "/faq" },
+        { id: "Premium", name: "Premium", url: "/premium"}
       ]
     }
 

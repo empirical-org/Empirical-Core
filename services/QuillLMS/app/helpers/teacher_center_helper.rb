@@ -11,38 +11,38 @@ module TeacherCenterHelper
     premium_tab = {
       id: PREMIUM,
       name: PREMIUM,
-      url: 'premium'
+      url: '/premium'
     }
     tabs = [
       {
         id: BlogPost::ALL_RESOURCES,
         name: ALL,
-        url: 'teacher-center'
+        url: '/teacher-center'
       },
       {
         id: BlogPost::USING_QUILL_FOR_READING_COMPREHENSION,
         name: COMPREHENSION,
-        url: 'teacher-center/topic/using-quill-for-reading-comprehension'
+        url: '/teacher-center/topic/using-quill-for-reading-comprehension'
       },
       {
         id: BlogPost::GETTING_STARTED,
         name: BlogPost::GETTING_STARTED,
-        url: 'teacher-center/topic/getting-started'
+        url: '/teacher-center/topic/getting-started'
       },
       {
         id: BlogPost::BEST_PRACTICES,
         name: BlogPost::BEST_PRACTICES,
-        url: 'teacher-center/topic/best-practices'
+        url: '/teacher-center/topic/best-practices'
       },
       {
         id: BlogPost::WRITING_INSTRUCTION_RESEARCH,
         name: RESEARCH,
-        url: 'teacher-center/topic/writing-instruction-research'
+        url: '/teacher-center/topic/writing-instruction-research'
       },
       {
         id: FAQ,
         name: FAQ,
-        url: 'faq'
+        url: '/faq'
       }
     ]
     tabs << premium_tab if !current_user
@@ -54,17 +54,17 @@ module TeacherCenterHelper
      {
        id: BlogPost::ALL_RESOURCES,
        name: large ? BlogPost::ALL_RESOURCES : ALL,
-       url: 'student-center'
+       url: '/student-center'
      },
      {
        id: BlogPost::GETTING_STARTED,
        name: BlogPost::GETTING_STARTED,
-       url: 'student-center/topic/student-getting-started'
+       url: '/student-center/topic/student-getting-started'
      },
      {
        id: BlogPost::HOW_TO,
        name: BlogPost::HOW_TO,
-       url: 'student-center/topic/student-how-to'
+       url: '/student-center/topic/student-how-to'
      }
    ]
   end
