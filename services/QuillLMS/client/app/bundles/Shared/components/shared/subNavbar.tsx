@@ -3,6 +3,7 @@ import useWindowSize from '../../hooks/useWindowSize';
 
 const SubNavbar = ({ activeTab, desktopTabs, mobileTabs }) => {
   const size = useWindowSize();
+  console.log("🚀 ~ file: subNavbar.tsx:5 ~ SubNavbar ~ activeTab", activeTab)
 console.log("🚀 ~ file: subNavbar.tsx:4 ~ SubNavbar ~ desktopTabs", desktopTabs)
 console.log("🚀 ~ file: subNavbar.tsx:4 ~ SubNavbar ~ mobileTabs", mobileTabs)
 

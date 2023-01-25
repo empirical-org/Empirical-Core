@@ -1,15 +1,5 @@
-<div class="subnav">
-  <div class="container">
-  <% @mobile = false %>
-
-  <div class="full-screen">
-    <%= render partial: "pages/shared/generic_tabs", locals: { tabs: explore_curriculum_tabs(large: true), active_tab: @active_tab, mobile: @mobile } %>
-  </div>
-
-
-  <div class="small-screen">
-    <%= render partial: "pages/shared/generic_tabs", locals: { tabs: explore_curriculum_tabs(large: false), active_tab:  @active_tab, mobile: @mobile} %>
-  </div>
-
-  </div>
-</div>
+<%= react_component('SubNavbarApp', props: {
+  activeTab: @active_tab,
+  desktopTabs: explore_curriculum_tabs(large: true),
+  mobileTabs: explore_curriculum_tabs(large: false)
+}) %>

@@ -6,6 +6,11 @@ module TeacherCenterHelper
   RESEARCH = 'Research'
   COMPREHENSION = 'Reading comprehension'
   ALL = 'All'
+  FEATURED_ACTIVITIES = 'Featured Activities'
+  AP_ACTIVITIES = 'AP Activities'
+  PRE_AP_ACTIVITIES = 'Pre-AP Activities'
+  SPRINGBOARD_ACTIVITIES = 'SpringBoard Activities'
+  ELA_STANDARDS = 'ELA Standards'
 
   def teacher_center_tabs(large: true)
     premium_tab = {
@@ -71,11 +76,31 @@ module TeacherCenterHelper
 
   def explore_curriculum_tabs(large: true)
     [
-      {name: large ? 'Featured Activities' : 'Featured', url: 'activities/packs'},
-      {name: large ? 'AP Activities' : 'AP', url: 'ap'},
-      {name: large ? 'Pre-AP Activities' : 'Pre-AP', url: 'preap'},
-      {name: large ? 'SpringBoard Activities' : 'SpringBoard', url: 'springboard'},
-      {name: large ? 'ELA Standards' : 'Standards', url: 'activities/standard_level/7'}
+      {
+        id: FEATURED_ACTIVITIES,
+        name: large ? FEATURED_ACTIVITIES : 'Featured',
+        url: '/activities/packs'
+      },
+      {
+        id: AP_ACTIVITIES,
+        name: large ? AP_ACTIVITIES : 'AP',
+        url: '/ap'
+      },
+      {
+        id: PRE_AP_ACTIVITIES,
+        name: large ? PRE_AP_ACTIVITIES : 'Pre-AP',
+        url: '/preap'
+      },
+      {
+        id: SPRINGBOARD_ACTIVITIES,
+        name: large ? SPRINGBOARD_ACTIVITIES : 'SpringBoard',
+        url: '/springboard'
+      },
+      {
+        id: ELA_STANDARDS,
+        name: large ? ELA_STANDARDS : 'Standards',
+        url: '/activities/standard_level/7'
+      }
     ]
   end
 end

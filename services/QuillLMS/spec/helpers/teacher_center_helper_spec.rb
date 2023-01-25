@@ -56,20 +56,20 @@ describe TeacherCenterHelper do
   describe `#explore_curriculum_tabs` do
     let(:large_tabs) {
       [
-        {name: 'Featured Activities', url: 'activities/packs'},
-        {name: 'AP Activities', url: 'ap'},
-        {name: 'Pre-AP Activities', url: 'preap'},
-        {name: 'SpringBoard Activities', url: 'springboard'},
-        {name: 'ELA Standards', url: 'activities/standard_level/7'}
+        {name: 'Featured Activities', url: '/activities/packs'},
+        {name: 'AP Activities', url: '/ap'},
+        {name: 'Pre-AP Activities', url: '/preap'},
+        {name: 'SpringBoard Activities', url: '/springboard'},
+        {name: 'ELA Standards', url: '/activities/standard_level/7'}
       ]
     }
     let(:small_tabs) {
       [
-        {name: 'Featured', url: 'activities/packs'},
-        {name: 'AP', url: 'ap'},
-        {name: 'Pre-AP', url: 'preap'},
-        {name: 'SpringBoard', url: 'springboard'},
-        {name: 'Standards', url: 'activities/standard_level/7'}
+        {name: 'Featured', url: '/activities/packs'},
+        {name: 'AP', url: '/ap'},
+        {name: 'Pre-AP', url: '/preap'},
+        {name: 'SpringBoard', url: '/springboard'},
+        {name: 'Standards', url: '/activities/standard_level/7'}
       ]
     }
 
