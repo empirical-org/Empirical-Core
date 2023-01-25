@@ -40,6 +40,7 @@ import useSnackbarMonitor from '../../../../../Shared/hooks/useSnackbarMonitor'
 const craneIllustration = <img alt="Grayscale construction crane" src={`${baseDiagnosticImageSrc}/crane-grayscale.svg`} />
 
 const LESSONS_RECOMMENDATION_THRESHOLD = 50
+const TROUBLE_PROCESSING_MESSAGE = 'We had trouble processing your request. Please check your network connection and try again.'
 
 const LessonRecommendation = ({ previouslyAssignedRecommendations, selections, setSelections, recommendation, }) => {
   const [isExpanded, setIsExpanded] = React.useState(false)
@@ -421,7 +422,7 @@ export const Recommendations = ({ passedPreviouslyAssignedRecommendations, passe
   function assignLessonsActivityPacks() {
     initializePusher(true)
     requestPost('/teachers/progress_reports/assign_whole_class_instruction_packs/', { unit_template_ids: lessonsSelections, classroom_id: params.classroomId }, (data) => {}, (data) => {
-      alert('We had trouble processing your request. Please check your network connection and try again.');
+      alert(TROUBLE_PROCESSING_MESSAGE);
     })
   }
 
@@ -454,7 +455,7 @@ export const Recommendations = ({ passedPreviouslyAssignedRecommendations, passe
     setIndependentAssigning(true)
     initializePusher()
     requestPost('/teachers/progress_reports/assign_independent_practice_packs/', dataToPass, (data) => {}, (data) => {
-      alert('We had trouble processing your request. Please check your network connection and try again.');
+      alert(TROUBLE_PROCESSING_MESSAGE);
       setIndependentAssigning(false)
     })
   }
@@ -471,7 +472,7 @@ export const Recommendations = ({ passedPreviouslyAssignedRecommendations, passe
       setPostTestAssigned(true)
       getPreviouslyAssignedPostTestData()
     }, (data) => {
-      alert('We had trouble processing your request. Please check your network connection and try again.');
+      alert(TROUBLE_PROCESSING_MESSAGE);
       setPostTestAssigning(false)
     })
   }

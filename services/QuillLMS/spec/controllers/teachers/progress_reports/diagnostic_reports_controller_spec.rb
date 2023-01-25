@@ -432,7 +432,9 @@ describe Teachers::ProgressReports::DiagnosticReportsController, type: :controll
     let!(:students_classroom2) { create(:students_classrooms, classroom: classroom, student: student2)}
 
     it 'creates a new pack and assigns it if there is no existing pack' do
-      get :assign_post_test, params: { classroom_id: classroom.id, unit_template_id: activity_pack.id, student_ids: [student1.id] }
+      expect do
+        get :assign_post_test, params: { classroom_id: classroom.id, unit_template_id: activity_pack.id, student_ids: [student1.id] }
+      end.to change(ClassroomUnit, :count).by(1)
 
       expect(response).to be_successful
 
@@ -448,7 +450,9 @@ describe Teachers::ProgressReports::DiagnosticReportsController, type: :controll
       unit = create(:unit, unit_template: activity_pack, user: teacher)
       classroom_unit = create(:classroom_unit, unit: unit, classroom: classroom, assigned_student_ids: [student1.id])
 
-      get :assign_post_test, params: { classroom_id: classroom.id, unit_template_id: activity_pack.id, student_ids: [student2.id] }
+      expect do
+        get :assign_post_test, params: { classroom_id: classroom.id, unit_template_id: activity_pack.id, student_ids: [student2.id] }
+      end.to change(ClassroomUnit, :count).by(0)
 
       expect(response).to be_successful
 

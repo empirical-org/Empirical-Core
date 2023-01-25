@@ -15,7 +15,7 @@ class AssignRecommendationsWorker
     student_ids = options['student_ids']
     unit_template_id = options['unit_template_id']
 
-    classroom = Classroom.find_by_id(classroom_id)
+    classroom = Classroom.find(classroom_id)
     teacher = classroom.owner
 
     Units::AssignmentHelpers.assign_unit_to_one_class(classroom_id, unit_template_id, student_ids, assign_on_join)
