@@ -3,7 +3,7 @@
 class SaveUserPackSequenceItemsWorker
   include Sidekiq::Worker
 
-  sidekiq_options queue: SidekiqQueue::DEFAULT,
+  sidekiq_options queue: SidekiqQueue::MIGRATION,
     lock: :until_executed
 
   def perform(classroom_id, user_id)
