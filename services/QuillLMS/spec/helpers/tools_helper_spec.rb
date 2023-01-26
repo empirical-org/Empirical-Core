@@ -35,7 +35,7 @@ describe ToolsHelper do
           name: ToolsHelper::QUILL_EVIDENCE,
           url: '/tools/evidence',
           id: ToolsHelper::QUILL_EVIDENCE
-        },
+        }
       ]
     }
     let(:small_tabs)  {
@@ -69,7 +69,7 @@ describe ToolsHelper do
           name: 'Evidence',
           url: '/tools/evidence',
           id: ToolsHelper::QUILL_EVIDENCE
-        },
+        }
       ]
     }
 
