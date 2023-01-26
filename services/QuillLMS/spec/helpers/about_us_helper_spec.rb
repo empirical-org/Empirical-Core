@@ -6,22 +6,22 @@ describe AboutUsHelper do
   describe '#about_us_tabs' do
     let(:large_tabs) {
       [
-        {name: 'About Us', url: 'about'},
-        {name: 'Impact', url: 'impact'},
-        {name: 'Pathways Initiative', url: 'pathways'},
-        {name: 'Team', url: 'team'},
-        {name: 'Careers', url: 'careers'},
-        {name: 'Press', url: 'press'}
+        {name: 'About Us', url: '/about'},
+        {name: 'Impact', url: '/impact'},
+        {name: 'Pathways Initiative', url: '/pathways'},
+        {name: 'Team', url: '/team'},
+        {name: 'Careers', url: '/careers'},
+        {name: 'Press', url: '/press'}
       ]
     }
     let(:small_tabs)  {
       [
-        {name: 'About', url: 'about'},
-        {name: 'Impact', url: 'impact'},
-        {name: 'Pathways', url: 'pathways'},
-        {name: 'Team', url: 'team'},
-        {name: 'Careers', url: 'careers'},
-        {name: 'Press', url: 'press'}
+        {name: 'About', url: '/about'},
+        {name: 'Impact', url: '/impact'},
+        {name: 'Pathways', url: '/pathways'},
+        {name: 'Team', url: '/team'},
+        {name: 'Careers', url: '/careers'},
+        {name: 'Press', url: '/press'}
       ]
     }
 
