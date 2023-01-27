@@ -10,7 +10,9 @@ class AdminDashboard::MadeSchoolAdminEmailWorker
 
     return unless user && admin_name && school_name
 
-    user.mailer_user.send_admin_dashboard_made_school_admin_email(admin_name, school_name)
+    if SchoolsAdmins.where(user_id: user_id).count == 1
+      user.mailer_user.send_admin_dashboard_made_school_admin_email(admin_name, school_name)
+    end
 
     SegmentAnalytics.new.track_school_admin_user(
       user,

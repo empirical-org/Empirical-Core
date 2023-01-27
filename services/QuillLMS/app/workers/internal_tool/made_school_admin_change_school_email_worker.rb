@@ -10,7 +10,9 @@ class InternalTool::MadeSchoolAdminChangeSchoolEmailWorker
 
     return unless user && new_school && existing_school
 
-    user.mailer_user.send_internal_tool_made_school_admin_change_school_email(new_school, existing_school)
+    if SchoolsAdmins.where(user_id: user_id).count == 1
+      user.mailer_user.send_internal_tool_made_school_admin_change_school_email(new_school, existing_school)
+    end
 
     SegmentAnalytics.new.track_school_admin_user(
       user,

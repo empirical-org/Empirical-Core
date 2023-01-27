@@ -52,6 +52,7 @@ en:
     existing_account:
       admin:
         linked: "This account already exists and is an admin of %{school_name}."
+        admin_for_other_school: "This account already exists and is an admin for another school. They were also made an admin for this school."
         new: "This account already exists. They were made an admin and notified by email."
       teacher:
         linked: "This account already exists and is linked to %{school_name}."

@@ -42,7 +42,13 @@ class Cms::SchoolAdminsController < Cms::CmsController
 
   private def handle_school_admin_save(user, school_id, new_user)
     determine_school_admin_worker(user, school_id, new_user)
-    returned_message = new_user ? t('admin.make_admin') : t('admin_created_account.existing_account.admin.new')
+    returned_message = t('admin_created_account.existing_account.admin.new')
+
+    if new_user
+      returned_message = t('admin.make_admin')
+    elsif SchoolsAdmins.where(user_id: user.id).count > 1
+      returned_message = t('admin_created_account.existing_account.admin.admin_for_other_school')
+    end
 
     if params[:is_make_admin_button]
       flash[:success] = t('admin.make_admin')
@@ -54,18 +60,19 @@ class Cms::SchoolAdminsController < Cms::CmsController
 
   private def create_admin_user_for_existing_user(user, new_user: false)
     school_id = params[:school_id]
+    school_admin_for_school = SchoolsAdmins.find_by(school_id: school_id, user_id: user.id)
 
-    if user.admin?
-      school_name = SchoolsAdmins.find_by(school_id: school_id).school.name
+    if school_admin_for_school
+      school_name = school_admin_for_school.school.name
       return render json: { message: t('admin_created_account.existing_account.admin.linked', school_name: school_name) }
     end
 
-    school_admin = user.schools_admins.build(school_id: school_id)
+    new_school_admin = user.schools_admins.build(school_id: school_id)
 
-    if school_admin.save!
+    if new_school_admin.save!
       handle_school_admin_save(user, school_id, new_user)
     else
-      render json: { error: school_admin.errors.messages }
+      render json: { error: new_school_admin.errors.messages }
     end
   end
 

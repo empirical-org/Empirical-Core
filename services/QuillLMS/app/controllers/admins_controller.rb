@@ -147,8 +147,9 @@ class AdminsController < ApplicationController
     if SchoolsAdmins.exists?(user: @teacher, school: @school)
       @message = t('admin_created_account.existing_account.admin.linked', school_name: @school.name)
     else
+      existing_admin = SchoolsAdmins.find_by(user_id: @teacher.id)
       SchoolsAdmins.create(user: @teacher, school: @school)
-      @message = t('admin_created_account.existing_account.admin.new')
+      @message = existing_admin ? t('admin_created_account.existing_account.admin.admin_for_other_school') : t('admin_created_account.existing_account.admin.new')
       handle_new_school_admin_email
     end
   end
