@@ -7774,13 +7774,6 @@ CREATE INDEX index_subscriptions_on_start_date ON public.subscriptions USING btr
 
 
 --
--- Name: index_subscriptions_on_stripe_invoice_id; Type: INDEX; Schema: public; Owner: -
---
-
-CREATE UNIQUE INDEX index_subscriptions_on_stripe_invoice_id ON public.subscriptions USING btree (stripe_invoice_id);
-
-
---
 -- Name: index_teacher_info_subject_areas_on_subject_area_id; Type: INDEX; Schema: public; Owner: -
 --
 
@@ -9161,6 +9154,7 @@ INSERT INTO "schema_migrations" (version) VALUES
 ('20221209151611'),
 ('20221209151957'),
 ('20230104183416'),
-('20230111214530');
+('20230111214530'),
+('20230127191134');
 
 
