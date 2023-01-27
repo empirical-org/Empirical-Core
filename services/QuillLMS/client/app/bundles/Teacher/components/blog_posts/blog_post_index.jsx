@@ -1,5 +1,6 @@
 import * as React from 'react';
 import _ from 'underscore';
+import pluralize from 'pluralize'
 
 import TopicSection from './topic_section.jsx';
 import HeaderSection from './header_section'
@@ -143,13 +144,15 @@ export default class BlogPostIndex extends React.Component {
   }
 
   renderNavAndSectionHeader() {
+    const { blogPosts, } = this.props
     if (this.currentPageIsSearchPage()) {
       return (
-        <nav>
-          <ul>
-            <li>Search Results</li>
-          </ul>
-        </nav>
+        <section className="search-result-header">
+          <div className="meta">
+            <h1>Search results</h1>
+            <h2>{blogPosts.length} {pluralize('article', blogPosts.length)}</h2>
+          </div>
+        </section>
       )
     }
 
