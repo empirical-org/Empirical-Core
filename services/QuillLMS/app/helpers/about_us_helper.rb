@@ -13,32 +13,32 @@ module AboutUsHelper
       {
         id: ABOUT_US,
         name: large ? ABOUT_US : 'About',
-        url: 'about'
+        url: '/about'
       },
       {
         id: IMPACT,
         name: IMPACT,
-        url: 'impact'
+        url: '/impact'
       },
       {
         id: PATHWAYS_INITIATIVE,
         name: large ? PATHWAYS_INITIATIVE : 'Pathways',
-        url: 'pathways'
+        url: '/pathways'
       },
       {
         id: TEAM,
         name: TEAM,
-        url: 'team'
+        url: '/team'
       },
       {
         id: CAREERS,
         name: CAREERS,
-        url: 'careers'
+        url: '/careers'
       },
       {
         id: PRESS,
         name: PRESS,
-        url: 'press'
+        url: '/press'
       }
     ]
   end
