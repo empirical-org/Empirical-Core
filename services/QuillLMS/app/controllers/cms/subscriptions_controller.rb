@@ -64,22 +64,22 @@ class Cms::SubscriptionsController < Cms::CmsController
   end
 
   private def subscription_params
-    params.require(:subscription).permit([
-      :id,
-      :expiration,
-      :created_at,
-      :updated_at,
-      :account_type,
-      :purchaser_email,
-      :start_date,
-      :subscription_type_id,
-      :purchaser_id,
-      :recurring,
-      :de_activated_date,
-      :payment_method,
-      :payment_amount,
-      :stripe_invoice_id,
-      :purchase_order_number
+    params.require(:subscription).permit(%i[
+      id
+      expiration
+      created_at
+      updated_at
+      account_type
+      purchaser_email
+      start_date
+      subscription_type_id
+      purchaser_id
+      recurring
+      de_activated_date
+      payment_method
+      payment_amount
+      stripe_invoice_id
+      purchase_order_number
     ])
   end
 end

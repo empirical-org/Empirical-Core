@@ -26,7 +26,7 @@ describe Cms::SubscriptionsController do
     end
 
     it 'should call populate_data_from_stripe_invoice to try to auto-populate data' do
-      expect_any_instance_of(Subscription).to receive(:populate_data_from_stripe_invoice)      
+      expect_any_instance_of(Subscription).to receive(:populate_data_from_stripe_invoice)
       post :create,
         params: {
           subscriber_id: school.id,
