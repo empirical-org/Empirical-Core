@@ -36,6 +36,7 @@ FactoryBot.define do
     purchaser_id { nil }
     payment_method { '' }
     stripe_invoice_id { nil }
+    purchase_order_number { nil }
     plan { nil }
 
     trait(:recurring) { recurring true }

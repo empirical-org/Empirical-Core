@@ -57,6 +57,7 @@ class SerializeVitallySalesAccount
         premium_start_date: subscription_start_date,
         annual_revenue_current_contract: @school.subscription&.payment_amount || NOT_APPLICABLE,
         stripe_invoice_id_current_contract: @school.subscription&.stripe_invoice_id || NOT_APPLICABLE,
+        purchase_order_number_current_contract: @school.subscription&.purchase_order_number || NOT_APPLICABLE,
         last_active: last_active
       }
     }
