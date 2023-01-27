@@ -22,21 +22,92 @@ $blogpostlightteal: rgba(44, 127, 155, 0.08);
   border: none;
 }
 
-body {
-  // We use this in conjunction with a margin hack that allows us to break
-  // elements outside of their containers. Using margin-left: -100% and
-  // margin-right -100%, we can make elements appear to be the body's full
-  // width even if the containing element is not full width. However, they
-  // may overflow horizontally, and so we want to hide that if it's the case.
-  overflow-x: hidden;
-}
-
 @keyframes pulsate {
   0% {
     box-shadow: 0 0 0 0 #a8e067;
   }
   100% {
     box-shadow: 0 0 10px 0 #a8e067;
+  }
+}
+
+.topic-section, .preview-card-link {
+  &.green {
+    h1, h3 {
+      color: $blogpostgreen;
+    }
+    h3 {
+      background-color: $blogpostlightgreen;
+    }
+    .quill-button {
+      background-color: $blogpostgreen;
+    }
+  }
+  &.purple {
+    h1, h3 {
+      color: $blogpostpurple;
+    }
+    h3 {
+      background-color: $blogpostlightpurple;
+    }
+    .quill-button {
+      background-color: $blogpostpurple;
+    }
+  }
+  &.blue {
+    h1, h3 {
+      color: $blogpostblue;
+    }
+    h3 {
+      background-color: $blogpostlightblue;
+    }
+    .quill-button {
+      background-color: $blogpostblue;
+    }
+  }
+  &.gold {
+    h1, h3 {
+      color: $blogpostgold;
+    }
+    h3 {
+      background-color: $blogpostlightgold;
+    }
+    .quill-button {
+      background-color: $blogpostgold;
+    }
+  }
+  &.red {
+    h1, h3 {
+      color: $blogpostred;
+    }
+    h3 {
+      background-color: $blogpostlightred;
+    }
+    .quill-button {
+      background-color: $blogpostred;
+    }
+  }
+  &.violet {
+    h1, h3 {
+      color: $blogpostviolet;
+    }
+    h3 {
+      background-color: $blogpostlightviolet;
+    }
+    .quill-button {
+      background-color: $blogpostviolet;
+    }
+  }
+  &.teal {
+    h1, h3 {
+      color: $blogpostteal;
+    }
+    h3 {
+      background-color: $blogpostlightteal;
+    }
+    .quill-button {
+      background-color: $blogpostteal;
+    }
   }
 }
 
@@ -131,86 +202,6 @@ body {
     }
   }
 
-  .topic-section, .preview-card-link {
-    &.green {
-      h1, h3 {
-        color: $blogpostgreen;
-      }
-      h3 {
-        background-color: $blogpostlightgreen;
-      }
-      .quill-button {
-        background-color: $blogpostgreen;
-      }
-    }
-    &.purple {
-      h1, h3 {
-        color: $blogpostpurple;
-      }
-      h3 {
-        background-color: $blogpostlightpurple;
-      }
-      .quill-button {
-        background-color: $blogpostpurple;
-      }
-    }
-    &.blue {
-      h1, h3 {
-        color: $blogpostblue;
-      }
-      h3 {
-        background-color: $blogpostlightblue;
-      }
-      .quill-button {
-        background-color: $blogpostblue;
-      }
-    }
-    &.gold {
-      h1, h3 {
-        color: $blogpostgold;
-      }
-      h3 {
-        background-color: $blogpostlightgold;
-      }
-      .quill-button {
-        background-color: $blogpostgold;
-      }
-    }
-    &.red {
-      h1, h3 {
-        color: $blogpostred;
-      }
-      h3 {
-        background-color: $blogpostlightred;
-      }
-      .quill-button {
-        background-color: $blogpostred;
-      }
-    }
-    &.violet {
-      h1, h3 {
-        color: $blogpostviolet;
-      }
-      h3 {
-        background-color: $blogpostlightviolet;
-      }
-      .quill-button {
-        background-color: $blogpostviolet;
-      }
-    }
-    &.teal {
-      h1, h3 {
-        color: $blogpostteal;
-      }
-      h3 {
-        background-color: $blogpostlightteal;
-      }
-      .quill-button {
-        background-color: $blogpostteal;
-      }
-    }
-  }
-
   section {
     border-bottom: none;
     margin-bottom: 0;
@@ -291,6 +282,9 @@ body {
   }
 
   .preview-card-body {
+    padding-bottom: 16px;
+    border-bottom: 1px solid #CFCFCF;
+    overflow: hidden;
 
     .button-container {
       display: flex;
@@ -306,9 +300,11 @@ body {
       font-size: 14px;
       line-height: 20px;
       margin-top: 16px;
-      height: 96px;
-      padding-bottom: 16px;
-      border-bottom: 1px solid #CFCFCF;
+      height: 80px;
+      -webkit-line-clamp: 4;
+      text-overflow: ellipsis;
+      overflow: hidden;
+      line-clamp: 4;
     }
 
     h3 {
@@ -368,8 +364,8 @@ a.all-blog-posts-back-button {
 
   article {
     margin: 0 auto;
-    max-width: 945px;
-    padding: 25px 0px;
+    max-width: 700px;
+    padding: 44px 0px;
 
     a {
       text-decoration: underline;
@@ -402,41 +398,29 @@ a.all-blog-posts-back-button {
       max-width: 750px;
 
       h1 {
-        font-size: 30px;
+        font-size: 32px;
         font-weight: 700;
-        margin-bottom: 20px;
         line-height: 39px;
       }
 
-      img {
-        border-radius: 50%;
-        float: left;
-        height: 45px;
-        margin-right: 10px;
-        width: 45px;
-      }
-
-      .author, .published {
-        font-weight: 600;
-        color: #000000;
-      }
-
-      .date {
+      .date, .author {
         color: #666666;
+        font-weight: 400;
+        font-size: 16px;
+        margin-top: 14px;
       }
     }
 
     main {
-      line-height: 1.75;
-      margin-top: 40px;
-      max-width: 750px;
+      margin-top: 48px;
+      padding-top: 48px;
+      border-top: 1px solid #CFCFCF;
+      font-weight: 400;
+      font-size: 20px;
+      line-height: 33px;
 
       h1, h2, h3, p, ul, ol, img, blockquote {
-        margin: 32px 0;
-      }
-
-      p, ul, ol, blockquote {
-        font-size: 21px;
+        margin: 0px 0 32px;
       }
     }
 
@@ -485,6 +469,9 @@ a.all-blog-posts-back-button {
         color: #3b3b3b;
         font-size: 18px;
         font-weight: 700;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
       }
 
       #preview-card-container {
