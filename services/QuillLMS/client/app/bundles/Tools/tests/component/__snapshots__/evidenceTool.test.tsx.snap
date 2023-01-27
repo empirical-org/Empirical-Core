@@ -139,64 +139,64 @@ exports[`EvidenceTool Component should match snapshot 1`] = `
           className="image-container"
         >
           <img
-            alt=""
-            className="evidence-image inactive"
-            src="https://assets.quill.org/images/evidence/home_page/widget_images/2x/HeroEvidenceWidget_12.png"
+            alt="Example Evidence Activity"
+            className="evidence-image lazyload inactive"
+            data-src="https://assets.quill.org/images/evidence/home_page/widget_images/2x/HeroEvidenceWidget_12.png"
           />
           <img
-            alt=""
-            className="evidence-image inactive"
-            src="https://assets.quill.org/images/evidence/home_page/widget_images/2x/HeroEvidenceWidget_11.png"
+            alt="Example Evidence Activity"
+            className="evidence-image lazyload inactive"
+            data-src="https://assets.quill.org/images/evidence/home_page/widget_images/2x/HeroEvidenceWidget_11.png"
           />
           <img
-            alt=""
-            className="evidence-image inactive"
-            src="https://assets.quill.org/images/evidence/home_page/widget_images/2x/HeroEvidenceWidget_10.png"
+            alt="Example Evidence Activity"
+            className="evidence-image lazyload inactive"
+            data-src="https://assets.quill.org/images/evidence/home_page/widget_images/2x/HeroEvidenceWidget_10.png"
           />
           <img
-            alt=""
-            className="evidence-image inactive"
-            src="https://assets.quill.org/images/evidence/home_page/widget_images/2x/HeroEvidenceWidget_9.png"
+            alt="Example Evidence Activity"
+            className="evidence-image lazyload inactive"
+            data-src="https://assets.quill.org/images/evidence/home_page/widget_images/2x/HeroEvidenceWidget_9.png"
           />
           <img
-            alt=""
-            className="evidence-image inactive"
-            src="https://assets.quill.org/images/evidence/home_page/widget_images/2x/HeroEvidenceWidget_8.png"
+            alt="Example Evidence Activity"
+            className="evidence-image lazyload inactive"
+            data-src="https://assets.quill.org/images/evidence/home_page/widget_images/2x/HeroEvidenceWidget_8.png"
           />
           <img
-            alt=""
-            className="evidence-image inactive"
-            src="https://assets.quill.org/images/evidence/home_page/widget_images/2x/HeroEvidenceWidget_7.png"
+            alt="Example Evidence Activity"
+            className="evidence-image lazyload inactive"
+            data-src="https://assets.quill.org/images/evidence/home_page/widget_images/2x/HeroEvidenceWidget_7.png"
           />
           <img
-            alt=""
-            className="evidence-image inactive"
-            src="https://assets.quill.org/images/evidence/home_page/widget_images/2x/HeroEvidenceWidget_6.png"
+            alt="Example Evidence Activity"
+            className="evidence-image lazyload inactive"
+            data-src="https://assets.quill.org/images/evidence/home_page/widget_images/2x/HeroEvidenceWidget_6.png"
           />
           <img
-            alt=""
-            className="evidence-image inactive"
-            src="https://assets.quill.org/images/evidence/home_page/widget_images/2x/HeroEvidenceWidget_5.png"
+            alt="Example Evidence Activity"
+            className="evidence-image lazyload inactive"
+            data-src="https://assets.quill.org/images/evidence/home_page/widget_images/2x/HeroEvidenceWidget_5.png"
           />
           <img
-            alt=""
-            className="evidence-image inactive"
-            src="https://assets.quill.org/images/evidence/home_page/widget_images/2x/HeroEvidenceWidget_4.png"
+            alt="Example Evidence Activity"
+            className="evidence-image lazyload inactive"
+            data-src="https://assets.quill.org/images/evidence/home_page/widget_images/2x/HeroEvidenceWidget_4.png"
           />
           <img
-            alt=""
-            className="evidence-image inactive"
-            src="https://assets.quill.org/images/evidence/home_page/widget_images/2x/HeroEvidenceWidget_3.png"
+            alt="Example Evidence Activity"
+            className="evidence-image lazyload inactive"
+            data-src="https://assets.quill.org/images/evidence/home_page/widget_images/2x/HeroEvidenceWidget_3.png"
           />
           <img
-            alt=""
-            className="evidence-image inactive"
-            src="https://assets.quill.org/images/evidence/home_page/widget_images/2x/HeroEvidenceWidget_2.png"
+            alt="Example Evidence Activity"
+            className="evidence-image lazyload inactive"
+            data-src="https://assets.quill.org/images/evidence/home_page/widget_images/2x/HeroEvidenceWidget_2.png"
           />
           <img
-            alt=""
-            className="evidence-image "
-            src="https://assets.quill.org/images/evidence/home_page/widget_images/2x/HeroEvidenceWidget_1.png"
+            alt="Example Evidence Activity"
+            className="evidence-image lazyload "
+            data-src="https://assets.quill.org/images/evidence/home_page/widget_images/2x/HeroEvidenceWidget_1.png"
           />
         </div>
       </EvidenceWidget>

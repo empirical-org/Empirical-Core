@@ -58,6 +58,10 @@ class Unit < ApplicationRecord
   # on save or touch, and touch explicitly bypasses after_save hooks
   after_commit :touch_all_classrooms_and_classroom_units
 
+  def closed?
+    !open?
+  end
+
   def set_open_to_false
     return if visible
 

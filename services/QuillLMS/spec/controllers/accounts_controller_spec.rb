@@ -24,18 +24,21 @@ describe AccountsController, type: :controller do
   end
 
   describe '#role' do
-    context 'when role is student or teacher' do
-      it 'should set the js_file and role in session' do
-        post :role, params: { role: "student" }
-        expect(session[:role]).to eq "student"
+    context 'when role is student, teacher or individual-contributor' do
+      it 'should set the role in session' do
+        post :role, params: { role: User::STUDENT }
+        expect(session[:role]).to eq User::STUDENT
 
-        post :role, params: { role: "teacher" }
-        expect(session[:role]).to eq "teacher"
+        post :role, params: { role: User::TEACHER }
+        expect(session[:role]).to eq User::TEACHER
+
+        post :role, params: { role: User::INDIVIDUAL_CONTRIBUTOR }
+        expect(session[:role]).to eq User::INDIVIDUAL_CONTRIBUTOR
       end
     end
 
     context 'when role is not student or teacher' do
-      it 'should set the js file but not the role in session' do
+      it 'should not set the role in session' do
         post :role, params: { role: "not student or teacher" }
         expect(session[:role]).to eq nil
       end

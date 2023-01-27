@@ -108,7 +108,8 @@ export {
   isTrackableStudentEvent,
   hexToRGBA,
   uniqueValuesArray,
-  filterNumbers
+  filterNumbers,
+  redirectToActivity
 } from './libs/index'
 
 export {
@@ -155,6 +156,7 @@ export {
   infoIcon,
   closedLockIcon,
   openLockIcon,
+  networkIcon
 } from './images/index'
 
 export {
@@ -194,7 +196,10 @@ export {
   BETA_FLAG,
   GAMMA_FLAG,
   PRIVATE_FLAG,
-  NOT_APPLICABLE
+  NOT_APPLICABLE,
+  STUDENT,
+  TEACHER,
+  INDIVIDUAL_CONTRIBUTOR
 } from './utils/constants'
 
 export {

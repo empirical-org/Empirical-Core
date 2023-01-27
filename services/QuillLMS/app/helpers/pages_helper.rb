@@ -124,6 +124,11 @@ module PagesHelper
             img: 'team-rachel-dantzler@2x.png'
           },
           {
+            name: 'Ellie Dean',
+            title: 'Finance & Operations Specialist II',
+            img: 'team-ellie-dean@2x.png'
+          },
+          {
             name: 'Emilia Friedberg',
             title: 'Senior Software Engineer I',
             img: 'team-emilia-friedberg@2x.png'
@@ -137,6 +142,11 @@ module PagesHelper
             name: 'Sherry Lewkowicz',
             title: 'Professional Learning Manager',
             img: 'team-sherry-lewkowicz@2x.png'
+          },
+          {
+            name: 'Charlie Looper',
+            title: 'Partnerships Specialist II',
+            img: 'team-charlie-looper@2x.png'
           },
           {
             name: 'Stephanee McCadney',

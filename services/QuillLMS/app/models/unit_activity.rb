@@ -131,7 +131,7 @@ class UnitActivity < ApplicationRecord
     student_timezone_offset_string = "+ INTERVAL '#{User.find(user_id).utc_offset || 0}' SECOND"
 
     # Generate a rich profile of Classroom Activities for a given user in a given classroom
-    RawSqlRunner.execute(
+    data = RawSqlRunner.execute(
      <<-SQL
         SELECT
           unit.name,
@@ -157,6 +157,7 @@ class UnitActivity < ApplicationRecord
           COALESCE(cuas.locked, false) AS locked,
           COALESCE(cuas.pinned, false) AS pinned,
           MAX(acts.percentage) AS max_percentage,
+          CASE WHEN unit.open = false THEN true ELSE false END as closed,
           SUM(CASE WHEN pre_activity_sessions_classroom_units.id > 0 AND pre_activity_sessions.state = '#{ActivitySession::STATE_FINISHED}' THEN 1 ELSE 0 END) > 0 AS completed_pre_activity_session,
           SUM(CASE WHEN acts.state = '#{ActivitySession::STATE_FINISHED}' THEN 1 ELSE 0 END) > 0 AS #{ActivitySession::STATE_FINISHED_KEY},
           SUM(CASE WHEN acts.state = '#{ActivitySession::STATE_STARTED}' THEN 1 ELSE 0 END) AS resume_link
@@ -220,7 +221,8 @@ class UnitActivity < ApplicationRecord
           teachers.time_zone,
           psi.id,
           upsi.id,
-          upsi.status
+          upsi.status,
+          acts.visible
         ORDER BY
           pinned DESC,
           locked ASC,
@@ -231,5 +233,8 @@ class UnitActivity < ApplicationRecord
           ua.id ASC
      SQL
     )
+
+    # we could also do this with a HAVING clause, but it is pretty difficult to read because the logic for computing those values is complex
+    data.filter { |ua| ua['finished'] || !ua['closed'] }
   end
 end

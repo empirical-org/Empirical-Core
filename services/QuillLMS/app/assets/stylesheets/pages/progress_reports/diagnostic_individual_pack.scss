@@ -9,7 +9,7 @@
     padding: 0px;
   }
   .diagnostic-report-navigation {
-    width: 260px;
+    width: 268px;
     min-width: 260px;
     background-color: #fff;
     border-right: 1px solid #e0e0e0;
@@ -21,7 +21,7 @@
       padding: 0px 16px;
       min-height: 58px;
       justify-content: flex-start;
-      margin-bottom: -18px;
+      border-bottom: 1px solid #E0E0E0;
     }
     .post-diagnostic-card {
       background-color: #f5f5f5;
@@ -43,17 +43,15 @@
       p {
         text-align: center;
         color: #5c5c5c;
-        margin: 8px 0px 24px;
+        margin: 24px 0px 16px;
       }
-      a, .fake-link {
-        font-size: 14px;
-        font-weight: 600;
-        line-height: 1.43;
-        text-align: center;
-        background-color: transparent;
-        margin: 0px 8px;
-        color: #5c5c5c;
-        text-decoration: underline;
+      div {
+        display: flex;
+        justify-content: space-between;
+        width: 100%;
+        .quill-button {
+          width: calc(50% - 4px);
+        }
       }
     }
     .diagnostic-section {
@@ -63,14 +61,32 @@
         padding: 0px 16px;
         display: flex;
         justify-content: space-between;
-        align-items: center;
+        align-items: flex-start;
         color: #5c5c5c;
-        font-size: 12px;
-        font-weight: 600;
-        line-height: 1.33;
+        font-weight: 700;
+        font-size: 13px;
+        line-height: 16px;
         img {
           height: 16px;
           margin-left: 16px;
+        }
+        .pre-badge, .post-badge {
+          border-radius: 5px;
+          padding: 0px 4px;
+          height: min-content;
+          width: min-content;
+          margin-top: 4px;
+        }
+        .pre-badge {
+          border: 2px solid #5C5C5C;
+        }
+        .post-badge {
+          background: #5C5C5C;
+          color: white;
+        }
+        span:has(.activity-name) {
+          display: flex;
+          flex-direction: column;
         }
       }
       .disabled-link {

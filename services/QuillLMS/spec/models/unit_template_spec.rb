@@ -142,6 +142,40 @@ describe UnitTemplate, redis: true, type: :model do
     end
   end
 
+  describe '#meta_description' do
+    let(:standard1) {create(:standard, name: '7.1b writing sentences')}
+    let(:standard2) {create(:standard, name: 'CCSS Grade 9')}
+    let(:activity1) { create(:activity, standard: standard1) }
+    let(:activity2) { create(:activity, standard: standard2) }
+    let(:description) {"Free online writing activity pack \"Template Name\" for teachers of school students. Standards: 7.1b writing sentences and CCSS Grade 9."}
+
+    subject { create(:unit_template, name: 'Template Name', activities: [activity1, activity2]) }
+
+    it 'populate a meta decription' do
+      expect(subject.meta_description).to eq description
+    end
+
+    context 'with grades' do
+      let(:description) {"Free online writing activity pack \"Template Name\" for teachers of middle school students grades 6, 7, and 8. Standards: 7.1b writing sentences and CCSS Grade 9."}
+
+      subject { create(:unit_template, name: 'Template Name', grades: ['6','7','8'], activities: [activity1, activity2]) }
+
+      it 'populate a meta decription' do
+        expect(subject.meta_description).to eq description
+      end
+    end
+
+    context 'no activities' do
+      let(:description) {"Free online writing activity pack \"Template Name\" for teachers of school students. "}
+
+      subject { create(:unit_template, name: 'Template Name') }
+
+      it 'populate a meta decription' do
+        expect(subject.meta_description).to eq description
+      end
+    end
+  end
+
   describe '#get_cached_serialized_unit_template' do
     let(:category) { create(:unit_template_category) }
     let(:author) { create(:author) }

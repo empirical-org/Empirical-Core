@@ -242,6 +242,7 @@ describe ProfilesController, type: :controller do
                 'completed_pre_activity_session' => pre_test_completed_session.present?,
                 'finished' => activity_session&.percentage ? true : false,
                 'resume_link' => activity_session&.state == 'started' ? 1 : 0,
+                'closed' => false
               }
             end
           end

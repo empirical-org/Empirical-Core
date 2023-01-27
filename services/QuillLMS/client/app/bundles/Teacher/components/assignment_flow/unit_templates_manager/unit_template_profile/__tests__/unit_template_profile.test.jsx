@@ -7,6 +7,7 @@ import { UnitTemplateProfile } from '../unit_template_profile.tsx'
 import LoadingIndicator from '../../../../shared/loading_indicator'
 import UnitTemplateProfileDescription from '../unit_template_profile_description'
 import UnitTemplateProfileShareButtons from '../unit_template_profile_share_buttons';
+import UnitTemplateAuthenticationButtons from '../unit_template_authentication_buttons';
 import { CLICKED_ACTIVITY_PACK_ID } from '../../../assignmentFlowConstants';
 
 const props = {
@@ -82,6 +83,14 @@ describe('UnitTemplateProfile component', () => {
       );
       wrapper.setState({ loading: false, data: {flag: "private"}});
       expect(wrapper.find(UnitTemplateProfileShareButtons)).toHaveLength(0);
+    })
+    it('should show login/signup buttons if non_authenticated is true', () => {
+      const wrapper = shallow(
+        <UnitTemplateProfile {...props} />
+      );
+      expect(wrapper.find(UnitTemplateAuthenticationButtons).length).toEqual(0);
+      wrapper.setState({ loading: false, data: {non_authenticated: true}});
+      expect(wrapper.find(UnitTemplateAuthenticationButtons).length).toEqual(1);
     })
   })
 

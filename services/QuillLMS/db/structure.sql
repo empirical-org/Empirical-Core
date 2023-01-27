@@ -4165,7 +4165,8 @@ CREATE TABLE public.teacher_infos (
     maximum_grade_level integer,
     user_id bigint NOT NULL,
     created_at timestamp(6) without time zone NOT NULL,
-    updated_at timestamp(6) without time zone NOT NULL
+    updated_at timestamp(6) without time zone NOT NULL,
+    role_selected_at_signup character varying DEFAULT ''::character varying
 );
 
 
@@ -9155,6 +9156,7 @@ INSERT INTO "schema_migrations" (version) VALUES
 ('20221209151957'),
 ('20230104183416'),
 ('20230111214530'),
+('20230113132638'),
 ('20230127191134');
 
 

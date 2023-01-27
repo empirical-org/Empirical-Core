@@ -131,6 +131,20 @@ class Teachers::UnitsController < ApplicationController
     render json: {}
   end
 
+  def close
+    unit = Unit.find(params[:id])
+    unit.update(open: false)
+    ResetLessonCacheWorker.new.perform(current_user.id)
+    render json: {}
+  end
+
+  def open
+    unit = Unit.find(params[:id])
+    unit.update(open: true)
+    ResetLessonCacheWorker.new.perform(current_user.id)
+    render json: {}
+  end
+
   def destroy
     # Unit.find(params[:id]).update(visible: false)
     render json: {}
@@ -269,6 +283,7 @@ class Teachers::UnitsController < ApplicationController
           #{ActiveRecord::Base.connection.quote(teach_own_or_coteach)} AS teach_own_or_coteach,
           unit_owner.name AS owner_name,
           ua.id AS unit_activity_id,
+          units.open AS open,
           CASE
             WHEN unit_owner.id = #{current_user.id} THEN true
             ELSE false
@@ -314,8 +329,7 @@ class Teachers::UnitsController < ApplicationController
           AND ua.visible = true
           #{lessons}
         GROUP BY
-          units.name,
-          units.created_at,
+          units.id,
           cu.id, classrooms.name,
           classrooms.id,
           activities.name,
@@ -365,14 +379,16 @@ class Teachers::UnitsController < ApplicationController
       classroom_units.assigned_student_ids AS assigned_student_ids,
       greatest(unit_activities.created_at, classroom_units.created_at) AS assigned_date,
       activities.follow_up_activity_id AS post_test_id,
-      classroom_units.id AS classroom_unit_id
+      classroom_units.id AS classroom_unit_id,
+      activities_unit_templates.unit_template_id AS unit_template_id
     ")
     .joins("JOIN classrooms ON classrooms_teachers.classroom_id = classrooms.id AND classrooms.visible = TRUE AND classrooms_teachers.user_id = #{current_user.id}")
     .joins("JOIN classroom_units ON classroom_units.classroom_id = classrooms.id AND classroom_units.visible")
     .joins("JOIN units ON classroom_units.unit_id = units.id AND units.visible")
     .joins("JOIN unit_activities ON unit_activities.unit_id = classroom_units.unit_id AND unit_activities.activity_id IN (#{diagnostic_activity_ids.join(',')}) AND unit_activities.visible")
     .joins("JOIN activities ON unit_activities.activity_id = activities.id")
-    .group("classrooms.name, activities.name, activities.id, classroom_units.unit_id, classroom_units.id, units.name, classrooms.id, classroom_units.assigned_student_ids, unit_activities.created_at, classroom_units.created_at")
+    .joins("LEFT JOIN activities_unit_templates ON activities_unit_templates.activity_id = activities.id")
+    .group("classrooms.name, activities.name, activities.id, classroom_units.unit_id, classroom_units.id, units.name, classrooms.id, classroom_units.assigned_student_ids, unit_activities.created_at, classroom_units.created_at, activities_unit_templates.unit_template_id")
     .order(Arel.sql("classrooms.name, greatest(classroom_units.created_at, unit_activities.created_at) DESC"))
 
     records.map do |r|
@@ -386,7 +402,8 @@ class Teachers::UnitsController < ApplicationController
         "classroom_id" => r['classroom_id'],
         "assigned_date" => r['assigned_date'],
         "post_test_id" => r['post_test_id'],
-        "classroom_unit_id" => r['classroom_unit_id']
+        "classroom_unit_id" => r['classroom_unit_id'],
+        "unit_template_id" => r['unit_template_id']
       }
     end
   end

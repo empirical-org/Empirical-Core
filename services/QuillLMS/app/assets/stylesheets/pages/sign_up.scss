@@ -43,6 +43,15 @@
   }
 }
 
+.account-form#user-type {
+  h1 {
+    margin-bottom: 32px;
+  }
+  .network-icon {
+    margin-bottom: 24px;
+  }
+}
+
 .account-form.student-sign-up, .account-form.teacher-sign-up, .account-form.finish-set-up {
   h1 {
     margin-bottom: 4px !important;

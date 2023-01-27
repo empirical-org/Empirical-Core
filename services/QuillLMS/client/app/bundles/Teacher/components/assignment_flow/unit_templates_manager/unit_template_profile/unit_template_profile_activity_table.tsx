@@ -1,7 +1,7 @@
 import * as React from 'react';
 
 import PreviouslyAssignedTooltip from '../../previouslyAssignedTooltip';
-import { Tooltip, ReactTable, getIconForActivityClassification } from '../../../../../Shared/index'
+import { Tooltip, ReactTable, getIconForActivityClassification, redirectToActivity } from '../../../../../Shared/index'
 import { requestGet } from '../../../../../../modules/request';
 
 export const UnitTemplateProfileActivityTable = ({ data }) => {
@@ -19,10 +19,6 @@ export const UnitTemplateProfileActivityTable = ({ data }) => {
       })
     }
   }, [])
-
-  function redirectToActivity(activityId) {
-    window.open(`/activity_sessions/anonymous?activity_id=${activityId}`, '_blank');
-  };
 
   function columnDefinitions() {
     // Student, Date, Activity, Score, Standard, Tool

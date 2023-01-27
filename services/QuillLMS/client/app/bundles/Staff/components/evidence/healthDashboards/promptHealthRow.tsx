@@ -44,7 +44,7 @@ export const PromptHealthRows = ({ data }) => {
       key: "first_attempt_optimal",
       minWidth: 70,
       Cell: ({row}) => {
-        if (!row.original.first_attempt_optimal) { return }
+        if (!row.original.first_attempt_optimal) { return <span />}
         const className = row.original.first_attempt_optimal < 25 ? "poor-health" : "" + " name"
         return <span className={className}>{row.original.first_attempt_optimal}%</span>
       }
@@ -137,7 +137,7 @@ export const PromptHealthRows = ({ data }) => {
         />
       )
     }
-    return <p>NO_DATA_FOUND_MESSAGE</p>
+    return <p>{NO_DATA_FOUND_MESSAGE}</p>
   }
 
 

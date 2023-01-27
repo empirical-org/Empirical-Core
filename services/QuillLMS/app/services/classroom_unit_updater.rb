@@ -34,7 +34,7 @@ class ClassroomUnitUpdater < ApplicationService
 
     classroom_unit
       .assigned_student_ids
-      .union(student_ids)
+      .union(student_ids.map(&:to_i))
       .sort
   end
 end

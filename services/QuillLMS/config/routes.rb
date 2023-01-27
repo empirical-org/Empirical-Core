@@ -270,6 +270,8 @@ EmpiricalGrammar::Application.routes.draw do
     put 'update_my_password' => 'classroom_manager#update_my_password'
     post 'clear_data/:id' => 'classroom_manager#clear_data'
     put 'units/:id/hide' => 'units#hide', as: 'hide_units_path'
+    put 'units/:id/close' => 'units#close', as: 'close_units_path'
+    put 'units/:id/open' => 'units#open', as: 'open_units_path'
     get 'progress_reports/landing_page' => 'progress_reports#landing_page'
     get 'progress_reports/activities_scores_by_classroom' => 'progress_reports#activities_scores_by_classroom'
     get 'progress_reports/real_time' => 'progress_reports#real_time'
@@ -299,8 +301,10 @@ EmpiricalGrammar::Application.routes.draw do
       get 'diagnostic_activity_ids' => 'diagnostic_reports#diagnostic_activity_ids'
       get 'activity_with_recommendations_ids' => 'diagnostic_reports#activity_with_recommendations_ids'
       get 'previously_assigned_recommendations/:classroom_id/activity/:activity_id' => 'diagnostic_reports#previously_assigned_recommendations'
+      get 'student_ids_for_previously_assigned_activity_pack/:classroom_id/activity_pack/:activity_pack_id' => 'diagnostic_reports#student_ids_for_previously_assigned_activity_pack'
       get 'report_from_unit_and_activity/u/:unit_id/a/:activity_id' => 'diagnostic_reports#redirect_to_report_for_most_recent_activity_session_associated_with_activity_and_unit'
       post 'assign_independent_practice_packs' => 'diagnostic_reports#assign_independent_practice_packs'
+      post 'assign_post_test' => 'diagnostic_reports#assign_post_test'
       post 'assign_whole_class_instruction_packs' => 'diagnostic_reports#assign_whole_class_instruction_packs'
 
       namespace :concepts do
@@ -538,6 +542,7 @@ EmpiricalGrammar::Application.routes.draw do
 
   get '/sign-up/teacher', to: 'accounts#new'
   get '/sign-up/student', to: 'accounts#new'
+  get '/sign-up/individual-contributor', to: 'accounts#new'
   get '/sign-up/pick-school-type', to: 'accounts#new'
   get '/sign-up/add-k12', to: 'accounts#new'
   get '/sign-up/add-non-k12', to: 'accounts#new'
