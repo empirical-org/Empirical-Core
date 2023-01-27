@@ -9,6 +9,7 @@ describe AdminDashboard::MadeSchoolAdminChangeSchoolEmailWorker, type: :worker d
   let!(:referring_admin) { create(:teacher) }
   let!(:new_school) { create(:school) }
   let!(:existing_school) { create(:school) }
+  let!(:school_admin) { create(:schools_admins, user: teacher, school: existing_school)}
   let!(:mailer_user) { Mailer::User.new(teacher) }
   let!(:mailer_class)  { AdminDashboardUserMailer }
   let!(:mailer_method) { :made_school_admin_change_school_email}
@@ -25,6 +26,7 @@ describe AdminDashboard::MadeSchoolAdminChangeSchoolEmailWorker, type: :worker d
 
     before do
       allow(User).to receive(:find_by).and_return(nil)
+      allow(SchoolsAdmins).to receive(:where).and_return([])
     end
 
     it 'should not send the mail with user mailer' do
@@ -42,6 +44,7 @@ describe AdminDashboard::MadeSchoolAdminChangeSchoolEmailWorker, type: :worker d
 
     before do
       allow(User).to receive(:find_by).and_return(teacher, referring_admin)
+      allow(SchoolsAdmins).to receive(:where).and_return([school_admin])
     end
 
     it 'should send the mail with user mailer' do
