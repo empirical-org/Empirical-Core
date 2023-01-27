@@ -119,7 +119,6 @@ class BlogPostsController < ApplicationController
   end
 
   private def topics(topic_names)
-    topic_names = BlogPost::TEACHER_TOPICS
     topics = []
     topic_names.each do |name|
       topics.push({ name: name, slug: CGI::escape(name.downcase.gsub(' ','-'))})
