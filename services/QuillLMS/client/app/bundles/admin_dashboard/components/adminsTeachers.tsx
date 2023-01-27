@@ -50,10 +50,8 @@ export const AdminsTeachers: React.SFC<AdminsTeachersProps> = ({
   schools,
   adminAssociatedSchool,
 }) => {
-  console.log("🚀 ~ file: adminsTeachers.tsx:53 ~ data", data)
   const defaultSchool = schools.find(s => s.id === adminAssociatedSchool?.id) || schools[0]
   const [selectedSchoolId, setSelectedSchoolId] = React.useState(defaultSchool.id)
-  console.log("🚀 ~ file: adminsTeachers.tsx:56 ~ selectedSchoolId", selectedSchoolId)
   const [userIdForModal, setUserIdForModal] = React.useState(null)
   const [showModal, setShowModal] = React.useState(null)
 
