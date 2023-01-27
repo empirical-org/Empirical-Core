@@ -21,8 +21,8 @@ class Cms::SubscriptionsController < Cms::CmsController
     begin
       @subscription.populate_data_from_stripe_invoice
       @subscription.save
-    rescue ActiveRecord::RecordInvalid, Stripe::InvalidRequestError
-      # We don't actually want to do anything when this happens
+    rescue Stripe::InvalidRequestError
+      # We don't actually want to do anything when this happens because we allow arbitrary values in the `stripe_invoice_id` field that this code will crash on if it can't find that Invoice in Stripe
     end
     render json: @subscription
   end
