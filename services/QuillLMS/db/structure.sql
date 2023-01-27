@@ -3381,15 +3381,17 @@ CREATE TABLE public.sales_form_submissions (
     last_name character varying NOT NULL,
     email character varying NOT NULL,
     phone_number character varying,
+    zipcode character varying,
     collection_type character varying NOT NULL,
     school_name character varying,
     district_name character varying,
+    school_premium_count_estimate integer DEFAULT 0 NOT NULL,
     teacher_premium_count_estimate integer DEFAULT 0 NOT NULL,
+    student_premium_count_estimate integer DEFAULT 0 NOT NULL,
     submission_type character varying NOT NULL,
     comment text DEFAULT ''::text,
     created_at timestamp without time zone NOT NULL,
-    updated_at timestamp without time zone NOT NULL,
-    title character varying
+    updated_at timestamp without time zone NOT NULL
 );
 
 
