@@ -3389,7 +3389,9 @@ CREATE TABLE public.sales_form_submissions (
     comment text DEFAULT ''::text,
     created_at timestamp without time zone NOT NULL,
     updated_at timestamp without time zone NOT NULL,
-    title character varying
+    zipcode character varying,
+    student_premium_count_estimate integer,
+    school_premium_count_estimate integer
 );
 
 
@@ -9151,7 +9153,6 @@ INSERT INTO "schema_migrations" (version) VALUES
 ('20221021134756'),
 ('20221103152535'),
 ('20221103152545'),
-('20221103152550'),
 ('20221103152559'),
 ('20221109181742'),
 ('20221109182042'),
