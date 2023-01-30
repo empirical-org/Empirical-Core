@@ -3,7 +3,7 @@
 class BatchAssignRecommendationsWorker
   include Sidekiq::Worker
 
-  sidekiq_options queue: SidekiqQueue::CRITICAL
+  sidekiq_options queue: SidekiqQueue::MIGRATION
 
   def perform(assigning_all_recommended_packs, pack_sequence_id, selections_with_students)
     return if selections_with_students.empty?
