@@ -9,7 +9,7 @@ class InternalTool::MadeSchoolAdminLinkSchoolEmailWorker
 
     return unless user && school
 
-    if SchoolsAdmins.where(user_id: user_id).count == 1
+    if user.is_admin_for_one_school?
       user.mailer_user.send_internal_tool_made_school_admin_link_school_email(school)
     end
 

@@ -10,7 +10,7 @@ class InternalTool::MadeSchoolAdminChangeSchoolEmailWorker
 
     return unless user && new_school && existing_school
 
-    if SchoolsAdmins.where(user_id: user_id).count == 1
+    if user.is_admin_for_one_school?
       user.mailer_user.send_internal_tool_made_school_admin_change_school_email(new_school, existing_school)
     end
 
