@@ -52,7 +52,7 @@ export default class BlogPosts extends React.Component {
     })
   };
 
-  onClickSaveFeaturedOrder = () => {
+  saveFeaturedOrder = () => {
     const link = `${process.env.DEFAULT_URL}/cms/blog_posts/update_featured_order_numbers`
     const data = new FormData();
     data.append( "blog_posts", JSON.stringify(this.featuredBlogPosts()) );
@@ -78,9 +78,9 @@ export default class BlogPosts extends React.Component {
 
   updateOrderNumber = (sortInfo) => this.updateOrder(sortInfo, 'order_number')
 
-  updateFeaturedOrderNumber = (sortInfo) => this.updateOrder(sortInfo, 'featured_order_number')
+  updateFeaturedOrderNumber = (sortInfo) => this.updateOrder(sortInfo, 'featured_order_number', this.saveFeaturedOrder)
 
-  updateOrder = (sortInfo, orderAttribute) => {
+  updateOrder = (sortInfo, orderAttribute, callback) => {
     const { blogPosts, } = this.state
     const newOrder = sortInfo.map(item => item.key);
     const newOrderedBlogPosts = blogPosts.map((bp, i) => {
@@ -91,7 +91,9 @@ export default class BlogPosts extends React.Component {
       }
       return newBlogPost
     })
-    this.setState({blogPosts: newOrderedBlogPosts});
+    this.setState({blogPosts: newOrderedBlogPosts}, () => {
+      if (callback) { callback() }
+    });
   };
 
   onClickStar = (blogPostId) => {
@@ -157,12 +159,12 @@ export default class BlogPosts extends React.Component {
     }
     return (
       <div className="cms-blog-posts">
-        <h1>Teacher Center</h1>
-        <a className="quill-button medium primary contained" href="/cms/blog_posts/new">Add a post</a>
-        <br /><br />
+        <header>
+          <h1>Teacher Center</h1>
+          <a className="quill-button medium primary contained" href="/cms/blog_posts/new">Add a post</a>
+        </header>
         <FeaturedBlogPosts
           featuredBlogPosts={this.featuredBlogPosts()}
-          handleClickSaveOrder={this.onClickSaveFeaturedOrder}
           handleClickStar={this.onClickStar}
           updateOrder={this.updateFeaturedOrderNumber}
         />

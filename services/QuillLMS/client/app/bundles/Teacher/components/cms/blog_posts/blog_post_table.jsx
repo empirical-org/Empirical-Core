@@ -68,7 +68,7 @@ export default class BlogPostTable extends React.Component {
     const { updateOrder, } = this.props
     const blogPostRows = this.orderedBlogPosts().map((bp, i) => this.renderTableRow(bp, i))
     return (
-      <div>
+      <section>
         <h2>{this.props.topic} <span className="save-order" onClick={this.handleClickSaveOrder}>Save Order</span></h2>
         <div className="blog-post-table">
           <table>
@@ -76,7 +76,7 @@ export default class BlogPostTable extends React.Component {
             <SortableList data={blogPostRows} sortCallback={updateOrder} />
           </table>
         </div>
-      </div>
+      </section>
     )
   }
 };
