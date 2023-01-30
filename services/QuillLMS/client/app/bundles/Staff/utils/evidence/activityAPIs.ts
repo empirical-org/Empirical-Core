@@ -119,18 +119,15 @@ export const fetchActivitySessions = async ({ queryKey, }) => {
   };
 }
 
-export const fetchActivitySessionsDataForCSV = async ({ queryKey, }) => {
-  const [key, activityId, startDate, filterOptionForQuery, endDate, responsesForScoring, csvDataLoadInitiated]: [string, string, string, DropdownObjectInterface, string, string, boolean, boolean] = queryKey
-  if(!csvDataLoadInitiated) { return }
+export const emailActivitySessionsDataForCSV = async (activityId:string, startDate: string, filterOptionForQuery: DropdownObjectInterface, endDate: string, responsesForScoring: boolean) => {
   const { value } = filterOptionForQuery
   const url = getActivitySessionsCSVUrl({ activityId, startDate, endDate, filterType: value, responsesForScoring: responsesForScoring });
-  const response = await mainApiFetch(url);
-  const csvResponseData = await response.json();
-
-  return {
-    csvResponseData,
-    error: handleApiError('Failed to fetch activity sessions, please refresh the page.', response),
-  };
+  const response = await mainApiFetch(url, {method: 'POST'});
+  if (!response.ok) {
+    handleApiError('Failed to initiate CSV download email, please try again', response)
+  } else {
+    alert("Data load has been initiated. The CSV Data will be sent to your email.")
+  }
 }
 
 export const fetchActivitySession = async ({ queryKey, }) => {

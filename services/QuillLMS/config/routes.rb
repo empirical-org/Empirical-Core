@@ -425,7 +425,7 @@ EmpiricalGrammar::Application.routes.draw do
       get 'rule_feedback_history/:rule_uid' => 'rule_feedback_histories#rule_detail'
       get 'prompt_health' => 'rule_feedback_histories#prompt_health'
       get 'activity_health' => 'rule_feedback_histories#activity_health'
-      get 'session_data_for_csv' => 'session_feedback_histories#session_data_for_csv'
+      post 'email_csv_data' => 'session_feedback_histories#email_csv_data'
 
       resources :activities,              except: [:index, :new, :edit]
       resources :activity_flags,          only: [:index]

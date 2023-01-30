@@ -146,6 +146,12 @@ class UserMailer < ActionMailer::Base
     mail from: "The Quill Team <hello@quill.org>", to: email, subject: "ELL Starter Diagnostic Next Steps"
   end
 
+  def feedback_history_session_csv_download(email, data)
+    @data = data
+
+    mail from: "Quill Evidence Internal Tool", to: email, subject: "Feedback Sessions CSV Download"
+  end
+
   private def link_for_setting_password(role)
     params = {
       accountType: role,
