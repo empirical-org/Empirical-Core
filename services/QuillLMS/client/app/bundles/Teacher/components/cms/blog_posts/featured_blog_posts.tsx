@@ -5,10 +5,15 @@ import { DataTable, } from '../../../../Shared/index'
 
 const tableHeaders = [
   {
-    name: <span className="featured-and-title-header"><span>Featured</span><span>Title</span></span>,
-    attribute: 'featuredAndTitle',
-    width: '464px',
-    rowSectionClassName: 'featured-and-title-section'
+    name: 'Featured',
+    attribute: 'featured',
+    width: '50px',
+    rowSectionClassName: 'featured-section'
+  },
+  {
+    name: 'Title',
+    attribute: 'title',
+    width: '400px',
   },
   {
     name: 'Created',
@@ -23,7 +28,7 @@ const tableHeaders = [
   {
     name: 'Rating',
     attribute: 'rating',
-    width: '40px',
+    width: '50px',
     rowSectionClassName: 'left-align'
   },
   {
@@ -34,20 +39,9 @@ const tableHeaders = [
   },
   {
     name: 'Actions',
-    attribute: 'editLink',
-    width: '88px',
-    noTooltip: true
-  },
-  {
-    name: 'Actions',
-    attribute: 'previewLink',
-    width: '88px',
-    noTooltip: true
-  },
-  {
-    name: 'Actions',
-    attribute: 'deleteLink',
-    width: '88px',
+    attribute: 'actions',
+    width: '296px',
+    rowSectionClassName: 'actions-section',
     noTooltip: true
   },
 ]
@@ -82,17 +76,19 @@ const FeaturedBlogPosts = ({
       updatedAt: moment(updated_at).format('MM/DD/YY'),
       id,
       rating,
+      title,
       views: read_count,
-      deleteLink: <a className="quill-button fun outlined secondary focus-on-light" href={`/cms/blog_posts/${id}/delete`}>Delete</a>,
-      editLink: <a className="quill-button fun outlined secondary focus-on-light" href={`/cms/blog_posts/${id}/edit`}>Edit</a>,
-      previewLink: <a className="quill-button fun outlined secondary focus-on-light" href={external_link || `/teacher-center/${slug}`}>Preview</a>,
-      featuredAndTitle: (
-        <span>
-          <button className="interactive-wrapper" onClick={handleClick} type="button">
-            <i className="fas fa-star" />
-          </button>
-          <span>{title}</span>
-        </span>
+      actions: (
+        <React.Fragment>
+          <a className="quill-button fun outlined secondary focus-on-light" href={`/cms/blog_posts/${id}/edit`}>Edit</a>
+          <a className="quill-button fun outlined secondary focus-on-light" href={external_link || `/teacher-center/${slug}`}>Preview</a>
+          <a className="quill-button fun outlined secondary focus-on-light" href={`/cms/blog_posts/${id}/delete`}>Delete</a>
+        </React.Fragment>
+      ),
+      featured: (
+        <button className="interactive-wrapper" onClick={handleClick} type="button">
+          <i className="fas fa-star" />
+        </button>
       )
     }
     return blogPostRow

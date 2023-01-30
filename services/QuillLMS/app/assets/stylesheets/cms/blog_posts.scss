@@ -37,10 +37,6 @@
     margin-top: 16px;
   }
 
-  .fa-star {
-    margin-right: 16px;
-  }
-
   .featured-blog-posts p {
     font-weight: 400;
     font-size: 14px;
@@ -48,12 +44,18 @@
     color: #757575;
   }
 
-  .featured-and-title-header span:first-of-type {
-    margin-right: 32px;
+  .featured-section {
+    text-align: center !important;
   }
 
   .left-align {
     text-align: left !important;
+  }
+
+  .actions-section {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
   }
 
   .data-table-headers, .data-table-row {
