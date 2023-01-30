@@ -24,7 +24,6 @@ import {
   PROMPTS,
   BREAK_TAG,
   DEFAULT_MAX_ATTEMPTS,
-  sessionsCSVHeaders
 } from '../../../../constants/evidence';
 import { DEFAULT_HIGHLIGHT_PROMPT, TextFilter, NumberFilterInput, filterNumbers, Spinner } from "../../../Shared";
 import { DropdownObjectInterface, ActivitySessionInterface } from '../../interfaces/evidenceInterfaces'

@@ -147,8 +147,16 @@ class UserMailer < ActionMailer::Base
   end
 
   def feedback_history_session_csv_download(email, data)
-    @data = data
+    attributes = %w{ Date/Time SessionID Conjunction Attempt Optimal? Completed? Response Feedback Rule}
 
+    @csv = CSV.generate(headers: true) do |csv|
+      csv << attributes
+      data.each do |row|
+        csv << [row["datetime"], row["session_uid"], row["conjunction"], row["attempt"], row["optimal"], row["completed"], row["response"], row["feedback"], row["name"]]
+      end
+    end
+
+    attachments['feedback_sessions.csv'] = {mime_type: 'text/csv', content: @csv}
     mail from: "Quill Evidence Internal Tool", to: email, subject: "Feedback Sessions CSV Download"
   end
 
