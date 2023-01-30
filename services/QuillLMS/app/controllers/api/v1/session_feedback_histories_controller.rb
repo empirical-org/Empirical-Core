@@ -19,7 +19,6 @@ class Api::V1::SessionFeedbackHistoriesController < Api::ApiController
   def email_csv_data
     options = params.permit(:activity_id, :start_date, :end_date, :filter_type, :responses_for_scoring).to_h.symbolize_keys
     email = current_user.email
-    logger.debug options
     InternalTool::EmailFeedbackHistorySessionDataWorker.perform_async(options[:activity_id], options[:start_date], options[:end_date], options[:filter_type], options[:responses_for_scoring], email)
     render plain: 'OK'
   end
