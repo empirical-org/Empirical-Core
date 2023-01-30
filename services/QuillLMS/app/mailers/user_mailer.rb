@@ -157,7 +157,6 @@ class UserMailer < ActionMailer::Base
       end
     end
 
-    binding.pry
     attachments['feedback_sessions.csv'] = {mime_type: 'text/csv', content: @csv}
     mail from: "The Quill Team <hello@quill.org>", to: email, subject: "Feedback Sessions CSV Download"
   end
