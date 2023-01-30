@@ -157,7 +157,7 @@ class UserMailer < ActionMailer::Base
     end
 
     attachments['feedback_sessions.csv'] = {mime_type: 'text/csv', content: @csv}
-    mail from: "Quill Evidence Internal Tool", to: email, subject: "Feedback Sessions CSV Download"
+    mail from: "The Quill Team <hello@quill.org>", to: email, subject: "Feedback Sessions CSV Download"
   end
 
   private def link_for_setting_password(role)
