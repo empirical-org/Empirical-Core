@@ -9,7 +9,9 @@ class InternalTool::MadeSchoolAdminEmailWorker
 
     return unless user && school_name
 
-    user.mailer_user.send_internal_tool_made_school_admin_email(school_name)
+    if user.is_admin_for_one_school?
+      user.mailer_user.send_internal_tool_made_school_admin_email(school_name)
+    end
 
     SegmentAnalytics.new.track_school_admin_user(
       user,

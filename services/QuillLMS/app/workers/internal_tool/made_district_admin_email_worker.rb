@@ -9,7 +9,7 @@ class InternalTool::MadeDistrictAdminEmailWorker
 
     return unless user && district_name
 
-    user.mailer_user&.send_internal_tool_made_district_admin_email(district_name)
+    user.mailer_user.send_internal_tool_made_district_admin_email(district_name)
 
     SegmentAnalytics.new.track_district_admin_user(
       user,
