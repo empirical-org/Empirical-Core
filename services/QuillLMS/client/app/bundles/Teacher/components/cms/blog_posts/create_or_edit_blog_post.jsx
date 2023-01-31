@@ -11,21 +11,6 @@ import getAuthToken from '../../modules/get_auth_token'
 import { requestPost, requestPut, } from '../../../../../modules/request/index'
 import { BLOG_POST_TO_COLOR, } from '../../blog_posts/blog_post_constants'
 import { smallWhiteCheckIcon, } from '../../../../Shared/index'
-// import { smallWhiteCheckIcon, TextEditor, } from '../../../../Shared/index'
-// import {
-//   H1,
-//   H2,
-//   H3,
-//   BOLD,
-//   ITALIC,
-//   UNDERLINE,
-//   BLOCKQUOTE,
-//   UL,
-//   OL,
-//   LINK,
-//   IMAGE,
-//   VIDEO,
-// } from '../../../../Shared/components/shared/textEditor'
 
 const defaultPreviewCardContent = `<div class='preview-card-body'>
    <h3>Party Parrot Parade</h3>
@@ -770,7 +755,7 @@ export default class CreateOrEditBlogPost extends React.Component {
 
             {this.renderPremiumCheckbox()}
 
-            {this.renderArticleEditor()}
+            {this.renderArticleMarkdownOrPreview()}
 
             <input onClick={this.handlePublishClick} type="submit" value="Publish" />
 
