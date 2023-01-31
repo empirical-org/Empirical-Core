@@ -3,7 +3,7 @@
 class BatchAssignRecommendationsWorker
   include Sidekiq::Worker
 
-  sidekiq_options queue: SidekiqQueue::MIGRATION
+  sidekiq_options queue: SidekiqQueue::CRITICAL
 
   def perform(assigning_all_recommended_packs, pack_sequence_id, selections_with_students)
     return if selections_with_students.empty?
@@ -42,7 +42,7 @@ class BatchAssignRecommendationsWorker
     else
       batch = Sidekiq::Batch.new
       batch.description = 'Assigning Recommendations with Pack Sequence'
-      batch.callback_queue = SidekiqQueue::MIGRATION
+      batch.callback_queue = SidekiqQueue::CRITICAL
       batch.on(:success, self.class, pack_sequence_id: pack_sequence_id)
       batch.jobs { assign_recommendations.call }
     end
