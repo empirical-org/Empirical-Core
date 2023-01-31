@@ -42,7 +42,7 @@ describe Admin::TeacherSerializer do
     let!(:activity_session1) { create(:activity_session_without_concept_results, user: student1, state: 'finished', started_at: time1, completed_at: time2, classroom_unit: classroom_unit) }
     let!(:activity_session2) { create(:activity_session_without_concept_results, user: student1, state: 'finished', started_at: time1, completed_at: time2, classroom_unit: classroom_unit) }
     let!(:activity_session3) { create(:activity_session_without_concept_results, user: student2, state: 'finished', started_at: time1, completed_at: time2, classroom_unit: classroom_unit) }
-    let!(:activity_session3) { create(:activity_session_without_concept_results, user: student2, state: 'started', started_at: time1, completed_at: time2, classroom_unit: classroom_unit) }
+    let!(:activity_session4) { create(:activity_session_without_concept_results, user: student2, state: 'started', started_at: time1, completed_at: nil, classroom_unit: classroom_unit) }
     let!(:record_instance) { TeachersData.run([teacher.id])[0] }
 
     subject { described_class.new(record_instance) }
