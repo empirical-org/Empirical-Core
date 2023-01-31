@@ -78,9 +78,9 @@ export default class BlogPosts extends React.Component {
 
   updateOrderNumber = (sortInfo) => this.updateOrder(sortInfo, 'order_number')
 
-  updateFeaturedOrderNumber = (sortInfo) => this.updateOrder(sortInfo, 'featured_order_number', this.saveFeaturedOrder)
+  updateFeaturedOrderNumber = (sortInfo) => this.updateOrder(sortInfo, 'featured_order_number')
 
-  updateOrder = (sortInfo, orderAttribute, callback) => {
+  updateOrder = (sortInfo, orderAttribute) => {
     const { blogPosts, } = this.state
     const newOrder = sortInfo.map(item => item.key);
     const newOrderedBlogPosts = blogPosts.map((bp, i) => {
@@ -91,9 +91,7 @@ export default class BlogPosts extends React.Component {
       }
       return newBlogPost
     })
-    this.setState({blogPosts: newOrderedBlogPosts}, () => {
-      if (callback) { callback() }
-    });
+    this.setState({blogPosts: newOrderedBlogPosts});
   };
 
   onClickStar = (blogPostId) => {
@@ -161,11 +159,12 @@ export default class BlogPosts extends React.Component {
       <div className="cms-blog-posts">
         <header>
           <h1>Teacher Center</h1>
-          <a className="quill-button medium primary contained" href="/cms/blog_posts/new">Add a post</a>
+          <a className="quill-button medium primary contained focus-on-light" href="/cms/blog_posts/new">Add a post</a>
         </header>
         <FeaturedBlogPosts
           featuredBlogPosts={this.featuredBlogPosts()}
           handleClickStar={this.onClickStar}
+          saveOrder={this.saveFeaturedOrder}
           updateOrder={this.updateFeaturedOrderNumber}
         />
         {this.renderBlogPostsByTopic()}

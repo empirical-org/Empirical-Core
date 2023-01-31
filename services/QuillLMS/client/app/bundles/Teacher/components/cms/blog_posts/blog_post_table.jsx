@@ -1,82 +1,72 @@
 import React from 'react';
 import moment from 'moment';
 
-import BlogPostRow from './blog_post_row.jsx';
+import { tableHeaders, } from './shared'
 
-import { SortableList, } from  '../../../../Shared/index'
-import getAuthToken from '../../modules/get_auth_token';
+import { DataTable, } from  '../../../../Shared/index'
 
-export default class BlogPostTable extends React.Component {
-  confirmDelete(e) {
-    if(window.prompt('To delete this post, please type DELETE.') !== 'DELETE') {
-      e.preventDefault();
-    }
-  }
+const featuredCellContent = ({ featuredOrderNumber, featuredBlogPostLimitReached, handleClickStar, draft, }) => {
+  if (draft) { return 'DRAFT' }
+  if (featuredBlogPostLimitReached && featuredOrderNumber === null) { return }
 
-  renderTableHeader() {
-    return (
-      <tr>
-        <th>Featured</th>
-        <th>Title</th>
-        <th>Topic</th>
-        <th>Created</th>
-        <th>Updated</th>
-        <th>Rating</th>
-        <th>Views</th>
-        <th />
-        <th />
-        <th />
-      </tr>
-    )
-  }
+  const star = featuredOrderNumber === null ? <i className="far fa-star" /> : <i className="fas fa-star" />
+  return <button className="interactive-wrapper" onClick={handleClickStar} type="button">{star}</button>
+}
 
-  renderTableRow(blogPost, index) {
-    const { handleClickStar, featuredBlogPostLimitReached, } = this.props
-    const { created_at, id, draft, featured_order_number, external_link, slug, rating, title, topic, updated_at, read_count, } = blogPost
-    return (
-      <BlogPostRow
-        createdAt={moment(created_at).format('MM-DD-YY')}
-        deleteLink={`/cms/blog_posts/${id}/delete`}
-        draft={draft}
-        editLink={`/cms/blog_posts/${id}/edit`}
-        featuredBlogPostLimitReached={featuredBlogPostLimitReached}
-        featuredOrderNumber={featured_order_number}
-        id={id}
-        key={id}
-        onClickStar={handleClickStar}
-        previewLink={external_link || `/teacher-center/${slug}`}
-        rating={rating}
-        title={title}
-        topic={topic}
-        updatedAt={moment(updated_at).format('MM-DD-YY')}
-        views={read_count}
-      />
-    )
-  }
-
-  orderedBlogPosts = () => {
-    const { blogPosts, } = this.props
+const BlogPostTable = ({
+  blogPosts,
+  handleClickStar,
+  updateOrder,
+  featuredBlogPostLimitReached,
+  saveOrder,
+  topic,
+}) => {
+  function orderedBlogPosts() {
     return blogPosts.sort((bp1, bp2) => bp1.order_number - bp2.order_number)
   }
 
-  handleClickSaveOrder = () => {
-    const { topic, saveOrder, } = this.props
-    saveOrder(topic, this.orderedBlogPosts())
+  function handleClickSaveOrder() {
+    saveOrder(topic, orderedBlogPosts())
   }
 
-  render() {
-    const { updateOrder, } = this.props
-    const blogPostRows = this.orderedBlogPosts().map((bp, i) => this.renderTableRow(bp, i))
-    return (
-      <section>
-        <h2>{this.props.topic} <span className="save-order" onClick={this.handleClickSaveOrder}>Save Order</span></h2>
-        <div className="blog-post-table">
-          <table>
-            {this.renderTableHeader()}
-            <SortableList data={blogPostRows} sortCallback={updateOrder} />
-          </table>
-        </div>
-      </section>
-    )
-  }
-};
+  const blogPostRows = orderedBlogPosts().map(blogPost => {
+    const { created_at, id, external_link, slug, rating, title, updated_at, read_count, draft, featured_order_number, } = blogPost
+
+    function onClickStar() { handleClickStar(id) }
+
+    const blogPostRow = {
+      createdAt: moment(created_at).format('MM/DD/YY'),
+      updatedAt: moment(updated_at).format('MM/DD/YY'),
+      id,
+      rating,
+      title,
+      views: read_count,
+      actions: (
+        <React.Fragment>
+          <a className="quill-button fun outlined secondary focus-on-light" href={`/cms/blog_posts/${id}/edit`}>Edit</a>
+          <a className="quill-button fun outlined secondary focus-on-light" href={external_link || `/teacher-center/${slug}`}>Preview</a>
+          <a className="quill-button fun outlined secondary focus-on-light" href={`/cms/blog_posts/${id}/delete`}>Delete</a>
+        </React.Fragment>
+      ),
+      featured: featuredCellContent({ featuredOrderNumber: featured_order_number, featuredBlogPostLimitReached, handleClickStar: onClickStar, draft, })
+    }
+    return blogPostRow
+  })
+
+  return (
+    <section >
+      <div className="section-header">
+        <h2>{topic}</h2>
+        <button className="quill-button fun contained primary focus-on-light" onClick={handleClickSaveOrder} type="button">Save Order</button>
+      </div>
+      <DataTable
+        headers={tableHeaders}
+        isReorderable={true}
+        reorderCallback={updateOrder}
+        rows={blogPostRows}
+      />
+    </section>
+  )
+}
+
+export default BlogPostTable

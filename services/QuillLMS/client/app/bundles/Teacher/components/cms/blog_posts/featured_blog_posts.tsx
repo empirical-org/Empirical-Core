@@ -1,70 +1,15 @@
 import React from 'react';
 import moment from 'moment'
 
+import { tableHeaders, } from './shared'
+
 import { DataTable, } from '../../../../Shared/index'
-
-const tableHeaders = [
-  {
-    name: 'Featured',
-    attribute: 'featured',
-    width: '50px',
-    rowSectionClassName: 'featured-section'
-  },
-  {
-    name: 'Title',
-    attribute: 'title',
-    width: '400px',
-  },
-  {
-    name: 'Created',
-    attribute: 'createdAt',
-    width: '60px',
-  },
-  {
-    name: 'Updated',
-    attribute: 'updatedAt',
-    width: '60px',
-  },
-  {
-    name: 'Rating',
-    attribute: 'rating',
-    width: '50px',
-    rowSectionClassName: 'left-align'
-  },
-  {
-    name: 'Views',
-    attribute: 'views',
-    width: '50px',
-    rowSectionClassName: 'left-align'
-  },
-  {
-    name: 'Actions',
-    attribute: 'actions',
-    width: '296px',
-    rowSectionClassName: 'actions-section',
-    noTooltip: true
-  },
-]
-
-const featuredBlogPost = (blogPost, handleClickStar) => {
-  const handleClick = () => handleClickStar(blogPost.id)
-  return (
-    <div className="featured-blog-post" key={blogPost.id}>
-      <div className="featured-blog-post-header">
-        <p className="title">{blogPost.title}</p>
-        <button className="interactive-wrapper" onClick={handleClick} type="button">
-          <i className="fas fa-star" />
-        </button>
-      </div>
-      <p>{blogPost.topic}</p>
-    </div>
-  )
-}
 
 const FeaturedBlogPosts = ({
   featuredBlogPosts,
   handleClickStar,
-  updateOrder
+  updateOrder,
+  saveOrder,
 }) => {
   const blogPostRows = featuredBlogPosts.sort((bp1, bp2) => bp1.featured_order_number - bp2.featured_order_number).map(blogPost => {
     const { created_at, id, external_link, slug, rating, title, updated_at, read_count, } = blogPost
@@ -96,7 +41,10 @@ const FeaturedBlogPosts = ({
 
   return (
     <section className="featured-blog-posts">
-      <h2>Featured</h2>
+      <div className="section-header">
+        <h2>Featured</h2>
+        <button className="quill-button fun contained primary focus-on-light" onClick={saveOrder} type="button">Save Order</button>
+      </div>
       <div className="explanation">
         <p>Posts that display in the overview page of the teacher dashboard</p>
         <p>Drag and drop to rearrange featured posts</p>

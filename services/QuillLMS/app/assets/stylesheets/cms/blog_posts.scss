@@ -26,6 +26,12 @@
     border-bottom: none;
   }
 
+  .section-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+  }
+
   .interactive-wrapper {
     background-color: transparent;
   }
