@@ -7,6 +7,7 @@ describe InternalTool::MadeSchoolAdminLinkSchoolEmailWorker, type: :worker do
 
   let!(:teacher) { create(:teacher) }
   let!(:school) { create(:school) }
+  let!(:school_admin) { create(:schools_admins, user: teacher, school: school)}
   let!(:mailer_user) { Mailer::User.new(teacher) }
   let!(:mailer_class)  { InternalToolUserMailer }
   let!(:mailer_method) { :made_school_admin_link_school_email}
@@ -23,6 +24,7 @@ describe InternalTool::MadeSchoolAdminLinkSchoolEmailWorker, type: :worker do
 
     before do
       allow(User).to receive(:find_by).and_return(nil)
+      allow(SchoolsAdmins).to receive(:where).and_return([])
     end
 
     it 'should not send the mail with user mailer' do
@@ -40,6 +42,7 @@ describe InternalTool::MadeSchoolAdminLinkSchoolEmailWorker, type: :worker do
 
     before do
       allow(User).to receive(:find_by).and_return(teacher)
+      allow(SchoolsAdmins).to receive(:where).and_return([school_admin])
     end
 
     it 'should send the mail with user mailer' do

@@ -222,6 +222,7 @@ export const AdminsTeachers: React.SFC<AdminsTeachersProps> = ({
       <div className="admins-teachers">
         <DataTable
           className='progress-report has-green-arrow'
+          defaultSortAttribute="role"
           headers={teacherColumns}
           rows={filteredData}
         />
