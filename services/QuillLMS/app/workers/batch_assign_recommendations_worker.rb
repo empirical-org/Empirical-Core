@@ -42,7 +42,7 @@ class BatchAssignRecommendationsWorker
     else
       batch = Sidekiq::Batch.new
       batch.description = 'Assigning Recommendations with Pack Sequence'
-      batch.callback_queue = SidekiqQueue::CRITICAL
+      batch.callback_queue = SidekiqQueue::MIGRATION
       batch.on(:success, self.class, pack_sequence_id: pack_sequence_id)
       batch.jobs { assign_recommendations.call }
     end
