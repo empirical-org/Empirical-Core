@@ -82,15 +82,16 @@ class User < ApplicationRecord
     USERNAME_UNIQUENESS_CONSTRAINT_MINIMUM_ID
   ].max
 
+  ADMIN = 'admin'
   TEACHER = 'teacher'
   STUDENT = 'student'
   STAFF = 'staff'
   SALES_CONTACT = 'sales-contact'
   INDIVIDUAL_CONTRIBUTOR = 'individual-contributor'
-  ONBOARDING_ROLES   = [STUDENT, TEACHER, INDIVIDUAL_CONTRIBUTOR]
-  TEACHER_INFO_ROLES = [TEACHER, INDIVIDUAL_CONTRIBUTOR]
-  ROLES              = [TEACHER, STUDENT, STAFF, SALES_CONTACT]
-  SAFE_ROLES         = [STUDENT, TEACHER, SALES_CONTACT]
+  ONBOARDING_ROLES   = [STUDENT, TEACHER, INDIVIDUAL_CONTRIBUTOR, ADMIN]
+  TEACHER_INFO_ROLES = [TEACHER, INDIVIDUAL_CONTRIBUTOR, ADMIN]
+  ROLES              = [TEACHER, STUDENT, STAFF, SALES_CONTACT, ADMIN]
+  SAFE_ROLES         = [STUDENT, TEACHER, SALES_CONTACT, ADMIN]
   VALID_EMAIL_REGEX = /\A[\w+\-.]+@[a-z\d\-]+(\.[a-z\d\-]+)*\.[a-z]+\z/i
 
   ALPHA = 'alpha'
@@ -382,7 +383,7 @@ class User < ApplicationRecord
   end
 
   def admin?
-    SchoolsAdmins.find_by_user_id(id).present?
+    role.admin?
   end
 
   def is_admin_for_one_school?
