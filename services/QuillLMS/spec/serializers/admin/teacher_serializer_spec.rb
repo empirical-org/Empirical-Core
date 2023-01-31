@@ -22,4 +22,25 @@ describe Admin::TeacherSerializer do
       }
     end
   end
+
+  describe 'serializer properties' do
+    let!(:school1) { create(:school) }
+    let!(:school2) { create(:school) }
+    let!(:teacher) { create(:teacher) }
+
+    subject { described_class.new(teacher) }
+
+    it 'returns the expected "schools" payload' do
+       create(:schools_users, user: teacher, school: school2)
+       create(:schools_admins, user: teacher, school: school2)
+       create(:schools_admins, user: teacher, school: school1)
+       teacher.reload
+
+       expect(subject.schools).to eq([
+        { name: school2.name, id: school2.id, role: 'Admin' },
+        { name: school1.name, id: school1.id, role: 'Admin' }
+       ])
+    end
+    # TODO: add tests for remaining properties
+  end
 end
