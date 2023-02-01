@@ -2,6 +2,7 @@
 
 class InternalTool::EmailFeedbackHistorySessionDataWorker
   include Sidekiq::Worker
+  sidekiq_options queue: SidekiqQueue::LOW
 
   def perform(activity_id, start_date, end_date, filter_type, responses_for_scoring, email)
     feedback_histories = FeedbackHistory.session_data_for_csv({activity_id: activity_id, start_date: start_date, end_date: end_date, filter_type: filter_type, responses_for_scoring: responses_for_scoring})
