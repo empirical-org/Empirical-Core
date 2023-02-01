@@ -25,7 +25,7 @@ exports[`FeaturedBlogPosts component renders 1`] = `
         "title": "List of Available Quill Reading for Evidence Activities",
         "topic": "Using quill for reading comprehension",
         "tsv": "'-5':99B '-700':35B '/assign/featured-activity-packs/448)**':205B '/assign/featured-activity-packs/450)**':261B '/assign/featured-activity-packs/451)**':326B '/assign/featured-activity-packs/455)**':367B '/assign/featured-activity-packs/459)**':412B '/evidence/#/play?uid=127&skiptoprompts=true)':271B '/evidence/#/play?uid=170&skiptoprompts=true)':291B '/evidence/#/play?uid=171&skiptoprompts=true)':278B '/evidence/#/play?uid=173&skiptoprompts=true)':239B '/evidence/#/play?uid=174&skiptoprompts=true)':223B '/evidence/#/play?uid=175&skiptoprompts=true)':214B '/evidence/#/play?uid=176&skiptoprompts=true)':358B '/evidence/#/play?uid=177&skiptoprompts=true)':338B '/evidence/#/play?uid=179&skiptoprompts=true)':303B '/evidence/#/play?uid=180&skiptoprompts=true)':402B '/evidence/#/play?uid=181&skiptoprompts=true)':391B '/evidence/#/play?uid=185&skiptoprompts=true)':380B '/evidence/#/play?uid=186&skiptoprompts=true)':430B '/evidence/#/play?uid=219&skiptoprompts=true)':421B '/evidence/#/play?uid=220&skiptoprompts=true)':316B '/evidence/#/play?uid=221&skiptoprompts=true)':442B '/evidence/#/play?uid=87&skiptoprompts=true)':348B '/evidence/#/play?uid=89&skiptoprompts=true)':250B '/teacher-center/quill-evidences-wordgen-activities)':73B '15':27B '18':49B '2022':46B '3':98B '500':34B 'activ':8A,13B,20B,25B,53B,57B,80B,84B,100B,127B,140B,148B,169B,180B,195B,196B,251B,317B,359B,403B 'affect':209B 'align':59B,69B 'allow':282B,295B 'also':118B 'altern':201B,233B,245B 'ancient':298B 'anim':268B 'assign':76B,87B,119B 'athlet':399B 'avail':3A,54B 'bag':329B 'ban':330B 'barrier':341B 'base':199B,254B,320B,362B,406B 'basebal':384B 'bring':108B 'build':14B 'bypass':175B 'click':101B,124B 'clone':273B 'code':427B 'colleg':369B 'communiti':236B,335B 'compani':305B 'complet':30B,166B 'comprehens':16B,447C 'contain':97B,312B 'cost':345B 'curriculum':65B 'day':418B 'describ':113B 'direct':137B 'done':266B 'dress':426B 'drought':208B 'eat':351B 'ecolog':344B 'embryo':288B 'energi':202B,232B,246B 'environment':322B 'equiti':375B 'ethic':256B,275B 'evid':7A,12B,24B,52B,79B,198B,253B,319B,361B,405B 'extend':416B 'farm':242B 'first':159B 'florida':225B 'follow':38B 'food':310B,432B 'fuel':218B 'futur':220B 'gen':63B 'gender':374B 'generat':211B 'genet':285B 'global':354B 'gmos':313B 'good':231B,244B 'grade':395B 'harm':333B 'heart':145B 'help':331B 'highlight':191B 'human':299B 'hydroelectr':210B 'impact':353B 'includ':32B 'individu':81B,126B 'introduc':182B 'juli':45B 'label':309B 'law':439B 'leagu':383B 'left':156B 'librari':58B,85B 'link':174B 'list':1A,129B 'local':235B,334B 'maintain':373B 'make':386B 'mammal':274B 'meat':352B 'medic':263B 'minor':382B 'minut':28B 'money':388B 'name':103B,128B,133B 'nuclear':216B 'offer':229B 'organ':92B 'pack':93B,106B,115B,121B,132B,197B,252B,318B,360B,404B 'page':112B 'parent':280B 'part':177B 'plastic':328B 'player':385B 'polici':409B 'power':217B 'program':228B 'prompt':42B 'protect':323B 'quill':4A,9B,444C 'read':5A,10B,15B,22B,50B,77B,189B,446C 'regul':437B 'remain':300B 'requir':307B,396B 'respons':371B 'right':172B 'school':393B,408B,414B,417B,423B,435B 'scienc':258B 'scientist':293B 'section':192B 'sentenc':162B 'skill':17B 'solartogeth':227B 'sold':433B 'sourc':247B 'specif':142B 'sport':364B,377B 'stem':163B 'strict':425B 'student':150B,183B,398B 'studi':297B 'surg':340B 'take':26B,135B 'test':264B,286B 'text':37B,153B 'themat':91B 'thematically-organ':90B 'three':40B,161B 'tool':186B 'use':443C 'warm':355B 'week':64B 'wind':241B 'word':36B,62B 'worth':342B 'write':19B,41B,200B,255B,321B,363B,407B 'www.quill.org':72B,204B,213B,222B,238B,249B,260B,270B,277B,290B,302B,315B,325B,337B,347B,357B,366B,379B,390B,401B,411B,420B,429B,441B 'www.quill.org/assign/featured-activity-packs/448)**':203B 'www.quill.org/assign/featured-activity-packs/450)**':259B 'www.quill.org/assign/featured-activity-packs/451)**':324B 'www.quill.org/assign/featured-activity-packs/455)**':365B 'www.quill.org/assign/featured-activity-packs/459)**':410B 'www.quill.org/evidence/#/play?uid=127&skiptoprompts=true)':269B 'www.quill.org/evidence/#/play?uid=170&skiptoprompts=true)':289B 'www.quill.org/evidence/#/play?uid=171&skiptoprompts=true)':276B 'www.quill.org/evidence/#/play?uid=173&skiptoprompts=true)':237B 'www.quill.org/evidence/#/play?uid=174&skiptoprompts=true)':221B 'www.quill.org/evidence/#/play?uid=175&skiptoprompts=true)':212B 'www.quill.org/evidence/#/play?uid=176&skiptoprompts=true)':356B 'www.quill.org/evidence/#/play?uid=177&skiptoprompts=true)':336B 'www.quill.org/evidence/#/play?uid=179&skiptoprompts=true)':301B 'www.quill.org/evidence/#/play?uid=180&skiptoprompts=true)':400B 'www.quill.org/evidence/#/play?uid=181&skiptoprompts=true)':389B 'www.quill.org/evidence/#/play?uid=185&skiptoprompts=true)':378B 'www.quill.org/evidence/#/play?uid=186&skiptoprompts=true)':428B 'www.quill.org/evidence/#/play?uid=219&skiptoprompts=true)':419B 'www.quill.org/evidence/#/play?uid=220&skiptoprompts=true)':314B 'www.quill.org/evidence/#/play?uid=221&skiptoprompts=true)':440B 'www.quill.org/evidence/#/play?uid=87&skiptoprompts=true)':346B 'www.quill.org/evidence/#/play?uid=89&skiptoprompts=true)':248B 'www.quill.org/teacher-center/quill-evidences-wordgen-activities)':71B",
-        "updated_at": "2022-12-10T21:18:01.727Z",
+        "updated_at": "2022-12-30T11:26:43.671Z",
       },
       Object {
         "author_id": 28,
@@ -48,7 +48,7 @@ exports[`FeaturedBlogPosts component renders 1`] = `
         "title": "Michele Ellis uses Quill to Facilitate a Dialogue with her 7th Grade Language Arts Class",
         "topic": "Teacher stories",
         "tsv": "'/quill-image-uploads/uploads/files/quill-laptop.png)':235B '/teacher-center/topic/teacher-stories)':415B '2':326B '7th':11A 'academ':129B 'activ':160B,278B,288B 'addit':237B 'advantag':340B 'afterward':169B 'allow':364B 'also':245B,309B 'answer':152B 'approach':294B 'around':53B,299B,381B 'art':14A,40B 'atmospher':241B 'back':99B 'best':337B 'capit':90B 'class':15A,168B,329B 'classroom':57B,190B,301B 'click':411B 'collabor':317B 'come':98B 'complet':157B 'constant':79B 'contain':127B 'content':346B 'convers':183B,380B 'correct':151B 'cultiv':239B 'day':204B 'deliber':290B 'diagnost':361B 'dialogu':8A,52B 'differenti':218B,355B 'discuss':243B,302B,401B 'effect':27B 'elli':2A,34B,106B,153B,244B,308B,335B 'end':166B 'engag':73B,259B 'error':84B 'everyth':105B 'excit':210B 'explicit':134B 'face':251B 'facilit':6A,50B 'feedback':101B,118B 'feel':375B 'felt':75B 'first':60B,297B 'found':19B,61B 'fragment':89B 'grade':12A,38B,253B,391B 'grammar':54B,120B,185B 'green':282B,390B 'guid':147B 'help':49B 'instead':142B 'instruct':333B,399B 'interact':316B 'intervent':328B 'jargon':130B 'keep':70B,256B 'languag':13A,39B 'learn':187B,200B,232B,262B,383B 'leav':108B 'led':321B 'lesson':314B,404B 'level':224B,368B 'like':76B,408B 'literaci':327B 'll':192B 'look':65B 'love':95B 'lower':367B 'lower-level':366B 'make':144B,284B 'mani':16B 'michel':1A,33B,334B,409B 'middl':44B 'minut':163B 'motiv':394B 'much':286B 'nag':80B,116B 'offer':351B 'on':88B 'one':196B,305B 'particip':378B 'particular':209B 'pick':195B 'plan':310B 'practic':338B 'process':263B 'prove':25B 'provid':358B 'punctuat':92B,123B 'quill':4A,47B,62B,97B,112B,117B,159B,180B,206B,216B,247B,295B,304B,313B,348B,357B,385B,403B 'rang':344B 're':273B,281B 're-do':272B 'realli':103B 'red':388B 'red-yellow-green':387B 'red/yellow/green':252B 'repeat':83B 'rewrit':139B 'run':87B 'run-on':86B 's3.amazonaws.com':234B 's3.amazonaws.com/quill-image-uploads/uploads/files/quill-laptop.png)':233B 'say':228B 'scaffold':332B,398B 'school':45B 'sentenc':141B 'seventh':37B 'seventh-grad':36B 'skill':173B 'someth':67B,226B 'sophist':372B 'spell':121B 'start':182B 'step':306B 'stori':407B,417C 'student':24B,32B,72B,81B,136B,148B,156B,176B,194B,220B,250B,258B,267B,369B,395B 'student-fac':249B 'success':376B 'suggest':145B 'system':254B,392B 'take':300B,339B 'talk':21B,29B 'target':104B,119B 'teacher':17B,41B,320B,416C 'teacher-l':319B 'tell':135B,265B 'ten':162B 'thank':214B 'thing':197B 'throughout':260B 'tier':325B 'time':298B 'tool':219B,322B 'toward':149B 'tri':402B 'use':3A,46B,171B,246B,312B,384B 'watch':212B 'wide':343B 'williamston':43B 'work':177B 'would':69B 'write':202B,223B 'writer':373B 'www.quill.org':414B 'www.quill.org/teacher-center/topic/teacher-stories)':413B 'yellow':389B",
-        "updated_at": "2022-12-21T04:57:48.580Z",
+        "updated_at": "2022-12-30T11:26:43.671Z",
       },
       Object {
         "author_id": 11,
@@ -493,7 +493,7 @@ exports[`FeaturedBlogPosts component renders 1`] = `
             "id": 835,
             "rating": undefined,
             "title": "List of Available Quill Reading for Evidence Activities",
-            "updatedAt": "12/10/22",
+            "updatedAt": "12/30/22",
             "views": 432,
           },
           Object {
@@ -530,7 +530,7 @@ exports[`FeaturedBlogPosts component renders 1`] = `
             "id": 62,
             "rating": undefined,
             "title": "Michele Ellis uses Quill to Facilitate a Dialogue with her 7th Grade Language Arts Class",
-            "updatedAt": "12/20/22",
+            "updatedAt": "12/30/22",
             "views": 4933,
           },
           Object {
@@ -1227,7 +1227,7 @@ exports[`FeaturedBlogPosts component renders 1`] = `
                         }
                       }
                     >
-                      12/10/22
+                      12/30/22
                     </td>
                     <td>
                       <Tooltip
@@ -1367,7 +1367,7 @@ exports[`FeaturedBlogPosts component renders 1`] = `
                         }
                       }
                     >
-                      12/20/22
+                      12/30/22
                     </td>
                     <td>
                       <Tooltip
@@ -3372,7 +3372,7 @@ exports[`FeaturedBlogPosts component renders 1`] = `
                           }
                         }
                       >
-                        12/10/22
+                        12/30/22
                       </td>
                       <td>
                         <Tooltip
@@ -3512,7 +3512,7 @@ exports[`FeaturedBlogPosts component renders 1`] = `
                           }
                         }
                       >
-                        12/20/22
+                        12/30/22
                       </td>
                       <td>
                         <Tooltip
@@ -5539,7 +5539,7 @@ exports[`FeaturedBlogPosts component renders 1`] = `
                             }
                           }
                         >
-                          12/10/22
+                          12/30/22
                         </td>
                         <td>
                           <Tooltip
@@ -5679,7 +5679,7 @@ exports[`FeaturedBlogPosts component renders 1`] = `
                             }
                           }
                         >
-                          12/20/22
+                          12/30/22
                         </td>
                         <td>
                           <Tooltip
@@ -7680,7 +7680,7 @@ exports[`FeaturedBlogPosts component renders 1`] = `
                               }
                             }
                           >
-                            12/10/22
+                            12/30/22
                           </td>
                           <td>
                             <Tooltip
@@ -7814,7 +7814,7 @@ exports[`FeaturedBlogPosts component renders 1`] = `
                                 }
                               }
                             >
-                              12/10/22
+                              12/30/22
                             </td>
                             <td>
                               <Tooltip
@@ -7967,7 +7967,7 @@ exports[`FeaturedBlogPosts component renders 1`] = `
                               }
                             }
                           >
-                            12/10/22
+                            12/30/22
                           </td>
                           <td>
                             <Tooltip
@@ -8155,7 +8155,7 @@ exports[`FeaturedBlogPosts component renders 1`] = `
                               }
                             }
                           >
-                            12/20/22
+                            12/30/22
                           </td>
                           <td>
                             <Tooltip
@@ -8299,7 +8299,7 @@ exports[`FeaturedBlogPosts component renders 1`] = `
                                 }
                               }
                             >
-                              12/20/22
+                              12/30/22
                             </td>
                             <td>
                               <Tooltip
@@ -8504,7 +8504,7 @@ exports[`FeaturedBlogPosts component renders 1`] = `
                               }
                             }
                           >
-                            12/20/22
+                            12/30/22
                           </td>
                           <td>
                             <Tooltip
