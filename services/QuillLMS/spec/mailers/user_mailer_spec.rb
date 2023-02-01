@@ -121,4 +121,25 @@ describe UserMailer, type: :mailer do
       expect(mail.subject).to match("Quill Daily Analytics")
     end
   end
+
+  describe 'feedback_history_session_csv_download' do
+    it 'should set the subject, receiver and the sender' do
+      mail = UserMailer.feedback_history_session_csv_download("team@quill.org", [])
+
+      csv_headers = %w{Date/Time SessionID Conjunction Attempt Optimal? Completed? Response Feedback Rule}
+
+      data = []
+      csv = CSV.generate(headers: true) do |csv|
+        csv << csv_headers
+        data.each do |row|
+          csv << [row["datetime"], row["session_uid"], row["conjunction"], row["attempt"], row["optimal"], (row['optimal'] || row['attempt'] == DEFAULT_MAX_ATTEMPTS).to_s, row["response"], row["feedback"], "#{row['feedback_type']}: #{row['name']}"]
+        end
+      end
+
+      expect(mail.to).to eq(["team@quill.org"])
+      expect(mail.subject).to match("Feedback Sessions CSV Download")
+      expect(mail.attachments['feedback_sessions.csv'].mime_type).to match('text/csv')
+      expect(mail.attachments['feedback_sessions.csv'].body.raw_source).to eq(csv)
+    end
+  end
 end
