@@ -124,22 +124,32 @@ describe UserMailer, type: :mailer do
 
   describe 'feedback_history_session_csv_download' do
     it 'should set the subject, receiver and the sender' do
-      mail = UserMailer.feedback_history_session_csv_download("team@quill.org", [])
+      data = [
+        {
+          "datetime": "20220701",
+          "session_uid": "sessionuid",
+          "conjunction": "but",
+          "attempt": "1",
+          "optimal": "false",
+          "response": "this is a test response",
+          "feedback": "test feedback",
+          "feedback_type": "spelling"
+        }
+      ]
+      mail = UserMailer.feedback_history_session_csv_download("team@quill.org", data)
 
       csv_headers = %w{Date/Time SessionID Conjunction Attempt Optimal? Completed? Response Feedback Rule}
-
-      data = []
-      csv = CSV.generate(headers: true) do |csv|
+      csv_body = CSV.generate(headers: true) do |csv|
         csv << csv_headers
         data.each do |row|
-          csv << [row["datetime"], row["session_uid"], row["conjunction"], row["attempt"], row["optimal"], (row['optimal'] || row['attempt'] == DEFAULT_MAX_ATTEMPTS).to_s, row["response"], row["feedback"], "#{row['feedback_type']}: #{row['name']}"]
+          csv << [row["datetime"], row["session_uid"], row["conjunction"], row["attempt"], row["optimal"], (row['optimal'] || row['attempt'] == 5).to_s, row["response"], row["feedback"], "#{row['feedback_type']}: #{row['name']}"]
         end
       end
 
       expect(mail.to).to eq(["team@quill.org"])
       expect(mail.subject).to match("Feedback Sessions CSV Download")
       expect(mail.attachments['feedback_sessions.csv'].mime_type).to match('text/csv')
-      expect(mail.attachments['feedback_sessions.csv'].body.raw_source).to eq(csv)
+      expect(CSV.parse(mail.attachments['feedback_sessions.csv'].body.raw_source)).to eq(CSV.parse(csv_body))
     end
   end
 end

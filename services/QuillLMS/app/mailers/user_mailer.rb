@@ -148,22 +148,12 @@ class UserMailer < ActionMailer::Base
   end
 
   def feedback_history_session_csv_download(email, data)
-    # csv_headers = %w{Date/Time SessionID Conjunction Attempt Optimal? Completed? Response Feedback Rule}
-
-    # @csv = CSV.generate(headers: true) do |csv|
-    #   csv << csv_headers
-    #   # data.each do |row|
-    #   #   csv << [row["datetime"], row["session_uid"], row["conjunction"], row["attempt"], row["optimal"], (row['optimal'] || row['attempt'] == DEFAULT_MAX_ATTEMPTS).to_s, row["response"], row["feedback"], "#{row['feedback_type']}: #{row['name']}"]
-    #   # end
-    # end
-
     csv_headers = %w{Date/Time SessionID Conjunction Attempt Optimal? Completed? Response Feedback Rule}
 
-    data = []
-    csv = CSV.generate(headers: true) do |csv|
-      csv << csv_headers
+    csv = CSV.generate(headers: true) do |csv_body|
+      csv_body << csv_headers
       data.each do |row|
-        csv << [row["datetime"], row["session_uid"], row["conjunction"], row["attempt"], row["optimal"], (row['optimal'] || row['attempt'] == DEFAULT_MAX_ATTEMPTS).to_s, row["response"], row["feedback"], "#{row['feedback_type']}: #{row['name']}"]
+        csv_body << [row["datetime"], row["session_uid"], row["conjunction"], row["attempt"], row["optimal"], (row['optimal'] || row['attempt'] == DEFAULT_MAX_ATTEMPTS).to_s, row["response"], row["feedback"], "#{row['feedback_type']}: #{row['name']}"]
       end
     end
 
