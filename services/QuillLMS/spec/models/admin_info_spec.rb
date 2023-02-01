@@ -26,7 +26,7 @@ require 'rails_helper'
 describe AdminInfo, type: :model, redis: true do
   it { should belong_to(:user) }
 
-  it {should validate_presence_of(:user_id)}
+  it { should validate_presence_of(:user_id) }
 
   context 'uniqueness' do
     let!(:admin_info) {create(:admin_info)}
@@ -64,25 +64,38 @@ describe AdminInfo, type: :model, redis: true do
   end
 
   describe '#sub_role' do
+
     it "should allow valid values" do
       AdminInfo::SUB_ROLES.each do |v|
-        should allow_value(v).for(:sub_role)
+        admin_info.sub_role = v
+        expect(admin_info.save).to be
       end
+
+      admin_info.sub_role = nil
+      expect(admin_info.save).to be
     end
 
-    it { should allow_value(nil).for(:sub_role) }
-    it { should_not allow_value("other").for(:sub_role) }
+    it "should not allow invalid values" do
+      admin_info.sub_role = 'other'
+      expect(admin_info.save).not_to be
+    end
   end
 
   describe '#approval_status' do
     it "should allow valid values" do
       AdminInfo::APPROVAL_STATUSES.each do |v|
-        should allow_value(v).for(:approval_status)
+        admin_info.approval_status = v
+        expect(admin_info.save).to be
       end
+
+      admin_info.approval_status = nil
+      expect(admin_info.save).to be
     end
 
-    it { should allow_value(nil).for(:approval_status) }
-    it { should_not allow_value("other").for(:approval_status) }
+    it "should not allow invalid values" do
+      admin_info.approval_status = 'other'
+      expect(admin_info.save).not_to be
+    end
   end
 
 end

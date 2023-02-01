@@ -40,7 +40,7 @@ class AdminInfo < ApplicationRecord
     DISTRICT_ADMINISTRATOR = "District administrator",
     TECH_COORDINATOR = "Tech coordinator",
     LIBRARIAN_SLASH_MEDIA_SPECIALIST = "Librarian/media specialist",
-    BILLING_CONTACT = "Billing contact",
+    BILLING_CONTACT = "Billing contact"
   ]
 
   validates :approval_status, :inclusion=> { :in => APPROVAL_STATUSES }, :allow_nil => true
