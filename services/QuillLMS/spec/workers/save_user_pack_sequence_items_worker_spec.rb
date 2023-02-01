@@ -1,6 +1,7 @@
 # frozen_string_literal: true
 
 require 'rails_helper'
+require 'sidekiq_unique_jobs/testing'
 
 RSpec.describe SaveUserPackSequenceItemsWorker do
   subject { described_class.new.perform(classroom_id, user_id) }
@@ -9,6 +10,8 @@ RSpec.describe SaveUserPackSequenceItemsWorker do
   let(:user_id) { create(:user).id }
 
   before { SidekiqUniqueJobs.config.enabled = false }
+
+  it { expect(described_class).to have_valid_sidekiq_options }
 
   context 'nil classroom_id' do
     let(:classroom_id) { nil }
