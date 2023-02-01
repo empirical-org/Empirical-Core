@@ -3,58 +3,58 @@
 require 'rails_helper'
 
 describe InternalTool::EmailFeedbackHistorySessionDataWorker, type: :worker do
-  subject { described_class.new.perform("email", []) }
+  let!(:user) { create(:user)}
+  let!(:activity) { create(:evidence_activity) }
+  let!(:because_prompt) { Evidence::Prompt.create!(activity: activity, conjunction: 'because', text: 'Some feedback text', max_attempts_feedback: 'Feedback') }
+  let!(:but_prompt) { Evidence::Prompt.create!(activity: activity, conjunction: 'but', text: 'Some feedback text', max_attempts_feedback: 'Feedback') }
+  let!(:so_prompt) { Evidence::Prompt.create!(activity: activity, conjunction: 'so', text: 'Some feedback text', max_attempts_feedback: 'Feedback') }
+  let!(:activity_session1_uid) { SecureRandom.uuid }
+  let!(:activity_session2_uid) { SecureRandom.uuid }
+  let!(:feedback_history1) { create(:feedback_history, feedback_session_uid: activity_session1_uid, created_at: '2021-04-05T20:43:27.698Z', prompt_id: because_prompt.id) }
+  let!(:feedback_history2) { create(:feedback_history, feedback_session_uid: activity_session1_uid, created_at: '2021-04-06T20:43:27.698Z', prompt_id: because_prompt.id) }
+  let!(:feedback_history3) { create(:feedback_history, feedback_session_uid: activity_session1_uid, created_at: '2021-04-07T20:43:27.698Z', prompt_id: but_prompt.id) }
+  let!(:feedback_history4) { create(:feedback_history, feedback_session_uid: activity_session1_uid, created_at: '2021-04-08T20:43:27.698Z', prompt_id: but_prompt.id) }
+  let!(:feedback_history5) { create(:feedback_history, feedback_session_uid: activity_session1_uid, created_at: '2021-04-09T20:43:27.698Z', prompt_id: so_prompt.id) }
+  let!(:feedback_history6) { create(:feedback_history, feedback_session_uid: activity_session1_uid, created_at: '2021-04-10T20:43:27.698Z', prompt_id: so_prompt.id) }
+  let!(:feedback_history7) { create(:feedback_history, feedback_session_uid: activity_session2_uid, created_at: '2021-04-11T20:43:27.698Z', prompt_id: because_prompt.id) }
 
-  # let!(:teacher) { create(:teacher) }
-  # let!(:district) { create(:district) }
-  # let!(:mailer_user) { Mailer::User.new(teacher) }
-  # let!(:mailer_class)  { InternalToolUserMailer }
-  # let!(:mailer_method) { :district_admin_account_created_email}
-  # let!(:analytics) { double(:analytics).as_null_object }
 
-  before do
-    # allow(District).to receive(:find_by).and_return(district)
-    # allow(mailer_class).to receive(mailer_method).with(mailer_user, district.name).and_return(double(:email, deliver_now!: true))
-    # allow(teacher).to receive(:mailer_user).and_return(mailer_user)
-    # allow(SegmentAnalytics).to receive(:new) { analytics }
-  end
+  describe 'called with only activity id' do
 
-  describe 'user is nil' do
+    before do
+      allow(UserMailer).to receive(:feedback_history_session_csv_download).and_return(double(:email, deliver_now!: true))
+    end
 
-    # before do
-    #   allow(User).to receive(:find_by).and_return(nil)
-    # end
+    it 'should fetch all feedback history sessions for that activity' do
+      feedback_histories = FeedbackHistory.session_data_for_csv({activity_id: activity.id})
+      results = []
+      feedback_histories.find_each(batch_size: 10_000) { |feedback_history| results << feedback_history.serialize_csv_data }
+      results.sort! { |a,b| b["datetime"] <=> a["datetime"] }
 
-    # it 'should not send the mail with user mailer' do
-    #   expect(mailer_class).not_to receive(mailer_method)
-    #   subject
-    # end
+      expect(UserMailer).to receive(:feedback_history_session_csv_download).with("test@test.com", results)
+      described_class.new.perform(activity.id, nil, nil, nil, nil, "test@test.com")
+    end
 
-    # it 'should not send a segment.io event' do
-    #   expect(analytics).not_to receive(:track_district_admin_user)
-    #   subject
-    # end
-  end
+    it 'should fetch all feedback history sessions for that activity and between designated dates' do
+      start_date = '2021-04-06T20:43:27.698Z'
+      end_date = '2021-04-08T20:43:27.698Z'
+      feedback_histories = FeedbackHistory.session_data_for_csv({ activity_id: activity.id, start_date: start_date, end_date: end_date})
+      results = []
+      feedback_histories.find_each(batch_size: 10_000) { |feedback_history| results << feedback_history.serialize_csv_data }
+      results.sort! { |a,b| b["datetime"] <=> a["datetime"] }
 
-  describe 'user is not nil' do
+      expect(UserMailer).to receive(:feedback_history_session_csv_download).with("test@test.com", results)
+      described_class.new.perform(activity.id, start_date, end_date, nil, nil, "test@test.com")
+    end
 
-    # before do
-    #   allow(User).to receive(:find_by).and_return(teacher)
-    # end
+    it 'should fetch all feedback history sessions for that activity that qualify for scoring' do
+      feedback_histories = FeedbackHistory.session_data_for_csv({ activity_id: activity.id, responses_for_scoring: true})
+      results = []
+      feedback_histories.find_each(batch_size: 10_000) { |feedback_history| results << feedback_history.serialize_csv_data }
+      results.sort! { |a,b| b["datetime"] <=> a["datetime"] }
 
-    # it 'should send the mail with user mailer' do
-    #   expect(mailer_class).to receive(mailer_method).with(mailer_user, district.name)
-    #   subject
-    # end
-
-    # it 'should send a segment.io event' do
-    #   expect(analytics).to receive(:track_district_admin_user).with(
-    #     teacher,
-    #     SegmentIo::BackgroundEvents::STAFF_CREATED_DISTRICT_ADMIN_ACCOUNT,
-    #     district.name,
-    #     SegmentIo::Properties::STAFF_USER
-    #   )
-    #   subject
-    # end
+      expect(UserMailer).to receive(:feedback_history_session_csv_download).with("test@test.com", results)
+      described_class.new.perform(activity.id, nil, nil, nil, true, "test@test.com")
+    end
   end
 end
