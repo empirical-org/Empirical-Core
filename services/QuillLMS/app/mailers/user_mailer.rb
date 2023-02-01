@@ -22,6 +22,7 @@ class UserMailer < ActionMailer::Base
 
   COTEACHER_SUPPORT_ARTICLE = 'http://support.quill.org/getting-started-for-teachers/manage-classes/how-do-i-share-a-class-with-my-co-teacher'
   DEFAULT_MAX_ATTEMPTS = 5
+  FEEDBACK_HISTORY_CSV_HEADERS = %w{Date/Time SessionID Conjunction Attempt Optimal? Completed? Response Feedback Rule}
 
   def invitation_to_non_existing_user invitation_email_hash
     @email_hash = invitation_email_hash.merge(support_article_link: COTEACHER_SUPPORT_ARTICLE, join_link: new_account_url).stringify_keys
@@ -148,10 +149,8 @@ class UserMailer < ActionMailer::Base
   end
 
   def feedback_history_session_csv_download(email, data)
-    csv_headers = %w{Date/Time SessionID Conjunction Attempt Optimal? Completed? Response Feedback Rule}
-
     csv = CSV.generate(headers: true) do |csv_body|
-      csv_body << csv_headers
+      csv_body << FEEDBACK_HISTORY_CSV_HEADERS
       data.each do |row|
         csv_body << [row["datetime"], row["session_uid"], row["conjunction"], row["attempt"], row["optimal"], (row['optimal'] || row['attempt'] == DEFAULT_MAX_ATTEMPTS).to_s, row["response"], row["feedback"], "#{row['feedback_type']}: #{row['name']}"]
       end
