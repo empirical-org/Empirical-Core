@@ -16,6 +16,7 @@ describe('Session actions', () => {
   describe('when the getFeedback action is dispatched', () => {
     const mockSessionID = 'SESSION_ID'
     const mockActivityID = 'ACTIVITY_ID'
+    const mockPromptAndEntry = 'This is great because Student entry'
     const mockEntry = 'Student entry'
     const mockPromptID = 'PROMPT_ID'
     const mockPromptText = 'This is great because'
@@ -29,7 +30,7 @@ describe('Session actions', () => {
     const mockArgs = {
       sessionID: mockSessionID,
       activityUID: mockActivityID,
-      entry: mockEntry,
+      entry: mockPromptAndEntry,
       promptID: mockPromptID,
       promptText: mockPromptText,
       attempt: mockAttempt,
@@ -47,7 +48,7 @@ describe('Session actions', () => {
         promptStemText: mockPromptText,
         sessionID: mockSessionID,
         startingFeedback: mockStartingFeedback,
-        submittedEntry: mockEntry
+        submittedEntry: mockPromptAndEntry
       })
     })
 

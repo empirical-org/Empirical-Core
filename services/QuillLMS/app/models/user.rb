@@ -385,6 +385,15 @@ class User < ApplicationRecord
     SchoolsAdmins.find_by_user_id(id).present?
   end
 
+  def is_admin_for_one_school?
+    schools_admins.count == 1
+  end
+
+  def is_admin_for_multiple_schools?
+    schools_admins.count > 1
+  end
+
+
   def self.find_by_username_or_email(login_name)
     login_name = login_name.downcase
     User.where("email = ? OR username = ?", login_name, login_name).first
