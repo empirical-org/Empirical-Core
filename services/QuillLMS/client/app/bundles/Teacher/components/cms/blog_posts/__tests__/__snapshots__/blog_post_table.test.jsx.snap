@@ -94,7 +94,7 @@ exports[`BlogPostTable component renders 1`] = `
         "title": "📋 PDF | Quill Reports Cheat Sheet",
         "topic": "Teacher materials",
         "tsv": "'cheat':4A 'materi':9C 'pdf':1A,7B 'quill':2A 'report':3A 'sheet':5A 'teacher':8C 'view':6B",
-        "updated_at": "2022-08-06T01:28:59.303Z",
+        "updated_at": "2022-08-15T13:58:16.892Z",
       },
       Object {
         "author_id": 61,
@@ -140,7 +140,7 @@ exports[`BlogPostTable component renders 1`] = `
         "title": "📋 PDF | Quill and Beyond: Recommended Tools to Support Remote Learning",
         "topic": "Teacher materials",
         "tsv": "'beyond':4A,13B 'learn':10A 'materi':15C 'pdf':1A 'quill':2A,11B 'recommend':5A 'remot':9A 'support':8A 'teacher':14C 'tool':6A",
-        "updated_at": "2022-08-06T01:28:59.317Z",
+        "updated_at": "2022-08-15T13:58:16.892Z",
       },
       Object {
         "author_id": 32,
@@ -591,7 +591,7 @@ exports[`BlogPostTable component renders 1`] = `
             "id": 115,
             "rating": undefined,
             "title": "📋 PDF | Quill Reports Cheat Sheet",
-            "updatedAt": "08/05/22",
+            "updatedAt": "08/15/22",
             "views": 53,
           },
           Object {
@@ -665,7 +665,7 @@ exports[`BlogPostTable component renders 1`] = `
             "id": 399,
             "rating": undefined,
             "title": "📋 PDF | Quill and Beyond: Recommended Tools to Support Remote Learning",
-            "updatedAt": "08/05/22",
+            "updatedAt": "08/15/22",
             "views": 11,
           },
           Object {
@@ -1614,7 +1614,7 @@ exports[`BlogPostTable component renders 1`] = `
                         }
                       }
                     >
-                      08/05/22
+                      08/15/22
                     </td>
                     <td>
                       <Tooltip
@@ -1894,7 +1894,7 @@ exports[`BlogPostTable component renders 1`] = `
                         }
                       }
                     >
-                      08/05/22
+                      08/15/22
                     </td>
                     <td>
                       <Tooltip
@@ -3759,7 +3759,7 @@ exports[`BlogPostTable component renders 1`] = `
                           }
                         }
                       >
-                        08/05/22
+                        08/15/22
                       </td>
                       <td>
                         <Tooltip
@@ -4039,7 +4039,7 @@ exports[`BlogPostTable component renders 1`] = `
                           }
                         }
                       >
-                        08/05/22
+                        08/15/22
                       </td>
                       <td>
                         <Tooltip
@@ -5926,7 +5926,7 @@ exports[`BlogPostTable component renders 1`] = `
                             }
                           }
                         >
-                          08/05/22
+                          08/15/22
                         </td>
                         <td>
                           <Tooltip
@@ -6206,7 +6206,7 @@ exports[`BlogPostTable component renders 1`] = `
                             }
                           }
                         >
-                          08/05/22
+                          08/15/22
                         </td>
                         <td>
                           <Tooltip
@@ -9134,7 +9134,7 @@ exports[`BlogPostTable component renders 1`] = `
                               }
                             }
                           >
-                            08/05/22
+                            08/15/22
                           </td>
                           <td>
                             <Tooltip
@@ -9268,7 +9268,7 @@ exports[`BlogPostTable component renders 1`] = `
                                 }
                               }
                             >
-                              08/05/22
+                              08/15/22
                             </td>
                             <td>
                               <Tooltip
@@ -9421,7 +9421,7 @@ exports[`BlogPostTable component renders 1`] = `
                               }
                             }
                           >
-                            08/05/22
+                            08/15/22
                           </td>
                           <td>
                             <Tooltip
@@ -10146,7 +10146,7 @@ exports[`BlogPostTable component renders 1`] = `
                               }
                             }
                           >
-                            08/05/22
+                            08/15/22
                           </td>
                           <td>
                             <Tooltip
@@ -10290,7 +10290,7 @@ exports[`BlogPostTable component renders 1`] = `
                                 }
                               }
                             >
-                              08/05/22
+                              08/15/22
                             </td>
                             <td>
                               <Tooltip
@@ -10495,7 +10495,7 @@ exports[`BlogPostTable component renders 1`] = `
                               }
                             }
                           >
-                            08/05/22
+                            08/15/22
                           </td>
                           <td>
                             <Tooltip
