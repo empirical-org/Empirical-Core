@@ -1,35 +1,60 @@
-import React from 'react';
-import moment from 'moment';
+import * as React from 'react';
+import * as moment from 'moment';
 
-import { tableHeaders, } from './shared'
-
-import { DataTable, } from  '../../../../Shared/index'
+export const tableHeaders = [
+  {
+    name: 'Featured',
+    attribute: 'featured',
+    width: '50px',
+    rowSectionClassName: 'featured-section',
+    noTooltip: true
+  },
+  {
+    name: 'Title',
+    attribute: 'title',
+    width: '400px',
+  },
+  {
+    name: 'Created',
+    attribute: 'createdAt',
+    width: '60px',
+  },
+  {
+    name: 'Updated',
+    attribute: 'updatedAt',
+    width: '60px',
+  },
+  {
+    name: 'Rating',
+    attribute: 'rating',
+    width: '50px',
+    rowSectionClassName: 'left-align'
+  },
+  {
+    name: 'Views',
+    attribute: 'views',
+    width: '50px',
+    rowSectionClassName: 'left-align'
+  },
+  {
+    name: 'Actions',
+    attribute: 'actions',
+    width: '296px',
+    rowSectionClassName: 'actions-section',
+    noTooltip: true
+  },
+]
 
 const featuredCellContent = ({ featuredOrderNumber, featuredBlogPostLimitReached, handleClickStar, draft, }) => {
   if (draft) { return 'DRAFT' }
-  if (featuredBlogPostLimitReached && featuredOrderNumber === null) { return }
+  if (featuredBlogPostLimitReached && featuredOrderNumber === null) { return <i className="far fa-star disabled" /> }
 
   const star = featuredOrderNumber === null ? <i className="far fa-star" /> : <i className="fas fa-star" />
   return <button className="interactive-wrapper" onClick={handleClickStar} type="button">{star}</button>
 }
 
-const BlogPostTable = ({
-  blogPosts,
-  handleClickStar,
-  updateOrder,
-  featuredBlogPostLimitReached,
-  saveOrder,
-  topic,
-}) => {
-  function orderedBlogPosts() {
-    return blogPosts.sort((bp1, bp2) => bp1.order_number - bp2.order_number)
-  }
-
-  function handleClickSaveOrder() {
-    saveOrder(topic, orderedBlogPosts())
-  }
-
-  const blogPostRows = orderedBlogPosts().map(blogPost => {
+export const blogPostRows = (blogPosts, handleClickStar, featuredBlogPostLimitReached) => {
+  return blogPosts.map(blogPost => {
     const { created_at, id, external_link, slug, rating, title, updated_at, read_count, draft, featured_order_number, } = blogPost
 
     function onClickStar() { handleClickStar(id) }
@@ -52,21 +77,4 @@ const BlogPostTable = ({
     }
     return blogPostRow
   })
-
-  return (
-    <section >
-      <div className="section-header">
-        <h2>{topic}</h2>
-        <button className="quill-button fun contained primary focus-on-light" onClick={handleClickSaveOrder} type="button">Save Order</button>
-      </div>
-      <DataTable
-        headers={tableHeaders}
-        isReorderable={true}
-        reorderCallback={updateOrder}
-        rows={blogPostRows}
-      />
-    </section>
-  )
 }
-
-export default BlogPostTable

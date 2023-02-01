@@ -1,7 +1,8 @@
-import React from 'react';
+import * as React from 'react';
 import Dropzone from 'react-dropzone'
 import moment from 'moment'
 import { EditorState, ContentState } from 'draft-js';
+import "react-dates/initialize";
 import { SingleDatePicker } from 'react-dates'
 
 import ItemDropdown from '../../general_components/dropdown_selectors/item_dropdown.jsx'
@@ -20,7 +21,8 @@ const defaultPreviewCardContent = `<div class='preview-card-body'>
   <p class='author'>by Quill Staff</p>
 </div>`;
 
-const NEW = 'new'
+export const EDIT = 'edit'
+export const NEW = 'new'
 const STANDARD = 'Standard'
 const CUSTOM_HTML = 'Custom HTML'
 
@@ -247,7 +249,10 @@ export default class CreateOrEditBlogPost extends React.Component {
     this.setState({ publishedAt: e}, this.updatePreviewCardBasedOnType)
   }
 
-  handleSaveAndPreviewClick = (e) => { this.handleSubmitClick(e, !draft, false, this.goToPreview) }
+  handleSaveAndPreviewClick = (e) => {
+    const { draft, } = this.state
+    this.handleSubmitClick(e, !draft, false, this.goToPreview)
+  }
 
   handleSaveDraftClick = (e) => { this.handleSubmitClick(e, false) }
 
@@ -534,11 +539,10 @@ export default class CreateOrEditBlogPost extends React.Component {
         <i className="far fa-square" onClick={this.handleInsertSecondaryButton} />
       </div>)
       content = <textarea id="markdown-content" onChange={this.handleBodyChange} rows={20} type="text" value={body} />
-      mdLink = <a className='markdown-cheatsheet' href="http://commonmark.org/help/" rel="noopener noreferrer" target="_blank">Markdown Cheatsheet</a>
+      mdLink = <a className='quill-button fun outlined secondary focus-on-light' href="http://commonmark.org/help/" rel="noopener noreferrer" target="_blank">Markdown Cheatsheet</a>
     }
     return (
       <div>
-        <label>Article Content</label>
         <div className="article-content-container">
           <div id="article-preview-bar">
             {toolbarLeft}
@@ -627,10 +631,9 @@ export default class CreateOrEditBlogPost extends React.Component {
 
   renderSaveAndPreviewButton = () => {
     const { action, } = this.props
-    const { draft, } = this.state
 
-    if (action === 'edit') {
-      return <input onClick={this.handleSaveAndPreviewClick} style={{background: 'white', color: '#00c2a2'}} type="submit" value="Save and Preview" />
+    if (action === EDIT) {
+      return <input className="quill-button large outlined secondary focus-on-light" onClick={this.handleSaveAndPreviewClick} type="button" value="Save and Preview" />
     }
   }
 
@@ -638,15 +641,15 @@ export default class CreateOrEditBlogPost extends React.Component {
     const { action, } = this.props
     const { draft, } = this.state
     if (action === NEW || draft) {
-      return <input onClick={this.handleSaveDraftClick} style={{background: 'white', color: '#00c2a2'}} type="submit" value="Save Draft" />
+      return <input className="quill-button large outlined secondary focus-on-light" onClick={this.handleSaveDraftClick} type="button" value="Save Draft" />
     }
   }
 
   renderUnpublishButton = () => {
     const { action, } = this.props
     const { draft, } = this.state
-    if (action === 'edit' && !draft) {
-      return <input onClick={this.handleUnpublishClick} style={{background: 'white', color: '#00c2a2'}} type="submit" value="Unpublish & Save Draft" />
+    if (action === EDIT && !draft) {
+      return <input className="quill-button large outlined secondary focus-on-light" onClick={this.handleUnpublishClick} type="button" value="Unpublish & Save Draft" />
     }
   }
 
@@ -757,11 +760,13 @@ export default class CreateOrEditBlogPost extends React.Component {
 
             {this.renderArticleMarkdownOrPreview()}
 
-            <input onClick={this.handlePublishClick} type="submit" value="Publish" />
+            <div className="save-buttons">
+              {this.renderSaveDraftButton()}
+              {this.renderUnpublishButton()}
+              {this.renderSaveAndPreviewButton()}
 
-            {this.renderSaveDraftButton()}
-            {this.renderUnpublishButton()}
-            {this.renderSaveAndPreviewButton()}
+              <input className="quill-button contained large primary focus-on-light" onClick={this.handlePublishClick} type="button" value="Publish" />
+            </div>
           </div>
 
           <div className="right-column">
