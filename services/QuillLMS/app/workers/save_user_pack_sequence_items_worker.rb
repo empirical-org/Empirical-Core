@@ -5,8 +5,7 @@ class SaveUserPackSequenceItemsWorker
 
   sidekiq_options queue: SidekiqQueue::DEFAULT,
     lock: :until_executed,
-    on_conflict: :log,
-    lock_ttl: 2.minutes
+    on_conflict: :log
 
   def perform(classroom_id, user_id)
     return if classroom_id.nil? || user_id.nil?
