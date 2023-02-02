@@ -39,7 +39,7 @@
      client side hydration -->
     <%= redux_store_hydration_data %>
     <% if current_user %>
-      <%= render partial: 'footer', media: 'all', 'data-turbolinks-track' => true %>
+      <%= render partial: 'pages/shared/footer', media: 'all', 'data-turbolinks-track' => true %>
     <% else %>
       <%= render partial: 'pages/shared/footer' %>
     <% end %>

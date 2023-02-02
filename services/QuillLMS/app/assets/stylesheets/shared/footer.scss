@@ -175,56 +175,15 @@
   }
 
   &.student-footer {
-    overflow: show;
-    padding: 42px 0px;
-    border-top: 1px solid #e0e0e0;
-    margin: 0px;
-    max-width: 100%;
-    .footer-content {
-      max-width: 950px;
-      margin: auto;
-    }
-    .footer-contacts {
-      max-width: 195px;
-    }
-    .footer-contacts, .footer-social {
-      margin-bottom: 0px;
-      overflow: visible;
-      a {
-        display: inline-block;
-      }
-      li {
+    .inner-container {
+      padding: 64px 61px;
+      .privacy-and-terms {
         display: flex;
-      }
-    }
-    .bottom-half {
-      padding-top: 0px;
-    }
-    @media (max-width: 1000px) {
-      .bottom-half {
-        justify-content: space-between;
-      }
-      .footer-contacts {
-        flex-direction: row;
-        max-width: 195px;
-        width: 100%;
-      }
-    }
-    @media (max-width: 984px) {
-      padding: 42px 15px;
-      .footer-content {
-        max-width: 750px;
-      }
-    }
-    @media (max-width: 530px) {
-      padding: 40px 16px;
-      .bottom-half {
-        display: flex;
-        flex-direction: column;
-        align-items: flex-start;
-      }
-      .footer-contacts {
-        margin-bottom: 24px;
+        padding-top: 16px;
+        border-top: 1px solid #CFCFCF;
+        p, a {
+          margin-right: 32px;
+        }
       }
     }
   }
