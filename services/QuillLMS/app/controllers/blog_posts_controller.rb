@@ -11,21 +11,14 @@ class BlogPostsController < ApplicationController
 
   def index
     topic_names = BlogPost::TEACHER_TOPICS
-    @topics = []
-    topic_names.each do |name|
-      @topics.push({ name: name, slug: CGI::escape(name.downcase.gsub(' ','-'))})
-    end
+    @topics = topics(topic_names)
     @blog_posts = BlogPost.for_topics(topic_names)
   end
 
   def student_center_index
-    @title = 'Resources'
     topic_names = BlogPost::STUDENT_TOPICS
-
-    @topics = []
-    topic_names.each do |name|
-      @topics.push({ name: name, slug: CGI::escape(name.downcase.gsub(' ','-'))})
-    end
+    @title = 'Resources'
+    @topics = topics(topic_names)
     @blog_posts = BlogPost.for_topics(topic_names)
     render :index
   end
@@ -65,11 +58,13 @@ class BlogPostsController < ApplicationController
       flash[:error] = 'Oops! Please enter a search query.'
       return redirect_back(fallback_location: search_blog_posts_path)
     end
+    @topics = topics(current_user&.student? ? BlogPost::STUDENT_TOPICS : BlogPost::TEACHER_TOPICS)
     @blog_posts = RawSqlRunner.execute(
       <<-SQL
         SELECT
           slug,
-          preview_card_content
+          preview_card_content,
+          topic
         FROM blog_posts
         WHERE draft IS false
           AND topic != '#{BlogPost::IN_THE_NEWS}'
@@ -86,6 +81,7 @@ class BlogPostsController < ApplicationController
     topic = CGI::unescape(params[:topic]).gsub('-', ' ').capitalize
 
     @blog_posts = BlogPost.for_topics(topic)
+    @topics = topics(BlogPost::TEACHER_TOPICS)
     # hide student part of topic name for display
     @topic = current_user&.student? ? topic.gsub('Student ', '').capitalize : topic
     @title = @topic
@@ -120,5 +116,13 @@ class BlogPostsController < ApplicationController
 
   private def center_home_url
     current_user&.student? ? '/student-center' : '/teacher-center'
+  end
+
+  private def topics(topic_names)
+    topics = []
+    topic_names.each do |name|
+      topics.push({ name: name, slug: CGI::escape(name.downcase.gsub(' ','-'))})
+    end
+    topics
   end
 end
