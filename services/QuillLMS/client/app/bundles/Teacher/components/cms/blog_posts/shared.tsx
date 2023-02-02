@@ -78,3 +78,13 @@ export const blogPostRows = (blogPosts, handleClickStar, featuredBlogPostLimitRe
     return blogPostRow
   })
 }
+
+export const saveOrderButton = (orderHasChanged, saveOrder) => {
+  let button = (<button className="quill-button fun contained primary focus-on-light disabled" disabled type="button">Save Order</button>)
+
+  if (orderHasChanged) {
+    button = (<button className="quill-button fun contained primary focus-on-light" onClick={saveOrder} type="button">Save Order</button>)
+  }
+
+  return button
+}
