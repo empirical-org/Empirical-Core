@@ -90,7 +90,6 @@ source "https://gems.contribsys.com/" do
 end
 gem 'sidekiq', '~> 5.2.10'
 gem 'sidekiq-retries', require: false
-gem 'sidekiq-unique-jobs'
 gem 'redis', '~> 4.5'
 gem 'redis-namespace', '~> 1.8'
 gem 'redis-rails'

@@ -11,7 +11,9 @@ class AdminDashboard::MadeSchoolAdminChangeSchoolEmailWorker
 
     return unless user && admin_name && new_school && existing_school
 
-    user.mailer_user.send_admin_dashboard_made_school_admin_change_school_email(admin_name, new_school, existing_school)
+    if user.is_admin_for_one_school?
+      user.mailer_user.send_admin_dashboard_made_school_admin_change_school_email(admin_name, new_school, existing_school)
+    end
 
     SegmentAnalytics.new.track_school_admin_user(
       user,

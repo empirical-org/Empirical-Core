@@ -1,11 +1,11 @@
 import React from 'react';
 import moment from 'moment';
 
-import CreateOrEditBlogPost from '../components/cms/blog_posts/create_or_edit_blog_post.jsx';
-import BlogPostTable from '../components/cms/blog_posts/blog_post_table.jsx';
+import CreateOrEditBlogPost from '../components/cms/blog_posts/create_or_edit_blog_post';
+import BlogPostTable from '../components/cms/blog_posts/blog_post_table';
 import FeaturedBlogPosts from '../components/cms/blog_posts/featured_blog_posts.tsx'
-import BlogPostIndex from '../components/blog_posts/blog_post_index.jsx';
-import BlogPost from '../components/blog_posts/blog_post.jsx';
+import BlogPostIndex from '../components/blog_posts/blog_post_index';
+import BlogPost from '../components/blog_posts/blog_post';
 import getAuthToken from '../components/modules/get_auth_token';
 
 const FEATURED_BLOG_POST_LIMIT = 5
@@ -52,7 +52,7 @@ export default class BlogPosts extends React.Component {
     })
   };
 
-  onClickSaveFeaturedOrder = () => {
+  saveFeaturedOrder = () => {
     const link = `${process.env.DEFAULT_URL}/cms/blog_posts/update_featured_order_numbers`
     const data = new FormData();
     data.append( "blog_posts", JSON.stringify(this.featuredBlogPosts()) );
@@ -157,13 +157,14 @@ export default class BlogPosts extends React.Component {
     }
     return (
       <div className="cms-blog-posts">
-        <h1>Teacher Center</h1>
-        <a className="quill-button medium primary contained" href="/cms/blog_posts/new">Add a post</a>
-        <br /><br />
+        <header>
+          <h1>Teacher Center</h1>
+          <a className="quill-button fun primary contained focus-on-light" href="/cms/blog_posts/new">Add a post</a>
+        </header>
         <FeaturedBlogPosts
           featuredBlogPosts={this.featuredBlogPosts()}
-          handleClickSaveOrder={this.onClickSaveFeaturedOrder}
           handleClickStar={this.onClickStar}
+          saveOrder={this.saveFeaturedOrder}
           updateOrder={this.updateFeaturedOrderNumber}
         />
         {this.renderBlogPostsByTopic()}
