@@ -397,7 +397,7 @@ class Teachers::ClassroomManagerController < ApplicationController
         redirect_to "/activities/packs"
       end
     else
-      teacher_or_staff!
+      teacher_admin_or_staff!
     end
   end
 
