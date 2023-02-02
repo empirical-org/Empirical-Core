@@ -1,6 +1,9 @@
+<% footer_class = current_user ? 'home-footer white' : 'home-footer' %>
+<% logo_class = current_user ? 'dark' : 'light' %>
+
 <% if show_site_navigation? %>
   <% if current_user&.role == 'student' %>
-    <footer class="footer-white student-footer">
+    <footer class="student-footer">
       <div class="inner-container">
         <div class="privacy-and-terms">
           <p>© <%= Time.new.year %> Quill</p>
@@ -11,7 +14,7 @@
     </footer>
   <% else %>
     <%= render partial: 'application/premium_footer' %>
-    <footer class="footer-white home-footer">
+    <footer class="<%=footer_class%>">
       <div class="footer-navigation">
         <%= render partial: 'pages/shared/teacher_dashboard_footer' if current_user %>
         <ul>
@@ -90,12 +93,12 @@
         <p>Quill is a free literacy tool powered by an open source, non-profit community of educators and developers.</p>
         <a href="/about">
           <div class="partner-links">
-            <img class="lazyload" src="https://assets.quill.org/images/logos/gates-logo-light.svg" alt='Gates Foundation Logo'/>
-            <img class="lazyload" src="https://assets.quill.org/images/logos/google-logo-light.svg" alt='Google.org Logo'/>
-            <img class="lazyload" src="https://assets.quill.org/images/logos/att-logo-light.svg" alt='AT&T Logo'/>
-            <img class="lazyload" src="https://assets.quill.org/images/logos/fast-forward-logo-light.svg" alt='Fast Forward Logo'/>
-            <img class="lazyload" src="https://assets.quill.org/images/logos/nbc-logo-light.svg" alt='NBC Logo'/>
-            <img class="lazyload" src="https://assets.quill.org/images/logos/robinhood-logo-light.svg" alt='Robinhood Logo'/>
+            <img class="lazyload" src="https://assets.quill.org/images/logos/gates-logo-<%=logo_class%>.svg" alt='Gates Foundation Logo'/>
+            <img class="lazyload" src="https://assets.quill.org/images/logos/google-logo-<%=logo_class%>.svg" alt='Google.org Logo'/>
+            <img class="lazyload" src="https://assets.quill.org/images/logos/att-logo-<%=logo_class%>.svg" alt='AT&T Logo'/>
+            <img class="lazyload" src="https://assets.quill.org/images/logos/fast-forward-logo-<%=logo_class%>.svg" alt='Fast Forward Logo'/>
+            <img class="lazyload" src="https://assets.quill.org/images/logos/nbc-logo-<%=logo_class%>.svg" alt='NBC Logo'/>
+            <img class="lazyload" src="https://assets.quill.org/images/logos/robinhood-logo-<%=logo_class%>.svg" alt='Robinhood Logo'/>
           </div>
         </a>
       </div>
@@ -110,13 +113,13 @@
         </div>
         <div class="pas-right flex-row">
           <a rel="noopener noreferrer" target="_blank" href="http://twitter.com/Quill_org">
-            <img class="lazyload" src="https://assets.quill.org/images/logos/twitter-logo-light.svg" alt='Twitter Logo'/>
+            <img class="lazyload" src="https://assets.quill.org/images/logos/twitter-logo-<%=logo_class%>.svg" alt='Twitter Logo'/>
           </a>
           <a rel="noopener noreferrer" target="_blank" href="https://facebook.com/quill.org">
-            <img class="lazyload" src="https://assets.quill.org/images/logos/facebook-logo-light.svg" alt='Facebook Logo'/>
+            <img class="lazyload" src="https://assets.quill.org/images/logos/facebook-logo-<%=logo_class%>.svg" alt='Facebook Logo'/>
           </a>
           <a rel="noopener noreferrer" target="_blank" href="http://instagram.com/quill_org/">
-            <img class="lazyload" src="https://assets.quill.org/images/logos/instagram-logo-light.svg" alt='Instagram Logo'/>
+            <img class="lazyload" src="https://assets.quill.org/images/logos/instagram-logo-<%=logo_class%>.svg" alt='Instagram Logo'/>
           </a>
         </div>
         <p class="cb-disclaimer">College Board, AP, Pre-AP, and the acorn logo are registered trademarks of College Board.<p>
