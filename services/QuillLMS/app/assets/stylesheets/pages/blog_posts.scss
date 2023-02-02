@@ -159,15 +159,15 @@ $blogpostlightteal: rgba(44, 127, 155, 0.08);
   a:hover {
     text-decoration: none;
   }
+}
 
-  .preview-card-link {
-    position: relative;
-    height: 326px;
-    .quill-button {
-      position: absolute;
-      bottom: 16px;
-      right: 16px;
-    }
+.preview-card-link {
+  position: relative;
+  height: 326px;
+  .quill-button {
+    position: absolute;
+    bottom: 16px;
+    right: 16px;
   }
 }
 
