@@ -19,8 +19,7 @@ describe TeachersController, type: :controller do
       end
 
       it 'render admin dashboard' do
-        user = create(:user)
-        user.schools_admins.create
+        user = create(:user, role: User::ADMIN)
         allow(controller).to receive(:current_user) { user }
         get :admin_dashboard
         expect(response).to render_template('admin')
