@@ -1,21 +1,30 @@
-import React from 'react';
+import * as React from 'react';
+import Dropzone from 'react-dropzone'
+import moment from 'moment'
+import { EditorState, ContentState } from 'draft-js';
+import "react-dates/initialize";
+import { SingleDatePicker } from 'react-dates'
+
 import ItemDropdown from '../../general_components/dropdown_selectors/item_dropdown.jsx'
 import PreviewCard from '../../shared/preview_card.jsx';
 import BlogPostContent from '../../blog_posts/blog_post_content'
-import { SingleDatePicker } from 'react-dates'
-import Dropzone from 'react-dropzone'
 import getAuthToken from '../../modules/get_auth_token'
-import moment from 'moment'
 import { requestPost, requestPut, } from '../../../../../modules/request/index'
+import { BLOG_POST_TO_COLOR, } from '../../blog_posts/blog_post_constants'
+import { smallWhiteCheckIcon, } from '../../../../Shared/index'
 
-const defaultPreviewCardContent = `<img class='preview-card-image' src='http://cultofthepartyparrot.com/parrots/hd/middleparrot.gif' />
-<div class='preview-card-body'>
+const defaultPreviewCardContent = `<div class='preview-card-body'>
    <h3>Party Parrot Parade</h3>
    <p>There exist many excellent party parrots.</p>
 </div>
 <div class='preview-card-footer'>
   <p class='author'>by Quill Staff</p>
 </div>`;
+
+export const EDIT = 'edit'
+export const NEW = 'new'
+const STANDARD = 'Standard'
+const CUSTOM_HTML = 'Custom HTML'
 
 export default class CreateOrEditBlogPost extends React.Component {
   constructor(props) {
@@ -42,7 +51,7 @@ export default class CreateOrEditBlogPost extends React.Component {
     // set state to empty values or those of the postToEdit
 
     this.state = {
-      previewCardHasAlreadyBeenManuallyEdited: action !== 'new',
+      previewCardHasAlreadyBeenManuallyEdited: action !== NEW,
       id,
       title,
       subtitle,
@@ -54,7 +63,7 @@ export default class CreateOrEditBlogPost extends React.Component {
       slug,
       preview_card_content,
       custom_preview_card_content: preview_card_content,
-      preview_card_type: action === 'new' ? 'Medium Image' : 'Custom HTML',
+      preview_card_type: action === NEW ? STANDARD : CUSTOM_HTML,
       blogPostPreviewImage: 'http://placehold.it/300x135',
       blogPostPreviewTitle: title,
       blogPostPreviewDescription: 'Write your description here, but be careful not to make it too long!',
@@ -75,19 +84,6 @@ export default class CreateOrEditBlogPost extends React.Component {
 
   componentDidMount = () => {
     this.updatePreviewCardBasedOnType();
-  }
-
-  appropriatePlaceholderImage = () => {
-    const { preview_card_type, } = this.state
-    switch (preview_card_type) {
-      case 'Large Image':
-        return 'http://placehold.it/300x200'
-      case 'Tiny Image':
-        return 'http://placehold.it/300x90'
-      case 'Medium Image':
-      default:
-        return 'http://placehold.it/300x138'
-    }
   }
 
   changeAuthor = (e) => {
@@ -239,13 +235,6 @@ export default class CreateOrEditBlogPost extends React.Component {
     this.setState({ pressName: e.target.value })
   }
 
-  handlePreviewCardButtonTextChange = (e) => {
-    this.setState({
-      previewCardButtonText: e.target.value,
-      previewCardHasAlreadyBeenManuallyEdited: true
-    }, this.updatePreviewCardFromBlogPostPreview)
-  }
-
   handlePreviewCardVideoDescriptionChange = (e) => {
     this.setState({videoDescription: e.target.value}, this.updatePreviewCardVideoContent)
   }
@@ -260,7 +249,10 @@ export default class CreateOrEditBlogPost extends React.Component {
     this.setState({ publishedAt: e}, this.updatePreviewCardBasedOnType)
   }
 
-  handleSaveAndPreviewClick = (e) => { this.handleSubmitClick(e, !draft, false, this.goToPreview) }
+  handleSaveAndPreviewClick = (e) => {
+    const { draft, } = this.state
+    this.handleSubmitClick(e, !draft, false, this.goToPreview)
+  }
 
   handleSaveDraftClick = (e) => { this.handleSubmitClick(e, false) }
 
@@ -305,7 +297,7 @@ export default class CreateOrEditBlogPost extends React.Component {
       }
     }
 
-    if (action === 'new' && !unpublish) {
+    if (action === NEW && !unpublish) {
       requestPost(
         url,
         blogPost,
@@ -412,19 +404,8 @@ export default class CreateOrEditBlogPost extends React.Component {
   updatePreviewCardBasedOnType = () => {
     const { preview_card_type, custom_preview_card_content, } = this.state
     switch (preview_card_type) {
-      case 'Tiny Image':
-      case 'Medium Image':
-      case 'Large Image':
-        this.setState({blogPostPreviewImage: this.appropriatePlaceholderImage()}, this.updatePreviewCardFromBlogPostPreview)
-        break;
-      case 'Tweet':
-        this.updatePreviewCardTweetContent();
-        break;
-      case 'YouTube Video':
-        this.updatePreviewCardVideoContent();
-        break;
-      case 'Button':
-        this.updatePreviewCardButtonContent();
+      case STANDARD:
+        this.updatePreviewCardFromBlogPostPreview()
         break;
       default:
         this.setState({ preview_card_content: custom_preview_card_content })
@@ -435,7 +416,6 @@ export default class CreateOrEditBlogPost extends React.Component {
     const { authors, } = this.props
     const {
       publishedAt,
-      previewCardButtonText,
       externalLink,
       blogPostPreviewImage,
       blogPostPreviewTitle,
@@ -451,16 +431,10 @@ export default class CreateOrEditBlogPost extends React.Component {
     } else {
       footerContent = `<span/>`
     }
-    if (previewCardButtonText) {
-      button = `<div class='button-container'><a target='_blank' class='article-cta-primary' href=${externalLink}>${previewCardButtonText}</a></div>`
-    } else {
-      button = '<span/>'
-    }
     const previewCardContent = `<img class='preview-card-image' src='${blogPostPreviewImage}' />
     <div class='preview-card-body'>
        <h3>${blogPostPreviewTitle}</h3>
        <p>${blogPostPreviewDescription}</p>
-       ${button}
     </div>
     <div class='preview-card-footer'>
       ${footerContent}
@@ -565,11 +539,10 @@ export default class CreateOrEditBlogPost extends React.Component {
         <i className="far fa-square" onClick={this.handleInsertSecondaryButton} />
       </div>)
       content = <textarea id="markdown-content" onChange={this.handleBodyChange} rows={20} type="text" value={body} />
-      mdLink = <a className='markdown-cheatsheet' href="http://commonmark.org/help/" rel="noopener noreferrer" target="_blank">Markdown Cheatsheet</a>
+      mdLink = <a className='quill-button fun outlined secondary focus-on-light' href="http://commonmark.org/help/" rel="noopener noreferrer" target="_blank">Markdown Cheatsheet</a>
     }
     return (
       <div>
-        <label>Article Content</label>
         <div className="article-content-container">
           <div id="article-preview-bar">
             {toolbarLeft}
@@ -614,7 +587,6 @@ export default class CreateOrEditBlogPost extends React.Component {
       blogPostPreviewImage,
       blogPostPreviewTitle,
       blogPostPreviewDescription,
-      previewCardButtonText,
       custom_preview_card_content,
       tweetLink,
       tweetImage,
@@ -624,40 +596,18 @@ export default class CreateOrEditBlogPost extends React.Component {
       videoDescription
     } = this.state
     let contentFields;
-    if (['Tiny Image', 'Medium Image', 'Large Image'].includes(preview_card_type)) {
+    if ([STANDARD].includes(preview_card_type)) {
       contentFields = [
-        <label key="preview-image-label">Link to an image with the dimensions in the preview:</label>,
-        <input key="preview-image" onChange={this.handleBlogPostPreviewImageChange} type='text' value={blogPostPreviewImage} />,
         <label key="title-label">Title:</label>,
         <input key="title" onChange={this.handleBlogPostPreviewTitleChange} type='text' value={blogPostPreviewTitle} />,
         <label key="description-label">Description: <i>(Please, choose the juiciest quote from the article that makes you want to read it and you should aim for 200 characters for the card description., for example: &#34;I put jazz on and my kids work on Quill.&#34;)</i></label>,
         <input key="description" onChange={this.handleBlogPostPreviewDescriptionChange} type='text' value={blogPostPreviewDescription} />,
-        <label key="button-text-label">Button Text (button will link to whatever the external link is above, but the external link must be there prior to adding text here):</label>,
-        <input key="button-text" onChange={this.handlePreviewCardButtonTextChange} type='text' value={previewCardButtonText} />
       ]
-    } else if (preview_card_type === 'Custom HTML') {
+    } else if (preview_card_type === CUSTOM_HTML) {
       contentFields = [
         <label key="custom-html-label">Custom HTML:</label>,
         <textarea id="preview-markdown-content" key="custom-html" onChange={this.handleCustomPreviewChange} rows={4} type="text" value={custom_preview_card_content} />,
         <i key="info">If no author is supposed to show, please delete &#34;&lt;p class=author&gt;&#34; through the next &#34;&lt;/p&gt;&#34;.</i>
-      ]
-    } else if (preview_card_type === 'Tweet') {
-      contentFields = [
-        <label key="tweet-link-label">Link to Tweet:</label>,
-        <input key="tweet-link" onChange={this.handleTweetLinkChange} type='text' value={tweetLink} />,
-        <label key="image-link-label">Link to Image:</label>,
-        <input key="image-link" onChange={this.handleTweetImageChange} type='text' value={tweetImage} />,
-        <label key="tweet-text-label">Text to Display:</label>,
-        <input key="tweet-text" onChange={this.handleTweetTextChange} type='text' value={tweetText} />,
-        <label key="tweet-author-label">Twitter Account:</label>,
-        <input key="tweet-author" onChange={this.handleTweetAuthorChange} type='text' value={tweetAuthor} />,
-      ]
-    } else if(preview_card_type === 'YouTube Video') {
-      contentFields = [
-        <label key="youtube-label">Link to YouTube Video:</label>,
-        <input key="youtube" onChange={this.handlePreviewCardVideoLinkChange} type='text' value={videoLink} />,
-        <label key="video-description-label">Video Description:</label>,
-        <input key="video-description" onChange={this.handlePreviewCardVideoDescriptionChange} type='text' value={videoDescription} />
       ]
     }
 
@@ -672,7 +622,7 @@ export default class CreateOrEditBlogPost extends React.Component {
         <ItemDropdown
           callback={this.changePreviewCardType}
           className="blog-dropdown"
-          items={['Tiny Image', 'Medium Image', 'Large Image', 'YouTube Video', 'Tweet', 'Custom HTML']}
+          items={[STANDARD, CUSTOM_HTML]}
           selectedItem={preview_card_type}
         />
       </div>
@@ -681,27 +631,63 @@ export default class CreateOrEditBlogPost extends React.Component {
 
   renderSaveAndPreviewButton = () => {
     const { action, } = this.props
-    const { draft, } = this.state
 
-    if (action === 'edit') {
-      return <input onClick={this.handleSaveAndPreviewClick} style={{background: 'white', color: '#00c2a2'}} type="submit" value="Save and Preview" />
+    if (action === EDIT) {
+      return <input className="quill-button large outlined secondary focus-on-light" onClick={this.handleSaveAndPreviewClick} type="button" value="Save and Preview" />
     }
   }
 
   renderSaveDraftButton = () => {
     const { action, } = this.props
     const { draft, } = this.state
-    if (action === 'new' || draft) {
-      return <input onClick={this.handleSaveDraftClick} style={{background: 'white', color: '#00c2a2'}} type="submit" value="Save Draft" />
+    if (action === NEW || draft) {
+      return <input className="quill-button large outlined secondary focus-on-light" onClick={this.handleSaveDraftClick} type="button" value="Save Draft" />
     }
   }
 
   renderUnpublishButton = () => {
     const { action, } = this.props
     const { draft, } = this.state
-    if (action === 'edit' && !draft) {
-      return <input onClick={this.handleUnpublishClick} style={{background: 'white', color: '#00c2a2'}} type="submit" value="Unpublish & Save Draft" />
+    if (action === EDIT && !draft) {
+      return <input className="quill-button large outlined secondary focus-on-light" onClick={this.handleUnpublishClick} type="button" value="Unpublish & Save Draft" />
     }
+  }
+
+  renderPremiumCheckbox = () => {
+    const { premium, } = this.state
+
+    let checkbox = <button aria-label="Unchecked checkbox" className="quill-checkbox unselected" onClick={this.handlePremiumChange} type="button" />
+
+    if (premium) {
+      checkbox = (<button className="quill-checkbox selected" onClick={this.handlePremiumChange} type="button">
+        <img alt={smallWhiteCheckIcon.alt} src={smallWhiteCheckIcon.src} />
+      </button>)
+    }
+
+    return (
+      <div className="checkbox-wrapper">
+        {checkbox}
+        <label className="premium-label">Show only to Premium Members</label>
+      </div>
+    )
+  }
+
+  renderCenterImagesCheckbox = () => {
+    const { centerImages, } = this.state
+    let checkbox = <button aria-label="Unchecked checkbox" className="quill-checkbox unselected" onClick={this.handleCenterImagesChange} type="button" />
+
+    if (centerImages) {
+      checkbox = (<button className="quill-checkbox selected" onClick={this.handleCenterImagesChange} type="button">
+        <img alt={smallWhiteCheckIcon.alt} src={smallWhiteCheckIcon.src} />
+      </button>)
+    }
+
+    return (
+      <div className="checkbox-wrapper">
+        {checkbox}
+        <label className="premium-label">Center Images</label>
+      </div>
+    )
   }
 
   render = () => {
@@ -723,81 +709,78 @@ export default class CreateOrEditBlogPost extends React.Component {
     const allTopics = topics.concat(studentTopics)
     return (
       <div>
-        <a className='all-blog-posts-back-button' href='/cms/blog_posts'><i className='fas fa-chevron-left' /> All Blog Posts</a>
+        <a className='quill-button fun outlined secondary focus-on-light' href='/cms/blog_posts'><i className='fas fa-chevron-left' />&nbsp;Back to All Blog Posts</a>
         <form>
-          <label>Title:</label>
-          <input onChange={this.handleTitleChange} type="text" value={title} />
+          <div className="left-column">
+            <label>Title:</label>
+            <input onChange={this.handleTitleChange} type="text" value={title} />
 
-          <label>SEO Meta Description:</label>
-          <input onChange={this.handleSubtitleChange} type="text" value={subtitle} />
+            <label>SEO Meta Description:</label>
+            <input onChange={this.handleSubtitleChange} type="text" value={subtitle} />
 
-          <label>SEO Meta Image:</label>
-          <input onChange={this.handleImageLinkChange} type="text" value={imageLink} />
+            <label>SEO Meta Image:</label>
+            <input onChange={this.handleImageLinkChange} type="text" value={imageLink} />
 
-          <label>Press Name (optional):</label>
-          <input onChange={this.handlePressNameChange} type="text" value={pressName} />
+            <label>Press Name (optional):</label>
+            <input onChange={this.handlePressNameChange} type="text" value={pressName} />
 
-          <div className='blog-dropdown-container'>
-            <div>
-              <label>Author:</label>
-              <ItemDropdown callback={this.changeAuthor} className="blog-dropdown" items={[nullAuthor].concat(authors)} selectedItem={authors.find(a => a.id === author_id) || nullAuthor} />
-              <a className="link" href="/cms/authors/new" target="_blank">Create New Author</a>
+            <div className='short-fields'>
+              <div>
+                <label>Author:</label>
+                <ItemDropdown callback={this.changeAuthor} className="blog-dropdown" items={[nullAuthor].concat(authors)} selectedItem={authors.find(a => a.id === author_id) || nullAuthor} />
+                <a className="quill-button fun outlined secondary focus-on-light" href="/cms/authors/new" target="_blank">Create New Author</a>
+              </div>
+              <div>
+                <label>Topic:</label>
+                <ItemDropdown callback={this.changeTopic} className="blog-dropdown" items={allTopics} selectedItem={topics.find(t => t === topic)} />
+              </div>
             </div>
-            <div>
-              <label>Topic:</label>
-              <ItemDropdown callback={this.changeTopic} className="blog-dropdown" items={allTopics} selectedItem={topics.find(t => t === topic)} />
+
+            <div className='short-fields'>
+              {this.renderPreviewCardTypeDropdown()}
+              {this.renderDatepicker()}
             </div>
-          </div>
 
-          <div className='short-fields'>
-            {this.renderPreviewCardTypeDropdown()}
-            {this.renderDatepicker()}
-          </div>
-
-          <div className='short-fields'>
             <div>
               <label>External Link: (Optional, use only if this card should point to another website)</label>
               <input onChange={this.handleExternalLinkChange} value={externalLink} />
             </div>
+
+            <div className="media-upload-container">
+              <label>Click the square below or drag an image into it to upload an image or video:</label>
+              <div className="dropzone-container"><Dropzone onDrop={this.handleDrop} /></div>
+              <label style={{marginTop: '10px'}}>Here is the link to your uploaded image or video:</label>
+              <input value={uploadedMediaLink} />
+              <a className="quill-button fun secondary outlined focus-on-light" href="/cms/images" target="_blank">All Uploaded Media</a>
+            </div>
+
+            {this.renderCenterImagesCheckbox()}
+
+            {this.renderPremiumCheckbox()}
+
+            {this.renderArticleMarkdownOrPreview()}
+
+            <div className="save-buttons">
+              {this.renderSaveDraftButton()}
+              {this.renderUnpublishButton()}
+              {this.renderSaveAndPreviewButton()}
+
+              <input className="quill-button contained large primary focus-on-light" onClick={this.handlePublishClick} type="button" value="Publish" />
+            </div>
           </div>
 
-          <div>
-            <label>Click the square below or drag an image into it to upload an image or video:</label>
-            <Dropzone onDrop={this.handleDrop} />
-            <label style={{marginTop: '10px'}}>Here is the link to your uploaded image or video:</label>
-            <input style={{marginBottom: '0px'}} value={uploadedMediaLink} />
-            <a className="link" href="/cms/images" style={{marginBottom: '10px'}} target="_blank">All Uploaded Media</a>
-          </div>
+          <div className="right-column">
+            <div>
+              <label>Card Preview:</label>
+              <PreviewCard color={BLOG_POST_TO_COLOR[topic]} content={preview_card_content} />
+            </div>
 
-          <div className="side-by-side">
             <div className="preview-card-container">
               <label>Preview Card Content:</label>
               {this.renderPreviewCardContentFields()}
             </div>
-
-            <div>
-              <label>Card Preview:</label>
-              <PreviewCard content={preview_card_content} />
-            </div>
           </div>
 
-          <div>
-            <label className="premium-label">Show Only to Premium Members:</label>
-            <input checked={premium} className="premium-checkbox" onClick={this.handlePremiumChange} type='checkbox' />
-          </div>
-
-          <div>
-            <label className="center-images-label">Center Images:</label>
-            <input checked={centerImages} className="center-images-checkbox" onClick={this.handleCenterImagesChange} type='checkbox' />
-          </div>
-
-          {this.renderArticleMarkdownOrPreview()}
-
-          <input onClick={this.handlePublishClick} type="submit" value="Publish" />
-
-          {this.renderSaveDraftButton()}
-          {this.renderUnpublishButton()}
-          {this.renderSaveAndPreviewButton()}
         </form>
       </div>
     )

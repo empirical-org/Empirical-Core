@@ -1,0 +1,211 @@
+.cms-container#blog-post {
+  form {
+    border-top: 1px solid #CFCFCF;
+    padding-top: 48px;
+    margin-top: 48px;
+    display: flex;
+    justify-content: space-between;
+
+    .right-column {
+      width: 368px;
+      margin-left: 32px;
+    }
+
+    .left-column {
+      flex: 1;
+    }
+
+    label {
+      color: #666;
+      display: block;
+      margin-bottom: 8px;
+    }
+
+    input:not(#date-picker), textarea {
+      border-radius: 5px;
+      border: 1px solid #cecece;
+      display: block;
+      font-size: 14px;
+      line-height: 1.45;
+      padding: 9px 12px;
+      transition: 0.1s ease-out;
+      width: 100%;
+
+      &:focus {
+        border-color: #5bc1a9;
+        outline: none;
+      }
+    }
+
+    input:not(#date-picker) {
+      margin-bottom: 32px;
+    }
+
+    #article-preview-bar {
+      background: #cecece;
+      border-radius: 5px 5px 0 0;
+      padding: 5px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      height: 36px;
+      .toolbar-left {
+        display: flex;
+      }
+      .article-tab {
+        cursor: pointer;
+        font-size: 14px;
+        margin-right: 10px;
+        padding: 10px;
+        padding-top: 0px;
+        border-radius: 6px 6px 0px 0px;
+        &.active {
+          background-color: white;
+        }
+      }
+      i {
+        font-size: 24px;
+        padding: 6px 4px 4px;
+      }
+      button {
+        font-size: 14px;
+        padding: 2px;
+      }
+      i, button {
+        background: #fff;
+        border-radius: 5px;
+        box-shadow: 0 1px 1px rgba(0, 0, 0, 0.1);
+        color: #666;
+        cursor: pointer;
+        display: inline-block;
+        margin: 0 3px;
+        text-align: center;
+        transition: all 0.3s ease-out;
+        width: min-content;
+
+        &:hover {
+          box-shadow: 0 2px 1px rgba(0, 0, 0, 0.1);
+          margin-top: -1px;
+          color: #333;
+        }
+      }
+    }
+
+    textarea {
+      border-radius: 0 0 5px 5px;
+      border-top-width: 0;
+      resize: vertical;
+
+      &#preview-markdown-content {
+        margin-bottom: 20px;
+        border-radius: 5px;
+        border-top-width: 1px;
+      }
+    }
+
+    #preview-card-content-fields {
+      background: #eeeeee;
+      border-radius: 5px;
+      font-size: 0.8em;
+      margin-bottom: 20px;
+      max-width: 500px;
+      padding: 15px 20px 1px;
+
+      input {
+        font-size: 1em;
+        padding: 7px 8px;
+      }
+    }
+
+    .markdown-preview {
+      margin-bottom: 20px;
+      width: 100%;
+      background: white;
+      border: 1px solid #ccc;
+      padding: 20px;
+
+      p {
+        font-size: 14px;
+        margin-bottom: 0;
+      }
+
+      h1, h2, h3, p, ul, ol, img, blockquote {
+        margin: 16px 0;
+      }
+    }
+
+    .short-fields {
+      display: flex;
+      margin-bottom: 20px;
+      justify-content: space-between;
+      .SingleDatePicker, .SingleDatePickerInput, .DateInput {
+        border-radius: 6px;
+        width: 384px;
+        display: flex;
+      }
+      .SingleDatePickerInput {
+        background-color: #fff;
+        border: 1px solid #dbdbdb;
+        margin-top: 6px;
+        border: solid 1px #cecece;
+      }
+      .DateInput_input {
+        color: #000 !important;
+        font-size: 16px !important;
+      }
+      .blog-dropdown {
+        width: 384px;
+        .dropdown__control {
+          width: 384px;
+          border-radius: 6px;
+          padding: 0px 14px;
+          height: 40px;
+          border: solid 1px #cecece;
+          border-radius: 6px !important;
+        }
+      }
+    }
+
+    .dropzone-container div {
+      width: 100% !important;
+    }
+
+    .media-upload-container {
+      input {
+        margin-bottom: 16px !important;
+      }
+    }
+
+    .checkbox-wrapper {
+      margin-top: 32px;
+      display: flex;
+      align-items: center;
+
+      label {
+        margin-bottom: 0px;
+        margin-left: 8px;
+      }
+    }
+
+    .article-content-container {
+      margin: 36px 0px;
+      border: 1px solid #E0E0E0;
+      border-radius: 6px;
+      div:last-of-type {
+        padding: 0px 10px;
+      }
+    }
+
+    .save-buttons {
+      display: flex;
+      border-top: 1px solid #CFCFCF;
+      margin-top: 32px;
+      padding-top: 32px;
+      .quill-button {
+        width: min-content !important;
+        margin-right: 16px;
+      }
+    }
+
+  }
+}
