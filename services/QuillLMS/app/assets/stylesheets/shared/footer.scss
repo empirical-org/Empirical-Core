@@ -104,14 +104,17 @@
       &.pas-left {
         font-size: 15px;
         a {
-          color: $white
+          color: #e1e1e1;
+        }
+        a, p {
+          margin-bottom: 0;
         }
       }
       &.pas-right {
         font-size: 24px;
 
         a {
-          color: $white
+          color: #e1e1e1;
         }
       }
     }
@@ -152,16 +155,15 @@
       }
     }
   }
-  @media only screen and (max-width : 1200px) {
-    padding-left: 86px;
-    padding-right: 86px;
-  }
-  @media only screen and (max-width : 1050px) {
+  @media (max-width : 1050px) {
     padding-left: 86px;
     padding-right: 86px;
     .footer-navigation {
       flex-direction: column;
       padding-bottom: 0;
+      ul {
+        margin-bottom: 24px !important;
+      }
     }
     .partners-footer, .partner-links, .privacy-and-social {
       flex-direction: column;
@@ -175,14 +177,26 @@
         margin-bottom: 0px;
         p, a {
           margin-left: 0px;
+          margin-bottom: 24px !important;
         }
       }
       .pas-right {
         display: none;
       }
     }
+    .partners-footer {
+      padding-top: 0;
+    }
+    .partner-links {
+      img:first-of-type {
+        margin-top: 0;
+      }
+    }
+    .cb-disclaimer {
+      margin: 0 !important;
+    }
   }
-  @media only screen and (max-width : 650px) {
+  @media (max-width : 650px) {
     padding-top: 25px;
     padding-left: 58px;
     padding-right: 58px;
@@ -193,6 +207,7 @@
       text-align: left;
       ul {
         padding-left: 0px;
+        margin-bottom: 24px !important;
       }
       div {
         text-align: left;
@@ -210,14 +225,25 @@
         flex-direction: column;
         margin-bottom: 0px;
         p, a {
-            margin-left: 0px;
+          margin-left: 0px;
+          margin-bottom: 24px !important;
         }
       }
       .pas-right {
         display: none;
       }
     }
-
+    .partners-footer {
+      padding-top: 0;
+    }
+    .partner-links {
+      img:first-of-type {
+        margin-top: 0;
+      }
+    }
+    .cb-disclaimer {
+      margin: 0;
+    }
   }
   @media only screen and (max-width: 400px) {
     .privacy-and-social div.pas-left {
