@@ -23,6 +23,6 @@
 #
 FactoryBot.define do
   factory :admin_info do
-    admin { create(:user) }
+    association :admin, factory: :user
   end
 end

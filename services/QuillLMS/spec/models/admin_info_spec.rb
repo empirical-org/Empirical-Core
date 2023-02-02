@@ -68,16 +68,16 @@ describe AdminInfo, type: :model, redis: true do
     it "should allow valid values" do
       AdminInfo::SUB_ROLES.each do |v|
         admin_info.sub_role = v
-        expect(admin_info.save).to be
+        expect(admin_info).to be_valid
       end
 
       admin_info.sub_role = nil
-      expect(admin_info.save).to be
+      expect(admin_info).to be_valid
     end
 
     it "should not allow invalid values" do
       admin_info.sub_role = 'other'
-      expect(admin_info.save).not_to be
+      expect(admin_info).not_to be_valid
     end
   end
 
@@ -85,16 +85,16 @@ describe AdminInfo, type: :model, redis: true do
     it "should allow valid values" do
       AdminInfo::APPROVAL_STATUSES.each do |v|
         admin_info.approval_status = v
-        expect(admin_info.save).to be
+        expect(admin_info).to be_valid
       end
 
       admin_info.approval_status = nil
-      expect(admin_info.save).to be
+      expect(admin_info).to be_valid
     end
 
     it "should not allow invalid values" do
       admin_info.approval_status = 'other'
-      expect(admin_info.save).not_to be
+      expect(admin_info).not_to be_valid
     end
   end
 
