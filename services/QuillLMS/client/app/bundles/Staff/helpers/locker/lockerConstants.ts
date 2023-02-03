@@ -34,6 +34,7 @@ export const ACTIVITY_MANAGEMENT = 'activity management';
 export const CONCEPT_MANAGEMENT = 'concept management';
 export const USER_MANAGEMENT = 'user management';
 export const TEACHER_CENTER = 'teacher center';
+export const ADMIN_VERIFICATION = 'admin verification';
 
 export const SAVE = 'Save';
 export const REVERT = 'Revert';
@@ -48,6 +49,7 @@ export const lockerItemOptions = [
   { label: ACTIVITIES, value: ACTIVITIES},
   { label: ACTIVITY_PACKS, value: ACTIVITY_PACKS},
   { label: ACTIVITY_PACKS_CATEGORIES, value: ACTIVITY_PACKS_CATEGORIES},
+  { label: ADMIN_VERIFICATION, value: ADMIN_VERIFICATION},
   { label: ATTRIBUTES_MANAGER, value: ATTRIBUTES_MANAGER},
   { label: AUTHORS, value: AUTHORS},
   { label: CONCEPTS, value: CONCEPTS},

@@ -593,6 +593,11 @@ EmpiricalGrammar::Application.routes.draw do
     resources :rosters, only: [:index] do
       post :upload_teachers_and_students, on: :collection
     end
+    resources :admin_verification, only: [:index] do
+      put :set_approved, on: :collection
+      put :set_denied, on: :collection
+      put :set_pending, on: :collection
+    end
     resources :standard_levels, only: [:index, :create, :update]
     resources :standards, only: [:index, :create, :update]
     resources :content_partners, only: [:index, :create, :update]

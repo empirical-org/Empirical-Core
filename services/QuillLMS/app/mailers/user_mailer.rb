@@ -146,6 +146,18 @@ class UserMailer < ActionMailer::Base
     mail from: "The Quill Team <hello@quill.org>", to: email, subject: "ELL Starter Diagnostic Next Steps"
   end
 
+  def approved_admin_email(user, school_name)
+    @user = user
+    @school_name = school_name
+    mail from: "The Quill Team <hello@quill.org>", to: user.email, subject: "You were approved as an admin of #{school_name}"
+  end
+
+  def denied_admin_email(user, school_name)
+    @user = user
+    @school_name = school_name
+    mail from: "The Quill Team <hello@quill.org>", to: user.email, subject: "We couldn’t verify you as an admin of #{school_name}"
+  end
+
   private def link_for_setting_password(role)
     params = {
       accountType: role,
