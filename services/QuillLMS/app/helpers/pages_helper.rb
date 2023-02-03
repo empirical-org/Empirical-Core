@@ -65,32 +65,32 @@ module PagesHelper
           {
             name: 'Christina Collins-Berry',
             title: 'Managing Director of Partnerships',
-            img: 'team-christina-collins@2x.png'
+            img: 'team-christina-collins.webp'
           },
           {
             name: 'Daniel Drabik',
             title: 'Chief Technology Officer',
-            img: 'team-daniel-drabik@2x.png'
+            img: 'team-daniel-drabik.webp'
           },
           {
             name: 'Peter Gault',
             title: 'Executive Director, Cofounder',
-            img: 'team-peter-gault@2x.png'
+            img: 'team-peter-gault.webp'
           },
           {
             name: 'Sarah Kelly',
             title: 'Managing Director of Strategic Impact',
-            img: 'team-sarah-kelly@2x.png'
+            img: 'team-sarah-kelly.webp'
           },
           {
             name: 'Lila Jane Mabe',
             title: 'Managing Director of Strategy & Impact',
-            img: 'team-lila-jane-mabe@2x.png'
+            img: 'team-lila-jane-mabe.webp'
           },
           {
             name: 'Hannah Monk',
             title: 'Managing Director of Curriculum',
-            img: 'team-hannah-monk@2x.png'
+            img: 'team-hannah-monk.webp'
           }
         ]
       },
@@ -101,117 +101,117 @@ module PagesHelper
           {
             name: 'Eric Adams',
             title: 'Software Engineer II',
-            img: 'team-eric-adams@2x.png'
+            img: 'team-eric-adams.webp'
           },
           {
             name: 'Devin Kawailani Barricklow',
             title: 'Senior Curriculum Developer',
-            img: 'team-devin-barricklow@2x.png'
+            img: 'team-devin-barricklow.webp'
           },
           {
             name: 'Shannon Browne',
             title: 'Professional Learning Manager',
-            img: 'team-shannon-browne@2x.png'
+            img: 'team-shannon-browne.webp'
           },
           {
             name: 'Nattalie Dai',
             title: 'Partnerships Specialist I',
-            img: 'team-nattalie-dai@2x.png'
+            img: 'team-nattalie-dai.webp'
           },
           {
             name: 'Rachel Dantzler',
             title: 'Senior Curriculum Developer',
-            img: 'team-rachel-dantzler@2x.png'
+            img: 'team-rachel-dantzler.webp'
           },
           {
             name: 'Ellie Dean',
             title: 'Finance & Operations Specialist II',
-            img: 'team-ellie-dean@2x.png'
+            img: 'team-ellie-dean.webp'
           },
           {
             name: 'Emilia Friedberg',
             title: 'Senior Software Engineer I',
-            img: 'team-emilia-friedberg@2x.png'
+            img: 'team-emilia-friedberg.webp'
           },
           {
             name: 'Peter Kong',
             title: 'Senior Software Engineer II',
-            img: 'team-peter-kong@2x.png'
+            img: 'team-peter-kong.webp'
           },
           {
             name: 'Sherry Lewkowicz',
             title: 'Professional Learning Manager',
-            img: 'team-sherry-lewkowicz@2x.png'
+            img: 'team-sherry-lewkowicz.webp'
           },
           {
             name: 'Charlie Looper',
             title: 'Partnerships Specialist II',
-            img: 'team-charlie-looper@2x.png'
+            img: 'team-charlie-looper.webp'
           },
           {
             name: 'Stephanee McCadney',
             title: 'Curriculum Developer II',
-            img: 'team-stephanee-mccadney@2x.png'
+            img: 'team-stephanee-mccadney.webp'
           },
           {
             name: 'Scarlet Melo',
             title: 'Partnerships Specialist II',
-            img: 'team-scarlet-melo@2x.png'
+            img: 'team-scarlet-melo.webp'
           },
           {
             name: 'Katie Moylan',
             title: 'Curriculum Developer II',
-            img: 'team-katie-moylan@2x.png'
+            img: 'team-katie-moylan.webp'
           },
           {
             name: 'Alex Otstott',
             title: 'Director of District Partnerships',
-            img: 'team-alex-otstott@2x.png'
+            img: 'team-alex-otstott.webp'
           },
           {
             name: 'Erika Parker-Havens',
             title: 'Professional Learning Manager',
-            img: 'team-erika-parker-havens@2x.png'
+            img: 'team-erika-parker-havens.webp'
           },
           {
             name: 'Yves Peirsman',
             title: 'AI Open Source Partner',
-            img: 'team-yves-peirsman@2x.png'
+            img: 'team-yves-peirsman.webp'
           },
           {
             name: 'Thomas Robertson',
             title: 'Senior Software Engineer II',
-            img: 'team-thomas-robertson@2x.png'
+            img: 'team-thomas-robertson.webp'
           },
           {
             name: 'Peter Sharkey',
             title: 'Principal Product Manager',
-            img: 'team-peter-sharkey@2x.png'
+            img: 'team-peter-sharkey.webp'
           },
           {
             name: 'Brendan Shean',
             title: 'Staff Software Engineer',
-            img: 'team-brendan-shean@2x.png'
+            img: 'team-brendan-shean.webp'
           },
           {
             name: 'Emma Volk',
             title: 'Lead Curriculum Developer',
-            img: 'team-emma-volk@2x.png'
+            img: 'team-emma-volk.webp'
           },
           {
             name: 'Anna Waterman',
             title: 'Curriculum Developer II',
-            img: 'team-anna-waterman@2x.png'
+            img: 'team-anna-waterman.webp'
           },
           {
             name: 'Jack Yi',
             title: 'Staff Product Designer',
-            img: 'team-jack-yi@2x.png'
+            img: 'team-jack-yi.webp'
           },
           {
             name: 'Cissy Yu',
             title: 'Software Engineer II',
-            img: 'team-cissy-yu@2x.png'
+            img: 'team-cissy-yu.webp'
           }
         ]
       }
@@ -226,32 +226,32 @@ module PagesHelper
           {
             name: 'Paul Walker',
             title: 'Quill Board Chair, Retired Partner at Goldman Sachs',
-            img: 'board-paul-walker@2x.png'
+            img: 'board-paul-walker.webp'
           },
           {
             name: 'Tony Sebro',
             title: 'General Counsel at Change.org',
-            img: 'board-tony-sebro@2x.png'
+            img: 'board-tony-sebro.webp'
           },
           {
             name: 'Peg Tyre',
             title: 'VP of Strategy at the Edwin Gould Foundation',
-            img: 'board-peg-tyre@2x.png'
+            img: 'board-peg-tyre.webp'
           },
           {
             name: 'Matthew Rodriguez',
             title: 'Trader at Millennium Management',
-            img: 'board-matthew-rodriguez@2x.png'
+            img: 'board-matthew-rodriguez.webp'
           },
           {
             name: 'Stephanie Cohen',
             title: 'Co-Head of Consumer Wealth Management at Goldman',
-            img: 'board-stephanie-cohen@2x.png'
+            img: 'board-stephanie-cohen.webp'
           },
           {
             name: 'Ben Sussman',
             title: 'Engineer at Stripe',
-            img: 'board-ben-sussman@2x.png'
+            img: 'board-ben-sussman.webp'
           }
         ]
       },
@@ -261,17 +261,17 @@ module PagesHelper
           {
             name: 'Rick Benger',
             title: 'Creator of Once upon a Pancake',
-            img: 'advisor-rick-benger@2x.png'
+            img: 'advisor-rick-benger.webp'
           },
           {
             name: 'Alex Redmon',
             title: 'Engineering Manager at Hearst',
-            img: 'advisor-alex-redmon@2x.png'
+            img: 'advisor-alex-redmon.webp'
           },
           {
             name: 'Ashley Winn',
             title: 'English Language Arts Teacher, Educational Consultant',
-            img: 'advisor-ashley-winn@2x.png'
+            img: 'advisor-ashley-winn.webp'
           }
         ]
       }
