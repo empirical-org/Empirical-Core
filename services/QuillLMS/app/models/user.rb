@@ -109,6 +109,7 @@ class User < ApplicationRecord
   attr_accessor :validate_username, :require_password_confirmation_when_password_present, :newsletter
 
   has_secure_password validations: false
+  has_one :admin_info, dependent: :destroy
   has_one :auth_credential, dependent: :destroy
   has_one :teacher_info, dependent: :destroy
   has_many :teacher_info_subject_areas, through: :teacher_info
@@ -709,6 +710,22 @@ class User < ApplicationRecord
 
   def units_with_same_name(name)
     units.where('name ILIKE ?', name)
+  end
+
+  def admin_sub_role
+    admin_info&.sub_role
+  end
+
+  def admin_approval_status
+    admin_info&.approval_status
+  end
+
+  def admin_sub_role=(sub_role)
+    if admin_info
+      admin_info.update(sub_role: sub_role)
+    else
+      AdminInfo.create(sub_role: sub_role, user_id: id)
+    end
   end
 
   private def validate_flags
