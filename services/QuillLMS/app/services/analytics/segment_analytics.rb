@@ -255,7 +255,7 @@ class SegmentAnalytics
 
   def identify(user)
     return unless backend.present?
-    return unless [User::ADMIN, User::TEACHER].include?(user&.role)
+    return unless user&.teacher? || user&.admin?
 
     identify_params = user&.segment_user&.identify_params
     backend.identify(identify_params) if identify_params
