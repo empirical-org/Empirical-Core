@@ -159,7 +159,7 @@ describe UserMailer, type: :mailer do
             row["conjunction"],
             row["attempt"],
             row["optimal"],
-            row['optimal'] || row['attempt'] == described_class::MAX_ATTEMPTS,
+            row['optimal'] || row['attempt'] == described_class::DEFAULT_MAX_ATTEMPTS,
             row["response"],
             row["feedback"],
             "#{row['feedback_type']}: #{row['name']}"

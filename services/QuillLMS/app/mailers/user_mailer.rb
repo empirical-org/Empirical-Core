@@ -23,6 +23,8 @@ class UserMailer < ActionMailer::Base
   COTEACHER_SUPPORT_ARTICLE = 'http://support.quill.org/getting-started-for-teachers/manage-classes/how-do-i-share-a-class-with-my-co-teacher'
   DEFAULT_MAX_ATTEMPTS = 5
   FEEDBACK_HISTORY_CSV_HEADERS = %w{Date/Time SessionID Conjunction Attempt Optimal? Completed? Response Feedback Rule}
+  FEEDBACK_SESSIONS_CSV_DOWNLOAD = "Feedback Sessions CSV Download"
+  FEEDBACK_SESSIONS_CSV_FILENAME = "feedback_sessions.csv"
 
   def invitation_to_non_existing_user invitation_email_hash
     @email_hash = invitation_email_hash.merge(support_article_link: COTEACHER_SUPPORT_ARTICLE, join_link: new_account_url).stringify_keys
@@ -166,8 +168,8 @@ class UserMailer < ActionMailer::Base
       end
     end
 
-    attachments['feedback_sessions.csv'] = {mime_type: 'text/csv', content: csv}
-    mail from: "The Quill Team <hello@quill.org>", to: email, subject: "Feedback Sessions CSV Download"
+    attachments[FEEDBACK_SESSIONS_CSV_FILENAME] = {mime_type: 'text/csv', content: csv}
+    mail from: "The Quill Team <hello@quill.org>", to: email, subject: FEEDBACK_SESSIONS_CSV_DOWNLOAD
   end
 
   private def link_for_setting_password(role)
