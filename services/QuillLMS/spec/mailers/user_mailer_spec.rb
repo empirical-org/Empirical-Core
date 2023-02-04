@@ -123,8 +123,14 @@ describe UserMailer, type: :mailer do
   end
 
   describe 'feedback_history_session_csv_download' do
-    it 'should set the subject, receiver and the sender' do
-      data = [
+    # I like to structure specs starting with subject which matches the describe block
+    subject { described_class.feedback_history_session_csv_download(email, data) }
+
+    # factor out parameters provided to subject as let variables
+    let(:email) { 'team@quill.org' }
+
+    let(:data) do
+      [
         {
           "datetime": "20220701",
           "session_uid": "sessionuid",
@@ -136,20 +142,37 @@ describe UserMailer, type: :mailer do
           "feedback_type": "spelling"
         }
       ]
-      mail = UserMailer.feedback_history_session_csv_download("team@quill.org", data)
+    end
 
-      csv_headers = %w{Date/Time SessionID Conjunction Attempt Optimal? Completed? Response Feedback Rule}
+    # Add some constants to UserMailer to make explicit the coupling with the spec:
+    let(:csv_headers) { described_class::FEEDBACK_HISTORY_CSV_HEADERS }
+    let(:csv_attachment) { subject.attachments[described_class::FEEDBACK_SESSIONS_CSV_FILENAME] }
+
+    it 'should set the subject, receiver and the sender' do
       csv_body = CSV.generate(headers: true) do |csv|
         csv << csv_headers
         data.each do |row|
-          csv << [row["datetime"], row["session_uid"], row["conjunction"], row["attempt"], row["optimal"], (row['optimal'] || row['attempt'] == 5).to_s, row["response"], row["feedback"], "#{row['feedback_type']}: #{row['name']}"]
+          #  break up multiple parameter method into multiple lines for readability
+          csv << [
+            row["datetime"],
+            row["session_uid"],
+            row["conjunction"],
+            row["attempt"],
+            row["optimal"],
+            row['optimal'] || row['attempt'] == described_class::MAX_ATTEMPTS,
+            row["response"],
+            row["feedback"],
+            "#{row['feedback_type']}: #{row['name']}"
+          ]
         end
       end
 
-      expect(mail.to).to eq(["team@quill.org"])
-      expect(mail.subject).to match("Feedback Sessions CSV Download")
-      expect(mail.attachments['feedback_sessions.csv'].mime_type).to match('text/csv')
-      expect(CSV.parse(mail.attachments['feedback_sessions.csv'].body.raw_source)).to eq(CSV.parse(csv_body))
+      expect(subject.to).to eq [email]
+
+      # Refer to constants to make coupling with string explicit
+      expect(subject.subject).to match(described_class::FEEDBACK_SESSIONS_CSV_DOWNLOAD)
+      expect(csv_attachment.mime_type).to match('text/csv')
+      expect(CSV.parse(csv_attachment.body.raw_source)).to eq(CSV.parse(csv_body))
     end
   end
 end

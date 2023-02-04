@@ -152,7 +152,17 @@ class UserMailer < ActionMailer::Base
     csv = CSV.generate(headers: true) do |csv_body|
       csv_body << FEEDBACK_HISTORY_CSV_HEADERS
       data.each do |row|
-        csv_body << [row["datetime"], row["session_uid"], row["conjunction"], row["attempt"], row["optimal"], (row['optimal'] || row['attempt'] == DEFAULT_MAX_ATTEMPTS).to_s, row["response"], row["feedback"], "#{row['feedback_type']}: #{row['name']}"]
+        csv_body << [
+          row["datetime"],
+          row["session_uid"],
+          row["conjunction"],
+          row["attempt"],
+          row["optimal"],
+          row['optimal'] || row['attempt'] == DEFAULT_MAX_ATTEMPTS,
+          row["response"],
+          row["feedback"],
+          "#{row['feedback_type']}: #{row['name']}"
+        ]
       end
     end
 

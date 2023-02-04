@@ -5,7 +5,13 @@ class InternalTool::EmailFeedbackHistorySessionDataWorker
   sidekiq_options queue: SidekiqQueue::LOW
 
   def perform(activity_id, start_date, end_date, filter_type, responses_for_scoring, email)
-    feedback_histories = FeedbackHistory.session_data_for_csv({activity_id: activity_id, start_date: start_date, end_date: end_date, filter_type: filter_type, responses_for_scoring: responses_for_scoring})
+    feedback_histories = FeedbackHistory.session_data_for_csv(
+        activity_id: activity_id,
+        start_date: start_date,
+        end_date: end_date,
+        filter_type: filter_type,
+        responses_for_scoring: responses_for_scoring
+    )
     results = []
     feedback_histories.find_each(batch_size: 10_000) { |feedback_history| results << feedback_history.serialize_csv_data }
     results.sort! { |a,b| b["datetime"] <=> a["datetime"] }

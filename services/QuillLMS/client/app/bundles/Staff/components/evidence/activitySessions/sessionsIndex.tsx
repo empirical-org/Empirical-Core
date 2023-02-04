@@ -5,11 +5,12 @@ import { firstBy } from 'thenby';
 import FilterWidget from "../shared/filterWidget";
 import { getVersionOptions, handlePageFilterClick, activitySessionIndexResponseHeaders, colorCodeAttemptsCount, formatSessionsData } from "../../../helpers/evidence/miscHelpers";
 import { renderHeader } from "../../../helpers/evidence/renderHelpers";
-import { Error, Spinner, DropdownInput, ReactTable, Tooltip, informationIcon } from '../../../../Shared/index';
+import { Error, Spinner, DropdownInput, ReactTable, Tooltip, informationIcon, Snackbar, defaultSnackbarTimeout, } from '../../../../Shared/index';
 import { fetchActivity, fetchActivitySessions, fetchActivityVersions, emailActivitySessionsDataForCSV } from '../../../utils/evidence/activityAPIs';
 import { DropdownObjectInterface, ActivitySessionInterface, ActivitySessionsInterface } from '../../../interfaces/evidenceInterfaces';
 import { activitySessionFilterOptions, SESSION_INDEX } from '../../../../../constants/evidence';
 import { renderCSVDownloadButton } from "../../../helpers/evidence/miscHelpers";
+import useSnackbarMonitor from '../../../../Shared/hooks/useSnackbarMonitor'
 
 const SessionsIndex = ({ match }) => {
   const { params } = match;
@@ -22,6 +23,8 @@ const SessionsIndex = ({ match }) => {
   const initialStartDate = initialStartDateString ? new Date(initialStartDateString) : null;
   const initialEndDate = initialEndDateString ? new Date(initialEndDateString) : null;
 
+  const [showSnackbar, setShowSnackbar] = React.useState<boolean>(false);
+  const [snackbarText, setSnackbarText] = React.useState<string>('');
   const [pageNumber, setPageNumber] = React.useState<DropdownObjectInterface>(null);
   const [pageDropdownOptions, setPageDropdownOptions] = React.useState<DropdownObjectInterface[]>(null);
   const [versionOption, setVersionOption] = React.useState<DropdownObjectInterface>(initialVersionOption);
@@ -36,7 +39,8 @@ const SessionsIndex = ({ match }) => {
   const [endDateForQuery, setEndDate] = React.useState<string>(initialEndDateString);
   const [responsesForScoring, setResponsesForScoring] = React.useState<boolean>(false);
   const [responsesForScoringForQuery, setResponsesForScoringForQuery] = React.useState<boolean>(false);
-  const [csvDataLoadInitiated, setCsvDataLoadInitiated] = React.useState<boolean>(false);
+
+  useSnackbarMonitor(showSnackbar, setShowSnackbar, defaultSnackbarTimeout)
 
   // cache activity data for updates
   const { data: activityData } = useQuery({
@@ -88,7 +92,6 @@ const SessionsIndex = ({ match }) => {
   }, [sessionsData]);
 
   function handleFilterClick(e: React.SyntheticEvent, passedVersionOption?: DropdownObjectInterface) {
-    setCsvDataLoadInitiated(false);
     handlePageFilterClick({ startDate, endDate, filterOption, versionOption: passedVersionOption || versionOption, responsesForScoring, setStartDate, setEndDate, setPageNumber, setFilterOptionForQuery, setResponsesForScoringForQuery, storageKey: SESSION_INDEX });
   }
 
@@ -134,8 +137,18 @@ const SessionsIndex = ({ match }) => {
     setResponsesForScoring(!responsesForScoring);
   }
 
+  function handleLoadCSVDataSuccess() {
+    setSnackbarText("CSV Data is loading. The results will be sent to your email shortly.");
+    setShowSnackbar(true);
+  }
+
+  function handleLoadCSVDataFailure(error) {
+    setSnackbarText(`Failed to load CSV data: ${error}`);
+    setShowSnackbar(true);
+  }
+
   function handleLoadCSVDataClick() {
-    emailActivitySessionsDataForCSV(activityId, startDateForQuery, filterOptionForQuery, endDateForQuery, responsesForScoringForQuery)
+    emailActivitySessionsDataForCSV(activityId, startDateForQuery, filterOptionForQuery, endDateForQuery, responsesForScoringForQuery, handleLoadCSVDataSuccess, handleLoadCSVDataFailure)
   }
 
   function getSortedRows({ activitySessions, id, directionOfSort }) {
@@ -180,6 +193,7 @@ const SessionsIndex = ({ match }) => {
 
   return(
     <div className="sessions-index-container">
+      <Snackbar text={snackbarText} visible={showSnackbar} />
       {renderHeader(activityData, 'View Sessions')}
       <section>
         <p className="link-info-blurb">Use <a href={metabaseLink}><strong>this Metabase</strong></a> query to display feedback sessions on a single page.</p>
