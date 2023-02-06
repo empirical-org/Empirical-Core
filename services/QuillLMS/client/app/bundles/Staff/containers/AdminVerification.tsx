@@ -4,6 +4,9 @@ import * as moment from 'moment'
 import { Spinner, DataTable, Snackbar, defaultSnackbarTimeout, } from '../../Shared/index'
 import useSnackbarMonitor from '../../Shared/hooks/useSnackbarMonitor'
 import { requestGet, requestPut, } from '../../../modules/request'
+import ApproveModal from '../components/adminVerification.tsx/approveModal'
+import DenyModal from '../components/adminVerification.tsx/denyModal'
+import UndoModal from '../components/adminVerification.tsx/undoModal'
 
 const PENDING = 'Pending'
 const COMPLETED = 'Completed'
@@ -57,54 +60,6 @@ const dataTableFields = [
     rowSectionClassName: 'approval-section'
   },
 ];
-
-const ApproveModal = ({ approve, closeModal, }) => (
-  <div className="modal-container admin-verification-modal-container">
-    <div className="modal-background" />
-    <div className="admin-verification-modal quill-modal modal-body">
-      <div className="top-section">
-        <h3>Approve this request?</h3>
-        <p>The user will be sent an email informing them of the decision. This request will be moved to the “Completed requests” tab.</p>
-      </div>
-      <div className="button-section">
-        <button className="quill-button medium secondary outlined focus-on-light" onClick={closeModal} type="button">Cancel</button>
-        <button className="quill-button medium primary contained focus-on-light" onClick={approve} type="button">Confirm</button>
-      </div>
-    </div>
-  </div>
-)
-
-const DenyModal = ({ deny, closeModal, }) => (
-  <div className="modal-container admin-verification-modal-container">
-    <div className="modal-background" />
-    <div className="admin-verification-modal quill-modal modal-body">
-      <div className="top-section">
-        <h3>Deny this request?</h3>
-        <p>The user will be sent an email informing them of the decision. This request will be moved to the “Completed requests” tab.</p>
-      </div>
-      <div className="button-section">
-        <button className="quill-button medium secondary outlined focus-on-light" onClick={closeModal} type="button">Cancel</button>
-        <button className="quill-button medium primary contained focus-on-light" onClick={deny} type="button">Confirm</button>
-      </div>
-    </div>
-  </div>
-)
-
-const UndoModal = ({ undo, closeModal, }) => (
-  <div className="modal-container admin-verification-modal-container">
-    <div className="modal-background" />
-    <div className="admin-verification-modal quill-modal modal-body">
-      <div className="top-section">
-        <h3>Undo this decision?</h3>
-        <p>This request will be moved to the “Pending requests” tab. No email will be sent to the user informing them of this change. Please contact the user directly as needed.</p>
-      </div>
-      <div className="button-section">
-        <button className="quill-button medium secondary outlined focus-on-light" onClick={closeModal} type="button">Cancel</button>
-        <button className="quill-button medium primary contained focus-on-light" onClick={undo} type="button">Confirm</button>
-      </div>
-    </div>
-  </div>
-)
 
 const ApprovalStatusElement = ({ id, approvalStatus, onClickApprove, onClickDeny, onClickUndo,  }) => {
   function handleClickApprove() { onClickApprove(id) }
