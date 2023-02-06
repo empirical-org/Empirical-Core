@@ -1511,4 +1511,79 @@ describe User, type: :model do
       it { expect(user.reload.units_with_same_name(name)).to eq [unit] }
     end
   end
+
+  describe 'email verification logic' do
+    let(:user) { create(:user) }
+    let!(:user_email_verification) { create(:user_email_verification, user: user) }
+
+    describe '#requires_email_verification?' do
+      it 'should be false if the there is no UserEmailVerification record' do
+        user.user_email_verification.destroy
+        user.reload
+
+        expect(user.requires_email_verification?).to be(false)
+      end
+
+      it 'should be true if there is a UserEmailVerification record that has not be verified yet' do
+        expect(user.requires_email_verification?).to be(true)
+      end
+
+      it 'should be true if there is a UserEmailVerification record that has been verified' do
+        user.user_email_verification.verify(UserEmailVerification::LEGACY_VERIFICATION)
+
+        expect(user.requires_email_verification?).to be(true)
+      end
+    end
+
+    describe '#email_verified?' do
+      it 'should return false if there is no UserEmailVerification record' do
+        user.user_email_verification.destroy
+        user.reload
+
+        expect(user.email_verified?).to be(false)
+      end
+
+      it 'should return true if there is a UserEmailVerification record that has been verified' do
+        user.user_email_verification.verify(UserEmailVerification::LEGACY_VERIFICATION)
+
+        expect(user.email_verified?).to be(true)
+      end
+
+      it 'should return false if there is a UserEmailVerification record that has not been verified' do
+        expect(user.email_verified?).to be(false)
+      end
+    end
+
+    describe '#require_email_verification' do
+      it 'should create a new user_email_verification record if there is not one' do
+        user_email_verification.destroy
+
+        expect do
+          user.reload.require_email_verification
+
+          expect(user.reload.requires_email_verification?).to be(true)
+        end.to change(UserEmailVerification, :count).by(1)
+      end
+
+      it 'should not create a new user_email_verification record if there is one' do
+        expect do
+          user.require_email_verification
+
+          expect(user.requires_email_verification?).to be(true)
+        end.to change(UserEmailVerification, :count).by(0)
+      end
+    end
+
+    describe '#verify_email' do
+      it 'should call verify on the user_email_verification' do
+        method = UserEmailVerification::EMAIL_VERIFICATION
+        token = '1234567890'
+        user.user_email_verification.update(verification_token: token)
+
+        expect(user_email_verification).to receive(:verify).with(method, token)
+
+        user.verify_email(method, token)
+      end
+    end
+  end
 end
