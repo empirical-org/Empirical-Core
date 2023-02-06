@@ -49,7 +49,7 @@ class Teachers::ProgressReportsController < ApplicationController
   end
 
   private def authorize!
-    teacher_admin_or_staff!
+    teacher_or_staff!
   end
 
   private def switch_current_user(user)

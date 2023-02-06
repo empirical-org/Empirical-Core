@@ -11,7 +11,7 @@ class TeacherFixController < ApplicationController
   def archived_units
     if !@user
       render json: {error: 'No such user.'}
-    elsif @user.role != 'teacher'
+    elsif !@user.teacher? 
       render json: {error: 'This user is not a teacher.'}
     elsif archived_units_for_user.any?
       render json: {archived_units: archived_units_for_user}
@@ -48,7 +48,7 @@ class TeacherFixController < ApplicationController
 
   def recover_unit_activities
     user = User.find_by_email(params['email'])
-    if user && user.role == 'teacher'
+    if user&.teacher?
       units = Unit.where(user_id: user.id)
       TeacherFixes::recover_unit_activities_for_units(units)
       render json: {}, status: 200
@@ -59,7 +59,7 @@ class TeacherFixController < ApplicationController
 
   def recover_activity_sessions
     user = User.find_by_email(params['email'])
-    if user && user.role == 'teacher'
+    if user&.teacher?
       unit = Unit.find_by(name: params['unit_name'], user_id: user.id)
       if unit
         classroom_units = ClassroomUnit.unscoped.where(unit_id: unit.id)
@@ -100,7 +100,7 @@ class TeacherFixController < ApplicationController
     account1 = User.find_by_username_or_email(params['account1_identifier'])
     account2 = User.find_by_username_or_email(params['account2_identifier'])
     if account1 && account2
-      if account1.role == 'teacher' && account2.role == 'teacher'
+      if account1.teacher? && account2.teacher?
         Unit.unscoped.where(user_id: account1.id).update_all(user_id: account2.id)
         ClassroomsTeacher.where(user_id: account1.id).each do |ct|
           if ClassroomsTeacher.find_by(user_id: account2.id, classroom_id: ct.classroom_id)
@@ -113,7 +113,7 @@ class TeacherFixController < ApplicationController
         account2.delete_dashboard_caches
         render json: {}, status: 200
       else
-        nonteacher_account_identifier = account1.role == 'teacher' ? params['account2_identifier'] : params['account1_identifier']
+        nonteacher_account_identifier = account1.teacher? ? params['account2_identifier'] : params['account1_identifier']
         render json: {error: "#{nonteacher_account_identifier} is not a teacher."}
       end
     else

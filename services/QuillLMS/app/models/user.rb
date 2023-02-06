@@ -207,7 +207,8 @@ class User < ApplicationRecord
   after_save :check_for_school
   after_create :generate_referrer_id, if: proc { teacher? }
 
-  scope :teacher, -> { where(role: TEACHER) }
+  # This is a little weird, but in our current conception, all Admins are Teachers
+  scope :teacher, -> { where(role: [ADMIN, TEACHER]) }
   scope :student, -> { where(role: STUDENT) }
 
   def self.deleted_users
@@ -419,7 +420,7 @@ class User < ApplicationRecord
   end
 
   def teacher?
-    role.teacher?
+    role.teacher? || admin? # This is a bit weird, but all Admins are Teachers
   end
 
   def staff?
@@ -616,7 +617,7 @@ class User < ApplicationRecord
   end
 
   def is_new_teacher_without_school?
-    role == 'teacher' && !school && previous_changes["id"]
+    teacher? && !school && previous_changes["id"]
   end
 
   def generate_username(classroom_id=nil)

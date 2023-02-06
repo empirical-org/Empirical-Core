@@ -167,7 +167,7 @@ class AdminsController < ApplicationController
 
   private def handle_new_user
     # Create a new teacher, and automatically join them to the school.
-    @teacher = @school.users.create(teacher_params.merge({ role: 'teacher', password: teacher_params[:last_name] }))
+    @teacher = @school.users.create(teacher_params.merge({ role: User::TEACHER, password: teacher_params[:last_name] }))
     @teacher.refresh_token!
     ExpirePasswordTokenWorker.perform_in(30.days, @teacher.id)
     if @is_admin

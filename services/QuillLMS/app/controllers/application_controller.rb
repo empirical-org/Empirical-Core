@@ -47,9 +47,8 @@ class ApplicationController < ActionController::Base
     auth_failed
   end
 
-  def teacher_admin_or_staff!
+  def teacher_or_staff!
     return if current_user.try(:teacher?)
-    return if current_user.try(:admin?)
 
     staff!
   end
