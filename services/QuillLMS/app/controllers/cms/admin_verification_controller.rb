@@ -56,7 +56,7 @@ class Cms::AdminVerificationController < Cms::CmsController
       email: admin_info_record.user.email,
       verification_url: admin_info_record.verification_url,
       verification_reason: admin_info_record.verification_reason,
-      location: [geocoder_result.city, geocoder_result.state, geocoder_result.country].filter { |str| str && str.length > 0 }.join(', '),
+      location: [geocoder_result.city, geocoder_result.state, geocoder_result.country].filter { |str| str && !str.empty? }.join(', '),
       approval_status: admin_info_record.approval_status
     }
   end
