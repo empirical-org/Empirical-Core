@@ -2,12 +2,12 @@
 
 require 'rails_helper'
 
-describe SaveActivitySessionConceptResultsWorker, type: :worker do
-  let(:child_worker_class) { SaveActivitySessionConceptResultWorker }
+describe SaveActivitySessionConceptResultWorker, type: :worker do
 
   context '#perform' do
     let(:activity_session) { create(:activity_session_without_concept_results) }
     let(:concept) { create(:concept) }
+
     let(:json_payload) {
       {
         activity_session_id: activity_session.id,
@@ -26,21 +26,9 @@ describe SaveActivitySessionConceptResultsWorker, type: :worker do
       }
     }
 
-    it 'should call child worker once when passed a payload' do
-      expect(child_worker_class).to receive(:perform_async).with(json_payload)
-      subject.perform(json_payload)
-    end
-
-    it 'should call child worker twice when passed an array of two payloads' do
-      expect(child_worker_class).to receive(:perform_async).with(json_payload).twice
-      subject.perform([json_payload, json_payload])
-    end
-
-    it 'should create two concept results' do
-      Sidekiq::Testing.inline! do
-        subject.perform([json_payload, json_payload])
-        expect(activity_session.reload.concept_results.count).to eq(2)
-      end
+    it 'should save new ConceptResult records' do
+      expect { subject.perform(json_payload) }.to change(ConceptResult, :count).by(1)
+      expect(activity_session.reload.concept_results).to be
     end
   end
 end
