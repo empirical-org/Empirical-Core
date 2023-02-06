@@ -11,7 +11,7 @@ class TeacherFixController < ApplicationController
   def archived_units
     if !@user
       render json: {error: 'No such user.'}
-    elsif !@user.teacher? 
+    elsif !@user.teacher?
       render json: {error: 'This user is not a teacher.'}
     elsif archived_units_for_user.any?
       render json: {archived_units: archived_units_for_user}
