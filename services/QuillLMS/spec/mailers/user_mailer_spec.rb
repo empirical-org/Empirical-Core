@@ -91,6 +91,30 @@ describe UserMailer, type: :mailer do
     end
   end
 
+  describe 'approved_admin_email' do
+    let(:user) { build(:user) }
+    let(:school) { build(:school) }
+    let(:mail) { described_class.approved_admin_email(user, school.name) }
+
+    it 'should set the subject, receiver and the sender' do
+      expect(mail.subject).to eq("You were approved as an admin of #{school.name}")
+      expect(mail.to).to eq([user.email])
+      expect(mail.from).to eq(["hello@quill.org"])
+    end
+  end
+
+  describe 'denied_admin_email' do
+    let(:user) { build(:user) }
+    let(:school) { build(:school) }
+    let(:mail) { described_class.denied_admin_email(user, school.name) }
+
+    it 'should set the subject, receiver and the sender' do
+      expect(mail.subject).to eq("We couldn’t verify you as an admin of #{school.name}")
+      expect(mail.to).to eq([user.email])
+      expect(mail.from).to eq(["hello@quill.org"])
+    end
+  end
+
   describe 'declined_renewal_email' do
     let(:user) { build(:user) }
     let(:mail) { described_class.declined_renewal_email(user) }

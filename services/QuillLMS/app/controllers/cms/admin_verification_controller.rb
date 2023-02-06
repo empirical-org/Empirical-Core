@@ -7,7 +7,7 @@ class Cms::AdminVerificationController < Cms::CmsController
     @js_file = 'staff'
     @style_file = 'staff'
     respond_to do |format|
-      format.html { }
+      format.html
       format.json {
         pending = admin_records_by_approval_status(AdminInfo::PENDING)
         completed = admin_records_by_approval_status([AdminInfo::APPROVED, AdminInfo::DENIED])
@@ -52,11 +52,11 @@ class Cms::AdminVerificationController < Cms::CmsController
       admin_info_id: admin_info_record.id,
       date: admin_info_record.created_at,
       name: admin_info_record.user.name,
-      school: admin_info_record.user.school.name,
+      school: admin_info_record.user.school&.name,
       email: admin_info_record.user.email,
       verification_url: admin_info_record.verification_url,
       verification_reason: admin_info_record.verification_reason,
-      location: [geocoder_result.city, geocoder_result.state, geocoder_result.country].filter { |str| str&.length > 0 }.join(', '),
+      location: [geocoder_result.city, geocoder_result.state, geocoder_result.country].filter { |str| str && str.length > 0 }.join(', '),
       approval_status: admin_info_record.approval_status
     }
   end
