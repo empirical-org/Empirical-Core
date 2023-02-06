@@ -1043,6 +1043,11 @@ describe User, type: :model do
       expect(user).to be_teacher
     end
 
+    it "must be true for 'admin' roles because all admins are teachers" do
+      user.safe_role_assignment User::ADMIN
+      expect(user).to be_teacher
+    end
+
     it 'must be false for other roles' do
       user.safe_role_assignment 'other'
       expect(user).to_not be_teacher
