@@ -527,6 +527,25 @@ li.premium-tab > a:hover {
         }
       }
     }
+    .testimonials-intro {
+      h3 {
+        font-style: normal;
+        font-weight: 700;
+        font-size: 24px;
+        line-height: 30px;
+        height: 30px;
+      }
+      p {
+        padding-top: 36px;
+        max-width: 656px;
+        font-style: normal;
+        font-weight: 400;
+        font-size: 16px;
+        line-height: 22px;
+        text-align: center;
+        color: #262626;
+      }
+    }
   }
 }
 

@@ -125,6 +125,13 @@ const professionalDevelopmentSessions = (
   </section>
 )
 
+const testimonialsIntro = (
+  <section className='testimonials-intro'>
+    <h3>One-on-one coaching sessions with our Senior Instructional Coaches</h3>
+    <p>Once per quarter, teachers are invited to schedule 1:1 coaching sessions to work directly with a senior instructional coach on Quill&apos;s team. These sessions enable teachers to solve issues, learn how reports, .... The coach and the teacher are looking at the Quill dashboard and leave the coaching session with more confidence in the tool.</p>
+  </section>
+)
+
 const testimonials = (
   <section>
     <div className="premium-features-row">
@@ -194,6 +201,7 @@ const SchoolPremium = () => {
       <div className='premium-features-body'>
         {actionableFeaturesAndSupport}
         {professionalDevelopmentSessions}
+        {testimonialsIntro}
         {testimonials}
         {coachingTeam}
       </div>
