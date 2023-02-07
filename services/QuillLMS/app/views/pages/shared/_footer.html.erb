@@ -2,7 +2,7 @@
 <% logo_class = current_user ? 'dark' : 'light' %>
 
 <% if show_site_navigation? %>
-  <% if current_user&.role == 'student' || current_user&.role == 'staff' %>
+  <% if current_user&.student? || current_user&.staff? %>
     <footer class="student-footer">
       <div class="inner-container">
         <div class="privacy-and-terms">
