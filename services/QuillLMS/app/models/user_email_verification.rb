@@ -34,7 +34,7 @@ class UserEmailVerification < ApplicationRecord
     CLEVER_VERIFICATION = 'clever',
     GOOGLE_VERIFICATION = 'google',
     LEGACY_VERIFICATION = 'legacy',
-    STAFF_VERIFICATIOn = 'staff'
+    STAFF_VERIFICATION = 'staff'
   ]
 
   def verify(verification_method, verification_token = nil)
