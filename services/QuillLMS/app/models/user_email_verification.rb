@@ -33,7 +33,6 @@ class UserEmailVerification < ApplicationRecord
     EMAIL_VERIFICATION = 'email',
     CLEVER_VERIFICATION = 'clever',
     GOOGLE_VERIFICATION = 'google',
-    LEGACY_VERIFICATION = 'legacy',
     STAFF_VERIFICATION = 'staff'
   ]
 

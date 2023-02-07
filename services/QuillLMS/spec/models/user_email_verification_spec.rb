@@ -44,7 +44,7 @@ describe UserEmailVerification, type: :model do
       expect(DateTime).to receive(:now).and_return(now)
 
       expect do
-        user_email_verification.verify(UserEmailVerification::LEGACY_VERIFICATION)
+        user_email_verification.verify(UserEmailVerification::STAFF_VERIFICATION)
       end.to change(user_email_verification, :verified_at).from(nil).to(now)
     end
 
@@ -56,8 +56,8 @@ describe UserEmailVerification, type: :model do
 
     it 'should set the verification_method when verified' do
       expect do
-        user_email_verification.verify(UserEmailVerification::LEGACY_VERIFICATION)
-      end.to change(user_email_verification, :verification_method).from(nil).to(UserEmailVerification::LEGACY_VERIFICATION)
+        user_email_verification.verify(UserEmailVerification::STAFF_VERIFICATION)
+      end.to change(user_email_verification, :verification_method).from(nil).to(UserEmailVerification::STAFF_VERIFICATION)
     end
   end
 

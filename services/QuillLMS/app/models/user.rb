@@ -245,7 +245,14 @@ class User < ApplicationRecord
     user_email_verification.present? && user_email_verification.verified?
   end
 
+  def email_verification_pending?
+     requires_email_verification? && !email_verified?
+  end
+
   def verify_email(verification_method, verification_token = nil)
+    # Set up email verification records if they don't exist yet
+    require_email_verification
+
     user_email_verification.verify(verification_method, verification_token)
   end
 

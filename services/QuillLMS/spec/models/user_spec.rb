@@ -1529,7 +1529,7 @@ describe User, type: :model do
       end
 
       it 'should be true if there is a UserEmailVerification record that has been verified' do
-        user.user_email_verification.verify(UserEmailVerification::LEGACY_VERIFICATION)
+        user.user_email_verification.verify(UserEmailVerification::STAFF_VERIFICATION)
 
         expect(user.requires_email_verification?).to be(true)
       end
@@ -1544,7 +1544,7 @@ describe User, type: :model do
       end
 
       it 'should return true if there is a UserEmailVerification record that has been verified' do
-        user.user_email_verification.verify(UserEmailVerification::LEGACY_VERIFICATION)
+        user.user_email_verification.verify(UserEmailVerification::STAFF_VERIFICATION)
 
         expect(user.email_verified?).to be(true)
       end
@@ -1583,6 +1583,25 @@ describe User, type: :model do
         expect(user_email_verification).to receive(:verify).with(method, token)
 
         user.verify_email(method, token)
+      end
+    end
+
+    describe '#email_verification_pending?' do
+      it 'should return false if the user requires_email_verification? is false' do
+        expect(user).to receive(:requires_email_verification?).and_return(false)
+        expect(user.email_verification_pending?).to be(false)
+      end
+
+      it 'should return true if the user requires_email_verification? but email_verified? is false' do
+        expect(user).to receive(:requires_email_verification?).and_return(true)
+        expect(user).to receive(:email_verified?).and_return(false)
+        expect(user.email_verification_pending?).to be(true)
+      end
+
+      it 'should return false if user requires_email_verification? and email_verified? is already true' do
+        expect(user).to receive(:requires_email_verification?).and_return(true)
+        expect(user).to receive(:email_verified?).and_return(true)
+        expect(user.email_verification_pending?).to be(false)
       end
     end
   end
