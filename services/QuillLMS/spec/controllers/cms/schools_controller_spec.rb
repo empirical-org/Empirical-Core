@@ -32,14 +32,6 @@ describe Cms::SchoolsController do
   end
 
   describe '#search' do
-    let(:school_hash) { {school_zip: 1234, number_teachers: 23, number_admins: 5, frl: "frl"} }
-
-    before { allow(RawSqlRunner).to receive(:execute).and_return([school_hash]) }
-
-    it 'should search for the school and give the results' do
-      get :search
-      expect(response.body).to eq({numberOfPages: 0, schoolSearchQueryResults: [school_hash]}.to_json)
-    end
 
     context 'when a school has an expired subscription and an active subscription' do
       it 'should only one record of that school, without duplicates' do
@@ -48,8 +40,40 @@ describe Cms::SchoolsController do
         active_sub = create(:subscription)
         create(:school_subscription, school: school, subscription: expired_sub)
         create(:school_subscription, school: school, subscription: active_sub)
-        get :search, params: {:school_name => school.name}
+        get :search, params: {:school_name => school.name, :search_schools_with_zero_teachers => true}
         expect(JSON.parse(response.body)['schoolSearchQueryResults'].size).to eq(1)
+        expect(JSON.parse(response.body)['schoolSearchQueryResults'][0]["id"]).to eq(school.id)
+      end
+    end
+
+    context 'when a school has never had a subscription' do
+      it 'should search successfully for that school' do
+        school = create(:school)
+        get :search, params: {:school_name => school.name, :search_schools_with_zero_teachers => true}
+        expect(JSON.parse(response.body)['schoolSearchQueryResults'].size).to eq(1)
+        expect(JSON.parse(response.body)['schoolSearchQueryResults'][0]["id"]).to eq(school.id)
+      end
+    end
+
+    context 'when a school has no subscription now, but had one in the past that has now expired' do
+      it 'should search successfully for that school' do
+        school = create(:school)
+        expired_sub = create(:subscription, expiration: 15.days.ago.to_date)
+        create(:school_subscription, school: school, subscription: expired_sub)
+        get :search, params: {:school_name => school.name, :search_schools_with_zero_teachers => true}
+        expect(JSON.parse(response.body)['schoolSearchQueryResults'].size).to eq(1)
+        expect(JSON.parse(response.body)['schoolSearchQueryResults'][0]["id"]).to eq(school.id)
+      end
+    end
+
+    context 'when a school has a de-activated subscription' do
+      it 'should search successfully for that school' do
+        school = create(:school)
+        deactivated_sub = create(:subscription, de_activated_date: 15.days.ago.to_date)
+        create(:school_subscription, school: school, subscription: deactivated_sub)
+        get :search, params: {:school_name => school.name, :search_schools_with_zero_teachers => true}
+        expect(JSON.parse(response.body)['schoolSearchQueryResults'].size).to eq(1)
+        expect(JSON.parse(response.body)['schoolSearchQueryResults'][0]["id"]).to eq(school.id)
       end
     end
   end

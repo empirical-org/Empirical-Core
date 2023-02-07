@@ -247,8 +247,15 @@ class Cms::SchoolsController < Cms::CmsController
 
   private def where_query_string_builder
     conditions = [
-      "(subscriptions.expiration IS NULL OR subscriptions.expiration > '#{Date.current}')",
-      "subscriptions.de_activated_date IS NULL"
+      "(
+        subscriptions.expiration IS NULL OR
+        (subscriptions.expiration, schools.id) IN (
+          SELECT max(subscriptions.expiration), school_subscriptions.school_id
+          FROM subscriptions
+          INNER JOIN school_subscriptions ON subscriptions.id = school_subscriptions.subscription_id
+          GROUP BY school_subscriptions.school_id
+        )
+      )"
     ]
     # This converts all of the search inputs into strings so we can iterate
     # over them and grab the value from params. The weird ternary here is in
