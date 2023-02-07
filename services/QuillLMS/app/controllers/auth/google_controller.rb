@@ -141,6 +141,8 @@ class Auth::GoogleController < ApplicationController
   private def save_teacher_from_google_signup
     return unless @user.new_record? && @user.teacher?
 
+    success_redirect_path = @user.admin? ? '/sign-up/select-sub-role' : '/sign-up/add-k12'
+
     @js_file = 'session'
 
     if @user.save
@@ -148,7 +150,7 @@ class Auth::GoogleController < ApplicationController
       @teacher_from_google_signup = true
 
       sign_in(@user)
-      return redirect_to '/sign-up/add-k12'
+      return redirect_to success_redirect_path
     else
       @teacher_from_google_signup = false
       flash.now[:error] = @user.errors.full_messages.join(', ')
@@ -156,4 +158,5 @@ class Auth::GoogleController < ApplicationController
 
     render 'accounts/new'
   end
+
 end

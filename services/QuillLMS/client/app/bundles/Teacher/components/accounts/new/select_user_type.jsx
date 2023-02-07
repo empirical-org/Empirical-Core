@@ -1,11 +1,12 @@
 import * as React from 'react'
-import { Card, networkIcon, STUDENT, TEACHER, INDIVIDUAL_CONTRIBUTOR } from '../../../../Shared/index'
+import { Card, networkIcon, STUDENT, TEACHER, INDIVIDUAL_CONTRIBUTOR, ADMIN } from '../../../../Shared/index'
 
 import AssignActivityPackBanner from '../assignActivityPackBanner'
 import { requestPost, } from '../../../../../modules/request/index'
 
 const studentPencilImg = `${process.env.CDN_URL}/images/onboarding/student-pencil-colored.svg`
 const teacherChalkboardImg = `${process.env.CDN_URL}/images/onboarding/teacher-chalkboard-colored.svg`
+const schoolBuildingImg = `${process.env.CDN_URL}/images/onboarding/school-building-colored.svg`
 const homeSchoolImg = `${process.env.CDN_URL}/images/onboarding/home-building-colored.svg`
 
 export class SelectUserType extends React.Component {
@@ -30,6 +31,10 @@ export class SelectUserType extends React.Component {
 
   handleClickTeacher = () => {
     this.setRoleOnSession(TEACHER);
+  }
+
+  handleClickAdmin = () => {
+    this.setRoleOnSession(ADMIN);
   }
 
   handleClickIndividualContributor = () => {
@@ -67,6 +72,13 @@ export class SelectUserType extends React.Component {
               imgSrc={teacherChalkboardImg}
               onClick={this.handleClickTeacher}
               text="Select this option to create classes, assign activities, and view reports."
+            />
+            <Card
+              header="K-12 Administrator"
+              imgAlt="School building"
+              imgSrc={schoolBuildingImg}
+              onClick={this.handleClickAdmin}
+              text="Select this option to manage teacher accounts, access teacher reports, and view school-wide student data. As an admin, you can still create classes and assignments."
             />
             <Card
               header="Parent, Tutor or Caregiver"

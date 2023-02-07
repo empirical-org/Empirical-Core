@@ -62,8 +62,12 @@ class SignUpTeacher extends React.Component {
         }
       },
       (body) => {
-        const isIndvidualContributor = window.location.href.includes(INDIVIDUAL_CONTRIBUTOR);
-        if(isIndvidualContributor) {
+        const isIndividualContributor = window.location.href.includes(INDIVIDUAL_CONTRIBUTOR);
+        const isAdmin = window.location.href.includes(ADMIN)
+
+        if (isAdmin) {
+          window.location = '/sign-up/verify-email'
+        } else if(isIndividualContributor) {
           window.location = '/sign-up/add-teacher-info'
         } else {
           window.location = '/sign-up/add-k12'
