@@ -33,7 +33,6 @@ module Evidence
         @response = self.class.post(endpoint, body: request_body.to_json, headers: headers, timeout: TIMEOUT)
 
         cleaned_results
-
       rescue *Evidence::HTTP_TIMEOUT_ERRORS
         []
       end
