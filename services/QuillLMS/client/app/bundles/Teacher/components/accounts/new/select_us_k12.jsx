@@ -16,6 +16,7 @@ class SelectUSK12 extends React.Component {
   }
 
   selectSchool(idOrType) {
+    const { isAdmin, } = this.props
     // The "Skip this step" link in the school selection module trigger this function
     // with the argument 'non listed', while actually selecting a school triggers it
     // with a school identifier.
@@ -23,7 +24,7 @@ class SelectUSK12 extends React.Component {
       `${process.env.DEFAULT_URL}/select_school`,
       { school_id_or_type: idOrType, },
       (body) => {
-        window.location = '/sign-up/add-teacher-info'
+        window.location = isAdmin ? '/sign-up/verify-school' : '/sign-up/add-teacher-info'
       }
     )
   }

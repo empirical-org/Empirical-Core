@@ -171,6 +171,10 @@ EmpiricalGrammar::Application.routes.draw do
     put :update, on: :collection
   end
 
+  resources :admin_infos, only: [] do
+    put :update, on: :collection
+  end
+
   get 'grades/tooltip/classroom_unit_id/:classroom_unit_id/user_id/:user_id/activity_id/:activity_id/completed/:completed' => 'grades#tooltip'
 
   get :current_user_json, controller: 'teachers', action: 'current_user_json'
@@ -540,6 +544,10 @@ EmpiricalGrammar::Application.routes.draw do
   get 'account/:token/finish_set_up', to: 'accounts#edit'
   put 'account/:token', to: 'accounts#update'
 
+  get '/sign-up/verify-school', to: 'accounts#new'
+  get '/sign-up/verify-email', to: 'accounts#new'
+  get '/sign-up/select-sub-role', to: 'accounts#new'
+  get '/sign-up/admin', to: 'accounts#new'
   get '/sign-up/teacher', to: 'accounts#new'
   get '/sign-up/student', to: 'accounts#new'
   get '/sign-up/individual-contributor', to: 'accounts#new'
