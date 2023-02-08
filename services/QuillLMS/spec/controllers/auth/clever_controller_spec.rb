@@ -40,6 +40,7 @@ describe Auth::CleverController, type: :controller do
 
   describe 'signing up as an admin' do
     it 'should set user role as "admin" and verify email if session[:role] is admin' do
+        user.require_email_verification
         allow(controller).to receive(:current_user) { user }
         request.env['omniauth.auth'] = OmniAuth::AuthHash.new({
           info: {

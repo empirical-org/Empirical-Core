@@ -48,6 +48,7 @@ describe Auth::GoogleController, type: :controller do
   
     it 'should set user role as "admin" and verify email if session[:role] is admin' do
       user.update(role: User::ADMIN)
+      user.require_email_verification
 
       get 'online_access_callback', params: { email: user.email, role: nil }, session: { role: User::ADMIN }
 
