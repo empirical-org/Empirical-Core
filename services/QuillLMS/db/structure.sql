@@ -686,6 +686,41 @@ ALTER SEQUENCE public.admin_accounts_teachers_id_seq OWNED BY public.admin_accou
 
 
 --
+-- Name: admin_infos; Type: TABLE; Schema: public; Owner: -
+--
+
+CREATE TABLE public.admin_infos (
+    id bigint NOT NULL,
+    approval_status character varying,
+    sub_role character varying,
+    verification_url character varying,
+    verification_reason text,
+    user_id bigint NOT NULL,
+    created_at timestamp(6) without time zone NOT NULL,
+    updated_at timestamp(6) without time zone NOT NULL
+);
+
+
+--
+-- Name: admin_infos_id_seq; Type: SEQUENCE; Schema: public; Owner: -
+--
+
+CREATE SEQUENCE public.admin_infos_id_seq
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+
+--
+-- Name: admin_infos_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: -
+--
+
+ALTER SEQUENCE public.admin_infos_id_seq OWNED BY public.admin_infos.id;
+
+
+--
 -- Name: announcements; Type: TABLE; Schema: public; Owner: -
 --
 
@@ -4787,6 +4822,13 @@ ALTER TABLE ONLY public.admin_accounts_teachers ALTER COLUMN id SET DEFAULT next
 
 
 --
+-- Name: admin_infos id; Type: DEFAULT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY public.admin_infos ALTER COLUMN id SET DEFAULT nextval('public.admin_infos_id_seq'::regclass);
+
+
+--
 -- Name: announcements id; Type: DEFAULT; Schema: public; Owner: -
 --
 
@@ -5672,6 +5714,14 @@ ALTER TABLE ONLY public.admin_accounts
 
 ALTER TABLE ONLY public.admin_accounts_teachers
     ADD CONSTRAINT admin_accounts_teachers_pkey PRIMARY KEY (id);
+
+
+--
+-- Name: admin_infos admin_infos_pkey; Type: CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY public.admin_infos
+    ADD CONSTRAINT admin_infos_pkey PRIMARY KEY (id);
 
 
 --
@@ -6787,6 +6837,13 @@ CREATE INDEX index_admin_accounts_teachers_on_admin_account_id ON public.admin_a
 --
 
 CREATE INDEX index_admin_accounts_teachers_on_teacher_id ON public.admin_accounts_teachers USING btree (teacher_id);
+
+
+--
+-- Name: index_admin_infos_on_user_id; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX index_admin_infos_on_user_id ON public.admin_infos USING btree (user_id);
 
 
 --
@@ -8517,6 +8574,14 @@ ALTER TABLE ONLY public.criteria
 
 
 --
+-- Name: admin_infos fk_rails_b0fee17293; Type: FK CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY public.admin_infos
+    ADD CONSTRAINT fk_rails_b0fee17293 FOREIGN KEY (user_id) REFERENCES public.users(id);
+
+
+--
 -- Name: unit_activities fk_rails_b921d87b04; Type: FK CONSTRAINT; Schema: public; Owner: -
 --
 
@@ -9162,6 +9227,7 @@ INSERT INTO "schema_migrations" (version) VALUES
 ('20221209151611'),
 ('20221209151957'),
 ('20230104183416'),
-('20230113132638');
+('20230113132638'),
+('20230201202210');
 
 

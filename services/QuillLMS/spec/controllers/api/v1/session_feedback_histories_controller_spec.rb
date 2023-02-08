@@ -216,63 +216,34 @@ describe Api::V1::SessionFeedbackHistoriesController, type: :controller do
     end
   end
 
-  context "session_data_for_csv" do
+  context "email_csv_data" do
     let!(:user) { create(:user)}
     let!(:activity) { create(:evidence_activity) }
-    let!(:because_prompt) { Evidence::Prompt.create!(activity: activity, conjunction: 'because', text: 'Some feedback text', max_attempts_feedback: 'Feedback') }
-    let!(:but_prompt) { Evidence::Prompt.create!(activity: activity, conjunction: 'but', text: 'Some feedback text', max_attempts_feedback: 'Feedback') }
-    let!(:so_prompt) { Evidence::Prompt.create!(activity: activity, conjunction: 'so', text: 'Some feedback text', max_attempts_feedback: 'Feedback') }
-    let!(:activity_session1_uid) { SecureRandom.uuid }
-    let!(:activity_session2_uid) { SecureRandom.uuid }
-    let!(:feedback_history1) { create(:feedback_history, feedback_session_uid: activity_session1_uid, created_at: '2021-04-05T20:43:27.698Z', prompt_id: because_prompt.id) }
-    let!(:feedback_history2) { create(:feedback_history, feedback_session_uid: activity_session1_uid, created_at: '2021-04-06T20:43:27.698Z', prompt_id: because_prompt.id) }
-    let!(:feedback_history3) { create(:feedback_history, feedback_session_uid: activity_session1_uid, created_at: '2021-04-07T20:43:27.698Z', prompt_id: but_prompt.id) }
-    let!(:feedback_history4) { create(:feedback_history, feedback_session_uid: activity_session1_uid, created_at: '2021-04-08T20:43:27.698Z', prompt_id: but_prompt.id) }
-    let!(:feedback_history5) { create(:feedback_history, feedback_session_uid: activity_session1_uid, created_at: '2021-04-09T20:43:27.698Z', prompt_id: so_prompt.id) }
-    let!(:feedback_history6) { create(:feedback_history, feedback_session_uid: activity_session1_uid, created_at: '2021-04-10T20:43:27.698Z', prompt_id: so_prompt.id) }
-    let!(:feedback_history7) { create(:feedback_history, feedback_session_uid: activity_session2_uid, created_at: '2021-04-11T20:43:27.698Z', prompt_id: because_prompt.id) }
 
-    it 'should retrieve all feedback histories with no filters' do
-      get :session_data_for_csv, params: { activity_id: activity.id }, as: :json
+    before { allow(controller).to receive(:current_user) { user } }
 
-      parsed_response = JSON.parse(response.body)
+    it 'should kick off an email job' do
+      expect(InternalTool::EmailFeedbackHistorySessionDataWorker).to receive(:perform_async).with(activity.id.to_s, nil, nil, nil, nil, user.email)
+
+      get :email_csv_data, params: { activity_id: activity.id }, as: :json
 
       expect(response).to have_http_status(200)
-      expect(parsed_response.length).to eq(7)
-      expect(parsed_response[0]["session_uid"]).to eq(feedback_history7.feedback_session_uid)
-      expect(parsed_response[1]["session_uid"]).to eq(feedback_history6.feedback_session_uid)
-      expect(parsed_response[2]["session_uid"]).to eq(feedback_history5.feedback_session_uid)
-      expect(parsed_response[3]["session_uid"]).to eq(feedback_history4.feedback_session_uid)
-      expect(parsed_response[4]["session_uid"]).to eq(feedback_history3.feedback_session_uid)
-      expect(parsed_response[5]["session_uid"]).to eq(feedback_history2.feedback_session_uid)
-      expect(parsed_response[6]["session_uid"]).to eq(feedback_history1.feedback_session_uid)
     end
 
-    it 'should retrieve all feedback histories between date params' do
-      get :session_data_for_csv, params: { activity_id: activity.id, start_date: '2021-04-06T20:43:27.698Z', end_date: '2021-04-08T20:43:27.698Z' }, as: :json
+    it 'should kick off job for all feedback histories between date params' do
+      expect(InternalTool::EmailFeedbackHistorySessionDataWorker).to receive(:perform_async).with(activity.id.to_s, '2021-04-06T20:43:27.698Z', '2021-04-08T20:43:27.698Z', nil, nil, user.email)
 
-      parsed_response = JSON.parse(response.body)
+      get :email_csv_data, params: { activity_id: activity.id, start_date: '2021-04-06T20:43:27.698Z', end_date: '2021-04-08T20:43:27.698Z' }, as: :json
 
       expect(response).to have_http_status(200)
-      expect(parsed_response.length).to eq(3)
-      expect(parsed_response[0]["session_uid"]).to eq(feedback_history4.feedback_session_uid)
-      expect(parsed_response[1]["session_uid"]).to eq(feedback_history3.feedback_session_uid)
-      expect(parsed_response[2]["session_uid"]).to eq(feedback_history2.feedback_session_uid)
     end
 
-    it 'should retrieve all feedback histories qualifying for scoring' do
-      get :session_data_for_csv, params: { activity_id: activity.id, responses_for_scoring: true }, as: :json
+    it 'should kick off job for feedback histories qualifying for scoring' do
+      expect(InternalTool::EmailFeedbackHistorySessionDataWorker).to receive(:perform_async).with(activity.id.to_s, nil, nil, nil, true.to_s, user.email)
 
-      parsed_response = JSON.parse(response.body)
+      get :email_csv_data, params: { activity_id: activity.id, responses_for_scoring: true }, as: :json
 
       expect(response).to have_http_status(200)
-      expect(parsed_response.length).to eq(6)
-      expect(parsed_response[0]["session_uid"]).to eq(feedback_history6.feedback_session_uid)
-      expect(parsed_response[1]["session_uid"]).to eq(feedback_history5.feedback_session_uid)
-      expect(parsed_response[2]["session_uid"]).to eq(feedback_history4.feedback_session_uid)
-      expect(parsed_response[3]["session_uid"]).to eq(feedback_history3.feedback_session_uid)
-      expect(parsed_response[4]["session_uid"]).to eq(feedback_history2.feedback_session_uid)
-      expect(parsed_response[5]["session_uid"]).to eq(feedback_history1.feedback_session_uid)
     end
   end
 end
