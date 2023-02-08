@@ -149,6 +149,7 @@ namespace :local_data do
       schools
       skill_concepts
       skill_group_activities
+      subject_areas
       title_cards
       unit_template_categories
       unit_templates
