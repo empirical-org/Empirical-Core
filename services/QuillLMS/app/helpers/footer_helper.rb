@@ -7,7 +7,7 @@ module FooterHelper
       { href: '/assign', label: 'Assign Activities' },
       { href: '/teachers/classrooms', label: 'My Classes' },
       { href: '/teachers/classrooms/activity_planner', label: 'My Activities' },
-      { href: '/teachers/progress_reports/landing_page', label: 'My Student Reports' },
+      { href: '/teachers/progress_reports/landing_page', label: 'My Student Reports' }
     ]
   end
 
@@ -27,7 +27,7 @@ module FooterHelper
       { href: '/assign/diagnostic', label: 'Diagnostics' },
       { href: '/assign/activity-type', label: 'Featured Activity Packs' },
       { href: '/assign/activity-library', label: 'Activity Library' },
-      { href: '/assign/college-board', label: 'Pre-AP, AP, and Springboard Activities' },
+      { href: '/assign/college-board', label: 'Pre-AP, AP, and Springboard Activities' }
     ]
   end
 
@@ -37,7 +37,7 @@ module FooterHelper
       { href: '/ap', label: 'AP Activities' },
       { href: '/preap', label: 'Pre-AP Activities' },
       { href: '/springboard', label: 'SpringBoard Activities' },
-      { href: '/activities/section/7', label: 'ELA Standards' },
+      { href: '/activities/section/7', label: 'ELA Standards' }
     ]
   end
 
@@ -48,7 +48,7 @@ module FooterHelper
       { href: '/teacher-center/topic/getting_started', label: 'Getting Started' },
       { href: '/teacher-center/topic/video-tutorials', label: 'Video Tutorials' },
       { href: '/teacher-center/topic/best-practices', label: 'Best Practices' },
-      { href: '/faq', label: 'FAQ' },
+      { href: '/faq', label: 'FAQ' }
     ]
   end
 
@@ -59,7 +59,7 @@ module FooterHelper
       { href: '/pathways', label: 'Pathways Initiative' },
       { href: '/team', label: 'Team' },
       { href: '/careers', label: 'Careers' },
-      { href: '/press', label: 'Press' },
+      { href: '/press', label: 'Press' }
     ]
   end
 end
