@@ -297,9 +297,9 @@
     }
   }
   .unit-templates-table {
-    min-width: 1200px;
+    min-width: $sitewidepagewidth;
     .data-table-row {
-      min-width: 1200px;
+      min-width: $sitewidepagewidth;
     }
   }
 }
