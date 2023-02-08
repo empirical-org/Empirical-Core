@@ -23,7 +23,7 @@ class SelectUSNonK12 extends React.Component {
 
   handleClickUSHigherEd = () => this.selectSchool('us higher ed')
 
-  selectSchool(idOrType) {
+  selectSchool = (idOrType) => {
     requestPut(
       `${process.env.DEFAULT_URL}/select_school`,
       { school_id_or_type: idOrType, },

@@ -10,6 +10,7 @@ import SelectUSK12 from './select_us_k12';
 import SelectNonUSK12 from './select_non_us_k12';
 import AddTeacherInfo from './add_teacher_info';
 import SelectSubRole from './select_sub_role';
+import VerifySchool from './verify_school'
 
 const App = ({ subjectAreas, subRoles, user, school, isAdmin, }) => {
   return (
@@ -21,6 +22,8 @@ const App = ({ subjectAreas, subRoles, user, school, isAdmin, }) => {
         <Route component={SignUpTeacher} path="/sign-up/individual-contributor" />
         <Route component={SignUpTeacher} path="/sign-up/teacher" />
         <Route component={SignUpStudent} path="/sign-up/student" />
+
+        <Route component={VerifySchool} path="/sign-up/verify-school" />
 
         <Route component={routerProps => <SelectSubRole subRoles={subRoles} {...routerProps} />} path="/sign-up/select-sub-role" />
 

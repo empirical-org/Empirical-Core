@@ -151,6 +151,11 @@
   max-width: 546px;
   h1 {
     margin: 32px 0px 4px;
+    display: flex;
+    flex-direction: column;
+    .school-name {
+      font-weight: 400;
+    }
   }
   .sub-header {
     max-width: 100%;
@@ -168,6 +173,28 @@
     h1 {
       white-space: nowrap;
     }
+  }
+}
+
+.school-verification-section {
+  h3 {
+    font-weight: 400;
+    font-size: 14px;
+    line-height: 12px;
+    color: #373737;
+    margin-bottom: 32px;
+  }
+  .helper-text {
+    line-height: 16px;
+  }
+  .input-container:first-of-type {
+    margin-bottom: 64px;
+  }
+  .input-container:last-of-type {
+    min-height: auto;
+  }
+  .input-container.inactive:not(.has-text) input {
+    height: 25px;
   }
 }
 

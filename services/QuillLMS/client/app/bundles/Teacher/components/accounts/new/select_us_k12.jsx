@@ -15,7 +15,7 @@ class SelectUSK12 extends React.Component {
     window.location.href = "/sign-up/add-non-k12"
   }
 
-  selectSchool(idOrType) {
+  selectSchool = (idOrType) => {
     const { isAdmin, } = this.props
     // The "Skip this step" link in the school selection module trigger this function
     // with the argument 'non listed', while actually selecting a school triggers it

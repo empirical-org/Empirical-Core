@@ -7,6 +7,10 @@ class AdminInfosController < ApplicationController
 
     admin_info.update(admin_info_params)
 
+    if admin_info.approval_status == AdminInfo::SKIPPED && admin_info.verification_url && admin_info.verification_reason
+      admin_info.update(approval_status: AdminInfo::PENDING)
+    end
+
     render json: {}, status: 200
   end
 
