@@ -104,7 +104,7 @@ class Auth::GoogleController < ApplicationController
   end
 
   private def verify_email_if_necessary
-    @user.verify_email(UserEmailVerification::GOOGLE_VERIFICATION) if user.email_verification_pending?
+    @user.verify_email(UserEmailVerification::GOOGLE_VERIFICATION) if @user.email_verification_pending?
   end
 
   private def update_role_from_individual_contributor
@@ -144,7 +144,7 @@ class Auth::GoogleController < ApplicationController
   end
 
   private def save_teacher_from_google_signup
-    return unless @user.new_record? && @user.teacher?
+    return unless @user.new_record? && @user.teacher? && !@user.admin?
 
     @js_file = 'session'
 

@@ -205,7 +205,7 @@ class User < ApplicationRecord
   before_validation :prep_authentication_terms
   before_save :capitalize_name
   before_save :set_time_zone, unless: :time_zone
-  before_save :require_email_verification, if: :admin?
+  after_save  :require_email_verification, if: :admin?
   after_save  :update_invitee_email_address, if: proc { saved_change_to_email? }
   after_save :check_for_school
   after_create :generate_referrer_id, if: proc { teacher? }
