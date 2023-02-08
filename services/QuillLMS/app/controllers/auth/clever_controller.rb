@@ -51,9 +51,6 @@ module Auth
       CompleteAccountCreation.new(user, request.remote_ip).call if user.previous_changes["id"]
       user.update(ip_address: request.remote_ip)
 
-      role = session.delete(:role)
-      user.safe_role_assignment(role) if role
-      user.save
       user.verify_email(UserEmailVerification::CLEVER_VERIFICATION) if user.email_verification_pending?
 
       if session[ApplicationController::CLEVER_REDIRECT]

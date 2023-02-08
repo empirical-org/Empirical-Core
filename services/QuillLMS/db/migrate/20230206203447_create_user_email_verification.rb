@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 class CreateUserEmailVerification < ActiveRecord::Migration[6.1]
   def change
     create_table :user_email_verifications do |t|

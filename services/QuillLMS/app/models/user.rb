@@ -248,7 +248,7 @@ class User < ApplicationRecord
   end
 
   def email_verification_pending?
-     requires_email_verification? && !email_verified?
+    requires_email_verification? && !email_verified?
   end
 
   def verify_email(verification_method, verification_token = nil)
