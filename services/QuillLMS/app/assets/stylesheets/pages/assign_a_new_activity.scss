@@ -1,5 +1,4 @@
 .assignment-card {
-  border-radius: 6px;
   background-color: white;
   padding: 32px;
   text-align: left;
@@ -7,6 +6,8 @@
   width: 100%;
   flex-direction: column;
   align-items: inherit;
+  box-shadow: 0px 0px 20px rgba(0, 0, 0, 0.1);
+  border-radius: 20px;
   &:hover {
     text-decoration: none;
   }
@@ -25,9 +26,10 @@
       }
     }
     h2 {
-      font-size: 16px;
-      font-weight: bold;
-      line-height: 1.5;
+      font-style: normal;
+      font-weight: 700;
+      font-size: 20px;
+      line-height: 25px;
     }
     .recommended-to-start-tag {
       font-size: 12px;
@@ -49,13 +51,17 @@
       .key {
         max-width: 88px;
         width: 100%;
+        font-weight: 700;
+        font-size: 14px;
+        line-height: 21px;
+        color: #373737;
       }
     }
   }
 }
 
 .assign-a-new-activity-container {
-  background-color: white;
+  background-color: #F7F5F5;
   min-height: 100%;
 }
 
@@ -70,7 +76,7 @@
     font-size: 24px;
     font-weight: bold;
     line-height: 1.33;
-    margin-bottom: 40px;
+    margin-bottom: 23px;
     text-align: center;
   }
 
@@ -110,21 +116,34 @@
     display: flex;
     justify-content: space-between;
     flex-wrap: wrap;
-    max-width: 950px;
+    max-width: $sitewidepagewidth;
     .assignment-card {
       width: 100%;
-      max-width: 463px;
+      max-width: 588px;
       margin: 0px 0px 24px;
     }
   }
 
   .previously-assigned-activities {
     text-align: center;
-    margin-top: 26px;
     font-size: 14px;
     color: #646464;
+    margin-bottom: 71px;
     a {
-      color: #027360;
+      color: #373737;
+      font-weight: 400;
+      font-size: 13px;
+      line-height: 13px;
+      width: 140px;
+      height: 13px;
+    }
+    .view-assigned-activities {
+      width: 172px;
+      height: 33px;
+      background: #FFFFFF;
+      border: 1px solid #BDBDBD;
+      border-radius: 4px;
+      margin-left: 5px;
     }
   }
 

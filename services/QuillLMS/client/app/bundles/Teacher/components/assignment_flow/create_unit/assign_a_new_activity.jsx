@@ -92,15 +92,15 @@ const AssignANewActivity = ({ numberOfActivitiesAssigned, showDiagnosticBanner }
   }
 
   return (
-    <div className="assign-a-new-activity-container white-background-accommodate-footer">
+    <div className="assign-a-new-activity-container">
       <div className="assign-a-new-activity container">
         <h1>Find the perfect writing activities for your students.</h1>
+        <p className="previously-assigned-activities">
+          You have {numberOfActivitiesAssigned} {numberOfActivitiesAssigned === 1 ? 'activity' : 'activities'} assigned.&nbsp;
+          <button className="view-assigned-activities" type="button"><a href="/teachers/classrooms/activity_planner">View assigned activities</a></button>
+        </p>
         {diagnosticBanner}
         <div className="minis">{minis(diagnosticBannerShowing)}</div>
-        <p className="previously-assigned-activities">
-        You have {numberOfActivitiesAssigned} {numberOfActivitiesAssigned === 1 ? 'activity' : 'activities'} assigned.&nbsp;
-          <a href="/teachers/classrooms/activity_planner">View assigned activities</a>
-        </p>
       </div>
     </div>
   )
