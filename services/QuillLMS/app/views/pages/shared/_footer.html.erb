@@ -16,78 +16,12 @@
     <%= render partial: 'application/premium_footer' %>
     <footer class="<%=footer_class%>">
       <div class="footer-navigation">
-        <%= render partial: 'pages/shared/teacher_dashboard_footer' if current_user %>
-        <ul>
-          <li>
-            <p>LEARNING TOOLS</p>
-          </li>
-          <li>
-            <a href="/tools/connect">Quill Connect</a>
-          </li>
-          <li>
-            <a href="/tools/lessons">Quill Lessons</a>
-          </li>
-          <li>
-            <a href="/tools/diagnostic">Quill Diagnostic</a>
-          </li>
-          <li>
-            <a href="/tools/proofreader">Quill Proofreader</a>
-          </li>
-          <li>
-            <a href="/tools/grammar">Quill Grammar</a>
-          </li>
-          <li>
-            <a href="/tools/evidence">Quill Reading for Evidence</a>
-          </li>
-        </ul>
-        <%= render partial: 'pages/shared/explore_activities_footer' if current_user %>
-        <%= render partial: 'pages/shared/explore_curriculum_footer' if !current_user %>
-        <ul>
-          <li>
-            <p>TEACHER CENTER</p>
-          </li>
-          <li>
-            <a href="/teacher-center">All Resources</a>
-          </li>
-          <li>
-            <a href="/tools/evidence">Reading Comprehension</a>
-          </li>
-          <li>
-            <a href="/teacher-center/topic/getting_started">Getting Started</a>
-          </li>
-          <li>
-            <a href="/teacher-center/topic/video-tutorials">Video Tutorials</a>
-          </li>
-          <li>
-            <a href="/teacher-center/topic/best-practices">Best Practices</a>
-          </li>
-          <li>
-            <a href="/faq">FAQ</a>
-          </li>
-        </ul>
-        <ul>
-          <li>
-            <p>ABOUT US</p>
-          </li>
-          <li>
-            <a href="/about">About Us</a>
-          </li>
-          <li>
-            <a href="/impact">Impact</a>
-          </li>
-          <li>
-            <a href="/pathways">Pathways Initiative</a>
-          </li>
-          <li>
-            <a href="/team">Team</a>
-          </li>
-          <li>
-            <a href="/careers">Careers</a>
-          </li>
-          <li>
-            <a href="/press">Press</a>
-          </li>
-        </ul>
+        <%= render partial: 'pages/shared/list_of_links_with_header', locals: { header_text: "TEACHER DASHBOARD", links_array: teacher_dashboard_links } if current_user %>
+        <%= render partial: 'pages/shared/list_of_links_with_header', locals: { header_text: "LEARNING TOOLS", links_array: learning_tools_links } %>
+        <%= render partial: 'pages/shared/list_of_links_with_header', locals: { header_text: "EXPLORE ACTIVITIES", links_array: explore_activities_links } if current_user %>
+        <%= render partial: 'pages/shared/list_of_links_with_header', locals: { header_text: "EXPLORE CURRICULUM", links_array: explore_curriculum_links } if !current_user %>
+        <%= render partial: 'pages/shared/list_of_links_with_header', locals: { header_text: "TEACHER CENTER", links_array: teacher_center_links } %>
+        <%= render partial: 'pages/shared/list_of_links_with_header', locals: { header_text: "ABOUT US", links_array: about_us_links } %>
       </div>
       <div class="partners-footer">
         <p>Quill is a free literacy tool powered by an open source, non-profit community of educators and developers.</p>
