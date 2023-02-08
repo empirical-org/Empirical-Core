@@ -5,44 +5,51 @@ exports[`ApproveModal component should render ApproveModal 1`] = `
   approve={[MockFunction]}
   closeModal={[MockFunction]}
 >
-  <div
-    className="modal-container admin-verification-modal-container"
+  <AdminVerificationModal
+    bodyText="The user will be sent an email informing them of the decision. This request will be moved to the “Completed requests” tab."
+    closeModal={[MockFunction]}
+    confirmFunction={[MockFunction]}
+    headerText="Approve this request?"
   >
     <div
-      className="modal-background"
-    />
-    <div
-      className="admin-verification-modal quill-modal modal-body"
+      className="modal-container admin-verification-modal-container"
     >
       <div
-        className="top-section"
-      >
-        <h3>
-          Approve this request?
-        </h3>
-        <p>
-          The user will be sent an email informing them of the decision. This request will be moved to the “Completed requests” tab.
-        </p>
-      </div>
+        className="modal-background"
+      />
       <div
-        className="button-section"
+        className="admin-verification-modal quill-modal modal-body"
       >
-        <button
-          className="quill-button medium secondary outlined focus-on-light"
-          onClick={[MockFunction]}
-          type="button"
+        <div
+          className="top-section"
         >
-          Cancel
-        </button>
-        <button
-          className="quill-button medium primary contained focus-on-light"
-          onClick={[MockFunction]}
-          type="button"
+          <h3>
+            Approve this request?
+          </h3>
+          <p>
+            The user will be sent an email informing them of the decision. This request will be moved to the “Completed requests” tab.
+          </p>
+        </div>
+        <div
+          className="button-section"
         >
-          Confirm
-        </button>
+          <button
+            className="quill-button medium secondary outlined focus-on-light"
+            onClick={[MockFunction]}
+            type="button"
+          >
+            Cancel
+          </button>
+          <button
+            className="quill-button medium primary contained focus-on-light"
+            onClick={[MockFunction]}
+            type="button"
+          >
+            Confirm
+          </button>
+        </div>
       </div>
     </div>
-  </div>
+  </AdminVerificationModal>
 </ApproveModal>
 `;

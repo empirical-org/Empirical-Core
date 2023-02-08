@@ -1,19 +1,13 @@
 import * as React from 'react'
+import AdminVerificationModal from './adminVerificationModal'
 
 const DenyModal = ({ deny, closeModal, }) => (
-  <div className="modal-container admin-verification-modal-container">
-    <div className="modal-background" />
-    <div className="admin-verification-modal quill-modal modal-body">
-      <div className="top-section">
-        <h3>Deny this request?</h3>
-        <p>The user will be sent an email informing them of the decision. This request will be moved to the “Completed requests” tab.</p>
-      </div>
-      <div className="button-section">
-        <button className="quill-button medium secondary outlined focus-on-light" onClick={closeModal} type="button">Cancel</button>
-        <button className="quill-button medium primary contained focus-on-light" onClick={deny} type="button">Confirm</button>
-      </div>
-    </div>
-  </div>
+  <AdminVerificationModal
+    bodyText="The user will be sent an email informing them of the decision. This request will be moved to the “Completed requests” tab."
+    closeModal={closeModal}
+    confirmFunction={deny}
+    headerText="Deny this request?"
+  />
 )
 
 export default DenyModal
