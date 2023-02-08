@@ -93,6 +93,6 @@ class Cms::SchoolAdminsController < Cms::CmsController
   private def user_params
     first_name = params[:first_name]
     last_name = params[:last_name]
-    { role: "teacher", email: params[:email], name: "#{first_name} #{last_name}", password: last_name }
+    { role: User::TEACHER, email: params[:email], name: "#{first_name} #{last_name}", password: last_name }
   end
 end
