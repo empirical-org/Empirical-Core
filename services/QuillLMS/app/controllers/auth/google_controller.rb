@@ -88,6 +88,7 @@ class Auth::GoogleController < ApplicationController
     update_role_from_sales_contact
     update_role_from_individual_contributor
     show_user_not_found_if_necessary
+    verify_email_if_necessary
   end
 
   private def in_sign_up_flow?
@@ -100,6 +101,10 @@ class Auth::GoogleController < ApplicationController
     return unless @user.sales_contact? && in_sign_up_flow?
 
     @user.update(role: session[:role])
+  end
+
+  private def verify_email_if_necessary
+    @user.verify_email(UserEmailVerification::GOOGLE_VERIFICATION) if user.email_verification_pending?
   end
 
   private def update_role_from_individual_contributor
