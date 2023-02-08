@@ -2,7 +2,7 @@
 
 exports[`ArchivedClassrooms component with classrooms should render with classrooms 1`] = `
 <div
-  className="archived-classrooms classrooms-page"
+  className="archived-classrooms classrooms-page gray-background-accommodate-footer"
 >
   <Snackbar
     visible={false}
@@ -1110,7 +1110,7 @@ exports[`ArchivedClassrooms component with classrooms should render with classro
 
 exports[`ArchivedClassrooms component with no classrooms should render with no classrooms 1`] = `
 <div
-  className="archived-classrooms classrooms-page"
+  className="archived-classrooms classrooms-page gray-background-accommodate-footer"
 >
   <Snackbar
     visible={false}

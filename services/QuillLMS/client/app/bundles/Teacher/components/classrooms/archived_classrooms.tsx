@@ -149,7 +149,7 @@ export default class ArchivedClassrooms extends React.Component<ArchivedClassroo
 
   render() {
     return (
-      <div className="archived-classrooms classrooms-page">
+      <div className="archived-classrooms classrooms-page gray-background-accommodate-footer">
         {this.renderUnarchiveClassroomModal()}
         {this.renderSnackbar()}
         {this.renderHeader()}

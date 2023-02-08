@@ -2546,7 +2546,7 @@ exports[`DiagnosticActivityPacks component should render when there are no class
 >
   <EmptyDiagnosticProgressReport>
     <section
-      className="diagnostic-reports-empty-state container"
+      className="diagnostic-reports-empty-state container gray-background-accommodate-footer"
     >
       <h1>
         Diagnostic Reports

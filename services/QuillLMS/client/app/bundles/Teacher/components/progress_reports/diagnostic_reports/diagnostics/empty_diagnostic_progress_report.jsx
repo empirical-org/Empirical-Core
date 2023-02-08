@@ -2,7 +2,7 @@ import * as React from 'react'
 const diagnosticSrc = `${process.env.CDN_URL}/images/illustrations/diagnostic-monochromatic.svg`
 
 const EmptyDiagnosticProgressReport = () => (
-  <section className="diagnostic-reports-empty-state container">
+  <section className="diagnostic-reports-empty-state container gray-background-accommodate-footer">
     <h1>Diagnostic Reports</h1>
     <img alt="Illustration showing a monochromatic document with a magnifying glass inspecting the document" src={diagnosticSrc} />
     <h2>Start by assigning a diagnostic</h2>
