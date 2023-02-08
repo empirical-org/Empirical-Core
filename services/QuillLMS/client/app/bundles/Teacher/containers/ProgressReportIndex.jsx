@@ -53,7 +53,6 @@ export default class ProgressReportIndex extends React.Component {
     });
 
     const containerStyle = component ? 'gray-background-accommodate-footer' : ''
-    console.log("🚀 ~ file: ProgressReportIndex.jsx:62 ~ ProgressReportIndex ~ component", component)
 
     return (
       <div className={containerStyle}>
