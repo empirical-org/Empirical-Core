@@ -24,7 +24,7 @@ module Teacher
     delegate :first, :find, :where, :all, :count, to: :scope
 
     def scope
-      User.where(role: User::TEACHER)
+      User.teacher
     end
   end
 

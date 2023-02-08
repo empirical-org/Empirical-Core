@@ -337,7 +337,7 @@ describe User, type: :model do
   end
 
   describe '#admin?' do
-    let!(:user) { create(:user, role: User::ADMIN) }
+    let!(:user) { create(:admin) }
 
     context 'when admin exists' do
       it 'should return true' do
