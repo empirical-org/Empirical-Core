@@ -24,7 +24,7 @@ module Teacher
     delegate :first, :find, :where, :all, :count, to: :scope
 
     def scope
-      User.where(role: 'teacher')
+      User.teacher
     end
   end
 
@@ -359,7 +359,7 @@ module Teacher
   def update_teacher params
     return if !teacher?
 
-    params[:role] = 'teacher' if params[:role] != 'student'
+    params[:role] = User::TEACHER if params[:role] != User::STUDENT
     params.permit(
       :id,
       :name,

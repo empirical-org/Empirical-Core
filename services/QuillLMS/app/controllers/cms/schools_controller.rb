@@ -125,7 +125,7 @@ class Cms::SchoolsController < Cms::CmsController
   def add_existing_user_by_email
     begin
       user = User.find_by!(email: params[:email_address])
-      raise ArgumentError if user.role != 'teacher'
+      raise ArgumentError unless user.teacher?
 
       school = School.find_by!(id: params[:id])
       SchoolsUsers.where(user: user).destroy_all

@@ -298,7 +298,7 @@ module Demo::ReportDemoCreator
   end
 
   def self.reset_account(teacher_id)
-    teacher = User.find_by(id: teacher_id, role: User::TEACHER)
+    teacher = User.teacher.find_by(id: teacher_id)
 
     return unless teacher
 
@@ -312,7 +312,7 @@ module Demo::ReportDemoCreator
   def self.reset_demo_classroom_if_needed(teacher_id)
     # Wrap the lookup and actions within a transaction to avoid race conditions
     ActiveRecord::Base.transaction do
-      teacher = User.find_by(id: teacher_id, role: User::TEACHER)
+      teacher = User.teacher.find_by(id: teacher_id)
 
       # Note, you can't early return within a transaction in Rails 6.1+
       if teacher && demo_classroom_modified?(teacher)
@@ -344,7 +344,7 @@ module Demo::ReportDemoCreator
     User.create(
       name: "Demo Teacher",
       email: email,
-      role: "teacher",
+      role: User::TEACHER,
       password: 'password',
       password_confirmation: 'password',
       flags: ["beta"]

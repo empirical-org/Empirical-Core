@@ -25,7 +25,7 @@ class Demo::CreateAdminReport
     # Create admin teacher
     admin_teacher = User.create!(
       name: 'Toni Morrison',
-      role: 'teacher',
+      role: User::TEACHER,
       email: teacher_email,
       username: '',
       password: SecureRandom.urlsafe_base64
@@ -39,7 +39,7 @@ class Demo::CreateAdminReport
     teachers = teachers.map do |teacher|
       User.create!(
         name: teacher,
-        role: 'teacher',
+        role: User::TEACHER,
         email: "hello+admindemo-#{email_safe_school_name}-#{teacher.split.last.downcase}@quill.org",
         username: '',
         password: SecureRandom.urlsafe_base64

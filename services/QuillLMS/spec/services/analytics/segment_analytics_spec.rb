@@ -318,7 +318,7 @@ describe 'SegmentAnalytics' do
     let(:school) { create(:school, district: district) }
     let(:school_without_district) { create(:school) }
     let(:teacher1) { create(:teacher, school: school) }
-    let(:teacher2) { create(:teacher, school: school) }
+    let(:teacher2) { create(:teacher, school: school, role: User::ADMIN) }
     let(:teacher3) { create(:teacher, school: school_without_district) }
     let!(:schools_admins) { create(:schools_admins, school: school, user: teacher2) }
 
