@@ -25,7 +25,7 @@ export default class FocusPointsInputAndConceptResultSelectorForm extends React.
     const qid = this.props.questionID
     const newSeqs = this.state.itemText.split(/\|{3}(?!\|)/)
     requestPost(
-      `${process.env.QUILL_CMS}/responses/${qid}/focus_point_affected_count`,
+      `${import.meta.env.QUILL_CMS}/responses/${qid}/focus_point_affected_count`,
       {data: {selected_sequences: newSeqs}},
       (body) => {
         this.setState({matchedCount: body.matchedCount})

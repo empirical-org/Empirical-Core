@@ -28,7 +28,7 @@ const PremiumHub = ({ adminId, accessType, passedModel, }) => {
   function getData(skipLoading=false) {
     initializePusher(skipLoading);
     requestGet(
-      `${process.env.DEFAULT_URL}/admins/${adminId}`,
+      `${import.meta.env.VITE_DEFAULT_URL}/admins/${adminId}`,
       (body) => {
         receiveData(body, skipLoading)
       }
@@ -45,11 +45,11 @@ const PremiumHub = ({ adminId, accessType, passedModel, }) => {
     }
   };
 
-  function initializePusher(skipLoading) {
-    if (process.env.RAILS_ENV === 'development') {
+  initializePusher = (skipLoading) => {
+    if (import.meta.env.RAILS_ENV === 'development') {
       Pusher.logToConsole = true;
     }
-    const pusher = new Pusher(process.env.PUSHER_KEY, { encrypted: true, });
+    const pusher = new Pusher(import.meta.env.PUSHER_KEY, { encrypted: true, });
     const channel = pusher.subscribe(String(adminId));
     channel.bind('admin-users-found', () => {
       getData(skipLoading)
@@ -60,7 +60,7 @@ const PremiumHub = ({ adminId, accessType, passedModel, }) => {
     setError('')
     initializePusher(true)
     requestPost(
-      `${process.env.DEFAULT_URL}/admins/${adminId}/create_and_link_accounts`,
+      `${import.meta.env.VITE_DEFAULT_URL}/admins/${adminId}/create_and_link_accounts`,
       data,
       (response) => {
         getData(true)
@@ -97,6 +97,7 @@ const PremiumHub = ({ adminId, accessType, passedModel, }) => {
       }
     );
   }
+
 
   function scrollToCreateNewAccounts() {
     const section = document.querySelector('#scroll-location');

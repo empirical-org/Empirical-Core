@@ -185,12 +185,12 @@ export const postTestWarningModalPreNameCorrespondence = {
   1818: "ELL Advanced Baseline Diagnostic (Pre)"
 }
 
-const connectSrc = `${process.env.CDN_URL}/images/icons/description-connect.svg`
-const diagnosticSrc = `${process.env.CDN_URL}/images/icons/description-diagnostic.svg`
-const lessonsSrc = `${process.env.CDN_URL}/images/icons/description-lessons.svg`
-const proofreaderSrc = `${process.env.CDN_URL}/images/icons/description-proofreader.svg`
-const grammarSrc = `${process.env.CDN_URL}/images/icons/description-grammar.svg`
-const comprehensionSrc = `${process.env.CDN_URL}/images/icons/description-comprehension.svg`
+const connectSrc = `${import.meta.env.VITE_PROCESS_ENV_CDN_URL}/images/icons/description-connect.svg`
+const diagnosticSrc = `${import.meta.env.VITE_PROCESS_ENV_CDN_URL}/images/icons/description-diagnostic.svg`
+const lessonsSrc = `${import.meta.env.VITE_PROCESS_ENV_CDN_URL}/images/icons/description-lessons.svg`
+const proofreaderSrc = `${import.meta.env.VITE_PROCESS_ENV_CDN_URL}/images/icons/description-proofreader.svg`
+const grammarSrc = `${import.meta.env.VITE_PROCESS_ENV_CDN_URL}/images/icons/description-grammar.svg`
+const comprehensionSrc = `${import.meta.env.VITE_PROCESS_ENV_CDN_URL}/images/icons/description-comprehension.svg`
 
 export const imageTagForClassification = (classificationKey: string): JSX.Element => {
   let imgAlt = ""

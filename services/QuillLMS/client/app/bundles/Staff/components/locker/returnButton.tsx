@@ -1,6 +1,6 @@
 import * as React from 'react';
 
-const arrow = `${process.env.CDN_URL}/images/icons/arrow-back.svg`;
+const arrow = `${import.meta.env.VITE_PROCESS_ENV_CDN_URL}/images/icons/arrow-back.svg`;
 
 export const ReturnButton = ({ history, buttonLabel, backLink }) => {
   function handleClick() {

@@ -43,7 +43,7 @@ const TutorialIndex = ({}) => {
 
   function finishTutorial() {
     if (params.tool === LESSONS) {
-      requestPost(`${process.env.DEFAULT_URL}/milestones/complete_view_lesson_tutorial`)
+      requestPost(`${import.meta.env.VITE_DEFAULT_URL}/milestones/complete_view_lesson_tutorial`)
     }
   }
 
@@ -61,7 +61,7 @@ const TutorialIndex = ({}) => {
   }
 
   function nextButton() {
-    const lessonsUrl = process.env.QUILL_LESSONS_URL || 'https://quill.org/lessons';
+    const lessonsUrl = import.meta.env.QUILL_LESSONS_URL || 'https://quill.org/lessons';
     if (slideNumber !== slides.length) {
       return <button className="text-white bg-quillgreen next-button" onClick={() => goToSlide(slideNumber + 1)}>Next</button>;
     } else if (getParameterByName('url')) {

@@ -2,8 +2,8 @@ import * as React from 'react'
 import { Card } from '../../../Shared/index'
 import { studentsCreate, teacherCreates } from './add_students'
 
-const studentAccountsSrc = `${process.env.CDN_URL}/images/illustrations/student-accounts.svg`
-const joinLinkSrc = `${process.env.CDN_URL}/images/illustrations/join-link.svg`
+const studentAccountsSrc = `${import.meta.env.VITE_PROCESS_ENV_CDN_URL}/images/illustrations/student-accounts.svg`
+const joinLinkSrc = `${import.meta.env.VITE_PROCESS_ENV_CDN_URL}/images/illustrations/join-link.svg`
 
 interface StudentOptionsProps {
   next: (event) => void;

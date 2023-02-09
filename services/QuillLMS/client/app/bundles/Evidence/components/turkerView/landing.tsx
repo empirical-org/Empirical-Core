@@ -1,5 +1,5 @@
 import * as React from "react";
-const checkIcon = <img alt="check icon" src={`${process.env.CDN_URL}/images/icons/check-circle-big.svg`} />;
+const checkIcon = <img alt="check icon" src={`${import.meta.env.VITE_PROCESS_ENV_CDN_URL}/images/icons/check-circle-big.svg`} />;
 
 const ListElement = (text: string, textArray?: string[], style?: string) => {
   const textElement = textArray ? <div className={style}>{textArray[0]}<p>{text}</p>{textArray[1]}</div> : <p>{text}</p>;

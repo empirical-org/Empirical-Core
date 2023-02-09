@@ -27,7 +27,7 @@ if (!window.Promise) {
 
 import { DefaultReactQueryClient } from '../Shared';
 
-if (process.env.RAILS_ENV === 'production') {
+if (import.meta.env.RAILS_ENV === 'production') {
   Sentry.init({ dsn: 'https://528794315c61463db7d5181ebc1d51b9@o95148.ingest.sentry.io/210579' })
 }
 

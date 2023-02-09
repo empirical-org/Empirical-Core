@@ -15,7 +15,7 @@ export default class extends React.Component {
             <a className="download-button" download="Quill Premium" href="https://assets.quill.org/documents/quill_premium.pdf"><i className="fas fa-file-pdf" />Download Premium PDF</a>
           </div>
           <div className="picture">
-            <img alt="" src={`${process.env.CDN_URL}/images/shared/big_premium_flyer.png`} />
+            <img alt="" src={`${import.meta.env.VITE_PROCESS_ENV_CDN_URL}/images/shared/big_premium_flyer.png`} />
           </div>
         </div>
       </div>

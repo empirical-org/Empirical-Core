@@ -57,7 +57,7 @@ export function rematchAll(mode: string, question: Question, questionID: string,
     type = 'diagnostic_fillInBlankQuestions';
   }
 
-  const rematchAllUrl = `${process.env.QUILL_CMS}/responses/rematch_all`;
+  const rematchAllUrl = `${import.meta.env.QUILL_CMS}/responses/rematch_all`;
   fetch(rematchAllUrl, {
     method: 'POST',
     body: JSON.stringify({type, uid: questionID}),
@@ -91,7 +91,7 @@ export function rematchOne(response: string, mode: string, question: Question, q
 
 export function paginatedNonHumanResponses(matcher, matcherFields, qid, page, callback) {
   requestPost(
-    `${process.env.QUILL_CMS}/questions/${qid}/responses/search`,
+    `${import.meta.env.QUILL_CMS}/questions/${qid}/responses/search`,
     getResponseBody(page),
     (data) => {
       const parsedResponses = _.indexBy(data.results, 'id');
@@ -170,7 +170,7 @@ function deleteRematchedResponse(response) {
 function updateResponse(rid, content) {
   const rubyConvertedResponse = objectWithSnakeKeysFromCamel(content, false);
   return requestPut(
-    `${process.env.QUILL_CMS}/responses/${rid}`,
+    `${import.meta.env.QUILL_CMS}/responses/${rid}`,
     { response: rubyConvertedResponse, }
   )
 }
@@ -222,7 +222,7 @@ function getMatcherFields(mode:string, question:Question, responses:{[key:string
       incorrectSequences: incorrectSequences,
       ignoreCaseAndPunc: question.ignoreCaseAndPunc,
       checkML: true,
-      mlUrl: process.env.CMS_URL,
+      mlUrl: import.meta.env.CMS_URL,
       defaultConceptUID
     };
   } else if (mode === 'diagnosticQuestions') {
@@ -253,7 +253,7 @@ function getResponseBody(pageNumber) {
 }
 
 function getGradedResponses(questionID) {
-  return requestGet(`${process.env.QUILL_CMS}/questions/${questionID}/responses`);
+  return requestGet(`${import.meta.env.QUILL_CMS}/questions/${questionID}/responses`);
 }
 
 function formatGradedResponses(jsonString):{[key:string]: Response} {

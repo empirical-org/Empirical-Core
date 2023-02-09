@@ -15,17 +15,17 @@ export const WelcomeSlide = ({ onHandleClick, user }) => {
           <div className="instruction-container">
             <div className="step-number">1</div>
             <p className="step-text">Read and highlight text</p>
-            <img alt="A sample article about volcanoes showing a sentence highlighted with the cursor over the highlighted sentence" className="step-image" src={`${process.env.CDN_URL}/images/evidence/article-highlighted.svg`} />
+            <img alt="A sample article about volcanoes showing a sentence highlighted with the cursor over the highlighted sentence" className="step-image" src={`${import.meta.env.VITE_PROCESS_ENV_CDN_URL}/images/evidence/article-highlighted.svg`} />
           </div>
           <div className="instruction-container">
             <div className="step-number">2</div>
             <p className="step-text">Write sentences using what you read</p>
-            <img alt="A sample question asking a student to fill in the rest of a sentence" className="step-image" src={`${process.env.CDN_URL}/images/evidence/sentence-prompt.svg`} />
+            <img alt="A sample question asking a student to fill in the rest of a sentence" className="step-image" src={`${import.meta.env.VITE_PROCESS_ENV_CDN_URL}/images/evidence/sentence-prompt.svg`} />
           </div>
           <div className="instruction-container">
             <div className="step-number">3</div>
             <p className="step-text">Revise based on feedback</p>
-            <img alt="A sample feedback asking a student to add more detail to their sentence" className="step-image" src={`${process.env.CDN_URL}/images/evidence/sentence-feedback.svg`} />
+            <img alt="A sample feedback asking a student to add more detail to their sentence" className="step-image" src={`${import.meta.env.VITE_PROCESS_ENV_CDN_URL}/images/evidence/sentence-feedback.svg`} />
           </div>
         </section>
       </section>

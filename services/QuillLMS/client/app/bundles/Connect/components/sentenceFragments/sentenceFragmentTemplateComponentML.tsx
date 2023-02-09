@@ -12,7 +12,7 @@ import RenderQuestionFeedback from '../renderForQuestions/feedbackStatements.jsx
 import TextEditor from '../renderForQuestions/renderTextEditor.jsx';
 import updateResponseResource from '../renderForQuestions/updateResponseResource.js';
 
-const icon = `${process.env.CDN_URL}/images/icons/direction.svg`
+const icon = `${import.meta.env.VITE_PROCESS_ENV_CDN_URL}/images/icons/direction.svg`
 
 interface PlaySentenceFragmentProps {
   question: SentenceFragmentQuestion;

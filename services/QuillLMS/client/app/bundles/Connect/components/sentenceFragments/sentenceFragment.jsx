@@ -20,7 +20,7 @@ import ChooseModelContainer from './chooseModelContainer.jsx';
 import EditForm from './sentenceFragmentForm.jsx';
 import TestQuestionContainer from './testSentenceFragmentContainer';
 
-const icon = `${process.env.CDN_URL}/images/icons/direction.svg`
+const icon = `${import.meta.env.VITE_PROCESS_ENV_CDN_URL}/images/icons/direction.svg`
 
 class SentenceFragment extends React.Component {
   constructor(props) {
