@@ -75,7 +75,6 @@ namespace :staging_config do
       quill-lms-eric
       quill-lms-pkong
       quill-lms-thomas
-      empirica-grammar-security
     )
     ALL_STAGING_APPS = STAGING_PERSONAL_APPS + [STAGING_APP]
   end
