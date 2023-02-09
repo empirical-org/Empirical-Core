@@ -1,0 +1,388 @@
+version: 2.1
+
+orbs:
+  maven: circleci/maven@1.2.0
+
+jobs:
+  lms_rails_build:
+    working_directory: ~/Empirical-Core
+    parallelism: 6
+    docker:
+      - image: cimg/ruby:2.7.6
+        environment:
+          PG_DB: quill_test_db
+          PG_USER: ubuntu
+          RAILS_ENV: test
+          RACK_ENV: test
+      - image: postgres:13.7-alpine
+        environment:
+          POSTGRES_DB: quill_test_db
+          POSTGRES_USER: ubuntu
+          POSTGRES_PASSWORD: password
+      - image: postgres:13.7-alpine
+        name: test_replica
+        environment:
+          POSTGRES_DB: quill_test_db
+          POSTGRES_USER: ubuntu
+          POSTGRES_PASSWORD: password
+    steps:
+      - checkout
+      - restore_cache:
+          keys:
+            - bundle-cache-lms-v2-{{ checksum "services/QuillLMS/Gemfile.lock" }}
+            - bundle-cache-lms-v2
+      - run:
+          name: Bundle Install if cache isn't present.
+          command: |
+            cd services/QuillLMS
+            gem install bundler:2.2.33
+            # BUNDLE_GEMS__CONTRIBSYS__COM defined in https://circleci.com/gh/empirical-org/Empirical-Core/edit#env-vars
+            bundle config --local gems.contribsys.com ${BUNDLE_GEMS__CONTRIBSYS__COM}
+            bundle check || bundle install --path vendor/bundle
+      - save_cache:
+          key: bundle-cache-lms-v2-{{ checksum "services/QuillLMS/Gemfile.lock" }}
+          paths:
+            - services/QuillLMS/vendor/bundle
+      - run:
+          name: Install postgres dependencies
+          command: |
+            sudo apt update
+            sudo apt-cache search postgres
+            sudo apt install -y postgresql-client
+      - run:
+          name: Copy Config files
+          command: |
+            cd services/QuillLMS
+            cp .env-sample .env
+            cp config/database.yml.circle config/database.yml
+      - run:
+          name: Set up DB
+          command: |
+            cd services/QuillLMS
+            bundle exec rake db:structure:load
+            bundle exec rake db:migrate
+          environment:
+            DATABASE_URL: "postgres://ubuntu@localhost:5432/quill_test_db"
+      - run:
+          name: Run tests
+          command: |
+            cd services/QuillLMS
+            TESTFILES=$(circleci tests glob "spec/**/*_spec.rb" | grep -v "spec/system/" | grep -v "/skip_ci/" | circleci tests split)
+            bin/rspec -- ${TESTFILES}
+          environment:
+            SUPPRESS_PUTS: "true"
+  lms_integration_build:
+    working_directory: ~/Empirical-Core
+    parallelism: 1
+    docker:
+      - image: cimg/ruby:2.7.6-node
+        environment:
+          PG_DB: quill_test_db
+          PG_USER: ubuntu
+          RAILS_ENV: test
+          RACK_ENV: test
+          SELENIUM_DRIVER_URL: http://localhost:4444/wd/hub
+          DEFAULT_URL: http://localhost:3000
+      - image: postgres:13.7-alpine
+        environment:
+          POSTGRES_DB: quill_test_db
+          POSTGRES_USER: ubuntu
+          POSTGRES_PASSWORD: password
+      - image: selenium/standalone-chrome:3.141.59
+    steps:
+      - checkout
+      - restore_cache:
+          keys:
+            - npm-cache-lms-client-v8-{{ checksum "services/QuillLMS/client/package.json" }}-{{ checksum "services/QuillLMS/client/package-lock.json" }}
+            - npm-cache-lms-client-v8-{{ checksum "services/QuillLMS/client/package.json" }}-
+            - npm-cache-lms-client-v8
+      - run:
+          name: Install NPM dependencies
+          command: |
+            cd services/QuillLMS
+            npm install
+            npm rebuild node-sass
+      - save_cache:
+          key: npm-cache-lms-client-v8-{{ checksum "services/QuillLMS/client/package.json" }}-{{ checksum "services/QuillLMS/client/package-lock.json" }}
+          paths:
+            - services/QuillLMS/client/node_modules
+      - restore_cache:
+          keys:
+            - bundle-cache-lms-v2-{{ checksum "services/QuillLMS/Gemfile.lock" }}
+            - bundle-cache-lms-v2
+      - run:
+          name: Bundle Install if cache isn't present.
+          command: |
+            cd services/QuillLMS
+            # BUNDLE_GEMS__CONTRIBSYS__COM defined in https://circleci.com/gh/empirical-org/Empirical-Core/edit#env-vars
+            bundle config --local gems.contribsys.com ${BUNDLE_GEMS__CONTRIBSYS__COM}
+            bundle check || bundle install --path vendor/bundle
+      - save_cache:
+          key: bundle-cache-lms-v2-{{ checksum "services/QuillLMS/Gemfile.lock" }}
+          paths:
+            - services/QuillLMS/vendor/bundle
+      - run:
+          name: Install postgres dependencies
+          command: |
+            sudo apt update
+            sudo apt-cache search postgres
+            sudo apt install -y postgresql-client
+      - run:
+          name: Copy Config files
+          command: |
+            cd services/QuillLMS
+            cp .env-sample .env
+            cp config/database.yml.circle config/database.yml
+      - run:
+          name: Set up DB
+          command: |
+            cd services/QuillLMS
+            bundle exec rake db:structure:load
+            bundle exec rake db:migrate
+          environment:
+            DATABASE_URL: "postgres://ubuntu@localhost:5432/quill_test_db"
+      - run:
+          name: Run tests
+          command: |
+            cd services/QuillLMS
+            TESTFILES=$(circleci tests glob "spec/system/*_spec.rb" | circleci tests split)
+            bin/rspec ${TESTFILES}
+      - store_artifacts:
+          path: /home/circleci/Empirical-Core/services/QuillLMS/tmp/screenshots
+  lms_node_build:
+    working_directory: ~/Empirical-Core
+    parallelism: 3
+    docker:
+      - image: circleci/node:erbium
+    steps:
+      - checkout
+      - run:
+          name: Install npm 8
+          command: |
+            sudo npm install npm@8.19.2 -g
+
+      - restore_cache:
+          keys:
+            - npm-cache-lms-client-v8-{{ checksum "services/QuillLMS/client/package.json" }}-{{ checksum "services/QuillLMS/client/package-lock.json" }}
+            - npm-cache-lms-client-v8-{{ checksum "services/QuillLMS/client/package.json" }}-
+            - npm-cache-lms-client-v8-
+      - run:
+          name: Install NPM dependencies
+          command: |
+            cd services/QuillLMS/client
+            npm install
+      - save_cache:
+          key: npm-cache-lms-client-v6-{{ checksum "services/QuillLMS/client/package.json" }}-{{ checksum "services/QuillLMS/client/package-lock.json" }}
+          paths:
+            - services/QuillLMS/client/node_modules
+      - run:
+          name: Run LMS Frontend Tests
+          command: |
+            cd services/QuillLMS/client
+            TESTFILES=$(circleci tests glob "app/**/*.test.*" | circleci tests split)
+            node --expose-gc ./node_modules/.bin/jest $TESTFILES --maxWorkers=2 --logHeapUsage
+  cms_rails_build:
+    working_directory: ~/Empirical-Core
+    docker:
+      - image: ruby:2.7.6
+        environment:
+          PG_DB: quill_cms_test_db
+          PG_USER: ubuntu
+          RAILS_ENV: test
+          RACK_ENV: test
+      - image: postgres:13.7-alpine
+        environment:
+          POSTGRES_USER: ubuntu
+          POSTGRES_DB: quill_cms_test_db
+          POSTGRES_PASSWORD: password
+      - image: docker.elastic.co/elasticsearch/elasticsearch:5.6.2
+        environment:
+          - xpack.security.enabled: false
+    steps:
+      - checkout
+      - restore_cache:
+          keys:
+            - bundle-cache-cms{{ checksum "services/QuillCMS/Gemfile.lock" }}
+      - run:
+          name: Bundle Install if cache isn't present.
+          command: |
+            cd services/QuillCMS
+            gem install bundler:1.17.3
+            bundle config --local gems.contribsys.com ${BUNDLE_GEMS__CONTRIBSYS__COM}
+            bundle check || bundle install --path vendor/bundle
+      - save_cache:
+          key: bundle-cache-cms{{ checksum "services/QuillCMS/Gemfile.lock" }}
+          paths:
+            - services/QuillCMS/vendor/bundle
+      - run:
+          name: Copy Config files
+          command: |
+            cd services/QuillCMS
+            cp config/database.yml.circle config/database.yml
+      - run:
+          name: Set up DB
+          command: |
+            cd services/QuillCMS
+            bundle exec rake db:migrate
+          environment:
+            DATABASE_URL: "postgres://ubuntu@localhost:5432/quill_cms_test_db"
+      - run:
+          name: Run CMS tests
+          command: |
+            cd services/QuillCMS
+            bundle exec rake spec
+  marking_logic_node_build:
+    working_directory: ~/Empirical-Core
+    docker:
+      - image: cimg/node:14.18-browsers
+    steps:
+      - checkout
+      - run:
+          name: Install NPM dependencies
+          command: |
+            cd packages/quill-marking-logic
+            npm install
+      - run:
+          name: Run Marking Logic Tests
+          command: |
+            cd packages/quill-marking-logic
+            FORCE_COLOR=true npm run test --colors
+  evidence_rails_build:
+    working_directory: ~/Empirical-Core
+    parallelism: 1
+    docker:
+      - image: cimg/ruby:2.7.6
+        environment:
+          PG_DB: quill_evidence_test_db
+          PG_USER: ubuntu
+          RAILS_ENV: test
+          RACK_ENV: test
+      - image: postgres:10.5-alpine
+        environment:
+          POSTGRES_USER: ubuntu
+          POSTGRES_DB: quill_evidence_test_db
+          POSTGRES_PASSWORD: ""
+      - image: circleci/redis:6.0.9
+    steps:
+      - checkout
+      - restore_cache:
+          keys:
+            - bundle-cache-evidence-v2-{{ checksum "services/QuillLMS/engines/evidence/Gemfile.lock" }}
+            - bundle-cache-evidence-v2
+      - run:
+          name: Bundle Install if cache isn't present.
+          command: |
+            cd services/QuillLMS/engines/evidence
+            # BUNDLE_GEMS__CONTRIBSYS__COM defined in https://circleci.com/gh/empirical-org/Empirical-Core/edit#env-vars
+            bundle config --local gems.contribsys.com ${BUNDLE_GEMS__CONTRIBSYS__COM}
+            bundle check || bundle install --path vendor/bundle
+      - save_cache:
+          key: bundle-cache-evidence-v2-{{ checksum "services/QuillLMS/engines/evidence/Gemfile.lock" }}
+          paths:
+            - services/QuillLMS/engines/evidence/vendor/bundle
+      - run:
+          name: Install postgres dependencies
+          command: |
+            sudo apt update
+            sudo apt-cache search postgres
+            sudo apt install -y postgresql-client
+      - run:
+          name: Copy Config files
+          command: |
+            cd services/QuillLMS/engines/evidence/spec/dummy
+            cp config/database.yml.circle config/database.yml
+      - run:
+          name: Set up DB
+          command: |
+            cd services/QuillLMS/engines/evidence
+            bundle exec rake db:create RAILS_ENV=test
+            bundle exec rake db:schema:load RAILS_ENV=test
+          environment:
+            DATABASE_URL: "postgres://ubuntu@localhost:5432/quill_evidence_test_db"
+      - run:
+          name: Run tests
+          command: |
+            cd services/QuillLMS/engines/evidence
+            bundle exec rspec
+  node_lint:
+    working_directory: ~/Empirical-Core
+    docker:
+      - image: circleci/node:erbium
+    steps:
+      - checkout
+      - run:
+          name: Install NPM Dependencies
+          command: |
+            npm install
+      - run:
+          name: Run ESlint
+          command: |
+            npm run eslint
+  rubocop_lint:
+    working_directory: ~/Empirical-Core
+    docker:
+      - image: cimg/ruby:2.7.6-node
+    steps:
+      - checkout
+      - run:
+          name: Run Rubocop
+          command: |
+            cd services
+            ./rubocop.sh
+
+# the default pipeline parameters, which will be updated according to
+# the results of the path-filtering orb
+parameters:
+  lms-edits:
+    type: boolean
+    default: false
+  lms-client-edits:
+    type: boolean
+    default: false
+  cms-edits:
+    type: boolean
+    default: false
+  marking-logic-edits:
+    type: boolean
+    default: false
+
+# here we specify our workflows, most of which are conditionally
+# executed based upon pipeline parameter values. Each workflow calls a
+# specific job defined above, in the jobs section.
+workflows:
+  lms-backend-tests:
+    when: << pipeline.parameters.run-lms-backend-tests >>
+    jobs:
+      - lms_rails_build: &default_filter
+          filters:
+            branches:
+              ignore: /^deploy-.*/
+      - evidence_rails_build:
+          <<: *default_filter
+  lms-frontend-tests:
+    when: << pipeline.parameters.run-lms-frontend-tests >>
+    jobs:
+      - lms_node_build:
+        <<: *default_filter
+  lms-integration-tests:
+    when:
+      or: [<< pipeline.parameters.run-lms-frontend-tests >>, << pipeline.parameters.run-lms-backend-tests >>]
+    jobs:
+      - lms_integration_build:
+        <<: *default_filter
+  cms-tests:
+    when: << pipeline.parameters.run-lms-cms-tests >>
+    jobs:
+      - cms_rails_build:
+        <<: *default_filter
+  marking-logic-tests:
+    when: << pipeline.parameters.run-marking-logic-tests >>
+    jobs:
+      - cmarking_logic_node_build:
+        <<: *default_filter
+  lint-code:
+    jobs:
+      - node_lint:
+        <<: *default_filter
+      - rubocop_lint:
+        <<: *default_filter
