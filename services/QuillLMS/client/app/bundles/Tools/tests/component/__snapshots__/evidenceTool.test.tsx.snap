@@ -57,7 +57,7 @@ exports[`EvidenceTool Component should match snapshot 1`] = `
           </p>
           <img
             alt="photograph of a football"
-            src="https://assets.quill.org/images/evidence/home_page/EvidenceLandingPage_Image_Football.png"
+            src="https://assets.quill.org/images/evidence/home_page/EvidenceLandingPage_Image_Football.webp"
           />
           <p
             className="activity-title"
@@ -83,7 +83,7 @@ exports[`EvidenceTool Component should match snapshot 1`] = `
           </p>
           <img
             alt="photograph of a cow"
-            src="https://assets.quill.org/images/evidence/home_page/EvidenceLandingPage_Image_Cow.png"
+            src="https://assets.quill.org/images/evidence/home_page/EvidenceLandingPage_Image_Cow.webp"
           />
           <p
             className="activity-title"
@@ -109,7 +109,7 @@ exports[`EvidenceTool Component should match snapshot 1`] = `
           </p>
           <img
             alt="photograph of the Statue of Liberty"
-            src="https://assets.quill.org/images/evidence/home_page/EvidenceLandingPage_Image_StatueOfLiberty.png"
+            src="https://assets.quill.org/images/evidence/home_page/EvidenceLandingPage_Image_StatueOfLiberty.webp"
           />
           <p
             className="activity-title"
