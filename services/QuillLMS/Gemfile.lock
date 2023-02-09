@@ -201,6 +201,7 @@ GEM
     dotenv-rails (2.7.6)
       dotenv (= 2.7.6)
       railties (>= 3.2)
+    dry-cli (1.0.0)
     erubi (1.10.0)
     es5-shim-rails (4.0.1)
       actionpack (>= 3.1)
@@ -759,6 +760,13 @@ GEM
     validates_email_format_of (1.6.3)
       i18n
     vcr (4.0.0)
+    vite_rails (3.0.14)
+      railties (>= 5.1, < 8)
+      vite_ruby (~> 3.0, >= 3.2.2)
+    vite_ruby (3.2.14)
+      dry-cli (>= 0.7, < 2)
+      rack-proxy (~> 0.6, >= 0.6.1)
+      zeitwerk (~> 2.2)
     webmock (3.5.1)
       addressable (>= 2.3.6)
       crack (>= 0.3.2)
@@ -912,6 +920,7 @@ DEPENDENCIES
   uglifier
   validates_email_format_of
   vcr
+  vite_rails (~> 3.0.14)
   webmock
   webpacker (~> 3.0.0)
   websocket-driver (= 0.6.5)

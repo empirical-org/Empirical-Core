@@ -123,6 +123,7 @@ gem 'es5-shim-rails'
 # Use the exact gem version to match npm version of react-on-rails
 gem 'react_on_rails', '= 11.3.0'
 gem 'webpacker', '~> 3.0.0'
+gem 'vite_rails', '~> 3.0.14'
 
 # ASSET/UI
 gem 'uglifier', require: false
