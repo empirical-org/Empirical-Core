@@ -351,7 +351,7 @@ parameters:
 # specific job defined above, in the jobs section.
 workflows:
   lms-backend-tests:
-    when: << pipeline.parameters.run-lms-backend-tests >>
+    when: << pipeline.parameters.lms-edits >>
     jobs:
       - lms_rails_build: &default_filter
           filters:
@@ -360,23 +360,23 @@ workflows:
       - evidence_rails_build:
           <<: *default_filter
   lms-frontend-tests:
-    when: << pipeline.parameters.run-lms-frontend-tests >>
+    when: << pipeline.parameters.lms-client-edits >>
     jobs:
       - lms_node_build:
         <<: *default_filter
   lms-integration-tests:
     when:
-      or: [<< pipeline.parameters.run-lms-frontend-tests >>, << pipeline.parameters.run-lms-backend-tests >>]
+      or: [<< pipeline.parameters.lms-client-edits >>, << pipeline.parameters.lms-edits >>]
     jobs:
       - lms_integration_build:
         <<: *default_filter
   cms-tests:
-    when: << pipeline.parameters.run-lms-cms-tests >>
+    when: << pipeline.parameters.cms-edits >>
     jobs:
       - cms_rails_build:
         <<: *default_filter
   marking-logic-tests:
-    when: << pipeline.parameters.run-marking-logic-tests >>
+    when: << pipeline.parameters.marking-logic-edits >>
     jobs:
       - cmarking_logic_node_build:
         <<: *default_filter
