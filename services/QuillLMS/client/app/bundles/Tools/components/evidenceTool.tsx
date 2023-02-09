@@ -79,19 +79,19 @@ export const EvidenceTool = ({ loggedInUser }) => {
         <section className="inner-section">
           <div className="topic-section">
             <p className="topic">Culture & Society Topics</p>
-            <img alt="photograph of a football" src="https://assets.quill.org/images/evidence/home_page/EvidenceLandingPage_Image_Football.png" />
+            <img alt="photograph of a football" src="https://assets.quill.org/images/evidence/home_page/EvidenceLandingPage_Image_Football.webp" />
             <p className="activity-title">"Should Schools Have Grade Requirements for Student Athletes?"</p>
             <a className="q-button text-quillteal bg-white" href='https://www.quill.org/evidence/#/play?uid=180&skipToPrompts=true' rel="noopener noreferrer" target="_blank">View a sample activity</a>
           </div>
           <div className="topic-section">
             <p className="topic">Science Topics</p>
-            <img alt="photograph of a cow" src="https://assets.quill.org/images/evidence/home_page/EvidenceLandingPage_Image_Cow.png" />
+            <img alt="photograph of a cow" src="https://assets.quill.org/images/evidence/home_page/EvidenceLandingPage_Image_Cow.webp" />
             <p className="activity-title">"How Does Eating Meat Impact Global Warming?"</p>
             <a className="q-button text-quillteal bg-white" href='https://www.quill.org/evidence/#/play?uid=176&skipToPrompts=true' rel="noopener noreferrer" target="_blank">View a sample activity</a>
           </div>
           <div className="topic-section">
             <p className="topic">Social Studies Topics</p>
-            <img alt="photograph of the Statue of Liberty" src="https://assets.quill.org/images/evidence/home_page/EvidenceLandingPage_Image_StatueOfLiberty.png" />
+            <img alt="photograph of the Statue of Liberty" src="https://assets.quill.org/images/evidence/home_page/EvidenceLandingPage_Image_StatueOfLiberty.webp" />
             <p className="activity-title" id="first-title-topic">U.S. History</p>
             <p className="activity-title" id="second-title-topic">World History</p>
             <p id="under-development">Under Development, Coming 2023</p>
