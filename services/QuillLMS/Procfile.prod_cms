@@ -15,3 +15,5 @@ redis-sidekiq: redis-server --port 6379
 redis-testing: redis-server --port 6378
 
 redis-caching: redis-server --port 7654
+
+vite: bin/vite dev
