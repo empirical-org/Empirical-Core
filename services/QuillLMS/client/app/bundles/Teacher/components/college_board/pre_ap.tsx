@@ -114,7 +114,7 @@ const PreAp = ({ units, isPartOfAssignmentFlow, }: PreApContainerProps) => {
               {getStartedButton(isPartOfAssignmentFlow)}
             </div>
           </div>
-          <img alt="Photograph of a teacher talking to a classroom of high school students" src="https://assets.quill.org/images/college_board/teaching-english-practice-2.png" />
+          <img alt="Photograph of a teacher talking to a classroom of high school students" src="https://assets.quill.org/images/college_board/teaching-english-practice-2.webp" />
         </div>
       </div>
       <ScrollBox activeSection={activeSection} sections={scrollSections} setActiveSection={setActiveSection} setIsScrollingFromClick={handleSetIsScrollingFromClick} showScrollBox={showScrollBox} />
