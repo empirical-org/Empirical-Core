@@ -9,7 +9,7 @@ module GoogleIntegration::Classroom::Parsers::Courses
   #
 
   def self.run(user, course_response, student_requester)
-    if user.role == 'teacher'
+    if user.teacher?
       parse_courses_for_teacher(course_response, user, student_requester)
     else
       parse_courses_for_student(course_response, user)

@@ -2,7 +2,6 @@ import * as React from 'react';
 import stripHtml from "string-strip-html";
 import moment from 'moment';
 import { matchSorter } from 'match-sorter';
-import { CSVLink } from 'react-csv';
 import { Link } from 'react-router-dom';
 
 import {
@@ -25,7 +24,6 @@ import {
   PROMPTS,
   BREAK_TAG,
   DEFAULT_MAX_ATTEMPTS,
-  sessionsCSVHeaders
 } from '../../../../constants/evidence';
 import { DEFAULT_HIGHLIGHT_PROMPT, TextFilter, NumberFilterInput, filterNumbers, Spinner } from "../../../Shared";
 import { DropdownObjectInterface, ActivitySessionInterface } from '../../interfaces/evidenceInterfaces'
@@ -468,14 +466,8 @@ export function getCSVData(sessionsCSVData) {
   });
 }
 
-export function renderCSVDownloadButton(csvDataLoadInitiated, handleLoadCSVDataClick, sessionsCSVData) {
-  if(csvDataLoadInitiated) {
-    if(!sessionsCSVData || !sessionsCSVData.csvResponseData) {
-      return <button className="quill-button fun primary contained csv-download-button"><Spinner /></button>
-    }
-    return <CSVLink className="quill-button fun primary contained csv-download-button" data={getCSVData(sessionsCSVData)} headers={sessionsCSVHeaders}>Download CSV</CSVLink>
-  }
-  return <button className="quill-button fun primary contained csv-download-button" onClick={handleLoadCSVDataClick}>Load CSV Data</button>
+export function renderCSVDownloadButton(handleLoadCSVDataClick) {
+  return <button className="quill-button fun primary contained csv-download-button" onClick={handleLoadCSVDataClick}>Email Me CSV Data</button>
 }
 
 

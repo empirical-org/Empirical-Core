@@ -3,7 +3,7 @@
 class SaveUserPackSequenceItemsWorker
   include Sidekiq::Worker
 
-  sidekiq_options queue: SidekiqQueue::DEFAULT
+  sidekiq_options queue: SidekiqQueue::CRITICAL
 
   def perform(classroom_id, user_id)
     return if classroom_id.nil? || user_id.nil?
