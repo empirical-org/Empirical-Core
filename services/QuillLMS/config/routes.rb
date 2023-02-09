@@ -145,6 +145,7 @@ EmpiricalGrammar::Application.routes.draw do
     post :retry, on: :member
     get :search, on: :collection
     get :index_with_unit_templates, on: :collection
+    get :activities_to_suggest, on: :collection
   end
 
   resources :milestones, only: [] do

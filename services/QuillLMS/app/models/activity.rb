@@ -293,6 +293,10 @@ class Activity < ApplicationRecord
     user_pack_sequence_items.locked.exists?(user: user)
   end
 
+  def serialize_with_topics
+    serializable_hash.merge({topics: topics&.map(&:genealogy) || []})
+  end
+
   private def update_evidence_title?
     is_evidence? && saved_change_to_name?
   end

@@ -64,6 +64,20 @@ class Topic < ApplicationRecord
     end
   end
 
+  def parent
+    Topic.find(parent_id) if parent?
+  end
+
+  def genealogy
+    genealogy = []
+    current_topic = self
+    while current_topic
+      genealogy.unshift(current_topic.name)
+      current_topic = current_topic.parent
+    end
+    genealogy
+  end
+
   private def level_two_parent?
     parent? && Topic.find(parent_id).level_two?
   end

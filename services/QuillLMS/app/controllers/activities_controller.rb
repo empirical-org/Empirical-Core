@@ -93,6 +93,13 @@ class ActivitiesController < ApplicationController
     end
   end
 
+  def activities_to_suggest
+    return render json: {activities: []} if !current_user.teacher_info.in_eighth_through_twelfth?
+
+    activities = Activity.where(classification: ActivityClassification.evidence).order(updated_at: :desc).map(&:serialize_with_topics)
+    render json: {activities: activities}
+  end
+
   private def authorized_activity_access?
     activity &&
     classroom_unit&.assigned_student_ids&.include?(current_user.id) &&
