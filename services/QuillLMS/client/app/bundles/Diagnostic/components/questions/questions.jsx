@@ -1,7 +1,7 @@
 import React from 'react';
 import { connect } from 'react-redux';
 import { push } from 'react-router-redux';
-import SelectSearch, { fuzzySearch } from 'react-select-search';
+import SelectSearch from 'react-select-search';
 import _ from 'underscore';
 import {
   ArchivedButton,
@@ -209,7 +209,6 @@ class Questions extends React.Component {
       });
       const searchBox = (
         <SelectSearch
-          filterOptions={fuzzySearch}
           onChange={this.handleSearchChange}
           options={formatted}
           placeholder="Search for a question"

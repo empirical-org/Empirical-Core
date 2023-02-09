@@ -4,8 +4,8 @@ import { requestPut, } from '../../../../../modules/request/index';
 import { DropdownInput, } from '../../../../Shared/index';
 import AssignActivityPackBanner from '../assignActivityPackBanner';
 
-const networkSrc = `${process.env.CDN_URL}/images/onboarding/network.svg`
-const districtAdminWarningIconSrc = `${process.env.CDN_URL}/images/onboarding/district-admin-warning-icon.svg`
+const networkSrc = `${import.meta.env.VITE_PROCESS_ENV_CDN_URL}/images/onboarding/network.svg`
+const districtAdminWarningIconSrc = `${import.meta.env.VITE_PROCESS_ENV_CDN_URL}/images/onboarding/district-admin-warning-icon.svg`
 
 const DISTRICT_ADMINISTRATOR = 'District administrator'
 
@@ -18,7 +18,7 @@ const SelectSubRole = ({ subRoles, }) => {
 
   function submitAdminInfo() {
     requestPut(
-      `${process.env.DEFAULT_URL}/admin_infos`,
+      `${import.meta.env.VITE_DEFAULT_URL}/admin_infos`,
       {
         sub_role: subRole
       },

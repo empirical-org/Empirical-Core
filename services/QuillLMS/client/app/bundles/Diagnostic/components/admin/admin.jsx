@@ -29,8 +29,9 @@ import DiagnosticRouter from '../shared/diagnosticRouter.tsx';
 import ShowTitleCard from '../titleCards/showTitleCard.tsx';
 import TitleCardForm from '../titleCards/titleCardForm.tsx';
 import TitleCards from '../titleCards/titleCards.tsx';
-const usersEndpoint = `${process.env.DEFAULT_URL}/api/v1/users.json`;
-const newSessionEndpoint = `${process.env.DEFAULT_URL}/session/new`;
+
+const usersEndpoint = `${import.meta.env.VITE_DEFAULT_URL}/api/v1/users.json`;
+const newSessionEndpoint = `${import.meta.env.VITE_DEFAULT_URL}/session/new`;
 
 const TabLink = props => {
   const { children, to, } = props

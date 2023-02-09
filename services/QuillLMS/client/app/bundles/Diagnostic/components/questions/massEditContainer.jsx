@@ -6,7 +6,6 @@ import { requestPost, } from '../../../../modules/request/index';
 import { TextEditor } from '../../../Shared/index';
 import massEdit from '../../actions/massEdit';
 import {
-  massEditDeleteResponses,
   submitMassEditConceptResults,
   submitMassEditFeedback
 } from '../../actions/responses';
@@ -42,7 +41,7 @@ class MassEditContainer extends React.Component {
 
   getResponses() {
     requestPost(
-      `${process.env.QUILL_CMS}/responses/mass_edit/show_many`,
+      `${import.meta.env.VITE_CMS_URL}/responses/mass_edit/show_many`,
       { responses: this.props.massEdit.selectedResponses, },
       (body) => {
         const parsedResponses = _.indexBy(body.responses, 'id');

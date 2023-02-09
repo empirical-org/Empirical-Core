@@ -1,5 +1,5 @@
 import React from 'react';
-import { useParams, useNavigate, } from "react-router-dom-v5-compat";
+import { useNavigate, useParams, } from "react-router-dom-v5-compat";
 
 import getParameterByName from '../modules/get_parameter_by_name';
 import LessonsSlides from './LessonsSlides';
@@ -47,9 +47,9 @@ const TutorialIndex = ({}) => {
     return <div className="circles">{circles}</div>;
   }
 
-  function finishTutorial() {
-    if (params.tool === LESSONS) {
-      requestPost(`${process.env.DEFAULT_URL}/milestones/complete_view_lesson_tutorial`)
+  finishTutorial() {
+    if (this.props.match.params.tool === 'lessons') {
+      requestPost(`${import.meta.env.VITE_DEFAULT_URL}/milestones/complete_view_lesson_tutorial`)
     }
   }
 
@@ -66,10 +66,10 @@ const TutorialIndex = ({}) => {
     }
   }
 
-  function nextButton() {
-    const lessonsUrl = process.env.QUILL_LESSONS_URL || 'https://quill.org/lessons';
-    if (slideNumber !== slides.length) {
-      return <button className="text-white bg-quillgreen next-button" onClick={() => goToSlide(slideNumber + 1)}>Next</button>;
+  nextButton() {
+    const lessonsUrl = import.meta.env.QUILL_LESSONS_URL || 'https://quill.org/lessons';
+    if (this.state.slideNumber !== this.state.slides.length) {
+      return <button className="text-white bg-quillgreen next-button" onClick={() => this.goToSlide(this.state.slideNumber + 1)}>Next</button>;
     } else if (getParameterByName('url')) {
       const url = getParameterByName('url');
       return <button className="text-white bg-quillgreen next-button" onClick={() => window.location = decodeURIComponent(url)}>Next</button>;

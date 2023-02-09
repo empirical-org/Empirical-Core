@@ -4,7 +4,7 @@ import * as React from 'react';
 import { requestPut } from '../../../../modules/request/index';
 import ButtonLoadingIndicator from '../shared/button_loading_indicator';
 
-const smallWhiteCheckSrc = `${process.env.CDN_URL}/images/shared/check-small-white.svg`
+const smallWhiteCheckSrc = `${import.meta.env.VITE_PROCESS_ENV_CDN_URL}/images/shared/check-small-white.svg`
 
 interface ImportCleverClassroomStudentsModalProps {
   close: () => void;
@@ -30,10 +30,10 @@ export default class ImportCleverClassroomStudentsModal
   }
 
   initializePusherForCleverStudentImport(userId) {
-    if (process.env.RAILS_ENV === 'development') {
+    if (import.meta.env.RAILS_ENV === 'development') {
       Pusher.logToConsole = true;
     }
-    const pusher = new Pusher(process.env.PUSHER_KEY, { encrypted: true, });
+    const pusher = new Pusher(import.meta.env.VITE_PROCESS_ENV_PUSHER_KEY, { encrypted: true, });
     const channelName = String(userId)
     const channel = pusher.subscribe(channelName);
     const { onSuccess } = this.props

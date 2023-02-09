@@ -463,37 +463,37 @@ class PagesController < ApplicationController
   end
 
   def backpack
-    @style_file = 'staff'
+    @style_file = "#{ApplicationController::STAFF}.scss"
   end
 
   def evidence
     allow_iframe
-    @style_file = ApplicationController::EVIDENCE
+    @style_file = "#{ApplicationController::EVIDENCE}.scss"
   end
 
   def proofreader
     allow_iframe
-    @style_file = ApplicationController::PROOFREADER
+    @style_file = "#{ApplicationController::PROOFREADER}.scss"
   end
 
   def grammar
     allow_iframe
-    @style_file = ApplicationController::GRAMMAR
+    @style_file = "#{ApplicationController::GRAMMAR}.scss"
   end
 
   def lessons
     allow_iframe
-    @style_file = ApplicationController::LESSONS
+    @style_file = "#{ApplicationController::LESSONS}.scss"
   end
 
   def connect
     allow_iframe
-    @style_file = ApplicationController::CONNECT
+    @style_file = "#{ApplicationController::CONNECT}.scss"
   end
 
   def diagnostic
     allow_iframe
-    @style_file = ApplicationController::DIAGNOSTIC
+    @style_file = "#{ApplicationController::DIAGNOSTIC}.scss"
   end
 
   def administrator
@@ -503,7 +503,7 @@ class PagesController < ApplicationController
   def locker
     return redirect_to profile_path if !staff?
 
-    @style_file = 'staff'
+    @style_file = "#{ApplicationController::STAFF}.scss"
   end
 
   def quill_academy

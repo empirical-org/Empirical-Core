@@ -14,7 +14,7 @@ const VerifySchool = ({ passedSchoolName, passedAdmins, }) => {
   React.useEffect(getSchool, [])
 
   function getSchool() {
-    requestGet(`${process.env.DEFAULT_URL}/school_for_current_user`, (body) => {
+    requestGet(`${import.meta.env.VITE_DEFAULT_URL}/school_for_current_user`, (body) => {
       setSchoolName(body.school?.name)
       setAdmins(body.admins)
     })

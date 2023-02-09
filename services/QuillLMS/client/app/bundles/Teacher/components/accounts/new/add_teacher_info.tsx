@@ -2,11 +2,10 @@ import * as React from 'react';
 
 import AssignActivityPackBanner from '../assignActivityPackBanner';
 
-import { requestPut, } from '../../../../../modules/request/index';
 import GradeLevelSection from '../shared/grade_level_section';
 import SubjectAreaSection from '../shared/subject_area_section';
 
-const teacherAtBoardSrc = `${process.env.CDN_URL}/images/onboarding/packs-whole.svg`
+const teacherAtBoardSrc = `${import.meta.env.VITE_PROCESS_ENV_CDN_URL}/images/onboarding/packs-whole.svg`
 
 const AddTeacherInfo = ({ subjectAreas, }) => {
   const [minimumGradeLevel, setMinimumGradeLevel] = React.useState(null)
@@ -14,8 +13,8 @@ const AddTeacherInfo = ({ subjectAreas, }) => {
   const [selectedSubjectAreaIds, setSelectedSubjectAreaIds] = React.useState([])
 
   function submitTeacherInfo() {
-    requestPut(
-      `${process.env.DEFAULT_URL}/teacher_infos`,
+    requestPost(
+      `${import.meta.env.VITE_DEFAULT_URL}/teacher_infos`,
       {
         minimum_grade_level: minimumGradeLevel.value,
         maximum_grade_level: maximumGradeLevel.value,

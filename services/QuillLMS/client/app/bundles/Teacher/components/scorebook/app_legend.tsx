@@ -2,14 +2,14 @@
 import * as React from 'react';
 import useWindowSize from '../../../Shared/hooks/useWindowSize';
 
-const EVIDENCE_ICON_SRC = `${process.env.CDN_URL}/images/icons/tool-evidence-light-gray.svg`
 const SCOREBOOK_MOBILE_BREAKPOINT = 600
+const EVIDENCE_ICON_SRC = `${import.meta.env.VITE_PROCESS_ENV_CDN_URL}/images/icons/tool-evidence-light-gray.svg`
 
 export const AppLegend = () => {
   const size = useWindowSize();
   const evidenceDescription = size.width <= SCOREBOOK_MOBILE_BREAKPOINT ? 'Write using evidence' : 'Use a text to write with evidence';
   const diagnostic = (
-    <a className="icon focus-on-light" href={`${process.env.DEFAULT_URL}/tools/diagnostic`} rel="noopener noreferrer" target="_blank">
+    <a className="icon focus-on-light" href={`${import.meta.env.VITE_DEFAULT_URL}/tools/diagnostic`} rel="noopener noreferrer" target="_blank">
       <div className="icon-wrapper icon-diagnostic-embossed" />
       <div className="icons-description-wrapper">
         <p className="title">Quill Diagnostic</p>
@@ -19,7 +19,7 @@ export const AppLegend = () => {
   )
 
   const lessons = (
-    <a className="icon focus-on-light" href={`${process.env.DEFAULT_URL}/tools/lessons`} rel="noopener noreferrer" target="_blank">
+    <a className="icon focus-on-light" href={`${import.meta.env.VITE_DEFAULT_URL}/tools/lessons`} rel="noopener noreferrer" target="_blank">
       <div className="icon-wrapper icon-lessons-embossed" />
       <div className="icons-description-wrapper">
         <p className="title">Quill Lessons</p>
@@ -29,7 +29,7 @@ export const AppLegend = () => {
   )
 
   const connect = (
-    <a className="icon focus-on-light" href={`${process.env.DEFAULT_URL}/tools/connect`} rel="noopener noreferrer" target="_blank">
+    <a className="icon focus-on-light" href={`${import.meta.env.VITE_DEFAULT_URL}/tools/connect`} rel="noopener noreferrer" target="_blank">
       <div className="icon-wrapper icon-connect-embossed" />
       <div className="icons-description-wrapper">
         <p className="title">Quill Connect</p>
@@ -39,7 +39,7 @@ export const AppLegend = () => {
   )
 
   const proofreader = (
-    <a className="icon focus-on-light" href={`${process.env.DEFAULT_URL}/tools/proofreader`} rel="noopener noreferrer" target="_blank">
+    <a className="icon focus-on-light" href={`${import.meta.env.VITE_DEFAULT_URL}/tools/proofreader`} rel="noopener noreferrer" target="_blank">
       <div className="icon-wrapper icon-flag-embossed" />
       <div className="icons-description-wrapper">
         <p className="title">Quill Proofreader</p>
@@ -49,7 +49,7 @@ export const AppLegend = () => {
   )
 
   const grammar = (
-    <a className="icon focus-on-light" href={`${process.env.DEFAULT_URL}/tools/grammar`} rel="noopener noreferrer" target="_blank">
+    <a className="icon focus-on-light" href={`${import.meta.env.VITE_DEFAULT_URL}/tools/grammar`} rel="noopener noreferrer" target="_blank">
       <div className="icon-wrapper icon-puzzle-embossed" />
       <div className="icons-description-wrapper">
         <p className="title">Quill Grammar</p>
@@ -59,7 +59,7 @@ export const AppLegend = () => {
   )
 
   const evidence = (
-    <a className="icon focus-on-light" href={`${process.env.DEFAULT_URL}/tools/evidence`} rel="noopener noreferrer" target="_blank">
+    <a className="icon focus-on-light" href={`${import.meta.env.VITE_DEFAULT_URL}/tools/grammar`} rel="noopener noreferrer" target="_blank">
       <img alt="Book representing Quill Reading for Evidence" className="icon-wrapper evidence-icon" src={EVIDENCE_ICON_SRC} />
       <div className="icon-wrapper icon-evidence-lightgray" />
       <div className="icons-description-wrapper">

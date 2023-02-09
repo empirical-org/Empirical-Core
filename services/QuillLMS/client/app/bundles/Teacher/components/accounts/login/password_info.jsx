@@ -1,5 +1,5 @@
 import React from 'react';
-const bulbSrc = `${process.env.CDN_URL}/images/onboarding/bulb.svg`
+const bulbSrc = `${import.meta.env.VITE_PROCESS_ENV_CDN_URL}/images/onboarding/bulb.svg`
 
 export default class PasswordInfo extends React.Component {
 

@@ -27,7 +27,7 @@ export default class QuestionAndAnswer extends React.Component {
 
     if (files.includes(questionsAndAnswersFile)) {
       const imageLink = expanded ? 'collapse.svg' : 'expand.svg'
-      innerElement = <img alt="expand-and-collapse" src={`${process.env.CDN_URL}/images/shared/${imageLink}`} />
+      innerElement = <img alt="expand-and-collapse" src={`${import.meta.env.VITE_PROCESS_ENV_CDN_URL}/images/shared/${imageLink}`} />
     } else {
       innerElement = expanded ? <p>Collapse</p> : <p>Expand</p>
     }

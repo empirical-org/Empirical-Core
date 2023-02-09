@@ -1,37 +1,14 @@
 import React from 'react';
+const smallWhiteCheckSrc = `${import.meta.env.VITE_PROCESS_ENV_CDN_URL}/images/shared/check-small-white.svg`
 
-import { DropdownInput, informationIcon, } from '../../../../Shared/index';
-
-const smallWhiteCheckSrc = `${process.env.CDN_URL}/images/shared/check-small-white.svg`
-
-const TeacherEmailNotifications = ({ activateSection, active, deactivateSection, resetTeacherNotificationSection, setTeacherNotificationOption, notificationEmailFrequency, notificationSettings, sendNewsletter, updateUser, updateNotificationSettings, updateTeacherInfo }) => {
-
-  React.useEffect(() => {
-    if (active) { return }
-
-    resetTeacherNotificationSection()
-  }, [active])
-
-  React.useEffect(() => {
-    if (!Object.values(notificationSettings).some(v => v === true)) { return }
-    if (notificationEmailFrequency !== 'never') { return }
-
-    updateNotificationEmailFrequency({value: 'daily'})
-  }, [notificationSettings])
-
-  React.useEffect(() => {
-    if (notificationEmailFrequency !== 'never') { return }
-
-    unsetAllNotificationSettings()
-  }, [notificationEmailFrequency])
-
-  function resetAndDeactivateSection() {
-    resetTeacherNotificationSection()
-    deactivateSection()
-  }
-
-  function toggleSendNewsletter() {
-    setTeacherNotificationOption("tempSendNewsletter", !sendNewsletter)
+export default class TeacherEmailNotifications extends React.Component {
+  toggleSendNewsletter = () => {
+    const { sendNewsletter, updateUser, } = this.props
+    const data = {
+      send_newsletter: !sendNewsletter,
+      school_options_do_not_apply: true
+    };
+    updateUser(data, '/teachers/update_my_account', 'Settings saved')
   };
 
   function toggleNotificationSetting(setting) {

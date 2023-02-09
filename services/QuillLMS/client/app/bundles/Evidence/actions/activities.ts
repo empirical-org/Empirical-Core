@@ -12,7 +12,7 @@ export const getActivity = (sessionID: string, activityUID: string) => {
       sessionID: sessionID
     }));
 
-    const activityUrl = `${process.env.DEFAULT_URL}/api/v1/evidence/activities/${activityUID}`
+    const activityUrl = `${import.meta.env.VITE_DEFAULT_URL}/api/v1/evidence/activities/${activityUID}`
 
     await requestGet(activityUrl, (body) => {
       if (body) {
@@ -26,7 +26,7 @@ export const getActivity = (sessionID: string, activityUID: string) => {
 
 export const getTopicOptimalInfo = (activityID: number) => {
   return async (dispatch: Function) => {
-    const topicOptimalInfoUrl = `${process.env.DEFAULT_URL}/api/v1/evidence/activities/${activityID}/topic_optimal_info`
+    const topicOptimalInfoUrl = `${import.meta.env.VITE_DEFAULT_URL}/api/v1/evidence/activities/${activityID}/topic_optimal_info`
 
     await requestGet(topicOptimalInfoUrl, (body) => {
       if (body) {

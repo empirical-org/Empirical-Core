@@ -41,7 +41,7 @@
     <%= render partial: 'pages/shared/footer', media: 'all', 'data-turbolinks-track' => true %>
 
     <!-- Include all compiled plugins (below), or include individual files as needed -->
-    <%= javascript_include_tag 'application', 'data-turbolinks-track' => true %>
+
     <% if %w(pages subscriptions).include?(controller.controller_name) && %w(index premium).include?(controller.action_name) %>
     <script>var stripePubKey="<%=ENV["STRIPE_PUBLIC_KEY"] %>"</script>
     <script src="https://checkout.stripe.com/checkout.js" >

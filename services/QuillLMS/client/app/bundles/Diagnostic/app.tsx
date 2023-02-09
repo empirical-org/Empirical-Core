@@ -16,7 +16,6 @@ import * as titleCardActions from './actions/titleCards.ts';
 import Home from './components/home';
 import './i18n';
 import quillNormalizer from './libs/quillNormalizer';
-import './styles/style.scss';
 import BackOff from './utils/backOff';
 import createStore from './utils/configureStore';
 
@@ -27,7 +26,7 @@ if (!window.Promise) {
 
 import { DefaultReactQueryClient } from '../Shared';
 
-if (process.env.RAILS_ENV === 'production') {
+if (import.meta.env.RAILS_ENV === 'production') {
   Sentry.init({ dsn: 'https://528794315c61463db7d5181ebc1d51b9@o95148.ingest.sentry.io/210579' })
 }
 
@@ -80,20 +79,14 @@ const route = (
   </CompatRouter>
 );
 
-class App extends React.Component<{}, {}> {
-  componentDidMount() {
-    document.title = 'Quill Diagnostic'
-  }
-
-  public render(): JSX.Element {
-    return (
-      <QueryClientProvider client={queryClient} contextSharing={true}>
-        <Provider store={store}>
-          <HashRouter basename="/">{route}</HashRouter>
-        </Provider>
-      </QueryClientProvider>
-    );
-  }
+const App = () => {
+  return (
+    <QueryClientProvider client={queryClient} contextSharing={true}>
+      <Provider store={store}>
+        <HashRouter basename="/">{route}</HashRouter>
+      </Provider>
+    </QueryClientProvider>
+  );
 }
 
 export default App;

@@ -4,8 +4,8 @@ const SlideOne = () => {
   return (
     <div className='slide lessons-slide-one' key='one'>
       <div className="media">
-        <img alt="" className="illustration" src={`${process.env.CDN_URL}/images/tutorials/lessons/slide_1.svg`} />
-        <img alt="" className="caption" src={`${process.env.CDN_URL}/images/tutorials/lessons/slide_1_text.svg`} />
+        <img alt="" className="illustration" src={`${import.meta.env.VITE_PROCESS_ENV_CDN_URL}/images/tutorials/lessons/slide_1.svg`} />
+        <img alt="" className="caption" src={`${import.meta.env.VITE_PROCESS_ENV_CDN_URL}/images/tutorials/lessons/slide_1_text.svg`} />
       </div>
       <div className="text">
         <h1>Class-Wide Interactive Activities</h1>
@@ -19,8 +19,8 @@ const SlideTwo =() => {
   return (
     <div className='slide lessons-slide-two' key='two'>
       <div className="media">
-        <img alt="" className="illustration" src={`${process.env.CDN_URL}/images/tutorials/lessons/slide_2.svg`} />
-        <img alt="" className="caption" src={`${process.env.CDN_URL}/images/tutorials/lessons/slide_2_text.svg`} />
+        <img alt="" className="illustration" src={`${import.meta.env.VITE_PROCESS_ENV_CDN_URL}/images/tutorials/lessons/slide_2.svg`} />
+        <img alt="" className="caption" src={`${import.meta.env.VITE_PROCESS_ENV_CDN_URL}/images/tutorials/lessons/slide_2_text.svg`} />
       </div>
       <div className="text">
         <h1>Lead The Lesson</h1>
@@ -34,8 +34,8 @@ const SlideThree =() => {
   return (
     <div className='slide lessons-slide-three' key='three'>
       <div className="media">
-        <img alt="" className="illustration" src={`${process.env.CDN_URL}/images/tutorials/lessons/slide_3.svg`} />
-        <img alt="" className="caption" src={`${process.env.CDN_URL}/images/tutorials/lessons/slide_3_text.svg`} />
+        <img alt="" className="illustration" src={`${import.meta.env.VITE_PROCESS_ENV_CDN_URL}/images/tutorials/lessons/slide_3.svg`} />
+        <img alt="" className="caption" src={`${import.meta.env.VITE_PROCESS_ENV_CDN_URL}/images/tutorials/lessons/slide_3_text.svg`} />
       </div>
       <div className="text">
         <h1>Discuss Student Answers</h1>
@@ -49,8 +49,8 @@ const SlideFour =() => {
   return (
     <div className='slide lessons-slide-four' key='four'>
       <div className="media">
-        <img alt="" className="illustration" src={`${process.env.CDN_URL}/images/tutorials/lessons/slide_4.svg`} />
-        <img alt="" className="caption" src={`${process.env.CDN_URL}/images/tutorials/lessons/slide_4_text.svg`} />
+        <img alt="" className="illustration" src={`${import.meta.env.VITE_PROCESS_ENV_CDN_URL}/images/tutorials/lessons/slide_4.svg`} />
+        <img alt="" className="caption" src={`${import.meta.env.VITE_PROCESS_ENV_CDN_URL}/images/tutorials/lessons/slide_4_text.svg`} />
       </div>
       <div className="text">
         <h1>Identify Students For Small Group</h1>
@@ -64,8 +64,8 @@ const SlideSix =() => {
   return (
     <div className='slide lessons-slide-six' key='six'>
       <div className="media">
-        <img alt="" className="illustration" src={`${process.env.CDN_URL}/images/tutorials/lessons/slide_6.svg`} />
-        <img alt="" className="caption" src={`${process.env.CDN_URL}/images/tutorials/lessons/slide_6_text.svg`} />
+        <img alt="" className="illustration" src={`${import.meta.env.VITE_PROCESS_ENV_CDN_URL}/images/tutorials/lessons/slide_6.svg`} />
+        <img alt="" className="caption" src={`${import.meta.env.VITE_PROCESS_ENV_CDN_URL}/images/tutorials/lessons/slide_6_text.svg`} />
       </div>
       <div className="text">
         <h1>Navigation Bar Links</h1>

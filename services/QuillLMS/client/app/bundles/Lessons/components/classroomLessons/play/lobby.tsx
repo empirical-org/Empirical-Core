@@ -4,7 +4,7 @@ import {
 } from '../interfaces';
 import { sortByLastName } from '../shared/studentSorts';
 
-const LaptopConnectingToLessonsSrc = `${process.env.CDN_URL}/images/illustrations/laptop-connecting-to-lessons.svg`
+const LaptopConnectingToLessonsSrc = `${import.meta.env.VITE_PROCESS_ENV_CDN_URL}/images/illustrations/laptop-connecting-to-lessons.svg`
 
 interface LobbyProps {
   title: string,

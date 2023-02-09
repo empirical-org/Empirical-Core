@@ -2,7 +2,7 @@ import * as React from 'react';
 import { Cue, CueExplanation } from '../../../Shared/index';
 import { Question } from '../../interfaces/Question';
 import { ENGLISH } from '../../modules/translation/languagePageInfo';
-const arrow = `${process.env.CDN_URL}/images/icons/pointing-arrow.svg`;
+const arrow = `${import.meta.env.VITE_PROCESS_ENV_CDN_URL}/images/icons/pointing-arrow.svg`;
 
 interface CuesProps {
   diagnosticID: string,

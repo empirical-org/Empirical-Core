@@ -1,8 +1,8 @@
 import { mount } from 'enzyme';
 import React from 'react';
 
+import { FULL } from '../../shared';
 import PremiumHub from '../PremiumHub';
-import { FULL } from '../../shared'
 
 const sharedProps = {
   passedModel: { teachers: [], schools: [], admin_approval_requests: [] },
@@ -10,6 +10,8 @@ const sharedProps = {
 }
 
 describe('PremiumHub container', () => {
+  import.meta.env.VITE_PROCESS_ENV_PUSHER_KEY = 'pusher';
+
   it('should render with a full access type', () => {
     const wrapper = mount(<PremiumHub {...sharedProps} accessType={FULL} />);
     expect(wrapper).toMatchSnapshot()

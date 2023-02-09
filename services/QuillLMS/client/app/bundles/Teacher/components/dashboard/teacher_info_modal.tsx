@@ -1,10 +1,10 @@
 import * as React from 'react'
 
-import { requestPost, requestPut, } from '../../../../modules/request/index'
+import { requestPost } from '../../../../modules/request/index'
 import GradeLevelSection from '../accounts/shared/grade_level_section'
 import SubjectAreaSection from '../accounts/shared/subject_area_section'
 
-const teacherAtBoardSrc = `${process.env.CDN_URL}/images/onboarding/packs-whole.svg`
+const teacherAtBoardSrc = `${import.meta.env.VITE_PROCESS_ENV_CDN_URL}/images/onboarding/packs-whole.svg`
 
 const TeacherInfoModal = ({ close, subjectAreas, }) => {
   const [minimumGradeLevel, setMinimumGradeLevel] = React.useState(null)
@@ -12,8 +12,8 @@ const TeacherInfoModal = ({ close, subjectAreas, }) => {
   const [selectedSubjectAreaIds, setSelectedSubjectAreaIds] = React.useState([])
 
   function submitTeacherInfo() {
-    requestPut(
-      `${process.env.DEFAULT_URL}/teacher_infos`,
+    requestPost(
+      `${import.meta.env.VITE_DEFAULT_URL}/teacher_infos`,
       {
         minimum_grade_level: minimumGradeLevel.value,
         maximum_grade_level: maximumGradeLevel.value,
@@ -27,7 +27,7 @@ const TeacherInfoModal = ({ close, subjectAreas, }) => {
 
   function skipForNow() {
     requestPost(
-      `${process.env.DEFAULT_URL}/milestones/create_or_touch_dismiss_teacher_info_modal`,
+      `${import.meta.env.VITE_DEFAULT_URL}/milestones/create_or_touch_dismiss_teacher_info_modal`,
       {},
       (body) => {
         close()

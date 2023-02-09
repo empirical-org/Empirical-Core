@@ -4,7 +4,7 @@ import { onMobile, READ_PASSAGE_STEP } from './containerActionHelpers'
 
 import DirectionsSection from '../components/studentView/directionsSection'
 
-const bigCheckSrc =  `${process.env.CDN_URL}/images/icons/check-circle-big.svg`
+const bigCheckSrc =  `${import.meta.env.VITE_PROCESS_ENV_CDN_URL}/images/icons/check-circle-big.svg`
 
 export const renderDirectionsSection = ({ className, handleReadTheDirectionsButtonClick, activeStep, doneHighlighting, showReadTheDirectionsButton, activities }) => {
   const { currentActivity, } = activities

@@ -9,11 +9,10 @@ import ResetStudentPasswordModal from './reset_student_password_modal'
 
 import { DataTable, DropdownInput, Tooltip, helpIcon, warningIcon, } from '../../../Shared/index'
 
-const emptyDeskSrc = `${process.env.CDN_URL}/images/illustrations/empty-desks.svg`
-const lightBulbSrc = `${process.env.CDN_URL}/images/pages/classrooms/lightbulb.svg`
-const questionMarkSrc = `${process.env.CDN_URL}/images/pages/classrooms/question_mark.svg`
-const cleverSetupInstructionsPdf = `${process.env.CDN_URL}/documents/setup_instructions_pdfs/clever_setup_instructions.pdf`
-const googleSetupInstructionsPdf = `${process.env.CDN_URL}/documents/setup_instructions_pdfs/google_setup_instructions.pdf`
+const emptyDeskSrc = `${import.meta.env.VITE_PROCESS_ENV_CDN_URL}/images/illustrations/empty-desks.svg`
+const bulbSrc = `${import.meta.env.VITE_PROCESS_ENV_CDN_URL}/images/illustrations/bulb.svg`
+const cleverSetupInstructionsPdf = `${import.meta.env.VITE_PROCESS_ENV_CDN_URL}/documents/setup_instructions_pdfs/clever_setup_instructions.pdf`
+const googleSetupInstructionsPdf = `${import.meta.env.VITE_PROCESS_ENV_CDN_URL}/documents/setup_instructions_pdfs/google_setup_instructions.pdf`
 
 function activeHeaders(hasProviderClassroom: boolean) {
   const name = {
