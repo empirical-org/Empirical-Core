@@ -687,7 +687,7 @@ export default class ActiveClassrooms extends React.Component<ActiveClassroomsPr
 
   render() {
     return (
-      <div className="active-classrooms classrooms-page">
+      <div className="active-classrooms classrooms-page gray-background-accommodate-footer">
         {this.renderCreateAClassModal()}
         {this.renderRenameClassModal()}
         {this.renderChangeGradeModal()}

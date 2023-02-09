@@ -2,7 +2,7 @@
 
 exports[`ActiveClassrooms component with classrooms should render with classrooms 1`] = `
 <div
-  className="active-classrooms classrooms-page"
+  className="active-classrooms classrooms-page gray-background-accommodate-footer"
 >
   <Snackbar
     visible={false}
@@ -1590,7 +1590,7 @@ exports[`ActiveClassrooms component with classrooms should render with classroom
 
 exports[`ActiveClassrooms component with no classrooms or coteacher invitations  should render with no classrooms 1`] = `
 <div
-  className="active-classrooms classrooms-page"
+  className="active-classrooms classrooms-page gray-background-accommodate-footer"
 >
   <Snackbar
     visible={false}
