@@ -188,7 +188,7 @@ export default class TeacherAccount extends React.Component {
     } = this.state
     const { accountInfo, alternativeSchools, alternativeSchoolsNameMap, cleverLink, showDismissSchoolSelectionReminderCheckbox, subjectAreas, } = this.props
     return (
-      <div className="user-account">
+      <div className="user-account white-background-accommodate-footer">
         <TeacherGeneralAccountInfo
           activateSection={() => this.activateSection(GENERAL)}
           active={activeSection === GENERAL}
