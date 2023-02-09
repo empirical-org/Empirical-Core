@@ -378,7 +378,7 @@ workflows:
   marking-logic-tests:
     when: << pipeline.parameters.marking-logic-edits >>
     jobs:
-      - cmarking_logic_node_build:
+      - marking_logic_node_build:
         <<: *default_filter
   lint-code:
     jobs:
