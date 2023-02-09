@@ -9,7 +9,7 @@ import {
 } from '../../../interfaces/classroomLessons';
 import Cues from '../../renderForQuestions/cues';
 import { textEditorInputNotEmpty } from '../shared/textEditorClean';
-const teacherPointingSrc = `${process.env.CDN_URL}/images/icons/teacher-pointing.svg`
+const teacherPointingSrc = `${import.meta.env.VITE_PROCESS_ENV_CDN_URL}/images/icons/teacher-pointing.svg`
 
 interface ModelQuestionProps {
   data: QuestionData,

@@ -23,7 +23,7 @@ const AuthGoogleAccessForm = ({
     >
       <input name="authenticity_token" type="hidden" value={getAuthToken()} />
       <button className={buttonClass} type="submit">
-        {showIcon && <img alt="Google icon" src={`${process.env.CDN_URL}/images/shared/google_icon.svg`} />}
+        {showIcon && <img alt="Google icon" src={`${import.meta.env.VITE_PROCESS_ENV_CDN_URL}/images/shared/google_icon.svg`} />}
         <span className={spanClass}>{text}</span>
       </button>
     </form>

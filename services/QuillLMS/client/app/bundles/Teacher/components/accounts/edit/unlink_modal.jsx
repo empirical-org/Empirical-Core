@@ -2,7 +2,7 @@ import React from 'react'
 
 import { Input, } from '../../../../Shared/index'
 
-const smallWhiteCheckSrc = `${process.env.CDN_URL}/images/shared/check-small-white.svg`
+const smallWhiteCheckSrc = `${import.meta.env.VITE_PROCESS_ENV_CDN_URL}/images/shared/check-small-white.svg`
 
 export default class UnlinkModal extends React.Component {
   constructor(props) {

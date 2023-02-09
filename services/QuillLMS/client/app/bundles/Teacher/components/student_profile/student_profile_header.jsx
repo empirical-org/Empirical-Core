@@ -1,6 +1,6 @@
 import React from 'react';
 
-const arrowBackSrc = `${process.env.CDN_URL}/images/icons/arrow-back.svg`
+const arrowBackSrc = `${import.meta.env.VITE_PROCESS_ENV_CDN_URL}/images/icons/arrow-back.svg`
 
 const StudentProfileHeader = ({ classroomName, teacherName, onClickAllClasses, }) => {
   return (

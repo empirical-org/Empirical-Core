@@ -6,7 +6,7 @@ import { Activity } from './interfaces';
 
 import { Snackbar, SortableList, defaultSnackbarTimeout, } from '../../../../../Shared/index';
 
-const reorderSrc = `${process.env.CDN_URL}/images/icons/reorder.svg`
+const reorderSrc = `${import.meta.env.VITE_PROCESS_ENV_CDN_URL}/images/icons/reorder.svg`
 
 interface AssignButtonProps {
   selectedActivities: Activity[],

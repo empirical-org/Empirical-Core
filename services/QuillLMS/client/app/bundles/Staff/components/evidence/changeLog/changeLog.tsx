@@ -3,7 +3,6 @@ import DateTimePicker from 'react-datetime-picker';
 import { useQuery } from 'react-query';
 import stripHtml from "string-strip-html";
 import * as _ from 'underscore';
-;
 
 import { sort } from '../../../../../modules/sortingMethods.js';
 import { ReactTable, Spinner, uniqueValuesArray } from '../../../../Shared/index';

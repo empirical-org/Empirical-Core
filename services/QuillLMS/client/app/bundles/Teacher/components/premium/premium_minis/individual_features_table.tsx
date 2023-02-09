@@ -2,7 +2,7 @@ import * as React from 'react'
 
 import InfoTooltip from '../infoTooltip'
 
-const expandSrc = `${process.env.CDN_URL}/images/icons/expand.svg`
+const expandSrc = `${import.meta.env.VITE_PROCESS_ENV_CDN_URL}/images/icons/expand.svg`
 
 const IndividualFeaturesTable = ({ premiumFeatureData, type, }) => {
   const [isOpen, setIsOpen] = React.useState(false)

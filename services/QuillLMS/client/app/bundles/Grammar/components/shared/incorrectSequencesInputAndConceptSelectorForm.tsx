@@ -34,7 +34,7 @@ export default class IncorrectSequencesInputAndConceptSelectorForm extends React
     const usedSeqs = this.props.usedSequences
     const newSeqs = this.state.itemText.split(/\|{3}(?!\|)/)
     requestPost(
-      `${process.env.QUILL_CMS}/responses/${qid}/incorrect_sequence_affected_count`,
+      `${import.meta.env.QUILL_CMS}/responses/${qid}/incorrect_sequence_affected_count`,
       {data: {used_sequences: usedSeqs, selected_sequences: newSeqs}},
       (body) => {
         this.setState({matchedCount: body.matchedCount})

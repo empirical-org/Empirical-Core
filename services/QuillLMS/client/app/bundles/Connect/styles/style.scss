@@ -9,8 +9,8 @@
 @import "components/landing-page-html";
 @import "components/multiple-choice";
 @import "components/_question_health";
-@import '~react-select/dist/react-select.css';
-@import '~font-awesome/css/font-awesome.css';
+/* Vite migration @import '~react-select/dist/react-select.css'; */
+@import '@node_modules/font-awesome/css/font-awesome.css';
 @import '../../../../../app/assets/stylesheets/shared/teacher-preview-menu.scss';
 
 body {
