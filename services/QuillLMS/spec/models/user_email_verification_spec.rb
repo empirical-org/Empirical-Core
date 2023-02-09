@@ -40,8 +40,8 @@ describe UserEmailVerification, type: :model do
     end
 
     it 'should set verified_at to DateTime.now' do
-      now = DateTime.now
-      expect(DateTime).to receive(:now).and_return(now)
+      now = DateTime.current
+      expect(DateTime).to receive(:current).and_return(now)
 
       expect do
         user_email_verification.verify(UserEmailVerification::STAFF_VERIFICATION)

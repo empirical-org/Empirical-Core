@@ -25,5 +25,18 @@ describe VerifyEmailsController do
       expect(user.reload.email_verified?).to be(true)
       expect(user_email_verification.reload.verification_method).to eq(UserEmailVerification::EMAIL_VERIFICATION)
     end
+
+    it 'should return a 400 if no token is provided' do
+      post :verify_by_token, params: {}, format: :json
+
+      expect(response.status).to be(400)
+    end
+
+    it 'should return a 400 if the token provided does not match any verification records' do
+      bad_token = "bad_#{token}"
+      post :verify_by_token, params: { token: bad_token }, format: :json
+
+      expect(response.status).to be(400)
+    end
   end
 end

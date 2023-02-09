@@ -15,7 +15,7 @@ class VerifyEmailsController < ApplicationController
 
     verification = UserEmailVerification.find_by(verification_token: token)
 
-    return render json: {'error': 'Invalid verification token'}, status: 400 unless verification
+    return render json: {'error': 'Invalid verification token'}, status: 400 unless token && verification
 
     verification.verify(UserEmailVerification::EMAIL_VERIFICATION, token)
     render json: {}, status: :ok
