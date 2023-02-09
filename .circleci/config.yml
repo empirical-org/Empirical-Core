@@ -20,7 +20,7 @@ workflows:
           # line:
           # <regex path-to-test> <parameter-to-set> <value-of-pipeline-parameter>
           mapping: |
-            services/QuillLMS/(?!client).* lms-edits true
+            services/QuillLMS/.* lms-edits true
             services/QuillLMS/client/.* lms-client-edits true
             services/QuillCMS/.* cms-edits true
             packages/quill-marking-logic/.* marking-logic-edits true
