@@ -149,7 +149,7 @@ jobs:
     working_directory: ~/Empirical-Core
     parallelism: 3
     docker:
-      - image: circleci/node:erbium
+      - image: circleci/node:fermium
     steps:
       - checkout
       - run:
