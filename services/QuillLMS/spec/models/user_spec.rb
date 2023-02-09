@@ -57,6 +57,7 @@
 #
 require 'rails_helper'
 
+# rubocop:disable Metrics/BlockLength
 describe User, type: :model do
 
   it { is_expected.to callback(:capitalize_name).before(:save) }
@@ -1611,3 +1612,4 @@ describe User, type: :model do
     end
   end
 end
+# rubocop:enable Metrics/BlockLength
