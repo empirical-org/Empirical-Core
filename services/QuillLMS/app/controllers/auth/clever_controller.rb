@@ -51,7 +51,7 @@ module Auth
       CompleteAccountCreation.new(user, request.remote_ip).call if user.previous_changes["id"]
       user.update(ip_address: request.remote_ip)
 
-      user.verify_email(UserEmailVerification::CLEVER_VERIFICATION) if user.email_verification_pending?
+      verify_email_if_necessary(user)
 
       if session[ApplicationController::CLEVER_REDIRECT]
         redirect_route = session[ApplicationController::CLEVER_REDIRECT]
@@ -69,6 +69,10 @@ module Auth
         end
         redirect_to profile_url
       end
+    end
+
+    private def verify_email_if_necessary(user)
+      user.verify_email(UserEmailVerification::CLEVER_VERIFICATION) if user.email_verification_pending?
     end
 
     private def user_failure(data, redirect)

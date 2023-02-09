@@ -53,7 +53,7 @@ class UserEmailVerification < ApplicationRecord
   end
 
   private def mark_as_verified(verification_method)
-    update(verification_method: verification_method, verification_token: nil, verified_at: DateTime.now)
+    update(verification_method: verification_method, verification_token: nil, verified_at: DateTime.current)
   end
 
   private def verify_by_token(verification_token)

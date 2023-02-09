@@ -158,7 +158,7 @@ class User < ApplicationRecord
 
   has_many :user_pack_sequence_items, dependent: :destroy
 
-  has_one :user_email_verification
+  has_one :user_email_verification, dependent: :destroy
 
   accepts_nested_attributes_for :auth_credential
 
