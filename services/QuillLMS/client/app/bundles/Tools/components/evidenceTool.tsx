@@ -129,7 +129,7 @@ export const EvidenceTool = ({ loggedInUser }) => {
             {renderFirstAttemptText()}
           </section>
           <section className="right-side-container">
-            <img alt="screenshot of example first attempt Reading for Evidence activity prompt" id="prompt-screenshot" src="https://assets.quill.org/images/evidence/home_page/widget_images/2x/HeroEvidenceWidget_3.png" />
+            <img alt="screenshot of example first attempt Reading for Evidence activity prompt" id="prompt-screenshot" src="https://assets.quill.org/images/evidence/home_page/widget_images/2x/HeroEvidenceWidget_3.webp" />
             <img alt="dotted line arrow" id="arrow" src="https://assets.quill.org/images/evidence/home_page/evidence_arrow.svg" />
           </section>
         </section>
@@ -139,7 +139,7 @@ export const EvidenceTool = ({ loggedInUser }) => {
             {renderSecondAttemptText()}
           </section>
           <section className="right-side-container">
-            <img alt="screenshot of example first attempt Reading for Evidence activity prompt" id="prompt-screenshot" src="https://assets.quill.org/images/evidence/home_page/widget_images/2x/HeroEvidenceWidget_6.png" />
+            <img alt="screenshot of example first attempt Reading for Evidence activity prompt" id="prompt-screenshot" src="https://assets.quill.org/images/evidence/home_page/widget_images/2x/HeroEvidenceWidget_6.webp" />
             <img alt="dotted line arrow" id="arrow" src="https://assets.quill.org/images/evidence/home_page/evidence_arrow.svg" />
           </section>
         </section>
@@ -149,7 +149,7 @@ export const EvidenceTool = ({ loggedInUser }) => {
             {renderThirdAttemptText()}
           </section>
           <section className="right-side-container">
-            <img alt="screenshot of example first attempt Reading for Evidence activity prompt" id="prompt-screenshot" src="https://assets.quill.org/images/evidence/home_page/widget_images/2x/HeroEvidenceWidget_9.png" />
+            <img alt="screenshot of example first attempt Reading for Evidence activity prompt" id="prompt-screenshot" src="https://assets.quill.org/images/evidence/home_page/widget_images/2x/HeroEvidenceWidget_9.webp" />
             <img alt="dotted line arrow" id="arrow" src="https://assets.quill.org/images/evidence/home_page/evidence_arrow.svg" />
           </section>
         </section>
@@ -159,7 +159,7 @@ export const EvidenceTool = ({ loggedInUser }) => {
             {renderFourthAttemptText()}
           </section>
           <section className="right-side-container">
-            <img alt="screenshot of example first attempt Reading for Evidence activity prompt" id="prompt-screenshot" src="https://assets.quill.org/images/evidence/home_page/widget_images/2x/HeroEvidenceWidget_12.png" />
+            <img alt="screenshot of example first attempt Reading for Evidence activity prompt" id="prompt-screenshot" src="https://assets.quill.org/images/evidence/home_page/widget_images/2x/HeroEvidenceWidget_12.webp" />
           </section>
         </section>
       </section>
@@ -175,21 +175,21 @@ export const EvidenceTool = ({ loggedInUser }) => {
             <section id="header-container">
               <p id="header">Activities are not graded</p>
             </section>
-            <img alt="An illustration of an A+ that is crossed out" id="image" src='https://assets.quill.org/images/evidence/home_page/EvidenceLandingPage_Feature_1.png' />
+            <img alt="An illustration of an A+ that is crossed out" id="image" src='https://assets.quill.org/images/evidence/home_page/EvidenceLandingPage_Feature_1.webp' />
             <p className="subtext">"This is a safe space to practice your writing, so it won't be graded. Your teacher will see your revisions, but there are no scores or points."</p>
           </section>
           <section id="information-section">
             <section id="header-container">
               <p id="header">We use a feedback bot</p>
             </section>
-            <img alt="An illustration of a smiling robot head" id="image" src='https://assets.quill.org/images/evidence/home_page/EvidenceLandingPage_Feature_2.png' />
+            <img alt="An illustration of a smiling robot head" id="image" src='https://assets.quill.org/images/evidence/home_page/EvidenceLandingPage_Feature_2.webp' />
             <p className="subtext">"We use artificial intelligence (AI) to help us give you feedback on your writing. You should know that AI isn't always correct."</p>
           </section>
           <section id="information-section">
             <section id="header-container">
               <p id="header">All writers revise</p>
             </section>
-            <img alt="An illustration of a pencil circled with a revision" id="image" src='https://assets.quill.org/images/evidence/home_page/EvidenceLandingPage_Feature_3.png' />
+            <img alt="An illustration of a pencil circled with a revision" id="image" src='https://assets.quill.org/images/evidence/home_page/EvidenceLandingPage_Feature_3.webp' />
             <p className="subtext">"You'll be able to revise each sentence up to five times. We give you feedback because we want to help you write a stronger sentence."</p>
           </section>
         </section>
