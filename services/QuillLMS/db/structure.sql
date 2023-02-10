@@ -110,7 +110,7 @@ CREATE FUNCTION public.timespent_question(act_sess integer, question character v
           item timestamp;
         BEGIN
           SELECT created_at INTO as_created_at FROM activity_sessions WHERE id = act_sess;
-          
+
           -- backward compatibility block
           IF as_created_at IS NULL OR as_created_at < timestamp '2013-08-25 00:00:00.000000' THEN
             SELECT SUM(
@@ -125,11 +125,11 @@ CREATE FUNCTION public.timespent_question(act_sess integer, question character v
                       'epoch' FROM (activity_sessions.completed_at - activity_sessions.started_at)
                     )
                 END) INTO time_spent FROM activity_sessions WHERE id = act_sess AND state='finished';
-                
+
                 RETURN COALESCE(time_spent,0);
           END IF;
-          
-          
+
+
           first_item := NULL;
           last_item := NULL;
           max_item := NULL;
@@ -153,11 +153,11 @@ CREATE FUNCTION public.timespent_question(act_sess integer, question character v
 
             END IF;
           END LOOP;
-          
+
           IF max_item IS NOT NULL AND first_item IS NOT NULL THEN
             time_spent := time_spent + EXTRACT( EPOCH FROM max_item - first_item );
           END IF;
-          
+
           RETURN time_spent;
         END;
       $$;
@@ -172,7 +172,7 @@ CREATE FUNCTION public.timespent_student(student integer) RETURNS bigint
     AS $$
         SELECT COALESCE(SUM(time_spent),0) FROM (
           SELECT id,timespent_activity_session(id) AS time_spent FROM activity_sessions
-          WHERE activity_sessions.user_id = student 
+          WHERE activity_sessions.user_id = student
           GROUP BY id) as as_ids;
 
       $$;
@@ -686,6 +686,41 @@ ALTER SEQUENCE public.admin_accounts_teachers_id_seq OWNED BY public.admin_accou
 
 
 --
+-- Name: admin_infos; Type: TABLE; Schema: public; Owner: -
+--
+
+CREATE TABLE public.admin_infos (
+    id bigint NOT NULL,
+    approval_status character varying,
+    sub_role character varying,
+    verification_url character varying,
+    verification_reason text,
+    user_id bigint NOT NULL,
+    created_at timestamp(6) without time zone NOT NULL,
+    updated_at timestamp(6) without time zone NOT NULL
+);
+
+
+--
+-- Name: admin_infos_id_seq; Type: SEQUENCE; Schema: public; Owner: -
+--
+
+CREATE SEQUENCE public.admin_infos_id_seq
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+
+--
+-- Name: admin_infos_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: -
+--
+
+ALTER SEQUENCE public.admin_infos_id_seq OWNED BY public.admin_infos.id;
+
+
+--
 -- Name: announcements; Type: TABLE; Schema: public; Owner: -
 --
 
@@ -762,8 +797,8 @@ ALTER SEQUENCE public.app_settings_id_seq OWNED BY public.app_settings.id;
 CREATE TABLE public.ar_internal_metadata (
     key character varying NOT NULL,
     value character varying,
-    created_at timestamp without time zone NOT NULL,
-    updated_at timestamp without time zone NOT NULL
+    created_at timestamp(6) without time zone NOT NULL,
+    updated_at timestamp(6) without time zone NOT NULL
 );
 
 
@@ -958,8 +993,8 @@ CREATE TABLE public.change_logs (
     id integer NOT NULL,
     explanation text,
     action character varying NOT NULL,
-    changed_record_id integer,
     changed_record_type character varying NOT NULL,
+    changed_record_id integer,
     user_id integer,
     created_at timestamp without time zone,
     updated_at timestamp without time zone,
@@ -1539,8 +1574,8 @@ ALTER SEQUENCE public.comprehension_prompts_rules_id_seq OWNED BY public.compreh
 
 CREATE TABLE public.comprehension_regex_rules (
     id integer NOT NULL,
-    regex_text character varying(200),
-    case_sensitive boolean,
+    regex_text character varying(200) NOT NULL,
+    case_sensitive boolean NOT NULL,
     created_at timestamp without time zone NOT NULL,
     updated_at timestamp without time zone NOT NULL,
     rule_id integer,
@@ -2054,8 +2089,8 @@ CREATE TABLE public.credit_transactions (
     id integer NOT NULL,
     amount integer NOT NULL,
     user_id integer NOT NULL,
-    source_id integer,
     source_type character varying,
+    source_id integer,
     created_at timestamp without time zone,
     updated_at timestamp without time zone
 );
@@ -2396,8 +2431,8 @@ ALTER SEQUENCE public.evidence_prompt_healths_id_seq OWNED BY public.evidence_pr
 CREATE TABLE public.feedback_histories (
     id integer NOT NULL,
     feedback_session_uid text,
-    prompt_id integer,
     prompt_type character varying,
+    prompt_id integer,
     concept_uid text,
     attempt integer NOT NULL,
     entry text NOT NULL,
@@ -3381,17 +3416,17 @@ CREATE TABLE public.sales_form_submissions (
     last_name character varying NOT NULL,
     email character varying NOT NULL,
     phone_number character varying,
+    zipcode character varying,
     collection_type character varying NOT NULL,
     school_name character varying,
     district_name character varying,
+    school_premium_count_estimate integer DEFAULT 0 NOT NULL,
     teacher_premium_count_estimate integer DEFAULT 0 NOT NULL,
+    student_premium_count_estimate integer DEFAULT 0 NOT NULL,
     submission_type character varying NOT NULL,
     comment text DEFAULT ''::text,
     created_at timestamp without time zone NOT NULL,
-    updated_at timestamp without time zone NOT NULL,
-    zipcode character varying,
-    student_premium_count_estimate integer,
-    school_premium_count_estimate integer
+    updated_at timestamp without time zone NOT NULL
 );
 
 
@@ -4101,7 +4136,6 @@ CREATE TABLE public.subscriptions (
     payment_method character varying,
     payment_amount integer,
     stripe_invoice_id character varying,
-    purchase_order_number character varying,
     stripe_subscription_id character varying
 );
 
@@ -4506,6 +4540,40 @@ ALTER SEQUENCE public.user_activity_classifications_id_seq OWNED BY public.user_
 
 
 --
+-- Name: user_email_verifications; Type: TABLE; Schema: public; Owner: -
+--
+
+CREATE TABLE public.user_email_verifications (
+    id bigint NOT NULL,
+    user_id bigint,
+    verified_at timestamp without time zone,
+    verification_method character varying,
+    verification_token character varying,
+    created_at timestamp(6) without time zone NOT NULL,
+    updated_at timestamp(6) without time zone NOT NULL
+);
+
+
+--
+-- Name: user_email_verifications_id_seq; Type: SEQUENCE; Schema: public; Owner: -
+--
+
+CREATE SEQUENCE public.user_email_verifications_id_seq
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+
+--
+-- Name: user_email_verifications_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: -
+--
+
+ALTER SEQUENCE public.user_email_verifications_id_seq OWNED BY public.user_email_verifications.id;
+
+
+--
 -- Name: user_milestones; Type: TABLE; Schema: public; Owner: -
 --
 
@@ -4786,6 +4854,13 @@ ALTER TABLE ONLY public.admin_accounts_admins ALTER COLUMN id SET DEFAULT nextva
 --
 
 ALTER TABLE ONLY public.admin_accounts_teachers ALTER COLUMN id SET DEFAULT nextval('public.admin_accounts_teachers_id_seq'::regclass);
+
+
+--
+-- Name: admin_infos id; Type: DEFAULT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY public.admin_infos ALTER COLUMN id SET DEFAULT nextval('public.admin_infos_id_seq'::regclass);
 
 
 --
@@ -5538,6 +5613,13 @@ ALTER TABLE ONLY public.user_activity_classifications ALTER COLUMN id SET DEFAUL
 
 
 --
+-- Name: user_email_verifications id; Type: DEFAULT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY public.user_email_verifications ALTER COLUMN id SET DEFAULT nextval('public.user_email_verifications_id_seq'::regclass);
+
+
+--
 -- Name: user_milestones id; Type: DEFAULT; Schema: public; Owner: -
 --
 
@@ -5674,6 +5756,14 @@ ALTER TABLE ONLY public.admin_accounts
 
 ALTER TABLE ONLY public.admin_accounts_teachers
     ADD CONSTRAINT admin_accounts_teachers_pkey PRIMARY KEY (id);
+
+
+--
+-- Name: admin_infos admin_infos_pkey; Type: CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY public.admin_infos
+    ADD CONSTRAINT admin_infos_pkey PRIMARY KEY (id);
 
 
 --
@@ -6309,6 +6399,14 @@ ALTER TABLE ONLY public.sales_stages
 
 
 --
+-- Name: schema_migrations schema_migrations_pkey; Type: CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY public.schema_migrations
+    ADD CONSTRAINT schema_migrations_pkey PRIMARY KEY (version);
+
+
+--
 -- Name: school_subscriptions school_subscriptions_pkey; Type: CONSTRAINT; Schema: public; Owner: -
 --
 
@@ -6538,6 +6636,14 @@ ALTER TABLE ONLY public.units
 
 ALTER TABLE ONLY public.user_activity_classifications
     ADD CONSTRAINT user_activity_classifications_pkey PRIMARY KEY (id);
+
+
+--
+-- Name: user_email_verifications user_email_verifications_pkey; Type: CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY public.user_email_verifications
+    ADD CONSTRAINT user_email_verifications_pkey PRIMARY KEY (id);
 
 
 --
@@ -6781,6 +6887,13 @@ CREATE INDEX index_admin_accounts_teachers_on_admin_account_id ON public.admin_a
 --
 
 CREATE INDEX index_admin_accounts_teachers_on_teacher_id ON public.admin_accounts_teachers USING btree (teacher_id);
+
+
+--
+-- Name: index_admin_infos_on_user_id; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX index_admin_infos_on_user_id ON public.admin_infos USING btree (user_id);
 
 
 --
@@ -7778,13 +7891,6 @@ CREATE INDEX index_subscriptions_on_start_date ON public.subscriptions USING btr
 
 
 --
--- Name: index_subscriptions_on_stripe_invoice_id; Type: INDEX; Schema: public; Owner: -
---
-
-CREATE INDEX index_subscriptions_on_stripe_invoice_id ON public.subscriptions USING btree (stripe_invoice_id);
-
-
---
 -- Name: index_teacher_info_subject_areas_on_subject_area_id; Type: INDEX; Schema: public; Owner: -
 --
 
@@ -7915,6 +8021,13 @@ CREATE INDEX index_user_activity_classifications_on_classifications ON public.us
 --
 
 CREATE INDEX index_user_activity_classifications_on_user_id ON public.user_activity_classifications USING btree (user_id);
+
+
+--
+-- Name: index_user_email_verifications_on_user_id; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE UNIQUE INDEX index_user_email_verifications_on_user_id ON public.user_email_verifications USING btree (user_id);
 
 
 --
@@ -8121,17 +8234,10 @@ CREATE UNIQUE INDEX unique_index_users_on_username ON public.users USING btree (
 
 
 --
--- Name: unique_schema_migrations; Type: INDEX; Schema: public; Owner: -
---
-
-CREATE UNIQUE INDEX unique_schema_migrations ON public.schema_migrations USING btree (version);
-
-
---
 -- Name: user_activity_classification_unique_index; Type: INDEX; Schema: public; Owner: -
 --
 
-CREATE INDEX user_activity_classification_unique_index ON public.user_activity_classifications USING btree (user_id, activity_classification_id);
+CREATE UNIQUE INDEX user_activity_classification_unique_index ON public.user_activity_classifications USING btree (user_id, activity_classification_id);
 
 
 --
@@ -8478,6 +8584,14 @@ ALTER TABLE ONLY public.pack_sequence_items
 
 
 --
+-- Name: user_email_verifications fk_rails_a3ab89b728; Type: FK CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY public.user_email_verifications
+    ADD CONSTRAINT fk_rails_a3ab89b728 FOREIGN KEY (user_id) REFERENCES public.users(id);
+
+
+--
 -- Name: classroom_units fk_rails_a3c514fc6d; Type: FK CONSTRAINT; Schema: public; Owner: -
 --
 
@@ -8515,6 +8629,14 @@ ALTER TABLE ONLY public.third_party_user_ids
 
 ALTER TABLE ONLY public.criteria
     ADD CONSTRAINT fk_rails_ada79930c6 FOREIGN KEY (concept_id) REFERENCES public.concepts(id);
+
+
+--
+-- Name: admin_infos fk_rails_b0fee17293; Type: FK CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY public.admin_infos
+    ADD CONSTRAINT fk_rails_b0fee17293 FOREIGN KEY (user_id) REFERENCES public.users(id);
 
 
 --
@@ -9101,7 +9223,6 @@ INSERT INTO "schema_migrations" (version) VALUES
 ('20211019143514'),
 ('20211026160939'),
 ('20211108171529'),
-('20211202235402'),
 ('20220105145446'),
 ('20220106193721'),
 ('20220128175405'),
@@ -9164,8 +9285,9 @@ INSERT INTO "schema_migrations" (version) VALUES
 ('20221209151611'),
 ('20221209151957'),
 ('20230104183416'),
-('20230111214530'),
 ('20230113132638'),
-('20230130190215');
+('20230130190215'),
+('20230201202210'),
+('20230206203447');
 
 

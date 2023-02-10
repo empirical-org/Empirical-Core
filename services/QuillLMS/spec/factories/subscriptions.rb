@@ -10,7 +10,6 @@
 #  expiration             :date
 #  payment_amount         :integer
 #  payment_method         :string
-#  purchase_order_number  :string
 #  purchaser_email        :string
 #  recurring              :boolean          default(FALSE)
 #  start_date             :date
@@ -28,7 +27,6 @@
 #  index_subscriptions_on_purchaser_id       (purchaser_id)
 #  index_subscriptions_on_recurring          (recurring)
 #  index_subscriptions_on_start_date         (start_date)
-#  index_subscriptions_on_stripe_invoice_id  (stripe_invoice_id)
 #
 FactoryBot.define do
   factory :subscription do
@@ -38,6 +36,7 @@ FactoryBot.define do
     purchaser_id { nil }
     payment_method { '' }
     stripe_invoice_id { nil }
+    stripe_subscription_id { nil }
     plan { nil }
 
     trait(:recurring) { recurring true }

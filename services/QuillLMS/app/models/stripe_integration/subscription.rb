@@ -6,6 +6,7 @@ module StripeIntegration
     INCOMPLETE_EXPIRED = 'incomplete_expired'
 
     def stripe_cancel_at_period_end
+      return if stripe_subscription_id.nil?
       return if stripe_invoice_id.nil?
       return if already_canceled_or_incomplete_expired?
 
@@ -18,12 +19,6 @@ module StripeIntegration
       stripe_card&.last4
     rescue Stripe::InvalidRequestError
       nil
-    end
-
-    def stripe_subscription_id
-      return nil if stripe_invoice_id.nil?
-
-      stripe_invoice.subscription
     end
 
     def stripe_subscription_url
@@ -50,6 +45,10 @@ module StripeIntegration
 
     private def stripe_invoice
       Stripe::Invoice.retrieve(stripe_invoice_id)
+    end
+
+    private def stripe_subscription
+      Stripe::Subscription.retrieve(stripe_subscription_id)
     end
 
     private def stripe_payment_method
