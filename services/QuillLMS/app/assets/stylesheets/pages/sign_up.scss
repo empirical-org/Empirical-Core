@@ -176,6 +176,21 @@
   }
 }
 
+.email-verification {
+  .sub-header {
+    line-height: 24px;
+  }
+  .body {
+    line-height: 22px;
+    color: #646464;
+    margin-bottom: 32px;
+  }
+  a, .interactive-wrapper {
+    color: #009A80;
+    font-weight: 600;
+  }
+}
+
 .school-verification-section {
   h3 {
     font-weight: 400;

@@ -9,7 +9,7 @@ import AgreementsAndLinkToLogin from './agreements_and_link_to_login'
 import AssignActivityPackBanner from '../assignActivityPackBanner'
 import { Input, } from '../../../../Shared/index'
 import { requestPost, } from '../../../../../modules/request/index'
-import { INDIVIDUAL_CONTRIBUTOR } from '../../../../Shared/index';
+import { INDIVIDUAL_CONTRIBUTOR, ADMIN, } from '../../../../Shared/index';
 
 class SignUpTeacher extends React.Component {
   constructor(props) {

@@ -310,7 +310,6 @@ exports[`TeacherGeneralAccountInfo component should render when the school is no
               maxLength={10000}
               onChange={[Function]}
               onFocus={[Function]}
-              placeholder={false}
               type="text"
               value="Test User"
             />
@@ -340,7 +339,6 @@ exports[`TeacherGeneralAccountInfo component should render when the school is no
               maxLength={10000}
               onChange={[Function]}
               onFocus={[Function]}
-              placeholder={false}
               type="text"
               value="test@email.com"
             />
@@ -34914,7 +34912,6 @@ exports[`TeacherGeneralAccountInfo component should render when the school is no
                 disabled={true}
                 maxLength={10000}
                 onFocus={[Function]}
-                placeholder={false}
                 type="text"
                 value="Not listed"
               />
@@ -35244,7 +35241,6 @@ exports[`TeacherGeneralAccountInfo component should render when the school is no
               maxLength={10000}
               onChange={[Function]}
               onFocus={[Function]}
-              placeholder={false}
               type="text"
               value="Test User"
             />
@@ -35274,7 +35270,6 @@ exports[`TeacherGeneralAccountInfo component should render when the school is no
               maxLength={10000}
               onChange={[Function]}
               onFocus={[Function]}
-              placeholder={false}
               type="text"
               value="test@email.com"
             />
@@ -69848,7 +69843,6 @@ exports[`TeacherGeneralAccountInfo component should render when the school is no
                 disabled={true}
                 maxLength={10000}
                 onFocus={[Function]}
-                placeholder={false}
                 type="text"
                 value="No school selected"
               />

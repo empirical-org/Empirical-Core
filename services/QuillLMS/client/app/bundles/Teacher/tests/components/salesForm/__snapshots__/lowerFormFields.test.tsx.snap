@@ -36,7 +36,6 @@ exports[`LowerFormFields Component should match snapshot 1`] = `
         maxLength={10000}
         onChange={[MockFunction]}
         onFocus={[Function]}
-        placeholder={false}
         value={1}
       />
     </div>
@@ -68,7 +67,6 @@ exports[`LowerFormFields Component should match snapshot 1`] = `
         maxLength={10000}
         onChange={[MockFunction]}
         onFocus={[Function]}
-        placeholder={false}
         value={20}
       />
     </div>
@@ -100,7 +98,6 @@ exports[`LowerFormFields Component should match snapshot 1`] = `
         maxLength={10000}
         onChange={[MockFunction]}
         onFocus={[Function]}
-        placeholder={false}
         value={400}
       />
     </div>

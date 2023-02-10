@@ -11,8 +11,9 @@ import SelectNonUSK12 from './select_non_us_k12';
 import AddTeacherInfo from './add_teacher_info';
 import SelectSubRole from './select_sub_role';
 import VerifySchool from './verify_school'
+import VerifyEmail from './verify_email'
 
-const App = ({ subjectAreas, subRoles, user, school, isAdmin, }) => {
+const App = ({ subjectAreas, subRoles, user, isAdmin, }) => {
   return (
     <BrowserRouter>
       <div id='sign-up'>
@@ -24,6 +25,8 @@ const App = ({ subjectAreas, subRoles, user, school, isAdmin, }) => {
         <Route component={SignUpStudent} path="/sign-up/student" />
 
         <Route component={VerifySchool} path="/sign-up/verify-school" />
+
+        <Route component={routerProps => <VerifyEmail user={user} {...routerProps} />} path="/sign-up/verify-email" />
 
         <Route component={routerProps => <SelectSubRole subRoles={subRoles} {...routerProps} />} path="/sign-up/select-sub-role" />
 
