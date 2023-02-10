@@ -132,9 +132,9 @@ module StripeIntegration
       # to ensure that we don't process the creation of a new Quill Subscription
       # for a pair that we've already processed.
       private def subscription_invoice_pair_exists?
-        stripe_subscription.id
-          && stripe_invoice.id
-          && ::Subscription.exists?(stripe_subscription_id: stripe_subscription.id, stripe_invoice_id: stripe_invoice.id)
+        stripe_subscription.id &&
+          stripe_invoice.id    &&
+          ::Subscription.exists?(stripe_subscription_id: stripe_subscription.id, stripe_invoice_id: stripe_invoice.id)
       end
 
       private def amount_paid_mismatch?
