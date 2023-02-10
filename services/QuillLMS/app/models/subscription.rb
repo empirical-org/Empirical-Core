@@ -114,6 +114,7 @@ class Subscription < ApplicationRecord
   ALL_TYPES = OFFICIAL_FREE_TYPES.dup.concat(OFFICIAL_PAID_TYPES).freeze
 
   validates :stripe_invoice_id, allow_blank: true, stripe_uid: { prefix: :in }
+  validates :stripe_subscription_id, allow_blank: true, stripe_uid: { prefix: :sub }
 
   delegate :stripe_cancel_at_period_end, :stripe_subscription_url,
     to: :stripe_subscription
