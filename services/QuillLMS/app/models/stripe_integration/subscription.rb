@@ -72,9 +72,5 @@ module StripeIntegration
     rescue Stripe::InvalidRequestError
       nil
     end
-
-    private def stripe_subscription
-      Stripe::Subscription.retrieve(stripe_subscription_id)
-    end
   end
 end
