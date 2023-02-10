@@ -77,4 +77,4 @@ module.exports = merge(config, {
   ],
 });
 
-console.log('Webpack HOT dev build for Rails!');
+console.log('Webpack HOT dev build for Rails');

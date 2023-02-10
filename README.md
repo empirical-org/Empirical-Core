@@ -50,7 +50,7 @@ Checking out open issues is a great way to get started as an open source contrib
 
 Note, we have style guides for [Ruby](https://github.com/empirical-org/ruby) and [Javascript](https://github.com/empirical-org/javascript) and a [Code of Conduct](CODE_OF_CONDUCT.md)
 
-Thanks for your interest in Quill.org!
+Thanks for your interest in Quill.org!!!
 
 ## Accessibility testing
 We use [Assistiv](https://assistivlabs.com) to test our website for compatibility with screenreaders and other assistive software.
