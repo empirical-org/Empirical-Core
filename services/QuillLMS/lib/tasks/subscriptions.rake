@@ -30,4 +30,13 @@ namespace :subscriptions do
 
     end
   end
+
+  desc 'Save stripe_subscription_id to Subscription for any record with a stripe_invoice_id'
+  task :save_stripe_subscription_ids => :environment do
+    Subscription.where.not(stripe_invoice_id: nil).where(stripe_subscription_id: nil).each do |subscription|
+      stripe_invoice = Stripe::Invoice.retrieve(subscription.stripe_invoice_id)
+      stripe_subscription_id = stripe_invoice.subscription
+      subscription.update(stripe_subscription_id: stripe_subscription_id)
+    end
+  end
 end
