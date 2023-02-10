@@ -22,34 +22,21 @@ export default class TopicSection extends React.Component {
     } else if(role !== STUDENT) {
       return title
     }
-    const titleWithoutWordStudent = this.props.title.replace('Student ', '')
+    const titleWithoutWordStudent = title.replace('Student ', '')
     return titleWithoutWordStudent.charAt(0).toUpperCase() + titleWithoutWordStudent.slice(1)
   }
 
   sectionLink() {
-    return this.props.role === STUDENT ? STUDENT_CENTER_SLUG : TEACHER_CENTER_SLUG
-  }
-
-  topicIcon() {
-    switch (this.props.title) {
-      case GETTING_STARTED:
-        return <img alt="" src="https://assets.quill.org/images/teacher_center/gettingstarted-gray.svg" />
-      case WHATS_NEW:
-        return <img alt="" src="https://assets.quill.org/images/teacher_center/announcement-gray.svg" />
-      case TEACHER_STORIES:
-        return <img alt="" src="https://assets.quill.org/images/teacher_center/casestudies-gray.svg" />
-      case WRITING_INSTRUCTION_RESEARCH:
-        return <img alt="" src="https://assets.quill.org/images/teacher_center/research-gray.svg" />
-      case IN_THE_NEWS:
-        return <img alt="" src="https://assets.quill.org/images/teacher_center/inthepress-gray.svg" />
-      default:
-        return ''
-    }
+    const { role, } = this.props
+    return role === STUDENT ? STUDENT_CENTER_SLUG : TEACHER_CENTER_SLUG
   }
 
   renderArticleCards() {
-    return this.props.articles.slice(0, 3).map(article =>
+    const { articles, color, onSearchPage, } = this.props
+    const articlesForDisplay = onSearchPage ? articles : articles.slice(0, 3)
+    return articlesForDisplay.map(article =>
       (<PreviewCard
+        color={color}
         content={article.preview_card_content}
         externalLink={!!article.external_link}
         link={article.external_link ? article.external_link : `/${this.sectionLink()}/${article.slug}`}
@@ -58,12 +45,13 @@ export default class TopicSection extends React.Component {
   }
 
   render() {
+    const { color, articleCount, slug, onSearchPage, } = this.props
     return (
-      <section>
+      <section className={`topic-section ${color}`}>
         <div className='meta'>
-          <h1>{this.topicIcon()}{this.displayTitle()}</h1>
-          <h2>{this.props.articleCount} {pluralize('article', this.props.articleCount)}</h2>
-          <a href={`/${this.sectionLink()}/topic/${this.props.slug}`}>Show All</a>
+          <h1>{this.displayTitle()}</h1>
+          <h2>{articleCount} {pluralize('article', articleCount)}</h2>
+          {!onSearchPage && <a className="quill-button focus-on-light fun contained primary" href={`/${this.sectionLink()}/topic/${slug}`}>Show all</a>}
         </div>
         <div id="preview-card-container">
           {this.renderArticleCards()}

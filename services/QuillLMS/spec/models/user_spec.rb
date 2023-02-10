@@ -314,8 +314,8 @@ describe User, type: :model do
 
   describe 'constants' do
     it "should give the correct value for all the constants" do
-      expect(User::ROLES).to eq(%w(teacher student staff sales-contact))
-      expect(User::SAFE_ROLES).to eq(%w(student teacher sales-contact))
+      expect(User::ROLES).to eq(%w(teacher student staff sales-contact admin))
+      expect(User::SAFE_ROLES).to eq(%w(student teacher sales-contact admin))
       expect(User::VALID_EMAIL_REGEX).to eq(/\A[\w+\-.]+@[a-z\d\-]+(\.[a-z\d\-]+)*\.[a-z]+\z/i)
     end
   end
@@ -337,11 +337,9 @@ describe User, type: :model do
   end
 
   describe '#admin?' do
-    let!(:user) { create(:user) }
+    let!(:user) { create(:admin) }
 
     context 'when admin exists' do
-      let!(:schools_admins) { create(:schools_admins, user: user) }
-
       it 'should return true' do
         expect(user.admin?).to eq true
       end
@@ -349,6 +347,8 @@ describe User, type: :model do
 
     context 'when admin does not exist' do
       it 'should return false' do
+        user.update(role: User::TEACHER)
+
         expect(user.admin?).to eq false
       end
     end
@@ -1040,6 +1040,11 @@ describe User, type: :model do
 
     it "must be true for 'teacher' roles" do
       user.safe_role_assignment 'teacher'
+      expect(user).to be_teacher
+    end
+
+    it "must be true for 'admin' roles because all admins are teachers" do
+      user.safe_role_assignment User::ADMIN
       expect(user).to be_teacher
     end
 

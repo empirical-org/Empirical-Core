@@ -33,4 +33,10 @@ namespace :users do
       puts "Failed to update for user #{row['user_id']}"
     end
   end
+
+  task update_admin_user_roles: :environment do
+    User.joins(:schools_admins).where.not(role: User::ADMIN).distinct.each do |admin_user|
+      admin_user.update(role: User::ADMIN)
+    end
+  end
 end

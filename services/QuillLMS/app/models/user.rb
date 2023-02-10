@@ -82,15 +82,16 @@ class User < ApplicationRecord
     USERNAME_UNIQUENESS_CONSTRAINT_MINIMUM_ID
   ].max
 
+  ADMIN = 'admin'
   TEACHER = 'teacher'
   STUDENT = 'student'
   STAFF = 'staff'
   SALES_CONTACT = 'sales-contact'
   INDIVIDUAL_CONTRIBUTOR = 'individual-contributor'
-  ONBOARDING_ROLES   = [STUDENT, TEACHER, INDIVIDUAL_CONTRIBUTOR]
-  TEACHER_INFO_ROLES = [TEACHER, INDIVIDUAL_CONTRIBUTOR]
-  ROLES              = [TEACHER, STUDENT, STAFF, SALES_CONTACT]
-  SAFE_ROLES         = [STUDENT, TEACHER, SALES_CONTACT]
+  ONBOARDING_ROLES   = [STUDENT, TEACHER, INDIVIDUAL_CONTRIBUTOR, ADMIN]
+  TEACHER_INFO_ROLES = [TEACHER, INDIVIDUAL_CONTRIBUTOR, ADMIN]
+  ROLES              = [TEACHER, STUDENT, STAFF, SALES_CONTACT, ADMIN]
+  SAFE_ROLES         = [STUDENT, TEACHER, SALES_CONTACT, ADMIN]
   VALID_EMAIL_REGEX = /\A[\w+\-.]+@[a-z\d\-]+(\.[a-z\d\-]+)*\.[a-z]+\z/i
 
   ALPHA = 'alpha'
@@ -206,7 +207,8 @@ class User < ApplicationRecord
   after_save :check_for_school
   after_create :generate_referrer_id, if: proc { teacher? }
 
-  scope :teacher, -> { where(role: TEACHER) }
+  # This is a little weird, but in our current conception, all Admins are Teachers
+  scope :teacher, -> { where(role: [ADMIN, TEACHER]) }
   scope :student, -> { where(role: STUDENT) }
 
   def self.deleted_users
@@ -382,8 +384,17 @@ class User < ApplicationRecord
   end
 
   def admin?
-    SchoolsAdmins.find_by_user_id(id).present?
+    role.admin?
   end
+
+  def is_admin_for_one_school?
+    schools_admins.count == 1
+  end
+
+  def is_admin_for_multiple_schools?
+    schools_admins.count > 1
+  end
+
 
   def self.find_by_username_or_email(login_name)
     login_name = login_name.downcase
@@ -409,7 +420,7 @@ class User < ApplicationRecord
   end
 
   def teacher?
-    role.teacher?
+    role.teacher? || admin? # This is a bit weird, but all Admins are Teachers
   end
 
   def staff?
@@ -606,7 +617,7 @@ class User < ApplicationRecord
   end
 
   def is_new_teacher_without_school?
-    role == 'teacher' && !school && previous_changes["id"]
+    teacher? && !school && previous_changes["id"]
   end
 
   def generate_username(classroom_id=nil)

@@ -1,0 +1,10 @@
+<ul>
+  <li>
+    <p><%= header_text %></p>
+  </li>
+  <% links_array.each do |link_data| %>
+      <li>
+        <a href=<%= link_data[:href] %>><%= link_data[:label] %></a>
+      </li>
+  <% end %>
+</ul>

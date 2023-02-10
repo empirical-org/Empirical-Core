@@ -45,5 +45,21 @@ module Evidence
         expect(JSON.parse(class_with_methods.new.run)).to eq(sample_response_body)
       end
     end
+
+    context "#run hitting a timeout" do
+      it "should rescue and return an empty array" do
+        stub_request(:post, endpoint).to_timeout
+        expect(class_with_methods.new.run).to eq([])
+      end
+    end
+
+    context "#post_request" do
+      let(:api_response) { class_with_methods.new.send(:post_request) }
+
+      it "should pass a timeout" do
+        stub_request(:post, endpoint).to_return(sample_response)
+        expect(api_response.request.options[:timeout]).to eq 300
+      end
+    end
   end
 end
