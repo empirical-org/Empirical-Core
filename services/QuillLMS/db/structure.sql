@@ -4539,6 +4539,40 @@ ALTER SEQUENCE public.user_activity_classifications_id_seq OWNED BY public.user_
 
 
 --
+-- Name: user_email_verifications; Type: TABLE; Schema: public; Owner: -
+--
+
+CREATE TABLE public.user_email_verifications (
+    id bigint NOT NULL,
+    user_id bigint,
+    verified_at timestamp without time zone,
+    verification_method character varying,
+    verification_token character varying,
+    created_at timestamp(6) without time zone NOT NULL,
+    updated_at timestamp(6) without time zone NOT NULL
+);
+
+
+--
+-- Name: user_email_verifications_id_seq; Type: SEQUENCE; Schema: public; Owner: -
+--
+
+CREATE SEQUENCE public.user_email_verifications_id_seq
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+
+--
+-- Name: user_email_verifications_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: -
+--
+
+ALTER SEQUENCE public.user_email_verifications_id_seq OWNED BY public.user_email_verifications.id;
+
+
+--
 -- Name: user_milestones; Type: TABLE; Schema: public; Owner: -
 --
 
@@ -5578,6 +5612,13 @@ ALTER TABLE ONLY public.user_activity_classifications ALTER COLUMN id SET DEFAUL
 
 
 --
+-- Name: user_email_verifications id; Type: DEFAULT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY public.user_email_verifications ALTER COLUMN id SET DEFAULT nextval('public.user_email_verifications_id_seq'::regclass);
+
+
+--
 -- Name: user_milestones id; Type: DEFAULT; Schema: public; Owner: -
 --
 
@@ -6594,6 +6635,14 @@ ALTER TABLE ONLY public.units
 
 ALTER TABLE ONLY public.user_activity_classifications
     ADD CONSTRAINT user_activity_classifications_pkey PRIMARY KEY (id);
+
+
+--
+-- Name: user_email_verifications user_email_verifications_pkey; Type: CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY public.user_email_verifications
+    ADD CONSTRAINT user_email_verifications_pkey PRIMARY KEY (id);
 
 
 --
@@ -7981,6 +8030,13 @@ CREATE INDEX index_user_activity_classifications_on_user_id ON public.user_activ
 
 
 --
+-- Name: index_user_email_verifications_on_user_id; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE UNIQUE INDEX index_user_email_verifications_on_user_id ON public.user_email_verifications USING btree (user_id);
+
+
+--
 -- Name: index_user_milestones_on_milestone_id; Type: INDEX; Schema: public; Owner: -
 --
 
@@ -8531,6 +8587,14 @@ ALTER TABLE ONLY public.comprehension_highlights
 
 ALTER TABLE ONLY public.pack_sequence_items
     ADD CONSTRAINT fk_rails_a1d2cd07cb FOREIGN KEY (classroom_unit_id) REFERENCES public.classroom_units(id);
+
+
+--
+-- Name: user_email_verifications fk_rails_a3ab89b728; Type: FK CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY public.user_email_verifications
+    ADD CONSTRAINT fk_rails_a3ab89b728 FOREIGN KEY (user_id) REFERENCES public.users(id);
 
 
 --
@@ -9228,6 +9292,7 @@ INSERT INTO "schema_migrations" (version) VALUES
 ('20221209151957'),
 ('20230104183416'),
 ('20230113132638'),
-('20230201202210');
+('20230201202210'),
+('20230206203447');
 
 

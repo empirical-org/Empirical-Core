@@ -158,6 +158,8 @@ class User < ApplicationRecord
 
   has_many :user_pack_sequence_items, dependent: :destroy
 
+  has_one :user_email_verification, dependent: :destroy
+
   accepts_nested_attributes_for :auth_credential
 
   delegate :name, :mail_city, :mail_state,
@@ -231,6 +233,29 @@ class User < ApplicationRecord
 
   def self.valid_email?(email)
     ValidatesEmailFormatOf.validate_email_format(email).nil?
+  end
+
+  def require_email_verification
+    create_user_email_verification unless user_email_verification
+  end
+
+  def requires_email_verification?
+    user_email_verification.present?
+  end
+
+  def email_verified?
+    user_email_verification.present? && user_email_verification.verified?
+  end
+
+  def email_verification_pending?
+    requires_email_verification? && !email_verified?
+  end
+
+  def verify_email(verification_method, verification_token = nil)
+    # Set up email verification records if they don't exist yet
+    require_email_verification
+
+    user_email_verification.verify(verification_method, verification_token)
   end
 
   def testing_flag
