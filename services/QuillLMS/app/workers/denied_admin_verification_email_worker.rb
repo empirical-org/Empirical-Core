@@ -8,7 +8,7 @@ class DeniedAdminVerificationEmailWorker
     school_name = School.find_by(id: school_id)&.name
 
     return unless user && school_name
-    
+
     user.mailer_user.send_denied_admin_email(school_name)
   end
 end
