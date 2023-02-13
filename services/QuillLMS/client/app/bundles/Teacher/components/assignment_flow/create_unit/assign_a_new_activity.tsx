@@ -143,7 +143,7 @@ const AssignANewActivity = ({ numberOfActivitiesAssigned, showDiagnosticBanner }
                   </td>
                   <td className="date-col">1/15/23</td>
                   <td className="preview-col"><a href={`/activity_sessions/anonymous?activity_id=${a.id}`} rel="noopener noreferrer" target="_blank">Preview</a></td>
-                  <td className="select-col"><button className="quill-button secondary medium focus-on-light outlined select-suggested" onClick={() => window.location.href = `/assign/activity-library?search=${encodeURI(a.name)}`} type="button">Select</button></td>
+                  <td className="select-col"><button className="quill-button secondary medium focus-on-light outlined select-suggested" onClick={() => window.location.href = `/assign/activity-library?activityClassificationFilters[]=evidence&search=${encodeURI(a.name)}`} type="button">Select</button></td>
                 </tr>
               )
             })}
