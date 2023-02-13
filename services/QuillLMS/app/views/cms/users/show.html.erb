@@ -72,6 +72,16 @@
     <p><%= @user.role || 'N/A' %></p>
     <br />
 
+    <% if @user.admin? %>
+      <p style='font-weight: 700;'>Admin sub-role</p>
+      <p><%= @user.admin_sub_role || 'N/A' %></p>
+      <br />
+
+      <p style='font-weight: 700;'>Admin approval status</p>
+      <p><%= @user.admin_approval_status || 'N/A' %></p>
+      <br />
+    <% end %>
+
     <% if @user.role == 'student' %>
       <p style='font-weight: 700;'>Belongs to Classes</p>
       <% @user.classrooms.each do |c| %>
