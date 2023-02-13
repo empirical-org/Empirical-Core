@@ -7,17 +7,16 @@ class BlogPostsController < ApplicationController
   before_action :redirect_invalid_topics, only: [:show_topic]
   before_action :set_announcement, only: [:index, :show, :show_topic]
   before_action :set_root_url
+  before_action :set_defer_js, except: :search
 
 
   def index
-    @defer_js = true
     topic_names = BlogPost::TEACHER_TOPICS
     @topics = topics(topic_names)
     @blog_posts = BlogPost.for_topics(topic_names)
   end
 
   def student_center_index
-    @defer_js = true
     topic_names = BlogPost::STUDENT_TOPICS
     @title = 'Resources'
     @topics = topics(topic_names)
@@ -27,7 +26,6 @@ class BlogPostsController < ApplicationController
 
   # rubocop:disable Metrics/CyclomaticComplexity
   def show
-    @defer_js = true
     draft_statuses = current_user&.staff? ? [true, false] : false
 
     @blog_post = BlogPost.find_by(slug: params[:slug], draft: draft_statuses)
@@ -81,7 +79,6 @@ class BlogPostsController < ApplicationController
   end
 
   def show_topic
-    @defer_js = true
     topic = CGI::unescape(params[:topic]).gsub('-', ' ').capitalize
 
     @blog_posts = BlogPost.for_topics(topic)
@@ -128,5 +125,9 @@ class BlogPostsController < ApplicationController
       topics.push({ name: name, slug: CGI::escape(name.downcase.gsub(' ','-'))})
     end
     topics
+  end
+
+  private def set_defer_js
+    @defer_js = true
   end
 end

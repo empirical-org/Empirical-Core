@@ -4,6 +4,10 @@ class PagesController < ApplicationController
   include HTTParty
   include PagesHelper
   before_action :determine_js_file, :determine_flag
+  before_action :set_defer_js, except: [
+    :play, :locker, :preap_units, :springboard_units, :evidence,
+    :connect, :grammar, :diagnostic, :proofreader, :lessons
+  ]
   before_action :set_root_url
 
   layout :determine_layout
@@ -35,7 +39,6 @@ class PagesController < ApplicationController
     # default numbers are current as of 03/12/19
     @number_of_sentences = $redis.get(NUMBER_OF_SENTENCES) || 252000000
     @number_of_students = $redis.get(NUMBER_OF_STUDENTS) || 2100000
-    @defer_js = true
 
     if request.env['affiliate.tag']
       name = ReferrerUser.find_by(referral_code: request.env['affiliate.tag'])&.user&.name
@@ -64,12 +67,9 @@ class PagesController < ApplicationController
     redirect_to(@module_url.to_s)
   end
 
-  def about
-    @defer_js = true
-  end
+  def about; end
 
   def faq
-    @defer_js = true
     @sections = [
       {
         title: 'General Questions',
@@ -346,7 +346,6 @@ class PagesController < ApplicationController
   end
 
   def impact
-    @defer_js = true
     @number_of_students = $redis.get(NUMBER_OF_STUDENTS) || 2100000
     @number_of_schools = $redis.get(NUMBER_OF_SCHOOLS) || 14651
     @number_of_sentences = $redis.get(NUMBER_OF_SENTENCES) || 252000000
@@ -355,62 +354,51 @@ class PagesController < ApplicationController
   end
 
   def team
-    @defer_js = true
     @open_positions = OPEN_POSITIONS
-    @defer_js = true
     request.env['HTTP_ACCEPT_ENCODING'] = 'gzip'
   end
 
   def tos
-    @defer_js = true
     @body_class = 'auxiliary white-page formatted-text'
   end
 
   def media_kit; end
 
   def privacy
-    @defer_js = true
     @body_class = 'auxiliary white-page formatted-text'
   end
 
   def diagnostic_tool
-    @defer_js = true
     @title = 'Quill Diagnostic | Free Diagnostic and Adaptive Lesson Plan'
     @description = 'Quickly determine which skills your students need to work on with our 22 question diagnostic.'
   end
 
   def grammar_tool
-    @defer_js = true
     @title = 'Quill Grammar | Free 10 Minute Activities for your Students'
     @description = 'Over 150 sentence writing activities to help your students practice basic grammar skills.'
   end
 
   def proofreader_tool
-    @defer_js = true
     @title = 'Quill Proofreader | Over 100 Expository Passages To Read And Edit'
     @description = 'Students edit passages and receive personalized exercises based on their results.'
   end
 
   def connect_tool
-    @defer_js = true
     @title = 'Quill Connect | Free Sentence Structure Activities'
     @description = 'Help your students advance from fragmented and run-on sentences to complex and well-structured sentences with Quill Connect.'
   end
 
   def lessons_tool
-    @defer_js = true
     @title = 'Quill Lessons | Free Group Writing Activities'
     @description = 'Lead whole-class and small group writing instruction with interactive writing prompts and discussion topics.'
   end
 
   def evidence_tool
-    @defer_js = true
     @title = 'Quill Reading for Evidence | Use a text to write with evidence'
     @description = 'Provide your students with nonfiction texts paired with AI-powered writing prompts, instead of multiple-choice questions, to enable deeper thinking.'
   end
 
   def activities
-    @defer_js = true
     @body_class = 'full-width-page white-page'
     @standard_level = params[:standard_level_id].present? ? StandardLevel.find(params[:standard_level_id]) : StandardLevel.first
     @standards = @standard_level.standards.map{ |standard| [standard, standard.activities.production] }.select{ |group| group.second.any? }
@@ -419,7 +407,6 @@ class PagesController < ApplicationController
   # for link to premium within 'about' (discover) pages
   # rubocop:disable Metrics/CyclomaticComplexity
   def premium
-    @defer_js = true
     @user_is_eligible_for_new_subscription = current_user&.eligible_for_new_subscription? && session[:demo_id].nil?
     @user_is_eligible_for_trial = current_user&.subscriptions&.none?
     @user_has_school = !!current_user&.school && !current_user.school.alternative?
@@ -459,13 +446,11 @@ class PagesController < ApplicationController
   def tutorials; end
 
   def press
-    @defer_js = true
     @in_the_news = BlogPost.where(draft: false, topic: BlogPost::IN_THE_NEWS).order(published_at: :desc)
     @press_releases = BlogPost.where(draft: false, topic: BlogPost::PRESS_RELEASES).order(published_at: :desc)
   end
 
   def announcements
-    @defer_js = true
     @blog_posts = BlogPost.where(draft: false, topic: BlogPost::WHATS_NEW).order('order_number')
   end
 
@@ -480,7 +465,6 @@ class PagesController < ApplicationController
   end
 
   def backpack
-    @defer_js = true
     @style_file = 'staff'
   end
 
@@ -587,5 +571,9 @@ class PagesController < ApplicationController
 
   private def set_root_url
     @root_url = root_url
+  end
+
+  private def set_defer_js
+    @defer_js = true
   end
 end
