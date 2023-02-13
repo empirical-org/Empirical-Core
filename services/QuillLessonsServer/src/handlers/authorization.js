@@ -39,7 +39,7 @@ export function authorizeSession(data, token, client, callback) {
 
 export function authorizeTeacherSession(data, token, client, callback) {
   _checkToken(data, token, client, () => {
-    const userIsTeacher    = _isRoleAuthorized(['staff', 'teacher'], token.data.role);
+    const userIsTeacher    = _isRoleAuthorized(['staff', 'teacher', 'admin'], token.data.role);
     const belongsToSession = _belongsToSession(data, token);
     const isValidSession   = userIsTeacher && belongsToSession;
 
