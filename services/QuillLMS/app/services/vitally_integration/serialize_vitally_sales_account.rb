@@ -83,7 +83,7 @@ class SerializeVitallySalesAccount
   end
 
   private def employee_count
-    @school.users.where(role: 'teacher').count || 0
+    @school.users.teacher.count || 0
   end
 
   private def paid_teacher_subscriptions

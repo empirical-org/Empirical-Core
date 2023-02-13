@@ -9,7 +9,6 @@
 @import '../../../../app/assets/stylesheets/shared/flash.scss';
 @import '../../../../app/assets/stylesheets/shared/banner.scss';
 @import '../../../../app/assets/stylesheets/shared/banner-with-button.scss';
-@import './notification_bar.scss';
 @import './typography.scss';
 @import './tool-section.scss';
 @import './schools-section.scss';
@@ -319,7 +318,7 @@ section.q-hero {
     margin-bottom: 64px !important;
   }
   .q-button {
-    margin-top: 0px !important;
+    // margin-top: 0px !important;
   }
   .evidence-new-tag {
     position: relative;

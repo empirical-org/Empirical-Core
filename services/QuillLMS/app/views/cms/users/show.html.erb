@@ -72,6 +72,16 @@
     <p><%= @user.role || 'N/A' %></p>
     <br />
 
+    <% if @user.admin? %>
+      <p style='font-weight: 700;'>Admin sub-role</p>
+      <p><%= @user.admin_sub_role || 'N/A' %></p>
+      <br />
+
+      <p style='font-weight: 700;'>Admin approval status</p>
+      <p><%= @user.admin_approval_status || 'N/A' %></p>
+      <br />
+    <% end %>
+
     <% if @user.role == 'student' %>
       <p style='font-weight: 700;'>Belongs to Classes</p>
       <% @user.classrooms.each do |c| %>
@@ -92,7 +102,7 @@
     <p><%= "#{@user.school_mail_city || @user.school&.city || 'N/A' }, #{@user.school_mail_state || @user.school&.state || 'N/A' }" %></p>
     <br />
 
-    <% if @user.role == 'teacher' %>
+    <% if @user.teacher? %>
     <% if @user.subscriptions.any? %>
       <%= react_component('SubscriptionApp', props: {view: 'subscriptionHistory', subscriptions: @user.subscriptions, premiumCredits: @user.credit_transactions, authorityLevel: 'purchaser' }) %>
     <% end %>

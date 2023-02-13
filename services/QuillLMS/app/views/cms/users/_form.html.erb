@@ -31,8 +31,18 @@
     </div>
     <div class='cms-form-row'>
       <%= f.label :role %>
-      <%= f.select :role, [['student', 'student'], ['teacher', 'teacher'], ['staff', 'staff']], autocomplete: 'off' %>
+      <%= f.select :role, [['student', 'student'], ['teacher', 'teacher'], ['admin', 'admin'], ['staff', 'staff']], autocomplete: 'off' %>
     </div>
+    <% if @user.admin? %>
+      <div class='cms-form-row'>
+        <%= f.label :admin_sub_role %>
+        <%= f.select :admin_sub_role, [nil].concat(AdminInfo::SUB_ROLES) %>
+      </div>
+      <div class='cms-form-row'>
+        <%= f.label :admin_approval_status %>
+        <%= f.text_field :admin_approval_status, :readonly => true %>
+      </div>
+    <% end %>
     <div class='cms-form-row'>
       <%= f.label :flagset %>
       <%= f.select :flagset, UserFlagset::FLAGSETS.keys.map(&:to_s) %>

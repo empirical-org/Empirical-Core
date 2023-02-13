@@ -122,15 +122,15 @@ class UserMailer < ActionMailer::Base
     end_time = date_object.end_of_day
     subject_date = date_object.strftime('%m/%d/%Y')
 
-    teacher_count = User.where(role: "teacher").count
-    new_premium_accounts = User.joins(:user_subscription).where(users: {role: "teacher"}).where(user_subscriptions: {created_at: start_time..end_time}).count
+    teacher_count = User.teacher.count
+    new_premium_accounts = User.teacher.joins(:user_subscription).where(user_subscriptions: {created_at: start_time..end_time}).count
     conversion_rate = new_premium_accounts/teacher_count.to_f
 
     @current_date = date_object.strftime("%A, %B %d")
-    @daily_active_teachers = User.where(role: "teacher").where(last_sign_in: start_time..end_time).size
-    @daily_active_students = User.where(role: "student").where(last_sign_in: start_time..end_time).size
-    @new_teacher_signups = User.where(role: "teacher").where(created_at: start_time..end_time).size
-    @new_student_signups = User.where(role: "student").where(created_at: start_time..end_time).size
+    @daily_active_teachers = User.teacher.where(last_sign_in: start_time..end_time).size
+    @daily_active_students = User.student.where(last_sign_in: start_time..end_time).size
+    @new_teacher_signups = User.teacher.where(created_at: start_time..end_time).size
+    @new_student_signups = User.student.where(created_at: start_time..end_time).size
     @classrooms_created = Classroom.where(created_at: start_time..end_time).size
     @activities_assigned = UnitActivity.where(created_at: start_time..end_time).size
     # Sentences written is quantified by number of activities completed multiplied by 10 because
@@ -170,6 +170,18 @@ class UserMailer < ActionMailer::Base
 
     attachments[FEEDBACK_SESSIONS_CSV_FILENAME] = {mime_type: 'text/csv', content: csv}
     mail from: "The Quill Team <hello@quill.org>", to: email, subject: FEEDBACK_SESSIONS_CSV_DOWNLOAD
+  end
+
+  def approved_admin_email(user, school_name)
+    @user = user
+    @school_name = school_name
+    mail from: "The Quill Team <hello@quill.org>", to: user.email, subject: "You were approved as an admin of #{school_name}"
+  end
+
+  def denied_admin_email(user, school_name)
+    @user = user
+    @school_name = school_name
+    mail from: "The Quill Team <hello@quill.org>", to: user.email, subject: "We couldn’t verify you as an admin of #{school_name}"
   end
 
   private def link_for_setting_password(role)

@@ -21,7 +21,7 @@ class PopulateAnnualVitallyWorker
   end
 
   def schools_to_sync
-    School.select(:id).distinct.joins(:users).where('users.role = ?', 'teacher')
+    School.select(:id).distinct.joins(:users).merge(User.teacher)
   end
 
   def users_to_sync
