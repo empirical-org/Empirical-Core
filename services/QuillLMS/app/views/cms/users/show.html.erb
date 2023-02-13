@@ -74,11 +74,11 @@
 
     <% if @user.admin? %>
       <p style='font-weight: 700;'>Admin sub-role</p>
-      <p><%= @user.admin_info&.sub_role || 'N/A' %></p>
+      <p><%= @user.admin_sub_role || 'N/A' %></p>
       <br />
 
       <p style='font-weight: 700;'>Admin approval status</p>
-      <p><%= @user.admin_info&.approval_status || 'N/A' %></p>
+      <p><%= @user.admin_approval_status || 'N/A' %></p>
       <br />
     <% end %>
 

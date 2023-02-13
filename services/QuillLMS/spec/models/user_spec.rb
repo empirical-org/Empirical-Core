@@ -1567,8 +1567,6 @@ describe User, type: :model do
     end
 
     context 'user has no admin info' do
-      let!(:admin_info) { create(:admin_info, user: user)}
-
       it 'creates a new admin info record with the specified sub role' do
         user.admin_sub_role=AdminInfo::LIBRARIAN_SLASH_MEDIA_SPECIALIST
         expect(user.admin_sub_role).to eq(AdminInfo::LIBRARIAN_SLASH_MEDIA_SPECIALIST)
