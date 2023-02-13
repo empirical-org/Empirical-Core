@@ -102,7 +102,7 @@
     <p><%= "#{@user.school_mail_city || @user.school&.city || 'N/A' }, #{@user.school_mail_state || @user.school&.state || 'N/A' }" %></p>
     <br />
 
-    <% if @user.role == 'teacher' %>
+    <% if @user.teacher? %>
     <% if @user.subscriptions.any? %>
       <%= react_component('SubscriptionApp', props: {view: 'subscriptionHistory', subscriptions: @user.subscriptions, premiumCredits: @user.credit_transactions, authorityLevel: 'purchaser' }) %>
     <% end %>

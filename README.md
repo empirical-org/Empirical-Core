@@ -38,7 +38,7 @@ QuillLessonsServer is a real-time application that supports our in-classroom pro
 
 As mentioned above, this repo is most of the code we use day-to-day at Quill. Outside of the main applications, there are some smaller code items:
 - Small javascript libraries live in [packages](packages/).
-- There are some serverless functions in [lambdas](lambdas/) and [services/comprehension/](services/comprehension/).
+- There are some serverless functions in [lambdas](lambdas/).
 - One-off scripts live in [scripts/](scripts/)
 
 ## Getting started

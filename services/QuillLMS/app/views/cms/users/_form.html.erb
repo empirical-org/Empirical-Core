@@ -31,7 +31,7 @@
     </div>
     <div class='cms-form-row'>
       <%= f.label :role %>
-      <%= f.select :role, [['student', 'student'], ['teacher', 'teacher'], ['staff', 'staff']], autocomplete: 'off' %>
+      <%= f.select :role, [['student', 'student'], ['teacher', 'teacher'], ['admin', 'admin'], ['staff', 'staff']], autocomplete: 'off' %>
     </div>
     <% if @user.admin? %>
       <div class='cms-form-row'>

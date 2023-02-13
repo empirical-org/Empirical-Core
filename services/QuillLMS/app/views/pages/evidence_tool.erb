@@ -7,8 +7,4 @@
 
 <%= react_component('EvidenceToolApp', props: { loggedInUser: current_user && signed_in? })%>
 
-<% if current_user %>
-  <%= render partial: 'footer' %>
-<% else %>
-  <%= render partial: 'pages/shared/footer' %>
-<% end %>
+<%= render partial: 'pages/shared/footer' %>

@@ -276,7 +276,7 @@ export default class ActivityPacks extends React.Component {
 
   render() {
     return (
-      <div className="container manage-units">
+      <div className="container manage-units gray-background-accommodate-footer">
         {this.stateBasedComponent()}
       </div>
     );

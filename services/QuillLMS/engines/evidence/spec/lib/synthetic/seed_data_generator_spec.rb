@@ -239,6 +239,23 @@ module Evidence
       end
     end
 
+    describe 'API timeout' do
+      let(:openai_url) {'https://api.openai.com/v1/completions'}
+      let(:because) {described_class.new(passage: '', stem: stem, conjunction: 'because')}
+
+      before do
+        stub_request(:post, openai_url).to_timeout
+      end
+
+      context 'run_prompt' do
+        subject { because.send(:run_prompt, prompt: '', count: 1, seed: '') }
+
+        it "return empty array" do
+          expect(subject).to eq([])
+        end
+      end
+    end
+
     describe "#stem_variants_hash" do
       let(:conjunction) {'thus'}
       let(:stem) {"It is true, #{conjunction}"}
