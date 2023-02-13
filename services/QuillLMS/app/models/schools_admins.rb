@@ -20,7 +20,13 @@ class SchoolsAdmins < ApplicationRecord
   belongs_to :school
   belongs_to :user
 
+  before_save :set_user_role
+
   def admin
     user
+  end
+
+  private def set_user_role
+    user.update(role: User::ADMIN) unless user.admin?
   end
 end

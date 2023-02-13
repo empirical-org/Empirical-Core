@@ -8,7 +8,7 @@ class AccountCreationWorker
 
     # tell segment.io
     analytics = Analyzer.new
-    return unless @user.role.teacher?
+    return unless @user.teacher?
 
     events = [SegmentIo::BackgroundEvents::TEACHER_ACCOUNT_CREATION]
     events += [SegmentIo::BackgroundEvents::TEACHER_SIGNED_UP_FOR_NEWSLETTER] if @user.send_newsletter

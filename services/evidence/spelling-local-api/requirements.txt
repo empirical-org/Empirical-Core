@@ -1,4 +1,0 @@
-# Function dependencies, for example:
-# package>=version
-flask>=1.1.1
-symspellpy>=6.5.2

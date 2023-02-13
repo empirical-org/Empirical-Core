@@ -1,0 +1,34 @@
+.admin-verification {
+  height: 100%;
+  .menu-list button {
+    background-color: white;
+    border: none;
+    text-align: left;
+  }
+  .approval-section {
+    display: flex;
+    flex-direction: column;
+    button {
+      text-align: left;
+      color: #06806B;
+      margin-bottom: 4px;
+    }
+    span {
+      font-weight: 600;
+    }
+  }
+  .data-table-row-section {
+    white-space: inherit;
+  }
+  .quill-modal {
+    z-index: 100;
+    height: min-content;
+    .button-section {
+      display: flex;
+      justify-content: flex-end;
+      .quill-button {
+        margin-left: 16px;
+      }
+    }
+  }
+}

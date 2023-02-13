@@ -130,5 +130,26 @@ RSpec.describe Mailer::User do
         user.mailer_user.send_internal_tool_made_district_admin_email(district.name)
       end
     end
+
+  end
+
+  describe '#send_approved_admin_email' do
+    let(:mailer_method) { :approved_admin_email }
+    let(:mailer_class)  { UserMailer }
+
+    it 'should send the mail with user mailer' do
+      expect(mailer_class).to receive(mailer_method).with(user.mailer_user, school.name)
+      user.mailer_user.send_approved_admin_email(school.name)
+    end
+  end
+
+  describe '#send_denied_admin_email' do
+    let(:mailer_method) { :denied_admin_email }
+    let(:mailer_class)  { UserMailer }
+
+    it 'should send the mail with user mailer' do
+      expect(mailer_class).to receive(mailer_method).with(user.mailer_user, school.name)
+      user.mailer_user.send_denied_admin_email(school.name)
+    end
   end
 end

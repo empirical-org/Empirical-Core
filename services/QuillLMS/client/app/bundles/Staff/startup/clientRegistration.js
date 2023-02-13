@@ -9,6 +9,7 @@ import BackpackIndex from '../containers/BackpackIndex.tsx'
 import AttributesManagerIndex from './AttributesManagerIndex'
 import ActivityFormIndex from './ActivityFormIndex'
 import NewAdminOrDistrictUserApp from './NewAdminOrDistrictUserApp'
+import AdminVerificationApp from './AdminVerificationApp'
 
 ReactOnRails.register({
   ConceptsIndex,
@@ -16,5 +17,6 @@ ReactOnRails.register({
   EvidenceIndex,
   AttributesManagerIndex,
   ActivityFormIndex,
-  NewAdminOrDistrictUserApp
+  NewAdminOrDistrictUserApp,
+  AdminVerificationApp,
 });

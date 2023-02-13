@@ -1,3 +1,0 @@
-Use `lms_domain=http://#{your-local-domain} ./run.sh` to run the local server.  It will automatically attempt to connect to a locally running instance of the LMS.
-
-Server runs on http://localhost:8080

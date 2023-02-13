@@ -33,14 +33,14 @@
 .premium-footer {
   background-color: #DF9E3D;
   color: white;
+  padding: 32px 61px;
   .content-container {
-    max-width: 1200px;
-    width: calc(100% - 30px);
-    margin: 0px auto;
     display: flex;
     justify-content: space-between;
     align-items: center;
     font-size: 16px;
+    max-width: $sitewidepagewidth;
+    margin: auto;
     @media (max-width: 410px) {
       flex-direction: column;
       align-items: flex-start;
@@ -53,7 +53,6 @@
     }
   }
   .text-section {
-    width: 703px;
     padding-top: 32px;
     padding-bottom: 32px;
 
@@ -65,7 +64,8 @@
     }
     p {
       padding-top: 8px;
-      width: 703px;
+      max-width: 703px;
+      margin-right: 16px;
       font-style: normal;
       font-weight: 400;
       font-size: 15px;

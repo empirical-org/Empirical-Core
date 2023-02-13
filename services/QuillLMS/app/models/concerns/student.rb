@@ -53,9 +53,12 @@ module Student
     end
 
     def move_student_from_one_class_to_another(old_classroom, new_classroom)
-      StudentsClassrooms.unscoped.find_or_create_by(student_id: id, classroom_id: new_classroom.id).update(visible: true)
+      student_classroom = StudentsClassrooms.unscoped.find_or_create_by(student: self, classroom: new_classroom)
+      student_classroom.update(visible: true)
+      student_classroom.validate_assigned_student
+
       move_activity_sessions(old_classroom, new_classroom)
-      old_classroom_students_classrooms = StudentsClassrooms.find_by(student_id: id, classroom_id: old_classroom.id)
+      old_classroom_students_classrooms = StudentsClassrooms.find_by(student: self, classroom: old_classroom)
       # a callback on the students classroom model will remove the student from any associated classroom units
       old_classroom_students_classrooms&.update(visible: false)
     end

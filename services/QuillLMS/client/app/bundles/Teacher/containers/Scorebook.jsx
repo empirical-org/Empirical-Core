@@ -309,7 +309,7 @@ export default createReactClass({
     }
 
     return (
-      <div className="page-content-wrapper">
+      <div className="page-content-wrapper gray-background-accommodate-footer">
         <div className="tab-pane" id="scorebook">
           <div className="container">
             <section className="section-content-wrapper">
