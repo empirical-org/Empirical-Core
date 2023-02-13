@@ -31,7 +31,7 @@ module StripeIntegration
       end
 
       private def subscription
-        ::Subscription.find_by!(stripe_invoice_id: stripe_invoice_id)
+        ::Subscription.find_by!(stripe_invoice_id: stripe_invoice_id, stripe_subscription_id: stripe_subscription.id)
       rescue ActiveRecord::RecordNotFound
         raise SubscriptionNotFoundError
       end
