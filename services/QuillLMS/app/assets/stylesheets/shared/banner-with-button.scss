@@ -33,12 +33,14 @@
 .premium-footer {
   background-color: #DF9E3D;
   color: white;
+  padding: 32px 61px;
   .content-container {
-    padding: 32px 61px;
     display: flex;
     justify-content: space-between;
     align-items: center;
     font-size: 16px;
+    max-width: $sitewidepagewidth;
+    margin: auto;
     @media (max-width: 410px) {
       flex-direction: column;
       align-items: flex-start;

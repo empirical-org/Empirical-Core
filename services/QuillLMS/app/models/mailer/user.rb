@@ -50,5 +50,13 @@ module Mailer
     def send_internal_tool_made_district_admin_email(district_name)
       InternalToolUserMailer.made_district_admin_email(self, district_name).deliver_now! if email.present?
     end
+
+    def send_approved_admin_email(school_name)
+      UserMailer.approved_admin_email(self, school_name).deliver_now! if email.present?
+    end
+
+    def send_denied_admin_email(school_name)
+      UserMailer.denied_admin_email(self, school_name).deliver_now! if email.present?
+    end
   end
 end
