@@ -355,7 +355,6 @@ class PagesController < ApplicationController
 
   def team
     @open_positions = OPEN_POSITIONS
-    request.env['HTTP_ACCEPT_ENCODING'] = 'gzip'
   end
 
   def tos
