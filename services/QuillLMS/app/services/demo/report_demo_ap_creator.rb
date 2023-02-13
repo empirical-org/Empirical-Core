@@ -20,7 +20,7 @@ module Demo::ReportDemoAPCreator
     values = {
       name: "Demo Teacher",
       email: email,
-      role: "teacher",
+      role: User::TEACHER,
       password: 'password',
       password_confirmation: 'password',
     }

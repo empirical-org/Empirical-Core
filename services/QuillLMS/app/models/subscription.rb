@@ -4,21 +4,22 @@
 #
 # Table name: subscriptions
 #
-#  id                    :integer          not null, primary key
-#  account_type          :string
-#  de_activated_date     :date
-#  expiration            :date
-#  payment_amount        :integer
-#  payment_method        :string
-#  purchase_order_number :string
-#  purchaser_email       :string
-#  recurring             :boolean          default(FALSE)
-#  start_date            :date
-#  created_at            :datetime
-#  updated_at            :datetime
-#  plan_id               :integer
-#  purchaser_id          :integer
-#  stripe_invoice_id     :string
+#  id                     :integer          not null, primary key
+#  account_type           :string
+#  de_activated_date      :date
+#  expiration             :date
+#  payment_amount         :integer
+#  payment_method         :string
+#  purchase_order_number  :string
+#  purchaser_email        :string
+#  recurring              :boolean          default(FALSE)
+#  start_date             :date
+#  created_at             :datetime
+#  updated_at             :datetime
+#  plan_id                :integer
+#  purchaser_id           :integer
+#  stripe_invoice_id      :string
+#  stripe_subscription_id :string
 #
 # Indexes
 #
@@ -113,7 +114,10 @@ class Subscription < ApplicationRecord
 
   ALL_TYPES = OFFICIAL_FREE_TYPES.dup.concat(OFFICIAL_PAID_TYPES).freeze
 
-  delegate :stripe_cancel_at_period_end, :stripe_subscription_id, :stripe_subscription_url,
+  validates :stripe_invoice_id, allow_blank: true, stripe_uid: { prefix: :in }
+  validates :stripe_subscription_id, allow_blank: true, stripe_uid: { prefix: :sub }
+
+  delegate :stripe_cancel_at_period_end, :stripe_subscription_url,
     to: :stripe_subscription
 
   scope :active, -> { not_expired.not_de_activated.order(expiration: :asc) }
@@ -122,9 +126,9 @@ class Subscription < ApplicationRecord
   scope :not_de_activated, -> { where(de_activated_date: nil) }
   scope :recurring, -> { where(recurring: true) }
   scope :not_recurring, -> { where(recurring: false) }
-  scope :not_stripe, -> { where(stripe_invoice_id: nil) }
+  scope :not_stripe, -> { where(stripe_invoice_id: nil, stripe_subscription_id: nil) }
   scope :started, -> { where("start_date <= ?", Date.current) }
-  scope :paid_with_card, -> { where.not(stripe_invoice_id: nil).or(where(payment_method: 'Credit Card')) }
+  scope :paid_with_card, -> { where.not(stripe_invoice_id: nil, stripe_subscription_id: nil).or(where(payment_method: 'Credit Card')) }
   scope :for_schools, -> { where(account_type: OFFICIAL_SCHOOL_TYPES) }
   scope :for_teachers, -> { where(account_type: OFFICIAL_TEACHER_TYPES) }
   scope :expiring, ->(date) { where(expiration: date) }
@@ -329,6 +333,6 @@ class Subscription < ApplicationRecord
   end
 
   def stripe?
-    stripe_invoice_id.present?
+    stripe_invoice_id.present? && stripe_subscription_id.present?
   end
 end

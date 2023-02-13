@@ -8,8 +8,6 @@ RSpec.describe SaveUserPackSequenceItemsWorker do
   let(:classroom_id) { create(:classroom).id }
   let(:user_id) { create(:user).id }
 
-  before { SidekiqUniqueJobs.config.enabled = false }
-
   context 'nil classroom_id' do
     let(:classroom_id) { nil }
 

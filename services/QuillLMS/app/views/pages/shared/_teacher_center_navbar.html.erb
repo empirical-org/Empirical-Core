@@ -1,21 +1,5 @@
-<%-# required local vars: active_tab %>
-
-<div class="subnav teacher-center-navbar">
-  <div class="container">
-    <% if current_user&.role == 'student' %>
-      <div class="full-screen">
-        <%= render partial: "pages/shared/generic_tabs", locals: { tabs: student_center_tabs(large: true), active_tab: active_tab} %>
-      </div>
-      <div class="small-screen">
-        <%= render partial: "pages/shared/generic_tabs", locals: { tabs: student_center_tabs(large: false), active_tab:  active_tab} %>
-      </div>
-    <% else %>
-      <div class="full-screen">
-        <%= render partial: "pages/shared/generic_tabs", locals: { tabs: teacher_center_tabs, active_tab: active_tab} %>
-      </div>
-      <div class="small-screen">
-        <%= render partial: "pages/shared/generic_tabs", locals: { tabs: teacher_center_tabs, active_tab:  active_tab} %>
-      </div>
-    <% end%>
-  </div>
-</div>
+<%= react_component('SubNavbarApp', props: {
+  activeTab: active_tab,
+  desktopTabs: teacher_center_tabs(large: true),
+  mobileTabs: teacher_center_tabs(large: false)
+}) %>

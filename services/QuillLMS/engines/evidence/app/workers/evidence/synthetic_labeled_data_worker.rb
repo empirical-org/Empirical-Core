@@ -3,7 +3,7 @@
 module Evidence
   class SyntheticLabeledDataWorker
     include Evidence.sidekiq_module
-    sidekiq_options retry: 0
+    sidekiq_options retry: 1
 
     def perform(filename, activity_id)
       uploader = Evidence.file_uploader.new

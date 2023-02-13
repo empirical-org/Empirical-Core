@@ -49,9 +49,7 @@ class Teachers::ProgressReportsController < ApplicationController
   end
 
   private def authorize!
-    return if current_user.try(:teacher?)
-
-    auth_failed
+    teacher_or_staff!
   end
 
   private def switch_current_user(user)

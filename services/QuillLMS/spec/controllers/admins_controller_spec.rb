@@ -154,6 +154,19 @@ describe AdminsController  do
             end
           end
 
+          describe 'and they are already an admin for another school' do
+            it 'creates a school admin record, returns a message and does not send an additional email' do
+              other_school = create(:school)
+              create(:schools_users, school: other_school, user: existing_teacher)
+              create(:schools_admins, user: existing_teacher, school: other_school)
+
+              post :create_and_link_accounts, params: { id: admin.id, school_id: school.id, teacher: { role: 'admin', email: existing_teacher.email }}
+              expect(response.body).to eq({message: I18n.t('admin_created_account.existing_account.admin.admin_for_other_school')}.to_json)
+              expect(ActionMailer::Base.deliveries.count).to eq(0)
+              expect(SchoolsAdmins.find_by(school: school, user: existing_teacher)).to be
+            end
+          end
+
         end
 
       end

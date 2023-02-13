@@ -284,3 +284,22 @@
     }
   }
 }
+
+@media (min-width: 1500px) {
+  .unit-template-minis {
+    width: 1480px !important;
+    grid-template-columns: 1fr 1fr 1fr !important;
+    .all-packs-section {
+      width: 1480px !important;
+    }
+    .packs-section {
+      grid-template-columns: 1fr 1fr 1fr !important;
+    }
+  }
+  .unit-templates-table {
+    min-width: $sitewidepagewidth;
+    .data-table-row {
+      min-width: $sitewidepagewidth;
+    }
+  }
+}

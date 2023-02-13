@@ -4,21 +4,22 @@
 #
 # Table name: subscriptions
 #
-#  id                    :integer          not null, primary key
-#  account_type          :string
-#  de_activated_date     :date
-#  expiration            :date
-#  payment_amount        :integer
-#  payment_method        :string
-#  purchase_order_number :string
-#  purchaser_email       :string
-#  recurring             :boolean          default(FALSE)
-#  start_date            :date
-#  created_at            :datetime
-#  updated_at            :datetime
-#  plan_id               :integer
-#  purchaser_id          :integer
-#  stripe_invoice_id     :string
+#  id                     :integer          not null, primary key
+#  account_type           :string
+#  de_activated_date      :date
+#  expiration             :date
+#  payment_amount         :integer
+#  payment_method         :string
+#  purchase_order_number  :string
+#  purchaser_email        :string
+#  recurring              :boolean          default(FALSE)
+#  start_date             :date
+#  created_at             :datetime
+#  updated_at             :datetime
+#  plan_id                :integer
+#  purchaser_id           :integer
+#  stripe_invoice_id      :string
+#  stripe_subscription_id :string
 #
 # Indexes
 #
@@ -37,11 +38,15 @@ FactoryBot.define do
     payment_method { '' }
     stripe_invoice_id { nil }
     purchase_order_number { nil }
+    stripe_subscription_id { nil }
     plan { nil }
 
     trait(:recurring) { recurring true }
     trait(:non_recurring) { recurring false }
-    trait(:stripe) { stripe_invoice_id { "in_#{SecureRandom.hex}"} }
+    trait(:stripe) do
+      stripe_subscription_id { "sub_#{SecureRandom.hex}" }
+      stripe_invoice_id { "in_#{SecureRandom.hex}" }
+    end
 
     after(:create) do |subscription|
       subscription.update(account_type: subscription.plan.name) if subscription.plan.present?

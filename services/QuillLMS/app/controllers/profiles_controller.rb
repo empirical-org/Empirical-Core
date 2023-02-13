@@ -55,12 +55,14 @@ class ProfilesController < ApplicationController
     render json: {classrooms: students_classrooms_with_join_info}
   end
 
+  def admin
+    return redirect_to dashboard_teachers_classrooms_path if admin_impersonating_user?(@user)
+
+    redirect_to teachers_admin_dashboard_path
+  end
+
   def teacher
-    if @user.schools_admins.any? && !admin_impersonating_user?(@user)
-      redirect_to teachers_admin_dashboard_path
-    else
-      redirect_to dashboard_teachers_classrooms_path
-    end
+    redirect_to dashboard_teachers_classrooms_path
   end
 
   def staff

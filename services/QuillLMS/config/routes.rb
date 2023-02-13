@@ -107,6 +107,10 @@ EmpiricalGrammar::Application.routes.draw do
   resources :assignments
   resource :profile
   resources :password_reset
+  resources :verify_emails, only: [] do
+    post :verify_by_staff, on: :collection, format: :json
+    post :verify_by_token, on: :collection, format: :json
+  end
   resources :schools, only: [:index], format: 'json'
   resources :students_classrooms, only: :create do
     collection do
@@ -427,7 +431,7 @@ EmpiricalGrammar::Application.routes.draw do
       get 'rule_feedback_history/:rule_uid' => 'rule_feedback_histories#rule_detail'
       get 'prompt_health' => 'rule_feedback_histories#prompt_health'
       get 'activity_health' => 'rule_feedback_histories#activity_health'
-      get 'session_data_for_csv' => 'session_feedback_histories#session_data_for_csv'
+      post 'email_csv_data' => 'session_feedback_histories#email_csv_data'
 
       resources :activities,              except: [:index, :new, :edit]
       resources :activity_flags,          only: [:index]
@@ -592,6 +596,11 @@ EmpiricalGrammar::Application.routes.draw do
     resources :evidence, only: [:index]
     resources :rosters, only: [:index] do
       post :upload_teachers_and_students, on: :collection
+    end
+    resources :admin_verification, only: [:index] do
+      put :set_approved, on: :collection
+      put :set_denied, on: :collection
+      put :set_pending, on: :collection
     end
     resources :standard_levels, only: [:index, :create, :update]
     resources :standards, only: [:index, :create, :update]

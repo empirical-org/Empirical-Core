@@ -1,42 +1,42 @@
-import React from 'react';
+import * as React from 'react';
 
-import { SortableList, } from '../../../../Shared/index'
+import { tableHeaders, blogPostRows, saveOrderButton, } from './shared'
 
-const featuredBlogPost = (blogPost, handleClickStar) => {
-  const handleClick = () => handleClickStar(blogPost.id)
-  return (
-    <div className="featured-blog-post" key={blogPost.id}>
-      <div className="featured-blog-post-header">
-        <p className="title">{blogPost.title}</p>
-        <button className="interactive-wrapper" onClick={handleClick} type="button">
-          <i className="fas fa-star" />
-        </button>
-      </div>
-      <p>{blogPost.topic}</p>
-    </div>
-  )
-}
+import { DataTable, } from '../../../../Shared/index'
 
 const FeaturedBlogPosts = ({
   featuredBlogPosts,
-  handleClickSaveOrder,
   handleClickStar,
-  updateOrder
+  updateOrder,
+  saveOrder,
 }) => {
-  const sortedBlogPosts = featuredBlogPosts.sort((bp1, bp2) => bp1.featured_order_number - bp2.featured_order_number)
-  const blogPostCards = sortedBlogPosts.map(bp => featuredBlogPost(bp, handleClickStar))
+  const [orderHasChanged, setOrderHasChanged] = React.useState(false)
+
+  function handleOrderChange(sortInfo) {
+    setOrderHasChanged(true)
+    updateOrder(sortInfo)
+  }
+
+  const rows = blogPostRows(featuredBlogPosts.sort((bp1, bp2) => bp1.featured_order_number - bp2.featured_order_number), handleClickStar, false)
+
   return (
-    <div className="featured-blog-posts">
-      <h2>Featured <button className="save-order interactive-wrapper" onClick={handleClickSaveOrder} type="button">Save Order</button></h2>
+    <section className="featured-blog-posts">
+      <div className="section-header">
+        <h2>Featured</h2>
+        {saveOrderButton(orderHasChanged, saveOrder)}
+      </div>
       <div className="explanation">
         <p>Posts that display in the overview page of the teacher dashboard</p>
-        <ul>
-          <li>Drag and drop to rearrange featured posts</li>
-          <li>Un-star a post to add a new featured post</li>
-        </ul>
+        <p>Drag and drop to rearrange featured posts</p>
+        <p>Un-star a post to add a new featured post</p>
       </div>
-      <SortableList axis="x" data={blogPostCards} sortCallback={updateOrder} />
-    </div>
+      <DataTable
+        headers={tableHeaders}
+        isReorderable={true}
+        reorderCallback={handleOrderChange}
+        rows={rows}
+      />
+    </section>
   )
 }
 

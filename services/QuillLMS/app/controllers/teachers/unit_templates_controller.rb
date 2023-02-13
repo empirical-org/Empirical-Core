@@ -72,7 +72,7 @@ class Teachers::UnitTemplatesController < ApplicationController
   end
 
   private def is_teacher?
-    @is_teacher = (current_user && current_user.role == 'teacher')
+    @is_teacher = current_user&.teacher?
   end
 
   private def redirect_to_public_index_if_no_unit_template_found

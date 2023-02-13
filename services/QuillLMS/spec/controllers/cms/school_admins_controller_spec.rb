@@ -68,5 +68,16 @@ describe Cms::SchoolAdminsController do
         expect(body_contains_expected_content).to be true
       end
     end
+
+    it 'creates a new school admin for an existing admin user and does not send an additional email' do
+      Sidekiq::Testing.inline! do
+        school2.users.push(admin2)
+        admin2.reload
+        post :create, params: { school_id: school1.id, email: admin2.email}
+        post :create, params: { school_id: school2.id, email: admin2.email}
+
+        expect(ActionMailer::Base.deliveries.count).to eq(1)
+      end
+    end
   end
 end

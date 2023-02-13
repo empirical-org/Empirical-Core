@@ -1,0 +1,48 @@
+$quillblue: #348fdf;
+$white: #fff;
+
+.notification-bar, .upgraded_bar {
+  background-color: $quillblue;
+  margin: 0;
+  width: 100%;
+
+  p {
+    margin: 0 auto;
+    line-height: 50px;
+    text-align: center;
+    color: $white;
+
+    a {
+      color: $white;
+      font-weight: bold;
+      text-decoration: underline;
+    }
+  }
+
+  @media screen and (max-width: 501px) {
+    display: none;
+  }
+
+  &.google-issue {
+    p {
+      max-width: 955px;
+      line-height: inherit;
+      padding: 10px;
+    }
+  }
+}
+
+.upgraded-bar {
+  p {
+
+    span {
+      font-weight: bold;
+    }
+    a {
+      font-weight: 600;
+    }
+    i, svg {
+      margin-right: 6px;
+    }
+  }
+}

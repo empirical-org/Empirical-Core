@@ -4,21 +4,22 @@
 #
 # Table name: subscriptions
 #
-#  id                    :integer          not null, primary key
-#  account_type          :string
-#  de_activated_date     :date
-#  expiration            :date
-#  payment_amount        :integer
-#  payment_method        :string
-#  purchase_order_number :string
-#  purchaser_email       :string
-#  recurring             :boolean          default(FALSE)
-#  start_date            :date
-#  created_at            :datetime
-#  updated_at            :datetime
-#  plan_id               :integer
-#  purchaser_id          :integer
-#  stripe_invoice_id     :string
+#  id                     :integer          not null, primary key
+#  account_type           :string
+#  de_activated_date      :date
+#  expiration             :date
+#  payment_amount         :integer
+#  payment_method         :string
+#  purchase_order_number  :string
+#  purchaser_email        :string
+#  recurring              :boolean          default(FALSE)
+#  start_date             :date
+#  created_at             :datetime
+#  updated_at             :datetime
+#  plan_id                :integer
+#  purchaser_id           :integer
+#  stripe_invoice_id      :string
+#  stripe_subscription_id :string
 #
 # Indexes
 #
