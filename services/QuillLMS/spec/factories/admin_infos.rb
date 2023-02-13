@@ -24,5 +24,7 @@
 FactoryBot.define do
   factory :admin_info do
     association :admin, factory: :user
+    approval_status { AdminInfo::APPROVAL_STATUSES.sample }
+    sub_role { AdminInfo::SUB_ROLES.sample }
   end
 end

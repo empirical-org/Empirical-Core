@@ -1518,6 +1518,63 @@ describe User, type: :model do
     end
   end
 
+  describe '#admin_sub_role' do
+    let(:user) { create(:user) }
+
+    context 'user has admin info' do
+      let!(:admin_info) { create(:admin_info, user: user)}
+
+      it 'returns the sub role from the admin info' do
+        expect(user.admin_sub_role).to eq(admin_info.sub_role)
+      end
+    end
+
+    context 'user has no admin info' do
+      it 'returns nil' do
+        expect(user.admin_sub_role).to eq(nil)
+      end
+    end
+  end
+
+  describe '#admin_approval_status' do
+    let(:user) { create(:user) }
+
+    context 'user has admin info' do
+      let!(:admin_info) { create(:admin_info, user: user)}
+
+      it 'returns the sub role from the admin info' do
+        expect(user.admin_approval_status).to eq(admin_info.approval_status)
+      end
+    end
+
+    context 'user has no admin info' do
+      it 'returns nil' do
+        expect(user.admin_approval_status).to eq(nil)
+      end
+    end
+  end
+
+  describe '#admin_sub_role=' do
+    let(:user) { create(:user) }
+
+    context 'user has admin info' do
+      let!(:admin_info) { create(:admin_info, user: user)}
+
+      it 'sets the admin info to have the new sub role' do
+        user.admin_sub_role=AdminInfo::LIBRARIAN_SLASH_MEDIA_SPECIALIST
+        expect(user.admin_sub_role).to eq(AdminInfo::LIBRARIAN_SLASH_MEDIA_SPECIALIST)
+      end
+    end
+
+    context 'user has no admin info' do
+      it 'creates a new admin info record with the specified sub role' do
+        user.admin_sub_role=AdminInfo::LIBRARIAN_SLASH_MEDIA_SPECIALIST
+        expect(user.reload.admin_sub_role).to eq(AdminInfo::LIBRARIAN_SLASH_MEDIA_SPECIALIST)
+      end
+    end
+  end
+
+
   describe 'email verification logic' do
     let(:user) { create(:user) }
     let!(:user_email_verification) { create(:user_email_verification, user: user) }
