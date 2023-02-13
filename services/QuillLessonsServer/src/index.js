@@ -7,9 +7,11 @@ import fs from 'fs';
 import jwt from 'jsonwebtoken';
 import http from 'http';
 import path from 'path';
+
 import rethinkdbConfig from './config/rethinkdb';
 import { requestHandler } from './config/server';
 import { nrTrack } from './config/newrelic';
+import { teacherRoles, } from './constants'
 
 const Sentry = require('@sentry/node');
 
@@ -237,7 +239,7 @@ r.connect(dbConfig, (err, connection) => {
     io.on('connection', (client) => {
       client.on('authentication', (data) => {
         const adaptors = { connection, client };
-        const adminRoles = ['teacher', 'staff'];
+        const adminRoles = teacherRoles;
         const authToken = verifyToken(data.token);
         registerConnection(client);
 
