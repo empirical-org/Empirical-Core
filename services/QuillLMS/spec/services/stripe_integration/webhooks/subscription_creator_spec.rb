@@ -115,9 +115,9 @@ RSpec.describe StripeIntegration::Webhooks::SubscriptionCreator do
   end
 
   context 'stripe_invoice_id not unique' do
-    before { create(:subscription, stripe_invoice_id: stripe_invoice_id) }
+    before { create(:subscription, stripe_invoice_id: stripe_invoice_id, stripe_subscription_id: stripe_subscription_id) }
 
-    it { expect { subject }.to raise_error described_class::StripeInvoiceIdNotUniqueError }
+    it { expect { subject }.to raise_error described_class::StripeSubscriptionInvoicePairNotUniqueError }
   end
 
   context 'plan does not exist' do
