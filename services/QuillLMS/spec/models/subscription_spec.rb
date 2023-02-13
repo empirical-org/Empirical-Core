@@ -363,6 +363,7 @@ describe Subscription, type: :model do
     it 'should set the values for payment_amount and purchaser_email' do
       subscription = create(:subscription)
       # This fakes a valid stripe_invoice_id being set on the model
+      allow(subscription).to receive(:stripe_invoice_id).and_return(true)
       subscription.populate_data_from_stripe_invoice
       expect(subscription.payment_amount).to eq(invoice_total)
       expect(subscription.purchaser_email).to eq(customer_email)
@@ -379,7 +380,6 @@ describe Subscription, type: :model do
 
     it 'should silently not set values for payment_amount and purchaser_email if stripe_invoice_id is not set' do
       subscription = create(:subscription, stripe_invoice_id: nil)
-      expect(subscription).to receive(:stripe_invoice).and_return(nil)
       subscription.populate_data_from_stripe_invoice
       expect(subscription.payment_amount).to eq(nil)
       expect(subscription.purchaser_email).to eq(nil)

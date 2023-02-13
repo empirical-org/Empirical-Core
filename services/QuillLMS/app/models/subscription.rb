@@ -319,7 +319,7 @@ class Subscription < ApplicationRecord
   end
 
   def populate_data_from_stripe_invoice
-    return unless stripe_invoice.present?
+    return unless stripe_invoice_id.present?
 
     self.payment_amount = stripe_invoice.total unless payment_amount
     self.purchaser_email = stripe_invoice.customer_email unless purchaser_email
