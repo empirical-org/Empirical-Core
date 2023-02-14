@@ -9,4 +9,4 @@ import EvidenceHomeSectionApp from './evidenceHomeSectionAppClient'
 require('../../../assets/styles/home.scss');
 require('../../Home/bootstrap_carousel.js');
 
-ReactOnRails.register({ QuestionsAndAnswersApp, EvidenceToolApp, EvidenceHomeSectionApp });
+ReactOnRails.register({ EvidenceToolApp, EvidenceHomeSectionApp });
