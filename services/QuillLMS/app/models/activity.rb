@@ -189,6 +189,13 @@ class Activity < ApplicationRecord
     module_url_helper(initial_params)
   end
 
+  def publication_date_for_flag(flag)
+    return nil unless is_evidence?
+
+    change_log = child_activity.change_logs.find_by(changed_attribute:"flags", new_value:"[\"production\"]")
+    change_log.created_at.strftime("%m/%d/%Y")
+  end
+
   # TODO: cleanup
   def flag(flag = nil)
     return super(flag) unless flag.nil?
@@ -293,8 +300,8 @@ class Activity < ApplicationRecord
     user_pack_sequence_items.locked.exists?(user: user)
   end
 
-  def serialize_with_topics
-    serializable_hash.merge({topics: topics&.map(&:genealogy) || []})
+  def serialize_with_topics_and_publication_date
+    serializable_hash.merge({topics: topics&.map(&:genealogy) || [], publication_date: publication_date_for_flag("production")})
   end
 
   private def update_evidence_title?

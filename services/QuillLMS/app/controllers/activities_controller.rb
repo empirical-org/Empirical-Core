@@ -94,9 +94,18 @@ class ActivitiesController < ApplicationController
   end
 
   def activities_to_suggest
-    return render json: {activities: []} if !current_user.teacher_info.in_eighth_through_twelfth?
+    return render json: {activities: []} if !current_user.teaches_eighth_through_twelfth?
 
-    activities = Activity.where(classification: ActivityClassification.evidence).order(updated_at: :desc).map(&:serialize_with_topics)
+    if current_user.flags.include?('evidence_beta1')
+      activities = Activity.where(classification: ActivityClassification.evidence).order(updated_at: :desc).map(&:serialize_with_topics)
+    elsif current_user.flags.include?('evidence_beta2')
+      activities = Activity.where(classification: ActivityClassification.evidence).order(updated_at: :desc).map(&:serialize_with_topics)
+    else
+      activities = Activity.where(classification: ActivityClassification.evidence, flags:[Flags::PRODUCTION])
+        .order(updated_at: :desc)
+        .map(&:serialize_with_topics_and_publication_date)
+    end
+
     render json: {activities: activities}
   end
 

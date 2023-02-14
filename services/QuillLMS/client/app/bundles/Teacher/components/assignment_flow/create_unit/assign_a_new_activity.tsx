@@ -134,14 +134,14 @@ const AssignANewActivity = ({ numberOfActivitiesAssigned, showDiagnosticBanner }
                 <tr className="data-table-row" key={a.id}>
                   <span className="tool-col"><img alt={evidenceToolIcon.alt} src={evidenceToolIcon.src} /></span>
                   <td className="data-table-row-section name-col">
-                    {a.name}
+                    <a href={`/assign/activity-library?activityClassificationFilters[]=evidence&search=${encodeURI(a.name)}`}>{a.name}</a>
                   </td>
                   <td className="data-table-row-section topics-col">
                     {a.topics.map((t, i) => {
                       return <p key={i}>{t.join(" / ")}</p>
                     })}
                   </td>
-                  <td className="date-col">1/15/23</td>
+                  <td className="date-col">{a.publication_date}</td>
                   <td className="preview-col"><a href={`/activity_sessions/anonymous?activity_id=${a.id}`} rel="noopener noreferrer" target="_blank">Preview</a></td>
                   <td className="select-col"><button className="quill-button secondary medium focus-on-light outlined select-suggested" onClick={() => window.location.href = `/assign/activity-library?activityClassificationFilters[]=evidence&search=${encodeURI(a.name)}`} type="button">Select</button></td>
                 </tr>
