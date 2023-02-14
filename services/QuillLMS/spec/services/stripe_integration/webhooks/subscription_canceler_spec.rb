@@ -26,7 +26,7 @@ RSpec.describe StripeIntegration::Webhooks::SubscriptionCanceler do
     end
 
     context 'subscription found' do
-      let!(:subscription) { create(:subscription, recurring: true, stripe_invoice_id: stripe_invoice_id) }
+      let!(:subscription) { create(:subscription, recurring: true, stripe_invoice_id: stripe_invoice_id, stripe_subscription_id: stripe_subscription_id) }
 
       it { expect { subject }.to change { subscription.reload.recurring }.from(true).to(false) }
       it { expect { subject }.to change { subscription.reload.expiration }.to(Date.current) }

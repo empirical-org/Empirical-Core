@@ -13,7 +13,7 @@ module StripeIntegration
       class NilSubscriptionStatusError < Error; end
       class PlanNotFoundError < Error; end
       class PurchaserNotFoundError < Error; end
-      class StripeInvoiceIdNotUniqueError < Error; end
+      class StripeSubscriptionInvoicePairNotUniqueError < Error; end
 
       TRIALING = 'trialing'
 
@@ -30,6 +30,7 @@ module StripeIntegration
         raise DuplicateSubscriptionError if duplicate_subscription?
         raise NilSubscriptionStatusError unless stripe_subscription.respond_to?(:status)
         raise AmountPaidMismatchError if amount_paid_mismatch?
+        raise StripeSubscriptionInvoicePairNotUniqueError if subscription_invoice_pair_exists?
 
         subscription
         save_stripe_customer_id
@@ -121,10 +122,19 @@ module StripeIntegration
           purchaser_email: purchaser_email,
           recurring: true,
           start_date: start_date,
-          stripe_invoice_id: stripe_invoice.id
+          stripe_invoice_id: stripe_invoice.id,
+          stripe_subscription_id: stripe_subscription.id
         )
-      rescue ActiveRecord::RecordNotUnique
-        raise StripeInvoiceIdNotUniqueError
+      end
+
+      # Each unique combination of Stripe Subscription and Stripe Invoice
+      # corresponds to a single instance of a Quill Subscription.  We want
+      # to ensure that we don't process the creation of a new Quill Subscription
+      # for a pair that we've already processed.
+      private def subscription_invoice_pair_exists?
+        stripe_subscription.id &&
+        stripe_invoice.id      &&
+        ::Subscription.exists?(stripe_subscription_id: stripe_subscription.id, stripe_invoice_id: stripe_invoice.id)
       end
 
       private def amount_paid_mismatch?

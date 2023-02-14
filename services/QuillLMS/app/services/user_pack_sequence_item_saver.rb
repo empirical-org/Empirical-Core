@@ -18,10 +18,8 @@ class UserPackSequenceItemSaver < ApplicationService
   end
 
   def run
-    ActiveRecord::Base.transaction do
-      compute_statuses
-      save_statuses
-    end
+    compute_statuses
+    save_statuses
   end
 
   private def compute_statuses
@@ -54,8 +52,7 @@ class UserPackSequenceItemSaver < ApplicationService
 
   private def save_statuses
     user_pack_sequence_item_statuses.each_pair do |pack_sequence_item_id, status|
-      upsi = UserPackSequenceItem.create_or_find_by!(pack_sequence_item_id: pack_sequence_item_id, user_id: user_id)
-      upsi.update!(status: status) unless upsi.status == status
+      SaveUserPackSequenceItemWorker.perform_async(pack_sequence_item_id, status, user_id)
     end
   end
 end
