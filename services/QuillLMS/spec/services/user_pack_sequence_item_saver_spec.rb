@@ -3,10 +3,12 @@
 require 'rails_helper'
 
 RSpec.describe UserPackSequenceItemSaver do
-  subject { described_class.run(classroom.id, user.id) }
+  subject { described_class.run(classroom_id, user_id) }
 
-  let(:classroom) { create(:classroom) }
-  let(:user) { create(:student) }
+  let(:worker_class) { SaveUserPackSequenceItemWorker }
+
+  let(:classroom_id) { create(:classroom).id }
+  let(:user_id) { create(:student).id }
 
   let(:pack_sequence1) { create(:pack_sequence) }
   let(:pack_sequence_item1) { create(:pack_sequence_item, pack_sequence: pack_sequence1) }
@@ -15,12 +17,15 @@ RSpec.describe UserPackSequenceItemSaver do
   let(:locked) { described_class::LOCKED }
   let(:unlocked) { described_class::UNLOCKED }
 
-  before { allow(UserPackSequenceItemQuery).to receive(:call).with(classroom.id, user.id).and_return(results) }
+  before { allow(UserPackSequenceItemQuery).to receive(:call).with(classroom_id, user_id).and_return(results) }
+
+  after { worker_class.clear }
 
   context 'no completed results' do
     let(:results) { [] }
+    let(:expected_job_args) { [] }
 
-    it { expect { subject }.not_to change(UserPackSequenceItem, :count).from(0) }
+    it { should_enqueue_workers }
   end
 
   context 'one pack_sequence_item with one result' do
@@ -29,16 +34,16 @@ RSpec.describe UserPackSequenceItemSaver do
 
     context 'result is completed' do
       let(:completed1) { true }
+      let(:expected_job_args) { [[pack_sequence_item1.id, unlocked, user_id]] }
 
-      it { expect { subject }.to change(UserPackSequenceItem, :count).from(0).to(1) }
-      it { should_save_user_pack_sequence_item(pack_sequence_item1, unlocked) }
+      it { should_enqueue_workers }
     end
 
     context 'result is uncompleted' do
       let(:completed1) { false }
+      let(:expected_job_args) { [[pack_sequence_item1.id, unlocked, user_id]] }
 
-      it { expect { subject }.to change(UserPackSequenceItem, :count).from(0).to(1) }
-      it { should_save_user_pack_sequence_item(pack_sequence_item1, unlocked) }
+      it { should_enqueue_workers }
     end
   end
 
@@ -50,17 +55,17 @@ RSpec.describe UserPackSequenceItemSaver do
     context 'results are completed, uncompleted' do
       let(:completed1) { false }
       let(:completed2) { true }
+      let(:expected_job_args) { [[pack_sequence_item1.id, unlocked, user_id]] }
 
-      it { expect { subject }.to change(UserPackSequenceItem, :count).from(0).to(1) }
-      it { should_save_user_pack_sequence_item(pack_sequence_item1, unlocked) }
+      it { should_enqueue_workers }
     end
 
     context 'results are uncompleted, uncompleted' do
       let(:completed1) { false }
       let(:completed2) { false }
+      let(:expected_job_args) { [[pack_sequence_item1.id, unlocked, user_id]] }
 
-      it { expect { subject }.to change(UserPackSequenceItem, :count).from(0).to(1) }
-      it { should_save_user_pack_sequence_item(pack_sequence_item1, unlocked) }
+      it { should_enqueue_workers }
     end
   end
 
@@ -73,18 +78,28 @@ RSpec.describe UserPackSequenceItemSaver do
       let(:completed1) { false }
       let(:completed2) { true }
 
-      it { expect { subject }.to change(UserPackSequenceItem, :count).from(0).to(2) }
-      it { should_save_user_pack_sequence_item(pack_sequence_item1, unlocked) }
-      it { should_save_user_pack_sequence_item(pack_sequence_item2, locked) }
+      let(:expected_job_args) do
+        [
+          [pack_sequence_item1.id, unlocked, user_id],
+          [pack_sequence_item2.id, locked, user_id]
+        ]
+      end
+
+      it { should_enqueue_workers }
     end
 
     context 'results are uncompleted, uncompleted' do
       let(:completed1) { false }
       let(:completed2) { false }
 
-      it { expect { subject }.to change(UserPackSequenceItem, :count).from(0).to(2) }
-      it { should_save_user_pack_sequence_item(pack_sequence_item1, unlocked) }
-      it { should_save_user_pack_sequence_item(pack_sequence_item2, locked) }
+      let(:expected_job_args) do
+        [
+          [pack_sequence_item1.id, unlocked, user_id],
+          [pack_sequence_item2.id, locked, user_id]
+        ]
+      end
+
+      it { should_enqueue_workers }
     end
   end
 
@@ -99,9 +114,14 @@ RSpec.describe UserPackSequenceItemSaver do
       let(:completed2) { true }
       let(:completed3) { true }
 
-      it { expect { subject }.to change(UserPackSequenceItem, :count).from(0).to(2) }
-      it { should_save_user_pack_sequence_item(pack_sequence_item1, unlocked) }
-      it { should_save_user_pack_sequence_item(pack_sequence_item2, locked) }
+      let(:expected_job_args) do
+        [
+          [pack_sequence_item1.id, unlocked, user_id],
+          [pack_sequence_item2.id, locked, user_id]
+        ]
+      end
+
+      it { should_enqueue_workers }
     end
   end
 
@@ -122,11 +142,16 @@ RSpec.describe UserPackSequenceItemSaver do
       let(:completed3) { true }
       let(:completed4) { false }
 
-      it { expect { subject }.to change(UserPackSequenceItem, :count).from(0).to(4) }
-      it { should_save_user_pack_sequence_item(pack_sequence_item1, unlocked) }
-      it { should_save_user_pack_sequence_item(pack_sequence_item2, locked) }
-      it { should_save_user_pack_sequence_item(pack_sequence_item3, unlocked) }
-      it { should_save_user_pack_sequence_item(pack_sequence_item4, unlocked) }
+      let(:expected_job_args) do
+        [
+          [pack_sequence_item1.id, unlocked, user_id],
+          [pack_sequence_item2.id, locked, user_id],
+          [pack_sequence_item3.id, unlocked, user_id],
+          [pack_sequence_item4.id, unlocked, user_id]
+        ]
+      end
+
+      it { should_enqueue_workers }
     end
 
     context 'results are uncompleted, completed, uncompleted, completed' do
@@ -135,11 +160,16 @@ RSpec.describe UserPackSequenceItemSaver do
       let(:completed3) { false }
       let(:completed4) { true }
 
-      it { expect { subject }.to change(UserPackSequenceItem, :count).from(0).to(4) }
-      it { should_save_user_pack_sequence_item(pack_sequence_item1, unlocked) }
-      it { should_save_user_pack_sequence_item(pack_sequence_item2, locked) }
-      it { should_save_user_pack_sequence_item(pack_sequence_item3, unlocked) }
-      it { should_save_user_pack_sequence_item(pack_sequence_item4, locked) }
+      let(:expected_job_args) do
+        [
+          [pack_sequence_item1.id, unlocked, user_id],
+          [pack_sequence_item2.id, locked, user_id],
+          [pack_sequence_item3.id, unlocked, user_id],
+          [pack_sequence_item4.id, locked, user_id]
+        ]
+      end
+
+      it { should_enqueue_workers }
     end
   end
 
@@ -151,9 +181,9 @@ RSpec.describe UserPackSequenceItemSaver do
     }
   end
 
-  def should_save_user_pack_sequence_item(pack_sequence_item, status)
+  def should_enqueue_workers
     subject
-    expect(pack_sequence_item.user_pack_sequence_items.exists?(status: status, user: user)).to be true
+    expect(worker_class.jobs.map { |job| job["args"] }).to eq expected_job_args
   end
 end
 
