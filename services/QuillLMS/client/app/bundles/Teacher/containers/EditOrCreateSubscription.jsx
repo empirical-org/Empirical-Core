@@ -185,8 +185,8 @@ export default class EditOrCreateSubscription extends React.Component {
       (body) => {
         alert('Subscription was saved');
         if (view === 'new') {
-          // switch to the edit view after submission
-          window.location = window.location.href.replace('new', 'edit')
+          // redirect back to the school or district details page
+          window.location = window.location.href.replace('new_subscription', '')
         }
       },
       (body) => {
