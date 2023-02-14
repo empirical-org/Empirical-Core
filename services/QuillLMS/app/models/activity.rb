@@ -93,6 +93,8 @@ class Activity < ApplicationRecord
   ALPHA = 'alpha'
   ARCHIVED = 'archived'
 
+  FLAGS_ATTRIBUTE = 'flags'
+
   scope :gamma_user, -> { where("'#{GAMMA}' = ANY(activities.flags) OR '#{BETA}' = ANY(activities.flags) OR '#{PRODUCTION}' = ANY(activities.flags)")}
   scope :beta_user, -> { where("'#{BETA}' = ANY(activities.flags) OR '#{PRODUCTION}' = ANY(activities.flags)")}
   scope :alpha_user, -> { where("'#{ALPHA}' = ANY(activities.flags) OR '#{BETA}' = ANY(activities.flags) OR '#{GAMMA}' = ANY(activities.flags) OR '#{PRODUCTION}' = ANY(activities.flags)")}
@@ -189,11 +191,11 @@ class Activity < ApplicationRecord
     module_url_helper(initial_params)
   end
 
-  def publication_date_for_flag(flag)
+  def publication_date
     return nil unless is_evidence?
 
-    change_log = child_activity.change_logs.find_by(changed_attribute:"flags", new_value:"[\"production\"]")
-    change_log.created_at.strftime("%m/%d/%Y")
+    created_time = child_activity.change_logs.where(changed_attribute: FLAGS_ATTRIBUTE).last&.created_at || created_at
+    created_time.strftime("%m/%d/%Y")
   end
 
   # TODO: cleanup
@@ -301,7 +303,7 @@ class Activity < ApplicationRecord
   end
 
   def serialize_with_topics_and_publication_date
-    serializable_hash.merge({topics: topics&.map(&:genealogy) || [], publication_date: publication_date_for_flag("production")})
+    serializable_hash.merge({topics: topics&.map(&:genealogy) || [], publication_date: publication_date})
   end
 
   private def update_evidence_title?
@@ -323,9 +325,9 @@ class Activity < ApplicationRecord
       changed_record_type: 'Evidence::Activity',
       changed_record_id: child_activity&.id,
       explanation: nil,
-      changed_attribute: "flags",
-      previous_value: previous_changes["flags"][0],
-      new_value: previous_changes["flags"][1]
+      changed_attribute: FLAGS_ATTRIBUTE,
+      previous_value: previous_changes[FLAGS_ATTRIBUTE][0],
+      new_value: previous_changes[FLAGS_ATTRIBUTE][1]
     }
     ChangeLog.create(change_log)
   end

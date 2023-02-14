@@ -84,9 +84,8 @@ const AssignANewActivity = ({ numberOfActivitiesAssigned, showDiagnosticBanner }
       }
     );
   }
-  // Similar to componentDidMount and componentDidUpdate:
+
   React.useEffect(() => {
-    // Update the document title using the browser API
     getData()
   }, []);
 
