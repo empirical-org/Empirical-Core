@@ -7,6 +7,7 @@ class BlogPostsController < ApplicationController
   before_action :redirect_invalid_topics, only: [:show_topic]
   before_action :set_announcement, only: [:index, :show, :show_topic]
   before_action :set_root_url
+  before_action :set_defer_js, except: :search
 
 
   def index
@@ -124,5 +125,9 @@ class BlogPostsController < ApplicationController
       topics.push({ name: name, slug: CGI::escape(name.downcase.gsub(' ','-'))})
     end
     topics
+  end
+
+  private def set_defer_js
+    @defer_js = true
   end
 end
