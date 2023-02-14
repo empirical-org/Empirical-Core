@@ -2,13 +2,13 @@
 rails: rails s -b 0.0.0.0
 
 worker: bundle exec sidekiq -v -q default -q critical
-reportworker: bundle exec sidekiq -v -q low
+#reportworker: bundle exec sidekiq -v -q low
 
 # Build client assets, watching for changes.
-rails-client-assets: sh -c 'npm run build:dev:client:prod-cms'
+#rails-client-assets: sh -c 'npm run build:dev:client:prod-cms'
 
 # Build server assets, watching for changes. Remove if not server rendering.
-rails-server-assets: sh -c 'npm run build:dev:server'
+#rails-server-assets: sh -c 'npm run build:dev:server'
 
 redis-sidekiq: redis-server --port 6379
 
