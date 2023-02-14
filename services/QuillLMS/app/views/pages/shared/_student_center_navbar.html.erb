@@ -1,5 +1,2 @@
-<%= react_component('SubNavbarApp', props: {
-  activeTab: active_tab,
-  desktopTabs: student_center_tabs(large: true),
-  mobileTabs: student_center_tabs(large: false)
-}) %>
+<% tabs = device == 'mobile' ? student_center_tabs(large: false) : student_center_tabs(large: true) %>
+<%= render partial: "pages/shared/sub_navbar", locals: { tabs: tabs, active_tab: active_tab } %>
