@@ -4135,7 +4135,8 @@ CREATE TABLE public.subscriptions (
     de_activated_date date,
     payment_method character varying,
     payment_amount integer,
-    stripe_invoice_id character varying
+    stripe_invoice_id character varying,
+    stripe_subscription_id character varying
 );
 
 
@@ -7890,13 +7891,6 @@ CREATE INDEX index_subscriptions_on_start_date ON public.subscriptions USING btr
 
 
 --
--- Name: index_subscriptions_on_stripe_invoice_id; Type: INDEX; Schema: public; Owner: -
---
-
-CREATE UNIQUE INDEX index_subscriptions_on_stripe_invoice_id ON public.subscriptions USING btree (stripe_invoice_id);
-
-
---
 -- Name: index_teacher_info_subject_areas_on_subject_area_id; Type: INDEX; Schema: public; Owner: -
 --
 
@@ -9292,6 +9286,7 @@ INSERT INTO "schema_migrations" (version) VALUES
 ('20221209151957'),
 ('20230104183416'),
 ('20230113132638'),
+('20230130190215'),
 ('20230201202210'),
 ('20230206203447');
 
