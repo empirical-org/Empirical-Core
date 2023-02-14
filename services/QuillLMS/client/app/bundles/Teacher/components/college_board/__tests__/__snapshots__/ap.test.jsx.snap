@@ -69,7 +69,7 @@ exports[`Ap component should render when it is not part of the assignment flow 1
         </div>
         <img
           alt="Photograph of a teacher talking to a classroom of high school students"
-          src="https://assets.quill.org/images/college_board/teaching-english-practice.png"
+          src="https://assets.quill.org/images/college_board/teaching-english-practice.webp"
         />
       </div>
     </div>
@@ -2307,7 +2307,7 @@ exports[`Ap component should render when it is part of the assignment flow 1`] =
         </div>
         <img
           alt="Photograph of a teacher talking to a classroom of high school students"
-          src="https://assets.quill.org/images/college_board/teaching-english-practice.png"
+          src="https://assets.quill.org/images/college_board/teaching-english-practice.webp"
         />
       </div>
     </div>

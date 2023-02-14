@@ -1,0 +1,11 @@
+<div class="tab-subnavigation-wrapper">
+  <div class="container">
+    <ul>
+      <% tabs.each do |tab| %>
+        <li>
+          <a class="<%= (tab[:name] == active_tab || tab[:id] == active_tab) ? 'active' : '' %>" href=<%= tab[:url] %>><%= tab[:name] %></a>
+        </li>
+      <% end %>
+    </ul>
+  </div>
+</div>

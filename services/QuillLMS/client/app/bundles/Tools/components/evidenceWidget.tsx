@@ -1,18 +1,18 @@
 import * as React from 'react';
 
 const IMG_URLS = [
-  "https://assets.quill.org/images/evidence/home_page/widget_images/2x/HeroEvidenceWidget_1.png",
-  "https://assets.quill.org/images/evidence/home_page/widget_images/2x/HeroEvidenceWidget_2.png",
-  "https://assets.quill.org/images/evidence/home_page/widget_images/2x/HeroEvidenceWidget_3.png",
-  "https://assets.quill.org/images/evidence/home_page/widget_images/2x/HeroEvidenceWidget_4.png",
-  "https://assets.quill.org/images/evidence/home_page/widget_images/2x/HeroEvidenceWidget_5.png",
-  "https://assets.quill.org/images/evidence/home_page/widget_images/2x/HeroEvidenceWidget_6.png",
-  "https://assets.quill.org/images/evidence/home_page/widget_images/2x/HeroEvidenceWidget_7.png",
-  "https://assets.quill.org/images/evidence/home_page/widget_images/2x/HeroEvidenceWidget_8.png",
-  "https://assets.quill.org/images/evidence/home_page/widget_images/2x/HeroEvidenceWidget_9.png",
-  "https://assets.quill.org/images/evidence/home_page/widget_images/2x/HeroEvidenceWidget_10.png",
-  "https://assets.quill.org/images/evidence/home_page/widget_images/2x/HeroEvidenceWidget_11.png",
-  "https://assets.quill.org/images/evidence/home_page/widget_images/2x/HeroEvidenceWidget_12.png"
+  "https://assets.quill.org/images/evidence/home_page/widget_images/2x/HeroEvidenceWidget_1.webp",
+  "https://assets.quill.org/images/evidence/home_page/widget_images/2x/HeroEvidenceWidget_2.webp",
+  "https://assets.quill.org/images/evidence/home_page/widget_images/2x/HeroEvidenceWidget_3.webp",
+  "https://assets.quill.org/images/evidence/home_page/widget_images/2x/HeroEvidenceWidget_4.webp",
+  "https://assets.quill.org/images/evidence/home_page/widget_images/2x/HeroEvidenceWidget_5.webp",
+  "https://assets.quill.org/images/evidence/home_page/widget_images/2x/HeroEvidenceWidget_6.webp",
+  "https://assets.quill.org/images/evidence/home_page/widget_images/2x/HeroEvidenceWidget_7.webp",
+  "https://assets.quill.org/images/evidence/home_page/widget_images/2x/HeroEvidenceWidget_8.webp",
+  "https://assets.quill.org/images/evidence/home_page/widget_images/2x/HeroEvidenceWidget_9.webp",
+  "https://assets.quill.org/images/evidence/home_page/widget_images/2x/HeroEvidenceWidget_10.webp",
+  "https://assets.quill.org/images/evidence/home_page/widget_images/2x/HeroEvidenceWidget_11.webp",
+  "https://assets.quill.org/images/evidence/home_page/widget_images/2x/HeroEvidenceWidget_12.webp"
 ]
 const INACTIVE = 'inactive';
 
