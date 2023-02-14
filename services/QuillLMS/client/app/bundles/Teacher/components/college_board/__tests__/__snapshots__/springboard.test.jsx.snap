@@ -262,7 +262,7 @@ exports[`SpringBoard component should render when it is not part of the assignme
         </div>
         <img
           alt="Photograph of a student standing next to some lockers"
-          src="https://assets.quill.org/images/college_board/student-near-lockers.png"
+          src="https://assets.quill.org/images/college_board/student-writing-by-laptop.webp"
         />
       </div>
     </div>
@@ -4829,7 +4829,7 @@ exports[`SpringBoard component should render when it is part of the assignment f
         </div>
         <img
           alt="Photograph of a student standing next to some lockers"
-          src="https://assets.quill.org/images/college_board/student-near-lockers.png"
+          src="https://assets.quill.org/images/college_board/student-writing-by-laptop.webp"
         />
       </div>
     </div>
