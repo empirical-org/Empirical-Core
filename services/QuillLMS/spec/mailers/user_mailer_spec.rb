@@ -45,6 +45,7 @@ describe UserMailer, type: :mailer do
 
   describe 'email_verification_email' do
     let!(:user) { create(:user) }
+    let!(:user_email_verification) { create(:user_email_verification, user: user, verification_token: 'valid-token')}
 
     it 'should set the subject, receiver and the sender' do
       mail = described_class.email_verification_email(user)
