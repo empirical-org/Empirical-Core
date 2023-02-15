@@ -200,7 +200,8 @@ export {
   NOT_APPLICABLE,
   STUDENT,
   TEACHER,
-  INDIVIDUAL_CONTRIBUTOR
+  INDIVIDUAL_CONTRIBUTOR,
+  ADMIN
 } from './utils/constants'
 
 export {

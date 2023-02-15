@@ -22,6 +22,8 @@ EmpiricalGrammar::Application.routes.draw do
   get '/study', to: "students#index"
   get '/classes', to: "students#index"
 
+  get '/school_for_current_user', to: 'schools_users#school_for_current_user'
+
   resources :admins, only: [:show], format: 'json'
 
   # for admins to sign in as teachers
@@ -173,6 +175,10 @@ EmpiricalGrammar::Application.routes.draw do
   end
 
   resources :teacher_infos, only: [:create] do
+    put :update, on: :collection
+  end
+
+  resources :admin_infos, only: [] do
     put :update, on: :collection
   end
 
@@ -545,6 +551,10 @@ EmpiricalGrammar::Application.routes.draw do
   get 'account/:token/finish_set_up', to: 'accounts#edit'
   put 'account/:token', to: 'accounts#update'
 
+  get '/sign-up/verify-school', to: 'accounts#new'
+  get '/sign-up/verify-email', to: 'accounts#new'
+  get '/sign-up/select-sub-role', to: 'accounts#new'
+  get '/sign-up/admin', to: 'accounts#new'
   get '/sign-up/teacher', to: 'accounts#new'
   get '/sign-up/student', to: 'accounts#new'
   get '/sign-up/individual-contributor', to: 'accounts#new'

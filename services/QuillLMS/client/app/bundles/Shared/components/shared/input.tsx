@@ -15,6 +15,7 @@ interface InputProps {
   handleChange?: (event: any) => void;
   onClick?: () => void;
   characterLimit?: number;
+  showPlaceholderWhenInactive?: boolean;
   autoComplete: string;
 }
 
@@ -136,7 +137,7 @@ export class Input extends React.Component<InputProps, InputState> {
 
   renderInput = () => {
     const { inactive, errorAcknowledged} = this.state
-    const { className, label, handleChange, value, placeholder, error, type, id, disabled, characterLimit, autoComplete } = this.props
+    const { className, label, handleChange, value, placeholder, error, type, id, disabled, characterLimit, autoComplete, showPlaceholderWhenInactive, } = this.props
     const inactiveOrActive = inactive ? 'inactive' : 'active'
     const hasText = value ? 'has-text' : ''
     const hasCharacterLimit = characterLimit ? 'has-character-limit' : ''
@@ -147,7 +148,7 @@ export class Input extends React.Component<InputProps, InputState> {
       onChange: handleChange,
       value,
       type,
-      placeholder: !inactive && placeholder,
+      placeholder: (!inactive || showPlaceholderWhenInactive) && placeholder,
       disabled,
       maxLength: characterLimit ? characterLimit : 10000,
       autoComplete

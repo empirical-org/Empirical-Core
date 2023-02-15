@@ -9,7 +9,7 @@ import AgreementsAndLinkToLogin from './agreements_and_link_to_login'
 import AssignActivityPackBanner from '../assignActivityPackBanner'
 import { Input, } from '../../../../Shared/index'
 import { requestPost, } from '../../../../../modules/request/index'
-import { INDIVIDUAL_CONTRIBUTOR } from '../../../../Shared/index';
+import { INDIVIDUAL_CONTRIBUTOR, ADMIN, TEACHER, } from '../../../../Shared/index';
 
 class SignUpTeacher extends React.Component {
   constructor(props) {
@@ -49,6 +49,7 @@ class SignUpTeacher extends React.Component {
   handleSubmit = (e) => {
     const { firstName, lastName, email, password, sendNewsletter, timesSubmitted, } = this.state
     e.preventDefault();
+    const isAdmin = window.location.href.includes(ADMIN)
 
     requestPost(
       `${process.env.DEFAULT_URL}/account`,
@@ -57,13 +58,16 @@ class SignUpTeacher extends React.Component {
           name: `${firstName} ${lastName}`,
           password,
           email,
-          role: 'teacher',
+          role: isAdmin ? ADMIN : TEACHER,
           send_newsletter: sendNewsletter,
         }
       },
       (body) => {
-        const isIndvidualContributor = window.location.href.includes(INDIVIDUAL_CONTRIBUTOR);
-        if(isIndvidualContributor) {
+        const isIndividualContributor = window.location.href.includes(INDIVIDUAL_CONTRIBUTOR);
+
+        if (isAdmin) {
+          window.location = '/sign-up/verify-email'
+        } else if(isIndividualContributor) {
           window.location = '/sign-up/add-teacher-info'
         } else {
           window.location = '/sign-up/add-k12'
