@@ -5,7 +5,7 @@ module Evidence
     include Evidence.sidekiq_module
     sidekiq_options retry: 0
 
-    def perform(activity_id, nouns, label_configs, use_passage = true)
+    def perform(activity_id, nouns, label_configs, use_passage)
       csv_hash = Evidence::Synthetic::SeedDataGenerator.csvs_for_activity(
         activity_id: activity_id,
         nouns: nouns,
