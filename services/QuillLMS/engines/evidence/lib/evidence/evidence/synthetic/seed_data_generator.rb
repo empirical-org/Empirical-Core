@@ -48,10 +48,10 @@ module Evidence
 
       PARAPHRASE_INSTRUCTION = "rephrase with some synonyms:\n\n"
 
-      attr_reader :passage, :stem, :conjunction, :nouns, :results, :label_configs
+      attr_reader :passage, :stem, :conjunction, :nouns, :results, :label_configs, :use_passage
 
       # returns a hash of the form {'csv name' => CSVString, 'csv name2' =>...}
-      def self.csvs_for_activity(activity_id:, nouns: [], conjunctions: nil, label_configs: {})
+      def self.csvs_for_activity(activity_id:, nouns: [], conjunctions: nil, label_configs: {}, use_passage: true)
         activity = Evidence::Activity.find(activity_id)
         passage = activity.passages.first.text
         prompts = conjunctions.present? ? activity.prompts.where(conjunction: conjunctions) : activity.prompts
@@ -68,7 +68,8 @@ module Evidence
             stem: prompt.text,
             conjunction: prompt.conjunction,
             nouns: nouns,
-            label_configs: label_configs[prompt.conjunction] || []
+            label_configs: label_configs[prompt.conjunction] || [],
+            use_passage: use_passage
           )
           generator.run
 
@@ -76,25 +77,31 @@ module Evidence
         end
 
         # include a csv with a text guide to the passage chunks
-        csvs[passage_csv_name] = new(passage: passage, stem: '', conjunction: 'but').text_guide_csv_string
+        if use_passage
+          csvs[passage_csv_name] = new(passage: passage, stem: '', conjunction: 'but').text_guide_csv_string
+        end
 
         csvs
       end
 
-      def initialize(passage:, stem:, conjunction:, nouns: [], label_configs: [])
+      def initialize(passage:, stem:, conjunction:, nouns: [], label_configs: [], use_passage: true)
         @passage = Evidence::HTMLTagRemover.run(passage)
         @stem = stem
         @conjunction = conjunction
         @nouns = nouns
         @label_configs = label_configs
         @results = []
+        @use_passage = use_passage
         raise InvalidConjunctionError unless conjunction.in?(CONJUNCTIONS)
       end
 
       def run
-        generate_full_passage_responses
-        generate_full_passage_noun_responses
-        generate_chunk_responses
+        if use_passage
+          generate_full_passage_responses
+          generate_full_passage_noun_responses
+          generate_chunk_responses
+        end
+
         generate_label_paraphrases
 
         results

@@ -22,7 +22,7 @@ module Evidence
 
       it 'call generate and call file_mailer' do
         expect(Evidence::Synthetic::SeedDataGenerator).to receive(:csvs_for_activity)
-          .with(activity_id: activity.id, nouns: nouns, label_configs: label_configs)
+          .with(activity_id: activity.id, nouns: nouns, label_configs: label_configs, use_passage: true)
           .and_return(generator_response)
 
         expect(FileMailer).to receive(:send_multiple_files)
