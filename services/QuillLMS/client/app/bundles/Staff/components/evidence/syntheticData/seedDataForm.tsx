@@ -5,7 +5,7 @@ import ReactHtmlParser from 'react-html-parser'
 import SubmissionModal from '../shared/submissionModal';
 import { fetchActivity, createSeedData } from '../../../utils/evidence/activityAPIs';
 import { renderHeader, quillCloseX } from "../../../helpers/evidence/renderHelpers";
-import { Input, Spinner } from '../../../../Shared/index';
+import { Input, Spinner, DropdownInput, } from '../../../../Shared/index';
 import { TITLE, BECAUSE, BUT, SO } from "../../../../../constants/evidence";
 
 const SeedDataForm = ({ history, match }) => {
@@ -14,7 +14,13 @@ const SeedDataForm = ({ history, match }) => {
   const [errorOrSuccessMessage, setErrorOrSuccessMessage] = React.useState<string>(null);
   const [errors, setErrors] = React.useState<string[]>([]);
   const [showSubmissionModal, setShowSubmissionModal] = React.useState<boolean>(false);
-  const queryClient = useQueryClient()
+  const [usePassage, setUsePassage] = React.useState<string>("true");
+  const queryClient = useQueryClient();
+
+  const runOptions = [
+    { value: "true", label: 'Full Run'},
+    { value: "false", label: 'Label Examples Only'},
+  ];
 
   const [activityNouns, setActivityNouns] = React.useState<string>('');
 
@@ -22,6 +28,10 @@ const SeedDataForm = ({ history, match }) => {
   const blankLabelConfigs = { [BECAUSE] : [], [BUT] : [], [SO] : [], };
 
   const [labelConfigs, setLabelConfigs] = React.useState({...blankLabelConfigs});
+
+  function handleUsePassageChange(runOption) {
+    setUsePassage(runOption.value);
+  };
 
   function handleLabelConfigsChange(event, index, conjunction, key) {
     const data = {...labelConfigs}
@@ -104,7 +114,7 @@ const SeedDataForm = ({ history, match }) => {
   function handleCreateSeedData() {
     if (!confirm('⚠️ Are you sure you want to generate seed data?')) return
 
-    createSeedData(activityNouns, labelConfigs, activityId).then((response) => {
+    createSeedData(activityNouns, labelConfigs, activityId, usePassage).then((response) => {
       const { errors } = response;
       if(errors && errors.length) {
         setErrors(errors);
@@ -112,6 +122,7 @@ const SeedDataForm = ({ history, match }) => {
         setErrors([]);
         setErrorOrSuccessMessage('Seed Data started! You will receive an email with the csv files');
         setActivityNouns('');
+        setUsePassage("true");
         setLabelConfigs({...blankLabelConfigs});
         toggleSubmissionModal();
       }
@@ -235,6 +246,16 @@ const SeedDataForm = ({ history, match }) => {
       {renderLabelSection(BECAUSE)}
       {renderLabelSection(BUT)}
       {renderLabelSection(SO)}
+      <br />
+      <div className='run-type-dropdown'>
+        <DropdownInput
+          handleChange={handleUsePassageChange}
+          isSearchable={false}
+          label="Run Type"
+          options={runOptions}
+          value={runOptions.find(ro => ro.value === usePassage)}
+        />
+      </div>
       <br />
       <div className="button-and-id-container">
         <button className="quill-button fun large primary contained focus-on-light" id="activity-submit-button" onClick={handleCreateSeedData} type="submit">
