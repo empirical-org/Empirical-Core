@@ -20,8 +20,8 @@ class CompleteAccountCreation
 
     return if user.clever_id || user.google_id
 
-    user.require_email_verification
-    user.user_email_verification.send_email
+    user_email_verification = user.require_email_verification
+    user_email_verification.send_email
   end
 
   attr_reader :user, :ip
