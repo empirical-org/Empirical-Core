@@ -99,7 +99,10 @@ module Evidence
         .uniq
 
       label_configs = seed_data_params[:label_configs]&.to_h || {}
-      use_passage = seed_data_params[:use_passage] || true
+
+      use_passage_param = ActiveModel::Type::Boolean.new.cast(seed_data_params[:use_passage])
+      # default to true for missing param
+      use_passage = use_passage_param.nil? ? true : use_passage_param
 
       Evidence::ActivitySeedDataWorker.perform_async(@activity.id, nouns_array, label_configs, use_passage)
 
@@ -133,7 +136,7 @@ module Evidence
     end
 
     private def seed_data_params
-      params.permit(:id, :nouns, label_configs: {}, activity: {})
+      params.permit(:id, :nouns, :use_passage, label_configs: {}, activity: {})
     end
 
     private def activity_params

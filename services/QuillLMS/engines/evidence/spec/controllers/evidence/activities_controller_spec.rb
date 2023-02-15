@@ -389,6 +389,15 @@ module Evidence
           expect(response).to have_http_status(:success)
         end
       end
+
+      context 'use_passage=nil' do
+        it "should call background worker with use_passage=true" do
+          expect(Evidence::ActivitySeedDataWorker).to receive(:perform_async).with(activity.id, [], {}, true)
+          post :seed_data, params: { id: activity.id, nouns: "", use_passage: nil }
+
+          expect(response).to have_http_status(:success)
+        end
+      end
     end
 
     context "#labeled_synthetic_data" do
