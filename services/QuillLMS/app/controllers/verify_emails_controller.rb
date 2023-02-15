@@ -2,6 +2,17 @@
 
 class VerifyEmailsController < ApplicationController
 
+  def resend_verification_email
+    if current_user.user_email_verification
+      current_user.user_email_verification.set_new_token
+      current_user.user_email_verification.send_email
+    else
+      current_user.require_email_verification
+      current_user.user_email_verification.send_email
+    end
+    render json: {}, status: 200
+  end
+
   def verify_by_staff
     user = User.find(staff_verification_params[:user_id])
 
