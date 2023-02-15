@@ -154,7 +154,6 @@ export default class ReactTablePagination extends React.Component {
       rowsSelectorText,
       rowsText,
       ofText,
-      pages,
       nextText,
     } = this.props
 
