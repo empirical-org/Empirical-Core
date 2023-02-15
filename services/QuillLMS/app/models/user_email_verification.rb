@@ -53,9 +53,7 @@ class UserEmailVerification < ApplicationRecord
   end
 
   def send_email
-    if verification_token.present?
-      UserMailer.email_verification_email(user).deliver_now!
-    end
+    UserMailer.email_verification_email(user).deliver_now!
   end
 
   private def mark_as_verified(verification_method)
