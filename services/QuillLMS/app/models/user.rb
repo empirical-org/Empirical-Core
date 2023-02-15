@@ -110,6 +110,7 @@ class User < ApplicationRecord
   attr_accessor :validate_username, :require_password_confirmation_when_password_present, :newsletter
 
   has_secure_password validations: false
+  has_one :admin_info, dependent: :destroy
   has_one :auth_credential, dependent: :destroy
   has_one :teacher_info, dependent: :destroy
   has_many :teacher_info_subject_areas, through: :teacher_info
@@ -157,6 +158,8 @@ class User < ApplicationRecord
   has_many :stripe_checkout_sessions, dependent: :destroy
 
   has_many :user_pack_sequence_items, dependent: :destroy
+
+  has_one :user_email_verification, dependent: :destroy
 
   accepts_nested_attributes_for :auth_credential
 
@@ -231,6 +234,29 @@ class User < ApplicationRecord
 
   def self.valid_email?(email)
     ValidatesEmailFormatOf.validate_email_format(email).nil?
+  end
+
+  def require_email_verification
+    create_user_email_verification unless user_email_verification
+  end
+
+  def requires_email_verification?
+    user_email_verification.present?
+  end
+
+  def email_verified?
+    user_email_verification.present? && user_email_verification.verified?
+  end
+
+  def email_verification_pending?
+    requires_email_verification? && !email_verified?
+  end
+
+  def verify_email(verification_method, verification_token = nil)
+    # Set up email verification records if they don't exist yet
+    require_email_verification
+
+    user_email_verification.verify(verification_method, verification_token)
   end
 
   def testing_flag
@@ -711,6 +737,22 @@ class User < ApplicationRecord
 
   def units_with_same_name(name)
     units.where('name ILIKE ?', name)
+  end
+
+  def admin_sub_role
+    admin_info&.sub_role
+  end
+
+  def admin_approval_status
+    admin_info&.approval_status
+  end
+
+  def admin_sub_role=(sub_role)
+    if admin_info
+      admin_info.update(sub_role: sub_role)
+    else
+      AdminInfo.create(sub_role: sub_role, user_id: id)
+    end
   end
 
   private def validate_flags

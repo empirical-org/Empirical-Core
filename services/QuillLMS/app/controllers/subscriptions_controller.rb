@@ -37,6 +37,7 @@ class SubscriptionsController < ApplicationController
       schools: schools,
       user_associated_school_id: current_user.school&.id,
       stripe_invoice_id: @stripe_invoice_id,
+      stripe_subscription_id: @stripe_subscription_id,
       stripe_payment_method_updated: @stripe_payment_method_updated
     }
   end
@@ -105,6 +106,7 @@ class SubscriptionsController < ApplicationController
 
   private def set_stripe_variables
     @stripe_invoice_id = StripeIntegration::StripeInvoiceIdFinder.run(checkout_session_id)
+    @stripe_subscription_id = StripeIntegration::StripeSubscriptionIdFinder.run(checkout_session_id)
     @stripe_payment_method_updated = params[:stripe_payment_method_updated] == 'true'
   end
 

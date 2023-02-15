@@ -5,7 +5,7 @@ require 'rails_helper'
 RSpec.describe StripeIntegration::Subscription do
   include_context 'Stripe Invoice'
 
-  let(:subscription) { create(:subscription, stripe_invoice_id: stripe_invoice_id) }
+  let(:subscription) { create(:subscription, stripe_invoice_id: stripe_invoice_id, stripe_subscription_id: stripe_subscription_id) }
 
   describe '#stripe_cancel_at_period_end' do
     subject { described_class.new(subscription).stripe_cancel_at_period_end }
@@ -84,9 +84,9 @@ RSpec.describe StripeIntegration::Subscription do
     end
 
     context 'stripe_invoice does not exist' do
-      let(:invoice_error_msg) { "No such invoice: '#{stripe_invoice_id}'" }
+      let(:subscription_error_msg) { "No such subscription: '#{stripe_subscription_id}'" }
 
-      before { retrieve_invoice.and_raise(Stripe::InvalidRequestError.new(invoice_error_msg, :id)) }
+      before { retrieve_subscription.and_raise(Stripe::InvalidRequestError.new(subscription_error_msg, stripe_subscription_id)) }
 
       it { expect(subject).to eq nil }
     end

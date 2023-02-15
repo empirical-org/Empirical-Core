@@ -8,62 +8,62 @@ exports[`EvidenceWidget Component should match snapshot 1`] = `
     <img
       alt="Example Evidence Activity"
       className="evidence-image lazyload inactive"
-      data-src="https://assets.quill.org/images/evidence/home_page/widget_images/2x/HeroEvidenceWidget_12.png"
+      data-src="https://assets.quill.org/images/evidence/home_page/widget_images/2x/HeroEvidenceWidget_12.webp"
     />
     <img
       alt="Example Evidence Activity"
       className="evidence-image lazyload inactive"
-      data-src="https://assets.quill.org/images/evidence/home_page/widget_images/2x/HeroEvidenceWidget_11.png"
+      data-src="https://assets.quill.org/images/evidence/home_page/widget_images/2x/HeroEvidenceWidget_11.webp"
     />
     <img
       alt="Example Evidence Activity"
       className="evidence-image lazyload inactive"
-      data-src="https://assets.quill.org/images/evidence/home_page/widget_images/2x/HeroEvidenceWidget_10.png"
+      data-src="https://assets.quill.org/images/evidence/home_page/widget_images/2x/HeroEvidenceWidget_10.webp"
     />
     <img
       alt="Example Evidence Activity"
       className="evidence-image lazyload inactive"
-      data-src="https://assets.quill.org/images/evidence/home_page/widget_images/2x/HeroEvidenceWidget_9.png"
+      data-src="https://assets.quill.org/images/evidence/home_page/widget_images/2x/HeroEvidenceWidget_9.webp"
     />
     <img
       alt="Example Evidence Activity"
       className="evidence-image lazyload inactive"
-      data-src="https://assets.quill.org/images/evidence/home_page/widget_images/2x/HeroEvidenceWidget_8.png"
+      data-src="https://assets.quill.org/images/evidence/home_page/widget_images/2x/HeroEvidenceWidget_8.webp"
     />
     <img
       alt="Example Evidence Activity"
       className="evidence-image lazyload inactive"
-      data-src="https://assets.quill.org/images/evidence/home_page/widget_images/2x/HeroEvidenceWidget_7.png"
+      data-src="https://assets.quill.org/images/evidence/home_page/widget_images/2x/HeroEvidenceWidget_7.webp"
     />
     <img
       alt="Example Evidence Activity"
       className="evidence-image lazyload inactive"
-      data-src="https://assets.quill.org/images/evidence/home_page/widget_images/2x/HeroEvidenceWidget_6.png"
+      data-src="https://assets.quill.org/images/evidence/home_page/widget_images/2x/HeroEvidenceWidget_6.webp"
     />
     <img
       alt="Example Evidence Activity"
       className="evidence-image lazyload inactive"
-      data-src="https://assets.quill.org/images/evidence/home_page/widget_images/2x/HeroEvidenceWidget_5.png"
+      data-src="https://assets.quill.org/images/evidence/home_page/widget_images/2x/HeroEvidenceWidget_5.webp"
     />
     <img
       alt="Example Evidence Activity"
       className="evidence-image lazyload inactive"
-      data-src="https://assets.quill.org/images/evidence/home_page/widget_images/2x/HeroEvidenceWidget_4.png"
+      data-src="https://assets.quill.org/images/evidence/home_page/widget_images/2x/HeroEvidenceWidget_4.webp"
     />
     <img
       alt="Example Evidence Activity"
       className="evidence-image lazyload inactive"
-      data-src="https://assets.quill.org/images/evidence/home_page/widget_images/2x/HeroEvidenceWidget_3.png"
+      data-src="https://assets.quill.org/images/evidence/home_page/widget_images/2x/HeroEvidenceWidget_3.webp"
     />
     <img
       alt="Example Evidence Activity"
       className="evidence-image lazyload inactive"
-      data-src="https://assets.quill.org/images/evidence/home_page/widget_images/2x/HeroEvidenceWidget_2.png"
+      data-src="https://assets.quill.org/images/evidence/home_page/widget_images/2x/HeroEvidenceWidget_2.webp"
     />
     <img
       alt="Example Evidence Activity"
       className="evidence-image lazyload "
-      data-src="https://assets.quill.org/images/evidence/home_page/widget_images/2x/HeroEvidenceWidget_1.png"
+      data-src="https://assets.quill.org/images/evidence/home_page/widget_images/2x/HeroEvidenceWidget_1.webp"
     />
   </div>
 </EvidenceWidget>
