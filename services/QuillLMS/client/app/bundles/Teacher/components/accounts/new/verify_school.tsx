@@ -6,8 +6,8 @@ import { requestPut, requestGet, } from '../../../../../modules/request/index'
 
 const schoolVerificationSrc = `${process.env.CDN_URL}/images/onboarding/school_verification.svg`
 
-const VerifySchool = ({ }) => {
-  const [schoolName, setSchoolName] = React.useState(null)
+const VerifySchool = ({ passedSchoolName, }) => {
+  const [schoolName, setSchoolName] = React.useState(passedSchoolName)
   const [verificationUrl, setVerificationUrl] = React.useState(null)
   const [verificationReason, setVerificationReason] = React.useState(null)
 

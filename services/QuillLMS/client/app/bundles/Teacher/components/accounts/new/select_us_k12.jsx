@@ -30,6 +30,7 @@ class SelectUSK12 extends React.Component {
   }
 
   render() {
+    const { isAdmin, } = this.props
     return (
       <div>
         <AssignActivityPackBanner />
@@ -38,11 +39,11 @@ class SelectUSK12 extends React.Component {
           <h1>Let&#39;s find your school</h1>
           <p className="subheader">Select a school so that if your school has Quill Premium, your account will have access to it.</p>
           <SchoolSelector selectSchool={this.selectSchool} />
-          <button
+          {!isAdmin && <button
             className="non-k12-link focus-on-light"
             onClick={this.handleNonK12LinkClick}
             type="button"
-          >I don&#39;t teach at a U.S. K-12 school</button>
+          >I don&#39;t teach at a U.S. K-12 school</button>}
         </div>
       </div>
     )

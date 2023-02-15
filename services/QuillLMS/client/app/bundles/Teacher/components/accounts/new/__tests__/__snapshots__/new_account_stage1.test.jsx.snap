@@ -32,6 +32,10 @@ exports[`NewAccountStage1 component should render  1`] = `
     />
     <Route
       component={[Function]}
+      path="/sign-up/verify-email"
+    />
+    <Route
+      component={[Function]}
       path="/sign-up/select-sub-role"
     />
     <Route
