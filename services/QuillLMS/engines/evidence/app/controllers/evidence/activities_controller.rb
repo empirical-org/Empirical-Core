@@ -99,8 +99,9 @@ module Evidence
         .uniq
 
       label_configs = seed_data_params[:label_configs]&.to_h || {}
+      use_passage = seed_data_params[:use_passage] || true
 
-      Evidence::ActivitySeedDataWorker.perform_async(@activity.id, nouns_array, label_configs)
+      Evidence::ActivitySeedDataWorker.perform_async(@activity.id, nouns_array, label_configs, use_passage)
 
       head :no_content
     end

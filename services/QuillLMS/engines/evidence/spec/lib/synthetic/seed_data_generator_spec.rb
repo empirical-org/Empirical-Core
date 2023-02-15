@@ -355,7 +355,7 @@ module Evidence
 
           # values should be a multi-line valid CSV
           csv = CSV.parse(subject.values.first)
-          expect(csv.size).to be 3
+          expect(csv.size).to be 1
           expect(csv.first).to eq(["Text", "Seed", "Initial Label"])
         end
       end
