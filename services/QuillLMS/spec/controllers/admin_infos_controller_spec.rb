@@ -16,7 +16,7 @@ describe AdminInfosController do
 
     describe 'when there already is an admin info record' do
 
-      it 'should update it with the params ' do
+      it 'should update it with the params' do
         admin_info = create(:admin_info, user: user)
         put :update, params: { sub_role: sub_role, verification_reason: verification_reason, verification_url: verification_url }
         expect(admin_info.reload.sub_role).to eq(sub_role)
@@ -25,7 +25,7 @@ describe AdminInfosController do
       end
 
       describe 'when the admin info record has a skipped approval status and now has a verification reason and url' do
-        it 'should set the approval status to PENDING ' do
+        it 'should set the approval status to PENDING' do
           admin_info = create(:admin_info, user: user, approval_status: AdminInfo::SKIPPED)
 
           put :update, params: { verification_reason: verification_reason, verification_url: verification_url }
@@ -34,7 +34,7 @@ describe AdminInfosController do
       end
 
       describe 'when the admin info record has a skipped approval status but no verification reason or url' do
-        it 'should leave the approval status as SKIPPED ' do
+        it 'should leave the approval status as SKIPPED' do
           admin_info = create(:admin_info, user: user, approval_status: AdminInfo::SKIPPED, verification_reason: nil, verification_url: nil)
           put :update, params: { sub_role: sub_role }
           expect(admin_info.reload.approval_status).to eq(AdminInfo::SKIPPED)
@@ -44,7 +44,7 @@ describe AdminInfosController do
     end
 
     describe 'when there is not already is an admin info record' do
-      it 'should update it with the params ' do
+      it 'should update it with the params' do
         put :update, params: { sub_role: sub_role, verification_reason: verification_reason, verification_url: verification_url }
         expect(user.admin_info.reload.sub_role).to eq(sub_role)
         expect(user.admin_info.reload.verification_reason).to eq(verification_reason)
