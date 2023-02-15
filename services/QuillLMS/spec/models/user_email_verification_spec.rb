@@ -96,6 +96,7 @@ describe UserEmailVerification, type: :model do
 
     it 'should not be called on create if the record is already verified' do
       new_user = create(:user)
+      expect(SecureRandom).not_to receive(:uuid)
       verification = UserEmailVerification.create(user: new_user, verified_at: Time.zone.today)
 
       expect(verification.verification_token).to eq(nil)
