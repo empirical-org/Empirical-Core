@@ -96,13 +96,16 @@ class ActivitiesController < ApplicationController
   def activities_to_suggest
     return render json: {activities: []} if !current_user.teaches_eighth_through_twelfth?
 
-    if current_user.flags.include?(Flags::BETA)
-      activities = Activity.where(classification: ActivityClassification.evidence, flags:[[Flags::PRODUCTION], [Flags::EVIDENCE_BETA1], [Flags::EVIDENCE_BETA2]])
-    else
-      activities = Activity.where(classification: ActivityClassification.evidence, flags:[Flags::PRODUCTION])
+    evidence_activities = Activity.where(classification: ActivityClassification.evidence)
+    selected_activities = evidence_activities.where(flags: [Flags::PRODUCTION])
+
+    if current_user.flagset == Flags::EVIDENCE_BETA2
+      selected_activities = selected_activities.or(evidence_activities.where(flags: [Flags::EVIDENCE_BETA2]))
+    elsif current_user.flagset == Flags::EVIDENCE_BETA1
+      selected_activities = selected_activities.or(evidence_activities.where(flags: [Flags::EVIDENCE_BETA2])).or(evidence_activities.where(flags: [Flags::EVIDENCE_BETA1]))
     end
 
-    render json: {activities: activities.map(&:serialize_with_topics_and_publication_date).sort_by{|a| Date.strptime(a[:publication_date],"%m/%d/%Y")}.reverse!}
+    render json: {activities: selected_activities.map(&:serialize_with_topics_and_publication_date).sort_by{|a| Date.strptime(a[:publication_date],"%m/%d/%Y")}.reverse!}
   end
 
   private def authorized_activity_access?
