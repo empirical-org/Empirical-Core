@@ -1,5 +1,5 @@
-import React from 'react';
-import QuestionsAndAnswers from '../../Teacher/containers/QuestionsAndAnswers.tsx';
+import * as React from 'react';
+import QuestionsAndAnswers from '../../Teacher/containers/QuestionsAndAnswers';
 
 const QuestionsAndAnswersApp = (props) => (
   <QuestionsAndAnswers {...props} />
