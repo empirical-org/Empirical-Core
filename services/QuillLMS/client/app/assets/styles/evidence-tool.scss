@@ -161,7 +161,7 @@
     padding: 72px 0px 72px 0px;
     justify-content: center;
     display: flex;
-    background-image: url("https://assets.quill.org/images/evidence/home_page/EvidenceLandingPage_BackgroundPattern3.png");
+    background-image: url("https://assets.quill.org/images/evidence/home_page/EvidenceLandingPage_BackgroundPattern3.webp");
     background-position-y: -32px;
     background-size: cover;
     background-repeat: no-repeat;
@@ -203,34 +203,22 @@
     display: flex;
     justify-content: center;
     padding: 36px 0px;
-    background-image: url("https://assets.quill.org/images/evidence/home_page/EvidenceLandingPage_BackgroundPattern1.png");
+    background-image: url("https://assets.quill.org/images/evidence/home_page/EvidenceLandingPage_BackgroundPattern1.webp");
     background-size: contain;
     background-position: center;
     background-repeat: no-repeat;
-    .image-container {
+    .video-container {
       position: relative;
-      width: 450px;
+      width: 448px;
       height: 410px;
       background: #FFFFFF !important;
       box-shadow: 0px 0px 30px rgba(0, 0, 0, 0.15) !important;
       border-radius: 8px;
-      .evidence-image {
-        position: absolute;
-        width: 450px;
-        height: 410px;
-        right: 0px;
-        &.inactive {
-          -webkit-animation: fadeOut 0.5s forwards;
-          -webkit-animation-delay: 0.5s;
-          animation: fadeOut 0.5s forwards;
-          animation-delay: 0.5s;
-        }
-      }
     }
   }
 
   .bg-book-pattern {
-    background-image: url("https://assets.quill.org/images/evidence/home_page/EvidenceLandingPage_BackgroundPattern4.png");
+    background-image: url("https://assets.quill.org/images/evidence/home_page/EvidenceLandingPage_BackgroundPattern4.webp");
     background-repeat: no-repeat;
     background-size: cover;
     background-position-y: 26px;
@@ -255,7 +243,7 @@
   display: flex;
   flex-direction: column;
   justify-content: center;
-  background-image: url("https://assets.quill.org/images/evidence/home_page/EvidenceLandingPage_BackgroundPattern2.png");
+  background-image: url("https://assets.quill.org/images/evidence/home_page/EvidenceLandingPage_BackgroundPattern2.webp");
   background-size: contain;
   background-repeat: no-repeat;
   background-position: center;
@@ -320,12 +308,12 @@
       padding-right: 24px;
     }
     .prompt-example-container {
-      .image-container {
-        width: 340px;
-        height: 330px;
-        .evidence-image {
+      .video-container {
+        width: 338px;
+        height: 310px;
+        video {
           width: 340px;
-          height: 330px;
+          height: 310px;
         }
       }
     }
