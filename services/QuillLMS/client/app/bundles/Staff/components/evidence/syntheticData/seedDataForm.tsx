@@ -14,12 +14,16 @@ const SeedDataForm = ({ history, match }) => {
   const [errorOrSuccessMessage, setErrorOrSuccessMessage] = React.useState<string>(null);
   const [errors, setErrors] = React.useState<string[]>([]);
   const [showSubmissionModal, setShowSubmissionModal] = React.useState<boolean>(false);
-  const [usePassage, setUsePassage] = React.useState<string>("true");
+
+  const trueString = 'true';
+  const falseString = 'false';
+
+  const [usePassage, setUsePassage] = React.useState<string>(trueString);
   const queryClient = useQueryClient();
 
   const runOptions = [
-    { value: "true", label: 'Full Run'},
-    { value: "false", label: 'Label Examples Only'},
+    { value: trueString, label: 'Full Run'},
+    { value: falseString, label: 'Label Examples Only'},
   ];
 
   const [activityNouns, setActivityNouns] = React.useState<string>('');
@@ -122,7 +126,7 @@ const SeedDataForm = ({ history, match }) => {
         setErrors([]);
         setErrorOrSuccessMessage('Seed Data started! You will receive an email with the csv files');
         setActivityNouns('');
-        setUsePassage("true");
+        setUsePassage(trueString);
         setLabelConfigs({...blankLabelConfigs});
         toggleSubmissionModal();
       }
