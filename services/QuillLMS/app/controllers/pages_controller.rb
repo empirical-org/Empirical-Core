@@ -521,9 +521,7 @@ class PagesController < ApplicationController
   # rubocop:disable Metrics/CyclomaticComplexity
   private def determine_js_file
     case action_name
-    when 'about', 'partners', 'mission', 'faq', 'impact', 'team', 'tos', 'media_kit', 'media', 'privacy', 'map', 'teacher-center', 'news', 'stats', 'activities', 'about', 'grammar_tool', 'connect_tool', 'diagnostic_tool', 'proofreader_tool', 'lessons_tool', 'evidence_tool', 'home_new'
-      @js_file = 'shared'
-    when 'lesson_tool' || 'premium'
+    when 'about', 'partners', 'mission', 'faq', 'impact', 'team', 'tos', 'media_kit', 'media', 'privacy', 'map', 'teacher-center', 'news', 'stats', 'activities', 'about', 'grammar_tool', 'connect_tool', 'diagnostic_tool', 'proofreader_tool', 'lessons_tool', 'evidence_tool', 'home_new', 'lesson_tool', 'premium'
       @js_file = 'public'
     when 'backpack' || 'locker'
       @js_file = 'staff'

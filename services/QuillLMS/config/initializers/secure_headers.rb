@@ -57,7 +57,8 @@ SecureHeaders::Configuration.default do |config|
       "https://*.intercomcdn.com",
       "https://*.coview.com",
       "https://*.sentry.io",
-      "https://*.heapanalytics.com"
+      "https://*.heapanalytics.com",
+      "https://cdn.jsdelivr.net/npm/vanilla-lazyload@17.8.3/dist/lazyload.min.js"
     ],
 
     font_src: [
