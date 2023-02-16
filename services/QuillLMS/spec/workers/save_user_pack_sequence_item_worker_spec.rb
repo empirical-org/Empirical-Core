@@ -11,7 +11,7 @@ RSpec.describe SaveUserPackSequenceItemWorker do
   let(:unlocked) { UserPackSequenceItem::UNLOCKED }
   let(:status) { [locked, unlocked].sample }
 
-  context 'nil pack_sequence_id' do
+  context 'nil pack_sequence_item_id' do
     let(:pack_sequence_item_id) { nil }
 
     it 'should_not_query_user_pack_sequence_item' do
@@ -22,6 +22,15 @@ RSpec.describe SaveUserPackSequenceItemWorker do
 
   context 'nil user_id' do
     let(:user_id) { nil }
+
+    it 'should_not_query_user_pack_sequence_item' do
+      expect(UserPackSequenceItem).not_to receive(:create_or_find_by!)
+      subject
+    end
+  end
+
+  context 'nil pack_sequence_item' do
+    before { PackSequenceItem.find_by(id: pack_sequence_item_id).destroy }
 
     it 'should_not_query_user_pack_sequence_item' do
       expect(UserPackSequenceItem).not_to receive(:create_or_find_by!)
