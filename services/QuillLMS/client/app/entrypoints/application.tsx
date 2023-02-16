@@ -26,3 +26,21 @@ console.log('Visit the guide for more information: ', 'https://vite-ruby.netlify
 
 // Example: Import a stylesheet in app/frontend/index.css
 // import '~/index.css'
+
+import '../bundles/Login/startup/clientRegistration';
+
+// module.exports = {
+//   mode,
+//   context: __dirname,
+//   entry: {
+//     shared: [
+//       './app/bundles/Shared/styles/styles.scss'
+//     ],
+//     app: [
+//       './app/bundles/Teacher/startup/clientRegistration'
+//     ],
+//     home: [
+//       './app/bundles/Home/home'
+//     ],
+//     student: [
+//       './app/bundles/Student/startup/clientRegis
