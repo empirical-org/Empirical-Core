@@ -42,6 +42,11 @@ class UserMailer < ActionMailer::Base
     mail from: "The Quill Team <hello@quill.org>", to: user.email, subject: 'Reset your Quill password'
   end
 
+  def email_verification_email(user)
+    @user = user
+    mail from: "The Quill Team <hello@quill.org>", to: user.email, subject: 'Complete your Quill registration'
+  end
+
   # Sent when an admin adds a new teacher to one of their schools.
   def account_created_email(user, temp_password, admin_name)
     @user = user

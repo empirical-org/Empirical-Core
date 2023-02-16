@@ -21,7 +21,7 @@
 #  fk_rails_...  (user_id => users.id)
 #
 class UserEmailVerification < ApplicationRecord
-  after_create :set_new_token, unless: :verification_token
+  after_create :set_new_token, unless: [:verification_token, :verified?]
 
   belongs_to :user
 
@@ -49,7 +49,11 @@ class UserEmailVerification < ApplicationRecord
   end
 
   def set_new_token
-    self.verification_token = SecureRandom.uuid
+    update(verification_token: SecureRandom.uuid)
+  end
+
+  def send_email
+    UserMailer.email_verification_email(user).deliver_now!
   end
 
   private def mark_as_verified(verification_method)

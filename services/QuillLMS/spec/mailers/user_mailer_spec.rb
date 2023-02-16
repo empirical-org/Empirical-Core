@@ -43,6 +43,18 @@ describe UserMailer, type: :mailer do
     end
   end
 
+  describe 'email_verification_email' do
+    let!(:user) { create(:user) }
+    let!(:user_email_verification) { create(:user_email_verification, user: user, verification_token: 'valid-token')}
+
+    it 'should set the subject, receiver and the sender' do
+      mail = described_class.email_verification_email(user)
+      expect(mail.subject).to eq("Complete your Quill registration")
+      expect(mail.to).to eq([user.email])
+      expect(mail.from).to eq(["hello@quill.org"])
+    end
+  end
+
   describe 'account_created_email' do
     let(:user) { build(:user) }
     let(:mail) { described_class.account_created_email(user, "test123", "admin") }

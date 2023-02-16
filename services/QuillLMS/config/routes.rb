@@ -111,7 +111,8 @@ EmpiricalGrammar::Application.routes.draw do
   resources :password_reset
   resources :verify_emails, only: [] do
     post :verify_by_staff, on: :collection, format: :json
-    post :verify_by_token, on: :collection, format: :json
+    put :resend_verification_email, on: :collection, format: :json
+    put :verify_by_token, on: :collection, format: :json
   end
   resources :schools, only: [:index], format: 'json'
   resources :students_classrooms, only: :create do
