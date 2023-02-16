@@ -47,7 +47,8 @@ end
 def evidence_text_helper
   {
     header_text: {
-      large: "<p>Provide your students with nonfiction texts paired with AI-powered writing prompts, instead of multiple-choice questions, to enable deeper thinking. Students read a nonfiction text and build their comprehension through writing prompts, supporting a series of claims with evidence sourced from the text. Quill challenges students to write responses that are precise, logical, and based on textual evidence, with Quill coaching the student through custom, targeted feedback on each revision so that students strengthen their reading comprehension and hone their writing skills.<br /><br /> Designed for 8th-12th grade students, each activity takes 15-20 minutes to complete. Quill is developing activities for ELA, social studies, and science classrooms, with a particular focus on texts that examine 21st-century issues.</p>".html_safe,
+      first_line: "<p>Provide your students with nonfiction texts paired with AI-powered writing prompts, instead of multiple-choice questions, to enable deeper thinking. Students read a nonfiction text and build their comprehension through writing prompts, supporting a series of claims with evidence sourced from the text. Quill challenges students to write responses that are precise, logical, and based on textual evidence, with Quill coaching the student through custom, targeted feedback on each revision so that students strengthen their reading comprehension and hone their writing skills.</p><br/><br/>".html_safe,
+      second_line: "<p>Designed for 8th-12th grade students, each activity takes 15-20 minutes to complete. Quill is developing activities for ELA, social studies, and science classrooms, with a particular focus on texts that examine 21st-century issues.</p>".html_safe,
       small: "<p>Quill provides free writing and grammar activities for elementary, middle, and high school students.</p>".html_safe
     },
     first_attempt: {
