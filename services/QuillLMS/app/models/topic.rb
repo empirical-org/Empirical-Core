@@ -68,6 +68,8 @@ class Topic < ApplicationRecord
     Topic.find(parent_id) if parent?
   end
 
+  # returns a list of topic names in this order:
+  # [grandparent, parent, self]
   def genealogy
     genealogy = []
     current_topic = self

@@ -110,4 +110,53 @@ describe Topic, type: :model do
     end
   end
 
+  describe '#parent' do
+    context 'when a topic is level 2' do
+      it 'should return the parent' do
+        parent = create(:topic, level: 3)
+        topic = create(:topic, level: 2)
+        topic.update(parent_id: parent.id)
+        expect(topic.parent).to eq(parent)
+      end
+    end
+
+    context 'when a topic is level 1' do
+      it 'should return the parent' do
+        parent = create(:topic, level: 2)
+        topic = create(:topic, level: 1)
+        topic.update(parent_id: parent.id)
+        expect(topic.parent).to eq(parent)
+      end
+    end
+
+    context 'when a topic is level 3' do
+      it 'should return nil' do
+        topic = create(:topic, level: 3)
+        expect(topic.parent).to eq(nil)
+      end
+    end
+  end
+
+  describe '#genealogy' do
+    context 'when topic is level 1' do
+      it 'should return an array containing the names of the grandparent, parent, and topic' do
+        topic = create(:topic, level: 1)
+        genealogy = topic.genealogy
+        expect(genealogy.size).to eq(3)
+        expect(genealogy[0]).to eq(topic.parent.parent.name)
+        expect(genealogy[1]).to eq(topic.parent.name)
+        expect(genealogy[2]).to eq(topic.name)
+      end
+    end
+
+    context 'when topic is level 2' do
+      it 'should return an array containing the names of parent and topic' do
+        topic = create(:topic, level: 2)
+        genealogy = topic.genealogy
+        expect(genealogy.size).to eq(2)
+        expect(genealogy[0]).to eq(topic.parent.name)
+        expect(genealogy[1]).to eq(topic.name)
+      end
+    end
+  end
 end

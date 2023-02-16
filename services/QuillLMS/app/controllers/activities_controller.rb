@@ -93,15 +93,16 @@ class ActivitiesController < ApplicationController
     end
   end
 
-  def activities_to_suggest
-    return render json: {activities: []} if !current_user.teaches_eighth_through_twelfth?
+  def suggested_activities
+    return render json: {activities: []} unless current_user.teaches_eighth_through_twelfth?
 
     evidence_activities = Activity.where(classification: ActivityClassification.evidence)
     selected_activities = evidence_activities.where(flags: [Flags::PRODUCTION])
 
-    if current_user.flagset == Flags::EVIDENCE_BETA2
+    case current_user.flagset
+    when Flags::EVIDENCE_BETA2
       selected_activities = selected_activities.or(evidence_activities.where(flags: [Flags::EVIDENCE_BETA2]))
-    elsif current_user.flagset == Flags::EVIDENCE_BETA1
+    when Flags::EVIDENCE_BETA1
       selected_activities = selected_activities.or(evidence_activities.where(flags: [Flags::EVIDENCE_BETA2])).or(evidence_activities.where(flags: [Flags::EVIDENCE_BETA1]))
     end
 
