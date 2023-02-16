@@ -348,19 +348,18 @@ module Evidence
 
     context "#seed_data" do
       let(:activity) { create(:evidence_activity) }
-      # TODO: fill out test when frontend is complete
       let(:label_configs) {{}}
 
       it "should call background worker" do
-        expect(Evidence::ActivitySeedDataWorker).to receive(:perform_async).with(activity.id, [], label_configs)
-        post :seed_data, params: { id: activity.id, nouns: "" }
+        expect(Evidence::ActivitySeedDataWorker).to receive(:perform_async).with(activity.id, [], label_configs, true)
+        post :seed_data, params: { id: activity.id, nouns: ""}
 
         expect(response).to have_http_status(:success)
       end
 
       it "should call background worker with noun string converted to array" do
-        expect(Evidence::ActivitySeedDataWorker).to receive(:perform_async).with(activity.id, ['noun1','noun two','noun3'], label_configs)
-        post :seed_data, params: { id: activity.id, nouns: "noun1, noun two,,noun3" }
+        expect(Evidence::ActivitySeedDataWorker).to receive(:perform_async).with(activity.id, ['noun1','noun two','noun3'], label_configs, true)
+        post :seed_data, params: { id: activity.id, nouns: "noun1, noun two,,noun3"}
 
         expect(response).to have_http_status(:success)
       end
@@ -375,12 +374,29 @@ module Evidence
         let(:label_configs) {{'so' => [label_config1, label_config2], 'because' => [label_config2]}}
 
         it "should call background worker" do
-          expect(Evidence::ActivitySeedDataWorker).to receive(:perform_async).with(activity.id, [], label_configs)
+          expect(Evidence::ActivitySeedDataWorker).to receive(:perform_async).with(activity.id, [], label_configs, true)
           post :seed_data, params: { id: activity.id, nouns: "", label_configs: label_configs }
 
           expect(response).to have_http_status(:success)
         end
+      end
 
+      context 'use_passage=false' do
+        it "should call background worker" do
+          expect(Evidence::ActivitySeedDataWorker).to receive(:perform_async).with(activity.id, [], {}, false)
+          post :seed_data, params: { id: activity.id, nouns: "", use_passage: false }
+
+          expect(response).to have_http_status(:success)
+        end
+      end
+
+      context 'use_passage=nil' do
+        it "should call background worker with use_passage=true" do
+          expect(Evidence::ActivitySeedDataWorker).to receive(:perform_async).with(activity.id, [], {}, true)
+          post :seed_data, params: { id: activity.id, nouns: "", use_passage: nil }
+
+          expect(response).to have_http_status(:success)
+        end
       end
     end
 
