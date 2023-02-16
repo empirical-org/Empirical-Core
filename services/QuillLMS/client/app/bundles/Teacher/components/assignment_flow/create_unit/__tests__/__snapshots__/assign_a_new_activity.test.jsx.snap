@@ -3,7 +3,7 @@
 exports[`AssignANewActivity component default should render 1`] = `
 <AssignANewActivity>
   <div
-    className="assign-a-new-activity-container white-background-accommodate-footer"
+    className="assign-a-new-activity-container"
   >
     <div
       className="assign-a-new-activity container"
@@ -11,6 +11,24 @@ exports[`AssignANewActivity component default should render 1`] = `
       <h1>
         Find the perfect writing activities for your students.
       </h1>
+      <p
+        className="previously-assigned-activities"
+      >
+        You have 
+         
+        activities
+         assigned. 
+        <button
+          className="view-assigned-activities"
+          type="button"
+        >
+          <a
+            href="/teachers/classrooms/activity_planner"
+          >
+            View assigned activities
+          </a>
+        </button>
+      </p>
       <div
         className="minis"
       >
@@ -329,19 +347,6 @@ exports[`AssignANewActivity component default should render 1`] = `
           </div>
         </AssignmentCard>
       </div>
-      <p
-        className="previously-assigned-activities"
-      >
-        You have 
-         
-        activities
-         assigned. 
-        <a
-          href="/teachers/classrooms/activity_planner"
-        >
-          View assigned activities
-        </a>
-      </p>
     </div>
   </div>
 </AssignANewActivity>

@@ -232,7 +232,7 @@ describe ActivitiesController, type: :controller, redis: true do
           [
             parsed_response["activities"][0]["id"],
             parsed_response["activities"][1]["id"],
-            parsed_response["activities"][2]["id"],
+            parsed_response["activities"][2]["id"]
           ]
         ).to match_array(
           [
