@@ -261,14 +261,17 @@ class User < ApplicationRecord
 
   def email_verification_status
     return UserEmailVerification::PENDING if email_verification_pending?
+
     return UserEmailVerification::VERIFIED if email_verified?
+
     return nil
   end
 
   def email_verification_status=(status)
-    if status == UserEmailVerification::VERIFIED
+    case status
+    when UserEmailVerification::VERIFIED
       verify_email(UserEmailVerification::STAFF_VERIFICATION)
-    elsif status == UserEmailVerification::PENDING
+    when UserEmailVerification::PENDING
       require_email_verification
       user_email_verification.update(verification_method: nil, verified_at: nil)
     end
