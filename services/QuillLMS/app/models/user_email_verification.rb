@@ -36,6 +36,11 @@ class UserEmailVerification < ApplicationRecord
     STAFF_VERIFICATION = 'staff'
   ]
 
+  VERIFICATION_STATUSES = [
+    PENDING = 'Pending',
+    VERIFIED = 'Verified'
+  ]
+
   def verify(verification_method, verification_token = nil)
     raise InvalidVerificationMethodError unless VERIFICATION_METHODS.include?(verification_method)
 
