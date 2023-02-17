@@ -1,0 +1,28 @@
+{
+  "compilerOptions": {
+    "declaration": false,
+    "emitDecoratorMetadata": true,
+    "experimentalDecorators": true,
+    "lib": ["es6", "dom", "es2017"],
+    "module": "es6",
+    "moduleResolution": "node",
+    "sourceMap": true,
+    "target": "es5",
+    "jsx": "react",
+    "allowSyntheticDefaultImports": true,
+
+    "skipLibCheck": true,
+    "useDefineForClassFields": false
+  },
+  "exclude": [
+    "**/*.spec.ts",
+    "client/node_modules",
+    "vendor",
+    "public",
+    "client/**/*.ts",
+    "client/**/*.d.ts",
+    "client/**/*.tsx"
+  ],
+  "compileOnSave": false
+}
+
