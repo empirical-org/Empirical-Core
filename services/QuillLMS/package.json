@@ -10,6 +10,7 @@
     "node": "14.x",
     "npm": "8.x"
   },
+  "type": "module",
   "cacheDirectories": [
     "client/node_modules"
   ],

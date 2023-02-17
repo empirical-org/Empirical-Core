@@ -2,7 +2,7 @@ import * as React from 'react';
 import { connect } from 'react-redux';
 import * as actions from '../../actions/questions';
 import _ from 'underscore';
-import { Link } from 'react-router';
+import { Link } from 'react-router-dom';
 import QuestionListByConcept from './questionListByConcept'
 import checkAnswer from '../../libs/checkAnswer';
 import { push } from 'react-router-redux';

@@ -11,6 +11,7 @@
     "node": "14.x",
     "npm": "8.x"
   },
+  "type": "module",
   "main": "js/app.js",
   "dependencies": {
     "@babel/core": "^7.4.5",
