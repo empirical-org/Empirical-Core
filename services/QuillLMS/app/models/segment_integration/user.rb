@@ -32,7 +32,13 @@ module SegmentIntegration
         is_admin: admin?,
         minimum_grade_level: teacher_info&.minimum_grade_level,
         maximum_grade_level: teacher_info&.maximum_grade_level,
-        subject_areas: teacher_info&.subject_areas_string
+        subject_areas: teacher_info&.subject_areas_string,
+        role: role,
+        admin_sub_role: admin_sub_role,
+        email_verification_status: email_verification_status,
+        admin_approval_status: admin_approval_status,
+        admin_of_schools: schools_admins.any? ? schools_admins.joins(:school).pluck(:name).join(', ') : nil,
+        admin_of_districts: district_admins.any? ? district_admins.joins(:district).pluck(:name).join(', ') : nil
       }.reject {|_,v| v.nil? }
     end
     # rubocop:enable Metrics/CyclomaticComplexity

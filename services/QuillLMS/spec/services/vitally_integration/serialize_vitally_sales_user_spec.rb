@@ -9,7 +9,7 @@ describe 'SerializeVitallySalesUser' do
 
   let!(:current_time) { Time.current }
   let!(:school) { create(:school) }
-  let!(:teacher) { create(:user, role: 'teacher', school: school)}
+  let!(:teacher) { create(:teacher, school: school)}
   let!(:classroom) { create(:classroom) }
   let!(:old_classroom) { create(:classroom, created_at: current_time - 1.year) }
   let!(:unit) { create(:unit, user_id: teacher.id) }
@@ -88,6 +88,32 @@ describe 'SerializeVitallySalesUser' do
       city: school.city,
       state: school.state
     )
+  end
+
+  describe 'when the user is an admin' do
+    let(:admin) { create(:admin) }
+    let(:admin_info) { create(:admin_info, admin: admin) }
+    let(:user_email_verification ) { create(:user_email_verification, user: admin, verified_at: Time.zone.today, verification_method: UserEmailVerification::EMAIL_VERIFICATION) }
+    let(:schools) { create_list(:school, 3) }
+    let(:districts) { create_list(:district, 3) }
+
+    before do
+      schools.each { |s| SchoolsAdmins.create(user: admin, school: s) }
+      districts.each { |d| DistrictAdmin.create(user: admin, district: d) }
+    end
+
+    it 'presents admin data' do
+      user_data = SerializeVitallySalesUser.new(admin).data
+
+      expect(user_data[:traits]).to include(
+        role: admin.role,
+        admin_sub_role: admin.admin_sub_role,
+        email_verification_status: admin.email_verification_status,
+        admin_approval_status: admin.admin_approval_status,
+        admin_of_schools: schools.map(&:name).join(', '),
+        admin_of_districts: districts.map(&:name).join(', ')
+      )
+    end
   end
 
   it 'presents sales stage timestamps' do
