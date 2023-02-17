@@ -9,8 +9,7 @@ class UserLoginWorker
 
     analytics = Analyzer.new
     case @user.role
-    when User::TEACHER
-    when User::ADMIN
+    when User::TEACHER, User::ADMIN
       TeacherActivityFeedRefillWorker.perform_async(@user.id)
       analytics.track_with_attributes(
         @user,
