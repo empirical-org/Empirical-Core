@@ -6,8 +6,8 @@ import { requestGet } from '../../../../../../modules/request';
 import { Classroom, ClassroomUnit, DropdownObject, ActivityPack, ActivityElement } from '../../../../../../interfaces/activityPack';
 import { DropdownObjectInterface } from '../../../../../Staff/interfaces/evidenceInterfaces';
 
-const closeIconSrc = `${process.env.CDN_URL}/images/icons/close.svg`;
-const shareToGoogleIconSrc = `${process.env.CDN_URL}/images/icons/icons-google-classroom-color.svg`;
+const closeIconSrc = `${import.meta.env.VITE_PROCESS_ENV_CDN_URL}/images/icons/close.svg`;
+const shareToGoogleIconSrc = `${import.meta.env.VITE_PROCESS_ENV_CDN_URL}/images/icons/icons-google-classroom-color.svg`;
 const ALL_CLASSES = 'All Classes';
 
 interface ShareActivityPackModalPropsInterface {
@@ -91,11 +91,11 @@ export const ShareActivityPackModal = ({ activityPackData, closeModal, selectabl
     if(singleActivity) {
       const { id } = classroomUnitObject;
       const activityId = singleActivity.activityId || singleActivity.id
-      return `${process.env.DEFAULT_URL}/classroom_units/${id}/activities/${activityId}`;
+      return `${import.meta.env.DEFAULT_URL}/classroom_units/${id}/activities/${activityId}`;
     }
     if(!singleActivity) {
       const { id } = classroom;
-      return `${process.env.DEFAULT_URL}/classrooms/${id}?unit_id=${unitId}`
+      return `${import.meta.env.DEFAULT_URL}/classrooms/${id}?unit_id=${unitId}`
     }
   }
 
@@ -130,9 +130,9 @@ export const ShareActivityPackModal = ({ activityPackData, closeModal, selectabl
     if(singleActivity) {
       const classroomUnit = classroomUnits.filter(unit => unit.classroom_id === parseInt(value))[0];
       const activityId = singleActivity.activityId || singleActivity.id
-      setLink(`${process.env.DEFAULT_URL}/classroom_units/${classroomUnit.id}/activities/${activityId}`);
+      setLink(`${import.meta.env.DEFAULT_URL}/classroom_units/${classroomUnit.id}/activities/${activityId}`);
     } else {
-      setLink(`${process.env.DEFAULT_URL}/classrooms/${value}?unit_id=${unitId}`);
+      setLink(`${import.meta.env.DEFAULT_URL}/classrooms/${value}?unit_id=${unitId}`);
     }
   }
 

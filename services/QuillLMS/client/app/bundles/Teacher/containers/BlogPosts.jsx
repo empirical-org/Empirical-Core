@@ -29,7 +29,7 @@ export default class BlogPosts extends React.Component {
   }
 
   saveOrder = (topic, blogPosts, ) => {
-    const link = `${process.env.DEFAULT_URL}/cms/blog_posts/update_order_numbers`
+    const link = `${import.meta.env.DEFAULT_URL}/cms/blog_posts/update_order_numbers`
     const data = new FormData();
     data.append( "blog_posts", JSON.stringify(blogPosts) );
     fetch(link, {
@@ -53,7 +53,7 @@ export default class BlogPosts extends React.Component {
   };
 
   saveFeaturedOrder = () => {
-    const link = `${process.env.DEFAULT_URL}/cms/blog_posts/update_featured_order_numbers`
+    const link = `${import.meta.env.DEFAULT_URL}/cms/blog_posts/update_featured_order_numbers`
     const data = new FormData();
     data.append( "blog_posts", JSON.stringify(this.featuredBlogPosts()) );
     fetch(link, {
@@ -98,7 +98,7 @@ export default class BlogPosts extends React.Component {
     const { blogPosts, } = this.state
     const blogPost = blogPosts.find(bp => bp.id === blogPostId)
     const featuredOrderNumber = blogPost.featured_order_number === null ? this.featuredBlogPosts().length : null
-    const link = `${process.env.DEFAULT_URL}/cms/blog_posts/${blogPostId}`
+    const link = `${import.meta.env.DEFAULT_URL}/cms/blog_posts/${blogPostId}`
     const data = { blog_post: { featured_order_number: featuredOrderNumber, } }
     fetch(link, {
       method: 'PUT',

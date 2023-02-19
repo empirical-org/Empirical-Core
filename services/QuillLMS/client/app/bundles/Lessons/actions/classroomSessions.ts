@@ -36,7 +36,7 @@ export function startListeningToSession(classroomSessionId: ClassroomSessionId) 
 }
 
 export function startLesson(classroomUnitId: ClassroomUnitId, classroomSessionId: ClassroomSessionId, callback?: Function) {
-  let url = new URL('/api/v1/classroom_units/classroom_teacher_and_coteacher_ids', process.env.DEFAULT_URL);
+  let url = new URL('/api/v1/classroom_units/classroom_teacher_and_coteacher_ids', import.meta.env.DEFAULT_URL);
   const params = {
     classroom_unit_id: classroomUnitId
   };
@@ -64,7 +64,7 @@ export function startLesson(classroomUnitId: ClassroomUnitId, classroomSessionId
 }
 
 export const fetchActiveActivitySession = ({ sessionID, callback, }) => {
-  const activeActivitySessionUrl = `${process.env.DEFAULT_URL}/api/v1/active_activity_sessions/${sessionID}`
+  const activeActivitySessionUrl = `${import.meta.env.DEFAULT_URL}/api/v1/active_activity_sessions/${sessionID}`
 
   requestGet(activeActivitySessionUrl,
     (body) => {
@@ -77,7 +77,7 @@ export const fetchActiveActivitySession = ({ sessionID, callback, }) => {
 }
 
 export const saveActiveActivitySession = ({ sessionID, timeTracking, callback, }) => {
-  const activeActivitySessionUrl = `${process.env.DEFAULT_URL}/api/v1/active_activity_sessions/${sessionID}`
+  const activeActivitySessionUrl = `${import.meta.env.DEFAULT_URL}/api/v1/active_activity_sessions/${sessionID}`
 
   requestPut(
     activeActivitySessionUrl,
@@ -111,7 +111,7 @@ export function finishActivity(
     classroom_unit_id: classroomUnitId,
   });
 
-  fetch(`${process.env.DEFAULT_URL}/api/v1/classroom_units/finish_lesson`, {
+  fetch(`${import.meta.env.DEFAULT_URL}/api/v1/classroom_units/finish_lesson`, {
     method: 'PUT',
     body: data,
     mode: 'cors',
@@ -195,9 +195,9 @@ export function getLessonData(
   classroomUnitId: ClassroomUnitId
 ) {
   return function(dispatch) {
-    dispatch(getClassroomAndTeacherNameFromServer(classroomUnitId, classroomSessionId, process.env.DEFAULT_URL))
-    dispatch(loadStudentNames(activityId, classroomUnitId, classroomSessionId, process.env.DEFAULT_URL))
-    dispatch(loadFollowUpNameAndSupportingInfo(activityId, process.env.DEFAULT_URL, classroomSessionId))
+    dispatch(getClassroomAndTeacherNameFromServer(classroomUnitId, classroomSessionId, import.meta.env.DEFAULT_URL))
+    dispatch(loadStudentNames(activityId, classroomUnitId, classroomSessionId, import.meta.env.DEFAULT_URL))
+    dispatch(loadFollowUpNameAndSupportingInfo(activityId, import.meta.env.DEFAULT_URL, classroomSessionId))
   }
 }
 
@@ -205,7 +205,7 @@ export function getPreviewData(
   activityId: string,
   classroomSessionId: ClassroomSessionId
 ) {
-  const baseUrl:string = process.env.DEFAULT_URL ? String(process.env.DEFAULT_URL) : 'https://quill.org/'
+  const baseUrl:string = import.meta.env.DEFAULT_URL ? String(import.meta.env.DEFAULT_URL) : 'https://quill.org/'
   return function(dispatch) {
     dispatch(loadSupportingInfo(activityId, baseUrl, classroomSessionId))
   }
@@ -427,7 +427,7 @@ export function unpinActivityOnSaveAndExit(
   activityId: string,
   classroomUnitId: ClassroomUnitId
 ) {
-  let url = new URL('/api/v1/classroom_units/unpin_and_lock_activity', process.env.DEFAULT_URL);
+  let url = new URL('/api/v1/classroom_units/unpin_and_lock_activity', import.meta.env.DEFAULT_URL);
   const params = {
     activity_id: activityId,
     classroom_unit_id: classroomUnitId
@@ -464,7 +464,7 @@ export function getClassroomAndTeacherNameFromServer(
   baseUrl: string|undefined
 ) {
   return function (dispatch) {
-    let url = new URL('/api/v1/classroom_units/teacher_and_classroom_name', process.env.DEFAULT_URL);
+    let url = new URL('/api/v1/classroom_units/teacher_and_classroom_name', import.meta.env.DEFAULT_URL);
     const params = {
       classroom_unit_id: classroomUnitId
     };
@@ -648,7 +648,7 @@ export function loadFollowUpNameAndSupportingInfo(
   classroomSessionId: ClassroomSessionId
 ) {
   return function (dispatch) {
-    const coreUrl = baseUrl ? baseUrl : process.env.DEFAULT_URL
+    const coreUrl = baseUrl ? baseUrl : import.meta.env.DEFAULT_URL
     fetch(`${coreUrl}/api/v1/activities/${activityId}/follow_up_activity_name_and_supporting_info`, {
       method: 'GET',
       mode: 'cors',

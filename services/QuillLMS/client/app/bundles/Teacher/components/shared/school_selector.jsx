@@ -7,7 +7,7 @@ import { Input, smallWhiteCheckIcon, NOT_LISTED, NO_SCHOOL_SELECTED, } from '../
 import useDebounce from '../../hooks/useDebounce'
 import { requestPost, requestGet, } from '../../../../modules/request'
 
-const mapSearchSrc = `${process.env.CDN_URL}/images/onboarding/map-search.svg`
+const mapSearchSrc = `${import.meta.env.VITE_PROCESS_ENV_CDN_URL}/images/onboarding/map-search.svg`
 
 const DEBOUNCE_LENGTH = 500
 const MINIMUM_SEARCH_LENGTH = 2
@@ -63,7 +63,7 @@ const SchoolSelector = ({ selectSchool, showDismissSchoolSelectionReminderCheckb
 
   function searchForSchool() {
     requestGet(
-      `${process.env.DEFAULT_URL}/schools?search=${search}`,
+      `${import.meta.env.DEFAULT_URL}/schools?search=${search}`,
       (body) => {
         setSchools(body.data)
         setLoading(false)

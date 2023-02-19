@@ -5,7 +5,7 @@ import ButtonLoadingIndicator from '../shared/button_loading_indicator'
 import { DropdownInput } from '../../../Shared/index'
 import { requestPost } from '../../../../modules/request/index';
 
-const smallWhiteCheckSrc = `${process.env.CDN_URL}/images/shared/check-small-white.svg`
+const smallWhiteCheckSrc = `${import.meta.env.VITE_PROCESS_ENV_CDN_URL}/images/shared/check-small-white.svg`
 
 interface MoveStudentsModalProps {
   close: () => void;

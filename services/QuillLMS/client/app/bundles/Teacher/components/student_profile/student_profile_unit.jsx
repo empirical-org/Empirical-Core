@@ -11,12 +11,12 @@ import {
 import activityLaunchLink from '../modules/generate_activity_launch_link.js';
 import { formatDateTimeForDisplay, } from '../../helpers/unitActivityDates'
 
-const diagnosticSrc = `${process.env.CDN_URL}/images/icons/tool-diagnostic-gray.svg`
-const connectSrc = `${process.env.CDN_URL}/images/icons/tool-connect-gray.svg`
-const grammarSrc = `${process.env.CDN_URL}/images/icons/tool-grammar-gray.svg`
-const proofreaderSrc = `${process.env.CDN_URL}/images/icons/tool-proofreader-gray.svg`
-const lessonsSrc = `${process.env.CDN_URL}/images/icons/tool-lessons-gray.svg`
-const evidenceSrc = `${process.env.CDN_URL}/images/icons/tool-evidence-gray.svg`
+const diagnosticSrc = `${import.meta.env.VITE_PROCESS_ENV_CDN_URL}/images/icons/tool-diagnostic-gray.svg`
+const connectSrc = `${import.meta.env.VITE_PROCESS_ENV_CDN_URL}/images/icons/tool-connect-gray.svg`
+const grammarSrc = `${import.meta.env.VITE_PROCESS_ENV_CDN_URL}/images/icons/tool-grammar-gray.svg`
+const proofreaderSrc = `${import.meta.env.VITE_PROCESS_ENV_CDN_URL}/images/icons/tool-proofreader-gray.svg`
+const lessonsSrc = `${import.meta.env.VITE_PROCESS_ENV_CDN_URL}/images/icons/tool-lessons-gray.svg`
+const evidenceSrc = `${import.meta.env.VITE_PROCESS_ENV_CDN_URL}/images/icons/tool-evidence-gray.svg`
 
 const CONNECT_ACTIVITY_CLASSIFICATION_KEY = "connect"
 const GRAMMAR_ACTIVITY_CLASSIFICATION_KEY = "sentence"

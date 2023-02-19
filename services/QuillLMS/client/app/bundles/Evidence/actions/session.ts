@@ -40,7 +40,7 @@ interface SaveActiveActivitySessionArguments {
 
 export const completeActivitySession = (sessionID, activityId, percentage, conceptResults, data, callback) => {
   return (dispatch: Function) => {
-    const activitySessionUrl = `${process.env.DEFAULT_URL}/api/v1/activity_sessions/${sessionID}`
+    const activitySessionUrl = `${import.meta.env.DEFAULT_URL}/api/v1/activity_sessions/${sessionID}`
 
     requestPut(
       activitySessionUrl,
@@ -87,7 +87,7 @@ export const setActivityIsCompleteForSession = (activityIsComplete: boolean) => 
 
 export const fetchActiveActivitySession = ({ sessionID, activityUID, callback, }: FetchActiveActivitySessionArguments) => {
   return (dispatch: Function) => {
-    const activeActivitySessionUrl = `${process.env.DEFAULT_URL}/api/v1/active_activity_sessions/${sessionID}`
+    const activeActivitySessionUrl = `${import.meta.env.DEFAULT_URL}/api/v1/active_activity_sessions/${sessionID}`
 
     dispatch({ type: ActionTypes.SET_ACTIVITY_SESSION_ID, sessionID });
 
@@ -108,7 +108,7 @@ export const fetchActiveActivitySession = ({ sessionID, activityUID, callback, }
 export const saveActiveActivitySession = ({ completedSteps, timeTracking, studentHighlights, callback, }: SaveActiveActivitySessionArguments) => {
   return (dispatch: Function, getState: Function) => {
     const { sessionID, submittedResponses, activeStep, } = getState().session
-    const activeActivitySessionUrl = `${process.env.DEFAULT_URL}/api/v1/active_activity_sessions/${sessionID}`
+    const activeActivitySessionUrl = `${import.meta.env.DEFAULT_URL}/api/v1/active_activity_sessions/${sessionID}`
 
     requestPut(
       activeActivitySessionUrl,
@@ -133,7 +133,7 @@ export const saveActiveActivitySession = ({ completedSteps, timeTracking, studen
 
 export const saveActivitySurveyResponse = ({ sessionID, activitySurveyResponse, callback, }) => {
   requestPost(
-    `${process.env.DEFAULT_URL}/api/v1/activity_survey_responses`,
+    `${import.meta.env.DEFAULT_URL}/api/v1/activity_survey_responses`,
     {
       activity_survey_response: activitySurveyResponse,
       activity_session_uid: sessionID
@@ -148,7 +148,7 @@ export const saveActivitySurveyResponse = ({ sessionID, activitySurveyResponse, 
 }
 
 export const reportAProblem = ({ sessionID, entry, report, callback, isOptimal }) => {
-  const reportAProblemUrl = `${process.env.DEFAULT_URL}/api/v1/student_problem_reports`
+  const reportAProblemUrl = `${import.meta.env.DEFAULT_URL}/api/v1/student_problem_reports`
 
   requestPost(
     reportAProblemUrl,
@@ -171,7 +171,7 @@ export const getFeedback = (args: GetFeedbackArguments) => {
   const { sessionID, activityUID, entry, promptID, promptText, attempt, previousFeedback, callback, activityVersion } = args
 
   return (dispatch: Function) => {
-    const feedbackURL = `${process.env.DEFAULT_URL}/api/v1/evidence/feedback/`
+    const feedbackURL = `${import.meta.env.DEFAULT_URL}/api/v1/evidence/feedback/`
 
     const entryWithoutStem = entry.slice(promptText.length).trim()
     const mostRecentFeedback = previousFeedback.slice(-1)[0] || {}

@@ -26,7 +26,7 @@ const cardTextIcon = <img alt="Message icon" src={`${baseDiagnosticImageSrc}/ico
 const tableIcon = <img alt="Table with a user icon" src={`${baseDiagnosticImageSrc}/icons-table-account.svg`} />
 const chartGrowthIllustration = <img alt="Chart showing growth illustration" src={`${baseDiagnosticImageSrc}/chart-growth-illustration-quill-green.svg`} />
 
-const eyeIcon = <img alt="Preview icon" src={`${process.env.CDN_URL}/images/icons/icons-visibility-on.svg`} />
+const eyeIcon = <img alt="Preview icon" src={`${import.meta.env.VITE_PROCESS_ENV_CDN_URL}/images/icons/icons-visibility-on.svg`} />
 
 const PRE_TEXT = ' (Pre)'
 const POST_TEXT = ' (Post)'

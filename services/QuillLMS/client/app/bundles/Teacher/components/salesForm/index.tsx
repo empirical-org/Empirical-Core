@@ -141,7 +141,7 @@ export const SalesForm = ({ type }) => {
   }
 
   function handleClick() {
-    window.location.href = `${process.env.DEFAULT_URL}/premium`;
+    window.location.href = `${import.meta.env.DEFAULT_URL}/premium`;
   }
 
   function renderForm() {

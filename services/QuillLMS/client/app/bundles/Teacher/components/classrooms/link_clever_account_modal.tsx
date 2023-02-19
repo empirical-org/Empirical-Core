@@ -1,6 +1,6 @@
 import * as React from 'react'
 
-const smallWhiteCheckSrc = `${process.env.CDN_URL}/images/shared/check-small-white.svg`
+const smallWhiteCheckSrc = `${import.meta.env.VITE_PROCESS_ENV_CDN_URL}/images/shared/check-small-white.svg`
 
 interface LinkCleverAccountModalProps {
   cleverLink: string;

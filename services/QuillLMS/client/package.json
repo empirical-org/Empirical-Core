@@ -217,7 +217,7 @@
     ],
     "globals": {
       "window": {},
-      "process.env.CDN_URL": "http://cdn.quill.org",
+      "import.meta.env.VITE_PROCESS_ENV_CDN_URL": "http://cdn.quill.org",
       "ts-jest": {
         "diagnostics": false
       }

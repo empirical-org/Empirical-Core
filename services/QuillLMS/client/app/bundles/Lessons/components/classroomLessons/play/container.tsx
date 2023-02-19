@@ -50,7 +50,7 @@ import {
   SCROLL,
 } from '../../../../Shared/index';
 
-const arrowSrc = `${process.env.CDN_URL}/images/icons/chevron-arrow-filled.svg`
+const arrowSrc = `${import.meta.env.VITE_PROCESS_ENV_CDN_URL}/images/icons/chevron-arrow-filled.svg`
 
 class PlayClassroomLessonContainer extends React.Component<any, any> {
   constructor(props) {

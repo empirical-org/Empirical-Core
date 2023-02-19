@@ -16,7 +16,7 @@ import fillInBlankActions from '../../actions/fillInBlank'
 import titleCardActions from '../../actions/titleCards'
 import { FlagDropdown, Modal } from '../../../Shared/index';
 
-const icon = `${process.env.CDN_URL}/images/icons/direction.svg`
+const icon = `${import.meta.env.VITE_PROCESS_ENV_CDN_URL}/images/icons/direction.svg`
 
 //fake commit for linting
 String.prototype.toKebab = function () {

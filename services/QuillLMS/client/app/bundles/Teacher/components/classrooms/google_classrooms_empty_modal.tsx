@@ -1,5 +1,5 @@
 import * as React from 'react'
-const emptyClassSrc = `${process.env.CDN_URL}/images/illustrations/empty-class.svg`
+const emptyClassSrc = `${import.meta.env.VITE_PROCESS_ENV_CDN_URL}/images/illustrations/empty-class.svg`
 
 interface GoogleClassroomsEmptyModalProps {
   close: () => void;

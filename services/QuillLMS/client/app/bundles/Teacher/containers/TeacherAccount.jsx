@@ -86,7 +86,7 @@ export default class TeacherAccount extends React.Component {
     const { id, } = accountInfo
 
     requestPost(
-      `${process.env.DEFAULT_URL}/teachers/clear_data/${id}`,
+      `${import.meta.env.DEFAULT_URL}/teachers/clear_data/${id}`,
       {},
       () => window.location.href = window.location.origin
     )
@@ -128,7 +128,7 @@ export default class TeacherAccount extends React.Component {
   updateUser = (data, url, snackbarCopy) => {
     const { timesSubmitted, } = this.state
     requestPut(
-      `${process.env.DEFAULT_URL}${url}`,
+      `${import.meta.env.DEFAULT_URL}${url}`,
       data,
       (body) => {
         const {

@@ -27,10 +27,10 @@ import { requestGet, requestPut } from '../../../../modules/request/index';
 import ArticleSpotlight from '../shared/articleSpotlight';
 import { MY_CLASSES_FEATURED_BLOG_POST_ID } from '../../constants/featuredBlogPost';
 
-const bookEmptySrc = `${process.env.CDN_URL}/images/illustrations/book-empty.svg`
-const cleverIconSrc = `${process.env.CDN_URL}/images/icons/clever.svg`
-const googleClassroomIconSrc = `${process.env.CDN_URL}/images/icons/google-classroom.svg`
-const reorderSrc = `${process.env.CDN_URL}/images/icons/reorder.svg`
+const bookEmptySrc = `${import.meta.env.VITE_PROCESS_ENV_CDN_URL}/images/illustrations/book-empty.svg`
+const cleverIconSrc = `${import.meta.env.VITE_PROCESS_ENV_CDN_URL}/images/icons/clever.svg`
+const googleClassroomIconSrc = `${import.meta.env.VITE_PROCESS_ENV_CDN_URL}/images/icons/google-classroom.svg`
+const reorderSrc = `${import.meta.env.VITE_PROCESS_ENV_CDN_URL}/images/icons/reorder.svg`
 
 interface ActiveClassroomsProps {
   classrooms: Array<any>;
@@ -145,9 +145,9 @@ export default class ActiveClassrooms extends React.Component<ActiveClassroomsPr
   }
 
   initializePusherForCleverClassrooms(userId: String) {
-    if (process.env.RAILS_ENV === 'development') { Pusher.logToConsole = true }
+    if (import.meta.env.RAILS_ENV === 'development') { Pusher.logToConsole = true }
 
-    const pusher = new Pusher(process.env.PUSHER_KEY, { encrypted: true, });
+    const pusher = new Pusher(import.meta.env.PUSHER_KEY, { encrypted: true, });
     const channelName = String(userId)
     const channel = pusher.subscribe(channelName);
     const that = this
@@ -184,9 +184,9 @@ export default class ActiveClassrooms extends React.Component<ActiveClassroomsPr
   }
 
   initializePusherForGoogleClassrooms(id) {
-    if (process.env.RAILS_ENV === 'development') { Pusher.logToConsole = true }
+    if (import.meta.env.RAILS_ENV === 'development') { Pusher.logToConsole = true }
 
-    const pusher = new Pusher(process.env.PUSHER_KEY, { encrypted: true, })
+    const pusher = new Pusher(import.meta.env.PUSHER_KEY, { encrypted: true, })
     const channelName = String(id)
     const channel = pusher.subscribe(channelName);
     const that = this

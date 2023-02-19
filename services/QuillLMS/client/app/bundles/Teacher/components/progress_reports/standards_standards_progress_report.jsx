@@ -29,7 +29,7 @@ export default class StandardsProgressReport extends React.Component {
   getData() {
     const { sourceUrl } = this.props;
     requestGet(
-      `${process.env.DEFAULT_URL}/${sourceUrl}`,
+      `${import.meta.env.DEFAULT_URL}/${sourceUrl}`,
       (body) => {
         const data = body.standards
         const student = body.student

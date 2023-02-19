@@ -68,7 +68,7 @@ export default class CmsDistrictIndex extends React.Component {
         resizable: false,
         minWidth: 60,
         Cell: ({row}) => {
-          return <a href={`${process.env.DEFAULT_URL}/cms/districts/${row.original.id}`}>Edit</a>
+          return <a href={`${import.meta.env.DEFAULT_URL}/cms/districts/${row.original.id}`}>Edit</a>
         }
       }
     ];
@@ -94,7 +94,7 @@ export default class CmsDistrictIndex extends React.Component {
 
     e ? e.preventDefault() : null
     this.setState({loading: true})
-    const link = `${process.env.DEFAULT_URL}/cms/districts/search`
+    const link = `${import.meta.env.DEFAULT_URL}/cms/districts/search`
     const data = new FormData();
     data.append('district', '')
     Object.keys(query).forEach((k) => {

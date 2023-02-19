@@ -17,7 +17,7 @@ export const initStore = () => {
 };
 
 export const configureStore = () => {
-  if (process.env.NODE_ENV === "production") {
+  if (import.meta.env.NODE_ENV === "production") {
     return createStore(
       rootReducer,
       applyMiddleware(thunk),

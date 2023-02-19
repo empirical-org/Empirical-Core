@@ -16,7 +16,7 @@ export default class ChooseClassroomLesson extends React.Component {
   }
 
   getClassroomLessonInfo() {
-    requestGet(`${process.env.DEFAULT_URL}/teachers/units/lesson_info_for_activity/${this.props.match.params.activityId}`, (body) => {
+    requestGet(`${import.meta.env.DEFAULT_URL}/teachers/units/lesson_info_for_activity/${this.props.match.params.activityId}`, (body) => {
       this.setState({
         classroomUnits: body.classroom_units,
         activityName: body.activity_name[0].name,
@@ -36,7 +36,7 @@ export default class ChooseClassroomLesson extends React.Component {
   launchLessonLink() {
     const classroomUnitId = this.state.classroomUnitId
     const lessonId = this.props.match.params.activityId
-    return `${process.env.DEFAULT_URL}/teachers/classroom_units/${classroomUnitId}/launch_lesson/${lessonId}`
+    return `${import.meta.env.DEFAULT_URL}/teachers/classroom_units/${classroomUnitId}/launch_lesson/${lessonId}`
   }
 
   renderClasses() {
@@ -63,7 +63,7 @@ export default class ChooseClassroomLesson extends React.Component {
     return (
       <div className={`classroom-row ${selectedClassName} ${completionClass}`} key={i} onClick={clickFunction}>
         <div>
-          <img alt="" src={`${process.env.CDN_URL}/images/shared/${imgName}.svg`} />
+          <img alt="" src={`${import.meta.env.VITE_PROCESS_ENV_CDN_URL}/images/shared/${imgName}.svg`} />
           <span>{cu.classroom_name}</span> ({numberOfStudents})
         </div>
         {completionText}
@@ -84,7 +84,7 @@ export default class ChooseClassroomLesson extends React.Component {
           <div className='lesson-section'>
             <p>You've selected this lesson to launch:</p>
             <div className="lesson-row">
-              <img alt="" src={`${process.env.CDN_URL}/images/shared/icon-lesson-box.svg`} />
+              <img alt="" src={`${import.meta.env.VITE_PROCESS_ENV_CDN_URL}/images/shared/icon-lesson-box.svg`} />
               <p>{this.state.activityName}</p>
               <span onClick={this.goBack}>Undo Selection</span>
             </div>

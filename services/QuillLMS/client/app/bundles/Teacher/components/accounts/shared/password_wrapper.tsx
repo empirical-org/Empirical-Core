@@ -2,8 +2,8 @@ import * as React from 'react'
 
 import { Input, } from '../../../../Shared/index'
 
-const passwordVisibleSrc = `${process.env.CDN_URL}/images/icons/icons-visibility-on.svg`
-const passwordNotVisibleSrc = `${process.env.CDN_URL}/images/icons/icons-visibility-off.svg`
+const passwordVisibleSrc = `${import.meta.env.VITE_PROCESS_ENV_CDN_URL}/images/icons/icons-visibility-on.svg`
+const passwordNotVisibleSrc = `${import.meta.env.VITE_PROCESS_ENV_CDN_URL}/images/icons/icons-visibility-off.svg`
 
 const PasswordWrapper = ({ autoComplete, className, error, onChange, id, label, timesSubmitted, value, }) => {
   const [showPassword, setShowPassword] = React.useState(false)

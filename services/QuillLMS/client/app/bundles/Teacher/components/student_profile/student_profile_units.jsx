@@ -9,7 +9,7 @@ import PinnedActivityBar from './pinned_activity_bar'
 import LoadingIndicator from '../shared/loading_indicator'
 import { TO_DO_ACTIVITIES, COMPLETED_ACTIVITIES, } from '../../../../constants/student_profile'
 
-const clipboardSrc = `${process.env.CDN_URL}/images/illustrations/clipboard.svg`
+const clipboardSrc = `${import.meta.env.VITE_PROCESS_ENV_CDN_URL}/images/illustrations/clipboard.svg`
 
 export default class StudentProfileUnits extends React.Component {
   constructor(props) {

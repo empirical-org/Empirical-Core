@@ -13,7 +13,7 @@ const Cards = () => {
             <pre>
               {`<Card
   onClick={() => {}}
-  imgSrc={\`${process.env.CDN_URL}/images/onboarding/business-building.svg\`}
+  imgSrc={\`${import.meta.env.VITE_PROCESS_ENV_CDN_URL}/images/onboarding/business-building.svg\`}
   imgAlt="office building"
   header="Other"
   text="Tip: many non-traditional educators and learners begin by assigning our featured activity packs."
@@ -22,7 +22,7 @@ const Cards = () => {
             <Card
               header="Other"
               imgAlt="office building"
-              imgSrc={`${process.env.CDN_URL}/images/onboarding/business-building.svg`}
+              imgSrc={`${import.meta.env.VITE_PROCESS_ENV_CDN_URL}/images/onboarding/business-building.svg`}
               onClick={() => {}}
               text="Tip: many non-traditional educators and learners begin by assigning our featured activity packs."
             />

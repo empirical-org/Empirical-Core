@@ -67,7 +67,7 @@ export default class ClassroomActivity extends React.Component {
   }
 
   anonymousPath = () => {
-    return `${process.env.DEFAULT_URL}/activity_sessions/anonymous?activity_id=${this.activityId()}`;
+    return `${import.meta.env.DEFAULT_URL}/activity_sessions/anonymous?activity_id=${this.activityId()}`;
   }
 
   calculateAverageScore = () => {
@@ -156,7 +156,7 @@ export default class ClassroomActivity extends React.Component {
 
   handleLaunchLessonWithNoStudents = () => {
     if (window.confirm("You have no students in this class. Quill Lessons is a collaborative tool for teachers and students to work together. If you'd like to launch this lesson anyway, click OK below. Otherwise, click Cancel.")) {
-      window.location.href = `${process.env.DEFAULT_URL}/teachers/classroom_units/${this.classroomUnitId()}/launch_lesson/${this.activityId()}`;
+      window.location.href = `${import.meta.env.DEFAULT_URL}/teachers/classroom_units/${this.classroomUnitId()}/launch_lesson/${this.activityId()}`;
     }
   }
 
@@ -206,9 +206,9 @@ export default class ClassroomActivity extends React.Component {
       return <a id="launch-lesson" onClick={this.handleLaunchLessonWithNoStudents}>{data.started ? 'Resume Lesson' : 'Launch Lesson'}</a>;
     }
     if (data.started) {
-      return <a className="resume-lesson" href={`${process.env.DEFAULT_URL}/teachers/classroom_units/${this.classroomUnitId()}/launch_lesson/${this.activityId()}`}>Resume Lesson</a>;
+      return <a className="resume-lesson" href={`${import.meta.env.DEFAULT_URL}/teachers/classroom_units/${this.classroomUnitId()}/launch_lesson/${this.activityId()}`}>Resume Lesson</a>;
     }
-    return <a href={`${process.env.DEFAULT_URL}/teachers/classroom_units/${this.classroomUnitId()}/launch_lesson/${this.activityId()}`} id="launch-lesson">Launch Lesson</a>;
+    return <a href={`${import.meta.env.DEFAULT_URL}/teachers/classroom_units/${this.classroomUnitId()}/launch_lesson/${this.activityId()}`} id="launch-lesson">Launch Lesson</a>;
   }
 
   lessonFinalCell = () => {

@@ -28,7 +28,7 @@ export default class extends React.Component {
     const studentId = l.get(query, 'student_id') || getParameterByName('student_id', window.location.href);
 
     requestGet(
-      `${process.env.DEFAULT_URL}/api/v1/progress_reports/student_overview_data/${studentId}/${classroomId}`,
+      `${import.meta.env.DEFAULT_URL}/api/v1/progress_reports/student_overview_data/${studentId}/${classroomId}`,
       (body) => {
         this.setState({ loading: false, errors: body.errors, studentData: body.student_data, reportData: body.report_data, classroomName: body.classroom_name, });
       }

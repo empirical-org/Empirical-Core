@@ -10,11 +10,11 @@ import ActivityDisclaimerBanner from '../../../shared/activityDisclaimerBanner'
 import { requestPost, } from '../../../../../../modules/request'
 import { LESSONS, EVIDENCE } from '../../../../../Shared';
 
-const searchIconSrc = `${process.env.CDN_URL}/images/icons/search.svg`
-const closeIconSrc = `${process.env.CDN_URL}/images/icons/close.svg`
-const filterIconSrc = `${process.env.CDN_URL}/images/icons/icons-filter.svg`
-const sortIconSrc = `${process.env.CDN_URL}/images/icons/icons-sort.svg`
-const emptySearchSrc = `${process.env.CDN_URL}/images/illustrations/search-empty.svg`
+const searchIconSrc = `${import.meta.env.VITE_PROCESS_ENV_CDN_URL}/images/icons/search.svg`
+const closeIconSrc = `${import.meta.env.VITE_PROCESS_ENV_CDN_URL}/images/icons/close.svg`
+const filterIconSrc = `${import.meta.env.VITE_PROCESS_ENV_CDN_URL}/images/icons/icons-filter.svg`
+const sortIconSrc = `${import.meta.env.VITE_PROCESS_ENV_CDN_URL}/images/icons/icons-sort.svg`
+const emptySearchSrc = `${import.meta.env.VITE_PROCESS_ENV_CDN_URL}/images/illustrations/search-empty.svg`
 
 interface ActivityTableContainerProps {
   filteredActivities: Activity[],

@@ -8,22 +8,12 @@ import { CLICKED_ACTIVITY_PACK_ID } from '../assignmentFlowConstants'
 import ArticleSpotlight from '../../shared/articleSpotlight'
 import { ASSIGN_ACTIVITIES_FEATURED_BLOG_ID } from '../../../constants/featuredBlogPost'
 
-interface ActivityToSuggest {
-  name: string;
-  classification: string,
-  topics: [],
-  link: string,
-  date_released: string,
-  preview_link: string,
-  activity_id: number
-}
-
-const diagnosticWaveSrc = `${process.env.CDN_URL}/images/illustrations/diagnostic-wave.svg`
-const activityLibrarySrc = `${process.env.CDN_URL}/images/icons/icons-activity-library.svg`
-const activityPacksSrc = `${process.env.CDN_URL}/images/icons/icons-activity-packs.svg`
-const allDiagnosticsSrc = `${process.env.CDN_URL}/images/icons/icons-diagnostics-all.svg`
-const graduationCapSrc = `${process.env.CDN_URL}/images/icons/icons-graduation-cap.svg`
-const closeIconSrc = `${process.env.CDN_URL}/images/icons/close.svg`
+const diagnosticWaveSrc = `${import.meta.env.VITE_PROCESS_ENV_CDN_URL}/images/illustrations/diagnostic-wave.svg`
+const activityLibrarySrc = `${import.meta.env.VITE_PROCESS_ENV_CDN_URL}/images/icons/icons-activity-library.svg`
+const activityPacksSrc = `${import.meta.env.VITE_PROCESS_ENV_CDN_URL}/images/icons/icons-activity-packs.svg`
+const allDiagnosticsSrc = `${import.meta.env.VITE_PROCESS_ENV_CDN_URL}/images/icons/icons-diagnostics-all.svg`
+const graduationCapSrc = `${import.meta.env.VITE_PROCESS_ENV_CDN_URL}/images/icons/icons-graduation-cap.svg`
+const closeIconSrc = `${import.meta.env.VITE_PROCESS_ENV_CDN_URL}/images/icons/close.svg`
 
 const minis = (diagnosticBannerShowing) => [
   (<AssignmentCard

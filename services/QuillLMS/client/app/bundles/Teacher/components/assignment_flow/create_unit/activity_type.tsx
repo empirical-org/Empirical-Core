@@ -4,8 +4,8 @@ import AssignmentFlowNavigation from '../assignment_flow_navigation'
 import AssignmentCard from './assignment_card'
 import ScrollToTop from '../../shared/scroll_to_top'
 
-const packsWholeSrc = `${process.env.CDN_URL}/images/illustrations/packs-whole.svg`
-const packsIndependentSrc = `${process.env.CDN_URL}/images/illustrations/packs-independent.svg`
+const packsWholeSrc = `${import.meta.env.VITE_PROCESS_ENV_CDN_URL}/images/illustrations/packs-whole.svg`
+const packsIndependentSrc = `${import.meta.env.VITE_PROCESS_ENV_CDN_URL}/images/illustrations/packs-independent.svg`
 
 const selectCard = (history, link) => {
   history.push(link)

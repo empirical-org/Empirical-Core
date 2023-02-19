@@ -8,7 +8,7 @@ import { lowerBound, upperBound, } from '../assignment_flow/create_unit/custom_a
 import { unitTemplateActivityRows, unitTemplateDataTableFields } from '../../helpers/unitTemplates';
 import { requestGet, } from '../../../../modules/request/index'
 
-const ACTIVITIES_URL = `${process.env.DEFAULT_URL}/activities/index_with_unit_templates`
+const ACTIVITIES_URL = `${import.meta.env.DEFAULT_URL}/activities/index_with_unit_templates`
 const DEFAULT_FLAG = 'All Flags'
 const DEFAULT_TOOL = 'All Tools'
 const DEFAULT_READABILITY = 'All readability levels'

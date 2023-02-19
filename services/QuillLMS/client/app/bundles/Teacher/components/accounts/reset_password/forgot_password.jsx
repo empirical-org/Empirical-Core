@@ -3,7 +3,7 @@ import React from 'react'
 import { Input, } from '../../../../Shared/index'
 import { requestPost, } from '../../../../../modules/request/index'
 
-const bulbSrc = `${process.env.CDN_URL}/images/onboarding/bulb.svg`
+const bulbSrc = `${import.meta.env.VITE_PROCESS_ENV_CDN_URL}/images/onboarding/bulb.svg`
 
 export default class ForgotPassword extends React.Component {
   constructor() {
@@ -25,7 +25,7 @@ export default class ForgotPassword extends React.Component {
     e.preventDefault();
 
     requestPost(
-      `${process.env.DEFAULT_URL}/password_reset`,
+      `${import.meta.env.DEFAULT_URL}/password_reset`,
       {
         user: {
           email,
@@ -33,7 +33,7 @@ export default class ForgotPassword extends React.Component {
         }
       },
       (body) => {
-        window.location = `${process.env.DEFAULT_URL}${body.redirect}`;
+        window.location = `${import.meta.env.DEFAULT_URL}${body.redirect}`;
       },
       (body) => {
         let state

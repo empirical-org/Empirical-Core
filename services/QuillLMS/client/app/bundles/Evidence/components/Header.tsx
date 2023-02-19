@@ -9,9 +9,9 @@ import getParameterByName from '../helpers/getParameterByName';
 import { Tooltip, READ_PASSAGE_STEP_NUMBER, BECAUSE_PASSAGE_STEP_NUMBER, BUT_PASSAGE_STEP_NUMBER, SO_PASSAGE_STEP_NUMBER, whiteCheckGreenBackgroundIcon } from '../../Shared/index'
 import { onMobile } from '../helpers/containerActionHelpers';
 
-const logoSrc = `${process.env.CDN_URL}/images/logos/quill-logo-white-2022.svg`
-const mobileLogoSrc = `${process.env.CDN_URL}/images/logos/quill-logo-white-mobile.svg`
-const helpIcon = `${process.env.CDN_URL}/images/icons/icons-help-white.svg`
+const logoSrc = `${import.meta.env.VITE_PROCESS_ENV_CDN_URL}/images/logos/quill-logo-white-2022.svg`
+const mobileLogoSrc = `${import.meta.env.VITE_PROCESS_ENV_CDN_URL}/images/logos/quill-logo-white-mobile.svg`
+const helpIcon = `${import.meta.env.VITE_PROCESS_ENV_CDN_URL}/images/icons/icons-help-white.svg`
 const checkIcon = <img alt={whiteCheckGreenBackgroundIcon.alt} src={whiteCheckGreenBackgroundIcon.src} />;
 
 export class Header extends React.Component<any, any> {
@@ -86,7 +86,7 @@ export class Header extends React.Component<any, any> {
         <div className={`inner-header ${mobileStyle}`}>
           <div className={`left-side-container ${mobileStyle}`}>
             <div className="left-side">
-              <a className="focus-on-dark" href={process.env.DEFAULT_URL}>
+              <a className="focus-on-dark" href={import.meta.env.DEFAULT_URL}>
                 <img alt="Quill.org logo" className="hide-on-desktop" src={mobileLogoSrc} />
                 <img alt="Quill.org logo" className="hide-on-mobile" src={logoSrc} />
               </a>

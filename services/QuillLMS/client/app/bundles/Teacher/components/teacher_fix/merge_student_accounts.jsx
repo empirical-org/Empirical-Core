@@ -16,7 +16,7 @@ export default class MergeStudentAccounts extends React.Component {
     const that = this
 
     requestPost(
-      `${process.env.DEFAULT_URL}/teacher_fix/merge_student_accounts`,
+      `${import.meta.env.DEFAULT_URL}/teacher_fix/merge_student_accounts`,
       { source_student_identifier: that.state.sourceStudentIdentifier, destination_student_identifier: that.state.destinationStudentIdentifier },
       (body) => {
         window.alert('Accounts have been merged!')

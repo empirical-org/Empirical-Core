@@ -16,7 +16,7 @@ export default class MergeActivityPacks extends React.Component {
     const that = this
 
     requestPost(
-      `${process.env.DEFAULT_URL}/teacher_fix/merge_activity_packs`,
+      `${import.meta.env.DEFAULT_URL}/teacher_fix/merge_activity_packs`,
       { from_activity_pack_id: that.state.activityPack1Id, to_activity_pack_id: that.state.activityPack2Id },
       (body) => {
         window.alert('Activity Packs have been merged!')

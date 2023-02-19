@@ -73,7 +73,7 @@ export const UnitTemplateFilterInputs = ({
         selectedItem={flag}
       />
       {diagnosticsDropdown()}
-      <a className='new-unit-template-button quill-button primary contained small focus-on-light' href={`${process.env.DEFAULT_URL}/cms/unit_templates/new`} rel="noopener noreferrer" target="_blank">New</a>
+      <a className='new-unit-template-button quill-button primary contained small focus-on-light' href={`${import.meta.env.DEFAULT_URL}/cms/unit_templates/new`} rel="noopener noreferrer" target="_blank">New</a>
     </div>
   )
 }

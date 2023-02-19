@@ -25,7 +25,7 @@ export default class EditUnitActivitiesContainer extends React.Component {
   updateActivities = () => {
     const that = this;
     requestPut(
-      `${process.env.DEFAULT_URL}/teachers/units/${that.props.match.params.unitId}/update_activities`,
+      `${import.meta.env.DEFAULT_URL}/teachers/units/${that.props.match.params.unitId}/update_activities`,
       {
         data: { activities_data: that.getActivityIds(), }
       },

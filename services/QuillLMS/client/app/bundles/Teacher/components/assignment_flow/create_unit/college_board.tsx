@@ -7,9 +7,9 @@ const selectCard = (history: any, link: string) => {
   history.push(link)
 }
 
-const apSrc = `${process.env.CDN_URL}/images/college_board/ap.svg`
-const preApSrc = `${process.env.CDN_URL}/images/college_board/pre-ap.svg`
-const springBoardSrc = `${process.env.CDN_URL}/images/college_board/icons-springboard.svg`
+const apSrc = `${import.meta.env.VITE_PROCESS_ENV_CDN_URL}/images/college_board/ap.svg`
+const preApSrc = `${import.meta.env.VITE_PROCESS_ENV_CDN_URL}/images/college_board/pre-ap.svg`
+const springBoardSrc = `${import.meta.env.VITE_PROCESS_ENV_CDN_URL}/images/college_board/icons-springboard.svg`
 
 const minis = ({ history }) => [
   (<AssignmentCard

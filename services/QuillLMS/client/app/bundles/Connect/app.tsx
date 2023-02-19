@@ -23,7 +23,7 @@ import Home from './components/home.tsx';
 
 import { DefaultReactQueryClient } from '../Shared';
 
-if (process.env.NODE_ENV === 'production') {
+if (import.meta.env.NODE_ENV === 'production') {
   Sentry.init({ dsn: 'https://528794315c61463db7d5181ebc1d51b9@o95148.ingest.sentry.io/210579' })
 }
 

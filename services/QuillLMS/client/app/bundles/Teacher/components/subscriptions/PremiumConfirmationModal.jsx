@@ -60,7 +60,7 @@ export default class PremiumConfirmationModal extends React.Component {
             <img
               alt="close-modal"
               className="modal-button-close"
-              src={`${process.env.CDN_URL}/images/shared/close_x.svg`}
+              src={`${import.meta.env.VITE_PROCESS_ENV_CDN_URL}/images/shared/close_x.svg`}
             />
           </button>
           <h1>Congratulations!</h1>

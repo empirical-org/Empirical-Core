@@ -9,11 +9,11 @@ import {
 } from '../../constants'
 
 
-const FollowUpIllustration = `${process.env.CDN_URL}/images/illustrations/celebrating-activity-completion.svg`
+const FollowUpIllustration = `${import.meta.env.VITE_PROCESS_ENV_CDN_URL}/images/illustrations/celebrating-activity-completion.svg`
 
 const buttonClassName = "quill-button large outlined secondary focus-on-dark"
 
-const generic = <a className={buttonClassName} href={`${process.env.DEFAULT_URL}`}>Exit lesson</a>
+const generic = <a className={buttonClassName} href={`${import.meta.env.DEFAULT_URL}`}>Exit lesson</a>
 
 const flagged = <h2>Wait for instructions from your teacher.</h2>
 

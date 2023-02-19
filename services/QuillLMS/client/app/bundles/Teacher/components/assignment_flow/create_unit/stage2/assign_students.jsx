@@ -15,11 +15,11 @@ import GoogleClassroomsEmptyModal from '../../../classrooms/google_classrooms_em
 import { Snackbar, defaultSnackbarTimeout } from '../../../../../Shared/index'
 import { requestGet } from '../../../../../../modules/request';
 
-const cleverIconSrc = `${process.env.CDN_URL}/images/icons/clever.svg`
-const googleClassroomIconSrc = `${process.env.CDN_URL}/images/icons/google-classroom.svg`
-const emptyClassSrc = `${process.env.CDN_URL}/images/illustrations/empty-class.svg`
-const smallWhiteCheckSrc = `${process.env.CDN_URL}/images/shared/check-small-white.svg`
-const indeterminateSrc = `${process.env.CDN_URL}/images/icons/indeterminate.svg`
+const cleverIconSrc = `${import.meta.env.VITE_PROCESS_ENV_CDN_URL}/images/icons/clever.svg`
+const googleClassroomIconSrc = `${import.meta.env.VITE_PROCESS_ENV_CDN_URL}/images/icons/google-classroom.svg`
+const emptyClassSrc = `${import.meta.env.VITE_PROCESS_ENV_CDN_URL}/images/illustrations/empty-class.svg`
+const smallWhiteCheckSrc = `${import.meta.env.VITE_PROCESS_ENV_CDN_URL}/images/shared/check-small-white.svg`
+const indeterminateSrc = `${import.meta.env.VITE_PROCESS_ENV_CDN_URL}/images/icons/indeterminate.svg`
 
 export const createAClassForm = 'createAClassForm'
 export const importCleverClassroomsModal = 'importCleverClassroomsModal'
@@ -89,9 +89,9 @@ export default class AssignStudents extends React.Component {
   }
 
   initializePusherForCleverClassrooms(userId) {
-    if (process.env.RAILS_ENV === 'development') { Pusher.logToConsole = true }
+    if (import.meta.env.RAILS_ENV === 'development') { Pusher.logToConsole = true }
 
-    const pusher = new Pusher(process.env.PUSHER_KEY, { encrypted: true, });
+    const pusher = new Pusher(import.meta.env.PUSHER_KEY, { encrypted: true, });
     const channelName = String(userId)
     const channel = pusher.subscribe(channelName);
     const that = this
@@ -128,10 +128,10 @@ export default class AssignStudents extends React.Component {
   };
 
   initializePusherForGoogleClassrooms = (id) => {
-    if (process.env.RAILS_ENV === 'development') {
+    if (import.meta.env.RAILS_ENV === 'development') {
       Pusher.logToConsole = true;
     }
-    const pusher = new Pusher(process.env.PUSHER_KEY, { encrypted: true, });
+    const pusher = new Pusher(import.meta.env.PUSHER_KEY, { encrypted: true, });
     const channelName = String(id)
     const channel = pusher.subscribe(channelName);
     const that = this;

@@ -2,7 +2,7 @@ import * as React from 'react'
 
 import { DropdownInput, Tooltip, lockedIcon, } from '../../../../../Shared/index'
 
-const smallWhiteCheckSrc = `${process.env.CDN_URL}/images/shared/check-small-white.svg`
+const smallWhiteCheckSrc = `${import.meta.env.VITE_PROCESS_ENV_CDN_URL}/images/shared/check-small-white.svg`
 
 interface ClassroomCardProps {
   classroom: any;

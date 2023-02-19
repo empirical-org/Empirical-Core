@@ -35,7 +35,7 @@ export const setSessionReducerToSavedSession = (sessionID: string, initialLoad?:
 const handleSession = (session, initialLoad, sessionID, dispatch) => {
   if (session && !session.error) {
     if (session.conceptResults && initialLoad) {
-      window.location.href = `${process.env.QUILL_GRAMMAR_URL}/play/sw?proofreaderSessionId=${sessionID}`
+      window.location.href = `${import.meta.env.QUILL_GRAMMAR_URL}/play/sw?proofreaderSessionId=${sessionID}`
     } else {
       dispatch(setSessionReducer(session.passage))
       dispatch(updateTimeTracking(session.timeTracking))

@@ -8,7 +8,7 @@ import POSMatcher from '../../libs/sentenceFragment.js';
 import {
   getGradedResponsesWithCallback
 } from '../../actions/responses.js';
-const icon = `${process.env.CDN_URL}/images/icons/direction.svg`
+const icon = `${import.meta.env.VITE_PROCESS_ENV_CDN_URL}/images/icons/direction.svg`
 import updateResponseResource from '../renderForQuestions/updateResponseResource.js';
 import { hashToCollection, Feedback, getLatestAttempt, renderPreviewFeedback, getDisplayedText } from '../../../Shared/index'
 

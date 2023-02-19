@@ -68,11 +68,11 @@ export const PostActivitySlide = ({ handleClick, prompts, responses }: PostActiv
   return(
     <div className="post-activity-slide-container no-focus-outline" ref={containerRef} tabIndex={-1}>
       <section id="information-section">
-        <img alt="An illustration of a party popper" id="celebration-vector" src={`${process.env.CDN_URL}/images/evidence/party-celebration.svg`} />
+        <img alt="An illustration of a party popper" id="celebration-vector" src={`${import.meta.env.VITE_PROCESS_ENV_CDN_URL}/images/evidence/party-celebration.svg`} />
         <p id="revision-text">You have completed the activity!</p>
         <p className="slide-sub-text" id="second-sub-text">Be proud of the work you did today, and celebrate your success! This practice will help you grow as a reader and a writer. The more you practice, the stronger your critical thinking, reading, and writing skills will be.</p>
         <section id="reminder-badge-section">
-          <img alt="An illustration of an A+ that is crossed out" id="grade-badge" src={`${process.env.CDN_URL}/images/evidence/paper-check.svg`} />
+          <img alt="An illustration of an A+ that is crossed out" id="grade-badge" src={`${import.meta.env.VITE_PROCESS_ENV_CDN_URL}/images/evidence/paper-check.svg`} />
           <section id="reminder-text-section">
             <p className="sub-header-text">Reminder about grades</p>
             <p className="sub-header-subtext">This is practice, so your teacher will see your revisions, but Quill won&apos;t assign you a grade.</p>

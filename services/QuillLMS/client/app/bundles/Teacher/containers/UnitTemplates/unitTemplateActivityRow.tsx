@@ -14,7 +14,7 @@ export const UnitTemplateActivityRow = ({
   const conceptHeaderElement = (
     <Tooltip
       tooltipText="Activity Category"
-      tooltipTriggerText={<a className="action-button focus-on-light" href={`${process.env.DEFAULT_URL}/cms/attributes_manager/activity_categories`} rel="noopener noreferrer" target="_blank">Concept</a>}
+      tooltipTriggerText={<a className="action-button focus-on-light" href={`${import.meta.env.DEFAULT_URL}/cms/attributes_manager/activity_categories`} rel="noopener noreferrer" target="_blank">Concept</a>}
       tooltipTriggerTextStyle={{ maxWidth: conceptMaxWidth }}
     />
   );
@@ -54,7 +54,7 @@ export const UnitTemplateActivityRow = ({
   function activityRows() {
     return activities.map(activity => {
       const { id, name, flags, readability_grade_level, standard, activity_category, classification, anonymous_path } = activity;
-      const activityLink = `${process.env.DEFAULT_URL}${anonymous_path}`;
+      const activityLink = `${import.meta.env.DEFAULT_URL}${anonymous_path}`;
       return {
         id,
         name: <a className="action-button focus-on-light" href={activityLink} rel="noopener noreferrer" target="_blank">{name}</a>,

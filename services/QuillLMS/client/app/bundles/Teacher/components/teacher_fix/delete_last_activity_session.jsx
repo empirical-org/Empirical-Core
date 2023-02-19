@@ -16,7 +16,7 @@ export default class DeleteLastActivitySession extends React.Component {
     const that = this
 
     requestPost(
-      `${process.env.DEFAULT_URL}/teacher_fix/delete_last_activity_session`,
+      `${import.meta.env.DEFAULT_URL}/teacher_fix/delete_last_activity_session`,
       { activity_name: that.state.activityName, student_identifier: that.state.studentIdentifier },
       (body) => {
         window.alert('Activity session has been deleted!')

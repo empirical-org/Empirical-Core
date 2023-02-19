@@ -62,7 +62,7 @@ class MassEditContainer extends React.Component<MassEditProps, MassEditState> {
 
   getResponses = () => {
     requestPost(
-      `${process.env.QUILL_CMS}/responses/mass_edit/show_many`,
+      `${import.meta.env.QUILL_CMS}/responses/mass_edit/show_many`,
       { responses: this.props.massEdit.selectedResponses, },
       (body) => {
         const parsedResponses = _.indexBy(body.responses, 'id');

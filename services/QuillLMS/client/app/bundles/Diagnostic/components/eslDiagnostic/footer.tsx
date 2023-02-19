@@ -11,7 +11,7 @@ interface FooterProps {
   handleClickOpenMobileLanguageMenu(): any
 }
 
-const languageIconSrc = `${process.env.CDN_URL}/images/icons/language.svg`
+const languageIconSrc = `${import.meta.env.VITE_PROCESS_ENV_CDN_URL}/images/icons/language.svg`
 
 const MAX_VIEW_WIDTH_FOR_MOBILE = 895
 

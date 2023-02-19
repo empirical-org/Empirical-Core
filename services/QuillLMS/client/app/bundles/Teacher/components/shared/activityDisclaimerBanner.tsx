@@ -2,7 +2,7 @@ import * as React from 'react'
 
 import { LESSONS, EVIDENCE } from '../../../Shared'
 
-const quillLessonsTeacherSrc = `${process.env.CDN_URL}/images/illustrations/quill-lessons-teacher.svg`
+const quillLessonsTeacherSrc = `${import.meta.env.VITE_PROCESS_ENV_CDN_URL}/images/illustrations/quill-lessons-teacher.svg`
 const headerOptions = {
   [LESSONS]: <h2>Heads up, you’ve selected a Quill Lessons activity (whole class instruction)</h2>,
   [EVIDENCE]: <h2>Heads up, you’ve selected a Quill Reading for Evidence activity</h2>

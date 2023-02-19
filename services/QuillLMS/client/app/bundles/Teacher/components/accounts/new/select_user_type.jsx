@@ -4,14 +4,13 @@ import AssignActivityPackBanner from '../assignActivityPackBanner'
 import { Card, networkIcon, STUDENT, TEACHER, INDIVIDUAL_CONTRIBUTOR, ADMIN } from '../../../../Shared/index'
 import { requestPost, } from '../../../../../modules/request/index'
 
-const studentPencilImg = `${process.env.CDN_URL}/images/onboarding/student-pencil-colored.svg`
-const teacherChalkboardImg = `${process.env.CDN_URL}/images/onboarding/teacher-chalkboard-colored.svg`
-const schoolBuildingImg = `${process.env.CDN_URL}/images/onboarding/school-building-colored.svg`
-const homeSchoolImg = `${process.env.CDN_URL}/images/onboarding/home-building-colored.svg`
+const studentPencilImg = `${import.meta.env.VITE_PROCESS_ENV_CDN_URL}/images/onboarding/student-pencil-colored.svg`
+const teacherChalkboardImg = `${import.meta.env.VITE_PROCESS_ENV_CDN_URL}/images/onboarding/teacher-chalkboard-colored.svg`
+const homeSchoolImg = `${import.meta.env.VITE_PROCESS_ENV_CDN_URL}/images/onboarding/home-building-colored.svg`
 
 export class SelectUserType extends React.Component {
   setRoleOnSession = (role) => {
-    requestPost(`${process.env.DEFAULT_URL}/account/role`, { role, },
+    requestPost(`${import.meta.env.DEFAULT_URL}/account/role`, { role, },
       (body) => {
         window.location = `/sign-up/${role}`;
       },

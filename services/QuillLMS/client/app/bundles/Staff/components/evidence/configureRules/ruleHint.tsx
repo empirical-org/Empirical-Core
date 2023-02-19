@@ -28,7 +28,7 @@ const RuleHint = ({
     acceptedFiles.forEach(file => {
       const data = new FormData()
       data.append('file', file)
-      fetch(`${process.env.DEFAULT_URL}/cms/images`, {
+      fetch(`${import.meta.env.DEFAULT_URL}/cms/images`, {
         method: 'POST',
         mode: 'cors',
         credentials: 'include',

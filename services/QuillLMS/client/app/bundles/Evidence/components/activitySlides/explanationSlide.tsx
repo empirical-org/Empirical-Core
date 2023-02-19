@@ -22,7 +22,7 @@ export const ExplanationSlide = ({ slideData, onHandleClick }) => {
           <h1>{header}</h1>
           {isBeta && <div id="beta-tag">BETA</div>}
         </section>
-        <img alt={imageAlt} id="image" src={`${process.env.CDN_URL}/${imageUrl}`} />
+        <img alt={imageAlt} id="image" src={`${import.meta.env.VITE_PROCESS_ENV_CDN_URL}/${imageUrl}`} />
         <p className="subtext">{subtext}</p>
       </section>
       <Footer buttonText={buttonText} onHandleClick={onHandleClick} step={step} />

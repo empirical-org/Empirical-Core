@@ -9,7 +9,7 @@ import {
   Feedback,
   SentenceFragments,
 } from '../../../../Shared/index'
-const teacherPointingSrc = `${process.env.CDN_URL}/images/icons/teacher-pointing.svg`
+const teacherPointingSrc = `${import.meta.env.VITE_PROCESS_ENV_CDN_URL}/images/icons/teacher-pointing.svg`
 
 interface ModelQuestionProps {
   data: QuestionData,

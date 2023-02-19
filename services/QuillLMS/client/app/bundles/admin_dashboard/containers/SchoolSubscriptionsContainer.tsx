@@ -58,7 +58,7 @@ const SchoolSubscriptionsContainer = ({ location, accessType, }) => {
 
   function updateSubscription(params, subscriptionId, callback) {
     requestPut(
-      `${process.env.DEFAULT_URL}/subscriptions/${subscriptionId}`,
+      `${import.meta.env.DEFAULT_URL}/subscriptions/${subscriptionId}`,
       { subscription: params, },
       () => getSubscriptionData(callback),
       () => alert('There was an error updating your subscription. Please try again or contact hello@quill.org.')
@@ -95,7 +95,7 @@ const SchoolSubscriptionsContainer = ({ location, accessType, }) => {
   }
 
   function initializePusherForStripePurchaseConfirmation() {
-    const pusher = new Pusher(process.env.PUSHER_KEY, { encrypted: true, });
+    const pusher = new Pusher(import.meta.env.PUSHER_KEY, { encrypted: true, });
     const channelName = String(stripeInvoiceId)
     const channel = pusher.subscribe(channelName);
 
@@ -108,7 +108,7 @@ const SchoolSubscriptionsContainer = ({ location, accessType, }) => {
   function initializePusherForStripeSubscriptionPaymentMethodUpdating() {
     const { stripe_subscription_id } = selectedSchool.subscription_status
 
-    const pusher = new Pusher(process.env.PUSHER_KEY, { encrypted: true, });
+    const pusher = new Pusher(import.meta.env.PUSHER_KEY, { encrypted: true, });
     const channelName = String(stripe_subscription_id)
     const channel = pusher.subscribe(channelName);
 

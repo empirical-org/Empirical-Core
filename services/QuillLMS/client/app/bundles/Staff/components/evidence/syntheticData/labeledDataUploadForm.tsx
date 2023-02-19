@@ -40,7 +40,7 @@ const LabeledDataUploadForm = ({ history, match }) => {
     acceptedFiles.forEach(file => {
       const data = new FormData()
       data.append('file', file)
-      fetch(`${process.env.DEFAULT_URL}/cms/csv_uploads`, {
+      fetch(`${import.meta.env.DEFAULT_URL}/cms/csv_uploads`, {
         method: 'POST',
         mode: 'cors',
         credentials: 'include',

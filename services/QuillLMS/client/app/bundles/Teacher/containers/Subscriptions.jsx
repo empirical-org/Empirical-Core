@@ -86,7 +86,7 @@ export default class Subscriptions extends React.Component {
 
   initializePusherForStripePurchaseConfirmation() {
     const { stripeInvoiceId } = this.props
-    const pusher = new Pusher(process.env.PUSHER_KEY, { encrypted: true, });
+    const pusher = new Pusher(import.meta.env.PUSHER_KEY, { encrypted: true, });
     const channelName = String(stripeInvoiceId)
     const channel = pusher.subscribe(channelName);
 
@@ -100,7 +100,7 @@ export default class Subscriptions extends React.Component {
     const { subscriptionStatus } = this.props
     const { stripe_subscription_id } = subscriptionStatus
 
-    const pusher = new Pusher(process.env.PUSHER_KEY, { encrypted: true, });
+    const pusher = new Pusher(import.meta.env.PUSHER_KEY, { encrypted: true, });
     const channelName = String(stripe_subscription_id)
     const channel = pusher.subscribe(channelName);
 
@@ -126,7 +126,7 @@ export default class Subscriptions extends React.Component {
     const { subscriptions, } = this.state
 
     requestPut(
-      `${process.env.DEFAULT_URL}/credit_transactions/redeem_credits_for_premium`,
+      `${import.meta.env.DEFAULT_URL}/credit_transactions/redeem_credits_for_premium`,
       null,
       (body) => {
         this.setState({
@@ -156,7 +156,7 @@ export default class Subscriptions extends React.Component {
 
   updateSubscription = (params, subscriptionId, callback) => {
     requestPut(
-      `${process.env.DEFAULT_URL}/subscriptions/${subscriptionId}`,
+      `${import.meta.env.DEFAULT_URL}/subscriptions/${subscriptionId}`,
       { subscription: params, },
       (body) => {
         this.getSubscriptionData(callback)

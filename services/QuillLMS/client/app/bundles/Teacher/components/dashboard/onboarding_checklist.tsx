@@ -1,7 +1,7 @@
 import * as React from 'react'
 
-const personWithChecklistSrc = `${process.env.CDN_URL}/images/pages/dashboard/person-with-checklist.svg`
-const bigCheckIconSrc = `${process.env.CDN_URL}/images/pages/dashboard/icons-check-big.svg`
+const personWithChecklistSrc = `${import.meta.env.VITE_PROCESS_ENV_CDN_URL}/images/pages/dashboard/person-with-checklist.svg`
+const bigCheckIconSrc = `${import.meta.env.VITE_PROCESS_ENV_CDN_URL}/images/pages/dashboard/icons-check-big.svg`
 
 const bigCheckIcon = {
   src: bigCheckIconSrc,

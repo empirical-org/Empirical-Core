@@ -162,7 +162,7 @@ export default createReactClass({
     this.setState({ unitFilters: [loadingUnit], selectedUnit: loadingUnit, });
     const that = this;
     requestGet(
-      `${process.env.DEFAULT_URL}/teachers/classrooms/${classroomId}/units`,
+      `${import.meta.env.DEFAULT_URL}/teachers/classrooms/${classroomId}/units`,
       (body) => {
         const units = body.units;
         const { scores, } = this.state

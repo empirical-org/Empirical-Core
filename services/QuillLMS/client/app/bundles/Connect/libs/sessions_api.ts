@@ -1,6 +1,6 @@
 import { requestGet, requestPut } from '../../../modules/request/index';
 
-const sessionApiBaseUrl = `${process.env.DEFAULT_URL}/api/v1/active_activity_sessions`;
+const sessionApiBaseUrl = `${import.meta.env.DEFAULT_URL}/api/v1/active_activity_sessions`;
 
 class SessionApi {
   static get(uid: string): Promise<object> {

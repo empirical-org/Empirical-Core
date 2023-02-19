@@ -1,5 +1,5 @@
 import React from 'react';
-const smallWhiteCheckSrc = `${process.env.CDN_URL}/images/shared/check-small-white.svg`
+const smallWhiteCheckSrc = `${import.meta.env.VITE_PROCESS_ENV_CDN_URL}/images/shared/check-small-white.svg`
 
 export default class TeacherEmailNotifications extends React.Component {
   toggleSendNewsletter = () => {

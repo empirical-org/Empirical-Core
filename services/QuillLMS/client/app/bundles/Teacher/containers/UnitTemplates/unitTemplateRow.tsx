@@ -58,7 +58,7 @@ const UnitTemplateRow = ({
     ));
   }
 
-  const previewLink = `${process.env.DEFAULT_URL}/assign/featured-activity-packs/${unitTemplate.id}`;
+  const previewLink = `${import.meta.env.DEFAULT_URL}/assign/featured-activity-packs/${unitTemplate.id}`;
 
   return (
     <div>

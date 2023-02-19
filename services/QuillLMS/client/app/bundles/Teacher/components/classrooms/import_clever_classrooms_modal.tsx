@@ -91,9 +91,9 @@ export default class ImportCleverClassroomsModal extends React.Component<ImportC
   }
 
   initializePusherForCleverStudentImport(userId) {
-    if (process.env.RAILS_ENV === 'development') { Pusher.logToConsole = true }
+    if (import.meta.env.RAILS_ENV === 'development') { Pusher.logToConsole = true }
 
-    const pusher = new Pusher(process.env.PUSHER_KEY, { encrypted: true, });
+    const pusher = new Pusher(import.meta.env.PUSHER_KEY, { encrypted: true, });
     const channelName = String(userId)
     const channel = pusher.subscribe(channelName);
     const { onSuccess } = this.props

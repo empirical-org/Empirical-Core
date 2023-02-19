@@ -5,7 +5,7 @@ import parsedQueryParams from './parsedQueryParams'
 import { COLLEGE_BOARD_SLUG, PRE_AP_SLUG, AP_SLUG, SPRING_BOARD_SLUG } from './assignmentFlowConstants'
 import LeavingModal from './leaving_modal'
 
-const quillLogoGreenSrc =  `${process.env.CDN_URL}/images/logos/quill-logo-green.svg`
+const quillLogoGreenSrc =  `${import.meta.env.VITE_PROCESS_ENV_CDN_URL}/images/logos/quill-logo-green.svg`
 
 interface AssignmentFlowNavigationProps {
   button?: JSX.Element;

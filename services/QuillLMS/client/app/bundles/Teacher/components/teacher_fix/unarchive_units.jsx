@@ -18,7 +18,7 @@ export default class UnarchiveUnits extends React.Component {
     const that = this
     that.setState({archivedUnits: [], selectedUnitIds: [], error: ''})
     requestGet(
-      `${process.env.DEFAULT_URL}/teacher_fix/archived_units?teacher_identifier=${that.state.teacherIdentifier}`,
+      `${import.meta.env.DEFAULT_URL}/teacher_fix/archived_units?teacher_identifier=${that.state.teacherIdentifier}`,
       (body) => {
         if (body.archived_units) {
           that.setState({ archivedUnits: body.archived_units, selectedUnitIds: body.archived_units.map(u => u.id)});
@@ -54,7 +54,7 @@ export default class UnarchiveUnits extends React.Component {
   unarchiveUnits = () => {
     const that = this
     requestPost(
-      `${process.env.DEFAULT_URL}/teacher_fix/unarchive_units`,
+      `${import.meta.env.DEFAULT_URL}/teacher_fix/unarchive_units`,
       { unit_ids: that.state.selectedUnitIds, changed_names: that.state.changedNames },
       (body) => {
         that.setState({ archivedUnits: [], changedNames: {}, selectedUnitIds: [], teacherIdentifier: ''})

@@ -13,7 +13,7 @@ import { SentenceFragmentQuestion } from '../../interfaces/questions';
 import { Attempt } from '../renderForQuestions/answerState.js';
 import { hashToCollection, ConceptExplanation, getLatestAttempt } from '../../../Shared/index'
 
-const icon = `${process.env.CDN_URL}/images/icons/direction.svg`
+const icon = `${import.meta.env.VITE_PROCESS_ENV_CDN_URL}/images/icons/direction.svg`
 
 interface PlaySentenceFragmentProps {
   question: SentenceFragmentQuestion;

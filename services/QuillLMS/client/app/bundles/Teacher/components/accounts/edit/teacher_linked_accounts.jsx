@@ -79,7 +79,7 @@ export default class TeacherLinkedAccounts extends React.Component {
     return (
       <div className='clever-row'>
         <div className='first-half'>
-          <img alt='Clever icon' src={`${process.env.CDN_URL}/images/shared/clever_icon.svg`} />
+          <img alt='Clever icon' src={`${import.meta.env.VITE_PROCESS_ENV_CDN_URL}/images/shared/clever_icon.svg`} />
           <span>{copy}</span>
         </div>
         {actionElement}
@@ -120,7 +120,7 @@ export default class TeacherLinkedAccounts extends React.Component {
       <div>
         <div className='google-row'>
           <div className='first-half'>
-            <img alt='Google icon' src={`${process.env.CDN_URL}/images/shared/google_icon.svg`} />
+            <img alt='Google icon' src={`${import.meta.env.VITE_PROCESS_ENV_CDN_URL}/images/shared/google_icon.svg`} />
             <span>{copy}</span>
           </div>
           {actionElement}

@@ -9,7 +9,7 @@ import socket from '../utils/socketStore'
 
 export function getCurrentUserAndCoteachersFromLMS() {
   return function(dispatch) {
-    fetch(`${process.env.DEFAULT_URL}/api/v1/users/current_user_and_coteachers`, {
+    fetch(`${import.meta.env.DEFAULT_URL}/api/v1/users/current_user_and_coteachers`, {
       method: "GET",
       mode: "cors",
       credentials: 'include',
@@ -216,7 +216,7 @@ export function setOriginalEditionQuestions(originalEditionQuestions:CustomizeIn
 }
 
 function sendPublishEditionEventToLMS() {
-  fetch(`${process.env.DEFAULT_URL}/api/v1/published_edition`, {
+  fetch(`${import.meta.env.DEFAULT_URL}/api/v1/published_edition`, {
     method: "POST",
     mode: "cors",
     credentials: 'include',

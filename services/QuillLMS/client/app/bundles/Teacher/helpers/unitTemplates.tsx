@@ -69,7 +69,7 @@ export function orderedUnitTemplates({
 const conceptHeaderElement = (
   <Tooltip
     tooltipText="Activity Category"
-    tooltipTriggerText={<a className="data-link focus-on-light" href={`${process.env.DEFAULT_URL}/cms/attributes_manager/activity_categories`} rel="noopener noreferrer" target="_blank">Concept</a>}
+    tooltipTriggerText={<a className="data-link focus-on-light" href={`${import.meta.env.DEFAULT_URL}/cms/attributes_manager/activity_categories`} rel="noopener noreferrer" target="_blank">Concept</a>}
     tooltipTriggerTextStyle={{ maxWidth: conceptMaxWidth }}
   />
 );
@@ -113,11 +113,11 @@ export function unitTemplateActivityRows({ activities, handleClick, type }) {
   });
 }
 
-export const editActivityLink = (classificationId, activityId) => `${process.env.DEFAULT_URL}/cms/activity_classifications/${classificationId}/activities/${activityId}/edit`;
+export const editActivityLink = (classificationId, activityId) => `${import.meta.env.DEFAULT_URL}/cms/activity_classifications/${classificationId}/activities/${activityId}/edit`;
 
-export const editActivityPackLink = (unitTemplateId) => `${process.env.DEFAULT_URL}/cms/unit_templates/${unitTemplateId}/edit`;
+export const editActivityPackLink = (unitTemplateId) => `${import.meta.env.DEFAULT_URL}/cms/unit_templates/${unitTemplateId}/edit`;
 
-export const previewActivityLink = (activityId) => `${process.env.DEFAULT_URL}/activity_sessions/anonymous?activity_id=${activityId}`;
+export const previewActivityLink = (activityId) => `${import.meta.env.DEFAULT_URL}/activity_sessions/anonymous?activity_id=${activityId}`;
 
 export const validateUnitTemplateForm = ({ activityPackFlag, activityPackName, activityPackType }) => {
   const errors = {};

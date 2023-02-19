@@ -1,9 +1,9 @@
 import * as React from 'react'
 
-const setupInstructionsSrc = `${process.env.CDN_URL}/images/illustrations/setup-instructions.svg`
-const setupInstructionsGenericSrc = `${process.env.CDN_URL}/images/illustrations/setup-instructions-generic.svg`
+const setupInstructionsSrc = `${import.meta.env.VITE_PROCESS_ENV_CDN_URL}/images/illustrations/setup-instructions.svg`
+const setupInstructionsGenericSrc = `${import.meta.env.VITE_PROCESS_ENV_CDN_URL}/images/illustrations/setup-instructions-generic.svg`
 
-const classCodeLinksPdf = `${process.env.CDN_URL}/documents/setup_instructions_pdfs/class_code_links.pdf`
+const classCodeLinksPdf = `${import.meta.env.VITE_PROCESS_ENV_CDN_URL}/documents/setup_instructions_pdfs/class_code_links.pdf`
 
 interface SetupInstructionsProps {
   close: (event) => void;

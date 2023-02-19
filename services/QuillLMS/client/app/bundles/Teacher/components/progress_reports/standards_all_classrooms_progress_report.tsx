@@ -64,7 +64,7 @@ export default class StandardsAllClassroomsProgressReport extends React.Componen
     }
 
     requestGet(
-      `${process.env.DEFAULT_URL}/teachers/progress_reports/standards/classrooms.json${qs}`,
+      `${import.meta.env.DEFAULT_URL}/teachers/progress_reports/standards/classrooms.json${qs}`,
       (body) => {
         const standardsData = this.formatStandardsData(body.data)
         // gets unique classroom names

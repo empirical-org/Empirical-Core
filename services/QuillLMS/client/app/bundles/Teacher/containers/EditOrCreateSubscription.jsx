@@ -419,7 +419,7 @@ export default class EditOrCreateSubscription extends React.Component {
         subscription: subscription,
         schools: schools,
       },
-      urlString: `${process.env.DEFAULT_URL}/cms/subscriptions`
+      urlString: `${import.meta.env.DEFAULT_URL}/cms/subscriptions`
     }
 
     if (view === 'edit') {

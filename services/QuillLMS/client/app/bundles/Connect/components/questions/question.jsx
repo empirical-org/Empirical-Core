@@ -23,7 +23,7 @@ import ChooseModelContainer from './chooseModelContainer.jsx';
 import TestQuestionContainer from './testQuestion';
 import { Modal, UploadOptimalResponses, } from '../../../Shared/index'
 
-const icon = `${process.env.CDN_URL}/images/icons/direction.svg`
+const icon = `${import.meta.env.VITE_PROCESS_ENV_CDN_URL}/images/icons/direction.svg`
 
 export class Question extends React.Component {
   constructor(props) {

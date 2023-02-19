@@ -5,7 +5,7 @@ const SENTENCE_COMBINING_TYPE = 'connect_sentence_combining',
   SENTENCE_FRAGMENTS_TYPE = 'connect_sentence_fragments',
   FILL_IN_BLANKS_TYPE = 'connect_fill_in_blanks'
 
-const questionApiBaseUrl = `${process.env.DEFAULT_URL}/api/v1/questions`;
+const questionApiBaseUrl = `${import.meta.env.DEFAULT_URL}/api/v1/questions`;
 
 class QuestionApi {
   static getAll(questionType: string): Promise<Array<Question>> {

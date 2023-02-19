@@ -1,6 +1,6 @@
 import * as React from 'react'
 
-const addCircleSrc = `${process.env.CDN_URL}/images/icons/add-circle.svg`
+const addCircleSrc = `${import.meta.env.VITE_PROCESS_ENV_CDN_URL}/images/icons/add-circle.svg`
 
 export default class SelectAClassroom extends React.Component<any, { showJoinClassModal: boolean}> {
   constructor(props) {

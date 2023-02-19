@@ -1,5 +1,5 @@
 import * as React from 'react'
-const diagnosticSrc = `${process.env.CDN_URL}/images/illustrations/diagnostic-monochromatic.svg`
+const diagnosticSrc = `${import.meta.env.VITE_PROCESS_ENV_CDN_URL}/images/illustrations/diagnostic-monochromatic.svg`
 
 const EmptyDiagnosticProgressReport = () => (
   <section className="diagnostic-reports-empty-state container gray-background-accommodate-footer">

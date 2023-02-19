@@ -3,7 +3,7 @@ import * as React from 'react';
 import { Activity, ActivityCategoryEditor, Topic } from './interfaces'
 import FilterColumn from './filter_column'
 
-const closeIconSrc = `${process.env.CDN_URL}/images/icons/close.svg`
+const closeIconSrc = `${import.meta.env.VITE_PROCESS_ENV_CDN_URL}/images/icons/close.svg`
 
 interface MobileFilterMenuProps {
   activities: Activity[],

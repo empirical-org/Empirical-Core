@@ -4,11 +4,11 @@ import { connect } from 'react-redux';
 import { LanguageOptions } from '../shared/languageOptions';
 import { closeLanguageMenu } from '../../actions/diagnostics'
 
-const quillLogoSrc = `${process.env.CDN_URL}/images/logos/quill-logo-white-2022.svg`
-const closeSrc = `${process.env.CDN_URL}/images/icons/close-white.svg`
+const quillLogoSrc = `${import.meta.env.VITE_PROCESS_ENV_CDN_URL}/images/logos/quill-logo-white-2022.svg`
+const closeSrc = `${import.meta.env.VITE_PROCESS_ENV_CDN_URL}/images/icons/close-white.svg`
 
 const handleSaveAndExitClick = () => {
-  window.location.assign(`${process.env.DEFAULT_URL}/profile`);
+  window.location.assign(`${import.meta.env.DEFAULT_URL}/profile`);
 }
 
 const Links = ({ playDiagnostic, dispatch, }) => {
@@ -42,7 +42,7 @@ export const StudentNavbar = ({ playDiagnostic, dispatch, }) => {
     <header className='nav student-nav'>
       <div className="container">
         <div className="student-nav-section">
-          <a aria-label="Quill" className="student-nav-item focus-on-dark" href={`${process.env.DEFAULT_URL}`} tabIndex="0">
+          <a aria-label="Quill" className="student-nav-item focus-on-dark" href={`${import.meta.env.DEFAULT_URL}`} tabIndex="0">
             <img
               alt="Quill.org logo"
               src={quillLogoSrc}

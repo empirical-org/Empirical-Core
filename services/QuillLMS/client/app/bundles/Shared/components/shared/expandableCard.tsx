@@ -1,6 +1,6 @@
 import * as React from 'react'
 
-const expandSrc = `${process.env.CDN_URL}/images/icons/expand.svg`;
+const expandSrc = `${import.meta.env.VITE_PROCESS_ENV_CDN_URL}/images/icons/expand.svg`;
 
 interface ExpandableCardProps {
   imgSrc: string,

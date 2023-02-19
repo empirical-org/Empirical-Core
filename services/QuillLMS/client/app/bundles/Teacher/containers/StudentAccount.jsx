@@ -67,7 +67,7 @@ export default class StudentAccount extends Component {
       const { timesSubmitted } = this.state;
       let dataObject = data;
       dataObject.authenticity_token = getAuthToken();
-      requestPut(`${process.env.DEFAULT_URL}${url}`, dataObject, (body) => {
+      requestPut(`${import.meta.env.DEFAULT_URL}${url}`, dataObject, (body) => {
         const {
           name,
           username,
@@ -99,7 +99,7 @@ export default class StudentAccount extends Component {
       <div className="user-account-section third-party-integration-explanation">
         <div className="third-party-integration-explanation header">
           <h4>Why can&#39;t I edit my account information?</h4>
-          <img alt="Lightbulb with rays shining" src={`${process.env.CDN_URL}/images/illustrations/bulb.svg`} />
+          <img alt="Lightbulb with rays shining" src={`${import.meta.env.VITE_PROCESS_ENV_CDN_URL}/images/illustrations/bulb.svg`} />
         </div>
         <p className="third-party-integration-explanation text">{`Your information is linked to your ${accountType} account. Go to your ${accountType} account settings to change your name, username, email or password.`}</p>
       </div>
@@ -110,7 +110,7 @@ export default class StudentAccount extends Component {
     const { cleverId, googleId } = this.props;
     if(cleverId || googleId ) {
       const label = cleverId ? 'clever' : 'google';
-      const path = `${process.env.CDN_URL}/images/shared/${label}_icon.svg`
+      const path = `${import.meta.env.VITE_PROCESS_ENV_CDN_URL}/images/shared/${label}_icon.svg`
       return(
         <div className="user-linked-accounts user-account-section">
           <h1>Linked accounts</h1>

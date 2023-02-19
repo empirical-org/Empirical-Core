@@ -4,7 +4,7 @@ import {
   CueExplanation
 } from '../../../Shared/index';
 
-const arrow = `${process.env.CDN_URL}/images/icons/pointing-arrow.svg`;
+const arrow = `${import.meta.env.VITE_PROCESS_ENV_CDN_URL}/images/icons/pointing-arrow.svg`;
 
 // temporarily making this an export and leaving the default export because of the other components that use it
 const Cues = ({ cues, displayArrowAndText, }: { cues: string[], displayArrowAndText?: boolean }) => {

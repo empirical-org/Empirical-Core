@@ -6,7 +6,7 @@ import { EARLY_ACCESS_FILTERS } from './shared'
 import { Tooltip, } from '../../../../../Shared/index'
 import { EVIDENCE_BETA1, EVIDENCE_BETA2, } from '../../../../../../constants/flagOptions'
 
-const smallWhiteCheckSrc = `${process.env.CDN_URL}/images/shared/check-small-white.svg`
+const smallWhiteCheckSrc = `${import.meta.env.VITE_PROCESS_ENV_CDN_URL}/images/shared/check-small-white.svg`
 
 interface EarlyAccessOption {
   flag: string,

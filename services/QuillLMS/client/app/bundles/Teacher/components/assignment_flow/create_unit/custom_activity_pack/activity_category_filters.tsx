@@ -5,7 +5,7 @@ import { ACTIVITY_CATEGORY_FILTERS, AVERAGE_FONT_WIDTH, } from './shared'
 
 import { Tooltip } from '../../../../../Shared/index'
 
-const smallWhiteCheckSrc = `${process.env.CDN_URL}/images/shared/check-small-white.svg`
+const smallWhiteCheckSrc = `${import.meta.env.VITE_PROCESS_ENV_CDN_URL}/images/shared/check-small-white.svg`
 
 interface ActivityCategoryFilterRowProps {
   activityCategoryFilters: number[],

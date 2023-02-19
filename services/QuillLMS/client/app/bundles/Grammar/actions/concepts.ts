@@ -5,7 +5,7 @@ import { ActionTypes } from './actionTypes'
 import { Concept } from '../interfaces/concepts'
 import { requestGet, } from '../../../modules/request/index'
 
-const conceptsEndpoint = `${process.env.DEFAULT_URL}/api/v1/concepts.json`;
+const conceptsEndpoint = `${import.meta.env.DEFAULT_URL}/api/v1/concepts.json`;
 
 function splitInLevels(concepts: Concept[]) {
   return _.groupBy(concepts, 'level');

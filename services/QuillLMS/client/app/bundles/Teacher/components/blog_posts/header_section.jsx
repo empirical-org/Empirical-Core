@@ -15,7 +15,7 @@ const searchTokens = [
   'pre-ap'
 ]
 
-const SEARCH_LINK = `${process.env.DEFAULT_URL}/${TEACHER_CENTER_SLUG}/search`
+const SEARCH_LINK = `${import.meta.env.DEFAULT_URL}/${TEACHER_CENTER_SLUG}/search`
 
 const SearchToken = ({ text }) => {
   return (<a className="search-token focus-on-light" href={`${SEARCH_LINK}?${qs.stringify({ query: text })}`}>{text}</a>)
@@ -38,7 +38,7 @@ export const HeaderSection = ({ title, subtitle, showCancelSearchButton, query }
       <form action={SEARCH_LINK}>
         <input defaultValue={query || null} name='query' placeholder='Search for posts' type='text' />
         <i className="fas fa-icon fa-search" />
-        {showCancelSearchButton ? <button className="interactive-wrapper focus-on-light" onClick={() => window.location.href = `${process.env.DEFAULT_URL}/${TEACHER_CENTER_SLUG}/`} type="button"><img alt="" className="cancel-button" src={`${process.env.CDN_URL}/images/icons/CloseIcon.svg`} /></button> : null}
+        {showCancelSearchButton ? <button className="interactive-wrapper focus-on-light" onClick={() => window.location.href = `${import.meta.env.DEFAULT_URL}/${TEACHER_CENTER_SLUG}/`} type="button"><img alt="" className="cancel-button" src={`${import.meta.env.VITE_PROCESS_ENV_CDN_URL}/images/icons/CloseIcon.svg`} /></button> : null}
       </form>
       <div className="search-tokens">{searchTokens.map(t => <SearchToken key={t} text={t} />)}</div>
     </div>

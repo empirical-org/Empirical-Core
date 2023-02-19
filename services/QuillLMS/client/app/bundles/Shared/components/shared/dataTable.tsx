@@ -18,7 +18,7 @@ const removeSrc = 'https://assets.quill.org/images/icons/remove.svg'
 const moreHorizontalSrc = 'https://assets.quill.org/images/icons/more-horizontal.svg'
 const smallWhiteCheckSrc = 'https://assets.quill.org/images/shared/check-small-white.svg'
 const arrowSrc = 'https://assets.quill.org/images/icons/icons-arrow.svg'
-const reorderSrc = `${process.env.CDN_URL}/images/icons/reorder.svg`
+const reorderSrc = `${import.meta.env.VITE_PROCESS_ENV_CDN_URL}/images/icons/reorder.svg`
 
 interface DataTableRow {
   id: number|string;

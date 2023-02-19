@@ -6,7 +6,7 @@ import ClassroomTeacherSection from './classroom_teacher_section'
 import LeaveClassModal from './leave_class_modal'
 
 import { Tooltip, helpIcon, } from '../../../Shared/index'
-const expandSrc = `${process.env.CDN_URL}/images/icons/expand.svg`
+const expandSrc = `${import.meta.env.VITE_PROCESS_ENV_CDN_URL}/images/icons/expand.svg`
 import NumberSuffix from '../modules/numberSuffixBuilder.js';
 
 export const leaveClassModal = 'leaveClassModal'

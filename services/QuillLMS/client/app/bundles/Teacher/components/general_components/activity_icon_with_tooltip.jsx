@@ -33,7 +33,7 @@ export default class ActivityIconWithTooltip extends React.Component {
   getConceptResultInfo() {
     const that = this;
     requestGet(
-      `${process.env.DEFAULT_URL}/grades/tooltip/classroom_unit_id/${this.props.data.cuId}/user_id/${this.props.data.userId}/activity_id/${this.activityId()}/completed/${!!this.props.data.completed_attempts}`,
+      `${import.meta.env.DEFAULT_URL}/grades/tooltip/classroom_unit_id/${this.props.data.cuId}/user_id/${this.props.data.userId}/activity_id/${this.activityId()}/completed/${!!this.props.data.completed_attempts}`,
       (body) => {
         that.loadTooltipTitle(body);
       }
@@ -90,7 +90,7 @@ export default class ActivityIconWithTooltip extends React.Component {
   missedIndicator() {
     const {marked_complete, completed_attempts} = this.props.data
     if (marked_complete && completed_attempts === 0) {
-      return <img alt="" className="missed-indicator" src={`${process.env.CDN_URL}/images/scorebook/missed-lessons-cross.svg`} />
+      return <img alt="" className="missed-indicator" src={`${import.meta.env.VITE_PROCESS_ENV_CDN_URL}/images/scorebook/missed-lessons-cross.svg`} />
     }
   }
 

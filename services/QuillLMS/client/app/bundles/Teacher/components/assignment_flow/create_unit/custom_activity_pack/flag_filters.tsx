@@ -5,7 +5,7 @@ import { Activity } from './interfaces'
 import { FLAG_FILTERS } from './shared'
 import { flagOptions } from '../../../../../../constants/flagOptions';
 
-const smallWhiteCheckSrc = `${process.env.CDN_URL}/images/shared/check-small-white.svg`
+const smallWhiteCheckSrc = `${import.meta.env.VITE_PROCESS_ENV_CDN_URL}/images/shared/check-small-white.svg`
 
 interface FlagFilterRowProps {
   flagFilters: string[],

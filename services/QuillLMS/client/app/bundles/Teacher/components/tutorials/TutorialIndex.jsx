@@ -46,7 +46,7 @@ export default class TutorialIndex extends React.Component {
 
   finishTutorial() {
     if (this.props.match.params.tool === 'lessons') {
-      requestPost(`${process.env.DEFAULT_URL}/milestones/complete_view_lesson_tutorial`)
+      requestPost(`${import.meta.env.DEFAULT_URL}/milestones/complete_view_lesson_tutorial`)
     }
   }
 
@@ -64,7 +64,7 @@ export default class TutorialIndex extends React.Component {
   }
 
   nextButton() {
-    const lessonsUrl = process.env.QUILL_LESSONS_URL || 'https://quill.org/lessons';
+    const lessonsUrl = import.meta.env.QUILL_LESSONS_URL || 'https://quill.org/lessons';
     if (this.state.slideNumber !== this.state.slides.length) {
       return <button className="text-white bg-quillgreen next-button" onClick={() => this.goToSlide(this.state.slideNumber + 1)}>Next</button>;
     } else if (getParameterByName('url')) {

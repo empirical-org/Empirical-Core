@@ -9,7 +9,7 @@ import Cues from '../renderForQuestions/cues.jsx';
 import ResponseComponentWrapper from '../questions/responseRouteWrapper.jsx';
 import MassEditContainer from '../questions/massEditContainer.jsx';
 
-const icon = `${process.env.CDN_URL}/images/icons/direction.svg`
+const icon = `${import.meta.env.VITE_PROCESS_ENV_CDN_URL}/images/icons/direction.svg`
 
 export class FillInBlankQuestion extends Component {
 

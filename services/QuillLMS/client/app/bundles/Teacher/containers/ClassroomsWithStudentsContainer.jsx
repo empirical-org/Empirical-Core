@@ -92,10 +92,10 @@ export default class ClassroomsWithStudentsContainer extends React.Component {
   };
 
   initializePusherForGoogleClassrooms = (id) => {
-    if (process.env.RAILS_ENV === 'development') {
+    if (import.meta.env.RAILS_ENV === 'development') {
       Pusher.logToConsole = true;
     }
-    const pusher = new Pusher(process.env.PUSHER_KEY, { encrypted: true, });
+    const pusher = new Pusher(import.meta.env.PUSHER_KEY, { encrypted: true, });
     const channelName = String(id)
     const channel = pusher.subscribe(channelName);
     const that = this;

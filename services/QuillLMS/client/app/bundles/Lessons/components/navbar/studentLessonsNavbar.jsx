@@ -1,11 +1,11 @@
 import React from 'react';
 import { connect } from 'react-redux';
 
-const quillLogoSrc = `${process.env.CDN_URL}/images/logos/quill-logo-white-2022.svg`
+const quillLogoSrc = `${import.meta.env.VITE_PROCESS_ENV_CDN_URL}/images/logos/quill-logo-white-2022.svg`
 
 const handleLogoClick = () => {
   if (window.confirm('Are you sure you want to leave your lesson?')) {
-    window.location = process.env.DEFAULT_URL;
+    window.location = import.meta.env.DEFAULT_URL;
   }
 }
 

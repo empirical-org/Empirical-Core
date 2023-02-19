@@ -9,18 +9,18 @@ import NumberSuffixBuilder from '../../../modules/numberSuffixBuilder'
 import useWindowSize from '../../../../../Shared/hooks/useWindowSize'
 import { Tooltip, } from '../../../../../Shared/index'
 
-const smallWhiteCheckSrc = `${process.env.CDN_URL}/images/shared/check-small-white.svg`
-const expandSrc = `${process.env.CDN_URL}/images/shared/expand.svg`
-const conceptSrc = `${process.env.CDN_URL}/images/icons/description-concept.svg`
-const ccssSrc = `${process.env.CDN_URL}/images/icons/description-ccss.svg`
-const gradeSrc = `${process.env.CDN_URL}/images/icons/description-readability.svg`
-const informationSrc = `${process.env.CDN_URL}/images/icons/description-information.svg`
-const copyrightSrc = `${process.env.CDN_URL}/images/icons/description-copyright.svg`
-const topicSrc = `${process.env.CDN_URL}/images/icons/icons-description-topic.svg`
-const previewSrc = `${process.env.CDN_URL}/images/icons/preview.svg`
-const bookmarkSrc = `${process.env.CDN_URL}/images/icons/icons-bookmark.svg`
-const outlinedBookmarkSrc = `${process.env.CDN_URL}/images/icons/icons-bookmark-outline.svg`
-const removeSrc = `${process.env.CDN_URL}/images/icons/remove-in-circle.svg`
+const smallWhiteCheckSrc = `${import.meta.env.VITE_PROCESS_ENV_CDN_URL}/images/shared/check-small-white.svg`
+const expandSrc = `${import.meta.env.VITE_PROCESS_ENV_CDN_URL}/images/shared/expand.svg`
+const conceptSrc = `${import.meta.env.VITE_PROCESS_ENV_CDN_URL}/images/icons/description-concept.svg`
+const ccssSrc = `${import.meta.env.VITE_PROCESS_ENV_CDN_URL}/images/icons/description-ccss.svg`
+const gradeSrc = `${import.meta.env.VITE_PROCESS_ENV_CDN_URL}/images/icons/description-readability.svg`
+const informationSrc = `${import.meta.env.VITE_PROCESS_ENV_CDN_URL}/images/icons/description-information.svg`
+const copyrightSrc = `${import.meta.env.VITE_PROCESS_ENV_CDN_URL}/images/icons/description-copyright.svg`
+const topicSrc = `${import.meta.env.VITE_PROCESS_ENV_CDN_URL}/images/icons/icons-description-topic.svg`
+const previewSrc = `${import.meta.env.VITE_PROCESS_ENV_CDN_URL}/images/icons/preview.svg`
+const bookmarkSrc = `${import.meta.env.VITE_PROCESS_ENV_CDN_URL}/images/icons/icons-bookmark.svg`
+const outlinedBookmarkSrc = `${import.meta.env.VITE_PROCESS_ENV_CDN_URL}/images/icons/icons-bookmark-outline.svg`
+const removeSrc = `${import.meta.env.VITE_PROCESS_ENV_CDN_URL}/images/icons/remove-in-circle.svg`
 
 const IMAGE_WIDTH = 18
 const MARGIN = 16

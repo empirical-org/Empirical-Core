@@ -3,7 +3,7 @@ import { ProofreaderActivity, ProofreaderActivities } from '../interfaces/proofr
 
 const PROOFREADER_PASSAGE_TYPE = 'proofreader_passage'
 
-const lessonApiBaseUrl = `${process.env.DEFAULT_URL}/api/v1/lessons`;
+const lessonApiBaseUrl = `${import.meta.env.DEFAULT_URL}/api/v1/lessons`;
 
 class ProofreaderPassageApi {
   static getAll(): Promise<Array<ProofreaderActivity>> {

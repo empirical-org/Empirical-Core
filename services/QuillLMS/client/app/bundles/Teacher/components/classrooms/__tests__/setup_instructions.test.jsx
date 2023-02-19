@@ -31,7 +31,7 @@ describe('SetupInstructions component', () => {
     })
 
     it('should render a link to the student_logins', () => {
-      expect(wrapper.find('a').first().prop('href')).toMatch(`${process.env.CDN_URL}/documents/setup_instructions_pdfs/class_code_links.pdf`)
+      expect(wrapper.find('a').first().prop('href')).toMatch(`${import.meta.env.VITE_PROCESS_ENV_CDN_URL}/documents/setup_instructions_pdfs/class_code_links.pdf`)
     })
   })
 

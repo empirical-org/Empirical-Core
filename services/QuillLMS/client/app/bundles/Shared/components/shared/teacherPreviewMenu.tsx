@@ -257,7 +257,7 @@ const TeacherPreviewMenuComponent = ({
       <section className="header-container">
         <h1>Menu</h1>
         <button className="close-preview-button focus-on-light" onClick={handleToggleMenu} type="button">
-          <img alt="close-preview-button" src={`${process.env.CDN_URL}/images/icons/close.svg`} />
+          <img alt="close-preview-button" src={`${import.meta.env.VITE_PROCESS_ENV_CDN_URL}/images/icons/close.svg`} />
           {isOnMobile && <p className="close-text">Close</p>}
         </button>
       </section>

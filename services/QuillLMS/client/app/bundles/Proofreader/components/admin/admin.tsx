@@ -10,8 +10,8 @@ import Lessons from '../lessons/lessons'
 import Lesson from '../lessons/lesson'
 import Concepts from '../concepts/concepts'
 
-const usersEndpoint = `${process.env.DEFAULT_URL}/api/v1/users.json`;
-const newSessionEndpoint = `${process.env.DEFAULT_URL}/session/new`;
+const usersEndpoint = `${import.meta.env.DEFAULT_URL}/api/v1/users.json`;
+const newSessionEndpoint = `${import.meta.env.DEFAULT_URL}/session/new`;
 
 interface PathParamsType {
   [key: string]: string,

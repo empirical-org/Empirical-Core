@@ -5,7 +5,7 @@ import '../styles/headerStyling.scss'
 
 import getParameterByName from '../helpers/getParameterByName';
 
-const quillLogoSrc = `${process.env.CDN_URL}/images/logos/quill-logo-white-2022.svg`
+const quillLogoSrc = `${import.meta.env.VITE_PROCESS_ENV_CDN_URL}/images/logos/quill-logo-white-2022.svg`
 
 import {
   updateSessionOnFirebase,
@@ -21,7 +21,7 @@ class Header extends React.Component<any, any> {
   }
 
   goToLMS = () => {
-    window.location.href = `${process.env.DEFAULT_URL}`
+    window.location.href = `${import.meta.env.DEFAULT_URL}`
   }
 
   handleSaveAndExitClick = () => {
@@ -39,7 +39,7 @@ class Header extends React.Component<any, any> {
     return (
       <div className="header">
         <div className="activity-navbar-content">
-          <a className="focus-on-dark" href={process.env.DEFAULT_URL}><img alt="Quill logo" src={quillLogoSrc} /></a>
+          <a className="focus-on-dark" href={import.meta.env.DEFAULT_URL}><img alt="Quill logo" src={quillLogoSrc} /></a>
           <button className="focus-on-dark" onClick={this.handleSaveAndExitClick} type="button">Save and exit</button>
         </div>
       </div>

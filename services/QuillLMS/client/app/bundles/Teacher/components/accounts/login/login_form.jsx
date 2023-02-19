@@ -9,7 +9,7 @@ import { Input, } from '../../../../Shared/index'
 import { Snackbar } from '../../../../Shared/index'
 import { requestPost, } from '../../../../../modules/request/index'
 
-const smallWhiteCheckSrc = `${process.env.CDN_URL}/images/shared/check-small-white.svg`
+const smallWhiteCheckSrc = `${import.meta.env.VITE_PROCESS_ENV_CDN_URL}/images/shared/check-small-white.svg`
 
 class LoginFormApp extends React.Component {
   constructor(props) {
@@ -69,7 +69,7 @@ class LoginFormApp extends React.Component {
     e.preventDefault();
 
     requestPost(
-      `${process.env.DEFAULT_URL}/session/login_through_ajax`,
+      `${import.meta.env.DEFAULT_URL}/session/login_through_ajax`,
       {
         user: {
           email,
@@ -150,7 +150,7 @@ class LoginFormApp extends React.Component {
             <div className="auth-section">
               <AuthGoogleAccessForm text='Log in with Google' />
               <button onClick={this.handleCleverClick} type="button">
-                <img alt="Clever icon" src={`${process.env.CDN_URL}/images/shared/clever_icon.svg`} />
+                <img alt="Clever icon" src={`${import.meta.env.VITE_PROCESS_ENV_CDN_URL}/images/shared/clever_icon.svg`} />
                 <span>Log in with Clever</span>
               </button>
             </div>

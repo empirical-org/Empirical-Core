@@ -5,9 +5,9 @@ import { STANDARDS_FILTERS, } from './shared'
 
 import { Tooltip, helpIcon, } from '../../../../../Shared/index'
 
-const dropdownIconSrc = `${process.env.CDN_URL}/images/icons/dropdown.svg`
-const indeterminateSrc = `${process.env.CDN_URL}/images/icons/indeterminate.svg`
-const smallWhiteCheckSrc = `${process.env.CDN_URL}/images/shared/check-small-white.svg`
+const dropdownIconSrc = `${import.meta.env.VITE_PROCESS_ENV_CDN_URL}/images/icons/dropdown.svg`
+const indeterminateSrc = `${import.meta.env.VITE_PROCESS_ENV_CDN_URL}/images/icons/indeterminate.svg`
+const smallWhiteCheckSrc = `${import.meta.env.VITE_PROCESS_ENV_CDN_URL}/images/shared/check-small-white.svg`
 
 const tooltipText = 'Quill’s ELL activities are designed based on ELL standards from WIDA, CEFR, and ELA21.<br/><br/>Quill’s Starter ELL activities generally align to WIDA PL1 & ELPA Level 1.<br/><br/>Quill’s Intermediate ELL activities generally align to WIDA PL2 & ELPA Level 2.<br/><br/>Quill’s Advanced ELL activities generally align to WIDA PL3 & ELPA Level 3.<br/><br/>Click on the "?" to learn more about the alignment of Quill ELL Skill levels to common ELL frameworks.'
 

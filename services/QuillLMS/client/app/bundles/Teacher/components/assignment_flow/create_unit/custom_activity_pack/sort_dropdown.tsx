@@ -8,7 +8,7 @@ const ARROWUP = 'ArrowUp'
 const MOUSEDOWN = 'mousedown'
 const KEYDOWN = 'keydown'
 
-const dropdownIconSrc = `${process.env.CDN_URL}/images/icons/dropdown.svg`
+const dropdownIconSrc = `${import.meta.env.VITE_PROCESS_ENV_CDN_URL}/images/icons/dropdown.svg`
 
 const SortDropdownOptions = ({ dropdownIsOpen, setDropdownIsOpen, setSort, }) => {
   if (!dropdownIsOpen) { return <span /> }

@@ -294,7 +294,7 @@ class CurrentSlide extends React.Component<CurrentSlideProps & StateFromProps, a
       return (
         <SignupModal
           closeModal={this.closeSignupModal}
-          goToSignup={() => window.location.href = `${process.env.DEFAULT_URL}/account/new`}
+          goToSignup={() => window.location.href = `${import.meta.env.DEFAULT_URL}/account/new`}
           lessonId={this.props.lessonId}
         />
       )

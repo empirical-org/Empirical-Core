@@ -10,9 +10,9 @@ import {
 } from '../../helpers/determineUnnecessaryEditType'
 import useFocus from '../../../Shared/hooks/useFocus'
 
-const notNecessaryIconSrc = `${process.env.CDN_URL}/images/icons/review-not-necessary.svg`
-const incorrectIconSrc = `${process.env.CDN_URL}/images/icons/review-incorrect.svg`
-const correctIconSrc = `${process.env.CDN_URL}/images/icons/review-correct.svg`
+const notNecessaryIconSrc = `${import.meta.env.VITE_PROCESS_ENV_CDN_URL}/images/icons/review-not-necessary.svg`
+const incorrectIconSrc = `${import.meta.env.VITE_PROCESS_ENV_CDN_URL}/images/icons/review-incorrect.svg`
+const correctIconSrc = `${import.meta.env.VITE_PROCESS_ENV_CDN_URL}/images/icons/review-correct.svg`
 
 const renderConceptExplanation = (concept) => {
   if (!(concept && concept.explanation)) { return <span /> }

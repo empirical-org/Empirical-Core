@@ -1,8 +1,8 @@
 import * as React from 'react'
 import ContentEditable from 'react-contenteditable'
 
-const enabledClearSrc =  `${process.env.CDN_URL}/images/icons/clear-enabled.svg`
-const disabledClearSrc =  `${process.env.CDN_URL}/images/icons/clear-disabled.svg`
+const enabledClearSrc =  `${import.meta.env.VITE_PROCESS_ENV_CDN_URL}/images/icons/clear-enabled.svg`
+const disabledClearSrc =  `${import.meta.env.VITE_PROCESS_ENV_CDN_URL}/images/icons/clear-disabled.svg`
 
 
 interface EditorContainerProps {

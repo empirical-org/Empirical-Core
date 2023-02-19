@@ -24,13 +24,13 @@ export default class ClassroomLessons extends React.Component {
   }
 
   getAllLessons = () => {
-    requestGet(`${process.env.DEFAULT_URL}/teachers/lesson_units`, (body) => {
+    requestGet(`${import.meta.env.DEFAULT_URL}/teachers/lesson_units`, (body) => {
       this.setState({ allLessons: body, }, () => this.getLessonsForCurrentClass());
     });
   }
 
   getClassrooms = (classroomId) => {
-    requestGet(`${process.env.DEFAULT_URL}/teachers/classrooms_i_teach_with_lessons`, (body) => {
+    requestGet(`${import.meta.env.DEFAULT_URL}/teachers/classrooms_i_teach_with_lessons`, (body) => {
       const classrooms = body.classrooms;
       if (classrooms.length > 0) {
         const localStorageSelectedClassroomId = Number(window.localStorage.getItem(PROGRESS_REPORTS_SELECTED_CLASSROOM_ID))
@@ -200,7 +200,7 @@ export default class ClassroomLessons extends React.Component {
             {learnMoreLink}
           </div>
         </div>
-        <img alt="cartoon of a teacher gesturing at a projector screen showing Quill Lessons content" src={`${process.env.CDN_URL}/images/illustrations/empty_state_illustration_lessons.svg`} />
+        <img alt="cartoon of a teacher gesturing at a projector screen showing Quill Lessons content" src={`${import.meta.env.VITE_PROCESS_ENV_CDN_URL}/images/illustrations/empty_state_illustration_lessons.svg`} />
       </div>
     );
   }
@@ -215,7 +215,7 @@ export default class ClassroomLessons extends React.Component {
 
   renderHeader() {
     /* eslint-disable react/jsx-no-target-blank */
-    const paragraphWithLinks = <p>Before you launch a lessons activity with your students, we recommend you check out <a href={`${process.env.DEFAULT_URL}/tutorials/lessons/1`} target="_blank">this tutorial</a> on how to lead a lesson. We have also put together a <a href="https://support.quill.org/using-quill-tools/quill-lessons/getting-started-how-to-set-up-your-first-quill-lesson" target="_blank">comprehensive guide</a> that will explain how to set up lessons in your classroom.</p>
+    const paragraphWithLinks = <p>Before you launch a lessons activity with your students, we recommend you check out <a href={`${import.meta.env.DEFAULT_URL}/tutorials/lessons/1`} target="_blank">this tutorial</a> on how to lead a lesson. We have also put together a <a href="https://support.quill.org/using-quill-tools/quill-lessons/getting-started-how-to-set-up-your-first-quill-lesson" target="_blank">comprehensive guide</a> that will explain how to set up lessons in your classroom.</p>
     /* eslint-enable react/jsx-no-target-blank */
 
     return (

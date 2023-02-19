@@ -2,7 +2,7 @@ import React from 'react';
 
 import IndividualFeaturesTable from './individual_features_table'
 
-const greenCheckSrc = `${process.env.CDN_URL}/images/icons/icons-check-green.svg`
+const greenCheckSrc = `${import.meta.env.VITE_PROCESS_ENV_CDN_URL}/images/icons/icons-check-green.svg`
 
 const SchoolPricingMini = ({ plan, premiumFeatureData, showBadges, handleClickPurchasingOptions, }) => (
 

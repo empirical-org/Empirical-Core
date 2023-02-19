@@ -1,6 +1,6 @@
 import React from 'react'
 
-const baseImageLink = `${process.env.CDN_URL}/images/pages/premium`
+const baseImageLink = `${import.meta.env.VITE_PROCESS_ENV_CDN_URL}/images/pages/premium`
 
 const blueSchoolCircleSrc = `${baseImageLink}/illustrations-blue-school-circle.svg`
 

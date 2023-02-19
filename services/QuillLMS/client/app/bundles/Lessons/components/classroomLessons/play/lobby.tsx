@@ -11,7 +11,7 @@ import {
 import { sortByLastName } from '../shared/studentSorts'
 import { getParameterByName } from '../../../libs/getParameterByName'
 
-const LaptopConnectingToLessonsSrc = `${process.env.CDN_URL}/images/illustrations/laptop-connecting-to-lessons.svg`
+const LaptopConnectingToLessonsSrc = `${import.meta.env.VITE_PROCESS_ENV_CDN_URL}/images/illustrations/laptop-connecting-to-lessons.svg`
 
 interface LobbyProps {
   title: string,

@@ -41,7 +41,7 @@ export const getQuestion = (questionID: string) => {
 }
 
 export const getGradedResponsesWithCallback = (questionID: string, callback: Function) => {
-  requestGet(`${process.env.QUILL_CMS}/questions/${questionID}/responses`, (body) => {
+  requestGet(`${import.meta.env.QUILL_CMS}/questions/${questionID}/responses`, (body) => {
     const bodyToObj: {[key: string]: Response} = {};
     body.forEach((resp: Response) => {
       bodyToObj[resp.id] = resp;
@@ -84,7 +84,7 @@ export const searchResponses = (qid: string) => {
     const requestNumber = getState().filters.requestCount
     // check for request number in state, save as const
     requestPost(
-      `${process.env.QUILL_CMS}/questions/${qid}/responses/search`,
+      `${import.meta.env.QUILL_CMS}/questions/${qid}/responses/search`,
       { search: getFormattedSearchData(getState()), },
       (data) => {
         // check again for number in state
@@ -122,11 +122,11 @@ export const updateResponses = (data: Response[]) => {
 
 export const initializeSubscription = (qid: string) => {
   return (dispatch: Function) => {
-    if (process.env.NODE_ENV === 'development') {
+    if (import.meta.env.NODE_ENV === 'development') {
       Pusher.logToConsole = true;
     }
     if (!window.pusher) {
-      window.pusher = new Pusher(process.env.PUSHER_KEY, { encrypted: true, });
+      window.pusher = new Pusher(import.meta.env.PUSHER_KEY, { encrypted: true, });
     }
     const channel = window.pusher.subscribe(`admin-${qid}`);
     channel.bind('new-response', (data) => {

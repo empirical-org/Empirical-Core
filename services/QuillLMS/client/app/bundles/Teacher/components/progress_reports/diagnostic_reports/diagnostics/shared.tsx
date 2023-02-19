@@ -2,7 +2,7 @@ import * as React from 'react'
 
 import * as assignmentFlowConstants from '../../../assignment_flow/assignmentFlowConstants'
 
-export const baseImageSrc = `${process.env.CDN_URL}/images`
+export const baseImageSrc = `${import.meta.env.VITE_PROCESS_ENV_CDN_URL}/images`
 export const baseDiagnosticImageSrc = `${baseImageSrc}/pages/diagnostic_reports`
 export const accountCommentIcon = <img alt="Person messaging icon" src={`${baseDiagnosticImageSrc}/icons-comment-account.svg`} />
 export const triangleUpIcon = <img alt="Triangle up icon" src={`${baseDiagnosticImageSrc}/icons-triangle-up-green.svg`} />

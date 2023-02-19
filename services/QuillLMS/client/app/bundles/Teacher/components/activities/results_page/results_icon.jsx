@@ -27,7 +27,7 @@ export default class ResultsIcon extends React.Component {
       default:
         img = 'tool-proofreader-white.svg'
     }
-    return `${process.env.CDN_URL}/images/tools/${img}`
+    return `${import.meta.env.VITE_PROCESS_ENV_CDN_URL}/images/tools/${img}`
   }
 
   scoreColor = () => {

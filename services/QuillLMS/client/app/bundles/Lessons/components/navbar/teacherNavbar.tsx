@@ -181,7 +181,7 @@ class TeacherNavbar extends React.Component<any, any> {
       /* eslint-disable react/jsx-no-target-blank */
       return (
         <a
-          href={`${process.env.DEFAULT_URL}/activities/${params.lessonID}/supporting_info`}
+          href={`${import.meta.env.DEFAULT_URL}/activities/${params.lessonID}/supporting_info`}
           onMouseEnter={this.handleMouseEnterPDFIcon}
           onMouseLeave={this.handleMouseLeaveTooltip}
           target="_blank"
@@ -206,7 +206,7 @@ class TeacherNavbar extends React.Component<any, any> {
     return (
       <div className='help-dropdown'>
         <i className="fa fa-caret-up" />
-        <a href={`${process.env.DEFAULT_URL}/tutorials/lessons?nocta=true`} target="_blank"><p>Tutorial</p></a>
+        <a href={`${import.meta.env.DEFAULT_URL}/tutorials/lessons?nocta=true`} target="_blank"><p>Tutorial</p></a>
         <a href="https://support.quill.org/using-quill-tools#quill-lessons" target="_blank"><p>Quill Lessons - Q&A</p></a>
       </div>
     )
@@ -333,7 +333,7 @@ class TeacherNavbar extends React.Component<any, any> {
 
     if (shouldExit) {
       unpinActivityOnSaveAndExit(params.lessonID, classroomUnitId)
-      document.location.href = process.env.DEFAULT_URL || 'https://www.quill.org';
+      document.location.href = import.meta.env.DEFAULT_URL || 'https://www.quill.org';
     }
   }
 
@@ -355,7 +355,7 @@ class TeacherNavbar extends React.Component<any, any> {
     const { classroomSessions, } = this.props
     const { preview } = classroomSessions.data
     if (preview === true) {
-      const assignLink = `${process.env.DEFAULT_URL}/assign/activity-library?activityClassificationFilters[]=lessons`
+      const assignLink = `${import.meta.env.DEFAULT_URL}/assign/activity-library?activityClassificationFilters[]=lessons`
       const studentLink = window.location.href.replace('teach', 'play').concat('&student=student')
       /* eslint-disable react/jsx-no-target-blank */
       return (

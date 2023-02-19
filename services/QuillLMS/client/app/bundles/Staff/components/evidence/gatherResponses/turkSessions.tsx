@@ -102,7 +102,7 @@ const TurkSessions: React.FC<RouteComponentProps<ActivityRouteProps>> = ({ match
 
   const turkSessionsRows = turkSessionsData && turkSessionsData.turkSessions && turkSessionsData.turkSessions.map((turkSession: TurkSessionInterface) => {
     const { activity_id, expires_at, id } = turkSession;
-    const url = `${process.env.DEFAULT_URL}/evidence/#/turk?uid=${activity_id}&id=${id}`;
+    const url = `${import.meta.env.DEFAULT_URL}/evidence/#/turk?uid=${activity_id}&id=${id}`;
     const turkLink = <a href={url} rel="noopener noreferrer" target="_blank">{url}</a>;
     return {
       id: `${activity_id}-${id}`,

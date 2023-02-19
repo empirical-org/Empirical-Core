@@ -16,7 +16,7 @@ export default class MoveStudent extends React.Component {
   submitData = () => {
     const that = this
     requestPost(
-      `${process.env.DEFAULT_URL}/teacher_fix/move_student_from_one_class_to_another`,
+      `${import.meta.env.DEFAULT_URL}/teacher_fix/move_student_from_one_class_to_another`,
       {class_code1: that.state.classCode1, class_code2: that.state.classCode2, student_identifier: that.state.studentIdentifier},
       (body) => {
         window.alert('Student has been moved!')

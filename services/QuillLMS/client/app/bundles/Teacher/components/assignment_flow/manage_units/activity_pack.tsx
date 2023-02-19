@@ -11,9 +11,9 @@ import ReopenUnitModal from './reopen_unit_modal'
 import ShareActivityPackModal from '../create_unit/share_activity_pack/shareActivityPackModal';
 import { requestGet } from '../../../../../modules/request';
 
-const multipleAccountSrc = `${process.env.CDN_URL}/images/icons/icons-account-multiple-check.svg`
-const expandSrc = `${process.env.CDN_URL}/images/icons/expand.svg`
-const lockSrc = `${process.env.CDN_URL}/images/icons/icons-lock.svg`
+const multipleAccountSrc = `${import.meta.env.VITE_PROCESS_ENV_CDN_URL}/images/icons/icons-account-multiple-check.svg`
+const expandSrc = `${import.meta.env.VITE_PROCESS_ENV_CDN_URL}/images/icons/expand.svg`
+const lockSrc = `${import.meta.env.VITE_PROCESS_ENV_CDN_URL}/images/icons/icons-lock.svg`
 
 const RENAME = 'rename'
 const ARCHIVE = 'archive'

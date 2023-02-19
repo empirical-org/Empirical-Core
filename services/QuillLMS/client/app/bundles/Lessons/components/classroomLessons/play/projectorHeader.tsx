@@ -1,6 +1,6 @@
 import * as React from 'react'
 
-const laptopGlyphSrc = `${process.env.CDN_URL}/images/icons/laptop-glyph.svg` ;
+const laptopGlyphSrc = `${import.meta.env.VITE_PROCESS_ENV_CDN_URL}/images/icons/laptop-glyph.svg` ;
 
 const ProjectorHeader = ({ studentCount, submissions, }) => {
   const submissionCount:number = submissions ? Object.keys(submissions).length : 0

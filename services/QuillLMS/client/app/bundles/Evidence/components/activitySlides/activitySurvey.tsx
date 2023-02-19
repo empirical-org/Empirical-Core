@@ -4,7 +4,7 @@ import useFocus from '../../../Shared/hooks/useFocus'
 import { Events } from '../../modules/analytics'
 import { TrackAnalyticsEvent } from "../../actions/analytics";
 
-const baseImgSrc = `${process.env.CDN_URL}/images/pages/evidence`
+const baseImgSrc = `${import.meta.env.VITE_PROCESS_ENV_CDN_URL}/images/pages/evidence`
 const checkMarkSrc = `${baseImgSrc}/components-selection-controls-dark-enabled-selected.svg`
 
 const SURVEY_QUESTION = "What did you think of this activity?"
@@ -128,7 +128,7 @@ const ActivitySurvey = ({ activity, dispatch, sessionID, saveActivitySurveyRespo
     saveActivitySurveyResponse({ sessionID, activitySurveyResponse, callback, })
   }
 
-  function handleLinkClick() { window.location.href = process.env.DEFAULT_URL }
+  function handleLinkClick() { window.location.href = import.meta.env.DEFAULT_URL }
 
   let activitySurveyHeader
   let multipleChoiceSection
@@ -168,7 +168,7 @@ const ActivitySurvey = ({ activity, dispatch, sessionID, saveActivitySurveyRespo
         {multipleChoiceSection}
       </div>
       <div className="button-section">
-        <a className="focus-on-dark" href={process.env.DEFAULT_URL} onClick={handleLinkClick}>Skip</a>
+        <a className="focus-on-dark" href={import.meta.env.DEFAULT_URL} onClick={handleLinkClick}>Skip</a>
         <button className={sendButtonClassName} onClick={handleSend} type="button">Send</button>
       </div>
     </div>

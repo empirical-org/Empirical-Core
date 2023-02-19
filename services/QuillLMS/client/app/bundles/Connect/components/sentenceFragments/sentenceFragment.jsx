@@ -21,7 +21,7 @@ import TestQuestionContainer from './testSentenceFragmentContainer';
 import MassEditContainer from '../questions/massEditContainer.jsx';
 import { Modal, UploadOptimalResponses, } from '../../../Shared/index'
 
-const icon = `${process.env.CDN_URL}/images/icons/direction.svg`
+const icon = `${import.meta.env.VITE_PROCESS_ENV_CDN_URL}/images/icons/direction.svg`
 
 class SentenceFragment extends React.Component {
   constructor(props) {
