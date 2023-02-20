@@ -124,18 +124,13 @@
     }
   }
 
-  .previously-assigned-activities {
-    text-align: center;
-    font-size: 14px;
-    color: #646464;
-    margin-bottom: 71px;
-    a {
-      color: #373737;
-      font-weight: 400;
-      font-size: 13px;
-      line-height: 13px;
-      width: 140px;
-      height: 13px;
+  .previously-assigned-container {
+    display: flex;
+    .previously-assigned-activities {
+      text-align: center;
+      font-size: 14px;
+      color: #646464;
+      margin-bottom: 71px;
     }
     .view-assigned-activities {
       width: 172px;
@@ -144,14 +139,25 @@
       border: 1px solid #BDBDBD;
       border-radius: 4px;
       margin-left: 5px;
+      margin-top: -6px;
+      padding-top: 8px;
+      padding-left: 15px;
+      a {
+        color: #373737;
+        font-weight: 400;
+        font-size: 13px;
+        line-height: 13px;
+        width: 140px;
+        height: 13px;
+      }
     }
-  }
 
-  @media (max-width: 1100px) {
-    .minis {
-      justify-content: center;
-      .assignment-card {
-        max-width: 100%;
+    @media (max-width: 1100px) {
+      .minis {
+        justify-content: center;
+        .assignment-card {
+          max-width: 100%;
+        }
       }
     }
   }
@@ -168,6 +174,9 @@
 .evidence-header {
   margin-top: 40px;
   margin-bottom: 32px;
+  @media (max-width: 850px) {
+    display: none;
+  }
 }
 
 .suggested-activities-table {
@@ -228,5 +237,29 @@
       height: 33px;
       margin-left: 16px;
     }
+  }
+
+  @media (max-width: 1200px) {
+    tr {
+      width: 800px;
+      .activity-header {
+        max-width: 200px;
+      }
+      .topics-header {
+        max-width: 200px;
+      }
+    }
+    tbody {
+      .name-col {
+        max-width: 200px;
+      }
+      .topics-col {
+        max-width: 200px;
+      }
+    }
+  }
+
+  @media (max-width: 850px) {
+    display: none !important;
   }
 }

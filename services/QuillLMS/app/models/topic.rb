@@ -71,13 +71,13 @@ class Topic < ApplicationRecord
   # returns a list of topic names in this order:
   # [grandparent, parent, self]
   def genealogy
-    genealogy = []
-    current_topic = self
-    while current_topic
-      genealogy.unshift(current_topic.name)
-      current_topic = current_topic.parent
+    [].tap do |results|
+      current_topic = self
+      while current_topic do
+        results.unshift(current_topic.name)
+        current_topic = current_topic.parent
+      end
     end
-    genealogy
   end
 
   private def level_two_parent?

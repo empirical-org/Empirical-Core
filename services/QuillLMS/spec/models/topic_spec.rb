@@ -138,25 +138,20 @@ describe Topic, type: :model do
   end
 
   describe '#genealogy' do
+    subject { topic.genealogy }
+
+    let(:topic) { create(:topic, level: level)}
+
     context 'when topic is level 1' do
-      it 'should return an array containing the names of the grandparent, parent, and topic' do
-        topic = create(:topic, level: 1)
-        genealogy = topic.genealogy
-        expect(genealogy.size).to eq(3)
-        expect(genealogy[0]).to eq(topic.parent.parent.name)
-        expect(genealogy[1]).to eq(topic.parent.name)
-        expect(genealogy[2]).to eq(topic.name)
-      end
+      let(:level) { 1 }
+
+      it { expect(subject).to eq [topic.parent.parent.name, topic.parent.name, topic.name] }
     end
 
     context 'when topic is level 2' do
-      it 'should return an array containing the names of parent and topic' do
-        topic = create(:topic, level: 2)
-        genealogy = topic.genealogy
-        expect(genealogy.size).to eq(2)
-        expect(genealogy[0]).to eq(topic.parent.name)
-        expect(genealogy[1]).to eq(topic.name)
-      end
+      let(:level) { 2 }
+
+      it { expect(subject).to eq [topic.parent.name, topic.name] }
     end
   end
 end

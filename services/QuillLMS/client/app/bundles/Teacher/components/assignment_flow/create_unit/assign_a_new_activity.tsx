@@ -74,13 +74,13 @@ const minis = (diagnosticBannerShowing) => [
 
 const AssignANewActivity = ({ numberOfActivitiesAssigned, showDiagnosticBanner }) => {
   const [diagnosticBannerShowing, setDiagnosticBannerShowing] = React.useState(showDiagnosticBanner)
-  const [activitiesToSuggest, setActivitesToSuggest] = React.useState([])
+  const [activitiesToSuggest, setActivitiesToSuggest] = React.useState([])
 
   const getData = () => {
     requestGet(
       `${process.env.DEFAULT_URL}/activities/suggested_activities`,
       (body) => {
-        setActivitesToSuggest(body.activities)
+        setActivitiesToSuggest(body.activities)
       }
     );
   }
@@ -142,7 +142,7 @@ const AssignANewActivity = ({ numberOfActivitiesAssigned, showDiagnosticBanner }
                   </td>
                   <td className="date-col">{a.publication_date}</td>
                   <td className="preview-col"><a href={`/activity_sessions/anonymous?activity_id=${a.id}`} rel="noopener noreferrer" target="_blank">Preview</a></td>
-                  <td className="select-col"><button className="quill-button secondary medium focus-on-light outlined select-suggested" onClick={() => window.location.href = `/assign/activity-library?activityClassificationFilters[]=evidence&search=${encodeURI(a.name)}`} type="button">Select</button></td>
+                  <button className="quill-button secondary medium focus-on-light outlined select-suggested" onClick={() => window.location.href = `/assign/activity-library?activityClassificationFilters[]=evidence&search=${encodeURI(a.name)}`} type="button">Select</button>
                 </tr>
               )
             })}
@@ -156,10 +156,12 @@ const AssignANewActivity = ({ numberOfActivitiesAssigned, showDiagnosticBanner }
     <div className="assign-a-new-activity-container">
       <div className="assign-a-new-activity container">
         <h1>Find the perfect writing activities for your students.</h1>
-        <p className="previously-assigned-activities">
-          You have {numberOfActivitiesAssigned} {numberOfActivitiesAssigned === 1 ? 'activity' : 'activities'} assigned.&nbsp;
-          <button className="view-assigned-activities" type="button"><a href="/teachers/classrooms/activity_planner">View assigned activities</a></button>
-        </p>
+        <div className="previously-assigned-container">
+          <p className="previously-assigned-activities">
+            You have {numberOfActivitiesAssigned} {numberOfActivitiesAssigned === 1 ? 'activity' : 'activities'} assigned.&nbsp;
+          </p>
+          <div className="view-assigned-activities"><a href="/teachers/classrooms/activity_planner">View assigned activities</a></div>
+        </div>
         {diagnosticBanner}
         <div className="minis">{minis(diagnosticBannerShowing)}</div>
         {suggestedActivitiesList}

@@ -100,6 +100,9 @@ class Activity < ApplicationRecord
   scope :alpha_user, -> { where("'#{ALPHA}' = ANY(activities.flags) OR '#{BETA}' = ANY(activities.flags) OR '#{GAMMA}' = ANY(activities.flags) OR '#{PRODUCTION}' = ANY(activities.flags)")}
 
   scope :with_classification, -> { includes(:classification).joins(:classification) }
+  scope :evidence, -> { where(classification: ActivityClassification.evidence) }
+  scope :evidence_beta1, -> { where(flags: [Flags::EVIDENCE_BETA1]) }
+  scope :evidence_beta2, -> { where(flags: [Flags::EVIDENCE_BETA2]) }
 
   # only Grammar (2), Connect (5), and Diagnostic (4) Activities contain questions
   # the other two, Proofreader and Lesson, contain passages and other data, not questions
@@ -194,7 +197,7 @@ class Activity < ApplicationRecord
   def publication_date
     return nil unless is_evidence?
 
-    created_time = child_activity.change_logs.where(changed_attribute: FLAGS_ATTRIBUTE).last&.created_at || created_at
+    created_time = child_activity.last_flags_change_log_record&.created_at || created_at
     created_time.strftime("%m/%d/%Y")
   end
 
@@ -303,7 +306,7 @@ class Activity < ApplicationRecord
   end
 
   def serialize_with_topics_and_publication_date
-    serializable_hash.merge({topics: topics&.map(&:genealogy) || [], publication_date: publication_date})
+    serializable_hash.merge({topics: topics&.map(&:genealogy), publication_date: publication_date})
   end
 
   private def update_evidence_title?
