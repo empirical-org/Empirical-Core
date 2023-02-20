@@ -13,8 +13,17 @@ export default defineConfig({
     RubyPlugin()
   ],
   define: {
-    // Note: declare node-accessible varible (i.e. CDN_URL) in .env.<mode>, not here
+    // Note: declare node-accessible variable (i.e. CDN_URL) in .env.<mode>, not here
     'process': {}
+  },
+  optimizeDeps: {
+    esbuildOptions: {
+      // Node.js global to browser globalThis
+      // Details of hack: (https://github.com/vitejs/vite/discussions/5912)
+      define: {
+        global: 'globalThis'
+      }
+    }
   }
 })
 
