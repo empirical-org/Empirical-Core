@@ -26,6 +26,7 @@ import useWindowSize from '../../../../../Shared/hooks/useWindowSize'
 const openInNewTabIcon = <img alt="Open in new tab icon" src={`${baseDiagnosticImageSrc}/icons-open-in-new.svg`} />
 const ellipsesIcon = <img alt="Open menu icon" src={`${baseDiagnosticImageSrc}/ellipses_icon.svg`} />
 
+const TABLE_LEFT_PADDING = 0
 const TABLE_RIGHT_PADDING = 34
 
 interface RecommendationsTableProps {
@@ -233,7 +234,7 @@ const RecommendationsTable = ({ recommendations, responsesLink, students, select
 
   const handleScroll = React.useCallback(({ top, bottom, left, right, }) => {
     if (top <= 0 && bottom > 92) {
-      setStickyTableStyle(oldStickyTableStyle => ({ ...oldStickyTableStyle, left: left + paddingLeft() }))
+      setStickyTableStyle(oldStickyTableStyle => ({ ...oldStickyTableStyle, left: left }))
       setStickyTableRightOffset(right)
       !isSticky && setIsSticky(true);
     } else {
@@ -392,7 +393,7 @@ const RecommendationsTable = ({ recommendations, responsesLink, students, select
     <div className="recommendations-table-container" onScroll={handleScroll}>
       <div className="recommendations-table-wrapper">
         {renderStickyRecommendationsTable()}
-        <table className={recommendationsTableClassName} id="demo-onboarding-tour-spotlight-element" ref={recommendationsTableRef} style={tableHasContent ? { paddingLeft: paddingLeft() } : { marginLeft: paddingLeft() }}>
+        <table className={recommendationsTableClassName} id="demo-onboarding-tour-spotlight-element" ref={recommendationsTableRef} style={tableHasContent ? { paddingLeft: TABLE_LEFT_PADDING } : { marginLeft: paddingLeft() }}>
           {renderRecommendationsTableHeader(false)}
           {tableHasContent ? null : noDataYet}
           <tbody>
