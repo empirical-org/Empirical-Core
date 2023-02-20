@@ -732,4 +732,39 @@ describe Activity, type: :model, redis: true do
       end
     end
   end
+
+  describe '#publication_date' do
+    context 'when the activity has no associated flag change log' do
+      it 'returns the created_at date of that activity' do
+        activity = create(:evidence_activity, created_at: Time.zone.today - 10.days)
+        Evidence::Activity.create(parent_activity: activity, title: "title", notes: "notes")
+
+        expect(activity.publication_date).to eq(activity.created_at.strftime("%m/%d/%Y"))
+      end
+    end
+
+    context 'when the activity has an associated flag change log' do
+      it 'returns the created_at date of the last flag change' do
+        activity = create(:evidence_activity)
+        evidence_activity = Evidence::Activity.create(parent_activity: activity, title: "title", notes: "notes")
+        change_log = create(:change_log, created_at: Time.zone.today - 20.days, changed_attribute: Activity::FLAGS_ATTRIBUTE, changed_record: evidence_activity)
+
+        expect(activity.publication_date).to eq(change_log.created_at.strftime("%m/%d/%Y"))
+      end
+    end
+  end
+
+  describe '#serialize_with_topics_and_publication_date' do
+    it 'returns the serialized activity hash with topics genealogy and publication date added' do
+      topic = create(:topic, level: 1)
+      activity = create(:evidence_activity, topics: [topic])
+      evidence_activity = Evidence::Activity.create(parent_activity: activity, title: "title", notes: "notes")
+      change_log = create(:change_log, created_at: Time.zone.today - 20.days, changed_attribute: Activity::FLAGS_ATTRIBUTE, changed_record: evidence_activity)
+
+      serialized_hash = activity.serialize_with_topics_and_publication_date
+      expect(serialized_hash["id"]).to eq(activity.id)
+      expect(serialized_hash[:topics]).to eq([topic.genealogy])
+      expect(serialized_hash[:publication_date]).to eq(change_log.created_at.strftime("%m/%d/%Y"))
+    end
+  end
 end
