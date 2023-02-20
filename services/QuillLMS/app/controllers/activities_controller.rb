@@ -93,6 +93,23 @@ class ActivitiesController < ApplicationController
     end
   end
 
+  def suggested_activities
+    render json: { activities: current_user.teaches_eighth_through_twelfth? ? calculate_selected_activities : [] }
+  end
+
+  def calculate_selected_activities
+    selected_activities = Activity.evidence.production
+
+    case current_user.flagset
+    when Flags::EVIDENCE_BETA2
+      selected_activities = selected_activities.or(Activity.evidence.evidence_beta2)
+    when Flags::EVIDENCE_BETA1
+      selected_activities = selected_activities.or(Activity.evidence.evidence_beta2).or(Activity.evidence.evidence_beta1)
+    end
+
+    selected_activities.map(&:serialize_with_topics_and_publication_date).sort_by{|a| Date.strptime(a[:publication_date],"%m/%d/%Y")}.reverse!
+  end
+
   private def authorized_activity_access?
     activity &&
     classroom_unit&.assigned_student_ids&.include?(current_user.id) &&

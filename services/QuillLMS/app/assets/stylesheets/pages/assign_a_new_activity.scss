@@ -1,5 +1,4 @@
 .assignment-card {
-  border-radius: 6px;
   background-color: white;
   padding: 32px;
   text-align: left;
@@ -7,6 +6,8 @@
   width: 100%;
   flex-direction: column;
   align-items: inherit;
+  box-shadow: 0px 0px 20px rgba(0, 0, 0, 0.1);
+  border-radius: 20px;
   &:hover {
     text-decoration: none;
   }
@@ -25,9 +26,10 @@
       }
     }
     h2 {
-      font-size: 16px;
-      font-weight: bold;
-      line-height: 1.5;
+      font-style: normal;
+      font-weight: 700;
+      font-size: 20px;
+      line-height: 25px;
     }
     .recommended-to-start-tag {
       font-size: 12px;
@@ -49,13 +51,17 @@
       .key {
         max-width: 88px;
         width: 100%;
+        font-weight: 700;
+        font-size: 14px;
+        line-height: 21px;
+        color: #373737;
       }
     }
   }
 }
 
 .assign-a-new-activity-container {
-  background-color: white;
+  background-color: #F7F5F5;
   min-height: 100%;
 }
 
@@ -70,7 +76,7 @@
     font-size: 24px;
     font-weight: bold;
     line-height: 1.33;
-    margin-bottom: 40px;
+    margin-bottom: 23px;
     text-align: center;
   }
 
@@ -110,29 +116,48 @@
     display: flex;
     justify-content: space-between;
     flex-wrap: wrap;
-    max-width: 950px;
+    max-width: $sitewidepagewidth;
     .assignment-card {
       width: 100%;
-      max-width: 463px;
+      max-width: 588px;
       margin: 0px 0px 24px;
     }
   }
 
-  .previously-assigned-activities {
-    text-align: center;
-    margin-top: 26px;
-    font-size: 14px;
-    color: #646464;
-    a {
-      color: #027360;
+  .previously-assigned-container {
+    display: flex;
+    .previously-assigned-activities {
+      text-align: center;
+      font-size: 14px;
+      color: #646464;
+      margin-bottom: 71px;
     }
-  }
+    .view-assigned-activities {
+      width: 172px;
+      height: 33px;
+      background: #FFFFFF;
+      border: 1px solid #BDBDBD;
+      border-radius: 4px;
+      margin-left: 5px;
+      margin-top: -6px;
+      padding-top: 8px;
+      padding-left: 15px;
+      a {
+        color: #373737;
+        font-weight: 400;
+        font-size: 13px;
+        line-height: 13px;
+        width: 140px;
+        height: 13px;
+      }
+    }
 
-  @media (max-width: 1100px) {
-    .minis {
-      justify-content: center;
-      .assignment-card {
-        max-width: 100%;
+    @media (max-width: 1100px) {
+      .minis {
+        justify-content: center;
+        .assignment-card {
+          max-width: 100%;
+        }
       }
     }
   }
@@ -143,5 +168,98 @@
 
   a:first-child {
     margin-right: 16px;
+  }
+}
+
+.evidence-header {
+  margin-top: 40px;
+  margin-bottom: 32px;
+  @media (max-width: 850px) {
+    display: none;
+  }
+}
+
+.suggested-activities-table {
+  border: 1px solid #E0E0E0;
+  border-radius: 6px;
+  tr {
+    background-color: white;
+    padding-top: 12px;
+    padding-bottom: 2px;
+    width: $sitewidepagewidth;
+    .activity-header {
+      width: 450px;
+    }
+    .topics-header {
+      width: 375px;
+    }
+    th {
+      padding-bottom: 15px;
+      padding-top: 10px;
+    }
+  }
+  tbody {
+    .data-table-row {
+      &:hover {
+        background-color: white;
+      }
+    }
+    .tool-col {
+      margin-right: 24px;
+    }
+    .name-col {
+      width: 450px;
+      a {
+        color: #027360;
+      }
+    }
+    .topics-col {
+      font-weight: 400;
+      font-size: 14px;
+      line-height: 26px;
+      width: 375px;
+    }
+    .date-col {
+      width: 96px;
+    }
+    .preview-col {
+      a {
+        color: #027360;
+      }
+      width: 60px;
+    }
+    .select-suggested {
+      font-weight: 400;
+      font-size: 13px;
+      line-height: 13px;
+      color: #373737;
+      min-width: 69px;
+      height: 33px;
+      margin-left: 16px;
+    }
+  }
+
+  @media (max-width: 1200px) {
+    tr {
+      width: 800px;
+      .activity-header {
+        max-width: 200px;
+      }
+      .topics-header {
+        max-width: 200px;
+      }
+    }
+    tbody {
+      .name-col {
+        max-width: 200px;
+      }
+      .topics-col {
+        max-width: 200px;
+      }
+    }
+  }
+
+  @media (max-width: 850px) {
+    display: none !important;
   }
 }

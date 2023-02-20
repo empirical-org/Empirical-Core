@@ -110,4 +110,48 @@ describe Topic, type: :model do
     end
   end
 
+  describe '#parent' do
+    context 'when a topic is level 2' do
+      it 'should return the parent' do
+        parent = create(:topic, level: 3)
+        topic = create(:topic, level: 2)
+        topic.update(parent_id: parent.id)
+        expect(topic.parent).to eq(parent)
+      end
+    end
+
+    context 'when a topic is level 1' do
+      it 'should return the parent' do
+        parent = create(:topic, level: 2)
+        topic = create(:topic, level: 1)
+        topic.update(parent_id: parent.id)
+        expect(topic.parent).to eq(parent)
+      end
+    end
+
+    context 'when a topic is level 3' do
+      it 'should return nil' do
+        topic = create(:topic, level: 3)
+        expect(topic.parent).to eq(nil)
+      end
+    end
+  end
+
+  describe '#genealogy' do
+    subject { topic.genealogy }
+
+    let(:topic) { create(:topic, level: level)}
+
+    context 'when topic is level 1' do
+      let(:level) { 1 }
+
+      it { expect(subject).to eq [topic.parent.parent.name, topic.parent.name, topic.name] }
+    end
+
+    context 'when topic is level 2' do
+      let(:level) { 2 }
+
+      it { expect(subject).to eq [topic.parent.name, topic.name] }
+    end
+  end
 end

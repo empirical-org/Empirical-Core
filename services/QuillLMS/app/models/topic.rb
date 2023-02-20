@@ -64,6 +64,22 @@ class Topic < ApplicationRecord
     end
   end
 
+  def parent
+    Topic.find(parent_id) if parent?
+  end
+
+  # returns a list of topic names in this order:
+  # [grandparent, parent, self]
+  def genealogy
+    [].tap do |results|
+      current_topic = self
+      while current_topic
+        results.unshift(current_topic.name)
+        current_topic = current_topic.parent
+      end
+    end
+  end
+
   private def level_two_parent?
     parent? && Topic.find(parent_id).level_two?
   end
