@@ -73,7 +73,7 @@ class Topic < ApplicationRecord
   def genealogy
     [].tap do |results|
       current_topic = self
-      while current_topic do
+      while current_topic
         results.unshift(current_topic.name)
         current_topic = current_topic.parent
       end
