@@ -11,24 +11,27 @@ exports[`AssignANewActivity component default should render 1`] = `
       <h1>
         Find the perfect writing activities for your students.
       </h1>
-      <p
-        className="previously-assigned-activities"
+      <div
+        className="previously-assigned-container"
       >
-        You have 
-         
-        activities
-         assigned. 
-        <button
+        <p
+          className="previously-assigned-activities"
+        >
+          You have 
+           
+          activities
+           assigned. 
+        </p>
+        <div
           className="view-assigned-activities"
-          type="button"
         >
           <a
             href="/teachers/classrooms/activity_planner"
           >
             View assigned activities
           </a>
-        </button>
-      </p>
+        </div>
+      </div>
       <div
         className="minis"
       >
