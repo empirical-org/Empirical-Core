@@ -24,6 +24,96 @@ describe AdminsController  do
     end
   end
 
+  describe '#admin_info' do
+    let!(:admin_for_admin_info) { create(:admin)}
+
+    before { allow(controller).to receive(:current_user) { admin_for_admin_info } }
+
+    describe 'associated_school_has_premium' do
+
+      describe 'when the user is not associated with a school' do
+        it 'returns false' do
+          get :admin_info, params: { id: admin_for_admin_info.id }
+          expect(JSON.parse(response.body)['associated_school_has_premium']).to be false
+        end
+      end
+
+      context 'when the user is associated with a school' do
+        let(:school_for_admin_info) { create(:school )}
+        let!(:schools_users) { create(:schools_users, school: school_for_admin_info, user: admin_for_admin_info) }
+
+        describe 'with an active subscription' do
+          it 'returns true' do
+            create(:school_subscription, school: school_for_admin_info)
+            admin_for_admin_info.reload
+            get :admin_info, params: { id: admin_for_admin_info.id }
+            expect(JSON.parse(response.body)['associated_school_has_premium']).to be true
+          end
+        end
+
+        describe 'with an expired subscription' do
+          it 'returns false' do
+            create(:school_subscription, school: school)
+            school.subscription.update(expiration: Time.zone.yesterday)
+            admin_for_admin_info.reload
+            get :admin_info, params: { id: admin_for_admin_info.id }
+            expect(JSON.parse(response.body)['associated_school_has_premium']).to be false
+          end
+        end
+
+        describe 'with no subscription' do
+          it 'returns false' do
+            get :admin_info, params: { id: admin_for_admin_info.id }
+            expect(JSON.parse(response.body)['associated_school_has_premium']).to be false
+          end
+        end
+
+      end
+    end
+
+    describe 'administers_school_with_premium' do
+      describe 'when the user does not administer any schools' do
+        it 'returns false' do
+          get :admin_info, params: { id: admin_for_admin_info.id }
+          expect(JSON.parse(response.body)['administers_school_with_premium']).to be false
+        end
+      end
+
+      context 'when the user administers a school' do
+        let(:school_for_admin_info) { create(:school) }
+        let!(:school_admin_for_admin_info) { create(:schools_admins, school: school_for_admin_info, user: admin_for_admin_info) }
+
+        describe 'with an active subscription' do
+          it 'returns true' do
+            create(:school_subscription, school: school_for_admin_info)
+            admin_for_admin_info.reload
+            get :admin_info, params: { id: admin_for_admin_info.id }
+            expect(JSON.parse(response.body)['administers_school_with_premium']).to be true
+          end
+        end
+
+        describe 'with an expired subscription' do
+          it 'returns false' do
+            create(:school_subscription, school: school_for_admin_info)
+            school_for_admin_info.subscription.update(expiration: Time.zone.yesterday)
+            admin_for_admin_info.reload
+            get :admin_info, params: { id: admin_for_admin_info.id }
+            expect(JSON.parse(response.body)['administers_school_with_premium']).to be false
+          end
+        end
+
+        describe 'with no subscription' do
+          it 'returns false' do
+            get :admin_info, params: { id: admin_for_admin_info.id }
+            expect(JSON.parse(response.body)['administers_school_with_premium']).to be false
+          end
+        end
+
+      end
+
+    end
+  end
+
   describe '#sign_in_classroom_manager' do
     it 'should redirect to teachers classrooms path' do
       get :sign_in_classroom_manager, params: { id: teacher.id }

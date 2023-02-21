@@ -18,5 +18,4 @@ class UserAdminSerializer < ApplicationSerializer
     admin = User.find(object.id)
     admin.administered_schools.select(:id, :nces_id, :name).order(:name)
   end
-
 end

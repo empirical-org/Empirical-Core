@@ -41,6 +41,20 @@ class AdminsController < ApplicationController
     end
   end
 
+  def admin_info
+    render json: {
+      id: current_user.id,
+      name: current_user.name,
+      email: current_user.email,
+      role: current_user.role,
+      associated_school: current_user.school,
+      admin_approval_status: current_user.admin_approval_status,
+      admin_sub_role: current_user.admin_sub_role,
+      administers_school_with_premium: current_user.administered_schools.any? { |school| school.subscription },
+      associated_school_has_premium: current_user.school.present? && current_user.school.subscription.present?
+    }
+  end
+
   def sign_in_classroom_manager
     redirect_to teachers_classrooms_path
   end
