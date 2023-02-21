@@ -17,7 +17,7 @@ class Api::V1::ProgressReportsController < Api::ApiController
   def district_activity_scores
     return unless current_user&.admin?
 
-    serialized_district_activity_scores_json = $redis.get("SERIALIZED_DISTRICT_ACTIVITY_SCORES_FOR_#{current_user.id}")
+    serialized_district_activity_scores_json = $redis.get("#{SchoolsAdmins::DISTRICT_ACTIVITY_SCORES_CACHE_KEY_STEM}#{current_user.id}")
     if serialized_district_activity_scores_json
       serialized_district_activity_scores = JSON.parse(serialized_district_activity_scores_json)
     end
@@ -32,7 +32,7 @@ class Api::V1::ProgressReportsController < Api::ApiController
   def district_concept_reports
     return unless current_user&.admin?
 
-    serialized_district_concept_reports_json = $redis.get("SERIALIZED_DISTRICT_CONCEPT_REPORTS_FOR_#{current_user.id}")
+    serialized_district_concept_reports_json = $redis.get("#{SchoolsAdmins::DISTRICT_CONCEPT_REPORTS_CACHE_KEY_STEM}#{current_user.id}")
     if serialized_district_concept_reports_json
       serialized_district_concept_reports = JSON.parse(serialized_district_concept_reports_json)
     end
