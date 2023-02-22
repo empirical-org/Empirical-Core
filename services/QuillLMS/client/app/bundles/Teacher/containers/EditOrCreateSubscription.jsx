@@ -291,7 +291,6 @@ export default class EditOrCreateSubscription extends React.Component {
         <h2>Purchaser Information</h2>
         {this.purchaserFromSchool()}
         <label>Purchaser Email -- if you leave this blank and provide a valid Stripe Invoice ID, this will be set automatically after you save</label>
-        <p>If the purchaser is not in the school and you see a school dropdown, select &#39;None&#39; and put in the purchasers email.</p>
         <input onChange={this.handlePurchaserEmailChange} type="text" value={subscription.purchaser_email} />
         <br />
         {this.changeToPurchaserInfo()}
