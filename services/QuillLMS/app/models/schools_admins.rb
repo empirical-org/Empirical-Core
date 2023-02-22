@@ -40,5 +40,6 @@ class SchoolsAdmins < ApplicationRecord
     $redis.del("#{ADMIN_USERS_CACHE_KEY_STEM}#{user_id}")
     $redis.del("#{DISTRICT_ACTIVITY_SCORES_CACHE_KEY_STEM}#{user_id}")
     $redis.del("#{DISTRICT_CONCEPT_REPORTS_CACHE_KEY_STEM}#{user_id}")
-    $redis.del("#{DISTRICT_STANDARD_REPORTS_CACHE_KEY_STEM}#{user_id}")  end
+    $redis.del("#{DISTRICT_STANDARD_REPORTS_CACHE_KEY_STEM}#{user_id}")
+  end
 end

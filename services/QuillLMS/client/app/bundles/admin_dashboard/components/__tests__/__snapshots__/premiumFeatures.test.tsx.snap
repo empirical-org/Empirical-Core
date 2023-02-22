@@ -20,11 +20,6 @@ exports[`PremiumFeatures component should match snapshot 1`] = `
       <p>
         Access each classroom’s Quill Premium reports. Print and download progress on concepts and standards mastered.
       </p>
-      <a
-        className="quill-button fun secondary outlined admin-reports-button"
-      >
-        View admin premium reports
-      </a>
     </section>
     <section
       className="feature"
@@ -42,6 +37,7 @@ exports[`PremiumFeatures component should match snapshot 1`] = `
       <button
         className="quill-button fun secondary outlined teacher-access-button"
         onClick={[Function]}
+        type="button"
       >
         View teacher access and usage
       </button>
@@ -59,14 +55,6 @@ exports[`PremiumFeatures component should match snapshot 1`] = `
       <p>
         Quill Premium provides provides a one-hour remote PD session and priority support.
       </p>
-      <a
-        className="quill-button fun secondary outlined training-options-button"
-        href="https://docsend.com/view/9r6gzp5v8w5ky6w9"
-        rel="noopener noreferrer"
-        target="_blank"
-      >
-        View available training options
-      </a>
     </section>
   </section>
 </section>

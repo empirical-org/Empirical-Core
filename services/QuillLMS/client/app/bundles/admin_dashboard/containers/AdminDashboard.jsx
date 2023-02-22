@@ -14,9 +14,9 @@ import useSnackbarMonitor from '../../Shared/hooks/useSnackbarMonitor'
 
 const DEFAULT_MODEL = { teachers: [] }
 
-const AdminDashboard = ({ adminId, accessType, }) => {
-  const [loading, setLoading] = React.useState(true)
-  const [model, setModel] = React.useState(DEFAULT_MODEL)
+const AdminDashboard = ({ adminId, accessType, passedModel, }) => {
+  const [loading, setLoading] = React.useState(passedModel ? false : true)
+  const [model, setModel] = React.useState(passedModel || DEFAULT_MODEL)
   const [error, setError] = React.useState(null)
   const [showSnackbar, setShowSnackbar] = React.useState(false);
   const [snackbarText, setSnackbarText] = React.useState('');
