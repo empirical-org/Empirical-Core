@@ -292,7 +292,7 @@ class Teachers::UnitsController < ApplicationController
             WHEN count(pack_sequence_items.id) > 0 THEN true
             ELSE false
           END AS staggered,
-          SUM(CASE WHEN act_sesh.state = 'started' AND act_sesh.visible THEN 1 ELSE 0 END) AS started_count
+          COUNT(DISTINCT CASE WHEN act_sesh.state = 'started' AND act_sesh.visible THEN act_sesh.user_id ELSE NULL END) AS started_count
         FROM units
         JOIN classroom_units AS cu
           ON cu.unit_id = units.id
