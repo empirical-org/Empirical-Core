@@ -69,7 +69,7 @@ const AdminDashboardContainer = ({ id, location, children, }) => {
       )
     }
 
-    if (!associated_school || associated_school.name === NOT_LISTED) {
+    if (!associated_school || [NOT_LISTED, NO_SCHOOL_SELECTED].includes(associated_school.name)) {
       return (
         <Banner
           bodyText="Please select a school to use the admin dashboard."
