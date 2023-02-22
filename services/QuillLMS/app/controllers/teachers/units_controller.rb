@@ -255,6 +255,7 @@ class Teachers::UnitsController < ApplicationController
 
     units = RawSqlRunner.execute(
       <<-SQL
+        SET LOCAL work_mem = #{PG_WORK_MEM_TUNING};
         SELECT
           units.name AS unit_name,
           activities.name AS activity_name,
@@ -350,6 +351,12 @@ class Teachers::UnitsController < ApplicationController
           unit_activity_id
       SQL
     ).to_a
+
+    RawSqlRunner.execute(
+      <<-SQL
+        SET LOCAL work_mem = #{PG_WORK_MEM_DEFAULT};
+      SQL
+    )
 
     time_now_utc = Time.now.utc
 
