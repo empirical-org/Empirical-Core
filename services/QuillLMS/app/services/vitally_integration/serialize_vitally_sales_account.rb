@@ -55,8 +55,9 @@ class SerializeVitallySalesAccount
         created_at: @school.created_at,
         premium_expiry_date: subscription_expiration_date,
         premium_start_date: subscription_start_date,
-        annual_revenue_current_contract: @school.subscription&.payment_amount || NOT_APPLICABLE,
-        stripe_invoice_id_current_contract: @school.subscription&.stripe_invoice_id || NOT_APPLICABLE,
+        annual_revenue_current_contract: annual_revenue_current_contract,
+        stripe_invoice_id_current_contract: stripe_invoice_id_current_contract,
+        purchase_order_number_current_contract: purchase_order_number_current_contract,
         last_active: last_active
       }
     }
@@ -105,6 +106,18 @@ class SerializeVitallySalesAccount
   private def subscription_expiration_date
     subscription = @school&.present_and_future_subscriptions&.last
     subscription&.expiration || NOT_APPLICABLE
+  end
+
+  private def annual_revenue_current_contract
+    @school.subscription&.payment_amount || NOT_APPLICABLE
+  end
+
+  private def stripe_invoice_id_current_contract
+    @school.subscription&.stripe_invoice_id || NOT_APPLICABLE
+  end
+
+  private def purchase_order_number_current_contract
+    @school.subscription&.purchase_order_number || NOT_APPLICABLE
   end
 
   private def last_active
