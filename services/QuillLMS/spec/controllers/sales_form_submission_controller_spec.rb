@@ -39,9 +39,9 @@ describe SalesFormSubmissionController, type: :controller do
   end
 
   describe '#request_quote' do
-    it 'should set type variable to "request quote"' do
+    it 'should redirect to school quote request' do
       get :request_quote
-      expect(assigns(:type)).to eq(SalesFormSubmissionController::QUOTE_REQUEST)
+      expect(response).to redirect_to '/premium/request-school-quote'
     end
   end
 
