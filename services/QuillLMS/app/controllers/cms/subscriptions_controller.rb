@@ -18,6 +18,12 @@ class Cms::SubscriptionsController < Cms::CmsController
     else
       @subscription = Subscription.create!(subscription_params)
     end
+    begin
+      @subscription.populate_data_from_stripe_invoice
+      @subscription.save
+    rescue Stripe::InvalidRequestError
+      # We don't actually want to do anything when this happens because we allow arbitrary values in the `stripe_invoice_id` field that this code will crash on if it can't find that Invoice in Stripe
+    end
     render json: @subscription
   end
 
@@ -58,20 +64,22 @@ class Cms::SubscriptionsController < Cms::CmsController
   end
 
   private def subscription_params
-    params.require(:subscription).permit([
-      :id,
-      :expiration,
-      :created_at,
-      :updated_at,
-      :account_type,
-      :purchaser_email,
-      :start_date,
-      :subscription_type_id,
-      :purchaser_id,
-      :recurring,
-      :de_activated_date,
-      :payment_method,
-      :payment_amount
+    params.require(:subscription).permit(%i[
+      id
+      expiration
+      created_at
+      updated_at
+      account_type
+      purchaser_email
+      start_date
+      subscription_type_id
+      purchaser_id
+      recurring
+      de_activated_date
+      payment_method
+      payment_amount
+      stripe_invoice_id
+      purchase_order_number
     ])
   end
 end

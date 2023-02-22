@@ -93,7 +93,8 @@ describe District, type: :model do
           premium_expiry_date: District::VITALLY_NOT_APPLICABLE,
           district_subscription: District::VITALLY_NOT_APPLICABLE,
           annual_revenue_current_contract: District::VITALLY_NOT_APPLICABLE,
-          stripe_invoice_id_current_contract: District::VITALLY_NOT_APPLICABLE
+          stripe_invoice_id_current_contract: District::VITALLY_NOT_APPLICABLE,
+          purchase_order_number_current_contract: District::VITALLY_NOT_APPLICABLE
         }
       })
     end
@@ -218,7 +219,8 @@ describe District, type: :model do
         create(:subscription,
           districts: [district],
           payment_amount: 1800,
-          stripe_invoice_id: 'in_12345678'
+          stripe_invoice_id: 'in_12345678',
+          purchase_order_number: 'PO-1234'
         )
       }
 
@@ -228,7 +230,8 @@ describe District, type: :model do
           premium_expiry_date: subscription.expiration,
           district_subscription: subscription.account_type,
           annual_revenue_current_contract: subscription.payment_amount,
-          stripe_invoice_id_current_contract: subscription.stripe_invoice_id
+          stripe_invoice_id_current_contract: subscription.stripe_invoice_id,
+          purchase_order_number_current_contract: subscription.purchase_order_number
         )
       end
 

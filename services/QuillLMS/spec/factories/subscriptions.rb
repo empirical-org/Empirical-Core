@@ -10,6 +10,7 @@
 #  expiration             :date
 #  payment_amount         :integer
 #  payment_method         :string
+#  purchase_order_number  :string
 #  purchaser_email        :string
 #  recurring              :boolean          default(FALSE)
 #  start_date             :date
@@ -36,6 +37,7 @@ FactoryBot.define do
     purchaser_id { nil }
     payment_method { '' }
     stripe_invoice_id { nil }
+    purchase_order_number { nil }
     stripe_subscription_id { nil }
     plan { nil }
 

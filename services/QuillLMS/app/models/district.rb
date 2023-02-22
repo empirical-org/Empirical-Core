@@ -98,7 +98,8 @@ class District < ApplicationRecord
       premium_expiry_date: premium_expiry_date,
       district_subscription: district_subscription,
       annual_revenue_current_contract: annual_revenue_current_contract,
-      stripe_invoice_id_current_contract: stripe_invoice_id_current_contract
+      stripe_invoice_id_current_contract: stripe_invoice_id_current_contract,
+      purchase_order_number_current_contract: purchase_order_number_current_contract
     }
   end
 
@@ -154,6 +155,10 @@ class District < ApplicationRecord
 
   private def stripe_invoice_id_current_contract
     subscription&.stripe_invoice_id || VITALLY_NOT_APPLICABLE
+  end
+
+  private def purchase_order_number_current_contract
+    subscription&.purchase_order_number || VITALLY_NOT_APPLICABLE
   end
 
 end

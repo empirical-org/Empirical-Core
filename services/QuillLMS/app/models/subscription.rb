@@ -10,6 +10,7 @@
 #  expiration             :date
 #  payment_amount         :integer
 #  payment_method         :string
+#  purchase_order_number  :string
 #  purchaser_email        :string
 #  recurring              :boolean          default(FALSE)
 #  start_date             :date
@@ -311,6 +312,17 @@ class Subscription < ApplicationRecord
 
   def stripe_subscription
     StripeIntegration::Subscription.new(self)
+  end
+
+  def stripe_invoice
+    @stripe_invoice ||= Stripe::Invoice.retrieve(stripe_invoice_id)
+  end
+
+  def populate_data_from_stripe_invoice
+    return unless stripe_invoice_id.present?
+
+    self.payment_amount = stripe_invoice.total unless payment_amount
+    self.purchaser_email = stripe_invoice.customer_email unless purchaser_email
   end
 
   def renewal_stripe_price_id
