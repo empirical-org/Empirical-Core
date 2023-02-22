@@ -1,2 +1,4 @@
+# frozen_string_literal: true
+
 PG_WORK_MEM_DEFAULT=ENV.fetch('PG_WORK_MEM_DEFAULT', '160MB')
 PG_WORK_MEM_TUNING=ENV.fetch('PG_WORK_MEM_TUNING', '160MB')
