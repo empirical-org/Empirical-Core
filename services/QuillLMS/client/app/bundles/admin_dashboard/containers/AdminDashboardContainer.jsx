@@ -73,7 +73,7 @@ const AdminDashboardContainer = ({ id, location, children, }) => {
       return (
         <Banner
           bodyText="Please select a school to use the admin dashboard."
-          button={<a className={BANNER_BUTTON_CLASS_NAME} href="/teachers/my-account">Select school</a>}
+          button={<a className={BANNER_BUTTON_CLASS_NAME} href="/teachers/my_account">Select school</a>}
           headerText="Action required"
         />
       )
