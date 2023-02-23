@@ -182,10 +182,12 @@
 .suggested-activities-table {
   border: 1px solid #E0E0E0;
   border-radius: 6px;
+  margin-bottom: 145px;
+  overflow: auto !important;
   tr {
     background-color: white;
     padding-top: 12px;
-    padding-bottom: 2px;
+    padding-bottom: 12px;
     width: $sitewidepagewidth;
     .activity-header {
       width: 450px;
@@ -199,6 +201,10 @@
     }
   }
   tbody {
+    tr:not(:last-child) {
+      border-bottom: 1px solid #e0e0e0 !important;
+      padding-bottom: 15px;
+    }
     .data-table-row {
       &:hover {
         background-color: white;
