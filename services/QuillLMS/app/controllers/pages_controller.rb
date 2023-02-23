@@ -33,6 +33,7 @@ class PagesController < ApplicationController
   def home_new
     redirect_to(locker_path) && return if current_user && signed_in? && staff?
     redirect_to(profile_path) && return if current_user && signed_in?
+
     @title = 'Quill.org | Interactive Writing and Grammar'
     @description = 'Quill provides free writing and grammar activities for middle and high school students.'
     # default numbers are current as of 03/12/19
