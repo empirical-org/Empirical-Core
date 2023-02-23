@@ -47,7 +47,7 @@ class Api::V1::ProgressReportsController < Api::ApiController
   def district_standards_reports
     return unless current_user&.admin?
 
-    serialized_district_standards_reports_json = $redis.get("SERIALIZED_DISTRICT_STANDARDS_REPORTS_FOR_#{current_user.id}")
+    serialized_district_standards_reports_json = $redis.get("#{SchoolsAdmins::DISTRICT_STANDARD_REPORTS_CACHE_KEY_STEM}#{current_user.id}")
     if serialized_district_standards_reports_json
       serialized_district_standards_reports = JSON.parse(serialized_district_standards_reports_json)
     end
