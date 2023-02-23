@@ -14,7 +14,7 @@
     "quill-marking-logic": "0.15.9",
     "request": "^2.88.0",
     "request-promise": "^4.2.2",
-    "sequelize": "^4.44.3",
+    "sequelize": "^6.28.2",
     "underscore": "^1.12.1"
   }
 }
