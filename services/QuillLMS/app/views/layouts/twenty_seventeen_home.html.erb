@@ -23,8 +23,7 @@
     <link rel="canonical" href="https://www.quill.org<%= request.path %>">
 
     <script defer src="<%= ENV['FONT_AWESOME_KIT_LINK'] %>" crossorigin="anonymous" integrity="sha384-p7JrABPXxZLpj1XoHTzkPyVs8ekVssRFXc4B7XU6Z1c8XVDA7sVPem/lQ9UouxqE"></script>
-    <%= render partial: 'typekit' %>
-    <%= javascript_pack_tag((@js_file || 'home'), defer: true, 'crossorigin': 'anonymous') %>
+    <%= render partial: 'typekit' unless Rails.env.test? %>
     <%= stylesheet_pack_tag('home') %>
     <%= stylesheet_pack_tag('shared') %>
     <%= csrf_meta_tags %>
