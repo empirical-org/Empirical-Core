@@ -68,7 +68,7 @@ module.exports = {
       './app/bundles/Login/startup/clientRegistration'
     ],
     public: [
-      './app/bundles/Public/public.js'
+      './app/bundles/Public/startup/clientRegistration.js'
     ],
     staff: [
       './app/bundles/Staff/startup/clientRegistration.js'

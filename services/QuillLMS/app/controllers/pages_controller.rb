@@ -33,7 +33,6 @@ class PagesController < ApplicationController
   def home_new
     redirect_to(locker_path) && return if current_user && signed_in? && staff?
     redirect_to(profile_path) && return if current_user && signed_in?
-
     @title = 'Quill.org | Interactive Writing and Grammar'
     @description = 'Quill provides free writing and grammar activities for middle and high school students.'
     # default numbers are current as of 03/12/19
@@ -521,8 +520,10 @@ class PagesController < ApplicationController
   # rubocop:disable Metrics/CyclomaticComplexity
   private def determine_js_file
     case action_name
-    when 'about', 'partners', 'mission', 'faq', 'impact', 'team', 'tos', 'media_kit', 'media', 'privacy', 'map', 'teacher-center', 'news', 'stats', 'activities', 'grammar_tool', 'connect_tool', 'diagnostic_tool', 'proofreader_tool', 'home_new'
+    when 'about', 'partners', 'mission', 'faq', 'impact', 'team', 'tos', 'media_kit', 'media', 'privacy', 'map', 'teacher-center', 'news', 'stats', 'activities'
       @js_file = 'shared'
+    when 'connect_tool', 'grammar_tool', 'diagnostic_tool', 'proofreader_tool', 'home_new'
+      @js_file = 'home'
     when 'evidence_tool', 'lessons_tool', 'premium', 'ap', 'preap', 'springboard'
       @js_file = 'public'
     when 'backpack' || 'locker'
