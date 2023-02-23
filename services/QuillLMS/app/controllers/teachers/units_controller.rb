@@ -292,14 +292,7 @@ class Teachers::UnitsController < ApplicationController
             WHEN count(pack_sequence_items.id) > 0 THEN true
             ELSE false
           END AS staggered,
-          (
-            SELECT COUNT(DISTINCT user_id)
-            FROM activity_sessions
-            WHERE state = 'started'
-              AND classroom_unit_id = cu.id
-              AND activity_sessions.activity_id = activities.id
-              AND activity_sessions.visible
-          ) AS started_count
+          COUNT(DISTINCT CASE WHEN act_sesh.state = 'started' AND act_sesh.visible THEN act_sesh.user_id ELSE NULL END) AS started_count
         FROM units
         JOIN classroom_units AS cu
           ON cu.unit_id = units.id
