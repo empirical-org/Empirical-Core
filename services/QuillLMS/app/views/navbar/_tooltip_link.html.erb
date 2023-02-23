@@ -10,8 +10,8 @@
 >
   <div class="image-container">
     <% if image_src && hover_image_src %>
-      <img id="<%=image_id%>" class="static lazyload" data-src="<%= image_src %>"></img>
-      <img id="hover-<%=image_id%>" class="hover lazyload" data-src="<%= hover_image_src %>"></img>
+      <img id="<%=image_id%>" class="static lazyload" loading="lazy" data-src="<%= image_src %>" src="<%= image_src %>"></img>
+      <img id="hover-<%=image_id%>" class="hover lazyload" loading="lazy" data-src="<%= hover_image_src %>" src="<%= hover_image_src %>"></img>
     <% elsif fa_class %>
       <i class="<%= fa_class %>"></i>
     <% end %>
