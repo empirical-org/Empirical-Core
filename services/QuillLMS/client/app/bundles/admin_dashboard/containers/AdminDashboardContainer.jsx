@@ -15,6 +15,7 @@ import { Spinner, } from '../../Shared/index'
 
 const BANNER_BUTTON_CLASS_NAME = "quill-button small secondary outlined focus-on-light"
 const NOT_LISTED = 'not listed'
+const NO_SCHOOL_SELECTED = 'no school selected'
 
 const Banner = ({ bodyText, headerText, button, }) => (
   <section className="admin-banner">
