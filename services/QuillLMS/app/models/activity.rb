@@ -93,11 +93,16 @@ class Activity < ApplicationRecord
   ALPHA = 'alpha'
   ARCHIVED = 'archived'
 
+  FLAGS_ATTRIBUTE = 'flags'
+
   scope :gamma_user, -> { where("'#{GAMMA}' = ANY(activities.flags) OR '#{BETA}' = ANY(activities.flags) OR '#{PRODUCTION}' = ANY(activities.flags)")}
   scope :beta_user, -> { where("'#{BETA}' = ANY(activities.flags) OR '#{PRODUCTION}' = ANY(activities.flags)")}
   scope :alpha_user, -> { where("'#{ALPHA}' = ANY(activities.flags) OR '#{BETA}' = ANY(activities.flags) OR '#{GAMMA}' = ANY(activities.flags) OR '#{PRODUCTION}' = ANY(activities.flags)")}
 
   scope :with_classification, -> { includes(:classification).joins(:classification) }
+  scope :evidence, -> { where(classification: ActivityClassification.evidence) }
+  scope :evidence_beta1, -> { where(flags: [Flags::EVIDENCE_BETA1]) }
+  scope :evidence_beta2, -> { where(flags: [Flags::EVIDENCE_BETA2]) }
 
   # only Grammar (2), Connect (5), and Diagnostic (4) Activities contain questions
   # the other two, Proofreader and Lesson, contain passages and other data, not questions
@@ -187,6 +192,13 @@ class Activity < ApplicationRecord
   def anonymous_module_url
     initial_params = {anonymous: true}
     module_url_helper(initial_params)
+  end
+
+  def publication_date
+    return nil unless is_evidence?
+
+    created_time = child_activity.last_flags_change_log_record&.created_at || created_at
+    created_time.strftime("%m/%d/%Y")
   end
 
   # TODO: cleanup
@@ -293,6 +305,10 @@ class Activity < ApplicationRecord
     user_pack_sequence_items.locked.exists?(user: user)
   end
 
+  def serialize_with_topics_and_publication_date
+    serializable_hash.merge({topics: topics&.map(&:genealogy), publication_date: publication_date})
+  end
+
   private def update_evidence_title?
     is_evidence? && saved_change_to_name?
   end
@@ -312,9 +328,9 @@ class Activity < ApplicationRecord
       changed_record_type: 'Evidence::Activity',
       changed_record_id: child_activity&.id,
       explanation: nil,
-      changed_attribute: "flags",
-      previous_value: previous_changes["flags"][0],
-      new_value: previous_changes["flags"][1]
+      changed_attribute: FLAGS_ATTRIBUTE,
+      previous_value: previous_changes[FLAGS_ATTRIBUTE][0],
+      new_value: previous_changes[FLAGS_ATTRIBUTE][1]
     }
     ChangeLog.create(change_log)
   end

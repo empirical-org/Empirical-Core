@@ -149,6 +149,7 @@ EmpiricalGrammar::Application.routes.draw do
     post :retry, on: :member
     get :search, on: :collection
     get :index_with_unit_templates, on: :collection
+    get :suggested_activities, on: :collection
   end
 
   resources :milestones, only: [] do
@@ -747,6 +748,9 @@ EmpiricalGrammar::Application.routes.draw do
     get "tutorials/#{tool}" => "pages#tutorials"
     get "tutorials/#{tool}/:slide_number" => "pages#tutorials"
   end
+
+  get 'premium/request-school-quote' => 'pages#request_school_quote'
+  get 'premium/request-district-quote' => 'pages#request_district_quote'
 
   get 'teacher_fix' => 'teacher_fix#index'
   get 'teacher_fix/unarchive_units' => 'teacher_fix#index'

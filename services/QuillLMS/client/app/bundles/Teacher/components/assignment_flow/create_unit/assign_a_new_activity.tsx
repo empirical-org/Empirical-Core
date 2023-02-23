@@ -1,9 +1,20 @@
-import React from 'react'
+import * as React from 'react'
 
 import AssignmentCard from './assignment_card'
 
-import { requestPost, } from '../../../../../modules/request'
+import { requestGet, requestPost, } from '../../../../../modules/request'
+import { evidenceToolIcon } from "../../../../Shared"
 import { CLICKED_ACTIVITY_PACK_ID } from '../assignmentFlowConstants'
+
+interface ActivityToSuggest {
+  name: string;
+  classification: string,
+  topics: [],
+  link: string,
+  date_released: string,
+  preview_link: string,
+  activity_id: number
+}
 
 const diagnosticWaveSrc = `${process.env.CDN_URL}/images/illustrations/diagnostic-wave.svg`
 const activityLibrarySrc = `${process.env.CDN_URL}/images/icons/icons-activity-library.svg`
@@ -61,9 +72,22 @@ const minis = (diagnosticBannerShowing) => [
   />)
 ];
 
-
 const AssignANewActivity = ({ numberOfActivitiesAssigned, showDiagnosticBanner }) => {
   const [diagnosticBannerShowing, setDiagnosticBannerShowing] = React.useState(showDiagnosticBanner)
+  const [activitiesToSuggest, setActivitiesToSuggest] = React.useState([])
+
+  const getData = () => {
+    requestGet(
+      `${process.env.DEFAULT_URL}/activities/suggested_activities`,
+      (body) => {
+        setActivitiesToSuggest(body.activities)
+      }
+    );
+  }
+
+  React.useEffect(() => {
+    getData()
+  }, []);
 
   React.useState(() => {
     // remove any previously stored activityPackId used for back navigation element focus in the event that user assigned pack or navigated back to dashboard before assigning
@@ -91,16 +115,56 @@ const AssignANewActivity = ({ numberOfActivitiesAssigned, showDiagnosticBanner }
     </section>)
   }
 
+  const suggestedActivitiesList = activitiesToSuggest.length > 0 &&
+  (
+    <div>
+      <h1 className="evidence-header">Browse the newest Reading for Evidence activities</h1>
+      <table className="data-table suggested-activities-table">
+        <tr className="data-table-headers">
+          <th className="data-table-header">Tool</th>
+          <th className="data-table-header activity-header">Activity</th>
+          <th className="data-table-header topics-header">Topics</th>
+          <th className="data-table-header">Date released</th>
+        </tr>
+        <tbody className="data-table-body">
+          <div className="list-item">
+            {activitiesToSuggest.map((a) => {
+              return (
+                <tr className="data-table-row" key={a.id}>
+                  <span className="tool-col"><img alt={evidenceToolIcon.alt} src={evidenceToolIcon.src} /></span>
+                  <td className="data-table-row-section name-col">
+                    <a href={`/assign/activity-library?activityClassificationFilters[]=evidence&search=${encodeURI(a.name)}`}>{a.name}</a>
+                  </td>
+                  <td className="data-table-row-section topics-col">
+                    {a.topics.map((t, i) => {
+                      return <p key={i}>{t.join(" / ")}</p>
+                    })}
+                  </td>
+                  <td className="date-col">{a.publication_date}</td>
+                  <td className="preview-col"><a href={`/activity_sessions/anonymous?activity_id=${a.id}`} rel="noopener noreferrer" target="_blank">Preview</a></td>
+                  <button className="quill-button secondary medium focus-on-light outlined select-suggested" onClick={() => window.location.href = `/assign/activity-library?activityClassificationFilters[]=evidence&search=${encodeURI(a.name)}`} type="button">Select</button>
+                </tr>
+              )
+            })}
+          </div>
+        </tbody>
+      </table>
+    </div>
+  )
+
   return (
-    <div className="assign-a-new-activity-container white-background-accommodate-footer">
+    <div className="assign-a-new-activity-container">
       <div className="assign-a-new-activity container">
         <h1>Find the perfect writing activities for your students.</h1>
+        <div className="previously-assigned-container">
+          <p className="previously-assigned-activities">
+            You have {numberOfActivitiesAssigned} {numberOfActivitiesAssigned === 1 ? 'activity' : 'activities'} assigned.&nbsp;
+          </p>
+          <div className="view-assigned-activities"><a href="/teachers/classrooms/activity_planner">View assigned activities</a></div>
+        </div>
         {diagnosticBanner}
         <div className="minis">{minis(diagnosticBannerShowing)}</div>
-        <p className="previously-assigned-activities">
-        You have {numberOfActivitiesAssigned} {numberOfActivitiesAssigned === 1 ? 'activity' : 'activities'} assigned.&nbsp;
-          <a href="/teachers/classrooms/activity_planner">View assigned activities</a>
-        </p>
+        {suggestedActivitiesList}
       </div>
     </div>
   )

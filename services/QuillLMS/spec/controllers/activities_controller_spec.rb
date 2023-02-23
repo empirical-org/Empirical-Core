@@ -171,4 +171,77 @@ describe ActivitiesController, type: :controller, redis: true do
       end
     end
   end
+
+  describe '#suggested_activities' do
+    let!(:production_activity1) { create(:evidence_activity, flags: [Flags::PRODUCTION])}
+    let!(:production_activity2) { create(:evidence_activity, flags: [Flags::PRODUCTION])}
+    let!(:beta2_activity) { create(:evidence_activity, flags: [Flags::EVIDENCE_BETA2])}
+    let!(:beta1_activity) { create(:evidence_activity, flags: [Flags::EVIDENCE_BETA1])}
+    let(:teacher_info) { create(:teacher_info, minimum_grade_level: 9, maximum_grade_level: 12)}
+    let(:user) { create(:user, flagset: Flags::PRODUCTION, teacher_info: teacher_info)}
+
+    before do
+      Evidence::Activity.create(parent_activity_id: production_activity1.id, notes: "notes", title: "title")
+      Evidence::Activity.create(parent_activity_id: production_activity2.id, notes: "notes", title: "title")
+      Evidence::Activity.create(parent_activity_id: beta1_activity.id, notes: "notes", title: "title")
+      Evidence::Activity.create(parent_activity_id: beta2_activity.id, notes: "notes", title: "title")
+      allow(controller).to receive(:current_user) { user }
+    end
+
+    context 'when user is flagged production' do
+      it 'should return all production evidence activities' do
+        get :suggested_activities
+        parsed_response = JSON.parse(response.body)
+        expect(parsed_response["activities"].size).to eq(2)
+        expect([parsed_response["activities"][0]["id"], parsed_response["activities"][1]["id"]]).to match_array([production_activity1.id, production_activity2.id])
+      end
+    end
+
+    context 'when user is flagged evidence beta 1' do
+      it 'should return all production, evidence beta 2 and evidence beta 1 evidence activities' do
+        user.update(flagset: Flags::EVIDENCE_BETA1)
+        get :suggested_activities
+        parsed_response = JSON.parse(response.body)
+        expect(parsed_response["activities"].size).to eq(4)
+        expect(
+          [
+            parsed_response["activities"][0]["id"],
+            parsed_response["activities"][1]["id"],
+            parsed_response["activities"][2]["id"],
+            parsed_response["activities"][3]["id"]
+          ]
+        ).to match_array(
+          [
+            production_activity1.id,
+            production_activity2.id,
+            beta1_activity.id,
+            beta2_activity.id
+          ]
+        )
+      end
+    end
+
+    context 'when user is flagged evidence beta 2' do
+
+      it 'should return all production and evidence beta 2 evidence activities' do
+        user.update(flagset: Flags::EVIDENCE_BETA2)
+        get :suggested_activities
+        parsed_response = JSON.parse(response.body)
+        expect(parsed_response["activities"].size).to eq(3)
+        expect(
+          [
+            parsed_response["activities"][0]["id"],
+            parsed_response["activities"][1]["id"],
+            parsed_response["activities"][2]["id"]
+          ]
+        ).to match_array(
+          [
+            production_activity1.id,
+            production_activity2.id,
+            beta2_activity.id
+          ]
+        )
+      end
+    end
+  end
 end

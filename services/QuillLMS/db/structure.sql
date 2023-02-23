@@ -4136,7 +4136,8 @@ CREATE TABLE public.subscriptions (
     payment_method character varying,
     payment_amount integer,
     stripe_invoice_id character varying,
-    stripe_subscription_id character varying
+    stripe_subscription_id character varying,
+    purchase_order_number character varying
 );
 
 
@@ -9285,6 +9286,7 @@ INSERT INTO "schema_migrations" (version) VALUES
 ('20221209151611'),
 ('20221209151957'),
 ('20230104183416'),
+('20230111214530'),
 ('20230113132638'),
 ('20230130190215'),
 ('20230201202210'),

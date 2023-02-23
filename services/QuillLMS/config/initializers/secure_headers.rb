@@ -19,7 +19,8 @@ SecureHeaders::Configuration.default do |config|
       "https://youtube.com",
       "https://*.youtube.com",
       "https://*.amazonaws.com",
-      "https://*.loom.com"
+      "https://*.loom.com",
+      "https://*.salesmate.io"
     ],
 
     object_src: %w('none'),                                       # addresses <embed>, <object>, and <applet>
@@ -58,7 +59,8 @@ SecureHeaders::Configuration.default do |config|
       "https://*.coview.com",
       "https://*.sentry.io",
       "https://*.heapanalytics.com",
-      "https://cdn.jsdelivr.net/npm/vanilla-lazyload@17.8.3/dist/lazyload.min.js"
+      "https://cdn.jsdelivr.net/npm/vanilla-lazyload@17.8.3/dist/lazyload.min.js",
+      "https://*.salesmate.io"
     ],
 
     font_src: [
