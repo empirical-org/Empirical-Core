@@ -201,7 +201,9 @@ export {
   STUDENT,
   TEACHER,
   INDIVIDUAL_CONTRIBUTOR,
-  ADMIN
+  ADMIN,
+  NOT_LISTED,
+  NO_SCHOOL_SELECTED
 } from './utils/constants'
 
 export {

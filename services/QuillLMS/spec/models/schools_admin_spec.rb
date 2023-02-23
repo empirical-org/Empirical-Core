@@ -32,4 +32,16 @@ describe SchoolsAdmins, type: :model, redis: true do
       SchoolsAdmins.create(school: school, user: user)
     end
   end
+
+  describe '#wipe_cache' do
+    let!(:admin) { create(:schools_admins, user: user) }
+
+    it 'should delete all caches associated with that school admin record' do
+      expect($redis).to receive(:del).with("#{SchoolsAdmins::ADMIN_USERS_CACHE_KEY_STEM}#{user.id}")
+      expect($redis).to receive(:del).with("#{SchoolsAdmins::DISTRICT_ACTIVITY_SCORES_CACHE_KEY_STEM}#{user.id}")
+      expect($redis).to receive(:del).with("#{SchoolsAdmins::DISTRICT_CONCEPT_REPORTS_CACHE_KEY_STEM}#{user.id}")
+      expect($redis).to receive(:del).with("#{SchoolsAdmins::DISTRICT_STANDARD_REPORTS_CACHE_KEY_STEM}#{user.id}")
+      admin.wipe_cache
+    end
+  end
 end

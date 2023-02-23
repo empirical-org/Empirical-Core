@@ -33,3 +33,6 @@ export const STUDENT = 'student'
 export const TEACHER = 'teacher'
 export const INDIVIDUAL_CONTRIBUTOR = 'individual-contributor'
 export const ADMIN = 'admin'
+
+export const NOT_LISTED = 'not listed'
+export const NO_SCHOOL_SELECTED = 'no school selected'

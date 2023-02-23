@@ -9,6 +9,7 @@ import {
   getDistrictStandardsReports,
 } from '../../../actions/district_standards_reports';
 import { getTimeSpent } from '../../Teacher/helpers/studentReports';
+import { restrictedPage, FULL, } from '../shared'
 
 class DistrictStandardsReports extends React.Component {
   componentDidMount() {
@@ -17,7 +18,11 @@ class DistrictStandardsReports extends React.Component {
   }
 
   render() {
-    const { loading, } = this.props;
+    const { loading, accessType, } = this.props;
+
+    if (accessType !== FULL) {
+      return restrictedPage
+    }
 
     if (loading) {
       return <LoadingSpinner />;

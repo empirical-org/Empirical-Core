@@ -2,11 +2,13 @@ import * as React from 'react';
 import _ from 'underscore'
 
 import { DataTable, DropdownInput, } from '../../Shared/index'
+import { RESTRICTED, restrictedElement, } from '../shared'
 
 interface AdminsTeachersProps {
   data: Array<Object>;
   schools: Array<{ name: string, id: number, role: string }>;
   adminAssociatedSchool: any;
+  accessType: string;
   handleUserAction(url: string, data: Object): void;
 }
 
@@ -49,9 +51,10 @@ export const AdminsTeachers: React.SFC<AdminsTeachersProps> = ({
   handleUserAction,
   schools,
   adminAssociatedSchool,
+  accessType,
 }) => {
   const defaultSchool = schools.find(s => s.id === adminAssociatedSchool?.id) || schools[0]
-  const [selectedSchoolId, setSelectedSchoolId] = React.useState(defaultSchool.id)
+  const [selectedSchoolId, setSelectedSchoolId] = React.useState(defaultSchool?.id)
   const [userIdForModal, setUserIdForModal] = React.useState(null)
   const [showModal, setShowModal] = React.useState(null)
 
@@ -194,25 +197,8 @@ export const AdminsTeachers: React.SFC<AdminsTeachersProps> = ({
   const userNameForModal = data.find(user => user.id === userIdForModal)?.name
   const schoolNameForModal = schools.find(s => s.id === selectedSchoolId)?.name
 
-  return (
-    <div className="teacher-account-access-container">
-      {showModal === modalNames.makeAdminModal && (
-        <AdminActionModal
-          bodyText={`Are you sure you want to add ${userNameForModal} as an admin of ${schoolNameForModal}?`}
-          handleClickConfirm={handleConfirmMakeAdmin}
-          handleCloseModal={closeModal}
-          headerText="Add admin?"
-        />
-      )}
-      {showModal === modalNames.removeAdminModal && (
-        <AdminActionModal
-          bodyText={`Are you sure you want to remove ${userNameForModal} as an admin of ${schoolNameForModal}?`}
-          handleClickConfirm={handleConfirmRemoveAsAdmin}
-          handleCloseModal={closeModal}
-          headerText="Remove admin?"
-        />
-      )}
-      <h2>Account Management</h2>
+  let accountManagementContent = (
+    <React.Fragment>
       <DropdownInput
         handleChange={onChangeSelectedSchool}
         isSearchable={true}
@@ -234,6 +220,33 @@ export const AdminsTeachers: React.SFC<AdminsTeachersProps> = ({
         teacher accounts for the schools you have admin access.
         <strong>The data below represents usage from this school year, beginning July 1st.</strong>
       </p>
+    </React.Fragment>
+  )
+
+  if (accessType === RESTRICTED) {
+    accountManagementContent = restrictedElement
+  }
+
+  return (
+    <div className="teacher-account-access-container">
+      {showModal === modalNames.makeAdminModal && (
+        <AdminActionModal
+          bodyText={`Are you sure you want to add ${userNameForModal} as an admin of ${schoolNameForModal}?`}
+          handleClickConfirm={handleConfirmMakeAdmin}
+          handleCloseModal={closeModal}
+          headerText="Add admin?"
+        />
+      )}
+      {showModal === modalNames.removeAdminModal && (
+        <AdminActionModal
+          bodyText={`Are you sure you want to remove ${userNameForModal} as an admin of ${schoolNameForModal}?`}
+          handleClickConfirm={handleConfirmRemoveAsAdmin}
+          handleCloseModal={closeModal}
+          headerText="Remove admin?"
+        />
+      )}
+      <h2>Account Management</h2>
+      {accountManagementContent}
     </div>
   );
 };

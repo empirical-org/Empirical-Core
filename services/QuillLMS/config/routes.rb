@@ -24,7 +24,11 @@ EmpiricalGrammar::Application.routes.draw do
 
   get '/school_for_current_user', to: 'schools_users#school_for_current_user'
 
-  resources :admins, only: [:show], format: 'json'
+  resources :admins, only: [:show], format: 'json' do
+    member do
+      get :admin_info
+    end
+  end
 
   # for admins to sign in as teachers
   resources :users do
