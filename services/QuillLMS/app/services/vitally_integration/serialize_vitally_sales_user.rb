@@ -99,8 +99,8 @@ class SerializeVitallySalesUser
         admin_sub_role: @user.admin_sub_role,
         email_verification_status: @user.email_verification_status,
         admin_approval_status: @user.admin_approval_status,
-        admin_of_schools: admin_of_schools,
-        admin_of_districts: admin_of_districts
+        number_of_schools_administered: number_of_schools_administered,
+        number_of_districts_administered: number_of_districts_administered
       }.merge(account_data_params)
     }
   end
@@ -211,12 +211,12 @@ class SerializeVitallySalesUser
     @user.school.district&.name if @user.school.present?
   end
 
-  private def admin_of_schools
-    @user.schools_admins&.joins(:school)&.pluck(:name)&.join(', ')
+  private def number_of_schools_administered
+    @user.schools_admins.count || nil
   end
 
-  private def admin_of_districts
-    @user.district_admins&.joins(:district)&.pluck(:name)&.join(', ')
+  private def number_of_districts_administered
+    @user.district_admins.count || nil
   end
 
 end

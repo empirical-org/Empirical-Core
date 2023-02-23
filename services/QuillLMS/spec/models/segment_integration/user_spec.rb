@@ -46,8 +46,8 @@ RSpec.describe SegmentIntegration::User do
           admin_sub_role: admin.admin_sub_role,
           email_verification_status: admin.email_verification_status,
           admin_approval_status: admin.admin_approval_status,
-          admin_of_schools: schools.map(&:name).join(', '),
-          admin_of_districts: districts.map(&:name).join(', ')
+          number_of_schools_administered: schools.count,
+          number_of_districts_administered: districts.count
         }.reject {|_,v| v.nil? }
         expect(admin.segment_user.common_params).to eq params
       end

@@ -37,8 +37,8 @@ module SegmentIntegration
         admin_sub_role: admin_sub_role,
         email_verification_status: email_verification_status,
         admin_approval_status: admin_approval_status,
-        admin_of_schools: schools_admins.any? ? schools_admins.joins(:school).pluck(:name).join(', ') : nil,
-        admin_of_districts: district_admins.any? ? district_admins.joins(:district).pluck(:name).join(', ') : nil
+        number_of_schools_administered: schools_admins.count || nil,
+        number_of_districts_administered: district_admins.count || nil
       }.reject {|_,v| v.nil? }
     end
     # rubocop:enable Metrics/CyclomaticComplexity

@@ -351,7 +351,7 @@ describe 'SegmentAnalytics' do
       expect(identify_calls[0][:traits][:district]).to eq(district.name)
       expect(identify_calls[0][:traits][:flagset]).to eq(teacher2.flagset)
       expect(identify_calls[0][:traits][:role]).to eq(teacher2.role)
-      expect(identify_calls[0][:traits][:admin_of_schools]).to eq(school.name)
+      expect(identify_calls[0][:traits][:number_of_schools_administered]).to eq(1)
       expect(identify_calls[0][:traits].length).to eq(13)
     end
 
