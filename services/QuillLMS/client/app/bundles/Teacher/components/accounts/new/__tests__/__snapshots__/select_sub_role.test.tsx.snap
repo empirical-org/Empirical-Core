@@ -73,6 +73,7 @@ exports[`SelectSubRole component should render 1`] = `
               },
             ]
           }
+          placeholder="Select a role"
         >
           <div
             className="dropdown-container input-container inactive  not-editable undefined "
@@ -132,7 +133,7 @@ exports[`SelectSubRole component should render 1`] = `
                   },
                 ]
               }
-              placeholder=""
+              placeholder="Select a role"
               tabIndex={-1}
               updateCursor={[Function]}
               value=""
@@ -214,7 +215,7 @@ exports[`SelectSubRole component should render 1`] = `
                   ]
                 }
                 pageSize={5}
-                placeholder=""
+                placeholder="Select a role"
                 screenReaderStatus={[Function]}
                 styles={Object {}}
                 tabIndex={-1}
@@ -347,7 +348,7 @@ exports[`SelectSubRole component should render 1`] = `
                         },
                       ],
                       "pageSize": 5,
-                      "placeholder": "",
+                      "placeholder": "Select a role",
                       "screenReaderStatus": [Function],
                       "styles": Object {},
                       "tabIndex": -1,
@@ -533,7 +534,7 @@ exports[`SelectSubRole component should render 1`] = `
                               },
                             ],
                             "pageSize": 5,
-                            "placeholder": "",
+                            "placeholder": "Select a role",
                             "screenReaderStatus": [Function],
                             "styles": Object {},
                             "tabIndex": -1,
@@ -727,7 +728,7 @@ exports[`SelectSubRole component should render 1`] = `
                                     },
                                   ],
                                   "pageSize": 5,
-                                  "placeholder": "",
+                                  "placeholder": "Select a role",
                                   "screenReaderStatus": [Function],
                                   "styles": Object {},
                                   "tabIndex": -1,
@@ -908,7 +909,7 @@ exports[`SelectSubRole component should render 1`] = `
                                           },
                                         ],
                                         "pageSize": 5,
-                                        "placeholder": "",
+                                        "placeholder": "Select a role",
                                         "screenReaderStatus": [Function],
                                         "styles": Object {},
                                         "tabIndex": -1,
@@ -968,7 +969,9 @@ exports[`SelectSubRole component should render 1`] = `
                                     >
                                       <div
                                         className="dropdown__placeholder css-1wa3eu0-placeholder"
-                                      />
+                                      >
+                                        Select a role
+                                      </div>
                                     </EmotionCssPropInternal>
                                   </Placeholder>
                                   <Input
@@ -1060,7 +1063,7 @@ exports[`SelectSubRole component should render 1`] = `
                                           },
                                         ],
                                         "pageSize": 5,
-                                        "placeholder": "",
+                                        "placeholder": "Select a role",
                                         "screenReaderStatus": [Function],
                                         "styles": Object {},
                                         "tabIndex": -1,
@@ -1327,7 +1330,7 @@ exports[`SelectSubRole component should render 1`] = `
                                     },
                                   ],
                                   "pageSize": 5,
-                                  "placeholder": "",
+                                  "placeholder": "Select a role",
                                   "screenReaderStatus": [Function],
                                   "styles": Object {},
                                   "tabIndex": -1,
@@ -1503,7 +1506,7 @@ exports[`SelectSubRole component should render 1`] = `
                                           },
                                         ],
                                         "pageSize": 5,
-                                        "placeholder": "",
+                                        "placeholder": "Select a role",
                                         "screenReaderStatus": [Function],
                                         "styles": Object {},
                                         "tabIndex": -1,
@@ -1690,7 +1693,7 @@ exports[`SelectSubRole component should render 1`] = `
                                           },
                                         ],
                                         "pageSize": 5,
-                                        "placeholder": "",
+                                        "placeholder": "Select a role",
                                         "screenReaderStatus": [Function],
                                         "styles": Object {},
                                         "tabIndex": -1,

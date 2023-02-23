@@ -1,0 +1,12 @@
+<p><%= @user.name %> requested to be verified as an admin for <%= @school.name %>. Here are the details of their request:</p>
+
+<ul>
+  <li>Date of request: <%= Time.zone.today %> </li>
+  <li>Name: <%= @user.name %></li>
+  <li>Email: <%= @user.email %></li>
+  <li>LinkedIn URL or Other URL: <%= @user.admin_info.verification_url %></li>
+  <li>Reason: <%= @user.admin_info.verification_reason %></li>
+  <li>Location: <%= @location %></li>
+</ul>
+
+<p>Please review the details above and then go to the <a href="<%= UserMailer::CONSTANTS[:links][:admin_verification_manager] %>">Admin Verification Manager</a> to approve or deny the request. If more information is needed in order to make a decision, please contact the user at <%= @user.email %>.</p>

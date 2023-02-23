@@ -144,7 +144,7 @@ class Auth::GoogleController < ApplicationController
   end
 
   private def save_teacher_from_google_signup
-    return unless @user.new_record? && @user.teacher? && !@user.admin?
+    return unless @user.new_record? && @user.teacher?
 
     success_redirect_path = @user.admin? ? '/sign-up/select-sub-role' : '/sign-up/add-k12'
 

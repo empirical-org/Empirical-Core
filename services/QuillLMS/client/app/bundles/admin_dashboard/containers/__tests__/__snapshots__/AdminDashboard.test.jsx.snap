@@ -54,6 +54,11 @@ exports[`AdminDashboard container should render with a full access type 1`] = `
             <p>
               Access each classroom’s Quill Premium reports. Print and download progress on concepts and standards mastered.
             </p>
+            <a
+              className="quill-button fun secondary outlined admin-reports-button"
+            >
+              View admin premium reports
+            </a>
           </section>
           <section
             className="feature"
@@ -4352,6 +4357,11 @@ exports[`AdminDashboard container should render with a limited access type 1`] =
             <p>
               Access each classroom’s Quill Premium reports. Print and download progress on concepts and standards mastered.
             </p>
+            <a
+              className="quill-button fun secondary outlined admin-reports-button"
+            >
+              View admin premium reports
+            </a>
           </section>
           <section
             className="feature"
@@ -8650,6 +8660,11 @@ exports[`AdminDashboard container should render with a restricted access type 1`
             <p>
               Access each classroom’s Quill Premium reports. Print and download progress on concepts and standards mastered.
             </p>
+            <a
+              className="quill-button fun secondary outlined admin-reports-button"
+            >
+              View admin premium reports
+            </a>
           </section>
           <section
             className="feature"

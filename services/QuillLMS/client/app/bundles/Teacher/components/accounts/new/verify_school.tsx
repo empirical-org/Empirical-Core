@@ -54,7 +54,7 @@ const VerifySchool = ({ passedSchoolName, }) => {
       <React.Fragment>
         <img alt="" src={schoolVerificationSrc} />
         <h1><span>Please verify your connection to:</span><span className="school-name">{schoolName}</span></h1>
-        <p className="sub-header">Quill is committed to securing the privacy of districts, schools, teachers, and students. Please complete the form below to ensure we are providing you with the appropriate access.</p>
+        <p className="sub-header">Quill is committed to securing the privacy of districts, schools, teachers, and students. Complete the form below to ensure we are providing you with the appropriate access.</p>
         <section className="user-account-section school-verification-section">
           <h3>Please provide the URL of your LinkedIn profile</h3>
           <Input

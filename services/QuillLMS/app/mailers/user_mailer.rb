@@ -14,7 +14,8 @@ class UserMailer < ActionMailer::Base
       admin_dashboard: "#{ENV['DEFAULT_URL']}/teachers/admin_dashboard",
       link_account: 'https://support.quill.org/en/articles/4249829-how-do-i-link-my-account',
       premium: 'https://support.quill.org/en/collections/64410-quill-premium',
-      school_dashboard: 'https://support.quill.org/en/articles/1588988-how-do-i-navigate-the-school-dashboard'
+      school_dashboard: 'https://support.quill.org/en/articles/1588988-how-do-i-navigate-the-school-dashboard',
+      admin_verification_manager: "#{ENV['DEFAULT_URL']}/cms/admin_verification"
     }
   }
 
@@ -148,6 +149,17 @@ class UserMailer < ActionMailer::Base
     @satismeter_comment_data = get_satismeter_comment_data(start_time, end_time)
 
     mail to: "team@quill.org", subject: "Quill Daily Analytics - #{subject_date}"
+  end
+
+  def user_requested_admin_verification_email(user)
+    @user = user
+    @school = @user.school
+
+    geocoder_result = Geocoder.search(@user.ip_address.to_string).first
+    @location = [geocoder_result.city, geocoder_result.state, geocoder_result.country].filter { |str| str && str.present? }.join(', ')
+
+    #TODO - make sure this email actually goes to support
+    mail from: 'Quill Admin Verification Bot <noreply@quill.org>', to: ['psharkey@quill.org', 'emilia@quill.org'], subject: "#{user.name} requested to be verified as an admin for #{@school.name}"
   end
 
   def ell_starter_diagnostic_info_email(name, email)

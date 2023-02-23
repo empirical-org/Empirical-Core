@@ -28,7 +28,7 @@ exports[`VerifySchool component should render 1`] = `
       <p
         className="sub-header"
       >
-        Quill is committed to securing the privacy of districts, schools, teachers, and students. Please complete the form below to ensure we are providing you with the appropriate access.
+        Quill is committed to securing the privacy of districts, schools, teachers, and students. Complete the form below to ensure we are providing you with the appropriate access.
       </p>
       <section
         className="user-account-section school-verification-section"

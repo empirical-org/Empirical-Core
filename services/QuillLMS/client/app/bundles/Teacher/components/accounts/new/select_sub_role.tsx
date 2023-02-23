@@ -47,6 +47,7 @@ const SelectSubRole = ({ subRoles, }) => {
           <DropdownInput
             handleChange={setSelectedSubRole}
             options={options}
+            placeholder="Select a role"
             value={selectedOption}
           />
         </section>
