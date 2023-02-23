@@ -3,6 +3,7 @@ import React from 'react';
 import AssignActivityPackBanner from '../assignActivityPackBanner'
 import SchoolSelector from '../../shared/school_selector.jsx'
 import { requestPut, } from '../../../../../modules/request/index'
+import { NOT_LISTED, NO_SCHOOL_SELECTED, } from '../../../../Shared/index'
 
 const schoolBuildingImgSrc = `${process.env.CDN_URL}/images/accounts/school-building.svg`
 
@@ -24,7 +25,11 @@ class SelectUSK12 extends React.Component {
       `${process.env.DEFAULT_URL}/select_school`,
       { school_id_or_type: idOrType, },
       (body) => {
-        window.location = isAdmin ? '/sign-up/verify-school' : '/sign-up/add-teacher-info'
+        if (isAdmin) {
+          window.location = [NOT_LISTED, NO_SCHOOL_SELECTED].includes(idOrType) ? '/finish_sign_up' : '/sign-up/verify-school'
+        } else {
+          window.location = '/sign-up/add-teacher-info'
+        }
       }
     )
   }

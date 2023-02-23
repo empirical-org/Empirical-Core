@@ -11,11 +11,9 @@ import { RESTRICTED, LIMITED, FULL, APPROVED, PENDING, DENIED, SKIPPED, } from '
 import { requestGet, } from '../../../modules/request/index'
 import SubnavTabs from '../components/subnav_tabs.tsx';
 import ActivityScoresStudentOverview from '../components/activity_scores_student_overview.tsx';
-import { Spinner, } from '../../Shared/index'
+import { Spinner, NOT_LISTED, NO_SCHOOL_SELECTED } from '../../Shared/index'
 
 const BANNER_BUTTON_CLASS_NAME = "quill-button small secondary outlined focus-on-light"
-const NOT_LISTED = 'not listed'
-const NO_SCHOOL_SELECTED = 'no school selected'
 
 const Banner = ({ bodyText, headerText, button, }) => (
   <section className="admin-banner">
