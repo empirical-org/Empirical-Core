@@ -155,8 +155,8 @@ class UserMailer < ActionMailer::Base
     @user = user
     @school = @user.school
 
-    geocoder_result = Geocoder.search(@user.ip_address.to_string).first
-    @location = [geocoder_result.city, geocoder_result.state, geocoder_result.country].filter { |str| str && str.present? }.join(', ')
+    geocoder_result = Geocoder.search(@user.ip_address&.to_string).first
+    @location = geocoder_result ? [geocoder_result.city, geocoder_result.state, geocoder_result.country].filter { |str| str && str.present? }.join(', ') : ''
 
     mail from: 'Quill Admin Verification Bot <hello@quill.org>', to: 'support@quill.org', subject: "#{user.name} requested to be verified as an admin for #{@school.name}"
   end

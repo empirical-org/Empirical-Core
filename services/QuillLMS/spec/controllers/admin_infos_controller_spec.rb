@@ -25,9 +25,10 @@ describe AdminInfosController do
       end
 
       describe 'when the admin info record has a skipped approval status and now has a verification reason and url' do
-        it 'should set the approval status to PENDING' do
+        it 'should call the UserRequestedAdminVerificationEmailWorker and set the approval status to PENDING' do
           admin_info = create(:admin_info, user: user, approval_status: AdminInfo::SKIPPED)
 
+          expect(UserRequestedAdminVerificationEmailWorker).to receive(:perform_async).with(current_user.id)
           put :update, params: { verification_reason: verification_reason, verification_url: verification_url }
           expect(admin_info.reload.approval_status).to eq(AdminInfo::PENDING)
         end

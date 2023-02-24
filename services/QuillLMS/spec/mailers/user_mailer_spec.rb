@@ -138,6 +138,17 @@ describe UserMailer, type: :mailer do
     end
   end
 
+  describe 'user_requested_admin_verification_email' do
+    let(:schools_user) { create(:schools_user) }
+    let(:mail) { described_class.user_requested_admin_verification_email(schools_user.user) }
+
+    it 'should set the subject, receiver and the sender' do
+      expect(mail.subject).to eq("#{schools_user.user.name} requested to be verified as an admin for #{schools_user.school.name}")
+      expect(mail.to).to eq(['support@quill.org'])
+      expect(mail.from).to eq(["hello@quill.org"])
+    end
+  end
+
   describe 'daily_stats_email' do
     let(:date) { Time.current.getlocal('-05:00').yesterday.to_s}
     let(:user) { build(:user) }
