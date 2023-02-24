@@ -12,6 +12,7 @@ import { requestPost, } from '../../../../../modules/request/index'
 const smallWhiteCheckSrc = `${import.meta.env.VITE_PROCESS_ENV_CDN_URL}/images/shared/check-small-white.svg`
 
 class LoginFormApp extends React.Component {
+
   constructor(props) {
     super(props);
 
@@ -135,6 +136,8 @@ class LoginFormApp extends React.Component {
   }
 
   render() {
+    // console.log("login component: ", import.meta.env)
+    // console.log("LOCAL_TEST_ENV_VALUE: ", process.env.LOCAL_TEST_ENV_VALUE)
     const { googleOfflineAccessExpired, expiredSessionRedirect } = this.props
     const { errors, email, password, timesSubmitted, authToken, } = this.state;
 

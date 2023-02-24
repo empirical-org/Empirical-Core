@@ -12,7 +12,7 @@ console.log('Vite ⚡️ Rails')
 //     <%= vite_javascript_tag 'application.jsx' %>
 
 console.log('Visit the guide for more information: ', 'https://vite-ruby.netlify.app/guide/rails')
-
+import.meta.env.asdf = 1
 // Example: Load Rails libraries in Vite.
 //
 // import * as Turbo from '@hotwired/turbo'
@@ -26,6 +26,8 @@ console.log('Visit the guide for more information: ', 'https://vite-ruby.netlify
 
 // Example: Import a stylesheet in app/frontend/index.css
 // import '~/index.css'
+
+
 
 import '../bundles/Login/startup/clientRegistration';
 
