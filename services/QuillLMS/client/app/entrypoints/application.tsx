@@ -3,7 +3,6 @@
 //
 //    <%= vite_client_tag %>
 //    <%= vite_javascript_tag 'application' %>
-console.log('Vite ⚡️ Rails')
 
 // If using a TypeScript entrypoint file:
 //     <%= vite_typescript_tag 'application' %>
@@ -11,8 +10,7 @@ console.log('Vite ⚡️ Rails')
 // If you want to use .jsx or .tsx, add the extension:
 //     <%= vite_javascript_tag 'application.jsx' %>
 
-console.log('Visit the guide for more information: ', 'https://vite-ruby.netlify.app/guide/rails')
-import.meta.env.asdf = 1
+console.log('Vite ⚡️ Rails - Visit the guide for more information: ', 'https://vite-ruby.netlify.app/guide/rails')
 // Example: Load Rails libraries in Vite.
 //
 // import * as Turbo from '@hotwired/turbo'
@@ -30,7 +28,8 @@ import.meta.env.asdf = 1
 
 
 import '../bundles/Login/startup/clientRegistration';
-
+import '../bundles/Staff/startup/clientRegistration'
+// import LockerApp from '../../Staff/startup/lockerAppClient'
 // module.exports = {
 //   mode,
 //   context: __dirname,
