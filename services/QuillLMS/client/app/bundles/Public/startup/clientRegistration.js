@@ -11,6 +11,5 @@ import BlogPostsApp from './blogPostsApp'
 
 require('../../../assets/styles/home.scss');
 require('../../Home/bootstrap_carousel.js');
-// import '../../Teacher/styles/styles.scss'
 
 ReactOnRails.register({ PremiumPricingGuideApp, QuestionsAndAnswersApp, ApApp, PreApApp, SpringBoardApp, BlogPostsApp });
