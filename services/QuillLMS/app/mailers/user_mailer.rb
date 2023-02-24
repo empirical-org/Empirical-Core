@@ -158,8 +158,7 @@ class UserMailer < ActionMailer::Base
     geocoder_result = Geocoder.search(@user.ip_address.to_string).first
     @location = [geocoder_result.city, geocoder_result.state, geocoder_result.country].filter { |str| str && str.present? }.join(', ')
 
-    #TODO - make sure this email actually goes to support
-    mail from: 'Quill Admin Verification Bot <hello@quill.org>', to: ['psharkey@quill.org', 'emilia@quill.org'], subject: "#{user.name} requested to be verified as an admin for #{@school.name}"
+    mail from: 'Quill Admin Verification Bot <hello@quill.org>', to: 'support@quill.org', subject: "#{user.name} requested to be verified as an admin for #{@school.name}"
   end
 
   def ell_starter_diagnostic_info_email(name, email)
