@@ -61,7 +61,7 @@ export class UnitTemplateFirstRow extends React.Component {
     return(
       <div className="activity-pack-image-container" style={{ backgroundColor: color }}>
         <div className="activity-pack-image-overlay" style={{ backgroundImage: `linear-gradient(to right, ${opaqueColor},${translucentColor})`}} />
-        <img alt="" className="activity-pack-image" src={image_link || link} />
+        <img alt="" className="activity-pack-image" loading="lazy" src={image_link || link} />
       </div>
     )
   }
