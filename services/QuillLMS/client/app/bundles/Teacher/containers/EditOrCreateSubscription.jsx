@@ -206,7 +206,7 @@ export default class EditOrCreateSubscription extends React.Component {
 
     return (
       <React.Fragment>
-        <label>Stripe Invoice ID (required for all "Invoice" subscriptions)</label>
+        <label>Stripe Invoice ID (leave blank for non-Stripe invoices)</label>
         <input onChange={this.handleStripeInvoiceIdChange} type="text" value={subscription.stripe_invoice_id} />
         <label>Purchase Order Number (if provided by customer)</label>
         <input onChange={this.handlePurchaseOrderNumberChange} type="text" value={subscription.purchase_order_number} />
