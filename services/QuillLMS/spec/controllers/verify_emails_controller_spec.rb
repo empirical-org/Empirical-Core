@@ -36,7 +36,7 @@ describe VerifyEmailsController do
 
     describe '#verify_by_token' do
       it 'should successfully mark a user as having a verified email when passed a valid token and sign them in' do
-        expect(controller).to_receive(:sign_in).with(user)
+        expect(controller).to receive(:sign_in).with(user)
         post :verify_by_token, params: { token: token }, format: :json
 
         expect(response.status).to be(200)

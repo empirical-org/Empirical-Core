@@ -31,7 +31,7 @@ describe Cms::AdminVerificationController do
       create(:admin_info, user: user)
 
       get :index, { format: 'json' }
-      expect(response).to have_http_status(200)
+      expect(response).to have_http_status(:ok)
     end
   end
 
