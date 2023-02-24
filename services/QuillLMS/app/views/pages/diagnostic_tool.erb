@@ -8,7 +8,7 @@
 
     <section class='tool-hero text-center bg-darkred tool-section'>
         <h1 class="q-h1">
-            <img class="tool-page-icon lazyload" data-src=<%= "#{ENV['CDN_URL']}/images/shared/quill_diagnostic_white.svg" %>>Quill Diagnostic
+            <img class="tool-page-icon lazyload" loading="lazy" src=<%= "#{ENV['CDN_URL']}/images/shared/quill_diagnostic_white.svg" %>>Quill Diagnostic
         </h1>
         <p class='description'>
         Quickly determine which skills your students need to work on with our diagnostic activities. The diagnostics cover vital sentence construction skills and generate personalized learning plans based on your students&lsquo; performance.
@@ -22,13 +22,13 @@
     </section>
 
     <section class="tool-animation-section " id="overview">
-          <video class='tool-animation lazyload' data-src="/videos/diagnostic.mp4" autoplay loop/>
+          <video class='tool-animation lazy' data-src=<%= "#{ENV['CDN_URL']}/videos/tools/diagnostic.mp4" %> autoplay loop/>
     </section>
 
     <section class="walk-thru-wrapper desktop" id="how-it-works">
         <div class="walk-thru-step flex-row vertically-centered">
             <div class="content-wrapper flex-row space-between vertically-centered">
-                <img class="lazyload" data-src="/images/tools/diagnostic/diagnostic_intro_slide_1.svg" alt="diagnostic image">
+                <img class="lazyload" loading="lazy" src="/images/tools/diagnostic/diagnostic_intro_slide_1.svg" alt="diagnostic image">
                 <div class="blurb">
                     <h2>What's Being Tested</h2>
                     <p>
@@ -39,17 +39,17 @@
         </div>
         <div class="walk-thru-step flex-row vertically-centered">
             <div class="content-wrapper flex-row space-between vertically-centered">
-                <img id='ell-diagnostic-img' class="lazyload" data-src="/images/tools/diagnostic/diagnostic_intro_slide_2.svg" alt="diagnostic image">
+                <img id='ell-diagnostic-img' class="lazyload" loading="lazy" src="/images/tools/diagnostic/diagnostic_intro_slide_2.svg" alt="diagnostic image">
                 <div class="blurb">
-                    <h2>ELL Diagnostic <img class="lazyload" data-src="/images/tools/diagnostic/new_tag.svg"></h2>
+                    <h2>ELL Diagnostic <img class="lazyload" loading="lazy" src="/images/tools/diagnostic/new_tag.svg"></h2>
                     <p>
                         Our new ELL Diagnostic assesses your students’ knowledge of 10 different concepts specifically chosen for English language learners. The diagnostic also offers directions in
-                        <img class="lazyload" data-src="/images/flags/spain.png">Spanish,
-                        <img class="lazyload" data-src="/images/flags/china.png">Mandarin,
-                        <img class="lazyload" data-src="/images/flags/france.png">French,<br/>
-                        <img class="lazyload" data-src="/images/flags/vietnam.png">Vietnamese,
-                        <img class="lazyload" data-src="/images/flags/egypt.png">Arabic, and
-                        <img class="lazyload" data-src="/images/flags/india.png">Hindi.
+                        <img class="lazyload" loading="lazy" src="/images/flags/spain.png">Spanish,
+                        <img class="lazyload" loading="lazy" src="/images/flags/china.png">Mandarin,
+                        <img class="lazyload" loading="lazy" src="/images/flags/france.png">French,<br/>
+                        <img class="lazyload" loading="lazy" src="/images/flags/vietnam.png">Vietnamese,
+                        <img class="lazyload" loading="lazy" src="/images/flags/egypt.png">Arabic, and
+                        <img class="lazyload" loading="lazy" src="/images/flags/india.png">Hindi.
                         <a class="ell-press-announcement" rel="noopener noreferrer" target="_blank" href="https://medium.com/writing-with-quill/quill-org-launches-ell-diagnostic-ac2dd65de692">Learn more here.</a>
                     </p>
                 </div>
@@ -57,7 +57,7 @@
         </div>
         <div class="walk-thru-step flex-row vertically-centered">
             <div class="content-wrapper flex-row space-between vertically-centered">
-                <img class='negative-left-margin lazyload' data-src="/images/tools/diagnostic/diagnostic_intro_slide_3.svg" alt="diagnostic image">
+                <img class='negative-left-margin lazyload' loading="lazy" src="/images/tools/diagnostic/diagnostic_intro_slide_3.svg" alt="diagnostic image">
                 <div class="blurb">
                     <h2>Student Responses Analyzed</h2>
                     <p>
@@ -68,7 +68,7 @@
         </div>
         <div class="walk-thru-step flex-row vertically-centered">
             <div class="content-wrapper flex-row space-between vertically-centered">
-                <img class="lazyload" data-src="/images/tools/diagnostic/diagnostic_intro_slide_4.svg" alt="diagnostic image">
+                <img class="lazyload" loading="lazy" src="/images/tools/diagnostic/diagnostic_intro_slide_4.svg" alt="diagnostic image">
                 <div class="blurb">
                     <h2>Recommended Activities</h2>
                     <p>
@@ -79,7 +79,7 @@
         </div>
         <div class="walk-thru-step flex-row vertically-centered">
             <div class="content-wrapper flex-row space-between vertically-centered">
-                <img class="lazyload" data-src="/images/tools/diagnostic/diagnostic_intro_slide_5.svg" alt="diagnostic image">
+                <img class="lazyload" loading="lazy" src="/images/tools/diagnostic/diagnostic_intro_slide_5.svg" alt="diagnostic image">
                 <div class="blurb">
                     <h2>Evidence Based</h2>
                     <p>
@@ -93,7 +93,7 @@
     <section class="walk-thru-wrapper mobile" id="how-it-works-mobile">
         <div class="walk-thru-step">
             <div class="content-wrapper">
-                <img class="lazyload" data-src="/images/tools/diagnostic/diagnostic_intro_slide_1.svg" alt="diagnostic image">
+                <img class="lazyload" loading="lazy" src="/images/tools/diagnostic/diagnostic_intro_slide_1.svg" alt="diagnostic image">
                 <div class="blurb">
                     <h2>What's Being Tested</h2>
                     <p>
@@ -104,17 +104,17 @@
         </div>
         <div class="walk-thru-step">
             <div class="content-wrapper">
-                <img id='shrink-me' class="lazyload" data-src="/images/tools/diagnostic/diagnostic_intro_slide_2.svg" alt="diagnostic image">
+                <img id='shrink-me' class="lazyload" loading="lazy" src="/images/tools/diagnostic/diagnostic_intro_slide_2.svg" alt="diagnostic image">
                 <div class="blurb">
-                  <h2>ELL Diagnostic<img class="lazyload" data-src="/images/tools/diagnostic/new_tag.svg"></h2>
+                  <h2>ELL Diagnostic<img class="lazyload" loading="lazy" src="/images/tools/diagnostic/new_tag.svg"></h2>
                     <p>
                         Our new ELL Diagnostic assesses your students’ knowledge of 10 different concepts specifically chosen for English language learners. The diagnostic also offers directions in
-                        <img class="lazyload" data-src="/images/flags/spain.png">Spanish,
-                        <img class="lazyload" data-src="/images/flags/china.png">Mandarin,
-                        <img class="lazyload" data-src="/images/flags/france.png">French,
-                        <img class="lazyload" data-src="/images/flags/vietnam.png">Vietnamese,
-                        <img class="lazyload" data-src="/images/flags/egypt.png">Arabic, and
-                        <img class="lazyload" data-src="/images/flags/india.png">Hindi.
+                        <img class="lazyload" loading="lazy" src="/images/flags/spain.png">Spanish,
+                        <img class="lazyload" loading="lazy" src="/images/flags/china.png">Mandarin,
+                        <img class="lazyload" loading="lazy" src="/images/flags/france.png">French,
+                        <img class="lazyload" loading="lazy" src="/images/flags/vietnam.png">Vietnamese,
+                        <img class="lazyload" loading="lazy" src="/images/flags/egypt.png">Arabic, and
+                        <img class="lazyload" loading="lazy" src="/images/flags/india.png">Hindi.
                         <a class="ell-press-announcement" rel="noopener noreferrer" target="_blank" href="https://medium.com/writing-with-quill/quill-org-launches-ell-diagnostic-ac2dd65de692">Learn more here.</a>
                     </p>
                 </div>
@@ -122,7 +122,7 @@
         </div>
         <div class="walk-thru-step">
             <div class="content-wrapper">
-                <img id='shrink-me' class="lazyload" data-src="/images/tools/diagnostic/diagnostic_intro_slide_3.svg" alt="diagnostic image">
+                <img id='shrink-me' class="lazyload" loading="lazy" src="/images/tools/diagnostic/diagnostic_intro_slide_3.svg" alt="diagnostic image">
                 <div class="blurb">
                     <h2>Student Responses Analyzed</h2>
                     <p>
@@ -133,7 +133,7 @@
         </div>
         <div class="walk-thru-step">
             <div class="content-wrapper">
-                <img class="lazyload" data-src="/images/tools/diagnostic/diagnostic_intro_slide_4.svg" alt="diagnostic image">
+                <img class="lazyload" loading="lazy" src="/images/tools/diagnostic/diagnostic_intro_slide_4.svg" alt="diagnostic image">
                 <div class="blurb">
                     <h2>Recommended Activities</h2>
                     <p>
@@ -144,7 +144,7 @@
         </div>
         <div class="walk-thru-step">
             <div class="content-wrapper">
-                <img class="lazyload" data-src="/images/tools/diagnostic/diagnostic_intro_slide_5.svg" alt="diagnostic image">
+                <img class="lazyload" loading="lazy" src="/images/tools/diagnostic/diagnostic_intro_slide_5.svg" alt="diagnostic image">
                 <div class="blurb">
                     <h2>Evidence Based</h2>
                     <p>
@@ -168,25 +168,25 @@
             <div class="carousel-inner" role="listbox">
                 <div class="item active">
                   <div class="wrapper">
-                    <img class="lazyload" data-src="/images/tools/Diagnostic1.png" alt="Chania">
+                    <img class="lazyload" loading="lazy" src=<%="#{ENV['CDN_URL']}/images/tools/Diagnostic1.webp"%> alt="Chania">
                   </div>
                   <p>The diagnostics assess students and then automatically builds a personalized learning plan for each student.</p>
                 </div>
                 <div class="item">
                   <div class="wrapper">
-                    <img class="lazyload" data-src="/images/tools/Diagnostic2.png" alt="Chania">
+                    <img class="lazyload" loading="lazy" src=<%="#{ENV['CDN_URL']}/images/tools/Diagnostic2.png"%> alt="Chania">
                   </div>
                   <p>The diagnostics cover a number of critical sentence structure skills, such as fragments and run-on sentences. In this exercise, students use the dependent clause to write a complete sentence.</p>
                 </div>
                 <div class="item">
                   <div class="wrapper">
-                    <img class="lazyload" data-src="/images/tools/Diagnostic3.png" alt="Chania">
+                    <img class="lazyload" loading="lazy" src=<%="#{ENV['CDN_URL']}/images/tools/Diagnostic3.png"%> alt="Chania">
                   </div>
                   <p>In this exercise, students transform a run-on sentence into a complete sentence.</p>
                 </div>
                 <div class="item">
                   <div class="wrapper">
-                    <img class="lazyload" data-src="/images/tools/Diagnostic4.png" alt="Chania">
+                    <img class="lazyload" loading="lazy" src=<%="#{ENV['CDN_URL']}/images/tools/Diagnostic4.png"%> alt="Chania">
                   </div>
                   <p>Teachers see reports that state exactly which errors the students made.</p>
                 </div>
@@ -216,7 +216,6 @@
     </section>
 
     <section class="tool-testimonial" id="testimonial">
-        <!-- <img class='q-headshot' class="lazyload" data-src=<%="#{ENV['CDN_URL']}/images/shared/daniel_90.png"%> alt="Daniel Scibienski"> -->
         <p class='quote'>
             "It was very useful to see which concepts students needed more help with. It is extremely beneficial if I want to work on grouping students based on skill."
         </p>
