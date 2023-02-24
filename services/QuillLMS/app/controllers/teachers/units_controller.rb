@@ -361,8 +361,8 @@ class Teachers::UnitsController < ApplicationController
   # rubocop:enable Metrics/CyclomaticComplexity
 
   private def fetch_diagnostic_units_cache
-    # current_user.all_classrooms_cache(key: 'teachers.classrooms.diagnostic_units') do
-    DiagnosticsOrganizedByClassroomFetcher.run(current_user)
-    # end
+    current_user.all_classrooms_cache(key: 'teachers.classrooms.diagnostic_units') do
+      DiagnosticsOrganizedByClassroomFetcher.run(current_user)
+    end
   end
 end
