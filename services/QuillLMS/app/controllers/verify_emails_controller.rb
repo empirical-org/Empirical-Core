@@ -30,7 +30,7 @@ class VerifyEmailsController < ApplicationController
 
     verification.verify(UserEmailVerification::EMAIL_VERIFICATION, token)
     sign_in(verification.user)
-    
+
     render json: {}, status: :ok
   rescue UserEmailVerification::UserEmailVerificationError => e
     render json: {'error': e}, status: 400
