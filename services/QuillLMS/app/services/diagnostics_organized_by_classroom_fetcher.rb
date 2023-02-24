@@ -28,8 +28,8 @@ class DiagnosticsOrganizedByClassroomFetcher < ApplicationService
       name = grouped_name(record)
 
       next if record['post_test_id'] &&
-        index_of_existing_classroom &&
-        classrooms[index_of_existing_classroom]['diagnostics'].find { |diagnostic| diagnostic[:name] == name }
+              index_of_existing_classroom &&
+              classrooms[index_of_existing_classroom]['diagnostics'].find { |diagnostic| diagnostic[:name] == name }
 
       grouped_record = {
         name: name,
