@@ -1,12 +1,7 @@
 import * as React from "react";
-import * as _ from 'underscore';
 import stripHtml from "string-strip-html";
-import { RouteComponentProps } from 'react-router-dom'
 import { useQuery } from 'react-query';
-import { firstBy } from "thenby";
 ;
-import qs from 'qs';
-import * as _ from 'lodash'
 import DateTimePicker from 'react-datetime-picker';
 
 import { renderHeader } from '../../../helpers/evidence/renderHelpers';
