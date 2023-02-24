@@ -14,7 +14,6 @@ class BlogPostsController < ApplicationController
     topic_names = BlogPost::TEACHER_TOPICS
     @topics = topics(topic_names)
     @blog_posts = BlogPost.for_topics(topic_names)
-    @js_file = 'public'
   end
 
   def student_center_index
