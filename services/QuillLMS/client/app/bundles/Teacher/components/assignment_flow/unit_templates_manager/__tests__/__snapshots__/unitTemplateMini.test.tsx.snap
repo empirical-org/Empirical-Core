@@ -293,6 +293,7 @@ exports[`UnitTemplateMini component should render activity_info has html 1`] = `
                   <img
                     alt=""
                     className="activity-pack-image"
+                    loading="lazy"
                     src="https://s3.amazonaws.com/quill-image-uploads/uploads/files/Writing_1_2379.jpg"
                   />
                 </div>
