@@ -12,7 +12,7 @@ class MergeTwoSchools extends React.Component {
   submit = () => {
     const that = this;
     requestPost(
-      `${import.meta.env.DEFAULT_URL}/teacher_fix/merge_two_schools`,
+      `${import.meta.env.VITE_DEFAULT_URL}/teacher_fix/merge_two_schools`,
       {
         from_school_id: that.state.fromSchoolId,
         to_school_id: that.state.toSchoolId,

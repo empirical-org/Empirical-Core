@@ -3,7 +3,7 @@ import { FocusPoint, IncorrectSequence, Question } from '../interfaces/questions
 
 const GRAMMAR_QUESTION_TYPE = 'grammar'
 
-const questionApiBaseUrl = `${import.meta.env.DEFAULT_URL}/api/v1/questions`;
+const questionApiBaseUrl = `${import.meta.env.VITE_DEFAULT_URL}/api/v1/questions`;
 
 class QuestionApi {
   static getAll(questionType: string): Promise<Array<Question>> {

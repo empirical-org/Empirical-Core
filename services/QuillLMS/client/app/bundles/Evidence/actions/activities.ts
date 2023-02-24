@@ -12,7 +12,7 @@ export const getActivity = (sessionID: string, activityUID: string) => {
       sessionID: sessionID
     }));
 
-    const activityUrl = `${import.meta.env.DEFAULT_URL}/api/v1/evidence/activities/${activityUID}`
+    const activityUrl = `${import.meta.env.VITE_DEFAULT_URL}/api/v1/evidence/activities/${activityUID}`
 
     await requestGet(activityUrl, (body) => {
       if (body) {

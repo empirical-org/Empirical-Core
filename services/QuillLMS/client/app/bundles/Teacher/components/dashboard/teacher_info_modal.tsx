@@ -13,7 +13,7 @@ const TeacherInfoModal = ({ close, subjectAreas, }) => {
 
   function submitTeacherInfo() {
     requestPost(
-      `${import.meta.env.DEFAULT_URL}/teacher_infos`,
+      `${import.meta.env.VITE_DEFAULT_URL}/teacher_infos`,
       {
         minimum_grade_level: minimumGradeLevel.value,
         maximum_grade_level: maximumGradeLevel.value,
@@ -27,7 +27,7 @@ const TeacherInfoModal = ({ close, subjectAreas, }) => {
 
   function skipForNow() {
     requestPost(
-      `${import.meta.env.DEFAULT_URL}/milestones/create_or_touch_dismiss_teacher_info_modal`,
+      `${import.meta.env.VITE_DEFAULT_URL}/milestones/create_or_touch_dismiss_teacher_info_modal`,
       {},
       (body) => {
         close()

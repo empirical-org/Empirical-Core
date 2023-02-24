@@ -16,7 +16,7 @@ export const EvidenceHomeSection = () => {
           <p className="description">Provide your students with nonfiction texts paired with AI-powered writing prompts, instead of multiple-choice questions, to enable deeper thinking.</p>
           <div className="divider-tab" />
           <p className="description">Students read a nonfiction text and build their comprehension through writing prompts, supporting a series of claims with evidence sourced from the text. Quill challenges students to write responses that are precise, logical, and based on textual evidence, with Quill coaching the student through custom, targeted feedback on each revision so that students strengthen their reading comprehension and hone their writing skills.</p>
-          <a className="q-button bg-white text-quillteal" href={`${import.meta.env.DEFAULT_URL}/tools/evidence`} rel="noopener noreferrer" target="_blank">Learn more about Quill Reading for Evidence</a>
+          <a className="q-button bg-white text-quillteal" href={`${import.meta.env.VITE_DEFAULT_URL}/tools/evidence`} rel="noopener noreferrer" target="_blank">Learn more about Quill Reading for Evidence</a>
         </div>
         <EvidenceWidget />
       </section>

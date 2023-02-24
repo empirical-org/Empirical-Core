@@ -24,7 +24,7 @@ export default class UpdateUnitButton extends React.Component {
       this.setState({ loading: true, })
       if (requestType === 'POST') {
         requestPost(
-          `${import.meta.env.DEFAULT_URL}${url}`,
+          `${import.meta.env.VITE_DEFAULT_URL}${url}`,
           { unit: data, },
           (body) => {
             successCallback()
@@ -35,7 +35,7 @@ export default class UpdateUnitButton extends React.Component {
         )
       } else if (requestType === 'PUT') {
         requestPut(
-          `${import.meta.env.DEFAULT_URL}${url}`,
+          `${import.meta.env.VITE_DEFAULT_URL}${url}`,
           { unit: data, },
           (body) => {
             successCallback()

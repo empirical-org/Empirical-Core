@@ -18,8 +18,8 @@ export const Header: React.SFC<HeaderProps> = ({ isOnMobile, isTeacher, previewS
     <div className="header">
       <div className="activity-navbar-content">
         {isTeacher && !previewShowing && !isOnMobile && <TeacherPreviewMenuButton handleTogglePreview={handleTogglePreview} />}
-        <a className="focus-on-dark" href={import.meta.env.DEFAULT_URL}><img alt="Quill logo" src={quillLogoSrc} /></a>
-        <a className="focus-on-dark" href={import.meta.env.DEFAULT_URL}>Save and exit</a>
+        <a className="focus-on-dark" href={import.meta.env.VITE_DEFAULT_URL}><img alt="Quill logo" src={quillLogoSrc} /></a>
+        <a className="focus-on-dark" href={import.meta.env.VITE_DEFAULT_URL}>Save and exit</a>
       </div>
     </div>
   );

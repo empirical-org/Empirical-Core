@@ -28,7 +28,7 @@ export class ActivitiesScoresByClassroomProgressReport extends React.Component {
 
   componentDidMount() {
     requestGet(
-      `${import.meta.env.DEFAULT_URL}/api/v1/progress_reports/activities_scores_by_classroom_data`,
+      `${import.meta.env.VITE_DEFAULT_URL}/api/v1/progress_reports/activities_scores_by_classroom_data`,
       (body) => {
         const classroomsData = body.data;
         // gets unique classroom names

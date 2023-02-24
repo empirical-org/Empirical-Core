@@ -54,7 +54,7 @@ export default class CmsUserIndex extends React.Component {
         minWidth: 90,
         Cell: ({row}) => {
           if (row.original.school) {
-            return <a href={`${import.meta.env.DEFAULT_URL}/cms/schools/${row.original.school_id}`}>{row.original.school}</a>
+            return <a href={`${import.meta.env.VITE_DEFAULT_URL}/cms/schools/${row.original.school_id}`}>{row.original.school}</a>
           }
           return 'N/A';
         }
@@ -64,7 +64,7 @@ export default class CmsUserIndex extends React.Component {
         resizable: false,
         maxWidth: 40,
         Cell: ({row}) => {
-          return <a href={`${import.meta.env.DEFAULT_URL}/cms/users/${row.original.id}/edit`}>Edit</a>
+          return <a href={`${import.meta.env.VITE_DEFAULT_URL}/cms/users/${row.original.id}/edit`}>Edit</a>
         }
       }, {
         Header: "Details",
@@ -72,7 +72,7 @@ export default class CmsUserIndex extends React.Component {
         resizable: false,
         maxWidth: 60,
         Cell: ({row}) => {
-          return <a href={`${import.meta.env.DEFAULT_URL}/cms/users/${row.original.id}`}>Details</a>
+          return <a href={`${import.meta.env.VITE_DEFAULT_URL}/cms/users/${row.original.id}`}>Details</a>
         }
       }, {
         Header: "Sign In",
@@ -80,7 +80,7 @@ export default class CmsUserIndex extends React.Component {
         resizable: false,
         maxWidth: 60,
         Cell: ({row}) => {
-          return <a href={`${import.meta.env.DEFAULT_URL}/cms/users/${row.original.id}/sign_in`}>Sign In</a>
+          return <a href={`${import.meta.env.VITE_DEFAULT_URL}/cms/users/${row.original.id}/sign_in`}>Sign In</a>
         }
       }
     ];
@@ -104,7 +104,7 @@ export default class CmsUserIndex extends React.Component {
   search = (e) => {
     e ? e.preventDefault() : null;
     this.setState({loading: true})
-    const link = `${import.meta.env.DEFAULT_URL}/cms/users/search`
+    const link = `${import.meta.env.VITE_DEFAULT_URL}/cms/users/search`
     const data = new FormData();
     Object.keys(this.state.query).forEach((k) => {
       data.append(k, this.state.query[k])

@@ -8,7 +8,7 @@ const quillLogoSrc = `${import.meta.env.VITE_PROCESS_ENV_CDN_URL}/images/logos/q
 const closeSrc = `${import.meta.env.VITE_PROCESS_ENV_CDN_URL}/images/icons/close-white.svg`
 
 const handleSaveAndExitClick = () => {
-  window.location.assign(`${import.meta.env.DEFAULT_URL}/profile`);
+  window.location.assign(`${import.meta.env.VITE_DEFAULT_URL}/profile`);
 }
 
 const Links = ({ playDiagnostic, dispatch, }) => {
@@ -42,7 +42,7 @@ export const StudentNavbar = ({ playDiagnostic, dispatch, }) => {
     <header className='nav student-nav'>
       <div className="container">
         <div className="student-nav-section">
-          <a aria-label="Quill" className="student-nav-item focus-on-dark" href={`${import.meta.env.DEFAULT_URL}`} tabIndex="0">
+          <a aria-label="Quill" className="student-nav-item focus-on-dark" href={`${import.meta.env.VITE_DEFAULT_URL}`} tabIndex="0">
             <img
               alt="Quill.org logo"
               src={quillLogoSrc}

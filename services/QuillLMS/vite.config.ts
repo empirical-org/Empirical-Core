@@ -26,7 +26,7 @@ export default defineConfig(({command, mode}) => {
       // Note: declare node-accessible variable (i.e. CDN_URL) in .env.<mode>, not here
       // 'process': {
       //   env: {
-      //     DEFAULT_URL: 1//import.meta.env.DEFAULT_URL
+      //     DEFAULT_URL: 1//import.meta.env.VITE_DEFAULT_URL
       //   }
       // },
       //'FOOBAR': env.LOCAL_TEST_ENV_VALUE, // not visible from js code,

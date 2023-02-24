@@ -28,7 +28,7 @@ export default class JoinClass extends React.Component {
     // this.setState({ loading: true, })
     const data = new FormData()
     data.append('classcode', classCodeInput)
-    fetch(`${import.meta.env.DEFAULT_URL}/students_classrooms`, {
+    fetch(`${import.meta.env.VITE_DEFAULT_URL}/students_classrooms`, {
       method: 'POST',
       mode: 'cors',
       credentials: 'include',

@@ -128,7 +128,7 @@ const ActivitySurvey = ({ activity, dispatch, sessionID, saveActivitySurveyRespo
     saveActivitySurveyResponse({ sessionID, activitySurveyResponse, callback, })
   }
 
-  function handleLinkClick() { window.location.href = import.meta.env.DEFAULT_URL }
+  function handleLinkClick() { window.location.href = import.meta.env.VITE_DEFAULT_URL }
 
   let activitySurveyHeader
   let multipleChoiceSection
@@ -168,7 +168,7 @@ const ActivitySurvey = ({ activity, dispatch, sessionID, saveActivitySurveyRespo
         {multipleChoiceSection}
       </div>
       <div className="button-section">
-        <a className="focus-on-dark" href={import.meta.env.DEFAULT_URL} onClick={handleLinkClick}>Skip</a>
+        <a className="focus-on-dark" href={import.meta.env.VITE_DEFAULT_URL} onClick={handleLinkClick}>Skip</a>
         <button className={sendButtonClassName} onClick={handleSend} type="button">Send</button>
       </div>
     </div>

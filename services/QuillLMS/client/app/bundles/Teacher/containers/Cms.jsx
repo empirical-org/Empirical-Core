@@ -136,7 +136,7 @@ export default class Cms extends React.Component {
       const resourceName = this.props.resourceNamePlural;
       const that = this;
       requestPut(
-        `${import.meta.env.DEFAULT_URL}/cms/${resourceName}/update_order_numbers`,
+        `${import.meta.env.VITE_DEFAULT_URL}/cms/${resourceName}/update_order_numbers`,
         { [resourceName]: that.state[resourceName], },
         (body) => {
           that.setState({[resourceName]: body[resourceName]});

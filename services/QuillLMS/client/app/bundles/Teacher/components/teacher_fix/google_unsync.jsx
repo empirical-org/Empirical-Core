@@ -17,7 +17,7 @@ export default class GoogleUnsync extends React.Component {
     const that = this
 
     requestPut(
-      `${import.meta.env.DEFAULT_URL}/teacher_fix/google_unsync_account`,
+      `${import.meta.env.VITE_DEFAULT_URL}/teacher_fix/google_unsync_account`,
       {
         original_email: that.state.originalEmail,
         new_email: that.state.newEmail,

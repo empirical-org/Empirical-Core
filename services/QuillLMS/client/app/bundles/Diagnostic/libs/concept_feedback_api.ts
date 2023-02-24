@@ -3,7 +3,7 @@ import { ConceptFeedback, ConceptFeedbackCollection } from '../interfaces/concep
 
 const CONNECT_TYPE = 'connect'
 
-const conceptFeedbackApiBaseUrl = `${import.meta.env.DEFAULT_URL}/api/v1/activity_type/${CONNECT_TYPE}/concept_feedback`;
+const conceptFeedbackApiBaseUrl = `${import.meta.env.VITE_DEFAULT_URL}/api/v1/activity_type/${CONNECT_TYPE}/concept_feedback`;
 
 class ConceptFeedbackApi {
   static getAll(): Promise<ConceptFeedbackCollection> {

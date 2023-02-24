@@ -202,7 +202,7 @@ export class StudentDiagnostic extends React.Component {
 
   finishActivitySession = (sessionID, results, score, data) => {
     requestPut(
-      `${import.meta.env.DEFAULT_URL}/api/v1/activity_sessions/${sessionID}`,
+      `${import.meta.env.VITE_DEFAULT_URL}/api/v1/activity_sessions/${sessionID}`,
       {
         state: 'finished',
         concept_results: results,
@@ -210,7 +210,7 @@ export class StudentDiagnostic extends React.Component {
         data
       },
       (body) => {
-        document.location.href = import.meta.env.DEFAULT_URL;
+        document.location.href = import.meta.env.VITE_DEFAULT_URL;
         this.setState({ saved: true, });
       },
       (body) => {
@@ -224,7 +224,7 @@ export class StudentDiagnostic extends React.Component {
 
   createAnonActivitySession = (lessonID, results, score, data) => {
     requestPost(
-      `${import.meta.env.DEFAULT_URL}/api/v1/activity_sessions/`,
+      `${import.meta.env.VITE_DEFAULT_URL}/api/v1/activity_sessions/`,
       {
         state: 'finished',
         activity_uid: lessonID,
@@ -233,7 +233,7 @@ export class StudentDiagnostic extends React.Component {
         data
       },
       (body) => {
-        document.location.href = import.meta.env.DEFAULT_URL;
+        document.location.href = import.meta.env.VITE_DEFAULT_URL;
         this.setState({ saved: true, });
       }
     )

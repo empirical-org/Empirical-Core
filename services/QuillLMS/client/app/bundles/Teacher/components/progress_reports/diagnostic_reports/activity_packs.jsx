@@ -41,7 +41,7 @@ export default class ActivityPacks extends React.Component {
     const { selectedClassroomId, } = this.state
 
     requestGet(
-      `${import.meta.env.DEFAULT_URL}/teachers/classrooms/classrooms_i_teach`,
+      `${import.meta.env.VITE_DEFAULT_URL}/teachers/classrooms/classrooms_i_teach`,
       (body) => {
         const classrooms = body.classrooms;
         if (classrooms.length > 0) {
@@ -59,7 +59,7 @@ export default class ActivityPacks extends React.Component {
   }
 
   getRecommendationIds = () => {
-    fetch(`${import.meta.env.DEFAULT_URL}/teachers/progress_reports/activity_with_recommendations_ids`, {
+    fetch(`${import.meta.env.VITE_DEFAULT_URL}/teachers/progress_reports/activity_with_recommendations_ids`, {
       method: 'GET',
       mode: 'cors',
       credentials: 'include',
@@ -77,7 +77,7 @@ export default class ActivityPacks extends React.Component {
 
   getUnits = () => {
     requestGet(
-      `${import.meta.env.DEFAULT_URL}/teachers/units?report=true`,
+      `${import.meta.env.VITE_DEFAULT_URL}/teachers/units?report=true`,
       (body) => {
         this.setAllUnits(body);
         this.populateCompletionAndAverageScore(body);
@@ -199,7 +199,7 @@ export default class ActivityPacks extends React.Component {
     const requests = data.map((u) => {
       return new Promise(resolve => {
         requestGet(
-          `${import.meta.env.DEFAULT_URL}/teachers/units/score_info_for_activity/${u.activity_id}?classroom_unit_id=${u.classroom_unit_id}`,
+          `${import.meta.env.VITE_DEFAULT_URL}/teachers/units/score_info_for_activity/${u.activity_id}?classroom_unit_id=${u.classroom_unit_id}`,
           (body) => {
             allUnits.forEach((stateUnit) => {
               const unitActivity = stateUnit.classroomActivities.get(u.activity_id)

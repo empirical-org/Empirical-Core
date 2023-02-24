@@ -84,7 +84,7 @@ export default class SubscriptionHistory extends React.Component {
       ]
 
       if (view === 'subscriptionHistory') {
-        const href = `${import.meta.env.DEFAULT_URL}/cms/subscriptions/${sub.id}/edit`
+        const href = `${import.meta.env.VITE_DEFAULT_URL}/cms/subscriptions/${sub.id}/edit`
         const key = `${sub.id}-6-row`
 
         if (sub.stripe_invoice_id) {

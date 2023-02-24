@@ -86,7 +86,7 @@ const SchoolAndDistrictPremiumModal = ({ stripeSchoolPlan, eligibleSchools, hand
   function goToStripeWithSelectedSchool() { goToStripe([selectedSchool.value]) }
 
   function selectSchool(idOrType) {
-    requestPut(`${import.meta.env.DEFAULT_URL}/select_school`, {
+    requestPut(`${import.meta.env.VITE_DEFAULT_URL}/select_school`, {
       school_id_or_type: idOrType,
     }, (body) => {
       if (idOrType === NOT_LISTED) {

@@ -25,7 +25,7 @@ class SelectUSNonK12 extends React.Component {
 
   selectSchool = (idOrType) => {
     requestPut(
-      `${import.meta.env.DEFAULT_URL}/select_school`,
+      `${import.meta.env.VITE_DEFAULT_URL}/select_school`,
       { school_id_or_type: idOrType, },
       (body) => {
         window.location = '/sign-up/add-teacher-info'

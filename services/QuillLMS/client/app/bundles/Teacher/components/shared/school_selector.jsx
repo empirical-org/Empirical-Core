@@ -63,7 +63,7 @@ const SchoolSelector = ({ selectSchool, showDismissSchoolSelectionReminderCheckb
 
   function searchForSchool() {
     requestGet(
-      `${import.meta.env.DEFAULT_URL}/schools?search=${search}`,
+      `${import.meta.env.VITE_DEFAULT_URL}/schools?search=${search}`,
       (body) => {
         setSchools(body.data)
         setLoading(false)

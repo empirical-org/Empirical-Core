@@ -169,7 +169,7 @@ export default class CreateOrEditBlogPost extends React.Component {
     acceptedFiles.forEach(file => {
       const data = new FormData()
       data.append('file', file)
-      fetch(`${import.meta.env.DEFAULT_URL}/cms/images`, {
+      fetch(`${import.meta.env.VITE_DEFAULT_URL}/cms/images`, {
         method: 'POST',
         mode: 'cors',
         credentials: 'include',
@@ -277,7 +277,7 @@ export default class CreateOrEditBlogPost extends React.Component {
 
     if (unpublish && window.prompt('To unpublish this post, please type UNPUBLISH.') !== 'UNPUBLISH') { return }
     let requestAction
-    let url = `${import.meta.env.DEFAULT_URL}/cms/blog_posts/`
+    let url = `${import.meta.env.VITE_DEFAULT_URL}/cms/blog_posts/`
 
     const blogPost = {
       blog_post: {

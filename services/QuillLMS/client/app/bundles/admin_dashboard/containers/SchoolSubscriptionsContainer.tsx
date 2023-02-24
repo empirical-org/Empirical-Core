@@ -58,7 +58,7 @@ const SchoolSubscriptionsContainer = ({ location, accessType, }) => {
 
   function updateSubscription(params, subscriptionId, callback) {
     requestPut(
-      `${import.meta.env.DEFAULT_URL}/subscriptions/${subscriptionId}`,
+      `${import.meta.env.VITE_DEFAULT_URL}/subscriptions/${subscriptionId}`,
       { subscription: params, },
       () => getSubscriptionData(callback),
       () => alert('There was an error updating your subscription. Please try again or contact hello@quill.org.')

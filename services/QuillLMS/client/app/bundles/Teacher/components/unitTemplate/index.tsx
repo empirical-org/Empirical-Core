@@ -88,7 +88,7 @@ export const UnitTemplate = ({ unitTemplate }) => {
     acceptedFiles.forEach(file => {
       const data = new FormData()
       data.append('file', file)
-      fetch(`${import.meta.env.DEFAULT_URL}/cms/images`, {
+      fetch(`${import.meta.env.VITE_DEFAULT_URL}/cms/images`, {
         method: 'POST',
         mode: 'cors',
         credentials: 'include',
@@ -171,7 +171,7 @@ export const UnitTemplate = ({ unitTemplate }) => {
 
   function renderActivityPackPreviewLink() {
     if(!id) { return };
-    const url = `${import.meta.env.DEFAULT_URL}/assign/featured-activity-packs/${id}`;
+    const url = `${import.meta.env.VITE_DEFAULT_URL}/assign/featured-activity-packs/${id}`;
     return(
       <div className="padded-element">
         <a className="data-link" href={url} rel="noopener noreferrer" target="_blank">Preview in Featured Activity Pack page</a>

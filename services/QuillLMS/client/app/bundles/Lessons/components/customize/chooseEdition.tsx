@@ -304,7 +304,7 @@ class ChooseEdition extends React.Component<any, any> {
       return (
         <SignupModal
           closeModal={this.hideSignupModal}
-          goToSignup={() => window.location.href = `${import.meta.env.DEFAULT_URL}/account/new`}
+          goToSignup={() => window.location.href = `${import.meta.env.VITE_DEFAULT_URL}/account/new`}
         />
       )
     }

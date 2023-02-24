@@ -10,7 +10,7 @@ import {
 import { EVIDENCE, CONNECT, DIAGNOSTIC, GRAMMAR, LESSONS, PROOFREADER, CURRICULUM, PARTNERSHIPS, PRODUCT, SUPPORT } from "../../../Shared"
 import { LockerItemsInterface } from "../../interfaces/interfaces";
 
-const baseUrl = import.meta.env.DEFAULT_URL;
+const baseUrl = import.meta.env.VITE_DEFAULT_URL;
 
 export const lockerItems: LockerItemsInterface = {
   [USERS]: {

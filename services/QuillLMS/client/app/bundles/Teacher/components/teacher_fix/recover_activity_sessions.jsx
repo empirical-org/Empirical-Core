@@ -16,7 +16,7 @@ export default class RecoverClassroomActivities extends React.Component {
     const that = this
 
     requestPost(
-      `${import.meta.env.DEFAULT_URL}/teacher_fix/recover_activity_sessions`,
+      `${import.meta.env.VITE_DEFAULT_URL}/teacher_fix/recover_activity_sessions`,
       {email: that.state.email, unit_name: that.state.unitName},
       (body) => {
         window.alert('Data has been restored!')

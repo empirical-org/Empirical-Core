@@ -13,7 +13,7 @@ const FollowUpIllustration = `${import.meta.env.VITE_PROCESS_ENV_CDN_URL}/images
 
 const buttonClassName = "quill-button large outlined secondary focus-on-dark"
 
-const generic = <a className={buttonClassName} href={`${import.meta.env.DEFAULT_URL}`}>Exit lesson</a>
+const generic = <a className={buttonClassName} href={`${import.meta.env.VITE_DEFAULT_URL}`}>Exit lesson</a>
 
 const flagged = <h2>Wait for instructions from your teacher.</h2>
 

@@ -7,7 +7,7 @@ import { closeLanguageMenu } from '../../actions/diagnostics'
 
 const quillLogoSrc = `${import.meta.env.VITE_PROCESS_ENV_CDN_URL}/images/logos/quill-logo-white-2022.svg`;
 const closeSrc = `${import.meta.env.VITE_PROCESS_ENV_CDN_URL}/images/icons/close-white.svg`
-const LogoComponent = <a className="focus-on-dark" href={import.meta.env.DEFAULT_URL}><img alt="Quill logo" src={quillLogoSrc} /></a>;
+const LogoComponent = <a className="focus-on-dark" href={import.meta.env.VITE_DEFAULT_URL}><img alt="Quill logo" src={quillLogoSrc} /></a>;
 
 interface HeaderProps {
   dispatch: (action: any) => void;
@@ -29,7 +29,7 @@ export const TeacherNavbar = ({ dispatch, diagnosticID, isOnMobile, languageMenu
         <div className="activity-navbar-content">
           {!previewShowing && !isOnMobile && <TeacherPreviewMenuButton handleTogglePreview={handleTogglePreview} />}
           {LogoComponent}
-          <a className="focus-on-dark" href={import.meta.env.DEFAULT_URL}>Save and exit</a>
+          <a className="focus-on-dark" href={import.meta.env.VITE_DEFAULT_URL}>Save and exit</a>
         </div>
       </div>
     );

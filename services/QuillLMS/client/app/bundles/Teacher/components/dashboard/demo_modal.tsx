@@ -1,6 +1,6 @@
 import * as React from 'react'
 
-const exploreDemoLink = `${import.meta.env.DEFAULT_URL}/teachers/view_demo`
+const exploreDemoLink = `${import.meta.env.VITE_DEFAULT_URL}/teachers/view_demo`
 
 function goToDemo() {
   window.location.href = exploreDemoLink

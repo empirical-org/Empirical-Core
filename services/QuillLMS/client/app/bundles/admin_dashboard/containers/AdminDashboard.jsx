@@ -27,7 +27,7 @@ const AdminDashboard = ({ adminId, accessType, passedModel, }) => {
   function getData(skipLoading=false) {
     initializePusher(skipLoading);
     requestGet(
-      `${import.meta.env.DEFAULT_URL}/admins/${adminId}`,
+      `${import.meta.env.VITE_DEFAULT_URL}/admins/${adminId}`,
       (body) => {
         receiveData(body, skipLoading)
       }
@@ -60,7 +60,7 @@ const AdminDashboard = ({ adminId, accessType, passedModel, }) => {
     setError('')
     initializePusher(true)
     requestPost(
-      `${import.meta.env.DEFAULT_URL}/admins/${adminId}/create_and_link_accounts`,
+      `${import.meta.env.VITE_DEFAULT_URL}/admins/${adminId}/create_and_link_accounts`,
       data,
       (response) => {
         getData(true)
@@ -101,7 +101,7 @@ const AdminDashboard = ({ adminId, accessType, passedModel, }) => {
   function resendLoginDetails(data) {
     setError('')
     requestPost(
-      `${import.meta.env.DEFAULT_URL}/admins/${adminId}/create_and_link_accounts`,
+      `${import.meta.env.VITE_DEFAULT_URL}/admins/${adminId}/create_and_link_accounts`,
       data,
       (response) => {
         getData(true)

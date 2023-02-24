@@ -18,7 +18,7 @@ interface SalesFormSubmission {
 }
 
 const fetchDefaults = require("fetch-defaults");
-const baseUrl = import.meta.env.DEFAULT_URL;
+const baseUrl = import.meta.env.VITE_DEFAULT_URL;
 const headerHash = {
   headers: {
     "Accept": "application/JSON",

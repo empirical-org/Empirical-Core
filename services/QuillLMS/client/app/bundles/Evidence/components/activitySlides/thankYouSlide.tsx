@@ -12,7 +12,7 @@ const ThankYouSlide = () => {
   }, [])
 
   const backToDashboard = () => {
-    window.location.href = import.meta.env.DEFAULT_URL
+    window.location.href = import.meta.env.VITE_DEFAULT_URL
   }
 
   return (
@@ -25,7 +25,7 @@ const ThankYouSlide = () => {
         <img alt="Two hands clapping together" src={applaudingSrc} />
       </div>
       <div className="button-section">
-        <a className='quill-button large secondary outlined focus-on-dark' href={import.meta.env.DEFAULT_URL} onClick={backToDashboard}>Back to my dashboard</a>
+        <a className='quill-button large secondary outlined focus-on-dark' href={import.meta.env.VITE_DEFAULT_URL} onClick={backToDashboard}>Back to my dashboard</a>
       </div>
     </div>
   )

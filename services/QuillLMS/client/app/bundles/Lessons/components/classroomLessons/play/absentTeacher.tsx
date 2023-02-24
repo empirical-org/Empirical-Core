@@ -7,7 +7,7 @@ const AbsentTeacher = () => (
     <div className="absent-teacher full-page-modal">
       <img alt="An illustration of a night sky with clouds, stars, and a moon" src={AbsentTeacherIllustration} />
       <h1>Your teacher has left this lesson.</h1>
-      <a className="quill-button focus-on-dark outlined secondary large" href={`${import.meta.env.DEFAULT_URL}`}>Exit lesson</a>
+      <a className="quill-button focus-on-dark outlined secondary large" href={`${import.meta.env.VITE_DEFAULT_URL}`}>Exit lesson</a>
     </div>
   </div>
 )

@@ -30,7 +30,7 @@ export default class ConceptsStudentsProgressReport extends React.Component {
   componentDidMount() {
     const that = this;
     requestGet(
-      `${import.meta.env.DEFAULT_URL}/${this.props.sourceUrl}`,
+      `${import.meta.env.VITE_DEFAULT_URL}/${this.props.sourceUrl}`,
       (body) => {
         const parsedClassrooms = this.parseClassrooms(body.classrooms_with_student_ids)
         const dropdownClassrooms = parsedClassrooms.dropdownClassrooms;

@@ -30,8 +30,8 @@ import FillInBlankQuestion from '../fillInBlank/fillInBlankQuestion.jsx';
 import SentenceFragments from '../sentenceFragments/sentenceFragments.jsx';
 import SentenceFragment from '../sentenceFragments/sentenceFragment.jsx';
 import TestSentenceFragmentContainer from '../sentenceFragments/testSentenceFragmentContainer.jsx';
-const usersEndpoint = `${import.meta.env.DEFAULT_URL}/api/v1/users.json`;
-const newSessionEndpoint = `${import.meta.env.DEFAULT_URL}/session/new`;
+const usersEndpoint = `${import.meta.env.VITE_DEFAULT_URL}/api/v1/users.json`;
+const newSessionEndpoint = `${import.meta.env.VITE_DEFAULT_URL}/session/new`;
 
 class adminContainer extends React.Component {
 

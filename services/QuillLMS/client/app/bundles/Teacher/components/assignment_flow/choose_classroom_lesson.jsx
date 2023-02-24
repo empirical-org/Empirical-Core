@@ -16,7 +16,7 @@ export default class ChooseClassroomLesson extends React.Component {
   }
 
   getClassroomLessonInfo() {
-    requestGet(`${import.meta.env.DEFAULT_URL}/teachers/units/lesson_info_for_activity/${this.props.match.params.activityId}`, (body) => {
+    requestGet(`${import.meta.env.VITE_DEFAULT_URL}/teachers/units/lesson_info_for_activity/${this.props.match.params.activityId}`, (body) => {
       this.setState({
         classroomUnits: body.classroom_units,
         activityName: body.activity_name[0].name,
@@ -36,7 +36,7 @@ export default class ChooseClassroomLesson extends React.Component {
   launchLessonLink() {
     const classroomUnitId = this.state.classroomUnitId
     const lessonId = this.props.match.params.activityId
-    return `${import.meta.env.DEFAULT_URL}/teachers/classroom_units/${classroomUnitId}/launch_lesson/${lessonId}`
+    return `${import.meta.env.VITE_DEFAULT_URL}/teachers/classroom_units/${classroomUnitId}/launch_lesson/${lessonId}`
   }
 
   renderClasses() {

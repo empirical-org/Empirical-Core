@@ -87,7 +87,7 @@ const ActivityTable = ({ data, onSuccess, isOwner, handleActivityClicked, handle
   }, [data])
 
   function removeActivity(unitActivityId) {
-    requestPut(`${import.meta.env.DEFAULT_URL}/teachers/unit_activities/${unitActivityId}/hide`, {}, () => onSuccess('Activity removed'))
+    requestPut(`${import.meta.env.VITE_DEFAULT_URL}/teachers/unit_activities/${unitActivityId}/hide`, {}, () => onSuccess('Activity removed'))
     setShowRemoveActivityModal(false)
   }
 

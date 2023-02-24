@@ -5,7 +5,7 @@ import { handleHasAppSetting } from "../../../Shared/utils/appSettingAPIs";
 
 const classroomActivitiesSrc = `${import.meta.env.VITE_PROCESS_ENV_CDN_URL}/images/pages/dashboard/illustrations-classroom-activities-2.svg`
 
-const exploreDemoLink = `${import.meta.env.DEFAULT_URL}/teachers/view_demo`
+const exploreDemoLink = `${import.meta.env.VITE_DEFAULT_URL}/teachers/view_demo`
 
 const WelcomeModalWithoutDemo = ({close}) => (
   <div className="welcome-modal-without-demo quill-modal">

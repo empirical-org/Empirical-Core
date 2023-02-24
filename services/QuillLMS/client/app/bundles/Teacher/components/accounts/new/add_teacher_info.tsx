@@ -15,7 +15,7 @@ const AddTeacherInfo = ({ subjectAreas, }) => {
 
   function submitTeacherInfo() {
     requestPost(
-      `${import.meta.env.DEFAULT_URL}/teacher_infos`,
+      `${import.meta.env.VITE_DEFAULT_URL}/teacher_infos`,
       {
         minimum_grade_level: minimumGradeLevel.value,
         maximum_grade_level: maximumGradeLevel.value,

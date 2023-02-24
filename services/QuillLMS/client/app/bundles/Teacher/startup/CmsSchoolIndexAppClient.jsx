@@ -70,7 +70,7 @@ export default class CmsSchoolIndex extends React.Component {
         resizable: false,
         maxWidth: 60,
         Cell: ({row}) => {
-          return <a href={`${import.meta.env.DEFAULT_URL}/cms/schools/${row.original.id}`}>Edit</a>
+          return <a href={`${import.meta.env.VITE_DEFAULT_URL}/cms/schools/${row.original.id}`}>Edit</a>
         }
       }
     ];
@@ -92,7 +92,7 @@ export default class CmsSchoolIndex extends React.Component {
   search = (e) => {
     e ? e.preventDefault() : null
     this.setState({loading: true})
-    const link = `${import.meta.env.DEFAULT_URL}/cms/schools/search`
+    const link = `${import.meta.env.VITE_DEFAULT_URL}/cms/schools/search`
     const data = new FormData();
     Object.keys(this.state.query).forEach((k) => {
       data.append(k, this.state.query[k])

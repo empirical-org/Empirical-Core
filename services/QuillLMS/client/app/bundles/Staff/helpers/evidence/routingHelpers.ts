@@ -1,4 +1,4 @@
-const mainApiBaseUrl = `${import.meta.env.DEFAULT_URL}/api/v1/`;
+const mainApiBaseUrl = `${import.meta.env.VITE_DEFAULT_URL}/api/v1/`;
 const evidenceBaseUrl = `${mainApiBaseUrl}evidence/`;
 const fetchDefaults = require("fetch-defaults");
 
@@ -13,7 +13,7 @@ export const apiFetch = fetchDefaults(fetch, evidenceBaseUrl, headerHash)
 
 export const mainApiFetch = fetchDefaults(fetch, mainApiBaseUrl, headerHash)
 
-export const mainFetch = fetchDefaults(fetch, import.meta.env.DEFAULT_URL, headerHash)
+export const mainFetch = fetchDefaults(fetch, import.meta.env.VITE_DEFAULT_URL, headerHash)
 
 export function getModelsUrl(promptId: string | number, state: string) {
   let url = 'automl_models';

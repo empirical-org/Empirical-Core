@@ -37,7 +37,7 @@ export default class IndividualStandardsReport extends React.Component {
       const { standard, selectedClassroom } = this.state;
       const selectedStandardId = standard ? standard.id : null
       const selectedClassroomId = selectedClassroom && selectedClassroom.id ? selectedClassroom.id : 0
-      const url = selectedStandardId && selectedClassroomId ? `${import.meta.env.DEFAULT_URL}/teachers/progress_reports/standards/classrooms/${selectedClassroomId}/standards/${selectedStandardId}/students.json` : `${import.meta.env.DEFAULT_URL}/${sourceUrl}`
+      const url = selectedStandardId && selectedClassroomId ? `${import.meta.env.VITE_DEFAULT_URL}/teachers/progress_reports/standards/classrooms/${selectedClassroomId}/standards/${selectedStandardId}/students.json` : `${import.meta.env.VITE_DEFAULT_URL}/${sourceUrl}`
       requestGet(
         url,
         (body) => {

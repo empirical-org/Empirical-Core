@@ -27,7 +27,7 @@ Object.defineProperty(window, 'matchMedia', {
   })),
 });
 
-import.meta.env.DEFAULT_URL = 'https://staging.quill.org'
+import.meta.env.VITE_DEFAULT_URL = 'https://staging.quill.org'
 import.meta.env.QUILL_CMS = 'https://cms.quill.org'
 
 const componentDidMount = QuestionComponent.prototype.componentDidMount = jest.fn();

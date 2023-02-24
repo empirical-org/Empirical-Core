@@ -126,7 +126,7 @@ export default class Subscriptions extends React.Component {
     const { subscriptions, } = this.state
 
     requestPut(
-      `${import.meta.env.DEFAULT_URL}/credit_transactions/redeem_credits_for_premium`,
+      `${import.meta.env.VITE_DEFAULT_URL}/credit_transactions/redeem_credits_for_premium`,
       null,
       (body) => {
         this.setState({
@@ -156,7 +156,7 @@ export default class Subscriptions extends React.Component {
 
   updateSubscription = (params, subscriptionId, callback) => {
     requestPut(
-      `${import.meta.env.DEFAULT_URL}/subscriptions/${subscriptionId}`,
+      `${import.meta.env.VITE_DEFAULT_URL}/subscriptions/${subscriptionId}`,
       { subscription: params, },
       (body) => {
         this.getSubscriptionData(callback)

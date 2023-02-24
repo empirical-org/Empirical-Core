@@ -35,7 +35,7 @@ const FinishSetUp = ({ email, passedFirstName, passedLastName, token, }) => {
     e.preventDefault();
 
     requestPut(
-      `${import.meta.env.DEFAULT_URL}/account/${token}`,
+      `${import.meta.env.VITE_DEFAULT_URL}/account/${token}`,
       {
         user: {
           name: `${firstName} ${lastName}`,
@@ -43,7 +43,7 @@ const FinishSetUp = ({ email, passedFirstName, passedLastName, token, }) => {
         }
       },
       (body) => {
-        window.location.href = import.meta.env.DEFAULT_URL
+        window.location.href = import.meta.env.VITE_DEFAULT_URL
       },
       (body) => {
         setErrors(body.errors)

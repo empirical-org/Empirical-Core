@@ -40,7 +40,7 @@ export const ShareToStudents = ({ activityPackData, moveToStage4 }) => {
   React.useEffect(() => {
     if (leaving) {
       handleUnmount();
-      window.location.href = `${import.meta.env.DEFAULT_URL}/teachers/classrooms`;
+      window.location.href = `${import.meta.env.VITE_DEFAULT_URL}/teachers/classrooms`;
     }
   }, [leaving]);
 

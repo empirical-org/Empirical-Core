@@ -91,11 +91,11 @@ export const ShareActivityPackModal = ({ activityPackData, closeModal, selectabl
     if(singleActivity) {
       const { id } = classroomUnitObject;
       const activityId = singleActivity.activityId || singleActivity.id
-      return `${import.meta.env.DEFAULT_URL}/classroom_units/${id}/activities/${activityId}`;
+      return `${import.meta.env.VITE_DEFAULT_URL}/classroom_units/${id}/activities/${activityId}`;
     }
     if(!singleActivity) {
       const { id } = classroom;
-      return `${import.meta.env.DEFAULT_URL}/classrooms/${id}?unit_id=${unitId}`
+      return `${import.meta.env.VITE_DEFAULT_URL}/classrooms/${id}?unit_id=${unitId}`
     }
   }
 
@@ -130,9 +130,9 @@ export const ShareActivityPackModal = ({ activityPackData, closeModal, selectabl
     if(singleActivity) {
       const classroomUnit = classroomUnits.filter(unit => unit.classroom_id === parseInt(value))[0];
       const activityId = singleActivity.activityId || singleActivity.id
-      setLink(`${import.meta.env.DEFAULT_URL}/classroom_units/${classroomUnit.id}/activities/${activityId}`);
+      setLink(`${import.meta.env.VITE_DEFAULT_URL}/classroom_units/${classroomUnit.id}/activities/${activityId}`);
     } else {
-      setLink(`${import.meta.env.DEFAULT_URL}/classrooms/${value}?unit_id=${unitId}`);
+      setLink(`${import.meta.env.VITE_DEFAULT_URL}/classrooms/${value}?unit_id=${unitId}`);
     }
   }
 

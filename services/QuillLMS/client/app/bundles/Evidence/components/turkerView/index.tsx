@@ -23,7 +23,7 @@ export const TurkerView = ({ session }) => {
 
   function redirectIfInvalid(isValid) {
     if (!isValid) {
-      window.location.href = `${import.meta.env.DEFAULT_URL}/404`
+      window.location.href = `${import.meta.env.VITE_DEFAULT_URL}/404`
     }
   }
 

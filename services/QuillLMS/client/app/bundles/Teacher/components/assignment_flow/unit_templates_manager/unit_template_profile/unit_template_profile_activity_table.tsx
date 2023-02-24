@@ -11,7 +11,7 @@ export const UnitTemplateProfileActivityTable = ({ data }) => {
   React.useEffect(() => {
     if(!previouslyAssignedActivityData && activities) {
       const activityIds = JSON.stringify(activities.map(activity => activity.id))
-      requestGet(`${import.meta.env.DEFAULT_URL}/teachers/unit_templates/previously_assigned_activities?activity_ids=${activityIds}`, (response) => {
+      requestGet(`${import.meta.env.VITE_DEFAULT_URL}/teachers/unit_templates/previously_assigned_activities?activity_ids=${activityIds}`, (response) => {
         if(response.previously_assigned_activity_data && Object.keys(response.previously_assigned_activity_data).length) {
           const { previously_assigned_activity_data } = response
           setPreviouslyAssignedActivityData(previously_assigned_activity_data)

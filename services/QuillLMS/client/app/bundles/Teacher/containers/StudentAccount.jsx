@@ -67,7 +67,7 @@ export default class StudentAccount extends Component {
       const { timesSubmitted } = this.state;
       let dataObject = data;
       dataObject.authenticity_token = getAuthToken();
-      requestPut(`${import.meta.env.DEFAULT_URL}${url}`, dataObject, (body) => {
+      requestPut(`${import.meta.env.VITE_DEFAULT_URL}${url}`, dataObject, (body) => {
         const {
           name,
           username,

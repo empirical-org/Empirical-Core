@@ -5,7 +5,7 @@ const quillLogoSrc = `${import.meta.env.VITE_PROCESS_ENV_CDN_URL}/images/logos/q
 
 const handleLogoClick = () => {
   if (window.confirm('Are you sure you want to leave your lesson?')) {
-    window.location = import.meta.env.DEFAULT_URL;
+    window.location = import.meta.env.VITE_DEFAULT_URL;
   }
 }
 

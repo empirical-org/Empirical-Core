@@ -16,8 +16,6 @@ async function handleFetch({ url, method, success, error, payload, }: {url: stri
     options['body'] = JSON.stringify(payload)
   }
 
-  console.log("url: ", url)
-  console.log("FQ URL:", fullyQualifiedUrl(url))
   const response = await fetch(fullyQualifiedUrl(url), options)
   const textResponse = await response.clone().text()
 
@@ -46,7 +44,6 @@ function fullyQualifiedUrl(url) {
   if (fullUrlTest.test(url)) {
     return url;
   }
-  console.log("HERE: ", import.meta.env)
   return `${import.meta.env.VITE_DEFAULT_URL}${url}`;
 }
 

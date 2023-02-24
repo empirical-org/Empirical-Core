@@ -52,7 +52,7 @@ class SignUpTeacher extends React.Component {
     const isAdmin = window.location.href.includes(ADMIN)
 
     requestPost(
-      `${import.meta.env.DEFAULT_URL}/account`,
+      `${import.meta.env.VITE_DEFAULT_URL}/account`,
       {
         user: {
           name: `${firstName} ${lastName}`,

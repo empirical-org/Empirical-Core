@@ -18,8 +18,8 @@ import QuestionDashboard from '../dashboards/questionDashboard'
 import ConceptDashboard from '../dashboards/conceptDashboard'
 import TabLink from './tabLink'
 
-const usersEndpoint = `${import.meta.env.DEFAULT_URL}/api/v1/users.json`;
-const newSessionEndpoint = `${import.meta.env.DEFAULT_URL}/session/new`;
+const usersEndpoint = `${import.meta.env.VITE_DEFAULT_URL}/api/v1/users.json`;
+const newSessionEndpoint = `${import.meta.env.VITE_DEFAULT_URL}/session/new`;
 
 interface PathParamsType {
   [key: string]: string,

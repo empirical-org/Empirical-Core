@@ -46,7 +46,7 @@ export default class TutorialIndex extends React.Component {
 
   finishTutorial() {
     if (this.props.match.params.tool === 'lessons') {
-      requestPost(`${import.meta.env.DEFAULT_URL}/milestones/complete_view_lesson_tutorial`)
+      requestPost(`${import.meta.env.VITE_DEFAULT_URL}/milestones/complete_view_lesson_tutorial`)
     }
   }
 

@@ -16,7 +16,7 @@ export default class MergeTwoClassrooms extends React.Component {
     const that = this
 
     requestPost(
-      `${import.meta.env.DEFAULT_URL}/teacher_fix/merge_two_classrooms`,
+      `${import.meta.env.VITE_DEFAULT_URL}/teacher_fix/merge_two_classrooms`,
       { class_code1: that.state.classCode1, class_code2: that.state.classCode2 },
       (body) => {
         window.alert('Classes have been merged!')

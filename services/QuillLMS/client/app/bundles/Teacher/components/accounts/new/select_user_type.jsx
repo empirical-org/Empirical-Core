@@ -10,7 +10,7 @@ const homeSchoolImg = `${import.meta.env.VITE_PROCESS_ENV_CDN_URL}/images/onboar
 
 export class SelectUserType extends React.Component {
   setRoleOnSession = (role) => {
-    requestPost(`${import.meta.env.DEFAULT_URL}/account/role`, { role, },
+    requestPost(`${import.meta.env.VITE_DEFAULT_URL}/account/role`, { role, },
       (body) => {
         window.location = `/sign-up/${role}`;
       },

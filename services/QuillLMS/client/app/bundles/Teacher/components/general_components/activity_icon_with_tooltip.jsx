@@ -33,7 +33,7 @@ export default class ActivityIconWithTooltip extends React.Component {
   getConceptResultInfo() {
     const that = this;
     requestGet(
-      `${import.meta.env.DEFAULT_URL}/grades/tooltip/classroom_unit_id/${this.props.data.cuId}/user_id/${this.props.data.userId}/activity_id/${this.activityId()}/completed/${!!this.props.data.completed_attempts}`,
+      `${import.meta.env.VITE_DEFAULT_URL}/grades/tooltip/classroom_unit_id/${this.props.data.cuId}/user_id/${this.props.data.userId}/activity_id/${this.activityId()}/completed/${!!this.props.data.completed_attempts}`,
       (body) => {
         that.loadTooltipTitle(body);
       }

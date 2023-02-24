@@ -25,7 +25,7 @@ export default class UnitTemplateAssigned extends React.Component {
 
   UNSAFE_componentWillMount() {
     requestGet(
-      `${import.meta.env.DEFAULT_URL}/teachers/classrooms_i_teach_with_students`,
+      `${import.meta.env.VITE_DEFAULT_URL}/teachers/classrooms_i_teach_with_students`,
       (body) => {
         const studentsPresent = this.anyClassroomsWithStudents(body.classrooms)
         this.setState({ studentsPresent, loading: false, })
@@ -33,14 +33,14 @@ export default class UnitTemplateAssigned extends React.Component {
     )
 
     requestGet(
-      `${import.meta.env.DEFAULT_URL}/teachers/last_assigned_unit_id`,
+      `${import.meta.env.VITE_DEFAULT_URL}/teachers/last_assigned_unit_id`,
       (body) => {
         this.setState({ lastUnitId: body.id, referralCode: body.referral_code, loading: false, })
       }
     )
 
     requestGet(
-      `${import.meta.env.DEFAULT_URL}/teachers/unit_templates/assigned_info?id=${this.props.match.params.activityPackId}`,
+      `${import.meta.env.VITE_DEFAULT_URL}/teachers/unit_templates/assigned_info?id=${this.props.match.params.activityPackId}`,
       (body) => {
         this.setState({ data: body })
       }

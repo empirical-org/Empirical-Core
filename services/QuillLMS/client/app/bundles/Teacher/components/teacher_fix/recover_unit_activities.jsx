@@ -14,7 +14,7 @@ export default class RecoverUnitActivities extends React.Component {
   submit = () => {
     const that = this
     requestPost(
-      `${import.meta.env.DEFAULT_URL}/teacher_fix/recover_unit_activities`,
+      `${import.meta.env.VITE_DEFAULT_URL}/teacher_fix/recover_unit_activities`,
       { email: that.state.email, },
       (body) => {
         window.alert('Data has been restored!')

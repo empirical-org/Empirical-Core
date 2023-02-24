@@ -31,7 +31,7 @@ export default class BlogPost extends React.Component {
     const { blogPost, } = this.props
 
     requestPost(
-      `${import.meta.env.DEFAULT_URL}/rate_blog_post`,
+      `${import.meta.env.VITE_DEFAULT_URL}/rate_blog_post`,
       {
         rating: rating,
         blog_post_id: blogPost.id

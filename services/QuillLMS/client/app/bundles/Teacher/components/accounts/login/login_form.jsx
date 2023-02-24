@@ -70,7 +70,7 @@ class LoginFormApp extends React.Component {
     e.preventDefault();
 
     requestPost(
-      `${import.meta.env.DEFAULT_URL}/session/login_through_ajax`,
+      `${import.meta.env.VITE_DEFAULT_URL}/session/login_through_ajax`,
       {
         user: {
           email,

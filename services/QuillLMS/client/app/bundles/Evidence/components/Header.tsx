@@ -86,7 +86,7 @@ export class Header extends React.Component<any, any> {
         <div className={`inner-header ${mobileStyle}`}>
           <div className={`left-side-container ${mobileStyle}`}>
             <div className="left-side">
-              <a className="focus-on-dark" href={import.meta.env.DEFAULT_URL}>
+              <a className="focus-on-dark" href={import.meta.env.VITE_DEFAULT_URL}>
                 <img alt="Quill.org logo" className="hide-on-desktop" src={mobileLogoSrc} />
                 <img alt="Quill.org logo" className="hide-on-mobile" src={logoSrc} />
               </a>

@@ -109,18 +109,18 @@ export default class UnitAssignmentFollowup extends React.Component<UnitAssignme
     return `${numberOfClassrooms} ${numberOfClassrooms === 1 ? 'class' : 'classes'}`
   }
 
-  handleClickToDashboard = () => this.prepareToLeavePage().then(() => window.location.href = import.meta.env.DEFAULT_URL)
+  handleClickToDashboard = () => this.prepareToLeavePage().then(() => window.location.href = import.meta.env.VITE_DEFAULT_URL)
 
-  handleGoToClassroomIndex = () => this.prepareToLeavePage().then(() => window.location.href = `${import.meta.env.DEFAULT_URL}/teachers/classrooms`)
+  handleGoToClassroomIndex = () => this.prepareToLeavePage().then(() => window.location.href = `${import.meta.env.VITE_DEFAULT_URL}/teachers/classrooms`)
 
   handleGoToAssignedActivity = () => {
     const unitId = window.localStorage.getItem(UNIT_ID)
-    this.prepareToLeavePage().then(() => window.location.href = `${import.meta.env.DEFAULT_URL}/teachers/classrooms/activity_planner#${unitId}`)
+    this.prepareToLeavePage().then(() => window.location.href = `${import.meta.env.VITE_DEFAULT_URL}/teachers/classrooms/activity_planner#${unitId}`)
   }
 
-  handleGoToAssignMoreActivities = () => this.prepareToLeavePage().then(() => window.location.href = `${import.meta.env.DEFAULT_URL}/assign`)
+  handleGoToAssignMoreActivities = () => this.prepareToLeavePage().then(() => window.location.href = `${import.meta.env.VITE_DEFAULT_URL}/assign`)
 
-  onClickViewAsIndividualStudent = (studentId) => this.prepareToLeavePage().then(() => window.location.href = `${import.meta.env.DEFAULT_URL}/teachers/preview_as_student/${studentId}`)
+  onClickViewAsIndividualStudent = (studentId) => this.prepareToLeavePage().then(() => window.location.href = `${import.meta.env.VITE_DEFAULT_URL}/teachers/preview_as_student/${studentId}`)
 
   handleViewAsStudent = () => this.setState({ showViewAsStudentModal: true, })
 
@@ -179,7 +179,7 @@ export default class UnitAssignmentFollowup extends React.Component<UnitAssignme
 
   renderReferral = () => {
     const { referralCode, } = this.props
-    const referralLink = `${import.meta.env.DEFAULT_URL}/?referral_code=${referralCode}`
+    const referralLink = `${import.meta.env.VITE_DEFAULT_URL}/?referral_code=${referralCode}`
     return (
       <div className="unit-assignment-followup referral">
         {this.renderSnackbar()}

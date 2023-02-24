@@ -303,7 +303,7 @@ export class PlayProofreaderContainer extends React.Component<PlayProofreaderCon
 
     handleCheckWorkClickSession = (sessionID: string, results: ConceptResultObject[], score: number, data) => {
       requestPut(
-        `${import.meta.env.DEFAULT_URL}/api/v1/activity_sessions/${sessionID}`,
+        `${import.meta.env.VITE_DEFAULT_URL}/api/v1/activity_sessions/${sessionID}`,
         {
           state: 'finished',
           concept_results: results,
@@ -311,14 +311,14 @@ export class PlayProofreaderContainer extends React.Component<PlayProofreaderCon
           data
         },
         (body) => {
-          document.location.href = `${import.meta.env.DEFAULT_URL}/activity_sessions/${sessionID}`;
+          document.location.href = `${import.meta.env.VITE_DEFAULT_URL}/activity_sessions/${sessionID}`;
         }
       )
     }
 
     createAnonActivitySession = (lessonID: string, results: ConceptResultObject[], score: number, sessionID: string|null, data) => {
       requestPost(
-        `${import.meta.env.DEFAULT_URL}/api/v1/activity_sessions/`,
+        `${import.meta.env.VITE_DEFAULT_URL}/api/v1/activity_sessions/`,
         {
           state: 'finished',
           activity_uid: lessonID,
@@ -327,7 +327,7 @@ export class PlayProofreaderContainer extends React.Component<PlayProofreaderCon
           data
         },
         (body) => {
-          document.location.href = `${import.meta.env.DEFAULT_URL}/activity_sessions/${body.activity_session.uid}`;
+          document.location.href = `${import.meta.env.VITE_DEFAULT_URL}/activity_sessions/${body.activity_session.uid}`;
         }
       )
 
@@ -420,7 +420,7 @@ export class PlayProofreaderContainer extends React.Component<PlayProofreaderCon
       window.location.href = `${import.meta.env.QUILL_GRAMMAR_URL}/play/sw?proofreaderSessionId=${firebaseSessionID}`
     }
 
-    goToLMS = () =>  window.location.href = `${import.meta.env.DEFAULT_URL}`
+    goToLMS = () =>  window.location.href = `${import.meta.env.VITE_DEFAULT_URL}`
 
     finishReview = () => {
       const { firebaseSessionID, originalPassage, conceptResultsObjects, necessaryEdits, numberOfCorrectChanges, } = this.state

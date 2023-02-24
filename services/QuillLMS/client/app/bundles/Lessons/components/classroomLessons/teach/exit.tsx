@@ -15,7 +15,7 @@ class ExitSlide extends React.Component<any, any> {
   goToReports() {
     const classroom_unit: string|null = getParameterByName('classroom_unit_id');
     const { lessonId } = this.props;
-    window.location.href = `${import.meta.env.DEFAULT_URL}/teachers/progress_reports/report_from_classroom_unit_and_activity/${classroom_unit}/a/${lessonId}`
+    window.location.href = `${import.meta.env.VITE_DEFAULT_URL}/teachers/progress_reports/report_from_classroom_unit_and_activity/${classroom_unit}/a/${lessonId}`
   }
 
   renderAssignmentOptionsAndButton() {
