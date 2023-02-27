@@ -1,0 +1,165 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`DistrictConceptReports when the access type is limited renders 1`] = `
+<Connect(DistrictConceptReports)
+  accessType="limited"
+  store={
+    Object {
+      "dispatch": [Function],
+      "getAction": [Function],
+      "getActions": [Function],
+      "getState": [Function],
+      "isActionDispatched": [Function],
+      "isActionTypeDispatched": [Function],
+      "replaceReducer": [Function],
+      "subscribe": [Function],
+    }
+  }
+>
+  <DistrictConceptReports
+    accessType="limited"
+    classroomNames={
+      Array [
+        "All Classrooms",
+      ]
+    }
+    conceptReportsData={Array []}
+    csvData={
+      Array [
+        Array [
+          "Student",
+          "Teacher",
+          "Classroom",
+          "School",
+          "Correct",
+          "Incorrect",
+          "Success Rate",
+        ],
+      ]
+    }
+    errors={false}
+    filteredConceptReportsData={Array []}
+    getDistrictConceptReports={[Function]}
+    loading={false}
+    schoolNames={
+      Array [
+        "All Schools",
+      ]
+    }
+    selectedClassroom="All Classrooms"
+    selectedSchool="All Schools"
+    selectedTeacher="All Teachers"
+    store={
+      Object {
+        "dispatch": [Function],
+        "getAction": [Function],
+        "getActions": [Function],
+        "getState": [Function],
+        "isActionDispatched": [Function],
+        "isActionTypeDispatched": [Function],
+        "replaceReducer": [Function],
+        "subscribe": [Function],
+      }
+    }
+    switchClassroom={[Function]}
+    switchSchool={[Function]}
+    switchTeacher={[Function]}
+    teacherNames={
+      Array [
+        "All Teachers",
+      ]
+    }
+  >
+    <div
+      className="restricted-page"
+    >
+      <img
+        alt="Gray lock"
+        src="undefined/images/pages/administrator/premium_lock.svg"
+      />
+    </div>
+  </DistrictConceptReports>
+</Connect(DistrictConceptReports)>
+`;
+
+exports[`DistrictConceptReports when the access type is restricted renders 1`] = `
+<Connect(DistrictConceptReports)
+  accessType="restricted"
+  store={
+    Object {
+      "dispatch": [Function],
+      "getAction": [Function],
+      "getActions": [Function],
+      "getState": [Function],
+      "isActionDispatched": [Function],
+      "isActionTypeDispatched": [Function],
+      "replaceReducer": [Function],
+      "subscribe": [Function],
+    }
+  }
+>
+  <DistrictConceptReports
+    accessType="restricted"
+    classroomNames={
+      Array [
+        "All Classrooms",
+      ]
+    }
+    conceptReportsData={Array []}
+    csvData={
+      Array [
+        Array [
+          "Student",
+          "Teacher",
+          "Classroom",
+          "School",
+          "Correct",
+          "Incorrect",
+          "Success Rate",
+        ],
+      ]
+    }
+    errors={false}
+    filteredConceptReportsData={Array []}
+    getDistrictConceptReports={[Function]}
+    loading={false}
+    schoolNames={
+      Array [
+        "All Schools",
+      ]
+    }
+    selectedClassroom="All Classrooms"
+    selectedSchool="All Schools"
+    selectedTeacher="All Teachers"
+    store={
+      Object {
+        "dispatch": [Function],
+        "getAction": [Function],
+        "getActions": [Function],
+        "getState": [Function],
+        "isActionDispatched": [Function],
+        "isActionTypeDispatched": [Function],
+        "replaceReducer": [Function],
+        "subscribe": [Function],
+      }
+    }
+    switchClassroom={[Function]}
+    switchSchool={[Function]}
+    switchTeacher={[Function]}
+    teacherNames={
+      Array [
+        "All Teachers",
+      ]
+    }
+  >
+    <div
+      className="restricted-page"
+    >
+      <img
+        alt="Gray lock"
+        src="undefined/images/pages/administrator/premium_lock.svg"
+      />
+    </div>
+  </DistrictConceptReports>
+</Connect(DistrictConceptReports)>
+`;

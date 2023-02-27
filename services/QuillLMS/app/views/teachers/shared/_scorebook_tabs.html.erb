@@ -11,7 +11,7 @@
 
         <% if current_user.admin? && !admin_impersonating_user?(current_user) %>
           <li class="admin-tab <%= 'active' if admin_page_should_be_active? %>">
-            <%= link_to 'School Dashboard', teachers_admin_dashboard_path, role: 'tab' %>
+            <%= link_to 'Admin Dashboard', teachers_admin_dashboard_path, role: 'tab' %>
           </li>
         <% end %>
 

@@ -3,14 +3,12 @@ import React from 'react';
 import { timeZoneOptions, } from './shared'
 
 import SchoolSelector from '../../shared/school_selector'
-import { Input, DropdownInput, } from '../../../../Shared/index'
+import { Input, DropdownInput, NOT_LISTED, NO_SCHOOL_SELECTED, } from '../../../../Shared/index'
 import { requestPost, } from '../../../../../modules/request'
 
 const HOME_SCHOOL_SCHOOL_NAME = 'home school'
 const US_HIGHER_ED_SCHOOL_NAME = 'us higher ed'
 const INTERNATIONAL_SCHOOL_NAME = 'international'
-const NOT_LISTED_SCHOOL_NAME = 'not listed'
-const NO_SCHOOL_SELECTED_SCHOOL_NAME = 'no school selected'
 const OTHER_SCHOOL_NAME = 'other'
 const US_K12_SCHOOL = 'U.S. K-12 school'
 
@@ -81,7 +79,7 @@ export default class TeacherGeneralAccountInfo extends React.Component {
     const { alternativeSchools, } = this.props
     if (id !== school.id) {
       this.setState({ changedSchools: true, })
-      if ([NOT_LISTED_SCHOOL_NAME, NO_SCHOOL_SELECTED_SCHOOL_NAME].includes(id)) {
+      if ([NOT_LISTED, NO_SCHOOL_SELECTED].includes(id)) {
         const alternativeSchool = alternativeSchools.find(school => school.name === id)
         this.setState({ school: alternativeSchool, showSchoolSelector: false, }, () => this.handleSubmit())
       } else {
@@ -222,14 +220,14 @@ export default class TeacherGeneralAccountInfo extends React.Component {
       } else {
         let schoolNameValue = school && school.name ? school.name : ''
         let buttonCopy = 'Change school'
-        if (schoolNameValue === NOT_LISTED_SCHOOL_NAME) {
+        if (schoolNameValue === NOT_LISTED) {
           schoolNameValue = 'Not listed'
-        } else if ([HOME_SCHOOL_SCHOOL_NAME, US_HIGHER_ED_SCHOOL_NAME, INTERNATIONAL_SCHOOL_NAME, OTHER_SCHOOL_NAME, NO_SCHOOL_SELECTED_SCHOOL_NAME].includes(schoolNameValue)) {
+        } else if ([HOME_SCHOOL_SCHOOL_NAME, US_HIGHER_ED_SCHOOL_NAME, INTERNATIONAL_SCHOOL_NAME, OTHER_SCHOOL_NAME, NO_SCHOOL_SELECTED].includes(schoolNameValue)) {
           schoolNameValue = 'No school selected'
           buttonCopy = 'Select school'
         }
         let schoolContainerClass = "school-container"
-        schoolContainerClass += schoolSelectionReminderVisible && (!school || school.name === NO_SCHOOL_SELECTED_SCHOOL_NAME) ? ' show-notification-badges' : ''
+        schoolContainerClass += schoolSelectionReminderVisible && (!school || school.name === NO_SCHOOL_SELECTED) ? ' show-notification-badges' : ''
         return (
           <div className={schoolContainerClass}>
             <Input

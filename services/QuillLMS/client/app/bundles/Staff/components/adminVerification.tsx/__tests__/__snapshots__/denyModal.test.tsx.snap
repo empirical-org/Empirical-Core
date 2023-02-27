@@ -6,7 +6,7 @@ exports[`DenyModal component should render DenyModal 1`] = `
   deny={[MockFunction]}
 >
   <AdminVerificationModal
-    bodyText="The user will be sent an email informing them of the decision. This request will be moved to the “Completed requests” tab."
+    bodyText="The user will be sent an email informing them of the decision. This request will be moved to the “Completed” tab."
     closeModal={[MockFunction]}
     confirmFunction={[MockFunction]}
     headerText="Deny this request?"
@@ -27,7 +27,7 @@ exports[`DenyModal component should render DenyModal 1`] = `
             Deny this request?
           </h3>
           <p>
-            The user will be sent an email informing them of the decision. This request will be moved to the “Completed requests” tab.
+            The user will be sent an email informing them of the decision. This request will be moved to the “Completed” tab.
           </p>
         </div>
         <div

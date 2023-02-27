@@ -46,7 +46,7 @@ const actionableFeaturesAndSupport = (
       />
       <PremiumFeature
         header="School administrator dashboard"
-        imageAlt="Example school dashboard showing multiple teacher dashboards with student results"
+        imageAlt="Example admin dashboard showing multiple teacher dashboards with student results"
         imageSrc={schoolDashboardSrc}
         text="Access each teacher’s Premium account to assign activities, manage rosters and view data. Access school-level reports to see rolled up data at the school level."
       />

@@ -8,6 +8,7 @@ import {
   switchTeacher,
   getDistrictConceptReports,
 } from '../../../actions/district_concept_reports';
+import { restrictedPage, FULL, } from '../shared'
 
 class DistrictConceptReports extends React.Component {
   componentDidMount() {
@@ -16,7 +17,11 @@ class DistrictConceptReports extends React.Component {
   }
 
   render() {
-    const { loading, } = this.props;
+    const { loading, accessType, } = this.props;
+
+    if (accessType !== FULL) {
+      return restrictedPage
+    }
 
     if (loading) {
       return <LoadingSpinner />;

@@ -1542,7 +1542,7 @@ describe User, type: :model do
     context 'user has admin info' do
       let!(:admin_info) { create(:admin_info, user: user)}
 
-      it 'returns the sub role from the admin info' do
+      it 'returns the approval status from the admin info' do
         expect(user.admin_approval_status).to eq(admin_info.approval_status)
       end
     end
@@ -1668,5 +1668,40 @@ describe User, type: :model do
       end
     end
   end
+
+  describe '#email_verification_status' do
+    it 'should return nil if there is no user email verification record' do
+      expect(user.email_verification_status).to eq(nil)
+    end
+
+    it 'should return Pending if the user email verification record does not have a verified_at timestamp' do
+      create(:user_email_verification, user: user)
+      expect(user.email_verification_status).to eq(UserEmailVerification::PENDING)
+    end
+
+    it 'should return Verified if the user email verification record has a verified_at timestamp' do
+      create(:user_email_verification, user: user, verified_at: Time.zone.today)
+      expect(user.email_verification_status).to eq(UserEmailVerification::VERIFIED)
+    end
+  end
+
+  describe '#email_verification_status=' do
+    it 'should call #verify_email if the passed status is Verified' do
+      create(:user_email_verification, user: user)
+
+      expect(user).to receive(:verify_email).with(UserEmailVerification::STAFF_VERIFICATION)
+      user.email_verification_status= UserEmailVerification::VERIFIED
+    end
+
+    it 'should call require_email_verification if the passed status is Pending and update the verification record to have verified_at and verification_method as nil' do
+      user_email_verification = create(:user_email_verification, user: user, verified_at: Time.zone.today, verification_method: UserEmailVerification::EMAIL_VERIFICATION)
+
+      expect(user).to receive(:require_email_verification)
+      user.email_verification_status= UserEmailVerification::PENDING
+      expect(user_email_verification.reload.verified_at).not_to be
+      expect(user_email_verification.reload.verification_method).not_to be
+    end
+  end
+
 end
 # rubocop:enable Metrics/BlockLength

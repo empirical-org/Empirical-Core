@@ -359,7 +359,6 @@ module Teacher
   def update_teacher params
     return if !teacher?
 
-    params[:role] = User::TEACHER if params[:role] != User::STUDENT
     params.permit(
       :id,
       :name,

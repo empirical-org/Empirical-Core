@@ -25,6 +25,14 @@ describe Cms::AdminVerificationController do
         expect(completed_results.find { |tr| tr["admin_info_id"] == t.id }).to be
       end
     end
+
+    it 'does not fail if a user has no ip location' do
+      user = create(:admin, ip_address: nil)
+      create(:admin_info, user: user)
+
+      get :index, { format: 'json' }
+      expect(response).to have_http_status(:ok)
+    end
   end
 
   describe '#set_approved' do

@@ -9,19 +9,29 @@ import SignUpStudent from './sign_up_student';
 import SelectUSK12 from './select_us_k12';
 import SelectNonUSK12 from './select_non_us_k12';
 import AddTeacherInfo from './add_teacher_info';
+import SelectSubRole from './select_sub_role';
+import VerifySchool from './verify_school'
+import VerifyEmail from './verify_email'
 
-const App = ({ subjectAreas, }) => {
+const App = ({ subjectAreas, subRoles, user, isAdmin, }) => {
   return (
     <BrowserRouter>
       <div id='sign-up'>
         <Route component={SelectUserType} exact path="/account/new" />
 
+        <Route component={SignUpTeacher} path="/sign-up/admin" />
         <Route component={SignUpTeacher} path="/sign-up/individual-contributor" />
         <Route component={SignUpTeacher} path="/sign-up/teacher" />
         <Route component={SignUpStudent} path="/sign-up/student" />
 
-        <Route component={SelectUSK12} path="/sign-up/add-k12" />
-        <Route component={SelectNonUSK12} path="/sign-up/add-non-k12" />
+        <Route component={VerifySchool} path="/sign-up/verify-school" />
+
+        <Route component={routerProps => <VerifyEmail user={user} {...routerProps} />} path="/sign-up/verify-email" />
+
+        <Route component={routerProps => <SelectSubRole subRoles={subRoles} {...routerProps} />} path="/sign-up/select-sub-role" />
+
+        <Route component={routerProps => <SelectUSK12 isAdmin={isAdmin} {...routerProps} />} path="/sign-up/add-k12" />
+        <Route component={routerProps => <SelectNonUSK12 isAdmin={isAdmin} {...routerProps} />} path="/sign-up/add-non-k12" />
 
         <Route component={routerProps => <AddTeacherInfo subjectAreas={subjectAreas} {...routerProps} />} path="/sign-up/add-teacher-info" />
       </div>

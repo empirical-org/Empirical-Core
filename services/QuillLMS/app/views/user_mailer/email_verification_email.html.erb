@@ -1,0 +1,7 @@
+<p>Hi <%= "#{@user.first_name}" %>,</p>
+
+<p>You're just one click away from activating your Quill account! Please click the link below to verify your email and you're done.</p>
+
+<a href=<%= "#{ENV['DEFAULT_URL']}/sign-up/verify-email?token=#{@user.reload.user_email_verification.verification_token}" %>>Verify my email</a>
+
+<p>Need help? Please reply to this email.</p>
