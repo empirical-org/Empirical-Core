@@ -13,7 +13,13 @@ class IdentifyStripeInvoicesWithoutSubscriptions
       invoices.append(invoice) if RELEVANT_INVOICE_STATUSES.include?(invoice.status) && !Subscription.find_by(stripe_invoice_id: invoice.id)
     end
 
-    invoice_payloads = invoices.map do |invoice|
+    invoice_payloads = map_invoices_for_template(invoices)
+
+    StripeIntegration::Mailer.invoices_without_subscriptions(invoice_payloads).deliver_now!
+  end
+
+  private def map_invoices_for_template(invoices)
+    invoices.map do |invoice|
       {
         id: invoice.id,
         created: Time.at(invoice.created).to_datetime,
@@ -23,7 +29,5 @@ class IdentifyStripeInvoicesWithoutSubscriptions
         description: invoice.description
       }
     end
-
-    StripeIntegration::Mailer.invoices_without_subscriptions(invoice_payloads).deliver_now!
   end
 end
