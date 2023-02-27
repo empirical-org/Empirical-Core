@@ -57,6 +57,9 @@ export default class extends React.Component {
         accessor: 'average_score',
         className: blurIfNotPremium,
         resizable: false,
+        // Cell: ({row}) => {
+        //   console.log('row', row.original['average_score'])
+        // }
       }, {
         Header: 'Proficiency Status',
         accessor: 'mastery_status',
