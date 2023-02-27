@@ -7,7 +7,7 @@ describe UserRequestedAdminVerificationEmailWorker do
   let(:admin) { create(:admin) }
 
   describe '#perform' do
-    it 'should send the stats email' do
+    it 'should send the user requested admin verification email' do
       expect(UserMailer).to receive(:user_requested_admin_verification_email)
         .with(admin)
         .and_return(double('mailer', deliver_now!: true))

@@ -140,7 +140,7 @@ describe UserMailer, type: :mailer do
 
   describe 'user_requested_admin_verification_email' do
     let(:user) { create(:admin) }
-    let(:admin_info) { create(:admin_info, user: admin)}
+    let!(:admin_info) { create(:admin_info, user: user)}
     let(:school) { create(:school) }
     let!(:schools_user) { create(:schools_users, user: user, school: school) }
     let(:mail) { described_class.user_requested_admin_verification_email(user) }
