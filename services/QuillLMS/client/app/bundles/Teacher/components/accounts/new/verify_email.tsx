@@ -18,10 +18,7 @@ const VerifyEmail = ({ user, location, }) => {
   useSnackbarMonitor(showSnackbar, setShowSnackbar, defaultSnackbarTimeout)
 
   React.useEffect(() => {
-    if (!user) {
-      redirectToLogin()
-    }
-    else if (token) {
+    if (token) {
       verifyToken()
     }
   }, [])
@@ -47,9 +44,13 @@ const VerifyEmail = ({ user, location, }) => {
         window.location.href = '/sign-up/select-sub-role'
       },
       (body) => {
-        setLoading(false)
-        setSnackbarText(body.error)
-        setShowSnackbar(true)
+        if (user) {
+          setLoading(false)
+          setSnackbarText(body.error)
+          setShowSnackbar(true)
+        } else {
+          redirectToLogin()
+        }
       }
     )
   }

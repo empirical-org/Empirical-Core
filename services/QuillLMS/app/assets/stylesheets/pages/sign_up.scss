@@ -169,6 +169,9 @@
   .quill-button {
     margin-top: 8px;
   }
+  .input-container.inactive .dropdown__placeholder {
+    display: inherit;
+  }
   @media (min-width: 560px) {
     h1 {
       white-space: nowrap;
@@ -203,7 +206,7 @@
     line-height: 16px;
   }
   .input-container:first-of-type {
-    margin-bottom: 64px;
+    margin-bottom: 40px;
   }
   .input-container:last-of-type {
     min-height: auto;
