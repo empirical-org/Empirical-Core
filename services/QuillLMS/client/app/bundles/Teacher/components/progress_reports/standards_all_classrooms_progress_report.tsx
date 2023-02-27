@@ -120,9 +120,8 @@ export default class StandardsAllClassroomsProgressReport extends React.Componen
         Header: "Proficient",
         accessor: 'proficient',
         resizable: false,
-        className: blurIfNotPremium,
         Cell: ({row}) => (
-          <a className="row-link-disguise" href={row.original['link']}>
+          <a className={`row-link-disguise ${blurIfNotPremium}`} href={row.original['link']}>
             {row.original['proficient']}
           </a>
         )

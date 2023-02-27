@@ -569,6 +569,591 @@ exports[`BlogPostIndex component renders 1`] = `
     <span />
     <main>
       <TopicSection
+        articleCount={2}
+        articles={
+          Array [
+            Object {
+              "author_id": 11,
+              "body": "",
+              "center_images": false,
+              "created_at": "2022-07-21T18:41:28.024Z",
+              "draft": false,
+              "external_link": "",
+              "featured_order_number": null,
+              "id": 835,
+              "image_link": "",
+              "order_number": 1,
+              "premium": false,
+              "press_name": "",
+              "preview_card_content": "<img class='preview-card-image' src='https://s3.amazonaws.com/quill-image-uploads/uploads/files/Cover__4_.png' />\\\\n    <div class='preview-card-body'>\\\\n       <h3>List of Available Quill Reading for Evidence Activities</h3>\\\\n       <p>This article offers a great way to get a sense of the content and topics available in current Reading for Evidence activities!</p>\\\\n       <span/>\\\\n    </div>\\\\n    <div class='preview-card-footer'>\\\\n      <p class='author'>by Quill Staff</p>\\\\n    </div>",
+              "published_at": "2022-07-21T16:00:00.000Z",
+              "read_count": 432,
+              "slug": "list-of-available-quill-reading-for-evidence-activities",
+              "subtitle": "",
+              "title": "List of Available Quill Reading for Evidence Activities",
+              "topic": "Using quill for reading comprehension",
+              "tsv": "'-5':99B '-700':35B '/assign/featured-activity-packs/448)**':205B '/assign/featured-activity-packs/450)**':261B '/assign/featured-activity-packs/451)**':326B '/assign/featured-activity-packs/455)**':367B '/assign/featured-activity-packs/459)**':412B '/evidence/#/play?uid=127&skiptoprompts=true)':271B '/evidence/#/play?uid=170&skiptoprompts=true)':291B '/evidence/#/play?uid=171&skiptoprompts=true)':278B '/evidence/#/play?uid=173&skiptoprompts=true)':239B '/evidence/#/play?uid=174&skiptoprompts=true)':223B '/evidence/#/play?uid=175&skiptoprompts=true)':214B '/evidence/#/play?uid=176&skiptoprompts=true)':358B '/evidence/#/play?uid=177&skiptoprompts=true)':338B '/evidence/#/play?uid=179&skiptoprompts=true)':303B '/evidence/#/play?uid=180&skiptoprompts=true)':402B '/evidence/#/play?uid=181&skiptoprompts=true)':391B '/evidence/#/play?uid=185&skiptoprompts=true)':380B '/evidence/#/play?uid=186&skiptoprompts=true)':430B '/evidence/#/play?uid=219&skiptoprompts=true)':421B '/evidence/#/play?uid=220&skiptoprompts=true)':316B '/evidence/#/play?uid=221&skiptoprompts=true)':442B '/evidence/#/play?uid=87&skiptoprompts=true)':348B '/evidence/#/play?uid=89&skiptoprompts=true)':250B '/teacher-center/quill-evidences-wordgen-activities)':73B '15':27B '18':49B '2022':46B '3':98B '500':34B 'activ':8A,13B,20B,25B,53B,57B,80B,84B,100B,127B,140B,148B,169B,180B,195B,196B,251B,317B,359B,403B 'affect':209B 'align':59B,69B 'allow':282B,295B 'also':118B 'altern':201B,233B,245B 'ancient':298B 'anim':268B 'assign':76B,87B,119B 'athlet':399B 'avail':3A,54B 'bag':329B 'ban':330B 'barrier':341B 'base':199B,254B,320B,362B,406B 'basebal':384B 'bring':108B 'build':14B 'bypass':175B 'click':101B,124B 'clone':273B 'code':427B 'colleg':369B 'communiti':236B,335B 'compani':305B 'complet':30B,166B 'comprehens':16B,447C 'contain':97B,312B 'cost':345B 'curriculum':65B 'day':418B 'describ':113B 'direct':137B 'done':266B 'dress':426B 'drought':208B 'eat':351B 'ecolog':344B 'embryo':288B 'energi':202B,232B,246B 'environment':322B 'equiti':375B 'ethic':256B,275B 'evid':7A,12B,24B,52B,79B,198B,253B,319B,361B,405B 'extend':416B 'farm':242B 'first':159B 'florida':225B 'follow':38B 'food':310B,432B 'fuel':218B 'futur':220B 'gen':63B 'gender':374B 'generat':211B 'genet':285B 'global':354B 'gmos':313B 'good':231B,244B 'grade':395B 'harm':333B 'heart':145B 'help':331B 'highlight':191B 'human':299B 'hydroelectr':210B 'impact':353B 'includ':32B 'individu':81B,126B 'introduc':182B 'juli':45B 'label':309B 'law':439B 'leagu':383B 'left':156B 'librari':58B,85B 'link':174B 'list':1A,129B 'local':235B,334B 'maintain':373B 'make':386B 'mammal':274B 'meat':352B 'medic':263B 'minor':382B 'minut':28B 'money':388B 'name':103B,128B,133B 'nuclear':216B 'offer':229B 'organ':92B 'pack':93B,106B,115B,121B,132B,197B,252B,318B,360B,404B 'page':112B 'parent':280B 'part':177B 'plastic':328B 'player':385B 'polici':409B 'power':217B 'program':228B 'prompt':42B 'protect':323B 'quill':4A,9B,444C 'read':5A,10B,15B,22B,50B,77B,189B,446C 'regul':437B 'remain':300B 'requir':307B,396B 'respons':371B 'right':172B 'school':393B,408B,414B,417B,423B,435B 'scienc':258B 'scientist':293B 'section':192B 'sentenc':162B 'skill':17B 'solartogeth':227B 'sold':433B 'sourc':247B 'specif':142B 'sport':364B,377B 'stem':163B 'strict':425B 'student':150B,183B,398B 'studi':297B 'surg':340B 'take':26B,135B 'test':264B,286B 'text':37B,153B 'themat':91B 'thematically-organ':90B 'three':40B,161B 'tool':186B 'use':443C 'warm':355B 'week':64B 'wind':241B 'word':36B,62B 'worth':342B 'write':19B,41B,200B,255B,321B,363B,407B 'www.quill.org':72B,204B,213B,222B,238B,249B,260B,270B,277B,290B,302B,315B,325B,337B,347B,357B,366B,379B,390B,401B,411B,420B,429B,441B 'www.quill.org/assign/featured-activity-packs/448)**':203B 'www.quill.org/assign/featured-activity-packs/450)**':259B 'www.quill.org/assign/featured-activity-packs/451)**':324B 'www.quill.org/assign/featured-activity-packs/455)**':365B 'www.quill.org/assign/featured-activity-packs/459)**':410B 'www.quill.org/evidence/#/play?uid=127&skiptoprompts=true)':269B 'www.quill.org/evidence/#/play?uid=170&skiptoprompts=true)':289B 'www.quill.org/evidence/#/play?uid=171&skiptoprompts=true)':276B 'www.quill.org/evidence/#/play?uid=173&skiptoprompts=true)':237B 'www.quill.org/evidence/#/play?uid=174&skiptoprompts=true)':221B 'www.quill.org/evidence/#/play?uid=175&skiptoprompts=true)':212B 'www.quill.org/evidence/#/play?uid=176&skiptoprompts=true)':356B 'www.quill.org/evidence/#/play?uid=177&skiptoprompts=true)':336B 'www.quill.org/evidence/#/play?uid=179&skiptoprompts=true)':301B 'www.quill.org/evidence/#/play?uid=180&skiptoprompts=true)':400B 'www.quill.org/evidence/#/play?uid=181&skiptoprompts=true)':389B 'www.quill.org/evidence/#/play?uid=185&skiptoprompts=true)':378B 'www.quill.org/evidence/#/play?uid=186&skiptoprompts=true)':428B 'www.quill.org/evidence/#/play?uid=219&skiptoprompts=true)':419B 'www.quill.org/evidence/#/play?uid=220&skiptoprompts=true)':314B 'www.quill.org/evidence/#/play?uid=221&skiptoprompts=true)':440B 'www.quill.org/evidence/#/play?uid=87&skiptoprompts=true)':346B 'www.quill.org/evidence/#/play?uid=89&skiptoprompts=true)':248B 'www.quill.org/teacher-center/quill-evidences-wordgen-activities)':71B",
+              "updated_at": "2022-12-10T21:18:01.727Z",
+            },
+            Object {
+              "author_id": 61,
+              "body": "",
+              "center_images": false,
+              "created_at": "2021-08-31T20:53:34.135Z",
+              "draft": false,
+              "external_link": "",
+              "featured_order_number": null,
+              "id": 633,
+              "image_link": "",
+              "order_number": 4,
+              "premium": false,
+              "press_name": "",
+              "preview_card_content": "<img class='preview-card-image' src='https://s3.amazonaws.com/quill-image-uploads/uploads/files/Cover__2_.png' />\\\\n       <div class='preview-card-body'>\\\\n       <h3>📋 PDF | Introducing Quill Reading for  Evidence: One-Pager </h3>\\\\n       <p>This one-pager will introduce you to our newest tool, Quill Reading for  Evidence. Includes a link to a demo video!</p>\\\\n       <span/>\\\\n    </div>\\\\n    <div class='preview-card-footer'>\\\\n      <p class='author'>by Sherry L.</p>\\\\n    </div>",
+              "published_at": "2021-08-31T20:54:14.514Z",
+              "read_count": 613,
+              "slug": "-pdf--introducing-quill-evidence-onepager-",
+              "subtitle": "",
+              "title": "📋 PDF | Introducing Quill Reading for Evidence: One-Pager ",
+              "topic": "Using quill for reading comprehension",
+              "tsv": "'/quill-image-uploads/uploads/files/introducing_our_new_writing___reading_tool_quill_evidence_1821.png)':12B '/quill-image-uploads/uploads/files/introducing_our_new_writing___reading_tool_quill_evidence_1822.gif)':15B 'click':16B 'comprehens':28C 'evid':6A 'full':22B 'introduc':2A 'one':8A 'one-pag':7A 'pager':9A 'pdf':1A,20B 'quill':3A,25C 'read':4A,27C 's3.amazonaws.com':11B,14B 's3.amazonaws.com/quill-image-uploads/uploads/files/introducing_our_new_writing___reading_tool_quill_evidence_1821.png)':10B 's3.amazonaws.com/quill-image-uploads/uploads/files/introducing_our_new_writing___reading_tool_quill_evidence_1822.gif)':13B 'screen':23B 'use':24C 'view':19B",
+              "updated_at": "2022-11-07T15:46:47.821Z",
+            },
+          ]
+        }
+        color="purple"
+        key="Using quill for reading comprehension"
+        onSearchPage={false}
+        slug="using-quill-for-reading-comprehension"
+        title="Using quill for reading comprehension"
+      >
+        <section
+          className="topic-section purple"
+        >
+          <div
+            className="meta"
+          >
+            <h1>
+              Using Quill for reading comprehension
+            </h1>
+            <h2>
+              2
+               
+              articles
+            </h2>
+            <a
+              className="quill-button focus-on-light fun contained primary"
+              href="/teacher-center/topic/using-quill-for-reading-comprehension"
+            >
+              Show all
+            </a>
+          </div>
+          <div
+            id="preview-card-container"
+          >
+            <PreviewCard
+              color="purple"
+              content="<img class='preview-card-image' src='https://s3.amazonaws.com/quill-image-uploads/uploads/files/Cover__4_.png' />\\\\n    <div class='preview-card-body'>\\\\n       <h3>List of Available Quill Reading for Evidence Activities</h3>\\\\n       <p>This article offers a great way to get a sense of the content and topics available in current Reading for Evidence activities!</p>\\\\n       <span/>\\\\n    </div>\\\\n    <div class='preview-card-footer'>\\\\n      <p class='author'>by Quill Staff</p>\\\\n    </div>"
+              externalLink={false}
+              link="/teacher-center/list-of-available-quill-reading-for-evidence-activities"
+            >
+              <a
+                className="preview-card-link purple"
+                href="/teacher-center/list-of-available-quill-reading-for-evidence-activities"
+                target="_self"
+              >
+                <ReactMarkdown
+                  className="preview-card"
+                  containerTagName="div"
+                  parserOptions={Object {}}
+                  source="<img class='preview-card-image' src='https://s3.amazonaws.com/quill-image-uploads/uploads/files/Cover__4_.png' />\\\\n    <div class='preview-card-body'>\\\\n       <h3>List of Available Quill Reading for Evidence Activities</h3>\\\\n       <p>This article offers a great way to get a sense of the content and topics available in current Reading for Evidence activities!</p>\\\\n       <span/>\\\\n    </div>\\\\n    <div class='preview-card-footer'>\\\\n      <p class='author'>by Quill Staff</p>\\\\n    </div>"
+                >
+                  <div
+                    className="preview-card"
+                  >
+                    <p
+                      key="1:1-1:48833"
+                    >
+                      <HtmlRenderer
+                        escapeHtml={false}
+                        isBlock={false}
+                        key="1:1-1:4881"
+                        literal="<img class='preview-card-image' src='https://s3.amazonaws.com/quill-image-uploads/uploads/files/Cover__4_.png' />"
+                        nodeKey="1:1-1:4881"
+                        skipHtml={false}
+                      >
+                        <span
+                          dangerouslySetInnerHTML={
+                            Object {
+                              "__html": "<img class='preview-card-image' src='https://s3.amazonaws.com/quill-image-uploads/uploads/files/Cover__4_.png' />",
+                            }
+                          }
+                          key="1:1-1:4881"
+                        />
+                      </HtmlRenderer>
+                      \\n    
+                      <HtmlRenderer
+                        escapeHtml={false}
+                        isBlock={false}
+                        key="1:1-1:4884"
+                        literal="<div class='preview-card-body'>"
+                        nodeKey="1:1-1:4884"
+                        skipHtml={false}
+                      >
+                        <span
+                          dangerouslySetInnerHTML={
+                            Object {
+                              "__html": "<div class='preview-card-body'>",
+                            }
+                          }
+                          key="1:1-1:4884"
+                        />
+                      </HtmlRenderer>
+                      \\n       
+                      <HtmlRenderer
+                        escapeHtml={false}
+                        isBlock={false}
+                        key="1:1-1:4887"
+                        literal="<h3>"
+                        nodeKey="1:1-1:4887"
+                        skipHtml={false}
+                      >
+                        <span
+                          dangerouslySetInnerHTML={
+                            Object {
+                              "__html": "<h3>",
+                            }
+                          }
+                          key="1:1-1:4887"
+                        />
+                      </HtmlRenderer>
+                      List of Available Quill Reading for Evidence Activities
+                      <HtmlRenderer
+                        escapeHtml={false}
+                        isBlock={false}
+                        key="1:1-1:4889"
+                        literal="</h3>"
+                        nodeKey="1:1-1:4889"
+                        skipHtml={false}
+                      >
+                        <span
+                          dangerouslySetInnerHTML={
+                            Object {
+                              "__html": "</h3>",
+                            }
+                          }
+                          key="1:1-1:4889"
+                        />
+                      </HtmlRenderer>
+                      \\n       
+                      <HtmlRenderer
+                        escapeHtml={false}
+                        isBlock={false}
+                        key="1:1-1:48812"
+                        literal="<p>"
+                        nodeKey="1:1-1:48812"
+                        skipHtml={false}
+                      >
+                        <span
+                          dangerouslySetInnerHTML={
+                            Object {
+                              "__html": "<p>",
+                            }
+                          }
+                          key="1:1-1:48812"
+                        />
+                      </HtmlRenderer>
+                      This article offers a great way to get a sense of the content and topics available in current Reading for Evidence activities!
+                      <HtmlRenderer
+                        escapeHtml={false}
+                        isBlock={false}
+                        key="1:1-1:48815"
+                        literal="</p>"
+                        nodeKey="1:1-1:48815"
+                        skipHtml={false}
+                      >
+                        <span
+                          dangerouslySetInnerHTML={
+                            Object {
+                              "__html": "</p>",
+                            }
+                          }
+                          key="1:1-1:48815"
+                        />
+                      </HtmlRenderer>
+                      \\n       
+                      <HtmlRenderer
+                        escapeHtml={false}
+                        isBlock={false}
+                        key="1:1-1:48818"
+                        literal="<span/>"
+                        nodeKey="1:1-1:48818"
+                        skipHtml={false}
+                      >
+                        <span
+                          dangerouslySetInnerHTML={
+                            Object {
+                              "__html": "<span/>",
+                            }
+                          }
+                          key="1:1-1:48818"
+                        />
+                      </HtmlRenderer>
+                      \\n    
+                      <HtmlRenderer
+                        escapeHtml={false}
+                        isBlock={false}
+                        key="1:1-1:48821"
+                        literal="</div>"
+                        nodeKey="1:1-1:48821"
+                        skipHtml={false}
+                      >
+                        <span
+                          dangerouslySetInnerHTML={
+                            Object {
+                              "__html": "</div>",
+                            }
+                          }
+                          key="1:1-1:48821"
+                        />
+                      </HtmlRenderer>
+                      \\n    
+                      <HtmlRenderer
+                        escapeHtml={false}
+                        isBlock={false}
+                        key="1:1-1:48824"
+                        literal="<div class='preview-card-footer'>"
+                        nodeKey="1:1-1:48824"
+                        skipHtml={false}
+                      >
+                        <span
+                          dangerouslySetInnerHTML={
+                            Object {
+                              "__html": "<div class='preview-card-footer'>",
+                            }
+                          }
+                          key="1:1-1:48824"
+                        />
+                      </HtmlRenderer>
+                      \\n      
+                      <HtmlRenderer
+                        escapeHtml={false}
+                        isBlock={false}
+                        key="1:1-1:48827"
+                        literal="<p class='author'>"
+                        nodeKey="1:1-1:48827"
+                        skipHtml={false}
+                      >
+                        <span
+                          dangerouslySetInnerHTML={
+                            Object {
+                              "__html": "<p class='author'>",
+                            }
+                          }
+                          key="1:1-1:48827"
+                        />
+                      </HtmlRenderer>
+                      by Quill Staff
+                      <HtmlRenderer
+                        escapeHtml={false}
+                        isBlock={false}
+                        key="1:1-1:48829"
+                        literal="</p>"
+                        nodeKey="1:1-1:48829"
+                        skipHtml={false}
+                      >
+                        <span
+                          dangerouslySetInnerHTML={
+                            Object {
+                              "__html": "</p>",
+                            }
+                          }
+                          key="1:1-1:48829"
+                        />
+                      </HtmlRenderer>
+                      \\n    
+                      <HtmlRenderer
+                        escapeHtml={false}
+                        isBlock={false}
+                        key="1:1-1:48832"
+                        literal="</div>"
+                        nodeKey="1:1-1:48832"
+                        skipHtml={false}
+                      >
+                        <span
+                          dangerouslySetInnerHTML={
+                            Object {
+                              "__html": "</div>",
+                            }
+                          }
+                          key="1:1-1:48832"
+                        />
+                      </HtmlRenderer>
+                    </p>
+                  </div>
+                </ReactMarkdown>
+                <a
+                  className="quill-button fun contained primary focus-on-light"
+                  href="/teacher-center/list-of-available-quill-reading-for-evidence-activities"
+                  target="_self"
+                >
+                  Read
+                </a>
+              </a>
+            </PreviewCard>
+            <PreviewCard
+              color="purple"
+              content="<img class='preview-card-image' src='https://s3.amazonaws.com/quill-image-uploads/uploads/files/Cover__2_.png' />\\\\n       <div class='preview-card-body'>\\\\n       <h3>📋 PDF | Introducing Quill Reading for  Evidence: One-Pager </h3>\\\\n       <p>This one-pager will introduce you to our newest tool, Quill Reading for  Evidence. Includes a link to a demo video!</p>\\\\n       <span/>\\\\n    </div>\\\\n    <div class='preview-card-footer'>\\\\n      <p class='author'>by Sherry L.</p>\\\\n    </div>"
+              externalLink={false}
+              link="/teacher-center/-pdf--introducing-quill-evidence-onepager-"
+            >
+              <a
+                className="preview-card-link purple"
+                href="/teacher-center/-pdf--introducing-quill-evidence-onepager-"
+                target="_self"
+              >
+                <ReactMarkdown
+                  className="preview-card"
+                  containerTagName="div"
+                  parserOptions={Object {}}
+                  source="<img class='preview-card-image' src='https://s3.amazonaws.com/quill-image-uploads/uploads/files/Cover__2_.png' />\\\\n       <div class='preview-card-body'>\\\\n       <h3>📋 PDF | Introducing Quill Reading for  Evidence: One-Pager </h3>\\\\n       <p>This one-pager will introduce you to our newest tool, Quill Reading for  Evidence. Includes a link to a demo video!</p>\\\\n       <span/>\\\\n    </div>\\\\n    <div class='preview-card-footer'>\\\\n      <p class='author'>by Sherry L.</p>\\\\n    </div>"
+                >
+                  <div
+                    className="preview-card"
+                  >
+                    <p
+                      key="1:1-1:48333"
+                    >
+                      <HtmlRenderer
+                        escapeHtml={false}
+                        isBlock={false}
+                        key="1:1-1:4831"
+                        literal="<img class='preview-card-image' src='https://s3.amazonaws.com/quill-image-uploads/uploads/files/Cover__2_.png' />"
+                        nodeKey="1:1-1:4831"
+                        skipHtml={false}
+                      >
+                        <span
+                          dangerouslySetInnerHTML={
+                            Object {
+                              "__html": "<img class='preview-card-image' src='https://s3.amazonaws.com/quill-image-uploads/uploads/files/Cover__2_.png' />",
+                            }
+                          }
+                          key="1:1-1:4831"
+                        />
+                      </HtmlRenderer>
+                      \\n       
+                      <HtmlRenderer
+                        escapeHtml={false}
+                        isBlock={false}
+                        key="1:1-1:4834"
+                        literal="<div class='preview-card-body'>"
+                        nodeKey="1:1-1:4834"
+                        skipHtml={false}
+                      >
+                        <span
+                          dangerouslySetInnerHTML={
+                            Object {
+                              "__html": "<div class='preview-card-body'>",
+                            }
+                          }
+                          key="1:1-1:4834"
+                        />
+                      </HtmlRenderer>
+                      \\n       
+                      <HtmlRenderer
+                        escapeHtml={false}
+                        isBlock={false}
+                        key="1:1-1:4837"
+                        literal="<h3>"
+                        nodeKey="1:1-1:4837"
+                        skipHtml={false}
+                      >
+                        <span
+                          dangerouslySetInnerHTML={
+                            Object {
+                              "__html": "<h3>",
+                            }
+                          }
+                          key="1:1-1:4837"
+                        />
+                      </HtmlRenderer>
+                      📋 PDF | Introducing Quill Reading for  Evidence: One-Pager 
+                      <HtmlRenderer
+                        escapeHtml={false}
+                        isBlock={false}
+                        key="1:1-1:4839"
+                        literal="</h3>"
+                        nodeKey="1:1-1:4839"
+                        skipHtml={false}
+                      >
+                        <span
+                          dangerouslySetInnerHTML={
+                            Object {
+                              "__html": "</h3>",
+                            }
+                          }
+                          key="1:1-1:4839"
+                        />
+                      </HtmlRenderer>
+                      \\n       
+                      <HtmlRenderer
+                        escapeHtml={false}
+                        isBlock={false}
+                        key="1:1-1:48312"
+                        literal="<p>"
+                        nodeKey="1:1-1:48312"
+                        skipHtml={false}
+                      >
+                        <span
+                          dangerouslySetInnerHTML={
+                            Object {
+                              "__html": "<p>",
+                            }
+                          }
+                          key="1:1-1:48312"
+                        />
+                      </HtmlRenderer>
+                      This one-pager will introduce you to our newest tool, Quill Reading for  Evidence. Includes a link to a demo video!
+                      <HtmlRenderer
+                        escapeHtml={false}
+                        isBlock={false}
+                        key="1:1-1:48315"
+                        literal="</p>"
+                        nodeKey="1:1-1:48315"
+                        skipHtml={false}
+                      >
+                        <span
+                          dangerouslySetInnerHTML={
+                            Object {
+                              "__html": "</p>",
+                            }
+                          }
+                          key="1:1-1:48315"
+                        />
+                      </HtmlRenderer>
+                      \\n       
+                      <HtmlRenderer
+                        escapeHtml={false}
+                        isBlock={false}
+                        key="1:1-1:48318"
+                        literal="<span/>"
+                        nodeKey="1:1-1:48318"
+                        skipHtml={false}
+                      >
+                        <span
+                          dangerouslySetInnerHTML={
+                            Object {
+                              "__html": "<span/>",
+                            }
+                          }
+                          key="1:1-1:48318"
+                        />
+                      </HtmlRenderer>
+                      \\n    
+                      <HtmlRenderer
+                        escapeHtml={false}
+                        isBlock={false}
+                        key="1:1-1:48321"
+                        literal="</div>"
+                        nodeKey="1:1-1:48321"
+                        skipHtml={false}
+                      >
+                        <span
+                          dangerouslySetInnerHTML={
+                            Object {
+                              "__html": "</div>",
+                            }
+                          }
+                          key="1:1-1:48321"
+                        />
+                      </HtmlRenderer>
+                      \\n    
+                      <HtmlRenderer
+                        escapeHtml={false}
+                        isBlock={false}
+                        key="1:1-1:48324"
+                        literal="<div class='preview-card-footer'>"
+                        nodeKey="1:1-1:48324"
+                        skipHtml={false}
+                      >
+                        <span
+                          dangerouslySetInnerHTML={
+                            Object {
+                              "__html": "<div class='preview-card-footer'>",
+                            }
+                          }
+                          key="1:1-1:48324"
+                        />
+                      </HtmlRenderer>
+                      \\n      
+                      <HtmlRenderer
+                        escapeHtml={false}
+                        isBlock={false}
+                        key="1:1-1:48327"
+                        literal="<p class='author'>"
+                        nodeKey="1:1-1:48327"
+                        skipHtml={false}
+                      >
+                        <span
+                          dangerouslySetInnerHTML={
+                            Object {
+                              "__html": "<p class='author'>",
+                            }
+                          }
+                          key="1:1-1:48327"
+                        />
+                      </HtmlRenderer>
+                      by Sherry L.
+                      <HtmlRenderer
+                        escapeHtml={false}
+                        isBlock={false}
+                        key="1:1-1:48329"
+                        literal="</p>"
+                        nodeKey="1:1-1:48329"
+                        skipHtml={false}
+                      >
+                        <span
+                          dangerouslySetInnerHTML={
+                            Object {
+                              "__html": "</p>",
+                            }
+                          }
+                          key="1:1-1:48329"
+                        />
+                      </HtmlRenderer>
+                      \\n    
+                      <HtmlRenderer
+                        escapeHtml={false}
+                        isBlock={false}
+                        key="1:1-1:48332"
+                        literal="</div>"
+                        nodeKey="1:1-1:48332"
+                        skipHtml={false}
+                      >
+                        <span
+                          dangerouslySetInnerHTML={
+                            Object {
+                              "__html": "</div>",
+                            }
+                          }
+                          key="1:1-1:48332"
+                        />
+                      </HtmlRenderer>
+                    </p>
+                  </div>
+                </ReactMarkdown>
+                <a
+                  className="quill-button fun contained primary focus-on-light"
+                  href="/teacher-center/-pdf--introducing-quill-evidence-onepager-"
+                  target="_self"
+                >
+                  Read
+                </a>
+              </a>
+            </PreviewCard>
+          </div>
+        </section>
+      </TopicSection>
+      <TopicSection
         articleCount={3}
         articles={
           Array [

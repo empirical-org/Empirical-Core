@@ -84,7 +84,7 @@ describe BlogPostsController, type: :controller do
   end
 
   describe '#show_topic' do
-    let(:public_teacher_topics) { BlogPost::TEACHER_TOPICS - [BlogPost::USING_QUILL_FOR_READING_COMPREHENSION] }
+    let(:public_teacher_topics) { BlogPost::TEACHER_TOPICS }
     let(:topic) { public_teacher_topics.sample }
     let(:blog_posts) { create_list(:blog_post, 3, topic: topic) }
     let(:draft_post) { create(:blog_post, :draft, topic: topic) }

@@ -75,26 +75,19 @@ export default class IndividualStandardsReport extends React.Component {
       }, {
         Header: 'Time spent',
         accessor: 'timespent',
-        className: blurIfNotPremium,
         resizable: false,
-        Cell: ({row}) => (
-          getTimeSpent(row.original['timespent'])
-        )
+        Cell: ({ row }) => <span className={blurIfNotPremium}>{getTimeSpent(row.original['timespent'])}</span>
       }, {
         Header: 'Avg. score',
         accessor: 'average_score',
-        className: blurIfNotPremium,
         resizable: false,
-        Cell: ({row}) => (
-          `${row.original['average_score']}`
-        )
+        Cell: ({ row }) => <span className={blurIfNotPremium}>{`${row.original['average_score']}`}</span>
       }, {
         Header: 'Proficiency Status',
         accessor: 'mastery_status',
-        className: blurIfNotPremium,
         resizable: false,
         Cell: ({row}) => (
-          <span><span className={row.original['mastery_status'] === 'Proficient' ? 'proficient-indicator' : 'not-proficient-indicator'} />{row.original['mastery_status']}</span>
+          <span className={blurIfNotPremium}><span className={row.original['mastery_status'] === 'Proficient' ? 'proficient-indicator' : 'not-proficient-indicator'} />{row.original['mastery_status']}</span>
         )
       }
     ])
