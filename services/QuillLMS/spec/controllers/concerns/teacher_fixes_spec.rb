@@ -451,4 +451,8 @@ describe TeacherFixes do
     end
   end
 
+  describe '#recalculate_user_pack_sequence_items' do
+
+  end
+
 end

@@ -253,6 +253,14 @@ class TeacherFixController < ApplicationController
     end
   end
 
+  def recalculate_staggered_release_locks
+    return render json: { error: 'Teacher not found' }, status: 404 if teacher.nil?
+
+    teacher.classrooms_i_teach.each(&:save_user_pack_sequence_items)
+
+    render json: {}, status: 200
+  end
+
   private def set_user
     @user = User.find_by_username_or_email(params['teacher_identifier'])
   end
