@@ -140,7 +140,7 @@ class BlogPost < ApplicationRecord
   end
 
   def self.related_posts(blog_post)
-    BlogPost.where(topic: blog_post.topic).where.not(id: blog_post.id).order('updated_at DESC').limit(MOST_RECENT_LIMIT)
+    BlogPost.where(topic: blog_post.topic).where.not(id: blog_post.id).order(created_at: :desc).limit(MOST_RECENT_LIMIT)
   end
 
   private def generate_slug

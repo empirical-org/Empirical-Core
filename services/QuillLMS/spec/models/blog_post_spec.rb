@@ -130,4 +130,18 @@ describe BlogPost, type: :model do
       expect(blog_post.average_rating).to be(nil)
     end
   end
+
+  describe '#self.related_posts' do
+    let(:blog_post1) { create(:blog_post, topic: "What's new") }
+    let(:blog_post2) { create(:blog_post, topic: "What's new", created_at: 1.day.ago) }
+    let(:blog_post3) { create(:blog_post, topic: "Getting started") }
+    let(:blog_post4) { create(:blog_post, topic: "What's new", created_at: 1.year.ago) }
+    let(:blog_post5) { create(:blog_post, topic: "What's new", created_at: 1.week.ago) }
+
+    subject { described_class.related_posts(blog_post1) }
+
+    it 'should fetch posts of the same topic sorted by most recent' do
+      expect(subject.all).to eq([blog_post2, blog_post5, blog_post4])
+    end
+  end
 end
