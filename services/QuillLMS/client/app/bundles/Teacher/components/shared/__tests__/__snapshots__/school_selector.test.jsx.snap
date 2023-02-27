@@ -37,7 +37,6 @@ exports[`SchoolSelector component should render when the dismiss reminder checkb
           maxLength={10000}
           onChange={[Function]}
           onFocus={[Function]}
-          placeholder={false}
           type="text"
           value=""
         />
@@ -118,7 +117,6 @@ exports[`SchoolSelector component should render when the dismiss reminder checkb
           maxLength={10000}
           onChange={[Function]}
           onFocus={[Function]}
-          placeholder={false}
           type="text"
           value=""
         />

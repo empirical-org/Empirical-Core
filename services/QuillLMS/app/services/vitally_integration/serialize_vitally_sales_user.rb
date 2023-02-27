@@ -94,7 +94,13 @@ class SerializeVitallySalesUser
         completed_evidence_activities_per_student_last_year: get_from_cache("completed_evidence_activities_per_student"),
         date_of_last_completed_evidence_activity: date_of_last_completed_evidence_activity,
         premium_state: @user.premium_state,
-        premium_type: @user.subscription&.account_type
+        premium_type: @user.subscription&.account_type,
+        role: @user.role,
+        admin_sub_role: @user.admin_sub_role,
+        email_verification_status: @user.email_verification_status,
+        admin_approval_status: @user.admin_approval_status,
+        number_of_schools_administered: number_of_schools_administered,
+        number_of_districts_administered: number_of_districts_administered
       }.merge(account_data_params)
     }
   end
@@ -203,6 +209,14 @@ class SerializeVitallySalesUser
 
   private def district
     @user.school.district&.name if @user.school.present?
+  end
+
+  private def number_of_schools_administered
+    @user.schools_admins.count || nil
+  end
+
+  private def number_of_districts_administered
+    @user.district_admins.count || nil
   end
 
 end

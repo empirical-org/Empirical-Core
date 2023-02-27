@@ -16,7 +16,7 @@ module GoogleIntegration
     end
 
     private def classrooms_data
-      deserialized_classrooms_data.map { |data| TeacherClassroomDataAdapter.run(user, data) }
+      deserialized_classrooms_data.map { |data| data.merge(teacher_id: user.id, google_classroom_id: data.fetch(:id)) }
     end
 
     private def deserialized_classrooms_data

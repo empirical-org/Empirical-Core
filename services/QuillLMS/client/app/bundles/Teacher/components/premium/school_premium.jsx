@@ -8,19 +8,19 @@ const teacherReportsSrc = `${baseImageLink}/illustrations-teacher-reports.svg`
 const schoolDashboardSrc = `${baseImageLink}/illustrations-school-dashboard.svg`
 const schoolSupportSrc = `${baseImageLink}/illustrations-school-support.svg`
 
-const studentCompletingDiagnosticSrc = `${baseImageLink}/student-completing-diagnostic@2x.png`
-const backwardsPlanningSrc = `${baseImageLink}/backwards-planning-book@2x.png`
-const premiumReportLaptopSrc = `${baseImageLink}/premium-report-laptop@2x.png`
-const quillLessonsTeacherSrc = `${baseImageLink}/quill-lessons-teacher@2x.png`
-const studentsHelpingEachOtherSrc = `${baseImageLink}/students-helping-each-other@2x.png`
-const englishLanguageLearnSrc = `${baseImageLink}/english-language-learner-with-laptop@2x.png`
-const studentTeacherSignLanguageSrc = `${baseImageLink}/student-teacher-sign-language@2x.png`
-const studentTeacherWritingSrc = `${baseImageLink}/student-teacher-writing@2x.png`
-const studentHighlightedSrc = `${baseImageLink}/student-highlighted@2x.png`
+const studentCompletingDiagnosticSrc = `${baseImageLink}/student-completing-diagnostic.webp`
+const backwardsPlanningSrc = `${baseImageLink}/backwards-planning-book.webp`
+const premiumReportLaptopSrc = `${baseImageLink}/premium-report-laptop.webp`
+const quillLessonsTeacherSrc = `${baseImageLink}/quill-lessons-teacher.webp`
+const studentsHelpingEachOtherSrc = `${baseImageLink}/students-helping-each-other.webp`
+const englishLanguageLearnSrc = `${baseImageLink}/english-language-learner-with-laptop.webp`
+const studentTeacherSignLanguageSrc = `${baseImageLink}/student-teacher-sign-language.webp`
+const studentTeacherWritingSrc = `${baseImageLink}/student-teacher-writing.webp`
+const studentHighlightedSrc = `${baseImageLink}/student-highlighted.webp`
 
-const erikaSrc = `${baseImageLink}/coach-erika@2x.png`
-const shannonSrc = `${baseImageLink}/coach-shannon@2x.png`
-const sherrySrc = `${baseImageLink}/coach-sherry@2x.png`
+const erikaSrc = `${baseImageLink}/coach-erika.webp`
+const shannonSrc = `${baseImageLink}/coach-shannon.webp`
+const sherrySrc = `${baseImageLink}/coach-sherry.webp`
 
 const PremiumFeature = ({ imageSrc, imageAlt, header, text, popular, subheader, }) => (
   <div className="premium-feature">
@@ -46,7 +46,7 @@ const actionableFeaturesAndSupport = (
       />
       <PremiumFeature
         header="School administrator dashboard"
-        imageAlt="Example school dashboard showing multiple teacher dashboards with student results"
+        imageAlt="Example admin dashboard showing multiple teacher dashboards with student results"
         imageSrc={schoolDashboardSrc}
         text="Access each teacher’s Premium account to assign activities, manage rosters and view data. Access school-level reports to see rolled up data at the school level."
       />

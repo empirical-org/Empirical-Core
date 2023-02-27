@@ -49,8 +49,7 @@ export {
   ToggleComponentSection,
   Tooltip,
   TwoThumbSlider,
-  UploadOptimalResponses,
-  SubNavbar
+  UploadOptimalResponses
 } from './components/shared/index'
 
 export { richButtonsPlugin, } from './components/draftJSRichButtonsPlugin/index'
@@ -200,7 +199,10 @@ export {
   NOT_APPLICABLE,
   STUDENT,
   TEACHER,
-  INDIVIDUAL_CONTRIBUTOR
+  INDIVIDUAL_CONTRIBUTOR,
+  ADMIN,
+  NOT_LISTED,
+  NO_SCHOOL_SELECTED
 } from './utils/constants'
 
 export {

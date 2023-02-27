@@ -1,7 +1,7 @@
 <% current_path = request.env['PATH_INFO'] %>
 <% on_sign_up_or_log_in = ['account/new', '/session', 'password_reset', 'sign-up', 'finish_set_up'].any? { |str| current_path.include?(str)} %>
 
-<% if current_path.include?('teachers') %>
+<% if current_path.include?('teachers') || current_path.include?('assign') %>
 	<% user_dropdown_class = 'on-dashboard' %>
 	<% user_dropdown_img = 'https://assets.quill.org/images/navbar/navbar-dashboard-solid.svg' %>
 <% else %>

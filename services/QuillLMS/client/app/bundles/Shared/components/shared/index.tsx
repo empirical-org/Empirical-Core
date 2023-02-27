@@ -103,7 +103,3 @@ export {
 export {
   ToggleComponentSection
 } from './toggleComponentSection'
-
-export {
-  SubNavbar
-} from './subNavbar'

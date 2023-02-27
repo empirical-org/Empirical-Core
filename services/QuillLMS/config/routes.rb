@@ -22,7 +22,13 @@ EmpiricalGrammar::Application.routes.draw do
   get '/study', to: "students#index"
   get '/classes', to: "students#index"
 
-  resources :admins, only: [:show], format: 'json'
+  get '/school_for_current_user', to: 'schools_users#school_for_current_user'
+
+  resources :admins, only: [:show], format: 'json' do
+    member do
+      get :admin_info
+    end
+  end
 
   # for admins to sign in as teachers
   resources :users do
@@ -109,7 +115,8 @@ EmpiricalGrammar::Application.routes.draw do
   resources :password_reset
   resources :verify_emails, only: [] do
     post :verify_by_staff, on: :collection, format: :json
-    post :verify_by_token, on: :collection, format: :json
+    put :resend_verification_email, on: :collection, format: :json
+    put :verify_by_token, on: :collection, format: :json
   end
   resources :schools, only: [:index], format: 'json'
   resources :students_classrooms, only: :create do
@@ -149,6 +156,7 @@ EmpiricalGrammar::Application.routes.draw do
     post :retry, on: :member
     get :search, on: :collection
     get :index_with_unit_templates, on: :collection
+    get :suggested_activities, on: :collection
   end
 
   resources :milestones, only: [] do
@@ -172,6 +180,10 @@ EmpiricalGrammar::Application.routes.draw do
   end
 
   resources :teacher_infos, only: [:create] do
+    put :update, on: :collection
+  end
+
+  resources :admin_infos, only: [] do
     put :update, on: :collection
   end
 
@@ -544,6 +556,10 @@ EmpiricalGrammar::Application.routes.draw do
   get 'account/:token/finish_set_up', to: 'accounts#edit'
   put 'account/:token', to: 'accounts#update'
 
+  get '/sign-up/verify-school', to: 'accounts#new'
+  get '/sign-up/verify-email', to: 'accounts#new'
+  get '/sign-up/select-sub-role', to: 'accounts#new'
+  get '/sign-up/admin', to: 'accounts#new'
   get '/sign-up/teacher', to: 'accounts#new'
   get '/sign-up/student', to: 'accounts#new'
   get '/sign-up/individual-contributor', to: 'accounts#new'
@@ -747,6 +763,9 @@ EmpiricalGrammar::Application.routes.draw do
     get "tutorials/#{tool}" => "pages#tutorials"
     get "tutorials/#{tool}/:slide_number" => "pages#tutorials"
   end
+
+  get 'premium/request-school-quote' => 'pages#request_school_quote'
+  get 'premium/request-district-quote' => 'pages#request_district_quote'
 
   get 'teacher_fix' => 'teacher_fix#index'
   get 'teacher_fix/unarchive_units' => 'teacher_fix#index'

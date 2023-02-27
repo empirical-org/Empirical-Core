@@ -39,6 +39,8 @@ module Evidence
     let(:example_prompt) { "rephrase with some synonyms:\n\nExample to paraphrase." }
     let(:example_response) { ["Example to rephrase."] }
 
+    let(:label_tag) { "label_label1_example1_temp1" }
+
     let(:seed_labels) do
       [
         "full_passage_temp1_but",
@@ -50,7 +52,7 @@ module Evidence
         "full_passage_noun_noun1",
         "text_chunk_1_temp0.4_but",
         "text_chunk_2_temp0.4_but",
-        "label_label1_example1_temp1"
+        label_tag
       ]
     end
 
@@ -158,6 +160,31 @@ module Evidence
         expect(subject.results.count).to be(10)
         expect(subject.results.map(&:seed)).to eq(seed_labels)
         expect(subject.results.map(&:label)).to eq([nil, nil, nil, nil, nil, nil, nil, nil, nil, "label1"])
+      end
+
+      context "use_passage=false" do
+        subject do
+          described_class.new(
+            passage: passage,
+            stem: stem,
+            nouns: nouns,
+            conjunction: conjunction,
+            label_configs: [label_config],
+            use_passage: false
+          )
+        end
+        it "should generate ONLY label paraphrases" do
+          # label example
+          expect(Evidence::OpenAI::Completion).to receive(:run)
+            .with(prompt: example_prompt, count: 1, temperature: 1, options: {max_tokens: 40})
+            .and_return(example_response)
+
+          subject.run
+
+          expect(subject.results.count).to be(1)
+          expect(subject.results.map(&:seed)).to eq([label_tag])
+          expect(subject.results.map(&:label)).to eq(["label1"])
+        end
       end
     end
 
@@ -307,16 +334,30 @@ module Evidence
         allow(Evidence::OpenAI::Completion).to receive(:run).and_return(full_passage_response)
       end
 
-      it "should generate a hash" do
-        output = described_class.csvs_for_activity(activity_id: activity.id, nouns: ['hello'])
+      subject { described_class.csvs_for_activity(activity_id: activity.id, nouns: ['hello']) }
 
-        expect(output.class).to be Hash
-        expect(output.keys).to eq(['Some_Activity_Name_because.csv', 'Some_Activity_Name_passage_chunks.csv'])
+      it "should generate a hash" do
+        expect(subject.class).to be Hash
+        expect(subject.keys).to eq(['Some_Activity_Name_because.csv', 'Some_Activity_Name_passage_chunks.csv'])
 
         # values should be a multi-line valid CSV
-        csv = CSV.parse(output.values.first)
+        csv = CSV.parse(subject.values.first)
         expect(csv.size).to be 3
         expect(csv.first).to eq(["Text", "Seed", "Initial Label"])
+      end
+
+      context "label examples only" do
+        subject { described_class.csvs_for_activity(activity_id: activity.id, label_configs: label_config, use_passage: false) }
+
+        it "should generate a hash without prompt_chunks csv" do
+          expect(subject.class).to be Hash
+          expect(subject.keys).to eq(['Some_Activity_Name_because.csv'])
+
+          # values should be a multi-line valid CSV
+          csv = CSV.parse(subject.values.first)
+          expect(csv.size).to be 1
+          expect(csv.first).to eq(["Text", "Seed", "Initial Label"])
+        end
       end
     end
   end

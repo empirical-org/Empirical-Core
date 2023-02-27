@@ -3,14 +3,11 @@ import React from 'react';
 import LoadingIndicator from './loading_indicator.jsx';
 import SchoolOption from './school_option'
 
-import { Input, smallWhiteCheckIcon, } from '../../../Shared/index'
+import { Input, smallWhiteCheckIcon, NOT_LISTED, NO_SCHOOL_SELECTED, } from '../../../Shared/index'
 import useDebounce from '../../hooks/useDebounce'
 import { requestPost, requestGet, } from '../../../../modules/request'
 
 const mapSearchSrc = `${process.env.CDN_URL}/images/onboarding/map-search.svg`
-
-export const NOT_LISTED = 'not listed'
-export const NO_SCHOOL_SELECTED = 'no school selected'
 
 const DEBOUNCE_LENGTH = 500
 const MINIMUM_SEARCH_LENGTH = 2

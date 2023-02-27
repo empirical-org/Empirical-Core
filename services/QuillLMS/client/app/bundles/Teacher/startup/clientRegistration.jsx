@@ -34,16 +34,15 @@ import TeacherClassroomsApp from './TeacherClassroomsAppClient'
 import UnitTemplateCategoriesApp from './UnitTemplateCategoriesAppClient'
 import ExpandableUnitSection from './ExpandableUnitClient'
 import QuestionsAndAnswersSection from './QuestionsAndAnswersClient';
-import PreAp from './PreApAppClient';
-import Ap from './ApAppClient';
-import SpringBoard from './SpringBoardAppClient.tsx';
+import PreApApp from './PreApAppClient';
+import ApApp from './ApAppClient';
+import SpringBoardApp from './SpringBoardAppClient.tsx';
 import UploadRostersApp from '../../Staff/startup/UploadRostersAppClient';
 import StudentNavbarItems from '../../Student/startup/StudentNavbarItemsAppClient'
 import StudentFeedbackModal from '../../Student/startup/StudentFeedbackModalAppClient'
 import LockerApp from '../../Staff/startup/lockerAppClient'
 import SalesFormApp from './SalesFormAppClient'
 import DemoAccountBanner from './DemoAccountBannerAppClient'
-import SubNavbarApp from './subNavbarAppClient'
 
 import '../styles/styles.scss'
 
@@ -84,13 +83,12 @@ ReactOnRails.register({ TeacherGuideApp,
   StudentNavbarItems,
   ExpandableUnitSection,
   QuestionsAndAnswersSection,
-  PreAp,
-  Ap,
-  SpringBoard,
+  PreApApp,
+  ApApp,
+  SpringBoardApp,
   StudentFeedbackModal,
   UploadRostersApp,
   LockerApp,
   SalesFormApp,
-  DemoAccountBanner,
-  SubNavbarApp
+  DemoAccountBanner
 });

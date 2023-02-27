@@ -100,7 +100,8 @@ describe 'SerializeVitallySalesAccount' do
       premium_expiry_date: SerializeVitallySalesAccount::NOT_APPLICABLE,
       premium_start_date: SerializeVitallySalesAccount::NOT_APPLICABLE,
       annual_revenue_current_contract: SerializeVitallySalesAccount::NOT_APPLICABLE,
-      stripe_invoice_id_current_contract: SerializeVitallySalesAccount::NOT_APPLICABLE
+      stripe_invoice_id_current_contract: SerializeVitallySalesAccount::NOT_APPLICABLE,
+      purchase_order_number_current_contract: SerializeVitallySalesAccount::NOT_APPLICABLE
     )
   end
 
@@ -109,7 +110,8 @@ describe 'SerializeVitallySalesAccount' do
       account_type: 'SUPER SAVER PREMIUM',
       expiration: Date.tomorrow,
       payment_amount: '1800',
-      stripe_invoice_id: 'in_12345678'
+      stripe_invoice_id: 'in_12345678',
+      purchase_order_number: 'PO-1234'
     )
     create(:school_subscription,
       subscription_id: school_subscription.id,
@@ -123,7 +125,8 @@ describe 'SerializeVitallySalesAccount' do
       premium_expiry_date: school_subscription.expiration,
       premium_start_date: school_subscription.start_date,
       annual_revenue_current_contract: school_subscription.payment_amount,
-      stripe_invoice_id_current_contract: school_subscription.stripe_invoice_id
+      stripe_invoice_id_current_contract: school_subscription.stripe_invoice_id,
+      purchase_order_number_current_contract: school_subscription.purchase_order_number
     )
   end
 

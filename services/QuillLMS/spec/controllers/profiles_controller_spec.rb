@@ -3,7 +3,26 @@
 require 'rails_helper'
 
 describe ProfilesController, type: :controller do
-  describe 'as a student' do
+  context 'as an admin' do
+    let!(:admin) { create(:admin) }
+
+    before do
+      allow(controller).to receive(:current_user) { admin }
+    end
+
+    describe '#show' do
+      it 'should redirect to /sign-up/verify-email if the user has pending verification' do
+        token = 'valid_token'
+        create(:user_email_verification, user: admin, verification_token: token)
+
+        get :show
+        expect(response.status).to eq(302)
+        expect(response).to redirect_to('/sign-up/verify-email')
+      end
+    end
+  end
+
+  context 'as a student' do
     let!(:classroom) {create(:classroom)}
     let!(:student) { create(:student) }
     let!(:students_classrooms) do

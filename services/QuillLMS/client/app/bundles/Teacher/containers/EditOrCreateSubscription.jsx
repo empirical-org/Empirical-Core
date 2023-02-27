@@ -124,6 +124,20 @@ export default class EditOrCreateSubscription extends React.Component {
     this.setState({ subscription: newSub, });
   }
 
+  handleStripeInvoiceIdChange = (e) => {
+    const { subscription, } = this.state
+    const newSub = Object.assign({}, subscription);
+    newSub.stripe_invoice_id = e.target.value;
+    this.setState({ subscription: newSub, });
+  }
+
+  handlePurchaseOrderNumberChange = (e) => {
+    const { subscription, } = this.state
+    const newSub = Object.assign({}, subscription);
+    newSub.purchase_order_number = e.target.value;
+    this.setState({ subscription: newSub, });
+  }
+
   handleExpirationDateChange = (e) => {
     const { subscription, } = this.state
     const newSub = Object.assign({}, subscription);
@@ -171,13 +185,32 @@ export default class EditOrCreateSubscription extends React.Component {
       (body) => {
         alert('Subscription was saved');
         if (view === 'new') {
-          // switch to the edit view after submission
-          window.location = window.location.href.replace('new', 'edit')
+          // redirect back to the school or district details page
+          window.location = window.location.href.replace('new_subscription', '')
         }
       },
       (body) => {
         alert('There was an error. Please try again and contact a dev if you continue to get this warning.')
       }
+    )
+  }
+
+  isInvoice = () => {
+    const { subscription } = this.state
+
+    return (subscription.payment_method === "Invoice")
+  }
+
+  stripeInvoiceInput = () => {
+    const { subscription } = this.state
+
+    return (
+      <React.Fragment>
+        <label>Stripe Invoice ID (leave blank for non-Stripe invoices)</label>
+        <input onChange={this.handleStripeInvoiceIdChange} type="text" value={subscription.stripe_invoice_id} />
+        <label>Purchase Order Number (if provided by customer)</label>
+        <input onChange={this.handlePurchaseOrderNumberChange} type="text" value={subscription.purchase_order_number} />
+      </React.Fragment>
     )
   }
 
@@ -196,8 +229,9 @@ export default class EditOrCreateSubscription extends React.Component {
           items={subscriptionPaymentOptions}
           selectedItem={subscription.payment_method || 'N/A'}
         />
-        <label>Purchase Amount (dollar value as integer -- no decimal or symbol)</label>
-        <input onChange={this.handlePaymentAmountChange} type="text" value={subscription.payment_amount / 100} />
+        {this.isInvoice() && this.stripeInvoiceInput()}
+        <label>Purchase Amount (dollar value as integer -- no decimal or symbol: $80.00 should be entered as 80) -- if you leave this blank and provide a valid Stripe Invoice ID, this will be set automatically after you save </label>
+        <input onChange={this.handlePaymentAmountChange} type="text" value={subscription.payment_amount / 100 || ''} />
       </React.Fragment>
     )
   }
@@ -256,8 +290,7 @@ export default class EditOrCreateSubscription extends React.Component {
       <React.Fragment>
         <h2>Purchaser Information</h2>
         {this.purchaserFromSchool()}
-        <label>Purchaser Email</label>
-        <p>If the purchaser is not in the school and you see a school dropdown, select &#39;None&#39; and put in the purchasers email.</p>
+        <label>Purchaser Email -- if you leave this blank and provide a valid Stripe Invoice ID, this will be set automatically after you save</label>
         <input onChange={this.handlePurchaserEmailChange} type="text" value={subscription.purchaser_email} />
         <br />
         {this.changeToPurchaserInfo()}
