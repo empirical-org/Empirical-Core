@@ -54,20 +54,19 @@ export default class IndividualStudentConceptReport extends React.Component {
         Header: 'Correct',
         accessor: 'correct_result_count',
         resizable: false,
-        className: blurIfNotPremium,
+        Cell: ({ row }) => <span className={blurIfNotPremium}>{row.original.correct_result_count}</span>,
         maxWidth: 105
       }, {
         Header: 'Incorrect',
         accessor: 'incorrect_result_count',
         resizable: false,
-        className: blurIfNotPremium,
+        Cell: ({ row }) => <span className={blurIfNotPremium}>{row.original.incorrect_result_count}</span>,
         maxWidth: 115
       }, {
         Header: 'Percentage',
         accessor: 'percentage',
         resizable: false,
-        className: blurIfNotPremium,
-        Cell: ({row}) => row.original.percentage + '%',
+        Cell: ({ row }) => <span className={blurIfNotPremium}>{row.original.percentage + '%'}</span>,
         maxWidth: 120
       },
     ])
