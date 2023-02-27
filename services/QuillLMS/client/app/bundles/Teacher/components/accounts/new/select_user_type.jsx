@@ -1,7 +1,7 @@
 import * as React from 'react'
-import { Card, networkIcon, STUDENT, TEACHER, INDIVIDUAL_CONTRIBUTOR, ADMIN } from '../../../../Shared/index'
 
 import AssignActivityPackBanner from '../assignActivityPackBanner'
+import { Card, networkIcon, STUDENT, TEACHER, INDIVIDUAL_CONTRIBUTOR, ADMIN } from '../../../../Shared/index'
 import { requestPost, } from '../../../../../modules/request/index'
 
 const studentPencilImg = `${process.env.CDN_URL}/images/onboarding/student-pencil-colored.svg`
@@ -73,13 +73,13 @@ export class SelectUserType extends React.Component {
               onClick={this.handleClickTeacher}
               text="Select this option to create classes, assign activities, and view reports."
             />
-            {window.location.href.includes('show-admin') && <Card
+            <Card
               header="K-12 Administrator"
               imgAlt="School building"
               imgSrc={schoolBuildingImg}
               onClick={this.handleClickAdmin}
               text="Select this option to manage teacher accounts, access teacher reports, and view school-wide student data. As an admin, you can still create classes and assignments."
-            />}
+            />
             <Card
               header="Parent, Tutor or Caregiver"
               imgAlt="home"
