@@ -1,12 +1,41 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
-import { mount, shallow } from 'enzyme';
+import { shallow, mount, } from 'enzyme';
 import { createMockStore } from 'redux-test-utils';
 
 import AdminDashboardRouter from '../AdminDashboardRouter.jsx';
 import DistrictStandardsReports from '../DistrictStandardsReports.jsx';
 
+import { FULL, RESTRICTED, LIMITED, } from '../../shared'
+
+const emptyState = {
+  district_standards_reports: {
+    loading: false,
+    errors: false,
+    selectedClassroom: 'All Classrooms',
+    selectedSchool: 'All Schools',
+    selectedTeacher: 'All Teachers',
+    standardsReportsData: [],
+  },
+}
+
 describe('DistrictStandardsReports', () => {
+  describe('when the access type is restricted', () => {
+    it('renders', () => {
+      const store = createMockStore(emptyState);
+      const wrapper = mount(<DistrictStandardsReports accessType={RESTRICTED} store={store} />);
+      expect(wrapper).toMatchSnapshot()
+    })
+  })
+
+  describe('when the access type is limited', () => {
+    it('renders', () => {
+      const store = createMockStore(emptyState);
+      const wrapper = mount(<DistrictStandardsReports accessType={LIMITED} store={store} />);
+      expect(wrapper).toMatchSnapshot()
+    })
+  })
+
   it('renders report for all students', () => {
     const classroom = {
       standard_level_name: '1st Grade CCSS',
@@ -26,7 +55,7 @@ describe('DistrictStandardsReports', () => {
       },
     };
     const store = createMockStore(state);
-    const wrapper = shallow(<DistrictStandardsReports store={store} />);
+    const wrapper = shallow(<DistrictStandardsReports accessType={FULL} store={store} />);
 
     expect(wrapper.find('DistrictStandardsReports').prop('filteredStandardsReportsData')).toEqual([classroom]);
   });
@@ -50,7 +79,7 @@ describe('DistrictStandardsReports', () => {
       },
     };
     const store = createMockStore(state);
-    const wrapper = shallow(<DistrictStandardsReports store={store} />);
+    const wrapper = shallow(<DistrictStandardsReports accessType={FULL} store={store} />);
 
     expect(wrapper.find('DistrictStandardsReports').prop('csvData')).toEqual([
       [
@@ -75,7 +104,7 @@ describe('DistrictStandardsReports', () => {
   /*
   it('invalid path should redirect to 404', () => {
     console.log(MemoryRouter);
-    const wrapper = mount(
+    const wrapper = shallow(
       <MemoryRouter initialEntries={[ '/random' ]}>
         <AdminDashboardRouter/>
       </MemoryRouter>

@@ -29,7 +29,7 @@ class AdminsController < ApplicationController
     }
 
   def show
-    serialized_admin_users_json = $redis.get("SERIALIZED_ADMIN_USERS_FOR_#{current_user.id}")
+    serialized_admin_users_json = $redis.get("#{SchoolsAdmins::ADMIN_USERS_CACHE_KEY_STEM}#{current_user.id}")
     if serialized_admin_users_json
       serialized_admin_users = JSON.parse(serialized_admin_users_json)
     end
@@ -39,6 +39,20 @@ class AdminsController < ApplicationController
     else
       render json: serialized_admin_users
     end
+  end
+
+  def admin_info
+    render json: {
+      id: current_user.id,
+      name: current_user.name,
+      email: current_user.email,
+      role: current_user.role,
+      associated_school: current_user.school,
+      admin_approval_status: current_user.admin_approval_status,
+      admin_sub_role: current_user.admin_sub_role,
+      administers_school_with_premium: current_user.administered_schools.any? { |school| school.subscription },
+      associated_school_has_premium: current_user.school.present? && current_user.school.subscription.present?
+    }
   end
 
   def sign_in_classroom_manager
@@ -181,7 +195,7 @@ class AdminsController < ApplicationController
   end
 
   private def reset_admin_users_cache
-    $redis.del("SERIALIZED_ADMIN_USERS_FOR_#{current_user.id}")
+    $redis.del("#{SchoolsAdmins::ADMIN_USERS_CACHE_KEY_STEM}#{current_user.id}")
     FindAdminUsersWorker.perform_async(current_user.id)
   end
 

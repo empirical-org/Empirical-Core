@@ -44,7 +44,7 @@ class Cms::AdminVerificationController < Cms::CmsController
   end
 
   private def format_admin_info_record(admin_info_record)
-    geocoder_result = Geocoder.search(admin_info_record.user.ip_address.to_string).first
+    geocoder_result = Geocoder.search(admin_info_record.user.ip_address&.to_string).first
 
     {
       admin_info_id: admin_info_record.id,
@@ -54,7 +54,7 @@ class Cms::AdminVerificationController < Cms::CmsController
       email: admin_info_record.user.email,
       verification_url: admin_info_record.verification_url,
       verification_reason: admin_info_record.verification_reason,
-      location: [geocoder_result.city, geocoder_result.state, geocoder_result.country].filter { |str| str && str.present? }.join(', '),
+      location: geocoder_result ? [geocoder_result.city, geocoder_result.state, geocoder_result.country].filter { |str| str && str.present? }.join(', ') : '',
       approval_status: admin_info_record.approval_status
     }
   end

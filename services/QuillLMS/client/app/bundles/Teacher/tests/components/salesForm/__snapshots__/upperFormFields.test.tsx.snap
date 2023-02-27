@@ -48,7 +48,6 @@ exports[`UpperFormFields Component should match snapshot 1`] = `
         maxLength={10000}
         onChange={[MockFunction]}
         onFocus={[Function]}
-        placeholder={false}
         value="Bianca"
       />
     </div>
@@ -80,7 +79,6 @@ exports[`UpperFormFields Component should match snapshot 1`] = `
         maxLength={10000}
         onChange={[MockFunction]}
         onFocus={[Function]}
-        placeholder={false}
         value="Del Rio"
       />
     </div>
@@ -113,7 +111,6 @@ exports[`UpperFormFields Component should match snapshot 1`] = `
         maxLength={10000}
         onChange={[MockFunction]}
         onFocus={[Function]}
-        placeholder={false}
         type="email"
         value="test@gmail.com"
       />
@@ -148,7 +145,6 @@ exports[`UpperFormFields Component should match snapshot 1`] = `
         maxLength={10}
         onChange={[MockFunction]}
         onFocus={[Function]}
-        placeholder={false}
         type="tel"
         value="8675309"
       />
@@ -191,7 +187,6 @@ exports[`UpperFormFields Component should match snapshot 1`] = `
         maxLength={5}
         onChange={[MockFunction]}
         onFocus={[Function]}
-        placeholder={false}
         value="10009"
       />
       <div

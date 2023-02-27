@@ -92,7 +92,6 @@ exports[`FinishSetUp component should render 1`] = `
                       maxLength={10000}
                       onChange={[Function]}
                       onFocus={[Function]}
-                      placeholder={false}
                       type="text"
                     />
                   </div>
@@ -124,7 +123,6 @@ exports[`FinishSetUp component should render 1`] = `
                       maxLength={10000}
                       onChange={[Function]}
                       onFocus={[Function]}
-                      placeholder={false}
                       type="text"
                     />
                   </div>
@@ -154,7 +152,6 @@ exports[`FinishSetUp component should render 1`] = `
                     id="email"
                     maxLength={10000}
                     onFocus={[Function]}
-                    placeholder={false}
                     type="email"
                     value="emilia@quill.org"
                   />
@@ -200,7 +197,6 @@ exports[`FinishSetUp component should render 1`] = `
                         maxLength={10000}
                         onChange={[Function]}
                         onFocus={[Function]}
-                        placeholder={false}
                         type="password"
                         value=""
                       />

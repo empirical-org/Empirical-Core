@@ -43,6 +43,18 @@ describe UserMailer, type: :mailer do
     end
   end
 
+  describe 'email_verification_email' do
+    let!(:user) { create(:user) }
+    let!(:user_email_verification) { create(:user_email_verification, user: user, verification_token: 'valid-token')}
+
+    it 'should set the subject, receiver and the sender' do
+      mail = described_class.email_verification_email(user)
+      expect(mail.subject).to eq("Complete your Quill registration")
+      expect(mail.to).to eq([user.email])
+      expect(mail.from).to eq(["hello@quill.org"])
+    end
+  end
+
   describe 'account_created_email' do
     let(:user) { build(:user) }
     let(:mail) { described_class.account_created_email(user, "test123", "admin") }
@@ -123,6 +135,21 @@ describe UserMailer, type: :mailer do
 
     it 'should interpolate team signature from constants object' do
       expect(mail.body.encoded).to include(described_class::CONSTANTS[:signatures][:quill_team])
+    end
+  end
+
+  describe 'user_requested_admin_verification_email' do
+    let(:user) { create(:admin) }
+    let!(:admin_info) { create(:admin_info, user: user)}
+    let(:school) { create(:school) }
+    let!(:schools_user) { create(:schools_users, user: user, school: school) }
+    let(:mail) { described_class.user_requested_admin_verification_email(user) }
+
+    it 'should set the subject, receiver and the sender' do
+      user.reload
+      expect(mail.subject).to eq("#{user.name} requested to be verified as an admin for #{school.name}")
+      expect(mail.to).to eq(['support@quill.org'])
+      expect(mail.from).to eq(["hello@quill.org"])
     end
   end
 

@@ -10,6 +10,7 @@ import PremiumConfirmationModal from '../../Teacher/components/subscriptions/Pre
 import { ACCOUNT_TYPE_TO_SUBSCRIPTION_TYPES, } from '../../Teacher/components/subscriptions/constants'
 import { requestGet, requestPut, } from '../../../modules/request'
 import { DropdownInput, Spinner, } from '../../Shared/index'
+import { FULL, restrictedPage, } from '../shared'
 
 const purchaserNameOrEmail = (subscriptionStatus) => {
   if (!subscriptionStatus) { return }
@@ -23,7 +24,7 @@ const subscriptionType = (subscriptionStatus) => {
   return ACCOUNT_TYPE_TO_SUBSCRIPTION_TYPES[subscriptionStatus.account_type]
 }
 
-const SchoolSubscriptionsContainer = ({ location, }) => {
+const SchoolSubscriptionsContainer = ({ location, accessType, }) => {
   const [currentUserEmail, setCurrentUserEmail] = React.useState('')
   const [schools, setSchools] = React.useState([])
   const [selectedSchoolId, setSelectedSchoolId] = React.useState(Number(qs.parse(location.search.replace('?', '')).school_id))
@@ -48,7 +49,7 @@ const SchoolSubscriptionsContainer = ({ location, }) => {
 
       if (!selectedSchoolId) {
         const userAssociatedSchool = body.schools.find(school => school.id === body.user_associated_school_id) // handles edge case where the user is not an admin for the school they're associated with
-        setSelectedSchoolId(userAssociatedSchool ? userAssociatedSchool.id : body.schools[0].id)
+        setSelectedSchoolId(userAssociatedSchool ? userAssociatedSchool.id : body.schools[0]?.id)
       }
 
       callback ? callback() : null
@@ -118,6 +119,10 @@ const SchoolSubscriptionsContainer = ({ location, }) => {
   }
 
   function hidePremiumConfirmationModal() { setShowPremiumConfirmationModal(false) }
+
+  if (accessType !== FULL) {
+    return restrictedPage
+  }
 
   if (!selectedSchool) {
     return <Spinner />

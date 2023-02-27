@@ -259,6 +259,24 @@ class User < ApplicationRecord
     user_email_verification.verify(verification_method, verification_token)
   end
 
+  def email_verification_status
+    return UserEmailVerification::PENDING if email_verification_pending?
+
+    return UserEmailVerification::VERIFIED if email_verified?
+
+    return nil
+  end
+
+  def email_verification_status=(status)
+    case status
+    when UserEmailVerification::VERIFIED
+      verify_email(UserEmailVerification::STAFF_VERIFICATION)
+    when UserEmailVerification::PENDING
+      require_email_verification
+      user_email_verification.update(verification_method: nil, verified_at: nil)
+    end
+  end
+
   def testing_flag
     role == STAFF ? ARCHIVED : flags.detect{|f| TESTING_FLAGS.include?(f)}
   end
