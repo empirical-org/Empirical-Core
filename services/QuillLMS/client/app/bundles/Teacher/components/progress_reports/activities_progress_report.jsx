@@ -128,7 +128,7 @@ export default createReactClass({
         Header: 'Activity',
         accessor: 'activity_name',
         resizeable: false,
-        className: 'show-overflow'
+        Cell: ({ row }) => <span className="show-overflow">{row.original.activity_name}</span>
       },
       {
         Header: 'Score',

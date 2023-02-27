@@ -55,16 +55,13 @@ export default class extends React.Component {
       }, {
         Header: 'Average',
         accessor: 'average_score',
-        className: blurIfNotPremium,
         resizable: false,
-        // Cell: ({row}) => {
-        //   console.log('row', row.original['average_score'])
-        // }
+        Cell: ({ row }) => <span className={blurIfNotPremium}>{row.original['average_score']}</span>
       }, {
         Header: 'Proficiency Status',
         accessor: 'mastery_status',
-        className: blurIfNotPremium,
-        resizable: false
+        resizable: false,
+        Cell: ({ row }) => <span className={blurIfNotPremium}>{row.original['mastery_status']}</span>
       }, {
         Header: "",
         accessor: 'green_arrow',
