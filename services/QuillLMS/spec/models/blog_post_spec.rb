@@ -141,7 +141,7 @@ describe BlogPost, type: :model do
     subject { described_class.related_posts(blog_post1) }
 
     it 'should fetch posts of the same topic sorted by most recent' do
-      expect(subject.all).to eq([blog_post2, blog_post5, blog_post4])
+      expect(subject).to eq([blog_post2, blog_post5, blog_post4])
     end
   end
 end
