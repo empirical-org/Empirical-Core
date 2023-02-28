@@ -77,8 +77,8 @@ class BlogPostsController < ApplicationController
   private def assign_blog_post_data_and_increment_count
     # TODO: remove SQL write from GET endpoint
     @blog_post.increment_read_count
-    @related_posts = BlogPost.related_posts(@blog_post)
 
+    @related_posts = BlogPost.related_posts(@blog_post)
     @title = @blog_post.title
     @description = @blog_post.subtitle || @title
     @image_link = @blog_post.image_link
