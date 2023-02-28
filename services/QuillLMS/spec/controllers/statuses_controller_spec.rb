@@ -52,6 +52,39 @@ describe StatusesController, type: :controller do
     end
   end
 
+  describe "#sidekiq_queue_latency" do
+    let(:queue_latency_pairs) do
+      {
+        critical: 1.14,
+        critical_external: 0.34,
+        default: 1.44,
+        low: 0,
+        migration: 0
+
+      }
+    end
+
+    before do
+      queue_doubles = queue_latency_pairs.map do |name, latency|
+        d = double
+        allow(d).to receive(:name).and_return(name)
+        allow(d).to receive(:latency).and_return(latency)
+        d
+      end
+
+      allow(Sidekiq::Queue).to receive(:all).and_return(queue_doubles)
+    end
+
+    it 'should build a hash of queue.name => queue.latency for each queue' do
+      expect {
+        get :sidekiq_queue_latency
+      }.to_not raise_error
+
+      expect(response.status).to eq(200)
+      expect(JSON.parse(response.body)).to eq(queue_latency_pairs.stringify_keys)
+    end
+  end
+
   describe "#sidekiq_queue_length" do
     let(:queues_hash) do
       {
