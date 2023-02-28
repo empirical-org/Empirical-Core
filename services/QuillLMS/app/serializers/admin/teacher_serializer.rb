@@ -18,7 +18,8 @@ class Admin::TeacherSerializer < ApplicationSerializer
   def schools
     [object&.school].concat(object&.reload&.administered_schools).compact.uniq.map do |school|
       school_hash = { name: school.name, id: school.id }
-      school_hash[:role] = object.admin? ? ADMIN : TEACHER
+      # checking for the existence of an actual school admin record here since a user with the admin role doesn't necessarily administer a school they belong to
+      school_hash[:role] = SchoolsAdmins.exists?(school: school, user: object) ? ADMIN : TEACHER
       school_hash
     end
   end

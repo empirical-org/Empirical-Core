@@ -82,6 +82,36 @@ exports[`SelectUserType component should render 1`] = `
           </div>
         </Card>
         <Card
+          header="K-12 Administrator"
+          imgAlt="School building"
+          imgSrc="undefined/images/onboarding/school-building-colored.svg"
+          onClick={[Function]}
+          text="Select this option to manage teacher accounts, access teacher reports, and view school-wide student data. As an admin, you can still create classes and assignments."
+        >
+          <div
+            className="quill-card"
+            onClick={[Function]}
+            onKeyDown={[Function]}
+            role="button"
+            tabIndex={0}
+          >
+            <img
+              alt="School building"
+              src="undefined/images/onboarding/school-building-colored.svg"
+            />
+            <div
+              className="text"
+            >
+              <h3>
+                K-12 Administrator
+              </h3>
+              <p>
+                Select this option to manage teacher accounts, access teacher reports, and view school-wide student data. As an admin, you can still create classes and assignments.
+              </p>
+            </div>
+          </div>
+        </Card>
+        <Card
           header="Parent, Tutor or Caregiver"
           imgAlt="home"
           imgSrc="undefined/images/onboarding/home-building-colored.svg"
