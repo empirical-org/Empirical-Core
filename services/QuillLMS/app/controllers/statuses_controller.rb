@@ -36,7 +36,7 @@ class StatusesController < ApplicationController
 
   def sidekiq_queue_latency
     queues = Sidekiq::Queue.all
-    latency_hash = queues.map { |q| [q.name, q.latency] }.to_h
+    latency_hash = queues.to_h { |q| [q.name, q.latency] }
 
     render json: latency_hash
   end
