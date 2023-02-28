@@ -19,23 +19,32 @@ class Cms::AdminVerificationController < Cms::CmsController
 
   def set_approved
     @admin_info.update(approval_status: AdminInfo::APPROVED)
-    school = @admin_info.user.school
-    SchoolsAdmins.create(user: @admin_info.user, school: school)
+    user = @admin_info.user
+    school = user.school
+    SchoolsAdmins.create(user: user, school: school)
     ApprovedAdminVerificationEmailWorker.perform_async(@admin_info.user_id, school.id)
+    IdentifyWorker.perform_async(@admin_info.user_id)
+
     render json: {}
   end
 
   def set_denied
     @admin_info.update(approval_status: AdminInfo::DENIED)
-    school = @admin_info.user.school
+    user = @admin_info.user
+    school = user.school
     DeniedAdminVerificationEmailWorker.perform_async(@admin_info.user_id, school.id)
+    IdentifyWorker.perform_async(@admin_info.user_id)
+
     render json: {}
   end
 
   def set_pending
     @admin_info.update(approval_status: AdminInfo::PENDING)
-    school = @admin_info.user.school
-    SchoolsAdmins.destroy_by(user: @admin_info.user, school: school)
+    user = @admin_info.user
+    school = user.school
+    SchoolsAdmins.destroy_by(user: user, school: school)
+    IdentifyWorker.perform_async(@admin_info.user_id)
+
     render json: {}
   end
 
