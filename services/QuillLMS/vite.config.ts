@@ -1,4 +1,4 @@
-import { defineConfig, loadEnv } from 'vite'
+import { createLogger, defineConfig, loadEnv } from 'vite'
 import RubyPlugin from 'vite-plugin-ruby'
 import react from '@vitejs/plugin-react'
 import friendlyTypeImports from 'rollup-plugin-friendly-type-imports';
@@ -9,15 +9,24 @@ import fs from 'fs/promises';
 // Environmental Variables can be obtained from import.meta.env as usual.
 // - https://vitejs.dev/config/
 
+const logger = createLogger();
+const originalWarning = logger.warn;
+logger.warn = (msg, options) => {
+  return;
+  if (msg.includes('vite:css') && msg.includes(' is empty')) return;
+  originalWarning(msg, options);
+};
+
 export default defineConfig(({command, mode}) => {
   // Load env file based on `mode` in the current working directory.
   // Set the third parameter to '' to load all env regardless of the `VITE_` prefix.
   const env = loadEnv(mode, process.cwd(), '')
-  console.log("vite config: env: ", env)
+  //console.log("vite config: env: ", env)
   // console.log("local import meta: ", import.meta.env) not available here
   //process.env = Object.assign(process.env, loadEnv(mode, process.cwd(), ''));
 
   return {
+    customLogger: logger, // ready to activate later, if we want.
     resolve: {
       alias: {
         src: resolve(__dirname, 'client', 'app'),
