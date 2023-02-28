@@ -571,4 +571,43 @@ describe TeacherFixController do
       end
     end
   end
+
+  describe '#recalculate_staggered_release_locks' do
+    subject { post :recalculate_staggered_release_locks, params: { teacher_identifier: teacher_identifier } }
+
+    context 'with a valid teacher identifier' do
+      let(:teacher) { create(:teacher) }
+      let(:teacher_identifier) { teacher.email }
+
+      context 'that has a classroom with students' do
+        let!(:classroom) { create(:classroom) }
+        let!(:classroom_teacher) { create(:classrooms_teacher, classroom: classroom, user: teacher) }
+        let!(:student) { create(:students_classrooms, classroom: classroom).student }
+
+        it 'calls the background job' do
+          expect(SaveUserPackSequenceItemsWorker).to receive(:perform_async).with(classroom.id, student.id)
+          subject
+          expect(response.code).to eq '200'
+        end
+      end
+
+      context 'that has no students' do
+        it 'calls no background jobs' do
+          expect(SaveUserPackSequenceItemsWorker).not_to receive(:perform_async)
+          subject
+          expect(response.code).to eq '200'
+        end
+      end
+    end
+
+    context 'with a teacher identifier that does not exist' do
+      let(:teacher_identifier) { 'not-an-identifier' }
+
+      it 'should return an error' do
+        expect(SaveUserPackSequenceItemsWorker).not_to receive(:perform_async)
+        subject
+        expect(response.code).to eq '404'
+      end
+    end
+  end
 end

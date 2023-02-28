@@ -14,6 +14,7 @@ import MergeTwoSchools from '../components/teacher_fix/merge_two_schools'
 import MergeTwoClassrooms from '../components/teacher_fix/merge_two_classrooms'
 import DeleteLastActivitySession from '../components/teacher_fix/delete_last_activity_session'
 import RemoveUnsyncedStudents from '../components/teacher_fix/remove_unsynced_students'
+import RecalculateStaggeredReleaseLocks from '../components/teacher_fix/recalculate_staggered_release_locks'
 
 const TeacherFixRouter = () => {
   return (
@@ -32,6 +33,7 @@ const TeacherFixRouter = () => {
         <Route component={MergeActivityPacks} path="/teacher_fix/merge_activity_packs" />
         <Route component={DeleteLastActivitySession} path="/teacher_fix/delete_last_activity_session" />
         <Route component={RemoveUnsyncedStudents} path="/teacher_fix/remove_unsynced_students" />
+        <Route component={RecalculateStaggeredReleaseLocks} path="/teacher_fix/recalculate_staggered_release_locks" />
         <Route component={TeacherFixIndex} exact path="/teacher_fix" />
       </Switch>
     </BrowserRouter>
