@@ -12,9 +12,9 @@ describe IdentifyWorker do
   describe '#perform' do
     let!(:user) { create(:user) }
 
-      it 'should call identify on the analytics instance' do
-        expect(analyzer).to receive(:identify).with(user)
-        subject.perform(user.id)
-      end
+    it 'should call identify on the analytics instance' do
+      expect(analyzer).to receive(:identify).with(user)
+      subject.perform(user.id)
     end
+  end
 end
