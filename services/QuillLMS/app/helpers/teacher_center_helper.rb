@@ -13,16 +13,16 @@ module TeacherCenterHelper
   ELA_STANDARDS = 'ELA Standards'
 
   def teacher_center_tabs(large: true)
-    premium_tab = {
-      id: PREMIUM,
-      name: PREMIUM,
-      url: '/premium'
-    }
     tabs = [
       {
         id: BlogPost::ALL_RESOURCES,
         name: ALL,
         url: '/teacher-center'
+      },
+      {
+        id: BlogPost::WHATS_NEW,
+        name: BlogPost::WHATS_NEW,
+        url: "/teacher-center/topic/whats-new"
       },
       {
         id: BlogPost::USING_QUILL_FOR_READING_COMPREHENSION,
@@ -48,9 +48,23 @@ module TeacherCenterHelper
         id: FAQ,
         name: FAQ,
         url: '/faq'
-      }
+      },
+      {
+        id: BlogPost::WEBINARS,
+        name: BlogPost::WEBINARS,
+        url: '/teacher-center/topic/webinars'
+      },
+      {
+        id: BlogPost::TEACHER_MATERIALS,
+        name: BlogPost::TEACHER_MATERIALS,
+        url: '/teacher-center/topic/teacher-materials'
+      },
+      {
+        id: BlogPost::TEACHER_STORIES,
+        name: BlogPost::TEACHER_STORIES,
+        url: '/teacher-center/topic/teacher-stories'
+      },
     ]
-    tabs << premium_tab if !current_user
     tabs
   end
 

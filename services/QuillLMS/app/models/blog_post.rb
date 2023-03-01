@@ -57,6 +57,8 @@ class BlogPost < ApplicationRecord
   HOW_TO = 'How to'
   ALL_RESOURCES = 'All resources'
 
+  WHATS_NEW_SLUG = 'whats-new'
+
   TOPICS = [
     WHATS_NEW,
     USING_QUILL_FOR_READING_COMPREHENSION,
