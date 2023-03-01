@@ -10,6 +10,7 @@ class AdminInfosController < ApplicationController
     if admin_info.approval_status == AdminInfo::SKIPPED && admin_info.verification_url && admin_info.verification_reason
       admin_info.update(approval_status: AdminInfo::PENDING)
       UserRequestedAdminVerificationEmailWorker.perform_async(current_user.id)
+      IdentifyWorker.perform_async(current_user.id)
     end
 
     render json: {}, status: 200
