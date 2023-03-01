@@ -39,7 +39,7 @@ describe BlogPostsController, type: :controller do
     let(:related_posts_array) { [blog_post2, blog_post5, blog_post4] }
 
     before do
-      allow(BlogPost).to receive(:related_posts).and_return(related_posts_array)
+      allow_any_instance_of(BlogPost).to receive(:related_posts).and_return(related_posts_array)
     end
 
     it 'should redirect to teacher center home if no such post found' do
