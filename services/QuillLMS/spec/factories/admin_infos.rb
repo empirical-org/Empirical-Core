@@ -6,6 +6,7 @@
 #
 #  id                  :bigint           not null, primary key
 #  approval_status     :string
+#  approver_role       :string
 #  sub_role            :string
 #  verification_reason :text
 #  verification_url    :string

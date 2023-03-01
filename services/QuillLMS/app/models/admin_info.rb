@@ -6,6 +6,7 @@
 #
 #  id                  :bigint           not null, primary key
 #  approval_status     :string
+#  approver_role       :string
 #  sub_role            :string
 #  verification_reason :text
 #  verification_url    :string
@@ -23,6 +24,7 @@
 #
 class AdminInfo < ApplicationRecord
   belongs_to :user
+  has_many :admin_approval_requests
 
   validates :user_id, presence: true, uniqueness: true
 
@@ -43,9 +45,16 @@ class AdminInfo < ApplicationRecord
     BILLING_CONTACT = "Billing contact"
   ]
 
+  APPROVER_ROLES = [
+    User::ADMIN,
+    User::STAFF
+  ]
+
   validates :approval_status, :inclusion=> { :in => APPROVAL_STATUSES }, :allow_nil => true
 
   validates :sub_role, :inclusion=> { :in => SUB_ROLES }, :allow_nil => true
+
+  validates :approver_role, :inclusion=> { :in => APPROVER_ROLES }, :allow_nil => true
 
   def admin
     user
