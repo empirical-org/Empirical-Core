@@ -34,6 +34,13 @@ class StatusesController < ApplicationController
     render plain: 'OK'
   end
 
+  def sidekiq_queue_latency
+    queues = Sidekiq::Queue.all
+    latency_hash = queues.to_h { |q| [q.name, q.latency] }
+
+    render json: latency_hash
+  end
+
   def sidekiq_queue_length
     queues_hash = Sidekiq::Stats.new.queues
     retry_hash = {
