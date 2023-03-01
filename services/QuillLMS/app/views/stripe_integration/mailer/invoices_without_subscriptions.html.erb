@@ -1,3 +1,4 @@
+<% if @invoice_payloads.length %>
 <p>These Stripe invoices have not yet been associated with a Quill Subscription</p>
 
 <% @invoice_payloads.each do |invoice| %>
@@ -12,3 +13,6 @@
 <% end %>
 
 <p>A standard Metabase query exists to find the inverse of this list: <a href="https://data.quill.org/question/999-active-subscriptions-without-stripe-invoices">Active Quill Subscriptions Without Associated Stripe Invoices</a></p>
+<% else %>
+<p>No Stripe Invoices were found without an associated Quill Subscription.  There's nothing for you to do today!</p>
+<% end %>
