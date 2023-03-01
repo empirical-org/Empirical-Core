@@ -2,7 +2,6 @@
 
 class IdentifyWorker
   include Sidekiq::Worker
-  sidekiq_options queue: SidekiqQueue::LOW
 
   def perform(id)
     user = User.find_by_id(id)
