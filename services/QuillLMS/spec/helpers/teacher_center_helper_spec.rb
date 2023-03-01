@@ -17,11 +17,11 @@ describe TeacherCenterHelper do
         { id: TeacherCenterHelper::FAQ, name: TeacherCenterHelper::FAQ, url: "/faq" },
         { id: BlogPost::WEBINARS, name: BlogPost::WEBINARS, url: "/teacher-center/topic/webinars" },
         { id: BlogPost::TEACHER_MATERIALS, name: BlogPost::TEACHER_MATERIALS, url: "/teacher-center/topic/teacher-materials" },
-        { id: BlogPost::TEACHER_STORIES, name: BlogPost::TEACHER_STORIES, url: "/teacher-center/topic/teacher-stories" },
+        { id: BlogPost::TEACHER_STORIES, name: BlogPost::TEACHER_STORIES, url: "/teacher-center/topic/teacher-stories" }
       ]
     }
 
-    it 'should return the expect tabs' do
+    it 'should return the expected tabs' do
       expect(helper.teacher_center_tabs).to eq tabs
     end
   end

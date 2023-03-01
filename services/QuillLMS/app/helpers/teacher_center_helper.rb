@@ -13,7 +13,7 @@ module TeacherCenterHelper
   ELA_STANDARDS = 'ELA Standards'
 
   def teacher_center_tabs(large: true)
-    tabs = [
+    [
       {
         id: BlogPost::ALL_RESOURCES,
         name: ALL,
@@ -63,9 +63,8 @@ module TeacherCenterHelper
         id: BlogPost::TEACHER_STORIES,
         name: BlogPost::TEACHER_STORIES,
         url: '/teacher-center/topic/teacher-stories'
-      },
+      }
     ]
-    tabs
   end
 
   def student_center_tabs(large: true)
