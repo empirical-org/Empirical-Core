@@ -9,12 +9,14 @@ module Evidence
 
       MODEL = 'gpt-3.5-turbo-0301'
 
+      CORRECT_TEXT = "That's a strong answer!"
+
       INSTRUCTION = "You are an 8th grade English teacher giving feedback to a student.
       You are to be helpful and encouraging. You role is to nudge the student toward a correct
       answer without giving them the answer. Avoid technical jargon.
       The student is reading the source text and must complete the prompt below
       by using at least one piece of evidence from the source text (and only the source text) to make a factually correct sentence.
-      If their sentence is factually correct and contains one piece of evidence from the source text, tell them \"That's a strong answer!\" otherwise give feedback to improve their sentence (without giving the answer away).
+      If their sentence is factually correct and contains one piece of evidence from the source text, tell them \"#{CORRECT_TEXT}\" otherwise give feedback to improve their sentence (without giving the answer away).
       You can use excerpts from the source text in your feedback.\n\n
       This is the source text:\n\n"
 
@@ -22,8 +24,9 @@ module Evidence
       BLANK = ' '
       ROLE_KEY = "role"
       CONTENT_KEY = "content"
-      SYSTEM_ROLE = "system"
-      USER_ROLE = "user"
+      ROLE_SYSTEM = "system"
+      ROLE_USER = "user"
+      ROLE_ASSISTANT = "assistant"
 
       attr_reader :system_content, :prompt, :entry, :history, :temperature
 
@@ -36,25 +39,35 @@ module Evidence
       end
 
       def cleaned_results
-        result_texts
+        result_text
       end
 
       private def messages
         [
           system_message,
-          current_message,
-        ]
+          history_messages,
+          current_message
+        ].flatten
       end
 
       private def system_message
-        {ROLE_KEY => SYSTEM_ROLE, CONTENT_KEY => @system_content}
+        {ROLE_KEY => ROLE_SYSTEM, CONTENT_KEY => @system_content}
       end
 
       private def current_message
-        {ROLE_KEY => USER_ROLE, CONTENT_KEY => [prompt, entry].join(BLANK)}
+        {ROLE_KEY => ROLE_USER, CONTENT_KEY => [prompt, entry].join(BLANK)}
       end
 
-      private def result_texts
+      private def history_messages
+        history.map do |h|
+          [
+            {ROLE_KEY => ROLE_USER, CONTENT_KEY => [prompt, h.entry].join(BLANK)},
+            {ROLE_KEY => ROLE_ASSISTANT, CONTENT_KEY => h.feedback_text},
+          ]
+        end.flatten
+      end
+
+      private def result_text
         response
           .parsed_response['choices']
           .map{|r| r['message']['content'] }
@@ -63,6 +76,12 @@ module Evidence
 
       def endpoint
         ENDPOINT
+      end
+
+      def optimal?
+        return false unless response.present?
+
+        result_text.starts_with?(CORRECT_TEXT)
       end
 
       # https://beta.openai.com/docs/api-reference/edits/create
