@@ -14,7 +14,7 @@ namespace :classrooms do
     concept_results = ConceptResult.where(activity_session: activity_sessions)
 
     puts "You are about to permanently destroy #{classrooms&.count || 0} classrooms, #{classrooms_teachers&.count || 0} classrooms_teachers, #{classroom_units&.count || 0} classroom_units, #{activity_sessions&.count || 0} activity_sessions, and #{concept_results&.count || 0} concept_results records. Continue? [y/N]"
-    input = STDIN.gets.chomp
+    input = $stdin.gets.chomp
     raise "Canceling task." unless input == "y"
 
     ActiveRecord::Base.transaction do
