@@ -24,7 +24,7 @@
 #
 class AdminInfo < ApplicationRecord
   belongs_to :user
-  has_many :admin_approval_requests
+  has_many :admin_approval_requests, dependent: :destroy
 
   validates :user_id, presence: true, uniqueness: true
 
