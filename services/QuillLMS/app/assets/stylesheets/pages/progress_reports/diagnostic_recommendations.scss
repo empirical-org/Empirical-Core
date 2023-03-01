@@ -54,6 +54,12 @@
   }
   .recommendations-buttons-container {
     display: flex;
+    vertical-align: bottom;
+    border-radius: 8px 0px 0px;
+    position: sticky;
+    left: 0px;
+    z-index: 1;
+    margin-bottom: 16px;
   }
   .recommendations-buttons {
     padding: 16px 24px;
@@ -87,24 +93,26 @@
       }
     }
     &.post-test-assignment-button {
-      margin-left: 32px;
-      width: 178px;
-      min-width: min-content;
-      display: flex;
-      justify-content: center;
-      align-items: center;
+      margin: 0 auto;
+      padding: 0px;
+      width: 158px;
+      margin-left: 30px;
+      margin-bottom: 16px;
+      margin-top: 16px;
+      button {
+        position: relative;
+      }
     }
   }
   .recommendations-table-container {
     margin-top: 16px;
-    overflow-x: scroll;
     position: relative;
     margin-bottom: -40px;
     padding-bottom: 40px;
     margin-left: -335px;
     padding-left: 364px;
     display: flex;
-    min-width: 100vw;
+    width: 100vw;
     .no-data-yet {
       position: absolute;
       top: 100px;
@@ -119,7 +127,6 @@
       border-collapse: separate;
       border-spacing: 0;
       table-layout: fixed;
-      min-width: 100%;
       padding-right: 32px;
       &.empty {
         border-right: 1px solid #e0e0e0;
@@ -191,12 +198,15 @@
     }
 
     .recommendations-table-wrapper {
-      width: 100%;
-      min-width: min-content;
+      width: 80%;
+      overflow-x: scroll;
+    }
+
+    .recommendations-table-container {
+      width: 100vw;
     }
 
     .post-test-table-wrapper {
-      width: 211px;
       .recommendation-header {
         border-radius: 8px 8px 0px 0px !important;
         border: 1px solid #e0e0e0;
@@ -206,6 +216,14 @@
         border-left: 1px solid #e0e0e0;
         > .interactive-wrapper.recommended {
           background-color: #FFF8EE;
+        }
+      }
+      table {
+        margin-left: 30px;
+        width: 160px;
+        padding: 0px;
+        th {
+          width: 160px;
         }
       }
       table > tbody > tr:last-of-type > td:last-of-type {
@@ -468,7 +486,6 @@
     }
     .recommendations-buttons {
       padding: 16px;
-      margin: 16px 16px 0px;
       flex-direction: column;
       max-width: calc(100vw - 32px);
       .selection-buttons {
@@ -523,10 +540,5 @@
           }
         }
       }
-    .recommendations-table-container {
-      width: 100%;
-      padding-left: 1px;
-      margin-left: 45px;
-    }
   }
 }

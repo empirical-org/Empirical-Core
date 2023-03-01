@@ -5,6 +5,7 @@ import {
   noDataYet,
   recommendedGlyph,
   correctImage,
+  releaseMethodToDisplayName,
   baseDiagnosticImageSrc,
   DEFAULT_LEFT_PADDING,
   MOBILE_WIDTH,
@@ -63,7 +64,9 @@ interface StickyTableStyle {
   left: number,
   right: number,
   zIndex: number,
-  minWidth: string
+  minWidth: string,
+  width: string,
+  overflowX: string
 }
 
 const ActivityPackHeader = ({ name, activityPackId, activityCount, handleSelectAllClick, style, }) => {
@@ -81,6 +84,118 @@ const ActivityPackHeader = ({ name, activityPackId, activityCount, handleSelectA
         />
       </div>
     </th>
+  )
+}
+
+const PostTestAssignmentButton = ({ assigningPostTest, assignedPostTest, assignPostTest, numberSelectedForPostTest, }) => {
+  let assignButton = <button className="quill-button primary contained small disabled focus-on-light" type="button">Assign test</button>
+
+  if (assigningPostTest) {
+    assignButton = <button className="quill-button primary contained small disabled focus-on-light" type="button">Assigning...</button>
+  } else if (assignedPostTest) {
+    assignButton = <button className="quill-button primary contained small disabled focus-on-light" type="button">Assigned</button>
+  } else if (numberSelectedForPostTest) {
+    assignButton = <button className="quill-button primary contained small focus-on-light" onClick={assignPostTest} type="button">Assign test</button>
+  }
+
+  return (
+    <div className="recommendations-buttons post-test-assignment-button">
+      {assignButton}
+    </div>
+  )
+}
+
+
+const RecommendationsButtons = ({ className, numberSelected, assigning, assigned, handleClickAssignActivityPacks, deselectAll, selectAll, selectAllRecommended, releaseMethod, handleClickEditReleaseMethod, postTestAssignmentButton }) => {
+  let assignButton = <button className="quill-button primary contained small disabled focus-on-light" type="button">Assign activity packs</button>
+
+  if (assigning) {
+    assignButton = <button className="quill-button primary contained small disabled focus-on-light" type="button">Assigning...</button>
+  } else if (assigned) {
+    assignButton = <button className="quill-button primary contained small disabled focus-on-light" type="button">Assigned</button>
+  } else if (numberSelected) {
+    assignButton = <button className="quill-button primary contained small focus-on-light" onClick={handleClickAssignActivityPacks} type="button">Assign activity packs</button>
+  }
+
+  let releaseMethodText
+  let showReleaseMethodModalButton
+
+  if (releaseMethod) {
+    releaseMethodText = <span>Release Method: <b>{releaseMethod}</b></span>
+  }
+
+  if (releaseMethod && handleClickEditReleaseMethod) {
+    showReleaseMethodModalButton = <button className="interactive-wrapper focus-on-light edit-release-method-button" onClick={handleClickEditReleaseMethod} type="button">Edit</button>
+  }
+
+  return (
+    <div className="recommendations-buttons-container">
+      <div className={`recommendations-buttons ${className}`}>
+        <div className="selection-buttons">
+          <button className="quill-button fun secondary outlined focus-on-light" onClick={selectAll} type="button">Select all</button>
+          <button className="quill-button fun secondary outlined focus-on-light" onClick={selectAllRecommended} type="button">Select all recommended</button>
+          <button className="quill-button fun secondary outlined focus-on-light" onClick={deselectAll} type="button">Deselect all</button>
+        </div>
+        <div className="release-method-and-assign-buttons">
+          <div className="release-method-text-and-edit-button">
+            {releaseMethodText}
+            {showReleaseMethodModalButton}
+          </div>
+          {assignButton}
+        </div>
+      </div>
+      {postTestAssignmentButton}
+    </div>
+  )
+}
+
+const IndependentRecommendationsButtons = ({ handleClickAssignActivityPacks, independentSelections, setIndependentSelections, recommendations, students, assigned, assigning, previouslyAssignedRecommendations, releaseMethod, setShowReleaseMethodModal, showPostTestAssignmentColumn, assignPostTest, assignedPostTest, assigningPostTest, numberSelectedForPostTest, }) => {
+  function handleClickEditReleaseMethod() { setShowReleaseMethodModal(true) }
+
+  function handleSelectAllClick() {
+    const newSelections = independentSelections.map((selection, index) => {
+      selection.students = students.filter(s => s.completed).map(s => s.id)
+      return selection
+    })
+    setIndependentSelections(newSelections)
+  }
+
+  function handleSelectAllRecommendedClick() {
+    const newSelections = independentSelections.map((selection, index) => {
+      selection.students = recommendations[index].students
+      return selection
+    })
+    setIndependentSelections(newSelections)
+  }
+
+  function handleDeselectAllClick() {
+    const newSelections = independentSelections.map(selection => {
+      selection.students = []
+      return selection
+    })
+    setIndependentSelections(newSelections)
+  }
+
+  const numberSelected = independentSelections.reduce((previousValue, selection) => {
+    const previouslyAssignedActivity = previouslyAssignedRecommendations.find(r => r.activity_pack_id === selection.activity_pack_id)
+    const selectedStudents = selection.students.filter(id => !previouslyAssignedActivity.students.includes(id))
+    return previousValue += selectedStudents.length
+  }, 0)
+
+  return (
+    <RecommendationsButtons
+      assigned={assigned}
+      assigning={assigning}
+      className="independent-practice-recommendations-buttons"
+      deselectAll={handleDeselectAllClick}
+      handleClickAssignActivityPacks={handleClickAssignActivityPacks}
+      handleClickEditReleaseMethod={releaseMethod && handleClickEditReleaseMethod}
+      numberSelected={numberSelected}
+      postTestAssignmentButton={showPostTestAssignmentColumn ? <PostTestAssignmentButton assignedPostTest={assignedPostTest} assigningPostTest={assigningPostTest} assignPostTest={assignPostTest} numberSelectedForPostTest={numberSelectedForPostTest} /> : null}
+      releaseMethod={releaseMethodToDisplayName[releaseMethod]}
+      selectAll={handleSelectAllClick}
+      selectAllRecommended={handleSelectAllRecommendedClick}
+    />
   )
 }
 
@@ -222,7 +337,10 @@ const RecommendationsTable = ({ recommendations, responsesLink, students, select
     top: 0,
     left: 0,
     right: 0,
-    zIndex: 3
+    zIndex: 3,
+    width: "63%",
+    minWidth: "63%",
+    overflowX: "scroll",
   })
   const [stickyTableRightOffset, setStickyTableRightOffset] = React.useState(0)
 
@@ -364,7 +482,7 @@ const RecommendationsTable = ({ recommendations, responsesLink, students, select
     return (
       <table
         className={`${recommendationsTableClassName} sticky`}
-        style={{ ...stickyTableStyle, minWidth: width, width }}
+        style={{ ...stickyTableStyle }}
       >
         {renderRecommendationsTableHeader(true)}
       </table>
@@ -390,26 +508,15 @@ const RecommendationsTable = ({ recommendations, responsesLink, students, select
   }
 
   return (
-    <div className="recommendations-table-container" onScroll={handleScroll}>
-      <div className="recommendations-table-wrapper">
-        {renderStickyRecommendationsTable()}
-        <table className={recommendationsTableClassName} id="demo-onboarding-tour-spotlight-element" ref={recommendationsTableRef} style={tableHasContent ? { paddingLeft: TABLE_LEFT_PADDING } : { marginLeft: paddingLeft() }}>
-          {renderRecommendationsTableHeader(false)}
-          {tableHasContent ? null : noDataYet}
-          <tbody>
-            {recommendationStudentRows}
-          </tbody>
-        </table>
-      </div>
-      {showPostTestAssignmentColumn ? <div className="post-test-table-wrapper">
-        {renderStickyPostTestTable()}
-        <table className={recommendationsTableClassName} id="demo-onboarding-tour-spotlight-element">
-          {renderPostTestTableHeader(false)}
-          <tbody>
-            {postTestStudentRows}
-          </tbody>
-        </table>
-      </div> : null}
+    <div>
+      {renderStickyRecommendationsTable()}
+      <table className={recommendationsTableClassName} id="demo-onboarding-tour-spotlight-element" ref={recommendationsTableRef} style={tableHasContent ? { paddingLeft: TABLE_LEFT_PADDING } : { marginLeft: paddingLeft() }}>
+        {renderRecommendationsTableHeader(false)}
+        {tableHasContent ? null : noDataYet}
+        <tbody>
+          {recommendationStudentRows}
+        </tbody>
+      </table>
     </div>
   )
 }
