@@ -58,6 +58,8 @@ const STUDENT_HIGHLIGHT_ENDS_TEXT = "(highlighted text ends here)"
 const PASSAGE_HIGHLIGHT_STARTS_TEXT = "(yellow underlined text begins here)"
 const PASSAGE_HIGHLIGHT_ENDS_TEXT = "(yellow underlined text ends here)"
 
+const INLINE_MARKUP_TAGS = ['EM', 'B', 'STRONG', 'U']
+
 export const StudentViewContainer = ({ dispatch, session, isTurk, location, activities, handleFinishActivity, user }: StudentViewContainerProps) => {
   const skipToSpecificStep = window.location.href.includes('skipToStep')
   const shouldSkipToPrompts = window.location.href.includes('turk') || window.location.href.includes('skipToPrompts') || skipToSpecificStep
@@ -441,16 +443,23 @@ export const StudentViewContainer = ({ dispatch, session, isTurk, location, acti
     refs[ref].current ? refs[ref].current.scrollIntoView(false) : null
   }
 
+  function clickedTextIsWithinInlineMarkupTag(event) {
+    console.log("clickedText: event:", event)
+    return INLINE_MARKUP_TAGS.includes(event?.target?.nodeName)
+  }
+
   function handleHighlightKeyDown(e) {
     if (e.key !== 'Enter') { return }
-    toggleStudentHighlight(e.target.textContent)
+    toggleStudentHighlight(e)
   }
 
   function handleHighlightClick(e) {
-    toggleStudentHighlight(e.target.textContent)
+    toggleStudentHighlight(e)
   }
 
-  function toggleStudentHighlight(text, callback=null) {
+  function toggleStudentHighlight(event) {
+    const text = clickedTextIsWithinInlineMarkupTag(event) ? event.currentTarget.textContent : event.target.textContent
+
     const textWithHighlightContentRemoved = text.replace(STUDENT_HIGHLIGHT_STARTS_TEXT, '').replace(STUDENT_HIGHLIGHT_ENDS_TEXT, '')
     let newHighlights = []
 
@@ -461,7 +470,6 @@ export const StudentViewContainer = ({ dispatch, session, isTurk, location, acti
     }
 
     setStudentHighlights(newHighlights)
-    callback && callback()
   }
 
   function toggleShowStepsSummary() {
@@ -482,6 +490,7 @@ export const StudentViewContainer = ({ dispatch, session, isTurk, location, acti
   function transformMarkTags(node) {
     const { activeStep } = session;
     const strippedPassageHighlights = getStrippedPassageHighlights({ activities, session, activeStep });
+
 
     if (['p'].includes(node.name) && activeStep > 1 && strippedPassageHighlights && strippedPassageHighlights.length) {
       const stringifiedInnerElements = node.children.map(n => stringifiedInnerElementsHelper(n)).join('');
