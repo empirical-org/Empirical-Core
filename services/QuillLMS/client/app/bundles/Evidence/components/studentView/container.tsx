@@ -444,7 +444,6 @@ export const StudentViewContainer = ({ dispatch, session, isTurk, location, acti
   }
 
   function clickedTextIsWithinInlineMarkupTag(event) {
-    console.log("clickedText: event:", event)
     return INLINE_MARKUP_TAGS.includes(event?.target?.nodeName)
   }
 
