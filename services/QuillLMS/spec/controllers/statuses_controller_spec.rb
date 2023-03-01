@@ -53,50 +53,52 @@ describe StatusesController, type: :controller do
   end
 
   describe "#sidekiq_queue_latency" do
-    it 'should build a hash of queue.name => queue.latency for each queue' do
-      queue_latency_pairs = {
-        critical: 1.14,
-        critical_external: 0.34,
-        default: 1.44,
-        low: 0,
-        migration: 0
-      }
-      queue_doubles = queue_latency_pairs.map do |name, latency|
-        d = double
-        allow(d).to receive(:name).and_return(name)
-        allow(d).to receive(:latency).and_return(latency)
-        d
+    let(:queue_doubles) do
+      queue_latency_pairs.map do |name, latency|
+        double(name: name, latency: latency)
       end
-
-      allow(Sidekiq::Queue).to receive(:all).and_return(queue_doubles)
-
-      expect {
-        get :sidekiq_queue_latency
-      }.to_not raise_error
-
-      expect(response.status).to eq(200)
-      expect(JSON.parse(response.body)).to eq(queue_latency_pairs.stringify_keys)
     end
 
-    it 'should have a response status of 400 if critical_external latency is over our defined limit' do
-      queue_latency_pairs = {
-        critical_external: 5.1, # 5 is the default limit
-      }
-      queue_doubles = queue_latency_pairs.map do |name, latency|
-        d = double
-        allow(d).to receive(:name).and_return(name)
-        allow(d).to receive(:latency).and_return(latency)
-        d
+    context 'critical_external latency under 60 seconds' do
+      let(:queue_latency_pairs) do
+        {
+          critical: 1.14,
+          critical_external: 0.34,
+          default: 1.44,
+          low: 0,
+          migration: 0
+        }
       end
 
-      allow(Sidekiq::Queue).to receive(:all).and_return(queue_doubles)
+      it 'should build a hash of queue.name => queue.latency for each queue' do
+        allow(Sidekiq::Queue).to receive(:all).and_return(queue_doubles)
 
-      expect {
         get :sidekiq_queue_latency
-      }.to_not raise_error
 
-      expect(response.status).to eq(400)
-      expect(JSON.parse(response.body)).to eq(queue_latency_pairs.stringify_keys)
+        expect(response.status).to eq(200)
+        expect(JSON.parse(response.body)).to eq(queue_latency_pairs.stringify_keys)
+      end
+    end
+
+    context 'critical_external_latency is over 60 seconds' do
+      let(:queue_latency_pairs) do
+        {
+          critical: 1.14,
+          critical_external: 66.34,
+          default: 1.44,
+          low: 0,
+          migration: 0
+        }
+      end
+
+      it 'should have a response status of 400 if critical_external latency is over our defined limit' do
+        allow(Sidekiq::Queue).to receive(:all).and_return(queue_doubles)
+
+        get :sidekiq_queue_latency
+
+        expect(response.status).to eq(400)
+        expect(JSON.parse(response.body)).to eq(queue_latency_pairs.stringify_keys)
+      end
     end
   end
 
