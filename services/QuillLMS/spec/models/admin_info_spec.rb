@@ -82,7 +82,7 @@ describe AdminInfo, type: :model, redis: true do
     end
   end
 
-  describe '#approval_status' do
+  describe '#approver_role' do
 
     it "should allow valid values" do
       AdminInfo::APPROVER_ROLES.each do |v|

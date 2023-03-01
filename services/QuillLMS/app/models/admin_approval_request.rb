@@ -19,7 +19,7 @@
 #  fk_rails_...  (admin_info_id => admin_infos.id)
 #
 class AdminApprovalRequest < ApplicationRecord
-  belongs_to :requestee, class_name: 'User', foreign_key: 'requestee_id'
+  belongs_to :requestee, class_name: 'User'
   belongs_to :admin_info
 
   validates :requestee_id, presence: true
