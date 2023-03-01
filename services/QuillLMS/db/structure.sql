@@ -686,6 +686,38 @@ ALTER SEQUENCE public.admin_accounts_teachers_id_seq OWNED BY public.admin_accou
 
 
 --
+-- Name: admin_approval_requests; Type: TABLE; Schema: public; Owner: -
+--
+
+CREATE TABLE public.admin_approval_requests (
+    id bigint NOT NULL,
+    admin_info_id bigint,
+    requestee_id integer,
+    created_at timestamp(6) without time zone NOT NULL,
+    updated_at timestamp(6) without time zone NOT NULL
+);
+
+
+--
+-- Name: admin_approval_requests_id_seq; Type: SEQUENCE; Schema: public; Owner: -
+--
+
+CREATE SEQUENCE public.admin_approval_requests_id_seq
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+
+--
+-- Name: admin_approval_requests_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: -
+--
+
+ALTER SEQUENCE public.admin_approval_requests_id_seq OWNED BY public.admin_approval_requests.id;
+
+
+--
 -- Name: admin_infos; Type: TABLE; Schema: public; Owner: -
 --
 
@@ -697,7 +729,8 @@ CREATE TABLE public.admin_infos (
     verification_reason text,
     user_id bigint NOT NULL,
     created_at timestamp(6) without time zone NOT NULL,
-    updated_at timestamp(6) without time zone NOT NULL
+    updated_at timestamp(6) without time zone NOT NULL,
+    approver_role character varying
 );
 
 
@@ -4858,6 +4891,13 @@ ALTER TABLE ONLY public.admin_accounts_teachers ALTER COLUMN id SET DEFAULT next
 
 
 --
+-- Name: admin_approval_requests id; Type: DEFAULT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY public.admin_approval_requests ALTER COLUMN id SET DEFAULT nextval('public.admin_approval_requests_id_seq'::regclass);
+
+
+--
 -- Name: admin_infos id; Type: DEFAULT; Schema: public; Owner: -
 --
 
@@ -5757,6 +5797,14 @@ ALTER TABLE ONLY public.admin_accounts
 
 ALTER TABLE ONLY public.admin_accounts_teachers
     ADD CONSTRAINT admin_accounts_teachers_pkey PRIMARY KEY (id);
+
+
+--
+-- Name: admin_approval_requests admin_approval_requests_pkey; Type: CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY public.admin_approval_requests
+    ADD CONSTRAINT admin_approval_requests_pkey PRIMARY KEY (id);
 
 
 --
@@ -6888,6 +6936,13 @@ CREATE INDEX index_admin_accounts_teachers_on_admin_account_id ON public.admin_a
 --
 
 CREATE INDEX index_admin_accounts_teachers_on_teacher_id ON public.admin_accounts_teachers USING btree (teacher_id);
+
+
+--
+-- Name: index_admin_approval_requests_on_admin_info_id; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX index_admin_approval_requests_on_admin_info_id ON public.admin_approval_requests USING btree (admin_info_id);
 
 
 --
@@ -8489,6 +8544,14 @@ ALTER TABLE ONLY public.topics
 
 
 --
+-- Name: admin_approval_requests fk_rails_60654ded5f; Type: FK CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY public.admin_approval_requests
+    ADD CONSTRAINT fk_rails_60654ded5f FOREIGN KEY (admin_info_id) REFERENCES public.admin_infos(id);
+
+
+--
 -- Name: comprehension_labels fk_rails_6112e49a74; Type: FK CONSTRAINT; Schema: public; Owner: -
 --
 
@@ -9290,6 +9353,8 @@ INSERT INTO "schema_migrations" (version) VALUES
 ('20230113132638'),
 ('20230130190215'),
 ('20230201202210'),
-('20230206203447');
+('20230206203447'),
+('20230301151808'),
+('20230301160642');
 
 
