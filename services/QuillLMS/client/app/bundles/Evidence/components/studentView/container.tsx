@@ -457,16 +457,20 @@ export const StudentViewContainer = ({ dispatch, session, isTurk, location, acti
     toggleStudentHighlight(e)
   }
 
-  function toggleStudentHighlight(event) {
-    const text = clickedTextIsWithinInlineMarkupTag(event) ? event.currentTarget.textContent : event.target.textContent
+  function toggleStudentHighlight(eventOrString) {
+    if (typeof(eventOrString) === 'string') {
+      let stringText = eventOrString
+    } else {
+      let stringText = clickedTextIsWithinInlineMarkupTag(eventOrString) ? eventOrString.currentTarget.textContent : eventOrString.target.textContent
+    }
 
-    const textWithHighlightContentRemoved = text.replace(STUDENT_HIGHLIGHT_STARTS_TEXT, '').replace(STUDENT_HIGHLIGHT_ENDS_TEXT, '')
+    const textWithHighlightContentRemoved = stringText.replace(STUDENT_HIGHLIGHT_STARTS_TEXT, '').replace(STUDENT_HIGHLIGHT_ENDS_TEXT, '')
     let newHighlights = []
 
     if (studentHighlights.includes(textWithHighlightContentRemoved)) {
       newHighlights = studentHighlights.filter(hl => hl !== textWithHighlightContentRemoved)
     } else {
-      newHighlights = studentHighlights.concat(text)
+      newHighlights = studentHighlights.concat(stringText)
     }
 
     setStudentHighlights(newHighlights)
