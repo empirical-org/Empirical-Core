@@ -344,7 +344,6 @@ const RecommendationsTable = ({ recommendations, responsesLink, students, select
 
   return (
     <div>
-      {renderStickyRecommendationsTable()}
       <table className={recommendationsTableClassName} id="demo-onboarding-tour-spotlight-element" ref={recommendationsTableRef} style={tableHasContent ? { paddingLeft: TABLE_LEFT_PADDING } : { marginLeft: paddingLeft() }}>
         {renderRecommendationsTableHeader(false)}
         {tableHasContent ? null : noDataYet}

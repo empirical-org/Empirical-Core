@@ -184,7 +184,6 @@ const PostTestAssignmentTable = ({showPostTestAssignmentColumn, students, studen
   return (
     <div>
       {showPostTestAssignmentColumn ? <div className="post-test-table-wrapper">
-
           <table className={recommendationsTableClassName} id="demo-onboarding-tour-spotlight-element" ref={recommendationsTableRef} >
             {renderPostTestTableHeader(false)}
             <tbody>
