@@ -46,7 +46,10 @@ namespace :users do
       .where.not(clever_id: nil)
       .or(User.where.not(google_id: nil)) # note that the position of `or` matters a lot when you have multiple `where` clauses
       .where(role: User::ADMIN)
+      # Apparently the rubocop Lint/Syntax rule at our version doesn't recognize the unterminated .. as valid syntax, even though it was introduced in Ruby 2.6
+      # rubocop:disable Lint/Syntax
       .where(created_at: start_date..) # this is the date we launched self-service admin sign-up
+      # rubocop:enable Lint/Syntax
       .where(user_email_verification: { id: nil })
       .each do |user|
         verification_method = UserEmailVerification::GOOGLE_VERIFICATION if user.google_id
