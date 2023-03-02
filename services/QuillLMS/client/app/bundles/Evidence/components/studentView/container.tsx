@@ -443,25 +443,24 @@ export const StudentViewContainer = ({ dispatch, session, isTurk, location, acti
 
   function handleHighlightKeyDown(e) {
     if (e.key !== 'Enter') { return }
-    toggleStudentHighlight(e.target.textContent)
+    toggleStudentHighlight(e.currentTarget.textContent)
   }
 
   function handleHighlightClick(e) {
-    toggleStudentHighlight(e.target.textContent)
+    toggleStudentHighlight(e.currentTarget.textContent)
   }
 
-  function toggleStudentHighlight(text, callback=null) {
-    const textWithHighlightContentRemoved = text.replace(STUDENT_HIGHLIGHT_STARTS_TEXT, '').replace(STUDENT_HIGHLIGHT_ENDS_TEXT, '')
+  function toggleStudentHighlight(stringText) {
+    const textWithHighlightContentRemoved = stringText.replace(STUDENT_HIGHLIGHT_STARTS_TEXT, '').replace(STUDENT_HIGHLIGHT_ENDS_TEXT, '')
     let newHighlights = []
 
     if (studentHighlights.includes(textWithHighlightContentRemoved)) {
       newHighlights = studentHighlights.filter(hl => hl !== textWithHighlightContentRemoved)
     } else {
-      newHighlights = studentHighlights.concat(text)
+      newHighlights = studentHighlights.concat(stringText)
     }
 
     setStudentHighlights(newHighlights)
-    callback && callback()
   }
 
   function toggleShowStepsSummary() {
@@ -482,6 +481,7 @@ export const StudentViewContainer = ({ dispatch, session, isTurk, location, acti
   function transformMarkTags(node) {
     const { activeStep } = session;
     const strippedPassageHighlights = getStrippedPassageHighlights({ activities, session, activeStep });
+
 
     if (['p'].includes(node.name) && activeStep > 1 && strippedPassageHighlights && strippedPassageHighlights.length) {
       const stringifiedInnerElements = node.children.map(n => stringifiedInnerElementsHelper(n)).join('');
