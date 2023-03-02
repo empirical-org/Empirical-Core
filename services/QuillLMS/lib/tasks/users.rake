@@ -44,13 +44,14 @@ namespace :users do
     User.left_outer_joins(:user_email_verification)
       .joins(:admin_info) # only users who self-service sign up as admins have AdminInfo records
       .where.not(clever_id: nil)
-      .or(User.where.not(google_id: nil)) # note that the position of `or` matters a lot when you have multiple `where` clauses
+      .or(User.where.not(google_id: nil)) # the position of `or` matters a lot when you have multiple `where` clauses
       .where(role: User::ADMIN)
       .where(user_email_verification: { id: nil })
       .each do |user|
-        verification_method = UserEmailVerification::GOOGLE_VERIFICATION if user.google_id
-        verification_method = UserEmailVerification::CLEVER_VERIFICATION if user.clever_id
-        user.verify_email(verification_method)
+
+      verification_method = UserEmailVerification::GOOGLE_VERIFICATION if user.google_id
+      verification_method = UserEmailVerification::CLEVER_VERIFICATION if user.clever_id
+      user.verify_email(verification_method)
     end
   end
 end
