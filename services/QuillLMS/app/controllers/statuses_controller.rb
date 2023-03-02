@@ -38,7 +38,9 @@ class StatusesController < ApplicationController
     queues = Sidekiq::Queue.all
     latency_hash = queues.to_h { |q| [q.name, q.latency] }
 
-    render json: latency_hash
+    response_status = latency_hash.fetch(:critical_external, 0) > ENV.fetch('SIDEKIQ_CRITICAL_EXTERNAL_LATENCY_LIMIT', 60) ? 400 : 200
+
+    render json: latency_hash, status: response_status
   end
 
   def sidekiq_queue_length
