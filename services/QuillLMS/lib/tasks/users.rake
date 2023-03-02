@@ -42,11 +42,10 @@ namespace :users do
 
   task mark_google_clever_admins_verified: :environment do
     User.left_outer_joins(:user_email_verification)
+      .joins(:admin_info) # only users who self-service sign up as admins have AdminInfo records
       .where.not(clever_id: nil)
       .or(User.where.not(google_id: nil)) # note that the position of `or` matters a lot when you have multiple `where` clauses
       .where(role: User::ADMIN)
-      # I was going to use the open-ended `..` here, but Rubocop apparently can't handle a `..` without a value at the end and chokes.  `..nil` is documented as being equivalent to an unterminated `..`
-      .where(created_at: DateTime.new(2023, 2, 27)..nil) # this is the date we launched self-service admin sign-up
       .where(user_email_verification: { id: nil })
       .each do |user|
         verification_method = UserEmailVerification::GOOGLE_VERIFICATION if user.google_id
