@@ -34,7 +34,7 @@ exports[`BlogPost component renders 1`] = `
       "updated_at": "2023-01-27T17:25:32.210Z",
     }
   }
-  mostRecentPosts={
+  relatedPosts={
     Array [
       Object {
         "author_id": null,

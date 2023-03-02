@@ -24,34 +24,18 @@ class BlogPostsController < ApplicationController
     render :index
   end
 
-  # rubocop:disable Metrics/CyclomaticComplexity
   def show
     draft_statuses = current_user&.staff? ? [true, false] : false
+    slug = params[:slug]
 
-    @blog_post = BlogPost.find_by(slug: params[:slug], draft: draft_statuses)
+    @blog_post = BlogPost.find_by(slug: slug, draft: draft_statuses)
 
     if @blog_post
-      # TODO: remove SQL write from GET endpoint
-      @blog_post.increment_read_count
-      @most_recent_posts = BlogPost.most_recent.where.not(id: @blog_post.id)
-
-      @title = @blog_post.title
-      @description = @blog_post.subtitle || @title
-      @image_link = @blog_post.image_link
+      assign_blog_post_data_and_increment_count
     else
-      # try fixing params and redirect to correct url.
-      corrected_slug = params[:slug]&.gsub(/[^a-zA-Z\d\s-]/, '')&.downcase
-      blog_post = BlogPost.find_by(slug: corrected_slug, draft: draft_statuses)
-
-      if blog_post
-        redirect_to blog_post_path(blog_post.slug)
-      else
-        flash[:error] = "Oops! We can't seem to find that blog post. Trying searching on this page."
-        redirect_to blog_posts_path
-      end
+      attempt_corrected_slug_and_redirect(slug, draft_statuses)
     end
   end
-  # rubocop:enable Metrics/CyclomaticComplexity
 
   def search
     @query = params[:query]
@@ -88,6 +72,28 @@ class BlogPostsController < ApplicationController
     @title = @topic
 
     render 'index'
+  end
+
+  private def assign_blog_post_data_and_increment_count
+    # TODO: remove SQL write from GET endpoint
+    @blog_post.increment_read_count
+
+    @related_posts = @blog_post.related_posts
+    @title = @blog_post.title
+    @description = @blog_post.subtitle || @title
+    @image_link = @blog_post.image_link
+  end
+
+  private def attempt_corrected_slug_and_redirect(slug, draft_statuses)
+    corrected_slug = slug&.gsub(/[^a-zA-Z\d\s-]/, '')&.downcase
+    blog_post = BlogPost.find_by(slug: corrected_slug, draft: draft_statuses)
+
+    if blog_post
+      redirect_to blog_post_path(blog_post.slug)
+    else
+      flash[:error] = "Oops! We can't seem to find that blog post. Trying searching on this page."
+      redirect_to blog_posts_path
+    end
   end
 
   private def set_announcement
