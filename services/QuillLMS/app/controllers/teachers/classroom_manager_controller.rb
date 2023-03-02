@@ -87,7 +87,8 @@ class Teachers::ClassroomManagerController < ApplicationController
     end
 
     @featured_blog_posts = BlogPost.where.not(featured_order_number: nil).order(:featured_order_number)
-
+    @featured_blog_post = BlogPost.find(51)
+    @featured_blog_post_author = @featured_blog_post&.author&.name
     @objective_checklist = generate_onboarding_checklist
     @first_name = current_user.first_name
   end
