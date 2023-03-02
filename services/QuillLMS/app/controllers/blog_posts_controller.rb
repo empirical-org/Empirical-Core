@@ -63,7 +63,11 @@ class BlogPostsController < ApplicationController
   end
 
   def show_topic
-    topic = CGI::unescape(params[:topic]).gsub('-', ' ').capitalize
+    if params[:topic] == BlogPost::WHATS_NEW_SLUG
+      topic = BlogPost::WHATS_NEW
+    else
+      topic = CGI::unescape(params[:topic]).gsub('-', ' ').capitalize
+    end
 
     @blog_posts = BlogPost.for_topics(topic)
     @topics = topics(BlogPost::TEACHER_TOPICS)
@@ -108,6 +112,7 @@ class BlogPostsController < ApplicationController
     topic = CGI::unescape(params[:topic]).gsub('-', ' ').capitalize
     return if BlogPost::TOPICS.include?(topic)
     return if BlogPost::STUDENT_TOPICS.include?(topic)
+    return if params[:topic] == BlogPost::WHATS_NEW_SLUG
 
     flash[:error] = "Oops! We can't seem to find that topic!"
     redirect_to center_home_url and return
