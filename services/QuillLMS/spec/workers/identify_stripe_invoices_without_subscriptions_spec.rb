@@ -19,7 +19,7 @@ describe IdentifyStripeInvoicesWithoutSubscriptions do
     it 'should send an email that includes invoices with no associated Quill Subscriptions' do
       expect(StripeIntegration::Mailer).to receive(:invoices_without_subscriptions).with([{
         id: stripe_invoice.id,
-        created: Time.at(stripe_invoice.created).to_datetime,
+        created: Time.at(stripe_invoice.created).getlocal.to_datetime,
         total: stripe_invoice.total / 100.0,
         customer_name: stripe_invoice.customer_name,
         customer_email: stripe_invoice.customer_email,
