@@ -3,7 +3,7 @@
 class IdentifyStripeInvoicesWithoutSubscriptions
   include Sidekiq::Worker
 
-  # We don't care about invoices created before we began using this workflow 
+  # We don't care about invoices created before we began using this workflow
   INVOICE_START_EPOCH = DateTime.new(2023,1,1).to_i
   RELEVANT_INVOICE_STATUSES = ['open', 'paid']
 
@@ -17,7 +17,7 @@ class IdentifyStripeInvoicesWithoutSubscriptions
     invoices.map do |invoice|
       {
         id: invoice.id,
-        created: Time.at(invoice.created).to_datetime,
+        created: Time.at(invoice.created).getlocal.to_datetime,
         total: invoice.total / 100.0,
         customer_name: invoice.customer_name,
         customer_email: invoice.customer_email,

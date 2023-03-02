@@ -11,7 +11,9 @@ describe IdentifyStripeInvoicesWithoutSubscriptions do
     let(:mailer_double) { double(deliver_now!: nil) }
 
     before do
-      allow(subject).to receive(:stripe_invoices).and_return([stripe_invoice])
+      list_double = double
+      allow(list_double).to receive(:auto_paging_each).and_yield(stripe_invoice)
+      allow(Stripe::Invoice).to receive(:list).and_return(list_double)
     end
 
     it 'should send an email that includes invoices with no associated Quill Subscriptions' do
