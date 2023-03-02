@@ -1,4 +1,4 @@
-<% if @invoice_payloads.length %>
+<% if @invoice_payloads.length > 0 %>
 <p>These Stripe invoices have not yet been associated with a Quill Subscription</p>
 
 <% @invoice_payloads.each do |invoice| %>
@@ -8,7 +8,7 @@
   <li>Invoice total: $<%= invoice[:total] %></li>
   <li>Name: <%= invoice[:customer_name] %></li>
   <li>Email: <a href="mailto:<%= invoice[:email] %>"><%= invoice[:email] %></a></li>
-  <li>Description: <%= invoice[:description] %></li>
+  <li>Invoice number: <%= invoice[:number] %></li>
 </ul>
 <% end %>
 
