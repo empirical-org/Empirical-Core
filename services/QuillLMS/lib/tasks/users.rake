@@ -39,4 +39,18 @@ namespace :users do
       admin_user.update(role: User::ADMIN)
     end
   end
+
+  task mark_google_clever_admins_verified: :environment do
+    User.left_outer_joins(:user_email_verification)
+      .where.not(clever_id: nil)
+      .or(User.where.not(google_id: nil)) # note that the position of `or` matters a lot when you have multiple `where` clauses
+      .where(role: User::ADMIN)
+      .where(created_at: DateTime.new(2023, 2, 27)..) # this is the date we launched self-service admin sign-up
+      .where(user_email_verification: { id: nil })
+      .each do |user|
+        verification_method = UserEmailVerification::GOOGLE_VERIFICATION if user.google_id
+        verification_method = UserEmailVerification::CLEVER_VERIFICATION if user.clever_id
+        user.verify_email(verification_method)
+    end
+  end
 end
