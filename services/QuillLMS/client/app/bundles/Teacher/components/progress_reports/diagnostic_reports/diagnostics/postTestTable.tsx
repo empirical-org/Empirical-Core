@@ -15,16 +15,60 @@ import {
   Tooltip,
   smallWhiteCheckIcon,
 } from '../../../../../Shared/index'
+import useWindowSize from '../../../../../Shared/hooks/useWindowSize'
+interface StickyTableStyle {
+  position: string,
+  top: number,
+  left: number,
+  right: number,
+  zIndex: number,
+}
+
 
 const ellipsesIcon = <img alt="Open menu icon" src={`${baseDiagnosticImageSrc}/ellipses_icon.svg`} />
 
-const PostTestAssignmentTable = ({showPostTestAssignmentColumn, students, studentsWhoCompletedDiagnostic, postTestSelections, setPostTestSelections, previouslyAssignedPostTestStudentIds, studentsWhoCompletedAssignedRecommendations, postDiagnosticUnitTemplateId}) => {
+const PostTestAssignmentTable = ({showPostTestAssignmentColumn, students, studentsWhoCompletedDiagnostic, postTestSelections, setPostTestSelections, previouslyAssignedPostTestStudentIds, studentsWhoCompletedAssignedRecommendations, postDiagnosticUnitTemplateId, }) => {
+
+  const size = useWindowSize();
+  const [isSticky, setIsSticky] = React.useState(false);
+  const [stickyTableStyle, setStickyTableStyle] = React.useState<StickyTableStyle>({
+    position: "fixed",
+    top: 0,
+    left: 0,
+    right: 0,
+    zIndex: 5
+  })
+  const [stickyTableRightOffset, setStickyTableRightOffset] = React.useState(0)
+  const recommendationsTableRef = React.useRef(null);
+  const handleScroll = React.useCallback(({ top, bottom, left, right, }) => {
+    if (top <= 0 && bottom > 92) {
+      setStickyTableStyle(oldStickyTableStyle => ({ ...oldStickyTableStyle, left: left }))
+      setStickyTableRightOffset(782)
+      !isSticky && setIsSticky(true);
+    } else {
+      isSticky && setIsSticky(false);
+    }
+  }, [isSticky]);
+  const onScroll = () => {
+    if (recommendationsTableRef && recommendationsTableRef.current) {
+      handleScroll(recommendationsTableRef.current.getBoundingClientRect());
+    }
+  }
+  React.useEffect(() => {
+    onScroll()
+  }, [size])
+  React.useEffect(() => {
+    window.addEventListener("scroll", onScroll);
+
+    return () => {
+      window.removeEventListener("scroll", onScroll);
+    };
+  }, [handleScroll]);
 
   const renderStickyPostTestTable = () => {
     // an arbitrary, non-resizing element that is the same width that we need this table to be
     const widthAnchorElement = document.getElementsByClassName('post-test-assignment-button')[0]
 
-    return
     if (!(isSticky && tableHasContent && widthAnchorElement)) { return }
 
     const width = widthAnchorElement.getBoundingClientRect().width
@@ -140,8 +184,8 @@ const PostTestAssignmentTable = ({showPostTestAssignmentColumn, students, studen
   return (
     <div>
       {showPostTestAssignmentColumn ? <div className="post-test-table-wrapper">
-          {renderStickyPostTestTable()}
-          <table className={recommendationsTableClassName} id="demo-onboarding-tour-spotlight-element">
+
+          <table className={recommendationsTableClassName} id="demo-onboarding-tour-spotlight-element" ref={recommendationsTableRef} >
             {renderPostTestTableHeader(false)}
             <tbody>
               {postTestStudentRows}

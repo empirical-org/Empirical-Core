@@ -42,7 +42,6 @@ interface RecommendationsTableProps {
   postDiagnosticUnitTemplateId?: number;
   setPostTestSelections: (ids: number[]) => void;
   postTestSelections: number[];
-  showPostTestAssignmentColumn: boolean;
   previouslyAssignedPostTestStudentIds: number[]
 }
 
@@ -87,118 +86,6 @@ const ActivityPackHeader = ({ name, activityPackId, activityCount, handleSelectA
   )
 }
 
-const PostTestAssignmentButton = ({ assigningPostTest, assignedPostTest, assignPostTest, numberSelectedForPostTest, }) => {
-  let assignButton = <button className="quill-button primary contained small disabled focus-on-light" type="button">Assign test</button>
-
-  if (assigningPostTest) {
-    assignButton = <button className="quill-button primary contained small disabled focus-on-light" type="button">Assigning...</button>
-  } else if (assignedPostTest) {
-    assignButton = <button className="quill-button primary contained small disabled focus-on-light" type="button">Assigned</button>
-  } else if (numberSelectedForPostTest) {
-    assignButton = <button className="quill-button primary contained small focus-on-light" onClick={assignPostTest} type="button">Assign test</button>
-  }
-
-  return (
-    <div className="recommendations-buttons post-test-assignment-button">
-      {assignButton}
-    </div>
-  )
-}
-
-
-const RecommendationsButtons = ({ className, numberSelected, assigning, assigned, handleClickAssignActivityPacks, deselectAll, selectAll, selectAllRecommended, releaseMethod, handleClickEditReleaseMethod, postTestAssignmentButton }) => {
-  let assignButton = <button className="quill-button primary contained small disabled focus-on-light" type="button">Assign activity packs</button>
-
-  if (assigning) {
-    assignButton = <button className="quill-button primary contained small disabled focus-on-light" type="button">Assigning...</button>
-  } else if (assigned) {
-    assignButton = <button className="quill-button primary contained small disabled focus-on-light" type="button">Assigned</button>
-  } else if (numberSelected) {
-    assignButton = <button className="quill-button primary contained small focus-on-light" onClick={handleClickAssignActivityPacks} type="button">Assign activity packs</button>
-  }
-
-  let releaseMethodText
-  let showReleaseMethodModalButton
-
-  if (releaseMethod) {
-    releaseMethodText = <span>Release Method: <b>{releaseMethod}</b></span>
-  }
-
-  if (releaseMethod && handleClickEditReleaseMethod) {
-    showReleaseMethodModalButton = <button className="interactive-wrapper focus-on-light edit-release-method-button" onClick={handleClickEditReleaseMethod} type="button">Edit</button>
-  }
-
-  return (
-    <div className="recommendations-buttons-container">
-      <div className={`recommendations-buttons ${className}`}>
-        <div className="selection-buttons">
-          <button className="quill-button fun secondary outlined focus-on-light" onClick={selectAll} type="button">Select all</button>
-          <button className="quill-button fun secondary outlined focus-on-light" onClick={selectAllRecommended} type="button">Select all recommended</button>
-          <button className="quill-button fun secondary outlined focus-on-light" onClick={deselectAll} type="button">Deselect all</button>
-        </div>
-        <div className="release-method-and-assign-buttons">
-          <div className="release-method-text-and-edit-button">
-            {releaseMethodText}
-            {showReleaseMethodModalButton}
-          </div>
-          {assignButton}
-        </div>
-      </div>
-      {postTestAssignmentButton}
-    </div>
-  )
-}
-
-const IndependentRecommendationsButtons = ({ handleClickAssignActivityPacks, independentSelections, setIndependentSelections, recommendations, students, assigned, assigning, previouslyAssignedRecommendations, releaseMethod, setShowReleaseMethodModal, showPostTestAssignmentColumn, assignPostTest, assignedPostTest, assigningPostTest, numberSelectedForPostTest, }) => {
-  function handleClickEditReleaseMethod() { setShowReleaseMethodModal(true) }
-
-  function handleSelectAllClick() {
-    const newSelections = independentSelections.map((selection, index) => {
-      selection.students = students.filter(s => s.completed).map(s => s.id)
-      return selection
-    })
-    setIndependentSelections(newSelections)
-  }
-
-  function handleSelectAllRecommendedClick() {
-    const newSelections = independentSelections.map((selection, index) => {
-      selection.students = recommendations[index].students
-      return selection
-    })
-    setIndependentSelections(newSelections)
-  }
-
-  function handleDeselectAllClick() {
-    const newSelections = independentSelections.map(selection => {
-      selection.students = []
-      return selection
-    })
-    setIndependentSelections(newSelections)
-  }
-
-  const numberSelected = independentSelections.reduce((previousValue, selection) => {
-    const previouslyAssignedActivity = previouslyAssignedRecommendations.find(r => r.activity_pack_id === selection.activity_pack_id)
-    const selectedStudents = selection.students.filter(id => !previouslyAssignedActivity.students.includes(id))
-    return previousValue += selectedStudents.length
-  }, 0)
-
-  return (
-    <RecommendationsButtons
-      assigned={assigned}
-      assigning={assigning}
-      className="independent-practice-recommendations-buttons"
-      deselectAll={handleDeselectAllClick}
-      handleClickAssignActivityPacks={handleClickAssignActivityPacks}
-      handleClickEditReleaseMethod={releaseMethod && handleClickEditReleaseMethod}
-      numberSelected={numberSelected}
-      postTestAssignmentButton={showPostTestAssignmentColumn ? <PostTestAssignmentButton assignedPostTest={assignedPostTest} assigningPostTest={assigningPostTest} assignPostTest={assignPostTest} numberSelectedForPostTest={numberSelectedForPostTest} /> : null}
-      releaseMethod={releaseMethodToDisplayName[releaseMethod]}
-      selectAll={handleSelectAllClick}
-      selectAllRecommended={handleSelectAllRecommendedClick}
-    />
-  )
-}
-
 const RecommendationCell = ({ student, isAssigned, isRecommended, isSelected, setSelections, selections, selectionIndex, activityCount, completedCount, }: RecommendationCellProps) => {
   const [wasAssignedAtLoad, setWasAssignedAtLoad] = React.useState(isAssigned)
   const [showAssignedText, setShowAssignedText] = React.useState(false)
@@ -237,47 +124,6 @@ const RecommendationCell = ({ student, isAssigned, isRecommended, isSelected, se
         <span />
       </button>
     </td>
-  )
-}
-
-const PostTestStudentRow = ({ student, postTestSelections, setPostTestSelections, previouslyAssignedPostTestStudentIds, studentsWhoCompletedAssignedRecommendations, }) => {
-  const { name, completed, id, } = student
-
-  if (!completed) {
-    return <tr key={name}><td className="recommendation-cell empty-cell" /></tr>
-  }
-
-  const isAssigned = previouslyAssignedPostTestStudentIds.includes(id)
-  const isSelected = postTestSelections.includes(id)
-  const isRecommended = studentsWhoCompletedAssignedRecommendations.some(student => student.id === id)
-
-  function toggleSelection() {
-    let newSelections = [...postTestSelections];
-    if (isSelected) {
-      newSelections = newSelections.filter(s => s !== student.id)
-    } else {
-      newSelections.push(student.id);
-    }
-    setPostTestSelections(newSelections)
-  }
-
-  let checkbox = <span aria-label="Unchecked checkbox" className="quill-checkbox unselected" />
-  const assignedText = <div className="assigned">{correctImage}<span>Assigned</span></div>
-
-  if (isSelected) {
-    checkbox = (<span aria-label="Checked checkbox" className="quill-checkbox selected" >
-      <img alt={smallWhiteCheckIcon.alt} src={smallWhiteCheckIcon.src} />
-    </span>)
-  }
-  return (
-    <tr>
-      <td className="recommendation-cell">
-        <button className={`interactive-wrapper ${isRecommended && !isAssigned ? 'recommended' : ''}`} onClick={isAssigned ? () => {} : toggleSelection} type="button">
-          {isAssigned ? assignedText : checkbox}
-          <span />
-        </button>
-      </td>
-    </tr>
   )
 }
 
@@ -327,7 +173,7 @@ const StudentRow = ({ student, selections, recommendations, previouslyAssignedRe
   return <tr key={name}>{firstCell}{selectionCells}</tr>
 }
 
-const RecommendationsTable = ({ recommendations, responsesLink, students, selections, previouslyAssignedRecommendations, setSelections, studentsWhoCompletedDiagnostic, studentsWhoCompletedAssignedRecommendations, postDiagnosticUnitTemplateId, setPostTestSelections, postTestSelections, showPostTestAssignmentColumn, previouslyAssignedPostTestStudentIds, }: RecommendationsTableProps) => {
+const RecommendationsTable = ({ recommendations, responsesLink, students, selections, previouslyAssignedRecommendations, setSelections, studentsWhoCompletedDiagnostic, studentsWhoCompletedAssignedRecommendations, postDiagnosticUnitTemplateId, setPostTestSelections, postTestSelections, previouslyAssignedPostTestStudentIds, }: RecommendationsTableProps) => {
   const size = useWindowSize();
 
   const [isSticky, setIsSticky] = React.useState(false);
@@ -422,17 +268,6 @@ const RecommendationsTable = ({ recommendations, responsesLink, students, select
       student={student}
     />)
   )
-
-  const postTestStudentRows = students.map(student => (
-    <PostTestStudentRow
-      key={student.name}
-      postTestSelections={postTestSelections}
-      previouslyAssignedPostTestStudentIds={previouslyAssignedPostTestStudentIds}
-      setPostTestSelections={setPostTestSelections}
-      student={student}
-      studentsWhoCompletedAssignedRecommendations={studentsWhoCompletedAssignedRecommendations}
-    />
-  ))
 
   const tableHasContent = studentsWhoCompletedDiagnostic.length
 

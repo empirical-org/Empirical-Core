@@ -117,7 +117,7 @@ const LessonsRecommendations = ({ assigningLessonsBanner, previouslyAssignedReco
   )
 }
 
-const RecommendationsButtons = ({ className, numberSelected, assigning, assigned, handleClickAssignActivityPacks, deselectAll, selectAll, selectAllRecommended, releaseMethod, handleClickEditReleaseMethod, postTestAssignmentButton }) => {
+const RecommendationsButtons = ({ className, numberSelected, assigning, assigned, handleClickAssignActivityPacks, deselectAll, selectAll, selectAllRecommended, releaseMethod, handleClickEditReleaseMethod }) => {
   let assignButton = <button className="quill-button primary contained small disabled focus-on-light" type="button">Assign activity packs</button>
 
   if (assigning) {
@@ -159,7 +159,12 @@ const RecommendationsButtons = ({ className, numberSelected, assigning, assigned
   )
 }
 
-const PostTestAssignmentButton = ({ assigningPostTest, assignedPostTest, assignPostTest, numberSelectedForPostTest, }) => {
+const PostTestAssignmentButton = ({ assigningPostTest, assignedPostTest, assignPostTest, numberSelectedForPostTest, releaseMethod}) => {
+  let assignDivClass
+  if (releaseMethod) {
+    assignDivClass = "larger-assign"
+  }
+
   let assignButton = <button className="quill-button primary contained small disabled focus-on-light" type="button">Assign test</button>
 
   if (assigningPostTest) {
@@ -171,13 +176,13 @@ const PostTestAssignmentButton = ({ assigningPostTest, assignedPostTest, assignP
   }
 
   return (
-    <div className="recommendations-buttons post-test-assignment-button">
+    <div className={`recommendations-buttons post-test-assignment-button ${assignDivClass}`}>
       {assignButton}
     </div>
   )
 }
 
-const IndependentRecommendationsButtons = ({ handleClickAssignActivityPacks, independentSelections, setIndependentSelections, recommendations, students, assigned, assigning, previouslyAssignedRecommendations, releaseMethod, setShowReleaseMethodModal, showPostTestAssignmentColumn, assignPostTest, assignedPostTest, assigningPostTest, numberSelectedForPostTest, }) => {
+const IndependentRecommendationsButtons = ({ handleClickAssignActivityPacks, independentSelections, setIndependentSelections, recommendations, students, assigned, assigning, previouslyAssignedRecommendations, releaseMethod, setShowReleaseMethodModal,}) => {
   function handleClickEditReleaseMethod() { setShowReleaseMethodModal(true) }
 
   function handleSelectAllClick() {
@@ -219,7 +224,6 @@ const IndependentRecommendationsButtons = ({ handleClickAssignActivityPacks, ind
       handleClickAssignActivityPacks={handleClickAssignActivityPacks}
       handleClickEditReleaseMethod={releaseMethod && handleClickEditReleaseMethod}
       numberSelected={numberSelected}
-      postTestAssignmentButton={showPostTestAssignmentColumn ? <PostTestAssignmentButton assignedPostTest={assignedPostTest} assigningPostTest={assigningPostTest} assignPostTest={assignPostTest} numberSelectedForPostTest={numberSelectedForPostTest} /> : null}
       releaseMethod={releaseMethodToDisplayName[releaseMethod]}
       selectAll={handleSelectAllClick}
       selectAllRecommended={handleSelectAllRecommendedClick}
@@ -497,7 +501,7 @@ export const Recommendations = ({ passedPreviouslyAssignedRecommendations, passe
     return assignedPacks.every(pack => pack.activity_count === pack.diagnostic_progress[sr.id])
   })
 
-  const showPostTestAssignmentColumn = true
+  const showPostTestAssignmentColumn = studentsWhoCompletedDiagnostic.length && postDiagnosticUnitTemplateId && !isPostDiagnostic
 
   const recommendedKey = (<div className="recommended-key">
     <div className="recommended-image">{recommendedGlyph}</div>
@@ -550,9 +554,7 @@ export const Recommendations = ({ passedPreviouslyAssignedRecommendations, passe
           />
           </div>
           <div>
-          <div className="recommendations-buttons post-test-assignment-button">
-              <PostTestAssignmentButton assignedPostTest={postTestAssigned} assigningPostTest={postTestAssigning} assignPostTest={assignPostTest} numberSelectedForPostTest={postTestSelections.length} />
-            </div>
+            <PostTestAssignmentButton assignedPostTest={postTestAssigned} assigningPostTest={postTestAssigning} assignPostTest={assignPostTest} numberSelectedForPostTest={postTestSelections.length} releaseMethod={releaseMethod}/>
             <PostTestAssignmentTable
               showPostTestAssignmentColumn={showPostTestAssignmentColumn}
               students={students}

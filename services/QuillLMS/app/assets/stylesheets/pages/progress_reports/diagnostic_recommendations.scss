@@ -94,7 +94,9 @@
     }
     &.post-test-assignment-button {
       margin: 0 auto;
-      padding: 0px;
+      padding-left: 28px;
+      padding-top: 16px;
+      padding-bottom: 16px;
       width: 158px;
       margin-left: 30px;
       margin-bottom: 16px;
@@ -506,6 +508,13 @@
           margin-bottom: 8px;
         }
       }
+    }
+    .post-test-assignment-button {
+      height: 233px;
+      padding-top: 60% !important;
+    }
+    .larger-assign {
+      height: 250px;
     }
     .whole-class-instruction {
       .lessons-recommendation {
