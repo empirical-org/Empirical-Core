@@ -32,10 +32,17 @@ describe "Cron", type: :model do
   end
 
   describe "#interval_1_day" do
-    it "calls run_saturday is now is a Saturday" do
+    it "calls run_saturday if now is a Saturday" do
       a_saturday = Time.utc(2019, 10, 19)
       allow(Cron).to receive(:now).and_return(a_saturday)
       expect(Cron).to receive(:run_saturday)
+      Cron.interval_1_day
+    end
+
+    it "calls run_weekday if now is a weekday" do
+      a_thursday = Time.utc(2019, 10, 17)
+      allow(Cron).to receive(:now).and_return(a_thursday)
+      expect(Cron).to receive(:run_weekday)
       Cron.interval_1_day
     end
 
@@ -96,6 +103,13 @@ describe "Cron", type: :model do
     it "enqueues AlertSoonToExpireSubscriptionsWorker" do
       expect(AlertSoonToExpireSubscriptionsWorker).to receive(:perform_async)
       Cron.interval_1_day
+    end
+  end
+
+  describe "#run_weekday" do
+    it "enqueues IdentifyStripeInvoicesWithoutSubscriptionsWorker" do
+      expect(IdentifyStripeInvoicesWithoutSubscriptionsWorker).to receive(:perform_async)
+      Cron.run_weekday
     end
   end
 
