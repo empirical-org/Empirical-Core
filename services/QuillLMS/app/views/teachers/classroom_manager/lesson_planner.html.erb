@@ -5,7 +5,7 @@
 
 
 
-	<div class="tab-pane gray-background-accommodate-footer" id="activity-planner" data-tab="<%= @tab %>" data-grade="<%= @grade %>" data-students="<%= @students_exist %>" data-classroom-name="<%= @last_classroom_name%>" data-classroom-id="<%= @last_classroom_id%>">
+	<div class="tab-pane" id="activity-planner" data-tab="<%= @tab %>" data-grade="<%= @grade %>" data-students="<%= @students_exist %>" data-classroom-name="<%= @last_classroom_name%>" data-classroom-id="<%= @last_classroom_id%>">
 
 		<%= react_component('LessonPlannerApp', props: {
       grade: @grade.to_s,
@@ -15,7 +15,9 @@
       students: @students.to_s,
       flag: current_user&.testing_flag,
 			referralCode: current_user&.referral_code,
-      user: current_user
+      user: current_user,
+      featuredBlogPost: @featured_blog_post,
+      featuredBlogPostAuthor: @featured_blog_post_author
     })%>
 	<!-- ==========================================================================
 		 Progress tracker

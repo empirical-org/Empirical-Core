@@ -396,7 +396,7 @@ export default class ClassroomsWithStudentsContainer extends React.Component {
 
   render() {
     return (
-      <div className="classroom-with-students-container container">
+      <div className="classroom-with-students-container container gray-background-accommodate-footer">
         {this.renderCreateAClassModal()}
         {this.renderImportGoogleClassroomsModal()}
         {this.renderGoogleClassroomEmailModal()}

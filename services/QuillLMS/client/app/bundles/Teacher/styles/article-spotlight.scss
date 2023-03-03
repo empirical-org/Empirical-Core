@@ -52,9 +52,15 @@
         color: #757575;
         p {
           padding-bottom: 8px;
+          font-size: 14px;
         }
         a {
           max-width: max-content;
+        }
+        h1, h2, h3, h4 {
+          font-size: 14px;
+          font-weight: 700;
+          padding-bottom: 8px;
         }
       }
       .footer-section {

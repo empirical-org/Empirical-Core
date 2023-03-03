@@ -4,12 +4,11 @@ import _ from 'underscore';
 import ActivityPack from './activity_pack'
 
 import LoadingIndicator from '../../shared/loading_indicator';
-import ItemDropdown from '../../general_components/dropdown_selectors/item_dropdown';
 import getParameterByName from '../../modules/get_parameter_by_name';
-import getAuthToken from '../../modules/get_auth_token';
 import { DropdownInput, Snackbar, defaultSnackbarTimeout, } from '../../../../Shared/index'
 import { PROGRESS_REPORTS_SELECTED_CLASSROOM_ID, } from '../../progress_reports/progress_report_constants'
 import { requestGet, } from '../../../../../modules/request'
+import ArticleSpotlight from '../../shared/articleSpotlight';
 
 const clipboardSrc = `${process.env.CDN_URL}/images/illustrations/clipboard.svg`
 
@@ -249,7 +248,7 @@ export default class ManageUnits extends React.Component {
   }
 
   render() {
-    const { open, } = this.props
+    const { open, feauturedBlogPostAuthor, featuredBlogPost } = this.props
     const { classrooms, selectedClassroomId, loaded, showSnackbar, snackbarCopy, } = this.state
 
     if (!loaded) { return <LoadingIndicator /> }
@@ -264,23 +263,26 @@ export default class ManageUnits extends React.Component {
     const selectedOption = allOptions.find(opt => String(opt.value) === String(selectedClassroomId))
 
     return (
-      <div className="my-activities">
-        <Snackbar text={snackbarCopy} visible={showSnackbar} />
-        <section className="my-activities-header">
-          <div className="container">
-            <div className="top-line">
-              <h1>My {open ? 'Open' : 'Closed'} Activity Packs</h1>
-              <a className="quill-button contained primary medium focus-on-light" href="/assign">Assign activities</a>
+      <React.Fragment>
+        <div className="my-activities gray-background-accommodate-footer">
+          <Snackbar text={snackbarCopy} visible={showSnackbar} />
+          <section className="my-activities-header">
+            <div className="container">
+              <div className="top-line">
+                <h1>My {open ? 'Open' : 'Closed'} Activity Packs</h1>
+                <a className="quill-button contained primary medium focus-on-light" href="/assign">Assign activities</a>
+              </div>
+              <DropdownInput
+                handleChange={this.switchClassrooms}
+                options={allOptions}
+                value={selectedOption}
+              />
             </div>
-            <DropdownInput
-              handleChange={this.switchClassrooms}
-              options={allOptions}
-              value={selectedOption}
-            />
-          </div>
-        </section>
-        {this.stateBasedComponent()}
-      </div>
+          </section>
+          {this.stateBasedComponent()}
+        </div>
+        {open && <ArticleSpotlight feauturedBlogPostAuthor={feauturedBlogPostAuthor} featuredBlogPost={featuredBlogPost} />}
+      </React.Fragment>
     );
   }
 }

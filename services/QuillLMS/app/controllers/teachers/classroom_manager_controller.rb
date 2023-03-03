@@ -21,6 +21,8 @@ class Teachers::ClassroomManagerController < ApplicationController
 
   def lesson_planner
     set_classroom_variables
+    @featured_blog_post = BlogPost.find(519)
+    @featured_blog_post_author = @featured_blog_post&.author&.name
   end
 
   def assign

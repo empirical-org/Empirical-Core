@@ -12,7 +12,6 @@ import AssignAp from '../components/assignment_flow/create_unit/assign_ap.tsx'
 import AssignSpringBoard from '../components/assignment_flow/create_unit/assign_springboard.tsx'
 import CreateUnit from '../components/assignment_flow/create_unit/create_unit'
 import ActivityType from '../components/assignment_flow/create_unit/activity_type.tsx'
-import ArticleSpotlight from '../components/shared/articleSpotlight';
 
 const AssignActivitiesRouter = props => (
   <BrowserRouter>
@@ -37,7 +36,6 @@ const AssignActivitiesRouter = props => (
       <Route component={routerProps => <CreateUnit {...props} {...routerProps} />} path="/assign/new_unit/students/edit/name/:unitName/activity_ids/:activityIdsArray" />
       <Route component={routerProps => <AssignANewActivity {...props} {...routerProps} />} path="/assign" />
     </Switch>
-    <ArticleSpotlight author={props.featuredBlogPostAuthor} blogPost={props.featuredBlogPost} />
   </BrowserRouter>
 );
 
