@@ -17,6 +17,7 @@ class Cron
   # Which is 02:00 or 03:00 Eastern depending on Daylight Savings
   def self.interval_1_day
     run_saturday if now.wday == 6
+    run_weekday if (1..5).include?(now.wday)
     run_school_year_start if now.month == 7 && now.day == 1
 
     # pass yesterday's date for stats email queries and labels
@@ -52,6 +53,10 @@ class Cron
   # Configured in Heroku Scheduler to run at XX:50
   def self.run_at_50_minute_mark
     ResetGhostInspectorAccountWorker.perform_async
+  end
+
+  def self.run_weekday
+    IdentifyStripeInvoicesWithoutSubscriptionsWorker.perform_async
   end
 
   def self.run_saturday
