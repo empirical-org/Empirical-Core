@@ -5,6 +5,7 @@ import AssignmentCard from './assignment_card'
 import { requestGet, requestPost, } from '../../../../../modules/request'
 import { evidenceToolIcon } from "../../../../Shared"
 import { CLICKED_ACTIVITY_PACK_ID } from '../assignmentFlowConstants'
+import ArticleSpotlight from '../../shared/articleSpotlight'
 
 interface ActivityToSuggest {
   name: string;
@@ -72,7 +73,8 @@ const minis = (diagnosticBannerShowing) => [
   />)
 ];
 
-const AssignANewActivity = ({ numberOfActivitiesAssigned, showDiagnosticBanner }) => {
+const AssignANewActivity = ({ numberOfActivitiesAssigned, showDiagnosticBanner, featuredBlogPost, feauturedBlogPostAuthor }) => {
+  console.log("🚀 ~ file: assign_a_new_activity.tsx:77 ~ AssignANewActivity ~ featuredBlogPost", featuredBlogPost)
   const [diagnosticBannerShowing, setDiagnosticBannerShowing] = React.useState(showDiagnosticBanner)
   const [activitiesToSuggest, setActivitiesToSuggest] = React.useState([])
 
@@ -153,20 +155,23 @@ const AssignANewActivity = ({ numberOfActivitiesAssigned, showDiagnosticBanner }
   )
 
   return (
-    <div className="assign-a-new-activity-container">
-      <div className="assign-a-new-activity container">
-        <h1>Find the perfect writing activities for your students.</h1>
-        <div className="previously-assigned-container">
-          <p className="previously-assigned-activities">
-            You have {numberOfActivitiesAssigned} {numberOfActivitiesAssigned === 1 ? 'activity' : 'activities'} assigned.&nbsp;
-          </p>
-          <div className="view-assigned-activities"><a href="/teachers/classrooms/activity_planner">View assigned activities</a></div>
+    <React.Fragment>
+      <div className="assign-a-new-activity-container gray-background-accommodate-footer">
+        <div className="assign-a-new-activity container">
+          <h1>Find the perfect writing activities for your students.</h1>
+          <div className="previously-assigned-container">
+            <p className="previously-assigned-activities">
+              You have {numberOfActivitiesAssigned} {numberOfActivitiesAssigned === 1 ? 'activity' : 'activities'} assigned.&nbsp;
+            </p>
+            <div className="view-assigned-activities"><a href="/teachers/classrooms/activity_planner">View assigned activities</a></div>
+          </div>
+          {diagnosticBanner}
+          <div className="minis">{minis(diagnosticBannerShowing)}</div>
+          {suggestedActivitiesList}
         </div>
-        {diagnosticBanner}
-        <div className="minis">{minis(diagnosticBannerShowing)}</div>
-        {suggestedActivitiesList}
       </div>
-    </div>
+      <ArticleSpotlight blogPostId="113" />
+    </React.Fragment>
   )
 }
 

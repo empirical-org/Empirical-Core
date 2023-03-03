@@ -21,8 +21,6 @@ class Teachers::ClassroomManagerController < ApplicationController
 
   def lesson_planner
     set_classroom_variables
-    @featured_blog_post = BlogPost.find(519)
-    @featured_blog_post_author = @featured_blog_post&.author&.name
   end
 
   def assign
@@ -33,8 +31,6 @@ class Teachers::ClassroomManagerController < ApplicationController
     set_diagnostic_variables
     @clever_link = clever_link
     @number_of_activities_assigned = current_user.units.map(&:unit_activities).flatten.map(&:activity_id).uniq.size
-    @featured_blog_post = BlogPost.find(113)
-    @featured_blog_post_author = @featured_blog_post&.author&.name
     find_or_create_checkbox(Objective::EXPLORE_OUR_LIBRARY, current_user)
     return unless params[:tab] == 'diagnostic'
 
@@ -91,8 +87,6 @@ class Teachers::ClassroomManagerController < ApplicationController
     end
 
     @featured_blog_posts = BlogPost.where.not(featured_order_number: nil).order(:featured_order_number)
-    @featured_blog_post = BlogPost.find(51)
-    @featured_blog_post_author = @featured_blog_post&.author&.name
     @objective_checklist = generate_onboarding_checklist
     @first_name = current_user.first_name
   end

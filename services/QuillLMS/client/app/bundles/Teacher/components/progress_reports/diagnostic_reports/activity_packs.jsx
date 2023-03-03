@@ -7,6 +7,7 @@ import EmptyProgressReport from '../../shared/EmptyProgressReport.jsx';
 import ItemDropdown from '../../general_components/dropdown_selectors/item_dropdown';
 import getParameterByName from '../../modules/get_parameter_by_name';
 import { requestGet, } from '../../../../../modules/request/index'
+import ArticleSpotlight from '../../shared/articleSpotlight';
 
 export default class ActivityPacks extends React.Component {
   constructor(props) {
@@ -276,9 +277,12 @@ export default class ActivityPacks extends React.Component {
 
   render() {
     return (
-      <div className="container manage-units gray-background-accommodate-footer">
-        {this.stateBasedComponent()}
-      </div>
+      <React.Fragment>
+        <div className="container manage-units gray-background-accommodate-footer">
+          {this.stateBasedComponent()}
+        </div>
+        <ArticleSpotlight blogPostId="628" />
+      </React.Fragment>
     );
   }
 }

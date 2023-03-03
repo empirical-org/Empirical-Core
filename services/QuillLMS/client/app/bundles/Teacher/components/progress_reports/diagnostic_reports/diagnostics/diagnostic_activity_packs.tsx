@@ -10,6 +10,7 @@ import DemoOnboardingTour, { DEMO_ONBOARDING_DIAGNOSTIC_ACTIVITY_PACKS_INDEX,  }
 import { PROGRESS_REPORTS_SELECTED_CLASSROOM_ID, } from '../../progress_report_constants'
 import { DropdownInput, Tooltip, } from '../../../../../Shared/index'
 import { requestGet } from '../../../../../../modules/request/index';
+import ArticleSpotlight from '../../../shared/articleSpotlight'
 
 const multipleCardsIcon = <img alt="Activity pack icon" src={`${baseDiagnosticImageSrc}/icons-card-multiple.svg`} />
 const multipleUsersIcon = <img alt="Multiple user icon" src={`${baseDiagnosticImageSrc}/icons-user-multiple.svg`} />
@@ -163,19 +164,22 @@ const DiagnosticActivityPacks = ({ classrooms, }) => {
   const classroomElements = selectedClassroomId === ALL ? classrooms.map(c => <Classroom classroom={c} key={c.id} />) : <Classroom classroom={classrooms.find(c => c.id === selectedClassroomId)} />
 
   return (
-    <div className="diagnostic-activity-packs-container white-background-accommodate-footer">
-      <DemoOnboardingTour pageKey={DEMO_ONBOARDING_DIAGNOSTIC_ACTIVITY_PACKS_INDEX} />
-      <div className="container diagnostic-activity-packs">
-        <h1>Diagnostic Reports</h1>
-        <DropdownInput
-          handleChange={onClassesDropdownChange}
-          isSearchable={false}
-          options={dropdownOptions}
-          value={dropdownOptions.find(opt => opt.value === selectedClassroomId)}
-        />
-        {classroomElements}
+    <React.Fragment>
+      <div className="diagnostic-activity-packs-container white-background-accommodate-footer">
+        <DemoOnboardingTour pageKey={DEMO_ONBOARDING_DIAGNOSTIC_ACTIVITY_PACKS_INDEX} />
+        <div className="container diagnostic-activity-packs">
+          <h1>Diagnostic Reports</h1>
+          <DropdownInput
+            handleChange={onClassesDropdownChange}
+            isSearchable={false}
+            options={dropdownOptions}
+            value={dropdownOptions.find(opt => opt.value === selectedClassroomId)}
+          />
+          {classroomElements}
+        </div>
       </div>
-    </div>
+      <ArticleSpotlight blogPostId="564" />
+    </React.Fragment>
   )
 }
 

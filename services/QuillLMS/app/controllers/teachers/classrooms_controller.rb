@@ -23,8 +23,6 @@ class Teachers::ClassroomsController < ApplicationController
     @coteacher_invitations = format_coteacher_invitations_for_index
     @classrooms = format_classrooms_for_index
     @clever_link = clever_link
-    @featured_blog_post = BlogPost.find(137)
-    @featured_blog_post_author = @featured_blog_post&.author&.name
 
     respond_to do |format|
       format.html

@@ -248,7 +248,7 @@ export default class ManageUnits extends React.Component {
   }
 
   render() {
-    const { open, feauturedBlogPostAuthor, featuredBlogPost } = this.props
+    const { open } = this.props
     const { classrooms, selectedClassroomId, loaded, showSnackbar, snackbarCopy, } = this.state
 
     if (!loaded) { return <LoadingIndicator /> }
@@ -281,7 +281,7 @@ export default class ManageUnits extends React.Component {
           </section>
           {this.stateBasedComponent()}
         </div>
-        {open && <ArticleSpotlight feauturedBlogPostAuthor={feauturedBlogPostAuthor} featuredBlogPost={featuredBlogPost} />}
+        {open && <ArticleSpotlight blogPostId="519" />}
       </React.Fragment>
     );
   }

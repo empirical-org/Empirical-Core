@@ -76,6 +76,7 @@ EmpiricalGrammar::Application.routes.draw do
   end
 
   post 'rate_blog_post', to: 'blog_post_user_ratings#create'
+  get 'featured_blog_post/:id', to: 'blog_posts#featured_blog_post'
 
   resources :student_feedback_responses, only: [:create]
 

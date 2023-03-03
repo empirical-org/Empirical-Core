@@ -1,11 +1,30 @@
 import * as React from 'react';
 import ReactMarkdown from 'react-markdown';
+import { requestGet } from '../../../../modules/request';
 
-export const ArticleSpotlight = ({ feauturedBlogPostAuthor, featuredBlogPost }) => {
+export const ArticleSpotlight = ({ blogPostId }) => {
+  const [blogPost, setBlogPost] = React.useState(null);
+  const [blogPostAuthor, setBlogPostAuthor] = React.useState(null);
 
-  if(!featuredBlogPost) { return <span /> }
+  React.useEffect(() => {
+    getBlogPost(blogPostId)
+  }, [])
 
-  const { title, body, slug } = featuredBlogPost;
+  function getBlogPost(id) {
+    requestGet(`/featured_blog_post/${id}`,
+      (data) => {
+        if(data.blog_post && data.author) {
+          const { blog_post, author } = data;
+          setBlogPost(blog_post)
+          setBlogPostAuthor(author)
+        }
+      }
+    )
+  }
+
+  if(!blogPost) { return <span /> }
+
+  const { title, body, slug } = blogPost;
   const teacherCenterBaseUrl = `${process.env.DEFAULT_URL}/teacher-center`
 
   return(
@@ -22,7 +41,7 @@ export const ArticleSpotlight = ({ feauturedBlogPostAuthor, featuredBlogPost }) 
           <h4>{title}</h4>
           <ReactMarkdown className="preview-card" source={body} />
           <section className="footer-section">
-            {feauturedBlogPostAuthor && <p className="author">{`By ${feauturedBlogPostAuthor}`}</p>}
+            {blogPostAuthor && <p className="author">{`By ${blogPostAuthor}`}</p>}
             <a className="quill-button contained primary fun" href={`${teacherCenterBaseUrl}/${slug}`} rel="noopener noreferrer" target="_blank">Read</a>
           </section>
         </section>
