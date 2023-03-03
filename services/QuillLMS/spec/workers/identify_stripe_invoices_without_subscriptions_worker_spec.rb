@@ -2,7 +2,7 @@
 
 require 'rails_helper'
 
-describe IdentifyStripeInvoicesWithoutSubscriptions do
+describe IdentifyStripeInvoicesWithoutSubscriptionsWorker do
   include_context 'Stripe Invoice'
 
   subject { described_class.new }

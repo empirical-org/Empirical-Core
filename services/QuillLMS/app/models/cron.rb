@@ -56,7 +56,7 @@ class Cron
   end
 
   def self.run_weekday
-    IdentifyStripeInvoicesWithoutSubscriptions.perform_async
+    IdentifyStripeInvoicesWithoutSubscriptionsWorker.perform_async
   end
 
   def self.run_saturday
