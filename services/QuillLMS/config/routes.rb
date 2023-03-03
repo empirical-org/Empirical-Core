@@ -22,7 +22,13 @@ EmpiricalGrammar::Application.routes.draw do
   get '/study', to: "students#index"
   get '/classes', to: "students#index"
 
-  resources :admins, only: [:show], format: 'json'
+  get '/school_for_current_user', to: 'schools_users#school_for_current_user'
+
+  resources :admins, only: [:show], format: 'json' do
+    member do
+      get :admin_info
+    end
+  end
 
   # for admins to sign in as teachers
   resources :users do
@@ -109,7 +115,8 @@ EmpiricalGrammar::Application.routes.draw do
   resources :password_reset
   resources :verify_emails, only: [] do
     post :verify_by_staff, on: :collection, format: :json
-    post :verify_by_token, on: :collection, format: :json
+    put :resend_verification_email, on: :collection, format: :json
+    put :verify_by_token, on: :collection, format: :json
   end
   resources :schools, only: [:index], format: 'json'
   resources :students_classrooms, only: :create do
@@ -173,6 +180,10 @@ EmpiricalGrammar::Application.routes.draw do
   end
 
   resources :teacher_infos, only: [:create] do
+    put :update, on: :collection
+  end
+
+  resources :admin_infos, only: [] do
     put :update, on: :collection
   end
 
@@ -545,6 +556,10 @@ EmpiricalGrammar::Application.routes.draw do
   get 'account/:token/finish_set_up', to: 'accounts#edit'
   put 'account/:token', to: 'accounts#update'
 
+  get '/sign-up/verify-school', to: 'accounts#new'
+  get '/sign-up/verify-email', to: 'accounts#new'
+  get '/sign-up/select-sub-role', to: 'accounts#new'
+  get '/sign-up/admin', to: 'accounts#new'
   get '/sign-up/teacher', to: 'accounts#new'
   get '/sign-up/student', to: 'accounts#new'
   get '/sign-up/individual-contributor', to: 'accounts#new'
@@ -768,6 +783,7 @@ EmpiricalGrammar::Application.routes.draw do
   get 'teacher_fix/remove_unsynced_students' => 'teacher_fix#index'
   get 'teacher_fix/list_unsynced_students_by_classroom'
   get 'teacher_fix/archived_units' => 'teacher_fix#archived_units'
+  get 'teacher_fix/recalculate_staggered_release_locks' => 'teacher_fix#index'
   post 'teacher_fix/recover_classroom_units' => 'teacher_fix#recover_classroom_units'
   post 'teacher_fix/recover_unit_activities' => 'teacher_fix#recover_unit_activities'
   post 'teacher_fix/recover_activity_sessions' => 'teacher_fix#recover_activity_sessions'
@@ -781,6 +797,7 @@ EmpiricalGrammar::Application.routes.draw do
   post 'teacher_fix/merge_activity_packs' => 'teacher_fix#merge_activity_packs'
   post 'teacher_fix/delete_last_activity_session' => 'teacher_fix#delete_last_activity_session'
   post 'teacher_fix/remove_unsynced_students' => 'teacher_fix#remove_unsynced_students'
+  post 'teacher_fix/recalculate_staggered_release_locks' => 'teacher_fix#recalculate_staggered_release_locks'
 
   get 'activities/section/:section_id', to: redirect('activities/standard_level/%{section_id}')
   get 'activities/standard_level/:standard_level_id' => 'pages#activities', as: "activities_section"
@@ -846,7 +863,7 @@ EmpiricalGrammar::Application.routes.draw do
   # Uptime status
   resource :status, only: [] do
     collection do
-      get :index, :database, :database_write, :database_follower, :redis_cache, :redis_queue, :sidekiq_queue_length
+      get :index, :database, :database_write, :database_follower, :redis_cache, :redis_queue, :sidekiq_queue_latency, :sidekiq_queue_length
       post :deployment_notification
     end
   end

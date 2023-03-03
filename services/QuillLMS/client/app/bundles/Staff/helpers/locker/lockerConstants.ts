@@ -16,6 +16,7 @@ export const MERGE_TWO_CLASSROOMS = 'merge two classrooms';
 export const MERGE_ACTIVITY_PACKS = 'merge activity packs';
 export const DELETE_LAST_ACTIVITY_SESSION = 'delete last activity sessions';
 export const REMOVE_UNSYNCED_STUDENTS_FROM_CLASSES = 'remove unsynced students from classes';
+export const RECALCULATE_STAGGERED_RELEASE_LOCKS = 'recalculate staggered release locks';
 export const TEACHER_FIXES = 'teacher fixes';
 export const POSTS = 'posts';
 export const ARTICLE_IMAGES = 'article images';
@@ -68,6 +69,7 @@ export const lockerItemOptions = [
   { label: PROOFREADER, value: PROOFREADER},
   { label: RAILS_ADMIN, value: RAILS_ADMIN},
   { label: REMOVE_UNSYNCED_STUDENTS_FROM_CLASSES, value: REMOVE_UNSYNCED_STUDENTS_FROM_CLASSES},
+  { label: RECALCULATE_STAGGERED_RELEASE_LOCKS, value: RECALCULATE_STAGGERED_RELEASE_LOCKS},
   { label: RESTORE_ACTIVITY_SESSIONS, value: RESTORE_ACTIVITY_SESSIONS},
   { label: RESTORE_CLASSROOM_UNITS, value: RESTORE_CLASSROOM_UNITS},
   { label: RESTORE_UNIT_ACTIVITIES, value: RESTORE_UNIT_ACTIVITIES},

@@ -1,0 +1,121 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`DistrictStandardsReports when the access type is limited renders 1`] = `
+<Connect(DistrictStandardsReports)
+  accessType="limited"
+  store={
+    Object {
+      "dispatch": [Function],
+      "getAction": [Function],
+      "getActions": [Function],
+      "getState": [Function],
+      "isActionDispatched": [Function],
+      "isActionTypeDispatched": [Function],
+      "replaceReducer": [Function],
+      "subscribe": [Function],
+    }
+  }
+>
+  <DistrictStandardsReports
+    accessType="limited"
+    csvData={
+      Array [
+        Array [
+          "Standard Level",
+          "Standard Name",
+          "Students",
+          "Proficient",
+          "Activities",
+          "Time Spent",
+        ],
+      ]
+    }
+    errors={false}
+    filteredStandardsReportsData={Array []}
+    getDistrictStandardsReports={[Function]}
+    loading={false}
+    standardsReportsData={Array []}
+    store={
+      Object {
+        "dispatch": [Function],
+        "getAction": [Function],
+        "getActions": [Function],
+        "getState": [Function],
+        "isActionDispatched": [Function],
+        "isActionTypeDispatched": [Function],
+        "replaceReducer": [Function],
+        "subscribe": [Function],
+      }
+    }
+  >
+    <div
+      className="restricted-page"
+    >
+      <img
+        alt="Gray lock"
+        src="undefined/images/pages/administrator/premium_lock.svg"
+      />
+    </div>
+  </DistrictStandardsReports>
+</Connect(DistrictStandardsReports)>
+`;
+
+exports[`DistrictStandardsReports when the access type is restricted renders 1`] = `
+<Connect(DistrictStandardsReports)
+  accessType="restricted"
+  store={
+    Object {
+      "dispatch": [Function],
+      "getAction": [Function],
+      "getActions": [Function],
+      "getState": [Function],
+      "isActionDispatched": [Function],
+      "isActionTypeDispatched": [Function],
+      "replaceReducer": [Function],
+      "subscribe": [Function],
+    }
+  }
+>
+  <DistrictStandardsReports
+    accessType="restricted"
+    csvData={
+      Array [
+        Array [
+          "Standard Level",
+          "Standard Name",
+          "Students",
+          "Proficient",
+          "Activities",
+          "Time Spent",
+        ],
+      ]
+    }
+    errors={false}
+    filteredStandardsReportsData={Array []}
+    getDistrictStandardsReports={[Function]}
+    loading={false}
+    standardsReportsData={Array []}
+    store={
+      Object {
+        "dispatch": [Function],
+        "getAction": [Function],
+        "getActions": [Function],
+        "getState": [Function],
+        "isActionDispatched": [Function],
+        "isActionTypeDispatched": [Function],
+        "replaceReducer": [Function],
+        "subscribe": [Function],
+      }
+    }
+  >
+    <div
+      className="restricted-page"
+    >
+      <img
+        alt="Gray lock"
+        src="undefined/images/pages/administrator/premium_lock.svg"
+      />
+    </div>
+  </DistrictStandardsReports>
+</Connect(DistrictStandardsReports)>
+`;

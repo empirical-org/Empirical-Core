@@ -9,7 +9,6 @@
     topics: @topics,
     studentTopics: @student_topics,
     role: current_user&.role,
-    title: @title,
-    isComprehensionUser: current_user && AppSetting.enabled?(name: AppSetting::COMPREHENSION, user: current_user)
+    title: @title
   })%>
 </div>

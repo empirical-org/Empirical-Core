@@ -8,7 +8,7 @@
 
     <section class='bg-connect-yellow tool-hero text-center tool-section'>
       <h1 class="q-h1">
-          <img class="tool-page-icon lazyload" data-src=<%= "#{ENV['CDN_URL']}/images/shared/quill_connect_white.svg"%>>Quill Connect
+          <img class="tool-page-icon lazyload" loading="lazy" src=<%= "#{ENV['CDN_URL']}/images/shared/quill_connect_white.svg"%>>Quill Connect
       </h1>
       <p class='description'>
       Help your students advance from writing fragments and run-ons to composing complex, well-structured sentences with Quill Connect. By combining sentences, students learn how to demonstrate relationships between ideas. Then, they receive instant, custom feedback designed to help them improve the clarity and precision of their sentences.
@@ -22,7 +22,7 @@
     </section>
 
     <section class="tool-animation-section " id="overview">
-          <video class='tool-animation lazyload' data-src=<%= "#{ENV['CDN_URL']}/videos/tools/connect.mp4" %> autoplay loop/>
+          <video class='tool-animation lazy' data-src=<%="#{ENV['CDN_URL']}/videos/tools/connect.mp4"%> autoplay loop/>
     </section>
 
     <section class="walk-thru-wrapper desktop" id="how-it-works">
@@ -47,8 +47,8 @@
       </div>
         <div class="walk-thru-step flex-row vertically-centered">
             <div class="content-wrapper flex-row space-between vertically-centered">
-                <img class="arrow arrow-1 lazyload" data-src=<%= "#{ENV['CDN_URL']}/images/tools/connect/arrow_1.png" %>>
-                <img class="negative-left-margin lazyload" data-src=<%= "#{ENV['CDN_URL']}/images/tools/connect/attempt_1.png" %> alt="connect image">
+                <img class="arrow arrow-1 lazyload" loading="lazy" src=<%= "#{ENV['CDN_URL']}/images/tools/connect/arrow_1.png" %>>
+                <img class="negative-left-margin lazyload" loading="lazy" src=<%= "#{ENV['CDN_URL']}/images/tools/connect/attempt_1.webp" %> alt="connect image">
                 <div class="blurb blurb-attempt-1">
                     <h2><span>1st Attempt:</span> Write Concisely</h2>
                     <p>
@@ -59,20 +59,20 @@
         </div>
         <div class="walk-thru-step flex-row vertically-centered">
             <div class="content-wrapper flex-row space-between vertically-centered">
-              <img class="negative-left-margin lazyload" data-src=<%= "#{ENV['CDN_URL']}/images/tools/connect/attempt_2.png"%> alt="connect image">
+              <img class="negative-left-margin lazyload" loading="lazy" src=<%= "#{ENV['CDN_URL']}/images/tools/connect/attempt_2.webp"%> alt="connect image">
                 <div class="blurb blurb-attempt-2">
                     <h2><span>2nd Attempt:</span> Show Relationships</h2>
                     <p>
                     While using <span>and</span> to join the two main ideas is grammatically correct, it is not the strongest way of conveying the relationship between these ideas. Students are prompted to use a conjunction that expresses a cause and effect relationship. This is an important step towards conveying complex ideas.
                     </p>
                 </div>
-                <img class="arrow arrow-2 lazyload" data-src=<%= "#{ENV['CDN_URL']}/images/tools/connect/arrow_2.png" %>>
+                <img class="arrow arrow-2 lazyload" loading="lazy" src=<%= "#{ENV['CDN_URL']}/images/tools/connect/arrow_2.png" %>>
             </div>
         </div>
         <div class="walk-thru-step flex-row vertically-centered">
             <div class="content-wrapper flex-row space-between vertically-centered">
-              <img class="arrow arrow-3 lazyload" data-src=<%= "#{ENV['CDN_URL']}/images/tools/connect/arrow_3.png" %>>
-              <img class="negative-left-margin img-attempt-3 lazyload" data-src=<%= "#{ENV['CDN_URL']}/images/tools/connect/attempt_3.png" %> alt="connect image">
+              <img class="arrow arrow-3 lazyload" loading="lazy" src=<%= "#{ENV['CDN_URL']}/images/tools/connect/arrow_3.png" %>>
+              <img class="negative-left-margin img-attempt-3 lazyload" loading="lazy" src=<%= "#{ENV['CDN_URL']}/images/tools/connect/attempt_3.webp" %> alt="connect image">
                 <div class="blurb blurb-attempt-3">
                     <h2><span>3rd Attempt:</span> Use Punctuation</h2>
                     <p>
@@ -83,7 +83,7 @@
         </div>
         <div class="walk-thru-step flex-row vertically-centered">
             <div class="content-wrapper flex-row space-between vertically-centered">
-              <img class="negative-left-margin img-attempt-4 lazyload" data-src=<%= "#{ENV['CDN_URL']}/images/tools/connect/attempt_4.png" %> alt="connect image">
+              <img class="negative-left-margin img-attempt-4 lazyload" loading="lazy" src=<%= "#{ENV['CDN_URL']}/images/tools/connect/attempt_4.webp" %> alt="connect image">
                 <div class="blurb blurb-attempt-4">
                     <h2><span>4th Attempt:</span> Strong Sentence!</h2>
                     <p>
@@ -118,7 +118,7 @@
       </div>
         <div class="walk-thru-step">
             <div class="content-wrapper">
-              <img data-src=<%= "#{ENV['CDN_URL']}/images/tools/connect/attempt_1.png" %> alt="connect image lazyload">
+              <img loading="lazy" src=<%= "#{ENV['CDN_URL']}/images/tools/connect/attempt_1.webp" %> alt="connect image lazyload">
               <div class="blurb">
                   <h2><span>1st Attempt:</span> Write Concisely</h2>
                   <p>
@@ -129,7 +129,7 @@
         </div>
         <div class="walk-thru-step">
             <div class="content-wrapper">
-              <img data-src=<%= "#{ENV['CDN_URL']}/images/tools/connect/attempt_2.png" %> alt="connect image lazyload">
+              <img loading="lazy" src=<%= "#{ENV['CDN_URL']}/images/tools/connect/attempt_2.webp" %> alt="connect image lazyload">
                 <div class="blurb">
                     <h2><span>2nd Attempt:</span> Show Relationships</h2>
                     <p>
@@ -140,7 +140,7 @@
         </div>
         <div class="walk-thru-step">
           <div class="content-wrapper">
-            <img class="img-attempt-3 lazyload" data-src=<%= "#{ENV['CDN_URL']}/images/tools/connect/attempt_3.png" %> alt="connect image">
+            <img class="img-attempt-3 lazyload" loading="lazy" src=<%= "#{ENV['CDN_URL']}/images/tools/connect/attempt_3.webp" %> alt="connect image">
               <div class="blurb">
                   <h2><span>3rd Attempt:</span> Use Punctuation</h2>
                   <p>
@@ -151,7 +151,7 @@
         </div>
         <div class="walk-thru-step">
           <div class="content-wrapper">
-            <img class="img-attempt-4 lazyload" data-src=<%= "#{ENV['CDN_URL']}/images/tools/connect/attempt_4.png" %> alt="connect image">
+            <img class="img-attempt-4 lazyload" loading="lazy" src=<%= "#{ENV['CDN_URL']}/images/tools/connect/attempt_4.webp" %> alt="connect image">
               <div class="blurb">
                   <h2><span>4th Attempt:</span> Strong Sentence!</h2>
                   <p>
@@ -177,21 +177,21 @@
           <div class="carousel-inner" role="listbox">
               <div class="item active">
                 <div class="wrapper">
-                  <img data-src=<%= "#{ENV['CDN_URL']}/images/tools/connect/visual_overview_screenshot.png" %> alt="Chania" class="lazyload">
+                  <img loading="lazy" src=<%= "#{ENV['CDN_URL']}/images/tools/connect/visual_overview_screenshot.webp" %> alt="Chania" class="lazyload">
                 </div>
                 <p>Teachers can use their activity summary report to see which concepts the student has mastered and which ones they need to practice.</p>
               </div>
 
               <div class="item">
                 <div class="wrapper">
-                  <img data-src=<%= "#{ENV['CDN_URL']}/images/tools/connect/analysis_screenshot.png" %> alt="Chania" class="lazyload">
+                  <img loading="lazy" src=<%= "#{ENV['CDN_URL']}/images/tools/connect/analysis_screenshot.png" %> alt="Chania" class="lazyload">
                 </div>
                 <p>Teachers see reports that state exactly which errors the student made and which concepts the student mastered.</p>
               </div>
 
               <div class="item">
                 <div class="wrapper">
-                  <img data-src=<%= "#{ENV['CDN_URL']}/images/tools/connect/activities_screenshot.png" %> alt="Chania" class='lazyload'>
+                  <img loading="lazy" src=<%= "#{ENV['CDN_URL']}/images/tools/connect/activities_screenshot.png" %> alt="Chania" class='lazyload'>
                 </div>
                 <p>Teachers have access to over 200 exercises aligned with the Common Core language standards.</p>
               </div>
@@ -221,7 +221,7 @@
 
   <section>
     <div class="boy-playing-quill">
-      <img data-src=<%= "#{ENV['CDN_URL']}/images/tools/connect/laura_marshall_student.png" %> alt="boy playing quill" class='lazyload'>
+      <img loading="lazy" src=<%= "#{ENV['CDN_URL']}/images/tools/connect/laura_marshall_student.webp" %> alt="boy playing quill" class='lazyload'>
     </div>
   </section>
 

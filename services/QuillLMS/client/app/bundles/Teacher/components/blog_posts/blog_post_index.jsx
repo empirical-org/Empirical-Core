@@ -188,14 +188,11 @@ export default class BlogPostIndex extends React.Component {
   }
 
   renderPreviewCardsByTopic() {
-    const { blogPosts, isComprehensionUser, role, topics } = this.props;
+    const { blogPosts, role, topics } = this.props;
     let sections = [];
     const articlesByTopic = _.groupBy(blogPosts, TOPIC);
     topics.forEach(topic => {
       const articlesInThisTopic = articlesByTopic[topic.name];
-      const skipComprehension = topic.name === USING_QUILL_FOR_READING_COMPREHENSION && !isComprehensionUser;
-
-      if(skipComprehension) { return }
 
       if (articlesInThisTopic) {
         sections.push(<TopicSection

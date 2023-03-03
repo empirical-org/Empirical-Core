@@ -19,23 +19,32 @@ class Cms::AdminVerificationController < Cms::CmsController
 
   def set_approved
     @admin_info.update(approval_status: AdminInfo::APPROVED)
-    school = @admin_info.user.school
-    SchoolsAdmins.create(user: @admin_info.user, school: school)
+    user = @admin_info.user
+    school = user.school
+    SchoolsAdmins.create(user: user, school: school)
     ApprovedAdminVerificationEmailWorker.perform_async(@admin_info.user_id, school.id)
+    IdentifyWorker.perform_async(@admin_info.user_id)
+
     render json: {}
   end
 
   def set_denied
     @admin_info.update(approval_status: AdminInfo::DENIED)
-    school = @admin_info.user.school
+    user = @admin_info.user
+    school = user.school
     DeniedAdminVerificationEmailWorker.perform_async(@admin_info.user_id, school.id)
+    IdentifyWorker.perform_async(@admin_info.user_id)
+
     render json: {}
   end
 
   def set_pending
     @admin_info.update(approval_status: AdminInfo::PENDING)
-    school = @admin_info.user.school
-    SchoolsAdmins.destroy_by(user: @admin_info.user, school: school)
+    user = @admin_info.user
+    school = user.school
+    SchoolsAdmins.destroy_by(user: user, school: school)
+    IdentifyWorker.perform_async(@admin_info.user_id)
+
     render json: {}
   end
 
@@ -44,7 +53,7 @@ class Cms::AdminVerificationController < Cms::CmsController
   end
 
   private def format_admin_info_record(admin_info_record)
-    geocoder_result = Geocoder.search(admin_info_record.user.ip_address.to_string).first
+    geocoder_result = Geocoder.search(admin_info_record.user.ip_address&.to_string).first
 
     {
       admin_info_id: admin_info_record.id,
@@ -54,7 +63,7 @@ class Cms::AdminVerificationController < Cms::CmsController
       email: admin_info_record.user.email,
       verification_url: admin_info_record.verification_url,
       verification_reason: admin_info_record.verification_reason,
-      location: [geocoder_result.city, geocoder_result.state, geocoder_result.country].filter { |str| str && str.present? }.join(', '),
+      location: geocoder_result ? [geocoder_result.city, geocoder_result.state, geocoder_result.country].filter { |str| str && str.present? }.join(', ') : '',
       approval_status: admin_info_record.approval_status
     }
   end

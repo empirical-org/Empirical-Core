@@ -368,7 +368,7 @@ $tool-grey: #f8f9f9;
                 border: none !important;
 
                 &.active {
-                    background-color: $quillgreen;
+                    background-color: $quillgreen !important;
                 }
             }
         }

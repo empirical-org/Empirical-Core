@@ -207,5 +207,4 @@ module TeacherFixes
     units.each(&:touch)
     units.each(&:save_user_pack_sequence_items)
   end
-
 end

@@ -11,7 +11,7 @@ module MobileHelper
     return unless device == type
 
     "<div class='video-section'>
-      <video class='lazyload' data-src='#{url}' autoplay loop playsinline muted/>
+      <video class='lazy' data-src='#{url}' autoplay loop playsinline muted/>
         <p>
           Video not supported
         </p>

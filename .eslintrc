@@ -22,7 +22,10 @@
     "linkComponents": [
       "Hyperlink",
       {"name": "Link", "linkAttribute": "to"}
-    ]
+    ],
+    "react": {
+        "version": "999.999.999"  /* https://github.com/jsx-eslint/eslint-plugin-react/issues/1955#issuecomment-415181022 */
+    }
   },
   "rules": {
     "no-console": "error",

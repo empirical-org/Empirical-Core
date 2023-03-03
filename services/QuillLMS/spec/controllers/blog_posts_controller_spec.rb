@@ -32,7 +32,15 @@ describe BlogPostsController, type: :controller do
 
   describe '#show' do
     let(:blog_post) { create(:blog_post) }
-    let(:three_most_recent_posts) { create_list(:blog_post, 3) }
+    let(:blog_post2) { create(:blog_post, topic: "What's new", created_at: 1.day.ago) }
+    let(:blog_post3) { create(:blog_post, topic: "Getting started") }
+    let(:blog_post4) { create(:blog_post, topic: "What's new", created_at: 1.year.ago) }
+    let(:blog_post5) { create(:blog_post, topic: "What's new", created_at: 1.week.ago) }
+    let(:related_posts_array) { [blog_post2, blog_post5, blog_post4] }
+
+    before do
+      allow_any_instance_of(BlogPost).to receive(:related_posts).and_return(related_posts_array)
+    end
 
     it 'should redirect to teacher center home if no such post found' do
       get :show, params: { slug: 'does-not-exist' }
@@ -63,7 +71,7 @@ describe BlogPostsController, type: :controller do
 
     it 'should return the three most recent posts' do
       get :show, params: { slug: blog_post.slug }
-      expect(assigns(:most_recent_posts)).to match_array(three_most_recent_posts)
+      expect(assigns(:related_posts)).to eq(related_posts_array)
     end
 
     it 'should return the title' do
@@ -84,7 +92,7 @@ describe BlogPostsController, type: :controller do
   end
 
   describe '#show_topic' do
-    let(:public_teacher_topics) { BlogPost::TEACHER_TOPICS - [BlogPost::USING_QUILL_FOR_READING_COMPREHENSION] }
+    let(:public_teacher_topics) { BlogPost::TEACHER_TOPICS }
     let(:topic) { public_teacher_topics.sample }
     let(:blog_posts) { create_list(:blog_post, 3, topic: topic) }
     let(:draft_post) { create(:blog_post, :draft, topic: topic) }

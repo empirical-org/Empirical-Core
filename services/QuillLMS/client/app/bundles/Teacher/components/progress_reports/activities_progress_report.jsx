@@ -107,14 +107,14 @@ export default createReactClass({
 
   columnDefinitions: function() {
     const { studentFilters, } = this.state
+    const cellClassName = this.nonPremiumBlur()
     // Student, Date, Activity, Score, Standard, Tool
     return [
       {
         Header: 'Student',
         accessor: 'student_id',
         resizeable: false,
-        Cell: ({row}) => studentFilters.find(student => student.value == row.original.student_id)?.name,
-        className: this.nonPremiumBlur(),
+        Cell: ({ row }) => <span className={cellClassName}>{studentFilters.find(student => student.value == row.original.student_id)?.name}</span>,
         maxWidth: 200
       },
       {
@@ -128,22 +128,23 @@ export default createReactClass({
         Header: 'Activity',
         accessor: 'activity_name',
         resizeable: false,
-        className: 'show-overflow'
+        Cell: ({ row }) => <span className="show-overflow">{row.original.activity_name}</span>
       },
       {
         Header: 'Score',
         accessor: 'percentage',
         resizeable: false,
-        Cell: ({row}) => row.original.percentage >= 0 ? `${Math.round(row.original.percentage * 100)}%` : 'Completed',
-        className: this.nonPremiumBlur(),
+        Cell: ({row}) => {
+          const score = row.original.percentage >= 0 ? `${Math.round(row.original.percentage * 100)}%` : 'Completed'
+          return <span className={cellClassName}>{score}</span>
+        },
         maxWidth: 90
       },
       {
         Header: 'Time spent',
         accessor: 'timespent',
         resizeable: false,
-        Cell: ({row}) => getTimeSpent(row.original.timespent),
-        className: this.nonPremiumBlur(),
+        Cell: ({ row }) => <span className={cellClassName}>{getTimeSpent(row.original.timespent)}</span>,
         maxWidth: 90
       },
       {
