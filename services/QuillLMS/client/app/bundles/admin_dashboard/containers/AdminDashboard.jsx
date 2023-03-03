@@ -169,6 +169,7 @@ const AdminDashboard = ({ adminId, accessType, passedModel, }) => {
       <div className='dark-divider' />
       <AdminsTeachers
         accessType={accessType}
+        adminApprovalRequestAdminInfoIds={model.admin_approval_requests.map(r => r.admin_info_id)}
         adminAssociatedSchool={model.associated_school}
         data={model.teachers}
         handleUserAction={handleUserAction}

@@ -243,7 +243,7 @@ class SegmentAnalytics
   def track_admin_received_admin_upgrade_request_from_teacher(admin, teacher, reason)
     track({
       user_id: admin.id,
-      event: Segment::BackgroundEvents::ADMIN_RECEIVED_ADMIN_UPGRADE_REQUEST_FROM_TEACHER,
+      event: SegmentIo::BackgroundEvents::ADMIN_RECEIVED_ADMIN_UPGRADE_REQUEST_FROM_TEACHER,
       properties: {
         teacher_first_name: teacher.first_name,
         teacher_last_name: teacher.last_name,
@@ -267,7 +267,7 @@ class SegmentAnalytics
     if admin
       track({
         user_id: admin.id,
-        event: Segment::BackgroundEvents::ADMIN_INVITED_BY_TEACHER,
+        event: SegmentIo::BackgroundEvents::ADMIN_INVITED_BY_TEACHER,
         properties: properties
       })
     else
@@ -275,7 +275,7 @@ class SegmentAnalytics
         # Segment requires us to send a unique User ID or Anonymous ID for every event
         # generate a random UUID here because this user doesn't yet exist in our system
         anonymous_id: SecureRandom.uuid,
-        event: Segment::BackgroundEvents::ADMIN_INVITED_BY_TEACHER,
+        event: SegmentIo::BackgroundEvents::ADMIN_INVITED_BY_TEACHER,
         properties: properties
       })
     end
@@ -284,7 +284,7 @@ class SegmentAnalytics
   def track_teacher_invited_admin(teacher, admin_name, admin_email, note)
     track({
       user_id: teacher.id,
-      event: Segment::BackgroundEvents::ADMIN_INVITED_BY_TEACHER,
+      event: SegmentIo::BackgroundEvents::ADMIN_INVITED_BY_TEACHER,
       properties: {
         admin_name: admin_name,
         admin_email: admin_email,

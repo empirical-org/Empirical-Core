@@ -16,7 +16,7 @@ class CompleteAccountCreation
   end
 
   def perform_admin_actions
-    AdminInfo.create(admin_id: user.id, approval_status: AdminInfo::SKIPPED) # setting approval status to SKIPPED to ensure that self-created admins who exit or bypass the school verification step will have to complete it eventually
+    AdminInfo.create(admin_id: user.id, approval_status: AdminInfo::SKIPPED, approver_role: User::STAFF) # setting approval status to SKIPPED to ensure that self-created admins who exit or bypass the school verification step will have to complete it eventually
 
     return if user.clever_id || user.google_id
 

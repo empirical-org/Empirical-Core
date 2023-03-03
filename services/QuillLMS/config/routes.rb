@@ -37,6 +37,8 @@ EmpiricalGrammar::Application.routes.draw do
       post :admin_remove_as_admin, to: 'admins#remove_as_admin'
       post :admin_make_admin, to: 'admins#make_admin'
       post :admin_unlink_from_school, to: 'admins#unlink_from_school'
+      post :approve_admin_request, to: 'admins#approve_admin_request'
+      post :deny_admin_request, to: 'admins#deny_admin_request'
       get :admin_sign_in_classroom_manager, to: 'admins#sign_in_classroom_manager'
       get :admin_sign_in_progress_reports, to: 'admins#sign_in_progress_reports'
       get :admin_sign_in_account_settings, to: 'admins#sign_in_account_settings'
