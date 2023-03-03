@@ -13,6 +13,13 @@ class VerifyEmailsController < ApplicationController
     render json: {}, status: 200
   end
 
+  def require_email_verification
+    current_user.require_email_verification
+    current_user.user_email_verification.send_email
+    
+    render json: {}, status: 200
+  end
+
   def verify_by_staff
     user = User.find(staff_verification_params[:user_id])
 

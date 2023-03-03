@@ -116,6 +116,7 @@ EmpiricalGrammar::Application.routes.draw do
   resources :verify_emails, only: [] do
     post :verify_by_staff, on: :collection, format: :json
     put :resend_verification_email, on: :collection, format: :json
+    post :require_email_verification, on: :collection, format: :json
     put :verify_by_token, on: :collection, format: :json
   end
   resources :schools, only: [:index], format: 'json'
@@ -185,6 +186,11 @@ EmpiricalGrammar::Application.routes.draw do
 
   resources :admin_infos, only: [] do
     put :update, on: :collection
+  end
+
+  resources :admin_access, only: [:index] do
+    post :upgrade_to_admin, on: :collection
+    post :request_upgrade_to_admin_from_existing_admins, on: :collection
   end
 
   get 'grades/tooltip/classroom_unit_id/:classroom_unit_id/user_id/:user_id/activity_id/:activity_id/completed/:completed' => 'grades#tooltip'

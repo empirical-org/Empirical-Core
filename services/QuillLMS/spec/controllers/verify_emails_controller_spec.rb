@@ -21,6 +21,21 @@ describe VerifyEmailsController do
     end
   end
 
+
+  describe '#require_email_verification' do
+
+    before do
+      allow(controller).to receive(:current_user) { user }
+    end
+
+    it 'should call require_email_verification on the current user' do
+      expect(response.status).to be(200)
+      expect(user).to receive(:require_email_verification)
+
+      post :require_email_verification, params: { }, format: :json
+    end
+  end
+
   context 'with an existing verification record' do
     let!(:user_email_verification) { create(:user_email_verification, verification_token: token, user: user) }
 

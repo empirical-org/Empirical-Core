@@ -1,0 +1,114 @@
+.admin-access-container {
+  padding-bottom: 216px;
+  .admin-access {
+    padding: 40px 32px;
+    max-width: 577px;
+    background: #FFFFFF;
+    border: 1px solid #E0E0E0;
+    border-radius: 6px;
+    margin: 44px auto 0px;
+  }
+  h1 {
+    font-weight: 700;
+    font-size: 24px;
+    line-height: 32px;
+    margin-bottom: 8px;
+  }
+  p, a, h2 {
+    font-size: 14px;
+    line-height: 22px;
+    color: #646464;
+    span, .interactive-wrapper {
+      font-weight: 700;
+    }
+  }
+  h2 {
+    font-weight: 700;
+    padding-bottom: 16px;
+    border-bottom: 1px solid #CFCFCF;
+  }
+  a {
+    font-weight: 700;
+    text-decoration: underline;
+  }
+  .text {
+    p {
+      margin-bottom: 28px;
+    }
+  }
+  .buttons {
+    display: flex;
+    margin: 40px 0px 0px;
+    .quill-button {
+      margin-right: 16px;
+    }
+  }
+  .admin-table, .admin-selection-table {
+    padding: 16px;
+    border: 1px solid #E0E0E0;
+    border-radius: 6px;
+    margin-top: 40px;
+    p {
+      display: flex;
+      justify-content: space-between;
+      margin-top: 16px;
+    }
+    a {
+      font-weight: 600;
+      color: #009A80;
+      text-decoration: none;
+    }
+  }
+  .email-verification-paragraph {
+    margin-top: 40px;
+  }
+}
+
+.admin-request-modal {
+  max-width: 577px;
+  width: 100%;
+  height: min-content;
+
+  h3 {
+    font-weight: 700;
+    line-height: 32px;
+    margin-bottom: 8px;
+  }
+
+  .input-container {
+    margin: 32px 0px 40px;
+  }
+
+  .button-section {
+    display: flex;
+    justify-content: flex-end;
+    .quill-button {
+      margin-left: 16px;
+    }
+  }
+
+  .admin-selection-row {
+    display: flex;
+    .quill-checkbox {
+      margin-right: 24px;
+    }
+    .email {
+      color: #666666;
+    }
+    div {
+      display: flex;
+      flex-direction: column;
+    }
+    &.top-row {
+      padding-bottom: 16px;
+      align-items: center;
+      border-bottom: 1px solid #CFCFCF;
+    }
+    &:not(.top-row) {
+      margin-top: 16px;
+      .quill-checkbox {
+        margin-top: 4px;
+      }
+    }
+  }
+}
