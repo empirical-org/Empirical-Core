@@ -1,11 +1,11 @@
 import * as React from 'react';
 import ReactMarkdown from 'react-markdown';
 
-export const ArticleSpotlight = ({ author, blogPost }) => {
+export const ArticleSpotlight = ({ feauturedBlogPostAuthor, featuredBlogPost }) => {
 
-  if(!blogPost) { return }
+  if(!featuredBlogPost) { return <span /> }
 
-  const { title, body, slug } = blogPost;
+  const { title, body, slug } = featuredBlogPost;
   const teacherCenterBaseUrl = `${process.env.DEFAULT_URL}/teacher-center`
 
   return(
@@ -22,7 +22,7 @@ export const ArticleSpotlight = ({ author, blogPost }) => {
           <h4>{title}</h4>
           <ReactMarkdown className="preview-card" source={body} />
           <section className="footer-section">
-            {author && <p className="author">{`By ${author}`}</p>}
+            {feauturedBlogPostAuthor && <p className="author">{`By ${feauturedBlogPostAuthor}`}</p>}
             <a className="quill-button contained primary fun" href={`${teacherCenterBaseUrl}/${slug}`} rel="noopener noreferrer" target="_blank">Read</a>
           </section>
         </section>

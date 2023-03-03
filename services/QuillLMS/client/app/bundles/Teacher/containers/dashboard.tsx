@@ -17,12 +17,10 @@ import EvidencePromotionCard from '../components/dashboard/evidence_promotion_ca
 import DemoOnboardingTour, { DEMO_ONBOARDING_DASHBOARD, } from '../components/shared/demo_onboarding_tour'
 import useWindowSize from '../../Shared/hooks/useWindowSize'
 import { Spinner, } from '../../Shared/index'
-import ArticleSpotlight from '../components/shared/articleSpotlight';
 
 const MAX_VIEW_WIDTH_FOR_MOBILE = 1103
 
-const Dashboard = ({ onboardingChecklist, firstName, mustSeeWelcomeModal, mustSeeTeacherInfoModal, linkedToClever, featuredBlogPost, featuredBlogPostAuthor, featuredBlogPosts, showEvidencePromotionCard, subjectAreas, }) => {
-  console.log("🚀 ~ file: dashboard.tsx:25 ~ Dashboard ~ featuredBlogPost", featuredBlogPostAuthor)
+const Dashboard = ({ onboardingChecklist, firstName, mustSeeWelcomeModal, mustSeeTeacherInfoModal, linkedToClever, featuredBlogPosts, showEvidencePromotionCard, subjectAreas, }) => {
   const size = useWindowSize();
   const className = "dashboard white-background-accommodate-footer"
   const onMobile = () => size.width <= MAX_VIEW_WIDTH_FOR_MOBILE
@@ -106,12 +104,6 @@ const Dashboard = ({ onboardingChecklist, firstName, mustSeeWelcomeModal, mustSe
     )
   }
 
-  const props = {
-    author: 'Quill Staff',
-    body: '',
-    title: 'Test Title'
-  }
-
   return (
     <div className={className}>
       <div className="post-checklist-container">
@@ -134,7 +126,6 @@ const Dashboard = ({ onboardingChecklist, firstName, mustSeeWelcomeModal, mustSe
           <CollegeBoard />
         </aside>
       </div>
-      <ArticleSpotlight author={featuredBlogPostAuthor} blogPost={featuredBlogPost} />
     </div>
   )
 

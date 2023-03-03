@@ -31,6 +31,8 @@ class Teachers::ClassroomManagerController < ApplicationController
     set_diagnostic_variables
     @clever_link = clever_link
     @number_of_activities_assigned = current_user.units.map(&:unit_activities).flatten.map(&:activity_id).uniq.size
+    @featured_blog_post = BlogPost.find(113)
+    @featured_blog_post_author = @featured_blog_post&.author&.name
     find_or_create_checkbox(Objective::EXPLORE_OUR_LIBRARY, current_user)
     return unless params[:tab] == 'diagnostic'
 
