@@ -336,7 +336,7 @@ export default createReactClass({
             {content}
           </div>
         </div>
-        <ArticleSpotlight blogPostId={ACTIVITY_SUMMARY_FEATURED_BLOG_POST_ID}/>
+        <ArticleSpotlight blogPostId={ACTIVITY_SUMMARY_FEATURED_BLOG_POST_ID} />
       </React.Fragment>
     );
   },

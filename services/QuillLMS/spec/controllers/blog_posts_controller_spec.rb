@@ -91,6 +91,16 @@ describe BlogPostsController, type: :controller do
     end
   end
 
+  describe '#featured_blog_post' do
+    let(:blog_post) { create(:blog_post_with_author) }
+
+    it 'should return the blog post and associated author with passed id param' do
+      get :featured_blog_post, params: { id: blog_post.id }
+      expect(JSON.parse(response.body)["blog_post"]["id"]).to eq(blog_post.id)
+      expect(JSON.parse(response.body)["author"]).to eq(blog_post.author.name)
+    end
+  end
+
   describe '#show_topic' do
     let(:public_teacher_topics) { BlogPost::TEACHER_TOPICS }
     let(:topic) { public_teacher_topics.sample }
