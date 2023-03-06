@@ -40,12 +40,12 @@
   <link href="https://fonts.googleapis.com/css?family=Roboto+Mono" rel="stylesheet" lazyload>
 
   <%= render partial: 'typekit' unless Rails.env.test? %>
-  <%= stylesheet_pack_tag('shared') %>
+  <% # stylesheet_pack_tag('shared') %>
   <% if !playing_activity? %>
-    <%= stylesheet_pack_tag('app') %>
+    <%# stylesheet_pack_tag('app') %>
   <% end %>
   <% if @style_file %>
-    <%= stylesheet_pack_tag(@style_file) %>
+    <% # stylesheet_pack_tag(@style_file) %>
   <% else %>
     <%= stylesheet_link_tag 'application', media: 'all', 'data-turbolinks-track' => true %>
   <% end %>
