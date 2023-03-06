@@ -1,4 +1,3 @@
 <%= render partial: 'teachers/shared/scorebook_tabs' %>
 
 <%= react_component('ScorebookApp', props: { selectedClassroom: @classroom, allClassrooms: @classrooms, premium_state: current_user.premium_state}) %>
-<%= react_component('ArticleSpotlightApp', props: { blogPostId: '406' }) %>

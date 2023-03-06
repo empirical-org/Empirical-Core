@@ -6,6 +6,7 @@ import { requestGet, requestPost, } from '../../../../../modules/request'
 import { evidenceToolIcon } from "../../../../Shared"
 import { CLICKED_ACTIVITY_PACK_ID } from '../assignmentFlowConstants'
 import ArticleSpotlight from '../../shared/articleSpotlight'
+import { ASSIGN_ACTIVITIES_FEATURED_BLOG_ID } from '../../../constants/featuredBlogPost'
 
 interface ActivityToSuggest {
   name: string;
@@ -73,8 +74,7 @@ const minis = (diagnosticBannerShowing) => [
   />)
 ];
 
-const AssignANewActivity = ({ numberOfActivitiesAssigned, showDiagnosticBanner, featuredBlogPost, feauturedBlogPostAuthor }) => {
-  console.log("🚀 ~ file: assign_a_new_activity.tsx:77 ~ AssignANewActivity ~ featuredBlogPost", featuredBlogPost)
+const AssignANewActivity = ({ numberOfActivitiesAssigned, showDiagnosticBanner }) => {
   const [diagnosticBannerShowing, setDiagnosticBannerShowing] = React.useState(showDiagnosticBanner)
   const [activitiesToSuggest, setActivitiesToSuggest] = React.useState([])
 
@@ -170,7 +170,7 @@ const AssignANewActivity = ({ numberOfActivitiesAssigned, showDiagnosticBanner, 
           {suggestedActivitiesList}
         </div>
       </div>
-      <ArticleSpotlight blogPostId="113" />
+      <ArticleSpotlight blogPostId={ASSIGN_ACTIVITIES_FEATURED_BLOG_ID} />
     </React.Fragment>
   )
 }

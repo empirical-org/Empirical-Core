@@ -2,7 +2,12 @@ import * as React from 'react';
 import ReactMarkdown from 'react-markdown';
 import { requestGet } from '../../../../modules/request';
 
-export const ArticleSpotlight = ({ blogPostId }) => {
+interface ArticleSpotlightProps {
+  backgroundColor?: string,
+  blogPostId: string
+}
+
+export const ArticleSpotlight = ({ backgroundColor, blogPostId } : ArticleSpotlightProps ) => {
   const [blogPost, setBlogPost] = React.useState(null);
   const [blogPostAuthor, setBlogPostAuthor] = React.useState(null);
 
@@ -10,7 +15,7 @@ export const ArticleSpotlight = ({ blogPostId }) => {
     getBlogPost(blogPostId)
   }, [])
 
-  function getBlogPost(id) {
+  function getBlogPost(id: string) {
     requestGet(`/featured_blog_post/${id}`,
       (data) => {
         if(data.blog_post && data.author) {
@@ -25,10 +30,11 @@ export const ArticleSpotlight = ({ blogPostId }) => {
   if(!blogPost) { return <span /> }
 
   const { title, body, slug } = blogPost;
-  const teacherCenterBaseUrl = `${process.env.DEFAULT_URL}/teacher-center`
+  const teacherCenterBaseUrl = `${process.env.DEFAULT_URL}/teacher-center`;
+  const backgroundColorStyle = backgroundColor ? { backgroundColor: backgroundColor } : {};
 
   return(
-    <div className="article-spotlight-container">
+    <div className="article-spotlight-container" style={backgroundColorStyle}>
       <div className="inner-container">
         <div className="upper-section">
           <section className="header-section">

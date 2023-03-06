@@ -17,6 +17,7 @@ import { goToAssign, baseDiagnosticImageSrc, accountCommentIcon, closeIcon, } fr
 import { PROGRESS_REPORTS_SELECTED_CLASSROOM_ID, } from '../../progress_report_constants'
 import { DropdownInput, } from '../../../../../Shared/index'
 import ArticleSpotlight from '../../../shared/articleSpotlight';
+import { GRAY_ARTICLE_FOOTER_BACKGROUND_COLOR, RESULTS_AND_RECOMMENDATIONS_FEATURED_BLOG_ID } from '../../../../constants/featuredBlogPost';
 
 const barChartIcon = <img alt="Bar chart icon" src={`${baseDiagnosticImageSrc}/icons-bar-chart.svg`} />
 const barChartGrowthIcon = <img alt="Chart showing growth icon" src={`${baseDiagnosticImageSrc}/icons-bar-chart-growth.svg`} />
@@ -247,7 +248,7 @@ const IndividualPack = ({ classrooms, history, match, location, lessonsBannerIsS
           </Switch>
         </div>
       </div>
-      <ArticleSpotlight blogPostId="449" />
+      <ArticleSpotlight backgroundColor={GRAY_ARTICLE_FOOTER_BACKGROUND_COLOR} blogPostId={RESULTS_AND_RECOMMENDATIONS_FEATURED_BLOG_ID} />
     </React.Fragment>
   )
 }

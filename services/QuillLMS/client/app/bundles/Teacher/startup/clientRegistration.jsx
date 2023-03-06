@@ -43,7 +43,6 @@ import StudentFeedbackModal from '../../Student/startup/StudentFeedbackModalAppC
 import LockerApp from '../../Staff/startup/lockerAppClient'
 import SalesFormApp from './SalesFormAppClient'
 import DemoAccountBanner from './DemoAccountBannerAppClient'
-import ArticleSpotlightApp from './ArticleSpotlightAppClient';
 
 import '../styles/styles.scss'
 
@@ -91,6 +90,5 @@ ReactOnRails.register({ TeacherGuideApp,
   UploadRostersApp,
   LockerApp,
   SalesFormApp,
-  DemoAccountBanner,
-  ArticleSpotlightApp
+  DemoAccountBanner
 });

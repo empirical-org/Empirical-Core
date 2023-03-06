@@ -9,6 +9,7 @@ import { DropdownInput, Snackbar, defaultSnackbarTimeout, } from '../../../../Sh
 import { PROGRESS_REPORTS_SELECTED_CLASSROOM_ID, } from '../../progress_reports/progress_report_constants'
 import { requestGet, } from '../../../../../modules/request'
 import ArticleSpotlight from '../../shared/articleSpotlight';
+import { MY_ACTIVITIES_FEATURED_BLOG_ID } from '../../../constants/featuredBlogPost';
 
 const clipboardSrc = `${process.env.CDN_URL}/images/illustrations/clipboard.svg`
 
@@ -281,7 +282,7 @@ export default class ManageUnits extends React.Component {
           </section>
           {this.stateBasedComponent()}
         </div>
-        {open && <ArticleSpotlight blogPostId="519" />}
+        {open && <ArticleSpotlight blogPostId={MY_ACTIVITIES_FEATURED_BLOG_ID} />}
       </React.Fragment>
     );
   }

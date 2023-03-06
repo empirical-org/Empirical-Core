@@ -14,6 +14,8 @@ import ScoreLegend from '../components/scorebook/score_legend';
 import { AppLegend } from '../components/scorebook/app_legend.tsx';
 import EmptyProgressReport from '../components/shared/EmptyProgressReport';
 import { requestGet, } from '../../../modules/request/index'
+import ArticleSpotlight from '../components/shared/articleSpotlight';
+import { ACTIVITY_SUMMARY_FEATURED_BLOG_POST_ID } from '../constants/featuredBlogPost';
 
 export default createReactClass({
   displayName: 'Scorebook',
@@ -309,30 +311,33 @@ export default createReactClass({
     }
 
     return (
-      <div className="page-content-wrapper gray-background-accommodate-footer">
-        <div className="tab-pane" id="scorebook">
-          <div className="container">
-            <section className="section-content-wrapper">
-              <ScorebookFilters
-                beginDate={beginDate}
-                classroomFilters={classroomFilters}
-                dateFilterName={dateFilterName}
-                dateRangeFilterOptions={this.DATE_RANGE_FILTER_OPTIONS}
-                endDate={endDate}
-                selectClassroom={this.selectClassroom}
-                selectDates={this.selectDates}
-                selectedClassroom={selectedClassroom}
-                selectedUnit={selectedUnit}
-                selectUnit={this.selectUnit}
-                unitFilters={unitFilters}
-              />
-              <ScoreLegend />
-              <AppLegend />
-            </section>
+      <React.Fragment>
+        <div className="page-content-wrapper gray-background-accommodate-footer">
+          <div className="tab-pane" id="scorebook">
+            <div className="container">
+              <section className="section-content-wrapper">
+                <ScorebookFilters
+                  beginDate={beginDate}
+                  classroomFilters={classroomFilters}
+                  dateFilterName={dateFilterName}
+                  dateRangeFilterOptions={this.DATE_RANGE_FILTER_OPTIONS}
+                  endDate={endDate}
+                  selectClassroom={this.selectClassroom}
+                  selectDates={this.selectDates}
+                  selectedClassroom={selectedClassroom}
+                  selectedUnit={selectedUnit}
+                  selectUnit={this.selectUnit}
+                  unitFilters={unitFilters}
+                />
+                <ScoreLegend />
+                <AppLegend />
+              </section>
+            </div>
+            {content}
           </div>
-          {content}
         </div>
-      </div>
+        <ArticleSpotlight blogPostId={ACTIVITY_SUMMARY_FEATURED_BLOG_POST_ID}/>
+      </React.Fragment>
     );
   },
 });
