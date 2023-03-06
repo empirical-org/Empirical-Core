@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2022_11_10_063922) do
+ActiveRecord::Schema.define(version: 2023_03_06_215624) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -181,12 +181,12 @@ ActiveRecord::Schema.define(version: 2022_11_10_063922) do
   end
 
   create_table "evidence_activity_healths", force: :cascade do |t|
-    t.string "name"
-    t.string "flag"
-    t.integer "activity_id"
-    t.integer "version"
-    t.integer "version_plays"
-    t.integer "total_plays"
+    t.string "name", null: false
+    t.string "flag", null: false
+    t.integer "activity_id", null: false
+    t.integer "version", null: false
+    t.integer "version_plays", null: false
+    t.integer "total_plays", null: false
     t.integer "completion_rate"
     t.integer "because_final_optimal"
     t.integer "but_final_optimal"
@@ -207,21 +207,12 @@ ActiveRecord::Schema.define(version: 2022_11_10_063922) do
     t.index ["rule_id"], name: "index_evidence_hints_on_rule_id"
   end
 
-  create_table "evidence_rule_hints", force: :cascade do |t|
-    t.bigint "rule_id", null: false
-    t.bigint "hint_id", null: false
-    t.datetime "created_at", precision: 6, null: false
-    t.datetime "updated_at", precision: 6, null: false
-    t.index ["hint_id"], name: "index_evidence_rule_hints_on_hint_id"
-    t.index ["rule_id"], name: "index_evidence_rule_hints_on_rule_id"
-  end
-
   create_table "evidence_prompt_healths", force: :cascade do |t|
-    t.integer "prompt_id"
-    t.string "activity_short_name"
-    t.string "text"
-    t.integer "current_version"
-    t.integer "version_responses"
+    t.integer "prompt_id", null: false
+    t.string "activity_short_name", null: false
+    t.string "text", null: false
+    t.integer "current_version", null: false
+    t.integer "version_responses", null: false
     t.integer "first_attempt_optimal"
     t.integer "final_attempt_optimal"
     t.float "avg_attempts"
@@ -239,6 +230,34 @@ ActiveRecord::Schema.define(version: 2022_11_10_063922) do
     t.index ["evidence_activity_health_id"], name: "index_evidence_prompt_healths_on_evidence_activity_health_id"
   end
 
+  create_table "evidence_prompt_text_batches", force: :cascade do |t|
+    t.string "type", null: false
+    t.integer "prompt_id", null: false
+    t.integer "user_id", null: false
+    t.string "file"
+    t.jsonb "metadata"
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+  end
+
+  create_table "evidence_prompt_text_generations", force: :cascade do |t|
+    t.string "generator", null: false
+    t.string "source_text"
+    t.text "ml_prompt_text"
+    t.jsonb "metadata"
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+  end
+
+  create_table "evidence_prompt_texts", force: :cascade do |t|
+    t.integer "prompt_text_batch_id", null: false
+    t.integer "prompt_text_generation_id", null: false
+    t.string "text", null: false
+    t.string "label"
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+  end
+
   create_table "users", id: :serial, force: :cascade do |t|
     t.string "name"
   end
@@ -248,7 +267,5 @@ ActiveRecord::Schema.define(version: 2022_11_10_063922) do
   add_foreign_key "comprehension_labels", "comprehension_rules", column: "rule_id", on_delete: :cascade
   add_foreign_key "comprehension_plagiarism_texts", "comprehension_rules", column: "rule_id", on_delete: :cascade
   add_foreign_key "comprehension_regex_rules", "comprehension_rules", column: "rule_id", on_delete: :cascade
-  add_foreign_key "evidence_rule_hints", "comprehension_rules", column: "rule_id", on_delete: :cascade
-  add_foreign_key "evidence_rule_hints", "evidence_hints", column: "hint_id", on_delete: :cascade
   add_foreign_key "evidence_prompt_healths", "evidence_activity_healths", on_delete: :cascade
 end
