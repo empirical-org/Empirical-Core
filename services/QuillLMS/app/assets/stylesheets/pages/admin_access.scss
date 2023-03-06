@@ -65,6 +65,24 @@
 }
 
 .admin-request-modal {
+  .input-container {
+    margin: 32px 0px 40px;
+  }
+}
+
+.invite-admin-modal {
+  p {
+    margin-bottom: 40px;
+  }
+  .input-container {
+    margin-bottom: 32px;
+  }
+  .button-section {
+    margin-top: 40px;
+  }
+}
+
+.admin-request-modal, .invite-admin-modal {
   max-width: 577px;
   width: 100%;
   height: min-content;
@@ -73,10 +91,6 @@
     font-weight: 700;
     line-height: 32px;
     margin-bottom: 8px;
-  }
-
-  .input-container {
-    margin: 32px 0px 40px;
   }
 
   .button-section {

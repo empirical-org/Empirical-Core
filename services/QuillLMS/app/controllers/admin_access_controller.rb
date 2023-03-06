@@ -26,10 +26,24 @@ class AdminAccessController < ApplicationController
       AdminReceivedAdminUpgradeRequestFromTeacherAnalyticsWorker.perform_async(admin_id, current_user.id, reason)
     end
     TeacherRequestedToBecomeAdminAnalyticsWorker.perform_async(current_user.id)
+    render json: {}, status: 200
+  end
+
+  def invite_admin
+    admin_name = invite_admin_params[:admin_name]
+    admin_email = invite_admin_params[:admin_email]
+    note = invite_admin_params[:note]
+    AdminInvitedByTeacherAnalyticsWorker.perform_async(admin_name, admin_email, current_user.id, note)
+    TeacherInvitedAdminAnalyticsWorker.perform_async(current_user.id, admin_name, admin_email, note)
+    render json: {}, status: 200
   end
 
   private def request_upgrade_to_admin_from_existing_admins_params
     params.permit(:reason, admin_ids: [])
+  end
+
+  private def invite_admin_params
+    params.permit(:admin_name, :admin_email, :note)
   end
 
 end

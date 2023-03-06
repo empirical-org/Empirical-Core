@@ -193,6 +193,7 @@ EmpiricalGrammar::Application.routes.draw do
   resources :admin_access, only: [:index] do
     post :upgrade_to_admin, on: :collection
     post :request_upgrade_to_admin_from_existing_admins, on: :collection
+    post :invite_admin, on: :collection
   end
 
   get 'grades/tooltip/classroom_unit_id/:classroom_unit_id/user_id/:user_id/activity_id/:activity_id/completed/:completed' => 'grades#tooltip'
