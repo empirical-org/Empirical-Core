@@ -11,7 +11,7 @@ import { PROGRESS_REPORTS_SELECTED_CLASSROOM_ID, } from '../../progress_report_c
 import { DropdownInput, Tooltip, } from '../../../../../Shared/index'
 import { requestGet } from '../../../../../../modules/request/index';
 import ArticleSpotlight from '../../../shared/articleSpotlight'
-import { DIAGNOSTICS_FEATURED_BLOG_ID, GRAY_ARTICLE_FOOTER_BACKGROUND_COLOR } from '../../../../constants/featuredBlogPost'
+import { DIAGNOSTICS_FEATURED_BLOG_POST_ID, GRAY_ARTICLE_FOOTER_BACKGROUND_COLOR } from '../../../../constants/featuredBlogPost'
 
 const multipleCardsIcon = <img alt="Activity pack icon" src={`${baseDiagnosticImageSrc}/icons-card-multiple.svg`} />
 const multipleUsersIcon = <img alt="Multiple user icon" src={`${baseDiagnosticImageSrc}/icons-user-multiple.svg`} />
@@ -179,7 +179,7 @@ const DiagnosticActivityPacks = ({ classrooms, }) => {
           {classroomElements}
         </div>
       </div>
-      <ArticleSpotlight backgroundColor={GRAY_ARTICLE_FOOTER_BACKGROUND_COLOR} blogPostId={DIAGNOSTICS_FEATURED_BLOG_ID} />
+      <ArticleSpotlight backgroundColor={GRAY_ARTICLE_FOOTER_BACKGROUND_COLOR} blogPostId={DIAGNOSTICS_FEATURED_BLOG_POST_ID} />
     </React.Fragment>
   )
 }
