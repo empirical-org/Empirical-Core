@@ -153,7 +153,7 @@ const AdminDashboard = ({ adminId, accessType, passedModel, }) => {
     <div className="sub-container">
       <Snackbar text={snackbarText} visible={showSnackbar} />
       <PremiumFeatures handleClick={onClickTeacherAccess} trainingOptionsElement={trainingOptionsElement} />
-      <div className='dark-divider' id="scroll-location" />
+      <div className='dark-divider' />
       <CreateNewAccounts
         accessType={accessType}
         addTeacherAccount={addTeacherAccount}
@@ -166,7 +166,7 @@ const AdminDashboard = ({ adminId, accessType, passedModel, }) => {
         <h2>Upload Teachers via CSV</h2>
         {uploadTeachersViaCSVElement}
       </div>
-      <div className='dark-divider' />
+      <div className='dark-divider' id="scroll-location" />
       <AdminsTeachers
         accessType={accessType}
         adminAssociatedSchool={model.associated_school}
