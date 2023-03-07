@@ -57,6 +57,16 @@
     padding-left: 32px;
     padding-right: 32px;
   }
+  .independent-practice-recommendations-buttons-container {
+    vertical-align: bottom;
+    border-radius: 8px 0px 0px;
+    position: sticky;
+    left: 0px;
+    z-index: 1;
+    margin-bottom: 16px;
+    padding-left: 0px;
+    padding-right: 0px;
+  }
   .recommendations-buttons {
     padding: 16px 24px;
     border-radius: 8px;

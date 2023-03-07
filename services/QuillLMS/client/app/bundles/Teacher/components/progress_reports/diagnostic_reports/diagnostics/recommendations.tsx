@@ -117,7 +117,7 @@ const LessonsRecommendations = ({ assigningLessonsBanner, previouslyAssignedReco
   )
 }
 
-const RecommendationsButtons = ({ className, numberSelected, assigning, assigned, handleClickAssignActivityPacks, deselectAll, selectAll, selectAllRecommended, releaseMethod, handleClickEditReleaseMethod }) => {
+const RecommendationsButtons = ({ className, parentClassName, numberSelected, assigning, assigned, handleClickAssignActivityPacks, deselectAll, selectAll, selectAllRecommended, releaseMethod, handleClickEditReleaseMethod }) => {
   let assignButton = <button className="quill-button primary contained small disabled focus-on-light" type="button">Assign activity packs</button>
 
   if (assigning) {
@@ -140,7 +140,7 @@ const RecommendationsButtons = ({ className, numberSelected, assigning, assigned
   }
 
   return (
-    <div className="recommendations-buttons-container">
+    <div className={`recommendations-buttons-container ${parentClassName}`}>
       <div className={`recommendations-buttons ${className}`}>
         <div className="selection-buttons">
           <button className="quill-button fun secondary outlined focus-on-light" onClick={selectAll} type="button">Select all</button>
@@ -220,6 +220,7 @@ const IndependentRecommendationsButtons = ({ handleClickAssignActivityPacks, ind
       assigned={assigned}
       assigning={assigning}
       className="independent-practice-recommendations-buttons"
+      parentClassName="independent-practice-recommendations-buttons-container"
       deselectAll={handleDeselectAllClick}
       handleClickAssignActivityPacks={handleClickAssignActivityPacks}
       handleClickEditReleaseMethod={releaseMethod && handleClickEditReleaseMethod}
