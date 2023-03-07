@@ -47,7 +47,6 @@ const AdminDashboardContainer = ({ id, location, children, }) => {
     if (Object.keys(adminInfo).length === 0) { return FULL } // prevents incorrect banner flashing during loading
 
     const { admin_approval_status, administers_school_with_premium, } = adminInfo
-    console.log("🚀 ~ file: AdminDashboardContainer.jsx:50 ~ accessType ~ adminInfo", adminInfo)
 
     if (admin_approval_status && admin_approval_status !== APPROVED) { return RESTRICTED }
 
