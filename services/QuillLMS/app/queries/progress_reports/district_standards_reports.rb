@@ -3,8 +3,11 @@
 class ProgressReports::DistrictStandardsReports
   attr_reader :admin_id
 
-  def initialize(admin_id)
+  FREEMIUM_LIMIT = 8
+
+  def initialize(admin_id, is_fremium_view)
     @admin_id = admin_id
+    @is_fremium_view = is_fremium_view
   end
 
   def results
@@ -14,10 +17,11 @@ class ProgressReports::DistrictStandardsReports
     ids = user_ids(admin_id)
     return [] if ids.empty?
 
-    RawSqlRunner.execute(query(ids)).to_a
+    RawSqlRunner.execute(query(ids, @is_fremium_view)).to_a
   end
 
-  private def query(user_ids)
+  private def query(user_ids, is_fremium_view)
+    limit_amount = is_fremium_view ? FREEMIUM_LIMIT : 'NULL'
     <<~SQL
       WITH final_activity_sessions AS (
         SELECT
@@ -62,9 +66,11 @@ class ProgressReports::DistrictStandardsReports
       GROUP BY
         standards.id,
         standard_levels.name
-      ORDER BY standards.name ASC;
-    SQL
+      ORDER BY standards.name ASC
+      LIMIT(#{limit_amount})
+      SQL
   end
+        # LIMIT CASE WHEN #{is_fremium_view} THEN #{FREEMIUM_LIMIT} ELSE NULL END;
 
   private def user_ids(admin_id)
     RawSqlRunner.execute(
