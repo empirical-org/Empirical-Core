@@ -24,4 +24,10 @@ class AdminApprovalRequest < ApplicationRecord
 
   validates :requestee_id, presence: true
   validates :admin_info_id, presence: true
+
+  after_create :wipe_cache_for_requestee
+
+  def wipe_cache_for_requestee
+    requestee.schools_admins&.first&.wipe_cache
+  end
 end
