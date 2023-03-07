@@ -1,7 +1,10 @@
 import * as React from 'react'
 
 import { requestPost, } from '../../../../modules/request'
-import { smallWhiteCheckIcon, indeterminateCheckIcon, Input, } from '../../../Shared/index'
+import { Input, } from '../../../Shared/index'
+
+// this is the same regex we use for saved user email validation, just adjusted for javascript
+const validEmailRegex = /^[\w+\-.]+@[a-z\d\-]+(\.[a-z\d\-]+)*\.[a-z]+$/
 
 const InviteAdminModal = ({ onSuccess, closeModal, }) => {
   const [adminName, setAdminName] = React.useState('')
@@ -22,9 +25,9 @@ const InviteAdminModal = ({ onSuccess, closeModal, }) => {
     })
   }
 
-  let sendInviteButton = <button className="quill-button medium primary contained focus-on-light" onClick={handleClickSendRequest} type="button">Send request</button>
+  let sendInviteButton = <button className="quill-button medium primary contained focus-on-light" onClick={handleClickSendRequest} type="button">Send invite</button>
 
-  if (adminEmail.length === 0 || adminName.length === 0) {
+  if (adminEmail.length === 0 || adminName.length === 0 || !(validEmailRegex.test(adminEmail))) {
     sendInviteButton = <button className="quill-button medium primary contained focus-on-light disabled" disabled type="button">Send invite</button>
   }
 
