@@ -69,15 +69,17 @@ interface ReactTableProps {
   filterable?: boolean,
   defaultPageSize?: number,
   currentPage?: number,
-  defaultSorted?: string,
+  defaultSorted?: string | {id: string, desc: boolean }[],
   onSortedChange?: (sortBy: string) => void,
   onPageChange?: (pageIndex: number) => void,
   onFiltersChange?: (filters: []) => void,
+  showPagination?: boolean,
   showPaginationBottom?: boolean,
   manualFilters?: boolean,
   manualSortBy?: boolean,
   manualPagination?: boolean,
   manualPageCount?: boolean,
+  minRows?: number,
   defaultGroupBy?: string,
   SubComponent?: any
 }
