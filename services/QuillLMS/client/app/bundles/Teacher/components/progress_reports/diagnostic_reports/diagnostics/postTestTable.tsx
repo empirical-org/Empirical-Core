@@ -1,21 +1,17 @@
 import * as React from 'react'
 
 import {
-  noDataYet,
-  recommendedGlyph,
   correctImage,
-  releaseMethodToDisplayName,
   baseDiagnosticImageSrc,
-  DEFAULT_LEFT_PADDING,
-  MOBILE_WIDTH,
-  DEFAULT_LEFT_PADDING_FOR_MOBILE
 } from './shared'
+
 import {
   helpIcon,
   Tooltip,
   smallWhiteCheckIcon,
 } from '../../../../../Shared/index'
 import useWindowSize from '../../../../../Shared/hooks/useWindowSize'
+
 interface StickyTableStyle {
   position: string,
   top: number,
@@ -23,7 +19,6 @@ interface StickyTableStyle {
   right: number,
   zIndex: number,
 }
-
 
 const ellipsesIcon = <img alt="Open menu icon" src={`${baseDiagnosticImageSrc}/ellipses_icon.svg`} />
 
@@ -183,17 +178,17 @@ const PostTestAssignmentTable = ({showPostTestAssignmentColumn, students, studen
 
   return (
     <div>
-      {showPostTestAssignmentColumn ? <div className="post-test-table-wrapper">
+      {showPostTestAssignmentColumn ?
+        <div className="post-test-table-wrapper">
           <table className={recommendationsTableClassName} id="demo-onboarding-tour-spotlight-element" ref={recommendationsTableRef} >
             {renderPostTestTableHeader(false)}
             <tbody>
               {postTestStudentRows}
             </tbody>
-          </table>
+          </table>s
         </div> : null}
     </div>
   )
 }
 
 export default PostTestAssignmentTable
-
