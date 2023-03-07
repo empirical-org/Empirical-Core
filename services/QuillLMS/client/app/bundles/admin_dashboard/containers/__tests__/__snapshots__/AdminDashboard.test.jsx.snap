@@ -109,7 +109,6 @@ exports[`AdminDashboard container should render with a full access type 1`] = `
     </PremiumFeatures>
     <div
       className="dark-divider"
-      id="scroll-location"
     />
     <CreateNewAccounts
       accessType="full"
@@ -2918,6 +2917,7 @@ exports[`AdminDashboard container should render with a full access type 1`] = `
     </div>
     <div
       className="dark-divider"
+      id="scroll-location"
     />
     <AdminsTeachers
       accessType="full"
@@ -4413,7 +4413,6 @@ exports[`AdminDashboard container should render with a limited access type 1`] =
     </PremiumFeatures>
     <div
       className="dark-divider"
-      id="scroll-location"
     />
     <CreateNewAccounts
       accessType="full"
@@ -7222,6 +7221,7 @@ exports[`AdminDashboard container should render with a limited access type 1`] =
     </div>
     <div
       className="dark-divider"
+      id="scroll-location"
     />
     <AdminsTeachers
       accessType="full"
@@ -8717,7 +8717,6 @@ exports[`AdminDashboard container should render with a restricted access type 1`
     </PremiumFeatures>
     <div
       className="dark-divider"
-      id="scroll-location"
     />
     <CreateNewAccounts
       accessType="full"
@@ -11526,6 +11525,7 @@ exports[`AdminDashboard container should render with a restricted access type 1`
     </div>
     <div
       className="dark-divider"
+      id="scroll-location"
     />
     <AdminsTeachers
       accessType="full"
