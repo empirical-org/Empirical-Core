@@ -284,7 +284,7 @@ class SegmentAnalytics
   def track_teacher_invited_admin(teacher, admin_name, admin_email, note)
     track({
       user_id: teacher.id,
-      event: SegmentIo::BackgroundEvents::ADMIN_INVITED_BY_TEACHER,
+      event: SegmentIo::BackgroundEvents::TEACHER_INVITED_ADMIN,
       properties: {
         admin_name: admin_name,
         admin_email: admin_email,

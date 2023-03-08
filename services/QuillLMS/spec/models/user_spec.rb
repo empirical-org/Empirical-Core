@@ -82,6 +82,7 @@ describe User, type: :model do
   it { should have_many(:user_activity_classifications).dependent(:destroy) }
   it { should have_many(:user_milestones) }
   it { should have_many(:milestones).through(:user_milestones) }
+  it { should have_many(:admin_approval_requests).with_foreign_key('requestee_id')
 
   it { should delegate_method(:name).to(:school).with_prefix(:school) }
   it { should delegate_method(:mail_city).to(:school).with_prefix(:school) }
