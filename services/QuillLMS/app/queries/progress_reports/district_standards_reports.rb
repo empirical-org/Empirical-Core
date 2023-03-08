@@ -3,7 +3,7 @@
 class ProgressReports::DistrictStandardsReports
   attr_reader :admin_id
 
-  FREEMIUM_LIMIT = 8
+  FREEMIUM_LIMIT = 10
 
   def initialize(admin_id, is_fremium_view)
     @admin_id = admin_id
@@ -21,7 +21,7 @@ class ProgressReports::DistrictStandardsReports
   end
 
   private def query(user_ids, is_fremium_view)
-    limit_amount = is_fremium_view ? FREEMIUM_LIMIT : 'NULL'
+    limit = is_fremium_view ? FREEMIUM_LIMIT : 'NULL'
     <<~SQL
       WITH final_activity_sessions AS (
         SELECT
@@ -67,7 +67,7 @@ class ProgressReports::DistrictStandardsReports
         standards.id,
         standard_levels.name
       ORDER BY standards.name ASC
-      LIMIT(#{limit_amount})
+      LIMIT(#{limit})
       SQL
   end
         # LIMIT CASE WHEN #{is_fremium_view} THEN #{FREEMIUM_LIMIT} ELSE NULL END;

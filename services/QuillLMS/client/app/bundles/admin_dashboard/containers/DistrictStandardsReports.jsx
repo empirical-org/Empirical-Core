@@ -2,20 +2,15 @@ import React from 'react';
 import { connect } from 'react-redux';
 
 import LoadingSpinner from '../../Teacher/components/shared/loading_indicator';
-import StandardsReports from '../components/standards_reports';
-import {
-  switchClassroom,
-  switchSchool,
-  switchTeacher,
-  getDistrictStandardsReports,
-} from '../../../actions/district_standards_reports';
+import StandardsReports from '../components/standardsReports';
+import { getDistrictStandardsReports } from '../../../actions/district_standards_reports';
 import { getTimeSpent } from '../../Teacher/helpers/studentReports';
 import { restrictedPage, FULL, } from '../shared'
 
 class DistrictStandardsReports extends React.Component {
   componentDidMount() {
-    const { getDistrictStandardsReports, } = this.props;
-    getDistrictStandardsReports();
+    const { getDistrictStandardsReports, isFreemiumView } = this.props;
+    getDistrictStandardsReports(isFreemiumView);
   }
 
   render() {
@@ -69,7 +64,7 @@ const mapStateToProps = (state) => {
   };
 };
 const mapDispatchToProps = dispatch => ({
-  getDistrictStandardsReports: () => dispatch(getDistrictStandardsReports()),
+  getDistrictStandardsReports: (isFreemiumView) => dispatch(getDistrictStandardsReports(isFreemiumView)),
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(DistrictStandardsReports);

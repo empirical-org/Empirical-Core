@@ -31,10 +31,11 @@ export const initializePusherForDistrictStandardsReports = (adminId) => {
   }
 }
 
-export const getDistrictStandardsReports = () => {
+export const getDistrictStandardsReports = (isFreemiumView) => {
+  const freemiumParam = isFreemiumView ? '?freemium=true' : ''
   return (dispatch) => {
     requestGet(
-      `${process.env.DEFAULT_URL}/api/v1/progress_reports/district_standards_reports`,
+      `${process.env.DEFAULT_URL}/api/v1/progress_reports/district_standards_reports${freemiumParam}`,
       (body) => {
         if (body.id) {
           dispatch(initializePusherForDistrictStandardsReports(String(body.id)))

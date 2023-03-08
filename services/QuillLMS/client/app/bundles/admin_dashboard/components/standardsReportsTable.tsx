@@ -1,11 +1,11 @@
-import React from 'react';
-import moment from 'moment';
+import * as React from 'react';
 
 import EmptyStateForReport from '../../Teacher/components/progress_reports/empty_state_for_report';
 import { ReactTable, } from '../../Shared/index'
 import { getTimeSpent } from '../../Teacher/helpers/studentReports';
 
-const StandardsReportsTable = ({ data, }) => {
+const StandardsReportsTable = ({ data, isFreemiumView }) => {
+  console.log("🚀 ~ file: standardsReportsTable.tsx:8 ~ StandardsReportsTable ~ isFreemiumView", isFreemiumView)
   const columns = [
     {
       Header: 'Standard level',
@@ -51,8 +51,8 @@ const StandardsReportsTable = ({ data, }) => {
           defaultPageSize={100}
           defaultSorted={[{ id: 'last_active', desc: true ,}]}
           minRows={1}
-          showPagination
-          showPaginationBottom
+          showPagination={!isFreemiumView}
+          showPaginationBottom={!isFreemiumView}
         />
       </div>
     );
