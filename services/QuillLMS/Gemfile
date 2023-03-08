@@ -144,7 +144,6 @@ gem 'clever-ruby', '~> 2.0.1'
 
 # Memory profiling
 gem 'puma_worker_killer'
-gem 'memory_profiler', require: false
 
 # temp for migrations
 gem 'paperclip'
@@ -166,6 +165,7 @@ group :development do
   gem 'foreman'
   gem 'graphiql-rails'
   gem 'letter_opener'
+  gem 'memory_profiler'
   gem 'spring'
   gem 'spring-commands-rspec'
   gem 'annotate'
