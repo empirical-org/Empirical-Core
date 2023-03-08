@@ -2,7 +2,7 @@
 
 class AdminAccessController < ApplicationController
   def index
-    @has_verified_email = current_user.email_verified? || current_user.google_id || current_user.clever_id
+    @has_verified_email = current_user.email_verified?
     @school = current_user.school
     @has_school_premium = @school ? @school.subscription.present? : false
     school_admin_user_ids = SchoolsAdmins.where(school: @school).pluck(:user_id)

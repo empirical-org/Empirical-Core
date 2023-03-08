@@ -9,8 +9,8 @@ describe Cms::AdminVerificationController do
 
   describe '#index' do
     it 'returns admin infos grouped by approval status' do
-      pending_requests = create_list(:admin_info, 3, approval_status: AdminInfo::PENDING)
-      completed_requests = create_list(:admin_info, 10, approval_status: [AdminInfo::APPROVED, AdminInfo::DENIED].sample)
+      pending_requests = create_list(:admin_info, 3, approval_status: AdminInfo::PENDING, approver_role: User::STAFF)
+      completed_requests = create_list(:admin_info, 10, approval_status: [AdminInfo::APPROVED, AdminInfo::DENIED].sample, approver_role: User::STAFF)
 
       get :index, { format: 'json' }
       parsed_response = JSON.parse(response.body)
@@ -38,7 +38,7 @@ describe Cms::AdminVerificationController do
   describe '#set_approved' do
     let(:admin) { create(:teacher) }
     let!(:schools_users) { create(:schools_users, user: admin )}
-    let!(:admin_info) { create(:admin_info, approval_status: AdminInfo::PENDING, admin: admin) }
+    let!(:admin_info) { create(:admin_info, approval_status: AdminInfo::PENDING, admin: admin, approver_role: User::STAFF) }
 
     it 'updates the admin info record, creates a school admin record, and fires an email and identify worker' do
       admin.reload
@@ -53,7 +53,7 @@ describe Cms::AdminVerificationController do
   describe '#set_denied' do
     let(:admin) { create(:teacher) }
     let!(:schools_users) { create(:schools_users, user: admin )}
-    let!(:admin_info) { create(:admin_info, approval_status: AdminInfo::PENDING, admin: admin) }
+    let!(:admin_info) { create(:admin_info, approval_status: AdminInfo::PENDING, admin: admin, approver_role: User::STAFF) }
 
     it 'updates the admin info record and fires an email and identify worker' do
       admin.reload
@@ -69,7 +69,7 @@ describe Cms::AdminVerificationController do
     let!(:schools_users) { create(:schools_users, user: admin )}
 
     describe 'if the request had been approved' do
-      let!(:admin_info) { create(:admin_info, approval_status: AdminInfo::APPROVED, admin: admin) }
+      let!(:admin_info) { create(:admin_info, approval_status: AdminInfo::APPROVED, admin: admin, approver_role: User::STAFF) }
       let!(:schools_admins) { create(:schools_admins, school: admin.reload.school, user: admin) }
 
       it 'updates the admin info record, deletes the school admin record, and fires an identify worker' do
@@ -81,7 +81,7 @@ describe Cms::AdminVerificationController do
     end
 
     describe 'if the request had been denied' do
-      let!(:admin_info) { create(:admin_info, approval_status: AdminInfo::DENIED, admin: admin) }
+      let!(:admin_info) { create(:admin_info, approval_status: AdminInfo::DENIED, admin: admin, approver_role: User::STAFF) }
       let!(:schools_admins) { create(:schools_admins, school: admin.reload.school, user: admin) }
 
       it 'updates the admin info record and fires an identify worker' do

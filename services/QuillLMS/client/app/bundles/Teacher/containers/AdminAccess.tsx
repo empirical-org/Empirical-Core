@@ -17,8 +17,12 @@ const AdminAccess = ({ school, hasVerifiedEmail, schoolAdmins, hasSchoolPremium,
   useSnackbarMonitor(showSnackbar, setShowSnackbar, defaultSnackbarTimeout)
 
   function handleEmailVerificationClick() {
-    requestPost(`${process.env.DEFAULT_URL}/verify_emails/require_email_verification`, {}, () => {
-      window.location.href = '/sign-up/verify-email'
+    requestPost(`${process.env.DEFAULT_URL}/verify_emails/require_email_verification`, {}, (body) => {
+      if (body.redirect) {
+        window.location.href = body.redirect
+      } else {
+        window.location.reload
+      }
     })
   }
 

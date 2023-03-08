@@ -75,7 +75,7 @@ module NavigationHelper
   end
 
   def should_show_admin_access_tab?
-    request.original_url&.include?('admin_access') && current_user.teacher? && !current_user.admin? && current_user.school && School::ALTERNATIVE_SCHOOL_NAMES.exclude?(current_user.school.name)
+    !!(request.original_url&.include?('admin_access') && current_user.teacher? && !current_user.admin? && current_user.school && School::ALTERNATIVE_SCHOOL_NAMES.exclude?(current_user.school.name))
   end
 
   # this is a duplicate of the QuillAuthentication method, used here because we can't import it directly
