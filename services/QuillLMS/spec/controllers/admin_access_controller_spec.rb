@@ -78,7 +78,7 @@ describe AdminAccessController do
 
       expect(user.admin_info.approval_status).to eq(AdminInfo::PENDING)
       expect(user.admin_info.approver_role).to eq(User::ADMIN)
-      expect(AdminApprovalRequest.find_by(admin_info: user.admin_info, requestee_id: school_admin.user.id))
+      expect(AdminApprovalRequest.find_by(admin_info: user.admin_info, requestee_id: school_admin.user.id)).to be
     end
   end
 

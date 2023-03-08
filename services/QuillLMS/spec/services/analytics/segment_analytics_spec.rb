@@ -339,6 +339,7 @@ describe 'SegmentAnalytics' do
 
     describe 'when the user invited to become an admin already exists in our system' do
       let(:admin) { create(:teacher) }
+      
       it 'sends an event with information about the teacher and admin with the admin user id' do
         note = 'I really want you to be an admin.'
         analytics.track_admin_invited_by_teacher(
