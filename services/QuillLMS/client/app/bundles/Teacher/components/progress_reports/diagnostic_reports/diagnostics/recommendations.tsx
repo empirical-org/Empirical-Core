@@ -557,13 +557,13 @@ export const Recommendations = ({ passedPreviouslyAssignedRecommendations, passe
             />
           </div>
           <div>
-            <PostTestAssignmentButton
+            {showPostTestAssignmentColumn ? <PostTestAssignmentButton
               assignedPostTest={postTestAssigned}
               assigningPostTest={postTestAssigning}
               assignPostTest={assignPostTest}
               numberSelectedForPostTest={postTestSelections.length}
               releaseMethod={releaseMethod}
-            />
+            /> : null}
             <PostTestAssignmentTable
               postDiagnosticUnitTemplateId={postDiagnosticUnitTemplateId}
               postTestSelections={postTestSelections}

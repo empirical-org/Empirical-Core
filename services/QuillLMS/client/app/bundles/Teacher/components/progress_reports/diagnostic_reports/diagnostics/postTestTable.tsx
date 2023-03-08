@@ -185,7 +185,7 @@ const PostTestAssignmentTable = ({showPostTestAssignmentColumn, students, studen
             <tbody>
               {postTestStudentRows}
             </tbody>
-          </table>s
+          </table>
         </div> : null}
     </div>
   )
