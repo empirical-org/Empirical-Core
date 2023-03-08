@@ -5,7 +5,7 @@ import LoadingSpinner from '../../Teacher/components/shared/loading_indicator';
 import StandardsReports from '../components/standardsReports';
 import { getDistrictStandardsReports } from '../../../actions/district_standards_reports';
 import { getTimeSpent } from '../../Teacher/helpers/studentReports';
-import { restrictedPage, FULL, } from '../shared'
+import { restrictedPage, FULL, LIMITED } from '../shared'
 
 class DistrictStandardsReports extends React.Component {
   componentDidMount() {
@@ -14,15 +14,21 @@ class DistrictStandardsReports extends React.Component {
   }
 
   render() {
-    const { loading, accessType, } = this.props;
+    const { loading, accessType, isFreemiumView } = this.props;
+    const showFreemiumStandardsReport = accessType === LIMITED && isFreemiumView;
 
-    if (accessType !== FULL) {
+    if (accessType !== FULL && !showFreemiumStandardsReport) {
       return restrictedPage
     }
 
     if (loading) {
       return <LoadingSpinner />;
     }
+
+    if (showFreemiumStandardsReport) {
+      return (<StandardsReports {...this.props} />);
+    }
+
     return (<StandardsReports {...this.props} />);
   }
 }
@@ -47,7 +53,7 @@ function formatDataForCSV(data) {
   ];
 
   csvData.push(csvHeader);
-  data.forEach(row => csvData.push(csvRow(row)));
+  data && data.forEach(row => csvData.push(csvRow(row)));
 
   return csvData;
 }

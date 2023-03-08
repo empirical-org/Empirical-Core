@@ -7,7 +7,7 @@ import DistrictConceptReportsProgressReport from './DistrictConceptReports';
 import DistrictStandardsReportsProgressReport from './DistrictStandardsReports';
 import SchoolSubscriptionsContainer from './SchoolSubscriptionsContainer';
 
-import { RESTRICTED, LIMITED, FULL, APPROVED, PENDING, DENIED, SKIPPED, } from '../shared'
+import { RESTRICTED, LIMITED, FULL, APPROVED, PENDING, DENIED, SKIPPED, LOADING } from '../shared'
 import { requestGet, } from '../../../modules/request/index'
 import SubnavTabs from '../components/subnav_tabs.tsx';
 import ActivityScoresStudentOverview from '../components/activity_scores_student_overview.tsx';
@@ -44,7 +44,7 @@ const AdminDashboardContainer = ({ id, location, children, }) => {
   }
 
   function accessType() {
-    if (Object.keys(adminInfo).length === 0) { return FULL } // prevents incorrect banner flashing during loading
+    if (Object.keys(adminInfo).length === 0) { return LOADING } // prevents incorrect banner flashing and reports rendering during loading
 
     const { admin_approval_status, administers_school_with_premium, } = adminInfo
 
@@ -58,7 +58,7 @@ const AdminDashboardContainer = ({ id, location, children, }) => {
   function renderBanner() {
     const { admin_approval_status, associated_school, } = adminInfo
 
-    if (accessType() === FULL) { return <span /> }
+    if (accessType() === FULL || accessType() === LOADING) { return <span /> }
 
     if (accessType() === LIMITED) {
       return (

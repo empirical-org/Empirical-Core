@@ -5,7 +5,7 @@ import { ReactTable, } from '../../Shared/index'
 import { getTimeSpent } from '../../Teacher/helpers/studentReports';
 
 const StandardsReportsTable = ({ data, isFreemiumView }) => {
-  console.log("🚀 ~ file: standardsReportsTable.tsx:8 ~ StandardsReportsTable ~ isFreemiumView", isFreemiumView)
+
   const columns = [
     {
       Header: 'Standard level',
