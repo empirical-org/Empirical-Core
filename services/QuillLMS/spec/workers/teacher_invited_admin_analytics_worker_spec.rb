@@ -16,7 +16,7 @@ describe TeacherInvitedAdminAnalyticsWorker do
 
     it 'should track the event' do
       expect(analyzer).to receive(:track_teacher_invited_admin).with(teacher, admin_name, admin_email, note)
-      subject.perform(teacher_id, admin_name, admin_email, note)
+      subject.perform(teacher.id, admin_name, admin_email, note)
     end
   end
 end

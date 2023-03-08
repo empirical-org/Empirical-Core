@@ -52,22 +52,30 @@ describe('AdminAccounts container', () => {
     describe('and the school is premium', () => {
 
       describe('and there are school admins', () => {
-        expect(mount(<AdminAccess {...school} {...verifiedEmail} {...schoolIsPremium} {...hasSchoolAdmins} />)).toMatchSnapshot();
+        it('renders', () => {
+          expect(mount(<AdminAccess {...school} {...verifiedEmail} {...schoolIsPremium} {...hasSchoolAdmins} />)).toMatchSnapshot();
+        })
       })
 
       describe('and there are no school admins', () => {
-        expect(mount(<AdminAccess {...school} {...verifiedEmail} {...schoolIsPremium} {...doesNotHaveSchoolAdmins} />)).toMatchSnapshot();
+        it('renders', () => {
+          expect(mount(<AdminAccess {...school} {...verifiedEmail} {...schoolIsPremium} {...doesNotHaveSchoolAdmins} />)).toMatchSnapshot();
+        })
       })
     })
 
     describe('and the school is not premium', () => {
 
       describe('and there are school admins', () => {
-        expect(mount(<AdminAccess {...school} {...verifiedEmail} {...schoolIsNotPremium} {...hasSchoolAdmins} />)).toMatchSnapshot();
+        it('renders', () => {
+          expect(mount(<AdminAccess {...school} {...verifiedEmail} {...schoolIsNotPremium} {...hasSchoolAdmins} />)).toMatchSnapshot();
+        })
       })
 
       describe('and there are no school admins', () => {
-        expect(mount(<AdminAccess {...school} {...verifiedEmail} {...schoolIsNotPremium} {...doesNotHaveSchoolAdmins} />)).toMatchSnapshot();
+        it('renders', () => {
+          expect(mount(<AdminAccess {...school} {...verifiedEmail} {...schoolIsNotPremium} {...doesNotHaveSchoolAdmins} />)).toMatchSnapshot();
+        })
       })
 
     })
@@ -79,22 +87,30 @@ describe('AdminAccounts container', () => {
     describe('and the school is premium', () => {
 
       describe('and there are school admins', () => {
-        expect(mount(<AdminAccess {...school} {...unverifiedEmail} {...schoolIsPremium} {...hasSchoolAdmins} />)).toMatchSnapshot();
+        it('renders', () => {
+          expect(mount(<AdminAccess {...school} {...unverifiedEmail} {...schoolIsPremium} {...hasSchoolAdmins} />)).toMatchSnapshot();
+        })
       })
 
       describe('and there are no school admins', () => {
-        expect(mount(<AdminAccess {...school} {...unverifiedEmail} {...schoolIsPremium} {...doesNotHaveSchoolAdmins} />)).toMatchSnapshot();
+        it('renders', () => {
+          expect(mount(<AdminAccess {...school} {...unverifiedEmail} {...schoolIsPremium} {...doesNotHaveSchoolAdmins} />)).toMatchSnapshot();
+        })
       })
     })
 
     describe('and the school is not premium', () => {
 
       describe('and there are school admins', () => {
-        expect(mount(<AdminAccess {...school} {...unverifiedEmail} {...schoolIsNotPremium} {...hasSchoolAdmins} />)).toMatchSnapshot();
+        it('renders', () => {
+          expect(mount(<AdminAccess {...school} {...unverifiedEmail} {...schoolIsNotPremium} {...hasSchoolAdmins} />)).toMatchSnapshot();
+        })
       })
 
       describe('and there are no school admins', () => {
-        expect(mount(<AdminAccess {...school} {...unverifiedEmail} {...schoolIsNotPremium} {...doesNotHaveSchoolAdmins} />)).toMatchSnapshot();
+        it('renders', () => {
+          expect(mount(<AdminAccess {...school} {...unverifiedEmail} {...schoolIsNotPremium} {...doesNotHaveSchoolAdmins} />)).toMatchSnapshot();
+        })
       })
 
     })
