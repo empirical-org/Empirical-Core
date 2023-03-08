@@ -165,6 +165,7 @@ group :development do
   gem 'foreman'
   gem 'graphiql-rails'
   gem 'letter_opener'
+  gem 'memory_profiler'
   gem 'spring'
   gem 'spring-commands-rspec'
   gem 'annotate'
