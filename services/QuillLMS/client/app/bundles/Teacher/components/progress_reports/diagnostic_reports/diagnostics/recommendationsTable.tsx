@@ -20,7 +20,6 @@ import ActivityPackHeader from './activityPackHeader'
 import {
   smallWhiteCheckIcon,
 } from '../../../../../Shared/index'
-import useWindowSize from '../../../../../Shared/hooks/useWindowSize'
 
 const openInNewTabIcon = <img alt="Open in new tab icon" src={`${baseDiagnosticImageSrc}/icons-open-in-new.svg`} />
 
@@ -28,6 +27,7 @@ const TABLE_LEFT_PADDING = 0
 
 interface RecommendationsTableProps {
   recommendations: Recommendation[];
+  isPostTest: boolean;
   responsesLink: (studentId: number) => string;
   previouslyAssignedRecommendations: Recommendation[];
   students: Student[];
@@ -94,6 +94,48 @@ const RecommendationCell = ({ student, isAssigned, isRecommended, isSelected, se
   )
 }
 
+const PostTestStudentRow = ({ student, postTestSelections, setPostTestSelections, previouslyAssignedPostTestStudentIds, studentsWhoCompletedAssignedRecommendations, }) => {
+  const { name, completed, id, } = student
+
+  if (!completed) {
+    return <tr key={name}><td className="recommendation-cell empty-cell" /></tr>
+  }
+
+  const isAssigned = previouslyAssignedPostTestStudentIds.includes(id)
+  const isSelected = postTestSelections.includes(id)
+  const isRecommended = studentsWhoCompletedAssignedRecommendations.some(student => student.id === id)
+
+  function toggleSelection() {
+    let newSelections = [...postTestSelections];
+    if (isSelected) {
+      newSelections = newSelections.filter(s => s !== student.id)
+    } else {
+      newSelections.push(student.id);
+    }
+    setPostTestSelections(newSelections)
+  }
+
+  let checkbox = <span aria-label="Unchecked checkbox" className="quill-checkbox unselected" />
+  const assignedText = <div className="assigned">{correctImage}<span>Assigned</span></div>
+
+  if (isSelected) {
+    checkbox = (<span aria-label="Checked checkbox" className="quill-checkbox selected" >
+      <img alt={smallWhiteCheckIcon.alt} src={smallWhiteCheckIcon.src} />
+    </span>)
+  }
+
+  return (
+    <tr>
+      <td className="recommendation-cell">
+        <button className={`interactive-wrapper ${isRecommended && !isAssigned ? 'recommended' : ''}`} onClick={isAssigned ? () => {} : toggleSelection} type="button">
+          {isAssigned ? assignedText : checkbox}
+          <span />
+        </button>
+      </td>
+    </tr>
+  )
+}
+
 const StudentRow = ({ student, selections, recommendations, previouslyAssignedRecommendations, setSelections, responsesLink, }) => {
   const { name, completed, id, } = student
 
@@ -140,14 +182,18 @@ const StudentRow = ({ student, selections, recommendations, previouslyAssignedRe
   return <tr key={name}>{firstCell}{selectionCells}</tr>
 }
 
-const RecommendationsTable = ({ recommendations, responsesLink, students, selections, previouslyAssignedRecommendations, setSelections, studentsWhoCompletedDiagnostic, studentsWhoCompletedAssignedRecommendations, postDiagnosticUnitTemplateId, setPostTestSelections, postTestSelections, previouslyAssignedPostTestStudentIds, }: RecommendationsTableProps) => {
-  const size = useWindowSize();
+const RecommendationsTable = ({ postTestSelections, previouslyAssignedPostTestStudentIds, setPostTestSelections, studentsWhoCompletedAssignedRecommendations, recommendations, responsesLink, students, selections, previouslyAssignedRecommendations, setSelections, studentsWhoCompletedDiagnostic, isPostTest, postDiagnosticUnitTemplateId}: RecommendationsTableProps) => {
   const recommendationsTableRef = React.useRef(null);
 
   function paddingLeft() {
     if (MOBILE_WIDTH >= window.innerWidth) { return DEFAULT_LEFT_PADDING_FOR_MOBILE }
     const explanation = document.getElementsByClassName('explanation')[0]
     return explanation && DEFAULT_LEFT_PADDING
+  }
+
+  function onSelectAllForPostDiagnosticClick() {
+    const studentIdsWhoHaveCompletedDiagnostic = students.filter(s => s.completed).map(s => s.id)
+    setPostTestSelections(studentIdsWhoHaveCompletedDiagnostic)
   }
 
   function onSelectAllColumnClick(activityPackId) {
@@ -178,7 +224,36 @@ const RecommendationsTable = ({ recommendations, responsesLink, students, select
     )
   })
 
-  const recommendationStudentRows = students.map(student => (
+  const renderPostTestTableHeader = () => {
+    const style = {}
+
+    const anchorElement = document.getElementsByClassName('corner-header')[0]
+
+    if (anchorElement) {
+      style.height = anchorElement.getBoundingClientRect().height
+    }
+
+    return (
+      <ActivityPackHeader
+        activityCount={1}
+        activityPackId={postDiagnosticUnitTemplateId}
+        handleSelectAllClick={onSelectAllForPostDiagnosticClick}
+        name="Diagnostic (Post) Test"
+        style={style}
+      />
+    )
+  }
+
+  const recommendationStudentRows = isPostTest ? students.map(student => (
+    <PostTestStudentRow
+      key={student.name}
+      postTestSelections={postTestSelections}
+      previouslyAssignedPostTestStudentIds={previouslyAssignedPostTestStudentIds}
+      setPostTestSelections={setPostTestSelections}
+      student={student}
+      studentsWhoCompletedAssignedRecommendations={studentsWhoCompletedAssignedRecommendations}
+    />
+  )) : students.map(student => (
     <StudentRow
       key={student.name}
       previouslyAssignedRecommendations={previouslyAssignedRecommendations}
@@ -192,7 +267,8 @@ const RecommendationsTable = ({ recommendations, responsesLink, students, select
 
   const tableHasContent = studentsWhoCompletedDiagnostic.length
 
-  const recommendationsTableClassName = tableHasContent ? 'recommendations-table' : 'empty recommendations-table'
+  let recommendationsTableClassName = tableHasContent ? 'recommendations-table' : 'empty recommendations-table'
+  if (isPostTest) { recommendationsTableClassName += ' post-test-table'}
 
   const renderRecommendationsTableHeader = (sticky) => {
     let style = { position: 'inherit' }
@@ -200,8 +276,8 @@ const RecommendationsTable = ({ recommendations, responsesLink, students, select
     return (
       <thead>
         <tr>
-          <th className="corner-header" style={sticky ? style : {}}>Name</th>
-          {tableHeaders}
+          {isPostTest ? null : <th className="corner-header" style={sticky ? style : {}}>Name</th>}
+          {isPostTest ? renderPostTestTableHeader() : tableHeaders}
         </tr>
       </thead>
     )
@@ -211,7 +287,7 @@ const RecommendationsTable = ({ recommendations, responsesLink, students, select
     <div>
       <table className={recommendationsTableClassName} id="demo-onboarding-tour-spotlight-element" ref={recommendationsTableRef} style={tableHasContent ? { paddingLeft: TABLE_LEFT_PADDING } : { marginLeft: paddingLeft() }}>
         {renderRecommendationsTableHeader(false)}
-        {tableHasContent ? null : noDataYet}
+        {(tableHasContent || isPostTest) ? null : noDataYet}
         <tbody>
           {recommendationStudentRows}
         </tbody>

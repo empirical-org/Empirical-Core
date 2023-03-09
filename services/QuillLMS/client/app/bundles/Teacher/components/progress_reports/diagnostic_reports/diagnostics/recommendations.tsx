@@ -15,7 +15,6 @@ import {
   IMMEDIATE,
 } from './shared'
 import RecommendationsTable from './recommendationsTable'
-import PostTestAssignmentTable from './postTestTable';
 import ReleaseMethodModal from './releaseMethodModal'
 import {
   Recommendation,
@@ -541,6 +540,7 @@ export const Recommendations = ({ passedPreviouslyAssignedRecommendations, passe
               students={students}
             />
             <RecommendationsTable
+              isPostTest={false}
               postDiagnosticUnitTemplateId={postDiagnosticUnitTemplateId}
               postTestSelections={postTestSelections}
               previouslyAssignedPostTestStudentIds={previouslyAssignedPostTestStudentIds}
@@ -550,7 +550,6 @@ export const Recommendations = ({ passedPreviouslyAssignedRecommendations, passe
               selections={independentSelections}
               setPostTestSelections={setPostTestSelections}
               setSelections={setIndependentSelections}
-              showPostTestAssignmentColumn={showPostTestAssignmentColumn}
               students={students}
               studentsWhoCompletedAssignedRecommendations={studentsWhoCompletedAssignedRecommendations}
               studentsWhoCompletedDiagnostic={studentsWhoCompletedDiagnostic}
@@ -564,16 +563,16 @@ export const Recommendations = ({ passedPreviouslyAssignedRecommendations, passe
               numberSelectedForPostTest={postTestSelections.length}
               releaseMethod={releaseMethod}
             /> : null}
-            <PostTestAssignmentTable
+            {showPostTestAssignmentColumn ? <RecommendationsTable
+              isPostTest={true}
               postDiagnosticUnitTemplateId={postDiagnosticUnitTemplateId}
               postTestSelections={postTestSelections}
               previouslyAssignedPostTestStudentIds={previouslyAssignedPostTestStudentIds}
               setPostTestSelections={setPostTestSelections}
-              showPostTestAssignmentColumn={showPostTestAssignmentColumn}
               students={students}
               studentsWhoCompletedAssignedRecommendations={studentsWhoCompletedAssignedRecommendations}
               studentsWhoCompletedDiagnostic={studentsWhoCompletedDiagnostic}
-            />
+            /> : null}
           </div>
         </div>
       </section>
