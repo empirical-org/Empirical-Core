@@ -734,8 +734,7 @@ class User < ApplicationRecord
   end
 
   def set_time_zone
-    z = ::Ziptz.new
-    school_timezone = z.time_zone_name(school&.zipcode || school&.mail_zipcode)
+    school_timezone = ::Ziptz.instance.time_zone_name(school&.zipcode || school&.mail_zipcode)
 
     if school_timezone.present?
       self.time_zone = school_timezone
