@@ -47,18 +47,15 @@ class Api::V1::ProgressReportsController < Api::ApiController
   def district_standards_reports
     return unless current_user&.admin?
 
-    is_fremium_view = params && params[:freemium] ? !!params[:freemium] : false
+    is_fremium_view = params && params[:freemium] ? true : false
     cache_key = is_fremium_view ? SchoolsAdmins::FREEMIUM_DISTRICT_STANDARD_REPORTS_CACHE_KEY_STEM : SchoolsAdmins::DISTRICT_STANDARD_REPORTS_CACHE_KEY_STEM
+    data = $redis.get("#{cache_key}#{current_user.id}")
 
-    serialized_district_standards_reports_json = $redis.get("#{cache_key}#{current_user.id}")
-    if serialized_district_standards_reports_json
-      serialized_district_standards_reports = JSON.parse(serialized_district_standards_reports_json)
-    end
-    if serialized_district_standards_reports.nil?
+    if data.nil?
       FindDistrictStandardsReportsWorker.perform_async(current_user.id, is_fremium_view)
       render json: { id: current_user.id }
     else
-      render json: { data: serialized_district_standards_reports }
+      render json: { data: JSON.parse(data) }
     end
   end
 

@@ -68,7 +68,7 @@ class ProgressReports::DistrictStandardsReports
         standard_levels.name
       ORDER BY standards.name ASC
       LIMIT(#{limit})
-      SQL
+    SQL
   end
         # LIMIT CASE WHEN #{is_fremium_view} THEN #{FREEMIUM_LIMIT} ELSE NULL END;
 
