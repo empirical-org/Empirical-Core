@@ -41,6 +41,7 @@ describe SchoolsAdmins, type: :model, redis: true do
       expect($redis).to receive(:del).with("#{SchoolsAdmins::DISTRICT_ACTIVITY_SCORES_CACHE_KEY_STEM}#{user.id}")
       expect($redis).to receive(:del).with("#{SchoolsAdmins::DISTRICT_CONCEPT_REPORTS_CACHE_KEY_STEM}#{user.id}")
       expect($redis).to receive(:del).with("#{SchoolsAdmins::DISTRICT_STANDARD_REPORTS_CACHE_KEY_STEM}#{user.id}")
+      expect($redis).to receive(:del).with("#{SchoolsAdmins::FREEMIUM_DISTRICT_STANDARD_REPORTS_CACHE_KEY_STEM}#{user.id}")
       admin.wipe_cache
     end
   end
