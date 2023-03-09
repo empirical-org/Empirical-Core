@@ -1,4 +1,15 @@
 ﻿<?xml version="1.0" encoding="UTF-8"?>
+<!-- 	HOW TO recreate this sitemap:	 -->
+<!-- 	1. Input the site into an automatic sitemap generator (I used www.mysitemapgenerator.com)	 -->
+<!-- 	2. Check to see that all pages have made it into the automatic sitemap.	 -->
+<!-- 	3. It will likely be missing some pages with this URL: https://www.quill.org/activities/packs/{id}	 -->
+<!-- 	   You can manually generate it by running a script on the server to fetch all production activity packs and print that URL format.	 -->
+<!-- 	3. It will also be missing some pages with this URL: https://www.quill.org/teacher-center/{slug}	 -->
+<!-- 	   Again, you can manually generate these by running a script on the server to fetch all blog posts and print their slug in that URL format.	 -->
+<!-- 	5. Manually add the skipped URLs to the end of the document and close it out with </urlset>.	 -->
+<!-- 	6. Upload this document to Amazon S3 and submit it to google via https://search.google.com/	 -->
+
+
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
 <url>
 	<loc>https://www.quill.org/</loc>
