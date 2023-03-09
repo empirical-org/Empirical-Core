@@ -52,6 +52,10 @@
       margin-right: 4px;
     }
   }
+  .post-test-table {
+    border-left: 1px solid #e0e0e0 !important;
+    margin-left: 32px !important;
+  }
   .recommendations-buttons-container {
     padding-left: 32px;
     padding-right: 32px;
@@ -120,6 +124,7 @@
     padding-left: 364px;
     display: flex;
     width: 100vw;
+    max-width: 1400px;
     .no-data-yet {
       position: absolute;
       top: 100px;
@@ -518,6 +523,10 @@
     }
     .recommendations-table {
       margin-left: 16px;
+    }
+    .post-test-table {
+      border-left: 1px solid #e0e0e0 !important;
+      margin-left: 32px !important;
     }
     .post-test-assignment-button {
       height: 233px;
