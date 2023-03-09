@@ -70,7 +70,6 @@ class ProgressReports::DistrictStandardsReports
       LIMIT(#{limit})
     SQL
   end
-        # LIMIT CASE WHEN #{is_fremium_view} THEN #{FREEMIUM_LIMIT} ELSE NULL END;
 
   private def user_ids(admin_id)
     RawSqlRunner.execute(
