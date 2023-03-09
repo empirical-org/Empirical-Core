@@ -17,6 +17,15 @@
       white-space: pre-wrap;
     }
   }
+  .admin-standards {
+    .rt-td {
+      span {
+        &.show-overflow {
+          white-space: pre-wrap;
+        }
+      }
+    }
+  }
 
   .dropdown__control {
     background-color: transparent;
