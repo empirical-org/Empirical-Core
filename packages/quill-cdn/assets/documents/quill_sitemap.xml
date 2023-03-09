@@ -1,0 +1,3519 @@
+﻿<?xml version="1.0" encoding="UTF-8"?>
+<!-- 	HOW TO recreate this sitemap:	 -->
+<!-- 	1. Input the site into an automatic sitemap generator (I used www.mysitemapgenerator.com)	 -->
+<!-- 	2. Check to see that all pages have made it into the automatic sitemap.	 -->
+<!-- 	3. It will likely be missing some pages with this URL: https://www.quill.org/activities/packs/{id}	 -->
+<!-- 	   You can manually generate it by running a script on the server to fetch all production activity packs and print that URL format.	 -->
+<!-- 	3. It will also be missing some pages with this URL: https://www.quill.org/teacher-center/{slug}	 -->
+<!-- 	   Again, you can manually generate these by running a script on the server to fetch all blog posts and print their slug in that URL format.	 -->
+<!-- 	5. Manually add the skipped URLs to the end of the document and close it out with </urlset>.	 -->
+<!-- 	6. Upload this document to Amazon S3 and submit it to google via https://search.google.com/	 -->
+
+
+<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
+<url>
+	<loc>https://www.quill.org/</loc>
+	<lastmod>2023-03-08T08:46:18+01:00</lastmod>
+	<priority>1.0</priority>
+</url>
+<url>
+	<loc>https://www.quill.org/tools/connect</loc>
+	<lastmod>2023-03-08T08:46:18+01:00</lastmod>
+	<priority>0.8</priority>
+</url>
+<url>
+	<loc>https://www.quill.org/tools/lessons</loc>
+	<lastmod>2023-03-08T08:46:18+01:00</lastmod>
+	<priority>0.8</priority>
+</url>
+<url>
+	<loc>https://www.quill.org/tools/diagnostic</loc>
+	<lastmod>2023-03-08T08:46:18+01:00</lastmod>
+	<priority>0.8</priority>
+</url>
+<url>
+	<loc>https://www.quill.org/tools/proofreader</loc>
+	<lastmod>2023-03-08T08:46:18+01:00</lastmod>
+	<priority>0.8</priority>
+</url>
+<url>
+	<loc>https://www.quill.org/tools/grammar</loc>
+	<lastmod>2023-03-08T08:46:18+01:00</lastmod>
+	<priority>0.8</priority>
+</url>
+<url>
+	<loc>https://www.quill.org/tools/evidence</loc>
+	<lastmod>2023-03-08T08:46:18+01:00</lastmod>
+	<priority>0.8</priority>
+</url>
+<url>
+	<loc>https://www.quill.org/activities/packs</loc>
+	<lastmod>2023-03-08T08:46:18+01:00</lastmod>
+	<priority>0.8</priority>
+</url>
+<url>
+	<loc>https://www.quill.org/ap</loc>
+	<lastmod>2023-03-08T08:46:18+01:00</lastmod>
+	<priority>1.0</priority>
+</url>
+<url>
+	<loc>https://www.quill.org/preap</loc>
+	<lastmod>2023-03-08T08:46:18+01:00</lastmod>
+	<priority>1.0</priority>
+</url>
+<url>
+	<loc>https://www.quill.org/springboard</loc>
+	<lastmod>2023-03-08T08:46:18+01:00</lastmod>
+	<priority>1.0</priority>
+</url>
+<url>
+	<loc>https://www.quill.org/activities/standard_level/7</loc>
+	<lastmod>2023-03-08T08:46:18+01:00</lastmod>
+	<priority>0.6</priority>
+</url>
+<url>
+	<loc>https://www.quill.org/teacher-center</loc>
+	<lastmod>2023-03-08T08:46:18+01:00</lastmod>
+	<priority>1.0</priority>
+</url>
+<url>
+	<loc>https://www.quill.org/teacher-center/topic/using-quill-for-reading-comprehension</loc>
+	<lastmod>2023-03-08T08:46:18+01:00</lastmod>
+	<priority>0.6</priority>
+</url>
+<url>
+	<loc>https://www.quill.org/teacher-center/topic/getting-started</loc>
+	<lastmod>2023-03-08T08:46:18+01:00</lastmod>
+	<priority>0.6</priority>
+</url>
+<url>
+	<loc>https://www.quill.org/teacher-center/topic/video-tutorials</loc>
+	<lastmod>2023-03-08T08:46:18+01:00</lastmod>
+	<priority>0.6</priority>
+</url>
+<url>
+	<loc>https://www.quill.org/teacher-center/topic/best-practices</loc>
+	<lastmod>2023-03-08T08:46:18+01:00</lastmod>
+	<priority>0.6</priority>
+</url>
+<url>
+	<loc>https://www.quill.org/faq</loc>
+	<lastmod>2023-03-08T08:46:18+01:00</lastmod>
+	<priority>1.0</priority>
+</url>
+<url>
+	<loc>https://www.quill.org/premium</loc>
+	<lastmod>2023-03-08T08:46:18+01:00</lastmod>
+	<priority>1.0</priority>
+</url>
+<url>
+	<loc>https://www.quill.org/about</loc>
+	<lastmod>2023-03-08T08:46:18+01:00</lastmod>
+	<priority>1.0</priority>
+</url>
+<url>
+	<loc>https://www.quill.org/impact</loc>
+	<lastmod>2023-03-08T08:46:18+01:00</lastmod>
+	<priority>1.0</priority>
+</url>
+<url>
+	<loc>https://www.quill.org/pathways</loc>
+	<lastmod>2023-03-08T08:46:18+01:00</lastmod>
+	<priority>1.0</priority>
+</url>
+<url>
+	<loc>https://www.quill.org/team</loc>
+	<lastmod>2023-03-08T08:46:18+01:00</lastmod>
+	<priority>1.0</priority>
+</url>
+<url>
+	<loc>https://www.quill.org/careers</loc>
+	<lastmod>2023-03-08T08:46:18+01:00</lastmod>
+	<priority>1.0</priority>
+</url>
+<url>
+	<loc>https://www.quill.org/press</loc>
+	<lastmod>2023-03-08T08:46:18+01:00</lastmod>
+	<priority>1.0</priority>
+</url>
+<url>
+	<loc>https://www.quill.org/session/new</loc>
+	<lastmod>2023-03-08T08:46:18+01:00</lastmod>
+	<priority>0.8</priority>
+</url>
+<url>
+	<loc>https://www.quill.org/account/new</loc>
+	<lastmod>2023-03-08T08:46:18+01:00</lastmod>
+	<priority>0.8</priority>
+</url>
+<url>
+	<loc>https://www.quill.org/sign-up/student</loc>
+	<lastmod>2023-03-08T08:46:18+01:00</lastmod>
+	<priority>0.8</priority>
+</url>
+<url>
+	<loc>https://www.quill.org/sign-up/teacher</loc>
+	<lastmod>2023-03-08T08:46:18+01:00</lastmod>
+	<priority>0.8</priority>
+</url>
+<url>
+	<loc>https://www.quill.org/administrator</loc>
+	<lastmod>2023-03-08T08:46:18+01:00</lastmod>
+	<priority>1.0</priority>
+</url>
+<url>
+	<loc>https://www.quill.org/evidence/</loc>
+	<lastmod>2023-03-08T08:46:18+01:00</lastmod>
+	<priority>1.0</priority>
+</url>
+<url>
+	<loc>https://www.quill.org/activity_sessions/anonymous?activity_id=430</loc>
+	<lastmod>2023-03-08T08:46:18+01:00</lastmod>
+	<priority>1.0</priority>
+</url>
+<url>
+	<loc>https://www.quill.org/activity_sessions/anonymous?activity_id=-LKbzH_Er916zGjgHk5U</loc>
+	<lastmod>2023-03-08T08:46:18+01:00</lastmod>
+	<priority>1.0</priority>
+</url>
+<url>
+	<loc>https://www.quill.org/play</loc>
+	<lastmod>2023-03-08T08:46:18+01:00</lastmod>
+	<priority>1.0</priority>
+</url>
+<url>
+	<loc>https://www.quill.org/activity_sessions/anonymous?activity_id=110</loc>
+	<lastmod>2023-03-08T08:46:18+01:00</lastmod>
+	<priority>1.0</priority>
+</url>
+<url>
+	<loc>https://www.quill.org/tos</loc>
+	<lastmod>2023-03-08T08:46:18+01:00</lastmod>
+	<priority>1.0</priority>
+</url>
+<url>
+	<loc>https://www.quill.org/privacy</loc>
+	<lastmod>2023-03-08T08:46:18+01:00</lastmod>
+	<priority>1.0</priority>
+</url>
+<url>
+	<loc>https://www.quill.org/lessons/</loc>
+	<lastmod>2023-03-08T08:46:18+01:00</lastmod>
+	<priority>1.0</priority>
+</url>
+<url>
+	<loc>https://www.quill.org/request_quote</loc>
+	<lastmod>2023-03-08T08:46:18+01:00</lastmod>
+	<priority>0.8</priority>
+</url>
+<url>
+	<loc>https://www.quill.org/teacher-center/topic/whats-new</loc>
+	<lastmod>2023-03-08T08:46:18+01:00</lastmod>
+	<priority>0.6</priority>
+</url>
+<url>
+	<loc>https://www.quill.org/activities/packs/20</loc>
+	<lastmod>2023-03-08T08:46:19+01:00</lastmod>
+	<priority>0.6</priority>
+</url>
+<url>
+	<loc>https://www.quill.org/activities/packs/4</loc>
+	<lastmod>2023-03-08T08:46:19+01:00</lastmod>
+	<priority>0.6</priority>
+</url>
+<url>
+	<loc>https://www.quill.org/activities/packs/6</loc>
+	<lastmod>2023-03-08T08:46:19+01:00</lastmod>
+	<priority>0.6</priority>
+</url>
+<url>
+	<loc>https://www.quill.org/activities/standard_level/38</loc>
+	<lastmod>2023-03-08T08:46:21+01:00</lastmod>
+	<priority>0.6</priority>
+</url>
+<url>
+	<loc>https://www.quill.org/activities/standard_level/8</loc>
+	<lastmod>2023-03-08T08:46:21+01:00</lastmod>
+	<priority>0.6</priority>
+</url>
+<url>
+	<loc>https://www.quill.org/activities/standard_level/9</loc>
+	<lastmod>2023-03-08T08:46:21+01:00</lastmod>
+	<priority>0.6</priority>
+</url>
+<url>
+	<loc>https://www.quill.org/activities/standard_level/10</loc>
+	<lastmod>2023-03-08T08:46:21+01:00</lastmod>
+	<priority>0.6</priority>
+</url>
+<url>
+	<loc>https://www.quill.org/activities/standard_level/11</loc>
+	<lastmod>2023-03-08T08:46:21+01:00</lastmod>
+	<priority>0.6</priority>
+</url>
+<url>
+	<loc>https://www.quill.org/activities/standard_level/12</loc>
+	<lastmod>2023-03-08T08:46:21+01:00</lastmod>
+	<priority>0.6</priority>
+</url>
+<url>
+	<loc>https://www.quill.org/activities/standard_level/13</loc>
+	<lastmod>2023-03-08T08:46:21+01:00</lastmod>
+	<priority>0.6</priority>
+</url>
+<url>
+	<loc>https://www.quill.org/activities/standard_level/14</loc>
+	<lastmod>2023-03-08T08:46:21+01:00</lastmod>
+	<priority>0.6</priority>
+</url>
+<url>
+	<loc>https://www.quill.org/activities/standard_level/18</loc>
+	<lastmod>2023-03-08T08:46:21+01:00</lastmod>
+	<priority>0.6</priority>
+</url>
+<url>
+	<loc>https://www.quill.org/activities/standard_level/34</loc>
+	<lastmod>2023-03-08T08:46:21+01:00</lastmod>
+	<priority>0.6</priority>
+</url>
+<url>
+	<loc>https://www.quill.org/activities/standard_level/32</loc>
+	<lastmod>2023-03-08T08:46:21+01:00</lastmod>
+	<priority>0.6</priority>
+</url>
+<url>
+	<loc>https://www.quill.org/activities/standard_level/33</loc>
+	<lastmod>2023-03-08T08:46:21+01:00</lastmod>
+	<priority>0.6</priority>
+</url>
+<url>
+	<loc>https://www.quill.org/activities/standard_level/37</loc>
+	<lastmod>2023-03-08T08:46:21+01:00</lastmod>
+	<priority>0.6</priority>
+</url>
+<url>
+	<loc>https://www.quill.org/activities/standard_level/75</loc>
+	<lastmod>2023-03-08T08:46:21+01:00</lastmod>
+	<priority>0.6</priority>
+</url>
+<url>
+	<loc>https://www.quill.org/activities/standard_level/76</loc>
+	<lastmod>2023-03-08T08:46:21+01:00</lastmod>
+	<priority>0.6</priority>
+</url>
+<url>
+	<loc>https://www.quill.org/activities/standard_level/77</loc>
+	<lastmod>2023-03-08T08:46:21+01:00</lastmod>
+	<priority>0.6</priority>
+</url>
+<url>
+	<loc>https://www.quill.org/activity_sessions/anonymous?activity_id=151</loc>
+	<lastmod>2023-03-08T08:46:21+01:00</lastmod>
+	<priority>0.2</priority>
+</url>
+<url>
+	<loc>https://www.quill.org/activity_sessions/anonymous?activity_id=152</loc>
+	<lastmod>2023-03-08T08:46:21+01:00</lastmod>
+	<priority>0.2</priority>
+</url>
+<url>
+	<loc>https://www.quill.org/activity_sessions/anonymous?activity_id=1381</loc>
+	<lastmod>2023-03-08T08:46:21+01:00</lastmod>
+	<priority>0.2</priority>
+</url>
+<url>
+	<loc>https://www.quill.org/activity_sessions/anonymous?activity_id=809</loc>
+	<lastmod>2023-03-08T08:46:21+01:00</lastmod>
+	<priority>0.2</priority>
+</url>
+<url>
+	<loc>https://www.quill.org/activity_sessions/anonymous?activity_id=1317</loc>
+	<lastmod>2023-03-08T08:46:21+01:00</lastmod>
+	<priority>0.2</priority>
+</url>
+<url>
+	<loc>https://www.quill.org/activity_sessions/anonymous?activity_id=1333</loc>
+	<lastmod>2023-03-08T08:46:21+01:00</lastmod>
+	<priority>0.2</priority>
+</url>
+<url>
+	<loc>https://www.quill.org/activity_sessions/anonymous?activity_id=803</loc>
+	<lastmod>2023-03-08T08:46:21+01:00</lastmod>
+	<priority>0.2</priority>
+</url>
+<url>
+	<loc>https://www.quill.org/activity_sessions/anonymous?activity_id=1377</loc>
+	<lastmod>2023-03-08T08:46:21+01:00</lastmod>
+	<priority>0.2</priority>
+</url>
+<url>
+	<loc>https://www.quill.org/activity_sessions/anonymous?activity_id=150</loc>
+	<lastmod>2023-03-08T08:46:21+01:00</lastmod>
+	<priority>0.2</priority>
+</url>
+<url>
+	<loc>https://www.quill.org/activity_sessions/anonymous?activity_id=636</loc>
+	<lastmod>2023-03-08T08:46:21+01:00</lastmod>
+	<priority>0.2</priority>
+</url>
+<url>
+	<loc>https://www.quill.org/activity_sessions/anonymous?activity_id=155</loc>
+	<lastmod>2023-03-08T08:46:21+01:00</lastmod>
+	<priority>0.2</priority>
+</url>
+<url>
+	<loc>https://www.quill.org/activity_sessions/anonymous?activity_id=488</loc>
+	<lastmod>2023-03-08T08:46:21+01:00</lastmod>
+	<priority>0.2</priority>
+</url>
+<url>
+	<loc>https://www.quill.org/activity_sessions/anonymous?activity_id=637</loc>
+	<lastmod>2023-03-08T08:46:21+01:00</lastmod>
+	<priority>0.2</priority>
+</url>
+<url>
+	<loc>https://www.quill.org/activity_sessions/anonymous?activity_id=631</loc>
+	<lastmod>2023-03-08T08:46:21+01:00</lastmod>
+	<priority>0.2</priority>
+</url>
+<url>
+	<loc>https://www.quill.org/activity_sessions/anonymous?activity_id=725</loc>
+	<lastmod>2023-03-08T08:46:21+01:00</lastmod>
+	<priority>0.4</priority>
+</url>
+<url>
+	<loc>https://www.quill.org/activity_sessions/anonymous?activity_id=7</loc>
+	<lastmod>2023-03-08T08:46:21+01:00</lastmod>
+	<priority>0.4</priority>
+</url>
+<url>
+	<loc>https://www.quill.org/activity_sessions/anonymous?activity_id=723</loc>
+	<lastmod>2023-03-08T08:46:21+01:00</lastmod>
+	<priority>0.4</priority>
+</url>
+<url>
+	<loc>https://www.quill.org/activity_sessions/anonymous?activity_id=724</loc>
+	<lastmod>2023-03-08T08:46:21+01:00</lastmod>
+	<priority>0.4</priority>
+</url>
+<url>
+	<loc>https://www.quill.org/activity_sessions/anonymous?activity_id=9</loc>
+	<lastmod>2023-03-08T08:46:21+01:00</lastmod>
+	<priority>0.4</priority>
+</url>
+<url>
+	<loc>https://www.quill.org/activity_sessions/anonymous?activity_id=138</loc>
+	<lastmod>2023-03-08T08:46:21+01:00</lastmod>
+	<priority>0.2</priority>
+</url>
+<url>
+	<loc>https://www.quill.org/activity_sessions/anonymous?activity_id=140</loc>
+	<lastmod>2023-03-08T08:46:21+01:00</lastmod>
+	<priority>0.2</priority>
+</url>
+<url>
+	<loc>https://www.quill.org/activity_sessions/anonymous?activity_id=711</loc>
+	<lastmod>2023-03-08T08:46:21+01:00</lastmod>
+	<priority>0.2</priority>
+</url>
+<url>
+	<loc>https://www.quill.org/activity_sessions/anonymous?activity_id=726</loc>
+	<lastmod>2023-03-08T08:46:21+01:00</lastmod>
+	<priority>0.1</priority>
+</url>
+<url>
+	<loc>https://www.quill.org/activity_sessions/anonymous?activity_id=727</loc>
+	<lastmod>2023-03-08T08:46:21+01:00</lastmod>
+	<priority>0.1</priority>
+</url>
+<url>
+	<loc>https://www.quill.org/activity_sessions/anonymous?activity_id=657</loc>
+	<lastmod>2023-03-08T08:46:21+01:00</lastmod>
+	<priority>0.4</priority>
+</url>
+<url>
+	<loc>https://www.quill.org/activity_sessions/anonymous?activity_id=13</loc>
+	<lastmod>2023-03-08T08:46:21+01:00</lastmod>
+	<priority>0.4</priority>
+</url>
+<url>
+	<loc>https://www.quill.org/activity_sessions/anonymous?activity_id=710</loc>
+	<lastmod>2023-03-08T08:46:21+01:00</lastmod>
+	<priority>0.4</priority>
+</url>
+<url>
+	<loc>https://www.quill.org/activity_sessions/anonymous?activity_id=1489</loc>
+	<lastmod>2023-03-08T08:46:21+01:00</lastmod>
+	<priority>0.2</priority>
+</url>
+<url>
+	<loc>https://www.quill.org/activity_sessions/anonymous?activity_id=783</loc>
+	<lastmod>2023-03-08T08:46:21+01:00</lastmod>
+	<priority>0.2</priority>
+</url>
+<url>
+	<loc>https://www.quill.org/activity_sessions/anonymous?activity_id=139</loc>
+	<lastmod>2023-03-08T08:46:21+01:00</lastmod>
+	<priority>0.2</priority>
+</url>
+<url>
+	<loc>https://www.quill.org/activity_sessions/anonymous?activity_id=141</loc>
+	<lastmod>2023-03-08T08:46:21+01:00</lastmod>
+	<priority>0.2</priority>
+</url>
+<url>
+	<loc>https://www.quill.org/activity_sessions/anonymous?activity_id=293</loc>
+	<lastmod>2023-03-08T08:46:21+01:00</lastmod>
+	<priority>0.2</priority>
+</url>
+<url>
+	<loc>https://www.quill.org/activity_sessions/anonymous?activity_id=302</loc>
+	<lastmod>2023-03-08T08:46:21+01:00</lastmod>
+	<priority>0.2</priority>
+</url>
+<url>
+	<loc>https://www.quill.org/activity_sessions/anonymous?activity_id=1378</loc>
+	<lastmod>2023-03-08T08:46:21+01:00</lastmod>
+	<priority>0.2</priority>
+</url>
+<url>
+	<loc>https://www.quill.org/activity_sessions/anonymous?activity_id=654</loc>
+	<lastmod>2023-03-08T08:46:21+01:00</lastmod>
+	<priority>0.1</priority>
+</url>
+<url>
+	<loc>https://www.quill.org/activity_sessions/anonymous?activity_id=655</loc>
+	<lastmod>2023-03-08T08:46:21+01:00</lastmod>
+	<priority>0.1</priority>
+</url>
+<url>
+	<loc>https://www.quill.org/activity_sessions/anonymous?activity_id=137</loc>
+	<lastmod>2023-03-08T08:46:21+01:00</lastmod>
+	<priority>0.2</priority>
+</url>
+<url>
+	<loc>https://www.quill.org/activity_sessions/anonymous?activity_id=1340</loc>
+	<lastmod>2023-03-08T08:46:21+01:00</lastmod>
+	<priority>0.2</priority>
+</url>
+<url>
+	<loc>https://www.quill.org/activity_sessions/anonymous?activity_id=712</loc>
+	<lastmod>2023-03-08T08:46:21+01:00</lastmod>
+	<priority>0.2</priority>
+</url>
+<url>
+	<loc>https://www.quill.org/activity_sessions/anonymous?activity_id=281</loc>
+	<lastmod>2023-03-08T08:46:21+01:00</lastmod>
+	<priority>0.2</priority>
+</url>
+<url>
+	<loc>https://www.quill.org/activity_sessions/anonymous?activity_id=282</loc>
+	<lastmod>2023-03-08T08:46:21+01:00</lastmod>
+	<priority>0.2</priority>
+</url>
+<url>
+	<loc>https://www.quill.org/activity_sessions/anonymous?activity_id=300</loc>
+	<lastmod>2023-03-08T08:46:21+01:00</lastmod>
+	<priority>0.2</priority>
+</url>
+<url>
+	<loc>https://www.quill.org/activity_sessions/anonymous?activity_id=47</loc>
+	<lastmod>2023-03-08T08:46:21+01:00</lastmod>
+	<priority>0.4</priority>
+</url>
+<url>
+	<loc>https://www.quill.org/activity_sessions/anonymous?activity_id=658</loc>
+	<lastmod>2023-03-08T08:46:21+01:00</lastmod>
+	<priority>0.4</priority>
+</url>
+<url>
+	<loc>https://www.quill.org/activity_sessions/anonymous?activity_id=136</loc>
+	<lastmod>2023-03-08T08:46:21+01:00</lastmod>
+	<priority>0.2</priority>
+</url>
+<url>
+	<loc>https://www.quill.org/activity_sessions/anonymous?activity_id=1368</loc>
+	<lastmod>2023-03-08T08:46:21+01:00</lastmod>
+	<priority>0.2</priority>
+</url>
+<url>
+	<loc>https://www.quill.org/activity_sessions/anonymous?activity_id=801</loc>
+	<lastmod>2023-03-08T08:46:21+01:00</lastmod>
+	<priority>0.2</priority>
+</url>
+<url>
+	<loc>https://www.quill.org/activity_sessions/anonymous?activity_id=1392</loc>
+	<lastmod>2023-03-08T08:46:21+01:00</lastmod>
+	<priority>0.2</priority>
+</url>
+<url>
+	<loc>https://www.quill.org/activity_sessions/anonymous?activity_id=885</loc>
+	<lastmod>2023-03-08T08:46:21+01:00</lastmod>
+	<priority>0.2</priority>
+</url>
+<url>
+	<loc>https://www.quill.org/activity_sessions/anonymous?activity_id=819</loc>
+	<lastmod>2023-03-08T08:46:21+01:00</lastmod>
+	<priority>0.2</priority>
+</url>
+<url>
+	<loc>https://www.quill.org/activity_sessions/anonymous?activity_id=821</loc>
+	<lastmod>2023-03-08T08:46:21+01:00</lastmod>
+	<priority>0.2</priority>
+</url>
+<url>
+	<loc>https://www.quill.org/activity_sessions/anonymous?activity_id=182</loc>
+	<lastmod>2023-03-08T08:46:21+01:00</lastmod>
+	<priority>0.2</priority>
+</url>
+<url>
+	<loc>https://www.quill.org/activity_sessions/anonymous?activity_id=253</loc>
+	<lastmod>2023-03-08T08:46:21+01:00</lastmod>
+	<priority>0.4</priority>
+</url>
+<url>
+	<loc>https://www.quill.org/activity_sessions/anonymous?activity_id=171</loc>
+	<lastmod>2023-03-08T08:46:21+01:00</lastmod>
+	<priority>0.2</priority>
+</url>
+<url>
+	<loc>https://www.quill.org/activity_sessions/anonymous?activity_id=256</loc>
+	<lastmod>2023-03-08T08:46:21+01:00</lastmod>
+	<priority>0.4</priority>
+</url>
+<url>
+	<loc>https://www.quill.org/teacher-center/topic/writing-instruction-research</loc>
+	<lastmod>2023-03-08T08:46:22+01:00</lastmod>
+	<priority>0.6</priority>
+</url>
+<url>
+	<loc>https://www.quill.org/teacher-center/topic/webinars</loc>
+	<lastmod>2023-03-08T08:46:22+01:00</lastmod>
+	<priority>0.6</priority>
+</url>
+<url>
+	<loc>https://www.quill.org/teacher-center/topic/teacher-materials</loc>
+	<lastmod>2023-03-08T08:46:22+01:00</lastmod>
+	<priority>0.6</priority>
+</url>
+<url>
+	<loc>https://www.quill.org/teacher-center/topic/teacher-stories</loc>
+	<lastmod>2023-03-08T08:46:22+01:00</lastmod>
+	<priority>0.6</priority>
+</url>
+<url>
+	<loc>https://www.quill.org/teacher-center/using-quill-as-a-homeschool-educator</loc>
+	<lastmod>2023-03-08T08:46:23+01:00</lastmod>
+	<priority>0.8</priority>
+</url>
+<url>
+	<loc>https://www.quill.org/teacher-center/quillorg-and-commonlit-launch-ai-writing-check-site-to-help-teachers-identify-aigenerated-writing/</loc>
+	<lastmod>2023-03-08T08:46:23+01:00</lastmod>
+	<priority>0.6</priority>
+</url>
+<url>
+	<loc>https://www.quill.org/teacher-center/quill-used-by-more-than-one-million-lowincome-students-in-2020-and-adds-nonprofit--education-leaders-to-board/</loc>
+	<lastmod>2023-03-08T08:46:23+01:00</lastmod>
+	<priority>0.6</priority>
+</url>
+<url>
+	<loc>https://www.quill.org/teacher-center/quillorg-awarded-google-ai-impact-grant-to-develop-opensource-writing-tools-for-lowincome-students-/</loc>
+	<lastmod>2023-03-08T08:46:23+01:00</lastmod>
+	<priority>0.6</priority>
+</url>
+<url>
+	<loc>https://www.quill.org/teacher-center/quillorg-helps-more-than-one-million-students-and-is-awarded-grant-from-the-chan-zuckerberg-initiative/</loc>
+	<lastmod>2023-03-08T08:46:23+01:00</lastmod>
+	<priority>0.6</priority>
+</url>
+<url>
+	<loc>https://www.quill.org/teacher-center/one-million-students/</loc>
+	<lastmod>2023-03-08T08:46:23+01:00</lastmod>
+	<priority>0.6</priority>
+</url>
+<url>
+	<loc>https://www.quill.org/teacher-center/fast-company-selects-quillorg-as-one-of-the-worlds-most-innovative-companies-for-2018/</loc>
+	<lastmod>2023-03-08T08:46:23+01:00</lastmod>
+	<priority>0.6</priority>
+</url>
+<url>
+	<loc>https://www.quill.org/teacher-center/quillorg-receives-a-1-million-donation-from-the-pineapple-fund-to-teach-critical-thinking-to-10-million-students/</loc>
+	<lastmod>2023-03-08T08:46:23+01:00</lastmod>
+	<priority>0.6</priority>
+</url>
+<url>
+	<loc>https://www.quill.org/teacher-center/quillorg-cofounder-awarded-100-most-intriguing-entrepreneurs-award-by-goldman-sachs/</loc>
+	<lastmod>2023-03-08T08:46:23+01:00</lastmod>
+	<priority>0.6</priority>
+</url>
+<url>
+	<loc>https://www.quill.org/teacher-center/quill-is-open-sourcing-nlp-tools-to-aid-student-writing/</loc>
+	<lastmod>2023-03-08T08:46:23+01:00</lastmod>
+	<priority>0.6</priority>
+</url>
+<url>
+	<loc>https://www.quill.org/teacher-center/what-10-million-questions-answered-looks-like-on-quill/</loc>
+	<lastmod>2023-03-08T08:46:23+01:00</lastmod>
+	<priority>0.6</priority>
+</url>
+<url>
+	<loc>https://www.quill.org/evidence</loc>
+	<lastmod>2023-03-08T08:46:24+01:00</lastmod>
+	<priority>1.0</priority>
+</url>
+<url>
+	<loc>https://www.quill.org/connect/#/play/lesson/-KXHxOiPXAMZmQOGGer9?anonymous=true</loc>
+	<lastmod>2023-03-08T08:46:24+01:00</lastmod>
+	<priority>0.2</priority>
+</url>
+<url>
+	<loc>https://www.quill.org/connect</loc>
+	<lastmod>2023-03-08T08:46:24+01:00</lastmod>
+	<priority>1.0</priority>
+</url>
+<url>
+	<loc>https://www.quill.org/diagnostic/#/play/diagnostic/-LKbzH_Er916zGjgHk5U?anonymous=true</loc>
+	<lastmod>2023-03-08T08:46:24+01:00</lastmod>
+	<priority>0.2</priority>
+</url>
+<url>
+	<loc>https://www.quill.org/diagnostic</loc>
+	<lastmod>2023-03-08T08:46:24+01:00</lastmod>
+	<priority>1.0</priority>
+</url>
+<url>
+	<loc>https://www.quill.org/proofreader/#/play/pf?anonymous=true&amp;uid=-K0rnIIF_iejGqS3XPJ8</loc>
+	<lastmod>2023-03-08T08:46:25+01:00</lastmod>
+	<priority>0.4</priority>
+</url>
+<url>
+	<loc>https://www.quill.org/proofreader</loc>
+	<lastmod>2023-03-08T08:46:25+01:00</lastmod>
+	<priority>1.0</priority>
+</url>
+<url>
+	<loc>https://www.quill.org/grammar/#/play/sw/?anonymous=true&amp;uid=KfXZjcff6YVWh1fbRzGr4w</loc>
+	<lastmod>2023-03-08T08:46:25+01:00</lastmod>
+	<priority>0.2</priority>
+</url>
+<url>
+	<loc>https://www.quill.org/grammar</loc>
+	<lastmod>2023-03-08T08:46:25+01:00</lastmod>
+	<priority>1.0</priority>
+</url>
+<url>
+	<loc>https://www.quill.org/grammar/#/play/sw/?anonymous=true&amp;uid=-KCNJGusG7sBrUzK_h2I</loc>
+	<lastmod>2023-03-08T08:46:25+01:00</lastmod>
+	<priority>0.2</priority>
+</url>
+<url>
+	<loc>https://www.quill.org/grammar/#/play/sw/?anonymous=true&amp;uid=c8OTV2Y7hrSqf9FNYqedTg</loc>
+	<lastmod>2023-03-08T08:46:25+01:00</lastmod>
+	<priority>0.2</priority>
+</url>
+<url>
+	<loc>https://www.quill.org/grammar/#/play/sw/?anonymous=true&amp;uid=-KCNHR8NB8GFBmLLXcdu</loc>
+	<lastmod>2023-03-08T08:46:25+01:00</lastmod>
+	<priority>0.2</priority>
+</url>
+<url>
+	<loc>https://www.quill.org/grammar/#/play/sw/?anonymous=true&amp;uid=-KCNJGE5HBE_YPtt7Hby</loc>
+	<lastmod>2023-03-08T08:46:25+01:00</lastmod>
+	<priority>0.2</priority>
+</url>
+<url>
+	<loc>https://www.quill.org/grammar/#/play/sw/?anonymous=true&amp;uid=-KCNJ4utpuNAoyPiF-c6</loc>
+	<lastmod>2023-03-08T08:46:26+01:00</lastmod>
+	<priority>0.2</priority>
+</url>
+<url>
+	<loc>https://www.quill.org/grammar/#/play/sw/?anonymous=true&amp;uid=l2FMdpAa6IHtoqwj-CJd_Q</loc>
+	<lastmod>2023-03-08T08:46:26+01:00</lastmod>
+	<priority>0.2</priority>
+</url>
+<url>
+	<loc>https://www.quill.org/grammar/#/play/sw/?anonymous=true&amp;uid=rwSTz7k4JpTOrCun1PlBuA</loc>
+	<lastmod>2023-03-08T08:46:26+01:00</lastmod>
+	<priority>0.2</priority>
+</url>
+<url>
+	<loc>https://www.quill.org/grammar/#/play/sw/?anonymous=true&amp;uid=rkhMz0hsImTienlg_ZkxUg</loc>
+	<lastmod>2023-03-08T08:46:26+01:00</lastmod>
+	<priority>0.2</priority>
+</url>
+<url>
+	<loc>https://www.quill.org/grammar/#/play/sw/?anonymous=true&amp;uid=-KCNBxBe-uau1e2SjqVz</loc>
+	<lastmod>2023-03-08T08:46:26+01:00</lastmod>
+	<priority>0.2</priority>
+</url>
+<url>
+	<loc>https://www.quill.org/lessons</loc>
+	<lastmod>2023-03-08T08:46:26+01:00</lastmod>
+	<priority>1.0</priority>
+</url>
+<url>
+	<loc>https://www.quill.org/premium/request-school-quote</loc>
+	<lastmod>2023-03-08T08:46:26+01:00</lastmod>
+	<priority>0.8</priority>
+</url>
+<url>
+	<loc>https://www.quill.org/lessons/#/teach/class-lessons/-KsKpXAoaEIY5jvWMIzJ/preview</loc>
+	<lastmod>2023-03-08T08:46:27+01:00</lastmod>
+	<priority>0.1</priority>
+</url>
+<url>
+	<loc>https://www.quill.org/activity_sessions/anonymous?activity_id=233</loc>
+	<lastmod>2023-03-08T08:46:27+01:00</lastmod>
+	<priority>0.4</priority>
+</url>
+<url>
+	<loc>https://www.quill.org/activity_sessions/anonymous?activity_id=153</loc>
+	<lastmod>2023-03-08T08:46:27+01:00</lastmod>
+	<priority>0.2</priority>
+</url>
+<url>
+	<loc>https://www.quill.org/activity_sessions/anonymous?activity_id=148</loc>
+	<lastmod>2023-03-08T08:46:27+01:00</lastmod>
+	<priority>0.2</priority>
+</url>
+<url>
+	<loc>https://www.quill.org/activity_sessions/anonymous?activity_id=149</loc>
+	<lastmod>2023-03-08T08:46:27+01:00</lastmod>
+	<priority>0.2</priority>
+</url>
+<url>
+	<loc>https://www.quill.org/activity_sessions/anonymous?activity_id=147</loc>
+	<lastmod>2023-03-08T08:46:27+01:00</lastmod>
+	<priority>0.2</priority>
+</url>
+<url>
+	<loc>https://www.quill.org/activity_sessions/anonymous?activity_id=145</loc>
+	<lastmod>2023-03-08T08:46:27+01:00</lastmod>
+	<priority>0.2</priority>
+</url>
+<url>
+	<loc>https://www.quill.org/activity_sessions/anonymous?activity_id=146</loc>
+	<lastmod>2023-03-08T08:46:27+01:00</lastmod>
+	<priority>0.2</priority>
+</url>
+<url>
+	<loc>https://www.quill.org/activity_sessions/anonymous?activity_id=248</loc>
+	<lastmod>2023-03-08T08:46:27+01:00</lastmod>
+	<priority>0.4</priority>
+</url>
+<url>
+	<loc>https://www.quill.org/activity_sessions/anonymous?activity_id=135</loc>
+	<lastmod>2023-03-08T08:46:27+01:00</lastmod>
+	<priority>0.2</priority>
+</url>
+<url>
+	<loc>https://www.quill.org/activity_sessions/anonymous?activity_id=134</loc>
+	<lastmod>2023-03-08T08:46:27+01:00</lastmod>
+	<priority>0.2</priority>
+</url>
+<url>
+	<loc>https://www.quill.org/activity_sessions/anonymous?activity_id=132</loc>
+	<lastmod>2023-03-08T08:46:27+01:00</lastmod>
+	<priority>0.2</priority>
+</url>
+<url>
+	<loc>https://www.quill.org/activity_sessions/anonymous?activity_id=128</loc>
+	<lastmod>2023-03-08T08:46:27+01:00</lastmod>
+	<priority>0.2</priority>
+</url>
+<url>
+	<loc>https://www.quill.org/activity_sessions/anonymous?activity_id=129</loc>
+	<lastmod>2023-03-08T08:46:27+01:00</lastmod>
+	<priority>0.2</priority>
+</url>
+<url>
+	<loc>https://www.quill.org/activity_sessions/anonymous?activity_id=131</loc>
+	<lastmod>2023-03-08T08:46:27+01:00</lastmod>
+	<priority>0.2</priority>
+</url>
+<url>
+	<loc>https://www.quill.org/activity_sessions/anonymous?activity_id=23</loc>
+	<lastmod>2023-03-08T08:46:27+01:00</lastmod>
+	<priority>0.4</priority>
+</url>
+<url>
+	<loc>https://www.quill.org/activity_sessions/anonymous?activity_id=130</loc>
+	<lastmod>2023-03-08T08:46:27+01:00</lastmod>
+	<priority>0.2</priority>
+</url>
+<url>
+	<loc>https://www.quill.org/activity_sessions/anonymous?activity_id=818</loc>
+	<lastmod>2023-03-08T08:46:27+01:00</lastmod>
+	<priority>0.2</priority>
+</url>
+<url>
+	<loc>https://www.quill.org/activity_sessions/anonymous?activity_id=160</loc>
+	<lastmod>2023-03-08T08:46:27+01:00</lastmod>
+	<priority>0.2</priority>
+</url>
+<url>
+	<loc>https://www.quill.org/activity_sessions/anonymous?activity_id=433</loc>
+	<lastmod>2023-03-08T08:46:27+01:00</lastmod>
+	<priority>0.2</priority>
+</url>
+<url>
+	<loc>https://www.quill.org/activity_sessions/anonymous?activity_id=438</loc>
+	<lastmod>2023-03-08T08:46:27+01:00</lastmod>
+	<priority>0.2</priority>
+</url>
+<url>
+	<loc>https://www.quill.org/activity_sessions/anonymous?activity_id=439</loc>
+	<lastmod>2023-03-08T08:46:27+01:00</lastmod>
+	<priority>0.2</priority>
+</url>
+<url>
+	<loc>https://www.quill.org/activity_sessions/anonymous?activity_id=440</loc>
+	<lastmod>2023-03-08T08:46:27+01:00</lastmod>
+	<priority>0.2</priority>
+</url>
+<url>
+	<loc>https://www.quill.org/activity_sessions/anonymous?activity_id=441</loc>
+	<lastmod>2023-03-08T08:46:27+01:00</lastmod>
+	<priority>0.2</priority>
+</url>
+<url>
+	<loc>https://www.quill.org/activity_sessions/anonymous?activity_id=432</loc>
+	<lastmod>2023-03-08T08:46:27+01:00</lastmod>
+	<priority>0.2</priority>
+</url>
+<url>
+	<loc>https://www.quill.org/activity_sessions/anonymous?activity_id=565</loc>
+	<lastmod>2023-03-08T08:46:27+01:00</lastmod>
+	<priority>0.1</priority>
+</url>
+<url>
+	<loc>https://www.quill.org/activity_sessions/anonymous?activity_id=564</loc>
+	<lastmod>2023-03-08T08:46:27+01:00</lastmod>
+	<priority>0.1</priority>
+</url>
+<url>
+	<loc>https://www.quill.org/activity_sessions/anonymous?activity_id=574</loc>
+	<lastmod>2023-03-08T08:46:27+01:00</lastmod>
+	<priority>0.1</priority>
+</url>
+<url>
+	<loc>https://www.quill.org/activity_sessions/anonymous?activity_id=573</loc>
+	<lastmod>2023-03-08T08:46:27+01:00</lastmod>
+	<priority>0.1</priority>
+</url>
+<url>
+	<loc>https://www.quill.org/activity_sessions/anonymous?activity_id=431</loc>
+	<lastmod>2023-03-08T08:46:27+01:00</lastmod>
+	<priority>0.2</priority>
+</url>
+<url>
+	<loc>https://www.quill.org/activity_sessions/anonymous?activity_id=777</loc>
+	<lastmod>2023-03-08T08:46:27+01:00</lastmod>
+	<priority>0.2</priority>
+</url>
+<url>
+	<loc>https://www.quill.org/activity_sessions/anonymous?activity_id=1004</loc>
+	<lastmod>2023-03-08T08:46:27+01:00</lastmod>
+	<priority>0.2</priority>
+</url>
+<url>
+	<loc>https://www.quill.org/activity_sessions/anonymous?activity_id=435</loc>
+	<lastmod>2023-03-08T08:46:27+01:00</lastmod>
+	<priority>0.2</priority>
+</url>
+<url>
+	<loc>https://www.quill.org/activity_sessions/anonymous?activity_id=436</loc>
+	<lastmod>2023-03-08T08:46:27+01:00</lastmod>
+	<priority>0.2</priority>
+</url>
+<url>
+	<loc>https://www.quill.org/activity_sessions/anonymous?activity_id=1000</loc>
+	<lastmod>2023-03-08T08:46:27+01:00</lastmod>
+	<priority>0.2</priority>
+</url>
+<url>
+	<loc>https://www.quill.org/activity_sessions/anonymous?activity_id=434</loc>
+	<lastmod>2023-03-08T08:46:27+01:00</lastmod>
+	<priority>0.2</priority>
+</url>
+<url>
+	<loc>https://www.quill.org/activity_sessions/anonymous?activity_id=437</loc>
+	<lastmod>2023-03-08T08:46:27+01:00</lastmod>
+	<priority>0.2</priority>
+</url>
+<url>
+	<loc>https://www.quill.org/activity_sessions/anonymous?activity_id=1005</loc>
+	<lastmod>2023-03-08T08:46:27+01:00</lastmod>
+	<priority>0.2</priority>
+</url>
+<url>
+	<loc>https://www.quill.org/activity_sessions/anonymous?activity_id=837</loc>
+	<lastmod>2023-03-08T08:46:27+01:00</lastmod>
+	<priority>0.2</priority>
+</url>
+<url>
+	<loc>https://www.quill.org/activity_sessions/anonymous?activity_id=1003</loc>
+	<lastmod>2023-03-08T08:46:27+01:00</lastmod>
+	<priority>0.2</priority>
+</url>
+<url>
+	<loc>https://www.quill.org/activity_sessions/anonymous?activity_id=301</loc>
+	<lastmod>2023-03-08T08:46:27+01:00</lastmod>
+	<priority>0.2</priority>
+</url>
+<url>
+	<loc>https://www.quill.org/activity_sessions/anonymous?activity_id=1320</loc>
+	<lastmod>2023-03-08T08:46:27+01:00</lastmod>
+	<priority>0.2</priority>
+</url>
+<url>
+	<loc>https://www.quill.org/activity_sessions/anonymous?activity_id=181</loc>
+	<lastmod>2023-03-08T08:46:27+01:00</lastmod>
+	<priority>0.2</priority>
+</url>
+<url>
+	<loc>https://www.quill.org/activity_sessions/anonymous?activity_id=254</loc>
+	<lastmod>2023-03-08T08:46:27+01:00</lastmod>
+	<priority>0.4</priority>
+</url>
+<url>
+	<loc>https://www.quill.org/activity_sessions/anonymous?activity_id=457</loc>
+	<lastmod>2023-03-08T08:46:27+01:00</lastmod>
+	<priority>0.4</priority>
+</url>
+<url>
+	<loc>https://www.quill.org/activity_sessions/anonymous?activity_id=460</loc>
+	<lastmod>2023-03-08T08:46:27+01:00</lastmod>
+	<priority>0.4</priority>
+</url>
+<url>
+	<loc>https://www.quill.org/activity_sessions/anonymous?activity_id=161</loc>
+	<lastmod>2023-03-08T08:46:27+01:00</lastmod>
+	<priority>0.2</priority>
+</url>
+<url>
+	<loc>https://www.quill.org/activity_sessions/anonymous?activity_id=817</loc>
+	<lastmod>2023-03-08T08:46:27+01:00</lastmod>
+	<priority>0.2</priority>
+</url>
+<url>
+	<loc>https://www.quill.org/activity_sessions/anonymous?activity_id=164</loc>
+	<lastmod>2023-03-08T08:46:27+01:00</lastmod>
+	<priority>0.2</priority>
+</url>
+<url>
+	<loc>https://www.quill.org/activity_sessions/anonymous?activity_id=163</loc>
+	<lastmod>2023-03-08T08:46:27+01:00</lastmod>
+	<priority>0.2</priority>
+</url>
+<url>
+	<loc>https://www.quill.org/activity_sessions/anonymous?activity_id=162</loc>
+	<lastmod>2023-03-08T08:46:27+01:00</lastmod>
+	<priority>0.2</priority>
+</url>
+<url>
+	<loc>https://www.quill.org/activity_sessions/anonymous?activity_id=215</loc>
+	<lastmod>2023-03-08T08:46:27+01:00</lastmod>
+	<priority>0.4</priority>
+</url>
+<url>
+	<loc>https://www.quill.org/activity_sessions/anonymous?activity_id=775</loc>
+	<lastmod>2023-03-08T08:46:27+01:00</lastmod>
+	<priority>0.2</priority>
+</url>
+<url>
+	<loc>https://www.quill.org/activity_sessions/anonymous?activity_id=846</loc>
+	<lastmod>2023-03-08T08:46:27+01:00</lastmod>
+	<priority>0.2</priority>
+</url>
+<url>
+	<loc>https://www.quill.org/activity_sessions/anonymous?activity_id=645</loc>
+	<lastmod>2023-03-08T08:46:27+01:00</lastmod>
+	<priority>0.2</priority>
+</url>
+<url>
+	<loc>https://www.quill.org/activity_sessions/anonymous?activity_id=475</loc>
+	<lastmod>2023-03-08T08:46:27+01:00</lastmod>
+	<priority>0.2</priority>
+</url>
+<url>
+	<loc>https://www.quill.org/activity_sessions/anonymous?activity_id=988</loc>
+	<lastmod>2023-03-08T08:46:27+01:00</lastmod>
+	<priority>0.2</priority>
+</url>
+<url>
+	<loc>https://www.quill.org/activity_sessions/anonymous?activity_id=844</loc>
+	<lastmod>2023-03-08T08:46:27+01:00</lastmod>
+	<priority>0.2</priority>
+</url>
+<url>
+	<loc>https://www.quill.org/activity_sessions/anonymous?activity_id=647</loc>
+	<lastmod>2023-03-08T08:46:27+01:00</lastmod>
+	<priority>0.1</priority>
+</url>
+<url>
+	<loc>https://www.quill.org/activity_sessions/anonymous?activity_id=989</loc>
+	<lastmod>2023-03-08T08:46:27+01:00</lastmod>
+	<priority>0.2</priority>
+</url>
+<url>
+	<loc>https://www.quill.org/activity_sessions/anonymous?activity_id=851</loc>
+	<lastmod>2023-03-08T08:46:27+01:00</lastmod>
+	<priority>0.2</priority>
+</url>
+<url>
+	<loc>https://www.quill.org/activity_sessions/anonymous?activity_id=1313</loc>
+	<lastmod>2023-03-08T08:46:27+01:00</lastmod>
+	<priority>0.2</priority>
+</url>
+<url>
+	<loc>https://www.quill.org/activity_sessions/anonymous?activity_id=474</loc>
+	<lastmod>2023-03-08T08:46:27+01:00</lastmod>
+	<priority>0.2</priority>
+</url>
+<url>
+	<loc>https://www.quill.org/activity_sessions/anonymous?activity_id=1057</loc>
+	<lastmod>2023-03-08T08:46:27+01:00</lastmod>
+	<priority>0.2</priority>
+</url>
+<url>
+	<loc>https://www.quill.org/activity_sessions/anonymous?activity_id=473</loc>
+	<lastmod>2023-03-08T08:46:27+01:00</lastmod>
+	<priority>0.2</priority>
+</url>
+<url>
+	<loc>https://www.quill.org/activity_sessions/anonymous?activity_id=626</loc>
+	<lastmod>2023-03-08T08:46:27+01:00</lastmod>
+	<priority>0.4</priority>
+</url>
+<url>
+	<loc>https://www.quill.org/activity_sessions/anonymous?activity_id=285</loc>
+	<lastmod>2023-03-08T08:46:27+01:00</lastmod>
+	<priority>0.2</priority>
+</url>
+<url>
+	<loc>https://www.quill.org/activity_sessions/anonymous?activity_id=286</loc>
+	<lastmod>2023-03-08T08:46:27+01:00</lastmod>
+	<priority>0.2</priority>
+</url>
+<url>
+	<loc>https://www.quill.org/activity_sessions/anonymous?activity_id=816</loc>
+	<lastmod>2023-03-08T08:46:27+01:00</lastmod>
+	<priority>0.2</priority>
+</url>
+<url>
+	<loc>https://www.quill.org/activity_sessions/anonymous?activity_id=287</loc>
+	<lastmod>2023-03-08T08:46:27+01:00</lastmod>
+	<priority>0.2</priority>
+</url>
+<url>
+	<loc>https://www.quill.org/activity_sessions/anonymous?activity_id=308</loc>
+	<lastmod>2023-03-08T08:46:27+01:00</lastmod>
+	<priority>0.2</priority>
+</url>
+<url>
+	<loc>https://www.quill.org/activity_sessions/anonymous?activity_id=288</loc>
+	<lastmod>2023-03-08T08:46:27+01:00</lastmod>
+	<priority>0.2</priority>
+</url>
+<url>
+	<loc>https://www.quill.org/activity_sessions/anonymous?activity_id=284</loc>
+	<lastmod>2023-03-08T08:46:27+01:00</lastmod>
+	<priority>0.2</priority>
+</url>
+<url>
+	<loc>https://www.quill.org/activity_sessions/anonymous?activity_id=271</loc>
+	<lastmod>2023-03-08T08:46:27+01:00</lastmod>
+	<priority>0.2</priority>
+</url>
+<url>
+	<loc>https://www.quill.org/activity_sessions/anonymous?activity_id=307</loc>
+	<lastmod>2023-03-08T08:46:27+01:00</lastmod>
+	<priority>0.2</priority>
+</url>
+<url>
+	<loc>https://www.quill.org/activity_sessions/anonymous?activity_id=611</loc>
+	<lastmod>2023-03-08T08:46:27+01:00</lastmod>
+	<priority>0.2</priority>
+</url>
+<url>
+	<loc>https://www.quill.org/activity_sessions/anonymous?activity_id=823</loc>
+	<lastmod>2023-03-08T08:46:27+01:00</lastmod>
+	<priority>0.2</priority>
+</url>
+<url>
+	<loc>https://www.quill.org/activity_sessions/anonymous?activity_id=558</loc>
+	<lastmod>2023-03-08T08:46:27+01:00</lastmod>
+	<priority>0.2</priority>
+</url>
+<url>
+	<loc>https://www.quill.org/activity_sessions/anonymous?activity_id=552</loc>
+	<lastmod>2023-03-08T08:46:27+01:00</lastmod>
+	<priority>0.2</priority>
+</url>
+<url>
+	<loc>https://www.quill.org/activity_sessions/anonymous?activity_id=551</loc>
+	<lastmod>2023-03-08T08:46:27+01:00</lastmod>
+	<priority>0.2</priority>
+</url>
+<url>
+	<loc>https://www.quill.org/activity_sessions/anonymous?activity_id=553</loc>
+	<lastmod>2023-03-08T08:46:27+01:00</lastmod>
+	<priority>0.2</priority>
+</url>
+<url>
+	<loc>https://www.quill.org/activity_sessions/anonymous?activity_id=810</loc>
+	<lastmod>2023-03-08T08:46:27+01:00</lastmod>
+	<priority>0.2</priority>
+</url>
+<url>
+	<loc>https://www.quill.org/activity_sessions/anonymous?activity_id=175</loc>
+	<lastmod>2023-03-08T08:46:27+01:00</lastmod>
+	<priority>0.2</priority>
+</url>
+<url>
+	<loc>https://www.quill.org/activity_sessions/anonymous?activity_id=1226</loc>
+	<lastmod>2023-03-08T08:46:27+01:00</lastmod>
+	<priority>0.2</priority>
+</url>
+<url>
+	<loc>https://www.quill.org/activity_sessions/anonymous?activity_id=1225</loc>
+	<lastmod>2023-03-08T08:46:27+01:00</lastmod>
+	<priority>0.2</priority>
+</url>
+<url>
+	<loc>https://www.quill.org/activity_sessions/anonymous?activity_id=1054</loc>
+	<lastmod>2023-03-08T08:46:27+01:00</lastmod>
+	<priority>0.2</priority>
+</url>
+<url>
+	<loc>https://www.quill.org/activity_sessions/anonymous?activity_id=1055</loc>
+	<lastmod>2023-03-08T08:46:27+01:00</lastmod>
+	<priority>0.2</priority>
+</url>
+<url>
+	<loc>https://www.quill.org/activity_sessions/anonymous?activity_id=742</loc>
+	<lastmod>2023-03-08T08:46:27+01:00</lastmod>
+	<priority>0.2</priority>
+</url>
+<url>
+	<loc>https://www.quill.org/activity_sessions/anonymous?activity_id=751</loc>
+	<lastmod>2023-03-08T08:46:27+01:00</lastmod>
+	<priority>0.2</priority>
+</url>
+<url>
+	<loc>https://www.quill.org/activity_sessions/anonymous?activity_id=769</loc>
+	<lastmod>2023-03-08T08:46:27+01:00</lastmod>
+	<priority>0.2</priority>
+</url>
+<url>
+	<loc>https://www.quill.org/activity_sessions/anonymous?activity_id=768</loc>
+	<lastmod>2023-03-08T08:46:27+01:00</lastmod>
+	<priority>0.2</priority>
+</url>
+<url>
+	<loc>https://www.quill.org/activity_sessions/anonymous?activity_id=896</loc>
+	<lastmod>2023-03-08T08:46:27+01:00</lastmod>
+	<priority>0.2</priority>
+</url>
+<url>
+	<loc>https://www.quill.org/activity_sessions/anonymous?activity_id=766</loc>
+	<lastmod>2023-03-08T08:46:27+01:00</lastmod>
+	<priority>0.2</priority>
+</url>
+<url>
+	<loc>https://www.quill.org/activity_sessions/anonymous?activity_id=767</loc>
+	<lastmod>2023-03-08T08:46:27+01:00</lastmod>
+	<priority>0.2</priority>
+</url>
+<url>
+	<loc>https://www.quill.org/activity_sessions/anonymous?activity_id=1233</loc>
+	<lastmod>2023-03-08T08:46:27+01:00</lastmod>
+	<priority>0.2</priority>
+</url>
+<url>
+	<loc>https://www.quill.org/activity_sessions/anonymous?activity_id=773</loc>
+	<lastmod>2023-03-08T08:46:27+01:00</lastmod>
+	<priority>0.2</priority>
+</url>
+<url>
+	<loc>https://www.quill.org/activity_sessions/anonymous?activity_id=772</loc>
+	<lastmod>2023-03-08T08:46:27+01:00</lastmod>
+	<priority>0.2</priority>
+</url>
+<url>
+	<loc>https://www.quill.org/activity_sessions/anonymous?activity_id=1232</loc>
+	<lastmod>2023-03-08T08:46:27+01:00</lastmod>
+	<priority>0.2</priority>
+</url>
+<url>
+	<loc>https://www.quill.org/activity_sessions/anonymous?activity_id=770</loc>
+	<lastmod>2023-03-08T08:46:27+01:00</lastmod>
+	<priority>0.2</priority>
+</url>
+<url>
+	<loc>https://www.quill.org/activity_sessions/anonymous?activity_id=771</loc>
+	<lastmod>2023-03-08T08:46:27+01:00</lastmod>
+	<priority>0.2</priority>
+</url>
+<url>
+	<loc>https://www.quill.org/activity_sessions/anonymous?activity_id=765</loc>
+	<lastmod>2023-03-08T08:46:27+01:00</lastmod>
+	<priority>0.2</priority>
+</url>
+<url>
+	<loc>https://www.quill.org/activity_sessions/anonymous?activity_id=1216</loc>
+	<lastmod>2023-03-08T08:46:27+01:00</lastmod>
+	<priority>0.2</priority>
+</url>
+<url>
+	<loc>https://www.quill.org/activity_sessions/anonymous?activity_id=774</loc>
+	<lastmod>2023-03-08T08:46:27+01:00</lastmod>
+	<priority>0.2</priority>
+</url>
+<url>
+	<loc>https://www.quill.org/activity_sessions/anonymous?activity_id=1215</loc>
+	<lastmod>2023-03-08T08:46:27+01:00</lastmod>
+	<priority>0.2</priority>
+</url>
+<url>
+	<loc>https://www.quill.org/activity_sessions/anonymous?activity_id=126</loc>
+	<lastmod>2023-03-08T08:46:27+01:00</lastmod>
+	<priority>0.2</priority>
+</url>
+<url>
+	<loc>https://www.quill.org/activity_sessions/anonymous?activity_id=1406</loc>
+	<lastmod>2023-03-08T08:46:27+01:00</lastmod>
+	<priority>0.2</priority>
+</url>
+<url>
+	<loc>https://www.quill.org/activity_sessions/anonymous?activity_id=125</loc>
+	<lastmod>2023-03-08T08:46:27+01:00</lastmod>
+	<priority>0.2</priority>
+</url>
+<url>
+	<loc>https://www.quill.org/activity_sessions/anonymous?activity_id=124</loc>
+	<lastmod>2023-03-08T08:46:27+01:00</lastmod>
+	<priority>0.2</priority>
+</url>
+<url>
+	<loc>https://www.quill.org/activity_sessions/anonymous?activity_id=1382</loc>
+	<lastmod>2023-03-08T08:46:27+01:00</lastmod>
+	<priority>0.2</priority>
+</url>
+<url>
+	<loc>https://www.quill.org/activity_sessions/anonymous?activity_id=843</loc>
+	<lastmod>2023-03-08T08:46:27+01:00</lastmod>
+	<priority>0.2</priority>
+</url>
+<url>
+	<loc>https://www.quill.org/activity_sessions/anonymous?activity_id=1390</loc>
+	<lastmod>2023-03-08T08:46:27+01:00</lastmod>
+	<priority>0.2</priority>
+</url>
+<url>
+	<loc>https://www.quill.org/activity_sessions/anonymous?activity_id=842</loc>
+	<lastmod>2023-03-08T08:46:27+01:00</lastmod>
+	<priority>0.2</priority>
+</url>
+<url>
+	<loc>https://www.quill.org/activity_sessions/anonymous?activity_id=51</loc>
+	<lastmod>2023-03-08T08:46:27+01:00</lastmod>
+	<priority>0.4</priority>
+</url>
+<url>
+	<loc>https://www.quill.org/activity_sessions/anonymous?activity_id=1194</loc>
+	<lastmod>2023-03-08T08:46:27+01:00</lastmod>
+	<priority>0.2</priority>
+</url>
+<url>
+	<loc>https://www.quill.org/activity_sessions/anonymous?activity_id=897</loc>
+	<lastmod>2023-03-08T08:46:27+01:00</lastmod>
+	<priority>0.2</priority>
+</url>
+<url>
+	<loc>https://www.quill.org/activity_sessions/anonymous?activity_id=899</loc>
+	<lastmod>2023-03-08T08:46:27+01:00</lastmod>
+	<priority>0.2</priority>
+</url>
+<url>
+	<loc>https://www.quill.org/activity_sessions/anonymous?activity_id=792</loc>
+	<lastmod>2023-03-08T08:46:27+01:00</lastmod>
+	<priority>0.2</priority>
+</url>
+<url>
+	<loc>https://www.quill.org/activity_sessions/anonymous?activity_id=1051</loc>
+	<lastmod>2023-03-08T08:46:27+01:00</lastmod>
+	<priority>0.2</priority>
+</url>
+<url>
+	<loc>https://www.quill.org/activity_sessions/anonymous?activity_id=1769</loc>
+	<lastmod>2023-03-08T08:46:27+01:00</lastmod>
+	<priority>0.2</priority>
+</url>
+<url>
+	<loc>https://www.quill.org/activity_sessions/anonymous?activity_id=1771</loc>
+	<lastmod>2023-03-08T08:46:27+01:00</lastmod>
+	<priority>0.2</priority>
+</url>
+<url>
+	<loc>https://www.quill.org/activity_sessions/anonymous?activity_id=706</loc>
+	<lastmod>2023-03-08T08:46:27+01:00</lastmod>
+	<priority>0.2</priority>
+</url>
+<url>
+	<loc>https://www.quill.org/activity_sessions/anonymous?activity_id=127</loc>
+	<lastmod>2023-03-08T08:46:27+01:00</lastmod>
+	<priority>0.2</priority>
+</url>
+<url>
+	<loc>https://www.quill.org/activity_sessions/anonymous?activity_id=165</loc>
+	<lastmod>2023-03-08T08:46:27+01:00</lastmod>
+	<priority>0.2</priority>
+</url>
+<url>
+	<loc>https://www.quill.org/activity_sessions/anonymous?activity_id=53</loc>
+	<lastmod>2023-03-08T08:46:27+01:00</lastmod>
+	<priority>0.4</priority>
+</url>
+<url>
+	<loc>https://www.quill.org/activity_sessions/anonymous?activity_id=180</loc>
+	<lastmod>2023-03-08T08:46:27+01:00</lastmod>
+	<priority>0.2</priority>
+</url>
+<url>
+	<loc>https://www.quill.org/activity_sessions/anonymous?activity_id=856</loc>
+	<lastmod>2023-03-08T08:46:27+01:00</lastmod>
+	<priority>0.2</priority>
+</url>
+<url>
+	<loc>https://www.quill.org/activity_sessions/anonymous?activity_id=1420</loc>
+	<lastmod>2023-03-08T08:46:27+01:00</lastmod>
+	<priority>0.2</priority>
+</url>
+<url>
+	<loc>https://www.quill.org/activity_sessions/anonymous?activity_id=179</loc>
+	<lastmod>2023-03-08T08:46:27+01:00</lastmod>
+	<priority>0.2</priority>
+</url>
+<url>
+	<loc>https://www.quill.org/activity_sessions/anonymous?activity_id=1292</loc>
+	<lastmod>2023-03-08T08:46:27+01:00</lastmod>
+	<priority>0.1</priority>
+</url>
+<url>
+	<loc>https://www.quill.org/activity_sessions/anonymous?activity_id=1287</loc>
+	<lastmod>2023-03-08T08:46:27+01:00</lastmod>
+	<priority>0.1</priority>
+</url>
+<url>
+	<loc>https://www.quill.org/activity_sessions/anonymous?activity_id=848</loc>
+	<lastmod>2023-03-08T08:46:27+01:00</lastmod>
+	<priority>0.2</priority>
+</url>
+<url>
+	<loc>https://www.quill.org/activity_sessions/anonymous?activity_id=1430</loc>
+	<lastmod>2023-03-08T08:46:27+01:00</lastmod>
+	<priority>0.2</priority>
+</url>
+<url>
+	<loc>https://www.quill.org/activity_sessions/anonymous?activity_id=2245</loc>
+	<lastmod>2023-03-08T08:46:27+01:00</lastmod>
+	<priority>0.2</priority>
+</url>
+<url>
+	<loc>https://www.quill.org/activity_sessions/anonymous?activity_id=1308</loc>
+	<lastmod>2023-03-08T08:46:27+01:00</lastmod>
+	<priority>0.2</priority>
+</url>
+<url>
+	<loc>https://www.quill.org/activity_sessions/anonymous?activity_id=1440</loc>
+	<lastmod>2023-03-08T08:46:27+01:00</lastmod>
+	<priority>0.2</priority>
+</url>
+<url>
+	<loc>https://www.quill.org/activity_sessions/anonymous?activity_id=808</loc>
+	<lastmod>2023-03-08T08:46:27+01:00</lastmod>
+	<priority>0.2</priority>
+</url>
+<url>
+	<loc>https://www.quill.org/activity_sessions/anonymous?activity_id=1386</loc>
+	<lastmod>2023-03-08T08:46:27+01:00</lastmod>
+	<priority>0.2</priority>
+</url>
+<url>
+	<loc>https://www.quill.org/activity_sessions/anonymous?activity_id=252</loc>
+	<lastmod>2023-03-08T08:46:27+01:00</lastmod>
+	<priority>0.4</priority>
+</url>
+<url>
+	<loc>https://www.quill.org/activity_sessions/anonymous?activity_id=806</loc>
+	<lastmod>2023-03-08T08:46:27+01:00</lastmod>
+	<priority>0.2</priority>
+</url>
+<url>
+	<loc>https://www.quill.org/activity_sessions/anonymous?activity_id=1291</loc>
+	<lastmod>2023-03-08T08:46:27+01:00</lastmod>
+	<priority>0.2</priority>
+</url>
+<url>
+	<loc>https://www.quill.org/activity_sessions/anonymous?activity_id=1002</loc>
+	<lastmod>2023-03-08T08:46:28+01:00</lastmod>
+	<priority>0.2</priority>
+</url>
+<url>
+	<loc>https://www.quill.org/activity_sessions/anonymous?activity_id=595</loc>
+	<lastmod>2023-03-08T08:46:28+01:00</lastmod>
+	<priority>0.2</priority>
+</url>
+<url>
+	<loc>https://www.quill.org/activity_sessions/anonymous?activity_id=592</loc>
+	<lastmod>2023-03-08T08:46:28+01:00</lastmod>
+	<priority>0.2</priority>
+</url>
+<url>
+	<loc>https://www.quill.org/activity_sessions/anonymous?activity_id=121</loc>
+	<lastmod>2023-03-08T08:46:28+01:00</lastmod>
+	<priority>0.2</priority>
+</url>
+<url>
+	<loc>https://www.quill.org/activity_sessions/anonymous?activity_id=639</loc>
+	<lastmod>2023-03-08T08:46:28+01:00</lastmod>
+	<priority>0.2</priority>
+</url>
+<url>
+	<loc>https://www.quill.org/activity_sessions/anonymous?activity_id=1049</loc>
+	<lastmod>2023-03-08T08:46:28+01:00</lastmod>
+	<priority>0.2</priority>
+</url>
+<url>
+	<loc>https://www.quill.org/activity_sessions/anonymous?activity_id=597</loc>
+	<lastmod>2023-03-08T08:46:28+01:00</lastmod>
+	<priority>0.2</priority>
+</url>
+<url>
+	<loc>https://www.quill.org/activity_sessions/anonymous?activity_id=598</loc>
+	<lastmod>2023-03-08T08:46:28+01:00</lastmod>
+	<priority>0.2</priority>
+</url>
+<url>
+	<loc>https://www.quill.org/activity_sessions/anonymous?activity_id=1665</loc>
+	<lastmod>2023-03-08T08:46:28+01:00</lastmod>
+	<priority>0.2</priority>
+</url>
+<url>
+	<loc>https://www.quill.org/activity_sessions/anonymous?activity_id=122</loc>
+	<lastmod>2023-03-08T08:46:28+01:00</lastmod>
+	<priority>0.2</priority>
+</url>
+<url>
+	<loc>https://www.quill.org/activity_sessions/anonymous?activity_id=596</loc>
+	<lastmod>2023-03-08T08:46:28+01:00</lastmod>
+	<priority>0.2</priority>
+</url>
+<url>
+	<loc>https://www.quill.org/activity_sessions/anonymous?activity_id=593</loc>
+	<lastmod>2023-03-08T08:46:28+01:00</lastmod>
+	<priority>0.2</priority>
+</url>
+<url>
+	<loc>https://www.quill.org/activity_sessions/anonymous?activity_id=594</loc>
+	<lastmod>2023-03-08T08:46:28+01:00</lastmod>
+	<priority>0.2</priority>
+</url>
+<url>
+	<loc>https://www.quill.org/activity_sessions/anonymous?activity_id=591</loc>
+	<lastmod>2023-03-08T08:46:28+01:00</lastmod>
+	<priority>0.2</priority>
+</url>
+<url>
+	<loc>https://www.quill.org/activity_sessions/anonymous?activity_id=118</loc>
+	<lastmod>2023-03-08T08:46:28+01:00</lastmod>
+	<priority>0.2</priority>
+</url>
+<url>
+	<loc>https://www.quill.org/activity_sessions/anonymous?activity_id=739</loc>
+	<lastmod>2023-03-08T08:46:28+01:00</lastmod>
+	<priority>0.1</priority>
+</url>
+<url>
+	<loc>https://www.quill.org/activity_sessions/anonymous?activity_id=738</loc>
+	<lastmod>2023-03-08T08:46:28+01:00</lastmod>
+	<priority>0.1</priority>
+</url>
+<url>
+	<loc>https://www.quill.org/activity_sessions/anonymous?activity_id=744</loc>
+	<lastmod>2023-03-08T08:46:28+01:00</lastmod>
+	<priority>0.1</priority>
+</url>
+<url>
+	<loc>https://www.quill.org/activity_sessions/anonymous?activity_id=1426</loc>
+	<lastmod>2023-03-08T08:46:28+01:00</lastmod>
+	<priority>0.2</priority>
+</url>
+<url>
+	<loc>https://www.quill.org/activity_sessions/anonymous?activity_id=736</loc>
+	<lastmod>2023-03-08T08:46:28+01:00</lastmod>
+	<priority>0.2</priority>
+</url>
+<url>
+	<loc>https://www.quill.org/activity_sessions/anonymous?activity_id=732</loc>
+	<lastmod>2023-03-08T08:46:28+01:00</lastmod>
+	<priority>0.2</priority>
+</url>
+<url>
+	<loc>https://www.quill.org/activity_sessions/anonymous?activity_id=733</loc>
+	<lastmod>2023-03-08T08:46:28+01:00</lastmod>
+	<priority>0.2</priority>
+</url>
+<url>
+	<loc>https://www.quill.org/activity_sessions/anonymous?activity_id=734</loc>
+	<lastmod>2023-03-08T08:46:28+01:00</lastmod>
+	<priority>0.2</priority>
+</url>
+<url>
+	<loc>https://www.quill.org/activity_sessions/anonymous?activity_id=735</loc>
+	<lastmod>2023-03-08T08:46:28+01:00</lastmod>
+	<priority>0.2</priority>
+</url>
+<url>
+	<loc>https://www.quill.org/activity_sessions/anonymous?activity_id=604</loc>
+	<lastmod>2023-03-08T08:46:28+01:00</lastmod>
+	<priority>0.2</priority>
+</url>
+<url>
+	<loc>https://www.quill.org/activity_sessions/anonymous?activity_id=603</loc>
+	<lastmod>2023-03-08T08:46:28+01:00</lastmod>
+	<priority>0.2</priority>
+</url>
+<url>
+	<loc>https://www.quill.org/activity_sessions/anonymous?activity_id=35</loc>
+	<lastmod>2023-03-08T08:46:28+01:00</lastmod>
+	<priority>0.4</priority>
+</url>
+<url>
+	<loc>https://www.quill.org/activity_sessions/anonymous?activity_id=173</loc>
+	<lastmod>2023-03-08T08:46:28+01:00</lastmod>
+	<priority>0.2</priority>
+</url>
+<url>
+	<loc>https://www.quill.org/activity_sessions/anonymous?activity_id=600</loc>
+	<lastmod>2023-03-08T08:46:28+01:00</lastmod>
+	<priority>0.2</priority>
+</url>
+<url>
+	<loc>https://www.quill.org/activity_sessions/anonymous?activity_id=599</loc>
+	<lastmod>2023-03-08T08:46:28+01:00</lastmod>
+	<priority>0.2</priority>
+</url>
+<url>
+	<loc>https://www.quill.org/activity_sessions/anonymous?activity_id=560</loc>
+	<lastmod>2023-03-08T08:46:28+01:00</lastmod>
+	<priority>0.1</priority>
+</url>
+<url>
+	<loc>https://www.quill.org/activity_sessions/anonymous?activity_id=569</loc>
+	<lastmod>2023-03-08T08:46:28+01:00</lastmod>
+	<priority>0.1</priority>
+</url>
+<url>
+	<loc>https://www.quill.org/activity_sessions/anonymous?activity_id=559</loc>
+	<lastmod>2023-03-08T08:46:28+01:00</lastmod>
+	<priority>0.1</priority>
+</url>
+<url>
+	<loc>https://www.quill.org/activity_sessions/anonymous?activity_id=583</loc>
+	<lastmod>2023-03-08T08:46:28+01:00</lastmod>
+	<priority>0.1</priority>
+</url>
+<url>
+	<loc>https://www.quill.org/activity_sessions/anonymous?activity_id=582</loc>
+	<lastmod>2023-03-08T08:46:28+01:00</lastmod>
+	<priority>0.1</priority>
+</url>
+<url>
+	<loc>https://www.quill.org/activity_sessions/anonymous?activity_id=561</loc>
+	<lastmod>2023-03-08T08:46:28+01:00</lastmod>
+	<priority>0.1</priority>
+</url>
+<url>
+	<loc>https://www.quill.org/activity_sessions/anonymous?activity_id=562</loc>
+	<lastmod>2023-03-08T08:46:28+01:00</lastmod>
+	<priority>0.1</priority>
+</url>
+<url>
+	<loc>https://www.quill.org/activity_sessions/anonymous?activity_id=1496</loc>
+	<lastmod>2023-03-08T08:46:28+01:00</lastmod>
+	<priority>0.4</priority>
+</url>
+<url>
+	<loc>https://www.quill.org/activity_sessions/anonymous?activity_id=1492</loc>
+	<lastmod>2023-03-08T08:46:28+01:00</lastmod>
+	<priority>0.4</priority>
+</url>
+<url>
+	<loc>https://www.quill.org/activity_sessions/anonymous?activity_id=1501</loc>
+	<lastmod>2023-03-08T08:46:28+01:00</lastmod>
+	<priority>0.4</priority>
+</url>
+<url>
+	<loc>https://www.quill.org/activity_sessions/anonymous?activity_id=1493</loc>
+	<lastmod>2023-03-08T08:46:28+01:00</lastmod>
+	<priority>0.4</priority>
+</url>
+<url>
+	<loc>https://www.quill.org/activity_sessions/anonymous?activity_id=1780</loc>
+	<lastmod>2023-03-08T08:46:28+01:00</lastmod>
+	<priority>0.8</priority>
+</url>
+<url>
+	<loc>https://www.quill.org/activity_sessions/anonymous?activity_id=750</loc>
+	<lastmod>2023-03-08T08:46:28+01:00</lastmod>
+	<priority>0.2</priority>
+</url>
+<url>
+	<loc>https://www.quill.org/activity_sessions/anonymous?activity_id=273</loc>
+	<lastmod>2023-03-08T08:46:28+01:00</lastmod>
+	<priority>0.2</priority>
+</url>
+<url>
+	<loc>https://www.quill.org/activity_sessions/anonymous?activity_id=96</loc>
+	<lastmod>2023-03-08T08:46:28+01:00</lastmod>
+	<priority>0.2</priority>
+</url>
+<url>
+	<loc>https://www.quill.org/activity_sessions/anonymous?activity_id=495</loc>
+	<lastmod>2023-03-08T08:46:28+01:00</lastmod>
+	<priority>0.2</priority>
+</url>
+<url>
+	<loc>https://www.quill.org/activity_sessions/anonymous?activity_id=94</loc>
+	<lastmod>2023-03-08T08:46:28+01:00</lastmod>
+	<priority>0.2</priority>
+</url>
+<url>
+	<loc>https://www.quill.org/activity_sessions/anonymous?activity_id=107</loc>
+	<lastmod>2023-03-08T08:46:28+01:00</lastmod>
+	<priority>0.8</priority>
+</url>
+<url>
+	<loc>https://www.quill.org/activity_sessions/anonymous?activity_id=1435</loc>
+	<lastmod>2023-03-08T08:46:28+01:00</lastmod>
+	<priority>0.2</priority>
+</url>
+<url>
+	<loc>https://www.quill.org/activity_sessions/anonymous?activity_id=109</loc>
+	<lastmod>2023-03-08T08:46:28+01:00</lastmod>
+	<priority>0.2</priority>
+</url>
+<url>
+	<loc>https://www.quill.org/activity_sessions/anonymous?activity_id=88</loc>
+	<lastmod>2023-03-08T08:46:28+01:00</lastmod>
+	<priority>0.2</priority>
+</url>
+<url>
+	<loc>https://www.quill.org/activity_sessions/anonymous?activity_id=90</loc>
+	<lastmod>2023-03-08T08:46:28+01:00</lastmod>
+	<priority>0.2</priority>
+</url>
+<url>
+	<loc>https://www.quill.org/activity_sessions/anonymous?activity_id=108</loc>
+	<lastmod>2023-03-08T08:46:28+01:00</lastmod>
+	<priority>0.2</priority>
+</url>
+<url>
+	<loc>https://www.quill.org/activity_sessions/anonymous?activity_id=95</loc>
+	<lastmod>2023-03-08T08:46:28+01:00</lastmod>
+	<priority>0.4</priority>
+</url>
+<url>
+	<loc>https://www.quill.org/activity_sessions/anonymous?activity_id=85</loc>
+	<lastmod>2023-03-08T08:46:28+01:00</lastmod>
+	<priority>0.4</priority>
+</url>
+<url>
+	<loc>https://www.quill.org/activity_sessions/anonymous?activity_id=93</loc>
+	<lastmod>2023-03-08T08:46:28+01:00</lastmod>
+	<priority>0.4</priority>
+</url>
+<url>
+	<loc>https://www.quill.org/activity_sessions/anonymous?activity_id=89</loc>
+	<lastmod>2023-03-08T08:46:28+01:00</lastmod>
+	<priority>0.4</priority>
+</url>
+<url>
+	<loc>https://www.quill.org/activity_sessions/anonymous?activity_id=255</loc>
+	<lastmod>2023-03-08T08:46:28+01:00</lastmod>
+	<priority>0.4</priority>
+</url>
+<url>
+	<loc>https://www.quill.org/activity_sessions/anonymous?activity_id=1428</loc>
+	<lastmod>2023-03-08T08:46:28+01:00</lastmod>
+	<priority>0.2</priority>
+</url>
+<url>
+	<loc>https://www.quill.org/activity_sessions/anonymous?activity_id=1429</loc>
+	<lastmod>2023-03-08T08:46:28+01:00</lastmod>
+	<priority>0.2</priority>
+</url>
+<url>
+	<loc>https://www.quill.org/activity_sessions/anonymous?activity_id=112</loc>
+	<lastmod>2023-03-08T08:46:28+01:00</lastmod>
+	<priority>0.2</priority>
+</url>
+<url>
+	<loc>https://www.quill.org/activity_sessions/anonymous?activity_id=873</loc>
+	<lastmod>2023-03-08T08:46:28+01:00</lastmod>
+	<priority>0.2</priority>
+</url>
+<url>
+	<loc>https://www.quill.org/activity_sessions/anonymous?activity_id=1427</loc>
+	<lastmod>2023-03-08T08:46:28+01:00</lastmod>
+	<priority>0.2</priority>
+</url>
+<url>
+	<loc>https://www.quill.org/activity_sessions/anonymous?activity_id=113</loc>
+	<lastmod>2023-03-08T08:46:28+01:00</lastmod>
+	<priority>0.2</priority>
+</url>
+<url>
+	<loc>https://www.quill.org/activity_sessions/anonymous?activity_id=841</loc>
+	<lastmod>2023-03-08T08:46:28+01:00</lastmod>
+	<priority>0.2</priority>
+</url>
+<url>
+	<loc>https://www.quill.org/activity_sessions/anonymous?activity_id=802</loc>
+	<lastmod>2023-03-08T08:46:28+01:00</lastmod>
+	<priority>0.2</priority>
+</url>
+<url>
+	<loc>https://www.quill.org/activity_sessions/anonymous?activity_id=1342</loc>
+	<lastmod>2023-03-08T08:46:28+01:00</lastmod>
+	<priority>0.8</priority>
+</url>
+<url>
+	<loc>https://www.quill.org/activity_sessions/anonymous?activity_id=887</loc>
+	<lastmod>2023-03-08T08:46:28+01:00</lastmod>
+	<priority>0.2</priority>
+</url>
+<url>
+	<loc>https://www.quill.org/activity_sessions/anonymous?activity_id=804</loc>
+	<lastmod>2023-03-08T08:46:28+01:00</lastmod>
+	<priority>0.2</priority>
+</url>
+<url>
+	<loc>https://www.quill.org/activity_sessions/anonymous?activity_id=1405</loc>
+	<lastmod>2023-03-08T08:46:28+01:00</lastmod>
+	<priority>0.2</priority>
+</url>
+<url>
+	<loc>https://www.quill.org/activity_sessions/anonymous?activity_id=886</loc>
+	<lastmod>2023-03-08T08:46:28+01:00</lastmod>
+	<priority>0.2</priority>
+</url>
+<url>
+	<loc>https://www.quill.org/activity_sessions/anonymous?activity_id=840</loc>
+	<lastmod>2023-03-08T08:46:28+01:00</lastmod>
+	<priority>0.8</priority>
+</url>
+<url>
+	<loc>https://www.quill.org/activity_sessions/anonymous?activity_id=1403</loc>
+	<lastmod>2023-03-08T08:46:28+01:00</lastmod>
+	<priority>0.2</priority>
+</url>
+<url>
+	<loc>https://www.quill.org/activity_sessions/anonymous?activity_id=462</loc>
+	<lastmod>2023-03-08T08:46:28+01:00</lastmod>
+	<priority>0.4</priority>
+</url>
+<url>
+	<loc>https://www.quill.org/activity_sessions/anonymous?activity_id=491</loc>
+	<lastmod>2023-03-08T08:46:28+01:00</lastmod>
+	<priority>0.4</priority>
+</url>
+<url>
+	<loc>https://www.quill.org/activity_sessions/anonymous?activity_id=838</loc>
+	<lastmod>2023-03-08T08:46:28+01:00</lastmod>
+	<priority>0.8</priority>
+</url>
+<url>
+	<loc>https://www.quill.org/activity_sessions/anonymous?activity_id=776</loc>
+	<lastmod>2023-03-08T08:46:28+01:00</lastmod>
+	<priority>0.2</priority>
+</url>
+<url>
+	<loc>https://www.quill.org/activity_sessions/anonymous?activity_id=424</loc>
+	<lastmod>2023-03-08T08:46:28+01:00</lastmod>
+	<priority>0.2</priority>
+</url>
+<url>
+	<loc>https://www.quill.org/activity_sessions/anonymous?activity_id=780</loc>
+	<lastmod>2023-03-08T08:46:28+01:00</lastmod>
+	<priority>0.2</priority>
+</url>
+<url>
+	<loc>https://www.quill.org/activity_sessions/anonymous?activity_id=426</loc>
+	<lastmod>2023-03-08T08:46:28+01:00</lastmod>
+	<priority>0.8</priority>
+</url>
+<url>
+	<loc>https://www.quill.org/activity_sessions/anonymous?activity_id=1217</loc>
+	<lastmod>2023-03-08T08:46:28+01:00</lastmod>
+	<priority>0.2</priority>
+</url>
+<url>
+	<loc>https://www.quill.org/activity_sessions/anonymous?activity_id=1219</loc>
+	<lastmod>2023-03-08T08:46:28+01:00</lastmod>
+	<priority>0.2</priority>
+</url>
+<url>
+	<loc>https://www.quill.org/activity_sessions/anonymous?activity_id=779</loc>
+	<lastmod>2023-03-08T08:46:28+01:00</lastmod>
+	<priority>0.2</priority>
+</url>
+<url>
+	<loc>https://www.quill.org/activity_sessions/anonymous?activity_id=428</loc>
+	<lastmod>2023-03-08T08:46:28+01:00</lastmod>
+	<priority>0.2</priority>
+</url>
+<url>
+	<loc>https://www.quill.org/activity_sessions/anonymous?activity_id=1196</loc>
+	<lastmod>2023-03-08T08:46:28+01:00</lastmod>
+	<priority>0.8</priority>
+</url>
+<url>
+	<loc>https://www.quill.org/activity_sessions/anonymous?activity_id=429</loc>
+	<lastmod>2023-03-08T08:46:28+01:00</lastmod>
+	<priority>0.2</priority>
+</url>
+<url>
+	<loc>https://www.quill.org/activity_sessions/anonymous?activity_id=278</loc>
+	<lastmod>2023-03-08T08:46:28+01:00</lastmod>
+	<priority>0.2</priority>
+</url>
+<url>
+	<loc>https://www.quill.org/activity_sessions/anonymous?activity_id=489</loc>
+	<lastmod>2023-03-08T08:46:28+01:00</lastmod>
+	<priority>0.4</priority>
+</url>
+<url>
+	<loc>https://www.quill.org/activity_sessions/anonymous?activity_id=261</loc>
+	<lastmod>2023-03-08T08:46:28+01:00</lastmod>
+	<priority>0.4</priority>
+</url>
+<url>
+	<loc>https://www.quill.org/activity_sessions/anonymous?activity_id=745</loc>
+	<lastmod>2023-03-08T08:46:28+01:00</lastmod>
+	<priority>0.8</priority>
+</url>
+<url>
+	<loc>https://www.quill.org/activity_sessions/anonymous?activity_id=743</loc>
+	<lastmod>2023-03-08T08:46:28+01:00</lastmod>
+	<priority>0.1</priority>
+</url>
+<url>
+	<loc>https://www.quill.org/activity_sessions/anonymous?activity_id=1425</loc>
+	<lastmod>2023-03-08T08:46:28+01:00</lastmod>
+	<priority>0.2</priority>
+</url>
+<url>
+	<loc>https://www.quill.org/activity_sessions/anonymous?activity_id=737</loc>
+	<lastmod>2023-03-08T08:46:28+01:00</lastmod>
+	<priority>0.2</priority>
+</url>
+<url>
+	<loc>https://www.quill.org/activity_sessions/anonymous?activity_id=1345</loc>
+	<lastmod>2023-03-08T08:46:28+01:00</lastmod>
+	<priority>0.8</priority>
+</url>
+<url>
+	<loc>https://www.quill.org/activity_sessions/anonymous?activity_id=167</loc>
+	<lastmod>2023-03-08T08:46:28+01:00</lastmod>
+	<priority>0.2</priority>
+</url>
+<url>
+	<loc>https://www.quill.org/activity_sessions/anonymous?activity_id=166</loc>
+	<lastmod>2023-03-08T08:46:28+01:00</lastmod>
+	<priority>0.2</priority>
+</url>
+<url>
+	<loc>https://www.quill.org/activity_sessions/anonymous?activity_id=105</loc>
+	<lastmod>2023-03-08T08:46:28+01:00</lastmod>
+	<priority>0.2</priority>
+</url>
+<url>
+	<loc>https://www.quill.org/activity_sessions/anonymous?activity_id=106</loc>
+	<lastmod>2023-03-08T08:46:28+01:00</lastmod>
+	<priority>0.2</priority>
+</url>
+<url>
+	<loc>https://www.quill.org/activity_sessions/anonymous?activity_id=177</loc>
+	<lastmod>2023-03-08T08:46:28+01:00</lastmod>
+	<priority>0.2</priority>
+</url>
+<url>
+	<loc>https://www.quill.org/activity_sessions/anonymous?activity_id=63</loc>
+	<lastmod>2023-03-08T08:46:28+01:00</lastmod>
+	<priority>0.4</priority>
+</url>
+<url>
+	<loc>https://www.quill.org/activity_sessions/anonymous?activity_id=169</loc>
+	<lastmod>2023-03-08T08:46:28+01:00</lastmod>
+	<priority>0.8</priority>
+</url>
+<url>
+	<loc>https://www.quill.org/activity_sessions/anonymous?activity_id=168</loc>
+	<lastmod>2023-03-08T08:46:28+01:00</lastmod>
+	<priority>0.2</priority>
+</url>
+<url>
+	<loc>https://www.quill.org/activity_sessions/anonymous?activity_id=845</loc>
+	<lastmod>2023-03-08T08:46:28+01:00</lastmod>
+	<priority>0.2</priority>
+</url>
+<url>
+	<loc>https://www.quill.org/activity_sessions/anonymous?activity_id=863</loc>
+	<lastmod>2023-03-08T08:46:28+01:00</lastmod>
+	<priority>0.2</priority>
+</url>
+<url>
+	<loc>https://www.quill.org/activity_sessions/anonymous?activity_id=69</loc>
+	<lastmod>2023-03-08T08:46:28+01:00</lastmod>
+	<priority>0.4</priority>
+</url>
+<url>
+	<loc>https://www.quill.org/activity_sessions/anonymous?activity_id=624</loc>
+	<lastmod>2023-03-08T08:46:28+01:00</lastmod>
+	<priority>0.8</priority>
+</url>
+<url>
+	<loc>https://www.quill.org/activity_sessions/anonymous?activity_id=2372</loc>
+	<lastmod>2023-03-08T08:46:28+01:00</lastmod>
+	<priority>0.4</priority>
+</url>
+<url>
+	<loc>https://www.quill.org/activity_sessions/anonymous?activity_id=176</loc>
+	<lastmod>2023-03-08T08:46:28+01:00</lastmod>
+	<priority>0.2</priority>
+</url>
+<url>
+	<loc>https://www.quill.org/activity_sessions/anonymous?activity_id=820</loc>
+	<lastmod>2023-03-08T08:46:28+01:00</lastmod>
+	<priority>0.2</priority>
+</url>
+<url>
+	<loc>https://www.quill.org/activity_sessions/anonymous?activity_id=567</loc>
+	<lastmod>2023-03-08T08:46:28+01:00</lastmod>
+	<priority>0.1</priority>
+</url>
+<url>
+	<loc>https://www.quill.org/activity_sessions/anonymous?activity_id=572</loc>
+	<lastmod>2023-03-08T08:46:28+01:00</lastmod>
+	<priority>0.1</priority>
+</url>
+<url>
+	<loc>https://www.quill.org/activity_sessions/anonymous?activity_id=1431</loc>
+	<lastmod>2023-03-08T08:46:28+01:00</lastmod>
+	<priority>0.8</priority>
+</url>
+<url>
+	<loc>https://www.quill.org/activity_sessions/anonymous?activity_id=649</loc>
+	<lastmod>2023-03-08T08:46:28+01:00</lastmod>
+	<priority>0.1</priority>
+</url>
+<url>
+	<loc>https://www.quill.org/activity_sessions/anonymous?activity_id=858</loc>
+	<lastmod>2023-03-08T08:46:28+01:00</lastmod>
+	<priority>0.2</priority>
+</url>
+<url>
+	<loc>https://www.quill.org/activity_sessions/anonymous?activity_id=1221</loc>
+	<lastmod>2023-03-08T08:46:28+01:00</lastmod>
+	<priority>0.2</priority>
+</url>
+<url>
+	<loc>https://www.quill.org/activity_sessions/anonymous?activity_id=419</loc>
+	<lastmod>2023-03-08T08:46:28+01:00</lastmod>
+	<priority>0.8</priority>
+</url>
+<url>
+	<loc>https://www.quill.org/activity_sessions/anonymous?activity_id=898</loc>
+	<lastmod>2023-03-08T08:46:28+01:00</lastmod>
+	<priority>0.2</priority>
+</url>
+<url>
+	<loc>https://www.quill.org/activity_sessions/anonymous?activity_id=862</loc>
+	<lastmod>2023-03-08T08:46:28+01:00</lastmod>
+	<priority>0.2</priority>
+</url>
+<url>
+	<loc>https://www.quill.org/activity_sessions/anonymous?activity_id=420</loc>
+	<lastmod>2023-03-08T08:46:28+01:00</lastmod>
+	<priority>0.2</priority>
+</url>
+<url>
+	<loc>https://www.quill.org/activity_sessions/anonymous?activity_id=990</loc>
+	<lastmod>2023-03-08T08:46:28+01:00</lastmod>
+	<priority>0.2</priority>
+</url>
+<url>
+	<loc>https://www.quill.org/activity_sessions/anonymous?activity_id=859</loc>
+	<lastmod>2023-03-08T08:46:28+01:00</lastmod>
+	<priority>0.2</priority>
+</url>
+<url>
+	<loc>https://www.quill.org/activity_sessions/anonymous?activity_id=781</loc>
+	<lastmod>2023-03-08T08:46:28+01:00</lastmod>
+	<priority>0.2</priority>
+</url>
+<url>
+	<loc>https://www.quill.org/activity_sessions/anonymous?activity_id=418</loc>
+	<lastmod>2023-03-08T08:46:28+01:00</lastmod>
+	<priority>0.8</priority>
+</url>
+<url>
+	<loc>https://www.quill.org/activity_sessions/anonymous?activity_id=995</loc>
+	<lastmod>2023-03-08T08:46:28+01:00</lastmod>
+	<priority>0.2</priority>
+</url>
+<url>
+	<loc>https://www.quill.org/activity_sessions/anonymous?activity_id=1001</loc>
+	<lastmod>2023-03-08T08:46:28+01:00</lastmod>
+	<priority>0.2</priority>
+</url>
+<url>
+	<loc>https://www.quill.org/activity_sessions/anonymous?activity_id=869</loc>
+	<lastmod>2023-03-08T08:46:28+01:00</lastmod>
+	<priority>0.2</priority>
+</url>
+<url>
+	<loc>https://www.quill.org/activity_sessions/anonymous?activity_id=868</loc>
+	<lastmod>2023-03-08T08:46:28+01:00</lastmod>
+	<priority>0.2</priority>
+</url>
+<url>
+	<loc>https://www.quill.org/activity_sessions/anonymous?activity_id=778</loc>
+	<lastmod>2023-03-08T08:46:28+01:00</lastmod>
+	<priority>0.8</priority>
+</url>
+<url>
+	<loc>https://www.quill.org/activity_sessions/anonymous?activity_id=853</loc>
+	<lastmod>2023-03-08T08:46:28+01:00</lastmod>
+	<priority>0.2</priority>
+</url>
+<url>
+	<loc>https://www.quill.org/activity_sessions/anonymous?activity_id=854</loc>
+	<lastmod>2023-03-08T08:46:28+01:00</lastmod>
+	<priority>0.2</priority>
+</url>
+<url>
+	<loc>https://www.quill.org/activity_sessions/anonymous?activity_id=563</loc>
+	<lastmod>2023-03-08T08:46:28+01:00</lastmod>
+	<priority>0.1</priority>
+</url>
+<url>
+	<loc>https://www.quill.org/activity_sessions/anonymous?activity_id=568</loc>
+	<lastmod>2023-03-08T08:46:28+01:00</lastmod>
+	<priority>0.1</priority>
+</url>
+<url>
+	<loc>https://www.quill.org/activity_sessions/anonymous?activity_id=581</loc>
+	<lastmod>2023-03-08T08:46:28+01:00</lastmod>
+	<priority>0.8</priority>
+</url>
+<url>
+	<loc>https://www.quill.org/activity_sessions/anonymous?activity_id=575</loc>
+	<lastmod>2023-03-08T08:46:28+01:00</lastmod>
+	<priority>0.1</priority>
+</url>
+<url>
+	<loc>https://www.quill.org/activity_sessions/anonymous?activity_id=576</loc>
+	<lastmod>2023-03-08T08:46:28+01:00</lastmod>
+	<priority>0.1</priority>
+</url>
+<url>
+	<loc>https://www.quill.org/activity_sessions/anonymous?activity_id=578</loc>
+	<lastmod>2023-03-08T08:46:28+01:00</lastmod>
+	<priority>0.8</priority>
+</url>
+<url>
+	<loc>https://www.quill.org/activity_sessions/anonymous?activity_id=580</loc>
+	<lastmod>2023-03-08T08:46:28+01:00</lastmod>
+	<priority>0.1</priority>
+</url>
+<url>
+	<loc>https://www.quill.org/activity_sessions/anonymous?activity_id=579</loc>
+	<lastmod>2023-03-08T08:46:28+01:00</lastmod>
+	<priority>0.1</priority>
+</url>
+<url>
+	<loc>https://www.quill.org/activity_sessions/anonymous?activity_id=614</loc>
+	<lastmod>2023-03-08T08:46:28+01:00</lastmod>
+	<priority>0.8</priority>
+</url>
+<url>
+	<loc>https://www.quill.org/activity_sessions/anonymous?activity_id=613</loc>
+	<lastmod>2023-03-08T08:46:28+01:00</lastmod>
+	<priority>0.8</priority>
+</url>
+<url>
+	<loc>https://www.quill.org/activity_sessions/anonymous?activity_id=629</loc>
+	<lastmod>2023-03-08T08:46:28+01:00</lastmod>
+	<priority>0.2</priority>
+</url>
+<url>
+	<loc>https://www.quill.org/activity_sessions/anonymous?activity_id=1441</loc>
+	<lastmod>2023-03-08T08:46:28+01:00</lastmod>
+	<priority>0.8</priority>
+</url>
+<url>
+	<loc>https://www.quill.org/activity_sessions/anonymous?activity_id=617</loc>
+	<lastmod>2023-03-08T08:46:28+01:00</lastmod>
+	<priority>0.2</priority>
+</url>
+<url>
+	<loc>https://www.quill.org/activity_sessions/anonymous?activity_id=983</loc>
+	<lastmod>2023-03-08T08:46:28+01:00</lastmod>
+	<priority>0.8</priority>
+</url>
+<url>
+	<loc>https://www.quill.org/activity_sessions/anonymous?activity_id=615</loc>
+	<lastmod>2023-03-08T08:46:28+01:00</lastmod>
+	<priority>0.2</priority>
+</url>
+<url>
+	<loc>https://www.quill.org/activity_sessions/anonymous?activity_id=619</loc>
+	<lastmod>2023-03-08T08:46:28+01:00</lastmod>
+	<priority>0.8</priority>
+</url>
+<url>
+	<loc>https://www.quill.org/activity_sessions/anonymous?activity_id=622</loc>
+	<lastmod>2023-03-08T08:46:28+01:00</lastmod>
+	<priority>0.8</priority>
+</url>
+<url>
+	<loc>https://www.quill.org/activity_sessions/anonymous?activity_id=623</loc>
+	<lastmod>2023-03-08T08:46:28+01:00</lastmod>
+	<priority>0.2</priority>
+</url>
+<url>
+	<loc>https://www.quill.org/activity_sessions/anonymous?activity_id=1415</loc>
+	<lastmod>2023-03-08T08:46:28+01:00</lastmod>
+	<priority>0.8</priority>
+</url>
+<url>
+	<loc>https://www.quill.org/activity_sessions/anonymous?activity_id=606</loc>
+	<lastmod>2023-03-08T08:46:28+01:00</lastmod>
+	<priority>0.2</priority>
+</url>
+<url>
+	<loc>https://www.quill.org/activity_sessions/anonymous?activity_id=628</loc>
+	<lastmod>2023-03-08T08:46:28+01:00</lastmod>
+	<priority>0.2</priority>
+</url>
+<url>
+	<loc>https://www.quill.org/activity_sessions/anonymous?activity_id=634</loc>
+	<lastmod>2023-03-08T08:46:28+01:00</lastmod>
+	<priority>0.8</priority>
+</url>
+<url>
+	<loc>https://www.quill.org/activity_sessions/anonymous?activity_id=633</loc>
+	<lastmod>2023-03-08T08:46:28+01:00</lastmod>
+	<priority>0.8</priority>
+</url>
+<url>
+	<loc>https://www.quill.org/activity_sessions/anonymous?activity_id=616</loc>
+	<lastmod>2023-03-08T08:46:28+01:00</lastmod>
+	<priority>0.2</priority>
+</url>
+<url>
+	<loc>https://www.quill.org/activity_sessions/anonymous?activity_id=585</loc>
+	<lastmod>2023-03-08T08:46:28+01:00</lastmod>
+	<priority>0.8</priority>
+</url>
+<url>
+	<loc>https://www.quill.org/activity_sessions/anonymous?activity_id=731</loc>
+	<lastmod>2023-03-08T08:46:28+01:00</lastmod>
+	<priority>0.2</priority>
+</url>
+<url>
+	<loc>https://www.quill.org/activity_sessions/anonymous?activity_id=729</loc>
+	<lastmod>2023-03-08T08:46:28+01:00</lastmod>
+	<priority>0.8</priority>
+</url>
+<url>
+	<loc>https://www.quill.org/activity_sessions/anonymous?activity_id=730</loc>
+	<lastmod>2023-03-08T08:46:28+01:00</lastmod>
+	<priority>0.8</priority>
+</url>
+<url>
+	<loc>https://www.quill.org/activity_sessions/anonymous?activity_id=728</loc>
+	<lastmod>2023-03-08T08:46:28+01:00</lastmod>
+	<priority>0.2</priority>
+</url>
+<url>
+	<loc>https://www.quill.org/activity_sessions/anonymous?activity_id=476</loc>
+	<lastmod>2023-03-08T08:46:28+01:00</lastmod>
+	<priority>0.8</priority>
+</url>
+<url>
+	<loc>https://www.quill.org/activity_sessions/anonymous?activity_id=478</loc>
+	<lastmod>2023-03-08T08:46:28+01:00</lastmod>
+	<priority>0.2</priority>
+</url>
+<url>
+	<loc>https://www.quill.org/activity_sessions/anonymous?activity_id=630</loc>
+	<lastmod>2023-03-08T08:46:28+01:00</lastmod>
+	<priority>0.8</priority>
+</url>
+<url>
+	<loc>https://www.quill.org/activity_sessions/anonymous?activity_id=756</loc>
+	<lastmod>2023-03-08T08:46:28+01:00</lastmod>
+	<priority>0.2</priority>
+</url>
+<url>
+	<loc>https://www.quill.org/activity_sessions/anonymous?activity_id=584</loc>
+	<lastmod>2023-03-08T08:46:28+01:00</lastmod>
+	<priority>0.8</priority>
+</url>
+<url>
+	<loc>https://www.quill.org/activity_sessions/anonymous?activity_id=641</loc>
+	<lastmod>2023-03-08T08:46:28+01:00</lastmod>
+	<priority>0.2</priority>
+</url>
+<url>
+	<loc>https://www.quill.org/activity_sessions/anonymous?activity_id=1414</loc>
+	<lastmod>2023-03-08T08:46:28+01:00</lastmod>
+	<priority>0.8</priority>
+</url>
+<url>
+	<loc>https://www.quill.org/activity_sessions/anonymous?activity_id=618</loc>
+	<lastmod>2023-03-08T08:46:28+01:00</lastmod>
+	<priority>0.2</priority>
+</url>
+<url>
+	<loc>https://www.quill.org/activity_sessions/anonymous?activity_id=620</loc>
+	<lastmod>2023-03-08T08:46:28+01:00</lastmod>
+	<priority>0.8</priority>
+</url>
+<url>
+	<loc>https://www.quill.org/activity_sessions/anonymous?activity_id=632</loc>
+	<lastmod>2023-03-08T08:46:28+01:00</lastmod>
+	<priority>0.2</priority>
+</url>
+<url>
+	<loc>https://www.quill.org/activity_sessions/anonymous?activity_id=635</loc>
+	<lastmod>2023-03-08T08:46:28+01:00</lastmod>
+	<priority>0.8</priority>
+</url>
+<url>
+	<loc>https://www.quill.org/activity_sessions/anonymous?activity_id=875</loc>
+	<lastmod>2023-03-08T08:46:28+01:00</lastmod>
+	<priority>0.8</priority>
+</url>
+<url>
+	<loc>https://www.quill.org/activity_sessions/anonymous?activity_id=422</loc>
+	<lastmod>2023-03-08T08:46:28+01:00</lastmod>
+	<priority>0.2</priority>
+</url>
+<url>
+	<loc>https://www.quill.org/activity_sessions/anonymous?activity_id=652</loc>
+	<lastmod>2023-03-08T08:46:28+01:00</lastmod>
+	<priority>0.8</priority>
+</url>
+<url>
+	<loc>https://www.quill.org/activity_sessions/anonymous?activity_id=1359</loc>
+	<lastmod>2023-03-08T08:46:28+01:00</lastmod>
+	<priority>0.8</priority>
+</url>
+<url>
+	<loc>https://www.quill.org/activity_sessions/anonymous?activity_id=991</loc>
+	<lastmod>2023-03-08T08:46:28+01:00</lastmod>
+	<priority>0.8</priority>
+</url>
+<url>
+	<loc>https://www.quill.org/activity_sessions/anonymous?activity_id=1052</loc>
+	<lastmod>2023-03-08T08:46:28+01:00</lastmod>
+	<priority>0.2</priority>
+</url>
+<url>
+	<loc>https://www.quill.org/activity_sessions/anonymous?activity_id=653</loc>
+	<lastmod>2023-03-08T08:46:28+01:00</lastmod>
+	<priority>0.8</priority>
+</url>
+<url>
+	<loc>https://www.quill.org/activity_sessions/anonymous?activity_id=1056</loc>
+	<lastmod>2023-03-08T08:46:28+01:00</lastmod>
+	<priority>0.8</priority>
+</url>
+<url>
+	<loc>https://www.quill.org/activity_sessions/anonymous?activity_id=417</loc>
+	<lastmod>2023-03-08T08:46:28+01:00</lastmod>
+	<priority>0.8</priority>
+</url>
+<url>
+	<loc>https://www.quill.org/activity_sessions/anonymous?activity_id=847</loc>
+	<lastmod>2023-03-08T08:46:28+01:00</lastmod>
+	<priority>0.8</priority>
+</url>
+<url>
+	<loc>https://www.quill.org/activity_sessions/anonymous?activity_id=1418</loc>
+	<lastmod>2023-03-08T08:46:28+01:00</lastmod>
+	<priority>0.8</priority>
+</url>
+<url>
+	<loc>https://www.quill.org/activity_sessions/anonymous?activity_id=1497</loc>
+	<lastmod>2023-03-08T08:46:28+01:00</lastmod>
+	<priority>0.8</priority>
+</url>
+<url>
+	<loc>https://www.quill.org/activity_sessions/anonymous?activity_id=77</loc>
+	<lastmod>2023-03-08T08:46:28+01:00</lastmod>
+	<priority>0.8</priority>
+</url>
+<url>
+	<loc>https://www.quill.org/activity_sessions/anonymous?activity_id=717</loc>
+	<lastmod>2023-03-08T08:46:28+01:00</lastmod>
+	<priority>0.8</priority>
+</url>
+<url>
+	<loc>https://www.quill.org/activity_sessions/anonymous?activity_id=1409</loc>
+	<lastmod>2023-03-08T08:46:28+01:00</lastmod>
+	<priority>0.2</priority>
+</url>
+<url>
+	<loc>https://www.quill.org/activity_sessions/anonymous?activity_id=1412</loc>
+	<lastmod>2023-03-08T08:46:28+01:00</lastmod>
+	<priority>0.8</priority>
+</url>
+<url>
+	<loc>https://www.quill.org/activity_sessions/anonymous?activity_id=713</loc>
+	<lastmod>2023-03-08T08:46:28+01:00</lastmod>
+	<priority>0.2</priority>
+</url>
+<url>
+	<loc>https://www.quill.org/activity_sessions/anonymous?activity_id=714</loc>
+	<lastmod>2023-03-08T08:46:28+01:00</lastmod>
+	<priority>0.8</priority>
+</url>
+<url>
+	<loc>https://www.quill.org/activity_sessions/anonymous?activity_id=715</loc>
+	<lastmod>2023-03-08T08:46:28+01:00</lastmod>
+	<priority>0.8</priority>
+</url>
+<url>
+	<loc>https://www.quill.org/activity_sessions/anonymous?activity_id=716</loc>
+	<lastmod>2023-03-08T08:46:28+01:00</lastmod>
+	<priority>0.2</priority>
+</url>
+<url>
+	<loc>https://www.quill.org/activity_sessions/anonymous?activity_id=1411</loc>
+	<lastmod>2023-03-08T08:46:28+01:00</lastmod>
+	<priority>0.8</priority>
+</url>
+<url>
+	<loc>https://www.quill.org/activity_sessions/anonymous?activity_id=1407</loc>
+	<lastmod>2023-03-08T08:46:28+01:00</lastmod>
+	<priority>0.2</priority>
+</url>
+<url>
+	<loc>https://www.quill.org/activity_sessions/anonymous?activity_id=1498</loc>
+	<lastmod>2023-03-08T08:46:28+01:00</lastmod>
+	<priority>0.8</priority>
+</url>
+<url>
+	<loc>https://www.quill.org/activity_sessions/anonymous?activity_id=1499</loc>
+	<lastmod>2023-03-08T08:46:28+01:00</lastmod>
+	<priority>0.8</priority>
+</url>
+<url>
+	<loc>https://www.quill.org/activity_sessions/anonymous?activity_id=2334</loc>
+	<lastmod>2023-03-08T08:46:28+01:00</lastmod>
+	<priority>0.4</priority>
+</url>
+<url>
+	<loc>https://www.quill.org/activity_sessions/anonymous?activity_id=368</loc>
+	<lastmod>2023-03-08T08:46:28+01:00</lastmod>
+	<priority>0.8</priority>
+</url>
+<url>
+	<loc>https://www.quill.org/activity_sessions/anonymous?activity_id=881</loc>
+	<lastmod>2023-03-08T08:46:28+01:00</lastmod>
+	<priority>0.4</priority>
+</url>
+<url>
+	<loc>https://www.quill.org/activity_sessions/anonymous?activity_id=530</loc>
+	<lastmod>2023-03-08T08:46:28+01:00</lastmod>
+	<priority>0.8</priority>
+</url>
+<url>
+	<loc>https://www.quill.org/activity_sessions/anonymous?activity_id=400</loc>
+	<lastmod>2023-03-08T08:46:28+01:00</lastmod>
+	<priority>0.4</priority>
+</url>
+<url>
+	<loc>https://www.quill.org/activity_sessions/anonymous?activity_id=397</loc>
+	<lastmod>2023-03-08T08:46:28+01:00</lastmod>
+	<priority>0.8</priority>
+</url>
+<url>
+	<loc>https://www.quill.org/activity_sessions/anonymous?activity_id=363</loc>
+	<lastmod>2023-03-08T08:46:28+01:00</lastmod>
+	<priority>0.8</priority>
+</url>
+<url>
+	<loc>https://www.quill.org/activity_sessions/anonymous?activity_id=345</loc>
+	<lastmod>2023-03-08T08:46:28+01:00</lastmod>
+	<priority>0.4</priority>
+</url>
+<url>
+	<loc>https://www.quill.org/activity_sessions/anonymous?activity_id=376</loc>
+	<lastmod>2023-03-08T08:46:28+01:00</lastmod>
+	<priority>0.8</priority>
+</url>
+<url>
+	<loc>https://www.quill.org/activity_sessions/anonymous?activity_id=399</loc>
+	<lastmod>2023-03-08T08:46:28+01:00</lastmod>
+	<priority>0.4</priority>
+</url>
+<url>
+	<loc>https://www.quill.org/activity_sessions/anonymous?activity_id=101</loc>
+	<lastmod>2023-03-08T08:46:28+01:00</lastmod>
+	<priority>0.8</priority>
+</url>
+<url>
+	<loc>https://www.quill.org/activity_sessions/anonymous?activity_id=384</loc>
+	<lastmod>2023-03-08T08:46:28+01:00</lastmod>
+	<priority>0.8</priority>
+</url>
+<url>
+	<loc>https://www.quill.org/activity_sessions/anonymous?activity_id=143</loc>
+	<lastmod>2023-03-08T08:46:28+01:00</lastmod>
+	<priority>0.2</priority>
+</url>
+<url>
+	<loc>https://www.quill.org/activity_sessions/anonymous?activity_id=144</loc>
+	<lastmod>2023-03-08T08:46:28+01:00</lastmod>
+	<priority>0.8</priority>
+</url>
+<url>
+	<loc>https://www.quill.org/activity_sessions/anonymous?activity_id=142</loc>
+	<lastmod>2023-03-08T08:46:28+01:00</lastmod>
+	<priority>0.2</priority>
+</url>
+<url>
+	<loc>https://www.quill.org/activity_sessions/anonymous?activity_id=79</loc>
+	<lastmod>2023-03-08T08:46:28+01:00</lastmod>
+	<priority>0.8</priority>
+</url>
+<url>
+	<loc>https://www.quill.org/activity_sessions/anonymous?activity_id=172</loc>
+	<lastmod>2023-03-08T08:46:28+01:00</lastmod>
+	<priority>0.2</priority>
+</url>
+<url>
+  <loc>https://www.quill.org/activities/packs/92</loc>
+  <lastmod>2023-03-08T08:46:19+01:00</lastmod>
+  <priority>0.6</priority>
+</url>
+<url>
+  <loc>https://www.quill.org/activities/packs/60</loc>
+  <lastmod>2023-03-08T08:46:19+01:00</lastmod>
+  <priority>0.6</priority>
+</url>
+<url>
+  <loc>https://www.quill.org/activities/packs/530</loc>
+  <lastmod>2023-03-08T08:46:19+01:00</lastmod>
+  <priority>0.6</priority>
+</url>
+<url>
+  <loc>https://www.quill.org/activities/packs/96</loc>
+  <lastmod>2023-03-08T08:46:19+01:00</lastmod>
+  <priority>0.6</priority>
+</url>
+<url>
+  <loc>https://www.quill.org/activities/packs/55</loc>
+  <lastmod>2023-03-08T08:46:19+01:00</lastmod>
+  <priority>0.6</priority>
+</url>
+<url>
+  <loc>https://www.quill.org/activities/packs/526</loc>
+  <lastmod>2023-03-08T08:46:19+01:00</lastmod>
+  <priority>0.6</priority>
+</url>
+<url>
+  <loc>https://www.quill.org/activities/packs/528</loc>
+  <lastmod>2023-03-08T08:46:19+01:00</lastmod>
+  <priority>0.6</priority>
+</url>
+<url>
+  <loc>https://www.quill.org/activities/packs/59</loc>
+  <lastmod>2023-03-08T08:46:19+01:00</lastmod>
+  <priority>0.6</priority>
+</url>
+<url>
+  <loc>https://www.quill.org/activities/packs/529</loc>
+  <lastmod>2023-03-08T08:46:19+01:00</lastmod>
+  <priority>0.6</priority>
+</url>
+<url>
+  <loc>https://www.quill.org/activities/packs/364</loc>
+  <lastmod>2023-03-08T08:46:19+01:00</lastmod>
+  <priority>0.6</priority>
+</url>
+<url>
+  <loc>https://www.quill.org/activities/packs/54</loc>
+  <lastmod>2023-03-08T08:46:19+01:00</lastmod>
+  <priority>0.6</priority>
+</url>
+<url>
+  <loc>https://www.quill.org/activities/packs/68</loc>
+  <lastmod>2023-03-08T08:46:19+01:00</lastmod>
+  <priority>0.6</priority>
+</url>
+<url>
+  <loc>https://www.quill.org/activities/packs/352</loc>
+  <lastmod>2023-03-08T08:46:19+01:00</lastmod>
+  <priority>0.6</priority>
+</url>
+<url>
+  <loc>https://www.quill.org/activities/packs/126</loc>
+  <lastmod>2023-03-08T08:46:19+01:00</lastmod>
+  <priority>0.6</priority>
+</url>
+<url>
+  <loc>https://www.quill.org/activities/packs/53</loc>
+  <lastmod>2023-03-08T08:46:19+01:00</lastmod>
+  <priority>0.6</priority>
+</url>
+<url>
+  <loc>https://www.quill.org/activities/packs/355</loc>
+  <lastmod>2023-03-08T08:46:19+01:00</lastmod>
+  <priority>0.6</priority>
+</url>
+<url>
+  <loc>https://www.quill.org/activities/packs/459</loc>
+  <lastmod>2023-03-08T08:46:19+01:00</lastmod>
+  <priority>0.6</priority>
+</url>
+<url>
+  <loc>https://www.quill.org/activities/packs/451</loc>
+  <lastmod>2023-03-08T08:46:19+01:00</lastmod>
+  <priority>0.6</priority>
+</url>
+<url>
+  <loc>https://www.quill.org/activities/packs/455</loc>
+  <lastmod>2023-03-08T08:46:19+01:00</lastmod>
+  <priority>0.6</priority>
+</url>
+<url>
+  <loc>https://www.quill.org/activities/packs/354</loc>
+  <lastmod>2023-03-08T08:46:19+01:00</lastmod>
+  <priority>0.6</priority>
+</url>
+<url>
+  <loc>https://www.quill.org/activities/packs/356</loc>
+  <lastmod>2023-03-08T08:46:19+01:00</lastmod>
+  <priority>0.6</priority>
+</url>
+<url>
+  <loc>https://www.quill.org/activities/packs/448</loc>
+  <lastmod>2023-03-08T08:46:19+01:00</lastmod>
+  <priority>0.6</priority>
+</url>
+<url>
+  <loc>https://www.quill.org/activities/packs/75</loc>
+  <lastmod>2023-03-08T08:46:19+01:00</lastmod>
+  <priority>0.6</priority>
+</url>
+<url>
+  <loc>https://www.quill.org/activities/packs/120</loc>
+  <lastmod>2023-03-08T08:46:19+01:00</lastmod>
+  <priority>0.6</priority>
+</url>
+<url>
+  <loc>https://www.quill.org/activities/packs/523</loc>
+  <lastmod>2023-03-08T08:46:19+01:00</lastmod>
+  <priority>0.6</priority>
+</url>
+<url>
+  <loc>https://www.quill.org/activities/packs/524</loc>
+  <lastmod>2023-03-08T08:46:19+01:00</lastmod>
+  <priority>0.6</priority>
+</url>
+<url>
+  <loc>https://www.quill.org/activities/packs/98</loc>
+  <lastmod>2023-03-08T08:46:19+01:00</lastmod>
+  <priority>0.6</priority>
+</url>
+<url>
+  <loc>https://www.quill.org/activities/packs/190</loc>
+  <lastmod>2023-03-08T08:46:19+01:00</lastmod>
+  <priority>0.6</priority>
+</url>
+<url>
+  <loc>https://www.quill.org/activities/packs/82</loc>
+  <lastmod>2023-03-08T08:46:19+01:00</lastmod>
+  <priority>0.6</priority>
+</url>
+<url>
+  <loc>https://www.quill.org/activities/packs/93</loc>
+  <lastmod>2023-03-08T08:46:19+01:00</lastmod>
+  <priority>0.6</priority>
+</url>
+<url>
+  <loc>https://www.quill.org/activities/packs/119</loc>
+  <lastmod>2023-03-08T08:46:19+01:00</lastmod>
+  <priority>0.6</priority>
+</url>
+<url>
+  <loc>https://www.quill.org/activities/packs/122</loc>
+  <lastmod>2023-03-08T08:46:19+01:00</lastmod>
+  <priority>0.6</priority>
+</url>
+<url>
+  <loc>https://www.quill.org/activities/packs/123</loc>
+  <lastmod>2023-03-08T08:46:19+01:00</lastmod>
+  <priority>0.6</priority>
+</url>
+<url>
+  <loc>https://www.quill.org/activities/packs/357</loc>
+  <lastmod>2023-03-08T08:46:19+01:00</lastmod>
+  <priority>0.6</priority>
+</url>
+<url>
+  <loc>https://www.quill.org/activities/packs/94</loc>
+  <lastmod>2023-03-08T08:46:19+01:00</lastmod>
+  <priority>0.6</priority>
+</url>
+<url>
+  <loc>https://www.quill.org/activities/packs/193</loc>
+  <lastmod>2023-03-08T08:46:19+01:00</lastmod>
+  <priority>0.6</priority>
+</url>
+<url>
+  <loc>https://www.quill.org/activities/packs/307</loc>
+  <lastmod>2023-03-08T08:46:19+01:00</lastmod>
+  <priority>0.6</priority>
+</url>
+<url>
+  <loc>https://www.quill.org/activities/packs/450</loc>
+  <lastmod>2023-03-08T08:46:19+01:00</lastmod>
+  <priority>0.6</priority>
+</url>
+<url>
+  <loc>https://www.quill.org/activities/packs/351</loc>
+  <lastmod>2023-03-08T08:46:19+01:00</lastmod>
+  <priority>0.6</priority>
+</url>
+<url>
+  <loc>https://www.quill.org/activities/packs/253</loc>
+  <lastmod>2023-03-08T08:46:19+01:00</lastmod>
+  <priority>0.6</priority>
+</url>
+<url>
+  <loc>https://www.quill.org/activities/packs/154</loc>
+  <lastmod>2023-03-08T08:46:19+01:00</lastmod>
+  <priority>0.6</priority>
+</url>
+<url>
+  <loc>https://www.quill.org/activities/packs/365</loc>
+  <lastmod>2023-03-08T08:46:19+01:00</lastmod>
+  <priority>0.6</priority>
+</url>
+<url>
+  <loc>https://www.quill.org/activities/packs/195</loc>
+  <lastmod>2023-03-08T08:46:19+01:00</lastmod>
+  <priority>0.6</priority>
+</url>
+<url>
+  <loc>https://www.quill.org/activities/packs/100</loc>
+  <lastmod>2023-03-08T08:46:19+01:00</lastmod>
+  <priority>0.6</priority>
+</url>
+<url>
+  <loc>https://www.quill.org/activities/packs/300</loc>
+  <lastmod>2023-03-08T08:46:19+01:00</lastmod>
+  <priority>0.6</priority>
+</url>
+<url>
+  <loc>https://www.quill.org/activities/packs/522</loc>
+  <lastmod>2023-03-08T08:46:19+01:00</lastmod>
+  <priority>0.6</priority>
+</url>
+<url>
+  <loc>https://www.quill.org/activities/packs/73</loc>
+  <lastmod>2023-03-08T08:46:19+01:00</lastmod>
+  <priority>0.6</priority>
+</url>
+<url>
+  <loc>https://www.quill.org/activities/packs/72</loc>
+  <lastmod>2023-03-08T08:46:19+01:00</lastmod>
+  <priority>0.6</priority>
+</url>
+<url>
+  <loc>https://www.quill.org/activities/packs/71</loc>
+  <lastmod>2023-03-08T08:46:19+01:00</lastmod>
+  <priority>0.6</priority>
+</url>
+<url>
+  <loc>https://www.quill.org/activities/packs/39</loc>
+  <lastmod>2023-03-08T08:46:19+01:00</lastmod>
+  <priority>0.6</priority>
+</url>
+<url>
+  <loc>https://www.quill.org/activities/packs/40</loc>
+  <lastmod>2023-03-08T08:46:19+01:00</lastmod>
+  <priority>0.6</priority>
+</url>
+<url>
+  <loc>https://www.quill.org/activities/packs/41</loc>
+  <lastmod>2023-03-08T08:46:19+01:00</lastmod>
+  <priority>0.6</priority>
+</url>
+<url>
+  <loc>https://www.quill.org/activities/packs/42</loc>
+  <lastmod>2023-03-08T08:46:19+01:00</lastmod>
+  <priority>0.6</priority>
+</url>
+<url>
+  <loc>https://www.quill.org/activities/packs/44</loc>
+  <lastmod>2023-03-08T08:46:19+01:00</lastmod>
+  <priority>0.6</priority>
+</url>
+<url>
+  <loc>https://www.quill.org/activities/packs/350</loc>
+  <lastmod>2023-03-08T08:46:19+01:00</lastmod>
+  <priority>0.6</priority>
+</url>
+<url>
+  <loc>https://www.quill.org/activities/packs/194</loc>
+  <lastmod>2023-03-08T08:46:19+01:00</lastmod>
+  <priority>0.6</priority>
+</url>
+<url>
+  <loc>https://www.quill.org/activities/packs/45</loc>
+  <lastmod>2023-03-08T08:46:19+01:00</lastmod>
+  <priority>0.6</priority>
+</url>
+<url>
+  <loc>https://www.quill.org/activities/packs/46</loc>
+  <lastmod>2023-03-08T08:46:19+01:00</lastmod>
+  <priority>0.6</priority>
+</url>
+<url>
+  <loc>https://www.quill.org/activities/packs/38</loc>
+  <lastmod>2023-03-08T08:46:19+01:00</lastmod>
+  <priority>0.6</priority>
+</url>
+<url>
+  <loc>https://www.quill.org/activities/packs/47</loc>
+  <lastmod>2023-03-08T08:46:19+01:00</lastmod>
+  <priority>0.6</priority>
+</url>
+<url>
+  <loc>https://www.quill.org/activities/packs/99</loc>
+  <lastmod>2023-03-08T08:46:19+01:00</lastmod>
+  <priority>0.6</priority>
+</url>
+<url>
+  <loc>https://www.quill.org/activities/packs/359</loc>
+  <lastmod>2023-03-08T08:46:19+01:00</lastmod>
+  <priority>0.6</priority>
+</url>
+<url>
+  <loc>https://www.quill.org/activities/packs/65</loc>
+  <lastmod>2023-03-08T08:46:19+01:00</lastmod>
+  <priority>0.6</priority>
+</url>
+<url>
+  <loc>https://www.quill.org/activities/packs/43</loc>
+  <lastmod>2023-03-08T08:46:19+01:00</lastmod>
+  <priority>0.6</priority>
+</url>
+<url>
+  <loc>https://www.quill.org/activities/packs/349</loc>
+  <lastmod>2023-03-08T08:46:19+01:00</lastmod>
+  <priority>0.6</priority>
+</url>
+<url>
+  <loc>https://www.quill.org/teacher-center/webinar-101-getting-started-with-quill</loc>
+  <lastmod>2023-03-08T08:46:23+01:00</lastmod>
+  <priority>0.8</priority>
+</url>
+<url>
+  <loc>https://www.quill.org/teacher-center/growth-diagnostic-guide</loc>
+  <lastmod>2023-03-08T08:46:23+01:00</lastmod>
+  <priority>0.8</priority>
+</url>
+<url>
+  <loc>https://www.quill.org/teacher-center/introducing-quills-new-writing-and-reading-tool-quill-evidence</loc>
+  <lastmod>2023-03-08T08:46:23+01:00</lastmod>
+  <priority>0.8</priority>
+</url>
+<url>
+  <loc>https://www.quill.org/teacher-center/a-twopage-summary-of-quill</loc>
+  <lastmod>2023-03-08T08:46:23+01:00</lastmod>
+  <priority>0.8</priority>
+</url>
+<url>
+  <loc>https://www.quill.org/teacher-center/getting-started-video-signing-up-and-creating-classes-on-quill</loc>
+  <lastmod>2023-03-08T08:46:23+01:00</lastmod>
+  <priority>0.8</priority>
+</url>
+<url>
+  <loc>https://www.quill.org/teacher-center/-3</loc>
+  <lastmod>2023-03-08T08:46:23+01:00</lastmod>
+  <priority>0.8</priority>
+</url>
+<url>
+  <loc>https://www.quill.org/teacher-center/webinars</loc>
+  <lastmod>2023-03-08T08:46:23+01:00</lastmod>
+  <priority>0.8</priority>
+</url>
+<url>
+  <loc>https://www.quill.org/teacher-center/quills-implementation-library</loc>
+  <lastmod>2023-03-08T08:46:23+01:00</lastmod>
+  <priority>0.8</priority>
+</url>
+<url>
+  <loc>https://www.quill.org/teacher-center/chunk-by-chunk-brandon-reynolds-middle-school-writing-teacher</loc>
+  <lastmod>2023-03-08T08:46:23+01:00</lastmod>
+  <priority>0.8</priority>
+</url>
+<url>
+  <loc>https://www.quill.org/teacher-center/webinar-beyond-the-quill-basics-</loc>
+  <lastmod>2023-03-08T08:46:23+01:00</lastmod>
+  <priority>0.8</priority>
+</url>
+<url>
+  <loc>https://www.quill.org/teacher-center/scaffolding--court-caywood-6th-grade-language-arts-teacher</loc>
+  <lastmod>2023-03-08T08:46:23+01:00</lastmod>
+  <priority>0.8</priority>
+</url>
+<url>
+  <loc>https://www.quill.org/teacher-center/quills-backtoschool-resources</loc>
+  <lastmod>2023-03-08T08:46:23+01:00</lastmod>
+  <priority>0.8</priority>
+</url>
+<url>
+  <loc>https://www.quill.org/teacher-center/best-practices-how-to-use-quill-to-teach-ell-students</loc>
+  <lastmod>2023-03-08T08:46:23+01:00</lastmod>
+  <priority>0.8</priority>
+</url>
+<url>
+  <loc>https://www.quill.org/teacher-center/quill-reading-for-evidence-resources</loc>
+  <lastmod>2023-03-08T08:46:23+01:00</lastmod>
+  <priority>0.8</priority>
+</url>
+<url>
+  <loc>https://www.quill.org/teacher-center/quillorg-launches-new-ell-intermediate--ell-advanced-diagnostics</loc>
+  <lastmod>2023-03-08T08:46:23+01:00</lastmod>
+  <priority>0.8</priority>
+</url>
+<url>
+  <loc>https://www.quill.org/teacher-center/--pdf--go-for-green-bingo</loc>
+  <lastmod>2023-03-08T08:46:23+01:00</lastmod>
+  <priority>0.8</priority>
+</url>
+<url>
+  <loc>https://www.quill.org/teacher-center/how-quill-gives-feedback</loc>
+  <lastmod>2023-03-08T08:46:23+01:00</lastmod>
+  <priority>0.8</priority>
+</url>
+<url>
+  <loc>https://www.quill.org/teacher-center/getting-started-video-assigning-a-quill-diagnostic-and-diagnostic-recommendations</loc>
+  <lastmod>2023-03-08T08:46:23+01:00</lastmod>
+  <priority>0.8</priority>
+</url>
+<url>
+  <loc>https://www.quill.org/teacher-center/how-does-quill-decide-which-grammar-rules-to-teach</loc>
+  <lastmod>2023-03-08T08:46:23+01:00</lastmod>
+  <priority>0.8</priority>
+</url>
+<url>
+  <loc>https://www.quill.org/teacher-center/michele-ellis-teacher-story</loc>
+  <lastmod>2023-03-08T08:46:23+01:00</lastmod>
+  <priority>0.8</priority>
+</url>
+<url>
+  <loc>https://www.quill.org/teacher-center/using-quill-evidence-with-students-best-practices</loc>
+  <lastmod>2023-03-08T08:46:23+01:00</lastmod>
+  <priority>0.8</priority>
+</url>
+<url>
+  <loc>https://www.quill.org/teacher-center/-lesson-plan-pdfs-for-quill-lessons-activities</loc>
+  <lastmod>2023-03-08T08:46:23+01:00</lastmod>
+  <priority>0.8</priority>
+</url>
+<url>
+  <loc>https://www.quill.org/teacher-center/using-quill-lessons-remotely</loc>
+  <lastmod>2023-03-08T08:46:23+01:00</lastmod>
+  <priority>0.8</priority>
+</url>
+<url>
+  <loc>https://www.quill.org/teacher-center/using-quill-with-students-with-ieps</loc>
+  <lastmod>2023-03-08T08:46:23+01:00</lastmod>
+  <priority>0.8</priority>
+</url>
+<url>
+  <loc>https://www.quill.org/teacher-center/webinar-201-diving-into-data</loc>
+  <lastmod>2023-03-08T08:46:23+01:00</lastmod>
+  <priority>0.8</priority>
+</url>
+<url>
+  <loc>https://www.quill.org/teacher-center/introducing-quills-student-center</loc>
+  <lastmod>2023-03-08T08:46:23+01:00</lastmod>
+  <priority>0.8</priority>
+</url>
+<url>
+  <loc>https://www.quill.org/teacher-center/quill-tools-overview-of-quills-5-diagnostics</loc>
+  <lastmod>2023-03-08T08:46:23+01:00</lastmod>
+  <priority>0.8</priority>
+</url>
+<url>
+  <loc>https://www.quill.org/teacher-center/how-does-quill-address-learning-for-atrisk-below-grade-level-learners</loc>
+  <lastmod>2023-03-08T08:46:23+01:00</lastmod>
+  <priority>0.8</priority>
+</url>
+<url>
+  <loc>https://www.quill.org/teacher-center/tiny-tips-for-teachers-using-quill-for-help-with-thesis-statements</loc>
+  <lastmod>2023-03-08T08:46:23+01:00</lastmod>
+  <priority>0.8</priority>
+</url>
+<url>
+  <loc>https://www.quill.org/teacher-center/quill-evidences-wordgen-activities</loc>
+  <lastmod>2023-03-08T08:46:23+01:00</lastmod>
+  <priority>0.8</priority>
+</url>
+<url>
+  <loc>https://www.quill.org/teacher-center/writing-skills-survey-for-ap</loc>
+  <lastmod>2023-03-08T08:46:23+01:00</lastmod>
+  <priority>0.8</priority>
+</url>
+<url>
+  <loc>https://www.quill.org/teacher-center/quill-reports-cheat-sheet</loc>
+  <lastmod>2023-03-08T08:46:23+01:00</lastmod>
+  <priority>0.8</priority>
+</url>
+<url>
+  <loc>https://www.quill.org/teacher-center/quill-tools-activity-packs-aligned-to-each-diagnostic-assessment</loc>
+  <lastmod>2023-03-08T08:46:23+01:00</lastmod>
+  <priority>0.8</priority>
+</url>
+<url>
+  <loc>https://www.quill.org/teacher-center/using-quill-with-google-classroom</loc>
+  <lastmod>2023-03-08T08:46:23+01:00</lastmod>
+  <priority>0.8</priority>
+</url>
+<url>
+  <loc>https://www.quill.org/teacher-center/carla-byars-teacher-story-</loc>
+  <lastmod>2023-03-08T08:46:23+01:00</lastmod>
+  <priority>0.8</priority>
+</url>
+<url>
+  <loc>https://www.quill.org/teacher-center/getting-started-video-introduction-to-quill-grammar</loc>
+  <lastmod>2023-03-08T08:46:23+01:00</lastmod>
+  <priority>0.8</priority>
+</url>
+<url>
+  <loc>https://www.quill.org/teacher-center/what-will-students-experience-in-a-quill-reading-for-evidence-activity</loc>
+  <lastmod>2023-03-08T08:46:23+01:00</lastmod>
+  <priority>0.8</priority>
+</url>
+<url>
+  <loc>https://www.quill.org/teacher-center/quillorg-announces-new-ell-starter-diagnostic</loc>
+  <lastmod>2023-03-08T08:46:23+01:00</lastmod>
+  <priority>0.8</priority>
+</url>
+<url>
+  <loc>https://www.quill.org/teacher-center/teacher-stories-dedicated-practice</loc>
+  <lastmod>2023-03-08T08:46:23+01:00</lastmod>
+  <priority>0.8</priority>
+</url>
+<url>
+  <loc>https://www.quill.org/teacher-center/webinar-getting-started-with-quill-in-preap-english</loc>
+  <lastmod>2023-03-08T08:46:23+01:00</lastmod>
+  <priority>0.8</priority>
+</url>
+<url>
+  <loc>https://www.quill.org/teacher-center/ell-vocabulary-pack-pdfs</loc>
+  <lastmod>2023-03-08T08:46:23+01:00</lastmod>
+  <priority>0.8</priority>
+</url>
+<url>
+  <loc>https://www.quill.org/teacher-center/quillorg-a-brief-history</loc>
+  <lastmod>2023-03-08T08:46:23+01:00</lastmod>
+  <priority>0.8</priority>
+</url>
+<url>
+  <loc>https://www.quill.org/teacher-center/write-your-title-here-6</loc>
+  <lastmod>2023-03-08T08:46:23+01:00</lastmod>
+  <priority>0.8</priority>
+</url>
+<url>
+  <loc>https://www.quill.org/teacher-center/teacher-toolbox-setting-up-remote-routines-with-quill</loc>
+  <lastmod>2023-03-08T08:46:23+01:00</lastmod>
+  <priority>0.8</priority>
+</url>
+<url>
+  <loc>https://www.quill.org/teacher-center/quill-and-beyond-recommended-tools-to-support-remote-learning</loc>
+  <lastmod>2023-03-08T08:46:23+01:00</lastmod>
+  <priority>0.8</priority>
+</url>
+<url>
+  <loc>https://www.quill.org/teacher-center/getting-started-video-introduction-to-quill-connect</loc>
+  <lastmod>2023-03-08T08:46:23+01:00</lastmod>
+  <priority>0.8</priority>
+</url>
+<url>
+  <loc>https://www.quill.org/teacher-center/for-sean-martin-reading-for-evidence-is-like-multiplying-myself-by-thirty</loc>
+  <lastmod>2023-03-08T08:46:23+01:00</lastmod>
+  <priority>0.8</priority>
+</url>
+<url>
+  <loc>https://www.quill.org/teacher-center/taking-the-terror-out-of-grammar</loc>
+  <lastmod>2023-03-08T08:46:23+01:00</lastmod>
+  <priority>0.8</priority>
+</url>
+<url>
+  <loc>https://www.quill.org/teacher-center/ell-diagnostics-standards-alignment</loc>
+  <lastmod>2023-03-08T08:46:23+01:00</lastmod>
+  <priority>0.8</priority>
+</url>
+<url>
+  <loc>https://www.quill.org/teacher-center/introducing-quills-new-classroom-page</loc>
+  <lastmod>2023-03-08T08:46:23+01:00</lastmod>
+  <priority>0.8</priority>
+</url>
+<url>
+  <loc>https://www.quill.org/teacher-center/getting-started--for-teachers</loc>
+  <lastmod>2023-03-08T08:46:23+01:00</lastmod>
+  <priority>0.8</priority>
+</url>
+<url>
+  <loc>https://www.quill.org/teacher-center/quill-launches-starter-and-intermediate-diagnostics</loc>
+  <lastmod>2023-03-08T08:46:23+01:00</lastmod>
+  <priority>0.8</priority>
+</url>
+<url>
+  <loc>https://www.quill.org/teacher-center/getting-started-video-introduction-to-quill-proofreader</loc>
+  <lastmod>2023-03-08T08:46:23+01:00</lastmod>
+  <priority>0.8</priority>
+</url>
+<url>
+  <loc>https://www.quill.org/teacher-center/structure-and-variety--rose-caruso-secondary-education-teacher</loc>
+  <lastmod>2023-03-08T08:46:23+01:00</lastmod>
+  <priority>0.8</priority>
+</url>
+<url>
+  <loc>https://www.quill.org/teacher-center/how-to-support-english-language-learners-using-quill-reading-for-evidence</loc>
+  <lastmod>2023-03-08T08:46:23+01:00</lastmod>
+  <priority>0.8</priority>
+</url>
+<url>
+  <loc>https://www.quill.org/teacher-center/getting-started-guide-for-premium-users-2</loc>
+  <lastmod>2023-03-08T08:46:23+01:00</lastmod>
+  <priority>0.8</priority>
+</url>
+<url>
+  <loc>https://www.quill.org/teacher-center/student-ownership--kaysi-adams-5th-grade-writing-teacher</loc>
+  <lastmod>2023-03-08T08:46:23+01:00</lastmod>
+  <priority>0.8</priority>
+</url>
+<url>
+  <loc>https://www.quill.org/teacher-center/using-quill-with-limited-access-to-computers</loc>
+  <lastmod>2023-03-08T08:46:23+01:00</lastmod>
+  <priority>0.8</priority>
+</url>
+<url>
+  <loc>https://www.quill.org/teacher-center/getting-started-video-an-overview-of-quill-lessons</loc>
+  <lastmod>2023-03-08T08:46:23+01:00</lastmod>
+  <priority>0.8</priority>
+</url>
+<url>
+  <loc>https://www.quill.org/teacher-center/--pdf----getting-started-guide-for-students</loc>
+  <lastmod>2023-03-08T08:46:23+01:00</lastmod>
+  <priority>0.8</priority>
+</url>
+<url>
+  <loc>https://www.quill.org/teacher-center/the-evidencebase-for-the-quill-reading-for-evidence-tool</loc>
+  <lastmod>2023-03-08T08:46:23+01:00</lastmod>
+  <priority>0.8</priority>
+</url>
+<url>
+  <loc>https://www.quill.org/teacher-center/quill-for-the-summer-sample-activity-schedule</loc>
+  <lastmod>2023-03-08T08:46:23+01:00</lastmod>
+  <priority>0.8</priority>
+</url>
+<url>
+  <loc>https://www.quill.org/teacher-center/quill-launches-50-new-passages</loc>
+  <lastmod>2023-03-08T08:46:23+01:00</lastmod>
+  <priority>0.8</priority>
+</url>
+<url>
+  <loc>https://www.quill.org/teacher-center/getting-started-video-assigning-a-growth-diagnostic</loc>
+  <lastmod>2023-03-08T08:46:23+01:00</lastmod>
+  <priority>0.8</priority>
+</url>
+<url>
+  <loc>https://www.quill.org/teacher-center/getting-started-navigating-the-student-dashboard</loc>
+  <lastmod>2023-03-08T08:46:23+01:00</lastmod>
+  <priority>0.8</priority>
+</url>
+<url>
+  <loc>https://www.quill.org/teacher-center/using-gradual-release--modeling-to-introduce-reading-for-evidence-practice</loc>
+  <lastmod>2023-03-08T08:46:23+01:00</lastmod>
+  <priority>0.8</priority>
+</url>
+<url>
+  <loc>https://www.quill.org/teacher-center/-pdf--write-your-own-quill-activity</loc>
+  <lastmod>2023-03-08T08:46:23+01:00</lastmod>
+  <priority>0.8</priority>
+</url>
+<url>
+  <loc>https://www.quill.org/teacher-center/loveyourlearning--denise-glenn-ela-writing-teacher</loc>
+  <lastmod>2023-03-08T08:46:23+01:00</lastmod>
+  <priority>0.8</priority>
+</url>
+<url>
+  <loc>https://www.quill.org/teacher-center/quillorg-launches-quill-lessons-to-support-group-writing-instruction</loc>
+  <lastmod>2023-03-08T08:46:23+01:00</lastmod>
+  <priority>0.8</priority>
+</url>
+<url>
+  <loc>https://www.quill.org/teacher-center/getting-the-most-out-of-your-customized-activity-packs</loc>
+  <lastmod>2023-03-08T08:46:23+01:00</lastmod>
+  <priority>0.8</priority>
+</url>
+<url>
+  <loc>https://www.quill.org/teacher-center/why-arent-reading-for-evidence-activities-given-a-score</loc>
+  <lastmod>2023-03-08T08:46:23+01:00</lastmod>
+  <priority>0.8</priority>
+</url>
+<url>
+  <loc>https://www.quill.org/teacher-center/-pdf--write-your-own-quill-proofreader-passage</loc>
+  <lastmod>2023-03-08T08:46:23+01:00</lastmod>
+  <priority>0.8</priority>
+</url>
+<url>
+  <loc>https://www.quill.org/teacher-center/--pdf----quills-preap-content--getting-started-checklist</loc>
+  <lastmod>2023-03-08T08:46:23+01:00</lastmod>
+  <priority>0.8</priority>
+</url>
+<url>
+  <loc>https://www.quill.org/teacher-center/quillorg-launches-new-diagnostic--sentence-combining-tools</loc>
+  <lastmod>2023-03-08T08:46:23+01:00</lastmod>
+  <priority>0.8</priority>
+</url>
+<url>
+  <loc>https://www.quill.org/teacher-center/quillorg-getting-started</loc>
+  <lastmod>2023-03-08T08:46:23+01:00</lastmod>
+  <priority>0.8</priority>
+</url>
+<url>
+  <loc>https://www.quill.org/teacher-center/best-practices-how-to-use-quill-when-you-dont-have-time-for-the-diagnostic</loc>
+  <lastmod>2023-03-08T08:46:23+01:00</lastmod>
+  <priority>0.8</priority>
+</url>
+<url>
+  <loc>https://www.quill.org/teacher-center/meeting-students-where-they-are--jennifer-beasley-8th-grade-ela-teacher</loc>
+  <lastmod>2023-03-08T08:46:23+01:00</lastmod>
+  <priority>0.8</priority>
+</url>
+<url>
+  <loc>https://www.quill.org/teacher-center/donate</loc>
+  <lastmod>2023-03-08T08:46:23+01:00</lastmod>
+  <priority>0.8</priority>
+</url>
+<url>
+  <loc>https://www.quill.org/teacher-center/--pdf----quills-ap-content--getting-started-checklist</loc>
+  <lastmod>2023-03-08T08:46:23+01:00</lastmod>
+  <priority>0.8</priority>
+</url>
+<url>
+  <loc>https://www.quill.org/teacher-center/assessing-student-performance-and-progress-in-reading-for-evidence-activities</loc>
+  <lastmod>2023-03-08T08:46:23+01:00</lastmod>
+  <priority>0.8</priority>
+</url>
+<url>
+  <loc>https://www.quill.org/teacher-center/-pdf--draw-a-quill-proofreader-passage</loc>
+  <lastmod>2023-03-08T08:46:23+01:00</lastmod>
+  <priority>0.8</priority>
+</url>
+<url>
+  <loc>https://www.quill.org/teacher-center/quill-and-masterybased-learning</loc>
+  <lastmod>2023-03-08T08:46:23+01:00</lastmod>
+  <priority>0.8</priority>
+</url>
+<url>
+  <loc>https://www.quill.org/teacher-center/--pdf----quills-springboard-content--getting-started-checklist</loc>
+  <lastmod>2023-03-08T08:46:23+01:00</lastmod>
+  <priority>0.8</priority>
+</url>
+<url>
+  <loc>https://www.quill.org/teacher-center/getting-started-using-quills-student-data-reports-basic</loc>
+  <lastmod>2023-03-08T08:46:23+01:00</lastmod>
+  <priority>0.8</priority>
+</url>
+<url>
+  <loc>https://www.quill.org/teacher-center/best-practices-how-can-supporting-students-during-independent-practice</loc>
+  <lastmod>2023-03-08T08:46:23+01:00</lastmod>
+  <priority>0.8</priority>
+</url>
+<url>
+  <loc>https://www.quill.org/teacher-center/evidence-expanding-sentences-pdf</loc>
+  <lastmod>2023-03-08T08:46:23+01:00</lastmod>
+  <priority>0.8</priority>
+</url>
+<url>
+  <loc>https://www.quill.org/teacher-center/-pdf--endofyear-checklist</loc>
+  <lastmod>2023-03-08T08:46:23+01:00</lastmod>
+  <priority>0.8</priority>
+</url>
+<url>
+  <loc>https://www.quill.org/teacher-center/getting-started-using-quills-student-data-reports-premium</loc>
+  <lastmod>2023-03-08T08:46:23+01:00</lastmod>
+  <priority>0.8</priority>
+</url>
+<url>
+  <loc>https://www.quill.org/teacher-center/student-center-video---why-is-quill-reading-for-evidence-important</loc>
+  <lastmod>2023-03-08T08:46:23+01:00</lastmod>
+  <priority>0.8</priority>
+</url>
+<url>
+  <loc>https://www.quill.org/teacher-center/--pdf----quills-preap-content</loc>
+  <lastmod>2023-03-08T08:46:23+01:00</lastmod>
+  <priority>0.8</priority>
+</url>
+<url>
+  <loc>https://www.quill.org/teacher-center/4-ways-to-use-quill-lessons</loc>
+  <lastmod>2023-03-08T08:46:23+01:00</lastmod>
+  <priority>0.8</priority>
+</url>
+<url>
+  <loc>https://www.quill.org/teacher-center/--pdf----quills-ap-content</loc>
+  <lastmod>2023-03-08T08:46:23+01:00</lastmod>
+  <priority>0.8</priority>
+</url>
+<url>
+  <loc>https://www.quill.org/teacher-center/-5</loc>
+  <lastmod>2023-03-08T08:46:23+01:00</lastmod>
+  <priority>0.8</priority>
+</url>
+<url>
+  <loc>https://www.quill.org/teacher-center/what-are-teachers-and-students-saying-about-quill-reading-for-evidence</loc>
+  <lastmod>2023-03-08T08:46:23+01:00</lastmod>
+  <priority>0.8</priority>
+</url>
+<url>
+  <loc>https://www.quill.org/teacher-center/tiny-tips-for-teachers-5-ways-to-wrap-up-the-school-year-with-quill</loc>
+  <lastmod>2023-03-08T08:46:23+01:00</lastmod>
+  <priority>0.8</priority>
+</url>
+<url>
+  <loc>https://www.quill.org/teacher-center/integrating-quill-into-college-board-classrooms</loc>
+  <lastmod>2023-03-08T08:46:23+01:00</lastmod>
+  <priority>0.8</priority>
+</url>
+<url>
+  <loc>https://www.quill.org/teacher-center/how-to-find-and-assign-quill-evidence-activities</loc>
+  <lastmod>2023-03-08T08:46:23+01:00</lastmod>
+  <priority>0.8</priority>
+</url>
+<url>
+  <loc>https://www.quill.org/teacher-center/--pdf----quills-springboard-content</loc>
+  <lastmod>2023-03-08T08:46:23+01:00</lastmod>
+  <priority>0.8</priority>
+</url>
+<url>
+  <loc>https://www.quill.org/teacher-center/tiny-tips-for-teachers-pacing-the-assignment-of-diagnostic-recommendations</loc>
+  <lastmod>2023-03-08T08:46:23+01:00</lastmod>
+  <priority>0.8</priority>
+</url>
+<url>
+  <loc>https://www.quill.org/teacher-center/student-center-video---why-is-writing-important</loc>
+  <lastmod>2023-03-08T08:46:23+01:00</lastmod>
+  <priority>0.8</priority>
+</url>
+<url>
+  <loc>https://www.quill.org/teacher-center/list-of-available-quill-reading-for-evidence-activities</loc>
+  <lastmod>2023-03-08T08:46:23+01:00</lastmod>
+  <priority>0.8</priority>
+</url>
+<url>
+  <loc>https://www.quill.org/teacher-center/tiny-tips-for-teachers-naming-packs-to-signal-purpose</loc>
+  <lastmod>2023-03-08T08:46:23+01:00</lastmod>
+  <priority>0.8</priority>
+</url>
+<url>
+  <loc>https://www.quill.org/teacher-center/using-quill-in-preap-english-1-and-2-classes</loc>
+  <lastmod>2023-03-08T08:46:23+01:00</lastmod>
+  <priority>0.8</priority>
+</url>
+<url>
+  <loc>https://www.quill.org/teacher-center/faq-quills-custom-content-for-preap-english-1-and-2</loc>
+  <lastmod>2023-03-08T08:46:23+01:00</lastmod>
+  <priority>0.8</priority>
+</url>
+<url>
+  <loc>https://www.quill.org/teacher-center/new-writing-skills-for-ap-survey--faq</loc>
+  <lastmod>2023-03-08T08:46:23+01:00</lastmod>
+  <priority>0.8</priority>
+</url>
+<url>
+  <loc>https://www.quill.org/teacher-center/tiny-tips-for-teachers-encourage-replay-for-improved-recall</loc>
+  <lastmod>2023-03-08T08:46:23+01:00</lastmod>
+  <priority>0.8</priority>
+</url>
+<url>
+  <loc>https://www.quill.org/teacher-center/faq-quills-custom-content-for-springboard-ela</loc>
+  <lastmod>2023-03-08T08:46:23+01:00</lastmod>
+  <priority>0.8</priority>
+</url>
+<url>
+  <loc>https://www.quill.org/teacher-center/tiny-tips-for-teachers-using-quill-lessons-as-a-remote-resource</loc>
+  <lastmod>2023-03-08T08:46:23+01:00</lastmod>
+  <priority>0.8</priority>
+</url>
+<url>
+  <loc>https://www.quill.org/teacher-center/student-center-video---connecting-ideas-with-joining-words</loc>
+  <lastmod>2023-03-08T08:46:23+01:00</lastmod>
+  <priority>0.8</priority>
+</url>
+<url>
+  <loc>https://www.quill.org/teacher-center/tiny-tips-for-teachers-modeling--thinking-aloud-with-quill</loc>
+  <lastmod>2023-03-08T08:46:23+01:00</lastmod>
+  <priority>0.8</priority>
+</url>
+<url>
+  <loc>https://www.quill.org/teacher-center/what-activities-should-i-assign-to-my-students-after-they-take-one-of-the-preap-writing-skills-surveys</loc>
+  <lastmod>2023-03-08T08:46:23+01:00</lastmod>
+  <priority>0.8</priority>
+</url>
+<url>
+  <loc>https://www.quill.org/teacher-center/student-center-video---adding-more-information-to-sentences</loc>
+  <lastmod>2023-03-08T08:46:23+01:00</lastmod>
+  <priority>0.8</priority>
+</url>
+<url>
+  <loc>https://www.quill.org/teacher-center/what-kind-of-activities-will-be-recommended-to-my-students-after-they-take-the-ap-writing-skills-survey</loc>
+  <lastmod>2023-03-08T08:46:23+01:00</lastmod>
+  <priority>0.8</priority>
+</url>
+<url>
+  <loc>https://www.quill.org/teacher-center/tiny-tips-for-teachers-quill--helping-students-type-well</loc>
+  <lastmod>2023-03-08T08:46:23+01:00</lastmod>
+  <priority>0.8</priority>
+</url>
+<url>
+  <loc>https://www.quill.org/teacher-center/what-activities-will-be-recommended-for-students-after-they-take-the-springboard-writing-skills-survey</loc>
+  <lastmod>2023-03-08T08:46:23+01:00</lastmod>
+  <priority>0.8</priority>
+</url>
+<url>
+  <loc>https://www.quill.org/teacher-center/student-center-video---combining-sentences-in-paragraphs</loc>
+  <lastmod>2023-03-08T08:46:23+01:00</lastmod>
+  <priority>0.8</priority>
+</url>
+<url>
+  <loc>https://www.quill.org/teacher-center/tiny-tips-for-teachers-using-quill-as-a-lesson-related-launching-activity</loc>
+  <lastmod>2023-03-08T08:46:23+01:00</lastmod>
+  <priority>0.8</priority>
+</url>
+<url>
+  <loc>https://www.quill.org/teacher-center/family-toolbox-start-a-quill-classroom-at-home</loc>
+  <lastmod>2023-03-08T08:46:23+01:00</lastmod>
+  <priority>0.8</priority>
+</url>
+<url>
+  <loc>https://www.quill.org/teacher-center/family-toolbox-creating-a-culture-of-writing-at-home</loc>
+  <lastmod>2023-03-08T08:46:23+01:00</lastmod>
+  <priority>0.8</priority>
+</url>
+<url>
+  <loc>https://www.quill.org/teacher-center/caja-de-herramientas-de-la-familia-empiece-una-clase-de-quill-en-casa</loc>
+  <lastmod>2023-03-08T08:46:23+01:00</lastmod>
+  <priority>0.8</priority>
+</url>
+<url>
+  <loc>https://www.quill.org/teacher-center/--pdf----quill-school--district-premium-overview-</loc>
+  <lastmod>2023-03-08T08:46:23+01:00</lastmod>
+  <priority>0.8</priority>
+</url>
+<url>
+  <loc>https://www.quill.org/teacher-center/caja-de-herramientas-de-la-familia-creacin-de-una-cultura-de-la-escritura-en-casa</loc>
+  <lastmod>2023-03-08T08:46:23+01:00</lastmod>
+  <priority>0.8</priority>
+</url>
+<url>
+  <loc>https://www.quill.org/teacher-center/quill-financial-aid</loc>
+  <lastmod>2023-03-08T08:46:23+01:00</lastmod>
+  <priority>0.8</priority>
+</url>
+<url>
+  <loc>https://www.quill.org/teacher-center/how-long-do-activities-take-how-frequently-should-i-assign-practice</loc>
+  <lastmod>2023-03-08T08:46:23+01:00</lastmod>
+  <priority>0.8</priority>
+</url>
+<url>
+  <loc>https://www.quill.org/teacher-center/activating-premium-on-your-quill-account</loc>
+  <lastmod>2023-03-08T08:46:23+01:00</lastmod>
+  <priority>0.8</priority>
+</url>
+<url>
+  <loc>https://www.quill.org/teacher-center/--pdf----quill-premium-resources</loc>
+  <lastmod>2023-03-08T08:46:23+01:00</lastmod>
+  <priority>0.8</priority>
+</url>
+<url>
+  <loc>https://www.quill.org/teacher-center/tiny-tips-for-teachers-grading-at-the-concept-level</loc>
+  <lastmod>2023-03-08T08:46:23+01:00</lastmod>
+  <priority>0.8</priority>
+</url>
+<url>
+  <loc>https://www.quill.org/teacher-center/what-grade-levels-is-quill-designed-for-and-how-do-i-find-content-for-the-grades-i-teach</loc>
+  <lastmod>2023-03-08T08:46:23+01:00</lastmod>
+  <priority>0.8</priority>
+</url>
+<url>
+  <loc>https://www.quill.org/teacher-center/tiny-tips-for-teachers-using-quills-diagnostics-to-measure-student-growth-</loc>
+  <lastmod>2023-03-08T08:46:23+01:00</lastmod>
+  <priority>0.8</priority>
+</url>
+<url>
+  <loc>https://www.quill.org/teacher-center/--pdf----quill-school-premium-renewal-guide</loc>
+  <lastmod>2023-03-08T08:46:23+01:00</lastmod>
+  <priority>0.8</priority>
+</url>
+<url>
+  <loc>https://www.quill.org/teacher-center/tiny-tips-for-teachers-5-ideas-for-students-who-have-completed-all-their-diagnostic-or-skills-survey-recommended-packs</loc>
+  <lastmod>2023-03-08T08:46:23+01:00</lastmod>
+  <priority>0.8</priority>
+</url>
+<url>
+  <loc>https://www.quill.org/teacher-center/--pdf----quill-and-the-regents</loc>
+  <lastmod>2023-03-08T08:46:23+01:00</lastmod>
+  <priority>0.8</priority>
+</url>
+<url>
+  <loc>https://www.quill.org/teacher-center/--pdf----quill-and-the-staar-test</loc>
+  <lastmod>2023-03-08T08:46:23+01:00</lastmod>
+  <priority>0.8</priority>
+</url>
+<url>
+  <loc>https://www.quill.org/teacher-center/tiny-tips-for-teachers-instruction-based-on-feedback</loc>
+  <lastmod>2023-03-08T08:46:23+01:00</lastmod>
+  <priority>0.8</priority>
+</url>
+<url>
+  <loc>https://www.quill.org/teacher-center/tiny-tips-for-teachers-using-quill-to-spark-discussions</loc>
+  <lastmod>2023-03-08T08:46:23+01:00</lastmod>
+  <priority>0.8</priority>
+</url>
+<url>
+  <loc>https://www.quill.org/teacher-center/quills-ell-implementation-guide-</loc>
+  <lastmod>2023-03-08T08:46:23+01:00</lastmod>
+  <priority>0.8</priority>
+</url>
+</urlset>
