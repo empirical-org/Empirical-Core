@@ -2929,6 +2929,16 @@ exports[`AdminDashboard container should render with a full access type 1`] = `
       <div
         className="teacher-account-access-container"
       >
+        <Snackbar
+          text="Sorry, only verified admins with a subscription to School or District Premium can access this feature."
+          visible={false}
+        >
+          <div
+            className="quill-snackbar "
+          >
+            Sorry, only verified admins with a subscription to School or District Premium can access this feature.
+          </div>
+        </Snackbar>
         <h2>
           Account Management
         </h2>
@@ -4206,6 +4216,7 @@ exports[`AdminDashboard container should render with a full access type 1`] = `
               ]
             }
             rows={Array []}
+            showActions={true}
           >
             <table
               className="data-table progress-report has-green-arrow"
@@ -4277,6 +4288,12 @@ exports[`AdminDashboard container should render with a full access type 1`] = `
                   }
                 >
                   Time Spent
+                </th>
+                <th
+                  className="data-table-header actions-header"
+                  scope="col"
+                >
+                  Actions
                 </th>
               </tr>
               <tbody
@@ -7233,6 +7250,16 @@ exports[`AdminDashboard container should render with a limited access type 1`] =
       <div
         className="teacher-account-access-container"
       >
+        <Snackbar
+          text="Sorry, only verified admins with a subscription to School or District Premium can access this feature."
+          visible={false}
+        >
+          <div
+            className="quill-snackbar "
+          >
+            Sorry, only verified admins with a subscription to School or District Premium can access this feature.
+          </div>
+        </Snackbar>
         <h2>
           Account Management
         </h2>
@@ -8510,6 +8537,7 @@ exports[`AdminDashboard container should render with a limited access type 1`] =
               ]
             }
             rows={Array []}
+            showActions={true}
           >
             <table
               className="data-table progress-report has-green-arrow"
@@ -8581,6 +8609,12 @@ exports[`AdminDashboard container should render with a limited access type 1`] =
                   }
                 >
                   Time Spent
+                </th>
+                <th
+                  className="data-table-header actions-header"
+                  scope="col"
+                >
+                  Actions
                 </th>
               </tr>
               <tbody
@@ -11537,6 +11571,16 @@ exports[`AdminDashboard container should render with a restricted access type 1`
       <div
         className="teacher-account-access-container"
       >
+        <Snackbar
+          text="Sorry, only verified admins with a subscription to School or District Premium can access this feature."
+          visible={false}
+        >
+          <div
+            className="quill-snackbar "
+          >
+            Sorry, only verified admins with a subscription to School or District Premium can access this feature.
+          </div>
+        </Snackbar>
         <h2>
           Account Management
         </h2>
@@ -12814,6 +12858,7 @@ exports[`AdminDashboard container should render with a restricted access type 1`
               ]
             }
             rows={Array []}
+            showActions={true}
           >
             <table
               className="data-table progress-report has-green-arrow"
@@ -12885,6 +12930,12 @@ exports[`AdminDashboard container should render with a restricted access type 1`
                   }
                 >
                   Time Spent
+                </th>
+                <th
+                  className="data-table-header actions-header"
+                  scope="col"
+                >
+                  Actions
                 </th>
               </tr>
               <tbody
