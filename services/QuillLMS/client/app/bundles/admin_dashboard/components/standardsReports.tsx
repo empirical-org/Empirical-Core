@@ -15,6 +15,7 @@ export const StandardsReports = ({
         <p>
             Each activity on Quill is aligned to a Common Core standard. This report shows the school’s overall progress on each of the standards. You can print this report by downloading a PDF file or export this data by downloading a CSV file. The data you see below is capturing historical activity data for your school.
         </p>
+        <p><b>These reports are updated nightly.</b></p>
       </div>
       <div className="csv-and-how-we-grade">
         <CSVDownloadForProgressReport data={csvData} />
