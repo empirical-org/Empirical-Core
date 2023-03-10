@@ -168,28 +168,7 @@ const SchoolSelector = ({ selectSchool, showDismissSchoolSelectionReminderCheckb
     return <ul className="list quill-list double-line">{schoolItems}{noSchoolSelectedSchoolOption}</ul>
   }
 
-  const renderSchoolsListSection = () => {
-    let title
-    let schoolsListOrEmptyState
-
-    if (loading) {
-      schoolsListOrEmptyState = renderLoading()
-    } else if (search.length >= MINIMUM_SEARCH_LENGTH) {
-      schoolsListOrEmptyState = renderSchoolsList(schools)
-    } else {
-      schoolsListOrEmptyState = renderDefault()
-    }
-
-    return (
-      <div className="schools-list-section">
-        <div className="title">Results</div>
-        {schoolsListOrEmptyState}
-        {schoolNotListed()}
-      </div>
-    )
-  }
-
-  const schoolNotListed = () => {
+  const skipForNowCheckbox = () => {
     if (disableSkipForNow) { return }
 
     let checkbox = (
@@ -225,6 +204,27 @@ const SchoolSelector = ({ selectSchool, showDismissSchoolSelectionReminderCheckb
       <div className="school-not-listed">
         <button className="interactive-wrapper" onClick={handleSkipClick} type="button">Skip for now</button>
         {checkboxWrapper}
+      </div>
+    )
+  }
+
+  const renderSchoolsListSection = () => {
+    let title
+    let schoolsListOrEmptyState
+
+    if (loading) {
+      schoolsListOrEmptyState = renderLoading()
+    } else if (search.length >= MINIMUM_SEARCH_LENGTH) {
+      schoolsListOrEmptyState = renderSchoolsList(schools)
+    } else {
+      schoolsListOrEmptyState = renderDefault()
+    }
+
+    return (
+      <div className="schools-list-section">
+        <div className="title">Results</div>
+        {schoolsListOrEmptyState}
+        {skipForNowCheckbox()}
       </div>
     )
   }
