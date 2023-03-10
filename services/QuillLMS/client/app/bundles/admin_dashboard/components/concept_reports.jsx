@@ -25,6 +25,7 @@ const ConceptReports = ({
         <p>
             Each question on Quill targets a specific writing concept. This report shows the number of times the student correctly or incorrectly used the targeted concept to answer the question. You can print this report by downloading a PDF file or export this data by downloading a CSV file.
         </p>
+        <p><b>These reports are updated nightly.</b></p>
       </div>
       <div className="csv-and-how-we-grade">
         <CSVDownloadForProgressReport data={csvData} />
