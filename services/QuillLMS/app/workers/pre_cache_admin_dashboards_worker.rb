@@ -9,9 +9,6 @@ class PreCacheAdminDashboardsWorker
 
     active_admin_ids.each do |id|
       FindAdminUsersWorker.set(queue: SidekiqQueue::DEFAULT).perform_async(id)
-      FindDistrictActivityScoresWorker.set(queue: SidekiqQueue::DEFAULT).perform_async(id)
-      FindDistrictStandardsReportsWorker.set(queue: SidekiqQueue::DEFAULT).perform_async(id)
-      FindDistrictConceptReportsWorker.set(queue: SidekiqQueue::DEFAULT).perform_async(id)
     end
   end
 end
