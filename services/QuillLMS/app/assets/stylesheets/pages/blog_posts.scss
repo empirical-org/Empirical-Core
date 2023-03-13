@@ -37,6 +37,9 @@ $blogpostlightteal: rgba(44, 127, 155, 0.08);
 }
 
 .topic-section, .preview-card-link {
+  .quill-button:hover, .quill-button:focus {
+    filter: brightness(110%) !important;
+  }
   &.green {
     h1, h3 {
       color: $blogpostgreen;
@@ -46,6 +49,12 @@ $blogpostlightteal: rgba(44, 127, 155, 0.08);
     }
     .quill-button {
       background-color: $blogpostgreen;
+    }
+    .quill-button:hover, .quill-button:focus {
+      background-color: $blogpostgreen;
+    }
+    .quill-button:focus {
+      outline: dashed 2px $blogpostgreen;
     }
   }
   &.purple {
@@ -58,6 +67,12 @@ $blogpostlightteal: rgba(44, 127, 155, 0.08);
     .quill-button {
       background-color: $blogpostpurple;
     }
+    .quill-button:hover, .quill-button:focus {
+      background-color: $blogpostpurple !important;
+    }
+    .quill-button:focus {
+      outline: dashed 2px $blogpostpurple;
+    }
   }
   &.blue {
     h1, h3 {
@@ -68,6 +83,12 @@ $blogpostlightteal: rgba(44, 127, 155, 0.08);
     }
     .quill-button {
       background-color: $blogpostblue;
+    }
+    .quill-button:hover, .quill-button:focus {
+      background-color: $blogpostblue !important;
+    }
+    .quill-button:focus {
+      outline: dashed 2px $blogpostblue;
     }
   }
   &.gold {
@@ -80,6 +101,12 @@ $blogpostlightteal: rgba(44, 127, 155, 0.08);
     .quill-button {
       background-color: $blogpostgold;
     }
+    .quill-button:hover, .quill-button:focus {
+      background-color: $blogpostgold !important;
+    }
+    .quill-button:focus {
+      outline: dashed 2px $blogpostgold;
+    }
   }
   &.red {
     h1, h3 {
@@ -90,6 +117,12 @@ $blogpostlightteal: rgba(44, 127, 155, 0.08);
     }
     .quill-button {
       background-color: $blogpostred;
+    }
+    .quill-button:hover, .quill-button:focus {
+      background-color: $blogpostred !important;
+    }
+    .quill-button:focus {
+      outline: dashed 2px $blogpostred;
     }
   }
   &.violet {
@@ -102,6 +135,12 @@ $blogpostlightteal: rgba(44, 127, 155, 0.08);
     .quill-button {
       background-color: $blogpostviolet;
     }
+    .quill-button:hover, .quill-button:focus {
+      background-color: $blogpostviolet !important;
+    }
+    .quill-button:focus {
+      outline: dashed 2px $blogpostviolet;
+    }
   }
   &.teal {
     h1, h3 {
@@ -112,6 +151,12 @@ $blogpostlightteal: rgba(44, 127, 155, 0.08);
     }
     .quill-button {
       background-color: $blogpostteal;
+    }
+    .quill-button:hover, .quill-button:focus {
+      background-color: $blogpostteal !important;
+    }
+    .quill-button:focus {
+      outline: dashed 2px $blogpostteal;
     }
   }
 }
