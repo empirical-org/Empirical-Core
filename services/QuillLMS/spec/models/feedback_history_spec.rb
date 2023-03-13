@@ -432,14 +432,17 @@ RSpec.describe FeedbackHistory, type: :model do
       @current_activity_version = 2
       @previous_activity_version = 1
       @user = create(:user)
-      @first_session_feedback1 = create(:feedback_history, feedback_session_uid: @activity_session1_uid, prompt_id: @because_prompt1.id, optimal: false, activity_version: @current_activity_version)
-      @first_session_feedback2 = create(:feedback_history, feedback_session_uid: @activity_session1_uid, prompt_id: @because_prompt1.id, attempt: 2, optimal: true, activity_version: @current_activity_version)
-      @first_session_feedback3 = create(:feedback_history, feedback_session_uid: @activity_session1_uid, prompt_id: @but_prompt1.id, optimal: true, activity_version: @current_activity_version)
-      @first_session_feedback4 = create(:feedback_history, feedback_session_uid: @activity_session1_uid, prompt_id: @so_prompt1.id, optimal: false, activity_version: @current_activity_version)
-      @first_session_feedback5 = create(:feedback_history, feedback_session_uid: @activity_session1_uid, prompt_id: @so_prompt1.id, attempt: 2, optimal: false, activity_version: @current_activity_version)
-      @first_session_feedback6 = create(:feedback_history, feedback_session_uid: @activity_session1_uid, prompt_id: @so_prompt1.id, attempt: 3, optimal: true, activity_version: @current_activity_version)
-      @second_session_feedback1 = create(:feedback_history, feedback_session_uid: @activity_session2_uid, prompt_id: @because_prompt2.id, optimal: true, activity_version: @previous_activity_version)
-      @second_session_feedback2 = create(:feedback_history, feedback_session_uid: @activity_session2_uid, prompt_id: @because_prompt2.id, attempt: 2, optimal: false, activity_version: @previous_activity_version)
+
+      @first_session_feedback1 = create(:feedback_history, feedback_session_uid: @activity_session1_uid, prompt_id: @because_prompt1.id, optimal: false, activity_version: @current_activity_version, time: 10.hours.ago)
+      @first_session_feedback2 = create(:feedback_history, feedback_session_uid: @activity_session1_uid, prompt_id: @because_prompt1.id, attempt: 2, optimal: true, activity_version: @current_activity_version, time: 9.hours.ago)
+      @first_session_feedback3 = create(:feedback_history, feedback_session_uid: @activity_session1_uid, prompt_id: @but_prompt1.id, optimal: true, activity_version: @current_activity_version, time: 8.hours.ago)
+      @first_session_feedback4 = create(:feedback_history, feedback_session_uid: @activity_session1_uid, prompt_id: @so_prompt1.id, optimal: false, activity_version: @current_activity_version, time: 7.hours.ago)
+      @first_session_feedback5 = create(:feedback_history, feedback_session_uid: @activity_session1_uid, prompt_id: @so_prompt1.id, attempt: 2, optimal: false, activity_version: @current_activity_version, time: 7.hours.ago)
+      @first_session_feedback6 = create(:feedback_history, feedback_session_uid: @activity_session1_uid, prompt_id: @so_prompt1.id, attempt: 3, optimal: true, activity_version: @current_activity_version, time: 6.hours.ago)
+
+      @second_session_feedback1 = create(:feedback_history, feedback_session_uid: @activity_session2_uid, prompt_id: @because_prompt2.id, optimal: true, activity_version: @previous_activity_version, time: 5.hours.ago)
+      @second_session_feedback2 = create(:feedback_history, feedback_session_uid: @activity_session2_uid, prompt_id: @because_prompt2.id, attempt: 2, optimal: false, activity_version: @previous_activity_version, time: 4.hours.ago)
+
       create(:feedback_history_flag, feedback_history: @first_session_feedback1, flag: FeedbackHistoryFlag::FLAG_REPEATED_RULE_CONSECUTIVE)
       create(:feedback_history_rating, user_id: @user.id, rating: true, feedback_history_id: @first_session_feedback3.id)
       create(:feedback_history_rating, user_id: @user.id, rating: false, feedback_history_id: @first_session_feedback4.id)
@@ -651,7 +654,9 @@ RSpec.describe FeedbackHistory, type: :model do
         params2 = { user_id: @user2.id, feedback_history_id: @feedback_history.id, rating: true }
         rating1 = create(:feedback_history_rating, params1)
         rating2 = create(:feedback_history_rating, params2)
-        expect(@feedback_history.most_recent_rating).to eq true
+        most_recent_rating = [rating1, rating2].max_by(&:updated_at)
+
+        expect(@feedback_history.most_recent_rating).to eq most_recent_rating.rating
       end
     end
 
@@ -664,8 +669,9 @@ RSpec.describe FeedbackHistory, type: :model do
       end
 
       it 'should take the query from #session_data_for_csv and return a shaped payload' do
-        responses = FeedbackHistory.session_data_for_csv
-        responses.map { |r| r.serialize_csv_data }.each_with_index do |response, i|
+        responses = FeedbackHistory.session_data_for_csv.map(&:serialize_csv_data)
+
+        responses.each_with_index do |response, i|
           expect(response["session_uid"]).to eq(@histories[i].feedback_session_uid)
           expect(response["conjunction"]).to eq(@prompts[i].conjunction)
           expect(response["optimal"]).to eq(@histories[i].optimal)
@@ -678,11 +684,12 @@ RSpec.describe FeedbackHistory, type: :model do
       end
 
       it 'should take the query from #session_data_for_csv and return a shaped payload with records qualifying for scoring' do
-        responses = FeedbackHistory.session_data_for_csv(responses_for_scoring: true)
         histories_for_scoring = @histories[2..-1]
         prompts_for_scoring = @prompts[2..-1]
 
-        responses.map { |r| r.serialize_csv_data }.each_with_index do |response, i|
+        responses = FeedbackHistory.session_data_for_csv(responses_for_scoring: true).map(&:serialize_csv_data)
+
+        responses.each_with_index do |response, i|
           expect(response["session_uid"]).to eq(histories_for_scoring[i].feedback_session_uid)
           expect(response["conjunction"]).to eq(prompts_for_scoring[i].conjunction)
           expect(response["optimal"]).to eq(histories_for_scoring[i].optimal)
@@ -690,7 +697,7 @@ RSpec.describe FeedbackHistory, type: :model do
           expect(response["response"]).to eq(histories_for_scoring[i].entry)
           expect(response["feedback"]).to eq(histories_for_scoring[i].feedback_text)
           expect(response["feedback_type"]).to eq(histories_for_scoring[i].feedback_type)
-          expect(response["datetime"]).to be_within(1.second).of @histories[i].time
+          expect(response["datetime"]).to be_within(1.second).of histories_for_scoring[i].time
         end
       end
     end
