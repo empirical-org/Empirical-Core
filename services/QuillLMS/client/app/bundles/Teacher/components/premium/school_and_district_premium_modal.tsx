@@ -41,7 +41,7 @@ const SchoolSelectionStage = ({ eligibleSchools, selectedSchool, goToStripeWithS
       <div className="modal-container school-and-district-premium-modal-container">
         <div className="modal-background" />
         <div className="school-and-district-premium-modal stage-two quill-modal modal-body">
-          <SchoolSelector selectSchool={selectSchool} />
+          <SchoolSelector disableSkipForNow={true} selectSchool={selectSchool} />
         </div>
       </div>
     )

@@ -47,6 +47,8 @@ EmpiricalGrammar::Application.routes.draw do
 
   post 'admins/:id/create_and_link_accounts', to: 'admins#create_and_link_accounts'
 
+  get '/sitemap.xml', to: redirect("https://quill-cdn.s3.amazonaws.com/documents/quill_sitemap.xml")
+
   # this blog post needs to be redirected
   get '/teacher-center/4-tips-to-maximize-remote-learning-with-quill' => redirect('teacher-center/teacher-toolbox-setting-up-remote-routines-with-quill')
 

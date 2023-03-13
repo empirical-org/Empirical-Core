@@ -45,10 +45,10 @@ export default class BlogPost extends React.Component {
     )
   }
 
-  renderMostRecentPosts() {
-    const { mostRecentPosts, } = this.props
+  renderRelatedPosts() {
+    const { relatedPosts, } = this.props
 
-    return mostRecentPosts.map(post =>
+    return relatedPosts.map(post =>
       (<PreviewCard
         color={BLOG_POST_TO_COLOR[post.topic]}
         content={post.preview_card_content}
@@ -100,7 +100,7 @@ export default class BlogPost extends React.Component {
               <a className="quill-button contained primary fun focus-on-light" href={`/${TEACHER_CENTER_SLUG}`}>Show more</a>
             </h2>
             <div id='preview-card-container'>
-              {this.renderMostRecentPosts()}
+              {this.renderRelatedPosts()}
             </div>
           </div>
         </div>

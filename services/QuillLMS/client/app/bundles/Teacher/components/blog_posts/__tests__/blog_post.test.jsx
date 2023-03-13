@@ -6,7 +6,7 @@ import { blogPosts, blogPostWithBody, author, } from './data'
 import BlogPost from '../blog_post';
 
 const props = {
-  mostRecentPosts: blogPosts,
+  relatedPosts: blogPosts,
   blogPost: blogPostWithBody,
   author
 }
@@ -16,5 +16,4 @@ describe('BlogPost component', () => {
     const wrapper = mount(<BlogPost {...props} />)
     expect(wrapper).toMatchSnapshot()
   })
-
 })
