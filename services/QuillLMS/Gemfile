@@ -165,7 +165,6 @@ group :development do
   gem 'foreman'
   gem 'graphiql-rails'
   gem 'letter_opener'
-  gem 'memory_profiler'
   gem 'spring'
   gem 'spring-commands-rspec'
   gem 'annotate'
@@ -191,6 +190,7 @@ group :test, :development do
   gem 'rspec-retry'
   gem 'rspec-redis_helper'
   gem 'brakeman', '= 4.1.1'
+  gem 'memory_profiler'
 end
 
 group :test, :development, :cypress do

@@ -92,6 +92,7 @@ class Unit < ApplicationRecord
         .joins("JOIN units ON unit_activities.unit_id = #{id}")
         .where( "activities.activity_classification_id = 6 AND activities.supporting_info IS NOT NULL")
         .pluck(:id)
+        .uniq
 
     return if activity_ids.empty?
 
