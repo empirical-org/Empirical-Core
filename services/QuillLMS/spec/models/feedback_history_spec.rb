@@ -652,9 +652,11 @@ RSpec.describe FeedbackHistory, type: :model do
       it 'should return the most recent FeedbackHistoryRating rating' do
         params1 = { user_id: @user1.id, feedback_history_id: @feedback_history.id, rating: false }
         params2 = { user_id: @user2.id, feedback_history_id: @feedback_history.id, rating: true }
-        rating1 = create(:feedback_history_rating, params1, updated_at: 2.hours.ago)
-        rating2 = create(:feedback_history_rating, params2, updated_at: 1.hour.ago)
-        expect(@feedback_history.most_recent_rating).to eq true
+        rating1 = create(:feedback_history_rating, params1)
+        rating2 = create(:feedback_history_rating, params2)
+        most_recent_rating = [rating1, rating2].max_by(&:updated_at)
+
+        expect(@feedback_history.most_recent_rating).to eq most_recent_rating.rating
       end
     end
 
