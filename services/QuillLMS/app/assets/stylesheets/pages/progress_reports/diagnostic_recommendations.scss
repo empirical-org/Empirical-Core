@@ -138,7 +138,6 @@
       border-collapse: separate;
       border-spacing: 0;
       table-layout: fixed;
-      padding-right: 32px;
       &.empty {
         border-right: 1px solid #e0e0e0;
         border-bottom: 1px solid #e0e0e0;
@@ -209,7 +208,9 @@
     }
 
     .recommendations-table-wrapper {
-      width: 80%;
+      .smaller-width {
+        width: 80%;
+      }
       overflow-x: scroll;
     }
 

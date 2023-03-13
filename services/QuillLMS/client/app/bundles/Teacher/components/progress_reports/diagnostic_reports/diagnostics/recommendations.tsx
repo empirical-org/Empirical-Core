@@ -503,6 +503,8 @@ export const Recommendations = ({ passedPreviouslyAssignedRecommendations, passe
 
   const showPostTestAssignmentColumn = studentsWhoCompletedDiagnostic.length && postDiagnosticUnitTemplateId && !isPostDiagnostic
 
+  const widthClass = showPostTestAssignmentColumn ? "smaller-width" : ""
+
   const recommendedKey = (<div className="recommended-key">
     <div className="recommended-image">{recommendedGlyph}</div>
     <div>
@@ -521,7 +523,7 @@ export const Recommendations = ({ passedPreviouslyAssignedRecommendations, passe
           <h2>Independent practice</h2>{recommendedKey}
         </div>
         <div className="recommendations-table-container">
-          <div className="recommendations-table-wrapper">
+          <div className={`recommendations-table-wrapper ${widthClass}`}>
             <IndependentRecommendationsButtons
               assigned={independentAssigned}
               assignedPostTest={postTestAssigned}

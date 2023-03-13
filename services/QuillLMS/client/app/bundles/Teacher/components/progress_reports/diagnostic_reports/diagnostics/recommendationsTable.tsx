@@ -276,7 +276,7 @@ const RecommendationsTable = ({ postTestSelections, previouslyAssignedPostTestSt
     return (
       <thead>
         <tr>
-          {isPostTest ? null : <th className="corner-header" style={sticky ? style : {}}>Name</th>}
+          {isPostTest ? null : <th className="corner-header">Name</th>}
           {isPostTest ? renderPostTestTableHeader() : tableHeaders}
         </tr>
       </thead>
