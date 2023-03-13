@@ -34,11 +34,11 @@ class SchoolsAdmins < ApplicationRecord
   end
 
   def wipe_cache
-    $redis.del("#{ADMIN_USERS_CACHE_KEY_STEM}#{user_id}")
-    $redis.del("#{DISTRICT_ACTIVITY_SCORES_CACHE_KEY_STEM}#{user_id}")
-    $redis.del("#{DISTRICT_CONCEPT_REPORTS_CACHE_KEY_STEM}#{user_id}")
-    $redis.del("#{DISTRICT_STANDARD_REPORTS_CACHE_KEY_STEM}#{user_id}")
-    $redis.del("#{FREEMIUM_DISTRICT_STANDARD_REPORTS_CACHE_KEY_STEM}#{user_id}")
+    Rails.cache.delete("#{ADMIN_USERS_CACHE_KEY_STEM}#{user_id}")
+    Rails.cache.delete("#{DISTRICT_ACTIVITY_SCORES_CACHE_KEY_STEM}#{user_id}")
+    Rails.cache.delete("#{DISTRICT_CONCEPT_REPORTS_CACHE_KEY_STEM}#{user_id}")
+    Rails.cache.delete("#{DISTRICT_STANDARD_REPORTS_CACHE_KEY_STEM}#{user_id}")
+    Rails.cache.delete("#{FREEMIUM_DISTRICT_STANDARD_REPORTS_CACHE_KEY_STEM}#{user_id}")
   end
 
   private def set_user_role

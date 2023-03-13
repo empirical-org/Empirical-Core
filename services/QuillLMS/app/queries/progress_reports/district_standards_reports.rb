@@ -1,13 +1,13 @@
 # frozen_string_literal: true
 
 class ProgressReports::DistrictStandardsReports
-  attr_reader :admin_id
+  attr_reader :admin_id, :is_freemium
 
   FREEMIUM_LIMIT = 10
 
-  def initialize(admin_id, is_fremium_view)
+  def initialize(admin_id, is_freemium)
     @admin_id = admin_id
-    @is_fremium_view = is_fremium_view
+    @is_freemium = is_freemium
   end
 
   def results
@@ -17,11 +17,11 @@ class ProgressReports::DistrictStandardsReports
     ids = user_ids(admin_id)
     return [] if ids.empty?
 
-    RawSqlRunner.execute(query(ids, @is_fremium_view)).to_a
+    RawSqlRunner.execute(query(ids)).to_a
   end
 
-  private def query(user_ids, is_fremium_view)
-    limit = is_fremium_view ? FREEMIUM_LIMIT : 'NULL'
+  private def query(user_ids)
+    limit = @is_freemium ? FREEMIUM_LIMIT : 'NULL'
     <<~SQL
       WITH final_activity_sessions AS (
         SELECT

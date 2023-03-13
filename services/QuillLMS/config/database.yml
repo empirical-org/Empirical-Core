@@ -27,11 +27,13 @@ heroku_env: &heroku_env
 
 development:
   primary:
-    <<: *local_shared
-    database: emp_gr_development
+    # <<: *local_shared
+    # database: emp_gr_development
+    url: <%= ENV['DATABASE_URL'] %>
   replica:
-    <<: *local_shared
-    database: emp_gr_development
+    # <<: *local_shared
+    # database: emp_gr_development
+    url: <%= ENV['DATABASE_URL'] %>
     replica: true
 
 # Warning: The database defined as "test" will be erased and
