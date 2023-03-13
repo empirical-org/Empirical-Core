@@ -432,14 +432,17 @@ RSpec.describe FeedbackHistory, type: :model do
       @current_activity_version = 2
       @previous_activity_version = 1
       @user = create(:user)
-      @first_session_feedback1 = create(:feedback_history, feedback_session_uid: @activity_session1_uid, prompt_id: @because_prompt1.id, optimal: false, activity_version: @current_activity_version)
+
+      @first_session_feedback1 = create(:feedback_history, feedback_session_uid: @activity_session1_uid, prompt_id: @because_prompt1.id, optimal: false, activity_version: @current_activity_version, time: 2.hours.ago)
       @first_session_feedback2 = create(:feedback_history, feedback_session_uid: @activity_session1_uid, prompt_id: @because_prompt1.id, attempt: 2, optimal: true, activity_version: @current_activity_version)
       @first_session_feedback3 = create(:feedback_history, feedback_session_uid: @activity_session1_uid, prompt_id: @but_prompt1.id, optimal: true, activity_version: @current_activity_version)
       @first_session_feedback4 = create(:feedback_history, feedback_session_uid: @activity_session1_uid, prompt_id: @so_prompt1.id, optimal: false, activity_version: @current_activity_version)
       @first_session_feedback5 = create(:feedback_history, feedback_session_uid: @activity_session1_uid, prompt_id: @so_prompt1.id, attempt: 2, optimal: false, activity_version: @current_activity_version)
       @first_session_feedback6 = create(:feedback_history, feedback_session_uid: @activity_session1_uid, prompt_id: @so_prompt1.id, attempt: 3, optimal: true, activity_version: @current_activity_version)
-      @second_session_feedback1 = create(:feedback_history, feedback_session_uid: @activity_session2_uid, prompt_id: @because_prompt2.id, optimal: true, activity_version: @previous_activity_version)
+
+      @second_session_feedback1 = create(:feedback_history, feedback_session_uid: @activity_session2_uid, prompt_id: @because_prompt2.id, optimal: true, activity_version: @previous_activity_version, time: 1.hour.ago)
       @second_session_feedback2 = create(:feedback_history, feedback_session_uid: @activity_session2_uid, prompt_id: @because_prompt2.id, attempt: 2, optimal: false, activity_version: @previous_activity_version)
+
       create(:feedback_history_flag, feedback_history: @first_session_feedback1, flag: FeedbackHistoryFlag::FLAG_REPEATED_RULE_CONSECUTIVE)
       create(:feedback_history_rating, user_id: @user.id, rating: true, feedback_history_id: @first_session_feedback3.id)
       create(:feedback_history_rating, user_id: @user.id, rating: false, feedback_history_id: @first_session_feedback4.id)
@@ -649,8 +652,8 @@ RSpec.describe FeedbackHistory, type: :model do
       it 'should return the most recent FeedbackHistoryRating rating' do
         params1 = { user_id: @user1.id, feedback_history_id: @feedback_history.id, rating: false }
         params2 = { user_id: @user2.id, feedback_history_id: @feedback_history.id, rating: true }
-        rating1 = create(:feedback_history_rating, params1)
-        rating2 = create(:feedback_history_rating, params2)
+        rating1 = create(:feedback_history_rating, params1, updated_at: 2.hours.ago)
+        rating2 = create(:feedback_history_rating, params2, updated_at: 1.hour.ago)
         expect(@feedback_history.most_recent_rating).to eq true
       end
     end
