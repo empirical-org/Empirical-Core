@@ -1,6 +1,9 @@
 import * as React from 'react';
-import ReactMarkdown from 'react-markdown';
+
+import PreviewCard from './preview_card.jsx';
+
 import { requestGet } from '../../../../modules/request';
+
 
 interface ArticleSpotlightProps {
   backgroundColor?: string,
@@ -9,7 +12,6 @@ interface ArticleSpotlightProps {
 
 export const ArticleSpotlight = ({ backgroundColor, blogPostId } : ArticleSpotlightProps ) => {
   const [blogPost, setBlogPost] = React.useState(null);
-  const [blogPostAuthor, setBlogPostAuthor] = React.useState(null);
 
   React.useEffect(() => {
     getBlogPost(blogPostId)
@@ -17,11 +19,10 @@ export const ArticleSpotlight = ({ backgroundColor, blogPostId } : ArticleSpotli
 
   function getBlogPost(id: string) {
     requestGet(`/featured_blog_post/${id}`,
-      (data) => {
-        if(data.blog_post && data.author) {
-          const { blog_post, author } = data;
+    (data) => {
+        if(data.blog_post) {
+          const { blog_post} = data;
           setBlogPost(blog_post)
-          setBlogPostAuthor(author)
         }
       }
     )
@@ -29,7 +30,7 @@ export const ArticleSpotlight = ({ backgroundColor, blogPostId } : ArticleSpotli
 
   if(!blogPost) { return <span /> }
 
-  const { title, body, slug } = blogPost;
+  const { title, slug, preview_card_content, external_link } = blogPost;
   const teacherCenterBaseUrl = `${process.env.DEFAULT_URL}/teacher-center`;
   const backgroundColorStyle = backgroundColor ? { backgroundColor: backgroundColor } : {};
 
@@ -41,16 +42,14 @@ export const ArticleSpotlight = ({ backgroundColor, blogPostId } : ArticleSpotli
             <h3>Helpful Article</h3>
             <p>Want more guidance with your implementation of Quill? Check out these articles written by Quill&apos;s instructional coaches and curriculum team.</p>
           </section>
-          <a className="quill-button contained primary fun" href={teacherCenterBaseUrl} rel="noopener noreferrer" target="_blank">Show more</a>
+          <a className="quill-button contained primary fun focus-on-light" href={teacherCenterBaseUrl} rel="noopener noreferrer" target="_blank">Show more</a>
         </div>
-        <section className="content-section">
-          <h4>{title}</h4>
-          <ReactMarkdown className="preview-card" source={body} />
-          <section className="footer-section">
-            {blogPostAuthor && <p className="author">{`By ${blogPostAuthor}`}</p>}
-            <a className="quill-button contained primary fun" href={`${teacherCenterBaseUrl}/${slug}`} rel="noopener noreferrer" target="_blank">Read</a>
-          </section>
-        </section>
+        <PreviewCard
+          content={preview_card_content}
+          externalLink={!!external_link}
+          key={title}
+          link={external_link ? external_link : `/teacher-center/${slug}`}
+        />
       </div>
     </div>
   )

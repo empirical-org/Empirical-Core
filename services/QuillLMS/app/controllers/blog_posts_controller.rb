@@ -63,9 +63,8 @@ class BlogPostsController < ApplicationController
   end
 
   def featured_blog_post
-    blog_post = BlogPost.find(params[:id])
-    author = blog_post&.author&.name
-    render json: { blog_post: blog_post, author: author }
+    featured_blog_post = BlogPost.find(params[:id])
+    render json: { blog_post: featured_blog_post }
   end
 
   def show_topic

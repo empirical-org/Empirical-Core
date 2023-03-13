@@ -3,7 +3,6 @@
   justify-content: center;
   width: 100%;
   background-color: #FFFFFF;
-  // background-color: #F4F4F4;
   .inner-container {
     max-width: 1200px;
     width: 100%;
@@ -24,6 +23,20 @@
         p {
           line-height: 30px;
         }
+      }
+    }
+    .preview-card {
+      height: auto;
+      .preview-card-body {
+        h3 {
+          height: auto;
+        }
+        p {
+          height: auto;
+        }
+      }
+      .preview-card-footer {
+        padding-bottom: 8px;
       }
     }
     .content-section {
