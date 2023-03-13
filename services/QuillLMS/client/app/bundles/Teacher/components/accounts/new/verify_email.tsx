@@ -2,7 +2,7 @@ import * as React from 'react';
 import qs from 'qs'
 
 import AssignActivityPackBanner from '../assignActivityPackBanner'
-import { Snackbar, defaultSnackbarTimeout, Spinner, ADMIN, TEACHER, } from '../../../../Shared/index'
+import { Snackbar, defaultSnackbarTimeout, Spinner, ADMIN, } from '../../../../Shared/index'
 import useSnackbarMonitor from '../../../../Shared/hooks/useSnackbarMonitor'
 import { requestPut, requestPost, } from '../../../../../modules/request/index'
 
