@@ -1,7 +1,8 @@
 {
   "all": {
     "sourceCodeDir": "client/app",
-    "watchAdditionalPaths": []
+    "entryPointsDir": "client/app/entrypoints",
+    "watchAdditionalPaths": ["app/assets/stylesheets"]
   },
   "development": {
     "autoBuild": true,
