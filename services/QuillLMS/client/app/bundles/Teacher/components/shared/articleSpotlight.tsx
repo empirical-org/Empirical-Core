@@ -19,7 +19,7 @@ export const ArticleSpotlight = ({ backgroundColor, blogPostId } : ArticleSpotli
 
   function getBlogPost(id: string) {
     requestGet(`/featured_blog_post/${id}`,
-    (data) => {
+      (data) => {
         if(data.blog_post) {
           const { blog_post} = data;
           setBlogPost(blog_post)
