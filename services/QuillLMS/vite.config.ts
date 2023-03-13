@@ -4,6 +4,8 @@ import react from '@vitejs/plugin-react'
 import friendlyTypeImports from 'rollup-plugin-friendly-type-imports';
 import requireTransform from 'vite-plugin-require-transform';
 import {resolve} from 'path'
+import path from 'path'
+
 import fs from 'fs/promises';
 
 // Environmental Variables can be obtained from import.meta.env as usual.
@@ -30,6 +32,7 @@ export default defineConfig(({command, mode}) => {
     resolve: {
       alias: {
         src: resolve(__dirname, 'client', 'app'),
+        '@' : path.resolve(__dirname)
       }
     },
     plugins: [
