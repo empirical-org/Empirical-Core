@@ -3,6 +3,7 @@ import _ from 'underscore'
 
 import { DataTable, DropdownInput, Snackbar, defaultSnackbarTimeout, } from '../../Shared/index'
 import { RESTRICTED, FULL, restrictedElement, } from '../shared'
+import { ADMIN, TEACHER, PENDING, } from '../../Shared/utils/constants'
 import useSnackbarMonitor from '../../Shared/hooks/useSnackbarMonitor'
 
 interface AdminsTeachersProps {
@@ -11,14 +12,13 @@ interface AdminsTeachersProps {
   adminAssociatedSchool: any;
   accessType: string;
   handleUserAction(url: string, data: Object): void;
+  adminApprovalRequestAdminInfoIds: number[]
 }
 
 enum modalNames {
   removeAdminModal = 'removeAdminModal',
   makeAdminModal = 'makeAdminModal',
 }
-
-const ADMIN = 'Admin'
 
 const AdminActionModal = ({ handleClickConfirm, handleCloseModal, headerText, bodyText, }) => {
   return (
@@ -53,6 +53,7 @@ export const AdminsTeachers: React.SFC<AdminsTeachersProps> = ({
   schools,
   adminAssociatedSchool,
   accessType,
+  adminApprovalRequestAdminInfoIds,
 }) => {
   const defaultSchool = schools.find(s => s.id === adminAssociatedSchool?.id) || schools[0]
   const [selectedSchoolId, setSelectedSchoolId] = React.useState(defaultSchool?.id)
@@ -91,6 +92,14 @@ export const AdminsTeachers: React.SFC<AdminsTeachersProps> = ({
 
   function unlinkFromSchool(id) {
     handleUserAction(`/users/${id}/admin_unlink_from_school`, { role: 'teacher', })
+  }
+
+  function approveAdminRequest(id) {
+    handleUserAction(`/users/${id}/approve_admin_request`, { school_id: selectedSchoolId, })
+  }
+
+  function denyAdminRequest(id) {
+    handleUserAction(`/users/${id}/deny_admin_request`, { school_id: selectedSchoolId, })
   }
 
   function resendLoginDetailsForAdmin(id) {
@@ -138,6 +147,14 @@ export const AdminsTeachers: React.SFC<AdminsTeachersProps> = ({
       name: 'View premium reports',
       action: (id) => viewPremiumReports(id)
     },
+    approveAdminRequest: {
+      name: 'Approve admin request',
+      action: (id) => approveAdminRequest(id)
+    },
+    denyAdminRequest: {
+      name: 'Deny admin request',
+      action: (id) => denyAdminRequest(id)
+    },
     removeAsAdmin: {
       name: 'Remove as admin',
       action: (id) => removeAsAdmin(id)
@@ -154,14 +171,21 @@ export const AdminsTeachers: React.SFC<AdminsTeachersProps> = ({
 
   function actionsForUser(user, relevantSchool) {
     let actions
-    if (relevantSchool.role === ADMIN) {
+    if (relevantSchool.role.toLowerCase() === ADMIN) {
       actions = user.last_sign_in ? [] : [actionsHash.resendLoginDetailsAdmin]
       actions = actions.concat([actionsHash.loginAsAdmin, actionsHash.viewPremiumReports, actionsHash.removeAsAdmin])
+    } else if (userHasPendingAdminRequest(user, relevantSchool)) {
+      actions = user.last_sign_in ? [] : [actionsHash.resendLoginDetailsTeacher]
+      actions = actions.concat([actionsHash.loginAsTeacher, actionsHash.viewPremiumReports, actionsHash.approveAdminRequest, actionsHash.denyAdminRequest, actionsHash.unlinkFromSchool])
     } else {
       actions = user.last_sign_in ? [] : [actionsHash.resendLoginDetailsTeacher]
       actions = actions.concat([actionsHash.loginAsTeacher, actionsHash.viewPremiumReports, actionsHash.makeAdmin, actionsHash.unlinkFromSchool])
     }
     return actions
+  }
+
+  function userHasPendingAdminRequest(user, relevantSchool) {
+    return relevantSchool.role.toLowerCase() === TEACHER && adminApprovalRequestAdminInfoIds.includes(user.admin_info?.id) && user.admin_info?.approval_status === PENDING
   }
 
   const teacherColumns = [
@@ -202,7 +226,7 @@ export const AdminsTeachers: React.SFC<AdminsTeachersProps> = ({
   const filteredData = data.filter((d: { school: string }) => d.schools.find(s => s.id === selectedSchoolId)).map(user => {
     const relevantSchool = user.schools.find(s => s.id === selectedSchoolId)
     user.actions = actionsForUser(user, relevantSchool)
-    user.role = relevantSchool.role
+    user.role = userHasPendingAdminRequest(user, relevantSchool) ? "🛎️ Teacher requested to become admin" : relevantSchool.role
     return user
   })
 

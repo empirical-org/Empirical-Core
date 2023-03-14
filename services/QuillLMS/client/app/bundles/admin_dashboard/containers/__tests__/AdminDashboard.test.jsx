@@ -1,11 +1,11 @@
 import React from 'react';
 import { mount } from 'enzyme';
-import AdminDashboard from '../AdminDashboard';
 
+import AdminDashboard from '../AdminDashboard';
 import { FULL, LIMITED, RESTRICTED, } from '../../shared'
 
 const sharedProps = {
-  passedModel: { teachers: [], schools: [] },
+  passedModel: { teachers: [], schools: [], admin_approval_requests: [] },
   adminId: 7,
 }
 

@@ -1,0 +1,147 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`AdminRequestModal container should render 1`] = `
+<AdminRequestModal
+  closeModal={[MockFunction]}
+  onSuccess={[MockFunction]}
+  schoolAdmins={
+    Array [
+      Object {
+        "email": "toni.morrison@quill.org",
+        "id": 1,
+        "name": "Toni Morrison",
+      },
+      Object {
+        "email": "james.baldwin@quill.org",
+        "id": 2,
+        "name": "James Baldwin",
+      },
+    ]
+  }
+>
+  <div
+    className="modal-container admin-request-modal-container"
+  >
+    <div
+      className="modal-background"
+    />
+    <div
+      className="admin-request-modal quill-modal modal-body"
+    >
+      <h3>
+        Request to become an admin
+      </h3>
+      <p>
+        Which admin(s) do you want to send this request to?
+      </p>
+      <div
+        className="admin-selection-table"
+      >
+        <div
+          className="admin-selection-row top-row"
+        >
+          <button
+            aria-label="Select all admins"
+            className="focus-on-light quill-checkbox unselected"
+            onClick={[Function]}
+            type="button"
+          />
+          <div>
+            Select all
+          </div>
+        </div>
+        <div
+          className="admin-selection-row"
+          key="1"
+        >
+          <button
+            aria-label="Select Toni Morrison"
+            className="focus-on-light quill-checkbox unselected"
+            onClick={[Function]}
+            type="button"
+          />
+          <div>
+            <span
+              className="name"
+            >
+              Toni Morrison
+            </span>
+            <span
+              className="email"
+            >
+              toni.morrison@quill.org
+            </span>
+          </div>
+        </div>
+        <div
+          className="admin-selection-row"
+          key="2"
+        >
+          <button
+            aria-label="Select James Baldwin"
+            className="focus-on-light quill-checkbox unselected"
+            onClick={[Function]}
+            type="button"
+          />
+          <div>
+            <span
+              className="name"
+            >
+              James Baldwin
+            </span>
+            <span
+              className="email"
+            >
+              james.baldwin@quill.org
+            </span>
+          </div>
+        </div>
+      </div>
+      <Input
+        autoComplete="on"
+        className="reason"
+        handleChange={[Function]}
+        label="Why do you want to be an admin?"
+        value=""
+      >
+        <div
+          className="input-container  inactive  reason "
+          onClick={[Function]}
+          onKeyDown={[Function]}
+          role="button"
+          tabIndex={-1}
+        >
+          <label>
+            Why do you want to be an admin?
+          </label>
+          <input
+            autoComplete="on"
+            maxLength={10000}
+            onChange={[Function]}
+            onFocus={[Function]}
+            value=""
+          />
+        </div>
+      </Input>
+      <div
+        className="button-section"
+      >
+        <button
+          className="quill-button medium secondary outlined focus-on-light"
+          onClick={[MockFunction]}
+          type="button"
+        >
+          Cancel
+        </button>
+        <button
+          className="quill-button medium primary contained focus-on-light disabled"
+          disabled={true}
+          type="button"
+        >
+          Send request
+        </button>
+      </div>
+    </div>
+  </div>
+</AdminRequestModal>
+`;

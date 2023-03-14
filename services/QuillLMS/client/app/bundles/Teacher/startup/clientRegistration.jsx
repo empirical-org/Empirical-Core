@@ -37,12 +37,14 @@ import QuestionsAndAnswersSection from './QuestionsAndAnswersClient';
 import PreApApp from './PreApAppClient';
 import ApApp from './ApAppClient';
 import SpringBoardApp from './SpringBoardAppClient.tsx';
+import SalesFormApp from './SalesFormAppClient'
+import DemoAccountBanner from './DemoAccountBannerAppClient'
+import AdminAccessApp from './AdminAccessAppClient'
+
 import UploadRostersApp from '../../Staff/startup/UploadRostersAppClient';
 import StudentNavbarItems from '../../Student/startup/StudentNavbarItemsAppClient'
 import StudentFeedbackModal from '../../Student/startup/StudentFeedbackModalAppClient'
 import LockerApp from '../../Staff/startup/lockerAppClient'
-import SalesFormApp from './SalesFormAppClient'
-import DemoAccountBanner from './DemoAccountBannerAppClient'
 
 import '../styles/styles.scss'
 
@@ -90,5 +92,6 @@ ReactOnRails.register({ TeacherGuideApp,
   UploadRostersApp,
   LockerApp,
   SalesFormApp,
-  DemoAccountBanner
+  DemoAccountBanner,
+  AdminAccessApp
 });

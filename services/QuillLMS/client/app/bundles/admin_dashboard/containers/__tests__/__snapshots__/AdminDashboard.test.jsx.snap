@@ -6,6 +6,7 @@ exports[`AdminDashboard container should render with a full access type 1`] = `
   adminId={7}
   passedModel={
     Object {
+      "admin_approval_requests": Array [],
       "schools": Array [],
       "teachers": Array [],
     }
@@ -2921,6 +2922,7 @@ exports[`AdminDashboard container should render with a full access type 1`] = `
     />
     <AdminsTeachers
       accessType="full"
+      adminApprovalRequestAdminInfoIds={Array []}
       data={Array []}
       handleUserAction={[Function]}
       refreshData={[Function]}
@@ -4327,6 +4329,7 @@ exports[`AdminDashboard container should render with a limited access type 1`] =
   adminId={7}
   passedModel={
     Object {
+      "admin_approval_requests": Array [],
       "schools": Array [],
       "teachers": Array [],
     }
@@ -7242,6 +7245,7 @@ exports[`AdminDashboard container should render with a limited access type 1`] =
     />
     <AdminsTeachers
       accessType="full"
+      adminApprovalRequestAdminInfoIds={Array []}
       data={Array []}
       handleUserAction={[Function]}
       refreshData={[Function]}
@@ -8648,6 +8652,7 @@ exports[`AdminDashboard container should render with a restricted access type 1`
   adminId={7}
   passedModel={
     Object {
+      "admin_approval_requests": Array [],
       "schools": Array [],
       "teachers": Array [],
     }
@@ -11563,6 +11568,7 @@ exports[`AdminDashboard container should render with a restricted access type 1`
     />
     <AdminsTeachers
       accessType="full"
+      adminApprovalRequestAdminInfoIds={Array []}
       data={Array []}
       handleUserAction={[Function]}
       refreshData={[Function]}

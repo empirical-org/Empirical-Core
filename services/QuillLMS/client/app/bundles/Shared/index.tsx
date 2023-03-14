@@ -131,6 +131,7 @@ export {
   playBoxIcon,
   previewIcon,
   smallWhiteCheckIcon,
+  indeterminateCheckIcon,
   cursorClick,
   cursorPointingHand,
   removeIcon,

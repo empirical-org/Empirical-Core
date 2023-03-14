@@ -35,7 +35,7 @@ class AdminInfo < ApplicationRecord
     SKIPPED = 'Skipped'
   ]
 
-  SUB_ROLES = [
+  SELECTABLE_SUB_ROLES = [
     INSTRUCTIONAL_COACH = "Instructional coach",
     DEPARTMENT_HEAD = "Department head",
     SCHOOL_ADMINISTRATOR = "School administrator",
@@ -44,6 +44,10 @@ class AdminInfo < ApplicationRecord
     LIBRARIAN_SLASH_MEDIA_SPECIALIST = "Librarian/media specialist",
     BILLING_CONTACT = "Billing contact"
   ]
+
+  SUB_ROLES = SELECTABLE_SUB_ROLES.concat([
+    TEACHER_ADMIN = 'Teacher admin'
+  ])
 
   APPROVER_ROLES = [
     User::ADMIN,

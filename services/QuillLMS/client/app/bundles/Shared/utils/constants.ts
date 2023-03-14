@@ -36,3 +36,5 @@ export const ADMIN = 'admin'
 
 export const NOT_LISTED = 'not listed'
 export const NO_SCHOOL_SELECTED = 'no school selected'
+
+export const PENDING = 'Pending'

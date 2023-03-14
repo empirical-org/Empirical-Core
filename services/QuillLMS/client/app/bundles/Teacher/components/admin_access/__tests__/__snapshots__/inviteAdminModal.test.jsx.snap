@@ -1,0 +1,121 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`InviteAdminModal container should render 1`] = `
+<InviteAdminModal
+  closeModal={[MockFunction]}
+>
+  <div
+    className="modal-container invite-admin-modal-container"
+  >
+    <div
+      className="modal-background"
+    />
+    <div
+      className="invite-admin-modal quill-modal modal-body"
+    >
+      <h3>
+        Invite an admin
+      </h3>
+      <p>
+        Which admin do you want to send this request to?
+      </p>
+      <Input
+        autoComplete="on"
+        className="name"
+        handleChange={[Function]}
+        label="Admin’s name"
+        value=""
+      >
+        <div
+          className="input-container  inactive  name "
+          onClick={[Function]}
+          onKeyDown={[Function]}
+          role="button"
+          tabIndex={-1}
+        >
+          <label>
+            Admin’s name
+          </label>
+          <input
+            autoComplete="on"
+            maxLength={10000}
+            onChange={[Function]}
+            onFocus={[Function]}
+            value=""
+          />
+        </div>
+      </Input>
+      <Input
+        autoComplete="on"
+        className="email"
+        handleChange={[Function]}
+        label="Admin’s email"
+        value=""
+      >
+        <div
+          className="input-container  inactive  email "
+          onClick={[Function]}
+          onKeyDown={[Function]}
+          role="button"
+          tabIndex={-1}
+        >
+          <label>
+            Admin’s email
+          </label>
+          <input
+            autoComplete="on"
+            maxLength={10000}
+            onChange={[Function]}
+            onFocus={[Function]}
+            value=""
+          />
+        </div>
+      </Input>
+      <Input
+        autoComplete="on"
+        className="note"
+        handleChange={[Function]}
+        label="Note to admin (optional)"
+        value=""
+      >
+        <div
+          className="input-container  inactive  note "
+          onClick={[Function]}
+          onKeyDown={[Function]}
+          role="button"
+          tabIndex={-1}
+        >
+          <label>
+            Note to admin (optional)
+          </label>
+          <input
+            autoComplete="on"
+            maxLength={10000}
+            onChange={[Function]}
+            onFocus={[Function]}
+            value=""
+          />
+        </div>
+      </Input>
+      <div
+        className="button-section"
+      >
+        <button
+          className="quill-button medium secondary outlined focus-on-light"
+          onClick={[MockFunction]}
+          type="button"
+        >
+          Cancel
+        </button>
+        <button
+          className="quill-button medium primary contained focus-on-light disabled"
+          disabled={true}
+          type="button"
+        >
+          Send invite
+        </button>
+      </div>
+    </div>
+  </div>
+</InviteAdminModal>
+`;
