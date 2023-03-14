@@ -13,6 +13,7 @@ class ProgressReports::Standards::AllClassroomsStandard
           SELECT
             activity_sessions.activity_id,
             activity_sessions.id,
+            activity_sessions.percentage,
             activity_sessions.timespent,
             activity_sessions.user_id,
             activities.standard_id
