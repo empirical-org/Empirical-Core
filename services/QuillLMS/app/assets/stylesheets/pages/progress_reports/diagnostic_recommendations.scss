@@ -191,9 +191,6 @@
         line-height: 1.33;
       }
       > thead {
-        position: sticky;
-        top: 0;
-        z-index: 2;
         > th {
           border-top: 1px solid #e0e0e0;
         }
@@ -216,6 +213,12 @@
 
     .recommendations-table-container {
       width: 100vw;
+    }
+
+    .post-test-table {
+      .empty-cell {
+        height: 50px;
+      }
     }
 
     .post-test-table-wrapper {

@@ -270,8 +270,7 @@ const RecommendationsTable = ({ postTestSelections, previouslyAssignedPostTestSt
   let recommendationsTableClassName = tableHasContent ? 'recommendations-table' : 'empty recommendations-table'
   if (isPostTest) { recommendationsTableClassName += ' post-test-table'}
 
-  const renderRecommendationsTableHeader = (sticky) => {
-    let style = { position: 'inherit' }
+  const renderRecommendationsTableHeader = () => {
 
     return (
       <thead>
@@ -286,7 +285,7 @@ const RecommendationsTable = ({ postTestSelections, previouslyAssignedPostTestSt
   return (
     <div>
       <table className={recommendationsTableClassName} id="demo-onboarding-tour-spotlight-element" ref={recommendationsTableRef} style={tableHasContent ? { paddingLeft: TABLE_LEFT_PADDING } : { marginLeft: paddingLeft() }}>
-        {renderRecommendationsTableHeader(false)}
+        {renderRecommendationsTableHeader()}
         {(tableHasContent || isPostTest) ? null : noDataYet}
         <tbody>
           {recommendationStudentRows}
