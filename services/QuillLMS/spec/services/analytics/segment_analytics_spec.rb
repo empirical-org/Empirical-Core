@@ -313,7 +313,8 @@ describe 'SegmentAnalytics' do
   end
 
   context '#track_admin_received_admin_upgrade_request_from_teacher' do
-    let(:teacher) { create(:teacher) }
+    let!(:schools_users) { create(:schools_users) }
+    let(:teacher) { schools_users.user.reload }
     let(:admin) { create(:admin) }
 
     it 'sends an event with information about the teacher' do
@@ -329,13 +330,14 @@ describe 'SegmentAnalytics' do
       expect(track_calls[0][:properties][:teacher_first_name]).to eq(teacher.first_name)
       expect(track_calls[0][:properties][:teacher_last_name]).to eq(teacher.last_name)
       expect(track_calls[0][:properties][:teacher_email]).to eq(teacher.email)
-      expect(track_calls[0][:properties][:teacher_school]).to eq(teacher.school)
+      expect(track_calls[0][:properties][:teacher_school]).to eq(teacher.school.name)
       expect(track_calls[0][:properties][:reason]).to eq(reason)
     end
   end
 
   context '#track_admin_invited_by_teacher' do
-    let(:teacher) { create(:teacher) }
+    let!(:schools_users) { create(:schools_users) }
+    let(:teacher) { schools_users.user.reload }
 
     describe 'when the user invited to become an admin already exists in our system' do
       let(:admin) { create(:teacher) }
@@ -355,12 +357,13 @@ describe 'SegmentAnalytics' do
         expect(track_calls[0][:properties][:admin_email]).to eq(admin.email)
         expect(track_calls[0][:properties][:teacher_first_name]).to eq(teacher.first_name)
         expect(track_calls[0][:properties][:teacher_last_name]).to eq(teacher.last_name)
+        expect(track_calls[0][:properties][:teacher_school]).to eq(teacher.school.name)
         expect(track_calls[0][:properties][:note]).to eq(note)
       end
     end
 
     describe 'when the user invited to become an admin does not already exist in our system' do
-      it 'sends an event with information about the teacher and admin with an anonymous id' do
+      it 'sends an event with information about the teacher and admin with an anonymous id that is the email' do
         admin_name = 'Gregory Orr'
         admin_email = 'gregoryorr@example.com'
         note = 'I really want you to be an admin.'
@@ -372,11 +375,12 @@ describe 'SegmentAnalytics' do
         )
         expect(track_calls.size).to eq(1)
         expect(track_calls[0][:event]).to eq(SegmentIo::BackgroundEvents::ADMIN_INVITED_BY_TEACHER)
-        expect(track_calls[0][:anonymous_id]).to be
+        expect(track_calls[0][:anonymous_id]).to eq(admin_email)
         expect(track_calls[0][:properties][:admin_name]).to eq(admin_name)
         expect(track_calls[0][:properties][:admin_email]).to eq(admin_email)
         expect(track_calls[0][:properties][:teacher_first_name]).to eq(teacher.first_name)
         expect(track_calls[0][:properties][:teacher_last_name]).to eq(teacher.last_name)
+        expect(track_calls[0][:properties][:teacher_school]).to eq(teacher.school.name)
         expect(track_calls[0][:properties][:note]).to eq(note)
       end
     end
