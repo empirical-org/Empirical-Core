@@ -1,9 +1,10 @@
 import * as React from 'react';
 import _ from 'underscore'
 
-import { DataTable, DropdownInput, } from '../../Shared/index'
+import { DataTable, DropdownInput, Snackbar, defaultSnackbarTimeout, } from '../../Shared/index'
+import { RESTRICTED, FULL, restrictedElement, } from '../shared'
 import { ADMIN, TEACHER, PENDING, } from '../../Shared/utils/constants'
-import { RESTRICTED, restrictedElement, } from '../shared'
+import useSnackbarMonitor from '../../Shared/hooks/useSnackbarMonitor'
 
 interface AdminsTeachersProps {
   data: Array<Object>;
@@ -58,6 +59,9 @@ export const AdminsTeachers: React.SFC<AdminsTeachersProps> = ({
   const [selectedSchoolId, setSelectedSchoolId] = React.useState(defaultSchool?.id)
   const [userIdForModal, setUserIdForModal] = React.useState(null)
   const [showModal, setShowModal] = React.useState(null)
+  const [showSnackbar, setShowSnackbar] = React.useState(false);
+
+  useSnackbarMonitor(showSnackbar, setShowSnackbar, defaultSnackbarTimeout)
 
   function onChangeSelectedSchool(selectedSchoolOption) { setSelectedSchoolId(selectedSchoolOption.value) }
 
@@ -67,11 +71,19 @@ export const AdminsTeachers: React.SFC<AdminsTeachersProps> = ({
   }
 
   function loginAsUser(id) {
-    window.location.href = `/users/${id}/admin_sign_in_classroom_manager`
+    if (accessType === FULL) {
+      window.location.href = `/users/${id}/admin_sign_in_classroom_manager`
+    } else {
+      setShowSnackbar(true)
+    }
   }
 
   function viewPremiumReports(id) {
-    window.location.href = `/users/${id}/admin_sign_in_progress_reports`
+    if (accessType === FULL) {
+      window.location.href = `/users/${id}/admin_sign_in_progress_reports`
+    } else {
+      setShowSnackbar(true)
+    }
   }
 
   function resendLoginDetailsForTeacher(id) {
@@ -235,6 +247,7 @@ export const AdminsTeachers: React.SFC<AdminsTeachersProps> = ({
           defaultSortAttribute="role"
           headers={teacherColumns}
           rows={filteredData}
+          showActions={true}
         />
       </div>
       <p className="warning-section">
@@ -253,6 +266,7 @@ export const AdminsTeachers: React.SFC<AdminsTeachersProps> = ({
 
   return (
     <div className="teacher-account-access-container">
+      <Snackbar text="Sorry, only verified admins with a subscription to School or District Premium can access this feature." visible={showSnackbar} />
       {showModal === modalNames.makeAdminModal && (
         <AdminActionModal
           bodyText={`Are you sure you want to add ${userNameForModal} as an admin of ${schoolNameForModal}?`}

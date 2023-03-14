@@ -4,6 +4,10 @@ exports[`AdminsTeachers component should match snapshot 1`] = `
 <div
   className="teacher-account-access-container"
 >
+  <Snackbar
+    text="Sorry, only verified admins with a subscription to School or District Premium can access this feature."
+    visible={false}
+  />
   <h2>
     Account Management
   </h2>
@@ -175,6 +179,7 @@ exports[`AdminsTeachers component should match snapshot 1`] = `
           },
         ]
       }
+      showActions={true}
     />
   </div>
   <p
