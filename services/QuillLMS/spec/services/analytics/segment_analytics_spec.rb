@@ -363,7 +363,7 @@ describe 'SegmentAnalytics' do
     end
 
     describe 'when the user invited to become an admin does not already exist in our system' do
-      it 'sends an event with information about the teacher and admin with an anonymous id' do
+      it 'sends an event with information about the teacher and admin with an anonymous id that is the email' do
         admin_name = 'Gregory Orr'
         admin_email = 'gregoryorr@example.com'
         note = 'I really want you to be an admin.'
@@ -375,7 +375,7 @@ describe 'SegmentAnalytics' do
         )
         expect(track_calls.size).to eq(1)
         expect(track_calls[0][:event]).to eq(SegmentIo::BackgroundEvents::ADMIN_INVITED_BY_TEACHER)
-        expect(track_calls[0][:anonymous_id]).to be
+        expect(track_calls[0][:anonymous_id]).to eq(admin_email)
         expect(track_calls[0][:properties][:admin_name]).to eq(admin_name)
         expect(track_calls[0][:properties][:admin_email]).to eq(admin_email)
         expect(track_calls[0][:properties][:teacher_first_name]).to eq(teacher.first_name)
