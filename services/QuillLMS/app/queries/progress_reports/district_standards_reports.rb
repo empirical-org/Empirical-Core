@@ -23,6 +23,7 @@ class ProgressReports::DistrictStandardsReports
         SELECT
           activity_sessions.activity_id,
           activity_sessions.id,
+          activity_sessions.percentage,
           activity_sessions.timespent,
           activity_sessions.user_id,
           activities.standard_id
@@ -54,7 +55,8 @@ class ProgressReports::DistrictStandardsReports
         LEFT JOIN (
           SELECT
             standard_id,
-            user_id, AVG(percentage) as avg_score
+            user_id,
+            AVG(percentage) as avg_score
           FROM final_activity_sessions
           GROUP BY
             final_activity_sessions.standard_id,
