@@ -43,7 +43,6 @@ const Dashboard = ({ onboardingChecklist, firstName, mustSeeWelcomeModal, mustSe
           {showDemoModal && <DemoModal close={closeDemoModal} size={size} />}
           <OnboardingChecklist firstName={firstName} onboardingChecklist={onboardingChecklist} />
         </div>
-        <ArticleSpotlight backgroundColor={GRAY_ARTICLE_FOOTER_BACKGROUND_COLOR} blogPostId={TEACHER_DASHBOARD_FEATURED_BLOG_POST_ID} />
       </React.Fragment>
     )
   }
