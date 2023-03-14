@@ -29,9 +29,11 @@ const PremiumFeature = ({ imageSrc, imageAlt, header, text, popular, subheader, 
 )
 
 const TopicExplored = ({color, imgSrc, imgAlt, text}) => (
-  <div className="topic-explored" style={{color: color}}>
-    <img alt={imgAlt} src={imgSrc} />
-    <p>{text}</p>
+  <div className="topic-explored">
+    <div className="topic-image">
+      <img alt={imgAlt} src={imgSrc} />
+    </div>
+    <h4 style={{color: color}}>{text}</h4>
   </div>
 )
 
@@ -90,20 +92,26 @@ const professionalDevelopmentSessions = (
 const topicsExplored = (
   <section>
     <h3>What are some topics explored?</h3>
-    <TopicExplored color="#4D8DD9" imgAlt="" imgSrc="" text="Supporting English language learners" />
-    <TopicExplored color="#AD277B" imgAlt="" imgSrc="" text="Supporting exceptional learners" />
-    <TopicExplored color="#2C7F9B" imgAlt="" imgSrc="" text="Data instruction" />
-    <TopicExplored color="#DF9E3D" imgAlt="" imgSrc="" text="Improving sentence fluency" />
-    <TopicExplored color="#EB4F47" imgAlt="" imgSrc="" text="Backward planning" />
-    <TopicExplored color="#06806B" imgAlt="" imgSrc="" text="Leveraging Quill's tools and activities" />
-    <TopicExplored color="#C04500" imgAlt="" imgSrc="" text="Impactful feedback practices" />
-    <TopicExplored color="#9035D6" imgAlt="" imgSrc="" text="Empowering student writers" />
+    <div className="topics-row">
+      <TopicExplored color="#4D8DD9" imgAlt="globe" imgSrc={`${baseImageLink}/globe.svg`} text="Supporting English language learners" />
+      <TopicExplored color="#AD277B" imgAlt="graduation hat" imgSrc={`${baseImageLink}/hat-3.svg`} text="Supporting exceptional learners" />
+      <TopicExplored color="#2C7F9B" imgAlt="notepad with magnifying glass" imgSrc={`${baseImageLink}/grammar-check.svg`} text="Data instruction" />
+    </div>
+    <div className="topics-row">
+      <TopicExplored color="#DF9E3D" imgAlt="picture frame" imgSrc={`${baseImageLink}/frame.svg`} text="Improving sentence fluency" />
+      <TopicExplored color="#EB4F47" imgAlt="pencil" imgSrc={`${baseImageLink}/student-pencil.svg`} text="Backward planning" />
+      <TopicExplored color="#06806B" imgAlt="quill pen" imgSrc={`${baseImageLink}/quill.svg`} text="Leveraging Quill's tools and activities" />
+    </div>
+    <div className="topics-row last-row">
+      <TopicExplored color="#C04500" imgAlt="code editor" imgSrc={`${baseImageLink}/code-editor.svg`} text="Impactful feedback practices" />
+      <TopicExplored color="#9035D6" imgAlt="student icons" imgSrc={`${baseImageLink}/add-students.svg`} text="Empowering student writers" />
+    </div>
   </section>
 )
 
 const coachingSessions = (
   <section>
-    <h3>One-on-one coaching sessions with our Senior Instructional Coaches</h3>
+    <h3 className="coaching-header">One-on-one coaching sessions with our Senior Instructional Coaches</h3>
     <p>Once per quarter, teachers are invited to schedule 1:1 coaching sessions to work directly with a senior instructional coach on Quill&apos;s team. These sessions enable teachers to solve issues and understand reports. The coach and the teacher are looking at the Quill dashboard and leave the coaching session with more confidence in the tool.</p>
   </section>
 )
@@ -137,7 +145,7 @@ const testimonials = (
 
 const coachingTeam = (
   <section>
-    <h3>Meet the professional learning team</h3>
+    <h3>Meet the coaching team</h3>
     <div className="premium-features-row">
       <PremiumFeature
         header="Erika Parker-Havens"
