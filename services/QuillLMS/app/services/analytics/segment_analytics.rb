@@ -240,6 +240,59 @@ class SegmentAnalytics
     })
   end
 
+  def track_admin_received_admin_upgrade_request_from_teacher(admin, teacher, reason)
+    track({
+      user_id: admin.id,
+      event: SegmentIo::BackgroundEvents::ADMIN_RECEIVED_ADMIN_UPGRADE_REQUEST_FROM_TEACHER,
+      properties: {
+        teacher_first_name: teacher.first_name,
+        teacher_last_name: teacher.last_name,
+        teacher_email: teacher.email,
+        teacher_school: teacher.school,
+        reason: reason
+      }
+    })
+  end
+
+  def track_admin_invited_by_teacher(admin_name, admin_email, teacher, note)
+    admin = User.find_by_email(admin_email)
+    properties = {
+      admin_name: admin_name,
+      admin_email: admin_email,
+      teacher_first_name: teacher.first_name,
+      teacher_last_name: teacher.last_name,
+      teacher_school: teacher.school,
+      note: note
+    }
+    if admin
+      track({
+        user_id: admin.id,
+        event: SegmentIo::BackgroundEvents::ADMIN_INVITED_BY_TEACHER,
+        properties: properties
+      })
+    else
+      track({
+        # Segment requires us to send a unique User ID or Anonymous ID for every event
+        # generate a random UUID here because this user doesn't yet exist in our system
+        anonymous_id: SecureRandom.uuid,
+        event: SegmentIo::BackgroundEvents::ADMIN_INVITED_BY_TEACHER,
+        properties: properties
+      })
+    end
+  end
+
+  def track_teacher_invited_admin(teacher, admin_name, admin_email, note)
+    track({
+      user_id: teacher.id,
+      event: SegmentIo::BackgroundEvents::TEACHER_INVITED_ADMIN,
+      properties: {
+        admin_name: admin_name,
+        admin_email: admin_email,
+        note: note
+      }
+    })
+  end
+
   def default_integration_rules
     { all: true, Intercom: false }
   end

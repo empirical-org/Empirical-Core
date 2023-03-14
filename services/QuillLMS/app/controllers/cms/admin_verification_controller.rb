@@ -49,7 +49,7 @@ class Cms::AdminVerificationController < Cms::CmsController
   end
 
   private def admin_records_by_approval_status(approval_status)
-    AdminInfo.where(approval_status: approval_status).order('created_at DESC').map { |record| format_admin_info_record(record) }
+    AdminInfo.where(approval_status: approval_status, approver_role: User::STAFF).order('created_at DESC').map { |record| format_admin_info_record(record) }
   end
 
   private def format_admin_info_record(admin_info_record)

@@ -146,6 +146,8 @@ class User < ApplicationRecord
 
   has_many :student_in_classroom, through: :students_classrooms, source: :classroom
 
+  has_many :admin_approval_requests, dependent: :destroy, foreign_key: 'requestee_id'
+
   has_and_belongs_to_many :districts
   has_one :ip_location
   has_many :user_milestones

@@ -21,6 +21,52 @@ describe VerifyEmailsController do
     end
   end
 
+
+  describe '#require_email_verification' do
+
+    before do
+      allow(controller).to receive(:current_user) { user }
+    end
+
+    context 'when the user does not have a clever or google id' do
+      it 'should call require_email_verification on the current user and return a redirection path' do
+        expect(response.status).to be(200)
+        expect(user).to receive(:require_email_verification)
+
+        post :require_email_verification, params: { }, format: :json
+
+        expect(response.body).to eq({ redirect: '/sign-up/verify-email' }.to_json)
+      end
+    end
+
+    context 'when the user has a clever id' do
+      before do
+        user.update(clever_id: 'whatever')
+      end
+
+      it 'should call verify email with the clever auth argument on the current user' do
+        expect(response.status).to be(200)
+        expect(user).to receive(:verify_email).with(UserEmailVerification::CLEVER_VERIFICATION)
+
+        post :require_email_verification, params: { }, format: :json
+      end
+    end
+
+    context 'when the user has a google id' do
+      before do
+        user.update(google_id: 'whatever')
+      end
+
+      it 'should call verify email with the google auth argument on the current user' do
+        expect(response.status).to be(200)
+        expect(user).to receive(:verify_email).with(UserEmailVerification::GOOGLE_VERIFICATION)
+
+        post :require_email_verification, params: { }, format: :json
+      end
+    end
+
+  end
+
   context 'with an existing verification record' do
     let!(:user_email_verification) { create(:user_email_verification, verification_token: token, user: user) }
 
