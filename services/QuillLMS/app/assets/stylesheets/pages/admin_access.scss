@@ -85,6 +85,8 @@
   max-width: 577px;
   width: 100%;
   height: min-content;
+  overflow: scroll;
+  max-height: 90vh;
 
   h3 {
     font-weight: 700;
