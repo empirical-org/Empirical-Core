@@ -4,4 +4,8 @@
 %>
 <%= render partial: 'pages/shared/explore_curriculum_navbar', active_tab: @active_tab  %>
 
-<%= react_component('SpringBoardApp', props: { units: @units }) %>
+<% if current_user %>
+  <%= react_component('SpringBoardApp', props: { units: @units }) %>
+<% else %>
+  <div></div>
+<% end %>
