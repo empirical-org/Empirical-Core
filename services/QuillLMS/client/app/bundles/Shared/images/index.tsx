@@ -88,6 +88,11 @@ export const smallWhiteCheckIcon = {
   alt: 'Check icon'
 }
 
+export const indeterminateCheckIcon = {
+  src: `${process.env.CDN_URL}/images/icons/indeterminate.svg`,
+  alt: 'Indeterminate check icon'
+}
+
 export const cursorClick = {
   src: `${process.env.CDN_URL}/images/icons/cursor-click.svg`,
   alt: 'Default cursor showing exaggerated clicking'

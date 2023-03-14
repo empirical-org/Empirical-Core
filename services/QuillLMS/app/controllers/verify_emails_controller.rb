@@ -13,6 +13,22 @@ class VerifyEmailsController < ApplicationController
     render json: {}, status: 200
   end
 
+  def require_email_verification
+    if current_user.google_id
+      current_user.verify_email(UserEmailVerification::GOOGLE_VERIFICATION)
+      json = {}
+    elsif current_user.clever_id
+      current_user.verify_email(UserEmailVerification::CLEVER_VERIFICATION)
+      json = {}
+    else
+      current_user.require_email_verification
+      current_user.user_email_verification&.send_email
+      json = { redirect: '/sign-up/verify-email' }
+    end
+
+    render json: json, status: 200
+  end
+
   def verify_by_staff
     user = User.find(staff_verification_params[:user_id])
 

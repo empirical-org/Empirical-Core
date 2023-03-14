@@ -48,6 +48,8 @@ en:
     remove_admin: "Admin removed"
     make_admin: "Admin added. They were notified by email."
     unlink_teacher_from_school: "Teacher unlinked from school"
+    approve_admin_request: "Admin request approved. They were notified by email."
+    deny_admin_request: "Admin request denied. They were notified by email."
   admin_created_account:
     existing_account:
       admin:

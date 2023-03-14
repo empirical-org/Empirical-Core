@@ -26,4 +26,15 @@ describe AdminApprovalRequest, type: :model, redis: true do
 
   it { should validate_presence_of(:admin_info_id) }
   it { should validate_presence_of(:requestee_id) }
+
+  describe '#wipe_cache_for_requestee' do
+    let(:admin_approval_request) { create(:admin_approval_request) }
+    let!(:school_admin) { create(:schools_admins, user: admin_approval_request.requestee) }
+
+    it 'should call .wipe_cache on the requestee school admin record' do
+      expect_any_instance_of(SchoolsAdmins).to receive(:wipe_cache)
+
+      admin_approval_request.wipe_cache_for_requestee
+    end
+  end
 end
