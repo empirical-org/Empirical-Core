@@ -1,13 +1,9 @@
 import * as React from 'react'
-import VisibilitySensor from 'react-visibility-sensor';
-
-import ScrollBox from './scrollBox';
-import { WRITING_SKILLS_SURVEYS, FEEDBACK_AND_REPORTS, PASSAGE_ALIGNED_ACTIVITIES, ALIGNED_TO_PREAP, MESSAGE_FROM_COLLEGE_BOARD, QUESTIONS_AND_ANSWERS, TOP_SECTION } from './collegeBoardConstants';
 
 import ExpandableUnitSection from '../shared/expandableUnit'
 import QuestionsAndAnswers from '../../containers/QuestionsAndAnswers'
 import { PRE_AP_WRITINGS_SKILLS_1_UNIT_TEMPLATE_ID, PRE_AP_WRITINGS_SKILLS_2_UNIT_TEMPLATE_ID, ELL_STARTER_DIAGNOSTIC_UNIT_TEMPLATE_ID, ELL_INTERMEDIATE_DIAGNOSTIC_UNIT_TEMPLATE_ID, ELL_ADVANCED_DIAGNOSTIC_UNIT_TEMPLATE_ID, PRE_AP_SLUG } from '../assignment_flow/assignmentFlowConstants'
-import { generateLink, getStartedButton, getActivityCount } from '../../helpers/collegeBoard';
+import { generateLink, getStartedButton } from '../../helpers/collegeBoard';
 import { scrollToTop } from '../../hooks/scrollToTop';
 import { PassageAlignedUnit } from '../../../../interfaces/collegeBoard';
 
@@ -20,45 +16,6 @@ const PreAp = ({ units, isPartOfAssignmentFlow, }: PreApContainerProps) => {
 
   // we need this otherwise the pages will be rendered partially scrolled from preview assignment flow step
   isPartOfAssignmentFlow && scrollToTop();
-
-  const [activeSection, setActiveSection] = React.useState<string>('');
-  const [showScrollBox, setShowScrollBox] = React.useState<string>('');
-  const [isScrollingFromClick, setIsScrollingFromClick] = React.useState<boolean>(false);
-
-  const writingSkillsRef = React.useRef(null);
-  const feedbackReportsRef = React.useRef(null);
-  const passageAlignedRef = React.useRef(null);
-  const alignedToPreApRef = React.useRef(null);
-  const collegeBoardMessageRef = React.useRef(null);
-  const questionAndAnswerRef = React.useRef(null);
-  const scrollSections = [
-    {
-      ref: writingSkillsRef,
-      title: WRITING_SKILLS_SURVEYS,
-      count: 5
-    },
-    {
-      ref: feedbackReportsRef,
-      title: FEEDBACK_AND_REPORTS
-    },
-    {
-      ref: passageAlignedRef,
-      title: PASSAGE_ALIGNED_ACTIVITIES,
-      count: units ? getActivityCount(units) : null
-    },
-    {
-      ref: alignedToPreApRef,
-      title: ALIGNED_TO_PREAP
-    },
-    {
-      ref: collegeBoardMessageRef,
-      title: MESSAGE_FROM_COLLEGE_BOARD
-    },
-    {
-      ref: questionAndAnswerRef,
-      title: QUESTIONS_AND_ANSWERS
-    }
-  ];
 
   const expandableUnits = units.map((u, index) => {
     return (
@@ -73,41 +30,16 @@ const PreAp = ({ units, isPartOfAssignmentFlow, }: PreApContainerProps) => {
     )
   });
 
-  function handleChange(isVisible: boolean, section: string) {
-    if(isVisible && !isScrollingFromClick) {
-      setActiveSection(section);
-    }
-    if(isVisible && section === WRITING_SKILLS_SURVEYS) {
-      setShowScrollBox('show');
-    } else if(isVisible && section === TOP_SECTION && showScrollBox === 'show') {
-      setShowScrollBox('obscure');
-    }
-  }
-
-  function handleSetIsScrollingFromClick(value: boolean) {
-    setIsScrollingFromClick(value);
-  }
-
-  function handleScroll() {
-    if(showScrollBox !== 'show')  {
-      setShowScrollBox('show');
-    }
-  }
-
-  {/* eslint-disable-next-line react/jsx-no-bind */}
   return (
-    <div className="college-board-container" onScroll={() => handleScroll()}>
+    <div className="college-board-container">
       <div className="section-wrapper">
         <div className="container college-board-header-container">
           <div className="header-left">
-            {/* eslint-disable-next-line react/jsx-no-bind */}
-            <VisibilitySensor onChange={(isVisible) => handleChange(isVisible, TOP_SECTION)}>
-              <div className="logo-container">
-                <img alt="College Board logo" src="https://assets.quill.org/images/college_board/college-board-logo.svg" />
-                <div className="divider" />
-                <img alt="Quill logo" src="https://assets.quill.org/images/logos/quill-logo-green.svg" />
-              </div>
-            </VisibilitySensor>
+            <div className="logo-container">
+              <img alt="College Board logo" src="https://assets.quill.org/images/college_board/college-board-logo.svg" />
+              <div className="divider" />
+              <img alt="Quill logo" src="https://assets.quill.org/images/logos/quill-logo-green.svg" />
+            </div>
             <div className="header-text-container">
               <h1>Official Pre-AP English Practice</h1>
               <p>Free Pre-AP® English writing practice aligned to the Pre-AP English High School Course Framework for the English 1 and English 2 courses with immediate feedback for students and progress reports for you.</p>
@@ -117,7 +49,6 @@ const PreAp = ({ units, isPartOfAssignmentFlow, }: PreApContainerProps) => {
           <img alt="Photograph of a teacher talking to a classroom of high school students" src="https://assets.quill.org/images/college_board/teaching-english-practice-2.webp" />
         </div>
       </div>
-      <ScrollBox activeSection={activeSection} sections={scrollSections} setActiveSection={setActiveSection} setIsScrollingFromClick={handleSetIsScrollingFromClick} showScrollBox={showScrollBox} />
       <div className="white-section-wrapper">
         <div className="container college-board-activities-section">
           <div className="header">
@@ -127,27 +58,24 @@ const PreAp = ({ units, isPartOfAssignmentFlow, }: PreApContainerProps) => {
               <p>Identify which sentence-level skills your students need to practice with a skills survey. Then, assign activities recommended for each student based on their responses so they can practice and improve their proficiency with those skills.</p>
             </div>
           </div>
-          <div className="activities-subheader" ref={writingSkillsRef}>
+          <div className="activities-subheader">
             <h2>Pre-AP Writing Skills Surveys</h2>
           </div>
-          {/* eslint-disable-next-line react/jsx-no-bind */}
-          <VisibilitySensor onChange={(isVisible) => handleChange(isVisible, WRITING_SKILLS_SURVEYS)}>
-            <div className="activity-container">
-              <div className="activity-header-container">
-                <div className="tags-container">
-                  <p className="activity-header" id="writing-skills-survey-1">Pre-AP Writing Skills Survey 1: Basic of Sentence Patterns</p>
-                  <div className="college-board-activity-tag">For Pre-AP English 1</div>
-                  <div className="college-board-activity-tag">For Pre-AP English 2</div>
-                </div>
-                <a className="quill-button medium primary outlined view-button focus-on-light" href={generateLink({ isPartOfAssignmentFlow, unitTemplateId: PRE_AP_WRITINGS_SKILLS_1_UNIT_TEMPLATE_ID, slug: PRE_AP_SLUG })} rel="noopener noreferrer" target={isPartOfAssignmentFlow ? '' : "_blank"}>View</a>
+          <div className="activity-container">
+            <div className="activity-header-container">
+              <div className="tags-container">
+                <p className="activity-header" id="writing-skills-survey-1">Pre-AP Writing Skills Survey 1: Basic of Sentence Patterns</p>
+                <div className="college-board-activity-tag">For Pre-AP English 1</div>
+                <div className="college-board-activity-tag">For Pre-AP English 2</div>
               </div>
-              <div className="activity-text-container">
-                <p className="activity-sub-text">Students complete a 12 item survey their understanding of key writing skills, fundamental grammatical elements, and compound/complex sentence constructions. After students complete the survey, Quill will automatically recommend up to five activity packs for each student based on their needs. Each pack contains four to six activities that each take about 15 minutes to complete and provide scaffolded, sequenced practice on one of the five skills addressed in the survey.</p>
-                <p className="activity-sub-header">Skills</p>
-                <p className="activity-sub-text">Subject-verb agreement; pronoun-antecedent agreement; compound subjects, objects and predicates; coordinating conjunctions in compound sentences; subordinating conjunctions</p>
-              </div>
+              <a className="quill-button medium primary outlined view-button focus-on-light" href={generateLink({ isPartOfAssignmentFlow, unitTemplateId: PRE_AP_WRITINGS_SKILLS_1_UNIT_TEMPLATE_ID, slug: PRE_AP_SLUG })} rel="noopener noreferrer" target={isPartOfAssignmentFlow ? '' : "_blank"}>View</a>
             </div>
-          </VisibilitySensor>
+            <div className="activity-text-container">
+              <p className="activity-sub-text">Students complete a 12 item survey their understanding of key writing skills, fundamental grammatical elements, and compound/complex sentence constructions. After students complete the survey, Quill will automatically recommend up to five activity packs for each student based on their needs. Each pack contains four to six activities that each take about 15 minutes to complete and provide scaffolded, sequenced practice on one of the five skills addressed in the survey.</p>
+              <p className="activity-sub-header">Skills</p>
+              <p className="activity-sub-text">Subject-verb agreement; pronoun-antecedent agreement; compound subjects, objects and predicates; coordinating conjunctions in compound sentences; subordinating conjunctions</p>
+            </div>
+          </div>
           <div className="activity-container">
             <div className="activity-header-container">
               <div className="tags-container">
@@ -202,18 +130,15 @@ const PreAp = ({ units, isPartOfAssignmentFlow, }: PreApContainerProps) => {
           </div>
         </div>
       </div>
-      <div className="white-section-wrapper" id="info-blurbs-1-wrapper" ref={feedbackReportsRef}>
+      <div className="white-section-wrapper" id="info-blurbs-1-wrapper">
         <div className="container info-blurbs-section">
-          {/* eslint-disable-next-line react/jsx-no-bind */}
-          <VisibilitySensor onChange={(isVisible) => handleChange(isVisible, FEEDBACK_AND_REPORTS)}>
-            <div className="info-blurb-container">
-              <img alt="A list of writing concepts: Subject-Verb Agreement, Pronoun-Antecedent Agreement, Compound Subjects, Objects, Predicates, and more." src="https://assets.quill.org/images/college_board/pre-ap-concepts.svg" />
-              <div className="text-container">
-                <p className="info-blurb-header">Writing Practice Aligned to Course Frameworks</p>
-                <p className="info-blurb-text">Each 12 item Pre-AP Writing Skills Survey covers five of the ten key grammar skills from the English 1 and English 2 course frameworks. Each survey helps identify which of the five skills your students need to practice most.</p>
-              </div>
+          <div className="info-blurb-container">
+            <img alt="A list of writing concepts: Subject-Verb Agreement, Pronoun-Antecedent Agreement, Compound Subjects, Objects, Predicates, and more." src="https://assets.quill.org/images/college_board/pre-ap-concepts.svg" />
+            <div className="text-container">
+              <p className="info-blurb-header">Writing Practice Aligned to Course Frameworks</p>
+              <p className="info-blurb-text">Each 12 item Pre-AP Writing Skills Survey covers five of the ten key grammar skills from the English 1 and English 2 course frameworks. Each survey helps identify which of the five skills your students need to practice most.</p>
             </div>
-          </VisibilitySensor>
+          </div>
           <div className="info-blurb-container">
             <div className="text-container">
               <p className="info-blurb-header">Personalized Recommendations</p>
@@ -232,17 +157,14 @@ const PreAp = ({ units, isPartOfAssignmentFlow, }: PreApContainerProps) => {
           </div>
         </div>
       </div>
-      <div className="white-section-wrapper" ref={passageAlignedRef}>
+      <div className="white-section-wrapper">
         <div className="container college-board-activities-section">
           <div className="header">
             <img alt="Illustration of a book opened" src="https://assets.quill.org/images/college_board/passage-book.svg" />
-            {/* eslint-disable-next-line react/jsx-no-bind */}
-            <VisibilitySensor onChange={(isVisible) => handleChange(isVisible, PASSAGE_ALIGNED_ACTIVITIES)}>
-              <div className="text-container">
-                <h2>Passage-Aligned Activities</h2>
-                <p>20 custom sentence-combining activities, each one aligned to a unique Pre-AP English 1 text to give your students the opportunity to practice their sentence construction skills in context.</p>
-              </div>
-            </VisibilitySensor>
+            <div className="text-container">
+              <h2>Passage-Aligned Activities</h2>
+              <p>20 custom sentence-combining activities, each one aligned to a unique Pre-AP English 1 text to give your students the opportunity to practice their sentence construction skills in context.</p>
+            </div>
           </div>
           <div className="activities-subheader">
             <h2>Passage-Aligned Activities</h2>
@@ -255,17 +177,14 @@ const PreAp = ({ units, isPartOfAssignmentFlow, }: PreApContainerProps) => {
           </div>
         </div>
       </div>
-      <div className="white-section-wrapper" ref={alignedToPreApRef}>
+      <div className="white-section-wrapper">
         <div className="container info-blurbs-section">
           <div className="info-blurb-container">
             <img alt="An illustration of a bookshelf with the names of Lottery, Lamb to the Slaughter, 1984, The First Day, and Romeo and Juliet on the book spines." src="https://assets.quill.org/images/college_board/pre-ap-bookshelf.svg" />
-            {/* eslint-disable-next-line react/jsx-no-bind */}
-            <VisibilitySensor onChange={(isVisible) => handleChange(isVisible, ALIGNED_TO_PREAP)}>
-              <div className="text-container">
-                <p className="info-blurb-header">Alignment to Pre-AP English 1 Content</p>
-                <p className="info-blurb-text">Each sentence-combining activity is aligned to a different text from the four English 1 instructional units. As students combine sentences and build their writing skills, they also explore key text elements: historical and authorial context, plot, structure, and more. These activities model the kind of analytical thinking they would optimally reflect in their own writing.</p>
-              </div>
-            </VisibilitySensor>
+            <div className="text-container">
+              <p className="info-blurb-header">Alignment to Pre-AP English 1 Content</p>
+              <p className="info-blurb-text">Each sentence-combining activity is aligned to a different text from the four English 1 instructional units. As students combine sentences and build their writing skills, they also explore key text elements: historical and authorial context, plot, structure, and more. These activities model the kind of analytical thinking they would optimally reflect in their own writing.</p>
+            </div>
           </div>
           <div className="info-blurb-container">
             <div className="text-container">
@@ -278,17 +197,14 @@ const PreAp = ({ units, isPartOfAssignmentFlow, }: PreApContainerProps) => {
             <img alt="An illustration showing a teacher guide for Lamb to the Slaughter with an arrow pointing to a Quill activity with text from Lamb to the Slaughter being in the questions." src="https://assets.quill.org/images/college_board/pre-ap-teacher-guide.svg" />
             <div className="text-container">
               <p className="info-blurb-header">Opportunities Throughout the Course</p>
-              <p className="info-blurb-text" ref={collegeBoardMessageRef}>At least one activity appears in each Learning Cycle of all four instructional units so that this sentence-combining practice can easily be incorporated into your instructional plans. Since these activities include details about the texts and analysis of key elements,  they are best used to reinforce learning after students have read and discussed these texts in class.</p>
+              <p className="info-blurb-text">At least one activity appears in each Learning Cycle of all four instructional units so that this sentence-combining practice can easily be incorporated into your instructional plans. Since these activities include details about the texts and analysis of key elements,  they are best used to reinforce learning after students have read and discussed these texts in class.</p>
             </div>
           </div>
         </div>
       </div>
       <div className="section-wrapper">
         <div className="container cb-message-container">
-          {/* eslint-disable-next-line react/jsx-no-bind */}
-          <VisibilitySensor onChange={(isVisible) => handleChange(isVisible, MESSAGE_FROM_COLLEGE_BOARD)}>
-            <p className="cb-message-header">Quill and College Board have partnered to provide students with meaningful practice of their sentence-level writing skills.</p>
-          </VisibilitySensor>
+          <p className="cb-message-header">Quill and College Board have partnered to provide students with meaningful practice of their sentence-level writing skills.</p>
           <div className="sub-header-container">
             <p className="cb-message-sub-header">Message from College Board</p>
           </div>
@@ -302,8 +218,8 @@ const PreAp = ({ units, isPartOfAssignmentFlow, }: PreApContainerProps) => {
           </div>
         </div>
       </div>
-      <div ref={questionAndAnswerRef}>
-        <QuestionsAndAnswers handleChange={handleChange} questionsAndAnswersFile="preap" supportLink="" />
+      <div>
+        <QuestionsAndAnswers questionsAndAnswersFile="preap" supportLink="" />
       </div>
     </div>
   )
