@@ -1,0 +1,805 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`AdminAccounts container when the user does not have a verified email and the school is not premium and there are no school admins renders 1`] = `
+<AdminAccess
+  hasSchoolPremium={false}
+  hasVerifiedEmail={false}
+  school={
+    Object {
+      "id": 1,
+      "name": "Test School",
+    }
+  }
+  schoolAdmins={Array []}
+>
+  <div
+    className="admin-access-container"
+  >
+    <Snackbar
+      text=""
+      visible={false}
+    >
+      <div
+        className="quill-snackbar "
+      />
+    </Snackbar>
+    <section
+      className="admin-access"
+    >
+      <h1>
+        Admin access
+      </h1>
+      <div
+        className="text"
+      >
+        <p>
+          <span>
+            Test School
+          </span>
+           currently has no admins.
+        </p>
+        <p>
+          Admins 
+          at schools with Quill Premium
+           can manage teacher accounts, access teacher reports, and view school-wide student data.
+        </p>
+        <a
+          href="/premium"
+          rel="noopener noreferrer"
+          target="_blank"
+        >
+          Learn more about Quill Premium
+        </a>
+      </div>
+      <div
+        className="buttons"
+      >
+        <button
+          className="quill-button focus-on-light outlined secondary medium disabled"
+          disabled={true}
+          onClick={[Function]}
+          type="button"
+        >
+          Invite an admin
+        </button>
+        <button
+          className="quill-button focus-on-light outlined secondary medium disabled"
+          disabled={true}
+          onClick={[Function]}
+          type="button"
+        >
+          Request to become an admin
+        </button>
+      </div>
+      <p
+        className="email-verification-paragraph"
+      >
+        <i
+          className="fas fa-exclamation-triangle"
+        />
+         You must verify your email to use these features. 
+        <button
+          className="interactive-wrapper focus-on-light"
+          onClick={[Function]}
+          type="button"
+        >
+          Verify your email.
+        </button>
+      </p>
+    </section>
+  </div>
+</AdminAccess>
+`;
+
+exports[`AdminAccounts container when the user does not have a verified email and the school is not premium and there are school admins renders 1`] = `
+<AdminAccess
+  hasSchoolPremium={false}
+  hasVerifiedEmail={false}
+  school={
+    Object {
+      "id": 1,
+      "name": "Test School",
+    }
+  }
+  schoolAdmins={
+    Array [
+      Object {
+        "email": "toni.morrison@quill.org",
+        "id": 1,
+        "name": "Toni Morrison",
+      },
+      Object {
+        "email": "james.baldwin@quill.org",
+        "id": 2,
+        "name": "James Baldwin",
+      },
+    ]
+  }
+>
+  <div
+    className="admin-access-container"
+  >
+    <Snackbar
+      text=""
+      visible={false}
+    >
+      <div
+        className="quill-snackbar "
+      />
+    </Snackbar>
+    <section
+      className="admin-access"
+    >
+      <h1>
+        Admin access
+      </h1>
+      <div
+        className="text"
+      >
+        <p>
+          Admins 
+          at schools with Quill Premium
+           can manage teacher accounts, access teacher reports, and view school-wide student data.
+        </p>
+        <a
+          href="/premium"
+          rel="noopener noreferrer"
+          target="_blank"
+        >
+          Learn more about Quill Premium
+        </a>
+      </div>
+      <div
+        className="admin-table"
+      >
+        <h2>
+          Test School
+           admins
+        </h2>
+        <p
+          key="1"
+        >
+          <span>
+            Toni Morrison
+          </span>
+          <a
+            href="mailto:toni.morrison@quill.org"
+            rel="noopener noreferrer"
+            target="_blank"
+          >
+            Contact
+          </a>
+        </p>
+        <p
+          key="2"
+        >
+          <span>
+            James Baldwin
+          </span>
+          <a
+            href="mailto:james.baldwin@quill.org"
+            rel="noopener noreferrer"
+            target="_blank"
+          >
+            Contact
+          </a>
+        </p>
+      </div>
+      <div
+        className="buttons"
+      >
+        <button
+          className="quill-button focus-on-light outlined secondary medium disabled"
+          disabled={true}
+          onClick={[Function]}
+          type="button"
+        >
+          Request to become an admin
+        </button>
+      </div>
+      <p
+        className="email-verification-paragraph"
+      >
+        <i
+          className="fas fa-exclamation-triangle"
+        />
+         You must verify your email to use these features. 
+        <button
+          className="interactive-wrapper focus-on-light"
+          onClick={[Function]}
+          type="button"
+        >
+          Verify your email.
+        </button>
+      </p>
+    </section>
+  </div>
+</AdminAccess>
+`;
+
+exports[`AdminAccounts container when the user does not have a verified email and the school is premium and there are no school admins renders 1`] = `
+<AdminAccess
+  hasSchoolPremium={true}
+  hasVerifiedEmail={false}
+  school={
+    Object {
+      "id": 1,
+      "name": "Test School",
+    }
+  }
+  schoolAdmins={Array []}
+>
+  <div
+    className="admin-access-container"
+  >
+    <Snackbar
+      text=""
+      visible={false}
+    >
+      <div
+        className="quill-snackbar "
+      />
+    </Snackbar>
+    <section
+      className="admin-access"
+    >
+      <h1>
+        Admin access
+      </h1>
+      <div
+        className="text"
+      >
+        <p>
+          <span>
+            Test School
+          </span>
+           currently has no admins.
+        </p>
+        <p>
+          Admins 
+           can manage teacher accounts, access teacher reports, and view school-wide student data.
+        </p>
+        <a
+          href="https://support.quill.org/en/articles/1588988-how-do-i-navigate-the-school-dashboard"
+          rel="noopener noreferrer"
+          target="_blank"
+        >
+          Learn more about the Admin Dashboard
+        </a>
+      </div>
+      <div
+        className="buttons"
+      >
+        <button
+          className="quill-button focus-on-light outlined secondary medium disabled"
+          disabled={true}
+          onClick={[Function]}
+          type="button"
+        >
+          Invite an admin
+        </button>
+        <button
+          className="quill-button focus-on-light outlined secondary medium disabled"
+          disabled={true}
+          onClick={[Function]}
+          type="button"
+        >
+          Request to become an admin
+        </button>
+      </div>
+      <p
+        className="email-verification-paragraph"
+      >
+        <i
+          className="fas fa-exclamation-triangle"
+        />
+         You must verify your email to use these features. 
+        <button
+          className="interactive-wrapper focus-on-light"
+          onClick={[Function]}
+          type="button"
+        >
+          Verify your email.
+        </button>
+      </p>
+    </section>
+  </div>
+</AdminAccess>
+`;
+
+exports[`AdminAccounts container when the user does not have a verified email and the school is premium and there are school admins renders 1`] = `
+<AdminAccess
+  hasSchoolPremium={true}
+  hasVerifiedEmail={false}
+  school={
+    Object {
+      "id": 1,
+      "name": "Test School",
+    }
+  }
+  schoolAdmins={
+    Array [
+      Object {
+        "email": "toni.morrison@quill.org",
+        "id": 1,
+        "name": "Toni Morrison",
+      },
+      Object {
+        "email": "james.baldwin@quill.org",
+        "id": 2,
+        "name": "James Baldwin",
+      },
+    ]
+  }
+>
+  <div
+    className="admin-access-container"
+  >
+    <Snackbar
+      text=""
+      visible={false}
+    >
+      <div
+        className="quill-snackbar "
+      />
+    </Snackbar>
+    <section
+      className="admin-access"
+    >
+      <h1>
+        Admin access
+      </h1>
+      <div
+        className="text"
+      >
+        <p>
+          Admins 
+           can manage teacher accounts, access teacher reports, and view school-wide student data.
+        </p>
+        <a
+          href="https://support.quill.org/en/articles/1588988-how-do-i-navigate-the-school-dashboard"
+          rel="noopener noreferrer"
+          target="_blank"
+        >
+          Learn more about the Admin Dashboard
+        </a>
+      </div>
+      <div
+        className="admin-table"
+      >
+        <h2>
+          Test School
+           admins
+        </h2>
+        <p
+          key="1"
+        >
+          <span>
+            Toni Morrison
+          </span>
+          <a
+            href="mailto:toni.morrison@quill.org"
+            rel="noopener noreferrer"
+            target="_blank"
+          >
+            Contact
+          </a>
+        </p>
+        <p
+          key="2"
+        >
+          <span>
+            James Baldwin
+          </span>
+          <a
+            href="mailto:james.baldwin@quill.org"
+            rel="noopener noreferrer"
+            target="_blank"
+          >
+            Contact
+          </a>
+        </p>
+      </div>
+      <div
+        className="buttons"
+      >
+        <button
+          className="quill-button focus-on-light outlined secondary medium disabled"
+          disabled={true}
+          onClick={[Function]}
+          type="button"
+        >
+          Request to become an admin
+        </button>
+      </div>
+      <p
+        className="email-verification-paragraph"
+      >
+        <i
+          className="fas fa-exclamation-triangle"
+        />
+         You must verify your email to use these features. 
+        <button
+          className="interactive-wrapper focus-on-light"
+          onClick={[Function]}
+          type="button"
+        >
+          Verify your email.
+        </button>
+      </p>
+    </section>
+  </div>
+</AdminAccess>
+`;
+
+exports[`AdminAccounts container when the user has a verified email and the school is not premium and there are no school admins renders 1`] = `
+<AdminAccess
+  hasSchoolPremium={false}
+  hasVerifiedEmail={true}
+  school={
+    Object {
+      "id": 1,
+      "name": "Test School",
+    }
+  }
+  schoolAdmins={Array []}
+>
+  <div
+    className="admin-access-container"
+  >
+    <Snackbar
+      text=""
+      visible={false}
+    >
+      <div
+        className="quill-snackbar "
+      />
+    </Snackbar>
+    <section
+      className="admin-access"
+    >
+      <h1>
+        Admin access
+      </h1>
+      <div
+        className="text"
+      >
+        <p>
+          <span>
+            Test School
+          </span>
+           currently has no admins.
+        </p>
+        <p>
+          Admins 
+          at schools with Quill Premium
+           can manage teacher accounts, access teacher reports, and view school-wide student data.
+        </p>
+        <a
+          href="/premium"
+          rel="noopener noreferrer"
+          target="_blank"
+        >
+          Learn more about Quill Premium
+        </a>
+      </div>
+      <div
+        className="buttons"
+      >
+        <button
+          className="quill-button focus-on-light outlined secondary medium"
+          disabled={false}
+          onClick={[Function]}
+          type="button"
+        >
+          Invite an admin
+        </button>
+        <button
+          className="quill-button focus-on-light outlined secondary medium"
+          disabled={false}
+          onClick={[Function]}
+          type="button"
+        >
+          Request to become an admin
+        </button>
+      </div>
+    </section>
+  </div>
+</AdminAccess>
+`;
+
+exports[`AdminAccounts container when the user has a verified email and the school is not premium and there are school admins renders 1`] = `
+<AdminAccess
+  hasSchoolPremium={false}
+  hasVerifiedEmail={true}
+  school={
+    Object {
+      "id": 1,
+      "name": "Test School",
+    }
+  }
+  schoolAdmins={
+    Array [
+      Object {
+        "email": "toni.morrison@quill.org",
+        "id": 1,
+        "name": "Toni Morrison",
+      },
+      Object {
+        "email": "james.baldwin@quill.org",
+        "id": 2,
+        "name": "James Baldwin",
+      },
+    ]
+  }
+>
+  <div
+    className="admin-access-container"
+  >
+    <Snackbar
+      text=""
+      visible={false}
+    >
+      <div
+        className="quill-snackbar "
+      />
+    </Snackbar>
+    <section
+      className="admin-access"
+    >
+      <h1>
+        Admin access
+      </h1>
+      <div
+        className="text"
+      >
+        <p>
+          Admins 
+          at schools with Quill Premium
+           can manage teacher accounts, access teacher reports, and view school-wide student data.
+        </p>
+        <a
+          href="/premium"
+          rel="noopener noreferrer"
+          target="_blank"
+        >
+          Learn more about Quill Premium
+        </a>
+      </div>
+      <div
+        className="admin-table"
+      >
+        <h2>
+          Test School
+           admins
+        </h2>
+        <p
+          key="1"
+        >
+          <span>
+            Toni Morrison
+          </span>
+          <a
+            href="mailto:toni.morrison@quill.org"
+            rel="noopener noreferrer"
+            target="_blank"
+          >
+            Contact
+          </a>
+        </p>
+        <p
+          key="2"
+        >
+          <span>
+            James Baldwin
+          </span>
+          <a
+            href="mailto:james.baldwin@quill.org"
+            rel="noopener noreferrer"
+            target="_blank"
+          >
+            Contact
+          </a>
+        </p>
+      </div>
+      <div
+        className="buttons"
+      >
+        <button
+          className="quill-button focus-on-light outlined secondary medium"
+          disabled={false}
+          onClick={[Function]}
+          type="button"
+        >
+          Request to become an admin
+        </button>
+      </div>
+    </section>
+  </div>
+</AdminAccess>
+`;
+
+exports[`AdminAccounts container when the user has a verified email and the school is premium and there are no school admins renders 1`] = `
+<AdminAccess
+  hasSchoolPremium={true}
+  hasVerifiedEmail={true}
+  school={
+    Object {
+      "id": 1,
+      "name": "Test School",
+    }
+  }
+  schoolAdmins={Array []}
+>
+  <div
+    className="admin-access-container"
+  >
+    <Snackbar
+      text=""
+      visible={false}
+    >
+      <div
+        className="quill-snackbar "
+      />
+    </Snackbar>
+    <section
+      className="admin-access"
+    >
+      <h1>
+        Admin access
+      </h1>
+      <div
+        className="text"
+      >
+        <p>
+          <span>
+            Test School
+          </span>
+           currently has no admins.
+        </p>
+        <p>
+          Admins 
+           can manage teacher accounts, access teacher reports, and view school-wide student data.
+        </p>
+        <a
+          href="https://support.quill.org/en/articles/1588988-how-do-i-navigate-the-school-dashboard"
+          rel="noopener noreferrer"
+          target="_blank"
+        >
+          Learn more about the Admin Dashboard
+        </a>
+      </div>
+      <div
+        className="buttons"
+      >
+        <button
+          className="quill-button focus-on-light outlined secondary medium"
+          disabled={false}
+          onClick={[Function]}
+          type="button"
+        >
+          Invite an admin
+        </button>
+        <button
+          className="quill-button focus-on-light outlined secondary medium"
+          disabled={false}
+          onClick={[Function]}
+          type="button"
+        >
+          Request to become an admin
+        </button>
+      </div>
+    </section>
+  </div>
+</AdminAccess>
+`;
+
+exports[`AdminAccounts container when the user has a verified email and the school is premium and there are school admins renders 1`] = `
+<AdminAccess
+  hasSchoolPremium={true}
+  hasVerifiedEmail={true}
+  school={
+    Object {
+      "id": 1,
+      "name": "Test School",
+    }
+  }
+  schoolAdmins={
+    Array [
+      Object {
+        "email": "toni.morrison@quill.org",
+        "id": 1,
+        "name": "Toni Morrison",
+      },
+      Object {
+        "email": "james.baldwin@quill.org",
+        "id": 2,
+        "name": "James Baldwin",
+      },
+    ]
+  }
+>
+  <div
+    className="admin-access-container"
+  >
+    <Snackbar
+      text=""
+      visible={false}
+    >
+      <div
+        className="quill-snackbar "
+      />
+    </Snackbar>
+    <section
+      className="admin-access"
+    >
+      <h1>
+        Admin access
+      </h1>
+      <div
+        className="text"
+      >
+        <p>
+          Admins 
+           can manage teacher accounts, access teacher reports, and view school-wide student data.
+        </p>
+        <a
+          href="https://support.quill.org/en/articles/1588988-how-do-i-navigate-the-school-dashboard"
+          rel="noopener noreferrer"
+          target="_blank"
+        >
+          Learn more about the Admin Dashboard
+        </a>
+      </div>
+      <div
+        className="admin-table"
+      >
+        <h2>
+          Test School
+           admins
+        </h2>
+        <p
+          key="1"
+        >
+          <span>
+            Toni Morrison
+          </span>
+          <a
+            href="mailto:toni.morrison@quill.org"
+            rel="noopener noreferrer"
+            target="_blank"
+          >
+            Contact
+          </a>
+        </p>
+        <p
+          key="2"
+        >
+          <span>
+            James Baldwin
+          </span>
+          <a
+            href="mailto:james.baldwin@quill.org"
+            rel="noopener noreferrer"
+            target="_blank"
+          >
+            Contact
+          </a>
+        </p>
+      </div>
+      <div
+        className="buttons"
+      >
+        <button
+          className="quill-button focus-on-light outlined secondary medium"
+          disabled={false}
+          onClick={[Function]}
+          type="button"
+        >
+          Request to become an admin
+        </button>
+      </div>
+    </section>
+  </div>
+</AdminAccess>
+`;

@@ -1,7 +1,6 @@
 # frozen_string_literal: true
 
 class AdminInfosController < ApplicationController
-
   def update
     admin_info = AdminInfo.find_or_create_by!(user: current_user)
 

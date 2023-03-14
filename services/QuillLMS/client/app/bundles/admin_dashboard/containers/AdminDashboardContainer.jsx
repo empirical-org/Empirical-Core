@@ -15,14 +15,14 @@ import { Spinner, NOT_LISTED, NO_SCHOOL_SELECTED } from '../../Shared/index'
 
 const BANNER_BUTTON_CLASS_NAME = "quill-button small secondary outlined focus-on-light"
 
-const Banner = ({ bodyText, headerText, button, }) => (
+const Banner = ({ bodyText, headerText, buttons, }) => (
   <section className="admin-banner">
     <div className="banner-content">
       <div>
         <h3>{headerText}</h3>
         <p>{bodyText}</p>
       </div>
-      {button}
+      {buttons}
     </div>
   </section>
 )
@@ -64,7 +64,12 @@ const AdminDashboardContainer = ({ id, location, children, }) => {
       return (
         <Banner
           bodyText="Subscribe to School or District Premium to unlock all admin dashboard features. Manage teacher accounts, access teacher reports, and view school-wide student data."
-          button={<a className={BANNER_BUTTON_CLASS_NAME} href="/premium" target="_blank">Explore premium</a>}
+          buttons={(
+            <div className="banner-buttons">
+              <a className={BANNER_BUTTON_CLASS_NAME} href="https://calendly.com/alex-quill" rel="noopener noreferrer" target="_blank">Talk to sales</a>
+              <a className={BANNER_BUTTON_CLASS_NAME} href="/premium" target="_blank">Explore premium</a>
+            </div>
+          )}
           headerText="Unlock with Quill Premium"
         />
       )
@@ -74,7 +79,7 @@ const AdminDashboardContainer = ({ id, location, children, }) => {
       return (
         <Banner
           bodyText="Please select a school to use the admin dashboard."
-          button={<a className={BANNER_BUTTON_CLASS_NAME} href="/teachers/my_account">Select school</a>}
+          buttons={<a className={BANNER_BUTTON_CLASS_NAME} href="/teachers/my_account">Select school</a>}
           headerText="Action required"
         />
       )
@@ -84,7 +89,7 @@ const AdminDashboardContainer = ({ id, location, children, }) => {
       return (
         <Banner
           bodyText={`Sorry, we couldn’t verify you as an admin of ${associated_school?.name}. If you need help, contact support.`}
-          button={<a className={BANNER_BUTTON_CLASS_NAME} href="mailto:hello@quill.org">Contact us</a>}
+          buttons={<a className={BANNER_BUTTON_CLASS_NAME} href="mailto:hello@quill.org">Contact us</a>}
           headerText="We couldn't verify you"
         />
       )
@@ -94,7 +99,7 @@ const AdminDashboardContainer = ({ id, location, children, }) => {
       return (
         <Banner
           bodyText="Your verification request is pending approval. Once approved, you will be able to use the admin dashboard. If you need help in the meantime, contact us."
-          button={<a className={BANNER_BUTTON_CLASS_NAME} href="mailto:hello@quill.org">Contact us</a>}
+          buttons={<a className={BANNER_BUTTON_CLASS_NAME} href="mailto:hello@quill.org">Contact us</a>}
           headerText="We’re reviewing your request"
         />
       )
@@ -104,7 +109,7 @@ const AdminDashboardContainer = ({ id, location, children, }) => {
       return (
         <Banner
           bodyText={`Please verify your connection to ${associated_school?.name} to use the admin dashboard.`}
-          button={<a className={BANNER_BUTTON_CLASS_NAME} href="/sign-up/verify-school">Begin verification</a>}
+          buttons={<a className={BANNER_BUTTON_CLASS_NAME} href="/sign-up/verify-school">Begin verification</a>}
           headerText="Action required"
         />
       )

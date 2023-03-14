@@ -37,6 +37,8 @@ EmpiricalGrammar::Application.routes.draw do
       post :admin_remove_as_admin, to: 'admins#remove_as_admin'
       post :admin_make_admin, to: 'admins#make_admin'
       post :admin_unlink_from_school, to: 'admins#unlink_from_school'
+      post :approve_admin_request, to: 'admins#approve_admin_request'
+      post :deny_admin_request, to: 'admins#deny_admin_request'
       get :admin_sign_in_classroom_manager, to: 'admins#sign_in_classroom_manager'
       get :admin_sign_in_progress_reports, to: 'admins#sign_in_progress_reports'
       get :admin_sign_in_account_settings, to: 'admins#sign_in_account_settings'
@@ -44,6 +46,8 @@ EmpiricalGrammar::Application.routes.draw do
   end
 
   post 'admins/:id/create_and_link_accounts', to: 'admins#create_and_link_accounts'
+
+  get '/sitemap.xml', to: redirect("https://quill-cdn.s3.amazonaws.com/documents/quill_sitemap.xml")
 
   # this blog post needs to be redirected
   get '/teacher-center/4-tips-to-maximize-remote-learning-with-quill' => redirect('teacher-center/teacher-toolbox-setting-up-remote-routines-with-quill')
@@ -116,6 +120,7 @@ EmpiricalGrammar::Application.routes.draw do
   resources :verify_emails, only: [] do
     post :verify_by_staff, on: :collection, format: :json
     put :resend_verification_email, on: :collection, format: :json
+    post :require_email_verification, on: :collection, format: :json
     put :verify_by_token, on: :collection, format: :json
   end
   resources :schools, only: [:index], format: 'json'
@@ -185,6 +190,12 @@ EmpiricalGrammar::Application.routes.draw do
 
   resources :admin_infos, only: [] do
     put :update, on: :collection
+  end
+
+  resources :admin_access, only: [:index] do
+    post :upgrade_to_admin, on: :collection
+    post :request_upgrade_to_admin_from_existing_admins, on: :collection
+    post :invite_admin, on: :collection
   end
 
   get 'grades/tooltip/classroom_unit_id/:classroom_unit_id/user_id/:user_id/activity_id/:activity_id/completed/:completed' => 'grades#tooltip'
