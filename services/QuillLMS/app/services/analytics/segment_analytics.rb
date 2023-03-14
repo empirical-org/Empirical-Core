@@ -273,8 +273,8 @@ class SegmentAnalytics
     else
       track({
         # Segment requires us to send a unique User ID or Anonymous ID for every event
-        # generate a random UUID here because this user doesn't yet exist in our system
-        anonymous_id: SecureRandom.uuid,
+        # sending the admin email as the anonymous id because that's how we find people in Ortto
+        anonymous_id: admin_email,
         event: SegmentIo::BackgroundEvents::ADMIN_INVITED_BY_TEACHER,
         properties: properties
       })
