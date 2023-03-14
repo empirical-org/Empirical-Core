@@ -21,7 +21,7 @@ const AdminAccess = ({ school, hasVerifiedEmail, schoolAdmins, hasSchoolPremium,
       if (body.redirect) {
         window.location.href = body.redirect
       } else {
-        window.location.reload
+        window.location.reload()
       }
     })
   }
