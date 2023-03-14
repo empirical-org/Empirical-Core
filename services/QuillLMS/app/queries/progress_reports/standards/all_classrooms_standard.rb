@@ -11,7 +11,10 @@ class ProgressReports::Standards::AllClassroomsStandard
       <<-SQL
         WITH final_activity_sessions AS (
           SELECT
-            activity_sessions.*,
+            activity_sessions.activity_id,
+            activity_sessions.id,
+            activity_sessions.timespent,
+            activity_sessions.user_id,
             activities.standard_id
           FROM activity_sessions
           JOIN classroom_units
