@@ -37,13 +37,11 @@ const Dashboard = ({ onboardingChecklist, firstName, mustSeeWelcomeModal, mustSe
 
   if (!onboardingChecklist.every(obj => obj.checked)) {
     return (
-      <React.Fragment>
-        <div className={className}>
-          {showWelcomeModal && <WelcomeModal close={closeWelcomeModal} size={size} />}
-          {showDemoModal && <DemoModal close={closeDemoModal} size={size} />}
-          <OnboardingChecklist firstName={firstName} onboardingChecklist={onboardingChecklist} />
-        </div>
-      </React.Fragment>
+      <div className={className}>
+        {showWelcomeModal && <WelcomeModal close={closeWelcomeModal} size={size} />}
+        {showDemoModal && <DemoModal close={closeDemoModal} size={size} />}
+        <OnboardingChecklist firstName={firstName} onboardingChecklist={onboardingChecklist} />
+      </div>
     )
   }
 
