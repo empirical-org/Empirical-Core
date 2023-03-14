@@ -62,6 +62,11 @@ class BlogPostsController < ApplicationController
     render 'index'
   end
 
+  def featured_blog_post
+    featured_blog_post = BlogPost.find(params[:id])
+    render json: { blog_post: featured_blog_post }
+  end
+
   def show_topic
     if params[:topic] == BlogPost::WHATS_NEW_SLUG
       topic = BlogPost::WHATS_NEW

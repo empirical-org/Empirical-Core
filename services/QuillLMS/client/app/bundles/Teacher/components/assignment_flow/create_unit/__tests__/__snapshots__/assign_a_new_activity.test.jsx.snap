@@ -3,7 +3,7 @@
 exports[`AssignANewActivity component default should render 1`] = `
 <AssignANewActivity>
   <div
-    className="assign-a-new-activity-container"
+    className="assign-a-new-activity-container gray-background-accommodate-footer"
   >
     <div
       className="assign-a-new-activity container"
@@ -352,5 +352,10 @@ exports[`AssignANewActivity component default should render 1`] = `
       </div>
     </div>
   </div>
+  <ArticleSpotlight
+    blogPostId="113"
+  >
+    <span />
+  </ArticleSpotlight>
 </AssignANewActivity>
 `;

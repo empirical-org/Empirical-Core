@@ -80,7 +80,7 @@ export default class ChooseClassroomLesson extends React.Component {
       return <LoadingSpinner />
     } else {
       return(
-        <div className='choose-classroom-lessons container'>
+        <div className='choose-classroom-lessons container gray-background-accommodate-footer'>
           <div className='lesson-section'>
             <p>You've selected this lesson to launch:</p>
             <div className="lesson-row">

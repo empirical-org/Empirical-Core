@@ -5,6 +5,8 @@ import UnarchiveClassroomModal from './unarchive_classroom_modal'
 
 import { Snackbar, defaultSnackbarTimeout } from '../../../Shared/index'
 import { requestGet } from '../../../../modules/request/index';
+import ArticleSpotlight from '../shared/articleSpotlight';
+import { MY_CLASSES_FEATURED_BLOG_POST_ID } from '../../constants/featuredBlogPost';
 
 interface ArchivedClassroomsProps {
   classrooms: Array<any>;
@@ -149,12 +151,15 @@ export default class ArchivedClassrooms extends React.Component<ArchivedClassroo
 
   render() {
     return (
-      <div className="archived-classrooms classrooms-page">
-        {this.renderUnarchiveClassroomModal()}
-        {this.renderSnackbar()}
-        {this.renderHeader()}
-        {this.renderPageContent()}
-      </div>
+      <React.Fragment>
+        <div className="container gray-background-accommodate-footer archived-classrooms classrooms-page">
+          {this.renderUnarchiveClassroomModal()}
+          {this.renderSnackbar()}
+          {this.renderHeader()}
+          {this.renderPageContent()}
+        </div>
+        <ArticleSpotlight blogPostId={MY_CLASSES_FEATURED_BLOG_POST_ID} />
+      </React.Fragment>
     )
   }
 }

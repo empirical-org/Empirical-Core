@@ -1,1660 +1,1670 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
 exports[`ActiveClassrooms component with classrooms should render with classrooms 1`] = `
-<div
-  className="active-classrooms classrooms-page"
->
-  <Snackbar
-    visible={false}
-  />
-  <BulkArchiveClassesBanner
-    classes={
-      Array [
-        Object {
-          "clever_id": null,
-          "code": "pool-safe",
-          "created_at": "2019-07-19T13: 21: 08.151Z",
-          "google_classroom_id": null,
-          "grade": "4",
-          "grade_level": null,
-          "id": 285401,
-          "name": "Testing",
-          "students": Array [],
-          "teacher_id": null,
-          "teachers": Array [
-            Object {
-              "account_type": "unknown",
-              "active": false,
-              "classcode": null,
-              "classroom_relation": "owner",
-              "clever_id": null,
-              "created_at": "2019-05-21T17: 49: 57.461Z",
-              "email": "hello+demoteacher@quill.org",
-              "flags": Array [],
-              "google_id": null,
-              "id": 2851865,
-              "ip_address": Object {
-                "addr": 2130706433,
-                "family": 2,
-                "mask_addr": 4294967295,
-              },
-              "last_active": null,
-              "last_sign_in": "2019-07-19T13: 10: 19.172Z",
-              "name": "Demo Teacher",
-              "password_digest": "$2a$10$n8UFjrvzM9N3ZvmMxaKZj.QFTEFrb2AilAgMGHwpD20Q8FQJZehn.",
-              "role": "teacher",
-              "send_newsletter": false,
-              "signed_up_with_google": false,
-              "status": "Joined",
-              "stripe_customer_id": null,
-              "time_zone": null,
-              "title": null,
-              "token": null,
-              "updated_at": "2019-07-19T13: 10: 19.194Z",
-              "username": null,
-            },
-            Object {
-              "classroom_relation": "co-teacher",
-              "email": "emiliafree1000@gmail.com",
-              "id": 73311,
-              "name": "—",
-              "status": "Pending",
-            },
-            Object {
-              "classroom_relation": "co-teacher",
-              "email": "emiliafree@gmail.com",
-              "id": 73307,
-              "name": "—",
-              "status": "Pending",
-            },
-          ],
-          "updated_at": "2019-07-19T13: 21: 08.151Z",
-          "visible": true,
-        },
-        Object {
-          "clever_id": null,
-          "code": "till-concert",
-          "created_at": "2019-07-19T13: 12: 23.375Z",
-          "google_classroom_id": null,
-          "grade": "5",
-          "grade_level": null,
-          "id": 285400,
-          "name": "Empty Class",
-          "students": Array [],
-          "teacher_id": null,
-          "teachers": Array [
-            Object {
-              "account_type": "unknown",
-              "active": false,
-              "classcode": null,
-              "classroom_relation": "owner",
-              "clever_id": null,
-              "created_at": "2019-05-21T17: 49: 57.461Z",
-              "email": "hello+demoteacher@quill.org",
-              "flags": Array [],
-              "google_id": null,
-              "id": 2851865,
-              "ip_address": Object {
-                "addr": 2130706433,
-                "family": 2,
-                "mask_addr": 4294967295,
-              },
-              "last_active": null,
-              "last_sign_in": "2019-07-19T13: 10: 19.172Z",
-              "name": "Demo Teacher",
-              "password_digest": "$2a$10$n8UFjrvzM9N3ZvmMxaKZj.QFTEFrb2AilAgMGHwpD20Q8FQJZehn.",
-              "role": "teacher",
-              "send_newsletter": false,
-              "signed_up_with_google": false,
-              "status": "Joined",
-              "stripe_customer_id": null,
-              "time_zone": null,
-              "title": null,
-              "token": null,
-              "updated_at": "2019-07-19T13: 10: 19.194Z",
-              "username": null,
-            },
-            Object {
-              "classroom_relation": "co-teacher",
-              "email": "emiliafree1000@gmail.com",
-              "id": 73310,
-              "name": "—",
-              "status": "Pending",
-            },
-            Object {
-              "classroom_relation": "co-teacher",
-              "email": "emiliafree@gmail.com",
-              "id": 73308,
-              "name": "—",
-              "status": "Pending",
-            },
-          ],
-          "updated_at": "2019-07-19T13: 12: 23.375Z",
-          "visible": true,
-        },
-        Object {
-          "clever_id": null,
-          "code": "demo-2851865",
-          "created_at": "2019-05-21T17: 49: 57.695Z",
-          "google_classroom_id": null,
-          "grade": "9",
-          "grade_level": null,
-          "id": 285383,
-          "name": "Quill Classroom",
-          "students": Array [
-            Object {
-              "account_type": "unknown",
-              "active": false,
-              "classcode": null,
-              "clever_id": null,
-              "created_at": "2019-05-21T17: 49: 59.521Z",
-              "email": "maya_angelou_demo@quill.org",
-              "flags": Array [],
-              "google_id": null,
-              "id": 2851870,
-              "ip_address": Object {
-                "addr": 2130706433,
-                "family": 2,
-                "mask_addr": 4294967295,
-              },
-              "last_active": "2019-05-28T20: 53: 05.000Z",
-              "last_sign_in": "2019-05-29T19: 56: 16.394Z",
-              "name": "Maya Angelou",
-              "password_digest": "$2a$10$8lVZ3JEY9ghzQi9AYvDjDe7gQ1REsA3BmQS.p.1Qc57lE9VJfDbiO",
-              "role": "student",
-              "send_newsletter": false,
-              "signed_up_with_google": false,
-              "stripe_customer_id": null,
-              "time_zone": null,
-              "title": null,
-              "token": null,
-              "updated_at": "2019-05-29T19: 56: 16.412Z",
-              "username": "maya.angelou.285383@demo-teacher",
-            },
-            Object {
-              "account_type": "unknown",
-              "active": false,
-              "classcode": null,
-              "clever_id": null,
-              "created_at": "2019-05-21T17: 49: 58.400Z",
-              "email": null,
-              "flags": Array [],
-              "google_id": null,
-              "id": 2851866,
-              "ip_address": null,
-              "last_active": null,
-              "last_sign_in": null,
-              "name": "William Shakespeare",
-              "password_digest": "$2a$10$0AxIDK0EyTqkvv0ygC.nGuatwd8EKenwNxElVuOP6FlaZL3KmhKZe",
-              "role": "student",
-              "send_newsletter": false,
-              "signed_up_with_google": false,
-              "stripe_customer_id": null,
-              "time_zone": null,
-              "title": null,
-              "token": null,
-              "updated_at": "2019-05-21T17: 49: 58.400Z",
-              "username": "william.shakespeare.285383@demo-teacher",
-            },
-          ],
-          "teacher_id": null,
-          "teachers": Array [
-            Object {
-              "account_type": "unknown",
-              "active": false,
-              "classcode": null,
-              "classroom_relation": "owner",
-              "clever_id": null,
-              "created_at": "2019-05-21T17: 49: 57.461Z",
-              "email": "hello+demoteacher@quill.org",
-              "flags": Array [],
-              "google_id": null,
-              "id": 2851865,
-              "ip_address": Object {
-                "addr": 2130706433,
-                "family": 2,
-                "mask_addr": 4294967295,
-              },
-              "last_active": null,
-              "last_sign_in": "2019-07-19T13: 10: 19.172Z",
-              "name": "Demo Teacher",
-              "password_digest": "$2a$10$n8UFjrvzM9N3ZvmMxaKZj.QFTEFrb2AilAgMGHwpD20Q8FQJZehn.",
-              "role": "teacher",
-              "send_newsletter": false,
-              "signed_up_with_google": false,
-              "status": "Joined",
-              "stripe_customer_id": null,
-              "time_zone": null,
-              "title": null,
-              "token": null,
-              "updated_at": "2019-07-19T13: 10: 19.194Z",
-              "username": null,
-            },
-            Object {
-              "classroom_relation": "co-teacher",
-              "email": "emiliafree1000@gmail.com",
-              "id": 73312,
-              "name": "—",
-              "status": "Pending",
-            },
-            Object {
-              "classroom_relation": "co-teacher",
-              "email": "emiliafree@gmail.com",
-              "id": 73309,
-              "name": "—",
-              "status": "Pending",
-            },
-          ],
-          "updated_at": "2019-05-21T17: 49: 57.695Z",
-          "visible": true,
-        },
-      ]
-    }
-    onSuccess={[Function]}
-    userId={2851865}
-  />
+<Fragment>
   <div
-    className="header"
+    className="container gray-background-accommodate-footer active-classrooms classrooms-page"
   >
-    <h1>
-      Active Classes
-    </h1>
-    <div
-      className="buttons"
-    >
-      <button
-        className="interactive-wrapper import-from-clever-button"
-        onClick={[Function]}
-        type="button"
-      >
-        <img
-          alt="Clever Icon"
-          className="import-from-clever-button-icon"
-          src="undefined/images/icons/clever.svg"
-        />
-        Import from Clever
-      </button>
-      <button
-        className="interactive-wrapper import-from-google-button"
-        onClick={[Function]}
-        type="button"
-      >
-        <img
-          alt="Google Classroom Icon"
-          className="import-from-google-button-icon"
-          src="undefined/images/icons/google-classroom.svg"
-        />
-         Import from Google Classroom
-      </button>
-      <button
-        className="quill-button medium primary contained create-a-class-button"
-        onClick={[Function]}
-        type="button"
-      >
-        Create a class
-      </button>
-    </div>
-  </div>
-  <div
-    className="active-classes"
-  >
-    <CoteacherInvitation
-      coteacherInvitation={
-        Object {
-          "classroom_id": 188628,
-          "classroom_name": "2020",
-          "created_at": "2019-08-01T16:05:31.309Z",
-          "id": 73330,
-          "invitation_id": 72173,
-          "inviter_email": "amitchell@ecslions.org",
-          "inviter_name": "Amber Mitchell",
-          "updated_at": "2019-08-01T16:05:31.309Z",
-        }
-      }
-      getClassroomsAndCoteacherInvitations={[Function]}
-      key="73330"
-      showSnackbar={[Function]}
+    <Snackbar
+      visible={false}
     />
-    <CoteacherInvitation
-      coteacherInvitation={
-        Object {
-          "classroom_id": 43699,
-          "classroom_name": "2019",
-          "created_at": "2019-08-01T16:05:31.207Z",
-          "id": 73329,
-          "invitation_id": 72173,
-          "inviter_email": "amitchell@ecslions.org",
-          "inviter_name": "Amber Mitchell",
-          "updated_at": "2019-08-01T16:05:31.207Z",
-        }
-      }
-      getClassroomsAndCoteacherInvitations={[Function]}
-      key="73329"
-      showSnackbar={[Function]}
-    />
-    <CoteacherInvitation
-      coteacherInvitation={
-        Object {
-          "classroom_id": 220524,
-          "classroom_name": "PLP Students",
-          "created_at": "2019-08-01T16:05:31.099Z",
-          "id": 73328,
-          "invitation_id": 72173,
-          "inviter_email": "amitchell@ecslions.org",
-          "inviter_name": "Amber Mitchell",
-          "updated_at": "2019-08-01T16:05:31.099Z",
-        }
-      }
-      getClassroomsAndCoteacherInvitations={[Function]}
-      key="73328"
-      showSnackbar={[Function]}
-    />
-    <CoteacherInvitation
-      coteacherInvitation={
-        Object {
-          "classroom_id": 285377,
-          "classroom_name": "Newspaper Publishing 11 - 001 - B. Glover",
-          "created_at": "2019-08-01T16:05:30.985Z",
-          "id": 73327,
-          "invitation_id": 72173,
-          "inviter_email": "amitchell@ecslions.org",
-          "inviter_name": "Amber Mitchell",
-          "updated_at": "2019-08-01T16:05:30.985Z",
-        }
-      }
-      getClassroomsAndCoteacherInvitations={[Function]}
-      key="73327"
-      showSnackbar={[Function]}
-    />
-    <CoteacherInvitation
-      coteacherInvitation={
-        Object {
-          "classroom_id": 285378,
-          "classroom_name": "Ninth Grade English - 101 - B. Glover (Section 1)",
-          "created_at": "2019-08-01T16:05:30.876Z",
-          "id": 73326,
-          "invitation_id": 72173,
-          "inviter_email": "amitchell@ecslions.org",
-          "inviter_name": "Amber Mitchell",
-          "updated_at": "2019-08-01T16:05:30.876Z",
-        }
-      }
-      getClassroomsAndCoteacherInvitations={[Function]}
-      key="73326"
-      showSnackbar={[Function]}
-    />
-    <CoteacherInvitation
-      coteacherInvitation={
-        Object {
-          "classroom_id": 285379,
-          "classroom_name": "Ninth Grade English - 101 - B. Glover (Section 2)",
-          "created_at": "2019-08-01T16:05:30.765Z",
-          "id": 73325,
-          "invitation_id": 72173,
-          "inviter_email": "amitchell@ecslions.org",
-          "inviter_name": "Amber Mitchell",
-          "updated_at": "2019-08-01T16:05:30.765Z",
-        }
-      }
-      getClassroomsAndCoteacherInvitations={[Function]}
-      key="73325"
-      showSnackbar={[Function]}
-    />
-    <CoteacherInvitation
-      coteacherInvitation={
-        Object {
-          "classroom_id": 285380,
-          "classroom_name": "Ninth Grade English - 101 - B. Glover (Section 3)",
-          "created_at": "2019-08-01T16:05:30.642Z",
-          "id": 73324,
-          "invitation_id": 72173,
-          "inviter_email": "amitchell@ecslions.org",
-          "inviter_name": "Amber Mitchell",
-          "updated_at": "2019-08-01T16:05:30.642Z",
-        }
-      }
-      getClassroomsAndCoteacherInvitations={[Function]}
-      key="73324"
-      showSnackbar={[Function]}
-    />
-    <CoteacherInvitation
-      coteacherInvitation={
-        Object {
-          "classroom_id": 285381,
-          "classroom_name": "Class 901, Homeroom - 901 - B. Glover (Section 1)",
-          "created_at": "2019-08-01T16:05:30.525Z",
-          "id": 73323,
-          "invitation_id": 72173,
-          "inviter_email": "amitchell@ecslions.org",
-          "inviter_name": "Amber Mitchell",
-          "updated_at": "2019-08-01T16:05:30.525Z",
-        }
-      }
-      getClassroomsAndCoteacherInvitations={[Function]}
-      key="73323"
-      showSnackbar={[Function]}
-    />
-    <CoteacherInvitation
-      coteacherInvitation={
-        Object {
-          "classroom_id": 285383,
-          "classroom_name": "Quill Classroom",
-          "created_at": "2019-08-01T16:05:30.313Z",
-          "id": 73322,
-          "invitation_id": 72173,
-          "inviter_email": "amitchell@ecslions.org",
-          "inviter_name": "Amber Mitchell",
-          "updated_at": "2019-08-01T16:05:30.313Z",
-        }
-      }
-      getClassroomsAndCoteacherInvitations={[Function]}
-      key="73322"
-      showSnackbar={[Function]}
-    />
-    <SortableList
-      axis="y"
-      data={
+    <BulkArchiveClassesBanner
+      classes={
         Array [
-          <React.Fragment>
-            <span
-              className="reorder-classroom-item"
-            >
-              <sortableHandle />
-            </span>
-            <Classroom
-              archiveClass={[Function]}
-              changeGrade={[Function]}
-              classroom={
-                Object {
-                  "clever_id": null,
-                  "code": "pool-safe",
-                  "created_at": "2019-07-19T13: 21: 08.151Z",
-                  "google_classroom_id": null,
-                  "grade": "4",
-                  "grade_level": null,
-                  "id": 285401,
-                  "name": "Testing",
-                  "students": Array [],
-                  "teacher_id": null,
-                  "teachers": Array [
-                    Object {
-                      "account_type": "unknown",
-                      "active": false,
-                      "classcode": null,
-                      "classroom_relation": "owner",
-                      "clever_id": null,
-                      "created_at": "2019-05-21T17: 49: 57.461Z",
-                      "email": "hello+demoteacher@quill.org",
-                      "flags": Array [],
-                      "google_id": null,
-                      "id": 2851865,
-                      "ip_address": Object {
-                        "addr": 2130706433,
-                        "family": 2,
-                        "mask_addr": 4294967295,
-                      },
-                      "last_active": null,
-                      "last_sign_in": "2019-07-19T13: 10: 19.172Z",
-                      "name": "Demo Teacher",
-                      "password_digest": "$2a$10$n8UFjrvzM9N3ZvmMxaKZj.QFTEFrb2AilAgMGHwpD20Q8FQJZehn.",
-                      "role": "teacher",
-                      "send_newsletter": false,
-                      "signed_up_with_google": false,
-                      "status": "Joined",
-                      "stripe_customer_id": null,
-                      "time_zone": null,
-                      "title": null,
-                      "token": null,
-                      "updated_at": "2019-07-19T13: 10: 19.194Z",
-                      "username": null,
-                    },
-                    Object {
-                      "classroom_relation": "co-teacher",
-                      "email": "emiliafree1000@gmail.com",
-                      "id": 73311,
-                      "name": "—",
-                      "status": "Pending",
-                    },
-                    Object {
-                      "classroom_relation": "co-teacher",
-                      "email": "emiliafree@gmail.com",
-                      "id": 73307,
-                      "name": "—",
-                      "status": "Pending",
-                    },
-                  ],
-                  "updated_at": "2019-07-19T13: 21: 08.151Z",
-                  "visible": true,
-                }
-              }
-              classrooms={
-                Array [
-                  Object {
-                    "clever_id": null,
-                    "code": "pool-safe",
-                    "created_at": "2019-07-19T13: 21: 08.151Z",
-                    "google_classroom_id": null,
-                    "grade": "4",
-                    "grade_level": null,
-                    "id": 285401,
-                    "name": "Testing",
-                    "students": Array [],
-                    "teacher_id": null,
-                    "teachers": Array [
-                      Object {
-                        "account_type": "unknown",
-                        "active": false,
-                        "classcode": null,
-                        "classroom_relation": "owner",
-                        "clever_id": null,
-                        "created_at": "2019-05-21T17: 49: 57.461Z",
-                        "email": "hello+demoteacher@quill.org",
-                        "flags": Array [],
-                        "google_id": null,
-                        "id": 2851865,
-                        "ip_address": Object {
-                          "addr": 2130706433,
-                          "family": 2,
-                          "mask_addr": 4294967295,
-                        },
-                        "last_active": null,
-                        "last_sign_in": "2019-07-19T13: 10: 19.172Z",
-                        "name": "Demo Teacher",
-                        "password_digest": "$2a$10$n8UFjrvzM9N3ZvmMxaKZj.QFTEFrb2AilAgMGHwpD20Q8FQJZehn.",
-                        "role": "teacher",
-                        "send_newsletter": false,
-                        "signed_up_with_google": false,
-                        "status": "Joined",
-                        "stripe_customer_id": null,
-                        "time_zone": null,
-                        "title": null,
-                        "token": null,
-                        "updated_at": "2019-07-19T13: 10: 19.194Z",
-                        "username": null,
-                      },
-                      Object {
-                        "classroom_relation": "co-teacher",
-                        "email": "emiliafree1000@gmail.com",
-                        "id": 73311,
-                        "name": "—",
-                        "status": "Pending",
-                      },
-                      Object {
-                        "classroom_relation": "co-teacher",
-                        "email": "emiliafree@gmail.com",
-                        "id": 73307,
-                        "name": "—",
-                        "status": "Pending",
-                      },
-                    ],
-                    "updated_at": "2019-07-19T13: 21: 08.151Z",
-                    "visible": true,
-                  },
-                  Object {
-                    "clever_id": null,
-                    "code": "till-concert",
-                    "created_at": "2019-07-19T13: 12: 23.375Z",
-                    "google_classroom_id": null,
-                    "grade": "5",
-                    "grade_level": null,
-                    "id": 285400,
-                    "name": "Empty Class",
-                    "students": Array [],
-                    "teacher_id": null,
-                    "teachers": Array [
-                      Object {
-                        "account_type": "unknown",
-                        "active": false,
-                        "classcode": null,
-                        "classroom_relation": "owner",
-                        "clever_id": null,
-                        "created_at": "2019-05-21T17: 49: 57.461Z",
-                        "email": "hello+demoteacher@quill.org",
-                        "flags": Array [],
-                        "google_id": null,
-                        "id": 2851865,
-                        "ip_address": Object {
-                          "addr": 2130706433,
-                          "family": 2,
-                          "mask_addr": 4294967295,
-                        },
-                        "last_active": null,
-                        "last_sign_in": "2019-07-19T13: 10: 19.172Z",
-                        "name": "Demo Teacher",
-                        "password_digest": "$2a$10$n8UFjrvzM9N3ZvmMxaKZj.QFTEFrb2AilAgMGHwpD20Q8FQJZehn.",
-                        "role": "teacher",
-                        "send_newsletter": false,
-                        "signed_up_with_google": false,
-                        "status": "Joined",
-                        "stripe_customer_id": null,
-                        "time_zone": null,
-                        "title": null,
-                        "token": null,
-                        "updated_at": "2019-07-19T13: 10: 19.194Z",
-                        "username": null,
-                      },
-                      Object {
-                        "classroom_relation": "co-teacher",
-                        "email": "emiliafree1000@gmail.com",
-                        "id": 73310,
-                        "name": "—",
-                        "status": "Pending",
-                      },
-                      Object {
-                        "classroom_relation": "co-teacher",
-                        "email": "emiliafree@gmail.com",
-                        "id": 73308,
-                        "name": "—",
-                        "status": "Pending",
-                      },
-                    ],
-                    "updated_at": "2019-07-19T13: 12: 23.375Z",
-                    "visible": true,
-                  },
-                  Object {
-                    "clever_id": null,
-                    "code": "demo-2851865",
-                    "created_at": "2019-05-21T17: 49: 57.695Z",
-                    "google_classroom_id": null,
-                    "grade": "9",
-                    "grade_level": null,
-                    "id": 285383,
-                    "name": "Quill Classroom",
-                    "students": Array [
-                      Object {
-                        "account_type": "unknown",
-                        "active": false,
-                        "classcode": null,
-                        "clever_id": null,
-                        "created_at": "2019-05-21T17: 49: 59.521Z",
-                        "email": "maya_angelou_demo@quill.org",
-                        "flags": Array [],
-                        "google_id": null,
-                        "id": 2851870,
-                        "ip_address": Object {
-                          "addr": 2130706433,
-                          "family": 2,
-                          "mask_addr": 4294967295,
-                        },
-                        "last_active": "2019-05-28T20: 53: 05.000Z",
-                        "last_sign_in": "2019-05-29T19: 56: 16.394Z",
-                        "name": "Maya Angelou",
-                        "password_digest": "$2a$10$8lVZ3JEY9ghzQi9AYvDjDe7gQ1REsA3BmQS.p.1Qc57lE9VJfDbiO",
-                        "role": "student",
-                        "send_newsletter": false,
-                        "signed_up_with_google": false,
-                        "stripe_customer_id": null,
-                        "time_zone": null,
-                        "title": null,
-                        "token": null,
-                        "updated_at": "2019-05-29T19: 56: 16.412Z",
-                        "username": "maya.angelou.285383@demo-teacher",
-                      },
-                      Object {
-                        "account_type": "unknown",
-                        "active": false,
-                        "classcode": null,
-                        "clever_id": null,
-                        "created_at": "2019-05-21T17: 49: 58.400Z",
-                        "email": null,
-                        "flags": Array [],
-                        "google_id": null,
-                        "id": 2851866,
-                        "ip_address": null,
-                        "last_active": null,
-                        "last_sign_in": null,
-                        "name": "William Shakespeare",
-                        "password_digest": "$2a$10$0AxIDK0EyTqkvv0ygC.nGuatwd8EKenwNxElVuOP6FlaZL3KmhKZe",
-                        "role": "student",
-                        "send_newsletter": false,
-                        "signed_up_with_google": false,
-                        "stripe_customer_id": null,
-                        "time_zone": null,
-                        "title": null,
-                        "token": null,
-                        "updated_at": "2019-05-21T17: 49: 58.400Z",
-                        "username": "william.shakespeare.285383@demo-teacher",
-                      },
-                    ],
-                    "teacher_id": null,
-                    "teachers": Array [
-                      Object {
-                        "account_type": "unknown",
-                        "active": false,
-                        "classcode": null,
-                        "classroom_relation": "owner",
-                        "clever_id": null,
-                        "created_at": "2019-05-21T17: 49: 57.461Z",
-                        "email": "hello+demoteacher@quill.org",
-                        "flags": Array [],
-                        "google_id": null,
-                        "id": 2851865,
-                        "ip_address": Object {
-                          "addr": 2130706433,
-                          "family": 2,
-                          "mask_addr": 4294967295,
-                        },
-                        "last_active": null,
-                        "last_sign_in": "2019-07-19T13: 10: 19.172Z",
-                        "name": "Demo Teacher",
-                        "password_digest": "$2a$10$n8UFjrvzM9N3ZvmMxaKZj.QFTEFrb2AilAgMGHwpD20Q8FQJZehn.",
-                        "role": "teacher",
-                        "send_newsletter": false,
-                        "signed_up_with_google": false,
-                        "status": "Joined",
-                        "stripe_customer_id": null,
-                        "time_zone": null,
-                        "title": null,
-                        "token": null,
-                        "updated_at": "2019-07-19T13: 10: 19.194Z",
-                        "username": null,
-                      },
-                      Object {
-                        "classroom_relation": "co-teacher",
-                        "email": "emiliafree1000@gmail.com",
-                        "id": 73312,
-                        "name": "—",
-                        "status": "Pending",
-                      },
-                      Object {
-                        "classroom_relation": "co-teacher",
-                        "email": "emiliafree@gmail.com",
-                        "id": 73309,
-                        "name": "—",
-                        "status": "Pending",
-                      },
-                    ],
-                    "updated_at": "2019-05-21T17: 49: 57.695Z",
-                    "visible": true,
-                  },
-                ]
-              }
-              clickClassroomHeader={[Function]}
-              importCleverClassroomStudents={[Function]}
-              importGoogleClassroomStudents={[Function]}
-              inviteStudents={[Function]}
-              isOwnedByCurrentUser={true}
-              onSuccess={[Function]}
-              renameClass={[Function]}
-              selected={false}
-              user={
-                Object {
-                  "account_type": "unknown",
-                  "active": false,
-                  "classcode": null,
-                  "clever_id": null,
-                  "created_at": "2019-05-21T17:49:57.461Z",
-                  "email": "hello+demoteacher@quill.org",
-                  "flags": Array [],
-                  "google_id": null,
-                  "id": 2851865,
-                  "ip_address": Object {
-                    "addr": 2130706433,
-                    "family": 2,
-                    "mask_addr": 4294967295,
-                  },
-                  "last_active": null,
-                  "last_sign_in": "2019-07-19T13:10:19.172Z",
-                  "name": "Demo Teacher",
-                  "password_digest": "$2a$10$n8UFjrvzM9N3ZvmMxaKZj.QFTEFrb2AilAgMGHwpD20Q8FQJZehn.",
-                  "role": "teacher",
-                  "send_newsletter": false,
-                  "signed_up_with_google": false,
-                  "stripe_customer_id": null,
-                  "time_zone": null,
-                  "title": null,
-                  "token": null,
-                  "updated_at": "2019-07-19T13:10:19.194Z",
-                  "username": null,
-                }
-              }
-              viewAsStudent={[Function]}
-            />
-          </React.Fragment>,
-          <React.Fragment>
-            <span
-              className="reorder-classroom-item"
-            >
-              <sortableHandle />
-            </span>
-            <Classroom
-              archiveClass={[Function]}
-              changeGrade={[Function]}
-              classroom={
-                Object {
-                  "clever_id": null,
-                  "code": "till-concert",
-                  "created_at": "2019-07-19T13: 12: 23.375Z",
-                  "google_classroom_id": null,
-                  "grade": "5",
-                  "grade_level": null,
-                  "id": 285400,
-                  "name": "Empty Class",
-                  "students": Array [],
-                  "teacher_id": null,
-                  "teachers": Array [
-                    Object {
-                      "account_type": "unknown",
-                      "active": false,
-                      "classcode": null,
-                      "classroom_relation": "owner",
-                      "clever_id": null,
-                      "created_at": "2019-05-21T17: 49: 57.461Z",
-                      "email": "hello+demoteacher@quill.org",
-                      "flags": Array [],
-                      "google_id": null,
-                      "id": 2851865,
-                      "ip_address": Object {
-                        "addr": 2130706433,
-                        "family": 2,
-                        "mask_addr": 4294967295,
-                      },
-                      "last_active": null,
-                      "last_sign_in": "2019-07-19T13: 10: 19.172Z",
-                      "name": "Demo Teacher",
-                      "password_digest": "$2a$10$n8UFjrvzM9N3ZvmMxaKZj.QFTEFrb2AilAgMGHwpD20Q8FQJZehn.",
-                      "role": "teacher",
-                      "send_newsletter": false,
-                      "signed_up_with_google": false,
-                      "status": "Joined",
-                      "stripe_customer_id": null,
-                      "time_zone": null,
-                      "title": null,
-                      "token": null,
-                      "updated_at": "2019-07-19T13: 10: 19.194Z",
-                      "username": null,
-                    },
-                    Object {
-                      "classroom_relation": "co-teacher",
-                      "email": "emiliafree1000@gmail.com",
-                      "id": 73310,
-                      "name": "—",
-                      "status": "Pending",
-                    },
-                    Object {
-                      "classroom_relation": "co-teacher",
-                      "email": "emiliafree@gmail.com",
-                      "id": 73308,
-                      "name": "—",
-                      "status": "Pending",
-                    },
-                  ],
-                  "updated_at": "2019-07-19T13: 12: 23.375Z",
-                  "visible": true,
-                }
-              }
-              classrooms={
-                Array [
-                  Object {
-                    "clever_id": null,
-                    "code": "pool-safe",
-                    "created_at": "2019-07-19T13: 21: 08.151Z",
-                    "google_classroom_id": null,
-                    "grade": "4",
-                    "grade_level": null,
-                    "id": 285401,
-                    "name": "Testing",
-                    "students": Array [],
-                    "teacher_id": null,
-                    "teachers": Array [
-                      Object {
-                        "account_type": "unknown",
-                        "active": false,
-                        "classcode": null,
-                        "classroom_relation": "owner",
-                        "clever_id": null,
-                        "created_at": "2019-05-21T17: 49: 57.461Z",
-                        "email": "hello+demoteacher@quill.org",
-                        "flags": Array [],
-                        "google_id": null,
-                        "id": 2851865,
-                        "ip_address": Object {
-                          "addr": 2130706433,
-                          "family": 2,
-                          "mask_addr": 4294967295,
-                        },
-                        "last_active": null,
-                        "last_sign_in": "2019-07-19T13: 10: 19.172Z",
-                        "name": "Demo Teacher",
-                        "password_digest": "$2a$10$n8UFjrvzM9N3ZvmMxaKZj.QFTEFrb2AilAgMGHwpD20Q8FQJZehn.",
-                        "role": "teacher",
-                        "send_newsletter": false,
-                        "signed_up_with_google": false,
-                        "status": "Joined",
-                        "stripe_customer_id": null,
-                        "time_zone": null,
-                        "title": null,
-                        "token": null,
-                        "updated_at": "2019-07-19T13: 10: 19.194Z",
-                        "username": null,
-                      },
-                      Object {
-                        "classroom_relation": "co-teacher",
-                        "email": "emiliafree1000@gmail.com",
-                        "id": 73311,
-                        "name": "—",
-                        "status": "Pending",
-                      },
-                      Object {
-                        "classroom_relation": "co-teacher",
-                        "email": "emiliafree@gmail.com",
-                        "id": 73307,
-                        "name": "—",
-                        "status": "Pending",
-                      },
-                    ],
-                    "updated_at": "2019-07-19T13: 21: 08.151Z",
-                    "visible": true,
-                  },
-                  Object {
-                    "clever_id": null,
-                    "code": "till-concert",
-                    "created_at": "2019-07-19T13: 12: 23.375Z",
-                    "google_classroom_id": null,
-                    "grade": "5",
-                    "grade_level": null,
-                    "id": 285400,
-                    "name": "Empty Class",
-                    "students": Array [],
-                    "teacher_id": null,
-                    "teachers": Array [
-                      Object {
-                        "account_type": "unknown",
-                        "active": false,
-                        "classcode": null,
-                        "classroom_relation": "owner",
-                        "clever_id": null,
-                        "created_at": "2019-05-21T17: 49: 57.461Z",
-                        "email": "hello+demoteacher@quill.org",
-                        "flags": Array [],
-                        "google_id": null,
-                        "id": 2851865,
-                        "ip_address": Object {
-                          "addr": 2130706433,
-                          "family": 2,
-                          "mask_addr": 4294967295,
-                        },
-                        "last_active": null,
-                        "last_sign_in": "2019-07-19T13: 10: 19.172Z",
-                        "name": "Demo Teacher",
-                        "password_digest": "$2a$10$n8UFjrvzM9N3ZvmMxaKZj.QFTEFrb2AilAgMGHwpD20Q8FQJZehn.",
-                        "role": "teacher",
-                        "send_newsletter": false,
-                        "signed_up_with_google": false,
-                        "status": "Joined",
-                        "stripe_customer_id": null,
-                        "time_zone": null,
-                        "title": null,
-                        "token": null,
-                        "updated_at": "2019-07-19T13: 10: 19.194Z",
-                        "username": null,
-                      },
-                      Object {
-                        "classroom_relation": "co-teacher",
-                        "email": "emiliafree1000@gmail.com",
-                        "id": 73310,
-                        "name": "—",
-                        "status": "Pending",
-                      },
-                      Object {
-                        "classroom_relation": "co-teacher",
-                        "email": "emiliafree@gmail.com",
-                        "id": 73308,
-                        "name": "—",
-                        "status": "Pending",
-                      },
-                    ],
-                    "updated_at": "2019-07-19T13: 12: 23.375Z",
-                    "visible": true,
-                  },
-                  Object {
-                    "clever_id": null,
-                    "code": "demo-2851865",
-                    "created_at": "2019-05-21T17: 49: 57.695Z",
-                    "google_classroom_id": null,
-                    "grade": "9",
-                    "grade_level": null,
-                    "id": 285383,
-                    "name": "Quill Classroom",
-                    "students": Array [
-                      Object {
-                        "account_type": "unknown",
-                        "active": false,
-                        "classcode": null,
-                        "clever_id": null,
-                        "created_at": "2019-05-21T17: 49: 59.521Z",
-                        "email": "maya_angelou_demo@quill.org",
-                        "flags": Array [],
-                        "google_id": null,
-                        "id": 2851870,
-                        "ip_address": Object {
-                          "addr": 2130706433,
-                          "family": 2,
-                          "mask_addr": 4294967295,
-                        },
-                        "last_active": "2019-05-28T20: 53: 05.000Z",
-                        "last_sign_in": "2019-05-29T19: 56: 16.394Z",
-                        "name": "Maya Angelou",
-                        "password_digest": "$2a$10$8lVZ3JEY9ghzQi9AYvDjDe7gQ1REsA3BmQS.p.1Qc57lE9VJfDbiO",
-                        "role": "student",
-                        "send_newsletter": false,
-                        "signed_up_with_google": false,
-                        "stripe_customer_id": null,
-                        "time_zone": null,
-                        "title": null,
-                        "token": null,
-                        "updated_at": "2019-05-29T19: 56: 16.412Z",
-                        "username": "maya.angelou.285383@demo-teacher",
-                      },
-                      Object {
-                        "account_type": "unknown",
-                        "active": false,
-                        "classcode": null,
-                        "clever_id": null,
-                        "created_at": "2019-05-21T17: 49: 58.400Z",
-                        "email": null,
-                        "flags": Array [],
-                        "google_id": null,
-                        "id": 2851866,
-                        "ip_address": null,
-                        "last_active": null,
-                        "last_sign_in": null,
-                        "name": "William Shakespeare",
-                        "password_digest": "$2a$10$0AxIDK0EyTqkvv0ygC.nGuatwd8EKenwNxElVuOP6FlaZL3KmhKZe",
-                        "role": "student",
-                        "send_newsletter": false,
-                        "signed_up_with_google": false,
-                        "stripe_customer_id": null,
-                        "time_zone": null,
-                        "title": null,
-                        "token": null,
-                        "updated_at": "2019-05-21T17: 49: 58.400Z",
-                        "username": "william.shakespeare.285383@demo-teacher",
-                      },
-                    ],
-                    "teacher_id": null,
-                    "teachers": Array [
-                      Object {
-                        "account_type": "unknown",
-                        "active": false,
-                        "classcode": null,
-                        "classroom_relation": "owner",
-                        "clever_id": null,
-                        "created_at": "2019-05-21T17: 49: 57.461Z",
-                        "email": "hello+demoteacher@quill.org",
-                        "flags": Array [],
-                        "google_id": null,
-                        "id": 2851865,
-                        "ip_address": Object {
-                          "addr": 2130706433,
-                          "family": 2,
-                          "mask_addr": 4294967295,
-                        },
-                        "last_active": null,
-                        "last_sign_in": "2019-07-19T13: 10: 19.172Z",
-                        "name": "Demo Teacher",
-                        "password_digest": "$2a$10$n8UFjrvzM9N3ZvmMxaKZj.QFTEFrb2AilAgMGHwpD20Q8FQJZehn.",
-                        "role": "teacher",
-                        "send_newsletter": false,
-                        "signed_up_with_google": false,
-                        "status": "Joined",
-                        "stripe_customer_id": null,
-                        "time_zone": null,
-                        "title": null,
-                        "token": null,
-                        "updated_at": "2019-07-19T13: 10: 19.194Z",
-                        "username": null,
-                      },
-                      Object {
-                        "classroom_relation": "co-teacher",
-                        "email": "emiliafree1000@gmail.com",
-                        "id": 73312,
-                        "name": "—",
-                        "status": "Pending",
-                      },
-                      Object {
-                        "classroom_relation": "co-teacher",
-                        "email": "emiliafree@gmail.com",
-                        "id": 73309,
-                        "name": "—",
-                        "status": "Pending",
-                      },
-                    ],
-                    "updated_at": "2019-05-21T17: 49: 57.695Z",
-                    "visible": true,
-                  },
-                ]
-              }
-              clickClassroomHeader={[Function]}
-              importCleverClassroomStudents={[Function]}
-              importGoogleClassroomStudents={[Function]}
-              inviteStudents={[Function]}
-              isOwnedByCurrentUser={true}
-              onSuccess={[Function]}
-              renameClass={[Function]}
-              selected={false}
-              user={
-                Object {
-                  "account_type": "unknown",
-                  "active": false,
-                  "classcode": null,
-                  "clever_id": null,
-                  "created_at": "2019-05-21T17:49:57.461Z",
-                  "email": "hello+demoteacher@quill.org",
-                  "flags": Array [],
-                  "google_id": null,
-                  "id": 2851865,
-                  "ip_address": Object {
-                    "addr": 2130706433,
-                    "family": 2,
-                    "mask_addr": 4294967295,
-                  },
-                  "last_active": null,
-                  "last_sign_in": "2019-07-19T13:10:19.172Z",
-                  "name": "Demo Teacher",
-                  "password_digest": "$2a$10$n8UFjrvzM9N3ZvmMxaKZj.QFTEFrb2AilAgMGHwpD20Q8FQJZehn.",
-                  "role": "teacher",
-                  "send_newsletter": false,
-                  "signed_up_with_google": false,
-                  "stripe_customer_id": null,
-                  "time_zone": null,
-                  "title": null,
-                  "token": null,
-                  "updated_at": "2019-07-19T13:10:19.194Z",
-                  "username": null,
-                }
-              }
-              viewAsStudent={[Function]}
-            />
-          </React.Fragment>,
-          <React.Fragment>
-            <span
-              className="reorder-classroom-item"
-            >
-              <sortableHandle />
-            </span>
-            <Classroom
-              archiveClass={[Function]}
-              changeGrade={[Function]}
-              classroom={
-                Object {
-                  "clever_id": null,
-                  "code": "demo-2851865",
-                  "created_at": "2019-05-21T17: 49: 57.695Z",
-                  "google_classroom_id": null,
-                  "grade": "9",
-                  "grade_level": null,
-                  "id": 285383,
-                  "name": "Quill Classroom",
-                  "students": Array [
-                    Object {
-                      "account_type": "unknown",
-                      "active": false,
-                      "classcode": null,
-                      "clever_id": null,
-                      "created_at": "2019-05-21T17: 49: 59.521Z",
-                      "email": "maya_angelou_demo@quill.org",
-                      "flags": Array [],
-                      "google_id": null,
-                      "id": 2851870,
-                      "ip_address": Object {
-                        "addr": 2130706433,
-                        "family": 2,
-                        "mask_addr": 4294967295,
-                      },
-                      "last_active": "2019-05-28T20: 53: 05.000Z",
-                      "last_sign_in": "2019-05-29T19: 56: 16.394Z",
-                      "name": "Maya Angelou",
-                      "password_digest": "$2a$10$8lVZ3JEY9ghzQi9AYvDjDe7gQ1REsA3BmQS.p.1Qc57lE9VJfDbiO",
-                      "role": "student",
-                      "send_newsletter": false,
-                      "signed_up_with_google": false,
-                      "stripe_customer_id": null,
-                      "time_zone": null,
-                      "title": null,
-                      "token": null,
-                      "updated_at": "2019-05-29T19: 56: 16.412Z",
-                      "username": "maya.angelou.285383@demo-teacher",
-                    },
-                    Object {
-                      "account_type": "unknown",
-                      "active": false,
-                      "classcode": null,
-                      "clever_id": null,
-                      "created_at": "2019-05-21T17: 49: 58.400Z",
-                      "email": null,
-                      "flags": Array [],
-                      "google_id": null,
-                      "id": 2851866,
-                      "ip_address": null,
-                      "last_active": null,
-                      "last_sign_in": null,
-                      "name": "William Shakespeare",
-                      "password_digest": "$2a$10$0AxIDK0EyTqkvv0ygC.nGuatwd8EKenwNxElVuOP6FlaZL3KmhKZe",
-                      "role": "student",
-                      "send_newsletter": false,
-                      "signed_up_with_google": false,
-                      "stripe_customer_id": null,
-                      "time_zone": null,
-                      "title": null,
-                      "token": null,
-                      "updated_at": "2019-05-21T17: 49: 58.400Z",
-                      "username": "william.shakespeare.285383@demo-teacher",
-                    },
-                  ],
-                  "teacher_id": null,
-                  "teachers": Array [
-                    Object {
-                      "account_type": "unknown",
-                      "active": false,
-                      "classcode": null,
-                      "classroom_relation": "owner",
-                      "clever_id": null,
-                      "created_at": "2019-05-21T17: 49: 57.461Z",
-                      "email": "hello+demoteacher@quill.org",
-                      "flags": Array [],
-                      "google_id": null,
-                      "id": 2851865,
-                      "ip_address": Object {
-                        "addr": 2130706433,
-                        "family": 2,
-                        "mask_addr": 4294967295,
-                      },
-                      "last_active": null,
-                      "last_sign_in": "2019-07-19T13: 10: 19.172Z",
-                      "name": "Demo Teacher",
-                      "password_digest": "$2a$10$n8UFjrvzM9N3ZvmMxaKZj.QFTEFrb2AilAgMGHwpD20Q8FQJZehn.",
-                      "role": "teacher",
-                      "send_newsletter": false,
-                      "signed_up_with_google": false,
-                      "status": "Joined",
-                      "stripe_customer_id": null,
-                      "time_zone": null,
-                      "title": null,
-                      "token": null,
-                      "updated_at": "2019-07-19T13: 10: 19.194Z",
-                      "username": null,
-                    },
-                    Object {
-                      "classroom_relation": "co-teacher",
-                      "email": "emiliafree1000@gmail.com",
-                      "id": 73312,
-                      "name": "—",
-                      "status": "Pending",
-                    },
-                    Object {
-                      "classroom_relation": "co-teacher",
-                      "email": "emiliafree@gmail.com",
-                      "id": 73309,
-                      "name": "—",
-                      "status": "Pending",
-                    },
-                  ],
-                  "updated_at": "2019-05-21T17: 49: 57.695Z",
-                  "visible": true,
-                }
-              }
-              classrooms={
-                Array [
-                  Object {
-                    "clever_id": null,
-                    "code": "pool-safe",
-                    "created_at": "2019-07-19T13: 21: 08.151Z",
-                    "google_classroom_id": null,
-                    "grade": "4",
-                    "grade_level": null,
-                    "id": 285401,
-                    "name": "Testing",
-                    "students": Array [],
-                    "teacher_id": null,
-                    "teachers": Array [
-                      Object {
-                        "account_type": "unknown",
-                        "active": false,
-                        "classcode": null,
-                        "classroom_relation": "owner",
-                        "clever_id": null,
-                        "created_at": "2019-05-21T17: 49: 57.461Z",
-                        "email": "hello+demoteacher@quill.org",
-                        "flags": Array [],
-                        "google_id": null,
-                        "id": 2851865,
-                        "ip_address": Object {
-                          "addr": 2130706433,
-                          "family": 2,
-                          "mask_addr": 4294967295,
-                        },
-                        "last_active": null,
-                        "last_sign_in": "2019-07-19T13: 10: 19.172Z",
-                        "name": "Demo Teacher",
-                        "password_digest": "$2a$10$n8UFjrvzM9N3ZvmMxaKZj.QFTEFrb2AilAgMGHwpD20Q8FQJZehn.",
-                        "role": "teacher",
-                        "send_newsletter": false,
-                        "signed_up_with_google": false,
-                        "status": "Joined",
-                        "stripe_customer_id": null,
-                        "time_zone": null,
-                        "title": null,
-                        "token": null,
-                        "updated_at": "2019-07-19T13: 10: 19.194Z",
-                        "username": null,
-                      },
-                      Object {
-                        "classroom_relation": "co-teacher",
-                        "email": "emiliafree1000@gmail.com",
-                        "id": 73311,
-                        "name": "—",
-                        "status": "Pending",
-                      },
-                      Object {
-                        "classroom_relation": "co-teacher",
-                        "email": "emiliafree@gmail.com",
-                        "id": 73307,
-                        "name": "—",
-                        "status": "Pending",
-                      },
-                    ],
-                    "updated_at": "2019-07-19T13: 21: 08.151Z",
-                    "visible": true,
-                  },
-                  Object {
-                    "clever_id": null,
-                    "code": "till-concert",
-                    "created_at": "2019-07-19T13: 12: 23.375Z",
-                    "google_classroom_id": null,
-                    "grade": "5",
-                    "grade_level": null,
-                    "id": 285400,
-                    "name": "Empty Class",
-                    "students": Array [],
-                    "teacher_id": null,
-                    "teachers": Array [
-                      Object {
-                        "account_type": "unknown",
-                        "active": false,
-                        "classcode": null,
-                        "classroom_relation": "owner",
-                        "clever_id": null,
-                        "created_at": "2019-05-21T17: 49: 57.461Z",
-                        "email": "hello+demoteacher@quill.org",
-                        "flags": Array [],
-                        "google_id": null,
-                        "id": 2851865,
-                        "ip_address": Object {
-                          "addr": 2130706433,
-                          "family": 2,
-                          "mask_addr": 4294967295,
-                        },
-                        "last_active": null,
-                        "last_sign_in": "2019-07-19T13: 10: 19.172Z",
-                        "name": "Demo Teacher",
-                        "password_digest": "$2a$10$n8UFjrvzM9N3ZvmMxaKZj.QFTEFrb2AilAgMGHwpD20Q8FQJZehn.",
-                        "role": "teacher",
-                        "send_newsletter": false,
-                        "signed_up_with_google": false,
-                        "status": "Joined",
-                        "stripe_customer_id": null,
-                        "time_zone": null,
-                        "title": null,
-                        "token": null,
-                        "updated_at": "2019-07-19T13: 10: 19.194Z",
-                        "username": null,
-                      },
-                      Object {
-                        "classroom_relation": "co-teacher",
-                        "email": "emiliafree1000@gmail.com",
-                        "id": 73310,
-                        "name": "—",
-                        "status": "Pending",
-                      },
-                      Object {
-                        "classroom_relation": "co-teacher",
-                        "email": "emiliafree@gmail.com",
-                        "id": 73308,
-                        "name": "—",
-                        "status": "Pending",
-                      },
-                    ],
-                    "updated_at": "2019-07-19T13: 12: 23.375Z",
-                    "visible": true,
-                  },
-                  Object {
-                    "clever_id": null,
-                    "code": "demo-2851865",
-                    "created_at": "2019-05-21T17: 49: 57.695Z",
-                    "google_classroom_id": null,
-                    "grade": "9",
-                    "grade_level": null,
-                    "id": 285383,
-                    "name": "Quill Classroom",
-                    "students": Array [
-                      Object {
-                        "account_type": "unknown",
-                        "active": false,
-                        "classcode": null,
-                        "clever_id": null,
-                        "created_at": "2019-05-21T17: 49: 59.521Z",
-                        "email": "maya_angelou_demo@quill.org",
-                        "flags": Array [],
-                        "google_id": null,
-                        "id": 2851870,
-                        "ip_address": Object {
-                          "addr": 2130706433,
-                          "family": 2,
-                          "mask_addr": 4294967295,
-                        },
-                        "last_active": "2019-05-28T20: 53: 05.000Z",
-                        "last_sign_in": "2019-05-29T19: 56: 16.394Z",
-                        "name": "Maya Angelou",
-                        "password_digest": "$2a$10$8lVZ3JEY9ghzQi9AYvDjDe7gQ1REsA3BmQS.p.1Qc57lE9VJfDbiO",
-                        "role": "student",
-                        "send_newsletter": false,
-                        "signed_up_with_google": false,
-                        "stripe_customer_id": null,
-                        "time_zone": null,
-                        "title": null,
-                        "token": null,
-                        "updated_at": "2019-05-29T19: 56: 16.412Z",
-                        "username": "maya.angelou.285383@demo-teacher",
-                      },
-                      Object {
-                        "account_type": "unknown",
-                        "active": false,
-                        "classcode": null,
-                        "clever_id": null,
-                        "created_at": "2019-05-21T17: 49: 58.400Z",
-                        "email": null,
-                        "flags": Array [],
-                        "google_id": null,
-                        "id": 2851866,
-                        "ip_address": null,
-                        "last_active": null,
-                        "last_sign_in": null,
-                        "name": "William Shakespeare",
-                        "password_digest": "$2a$10$0AxIDK0EyTqkvv0ygC.nGuatwd8EKenwNxElVuOP6FlaZL3KmhKZe",
-                        "role": "student",
-                        "send_newsletter": false,
-                        "signed_up_with_google": false,
-                        "stripe_customer_id": null,
-                        "time_zone": null,
-                        "title": null,
-                        "token": null,
-                        "updated_at": "2019-05-21T17: 49: 58.400Z",
-                        "username": "william.shakespeare.285383@demo-teacher",
-                      },
-                    ],
-                    "teacher_id": null,
-                    "teachers": Array [
-                      Object {
-                        "account_type": "unknown",
-                        "active": false,
-                        "classcode": null,
-                        "classroom_relation": "owner",
-                        "clever_id": null,
-                        "created_at": "2019-05-21T17: 49: 57.461Z",
-                        "email": "hello+demoteacher@quill.org",
-                        "flags": Array [],
-                        "google_id": null,
-                        "id": 2851865,
-                        "ip_address": Object {
-                          "addr": 2130706433,
-                          "family": 2,
-                          "mask_addr": 4294967295,
-                        },
-                        "last_active": null,
-                        "last_sign_in": "2019-07-19T13: 10: 19.172Z",
-                        "name": "Demo Teacher",
-                        "password_digest": "$2a$10$n8UFjrvzM9N3ZvmMxaKZj.QFTEFrb2AilAgMGHwpD20Q8FQJZehn.",
-                        "role": "teacher",
-                        "send_newsletter": false,
-                        "signed_up_with_google": false,
-                        "status": "Joined",
-                        "stripe_customer_id": null,
-                        "time_zone": null,
-                        "title": null,
-                        "token": null,
-                        "updated_at": "2019-07-19T13: 10: 19.194Z",
-                        "username": null,
-                      },
-                      Object {
-                        "classroom_relation": "co-teacher",
-                        "email": "emiliafree1000@gmail.com",
-                        "id": 73312,
-                        "name": "—",
-                        "status": "Pending",
-                      },
-                      Object {
-                        "classroom_relation": "co-teacher",
-                        "email": "emiliafree@gmail.com",
-                        "id": 73309,
-                        "name": "—",
-                        "status": "Pending",
-                      },
-                    ],
-                    "updated_at": "2019-05-21T17: 49: 57.695Z",
-                    "visible": true,
-                  },
-                ]
-              }
-              clickClassroomHeader={[Function]}
-              importCleverClassroomStudents={[Function]}
-              importGoogleClassroomStudents={[Function]}
-              inviteStudents={[Function]}
-              isOwnedByCurrentUser={true}
-              onSuccess={[Function]}
-              renameClass={[Function]}
-              selected={false}
-              user={
-                Object {
-                  "account_type": "unknown",
-                  "active": false,
-                  "classcode": null,
-                  "clever_id": null,
-                  "created_at": "2019-05-21T17:49:57.461Z",
-                  "email": "hello+demoteacher@quill.org",
-                  "flags": Array [],
-                  "google_id": null,
-                  "id": 2851865,
-                  "ip_address": Object {
-                    "addr": 2130706433,
-                    "family": 2,
-                    "mask_addr": 4294967295,
-                  },
-                  "last_active": null,
-                  "last_sign_in": "2019-07-19T13:10:19.172Z",
-                  "name": "Demo Teacher",
-                  "password_digest": "$2a$10$n8UFjrvzM9N3ZvmMxaKZj.QFTEFrb2AilAgMGHwpD20Q8FQJZehn.",
-                  "role": "teacher",
-                  "send_newsletter": false,
-                  "signed_up_with_google": false,
-                  "stripe_customer_id": null,
-                  "time_zone": null,
-                  "title": null,
-                  "token": null,
-                  "updated_at": "2019-07-19T13:10:19.194Z",
-                  "username": null,
-                }
-              }
-              viewAsStudent={[Function]}
-            />
-          </React.Fragment>,
+          Object {
+            "clever_id": null,
+            "code": "pool-safe",
+            "created_at": "2019-07-19T13: 21: 08.151Z",
+            "google_classroom_id": null,
+            "grade": "4",
+            "grade_level": null,
+            "id": 285401,
+            "name": "Testing",
+            "students": Array [],
+            "teacher_id": null,
+            "teachers": Array [
+              Object {
+                "account_type": "unknown",
+                "active": false,
+                "classcode": null,
+                "classroom_relation": "owner",
+                "clever_id": null,
+                "created_at": "2019-05-21T17: 49: 57.461Z",
+                "email": "hello+demoteacher@quill.org",
+                "flags": Array [],
+                "google_id": null,
+                "id": 2851865,
+                "ip_address": Object {
+                  "addr": 2130706433,
+                  "family": 2,
+                  "mask_addr": 4294967295,
+                },
+                "last_active": null,
+                "last_sign_in": "2019-07-19T13: 10: 19.172Z",
+                "name": "Demo Teacher",
+                "password_digest": "$2a$10$n8UFjrvzM9N3ZvmMxaKZj.QFTEFrb2AilAgMGHwpD20Q8FQJZehn.",
+                "role": "teacher",
+                "send_newsletter": false,
+                "signed_up_with_google": false,
+                "status": "Joined",
+                "stripe_customer_id": null,
+                "time_zone": null,
+                "title": null,
+                "token": null,
+                "updated_at": "2019-07-19T13: 10: 19.194Z",
+                "username": null,
+              },
+              Object {
+                "classroom_relation": "co-teacher",
+                "email": "emiliafree1000@gmail.com",
+                "id": 73311,
+                "name": "—",
+                "status": "Pending",
+              },
+              Object {
+                "classroom_relation": "co-teacher",
+                "email": "emiliafree@gmail.com",
+                "id": 73307,
+                "name": "—",
+                "status": "Pending",
+              },
+            ],
+            "updated_at": "2019-07-19T13: 21: 08.151Z",
+            "visible": true,
+          },
+          Object {
+            "clever_id": null,
+            "code": "till-concert",
+            "created_at": "2019-07-19T13: 12: 23.375Z",
+            "google_classroom_id": null,
+            "grade": "5",
+            "grade_level": null,
+            "id": 285400,
+            "name": "Empty Class",
+            "students": Array [],
+            "teacher_id": null,
+            "teachers": Array [
+              Object {
+                "account_type": "unknown",
+                "active": false,
+                "classcode": null,
+                "classroom_relation": "owner",
+                "clever_id": null,
+                "created_at": "2019-05-21T17: 49: 57.461Z",
+                "email": "hello+demoteacher@quill.org",
+                "flags": Array [],
+                "google_id": null,
+                "id": 2851865,
+                "ip_address": Object {
+                  "addr": 2130706433,
+                  "family": 2,
+                  "mask_addr": 4294967295,
+                },
+                "last_active": null,
+                "last_sign_in": "2019-07-19T13: 10: 19.172Z",
+                "name": "Demo Teacher",
+                "password_digest": "$2a$10$n8UFjrvzM9N3ZvmMxaKZj.QFTEFrb2AilAgMGHwpD20Q8FQJZehn.",
+                "role": "teacher",
+                "send_newsletter": false,
+                "signed_up_with_google": false,
+                "status": "Joined",
+                "stripe_customer_id": null,
+                "time_zone": null,
+                "title": null,
+                "token": null,
+                "updated_at": "2019-07-19T13: 10: 19.194Z",
+                "username": null,
+              },
+              Object {
+                "classroom_relation": "co-teacher",
+                "email": "emiliafree1000@gmail.com",
+                "id": 73310,
+                "name": "—",
+                "status": "Pending",
+              },
+              Object {
+                "classroom_relation": "co-teacher",
+                "email": "emiliafree@gmail.com",
+                "id": 73308,
+                "name": "—",
+                "status": "Pending",
+              },
+            ],
+            "updated_at": "2019-07-19T13: 12: 23.375Z",
+            "visible": true,
+          },
+          Object {
+            "clever_id": null,
+            "code": "demo-2851865",
+            "created_at": "2019-05-21T17: 49: 57.695Z",
+            "google_classroom_id": null,
+            "grade": "9",
+            "grade_level": null,
+            "id": 285383,
+            "name": "Quill Classroom",
+            "students": Array [
+              Object {
+                "account_type": "unknown",
+                "active": false,
+                "classcode": null,
+                "clever_id": null,
+                "created_at": "2019-05-21T17: 49: 59.521Z",
+                "email": "maya_angelou_demo@quill.org",
+                "flags": Array [],
+                "google_id": null,
+                "id": 2851870,
+                "ip_address": Object {
+                  "addr": 2130706433,
+                  "family": 2,
+                  "mask_addr": 4294967295,
+                },
+                "last_active": "2019-05-28T20: 53: 05.000Z",
+                "last_sign_in": "2019-05-29T19: 56: 16.394Z",
+                "name": "Maya Angelou",
+                "password_digest": "$2a$10$8lVZ3JEY9ghzQi9AYvDjDe7gQ1REsA3BmQS.p.1Qc57lE9VJfDbiO",
+                "role": "student",
+                "send_newsletter": false,
+                "signed_up_with_google": false,
+                "stripe_customer_id": null,
+                "time_zone": null,
+                "title": null,
+                "token": null,
+                "updated_at": "2019-05-29T19: 56: 16.412Z",
+                "username": "maya.angelou.285383@demo-teacher",
+              },
+              Object {
+                "account_type": "unknown",
+                "active": false,
+                "classcode": null,
+                "clever_id": null,
+                "created_at": "2019-05-21T17: 49: 58.400Z",
+                "email": null,
+                "flags": Array [],
+                "google_id": null,
+                "id": 2851866,
+                "ip_address": null,
+                "last_active": null,
+                "last_sign_in": null,
+                "name": "William Shakespeare",
+                "password_digest": "$2a$10$0AxIDK0EyTqkvv0ygC.nGuatwd8EKenwNxElVuOP6FlaZL3KmhKZe",
+                "role": "student",
+                "send_newsletter": false,
+                "signed_up_with_google": false,
+                "stripe_customer_id": null,
+                "time_zone": null,
+                "title": null,
+                "token": null,
+                "updated_at": "2019-05-21T17: 49: 58.400Z",
+                "username": "william.shakespeare.285383@demo-teacher",
+              },
+            ],
+            "teacher_id": null,
+            "teachers": Array [
+              Object {
+                "account_type": "unknown",
+                "active": false,
+                "classcode": null,
+                "classroom_relation": "owner",
+                "clever_id": null,
+                "created_at": "2019-05-21T17: 49: 57.461Z",
+                "email": "hello+demoteacher@quill.org",
+                "flags": Array [],
+                "google_id": null,
+                "id": 2851865,
+                "ip_address": Object {
+                  "addr": 2130706433,
+                  "family": 2,
+                  "mask_addr": 4294967295,
+                },
+                "last_active": null,
+                "last_sign_in": "2019-07-19T13: 10: 19.172Z",
+                "name": "Demo Teacher",
+                "password_digest": "$2a$10$n8UFjrvzM9N3ZvmMxaKZj.QFTEFrb2AilAgMGHwpD20Q8FQJZehn.",
+                "role": "teacher",
+                "send_newsletter": false,
+                "signed_up_with_google": false,
+                "status": "Joined",
+                "stripe_customer_id": null,
+                "time_zone": null,
+                "title": null,
+                "token": null,
+                "updated_at": "2019-07-19T13: 10: 19.194Z",
+                "username": null,
+              },
+              Object {
+                "classroom_relation": "co-teacher",
+                "email": "emiliafree1000@gmail.com",
+                "id": 73312,
+                "name": "—",
+                "status": "Pending",
+              },
+              Object {
+                "classroom_relation": "co-teacher",
+                "email": "emiliafree@gmail.com",
+                "id": 73309,
+                "name": "—",
+                "status": "Pending",
+              },
+            ],
+            "updated_at": "2019-05-21T17: 49: 57.695Z",
+            "visible": true,
+          },
         ]
       }
-      helperClass="sortable-classroom"
-      sortCallback={[Function]}
-      useDragHandle={true}
+      onSuccess={[Function]}
+      userId={2851865}
     />
+    <div
+      className="header"
+    >
+      <h1>
+        Active Classes
+      </h1>
+      <div
+        className="buttons"
+      >
+        <button
+          className="interactive-wrapper import-from-clever-button"
+          onClick={[Function]}
+          type="button"
+        >
+          <img
+            alt="Clever Icon"
+            className="import-from-clever-button-icon"
+            src="undefined/images/icons/clever.svg"
+          />
+          Import from Clever
+        </button>
+        <button
+          className="interactive-wrapper import-from-google-button"
+          onClick={[Function]}
+          type="button"
+        >
+          <img
+            alt="Google Classroom Icon"
+            className="import-from-google-button-icon"
+            src="undefined/images/icons/google-classroom.svg"
+          />
+           Import from Google Classroom
+        </button>
+        <button
+          className="quill-button medium primary contained create-a-class-button"
+          onClick={[Function]}
+          type="button"
+        >
+          Create a class
+        </button>
+      </div>
+    </div>
+    <div
+      className="active-classes"
+    >
+      <CoteacherInvitation
+        coteacherInvitation={
+          Object {
+            "classroom_id": 188628,
+            "classroom_name": "2020",
+            "created_at": "2019-08-01T16:05:31.309Z",
+            "id": 73330,
+            "invitation_id": 72173,
+            "inviter_email": "amitchell@ecslions.org",
+            "inviter_name": "Amber Mitchell",
+            "updated_at": "2019-08-01T16:05:31.309Z",
+          }
+        }
+        getClassroomsAndCoteacherInvitations={[Function]}
+        key="73330"
+        showSnackbar={[Function]}
+      />
+      <CoteacherInvitation
+        coteacherInvitation={
+          Object {
+            "classroom_id": 43699,
+            "classroom_name": "2019",
+            "created_at": "2019-08-01T16:05:31.207Z",
+            "id": 73329,
+            "invitation_id": 72173,
+            "inviter_email": "amitchell@ecslions.org",
+            "inviter_name": "Amber Mitchell",
+            "updated_at": "2019-08-01T16:05:31.207Z",
+          }
+        }
+        getClassroomsAndCoteacherInvitations={[Function]}
+        key="73329"
+        showSnackbar={[Function]}
+      />
+      <CoteacherInvitation
+        coteacherInvitation={
+          Object {
+            "classroom_id": 220524,
+            "classroom_name": "PLP Students",
+            "created_at": "2019-08-01T16:05:31.099Z",
+            "id": 73328,
+            "invitation_id": 72173,
+            "inviter_email": "amitchell@ecslions.org",
+            "inviter_name": "Amber Mitchell",
+            "updated_at": "2019-08-01T16:05:31.099Z",
+          }
+        }
+        getClassroomsAndCoteacherInvitations={[Function]}
+        key="73328"
+        showSnackbar={[Function]}
+      />
+      <CoteacherInvitation
+        coteacherInvitation={
+          Object {
+            "classroom_id": 285377,
+            "classroom_name": "Newspaper Publishing 11 - 001 - B. Glover",
+            "created_at": "2019-08-01T16:05:30.985Z",
+            "id": 73327,
+            "invitation_id": 72173,
+            "inviter_email": "amitchell@ecslions.org",
+            "inviter_name": "Amber Mitchell",
+            "updated_at": "2019-08-01T16:05:30.985Z",
+          }
+        }
+        getClassroomsAndCoteacherInvitations={[Function]}
+        key="73327"
+        showSnackbar={[Function]}
+      />
+      <CoteacherInvitation
+        coteacherInvitation={
+          Object {
+            "classroom_id": 285378,
+            "classroom_name": "Ninth Grade English - 101 - B. Glover (Section 1)",
+            "created_at": "2019-08-01T16:05:30.876Z",
+            "id": 73326,
+            "invitation_id": 72173,
+            "inviter_email": "amitchell@ecslions.org",
+            "inviter_name": "Amber Mitchell",
+            "updated_at": "2019-08-01T16:05:30.876Z",
+          }
+        }
+        getClassroomsAndCoteacherInvitations={[Function]}
+        key="73326"
+        showSnackbar={[Function]}
+      />
+      <CoteacherInvitation
+        coteacherInvitation={
+          Object {
+            "classroom_id": 285379,
+            "classroom_name": "Ninth Grade English - 101 - B. Glover (Section 2)",
+            "created_at": "2019-08-01T16:05:30.765Z",
+            "id": 73325,
+            "invitation_id": 72173,
+            "inviter_email": "amitchell@ecslions.org",
+            "inviter_name": "Amber Mitchell",
+            "updated_at": "2019-08-01T16:05:30.765Z",
+          }
+        }
+        getClassroomsAndCoteacherInvitations={[Function]}
+        key="73325"
+        showSnackbar={[Function]}
+      />
+      <CoteacherInvitation
+        coteacherInvitation={
+          Object {
+            "classroom_id": 285380,
+            "classroom_name": "Ninth Grade English - 101 - B. Glover (Section 3)",
+            "created_at": "2019-08-01T16:05:30.642Z",
+            "id": 73324,
+            "invitation_id": 72173,
+            "inviter_email": "amitchell@ecslions.org",
+            "inviter_name": "Amber Mitchell",
+            "updated_at": "2019-08-01T16:05:30.642Z",
+          }
+        }
+        getClassroomsAndCoteacherInvitations={[Function]}
+        key="73324"
+        showSnackbar={[Function]}
+      />
+      <CoteacherInvitation
+        coteacherInvitation={
+          Object {
+            "classroom_id": 285381,
+            "classroom_name": "Class 901, Homeroom - 901 - B. Glover (Section 1)",
+            "created_at": "2019-08-01T16:05:30.525Z",
+            "id": 73323,
+            "invitation_id": 72173,
+            "inviter_email": "amitchell@ecslions.org",
+            "inviter_name": "Amber Mitchell",
+            "updated_at": "2019-08-01T16:05:30.525Z",
+          }
+        }
+        getClassroomsAndCoteacherInvitations={[Function]}
+        key="73323"
+        showSnackbar={[Function]}
+      />
+      <CoteacherInvitation
+        coteacherInvitation={
+          Object {
+            "classroom_id": 285383,
+            "classroom_name": "Quill Classroom",
+            "created_at": "2019-08-01T16:05:30.313Z",
+            "id": 73322,
+            "invitation_id": 72173,
+            "inviter_email": "amitchell@ecslions.org",
+            "inviter_name": "Amber Mitchell",
+            "updated_at": "2019-08-01T16:05:30.313Z",
+          }
+        }
+        getClassroomsAndCoteacherInvitations={[Function]}
+        key="73322"
+        showSnackbar={[Function]}
+      />
+      <SortableList
+        axis="y"
+        data={
+          Array [
+            <React.Fragment>
+              <span
+                className="reorder-classroom-item"
+              >
+                <sortableHandle />
+              </span>
+              <Classroom
+                archiveClass={[Function]}
+                changeGrade={[Function]}
+                classroom={
+                  Object {
+                    "clever_id": null,
+                    "code": "pool-safe",
+                    "created_at": "2019-07-19T13: 21: 08.151Z",
+                    "google_classroom_id": null,
+                    "grade": "4",
+                    "grade_level": null,
+                    "id": 285401,
+                    "name": "Testing",
+                    "students": Array [],
+                    "teacher_id": null,
+                    "teachers": Array [
+                      Object {
+                        "account_type": "unknown",
+                        "active": false,
+                        "classcode": null,
+                        "classroom_relation": "owner",
+                        "clever_id": null,
+                        "created_at": "2019-05-21T17: 49: 57.461Z",
+                        "email": "hello+demoteacher@quill.org",
+                        "flags": Array [],
+                        "google_id": null,
+                        "id": 2851865,
+                        "ip_address": Object {
+                          "addr": 2130706433,
+                          "family": 2,
+                          "mask_addr": 4294967295,
+                        },
+                        "last_active": null,
+                        "last_sign_in": "2019-07-19T13: 10: 19.172Z",
+                        "name": "Demo Teacher",
+                        "password_digest": "$2a$10$n8UFjrvzM9N3ZvmMxaKZj.QFTEFrb2AilAgMGHwpD20Q8FQJZehn.",
+                        "role": "teacher",
+                        "send_newsletter": false,
+                        "signed_up_with_google": false,
+                        "status": "Joined",
+                        "stripe_customer_id": null,
+                        "time_zone": null,
+                        "title": null,
+                        "token": null,
+                        "updated_at": "2019-07-19T13: 10: 19.194Z",
+                        "username": null,
+                      },
+                      Object {
+                        "classroom_relation": "co-teacher",
+                        "email": "emiliafree1000@gmail.com",
+                        "id": 73311,
+                        "name": "—",
+                        "status": "Pending",
+                      },
+                      Object {
+                        "classroom_relation": "co-teacher",
+                        "email": "emiliafree@gmail.com",
+                        "id": 73307,
+                        "name": "—",
+                        "status": "Pending",
+                      },
+                    ],
+                    "updated_at": "2019-07-19T13: 21: 08.151Z",
+                    "visible": true,
+                  }
+                }
+                classrooms={
+                  Array [
+                    Object {
+                      "clever_id": null,
+                      "code": "pool-safe",
+                      "created_at": "2019-07-19T13: 21: 08.151Z",
+                      "google_classroom_id": null,
+                      "grade": "4",
+                      "grade_level": null,
+                      "id": 285401,
+                      "name": "Testing",
+                      "students": Array [],
+                      "teacher_id": null,
+                      "teachers": Array [
+                        Object {
+                          "account_type": "unknown",
+                          "active": false,
+                          "classcode": null,
+                          "classroom_relation": "owner",
+                          "clever_id": null,
+                          "created_at": "2019-05-21T17: 49: 57.461Z",
+                          "email": "hello+demoteacher@quill.org",
+                          "flags": Array [],
+                          "google_id": null,
+                          "id": 2851865,
+                          "ip_address": Object {
+                            "addr": 2130706433,
+                            "family": 2,
+                            "mask_addr": 4294967295,
+                          },
+                          "last_active": null,
+                          "last_sign_in": "2019-07-19T13: 10: 19.172Z",
+                          "name": "Demo Teacher",
+                          "password_digest": "$2a$10$n8UFjrvzM9N3ZvmMxaKZj.QFTEFrb2AilAgMGHwpD20Q8FQJZehn.",
+                          "role": "teacher",
+                          "send_newsletter": false,
+                          "signed_up_with_google": false,
+                          "status": "Joined",
+                          "stripe_customer_id": null,
+                          "time_zone": null,
+                          "title": null,
+                          "token": null,
+                          "updated_at": "2019-07-19T13: 10: 19.194Z",
+                          "username": null,
+                        },
+                        Object {
+                          "classroom_relation": "co-teacher",
+                          "email": "emiliafree1000@gmail.com",
+                          "id": 73311,
+                          "name": "—",
+                          "status": "Pending",
+                        },
+                        Object {
+                          "classroom_relation": "co-teacher",
+                          "email": "emiliafree@gmail.com",
+                          "id": 73307,
+                          "name": "—",
+                          "status": "Pending",
+                        },
+                      ],
+                      "updated_at": "2019-07-19T13: 21: 08.151Z",
+                      "visible": true,
+                    },
+                    Object {
+                      "clever_id": null,
+                      "code": "till-concert",
+                      "created_at": "2019-07-19T13: 12: 23.375Z",
+                      "google_classroom_id": null,
+                      "grade": "5",
+                      "grade_level": null,
+                      "id": 285400,
+                      "name": "Empty Class",
+                      "students": Array [],
+                      "teacher_id": null,
+                      "teachers": Array [
+                        Object {
+                          "account_type": "unknown",
+                          "active": false,
+                          "classcode": null,
+                          "classroom_relation": "owner",
+                          "clever_id": null,
+                          "created_at": "2019-05-21T17: 49: 57.461Z",
+                          "email": "hello+demoteacher@quill.org",
+                          "flags": Array [],
+                          "google_id": null,
+                          "id": 2851865,
+                          "ip_address": Object {
+                            "addr": 2130706433,
+                            "family": 2,
+                            "mask_addr": 4294967295,
+                          },
+                          "last_active": null,
+                          "last_sign_in": "2019-07-19T13: 10: 19.172Z",
+                          "name": "Demo Teacher",
+                          "password_digest": "$2a$10$n8UFjrvzM9N3ZvmMxaKZj.QFTEFrb2AilAgMGHwpD20Q8FQJZehn.",
+                          "role": "teacher",
+                          "send_newsletter": false,
+                          "signed_up_with_google": false,
+                          "status": "Joined",
+                          "stripe_customer_id": null,
+                          "time_zone": null,
+                          "title": null,
+                          "token": null,
+                          "updated_at": "2019-07-19T13: 10: 19.194Z",
+                          "username": null,
+                        },
+                        Object {
+                          "classroom_relation": "co-teacher",
+                          "email": "emiliafree1000@gmail.com",
+                          "id": 73310,
+                          "name": "—",
+                          "status": "Pending",
+                        },
+                        Object {
+                          "classroom_relation": "co-teacher",
+                          "email": "emiliafree@gmail.com",
+                          "id": 73308,
+                          "name": "—",
+                          "status": "Pending",
+                        },
+                      ],
+                      "updated_at": "2019-07-19T13: 12: 23.375Z",
+                      "visible": true,
+                    },
+                    Object {
+                      "clever_id": null,
+                      "code": "demo-2851865",
+                      "created_at": "2019-05-21T17: 49: 57.695Z",
+                      "google_classroom_id": null,
+                      "grade": "9",
+                      "grade_level": null,
+                      "id": 285383,
+                      "name": "Quill Classroom",
+                      "students": Array [
+                        Object {
+                          "account_type": "unknown",
+                          "active": false,
+                          "classcode": null,
+                          "clever_id": null,
+                          "created_at": "2019-05-21T17: 49: 59.521Z",
+                          "email": "maya_angelou_demo@quill.org",
+                          "flags": Array [],
+                          "google_id": null,
+                          "id": 2851870,
+                          "ip_address": Object {
+                            "addr": 2130706433,
+                            "family": 2,
+                            "mask_addr": 4294967295,
+                          },
+                          "last_active": "2019-05-28T20: 53: 05.000Z",
+                          "last_sign_in": "2019-05-29T19: 56: 16.394Z",
+                          "name": "Maya Angelou",
+                          "password_digest": "$2a$10$8lVZ3JEY9ghzQi9AYvDjDe7gQ1REsA3BmQS.p.1Qc57lE9VJfDbiO",
+                          "role": "student",
+                          "send_newsletter": false,
+                          "signed_up_with_google": false,
+                          "stripe_customer_id": null,
+                          "time_zone": null,
+                          "title": null,
+                          "token": null,
+                          "updated_at": "2019-05-29T19: 56: 16.412Z",
+                          "username": "maya.angelou.285383@demo-teacher",
+                        },
+                        Object {
+                          "account_type": "unknown",
+                          "active": false,
+                          "classcode": null,
+                          "clever_id": null,
+                          "created_at": "2019-05-21T17: 49: 58.400Z",
+                          "email": null,
+                          "flags": Array [],
+                          "google_id": null,
+                          "id": 2851866,
+                          "ip_address": null,
+                          "last_active": null,
+                          "last_sign_in": null,
+                          "name": "William Shakespeare",
+                          "password_digest": "$2a$10$0AxIDK0EyTqkvv0ygC.nGuatwd8EKenwNxElVuOP6FlaZL3KmhKZe",
+                          "role": "student",
+                          "send_newsletter": false,
+                          "signed_up_with_google": false,
+                          "stripe_customer_id": null,
+                          "time_zone": null,
+                          "title": null,
+                          "token": null,
+                          "updated_at": "2019-05-21T17: 49: 58.400Z",
+                          "username": "william.shakespeare.285383@demo-teacher",
+                        },
+                      ],
+                      "teacher_id": null,
+                      "teachers": Array [
+                        Object {
+                          "account_type": "unknown",
+                          "active": false,
+                          "classcode": null,
+                          "classroom_relation": "owner",
+                          "clever_id": null,
+                          "created_at": "2019-05-21T17: 49: 57.461Z",
+                          "email": "hello+demoteacher@quill.org",
+                          "flags": Array [],
+                          "google_id": null,
+                          "id": 2851865,
+                          "ip_address": Object {
+                            "addr": 2130706433,
+                            "family": 2,
+                            "mask_addr": 4294967295,
+                          },
+                          "last_active": null,
+                          "last_sign_in": "2019-07-19T13: 10: 19.172Z",
+                          "name": "Demo Teacher",
+                          "password_digest": "$2a$10$n8UFjrvzM9N3ZvmMxaKZj.QFTEFrb2AilAgMGHwpD20Q8FQJZehn.",
+                          "role": "teacher",
+                          "send_newsletter": false,
+                          "signed_up_with_google": false,
+                          "status": "Joined",
+                          "stripe_customer_id": null,
+                          "time_zone": null,
+                          "title": null,
+                          "token": null,
+                          "updated_at": "2019-07-19T13: 10: 19.194Z",
+                          "username": null,
+                        },
+                        Object {
+                          "classroom_relation": "co-teacher",
+                          "email": "emiliafree1000@gmail.com",
+                          "id": 73312,
+                          "name": "—",
+                          "status": "Pending",
+                        },
+                        Object {
+                          "classroom_relation": "co-teacher",
+                          "email": "emiliafree@gmail.com",
+                          "id": 73309,
+                          "name": "—",
+                          "status": "Pending",
+                        },
+                      ],
+                      "updated_at": "2019-05-21T17: 49: 57.695Z",
+                      "visible": true,
+                    },
+                  ]
+                }
+                clickClassroomHeader={[Function]}
+                importCleverClassroomStudents={[Function]}
+                importGoogleClassroomStudents={[Function]}
+                inviteStudents={[Function]}
+                isOwnedByCurrentUser={true}
+                onSuccess={[Function]}
+                renameClass={[Function]}
+                selected={false}
+                user={
+                  Object {
+                    "account_type": "unknown",
+                    "active": false,
+                    "classcode": null,
+                    "clever_id": null,
+                    "created_at": "2019-05-21T17:49:57.461Z",
+                    "email": "hello+demoteacher@quill.org",
+                    "flags": Array [],
+                    "google_id": null,
+                    "id": 2851865,
+                    "ip_address": Object {
+                      "addr": 2130706433,
+                      "family": 2,
+                      "mask_addr": 4294967295,
+                    },
+                    "last_active": null,
+                    "last_sign_in": "2019-07-19T13:10:19.172Z",
+                    "name": "Demo Teacher",
+                    "password_digest": "$2a$10$n8UFjrvzM9N3ZvmMxaKZj.QFTEFrb2AilAgMGHwpD20Q8FQJZehn.",
+                    "role": "teacher",
+                    "send_newsletter": false,
+                    "signed_up_with_google": false,
+                    "stripe_customer_id": null,
+                    "time_zone": null,
+                    "title": null,
+                    "token": null,
+                    "updated_at": "2019-07-19T13:10:19.194Z",
+                    "username": null,
+                  }
+                }
+                viewAsStudent={[Function]}
+              />
+            </React.Fragment>,
+            <React.Fragment>
+              <span
+                className="reorder-classroom-item"
+              >
+                <sortableHandle />
+              </span>
+              <Classroom
+                archiveClass={[Function]}
+                changeGrade={[Function]}
+                classroom={
+                  Object {
+                    "clever_id": null,
+                    "code": "till-concert",
+                    "created_at": "2019-07-19T13: 12: 23.375Z",
+                    "google_classroom_id": null,
+                    "grade": "5",
+                    "grade_level": null,
+                    "id": 285400,
+                    "name": "Empty Class",
+                    "students": Array [],
+                    "teacher_id": null,
+                    "teachers": Array [
+                      Object {
+                        "account_type": "unknown",
+                        "active": false,
+                        "classcode": null,
+                        "classroom_relation": "owner",
+                        "clever_id": null,
+                        "created_at": "2019-05-21T17: 49: 57.461Z",
+                        "email": "hello+demoteacher@quill.org",
+                        "flags": Array [],
+                        "google_id": null,
+                        "id": 2851865,
+                        "ip_address": Object {
+                          "addr": 2130706433,
+                          "family": 2,
+                          "mask_addr": 4294967295,
+                        },
+                        "last_active": null,
+                        "last_sign_in": "2019-07-19T13: 10: 19.172Z",
+                        "name": "Demo Teacher",
+                        "password_digest": "$2a$10$n8UFjrvzM9N3ZvmMxaKZj.QFTEFrb2AilAgMGHwpD20Q8FQJZehn.",
+                        "role": "teacher",
+                        "send_newsletter": false,
+                        "signed_up_with_google": false,
+                        "status": "Joined",
+                        "stripe_customer_id": null,
+                        "time_zone": null,
+                        "title": null,
+                        "token": null,
+                        "updated_at": "2019-07-19T13: 10: 19.194Z",
+                        "username": null,
+                      },
+                      Object {
+                        "classroom_relation": "co-teacher",
+                        "email": "emiliafree1000@gmail.com",
+                        "id": 73310,
+                        "name": "—",
+                        "status": "Pending",
+                      },
+                      Object {
+                        "classroom_relation": "co-teacher",
+                        "email": "emiliafree@gmail.com",
+                        "id": 73308,
+                        "name": "—",
+                        "status": "Pending",
+                      },
+                    ],
+                    "updated_at": "2019-07-19T13: 12: 23.375Z",
+                    "visible": true,
+                  }
+                }
+                classrooms={
+                  Array [
+                    Object {
+                      "clever_id": null,
+                      "code": "pool-safe",
+                      "created_at": "2019-07-19T13: 21: 08.151Z",
+                      "google_classroom_id": null,
+                      "grade": "4",
+                      "grade_level": null,
+                      "id": 285401,
+                      "name": "Testing",
+                      "students": Array [],
+                      "teacher_id": null,
+                      "teachers": Array [
+                        Object {
+                          "account_type": "unknown",
+                          "active": false,
+                          "classcode": null,
+                          "classroom_relation": "owner",
+                          "clever_id": null,
+                          "created_at": "2019-05-21T17: 49: 57.461Z",
+                          "email": "hello+demoteacher@quill.org",
+                          "flags": Array [],
+                          "google_id": null,
+                          "id": 2851865,
+                          "ip_address": Object {
+                            "addr": 2130706433,
+                            "family": 2,
+                            "mask_addr": 4294967295,
+                          },
+                          "last_active": null,
+                          "last_sign_in": "2019-07-19T13: 10: 19.172Z",
+                          "name": "Demo Teacher",
+                          "password_digest": "$2a$10$n8UFjrvzM9N3ZvmMxaKZj.QFTEFrb2AilAgMGHwpD20Q8FQJZehn.",
+                          "role": "teacher",
+                          "send_newsletter": false,
+                          "signed_up_with_google": false,
+                          "status": "Joined",
+                          "stripe_customer_id": null,
+                          "time_zone": null,
+                          "title": null,
+                          "token": null,
+                          "updated_at": "2019-07-19T13: 10: 19.194Z",
+                          "username": null,
+                        },
+                        Object {
+                          "classroom_relation": "co-teacher",
+                          "email": "emiliafree1000@gmail.com",
+                          "id": 73311,
+                          "name": "—",
+                          "status": "Pending",
+                        },
+                        Object {
+                          "classroom_relation": "co-teacher",
+                          "email": "emiliafree@gmail.com",
+                          "id": 73307,
+                          "name": "—",
+                          "status": "Pending",
+                        },
+                      ],
+                      "updated_at": "2019-07-19T13: 21: 08.151Z",
+                      "visible": true,
+                    },
+                    Object {
+                      "clever_id": null,
+                      "code": "till-concert",
+                      "created_at": "2019-07-19T13: 12: 23.375Z",
+                      "google_classroom_id": null,
+                      "grade": "5",
+                      "grade_level": null,
+                      "id": 285400,
+                      "name": "Empty Class",
+                      "students": Array [],
+                      "teacher_id": null,
+                      "teachers": Array [
+                        Object {
+                          "account_type": "unknown",
+                          "active": false,
+                          "classcode": null,
+                          "classroom_relation": "owner",
+                          "clever_id": null,
+                          "created_at": "2019-05-21T17: 49: 57.461Z",
+                          "email": "hello+demoteacher@quill.org",
+                          "flags": Array [],
+                          "google_id": null,
+                          "id": 2851865,
+                          "ip_address": Object {
+                            "addr": 2130706433,
+                            "family": 2,
+                            "mask_addr": 4294967295,
+                          },
+                          "last_active": null,
+                          "last_sign_in": "2019-07-19T13: 10: 19.172Z",
+                          "name": "Demo Teacher",
+                          "password_digest": "$2a$10$n8UFjrvzM9N3ZvmMxaKZj.QFTEFrb2AilAgMGHwpD20Q8FQJZehn.",
+                          "role": "teacher",
+                          "send_newsletter": false,
+                          "signed_up_with_google": false,
+                          "status": "Joined",
+                          "stripe_customer_id": null,
+                          "time_zone": null,
+                          "title": null,
+                          "token": null,
+                          "updated_at": "2019-07-19T13: 10: 19.194Z",
+                          "username": null,
+                        },
+                        Object {
+                          "classroom_relation": "co-teacher",
+                          "email": "emiliafree1000@gmail.com",
+                          "id": 73310,
+                          "name": "—",
+                          "status": "Pending",
+                        },
+                        Object {
+                          "classroom_relation": "co-teacher",
+                          "email": "emiliafree@gmail.com",
+                          "id": 73308,
+                          "name": "—",
+                          "status": "Pending",
+                        },
+                      ],
+                      "updated_at": "2019-07-19T13: 12: 23.375Z",
+                      "visible": true,
+                    },
+                    Object {
+                      "clever_id": null,
+                      "code": "demo-2851865",
+                      "created_at": "2019-05-21T17: 49: 57.695Z",
+                      "google_classroom_id": null,
+                      "grade": "9",
+                      "grade_level": null,
+                      "id": 285383,
+                      "name": "Quill Classroom",
+                      "students": Array [
+                        Object {
+                          "account_type": "unknown",
+                          "active": false,
+                          "classcode": null,
+                          "clever_id": null,
+                          "created_at": "2019-05-21T17: 49: 59.521Z",
+                          "email": "maya_angelou_demo@quill.org",
+                          "flags": Array [],
+                          "google_id": null,
+                          "id": 2851870,
+                          "ip_address": Object {
+                            "addr": 2130706433,
+                            "family": 2,
+                            "mask_addr": 4294967295,
+                          },
+                          "last_active": "2019-05-28T20: 53: 05.000Z",
+                          "last_sign_in": "2019-05-29T19: 56: 16.394Z",
+                          "name": "Maya Angelou",
+                          "password_digest": "$2a$10$8lVZ3JEY9ghzQi9AYvDjDe7gQ1REsA3BmQS.p.1Qc57lE9VJfDbiO",
+                          "role": "student",
+                          "send_newsletter": false,
+                          "signed_up_with_google": false,
+                          "stripe_customer_id": null,
+                          "time_zone": null,
+                          "title": null,
+                          "token": null,
+                          "updated_at": "2019-05-29T19: 56: 16.412Z",
+                          "username": "maya.angelou.285383@demo-teacher",
+                        },
+                        Object {
+                          "account_type": "unknown",
+                          "active": false,
+                          "classcode": null,
+                          "clever_id": null,
+                          "created_at": "2019-05-21T17: 49: 58.400Z",
+                          "email": null,
+                          "flags": Array [],
+                          "google_id": null,
+                          "id": 2851866,
+                          "ip_address": null,
+                          "last_active": null,
+                          "last_sign_in": null,
+                          "name": "William Shakespeare",
+                          "password_digest": "$2a$10$0AxIDK0EyTqkvv0ygC.nGuatwd8EKenwNxElVuOP6FlaZL3KmhKZe",
+                          "role": "student",
+                          "send_newsletter": false,
+                          "signed_up_with_google": false,
+                          "stripe_customer_id": null,
+                          "time_zone": null,
+                          "title": null,
+                          "token": null,
+                          "updated_at": "2019-05-21T17: 49: 58.400Z",
+                          "username": "william.shakespeare.285383@demo-teacher",
+                        },
+                      ],
+                      "teacher_id": null,
+                      "teachers": Array [
+                        Object {
+                          "account_type": "unknown",
+                          "active": false,
+                          "classcode": null,
+                          "classroom_relation": "owner",
+                          "clever_id": null,
+                          "created_at": "2019-05-21T17: 49: 57.461Z",
+                          "email": "hello+demoteacher@quill.org",
+                          "flags": Array [],
+                          "google_id": null,
+                          "id": 2851865,
+                          "ip_address": Object {
+                            "addr": 2130706433,
+                            "family": 2,
+                            "mask_addr": 4294967295,
+                          },
+                          "last_active": null,
+                          "last_sign_in": "2019-07-19T13: 10: 19.172Z",
+                          "name": "Demo Teacher",
+                          "password_digest": "$2a$10$n8UFjrvzM9N3ZvmMxaKZj.QFTEFrb2AilAgMGHwpD20Q8FQJZehn.",
+                          "role": "teacher",
+                          "send_newsletter": false,
+                          "signed_up_with_google": false,
+                          "status": "Joined",
+                          "stripe_customer_id": null,
+                          "time_zone": null,
+                          "title": null,
+                          "token": null,
+                          "updated_at": "2019-07-19T13: 10: 19.194Z",
+                          "username": null,
+                        },
+                        Object {
+                          "classroom_relation": "co-teacher",
+                          "email": "emiliafree1000@gmail.com",
+                          "id": 73312,
+                          "name": "—",
+                          "status": "Pending",
+                        },
+                        Object {
+                          "classroom_relation": "co-teacher",
+                          "email": "emiliafree@gmail.com",
+                          "id": 73309,
+                          "name": "—",
+                          "status": "Pending",
+                        },
+                      ],
+                      "updated_at": "2019-05-21T17: 49: 57.695Z",
+                      "visible": true,
+                    },
+                  ]
+                }
+                clickClassroomHeader={[Function]}
+                importCleverClassroomStudents={[Function]}
+                importGoogleClassroomStudents={[Function]}
+                inviteStudents={[Function]}
+                isOwnedByCurrentUser={true}
+                onSuccess={[Function]}
+                renameClass={[Function]}
+                selected={false}
+                user={
+                  Object {
+                    "account_type": "unknown",
+                    "active": false,
+                    "classcode": null,
+                    "clever_id": null,
+                    "created_at": "2019-05-21T17:49:57.461Z",
+                    "email": "hello+demoteacher@quill.org",
+                    "flags": Array [],
+                    "google_id": null,
+                    "id": 2851865,
+                    "ip_address": Object {
+                      "addr": 2130706433,
+                      "family": 2,
+                      "mask_addr": 4294967295,
+                    },
+                    "last_active": null,
+                    "last_sign_in": "2019-07-19T13:10:19.172Z",
+                    "name": "Demo Teacher",
+                    "password_digest": "$2a$10$n8UFjrvzM9N3ZvmMxaKZj.QFTEFrb2AilAgMGHwpD20Q8FQJZehn.",
+                    "role": "teacher",
+                    "send_newsletter": false,
+                    "signed_up_with_google": false,
+                    "stripe_customer_id": null,
+                    "time_zone": null,
+                    "title": null,
+                    "token": null,
+                    "updated_at": "2019-07-19T13:10:19.194Z",
+                    "username": null,
+                  }
+                }
+                viewAsStudent={[Function]}
+              />
+            </React.Fragment>,
+            <React.Fragment>
+              <span
+                className="reorder-classroom-item"
+              >
+                <sortableHandle />
+              </span>
+              <Classroom
+                archiveClass={[Function]}
+                changeGrade={[Function]}
+                classroom={
+                  Object {
+                    "clever_id": null,
+                    "code": "demo-2851865",
+                    "created_at": "2019-05-21T17: 49: 57.695Z",
+                    "google_classroom_id": null,
+                    "grade": "9",
+                    "grade_level": null,
+                    "id": 285383,
+                    "name": "Quill Classroom",
+                    "students": Array [
+                      Object {
+                        "account_type": "unknown",
+                        "active": false,
+                        "classcode": null,
+                        "clever_id": null,
+                        "created_at": "2019-05-21T17: 49: 59.521Z",
+                        "email": "maya_angelou_demo@quill.org",
+                        "flags": Array [],
+                        "google_id": null,
+                        "id": 2851870,
+                        "ip_address": Object {
+                          "addr": 2130706433,
+                          "family": 2,
+                          "mask_addr": 4294967295,
+                        },
+                        "last_active": "2019-05-28T20: 53: 05.000Z",
+                        "last_sign_in": "2019-05-29T19: 56: 16.394Z",
+                        "name": "Maya Angelou",
+                        "password_digest": "$2a$10$8lVZ3JEY9ghzQi9AYvDjDe7gQ1REsA3BmQS.p.1Qc57lE9VJfDbiO",
+                        "role": "student",
+                        "send_newsletter": false,
+                        "signed_up_with_google": false,
+                        "stripe_customer_id": null,
+                        "time_zone": null,
+                        "title": null,
+                        "token": null,
+                        "updated_at": "2019-05-29T19: 56: 16.412Z",
+                        "username": "maya.angelou.285383@demo-teacher",
+                      },
+                      Object {
+                        "account_type": "unknown",
+                        "active": false,
+                        "classcode": null,
+                        "clever_id": null,
+                        "created_at": "2019-05-21T17: 49: 58.400Z",
+                        "email": null,
+                        "flags": Array [],
+                        "google_id": null,
+                        "id": 2851866,
+                        "ip_address": null,
+                        "last_active": null,
+                        "last_sign_in": null,
+                        "name": "William Shakespeare",
+                        "password_digest": "$2a$10$0AxIDK0EyTqkvv0ygC.nGuatwd8EKenwNxElVuOP6FlaZL3KmhKZe",
+                        "role": "student",
+                        "send_newsletter": false,
+                        "signed_up_with_google": false,
+                        "stripe_customer_id": null,
+                        "time_zone": null,
+                        "title": null,
+                        "token": null,
+                        "updated_at": "2019-05-21T17: 49: 58.400Z",
+                        "username": "william.shakespeare.285383@demo-teacher",
+                      },
+                    ],
+                    "teacher_id": null,
+                    "teachers": Array [
+                      Object {
+                        "account_type": "unknown",
+                        "active": false,
+                        "classcode": null,
+                        "classroom_relation": "owner",
+                        "clever_id": null,
+                        "created_at": "2019-05-21T17: 49: 57.461Z",
+                        "email": "hello+demoteacher@quill.org",
+                        "flags": Array [],
+                        "google_id": null,
+                        "id": 2851865,
+                        "ip_address": Object {
+                          "addr": 2130706433,
+                          "family": 2,
+                          "mask_addr": 4294967295,
+                        },
+                        "last_active": null,
+                        "last_sign_in": "2019-07-19T13: 10: 19.172Z",
+                        "name": "Demo Teacher",
+                        "password_digest": "$2a$10$n8UFjrvzM9N3ZvmMxaKZj.QFTEFrb2AilAgMGHwpD20Q8FQJZehn.",
+                        "role": "teacher",
+                        "send_newsletter": false,
+                        "signed_up_with_google": false,
+                        "status": "Joined",
+                        "stripe_customer_id": null,
+                        "time_zone": null,
+                        "title": null,
+                        "token": null,
+                        "updated_at": "2019-07-19T13: 10: 19.194Z",
+                        "username": null,
+                      },
+                      Object {
+                        "classroom_relation": "co-teacher",
+                        "email": "emiliafree1000@gmail.com",
+                        "id": 73312,
+                        "name": "—",
+                        "status": "Pending",
+                      },
+                      Object {
+                        "classroom_relation": "co-teacher",
+                        "email": "emiliafree@gmail.com",
+                        "id": 73309,
+                        "name": "—",
+                        "status": "Pending",
+                      },
+                    ],
+                    "updated_at": "2019-05-21T17: 49: 57.695Z",
+                    "visible": true,
+                  }
+                }
+                classrooms={
+                  Array [
+                    Object {
+                      "clever_id": null,
+                      "code": "pool-safe",
+                      "created_at": "2019-07-19T13: 21: 08.151Z",
+                      "google_classroom_id": null,
+                      "grade": "4",
+                      "grade_level": null,
+                      "id": 285401,
+                      "name": "Testing",
+                      "students": Array [],
+                      "teacher_id": null,
+                      "teachers": Array [
+                        Object {
+                          "account_type": "unknown",
+                          "active": false,
+                          "classcode": null,
+                          "classroom_relation": "owner",
+                          "clever_id": null,
+                          "created_at": "2019-05-21T17: 49: 57.461Z",
+                          "email": "hello+demoteacher@quill.org",
+                          "flags": Array [],
+                          "google_id": null,
+                          "id": 2851865,
+                          "ip_address": Object {
+                            "addr": 2130706433,
+                            "family": 2,
+                            "mask_addr": 4294967295,
+                          },
+                          "last_active": null,
+                          "last_sign_in": "2019-07-19T13: 10: 19.172Z",
+                          "name": "Demo Teacher",
+                          "password_digest": "$2a$10$n8UFjrvzM9N3ZvmMxaKZj.QFTEFrb2AilAgMGHwpD20Q8FQJZehn.",
+                          "role": "teacher",
+                          "send_newsletter": false,
+                          "signed_up_with_google": false,
+                          "status": "Joined",
+                          "stripe_customer_id": null,
+                          "time_zone": null,
+                          "title": null,
+                          "token": null,
+                          "updated_at": "2019-07-19T13: 10: 19.194Z",
+                          "username": null,
+                        },
+                        Object {
+                          "classroom_relation": "co-teacher",
+                          "email": "emiliafree1000@gmail.com",
+                          "id": 73311,
+                          "name": "—",
+                          "status": "Pending",
+                        },
+                        Object {
+                          "classroom_relation": "co-teacher",
+                          "email": "emiliafree@gmail.com",
+                          "id": 73307,
+                          "name": "—",
+                          "status": "Pending",
+                        },
+                      ],
+                      "updated_at": "2019-07-19T13: 21: 08.151Z",
+                      "visible": true,
+                    },
+                    Object {
+                      "clever_id": null,
+                      "code": "till-concert",
+                      "created_at": "2019-07-19T13: 12: 23.375Z",
+                      "google_classroom_id": null,
+                      "grade": "5",
+                      "grade_level": null,
+                      "id": 285400,
+                      "name": "Empty Class",
+                      "students": Array [],
+                      "teacher_id": null,
+                      "teachers": Array [
+                        Object {
+                          "account_type": "unknown",
+                          "active": false,
+                          "classcode": null,
+                          "classroom_relation": "owner",
+                          "clever_id": null,
+                          "created_at": "2019-05-21T17: 49: 57.461Z",
+                          "email": "hello+demoteacher@quill.org",
+                          "flags": Array [],
+                          "google_id": null,
+                          "id": 2851865,
+                          "ip_address": Object {
+                            "addr": 2130706433,
+                            "family": 2,
+                            "mask_addr": 4294967295,
+                          },
+                          "last_active": null,
+                          "last_sign_in": "2019-07-19T13: 10: 19.172Z",
+                          "name": "Demo Teacher",
+                          "password_digest": "$2a$10$n8UFjrvzM9N3ZvmMxaKZj.QFTEFrb2AilAgMGHwpD20Q8FQJZehn.",
+                          "role": "teacher",
+                          "send_newsletter": false,
+                          "signed_up_with_google": false,
+                          "status": "Joined",
+                          "stripe_customer_id": null,
+                          "time_zone": null,
+                          "title": null,
+                          "token": null,
+                          "updated_at": "2019-07-19T13: 10: 19.194Z",
+                          "username": null,
+                        },
+                        Object {
+                          "classroom_relation": "co-teacher",
+                          "email": "emiliafree1000@gmail.com",
+                          "id": 73310,
+                          "name": "—",
+                          "status": "Pending",
+                        },
+                        Object {
+                          "classroom_relation": "co-teacher",
+                          "email": "emiliafree@gmail.com",
+                          "id": 73308,
+                          "name": "—",
+                          "status": "Pending",
+                        },
+                      ],
+                      "updated_at": "2019-07-19T13: 12: 23.375Z",
+                      "visible": true,
+                    },
+                    Object {
+                      "clever_id": null,
+                      "code": "demo-2851865",
+                      "created_at": "2019-05-21T17: 49: 57.695Z",
+                      "google_classroom_id": null,
+                      "grade": "9",
+                      "grade_level": null,
+                      "id": 285383,
+                      "name": "Quill Classroom",
+                      "students": Array [
+                        Object {
+                          "account_type": "unknown",
+                          "active": false,
+                          "classcode": null,
+                          "clever_id": null,
+                          "created_at": "2019-05-21T17: 49: 59.521Z",
+                          "email": "maya_angelou_demo@quill.org",
+                          "flags": Array [],
+                          "google_id": null,
+                          "id": 2851870,
+                          "ip_address": Object {
+                            "addr": 2130706433,
+                            "family": 2,
+                            "mask_addr": 4294967295,
+                          },
+                          "last_active": "2019-05-28T20: 53: 05.000Z",
+                          "last_sign_in": "2019-05-29T19: 56: 16.394Z",
+                          "name": "Maya Angelou",
+                          "password_digest": "$2a$10$8lVZ3JEY9ghzQi9AYvDjDe7gQ1REsA3BmQS.p.1Qc57lE9VJfDbiO",
+                          "role": "student",
+                          "send_newsletter": false,
+                          "signed_up_with_google": false,
+                          "stripe_customer_id": null,
+                          "time_zone": null,
+                          "title": null,
+                          "token": null,
+                          "updated_at": "2019-05-29T19: 56: 16.412Z",
+                          "username": "maya.angelou.285383@demo-teacher",
+                        },
+                        Object {
+                          "account_type": "unknown",
+                          "active": false,
+                          "classcode": null,
+                          "clever_id": null,
+                          "created_at": "2019-05-21T17: 49: 58.400Z",
+                          "email": null,
+                          "flags": Array [],
+                          "google_id": null,
+                          "id": 2851866,
+                          "ip_address": null,
+                          "last_active": null,
+                          "last_sign_in": null,
+                          "name": "William Shakespeare",
+                          "password_digest": "$2a$10$0AxIDK0EyTqkvv0ygC.nGuatwd8EKenwNxElVuOP6FlaZL3KmhKZe",
+                          "role": "student",
+                          "send_newsletter": false,
+                          "signed_up_with_google": false,
+                          "stripe_customer_id": null,
+                          "time_zone": null,
+                          "title": null,
+                          "token": null,
+                          "updated_at": "2019-05-21T17: 49: 58.400Z",
+                          "username": "william.shakespeare.285383@demo-teacher",
+                        },
+                      ],
+                      "teacher_id": null,
+                      "teachers": Array [
+                        Object {
+                          "account_type": "unknown",
+                          "active": false,
+                          "classcode": null,
+                          "classroom_relation": "owner",
+                          "clever_id": null,
+                          "created_at": "2019-05-21T17: 49: 57.461Z",
+                          "email": "hello+demoteacher@quill.org",
+                          "flags": Array [],
+                          "google_id": null,
+                          "id": 2851865,
+                          "ip_address": Object {
+                            "addr": 2130706433,
+                            "family": 2,
+                            "mask_addr": 4294967295,
+                          },
+                          "last_active": null,
+                          "last_sign_in": "2019-07-19T13: 10: 19.172Z",
+                          "name": "Demo Teacher",
+                          "password_digest": "$2a$10$n8UFjrvzM9N3ZvmMxaKZj.QFTEFrb2AilAgMGHwpD20Q8FQJZehn.",
+                          "role": "teacher",
+                          "send_newsletter": false,
+                          "signed_up_with_google": false,
+                          "status": "Joined",
+                          "stripe_customer_id": null,
+                          "time_zone": null,
+                          "title": null,
+                          "token": null,
+                          "updated_at": "2019-07-19T13: 10: 19.194Z",
+                          "username": null,
+                        },
+                        Object {
+                          "classroom_relation": "co-teacher",
+                          "email": "emiliafree1000@gmail.com",
+                          "id": 73312,
+                          "name": "—",
+                          "status": "Pending",
+                        },
+                        Object {
+                          "classroom_relation": "co-teacher",
+                          "email": "emiliafree@gmail.com",
+                          "id": 73309,
+                          "name": "—",
+                          "status": "Pending",
+                        },
+                      ],
+                      "updated_at": "2019-05-21T17: 49: 57.695Z",
+                      "visible": true,
+                    },
+                  ]
+                }
+                clickClassroomHeader={[Function]}
+                importCleverClassroomStudents={[Function]}
+                importGoogleClassroomStudents={[Function]}
+                inviteStudents={[Function]}
+                isOwnedByCurrentUser={true}
+                onSuccess={[Function]}
+                renameClass={[Function]}
+                selected={false}
+                user={
+                  Object {
+                    "account_type": "unknown",
+                    "active": false,
+                    "classcode": null,
+                    "clever_id": null,
+                    "created_at": "2019-05-21T17:49:57.461Z",
+                    "email": "hello+demoteacher@quill.org",
+                    "flags": Array [],
+                    "google_id": null,
+                    "id": 2851865,
+                    "ip_address": Object {
+                      "addr": 2130706433,
+                      "family": 2,
+                      "mask_addr": 4294967295,
+                    },
+                    "last_active": null,
+                    "last_sign_in": "2019-07-19T13:10:19.172Z",
+                    "name": "Demo Teacher",
+                    "password_digest": "$2a$10$n8UFjrvzM9N3ZvmMxaKZj.QFTEFrb2AilAgMGHwpD20Q8FQJZehn.",
+                    "role": "teacher",
+                    "send_newsletter": false,
+                    "signed_up_with_google": false,
+                    "stripe_customer_id": null,
+                    "time_zone": null,
+                    "title": null,
+                    "token": null,
+                    "updated_at": "2019-07-19T13:10:19.194Z",
+                    "username": null,
+                  }
+                }
+                viewAsStudent={[Function]}
+              />
+            </React.Fragment>,
+          ]
+        }
+        helperClass="sortable-classroom"
+        sortCallback={[Function]}
+        useDragHandle={true}
+      />
+    </div>
   </div>
-</div>
+  <ArticleSpotlight
+    blogPostId="137"
+  />
+</Fragment>
 `;
 
 exports[`ActiveClassrooms component with no classrooms or coteacher invitations  should render with no classrooms 1`] = `
-<div
-  className="active-classrooms classrooms-page"
->
-  <Snackbar
-    visible={false}
-  />
-  <BulkArchiveClassesBanner
-    classes={Array []}
-    onSuccess={[Function]}
-    userId={2851865}
-  />
+<Fragment>
   <div
-    className="header"
+    className="container gray-background-accommodate-footer active-classrooms classrooms-page"
   >
-    <h1>
-      Active Classes
-    </h1>
+    <Snackbar
+      visible={false}
+    />
+    <BulkArchiveClassesBanner
+      classes={Array []}
+      onSuccess={[Function]}
+      userId={2851865}
+    />
     <div
-      className="buttons"
+      className="header"
     >
-      <button
-        className="interactive-wrapper import-from-clever-button"
-        onClick={[Function]}
-        type="button"
+      <h1>
+        Active Classes
+      </h1>
+      <div
+        className="buttons"
       >
-        <img
-          alt="Clever Icon"
-          className="import-from-clever-button-icon"
-          src="undefined/images/icons/clever.svg"
-        />
-        Import from Clever
-      </button>
-      <button
-        className="interactive-wrapper import-from-google-button"
-        onClick={[Function]}
-        type="button"
-      >
-        <img
-          alt="Google Classroom Icon"
-          className="import-from-google-button-icon"
-          src="undefined/images/icons/google-classroom.svg"
-        />
-         Import from Google Classroom
-      </button>
-      <button
-        className="quill-button medium primary contained create-a-class-button"
-        onClick={[Function]}
-        type="button"
-      >
-        Create a class
-      </button>
+        <button
+          className="interactive-wrapper import-from-clever-button"
+          onClick={[Function]}
+          type="button"
+        >
+          <img
+            alt="Clever Icon"
+            className="import-from-clever-button-icon"
+            src="undefined/images/icons/clever.svg"
+          />
+          Import from Clever
+        </button>
+        <button
+          className="interactive-wrapper import-from-google-button"
+          onClick={[Function]}
+          type="button"
+        >
+          <img
+            alt="Google Classroom Icon"
+            className="import-from-google-button-icon"
+            src="undefined/images/icons/google-classroom.svg"
+          />
+           Import from Google Classroom
+        </button>
+        <button
+          className="quill-button medium primary contained create-a-class-button"
+          onClick={[Function]}
+          type="button"
+        >
+          Create a class
+        </button>
+      </div>
+    </div>
+    <div
+      className="no-active-classes"
+    >
+      <img
+        alt="Gray book, open and blank"
+        src="undefined/images/illustrations/book-empty.svg"
+      />
+      <h2>
+        Add your first class
+      </h2>
+      <p>
+        All teachers need a class! Choose to create or import your classes. 
+      </p>
     </div>
   </div>
-  <div
-    className="no-active-classes"
-  >
-    <img
-      alt="Gray book, open and blank"
-      src="undefined/images/illustrations/book-empty.svg"
-    />
-    <h2>
-      Add your first class
-    </h2>
-    <p>
-      All teachers need a class! Choose to create or import your classes. 
-    </p>
-  </div>
-</div>
+  <ArticleSpotlight
+    blogPostId="137"
+  />
+</Fragment>
 `;

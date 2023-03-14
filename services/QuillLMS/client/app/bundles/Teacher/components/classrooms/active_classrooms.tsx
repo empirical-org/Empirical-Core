@@ -24,6 +24,8 @@ import BulkArchiveClassesBanner from '../shared/bulk_archive_classes_banner'
 import ViewAsStudentModal from '../shared/view_as_student_modal'
 import { Snackbar, defaultSnackbarTimeout, SortableList } from '../../../Shared/index'
 import { requestGet, requestPut } from '../../../../modules/request/index';
+import ArticleSpotlight from '../shared/articleSpotlight';
+import { MY_CLASSES_FEATURED_BLOG_POST_ID } from '../../constants/featuredBlogPost';
 
 const bookEmptySrc = `${process.env.CDN_URL}/images/illustrations/book-empty.svg`
 const cleverIconSrc = `${process.env.CDN_URL}/images/icons/clever.svg`
@@ -687,27 +689,30 @@ export default class ActiveClassrooms extends React.Component<ActiveClassroomsPr
 
   render() {
     return (
-      <div className="active-classrooms classrooms-page">
-        {this.renderCreateAClassModal()}
-        {this.renderRenameClassModal()}
-        {this.renderChangeGradeModal()}
-        {this.renderArchiveClassModal()}
-        {this.renderInviteStudentsModal()}
-        {this.renderImportCleverClassroomsModal()}
-        {this.renderImportGoogleClassroomsModal()}
-        {this.renderImportCleverClassroomStudentsModal()}
-        {this.renderImportGoogleClassroomStudentsModal()}
-        {this.renderReauthorizeCleverModal()}
-        {this.renderLinkCleverAccountModal()}
-        {this.renderLinkGoogleAccountModal()}
-        {this.renderCleverClassroomsEmptyModal()}
-        {this.renderGoogleClassroomsEmptyModal()}
-        {this.renderViewAsStudentModal()}
-        {this.renderSnackbar()}
-        {this.renderBulkArchiveClassesBanner()}
-        {this.renderHeader()}
-        {this.renderPageContent()}
-      </div>
+      <React.Fragment>
+        <div className="container gray-background-accommodate-footer active-classrooms classrooms-page">
+          {this.renderCreateAClassModal()}
+          {this.renderRenameClassModal()}
+          {this.renderChangeGradeModal()}
+          {this.renderArchiveClassModal()}
+          {this.renderInviteStudentsModal()}
+          {this.renderImportCleverClassroomsModal()}
+          {this.renderImportGoogleClassroomsModal()}
+          {this.renderImportCleverClassroomStudentsModal()}
+          {this.renderImportGoogleClassroomStudentsModal()}
+          {this.renderReauthorizeCleverModal()}
+          {this.renderLinkCleverAccountModal()}
+          {this.renderLinkGoogleAccountModal()}
+          {this.renderCleverClassroomsEmptyModal()}
+          {this.renderGoogleClassroomsEmptyModal()}
+          {this.renderViewAsStudentModal()}
+          {this.renderSnackbar()}
+          {this.renderBulkArchiveClassesBanner()}
+          {this.renderHeader()}
+          {this.renderPageContent()}
+        </div>
+        <ArticleSpotlight blogPostId={MY_CLASSES_FEATURED_BLOG_POST_ID} />
+      </React.Fragment>
     )
   }
 }
