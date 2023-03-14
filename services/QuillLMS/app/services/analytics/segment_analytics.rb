@@ -248,7 +248,7 @@ class SegmentAnalytics
         teacher_first_name: teacher.first_name,
         teacher_last_name: teacher.last_name,
         teacher_email: teacher.email,
-        teacher_school: teacher.school,
+        teacher_school: teacher.school&.name,
         reason: reason
       }
     })
@@ -261,7 +261,7 @@ class SegmentAnalytics
       admin_email: admin_email,
       teacher_first_name: teacher.first_name,
       teacher_last_name: teacher.last_name,
-      teacher_school: teacher.school,
+      teacher_school: teacher.school&.name,
       note: note
     }
     if admin
