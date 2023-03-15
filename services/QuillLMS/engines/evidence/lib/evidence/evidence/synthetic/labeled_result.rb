@@ -30,7 +30,7 @@ module Evidence
       end
 
       # flatten :generated into one hash by combining the generator and the sub-keys,
-      # e.g. {'tranlation-es' => 'hello', 'tranlation-ko' => 'hi', 'spelling-their' => 'what'...}
+      # e.g. {'translation-es' => 'hello', 'translation-ko' => 'hi', 'spelling-their' => 'what'...}
       private def generated_flattened
         generated
           .map {|generator, hash| hash.transform_keys {|key| [generator,key].join('-')}}
