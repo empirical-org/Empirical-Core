@@ -31,4 +31,23 @@ namespace :synthetic do
       File.write("#{path}#{run_number}_#{filename}", contents)
     end
   end
+
+  # Run: bundle exec rake synthetic:generate_labeled_data\['/Users/username/synthetic_surge_sample.csv',1\]
+  desc "generate labeled data from a local file"
+  task :generate_labeled_data, [:filepath, :run_number] => :environment do |t, args|
+    filepath = args[:filepath]
+    run_number = args[:run_number]
+
+    text_labels = CSV.read(filepath)
+
+    puts "Creating CSVs"
+    csv_hash = Evidence::Synthetic::LabeledDataGenerator.csvs_from_run(text_labels, filepath, nil)
+
+    csv_hash.each do |filename, contents|
+      # insert run_number in filename
+      filename_with_number = filename.sub(%r{.*\K/}, "/#{run_number}_")
+
+      File.write(filename_with_number, contents)
+    end
+  end
 end
