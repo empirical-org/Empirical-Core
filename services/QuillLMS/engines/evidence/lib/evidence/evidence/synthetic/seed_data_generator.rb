@@ -3,7 +3,20 @@
 module Evidence
   module Synthetic
     class SeedDataGenerator
-      Result = Struct.new(:text, :seed, :label, keyword_init: true)
+      Result = Struct.new(:text, :generator, keyword_init: true) do
+        def seed
+          generator&.seed
+        end
+
+        def label
+          generator&.label
+        end
+      end
+      Generator = Struct.new(:name, :ml_prompt, :source_text, :temperature, :noun, :label, :stem, :index, :count, :conjunction, keyword_init: true) do
+        def seed
+          [name&.underscore, label, index, "temp", temperature, conjunction, noun].compact.join("_")
+        end
+      end
 
       WORD_SPLIT_COUNT = 70
       SPACE = ' '
@@ -17,6 +30,7 @@ module Evidence
       EXAMPLE_COUNT = ENV.fetch('SYNTHETIC_SEED_EXAMPLE_COUNT', 15).to_i
 
       TEMPS_PASSAGE = [0.8, 0.7, 0.5, 0.4]
+      TEMP_NOUN = 0.8
       TEMP_SECTION = 0.4 # give a lower temp (creativity) when it has less info
       TEMP_PARAPHRASE = 1
       OPTIONS_PARAPHRASE = {max_tokens: 40}
@@ -63,7 +77,7 @@ module Evidence
         prompts.each do |prompt|
           csv_name = "#{short_name}_#{prompt.conjunction}#{CSV_SUFFIX}"
 
-          generator = new(
+          seed_data_generator = new(
             passage: passage,
             stem: prompt.text,
             conjunction: prompt.conjunction,
@@ -71,9 +85,9 @@ module Evidence
             label_configs: label_configs[prompt.conjunction] || [],
             use_passage: use_passage
           )
-          generator.run
+          seed_data_generator.run
 
-          csvs[csv_name] = generator.results_csv_string
+          csvs[csv_name] = seed_data_generator.results_csv_string
         end
 
         # include a csv with a text guide to the passage chunks
@@ -112,7 +126,16 @@ module Evidence
         TEMPS_PASSAGE.each do |temp|
           stem_variants_hash.each do |conjunction, stem_variant|
             prompt = prompt_text(context: passage, stem_variant: stem_variant)
-            run_prompt(prompt: prompt, count: FULL_COUNT, seed: "full_passage_temp#{temp}_#{conjunction}", temperature: temp)
+            generator = Generator.new(
+              name: "FullPassage",
+              temperature: temp,
+              ml_prompt: prompt,
+              source_text: passage,
+              conjunction: conjunction,
+              stem: stem_variant,
+              count: FULL_COUNT
+            )
+            run_generator(generator)
           end
         end
       end
@@ -121,7 +144,16 @@ module Evidence
       private def generate_full_passage_noun_responses
         nouns.each do |noun|
           prompt = prompt_text(context: passage, noun: noun)
-          run_prompt(prompt: prompt, count: FULL_NOUN_COUNT, noun: noun, seed: "full_passage_noun_#{noun.gsub(SPACE,BLANK)}")
+            generator = Generator.new(
+              name: "FullPassageNoun",
+              temperature: TEMP_NOUN,
+              ml_prompt: prompt,
+              stem: [stem, noun].join(SPACE),
+              source_text: passage,
+              noun: noun,
+              count: FULL_NOUN_COUNT
+            )
+          run_generator(generator)
         end
       end
 
@@ -130,7 +162,17 @@ module Evidence
         split_passage.each.with_index do |text_chunk, index|
           stem_variants_hash.each do |conjunction, stem_variant|
             prompt = prompt_text(context: text_chunk, stem_variant: stem_variant)
-            run_prompt(prompt: prompt, count: SECTION_COUNT, seed: "text_chunk_#{index + 1}_temp#{TEMP_SECTION}_#{conjunction}", temperature: TEMP_SECTION)
+            generator = Generator.new(
+              name: "PassageChunk",
+              temperature: TEMP_SECTION,
+              ml_prompt: prompt,
+              stem: stem_variant,
+              source_text: text_chunk,
+              conjunction: conjunction,
+              index: index + 1,
+              count: SECTION_COUNT
+            )
+            run_generator(generator)
           end
         end
       end
@@ -142,31 +184,38 @@ module Evidence
         label_configs.each do |label_config|
           label_config[EXAMPLES_KEY].map(&:strip).uniq.compact.each.with_index do |example, index|
             prompt = PARAPHRASE_INSTRUCTION + example
-            run_prompt(
-              prompt: prompt,
-              count: EXAMPLE_COUNT,
-              seed: "label_#{label_config[LABEL_KEY]}_example#{index + 1}_temp#{TEMP_PARAPHRASE}",
+            generator = Generator.new(
+              name: "LabelExample",
               temperature: TEMP_PARAPHRASE,
-              options: OPTIONS_PARAPHRASE,
-              label: label_config[LABEL_KEY]
+              ml_prompt: prompt,
+              source_text: example,
+              label: label_config[LABEL_KEY],
+              index: index + 1,
+              count: EXAMPLE_COUNT
             )
+            run_generator(generator, options: OPTIONS_PARAPHRASE)
           end
         end
       end
 
-      private def run_prompt(prompt:, count:, seed:, noun: nil, temperature: 1, options: {}, label: nil)
-        api_results = Evidence::OpenAI::Completion.run(prompt: prompt, count: count, temperature: temperature, options: options)
-        current_result_texts = results.map(&:text)
+      private def run_generator(generator, options: {})
+        api_results = Evidence::OpenAI::Completion.run(
+          prompt: generator.ml_prompt,
+          count: generator.count,
+          temperature: generator.temperature,
+          options: options
+        )
 
-        new_results = parse_completion_api_results(api_results, current_texts: current_result_texts, noun: noun, seed: seed, label: label)
+        current_result_texts = results.map(&:text)
+        new_results = parse_generator_api_results(api_results, current_texts: current_result_texts, generator: generator)
 
         @results += new_results
       end
 
-      private def parse_completion_api_results(api_results, current_texts:, seed:, noun: nil, label: nil)
+      private def parse_generator_api_results(api_results, current_texts:, generator:)
         api_results
           .map {|s| lowercaser.run(s) }
-          .map {|s| Result.new(text: [noun, s].join(SPACE).strip, seed: seed, label: label)}
+          .map {|s| Result.new(text: [generator.noun, s].join(SPACE).strip, generator: generator)}
           .uniq {|r| r.text }
           .reject {|r| r.text.in?(current_texts)}
           .reject {|r| regex_exclude?(r.text) }

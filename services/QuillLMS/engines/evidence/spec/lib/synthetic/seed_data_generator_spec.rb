@@ -39,19 +39,19 @@ module Evidence
     let(:example_prompt) { "rephrase with some synonyms:\n\nExample to paraphrase." }
     let(:example_response) { ["Example to rephrase."] }
 
-    let(:label_tag) { "label_label1_example1_temp1" }
+    let(:label_tag) { "label_example_label1_1_temp_1" }
 
     let(:seed_labels) do
       [
-        "full_passage_temp1_but",
-        "full_passage_temp1_but the counter argument is that",
-        "full_passage_temp1_Even though %<stem>s",
-        "full_passage_temp0.9_but",
-        "full_passage_temp0.9_but the counter argument is that",
-        "full_passage_temp0.9_Even though %<stem>s",
-        "full_passage_noun_noun1",
-        "text_chunk_1_temp0.4_but",
-        "text_chunk_2_temp0.4_but",
+        "full_passage_temp_1_but",
+        "full_passage_temp_1_but the counter argument is that",
+        "full_passage_temp_1_Even though %<stem>s",
+        "full_passage_temp_0.9_but",
+        "full_passage_temp_0.9_but the counter argument is that",
+        "full_passage_temp_0.9_Even though %<stem>s",
+        "full_passage_noun_temp_0.8_noun1",
+        "passage_chunk_1_temp_0.4_but",
+        "passage_chunk_2_temp_0.4_but",
         label_tag
       ]
     end
@@ -123,7 +123,7 @@ module Evidence
           .and_return(full_passage_alternate2_response2)
         # noun
         expect(Evidence::OpenAI::Completion).to receive(:run)
-          .with(prompt: full_noun_prompt, count: 1, temperature: 1, options: {})
+          .with(prompt: full_noun_prompt, count: 1, temperature: 0.8, options: {})
           .and_return(full_noun_response)
         # chunk1
         expect(Evidence::OpenAI::Completion).to receive(:run)
@@ -156,7 +156,6 @@ module Evidence
           .and_return(example_response)
 
         subject.run
-
         expect(subject.results.count).to be(10)
         expect(subject.results.map(&:seed)).to eq(seed_labels)
         expect(subject.results.map(&:label)).to eq([nil, nil, nil, nil, nil, nil, nil, nil, nil, "label1"])
@@ -188,19 +187,19 @@ module Evidence
       end
     end
 
-    describe "#run_prompt" do
+    describe "#run_generator" do
       let(:rejected_response) {['one response']}
-
       let(:because) {described_class.new(passage: '', stem: stem, conjunction: 'because')}
+      let(:generator) { described_class::Generator.new(ml_prompt: '', count: 1, temperature: 1) }
 
       before do
         allow(Evidence::OpenAI::Completion).to receive(:run).and_return(response)
       end
 
+      subject { because.send(:run_generator, generator) }
+
       context 'response in exclude regex' do
         let(:response) {['of getting excluded']}
-
-        subject { because.send(:run_prompt, prompt: '', count: 1, seed: '') }
 
         it "should reject response" do
           expect(subject.count).to eq 0
@@ -210,8 +209,6 @@ module Evidence
       context 'response not in exclude regex' do
         let(:response) {['it would not be excluded']}
 
-        subject { because.send(:run_prompt, prompt: '', count: 1, seed: '') }
-
         it "should not reject response" do
           expect(subject.count).to eq 1
         end
@@ -220,8 +217,6 @@ module Evidence
       context 'lowercasing responses' do
         let(:response) {['They is a common word', 'Romeo dies (spoiler)', 'Calls out to him', 'lowercase']}
         let(:because) {described_class.new(passage: 'Juliet calls out to Romeo', stem: stem, conjunction: 'because')}
-
-        subject { because.send(:run_prompt, prompt: '', count: 1, seed: '') }
 
         it "should downcase first letter if common word or lowercase in passage" do
           expect(subject.first.text).to eq 'they is a common word'
@@ -237,8 +232,6 @@ module Evidence
         end
 
         let(:response) {['some text']}
-
-        subject { because.send(:run_prompt, prompt: '', count: 1, seed: '') }
 
         context 'flagged as opinion' do
           let(:opinion_response) { double(success?: true, optimal?: false) }
@@ -269,13 +262,14 @@ module Evidence
     describe 'API timeout' do
       let(:openai_url) {'https://api.openai.com/v1/completions'}
       let(:because) {described_class.new(passage: '', stem: stem, conjunction: 'because')}
+      let(:generator) { described_class::Generator.new(ml_prompt: '', count: 1, temperature: 1) }
 
       before do
         stub_request(:post, openai_url).to_timeout
       end
 
-      context 'run_prompt' do
-        subject { because.send(:run_prompt, prompt: '', count: 1, seed: '') }
+      context 'run_generator' do
+        subject { because.send(:run_generator, generator) }
 
         it "return empty array" do
           expect(subject).to eq([])
