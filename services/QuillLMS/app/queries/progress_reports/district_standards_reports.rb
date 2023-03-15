@@ -14,9 +14,12 @@ class ProgressReports::DistrictStandardsReports
     user_ids = user_ids_query(admin_id)
     return [] if user_ids.empty?
 
-    Standard.all.pluck(:id).map do |standard_id|
-      standards_report_query(user_ids, standard_id)
-    end.flatten
+    Standard
+      .all
+      .pluck(:id)
+      .map { |standard_id| standards_report_query(user_ids, standard_id) }
+      .flatten
+      .sort_by { |k| k["name"] }
   end
 
   def standards_report_query(user_ids, standard_id)
