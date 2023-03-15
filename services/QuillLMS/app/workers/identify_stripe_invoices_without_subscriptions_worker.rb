@@ -29,14 +29,35 @@ class IdentifyStripeInvoicesWithoutSubscriptionsWorker
   private def relevant_stripe_invoices
     stripe_invoices.filter do |invoice|
       RELEVANT_INVOICE_STATUSES.include?(invoice.status) &&
-        !Subscription.exists?(stripe_invoice_id: invoice.id)
+        !invoice_ids_with_subscriptions.include?(invoice.id) &&
+        positive_amount?(invoice) &&
+        !invoice_refunded?(invoice)
     end
   end
 
+  private def invoice_ids_with_subscriptions
+    @invoice_ids_with_subscriptions ||= Subscription.where(stripe_invoice_id: stripe_invoice_ids).pluck(:stripe_invoice_id)
+  end
+
+  private def invoice_refunded?(invoice)
+    return false unless invoice.charge
+
+    charge = Stripe::Charge.retrieve(invoice.charge)
+    charge.amount == charge.amount_refunded
+  end
+
+  private def positive_amount?(invoice)
+    invoice.amount_due > 0
+  end
+
+  private def stripe_invoice_ids
+    stripe_invoices.map(&:id)
+  end
+
   private def stripe_invoices
-    [].tap do |stripe_invoices|
+    @stripe_invoices ||= [].tap do |invoices|
       Stripe::Invoice.list({limit: 100, created: {gte: INVOICE_START_EPOCH}}).auto_paging_each do |invoice|
-        stripe_invoices.append(invoice) if RELEVANT_INVOICE_STATUSES.include?(invoice.status) && !Subscription.exists?(stripe_invoice_id: invoice.id)
+        invoices.append(invoice)
       end
     end
   end
