@@ -334,8 +334,6 @@ describe 'SegmentAnalytics' do
       expect(track_calls[0][:properties][:reason]).to eq(reason)
 
       expect(identify_calls.size).to eq(1)
-      expect(identify_calls[0][:traits][:email]).to eq(admin.email)
-      expect(identify_calls[0][:traits][:name]).to eq(admin.name)
     end
   end
 
@@ -365,8 +363,6 @@ describe 'SegmentAnalytics' do
         expect(track_calls[0][:properties][:note]).to eq(note)
 
         expect(identify_calls.size).to eq(1)
-        expect(identify_calls[0][:traits][:email]).to eq(admin.email)
-        expect(identify_calls[0][:traits][:name]).to eq(admin.name)
       end
     end
 

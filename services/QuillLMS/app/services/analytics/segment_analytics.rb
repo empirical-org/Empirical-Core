@@ -279,8 +279,7 @@ class SegmentAnalytics
         # sending the admin email as the anonymous id because that's how we find people in Ortto
         anonymous_id: admin_email,
         event: SegmentIo::BackgroundEvents::ADMIN_INVITED_BY_TEACHER,
-        properties: properties,
-        context: context
+        properties: properties
       })
     end
   end
