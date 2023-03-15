@@ -1,0 +1,55 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`UndoModal component should render UndoModal 1`] = `
+<UndoModal
+  closeModal={[MockFunction]}
+  undo={[MockFunction]}
+>
+  <AdminVerificationModal
+    bodyText="This request will be moved to the “Pending” tab. No email will be sent to the user informing them of this change. Please contact the user directly as needed."
+    closeModal={[MockFunction]}
+    confirmFunction={[MockFunction]}
+    headerText="Undo this decision?"
+  >
+    <div
+      className="modal-container admin-verification-modal-container"
+    >
+      <div
+        className="modal-background"
+      />
+      <div
+        className="admin-verification-modal quill-modal modal-body"
+      >
+        <div
+          className="top-section"
+        >
+          <h3>
+            Undo this decision?
+          </h3>
+          <p>
+            This request will be moved to the “Pending” tab. No email will be sent to the user informing them of this change. Please contact the user directly as needed.
+          </p>
+        </div>
+        <div
+          className="button-section"
+        >
+          <button
+            className="quill-button medium secondary outlined focus-on-light"
+            onClick={[MockFunction]}
+            type="button"
+          >
+            Cancel
+          </button>
+          <button
+            className="quill-button medium primary contained focus-on-light"
+            onClick={[MockFunction]}
+            type="button"
+          >
+            Confirm
+          </button>
+        </div>
+      </div>
+    </div>
+  </AdminVerificationModal>
+</UndoModal>
+`;

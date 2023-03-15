@@ -1,7 +1,7 @@
 <% current_path = request.env['PATH_INFO'] %>
 <% on_sign_up_or_log_in = ['account/new', '/session', 'password_reset', 'sign-up', 'finish_set_up'].any? { |str| current_path.include?(str)} %>
 
-<% if current_path.include?('teachers') %>
+<% if current_path.include?('teachers') || current_path.include?('assign') %>
 	<% user_dropdown_class = 'on-dashboard' %>
 	<% user_dropdown_img = 'https://assets.quill.org/images/navbar/navbar-dashboard-solid.svg' %>
 <% else %>
@@ -31,13 +31,13 @@
   <% if on_sign_up_or_log_in %>
     <div class="logo-only">
       <a aria-label="Quill" class="focus-on-dark" href=<%= root_path %>>
-        <img src="/images/quill_header_logo.svg" alt="Quill logo">
+        <img src="/images/quill_header_logo.svg" alt="Quill logo" />
       </a>
     </div>
   <% else %>
 	  <div>
 			<a aria-label="Quill" class="focus-on-dark" href=<%= root_path %> >
-  			<img src="https://assets.quill.org/images/logos/quill-logo-white-2022.svg" alt="Quill.org logo">
+  			<img src="https://assets.quill.org/images/logos/quill-logo-white-2022.svg" alt="Quill.org logo" />
   		</a>
   	</div>
 
@@ -58,7 +58,7 @@
   		<%- if current_user.nil? %>
 				<a class="text-white nav-element" href="/session/new">Log In</a>
 				<a class="text-white nav-element sign-up-button" href="/account/new">Sign Up</a>
-  		<%- elsif current_user.role == 'teacher' %>
+  		<%- elsif current_user.teacher? %>
   			<div id="nav-user-dropdown" class="dropdown-closed hide-on-mobile nav-element <%= show_notification_badges_class %> <%= user_dropdown_class %>">
   				<span onclick="toggleDropdown()" class='user-dropdown-button notification-badge-relative'>
             <%="#{truncate(current_user.name, length: 50)}"%>

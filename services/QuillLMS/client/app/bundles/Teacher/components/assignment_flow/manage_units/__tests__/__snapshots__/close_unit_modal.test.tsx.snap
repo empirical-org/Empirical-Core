@@ -1,0 +1,60 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`CloseUnitModal component renders 1`] = `
+<CloseUnitModal
+  closeModal={[MockFunction]}
+  onSuccess={[MockFunction]}
+  unitId={1}
+  unitName="Unit"
+>
+  <div
+    className="modal-container archive-activity-pack-modal-container"
+  >
+    <div
+      className="modal-background"
+    />
+    <div
+      className="archive-activity-pack-modal quill-modal modal-body"
+    >
+      <div>
+        <h3
+          className="title"
+        >
+          Close this activity pack?
+        </h3>
+      </div>
+      <div
+        className="archive-activity-pack-modal-text"
+      >
+        <p>
+          This activity pack will move to the "My Closed Activity Packs" tab. You will still have access to it in your student reports.
+        </p>
+        <p>
+          Activities that students did not complete will be removed from their "To-do activities" list. Activities that students completed will remain on their "Completed" list.
+        </p>
+        <p>
+          If you change your mind and wish to reopen this activity pack, you can do so from the "My Closed Activity Packs" tab.
+        </p>
+      </div>
+      <div
+        className="form-buttons"
+      >
+        <button
+          className="quill-button outlined secondary medium focus-on-light"
+          onClick={[MockFunction]}
+          type="button"
+        >
+          Cancel
+        </button>
+        <button
+          className="quill-button contained primary medium focus-on-light"
+          onClick={[Function]}
+          type="button"
+        >
+          Close pack
+        </button>
+      </div>
+    </div>
+  </div>
+</CloseUnitModal>
+`;

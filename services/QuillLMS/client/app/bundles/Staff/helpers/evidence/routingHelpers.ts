@@ -37,7 +37,7 @@ export function getActivitySessionsUrl({ activityId, pageNumber, startDate, endD
 }
 
 export function getActivitySessionsCSVUrl({ activityId, startDate, endDate, filterType, responsesForScoring}) {
-  let url = `session_data_for_csv?&activity_id=${activityId}`;
+  let url = `email_csv_data?&activity_id=${activityId}`;
   url += startDate ? `&start_date=${startDate}` : ''
   url += endDate ? `&end_date=${endDate}` : ''
   url += filterType ? `&filter_type=${filterType}` : ''
@@ -69,6 +69,11 @@ export const getActivityStatsUrl = ({ activityId, startDate, endDate }) => {
 export const getActivityHealthUrl = ({ activityId }) => {
   return `activity_health?activity_id=${activityId}`;
 }
+
+export const aggregatedActivityHealthsUrl = `evidence/activity_healths.json`;
+
+export const aggregatedPromptHealthsUrl = `evidence/prompt_healths.json`;
+
 
 // not a 2xx status
 export const requestFailed = (status: number ) => Math.round(status / 100) !== 2;

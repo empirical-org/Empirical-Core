@@ -20,16 +20,26 @@ class SchoolsAdmins < ApplicationRecord
   belongs_to :school
   belongs_to :user
 
-  after_create :send_admin_email
+  before_save :set_user_role
+  after_save :wipe_cache
+
+  ADMIN_USERS_CACHE_KEY_STEM = "SERIALIZED_ADMIN_USERS_FOR_"
+  DISTRICT_ACTIVITY_SCORES_CACHE_KEY_STEM = "SERIALIZED_DISTRICT_ACTIVITY_SCORES_FOR_"
+  DISTRICT_CONCEPT_REPORTS_CACHE_KEY_STEM = "SERIALIZED_DISTRICT_CONCEPT_REPORTS_FOR_"
+  DISTRICT_STANDARD_REPORTS_CACHE_KEY_STEM = "SERIALIZED_DISTRICT_STANDARDS_REPORTS_FOR_"
 
   def admin
     user
   end
 
-  def send_admin_email
-    staff_user = User.find(user_id)&.email&.match('quill.org')
-    return unless Rails.env.production? || staff_user
+  def wipe_cache
+    $redis.del("#{ADMIN_USERS_CACHE_KEY_STEM}#{user_id}")
+    $redis.del("#{DISTRICT_ACTIVITY_SCORES_CACHE_KEY_STEM}#{user_id}")
+    $redis.del("#{DISTRICT_CONCEPT_REPORTS_CACHE_KEY_STEM}#{user_id}")
+    $redis.del("#{DISTRICT_STANDARD_REPORTS_CACHE_KEY_STEM}#{user_id}")
+  end
 
-    NewAdminEmailWorker.perform_async(user_id, school_id)
+  private def set_user_role
+    user.update(role: User::ADMIN) unless user.admin?
   end
 end

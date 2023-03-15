@@ -145,6 +145,27 @@ describe 'Student Concern', type: :model do
     end
   end
 
+  describe "#move_student_from_one_class_to_another" do
+    subject { student1.move_student_from_one_class_to_another(classroom, classroom3) }
+
+    let!(:classroom3) { create(:classroom) }
+    let!(:classroom_unit6) { create(:classroom_unit, classroom: classroom3, assign_on_join: assign_on_join) }
+
+    context 'assign_on_join false' do
+      let(:assign_on_join) { false }
+
+      it { expect { subject }.not_to change { classroom_unit6.reload.assigned_student_ids}.from([]) }
+      it { expect { subject }.to change { student1.reload.classrooms }.from([classroom]).to([classroom3]) }
+    end
+
+    context 'assign_on_join true' do
+      let(:assign_on_join) { true }
+
+      it { expect { subject }.to change { classroom_unit6.reload.assigned_student_ids}.from([]).to([student1.id]) }
+      it { expect { subject }.to change { student1.reload.classrooms }.from([classroom]).to([classroom3]) }
+    end
+  end
+
   describe "#merge_student_account" do
     context "called with no teacher id" do
       it "returns false when the students are not in the same classrooms" do

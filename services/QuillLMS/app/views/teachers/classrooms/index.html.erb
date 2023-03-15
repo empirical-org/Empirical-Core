@@ -1,13 +1,10 @@
 <%= render partial: 'teachers/shared/scorebook_tabs' %>
-
-<div class="container">
-  <%= react_component('TeacherClassroomsApp',
-      props: {
-        user: current_user,
-        classrooms: @classrooms,
-        cleverLink: @clever_link,
-        coteacherInvitations: @coteacher_invitations
-      }
-    )
-  %>
-</div>
+<%= react_component('TeacherClassroomsApp',
+    props: {
+      user: current_user,
+      classrooms: @classrooms,
+      cleverLink: @clever_link,
+      coteacherInvitations: @coteacher_invitations
+    }
+  )
+%>

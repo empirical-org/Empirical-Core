@@ -9,14 +9,14 @@ class UserLoginWorker
 
     analytics = Analyzer.new
     case @user.role
-    when 'teacher'
+    when User::TEACHER, User::ADMIN
       TeacherActivityFeedRefillWorker.perform_async(@user.id)
       analytics.track_with_attributes(
         @user,
         SegmentIo::BackgroundEvents::TEACHER_SIGNIN,
         properties: @user&.segment_user&.common_params
       )
-    when 'student'
+    when User::STUDENT
       # keep these in the following order so the student is the last one identified
       teacher = @user.teacher_of_student
       if teacher.present?

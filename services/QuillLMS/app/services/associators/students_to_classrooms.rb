@@ -14,10 +14,10 @@ module Associators::StudentsToClassrooms
           StudentsClassrooms.unscoped.find_or_create_by!(student_id: student.id, classroom_id: classroom[:id])
 
         if student_classroom.previously_new_record?
-          update_classroom_units(student_classroom)
+          student_classroom.validate_assigned_student
           StudentJoinedClassroomWorker.perform_async(@@classroom&.owner&.id, student&.id)
         elsif student_classroom.archived?
-          update_classroom_units(student_classroom)
+          student_classroom.validate_assigned_student
           student_classroom.unarchive!
         end
       rescue ActiveRecord::RecordNotUnique
@@ -30,12 +30,6 @@ module Associators::StudentsToClassrooms
     student
   end
   # rubocop:enable Metrics/CyclomaticComplexity
-
-  def self.update_classroom_units(student_classroom)
-    ClassroomUnit
-      .where(classroom_id: student_classroom.classroom_id)
-      .each { |classroom_unit| classroom_unit.validate_assigned_student(student_classroom.student_id) }
-  end
 
   def self.legit_classroom
     Classroom.find_by(id: @@classroom&.id, visible: true)

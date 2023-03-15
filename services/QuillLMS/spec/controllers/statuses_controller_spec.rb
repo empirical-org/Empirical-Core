@@ -52,6 +52,56 @@ describe StatusesController, type: :controller do
     end
   end
 
+  describe "#sidekiq_queue_latency" do
+    let(:queue_doubles) do
+      queue_latency_pairs.map do |name, latency|
+        double(name: name, latency: latency)
+      end
+    end
+
+    context 'critical_external latency under 60 seconds' do
+      let(:queue_latency_pairs) do
+        {
+          critical: 1.14,
+          critical_external: 0.34,
+          default: 1.44,
+          low: 0,
+          migration: 0
+        }
+      end
+
+      it 'should build a hash of queue.name => queue.latency for each queue' do
+        allow(Sidekiq::Queue).to receive(:all).and_return(queue_doubles)
+
+        get :sidekiq_queue_latency
+
+        expect(response.status).to eq(200)
+        expect(JSON.parse(response.body)).to eq(queue_latency_pairs.stringify_keys)
+      end
+    end
+
+    context 'critical_external_latency is over 60 seconds' do
+      let(:queue_latency_pairs) do
+        {
+          critical: 1.14,
+          critical_external: 66.34,
+          default: 1.44,
+          low: 0,
+          migration: 0
+        }
+      end
+
+      it 'should have a response status of 400 if critical_external latency is over our defined limit' do
+        allow(Sidekiq::Queue).to receive(:all).and_return(queue_doubles)
+
+        get :sidekiq_queue_latency
+
+        expect(response.status).to eq(400)
+        expect(JSON.parse(response.body)).to eq(queue_latency_pairs.stringify_keys)
+      end
+    end
+  end
+
   describe "#sidekiq_queue_length" do
     let(:queues_hash) do
       {

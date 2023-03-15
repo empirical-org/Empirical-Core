@@ -2,6 +2,7 @@
 
 module Mailer
   class User < SimpleDelegator
+
     def send_admin_dashboard_teacher_account_created_email(admin_name, school_name, is_reminder)
       AdminDashboardUserMailer.teacher_account_created_email(self, admin_name, school_name, is_reminder).deliver_now! if email.present?
     end
@@ -48,6 +49,14 @@ module Mailer
 
     def send_internal_tool_made_district_admin_email(district_name)
       InternalToolUserMailer.made_district_admin_email(self, district_name).deliver_now! if email.present?
+    end
+
+    def send_approved_admin_email(school_name)
+      UserMailer.approved_admin_email(self, school_name).deliver_now! if email.present?
+    end
+
+    def send_denied_admin_email(school_name)
+      UserMailer.denied_admin_email(self, school_name).deliver_now! if email.present?
     end
   end
 end

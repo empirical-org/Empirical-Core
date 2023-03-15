@@ -43,6 +43,15 @@
   }
 }
 
+.account-form#user-type {
+  h1 {
+    margin-bottom: 32px;
+  }
+  .network-icon {
+    margin-bottom: 24px;
+  }
+}
+
 .account-form.student-sign-up, .account-form.teacher-sign-up, .account-form.finish-set-up {
   h1 {
     margin-bottom: 4px !important;
@@ -135,13 +144,18 @@
   }
 }
 
-.account-form.add-teacher-info {
+.account-form.add-teacher-info, .account-form.add-admin-info {
   display: flex;
   align-items: center;
   flex-direction: column;
   max-width: 546px;
   h1 {
     margin: 32px 0px 4px;
+    display: flex;
+    flex-direction: column;
+    .school-name {
+      font-weight: 400;
+    }
   }
   .sub-header {
     max-width: 100%;
@@ -155,10 +169,50 @@
   .quill-button {
     margin-top: 8px;
   }
+  .input-container.inactive .dropdown__placeholder {
+    display: inherit;
+  }
   @media (min-width: 560px) {
     h1 {
       white-space: nowrap;
     }
+  }
+}
+
+.email-verification {
+  .sub-header {
+    line-height: 24px;
+  }
+  .body {
+    line-height: 22px;
+    color: #646464;
+    margin-bottom: 32px;
+  }
+  a, .interactive-wrapper {
+    color: #009A80;
+    font-weight: 600;
+  }
+}
+
+.school-verification-section {
+  h3 {
+    font-weight: 400;
+    font-size: 14px;
+    line-height: 12px;
+    color: #373737;
+    margin-bottom: 32px;
+  }
+  .helper-text {
+    line-height: 16px;
+  }
+  .input-container:first-of-type {
+    margin-bottom: 40px;
+  }
+  .input-container:last-of-type {
+    min-height: auto;
+  }
+  .input-container.inactive:not(.has-text) input {
+    height: 25px;
   }
 }
 

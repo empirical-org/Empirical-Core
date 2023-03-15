@@ -10,6 +10,7 @@ class Cms::TeacherSearchQuery
       <<-SQL
         SELECT
           users.name AS teacher_name,
+          users.email,
           COUNT(DISTINCT classrooms.id) AS number_classrooms,
           COUNT(DISTINCT students_classrooms.student_id) AS number_students,
           TO_CHAR(users.last_sign_in, 'Mon DD, YYYY') AS last_active,

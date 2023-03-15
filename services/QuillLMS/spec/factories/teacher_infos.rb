@@ -4,12 +4,21 @@
 #
 # Table name: teacher_infos
 #
-#  id                  :bigint           not null, primary key
-#  minimum_grade_level :integer
-#  maximum_grade_level :integer
-#  teacher_id          :bigint
-#  created_at          :datetime         not null
-#  updated_at          :datetime         not null
+#  id                      :bigint           not null, primary key
+#  maximum_grade_level     :integer
+#  minimum_grade_level     :integer
+#  role_selected_at_signup :string           default("")
+#  created_at              :datetime         not null
+#  updated_at              :datetime         not null
+#  user_id                 :bigint           not null
+#
+# Indexes
+#
+#  index_teacher_infos_on_user_id  (user_id)
+#
+# Foreign Keys
+#
+#  fk_rails_...  (user_id => users.id)
 #
 FactoryBot.define do
   factory :teacher_info do

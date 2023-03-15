@@ -12,11 +12,31 @@ exports[`NewAccountStage1 component should render  1`] = `
     />
     <Route
       component={[Function]}
+      path="/sign-up/admin"
+    />
+    <Route
+      component={[Function]}
+      path="/sign-up/individual-contributor"
+    />
+    <Route
+      component={[Function]}
       path="/sign-up/teacher"
     />
     <Route
       component={[Function]}
       path="/sign-up/student"
+    />
+    <Route
+      component={[Function]}
+      path="/sign-up/verify-school"
+    />
+    <Route
+      component={[Function]}
+      path="/sign-up/verify-email"
+    />
+    <Route
+      component={[Function]}
+      path="/sign-up/select-sub-role"
     />
     <Route
       component={[Function]}

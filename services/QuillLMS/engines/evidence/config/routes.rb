@@ -20,7 +20,6 @@ Evidence::Engine.routes.draw do
   resource :feedback, only: [:create], controller: :feedback
 
   resources :hints, only: [:index, :show, :create, :update, :destroy]
-
   put 'rules/update_rule_order' => 'rules#update_rule_order'
 
   resources :rules, only: [:index, :show, :create, :update, :destroy] do
@@ -33,4 +32,8 @@ Evidence::Engine.routes.draw do
     end
   end
   resources :turking_rounds, only: [:index, :show, :create, :update, :destroy]
+
+  resources :activity_healths, only: [:index]
+
+  resources :prompt_healths, only: [:index]
 end

@@ -1,9 +1,7 @@
 import * as React from 'react';
 import { Activity } from '../../../../../../interfaces/activityPack';
 
-import { requestPost, } from '../../../../../../modules/request';
 import { EVIDENCE } from '../../../../../Shared';
-import { UNIT_TEMPLATE_NAME, } from '../../assignmentFlowConstants';
 
 interface DataInterface {
   activities: Activity[],
@@ -30,37 +28,10 @@ interface DataInterface {
     id: number
   }
 }
-interface UnitTemplateProfileAssignButtonPropsInterface {
+interface UnitTemplateProfileDisclaimerPropsInterface {
   data: DataInterface
 }
-export const UnitTemplateProfileAssignButton = ({ data }: UnitTemplateProfileAssignButtonPropsInterface) => {
-
-  function saveAnonymousAssignmentValues(redirect) {
-    window.localStorage.setItem(UNIT_TEMPLATE_NAME, data.name)
-    requestPost(
-      '/session/set_post_auth_redirect',
-      { post_auth_redirect: window.location.href },
-      () => window.location.href = redirect
-    );
-  }
-
-  function handleClickLogIn() { saveAnonymousAssignmentValues('/session/new') }
-
-  function handleClickSignUp() { saveAnonymousAssignmentValues('/account/new') }
-
-  function propsSpecificComponent() {
-    if (!data.non_authenticated) { return }
-
-    return (
-      <div className="login-or-signup-container light-gray-bordered-box">
-        <strong>Log in or sign-up to assign</strong>
-        <div className="login-or-signup-buttons">
-          <button className="quill-button medium secondary outlined" onClick={handleClickLogIn}>Log in</button>
-          <button className="quill-button medium primary contained" onClick={handleClickSignUp}>Sign up</button>
-        </div>
-      </div>
-    )
-  };
+export const UnitTemplateProfileDisclaimer = ({ data }: UnitTemplateProfileDisclaimerPropsInterface) => {
 
   function isEvidenceActivityPack() {
     if(!data || !data.activities) { return false }
@@ -74,9 +45,9 @@ export const UnitTemplateProfileAssignButton = ({ data }: UnitTemplateProfileAss
   }
 
   const showWarning = isEvidenceActivityPack();
+
   return(
     <section className="evidence-warning-container">
-      {propsSpecificComponent()}
       {showWarning && <section className="evidence-warning">
         <p className="header">Activity Difficulty: Designed for 8th-12th Grade</p>
         <p className="text">Quill Reading for Evidence activities are designed for 8th-12th grade students or students reading at a Lexile level between 950-1250.</p>
@@ -86,4 +57,4 @@ export const UnitTemplateProfileAssignButton = ({ data }: UnitTemplateProfileAss
   );
 }
 
-export default UnitTemplateProfileAssignButton
+export default UnitTemplateProfileDisclaimer

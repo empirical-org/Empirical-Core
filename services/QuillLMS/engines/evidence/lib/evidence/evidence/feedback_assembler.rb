@@ -6,13 +6,13 @@ module Evidence
       raise NotImplementedError, 'Cannot call #error_to_rule_uid on abstract class FeedbackAssembler'
     end
 
-    def self.run(client_response)
+    def self.run(client_response, feedback_history = [])
       error = client_response[error_name]
       return default_payload if error.empty?
 
       rule_uid = error_to_rule_uid.fetch(error)
-      rule = Evidence::Rule.where(uid: rule_uid).includes(:feedbacks).first
-      top_feedback = rule&.feedbacks&.min_by(&:order)
+      rule = Evidence::Rule.includes(:feedbacks).find_by(uid: rule_uid)
+      top_feedback = rule&.determine_feedback_from_history(feedback_history)
 
       default_payload.merge({
         'concept_uid': rule&.concept_uid,

@@ -28,3 +28,13 @@ export const GAMMA_FLAG = 'gamma'
 export const PRIVATE_FLAG = 'private'
 
 export const NOT_APPLICABLE = 'N/A'
+
+export const STUDENT = 'student'
+export const TEACHER = 'teacher'
+export const INDIVIDUAL_CONTRIBUTOR = 'individual-contributor'
+export const ADMIN = 'admin'
+
+export const NOT_LISTED = 'not listed'
+export const NO_SCHOOL_SELECTED = 'no school selected'
+
+export const PENDING = 'Pending'

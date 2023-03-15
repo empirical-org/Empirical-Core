@@ -4,12 +4,12 @@ import _ from 'underscore';
 import ActivityPack from './activity_pack'
 
 import LoadingIndicator from '../../shared/loading_indicator';
-import ItemDropdown from '../../general_components/dropdown_selectors/item_dropdown';
 import getParameterByName from '../../modules/get_parameter_by_name';
-import getAuthToken from '../../modules/get_auth_token';
-import { DropdownInput, } from '../../../../Shared/index'
+import { DropdownInput, Snackbar, defaultSnackbarTimeout, } from '../../../../Shared/index'
 import { PROGRESS_REPORTS_SELECTED_CLASSROOM_ID, } from '../../progress_reports/progress_report_constants'
 import { requestGet, } from '../../../../../modules/request'
+import ArticleSpotlight from '../../shared/articleSpotlight';
+import { MY_ACTIVITIES_FEATURED_BLOG_ID } from '../../../constants/featuredBlogPost';
 
 const clipboardSrc = `${process.env.CDN_URL}/images/illustrations/clipboard.svg`
 
@@ -26,6 +26,8 @@ export default class ManageUnits extends React.Component {
       classrooms: [],
       selectedClassroomId: getParameterByName('classroom_id') || allClassroomKey,
       activityWithRecommendationsIds: [],
+      snackbarCopy: null,
+      showSnackbar: false
     };
   }
 
@@ -34,7 +36,7 @@ export default class ManageUnits extends React.Component {
     this.getRecommendationIds();
     window.onpopstate = () => {
       this.setState({ loaded: false, selectedClassroomId: getParameterByName('classroom_id'), });
-      this.getUnitsForCurrentClass();
+      this.getUnitsForCurrentClassAndOpenState();
     };
   }
 
@@ -94,15 +96,16 @@ export default class ManageUnits extends React.Component {
     });
   };
 
-  getUnitsForCurrentClass = () => {
+  getUnitsForCurrentClassAndOpenState = () => {
+    const { open, } = this.props
     const { selectedClassroomId, classrooms, allUnits, } = this.state
     if (selectedClassroomId && selectedClassroomId !== allClassroomKey) {
       // TODO: Refactor this. It is ridiculous that we need to find a classroom and match on name. Instead, the units should just have a list of classroom_ids that we can match on.
       const selectedClassroom = classrooms.find(c => c.id === Number(selectedClassroomId));
-      const unitsInCurrentClassroom = allUnits.filter(unit => unit.classrooms.find(c => c.name === selectedClassroom.name));
+      const unitsInCurrentClassroom = allUnits.filter(unit => unit.classrooms.find(c => c.name === selectedClassroom.name) && unit.open === open);
       this.setState({ units: unitsInCurrentClassroom, loaded: true, });
     } else {
-      this.setState(prevState => ({ units: prevState.allUnits, loaded: true, }));
+      this.setState(prevState => ({ units: prevState.allUnits.filter(unit => unit.open === open), loaded: true, }));
     }
   };
 
@@ -114,6 +117,7 @@ export default class ManageUnits extends React.Component {
       unitId: u.unit_id,
       unitCreated: u.unit_created_at,
       unitName: u.unit_name,
+      open: u.open
     };
     caObj.classroomActivities.set(u.activity_id, {
       name: u.activity_name,
@@ -125,6 +129,7 @@ export default class ManageUnits extends React.Component {
       dueDate: u.due_date,
       publishDate: u.publish_date,
       scheduled: u.scheduled,
+      staggered: u.staggered,
       ownedByCurrentUser: u.owned_by_current_user,
       ownerName: u.owner_name,
       uaId: u.unit_activity_id,
@@ -157,10 +162,11 @@ export default class ManageUnits extends React.Component {
             createdAt: u.ca_created_at,
             dueDate: u.due_date,
             publishDate: u.publish_date,
+            staggered: u.staggered,
             scheduled: u.scheduled,
             ownedByCurrentUser: u.owned_by_current_user,
             ownerName: u.owner_name,
-            uaId: u.unit_activity_id,
+            uaId: u.unit_activity_id
           });
       }
     });
@@ -174,30 +180,43 @@ export default class ManageUnits extends React.Component {
   };
 
   setAllUnits = (data) => {
-    this.setState({ allUnits: this.parseUnits(data), }, this.getUnitsForCurrentClass);
+    this.setState({ allUnits: this.parseUnits(data), }, this.getUnitsForCurrentClassAndOpenState);
     this.hashLinkScroll();
   };
 
   switchClassrooms = (classroom) => {
+    const { open, } = this.props
     window.localStorage.setItem(PROGRESS_REPORTS_SELECTED_CLASSROOM_ID, classroom.id)
+    let baseLink = '/teachers/classrooms/activity_planner'
+    baseLink += open ? '' : '/closed'
     if (classroom.id) {
-      window.history.pushState({}, '', `/teachers/classrooms/activity_planner?classroom_id=${classroom.id}`);
+      window.history.pushState({}, '', `${baseLink}?classroom_id=${classroom.id}`);
     } else {
-      window.history.pushState({}, '', '/teachers/classrooms/activity_planner');
+      window.history.pushState({}, '', baseLink);
     }
-    this.setState({ selectedClassroomId: classroom.value, }, () => this.getUnitsForCurrentClass());
+    this.setState({ selectedClassroomId: classroom.value, }, () => this.getUnitsForCurrentClassAndOpenState());
   };
 
   stateBasedComponent = () => {
-    const { actions, } = this.props
+    const { actions, open, } = this.props
     const { units, selectedClassroomId, classrooms, } = this.state
 
-    if (!units.length) {
+    if (!units.length && open) {
       return (
         <div className="my-activities-empty-state container">
           <img alt="Clipboard with notes written on it" src={clipboardSrc} />
           <h2>Start by assigning activities</h2>
           <p>Nothing to see here yet! Once you assign activities, they will show up here.</p>
+        </div>
+      )
+    }
+
+    if (!units.length && !open) {
+      return (
+        <div className="my-activities-empty-state container">
+          <img alt="Clipboard with notes written on it" src={clipboardSrc} />
+          <h2>You have no closed activity packs</h2>
+          <p>Closed activity packs are hidden from students. You can still access them in your reports.</p>
         </div>
       )
     }
@@ -208,6 +227,7 @@ export default class ManageUnits extends React.Component {
         getUnits={this.getUnits}
         key={unit.unitId}
         selectedClassroomId={selectedClassroomId}
+        showSnackbar={this.showSnackbar}
       />
     ))
 
@@ -222,8 +242,15 @@ export default class ManageUnits extends React.Component {
     return unit.unitId || unit.unit.id;
   };
 
+  showSnackbar = (snackbarCopy) => {
+    this.setState({ showSnackbar: true, snackbarCopy }, () => {
+      setTimeout(() => this.setState({ showSnackbar: false, }), defaultSnackbarTimeout)
+    })
+  }
+
   render() {
-    const { classrooms, selectedClassroomId, loaded, } = this.state
+    const { open } = this.props
+    const { classrooms, selectedClassroomId, loaded, showSnackbar, snackbarCopy, } = this.state
 
     if (!loaded) { return <LoadingIndicator /> }
 
@@ -237,22 +264,26 @@ export default class ManageUnits extends React.Component {
     const selectedOption = allOptions.find(opt => String(opt.value) === String(selectedClassroomId))
 
     return (
-      <div className="my-activities">
-        <section className="my-activities-header">
-          <div className="container">
-            <div className="top-line">
-              <h1>My Activity Packs</h1>
-              <a className="quill-button contained primary medium focus-on-light" href="/assign">Assign activities</a>
+      <React.Fragment>
+        <div className="my-activities gray-background-accommodate-footer">
+          <Snackbar text={snackbarCopy} visible={showSnackbar} />
+          <section className="my-activities-header">
+            <div className="container">
+              <div className="top-line">
+                <h1>My {open ? 'Open' : 'Closed'} Activity Packs</h1>
+                <a className="quill-button contained primary medium focus-on-light" href="/assign">Assign activities</a>
+              </div>
+              <DropdownInput
+                handleChange={this.switchClassrooms}
+                options={allOptions}
+                value={selectedOption}
+              />
             </div>
-            <DropdownInput
-              handleChange={this.switchClassrooms}
-              options={allOptions}
-              value={selectedOption}
-            />
-          </div>
-        </section>
-        {this.stateBasedComponent()}
-      </div>
+          </section>
+          {this.stateBasedComponent()}
+        </div>
+        {open && <ArticleSpotlight blogPostId={MY_ACTIVITIES_FEATURED_BLOG_ID} />}
+      </React.Fragment>
     );
   }
 }

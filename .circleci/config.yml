@@ -149,7 +149,7 @@ jobs:
     working_directory: ~/Empirical-Core
     parallelism: 3
     docker:
-      - image: circleci/node:erbium
+      - image: circleci/node:fermium
     steps:
       - checkout
       - run:
@@ -243,17 +243,6 @@ jobs:
           command: |
             cd packages/quill-marking-logic
             FORCE_COLOR=true npm run test --colors
-  evidence_go_build:
-    working_directory: ~/Empirical-Core
-    docker:
-      - image: circleci/golang:1.13
-    steps:
-      - checkout
-      - run:
-          name: Run tests
-          command: |
-            cd services/evidence/feedback-api-main/src/endpoint
-            go test
   evidence_rails_build:
     working_directory: ~/Empirical-Core
     parallelism: 1
@@ -336,21 +325,6 @@ jobs:
           command: |
             cd services
             ./rubocop.sh
-  flake8_lint:
-    working_directory: ~/Empirical-Core
-    docker:
-      - image: circleci/python:3.7.4
-    steps:
-      - checkout
-      - run:
-          name: Pip Install
-          command: |
-            pip install --user flake8==4.0.1
-
-      - run:
-          name: Run Flake8
-          command: |
-            flake8
 workflows:
   version: 2
   build-test:
@@ -367,8 +341,6 @@ workflows:
           <<: *default_filter
       - cms_rails_build:
           <<: *default_filter
-      - evidence_go_build:
-          <<: *default_filter
       - evidence_rails_build:
           <<: *default_filter
   lint-code:
@@ -376,6 +348,4 @@ workflows:
       - node_lint:
           <<: *default_filter
       - rubocop_lint:
-          <<: *default_filter
-      - flake8_lint:
           <<: *default_filter

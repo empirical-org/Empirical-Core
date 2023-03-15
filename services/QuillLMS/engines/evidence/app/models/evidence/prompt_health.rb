@@ -2,6 +2,10 @@
 
 module Evidence
   class PromptHealth < ApplicationRecord
+    FIRST_ATTEMPT_OPTIMAL_CUTOFF = 25
+    FINAL_ATTEMPT_OPTIMAL_CUTFF = 75
+    CONFIDENCE_CUTOFF = 0.9
+    PERCENT_AUTOML_CONSECUTIVE_REPEATED_CUTOFF = 30
 
     belongs_to :activity_health, foreign_key: "evidence_activity_health_id"
 
@@ -17,5 +21,68 @@ module Evidence
     validates :percent_opinion, inclusion: { in: 0..100, allow_nil: true }
     validates :percent_grammar, inclusion: { in: 0..100, allow_nil: true }
     validates :percent_spelling, inclusion: { in: 0..100, allow_nil: true }
+
+    def serializable_hash(options = nil)
+      options ||= {}
+
+      super(options.reverse_merge(
+        only:
+          %i(
+            id
+            current_version
+            version_responses
+            first_attempt_optimal
+            final_attempt_optimal
+            avg_attempts
+            confidence
+            percent_automl_consecutive_repeated
+            percent_automl
+            percent_plagiarism
+            percent_opinion
+            percent_grammar
+            percent_spelling
+            text
+            avg_time_spent_per_prompt
+            prompt_id
+            activity_short_name
+          ),
+        methods:
+          %i(
+            conjunction
+            activity_id
+            flag
+            poor_health_flag
+          )
+      ))
+    end
+
+    def poor_health_flag
+      (
+        failed_cutoff(first_attempt_optimal, FIRST_ATTEMPT_OPTIMAL_CUTOFF) ||
+        failed_cutoff(final_attempt_optimal, FINAL_ATTEMPT_OPTIMAL_CUTFF) ||
+        failed_cutoff(confidence, CONFIDENCE_CUTOFF) ||
+        (percent_automl_consecutive_repeated && percent_automl_consecutive_repeated > PERCENT_AUTOML_CONSECUTIVE_REPEATED_CUTOFF)
+      )
+    end
+
+    def conjunction
+      prompt && prompt.conjunction
+    end
+
+    def activity_id
+      prompt && prompt.activity_id
+    end
+
+    def flag
+      prompt && prompt.activity.flag
+    end
+
+    private def prompt
+      @prompt ||= Prompt.find(prompt_id)
+    end
+
+    private def failed_cutoff(number, cutoff)
+      number && number < cutoff
+    end
   end
 end

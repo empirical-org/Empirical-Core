@@ -122,6 +122,12 @@
           margin-right: 4px;
           width: 24px;
         }
+      }
+      .quill-tooltip-trigger {
+        margin-bottom: 16px;
+        button {
+          margin-bottom: 0px;
+        }
         &:last-of-type {
           margin-bottom: 0px;
         }
@@ -192,6 +198,7 @@
       margin: 32px 32px 16px;
       background-color: white;
       width: min-content;
+      overflow: visible;
       .data-table-headers {
         max-width: min-content;
       }

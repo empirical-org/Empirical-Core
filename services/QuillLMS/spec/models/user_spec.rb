@@ -57,6 +57,7 @@
 #
 require 'rails_helper'
 
+# rubocop:disable Metrics/BlockLength
 describe User, type: :model do
 
   it { is_expected.to callback(:capitalize_name).before(:save) }
@@ -81,6 +82,7 @@ describe User, type: :model do
   it { should have_many(:user_activity_classifications).dependent(:destroy) }
   it { should have_many(:user_milestones) }
   it { should have_many(:milestones).through(:user_milestones) }
+  it { should have_many(:admin_approval_requests).with_foreign_key('requestee_id') }
 
   it { should delegate_method(:name).to(:school).with_prefix(:school) }
   it { should delegate_method(:mail_city).to(:school).with_prefix(:school) }
@@ -143,30 +145,6 @@ describe User, type: :model do
 
       it 'returns false when the user does not have an auditor flag' do
         expect(user.auditor?).to eq(false)
-      end
-    end
-  end
-
-  describe '#last_four' do
-    it 'returns nil if a user does not have a stripe_customer_id' do
-      expect(user.last_four).to eq(nil)
-    end
-
-    context 'user has a stripe customer_id' do
-      let(:user) { create(:user, stripe_customer_id: stripe_customer_id)}
-      let(:stripe_customer_id) { 'cus_abcdefg' }
-      let(:last4) { 1000 }
-      let(:customer) { double('customer') }
-      let(:customer_with_sources) { double('customer', sources: double(data: double(first: double(last4: last4)))) }
-      let(:retrieve_sources_args) { { id: stripe_customer_id, expand: ['sources'] } }
-
-      before do
-        allow(Stripe::Customer).to receive(:retrieve).with(stripe_customer_id).and_return(customer)
-        allow(Stripe::Customer).to receive(:retrieve).with(retrieve_sources_args).and_return(customer_with_sources)
-      end
-
-      it "calls Stripe::Customer.retrieve with the current user's stripe_customer_id" do
-        expect(user.last_four).to eq last4
       end
     end
   end
@@ -338,8 +316,8 @@ describe User, type: :model do
 
   describe 'constants' do
     it "should give the correct value for all the constants" do
-      expect(User::ROLES).to eq(%w(teacher student staff sales-contact))
-      expect(User::SAFE_ROLES).to eq(%w(student teacher sales-contact))
+      expect(User::ROLES).to eq(%w(teacher student staff sales-contact admin))
+      expect(User::SAFE_ROLES).to eq(%w(student teacher sales-contact admin))
       expect(User::VALID_EMAIL_REGEX).to eq(/\A[\w+\-.]+@[a-z\d\-]+(\.[a-z\d\-]+)*\.[a-z]+\z/i)
     end
   end
@@ -361,11 +339,9 @@ describe User, type: :model do
   end
 
   describe '#admin?' do
-    let!(:user) { create(:user) }
+    let!(:user) { create(:admin) }
 
     context 'when admin exists' do
-      let!(:schools_admins) { create(:schools_admins, user: user) }
-
       it 'should return true' do
         expect(user.admin?).to eq true
       end
@@ -373,6 +349,8 @@ describe User, type: :model do
 
     context 'when admin does not exist' do
       it 'should return false' do
+        user.update(role: User::TEACHER)
+
         expect(user.admin?).to eq false
       end
     end
@@ -1067,6 +1045,11 @@ describe User, type: :model do
       expect(user).to be_teacher
     end
 
+    it "must be true for 'admin' roles because all admins are teachers" do
+      user.safe_role_assignment User::ADMIN
+      expect(user).to be_teacher
+    end
+
     it 'must be false for other roles' do
       user.safe_role_assignment 'other'
       expect(user).to_not be_teacher
@@ -1480,7 +1463,7 @@ describe User, type: :model do
   end
 
   describe '.find_by_stripe_customer_id_or_email!' do
-    subject { User.find_by_stripe_customer_id_or_email!(stripe_customer_id, email) }
+    subject { described_class.find_by_stripe_customer_id_or_email!(stripe_customer_id, email) }
 
     let(:email) { 'text@example.com' }
 
@@ -1520,4 +1503,242 @@ describe User, type: :model do
       end
     end
   end
+
+  describe '#units_with_same_name' do
+    let(:user) { create(:user) }
+    let(:name) { 'name' }
+
+    context 'user has no units' do
+      it { expect(user.units_with_same_name(name)).to eq [] }
+    end
+
+    context 'user has a unit' do
+      let!(:unit) { create(:unit, user: user, name: 'NaMe') }
+
+      it { expect(user.reload.units_with_same_name(name)).to eq [unit] }
+    end
+  end
+
+  describe '#admin_sub_role' do
+    let(:user) { create(:user) }
+
+    context 'user has admin info' do
+      let!(:admin_info) { create(:admin_info, user: user)}
+
+      it 'returns the sub role from the admin info' do
+        expect(user.admin_sub_role).to eq(admin_info.sub_role)
+      end
+    end
+
+    context 'user has no admin info' do
+      it 'returns nil' do
+        expect(user.admin_sub_role).to eq(nil)
+      end
+    end
+  end
+
+  describe '#admin_approval_status' do
+    let(:user) { create(:user) }
+
+    context 'user has admin info' do
+      let!(:admin_info) { create(:admin_info, user: user)}
+
+      it 'returns the approval status from the admin info' do
+        expect(user.admin_approval_status).to eq(admin_info.approval_status)
+      end
+    end
+
+    context 'user has no admin info' do
+      it 'returns nil' do
+        expect(user.admin_approval_status).to eq(nil)
+      end
+    end
+  end
+
+  describe '#admin_verification_url' do
+    let(:user) { create(:user) }
+
+    context 'user has admin info' do
+      let!(:admin_info) { create(:admin_info, user: user, verification_url: 'quill.org')}
+
+      it 'returns the verification url from the admin info' do
+        expect(user.admin_verification_url).to eq(admin_info.verification_url)
+      end
+    end
+
+    context 'user has no admin info' do
+      it 'returns nil' do
+        expect(user.admin_verification_url).to eq(nil)
+      end
+    end
+  end
+
+  describe '#admin_verification_reason' do
+    let(:user) { create(:user) }
+
+    context 'user has admin info' do
+      let!(:admin_info) { create(:admin_info, user: user, verification_reason: 'I really want to be an admin.')}
+
+      it 'returns the verification reason from the admin info' do
+        expect(user.admin_verification_reason).to eq(admin_info.verification_reason)
+      end
+    end
+
+    context 'user has no admin info' do
+      it 'returns nil' do
+        expect(user.admin_verification_reason).to eq(nil)
+      end
+    end
+  end
+
+  describe '#admin_sub_role=' do
+    let(:user) { create(:user) }
+
+    context 'user has admin info' do
+      let!(:admin_info) { create(:admin_info, user: user)}
+
+      it 'sets the admin info to have the new sub role' do
+        user.admin_sub_role=AdminInfo::LIBRARIAN_SLASH_MEDIA_SPECIALIST
+        expect(user.admin_sub_role).to eq(AdminInfo::LIBRARIAN_SLASH_MEDIA_SPECIALIST)
+      end
+    end
+
+    context 'user has no admin info' do
+      it 'creates a new admin info record with the specified sub role' do
+        user.admin_sub_role=AdminInfo::LIBRARIAN_SLASH_MEDIA_SPECIALIST
+        expect(user.reload.admin_sub_role).to eq(AdminInfo::LIBRARIAN_SLASH_MEDIA_SPECIALIST)
+      end
+    end
+  end
+
+
+  describe 'email verification logic' do
+    let(:user) { create(:user) }
+    let!(:user_email_verification) { create(:user_email_verification, user: user) }
+
+    describe '#requires_email_verification?' do
+      it 'should be false if the there is no UserEmailVerification record' do
+        user.user_email_verification.destroy
+        user.reload
+
+        expect(user.requires_email_verification?).to be(false)
+      end
+
+      it 'should be true if there is a UserEmailVerification record that has not be verified yet' do
+        expect(user.requires_email_verification?).to be(true)
+      end
+
+      it 'should be true if there is a UserEmailVerification record that has been verified' do
+        user.user_email_verification.verify(UserEmailVerification::STAFF_VERIFICATION)
+
+        expect(user.requires_email_verification?).to be(true)
+      end
+    end
+
+    describe '#email_verified?' do
+      it 'should return false if there is no UserEmailVerification record' do
+        user.user_email_verification.destroy
+        user.reload
+
+        expect(user.email_verified?).to be(false)
+      end
+
+      it 'should return true if there is a UserEmailVerification record that has been verified' do
+        user.user_email_verification.verify(UserEmailVerification::STAFF_VERIFICATION)
+
+        expect(user.email_verified?).to be(true)
+      end
+
+      it 'should return false if there is a UserEmailVerification record that has not been verified' do
+        expect(user.email_verified?).to be(false)
+      end
+    end
+
+    describe '#require_email_verification' do
+      it 'should create a new user_email_verification record if there is not one' do
+        user_email_verification.destroy
+
+        expect do
+          user.reload.require_email_verification
+
+          expect(user.reload.requires_email_verification?).to be(true)
+        end.to change(UserEmailVerification, :count).by(1)
+      end
+
+      it 'should not create a new user_email_verification record if there is one' do
+        expect do
+          user.require_email_verification
+
+          expect(user.requires_email_verification?).to be(true)
+        end.to change(UserEmailVerification, :count).by(0)
+      end
+    end
+
+    describe '#verify_email' do
+      it 'should call verify on the user_email_verification' do
+        method = UserEmailVerification::EMAIL_VERIFICATION
+        token = '1234567890'
+        user.user_email_verification.update(verification_token: token)
+
+        expect(user_email_verification).to receive(:verify).with(method, token)
+
+        user.verify_email(method, token)
+      end
+    end
+
+    describe '#email_verification_pending?' do
+      it 'should return false if the user requires_email_verification? is false' do
+        expect(user).to receive(:requires_email_verification?).and_return(false)
+        expect(user.email_verification_pending?).to be(false)
+      end
+
+      it 'should return true if the user requires_email_verification? but email_verified? is false' do
+        expect(user).to receive(:requires_email_verification?).and_return(true)
+        expect(user).to receive(:email_verified?).and_return(false)
+        expect(user.email_verification_pending?).to be(true)
+      end
+
+      it 'should return false if user requires_email_verification? and email_verified? is already true' do
+        expect(user).to receive(:requires_email_verification?).and_return(true)
+        expect(user).to receive(:email_verified?).and_return(true)
+        expect(user.email_verification_pending?).to be(false)
+      end
+    end
+  end
+
+  describe '#email_verification_status' do
+    it 'should return nil if there is no user email verification record' do
+      expect(user.email_verification_status).to eq(nil)
+    end
+
+    it 'should return Pending if the user email verification record does not have a verified_at timestamp' do
+      create(:user_email_verification, user: user)
+      expect(user.email_verification_status).to eq(UserEmailVerification::PENDING)
+    end
+
+    it 'should return Verified if the user email verification record has a verified_at timestamp' do
+      create(:user_email_verification, user: user, verified_at: Time.zone.today)
+      expect(user.email_verification_status).to eq(UserEmailVerification::VERIFIED)
+    end
+  end
+
+  describe '#email_verification_status=' do
+    it 'should call #verify_email if the passed status is Verified' do
+      create(:user_email_verification, user: user)
+
+      expect(user).to receive(:verify_email).with(UserEmailVerification::STAFF_VERIFICATION)
+      user.email_verification_status= UserEmailVerification::VERIFIED
+    end
+
+    it 'should call require_email_verification if the passed status is Pending and update the verification record to have verified_at and verification_method as nil' do
+      user_email_verification = create(:user_email_verification, user: user, verified_at: Time.zone.today, verification_method: UserEmailVerification::EMAIL_VERIFICATION)
+
+      expect(user).to receive(:require_email_verification)
+      user.email_verification_status= UserEmailVerification::PENDING
+      expect(user_email_verification.reload.verified_at).not_to be
+      expect(user_email_verification.reload.verification_method).not_to be
+    end
+  end
+
 end
+# rubocop:enable Metrics/BlockLength

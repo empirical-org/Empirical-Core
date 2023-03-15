@@ -41,6 +41,61 @@
     margin-right: 10px;
   }
 
+  .admin-banner {
+    padding: 32px;
+    background: #DF9E3D;
+    color: white;
+    display: flex;
+    justify-content: center;
+    .banner-content {
+      max-width: $sitewidepagewidth;
+      width: 100%;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+    .quill-button {
+      color: #DF9E3D;
+      border: none;
+      font-weight: 700;
+      margin-left: 16px;
+    }
+    .banner-buttons {
+      display: flex;
+    }
+    h3 {
+      font-weight: 700;
+      font-size: 24px;
+      line-height: 29px;
+      margin-bottom: 8px;
+    }
+    p {
+      font-weight: 400;
+      font-size: 15px;
+      line-height: 17px;
+      max-width: 700px;
+    }
+  }
+
+  .restricted {
+    height: 360px;
+    background: #FFFFFF;
+    border: 1px solid #C0C0C0;
+    display: flex;
+    align-items: center;
+    border-radius: 12px;
+    justify-content: center;
+    margin-top: 32px;
+  }
+
+  .restricted-page {
+    display: flex;
+    justify-content: center;
+    width: 100%;
+    padding-top: 345px;
+    padding-bottom: 45px; // accounts for permanent 300px of padding at the bottom
+  }
+
   .sub-container {
     max-width: $sitewidepagewidth;;
     margin: 0 auto;
@@ -134,12 +189,14 @@
         display: flex;
         flex-direction: column;
         align-items: center;
-        justify-content: space-around;
         background-color: #ffffff;
         padding: 32px;
         border-radius: 16px;
         flex: 1;
         text-align: center;
+        div {
+          min-height: 138px;
+        }
         &:first-of-type, &:nth-of-type(2) {
           margin-right: 32px;
         }
@@ -228,13 +285,19 @@
           flex-direction: column;
           .input-container  {
             min-height: auto;
-            margin: 40px 0px 24px 0px;
             .dropdown {
               margin: 0;
               .dropdown__control {
                 margin-bottom: 0;
               }
             }
+          }
+          .school-selector {
+            margin: 40px 0px 24px 0px;
+          }
+          .role-selector {
+            margin: 0px 0px 24px;
+            min-height: 46px;
           }
           .add-teacher-account-button {
             width: 100%;
@@ -249,6 +312,11 @@
             }
             p {
               font-weight: 400;
+            }
+            a {
+              color: #666666;
+              font-weight: 700;
+              text-decoration: underline;
             }
           }
           .info-section:first-of-type {

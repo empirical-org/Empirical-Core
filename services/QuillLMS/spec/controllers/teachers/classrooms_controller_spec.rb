@@ -192,7 +192,7 @@ describe Teachers::ClassroomsController, type: :controller do
       let!(:classroom1) { create(:classroom)}
       let!(:classroom2) { create(:classroom)}
       let!(:classroom3) { create(:classroom)}
-      let!(:classrooms) { [classroom1, classroom2, classroom3]}
+      let!(:classrooms) { Classroom.where(id: [classroom1.id, classroom2.id, classroom3.id]) }
       let!(:classrooms_teacher1) { create(:classrooms_teacher, classroom: classroom1, user: teacher )}
       let!(:classrooms_teacher2) { create(:classrooms_teacher, classroom: classroom2, user: teacher )}
       let!(:classrooms_teacher3) { create(:classrooms_teacher, classroom: classroom3, user: teacher )}
@@ -206,7 +206,7 @@ describe Teachers::ClassroomsController, type: :controller do
 
           parsed_response = JSON.parse(response.body)
 
-          classrooms.sort_by(&:created_at).reverse.each.with_index do |classroom, i|
+          classrooms.order(created_at: :desc).each.with_index do |classroom, i|
             expect(parsed_response["classrooms"][i]["id"]).to eq classroom.id
           end
         end
@@ -239,47 +239,35 @@ describe Teachers::ClassroomsController, type: :controller do
         context "with order property" do
           before do
             # remove classroom_teacher entries from earlier tests
-            ids = [classrooms_teacher1.id, classrooms_teacher2.id, classrooms_teacher3.id]
-            ClassroomsTeacher.all.each do |classroom_teacher|
-              if !ids.include?(classroom_teacher.id)
-                classroom_teacher.destroy!
-              end
-            end
+            ClassroomsTeacher
+              .where.not(id: [classrooms_teacher1.id, classrooms_teacher2.id, classrooms_teacher3.id])
+              .destroy_all
           end
 
           it 'should return classrooms in order of order with a fallback to creation date if only some classrooms_teacher entries have order property' do
-            ct1 = ClassroomsTeacher.where(classroom_id: classroom1.id).first
-            ct1.order = 1
-            ct1.save!
+            ClassroomsTeacher.where(classroom_id: classroom3.id).first.update!(order: 0)
 
             get :index, as: :json
 
             parsed_response = JSON.parse(response.body)
 
-            expect(parsed_response["classrooms"][0]["id"]).to eq(classroom1.id)
-
-            ordered_remaining_classrooms = classrooms.sort_by(&:created_at).reverse.reject { |c| c.id == classroom1.id }
-            expect(parsed_response["classrooms"][1]["id"]).to eq ordered_remaining_classrooms[0].id
-            expect(parsed_response["classrooms"][2]["id"]).to eq ordered_remaining_classrooms[1].id
+            classrooms.joins(:classrooms_teachers).order('classrooms_teachers.order ASC, created_at DESC').each_with_index do |classroom, i|
+              expect(parsed_response["classrooms"][i]["id"]).to eq classroom.id
+            end
           end
 
           it 'should return classrooms ordered by order property if all classrooms_teacher entries have order property' do
-            ct1 = ClassroomsTeacher.where(classroom_id: classroom1.id).first
-            ct1.order = 1
-            ct1.save!
-            ct2 = ClassroomsTeacher.where(classroom_id: classroom2.id).first
-            ct2.order = 0
-            ct2.save!
-            ct3 = ClassroomsTeacher.where(classroom_id: classroom3.id).first
-            ct3.order = 2
-            ct3.save!
+            ClassroomsTeacher.where(classroom_id: classroom1.id).first.update!(order: 1)
+            ClassroomsTeacher.where(classroom_id: classroom2.id).first.update!(order: 0)
+            ClassroomsTeacher.where(classroom_id: classroom3.id).first.update!(order: 2)
 
             get :index, as: :json
 
             parsed_response = JSON.parse(response.body)
-            expect(parsed_response["classrooms"][0]["id"]).to eq(classroom2.id)
-            expect(parsed_response["classrooms"][1]["id"]).to eq(classroom1.id)
-            expect(parsed_response["classrooms"][2]["id"]).to eq(classroom3.id)
+
+            expect(parsed_response["classrooms"][0]["id"]).to eq classroom2.id
+            expect(parsed_response["classrooms"][1]["id"]).to eq classroom1.id
+            expect(parsed_response["classrooms"][2]["id"]).to eq classroom3.id
           end
         end
       end

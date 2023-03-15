@@ -1,4 +1,4 @@
-<% if (current_user && current_user.role == 'teacher') %>
+<% if (current_user&.teacher?) %>
   <%= render 'teachers/shared/scorebook_tabs' %>
 <% else %>
   <%= render partial: 'pages/shared/teacher_center_navbar', locals: { active_tab: TeacherCenterHelper::PREMIUM} %>

@@ -6,6 +6,7 @@
 #
 #  id               :integer          not null, primary key
 #  name             :string
+#  open             :boolean          default(TRUE), not null
 #  visible          :boolean          default(TRUE), not null
 #  created_at       :datetime
 #  updated_at       :datetime

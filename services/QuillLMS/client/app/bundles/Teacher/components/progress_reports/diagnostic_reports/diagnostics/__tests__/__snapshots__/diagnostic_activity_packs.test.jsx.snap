@@ -2537,6 +2537,12 @@ exports[`DiagnosticActivityPacks component should render when there are classroo
       </Classroom>
     </div>
   </div>
+  <ArticleSpotlight
+    backgroundColor="#F4F4F4"
+    blogPostId="564"
+  >
+    <span />
+  </ArticleSpotlight>
 </DiagnosticActivityPacks>
 `;
 
@@ -2546,7 +2552,7 @@ exports[`DiagnosticActivityPacks component should render when there are no class
 >
   <EmptyDiagnosticProgressReport>
     <section
-      className="diagnostic-reports-empty-state container"
+      className="diagnostic-reports-empty-state container gray-background-accommodate-footer"
     >
       <h1>
         Diagnostic Reports

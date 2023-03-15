@@ -108,7 +108,8 @@ export {
   isTrackableStudentEvent,
   hexToRGBA,
   uniqueValuesArray,
-  filterNumbers
+  filterNumbers,
+  redirectToActivity
 } from './libs/index'
 
 export {
@@ -130,6 +131,7 @@ export {
   playBoxIcon,
   previewIcon,
   smallWhiteCheckIcon,
+  indeterminateCheckIcon,
   cursorClick,
   cursorPointingHand,
   removeIcon,
@@ -151,7 +153,11 @@ export {
   scheduledIcon,
   publishedIcon,
   assignedBadgeIconGray,
-  assignedBadgeIconWhite
+  assignedBadgeIconWhite,
+  infoIcon,
+  closedLockIcon,
+  openLockIcon,
+  networkIcon
 } from './images/index'
 
 export {
@@ -191,7 +197,13 @@ export {
   BETA_FLAG,
   GAMMA_FLAG,
   PRIVATE_FLAG,
-  NOT_APPLICABLE
+  NOT_APPLICABLE,
+  STUDENT,
+  TEACHER,
+  INDIVIDUAL_CONTRIBUTOR,
+  ADMIN,
+  NOT_LISTED,
+  NO_SCHOOL_SELECTED
 } from './utils/constants'
 
 export {

@@ -22,31 +22,53 @@
   }
   .section-header {
     display: flex;
-    align-items: center;
+    align-items: flex-start;
     .quill-tooltip-trigger {
       margin-left: 4px;
     }
     .recommended-key {
       margin-left: 16px;
+      max-width: 920px;
       .recommended-image {
-        background-color: #eef8f7;
-        padding: 6px;
+        background: #EEF8F7;
         border-radius: 4px;
+        padding: 2px;
         margin-right: 8px;
       }
+      p {
+        color: #5C5C5C;
+      }
       span {
-        color: #5c5c5c;
+        font-weight: 700;
       }
     }
     > div {
       display: flex;
-      align-items: center;
+      align-items: flex-start;
     }
   }
   .assigned {
     img {
       margin-right: 4px;
     }
+  }
+  .post-test-table {
+    border-left: 1px solid #e0e0e0 !important;
+    margin-left: 32px !important;
+  }
+  .recommendations-buttons-container {
+    padding-left: 32px;
+    padding-right: 32px;
+  }
+  .independent-practice-recommendations-buttons-container {
+    vertical-align: bottom;
+    border-radius: 8px 0px 0px;
+    position: sticky;
+    left: 0px;
+    z-index: 1;
+    margin-bottom: 16px;
+    padding-left: 0px;
+    padding-right: 0px;
   }
   .recommendations-buttons {
     padding: 16px 24px;
@@ -65,27 +87,50 @@
       color: #262626;
       margin-right: 24px;
     }
-    div:first-of-type {
+    .selection-buttons {
       .quill-button {
         margin-right: 8px;
+      }
+    }
+    .release-method-and-assign-buttons {
+      .quill-button, .interactive-wrapper {
+        margin-left: 16px;
+      }
+      .interactive-wrapper {
+        font-weight: 700;
+        text-decoration: underline;
+      }
+    }
+    &.post-test-assignment-button {
+      margin: 0 auto;
+      padding-left: 28px;
+      padding-top: 16px;
+      padding-bottom: 16px;
+      width: 161px;
+      margin-left: 32px;
+      margin-bottom: 16px;
+      margin-top: 16px;
+      button {
+        position: relative;
       }
     }
   }
   .recommendations-table-container {
     margin-top: 16px;
-    overflow-x: scroll;
     position: relative;
     margin-bottom: -40px;
     padding-bottom: 40px;
-    margin-left: -365px;
+    margin-left: -335px;
     padding-left: 364px;
+    display: flex;
+    width: 97vw;
     .no-data-yet {
       position: absolute;
       top: 100px;
       left: 45%;
       width: 274px;
     }
-    > table {
+    table {
       font-size: 12px;
       color: #5c5c5c;
       margin: 0;
@@ -93,8 +138,6 @@
       border-collapse: separate;
       border-spacing: 0;
       table-layout: fixed;
-      min-width: 100%;
-      padding-right: 32px;
       &.empty {
         border-right: 1px solid #e0e0e0;
         border-bottom: 1px solid #e0e0e0;
@@ -102,6 +145,7 @@
         empty-cells: hide;
         position: relative;
         min-height: 160px;
+        padding-right: 0px;
         thead th:last-of-type {
           border-right: none;
         }
@@ -112,6 +156,9 @@
           td, th {
             border-bottom: none;
           }
+        }
+        td:empty {
+          visibility: hidden;
         }
       }
       > thead > th:last-of-type {
@@ -130,7 +177,7 @@
       }
       > tbody > tr > td, > tbody > tr > th, > thead > tr > th {
         padding: 8px 16px;
-        min-width: 144px;
+        min-width: 160px;
         border-bottom: 1px solid #e0e0e0;
         border-right: 1px solid #e0e0e0;
         background-color: white;
@@ -144,9 +191,6 @@
         line-height: 1.33;
       }
       > thead {
-        position: sticky;
-        top: 0;
-        z-index: 2;
         > th {
           border-top: 1px solid #e0e0e0;
         }
@@ -159,8 +203,57 @@
         border-left: 1px solid #e0e0e0;
       }
     }
+
+    .recommendations-table-wrapper {
+      .smaller-width {
+        width: 80%;
+      }
+      overflow-x: scroll;
+    }
+
+    .recommendations-table-container {
+      width: 100vw;
+    }
+
+    .post-test-table {
+      .empty-cell {
+        height: 50px;
+      }
+    }
+
+    .post-test-table-wrapper {
+      .recommendation-header {
+        border-radius: 8px 8px 0px 0px !important;
+        border: 1px solid #e0e0e0;
+        background-color: white;
+      }
+      .recommendation-cell {
+        border-left: 1px solid #e0e0e0;
+        > .interactive-wrapper.recommended {
+          background-color: #FFF8EE;
+        }
+      }
+      table {
+        margin-left: 30px;
+        width: 160px;
+        padding: 0px;
+        th {
+          width: 160px;
+        }
+      }
+      table > tbody > tr:last-of-type > td:last-of-type {
+        border-radius: 0px 0px 8px 8px;
+        border: 1px solid #e0e0e0;
+        border-top: none;
+      }
+      .empty-cell {
+        height: 50px;
+      }
+    }
+
     .name-cell {
       padding: 0px;
+      min-height: 50px;
       &:hover {
         background-color: #f5f5f5;
         z-index: 2;
@@ -218,10 +311,12 @@
     }
     .name-and-tooltip {
       display: flex;
-      justify-content: space-between;
       align-items: flex-end;
       .quill-tooltip-trigger {
         margin-left: 16px;
+      }
+      a {
+        margin-left: 4px;
       }
       .quill-tooltip {
         z-index: 10;
@@ -241,24 +336,38 @@
     }
     .corner-header, .recommendation-header {
       border-top: 1px solid #e0e0e0;
+      flex-direction: column;
+      justify-content: flex-end;
+      display: flex;
     }
     .recommendation-cell {
       padding: 0px;
       vertical-align: top;
       position: relative;
       > .interactive-wrapper {
-        padding: 16px 8px;
         align-items: center;
         display: flex;
         height: 100%;
-        min-height: 48px;
+        min-height: 50px;
         width: 100%;
         justify-content: center;
-        .asterisk-icon {
+        .recommended-glyph {
           position: absolute;
           left: 8px;
         }
-        &.recommended-and-selected {
+        .progress-indicator {
+          display: flex;
+          flex-direction: column;
+          font-weight: 400;
+          font-size: 11px;
+          line-height: 16px;
+          color: #06806B;
+          .counts {
+            font-weight: 700;
+            font-size: 12px;
+          }
+        }
+        &.recommended {
           background-color: #eef8f7;
         }
         &:focus, &:hover {
@@ -279,6 +388,14 @@
         color: white;
         text-decoration: underline;
       }
+      .activity-count-and-select-all {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        .quill-tooltip-wrapper {
+          width: 146px;
+        }
+      }
       &:last-of-type {
         border-radius: 0px 8px 0px 0px;
       }
@@ -286,6 +403,7 @@
   }
   .whole-class-instruction {
     margin-top: 64px;
+    max-width: $sitewidepagewidth;
     .lessons-recommendation {
       border-radius: 8px;
       border: solid 1px #e0e0e0;
@@ -303,10 +421,10 @@
           display: flex;
           align-items: center;
           &:first-of-type {
-            .asterisk-icon, span, .quill-checkbox {
+            .recommended-glyph, span, .quill-checkbox {
               margin-right: 16px;
             }
-            .asterisk-placeholder {
+            .recommended-glyph-placeholder {
               width: 12px;
             }
             .checkbox-placeholder {
@@ -364,12 +482,12 @@
       }
     }
   }
-  @media (max-width: 1500px) and (min-width: 931px) {
+  @media (max-width: 1500px) and (min-width: 1319px) {
     .assigning-activity-disclaimer-banner {
       max-width: calc(100vw - 260px - 64px); // 260 for the navigation bar on the left, 64 for the padding around it on both sides
     }
   }
-  @media (max-width: 930px) {
+  @media (max-width: 1318px) {
     padding: 40px 0px !important;
     header, .mobile-navigation, .explanation, .section-header, .recommendations-empty-state {
       padding: 0px 16px;
@@ -387,27 +505,46 @@
       margin: 16px 16px 0px;
       flex-direction: column;
       max-width: calc(100vw - 32px);
-      div {
+      .selection-buttons {
         flex-direction: column;
-        &:first-of-type {
-          .quill-button {
-            margin-top: 8px;
-            margin-right: 0px;
-          }
-        }
-        &:last-of-type {
-          margin-top: 24px;
-          .number-selected {
-            margin-right: 0px;
-            margin-bottom: 8px;
-          }
+        .quill-button {
+          margin-top: 8px;
+          margin-right: 0px;
         }
       }
+      .release-method-and-assign-buttons {
+        flex-direction: column;
+        margin-top: 24px;
+        .release-method-text-and-edit-button {
+          margin-bottom: 20px;
+        }
+        .number-selected {
+          margin-right: 0px;
+          margin-bottom: 8px;
+        }
+      }
+    }
+    .recommendations-table {
+      margin-left: 16px;
+    }
+    .post-test-table {
+      border-left: 1px solid #e0e0e0 !important;
+      margin-left: 32px !important;
+    }
+    .post-test-assignment-button {
+      height: 233px;
+      padding-top: 60% !important;
+    }
+    .larger-assign {
+      height: 250px;
     }
     .whole-class-instruction {
       .lessons-recommendation {
         margin: 16px 16px 0px;
         max-width: calc(100vw - 32px);
+        .quill-tooltip-trigger {
+          transform: translateX(-100%);
+        }
         .top-row {
           padding: 24px 16px;
           > div:last-of-type {
@@ -424,7 +561,7 @@
             }
           }
           > div:first-of-type {
-              .asterisk-icon, span, .quill-checkbox {
+              .recommended-glyph, span, .quill-checkbox {
                 margin-right: 8px;
               }
             }
@@ -434,10 +571,5 @@
           }
         }
       }
-    .recommendations-table-container {
-      width: 100%;
-      padding-left: 0px;
-      margin-left: 0px;
-    }
   }
 }

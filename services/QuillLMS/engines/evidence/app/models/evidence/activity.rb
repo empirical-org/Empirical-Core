@@ -15,6 +15,7 @@ module Evidence
     # See activity.rb in the enclosing app for the ur-constant,
     # which is not accessible from here
     LMS_ACTIVITY_DEFAULT_FLAG = 'alpha'
+    FLAGS_ATTRIBUTE = 'flags'
 
     before_destroy :expire_turking_rounds
     before_validation :set_parent_activity, on: :create
@@ -103,6 +104,10 @@ module Evidence
           prompt_id: highlight.feedback.rule.prompts.where(activity_id: id).first.id
         }
       end
+    end
+
+    def last_flags_change_log_record
+      change_logs.where(changed_attribute: FLAGS_ATTRIBUTE).last
     end
 
     # We use update_columns to avoid triggering callbacks, specifically,

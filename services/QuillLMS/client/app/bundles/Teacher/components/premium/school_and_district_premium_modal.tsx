@@ -1,13 +1,15 @@
 import * as React from 'react';
 
-import SchoolSelector, { NOT_LISTED, } from '../shared/school_selector'
+import SchoolSelector from '../shared/school_selector'
 import { requestPost, requestPut, } from '../../../../modules/request';
-import { closeIcon, DropdownInput, Spinner, } from '../../../Shared/index'
+import { closeIcon, DropdownInput, Spinner, NOT_LISTED, } from '../../../Shared/index'
 
 export const SCHOOL_SELECTION_STAGE = 'school_premium_purchase_selection_stage'
 
 const PLAN_SELECTION_STAGE_NUMBER = 1
 const SCHOOL_SELECTION_STAGE_NUMBER = 2
+const requestSchoolQuoteLink = `${process.env.DEFAULT_URL}/premium/request-school-quote`
+const requestDistrictQuoteLink = `${process.env.DEFAULT_URL}/premium/request-district-quote`
 
 const SchoolSelectionStage = ({ eligibleSchools, selectedSchool, goToStripeWithSelectedSchool, setSelectedSchool, closeModal, selectSchool, }) => {
   if (eligibleSchools.length) {
@@ -39,7 +41,7 @@ const SchoolSelectionStage = ({ eligibleSchools, selectedSchool, goToStripeWithS
       <div className="modal-container school-and-district-premium-modal-container">
         <div className="modal-background" />
         <div className="school-and-district-premium-modal stage-two quill-modal modal-body">
-          <SchoolSelector selectSchool={selectSchool} />
+          <SchoolSelector disableSkipForNow={true} selectSchool={selectSchool} />
         </div>
       </div>
     )
@@ -122,7 +124,8 @@ const SchoolAndDistrictPremiumModal = ({ stripeSchoolPlan, eligibleSchools, hand
   }
 
   if (stage === PLAN_SELECTION_STAGE_NUMBER) {
-    const requestAQuoteButton = <a className="quill-button outlined medium secondary focus-on-light" href="https://quillpremium.wufoo.com/forms/quill-premium-quote/">Request a quote</a>
+    const requestSchoolQuoteButton = <a className="quill-button outlined medium secondary focus-on-light" href={requestSchoolQuoteLink}>Request a quote</a>
+    const requestDistrictQuoteButton = <a className="quill-button outlined medium secondary focus-on-light" href={requestDistrictQuoteLink}>Request a quote</a>
     let schoolBuyNowButton = <button className="quill-button contained medium primary focus-on-light" onClick={goToSchoolSelectionStage} type="button">Buy now</button>
 
     if (!userIsSignedIn) {
@@ -150,7 +153,7 @@ const SchoolAndDistrictPremiumModal = ({ stripeSchoolPlan, eligibleSchools, hand
               <p>Per school, per year</p>
               <p>Complete the quote request form to receive a quote via email.</p>
             </div>
-            {requestAQuoteButton}
+            {requestSchoolQuoteButton}
           </div>
           <div className="school-and-district-premium-column pricing-info">
             <h2>Contact Us for District Premium</h2>
@@ -159,7 +162,7 @@ const SchoolAndDistrictPremiumModal = ({ stripeSchoolPlan, eligibleSchools, hand
               <p>Per school, per year</p>
               <p>Quill provides discounts for multi-school subscriptions.</p>
             </div>
-            {requestAQuoteButton}
+            {requestDistrictQuoteButton}
           </div>
         </div>
       </div>

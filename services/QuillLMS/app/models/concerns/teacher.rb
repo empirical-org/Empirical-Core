@@ -24,7 +24,7 @@ module Teacher
     delegate :first, :find, :where, :all, :count, to: :scope
 
     def scope
-      User.where(role: 'teacher')
+      User.teacher
     end
   end
 
@@ -323,7 +323,13 @@ module Teacher
   end
 
   def teaches_eighth_through_twelfth?
-    return classrooms_i_teach.map(&:grade).compact.any? { |grade| grade.to_i.between?(8, 12) }
+    return true if teacher_info&.in_eighth_through_twelfth?
+
+    classrooms_i_teach
+      .map(&:grade)
+      .compact
+      .uniq
+      .any? { |grade| grade.to_i.in?(TeacherInfo::EIGHT_TO_TWELVE) }
   end
 
   def google_classrooms
@@ -353,7 +359,6 @@ module Teacher
   def update_teacher params
     return if !teacher?
 
-    params[:role] = 'teacher' if params[:role] != 'student'
     params.permit(
       :id,
       :name,

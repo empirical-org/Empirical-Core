@@ -1,16 +1,22 @@
 import * as React from 'react'
 
-import { helpIcon, DropdownInput, } from '../../../Shared/index'
+import { helpIcon, DropdownInput, Tooltip, } from '../../../Shared/index'
 
 const KEY_METRICS_TIMEFRAME = 'keyMetricsTimeframe'
 const YEARLY = 'yearly'
 const WEEKLY = 'weekly'
+const tooltipCopy = "These metrics include data from deleted activity packs. Deleted activity packs will not be displayed in any other report."
 
 const KeyMetric = ({ number, label, }) => (
-  <div className="key-metric">
-    <h4>{number}</h4>
-    <span>{label}</span>
-  </div>
+  <Tooltip
+    tooltipText={tooltipCopy}
+    tooltipTriggerText={(
+      <div className="key-metric">
+        <h4>{number}</h4>
+        <span>{label}</span>
+      </div>
+    )}
+  />
 )
 
 const KeyMetrics = ({ firstName, metrics, }) => {

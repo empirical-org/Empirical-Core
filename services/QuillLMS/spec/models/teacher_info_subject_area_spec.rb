@@ -5,10 +5,20 @@
 # Table name: teacher_info_subject_areas
 #
 #  id              :bigint           not null, primary key
-#  teacher_info_id :bigint
-#  subject_area_id :bigint
 #  created_at      :datetime         not null
 #  updated_at      :datetime         not null
+#  subject_area_id :bigint           not null
+#  teacher_info_id :bigint           not null
+#
+# Indexes
+#
+#  index_teacher_info_subject_areas_on_subject_area_id  (subject_area_id)
+#  index_teacher_info_subject_areas_on_teacher_info_id  (teacher_info_id)
+#
+# Foreign Keys
+#
+#  fk_rails_...  (subject_area_id => subject_areas.id)
+#  fk_rails_...  (teacher_info_id => teacher_infos.id)
 #
 require 'rails_helper'
 

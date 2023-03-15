@@ -4,8 +4,12 @@ exports[`AdminsTeachers component should match snapshot 1`] = `
 <div
   className="teacher-account-access-container"
 >
+  <Snackbar
+    text="Sorry, only verified admins with a subscription to School or District Premium can access this feature."
+    visible={false}
+  />
   <h2>
-    Teacher Account Access
+    Account Management
   </h2>
   <DropdownInput
     handleChange={[Function]}
@@ -13,78 +17,169 @@ exports[`AdminsTeachers component should match snapshot 1`] = `
     options={
       Array [
         Object {
-          "label": "All Schools",
-          "value": "All Schools",
-        },
-        Object {
-          "label": "Test School",
-          "value": "Test School",
+          "label": "A Real Middle School",
+          "value": 77574,
         },
       ]
     }
     value={
       Object {
-        "label": "All Schools",
-        "value": "All Schools",
+        "label": "A Real Middle School",
+        "value": 77574,
       }
     }
   />
   <div
     className="admins-teachers"
   >
-    <ReactTable
+    <DataTable
+      averageFontWidth={7}
       className="progress-report has-green-arrow"
-      columns={
+      defaultSortAttribute="role"
+      headers={
         Array [
           Object {
-            "Header": "Name",
-            "accessor": "name",
-            "resizable": false,
+            "attribute": "name",
+            "name": "Name",
+            "width": "350px",
           },
           Object {
-            "Header": "School",
-            "accessor": "school",
-            "resizable": false,
+            "attribute": "role",
+            "name": "Role",
+            "width": "314px",
           },
           Object {
-            "Header": "Students",
-            "accessor": "number_of_students",
-            "maxWidth": 90,
-            "resizable": false,
+            "attribute": "number_of_students",
+            "name": "Students",
+            "width": "118px",
           },
           Object {
-            "Header": "Activities Completed",
-            "accessor": "number_of_activities_completed",
-            "minWidth": 165,
-            "resizable": false,
+            "attribute": "number_of_activities_completed",
+            "name": "Activities Completed",
+            "width": "118px",
           },
           Object {
-            "Header": "Time Spent",
-            "accessor": "time_spent",
-            "maxWidth": 120,
-            "resizable": false,
+            "attribute": "time_spent",
+            "name": "Time Spent",
+            "width": "91px",
           },
           Object {
-            "Cell": [Function],
-            "Header": "Log In As Teacher",
-            "accessor": "link_components",
-            "resizable": false,
-          },
-          Object {
-            "Cell": [Function],
-            "Header": "Manage",
-            "minWidth": 130,
-            "resizable": false,
+            "attribute": "actions",
+            "isActions": true,
+            "name": "Actions",
+            "width": "48px",
           },
         ]
       }
-      data={
+      rows={
         Array [
           Object {
-            "school": "Test School",
+            "actions": Array [
+              Object {
+                "action": [Function],
+                "name": "Login as teacher",
+              },
+              Object {
+                "action": [Function],
+                "name": "View premium reports",
+              },
+              Object {
+                "action": [Function],
+                "name": "Make admin",
+              },
+              Object {
+                "action": [Function],
+                "name": "Unlink from school",
+              },
+            ],
+            "email": "emilia+sameschool@quill.org",
+            "has_valid_subscription": true,
+            "id": 12722634,
+            "last_sign_in": "2022-12-08T15:53:45.183Z",
+            "name": "Same School",
+            "number_of_activities_completed": 0,
+            "number_of_students": 0,
+            "role": "Teacher",
+            "schools": Array [
+              Object {
+                "id": 77574,
+                "name": "A Real Middle School",
+                "role": "Teacher",
+              },
+            ],
+            "time_spent": "No time yet",
+          },
+          Object {
+            "actions": Array [
+              Object {
+                "action": [Function],
+                "name": "Login as admin",
+              },
+              Object {
+                "action": [Function],
+                "name": "View premium reports",
+              },
+              Object {
+                "action": [Function],
+                "name": "Remove as admin",
+              },
+            ],
+            "email": "emilia+newadmin@quill.org",
+            "has_valid_subscription": true,
+            "id": 12722635,
+            "last_sign_in": "2022-12-13T20:19:32.370Z",
+            "name": "New Admin",
+            "number_of_activities_completed": 0,
+            "number_of_students": 0,
+            "role": "Admin",
+            "schools": Array [
+              Object {
+                "id": 77574,
+                "name": "A Real Middle School",
+                "role": "Admin",
+              },
+            ],
+            "time_spent": "No time yet",
+          },
+          Object {
+            "actions": Array [
+              Object {
+                "action": [Function],
+                "name": "Resend login details",
+              },
+              Object {
+                "action": [Function],
+                "name": "Login as admin",
+              },
+              Object {
+                "action": [Function],
+                "name": "View premium reports",
+              },
+              Object {
+                "action": [Function],
+                "name": "Remove as admin",
+              },
+            ],
+            "email": "emilia+onemore@quill.org",
+            "has_valid_subscription": true,
+            "id": 12722903,
+            "last_sign_in": null,
+            "name": "One More",
+            "number_of_activities_completed": 0,
+            "number_of_students": 0,
+            "role": "Admin",
+            "schools": Array [
+              Object {
+                "id": 77574,
+                "name": "A Real Middle School",
+                "role": "Admin",
+              },
+            ],
+            "time_spent": "No time yet",
           },
         ]
       }
+      showActions={true}
     />
   </div>
   <p

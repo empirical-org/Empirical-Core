@@ -17,7 +17,7 @@ describe MobileHelper do
     it 'should return content if device and type arguments match' do
       expect(helper.render_video_content('mobile', 'mobile', 'www.test.com')).to eq(
     "<div class='video-section'>
-      <video class='lazyload' data-src='www.test.com' autoplay loop playsinline muted/>
+      <video class='lazy' data-src='www.test.com' autoplay loop playsinline muted/>
         <p>
           Video not supported
         </p>

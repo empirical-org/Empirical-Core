@@ -4,8 +4,9 @@ require 'rails_helper'
 
 RSpec.describe CleverIntegration::ClassroomStudentsImporter do
   let(:classroom) { create(:classroom, :from_clever) }
+  let(:teacher_id) { create(:teacher).id }
 
-  subject { described_class.run(classroom, students_data) }
+  subject { described_class.run(classroom, students_data, teacher_id) }
 
   context 'students_data is nil' do
     let(:students_data) { nil }

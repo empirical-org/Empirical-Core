@@ -4,14 +4,15 @@
   <% active_tab = 'All resources'%>
 <% end %>
 
-<%= render partial: 'teachers/shared/scorebook_tabs' if current_user %>
-<%= render partial: 'pages/shared/teacher_center_navbar', locals: {active_tab: active_tab} %>
+<%= render partial: 'teachers/shared/scorebook_tabs' if current_user && current_user.role != 'student' %>
+<%= render partial: 'pages/shared/teacher_center_navbar', locals: {active_tab: active_tab} if (!current_user || current_user&.role == 'teacher') %>
+<%= render partial: 'pages/shared/student_center_navbar', locals: {active_tab: active_tab} if current_user&.role == 'student' %>
 <%= react_component('BlogPostsApp', props: {
   route: 'show',
   blogPost: @blog_post,
   announcement: @announcement,
-  mostRecentPosts: @most_recent_posts,
-  author: @author,
+  relatedPosts: @related_posts,
+  author: @blog_post.author,
   displayPaywall: !@blog_post.can_be_accessed_by(current_user),
   role: current_user&.role
 }) %>

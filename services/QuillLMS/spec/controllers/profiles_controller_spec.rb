@@ -3,7 +3,26 @@
 require 'rails_helper'
 
 describe ProfilesController, type: :controller do
-  describe 'as a student' do
+  context 'as an admin' do
+    let!(:admin) { create(:admin) }
+
+    before do
+      allow(controller).to receive(:current_user) { admin }
+    end
+
+    describe '#show' do
+      it 'should redirect to /sign-up/verify-email if the user has pending verification' do
+        token = 'valid_token'
+        create(:user_email_verification, user: admin, verification_token: token)
+
+        get :show
+        expect(response.status).to eq(302)
+        expect(response).to redirect_to('/sign-up/verify-email')
+      end
+    end
+  end
+
+  context 'as a student' do
     let!(:classroom) {create(:classroom)}
     let!(:student) { create(:student) }
     let!(:students_classrooms) do
@@ -235,12 +254,14 @@ describe ProfilesController, type: :controller do
                 'due_date' => unit_activity.due_date,
                 'pre_activity_id' => pre_test&.id,
                 'unit_activity_created_at' => classroom_unit.created_at,
+                'user_pack_sequence_item_status' => nil,
                 'locked' => unit_activity.classroom_unit_activity_states[0].locked,
                 'pinned' => unit_activity.classroom_unit_activity_states[0].pinned,
                 'max_percentage' => activity_session&.percentage,
                 'completed_pre_activity_session' => pre_test_completed_session.present?,
                 'finished' => activity_session&.percentage ? true : false,
-                'resume_link' => activity_session&.state == 'started' ? 1 : 0
+                'resume_link' => activity_session&.state == 'started' ? 1 : 0,
+                'closed' => false
               }
             end
           end

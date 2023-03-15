@@ -7,7 +7,8 @@ describe Teachers::UnitsController, type: :controller do
   let!(:classroom) { create(:classroom) }
   let!(:students_classrooms) { create(:students_classrooms, classroom: classroom, student: student)}
   let!(:teacher) { classroom.owner }
-  let!(:unit) {create(:unit, user: teacher)}
+  let!(:unit_template) { create(:unit_template) }
+  let!(:unit) {create(:unit, user: teacher, unit_template: unit_template)}
   let!(:unit2) {create(:unit, user: teacher)}
 
   let!(:classroom_unit) do
@@ -28,6 +29,7 @@ describe Teachers::UnitsController, type: :controller do
 
   let!(:diagnostic) { create(:diagnostic) }
   let!(:diagnostic_activity) { create(:diagnostic_activity)}
+  let!(:activities_unit_template) { create(:activities_unit_template, activity: diagnostic_activity, unit_template: unit_template) }
   let!(:unit_activity) { create(:unit_activity, unit: unit, activity: diagnostic_activity, due_date: Time.current, publish_date: 1.hour.ago )}
 
   let!(:completed_activity_session) do
@@ -65,11 +67,10 @@ describe Teachers::UnitsController, type: :controller do
 
   describe '#prohibited_unit_names' do
     let(:unit_names) { teacher.units.pluck(:name).map(&:downcase) }
-    let(:unit_template_names) { UnitTemplate.pluck(:name).map(&:downcase) }
 
     it 'should render the correct json' do
       get :prohibited_unit_names, as: :json
-      expect(JSON.parse(response.body)['prohibitedUnitNames']).to match_array(unit_names.concat(unit_template_names))
+      expect(JSON.parse(response.body)['prohibitedUnitNames']).to match_array(unit_names)
     end
 
     it 'should not include unit names from archived classrooms' do
@@ -148,6 +149,7 @@ describe Teachers::UnitsController, type: :controller do
               assigned_date: unit_activity.created_at,
               post_test_id: diagnostic_activity.follow_up_activity_id,
               classroom_unit_id: classroom_unit.id,
+              unit_template_id: unit.unit_template_id,
               completed_count: 1,
               assigned_count: 1
             }
@@ -163,7 +165,8 @@ describe Teachers::UnitsController, type: :controller do
     end
 
     it 'should successfully render both fresh data and cached data' do
-      expect(controller).to receive(:diagnostics_organized_by_classroom).once.with(any_args).and_call_original
+      expect(DiagnosticsOrganizedByClassroomFetcher).to receive(:run).once.with(current_user).and_call_original
+
       2.times do
         get :diagnostic_units
 
@@ -191,6 +194,22 @@ describe Teachers::UnitsController, type: :controller do
       expect(ResetLessonCacheWorker).to receive_message_chain(:new, :perform).with(no_args).with(teacher.id)
       put :hide, params: { id: unit.id }
       expect(unit.reload.visible).to eq false
+    end
+  end
+
+  describe '#close' do
+    it 'should close the unit; kick off ResetLessonCacheWorker' do
+      expect(ResetLessonCacheWorker).to receive_message_chain(:new, :perform).with(no_args).with(teacher.id)
+      put :close, params: { id: unit.id }
+      expect(unit.reload.open).to eq false
+    end
+  end
+
+  describe '#open' do
+    it 'should open the unit; kick off ResetLessonCacheWorker' do
+      expect(ResetLessonCacheWorker).to receive_message_chain(:new, :perform).with(no_args).with(teacher.id)
+      put :open, params: { id: unit.id }
+      expect(unit.reload.open).to eq true
     end
   end
 
@@ -233,7 +252,28 @@ describe Teachers::UnitsController, type: :controller do
       expect(parsed_response.length).to eq(1)
     end
 
-    context 'publish dates' do
+    describe 'staggered' do
+      let(:response) { get :index, params: { report: false } }
+      let(:staggered) { JSON.parse(response.body)[0]['staggered'] }
+
+      describe 'when at least one classroom unit in the pack is associated with a pack sequence item' do
+        before do
+          create(:pack_sequence_item, classroom_unit: classroom_unit)
+        end
+
+        it 'should return the value of staggered as true' do
+          expect(staggered).to eq true
+        end
+      end
+
+      describe 'when none of the classroom units in the pack are associated with pack sequence items' do
+        it 'should return the value of staggered as false' do
+          expect(staggered).to eq false
+        end
+      end
+    end
+
+    describe 'publish dates' do
       let(:response) { get :index, params: { report: false } }
       let(:scheduled) { JSON.parse(response.body)[0]['scheduled'] }
 

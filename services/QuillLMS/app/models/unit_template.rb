@@ -76,6 +76,35 @@ class UnitTemplate < ApplicationRecord
     "#{lowest_readability_range.split('-')[0]}-#{highest_readability_range.split('-')[1]}"
   end
 
+  def meta_description
+    "Free online writing activity pack \"#{name}\" for teachers of #{meta_grade_description}. #{meta_activities_description}"
+  end
+
+  def meta_grade_description
+    return "school students" if grades.blank?
+
+    levels = grades
+      .sort_by(&:to_i)
+      .map{|g| School::GRADE_DESCRIPTIONS[g.to_i]}
+      .compact
+      .uniq
+
+    "#{levels.to_sentence} school students grades #{grades.sort_by(&:to_i).to_sentence}"
+  end
+
+  def meta_activities_description
+    return nil if activities.blank?
+
+    standards = activities
+      .map {|a| a.standard&.name}
+      .flatten
+      .compact
+      .uniq
+      .to_sentence
+
+    "Standards: #{standards}."
+  end
+
   def grade_level_range
     activities_with_minimum_grade_levels = activities.where.not(minimum_grade_level: nil).reorder("minimum_grade_level ASC")
     return nil if activities_with_minimum_grade_levels.empty?
@@ -117,20 +146,6 @@ class UnitTemplate < ApplicationRecord
       $redis.set("unit_template_id:#{id}_serialized", serialized_unit_template.to_json, {ex: cache_expiration_time})
     end
     serialized_unit_template
-  end
-
-  def self.assign_to_whole_class(class_id, unit_template_id, last)
-    assign_on_join = true
-    student_ids = [] # student ids will be populated in the classroom activity assign_on_join callback
-    argument_hash = {
-      unit_template_id: unit_template_id,
-      classroom_id: class_id,
-      student_ids: student_ids,
-      last: last,
-      lesson: true,
-      assign_on_join: assign_on_join
-    }
-    AssignRecommendationsWorker.perform_async(**argument_hash)
   end
 
   def self.delete_all_caches

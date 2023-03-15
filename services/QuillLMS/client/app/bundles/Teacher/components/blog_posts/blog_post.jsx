@@ -1,8 +1,12 @@
 import * as React from 'react';
 
-import PreviewCard from '../shared/preview_card.jsx';
 import BlogPostContent from './blog_post_content'
+import {
+  TEACHER_CENTER_SLUG,
+  BLOG_POST_TO_COLOR,
+} from './blog_post_constants'
 
+import PreviewCard from '../shared/preview_card.jsx';
 import { requestPost, } from '../../../../modules/request/index'
 
 const RATING_MESSAGES = {
@@ -15,18 +19,22 @@ export default class BlogPost extends React.Component {
   constructor(props) {
     super(props);
 
+    const { blogPost, displayPaywall, } = props
+
     this.state = {
-      backLink: this.props.blogPost.topic.toLowerCase().replace(/\s/g, '_'),
-      ratingMessage: this.props.displayPaywall ? '' : RATING_MESSAGES['instructions']
+      backLink: blogPost.topic.toLowerCase().replace(/\s/g, '_'),
+      ratingMessage: displayPaywall ? '' : RATING_MESSAGES['instructions']
     }
   }
 
   selectRatingEmoji(rating) {
+    const { blogPost, } = this.props
+
     requestPost(
       `${process.env.DEFAULT_URL}/rate_blog_post`,
       {
         rating: rating,
-        blog_post_id: this.props.blogPost.id
+        blog_post_id: blogPost.id
       },
       (body) => {
         this.setState({ ratingMessage: RATING_MESSAGES['success'] })
@@ -37,9 +45,12 @@ export default class BlogPost extends React.Component {
     )
   }
 
-  renderMostRecentPosts() {
-    return this.props.mostRecentPosts.map(post =>
+  renderRelatedPosts() {
+    const { relatedPosts, } = this.props
+
+    return relatedPosts.map(post =>
       (<PreviewCard
+        color={BLOG_POST_TO_COLOR[post.topic]}
         content={post.preview_card_content}
         externalLink={!!post.external_link}
         key={post.title}
@@ -49,7 +60,9 @@ export default class BlogPost extends React.Component {
   }
 
   renderRatingEmoji() {
-    if(this.state.ratingMessage === RATING_MESSAGES['instructions']) {
+    const { ratingMessage, } = this.state
+
+    if(ratingMessage === RATING_MESSAGES['instructions']) {
       return (
         <ul>
           <li><button className="interactive-wrapper focus-on-light" onClick={() => {this.selectRatingEmoji(0)}} type="button"><span aria-label="Sad face emoji" role="img">😞</span></button></li>
@@ -61,27 +74,33 @@ export default class BlogPost extends React.Component {
   }
 
   render() {
+    const { ratingMessage, } = this.state
+    const { author, blogPost, displayPaywall, } = this.props
+
     return (
       <div id='article-container'>
         <article>
           <BlogPostContent
-            author={this.props.author}
-            body={this.props.blogPost.body}
-            centerImages={this.props.blogPost.center_images}
-            displayPaywall={this.props.displayPaywall}
-            title={this.props.blogPost.title}
-            updatedAt={this.props.blogPost.published_at ? this.props.blogPost.published_at : this.props.blogPost.updated_at}
+            author={author}
+            body={blogPost.body}
+            centerImages={blogPost.center_images}
+            displayPaywall={displayPaywall}
+            title={blogPost.title}
+            updatedAt={blogPost.published_at ? blogPost.published_at : blogPost.updated_at}
           />
           <footer>
-            <p>{this.state.ratingMessage}</p>
+            <p>{ratingMessage}</p>
             {this.renderRatingEmoji()}
           </footer>
         </article>
         <div id='similar-posts'>
           <div id='similar-post-container'>
-            <h2>Most Recent Posts</h2>
+            <h2>
+              <span>Teacher Center Articles</span>
+              <a className="quill-button contained primary fun focus-on-light" href={`/${TEACHER_CENTER_SLUG}`}>Show more</a>
+            </h2>
             <div id='preview-card-container'>
-              {this.renderMostRecentPosts()}
+              {this.renderRelatedPosts()}
             </div>
           </div>
         </div>

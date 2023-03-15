@@ -212,6 +212,101 @@ class SegmentAnalytics
     })
   end
 
+  def track_school_admin_user(user, event, school_name, referring_admin_name)
+    track({
+      user_id: user.id,
+      event: event,
+      properties: {
+        first_name: user.first_name,
+        last_name: user.last_name,
+        email: user.email,
+        school_name: school_name,
+        admin_name: referring_admin_name
+      }
+    })
+  end
+
+  def track_district_admin_user(user, event, district_name, referring_admin_name)
+    track({
+      user_id: user.id,
+      event: event,
+      properties: {
+        first_name: user.first_name,
+        last_name: user.last_name,
+        email: user.email,
+        district_name: district_name,
+        admin_name: referring_admin_name
+      }
+    })
+  end
+
+  def track_admin_received_admin_upgrade_request_from_teacher(admin, teacher, reason)
+    track({
+      user_id: admin.id,
+      event: SegmentIo::BackgroundEvents::ADMIN_RECEIVED_ADMIN_UPGRADE_REQUEST_FROM_TEACHER,
+      properties: {
+        teacher_first_name: teacher.first_name,
+        teacher_last_name: teacher.last_name,
+        teacher_email: teacher.email,
+        teacher_school: teacher.school&.name,
+        reason: reason
+      },
+      context: {
+        traits: {
+          name: admin.name,
+          email: admin.email
+        }
+      }
+    })
+  end
+
+  def track_admin_invited_by_teacher(admin_name, admin_email, teacher, note)
+    admin = User.find_by_email(admin_email)
+    properties = {
+      admin_name: admin_name,
+      admin_email: admin_email,
+      teacher_first_name: teacher.first_name,
+      teacher_last_name: teacher.last_name,
+      teacher_school: teacher.school&.name,
+      note: note
+    }
+    context = {
+      traits: {
+        name: admin_name,
+        email: admin_email
+      }
+    }
+    if admin
+      track({
+        user_id: admin.id,
+        event: SegmentIo::BackgroundEvents::ADMIN_INVITED_BY_TEACHER,
+        properties: properties,
+        context: context
+      })
+    else
+      track({
+        # Segment requires us to send a unique User ID or Anonymous ID for every event
+        # sending the admin email as the anonymous id because that's how we find people in Ortto
+        anonymous_id: admin_email,
+        event: SegmentIo::BackgroundEvents::ADMIN_INVITED_BY_TEACHER,
+        properties: properties,
+        context: context
+      })
+    end
+  end
+
+  def track_teacher_invited_admin(teacher, admin_name, admin_email, note)
+    track({
+      user_id: teacher.id,
+      event: SegmentIo::BackgroundEvents::TEACHER_INVITED_ADMIN,
+      properties: {
+        admin_name: admin_name,
+        admin_email: admin_email,
+        note: note
+      }
+    })
+  end
+
   def default_integration_rules
     { all: true, Intercom: false }
   end

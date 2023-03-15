@@ -53,10 +53,10 @@ export const updateActivityVersion = async (activityNote: string, activityId: st
   return { errors: [] };
 }
 
-export const createSeedData = async (nouns: string, labelConfigs: object, activityId: string) => {
+export const createSeedData = async (nouns: string, labelConfigs: object, activityId: string, usePassage: string) => {
   const response = await apiFetch(`activities/${activityId}/seed_data`, {
     method: 'POST',
-    body: JSON.stringify({nouns: nouns, label_configs: labelConfigs})
+    body: JSON.stringify({nouns: nouns, label_configs: labelConfigs, use_passage: usePassage})
   });
   const { status } = response;
 
@@ -119,18 +119,15 @@ export const fetchActivitySessions = async ({ queryKey, }) => {
   };
 }
 
-export const fetchActivitySessionsDataForCSV = async ({ queryKey, }) => {
-  const [key, activityId, startDate, filterOptionForQuery, endDate, responsesForScoring, csvDataLoadInitiated]: [string, string, string, DropdownObjectInterface, string, string, boolean, boolean] = queryKey
-  if(!csvDataLoadInitiated) { return }
+export const emailActivitySessionsDataForCSV = async (activityId:string, startDate: string, filterOptionForQuery: DropdownObjectInterface, endDate: string, responsesForScoring: boolean, onSuccess: Function, onFailure: Function) => {
   const { value } = filterOptionForQuery
   const url = getActivitySessionsCSVUrl({ activityId, startDate, endDate, filterType: value, responsesForScoring: responsesForScoring });
-  const response = await mainApiFetch(url);
-  const csvResponseData = await response.json();
-
-  return {
-    csvResponseData,
-    error: handleApiError('Failed to fetch activity sessions, please refresh the page.', response),
-  };
+  const response = await mainApiFetch(url, {method: 'POST'});
+  if (!response.ok) {
+    onFailure(response.errors)
+  } else {
+    onSuccess()
+  }
 }
 
 export const fetchActivitySession = async ({ queryKey, }) => {

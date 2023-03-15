@@ -4,20 +4,22 @@
 #
 # Table name: subscriptions
 #
-#  id                :integer          not null, primary key
-#  account_type      :string
-#  de_activated_date :date
-#  expiration        :date
-#  payment_amount    :integer
-#  payment_method    :string
-#  purchaser_email   :string
-#  recurring         :boolean          default(FALSE)
-#  start_date        :date
-#  created_at        :datetime
-#  updated_at        :datetime
-#  plan_id           :integer
-#  purchaser_id      :integer
-#  stripe_invoice_id :string
+#  id                     :integer          not null, primary key
+#  account_type           :string
+#  de_activated_date      :date
+#  expiration             :date
+#  payment_amount         :integer
+#  payment_method         :string
+#  purchase_order_number  :string
+#  purchaser_email        :string
+#  recurring              :boolean          default(FALSE)
+#  start_date             :date
+#  created_at             :datetime
+#  updated_at             :datetime
+#  plan_id                :integer
+#  purchaser_id           :integer
+#  stripe_invoice_id      :string
+#  stripe_subscription_id :string
 #
 # Indexes
 #
@@ -26,7 +28,6 @@
 #  index_subscriptions_on_purchaser_id       (purchaser_id)
 #  index_subscriptions_on_recurring          (recurring)
 #  index_subscriptions_on_start_date         (start_date)
-#  index_subscriptions_on_stripe_invoice_id  (stripe_invoice_id) UNIQUE
 #
 require 'newrelic_rpm'
 require 'new_relic/agent'
@@ -114,8 +115,9 @@ class Subscription < ApplicationRecord
   ALL_TYPES = OFFICIAL_FREE_TYPES.dup.concat(OFFICIAL_PAID_TYPES).freeze
 
   validates :stripe_invoice_id, allow_blank: true, stripe_uid: { prefix: :in }
+  validates :stripe_subscription_id, allow_blank: true, stripe_uid: { prefix: :sub }
 
-  delegate :stripe_cancel_at_period_end, :stripe_subscription_id, :stripe_subscription_url,
+  delegate :stripe_cancel_at_period_end, :stripe_subscription_url,
     to: :stripe_subscription
 
   scope :active, -> { not_expired.not_de_activated.order(expiration: :asc) }
@@ -124,9 +126,9 @@ class Subscription < ApplicationRecord
   scope :not_de_activated, -> { where(de_activated_date: nil) }
   scope :recurring, -> { where(recurring: true) }
   scope :not_recurring, -> { where(recurring: false) }
-  scope :not_stripe, -> { where(stripe_invoice_id: nil) }
+  scope :not_stripe, -> { where(stripe_invoice_id: nil, stripe_subscription_id: nil) }
   scope :started, -> { where("start_date <= ?", Date.current) }
-  scope :paid_with_card, -> { where.not(stripe_invoice_id: nil).or(where(payment_method: 'Credit Card')) }
+  scope :paid_with_card, -> { where.not(stripe_invoice_id: nil, stripe_subscription_id: nil).or(where(payment_method: 'Credit Card')) }
   scope :for_schools, -> { where(account_type: OFFICIAL_SCHOOL_TYPES) }
   scope :for_teachers, -> { where(account_type: OFFICIAL_TEACHER_TYPES) }
   scope :expiring, ->(date) { where(expiration: date) }
@@ -312,6 +314,17 @@ class Subscription < ApplicationRecord
     StripeIntegration::Subscription.new(self)
   end
 
+  def stripe_invoice
+    @stripe_invoice ||= Stripe::Invoice.retrieve(stripe_invoice_id)
+  end
+
+  def populate_data_from_stripe_invoice
+    return unless stripe_invoice_id.present?
+
+    self.payment_amount = stripe_invoice.total unless payment_amount
+    self.purchaser_email = stripe_invoice.customer_email unless purchaser_email
+  end
+
   def renewal_stripe_price_id
     return STRIPE_TEACHER_PLAN_PRICE_ID if [TEACHER_PAID, TEACHER_TRIAL].include?(account_type)
     # TODO: can get cleaned up when we unify account types vs plan names, this covers the existing bases
@@ -320,6 +333,6 @@ class Subscription < ApplicationRecord
   end
 
   def stripe?
-    stripe_invoice_id.present?
+    stripe_invoice_id.present? && stripe_subscription_id.present?
   end
 end

@@ -201,6 +201,49 @@ describe 'SegmentAnalytics' do
     end
   end
 
+  context 'track_school_admin_user' do
+    let(:teacher) { create(:teacher) }
+    let(:school) { create(:school) }
+
+    it 'sends an event with information about the new school admin user' do
+      analytics.track_school_admin_user(
+        teacher,
+        SegmentIo::BackgroundEvents::STAFF_CREATED_SCHOOL_ADMIN_ACCOUNT,
+        school.name,
+        SegmentIo::Properties::STAFF_USER
+      )
+      expect(track_calls.size).to eq(1)
+      expect(track_calls[0][:event]).to eq('Quill team member created a school admin account')
+      expect(track_calls[0][:user_id]).to eq(teacher.id)
+      expect(track_calls[0][:properties][:first_name]).to eq(teacher.first_name)
+      expect(track_calls[0][:properties][:last_name]).to eq(teacher.last_name)
+      expect(track_calls[0][:properties][:email]).to eq(teacher.email)
+      expect(track_calls[0][:properties][:school_name]).to eq(school.name)
+      expect(track_calls[0][:properties][:admin_name]).to eq('The Quill Team')
+    end
+  end
+
+  context 'track_district_admin_user' do
+    let(:teacher) { create(:teacher) }
+    let(:district) { create(:district) }
+
+    it 'sends an event with information about the new district admin user' do
+      analytics.track_district_admin_user(
+        teacher,
+        SegmentIo::BackgroundEvents::STAFF_CREATED_DISTRICT_ADMIN_ACCOUNT,
+        district.name,
+        SegmentIo::Properties::STAFF_USER
+      )
+      expect(track_calls.size).to eq(1)
+      expect(track_calls[0][:event]).to eq('Quill team member created a district admin account')
+      expect(track_calls[0][:user_id]).to eq(teacher.id)
+      expect(track_calls[0][:properties][:first_name]).to eq(teacher.first_name)
+      expect(track_calls[0][:properties][:last_name]).to eq(teacher.last_name)
+      expect(track_calls[0][:properties][:email]).to eq(teacher.email)
+      expect(track_calls[0][:properties][:district_name]).to eq(district.name)
+      expect(track_calls[0][:properties][:admin_name]).to eq('The Quill Team')
+    end
+  end
 
   context '#track' do
     let(:teacher) { create(:teacher) }
@@ -269,13 +312,115 @@ describe 'SegmentAnalytics' do
     end
   end
 
+  context '#track_admin_received_admin_upgrade_request_from_teacher' do
+    let!(:schools_users) { create(:schools_users) }
+    let(:teacher) { schools_users.user.reload }
+    let(:admin) { create(:admin) }
+
+    it 'sends an event with information about the teacher' do
+      reason = 'I really want to be an admin.'
+      analytics.track_admin_received_admin_upgrade_request_from_teacher(
+        admin,
+        teacher,
+        reason
+      )
+      expect(track_calls.size).to eq(1)
+      expect(track_calls[0][:event]).to eq(SegmentIo::BackgroundEvents::ADMIN_RECEIVED_ADMIN_UPGRADE_REQUEST_FROM_TEACHER)
+      expect(track_calls[0][:user_id]).to eq(admin.id)
+      expect(track_calls[0][:properties][:teacher_first_name]).to eq(teacher.first_name)
+      expect(track_calls[0][:properties][:teacher_last_name]).to eq(teacher.last_name)
+      expect(track_calls[0][:properties][:teacher_email]).to eq(teacher.email)
+      expect(track_calls[0][:properties][:teacher_school]).to eq(teacher.school.name)
+      expect(track_calls[0][:properties][:reason]).to eq(reason)
+      expect(track_calls[0][:context][:traits][:email]).to eq(admin.email)
+      expect(track_calls[0][:context][:traits][:name]).to eq(admin.name)
+    end
+  end
+
+  context '#track_admin_invited_by_teacher' do
+    let!(:schools_users) { create(:schools_users) }
+    let(:teacher) { schools_users.user.reload }
+
+    describe 'when the user invited to become an admin already exists in our system' do
+      let(:admin) { create(:teacher) }
+
+      it 'sends an event with information about the teacher and admin with the admin user id' do
+        note = 'I really want you to be an admin.'
+        analytics.track_admin_invited_by_teacher(
+          admin.name,
+          admin.email,
+          teacher,
+          note
+        )
+        expect(track_calls.size).to eq(1)
+        expect(track_calls[0][:event]).to eq(SegmentIo::BackgroundEvents::ADMIN_INVITED_BY_TEACHER)
+        expect(track_calls[0][:user_id]).to eq(admin.id)
+        expect(track_calls[0][:properties][:admin_name]).to eq(admin.name)
+        expect(track_calls[0][:properties][:admin_email]).to eq(admin.email)
+        expect(track_calls[0][:properties][:teacher_first_name]).to eq(teacher.first_name)
+        expect(track_calls[0][:properties][:teacher_last_name]).to eq(teacher.last_name)
+        expect(track_calls[0][:properties][:teacher_school]).to eq(teacher.school.name)
+        expect(track_calls[0][:properties][:note]).to eq(note)
+        expect(track_calls[0][:context][:traits][:email]).to eq(admin.email)
+        expect(track_calls[0][:context][:traits][:name]).to eq(admin.name)
+      end
+    end
+
+    describe 'when the user invited to become an admin does not already exist in our system' do
+      it 'sends an event with information about the teacher and admin with an anonymous id that is the email' do
+        admin_name = 'Gregory Orr'
+        admin_email = 'gregoryorr@example.com'
+        note = 'I really want you to be an admin.'
+        analytics.track_admin_invited_by_teacher(
+          admin_name,
+          admin_email,
+          teacher,
+          note
+        )
+        expect(track_calls.size).to eq(1)
+        expect(track_calls[0][:event]).to eq(SegmentIo::BackgroundEvents::ADMIN_INVITED_BY_TEACHER)
+        expect(track_calls[0][:anonymous_id]).to eq(admin_email)
+        expect(track_calls[0][:properties][:admin_name]).to eq(admin_name)
+        expect(track_calls[0][:properties][:admin_email]).to eq(admin_email)
+        expect(track_calls[0][:properties][:teacher_first_name]).to eq(teacher.first_name)
+        expect(track_calls[0][:properties][:teacher_last_name]).to eq(teacher.last_name)
+        expect(track_calls[0][:properties][:teacher_school]).to eq(teacher.school.name)
+        expect(track_calls[0][:properties][:note]).to eq(note)
+        expect(track_calls[0][:context][:traits][:email]).to eq(admin_email)
+        expect(track_calls[0][:context][:traits][:name]).to eq(admin_name)
+      end
+    end
+  end
+
+  context '#track_teacher_invited_admin' do
+    let(:teacher) { create(:teacher) }
+
+    it 'sends an event with information about the teacher' do
+      admin_name = 'Gregory Orr'
+      admin_email = 'gregoryorr@example.com'
+      note = 'I really want you to be an admin.'
+      analytics.track_teacher_invited_admin(
+        teacher,
+        admin_name,
+        admin_email,
+        note
+      )
+      expect(track_calls.size).to eq(1)
+      expect(track_calls[0][:event]).to eq(SegmentIo::BackgroundEvents::TEACHER_INVITED_ADMIN)
+      expect(track_calls[0][:user_id]).to eq(teacher.id)
+      expect(track_calls[0][:properties][:admin_name]).to eq(admin_name)
+      expect(track_calls[0][:properties][:admin_email]).to eq(admin_email)
+      expect(track_calls[0][:properties][:note]).to eq(note)
+    end
+  end
+
   context '#identify' do
 
     let(:district) { create(:district) }
     let(:school) { create(:school, district: district) }
     let(:school_without_district) { create(:school) }
     let(:teacher1) { create(:teacher, school: school) }
-    let(:teacher2) { create(:teacher, school: school) }
+    let(:teacher2) { create(:teacher, school: school, role: User::ADMIN) }
     let(:teacher3) { create(:teacher, school: school_without_district) }
     let!(:schools_admins) { create(:schools_admins, school: school, user: teacher2) }
 
@@ -291,7 +436,8 @@ describe 'SegmentAnalytics' do
       expect(identify_calls[0][:traits][:school_id]).to eq(school.id)
       expect(identify_calls[0][:traits][:district]).to eq(district.name)
       expect(identify_calls[0][:traits][:flagset]).to eq(teacher1.flagset)
-      expect(identify_calls[0][:traits].length).to eq(11)
+      expect(identify_calls[0][:traits][:role]).to eq(teacher1.role)
+      expect(identify_calls[0][:traits].length).to eq(12)
     end
 
     it 'sends events to Intercom when the user is an admin' do
@@ -306,14 +452,16 @@ describe 'SegmentAnalytics' do
       expect(identify_calls[0][:traits][:school_id]).to eq(school.id)
       expect(identify_calls[0][:traits][:district]).to eq(district.name)
       expect(identify_calls[0][:traits][:flagset]).to eq(teacher2.flagset)
-      expect(identify_calls[0][:traits].length).to eq(11)
+      expect(identify_calls[0][:traits][:role]).to eq(teacher2.role)
+      expect(identify_calls[0][:traits][:number_of_schools_administered]).to eq(1)
+      expect(identify_calls[0][:traits].length).to eq(13)
     end
 
     it 'omits trait properties that have nil values' do
       analytics.identify(teacher3)
       expect(identify_calls.size).to eq(1)
       expect(track_calls.size).to eq(0)
-      expect(identify_calls[0][:traits].length).to eq(10)
+      expect(identify_calls[0][:traits].length).to eq(11)
     end
   end
 end

@@ -19,6 +19,7 @@ function columnClassName(isSorted, isSortedDesc) {
 export const TextFilter = ({ column, setFilter, }) => {
   return (
     <input
+      aria-label="text-filter"
       onChange={event => setFilter(column.id, event.target.value)}
       style={{ width: "100%" }}
       value={column.filterValue}
@@ -31,11 +32,11 @@ export const NumberFilterInput = ({ handleChange, label, column }: NumberFilterI
     <div style={{ display: 'flex' }}>
       <input
         aria-label={label}
-        defaultValue={column.filterValue || ''}
         onChange={e => handleChange(column.id, e.target.value)}
         placeholder={`0-5, >1, <1`}
         style={{width: '100px', marginRight: '0.5rem'}}
         type="text"
+        value={column.filterValue || ''}
       />
     </div>
   );
@@ -68,13 +69,17 @@ interface ReactTableProps {
   filterable?: boolean,
   defaultPageSize?: number,
   currentPage?: number,
-  defaultSorted?: string,
+  defaultSorted?: string | {id: string, desc: boolean }[],
   onSortedChange?: (sortBy: string) => void,
   onPageChange?: (pageIndex: number) => void,
+  onFiltersChange?: (filters: []) => void,
+  showPagination?: boolean,
   showPaginationBottom?: boolean,
+  manualFilters?: boolean,
   manualSortBy?: boolean,
   manualPagination?: boolean,
   manualPageCount?: boolean,
+  minRows?: number,
   defaultGroupBy?: string,
   SubComponent?: any
 }
@@ -89,10 +94,12 @@ export const ReactTable = ({
   defaultSorted,
   onSortedChange,
   onPageChange,
+  onFiltersChange,
   showPaginationBottom,
   manualSortBy,
   manualPagination,
   manualPageCount,
+  manualFilters,
   defaultGroupBy,
   SubComponent,
 }: ReactTableProps) => {
@@ -110,13 +117,14 @@ export const ReactTable = ({
     canNextPage,
     pageCount,
     gotoPage,
-    state: { pageIndex, sortBy, }
+    state: { pageIndex, sortBy, filters }
   } = useTable(
     {
       data,
       defaultColumn,
       manualSortBy,
       manualPagination,
+      manualFilters: manualFilters,
       SubComponent,
       columns,
       autoResetSortBy: false,
@@ -126,6 +134,7 @@ export const ReactTable = ({
         pageSize: defaultPageSize || data.length || DEFAULT_PAGE_SIZE,
         sortBy: defaultSorted || [],
         groupBy: defaultGroupBy || [],
+        filters: [],
       }
     },
     useFilters,
@@ -146,6 +155,13 @@ export const ReactTable = ({
       onPageChange(pageIndex);
     }
   }, [pageIndex]);
+
+  React.useEffect(() => {
+    if (manualFilters && onFiltersChange) {
+      onFiltersChange(filters);
+    }
+
+  }, [filters]);
 
   return (
     <div className={`${className} ReactTable`}>

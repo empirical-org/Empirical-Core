@@ -1,0 +1,166 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`SelectUserType component should render 1`] = `
+<SelectUserType>
+  <div>
+    <AssignActivityPackBanner>
+      <span />
+    </AssignActivityPackBanner>
+    <div
+      className="container account-form"
+      id="user-type"
+    >
+      <img
+        alt="Black silhouette of group of 4 people"
+        className="network-icon"
+        src="undefined/images/onboarding/network.svg"
+      />
+      <h1>
+        Welcome! Let's create your account. Choose one.
+      </h1>
+      <div
+        className="quill-cards"
+      >
+        <Card
+          header="Student"
+          imgAlt="Pencil writing"
+          imgSrc="undefined/images/onboarding/student-pencil-colored.svg"
+          onClick={[Function]}
+          text="Select this option to join your teacher’s class and complete assigned activities."
+        >
+          <div
+            className="quill-card"
+            onClick={[Function]}
+            onKeyDown={[Function]}
+            role="button"
+            tabIndex={0}
+          >
+            <img
+              alt="Pencil writing"
+              src="undefined/images/onboarding/student-pencil-colored.svg"
+            />
+            <div
+              className="text"
+            >
+              <h3>
+                Student
+              </h3>
+              <p>
+                Select this option to join your teacher’s class and complete assigned activities.
+              </p>
+            </div>
+          </div>
+        </Card>
+        <Card
+          header="K-12 Teacher"
+          imgAlt="Chalkboard"
+          imgSrc="undefined/images/onboarding/teacher-chalkboard-colored.svg"
+          onClick={[Function]}
+          text="Select this option to create classes, assign activities, and view reports."
+        >
+          <div
+            className="quill-card"
+            onClick={[Function]}
+            onKeyDown={[Function]}
+            role="button"
+            tabIndex={0}
+          >
+            <img
+              alt="Chalkboard"
+              src="undefined/images/onboarding/teacher-chalkboard-colored.svg"
+            />
+            <div
+              className="text"
+            >
+              <h3>
+                K-12 Teacher
+              </h3>
+              <p>
+                Select this option to create classes, assign activities, and view reports.
+              </p>
+            </div>
+          </div>
+        </Card>
+        <Card
+          header="K-12 Administrator"
+          imgAlt="School building"
+          imgSrc="undefined/images/onboarding/school-building-colored.svg"
+          onClick={[Function]}
+          text="Select this option to manage teacher accounts, access teacher reports, and view school-wide student data. As an admin, you can still create classes and assignments."
+        >
+          <div
+            className="quill-card"
+            onClick={[Function]}
+            onKeyDown={[Function]}
+            role="button"
+            tabIndex={0}
+          >
+            <img
+              alt="School building"
+              src="undefined/images/onboarding/school-building-colored.svg"
+            />
+            <div
+              className="text"
+            >
+              <h3>
+                K-12 Administrator
+              </h3>
+              <p>
+                Select this option to manage teacher accounts, access teacher reports, and view school-wide student data. As an admin, you can still create classes and assignments.
+              </p>
+            </div>
+          </div>
+        </Card>
+        <Card
+          header="Parent, Tutor or Caregiver"
+          imgAlt="home"
+          imgSrc="undefined/images/onboarding/home-building-colored.svg"
+          onClick={[Function]}
+          text="Select this option to assign activities and view reports for your individual student(s)."
+        >
+          <div
+            className="quill-card"
+            onClick={[Function]}
+            onKeyDown={[Function]}
+            role="button"
+            tabIndex={0}
+          >
+            <img
+              alt="home"
+              src="undefined/images/onboarding/home-building-colored.svg"
+            />
+            <div
+              className="text"
+            >
+              <h3>
+                Parent, Tutor or Caregiver
+              </h3>
+              <p>
+                Select this option to assign activities and view reports for your individual student(s).
+              </p>
+            </div>
+          </div>
+        </Card>
+      </div>
+      <div
+        className="agreements-and-link-to-login"
+      >
+        <p
+          className="return-to-login"
+        >
+          Already have an account?
+          <span
+            className="inline-link"
+            onClick={[Function]}
+            onKeyDown={[Function]}
+            role="link"
+            tabIndex={0}
+          >
+            Log in
+          </span>
+        </p>
+      </div>
+    </div>
+  </div>
+</SelectUserType>
+`;

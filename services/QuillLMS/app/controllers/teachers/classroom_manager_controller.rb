@@ -74,10 +74,6 @@ class Teachers::ClassroomManagerController < ApplicationController
 
   # rubocop:disable Metrics/CyclomaticComplexity
   def dashboard
-    if current_user.classrooms_i_teach.empty? && current_user.archived_classrooms.none? && !current_user.has_outstanding_coteacher_invitation? && current_user.schools_admins.any? && !admin_impersonating_user?(current_user)
-      redirect_to teachers_admin_dashboard_path
-    end
-
     teacher_info_milestone = Milestone.find_by_name(Milestone::TYPES[:dismiss_teacher_info_modal])
     teacher_info_user_milestone = UserMilestone.find_by(milestone_id: teacher_info_milestone&.id, user_id: current_user&.id)
     teacher_info_user_milestone_in_right_timeframe = teacher_info_user_milestone.nil? || (teacher_info_user_milestone.updated_at < 1.month.ago && teacher_info_user_milestone.created_at > 6.months.ago)
@@ -91,7 +87,6 @@ class Teachers::ClassroomManagerController < ApplicationController
     end
 
     @featured_blog_posts = BlogPost.where.not(featured_order_number: nil).order(:featured_order_number)
-
     @objective_checklist = generate_onboarding_checklist
     @first_name = current_user.first_name
   end

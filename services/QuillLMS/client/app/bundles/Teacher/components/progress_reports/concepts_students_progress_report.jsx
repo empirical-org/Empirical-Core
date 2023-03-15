@@ -54,6 +54,7 @@ export default class ConceptsStudentsProgressReport extends React.Component {
   columns() {
     const { userIsPremium, } = this.state
     const blurIfNotPremium = userIsPremium ? null : 'non-premium-blur'
+    const cellClassName = `row-link-disguise ${blurIfNotPremium}`
     return ([
       {
         Header: 'Student',
@@ -74,26 +75,23 @@ export default class ConceptsStudentsProgressReport extends React.Component {
       }, {
         Header: 'Correct',
         accessor: 'correct_result_count',
-        className: blurIfNotPremium,
         resizable: false,
         Cell: ({row}) => (
-          <a className="row-link-disguise" href={row.original['concepts_href']}>{row.original['correct_result_count']}</a>
+          <a className={cellClassName} href={row.original['concepts_href']}>{row.original['correct_result_count']}</a>
         )
       }, {
         Header: 'Incorrect',
         accessor: 'incorrect_result_count',
-        className: blurIfNotPremium,
         resizable: false,
         Cell: ({row}) => (
-          <a className="row-link-disguise" href={row.original['concepts_href']}>{row.original['incorrect_result_count']}</a>
+          <a className={cellClassName} href={row.original['concepts_href']}>{row.original['incorrect_result_count']}</a>
         )
       }, {
         Header: 'Percentage',
         accessor: 'percentage',
         resizable: false,
-        className: blurIfNotPremium,
         Cell: ({row}) => (
-          <a className="row-link-disguise" href={row.original['concepts_href']}>{row.original['percentage']}%</a>
+          <a className={cellClassName} href={row.original['concepts_href']}>{row.original['percentage']}%</a>
         )
       }, {
         Header: "",

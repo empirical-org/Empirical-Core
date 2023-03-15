@@ -1,6 +1,6 @@
 import React from 'react';
 import Pusher from 'pusher-js';
-import { Snackbar, defaultSnackbarTimeout } from '../../Shared/index'
+import _ from 'underscore';
 
 import { requestGet } from '../../../modules/request';
 import CreateAClassModal from '../components/classrooms/create_a_class_modal.tsx'
@@ -10,7 +10,7 @@ import GoogleClassroomsEmptyModal from '../components/classrooms/google_classroo
 import ClassroomsWithStudents from '../components/classrooms_with_students/ClassroomsWithStudents.jsx';
 import LoadingIndicator from '../components/shared/loading_indicator.jsx';
 import ButtonLoadingIndicator from '../components/shared/button_loading_indicator'
-import _ from 'underscore';
+import { Snackbar, defaultSnackbarTimeout } from '../../Shared/index'
 
 export const createAClassModal = 'createAClassModal'
 export const importGoogleClassroomsModal = 'importGoogleClassroomsModal'
@@ -26,7 +26,7 @@ export default class ClassroomsWithStudentsContainer extends React.Component {
       loading: true,
       studentsChanged: false,
       classroomsChanged: false,
-      newUnit: !!this.props.match.params.activityIdsArray,
+      newUnit: !!props.match.params.activityIdsArray,
       showModal: false
     };
   }
@@ -36,7 +36,7 @@ export default class ClassroomsWithStudentsContainer extends React.Component {
     this.getGoogleClassrooms()
   }
 
-  onSuccess = snackbarCopy => {
+  handleSuccess = snackbarCopy => {
     this.getClassroomsAndStudentsData()
     this.getGoogleClassrooms()
     this.showSnackbar(snackbarCopy)
@@ -46,12 +46,15 @@ export default class ClassroomsWithStudentsContainer extends React.Component {
   getAssignedIds = classy => classy.students.filter(student => student.isSelected).map(stud => stud.id)
 
   getClassroomsAndStudentsData = () => {
+    const { match, } = this.props
+    const { newUnit, } = this.state
+
     const that = this;
     let url,
       unitName;
-    if (this.state.newUnit) {
+    if (newUnit) {
       url = '/teachers/classrooms_i_teach_with_students';
-      unitName = () => this.props.match.params.unitName;
+      unitName = () => match.params.unitName;
     } else {
       url = `/teachers/units/${that.props.match.params.unitId}/classrooms_with_students_and_classroom_units`;
       unitName = data => data.unit_name;
@@ -66,6 +69,7 @@ export default class ClassroomsWithStudentsContainer extends React.Component {
   };
 
   getGoogleClassrooms = () => {
+    const { attemptedImportGoogleClassrooms, } = this.state
     const { user, } = this.props
     if (!(user && user.google_id)) { return }
 
@@ -76,9 +80,9 @@ export default class ClassroomsWithStudentsContainer extends React.Component {
         } else {
           const googleClassrooms = body.classrooms.filter(classroom => !classroom.alreadyImported)
           const newStateObj = { googleClassrooms, googleClassroomsLoading: false, }
-          if (this.state.attemptedImportGoogleClassrooms) {
+          if (attemptedImportGoogleClassrooms) {
             newStateObj.attemptedImportGoogleClassrooms = false
-            this.setState(newStateObj, this.clickImportGoogleClassrooms)
+            this.setState(newStateObj, this.handleClickImportGoogleClassrooms)
           } else {
             this.setState(newStateObj)
           }
@@ -129,7 +133,7 @@ export default class ClassroomsWithStudentsContainer extends React.Component {
     return updated;
   }
 
-  clickImportGoogleClassrooms = () => {
+  handleClickImportGoogleClassrooms = () => {
     const { user, } = this.props
     const { googleClassrooms, googleClassroomsLoading, } = this.state
     if (!user.google_id) {
@@ -154,15 +158,19 @@ export default class ClassroomsWithStudentsContainer extends React.Component {
   countAssigned = classy => classy.students.filter(student => student.isSelected).length
 
   findTargetClassIndex(classroomId) {
-    return this.state.classrooms.findIndex(classy => classy.id === classroomId);
+    const { classrooms, } = this.state
+
+    return classrooms.findIndex(classy => classy.id === classroomId);
   }
 
   findTargetStudentIndex(studentId, targetClassIndex) {
-    return this.state.classrooms[targetClassIndex].students.findIndex(
+    const { classrooms, } = this.state
+
+    return classrooms[targetClassIndex].students.findIndex(
       stud => stud.id === studentId);
   }
 
-  handleStudentCheckboxClick = (studentId, classroomId) => {
+  onStudentCheckboxClick = (studentId, classroomId) => {
     const classIndex = this.findTargetClassIndex(classroomId);
     const studentIndex = this.findTargetStudentIndex(studentId, classIndex);
     this.toggleStudentSelection(studentIndex, classIndex);
@@ -228,10 +236,11 @@ export default class ClassroomsWithStudentsContainer extends React.Component {
   }
 
   toggleClassroomSelection = (classy) => {
+    const { newUnit, } = this.state
     const newState = Object.assign({}, this.state);
     const classIndex = this.findTargetClassIndex(classy.id);
     const classroom = newState.classrooms[classIndex];
-    if (this.state.newUnit && classroom.allSelected) {
+    if (newUnit && classroom.allSelected) {
       // if the classroom is currently allSelected, it has been unselected, so if the unit is new it has not been edited
       delete classroom.edited
       delete classroom.allSelected
@@ -303,20 +312,25 @@ export default class ClassroomsWithStudentsContainer extends React.Component {
   }
 
   renderContent() {
-    if (this.state.loading) {
+    const { loading, classrooms, newUnit, studentsChanged, classroomsChanged, unitName, } = this.state
+    const { match, } = this.props
+
+    if (loading) {
       return <LoadingIndicator />;
-    } else if (this.state.classrooms) {
+    } else if (classrooms) {
+      const atLeastOneStudentIsSelected = classrooms.some(c => !c.noneSelected)
+
       return (
         <div className="edit-assigned-students-container">
           <ClassroomsWithStudents
-            activityIds={this.props.match.params.activityIdsArray}
-            classrooms={this.state.classrooms}
-            createOrEdit={this.state.newUnit ? 'create' : 'edit'}
-            handleStudentCheckboxClick={this.handleStudentCheckboxClick.bind(this)}
-            isSaveButtonEnabled={this.state.studentsChanged || this.state.classroomsChanged}
+            activityIds={match.params.activityIdsArray}
+            classrooms={classrooms}
+            createOrEdit={newUnit ? 'create' : 'edit'}
+            handleStudentCheckboxClick={this.onStudentCheckboxClick}
+            isSaveButtonEnabled={atLeastOneStudentIsSelected && (studentsChanged || classroomsChanged)}
             toggleClassroomSelection={this.toggleClassroomSelection}
-            unitId={this.props.match.params.unitId}
-            unitName={this.state.unitName}
+            unitId={match.params.unitId}
+            unitName={unitName}
           />
         </div>
       );
@@ -324,7 +338,8 @@ export default class ClassroomsWithStudentsContainer extends React.Component {
   }
 
   renderCreateAClassModal() {
-    if (this.state.showModal === createAClassModal) {
+    const { showModal, } = this.state
+    if (showModal === createAClassModal) {
       return (
         <CreateAClassModal
           close={() => this.closeModal(this.getClassroomsAndStudentsData)}
@@ -335,12 +350,13 @@ export default class ClassroomsWithStudentsContainer extends React.Component {
   }
 
   renderGoogleClassroomEmailModal() {
+    const { user, } = this.props
     const { showModal, } = this.state
     if (showModal === linkGoogleAccountModal) {
       return (
         <LinkGoogleAccountModal
           close={this.closeModal}
-          user={this.props.user}
+          user={user}
         />
       )
     }
@@ -368,7 +384,8 @@ export default class ClassroomsWithStudentsContainer extends React.Component {
     return (
       <button
         className={buttonClassName}
-        onClick={this.clickImportGoogleClassrooms}
+        onClick={this.handleClickImportGoogleClassrooms}
+        type="button"
       >
         {buttonContent}
       </button>
@@ -376,14 +393,16 @@ export default class ClassroomsWithStudentsContainer extends React.Component {
   }
 
   renderImportGoogleClassroomsModal() {
+    const { user, } = this.props
     const { googleClassrooms, showModal, } = this.state
+
     if (showModal === importGoogleClassroomsModal) {
       return (
         <ImportGoogleClassroomsModal
           classrooms={googleClassrooms}
           close={this.closeModal}
-          onSuccess={this.onSuccess}
-          user={this.props.user}
+          onSuccess={this.handleSuccess}
+          user={user}
         />
       )
     }
@@ -396,7 +415,7 @@ export default class ClassroomsWithStudentsContainer extends React.Component {
 
   render() {
     return (
-      <div className="classroom-with-students-container container">
+      <div className="classroom-with-students-container container gray-background-accommodate-footer">
         {this.renderCreateAClassModal()}
         {this.renderImportGoogleClassroomsModal()}
         {this.renderGoogleClassroomEmailModal()}
@@ -406,7 +425,7 @@ export default class ClassroomsWithStudentsContainer extends React.Component {
           <h2>{this.headerCopy()}</h2>
           <div className="buttons">
             {this.renderImportGoogleClassroomsButton()}
-            <button className="quill-button medium primary contained create-a-class-button" onClick={() => this.openModal(createAClassModal)}>Create a class</button>
+            <button className="quill-button medium primary contained create-a-class-button" onClick={() => this.openModal(createAClassModal)} type="button">Create a class</button>
           </div>
         </div>
         {this.renderContent()}

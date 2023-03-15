@@ -11,7 +11,13 @@ const greenCheckCell = (<span className="check-or-empty-wrapper">
 
 const emptyCell = (<span className="check-or-empty-wrapper" />)
 
-const Row = ({ label, tooltipText, basic, teacher, school, }) => (
+const schoolElement = (school, schoolText) => {
+  if (school) return greenCheckCell
+  if (schoolText) return <span className="check-or-empty-wrapper">{schoolText}</span>
+  return emptyCell
+}
+
+const Row = ({ label, tooltipText, basic, teacher, school, schoolText }) => (
   <div className="premium-features-table-row">
     <span className="label-and-tooltip">
       <p>{label}</p>
@@ -19,7 +25,7 @@ const Row = ({ label, tooltipText, basic, teacher, school, }) => (
     </span>
     {basic ? greenCheckCell : emptyCell}
     {teacher ? greenCheckCell : emptyCell}
-    {school ? greenCheckCell : emptyCell}
+    {schoolElement(school, schoolText)}
   </div>
 )
 

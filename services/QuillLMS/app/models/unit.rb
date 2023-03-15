@@ -6,6 +6,7 @@
 #
 #  id               :integer          not null, primary key
 #  name             :string
+#  open             :boolean          default(TRUE), not null
 #  visible          :boolean          default(TRUE), not null
 #  created_at       :datetime
 #  updated_at       :datetime
@@ -37,19 +38,35 @@ class Unit < ApplicationRecord
 
   belongs_to :user
   belongs_to :unit_template
+
   has_many :unit_activities, dependent: :destroy
   has_many :classroom_units, dependent: :destroy
+  has_many :activity_sessions, through: :classroom_units
   has_many :classrooms, through: :classroom_units
   has_many :activities, through: :unit_activities
   has_many :standards, through: :activities
 
   default_scope { where(visible: true)}
 
-  after_save :hide_classroom_units_and_unit_activities_if_visible_false
+  before_save :set_open_to_false
+
+  after_save :save_user_pack_sequence_items, if: :visible
+  after_save :hide_classroom_units_and_unit_activities
   after_save :create_any_new_classroom_unit_activity_states
+
   # Using an after_commit hook here because we want to trigger the callback
   # on save or touch, and touch explicitly bypasses after_save hooks
   after_commit :touch_all_classrooms_and_classroom_units
+
+  def closed?
+    !open?
+  end
+
+  def set_open_to_false
+    return if visible
+
+    self.open = false
+  end
 
   def hide_if_no_visible_unit_activities
     return if unit_activities.exists?(visible: true)
@@ -57,7 +74,7 @@ class Unit < ApplicationRecord
     update(visible: false)
   end
 
-  def hide_classroom_units_and_unit_activities_if_visible_false
+  def hide_classroom_units_and_unit_activities
     return if visible
 
     unit_activities.where(visible: true).update(visible: false)
@@ -68,19 +85,22 @@ class Unit < ApplicationRecord
     # limiting to production so teachers don't get emailed when we assign lessons from their account locally
     return unless Rails.env.production? || user.email.match('quill.org')
 
-    unit_id = id
     activity_ids =
       Activity
         .select('DISTINCT(activities.id)')
         .joins("JOIN unit_activities ON unit_activities.activity_id = activities.id")
-        .joins("JOIN units ON unit_activities.unit_id = #{unit_id}")
+        .joins("JOIN units ON unit_activities.unit_id = #{id}")
         .where( "activities.activity_classification_id = 6 AND activities.supporting_info IS NOT NULL")
+        .pluck(:id)
+        .uniq
 
-    return unless activity_ids.any?
+    return if activity_ids.empty?
 
-    activity_ids = activity_ids.map(&:id)
-    teacher_id = user_id
-    LessonPlanEmailWorker.perform_async(teacher_id, activity_ids, unit_id)
+    LessonPlanEmailWorker.perform_async(user_id, activity_ids, id)
+  end
+
+  def save_user_pack_sequence_items
+    classroom_units.each(&:save_user_pack_sequence_items)
   end
 
   def self.create_with_incremented_name(user_id:, name: )
@@ -95,7 +115,7 @@ class Unit < ApplicationRecord
   end
 
   private def create_any_new_classroom_unit_activity_states
-    lesson_unit_activities = unit_activities.select { |ua| ua.activity.is_lesson? }
+    lesson_unit_activities = unit_activities.select { |ua| ua.activity.lesson? }
     lesson_unit_activities.each do |ua|
       classroom_units.each do |cu|
         ClassroomUnitActivityState.find_or_create_by(unit_activity_id: ua.id, classroom_unit_id: cu.id)

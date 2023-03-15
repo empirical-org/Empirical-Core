@@ -33,4 +33,14 @@ describe PreCacheAdminDashboardsWorker, type: :worker do
     expect(mock_worker).not_to receive(:perform_async).with(old_admin.id)
     worker.perform
   end
+
+  context "duplicate admins" do
+    let!(:new_admin_old_user) { create(:schools_admins, user: current_admin1) }
+
+    it "should not queue duplicates" do
+      expect(mock_worker).to receive(:perform_async).with(current_admin1.id).once
+      expect(mock_worker).to receive(:perform_async).with(current_admin2.id).once
+      worker.perform
+    end
+  end
 end

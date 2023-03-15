@@ -88,6 +88,11 @@ export const smallWhiteCheckIcon = {
   alt: 'Check icon'
 }
 
+export const indeterminateCheckIcon = {
+  src: `${process.env.CDN_URL}/images/icons/indeterminate.svg`,
+  alt: 'Indeterminate check icon'
+}
+
 export const cursorClick = {
   src: `${process.env.CDN_URL}/images/icons/cursor-click.svg`,
   alt: 'Default cursor showing exaggerated clicking'
@@ -196,4 +201,24 @@ export const assignedBadgeIconGray = {
 export const assignedBadgeIconWhite = {
   alt: 'White silhouette of person with checkmark icon',
   src: `${process.env.CDN_URL}/images/icons/assigned_badge_white.svg`
+}
+
+export const infoIcon = {
+  alt: '',
+  src: `${process.env.CDN_URL}/images/icons/info.svg`
+}
+
+export const closedLockIcon = {
+  alt: 'Closed lock',
+  src: `${process.env.CDN_URL}/images/icons/locked.svg`
+}
+
+export const openLockIcon = {
+  alt: 'Open lock',
+  src: `${process.env.CDN_URL}/images/icons/unlocked.svg`
+}
+
+export const networkIcon = {
+  alt: 'Black silhouette of group of 4 people',
+  src: `${process.env.CDN_URL}/images/onboarding/network.svg`
 }

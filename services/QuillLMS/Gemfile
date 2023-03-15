@@ -90,7 +90,6 @@ source "https://gems.contribsys.com/" do
 end
 gem 'sidekiq', '~> 5.2.10'
 gem 'sidekiq-retries', require: false
-gem 'sidekiq-unique-jobs'
 gem 'redis', '~> 4.5'
 gem 'redis-namespace', '~> 1.8'
 gem 'redis-rails'
@@ -157,7 +156,6 @@ group :production, :staging do
   gem 'rails-autoscale-web'
   gem 'rails-autoscale-sidekiq'
   gem 'lograge'
-  gem 'sqreen'
 end
 
 group :development do
@@ -192,6 +190,7 @@ group :test, :development do
   gem 'rspec-retry'
   gem 'rspec-redis_helper'
   gem 'brakeman', '= 4.1.1'
+  gem 'memory_profiler'
 end
 
 group :test, :development, :cypress do

@@ -48,7 +48,7 @@ class SyncVitallyWorker
       .select(:id, :district_id)
       .distinct
       .joins(:users)
-      .where(users: {role: User::TEACHER})
+      .merge(User.teacher) # adds the User scope :teacher to the query
   end
 
   private def users_to_sync

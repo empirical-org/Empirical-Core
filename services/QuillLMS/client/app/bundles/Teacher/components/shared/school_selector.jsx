@@ -3,20 +3,17 @@ import React from 'react';
 import LoadingIndicator from './loading_indicator.jsx';
 import SchoolOption from './school_option'
 
-import { Input, smallWhiteCheckIcon, } from '../../../Shared/index'
+import { Input, smallWhiteCheckIcon, NOT_LISTED, NO_SCHOOL_SELECTED, } from '../../../Shared/index'
 import useDebounce from '../../hooks/useDebounce'
 import { requestPost, requestGet, } from '../../../../modules/request'
 
 const mapSearchSrc = `${process.env.CDN_URL}/images/onboarding/map-search.svg`
 
-export const NOT_LISTED = 'not listed'
-export const NO_SCHOOL_SELECTED = 'no school selected'
-
 const DEBOUNCE_LENGTH = 500
 const MINIMUM_SEARCH_LENGTH = 2
 const WHOLE_SEARCH_IS_NUMBERS_REGEX = /^\d+$/
 
-const SchoolSelector = ({ selectSchool, showDismissSchoolSelectionReminderCheckbox, handleDismissSchoolSelectionReminder, }) => {
+const SchoolSelector = ({ selectSchool, showDismissSchoolSelectionReminderCheckbox, handleDismissSchoolSelectionReminder, disableSkipForNow}) => {
   const [search, setSearch] = React.useState('')
   const [schools, setSchools] = React.useState([])
   const [errors, setErrors] = React.useState({})
@@ -171,9 +168,50 @@ const SchoolSelector = ({ selectSchool, showDismissSchoolSelectionReminderCheckb
     return <ul className="list quill-list double-line">{schoolItems}{noSchoolSelectedSchoolOption}</ul>
   }
 
+  const skipForNowCheckbox = () => {
+    if (disableSkipForNow) { return }
+
+    let checkbox = (
+      <button
+        aria-checked={false}
+        aria-label="Unchecked"
+        className="quill-checkbox unselected focus-on-light"
+        onClick={toggleDismissReminderCheckbox}
+        role="checkbox"
+        type="button"
+      />
+    )
+
+    const checkboxWrapper = showDismissSchoolSelectionReminderCheckbox
+      ? <div className="checkbox-wrapper">{checkbox} <span>Don&#39;t remind me again to select a school</span></div>
+      : <span />
+
+    if (dismissSchoolSelectionReminder) {
+      checkbox = (
+        <button
+          aria-checked={true}
+          className="quill-checkbox selected focus-on-light"
+          onClick={toggleDismissReminderCheckbox}
+          role="checkbox"
+          type="button"
+        >
+          <img alt={smallWhiteCheckIcon.alt} src={smallWhiteCheckIcon.src} />
+        </button>
+      )
+    }
+
+    return (
+      <div className="school-not-listed">
+        <button className="interactive-wrapper" onClick={handleSkipClick} type="button">Skip for now</button>
+        {checkboxWrapper}
+      </div>
+    )
+  }
+
   const renderSchoolsListSection = () => {
     let title
     let schoolsListOrEmptyState
+
     if (loading) {
       schoolsListOrEmptyState = renderLoading()
     } else if (search.length >= MINIMUM_SEARCH_LENGTH) {
@@ -181,20 +219,12 @@ const SchoolSelector = ({ selectSchool, showDismissSchoolSelectionReminderCheckb
     } else {
       schoolsListOrEmptyState = renderDefault()
     }
-    let checkbox = <button aria-checked={false} aria-label="Unchecked" className="quill-checkbox unselected focus-on-light" onClick={toggleDismissReminderCheckbox} role="checkbox" type="button" />
-    if (dismissSchoolSelectionReminder) {
-      checkbox = <button aria-checked={true} className="quill-checkbox selected focus-on-light" onClick={toggleDismissReminderCheckbox} role="checkbox" type="button"><img alt={smallWhiteCheckIcon.alt} src={smallWhiteCheckIcon.src} /></button>
-    }
-    const checkboxWrapper = showDismissSchoolSelectionReminderCheckbox ? <div className="checkbox-wrapper">{checkbox} <span>Don&#39;t remind me again to select a school</span></div> : <span />
 
     return (
       <div className="schools-list-section">
         <div className="title">Results</div>
         {schoolsListOrEmptyState}
-        <div className="school-not-listed">
-          <button className="interactive-wrapper" onClick={handleSkipClick} type="button">Skip for now</button>
-          {checkboxWrapper}
-        </div>
+        {skipForNowCheckbox()}
       </div>
     )
   }

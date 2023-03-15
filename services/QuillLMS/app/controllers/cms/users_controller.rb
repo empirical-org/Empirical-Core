@@ -86,7 +86,7 @@ class Cms::UsersController < Cms::CmsController
   def remove_admin
     admin = SchoolsAdmins.find_by(user_id: params[:user_id], school_id: params[:school_id])
     flash[:error] = 'Something went wrong.' unless admin.destroy
-    flash[:success] = 'Success! 🎉'
+    flash[:success] = t('admin.remove_admin')
     redirect_back(fallback_location: cms_users_path)
   end
 
@@ -147,7 +147,7 @@ class Cms::UsersController < Cms::CmsController
   end
 
   protected def user_params
-    params.require(:user).permit([:name, :email, :flagset, :username, :title, :role, :classcode, :password, :password_confirmation, :flags =>[]] + default_params
+    params.require(:user).permit([:name, :email, :flagset, :username, :title, :role, :admin_sub_role, :classcode, :password, :password_confirmation, :email_verification_status, :flags =>[]] + default_params
     )
   end
 

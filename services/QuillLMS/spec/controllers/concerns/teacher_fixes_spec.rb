@@ -450,5 +450,4 @@ describe TeacherFixes do
       expect(unit1.reload.updated_at).not_to equal(stored_updated_at_value)
     end
   end
-
 end

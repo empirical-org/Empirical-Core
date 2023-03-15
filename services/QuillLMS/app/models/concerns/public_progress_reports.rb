@@ -53,7 +53,7 @@ module PublicProgressReports
       curr_quest = questions[answer.question_number]
       curr_quest[:correct] ||= 0
       curr_quest[:total] ||= 0
-      curr_quest[:correct] += answer.question_score || answer.correct ? 1 : 0
+      curr_quest[:correct] += answer.question_score_for_correct_count
       curr_quest[:total] += 1
       curr_quest[:prompt] ||= answer.concept_result_prompt&.text
       curr_quest[:question_number] ||= answer.question_number
@@ -283,22 +283,29 @@ module PublicProgressReports
 
     sorted_students = students.compact.sort_by {|stud| stud[:name].split().second || ''}
 
-    recommendations = RecommendationsQuery.new(diagnostic.id).activity_recommendations.map do |activity_pack_recommendation|
-      students = []
+    recommendations = RecommendationsQuery.new(diagnostic.id).activity_recommendations.map do |recommendation|
+      student_ids = []
       activity_sessions_counted.each do |activity_session|
-        activity_pack_recommendation[:requirements].each do |req|
+        recommendation[:requirements].each do |req|
           if req[:noIncorrect] && activity_session[:concept_scores][req[:concept_id]]["total"] > activity_session[:concept_scores][req[:concept_id]]["correct"]
-            students.push(activity_session[:user_id])
+            student_ids.push(activity_session[:user_id])
             break
           end
           if activity_session[:concept_scores][req[:concept_id]]["correct"] < req[:count]
-            students.push(activity_session[:user_id])
+            student_ids.push(activity_session[:user_id])
             break
           end
         end
       end
-      return_value_for_recommendation(students, activity_pack_recommendation)
+
+      {
+        activity_count: recommendation[:activityCount],
+        activity_pack_id: recommendation[:activityPackId],
+        name: recommendation[:recommendation],
+        students: student_ids
+      }
     end
+
     {
       students: sorted_students,
       recommendations: recommendations
@@ -306,43 +313,63 @@ module PublicProgressReports
   end
   # rubocop:enable Metrics/CyclomaticComplexity
 
-  def return_value_for_recommendation(students, activity_pack_recommendation)
-    {
-      activity_count: activity_pack_recommendation[:activityCount],
-      activity_pack_id: activity_pack_recommendation[:activityPackId],
-      name: activity_pack_recommendation[:recommendation],
-      students: students
-    }
-  end
-
   def get_previously_assigned_recommendations_by_classroom(classroom_id, activity_id)
     classroom = Classroom.find(classroom_id)
     teacher_id = classroom.owner.id
     diagnostic = Activity.find(activity_id)
-    assigned_recommendations = RecommendationsQuery.new(diagnostic.id).activity_recommendations.map do |rec|
+
+    release_method = PackSequence.find_by(classroom: classroom, diagnostic_activity: diagnostic)&.release_method
+
+    assigned_recommendations = RecommendationsQuery.new(diagnostic.id).activity_recommendations.map do |recommendation|
+      unit_template_id = recommendation[:activityPackId]
       # teachers may rename and reassign activity packs so we check all
-      units = Unit.where(user_id: teacher_id, unit_template_id: rec[:activityPackId], visible: true)
+      units = Unit.where(user_id: teacher_id, unit_template_id: unit_template_id, visible: true)
       if !units
-        units = Unit.where(user_id: teacher_id, name: UnitTemplate.find_by_id(rec[:activityPackId]).name, visible: true)
+        name = UnitTemplate.find_by(id: unit_template_id).name
+        units = Unit.where(user_id: teacher_id, name: name, visible: true)
       end
-      student_ids = []
-      units.each do |unit|
-        student_ids.concat(ClassroomUnit.find_by(unit: unit, classroom: classroom, visible: true).try(:assigned_student_ids) || [])
-      end
-      return_value_for_recommendation(student_ids.uniq, rec)
+
+      assigned_student_ids = assigned_student_ids_for_classroom_and_units(classroom, units)
+
+      {
+        activity_count: recommendation[:activityCount],
+        activity_pack_id: recommendation[:activityPackId],
+        diagnostic_progress: ClassroomStudentsDiagnosticProgressAggregator.run(classroom, assigned_student_ids, units),
+        name: recommendation[:recommendation],
+        students: assigned_student_ids
+      }
     end
-    recommended_lesson_activity_ids = LessonRecommendationsQuery.new(diagnostic.id)
-      .activity_recommendations
-      .map { |r| r[:activityPackId] }
+
+    recommended_lesson_activity_ids =
+      LessonRecommendationsQuery
+        .new(diagnostic.id)
+        .activity_recommendations
+        .pluck(:activityPackId)
+
     associated_teacher_ids = ClassroomsTeacher.where(classroom_id: classroom_id).pluck(:user_id)
-    assigned_lesson_ids = Unit.where(unit_template_id: recommended_lesson_activity_ids, user_id: associated_teacher_ids)
-      .joins(:classroom_units)
-      .where("classroom_units.classroom_id=?", classroom_id)
-      .pluck(:unit_template_id)
+
+    assigned_lesson_ids =
+      Unit
+        .where(unit_template_id: recommended_lesson_activity_ids, user_id: associated_teacher_ids)
+        .joins(:classroom_units)
+        .where(classroom_units: { classroom_id: classroom_id })
+        .pluck(:unit_template_id)
+
     {
       previouslyAssignedIndependentRecommendations: assigned_recommendations,
-      previouslyAssignedLessonsRecommendations: assigned_lesson_ids
+      previouslyAssignedLessonsRecommendations: assigned_lesson_ids,
+      releaseMethod: release_method
     }
+  end
+
+  def assigned_student_ids_for_classroom_and_units(classroom, units)
+    classroom
+      .classroom_units
+      .visible
+      .where(unit: units)
+      .pluck(:assigned_student_ids)
+      .flatten
+      .uniq
   end
 
   def activity_sessions_with_counted_concepts(activity_sessions)

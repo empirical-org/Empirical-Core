@@ -4,11 +4,17 @@ module CheckboxCallback
   extend ActiveSupport::Concern
 
   def find_or_create_checkbox(name, user, activity_id=nil)
-    return unless Objective.find_by_name(name) && user
+    objective = Objective.find_by(name: name)
 
-    Checkbox.find_or_create_by(user_id: user.id, objective_id: Objective.find_by_name(name).id)
-    CheckboxAnalyticsWorker.perform_async(user.id, activity_id) if activity_id
-  rescue => e
-    puts "Race condition"
+    return unless objective && user
+
+    begin
+      Checkbox.transaction(requires_new: true) do
+        Checkbox.find_or_create_by!(user: user, objective: objective)
+        CheckboxAnalyticsWorker.perform_async(user.id, activity_id) if activity_id
+      end
+    rescue ActiveRecord::RecordNotUnique
+      retry
+    end
   end
 end

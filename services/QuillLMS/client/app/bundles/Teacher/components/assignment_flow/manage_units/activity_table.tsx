@@ -2,6 +2,7 @@ import * as React from 'react'
 import * as moment from 'moment';
 
 import CopyModal from './copy_modal'
+import RemoveActivityModal from './remove_activity_modal';
 
 import * as api from '../../modules/call_api';
 import {
@@ -25,6 +26,8 @@ export const AVERAGE_FONT_WIDTH = 7
 
 const PUBLISH_DATE_ATTRIBUTE_KEY = 'publish_date'
 const DUE_DATE_ATTRIBUTE_KEY = 'due_date'
+
+const STAGGERED_RELEASE_DATE_TEXT = "This activity is set for staggered release. This means that it will be unlocked when a student completes the previous activity pack in the sequence. As a result, you cannot set the publish date or due date."
 
 const tableHeaders = (isOwner) => ([
   {
@@ -71,6 +74,8 @@ const ActivityTable = ({ data, onSuccess, isOwner, handleActivityClicked, handle
   const [activityOrder, setActivityOrder] = React.useState(classroomActivityArray.map(ca => ca.activityId) || [])
   const [showCopyPublishDateModal, setShowCopyPublishDateModal] = React.useState(false)
   const [showCopyDueDateModal, setShowCopyDueDateModal] = React.useState(false)
+  const [showRemoveActivityModal, setShowRemoveActivityModal] = React.useState(false)
+  const [unitActivityIdToRemove, setUnitActivityIdToRemove] = React.useState(null)
   const [erroredUnitActivityIds, setErroredUnitActivityIds] = React.useState([])
   const [showSnackbar, setShowSnackbar] = React.useState(false)
   const [snackbarText, setSnackbarText] = React.useState('')
@@ -81,8 +86,9 @@ const ActivityTable = ({ data, onSuccess, isOwner, handleActivityClicked, handle
     setErroredUnitActivityIds([])
   }, [data])
 
-  function hideUnitActivity(unitActivityId) {
+  function removeActivity(unitActivityId) {
     requestPut(`${process.env.DEFAULT_URL}/teachers/unit_activities/${unitActivityId}/hide`, {}, () => onSuccess('Activity removed'))
+    setShowRemoveActivityModal(false)
   }
 
   function closeDatePicker(date, unitActivityId, dateAttributeKey) {
@@ -102,9 +108,16 @@ const ActivityTable = ({ data, onSuccess, isOwner, handleActivityClicked, handle
 
   function closeCopyDueDateModal() { setShowCopyDueDateModal(false) }
 
+  function closeRemoveActivityModal() { setShowRemoveActivityModal(false) }
+
   function openCopyPublishDateModal() { setShowCopyPublishDateModal(true) }
 
   function openCopyDueDateModal() { setShowCopyDueDateModal(true) }
+
+  function openRemoveActivityModal(unitActivityId) {
+    setUnitActivityIdToRemove(unitActivityId)
+    setShowRemoveActivityModal(true)
+  }
 
   function copyPublishDateToAll() {
     const publishDate = classroomActivityArray[0].publishDate
@@ -149,6 +162,10 @@ const ActivityTable = ({ data, onSuccess, isOwner, handleActivityClicked, handle
     handleToggleModal()
   }
 
+  function getActivityNameToRemove() {
+    return classroomActivityArray.find(act => act.uaId === unitActivityIdToRemove).name
+  }
+
   const activityRows = activityOrder.map((activityId, i) => {
     const activity = classroomActivityArray.find(act => act.activityId === activityId)
     if (!activity){ return }
@@ -165,9 +182,23 @@ const ActivityTable = ({ data, onSuccess, isOwner, handleActivityClicked, handle
     let activityDueDatePicker = dueDateInMoment ? formatDateTimeForDisplay(dueDateInMoment) : DUE_DATE_DEFAULT_TEXT
     let activityPublishDatePicker = publishDateInMoment ? formatDateTimeForDisplay(publishDateInMoment) : PUBLISH_DATE_DEFAULT_TEXT
 
-    const showCopyToAll = i === 0 && activityOrder.length > 1
+    const showCopyToAll = i === 0 && activityOrder.length > 1 && !activity.staggered
 
-    if (isOwner) {
+    if (activity.staggered) {
+      activityDueDatePicker = (
+        <Tooltip
+          tooltipText={STAGGERED_RELEASE_DATE_TEXT}
+          tooltipTriggerText={activityDueDatePicker}
+        />
+      )
+
+      activityPublishDatePicker = (
+        <Tooltip
+          tooltipText={STAGGERED_RELEASE_DATE_TEXT}
+          tooltipTriggerText={activityPublishDatePicker}
+        />
+      )
+    } else if (isOwner) {
       activityDueDatePicker = (
         <DatePickerContainer
           closeFunction={(date) => closeDatePicker(date, activity.uaId, DUE_DATE_ATTRIBUTE_KEY)}
@@ -223,11 +254,18 @@ const ActivityTable = ({ data, onSuccess, isOwner, handleActivityClicked, handle
           copyFunction={copyPublishDateToAll}
         />
       )}
+      {showRemoveActivityModal && (
+        <RemoveActivityModal
+          activityName={getActivityNameToRemove()}
+          closeFunction={closeRemoveActivityModal}
+          removeFunction={() => removeActivity(unitActivityIdToRemove)}
+        />
+      )}
       <DataTable
         className={isOwner ? 'is-owner' : ''}
         headers={tableHeaders(isOwner)}
         isReorderable={isOwner}
-        removeRow={hideUnitActivity}
+        removeRow={openRemoveActivityModal}
         reorderCallback={reorderCallback}
         rows={activityRows}
         showRemoveIcon={isOwner}

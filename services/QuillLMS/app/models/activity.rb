@@ -40,24 +40,24 @@ class Activity < ApplicationRecord
 
   validate :data_must_be_hash
 
-  has_many :skill_group_activities
-  has_many :skill_groups, through: :skill_group_activities
-  has_many :skills, through: :skill_groups
-
   has_and_belongs_to_many :unit_templates
 
   belongs_to :classification, class_name: 'ActivityClassification', foreign_key: 'activity_classification_id'
   belongs_to :standard
   belongs_to :raw_score
+  belongs_to :follow_up_activity, class_name: "Activity", foreign_key: "follow_up_activity_id"
 
   has_one :standard_level, through: :standard
 
-  belongs_to :follow_up_activity, class_name: "Activity", foreign_key: "follow_up_activity_id"
-
+  has_many :skill_group_activities
+  has_many :skill_groups, through: :skill_group_activities
+  has_many :skills, through: :skill_groups
   has_many :unit_activities, dependent: :destroy
   has_many :units, through: :unit_activities
   has_many :classroom_units, through: :units
   has_many :classrooms, through: :classroom_units
+  has_many :pack_sequence_items, through: :classroom_units
+  has_many :user_pack_sequence_items, through: :pack_sequence_items
   has_many :recommendations, dependent: :destroy
   has_many :activity_category_activities, dependent: :destroy
   has_many :activity_categories, through: :activity_category_activities
@@ -67,6 +67,7 @@ class Activity < ApplicationRecord
   has_many :teachers, through: :teacher_saved_activities, foreign_key: 'teacher_id'
   has_many :activity_topics, dependent: :destroy
   has_many :topics, through: :activity_topics
+
   before_create :flag_as_beta, unless: :flags?
   before_save :set_minimum_and_maximum_grade_levels_to_default_values, unless: :minimum_grade_level
   after_commit :clear_activity_search_cache
@@ -92,11 +93,16 @@ class Activity < ApplicationRecord
   ALPHA = 'alpha'
   ARCHIVED = 'archived'
 
+  FLAGS_ATTRIBUTE = 'flags'
+
   scope :gamma_user, -> { where("'#{GAMMA}' = ANY(activities.flags) OR '#{BETA}' = ANY(activities.flags) OR '#{PRODUCTION}' = ANY(activities.flags)")}
   scope :beta_user, -> { where("'#{BETA}' = ANY(activities.flags) OR '#{PRODUCTION}' = ANY(activities.flags)")}
   scope :alpha_user, -> { where("'#{ALPHA}' = ANY(activities.flags) OR '#{BETA}' = ANY(activities.flags) OR '#{GAMMA}' = ANY(activities.flags) OR '#{PRODUCTION}' = ANY(activities.flags)")}
 
   scope :with_classification, -> { includes(:classification).joins(:classification) }
+  scope :evidence, -> { where(classification: ActivityClassification.evidence) }
+  scope :evidence_beta1, -> { where(flags: [Flags::EVIDENCE_BETA1]) }
+  scope :evidence_beta2, -> { where(flags: [Flags::EVIDENCE_BETA2]) }
 
   # only Grammar (2), Connect (5), and Diagnostic (4) Activities contain questions
   # the other two, Proofreader and Lesson, contain passages and other data, not questions
@@ -188,6 +194,13 @@ class Activity < ApplicationRecord
     module_url_helper(initial_params)
   end
 
+  def publication_date
+    return nil unless is_evidence?
+
+    created_time = child_activity.last_flags_change_log_record&.created_at || created_at
+    created_time.strftime("%m/%d/%Y")
+  end
+
   # TODO: cleanup
   def flag(flag = nil)
     return super(flag) unless flag.nil?
@@ -214,7 +227,7 @@ class Activity < ApplicationRecord
     $redis.set('default_activity_search', ActivitySearchWrapper.new('production').search.to_json)
   end
 
-  def is_lesson?
+  def lesson?
     activity_classification_id == 6
   end
 
@@ -288,6 +301,14 @@ class Activity < ApplicationRecord
     SegmentIntegration::Activity.new(self)
   end
 
+  def locked_user_pack_sequence_item?(user)
+    user_pack_sequence_items.locked.exists?(user: user)
+  end
+
+  def serialize_with_topics_and_publication_date
+    serializable_hash.merge({topics: topics&.map(&:genealogy), publication_date: publication_date})
+  end
+
   private def update_evidence_title?
     is_evidence? && saved_change_to_name?
   end
@@ -307,9 +328,9 @@ class Activity < ApplicationRecord
       changed_record_type: 'Evidence::Activity',
       changed_record_id: child_activity&.id,
       explanation: nil,
-      changed_attribute: "flags",
-      previous_value: previous_changes["flags"][0],
-      new_value: previous_changes["flags"][1]
+      changed_attribute: FLAGS_ATTRIBUTE,
+      previous_value: previous_changes[FLAGS_ATTRIBUTE][0],
+      new_value: previous_changes[FLAGS_ATTRIBUTE][1]
     }
     ChangeLog.create(change_log)
   end

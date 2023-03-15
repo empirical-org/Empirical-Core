@@ -4,20 +4,22 @@
 #
 # Table name: subscriptions
 #
-#  id                :integer          not null, primary key
-#  account_type      :string
-#  de_activated_date :date
-#  expiration        :date
-#  payment_amount    :integer
-#  payment_method    :string
-#  purchaser_email   :string
-#  recurring         :boolean          default(FALSE)
-#  start_date        :date
-#  created_at        :datetime
-#  updated_at        :datetime
-#  plan_id           :integer
-#  purchaser_id      :integer
-#  stripe_invoice_id :string
+#  id                     :integer          not null, primary key
+#  account_type           :string
+#  de_activated_date      :date
+#  expiration             :date
+#  payment_amount         :integer
+#  payment_method         :string
+#  purchase_order_number  :string
+#  purchaser_email        :string
+#  recurring              :boolean          default(FALSE)
+#  start_date             :date
+#  created_at             :datetime
+#  updated_at             :datetime
+#  plan_id                :integer
+#  purchaser_id           :integer
+#  stripe_invoice_id      :string
+#  stripe_subscription_id :string
 #
 # Indexes
 #
@@ -26,7 +28,6 @@
 #  index_subscriptions_on_purchaser_id       (purchaser_id)
 #  index_subscriptions_on_recurring          (recurring)
 #  index_subscriptions_on_start_date         (start_date)
-#  index_subscriptions_on_stripe_invoice_id  (stripe_invoice_id) UNIQUE
 #
 require 'rails_helper'
 
@@ -347,6 +348,41 @@ describe Subscription, type: :model do
       it "does not return subscriptions that are neither recurring nor expiring today" do
         expect(subject).not_to include(subscription)
       end
+    end
+  end
+
+  context '#populate_data_from_stripe_invoice' do
+    invoice_total = 8000
+    customer_email = 'fake@email.com'
+
+    before do
+      stripe_invoice_double = double('Stripe::Invoice', total: invoice_total, customer_email: customer_email)
+      allow(Stripe::Invoice).to receive(:retrieve).and_return(stripe_invoice_double)
+    end
+
+    it 'should set the values for payment_amount and purchaser_email' do
+      subscription = create(:subscription)
+      # This fakes a valid stripe_invoice_id being set on the model
+      allow(subscription).to receive(:stripe_invoice_id).and_return(true)
+      subscription.populate_data_from_stripe_invoice
+      expect(subscription.payment_amount).to eq(invoice_total)
+      expect(subscription.purchaser_email).to eq(customer_email)
+    end
+
+    it 'should not set new values for payment_amount and purchaser_email if they are already set' do
+      pre_set_payment_amount = 10000
+      pre_set_purchaser_email = 'someone@somewhere.email'
+      subscription = create(:subscription, payment_amount: pre_set_payment_amount, purchaser_email: pre_set_purchaser_email)
+      subscription.populate_data_from_stripe_invoice
+      expect(subscription.payment_amount).to eq(pre_set_payment_amount)
+      expect(subscription.purchaser_email).to eq(pre_set_purchaser_email)
+    end
+
+    it 'should silently not set values for payment_amount and purchaser_email if stripe_invoice_id is not set' do
+      subscription = create(:subscription, stripe_invoice_id: nil)
+      subscription.populate_data_from_stripe_invoice
+      expect(subscription.payment_amount).to eq(nil)
+      expect(subscription.purchaser_email).to eq(nil)
     end
   end
 

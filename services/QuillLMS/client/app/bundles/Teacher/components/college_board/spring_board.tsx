@@ -110,7 +110,7 @@ const SpringBoard = ({ isPartOfAssignmentFlow, units, }: SpringBoardProps) => {
               {getStartedButton(isPartOfAssignmentFlow)}
             </div>
           </div>
-          <img alt="Photograph of a student standing next to some lockers" src="https://assets.quill.org/images/college_board/student-near-lockers.png" />
+          <img alt="Photograph of a student standing next to some lockers" src="https://assets.quill.org/images/college_board/student-writing-by-laptop.webp" />
         </div>
       </div>
       <ScrollBox activeSection={activeSection} sections={scrollSections} setActiveSection={setActiveSection} setIsScrollingFromClick={handleSetIsScrollingFromClick} showScrollBox={showScrollBox} />

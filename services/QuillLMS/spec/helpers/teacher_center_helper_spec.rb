@@ -8,47 +8,20 @@ describe TeacherCenterHelper do
     let(:app_setting) { create(:app_setting, name: "comprehension") }
     let(:tabs) {
       [
-        { id: "All resources", name: "All", url: "teacher-center" },
-        { id: "Getting started", name: "Getting started", url: "teacher-center/topic/getting-started" },
-        { id: "Best practices", name: "Best practices", url: "teacher-center/topic/best-practices" },
-        { id: "Writing instruction research", name: "Research", url: "teacher-center/topic/writing-instruction-research" },
-        { id: "FAQ", name: "FAQ", url: "faq" }
+        { id: "All resources", name: "All", url: "/teacher-center" },
+        { id: BlogPost::WHATS_NEW, name: BlogPost::WHATS_NEW, url: "/teacher-center/topic/whats-new" },
+        { id: BlogPost::USING_QUILL_FOR_READING_COMPREHENSION, name: "Reading comprehension", url: "/teacher-center/topic/using-quill-for-reading-comprehension" },
+        { id: BlogPost::GETTING_STARTED, name: BlogPost::GETTING_STARTED, url: "/teacher-center/topic/getting-started" },
+        { id: BlogPost::BEST_PRACTICES, name: BlogPost::BEST_PRACTICES, url: "/teacher-center/topic/best-practices" },
+        { id: BlogPost::WRITING_INSTRUCTION_RESEARCH, name: "Research", url: "/teacher-center/topic/writing-instruction-research" },
+        { id: TeacherCenterHelper::FAQ, name: TeacherCenterHelper::FAQ, url: "/faq" },
+        { id: BlogPost::WEBINARS, name: BlogPost::WEBINARS, url: "/teacher-center/topic/webinars" },
+        { id: BlogPost::TEACHER_MATERIALS, name: BlogPost::TEACHER_MATERIALS, url: "/teacher-center/topic/teacher-materials" },
+        { id: BlogPost::TEACHER_STORIES, name: BlogPost::TEACHER_STORIES, url: "/teacher-center/topic/teacher-stories" }
       ]
     }
 
-    before do
-      allow(helper).to receive(:current_user) { current_user }
-    end
-
-    it 'should return the tabs with comprehension if app setting is true' do
-      comprehension_tab = { id: "Using quill for reading comprehension", name: "Reading comprehension", url: "teacher-center/topic/using-quill-for-reading-comprehension" }
-      app_setting.enabled = true
-      app_setting.user_ids_allow_list = [current_user.id]
-      app_setting.save!
-      tabs.insert(1, comprehension_tab)
-      expect(helper.teacher_center_tabs).to eq tabs
-    end
-  end
-
-  describe '#teacher_center_tabs when not signed in' do
-    let(:tabs) {
-      [
-        { id: "All resources", name: "All", url: "teacher-center" },
-        { id: BlogPost::USING_QUILL_FOR_READING_COMPREHENSION, name: 'Reading comprehension', url: 'teacher-center/topic/using-quill-for-reading-comprehension' },
-        { id: "Getting started", name: "Getting started", url: "teacher-center/topic/getting-started" },
-        { id: "Best practices", name: "Best practices", url: "teacher-center/topic/best-practices" },
-        { id: "Writing instruction research", name: "Research", url: "teacher-center/topic/writing-instruction-research" },
-        { id: "FAQ", name: "FAQ", url: "faq" },
-        { id: "Premium", name: "Premium", url: "premium"}
-      ]
-    }
-
-    before do
-      allow(helper).to receive(:current_user) { nil }
-    end
-
-    it 'should return the tabs with premium tab if current user is nil' do
-      create(:app_setting, name: "comprehension")
+    it 'should return the expected tabs' do
       expect(helper.teacher_center_tabs).to eq tabs
     end
   end
@@ -56,20 +29,20 @@ describe TeacherCenterHelper do
   describe `#explore_curriculum_tabs` do
     let(:large_tabs) {
       [
-        {name: 'Featured Activities', url: 'activities/packs'},
-        {name: 'AP Activities', url: 'ap'},
-        {name: 'Pre-AP Activities', url: 'preap'},
-        {name: 'SpringBoard Activities', url: 'springboard'},
-        {name: 'ELA Standards', url: 'activities/standard_level/7'}
+        {id: 'Featured Activities', name: 'Featured Activities', url: '/activities/packs'},
+        {id: 'AP Activities', name: 'AP Activities', url: '/ap'},
+        {id: 'Pre-AP Activities', name: 'Pre-AP Activities', url: '/preap'},
+        {id: 'SpringBoard Activities', name: 'SpringBoard Activities', url: '/springboard'},
+        {id: 'ELA Standards', name: 'ELA Standards', url: '/activities/standard_level/7'}
       ]
     }
     let(:small_tabs) {
       [
-        {name: 'Featured', url: 'activities/packs'},
-        {name: 'AP', url: 'ap'},
-        {name: 'Pre-AP', url: 'preap'},
-        {name: 'SpringBoard', url: 'springboard'},
-        {name: 'Standards', url: 'activities/standard_level/7'}
+        {id: 'Featured Activities', name: 'Featured', url: '/activities/packs'},
+        {id: 'AP Activities', name: 'AP', url: '/ap'},
+        {id: 'Pre-AP Activities', name: 'Pre-AP', url: '/preap'},
+        {id: 'SpringBoard Activities', name: 'SpringBoard', url: '/springboard'},
+        {id: 'ELA Standards', name: 'Standards', url: '/activities/standard_level/7'}
       ]
     }
 

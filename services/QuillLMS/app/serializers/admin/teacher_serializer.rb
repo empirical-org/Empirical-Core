@@ -4,8 +4,10 @@
 class Admin::TeacherSerializer < ApplicationSerializer
   include Rails.application.routes.url_helpers
 
-  attributes :id, :name, :email, :school,
-            :links,
+  ADMIN = 'Admin'
+  TEACHER = 'Teacher'
+
+  attributes :id, :name, :email, :last_sign_in, :schools, :admin_info,
             :number_of_students,
             :number_of_activities_completed,
             :time_spent,
@@ -13,15 +15,13 @@ class Admin::TeacherSerializer < ApplicationSerializer
 
   type :teacher
 
-  def school
-    object.try(:school).try(:name)
-  end
-
-  def links
-    [
-      { name: "Teacher Access", path: admin_sign_in_classroom_manager_user_path(object) },
-      { name: "Premium Reports", path: admin_sign_in_progress_reports_user_path(object) },
-    ]
+  def schools
+    [object&.school].concat(object&.reload&.administered_schools).compact.uniq.map do |school|
+      school_hash = { name: school.name, id: school.id }
+      # checking for the existence of an actual school admin record here since a user with the admin role doesn't necessarily administer a school they belong to
+      school_hash[:role] = SchoolsAdmins.exists?(school: school, user: object) ? ADMIN : TEACHER
+      school_hash
+    end
   end
 
   def number_of_students

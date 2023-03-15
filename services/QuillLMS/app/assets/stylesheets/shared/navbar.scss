@@ -190,10 +190,7 @@ nav.q-navbar-home {
     align-items: center;
 
     .nav-element, .navbar-tooltip-trigger {
-      margin-left: 20px;
-      // &:not(.sign-up-button) {
-      //   padding: 20px 0px;
-      // }
+      margin-left: 32px;
     }
 
     .nav-element:not(.sign-up-button):hover {
@@ -511,8 +508,8 @@ nav.q-navbar-home {
 .navbar-tooltip-trigger {
   cursor: pointer;
   position: relative;
-  margin-bottom: -40px;
-  padding-bottom: 40px;
+  margin-bottom: -20px;
+  padding-bottom: 20px;
   span {
     color: #fff;
   }

@@ -1,5 +1,6 @@
 import * as React from 'react';
 import _ from 'underscore';
+import pluralize from 'pluralize'
 
 import TopicSection from './topic_section.jsx';
 import HeaderSection from './header_section'
@@ -7,7 +8,7 @@ import {
   STUDENT,
   STUDENT_CENTER,
   STUDENT_CENTER_SLUG,
-  TEACHER_CENTER ,
+  TEACHER_CENTER,
   TEACHER_CENTER_SLUG,
   TOPIC,
   ALL,
@@ -21,7 +22,8 @@ import {
   BEST_PRACTICES,
   SUPPORT,
   WEBINARS,
-  USING_QUILL_FOR_READING_COMPREHENSION
+  USING_QUILL_FOR_READING_COMPREHENSION,
+  BLOG_POST_TO_COLOR,
 } from './blog_post_constants'
 
 import PreviewCard from '../shared/preview_card.jsx';
@@ -29,10 +31,13 @@ import PreviewCard from '../shared/preview_card.jsx';
 export default class BlogPostIndex extends React.Component {
   constructor(props) {
     super(props);
+
+    const { blogPosts, } = props
+
     this.state = {
       articleFilter: window.location.pathname.includes(TOPIC) || props.query ? ALL : TOPIC,
       loading: true,
-      blogPostsSortedByMostRead: [...this.props.blogPosts].sort((a, b) => (a.read_count < b.read_count) ? 1 : ((b.read_count < a.read_count) ? -1 : 0))
+      blogPostsSortedByMostRead: [...blogPosts].sort((a, b) => (a.read_count < b.read_count) ? 1 : ((b.read_count < a.read_count) ? -1 : 0))
     };
   }
 
@@ -41,7 +46,8 @@ export default class BlogPostIndex extends React.Component {
   }
 
   pageSubtitle() {
-    if (this.props.role === STUDENT) {
+    const { role, } = this.props
+    if (role === STUDENT) {
       return 'Everything you need to know about using Quill'
     }
 
@@ -75,7 +81,7 @@ export default class BlogPostIndex extends React.Component {
   pageTitle() {
     const { role, title, } = this.props
     if (window.location.pathname.includes(TOPIC)) {
-      const topicTitle = this.props.title
+      const topicTitle = title
       return role === STUDENT ? topicTitle.replace('Student ', '') : topicTitle
     } else if (role === STUDENT) {
       return STUDENT_CENTER
@@ -84,8 +90,11 @@ export default class BlogPostIndex extends React.Component {
     }
   }
 
+  currentPageIsSearchPage = () => window.location.pathname.includes(SEARCH);
+
   renderAnnouncement() {
-    const announcement = this.props.announcement;
+    const { announcement, } = this.props
+
     if(announcement) {
       return (
         <a className='announcement' href={announcement.link}>
@@ -98,12 +107,15 @@ export default class BlogPostIndex extends React.Component {
   }
 
   renderBasedOnArticleFilter() {
+    const { articleFilter, } = this.state
+    const { blogPosts,} = this.props
+
     let response;
-    if (this.props.blogPosts.length === 0) {
+    if (blogPosts.length === 0) {
       response = <h1 className='no-results'>No results found.</h1>
-    } else if (this.state.articleFilter === TOPIC) {
+    } else if (articleFilter === TOPIC || this.currentPageIsSearchPage()) {
       response = this.renderPreviewCardsByTopic();
-    } else if (this.state.articleFilter === 'popularity') {
+    } else if (articleFilter === 'popularity') {
       response = (
         <div id="preview-card-container">
           {this.renderPreviewCardsByPopularity()}
@@ -120,7 +132,8 @@ export default class BlogPostIndex extends React.Component {
   }
 
   renderMostReadPost() {
-    const mostReadArticle = this.state.blogPostsSortedByMostRead[0];
+    const { blogPostsSortedByMostRead, } = this.state
+    const mostReadArticle = blogPostsSortedByMostRead[0];
     if (window.location.pathname.includes(SEARCH)) { return null; }
     const link = mostReadArticle.external_link ? mostReadArticle.external_link : `/teacher-center/${mostReadArticle.slug}`
     return (
@@ -131,32 +144,27 @@ export default class BlogPostIndex extends React.Component {
   }
 
   renderNavAndSectionHeader() {
-    const currentPageIsSearchPage = window.location.pathname.includes(SEARCH);
-    if (!currentPageIsSearchPage) {
+    const { blogPosts, } = this.props
+    if (this.currentPageIsSearchPage()) {
       return (
-        <span />
-      )
-    // } else if (currentPageIsTopicPage) {
-    //   return (
-    //     <div className='topic-header'>
-    //       <h2>{window.location.pathname.split('/')[3].split('-').map(topic => topic.charAt(0).toUpperCase() + topic.slice(1)).join(' ')}</h2>
-    //     </div>
-    //   )
-    } else {
-      return (
-        <nav>
-          <ul>
-            <li>Search Results</li>
-          </ul>
-        </nav>
+        <section className="search-result-header">
+          <div className="meta">
+            <h1>Search results</h1>
+            <h2>{blogPosts.length} {pluralize('article', blogPosts.length)}</h2>
+          </div>
+        </section>
       )
     }
+
+    return <span />
   }
 
   renderPreviewCards() {
-    const sectionLink = this.props.role === STUDENT ? STUDENT_CENTER_SLUG : TEACHER_CENTER_SLUG
-    return this.props.blogPosts.map(article =>
+    const { role, blogPosts, } = this.props
+    const sectionLink = role === STUDENT ? STUDENT_CENTER_SLUG : TEACHER_CENTER_SLUG
+    return blogPosts.map(article =>
       (<PreviewCard
+        color={BLOG_POST_TO_COLOR[article.topic]}
         content={article.preview_card_content}
         externalLink={!!article.external_link}
         key={article.title}
@@ -166,8 +174,11 @@ export default class BlogPostIndex extends React.Component {
   }
 
   renderPreviewCardsByPopularity() {
-    return this.state.blogPostsSortedByMostRead.map(article =>
+    const { blogPostsSortedByMostRead, } = this.state
+
+    return blogPostsSortedByMostRead.map(article =>
       (<PreviewCard
+        color={BLOG_POST_TO_COLOR[article.topic]}
         content={article.preview_card_content}
         externalLink={!!article.external_link}
         key={article.title}
@@ -176,22 +187,20 @@ export default class BlogPostIndex extends React.Component {
     )
   }
 
-
   renderPreviewCardsByTopic() {
-    const { blogPosts, isComprehensionUser, role, topics } = this.props;
+    const { blogPosts, role, topics } = this.props;
     let sections = [];
     const articlesByTopic = _.groupBy(blogPosts, TOPIC);
     topics.forEach(topic => {
       const articlesInThisTopic = articlesByTopic[topic.name];
-      const skipComprehension = topic.name === USING_QUILL_FOR_READING_COMPREHENSION && !isComprehensionUser;
-
-      if(skipComprehension) { return }
 
       if (articlesInThisTopic) {
         sections.push(<TopicSection
           articleCount={articlesInThisTopic.length}
           articles={articlesInThisTopic.sort((a, b) => a.order_number - b.order_number)}
+          color={BLOG_POST_TO_COLOR[topic.name]}
           key={topic.name}
+          onSearchPage={this.currentPageIsSearchPage()}
           role={role}
           slug={topic.slug}
           title={topic.name}
@@ -203,7 +212,8 @@ export default class BlogPostIndex extends React.Component {
   }
 
   render() {
-    if (this.props.blogPosts.length === 0 && !this.props.query) {
+    const { blogPosts, query, } = this.props
+    if (blogPosts.length === 0 && !query) {
       return (
         <div className="container">
           <div style={{fontSize: '40px', display: 'flex', justifyContent: 'center', height: '60vh', alignItems: 'center', flexDirection: 'column', fontWeight: 'bold'}}>
@@ -216,7 +226,7 @@ export default class BlogPostIndex extends React.Component {
       return (
         <div id="knowledge-center">
           <HeaderSection
-            query={this.props.query}
+            query={query}
             showCancelSearchButton={!!window.location.href.includes(SEARCH)}
             subtitle={this.pageSubtitle()}
             title={this.pageTitle()}

@@ -107,6 +107,7 @@ class StudentsController < ApplicationController
     return redirect_to profile_path unless current_user&.student?
 
     if classroom_id && unit_id
+      flash_closed_unit_error
       flash_missing_unit_error
     elsif classroom_id && (Classroom.find_by(id: classroom_id).nil? || StudentsClassrooms.find_by(student_id: @current_user.id, classroom_id: classroom_id).nil?)
       flash[:error] = 'Oops! You do not belong to that classroom. Your teacher may have archived the class or removed you.'
@@ -115,6 +116,16 @@ class StudentsController < ApplicationController
     end
   end
   # rubocop:enable Metrics/CyclomaticComplexity
+
+  private def flash_closed_unit_error
+    unit = Unit.find(params["unit_id"])
+
+    return if unit.open
+
+    flash[:error] = t('activity_link.errors.activity_pack_closed')
+    flash.keep(:error)
+    redirect_to classes_path
+  end
 
   private def flash_missing_unit_error
     classroom_id = params["classroom"]

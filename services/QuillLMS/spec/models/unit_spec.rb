@@ -6,6 +6,7 @@
 #
 #  id               :integer          not null, primary key
 #  name             :string
+#  open             :boolean          default(TRUE), not null
 #  visible          :boolean          default(TRUE), not null
 #  created_at       :datetime
 #  updated_at       :datetime
@@ -32,16 +33,14 @@ describe Unit, type: :model do
   it { should have_many(:standards).through(:activities) }
   it { should belong_to(:unit_template) }
 
-  it do
-    expect(subject)
-      .to callback(:hide_classroom_units_and_unit_activities_if_visible_false)
-      .after(:save)
-  end
+  it { is_expected.to callback(:set_open_to_false).before(:save) }
+  it { is_expected.to callback(:save_user_pack_sequence_items).after(:save) }
+  it { is_expected.to callback(:hide_classroom_units_and_unit_activities).after(:save) }
 
-  let!(:classroom) {create(:classroom)}
-  let!(:teacher) {create(:teacher)}
-  let!(:activity) {create(:activity)}
-  let!(:unit) {create(:unit, user: teacher, visible: true)}
+  let!(:classroom) { create(:classroom) }
+  let!(:teacher) { create(:teacher) }
+  let!(:activity) { create(:activity) }
+  let!(:unit) { create(:unit, user: teacher, visible: true) }
 
   describe 'user_id field' do
     it 'should not raise an error' do
@@ -129,10 +128,27 @@ describe Unit, type: :model do
     end
   end
 
-  describe '#hide_classroom_units_and_unit_activities_if_visible_false' do
+  describe '#hide_classroom_units_and_unit_activities' do
     it 'is called when the unit is saved' do
-      expect(unit).to receive(:hide_classroom_units_and_unit_activities_if_visible_false)
+      expect(unit).to receive(:hide_classroom_units_and_unit_activities)
       unit.update(name: 'new name')
+    end
+  end
+
+  describe '#set_open_to_false' do
+    it 'is called when the unit is saved' do
+      expect(unit).to receive(:set_open_to_false)
+      unit.update(name: 'new name')
+    end
+
+    it 'is sets open to false if the unit is not visible' do
+      unit.update(visible: false)
+      expect(unit.open).to eq(false)
+    end
+
+    it 'leaves open value alone if the unit is visible' do
+      unit.update(visible: true)
+      expect(unit.open).to eq(true)
     end
   end
 
@@ -182,6 +198,50 @@ describe Unit, type: :model do
 
       expect(classroom.reload.updated_at.to_i).not_to equal(classroom_updated_at.to_i)
       expect(classroom_unit.reload.updated_at.to_i).not_to equal(classroom_unit_updated_at.to_i)
+    end
+  end
+
+  describe 'save_user_pack_sequence_items' do
+    let!(:unit) { create(:unit, user: teacher, visible: visible) }
+    let!(:num_students) { 2 }
+    let!(:student_ids) { create_list(:student, num_students).pluck(:id) }
+    let!(:classroom_unit) { create(:classroom_unit, unit: unit, assigned_student_ids: student_ids) }
+    let!(:num_jobs) { num_students }
+    let!(:pack_sequence_item) { create(:pack_sequence_item, classroom_unit: classroom_unit) }
+
+    before { create_list(:user_pack_sequence_item, num_students, pack_sequence_item: pack_sequence_item) }
+
+    context 'after_save' do
+      context 'visible has changed' do
+        context 'to false' do
+          let(:visible) { true }
+
+          subject { unit.reload.update(visible: false) }
+
+          it { expect { subject }.to change { SaveUserPackSequenceItemsWorker.jobs.size }.by(num_jobs) }
+        end
+
+        context 'to true' do
+          let(:visible) { false }
+
+          subject { unit.reload.update(visible: true) }
+
+          it { expect { subject }.to change { SaveUserPackSequenceItemsWorker.jobs.size }.by(num_jobs) }
+        end
+      end
+    end
+  end
+
+  describe '#closed?' do
+    let!(:open_unit) { create(:unit, open: true) }
+    let!(:closed_unit) { create(:unit, open: false) }
+
+    it 'should return true if the unit is closed' do
+      expect(closed_unit.closed?).to eq(true)
+    end
+
+    it 'should return false if the unit is open' do
+      expect(open_unit.closed?).to eq(false)
     end
   end
 end

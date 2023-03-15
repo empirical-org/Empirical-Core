@@ -5,7 +5,6 @@ include AsyncHelper
 
 describe FastAssignWorker, type: :worker do
   include_context "Unit Assignments Variables"
-  let!(:unit) {create(:unit, name: unit_template1.name, user_id: teacher.id)}
 
   context 'creates a new unit' do
     it "can create new units and classroom activities" do
@@ -16,6 +15,8 @@ describe FastAssignWorker, type: :worker do
   end
 
   context 'updates an existing unit' do
+    let!(:unit) { create(:unit, name: unit_template1.name, user_id: teacher.id) }
+
     it "does not duplicate the existing unit" do
       units_with_a_specific_name = Unit.where(name: unit_template1.name).count
       FastAssignWorker.new.perform(teacher.id, unit_template1.id)

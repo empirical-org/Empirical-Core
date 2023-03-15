@@ -4,14 +4,13 @@ class AdminDashboardUserMailer < UserMailer
   include EmailApiHelper
   include ActionView::Helpers::NumberHelper
 
-  default from: 'hello@quill.org', foo: 'bar'
+  default from: "The Quill Team <hello@quill.org>"
 
   def teacher_account_created_email(user, admin_name, school_name, is_reminder)
     @user = user
     @admin_name = admin_name
     @school_name = school_name
-    # placeholder url-- will get updated in subsequent PR for new account setup landing page
-    @set_password_link = ENV['DEFAULT_URL']
+    @set_password_link = link_for_setting_password('teacher')
     subject = is_reminder ? "🔔 Reminder: #{user.first_name}, a Quill account was created for you" : "[Action Required] #{user.first_name}, a Quill account was created for you"
     mail to: user.email, subject: subject
   end
@@ -20,7 +19,8 @@ class AdminDashboardUserMailer < UserMailer
     @user = user
     @admin_name = admin_name
     @school_name = school_name
-    @set_password_link = ENV['DEFAULT_URL']
+    # placeholder url-- will get updated in subsequent PR for new account setup landing page
+    @set_password_link = link_for_setting_password('school admin')
     subject = is_reminder ? "🔔 Reminder: #{user.first_name}, a Quill school admin account was created for you" : "[Action Required] #{user.first_name}, a Quill school admin account was created for you"
     mail to: user.email, subject: subject
   end

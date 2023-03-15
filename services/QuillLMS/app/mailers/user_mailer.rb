@@ -4,22 +4,28 @@ class UserMailer < ActionMailer::Base
   include EmailApiHelper
   include ActionView::Helpers::NumberHelper
 
-  default from: 'hello@quill.org', foo: 'bar'
+  default from: "The Quill Team <hello@quill.org>"
 
   CONSTANTS = {
     signatures: {
       quill_team: 'The Quill Team'
     },
     links: {
-      admin_dashboard: 'https://www.quill.org/teachers/admin_dashboard',
+      admin_dashboard: "#{ENV['DEFAULT_URL']}/teachers/admin_dashboard",
       link_account: 'https://support.quill.org/en/articles/4249829-how-do-i-link-my-account',
-      premium: 'https://support.quill.org/en/collections/64410-quill-premium'
+      premium: 'https://support.quill.org/en/collections/64410-quill-premium',
+      school_dashboard: 'https://support.quill.org/en/articles/1588988-how-do-i-navigate-the-school-dashboard',
+      admin_verification_manager: "#{ENV['DEFAULT_URL']}/cms/admin_verification"
     }
   }
 
   before_action { @constants = CONSTANTS }
 
   COTEACHER_SUPPORT_ARTICLE = 'http://support.quill.org/getting-started-for-teachers/manage-classes/how-do-i-share-a-class-with-my-co-teacher'
+  DEFAULT_MAX_ATTEMPTS = 5
+  FEEDBACK_HISTORY_CSV_HEADERS = %w{Date/Time SessionID Conjunction Attempt Optimal? Completed? Response Feedback Rule}
+  FEEDBACK_SESSIONS_CSV_DOWNLOAD = "Feedback Sessions CSV Download"
+  FEEDBACK_SESSIONS_CSV_FILENAME = "feedback_sessions.csv"
 
   def invitation_to_non_existing_user invitation_email_hash
     @email_hash = invitation_email_hash.merge(support_article_link: COTEACHER_SUPPORT_ARTICLE, join_link: new_account_url).stringify_keys
@@ -35,6 +41,11 @@ class UserMailer < ActionMailer::Base
   def password_reset_email user
     @user = user
     mail from: "The Quill Team <hello@quill.org>", to: user.email, subject: 'Reset your Quill password'
+  end
+
+  def email_verification_email(user)
+    @user = user
+    mail from: "The Quill Team <hello@quill.org>", to: user.email, subject: 'Complete your Quill registration'
   end
 
   # Sent when an admin adds a new teacher to one of their schools.
@@ -117,15 +128,15 @@ class UserMailer < ActionMailer::Base
     end_time = date_object.end_of_day
     subject_date = date_object.strftime('%m/%d/%Y')
 
-    teacher_count = User.where(role: "teacher").count
-    new_premium_accounts = User.joins(:user_subscription).where(users: {role: "teacher"}).where(user_subscriptions: {created_at: start_time..end_time}).count
+    teacher_count = User.teacher.count
+    new_premium_accounts = User.teacher.joins(:user_subscription).where(user_subscriptions: {created_at: start_time..end_time}).count
     conversion_rate = new_premium_accounts/teacher_count.to_f
 
     @current_date = date_object.strftime("%A, %B %d")
-    @daily_active_teachers = User.where(role: "teacher").where(last_sign_in: start_time..end_time).size
-    @daily_active_students = User.where(role: "student").where(last_sign_in: start_time..end_time).size
-    @new_teacher_signups = User.where(role: "teacher").where(created_at: start_time..end_time).size
-    @new_student_signups = User.where(role: "student").where(created_at: start_time..end_time).size
+    @daily_active_teachers = User.teacher.where(last_sign_in: start_time..end_time).size
+    @daily_active_students = User.student.where(last_sign_in: start_time..end_time).size
+    @new_teacher_signups = User.teacher.where(created_at: start_time..end_time).size
+    @new_student_signups = User.student.where(created_at: start_time..end_time).size
     @classrooms_created = Classroom.where(created_at: start_time..end_time).size
     @activities_assigned = UnitActivity.where(created_at: start_time..end_time).size
     # Sentences written is quantified by number of activities completed multiplied by 10 because
@@ -140,9 +151,62 @@ class UserMailer < ActionMailer::Base
     mail to: "team@quill.org", subject: "Quill Daily Analytics - #{subject_date}"
   end
 
+  def user_requested_admin_verification_email(user)
+    @user = user
+    @school = @user.school
+
+    geocoder_result = Geocoder.search(@user.ip_address&.to_string).first
+    @location = geocoder_result ? [geocoder_result.city, geocoder_result.state, geocoder_result.country].filter { |str| str && str.present? }.join(', ') : ''
+
+    mail from: 'Quill Admin Verification Bot <hello@quill.org>', to: 'support@quill.org', subject: "#{user.name} requested to be verified as an admin for #{@school.name}"
+  end
+
   def ell_starter_diagnostic_info_email(name, email)
     @name = name
     mail from: "The Quill Team <hello@quill.org>", to: email, subject: "ELL Starter Diagnostic Next Steps"
+  end
+
+  def feedback_history_session_csv_download(email, data)
+    csv = CSV.generate(headers: true) do |csv_body|
+      csv_body << FEEDBACK_HISTORY_CSV_HEADERS
+      data.each do |row|
+        csv_body << [
+          row["datetime"],
+          row["session_uid"],
+          row["conjunction"],
+          row["attempt"],
+          row["optimal"],
+          row['optimal'] || row['attempt'] == DEFAULT_MAX_ATTEMPTS,
+          row["response"],
+          row["feedback"],
+          "#{row['feedback_type']}: #{row['name']}"
+        ]
+      end
+    end
+
+    attachments[FEEDBACK_SESSIONS_CSV_FILENAME] = {mime_type: 'text/csv', content: csv}
+    mail from: "The Quill Team <hello@quill.org>", to: email, subject: FEEDBACK_SESSIONS_CSV_DOWNLOAD
+  end
+
+  def approved_admin_email(user, school_name)
+    @user = user
+    @school_name = school_name
+    mail from: "The Quill Team <hello@quill.org>", to: user.email, subject: "You were approved as an admin of #{school_name}"
+  end
+
+  def denied_admin_email(user, school_name)
+    @user = user
+    @school_name = school_name
+    mail from: "The Quill Team <hello@quill.org>", to: user.email, subject: "We couldn’t verify you as an admin of #{school_name}"
+  end
+
+  private def link_for_setting_password(role)
+    params = {
+      accountType: role,
+      adminFullName: @admin_name,
+      schoolName: @school_name
+    }
+    @set_password_link = "#{ENV['DEFAULT_URL']}/account/#{@user.token}/finish_set_up?#{params.to_query}"
   end
 
 end

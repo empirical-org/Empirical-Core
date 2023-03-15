@@ -1,7 +1,6 @@
 # frozen_string_literal: true
 
 class Teachers::UnitsController < ApplicationController
-  include Units
   include UnitQueries
 
   respond_to :json
@@ -9,7 +8,7 @@ class Teachers::UnitsController < ApplicationController
   before_action :authorize!
 
   def create
-    units_with_same_name = units_with_same_name_by_current_user(params[:unit][:name], current_user.id)
+    units_with_same_name = current_user.units_with_same_name(params[:unit][:name])
     includes_ell_starter_diagnostic = params[:unit][:activities].include?({"id"=>1161})
 
     if units_with_same_name.any?
@@ -128,6 +127,20 @@ class Teachers::UnitsController < ApplicationController
     unit = Unit.find(params[:id])
     unit.update(visible: false)
     ArchiveUnitsClassroomUnitsWorker.perform_async(unit.id)
+    ResetLessonCacheWorker.new.perform(current_user.id)
+    render json: {}
+  end
+
+  def close
+    unit = Unit.find(params[:id])
+    unit.update(open: false)
+    ResetLessonCacheWorker.new.perform(current_user.id)
+    render json: {}
+  end
+
+  def open
+    unit = Unit.find(params[:id])
+    unit.update(open: true)
     ResetLessonCacheWorker.new.perform(current_user.id)
     render json: {}
   end
@@ -270,18 +283,16 @@ class Teachers::UnitsController < ApplicationController
           #{ActiveRecord::Base.connection.quote(teach_own_or_coteach)} AS teach_own_or_coteach,
           unit_owner.name AS owner_name,
           ua.id AS unit_activity_id,
+          units.open AS open,
           CASE
             WHEN unit_owner.id = #{current_user.id} THEN true
             ELSE false
           END AS owned_by_current_user,
-          (
-            SELECT COUNT(DISTINCT user_id)
-            FROM activity_sessions
-            WHERE state = 'started'
-              AND classroom_unit_id = cu.id
-              AND activity_sessions.activity_id = activities.id
-              AND activity_sessions.visible
-          ) AS started_count
+          CASE
+            WHEN count(pack_sequence_items.id) > 0 THEN true
+            ELSE false
+          END AS staggered,
+          COUNT(DISTINCT CASE WHEN act_sesh.state = 'started' AND act_sesh.visible THEN act_sesh.user_id ELSE NULL END) AS started_count
         FROM units
         JOIN classroom_units AS cu
           ON cu.unit_id = units.id
@@ -302,6 +313,8 @@ class Teachers::UnitsController < ApplicationController
         LEFT JOIN classroom_unit_activity_states AS state
           ON state.unit_activity_id = ua.id
           AND state.classroom_unit_id = cu.id
+        LEFT JOIN pack_sequence_items
+          ON cu.id = pack_sequence_items.classroom_unit_id
         WHERE cu.classroom_id IN #{teach_own_or_coteach_string}
           AND classrooms.visible = true
           AND units.visible = true
@@ -309,8 +322,7 @@ class Teachers::UnitsController < ApplicationController
           AND ua.visible = true
           #{lessons}
         GROUP BY
-          units.name,
-          units.created_at,
+          units.id,
           cu.id, classrooms.name,
           classrooms.id,
           activities.name,
@@ -348,123 +360,9 @@ class Teachers::UnitsController < ApplicationController
   end
   # rubocop:enable Metrics/CyclomaticComplexity
 
-  private def diagnostic_unit_records
-    diagnostic_activity_ids = ActivityClassification.find_by_key('diagnostic').activity_ids
-    records = ClassroomsTeacher.select("
-      classrooms.name AS classroom_name,
-      activities.name AS activity_name,
-      activities.id AS activity_id,
-      classroom_units.unit_id AS unit_id,
-      units.name AS unit_name,
-      classrooms.id AS classroom_id,
-      classroom_units.assigned_student_ids AS assigned_student_ids,
-      greatest(unit_activities.created_at, classroom_units.created_at) AS assigned_date,
-      activities.follow_up_activity_id AS post_test_id,
-      classroom_units.id AS classroom_unit_id
-    ")
-    .joins("JOIN classrooms ON classrooms_teachers.classroom_id = classrooms.id AND classrooms.visible = TRUE AND classrooms_teachers.user_id = #{current_user.id}")
-    .joins("JOIN classroom_units ON classroom_units.classroom_id = classrooms.id AND classroom_units.visible")
-    .joins("JOIN units ON classroom_units.unit_id = units.id AND units.visible")
-    .joins("JOIN unit_activities ON unit_activities.unit_id = classroom_units.unit_id AND unit_activities.activity_id IN (#{diagnostic_activity_ids.join(',')}) AND unit_activities.visible")
-    .joins("JOIN activities ON unit_activities.activity_id = activities.id")
-    .group("classrooms.name, activities.name, activities.id, classroom_units.unit_id, classroom_units.id, units.name, classrooms.id, classroom_units.assigned_student_ids, unit_activities.created_at, classroom_units.created_at")
-    .order(Arel.sql("classrooms.name, greatest(classroom_units.created_at, unit_activities.created_at) DESC"))
-
-    records.map do |r|
-      {
-        "assigned_student_ids" => r['assigned_student_ids'] || [],
-        "classroom_name" => r['classroom_name'],
-        "activity_name" => r['activity_name'],
-        "activity_id" => r['activity_id'],
-        "unit_id" => r['unit_id'],
-        "unit_name" => r['unit_name'],
-        "classroom_id" => r['classroom_id'],
-        "assigned_date" => r['assigned_date'],
-        "post_test_id" => r['post_test_id'],
-        "classroom_unit_id" => r['classroom_unit_id']
-      }
-    end
-  end
-
   private def fetch_diagnostic_units_cache
     current_user.all_classrooms_cache(key: 'teachers.classrooms.diagnostic_units') do
-      diagnostics_organized_by_classroom
+      DiagnosticsOrganizedByClassroomFetcher.run(current_user)
     end
   end
-
-  # rubocop:disable Metrics/CyclomaticComplexity
-  private def diagnostics_organized_by_classroom
-    classrooms = []
-    diagnostic_records = diagnostic_unit_records
-    post_test_ids = diagnostic_records.map { |r| r['post_test_id'] }.compact
-    diagnostic_records.each do |record|
-      next if post_test_ids.include?(record['activity_id'])
-
-      index_of_existing_classroom = classrooms.find_index { |c| c['id'] == record['classroom_id'] }
-      name = grouped_name(record)
-
-      next if record['post_test_id'] && index_of_existing_classroom && classrooms[index_of_existing_classroom]['diagnostics'].find { |diagnostic| diagnostic[:name] == name }
-
-      grouped_record = {
-        name: name,
-        pre: record
-      }
-
-      if record['post_test_id']
-        post_test = record_with_aggregated_activity_sessions(diagnostic_records, record['post_test_id'], record['classroom_id'], record['activity_id'])
-        grouped_record[:post] = post_test || { activity_name: Activity.find_by_id(record['post_test_id'])&.name, unit_template_id: ActivitiesUnitTemplate.find_by_activity_id(record['post_test_id'])&.unit_template_id }
-        grouped_record[:pre] = record_with_aggregated_activity_sessions(diagnostic_records, record['activity_id'], record['classroom_id'], nil)
-      else
-        grouped_record[:pre]['completed_count'] = ActivitySession.select(:user_id).distinct.where(activity_id: record['activity_id'], classroom_unit_id: record['classroom_unit_id'], state: 'finished', user_id: record['assigned_student_ids']).size
-        grouped_record[:pre]['assigned_count'] = record['assigned_student_ids'].size
-      end
-      if index_of_existing_classroom
-        classrooms[index_of_existing_classroom]['diagnostics'].push(grouped_record)
-        next
-      end
-      classroom = {
-        "name" => record['classroom_name'],
-        "id" => record['classroom_id'],
-        "diagnostics" => [grouped_record]
-      }
-      classrooms.push(classroom)
-    end
-    classrooms.to_json
-  end
-  # rubocop:enable Metrics/CyclomaticComplexity
-
-  # rubocop:disable Metrics/CyclomaticComplexity
-  private def record_with_aggregated_activity_sessions(diagnostic_records, activity_id, classroom_id, pre_test_activity_id)
-    records = diagnostic_records.select { |record| record['activity_id'] == activity_id && record['classroom_id'] == classroom_id }
-    return if records.empty?
-
-    classroom_unit_ids = records.map { |record| record['classroom_unit_id'] }
-    assigned_student_ids = records.map { |r| r['assigned_student_ids'] }.flatten.uniq
-    activity_sessions = ActivitySession
-      .where(activity_id: activity_id, classroom_unit_id: classroom_unit_ids, state: 'finished', user_id: assigned_student_ids)
-      .order(completed_at: :desc)
-      .uniq { |activity_session| activity_session.user_id }
-    record = records[0]
-    return if !record
-
-    record['completed_count'] = activity_sessions.size
-    record['assigned_count'] = assigned_student_ids.size
-    record.except('unit_id', 'unit_name', 'classroom_unit_id', 'assigned_student_ids')
-  end
-  # rubocop:enable Metrics/CyclomaticComplexity
-
-  private def grouped_name(record)
-    activity_ids_to_names = {
-      Activity::STARTER_DIAGNOSTIC_ACTIVITY_ID => 'Starter Diagnostic',
-      Activity::INTERMEDIATE_DIAGNOSTIC_ACTIVITY_ID => 'Intermediate Diagnostic',
-      Activity::ADVANCED_DIAGNOSTIC_ACTIVITY_ID => 'Advanced Diagnostic',
-      Activity::ELL_STARTER_DIAGNOSTIC_ACTIVITY_ID => 'ELL Starter Diagnostic',
-      Activity::ELL_INTERMEDIATE_DIAGNOSTIC_ACTIVITY_ID => 'ELL Intermediate Diagnostic',
-      Activity::ELL_ADVANCED_DIAGNOSTIC_ACTIVITY_ID => 'ELL Advanced Diagnostic'
-    }
-
-    activity_id = record['activity_id']
-    activity_ids_to_names[activity_id] || record['activity_name']
-  end
-
 end

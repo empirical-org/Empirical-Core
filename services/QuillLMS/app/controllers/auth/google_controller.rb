@@ -86,7 +86,9 @@ class Auth::GoogleController < ApplicationController
     @user = GoogleIntegration::User.new(@profile).update_or_initialize
 
     update_role_from_sales_contact
+    update_role_from_individual_contributor
     show_user_not_found_if_necessary
+    verify_email_if_necessary
   end
 
   private def in_sign_up_flow?
@@ -99,6 +101,16 @@ class Auth::GoogleController < ApplicationController
     return unless @user.sales_contact? && in_sign_up_flow?
 
     @user.update(role: session[:role])
+  end
+
+  private def verify_email_if_necessary
+    @user.verify_email(UserEmailVerification::GOOGLE_VERIFICATION) if @user.email_verification_pending?
+  end
+
+  private def update_role_from_individual_contributor
+    return unless in_sign_up_flow? && session[:role] == User::INDIVIDUAL_CONTRIBUTOR
+
+    @user.update(role: User::TEACHER)
   end
 
   private def show_user_not_found_if_necessary
@@ -134,6 +146,8 @@ class Auth::GoogleController < ApplicationController
   private def save_teacher_from_google_signup
     return unless @user.new_record? && @user.teacher?
 
+    success_redirect_path = @user.admin? ? '/sign-up/select-sub-role' : '/sign-up/add-k12'
+
     @js_file = 'session'
 
     if @user.save
@@ -141,7 +155,7 @@ class Auth::GoogleController < ApplicationController
       @teacher_from_google_signup = true
 
       sign_in(@user)
-      return redirect_to '/sign-up/add-k12'
+      return redirect_to success_redirect_path
     else
       @teacher_from_google_signup = false
       flash.now[:error] = @user.errors.full_messages.join(', ')
@@ -149,4 +163,5 @@ class Auth::GoogleController < ApplicationController
 
     render 'accounts/new'
   end
+
 end

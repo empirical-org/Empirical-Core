@@ -38,13 +38,11 @@ describe DistrictAdmin, type: :model, redis: true do
     let(:attach_school_to_district) { create(:school, district: district) }
 
     it { expect { attach_school_to_district }.to change(SchoolsAdmins, :count).from(0).to(1) }
-    it { expect { attach_school_to_district }.to change(NewAdminEmailWorker.jobs, :size).by(1) }
 
     context 'school is already attached' do
       before { attach_school_to_district }
 
       it { expect { district_admin.attach_schools }.to not_change(SchoolsAdmins, :count) }
-      it { expect { district_admin.attach_schools }.to not_change(NewAdminEmailWorker.jobs, :size) }
     end
   end
 

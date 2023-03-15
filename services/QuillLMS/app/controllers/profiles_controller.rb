@@ -6,7 +6,9 @@ class ProfilesController < ApplicationController
   def show
     @user = current_user
 
-    if current_user.student?
+    if current_user.email_verification_pending?
+      redirect_to '/sign-up/verify-email'
+    elsif current_user.student?
       @js_file = 'student'
       if current_user.classrooms.any?
         # in the future, we could use the following sql query to direct the student
@@ -55,12 +57,14 @@ class ProfilesController < ApplicationController
     render json: {classrooms: students_classrooms_with_join_info}
   end
 
+  def admin
+    return redirect_to dashboard_teachers_classrooms_path if admin_impersonating_user?(@user)
+
+    redirect_to teachers_admin_dashboard_path
+  end
+
   def teacher
-    if @user.schools_admins.any? && !admin_impersonating_user?(@user)
-      redirect_to teachers_admin_dashboard_path
-    else
-      redirect_to dashboard_teachers_classrooms_path
-    end
+    redirect_to dashboard_teachers_classrooms_path
   end
 
   def staff

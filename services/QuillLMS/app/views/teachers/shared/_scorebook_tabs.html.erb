@@ -11,12 +11,12 @@
 
         <% if current_user.admin? && !admin_impersonating_user?(current_user) %>
           <li class="admin-tab <%= 'active' if admin_page_should_be_active? %>">
-            <%= link_to 'School Dashboard', teachers_admin_dashboard_path, role: 'tab' %>
+            <%= link_to 'Admin Dashboard', teachers_admin_dashboard_path, role: 'tab' %>
           </li>
         <% end %>
 
         <li class="<%= 'active' if classes_page_should_be_active? %>">
-          <%= link_to 'Classes', teachers_classrooms_path %>
+          <%= link_to 'My Classes', teachers_classrooms_path %>
         </li>
 
         <li class="<%= 'active' if assign_activity_page_should_be_active? %>">
@@ -28,7 +28,7 @@
         </li>
 
         <li class="<%= 'active' if student_reports_page_should_be_active? %>" id="student-reports-link">
-          <%= link_to raw("<span class='hide-on-mobile'>Student </span>Reports"), teachers_progress_reports_landing_page_path %>
+          <%= link_to raw("<span class='hide-on-mobile'>My Student </span>Reports"), teachers_progress_reports_landing_page_path %>
         </li>
 
         <% unless current_user.premium_state == 'paid' %>
@@ -51,6 +51,9 @@
             <% end %>
             <li><%= active_link_to 'My Account', teachers_my_account_path %></li>
             <li><%= active_link_to 'My Subscriptions', subscriptions_path %></li>
+            <% if should_show_admin_access_tab? %>
+              <li><%= active_link_to 'Admin Access', admin_access_index_path %></li>
+            <% end %>
           <% end %>
 
           <% if classes_page_should_be_active? %>

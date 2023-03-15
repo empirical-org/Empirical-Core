@@ -74,13 +74,40 @@ class ActivitiesController < ApplicationController
   def activity_session
     return redirect_to profile_path unless current_user.student?
 
-    if authorized_activity_access?
-      redirect_to activity_session_from_classroom_unit_and_activity_path(classroom_unit, activity)
+    if classroom_unit.unit.closed?
+      flash[:error] = t('activity_link.errors.activity_belongs_to_closed_pack')
+      flash.keep(:error)
+      redirect_to classes_path
+    elsif authorized_activity_access?
+      if activity.locked_user_pack_sequence_item?(current_user)
+        flash[:error] = t('activity_link.errors.user_pack_sequence_item_locked')
+        flash.keep(:error)
+        redirect_to classes_path
+      else
+        redirect_to activity_session_from_classroom_unit_and_activity_path(classroom_unit, activity)
+      end
     else
       flash[:error] = t('activity_link.errors.activity_not_assigned')
       flash.keep(:error)
       redirect_to classes_path
     end
+  end
+
+  def suggested_activities
+    render json: { activities: current_user.teaches_eighth_through_twelfth? ? calculate_selected_activities : [] }
+  end
+
+  def calculate_selected_activities
+    selected_activities = Activity.evidence.production
+
+    case current_user.flagset
+    when Flags::EVIDENCE_BETA2
+      selected_activities = selected_activities.or(Activity.evidence.evidence_beta2)
+    when Flags::EVIDENCE_BETA1
+      selected_activities = selected_activities.or(Activity.evidence.evidence_beta2).or(Activity.evidence.evidence_beta1)
+    end
+
+    selected_activities.map(&:serialize_with_topics_and_publication_date).sort_by{|a| Date.strptime(a[:publication_date],"%m/%d/%Y")}.reverse!
   end
 
   private def authorized_activity_access?

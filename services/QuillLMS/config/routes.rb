@@ -1,6 +1,7 @@
 # frozen_string_literal: true
 
 require 'sidekiq/web'
+require 'sidekiq/pro/web'
 require 'staff_constraint'
 
 EmpiricalGrammar::Application.routes.draw do
@@ -21,18 +22,32 @@ EmpiricalGrammar::Application.routes.draw do
   get '/study', to: "students#index"
   get '/classes', to: "students#index"
 
+  get '/school_for_current_user', to: 'schools_users#school_for_current_user'
+
   resources :admins, only: [:show], format: 'json' do
-    resources :teachers, only: [:index, :create]
+    member do
+      get :admin_info
+    end
   end
 
   # for admins to sign in as teachers
   resources :users do
     member do
+      post :admin_resend_login_details, to: 'admins#resend_login_details'
+      post :admin_remove_as_admin, to: 'admins#remove_as_admin'
+      post :admin_make_admin, to: 'admins#make_admin'
+      post :admin_unlink_from_school, to: 'admins#unlink_from_school'
+      post :approve_admin_request, to: 'admins#approve_admin_request'
+      post :deny_admin_request, to: 'admins#deny_admin_request'
       get :admin_sign_in_classroom_manager, to: 'admins#sign_in_classroom_manager'
       get :admin_sign_in_progress_reports, to: 'admins#sign_in_progress_reports'
       get :admin_sign_in_account_settings, to: 'admins#sign_in_account_settings'
     end
   end
+
+  post 'admins/:id/create_and_link_accounts', to: 'admins#create_and_link_accounts'
+
+  get '/sitemap.xml', to: redirect("https://quill-cdn.s3.amazonaws.com/documents/quill_sitemap.xml")
 
   # this blog post needs to be redirected
   get '/teacher-center/4-tips-to-maximize-remote-learning-with-quill' => redirect('teacher-center/teacher-toolbox-setting-up-remote-routines-with-quill')
@@ -65,6 +80,7 @@ EmpiricalGrammar::Application.routes.draw do
   end
 
   post 'rate_blog_post', to: 'blog_post_user_ratings#create'
+  get 'featured_blog_post/:id', to: 'blog_posts#featured_blog_post'
 
   resources :student_feedback_responses, only: [:create]
 
@@ -102,6 +118,12 @@ EmpiricalGrammar::Application.routes.draw do
   resources :assignments
   resource :profile
   resources :password_reset
+  resources :verify_emails, only: [] do
+    post :verify_by_staff, on: :collection, format: :json
+    put :resend_verification_email, on: :collection, format: :json
+    post :require_email_verification, on: :collection, format: :json
+    put :verify_by_token, on: :collection, format: :json
+  end
   resources :schools, only: [:index], format: 'json'
   resources :students_classrooms, only: :create do
     collection do
@@ -140,6 +162,7 @@ EmpiricalGrammar::Application.routes.draw do
     post :retry, on: :member
     get :search, on: :collection
     get :index_with_unit_templates, on: :collection
+    get :suggested_activities, on: :collection
   end
 
   resources :milestones, only: [] do
@@ -164,6 +187,16 @@ EmpiricalGrammar::Application.routes.draw do
 
   resources :teacher_infos, only: [:create] do
     put :update, on: :collection
+  end
+
+  resources :admin_infos, only: [] do
+    put :update, on: :collection
+  end
+
+  resources :admin_access, only: [:index] do
+    post :upgrade_to_admin, on: :collection
+    post :request_upgrade_to_admin_from_existing_admins, on: :collection
+    post :invite_admin, on: :collection
   end
 
   get 'grades/tooltip/classroom_unit_id/:classroom_unit_id/user_id/:user_id/activity_id/:activity_id/completed/:completed' => 'grades#tooltip'
@@ -265,6 +298,8 @@ EmpiricalGrammar::Application.routes.draw do
     put 'update_my_password' => 'classroom_manager#update_my_password'
     post 'clear_data/:id' => 'classroom_manager#clear_data'
     put 'units/:id/hide' => 'units#hide', as: 'hide_units_path'
+    put 'units/:id/close' => 'units#close', as: 'close_units_path'
+    put 'units/:id/open' => 'units#open', as: 'open_units_path'
     get 'progress_reports/landing_page' => 'progress_reports#landing_page'
     get 'progress_reports/activities_scores_by_classroom' => 'progress_reports#activities_scores_by_classroom'
     get 'progress_reports/real_time' => 'progress_reports#real_time'
@@ -294,8 +329,11 @@ EmpiricalGrammar::Application.routes.draw do
       get 'diagnostic_activity_ids' => 'diagnostic_reports#diagnostic_activity_ids'
       get 'activity_with_recommendations_ids' => 'diagnostic_reports#activity_with_recommendations_ids'
       get 'previously_assigned_recommendations/:classroom_id/activity/:activity_id' => 'diagnostic_reports#previously_assigned_recommendations'
+      get 'student_ids_for_previously_assigned_activity_pack/:classroom_id/activity_pack/:activity_pack_id' => 'diagnostic_reports#student_ids_for_previously_assigned_activity_pack'
       get 'report_from_unit_and_activity/u/:unit_id/a/:activity_id' => 'diagnostic_reports#redirect_to_report_for_most_recent_activity_session_associated_with_activity_and_unit'
-      post 'assign_selected_packs' => 'diagnostic_reports#assign_selected_packs'
+      post 'assign_independent_practice_packs' => 'diagnostic_reports#assign_independent_practice_packs'
+      post 'assign_post_test' => 'diagnostic_reports#assign_post_test'
+      post 'assign_whole_class_instruction_packs' => 'diagnostic_reports#assign_whole_class_instruction_packs'
 
       namespace :concepts do
         resources :students, only: [:index] do
@@ -417,7 +455,7 @@ EmpiricalGrammar::Application.routes.draw do
       get 'rule_feedback_history/:rule_uid' => 'rule_feedback_histories#rule_detail'
       get 'prompt_health' => 'rule_feedback_histories#prompt_health'
       get 'activity_health' => 'rule_feedback_histories#activity_health'
-      get 'session_data_for_csv' => 'session_feedback_histories#session_data_for_csv'
+      post 'email_csv_data' => 'session_feedback_histories#email_csv_data'
 
       resources :activities,              except: [:index, :new, :edit]
       resources :activity_flags,          only: [:index]
@@ -530,8 +568,13 @@ EmpiricalGrammar::Application.routes.draw do
   get 'account/:token/finish_set_up', to: 'accounts#edit'
   put 'account/:token', to: 'accounts#update'
 
+  get '/sign-up/verify-school', to: 'accounts#new'
+  get '/sign-up/verify-email', to: 'accounts#new'
+  get '/sign-up/select-sub-role', to: 'accounts#new'
+  get '/sign-up/admin', to: 'accounts#new'
   get '/sign-up/teacher', to: 'accounts#new'
   get '/sign-up/student', to: 'accounts#new'
+  get '/sign-up/individual-contributor', to: 'accounts#new'
   get '/sign-up/pick-school-type', to: 'accounts#new'
   get '/sign-up/add-k12', to: 'accounts#new'
   get '/sign-up/add-non-k12', to: 'accounts#new'
@@ -582,6 +625,11 @@ EmpiricalGrammar::Application.routes.draw do
     resources :rosters, only: [:index] do
       post :upload_teachers_and_students, on: :collection
     end
+    resources :admin_verification, only: [:index] do
+      put :set_approved, on: :collection
+      put :set_denied, on: :collection
+      put :set_pending, on: :collection
+    end
     resources :standard_levels, only: [:index, :create, :update]
     resources :standards, only: [:index, :create, :update]
     resources :content_partners, only: [:index, :create, :update]
@@ -631,6 +679,7 @@ EmpiricalGrammar::Application.routes.draw do
         post :add_existing_user_by_email
         post :unlink
       end
+      resources :school_admins, only: [:create]
     end
 
     resources :districts do
@@ -727,6 +776,9 @@ EmpiricalGrammar::Application.routes.draw do
     get "tutorials/#{tool}/:slide_number" => "pages#tutorials"
   end
 
+  get 'premium/request-school-quote' => 'pages#request_school_quote'
+  get 'premium/request-district-quote' => 'pages#request_district_quote'
+
   get 'teacher_fix' => 'teacher_fix#index'
   get 'teacher_fix/unarchive_units' => 'teacher_fix#index'
   get 'teacher_fix/merge_student_accounts' => 'teacher_fix#index'
@@ -743,6 +795,7 @@ EmpiricalGrammar::Application.routes.draw do
   get 'teacher_fix/remove_unsynced_students' => 'teacher_fix#index'
   get 'teacher_fix/list_unsynced_students_by_classroom'
   get 'teacher_fix/archived_units' => 'teacher_fix#archived_units'
+  get 'teacher_fix/recalculate_staggered_release_locks' => 'teacher_fix#index'
   post 'teacher_fix/recover_classroom_units' => 'teacher_fix#recover_classroom_units'
   post 'teacher_fix/recover_unit_activities' => 'teacher_fix#recover_unit_activities'
   post 'teacher_fix/recover_activity_sessions' => 'teacher_fix#recover_activity_sessions'
@@ -756,6 +809,7 @@ EmpiricalGrammar::Application.routes.draw do
   post 'teacher_fix/merge_activity_packs' => 'teacher_fix#merge_activity_packs'
   post 'teacher_fix/delete_last_activity_session' => 'teacher_fix#delete_last_activity_session'
   post 'teacher_fix/remove_unsynced_students' => 'teacher_fix#remove_unsynced_students'
+  post 'teacher_fix/recalculate_staggered_release_locks' => 'teacher_fix#recalculate_staggered_release_locks'
 
   get 'activities/section/:section_id', to: redirect('activities/standard_level/%{section_id}')
   get 'activities/standard_level/:standard_level_id' => 'pages#activities', as: "activities_section"
@@ -821,7 +875,7 @@ EmpiricalGrammar::Application.routes.draw do
   # Uptime status
   resource :status, only: [] do
     collection do
-      get :index, :database, :database_write, :database_follower, :redis_cache, :redis_queue, :sidekiq_queue_length
+      get :index, :database, :database_write, :database_follower, :redis_cache, :redis_queue, :sidekiq_queue_latency, :sidekiq_queue_length
       post :deployment_notification
     end
   end

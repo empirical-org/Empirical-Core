@@ -57,6 +57,27 @@ module SegmentIo
     SCHOOL_SUB_WILL_EXPIRE_IN_30 = 'School Premium Expires in 30 Days | Automatic Renewal Off'
     TEACHER_SUB_WILL_EXPIRE_IN_14 = 'Teacher Premium Expires in 14 Days | Automatic Renewal Off'
     SCHOOL_SUB_WILL_EXPIRE_IN_14 = 'School Premium Expires in 14 Days | Automatic Renewal Off'
+    # admin users
+    ADMIN_CREATED_TEACHER_ACCOUNT = 'Admin created a teacher account'
+    ADMIN_CREATED_SCHOOL_ADMIN_ACCOUNT = 'Admin created a school admin account'
+    ADMIN_SENT_LINK_REQUEST = 'Admin sent a link request to teacher'
+    ADMIN_MADE_EXISTING_USER_SCHOOL_ADMIN = 'Admin made an existing user a school admin'
+    STAFF_CREATED_SCHOOL_ADMIN_ACCOUNT = 'Quill team member created a school admin account'
+    STAFF_MADE_EXISTING_USER_SCHOOL_ADMIN = 'Quill team member made an existing user a school admin'
+    STAFF_CREATED_DISTRICT_ADMIN_ACCOUNT = 'Quill team member created a district admin account'
+    STAFF_MADE_EXISTING_USER_DISTRICT_ADMIN = 'Quill team member made an existing user district admin'
+    # teacher requested admin upgrade from existing admins
+    ADMIN_RECEIVED_ADMIN_UPGRADE_REQUEST_FROM_TEACHER = "Admin received request from teacher to become admin"
+    TEACHER_REQUESTED_TO_BECOME_ADMIN = "Teacher requested to become admin"
+    TEACHER_APPROVED_TO_BECOME_ADMIN = "Teacher’s request to become admin approved"
+    TEACHER_DENIED_TO_BECOME_ADMIN = "Teacher’s request to become admin denied"
+    # teacher invited admin
+    ADMIN_INVITED_BY_TEACHER = "Admin invited by teacher"
+    TEACHER_INVITED_ADMIN = "Teacher invited admin"
+  end
+
+  module Properties
+    STAFF_USER = "The Quill Team"
   end
 
   module Events

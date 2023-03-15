@@ -8,7 +8,7 @@
 
     <section class='bg-quillblue tool-hero text-center tool-section'>
       <h1 class="q-h1">
-          <img class="tool-page-icon lazyload" data-src='/images/quill_proofreader_white.svg'>Quill Proofreader
+          <img class="tool-page-icon lazyload" loading="lazy" src='/images/quill_proofreader_white.svg'>Quill Proofreader
       </h1>
       <p class='description'>
         Proofreader teaches your students editing skills by having them proofread passages. Students edit passages and receive personalized exercises based on their results. With over 100 expository passages, Proofreader gives students the practice they need to spot common grammatical errors.
@@ -22,7 +22,7 @@
     </section>
 
     <section class="tool-animation-section " id="overview">
-          <video class='tool-animation lazyload' data-src="/videos/proofreader.mp4" autoplay loop/>
+          <video class='tool-animation lazy' data-src=<%= "#{ENV['CDN_URL']}/videos/tools/proofreader.mp4" %> autoplay loop/>
     </section>
 
   <section class="tool-carousel" id="walkthrough">
@@ -37,28 +37,28 @@
           <div class="carousel-inner" role="listbox">
               <div class="item active">
                 <div class="wrapper">
-                  <img class="lazyload" data-src="/images/tools/Proofreader1.png" alt="Chania">
+                  <img class="lazyload" loading="lazy" src=<%="#{ENV['CDN_URL']}/images/tools/Proofreader1.webp"%> alt="Chania">
                 </div>
                 <p>In Quill Proofreader, students are tasked with finding and correcting grammatical errors embedded within a passage. In this exercise on Ernest Shackleton, students have to find and correct 11 errors.</p>
               </div>
 
               <div class="item">
                 <div class="wrapper">
-                  <img class="lazyload" data-src="/images/tools/Proofreader2.png" alt="Chania">
+                  <img class="lazyload" loading="lazy" src=<%="#{ENV['CDN_URL']}/images/tools/Proofreader2.png"%> alt="Chania">
                 </div>
                 <p>Students are provided instant feedback on their work once they’ve completed the proofreading. The errors the student missed are highlighted in red, while the errors the student caught are highlighted in green.</p>
               </div>
 
               <div class="item">
                 <div class="wrapper">
-                  <img class="lazyload" data-src="/images/tools/Proofreader3.png" alt="Flower">
+                  <img class="lazyload" loading="lazy" src=<%="#{ENV['CDN_URL']}/images/tools/Proofreader3.png"%> alt="Flower">
                 </div>
                 <p>Teachers can use their scorebook report to quickly see which concepts the student mastered and which ones the student needs to practice.</p>
               </div>
 
               <div class="item">
                 <div class="wrapper">
-                  <img class="lazyload" data-src="/images/tools/Proofreader4.png" alt="Flower">
+                  <img class="lazyload" loading="lazy" src="/images/tools/Proofreader4.png" alt="Flower">
                 </div>
                 <p>Teachers may access, for free, over 100 expository passages.</p>
               </div>
@@ -89,7 +89,7 @@
   </section>
 
   <section class="tool-testimonial" id="testimonial">
-    <!-- <img class='q-headshot' class="lazyload" data-src="/images/stephanie_90.png" alt="Daniel Scibienski"> -->
+    <!-- <img class='q-headshot' class="lazyload" loading="lazy" src="/images/stephanie_90.png" alt="Daniel Scibienski"> -->
     <p class='quote'>
       “Students are eager to use the program and are quick to celebrate getting a 'green square,' denoting that they have passed an assigned skill.”
     </p>
@@ -121,8 +121,4 @@
 
 </div>
 
-<% if current_user %>
-  <%= render partial: 'footer' %>
-<% else %>
-  <%= render partial: 'pages/shared/footer' %>
-<% end %>
+<%= render partial: 'pages/shared/footer' %>

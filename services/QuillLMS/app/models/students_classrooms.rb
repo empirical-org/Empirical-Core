@@ -31,18 +31,37 @@ class StudentsClassrooms < ApplicationRecord
     if: proc { |sc| sc.archived? && sc.student && sc.classroom },
     unless: :skip_archive_student_associations
 
+  after_update :save_user_pack_sequence_items, if: :saved_change_to_visible?
+
   after_commit :invalidate_classroom_minis
 
-  default_scope { where(visible: true)}
+  default_scope { where(visible: true) }
 
   attr_accessor :skip_archive_student_associations
 
   def archived_classrooms_manager
-    {joinDate: created_at.strftime("%m/%d/%Y"), className: classroom.name, teacherName: classroom.owner.name, id: id}
+    {
+      className: classroom.name,
+      id: id,
+      joinDate: created_at.strftime("%m/%d/%Y"),
+      teacherName: classroom.owner.name
+    }
   end
 
   def archive_student_associations_for_classroom
+    return if skip_archive_student_associations
+
     ArchiveStudentAssociationsForClassroomWorker.perform_async(student_id, classroom_id)
+  end
+
+  def save_user_pack_sequence_items
+    SaveUserPackSequenceItemsWorker.perform_async(classroom_id, student_id)
+  end
+
+  def validate_assigned_student
+    classroom
+      &.classroom_units
+      &.each { |classroom_unit| classroom_unit.validate_assigned_student(student_id) }
   end
 
   private def run_associator

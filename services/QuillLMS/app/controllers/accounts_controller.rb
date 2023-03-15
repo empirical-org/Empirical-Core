@@ -15,7 +15,7 @@ class AccountsController < ApplicationController
 
   def role
     role = params[:role]
-    session[:role] = role if ['student', 'teacher'].include? role
+    session[:role] = role if User::ONBOARDING_ROLES.include? role
     render json: {}
   end
 

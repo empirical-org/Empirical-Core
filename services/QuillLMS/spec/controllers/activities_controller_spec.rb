@@ -107,6 +107,32 @@ describe ActivitiesController, type: :controller, redis: true do
         subject
         expect(response).to redirect_to activity_session_from_classroom_unit_and_activity_path(classroom_unit, activity)
       end
+
+      context 'check for locked user_pack_sequence_item' do
+        before do
+          allow(Activity).to receive(:find_by_id_or_uid).with(activity.id.to_s).and_return(activity)
+          allow(activity).to receive(:locked_user_pack_sequence_item?).and_return(locked)
+        end
+
+        context 'activity is locked' do
+          let(:locked) { true }
+
+          it 'redirects and raises an error' do
+            subject
+            expect(response).to redirect_to classes_path
+            expect(flash[:error]).to match I18n.t('activity_link.errors.user_pack_sequence_item_locked')
+          end
+        end
+
+        context 'activity is unlocked' do
+          let(:locked) { false }
+
+          it 'redirects the appropriate activity session' do
+            subject
+            expect(response).to redirect_to activity_session_from_classroom_unit_and_activity_path(classroom_unit, activity)
+          end
+        end
+      end
     end
 
     context 'student is not assigned to classroom_unit' do
@@ -114,6 +140,15 @@ describe ActivitiesController, type: :controller, redis: true do
         subject
         expect(response).to redirect_to classes_path
         expect(flash[:error]).to match I18n.t('activity_link.errors.activity_not_assigned')
+      end
+    end
+
+    context 'unit is closed' do
+      it 'redirects and raises an error' do
+        classroom_unit.unit.update(open: false)
+        subject
+        expect(response).to redirect_to classes_path
+        expect(flash[:error]).to match I18n.t('activity_link.errors.activity_belongs_to_closed_pack')
       end
     end
 
@@ -129,9 +164,83 @@ describe ActivitiesController, type: :controller, redis: true do
     context 'unit activity does not exist' do
       let(:another_activity) { create(:activity) }
 
-      it 'redirects to the classrooms page' do
+      it 'redirects and raises an error' do
         get :activity_session, params: { id: another_activity.id, classroom_unit_id: classroom_unit.id }
         expect(response).to redirect_to classes_path
+        expect(flash[:error]).to match I18n.t('activity_link.errors.activity_not_assigned')
+      end
+    end
+  end
+
+  describe '#suggested_activities' do
+    let!(:production_activity1) { create(:evidence_activity, flags: [Flags::PRODUCTION])}
+    let!(:production_activity2) { create(:evidence_activity, flags: [Flags::PRODUCTION])}
+    let!(:beta2_activity) { create(:evidence_activity, flags: [Flags::EVIDENCE_BETA2])}
+    let!(:beta1_activity) { create(:evidence_activity, flags: [Flags::EVIDENCE_BETA1])}
+    let(:teacher_info) { create(:teacher_info, minimum_grade_level: 9, maximum_grade_level: 12)}
+    let(:user) { create(:user, flagset: Flags::PRODUCTION, teacher_info: teacher_info)}
+
+    before do
+      Evidence::Activity.create(parent_activity_id: production_activity1.id, notes: "notes", title: "title")
+      Evidence::Activity.create(parent_activity_id: production_activity2.id, notes: "notes", title: "title")
+      Evidence::Activity.create(parent_activity_id: beta1_activity.id, notes: "notes", title: "title")
+      Evidence::Activity.create(parent_activity_id: beta2_activity.id, notes: "notes", title: "title")
+      allow(controller).to receive(:current_user) { user }
+    end
+
+    context 'when user is flagged production' do
+      it 'should return all production evidence activities' do
+        get :suggested_activities
+        parsed_response = JSON.parse(response.body)
+        expect(parsed_response["activities"].size).to eq(2)
+        expect([parsed_response["activities"][0]["id"], parsed_response["activities"][1]["id"]]).to match_array([production_activity1.id, production_activity2.id])
+      end
+    end
+
+    context 'when user is flagged evidence beta 1' do
+      it 'should return all production, evidence beta 2 and evidence beta 1 evidence activities' do
+        user.update(flagset: Flags::EVIDENCE_BETA1)
+        get :suggested_activities
+        parsed_response = JSON.parse(response.body)
+        expect(parsed_response["activities"].size).to eq(4)
+        expect(
+          [
+            parsed_response["activities"][0]["id"],
+            parsed_response["activities"][1]["id"],
+            parsed_response["activities"][2]["id"],
+            parsed_response["activities"][3]["id"]
+          ]
+        ).to match_array(
+          [
+            production_activity1.id,
+            production_activity2.id,
+            beta1_activity.id,
+            beta2_activity.id
+          ]
+        )
+      end
+    end
+
+    context 'when user is flagged evidence beta 2' do
+
+      it 'should return all production and evidence beta 2 evidence activities' do
+        user.update(flagset: Flags::EVIDENCE_BETA2)
+        get :suggested_activities
+        parsed_response = JSON.parse(response.body)
+        expect(parsed_response["activities"].size).to eq(3)
+        expect(
+          [
+            parsed_response["activities"][0]["id"],
+            parsed_response["activities"][1]["id"],
+            parsed_response["activities"][2]["id"]
+          ]
+        ).to match_array(
+          [
+            production_activity1.id,
+            production_activity2.id,
+            beta2_activity.id
+          ]
+        )
       end
     end
   end

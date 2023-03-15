@@ -3,7 +3,7 @@
 class Cms::SchoolsController < Cms::CmsController
   before_action :signed_in!
   before_action :text_search_inputs, only: [:index, :search]
-  before_action :set_school, only: [:new_subscription, :edit_subscription, :show, :complete_sales_stage]
+  before_action :set_school, only: [:new_subscription, :edit_subscription, :show, :complete_sales_stage, :new_admin]
   before_action :subscription_data, only: [:new_subscription, :edit_subscription]
 
   SCHOOLS_PER_PAGE = 30.0
@@ -99,7 +99,10 @@ class Cms::SchoolsController < Cms::CmsController
   end
 
   def new_admin
-    @school = School.find(params[:id])
+    id = params[:id]
+    @js_file = 'staff'
+    @style_file = 'staff'
+    @cms_school_path = cms_school_path(id)
   end
 
   def add_existing_user
@@ -122,7 +125,7 @@ class Cms::SchoolsController < Cms::CmsController
   def add_existing_user_by_email
     begin
       user = User.find_by!(email: params[:email_address])
-      raise ArgumentError if user.role != 'teacher'
+      raise ArgumentError unless user.teacher?
 
       school = School.find_by!(id: params[:id])
       SchoolsUsers.where(user: user).destroy_all
@@ -244,8 +247,15 @@ class Cms::SchoolsController < Cms::CmsController
 
   private def where_query_string_builder
     conditions = [
-      "(subscriptions.expiration IS NULL OR subscriptions.expiration > '#{Date.current}')",
-      "subscriptions.de_activated_date IS NULL"
+      "(
+        subscriptions.expiration IS NULL OR
+        (subscriptions.expiration, schools.id) IN (
+          SELECT max(subscriptions.expiration), school_subscriptions.school_id
+          FROM subscriptions
+          INNER JOIN school_subscriptions ON subscriptions.id = school_subscriptions.subscription_id
+          GROUP BY school_subscriptions.school_id
+        )
+      )"
     ]
     # This converts all of the search inputs into strings so we can iterate
     # over them and grab the value from params. The weird ternary here is in

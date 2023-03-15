@@ -11,11 +11,19 @@
   max-width: $sitewidepagewidth;
   margin: auto;
   padding-top: 30px;
-  padding-bottom: 180px;
 
   &.data-export, &.concept-student-concepts {
     .ReactTable .rt-td.show-overflow {
       white-space: pre-wrap;
+    }
+  }
+  .admin-standards {
+    .rt-td {
+      span {
+        &.show-overflow {
+          white-space: pre-wrap;
+        }
+      }
     }
   }
 

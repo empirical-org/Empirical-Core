@@ -1,6 +1,7 @@
 @import '../../../../../app/assets/stylesheets/variables.scss';
 @import '../../../../../app/assets/stylesheets/shared/checkboxes.scss';
 @import '../../../../../app/assets/stylesheets/shared/spinner.scss';
+@import '../../../../../app/assets/stylesheets/shared/modals.scss';
 @import '../../../../../app/assets/stylesheets/pages/custom_activity_pack/index.scss';
 @import '../../../../../app/assets/stylesheets/pages/custom_activity_pack/activity_row.scss';
 @import '../../../../../app/assets/stylesheets/pages/custom_activity_pack/empty_state.scss';
@@ -17,6 +18,8 @@
 @import './activity_stats.scss';
 @import './date_time_selector.scss';
 @import './page_header.scss';
+@import './new_admin_user.scss';
+@import './admin_verification.scss';
 @import './evidence_manager/main.scss';
 @import './evidence_manager/activate_model.scss';
 @import './evidence_manager/activities.scss';
@@ -26,6 +29,7 @@
 @import './evidence_manager/activity_form.scss';
 @import './evidence_manager/change_log.scss';
 @import './evidence_manager/hint.scss';
+@import './evidence_manager/health_dashboard.scss';
 @import './evidence_manager/model.scss';
 @import './evidence_manager/rule_form.scss';
 @import './evidence_manager/rules.scss';

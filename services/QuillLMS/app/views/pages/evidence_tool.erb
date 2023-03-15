@@ -1,3 +1,5 @@
+<% text_data = evidence_text_helper %>
+<% key = device == 'mobile' ? 'small'.to_sym : 'large'.to_sym %>
 <section class="tool-header">
   <%= render partial: 'pages/shared/navbar' %>
   <% @active_tab = 'Quill Reading for Evidence' %>
@@ -5,10 +7,159 @@
   <%= render partial: "pages/shared/tools_anchor_navbar", active_tab: @active_tab, tool: @tool%>
 </section>
 
-<%= react_component('EvidenceToolApp', props: { loggedInUser: current_user && signed_in? })%>
+<div class="tool-container evidence-tool-page">
+  <section class='bg-quillteal tool-hero text-center'>
+    <section class="inner-section">
+      <section class="header-and-icon-container">
+        <img alt="Reading for Evidence icon" class="tool-page-icon lazy" loading="lazy" data-src='https://assets.quill.org/images/icons/tool-evidence-white.svg' src='https://assets.quill.org/images/icons/tool-evidence-white.svg' />
+        <h1 class="q-h1">Quill Reading for Evidence</h1>
+        <p class="evidence-new-tag">NEW</p>
+      </section>
+      <section class="description"><%= text_data[:header_text][:first_line] if key == :large %></section>
+      <section class="description"><%= text_data[:header_text][:second_line] if key == :large %></section>
+      <section class="description"><%= text_data[:header_text][key] %></section>
+    </section>
+  </section>
+  <section class="bg-quillteal tool-hero topics-section">
+    <section class="inner-section">
+      <div class="topic-section">
+        <p class="topic">Culture & Society Topics</p>
+        <img alt="photograph of a football" class="lazy" loading="lazy" data-src="https://assets.quill.org/images/evidence/home_page/EvidenceLandingPage_Image_Football.webp" src="https://assets.quill.org/images/evidence/home_page/EvidenceLandingPage_Image_Football.webp" />
+        <p class="activity-title">"Should Schools Have Grade Requirements for Student Athletes?"</p>
+        <a class="q-button text-quillteal bg-white" href='https://www.quill.org/evidence/#/play?uid=180&skipToPrompts=true' rel="noopener noreferrer" target="_blank">View a sample activity</a>
+      </div>
+      <div class="topic-section">
+        <p class="topic">Science Topics</p>
+        <img alt="photograph of a cow" class="lazy" loading="lazy" data-src="https://assets.quill.org/images/evidence/home_page/EvidenceLandingPage_Image_Cow.webp" src="https://assets.quill.org/images/evidence/home_page/EvidenceLandingPage_Image_Cow.webp" />
+        <p class="activity-title">"How Does Eating Meat Impact Global Warming?"</p>
+        <a class="q-button text-quillteal bg-white" href='https://www.quill.org/evidence/#/play?uid=176&skipToPrompts=true' rel="noopener noreferrer" target="_blank">View a sample activity</a>
+      </div>
+      <div class="topic-section">
+        <p class="topic">Social Studies Topics</p>
+        <img alt="photograph of the Statue of Liberty" class="lazy" loading="lazy" data-src="https://assets.quill.org/images/evidence/home_page/EvidenceLandingPage_Image_StatueOfLiberty.webp" src="https://assets.quill.org/images/evidence/home_page/EvidenceLandingPage_Image_StatueOfLiberty.webp" />
+        <p class="activity-title" id="first-title-topic">U.S. History</p>
+        <p class="activity-title" id="second-title-topic">World History</p>
+        <p id="under-development">Under Development, Coming 2023</p>
+      </div>
+    </section>
+  </section>
+  <section class="prompt-example-container">
+    <div class="video-container">
+    <%= render_video_content(device, 'desktop', 'https://assets.quill.org/videos/tools/evidence_animation.mp4') %>
+    <%= render_video_content(device, 'mobile', 'https://assets.quill.org/videos/tools/evidence_animation.mp4') %>
+    </div>
+  </section>
+  <section id="instructions-container">
+    <div class="instruction-container">
+      <div class="step-number">1</div>
+      <p class="step-text">Read and highlight text</p>
+      <img alt="A sample article about volcanoes showing a sentence highlighted with the cursor over the highlighted sentence" class="step-image lazy" loading="lazy" data-src='https://assets.quill.org/images/evidence/article-highlighted.svg' src='https://assets.quill.org/images/evidence/article-highlighted.svg' />
+    </div>
+    <div class="instruction-container">
+      <div class="step-number">2</div>
+      <p class="step-text">Write sentences using what you read</p>
+      <img alt="A sample question asking a student to fill in the rest of a sentence" class="step-image lazy" loading="lazy" data-src='https://assets.quill.org/images/evidence/sentence-prompt.svg' src='https://assets.quill.org/images/evidence/sentence-prompt.svg' />
+    </div>
+    <div class="instruction-container">
+      <div class="step-number">3</div>
+      <p class="step-text">Revise based on feedback</p>
+      <img alt="A sample feedback asking a student to add more detail to their sentence" class="step-image lazy" loading="lazy" data-src='https://assets.quill.org/images/evidence/sentence-feedback.svg' src='https://assets.quill.org/images/evidence/sentence-feedback.svg' />
+    </div>
+  </section>
+  <section class="prompts-walkthrough-container lazyload">
+    <section class="header-section">
+      <p>Example Prompt:</p>
+      <p>“How Does Eating Meat Impact Global Warming?”</p>
+    </section>
+    <section class="attempt gray-background">
+      <section class="left-side-container">
+        <p><strong>1st</strong> Attempt</p>
+        <%= text_data[:first_attempt][key] %>
+      </section>
+      <section class="right-side-container">
+        <img alt="screenshot of example first attempt Reading for Evidence activity prompt" class="lazy" id="prompt-screenshot" loading="lazy" data-src="https://assets.quill.org/images/evidence/home_page/widget_images/2x/HeroEvidenceWidget_3.webp" src="https://assets.quill.org/images/evidence/home_page/widget_images/2x/HeroEvidenceWidget_3.webp" />
+        <img alt="dotted line arrow" class="lazy" id="arrow" loading="lazy" data-src="https://assets.quill.org/images/evidence/home_page/evidence_arrow.svg" src="https://assets.quill.org/images/evidence/home_page/evidence_arrow.svg" />
+      </section>
+    </section>
+    <section class="attempt">
+      <section class="left-side-container">
+        <p><strong>2nd</strong> Attempt</p>
+        <%= text_data[:second_attempt][key] %>
+      </section>
+      <section class="right-side-container">
+        <img alt="screenshot of example first attempt Reading for Evidence activity prompt" class="lazy" id="prompt-screenshot" data-src="https://assets.quill.org/images/evidence/home_page/widget_images/2x/HeroEvidenceWidget_6.webp" />
+        <img alt="dotted line arrow" id="arrow" class="lazy" loading="lazy" data-src="https://assets.quill.org/images/evidence/home_page/evidence_arrow.svg" src="https://assets.quill.org/images/evidence/home_page/evidence_arrow.svg" />
+      </section>
+    </section>
+    <section class="attempt gray-background">
+      <section class="left-side-container">
+        <p><strong>3rd</strong> Attempt</p>
+        <%= text_data[:third_attempt][key] %>
+      </section>
+      <section class="right-side-container">
+        <img alt="screenshot of example first attempt Reading for Evidence activity prompt" class="lazy" id="prompt-screenshot" loading="lazy" data-src="https://assets.quill.org/images/evidence/home_page/widget_images/2x/HeroEvidenceWidget_9.webp" src="https://assets.quill.org/images/evidence/home_page/widget_images/2x/HeroEvidenceWidget_9.webp" />
+        <img alt="dotted line arrow" class="lazy" id="arrow" loading="lazy" data-src="https://assets.quill.org/images/evidence/home_page/evidence_arrow.svg" />
+      </section>
+    </section>
+    <section class="attempt">
+      <section class="left-side-container">
+        <p><strong>4th</strong> Attempt</p>
+        <%= text_data[:fourth_attempt][key] %>
+      </section>
+      <section class="right-side-container">
+        <img alt="screenshot of example first attempt Reading for Evidence activity prompt" class="lazy" loading="lazy" id="prompt-screenshot" data-src="https://assets.quill.org/images/evidence/home_page/widget_images/2x/HeroEvidenceWidget_12.webp" src="https://assets.quill.org/images/evidence/home_page/widget_images/2x/HeroEvidenceWidget_12.webp" />
+      </section>
+    </section>
+  </section>
+  <section class="player-container">
+    <div class="youtube-container">
+      <iframe allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowFullScreen class="youtube-iframe lazy" frameBorder="0" data-src="https://www.youtube.com/embed/vN3Rd-kJgFI" title="YouTube video player"></iframe>
+    </div>
+    <p>Students receive instant feedback on the quality of their writing.</p>
+  </section>
+  <section class="evidence-feature-container">
+    <section class="inner-container">
+      <section id="information-section">
+        <section id="header-container">
+          <p id="header">Activities are not graded</p>
+        </section>
+        <img alt="An illustration of an A+ that is crossed out" class="lazy" loading="lazy" id="image" data-src='https://assets.quill.org/images/evidence/home_page/EvidenceLandingPage_Feature_1.webp' src='https://assets.quill.org/images/evidence/home_page/EvidenceLandingPage_Feature_1.webp' />
+        <p class="subtext">"This is a safe space to practice your writing, so it won't be graded. Your teacher will see your revisions, but there are no scores or points."</p>
+      </section>
+      <section id="information-section">
+        <section id="header-container">
+          <p id="header">We use a feedback bot</p>
+        </section>
+        <img alt="An illustration of a smiling robot head" class="lazy" loading="lazy" id="image" data-src='https://assets.quill.org/images/evidence/home_page/EvidenceLandingPage_Feature_2.webp' src='https://assets.quill.org/images/evidence/home_page/EvidenceLandingPage_Feature_2.webp' />
+        <p class="subtext">"We use artificial intelligence (AI) to help us give you feedback on your writing. You should know that AI isn't always correct."</p>
+      </section>
+      <section id="information-section">
+        <section id="header-container">
+          <p id="header">All writers revise</p>
+        </section>
+        <img alt="An illustration of a pencil circled with a revision" class="lazy" loading="lazy" id="image" data-src='https://assets.quill.org/images/evidence/home_page/EvidenceLandingPage_Feature_3.webp' src='https://assets.quill.org/images/evidence/home_page/EvidenceLandingPage_Feature_3.webp' />
+        <p class="subtext">"You'll be able to revise each sentence up to five times. We give you feedback because we want to help you write a stronger sentence."</p>
+      </section>
+    </section>
+  </section>
+  <%= react_component('QuestionsAndAnswersApp', props: {questionsAndAnswersFile: 'evidence', supportLink: "https://www.quill.org/teacher-center/quill-reading-for-evidence-resources"})%>
+  <section class="tool-try-it bg-connect-teal bg-book-pattern">
+    <h2 class='q-h1'>Try It Out for Yourself</h2>
+    <section class="tool-ctas evidence-tool">
+      <a class="q-button cta-button text-quillteal bg-white" href='https://www.quill.org/evidence/#/play?uid=176&skipToPrompts=true' rel="noopener noreferrer" target="_blank">Try a sample activity</a>
+    </section>
+  </section>
+  <% if current_user %>
+    <section class="tool-sign-up">
+      <h1 class='q-h1'>Get started now! Assign Quill Reading for Evidence.</h1>
+      <a class="q-button cta-button bg-quillgreen text-white" href=<%= "#{ENV['DEFAULT_URL']}/assign/activity-library?activityClassificationFilters[]=evidence" %>>Assign</a>
+    </section>
+  <% else %>
+    <section class="tool-sign-up">
+      <h1 class='q-h1'>Sign up to start Quill Reading for Evidence in your class today!</h1>
+      <a class="q-button cta-button bg-quillgreen text-white" href=<%= "#{ENV['DEFAULT_URL']}/account/new" %>>Sign up</a>
+    </section>
+  <% end %>
+</div>
 
-<% if current_user %>
-  <%= render partial: 'footer' %>
-<% else %>
-  <%= render partial: 'pages/shared/footer' %>
-<% end %>
+<%= render partial: 'pages/shared/footer' %>

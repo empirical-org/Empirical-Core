@@ -82,12 +82,16 @@ class User < ApplicationRecord
     USERNAME_UNIQUENESS_CONSTRAINT_MINIMUM_ID
   ].max
 
+  ADMIN = 'admin'
   TEACHER = 'teacher'
   STUDENT = 'student'
   STAFF = 'staff'
   SALES_CONTACT = 'sales-contact'
-  ROLES      = [TEACHER, STUDENT, STAFF, SALES_CONTACT]
-  SAFE_ROLES = [STUDENT, TEACHER, SALES_CONTACT]
+  INDIVIDUAL_CONTRIBUTOR = 'individual-contributor'
+  ONBOARDING_ROLES   = [STUDENT, TEACHER, INDIVIDUAL_CONTRIBUTOR, ADMIN]
+  TEACHER_INFO_ROLES = [TEACHER, INDIVIDUAL_CONTRIBUTOR, ADMIN]
+  ROLES              = [TEACHER, STUDENT, STAFF, SALES_CONTACT, ADMIN]
+  SAFE_ROLES         = [STUDENT, TEACHER, SALES_CONTACT, ADMIN]
   VALID_EMAIL_REGEX = /\A[\w+\-.]+@[a-z\d\-]+(\.[a-z\d\-]+)*\.[a-z]+\z/i
 
   ALPHA = 'alpha'
@@ -106,6 +110,7 @@ class User < ApplicationRecord
   attr_accessor :validate_username, :require_password_confirmation_when_password_present, :newsletter
 
   has_secure_password validations: false
+  has_one :admin_info, dependent: :destroy
   has_one :auth_credential, dependent: :destroy
   has_one :teacher_info, dependent: :destroy
   has_many :teacher_info_subject_areas, through: :teacher_info
@@ -141,6 +146,8 @@ class User < ApplicationRecord
 
   has_many :student_in_classroom, through: :students_classrooms, source: :classroom
 
+  has_many :admin_approval_requests, dependent: :destroy, foreign_key: 'requestee_id'
+
   has_and_belongs_to_many :districts
   has_one :ip_location
   has_many :user_milestones
@@ -152,12 +159,18 @@ class User < ApplicationRecord
   has_many :change_logs
   has_many :stripe_checkout_sessions, dependent: :destroy
 
+  has_many :user_pack_sequence_items, dependent: :destroy
+
+  has_one :user_email_verification, dependent: :destroy
+
   accepts_nested_attributes_for :auth_credential
 
   delegate :name, :mail_city, :mail_state,
     to: :school,
     allow_nil: true,
     prefix: :school
+
+  delegate :last_four, to: :stripe_user
 
   validates :name,
     presence: true,
@@ -199,7 +212,8 @@ class User < ApplicationRecord
   after_save :check_for_school
   after_create :generate_referrer_id, if: proc { teacher? }
 
-  scope :teacher, -> { where(role: TEACHER) }
+  # This is a little weird, but in our current conception, all Admins are Teachers
+  scope :teacher, -> { where(role: [ADMIN, TEACHER]) }
   scope :student, -> { where(role: STUDENT) }
 
   def self.deleted_users
@@ -222,6 +236,47 @@ class User < ApplicationRecord
 
   def self.valid_email?(email)
     ValidatesEmailFormatOf.validate_email_format(email).nil?
+  end
+
+  def require_email_verification
+    create_user_email_verification unless user_email_verification
+  end
+
+  def requires_email_verification?
+    user_email_verification.present?
+  end
+
+  def email_verified?
+    user_email_verification.present? && user_email_verification.verified?
+  end
+
+  def email_verification_pending?
+    requires_email_verification? && !email_verified?
+  end
+
+  def verify_email(verification_method, verification_token = nil)
+    # Set up email verification records if they don't exist yet
+    require_email_verification
+
+    user_email_verification.verify(verification_method, verification_token)
+  end
+
+  def email_verification_status
+    return UserEmailVerification::PENDING if email_verification_pending?
+
+    return UserEmailVerification::VERIFIED if email_verified?
+
+    return nil
+  end
+
+  def email_verification_status=(status)
+    case status
+    when UserEmailVerification::VERIFIED
+      verify_email(UserEmailVerification::STAFF_VERIFICATION)
+    when UserEmailVerification::PENDING
+      require_email_verification
+      user_email_verification.update(verification_method: nil, verified_at: nil)
+    end
   end
 
   def testing_flag
@@ -285,14 +340,6 @@ class User < ApplicationRecord
 
   def eligible_for_new_subscription?
     subscription.nil? || Subscription::TRIAL_TYPES.include?(subscription.account_type)
-  end
-
-  def last_four
-    return nil unless stripe_customer_id
-
-    Stripe::Customer.retrieve(id: stripe_customer_id, expand: ['sources']).sources.data.first&.last4
-  rescue Stripe::InvalidRequestError
-    nil
   end
 
   def present_and_future_subscriptions
@@ -383,8 +430,17 @@ class User < ApplicationRecord
   end
 
   def admin?
-    SchoolsAdmins.find_by_user_id(id).present?
+    role.admin?
   end
+
+  def is_admin_for_one_school?
+    schools_admins.count == 1
+  end
+
+  def is_admin_for_multiple_schools?
+    schools_admins.count > 1
+  end
+
 
   def self.find_by_username_or_email(login_name)
     login_name = login_name.downcase
@@ -410,7 +466,7 @@ class User < ApplicationRecord
   end
 
   def teacher?
-    role.teacher?
+    role.teacher? || admin? # This is a bit weird, but all Admins are Teachers
   end
 
   def staff?
@@ -445,11 +501,11 @@ class User < ApplicationRecord
 
   ## End satismeter
 
-  def admins_teachers
-    schools = administered_schools.includes(:users)
+  def admins_user_ids
+    schools = administered_schools.includes(:users, :admins)
     return if schools.none?
 
-    schools.map{|school| school.users.ids}.flatten
+    schools.map{|school| school.users.ids + school.admins.ids }.flatten.uniq
   end
 
   def refresh_token!
@@ -607,7 +663,7 @@ class User < ApplicationRecord
   end
 
   def is_new_teacher_without_school?
-    role == 'teacher' && !school && previous_changes["id"]
+    teacher? && !school && previous_changes["id"]
   end
 
   def generate_username(classroom_id=nil)
@@ -662,6 +718,10 @@ class User < ApplicationRecord
     SegmentIntegration::User.new(self)
   end
 
+  def stripe_user
+    StripeIntegration::User.new(self)
+  end
+
   def mailer_user
     Mailer::User.new(self)
   end
@@ -676,8 +736,7 @@ class User < ApplicationRecord
   end
 
   def set_time_zone
-    z = ::Ziptz.new
-    school_timezone = z.time_zone_name(school&.zipcode || school&.mail_zipcode)
+    school_timezone = ::Ziptz.instance.time_zone_name(school&.zipcode || school&.mail_zipcode)
 
     if school_timezone.present?
       self.time_zone = school_timezone
@@ -693,6 +752,34 @@ class User < ApplicationRecord
       .where(email: email)
       .where.not(id: id)
       .where.missing(:activity_sessions, :students_classrooms)
+  end
+
+  def units_with_same_name(name)
+    units.where('name ILIKE ?', name)
+  end
+
+  def admin_verification_reason
+    admin_info&.verification_reason
+  end
+
+  def admin_verification_url
+    admin_info&.verification_url
+  end
+
+  def admin_sub_role
+    admin_info&.sub_role
+  end
+
+  def admin_approval_status
+    admin_info&.approval_status
+  end
+
+  def admin_sub_role=(sub_role)
+    if admin_info
+      admin_info.update(sub_role: sub_role)
+    else
+      AdminInfo.create(sub_role: sub_role, user_id: id)
+    end
   end
 
   private def validate_flags

@@ -46,10 +46,10 @@ module Evidence
         BECAUSE => [/^of/],
       }
 
-      attr_reader :passage, :stem, :conjunction, :nouns, :results, :label_configs
+      attr_reader :passage, :stem, :conjunction, :nouns, :results, :label_configs, :use_passage
 
       # returns a hash of the form {'csv name' => CSVString, 'csv name2' =>...}
-      def self.csvs_for_activity(activity_id:, nouns: [], conjunctions: nil, label_configs: {})
+      def self.csvs_for_activity(activity_id:, nouns: [], conjunctions: nil, label_configs: {}, use_passage: true)
         activity = Evidence::Activity.find(activity_id)
         passage = activity.passages.first.text
         prompts = conjunctions.present? ? activity.prompts.where(conjunction: conjunctions) : activity.prompts
@@ -66,7 +66,8 @@ module Evidence
             stem: prompt.text,
             conjunction: prompt.conjunction,
             nouns: nouns,
-            label_configs: label_configs[prompt.conjunction] || []
+            label_configs: label_configs[prompt.conjunction] || [],
+            use_passage: use_passage
           )
           generator.run
 
@@ -74,48 +75,62 @@ module Evidence
         end
 
         # include a csv with a text guide to the passage chunks
-        csvs[passage_csv_name] = new(passage: passage, stem: '', conjunction: 'but').text_guide_csv_string
+        if use_passage
+          csvs[passage_csv_name] = new(passage: passage, stem: '', conjunction: 'but').text_guide_csv_string
+        end
 
         csvs
       end
 
-      def initialize(passage:, stem:, conjunction:, nouns: [], label_configs: [])
+      def initialize(passage:, stem:, conjunction:, nouns: [], label_configs: [], use_passage: true)
         @passage = Evidence::HTMLTagRemover.run(passage)
         @stem = stem
         @conjunction = conjunction
         @nouns = nouns
         @label_configs = label_configs
         @results = []
+        @use_passage = use_passage
         raise InvalidConjunctionError unless conjunction.in?(CONJUNCTIONS)
       end
 
       def run
-        # whole passage plus prompt
+        if use_passage
+          generate_full_passage_responses
+          generate_full_passage_noun_responses
+          generate_chunk_responses
+        end
+
+        generate_label_paraphrases
+
+        results
+      end
+
+      # whole passage plus prompt
+      private def generate_full_passage_responses
         TEMPS_PASSAGE.each do |temp|
           stem_variants_hash.each do |conjunction, stem_variant|
             prompt = prompt_text(context: passage, stem_variant: stem_variant)
             run_prompt(prompt: prompt, count: FULL_COUNT, seed: "full_passage_temp#{temp}_#{conjunction}", temperature: temp)
           end
         end
+      end
 
-        # whole passage plus prompt for each noun
+      # whole passage plus prompt for each noun
+      private def generate_full_passage_noun_responses
         nouns.each do |noun|
           prompt = prompt_text(context: passage, noun: noun)
           run_prompt(prompt: prompt, count: FULL_NOUN_COUNT, noun: noun, seed: "full_passage_noun_#{noun.gsub(SPACE,BLANK)}")
         end
+      end
 
-        # chunks plus prompt
+      # chunks plus prompt
+      private def generate_chunk_responses
         split_passage.each.with_index do |text_chunk, index|
           stem_variants_hash.each do |conjunction, stem_variant|
             prompt = prompt_text(context: text_chunk, stem_variant: stem_variant)
             run_prompt(prompt: prompt, count: SECTION_COUNT, seed: "text_chunk_#{index + 1}_temp#{TEMP_SECTION}_#{conjunction}", temperature: TEMP_SECTION)
           end
         end
-
-        # label examples to paraphrase
-        generate_label_paraphrases
-
-        results
       end
 
       LABEL_KEY = 'label'

@@ -376,7 +376,8 @@ export const categorizedActivities = {
       pinned: false,
       max_percentage: null,
       finished: false,
-      resume_link: 0
+      resume_link: 0,
+      pack_sequence_item_status: 'unlocked'
     }, {
       name: "Christopher Columbus",
       description: "",
@@ -397,7 +398,8 @@ export const categorizedActivities = {
       pinned: false,
       max_percentage: null,
       finished: false,
-      resume_link: 0
+      resume_link: 0,
+      pack_sequence_item_status: 'locked'
     }, {
       name: "A, An, The",
       description: "Write ten sentences using the determiners a, an, or the.",
