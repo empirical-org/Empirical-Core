@@ -1561,7 +1561,7 @@ describe User, type: :model do
     context 'user has admin info' do
       let!(:admin_info) { create(:admin_info, user: user, verification_url: 'quill.org')}
 
-      it 'returns the approval status from the admin info' do
+      it 'returns the verification url from the admin info' do
         expect(user.admin_verification_url).to eq(admin_info.verification_url)
       end
     end
@@ -1579,7 +1579,7 @@ describe User, type: :model do
     context 'user has admin info' do
       let!(:admin_info) { create(:admin_info, user: user, verification_reason: 'I really want to be an admin.')}
 
-      it 'returns the approval status from the admin info' do
+      it 'returns the verification reason from the admin info' do
         expect(user.admin_verification_reason).to eq(admin_info.verification_reason)
       end
     end
