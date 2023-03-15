@@ -249,7 +249,7 @@ class Subscription < ApplicationRecord
 
   def self.promotional_dates
     today = Date.current
-    exp_month_and_day = today.month < 7 ? "30-6" : "31-12"
+    exp_month_and_day = today.month < 7 ? "31-7" : "31-12"
 
     { start_date: today, expiration: Date::strptime("#{exp_month_and_day}-#{today.year + 1}","%d-%m-%Y") }
   end
