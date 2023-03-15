@@ -57,6 +57,12 @@
       color: #009A80;
       text-decoration: none;
     }
+    .disabled-link {
+      color: #878787;
+    }
+    .quill-tooltip {
+      font-weight: 400;
+    }
   }
   .email-verification-paragraph {
     margin-top: 40px;
@@ -85,6 +91,8 @@
   max-width: 577px;
   width: 100%;
   height: min-content;
+  overflow: scroll;
+  max-height: 90vh;
 
   h3 {
     font-weight: 700;

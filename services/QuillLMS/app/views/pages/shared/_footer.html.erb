@@ -13,7 +13,7 @@
       </div>
     </footer>
   <% else %>
-    <%= render partial: 'application/premium_footer' %>
+    <%= render partial: 'application/premium_footer' unless request.path.include?('admin_dashboard') %>
     <footer class="<%=footer_class%>">
       <div class="footer-navigation">
         <%= render partial: 'pages/shared/list_of_links_with_header', locals: { header_text: "TEACHER DASHBOARD", links_array: teacher_dashboard_links } if current_user %>

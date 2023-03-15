@@ -3,7 +3,7 @@ import * as React from 'react'
 import AdminRequestModal from '../components/admin_access/adminRequestModal'
 import InviteAdminModal from '../components/admin_access/inviteAdminModal'
 import { requestPost, } from '../../../modules/request'
-import { Snackbar, defaultSnackbarTimeout, Input, } from '../../Shared/index'
+import { Snackbar, defaultSnackbarTimeout, Tooltip, } from '../../Shared/index'
 import useSnackbarMonitor from '../../Shared/hooks/useSnackbarMonitor'
 
 const ADMIN_REQUEST_MODAL = 'adminRequestModal'
@@ -21,7 +21,7 @@ const AdminAccess = ({ school, hasVerifiedEmail, schoolAdmins, hasSchoolPremium,
       if (body.redirect) {
         window.location.href = body.redirect
       } else {
-        window.location.reload
+        window.location.reload()
       }
     })
   }
@@ -70,9 +70,21 @@ const AdminAccess = ({ school, hasVerifiedEmail, schoolAdmins, hasSchoolPremium,
     const adminTable = (
       <div className="admin-table">
         <h2>{school.name} admins</h2>
-        {schoolAdmins.map(sa => (
-          <p key={sa.id}><span>{sa.name}</span><a href={`mailto:${sa.email}`} rel="noopener noreferrer" target="_blank">Contact</a></p>
-        ))}
+        {schoolAdmins.map(sa => {
+          let link = <a href={`mailto:${sa.email}`} rel="noopener noreferrer" target="_blank">Contact</a>
+          if (!hasVerifiedEmail) {
+            link = (
+              <Tooltip
+                tooltipText="This action is disabled until your email is verified."
+                tooltipTriggerText="Contact"
+                tooltipTriggerTextClass="disabled-link"
+              />
+            )
+          }
+          return (
+            <p key={sa.id}><span>{sa.name}</span>{link}</p>
+          )
+        })}
       </div>
     )
     content = (

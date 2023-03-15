@@ -1555,6 +1555,42 @@ describe User, type: :model do
     end
   end
 
+  describe '#admin_verification_url' do
+    let(:user) { create(:user) }
+
+    context 'user has admin info' do
+      let!(:admin_info) { create(:admin_info, user: user, verification_url: 'quill.org')}
+
+      it 'returns the verification url from the admin info' do
+        expect(user.admin_verification_url).to eq(admin_info.verification_url)
+      end
+    end
+
+    context 'user has no admin info' do
+      it 'returns nil' do
+        expect(user.admin_verification_url).to eq(nil)
+      end
+    end
+  end
+
+  describe '#admin_verification_reason' do
+    let(:user) { create(:user) }
+
+    context 'user has admin info' do
+      let!(:admin_info) { create(:admin_info, user: user, verification_reason: 'I really want to be an admin.')}
+
+      it 'returns the verification reason from the admin info' do
+        expect(user.admin_verification_reason).to eq(admin_info.verification_reason)
+      end
+    end
+
+    context 'user has no admin info' do
+      it 'returns nil' do
+        expect(user.admin_verification_reason).to eq(nil)
+      end
+    end
+  end
+
   describe '#admin_sub_role=' do
     let(:user) { create(:user) }
 

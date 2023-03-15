@@ -17,7 +17,7 @@ export default class LessonPlannerContainer extends React.Component {
   }
 
   render() {
-    const { user, location, children, } = this.props
+    const { user, location, children } = this.props
     const tabs = location.pathname.includes('teachers') ? <MyActivitiesTabs pathname={location.pathname} /> : <span />
     return (
       <div>
@@ -30,7 +30,7 @@ export default class LessonPlannerContainer extends React.Component {
           <Route path="/teachers/classrooms/activity_planner/units/:unitId/students/edit" render={routerProps => <ClassroomsWithStudentsContainer user={user} {...routerProps} />} />
           <Route component={EditUnitActivitiesContainer} path="/teachers/classrooms/activity_planner/units/:unitId/activities/edit" />
           <Route path="/teachers/classrooms/activity_planner/closed" render={routerProps => <ManageUnits open={false} {...routerProps} />} />
-          <Route exact path="/teachers/classrooms/activity_planner" render={routerProps => <ManageUnits open={true} {...routerProps} />} />
+          <Route exact path="/teachers/classrooms/activity_planner" render={(routerProps) => <ManageUnits open={true} {...routerProps} />} />
           <Route component={UnitTemplateProfile} path="/activities/packs/:activityPackId" />
           <Route component={UnitTemplatesManager} path="/activities/packs" />
           <Route component={UnitTemplatesManager} path="/activities/packs/category/:category" />
