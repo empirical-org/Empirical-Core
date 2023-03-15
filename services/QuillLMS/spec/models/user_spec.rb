@@ -82,6 +82,7 @@ describe User, type: :model do
   it { should have_many(:user_activity_classifications).dependent(:destroy) }
   it { should have_many(:user_milestones) }
   it { should have_many(:milestones).through(:user_milestones) }
+  it { should have_many(:admin_approval_requests).with_foreign_key('requestee_id') }
 
   it { should delegate_method(:name).to(:school).with_prefix(:school) }
   it { should delegate_method(:mail_city).to(:school).with_prefix(:school) }
@@ -1550,6 +1551,42 @@ describe User, type: :model do
     context 'user has no admin info' do
       it 'returns nil' do
         expect(user.admin_approval_status).to eq(nil)
+      end
+    end
+  end
+
+  describe '#admin_verification_url' do
+    let(:user) { create(:user) }
+
+    context 'user has admin info' do
+      let!(:admin_info) { create(:admin_info, user: user, verification_url: 'quill.org')}
+
+      it 'returns the verification url from the admin info' do
+        expect(user.admin_verification_url).to eq(admin_info.verification_url)
+      end
+    end
+
+    context 'user has no admin info' do
+      it 'returns nil' do
+        expect(user.admin_verification_url).to eq(nil)
+      end
+    end
+  end
+
+  describe '#admin_verification_reason' do
+    let(:user) { create(:user) }
+
+    context 'user has admin info' do
+      let!(:admin_info) { create(:admin_info, user: user, verification_reason: 'I really want to be an admin.')}
+
+      it 'returns the verification reason from the admin info' do
+        expect(user.admin_verification_reason).to eq(admin_info.verification_reason)
+      end
+    end
+
+    context 'user has no admin info' do
+      it 'returns nil' do
+        expect(user.admin_verification_reason).to eq(nil)
       end
     end
   end

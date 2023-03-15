@@ -17,6 +17,8 @@ import EvidencePromotionCard from '../components/dashboard/evidence_promotion_ca
 import DemoOnboardingTour, { DEMO_ONBOARDING_DASHBOARD, } from '../components/shared/demo_onboarding_tour'
 import useWindowSize from '../../Shared/hooks/useWindowSize'
 import { Spinner, } from '../../Shared/index'
+import ArticleSpotlight from '../components/shared/articleSpotlight';
+import { GRAY_ARTICLE_FOOTER_BACKGROUND_COLOR, TEACHER_DASHBOARD_FEATURED_BLOG_POST_ID } from '../constants/featuredBlogPost';
 
 const MAX_VIEW_WIDTH_FOR_MOBILE = 1103
 
@@ -105,28 +107,31 @@ const Dashboard = ({ onboardingChecklist, firstName, mustSeeWelcomeModal, mustSe
   }
 
   return (
-    <div className={className}>
-      <div className="post-checklist-container">
-        <DemoOnboardingTour
-          pageKey={DEMO_ONBOARDING_DASHBOARD}
-        />
-        {showDemoModal && <DemoModal close={closeDemoModal} size={size} />}
-        {showTeacherInfoModal && <TeacherInfoModal close={closeTeacherInfoModal} subjectAreas={subjectAreas} />}
-        <main>
-          {showEvidencePromotionCard && <EvidencePromotionCard />}
-          <KeyMetrics firstName={firstName} metrics={metrics} />
-          <DiagnosticMini diagnostics={diagnostics} onMobile={onMobile()} />
-          <LessonsMini lessons={lessons} onMobile={onMobile()} />
-          <ActivityFeed activityFeed={activityFeed} onMobile={onMobile()} />
-        </main>
-        <aside>
-          <HandyActions linkedToClever={linkedToClever} setShowDemoModal={setShowDemoModal} />
-          <DailyTinyTip />
-          <TeacherCenterHighlights featuredBlogPosts={featuredBlogPosts} />
-          <CollegeBoard />
-        </aside>
+    <React.Fragment>
+      <div className={className}>
+        <div className="post-checklist-container">
+          <DemoOnboardingTour
+            pageKey={DEMO_ONBOARDING_DASHBOARD}
+          />
+          {showDemoModal && <DemoModal close={closeDemoModal} size={size} />}
+          {showTeacherInfoModal && <TeacherInfoModal close={closeTeacherInfoModal} subjectAreas={subjectAreas} />}
+          <main>
+            {showEvidencePromotionCard && <EvidencePromotionCard />}
+            <KeyMetrics firstName={firstName} metrics={metrics} />
+            <DiagnosticMini diagnostics={diagnostics} onMobile={onMobile()} />
+            <LessonsMini lessons={lessons} onMobile={onMobile()} />
+            <ActivityFeed activityFeed={activityFeed} onMobile={onMobile()} />
+          </main>
+          <aside>
+            <HandyActions linkedToClever={linkedToClever} setShowDemoModal={setShowDemoModal} />
+            <DailyTinyTip />
+            <TeacherCenterHighlights featuredBlogPosts={featuredBlogPosts} />
+            <CollegeBoard />
+          </aside>
+        </div>
       </div>
-    </div>
+      <ArticleSpotlight backgroundColor={GRAY_ARTICLE_FOOTER_BACKGROUND_COLOR} blogPostId={TEACHER_DASHBOARD_FEATURED_BLOG_POST_ID} />
+    </React.Fragment>
   )
 
 }

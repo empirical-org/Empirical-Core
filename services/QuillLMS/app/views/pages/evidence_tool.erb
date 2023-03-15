@@ -152,12 +152,12 @@
   <% if current_user %>
     <section class="tool-sign-up">
       <h1 class='q-h1'>Get started now! Assign Quill Reading for Evidence.</h1>
-      <a class="q-button cta-button bg-quillgreen text-white" href={`${process.env.DEFAULT_URL}/assign/activity-library?activityClassificationFilters[]=evidence`}>Assign</a>
+      <a class="q-button cta-button bg-quillgreen text-white" href=<%= "#{ENV['DEFAULT_URL']}/assign/activity-library?activityClassificationFilters[]=evidence" %>>Assign</a>
     </section>
   <% else %>
     <section class="tool-sign-up">
       <h1 class='q-h1'>Sign up to start Quill Reading for Evidence in your class today!</h1>
-      <a class="q-button cta-button bg-quillgreen text-white" href={`${process.env.DEFAULT_URL}/account/new`}>Sign up</a>
+      <a class="q-button cta-button bg-quillgreen text-white" href=<%= "#{ENV['DEFAULT_URL']}/account/new" %>>Sign up</a>
     </section>
   <% end %>
 </div>

@@ -1,0 +1,8 @@
+<%= render partial: 'teachers/shared/scorebook_tabs' %>
+
+<%= react_component('AdminAccessApp', props: {
+  hasVerifiedEmail: @has_verified_email,
+  school: @school,
+  hasSchoolPremium: @has_school_premium,
+  schoolAdmins: @school_admins
+})%>

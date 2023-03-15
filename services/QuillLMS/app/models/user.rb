@@ -146,6 +146,8 @@ class User < ApplicationRecord
 
   has_many :student_in_classroom, through: :students_classrooms, source: :classroom
 
+  has_many :admin_approval_requests, dependent: :destroy, foreign_key: 'requestee_id'
+
   has_and_belongs_to_many :districts
   has_one :ip_location
   has_many :user_milestones
@@ -734,8 +736,7 @@ class User < ApplicationRecord
   end
 
   def set_time_zone
-    z = ::Ziptz.new
-    school_timezone = z.time_zone_name(school&.zipcode || school&.mail_zipcode)
+    school_timezone = ::Ziptz.instance.time_zone_name(school&.zipcode || school&.mail_zipcode)
 
     if school_timezone.present?
       self.time_zone = school_timezone
@@ -755,6 +756,14 @@ class User < ApplicationRecord
 
   def units_with_same_name(name)
     units.where('name ILIKE ?', name)
+  end
+
+  def admin_verification_reason
+    admin_info&.verification_reason
+  end
+
+  def admin_verification_url
+    admin_info&.verification_url
   end
 
   def admin_sub_role

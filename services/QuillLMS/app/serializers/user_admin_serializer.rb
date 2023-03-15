@@ -1,7 +1,7 @@
 # frozen_string_literal: true
 
 class UserAdminSerializer < ApplicationSerializer
-  attributes :id, :name, :email, :teachers, :schools, :associated_school
+  attributes :id, :name, :email, :teachers, :schools, :associated_school, :admin_approval_requests
   type :user_admin
 
   def associated_school

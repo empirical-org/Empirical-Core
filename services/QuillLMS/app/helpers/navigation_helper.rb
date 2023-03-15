@@ -2,7 +2,7 @@
 
 module NavigationHelper
   def home_page_should_be_active?
-    ['dashboard', 'my_account', 'teacher_guide', 'google_sync'].include?(action_name) || (controller_name == 'subscriptions' && action_name == 'index') || controller_name == 'referrals'
+    ['dashboard', 'my_account', 'teacher_guide', 'google_sync'].include?(action_name) || (controller_name == 'subscriptions' && action_name == 'index') || controller_name == 'referrals' || controller_name == 'admin_access'
   end
 
   def classes_page_should_be_active?
@@ -72,6 +72,10 @@ module NavigationHelper
   # NOTE: subnavs for other pages are handled on the front end with React.
   def should_render_subnav?
     home_page_should_be_active? || classes_page_should_be_active? || student_reports_page_should_be_active?
+  end
+
+  def should_show_admin_access_tab?
+    !!(request.original_url&.include?('admin_access') && current_user.teacher? && !current_user.admin? && current_user.school && School::ALTERNATIVE_SCHOOL_NAMES.exclude?(current_user.school.name))
   end
 
   # this is a duplicate of the QuillAuthentication method, used here because we can't import it directly

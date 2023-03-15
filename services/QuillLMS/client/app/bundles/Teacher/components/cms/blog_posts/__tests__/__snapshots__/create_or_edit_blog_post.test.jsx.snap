@@ -8226,6 +8226,7 @@ exports[`CreateOrEditBlogPost component renders for a new blog post 1`] = `
               </ReactMarkdown>
               <a
                 className="quill-button fun contained primary focus-on-light"
+                rel="noopener noreferrer"
                 target="_self"
               >
                 Read
@@ -16474,6 +16475,7 @@ exports[`CreateOrEditBlogPost component renders for an existing blog post 1`] = 
               </ReactMarkdown>
               <a
                 className="quill-button fun contained primary focus-on-light"
+                rel="noopener noreferrer"
                 target="_self"
               >
                 Read

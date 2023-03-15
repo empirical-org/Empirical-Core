@@ -7,7 +7,7 @@ class Admin::TeacherSerializer < ApplicationSerializer
   ADMIN = 'Admin'
   TEACHER = 'Teacher'
 
-  attributes :id, :name, :email, :last_sign_in, :schools,
+  attributes :id, :name, :email, :last_sign_in, :schools, :admin_info,
             :number_of_students,
             :number_of_activities_completed,
             :time_spent,

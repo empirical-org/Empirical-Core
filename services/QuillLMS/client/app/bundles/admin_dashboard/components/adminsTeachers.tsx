@@ -1,8 +1,10 @@
 import * as React from 'react';
 import _ from 'underscore'
 
-import { DataTable, DropdownInput, } from '../../Shared/index'
-import { RESTRICTED, restrictedElement, } from '../shared'
+import { DataTable, DropdownInput, Snackbar, defaultSnackbarTimeout, } from '../../Shared/index'
+import { RESTRICTED, FULL, restrictedElement, } from '../shared'
+import { ADMIN, TEACHER, PENDING, } from '../../Shared/utils/constants'
+import useSnackbarMonitor from '../../Shared/hooks/useSnackbarMonitor'
 
 interface AdminsTeachersProps {
   data: Array<Object>;
@@ -10,14 +12,13 @@ interface AdminsTeachersProps {
   adminAssociatedSchool: any;
   accessType: string;
   handleUserAction(url: string, data: Object): void;
+  adminApprovalRequestAdminInfoIds: number[]
 }
 
 enum modalNames {
   removeAdminModal = 'removeAdminModal',
   makeAdminModal = 'makeAdminModal',
 }
-
-const ADMIN = 'Admin'
 
 const AdminActionModal = ({ handleClickConfirm, handleCloseModal, headerText, bodyText, }) => {
   return (
@@ -52,11 +53,15 @@ export const AdminsTeachers: React.SFC<AdminsTeachersProps> = ({
   schools,
   adminAssociatedSchool,
   accessType,
+  adminApprovalRequestAdminInfoIds,
 }) => {
   const defaultSchool = schools.find(s => s.id === adminAssociatedSchool?.id) || schools[0]
   const [selectedSchoolId, setSelectedSchoolId] = React.useState(defaultSchool?.id)
   const [userIdForModal, setUserIdForModal] = React.useState(null)
   const [showModal, setShowModal] = React.useState(null)
+  const [showSnackbar, setShowSnackbar] = React.useState(false);
+
+  useSnackbarMonitor(showSnackbar, setShowSnackbar, defaultSnackbarTimeout)
 
   function onChangeSelectedSchool(selectedSchoolOption) { setSelectedSchoolId(selectedSchoolOption.value) }
 
@@ -66,11 +71,19 @@ export const AdminsTeachers: React.SFC<AdminsTeachersProps> = ({
   }
 
   function loginAsUser(id) {
-    window.location.href = `/users/${id}/admin_sign_in_classroom_manager`
+    if (accessType === FULL) {
+      window.location.href = `/users/${id}/admin_sign_in_classroom_manager`
+    } else {
+      setShowSnackbar(true)
+    }
   }
 
   function viewPremiumReports(id) {
-    window.location.href = `/users/${id}/admin_sign_in_progress_reports`
+    if (accessType === FULL) {
+      window.location.href = `/users/${id}/admin_sign_in_progress_reports`
+    } else {
+      setShowSnackbar(true)
+    }
   }
 
   function resendLoginDetailsForTeacher(id) {
@@ -79,6 +92,14 @@ export const AdminsTeachers: React.SFC<AdminsTeachersProps> = ({
 
   function unlinkFromSchool(id) {
     handleUserAction(`/users/${id}/admin_unlink_from_school`, { role: 'teacher', })
+  }
+
+  function approveAdminRequest(id) {
+    handleUserAction(`/users/${id}/approve_admin_request`, { school_id: selectedSchoolId, })
+  }
+
+  function denyAdminRequest(id) {
+    handleUserAction(`/users/${id}/deny_admin_request`, { school_id: selectedSchoolId, })
   }
 
   function resendLoginDetailsForAdmin(id) {
@@ -126,6 +147,14 @@ export const AdminsTeachers: React.SFC<AdminsTeachersProps> = ({
       name: 'View premium reports',
       action: (id) => viewPremiumReports(id)
     },
+    approveAdminRequest: {
+      name: 'Approve admin request',
+      action: (id) => approveAdminRequest(id)
+    },
+    denyAdminRequest: {
+      name: 'Deny admin request',
+      action: (id) => denyAdminRequest(id)
+    },
     removeAsAdmin: {
       name: 'Remove as admin',
       action: (id) => removeAsAdmin(id)
@@ -142,14 +171,21 @@ export const AdminsTeachers: React.SFC<AdminsTeachersProps> = ({
 
   function actionsForUser(user, relevantSchool) {
     let actions
-    if (relevantSchool.role === ADMIN) {
+    if (relevantSchool.role.toLowerCase() === ADMIN) {
       actions = user.last_sign_in ? [] : [actionsHash.resendLoginDetailsAdmin]
       actions = actions.concat([actionsHash.loginAsAdmin, actionsHash.viewPremiumReports, actionsHash.removeAsAdmin])
+    } else if (userHasPendingAdminRequest(user, relevantSchool)) {
+      actions = user.last_sign_in ? [] : [actionsHash.resendLoginDetailsTeacher]
+      actions = actions.concat([actionsHash.loginAsTeacher, actionsHash.viewPremiumReports, actionsHash.approveAdminRequest, actionsHash.denyAdminRequest, actionsHash.unlinkFromSchool])
     } else {
       actions = user.last_sign_in ? [] : [actionsHash.resendLoginDetailsTeacher]
       actions = actions.concat([actionsHash.loginAsTeacher, actionsHash.viewPremiumReports, actionsHash.makeAdmin, actionsHash.unlinkFromSchool])
     }
     return actions
+  }
+
+  function userHasPendingAdminRequest(user, relevantSchool) {
+    return relevantSchool.role.toLowerCase() === TEACHER && adminApprovalRequestAdminInfoIds.includes(user.admin_info?.id) && user.admin_info?.approval_status === PENDING
   }
 
   const teacherColumns = [
@@ -190,7 +226,7 @@ export const AdminsTeachers: React.SFC<AdminsTeachersProps> = ({
   const filteredData = data.filter((d: { school: string }) => d.schools.find(s => s.id === selectedSchoolId)).map(user => {
     const relevantSchool = user.schools.find(s => s.id === selectedSchoolId)
     user.actions = actionsForUser(user, relevantSchool)
-    user.role = relevantSchool.role
+    user.role = userHasPendingAdminRequest(user, relevantSchool) ? "🛎️ Teacher requested to become admin" : relevantSchool.role
     return user
   })
 
@@ -211,6 +247,7 @@ export const AdminsTeachers: React.SFC<AdminsTeachersProps> = ({
           defaultSortAttribute="role"
           headers={teacherColumns}
           rows={filteredData}
+          showActions={true}
         />
       </div>
       <p className="warning-section">
@@ -229,6 +266,7 @@ export const AdminsTeachers: React.SFC<AdminsTeachersProps> = ({
 
   return (
     <div className="teacher-account-access-container">
+      <Snackbar text="Sorry, only verified admins with a subscription to School or District Premium can access this feature." visible={showSnackbar} />
       {showModal === modalNames.makeAdminModal && (
         <AdminActionModal
           bodyText={`Are you sure you want to add ${userNameForModal} as an admin of ${schoolNameForModal}?`}

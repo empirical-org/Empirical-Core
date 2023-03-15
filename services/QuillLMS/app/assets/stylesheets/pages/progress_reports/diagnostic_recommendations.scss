@@ -52,8 +52,23 @@
       margin-right: 4px;
     }
   }
+  .post-test-table {
+    border-left: 1px solid #e0e0e0 !important;
+    margin-left: 32px !important;
+  }
   .recommendations-buttons-container {
-    display: flex;
+    padding-left: 32px;
+    padding-right: 32px;
+  }
+  .independent-practice-recommendations-buttons-container {
+    vertical-align: bottom;
+    border-radius: 8px 0px 0px;
+    position: sticky;
+    left: 0px;
+    z-index: 1;
+    margin-bottom: 16px;
+    padding-left: 0px;
+    padding-right: 0px;
   }
   .recommendations-buttons {
     padding: 16px 24px;
@@ -87,24 +102,28 @@
       }
     }
     &.post-test-assignment-button {
+      margin: 0 auto;
+      padding-left: 28px;
+      padding-top: 16px;
+      padding-bottom: 16px;
+      width: 161px;
       margin-left: 32px;
-      width: 178px;
-      min-width: min-content;
-      display: flex;
-      justify-content: center;
-      align-items: center;
+      margin-bottom: 16px;
+      margin-top: 16px;
+      button {
+        position: relative;
+      }
     }
   }
   .recommendations-table-container {
     margin-top: 16px;
-    overflow-x: scroll;
     position: relative;
     margin-bottom: -40px;
     padding-bottom: 40px;
-    margin-left: -365px;
+    margin-left: -335px;
     padding-left: 364px;
     display: flex;
-    min-width: 100vw;
+    width: 97vw;
     .no-data-yet {
       position: absolute;
       top: 100px;
@@ -119,8 +138,6 @@
       border-collapse: separate;
       border-spacing: 0;
       table-layout: fixed;
-      min-width: 100%;
-      padding-right: 32px;
       &.empty {
         border-right: 1px solid #e0e0e0;
         border-bottom: 1px solid #e0e0e0;
@@ -174,9 +191,6 @@
         line-height: 1.33;
       }
       > thead {
-        position: sticky;
-        top: 0;
-        z-index: 2;
         > th {
           border-top: 1px solid #e0e0e0;
         }
@@ -191,12 +205,23 @@
     }
 
     .recommendations-table-wrapper {
-      width: 100%;
-      min-width: min-content;
+      .smaller-width {
+        width: 80%;
+      }
+      overflow-x: scroll;
+    }
+
+    .recommendations-table-container {
+      width: 100vw;
+    }
+
+    .post-test-table {
+      .empty-cell {
+        height: 50px;
+      }
     }
 
     .post-test-table-wrapper {
-      width: 211px;
       .recommendation-header {
         border-radius: 8px 8px 0px 0px !important;
         border: 1px solid #e0e0e0;
@@ -206,6 +231,14 @@
         border-left: 1px solid #e0e0e0;
         > .interactive-wrapper.recommended {
           background-color: #FFF8EE;
+        }
+      }
+      table {
+        margin-left: 30px;
+        width: 160px;
+        padding: 0px;
+        th {
+          width: 160px;
         }
       }
       table > tbody > tr:last-of-type > td:last-of-type {
@@ -370,6 +403,7 @@
   }
   .whole-class-instruction {
     margin-top: 64px;
+    max-width: $sitewidepagewidth;
     .lessons-recommendation {
       border-radius: 8px;
       border: solid 1px #e0e0e0;
@@ -490,6 +524,20 @@
         }
       }
     }
+    .recommendations-table {
+      margin-left: 16px;
+    }
+    .post-test-table {
+      border-left: 1px solid #e0e0e0 !important;
+      margin-left: 32px !important;
+    }
+    .post-test-assignment-button {
+      height: 233px;
+      padding-top: 60% !important;
+    }
+    .larger-assign {
+      height: 250px;
+    }
     .whole-class-instruction {
       .lessons-recommendation {
         margin: 16px 16px 0px;
@@ -523,10 +571,5 @@
           }
         }
       }
-    .recommendations-table-container {
-      width: 100%;
-      padding-left: 0px;
-      margin-left: 0px;
-    }
   }
 }
