@@ -273,7 +273,7 @@ class SegmentAnalytics
         properties: properties,
       })
     else
-      identify_anonymous_user({ traits: { email: admin_email, name: admin_name }})
+      identify_anonymous_user({ anonymous_id: admin_email, traits: { email: admin_email, name: admin_name }})
       track({
         # Segment requires us to send a unique User ID or Anonymous ID for every event
         # sending the admin email as the anonymous id because that's how we find people in Ortto
