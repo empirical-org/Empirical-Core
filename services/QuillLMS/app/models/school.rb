@@ -116,6 +116,52 @@ class School < ApplicationRecord
     12 => HIGH,
   }
 
+  SEGMENT_CACHE_KEYS = [
+    TOTAL_TEACHERS_AT_SCHOOL = 'TOTAL_TEACHERS_AT_SCHOOL',
+    TOTAL_STUDENTS_AT_SCHOOL = 'TOTAL_STUDENTS_AT_SCHOOL',
+    TOTAL_ACTIVITIES_COMPLETED_BY_STUDENTS_AT_SCHOOL = 'TOTAL_ACTIVITIES_COMPLETED_BY_STUDENTS_AT_SCHOOL',
+    ACTIVE_TEACHERS_AT_SCHOOL_THIS_YEAR = 'ACTIVE_TEACHERS_AT_SCHOOL_THIS_YEAR',
+    ACTIVE_STUDENTS_AT_SCHOOL_THIS_YEAR = 'ACTIVE_STUDENTS_AT_SCHOOL_THIS_YEAR',
+    TOTAL_ACTIVITIES_COMPLETED_BY_STUDENTS_AT_SCHOOL_THIS_YEAR = 'TOTAL_ACTIVITIES_COMPLETED_BY_STUDENTS_AT_SCHOOL_THIS_YEAR',
+  ]
+
+  def active_teachers_at_school_this_year
+    teachers_at_school
+      .where("last_sign_in > ?", School.school_year_start(Time.current))
+  end
+
+  def active_students_at_school_this_year
+    students_at_school
+      .where("last_sign_in > ?", School.school_year_start(Time.current))
+  end
+
+  def activities_completed_by_students_at_school_this_year
+    activities_completed_by_students_at_school
+      .where("completed_at > ?", School.school_year_start(Time.current))
+  end
+
+  def activities_completed_by_students_at_school
+    ActivitySession
+      .completed
+      .where(user_id: students_at_school.ids)
+  end
+
+  def students_at_school
+    User
+      .joins(:students_classrooms)
+      .where(:students_classrooms => { classroom_id: classrooms_at_school.ids })
+  end
+
+  def classrooms_at_school
+    Classroom
+      .joins(:classrooms_teachers)
+      .where(:classrooms_teachers => { user_id: teachers_at_school.ids })
+  end
+
+  def teachers_at_school
+    users
+  end
+
   def self.school_year_start(time)
     time.month >= SCHOOL_YEAR_START_MONTH ? time.beginning_of_year + HALF_A_YEAR : time.beginning_of_year - HALF_A_YEAR
   end
