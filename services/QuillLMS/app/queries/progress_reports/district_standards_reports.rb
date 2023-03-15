@@ -7,7 +7,7 @@ class ProgressReports::DistrictStandardsReports
     @admin_id = admin_id
   end
 
-  def results(admin_id)
+  def results
     # Uncomment the line below, and comment out the sql query, to bypass
     # The database while testing
     # [{"id"=>"1", "name"=>"class 1b", "standard_level_name"=>"how to tell cactus from cow", "total_activity_count"=>"2", "total_student_count"=>"33", "proficient_count"=>"15"}]
