@@ -250,6 +250,12 @@ class SegmentAnalytics
         teacher_email: teacher.email,
         teacher_school: teacher.school&.name,
         reason: reason
+      },
+      context: {
+        traits: {
+          name: admin.name,
+          email: admin.email
+        }
       }
     })
   end
@@ -264,11 +270,18 @@ class SegmentAnalytics
       teacher_school: teacher.school&.name,
       note: note
     }
+    context = {
+      traits: {
+        name: admin_name,
+        email: admin_email
+      }
+    }
     if admin
       track({
         user_id: admin.id,
         event: SegmentIo::BackgroundEvents::ADMIN_INVITED_BY_TEACHER,
-        properties: properties
+        properties: properties,
+        context: context
       })
     else
       track({
@@ -276,7 +289,8 @@ class SegmentAnalytics
         # sending the admin email as the anonymous id because that's how we find people in Ortto
         anonymous_id: admin_email,
         event: SegmentIo::BackgroundEvents::ADMIN_INVITED_BY_TEACHER,
-        properties: properties
+        properties: properties,
+        context: context
       })
     end
   end

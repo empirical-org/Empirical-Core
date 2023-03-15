@@ -758,6 +758,14 @@ class User < ApplicationRecord
     units.where('name ILIKE ?', name)
   end
 
+  def admin_verification_reason
+    admin_info&.verification_reason
+  end
+
+  def admin_verification_url
+    admin_info&.verification_url
+  end
+
   def admin_sub_role
     admin_info&.sub_role
   end
