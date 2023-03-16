@@ -3,9 +3,9 @@
 require 'rails_helper'
 
 module Evidence
-  RSpec.describe PromptTextGeneration, type: :model do
+  RSpec.describe TextGeneration, type: :model do
 
-    it { should validate_presence_of(:generator) }
+    it { should validate_presence_of(:name) }
 
     it { should have_many(:prompt_texts) }
   end

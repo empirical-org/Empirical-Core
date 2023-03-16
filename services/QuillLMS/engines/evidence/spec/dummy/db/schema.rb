@@ -240,20 +240,19 @@ ActiveRecord::Schema.define(version: 2023_03_06_215624) do
     t.datetime "updated_at", precision: 6, null: false
   end
 
-  create_table "evidence_prompt_text_generations", force: :cascade do |t|
-    t.string "generator", null: false
-    t.string "source_text"
-    t.text "ml_prompt_text"
-    t.jsonb "metadata"
+  create_table "evidence_prompt_texts", force: :cascade do |t|
+    t.integer "prompt_text_batch_id", null: false
+    t.integer "text_generation_id", null: false
+    t.string "text", null: false
+    t.string "label"
+    t.string "ml_type"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
   end
 
-  create_table "evidence_prompt_texts", force: :cascade do |t|
-    t.integer "prompt_text_batch_id", null: false
-    t.integer "prompt_text_generation_id", null: false
-    t.string "text", null: false
-    t.string "label"
+  create_table "evidence_text_generations", force: :cascade do |t|
+    t.string "name", null: false
+    t.jsonb "data"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
   end

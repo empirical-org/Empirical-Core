@@ -10,6 +10,6 @@ module Evidence
     it { should validate_presence_of(:user_id) }
 
     it { should have_many(:prompt_texts) }
-    it { should have_many(:prompt_text_generations) }
+    it { should have_many(:text_generations) }
   end
 end
