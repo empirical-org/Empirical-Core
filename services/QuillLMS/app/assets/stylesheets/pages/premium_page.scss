@@ -528,6 +528,37 @@ li.premium-tab > a:hover {
       }
     }
   }
+  .topics-row {
+    align-items: center;
+    display: flex;
+    justify-content: space-between;
+    .topic-explored {
+      width: 300px;
+      margin-top: 32px;
+      .topic-image {
+        width: 300px;
+        height: 100px;
+        border-radius: 8px;
+        background: #F5F5F5;
+        position: relative;
+        img {
+          position: absolute;
+          top: 50%;
+          left: 50%;
+          margin: -30px 0 0 -30px;
+        }
+      }
+      h4 {
+        padding-top: 16px;
+        font-weight: 700;
+        font-size: 16px;
+        line-height: 20px;
+      }
+    }
+  }
+  .coaching-header {
+    margin-top: 112px;
+  }
 }
 
 #q-and-a {
@@ -682,6 +713,15 @@ li.premium-tab > a:hover {
       display: none;
     }
 
+    .topics-row {
+      &.last-row {
+        justify-content: flex-start;
+        div.topic-explored:last-of-type {
+          margin-left: 24px;
+        }
+      }
+    }
+
   }
 }
 
@@ -771,6 +811,13 @@ li.premium-tab > a:hover {
       align-items: center;
       .premium-feature {
         margin-bottom: 32px;
+      }
+    }
+
+    .topics-row {
+      display: block;
+      .topic-explored {
+        margin: 32px auto;
       }
     }
 
