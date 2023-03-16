@@ -3,6 +3,8 @@
 class ProgressReports::DistrictStandardsReports
   attr_reader :admin_id
 
+  PROFICIENT_THRESHOLD = 0.8
+
   def initialize(admin_id)
     @admin_id = admin_id
   end
@@ -11,47 +13,55 @@ class ProgressReports::DistrictStandardsReports
     # Uncomment the line below, and comment out the sql query, to bypass
     # The database while testing
     # [{"id"=>"1", "name"=>"class 1b", "standard_level_name"=>"how to tell cactus from cow", "total_activity_count"=>"2", "total_student_count"=>"33", "proficient_count"=>"15"}]
-    ids = user_ids(admin_id)
-    return [] if ids.empty?
+    user_ids = user_ids_query(admin_id)
+    return [] if user_ids.empty?
 
-    RawSqlRunner.execute(query(ids)).to_a
+    Standard
+      .all
+      .pluck(:id)
+      .map { |standard_id| standards_report_query(user_ids, standard_id) }
+      .flatten
+      .sort_by { |k| k["name"] }
   end
 
-  private def query(user_ids)
-    <<~SQL
-      WITH final_activity_sessions AS (
+  def standards_report_query(user_ids, standard_id)
+    RawSqlRunner.execute(
+      <<~SQL
+        WITH final_activity_sessions AS (
+          SELECT
+            activity_sessions.activity_id,
+            activity_sessions.id,
+            activity_sessions.percentage,
+            activity_sessions.timespent,
+            activity_sessions.user_id,
+            activities.standard_id
+          FROM activity_sessions
+          JOIN classroom_units
+            ON activity_sessions.classroom_unit_id = classroom_units.id
+          JOIN activities
+            ON activity_sessions.activity_id = activities.id
+          JOIN classrooms_teachers
+            ON classrooms_teachers.classroom_id = classroom_units.classroom_id
+          WHERE activity_sessions.is_final_score
+            AND classrooms_teachers.user_id in (#{user_ids})
+            AND activity_sessions.visible
+            AND classroom_units.visible
+            AND activities.standard_id = #{standard_id}
+        )
+
         SELECT
-          activity_sessions.activity_id,
-          activity_sessions.id,
-          activity_sessions.percentage,
-          activity_sessions.timespent,
-          activity_sessions.user_id,
-          activities.standard_id
-        FROM activity_sessions
-        JOIN classroom_units
-          ON activity_sessions.classroom_unit_id = classroom_units.id
-        JOIN activities
-          ON activity_sessions.activity_id = activities.id
-        LEFT JOIN standards
-          ON standards.id = activities.standard_id
-        JOIN classrooms_teachers
-          ON classrooms_teachers.classroom_id = classroom_units.classroom_id
-        WHERE activity_sessions.is_final_score
-          AND classrooms_teachers.user_id in (#{user_ids})
-          AND activity_sessions.visible
-          AND classroom_units.visible
-      )
-      SELECT
-        standards.id,
-        standards.name,
-        standard_levels.name as standard_level_name,
-        COUNT(DISTINCT(final_activity_sessions.activity_id)) as total_activity_count,
-        COUNT(DISTINCT(final_activity_sessions.user_id)) as total_student_count,
-        COUNT(DISTINCT(avg_score_for_standard_by_user.user_id)) as proficient_count,
-        ROUND(AVG(final_activity_sessions.timespent) * COUNT(DISTINCT(final_activity_sessions.id))) AS timespent
-      FROM standards
-        JOIN standard_levels ON standard_levels.id = standards.standard_level_id
-        JOIN final_activity_sessions ON final_activity_sessions.standard_id = standards.id
+          standards.id,
+          standards.name,
+          standard_levels.name as standard_level_name,
+          COUNT(DISTINCT(final_activity_sessions.activity_id)) as total_activity_count,
+          COUNT(DISTINCT(final_activity_sessions.user_id)) as total_student_count,
+          COUNT(DISTINCT(avg_score_for_standard_by_user.user_id)) as proficient_count,
+          ROUND(AVG(final_activity_sessions.timespent) * COUNT(DISTINCT(final_activity_sessions.id))) AS timespent
+        FROM standards
+        JOIN standard_levels
+          ON standard_levels.id = standards.standard_level_id
+        JOIN final_activity_sessions
+          ON final_activity_sessions.standard_id = standards.id
         LEFT JOIN (
           SELECT
             standard_id,
@@ -61,17 +71,17 @@ class ProgressReports::DistrictStandardsReports
           GROUP BY
             final_activity_sessions.standard_id,
             final_activity_sessions.user_id
-          HAVING AVG(percentage) >= 0.8
+          HAVING AVG(percentage) >= #{PROFICIENT_THRESHOLD}
         ) AS avg_score_for_standard_by_user
           ON avg_score_for_standard_by_user.standard_id = standards.id
-      GROUP BY
-        standards.id,
-        standard_levels.name
-      ORDER BY standards.name ASC;
-    SQL
+        GROUP BY
+          standards.id,
+          standard_levels.name
+      SQL
+    ).to_a
   end
 
-  private def user_ids(admin_id)
+  def user_ids_query(admin_id)
     RawSqlRunner.execute(
       <<~SQL
         SELECT schools_users.user_id
