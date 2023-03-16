@@ -17,10 +17,10 @@ module Evidence
       end
 
       def to_detail_rows
-        [detail_row].concat(generated_detail_rows)
+        [original_detail_row].concat(generated_detail_rows)
       end
 
-      private def detail_row
+      private def original_detail_row
         [text, label,'','', 'original', type]
       end
 
