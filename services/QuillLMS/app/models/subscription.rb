@@ -256,9 +256,11 @@ class Subscription < ApplicationRecord
 
   def self.promotional_dates
     today = Date.current
-    exp_month_and_day = today.month < SUMMER_CUTOFF_MONTH ?
-      "#{SUMMER_EXPIRATION_DAY}-#{SUMMER_EXPIRATION_MONTH}" :
-      "#{WINTER_EXPIRATION_DAY}-#{WINTER_EXPIRATION_MONTH}"
+    if today.month < SUMMER_CUTOFF_MONTH
+      exp_month_and_day = "#{SUMMER_EXPIRATION_DAY}-#{SUMMER_EXPIRATION_MONTH}"
+    else
+      exp_month_and_day = "#{WINTER_EXPIRATION_DAY}-#{WINTER_EXPIRATION_MONTH}"
+    end
 
     { start_date: today, expiration: Date::strptime("#{exp_month_and_day}-#{today.year + 1}","%d-%m-%Y") }
   end
