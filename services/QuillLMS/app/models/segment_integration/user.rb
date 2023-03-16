@@ -55,7 +55,7 @@ module SegmentIntegration
     end
 
     def school_params
-      if school && School::ALTERNATIVE_SCHOOL_NAMES.exclude?(school.name)
+      if admin? && school && School::ALTERNATIVE_SCHOOL_NAMES.exclude?(school.name)
         cache = CacheSegmentSchoolData.new(school)
         {
           total_teachers_at_school: cache.read(CacheSegmentSchoolData::TOTAL_TEACHERS_AT_SCHOOL),

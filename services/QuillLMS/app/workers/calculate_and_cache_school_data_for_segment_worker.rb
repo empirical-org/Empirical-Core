@@ -2,7 +2,7 @@
 
 class CalculateAndCacheSchoolDataForSegmentWorker
   include Sidekiq::Worker
-  sidekiq_options queue: SidekiqQueue::DEFAULT
+  sidekiq_options queue: SidekiqQueue::LOW
 
   def perform(school_id)
     school = School.find(school_id)
