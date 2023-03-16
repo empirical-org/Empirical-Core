@@ -3,6 +3,8 @@
 class ProgressReports::DistrictStandardsReports
   attr_reader :admin_id
 
+  PROFICIENT_THRESHOLD = 0.8
+
   def initialize(admin_id)
     @admin_id = admin_id
   end
@@ -69,7 +71,7 @@ class ProgressReports::DistrictStandardsReports
           GROUP BY
             final_activity_sessions.standard_id,
             final_activity_sessions.user_id
-          HAVING AVG(percentage) >= 0.8
+          HAVING AVG(percentage) >= #{PROFICIENT_THRESHOLD}
         ) AS avg_score_for_standard_by_user
           ON avg_score_for_standard_by_user.standard_id = standards.id
         GROUP BY
