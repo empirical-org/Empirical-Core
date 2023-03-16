@@ -2,7 +2,7 @@
 
 class FindDistrictConceptReportsWorker
   include Sidekiq::Worker
-  sidekiq_options queue: SidekiqQueue::CRITICAL
+  sidekiq_options queue: SidekiqQueue::CRITICAL, retry: 2
 
   def perform(admin_id)
     return unless admin_id
