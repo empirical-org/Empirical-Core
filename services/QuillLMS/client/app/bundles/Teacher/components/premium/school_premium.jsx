@@ -11,12 +11,6 @@ const schoolSupportSrc = `${baseImageLink}/illustrations-school-support.svg`
 const studentCompletingDiagnosticSrc = `${baseImageLink}/student-completing-diagnostic.webp`
 const backwardsPlanningSrc = `${baseImageLink}/backwards-planning-book.webp`
 const premiumReportLaptopSrc = `${baseImageLink}/premium-report-laptop.webp`
-const quillLessonsTeacherSrc = `${baseImageLink}/quill-lessons-teacher.webp`
-const studentsHelpingEachOtherSrc = `${baseImageLink}/students-helping-each-other.webp`
-const englishLanguageLearnSrc = `${baseImageLink}/english-language-learner-with-laptop.webp`
-const studentTeacherSignLanguageSrc = `${baseImageLink}/student-teacher-sign-language.webp`
-const studentTeacherWritingSrc = `${baseImageLink}/student-teacher-writing.webp`
-const studentHighlightedSrc = `${baseImageLink}/student-highlighted.webp`
 
 const erikaSrc = `${baseImageLink}/coach-erika.webp`
 const shannonSrc = `${baseImageLink}/coach-shannon.webp`
@@ -31,6 +25,15 @@ const PremiumFeature = ({ imageSrc, imageAlt, header, text, popular, subheader, 
     <h4>{header}</h4>
     {subheader}
     <p>{text}</p>
+  </div>
+)
+
+const TopicExplored = ({color, imgSrc, imgAlt, text}) => (
+  <div className="topic-explored">
+    <div className="topic-image">
+      <img alt={imgAlt} src={imgSrc} />
+    </div>
+    <h4 style={{color: color}}>{text}</h4>
   </div>
 )
 
@@ -63,65 +66,53 @@ const actionableFeaturesAndSupport = (
 const professionalDevelopmentSessions = (
   <section>
     <h3>Professional development sessions</h3>
-    <p>Quill Premium for schools includes two professional development sessions per year selected by the school. Schools may purchase additional sessions.</p>
+    <p>Quill Premium for schools and districts includes live virtual workshop-style training and an asynchronous course library.</p>
     <div className="premium-features-row">
       <PremiumFeature
-        header="Leveraging Quill Diagnostics"
         imageAlt="A student focusing on his laptop while working on Quill Diagnostic"
         imageSrc={studentCompletingDiagnosticSrc}
         popular={true}
-        text="Explore best practices for strategically incorporating the diagnostic recommendations to support student writing goals while also learning how to create supportive learning structures where students feel empowered."
+        text="Flexible and comprehensive training that fits your schedule with virtual and on-demand formats"
       />
       <PremiumFeature
-        header="Backwards planning"
         imageAlt="A photograph of the book, Writing for Understanding"
         imageSrc={backwardsPlanningSrc}
         popular={true}
-        text="Leaning on key tenets from Writing for Understanding, teachers will unpack the knowledge and understanding required in an upcoming writing assignment and then strategically embed Quill activities into their unit plan to help students achieve the assignment's writing goals."
+        text="A focus on instructional best practices and practical application with workshop-style training"
       />
       <PremiumFeature
-        header="Data reporting & student work"
         imageAlt="A person typing on a laptop with a Quill Premium report on the screen"
         imageSrc={premiumReportLaptopSrc}
-        text="We apply a research-based cycle of data inquiry to Quill's student data reports. Time will be dedicated for teachers to independently analyze their Quill data thus far and, together, explore how their findings can inform future instructional decisions and strategies."
-      />
-      <PremiumFeature
-        header="Quill Lessons implementation tips"
-        imageAlt="Arrows pointing to a teacher presenting a Quill Lesson"
-        imageSrc={quillLessonsTeacherSrc}
-        text="Quill Lessons is our interactive writing tool that helps teachers lead students through live grammar lessons. In this session, we explore various implementation ideas, as well as tips and guidance, to allow teachers to get the most out of this feature-packed tool."
-      />
-      <PremiumFeature
-        header="Whole group discussion"
-        imageAlt="Two students helping each other on one laptop"
-        imageSrc={studentsHelpingEachOtherSrc}
-        text="This session explores the conditions necessary for skills to transfer from the Quill platform to authentic writing. We consider strategies that use whole group micro-discussions to support this transfer."
-      />
-      <PremiumFeature
-        header="Supporting English Language Learners"
-        imageAlt="An ELL student typing on a laptop"
-        imageSrc={englishLanguageLearnSrc}
-        text="Explore Quill’s content created specifically for English Language Learners and learn  strategies to utilize these resources to support students’ written language acquisition."
-      />
-      <PremiumFeature
-        header="Supporting students with IEPs"
-        imageAlt="A teacher and a student practicing sign language"
-        imageSrc={studentTeacherSignLanguageSrc}
-        text="Learn how to make modifications to Quill’s learning plans for your students with IEPs,  provide targeted support, and track students’ growth and progress."
-      />
-      <PremiumFeature
-        header="Improving sentence fluency"
-        imageAlt="A teacher pointing to a student's paper while the student writes"
-        imageSrc={studentTeacherWritingSrc}
-        text="Explore ways to expand the work students do on the Quill platform to improve their sentence fluency in their writing beyond Quill."
-      />
-      <PremiumFeature
-        header="Empowering student writers"
-        imageAlt="A student smiling"
-        imageSrc={studentHighlightedSrc}
-        text="Explore various ways to encourage an increase in students’ writing self-efficacy using Quill’s tools, beyond extrinsic carrot and stick approaches."
+        text="Support for educators that strengthens both pedagogical and Quill skills"
       />
     </div>
+  </section>
+)
+
+const topicsExplored = (
+  <section>
+    <h3>What are some topics explored?</h3>
+    <div className="topics-row">
+      <TopicExplored color="#4D8DD9" imgAlt="globe" imgSrc={`${baseImageLink}/globe.svg`} text="Supporting English language learners" />
+      <TopicExplored color="#AD277B" imgAlt="graduation hat" imgSrc={`${baseImageLink}/hat-3.svg`} text="Supporting exceptional learners" />
+      <TopicExplored color="#2C7F9B" imgAlt="notepad with magnifying glass" imgSrc={`${baseImageLink}/grammar-check.svg`} text="Data instruction" />
+    </div>
+    <div className="topics-row">
+      <TopicExplored color="#DF9E3D" imgAlt="picture frame" imgSrc={`${baseImageLink}/frame.svg`} text="Improving sentence fluency" />
+      <TopicExplored color="#EB4F47" imgAlt="pencil" imgSrc={`${baseImageLink}/student-pencil.svg`} text="Backward planning" />
+      <TopicExplored color="#06806B" imgAlt="quill pen" imgSrc={`${baseImageLink}/quill.svg`} text="Leveraging Quill's tools and activities" />
+    </div>
+    <div className="topics-row last-row">
+      <TopicExplored color="#C04500" imgAlt="code editor" imgSrc={`${baseImageLink}/code-editor.svg`} text="Impactful feedback practices" />
+      <TopicExplored color="#9035D6" imgAlt="student icons" imgSrc={`${baseImageLink}/add-students.svg`} text="Empowering student writers" />
+    </div>
+  </section>
+)
+
+const coachingSessions = (
+  <section>
+    <h3 className="coaching-header">One-on-one coaching sessions with our Senior Instructional Coaches</h3>
+    <p>Once per quarter, teachers are invited to schedule 1:1 coaching sessions to work directly with a senior instructional coach on Quill&apos;s team. These sessions enable teachers to solve issues and understand reports. The coach and the teacher are looking at the Quill dashboard and leave the coaching session with more confidence in the tool.</p>
   </section>
 )
 
@@ -154,7 +145,7 @@ const testimonials = (
 
 const coachingTeam = (
   <section>
-    <h3>Meet the professional learning team</h3>
+    <h3>Meet the coaching team</h3>
     <div className="premium-features-row">
       <PremiumFeature
         header="Erika Parker-Havens"
@@ -194,6 +185,8 @@ const SchoolPremium = () => {
       <div className='premium-features-body'>
         {actionableFeaturesAndSupport}
         {professionalDevelopmentSessions}
+        {topicsExplored}
+        {coachingSessions}
         {testimonials}
         {coachingTeam}
       </div>

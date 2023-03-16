@@ -332,8 +332,8 @@ describe 'SegmentAnalytics' do
       expect(track_calls[0][:properties][:teacher_email]).to eq(teacher.email)
       expect(track_calls[0][:properties][:teacher_school]).to eq(teacher.school.name)
       expect(track_calls[0][:properties][:reason]).to eq(reason)
-      expect(track_calls[0][:context][:traits][:email]).to eq(admin.email)
-      expect(track_calls[0][:context][:traits][:name]).to eq(admin.name)
+
+      expect(identify_calls.size).to eq(1)
     end
   end
 
@@ -361,8 +361,8 @@ describe 'SegmentAnalytics' do
         expect(track_calls[0][:properties][:teacher_last_name]).to eq(teacher.last_name)
         expect(track_calls[0][:properties][:teacher_school]).to eq(teacher.school.name)
         expect(track_calls[0][:properties][:note]).to eq(note)
-        expect(track_calls[0][:context][:traits][:email]).to eq(admin.email)
-        expect(track_calls[0][:context][:traits][:name]).to eq(admin.name)
+
+        expect(identify_calls.size).to eq(1)
       end
     end
 
@@ -386,8 +386,9 @@ describe 'SegmentAnalytics' do
         expect(track_calls[0][:properties][:teacher_last_name]).to eq(teacher.last_name)
         expect(track_calls[0][:properties][:teacher_school]).to eq(teacher.school.name)
         expect(track_calls[0][:properties][:note]).to eq(note)
-        expect(track_calls[0][:context][:traits][:email]).to eq(admin_email)
-        expect(track_calls[0][:context][:traits][:name]).to eq(admin_name)
+        expect(identify_calls[0][:traits][:email]).to eq(admin_email)
+        expect(identify_calls[0][:traits][:name]).to eq(admin_name)
+        expect(identify_calls[0][:traits][:anonymous_id]).to eq(admin_email)
       end
     end
   end
