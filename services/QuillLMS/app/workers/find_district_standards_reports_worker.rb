@@ -2,15 +2,15 @@
 
 class FindDistrictStandardsReportsWorker
   include Sidekiq::Worker
-  sidekiq_options queue: SidekiqQueue::CRITICAL
+  sidekiq_options queue: SidekiqQueue::CRITICAL, retry: 2
 
   def perform(admin_id)
-    # return unless admin_id
+    return unless admin_id
 
-    # serialized_district_standards_reports_cache_life = 60*60*25
-    # serialized_district_standards_reports = ProgressReports::DistrictStandardsReports.new(admin_id).results.to_json
-    # $redis.set("#{SchoolsAdmins::DISTRICT_STANDARD_REPORTS_CACHE_KEY_STEM}#{admin_id}", serialized_district_standards_reports)
-    # $redis.expire("#{SchoolsAdmins::DISTRICT_STANDARD_REPORTS_CACHE_KEY_STEM}#{admin_id}", serialized_district_standards_reports_cache_life)
-    # PusherDistrictStandardsReportsCompleted.run(admin_id)
+    serialized_district_standards_reports_cache_life = 60*60*25
+    serialized_district_standards_reports = ProgressReports::DistrictStandardsReports.new(admin_id).results.to_json
+    $redis.set("#{SchoolsAdmins::DISTRICT_STANDARD_REPORTS_CACHE_KEY_STEM}#{admin_id}", serialized_district_standards_reports)
+    $redis.expire("#{SchoolsAdmins::DISTRICT_STANDARD_REPORTS_CACHE_KEY_STEM}#{admin_id}", serialized_district_standards_reports_cache_life)
+    PusherDistrictStandardsReportsCompleted.run(admin_id)
   end
 end
