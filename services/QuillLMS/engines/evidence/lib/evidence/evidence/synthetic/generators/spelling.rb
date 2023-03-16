@@ -18,7 +18,14 @@ module Evidence
 
               # TODO: add randomness to spelling substitutions
               text_with_misspell = string.gsub(Regexp.new(padded_key), SPELLING_SUBSTITUTES[spelling_key]&.first)
-              results_hash[string][spelling_key] = text_with_misspell
+
+              generator = Evidence::Synthetic::Generator.new(
+                name: 'Spelling',
+                source_text: string,
+                word: spelling_key,
+                results: [text_with_misspell]
+              )
+              results_hash[string].append(generator)
             end
           end
         end

@@ -15,6 +15,8 @@ describe Evidence::Synthetic::Generators::Translation do
   describe '#generate' do
     let(:translation) { described_class.new([text1, text2], languages: [:es])}
 
+    subject { translation.run }
+
     it 'fetch and store translations' do
 
       translation.stub(:translator).and_return(mock_translator)
@@ -23,12 +25,16 @@ describe Evidence::Synthetic::Generators::Translation do
       # translate to english mock
       expect(mock_translator).to receive(:translate).with([text1_spanish, text2_spanish], from: :es, to: :en).and_return([double(text: text1_english), double(text: text2_english)])
 
-      result = translation.run
+      expect(subject.count).to eq 2
+      expect(subject.class).to eq Hash
 
-      expect(result.count).to eq 2
-      expect(result.class).to eq Hash
-      expect(result[text1]['es']).to eq text1_english
-      expect(result[text2]['es']).to eq text2_english
+      generator1 = subject[text1].first
+      expect(generator1.results).to eq [text1_english]
+      expect(generator1.name).to eq 'Translation'
+      expect(generator1.language).to eq('es')
+
+      generator2 = subject[text2].first
+      expect(generator2.results).to eq [text2_english]
     end
 
     context 'google translate returns a single item (not an array)' do
@@ -41,11 +47,13 @@ describe Evidence::Synthetic::Generators::Translation do
         # translate to english mock
         expect(mock_translator).to receive(:translate).with([text1_spanish], from: :es, to: :en).and_return(double(text: text1_english))
 
-        result = translation.run
+        expect(subject.count).to eq 1
+        expect(subject.class).to eq Hash
 
-        expect(result.count).to eq 1
-        expect(result.class).to eq Hash
-        expect(result[text1]['es']).to eq text1_english
+        generator1 = subject[text1].first
+        expect(generator1.results).to eq [text1_english]
+        expect(generator1.name).to eq 'Translation'
+        expect(generator1.language).to eq('es')
       end
     end
   end

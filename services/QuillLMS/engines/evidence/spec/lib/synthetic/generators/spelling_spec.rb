@@ -9,13 +9,18 @@ describe Evidence::Synthetic::Generators::Spelling do
   describe '#generate' do
     let(:spelling) { described_class.new([text1, text2])}
 
-    it 'should return spelling results_hash' do
-      result = spelling.run
+    subject { spelling.run }
 
-      expect(result.count).to eq 2
-      expect(result.class).to eq Hash
-      expect(result[text1]['their']).to eq 'ther text'
-      expect(result[text2]).to be_empty
+    it 'should return spelling results_hash' do
+      expect(subject.count).to eq 2
+      expect(subject.class).to eq Hash
+
+      generator = subject[text1].first
+      expect(generator.name).to eq 'Spelling'
+      expect(generator.word).to eq('their')
+      expect(generator.results).to eq(['ther text'])
+
+      expect(subject[text2]).to be_empty
     end
   end
 end

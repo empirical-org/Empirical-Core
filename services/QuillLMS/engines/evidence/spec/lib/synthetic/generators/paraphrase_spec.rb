@@ -33,7 +33,11 @@ describe Evidence::Synthetic::Generators::Paraphrase do
         .with(prompt: prompt, count: 4, temperature: 0.7)
         .and_return(api_results)
 
-      expect(subject).to eq paraphrase_response
+      generator = subject[text1].first
+      expect(generator.name).to eq 'LabelParaphrase'
+      expect(generator.count).to eq(4)
+      expect(generator.temperature).to eq(0.7)
+      expect(generator.results).to eq(api_results)
     end
 
     it 'should lowercase result when applicable' do
@@ -41,7 +45,11 @@ describe Evidence::Synthetic::Generators::Paraphrase do
         .with(prompt: prompt, count: 4, temperature: 0.7)
         .and_return(api_result_with_uppercase)
 
-      expect(subject).to eq paraphrase_uppercase_response
+      generator = subject[text1].first
+      expect(generator.name).to eq 'LabelParaphrase'
+      expect(generator.count).to eq(4)
+      expect(generator.temperature).to eq(0.7)
+      expect(generator.results).to eq([uppercase_result.downcase])
     end
   end
 end

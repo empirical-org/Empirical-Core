@@ -49,7 +49,7 @@ module Evidence
           Synthetic::LabeledResult.new(
             text: text_and_label.first, # text is a unique ID
             label: text_and_label.last,
-            generated: {}
+            generated: []
           )
         end
 
@@ -65,13 +65,15 @@ module Evidence
 
         self
       end
-
+      # generated
+      # {'their originial response' => [Generated(spelling)]}
       def run_generators(generator_hash, results_set)
         generator_hash.each do |type, generator|
           results_hash = generator.run(results_set.map(&:text), languages: languages, passage: passage)
 
           results_set.each do |result|
-            result.generated[type] = results_hash[result.text] || {}
+            array_for_result = results_hash[result.text] || []
+            result.generated.concat(array_for_result)
           end
         end
       end

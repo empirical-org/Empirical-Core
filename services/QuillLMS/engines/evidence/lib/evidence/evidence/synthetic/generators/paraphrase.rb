@@ -21,21 +21,29 @@ module Evidence
               .map {|s| lowercaser.run(s) }
               .uniq
 
-            # convert array to {'index' => item} hash to fit protocol
-            result_hash = results
-              .map.with_index {|a,i| [i.to_s,a]}
-              .to_h
+            generator = Evidence::Synthetic::Generator.new(
+              name: 'LabelParaphrase',
+              source_text: string,
+              temperature: TEMPERATURE,
+              ml_prompt: ml_prompt(string),
+              count: COUNT,
+              results: results
+            )
 
-            results_hash[string] = result_hash
+            results_hash[string].append(generator)
           end
         end
 
         private def api_results(string)
           Evidence::OpenAI::Completion.run(
-            prompt: Evidence::OpenAI::PARAPHRASE_INSTRUCTION + string,
+            prompt: ml_prompt(string),
             count: COUNT,
             temperature: TEMPERATURE
           )
+        end
+
+        private def ml_prompt(string)
+          Evidence::OpenAI::PARAPHRASE_INSTRUCTION + string
         end
 
         private def lowercaser

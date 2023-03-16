@@ -12,8 +12,9 @@ module Evidence
       end
 
       private def generated_training_rows
-        generated_flattened
-          .map {|_,new_text| [type, new_text, label]}
+        generated
+          .map {|generator| generator.results.map {|new_text| [type, new_text, label]}}
+          .flatten(1)
       end
 
       def to_detail_rows
@@ -25,16 +26,22 @@ module Evidence
       end
 
       private def generated_detail_rows
-        generated_flattened
-          .map {|edit_type, new_text| [new_text, label, text, new_text == text ? 'no_change' : '', edit_type, type]}
+        generated
+          .map {|generator| generator_results_detail_rows(generator)}
+          .flatten(1)
       end
 
-      # flatten :generated into one hash by combining the generator and the sub-keys,
-      # e.g. {'translation-es' => 'hello', 'translation-ko' => 'hi', 'spelling-their' => 'what'...}
-      private def generated_flattened
-        generated
-          .map {|generator, hash| hash.transform_keys {|key| [generator,key].join('-')}}
-          &.reduce(&:merge) || {}
+      private def generator_results_detail_rows(generator)
+        generator.results.map do |new_text|
+          [
+            new_text,
+            label,
+            text,
+            new_text == text ? 'no_change' : '',
+            [generator.name, generator.language,generator.word].compact.join('-').downcase,
+            type
+          ]
+        end
       end
     end
   end
