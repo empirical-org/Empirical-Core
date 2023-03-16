@@ -33,17 +33,20 @@ describe ProgressReports::DistrictStandardsReports do
     let(:assigned_student_ids) { [] }
 
     it { expects_results }
+    it { expect(subject).to eq [] }
   end
 
   context 'student1 is assigned to classroom_unit' do
     let(:assigned_student_ids) { [student1.id] }
 
     it { expects_results }
+    it { expect(subject).to eq [] }
 
     context 'standard1 is assigned to activity1' do
       let!(:activity1) { create(:activity, standard: standard1) }
 
       it { expects_results }
+      it { expect(subject).to eq [] }
 
       context 'student1 has started activity_session with activity1' do
         before do
@@ -57,6 +60,7 @@ describe ProgressReports::DistrictStandardsReports do
         end
 
         it { expects_results }
+        it { expect(subject).to eq [] }
 
         context 'student1 has finished activity_session with activity1' do
           before do
@@ -75,12 +79,14 @@ describe ProgressReports::DistrictStandardsReports do
             let(:percentage1)  { proficient_threshold - 0.1 }
 
             it { expects_results }
+            it { expect(subject[0]["proficient_count"]).to eq 0 }
           end
 
           context 'percentage1 meets threshold' do
             let(:percentage1) { proficient_threshold }
 
             it { expects_results }
+            it { expect(subject[0]["proficient_count"]).to eq 1 }
           end
 
           context 'student1 has another finished another activity_session with activity1' do
@@ -97,6 +103,7 @@ describe ProgressReports::DistrictStandardsReports do
             end
 
             it { expects_results }
+            it { expect(subject[0]["proficient_count"]).to eq 1 }
           end
         end
       end
@@ -111,6 +118,7 @@ describe ProgressReports::DistrictStandardsReports do
       let(:activity2) { create(:activity, standard: standard2) }
 
       it { expects_results }
+      it { expect(subject).to eq [] }
 
       context 'student1 has finished activity_session with activity1' do
         before do
@@ -140,10 +148,19 @@ describe ProgressReports::DistrictStandardsReports do
 
           it { expects_results }
 
+          it do
+            expect(subject.size).to eq 1
+            expect(subject[0]["total_student_count"]).to eq 2
+            expect(subject[0]["total_activity_count"]).to eq 1
+          end
+
           context 'timespent2 is nil' do
             let(:timespent2) { nil }
 
             it { expects_results }
+
+            # nil timespent is effectively replaced with average of all non-nil timespent
+            it { expect(subject[0]["timespent"]).to eq (timespent1 + timespent1).to_s }
           end
         end
 
@@ -161,6 +178,14 @@ describe ProgressReports::DistrictStandardsReports do
           end
 
           it { expects_results }
+
+          it do
+            expect(subject.size).to eq 2
+            expect(subject[0]["total_student_count"]).to eq 1
+            expect(subject[0]["total_activity_count"]).to eq 1
+            expect(subject[1]["total_student_count"]).to eq 1
+            expect(subject[1]["total_activity_count"]).to eq 1
+          end
         end
       end
     end
@@ -198,6 +223,12 @@ describe ProgressReports::DistrictStandardsReports do
           end
 
           it { expects_results }
+
+          it do
+            expect(subject.size).to eq 1
+            expect(subject[0]["total_activity_count"]).to eq 1
+            expect(subject[0]["total_student_count"]).to eq 2
+          end
         end
 
         context 'student2 has finished activity_sessions with activity2' do
@@ -214,6 +245,12 @@ describe ProgressReports::DistrictStandardsReports do
           end
 
           it { expects_results }
+
+          it do
+            expect(subject.size).to eq 1
+            expect(subject[0]["total_activity_count"]).to eq 2
+            expect(subject[0]["total_student_count"]).to eq 2
+          end
         end
       end
     end
