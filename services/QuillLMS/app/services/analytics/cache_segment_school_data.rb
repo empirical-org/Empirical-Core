@@ -20,12 +20,8 @@ class CacheSegmentSchoolData
     Rails.cache.read(@school.id, namespace: namespace)
   end
 
-  def delete(namespace)
-    Rails.cache.delete(@school.id, namespace: namespace)
-  end
-
-  def write(data, namespace, expires_in=CACHE_LIFE)
-    Rails.cache.write(@school.id, data, expires_in: expires_in, namespace: namespace)
+  def write(data, namespace)
+    Rails.cache.write(@school.id, data, namespace: namespace, expires_in: CACHE_LIFE)
   end
 
   def set_all_fields
