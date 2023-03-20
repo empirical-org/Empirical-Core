@@ -3,31 +3,32 @@ import { connect } from 'react-redux';
 
 import LoadingSpinner from '../../Teacher/components/shared/loading_indicator';
 import StandardsReports from '../components/standardsReports';
-import {
-  switchClassroom,
-  switchSchool,
-  switchTeacher,
-  getDistrictStandardsReports,
-} from '../../../actions/district_standards_reports';
+import { getDistrictStandardsReports } from '../../../actions/district_standards_reports';
 import { getTimeSpent } from '../../Teacher/helpers/studentReports';
-import { restrictedPage, FULL, } from '../shared'
+import { restrictedPage, FULL, LIMITED } from '../shared'
 
 class DistrictStandardsReports extends React.Component {
   componentDidMount() {
-    const { getDistrictStandardsReports, } = this.props;
-    getDistrictStandardsReports();
+    const { getDistrictStandardsReports, isFreemiumView } = this.props;
+    getDistrictStandardsReports(isFreemiumView);
   }
 
   render() {
-    const { loading, accessType, } = this.props;
+    const { loading, accessType, isFreemiumView } = this.props;
+    const showFreemiumStandardsReport = accessType === LIMITED && isFreemiumView;
 
-    if (accessType !== FULL) {
+    if (accessType !== FULL && !showFreemiumStandardsReport) {
       return restrictedPage
     }
 
     if (loading) {
       return <LoadingSpinner />;
     }
+
+    if (showFreemiumStandardsReport) {
+      return (<StandardsReports {...this.props} />);
+    }
+
     return (<StandardsReports {...this.props} />);
   }
 }
@@ -52,7 +53,7 @@ function formatDataForCSV(data) {
   ];
 
   csvData.push(csvHeader);
-  data.forEach(row => csvData.push(csvRow(row)));
+  data && data.forEach(row => csvData.push(csvRow(row)));
 
   return csvData;
 }
@@ -69,7 +70,7 @@ const mapStateToProps = (state) => {
   };
 };
 const mapDispatchToProps = dispatch => ({
-  getDistrictStandardsReports: () => dispatch(getDistrictStandardsReports()),
+  getDistrictStandardsReports: (isFreemiumView) => dispatch(getDistrictStandardsReports(isFreemiumView)),
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(DistrictStandardsReports);

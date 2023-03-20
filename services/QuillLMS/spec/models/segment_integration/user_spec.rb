@@ -5,7 +5,7 @@ require 'rails_helper'
 RSpec.describe SegmentIntegration::User do
   context 'admin' do
     let(:admin) { create(:admin) }
-    let(:admin_info) { create(:admin_info, admin: admin) }
+    let(:admin_info) { create(:admin_info, admin: admin, verification_url: 'quill.org', verification_reason: 'I am an admin.') }
     let(:user_email_verification ) { create(:user_email_verification, user: admin, verified_at: Time.zone.today, verification_method: UserEmailVerification::EMAIL_VERIFICATION) }
     let(:schools) { create_list(:school, 3) }
     let(:districts) { create_list(:district, 3) }
@@ -46,6 +46,8 @@ RSpec.describe SegmentIntegration::User do
           admin_sub_role: admin.admin_sub_role,
           email_verification_status: admin.email_verification_status,
           admin_approval_status: admin.admin_approval_status,
+          admin_reason: admin.admin_verification_reason,
+          admin_linkedin_or_url: admin.admin_verification_url,
           number_of_schools_administered: schools.count,
           number_of_districts_administered: districts.count
         }.reject {|_,v| v.nil? }

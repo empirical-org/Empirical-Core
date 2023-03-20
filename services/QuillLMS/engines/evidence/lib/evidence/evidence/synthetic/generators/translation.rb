@@ -29,12 +29,13 @@ module Evidence
         # Throttling to 100 sentences at a time.
         BATCH_SIZE = 100
 
-        attr_reader :languages
+        attr_reader :languages, :passage
 
         def initialize(string_array, options = {})
           super
 
           @languages = options[:languages] || TRAIN_LANGUAGES
+          @passage = HTMLTagRemover.run(options[:passage] || "")
         end
 
         def generate
@@ -50,7 +51,7 @@ module Evidence
             english_texts = Array(translator.translate(translations.map(&:text), from: language, to: ENGLISH))
 
             strings_slice.each.with_index do |string, index|
-              results_hash[string][language.to_s] = english_texts[index].text
+              results_hash[string][language.to_s] = lowercaser.run(english_texts[index].text)
             end
           end
         end
@@ -58,6 +59,10 @@ module Evidence
         # NB, there is a V3, but that throws errors with our current Google Integration
         private def translator
           @translator ||= ::Google::Cloud::Translate.new(version: :v2)
+        end
+
+        private def lowercaser
+          @lowercaser ||= Evidence::SafeFirstLowercaser.new(passage)
         end
       end
     end

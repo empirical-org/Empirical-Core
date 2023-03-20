@@ -21,7 +21,7 @@ const InviteAdminModal = ({ onSuccess, closeModal, }) => {
       admin_email: adminEmail,
       note
     }, () => {
-      onSuccess('Your request has been sent')
+      onSuccess('Your invite has been sent')
     })
   }
 

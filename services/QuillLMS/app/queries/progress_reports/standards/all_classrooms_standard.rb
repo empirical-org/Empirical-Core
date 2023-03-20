@@ -1,9 +1,10 @@
 # frozen_string_literal: true
 
 class ProgressReports::Standards::AllClassroomsStandard
+  PROFICIENT_THRESHOLD = 0.8
+
   def initialize(teacher)
     @teacher = teacher
-    @proficiency_cutoff = ProficiencyEvaluator.proficiency_cutoff
   end
 
   def results(classroom_id, student_id)
@@ -11,7 +12,11 @@ class ProgressReports::Standards::AllClassroomsStandard
       <<-SQL
         WITH final_activity_sessions AS (
           SELECT
-            activity_sessions.*,
+            activity_sessions.activity_id,
+            activity_sessions.id,
+            activity_sessions.percentage,
+            activity_sessions.timespent,
+            activity_sessions.user_id,
             activities.standard_id
           FROM activity_sessions
           JOIN classroom_units
@@ -52,7 +57,7 @@ class ProgressReports::Standards::AllClassroomsStandard
           GROUP BY
             final_activity_sessions.standard_id,
             final_activity_sessions.user_id
-          HAVING AVG(percentage) >= 0.8
+          HAVING AVG(percentage) >= #{PROFICIENT_THRESHOLD}
         ) AS avg_score_for_standard_by_user
           ON avg_score_for_standard_by_user.standard_id = standards.id
         GROUP BY

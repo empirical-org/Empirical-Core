@@ -241,6 +241,7 @@ class SegmentAnalytics
   end
 
   def track_admin_received_admin_upgrade_request_from_teacher(admin, teacher, reason)
+    identify(admin)
     track({
       user_id: admin.id,
       event: SegmentIo::BackgroundEvents::ADMIN_RECEIVED_ADMIN_UPGRADE_REQUEST_FROM_TEACHER,
@@ -265,12 +266,14 @@ class SegmentAnalytics
       note: note
     }
     if admin
+      identify(admin)
       track({
         user_id: admin.id,
         event: SegmentIo::BackgroundEvents::ADMIN_INVITED_BY_TEACHER,
-        properties: properties
+        properties: properties,
       })
     else
+      identify_anonymous_user({ anonymous_id: admin_email, traits: { email: admin_email, name: admin_name }})
       track({
         # Segment requires us to send a unique User ID or Anonymous ID for every event
         # sending the admin email as the anonymous id because that's how we find people in Ortto
@@ -312,6 +315,12 @@ class SegmentAnalytics
 
     identify_params = user&.segment_user&.identify_params
     backend.identify(identify_params) if identify_params
+  end
+
+  def identify_anonymous_user(params)
+    return unless backend.present?
+
+    backend.identify(params)
   end
 
   private def anonymous_uid

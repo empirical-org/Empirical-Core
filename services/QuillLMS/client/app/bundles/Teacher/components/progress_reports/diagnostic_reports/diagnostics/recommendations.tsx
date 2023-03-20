@@ -116,7 +116,7 @@ const LessonsRecommendations = ({ assigningLessonsBanner, previouslyAssignedReco
   )
 }
 
-const RecommendationsButtons = ({ className, numberSelected, assigning, assigned, handleClickAssignActivityPacks, deselectAll, selectAll, selectAllRecommended, releaseMethod, handleClickEditReleaseMethod, postTestAssignmentButton }) => {
+const RecommendationsButtons = ({ className, parentClassName, numberSelected, assigning, assigned, handleClickAssignActivityPacks, deselectAll, selectAll, selectAllRecommended, releaseMethod, handleClickEditReleaseMethod }) => {
   let assignButton = <button className="quill-button primary contained small disabled focus-on-light" type="button">Assign activity packs</button>
 
   if (assigning) {
@@ -139,7 +139,7 @@ const RecommendationsButtons = ({ className, numberSelected, assigning, assigned
   }
 
   return (
-    <div className="recommendations-buttons-container">
+    <div className={`recommendations-buttons-container ${parentClassName}`}>
       <div className={`recommendations-buttons ${className}`}>
         <div className="selection-buttons">
           <button className="quill-button fun secondary outlined focus-on-light" onClick={selectAll} type="button">Select all</button>
@@ -154,12 +154,16 @@ const RecommendationsButtons = ({ className, numberSelected, assigning, assigned
           {assignButton}
         </div>
       </div>
-      {postTestAssignmentButton}
     </div>
   )
 }
 
-const PostTestAssignmentButton = ({ assigningPostTest, assignedPostTest, assignPostTest, numberSelectedForPostTest, }) => {
+const PostTestAssignmentButton = ({ assigningPostTest, assignedPostTest, assignPostTest, numberSelectedForPostTest, releaseMethod}) => {
+  let assignDivClass
+  if (releaseMethod) {
+    assignDivClass = "larger-assign"
+  }
+
   let assignButton = <button className="quill-button primary contained small disabled focus-on-light" type="button">Assign test</button>
 
   if (assigningPostTest) {
@@ -171,13 +175,13 @@ const PostTestAssignmentButton = ({ assigningPostTest, assignedPostTest, assignP
   }
 
   return (
-    <div className="recommendations-buttons post-test-assignment-button">
+    <div className={`recommendations-buttons post-test-assignment-button ${assignDivClass}`}>
       {assignButton}
     </div>
   )
 }
 
-const IndependentRecommendationsButtons = ({ handleClickAssignActivityPacks, independentSelections, setIndependentSelections, recommendations, students, assigned, assigning, previouslyAssignedRecommendations, releaseMethod, setShowReleaseMethodModal, showPostTestAssignmentColumn, assignPostTest, assignedPostTest, assigningPostTest, numberSelectedForPostTest, }) => {
+const IndependentRecommendationsButtons = ({ handleClickAssignActivityPacks, independentSelections, setIndependentSelections, recommendations, students, assigned, assigning, previouslyAssignedRecommendations, releaseMethod, setShowReleaseMethodModal,}) => {
   function handleClickEditReleaseMethod() { setShowReleaseMethodModal(true) }
 
   function handleSelectAllClick() {
@@ -219,7 +223,7 @@ const IndependentRecommendationsButtons = ({ handleClickAssignActivityPacks, ind
       handleClickAssignActivityPacks={handleClickAssignActivityPacks}
       handleClickEditReleaseMethod={releaseMethod && handleClickEditReleaseMethod}
       numberSelected={numberSelected}
-      postTestAssignmentButton={showPostTestAssignmentColumn ? <PostTestAssignmentButton assignedPostTest={assignedPostTest} assigningPostTest={assigningPostTest} assignPostTest={assignPostTest} numberSelectedForPostTest={numberSelectedForPostTest} /> : null}
+      parentClassName="independent-practice-recommendations-buttons-container"
       releaseMethod={releaseMethodToDisplayName[releaseMethod]}
       selectAll={handleSelectAllClick}
       selectAllRecommended={handleSelectAllRecommendedClick}
@@ -499,6 +503,8 @@ export const Recommendations = ({ passedPreviouslyAssignedRecommendations, passe
 
   const showPostTestAssignmentColumn = studentsWhoCompletedDiagnostic.length && postDiagnosticUnitTemplateId && !isPostDiagnostic
 
+  const widthClass = showPostTestAssignmentColumn ? "smaller-width" : ""
+
   const recommendedKey = (<div className="recommended-key">
     <div className="recommended-image">{recommendedGlyph}</div>
     <div>
@@ -513,39 +519,64 @@ export const Recommendations = ({ passedPreviouslyAssignedRecommendations, passe
     independentRecommendationsSection = (<React.Fragment>
       <p className="explanation">Based on the results of the diagnostic, we created a personalized learning plan for each student. Customize your learning plan by selecting the activity packs you would like to assign.</p>
       <section className="independent-practice">
-        <div className="section-header"><h2>Independent practice</h2>{recommendedKey}</div>
-        <IndependentRecommendationsButtons
-          assigned={independentAssigned}
-          assignedPostTest={postTestAssigned}
-          assigning={independentAssigning}
-          assigningPostTest={postTestAssigning}
-          assignPostTest={assignPostTest}
-          handleClickAssignActivityPacks={handleClickAssignIndependentActivityPacks}
-          independentSelections={independentSelections}
-          numberSelectedForPostTest={postTestSelections.length}
-          previouslyAssignedRecommendations={previouslyAssignedIndependentRecommendations}
-          recommendations={independentRecommendations}
-          releaseMethod={releaseMethod}
-          setIndependentSelections={setIndependentSelections}
-          setShowReleaseMethodModal={setShowReleaseMethodModal}
-          showPostTestAssignmentColumn={showPostTestAssignmentColumn}
-          students={students}
-        />
-        <RecommendationsTable
-          postDiagnosticUnitTemplateId={postDiagnosticUnitTemplateId}
-          postTestSelections={postTestSelections}
-          previouslyAssignedPostTestStudentIds={previouslyAssignedPostTestStudentIds}
-          previouslyAssignedRecommendations={previouslyAssignedIndependentRecommendations}
-          recommendations={independentRecommendations}
-          responsesLink={responsesLink}
-          selections={independentSelections}
-          setPostTestSelections={setPostTestSelections}
-          setSelections={setIndependentSelections}
-          showPostTestAssignmentColumn={showPostTestAssignmentColumn}
-          students={students}
-          studentsWhoCompletedAssignedRecommendations={studentsWhoCompletedAssignedRecommendations}
-          studentsWhoCompletedDiagnostic={studentsWhoCompletedDiagnostic}
-        />
+        <div className="section-header">
+          <h2>Independent practice</h2>{recommendedKey}
+        </div>
+        <div className="recommendations-table-container">
+          <div className={`recommendations-table-wrapper ${widthClass}`}>
+            <IndependentRecommendationsButtons
+              assigned={independentAssigned}
+              assignedPostTest={postTestAssigned}
+              assigning={independentAssigning}
+              assigningPostTest={postTestAssigning}
+              assignPostTest={assignPostTest}
+              handleClickAssignActivityPacks={handleClickAssignIndependentActivityPacks}
+              independentSelections={independentSelections}
+              numberSelectedForPostTest={postTestSelections.length}
+              previouslyAssignedRecommendations={previouslyAssignedIndependentRecommendations}
+              recommendations={independentRecommendations}
+              releaseMethod={releaseMethod}
+              setIndependentSelections={setIndependentSelections}
+              setShowReleaseMethodModal={setShowReleaseMethodModal}
+              showPostTestAssignmentColumn={showPostTestAssignmentColumn}
+              students={students}
+            />
+            <RecommendationsTable
+              isPostTest={false}
+              postDiagnosticUnitTemplateId={postDiagnosticUnitTemplateId}
+              postTestSelections={postTestSelections}
+              previouslyAssignedPostTestStudentIds={previouslyAssignedPostTestStudentIds}
+              previouslyAssignedRecommendations={previouslyAssignedIndependentRecommendations}
+              recommendations={independentRecommendations}
+              responsesLink={responsesLink}
+              selections={independentSelections}
+              setPostTestSelections={setPostTestSelections}
+              setSelections={setIndependentSelections}
+              students={students}
+              studentsWhoCompletedAssignedRecommendations={studentsWhoCompletedAssignedRecommendations}
+              studentsWhoCompletedDiagnostic={studentsWhoCompletedDiagnostic}
+            />
+          </div>
+          <div>
+            {showPostTestAssignmentColumn ? <PostTestAssignmentButton
+              assignedPostTest={postTestAssigned}
+              assigningPostTest={postTestAssigning}
+              assignPostTest={assignPostTest}
+              numberSelectedForPostTest={postTestSelections.length}
+              releaseMethod={releaseMethod}
+            /> : null}
+            {showPostTestAssignmentColumn ? <RecommendationsTable
+              isPostTest={true}
+              postDiagnosticUnitTemplateId={postDiagnosticUnitTemplateId}
+              postTestSelections={postTestSelections}
+              previouslyAssignedPostTestStudentIds={previouslyAssignedPostTestStudentIds}
+              setPostTestSelections={setPostTestSelections}
+              students={students}
+              studentsWhoCompletedAssignedRecommendations={studentsWhoCompletedAssignedRecommendations}
+              studentsWhoCompletedDiagnostic={studentsWhoCompletedDiagnostic}
+            /> : null}
+          </div>
+        </div>
       </section>
     </React.Fragment>)
   }

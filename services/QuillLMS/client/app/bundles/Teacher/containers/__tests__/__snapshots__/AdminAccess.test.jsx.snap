@@ -162,13 +162,40 @@ exports[`AdminAccounts container when the user does not have a verified email an
           <span>
             Toni Morrison
           </span>
-          <a
-            href="mailto:toni.morrison@quill.org"
-            rel="noopener noreferrer"
-            target="_blank"
+          <Tooltip
+            isTabbable={true}
+            tooltipText="This action is disabled until your email is verified."
+            tooltipTriggerText="Contact"
+            tooltipTriggerTextClass="disabled-link"
           >
-            Contact
-          </a>
+            <span
+              aria-hidden={false}
+              className="quill-tooltip-trigger "
+              role="tooltip"
+            >
+              <span
+                className="disabled-link"
+                onBlur={[Function]}
+                onClick={[Function]}
+                onFocus={[Function]}
+                onKeyDown={[Function]}
+                onMouseEnter={[Function]}
+                onMouseLeave={[Function]}
+                role="button"
+                tabIndex={0}
+              >
+                Contact
+              </span>
+              <span
+                className="quill-tooltip-wrapper"
+              >
+                <span
+                  aria-live="polite"
+                  className="quill-tooltip"
+                />
+              </span>
+            </span>
+          </Tooltip>
         </p>
         <p
           key="2"
@@ -176,13 +203,40 @@ exports[`AdminAccounts container when the user does not have a verified email an
           <span>
             James Baldwin
           </span>
-          <a
-            href="mailto:james.baldwin@quill.org"
-            rel="noopener noreferrer"
-            target="_blank"
+          <Tooltip
+            isTabbable={true}
+            tooltipText="This action is disabled until your email is verified."
+            tooltipTriggerText="Contact"
+            tooltipTriggerTextClass="disabled-link"
           >
-            Contact
-          </a>
+            <span
+              aria-hidden={false}
+              className="quill-tooltip-trigger "
+              role="tooltip"
+            >
+              <span
+                className="disabled-link"
+                onBlur={[Function]}
+                onClick={[Function]}
+                onFocus={[Function]}
+                onKeyDown={[Function]}
+                onMouseEnter={[Function]}
+                onMouseLeave={[Function]}
+                role="button"
+                tabIndex={0}
+              >
+                Contact
+              </span>
+              <span
+                className="quill-tooltip-wrapper"
+              >
+                <span
+                  aria-live="polite"
+                  className="quill-tooltip"
+                />
+              </span>
+            </span>
+          </Tooltip>
         </p>
       </div>
       <div
@@ -377,13 +431,40 @@ exports[`AdminAccounts container when the user does not have a verified email an
           <span>
             Toni Morrison
           </span>
-          <a
-            href="mailto:toni.morrison@quill.org"
-            rel="noopener noreferrer"
-            target="_blank"
+          <Tooltip
+            isTabbable={true}
+            tooltipText="This action is disabled until your email is verified."
+            tooltipTriggerText="Contact"
+            tooltipTriggerTextClass="disabled-link"
           >
-            Contact
-          </a>
+            <span
+              aria-hidden={false}
+              className="quill-tooltip-trigger "
+              role="tooltip"
+            >
+              <span
+                className="disabled-link"
+                onBlur={[Function]}
+                onClick={[Function]}
+                onFocus={[Function]}
+                onKeyDown={[Function]}
+                onMouseEnter={[Function]}
+                onMouseLeave={[Function]}
+                role="button"
+                tabIndex={0}
+              >
+                Contact
+              </span>
+              <span
+                className="quill-tooltip-wrapper"
+              >
+                <span
+                  aria-live="polite"
+                  className="quill-tooltip"
+                />
+              </span>
+            </span>
+          </Tooltip>
         </p>
         <p
           key="2"
@@ -391,13 +472,40 @@ exports[`AdminAccounts container when the user does not have a verified email an
           <span>
             James Baldwin
           </span>
-          <a
-            href="mailto:james.baldwin@quill.org"
-            rel="noopener noreferrer"
-            target="_blank"
+          <Tooltip
+            isTabbable={true}
+            tooltipText="This action is disabled until your email is verified."
+            tooltipTriggerText="Contact"
+            tooltipTriggerTextClass="disabled-link"
           >
-            Contact
-          </a>
+            <span
+              aria-hidden={false}
+              className="quill-tooltip-trigger "
+              role="tooltip"
+            >
+              <span
+                className="disabled-link"
+                onBlur={[Function]}
+                onClick={[Function]}
+                onFocus={[Function]}
+                onKeyDown={[Function]}
+                onMouseEnter={[Function]}
+                onMouseLeave={[Function]}
+                role="button"
+                tabIndex={0}
+              >
+                Contact
+              </span>
+              <span
+                className="quill-tooltip-wrapper"
+              >
+                <span
+                  aria-live="polite"
+                  className="quill-tooltip"
+                />
+              </span>
+            </span>
+          </Tooltip>
         </p>
       </div>
       <div
