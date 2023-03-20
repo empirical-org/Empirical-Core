@@ -4,7 +4,8 @@ import EmptyStateForReport from '../../Teacher/components/progress_reports/empty
 import { ReactTable, } from '../../Shared/index'
 import { getTimeSpent } from '../../Teacher/helpers/studentReports';
 
-export const StandardsReportsTable = ({ data, }) => {
+export const StandardsReportsTable = ({ data, isFreemiumView }) => {
+
   const columns = [
     {
       Header: 'Standard level',
@@ -53,8 +54,8 @@ export const StandardsReportsTable = ({ data, }) => {
           defaultPageSize={100}
           defaultSorted={[{ id: 'last_active', desc: true ,}]}
           minRows={1}
-          showPagination
-          showPaginationBottom
+          showPagination={!isFreemiumView}
+          showPaginationBottom={!isFreemiumView}
         />
       </div>
     );

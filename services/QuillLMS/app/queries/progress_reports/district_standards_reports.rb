@@ -1,12 +1,14 @@
 # frozen_string_literal: true
 
 class ProgressReports::DistrictStandardsReports
-  attr_reader :admin_id
+  attr_reader :admin_id, :is_freemium
 
   PROFICIENT_THRESHOLD = 0.8
+  FREEMIUM_LIMIT = 10
 
-  def initialize(admin_id)
+  def initialize(admin_id, is_freemium = nil)
     @admin_id = admin_id
+    @is_freemium = is_freemium
   end
 
   def results
@@ -16,17 +18,19 @@ class ProgressReports::DistrictStandardsReports
     user_ids = user_ids_query(admin_id)
     return [] if user_ids.empty?
 
-    Standard
+    standards_results = Standard
       .all
       .pluck(:id)
       .map { |standard_id| standards_report_query(user_ids, standard_id) }
       .flatten
       .sort_by { |k| k["name"] }
+    standards_results = standards_results.take(FREEMIUM_LIMIT) if @is_freemium
+    standards_results
   end
 
   def standards_report_query(user_ids, standard_id)
     RawSqlRunner.execute(
-      <<~SQL
+      <<-SQL
         WITH final_activity_sessions AS (
           SELECT
             activity_sessions.activity_id,

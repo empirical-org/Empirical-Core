@@ -3,6 +3,7 @@ import * as React from 'react'
 export const RESTRICTED = 'restricted'
 export const LIMITED = 'limited'
 export const FULL = 'full'
+export const LOADING = 'loading'
 
 export const APPROVED = 'Approved'
 export const PENDING = 'Pending'

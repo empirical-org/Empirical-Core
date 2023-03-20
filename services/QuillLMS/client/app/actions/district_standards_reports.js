@@ -31,12 +31,13 @@ export const initializePusherForDistrictStandardsReports = (adminId) => {
   }
 }
 
-export const getDistrictStandardsReports = () => {
+export const getDistrictStandardsReports = (isFreemiumView) => {
+  const freemiumParam = isFreemiumView ? '?freemium=true' : ''
   return (dispatch) => {
     requestGet(
-      `${process.env.DEFAULT_URL}/api/v1/progress_reports/district_standards_reports`,
+      `${process.env.DEFAULT_URL}/api/v1/progress_reports/district_standards_reports${freemiumParam}`,
       (body) => {
-        if (body.id) {
+        if (body.id && (process.env.RAILS_ENV === 'production')) {
           dispatch(initializePusherForDistrictStandardsReports(String(body.id)))
         } else {
           dispatch(recieveDistrictStandardsReports(body))
