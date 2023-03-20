@@ -24,8 +24,9 @@ RSpec.describe CacheSegmentSchoolData do
     end
   end
 
-  let(:subject) { described_class.new(school) }
+  subject { described_class.new(school) }
 
+  # rubocop:disable RSpec/SubjectStub
   describe '#read' do
     it 'calls read on rails cache with the passed arguments' do
       namespace = 'namespace'
@@ -138,5 +139,6 @@ RSpec.describe CacheSegmentSchoolData do
       expect(subject.teachers_at_school).to eq([teacher1, teacher2])
     end
   end
+  # rubocop:enable RSpec/SubjectStub
 
 end
