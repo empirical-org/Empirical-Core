@@ -53,8 +53,8 @@ export const StandardsReportsTable = ({ data, isFreemiumView }) => {
           columns={columns}
           data={data}
           defaultPageSize={100}
-          disableSortBy={isFreemiumView}
           defaultSorted={defaultSortedRule}
+          disableSortBy={isFreemiumView}
           minRows={1}
           showPagination={!isFreemiumView}
           showPaginationBottom={!isFreemiumView}
