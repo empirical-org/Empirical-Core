@@ -111,6 +111,22 @@ exports[`AdminDashboard container should render with a full access type 1`] = `
     <div
       className="dark-divider"
     />
+    <div
+      className="header"
+    >
+      <h2>
+        Upload Teachers via CSV
+      </h2>
+      <a
+        className="quill-button secondary outlined fun focus-on-light csv-button"
+        href="mailto:hello@quill.org?subject=Bulk Upload Teachers via CSV&body=Please attach your CSV file to this email."
+      >
+        Upload teachers via CSV
+      </a>
+    </div>
+    <div
+      className="dark-divider"
+    />
     <CreateNewAccounts
       accessType="full"
       addTeacherAccount={[Function]}
@@ -2902,22 +2918,6 @@ exports[`AdminDashboard container should render with a full access type 1`] = `
     </CreateNewAccounts>
     <div
       className="dark-divider"
-    />
-    <div
-      className="header"
-    >
-      <h2>
-        Upload Teachers via CSV
-      </h2>
-      <a
-        className="quill-button secondary outlined fun focus-on-light csv-button"
-        href="mailto:hello@quill.org?subject=Bulk Upload Teachers via CSV&body=Please attach your CSV file to this email."
-      >
-        Upload teachers via CSV
-      </a>
-    </div>
-    <div
-      className="dark-divider"
       id="scroll-location"
     />
     <AdminsTeachers
@@ -4431,6 +4431,22 @@ exports[`AdminDashboard container should render with a limited access type 1`] =
         </section>
       </section>
     </PremiumFeatures>
+    <div
+      className="dark-divider"
+    />
+    <div
+      className="header"
+    >
+      <h2>
+        Upload Teachers via CSV
+      </h2>
+      <a
+        className="quill-button secondary outlined fun focus-on-light csv-button"
+        href="mailto:hello@quill.org?subject=Bulk Upload Teachers via CSV&body=Please attach your CSV file to this email."
+      >
+        Upload teachers via CSV
+      </a>
+    </div>
     <div
       className="dark-divider"
     />
@@ -7225,22 +7241,6 @@ exports[`AdminDashboard container should render with a limited access type 1`] =
     </CreateNewAccounts>
     <div
       className="dark-divider"
-    />
-    <div
-      className="header"
-    >
-      <h2>
-        Upload Teachers via CSV
-      </h2>
-      <a
-        className="quill-button secondary outlined fun focus-on-light csv-button"
-        href="mailto:hello@quill.org?subject=Bulk Upload Teachers via CSV&body=Please attach your CSV file to this email."
-      >
-        Upload teachers via CSV
-      </a>
-    </div>
-    <div
-      className="dark-divider"
       id="scroll-location"
     />
     <AdminsTeachers
@@ -8754,6 +8754,22 @@ exports[`AdminDashboard container should render with a restricted access type 1`
         </section>
       </section>
     </PremiumFeatures>
+    <div
+      className="dark-divider"
+    />
+    <div
+      className="header"
+    >
+      <h2>
+        Upload Teachers via CSV
+      </h2>
+      <a
+        className="quill-button secondary outlined fun focus-on-light csv-button"
+        href="mailto:hello@quill.org?subject=Bulk Upload Teachers via CSV&body=Please attach your CSV file to this email."
+      >
+        Upload teachers via CSV
+      </a>
+    </div>
     <div
       className="dark-divider"
     />
@@ -11546,22 +11562,6 @@ exports[`AdminDashboard container should render with a restricted access type 1`
         </section>
       </div>
     </CreateNewAccounts>
-    <div
-      className="dark-divider"
-    />
-    <div
-      className="header"
-    >
-      <h2>
-        Upload Teachers via CSV
-      </h2>
-      <a
-        className="quill-button secondary outlined fun focus-on-light csv-button"
-        href="mailto:hello@quill.org?subject=Bulk Upload Teachers via CSV&body=Please attach your CSV file to this email."
-      >
-        Upload teachers via CSV
-      </a>
-    </div>
     <div
       className="dark-divider"
       id="scroll-location"
