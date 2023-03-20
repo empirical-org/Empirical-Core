@@ -40,10 +40,10 @@ export default class ClassroomCard extends React.Component<ClassroomCardProps, C
   handleClick = (e) => {
     // This was added March 20, 2023 in an attempt to chase down an
     // intermittent bug.  If it's been here for 6+ months, feel free to kill it
-    console.log('handleClick()')
-    console.log('e.target:')
-    console.log(e.target)
-    console.log(`this.studentSection.contains(e.target): ${this.studentSection.contains(e.target)}`)
+    console.log('handleClick()') // eslint-disable-line no-console
+    console.log('e.target:') // eslint-disable-line no-console
+    console.log(e.target) // eslint-disable-line no-console
+    console.log(`this.studentSection.contains(e.target): ${this.studentSection.contains(e.target)}`) // eslint-disable-line no-console
 
     if (this.studentSection && this.studentSection.contains(e.target)) {
       this.setState({ isActive: true})
@@ -92,11 +92,11 @@ export default class ClassroomCard extends React.Component<ClassroomCardProps, C
 
     // This was added March 20, 2023 in an attempt to chase down an
     // intermittent bug.  If it's been here for 6+ months, feel free to kill it
-    console.log('renderStudentSection()')
-    console.log(`selectedStudents.length: ${selectedStudents.length}`)
-    console.log(`emptyClassroomSelected: ${emptyClassroomSelected}`)
-    console.log(`isActive: ${isActive}`)
-    console.log(`options.length: ${options.length}`)
+    console.log('renderStudentSection()') // eslint-disable-line no-console
+    console.log(`selectedStudents.length: ${selectedStudents.length}`) // eslint-disable-line no-console
+    console.log(`emptyClassroomSelected: ${emptyClassroomSelected}`) // eslint-disable-line no-console
+    console.log(`isActive: ${isActive}`) // eslint-disable-line no-console
+    console.log(`options.length: ${options.length}`) // eslint-disable-line no-console
 
     if (!selectedStudents.length && !emptyClassroomSelected && !isActive) { return null }
 
