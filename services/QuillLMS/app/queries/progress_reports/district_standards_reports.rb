@@ -6,7 +6,7 @@ class ProgressReports::DistrictStandardsReports
   PROFICIENT_THRESHOLD = 0.8
   FREEMIUM_LIMIT = 10
 
-  def initialize(admin_id, is_freemium)
+  def initialize(admin_id, is_freemium = nil)
     @admin_id = admin_id
     @is_freemium = is_freemium
   end
