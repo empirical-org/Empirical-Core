@@ -51,6 +51,9 @@
             <% end %>
             <li><%= active_link_to 'My Account', teachers_my_account_path %></li>
             <li><%= active_link_to 'My Subscriptions', subscriptions_path %></li>
+            <% if should_show_admin_access_tab? %>
+              <li><%= active_link_to 'Admin Access', admin_access_index_path %></li>
+            <% end %>
           <% end %>
 
           <% if classes_page_should_be_active? %>

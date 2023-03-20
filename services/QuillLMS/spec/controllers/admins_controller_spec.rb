@@ -181,6 +181,41 @@ describe AdminsController  do
     end
   end
 
+  describe '#approve_admin_request' do
+    before do
+      create(:admin_info, user: teacher, approval_status: AdminInfo::PENDING)
+    end
+
+    it 'should update the teacher admin info to be approved, create a school admin record, call the analytics worker, and return a message' do
+      expect(TeacherApprovedToBecomeAdminAnalyticsWorker).to receive(:perform_async).with(teacher.id)
+
+      post :approve_admin_request, params: { id: teacher.id, school_id: school.id  }
+
+      teacher.admin_info.reload
+      expect(teacher.admin_info.approval_status).to eq(AdminInfo::APPROVED)
+      expect(teacher.admin_info.sub_role).to eq(AdminInfo::TEACHER_ADMIN)
+      expect(SchoolsAdmins.find_by(user: teacher, school: school)).to be
+      expect(response.body).to eq({message: I18n.t('admin.approve_admin_request')}.to_json)
+    end
+
+  end
+
+  describe '#deny_admin_request' do
+    before do
+      create(:admin_info, user: teacher, approval_status: AdminInfo::PENDING)
+    end
+
+    it 'should update the teacher admin info to be denied, call the analytics worker, and return a message' do
+      expect(TeacherDeniedToBecomeAdminAnalyticsWorker).to receive(:perform_async).with(teacher.id)
+
+      post :deny_admin_request, params: { id: teacher.id  }
+
+      teacher.admin_info.reload
+      expect(teacher.admin_info.approval_status).to eq(AdminInfo::DENIED)
+      expect(response.body).to eq({message: I18n.t('admin.deny_admin_request')}.to_json)
+    end
+  end
+
   describe '#unlink_from_school' do
     it 'should destroy the schools users record and return a message' do
       post :unlink_from_school, params: { id: teacher.id }

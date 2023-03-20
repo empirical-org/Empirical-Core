@@ -37,6 +37,8 @@ module SegmentIntegration
         admin_sub_role: admin_sub_role,
         email_verification_status: email_verification_status,
         admin_approval_status: admin_approval_status,
+        admin_reason: admin_verification_reason,
+        admin_linkedin_or_url: admin_verification_url,
         number_of_schools_administered: schools_admins.any? ? schools_admins.count : nil,
         number_of_districts_administered: district_admins.any? ? district_admins.count : nil
       }.reject {|_,v| v.nil? }

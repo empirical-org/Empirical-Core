@@ -240,6 +240,62 @@ class SegmentAnalytics
     })
   end
 
+  def track_admin_received_admin_upgrade_request_from_teacher(admin, teacher, reason)
+    identify(admin)
+    track({
+      user_id: admin.id,
+      event: SegmentIo::BackgroundEvents::ADMIN_RECEIVED_ADMIN_UPGRADE_REQUEST_FROM_TEACHER,
+      properties: {
+        teacher_first_name: teacher.first_name,
+        teacher_last_name: teacher.last_name,
+        teacher_email: teacher.email,
+        teacher_school: teacher.school&.name,
+        reason: reason
+      }
+    })
+  end
+
+  def track_admin_invited_by_teacher(admin_name, admin_email, teacher, note)
+    admin = User.find_by_email(admin_email)
+    properties = {
+      admin_name: admin_name,
+      admin_email: admin_email,
+      teacher_first_name: teacher.first_name,
+      teacher_last_name: teacher.last_name,
+      teacher_school: teacher.school&.name,
+      note: note
+    }
+    if admin
+      identify(admin)
+      track({
+        user_id: admin.id,
+        event: SegmentIo::BackgroundEvents::ADMIN_INVITED_BY_TEACHER,
+        properties: properties,
+      })
+    else
+      identify_anonymous_user({ anonymous_id: admin_email, traits: { email: admin_email, name: admin_name }})
+      track({
+        # Segment requires us to send a unique User ID or Anonymous ID for every event
+        # sending the admin email as the anonymous id because that's how we find people in Ortto
+        anonymous_id: admin_email,
+        event: SegmentIo::BackgroundEvents::ADMIN_INVITED_BY_TEACHER,
+        properties: properties
+      })
+    end
+  end
+
+  def track_teacher_invited_admin(teacher, admin_name, admin_email, note)
+    track({
+      user_id: teacher.id,
+      event: SegmentIo::BackgroundEvents::TEACHER_INVITED_ADMIN,
+      properties: {
+        admin_name: admin_name,
+        admin_email: admin_email,
+        note: note
+      }
+    })
+  end
+
   def default_integration_rules
     { all: true, Intercom: false }
   end
@@ -259,6 +315,12 @@ class SegmentAnalytics
 
     identify_params = user&.segment_user&.identify_params
     backend.identify(identify_params) if identify_params
+  end
+
+  def identify_anonymous_user(params)
+    return unless backend.present?
+
+    backend.identify(params)
   end
 
   private def anonymous_uid

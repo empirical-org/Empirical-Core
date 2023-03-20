@@ -2,7 +2,7 @@
 
 class FindDistrictStandardsReportsWorker
   include Sidekiq::Worker
-  sidekiq_options queue: SidekiqQueue::CRITICAL
+  sidekiq_options queue: SidekiqQueue::CRITICAL, retry: 2
 
   def perform(admin_id, is_freemium)
     return unless admin_id

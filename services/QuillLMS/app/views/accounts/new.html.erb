@@ -1,7 +1,7 @@
 <%= react_component('NewAccountApp', props: {
   teacherFromGoogleSignUp: @teacher_from_google_signup,
   subjectAreas: SubjectArea.all,
-  subRoles: AdminInfo::SUB_ROLES,
+  subRoles: AdminInfo::SELECTABLE_SUB_ROLES,
   user: current_user,
   school: current_user&.school,
   isAdmin: current_user&.admin?

@@ -16,5 +16,14 @@ FactoryBot.define do
     trait :draft do
       draft true
     end
+
+    factory :blog_post_with_author do
+
+      after(:create) do |blog_post|
+        author = create(:author)
+        blog_post.author = author
+        blog_post.save!
+      end
+    end
   end
 end

@@ -40,15 +40,17 @@ export default class EditUnitActivitiesContainer extends React.Component {
 
   render() {
     return (
-      <UnitStage1
-        editing={Boolean(true)}
-        errorMessage={this.state.errors}
-        hideNameTheUnit={Boolean(true)}
-        selectedActivities={this.state.selectedActivities}
-        toggleActivitySelection={this.toggleActivitySelection}
-        unitName={this.props.match.params.unitName}
-        updateActivities={this.updateActivities}
-      />
+      <div className="white-background-accommodate-footer">
+        <UnitStage1
+          editing={Boolean(true)}
+          errorMessage={this.state.errors}
+          hideNameTheUnit={Boolean(true)}
+          selectedActivities={this.state.selectedActivities}
+          toggleActivitySelection={this.toggleActivitySelection}
+          unitName={this.props.match.params.unitName}
+          updateActivities={this.updateActivities}
+        />
+      </div>
     )
   }
 }

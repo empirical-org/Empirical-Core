@@ -19,6 +19,7 @@ describe Admin::TeacherSerializer do
         number_of_activities_completed
         time_spent
         has_valid_subscription
+        admin_info
       }
     end
   end

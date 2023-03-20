@@ -50,7 +50,6 @@ class Api::V1::ProgressReportsController < Api::ApiController
     is_freemium = params && params[:freemium] ? true : false
     cache_key = is_freemium ? SchoolsAdmins::FREEMIUM_DISTRICT_STANDARD_REPORTS_CACHE_KEY_STEM : SchoolsAdmins::DISTRICT_STANDARD_REPORTS_CACHE_KEY_STEM
     data = Rails.cache.fetch("#{cache_key}#{current_user.id}")
-
     if data.nil?
       FindDistrictStandardsReportsWorker.perform_async(current_user.id, is_freemium)
       render json: { id: current_user.id }

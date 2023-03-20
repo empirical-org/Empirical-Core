@@ -63,7 +63,8 @@ describe('AdminsTeachers component', () => {
     ],
     handleUserAction: jest.fn,
     adminAssociatedSchool: school,
-    schools: [school]
+    schools: [school],
+    adminApprovalRequestAdminInfoIds: []
   }
   const component = shallow(<AdminsTeachers {...mockProps} />);
 
