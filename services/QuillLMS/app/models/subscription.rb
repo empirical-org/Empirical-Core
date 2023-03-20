@@ -339,7 +339,7 @@ class Subscription < ApplicationRecord
   end
 
   private def strip_stripe_id_whitespace
-    self.stripe_invoice_id = self.stripe_invoice_id&.strip
-    self.stripe_subscription_id = self.stripe_subscription_id&.strip
+    self.stripe_invoice_id = stripe_invoice_id&.strip
+    self.stripe_subscription_id = stripe_subscription_id&.strip
   end
 end
