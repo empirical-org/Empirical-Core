@@ -14,19 +14,29 @@ class DistrictStandardsReports extends React.Component {
   }
 
   render() {
-    const { loading, accessType, isFreemiumView } = this.props;
-    const showFreemiumStandardsReport = accessType === LIMITED && isFreemiumView;
+    const { loading, accessType, isFreemiumView, standardsReportsData } = this.props;
+    const showFreemiumReport = accessType === LIMITED && isFreemiumView
+    const dataPresent = standardsReportsData && standardsReportsData.length
 
-    if (accessType !== FULL && !showFreemiumStandardsReport) {
+    if (showFreemiumReport && !dataPresent) {
+      return <span />
+    }
+
+    if (showFreemiumReport && dataPresent) {
+      return (
+        <div className="freemium-section">
+          <div className='dark-divider' />
+          <StandardsReports {...this.props} />
+        </div>
+      );
+    }
+
+    if (accessType !== FULL) {
       return restrictedPage
     }
 
     if (loading) {
       return <LoadingSpinner />;
-    }
-
-    if (showFreemiumStandardsReport) {
-      return (<StandardsReports {...this.props} />);
     }
 
     return (<StandardsReports {...this.props} />);
