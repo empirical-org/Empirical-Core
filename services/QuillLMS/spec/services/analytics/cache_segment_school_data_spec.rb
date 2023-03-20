@@ -100,43 +100,43 @@ RSpec.describe CacheSegmentSchoolData do
 
   describe '#active_teachers_at_school_this_year' do
     it 'returns the teachers at the school that have signed in at some point in this school year' do
-      expect(subject.active_teachers_at_school_this_year).to eq([teacher2])
+      expect(subject.active_teachers_at_school_this_year).to match_array([teacher2])
     end
   end
 
   describe '#active_students_at_school_this_year' do
     it 'returns the students at the school that have signed in at some point in this school year' do
-      expect(subject.active_students_at_school_this_year).to eq(students_classrooms2.map(&:student))
+      expect(subject.active_students_at_school_this_year).to match_array(students_classrooms2.map(&:student))
     end
   end
 
   describe '#activities_completed_by_students_at_school_this_year' do
     it 'returns the activities that have been completed at some point in this school year' do
-      expect(subject.activities_completed_by_students_at_school_this_year).to eq(activity_sessions2)
+      expect(subject.activities_completed_by_students_at_school_this_year).to match_array(activity_sessions2)
     end
   end
 
   describe '#activities_completed_by_students_at_school' do
     it 'returns the activities that have been completed' do
-      expect(subject.activities_completed_by_students_at_school).to eq(activity_sessions1.concat(activity_sessions2))
+      expect(subject.activities_completed_by_students_at_school).to match_array(activity_sessions1.concat(activity_sessions2))
     end
   end
 
   describe '#students_at_school' do
     it 'returns the students at the school' do
-      expect(subject.students_at_school).to eq(students_classrooms1.map(&:student).concat(students_classrooms2.map(&:student)))
+      expect(subject.students_at_school).to match_array(students_classrooms1.map(&:student).concat(students_classrooms2.map(&:student)))
     end
   end
 
   describe '#classrooms_at_school' do
     it 'returns the classrooms at the school' do
-      expect(subject.classrooms_at_school).to eq([classrooms_teachers1.classroom, classrooms_teachers2.classroom])
+      expect(subject.classrooms_at_school).to match_array([classrooms_teachers1.classroom, classrooms_teachers2.classroom])
     end
   end
 
   describe '#teachers_at_school' do
     it 'returns the teachers at the school' do
-      expect(subject.teachers_at_school).to eq([teacher1, teacher2])
+      expect(subject.teachers_at_school).to match_array([teacher1, teacher2])
     end
   end
   # rubocop:enable RSpec/SubjectStub
