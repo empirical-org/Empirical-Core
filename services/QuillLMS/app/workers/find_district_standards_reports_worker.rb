@@ -4,7 +4,7 @@ class FindDistrictStandardsReportsWorker
   include Sidekiq::Worker
   sidekiq_options queue: SidekiqQueue::CRITICAL, retry: 2
 
-  def perform(admin_id, is_freemium)
+  def perform(admin_id, is_freemium = false)
     return unless admin_id
 
     serialized_district_standards_reports_cache_life = 60*60*25
