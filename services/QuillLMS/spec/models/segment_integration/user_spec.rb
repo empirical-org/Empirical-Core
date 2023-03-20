@@ -158,7 +158,7 @@ RSpec.describe SegmentIntegration::User do
 
     describe '#school_params' do
       it 'returns an empty hash' do
-        expect(teacher.segment_user.school_params).to eq {}
+        expect(teacher.segment_user.school_params).to eq ({})
       end
     end
 

@@ -4,27 +4,27 @@ require 'rails_helper'
 
 RSpec.describe CacheSegmentSchoolData do
   let(:school) { create(:school) }
-  let(:teacher1) { create(:teacher, last_sign_in: Date.today - 366.days) }
-  let(:teacher2) { create(:teacher, last_sign_in: Date.today) }
+  let(:teacher1) { create(:teacher, last_sign_in: Time.zone.today - 366.days) }
+  let(:teacher2) { create(:teacher, last_sign_in: Time.zone.today) }
   let!(:schools_users1) { create(:schools_users, school: school, user: teacher1 )}
   let!(:schools_users2) { create(:schools_users, school: school, user: teacher2 )}
   let(:classrooms_teachers1) { create(:classrooms_teacher, user: teacher1) }
   let(:classrooms_teachers2) { create(:classrooms_teacher, user: teacher2) }
   let(:students_classrooms1) { create_list(:students_classrooms, 10, classroom: classrooms_teachers1.classroom)}
   let(:students_classrooms2) { create_list(:students_classrooms, 10, classroom: classrooms_teachers2.classroom)}
-  let!(:activity_sessions1) { create_list(:activity_session, 20, user: students_classrooms1.map(&:student).sample, completed_at: Date.today - 367.days ) }
-  let!(:activity_sessions2) { create_list(:activity_session, 20, user: students_classrooms2.map(&:student).sample, completed_at: Date.today ) }
+  let!(:activity_sessions1) { create_list(:activity_session, 20, user: students_classrooms1.map(&:student).sample, completed_at: Time.zone.today - 367.days ) }
+  let!(:activity_sessions2) { create_list(:activity_session, 20, user: students_classrooms2.map(&:student).sample, completed_at: Time.zone.today ) }
 
   before do
     students_classrooms1.each do |sc|
-      sc.student.update(last_sign_in: Date.today - 366.days)
+      sc.student.update(last_sign_in: Time.zone.today - 366.days)
     end
     students_classrooms2.each do |sc|
-      sc.student.update(last_sign_in: Date.today)
+      sc.student.update(last_sign_in: Time.zone.today)
     end
   end
 
-  subject { described_class.new(school) }
+  let(:subject) { described_class.new(school) }
 
   describe '#read' do
     it 'calls read on rails cache with the passed arguments' do
@@ -85,8 +85,8 @@ RSpec.describe CacheSegmentSchoolData do
 
   describe '#set_active_students_at_school_this_year' do
     it 'calls the write method with the appropriate count and namespace' do
-      expect(subject).to receive(:write).with(subject.active_teachers_at_school_this_year.count, described_class::ACTIVE_TEACHERS_AT_SCHOOL_THIS_YEAR)
-      subject.set_active_teachers_at_school_this_year
+      expect(subject).to receive(:write).with(subject.active_students_at_school_this_year.count, described_class::ACTIVE_STUDENTS_AT_SCHOOL_THIS_YEAR)
+      subject.set_active_students_at_school_this_year
     end
   end
 
