@@ -8,7 +8,7 @@ RSpec.describe SegmentIntegration::User do
     let(:admin_info) { create(:admin_info, admin: admin, verification_url: 'quill.org', verification_reason: 'I am an admin.') }
     let(:user_email_verification ) { create(:user_email_verification, user: admin, verified_at: Time.zone.today, verification_method: UserEmailVerification::EMAIL_VERIFICATION) }
     let(:schools) { create_list(:school, 3) }
-    let(:schools_user) { create(:schools_user, school: schools.first, user: admin)}
+    let!(:schools_user) { create(:schools_users, school: schools.first, user: admin)}
     let(:districts) { create_list(:district, 3) }
 
     before do
@@ -66,12 +66,12 @@ RSpec.describe SegmentIntegration::User do
         total_activities_completed_by_students_at_school_this_year = 200
 
         cache = CacheSegmentSchoolData.new(admin.school)
-        cache.write(total_teachers_at_school, TOTAL_TEACHERS_AT_SCHOOL)
-        cache.write(total_students_at_school, TOTAL_STUDENTS_AT_SCHOOL)
-        cache.write(total_activities_completed_by_students_at_school, TOTAL_ACTIVITIES_COMPLETED_BY_STUDENTS_AT_SCHOOL)
-        cache.write(active_teachers_at_school_this_year, ACTIVE_TEACHERS_AT_SCHOOL_THIS_YEAR)
-        cache.write(active_students_at_school_this_year, ACTIVE_STUDENTS_AT_SCHOOL_THIS_YEAR)
-        cache.write(total_activities_completed_by_students_at_school_this_year, TOTAL_ACTIVITIES_COMPLETED_BY_STUDENTS_AT_SCHOOL_THIS_YEAR)
+        cache.write(total_teachers_at_school, CacheSegmentSchoolData::TOTAL_TEACHERS_AT_SCHOOL)
+        cache.write(total_students_at_school, CacheSegmentSchoolData::TOTAL_STUDENTS_AT_SCHOOL)
+        cache.write(total_activities_completed_by_students_at_school, CacheSegmentSchoolData::TOTAL_ACTIVITIES_COMPLETED_BY_STUDENTS_AT_SCHOOL)
+        cache.write(active_teachers_at_school_this_year, CacheSegmentSchoolData::ACTIVE_TEACHERS_AT_SCHOOL_THIS_YEAR)
+        cache.write(active_students_at_school_this_year, CacheSegmentSchoolData::ACTIVE_STUDENTS_AT_SCHOOL_THIS_YEAR)
+        cache.write(total_activities_completed_by_students_at_school_this_year, CacheSegmentSchoolData::TOTAL_ACTIVITIES_COMPLETED_BY_STUDENTS_AT_SCHOOL_THIS_YEAR)
 
         params = {
           total_teachers_at_school: total_teachers_at_school,

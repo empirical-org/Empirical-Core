@@ -5,7 +5,7 @@ class CalculateAndCacheSchoolsDataForSegmentWorker
   sidekiq_options queue: SidekiqQueue::LOW
 
   def perform
-    school_ids = School.joins(:school_admins).where.not(name: School::ALTERNATIVE_SCHOOL_NAMES).pluck(:id).uniq # we only want to cache schools that have admins
+    school_ids = School.joins(:schools_admins).where.not(name: School::ALTERNATIVE_SCHOOL_NAMES).pluck(:id).uniq # we only want to cache schools that have admins
     school_ids.each do |id|
       CalculateAndCacheSchoolDataForSegmentWorker.perform_async(id)
     end
