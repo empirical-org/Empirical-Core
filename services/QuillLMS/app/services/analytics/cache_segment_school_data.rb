@@ -26,12 +26,12 @@ class CacheSegmentSchoolData
 
   def calculate_and_set_cache
     hash = {
-      [TOTAL_TEACHERS_AT_SCHOOL] => teachers_at_school.count,
-      [TOTAL_STUDENTS_AT_SCHOOL] => students_at_school.count,
-      [TOTAL_ACTIVITIES_COMPLETED_BY_STUDENTS_AT_SCHOOL] => activities_completed_by_students_at_school.count,
-      [ACTIVE_TEACHERS_AT_SCHOOL_THIS_YEAR] => active_teachers_at_school_this_year.count,
-      [ACTIVE_STUDENTS_AT_SCHOOL_THIS_YEAR] => active_students_at_school_this_year.count,
-      [TOTAL_ACTIVITIES_COMPLETED_BY_STUDENTS_AT_SCHOOL_THIS_YEAR] => activities_completed_by_students_at_school_this_year.count
+      TOTAL_TEACHERS_AT_SCHOOL => teachers_at_school.count,
+      TOTAL_STUDENTS_AT_SCHOOL => students_at_school.count,
+      TOTAL_ACTIVITIES_COMPLETED_BY_STUDENTS_AT_SCHOOL => activities_completed_by_students_at_school.count,
+      ACTIVE_TEACHERS_AT_SCHOOL_THIS_YEAR => active_teachers_at_school_this_year.count,
+      ACTIVE_STUDENTS_AT_SCHOOL_THIS_YEAR => active_students_at_school_this_year.count,
+      TOTAL_ACTIVITIES_COMPLETED_BY_STUDENTS_AT_SCHOOL_THIS_YEAR => activities_completed_by_students_at_school_this_year.count
     }
     write(hash)
   end

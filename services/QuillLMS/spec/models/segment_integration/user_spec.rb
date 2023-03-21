@@ -68,12 +68,12 @@ RSpec.describe SegmentIntegration::User do
         cache = CacheSegmentSchoolData.new(admin.school)
 
         data = {
-          [CacheSegmentSchoolData::TOTAL_TEACHERS_AT_SCHOOL] => total_teachers_at_school,
-          [CacheSegmentSchoolData::TOTAL_STUDENTS_AT_SCHOOL] => total_students_at_school,
-          [CacheSegmentSchoolData::TOTAL_ACTIVITIES_COMPLETED_BY_STUDENTS_AT_SCHOOL] => total_activities_completed_by_students_at_school,
-          [CacheSegmentSchoolData::ACTIVE_TEACHERS_AT_SCHOOL_THIS_YEAR] => active_teachers_at_school_this_year,
-          [CacheSegmentSchoolData::ACTIVE_STUDENTS_AT_SCHOOL_THIS_YEAR] => active_students_at_school_this_year,
-          [CacheSegmentSchoolData::TOTAL_ACTIVITIES_COMPLETED_BY_STUDENTS_AT_SCHOOL_THIS_YEAR] => total_activities_completed_by_students_at_school_this_year
+          CacheSegmentSchoolData::TOTAL_TEACHERS_AT_SCHOOL => total_teachers_at_school,
+          CacheSegmentSchoolData::TOTAL_STUDENTS_AT_SCHOOL => total_students_at_school,
+          CacheSegmentSchoolData::TOTAL_ACTIVITIES_COMPLETED_BY_STUDENTS_AT_SCHOOL => total_activities_completed_by_students_at_school,
+          CacheSegmentSchoolData::ACTIVE_TEACHERS_AT_SCHOOL_THIS_YEAR => active_teachers_at_school_this_year,
+          CacheSegmentSchoolData::ACTIVE_STUDENTS_AT_SCHOOL_THIS_YEAR => active_students_at_school_this_year,
+          CacheSegmentSchoolData::TOTAL_ACTIVITIES_COMPLETED_BY_STUDENTS_AT_SCHOOL_THIS_YEAR => total_activities_completed_by_students_at_school_this_year
         }
 
         cache.write(data)

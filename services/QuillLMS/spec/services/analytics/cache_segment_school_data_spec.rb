@@ -45,12 +45,12 @@ RSpec.describe CacheSegmentSchoolData do
   describe '#calculate_and_set_cache' do
     it 'calls the write method with a hash with all the values set' do
       data = {
-        [described_class::TOTAL_TEACHERS_AT_SCHOOL] => subject.teachers_at_school.count,
-        [described_class::TOTAL_STUDENTS_AT_SCHOOL] => subject.students_at_school.count,
-        [described_class::TOTAL_ACTIVITIES_COMPLETED_BY_STUDENTS_AT_SCHOOL] => subject.activities_completed_by_students_at_school.count,
-        [described_class::ACTIVE_TEACHERS_AT_SCHOOL_THIS_YEAR] => subject.active_teachers_at_school_this_year.count,
-        [described_class::ACTIVE_STUDENTS_AT_SCHOOL_THIS_YEAR] => subject.active_students_at_school_this_year.count,
-        [described_class::TOTAL_ACTIVITIES_COMPLETED_BY_STUDENTS_AT_SCHOOL_THIS_YEAR] => subject.activities_completed_by_students_at_school_this_year.count
+        described_class::TOTAL_TEACHERS_AT_SCHOOL => subject.teachers_at_school.count,
+        described_class::TOTAL_STUDENTS_AT_SCHOOL => subject.students_at_school.count,
+        described_class::TOTAL_ACTIVITIES_COMPLETED_BY_STUDENTS_AT_SCHOOL => subject.activities_completed_by_students_at_school.count,
+        described_class::ACTIVE_TEACHERS_AT_SCHOOL_THIS_YEAR => subject.active_teachers_at_school_this_year.count,
+        described_class::ACTIVE_STUDENTS_AT_SCHOOL_THIS_YEAR => subject.active_students_at_school_this_year.count,
+        described_class::TOTAL_ACTIVITIES_COMPLETED_BY_STUDENTS_AT_SCHOOL_THIS_YEAR => subject.activities_completed_by_students_at_school_this_year.count
       }
 
       expect(subject).to receive(:write).with(data)
