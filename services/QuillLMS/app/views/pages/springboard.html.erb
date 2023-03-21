@@ -195,8 +195,8 @@
         </div>
       </div>
     </div>
-    <div>
-      Q&A Section
+    <div id="q-and-a">
+      <%= render partial: 'pages/shared/questions_and_answers_section', locals: { questions_and_answers: springboard_questions_and_answers , button_type: 'icon'} %>
     </div>
   </div>
 <% end %>
