@@ -66,7 +66,7 @@ RSpec.describe SegmentIntegration::User do
         total_activities_completed_by_students_at_school_this_year = 200
 
         cache = CacheSegmentSchoolData.new(admin.school)
-        
+
         data = {
           [CacheSegmentSchoolData::TOTAL_TEACHERS_AT_SCHOOL] => total_teachers_at_school,
           [CacheSegmentSchoolData::TOTAL_STUDENTS_AT_SCHOOL] => total_students_at_school,
