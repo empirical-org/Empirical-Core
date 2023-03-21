@@ -50,6 +50,13 @@ class Subscription < ApplicationRecord
   after_commit :check_if_purchaser_email_is_in_database
   after_initialize :set_null_start_date_to_today
 
+  SUMMER_CUTOFF_MONTH = 7
+
+  SUMMER_EXPIRATION_MONTH = 7
+  SUMMER_EXPIRATION_DAY = 31
+  WINTER_EXPIRATION_MONTH = 12
+  WINTER_EXPIRATION_DAY = 31
+
   CB_LIFETIME_DURATION = 365 * 50 # In days, this is approximately 50 years
 
   CB_LIFETIME_SUBSCRIPTION_TYPE = 'College Board Educator Lifetime Premium'
@@ -249,7 +256,11 @@ class Subscription < ApplicationRecord
 
   def self.promotional_dates
     today = Date.current
-    exp_month_and_day = today.month < 7 ? "30-6" : "31-12"
+    if today.month < SUMMER_CUTOFF_MONTH
+      exp_month_and_day = "#{SUMMER_EXPIRATION_DAY}-#{SUMMER_EXPIRATION_MONTH}"
+    else
+      exp_month_and_day = "#{WINTER_EXPIRATION_DAY}-#{WINTER_EXPIRATION_MONTH}"
+    end
 
     { start_date: today, expiration: Date::strptime("#{exp_month_and_day}-#{today.year + 1}","%d-%m-%Y") }
   end

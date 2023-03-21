@@ -38,13 +38,13 @@ RSpec.describe BonusDaysCalculator do
     let(:args) { [user, start: start] }
 
     context 'day is before JULY' do
-      let(:start) { Date.current.change(month: described_class::JUNE, day: 1) }
+      let(:start) { Date.current.change(month: 6, day: 1) }
 
-      it { expect(subject).to eq 29 }
+      it { expect(subject).to eq 60 }
     end
 
     context 'day is after JULY' do
-      let(:start) { Date.current.change(month: described_class::DECEMBER, day: 1) }
+      let(:start) { Date.current.change(month: 12, day: 1) }
 
       it { expect(subject).to eq 30 }
     end

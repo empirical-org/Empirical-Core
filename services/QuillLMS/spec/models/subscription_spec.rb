@@ -143,8 +143,8 @@ describe Subscription, type: :model do
         allow(Date).to receive(:current).and_return Date.new(2018,4,4)
       end
 
-      it "returns an expiration date of June 30 the next year when called on a day prior to July" do
-        expect(Subscription.promotional_dates[:expiration]).to eq(Date.new(2019,6,30))
+      it "returns an expiration date of July 31 the next year when called on a day prior to July" do
+        expect(Subscription.promotional_dates[:expiration]).to eq(Date.new(2019,7,31))
       end
 
       it "returns a start date one year from the day it was called" do
