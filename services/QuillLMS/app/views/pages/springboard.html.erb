@@ -1,5 +1,6 @@
 <% @active_tab = device == 'mobile' ? 'SpringBoard' : 'SpringBoard Activities'
   @title = 'SpringBoard English Practice'
+  @units = preap_and_springboard_content
 %>
 <%= render partial: 'pages/shared/explore_curriculum_navbar', active_tab: @active_tab  %>
 
@@ -173,7 +174,7 @@
         </div>
         <div class="white-section-wrapper">
           <div class="units-container">
-            {expandableUnits}
+            <%= render partial: 'pages/shared/expandable_units_section', locals: {type: 'springboard', units: @units} %>
           </div>
         </div>
       </div>

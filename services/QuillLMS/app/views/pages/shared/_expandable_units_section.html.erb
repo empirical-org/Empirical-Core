@@ -1,0 +1,50 @@
+<% units.map.with_index do |unit, i| %>
+  <% learning_cycle = unit[:learning_cycles] %>
+  <% content_tag = "<div className='college-board-activity-tag'>For SpringBoard 9</div>".html_safe %>
+  <% expand_element = "<img alt='arrow icon' class='expand-arrow' src='https://assets.quill.org/images/icons/expand.svg' />".html_safe %>
+  <% top_section_id = "college-board-toggle-top-section-" + "#{i}" %>
+  <% bottom_section_id = "college-board-toggle-bottom-section-" + "#{i}" %>
+
+  <div class="activity-container expandable">
+    <div class="top-section closed" id= <%= top_section_id %>>
+      <div class="unit-header-container">
+        <p class="unit-title">
+          <span><%= unit[:title] %></span>
+          <%= content_tag if type == 'springboard' %>
+        </p>
+        <div class="unit-sub-header-container">
+          <p><%= learning_cycle.length %> Learning Cycles</p>
+          <p class="bullet">•</p>
+          <p>5 Passage-Aligned Activities</p>
+        </div>
+      </div>
+      <div>
+        <button class="cb expand-collapse-button focus-on-light" id= <%= i %> type="button">
+          <%= expand_element %>
+        </button>
+      </div>
+    </div>
+    <div class='bottom-section hidden' id= <%= bottom_section_id %> >
+      <% learning_cycle.map.with_index do |cycle, i| %>
+        <% activities = cycle[:activities] %>
+        <% is_last_cycle = i == learning_cycle.length %>
+        <div class='learning-cycle-container'>
+          <p class='learning-cycle-header'> Learning Cycle <%= "#{i + 1}" %> </p>
+          <div class='divider'></div>
+          <div class='cycle-activities-container'>
+            <% activities.map.with_index do |activity, i| %>
+              <div class="cycle-activity-container" id= <%= activity[:cb_anchor_tag] %>>
+                <div class="top-content">
+                  <a class="activity-title" href= <%= featured_activity_url(activity[:unit_template_id]) %> rel="noopener noreferrer" tabIndex="-1" target="_blank"> <%= activity[:title] %> </a>
+                  <a class="quill-button medium primary outlined focus-on-light" href= <%= featured_activity_url(activity[:unit_template_id]) %> rel="noopener noreferrer" target="_blank">View</a>
+                </div>
+                <p class="description"> <%= activity[:description] %> </p>
+              </div>
+            <% end %>
+          </div>
+        </div>
+      <% end %>
+    </div>
+  </div>
+<% end %>
+

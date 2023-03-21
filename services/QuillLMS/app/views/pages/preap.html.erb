@@ -148,7 +148,7 @@
         </div>
         <div class="white-section-wrapper">
           <div class="units-container">
-            {expandableUnits}
+            <%= render partial: 'pages/shared/expandable_units_section', locals: { type: 'preap', units: @units } %>
           </div>
         </div>
       </div>

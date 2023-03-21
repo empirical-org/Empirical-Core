@@ -10,5 +10,6 @@ import DemoAccountBanner from './demoAccountBannerApp'
 
 require('../../../assets/styles/home.scss');
 require('../../Home/bootstrap_carousel.js');
+require('./clickHandlers.js');
 
 ReactOnRails.register({ PremiumPricingGuideApp, QuestionsAndAnswersApp, PreApApp, SpringBoardApp, DemoAccountBanner });
