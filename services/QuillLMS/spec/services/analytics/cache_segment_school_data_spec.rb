@@ -29,72 +29,32 @@ RSpec.describe CacheSegmentSchoolData do
   # rubocop:disable RSpec/SubjectStub
   describe '#read' do
     it 'calls read on rails cache with the passed arguments' do
-      namespace = 'namespace'
-      expect(Rails.cache).to receive(:read).with(school.id, namespace: namespace)
-      subject.read(namespace)
+      expect(Rails.cache).to receive(:read).with(school.id, namespace: described_class::CACHED_SCHOOL_DATA)
+      subject.read()
     end
   end
 
   describe '#write' do
     it 'calls write on rails cache with the passed arguments' do
-      namespace = 'namespace'
       data = 'data'
-      expect(Rails.cache).to receive(:write).with(school.id, data, namespace: namespace, expires_in: described_class::CACHE_LIFE)
-      subject.write(data, namespace)
+      expect(Rails.cache).to receive(:write).with(school.id, data, namespace: described_class::CACHED_SCHOOL_DATA, expires_in: described_class::CACHE_LIFE)
+      subject.write(data)
     end
   end
 
-  describe '#set_all_fields' do
-    it 'calls all the setter methods' do
-      expect(subject).to receive(:set_total_teachers_at_school)
-      expect(subject).to receive(:set_total_students_at_school)
-      expect(subject).to receive(:set_total_activities_completed_by_students_at_school)
-      expect(subject).to receive(:set_active_teachers_at_school_this_year)
-      expect(subject).to receive(:set_active_students_at_school_this_year)
-      expect(subject).to receive(:set_total_activities_completed_by_students_at_school_this_year)
-      subject.set_all_fields
-    end
-  end
+  describe '#calculate_and_set_cache' do
+    it 'calls the write method with a hash with all the values set' do
+      data = {
+        [described_class::TOTAL_TEACHERS_AT_SCHOOL] => subject.teachers_at_school.count,
+        [described_class::TOTAL_STUDENTS_AT_SCHOOL] => subject.students_at_school.count,
+        [described_class::TOTAL_ACTIVITIES_COMPLETED_BY_STUDENTS_AT_SCHOOL] => subject.activities_completed_by_students_at_school.count,
+        [described_class::ACTIVE_TEACHERS_AT_SCHOOL_THIS_YEAR] => subject.active_teachers_at_school_this_year.count,
+        [described_class::ACTIVE_STUDENTS_AT_SCHOOL_THIS_YEAR] => subject.active_students_at_school_this_year.count,
+        [described_class::TOTAL_ACTIVITIES_COMPLETED_BY_STUDENTS_AT_SCHOOL_THIS_YEAR] => subject.activities_completed_by_students_at_school_this_year.count
+      }
 
-  describe '#set_total_teachers_at_school' do
-    it 'calls the write method with the appropriate count and namespace' do
-      expect(subject).to receive(:write).with(subject.teachers_at_school.count, described_class::TOTAL_TEACHERS_AT_SCHOOL)
-      subject.set_total_teachers_at_school
-    end
-  end
-
-  describe '#set_total_students_at_school' do
-    it 'calls the write method with the appropriate count and namespace' do
-      expect(subject).to receive(:write).with(subject.students_at_school.count, described_class::TOTAL_STUDENTS_AT_SCHOOL)
-      subject.set_total_students_at_school
-    end
-  end
-
-  describe '#set_total_activities_completed_by_students_at_school' do
-    it 'calls the write method with the appropriate count and namespace' do
-      expect(subject).to receive(:write).with(subject.activities_completed_by_students_at_school.count, described_class::TOTAL_ACTIVITIES_COMPLETED_BY_STUDENTS_AT_SCHOOL)
-      subject.set_total_activities_completed_by_students_at_school
-    end
-  end
-
-  describe '#set_active_teachers_at_school_this_year' do
-    it 'calls the write method with the appropriate count and namespace' do
-      expect(subject).to receive(:write).with(subject.active_teachers_at_school_this_year.count, described_class::ACTIVE_TEACHERS_AT_SCHOOL_THIS_YEAR)
-      subject.set_active_teachers_at_school_this_year
-    end
-  end
-
-  describe '#set_active_students_at_school_this_year' do
-    it 'calls the write method with the appropriate count and namespace' do
-      expect(subject).to receive(:write).with(subject.active_students_at_school_this_year.count, described_class::ACTIVE_STUDENTS_AT_SCHOOL_THIS_YEAR)
-      subject.set_active_students_at_school_this_year
-    end
-  end
-
-  describe '#set_total_activities_completed_by_students_at_school_this_year' do
-    it 'calls the write method with the appropriate count and namespace' do
-      expect(subject).to receive(:write).with(subject.activities_completed_by_students_at_school_this_year.count, described_class::TOTAL_ACTIVITIES_COMPLETED_BY_STUDENTS_AT_SCHOOL_THIS_YEAR)
-      subject.set_total_activities_completed_by_students_at_school_this_year
+      expect(subject).to receive(:write).with(data)
+      subject.calculate_and_set_cache
     end
   end
 

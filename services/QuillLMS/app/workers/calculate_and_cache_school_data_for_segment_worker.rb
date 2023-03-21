@@ -8,6 +8,6 @@ class CalculateAndCacheSchoolDataForSegmentWorker
     school = School.find(school_id)
 
     cache = CacheSegmentSchoolData.new(school)
-    cache.set_all_fields
+    cache.calculate_and_set_cache
   end
 end

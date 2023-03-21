@@ -1,14 +1,14 @@
 # frozen_string_literal: true
 
 class CacheSegmentSchoolData
-  CACHE_KEYS = [
-    TOTAL_TEACHERS_AT_SCHOOL = 'TOTAL_TEACHERS_AT_SCHOOL',
-    TOTAL_STUDENTS_AT_SCHOOL = 'TOTAL_STUDENTS_AT_SCHOOL',
-    TOTAL_ACTIVITIES_COMPLETED_BY_STUDENTS_AT_SCHOOL = 'TOTAL_ACTIVITIES_COMPLETED_BY_STUDENTS_AT_SCHOOL',
-    ACTIVE_TEACHERS_AT_SCHOOL_THIS_YEAR = 'ACTIVE_TEACHERS_AT_SCHOOL_THIS_YEAR',
-    ACTIVE_STUDENTS_AT_SCHOOL_THIS_YEAR = 'ACTIVE_STUDENTS_AT_SCHOOL_THIS_YEAR',
-    TOTAL_ACTIVITIES_COMPLETED_BY_STUDENTS_AT_SCHOOL_THIS_YEAR = 'TOTAL_ACTIVITIES_COMPLETED_BY_STUDENTS_AT_SCHOOL_THIS_YEAR'
-  ]
+  CACHED_SCHOOL_DATA = 'CACHED_SCHOOL_DATA'
+
+  TOTAL_TEACHERS_AT_SCHOOL = 'TOTAL_TEACHERS_AT_SCHOOL',
+  TOTAL_STUDENTS_AT_SCHOOL = 'TOTAL_STUDENTS_AT_SCHOOL',
+  TOTAL_ACTIVITIES_COMPLETED_BY_STUDENTS_AT_SCHOOL = 'TOTAL_ACTIVITIES_COMPLETED_BY_STUDENTS_AT_SCHOOL',
+  ACTIVE_TEACHERS_AT_SCHOOL_THIS_YEAR = 'ACTIVE_TEACHERS_AT_SCHOOL_THIS_YEAR',
+  ACTIVE_STUDENTS_AT_SCHOOL_THIS_YEAR = 'ACTIVE_STUDENTS_AT_SCHOOL_THIS_YEAR',
+  TOTAL_ACTIVITIES_COMPLETED_BY_STUDENTS_AT_SCHOOL_THIS_YEAR = 'TOTAL_ACTIVITIES_COMPLETED_BY_STUDENTS_AT_SCHOOL_THIS_YEAR'
 
   CACHE_LIFE = 60*60*25
 
@@ -16,45 +16,24 @@ class CacheSegmentSchoolData
     @school = school
   end
 
-  def read(namespace)
-    Rails.cache.read(@school.id, namespace: namespace)
+  def read
+    Rails.cache.read(@school.id, namespace: CACHED_SCHOOL_DATA)
   end
 
-  def write(data, namespace)
-    Rails.cache.write(@school.id, data, namespace: namespace, expires_in: CACHE_LIFE)
+  def write(data)
+    Rails.cache.write(@school.id, data, namespace: CACHED_SCHOOL_DATA, expires_in: CACHE_LIFE)
   end
 
-  def set_all_fields
-    set_total_teachers_at_school
-    set_total_students_at_school
-    set_total_activities_completed_by_students_at_school
-    set_active_teachers_at_school_this_year
-    set_active_students_at_school_this_year
-    set_total_activities_completed_by_students_at_school_this_year
-  end
-
-  def set_total_teachers_at_school
-    write(teachers_at_school.count, TOTAL_TEACHERS_AT_SCHOOL)
-  end
-
-  def set_total_students_at_school
-    write(students_at_school.count, TOTAL_STUDENTS_AT_SCHOOL)
-  end
-
-  def set_total_activities_completed_by_students_at_school
-    write(activities_completed_by_students_at_school.count, TOTAL_ACTIVITIES_COMPLETED_BY_STUDENTS_AT_SCHOOL)
-  end
-
-  def set_active_teachers_at_school_this_year
-    write(active_teachers_at_school_this_year.count, ACTIVE_TEACHERS_AT_SCHOOL_THIS_YEAR)
-  end
-
-  def set_active_students_at_school_this_year
-    write(active_students_at_school_this_year.count, ACTIVE_STUDENTS_AT_SCHOOL_THIS_YEAR)
-  end
-
-  def set_total_activities_completed_by_students_at_school_this_year
-    write(activities_completed_by_students_at_school_this_year.count, TOTAL_ACTIVITIES_COMPLETED_BY_STUDENTS_AT_SCHOOL_THIS_YEAR)
+  def calculate_and_set_cache
+    hash = {
+      [TOTAL_TEACHERS_AT_SCHOOL] => teachers_at_school.count,
+      [TOTAL_STUDENTS_AT_SCHOOL] => students_at_school.count,
+      [TOTAL_ACTIVITIES_COMPLETED_BY_STUDENTS_AT_SCHOOL] => activities_completed_by_students_at_school.count,
+      [ACTIVE_TEACHERS_AT_SCHOOL_THIS_YEAR] => active_teachers_at_school_this_year.count,
+      [ACTIVE_STUDENTS_AT_SCHOOL_THIS_YEAR] => active_students_at_school_this_year.count,
+      [TOTAL_ACTIVITIES_COMPLETED_BY_STUDENTS_AT_SCHOOL_THIS_YEAR] => activities_completed_by_students_at_school_this_year.count
+    }
+    write(hash)
   end
 
   def active_teachers_at_school_this_year

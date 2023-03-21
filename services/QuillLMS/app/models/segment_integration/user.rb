@@ -56,14 +56,15 @@ module SegmentIntegration
 
     def school_params
       if admin? && school && School::ALTERNATIVE_SCHOOL_NAMES.exclude?(school.name)
-        cache = CacheSegmentSchoolData.new(school)
+        cache = CacheSegmentSchoolData.new(school).read
+
         {
-          total_teachers_at_school: cache.read(CacheSegmentSchoolData::TOTAL_TEACHERS_AT_SCHOOL),
-          total_students_at_school: cache.read(CacheSegmentSchoolData::TOTAL_STUDENTS_AT_SCHOOL),
-          total_activities_completed_by_students_at_school: cache.read(CacheSegmentSchoolData::TOTAL_ACTIVITIES_COMPLETED_BY_STUDENTS_AT_SCHOOL),
-          active_teachers_at_school_this_year: cache.read(CacheSegmentSchoolData::ACTIVE_TEACHERS_AT_SCHOOL_THIS_YEAR),
-          active_students_at_school_this_year: cache.read(CacheSegmentSchoolData::ACTIVE_STUDENTS_AT_SCHOOL_THIS_YEAR),
-          total_activities_completed_by_students_at_school_this_year: cache.read(CacheSegmentSchoolData::TOTAL_ACTIVITIES_COMPLETED_BY_STUDENTS_AT_SCHOOL_THIS_YEAR)
+          total_teachers_at_school: cache[CacheSegmentSchoolData::TOTAL_TEACHERS_AT_SCHOOL],
+          total_students_at_school: cache[CacheSegmentSchoolData::TOTAL_STUDENTS_AT_SCHOOL],
+          total_activities_completed_by_students_at_school: cache[CacheSegmentSchoolData::TOTAL_ACTIVITIES_COMPLETED_BY_STUDENTS_AT_SCHOOL],
+          active_teachers_at_school_this_year: cache[CacheSegmentSchoolData::ACTIVE_TEACHERS_AT_SCHOOL_THIS_YEAR],
+          active_students_at_school_this_year: cache[CacheSegmentSchoolData::ACTIVE_STUDENTS_AT_SCHOOL_THIS_YEAR],
+          total_activities_completed_by_students_at_school_this_year: cache[CacheSegmentSchoolData::TOTAL_ACTIVITIES_COMPLETED_BY_STUDENTS_AT_SCHOOL_THIS_YEAR]
         }.reject {|_,v| v.nil? }
       else
         {}
