@@ -30,7 +30,7 @@ RSpec.describe CacheSegmentSchoolData do
   describe '#read' do
     it 'calls read on rails cache with the passed arguments' do
       expect(Rails.cache).to receive(:read).with(school.id, namespace: described_class::CACHED_SCHOOL_DATA)
-      subject.read()
+      subject.read
     end
   end
 
