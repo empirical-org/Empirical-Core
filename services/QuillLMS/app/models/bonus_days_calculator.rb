@@ -1,9 +1,6 @@
 # frozen_string_literal: true
 
 class BonusDaysCalculator < ApplicationService
-  JUNE = 6
-  JULY = 7
-  DECEMBER = 12
 
   attr_reader :user, :start
 
@@ -21,7 +18,11 @@ class BonusDaysCalculator < ApplicationService
   end
 
   private def plan_ends
-    start.month < JULY ? start.change(month: JUNE, day: 30) : start.change(month: DECEMBER, day: 31)
+    if start.month < Subscription::SUMMER_CUTOFF_MONTH
+      start.change(month: Subscription::SUMMER_EXPIRATION_MONTH, day: Subscription::SUMMER_EXPIRATION_DAY)
+    else
+      start.change(month: Subscription::WINTER_EXPIRATION_MONTH, day: Subscription::WINTER_EXPIRATION_DAY)
+    end
   end
 end
 
