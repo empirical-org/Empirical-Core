@@ -124,6 +124,8 @@ class Subscription < ApplicationRecord
   validates :stripe_invoice_id, allow_blank: true, stripe_uid: { prefix: :in }
   validates :stripe_subscription_id, allow_blank: true, stripe_uid: { prefix: :sub }
 
+  before_validation :strip_stripe_id_whitespace
+
   delegate :stripe_cancel_at_period_end, :stripe_subscription_url,
     to: :stripe_subscription
 
@@ -345,5 +347,10 @@ class Subscription < ApplicationRecord
 
   def stripe?
     stripe_invoice_id.present? && stripe_subscription_id.present?
+  end
+
+  private def strip_stripe_id_whitespace
+    self.stripe_invoice_id = stripe_invoice_id&.strip
+    self.stripe_subscription_id = stripe_subscription_id&.strip
   end
 end
