@@ -117,12 +117,7 @@ const AdminDashboard = ({ adminId, accessType, passedModel, }) => {
 
   function renderFreemiumStandardsReports() {
     if (accessType === LIMITED) {
-      return(
-        <section className="freemium-section">
-          <div className='dark-divider' />
-          <DistrictStandardsReports accessType={accessType} isFreemiumView={true} />
-        </section>
-      )
+      return <DistrictStandardsReports accessType={accessType} isFreemiumView={true} />
     }
   }
 
