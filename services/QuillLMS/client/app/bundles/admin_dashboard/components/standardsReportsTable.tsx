@@ -45,6 +45,7 @@ export const StandardsReportsTable = ({ data, isFreemiumView }) => {
   ];
 
   if (data && data.length) {
+    const defaultSortedRule = isFreemiumView ? [{ id: 'total_activity_count', desc: true, }] : [{ id: 'last_active', desc: true, }]
     return (
       <div key={`${data.length}-length-for-activities-scores-by-classroom`}>
         <ReactTable
@@ -52,7 +53,8 @@ export const StandardsReportsTable = ({ data, isFreemiumView }) => {
           columns={columns}
           data={data}
           defaultPageSize={100}
-          defaultSorted={[{ id: 'last_active', desc: true ,}]}
+          defaultSorted={defaultSortedRule}
+          disableSortBy={isFreemiumView}
           minRows={1}
           showPagination={!isFreemiumView}
           showPaginationBottom={!isFreemiumView}
