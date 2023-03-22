@@ -1,17 +1,17 @@
 <% inner_button_element = button_type == 'text' ? "<p>Expand</p>".html_safe : "<img alt='expand-and-collapse' src='https://assets.quill.org/images/shared/expand.svg'>".html_safe %>
 <div class="q-and-a-inner-wrapper">
   <h1>Questions and Answers</h1>
-  <% questions_and_answers.each.with_index do |question_and_answers, i| %>
+  <% questions_and_answers.each.with_index do |question_and_answer, i| %>
     <% answer_section_id = "q-and-a-answer-section-" + "#{i}" %>
     <div class='qa-section'>
       <div class="qa">
-        <button class="question q-and-a-question-button" id= <%= i %> tabindex="-1" type="button"> <%= question_and_answers[:question] %> </button>
-        <div class='question-answer hide' id= <%= answer_section_id %>>
-          <%= question_and_answers[:answer] %>
+        <button class="question q-and-a-question-button" id= <%= i %> tabindex="-1" type="button"> <%= question_and_answer[:question] %> </button>
+        <div class='answer hide' id= <%= answer_section_id %>>
+          <%= question_and_answer[:answer] %>
         </div>
       </div>
       <div>
-        <button class="q-and-a expand-collapse-button focus-on-light" id= <%= i %> type="button"> <%= inner_button_element %> </button>
+        <button class="q-and-a expand-collapse-button focus-on-<%= background_color %>" id= <%= i %> type="button"> <%= inner_button_element %> </button>
       </div>
     </div>
   <% end %>

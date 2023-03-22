@@ -61,7 +61,6 @@ export default class QuestionsAndAnswers extends React.Component<QuestionsAndAns
   renderQuestionsAndAnswers() {
     const { questionsAndAnswersFile } = this.props;
     const { questionsAndAnswers } = this.state;
-    console.log("🚀 ~ file: QuestionsAndAnswers.tsx:64 ~ QuestionsAndAnswers ~ renderQuestionsAndAnswers ~ questionsAndAnswers:", questionsAndAnswers)
     return questionsAndAnswers.map((qa, i) => <QuestionAndAnswer key={i} qa={qa} questionsAndAnswersFile={questionsAndAnswersFile} />)
   }
 
