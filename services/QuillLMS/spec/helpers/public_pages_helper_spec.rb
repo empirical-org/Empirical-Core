@@ -12,14 +12,17 @@ describe PublicPagesHelper do
         expect(helper.should_render_react_component).to eq(true)
       end
     end
+
     context 'with demo user' do
-      let!(:demo_user) { User.where(email: Demo::ReportDemoCreator::EMAIL).first ? User.where(email: Demo::ReportDemoCreator::EMAIL).first : create(:user, email: Demo::ReportDemoCreator::EMAIL) }
+      let!(:demo_user) { User.where(email: Demo::ReportDemoCreator::EMAIL).first : create(:user, email: Demo::ReportDemoCreator::EMAIL) }
+
       before { allow(helper).to receive(:current_user) { demo_user } }
 
       it 'should return false' do
         expect(helper.should_render_react_component).to eq(false)
       end
     end
+
     context 'with no user' do
       before { allow(helper).to receive(:current_user) { nil } }
 
@@ -27,6 +30,7 @@ describe PublicPagesHelper do
         expect(helper.should_render_react_component).to eq(false)
       end
     end
+
   end
 
   describe '#featured_activity_url' do

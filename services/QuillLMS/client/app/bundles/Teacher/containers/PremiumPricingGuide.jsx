@@ -173,10 +173,6 @@ export const PremiumPricingGuide = ({
           <SchoolPremium />
           <SubscriberLogos subscribers={subscribers} />
         </div>
-        {/* <QuestionsAndAnswers
-          questionsAndAnswersFile="premium"
-          supportLink="https://support.quill.org/quill-premium"
-        /> */}
       </div>
     </div>
   )

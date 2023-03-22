@@ -1,5 +1,6 @@
 # frozen_string_literal: true
 
+# rubocop:disable Metrics/ModuleLength
 module PublicPagesHelper
   STARTER_DIAGNOSTIC_UNIT_TEMPLATE_ID = 99
   INTERMEDIATE_DIAGNOSTIC_UNIT_TEMPLATE_ID = 100
@@ -141,9 +142,7 @@ module PublicPagesHelper
       }
     ]
   end
-  # rubocop:enable Layout/LineLength
 
-  # rubocop:disable Layout/LineLength
   def preap_questions_and_answers
     [
       {
@@ -244,9 +243,7 @@ module PublicPagesHelper
       }
     ]
   end
-  # rubocop:enable Layout/LineLength
 
-  # rubocop:disable Layout/LineLength
   def springboard_questions_and_answers
     [
       {
@@ -342,9 +339,7 @@ module PublicPagesHelper
       }
     ]
   end
-  # rubocop:enable Layout/LineLength
 
-  # rubocop:disable Layout/LineLength
   def evidence_tool_questions_and_answers
     [
       {
@@ -465,9 +460,7 @@ module PublicPagesHelper
       }
     ]
   end
-  # rubocop:enable Layout/LineLength
 
-  # rubocop:disable Layout/LineLength
   def lessons_tool_questions_and_answers
     [
       {
@@ -522,9 +515,7 @@ module PublicPagesHelper
       }
     ]
   end
-  # rubocop:enable Layout/LineLength
 
-  # rubocop:disable Layout/LineLength
   def premium_questions_and_answers
     [
       {
@@ -559,4 +550,5 @@ module PublicPagesHelper
   end
   # rubocop:enable Layout/LineLength
 end
+# rubocop:enable Metrics/ModuleLength
 
