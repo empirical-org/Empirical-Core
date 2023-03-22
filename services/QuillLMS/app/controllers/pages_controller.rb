@@ -49,8 +49,6 @@ class PagesController < ApplicationController
   end
   # rubocop:enable Metrics/CyclomaticComplexity
 
-  def develop; end
-
   def mission
     redirect_to('/about')
   end
