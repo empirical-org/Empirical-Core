@@ -2,7 +2,7 @@
 
 exports[`StandardsReports component should match snapshot 1`] = `
 <div
-  className="standards-reports-by-classroom progress-reports-2018"
+  className="standards-reports-by-classroom progress-reports-2018 "
 >
   <div
     className="meta-overview flex-row space-between"
