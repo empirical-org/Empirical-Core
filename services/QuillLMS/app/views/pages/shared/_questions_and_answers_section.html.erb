@@ -5,9 +5,9 @@
     <% answer_section_id = "q-and-a-answer-section-" + "#{i}" %>
     <div class='qa-section'>
       <div class="qa">
-        <button class="question q-and-a-question-button" id= <%= i %> tabindex="-1" type="button"> <%= question_and_answer[:question] %> </button>
+        <button class="question q-and-a-question-button" id= <%= i %> tabindex="-1" type="button"> <%= sanitize(question_and_answer[:question]) %> </button>
         <div class='answer hide' id= <%= answer_section_id %>>
-          <%= question_and_answer[:answer] %>
+          <%= sanitize(question_and_answer[:answer]) %>
         </div>
       </div>
       <div>
