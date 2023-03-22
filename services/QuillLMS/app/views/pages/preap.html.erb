@@ -4,7 +4,7 @@
 %>
 <%= render partial: 'pages/shared/explore_curriculum_navbar', active_tab: @active_tab  %>
 
-<% if current_user %>
+<% if should_render_react_component %>
   <%= react_component('PreApApp', props: { units: @units }) %>
 <% else %>
   <div class="college-board-container">
@@ -195,7 +195,7 @@
       </div>
     </div>
     <div id="q-and-a">
-      <%= render partial: 'pages/shared/questions_and_answers_section', locals: { questions_and_answers: preap_questions_and_answers, button_type: 'icon' } %>
+      <%= render partial: 'pages/shared/questions_and_answers_section', locals: { questions_and_answers: preap_questions_and_answers, button_type: 'icon', background_color: 'light' } %>
     </div>
   </div>
 <% end %>

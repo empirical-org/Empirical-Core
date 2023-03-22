@@ -3,7 +3,7 @@
 %>
 <%= render partial: 'pages/shared/explore_curriculum_navbar', active_tab: @active_tab  %>
 
-<% if current_user %>
+<% if should_render_react_component %>
   <%= react_component('ApApp') %>
 <% else %>
   <div class="college-board-container">

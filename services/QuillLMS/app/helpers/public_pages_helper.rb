@@ -12,6 +12,17 @@ module PublicPagesHelper
   AP_WRITINGS_SKILLS_UNIT_TEMPLATE_ID = 193
   SPRING_BOARD_SKILLS_UNIT_TEMPLATE_ID = 253
 
+  def should_render_react_component
+    current_user && current_user.email != Demo::ReportDemoCreator::EMAIL
+  end
+
+  def should_render_demo_banner
+    base_url = ENV['DEFAULT_URL']
+    # ap is a bit too generic so we should match on the entire request url
+    excluded_routes = ["#{base_url}/ap", "#{base_url}/preap", "#{base_url}/springboard"]
+    viewing_demo_account? && !previewing_student_dashboard? && !request.url.include?('tools') && !excluded_routes.include?(request.url)
+  end
+
   def featured_activity_url(activity_id)
     "#{ENV['DEFAULT_URL']}/activities/packs/#{activity_id}"
   end
@@ -88,7 +99,7 @@ module PublicPagesHelper
         answer: "<p>Yes! In each recommended practice activity, Quill provides students with immediate feedback on their writing that they can use to revise their responses up to 5 times. Through these rounds of feedback and revision, students improve the clarity and precision of their writing.</p>".html_safe
       },
       {
-        question: 'Where can I track my students&apos; completion of and performance on the AP Writing Practice packs?',
+        question: "Where can I track my students' completion of and performance on the AP Writing Practice packs?",
         answer: "<p>Quill has a variety of reports to help you track your students&apos; performance and progress. In the <a href='https://support.quill.org/en/articles/1140159-how-does-the-activity-summary-work' rel='noopener noreferrer' target='_blank'>Activity Summary report</a>, you can quickly see which activities your students have completed, along with color-coded icons indicating their proficiency with each activity. Quill has several other reports as well. <a href='https://s3.amazonaws.com/quill-image-uploads/uploads/files/Quill_Reports_Cheat_Sheet_Updated04_08_20.pdf' rel='noopener noreferrer' target='_blank'>This Cheat Sheet</a> shows you which report to go to for particular information, and <a href='https://s3.amazonaws.com/quill-image-uploads/uploads/files/Getting_Started_-_Student_Data_Reports__Basic_.mp4' rel='noopener noreferrer' target='_blank'>this video</a> will walk you through interpreting and utilizing three of Quill&apos;s student data reports.</p>".html_safe
       },
       {

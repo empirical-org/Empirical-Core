@@ -521,10 +521,10 @@ class PagesController < ApplicationController
     case action_name
     when 'about', 'partners', 'mission', 'faq', 'impact', 'team', 'tos', 'media_kit', 'media', 'privacy', 'map', 'teacher-center', 'news', 'stats', 'activities', 'pathways', 'careers', 'press'
       @js_file = 'shared'
-    when 'connect_tool', 'grammar_tool', 'diagnostic_tool', 'proofreader_tool', 'home_new'
+    when 'connect_tool', 'grammar_tool', 'diagnostic_tool', 'proofreader_tool', 'home_new', 'evidence_tool', 'lessons_tool', 'ap', 'preap', 'springboard'
       @js_file = 'home'
-    when 'evidence_tool', 'lessons_tool', 'premium', 'ap', 'preap', 'springboard'
-      @js_file = 'public'
+    when 'premium'
+      @js_file = current_user ? 'app' : 'public'
     when 'backpack' || 'locker'
       @js_file = 'staff'
     when ApplicationController::EVIDENCE
