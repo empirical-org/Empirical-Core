@@ -45,7 +45,6 @@ const AdminDashboard = ({ adminId, accessType, passedModel, }) => {
   };
 
   initializePusher = (skipLoading) => {
-    const { adminId } = this.props
     if (import.meta.env.RAILS_ENV === 'development') {
       Pusher.logToConsole = true;
     }
@@ -98,26 +97,6 @@ const AdminDashboard = ({ adminId, accessType, passedModel, }) => {
     );
   }
 
-  function resendLoginDetails(data) {
-    setError('')
-    requestPost(
-      `${import.meta.env.VITE_DEFAULT_URL}/admins/${adminId}/create_and_link_accounts`,
-      data,
-      (response) => {
-        getData(true)
-        setSnackbarText(response.message)
-        setShowSnackbar(true)
-      },
-      (response) => {
-        if (response.error) {
-          setError(response.error);
-        } else {
-          // to do, use Sentry to capture error
-        }
-      }
-    );
-
-  }
 
   function scrollToCreateNewAccounts() {
     const section = document.querySelector('#scroll-location');
