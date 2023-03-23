@@ -20,6 +20,18 @@ RSpec.describe CleverIntegration::TeacherUpdater do
     it { expect { subject }.to change(teacher, :name).from(name).to(data_name) }
     it { expect { subject }.to change(teacher, :email).from(email).to(data_email) }
     it { expect { subject}.not_to change(teacher, :clever_id) }
+
+    it 'should update the user role to "teacher" if they do not have a TEACHER_INFO role (indicating that they are school staff)' do
+      teacher.update(role: User::STUDENT)
+
+      expect { subject }.to change(teacher, :role).from(User::STUDENT).to(User::TEACHER)
+    end
+
+    it 'should not update the user role if they have a TEACHER_INFO role already' do
+      teacher.update(role: User::ADMIN)
+
+      expect { subject }.not_to change(teacher, :role)
+    end
   end
 
   context 'teacher is linked with google' do
