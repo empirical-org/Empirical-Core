@@ -11,104 +11,116 @@ exports[`VerifySchool component should render 1`] = `
     <div
       className="container account-form add-admin-info"
     >
-      <img
-        alt=""
-        src="undefined/images/onboarding/school_verification.svg"
-      />
-      <h1>
-        <span>
-          Please verify your connection to:
-        </span>
-        <span
-          className="school-name"
-        >
-          School Name
-        </span>
-      </h1>
-      <p
-        className="sub-header"
+      <SchoolVerificationForm
+        schoolName="School Name"
       >
-        Quill is committed to securing the privacy of districts, schools, teachers, and students. Complete the form below to ensure we are providing you with the appropriate access.
-      </p>
-      <section
-        className="user-account-section school-verification-section"
-      >
-        <h3>
-          Please provide the URL of your LinkedIn profile
-        </h3>
-        <Input
-          autoComplete="on"
-          handleChange={[Function]}
-          helperText="If you do not have a LinkedIn profile, please provide a link to another website that demonstrates your connection to School Name."
-          placeholder="Enter URL"
-          showPlaceholderWhenInactive={true}
-          value={null}
-        >
-          <div
-            className="input-container  inactive  undefined "
-            onClick={[Function]}
-            onKeyDown={[Function]}
-            role="button"
-            tabIndex={-1}
+        <img
+          alt=""
+          src="undefined/images/onboarding/school_verification.svg"
+        />
+        <h1>
+          <span>
+            Please verify your connection to:
+          </span>
+          <span
+            className="school-name"
           >
-            <label />
-            <input
-              autoComplete="on"
-              maxLength={10000}
-              onChange={[Function]}
-              onFocus={[Function]}
-              placeholder="Enter URL"
-              value={null}
-            />
-            <span
-              className="helper-text"
+            School Name
+          </span>
+        </h1>
+        <p
+          className="sub-header"
+        >
+          Quill is committed to securing the privacy of districts, schools, teachers, and students. Complete the form below to ensure we are providing you with the appropriate access.
+        </p>
+        <section
+          className="user-account-section school-verification-section"
+        >
+          <h3>
+            Please provide the URL of your LinkedIn profile
+          </h3>
+          <Input
+            autoComplete="on"
+            handleChange={[Function]}
+            helperText="If you do not have a LinkedIn profile, please provide a link to another website that demonstrates your connection to School Name."
+            placeholder="Enter URL"
+            showPlaceholderWhenInactive={true}
+            value={null}
+          >
+            <div
+              className="input-container  inactive  undefined "
+              onClick={[Function]}
+              onKeyDown={[Function]}
+              role="button"
+              tabIndex={-1}
             >
-              If you do not have a LinkedIn profile, please provide a link to another website that demonstrates your connection to School Name.
-            </span>
-          </div>
-        </Input>
-        <h3>
-          Why do you want to be an admin for 
-          School Name
-          ?
-        </h3>
-        <Input
-          autoComplete="on"
-          handleChange={[Function]}
-          placeholder="Type an answer"
-          showPlaceholderWhenInactive={true}
-          value={null}
-        >
-          <div
-            className="input-container  inactive  undefined "
-            onClick={[Function]}
-            onKeyDown={[Function]}
-            role="button"
-            tabIndex={-1}
+              <label />
+              <input
+                autoComplete="on"
+                maxLength={10000}
+                onChange={[Function]}
+                onFocus={[Function]}
+                placeholder="Enter URL"
+                value={null}
+              />
+              <span
+                className="helper-text"
+              >
+                If you do not have a LinkedIn profile, please provide a link to another website that demonstrates your connection to School Name.
+              </span>
+            </div>
+          </Input>
+          <h3>
+            Why do you want to be an admin for 
+            School Name
+            ?
+          </h3>
+          <Input
+            autoComplete="on"
+            handleChange={[Function]}
+            placeholder="Type an answer"
+            showPlaceholderWhenInactive={true}
+            value={null}
           >
-            <label />
-            <input
-              autoComplete="on"
-              maxLength={10000}
-              onChange={[Function]}
-              onFocus={[Function]}
-              placeholder="Type an answer"
-              value={null}
-            />
-          </div>
-        </Input>
-      </section>
-      <div
-        className="button-wrapper"
-      >
-        <button
-          className="quill-button primary contained medium focus-on-light disabled"
-          disabled={true}
-          type="button"
+            <div
+              className="input-container  inactive  undefined "
+              onClick={[Function]}
+              onKeyDown={[Function]}
+              role="button"
+              tabIndex={-1}
+            >
+              <label />
+              <input
+                autoComplete="on"
+                maxLength={10000}
+                onChange={[Function]}
+                onFocus={[Function]}
+                placeholder="Type an answer"
+                value={null}
+              />
+            </div>
+          </Input>
+        </section>
+        <div
+          className="button-wrapper"
         >
-          Next
-        </button>
-      </div>
+          <button
+            className="quill-button primary contained medium focus-on-light disabled"
+            disabled={true}
+            type="button"
+          >
+            Submit
+          </button>
+        </div>
+        <SkipForNow>
+          <a
+            className="skip-for-now"
+            href="/finish_sign_up"
+          >
+            Skip for now
+          </a>
+        </SkipForNow>
+      </SchoolVerificationForm>
     </div>
   </div>
 </VerifySchool>

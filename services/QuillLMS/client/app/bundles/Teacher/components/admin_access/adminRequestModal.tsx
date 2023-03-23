@@ -14,6 +14,7 @@ const AdminRequestModal = ({ onSuccess, schoolAdmins, closeModal, }) => {
   function handleClickSendRequest() {
     requestPost(`${process.env.DEFAULT_URL}/admin_access/request_upgrade_to_admin_from_existing_admins`, {
       admin_ids: selectedAdminIds,
+      new_user: false,
       reason
     }, () => {
       onSuccess('Your request has been sent')

@@ -19,11 +19,11 @@ class AdminAccessController < ApplicationController
   def request_upgrade_to_admin_from_existing_admins
     admin_ids = request_upgrade_to_admin_from_existing_admins_params[:admin_ids]
     reason = request_upgrade_to_admin_from_existing_admins_params[:reason]
-    new_user = request_upgrade_to_admin_from_existing_admins_params[:new_user]
+    new_user = request_upgrade_to_admin_from_existing_admins_params[:new_user].to_s == 'true'
     admin_info = AdminInfo.find_or_create_by!(user: current_user)
     admin_info.update(approval_status: AdminInfo::PENDING, approver_role: User::ADMIN)
     admin_ids.each do |admin_id|
-      AdminApprovalRequest.find_or_create_by!(admin_info: admin_info, requestee_id: admin_id, request_made_during_sign_up: !!new_user)
+      AdminApprovalRequest.find_or_create_by!(admin_info: admin_info, requestee_id: admin_id, request_made_during_sign_up: new_user)
       AdminReceivedAdminUpgradeRequestFromTeacherAnalyticsWorker.perform_async(admin_id, current_user.id, reason, new_user)
     end
     TeacherRequestedToBecomeAdminAnalyticsWorker.perform_async(current_user.id, new_user)
