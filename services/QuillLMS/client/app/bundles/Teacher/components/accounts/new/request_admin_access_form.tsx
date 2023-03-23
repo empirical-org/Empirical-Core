@@ -34,7 +34,7 @@ const RequestAdminAccessForm = ({ schoolName, admins, }) => {
   return (
     <React.Fragment>
       <img alt="" src={schoolVerificationSrc} />
-      <h1><span>Please request permission to become an admin of:</span><span className="school-name">{schoolName}</span></h1>
+      <h1><span>Request permission to become an admin of:</span><span className="school-name">{schoolName}</span></h1>
       <p className="sub-header">Which admin(s) do you want to send the request to?</p>
       <section className="user-account-section admin-access-request-section">
         <AdminTable schoolAdmins={admins} selectedAdminIds={selectedAdminIds} setSelectedAdminIds={setSelectedAdminIds} />

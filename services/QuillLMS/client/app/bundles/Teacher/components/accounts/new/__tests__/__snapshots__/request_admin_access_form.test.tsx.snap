@@ -19,7 +19,7 @@ exports[`RequestAdminAccessForm component should render 1`] = `
   />
   <h1>
     <span>
-      Please request permission to become an admin of:
+      Request permission to become an admin of:
     </span>
     <span
       className="school-name"
