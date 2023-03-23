@@ -240,11 +240,11 @@ class SegmentAnalytics
     })
   end
 
-  def track_admin_received_admin_upgrade_request_from_teacher(admin, teacher, reason)
+  def track_admin_received_admin_upgrade_request_from_teacher(admin, teacher, reason, new_user)
     identify(admin)
     track({
       user_id: admin.id,
-      event: SegmentIo::BackgroundEvents::ADMIN_RECEIVED_ADMIN_UPGRADE_REQUEST_FROM_TEACHER,
+      event: new_user ? SegmentIo::BackgroundEvents::ADMIN_RECEIVED_ADMIN_UPGRADE_REQUEST_FROM_NEW_USER : SegmentIo::BackgroundEvents::ADMIN_RECEIVED_ADMIN_UPGRADE_REQUEST_FROM_TEACHER,
       properties: {
         teacher_first_name: teacher.first_name,
         teacher_last_name: teacher.last_name,

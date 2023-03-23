@@ -98,16 +98,17 @@ class AdminsController < ApplicationController
     SchoolsAdmins.create!(user_id: user.id, school_id: params[:school_id])
     user.admin_info.update(sub_role: AdminInfo::TEACHER_ADMIN, approval_status: AdminInfo::APPROVED)
     reset_admin_users_cache
-    TeacherApprovedToBecomeAdminAnalyticsWorker.perform_async(user.id)
+    TeacherApprovedToBecomeAdminAnalyticsWorker.perform_async(user.id, params[:new_user])
 
     render json: {message: t('admin.approve_admin_request')}, status: 200
   end
 
   def deny_admin_request
     user = User.find_by(id: params[:id])
+    user.update(role: User::TEACHER)
     user.admin_info.update(approval_status: AdminInfo::DENIED)
     reset_admin_users_cache
-    TeacherDeniedToBecomeAdminAnalyticsWorker.perform_async(user.id)
+    TeacherDeniedToBecomeAdminAnalyticsWorker.perform_async(user.id, params[:new_user])
 
     render json: {message: t('admin.deny_admin_request')}, status: 200
   end

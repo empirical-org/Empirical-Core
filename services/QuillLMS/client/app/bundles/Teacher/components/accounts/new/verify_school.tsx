@@ -16,8 +16,9 @@ const RequestAdminAccessForm = ({ schoolName, admins, }) => {
   function handleChangeReason(e) { setReason(e.target.value) }
 
   function handleClickSubmit() {
-    requestPost(`${process.env.DEFAULT_URL}/admin_access/new_user_requests_admin_access_from_existing_admins`, {
+    requestPost(`${process.env.DEFAULT_URL}/admin_access/request_upgrade_to_admin_from_existing_admins`, {
       admin_ids: selectedAdminIds,
+      new_user: true,
       reason
     }, () => {
       window.location = '/finish_sign_up'
