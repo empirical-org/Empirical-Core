@@ -23,7 +23,7 @@ class AdminAccessController < ApplicationController
     admin_info = AdminInfo.find_or_create_by!(user: current_user)
     admin_info.update(approval_status: AdminInfo::PENDING, approver_role: User::ADMIN)
     admin_ids.each do |admin_id|
-      AdminApprovalRequest.find_or_create_by!(admin_info: admin_info, requestee_id: admin_id)
+      AdminApprovalRequest.find_or_create_by!(admin_info: admin_info, requestee_id: admin_id, request_made_during_sign_up: !!new_user)
       AdminReceivedAdminUpgradeRequestFromTeacherAnalyticsWorker.perform_async(admin_id, current_user.id, reason, new_user)
     end
     TeacherRequestedToBecomeAdminAnalyticsWorker.perform_async(current_user.id, new_user)

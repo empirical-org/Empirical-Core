@@ -1,6 +1,8 @@
 import React from 'react';
 import Pusher from 'pusher-js';
 
+import DistrictStandardsReports from './DistrictStandardsReports';
+
 import { RESTRICTED, LIMITED, FULL, } from '../shared'
 import AdminsTeachers from '../components/adminsTeachers.tsx';
 import PremiumFeatures from '../components/premiumFeatures.tsx';
@@ -9,7 +11,6 @@ import LoadingSpinner from '../../Teacher/components/shared/loading_indicator';
 import { requestGet, requestPost, } from '../../../modules/request/index'
 import { Snackbar, defaultSnackbarTimeout } from '../../Shared/index'
 import useSnackbarMonitor from '../../Shared/hooks/useSnackbarMonitor'
-import DistrictStandardsReports from './DistrictStandardsReports';
 
 const DEFAULT_MODEL = { teachers: [] }
 
@@ -154,7 +155,7 @@ const AdminDashboard = ({ adminId, accessType, passedModel, }) => {
       <div className='dark-divider' id="scroll-location" />
       <AdminsTeachers
         accessType={accessType}
-        adminApprovalRequestAdminInfoIds={model.admin_approval_requests.map(r => r.admin_info_id)}
+        adminApprovalRequests={model.admin_approval_requests}
         adminAssociatedSchool={model.associated_school}
         data={model.teachers}
         handleUserAction={handleUserAction}
