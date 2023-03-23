@@ -356,7 +356,7 @@ describe 'SegmentAnalytics' do
           admin,
           teacher,
           reason,
-          true
+          false
         )
         expect(track_calls[0][:event]).to eq(SegmentIo::BackgroundEvents::ADMIN_RECEIVED_ADMIN_UPGRADE_REQUEST_FROM_TEACHER)
       end
