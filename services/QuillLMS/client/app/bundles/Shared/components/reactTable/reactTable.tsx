@@ -68,6 +68,7 @@ interface ReactTableProps {
   className?: string,
   filterable?: boolean,
   defaultPageSize?: number,
+  disableSortBy?: boolean,
   currentPage?: number,
   defaultSorted?: string | {id: string, desc: boolean }[],
   onSortedChange?: (sortBy: string) => void,
@@ -92,6 +93,7 @@ export const ReactTable = ({
   defaultPageSize,
   currentPage,
   defaultSorted,
+  disableSortBy,
   onSortedChange,
   onPageChange,
   onFiltersChange,
@@ -122,6 +124,7 @@ export const ReactTable = ({
     {
       data,
       defaultColumn,
+      disableSortBy,
       manualSortBy,
       manualPagination,
       manualFilters: manualFilters,

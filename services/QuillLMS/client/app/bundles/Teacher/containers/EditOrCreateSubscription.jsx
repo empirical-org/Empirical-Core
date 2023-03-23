@@ -354,6 +354,8 @@ export default class EditOrCreateSubscription extends React.Component {
           focused={firstFocused}
           id="date-picker"
           inputIconPosition="after"
+          isOutsideRange={() => false}
+          minDate={null}
           navNext="›"
           navPrev="‹"
           numberOfMonths={1}

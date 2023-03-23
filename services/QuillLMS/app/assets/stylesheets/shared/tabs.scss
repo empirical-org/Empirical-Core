@@ -12,7 +12,7 @@
       font-weight: 600;
       line-height: 41px;
       margin-top: 0px;
-      padding: 3px 32px 3px;
+      padding: 3px 30px 3px;
       text-decoration: none;
       &:hover {
         background-color: #0E927C;
@@ -164,8 +164,30 @@
   }
 }
 
+@media (max-width: 1200px) {
+  .hide-on-mobile {
+    &.premium-tab-copy {
+      display: none !important;
+    }
+  }
+}
+
+@media (min-width: 1200px) {
+  .hide-on-desktop {
+      &.premium-tab-small {
+        display: none !important;
+      }
+    }
+}
+
 @media (min-width: 930px) {
-  .hide-on-desktop { display: none !important; }
+  .hide-on-desktop:not(.premium-tab-small) { display: none !important; }
+}
+
+@media (min-width: 930px) and (max-width: 1040px) {
+  #teacher-nav-tabs li a {
+      padding: 3px 20px 3px;
+  }
 }
 
 @media (max-width: 930px) {

@@ -3,23 +3,33 @@ import { connect } from 'react-redux';
 
 import LoadingSpinner from '../../Teacher/components/shared/loading_indicator';
 import StandardsReports from '../components/standardsReports';
-import {
-  switchClassroom,
-  switchSchool,
-  switchTeacher,
-  getDistrictStandardsReports,
-} from '../../../actions/district_standards_reports';
+import { getDistrictStandardsReports } from '../../../actions/district_standards_reports';
 import { getTimeSpent } from '../../Teacher/helpers/studentReports';
-import { restrictedPage, FULL, } from '../shared'
+import { restrictedPage, FULL, LIMITED } from '../shared'
 
 class DistrictStandardsReports extends React.Component {
   componentDidMount() {
-    const { getDistrictStandardsReports, } = this.props;
-    getDistrictStandardsReports();
+    const { getDistrictStandardsReports, isFreemiumView } = this.props;
+    getDistrictStandardsReports(isFreemiumView);
   }
 
   render() {
-    const { loading, accessType, } = this.props;
+    const { loading, accessType, isFreemiumView, standardsReportsData } = this.props;
+    const showFreemiumReport = accessType === LIMITED && isFreemiumView
+    const dataPresent = standardsReportsData && standardsReportsData.length
+
+    if (showFreemiumReport && !dataPresent) {
+      return <span />
+    }
+
+    if (showFreemiumReport && dataPresent) {
+      return (
+        <div className="freemium-section">
+          <div className='dark-divider' />
+          <StandardsReports {...this.props} />
+        </div>
+      );
+    }
 
     if (accessType !== FULL) {
       return restrictedPage
@@ -28,6 +38,7 @@ class DistrictStandardsReports extends React.Component {
     if (loading) {
       return <LoadingSpinner />;
     }
+
     return (<StandardsReports {...this.props} />);
   }
 }
@@ -52,7 +63,7 @@ function formatDataForCSV(data) {
   ];
 
   csvData.push(csvHeader);
-  data.forEach(row => csvData.push(csvRow(row)));
+  data && data.forEach(row => csvData.push(csvRow(row)));
 
   return csvData;
 }
@@ -69,7 +80,7 @@ const mapStateToProps = (state) => {
   };
 };
 const mapDispatchToProps = dispatch => ({
-  getDistrictStandardsReports: () => dispatch(getDistrictStandardsReports()),
+  getDistrictStandardsReports: (isFreemiumView) => dispatch(getDistrictStandardsReports(isFreemiumView)),
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(DistrictStandardsReports);

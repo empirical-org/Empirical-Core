@@ -2,7 +2,7 @@
 
 exports[`StandardsReports component should match snapshot 1`] = `
 <div
-  className="standards-reports-by-classroom progress-reports-2018"
+  className="standards-reports-by-classroom progress-reports-2018 "
 >
   <div
     className="meta-overview flex-row space-between"
@@ -15,6 +15,11 @@ exports[`StandardsReports component should match snapshot 1`] = `
       </h1>
       <p>
         Each activity on Quill is aligned to a Common Core standard. This report shows the school’s overall progress on each of the standards. You can print this report by downloading a PDF file or export this data by downloading a CSV file. The data you see below is capturing historical activity data for your school.
+      </p>
+      <p>
+        <b>
+          These reports are updated nightly.
+        </b>
       </p>
     </div>
     <div

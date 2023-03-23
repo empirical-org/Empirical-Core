@@ -715,7 +715,6 @@ EmpiricalGrammar::Application.routes.draw do
     beta
     board
     press
-    develop
     mission
     about
     faq

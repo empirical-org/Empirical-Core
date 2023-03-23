@@ -4,7 +4,8 @@ import EmptyStateForReport from '../../Teacher/components/progress_reports/empty
 import { ReactTable, } from '../../Shared/index'
 import { getTimeSpent } from '../../Teacher/helpers/studentReports';
 
-export const StandardsReportsTable = ({ data, }) => {
+export const StandardsReportsTable = ({ data, isFreemiumView }) => {
+
   const columns = [
     {
       Header: 'Standard level',
@@ -44,6 +45,7 @@ export const StandardsReportsTable = ({ data, }) => {
   ];
 
   if (data && data.length) {
+    const defaultSortedRule = isFreemiumView ? [{ id: 'total_activity_count', desc: true, }] : [{ id: 'last_active', desc: true, }]
     return (
       <div key={`${data.length}-length-for-activities-scores-by-classroom`}>
         <ReactTable
@@ -51,10 +53,11 @@ export const StandardsReportsTable = ({ data, }) => {
           columns={columns}
           data={data}
           defaultPageSize={100}
-          defaultSorted={[{ id: 'last_active', desc: true ,}]}
+          defaultSorted={defaultSortedRule}
+          disableSortBy={isFreemiumView}
           minRows={1}
-          showPagination
-          showPaginationBottom
+          showPagination={!isFreemiumView}
+          showPaginationBottom={!isFreemiumView}
         />
       </div>
     );
