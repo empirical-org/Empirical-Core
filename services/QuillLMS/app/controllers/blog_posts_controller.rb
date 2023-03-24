@@ -90,7 +90,7 @@ class BlogPostsController < ApplicationController
 
     @related_posts = @blog_post.related_posts
     @title = @blog_post.title
-    @description = @blog_post.subtitle.present? ? @blog_post.subtitle : @title
+    @description = @blog_post.subtitle.presence || @title
     @image_link = SOCIAL_MEDIA_SHARE_IMAGE
   end
 
