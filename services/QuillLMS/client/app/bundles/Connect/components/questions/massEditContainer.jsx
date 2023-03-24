@@ -8,11 +8,6 @@ import getBoilerplateFeedback from './boilerplateFeedback.jsx';
 import ConceptResultList from './conceptResultList.jsx';
 import _ from 'underscore';
 import {
-  deleteResponse,
-  incrementResponseCount,
-  submitResponseEdit,
-  removeLinkToParentID,
-  setUpdatedResponse,
   submitMassEditFeedback,
   submitMassEditConceptResults,
   massEditDeleteResponses
@@ -116,7 +111,6 @@ class MassEditContainer extends React.Component {
 
   incrementAllResponsesInMassEditArray = () => {
     const selectedResponses = this.props.massEdit.selectedResponses;
-    selectedResponses.forEach(response => this.props.dispatch(incrementResponseCount(this.props.questionID, response)));
   }
 
   removeResponseFromMassEditArray = (responseKey) => {
