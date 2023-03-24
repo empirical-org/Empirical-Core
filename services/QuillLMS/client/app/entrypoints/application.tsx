@@ -28,7 +28,11 @@ console.log('Vite ⚡️ Rails - Visit the guide for more information: ', 'https
 
 
 import '../bundles/Login/startup/clientRegistration';
-import '../bundles/Staff/startup/clientRegistration'
+import '../bundles/Staff/startup/clientRegistration';
+import '../bundles/Connect/clientRegistration';
+
+
+
 // import LockerApp from '../../Staff/startup/lockerAppClient'
 // module.exports = {
 //   mode,
