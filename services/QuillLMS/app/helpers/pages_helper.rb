@@ -261,14 +261,16 @@ module PagesHelper
         description_two: 'Email us at advisorycouncil@quill.org if you’re a Quill educator who would like to join this group!',
         members: [
           {
-            name: 'Donald McKendrick',
-            title: 'Curriculum at Chan Zuckerberg Initiative',
-            img: 'advisor-donald-mckendrick@2x.png'
+            name: 'Carmen Adamucci',
+            title: 'Saint Monica Preparatory',
+            subtitle: 'Santa Monica, CA',
+            img: 'advisor-carmen-adamucci@2x.png'
           },
           {
-            name: 'Jane Nevins',
-            title: 'Director of Giving at Freedom for All Americans',
-            img: 'advisor-jane-nevins@2x.png'
+            name: 'Juan G. Alvarado',
+            title: 'Valley View High School',
+            subtitle: 'Hidalgo, TX',
+            img: 'advisor-juan-alvarado@2x.png'
           },
           {
             name: 'Alesha Cary',
@@ -283,10 +285,16 @@ module PagesHelper
             img: 'advisor-rebecca-foland@2x.png'
           },
           {
-            name: 'Elizabeth Tanner',
-            title: 'Westwood High School',
-            subtitle: 'Mesa, AZ',
-            img: 'advisor-elizabeth-tanner@2x.png'
+            name: 'Audrey Gebber',
+            title: 'Gulf Coast High School',
+            subtitle: 'Naples, FL',
+            img: 'advisor-audrey-gebber@2x.png'
+          },
+          {
+            name: 'Deana M. Harris',
+            title: 'Thorndale High School',
+            subtitle: 'Thorndale, TX',
+            img: 'advisor-deana-harris@2x.png'
           },
           {
             name: 'Jasmine Hobson Rodriguez',
@@ -301,28 +309,10 @@ module PagesHelper
             img: 'advisor-jennifer-james@2x.png'
           },
           {
-            name: 'Carmen Adamucci',
-            title: 'Saint Monica Preparatory',
-            subtitle: 'Santa Monica, CA',
-            img: 'advisor-carmen-adamucci@2x.png'
-          },
-          {
-            name: 'Audrey Gebber',
-            title: 'Gulf Coast High School',
-            subtitle: 'Naples, FL',
-            img: 'advisor-audrey-gebber@2x.png'
-          },
-          {
-            name: 'Deana M. Harris',
-            title: 'Thorndale High School',
-            subtitle: 'Thorndale, TX',
-            img: 'advisor-deana-harris@2x.png'
-          },
-          {
-            name: 'Megan Tourda-Nelsen',
-            title: 'Bay City Central High School',
-            subtitle: 'Bay City, MI',
-            img: 'advisor-megan-tourda-nelsen@2x.png'
+            name: 'Meleighsa McLaughlin',
+            title: 'James Clemens High School',
+            subtitle: 'Madison, AL',
+            img: 'advisor-meleighsa-mclaughlin@2x.png'
           },
           {
             name: 'Sera Ramirez',
@@ -337,16 +327,16 @@ module PagesHelper
             img: 'advisor-elma-ruiz@2x.png'
           },
           {
-            name: 'Juan G. Alvarado',
-            title: 'Valley View High School',
-            subtitle: 'Hidalgo, TX',
-            img: 'advisor-juan-alvarado@2x.png'
+            name: 'Elizabeth Tanner',
+            title: 'Westwood High School',
+            subtitle: 'Mesa, AZ',
+            img: 'advisor-elizabeth-tanner@2x.png'
           },
           {
-            name: 'Meleighsa McLaughlin',
-            title: 'James Clemens High School',
-            subtitle: 'Madison, AL',
-            img: 'advisor-meleighsa-mclaughlin@2x.png'
+            name: 'Megan Tourda-Nelsen',
+            title: 'Bay City Central High School',
+            subtitle: 'Bay City, MI',
+            img: 'advisor-megan-tourda-nelsen@2x.png'
           }
         ]
       }
