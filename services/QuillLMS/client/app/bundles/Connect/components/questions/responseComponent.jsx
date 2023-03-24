@@ -1,7 +1,7 @@
 import React from 'react';
 import { connect } from 'react-redux';
 
-import filterActions from '../../actions/filters';
+import * as filterActions from '../../actions/filters';
 import _ from 'underscore';
 import ResponseList from './responseList.jsx';
 import QuestionMatcher from '../../libs/question';
