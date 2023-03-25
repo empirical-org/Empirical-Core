@@ -713,15 +713,6 @@ li.premium-tab > a:hover {
       display: none;
     }
 
-    .topics-row {
-      &.last-row {
-        justify-content: flex-start;
-        div.topic-explored:last-of-type {
-          margin-left: 24px;
-        }
-      }
-    }
-
   }
 }
 
