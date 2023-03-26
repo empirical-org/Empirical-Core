@@ -1,11 +1,11 @@
-import * as React from 'react';
 import { mount } from 'enzyme';
-import { createMemoryHistory, createLocation } from 'history';
+import { createLocation, createMemoryHistory } from 'history';
+import * as React from 'react';
 import { QueryClientProvider } from 'react-query';
 
-import TurkSessions from '../gatherResponses/turkSessions';
 import 'whatwg-fetch';
 import { DefaultReactQueryClient } from '../../../../Shared';
+import TurkSessions from '../gatherResponses/turkSessions';
 
 const queryClient = new DefaultReactQueryClient();
 

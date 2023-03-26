@@ -1,17 +1,17 @@
 import * as React from 'react';
 import { RouteComponentProps } from 'react-router-dom';
-import _ from 'underscore'
+import _ from 'underscore';
 
-import ConnectStudentReportBox from './connect_student_report_box.jsx'
-import StudentReportBox from './student_report_box'
+import ConnectStudentReportBox from './connect_student_report_box.jsx';
+import StudentReportBox from './student_report_box';
 
-import LoadingSpinner from '../../shared/loading_indicator.jsx'
-import { Student } from '../../../../../interfaces/student';
 import { QuestionData } from '../../../../../interfaces/questionData';
-import { DropdownInput, expandIcon } from '../../../../Shared/index'
+import { Student } from '../../../../../interfaces/student';
 import { requestGet } from '../../../../../modules/request/index';
-import { GRAMMAR_KEY, CONNECT_KEY, EVIDENCE_KEY, } from '../constants';
+import { DropdownInput, expandIcon } from '../../../../Shared/index';
 import { getTimeSpent } from '../../../helpers/studentReports';
+import LoadingSpinner from '../../shared/loading_indicator.jsx';
+import { CONNECT_KEY, EVIDENCE_KEY, GRAMMAR_KEY } from '../constants';
 
 export interface StudentReportState {
   boldingExplanationIsOpen: boolean,

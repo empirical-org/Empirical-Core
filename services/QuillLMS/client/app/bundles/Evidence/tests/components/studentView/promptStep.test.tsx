@@ -1,12 +1,12 @@
-import * as React from 'react'
 import { mount } from 'enzyme';
 import toJson from 'enzyme-to-json';
+import * as React from 'react';
 
-import { activityOne, optimalSubmittedResponse, suboptimalSubmittedResponse, } from './data'
+import { activityOne, optimalSubmittedResponse, suboptimalSubmittedResponse } from './data';
 
-import { stripEvidenceHtml } from '../../../libs/stringFormatting'
-import PromptStep from '../../../components/studentView/promptStep'
-import EditorContainer from '../../../components/studentView/editorContainer'
+import EditorContainer from '../../../components/studentView/editorContainer';
+import PromptStep from '../../../components/studentView/promptStep';
+import { stripEvidenceHtml } from '../../../libs/stringFormatting';
 
 jest.mock('string-strip-html', () => ({
   default: jest.fn()

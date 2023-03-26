@@ -1,12 +1,12 @@
 import * as React from 'react'
 import Buttons from '../components/styleGuide/buttons'
 import Cards from '../components/styleGuide/cards'
-import Menus from '../components/styleGuide/menus'
-import TextFields from '../components/styleGuide/textFields'
-import Snackbars from '../components/styleGuide/snackbars'
-import Tooltips from '../components/styleGuide/tooltips'
 import DataTables from '../components/styleGuide/dataTables'
+import Menus from '../components/styleGuide/menus'
 import Sliders from '../components/styleGuide/sliders'
+import Snackbars from '../components/styleGuide/snackbars'
+import TextFields from '../components/styleGuide/textFields'
+import Tooltips from '../components/styleGuide/tooltips'
 
 export default class BackpackIndex extends React.Component {
   renderLink(href, text) {

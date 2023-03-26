@@ -1,9 +1,9 @@
+import gql from "graphql-tag";
 import * as React from "react";
 import { Query } from "react-apollo";
-import gql from "graphql-tag";
 
-import ConceptReplaceForm from '../components/ConceptReplaceForm';
 import ConceptManagerNav from "../components/ConceptManagerNav";
+import ConceptReplaceForm from '../components/ConceptReplaceForm';
 
 const levelZeroConcepts:string = `
   {

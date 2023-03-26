@@ -1,9 +1,9 @@
-import * as React from 'react'
 import { mount } from 'enzyme';
+import * as React from 'react';
 
-import { activities, topics } from './data'
+import { activities, topics } from './data';
 
-import TopicFilters from '../topic_filters'
+import TopicFilters from '../topic_filters';
 
 function filterActivities(ignoredKey=null) { return activities }
 

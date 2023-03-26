@@ -1,14 +1,13 @@
-import * as React from 'react'
-import { connect } from 'react-redux'
-import { EditorState, ContentState } from 'draft-js'
+import { ContentState, EditorState } from 'draft-js';
+import * as React from 'react';
+import { connect } from 'react-redux';
+import { Modal, TextEditor } from '../../../Shared/index';
 import {
-  submitNewTitleCard,
-  submitTitleCardEdit
-} from '../../actions/titleCards'
+    submitNewTitleCard,
+    submitTitleCardEdit
+} from '../../actions/titleCards';
 import { commonText } from '../../modules/translation/commonText';
-import { TextEditor, Modal } from '../../../Shared/index'
 
-import _ from 'lodash'
 
 interface TitleCardFormState {
   title: string,

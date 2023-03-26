@@ -1,13 +1,13 @@
+import _ from 'lodash';
+import moment from 'moment';
 import * as React from "react";
-import _ from 'lodash'
-import moment from 'moment'
 
-import { Record } from './interfaces'
-import { STANDARD, sortWordsThatIncludeNumbers, } from './shared'
+import { Record } from './interfaces';
+import { sortWordsThatIncludeNumbers, STANDARD } from './shared';
 
-import IndividualRecordChangeLogs from '../../shared/individualRecordChangeLogs'
-import ChangeLogModal from '../../shared/changeLogModal'
-import { Input, DropdownInput, momentFormatConstants, } from '../../../../Shared/index'
+import { DropdownInput, Input, momentFormatConstants } from '../../../../Shared/index';
+import ChangeLogModal from '../../shared/changeLogModal';
+import IndividualRecordChangeLogs from '../../shared/individualRecordChangeLogs';
 
 interface RecordBoxProps {
   originalRecord: Record;

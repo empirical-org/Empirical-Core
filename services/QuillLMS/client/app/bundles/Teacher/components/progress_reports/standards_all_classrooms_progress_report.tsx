@@ -1,20 +1,20 @@
-import * as React from 'react'
 import queryString from 'query-string';
-import _ from 'underscore'
+import * as React from 'react';
+import _ from 'underscore';
 
-import CSVDownloadForProgressReport from './csv_download_for_progress_report.jsx'
-import EmptyStateForReport from './empty_state_for_report'
-import { PROGRESS_REPORTS_SELECTED_CLASSROOM_ID, } from './progress_report_constants'
+import CSVDownloadForProgressReport from './csv_download_for_progress_report.jsx';
+import EmptyStateForReport from './empty_state_for_report';
+import { PROGRESS_REPORTS_SELECTED_CLASSROOM_ID } from './progress_report_constants';
 
-import { NOT_SCORED_DISPLAY_TEXT } from './constants.js'
+import { NOT_SCORED_DISPLAY_TEXT } from './constants.js';
 
-import ItemDropdown from '../general_components/dropdown_selectors/item_dropdown'
-import LoadingSpinner from '../shared/loading_indicator.jsx'
-import userIsPremium from '../modules/user_is_premium'
-import {sortTableByStandardLevel} from '../../../../modules/sortingMethods.js'
-import { Tooltip, ReactTable, } from '../../../Shared/index'
-import { getTimeSpent } from '../../helpers/studentReports'
-import { requestGet, } from '../../../../modules/request/index'
+import { requestGet } from '../../../../modules/request/index';
+import { sortTableByStandardLevel } from '../../../../modules/sortingMethods.js';
+import { ReactTable, Tooltip } from '../../../Shared/index';
+import { getTimeSpent } from '../../helpers/studentReports';
+import ItemDropdown from '../general_components/dropdown_selectors/item_dropdown';
+import userIsPremium from '../modules/user_is_premium';
+import LoadingSpinner from '../shared/loading_indicator.jsx';
 
 interface StandardsAllClassroomsProgressReportProps {
 }

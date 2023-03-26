@@ -1,9 +1,9 @@
 import * as React from "react";
 
-import { BECAUSE, BUT, SO } from '../../../Shared/index'
 import { FIRST_STRONG_EXAMPLE, SECOND_STRONG_EXAMPLE } from "../../../../constants/evidence";
+import useFocus from '../../../Shared/hooks/useFocus';
+import { BECAUSE, BUT, SO } from '../../../Shared/index';
 import { PromptInterface } from "../../../Staff/interfaces/evidenceInterfaces";
-import useFocus from '../../../Shared/hooks/useFocus'
 
 const conjunctions = [BECAUSE, BUT, SO];
 

@@ -1,7 +1,7 @@
-import * as React from 'react';
 import { mount } from 'enzyme';
+import * as React from 'react';
 
-import data from './data'
+import data from './data';
 
 import ActivityTable from '../activity_table';
 

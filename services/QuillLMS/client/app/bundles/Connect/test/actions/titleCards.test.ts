@@ -1,6 +1,6 @@
-import { mockTitleCardApi, } from '../__mocks__/title_card_api'
-import { mockLessonApi, } from '../__mocks__/lesson_api'
 import 'whatwg-fetch'
+import { mockLessonApi } from '../__mocks__/lesson_api'
+import { mockTitleCardApi } from '../__mocks__/title_card_api'
 jest.mock('../../libs/title_cards_api', () => ({
   TitleCardApi: mockTitleCardApi,
 }))
@@ -8,10 +8,10 @@ jest.mock('../../libs/lessons_api', () => ({
   LessonApi: mockLessonApi,
 }))
 
-import { mockDispatch as dispatch, } from '../__mocks__/dispatch'
+import { mockDispatch as dispatch } from '../__mocks__/dispatch'
 
-import { CONNECT_TITLE_CARD_TYPE } from '../../libs/title_cards_api'
 import { TYPE_CONNECT_LESSON } from '../../libs/lessons_api'
+import { CONNECT_TITLE_CARD_TYPE } from '../../libs/title_cards_api'
 
 import titleCardActions from '../../actions/titleCards'
 

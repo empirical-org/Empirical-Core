@@ -1,17 +1,14 @@
+import { ContentState, EditorState } from 'draft-js';
 import * as React from "react";
-import { EditorState, ContentState } from 'draft-js';
 
-import {
-  handleSetRuleConceptUID,
-  handleSetRuleNote,
-  handleSetRuleName,
-  handleSetRuleOptimal,
-  handleSetRuleType,
-} from '../../../helpers/evidence/ruleHelpers';
+import { ruleOptimalOptions, ruleTypeOptions, universalRuleTypeOptions } from '../../../../../constants/evidence';
+import { DropdownInput, Input, TextEditor } from '../../../../Shared/index';
 import { renderIDorUID } from '../../../helpers/evidence/renderHelpers';
-import { ruleTypeOptions, universalRuleTypeOptions, ruleOptimalOptions } from '../../../../../constants/evidence';
-import { InputEvent, DropdownObjectInterface } from '../../../interfaces/evidenceInterfaces';
-import { Input, DropdownInput, TextEditor } from '../../../../Shared/index'
+import {
+    handleSetRuleConceptUID, handleSetRuleName, handleSetRuleNote, handleSetRuleOptimal,
+    handleSetRuleType
+} from '../../../helpers/evidence/ruleHelpers';
+import { DropdownObjectInterface, InputEvent } from '../../../interfaces/evidenceInterfaces';
 
 interface RuleGenericAttributesProps {
   autoMLParams?: any,

@@ -1,31 +1,31 @@
-import * as React from 'react'
 import Pusher from 'pusher-js';
-import { SortableHandle, } from 'react-sortable-hoc';
+import * as React from 'react';
+import { SortableHandle } from 'react-sortable-hoc';
 
-import CreateAClassModal from './create_a_class_modal'
-import RenameClassModal from './rename_classroom_modal'
-import ChangeGradeModal from './change_grade_modal'
-import ArchiveClassModal from './archive_classroom_modal'
-import InviteStudentsModal from './invite_students_modal'
-import ImportCleverClassroomsModal from './import_clever_classrooms_modal'
-import ImportGoogleClassroomsModal from './import_google_classrooms_modal'
-import ImportCleverClassroomStudentsModal from './import_clever_classroom_students_modal'
-import ImportGoogleClassroomStudentsModal from './import_google_classroom_students_modal'
-import ReauthorizeCleverModal from './reauthorize_clever_modal'
-import LinkCleverAccountModal from './link_clever_account_modal'
-import LinkGoogleAccountModal from './link_google_account_modal'
-import CleverClassroomsEmptyModal from './clever_classrooms_empty_modal'
-import GoogleClassroomsEmptyModal from './google_classrooms_empty_modal'
-import Classroom from './classroom'
-import CoteacherInvitation from './coteacher_invitation'
+import ArchiveClassModal from './archive_classroom_modal';
+import ChangeGradeModal from './change_grade_modal';
+import Classroom from './classroom';
+import CleverClassroomsEmptyModal from './clever_classrooms_empty_modal';
+import CoteacherInvitation from './coteacher_invitation';
+import CreateAClassModal from './create_a_class_modal';
+import GoogleClassroomsEmptyModal from './google_classrooms_empty_modal';
+import importCleverClassroomsModal from './import_clever_classrooms_modal';
+import importCleverClassroomStudentsModal from './import_clever_classroom_students_modal';
+import importGoogleClassroomsModal from './import_google_classrooms_modal';
+import importGoogleClassroomStudentsModal from './import_google_classroom_students_modal';
+import InviteStudentsModal from './invite_students_modal';
+import LinkCleverAccountModal from './link_clever_account_modal';
+import LinkGoogleAccountModal from './link_google_account_modal';
+import ReauthorizeCleverModal from './reauthorize_clever_modal';
+import RenameClassModal from './rename_classroom_modal';
 
-import ButtonLoadingIndicator from '../shared/button_loading_indicator'
-import BulkArchiveClassesBanner from '../shared/bulk_archive_classes_banner'
-import ViewAsStudentModal from '../shared/view_as_student_modal'
-import { Snackbar, defaultSnackbarTimeout, SortableList } from '../../../Shared/index'
 import { requestGet, requestPut } from '../../../../modules/request/index';
-import ArticleSpotlight from '../shared/articleSpotlight';
+import { defaultSnackbarTimeout, Snackbar, SortableList } from '../../../Shared/index';
 import { MY_CLASSES_FEATURED_BLOG_POST_ID } from '../../constants/featuredBlogPost';
+import ArticleSpotlight from '../shared/articleSpotlight';
+import BulkArchiveClassesBanner from '../shared/bulk_archive_classes_banner';
+import ButtonLoadingIndicator from '../shared/button_loading_indicator';
+import ViewAsStudentModal from '../shared/view_as_student_modal';
 
 const bookEmptySrc = `${process.env.CDN_URL}/images/illustrations/book-empty.svg`
 const cleverIconSrc = `${process.env.CDN_URL}/images/icons/clever.svg`
@@ -47,8 +47,8 @@ interface ActiveClassroomsState {
   cleverClassrooms: Array<any>;
   showModal?: string;
   googleClassroomsLoading?: boolean;
-  attemptedImportCleverClassrooms?: boolean;
-  attemptedImportGoogleClassrooms?: boolean;
+  attemptedimportCleverClassrooms?: boolean;
+  attemptedimportGoogleClassrooms?: boolean;
   selectedClassroomId?: number|string;
   snackbarCopy?: string;
 }
@@ -97,7 +97,7 @@ export default class ActiveClassrooms extends React.Component<ActiveClassroomsPr
     if (modal === 'create-a-class') {
       showModal = createAClassModal
     } else if (modal === 'google-classroom') {
-      this.clickImportGoogleClassrooms()
+      this.clickimportGoogleClassrooms()
     } else if (modal === 'invite-students') {
       showModal = inviteStudentsModal
     } else if (modal === 'view-as-student') {
@@ -121,7 +121,7 @@ export default class ActiveClassrooms extends React.Component<ActiveClassroomsPr
         const { classrooms } = classrooms_data
         const cleverClassrooms = classrooms.filter(classroom => !existing_clever_ids.includes(classroom.clever_id))
 
-        this.setState({cleverClassrooms, attemptedImportCleverClassrooms: false})
+        this.setState({cleverClassrooms, attemptedimportCleverClassrooms: false})
 
         if (cleverClassrooms.length) {
           this.openModal(importCleverClassroomsModal)
@@ -132,14 +132,14 @@ export default class ActiveClassrooms extends React.Component<ActiveClassroomsPr
     })
   }
 
-  clickImportFromClever = () => {
+  clickimportFromClever = () => {
     const { user } = this.props
     const { clever_id } = user
 
     if (!clever_id) {
       this.openModal(linkCleverAccountModal)
     } else {
-      this.setState({ attemptedImportCleverClassrooms: true })
+      this.setState({ attemptedimportCleverClassrooms: true })
       this.importCleverClassrooms()
     }
   }
@@ -161,7 +161,7 @@ export default class ActiveClassrooms extends React.Component<ActiveClassroomsPr
   getGoogleClassrooms = () => {
     const { user } = this.props
     const { clever_id, google_id } = user
-    const { attemptedImportGoogleClassrooms } = this.state
+    const { attemptedimportGoogleClassrooms } = this.state
 
     if (!clever_id && google_id) {
       this.setState({ googleClassroomsLoading: true}, () => {
@@ -169,11 +169,11 @@ export default class ActiveClassrooms extends React.Component<ActiveClassroomsPr
           if (body.quill_retrieval_processing) {
             this.initializePusherForGoogleClassrooms(body.id)
           } else {
-            const googleClassrooms = body.classrooms.filter(classroom => !classroom.alreadyImported)
+            const googleClassrooms = body.classrooms.filter(classroom => !classroom.alreadyimported)
             const newStateObj: any = { googleClassrooms, googleClassroomsLoading: false }
-            if (attemptedImportGoogleClassrooms) {
-              newStateObj.attemptedImportGoogleClassrooms = false
-              this.setState(newStateObj, this.clickImportGoogleClassrooms)
+            if (attemptedimportGoogleClassrooms) {
+              newStateObj.attemptedimportGoogleClassrooms = false
+              this.setState(newStateObj, this.clickimportGoogleClassrooms)
             } else {
               this.setState(newStateObj)
             }
@@ -197,7 +197,7 @@ export default class ActiveClassrooms extends React.Component<ActiveClassroomsPr
     })
   }
 
-  clickImportCleverClassroomStudents = () => {
+  clickimportCleverClassroomStudents = () => {
     requestGet('/clever_integration/teachers/retrieve_classrooms', body => {
       if (body.reauthorization_required) {
         this.openModal(reauthorizeCleverModal)
@@ -243,13 +243,13 @@ export default class ActiveClassrooms extends React.Component<ActiveClassroomsPr
     })
   }
 
-  clickImportGoogleClassrooms = () => {
+  clickimportGoogleClassrooms = () => {
     const { user } = this.props
     const { googleClassrooms, googleClassroomsLoading, } = this.state
     if (!user.google_id) {
       this.openModal(linkGoogleAccountModal)
     } else if (googleClassroomsLoading) {
-      this.setState({ attemptedImportGoogleClassrooms: true })
+      this.setState({ attemptedimportGoogleClassrooms: true })
     } else if (googleClassrooms.length) {
       this.openModal(importGoogleClassroomsModal)
     } else {
@@ -336,7 +336,7 @@ export default class ActiveClassrooms extends React.Component<ActiveClassroomsPr
           classroom={classroom}
           classrooms={ownActiveClassrooms}
           clickClassroomHeader={this.clickClassroomHeader}
-          importCleverClassroomStudents={this.clickImportCleverClassroomStudents}
+          importCleverClassroomStudents={this.clickimportCleverClassroomStudents}
           importGoogleClassroomStudents={() => this.openModal(importGoogleClassroomStudentsModal)}
           inviteStudents={() => this.openModal(inviteStudentsModal)}
           isOwnedByCurrentUser={isOwnedByCurrentUser}
@@ -460,13 +460,13 @@ export default class ActiveClassrooms extends React.Component<ActiveClassroomsPr
     }
   }
 
-  renderImportCleverClassroomStudentsModal() {
+  renderimportCleverClassroomStudentsModal() {
     const { showModal, classrooms, selectedClassroomId } = this.state
     const selectedClassroom = classrooms.find(c => c.id === selectedClassroomId)
 
     if (showModal === importCleverClassroomStudentsModal && selectedClassroom) {
       return (
-        <ImportCleverClassroomStudentsModal
+        <importCleverClassroomStudentsModal
           classroom={selectedClassroom}
           close={this.closeModal}
           onSuccess={this.onSuccess}
@@ -475,12 +475,12 @@ export default class ActiveClassrooms extends React.Component<ActiveClassroomsPr
     }
   }
 
-  renderImportGoogleClassroomStudentsModal() {
+  renderimportGoogleClassroomStudentsModal() {
     const { showModal, classrooms, selectedClassroomId } = this.state
     const selectedClassroom = classrooms.find(c => c.id === selectedClassroomId)
     if (showModal === importGoogleClassroomStudentsModal && selectedClassroom) {
       return (
-        <ImportGoogleClassroomStudentsModal
+        <importGoogleClassroomStudentsModal
           classroom={selectedClassroom}
           close={this.closeModal}
           onSuccess={this.onSuccess}
@@ -489,15 +489,15 @@ export default class ActiveClassrooms extends React.Component<ActiveClassroomsPr
     }
   }
 
-  renderImportCleverClassroomsModal() {
+  renderimportCleverClassroomsModal() {
     const { user } = this.props
     const { cleverClassrooms, showModal } = this.state
 
     if (showModal === importCleverClassroomsModal) {
       return (
-        <ImportCleverClassroomsModal
+        <importCleverClassroomsModal
           classrooms={cleverClassrooms}
-          close={this.closeImportCleverClassroomsModal}
+          close={this.closeimportCleverClassroomsModal}
           onSuccess={this.onSuccess}
           user={user}
         />
@@ -505,15 +505,15 @@ export default class ActiveClassrooms extends React.Component<ActiveClassroomsPr
     }
   }
 
-  closeImportCleverClassroomsModal = () => { this.closeModal(this.resetAttemptedImportCleverClassrooms) }
-  resetAttemptedImportCleverClassrooms = () => { this.setState({attemptedImportCleverClassrooms: false}) }
+  closeimportCleverClassroomsModal = () => { this.closeModal(this.resetAttemptedimportCleverClassrooms) }
+  resetAttemptedimportCleverClassrooms = () => { this.setState({attemptedimportCleverClassrooms: false}) }
 
-  renderImportGoogleClassroomsModal() {
+  renderimportGoogleClassroomsModal() {
     const { user } = this.props
     const { googleClassrooms, showModal } = this.state
     if (showModal === importGoogleClassroomsModal) {
       return (
-        <ImportGoogleClassroomsModal
+        <importGoogleClassroomsModal
           classrooms={googleClassrooms}
           close={this.closeModal}
           onSuccess={this.onSuccess}
@@ -597,45 +597,45 @@ export default class ActiveClassrooms extends React.Component<ActiveClassroomsPr
     )
   }
 
-  renderImportFromCleverButton() {
+  renderimportFromCleverButton() {
     const { user } = this.props
     const { clever_id, google_id } = user
-    const { attemptedImportCleverClassrooms } = this.state
-    let buttonContent: string|JSX.Element = 'Import from Clever'
+    const { attemptedimportCleverClassrooms } = this.state
+    let buttonContent: string|JSX.Element = 'import from Clever'
     let buttonClassName = "interactive-wrapper import-from-clever-button"
 
     if (!clever_id && google_id) { return null }
 
-    if (attemptedImportCleverClassrooms) {
-      buttonContent = <React.Fragment>Import from Clever<ButtonLoadingIndicator /></React.Fragment>
+    if (attemptedimportCleverClassrooms) {
+      buttonContent = <React.Fragment>import from Clever<ButtonLoadingIndicator /></React.Fragment>
       buttonClassName += ' loading'
     }
 
     return (
-      <button className={buttonClassName} onClick={this.clickImportFromClever} type="button">
+      <button className={buttonClassName} onClick={this.clickimportFromClever} type="button">
         <img alt="Clever Icon" className='import-from-clever-button-icon' src={cleverIconSrc} />
         {buttonContent}
       </button>
     )
   }
 
-  renderImportFromGoogleClassroomButton() {
+  renderimportFromGoogleClassroomButton() {
     const { user } = this.props
     const { clever_id, google_id } = user
 
-    const { googleClassroomsLoading, attemptedImportGoogleClassrooms } = this.state
-    let buttonContent: string|JSX.Element = ' Import from Google Classroom'
+    const { googleClassroomsLoading, attemptedimportGoogleClassrooms } = this.state
+    let buttonContent: string|JSX.Element = ' import from Google Classroom'
     let buttonClassName = "interactive-wrapper import-from-google-button"
 
     if (!google_id && clever_id) { return null }
 
-    if (googleClassroomsLoading && attemptedImportGoogleClassrooms) {
-      buttonContent = <React.Fragment>Import from Google Classroom<ButtonLoadingIndicator /></React.Fragment>
+    if (googleClassroomsLoading && attemptedimportGoogleClassrooms) {
+      buttonContent = <React.Fragment>import from Google Classroom<ButtonLoadingIndicator /></React.Fragment>
       buttonClassName += ' loading'
     }
 
     return (
-      <button className={buttonClassName} onClick={this.clickImportGoogleClassrooms} type="button">
+      <button className={buttonClassName} onClick={this.clickimportGoogleClassrooms} type="button">
         <img alt="Google Classroom Icon" className='import-from-google-button-icon' src={googleClassroomIconSrc} />
         {buttonContent}
       </button>
@@ -662,8 +662,8 @@ export default class ActiveClassrooms extends React.Component<ActiveClassroomsPr
       <div className="header">
         <h1>Active Classes</h1>
         <div className="buttons">
-          {this.renderImportFromCleverButton()}
-          {this.renderImportFromGoogleClassroomButton()}
+          {this.renderimportFromCleverButton()}
+          {this.renderimportFromGoogleClassroomButton()}
           {this.renderCreateAClassButton()}
         </div>
       </div>
@@ -696,10 +696,10 @@ export default class ActiveClassrooms extends React.Component<ActiveClassroomsPr
           {this.renderChangeGradeModal()}
           {this.renderArchiveClassModal()}
           {this.renderInviteStudentsModal()}
-          {this.renderImportCleverClassroomsModal()}
-          {this.renderImportGoogleClassroomsModal()}
-          {this.renderImportCleverClassroomStudentsModal()}
-          {this.renderImportGoogleClassroomStudentsModal()}
+          {this.renderimportCleverClassroomsModal()}
+          {this.renderimportGoogleClassroomsModal()}
+          {this.renderimportCleverClassroomStudentsModal()}
+          {this.renderimportGoogleClassroomStudentsModal()}
           {this.renderReauthorizeCleverModal()}
           {this.renderLinkCleverAccountModal()}
           {this.renderLinkGoogleAccountModal()}

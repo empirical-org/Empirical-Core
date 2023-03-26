@@ -1,8 +1,8 @@
 import * as React from "react";
 import { RouteConfig } from "react-router-config";
 
-import Admin from "./components/admin/admin"
-import Lesson from "./components/studentLessons/lesson"
+import Admin from "./components/admin/admin";
+import Lesson from "./components/studentLessons/lesson";
 import Turk from './components/turk/turkActivity.jsx';
 
 /* eslint-disable react/display-name */

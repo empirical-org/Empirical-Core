@@ -1,5 +1,5 @@
-import { handleApiError, apiFetch } from '../../Staff/helpers/evidence/routingHelpers';
-import { requestGet, } from '../../../modules/request/index'
+import { requestGet } from '../../../modules/request/index';
+import { apiFetch, handleApiError } from '../../Staff/helpers/evidence/routingHelpers';
 
 export const postTurkSession = async (turkingRoundID: string, activitySessionUID: string) => {
 

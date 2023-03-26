@@ -1,13 +1,13 @@
-import * as React from "react";
-import { useQuery, useQueryClient, } from 'react-query';
 import moment from 'moment';
+import * as React from "react";
+import { useQuery, useQueryClient } from 'react-query';
 
-import { sort } from '../../../../../modules/sortingMethods.js';
-import SubmissionModal from '../shared/submissionModal';
-import { fetchActivity, fetchActivityVersions, updateActivityVersion } from '../../../utils/evidence/activityAPIs';
-import { renderHeader } from "../../../helpers/evidence/renderHelpers";
-import { Input, ReactTable, Spinner, TextArea } from '../../../../Shared/index';
 import { TITLE } from "../../../../../constants/evidence";
+import { sort } from '../../../../../modules/sortingMethods.js';
+import { ReactTable, Spinner, TextArea } from '../../../../Shared/index';
+import { renderHeader } from "../../../helpers/evidence/renderHelpers";
+import { fetchActivity, fetchActivityVersions, updateActivityVersion } from '../../../utils/evidence/activityAPIs';
+import SubmissionModal from '../shared/submissionModal';
 
 const formatChangeLogRows = (activityVersionData) => {
   if (!activityVersionData?.changeLogs) return []

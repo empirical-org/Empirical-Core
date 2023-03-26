@@ -1,27 +1,25 @@
 import * as React from 'react';
 import { connect } from 'react-redux';
-import * as filterActions from '../../actions/filters';
 import _ from 'underscore';
+import { requestGet } from '../../../../modules/request/index';
 import {
-  ResponseSortFields,
-  ResponseToggleFields,
-  QuestionBar,
-  hashToCollection,
+    hashToCollection, QuestionBar, ResponseSortFields,
+    ResponseToggleFields
 } from '../../../Shared/index';
-import ResponseList from './responseList';
-import * as questionActions from '../../actions/questions';
-import { getPartsOfSpeechTags } from '../../libs/partsOfSpeechTagging';
-import POSForResponsesList from './POSForResponsesList';
-import respWithStatus from '../../libs/responseTools';
-import {
-  rematchAll,
-  rematchOne
-} from '../../libs/grading/rematching.ts';
+import * as filterActions from '../../actions/filters';
 import * as massEdit from '../../actions/massEdit';
+import * as questionActions from '../../actions/questions';
 import {
-  submitResponseEdit,
+    submitResponseEdit
 } from '../../actions/responses';
-import { requestGet, } from '../../../../modules/request/index'
+import {
+    rematchAll,
+    rematchOne
+} from '../../libs/grading/rematching.ts';
+import { getPartsOfSpeechTags } from '../../libs/partsOfSpeechTagging';
+import respWithStatus from '../../libs/responseTools';
+import POSForResponsesList from './POSForResponsesList';
+import ResponseList from './responseList';
 
 import { ActionTypes } from '../../actions/actionTypes';
 

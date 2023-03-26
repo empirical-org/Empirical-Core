@@ -1,9 +1,9 @@
 import { combineReducers } from "redux";
 import { IState } from "../store/configStore";
 // import { todos } from "./todosReducer";
-import proofreaderActivities from './proofreaderActivitiesReducer'
-import session from './sessionReducer'
-import concepts from './conceptsReducer'
+import concepts from './conceptsReducer';
+import proofreaderActivities from './proofreaderActivitiesReducer';
+import session from './sessionReducer';
 
 export const initState: IState = {
   proofreaderActivities: {},

@@ -1,7 +1,7 @@
-import 'whatwg-fetch'
-import * as React from 'react';
 import { shallow } from 'enzyme';
-import { sentenceFragmentQuestionWithOneAttempt, conceptsFeedback } from '../../../test/studentLessonData.ts'
+import * as React from 'react';
+import 'whatwg-fetch';
+import { conceptsFeedback, sentenceFragmentQuestionWithOneAttempt } from '../../../test/studentLessonData.ts';
 
 import PlaySentenceFragment from '../sentenceFragmentTemplateComponentML.tsx';
 

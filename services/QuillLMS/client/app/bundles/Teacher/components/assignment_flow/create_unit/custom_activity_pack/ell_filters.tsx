@@ -1,9 +1,9 @@
 import * as React from 'react';
 
-import { Activity, Topic } from './interfaces'
-import { STANDARDS_FILTERS, } from './shared'
+import { Activity } from './interfaces';
+import { STANDARDS_FILTERS } from './shared';
 
-import { Tooltip, helpIcon, } from '../../../../../Shared/index'
+import { helpIcon, Tooltip } from '../../../../../Shared/index';
 
 const dropdownIconSrc = `${process.env.CDN_URL}/images/icons/dropdown.svg`
 const indeterminateSrc = `${process.env.CDN_URL}/images/icons/indeterminate.svg`

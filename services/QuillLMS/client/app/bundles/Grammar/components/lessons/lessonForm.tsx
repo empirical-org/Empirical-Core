@@ -1,14 +1,13 @@
+import { ContentState, EditorState } from 'draft-js';
 import * as React from 'react';
-import SelectSearch from 'react-select-search';
-import { fuzzySearch } from 'react-select-search';
 import { connect } from 'react-redux';
-import { EditorState, ContentState } from 'draft-js'
+import SelectSearch, { fuzzySearch } from 'react-select-search';
 
-import ConceptSelector from '../shared/conceptSelector'
-import { Concepts, Concept } from '../../interfaces/grammarActivities'
-import { Question } from '../../interfaces/questions'
-import { ConceptReducerState } from '../../reducers/conceptsReducer'
-import { hashToCollection, SortableList, TextEditor, } from '../../../Shared/index'
+import { hashToCollection, SortableList, TextEditor } from '../../../Shared/index';
+import { Concept, Concepts } from '../../interfaces/grammarActivities';
+import { Question } from '../../interfaces/questions';
+import { ConceptReducerState } from '../../reducers/conceptsReducer';
+import ConceptSelector from '../shared/conceptSelector';
 
 interface LessonFormState {
   title: string;

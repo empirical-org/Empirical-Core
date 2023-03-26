@@ -1,8 +1,8 @@
 import * as React from 'react'
 
+import ActivitySurvey from '../activitySlides/activitySurvey'
 import PostActivitySlide from '../activitySlides/postActivitySlide'
 import ThankYouSlide from '../activitySlides/thankYouSlide'
-import ActivitySurvey from '../activitySlides/activitySurvey'
 
 const ActivityFollowUp = ({ activity, dispatch, responses, sessionID, saveActivitySurveyResponse, }) => {
   const [showActivitySurvey, setShowActivitySurvey] = React.useState(false)

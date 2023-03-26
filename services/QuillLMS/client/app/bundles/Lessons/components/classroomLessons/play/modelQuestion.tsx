@@ -1,14 +1,14 @@
 declare function require(name:string);
 import * as React from 'react';
-import Cues from '../../renderForQuestions/cues';
 import {
-  QuestionData
+    Feedback,
+    SentenceFragments
+} from '../../../../Shared/index';
+import {
+    QuestionData
 } from '../../../interfaces/classroomLessons';
-import { textEditorInputNotEmpty } from '../shared/textEditorClean'
-import {
-  Feedback,
-  SentenceFragments,
-} from '../../../../Shared/index'
+import Cues from '../../renderForQuestions/cues';
+import { textEditorInputNotEmpty } from '../shared/textEditorClean';
 const teacherPointingSrc = `${process.env.CDN_URL}/images/icons/teacher-pointing.svg`
 
 interface ModelQuestionProps {

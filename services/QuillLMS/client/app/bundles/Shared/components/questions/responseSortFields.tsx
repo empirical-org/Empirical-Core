@@ -45,4 +45,5 @@ class ResponseSortFields extends React.Component<any, any> {
 
 }
 
-export { ResponseSortFields }
+export { ResponseSortFields };
+

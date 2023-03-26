@@ -2,8 +2,8 @@ import * as React from 'react'
 
 import ActivityClassificationConversionChart from './activityClassificationConversionChart'
 
-import { Snackbar, defaultSnackbarTimeout, Input } from '../../../../Shared/index'
-import { requestGet, requestPut, requestPost, } from '../../../../../modules/request/index'
+import { requestGet, requestPost, requestPut } from '../../../../../modules/request/index'
+import { defaultSnackbarTimeout, Input, Snackbar } from '../../../../Shared/index'
 
 const baseUrl = "/cms/raw_scores/"
 

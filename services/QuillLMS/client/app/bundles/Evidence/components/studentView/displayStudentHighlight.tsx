@@ -1,6 +1,6 @@
 import * as React from 'react'
 
-import { removeIcon, } from '../../../Shared/index'
+import { removeIcon } from '../../../Shared/index'
 
 const DisplayStudentHighlight = ({ studentHighlight, removeHighlight, inReflection, }) => {
   function handleClickRemove() { removeHighlight(studentHighlight)}

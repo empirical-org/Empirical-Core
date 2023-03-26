@@ -1,10 +1,10 @@
-import * as React from 'react'
 import { mount } from 'enzyme';
+import * as React from 'react';
 
-import { activities, topics } from './data'
+import { activities, topics } from './data';
 
-import FilterColumn from '../filter_column'
-import { EVIDENCE_BETA1, EVIDENCE_BETA2, PRODUCTION, } from '../../../../../../../constants/flagOptions'
+import { EVIDENCE_BETA1, EVIDENCE_BETA2, PRODUCTION } from '../../../../../../../constants/flagOptions';
+import FilterColumn from '../filter_column';
 
 describe('FilterColumn component', () => {
   const props = {

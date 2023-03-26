@@ -2,8 +2,8 @@ import * as React from 'react';
 
 import { lockerItems } from './lockerItems';
 
+import { Modal, titleCase } from '../../../Shared';
 import Locker from '../../components/locker/locker';
-import { titleCase, Modal } from '../../../Shared';
 
 const TEAM = 'team';
 

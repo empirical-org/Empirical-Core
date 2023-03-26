@@ -1,6 +1,5 @@
 import { Action } from "redux";
 import ActionTypes from '../constants';
-import _ from 'lodash';
 import { TitleCard } from '../interfaces/titleCard';
 
 export interface TitleCardsReducerState {

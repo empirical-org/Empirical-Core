@@ -1,6 +1,6 @@
 import * as React from 'react'
 
-import { Tooltip, } from '../../../../Shared/index'
+import { Tooltip } from '../../../../Shared/index'
 
 const renameSrc = `${process.env.CDN_URL}/images/icons/icons-rename.svg`
 const shareActivitySrc = `${process.env.CDN_URL}/images/icons/icons-share.svg`

@@ -1,13 +1,13 @@
-import * as React from 'react'
 import moment from 'moment'
+import * as React from 'react'
 
 import EditStudentAccountModal from './edit_student_account_modal'
-import ResetStudentPasswordModal from './reset_student_password_modal'
 import MergeStudentAccountsModal from './merge_student_accounts_modal'
 import MoveStudentsModal from './move_students_modal'
 import RemoveStudentsModal from './remove_students_modal'
+import ResetStudentPasswordModal from './reset_student_password_modal'
 
-import { DropdownInput, DataTable, Tooltip, helpIcon, warningIcon, } from '../../../Shared/index'
+import { DataTable, DropdownInput, helpIcon, Tooltip, warningIcon } from '../../../Shared/index'
 
 const emptyDeskSrc = `${process.env.CDN_URL}/images/illustrations/empty-desks.svg`
 const bulbSrc = `${process.env.CDN_URL}/images/illustrations/bulb.svg`
@@ -551,7 +551,7 @@ export default class ClassroomStudentSection
       return (
         <div className="invite-clever-classroom-students">
           <button className="quill-button primary outlined small" onClick={importCleverClassroomStudents} type="button">
-            Import Clever classroom students
+            import Clever classroom students
           </button>
           <span>Last imported {lastUpdatedDate}</span>
         </div>
@@ -563,7 +563,7 @@ export default class ClassroomStudentSection
       return (
         <div className="invite-google-classroom-students">
           <button className="quill-button primary outlined small" onClick={importGoogleClassroomStudents} type="button">
-            Import Google Classroom students
+            import Google Classroom students
           </button>
           <span>Last imported {lastUpdatedDate}</span>
         </div>
@@ -601,7 +601,7 @@ export default class ClassroomStudentSection
     } else if (classroom.visible) {
       let copy = 'Click on the "Invite students" button to get started with your writing instruction!'
       if (classroom.google_classroom_id) {
-        copy = 'Click on the "Import Google Classroom students" button to get started with your writing instruction!'
+        copy = 'Click on the "import Google Classroom students" button to get started with your writing instruction!'
       } else if (classroom.clever_id) {
         copy = 'Add students to your class in Clever and they will automatically appear here.'
       }

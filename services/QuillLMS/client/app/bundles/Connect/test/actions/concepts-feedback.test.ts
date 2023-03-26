@@ -1,9 +1,9 @@
-import { mockConceptFeedbackApi, } from '../__mocks__/concept_feedback_api'
+import { mockConceptFeedbackApi } from '../__mocks__/concept_feedback_api'
 jest.mock('../../libs/concept_feedback_api', () => ({
   ConceptFeedbackApi: mockConceptFeedbackApi,
 }))
 
-import { mockDispatch as dispatch, } from '../__mocks__/dispatch'
+import { mockDispatch as dispatch } from '../__mocks__/dispatch'
 
 import conceptFeedbackActions from '../../actions/concepts-feedback'
 

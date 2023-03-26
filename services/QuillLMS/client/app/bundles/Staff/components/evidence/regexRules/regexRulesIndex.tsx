@@ -1,16 +1,16 @@
 import * as React from "react";
-import { Link, RouteComponentProps } from 'react-router-dom'
-import { useQueryClient, useQuery } from 'react-query';
+import { useQuery, useQueryClient } from 'react-query';
+import { Link, RouteComponentProps } from 'react-router-dom';
 import { firstBy } from 'thenby';
 
-import { renderHeader } from '../../../helpers/evidence/renderHelpers';
-import { getPromptsIcons } from '../../../helpers/evidence/promptHelpers';
-import { getPromptIdString } from '../../../helpers/evidence/ruleHelpers';
-import { ActivityRouteProps, RuleInterface, RegexRuleInterface } from '../../../interfaces/evidenceInterfaces';
-import { BECAUSE, BUT, SO, RULES_BASED_1, RULES_BASED_2, RULES_BASED_3 } from '../../../../../constants/evidence';
-import { fetchRules, updateRuleOrders, } from '../../../utils/evidence/ruleAPIs';
-import { fetchActivity } from '../../../utils/evidence/activityAPIs';
+import { BECAUSE, BUT, RULES_BASED_1, RULES_BASED_2, RULES_BASED_3, SO } from '../../../../../constants/evidence';
 import { DataTable, Error, Spinner } from '../../../../Shared/index';
+import { getPromptsIcons } from '../../../helpers/evidence/promptHelpers';
+import { renderHeader } from '../../../helpers/evidence/renderHelpers';
+import { getPromptIdString } from '../../../helpers/evidence/ruleHelpers';
+import { ActivityRouteProps, RegexRuleInterface, RuleInterface } from '../../../interfaces/evidenceInterfaces';
+import { fetchActivity } from '../../../utils/evidence/activityAPIs';
+import { fetchRules, updateRuleOrders } from '../../../utils/evidence/ruleAPIs';
 
 const RegexRulesIndex: React.FC<RouteComponentProps<ActivityRouteProps>> = ({ match }) => {
   const { params } = match;

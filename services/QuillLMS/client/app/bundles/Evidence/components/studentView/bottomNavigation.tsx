@@ -1,6 +1,6 @@
 import * as React from 'react'
 
-import { bigCheckIcon, } from '../../../Shared/index'
+import { bigCheckIcon } from '../../../Shared/index'
 
 const MINIMUM_STUDENT_HIGHLIGHT_COUNT = 2
 

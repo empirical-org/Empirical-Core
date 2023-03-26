@@ -1,6 +1,6 @@
-import * as React from 'react'
+import * as React from 'react';
 
-import { DropdownInput, Tooltip, lockedIcon, } from '../../../../../Shared/index'
+import { DropdownInput, lockedIcon, Tooltip } from '../../../../../Shared/index';
 
 const smallWhiteCheckSrc = `${process.env.CDN_URL}/images/shared/check-small-white.svg`
 

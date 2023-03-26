@@ -1,16 +1,8 @@
-import * as expect from 'expect'
-import determineUnnecessaryEditType, {
-  UNNECESSARY_SPACE,
-  MULTIPLE_UNNECESSARY_DELETION,
-  SINGLE_UNNECESSARY_DELETION,
-  MULTIPLE_UNNECESSARY_ADDITION,
-  SINGLE_UNNECESSARY_ADDITION,
-  UNNECESSARY_CHANGE,
-  unnecessarySpaceMatch,
-  unnecessaryAdditionMatch,
-  unnecessaryDeletionMatch,
-  unnecessarySpaceSplitResponse,
-} from '../../helpers/determineUnnecessaryEditType'
+import * as expect from 'expect';
+import {
+    MULTIPLE_UNNECESSARY_ADDITION, MULTIPLE_UNNECESSARY_DELETION, SINGLE_UNNECESSARY_ADDITION, SINGLE_UNNECESSARY_DELETION, unnecessaryAdditionMatch,
+    unnecessaryDeletionMatch, unnecessarySpaceMatch, unnecessarySpaceSplitResponse, UNNECESSARY_SPACE
+} from '../../helpers/determineUnnecessaryEditType';
 
 describe('#unnecessarySpaceMatch', () => {
   it('returns matched and the UNNECESSARY_SPACE type if the strings passed in are identical except an extra space', () => {

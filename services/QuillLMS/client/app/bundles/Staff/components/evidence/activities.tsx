@@ -1,13 +1,13 @@
 import * as React from "react";
-import { Link } from 'react-router-dom';
 import { useQuery } from 'react-query';
+import { Link } from 'react-router-dom';
 
 import Navigation from './navigation';
 
+import { DataTable, Error, FlagDropdown, Spinner } from '../../../Shared/index';
+import { getCheckIcon, renderErrorsContainer } from "../../helpers/evidence/renderHelpers";
 import { ActivityInterface } from '../../interfaces/evidenceInterfaces';
 import { fetchActivities } from '../../utils/evidence/activityAPIs';
-import { DataTable, Error, Spinner, FlagDropdown, } from '../../../Shared/index';
-import { getCheckIcon, renderErrorsContainer } from "../../helpers/evidence/renderHelpers";
 
 const Activities = ({ location, match }) => {
 

@@ -1,8 +1,8 @@
 import * as React from 'react';
 
-import { tableHeaders, blogPostRows, saveOrderButton, } from './shared'
+import { blogPostRows, saveOrderButton, tableHeaders } from './shared';
 
-import { DataTable, } from '../../../../Shared/index'
+import { DataTable } from '../../../../Shared/index';
 
 const FeaturedBlogPosts = ({
   featuredBlogPosts,

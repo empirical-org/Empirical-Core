@@ -1,9 +1,9 @@
-import { mockProofreaderPassageApi, } from '../__mocks__/proofreader_passage_api'
+import { mockProofreaderPassageApi } from '../__mocks__/proofreader_passage_api'
 jest.mock('../../lib/proofreader_activities_api', () => ({
   ProofreaderPassageApi: mockProofreaderPassageApi,
 }))
 
-import { mockDispatch as dispatch, } from '../__mocks__/dispatch'
+import { mockDispatch as dispatch } from '../__mocks__/dispatch'
 
 import * as proofreaderActions from '../../actions/proofreaderActivities'
 

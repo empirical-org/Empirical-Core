@@ -1,7 +1,7 @@
-import * as React from 'react';
 import { mount } from 'enzyme';
-import { PlayFillInTheBlankQuestion } from '../playFillInTheBlankQuestion';
+import * as React from 'react';
 import { fillInBlankQuestionBlankAllowed, fillInBlankQuestionBlankNotAllowed } from '../../../test/data/test_data.js';
+import { PlayFillInTheBlankQuestion } from '../playFillInTheBlankQuestion';
 
 function setup() {
   const nextQuestion = jest.fn();

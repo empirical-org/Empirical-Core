@@ -1,4 +1,4 @@
-import * as React from 'react'
+import * as React from 'react';
 
 interface CardProps {
   onClick: (event: any) => void;

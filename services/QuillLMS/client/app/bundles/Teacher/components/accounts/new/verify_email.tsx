@@ -1,10 +1,10 @@
+import qs from 'qs';
 import * as React from 'react';
-import qs from 'qs'
 
-import AssignActivityPackBanner from '../assignActivityPackBanner'
-import { Snackbar, defaultSnackbarTimeout, Spinner, ADMIN, } from '../../../../Shared/index'
-import useSnackbarMonitor from '../../../../Shared/hooks/useSnackbarMonitor'
-import { requestPut, requestPost, } from '../../../../../modules/request/index'
+import { requestPost, requestPut } from '../../../../../modules/request/index';
+import useSnackbarMonitor from '../../../../Shared/hooks/useSnackbarMonitor';
+import { ADMIN, defaultSnackbarTimeout, Snackbar, Spinner } from '../../../../Shared/index';
+import AssignActivityPackBanner from '../assignActivityPackBanner';
 
 const emailVerificationSrc = `${process.env.CDN_URL}/images/onboarding/email_verification.svg`
 

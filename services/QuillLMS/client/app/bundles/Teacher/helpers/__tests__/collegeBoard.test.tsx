@@ -1,7 +1,7 @@
 import * as React from 'react';
 
-import { generateLink, getStartedButton } from '../collegeBoard';
 import { AP_SLUG, PRE_AP_SLUG, SPRING_BOARD_SLUG } from '../../components/assignment_flow/assignmentFlowConstants';
+import { generateLink, getStartedButton } from '../collegeBoard';
 
 describe('College Board helper functions', () => {
 

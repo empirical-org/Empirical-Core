@@ -1,7 +1,7 @@
 import * as React from 'react'
 
-import { DropdownInput, } from '../../Shared/index'
-import { RESTRICTED, restrictedElement, } from '../shared'
+import { DropdownInput } from '../../Shared/index'
+import { RESTRICTED, restrictedElement } from '../shared'
 
 const roleOptions = [{ value: 'teacher', label: 'Teacher' }, { value: 'admin', label: 'Admin' }]
 

@@ -1,4 +1,4 @@
-import * as React from 'react'
+import * as React from 'react';
 const emptyClassSrc = `${process.env.CDN_URL}/images/illustrations/empty-class.svg`
 
 interface GoogleClassroomsEmptyModalProps {

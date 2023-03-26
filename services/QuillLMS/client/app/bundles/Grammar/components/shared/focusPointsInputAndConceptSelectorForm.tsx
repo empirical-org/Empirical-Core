@@ -1,12 +1,12 @@
+import { ContentState, EditorState } from 'draft-js';
 import * as React from 'react';
 import * as _ from 'underscore';
-import { EditorState, ContentState } from 'draft-js'
 
+import ResponseComponent from '../questions/responseComponent';
 import ConceptSelectorWithCheckbox from './conceptSelectorWithCheckbox';
-import ResponseComponent from '../questions/responseComponent'
 
-import { isValidRegex, TextEditor, } from '../../../Shared/index'
-import { requestPost, } from '../../../../modules/request/index'
+import { requestPost } from '../../../../modules/request/index';
+import { isValidRegex, TextEditor } from '../../../Shared/index';
 
 export default class FocusPointsInputAndConceptResultSelectorForm extends React.Component {
   constructor(props) {

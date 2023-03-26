@@ -2,9 +2,9 @@ import * as React from 'react';
 
 import AssignmentCard from './assignment_card';
 
-import AssignmentFlowNavigation from '../assignment_flow_navigation'
-import * as constants from '../assignmentFlowConstants'
-import ScrollToTop from '../../shared/scroll_to_top'
+import ScrollToTop from '../../shared/scroll_to_top';
+import * as constants from '../assignmentFlowConstants';
+import AssignmentFlowNavigation from '../assignment_flow_navigation';
 
 const ALL = 'All'
 const GENERAL = 'General'

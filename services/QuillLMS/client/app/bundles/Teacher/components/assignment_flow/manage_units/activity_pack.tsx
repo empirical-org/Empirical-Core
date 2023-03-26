@@ -1,15 +1,15 @@
 import * as React from 'react'
 
-import ActivityTable from './activity_table'
 import ActivityPackUpdateButtons from './activity_pack_update_buttons'
-import IndividualClassroom from './individual_classroom'
+import ActivityTable from './activity_table'
 import ArchiveModal from './archive_modal'
-import RenameModal from './rename_modal'
 import CloseUnitModal from './close_unit_modal'
+import IndividualClassroom from './individual_classroom'
+import RenameModal from './rename_modal'
 import ReopenUnitModal from './reopen_unit_modal'
 
-import ShareActivityPackModal from '../create_unit/share_activity_pack/shareActivityPackModal';
-import { requestGet } from '../../../../../modules/request';
+import { requestGet } from '../../../../../modules/request'
+import ShareActivityPackModal from '../create_unit/share_activity_pack/shareActivityPackModal'
 
 const multipleAccountSrc = `${process.env.CDN_URL}/images/icons/icons-account-multiple-check.svg`
 const expandSrc = `${process.env.CDN_URL}/images/icons/expand.svg`

@@ -1,8 +1,8 @@
 import * as React from 'react';
-import { Cue, CueExplanation } from '../../../Shared/index'
-const arrow = `${process.env.CDN_URL}/images/icons/pointing-arrow.svg`;
-import { ENGLISH } from '../../modules/translation/languagePageInfo';
+import { Cue, CueExplanation } from '../../../Shared/index';
 import { Question } from '../../interfaces/Question';
+import { ENGLISH } from '../../modules/translation/languagePageInfo';
+const arrow = `${process.env.CDN_URL}/images/icons/pointing-arrow.svg`;
 
 interface CuesProps {
   diagnosticID: string,

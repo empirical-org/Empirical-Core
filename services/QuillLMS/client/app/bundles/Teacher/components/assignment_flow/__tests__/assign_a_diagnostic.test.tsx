@@ -1,8 +1,8 @@
-import * as React from 'react';
 import { mount } from 'enzyme';
+import * as React from 'react';
 
-import AssignADiagnostic from '../create_unit/assign_a_diagnostic';
 import AssignmentCard from '../create_unit/assignment_card';
+import AssignADiagnostic from '../create_unit/assign_a_diagnostic';
 
 const assignedPreTests = [{"id":1663,"post_test_id":1664,"assigned_classroom_ids":[1]},{"id":1668,"post_test_id":1669,"assigned_classroom_ids":[]},{"id":1678,"post_test_id":1680,"assigned_classroom_ids":[]}]
 

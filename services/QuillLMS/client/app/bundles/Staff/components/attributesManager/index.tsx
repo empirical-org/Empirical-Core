@@ -1,11 +1,11 @@
-import * as React from 'react'
-import { Route, Switch, Link, } from 'react-router-dom';
+import * as React from 'react';
+import { Link, Route, Switch } from 'react-router-dom';
 
-import Standards from './standards/index'
-import Topics from './topics/index'
-import Readability from './readability/index'
-import ActivityCategories from './activity_categories/index'
-import ContentPartners from './contentPartners/index'
+import ActivityCategories from './activity_categories/index';
+import ContentPartners from './contentPartners/index';
+import Readability from './readability/index';
+import Standards from './standards/index';
+import Topics from './topics/index';
 
 const STANDARDS = 'standards'
 const ACTIVITY_CATEGORIES = 'activity_categories'

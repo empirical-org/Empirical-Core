@@ -1,10 +1,10 @@
 import * as React from 'react'
 
-import DisplayStudentHighlight from './displayStudentHighlight'
 import DirectionsSection from './directionsSection'
+import DisplayStudentHighlight from './displayStudentHighlight'
 
-import { helpIcon, Tooltip } from '../../../Shared/index'
 import useFocus from '../../../Shared/hooks/useFocus'
+import { helpIcon, Tooltip } from '../../../Shared/index'
 
 const ReadAndHighlightInstructions = ({ passage, activeStep, studentHighlights, removeHighlight, inReflection, }) => {
   const [containerRef, setContainerFocus] = useFocus()

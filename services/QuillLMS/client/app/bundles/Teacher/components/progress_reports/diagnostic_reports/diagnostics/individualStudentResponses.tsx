@@ -1,22 +1,19 @@
-import * as React from 'react'
-import qs from 'qs'
-import { withRouter, Link, } from 'react-router-dom';
+import qs from 'qs';
+import * as React from 'react';
+import { withRouter } from 'react-router-dom';
 
-import SkillsTable from './skillsTable'
-import GrowthSkillsTable from './growthSkillsTable'
+import GrowthSkillsTable from './growthSkillsTable';
 import {
-  baseDiagnosticImageSrc,
-  fileDocumentIcon,
-  correctImage,
-} from './shared'
+    ConceptResults, SkillResults
+} from './interfaces';
 import {
-  SkillResults,
-  ConceptResults,
-} from './interfaces'
+    baseDiagnosticImageSrc, correctImage, fileDocumentIcon
+} from './shared';
+import SkillsTable from './skillsTable';
 
-import { DataTable, } from '../../../../../Shared/index'
-import LoadingSpinner from '../../../shared/loading_indicator.jsx'
 import { requestGet } from '../../../../../../modules/request/index';
+import { DataTable } from '../../../../../Shared/index';
+import LoadingSpinner from '../../../shared/loading_indicator.jsx';
 
 const incorrectImage = <img alt="Incorrect check icon" src={`${baseDiagnosticImageSrc}/icons-incorrect-small.svg`} />
 

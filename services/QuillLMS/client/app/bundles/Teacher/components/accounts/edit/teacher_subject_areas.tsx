@@ -1,6 +1,6 @@
 import * as React from 'react';
 
-import SubjectAreaSection from '../shared/subject_area_section'
+import SubjectAreaSection from '../shared/subject_area_section';
 
 const TeacherSubjectAreas = ({ activateSection, active, deactivateSection, passedSelectedSubjectAreaIds, subjectAreas, updateTeacherInfo, }) => {
   const [selectedSubjectAreaIds, setSelectedSubjectAreaIds] = React.useState(passedSelectedSubjectAreaIds || [])

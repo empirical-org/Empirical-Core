@@ -1,15 +1,13 @@
-import { mockSharedCacheApi, } from '../__mocks__/shared_cache_api'
+import { mockSharedCacheApi } from '../__mocks__/shared_cache_api'
 jest.mock('../../libs/shared_cache_api', () => ({
   SharedCacheApi: mockSharedCacheApi,
 }))
 
-import { mockDispatch as dispatch, } from '../__mocks__/dispatch'
+import { mockDispatch as dispatch } from '../__mocks__/dispatch'
 
 import {
-  startListeningToQuestionAndConceptMapData,
-  updateData,
-  checkTimeout,
-  SHARED_CACHE_KEY,
+    checkTimeout,
+    SHARED_CACHE_KEY, startListeningToQuestionAndConceptMapData
 } from '../../actions/questionAndConceptMap'
 
 describe('QuestionAndConceptMap actions', () => {

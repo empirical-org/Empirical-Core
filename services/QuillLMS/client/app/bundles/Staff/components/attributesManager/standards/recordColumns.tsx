@@ -1,9 +1,9 @@
 import * as React from 'react'
 
-import RecordColumn from './recordColumn'
-import RecordBox from './recordBox'
 import ArchivedRecordBox from './archivedRecordBox'
 import NewRecordBox from './newRecordBox'
+import RecordBox from './recordBox'
+import RecordColumn from './recordColumn'
 
 const RecordColumns = ({ searchValue, visible, isNew, standardCategories, standardLevels, recordTypes, standards, }) => {
   const [selectedRecordId, setSelectedRecordId] = React.useState(null)

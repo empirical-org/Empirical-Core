@@ -1,24 +1,24 @@
 import * as React from "react";
 import { Redirect, Route, RouteComponentProps, Switch, withRouter } from 'react-router-dom';
 
-import Navigation from './navigation'
-import ActivitySettingsWrapper from './configureSettings/activitySettingsWrapper';
-import RulesIndexRouter from './configureRules/rulesIndexRouter';
-import Rule from './configureRules/rule';
-import RulesAnalysis from './rulesAnalysis/rulesAnalysis';
-import ActivityStats from './activityStats/activityStats';
-import RuleAnalysis from './rulesAnalysis/ruleAnalysis';
-import TurkSessions from './gatherResponses/turkSessions';
 import SessionsIndex from './activitySessions/sessionsIndex';
 import SessionView from './activitySessions/sessionView';
-import SemanticLabelsIndex from './semanticRules/semanticLabelsIndex';
-import RegexRulesRouter from './regexRules/regexRulesRouter';
-import PlagiarismRulesRouter from './plagiarismRules/plagiarismRulesRouter';
-import LowConfidenceRulesRouter from './lowConfidenceRules/lowConfidenceRulesRouter';
+import ActivityStats from './activityStats/activityStats';
 import ChangeLog from './changeLog/changeLog';
-import VersionHistory from "./versionHistory/versionHistory";
-import SeedDataForm from "./syntheticData/seedDataForm";
+import Rule from './configureRules/rule';
+import RulesIndexRouter from './configureRules/rulesIndexRouter';
+import ActivitySettingsWrapper from './configureSettings/activitySettingsWrapper';
+import TurkSessions from './gatherResponses/turkSessions';
+import LowConfidenceRulesRouter from './lowConfidenceRules/lowConfidenceRulesRouter';
+import Navigation from './navigation';
+import PlagiarismRulesRouter from './plagiarismRules/plagiarismRulesRouter';
+import RegexRulesRouter from './regexRules/regexRulesRouter';
+import RuleAnalysis from './rulesAnalysis/ruleAnalysis';
+import RulesAnalysis from './rulesAnalysis/rulesAnalysis';
+import SemanticLabelsIndex from './semanticRules/semanticLabelsIndex';
 import LabeledDataUploadForm from "./syntheticData/labeledDataUploadForm";
+import SeedDataForm from "./syntheticData/seedDataForm";
+import VersionHistory from "./versionHistory/versionHistory";
 
 import { ActivityRouteProps } from '../../interfaces/evidenceInterfaces';
 

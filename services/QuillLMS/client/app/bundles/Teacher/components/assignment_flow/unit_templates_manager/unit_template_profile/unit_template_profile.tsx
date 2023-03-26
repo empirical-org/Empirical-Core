@@ -1,30 +1,25 @@
 import * as React from 'react';
-import _ from 'underscore';
 import { RouteComponentProps } from 'react-router-dom';
+import _ from 'underscore';
 
-import UnitTemplateProfileDescription from './unit_template_profile_description';
+import UnitTemplateAuthenticationButtons from './unit_template_authentication_buttons';
+import UnitTemplateProfileActivityTable from './unit_template_profile_activity_table';
 import UnitTemplateProfileDisclaimer from './unit_template_profile_assign_button';
+import UnitTemplateProfileDescription from './unit_template_profile_description';
 import UnitTemplateProfileShareButtons from './unit_template_profile_share_buttons';
 import UnitTemplateProfileStandards from './unit_template_profile_standards';
-import UnitTemplateProfileActivityTable from './unit_template_profile_activity_table';
-import UnitTemplateAuthenticationButtons from './unit_template_authentication_buttons';
 
-import LoadingIndicator from '../../../shared/loading_indicator';
-import ScrollToTop from '../../../shared/scroll_to_top';
-import AssignmentFlowNavigation from '../../assignment_flow_navigation'
-import {
-  UNIT_TEMPLATE_NAME,
-  ACTIVITY_IDS_ARRAY,
-  UNIT_TEMPLATE_ID,
-  UNIT_NAME,
-  COLLEGE_BOARD_SLUG,
-  CLICKED_ACTIVITY_PACK_ID
-} from '../../assignmentFlowConstants'
-import parsedQueryParams from '../../parsedQueryParams'
-import { requestGet } from '../../../../../../modules/request/index';
 import { Activity } from '../../../../../../interfaces/activity';
 import { UnitTemplateProfileInterface } from '../../../../../../interfaces/unitTemplate';
+import { requestGet } from '../../../../../../modules/request/index';
 import { redirectToActivity } from '../../../../../Shared';
+import LoadingIndicator from '../../../shared/loading_indicator';
+import ScrollToTop from '../../../shared/scroll_to_top';
+import {
+    ACTIVITY_IDS_ARRAY, CLICKED_ACTIVITY_PACK_ID, COLLEGE_BOARD_SLUG, UNIT_NAME, UNIT_TEMPLATE_ID, UNIT_TEMPLATE_NAME
+} from '../../assignmentFlowConstants';
+import AssignmentFlowNavigation from '../../assignment_flow_navigation';
+import parsedQueryParams from '../../parsedQueryParams';
 
 interface UnitTemplateProfileState {
   data: UnitTemplateProfile,

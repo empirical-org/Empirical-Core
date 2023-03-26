@@ -1,11 +1,10 @@
+import gql from "graphql-tag";
 import * as React from "react";
 import { Query } from "react-apollo";
-import gql from "graphql-tag";
 
-import client from '../../../modules/apollo';
-import ConceptBox from "./ConceptBox";
+import { Concept } from '../interfaces/interfaces';
 import ArchivedConceptBox from "./ArchivedConceptBox";
-import { Concept } from '../interfaces/interfaces'
+import ConceptBox from "./ConceptBox";
 
 function conceptQuery(id){
   return `

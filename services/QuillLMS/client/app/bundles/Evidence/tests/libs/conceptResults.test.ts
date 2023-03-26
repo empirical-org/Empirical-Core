@@ -1,15 +1,14 @@
-import * as _expect from 'expect'
+import * as _expect from 'expect';
 const expect = _expect as any as typeof _expect.default
 
 import {
-  calculatePercentage,
-  generateConceptResults,
-} from '../../libs/conceptResults'
+    generateConceptResults
+} from '../../libs/conceptResults';
 import {
-  currentActivity,
-  expectedPayload,
-  submittedResponses,
-} from './conceptResults.data'
+    currentActivity,
+    expectedPayload,
+    submittedResponses
+} from './conceptResults.data';
 
 describe("Getting concept results from a completed Evidence activity", () => {
   it("should generate concept results with concept UIDs and optimal flags", () => {

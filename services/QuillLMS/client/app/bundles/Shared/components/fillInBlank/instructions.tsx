@@ -9,4 +9,5 @@ const Instructions = ({ html, }) => (
   </div>
 );
 
-export { Instructions }
+export { Instructions };
+

@@ -1,4 +1,3 @@
-import { Settings } from "http2";
 
 export interface Activity {
   activity_id: number;

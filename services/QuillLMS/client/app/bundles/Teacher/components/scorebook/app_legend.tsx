@@ -1,5 +1,5 @@
 "use strict";
-import * as React from 'react'
+import * as React from 'react';
 
 const EVIDENCE_ICON_SRC = `${process.env.CDN_URL}/images/icons/tool-evidence-light-gray.svg`
 

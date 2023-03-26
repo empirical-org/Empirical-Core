@@ -8,4 +8,5 @@ const SentenceFragments = ({ prompt, }) => {
   return <div className="draft-js sentence-fragments" dangerouslySetInnerHTML={{ __html: promptAnnotatedForScreenreader, }} />
 }
 
-export { SentenceFragments }
+export { SentenceFragments };
+

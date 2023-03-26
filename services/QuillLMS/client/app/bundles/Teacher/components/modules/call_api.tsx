@@ -1,4 +1,4 @@
-import { requestPut, } from '../../../../modules/request/index'
+import { requestPut } from '../../../../modules/request/index';
 
 function put(path: string, payload: object, onSuccess: Function, onError: Function): void {
   let uri = `${window.location.protocol}//${window.location.host}${path}`;

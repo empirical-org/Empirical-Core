@@ -1,13 +1,13 @@
-import * as React from 'react'
 import * as moment from 'moment'
+import * as React from 'react'
 
 import ClassroomStudentSection from './classroom_student_section'
 import ClassroomTeacherSection from './classroom_teacher_section'
 import LeaveClassModal from './leave_class_modal'
 
-import { Tooltip, helpIcon, } from '../../../Shared/index'
+import { helpIcon, Tooltip } from '../../../Shared/index'
+import NumberSuffix from '../modules/numberSuffixBuilder.js'
 const expandSrc = `${process.env.CDN_URL}/images/icons/expand.svg`
-import NumberSuffix from '../modules/numberSuffixBuilder.js';
 
 export const leaveClassModal = 'leaveClassModal'
 

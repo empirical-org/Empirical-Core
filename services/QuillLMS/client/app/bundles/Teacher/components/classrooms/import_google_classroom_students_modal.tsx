@@ -1,23 +1,23 @@
-import * as React from 'react'
 import Pusher from 'pusher-js';
+import * as React from 'react';
 
-import ButtonLoadingIndicator from '../shared/button_loading_indicator'
 import { requestPut } from '../../../../modules/request/index';
+import ButtonLoadingIndicator from '../shared/button_loading_indicator';
 
 const smallWhiteCheckSrc = `${process.env.CDN_URL}/images/shared/check-small-white.svg`
 
-interface ImportGoogleClassroomStudentsModalProps {
+interface importGoogleClassroomStudentsModalProps {
   close: () => void;
   onSuccess: (snackbarCopy: string) => void;
   classroom: any;
 }
 
-interface ImportGoogleClassroomStudentsModalState {
+interface importGoogleClassroomStudentsModalState {
   checkboxOne?: boolean;
   waiting: boolean;
 }
 
-export default class ImportGoogleClassroomStudentsModal extends React.Component<ImportGoogleClassroomStudentsModalProps, ImportGoogleClassroomStudentsModalState> {
+export default class importGoogleClassroomStudentsModal extends React.Component<importGoogleClassroomStudentsModalProps, importGoogleClassroomStudentsModalState> {
   constructor(props) {
     super(props)
 
@@ -27,10 +27,10 @@ export default class ImportGoogleClassroomStudentsModal extends React.Component<
     }
 
     this.handleToggleCheckbox = this.handleToggleCheckbox.bind(this)
-    this.handleImportStudents = this.handleImportStudents.bind(this)
+    this.handleimportStudents = this.handleimportStudents.bind(this)
   }
 
-  initializePusherForGoogleStudentImport(id) {
+  initializePusherForGoogleStudentimport(id) {
     if (process.env.RAILS_ENV === 'development') {
       Pusher.logToConsole = true;
     }
@@ -50,11 +50,11 @@ export default class ImportGoogleClassroomStudentsModal extends React.Component<
     });
   }
 
-  handleImportStudents() {
+  handleimportStudents() {
     const { classroom, } = this.props
     this.setState({ waiting: true })
     requestPut(`/teachers/classrooms/${classroom.id}/import_google_students`, {}, (body) => {
-      this.initializePusherForGoogleStudentImport(body.id)
+      this.initializePusherForGoogleStudentimport(body.id)
     })
   }
 
@@ -101,7 +101,7 @@ export default class ImportGoogleClassroomStudentsModal extends React.Component<
     )
   }
 
-  renderImportButton() {
+  renderimportButton() {
     const { waiting } = this.state
     if (waiting) {
       return (
@@ -111,8 +111,8 @@ export default class ImportGoogleClassroomStudentsModal extends React.Component<
       )
     } else {
       return (
-        <button className={this.submitButtonClass()} onClick={this.handleImportStudents} type="button">
-          Import students
+        <button className={this.submitButtonClass()} onClick={this.handleimportStudents} type="button">
+          import students
         </button>
       )
     }
@@ -125,7 +125,7 @@ export default class ImportGoogleClassroomStudentsModal extends React.Component<
         <div className="modal-background" />
         <div className="import-google-classroom-students-modal quill-modal modal-body">
           <div>
-            <h3 className="title">Import students from Google Classroom</h3>
+            <h3 className="title">import students from Google Classroom</h3>
           </div>
           <p>You are about to import students from the class {classroom.name}.</p>
           {this.renderCheckboxes()}
@@ -133,7 +133,7 @@ export default class ImportGoogleClassroomStudentsModal extends React.Component<
             <button className="quill-button outlined secondary medium" onClick={close} type="button">
             Cancel
             </button>
-            {this.renderImportButton()}
+            {this.renderimportButton()}
           </div>
         </div>
       </div>

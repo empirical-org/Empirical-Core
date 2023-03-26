@@ -1,24 +1,22 @@
-import * as React from 'react'
-import { withRouter, Link, } from 'react-router-dom';
+import * as React from 'react';
+import { withRouter } from 'react-router-dom';
 
 import {
-  triangleUpIcon,
-  noDataYet,
-  fileDocumentIcon,
-} from './shared'
-import PercentageCircle from './percentageCircle'
-import SkillGroupTooltip from './skillGroupTooltip'
+    SkillGroupSummary,
+    StudentResult
+} from './interfaces';
+import PercentageCircle from './percentageCircle';
 import {
-  SkillGroupSummary,
-  StudentResult,
-} from './interfaces'
+    fileDocumentIcon, noDataYet, triangleUpIcon
+} from './shared';
+import SkillGroupTooltip from './skillGroupTooltip';
 
-import DemoOnboardingTour, { DEMO_ONBOARDING_DIAGNOSTIC_GROWTH_SUMMARY,  } from '../../../shared/demo_onboarding_tour'
-import LoadingSpinner from '../../../shared/loading_indicator.jsx'
 import { requestGet } from '../../../../../../modules/request/index';
 import {
-  Tooltip,
-} from '../../../../../Shared/index'
+    Tooltip
+} from '../../../../../Shared/index';
+import DemoOnboardingTour, { DEMO_ONBOARDING_DIAGNOSTIC_GROWTH_SUMMARY } from '../../../shared/demo_onboarding_tour';
+import LoadingSpinner from '../../../shared/loading_indicator.jsx';
 
 const SkillGroupSummaryCard = ({ skillGroupSummary, completedStudentCount }: { skillGroupSummary: SkillGroupSummary, completedStudentCount: number }) => {
   const { name, description, not_yet_proficient_in_post_test_student_names, not_yet_proficient_in_pre_test_student_names, } = skillGroupSummary

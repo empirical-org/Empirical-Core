@@ -1,24 +1,23 @@
 declare function require(name:string);
 import * as React from 'react';
+import {
+    Feedback,
+    SentenceFragments
+} from '../../../../Shared/index';
 import Cues from '../../renderForQuestions/cues';
-import FeedbackRow from './feedbackRow'
-import {
-  Feedback,
-  SentenceFragments,
-} from '../../../../Shared/index'
 
-import TextEditor from '../../renderForQuestions/renderTextEditor';
+import { QuestionData } from '../../../interfaces/classroomLessons';
 import { getParameterByName } from '../../../libs/getParameterByName';
-import ProjectorHeader from './projectorHeader'
-import ProjectedAnswers from './projectedAnswers'
-import PromptSection from './promptSection'
-import SubmitButton from './submitButton'
-import { PROJECT } from './constants'
+import TextEditor from '../../renderForQuestions/renderTextEditor';
 import {
-  QuestionSubmissionsList,
-  SelectedSubmissionsForQuestion,
+    QuestionSubmissionsList,
+    SelectedSubmissionsForQuestion
 } from '../interfaces';
-import { QuestionData } from '../../../interfaces/classroomLessons'
+import { PROJECT } from './constants';
+import ProjectedAnswers from './projectedAnswers';
+import ProjectorHeader from './projectorHeader';
+import PromptSection from './promptSection';
+import SubmitButton from './submitButton';
 
 interface SingleAnswerProps {
   data: QuestionData,

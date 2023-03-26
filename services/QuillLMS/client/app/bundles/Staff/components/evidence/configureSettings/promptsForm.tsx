@@ -1,7 +1,7 @@
 import * as React from "react";
 
-import { Input, informationIcon } from '../../../../Shared/index';
 import * as C from '../../../../../constants/evidence';
+import { informationIcon, Input } from '../../../../Shared/index';
 import { PromptInterface } from '../../../interfaces/evidenceInterfaces';
 
 type InputEvent = React.ChangeEvent<HTMLInputElement>;

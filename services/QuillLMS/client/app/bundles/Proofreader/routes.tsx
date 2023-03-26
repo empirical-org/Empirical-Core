@@ -1,9 +1,9 @@
 import * as React from "react";
 import { RouteConfig } from "react-router-config";
 import { Route, Switch } from "react-router-dom";
-import Admin from "./components/admin/admin"
+import Admin from "./components/admin/admin";
 import PageLayout from "./components/PageLayout";
-import PlayProofreader from "./components/proofreaderActivities/container"
+import PlayProofreader from "./components/proofreaderActivities/container";
 
 export const routes: RouteConfig[] = [
   {

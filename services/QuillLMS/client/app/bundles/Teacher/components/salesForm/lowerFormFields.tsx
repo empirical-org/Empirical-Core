@@ -1,7 +1,7 @@
 import * as React from 'react';
 
+import { COMMENTS, SCHOOL_PREMIUM_ESTIMATE, STUDENT_PREMIUM_ESTIMATE, TEACHER_PREMIUM_ESTIMATE } from '../../../../constants/salesForm';
 import { Input, TextArea } from '../../../Shared';
-import { SCHOOL_PREMIUM_ESTIMATE, TEACHER_PREMIUM_ESTIMATE, STUDENT_PREMIUM_ESTIMATE, COMMENTS } from '../../../../constants/salesForm';
 
 export const LowerFormFields = ({ errors, handleUpdateField, schoolPremiumEstimate, teacherPremiumEstimate, studentPremiumEstimate, comments }) => {
   return(

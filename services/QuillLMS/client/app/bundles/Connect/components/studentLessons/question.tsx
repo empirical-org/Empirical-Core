@@ -1,29 +1,24 @@
 declare function require(name:string);
+import { Response } from 'quill-marking-logic';
 import * as React from 'react';
 import * as _ from 'underscore';
-import {Response} from 'quill-marking-logic'
 
 import {
-  SentenceFragments,
-  ConceptExplanation,
-  MultipleChoice,
-  hashToCollection,
-  getLatestAttempt
-} from '../../../Shared/index'
+    ConceptExplanation, getLatestAttempt, hashToCollection, MultipleChoice, SentenceFragments
+} from '../../../Shared/index';
 import { submitResponse } from '../../actions.js';
-import Question from '../../libs/question';
-import RenderQuestionFeedback from '../renderForQuestions/feedbackStatements.jsx';
-import RenderQuestionCues from '../renderForQuestions/cues.jsx';
-import RenderFeedback from '../renderForQuestions/feedback';
-import getResponse from '../renderForQuestions/checkAnswer';
-import submitQuestionResponse from '../renderForQuestions/submitResponse.js';
-import updateResponseResource from '../renderForQuestions/updateResponseResource.js';
-import AnswerForm from '../renderForQuestions/renderFormForAnswer.jsx';
 import {
-  getMultipleChoiceResponseOptionsWithCallback,
-  getGradedResponsesWithCallback
+    getGradedResponsesWithCallback, getMultipleChoiceResponseOptionsWithCallback
 } from '../../actions/responses.js';
 import EditCaretPositioning from '../../libs/EditCaretPositioning';
+import Question from '../../libs/question';
+import getResponse from '../renderForQuestions/checkAnswer';
+import RenderQuestionCues from '../renderForQuestions/cues.jsx';
+import RenderFeedback from '../renderForQuestions/feedback';
+import RenderQuestionFeedback from '../renderForQuestions/feedbackStatements.jsx';
+import AnswerForm from '../renderForQuestions/renderFormForAnswer.jsx';
+import submitQuestionResponse from '../renderForQuestions/submitResponse.js';
+import updateResponseResource from '../renderForQuestions/updateResponseResource.js';
 
 const RenderSentenceFragments = SentenceFragments
 const C = require('../../constants').default;

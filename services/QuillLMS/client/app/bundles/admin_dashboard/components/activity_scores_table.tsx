@@ -1,10 +1,10 @@
+import * as moment from 'moment';
 import * as React from 'react';
 import { Link } from 'react-router-dom';
-import * as moment from 'moment';
 
-import EmptyStateForReport from '../../Teacher/components/progress_reports/empty_state_for_report'
 import { sortTableByLastName, sortTableFromSQLTimeStamp } from '../../../modules/sortingMethods';
-import { ReactTable, } from '../../Shared/index'
+import { ReactTable } from '../../Shared/index';
+import EmptyStateForReport from '../../Teacher/components/progress_reports/empty_state_for_report';
 import { getTimeSpent } from '../../Teacher/helpers/studentReports';
 
 interface ActivityScoresTableProps {

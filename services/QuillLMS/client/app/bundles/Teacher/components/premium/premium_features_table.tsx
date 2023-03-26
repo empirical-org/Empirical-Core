@@ -1,7 +1,7 @@
 import * as React from 'react'
 
-import { premiumFeatures, } from './premium_features_data'
 import InfoTooltip from './infoTooltip'
+import { premiumFeatures } from './premium_features_data'
 
 const greenCheckSrc = `${process.env.CDN_URL}/images/icons/icons-check-green.svg`
 

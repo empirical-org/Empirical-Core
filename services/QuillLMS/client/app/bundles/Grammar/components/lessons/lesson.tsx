@@ -1,19 +1,19 @@
 import * as React from 'react';
 import { connect } from 'react-redux';
 import { Link } from 'react-router-dom';
-import * as lessonActions from '../../actions/grammarActivities';
-import EditLessonForm from './lessonForm';
-import { ActionTypes } from '../../actions/actionTypes'
-import { Question, Questions } from '../../interfaces/questions'
-import { GrammarActivityState } from '../../reducers/grammarActivitiesReducer'
-import { ConceptReducerState } from '../../reducers/conceptsReducer'
-import { GrammarActivity } from '../../interfaces/grammarActivities'
-import { Match } from '../../interfaces/match'
-import { permittedFlag } from '../../helpers/flagArray'
 import {
-  hashToCollection,
-  Modal,
-} from '../../../Shared/index'
+    hashToCollection,
+    Modal
+} from '../../../Shared/index';
+import { ActionTypes } from '../../actions/actionTypes';
+import * as lessonActions from '../../actions/grammarActivities';
+import { permittedFlag } from '../../helpers/flagArray';
+import { GrammarActivity } from '../../interfaces/grammarActivities';
+import { Match } from '../../interfaces/match';
+import { Question, Questions } from '../../interfaces/questions';
+import { ConceptReducerState } from '../../reducers/conceptsReducer';
+import { GrammarActivityState } from '../../reducers/grammarActivitiesReducer';
+import EditLessonForm from './lessonForm';
 
 String.prototype.toKebab = function() {
   return this.replace(/([A-Z])/g, char => `-${char.toLowerCase()}`);

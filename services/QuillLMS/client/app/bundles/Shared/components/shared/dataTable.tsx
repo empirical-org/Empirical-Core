@@ -1,9 +1,9 @@
-import * as React from 'react'
-import * as CSS from 'csstype'
-import { SortableHandle, } from 'react-sortable-hoc';
+import * as CSS from 'csstype';
+import * as React from 'react';
+import { SortableHandle } from 'react-sortable-hoc';
 
-import { Tooltip } from './tooltip'
-import { SortableList, } from './sortableList'
+import { SortableList } from './sortableList';
+import { Tooltip } from './tooltip';
 
 export const descending = 'desc'
 export const ascending = 'asc'

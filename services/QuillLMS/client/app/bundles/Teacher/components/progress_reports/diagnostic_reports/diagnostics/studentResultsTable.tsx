@@ -1,33 +1,22 @@
 import * as React from 'react'
-import { Link, } from 'react-router-dom'
+import { Link } from 'react-router-dom'
 
+import GrowthSkillsTable from './growthSkillsTable'
+import {
+    OpenPopover, SkillGroup, SkillGroupSummary, StudentResult
+} from './interfaces'
+import {
+    accountCommentIcon, closeIcon, DEFAULT_LEFT_PADDING, DEFAULT_LEFT_PADDING_FOR_MOBILE, LEFT_OFFSET, lightGreenTriangleUpIcon, MOBILE_WIDTH, noDataYet, proficiencyTextToTag
+} from './shared'
 import SkillGroupTooltip from './skillGroupTooltip'
 import SkillsTable from './skillsTable'
-import GrowthSkillsTable from './growthSkillsTable'
 import StudentNameOrTooltip from './studentNameOrTooltip'
-import {
-  noDataYet,
-  closeIcon,
-  accountCommentIcon,
-  proficiencyTextToTag,
-  lightGreenTriangleUpIcon,
-  LEFT_OFFSET,
-  DEFAULT_LEFT_PADDING,
-  MOBILE_WIDTH,
-  DEFAULT_LEFT_PADDING_FOR_MOBILE
-} from './shared'
-import {
-  SkillGroupSummary,
-  OpenPopover,
-  StudentResult,
-  SkillGroup,
-} from './interfaces'
 
-import {
-  helpIcon,
-  Tooltip,
-} from '../../../../../Shared/index'
 import useWindowSize from '../../../../../Shared/hooks/useWindowSize'
+import {
+    helpIcon,
+    Tooltip
+} from '../../../../../Shared/index'
 
 
 interface StudentResultsTableProps {

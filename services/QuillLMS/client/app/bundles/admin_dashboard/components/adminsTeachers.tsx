@@ -1,10 +1,9 @@
 import * as React from 'react';
-import _ from 'underscore'
 
-import { DataTable, DropdownInput, Snackbar, defaultSnackbarTimeout, } from '../../Shared/index'
-import { RESTRICTED, FULL, restrictedElement, } from '../shared'
-import { ADMIN, TEACHER, PENDING, } from '../../Shared/utils/constants'
-import useSnackbarMonitor from '../../Shared/hooks/useSnackbarMonitor'
+import useSnackbarMonitor from '../../Shared/hooks/useSnackbarMonitor';
+import { DataTable, defaultSnackbarTimeout, DropdownInput, Snackbar } from '../../Shared/index';
+import { ADMIN, PENDING, TEACHER } from '../../Shared/utils/constants';
+import { FULL, RESTRICTED, restrictedElement } from '../shared';
 
 interface AdminsTeachersProps {
   data: Array<Object>;

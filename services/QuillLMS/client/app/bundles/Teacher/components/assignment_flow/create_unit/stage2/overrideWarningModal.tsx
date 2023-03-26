@@ -1,6 +1,6 @@
 import * as React from 'react'
 
-import { Tooltip, } from '../../../../../Shared/index'
+import { Tooltip } from '../../../../../Shared/index'
 
 const OverrideWarningModal = ({ handleClickAssign, handleCloseModal, studentNames, activityName, }) => {
   const tooltip = (<Tooltip

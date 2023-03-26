@@ -1,21 +1,16 @@
-import * as React from 'react'
+import * as React from 'react';
 
 import ActivityPackInformation from './activityPackInformation';
 import ShareActivityPackModal from './shareActivityPackModal';
 
-import AssignmentFlowNavigation from '../../assignment_flow_navigation'
-import ScrollToTop from '../../../shared/scroll_to_top'
-import { Card, ExpandableCard } from '../../../../../Shared/index'
-import {
-  UNIT_TEMPLATE_NAME,
-  UNIT_TEMPLATE_ID,
-  UNIT_NAME,
-  ACTIVITY_IDS_ARRAY,
-  CLASSROOMS,
-  UNIT_ID,
-  ASSIGNED_CLASSROOMS
-} from '../../assignmentFlowConstants'
 import { Activity, ActivityPack } from '../../../../../../interfaces/activityPack';
+import { Card, ExpandableCard } from '../../../../../Shared/index';
+import ScrollToTop from '../../../shared/scroll_to_top';
+import {
+    ACTIVITY_IDS_ARRAY, ASSIGNED_CLASSROOMS, CLASSROOMS,
+    UNIT_ID, UNIT_NAME, UNIT_TEMPLATE_ID, UNIT_TEMPLATE_NAME
+} from '../../assignmentFlowConstants';
+import AssignmentFlowNavigation from '../../assignment_flow_navigation';
 
 const addStudentsSrc = `${process.env.CDN_URL}/images/illustrations/add-students.svg`
 const addShareActivityPackSrc = `${process.env.CDN_URL}/images/icons/icons-share-activity-pack.svg`

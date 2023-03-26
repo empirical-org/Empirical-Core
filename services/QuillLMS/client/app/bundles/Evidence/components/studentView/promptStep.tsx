@@ -5,8 +5,8 @@ import EditorContainer from './editorContainer'
 import Feedback from './feedback'
 
 import EditCaretPositioning from '../../helpers/EditCaretPositioning'
-import ButtonLoadingSpinner from '../shared/buttonLoadingSpinner'
 import { highlightGrammar, highlightSpelling, stripEvidenceHtml } from '../../libs/stringFormatting'
+import ButtonLoadingSpinner from '../shared/buttonLoadingSpinner'
 
 interface PromptStepProps {
   currentActivity: object,

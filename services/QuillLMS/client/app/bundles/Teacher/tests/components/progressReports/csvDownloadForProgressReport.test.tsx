@@ -1,10 +1,7 @@
-import * as React from 'react';
 import { mount } from 'enzyme';
-import _ from 'underscore';
-import _l from 'lodash';
-import { CSVLink } from 'react-csv'
+import * as React from 'react';
 
-import { CSVDownloadForProgressReport } from '../../../components/progress_reports/csv_download_for_progress_report'
+import { CSVDownloadForProgressReport } from '../../../components/progress_reports/csv_download_for_progress_report';
 
 jest.mock('../../../components/modules/user_is_premium', () => jest.fn(() => true));
 

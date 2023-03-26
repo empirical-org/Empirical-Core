@@ -2,24 +2,20 @@ const C = require('../constants').default;
 
 const moment = require('moment');
 
-import Pusher from 'pusher-js';
 // Put 'pusher' on global window for TypeScript validation
 declare global {
   interface Window { pusher: any }
 }
 
-import _ from 'underscore';
 import { goBack } from 'react-router-redux';
-import { submitResponse } from './responses';
-import { Questions, Question, FocusPoint, IncorrectSequence } from '../interfaces/questions'
+import lessonActions from '../actions/lessons';
+import { Question } from '../interfaces/questions';
+import { LessonApi, TYPE_CONNECT_LESSON } from '../libs/lessons_api';
 import {
-  QuestionApi,
-  FocusPointApi,
-  IncorrectSequenceApi,
-  FILL_IN_BLANKS_TYPE
-} from '../libs/questions_api'
-import { LessonApi, TYPE_CONNECT_LESSON } from '../libs/lessons_api'
-import lessonActions from '../actions/lessons'
+    FILL_IN_BLANKS_TYPE, FocusPointApi,
+    IncorrectSequenceApi, QuestionApi
+} from '../libs/questions_api';
+import { submitResponse } from './responses';
 
 // called when the app starts. this means we immediately download all questions, and
 // then receive all questions again as soon as anyone changes anything.

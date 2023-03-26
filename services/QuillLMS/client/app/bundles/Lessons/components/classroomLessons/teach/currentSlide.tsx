@@ -1,53 +1,35 @@
 import * as React from 'react';
 import { connect } from 'react-redux';
-import {
-  saveSelectedStudentSubmission,
-  removeSelectedStudentSubmission,
-  setMode,
-  removeMode,
-  toggleOnlyShowHeaders,
-  clearAllSelectedSubmissions,
-  clearAllSubmissions,
-  toggleStudentFlag,
-  setModel,
-  removeStudentSubmission,
-  saveStudentSubmission,
-  redirectAssignedStudents,
-  updateStudentSubmissionOrder,
-  setPrompt,
-  hideSignupModal,
-  finishActivity
-} from '../../../actions/classroomSessions';
 import { Spinner } from '../../../../Shared/index';
-import CLLobby from './lobby';
-import CLStatic from './static';
-import CLSingleAnswer from './singleAnswer';
-import CLExit from './exit';
-import PreviewModal from './previewModal'
-import TimeoutModal from './timeoutModal'
-import CongratulationsModal from './congratulationsModal'
-import SignupModal from './signupModal'
 import {
-  SMALL_GROUP_AND_INDEPENDENT,
-  PRACTICE_NOW,
-  PRACTICE_LATER,
-  NO_PRACTICE
-} from '../../constants'
+    clearAllSelectedSubmissions,
+    clearAllSubmissions, finishActivity, hideSignupModal, redirectAssignedStudents, removeMode, removeSelectedStudentSubmission, removeStudentSubmission, saveSelectedStudentSubmission, saveStudentSubmission, setMode, setModel, setPrompt, toggleOnlyShowHeaders, toggleStudentFlag, updateStudentSubmissionOrder
+} from '../../../actions/classroomSessions';
+import {
+    SMALL_GROUP_AND_INDEPENDENT
+} from '../../constants';
+import CongratulationsModal from './congratulationsModal';
+import CLExit from './exit';
+import CLLobby from './lobby';
+import PreviewModal from './previewModal';
+import SignupModal from './signupModal';
+import CLSingleAnswer from './singleAnswer';
+import CLStatic from './static';
+import TimeoutModal from './timeoutModal';
 
+import {
+    ClassroomLesson,
+    ScriptItem
+} from '../../../interfaces/classroomLessons';
+import * as CustomizeIntf from '../../../interfaces/customize';
+import { generate } from '../../../libs/conceptResults/classroomLessons.js';
 import { getParameterByName } from '../../../libs/getParameterByName';
 import {
-  SelectedSubmissions,
-  SelectedSubmissionsForQuestion,
-  ClassroomLessonSession,
-  ClassroomSessionId,
-  ClassroomUnitId
+    ClassroomLessonSession,
+    ClassroomSessionId,
+    ClassroomUnitId, SelectedSubmissions,
+    SelectedSubmissionsForQuestion
 } from '../interfaces';
-import {
-  ClassroomLesson,
-  ScriptItem
-} from '../../../interfaces/classroomLessons';
-import * as CustomizeIntf from '../../../interfaces/customize'
-import {generate} from '../../../libs/conceptResults/classroomLessons.js';
 
 interface CurrentSlideProps {
   params: any,

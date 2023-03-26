@@ -1,4 +1,4 @@
-import * as React from 'react'
+import * as React from 'react';
 
 const laptopGlyphSrc = `${process.env.CDN_URL}/images/icons/laptop-glyph.svg` ;
 

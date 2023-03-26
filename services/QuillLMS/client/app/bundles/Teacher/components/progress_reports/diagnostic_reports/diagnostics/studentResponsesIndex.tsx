@@ -1,17 +1,17 @@
-import * as React from 'react'
-import qs from 'qs'
-import { withRouter, Link, } from 'react-router-dom';
+import qs from 'qs';
+import * as React from 'react';
+import { Link, withRouter } from 'react-router-dom';
 
 import {
-  fileDocumentIcon,
-} from './shared'
+    fileDocumentIcon
+} from './shared';
 
-import LoadingSpinner from '../../../shared/loading_indicator.jsx'
 import { requestGet } from '../../../../../../modules/request/index';
 import {
-  DataTable,
-  expandIcon,
-} from '../../../../../Shared/index'
+    DataTable,
+    expandIcon
+} from '../../../../../Shared/index';
+import LoadingSpinner from '../../../shared/loading_indicator.jsx';
 
 interface Student {
   name: string;

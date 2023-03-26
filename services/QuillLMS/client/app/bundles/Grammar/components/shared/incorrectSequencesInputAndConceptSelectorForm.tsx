@@ -1,13 +1,13 @@
+import { ContentState, EditorState } from 'draft-js';
 import * as React from 'react';
 import * as _ from 'underscore';
-import { isValidRegex } from '../../../Shared/index'
-import { EditorState, ContentState } from 'draft-js'
+import { isValidRegex } from '../../../Shared/index';
 
+import ResponseComponent from '../questions/responseComponent';
 import ConceptSelectorWithCheckbox from './conceptSelectorWithCheckbox';
-import ResponseComponent from '../questions/responseComponent'
 
-import { TextEditor, } from '../../../Shared/index'
-import { requestPost, } from '../../../../modules/request/index'
+import { requestPost } from '../../../../modules/request/index';
+import { TextEditor } from '../../../Shared/index';
 
 export default class IncorrectSequencesInputAndConceptSelectorForm extends React.Component {
   constructor(props) {

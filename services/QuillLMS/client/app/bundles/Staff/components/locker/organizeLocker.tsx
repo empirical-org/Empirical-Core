@@ -1,18 +1,18 @@
 import * as React from 'react';
-import {v4 as uuid} from 'uuid';
+import { v4 as uuid } from 'uuid';
 
 import _ from 'lodash';
 import { useQueryClient } from 'react-query';
 
-import ReturnButton from './returnButton';
 import PersonalLockerTile from './personalLockerTile';
+import ReturnButton from './returnButton';
 
 import { DropdownInput, Input, Modal } from '../../../Shared';
-import { DropdownObjectInterface, InputEvent } from '../../interfaces/evidenceInterfaces';
-import { renderConfirmationModal, validateLockerForm } from '../../helpers/locker/lockerHelperFunctions';
-import { SAVE, REVERT, DELETE, CANCEL, SAVE_CONFIRMATION, REVERT_CONFIRMATION, DELETE_SECTION_CONFIRMATION, lockerItemOptions } from '../../helpers/locker/lockerConstants';
-import { lockerItems } from '../../helpers/locker/lockerItems';
 import { titleCase } from '../../helpers/evidence/miscHelpers';
+import { CANCEL, DELETE, DELETE_SECTION_CONFIRMATION, lockerItemOptions, REVERT, REVERT_CONFIRMATION, SAVE, SAVE_CONFIRMATION } from '../../helpers/locker/lockerConstants';
+import { renderConfirmationModal, validateLockerForm } from '../../helpers/locker/lockerHelperFunctions';
+import { lockerItems } from '../../helpers/locker/lockerItems';
+import { DropdownObjectInterface, InputEvent } from '../../interfaces/evidenceInterfaces';
 import { createLocker, updateLocker } from '../../utils/evidence/lockerAPIs';
 
 export const OrganizeLocker = ({ history, personalLocker, userId }) => {

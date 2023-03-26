@@ -1,7 +1,5 @@
-import { ActionTypes } from "../actions/actionTypes";
-import _ from 'lodash';
 import Immutable from 'immutable';
-import { REHYDRATE } from 'redux-persist/constants';
+import { ActionTypes } from "../actions/actionTypes";
 
 const initialState = Immutable.fromJS({
   data: {},

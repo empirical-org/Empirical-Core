@@ -1,7 +1,7 @@
 import * as React from "react";
 
-import { ReactTable } from '../../../../Shared/index'
-import { getLinkToPrompt, secondsToHumanReadableTime, } from "../../../helpers/evidence/miscHelpers";
+import { ReactTable } from '../../../../Shared/index';
+import { getLinkToPrompt, secondsToHumanReadableTime } from "../../../helpers/evidence/miscHelpers";
 
 const NO_DATA_FOUND_MESSAGE = "No prompt data yet available for this activity."
 

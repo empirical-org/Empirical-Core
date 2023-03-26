@@ -1,22 +1,19 @@
+import { ContentState, EditorState } from 'draft-js';
 import * as React from 'react';
 import _ from 'underscore';
-import questionActions from '../../actions/questions';
-import sentenceFragmentActions from '../../actions/sentenceFragments';
-import { EditorState, ContentState } from 'draft-js'
-import ResponseList from './responseList.jsx';
-import getBoilerplateFeedback from './boilerplateFeedback.jsx';
+import {
+    Modal,
+    TextEditor
+} from '../../../Shared/index';
 import massEdit from '../../actions/massEdit';
-import ConceptSelectorWithCheckbox from '../shared/conceptSelectorWithCheckbox.jsx';
+import questionActions from '../../actions/questions';
 import {
-  deleteResponse,
-  submitResponseEdit,
-  getGradedResponsesWithCallback,
+    deleteResponse, getGradedResponsesWithCallback, submitResponseEdit
 } from '../../actions/responses';
-import {
-  hashToCollection,
-  Modal,
-  TextEditor,
-} from '../../../Shared/index'
+import sentenceFragmentActions from '../../actions/sentenceFragments';
+import ConceptSelectorWithCheckbox from '../shared/conceptSelectorWithCheckbox.jsx';
+import getBoilerplateFeedback from './boilerplateFeedback.jsx';
+import ResponseList from './responseList.jsx';
 
 const jsDiff = require('diff');
 const C = require('../../constants').default;

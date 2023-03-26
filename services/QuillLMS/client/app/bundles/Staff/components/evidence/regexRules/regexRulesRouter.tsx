@@ -1,15 +1,15 @@
 import * as React from "react";
-import { useQuery, useQueryClient, } from 'react-query';
+import { useQuery, useQueryClient } from 'react-query';
 import { Route, Switch, withRouter } from 'react-router-dom';
 
 import RegexRulesIndex from './regexRulesIndex';
 
-import RuleViewFormWrapper from '../configureRules/ruleViewFormWrapper';
+import { Error, Spinner } from '../../../../Shared/index';
+import { getRefetchQueryString } from '../../../helpers/evidence/ruleHelpers';
+import { RuleInterface } from '../../../interfaces/evidenceInterfaces';
 import { fetchActivity } from '../../../utils/evidence/activityAPIs';
 import { createRule, updateRule } from '../../../utils/evidence/ruleAPIs';
-import { Error, Spinner } from '../../../../Shared/index';
-import { RuleInterface } from '../../../interfaces/evidenceInterfaces';
-import { getRefetchQueryString } from '../../../helpers/evidence/ruleHelpers';
+import RuleViewFormWrapper from '../configureRules/ruleViewFormWrapper';
 
 const RegexRulesRouter = ({ history, match }) => {
   const { params } = match;

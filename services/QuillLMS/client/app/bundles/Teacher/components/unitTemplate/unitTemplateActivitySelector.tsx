@@ -2,11 +2,11 @@ import * as React from 'react'
 
 import UnitTemplateSelectedActivitiesTable from './unitTemplateSelectedActivitiesTable'
 
-import { FlagDropdown, Spinner, DataTable } from '../../../Shared/index'
+import { requestGet } from '../../../../modules/request/index'
+import { DataTable, FlagDropdown, Spinner } from '../../../Shared/index'
+import { unitTemplateActivityRows, unitTemplateDataTableFields } from '../../helpers/unitTemplates'
 import Pagination from '../assignment_flow/create_unit/custom_activity_pack/pagination'
-import { lowerBound, upperBound, } from '../assignment_flow/create_unit/custom_activity_pack/shared'
-import { unitTemplateActivityRows, unitTemplateDataTableFields } from '../../helpers/unitTemplates';
-import { requestGet, } from '../../../../modules/request/index'
+import { lowerBound, upperBound } from '../assignment_flow/create_unit/custom_activity_pack/shared'
 
 const ACTIVITIES_URL = `${process.env.DEFAULT_URL}/activities/index_with_unit_templates`
 const DEFAULT_FLAG = 'All Flags'

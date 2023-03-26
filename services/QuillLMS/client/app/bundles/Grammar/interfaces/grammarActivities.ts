@@ -1,4 +1,4 @@
-import { Questions } from './questions'
+import { Questions } from './questions';
 
 export interface GrammarActivities {
   [key: string]: GrammarActivity

@@ -1,7 +1,7 @@
-import * as React from 'react'
+import * as React from 'react';
 
-import ButtonLoadingIndicator from '../shared/button_loading_indicator'
-import { Input, DataTable, } from '../../../Shared/index'
+import { DataTable, Input } from '../../../Shared/index';
+import ButtonLoadingIndicator from '../shared/button_loading_indicator';
 
 import { requestPost } from '../../../../modules/request/index';
 

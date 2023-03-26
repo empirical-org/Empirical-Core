@@ -1,13 +1,13 @@
 import * as React from "react";
 import { useRef } from 'react';
-import { useQuery } from 'react-query';
 import { CSVLink } from 'react-csv';
+import { useQuery } from 'react-query';
 import { firstBy } from 'thenby';
 
 
-import { FlagDropdown, ReactTable, filterNumbers } from '../../../../Shared/index'
+import { filterNumbers, FlagDropdown, ReactTable } from '../../../../Shared/index';
+import { getLinkToPrompt, secondsToHumanReadableTime } from "../../../helpers/evidence/miscHelpers";
 import { fetchAggregatedPromptHealths } from '../../../utils/evidence/ruleFeedbackHistoryAPIs';
-import { getLinkToPrompt, secondsToHumanReadableTime, addCommasToThousands } from "../../../helpers/evidence/miscHelpers";
 
 const ALL_FLAGS = "All Flags"
 const SHORT_NAME_COLUMN = "activity_short_name"

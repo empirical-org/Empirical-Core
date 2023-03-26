@@ -1,16 +1,16 @@
 import * as React from 'react';
 import VisibilitySensor from 'react-visibility-sensor';
 
+import { FEEDBACK_AND_REPORTS, MESSAGE_FROM_COLLEGE_BOARD, PASSAGE_ALIGNED_ACTIVITIES, QUESTIONS_AND_ANSWERS, TOP_SECTION, WRITING_SKILLS_SURVEYS } from './collegeBoardConstants';
 import ScrollBox from './scrollBox';
-import { WRITING_SKILLS_SURVEYS, FEEDBACK_AND_REPORTS, PASSAGE_ALIGNED_ACTIVITIES, MESSAGE_FROM_COLLEGE_BOARD, QUESTIONS_AND_ANSWERS, TOP_SECTION } from './collegeBoardConstants';
 
-import ExpandableUnitSection from '../shared/expandableUnit'
-import { SPRING_BOARD_SLUG } from '../assignment_flow/assignmentFlowConstants'
-import QuestionsAndAnswers from '../../containers/QuestionsAndAnswers';
-import * as constants from '../assignment_flow/assignmentFlowConstants';
-import { generateLink, getStartedButton, getActivityCount } from '../../helpers/collegeBoard';
-import { scrollToTop } from '../../hooks/scrollToTop';
 import { PassageAlignedUnit } from '../../../../interfaces/collegeBoard';
+import QuestionsAndAnswers from '../../containers/QuestionsAndAnswers';
+import { generateLink, getActivityCount, getStartedButton } from '../../helpers/collegeBoard';
+import { scrollToTop } from '../../hooks/scrollToTop';
+import * as constants from '../assignment_flow/assignmentFlowConstants';
+import { SPRING_BOARD_SLUG } from '../assignment_flow/assignmentFlowConstants';
+import ExpandableUnitSection from '../shared/expandableUnit';
 
 interface SpringBoardProps {
   isPartOfAssignmentFlow?: boolean;

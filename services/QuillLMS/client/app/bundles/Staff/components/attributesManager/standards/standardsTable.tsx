@@ -1,12 +1,12 @@
-import * as React from 'react'
 import moment from 'moment';
+import * as React from 'react';
 
-import RecordBox from './recordBox'
-import { tableSortWordsThatIncludeNumbers, STANDARD, STANDARD_CATEGORY, STANDARD_LEVEL} from './shared'
+import RecordBox from './recordBox';
+import { STANDARD, STANDARD_CATEGORY, STANDARD_LEVEL, tableSortWordsThatIncludeNumbers } from './shared';
 
-import { getColumnWidth, } from '../../shared/getColumnWidth'
+import { getColumnWidth } from '../../shared/getColumnWidth';
 
-import { Tooltip, momentFormatConstants, ReactTable } from '../../../../Shared/index'
+import { momentFormatConstants, ReactTable, Tooltip } from '../../../../Shared/index';
 
 const standardCategoryTooltipText = "Each standard is assigned a standard category. The standard category displays in a featured activity pack page as the \"concept\" for each activity. The standard category that gets displayed is determined by the standard that has been assigned to the activity.  Standard categories also display as the concepts of the pack, shown in the white box on the right of an activity pack page. Although standard categories are called \"concepts\" in a featured activity pack page, they are not the same concepts that are used to filter or order activities in the custom activity pack page."
 

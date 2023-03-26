@@ -1,8 +1,8 @@
 import * as React from 'react'
 
-import StudentOptions from './student_options'
 import ClassCodeLink from './class_code_link'
 import CreateStudentAccounts from './create_student_accounts'
+import StudentOptions from './student_options'
 
 export const studentsCreate = 'students create accounts'
 export const teacherCreates = 'teacher creates accounts'

@@ -1,16 +1,16 @@
 import _ from 'lodash';
-import { checkGrammarQuestion, Response } from 'quill-marking-logic'
+import { checkGrammarQuestion, Response } from 'quill-marking-logic';
 
-import { ActionTypes } from './actionTypes'
-import * as responseActions from './responses'
+import { ActionTypes } from './actionTypes';
+import * as responseActions from './responses';
 
-import { QuestionApi, GRAMMAR_QUESTION_TYPE } from '../libs/questions_api'
-import { SessionApi } from '../libs/sessions_api'
-import { Question } from '../interfaces/questions'
-import { SessionState } from '../reducers/sessionReducer'
+import { hashToCollection } from '../../Shared/index';
+import { permittedFlag } from '../helpers/flagArray';
 import { shuffle } from '../helpers/shuffle';
-import { permittedFlag } from '../helpers/flagArray'
-import { hashToCollection } from '../../Shared/index'
+import { Question } from '../interfaces/questions';
+import { GRAMMAR_QUESTION_TYPE, QuestionApi } from '../libs/questions_api';
+import { SessionApi } from '../libs/sessions_api';
+import { SessionState } from '../reducers/sessionReducer';
 
 export const allQuestions = {};
 let questionsInitialized = false;

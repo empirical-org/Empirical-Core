@@ -1,9 +1,8 @@
-import * as React from 'react'
 import { mount } from 'enzyme';
+import * as React from 'react';
 
-import { activities } from './data'
 
-import MobileSortMenu from '../mobile_sort_menu'
+import MobileSortMenu from '../mobile_sort_menu';
 
 describe('MobileSortMenu component', () => {
   const props = {

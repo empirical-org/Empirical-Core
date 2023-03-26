@@ -4,12 +4,9 @@ import LowerFormFields from './lowerFormFields';
 import SchoolAndDistrictFields from './schoolAndDistrictFields';
 import UpperFormFields from './upperFormFields';
 
-import { getSchoolsAndDistricts, validateSalesForm, submitSalesForm } from '../../helpers/salesForms';
+import { COMMENTS, DISTRICT, DISTRICT_NOT_LISTED, EMAIL, FIRST_NAME, LAST_NAME, PHONE_NUMBER, SCHOOL, SCHOOL_NOT_LISTED, SCHOOL_OR_DISTRICT, SCHOOL_PREMIUM_ESTIMATE, STUDENT_PREMIUM_ESTIMATE, SUBMISSION_ERROR, TEACHER_PREMIUM_ESTIMATE, ZIPCODE } from '../../../../constants/salesForm';
 import { DropdownObjectInterface, InputEvent } from '../../../Staff/interfaces/evidenceInterfaces';
-import {
-  FIRST_NAME, LAST_NAME, EMAIL, PHONE_NUMBER, ZIPCODE, SCHOOL_PREMIUM_ESTIMATE, TEACHER_PREMIUM_ESTIMATE,
-  STUDENT_PREMIUM_ESTIMATE, COMMENTS, SCHOOL, DISTRICT, SCHOOL_OR_DISTRICT, SCHOOL_NOT_LISTED, DISTRICT_NOT_LISTED, SUBMISSION_ERROR
-} from '../../../../constants/salesForm';
+import { getSchoolsAndDistricts, submitSalesForm, validateSalesForm } from '../../helpers/salesForms';
 
 export const SalesForm = ({ type }) => {
   const [errors, setErrors] = React.useState<any>({});

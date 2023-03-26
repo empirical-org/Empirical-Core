@@ -1,11 +1,11 @@
-import * as React from 'react';
 import Picker from 'emoji-picker-react';
+import * as React from 'react';
 
 
-import { Input, Modal, closeIcon } from '../../../Shared';
-import { InputEvent } from '../../interfaces/evidenceInterfaces';
+import { closeIcon, Input, Modal } from '../../../Shared';
+import { CANCEL, DELETE, DELETE_LOCKER_CONFIRMATION } from '../../helpers/locker/lockerConstants';
 import { renderConfirmationModal } from '../../helpers/locker/lockerHelperFunctions';
-import { DELETE, CANCEL, DELETE_LOCKER_CONFIRMATION } from '../../helpers/locker/lockerConstants';
+import { InputEvent } from '../../interfaces/evidenceInterfaces';
 
 export const PersonalLockerTile = ({ handleDeleteLockerForSection, handleSetLockerProperty, locker, lockerKey, sectionKey }) => {
   const [showOrganizeLockerModal, setShowOrganizeLockerModal] = React.useState<boolean>(false);

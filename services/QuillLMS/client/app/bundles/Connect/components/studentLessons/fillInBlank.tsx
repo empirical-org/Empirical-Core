@@ -1,24 +1,21 @@
 declare function require(name:string);
-import * as React from 'react';
-import * as  _ from 'underscore';
 import { stringNormalize } from 'quill-string-normalizer';
+import * as React from 'react';
 import stripHtml from "string-strip-html";
+import * as _ from 'underscore';
 
-import Cues from '../renderForQuestions/cues.jsx';
-import FeedbackContainer from '../renderForQuestions/feedback'
-import RenderQuestionFeedback from '../renderForQuestions/feedbackStatements.jsx';
-import { Attempt } from '../renderForQuestions/answerState.js';
-import { getGradedResponsesWithCallback } from '../../actions/responses.js';
-import updateResponseResource from '../renderForQuestions/updateResponseResource.js';
-import { FillInBlankQuestion } from '../../interfaces/questions';
 import {
-  hashToCollection,
-  Prompt,
-  ConceptExplanation,
-  Feedback,
-  getLatestAttempt,
-  fillInBlankInputLabel,
-} from '../../../Shared/index'
+    ConceptExplanation,
+    Feedback, fillInBlankInputLabel, getLatestAttempt, hashToCollection,
+    Prompt
+} from '../../../Shared/index';
+import { getGradedResponsesWithCallback } from '../../actions/responses.js';
+import { FillInBlankQuestion } from '../../interfaces/questions';
+import { Attempt } from '../renderForQuestions/answerState.js';
+import Cues from '../renderForQuestions/cues.jsx';
+import FeedbackContainer from '../renderForQuestions/feedback';
+import RenderQuestionFeedback from '../renderForQuestions/feedbackStatements.jsx';
+import updateResponseResource from '../renderForQuestions/updateResponseResource.js';
 
 const qml = require('quill-marking-logic')
 const checkFillInTheBlankQuestion = qml.checkFillInTheBlankQuestion

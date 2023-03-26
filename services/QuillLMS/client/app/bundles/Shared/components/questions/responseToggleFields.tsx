@@ -69,4 +69,5 @@ class ResponseToggleFields extends React.Component<any, any> {
   }
 }
 
-export { ResponseToggleFields }
+export { ResponseToggleFields };
+

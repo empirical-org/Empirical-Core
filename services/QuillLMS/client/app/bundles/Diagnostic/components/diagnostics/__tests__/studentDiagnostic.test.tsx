@@ -1,23 +1,21 @@
-import * as React from 'react';
 import { shallow } from 'enzyme';
+import * as React from 'react';
 
-import { StudentDiagnostic } from '../studentDiagnostic';
 import {
-  CarouselAnimation,
-  SmartSpinner,
-  PlayTitleCard,
-  ProgressBar
+    CarouselAnimation, PlayTitleCard,
+    ProgressBar, SmartSpinner
 } from '../../../../Shared/index';
-import { clearData, loadData, nextQuestion, submitResponse, updateCurrentQuestion, resumePreviousDiagnosticSession, setCurrentQuestion } from '../../../actions/diagnostics.js';
+import { clearData, loadData, nextQuestion, resumePreviousDiagnosticSession, setCurrentQuestion, submitResponse, updateCurrentQuestion } from '../../../actions/diagnostics.js';
 import SessionActions from '../../../actions/sessions.js';
-import PlaySentenceFragment from '../sentenceFragment.jsx';
-import PlayDiagnosticQuestion from '../sentenceCombining.jsx';
-import PlayFillInTheBlankQuestion from '../../fillInBlank/playFillInTheBlankQuestion';
-import LandingPage from '../landing.jsx';
-import FinishedDiagnostic from '../finishedDiagnostic.jsx';
 import * as progressHelpers from '../../../libs/calculateProgress';
 import * as diagnosticHelper from '../../../libs/conceptResults/diagnostic';
 import * as parameterHelper from '../../../libs/getParameterByName';
+import PlayFillInTheBlankQuestion from '../../fillInBlank/playFillInTheBlankQuestion';
+import FinishedDiagnostic from '../finishedDiagnostic.jsx';
+import LandingPage from '../landing.jsx';
+import PlayDiagnosticQuestion from '../sentenceCombining.jsx';
+import PlaySentenceFragment from '../sentenceFragment.jsx';
+import { StudentDiagnostic } from '../studentDiagnostic';
 
 // required mocked functions
 progressHelpers.questionCount = jest.fn();

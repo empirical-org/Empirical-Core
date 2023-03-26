@@ -1,12 +1,12 @@
 import * as React from "react";
-import { useQuery, useQueryClient, } from 'react-query';
-import ReactHtmlParser from 'react-html-parser'
+import ReactHtmlParser from 'react-html-parser';
+import { useQuery, useQueryClient } from 'react-query';
 
+import { BECAUSE, BUT, SO, TITLE } from "../../../../../constants/evidence";
+import { DropdownInput, Input, Spinner } from '../../../../Shared/index';
+import { quillCloseX, renderHeader } from "../../../helpers/evidence/renderHelpers";
+import { createSeedData, fetchActivity } from '../../../utils/evidence/activityAPIs';
 import SubmissionModal from '../shared/submissionModal';
-import { fetchActivity, createSeedData } from '../../../utils/evidence/activityAPIs';
-import { renderHeader, quillCloseX } from "../../../helpers/evidence/renderHelpers";
-import { Input, Spinner, DropdownInput, } from '../../../../Shared/index';
-import { TITLE, BECAUSE, BUT, SO } from "../../../../../constants/evidence";
 
 const SeedDataForm = ({ history, match }) => {
   const { params } = match;

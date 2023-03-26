@@ -1,8 +1,7 @@
-import * as React from 'react'
+import * as React from 'react';
 import stripHtml from "string-strip-html";
-import _ from 'underscore'
 
-import { ReactTable, } from '../../../Shared/index'
+import { ReactTable } from '../../../Shared/index';
 
 interface PromptHealthProps {
   dataResults: Array<Object>;

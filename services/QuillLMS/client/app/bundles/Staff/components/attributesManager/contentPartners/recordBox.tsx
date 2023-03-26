@@ -1,10 +1,9 @@
+import _ from 'lodash';
 import * as React from "react";
-import _ from 'lodash'
-import moment from 'moment'
 
-import { Record } from './interfaces'
+import { Record } from './interfaces';
 
-import { Input, TextArea, } from '../../../../Shared/index'
+import { Input, TextArea } from '../../../../Shared/index';
 
 interface RecordBoxProps {
   originalRecord: Record;

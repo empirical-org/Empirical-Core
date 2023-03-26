@@ -1,13 +1,10 @@
 import React from 'react';
-import ReactDOM from 'react-dom'
-import _ from 'underscore';
+import { Feedback } from '../../../Shared/index';
+import getAnswerState from './answerState';
 const icon = 'https://assets.quill.org/images/icons/question_icon.svg'
 const revise = 'https://assets.quill.org/images/icons/revise_orange_icon.svg';
 const multiple = 'https://assets.quill.org/images/icons/multiple_choice_icon.svg';
 const success = 'https://assets.quill.org/images/icons/check-mark.svg';
-import getAnswerState from './answerState';
-import { Response } from 'quill-marking-logic';
-import { Feedback, } from '../../../Shared/index'
 
 class FeedbackComponent extends React.Component<any, any> {
   constructor(props){

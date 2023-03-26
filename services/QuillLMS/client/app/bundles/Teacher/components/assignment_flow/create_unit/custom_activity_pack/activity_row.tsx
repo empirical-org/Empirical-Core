@@ -1,13 +1,13 @@
 import * as React from 'react';
-import { renderToString } from 'react-dom/server'
+import { renderToString } from 'react-dom/server';
 
-import { Activity, Topic, } from './interfaces'
-import { stringifyLowerLevelTopics, AVERAGE_FONT_WIDTH, } from './shared'
+import { Activity, Topic } from './interfaces';
+import { AVERAGE_FONT_WIDTH, stringifyLowerLevelTopics } from './shared';
 
-import { imageTagForClassification, } from '../../assignmentFlowConstants'
-import NumberSuffixBuilder from '../../../modules/numberSuffixBuilder'
-import useWindowSize from '../../../../../Shared/hooks/useWindowSize'
-import { Tooltip, } from '../../../../../Shared/index'
+import useWindowSize from '../../../../../Shared/hooks/useWindowSize';
+import { Tooltip } from '../../../../../Shared/index';
+import NumberSuffixBuilder from '../../../modules/numberSuffixBuilder';
+import { imageTagForClassification } from '../../assignmentFlowConstants';
 
 const smallWhiteCheckSrc = `${process.env.CDN_URL}/images/shared/check-small-white.svg`
 const expandSrc = `${process.env.CDN_URL}/images/shared/expand.svg`

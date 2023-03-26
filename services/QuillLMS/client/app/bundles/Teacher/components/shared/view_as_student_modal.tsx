@@ -1,7 +1,7 @@
-import * as React from 'react'
+import * as React from 'react';
 
-import { DataTable, DropdownInput, } from '../../../Shared/index'
-import { PROGRESS_REPORTS_SELECTED_CLASSROOM_ID, } from '../progress_reports/progress_report_constants'
+import { DataTable, DropdownInput } from '../../../Shared/index';
+import { PROGRESS_REPORTS_SELECTED_CLASSROOM_ID } from '../progress_reports/progress_report_constants';
 
 interface ViewAsStudentModalProps {
   classrooms: Array<any>;

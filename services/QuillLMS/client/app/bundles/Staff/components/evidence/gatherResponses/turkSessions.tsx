@@ -1,19 +1,19 @@
-import * as React from "react";
-import { RouteComponentProps } from 'react-router-dom';
-import "react-dates/initialize";
-import { SingleDatePicker } from 'react-dates';
 import * as moment from 'moment';
-import { useQueryClient, useQuery } from 'react-query';
+import * as React from "react";
+import { SingleDatePicker } from 'react-dates';
+import "react-dates/initialize";
+import { useQuery, useQueryClient } from 'react-query';
+import { RouteComponentProps } from 'react-router-dom';
 
 import EditOrDeleteTurkSession from './editOrDeleteTurkSession';
 import TurkSessionButton from './turkSessionButton';
 
-import SubmissionModal from '../shared/submissionModal';
-import { ActivityRouteProps, TurkSessionInterface } from '../../../interfaces/evidenceInterfaces';
-import { createTurkSession, fetchTurkSessions } from '../../../utils/evidence/turkAPIs';
-import { fetchActivity } from '../../../utils/evidence/activityAPIs';
-import { DataTable, Error, Modal, Spinner, Snackbar, copyToClipboard } from '../../../../Shared/index';
+import { copyToClipboard, DataTable, Error, Modal, Snackbar, Spinner } from '../../../../Shared/index';
 import { renderHeader } from '../../../helpers/evidence/renderHelpers';
+import { ActivityRouteProps, TurkSessionInterface } from '../../../interfaces/evidenceInterfaces';
+import { fetchActivity } from '../../../utils/evidence/activityAPIs';
+import { createTurkSession, fetchTurkSessions } from '../../../utils/evidence/turkAPIs';
+import SubmissionModal from '../shared/submissionModal';
 
 const TurkSessions: React.FC<RouteComponentProps<ActivityRouteProps>> = ({ match }) => {
   const [newTurkSessionDate, setNewTurkSessionDate] = React.useState<any>(null);

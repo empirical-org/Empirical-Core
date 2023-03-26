@@ -1,15 +1,15 @@
 import * as React from 'react';
-import _ from 'underscore';
 import ReactTransition from 'react-addons-css-transition-group';
+import _ from 'underscore';
+import { Feedback, SentenceFragments } from '../../../Shared/index';
 import {
-  getGradedResponsesWithCallback
+    getGradedResponsesWithCallback
 } from '../../actions/responses.js';
-import RenderQuestionFeedback from '../renderForQuestions/feedbackStatements.jsx';
-import Cues from '../renderForQuestions/cues.jsx';
-import { Feedback, SentenceFragments, } from '../../../Shared/index';
 import getResponse from '../renderForQuestions/checkAnswer';
-import updateResponseResource from '../renderForQuestions/updateResponseResource.js';
+import Cues from '../renderForQuestions/cues.jsx';
+import RenderQuestionFeedback from '../renderForQuestions/feedbackStatements.jsx';
 import TextEditor from '../renderForQuestions/renderTextEditor.jsx';
+import updateResponseResource from '../renderForQuestions/updateResponseResource.js';
 
 const C = require('../../constants').default;
 

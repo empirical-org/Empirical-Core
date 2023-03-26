@@ -1,17 +1,12 @@
 import * as React from 'react';
 import {
-  ClassroomLessonSessions,
-  ClassroomLessonSession,
-  QuestionSubmissionsList,
-  SelectedSubmissions,
-  SelectedSubmissionsForQuestion
-} from '../interfaces';
-import {
-  Question,
-  ClassroomLesson
+    ClassroomLesson, Question
 } from '../../../interfaces/classroomLessons';
-import ScriptComponent from '../shared/scriptComponent'
-import { sortByLastName } from '../shared/studentSorts'
+import {
+    ClassroomLessonSession
+} from '../interfaces';
+import ScriptComponent from '../shared/scriptComponent';
+import { sortByLastName } from '../shared/studentSorts';
 
 interface LobbyProps {
   data: ClassroomLessonSession,

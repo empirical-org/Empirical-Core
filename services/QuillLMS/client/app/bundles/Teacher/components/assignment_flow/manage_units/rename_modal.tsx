@@ -1,9 +1,9 @@
-import * as React from 'react'
+import * as React from 'react';
 
-import * as api from '../../modules/call_api';
 import {
-  Input,
-} from '../../../../Shared/index'
+    Input
+} from '../../../../Shared/index';
+import * as api from '../../modules/call_api';
 
 const RenameModal = ({ onSuccess, closeModal, unitId, unitName, }) => {
   const [name, setName] = React.useState(unitName)

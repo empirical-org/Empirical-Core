@@ -3,10 +3,10 @@ import { Redirect, Route, Switch, withRouter } from 'react-router-dom';
 
 import Activities from './activities';
 import Activity from './activity';
-import Hints from './hints';
 import HealthDashboards from "./healthDashboards/healthDashboards";
-import UniversalRulesIndex from './universalRules/universalRules';
+import Hints from './hints';
 import UniversalRule from './universalRules/universalRule';
+import UniversalRulesIndex from './universalRules/universalRules';
 
 const EvidenceLanding = () => (
   <div className="main-admin-container">

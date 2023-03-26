@@ -1,8 +1,8 @@
-import { ConceptResult } from 'quill-marking-logic'
-import * as _ from 'lodash'
+import * as _ from 'lodash';
+import { ConceptResult } from 'quill-marking-logic';
 
-import { Question, FormattedConceptResult, ResponseAttempt } from '../interfaces/questions'
-import { hashToCollection } from '../../Shared/index'
+import { hashToCollection } from '../../Shared/index';
+import { FormattedConceptResult, Question, ResponseAttempt } from '../interfaces/questions';
 
 const scoresForNAttempts: { [key:number]: number} = {
   1: 1,

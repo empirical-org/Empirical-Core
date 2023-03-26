@@ -1,11 +1,10 @@
+import { ContentState, EditorState } from 'draft-js';
 import * as React from 'react';
 import { connect } from 'react-redux';
 import * as _ from 'underscore';
-import { EditorState, ContentState } from 'draft-js'
 
-import { TextEditor } from '../../../Shared/index';
+import { hashToCollection, SortableList, TextEditor } from '../../../Shared/index';
 import * as questionActions from '../../actions/questions';
-import { hashToCollection, SortableList,  } from '../../../Shared/index'
 
 export class FocusPointsContainer extends React.Component {
   constructor(props) {

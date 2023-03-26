@@ -1,6 +1,6 @@
 import * as React from 'react'
 
-import { helpIcon, DropdownInput, Tooltip, } from '../../../Shared/index'
+import { DropdownInput, helpIcon, Tooltip } from '../../../Shared/index'
 
 const KEY_METRICS_TIMEFRAME = 'keyMetricsTimeframe'
 const YEARLY = 'yearly'

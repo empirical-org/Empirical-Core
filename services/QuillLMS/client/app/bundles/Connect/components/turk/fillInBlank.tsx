@@ -1,14 +1,13 @@
 declare function require(name:string);
 
+import { stringNormalize } from 'quill-string-normalizer';
 import * as React from 'react';
 import { connect } from 'react-redux';
-import * as  _ from 'underscore';
-import { stringNormalize } from 'quill-string-normalizer'
+import * as _ from 'underscore';
 
+import { Feedback, fillInBlankInputLabel, hashToCollection, Prompt } from '../../../Shared/index';
 import { getGradedResponsesWithCallback } from '../../actions/responses.js';
-import { Feedback, Prompt, } from '../../../Shared/index';
 import Cues from '../renderForQuestions/cues.jsx';
-import { hashToCollection, fillInBlankInputLabel, } from '../../../Shared/index'
 import updateResponseResource from '../renderForQuestions/updateResponseResource.js';
 
 const qml = require('quill-marking-logic')

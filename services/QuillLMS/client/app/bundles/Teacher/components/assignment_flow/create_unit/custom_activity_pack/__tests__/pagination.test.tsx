@@ -1,9 +1,9 @@
-import * as React from 'react'
 import { mount } from 'enzyme';
+import * as React from 'react';
 
-import { activities } from './data'
+import { activities } from './data';
 
-import Pagination from '../pagination'
+import Pagination from '../pagination';
 
 describe('Pagination component', () => {
   const props = {

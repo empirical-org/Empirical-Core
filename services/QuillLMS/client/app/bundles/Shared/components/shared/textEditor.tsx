@@ -1,14 +1,13 @@
-import * as React from 'react';
+import Editor from '@draft-js-plugins/editor';
+import { convertFromHTML, convertToHTML } from 'draft-convert';
 import * as Draft from 'draft-js';
-import Editor from '@draft-js-plugins/editor'
-import { convertFromHTML, convertToHTML } from 'draft-convert'
-import * as Immutable from 'immutable'
 import {
-  RichUtils,
-  EditorState,
-} from 'draft-js'
+    EditorState, RichUtils
+} from 'draft-js';
+import * as Immutable from 'immutable';
+import * as React from 'react';
 
-import { richButtonsPlugin, } from '../../index'
+import { richButtonsPlugin } from '../../index';
 import addLinkPluginPlugin from "../draftJSCustomPlugins/addLinkPlugin";
 
 const HIGHLIGHT = 'highlight'
@@ -198,4 +197,5 @@ class TextEditor extends React.Component <any, any> {
 
 }
 
-export { TextEditor }
+export { TextEditor };
+

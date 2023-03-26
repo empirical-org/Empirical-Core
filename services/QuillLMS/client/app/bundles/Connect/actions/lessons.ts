@@ -1,9 +1,9 @@
 const C = require('../constants').default;
 import { pickBy } from 'lodash';
-import { LessonApi, TYPE_CONNECT_LESSON } from '../libs/lessons_api';
 import { push } from 'react-router-redux';
-import questionActions from './questions'
+import { LessonApi, TYPE_CONNECT_LESSON } from '../libs/lessons_api';
 import fillInBlankActions from './fillInBlank';
+import questionActions from './questions';
 import sentenceFragmentActions from './sentenceFragments';
 import titleCardActions from './titleCards.ts';
 

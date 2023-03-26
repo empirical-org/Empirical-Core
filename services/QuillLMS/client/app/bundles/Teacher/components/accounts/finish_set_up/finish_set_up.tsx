@@ -1,11 +1,11 @@
+import qs from 'qs';
 import * as React from 'react';
-import qs from 'qs'
 
-import PasswordWrapper from '../shared/password_wrapper'
-import Agreements from '../shared/agreements'
-import TeacherSignUpInfo from '../shared/teacher_sign_up_info'
-import { Input, } from '../../../../Shared/index'
-import { requestPut, } from '../../../../../modules/request/index'
+import { requestPut } from '../../../../../modules/request/index';
+import { Input } from '../../../../Shared/index';
+import Agreements from '../shared/agreements';
+import PasswordWrapper from '../shared/password_wrapper';
+import TeacherSignUpInfo from '../shared/teacher_sign_up_info';
 
 const SCHOOL_ADMIN = 'school admin'
 const DISTRICT_ADMIN = 'district admin'

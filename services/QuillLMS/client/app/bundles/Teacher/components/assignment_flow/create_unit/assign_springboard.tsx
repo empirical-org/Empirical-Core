@@ -1,7 +1,7 @@
 import React from 'react';
 
-import AssignmentFlowNavigation from '../assignment_flow_navigation'
-import SpringBoardContainer from '../../../containers/SpringBoardContainer'
+import SpringBoardContainer from '../../../containers/SpringBoardContainer';
+import AssignmentFlowNavigation from '../assignment_flow_navigation';
 
 const AssignSpringBoard = () => {
   return (

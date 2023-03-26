@@ -1,15 +1,15 @@
 import * as React from 'react';
-import { renderRoutes } from "react-router-config";
 import { useQuery } from 'react-query';
+import { renderRoutes } from "react-router-config";
 
 import StudentNavBar from './navbar/studentNavbar';
 import TeacherNavbar from './navbar/teacherNavbar';
 
-import { routes } from "../routes";
-import { getParameterByName } from '../libs/getParameterByName';
-import { TeacherPreviewMenu, ScreenreaderInstructions, } from '../../Shared/index';
-import { fetchUserRole } from '../../Shared/utils/userAPIs';
 import { addKeyDownListener } from '../../Shared/hooks/addKeyDownListener';
+import { ScreenreaderInstructions, TeacherPreviewMenu } from '../../Shared/index';
+import { fetchUserRole } from '../../Shared/utils/userAPIs';
+import { getParameterByName } from '../libs/getParameterByName';
+import { routes } from "../routes";
 
 export const Home = () => {
   const studentSession = getParameterByName('student', window.location.href);

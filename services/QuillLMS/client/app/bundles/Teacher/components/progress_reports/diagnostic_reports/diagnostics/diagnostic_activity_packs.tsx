@@ -1,17 +1,17 @@
-import * as React from 'react'
 import * as moment from 'moment'
+import * as React from 'react'
 
-import GrowthSummarySection from './growthSummarySection'
 import EmptyDiagnosticProgressReport from './empty_diagnostic_progress_report.jsx'
-import { Classroom, Activity, Diagnostic, } from './interfaces'
-import { goToAssign, baseDiagnosticImageSrc, } from './shared'
+import GrowthSummarySection from './growthSummarySection'
+import { Classroom, Diagnostic } from './interfaces'
+import { baseDiagnosticImageSrc, goToAssign } from './shared'
 
-import DemoOnboardingTour, { DEMO_ONBOARDING_DIAGNOSTIC_ACTIVITY_PACKS_INDEX,  } from '../../../shared/demo_onboarding_tour'
-import { PROGRESS_REPORTS_SELECTED_CLASSROOM_ID, } from '../../progress_report_constants'
-import { DropdownInput, Tooltip, } from '../../../../../Shared/index'
-import { requestGet } from '../../../../../../modules/request/index';
-import ArticleSpotlight from '../../../shared/articleSpotlight'
+import { requestGet } from '../../../../../../modules/request/index'
+import { DropdownInput, Tooltip } from '../../../../../Shared/index'
 import { DIAGNOSTICS_FEATURED_BLOG_POST_ID, GRAY_ARTICLE_FOOTER_BACKGROUND_COLOR } from '../../../../constants/featuredBlogPost'
+import ArticleSpotlight from '../../../shared/articleSpotlight'
+import DemoOnboardingTour, { DEMO_ONBOARDING_DIAGNOSTIC_ACTIVITY_PACKS_INDEX } from '../../../shared/demo_onboarding_tour'
+import { PROGRESS_REPORTS_SELECTED_CLASSROOM_ID } from '../../progress_report_constants'
 
 const multipleCardsIcon = <img alt="Activity pack icon" src={`${baseDiagnosticImageSrc}/icons-card-multiple.svg`} />
 const multipleUsersIcon = <img alt="Multiple user icon" src={`${baseDiagnosticImageSrc}/icons-user-multiple.svg`} />

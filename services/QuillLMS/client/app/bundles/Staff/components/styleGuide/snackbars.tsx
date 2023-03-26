@@ -1,5 +1,5 @@
 import * as React from 'react'
-import { Snackbar, defaultSnackbarTimeout } from '../../../Shared/index'
+import { defaultSnackbarTimeout, Snackbar } from '../../../Shared/index'
 
 class Snackbars extends React.Component {
   constructor(props) {

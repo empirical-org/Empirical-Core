@@ -1,8 +1,8 @@
 import React from 'react';
 
+import { ReactTable } from '../../Shared/index';
 import getAuthToken from '../components/modules/get_auth_token';
-import LoadingIndicator from '../components/shared/loading_indicator'
-import { ReactTable, } from '../../Shared/index'
+import LoadingIndicator from '../components/shared/loading_indicator';
 
 export default class CmsDistrictIndex extends React.Component {
   constructor(props) {

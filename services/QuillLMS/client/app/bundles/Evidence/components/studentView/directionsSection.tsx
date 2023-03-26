@@ -1,8 +1,8 @@
 import * as React from 'react'
 
-import { DEFAULT_HIGHLIGHT_PROMPT, } from '../../../Shared/utils/constants'
-import { informationIcon } from '../../../Shared/index'
 import useFocus from '../../../Shared/hooks/useFocus'
+import { informationIcon } from '../../../Shared/index'
+import { DEFAULT_HIGHLIGHT_PROMPT } from '../../../Shared/utils/constants'
 
 const READ_PASSAGE_STEP = 1
 const promptDirections = [<li>Use information <b>from the text</b> to finish the sentence.</li>, <li>Put the information in your own words.</li>]

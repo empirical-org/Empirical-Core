@@ -1,8 +1,8 @@
 import * as React from 'react';
 
-import { arrayFromNumbers, } from './shared'
+import { arrayFromNumbers } from './shared';
 
-import { OneThumbSlider, Tooltip, helpIcon, smallWhiteCheckIcon, } from '../../../../../Shared/index'
+import { helpIcon, OneThumbSlider, smallWhiteCheckIcon, Tooltip } from '../../../../../Shared/index';
 
 interface GradeLevelFiltersProps {
   gradeLevelFilters: number[],

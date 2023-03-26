@@ -1,16 +1,11 @@
-import * as React from 'react'
+import * as React from 'react';
 
-import EditTooltip from './editTooltip'
+import EditTooltip from './editTooltip';
 
 import {
-  UNNECESSARY_SPACE,
-  MULTIPLE_UNNECESSARY_DELETION,
-  SINGLE_UNNECESSARY_DELETION,
-  MULTIPLE_UNNECESSARY_ADDITION,
-  SINGLE_UNNECESSARY_ADDITION,
-  UNNECESSARY_CHANGE
-} from '../../helpers/determineUnnecessaryEditType'
-import { Concept } from '../../interfaces/concepts'
+    MULTIPLE_UNNECESSARY_ADDITION, MULTIPLE_UNNECESSARY_DELETION, SINGLE_UNNECESSARY_ADDITION, SINGLE_UNNECESSARY_DELETION, UNNECESSARY_CHANGE, UNNECESSARY_SPACE
+} from '../../helpers/determineUnnecessaryEditType';
+import { Concept } from '../../interfaces/concepts';
 
 interface EditProps {
   displayText: string;

@@ -1,8 +1,8 @@
 import * as React from 'react';
 
-import AssignActivityPackBanner from '../assignActivityPackBanner'
-import { Input, Spinner, } from '../../../../Shared/index'
-import { requestPut, requestGet, } from '../../../../../modules/request/index'
+import { requestGet, requestPut } from '../../../../../modules/request/index';
+import { Input, Spinner } from '../../../../Shared/index';
+import AssignActivityPackBanner from '../assignActivityPackBanner';
 
 const schoolVerificationSrc = `${process.env.CDN_URL}/images/onboarding/school_verification.svg`
 

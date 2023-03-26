@@ -1,7 +1,6 @@
 import * as React from 'react';
 
-import { DataTable, expandIcon, } from '../../../Shared/index'
-import { requestGet } from '../../../../modules/request';
+import { DataTable, expandIcon } from '../../../Shared/index';
 
 const listIllustrationSrc = `${process.env.CDN_URL}/images/pages/dashboard/illustrations-list.svg`
 

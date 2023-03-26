@@ -1,5 +1,5 @@
-import * as expect from 'expect'
-import { isValidRegex } from '../../../Shared'
+import * as expect from 'expect';
+import { isValidRegex } from '../../../Shared';
 
 describe('#isValidRegex', () => {
 

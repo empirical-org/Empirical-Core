@@ -1,16 +1,15 @@
-import * as React from 'react';
 import Pusher from 'pusher-js';
-import _ from 'lodash';
 import qs from 'qs';
+import * as React from 'react';
 
-import SubscriptionStatus from '../../Teacher/components/subscriptions/SubscriptionStatus';
+import { requestGet, requestPut } from '../../../modules/request';
+import { DropdownInput, Spinner } from '../../Shared/index';
+import { ACCOUNT_TYPE_TO_SUBSCRIPTION_TYPES } from '../../Teacher/components/subscriptions/constants';
 import CurrentSubscription from '../../Teacher/components/subscriptions/current_subscription';
-import SubscriptionHistory from '../../Teacher/components/subscriptions/subscription_history';
 import PremiumConfirmationModal from '../../Teacher/components/subscriptions/PremiumConfirmationModal';
-import { ACCOUNT_TYPE_TO_SUBSCRIPTION_TYPES, } from '../../Teacher/components/subscriptions/constants'
-import { requestGet, requestPut, } from '../../../modules/request'
-import { DropdownInput, Spinner, } from '../../Shared/index'
-import { FULL, restrictedPage, } from '../shared'
+import SubscriptionStatus from '../../Teacher/components/subscriptions/SubscriptionStatus';
+import SubscriptionHistory from '../../Teacher/components/subscriptions/subscription_history';
+import { FULL, restrictedPage } from '../shared';
 
 const purchaserNameOrEmail = (subscriptionStatus) => {
   if (!subscriptionStatus) { return }

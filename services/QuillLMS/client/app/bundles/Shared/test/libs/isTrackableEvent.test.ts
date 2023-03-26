@@ -1,5 +1,5 @@
-import * as expect from 'expect'
-import { isTrackableStudentEvent, UserIdsForEvent } from '../../../Shared'
+import * as expect from 'expect';
+import { isTrackableStudentEvent, UserIdsForEvent } from '../../../Shared';
 
 describe('#isTrackableStudentEvent', () => {
   const idData: UserIdsForEvent = { teacherId: null, studentId: null }

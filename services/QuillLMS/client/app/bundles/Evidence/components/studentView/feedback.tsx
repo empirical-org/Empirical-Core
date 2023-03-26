@@ -1,9 +1,9 @@
-import * as React from 'react'
-import ReactCSSTransitionReplace from 'react-css-transition-replace'
+import * as React from 'react';
+import ReactCSSTransitionReplace from 'react-css-transition-replace';
 import stripHtml from "string-strip-html";
 
-import { GRAMMAR, SPELLING, RULES_BASED_3, } from '../../../../constants/evidence'
-import useFocus from '../../../Shared/hooks/useFocus'
+import { GRAMMAR, RULES_BASED_3, SPELLING } from '../../../../constants/evidence';
+import useFocus from '../../../Shared/hooks/useFocus';
 
 const loopSrc = `${process.env.CDN_URL}/images/icons/loop.svg`
 const smallCheckCircleSrc = `${process.env.CDN_URL}/images/icons/check-circle-small.svg`

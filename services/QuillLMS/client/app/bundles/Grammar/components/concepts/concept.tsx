@@ -1,15 +1,14 @@
-import * as React from 'react'
-import { connect } from 'react-redux'
+import { ContentState, EditorState } from 'draft-js';
+import * as React from 'react';
+import { connect } from 'react-redux';
 import { Link } from 'react-router-dom';
-import { EditorState, ContentState } from 'draft-js'
-import _ from 'underscore'
 
-import * as questionActions from '../../actions/questions'
-import { ConceptReducerState } from '../../reducers/conceptsReducer'
-import { QuestionsReducerState } from '../../reducers/questionsReducer'
-import { Match } from '../../interfaces/match'
-import { Question } from '../../interfaces/questions'
-import { hashToCollection, FlagDropdown, TextEditor, } from '../../../Shared/index'
+import { FlagDropdown, hashToCollection, TextEditor } from '../../../Shared/index';
+import * as questionActions from '../../actions/questions';
+import { Match } from '../../interfaces/match';
+import { Question } from '../../interfaces/questions';
+import { ConceptReducerState } from '../../reducers/conceptsReducer';
+import { QuestionsReducerState } from '../../reducers/questionsReducer';
 
 interface ConceptState {
   prompt: string;

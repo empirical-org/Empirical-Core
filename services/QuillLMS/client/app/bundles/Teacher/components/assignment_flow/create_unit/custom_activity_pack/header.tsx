@@ -1,10 +1,10 @@
 import * as React from 'react';
-import { SortableHandle, } from 'react-sortable-hoc';
+import { SortableHandle } from 'react-sortable-hoc';
 
-import { Activity } from './interfaces'
-import ActivityRow from './activity_row'
+import ActivityRow from './activity_row';
+import { Activity } from './interfaces';
 
-import { Snackbar, defaultSnackbarTimeout, SortableList, } from '../../../../../Shared/index'
+import { defaultSnackbarTimeout, Snackbar, SortableList } from '../../../../../Shared/index';
 
 const reorderSrc = `${process.env.CDN_URL}/images/icons/reorder.svg`
 

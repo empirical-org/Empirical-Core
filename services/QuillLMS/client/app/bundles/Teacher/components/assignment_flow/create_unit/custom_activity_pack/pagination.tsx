@@ -1,7 +1,7 @@
 import * as React from 'react';
 
-import { Activity } from './interfaces'
-import { calculateNumberOfPages, lowerBound, upperBound, } from './shared'
+import { Activity } from './interfaces';
+import { calculateNumberOfPages, lowerBound, upperBound } from './shared';
 
 const expandSrc = `${process.env.CDN_URL}/images/shared/expand.svg`
 

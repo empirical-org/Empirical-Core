@@ -1,44 +1,32 @@
-import * as React from "react";
-import * as Redux from "redux";
-import {connect} from "react-redux";
 import * as _ from 'lodash';
 import { Response } from 'quill-marking-logic';
+import * as React from "react";
+import { connect } from "react-redux";
+import * as Redux from "redux";
 
-import QuestionComponent from './question'
-import Intro from './intro'
-import TurkCodePage from './turkCodePage'
+import Intro from './intro';
+import QuestionComponent from './question';
+import TurkCodePage from './turkCodePage';
 
-import getParameterByName from '../../helpers/getParameterByName';
+import { requestPost, requestPut } from '../../../../modules/request/index';
+import {
+    CLICK, KEYDOWN, KEYPRESS, MOUSEDOWN, MOUSEMOVE, roundValuesToSeconds, SCROLL, VISIBILITYCHANGE
+} from '../../../Shared/index';
+import { startListeningToConcepts } from '../../actions/concepts';
+import { startListeningToConceptsFeedback } from '../../actions/conceptsFeedback';
 import { getActivity } from "../../actions/grammarActivities";
+import { startListeningToQuestions } from '../../actions/questions';
 import {
-  updateSession,
-  getQuestionsForConcepts,
-  getQuestions,
-  goToNextQuestion,
-  checkAnswer,
-  startListeningToFollowUpQuestionsForProofreaderSession,
-  startNewSession,
+    checkAnswer, getQuestions, getQuestionsForConcepts, goToNextQuestion, startListeningToFollowUpQuestionsForProofreaderSession,
+    startNewSession, updateSession
 } from "../../actions/session";
-import { startListeningToConceptsFeedback } from '../../actions/conceptsFeedback'
-import { startListeningToConcepts } from '../../actions/concepts'
-import { startListeningToQuestions } from '../../actions/questions'
-import { getConceptResultsForAllQuestions, calculateScoreForLesson } from '../../helpers/conceptResultsGenerator'
-import { SessionState } from '../../reducers/sessionReducer'
-import { GrammarActivityState } from '../../reducers/grammarActivitiesReducer'
-import { ConceptsFeedbackState } from '../../reducers/conceptsFeedbackReducer'
-import { Question, FormattedConceptResult } from '../../interfaces/questions'
-import LoadingSpinner from '../shared/loading_spinner'
-import {
-  roundValuesToSeconds,
-  KEYDOWN,
-  MOUSEMOVE,
-  MOUSEDOWN,
-  CLICK,
-  KEYPRESS,
-  VISIBILITYCHANGE,
-  SCROLL,
-} from '../../../Shared/index'
-import { requestPut, requestPost, } from '../../../../modules/request/index'
+import { calculateScoreForLesson, getConceptResultsForAllQuestions } from '../../helpers/conceptResultsGenerator';
+import getParameterByName from '../../helpers/getParameterByName';
+import { FormattedConceptResult, Question } from '../../interfaces/questions';
+import { ConceptsFeedbackState } from '../../reducers/conceptsFeedbackReducer';
+import { GrammarActivityState } from '../../reducers/grammarActivitiesReducer';
+import { SessionState } from '../../reducers/sessionReducer';
+import LoadingSpinner from '../shared/loading_spinner';
 
 interface PlayGrammarContainerState {
   showTurkCode: boolean;

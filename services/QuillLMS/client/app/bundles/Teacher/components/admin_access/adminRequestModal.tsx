@@ -1,7 +1,7 @@
 import * as React from 'react'
 
-import { requestPost, } from '../../../../modules/request'
-import { smallWhiteCheckIcon, indeterminateCheckIcon, Input, } from '../../../Shared/index'
+import { requestPost } from '../../../../modules/request'
+import { indeterminateCheckIcon, Input, smallWhiteCheckIcon } from '../../../Shared/index'
 
 const AdminRequestModal = ({ onSuccess, schoolAdmins, closeModal, }) => {
   const [selectedAdminIds, setSelectedAdminIds] = React.useState([])

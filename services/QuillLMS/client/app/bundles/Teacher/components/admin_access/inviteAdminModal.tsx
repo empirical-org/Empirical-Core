@@ -1,7 +1,7 @@
 import * as React from 'react'
 
-import { requestPost, } from '../../../../modules/request'
-import { Input, } from '../../../Shared/index'
+import { requestPost } from '../../../../modules/request'
+import { Input } from '../../../Shared/index'
 
 // this is the same regex we use for saved user email validation, just adjusted for javascript
 const validEmailRegex = /^[\w+\-.]+@[a-z\d\-]+(\.[a-z\d\-]+)*\.[a-z]+$/

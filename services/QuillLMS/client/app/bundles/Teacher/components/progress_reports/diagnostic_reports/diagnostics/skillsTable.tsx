@@ -1,12 +1,11 @@
 import * as React from 'react'
 
 import {
-  FULLY_CORRECT,
-  expandIcon
-} from './shared'
-import {
-  SkillGroup
+    SkillGroup
 } from './interfaces'
+import {
+    expandIcon, FULLY_CORRECT
+} from './shared'
 
 const DEFAULT_ROW_COUNT = 3
 

@@ -1,9 +1,8 @@
 import * as React from "react";
-import _ from 'lodash'
 
-import { Topic } from './interfaces'
-import ChangeLogModal from '../../shared/changeLogModal'
-import { Input, DropdownInput, } from '../../../../Shared/index'
+import { DropdownInput, Input } from '../../../../Shared/index';
+import ChangeLogModal from '../../shared/changeLogModal';
+import { Topic } from './interfaces';
 
 interface NewTopicBoxProps {
   levelNumber: number;

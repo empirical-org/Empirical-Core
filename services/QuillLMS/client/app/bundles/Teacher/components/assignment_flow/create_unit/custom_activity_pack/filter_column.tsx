@@ -1,19 +1,19 @@
 import * as React from 'react';
 
-import { Activity, ActivityCategoryEditor, Topic } from './interfaces'
-import ActivityClassificationFilters from './activity_classification_filters'
-import ActivityCategoryFilters from './activity_category_filters'
-import StaffActivityCategoryFilters from './staff_activity_category_filters'
-import CCSSGradeLevelFilters from './ccss_grade_level_filters'
-import GradeLevelFilters from './grade_level_filters'
-import ELLFilters from './ell_filters'
-import ReadabilityGradeLevelFilters from './readability_grade_level_filters'
-import ContentPartnerFilters from './content_partner_filters'
-import EarlyAccessFilters from './early_access_filters'
-import TopicFilters from './topic_filters'
-import FlagFilters from './flag_filters'
+import ActivityCategoryFilters from './activity_category_filters';
+import ActivityClassificationFilters from './activity_classification_filters';
+import CCSSGradeLevelFilters from './ccss_grade_level_filters';
+import ContentPartnerFilters from './content_partner_filters';
+import EarlyAccessFilters from './early_access_filters';
+import ELLFilters from './ell_filters';
+import FlagFilters from './flag_filters';
+import GradeLevelFilters from './grade_level_filters';
+import { Activity, ActivityCategoryEditor, Topic } from './interfaces';
+import ReadabilityGradeLevelFilters from './readability_grade_level_filters';
+import StaffActivityCategoryFilters from './staff_activity_category_filters';
+import TopicFilters from './topic_filters';
 
-import { EVIDENCE_BETA_FLAGS, } from '../../../../../../constants/flagOptions'
+import { EVIDENCE_BETA_FLAGS } from '../../../../../../constants/flagOptions';
 
 interface FilterColumnProps {
   activities: Activity[],

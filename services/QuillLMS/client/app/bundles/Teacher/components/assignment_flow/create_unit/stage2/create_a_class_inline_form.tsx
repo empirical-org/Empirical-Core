@@ -1,8 +1,8 @@
-import * as React from 'react'
+import * as React from 'react';
 
-import GradeOptions from '../../../classrooms/grade_options'
-import { Input, DropdownInput, } from '../../../../../Shared/index'
 import { requestGet, requestPost } from '../../../../../../modules/request/index';
+import { DropdownInput, Input } from '../../../../../Shared/index';
+import GradeOptions from '../../../classrooms/grade_options';
 
 const informationSrc = `${process.env.CDN_URL}/images/icons/information.svg`
 

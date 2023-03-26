@@ -1,4 +1,4 @@
-import * as React from 'react'
+import * as React from 'react';
 import { NavLink } from 'react-router-dom';
 
 const LinkListItem = (props:any) => (
@@ -13,4 +13,4 @@ const LinkListItem = (props:any) => (
   </li>
 )
 
-export { LinkListItem }
+export { LinkListItem };

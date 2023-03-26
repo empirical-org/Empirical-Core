@@ -1,9 +1,8 @@
-import * as React from 'react'
 import { mount } from 'enzyme';
+import * as React from 'react';
 
-import { activities } from './data'
 
-import GradeLevelFilters from '../grade_level_filters'
+import GradeLevelFilters from '../grade_level_filters';
 
 describe('gradeLevelFilters component', () => {
   const props = {

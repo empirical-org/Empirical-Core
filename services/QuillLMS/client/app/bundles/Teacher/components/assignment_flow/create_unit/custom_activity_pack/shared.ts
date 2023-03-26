@@ -1,4 +1,4 @@
-import { Activity } from './interfaces'
+import { Activity } from './interfaces';
 
 const RESULTS_PER_PAGE = 20
 

@@ -1,9 +1,8 @@
 import * as React from "react";
-import { useQuery,  } from 'react-query';
+import { useQuery } from 'react-query';
 
-import { HintInterface } from '../../../interfaces/evidenceInterfaces';
-import { fetchHints, } from '../../../utils/evidence/hintAPIs';
-import { DropdownInput, Error, } from '../../../../Shared/index';
+import { DropdownInput } from '../../../../Shared/index';
+import { fetchHints } from '../../../utils/evidence/hintAPIs';
 
 const RuleHintDropdown = ({
   emptySelectionText,

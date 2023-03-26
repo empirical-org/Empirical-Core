@@ -1,11 +1,11 @@
 import * as React from 'react';
-import { SortableHandle, } from 'react-sortable-hoc';
+import { SortableHandle } from 'react-sortable-hoc';
 
-import { Activity, ActivityCategory, ActivityCategoryEditor } from './interfaces'
-import { ACTIVITY_CATEGORY_FILTERS, AVERAGE_FONT_WIDTH, } from './shared'
+import { Activity, ActivityCategory, ActivityCategoryEditor } from './interfaces';
+import { ACTIVITY_CATEGORY_FILTERS, AVERAGE_FONT_WIDTH } from './shared';
 
-import { requestPost, } from '../../../../../../modules/request/index'
-import { Tooltip, Input, Snackbar, defaultSnackbarTimeout, SortableList, } from '../../../../../Shared/index'
+import { requestPost } from '../../../../../../modules/request/index';
+import { defaultSnackbarTimeout, Input, Snackbar, SortableList, Tooltip } from '../../../../../Shared/index';
 
 const smallWhiteCheckSrc = `${process.env.CDN_URL}/images/shared/check-small-white.svg`
 const reorderSrc = `${process.env.CDN_URL}/images/icons/reorder.svg`

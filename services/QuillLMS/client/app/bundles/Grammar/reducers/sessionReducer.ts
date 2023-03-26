@@ -1,9 +1,9 @@
-import { Action } from "redux";
 import * as _ from 'lodash';
+import { Action } from "redux";
 
+import { getCurrentQuestion, getFilteredQuestions, getQuestionsWithAttempts } from '../../Shared/index';
 import { ActionTypes } from "../actions/actionTypes";
 import { Question } from '../interfaces/questions';
-import { getCurrentQuestion, getQuestionsWithAttempts, getFilteredQuestions } from '../../Shared/index';
 
 export interface SessionState {
   hasreceiveddata: boolean;

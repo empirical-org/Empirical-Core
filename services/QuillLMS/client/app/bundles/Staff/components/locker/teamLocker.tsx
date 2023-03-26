@@ -3,9 +3,9 @@ import { withRouter } from 'react-router-dom';
 
 import ReturnButton from "./returnButton";
 
-import { lockerItems } from "../../helpers/locker/lockerItems";
-import { renderLockerSections } from "../../helpers/locker/lockerHelperFunctions";
 import { titleCase } from "../../../Shared";
+import { renderLockerSections } from "../../helpers/locker/lockerHelperFunctions";
+import { lockerItems } from "../../helpers/locker/lockerItems";
 
 export const TeamLocker = ({ match, history }) => {
   const { params } = match;

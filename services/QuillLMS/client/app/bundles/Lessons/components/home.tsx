@@ -2,7 +2,7 @@ import * as React from 'react';
 import { renderRoutes } from "react-router-config";
 import { routes } from "../routes";
 
-import { ScreenreaderInstructions, } from '../../Shared/index'
+import { ScreenreaderInstructions } from '../../Shared/index';
 
 export default class Home extends React.Component<any, any> {
   constructor(props) {

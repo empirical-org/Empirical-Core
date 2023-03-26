@@ -1,7 +1,7 @@
 import * as React from 'react';
-import ActivityScoresTable from './activity_scores_table';
 import ItemDropdown from '../../Teacher/components/general_components/dropdown_selectors/item_dropdown';
 import CSVDownloadForProgressReport from '../../Teacher/components/progress_reports/csv_download_for_progress_report';
+import ActivityScoresTable from './activity_scores_table';
 
 interface ActivityScoresProps {
   csvData: Object[];

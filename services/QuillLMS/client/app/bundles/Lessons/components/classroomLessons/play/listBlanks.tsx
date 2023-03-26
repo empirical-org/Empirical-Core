@@ -1,25 +1,22 @@
 declare function require(name:string);
 import * as React from 'react';
-import * as _ from 'lodash'
 import {
-  Feedback,
-  SentenceFragments,
-} from '../../../../Shared/index'
+    Feedback,
+    SentenceFragments
+} from '../../../../Shared/index';
 
 import {
-  QuestionData,
-} from '../../../interfaces/classroomLessons'
-import {
-  ClassroomLessonSession,
-  SelectedSubmissionsForQuestion,
-  QuestionSubmissionsList
-} from '../interfaces'
+    QuestionData
+} from '../../../interfaces/classroomLessons';
 import TextEditor from '../../renderForQuestions/renderTextEditor';
-import SubmitButton from './submitButton'
-import ProjectorHeader from './projectorHeader'
-import ProjectedAnswers from './projectedAnswers'
-import PromptSection from './promptSection'
-import { PROJECT } from './constants'
+import {
+    QuestionSubmissionsList, SelectedSubmissionsForQuestion
+} from '../interfaces';
+import { PROJECT } from './constants';
+import ProjectedAnswers from './projectedAnswers';
+import ProjectorHeader from './projectorHeader';
+import PromptSection from './promptSection';
+import SubmitButton from './submitButton';
 
 import { getParameterByName } from '../../../libs/getParameterByName';
 

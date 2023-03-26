@@ -1,8 +1,7 @@
-import React, {Component} from 'react'
-import ScriptComponent from '../shared/scriptComponent'
-import SlideHTMLEditor from './slideHTMLEditor'
-import _ from 'lodash'
+import React, { Component } from 'react';
 import * as CLIntF from '../../../interfaces/classroomLessons';
+import ScriptComponent from '../shared/scriptComponent';
+import SlideHTMLEditor from './slideHTMLEditor';
 
 interface EditScriptItemProps {
   scriptItem: CLIntF.ScriptItem,
@@ -24,7 +23,7 @@ class EditScriptItem extends Component<EditScriptItemProps, EditScriptItemState>
     this.saveChanges = this.saveChanges.bind(this)
     this.deleteScriptItem = this.deleteScriptItem.bind(this)
   }
-  
+
   // componentWillReceiveProps(nextProps) {
   //   if (!_.isEqual(this.state.scriptItem, nextProps.scriptItem)) {
   //     this.setState({scriptItem: nextProps.scriptItem})

@@ -1,23 +1,18 @@
 declare function require(name:string);
 import * as React from 'react';
 import { connect } from 'react-redux';
-import { Link } from 'react-router'
 
-import Tooltip from '../classroomLessons/shared/tooltip'
-import { getParameterByName } from '../../libs/getParameterByName';
 import {
-  setWatchTeacherState,
-  removeWatchTeacherState,
-  unpinActivityOnSaveAndExit,
-  showSignupModal
+    removeWatchTeacherState, setWatchTeacherState, showSignupModal, unpinActivityOnSaveAndExit
 } from '../../actions/classroomSessions';
 import {
-  createNewEdition
+    createNewEdition
 } from '../../actions/customize';
+import { getParameterByName } from '../../libs/getParameterByName';
 import {
-  ClassroomSessionId,
-  ClassroomUnitId
-} from '../classroomLessons/interfaces'
+    ClassroomUnitId
+} from '../classroomLessons/interfaces';
+import Tooltip from '../classroomLessons/shared/tooltip';
 
 const watchTeacherIcon = 'https://assets.quill.org/images/icons/watch_teacher_icon.svg'
 const exitIcon = 'https://assets.quill.org/images/icons/save_exit_icon.svg'

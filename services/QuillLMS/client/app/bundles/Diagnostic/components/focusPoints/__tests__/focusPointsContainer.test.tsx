@@ -1,9 +1,9 @@
+import { mount } from 'enzyme';
 import * as React from 'react';
-import { MemoryRouter } from 'react-router'
-import { shallow, mount } from 'enzyme';
+import { MemoryRouter } from 'react-router';
+import { SortableList } from '../../../../Shared/index';
 import { genericQuestion } from '../../../test/data/test_data.js';
 import { FocusPointsContainer } from '../focusPointsContainer.jsx';
-import { SortableList } from '../../../../Shared/index';
 
 function setup() {
   const params = { questionID: 100, };

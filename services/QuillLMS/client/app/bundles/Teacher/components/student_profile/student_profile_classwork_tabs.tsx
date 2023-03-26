@@ -1,6 +1,6 @@
-import * as React from 'react'
+import * as React from 'react';
 
-import { TO_DO_ACTIVITIES, COMPLETED_ACTIVITIES, } from '../../../../constants/student_profile'
+import { COMPLETED_ACTIVITIES, TO_DO_ACTIVITIES } from '../../../../constants/student_profile';
 
 const BREAKPOINT = 682
 

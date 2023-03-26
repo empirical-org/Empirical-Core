@@ -1,5 +1,5 @@
 import * as React from 'react'
-import { Range, getTrackBackground, } from 'react-range'
+import { getTrackBackground, Range } from 'react-range'
 
 interface SharedSliderProps {
   minValue: number,

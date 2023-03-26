@@ -1,6 +1,6 @@
 import * as React from 'react';
 
-import { sortOptions } from './shared'
+import { sortOptions } from './shared';
 
 const closeIconSrc = `${process.env.CDN_URL}/images/icons/close.svg`
 

@@ -1,18 +1,18 @@
 import * as React from "react";
+import { useQuery, useQueryClient } from 'react-query';
 import { Link } from 'react-router-dom';
-import { useQueryClient, useQuery } from 'react-query';
 import { firstBy } from "thenby";
 
 import RuleViewForm from './ruleViewForm';
 
-import { getConceptName, getPromptIdString } from '../../../helpers/evidence/ruleHelpers';
-import { getPromptsIcons } from '../../../helpers/evidence/promptHelpers';
-import { RuleInterface, PromptInterface } from '../../../interfaces/evidenceInterfaces';
-import { BECAUSE, BUT, SO, blankRule, ruleApiOrder } from '../../../../../constants/evidence';
-import { fetchActivity } from '../../../utils/evidence/activityAPIs';
-import { createRule, fetchRules, updateRule } from '../../../utils/evidence/ruleAPIs';
-import { fetchConcepts, } from '../../../utils/evidence/conceptAPIs';
+import { BECAUSE, blankRule, BUT, ruleApiOrder, SO } from '../../../../../constants/evidence';
 import { DataTable, Error, Modal, Spinner } from '../../../../Shared/index';
+import { getPromptsIcons } from '../../../helpers/evidence/promptHelpers';
+import { getConceptName, getPromptIdString } from '../../../helpers/evidence/ruleHelpers';
+import { PromptInterface, RuleInterface } from '../../../interfaces/evidenceInterfaces';
+import { fetchActivity } from '../../../utils/evidence/activityAPIs';
+import { fetchConcepts } from '../../../utils/evidence/conceptAPIs';
+import { createRule, fetchRules, updateRule } from '../../../utils/evidence/ruleAPIs';
 
 function sortByRuleApiOrder(ruleOneRuleType: string, ruleTwoRuleType: string) {
   return ruleApiOrder.indexOf(ruleOneRuleType) - ruleApiOrder.indexOf(ruleTwoRuleType);

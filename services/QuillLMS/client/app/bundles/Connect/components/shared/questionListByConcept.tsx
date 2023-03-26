@@ -1,7 +1,7 @@
-import * as React from 'react'
 import _ from 'lodash'
+import * as React from 'react'
+import { hashToCollection } from '../../../Shared/index'
 import { LinkListItem } from './linkListItem'
-import { hashToCollection, } from '../../../Shared/index'
 
 export class QuestionListByConcept extends React.Component<any, any> {
 

@@ -1,14 +1,14 @@
+import { ContentState, EditorState } from 'draft-js';
 import * as React from 'react';
-import { EditorState, ContentState } from 'draft-js';
-import Dropzone from 'react-dropzone'
+import Dropzone from 'react-dropzone';
 
-import UnitTemplateActivitySelector from './unitTemplateActivitySelector'
+import UnitTemplateActivitySelector from './unitTemplateActivitySelector';
 
-import { DropdownInput, Input, TextEditor, Tooltip, Snackbar, defaultSnackbarTimeout, PRODUCTION_FLAG, ALPHA_FLAG, BETA_FLAG, GAMMA_FLAG, ARCHIVED_FLAG, PRIVATE_FLAG, NOT_APPLICABLE } from '../../../Shared/index'
-import getAuthToken from '../modules/get_auth_token';
+import { ALPHA_FLAG, ARCHIVED_FLAG, BETA_FLAG, defaultSnackbarTimeout, DropdownInput, GAMMA_FLAG, Input, NOT_APPLICABLE, PRIVATE_FLAG, PRODUCTION_FLAG, Snackbar, TextEditor, Tooltip } from '../../../Shared/index';
 import { DropdownObjectInterface } from '../../../Staff/interfaces/evidenceInterfaces';
 import { validateUnitTemplateForm } from '../../helpers/unitTemplates';
-import { fetchUnitTemplateCategories, updateUnitTemplate, createUnitTemplate } from '../../utils/unitTemplateAPIs';
+import { createUnitTemplate, fetchUnitTemplateCategories, updateUnitTemplate } from '../../utils/unitTemplateAPIs';
+import getAuthToken from '../modules/get_auth_token';
 
 const FLAG_DROPDOWN_OPTIONS = [PRODUCTION_FLAG, ALPHA_FLAG, BETA_FLAG, GAMMA_FLAG, ARCHIVED_FLAG, PRIVATE_FLAG];
 const TIME_OPTIONS = ['0', '10', '20', '30', '40', '50', '60', '70', '80', '90', '100', '110', '120', '130', '140', '150', '160', '170', '180', '190'];

@@ -1,9 +1,9 @@
-import { mockGrammarActivityApi, } from '../__mocks__/grammar_activity_api'
+import { mockGrammarActivityApi } from '../__mocks__/grammar_activity_api'
 jest.mock('../../libs/grammar_activities_api', () => ({
   GrammarActivityApi: mockGrammarActivityApi,
 }))
 
-import { mockDispatch as dispatch, } from '../__mocks__/dispatch'
+import { mockDispatch as dispatch } from '../__mocks__/dispatch'
 
 import * as grammarActions from '../../actions/grammarActivities'
 

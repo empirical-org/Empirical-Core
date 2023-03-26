@@ -1,15 +1,12 @@
 const C = require('../constants').default;
-import { submitResponse } from './responses';
 import { push } from 'react-router-redux';
-import _ from 'lodash';
-import { Question } from '../interfaces/questions'
-import sessionActions from './sessions';
+import { Question } from '../interfaces/questions';
 import {
-  QuestionApi,
-  FocusPointApi,
-  IncorrectSequenceApi,
-  SENTENCE_FRAGMENTS_TYPE
-} from '../libs/questions_api'
+    FocusPointApi,
+    IncorrectSequenceApi, QuestionApi, SENTENCE_FRAGMENTS_TYPE
+} from '../libs/questions_api';
+import { submitResponse } from './responses';
+import sessionActions from './sessions';
 
 function startListeningToSentenceFragments() {
   return loadSentenceFragments();

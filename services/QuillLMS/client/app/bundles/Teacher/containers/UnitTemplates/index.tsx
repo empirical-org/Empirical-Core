@@ -1,14 +1,14 @@
 import * as React from 'react'
 
-import UnitTemplateRow from './unitTemplateRow'
 import UnitTemplateFilterInputs from './unitTemplateFilterInputs'
+import UnitTemplateRow from './unitTemplateRow'
 
-import LoadingSpinner from '../../../Connect/components/shared/loading_indicator.jsx'
-import { SortableList, Tooltip } from  '../../../Shared/index'
-import getAuthToken from '../../components/modules/get_auth_token'
-import { orderedUnitTemplates, sortUnitTemplates, ALL_FLAGS, ALL_DIAGNOSTICS, NOT_ARCHIVED_FLAG, ARCHIVED_FLAG } from '../../helpers/unitTemplates'
 import { flagOptions } from '../../../../constants/flagOptions'
-import { requestGet, } from '../../../../modules/request/index'
+import { requestGet } from '../../../../modules/request/index'
+import LoadingSpinner from '../../../Connect/components/shared/loading_indicator.jsx'
+import { SortableList, Tooltip } from '../../../Shared/index'
+import getAuthToken from '../../components/modules/get_auth_token'
+import { ALL_DIAGNOSTICS, ALL_FLAGS, NOT_ARCHIVED_FLAG, orderedUnitTemplates, sortUnitTemplates } from '../../helpers/unitTemplates'
 
 const UNIT_TEMPLATES_URL = `${process.env.DEFAULT_URL}/cms/unit_templates.json`
 const DIAGNOSTICS_URL = `${process.env.DEFAULT_URL}/api/v1/activities/diagnostic_activities.json`

@@ -1,13 +1,12 @@
 import * as React from "react";
-import { useQuery, useQueryClient, } from 'react-query';
-import Dropzone from 'react-dropzone'
+import Dropzone from 'react-dropzone';
+import { useQuery, useQueryClient } from 'react-query';
 
-import SubmissionModal from '../shared/submissionModal';
-import { fetchActivity, createLabeledSyntheticData } from '../../../utils/evidence/activityAPIs';
+import { Spinner } from '../../../../Shared/index';
+import getAuthToken from '../../../../Teacher/components/modules/get_auth_token';
 import { renderHeader } from "../../../helpers/evidence/renderHelpers";
-import { Input, Spinner } from '../../../../Shared/index';
-import { TITLE } from "../../../../../constants/evidence";
-import getAuthToken from '../../../../Teacher/components/modules/get_auth_token'
+import { createLabeledSyntheticData, fetchActivity } from '../../../utils/evidence/activityAPIs';
+import SubmissionModal from '../shared/submissionModal';
 
 const LabeledDataUploadForm = ({ history, match }) => {
   const { params } = match;

@@ -1,6 +1,6 @@
-import * as React from 'react'
+import * as React from 'react';
 
-import { ReactTable, } from '../../../../Shared/index'
+import { ReactTable } from '../../../../Shared/index';
 
 const columns = [
   {

@@ -1,6 +1,5 @@
-import * as React from 'react';
 import { mount } from 'enzyme';
-import qs from 'qs'
+import * as React from 'react';
 
 import VerifyEmail from '../verify_email';
 
