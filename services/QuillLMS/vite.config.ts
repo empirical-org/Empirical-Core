@@ -1,12 +1,11 @@
-import { createLogger, defineConfig, loadEnv } from 'vite'
-import RubyPlugin from 'vite-plugin-ruby'
-import react from '@vitejs/plugin-react'
-import friendlyTypeImports from 'rollup-plugin-friendly-type-imports';
-import requireTransform from 'vite-plugin-require-transform';
-import {resolve} from 'path'
-import path from 'path'
-
+import { viteCommonjs } from '@originjs/vite-plugin-commonjs';
+//import react from '@vitejs/plugin-react';
 import fs from 'fs/promises';
+import path, { resolve } from 'path';
+import friendlyTypeImports from 'rollup-plugin-friendly-type-imports';
+import { createLogger, defineConfig, loadEnv } from 'vite';
+import requireTransform from 'vite-plugin-require-transform';
+import RubyPlugin from 'vite-plugin-ruby';
 
 // Environmental Variables can be obtained from import.meta.env as usual.
 // - https://vitejs.dev/config/
@@ -36,14 +35,11 @@ export default defineConfig(({command, mode}) => {
         '@node_modules' : path.resolve(__dirname, 'client/node_modules'),
       }
     },
-    plugins: [
-      react(),
-      requireTransform(),
-      friendlyTypeImports(),
 
-      RubyPlugin()
-    ],
     define: {
+      // global: {}
+      //process: { env: {}}
+
       // Note: declare node-accessible variable (i.e. CDN_URL) in .env.<mode>, not here
       // 'process': {
       //   env: {
@@ -55,23 +51,29 @@ export default defineConfig(({command, mode}) => {
 
 
     },
-    // esbuild: {
-    //   loader: "jsx",
-    //   //include: /src\/.*\.jsx?$/,
+    plugins: [
+      requireTransform(),
+      viteCommonjs(),
+      friendlyTypeImports(),
 
-    // },
+      RubyPlugin(),
+      //react() // required, to address the 'global' not found error
+      // react({
+      //   jsxRuntime: 'classic',
+      // })
+    ],
+    esbuild: {
+      // define: {
+      //   global: "window"
+      // },
+      // loader: "jsx",
+      //include: /src\/.*\.jsx?$/,
+
+    },
     optimizeDeps: {
       esbuildOptions: {
-        // Node.js global to browser globalThis
-        // Details of hack: (https://github.com/vitejs/vite/discussions/5912)
-        define: {
-          global: 'globalThis'
-        },
-        // loader: {
-        //   ".js": "jsx",
-        //   ".ts": "tsx",
-        // },
 
+        // so jsx syntax can be detected
         plugins: [
           {
             name: "load-js-files-as-jsx",
