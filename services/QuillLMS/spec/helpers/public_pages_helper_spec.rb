@@ -14,7 +14,7 @@ describe PublicPagesHelper do
     end
 
     context 'with demo user' do
-      let!(:demo_user) { User.where(email: Demo::ReportDemoCreator::EMAIL).first : create(:user, email: Demo::ReportDemoCreator::EMAIL) }
+      let!(:demo_user) { User.where(email: Demo::ReportDemoCreator::EMAIL).first || create(:user, email: Demo::ReportDemoCreator::EMAIL) }
 
       before { allow(helper).to receive(:current_user) { demo_user } }
 
