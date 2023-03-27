@@ -2,12 +2,12 @@ import * as _expect from 'expect';
 const expect = _expect as any as typeof _expect.default
 
 import {
-    generateConceptResults
+  generateConceptResults
 } from '../../libs/conceptResults';
 import {
-    currentActivity,
-    expectedPayload,
-    submittedResponses
+  currentActivity,
+  expectedPayload,
+  submittedResponses
 } from './conceptResults.data';
 
 describe("Getting concept results from a completed Evidence activity", () => {

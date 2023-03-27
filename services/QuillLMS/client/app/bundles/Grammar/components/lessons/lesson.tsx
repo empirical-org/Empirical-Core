@@ -2,8 +2,8 @@ import * as React from 'react';
 import { connect } from 'react-redux';
 import { Link } from 'react-router-dom';
 import {
-    hashToCollection,
-    Modal
+  hashToCollection,
+  Modal
 } from '../../../Shared/index';
 import { ActionTypes } from '../../actions/actionTypes';
 import * as lessonActions from '../../actions/grammarActivities';

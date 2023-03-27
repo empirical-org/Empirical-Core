@@ -3,7 +3,7 @@ import ReactTransition from 'react-addons-css-transition-group';
 import _ from 'underscore';
 import { Feedback, SentenceFragments } from '../../../Shared/index';
 import {
-    getGradedResponsesWithCallback
+  getGradedResponsesWithCallback
 } from '../../actions/responses.js';
 import getResponse from '../renderForQuestions/checkAnswer';
 import Cues from '../renderForQuestions/cues.jsx';

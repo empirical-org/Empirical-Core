@@ -1,7 +1,7 @@
 import * as expect from 'expect';
 import {
-    MULTIPLE_UNNECESSARY_ADDITION, MULTIPLE_UNNECESSARY_DELETION, SINGLE_UNNECESSARY_ADDITION, SINGLE_UNNECESSARY_DELETION, unnecessaryAdditionMatch,
-    unnecessaryDeletionMatch, unnecessarySpaceMatch, unnecessarySpaceSplitResponse, UNNECESSARY_SPACE
+  MULTIPLE_UNNECESSARY_ADDITION, MULTIPLE_UNNECESSARY_DELETION, SINGLE_UNNECESSARY_ADDITION, SINGLE_UNNECESSARY_DELETION, unnecessaryAdditionMatch,
+  unnecessaryDeletionMatch, unnecessarySpaceMatch, unnecessarySpaceSplitResponse, UNNECESSARY_SPACE
 } from '../../helpers/determineUnnecessaryEditType';
 
 describe('#unnecessarySpaceMatch', () => {

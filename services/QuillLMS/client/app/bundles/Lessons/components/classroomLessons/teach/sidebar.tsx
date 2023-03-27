@@ -2,15 +2,15 @@ declare function require(name:string);
 import * as React from 'react';
 import { connect } from 'react-redux';
 import {
-    updateCurrentSlide
+  updateCurrentSlide
 } from '../../../actions/classroomSessions';
 import {
-    ClassroomLesson
+  ClassroomLesson
 } from '../../../interfaces/classroomLessons';
 import * as CustomizeIntf from '../../../interfaces/customize';
 import { getParameterByName } from '../../../libs/getParameterByName';
 import {
-    ClassroomLessonSession, ClassroomUnitId, QuestionSubmissionsList
+  ClassroomLessonSession, ClassroomUnitId, QuestionSubmissionsList
 } from '../interfaces';
 import CLStudentFillInTheBlank from '../play/fillInTheBlank';
 import CLStudentListBlanks from '../play/listBlanks';

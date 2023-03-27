@@ -4,10 +4,10 @@ import { withRouter } from 'react-router-dom';
 
 import GrowthSkillsTable from './growthSkillsTable';
 import {
-    ConceptResults, SkillResults
+  ConceptResults, SkillResults
 } from './interfaces';
 import {
-    baseDiagnosticImageSrc, correctImage, fileDocumentIcon
+  baseDiagnosticImageSrc, correctImage, fileDocumentIcon
 } from './shared';
 import SkillsTable from './skillsTable';
 

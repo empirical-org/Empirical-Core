@@ -1,9 +1,9 @@
 import * as React from 'react';
 import {
-    ClassroomLesson, Question
+  ClassroomLesson, Question
 } from '../../../interfaces/classroomLessons';
 import {
-    ClassroomLessonSession
+  ClassroomLessonSession
 } from '../interfaces';
 import ScriptComponent from '../shared/scriptComponent';
 import { sortByLastName } from '../shared/studentSorts';

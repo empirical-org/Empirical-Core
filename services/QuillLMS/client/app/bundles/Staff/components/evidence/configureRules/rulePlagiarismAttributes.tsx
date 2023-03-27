@@ -4,8 +4,8 @@ import * as React from "react";
 import { FEEDBACK, HIGHLIGHT_ADDITION, HIGHLIGHT_REMOVAL } from '../../../../../constants/evidence';
 import { TextEditor } from '../../../../Shared/index';
 import {
-    handleSetFeedback, handleSetPlagiarismTexts,
-    renderHighlights
+  handleSetFeedback, handleSetPlagiarismTexts,
+  renderHighlights
 } from '../../../helpers/evidence/ruleHelpers';
 import { ClickEvent } from '../../../interfaces/evidenceInterfaces';
 

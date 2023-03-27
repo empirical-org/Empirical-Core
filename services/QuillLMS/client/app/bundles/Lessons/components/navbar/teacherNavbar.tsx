@@ -3,14 +3,14 @@ import * as React from 'react';
 import { connect } from 'react-redux';
 
 import {
-    removeWatchTeacherState, setWatchTeacherState, showSignupModal, unpinActivityOnSaveAndExit
+  removeWatchTeacherState, setWatchTeacherState, showSignupModal, unpinActivityOnSaveAndExit
 } from '../../actions/classroomSessions';
 import {
-    createNewEdition
+  createNewEdition
 } from '../../actions/customize';
 import { getParameterByName } from '../../libs/getParameterByName';
 import {
-    ClassroomUnitId
+  ClassroomUnitId
 } from '../classroomLessons/interfaces';
 import Tooltip from '../classroomLessons/shared/tooltip';
 

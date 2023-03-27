@@ -16,7 +16,7 @@ import { redirectToActivity } from '../../../../../Shared';
 import LoadingIndicator from '../../../shared/loading_indicator';
 import ScrollToTop from '../../../shared/scroll_to_top';
 import {
-    ACTIVITY_IDS_ARRAY, CLICKED_ACTIVITY_PACK_ID, COLLEGE_BOARD_SLUG, UNIT_NAME, UNIT_TEMPLATE_ID, UNIT_TEMPLATE_NAME
+  ACTIVITY_IDS_ARRAY, CLICKED_ACTIVITY_PACK_ID, COLLEGE_BOARD_SLUG, UNIT_NAME, UNIT_TEMPLATE_ID, UNIT_TEMPLATE_NAME
 } from '../../assignmentFlowConstants';
 import AssignmentFlowNavigation from '../../assignment_flow_navigation';
 import parsedQueryParams from '../../parsedQueryParams';

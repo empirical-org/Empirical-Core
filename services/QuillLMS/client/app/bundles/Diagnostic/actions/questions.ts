@@ -11,8 +11,8 @@ import { push } from 'react-router-redux';
 import _ from 'underscore';
 import { requestPost } from '../../../modules/request/index';
 import {
-    FocusPointApi,
-    IncorrectSequenceApi, QuestionApi, SENTENCE_COMBINING_TYPE
+  FocusPointApi,
+  IncorrectSequenceApi, QuestionApi, SENTENCE_COMBINING_TYPE
 } from '../libs/questions_api';
 import { submitResponse } from './responses';
 import sessionActions from './sessions';

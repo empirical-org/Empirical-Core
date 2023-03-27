@@ -3,7 +3,7 @@ import { connect } from 'react-redux';
 import { push } from 'react-router-redux';
 import _ from 'underscore';
 import {
-    ArchivedButton, Modal
+  ArchivedButton, Modal
 } from '../../../Shared/index';
 import * as actions from '../../actions/questions';
 import { deleteResponse, submitResponseEdit } from '../../actions/responses';

@@ -1,5 +1,5 @@
 import {
-    Students
+  Students
 } from '../interfaces';
 
 export function sortByLastName(name1: string, name2: string, students: Students) {

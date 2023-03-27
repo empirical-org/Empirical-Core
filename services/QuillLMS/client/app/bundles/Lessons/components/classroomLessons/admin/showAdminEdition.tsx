@@ -7,13 +7,13 @@ import DeleteSlideButton from './deleteSlideButton';
 import EditEditionDetails from './editEditionDetails';
 
 import {
-    getComponentDisplayName,
-    slideTypeKeys
+  getComponentDisplayName,
+  slideTypeKeys
 } from './helpers';
 
 import {
-    addSlide,
-    deleteEdition, deleteEditionSlide, updateEditionDetails, updateEditionSlides
+  addSlide,
+  deleteEdition, deleteEditionSlide, updateEditionDetails, updateEditionSlides
 } from '../../../actions/classroomLesson';
 
 

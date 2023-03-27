@@ -1,8 +1,8 @@
 import * as React from 'react';
 import { connect } from 'react-redux';
 import {
-    easyJoinLessonAddName, fetchActiveActivitySession, goToNextSlide,
-    goToPreviousSlide, registerPresence, saveActiveActivitySession, saveStudentSubmission, startListeningToSession, updateNoStudentError
+  easyJoinLessonAddName, fetchActiveActivitySession, goToNextSlide,
+  goToPreviousSlide, registerPresence, saveActiveActivitySession, saveStudentSubmission, startListeningToSession, updateNoStudentError
 } from '../../../actions/classroomSessions';
 import NavBar from '../../navbar/studentNavbar';
 import ErrorPage from '../shared/errorPage';
@@ -25,13 +25,13 @@ import { ClassroomLesson } from '../../../interfaces/classroomLessons';
 import * as CustomizeIntf from '../../../interfaces/customize';
 import { getParameterByName } from '../../../libs/getParameterByName';
 import {
-    ClassroomLessonSession,
-    QuestionSubmissionsList
+  ClassroomLessonSession,
+  QuestionSubmissionsList
 } from '../interfaces';
 import { scriptTagStrip } from '../shared/scriptTagStrip';
 
 import {
-    CLICK, KEYDOWN, KEYPRESS, MOUSEDOWN, MOUSEMOVE, SCROLL, Spinner, VISIBILITYCHANGE
+  CLICK, KEYDOWN, KEYPRESS, MOUSEDOWN, MOUSEMOVE, SCROLL, Spinner, VISIBILITYCHANGE
 } from '../../../../Shared/index';
 
 const arrowSrc = `${process.env.CDN_URL}/images/icons/chevron-arrow-filled.svg`

@@ -3,11 +3,11 @@ import * as moment from 'moment'
 import * as React from 'react'
 
 import {
-    ScriptItem
+  ScriptItem
 } from '../../../interfaces/classroomLessons'
 import Cues from '../../renderForQuestions/cues'
 import {
-    SelectedSubmissions, Submissions
+  SelectedSubmissions, Submissions
 } from '../interfaces'
 import MultipleTextEditor from './multipleTextEditor'
 import ReviewStudentRow from './reviewStudentRow'

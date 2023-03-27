@@ -4,22 +4,22 @@ import { connect } from 'react-redux';
 import { Spinner } from '../../../Shared/index';
 
 import {
-    getClassLesson
+  getClassLesson
 } from '../../actions/classroomLesson';
 
 import {
-    setEditionId, startListeningToSession
+  setEditionId, startListeningToSession
 } from '../../actions/classroomSessions';
 import {
-    archiveEdition, createNewEdition, deleteEdition,
-    getCurrentUserAndCoteachersFromLMS,
-    getEditionMetadataForUserIds, saveEditionName
+  archiveEdition, createNewEdition, deleteEdition,
+  getCurrentUserAndCoteachersFromLMS,
+  getEditionMetadataForUserIds, saveEditionName
 } from '../../actions/customize';
 import * as CustomizeIntF from '../../interfaces/customize';
 import { getParameterByName } from '../../libs/getParameterByName';
 import {
-    ClassroomSessionId,
-    ClassroomUnitId
+  ClassroomSessionId,
+  ClassroomUnitId
 } from '../classroomLessons/interfaces';
 import SignupModal from '../classroomLessons/teach/signupModal';
 import CreateCustomizedEditionNavbar from '../navbar/createCustomizedEditionNavbar';

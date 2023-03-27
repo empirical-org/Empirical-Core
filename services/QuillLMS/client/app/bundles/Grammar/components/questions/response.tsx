@@ -7,14 +7,14 @@ import ConceptResults from './conceptResults';
 import ResponseList from './responseList';
 
 import {
-    Modal,
-    TextEditor
+  Modal,
+  TextEditor
 } from '../../../Shared/index';
 import { ActionTypes } from '../../actions/actionTypes';
 import * as massEdit from '../../actions/massEdit';
 import * as questionActions from '../../actions/questions';
 import {
-    deleteResponse, getGradedResponsesWithCallback, submitResponseEdit
+  deleteResponse, getGradedResponsesWithCallback, submitResponseEdit
 } from '../../actions/responses';
 
 interface ResponseState {

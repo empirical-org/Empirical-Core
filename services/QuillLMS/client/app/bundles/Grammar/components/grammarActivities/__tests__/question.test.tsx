@@ -3,8 +3,8 @@ import * as React from "react";
 import ContentEditable from 'react-contenteditable';
 import { QuestionComponent } from "../question";
 import {
-    conceptsFeedback, currentActivity, currentQuestion, currentQuestionWithFiveIncorrectAttempts,
-    currentQuestionWithOneCorrectAttempt, currentQuestionWithOneIncorrectAttempt, responses, session
+  conceptsFeedback, currentActivity, currentQuestion, currentQuestionWithFiveIncorrectAttempts,
+  currentQuestionWithOneCorrectAttempt, currentQuestionWithOneIncorrectAttempt, responses, session
 } from './data';
 
 Object.defineProperty(window, 'matchMedia', {

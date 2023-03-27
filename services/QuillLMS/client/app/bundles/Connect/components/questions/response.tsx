@@ -2,13 +2,13 @@ import { ContentState, EditorState } from 'draft-js';
 import * as React from 'react';
 import _ from 'underscore';
 import {
-    Modal,
-    TextEditor
+  Modal,
+  TextEditor
 } from '../../../Shared/index';
 import massEdit from '../../actions/massEdit';
 import questionActions from '../../actions/questions';
 import {
-    deleteResponse, getGradedResponsesWithCallback, submitResponseEdit
+  deleteResponse, getGradedResponsesWithCallback, submitResponseEdit
 } from '../../actions/responses';
 import sentenceFragmentActions from '../../actions/sentenceFragments';
 import ConceptSelectorWithCheckbox from '../shared/conceptSelectorWithCheckbox.jsx';

@@ -65,10 +65,10 @@ function submitTitleCardEdit(uid, content) {
 }
 
 export {
-    submitNewTitleCard,
-    loadTitleCards,
-    loadSpecifiedTitleCards,
-    startListeningToTitleCards,
-    submitTitleCardEdit,
+  submitNewTitleCard,
+  loadTitleCards,
+  loadSpecifiedTitleCards,
+  startListeningToTitleCards,
+  submitTitleCardEdit,
 };
 

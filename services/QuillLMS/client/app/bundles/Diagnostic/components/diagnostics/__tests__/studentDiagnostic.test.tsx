@@ -2,8 +2,8 @@ import { shallow } from 'enzyme';
 import * as React from 'react';
 
 import {
-    CarouselAnimation, PlayTitleCard,
-    ProgressBar, SmartSpinner
+  CarouselAnimation, PlayTitleCard,
+  ProgressBar, SmartSpinner
 } from '../../../../Shared/index';
 import { clearData, loadData, nextQuestion, resumePreviousDiagnosticSession, setCurrentQuestion, submitResponse, updateCurrentQuestion } from '../../../actions/diagnostics.js';
 import SessionActions from '../../../actions/sessions.js';

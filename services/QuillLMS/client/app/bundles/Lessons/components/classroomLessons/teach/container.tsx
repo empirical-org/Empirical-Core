@@ -4,25 +4,25 @@ import * as React from 'react';
 import { connect } from 'react-redux';
 
 import {
-    clearClassroomLessonFromStore, getClassLesson
+  clearClassroomLessonFromStore, getClassLesson
 } from '../../../actions/classroomLesson';
 import {
-    createPreviewSession, goToNextSlide,
-    goToPreviousSlide,
-    registerTeacherPresence,
-    startLesson, startListeningToSessionForTeacher
+  createPreviewSession, goToNextSlide,
+  goToPreviousSlide,
+  registerTeacherPresence,
+  startLesson, startListeningToSessionForTeacher
 } from '../../../actions/classroomSessions';
 import {
-    clearEditionQuestions, getCurrentUserAndCoteachersFromLMS,
-    getEditionMetadataForUserIds,
-    getEditionQuestions
+  clearEditionQuestions, getCurrentUserAndCoteachersFromLMS,
+  getEditionMetadataForUserIds,
+  getEditionQuestions
 } from '../../../actions/customize';
 import * as CustomizeIntf from '../../../interfaces/customize';
 import { getParameterByName } from '../../../libs/getParameterByName';
 import NavBar from '../../navbar/navbar';
 import {
-    ClassroomLessonSession, ClassroomSessionId,
-    ClassroomUnitId
+  ClassroomLessonSession, ClassroomSessionId,
+  ClassroomUnitId
 } from '../interfaces';
 import ErrorPage from '../shared/errorPage';
 import MainContentContainer from './mainContentContainer';

@@ -1,13 +1,13 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import {
-    addScriptItem, deleteEditionSlide, saveEditionSlide, updateSlideScriptItems
+  addScriptItem, deleteEditionSlide, saveEditionSlide, updateSlideScriptItems
 } from '../../../actions/classroomLesson';
 import { getEditionQuestions } from '../../../actions/customize';
 import * as CustomizeIntF from '../../../interfaces/customize';
 import * as IntF from '../interfaces';
 import {
-    getClassroomLesson, getComponent, getComponentDisplayName, scriptItemTypeKeys
+  getClassroomLesson, getComponent, getComponentDisplayName, scriptItemTypeKeys
 } from './helpers';
 import Script from './script';
 

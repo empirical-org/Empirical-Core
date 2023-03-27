@@ -1,11 +1,11 @@
 declare function require(name:string);
 import * as React from 'react';
 import {
-    Feedback,
-    SentenceFragments
+  Feedback,
+  SentenceFragments
 } from '../../../../Shared/index';
 import {
-    QuestionData
+  QuestionData
 } from '../../../interfaces/classroomLessons';
 import Cues from '../../renderForQuestions/cues';
 import { textEditorInputNotEmpty } from '../shared/textEditorClean';

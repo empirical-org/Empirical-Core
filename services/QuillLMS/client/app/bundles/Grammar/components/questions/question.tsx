@@ -8,7 +8,7 @@ import { Modal } from '../../../Shared/index';
 import { ActionTypes } from '../../actions/actionTypes';
 import * as questionActions from '../../actions/questions';
 import {
-    submitResponse
+  submitResponse
 } from '../../actions/responses';
 import { Match } from '../../interfaces/match';
 import { QuestionsReducerState } from '../../reducers/questionsReducer';

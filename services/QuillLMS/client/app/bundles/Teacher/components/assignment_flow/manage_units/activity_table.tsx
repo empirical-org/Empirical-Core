@@ -9,8 +9,8 @@ import useSnackbarMonitor from '../../../../Shared/hooks/useSnackbarMonitor';
 import { DataTable, defaultSnackbarTimeout, publishedIcon, scheduledIcon, Snackbar, Tooltip } from '../../../../Shared/index';
 import { getIconForActivityClassification } from '../../../../Shared/libs';
 import {
-    DatePickerContainer,
-    DUE_DATE_DEFAULT_TEXT, formatDateTimeForDisplay, INVALID_DATES_SNACKBAR_COPY, PUBLISH_DATE_DEFAULT_TEXT
+  DatePickerContainer,
+  DUE_DATE_DEFAULT_TEXT, formatDateTimeForDisplay, INVALID_DATES_SNACKBAR_COPY, PUBLISH_DATE_DEFAULT_TEXT
 } from '../../../helpers/unitActivityDates';
 import * as api from '../../modules/call_api';
 

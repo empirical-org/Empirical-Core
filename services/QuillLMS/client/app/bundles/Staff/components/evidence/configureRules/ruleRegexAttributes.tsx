@@ -6,10 +6,10 @@ import RegexRules from './regexRules';
 import { FEEDBACK, HIGHLIGHT_ADDITION, HIGHLIGHT_REMOVAL } from '../../../../../constants/evidence';
 import { TextEditor } from '../../../../Shared/index';
 import {
-    handleAddRegexInput,
-    handleDeleteRegexRule,
-    handleSetFeedback, handleSetRegexRule,
-    handleSetRegexRuleSequence, renderHighlights
+  handleAddRegexInput,
+  handleDeleteRegexRule,
+  handleSetFeedback, handleSetRegexRule,
+  handleSetRegexRuleSequence, renderHighlights
 } from '../../../helpers/evidence/ruleHelpers';
 import { ClickEvent, DropdownObjectInterface, InputEvent } from '../../../interfaces/evidenceInterfaces';
 

@@ -5,9 +5,9 @@ import stripHtml from "string-strip-html";
 import * as _ from 'underscore';
 
 import {
-    ConceptExplanation,
-    Feedback, fillInBlankInputLabel, getLatestAttempt, hashToCollection,
-    Prompt
+  ConceptExplanation,
+  Feedback, fillInBlankInputLabel, getLatestAttempt, hashToCollection,
+  Prompt
 } from '../../../Shared/index';
 import { getGradedResponsesWithCallback } from '../../actions/responses.js';
 import { FillInBlankQuestion } from '../../interfaces/questions';

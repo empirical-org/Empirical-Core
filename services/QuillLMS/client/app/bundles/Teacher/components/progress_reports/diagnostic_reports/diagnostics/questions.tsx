@@ -4,13 +4,13 @@ import { withRouter } from 'react-router-dom';
 import stripHtml from "string-strip-html";
 
 import {
-    fileDocumentIcon
+  fileDocumentIcon
 } from './shared';
 
 import { requestGet } from '../../../../../../modules/request/index';
 import {
-    DataTable,
-    Tooltip
+  DataTable,
+  Tooltip
 } from '../../../../../Shared/index';
 import LoadingSpinner from '../../../shared/loading_indicator.jsx';
 

@@ -3,18 +3,18 @@ import * as React from 'react';
 import { withRouter } from 'react-router-dom';
 
 import {
-    OpenPopover, SkillGroupSummary,
-    StudentResult
+  OpenPopover, SkillGroupSummary,
+  StudentResult
 } from './interfaces';
 import {
-    baseDiagnosticImageSrc,
-    fileDocumentIcon, noProficiencyTag, partialProficiencyTag, proficiencyTag
+  baseDiagnosticImageSrc,
+  fileDocumentIcon, noProficiencyTag, partialProficiencyTag, proficiencyTag
 } from './shared';
 import StudentResultsTable from './studentResultsTable';
 
 import { requestGet } from '../../../../../../modules/request/index';
 import {
-    CLICK
+  CLICK
 } from '../../../../../Shared/index';
 import LoadingSpinner from '../../../shared/loading_indicator.jsx';
 

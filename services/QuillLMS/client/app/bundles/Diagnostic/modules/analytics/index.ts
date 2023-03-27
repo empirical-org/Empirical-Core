@@ -106,7 +106,7 @@ class SegmentAnalytics {
 const segmentInstance = new SegmentAnalytics();
 
 export {
-    segmentInstance as SegmentAnalytics,
-    Events,
+  segmentInstance as SegmentAnalytics,
+  Events,
 };
 

@@ -1,7 +1,7 @@
 import * as React from 'react';
 import * as CustomizeIntf from '../../../interfaces/customize';
 import {
-    ClassroomLessonSession
+  ClassroomLessonSession
 } from '../interfaces';
 import ScriptComponent from '../shared/scriptComponent';
 import { textEditorInputNotEmpty } from '../shared/textEditorClean';

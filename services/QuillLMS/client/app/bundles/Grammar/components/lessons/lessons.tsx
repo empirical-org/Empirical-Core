@@ -2,7 +2,7 @@ import * as React from 'react';
 import { connect } from 'react-redux';
 import _ from 'underscore';
 import {
-    FlagDropdown, Modal
+  FlagDropdown, Modal
 } from '../../../Shared/index';
 import * as actions from '../../actions/grammarActivities';
 import { GrammarActivity } from '../../interfaces/grammarActivities';

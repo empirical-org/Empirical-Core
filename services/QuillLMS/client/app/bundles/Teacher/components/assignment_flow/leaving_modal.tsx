@@ -1,8 +1,8 @@
 import * as React from 'react';
 
 import {
-    ACTIVITY_IDS_ARRAY,
-    CLASSROOMS, UNIT_NAME, UNIT_TEMPLATE_ID, UNIT_TEMPLATE_NAME
+  ACTIVITY_IDS_ARRAY,
+  CLASSROOMS, UNIT_NAME, UNIT_TEMPLATE_ID, UNIT_TEMPLATE_NAME
 } from './assignmentFlowConstants';
 
 interface LeavingModalProps {

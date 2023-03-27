@@ -3,13 +3,13 @@ import * as React from 'react';
 import { Link, withRouter } from 'react-router-dom';
 
 import {
-    fileDocumentIcon
+  fileDocumentIcon
 } from './shared';
 
 import { requestGet } from '../../../../../../modules/request/index';
 import {
-    DataTable,
-    expandIcon
+  DataTable,
+  expandIcon
 } from '../../../../../Shared/index';
 import LoadingSpinner from '../../../shared/loading_indicator.jsx';
 

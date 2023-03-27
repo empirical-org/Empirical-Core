@@ -22,8 +22,8 @@ import { requestPost, requestPut } from '../../../../modules/request/index';
 import { startListeningToConcepts } from "../../actions/concepts";
 import { getActivity } from "../../actions/proofreaderActivities";
 import {
-    setPassage, setSessionReducerToSavedSession, updateConceptResultsOnFirebase,
-    updateSessionOnFirebase, updateTimeTracking
+  setPassage, setSessionReducerToSavedSession, updateConceptResultsOnFirebase,
+  updateSessionOnFirebase, updateTimeTracking
 } from "../../actions/session";
 import determineUnnecessaryEditType, { unnecessarySpaceSplitResponse, UNNECESSARY_SPACE } from '../../helpers/determineUnnecessaryEditType';
 import EditCaretPositioning from '../../helpers/EditCaretPositioning';
@@ -34,7 +34,7 @@ import { SessionState } from '../../reducers/sessionReducer';
 import LoadingSpinner from '../shared/loading_spinner';
 
 import {
-    CLICK, KEYDOWN, KEYPRESS, MOUSEDOWN, MOUSEMOVE, roundValuesToSeconds, SCROLL, VISIBILITYCHANGE
+  CLICK, KEYDOWN, KEYPRESS, MOUSEDOWN, MOUSEMOVE, roundValuesToSeconds, SCROLL, VISIBILITYCHANGE
 } from '../../../Shared/index';
 
 interface PlayProofreaderContainerProps {

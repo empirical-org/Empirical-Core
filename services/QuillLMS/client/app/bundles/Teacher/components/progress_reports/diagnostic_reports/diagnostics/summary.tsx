@@ -3,18 +3,18 @@ import * as React from 'react';
 import { withRouter } from 'react-router-dom';
 
 import {
-    SkillGroupSummary,
-    StudentResult
+  SkillGroupSummary,
+  StudentResult
 } from './interfaces';
 import PercentageCircle from './percentageCircle';
 import {
-    baseDiagnosticImageSrc, fileDocumentIcon, noDataYet
+  baseDiagnosticImageSrc, fileDocumentIcon, noDataYet
 } from './shared';
 import SkillGroupTooltip from './skillGroupTooltip';
 
 import { requestGet } from '../../../../../../modules/request/index';
 import {
-    Tooltip
+  Tooltip
 } from '../../../../../Shared/index';
 import DemoOnboardingTour, { DEMO_ONBOARDING_DIAGNOSTIC_RESULTS_SUMMARY } from '../../../shared/demo_onboarding_tour';
 import LoadingSpinner from '../../../shared/loading_indicator.jsx';

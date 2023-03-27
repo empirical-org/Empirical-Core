@@ -1,7 +1,7 @@
 import {
-    mockRequestDelete,
-    mockRequestGet,
-    mockRequestPut
+  mockRequestDelete,
+  mockRequestGet,
+  mockRequestPut
 } from '../__mocks__/request_wrapper'
 jest.mock('../../../../modules/request/index', () => ({
   requestDelete: mockRequestDelete,
@@ -10,8 +10,8 @@ jest.mock('../../../../modules/request/index', () => ({
 }))
 
 import {
-    SessionApi,
-    sessionApiBaseUrl
+  SessionApi,
+  sessionApiBaseUrl
 } from '../../libs/sessions_api'
 
 describe('SessionApi calls', () => {

@@ -2,11 +2,11 @@ import * as React from 'react';
 import { connect } from 'react-redux';
 import { Spinner } from '../../../../Shared/index';
 import {
-    clearAllSelectedSubmissions,
-    clearAllSubmissions, finishActivity, hideSignupModal, redirectAssignedStudents, removeMode, removeSelectedStudentSubmission, removeStudentSubmission, saveSelectedStudentSubmission, saveStudentSubmission, setMode, setModel, setPrompt, toggleOnlyShowHeaders, toggleStudentFlag, updateStudentSubmissionOrder
+  clearAllSelectedSubmissions,
+  clearAllSubmissions, finishActivity, hideSignupModal, redirectAssignedStudents, removeMode, removeSelectedStudentSubmission, removeStudentSubmission, saveSelectedStudentSubmission, saveStudentSubmission, setMode, setModel, setPrompt, toggleOnlyShowHeaders, toggleStudentFlag, updateStudentSubmissionOrder
 } from '../../../actions/classroomSessions';
 import {
-    SMALL_GROUP_AND_INDEPENDENT
+  SMALL_GROUP_AND_INDEPENDENT
 } from '../../constants';
 import CongratulationsModal from './congratulationsModal';
 import CLExit from './exit';
@@ -18,17 +18,17 @@ import CLStatic from './static';
 import TimeoutModal from './timeoutModal';
 
 import {
-    ClassroomLesson,
-    ScriptItem
+  ClassroomLesson,
+  ScriptItem
 } from '../../../interfaces/classroomLessons';
 import * as CustomizeIntf from '../../../interfaces/customize';
 import { generate } from '../../../libs/conceptResults/classroomLessons.js';
 import { getParameterByName } from '../../../libs/getParameterByName';
 import {
-    ClassroomLessonSession,
-    ClassroomSessionId,
-    ClassroomUnitId, SelectedSubmissions,
-    SelectedSubmissionsForQuestion
+  ClassroomLessonSession,
+  ClassroomSessionId,
+  ClassroomUnitId, SelectedSubmissions,
+  SelectedSubmissionsForQuestion
 } from '../interfaces';
 
 interface CurrentSlideProps {

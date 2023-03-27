@@ -3,10 +3,10 @@ import { Link } from 'react-router-dom'
 
 import GrowthSkillsTable from './growthSkillsTable'
 import {
-    OpenPopover, SkillGroup, SkillGroupSummary, StudentResult
+  OpenPopover, SkillGroup, SkillGroupSummary, StudentResult
 } from './interfaces'
 import {
-    accountCommentIcon, closeIcon, DEFAULT_LEFT_PADDING, DEFAULT_LEFT_PADDING_FOR_MOBILE, LEFT_OFFSET, lightGreenTriangleUpIcon, MOBILE_WIDTH, noDataYet, proficiencyTextToTag
+  accountCommentIcon, closeIcon, DEFAULT_LEFT_PADDING, DEFAULT_LEFT_PADDING_FOR_MOBILE, LEFT_OFFSET, lightGreenTriangleUpIcon, MOBILE_WIDTH, noDataYet, proficiencyTextToTag
 } from './shared'
 import SkillGroupTooltip from './skillGroupTooltip'
 import SkillsTable from './skillsTable'
@@ -14,8 +14,8 @@ import StudentNameOrTooltip from './studentNameOrTooltip'
 
 import useWindowSize from '../../../../../Shared/hooks/useWindowSize'
 import {
-    helpIcon,
-    Tooltip
+  helpIcon,
+  Tooltip
 } from '../../../../../Shared/index'
 
 

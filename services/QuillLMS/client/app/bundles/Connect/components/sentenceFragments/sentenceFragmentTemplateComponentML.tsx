@@ -3,7 +3,7 @@ import * as React from 'react';
 
 import { ConceptExplanation, getLatestAttempt, hashToCollection } from '../../../Shared/index';
 import {
-    getGradedResponsesWithCallback
+  getGradedResponsesWithCallback
 } from '../../actions/responses';
 import { SentenceFragmentQuestion } from '../../interfaces/questions';
 import { Attempt } from '../renderForQuestions/answerState.js';

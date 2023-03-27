@@ -13,7 +13,7 @@ import { TextEditor } from '../../../Shared/index';
 import { clearDisplayMessageAndError } from '../../actions/display';
 import * as massEdit from '../../actions/massEdit';
 import {
-    massEditDeleteResponses, submitMassEditConceptResults, submitMassEditFeedback
+  massEditDeleteResponses, submitMassEditConceptResults, submitMassEditFeedback
 } from '../../actions/responses';
 import { Match } from '../../interfaces/match';
 import { DisplayReducerState } from '../../reducers/displayReducer';

@@ -1,7 +1,7 @@
 import * as React from 'react';
 
 import {
-    Input
+  Input
 } from '../../../../Shared/index';
 import * as api from '../../modules/call_api';
 

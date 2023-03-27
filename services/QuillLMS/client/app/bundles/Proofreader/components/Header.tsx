@@ -8,7 +8,7 @@ import getParameterByName from '../helpers/getParameterByName';
 const quillLogoSrc = `${process.env.CDN_URL}/images/logos/quill-logo-white-2022.svg`
 
 import {
-    updateSessionOnFirebase
+  updateSessionOnFirebase
 } from "../actions/session";
 
 class Header extends React.Component<any, any> {

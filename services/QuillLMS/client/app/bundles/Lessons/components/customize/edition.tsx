@@ -10,37 +10,37 @@ import Slide from './slide';
 import SuccessModal from './successModal';
 
 import {
-    getClassLesson
+  getClassLesson
 } from '../../actions/classroomLesson';
 
 import {
-    getCurrentUserAndCoteachersFromLMS,
-    getEditionMetadata,
-    getEditionMetadataForUserIds,
-    getEditionQuestions,
-    publishEdition,
-    setEditionMetadata,
-    setEditionQuestions,
-    setIncompleteQuestions,
-    setOriginalEditionQuestions,
-    setWorkingEditionMetadata,
-    setWorkingEditionQuestions
+  getCurrentUserAndCoteachersFromLMS,
+  getEditionMetadata,
+  getEditionMetadataForUserIds,
+  getEditionQuestions,
+  publishEdition,
+  setEditionMetadata,
+  setEditionQuestions,
+  setIncompleteQuestions,
+  setOriginalEditionQuestions,
+  setWorkingEditionMetadata,
+  setWorkingEditionQuestions
 } from '../../actions/customize';
 
 import {
-    setEditionId,
-    setTeacherModels,
-    startListeningToSession
+  setEditionId,
+  setTeacherModels,
+  startListeningToSession
 } from '../../actions/classroomSessions';
 
 import {
-    getIncompleteQuestions, getStoredEditionMetadata, getStoredEditionQuestions,
-    getStoredOriginalEditionQuestions
+  getIncompleteQuestions, getStoredEditionMetadata, getStoredEditionQuestions,
+  getStoredOriginalEditionQuestions
 } from '../../reducers/combined';
 
 import {
-    ClassroomSessionId,
-    ClassroomUnitId
+  ClassroomSessionId,
+  ClassroomUnitId
 } from '../classroomLessons/interfaces';
 
 

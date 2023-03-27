@@ -10,8 +10,8 @@ import { populateQuestions, setSessionReducerToSavedSession } from './session.ts
 
 import { requestGet, requestPost } from '../../../modules/request/index';
 import {
-    FocusPointApi, GRAMMAR_QUESTION_TYPE, IncorrectSequenceApi,
-    QuestionApi
+  FocusPointApi, GRAMMAR_QUESTION_TYPE, IncorrectSequenceApi,
+  QuestionApi
 } from '../libs/questions_api';
 
 export const startListeningToQuestions = (sessionID) => {

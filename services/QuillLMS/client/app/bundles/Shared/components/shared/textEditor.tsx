@@ -2,7 +2,7 @@ import Editor from '@draft-js-plugins/editor';
 import { convertFromHTML, convertToHTML } from 'draft-convert';
 import * as Draft from 'draft-js';
 import {
-    EditorState, RichUtils
+  EditorState, RichUtils
 } from 'draft-js';
 import * as Immutable from 'immutable';
 import * as React from 'react';

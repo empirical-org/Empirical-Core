@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import {
-    deleteScriptItem, saveEditionScriptItem
+  deleteScriptItem, saveEditionScriptItem
 } from '../../../actions/classroomLesson';
 import { getEditionQuestions } from '../../../actions/customize';
 

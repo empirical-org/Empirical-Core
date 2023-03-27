@@ -1,7 +1,7 @@
 import {
-    mockRequestGet,
-    mockRequestPost,
-    mockRequestPut
+  mockRequestGet,
+  mockRequestPost,
+  mockRequestPut
 } from '../__mocks__/request_wrapper'
 jest.mock('../../../../modules/request/index', () => ({
   requestGet: mockRequestGet,
@@ -10,12 +10,12 @@ jest.mock('../../../../modules/request/index', () => ({
 }))
 
 import {
-    TitleCardApi,
-    titleCardApiBaseUrl
+  TitleCardApi,
+  titleCardApiBaseUrl
 } from '../../libs/title_cards_api'
 
 import {
-    TitleCard
+  TitleCard
 } from '../../interfaces/title_cards'
 
 describe('TitleCardApi calls', () => {

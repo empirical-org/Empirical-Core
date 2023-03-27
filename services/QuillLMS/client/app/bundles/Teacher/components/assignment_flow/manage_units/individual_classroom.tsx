@@ -1,7 +1,7 @@
 import * as React from 'react'
 
 import {
-    Tooltip
+  Tooltip
 } from '../../../../Shared/index'
 
 const multipleAccountOutlinedSrc = `${process.env.CDN_URL}/images/icons/icons-account-multiple-check-outlined.svg`

@@ -1,8 +1,8 @@
 import * as React from 'react'
 
 import {
-    helpIcon,
-    Tooltip
+  helpIcon,
+  Tooltip
 } from '../../../../../Shared/index'
 
 const SkillGroupTooltip = ({ name, description, }) => (

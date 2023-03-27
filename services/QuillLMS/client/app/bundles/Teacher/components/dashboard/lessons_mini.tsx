@@ -1,8 +1,8 @@
 import * as React from 'react';
 
 import {
-    DataTable, expandIcon, fileChartIcon, fileDownloadIcon, helpIcon, playBoxIcon,
-    previewIcon
+  DataTable, expandIcon, fileChartIcon, fileDownloadIcon, helpIcon, playBoxIcon,
+  previewIcon
 } from '../../../Shared/index';
 
 const INITIAL_MAX = 5

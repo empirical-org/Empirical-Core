@@ -3,16 +3,16 @@ import { stringNormalize } from 'quill-string-normalizer';
 import * as React from 'react';
 import * as _ from 'underscore';
 import {
-    Feedback,
-    fillInBlankInputLabel
+  Feedback,
+  fillInBlankInputLabel
 } from '../../../../Shared/index';
 
 import { QuestionData } from '../../../interfaces/classroomLessons';
 import { getParameterByName } from '../../../libs/getParameterByName';
 import Cues from '../../renderForQuestions/cues';
 import {
-    QuestionSubmissionsList,
-    SelectedSubmissionsForQuestion
+  QuestionSubmissionsList,
+  SelectedSubmissionsForQuestion
 } from '../interfaces';
 import htmlStrip from '../shared/htmlStrip';
 import promptSplitter from '../shared/promptSplitter';

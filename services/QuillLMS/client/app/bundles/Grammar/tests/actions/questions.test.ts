@@ -10,12 +10,12 @@ jest.mock('../../libs/questions_api', () => ({
 import { mockDispatch as dispatch } from '../__mocks__/dispatch'
 
 import {
-    GRAMMAR_QUESTION_TYPE
+  GRAMMAR_QUESTION_TYPE
 } from '../../libs/questions_api'
 
 import {
-    deleteFocusPoint, deleteIncorrectSequence, getQuestion, startListeningToQuestions, submitBatchEditedFocusPoint, submitEditedFocusPoint, submitEditedIncorrectSequence, submitNewFocusPoint, submitNewIncorrectSequence, submitNewQuestion,
-    submitQuestionEdit, updateFlag, updateIncorrectSequences
+  deleteFocusPoint, deleteIncorrectSequence, getQuestion, startListeningToQuestions, submitBatchEditedFocusPoint, submitEditedFocusPoint, submitEditedIncorrectSequence, submitNewFocusPoint, submitNewIncorrectSequence, submitNewQuestion,
+  submitQuestionEdit, updateFlag, updateIncorrectSequences
 } from '../../actions/questions'
 
 describe('Questions actions', () => {

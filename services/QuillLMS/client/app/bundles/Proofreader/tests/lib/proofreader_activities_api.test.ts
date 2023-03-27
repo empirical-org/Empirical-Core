@@ -1,8 +1,8 @@
 import {
-    mockRequestDelete,
-    mockRequestGet,
-    mockRequestPost,
-    mockRequestPut
+  mockRequestDelete,
+  mockRequestGet,
+  mockRequestPost,
+  mockRequestPut
 } from '../__mocks__/request_wrapper'
 jest.mock('../../../../modules/request/index', () => ({
   requestDelete: mockRequestDelete,
@@ -12,12 +12,12 @@ jest.mock('../../../../modules/request/index', () => ({
 }))
 
 import {
-    lessonApiBaseUrl, ProofreaderPassageApi,
-    PROOFREADER_PASSAGE_TYPE
+  lessonApiBaseUrl, ProofreaderPassageApi,
+  PROOFREADER_PASSAGE_TYPE
 } from '../../lib/proofreader_activities_api'
 
 import {
-    ProofreaderActivity
+  ProofreaderActivity
 } from '../../interfaces/proofreaderActivities'
 
 describe('ProofreaderPassageApi calls', () => {

@@ -8,8 +8,8 @@ import QuestionsAndAnswers from '../../containers/QuestionsAndAnswers';
 import { generateLink, getStartedButton } from '../../helpers/collegeBoard';
 import { scrollToTop } from '../../hooks/scrollToTop';
 import {
-    AP_SLUG,
-    AP_WRITINGS_SKILLS_UNIT_TEMPLATE_ID, ELL_ADVANCED_DIAGNOSTIC_UNIT_TEMPLATE_ID, ELL_INTERMEDIATE_DIAGNOSTIC_UNIT_TEMPLATE_ID, ELL_STARTER_DIAGNOSTIC_UNIT_TEMPLATE_ID
+  AP_SLUG,
+  AP_WRITINGS_SKILLS_UNIT_TEMPLATE_ID, ELL_ADVANCED_DIAGNOSTIC_UNIT_TEMPLATE_ID, ELL_INTERMEDIATE_DIAGNOSTIC_UNIT_TEMPLATE_ID, ELL_STARTER_DIAGNOSTIC_UNIT_TEMPLATE_ID
 } from '../assignment_flow/assignmentFlowConstants';
 
 interface ApContainerProps {

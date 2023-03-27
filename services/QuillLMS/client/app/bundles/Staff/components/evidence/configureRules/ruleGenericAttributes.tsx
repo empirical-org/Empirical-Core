@@ -5,8 +5,8 @@ import { ruleOptimalOptions, ruleTypeOptions, universalRuleTypeOptions } from '.
 import { DropdownInput, Input, TextEditor } from '../../../../Shared/index';
 import { renderIDorUID } from '../../../helpers/evidence/renderHelpers';
 import {
-    handleSetRuleConceptUID, handleSetRuleName, handleSetRuleNote, handleSetRuleOptimal,
-    handleSetRuleType
+  handleSetRuleConceptUID, handleSetRuleName, handleSetRuleNote, handleSetRuleOptimal,
+  handleSetRuleType
 } from '../../../helpers/evidence/ruleHelpers';
 import { DropdownObjectInterface, InputEvent } from '../../../interfaces/evidenceInterfaces';
 

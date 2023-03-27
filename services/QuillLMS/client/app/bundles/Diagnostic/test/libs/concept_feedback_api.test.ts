@@ -1,8 +1,8 @@
 import {
-    mockRequestDelete,
-    mockRequestGet,
-    mockRequestPost,
-    mockRequestPut
+  mockRequestDelete,
+  mockRequestGet,
+  mockRequestPost,
+  mockRequestPut
 } from '../__mocks__/request_wrapper'
 jest.mock('../../../../modules/request/index', () => ({
   requestDelete: mockRequestDelete,
@@ -12,12 +12,12 @@ jest.mock('../../../../modules/request/index', () => ({
 }))
 
 import {
-    ConceptFeedbackApi,
-    conceptFeedbackApiBaseUrl
+  ConceptFeedbackApi,
+  conceptFeedbackApiBaseUrl
 } from '../../libs/concept_feedback_api'
 
 import {
-    ConceptFeedback
+  ConceptFeedback
 } from '../../interfaces/concept_feedback'
 
 describe('ConceptFeedbackApi calls', () => {

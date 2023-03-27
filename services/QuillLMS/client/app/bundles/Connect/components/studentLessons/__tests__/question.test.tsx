@@ -2,7 +2,7 @@ import { shallow } from 'enzyme';
 import * as React from 'react';
 import 'whatwg-fetch';
 import {
-    getGradedResponsesWithCallback, getMultipleChoiceResponseOptionsWithCallback
+  getGradedResponsesWithCallback, getMultipleChoiceResponseOptionsWithCallback
 } from '../../../actions/responses.js';
 import { conceptsFeedback, sentenceCombiningQuestionWithOneAttempt } from '../../../test/studentLessonData';
 import submitQuestionResponse from '../../renderForQuestions/submitResponse.js';

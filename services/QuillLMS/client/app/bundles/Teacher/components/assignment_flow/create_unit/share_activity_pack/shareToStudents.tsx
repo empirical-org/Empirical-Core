@@ -7,8 +7,8 @@ import { Activity, ActivityPack } from '../../../../../../interfaces/activityPac
 import { Card, ExpandableCard } from '../../../../../Shared/index';
 import ScrollToTop from '../../../shared/scroll_to_top';
 import {
-    ACTIVITY_IDS_ARRAY, ASSIGNED_CLASSROOMS, CLASSROOMS,
-    UNIT_ID, UNIT_NAME, UNIT_TEMPLATE_ID, UNIT_TEMPLATE_NAME
+  ACTIVITY_IDS_ARRAY, ASSIGNED_CLASSROOMS, CLASSROOMS,
+  UNIT_ID, UNIT_NAME, UNIT_TEMPLATE_ID, UNIT_TEMPLATE_NAME
 } from '../../assignmentFlowConstants';
 import AssignmentFlowNavigation from '../../assignment_flow_navigation';
 

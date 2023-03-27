@@ -1,15 +1,15 @@
 import * as React from 'react';
 import {
-    Feedback,
-    SentenceFragments
+  Feedback,
+  SentenceFragments
 } from '../../../../Shared/index';
 
 import {
-    QuestionData
+  QuestionData
 } from '../../../interfaces/classroomLessons';
 import TextEditor from '../../renderForQuestions/renderTextEditor';
 import {
-    QuestionSubmissionsList, SelectedSubmissionsForQuestion
+  QuestionSubmissionsList, SelectedSubmissionsForQuestion
 } from '../interfaces';
 import { PROJECT } from './constants';
 import ProjectedAnswers from './projectedAnswers';

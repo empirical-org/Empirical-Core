@@ -3,8 +3,8 @@ import * as React from 'react';
 import { connect } from 'react-redux';
 import { withRouter } from 'react-router-dom';
 import {
-    publishEdition,
-    setIncompleteQuestions
+  publishEdition,
+  setIncompleteQuestions
 } from '../../actions/customize';
 import { getParameterByName } from '../../libs/getParameterByName';
 import { formatDateTime } from '../customize/helpers';
