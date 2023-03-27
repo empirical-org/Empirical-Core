@@ -1,17 +1,17 @@
+import * as _ from 'lodash';
 import * as React from "react";
-import { RouteComponentProps } from 'react-router-dom'
 import { useQuery } from 'react-query';
+import { RouteComponentProps } from 'react-router-dom';
 ;
-import * as _ from 'lodash'
 
-import FilterWidget from "../shared/filterWidget";
-import { fetchActivityHealth, fetchPromptHealth } from '../../../utils/evidence/ruleFeedbackHistoryAPIs';
-import { ActivityRouteProps, PromptHealthInterface, DropdownObjectInterface } from '../../../interfaces/evidenceInterfaces';
-import { fetchActivity, fetchActivityVersions } from '../../../utils/evidence/activityAPIs';
-import { Spinner, ReactTable, } from '../../../../Shared/index';
-import { handlePageFilterClick, getVersionOptions } from '../../../helpers/evidence/miscHelpers';
-import { renderHeader } from '../../../helpers/evidence/renderHelpers';
 import { ACTIVITY_STATS } from '../../../../../constants/evidence';
+import { ReactTable, Spinner } from '../../../../Shared/index';
+import { getVersionOptions, handlePageFilterClick } from '../../../helpers/evidence/miscHelpers';
+import { renderHeader } from '../../../helpers/evidence/renderHelpers';
+import { ActivityRouteProps, DropdownObjectInterface, PromptHealthInterface } from '../../../interfaces/evidenceInterfaces';
+import { fetchActivity, fetchActivityVersions } from '../../../utils/evidence/activityAPIs';
+import { fetchActivityHealth, fetchPromptHealth } from '../../../utils/evidence/ruleFeedbackHistoryAPIs';
+import FilterWidget from "../shared/filterWidget";
 
 const ActivityStats: React.FC<RouteComponentProps<ActivityRouteProps>> = ({ history, match }) => {
   const { params } = match;

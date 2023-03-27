@@ -1,7 +1,7 @@
 import * as React from 'react';
 
-import { Activity, ActivityCategoryEditor, Topic } from './interfaces'
-import FilterColumn from './filter_column'
+import FilterColumn from './filter_column';
+import { Activity, ActivityCategoryEditor, Topic } from './interfaces';
 
 const closeIconSrc = `${import.meta.env.VITE_PROCESS_ENV_CDN_URL}/images/icons/close.svg`
 

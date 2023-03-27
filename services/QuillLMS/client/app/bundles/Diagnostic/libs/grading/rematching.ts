@@ -1,11 +1,11 @@
 declare function require(name:string);
 import * as _ from 'underscore';
-import { hashToCollection } from '../../../Shared/index'
+import { hashToCollection } from '../../../Shared/index';
 
 // const qml = require('quill-marking-logic')
-import { checkDiagnosticSentenceFragment, checkDiagnosticQuestion, checkFillInTheBlankQuestion, ConceptResult } from 'quill-marking-logic'
+import { checkDiagnosticQuestion, checkDiagnosticSentenceFragment, checkFillInTheBlankQuestion, ConceptResult } from 'quill-marking-logic';
+import { requestGet, requestPost, requestPut } from '../../../../modules/request/index';
 import objectWithSnakeKeysFromCamel from '../objectWithSnakeKeysFromCamel.js';
-import { requestGet, requestPost, requestPut, } from '../../../../modules/request/index'
 
 interface Question {
   conceptID: string,

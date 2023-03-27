@@ -1,14 +1,14 @@
 import * as React from "react";
-import { useQueryClient, } from 'react-query';
+import { useQueryClient } from 'react-query';
 import { withRouter } from 'react-router-dom';
 
 import ActivityForm from './activityForm';
 
-import { ActivityInterface } from '../../../interfaces/evidenceInterfaces';
-import SubmissionModal from '../shared/submissionModal';
-import { createActivity, updateActivity } from '../../../utils/evidence/activityAPIs';
-import { renderHeader } from "../../../helpers/evidence/renderHelpers";
 import { Spinner } from '../../../../Shared/index';
+import { renderHeader } from "../../../helpers/evidence/renderHelpers";
+import { ActivityInterface } from '../../../interfaces/evidenceInterfaces';
+import { createActivity, updateActivity } from '../../../utils/evidence/activityAPIs';
+import SubmissionModal from '../shared/submissionModal';
 
 const ActivitySettings = ({ activity, history }: {activity: ActivityInterface, history: any}) => {
   const { id } = activity;

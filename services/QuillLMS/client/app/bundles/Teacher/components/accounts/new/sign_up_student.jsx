@@ -1,12 +1,12 @@
 import React from 'react';
 
-import AuthSignUp from './auth_sign_up'
+import AuthSignUp from './auth_sign_up';
 
-import PasswordWrapper from '../shared/password_wrapper'
-import AnalyticsWrapper from '../../shared/analytics_wrapper'
-import AgreementsAndLinkToLogin from './agreements_and_link_to_login'
-import { Input, } from '../../../../Shared/index'
-import { requestPost, } from '../../../../../modules/request/index'
+import { requestPost } from '../../../../../modules/request/index';
+import { Input } from '../../../../Shared/index';
+import AnalyticsWrapper from '../../shared/analytics_wrapper';
+import PasswordWrapper from '../shared/password_wrapper';
+import AgreementsAndLinkToLogin from './agreements_and_link_to_login';
 
 class SignUpStudent extends React.Component {
   constructor(props) {

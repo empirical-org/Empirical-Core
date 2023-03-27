@@ -1,15 +1,9 @@
 import * as React from 'react';
 
 import {
-  searchMapIcon,
-  clipboardCheckIcon,
-  tableCheckIcon,
-  accountViewIcon,
-  demoViewIcon,
-  giftIcon,
-  groupAccountIcon,
-  googleClassroomIcon,
-} from '../../../Shared/index'
+    accountViewIcon, clipboardCheckIcon, demoViewIcon,
+    giftIcon, googleClassroomIcon, groupAccountIcon, searchMapIcon, tableCheckIcon
+} from '../../../Shared/index';
 
 const HandyAction = ({ icon, text, link, }) => (
   <a className="handy-action focus-on-light" href={link}>
@@ -36,7 +30,7 @@ const HandyActions = ({ linkedToClever, setShowDemoModal}) => {
       <ExploreDemoAction setShowDemoModal={setShowDemoModal} />
       <HandyAction icon={giftIcon} link="/referrals" text="Refer a teacher" />
       <HandyAction icon={groupAccountIcon} link="/teachers/classrooms/new" text="Add a class" />
-      {!linkedToClever && <HandyAction icon={googleClassroomIcon} link="/teachers/classrooms?modal=google-classroom" text="Import classes from Google" />}
+      {!linkedToClever && <HandyAction icon={googleClassroomIcon} link="/teachers/classrooms?modal=google-classroom" text="import classes from Google" />}
     </section>
   )
 }

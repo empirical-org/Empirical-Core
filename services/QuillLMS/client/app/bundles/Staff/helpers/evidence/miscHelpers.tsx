@@ -1,32 +1,14 @@
-import * as React from 'react';
-import stripHtml from "string-strip-html";
-import moment from 'moment';
 import { matchSorter } from 'match-sorter';
+import moment from 'moment';
+import * as React from 'react';
 import { Link } from 'react-router-dom';
+import stripHtml from "string-strip-html";
 
 import {
-  MINIMUM_READING_LEVEL,
-  MAXIMUM_READING_LEVEL,
-  TARGET_READING_LEVEL,
-  SCORED_READING_LEVEL,
-  IMAGE_LINK,
-  IMAGE_ALT_TEXT,
-  IMAGE_CAPTION,
-  IMAGE_ATTRIBUTION,
-  HIGHLIGHT_PROMPT,
-  PLAGIARISM,
-  FLAG,
-  TEXT,
-  BUILDING_ESSENTIAL_KNOWLEDGE,
-  MAX_ATTEMPTS_FEEDBACK,
-  HIGHLIGHTING_PROMPT,
-  IMAGE,
-  PROMPTS,
-  BREAK_TAG,
-  DEFAULT_MAX_ATTEMPTS,
+    BREAK_TAG, BUILDING_ESSENTIAL_KNOWLEDGE, DEFAULT_MAX_ATTEMPTS, FLAG, HIGHLIGHTING_PROMPT, HIGHLIGHT_PROMPT, IMAGE, IMAGE_ALT_TEXT, IMAGE_ATTRIBUTION, IMAGE_CAPTION, IMAGE_LINK, MAXIMUM_READING_LEVEL, MAX_ATTEMPTS_FEEDBACK, MINIMUM_READING_LEVEL, PLAGIARISM, PROMPTS, SCORED_READING_LEVEL, TARGET_READING_LEVEL, TEXT
 } from '../../../../constants/evidence';
-import { DEFAULT_HIGHLIGHT_PROMPT, TextFilter, NumberFilterInput, filterNumbers, Spinner } from "../../../Shared";
-import { DropdownObjectInterface, ActivitySessionInterface } from '../../interfaces/evidenceInterfaces'
+import { DEFAULT_HIGHLIGHT_PROMPT, filterNumbers, NumberFilterInput, TextFilter } from "../../../Shared";
+import { ActivitySessionInterface, DropdownObjectInterface } from '../../interfaces/evidenceInterfaces';
 import { getCheckIcon } from "./renderHelpers";
 
 const quillCheckmark = 'https://assets.quill.org/images/icons/check-circle-small.svg';

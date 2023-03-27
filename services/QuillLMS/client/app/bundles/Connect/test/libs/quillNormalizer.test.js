@@ -1,5 +1,5 @@
 import expect from 'expect';
-import quillNormalize from '../../libs/quillNormalizer.js'
+import quillNormalize from '../../libs/quillNormalizer.js';
 
 String.prototype.quillNormalize = quillNormalize
 

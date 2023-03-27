@@ -1,4 +1,3 @@
-import _ from 'underscore';
 import { getConceptResultsForAttempt } from './sharedConceptResultsFunctions';
 
 const C = require('../../constants').default;

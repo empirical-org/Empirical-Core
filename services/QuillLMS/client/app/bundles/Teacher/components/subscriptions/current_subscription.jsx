@@ -1,20 +1,14 @@
-import React from 'react';
 import moment from 'moment';
-import _ from 'lodash';
+import React from 'react';
 
-import TitleAndContent from './current_subscription_title_and_content';
 import {
-  TEACHER_PREMIUM_TRIAL,
-  SCHOOL_PREMIUM,
-  DISTRICT_PREMIUM,
-  TEACHER_PREMIUM_CREDIT,
-  TEACHER_PREMIUM_SCHOLARSHIP,
-  SCHOOL_PREMIUM_SCHOLARSHIP,
-  CREDIT_CARD,
+    CREDIT_CARD, SCHOOL_PREMIUM_SCHOLARSHIP, TEACHER_PREMIUM_CREDIT,
+    TEACHER_PREMIUM_SCHOLARSHIP, TEACHER_PREMIUM_TRIAL
 } from './constants';
+import TitleAndContent from './current_subscription_title_and_content';
 
-import { Tooltip, helpIcon, Snackbar, defaultSnackbarTimeout,} from '../../../Shared/index'
 import { requestPost } from '../../../../modules/request';
+import { defaultSnackbarTimeout, helpIcon, Snackbar, Tooltip } from '../../../Shared/index';
 
 export default class CurrentSubscription extends React.Component {
   constructor(props) {

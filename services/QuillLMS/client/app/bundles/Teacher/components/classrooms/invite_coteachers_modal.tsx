@@ -1,8 +1,8 @@
-import * as React from 'react'
-import * as moment from 'moment'
+import * as moment from 'moment';
+import * as React from 'react';
 
-import { Input, DataTable, } from '../../../Shared/index'
-import { requestPost, } from '../../../../modules/request/index';
+import { requestPost } from '../../../../modules/request/index';
+import { DataTable, Input } from '../../../Shared/index';
 
 interface InviteCoteachersModalProps {
   close: () => void;

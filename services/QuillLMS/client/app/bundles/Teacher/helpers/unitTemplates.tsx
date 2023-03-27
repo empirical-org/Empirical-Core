@@ -1,10 +1,10 @@
 
+import * as moment from 'moment';
 import * as React from 'react';
 import { renderToString } from 'react-dom/server';
-import * as moment from 'moment';
 
 import { Activity } from '../../../interfaces/activity';
-import { Tooltip, getIconForActivityClassification, NOT_APPLICABLE, assignedBadgeIconWhite } from '../../Shared';
+import { assignedBadgeIconWhite, getIconForActivityClassification, NOT_APPLICABLE, Tooltip } from '../../Shared';
 
 export const ALL_FLAGS = 'all flags';
 export const ALL_DIAGNOSTICS = 'all diagnostics';

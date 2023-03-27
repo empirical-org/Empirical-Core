@@ -1,13 +1,11 @@
 import React from 'react';
 
-import PasswordInfo from './password_info.jsx'
+import { requestPost } from '../../../../../modules/request/index';
+import { Input, Snackbar } from '../../../../Shared/index';
+import AssignActivityPackBanner from '../assignActivityPackBanner';
 import AuthGoogleAccessForm from '../AuthGoogleAccessForm';
-import PasswordWrapper from '../shared/password_wrapper'
-import AssignActivityPackBanner from '../assignActivityPackBanner'
-import getAuthToken from '../../modules/get_auth_token'
-import { Input, } from '../../../../Shared/index'
-import { Snackbar } from '../../../../Shared/index'
-import { requestPost, } from '../../../../../modules/request/index'
+import PasswordWrapper from '../shared/password_wrapper';
+import PasswordInfo from './password_info.jsx';
 
 const smallWhiteCheckSrc = `${import.meta.env.VITE_PROCESS_ENV_CDN_URL}/images/shared/check-small-white.svg`
 

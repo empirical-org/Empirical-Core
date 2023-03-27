@@ -1,17 +1,17 @@
+import qs from 'qs';
 import React from 'react';
-import qs from 'qs'
 
-import QuestionsAndAnswers from './QuestionsAndAnswers.tsx'
+import QuestionsAndAnswers from './QuestionsAndAnswers.tsx';
 
-import SchoolAndDistrictPremiumModal, { SCHOOL_SELECTION_STAGE, } from '../components/premium/school_and_district_premium_modal'
-import PremiumBannerBuilder from '../components/scorebook/premium_banners/premium_banner_builder.jsx'
+import useSnackbarMonitor from '../../Shared/hooks/useSnackbarMonitor';
+import { defaultSnackbarTimeout, Snackbar } from '../../Shared/index';
+import PremiumFeaturesTable from '../components/premium/premium_features_table.tsx';
 import PremiumPricingMinisRow from '../components/premium/premium_pricing_minis_row.jsx';
-import PremiumFeaturesTable from '../components/premium/premium_features_table.tsx'
-import SubscriberLogos from '../components/premium/subscriber_logos.jsx';
+import SchoolAndDistrictPremiumModal, { SCHOOL_SELECTION_STAGE } from '../components/premium/school_and_district_premium_modal';
 import SchoolPremium from '../components/premium/school_premium.jsx';
+import SubscriberLogos from '../components/premium/subscriber_logos.jsx';
+import PremiumBannerBuilder from '../components/scorebook/premium_banners/premium_banner_builder.jsx';
 import StripeSubscriptionCheckoutSessionButton from '../components/shared/StripeSubscriptionCheckoutSessionButton';
-import { Snackbar, defaultSnackbarTimeout, } from '../../Shared/index'
-import useSnackbarMonitor from '../../Shared/hooks/useSnackbarMonitor'
 
 const subscribers = [
   { name: 'Achievement first school logo', source: '/images/subscribers/1_achievement.png', id: 'achievement-first'},

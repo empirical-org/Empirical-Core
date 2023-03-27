@@ -1,9 +1,9 @@
-import * as React from 'react';
 import moment from 'moment';
+import * as React from 'react';
 import { firstBy } from "thenby";
 
+import { ReactTable } from '../../Shared/index';
 import { Concept } from '../containers/ConceptsIndex';
-import { ReactTable, } from '../../Shared/index';
 
 interface ConceptsTableProps {
   concepts: Array<Concept>

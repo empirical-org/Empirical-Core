@@ -1,6 +1,5 @@
-import { iteratee } from "lodash";
 
-import { highlightGrammar, highlightSpelling } from "./stringFormatting"
+import { highlightGrammar, highlightSpelling } from "./stringFormatting";
 
 
 describe('stringFormatting', () => {

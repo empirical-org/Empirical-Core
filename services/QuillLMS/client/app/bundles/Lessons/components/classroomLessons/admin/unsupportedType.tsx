@@ -1,4 +1,4 @@
-import React, {Component} from 'react'
+import React, { Component } from 'react';
 
 class AdminUnsupported extends Component<any, any> {
   constructor(props){

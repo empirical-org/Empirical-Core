@@ -1,7 +1,7 @@
 'use strict'
 
-import React from 'react'
-import $ from 'jquery'
+import $ from 'jquery';
+import React from 'react';
 
 export default class extends React.Component {
    handleStudentSelection = (e) => {
@@ -20,7 +20,7 @@ export default class extends React.Component {
    determineCheckbox = () => {
      // TODO: rewrite this method to make checked a variable, nothing else changes
      if (this.props.student.isSelected == true) {
-       return ( 
+       return (
          <input
            checked="checked"
            className="css-checkbox"

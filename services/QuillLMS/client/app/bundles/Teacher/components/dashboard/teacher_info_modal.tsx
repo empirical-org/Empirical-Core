@@ -1,8 +1,8 @@
 import * as React from 'react'
 
+import { requestPost } from '../../../../modules/request/index'
 import GradeLevelSection from '../accounts/shared/grade_level_section'
 import SubjectAreaSection from '../accounts/shared/subject_area_section'
-import { requestPost, } from '../../../../modules/request/index'
 
 const teacherAtBoardSrc = `${import.meta.env.VITE_PROCESS_ENV_CDN_URL}/images/onboarding/packs-whole.svg`
 

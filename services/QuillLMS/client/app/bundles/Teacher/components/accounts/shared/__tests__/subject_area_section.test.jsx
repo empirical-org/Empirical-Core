@@ -1,7 +1,7 @@
-import * as React from 'react';
 import { mount } from 'enzyme';
+import * as React from 'react';
 
-import { subjectAreas, } from './data'
+import { subjectAreas } from './data';
 
 import SubjectAreaSection from '../subject_area_section';
 

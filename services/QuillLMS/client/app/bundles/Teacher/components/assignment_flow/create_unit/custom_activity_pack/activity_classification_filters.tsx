@@ -1,7 +1,7 @@
 import * as React from 'react';
 
-import { Activity, ActivityClassification } from './interfaces'
-import { activityClassificationGroupings, ACTIVITY_CLASSIFICATION_FILTERS, SAVED_ACTIVITY_FILTERS } from './shared'
+import { Activity, ActivityClassification } from './interfaces';
+import { activityClassificationGroupings, ACTIVITY_CLASSIFICATION_FILTERS, SAVED_ACTIVITY_FILTERS } from './shared';
 
 const dropdownIconSrc = `${import.meta.env.VITE_PROCESS_ENV_CDN_URL}/images/icons/dropdown.svg`
 const indeterminateSrc = `${import.meta.env.VITE_PROCESS_ENV_CDN_URL}/images/icons/indeterminate.svg`

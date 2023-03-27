@@ -1,8 +1,8 @@
-import * as React from 'react'
+import * as React from 'react';
 
-import useFocus from '../../../Shared/hooks/useFocus'
-import { Events } from '../../modules/analytics'
+import useFocus from '../../../Shared/hooks/useFocus';
 import { TrackAnalyticsEvent } from "../../actions/analytics";
+import { Events } from '../../modules/analytics';
 
 const baseImgSrc = `${import.meta.env.VITE_PROCESS_ENV_CDN_URL}/images/pages/evidence`
 const checkMarkSrc = `${baseImgSrc}/components-selection-controls-dark-enabled-selected.svg`

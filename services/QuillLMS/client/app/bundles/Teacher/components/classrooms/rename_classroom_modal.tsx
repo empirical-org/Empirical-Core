@@ -1,7 +1,7 @@
-import * as React from 'react'
+import * as React from 'react';
 
-import { Input, } from '../../../Shared/index'
 import { requestPut } from '../../../../modules/request/index';
+import { Input } from '../../../Shared/index';
 
 interface RenameClassModalProps {
   close: () => void;

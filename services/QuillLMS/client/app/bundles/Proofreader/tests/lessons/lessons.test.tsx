@@ -1,8 +1,8 @@
-import * as React from 'react';
 import { shallow } from 'enzyme';
+import * as React from 'react';
 
 import { Lessons } from '../../components/lessons/lessons';
-import LinkListItem from '../../components/shared/linkListItem'
+import LinkListItem from '../../components/shared/linkListItem';
 
 jest.mock('underscore', () => ({
   default: {

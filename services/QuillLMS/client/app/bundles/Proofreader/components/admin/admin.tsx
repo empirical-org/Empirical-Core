@@ -1,14 +1,14 @@
 import * as React from 'react';
-import { Route, Switch, withRouter, RouteComponentProps } from "react-router-dom";
 import { connect } from 'react-redux';
+import { Route, RouteComponentProps, Switch, withRouter } from "react-router-dom";
 
-import TabLink from './tabLink'
+import TabLink from './tabLink';
 
-import * as proofreaderActivitiesActions from '../../actions/proofreaderActivities'
-import * as conceptsActions from '../../actions/concepts'
-import Lessons from '../lessons/lessons'
-import Lesson from '../lessons/lesson'
-import Concepts from '../concepts/concepts'
+import * as conceptsActions from '../../actions/concepts';
+import * as proofreaderActivitiesActions from '../../actions/proofreaderActivities';
+import Concepts from '../concepts/concepts';
+import Lesson from '../lessons/lesson';
+import Lessons from '../lessons/lessons';
 
 const usersEndpoint = `${import.meta.env.VITE_DEFAULT_URL}/api/v1/users.json`;
 const newSessionEndpoint = `${import.meta.env.VITE_DEFAULT_URL}/session/new`;

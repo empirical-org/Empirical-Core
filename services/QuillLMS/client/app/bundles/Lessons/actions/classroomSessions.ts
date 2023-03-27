@@ -1,24 +1,18 @@
 declare function require(name:string);
 import _ from 'lodash';
-import {v4 as uuid} from 'uuid';
+import { v4 as uuid } from 'uuid';
 
+import { requestGet, requestPut } from '../../../modules/request/index';
+import {
+    ClassroomLessonSession, ClassroomSessionId,
+    ClassroomUnitId, TeacherAndClassroomName
+} from '../components/classroomLessons/interfaces';
 import C from '../constants';
 import {
-  ClassroomLessonSessions,
-  ClassroomLessonSession,
-  QuestionSubmissionsList,
-  SelectedSubmissions,
-  SelectedSubmissionsForQuestion,
-  TeacherAndClassroomName,
-  ClassroomSessionId,
-  ClassroomUnitId
-} from '../components/classroomLessons/interfaces';
-import {
-  ClassroomLesson
+    ClassroomLesson
 } from '../interfaces/classroomLessons';
 import * as CustomizeIntf from '../interfaces/customize';
 import socket from '../utils/socketStore';
-import { requestGet, requestPut, } from '../../../modules/request/index'
 
 export function startListeningToSession(classroomSessionId: ClassroomSessionId) {
   return function(dispatch, getState) {

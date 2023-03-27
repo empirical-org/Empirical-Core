@@ -1,6 +1,6 @@
 import * as React from 'react'
 
-import { Input, } from '../../../../Shared/index'
+import { Input } from '../../../../Shared/index'
 
 const passwordVisibleSrc = `${import.meta.env.VITE_PROCESS_ENV_CDN_URL}/images/icons/icons-visibility-on.svg`
 const passwordNotVisibleSrc = `${import.meta.env.VITE_PROCESS_ENV_CDN_URL}/images/icons/icons-visibility-off.svg`

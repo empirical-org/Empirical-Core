@@ -1,26 +1,22 @@
-import * as React from 'react'
-import qs from 'qs'
-import { withRouter, Link, } from 'react-router-dom';
+import qs from 'qs';
+import * as React from 'react';
+import { withRouter } from 'react-router-dom';
 
 import {
-  baseDiagnosticImageSrc,
-  fileDocumentIcon,
-  proficiencyTag,
-  partialProficiencyTag,
-  noProficiencyTag
-} from './shared'
-import StudentResultsTable from './studentResultsTable'
+    OpenPopover, SkillGroupSummary,
+    StudentResult
+} from './interfaces';
 import {
-  SkillGroupSummary,
-  StudentResult,
-  OpenPopover
-} from './interfaces'
+    baseDiagnosticImageSrc,
+    fileDocumentIcon, noProficiencyTag, partialProficiencyTag, proficiencyTag
+} from './shared';
+import StudentResultsTable from './studentResultsTable';
 
-import LoadingSpinner from '../../../shared/loading_indicator.jsx'
 import { requestGet } from '../../../../../../modules/request/index';
 import {
-  CLICK,
-} from '../../../../../Shared/index'
+    CLICK
+} from '../../../../../Shared/index';
+import LoadingSpinner from '../../../shared/loading_indicator.jsx';
 
 const timeRewindIllustration = <img alt="Illustration of a clock with an arrow pointing backwards" src={`${baseDiagnosticImageSrc}/time-rewind.svg`} />
 

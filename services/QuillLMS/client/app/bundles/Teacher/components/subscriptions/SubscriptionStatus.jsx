@@ -1,15 +1,11 @@
-import React from 'react';
 import moment from 'moment';
 import pluralize from 'pluralize';
+import React from 'react';
 
 import {
-  TEACHER_PREMIUM_TRIAL,
-  TEACHER_PREMIUM_CREDIT,
-  TEACHER_PREMIUM_SCHOLARSHIP,
-  TEACHER_PREMIUM,
-  SCHOOL_PREMIUM,
-  SCHOOL_PREMIUM_SCHOLARSHIP,
-  DISTRICT_PREMIUM
+    DISTRICT_PREMIUM, SCHOOL_PREMIUM,
+    SCHOOL_PREMIUM_SCHOLARSHIP, TEACHER_PREMIUM, TEACHER_PREMIUM_CREDIT,
+    TEACHER_PREMIUM_SCHOLARSHIP, TEACHER_PREMIUM_TRIAL
 } from './constants';
 
 import StripeSubscriptionCheckoutSessionButton from '../shared/StripeSubscriptionCheckoutSessionButton';

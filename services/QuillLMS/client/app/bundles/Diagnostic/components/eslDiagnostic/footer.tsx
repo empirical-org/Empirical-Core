@@ -1,8 +1,8 @@
 import * as React from 'react';
 
+import useWindowSize from '../../../Shared/hooks/useWindowSize';
 import { DropdownInput } from '../../../Shared/index';
-import useWindowSize from '../../../Shared/hooks/useWindowSize'
-import { languages, languageData } from '../../modules/translation/languagePageInfo';
+import { languageData, languages } from '../../modules/translation/languagePageInfo';
 
 interface FooterProps {
   diagnosticID: string,

@@ -1,6 +1,6 @@
 import React from 'react'
-import ConceptSelectorWithCheckbox from '../shared/conceptSelectorWithCheckbox.jsx'
 import _ from 'underscore'
+import ConceptSelectorWithCheckbox from '../shared/conceptSelectorWithCheckbox.jsx'
 
 export default class conceptResultList extends React.Component {
   constructor(props) {

@@ -1,13 +1,12 @@
 import _ from 'lodash';
 import React from 'react';
-import $ from 'jquery';
 
+import { nonRelevantActivityClassificationIds } from '../../../../modules/activity_classifications';
+import { requestGet } from '../../../../modules/request/index';
+import { closedLockIcon, scheduledIcon } from '../../../Shared/index';
+import activityFromClassificationId from '../modules/activity_from_classification_id.js';
 import ScorebookTooltip from '../modules/componentGenerators/tooltip_title/scorebook_tooltip_title';
 import gradeColor from '../modules/grade_color.js';
-import { nonRelevantActivityClassificationIds, } from '../../../../modules/activity_classifications'
-import activityFromClassificationId from '../modules/activity_from_classification_id.js';
-import { scheduledIcon, closedLockIcon, } from '../../../Shared/index'
-import { requestGet, } from '../../../../modules/request/index'
 
 export default class ActivityIconWithTooltip extends React.Component {
   constructor(props) {

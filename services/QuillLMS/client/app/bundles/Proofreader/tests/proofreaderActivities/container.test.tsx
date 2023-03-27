@@ -1,7 +1,7 @@
-import * as React from "react";
 import { mount } from "enzyme";
+import * as React from "react";
 import { PlayProofreaderContainer } from "../../components/proofreaderActivities/container";
-import { ProofreaderActivityReducer } from './data'
+import { ProofreaderActivityReducer } from './data';
 
 import.meta.env.VITE_DEFAULT_URL = 'https://staging.quill.org'
 import.meta.env.QUILL_CMS = 'https://cms.quill.org'

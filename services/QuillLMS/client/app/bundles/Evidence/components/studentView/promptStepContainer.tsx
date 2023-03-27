@@ -2,9 +2,9 @@ import * as React from "react"
 
 import PromptStep from './promptStep'
 
-import { orderedSteps, } from '../../helpers/containerActionHelpers'
-import { renderDirectionsSection, } from '../../helpers/containerRenderHelpers'
 import useFocus from '../../../Shared/hooks/useFocus'
+import { orderedSteps } from '../../helpers/containerActionHelpers'
+import { renderDirectionsSection } from '../../helpers/containerRenderHelpers'
 
 const PromptStepContainer = ({
   activateStep,

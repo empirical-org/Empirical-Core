@@ -1,11 +1,10 @@
+import { ContentState, EditorState } from 'draft-js';
 import * as React from "react";
-import { EditorState, ContentState } from 'draft-js'
 
-import { numericalWordOptions } from '../../../../../constants/evidence';
-import { RuleFeedbackInterface, ClickEvent,  } from '../../../interfaces/evidenceInterfaces';
-import { handleSetFeedback, renderHighlights } from '../../../helpers/evidence/ruleHelpers';
+import { FEEDBACK, FEEDBACK_LAYER_ADDITION, FEEDBACK_LAYER_REMOVAL, HIGHLIGHT_ADDITION, HIGHLIGHT_REMOVAL, numericalWordOptions } from '../../../../../constants/evidence';
 import { TextEditor } from '../../../../Shared/index';
-import { HIGHLIGHT_ADDITION, HIGHLIGHT_REMOVAL, FEEDBACK, FEEDBACK_LAYER_ADDITION, FEEDBACK_LAYER_REMOVAL, } from '../../../../../constants/evidence';
+import { handleSetFeedback, renderHighlights } from '../../../helpers/evidence/ruleHelpers';
+import { ClickEvent, RuleFeedbackInterface } from '../../../interfaces/evidenceInterfaces';
 
 /* esl-lint disable notes: arrow functions needed to get correct index of feedback/highlight being updated in array, and a
 Fragment is appropriate since there can be multiple feedbacks */

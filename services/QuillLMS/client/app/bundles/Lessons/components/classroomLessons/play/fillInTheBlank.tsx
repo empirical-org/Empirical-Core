@@ -1,26 +1,26 @@
 declare function require(name:string);
-import * as React from 'react'
-import * as _ from 'underscore'
-import {
-  Feedback,
-  fillInBlankInputLabel,
-} from '../../../../Shared/index'
 import { stringNormalize } from 'quill-string-normalizer';
-
-import ProjectorHeader from './projectorHeader'
-import ProjectedAnswers from './projectedAnswers'
-import PromptSection from './promptSection'
-import SubmitButton from './submitButton'
-import promptSplitter from '../shared/promptSplitter'
-import htmlStrip from '../shared/htmlStrip'
-import Cues from '../../renderForQuestions/cues';
-import { QuestionData } from '../../../interfaces/classroomLessons'
-import { PROJECT } from './constants'
-import { getParameterByName } from '../../../libs/getParameterByName';
+import * as React from 'react';
+import * as _ from 'underscore';
 import {
-  QuestionSubmissionsList,
-  SelectedSubmissionsForQuestion
+    Feedback,
+    fillInBlankInputLabel
+} from '../../../../Shared/index';
+
+import { QuestionData } from '../../../interfaces/classroomLessons';
+import { getParameterByName } from '../../../libs/getParameterByName';
+import Cues from '../../renderForQuestions/cues';
+import {
+    QuestionSubmissionsList,
+    SelectedSubmissionsForQuestion
 } from '../interfaces';
+import htmlStrip from '../shared/htmlStrip';
+import promptSplitter from '../shared/promptSplitter';
+import { PROJECT } from './constants';
+import ProjectedAnswers from './projectedAnswers';
+import ProjectorHeader from './projectorHeader';
+import PromptSection from './promptSection';
+import SubmitButton from './submitButton';
 
 interface fillInTheBlankProps {
   data: QuestionData,

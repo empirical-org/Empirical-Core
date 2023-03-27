@@ -1,22 +1,15 @@
 import React from 'react';
 
 import Stage1 from './select_activities_container';
+import ShareToStudents from './share_activity_pack/shareToStudents';
 import Stage2 from './stage2/Stage2';
 import UnitAssignmentFollowup from './unit_assignment_followup.tsx';
-import ShareToStudents from './share_activity_pack/shareToStudents';
 
+import { requestGet, requestPost } from '../../../../../modules/request';
 import {
-  CLASSROOMS,
-  UNIT_NAME,
-  UNIT_TEMPLATE_NAME,
-  UNIT_TEMPLATE_ID,
-  ACTIVITY_IDS_ARRAY,
-  UNIT_ID,
-  ASSIGNED_CLASSROOMS,
-  postTestClassAssignmentLockedMessages,
-} from '../assignmentFlowConstants'
-import parsedQueryParams from '../parsedQueryParams'
-import { requestGet, requestPost, } from '../../../../../modules/request';
+    ACTIVITY_IDS_ARRAY, ASSIGNED_CLASSROOMS, CLASSROOMS, UNIT_ID, UNIT_NAME, UNIT_TEMPLATE_ID, UNIT_TEMPLATE_NAME
+} from '../assignmentFlowConstants';
+import parsedQueryParams from '../parsedQueryParams';
 
 export default class CreateUnit extends React.Component {
   constructor(props) {

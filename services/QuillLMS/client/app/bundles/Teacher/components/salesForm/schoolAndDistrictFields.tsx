@@ -1,8 +1,8 @@
 import * as React from 'react';
 
-import SchoolOrDistrictSelection from './schoolAndDistrictSelection'
+import SchoolOrDistrictSelection from './schoolAndDistrictSelection';
 
-import { SCHOOL, DISTRICT, SCHOOL_OR_DISTRICT, COLLECTION_TYPE } from '../../../../constants/salesForm';
+import { COLLECTION_TYPE, DISTRICT, SCHOOL, SCHOOL_OR_DISTRICT } from '../../../../constants/salesForm';
 
 export const SchoolAndDistrictFields = ({
   errors,

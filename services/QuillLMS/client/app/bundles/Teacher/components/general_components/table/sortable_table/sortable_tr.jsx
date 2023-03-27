@@ -1,6 +1,6 @@
-import _ from 'underscore'
-import React from 'react'
-import ScoreColor from '../../../modules/score_color.js'
+import React from 'react';
+import _ from 'underscore';
+import ScoreColor from '../../../modules/score_color.js';
 
 export default class SortableTr extends React.Component {
   contentForColumn = (column) => {

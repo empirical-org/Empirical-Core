@@ -2,10 +2,10 @@
 import React from 'react'
 import CSVDownloadForProgressReport from './csv_download_for_progress_report.jsx'
 
-import LoadingSpinner from '../shared/loading_indicator.jsx'
+import { requestGet } from '../../../../modules/request/index'
+import { ReactTable } from '../../../Shared/index'
 import userIsPremium from '../modules/user_is_premium'
-import { ReactTable, } from '../../../Shared/index'
-import { requestGet, } from '../../../../modules/request/index'
+import LoadingSpinner from '../shared/loading_indicator.jsx'
 
 export default class IndividualStudentConceptReport extends React.Component {
 

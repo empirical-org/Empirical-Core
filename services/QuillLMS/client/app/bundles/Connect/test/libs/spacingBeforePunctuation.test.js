@@ -1,8 +1,8 @@
 import expect from 'expect';
 import {
-  checkForSpacingError,
-  getFeedbackForPunc,
-  spacingBeforePunctuation,
+    checkForSpacingError,
+    getFeedbackForPunc,
+    spacingBeforePunctuation
 } from '../../libs/algorithms/spacingBeforePunctuation.js';
 
 describe('Checking for a spacing issue before punctuation', () => {

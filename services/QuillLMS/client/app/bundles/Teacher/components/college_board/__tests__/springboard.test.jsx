@@ -1,7 +1,7 @@
-import * as React from 'react';
 import { mount } from 'enzyme';
+import * as React from 'react';
 
-import { units, } from './data'
+import { units } from './data';
 
 import SpringBoard from '../spring_board';
 

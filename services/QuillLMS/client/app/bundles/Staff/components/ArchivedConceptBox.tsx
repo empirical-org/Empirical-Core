@@ -1,13 +1,13 @@
-import * as React from "react";
-import { Query, Mutation } from "react-apollo";
 import gql from "graphql-tag";
-import moment from 'moment'
+import moment from 'moment';
+import * as React from "react";
+import { Mutation, Query } from "react-apollo";
 import _ from 'underscore';
 
-import { Concept } from '../interfaces/interfaces'
-import IndividualRecordChangeLogs from './shared/individualRecordChangeLogs'
-import ChangeLogModal from './shared/changeLogModal'
-import { Input, DropdownInput, } from '../../Shared/index'
+import { DropdownInput, Input } from '../../Shared/index';
+import { Concept } from '../interfaces/interfaces';
+import ChangeLogModal from './shared/changeLogModal';
+import IndividualRecordChangeLogs from './shared/individualRecordChangeLogs';
 
 const formatDateTime = (cl) => moment.unix(cl.createdAt).format('MMMM D, YYYY [at] LT')
 

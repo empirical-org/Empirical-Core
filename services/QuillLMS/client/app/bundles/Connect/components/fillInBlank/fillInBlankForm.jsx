@@ -1,8 +1,8 @@
+import { ContentState, EditorState } from 'draft-js';
 import React, { Component } from 'react';
-import { EditorState, ContentState } from 'draft-js'
+import { FlagDropdown, TextEditor } from '../../../Shared/index';
+import C from '../../constants.js';
 import ConceptSelector from '../shared/conceptSelector.jsx';
-import C from '../../constants.js'
-import { TextEditor, FlagDropdown } from '../../../Shared/index';
 
 class FillInBlankForm extends Component {
   constructor(props) {

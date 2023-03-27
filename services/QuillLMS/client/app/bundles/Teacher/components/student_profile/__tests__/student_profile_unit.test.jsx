@@ -1,10 +1,10 @@
-import React from 'react';
 import { mount } from 'enzyme';
+import React from 'react';
 
+import { DataTable } from '../../../../Shared/index';
 import StudentProfileUnit from '../student_profile_unit';
-import { DataTable } from '../../../../Shared/index'
 
-import { categorizedActivities } from './test_data'
+import { categorizedActivities } from './test_data';
 
 describe('StudentProfileUnit component', () => {
 

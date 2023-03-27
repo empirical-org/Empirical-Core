@@ -1,9 +1,8 @@
+import { ContentState, EditorState } from 'draft-js'
 import * as React from 'react'
 import {
-  TextEditor,
-  ConceptExplanation
+    ConceptExplanation, TextEditor
 } from '../../../Shared/index'
-import { EditorState, ContentState } from 'draft-js'
 export default class FeedbackForm extends React.Component {
   constructor(props) {
     super(props)

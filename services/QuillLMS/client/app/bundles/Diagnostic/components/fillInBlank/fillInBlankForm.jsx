@@ -1,9 +1,7 @@
+import { ContentState, EditorState } from 'draft-js';
 import React, { Component } from 'react';
-import { EditorState, ContentState } from 'draft-js'
-import { connect } from 'react-redux';
 import {
-  TextEditor,
-  FlagDropdown
+    FlagDropdown, TextEditor
 } from '../../../Shared/index';
 import ConceptSelector from '../shared/conceptSelector.jsx';
 

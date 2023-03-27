@@ -4,36 +4,23 @@ import _ from 'underscore';
 
 import FinishedDiagnostic from './finishedDiagnostic.jsx';
 import LandingPage from './landing.jsx';
-import PlaySentenceFragment from './sentenceFragment.jsx';
 import PlayDiagnosticQuestion from './sentenceCombining.jsx';
+import PlaySentenceFragment from './sentenceFragment.jsx';
 
-import PlayFillInTheBlankQuestion from '../fillInBlank/playFillInTheBlankQuestion';
+import { requestPost, requestPut } from '../../../../modules/request/index';
 import {
-  CarouselAnimation,
-  SmartSpinner,
-  PlayTitleCard,
-  ProgressBar,
-  hashToCollection,
-  TeacherPreviewMenuButton,
-  roundValuesToSeconds,
-  KEYDOWN,
-  MOUSEMOVE,
-  MOUSEDOWN,
-  CLICK,
-  KEYPRESS,
-  VISIBILITYCHANGE,
-  SCROLL,
+    CarouselAnimation, CLICK, hashToCollection, KEYDOWN, KEYPRESS, MOUSEDOWN, MOUSEMOVE, PlayTitleCard,
+    ProgressBar, roundValuesToSeconds, SCROLL, SmartSpinner, TeacherPreviewMenuButton, VISIBILITYCHANGE
 } from '../../../Shared/index';
+import { clearData, loadData, nextQuestion, resumePreviousDiagnosticSession, setCurrentQuestion, setDiagnosticID, submitResponse, updateCurrentQuestion } from '../../actions/diagnostics.js';
 import SessionActions from '../../actions/sessions.js';
-import { clearData, loadData, nextQuestion, submitResponse, updateCurrentQuestion, resumePreviousDiagnosticSession, setCurrentQuestion, setDiagnosticID } from '../../actions/diagnostics.js';
+import {
+    answeredQuestionCount,
+    getProgressPercent, questionCount
+} from '../../libs/calculateProgress';
 import { getConceptResultsForAllQuestions } from '../../libs/conceptResults/diagnostic';
 import { getParameterByName } from '../../libs/getParameterByName';
-import {
-  questionCount,
-  answeredQuestionCount,
-  getProgressPercent
-} from '../../libs/calculateProgress'
-import { requestPut, requestPost, } from '../../../../modules/request/index'
+import PlayFillInTheBlankQuestion from '../fillInBlank/playFillInTheBlankQuestion';
 
 const TITLE_CARD_TYPE = "TL"
 

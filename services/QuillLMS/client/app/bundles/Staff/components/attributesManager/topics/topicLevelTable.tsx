@@ -1,8 +1,8 @@
-import * as React from 'react';
 import moment from 'moment';
+import * as React from 'react';
 
-import { getColumnWidth, } from '../../shared/getColumnWidth'
-import { ReactTable, } from '../../../../Shared'
+import { ReactTable } from '../../../../Shared';
+import { getColumnWidth } from '../../shared/getColumnWidth';
 
 interface TopicLevelTableProps {
   topics: Array<Topic>,

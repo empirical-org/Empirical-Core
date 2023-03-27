@@ -1,10 +1,10 @@
 /* eslint-env browser*/
-import _ from 'underscore';
 import moment from 'moment';
+import _ from 'underscore';
 
-import C from '../constants'
+import { requestDelete, requestGet, requestPost, requestPut } from '../../../modules/request/index';
+import C from '../constants';
 import objectWithSnakeKeysFromCamel from '../libs/objectWithSnakeKeysFromCamel';
-import { requestGet, requestPost, requestPut, requestDelete, } from '../../../modules/request/index'
 
 export function deleteStatus(questionId) {
   return { type: C.DELETE_RESPONSE_STATUS, data: { questionId, }, };

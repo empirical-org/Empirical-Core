@@ -1,9 +1,9 @@
-import React from 'react'
 import { shallow } from 'enzyme'
+import React from 'react'
 
+import { DropdownInput, Tooltip } from '../../../../../../Shared/index'
 import ClassroomCard from '../classroom_card.tsx'
 import { classroom, students } from './test_data/test_data'
-import { DropdownInput, Tooltip, } from '../../../../../../Shared/index'
 
 describe('Classroom card component', () => {
 

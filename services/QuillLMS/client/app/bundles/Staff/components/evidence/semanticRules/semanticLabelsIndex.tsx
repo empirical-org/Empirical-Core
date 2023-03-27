@@ -1,21 +1,21 @@
 import * as React from "react";
-import { useQuery, useQueryClient, } from 'react-query';
+import { useQuery, useQueryClient } from 'react-query';
 import { Redirect, Route, Switch, withRouter } from 'react-router-dom';
 
-import SemanticLabelsOverview from './semanticLabelsOverview'
-import SemanticLabelWrapper from './semanticLabelWrapper';
-import SemanticRulesCheatSheet from './semanticRulesCheatSheet'
-import ModelForm from './modelForm';
 import ActivateModelForm from './activateModelForm';
 import Model from './model';
+import ModelForm from './modelForm';
+import SemanticLabelsOverview from './semanticLabelsOverview';
+import SemanticLabelWrapper from './semanticLabelWrapper';
+import SemanticRulesCheatSheet from './semanticRulesCheatSheet';
 
 import { ALL, BECAUSE, BUT, SO } from '../../../../../constants/evidence';
-import { getPromptConjunction, getPromptForComponent } from '../../../helpers/evidence/promptHelpers';
-import { fetchActivity } from '../../../utils/evidence/activityAPIs';
-import { createRule, updateRule } from '../../../utils/evidence/ruleAPIs';
 import { Error, Spinner } from '../../../../Shared/index';
+import { getPromptConjunction, getPromptForComponent } from '../../../helpers/evidence/promptHelpers';
 import { renderHeader } from '../../../helpers/evidence/renderHelpers';
 import { RuleInterface } from '../../../interfaces/evidenceInterfaces';
+import { fetchActivity } from '../../../utils/evidence/activityAPIs';
+import { createRule, updateRule } from '../../../utils/evidence/ruleAPIs';
 
 const SemanticLabelsIndex = ({ location, history, match }) => {
   const { params } = match;

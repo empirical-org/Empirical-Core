@@ -4,7 +4,7 @@ import ReactHtmlParser from 'react-html-parser'
 import HeaderImage from './headerImage'
 
 import useFocus from '../../../Shared/hooks/useFocus'
-import { onMobile, addPTagsToPassages, READ_PASSAGE_STEP } from '../../helpers/containerActionHelpers'
+import { addPTagsToPassages, onMobile, READ_PASSAGE_STEP } from '../../helpers/containerActionHelpers'
 
 const ReadPassageContainer = ({
   activities,

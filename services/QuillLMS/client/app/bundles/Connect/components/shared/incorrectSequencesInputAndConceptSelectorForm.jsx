@@ -1,10 +1,10 @@
+import { ContentState, EditorState } from 'draft-js';
 import React from 'react';
 import _ from 'underscore';
+import { requestPost } from '../../../../modules/request/index';
+import { isValidRegex, TextEditor } from '../../../Shared/index';
+import ResponseComponent from '../questions/responseComponent';
 import ConceptSelectorWithCheckbox from './conceptSelectorWithCheckbox.jsx';
-import { TextEditor, isValidRegex } from '../../../Shared/index';
-import { EditorState, ContentState } from 'draft-js'
-import ResponseComponent from '../questions/responseComponent'
-import { requestPost, } from '../../../../modules/request/index'
 
 export default class extends React.Component {
   constructor(props) {

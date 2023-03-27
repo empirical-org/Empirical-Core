@@ -1,12 +1,11 @@
-import React from 'react';
 import {
-  shallow,
-  mount
+    mount, shallow
 } from 'enzyme';
-import _ from 'lodash'
+import _ from 'lodash';
+import React from 'react';
 
-import { classroomsWithStudentsContainerData, } from './test_data'
 import ClassroomsWithStudentsContainer from '../ClassroomsWithStudentsContainer';
+import { classroomsWithStudentsContainerData } from './test_data';
 
 const { props, state, } = classroomsWithStudentsContainerData
 

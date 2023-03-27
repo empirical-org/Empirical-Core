@@ -40,13 +40,13 @@ class EditFillInBlank extends Component {
     const { prompt, blankAllowed, caseInsensitive, instructions, cues, conceptID, flag, cuesLabel, questionID } = questionData
     return(
       <FillInBlankForm
-        action={this.editQuestion} 
+        action={this.editQuestion}
         blankAllowed={blankAllowed}
         caseInsensitive={caseInsensitive}
         conceptID={conceptID}
         cues={cues}
         cuesLabel={cuesLabel}
-        editing={true}  
+        editing={true}
         flag={flag}
         instructions={instructions}
         prompt={prompt}

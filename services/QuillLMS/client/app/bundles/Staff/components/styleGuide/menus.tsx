@@ -1,5 +1,5 @@
 import * as React from "react";
-import { DropdownInput } from '../../../Shared/index'
+import { DropdownInput } from '../../../Shared/index';
 
 const options = [
   {value: 1, label: 'One'},

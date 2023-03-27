@@ -1,7 +1,7 @@
-import React from 'react';
 import { shallow } from 'enzyme';
+import React from 'react';
 
-import CleverClassroomsEmptyModal from '../clever_classrooms_empty_modal'
+import CleverClassroomsEmptyModal from '../clever_classrooms_empty_modal';
 
 describe('CleverClassroomsEmptyModal component', () => {
   const close = () => {}

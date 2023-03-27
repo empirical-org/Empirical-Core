@@ -1,8 +1,7 @@
 import React from 'react'
 
+import { requestPost, requestPut } from '../../../../modules/request/index'
 import ButtonLoadingIndicator from '../shared/button_loading_indicator'
-import getAuthToken from '../modules/get_auth_token'
-import { requestPut, requestPost, } from '../../../../modules/request/index'
 
 export default class UpdateUnitButton extends React.Component {
   constructor(props) {

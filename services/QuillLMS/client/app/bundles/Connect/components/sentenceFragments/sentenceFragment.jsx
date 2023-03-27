@@ -1,25 +1,24 @@
 import React from 'react';
-import { NavLink, Route, Switch, withRouter } from 'react-router-dom';
 import { connect } from 'react-redux';
-import EditForm from './sentenceFragmentForm.jsx';
-import ResponseComponent from '../questions/responseComponent.jsx';
-import fragmentActions from '../../actions/sentenceFragments';
+import { NavLink, Route, Switch, withRouter } from 'react-router-dom';
+import { Modal, UploadOptimalResponses } from '../../../Shared/index';
 import {
-  submitOptimalResponses,
-  listenToResponsesWithCallback
+    submitOptimalResponses
 } from '../../actions/responses';
+import fragmentActions from '../../actions/sentenceFragments';
 import C from '../../constants';
-import FocusPointsContainer from '../focusPoints/focusPointsContainer.jsx';
 import EditFocusPointsContainer from '../focusPoints/editFocusPointsContainer.jsx';
+import FocusPointsContainer from '../focusPoints/focusPointsContainer.jsx';
 import NewFocusPointsContainer from '../focusPoints/newFocusPointsContainer.jsx';
-import IncorrectSequenceContainer from '../incorrectSequence/incorrectSequenceContainer.jsx';
 import EditIncorrectSequenceContainer from '../incorrectSequence/editIncorrectSequenceContainer.jsx';
+import IncorrectSequenceContainer from '../incorrectSequence/incorrectSequenceContainer.jsx';
 import NewIncorrectSequenceContainer from '../incorrectSequence/newIncorrectSequenceContainer.jsx';
+import MassEditContainer from '../questions/massEditContainer.jsx';
+import ResponseComponent from '../questions/responseComponent.jsx';
 import ResponseComponentWrapper from '../questions/responseRouteWrapper.jsx';
 import ChooseModelContainer from './chooseModelContainer.jsx';
+import EditForm from './sentenceFragmentForm.jsx';
 import TestQuestionContainer from './testSentenceFragmentContainer';
-import MassEditContainer from '../questions/massEditContainer.jsx';
-import { Modal, UploadOptimalResponses, } from '../../../Shared/index'
 
 const icon = `${import.meta.env.VITE_PROCESS_ENV_CDN_URL}/images/icons/direction.svg`
 

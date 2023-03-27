@@ -1,8 +1,8 @@
 import * as React from 'react'
 
+import ScrollToTop from '../../shared/scroll_to_top'
 import AssignmentFlowNavigation from '../assignment_flow_navigation'
 import AssignmentCard from './assignment_card'
-import ScrollToTop from '../../shared/scroll_to_top'
 
 const packsWholeSrc = `${import.meta.env.VITE_PROCESS_ENV_CDN_URL}/images/illustrations/packs-whole.svg`
 const packsIndependentSrc = `${import.meta.env.VITE_PROCESS_ENV_CDN_URL}/images/illustrations/packs-independent.svg`

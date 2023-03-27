@@ -1,7 +1,7 @@
 import React from 'react';
 
-import AssignmentFlowNavigation from '../assignment_flow_navigation'
-import ApContainer from '../../../containers/ApContainer'
+import ApContainer from '../../../containers/ApContainer';
+import AssignmentFlowNavigation from '../assignment_flow_navigation';
 
 const AssignAp = () => {
   return (

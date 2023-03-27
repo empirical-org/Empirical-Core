@@ -1,8 +1,8 @@
-import * as React from 'react';
 import { mount } from 'enzyme';
+import * as React from 'react';
 
+import { premiumFeatures } from '../../premium_features_data';
 import IndividualFeaturesTable from '../individual_features_table';
-import { premiumFeatures, } from '../../premium_features_data'
 
 describe('IndividualFeaturesTable container', () => {
 

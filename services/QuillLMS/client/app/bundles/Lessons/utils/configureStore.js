@@ -1,11 +1,8 @@
-import { createStore, applyMiddleware, compose } from 'redux';
-import rootReducer from '../reducers/combined';
-import { persistState } from '@redux-devtools/core';
-import { persistStore, autoRehydrate } from 'redux-persist';
-import thunk from 'redux-thunk';
-import { routerMiddleware } from 'react-router-redux';
 import createHashHistory from 'history/lib/createHashHistory';
-import localForage from 'localforage';
+import { routerMiddleware } from 'react-router-redux';
+import { applyMiddleware, compose, createStore } from 'redux';
+import thunk from 'redux-thunk';
+import rootReducer from '../reducers/combined';
 
 const hashhistory = createHashHistory({ queryKey: false, });
 const middleware = routerMiddleware(hashhistory);

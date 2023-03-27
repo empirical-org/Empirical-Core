@@ -1,6 +1,6 @@
 import React from 'react';
 
-import IndividualFeaturesTable from './individual_features_table'
+import IndividualFeaturesTable from './individual_features_table';
 
 export default class TeacherPricingMini extends React.Component {
   render() {

@@ -1,8 +1,8 @@
 import * as React from "react";
 
-import { closeLanguageMenu, updateLanguage, } from '../../actions/diagnostics'
-import { languages, languageData } from '../../modules/translation/languagePageInfo';
+import { closeLanguageMenu, updateLanguage } from '../../actions/diagnostics';
 import i18n from '../../i18n';
+import { languageData, languages } from '../../modules/translation/languagePageInfo';
 
 interface LanguageOptionsProps {
   dispatch: (action: () => any) => void;

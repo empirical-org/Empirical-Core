@@ -1,14 +1,13 @@
 import React from 'react';
 import { connect } from 'react-redux';
-import actions from '../../actions/lessons.ts';
 import _ from 'underscore';
+import {
+    ArchivedButton,
+    FlagDropdown, Modal
+} from '../../../Shared/index';
+import actions from '../../actions/lessons.ts';
 import { LinkListItem } from '../shared/linkListItem';
 import EditLessonForm from './lessonForm.tsx';
-import {
-  Modal,
-  ArchivedButton,
-  FlagDropdown
-} from '../../../Shared/index';
 
 class Lessons extends React.Component {
   constructor(props) {

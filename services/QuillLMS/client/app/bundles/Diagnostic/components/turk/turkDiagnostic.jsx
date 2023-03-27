@@ -1,27 +1,23 @@
-import React from 'react'
-import {connect} from 'react-redux'
+import React from 'react';
+import { connect } from 'react-redux';
 import { withRouter } from 'react-router-dom';
-import {clearData, loadData, nextQuestion, submitResponse, updateCurrentQuestion} from '../../actions/diagnostics.js'
-import _ from 'underscore'
+import { requestPost, requestPut } from '../../../../modules/request/index';
 import {
-  CarouselAnimation,
-  SmartSpinner,
-  PlayTitleCard,
-  ProgressBar
+    CarouselAnimation, PlayTitleCard,
+    ProgressBar, SmartSpinner
 } from '../../../Shared/index';
-import PlaySentenceFragment from '../diagnostics/sentenceFragment.jsx'
-import PlayDiagnosticQuestion from '../diagnostics/sentenceCombining.jsx';
-import PlayFillInTheBlankQuestion from '../fillInBlank/playFillInTheBlankQuestion';
-import LandingPage from './landing.jsx'
-import FinishedDiagnostic from './finishedDiagnostic.jsx'
-import {getConceptResultsForAllQuestions} from '../../libs/conceptResults/diagnostic'
-import { getParameterByName } from '../../libs/getParameterByName';
+import { clearData, loadData, nextQuestion, submitResponse, updateCurrentQuestion } from '../../actions/diagnostics.js';
 import {
-  questionCount,
-  answeredQuestionCount,
-  getProgressPercent
-} from '../../libs/calculateProgress'
-import { requestPut, requestPost, } from '../../../../modules/request/index'
+    answeredQuestionCount,
+    getProgressPercent, questionCount
+} from '../../libs/calculateProgress';
+import { getConceptResultsForAllQuestions } from '../../libs/conceptResults/diagnostic';
+import { getParameterByName } from '../../libs/getParameterByName';
+import PlayDiagnosticQuestion from '../diagnostics/sentenceCombining.jsx';
+import PlaySentenceFragment from '../diagnostics/sentenceFragment.jsx';
+import PlayFillInTheBlankQuestion from '../fillInBlank/playFillInTheBlankQuestion';
+import FinishedDiagnostic from './finishedDiagnostic.jsx';
+import LandingPage from './landing.jsx';
 
 class TurkDiagnostic extends React.Component {
   constructor(props) {

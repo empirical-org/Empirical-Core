@@ -1,13 +1,9 @@
 import expect from 'expect';
 
-import data from '../dataFromLesson';
 import {
-  getConceptResultsForQuestion,
-  getNestedConceptResultsForAllQuestions,
-  getConceptResultsForAllQuestions,
-  embedQuestionNumbers,
-  calculateScoreForLesson,
+    calculateScoreForLesson, embedQuestionNumbers, getConceptResultsForAllQuestions, getNestedConceptResultsForAllQuestions
 } from '../../libs/conceptResults/lesson';
+import data from '../dataFromLesson';
 
 describe('Getting concept results from an answered SC object', () => {
   const questions = data;

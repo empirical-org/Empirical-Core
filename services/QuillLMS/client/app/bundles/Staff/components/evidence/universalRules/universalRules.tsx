@@ -1,15 +1,15 @@
 import * as React from "react";
+import { useQuery, useQueryClient } from 'react-query';
 import { Link } from 'react-router-dom';
-import { useQueryClient, useQuery } from 'react-query';
 
-import Navigation from '../navigation'
+import { blankUniversalRule, universalRuleTypeOptions } from '../../../../../constants/evidence';
+import handleRulesListUpdate from '../../../../Shared/hooks/evidence/handleRulesListUpdate';
+import populateRulesState from '../../../../Shared/hooks/evidence/populateRulesState';
+import { DataTable, DropdownInput, Error, Modal, Spinner } from '../../../../Shared/index';
+import { RuleInterface } from '../../../interfaces/evidenceInterfaces';
 import { createRule, fetchUniversalRules, updateRuleOrders } from '../../../utils/evidence/ruleAPIs';
 import RuleForm from '../configureRules/ruleForm';
-import { blankUniversalRule, universalRuleTypeOptions } from '../../../../../constants/evidence';
-import { RuleInterface } from '../../../interfaces/evidenceInterfaces';
-import { Error, Spinner, DropdownInput, DataTable, Modal } from '../../../../Shared/index';
-import populateRulesState from '../../../../Shared/hooks/evidence/populateRulesState'
-import handleRulesListUpdate from '../../../../Shared/hooks/evidence/handleRulesListUpdate'
+import Navigation from '../navigation';
 
 const UniversalRulesIndex = ({ location, match }) => {
 

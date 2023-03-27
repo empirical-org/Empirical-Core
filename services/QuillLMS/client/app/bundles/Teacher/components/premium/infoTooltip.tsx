@@ -1,6 +1,6 @@
 import * as React from 'react'
 
-import { Tooltip, helpIcon, } from '../../../Shared/index'
+import { helpIcon, Tooltip } from '../../../Shared/index'
 
 const InfoTooltip = ({ tooltipText, }) => (
   <Tooltip

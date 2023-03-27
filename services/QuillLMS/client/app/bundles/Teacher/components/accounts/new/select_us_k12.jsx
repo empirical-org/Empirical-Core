@@ -1,9 +1,9 @@
 import React from 'react';
 
-import AssignActivityPackBanner from '../assignActivityPackBanner'
-import SchoolSelector from '../../shared/school_selector.jsx'
-import { requestPut, } from '../../../../../modules/request/index'
-import { NOT_LISTED, NO_SCHOOL_SELECTED, } from '../../../../Shared/index'
+import { requestPut } from '../../../../../modules/request/index';
+import { NOT_LISTED, NO_SCHOOL_SELECTED } from '../../../../Shared/index';
+import SchoolSelector from '../../shared/school_selector.jsx';
+import AssignActivityPackBanner from '../assignActivityPackBanner';
 
 const schoolBuildingImgSrc = `${import.meta.env.VITE_PROCESS_ENV_CDN_URL}/images/accounts/school-building.svg`
 

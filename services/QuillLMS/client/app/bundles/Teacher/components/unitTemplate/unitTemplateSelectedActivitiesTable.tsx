@@ -1,7 +1,7 @@
 import * as React from 'react';
 
 import { SortableList } from '../../../Shared/index';
-import { unitTemplateDataTableFields, unitTemplateActivityRows } from '../../helpers/unitTemplates';
+import { unitTemplateActivityRows, unitTemplateDataTableFields } from '../../helpers/unitTemplates';
 
 export const UnitTemplateSelectedActivitiesTable = ({ activities, selectedActivities, handleRemoveActivity, updateOrder }) => {
 

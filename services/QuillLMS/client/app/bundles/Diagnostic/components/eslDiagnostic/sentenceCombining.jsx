@@ -1,19 +1,19 @@
 import * as React from 'react';
+import ReactTransition from 'react-addons-css-transition-group';
 import { connect } from 'react-redux';
 import _ from 'underscore';
-import ReactTransition from 'react-addons-css-transition-group';
 
-import RenderFeedback from '../renderForQuestions/feedback';
-import getResponse from '../renderForQuestions/checkAnswer';
-import { submitQuestionResponse } from '../renderForQuestions/submitResponse.js';
-import updateResponseResource from '../renderForQuestions/updateResponseResource.js';
-import TextEditor from '../renderForQuestions/renderTextEditor.jsx';
-import RenderQuestionFeedback from '../renderForQuestions/feedbackStatements.jsx';
-import RenderQuestionCues from '../renderForQuestions/cues.tsx';
-import { submitResponse, } from '../../actions/diagnostics.js';
+import { Feedback, getDisplayedText, getLatestAttempt, renderPreviewFeedback, SentenceFragments } from '../../../Shared/index';
+import { submitResponse } from '../../actions/diagnostics.js';
 import { getGradedResponsesWithCallback } from '../../actions/responses.js';
 import { ENGLISH, rightToLeftLanguages } from '../../modules/translation/languagePageInfo';
-import { Feedback, SentenceFragments, getLatestAttempt, renderPreviewFeedback, getDisplayedText } from '../../../Shared/index';
+import getResponse from '../renderForQuestions/checkAnswer';
+import RenderQuestionCues from '../renderForQuestions/cues.tsx';
+import RenderFeedback from '../renderForQuestions/feedback';
+import RenderQuestionFeedback from '../renderForQuestions/feedbackStatements.jsx';
+import TextEditor from '../renderForQuestions/renderTextEditor.jsx';
+import { submitQuestionResponse } from '../renderForQuestions/submitResponse.js';
+import updateResponseResource from '../renderForQuestions/updateResponseResource.js';
 
 const C = require('../../constants').default;
 

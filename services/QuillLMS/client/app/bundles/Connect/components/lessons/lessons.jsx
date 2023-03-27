@@ -1,14 +1,13 @@
 import React from 'react';
 import { connect } from 'react-redux';
-import actions from '../../actions/lessons';
 import _ from 'underscore';
-import EditLessonForm from './lessonForm.jsx';
-import { ExpandLessonQuestions } from './expandLessonQuestions';
 import {
-  Modal,
-  ArchivedButton,
-  FlagDropdown,
+    ArchivedButton,
+    FlagDropdown, Modal
 } from '../../../Shared/index';
+import actions from '../../actions/lessons';
+import { ExpandLessonQuestions } from './expandLessonQuestions';
+import EditLessonForm from './lessonForm.jsx';
 
 class Lessons extends React.Component {
   constructor(props) {

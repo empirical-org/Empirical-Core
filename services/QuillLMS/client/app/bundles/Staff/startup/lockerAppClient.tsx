@@ -1,6 +1,6 @@
 import React from 'react';
-import { HashRouter, Route } from 'react-router-dom';
 import { QueryClientProvider } from 'react-query';
+import { HashRouter, Route } from 'react-router-dom';
 
 import { DefaultReactQueryClient } from '../../Shared';
 import LockerApp from '../components/locker/lockerApp';

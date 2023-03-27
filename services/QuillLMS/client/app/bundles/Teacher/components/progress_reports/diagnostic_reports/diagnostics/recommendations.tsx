@@ -1,41 +1,26 @@
-import * as React from 'react'
-import qs from 'qs'
-import { withRouter, Link, } from 'react-router-dom';
+import * as _ from 'lodash';
 import Pusher from 'pusher-js';
-import * as _ from 'lodash'
+import qs from 'qs';
+import * as React from 'react';
+import { withRouter } from 'react-router-dom';
 
 import {
-  baseDiagnosticImageSrc,
-  fileDocumentIcon,
-  recommendedGlyph,
-  correctImage,
-  informationIcon,
-  expandIcon,
-  releaseMethodToDisplayName,
-  IMMEDIATE,
-} from './shared'
-import RecommendationsTable from './recommendationsTable'
-import ReleaseMethodModal from './releaseMethodModal'
+    LessonRecommendation, Recommendation, Student
+} from './interfaces';
+import RecommendationsTable from './recommendationsTable';
+import ReleaseMethodModal from './releaseMethodModal';
 import {
-  Recommendation,
-  LessonRecommendation,
-  Student,
-} from './interfaces'
+    baseDiagnosticImageSrc, correctImage, expandIcon, fileDocumentIcon, IMMEDIATE, informationIcon, recommendedGlyph, releaseMethodToDisplayName
+} from './shared';
 
-import DemoOnboardingTour, { DEMO_ONBOARDING_DIAGNOSTIC_RECOMMENDATIONS,  } from '../../../shared/demo_onboarding_tour'
-import ActivityDisclaimerBanner from '../../../shared/activityDisclaimerBanner'
-import LoadingSpinner from '../../../shared/loading_indicator.jsx'
-import { requestGet, requestPost, } from '../../../../../../modules/request/index';
+import { requestGet, requestPost } from '../../../../../../modules/request/index';
+import useSnackbarMonitor from '../../../../../Shared/hooks/useSnackbarMonitor';
 import {
-  helpIcon,
-  Tooltip,
-  Snackbar,
-  defaultSnackbarTimeout,
-  smallWhiteCheckIcon,
-  previewIcon,
-  LESSONS,
-} from '../../../../../Shared/index'
-import useSnackbarMonitor from '../../../../../Shared/hooks/useSnackbarMonitor'
+    defaultSnackbarTimeout, helpIcon, LESSONS, previewIcon, smallWhiteCheckIcon, Snackbar, Tooltip
+} from '../../../../../Shared/index';
+import ActivityDisclaimerBanner from '../../../shared/activityDisclaimerBanner';
+import DemoOnboardingTour, { DEMO_ONBOARDING_DIAGNOSTIC_RECOMMENDATIONS } from '../../../shared/demo_onboarding_tour';
+import LoadingSpinner from '../../../shared/loading_indicator.jsx';
 
 const craneIllustration = <img alt="Grayscale construction crane" src={`${baseDiagnosticImageSrc}/crane-grayscale.svg`} />
 

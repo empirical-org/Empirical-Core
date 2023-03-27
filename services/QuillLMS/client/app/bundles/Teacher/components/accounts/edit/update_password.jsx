@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 
-import PasswordWrapper from '../shared/password_wrapper'
-import { Input, } from '../../../../Shared/index'
+import { Input } from '../../../../Shared/index';
+import PasswordWrapper from '../shared/password_wrapper';
 
 export default class UpdatePassword extends Component {
   state = {

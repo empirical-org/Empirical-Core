@@ -1,12 +1,9 @@
-import * as React from 'react'
+import * as React from 'react';
 
 import {
-  UNIT_TEMPLATE_NAME,
-  UNIT_TEMPLATE_ID,
-  UNIT_NAME,
-  ACTIVITY_IDS_ARRAY,
-  CLASSROOMS,
-} from './assignmentFlowConstants'
+    ACTIVITY_IDS_ARRAY,
+    CLASSROOMS, UNIT_NAME, UNIT_TEMPLATE_ID, UNIT_TEMPLATE_NAME
+} from './assignmentFlowConstants';
 
 interface LeavingModalProps {
   cancel: () => void;

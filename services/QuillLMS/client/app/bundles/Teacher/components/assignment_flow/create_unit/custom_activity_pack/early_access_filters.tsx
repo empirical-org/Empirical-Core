@@ -1,10 +1,10 @@
 import * as React from 'react';
 
-import { Activity } from './interfaces'
-import { EARLY_ACCESS_FILTERS } from './shared'
+import { Activity } from './interfaces';
+import { EARLY_ACCESS_FILTERS } from './shared';
 
-import { Tooltip, } from '../../../../../Shared/index'
-import { EVIDENCE_BETA1, EVIDENCE_BETA2, } from '../../../../../../constants/flagOptions'
+import { EVIDENCE_BETA1, EVIDENCE_BETA2 } from '../../../../../../constants/flagOptions';
+import { Tooltip } from '../../../../../Shared/index';
 
 const smallWhiteCheckSrc = `${import.meta.env.VITE_PROCESS_ENV_CDN_URL}/images/shared/check-small-white.svg`
 

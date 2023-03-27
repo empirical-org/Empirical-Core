@@ -1,10 +1,10 @@
-import React from 'react';
 import { mount } from 'enzyme';
+import React from 'react';
 
-import { expiredSubscriptionStatus, } from './data'
+import { expiredSubscriptionStatus } from './data';
 
+import { TEACHER_PREMIUM } from '../constants';
 import SubscriptionStatus from '../SubscriptionStatus';
-import { TEACHER_PREMIUM, } from '../constants'
 
 const sharedProps = {
   userIsContact: false,

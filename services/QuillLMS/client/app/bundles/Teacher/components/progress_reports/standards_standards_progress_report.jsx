@@ -1,16 +1,15 @@
 import React from 'react'
-import _ from 'underscore'
 
 import CSVDownloadForProgressReport from './csv_download_for_progress_report.jsx'
 
 import { NOT_SCORED_DISPLAY_TEXT } from './constants.js'
 
-import LoadingSpinner from '../shared/loading_indicator.jsx'
-import userIsPremium from '../modules/user_is_premium'
-import {sortTableByStandardLevel} from '../../../../modules/sortingMethods.js'
+import { requestGet } from '../../../../modules/request/index'
+import { sortTableByStandardLevel } from '../../../../modules/sortingMethods.js'
+import { ReactTable } from '../../../Shared/index'
 import { getTimeSpent } from '../../helpers/studentReports'
-import { ReactTable, } from '../../../Shared/index'
-import { requestGet, } from '../../../../modules/request/index'
+import userIsPremium from '../modules/user_is_premium'
+import LoadingSpinner from '../shared/loading_indicator.jsx'
 
 export default class StandardsProgressReport extends React.Component {
   constructor() {

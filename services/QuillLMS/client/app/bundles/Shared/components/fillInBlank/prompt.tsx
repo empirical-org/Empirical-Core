@@ -74,4 +74,5 @@ const Prompt = (props: PromptProps) => {
   );
 }
 
-export { Prompt }
+export { Prompt };
+

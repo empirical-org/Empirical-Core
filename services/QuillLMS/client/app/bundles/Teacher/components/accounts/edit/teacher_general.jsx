@@ -1,10 +1,10 @@
 import React from 'react';
 
-import { timeZoneOptions, } from './shared'
+import { timeZoneOptions } from './shared';
 
-import SchoolSelector from '../../shared/school_selector'
-import { Input, DropdownInput, NOT_LISTED, NO_SCHOOL_SELECTED, } from '../../../../Shared/index'
-import { requestPost, } from '../../../../../modules/request'
+import { requestPost } from '../../../../../modules/request';
+import { DropdownInput, Input, NOT_LISTED, NO_SCHOOL_SELECTED } from '../../../../Shared/index';
+import SchoolSelector from '../../shared/school_selector';
 
 const HOME_SCHOOL_SCHOOL_NAME = 'home school'
 const US_HIGHER_ED_SCHOOL_NAME = 'us higher ed'

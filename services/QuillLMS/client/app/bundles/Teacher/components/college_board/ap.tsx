@@ -1,19 +1,16 @@
 import * as React from 'react';
 import VisibilitySensor from 'react-visibility-sensor';
 
+import { FEEDBACK_AND_REPORTS, MESSAGE_FROM_COLLEGE_BOARD, QUESTIONS_AND_ANSWERS, TOP_SECTION, WRITING_SKILLS_SURVEYS } from './collegeBoardConstants';
 import ScrollBox from './scrollBox';
-import { WRITING_SKILLS_SURVEYS, FEEDBACK_AND_REPORTS, MESSAGE_FROM_COLLEGE_BOARD, QUESTIONS_AND_ANSWERS, TOP_SECTION } from './collegeBoardConstants';
 
 import QuestionsAndAnswers from '../../containers/QuestionsAndAnswers';
-import {
-  AP_SLUG,
-  AP_WRITINGS_SKILLS_UNIT_TEMPLATE_ID,
-  ELL_STARTER_DIAGNOSTIC_UNIT_TEMPLATE_ID,
-  ELL_INTERMEDIATE_DIAGNOSTIC_UNIT_TEMPLATE_ID,
-  ELL_ADVANCED_DIAGNOSTIC_UNIT_TEMPLATE_ID,
-} from '../assignment_flow/assignmentFlowConstants';
 import { generateLink, getStartedButton } from '../../helpers/collegeBoard';
 import { scrollToTop } from '../../hooks/scrollToTop';
+import {
+    AP_SLUG,
+    AP_WRITINGS_SKILLS_UNIT_TEMPLATE_ID, ELL_ADVANCED_DIAGNOSTIC_UNIT_TEMPLATE_ID, ELL_INTERMEDIATE_DIAGNOSTIC_UNIT_TEMPLATE_ID, ELL_STARTER_DIAGNOSTIC_UNIT_TEMPLATE_ID
+} from '../assignment_flow/assignmentFlowConstants';
 
 interface ApContainerProps {
   isPartOfAssignmentFlow?: boolean;

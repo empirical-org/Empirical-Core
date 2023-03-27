@@ -1,17 +1,14 @@
-import React from 'react'
 import { mount } from 'enzyme'
-import * as $ from 'jquery'
+import React from 'react'
 
 import {
-  dummyLocationData,
-  dummyMatchData,
-  individualStudentPreTestConceptResults,
-  individualStudentPreTestSkillResults,
-  individualStudentPostTestConceptResults,
-  individualStudentPostTestSkillResults
+    dummyLocationData,
+    dummyMatchData, individualStudentPostTestConceptResults,
+    individualStudentPostTestSkillResults, individualStudentPreTestConceptResults,
+    individualStudentPreTestSkillResults
 } from './test_data'
 
-import { IndividualStudentResponses, } from '../individualStudentResponses'
+import { IndividualStudentResponses } from '../individualStudentResponses'
 
 jest.mock('qs', () => ({
   default: {

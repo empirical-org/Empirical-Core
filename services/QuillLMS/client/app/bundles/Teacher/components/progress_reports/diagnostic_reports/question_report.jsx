@@ -1,6 +1,6 @@
-import React from 'react'
-import ProgressReport from '../progress_report.jsx'
-import { EVIDENCE_KEY, } from '../constants'
+import React from 'react';
+import { EVIDENCE_KEY } from '../constants';
+import ProgressReport from '../progress_report.jsx';
 
 export default class QuestionReport extends React.Component {
   constructor(props) {

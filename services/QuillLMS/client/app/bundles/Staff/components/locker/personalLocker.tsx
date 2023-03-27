@@ -1,7 +1,7 @@
 import * as React from 'react';
 
-import ReturnButton from './returnButton';
 import Locker from './locker';
+import ReturnButton from './returnButton';
 
 export const PersonalLocker = ({ history, personalLocker }) => {
 

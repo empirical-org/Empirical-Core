@@ -1,8 +1,8 @@
-import * as React from 'react';
 import { mount } from 'enzyme';
+import * as React from 'react';
 
+import { subjectAreas } from '../../accounts/shared/__tests__/data';
 import TeacherInfoModal from '../teacher_info_modal';
-import { subjectAreas, } from '../../accounts/shared/__tests__/data'
 
 describe('TeacherInfoModal component', () => {
   const props = {

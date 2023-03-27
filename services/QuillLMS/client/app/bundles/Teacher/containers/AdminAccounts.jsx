@@ -1,7 +1,7 @@
 'use strict'
-import Resource from '../components/cms/resources/resource.jsx'
-import Cms from './Cms.jsx'
-import React from 'react'
+import React from 'react';
+import Resource from '../components/cms/resources/resource.jsx';
+import Cms from './Cms.jsx';
 
 export default class extends React.Component {
   resourceComponentGenerator = (cmsComponent) => {

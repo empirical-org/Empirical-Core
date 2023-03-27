@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
-import PlaySentenceFragment from '../studentLessons/sentenceFragment.jsx';
 import { clearData, loadData, nextQuestion, submitResponse, updateCurrentQuestion } from '../../actions.js';
+import PlaySentenceFragment from '../studentLessons/sentenceFragment.jsx';
 
 class TestQuestion extends Component {
   constructor(props) {

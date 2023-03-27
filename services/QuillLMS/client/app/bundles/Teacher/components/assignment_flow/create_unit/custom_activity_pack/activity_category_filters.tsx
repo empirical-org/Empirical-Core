@@ -1,9 +1,9 @@
 import * as React from 'react';
 
-import { Activity, ActivityCategory } from './interfaces'
-import { ACTIVITY_CATEGORY_FILTERS, AVERAGE_FONT_WIDTH, } from './shared'
+import { Activity, ActivityCategory } from './interfaces';
+import { ACTIVITY_CATEGORY_FILTERS, AVERAGE_FONT_WIDTH } from './shared';
 
-import { Tooltip } from '../../../../../Shared/index'
+import { Tooltip } from '../../../../../Shared/index';
 
 const smallWhiteCheckSrc = `${import.meta.env.VITE_PROCESS_ENV_CDN_URL}/images/shared/check-small-white.svg`
 

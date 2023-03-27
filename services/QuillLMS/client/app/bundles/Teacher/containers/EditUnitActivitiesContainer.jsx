@@ -1,7 +1,7 @@
 import React from 'react'
 
+import { requestPut } from '../../../modules/request/index'
 import UnitStage1 from '../components/assignment_flow/create_unit/select_activities_container.jsx'
-import { requestPut, } from '../../../modules/request/index'
 
 export default class EditUnitActivitiesContainer extends React.Component {
   constructor(props) {

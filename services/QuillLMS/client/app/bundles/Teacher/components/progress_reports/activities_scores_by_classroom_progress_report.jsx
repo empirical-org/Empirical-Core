@@ -1,18 +1,17 @@
-import React from 'react'
-import _ from 'underscore'
+import moment from 'moment';
 import queryString from 'query-string';
-import moment from 'moment'
+import React from 'react';
 
-import EmptyStateForReport from './empty_state_for_report'
-import CSVDownloadForProgressReport from './csv_download_for_progress_report.jsx'
-import { PROGRESS_REPORTS_SELECTED_CLASSROOM_ID, } from './progress_report_constants'
+import CSVDownloadForProgressReport from './csv_download_for_progress_report.jsx';
+import EmptyStateForReport from './empty_state_for_report';
+import { PROGRESS_REPORTS_SELECTED_CLASSROOM_ID } from './progress_report_constants';
 
-import ItemDropdown from '../general_components/dropdown_selectors/item_dropdown'
-import LoadingSpinner from '../shared/loading_indicator.jsx'
-import {sortTableByLastName, sortTableFromSQLTimeStamp} from '../../../../modules/sortingMethods.js'
+import { requestGet } from '../../../../modules/request/index';
+import { sortTableByLastName, sortTableFromSQLTimeStamp } from '../../../../modules/sortingMethods.js';
+import { ReactTable, Tooltip } from '../../../Shared/index';
 import { getTimeSpent } from '../../helpers/studentReports';
-import { ReactTable, Tooltip } from '../../../Shared/index'
-import { requestGet, } from '../../../../modules/request/index'
+import ItemDropdown from '../general_components/dropdown_selectors/item_dropdown';
+import LoadingSpinner from '../shared/loading_indicator.jsx';
 
 const showAllClassroomKey = 'All classes'
 

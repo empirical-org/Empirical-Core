@@ -1,53 +1,37 @@
 import * as React from 'react';
 import { connect } from 'react-redux';
 import {
-  startListeningToSession,
-  registerPresence,
-  updateNoStudentError,
-  easyJoinLessonAddName,
-  goToNextSlide,
-  goToPreviousSlide,
-  saveStudentSubmission,
-  fetchActiveActivitySession,
-  saveActiveActivitySession,
+    easyJoinLessonAddName, fetchActiveActivitySession, goToNextSlide,
+    goToPreviousSlide, registerPresence, saveActiveActivitySession, saveStudentSubmission, startListeningToSession, updateNoStudentError
 } from '../../../actions/classroomSessions';
+import NavBar from '../../navbar/studentNavbar';
+import ErrorPage from '../shared/errorPage';
 import CLAbsentTeacher from './absentTeacher';
-import CLStudentLobby from './lobby';
-import CLWatchTeacher from './watchTeacher'
-import CLStudentStatic from './static';
-import CLStudentSingleAnswer from './singleAnswer';
-import CLListBlanks from './listBlanks';
 import CLStudentFillInTheBlank from './fillInTheBlank';
+import FlaggedStudentCompletedPage from './flaggedStudentCompleted';
+import FollowUp from './followUp';
+import CLListBlanks from './listBlanks';
+import CLStudentLobby from './lobby';
 import CLStudentModelQuestion from './modelQuestion';
 import CLMultistep from './multistep';
 import ProjectorModal from './projectorModal';
-import FollowUp from './followUp';
-import ErrorPage from '../shared/errorPage';
-import FlaggedStudentCompletedPage from './flaggedStudentCompleted';
-import NavBar from '../../navbar/studentNavbar';
+import CLStudentSingleAnswer from './singleAnswer';
+import CLStudentStatic from './static';
+import CLWatchTeacher from './watchTeacher';
 
 import { getClassLesson } from '../../../actions/classroomLesson';
 import { getEditionQuestions } from '../../../actions/customize';
-import { getParameterByName } from '../../../libs/getParameterByName';
-import {
-  ClassroomLessonSessions,
-  ClassroomLessonSession,
-  QuestionSubmissionsList,
-  ClassroomSessionId
-} from '../interfaces';
 import { ClassroomLesson } from '../../../interfaces/classroomLessons';
 import * as CustomizeIntf from '../../../interfaces/customize';
+import { getParameterByName } from '../../../libs/getParameterByName';
+import {
+    ClassroomLessonSession,
+    QuestionSubmissionsList
+} from '../interfaces';
 import { scriptTagStrip } from '../shared/scriptTagStrip';
 
 import {
-  Spinner,
-  KEYDOWN,
-  MOUSEMOVE,
-  MOUSEDOWN,
-  CLICK,
-  KEYPRESS,
-  VISIBILITYCHANGE,
-  SCROLL,
+    CLICK, KEYDOWN, KEYPRESS, MOUSEDOWN, MOUSEMOVE, SCROLL, Spinner, VISIBILITYCHANGE
 } from '../../../../Shared/index';
 
 const arrowSrc = `${import.meta.env.VITE_PROCESS_ENV_CDN_URL}/images/icons/chevron-arrow-filled.svg`

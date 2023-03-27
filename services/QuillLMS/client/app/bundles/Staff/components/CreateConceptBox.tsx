@@ -1,12 +1,12 @@
+import gql from "graphql-tag";
 import * as React from "react";
 import { Mutation } from "react-apollo";
-import gql from "graphql-tag";
 
-import { Concept } from '../interfaces/interfaces'
-import RuleDescriptionField from './RuleDescriptionField'
-import ExplanationField from './ExplanationField'
-import ChangeLogModal from './shared/changeLogModal'
-import { Input, DropdownInput, } from '../../Shared/index'
+import { DropdownInput, Input } from '../../Shared/index';
+import { Concept } from '../interfaces/interfaces';
+import ExplanationField from './ExplanationField';
+import RuleDescriptionField from './RuleDescriptionField';
+import ChangeLogModal from './shared/changeLogModal';
 
 const CREATE_CONCEPT = gql`
   mutation createConcept($name: String!, $parentId: ID, $description: String, $explanation: String, $changeLogs: [ChangeLogInput!]!){

@@ -1,8 +1,8 @@
-import * as React from 'react';
 import { shallow } from 'enzyme';
+import * as React from 'react';
 
+import { DropdownInput, TextEditor } from '../../../../Shared/index';
 import RuleUniversalAttributes from '../configureRules/ruleUniversalAttributes';
-import { DropdownInput, TextEditor } from '../../../../Shared/index'
 
 const mockProps = {
   errors: {},

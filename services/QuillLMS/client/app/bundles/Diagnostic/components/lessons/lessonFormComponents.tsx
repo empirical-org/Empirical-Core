@@ -28,7 +28,7 @@ export const NameInput = ({ name, onChange }: NameInputProps) => {
         placeholder="Text input"
         type="text"
         value={name}
-      /> 
+      />
     </label>
   );
 }

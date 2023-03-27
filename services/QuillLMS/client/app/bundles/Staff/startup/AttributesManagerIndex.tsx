@@ -1,7 +1,7 @@
-import * as React from 'react'
-import { BrowserRouter, Route, } from 'react-router-dom';
+import * as React from 'react';
+import { BrowserRouter, Route } from 'react-router-dom';
 
-import AttributesManager from '../components/attributesManager/index'
+import AttributesManager from '../components/attributesManager/index';
 
 const AttributesManagerIndex = () => {
   return (

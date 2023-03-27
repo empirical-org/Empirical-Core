@@ -1,6 +1,6 @@
+import { shallow } from "enzyme";
 import * as React from "react";
-import {shallow} from "enzyme";
-import { Cue, CueExplanation, } from '../../../../Shared/index'
+import { Cue, CueExplanation } from '../../../../Shared/index';
 
 import Cues from "../cues";
 

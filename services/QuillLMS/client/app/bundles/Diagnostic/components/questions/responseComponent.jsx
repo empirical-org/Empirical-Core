@@ -1,29 +1,26 @@
 import React from 'react';
 import { connect } from 'react-redux';
-import filterActions from '../../actions/filters';
 import _ from 'underscore';
+import { requestGet } from '../../../../modules/request/index';
 import {
-  ResponseSortFields,
-  ResponseToggleFields,
-  QuestionBar,
-  hashToCollection
+    hashToCollection, QuestionBar, ResponseSortFields,
+    ResponseToggleFields
 } from '../../../Shared/index';
-import ResponseList from './responseList.jsx';
-import QuestionMatcher from '../../libs/question';
+import filterActions from '../../actions/filters';
+import massEdit from '../../actions/massEdit';
 import questionActions from '../../actions/questions';
+import { submitResponseEdit } from '../../actions/responses';
 import sentenceFragmentActions from '../../actions/sentenceFragments.ts';
+import {
+    rematchAll,
+    rematchOne
+} from '../../libs/grading/rematching.ts';
 import { getPartsOfSpeechTags } from '../../libs/partsOfSpeechTagging.js';
-import POSForResponsesList from './POSForResponsesList.jsx';
+import QuestionMatcher from '../../libs/question';
 import respWithStatus from '../../libs/responseTools.js';
 import POSMatcher from '../../libs/sentenceFragment.js';
-import {
-  rematchAll,
-  rematchOne
-} from '../../libs/grading/rematching.ts';
-import DiagnosticQuestionMatcher from '../../libs/diagnosticQuestion.js';
-import massEdit from '../../actions/massEdit';
-import { submitResponseEdit } from '../../actions/responses';
-import { requestGet, } from '../../../../modules/request/index'
+import POSForResponsesList from './POSForResponsesList.jsx';
+import ResponseList from './responseList.jsx';
 
 const C = require('../../constants').default;
 

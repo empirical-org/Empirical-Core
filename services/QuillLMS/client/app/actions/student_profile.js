@@ -1,4 +1,4 @@
-import { requestGet, } from '../modules/request/index'
+import { requestGet } from '../modules/request/index';
 
 export const receiveStudentProfile = data => ({
   type: 'RECEIVE_STUDENT_PROFILE',

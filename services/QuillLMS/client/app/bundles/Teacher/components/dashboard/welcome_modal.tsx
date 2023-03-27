@@ -1,7 +1,6 @@
-import * as React from 'react'
-import Confetti from 'react-confetti'
+import * as React from 'react';
+import Confetti from 'react-confetti';
 
-import { handleHasAppSetting } from "../../../Shared/utils/appSettingAPIs";
 
 const classroomActivitiesSrc = `${import.meta.env.VITE_PROCESS_ENV_CDN_URL}/images/pages/dashboard/illustrations-classroom-activities-2.svg`
 

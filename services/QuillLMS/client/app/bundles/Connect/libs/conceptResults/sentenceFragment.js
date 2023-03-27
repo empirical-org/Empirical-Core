@@ -1,5 +1,5 @@
-import C from '../../constants';
 import _ from 'underscore';
+import C from '../../constants';
 
 import { getConceptResultsForAttempt } from './sharedConceptResultsFunctions';
 
@@ -74,7 +74,7 @@ export function getConceptResultsForSentenceFragmentAttempt(question, attemptInd
 export function calculateCorrectnessOfSentence(attempt) {
   if (attempt && attempt.response && attempt.response.optimal !== undefined) {
     return attempt.response.optimal ? 1 : 0;
-  } 
+  }
   return 1;
-  
+
 }

@@ -1,6 +1,6 @@
 import _ from 'underscore';
 import {
-  getPartsOfSpeechWordsWithTags
+    getPartsOfSpeechWordsWithTags
 } from './partsOfSpeechTagging';
 
 const posTranslations = {
@@ -54,7 +54,7 @@ export function getCommonWords(sentences) {
   return _.intersection(...words);
 }
 
-export function getCommonWordsWithImportantPOS(sentences) {
+export function getCommonWordsWithimportantPOS(sentences) {
   const allCommonWords = getCommonWords(sentences);
   return _.reject(allCommonWords, (word) => {
     if (getPartsOfSpeechWordsWithTags(word) && getPartsOfSpeechWordsWithTags(word)[0]) {
@@ -66,7 +66,7 @@ export function getCommonWordsWithImportantPOS(sentences) {
 }
 
 export function getMissingWords(userString, sentences) {
-  const commonWords = getCommonWordsWithImportantPOS(sentences);
+  const commonWords = getCommonWordsWithimportantPOS(sentences);
   const wordsFromUser = normalizeString(userString).split(' ');
   return _.reject(commonWords, commonWord => _.contains(wordsFromUser, commonWord));
 }

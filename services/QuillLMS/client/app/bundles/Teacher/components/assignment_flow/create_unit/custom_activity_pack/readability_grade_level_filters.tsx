@@ -1,8 +1,8 @@
 import * as React from 'react';
 
-import { arrayFromNumbers, } from './shared'
+import { arrayFromNumbers } from './shared';
 
-import { TwoThumbSlider, Tooltip, helpIcon, } from '../../../../../Shared/index'
+import { helpIcon, Tooltip, TwoThumbSlider } from '../../../../../Shared/index';
 
 interface ReadabilityGradeLevelFiltersProps {
   readabilityGradeLevelFilters: number[],

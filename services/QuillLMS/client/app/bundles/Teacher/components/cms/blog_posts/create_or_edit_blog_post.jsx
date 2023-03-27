@@ -1,17 +1,16 @@
+import moment from 'moment';
 import * as React from 'react';
-import Dropzone from 'react-dropzone'
-import moment from 'moment'
-import { EditorState, ContentState } from 'draft-js';
+import { SingleDatePicker } from 'react-dates';
 import "react-dates/initialize";
-import { SingleDatePicker } from 'react-dates'
+import Dropzone from 'react-dropzone';
 
-import ItemDropdown from '../../general_components/dropdown_selectors/item_dropdown.jsx'
+import { requestPost, requestPut } from '../../../../../modules/request/index';
+import { smallWhiteCheckIcon } from '../../../../Shared/index';
+import { BLOG_POST_TO_COLOR } from '../../blog_posts/blog_post_constants';
+import BlogPostContent from '../../blog_posts/blog_post_content';
+import ItemDropdown from '../../general_components/dropdown_selectors/item_dropdown.jsx';
+import getAuthToken from '../../modules/get_auth_token';
 import PreviewCard from '../../shared/preview_card.jsx';
-import BlogPostContent from '../../blog_posts/blog_post_content'
-import getAuthToken from '../../modules/get_auth_token'
-import { requestPost, requestPut, } from '../../../../../modules/request/index'
-import { BLOG_POST_TO_COLOR, } from '../../blog_posts/blog_post_constants'
-import { smallWhiteCheckIcon, } from '../../../../Shared/index'
 
 const defaultPreviewCardContent = `<div class='preview-card-body'>
    <h3>Party Parrot Parade</h3>

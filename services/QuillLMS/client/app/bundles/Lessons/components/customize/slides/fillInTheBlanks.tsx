@@ -1,10 +1,10 @@
-import React, {Component} from 'react'
+import _ from 'lodash';
+import React, { Component } from 'react';
 import * as CLIntF from '../../../interfaces/classroomLessons';
-import _ from 'lodash'
-import PromptField from './slideComponents/promptField'
-import StudentFillInTheBlank from '../../classroomLessons/play/fillInTheBlank'
-import TitleField from './slideComponents/titleField'
-import CuesField from './slideComponents/cuesField'
+import StudentFillInTheBlank from '../../classroomLessons/play/fillInTheBlank';
+import CuesField from './slideComponents/cuesField';
+import PromptField from './slideComponents/promptField';
+import TitleField from './slideComponents/titleField';
 
 interface CustomizeFillInTheBlanksProps {
   question: CLIntF.QuestionData,

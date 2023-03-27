@@ -1,4 +1,4 @@
-import * as React from 'react'
+import * as React from 'react';
 
 const FreeTrialStatus = ({ status, originPage, upgradeToPremiumNowButton, lastSubscriptionWasTrial, data, }) => {
   const stateSpecificComponents = () => {

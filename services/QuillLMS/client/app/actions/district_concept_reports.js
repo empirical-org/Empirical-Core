@@ -1,6 +1,6 @@
 import Pusher from 'pusher-js';
 
-import { requestGet, } from '../modules/request/index'
+import { requestGet } from '../modules/request/index';
 
 export const recieveDistrictConceptReports = (body) => {
   return { type: 'RECIEVE_DISTRICT_CONCEPT_REPORTS', body, };

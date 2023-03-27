@@ -1,14 +1,14 @@
-import React from 'react'
-import _ from 'underscore'
 import _l from 'lodash'
+import React from 'react'
 import { Link } from 'react-router-dom'
+import _ from 'underscore'
 
-import UnitTemplateMini from './unit_template_mini'
 import UnitTemplateMinisTable from './unitTemplateMinisTable'
+import UnitTemplateMini from './unit_template_mini'
 
-import AssignmentFlowNavigation from '../assignment_flow_navigation.tsx'
 import { DropdownInput } from '../../../../Shared/index'
-import { ACTIVITY_PACK_TYPES, READING_TEXTS, DIAGNOSTIC, WHOLE_CLASS_LESSONS, LANGUAGE_SKILLS, DAILY_PROOFREADING, CREATE_YOUR_OWN_ID } from '../assignmentFlowConstants'
+import { ACTIVITY_PACK_TYPES, CREATE_YOUR_OWN_ID, DAILY_PROOFREADING, DIAGNOSTIC, LANGUAGE_SKILLS, READING_TEXTS, WHOLE_CLASS_LESSONS } from '../assignmentFlowConstants'
+import AssignmentFlowNavigation from '../assignment_flow_navigation.tsx'
 
 const ALL = 'All'
 const GRADE_LEVEL_LABELS = ['4th-12th', '6th-12th', '8th-12th', '10th-12th']

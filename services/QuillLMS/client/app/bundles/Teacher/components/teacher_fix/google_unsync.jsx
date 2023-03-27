@@ -1,6 +1,6 @@
-import React from 'react'
+import React from 'react';
 
-import { requestPut, } from '../../../../modules/request/index'
+import { requestPut } from '../../../../modules/request/index';
 
 export default class GoogleUnsync extends React.Component {
   constructor(props) {

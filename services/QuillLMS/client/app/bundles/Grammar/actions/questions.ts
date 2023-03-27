@@ -1,20 +1,18 @@
 import Pusher from 'pusher-js';
-import _ from 'underscore';
+import { ConceptResult, Response } from 'quill-marking-logic';
 import { push } from 'react-router-redux';
-import { Response, ConceptResult } from 'quill-marking-logic'
+import _ from 'underscore';
 
-import { ActionTypes } from './actionTypes'
-import { Questions, Question, FocusPoint, IncorrectSequence } from '../interfaces/questions'
-import * as responseActions from './responses'
-import { populateQuestions, setSessionReducerToSavedSession } from './session.ts'
+import { FocusPoint, IncorrectSequence, Question, Questions } from '../interfaces/questions';
+import { ActionTypes } from './actionTypes';
+import * as responseActions from './responses';
+import { populateQuestions, setSessionReducerToSavedSession } from './session.ts';
 
+import { requestGet, requestPost } from '../../../modules/request/index';
 import {
-  FocusPointApi,
-  IncorrectSequenceApi,
-  QuestionApi,
-  GRAMMAR_QUESTION_TYPE
-} from '../libs/questions_api'
-import { requestGet, requestPost, } from '../../../modules/request/index'
+    FocusPointApi, GRAMMAR_QUESTION_TYPE, IncorrectSequenceApi,
+    QuestionApi
+} from '../libs/questions_api';
 
 export const startListeningToQuestions = (sessionID) => {
   return (dispatch: Function) => {

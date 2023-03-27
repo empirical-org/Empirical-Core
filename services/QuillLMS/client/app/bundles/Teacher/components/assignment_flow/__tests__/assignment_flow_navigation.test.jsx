@@ -1,7 +1,7 @@
-import React from 'react';
 import { shallow } from 'enzyme';
+import React from 'react';
 
-import AssignmentFlowNavigation from '../assignment_flow_navigation'
+import AssignmentFlowNavigation from '../assignment_flow_navigation';
 
 describe('AssignmentFlowNavigation component', () => {
   const wrapper = shallow(

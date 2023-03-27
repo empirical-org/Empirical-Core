@@ -1,5 +1,5 @@
 import * as React from 'react'
-import { UNIT_TEMPLATE_NAME, } from '../assignment_flow/assignmentFlowConstants'
+import { UNIT_TEMPLATE_NAME } from '../assignment_flow/assignmentFlowConstants'
 
 const AssignActivityPackBanner = ({ login, }) => {
   const unitTemplateName = window.localStorage.getItem(UNIT_TEMPLATE_NAME)

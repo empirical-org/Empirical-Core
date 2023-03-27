@@ -1,7 +1,6 @@
 import React from 'react';
-import { Link } from 'react-router-dom';
-import ConceptSelector from '../shared/conceptSelector.jsx';
 import { FlagDropdown } from '../../../Shared/index';
+import ConceptSelector from '../shared/conceptSelector.jsx';
 
 class sentenceFragmentForm extends React.Component {
   constructor(props) {

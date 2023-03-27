@@ -1,5 +1,5 @@
-import * as React from 'react'
-import XLSX from 'xlsx'
+import * as React from 'react';
+import XLSX from 'xlsx';
 
 export default class UploadOptimalResponses extends React.Component {
   constructor(props) {

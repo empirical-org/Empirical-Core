@@ -1,5 +1,5 @@
-import * as React from 'react'
 import qs from 'qs'
+import * as React from 'react'
 
 import { TEACHER_CENTER_SLUG, USING_QUILL_FOR_READING_COMPREHENSION } from './blog_post_constants'
 

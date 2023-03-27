@@ -1,12 +1,8 @@
 import * as React from "react";
 
 import {
-  promptStems,
-  DEFAULT_MAX_ATTEMPTS,
-  BECAUSE,
-  BUT,
-  SO,
-  ALL
+    ALL, BECAUSE,
+    BUT, DEFAULT_MAX_ATTEMPTS, promptStems, SO
 } from '../../../../constants/evidence';
 import { PromptInterface } from '../../interfaces/evidenceInterfaces';
 const quillCheckmark = `/images/green_check.svg`;

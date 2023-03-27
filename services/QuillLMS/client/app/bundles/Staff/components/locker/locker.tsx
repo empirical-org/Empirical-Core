@@ -1,8 +1,8 @@
 import * as React from "react";
 import { useHistory } from 'react-router-dom';
 
-import { titleCase, informationIcon, Tooltip } from "../../../Shared";
-import { LockerContentsInterface  } from "../../interfaces/interfaces";
+import { informationIcon, titleCase, Tooltip } from "../../../Shared";
+import { LockerContentsInterface } from "../../interfaces/interfaces";
 
 export const Locker = ({ lockerContents }: {lockerContents: LockerContentsInterface}) => {
   const history = useHistory();

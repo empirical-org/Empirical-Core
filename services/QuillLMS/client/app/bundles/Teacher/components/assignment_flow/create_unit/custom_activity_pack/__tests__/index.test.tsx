@@ -1,8 +1,8 @@
-import * as React from 'react'
 import { mount } from 'enzyme';
+import * as React from 'react';
 
-import { activities } from './data'
-import CustomActivityPack from '../index'
+import CustomActivityPack from '../index';
+import { activities } from './data';
 
 jest.mock('query-string', () => ({
   default: {

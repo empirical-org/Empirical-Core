@@ -1,8 +1,8 @@
 import * as React from 'react'
 
-import { arrayFromNumbers, } from '../custom_activity_pack/shared'
-import { requestPost, } from '../../../../../../modules/request'
-import { DataTable, warningIcon, smallWhiteCheckIcon, } from '../../../../../Shared/index'
+import { requestPost } from '../../../../../../modules/request'
+import { DataTable, smallWhiteCheckIcon, warningIcon } from '../../../../../Shared/index'
+import { arrayFromNumbers } from '../custom_activity_pack/shared'
 
 const activityTableHeaders = [
   {

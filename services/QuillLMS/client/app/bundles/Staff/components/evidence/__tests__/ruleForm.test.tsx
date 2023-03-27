@@ -1,10 +1,10 @@
-import * as React from 'react';
 import { shallow } from 'enzyme';
-import { QueryClientProvider } from 'react-query'
+import * as React from 'react';
+import { QueryClientProvider } from 'react-query';
 
-import { mockRule } from '../__mocks__/data';
-import RuleForm from '../configureRules/ruleForm';
 import { DefaultReactQueryClient } from '../../../../Shared';
+import RuleForm from '../configureRules/ruleForm';
+import { mockRule } from '../__mocks__/data';
 
 jest.mock('../../../helpers/evidence/ruleHelpers', () => ({
   // ...jest.requireActual('../../../helpers/evidence/ruleHelpers'),

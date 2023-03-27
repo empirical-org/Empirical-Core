@@ -1,9 +1,9 @@
-import 'whatwg-fetch'
-import * as React from 'react';
 import { shallow } from 'enzyme';
+import * as React from 'react';
 import stripHtml from "string-strip-html";
+import 'whatwg-fetch';
 
-import { fillInBlankQuestionWithOneAttempt, conceptsFeedback } from '../../../test/studentLessonData'
+import { conceptsFeedback, fillInBlankQuestionWithOneAttempt } from '../../../test/studentLessonData';
 import PlayFillInBlankQuestion from '../fillInBlank';
 
 jest.mock('string-strip-html', () => ({

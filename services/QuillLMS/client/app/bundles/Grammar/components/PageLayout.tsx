@@ -1,15 +1,14 @@
 import * as React from "react";
-import {renderRoutes} from "react-router-config";
 import { useQuery } from 'react-query';
+import { renderRoutes } from "react-router-config";
 
 import { Header } from "./Header";
 
-import { routes } from "../routes";
+import { addKeyDownListener } from '../../Shared/hooks/addKeyDownListener';
+import { ScreenreaderInstructions, TeacherPreviewMenu } from '../../Shared/index';
 import { fetchUserRole } from '../../Shared/utils/userAPIs';
 import getParameterByName from '../helpers/getParameterByName';
-import { TeacherPreviewMenu, ScreenreaderInstructions, } from '../../Shared/index';
-import { addKeyDownListener } from '../../Shared/hooks/addKeyDownListener';
-import { setCurrentQuestion } from '../actions/session';
+import { routes } from "../routes";
 
 export const PageLayout = () => {
 

@@ -1,27 +1,26 @@
 import React from 'react';
 import { connect } from 'react-redux';
-import { Route, Switch, withRouter, NavLink } from 'react-router-dom';
+import { NavLink, Route, Switch, withRouter } from 'react-router-dom';
 import _ from 'underscore';
-import EditForm from './questionForm.jsx';
-import getBoilerplateFeedback from './boilerplateFeedback.jsx';
-import Cues from '../renderForQuestions/cues.jsx';
+import { Modal, UploadOptimalResponses } from '../../../Shared/index';
 import questionActions from '../../actions/questions';
 import {
-  submitResponse,
-  submitOptimalResponses
+    submitOptimalResponses, submitResponse
 } from '../../actions/responses';
 import C from '../../constants';
-import FocusPointsContainer from '../focusPoints/focusPointsContainer.jsx';
 import EditFocusPointsContainer from '../focusPoints/editFocusPointsContainer.jsx';
+import FocusPointsContainer from '../focusPoints/focusPointsContainer.jsx';
 import NewFocusPointsContainer from '../focusPoints/newFocusPointsContainer.jsx';
-import IncorrectSequenceContainer from '../incorrectSequence/incorrectSequenceContainer.jsx';
 import EditIncorrectSequenceContainer from '../incorrectSequence/editIncorrectSequenceContainer.jsx';
+import IncorrectSequenceContainer from '../incorrectSequence/incorrectSequenceContainer.jsx';
 import NewIncorrectSequenceContainer from '../incorrectSequence/newIncorrectSequenceContainer.jsx';
-import ResponseComponentWrapper from './responseRouteWrapper.jsx';
-import MassEditContainer from './massEditContainer.jsx';
+import Cues from '../renderForQuestions/cues.jsx';
+import getBoilerplateFeedback from './boilerplateFeedback.jsx';
 import ChooseModelContainer from './chooseModelContainer.jsx';
+import MassEditContainer from './massEditContainer.jsx';
+import EditForm from './questionForm.jsx';
+import ResponseComponentWrapper from './responseRouteWrapper.jsx';
 import TestQuestionContainer from './testQuestion';
-import { Modal, UploadOptimalResponses, } from '../../../Shared/index'
 
 const icon = `${import.meta.env.VITE_PROCESS_ENV_CDN_URL}/images/icons/direction.svg`
 

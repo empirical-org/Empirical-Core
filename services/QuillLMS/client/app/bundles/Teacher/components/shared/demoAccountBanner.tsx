@@ -1,6 +1,6 @@
 import * as React from 'react'
 
-import { disclosureIcon, } from '../../../Shared/index'
+import { disclosureIcon } from '../../../Shared/index'
 
 interface DemoAccountBannerProps {
   signedInOutsideDemo: boolean,

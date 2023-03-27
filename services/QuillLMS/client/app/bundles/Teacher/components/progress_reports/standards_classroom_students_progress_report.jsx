@@ -3,12 +3,12 @@
 import React from 'react'
 import CSVDownloadForProgressReport from './csv_download_for_progress_report.jsx'
 
-import {sortTableByLastName} from '../../../../modules/sortingMethods.js'
-import LoadingSpinner from '../shared/loading_indicator.jsx'
+import { requestGet } from '../../../../modules/request/index'
+import { sortTableByLastName } from '../../../../modules/sortingMethods.js'
+import { ReactTable } from '../../../Shared/index'
 import ItemDropdown from '../general_components/dropdown_selectors/item_dropdown'
 import userIsPremium from '../modules/user_is_premium'
-import { ReactTable, } from '../../../Shared/index'
-import { requestGet, } from '../../../../modules/request/index'
+import LoadingSpinner from '../shared/loading_indicator.jsx'
 
 const showAllClassroomKey = 'All Classrooms'
 

@@ -1,8 +1,8 @@
-import React from 'react';
 import { mount } from 'enzyme';
+import React from 'react';
 
+import { FULL } from '../../shared';
 import AdminDashboard from '../AdminDashboard';
-import { FULL, LIMITED, RESTRICTED, } from '../../shared'
 
 const sharedProps = {
   passedModel: { teachers: [], schools: [], admin_approval_requests: [] },

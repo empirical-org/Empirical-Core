@@ -2,9 +2,9 @@
 
 import React from 'react'
 
-import UnitTemplateProfileShareButtons from './unit_templates_manager/unit_template_profile/unit_template_profile_share_buttons'
+import { requestGet } from '../../../../modules/request/index'
 import LoadingIndicator from '../shared/loading_indicator'
-import { requestGet, } from '../../../../modules/request/index'
+import UnitTemplateProfileShareButtons from './unit_templates_manager/unit_template_profile/unit_template_profile_share_buttons'
 
 export default class UnitTemplateAssigned extends React.Component {
   constructor(props) {

@@ -36,7 +36,7 @@ exports[`Assign students component should render 1`] = `
             className="import-from-clever-button-icon"
             src="undefined/images/icons/clever.svg"
           />
-          Import from Clever
+          import from Clever
         </button>
         <button
           className="interactive-wrapper import-from-google-button"
@@ -48,7 +48,7 @@ exports[`Assign students component should render 1`] = `
             className="import-from-google-button-icon"
             src="undefined/images/icons/google-classroom.svg"
           />
-           Import from Google Classroom
+           import from Google Classroom
         </button>
         <button
           className="quill-button medium secondary outlined create-a-class-button"

@@ -14,4 +14,5 @@ const PlayTitleCard = ({ data, handleContinueClick, isLastQuestion, previewMode 
   );
 }
 
-export { PlayTitleCard }
+export { PlayTitleCard };
+

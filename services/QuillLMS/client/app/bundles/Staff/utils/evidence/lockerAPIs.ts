@@ -1,4 +1,4 @@
-import { mainApiFetch, handleApiError } from "../../helpers/evidence/routingHelpers";
+import { handleApiError, mainApiFetch } from "../../helpers/evidence/routingHelpers";
 
 export const fetchLocker = async ({ queryKey, }) => {
   const [key, userId] = queryKey

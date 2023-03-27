@@ -1,11 +1,11 @@
-import 'whatwg-fetch'
-import React from 'react';
 import { shallow } from 'enzyme';
 import toJson from 'enzyme-to-json';
-import { Provider } from 'react-redux'
+import React from 'react';
+import { Provider } from 'react-redux';
+import 'whatwg-fetch';
 import createStore from '../../../utils/configureStore';
 
-import ExpandLessonQuestions from '../lessons'
+import ExpandLessonQuestions from '../lessons';
 
 describe('ExpandLessonQuestions component', () => {
 

@@ -1,11 +1,11 @@
-import * as React from 'react'
+import * as React from 'react';
 
-import { formatString, formatStringAndAddSpacesAfterPeriods, } from './formatString'
+import { formatString, formatStringAndAddSpacesAfterPeriods } from './formatString';
 
-import ScoreColor from '../../modules/score_color.js'
-import ConceptResultTableRow from './concept_result_table_row.tsx'
 import Concept from '../../../../interfaces/concept.ts';
 import QuestionData from '../../../../interfaces/questionData.ts';
+import ScoreColor from '../../modules/score_color.js';
+import ConceptResultTableRow from './concept_result_table_row.tsx';
 
 export interface StudentReportBoxProps {
   boxNumber: number,

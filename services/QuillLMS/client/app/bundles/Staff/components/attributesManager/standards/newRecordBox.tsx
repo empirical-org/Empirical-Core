@@ -1,11 +1,10 @@
 import * as React from "react";
-import _ from 'lodash'
 
-import { STANDARD, sortWordsThatIncludeNumbers, } from './shared'
-import { Record } from './interfaces'
+import { Record } from './interfaces';
+import { sortWordsThatIncludeNumbers, STANDARD } from './shared';
 
-import ChangeLogModal from '../../shared/changeLogModal'
-import { Input, DropdownInput, } from '../../../../Shared/index'
+import { DropdownInput, Input } from '../../../../Shared/index';
+import ChangeLogModal from '../../shared/changeLogModal';
 
 interface NewRecordBoxProps {
   createNewRecord(record: Record): void,

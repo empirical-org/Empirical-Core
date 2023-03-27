@@ -14,7 +14,7 @@ module.exports = {
             module: tsc.ModuleKind.ES6,
             target: tsc.ScriptTarget.ES5,
             moduleResolution: tsc.ModuleResolutionKind.Node,
-            allowSyntheticDefaultImports: true,
+            allowSyntheticDefaultimports: true,
             jsx: tsc.JsxEmit.Preserve,
             sourceMap: true,
             outDir: './dist/',

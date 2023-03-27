@@ -1,17 +1,17 @@
-import React from 'react'
 import createReactClass from 'create-react-class';
-import moment from 'moment'
-import queryString from 'query-string'
+import moment from 'moment';
+import queryString from 'query-string';
+import React from 'react';
 
-import ProgressReportFilters from './progress_report_filters.jsx'
-import EmptyStateForReport from './empty_state_for_report.jsx'
-import { PROGRESS_REPORTS_SELECTED_CLASSROOM_ID, } from './progress_report_constants'
+import EmptyStateForReport from './empty_state_for_report.jsx';
+import { PROGRESS_REPORTS_SELECTED_CLASSROOM_ID } from './progress_report_constants';
+import ProgressReportFilters from './progress_report_filters.jsx';
 
-import LoadingSpinner from '../shared/loading_indicator.jsx'
-import TableFilterMixin from '../general_components/table/sortable_table/table_filter_mixin'
+import { requestGet } from '../../../../modules/request/index';
+import { ReactTable } from '../../../Shared/index';
 import { getTimeSpent } from '../../helpers/studentReports';
-import { ReactTable, } from '../../../Shared/index'
-import { requestGet, } from '../../../../modules/request/index'
+import TableFilterMixin from '../general_components/table/sortable_table/table_filter_mixin';
+import LoadingSpinner from '../shared/loading_indicator.jsx';
 
 
 export default createReactClass({

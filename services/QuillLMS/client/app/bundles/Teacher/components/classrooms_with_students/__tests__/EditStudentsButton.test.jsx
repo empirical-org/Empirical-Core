@@ -1,7 +1,7 @@
-import React from 'react'
 import { shallow } from 'enzyme'
-import EditStudentsButton from '../EditStudentsButton.jsx'
+import React from 'react'
 import ButtonLoadingIndicator from '../../shared/button_loading_indicator'
+import EditStudentsButton from '../EditStudentsButton.jsx'
 
 describe('EditStudentsButton component', () => {
   const dataFuncMock = jest.fn()

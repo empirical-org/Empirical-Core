@@ -1,10 +1,10 @@
+import { ContentState, EditorState } from 'draft-js';
 import * as React from 'react';
 import { connect } from 'react-redux';
-import { EditorState, ContentState } from 'draft-js';
 
 import EditGenerator from './editGenerator';
 
-import { TextEditor, } from '../../../Shared/index';
+import { TextEditor } from '../../../Shared/index';
 import { ConceptReducerState } from '../../reducers/conceptsReducer';
 
 interface LessonFormState {

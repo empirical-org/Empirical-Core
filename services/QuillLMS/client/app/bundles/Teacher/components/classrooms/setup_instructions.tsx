@@ -1,4 +1,4 @@
-import * as React from 'react'
+import * as React from 'react';
 
 const setupInstructionsSrc = `${import.meta.env.VITE_PROCESS_ENV_CDN_URL}/images/illustrations/setup-instructions.svg`
 const setupInstructionsGenericSrc = `${import.meta.env.VITE_PROCESS_ENV_CDN_URL}/images/illustrations/setup-instructions-generic.svg`

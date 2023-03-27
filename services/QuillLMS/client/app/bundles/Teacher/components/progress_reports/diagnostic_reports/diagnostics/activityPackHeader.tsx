@@ -1,12 +1,12 @@
 import * as React from 'react'
 
 import {
-  baseDiagnosticImageSrc,
+    baseDiagnosticImageSrc
 } from './shared'
 
 import {
-  helpIcon,
-  Tooltip,
+    helpIcon,
+    Tooltip
 } from '../../../../../Shared/index'
 
 const ellipsesIcon = <img alt="Open menu icon" src={`${baseDiagnosticImageSrc}/ellipses_icon.svg`} />

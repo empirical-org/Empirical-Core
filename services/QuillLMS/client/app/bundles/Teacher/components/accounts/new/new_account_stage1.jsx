@@ -1,17 +1,17 @@
 import React from 'react';
 import {
-  BrowserRouter,
-  Route,
-} from 'react-router-dom'
-import SelectUserType from './select_user_type';
-import SignUpTeacher from './sign_up_teacher';
-import SignUpStudent from './sign_up_student';
-import SelectUSK12 from './select_us_k12';
-import SelectNonUSK12 from './select_non_us_k12';
+    BrowserRouter,
+    Route
+} from 'react-router-dom';
 import AddTeacherInfo from './add_teacher_info';
+import SelectNonUSK12 from './select_non_us_k12';
 import SelectSubRole from './select_sub_role';
-import VerifySchool from './verify_school'
-import VerifyEmail from './verify_email'
+import SelectUserType from './select_user_type';
+import SelectUSK12 from './select_us_k12';
+import SignUpStudent from './sign_up_student';
+import SignUpTeacher from './sign_up_teacher';
+import VerifyEmail from './verify_email';
+import VerifySchool from './verify_school';
 
 const App = ({ subjectAreas, subRoles, user, isAdmin, }) => {
   return (

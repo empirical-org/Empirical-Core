@@ -1,11 +1,11 @@
 import * as React from "react";
-import { Route, Switch, withRouter } from 'react-router-dom';
 import { useQuery } from 'react-query';
+import { Route, Switch, withRouter } from 'react-router-dom';
 
 import LockerIndex from './lockerIndex';
+import OrganizeLocker from "./organizeLocker";
 import PersonalLocker from "./personalLocker";
 import TeamLocker from './teamLocker';
-import OrganizeLocker from "./organizeLocker";
 
 import { fetchLocker } from "../../utils/evidence/lockerAPIs";
 

@@ -1,9 +1,9 @@
+import _ from 'lodash';
 import * as React from 'react';
-import _  from 'lodash';
 
-import { Activity } from './interfaces'
-import { FLAG_FILTERS } from './shared'
 import { flagOptions } from '../../../../../../constants/flagOptions';
+import { Activity } from './interfaces';
+import { FLAG_FILTERS } from './shared';
 
 const smallWhiteCheckSrc = `${import.meta.env.VITE_PROCESS_ENV_CDN_URL}/images/shared/check-small-white.svg`
 

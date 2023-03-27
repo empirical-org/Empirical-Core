@@ -1,7 +1,6 @@
 import React from 'react';
-import moment from 'moment';
 
-import { DropdownInput, } from '../../../Shared'
+import { DropdownInput } from '../../../Shared';
 import DateRangeFilter from '../general_components/date_range_filter.jsx';
 
 const ScorebookFilters = (

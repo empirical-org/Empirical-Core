@@ -270,12 +270,12 @@ exports[`BlogPostTable component renders 1`] = `
         "order_number": 14,
         "premium": false,
         "press_name": "",
-        "preview_card_content": "<img class='preview-card-image' src='https://s3.amazonaws.com/quill-image-uploads/uploads/files/Cover__7_.png' />\\\\n    <div class='preview-card-body'>\\\\n       <h3>Student Center Video 📹 | Why is Writing Important?</h3>\\\\n       <p>This video from the Student Center discusses why writing is important and provides an example of writing a strong sentence.</p>\\\\n       <span/>\\\\n    </div>\\\\n    <div class='preview-card-footer'>\\\\n      <p class='author'>by Sherry L.</p>\\\\n    </div>",
+        "preview_card_content": "<img class='preview-card-image' src='https://s3.amazonaws.com/quill-image-uploads/uploads/files/Cover__7_.png' />\\\\n    <div class='preview-card-body'>\\\\n       <h3>Student Center Video 📹 | Why is Writing important?</h3>\\\\n       <p>This video from the Student Center discusses why writing is important and provides an example of writing a strong sentence.</p>\\\\n       <span/>\\\\n    </div>\\\\n    <div class='preview-card-footer'>\\\\n      <p class='author'>by Sherry L.</p>\\\\n    </div>",
         "published_at": "2022-02-14T17:14:21.947Z",
         "read_count": 160,
         "slug": "student-center-video---why-is-writing-important",
         "subtitle": "",
-        "title": "Student Center Video 📹 | Why is Writing Important?",
+        "title": "Student Center Video 📹 | Why is Writing important?",
         "topic": "Video tutorials",
         "tsv": "'/tools/connect).':24B 'activ':21B,41B 'appli':55B 'applic':80B 'ask':52B 'caption':93B,101B 'center':2A 'click':86B,94B 'connect':20B 'content':73B 'cover':15B 'even':81B 'follow':45B 'follow-up':44B 'import':7A 'learn':76B 'make':78B 'model':10B 'one':36B 'organ':85B 'practic':65B 'quill':19B 'recommend':26B 'relev':83B 'revis':64B 'sever':38B 'show':27B 'skill':9B,58B,68B 'student':1A,28B,53B 'tutori':103C 'use':66B 've':33B 'video':3A,13B,30B,49B,91B,99B,102C 'watch':89B,97B 'without':100B 'work':34B 'write':6A,62B,70B 'www.quill.org':23B 'www.quill.org/tools/connect).':22B",
         "updated_at": "2022-11-02T23:29:52.869Z",
@@ -886,7 +886,7 @@ exports[`BlogPostTable component renders 1`] = `
             </button>,
             "id": 727,
             "rating": undefined,
-            "title": "Student Center Video 📹 | Why is Writing Important?",
+            "title": "Student Center Video 📹 | Why is Writing important?",
             "updatedAt": "11/02/22",
             "views": 160,
           },
@@ -2660,7 +2660,7 @@ exports[`BlogPostTable component renders 1`] = `
                         }
                       }
                     >
-                      Student Center Video 📹 | Why is Writing Important?
+                      Student Center Video 📹 | Why is Writing important?
                     </td>
                     <td
                       className="data-table-row-section undefined"
@@ -3190,7 +3190,7 @@ exports[`BlogPostTable component renders 1`] = `
                         }
                       }
                     >
-                      Quill's ELL Implementation Guide 
+                      Quill's ELL Implementation Guide
                     </td>
                     <td
                       className="data-table-row-section undefined"
@@ -4805,7 +4805,7 @@ exports[`BlogPostTable component renders 1`] = `
                           }
                         }
                       >
-                        Student Center Video 📹 | Why is Writing Important?
+                        Student Center Video 📹 | Why is Writing important?
                       </td>
                       <td
                         className="data-table-row-section undefined"
@@ -5335,7 +5335,7 @@ exports[`BlogPostTable component renders 1`] = `
                           }
                         }
                       >
-                        Quill's ELL Implementation Guide 
+                        Quill's ELL Implementation Guide
                       </td>
                       <td
                         className="data-table-row-section undefined"
@@ -6972,7 +6972,7 @@ exports[`BlogPostTable component renders 1`] = `
                             }
                           }
                         >
-                          Student Center Video 📹 | Why is Writing Important?
+                          Student Center Video 📹 | Why is Writing important?
                         </td>
                         <td
                           className="data-table-row-section undefined"
@@ -7502,7 +7502,7 @@ exports[`BlogPostTable component renders 1`] = `
                             }
                           }
                         >
-                          Quill's ELL Implementation Guide 
+                          Quill's ELL Implementation Guide
                         </td>
                         <td
                           className="data-table-row-section undefined"
@@ -9921,7 +9921,7 @@ exports[`BlogPostTable component renders 1`] = `
                                   }
                                   tabIndex={0}
                                 >
-                                  📋 PDF | Introducing Quill Reading for Evidence: One-Pager 
+                                  📋 PDF | Introducing Quill Reading for Evidence: One-Pager
                                 </span>
                                 <span
                                   className="quill-tooltip-wrapper"
@@ -13046,7 +13046,7 @@ exports[`BlogPostTable component renders 1`] = `
                               }
                             }
                           >
-                            Student Center Video 📹 | Why is Writing Important?
+                            Student Center Video 📹 | Why is Writing important?
                           </td>
                           <td
                             className="data-table-row-section undefined"
@@ -13180,7 +13180,7 @@ exports[`BlogPostTable component renders 1`] = `
                                 }
                               }
                             >
-                              Student Center Video 📹 | Why is Writing Important?
+                              Student Center Video 📹 | Why is Writing important?
                             </td>
                             <td
                               className="data-table-row-section undefined"
@@ -13331,7 +13331,7 @@ exports[`BlogPostTable component renders 1`] = `
                               }
                             }
                           >
-                            Student Center Video 📹 | Why is Writing Important?
+                            Student Center Video 📹 | Why is Writing important?
                           </td>
                           <td
                             className="data-table-row-section undefined"
@@ -14978,7 +14978,7 @@ exports[`BlogPostTable component renders 1`] = `
                               }
                             }
                           >
-                            Quill's ELL Implementation Guide 
+                            Quill's ELL Implementation Guide
                           </td>
                           <td
                             className="data-table-row-section undefined"
@@ -15112,7 +15112,7 @@ exports[`BlogPostTable component renders 1`] = `
                                 }
                               }
                             >
-                              Quill's ELL Implementation Guide 
+                              Quill's ELL Implementation Guide
                             </td>
                             <td
                               className="data-table-row-section undefined"
@@ -15263,7 +15263,7 @@ exports[`BlogPostTable component renders 1`] = `
                               }
                             }
                           >
-                            Quill's ELL Implementation Guide 
+                            Quill's ELL Implementation Guide
                           </td>
                           <td
                             className="data-table-row-section undefined"

@@ -1,6 +1,6 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`ImportCleverClassroomStudentsModal component should render ImportCleverClassroomStudentsModal 1`] = `
+exports[`importCleverClassroomStudentsModal component should render importCleverClassroomStudentsModal 1`] = `
 <div
   className="modal-container import-clever-classroom-students-modal-container"
 >
@@ -14,11 +14,11 @@ exports[`ImportCleverClassroomStudentsModal component should render ImportClever
       <h3
         className="title"
       >
-        Import students from Clever
+        import students from Clever
       </h3>
     </div>
     <p>
-      You are about to import students from the class 
+      You are about to import students from the class
       Quill Classroom
       .
     </p>
@@ -52,7 +52,7 @@ exports[`ImportCleverClassroomStudentsModal component should render ImportClever
         onClick={[Function]}
         type="button"
       >
-        Import students
+        import students
       </button>
     </div>
   </div>

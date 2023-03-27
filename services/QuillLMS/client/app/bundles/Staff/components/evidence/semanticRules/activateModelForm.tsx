@@ -1,11 +1,11 @@
 import * as React from "react";
 import { useQuery } from 'react-query';
-import { withRouter, Link } from 'react-router-dom';
+import { Link, withRouter } from 'react-router-dom';
 
-import { activateModel, fetchModel, fetchModels } from '../../../utils/evidence/modelAPIs';
-import { fetchRules } from '../../../utils/evidence/ruleAPIs';
 import { DataTable, Spinner } from '../../../../Shared/index';
 import { getCheckIcon } from '../../../helpers/evidence/renderHelpers';
+import { activateModel, fetchModel, fetchModels } from '../../../utils/evidence/modelAPIs';
+import { fetchRules } from '../../../utils/evidence/ruleAPIs';
 
 const ActivateModelForm = ({ match }) => {
   const { params } = match;

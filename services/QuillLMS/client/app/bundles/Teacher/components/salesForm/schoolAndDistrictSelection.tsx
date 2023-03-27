@@ -1,6 +1,6 @@
 import * as React from 'react';
 
-import { SCHOOL, DISTRICT, SCHOOL_NOT_LISTED, DISTRICT_NOT_LISTED } from '../../../../constants/salesForm';
+import { DISTRICT, DISTRICT_NOT_LISTED, SCHOOL, SCHOOL_NOT_LISTED } from '../../../../constants/salesForm';
 import { DropdownInput, Input } from '../../../Shared';
 import { customSearch } from '../../helpers/salesForms';
 

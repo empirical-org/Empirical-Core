@@ -1,6 +1,6 @@
 import _ from 'underscore';
 
-import { requestGet, } from '../../../modules/request/index'
+import { requestGet } from '../../../modules/request/index';
 
 const C = require('../constants').default;
 

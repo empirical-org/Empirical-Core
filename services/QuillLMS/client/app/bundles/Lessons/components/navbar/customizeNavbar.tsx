@@ -2,13 +2,13 @@ declare function require(name:string);
 import * as React from 'react';
 import { connect } from 'react-redux';
 import { withRouter } from 'react-router-dom';
-const helpIcon = 'https://assets.quill.org/images/icons/help_icon.svg'
-import { getParameterByName } from '../../libs/getParameterByName';
 import {
-  publishEdition,
-  setIncompleteQuestions
-} from '../../actions/customize'
-import { formatDateTime } from '../customize/helpers'
+    publishEdition,
+    setIncompleteQuestions
+} from '../../actions/customize';
+import { getParameterByName } from '../../libs/getParameterByName';
+import { formatDateTime } from '../customize/helpers';
+const helpIcon = 'https://assets.quill.org/images/icons/help_icon.svg'
 
 class CustomizeNavbar extends React.Component<any, any> {
   editionMetadata() {

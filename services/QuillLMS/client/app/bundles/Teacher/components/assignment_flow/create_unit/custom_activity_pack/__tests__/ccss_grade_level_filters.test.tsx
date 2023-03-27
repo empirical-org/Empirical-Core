@@ -1,9 +1,8 @@
-import * as React from 'react'
 import { mount } from 'enzyme';
+import * as React from 'react';
 
-import { activities } from './data'
 
-import CCSSGradeLevelFilters from '../ccss_grade_level_filters'
+import CCSSGradeLevelFilters from '../ccss_grade_level_filters';
 
 describe('ccssGradeLevelFilters component', () => {
   const props = {

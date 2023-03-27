@@ -7,18 +7,15 @@ declare global {
   interface Window { pusher: any }
 }
 
-import _ from 'underscore';
-import _l from 'lodash';
 import { push } from 'react-router-redux';
+import _ from 'underscore';
+import { requestPost } from '../../../modules/request/index';
+import {
+    FocusPointApi,
+    IncorrectSequenceApi, QuestionApi, SENTENCE_COMBINING_TYPE
+} from '../libs/questions_api';
 import { submitResponse } from './responses';
 import sessionActions from './sessions';
-import {
-  QuestionApi,
-  FocusPointApi,
-  IncorrectSequenceApi,
-  SENTENCE_COMBINING_TYPE
-} from '../libs/questions_api'
-import { requestPost, } from '../../../modules/request/index'
 
 function loadQuestions() {
   return (dispatch, getState) => {

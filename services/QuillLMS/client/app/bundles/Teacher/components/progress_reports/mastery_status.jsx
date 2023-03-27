@@ -1,5 +1,5 @@
-import React from 'react'
-import cutOff from '../../../../modules/proficiency_cutoffs.js'
+import React from 'react';
+import cutOff from '../../../../modules/proficiency_cutoffs.js';
 
 export default class MasteryStatus extends React.Component {
   circleClass = () => {

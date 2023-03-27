@@ -1,8 +1,8 @@
-import React from 'react'
 import { shallow } from 'enzyme'
+import React from 'react'
 
 import ReviewActivities from '../review_activities.jsx'
-import { activities, dueDates, publishDates, } from './test_data/test_data'
+import { activities, dueDates, publishDates } from './test_data/test_data'
 
 describe('ReviewActivities component', () => {
 

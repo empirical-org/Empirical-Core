@@ -1,8 +1,8 @@
-import * as React from 'react'
+import * as React from 'react';
 
-import GradeOptions from './grade_options'
 import { requestPut } from '../../../../modules/request/index';
-import { DropdownInput } from '../../../Shared/index'
+import { DropdownInput } from '../../../Shared/index';
+import GradeOptions from './grade_options';
 
 interface ChangeGradeModalProps {
   close: () => void;

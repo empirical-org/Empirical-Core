@@ -1,7 +1,7 @@
-import React from 'react';
 import { shallow } from 'enzyme';
+import React from 'react';
 
-import CleverSignUp from '../clever_sign_up'
+import CleverSignUp from '../clever_sign_up';
 
 import processEnvMock from '../../../../../../../__mocks__/processEnvMock.js';
 window.import.meta.env.VITE_PROCESS_ENV_CDN_URL = processEnvMock.env.CDN_URL;

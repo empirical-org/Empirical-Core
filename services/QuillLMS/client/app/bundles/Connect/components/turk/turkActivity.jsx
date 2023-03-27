@@ -1,28 +1,25 @@
 import React from 'react';
 import { connect } from 'react-redux';
 import { withRouter } from 'react-router-dom';
-import _ from 'underscore';
 
+import { requestPost, requestPut } from '../../../../modules/request/index';
 import {
-  Spinner,
-  CarouselAnimation,
-  PlayTitleCard,
-  ProgressBar
+    CarouselAnimation,
+    PlayTitleCard,
+    ProgressBar, Spinner
 } from '../../../Shared/index';
 import { clearData, loadData, nextQuestion, submitResponse, updateCurrentQuestion } from '../../actions/turk.js';
-import diagnosticQuestions from './diagnosticQuestions.jsx';
-import PlaySentenceFragment from './sentenceFragment.jsx';
-import PlayFillInTheBlankQuestion from './fillInBlank.tsx';
-import PlayTurkQuestion from './question.tsx';
-import LandingPage from './landing.jsx';
-import FinishedDiagnostic from './finishedDiagnostic.jsx';
-import { getConceptResultsForAllQuestions } from '../../libs/conceptResults/diagnostic'
 import {
-  questionCount,
-  answeredQuestionCount,
-  getProgressPercent
-} from '../../libs/calculateProgress'
-import { requestPost, requestPut, } from '../../../../modules/request/index'
+    answeredQuestionCount,
+    getProgressPercent, questionCount
+} from '../../libs/calculateProgress';
+import { getConceptResultsForAllQuestions } from '../../libs/conceptResults/diagnostic';
+import diagnosticQuestions from './diagnosticQuestions.jsx';
+import PlayFillInTheBlankQuestion from './fillInBlank.tsx';
+import FinishedDiagnostic from './finishedDiagnostic.jsx';
+import LandingPage from './landing.jsx';
+import PlayTurkQuestion from './question.tsx';
+import PlaySentenceFragment from './sentenceFragment.jsx';
 
 export class TurkActivity extends React.Component {
   constructor(props) {

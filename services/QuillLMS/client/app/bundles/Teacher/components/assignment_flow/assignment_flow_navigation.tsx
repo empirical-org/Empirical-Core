@@ -1,9 +1,9 @@
 import * as React from 'react'
 import { Link } from 'react-router-dom'
 
-import parsedQueryParams from './parsedQueryParams'
-import { COLLEGE_BOARD_SLUG, PRE_AP_SLUG, AP_SLUG, SPRING_BOARD_SLUG } from './assignmentFlowConstants'
+import { AP_SLUG, COLLEGE_BOARD_SLUG, PRE_AP_SLUG, SPRING_BOARD_SLUG } from './assignmentFlowConstants'
 import LeavingModal from './leaving_modal'
+import parsedQueryParams from './parsedQueryParams'
 
 const quillLogoGreenSrc =  `${import.meta.env.VITE_PROCESS_ENV_CDN_URL}/images/logos/quill-logo-green.svg`
 

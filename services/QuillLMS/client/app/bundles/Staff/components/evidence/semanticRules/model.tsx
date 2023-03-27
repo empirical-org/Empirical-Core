@@ -1,10 +1,10 @@
+import { ContentState, EditorState } from 'draft-js';
 import * as React from "react";
-import { useQuery, useQueryClient, } from 'react-query';
-import { withRouter, Link, useHistory } from 'react-router-dom';
-import { EditorState, ContentState } from 'draft-js';
+import { useQuery, useQueryClient } from 'react-query';
+import { Link, useHistory, withRouter } from 'react-router-dom';
 
-import { fetchModel, updateModel } from '../../../utils/evidence/modelAPIs';
 import { DataTable, Spinner, TextEditor } from '../../../../Shared/index';
+import { fetchModel, updateModel } from '../../../utils/evidence/modelAPIs';
 
 const Model = ({ match }) => {
   const { params } = match;

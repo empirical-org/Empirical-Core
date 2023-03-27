@@ -1,9 +1,9 @@
 import * as _ from 'underscore';
 
-import { ActionTypes } from './actionTypes'
+import { ActionTypes } from './actionTypes';
 
-import { Concept } from '../interfaces/concepts'
-import { requestGet, } from '../../../modules/request/index'
+import { requestGet } from '../../../modules/request/index';
+import { Concept } from '../interfaces/concepts';
 
 const conceptsEndpoint = `${import.meta.env.VITE_DEFAULT_URL}/api/v1/concepts.json`;
 

@@ -1,8 +1,8 @@
-import React, {Component} from 'react'
+import _ from 'lodash';
+import React, { Component } from 'react';
 import { connect } from 'react-redux';
-import _ from 'lodash'
-import * as CustomizeIntf from '../../../interfaces/customize'
-import { hashToCollection, } from '../../../../Shared/index'
+import { hashToCollection } from '../../../../Shared/index';
+import * as CustomizeIntf from '../../../interfaces/customize';
 
 class AllUserEditions extends Component<any, any> {
   constructor(props){

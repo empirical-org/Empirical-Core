@@ -1,8 +1,8 @@
 import * as React from 'react';
 
-import AssignActivityPackBanner from '../assignActivityPackBanner'
-import { DropdownInput, } from '../../../../Shared/index'
-import { requestPut, } from '../../../../../modules/request/index'
+import { requestPut } from '../../../../../modules/request/index';
+import { DropdownInput } from '../../../../Shared/index';
+import AssignActivityPackBanner from '../assignActivityPackBanner';
 
 const networkSrc = `${process.env.CDN_URL}/images/onboarding/network.svg`
 

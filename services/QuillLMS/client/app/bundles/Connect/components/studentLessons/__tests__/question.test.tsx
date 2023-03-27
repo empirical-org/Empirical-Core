@@ -1,11 +1,10 @@
-import * as React from 'react';
-import 'whatwg-fetch'
 import { shallow } from 'enzyme';
-import { sentenceCombiningQuestionWithOneAttempt, conceptsFeedback } from '../../../test/studentLessonData'
+import * as React from 'react';
+import 'whatwg-fetch';
 import {
-  getMultipleChoiceResponseOptionsWithCallback,
-  getGradedResponsesWithCallback
+    getGradedResponsesWithCallback, getMultipleChoiceResponseOptionsWithCallback
 } from '../../../actions/responses.js';
+import { conceptsFeedback, sentenceCombiningQuestionWithOneAttempt } from '../../../test/studentLessonData';
 import submitQuestionResponse from '../../renderForQuestions/submitResponse.js';
 import PlayLessonQuestion from '../question.tsx';
 

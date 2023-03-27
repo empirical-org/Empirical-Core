@@ -1,8 +1,8 @@
-import * as React from 'react';
 import moment from 'moment';
+import * as React from 'react';
 
+import { ReactTable } from '../../../../Shared';
 import { ChangeLog } from '../../../interfaces/interfaces';
-import { ReactTable, } from '../../../../Shared'
 
 interface ChangeLogsTableProps {
   changeLogs: Array<ChangeLog>

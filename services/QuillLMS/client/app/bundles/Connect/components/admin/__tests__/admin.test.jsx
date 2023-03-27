@@ -1,13 +1,13 @@
-import React from 'react';
-import 'whatwg-fetch'
 import { mount } from 'enzyme';
-import { MemoryRouter } from 'react-router';
-import Admin from "../admin";
+import React from 'react';
 import { Provider } from 'react-redux';
+import { MemoryRouter } from 'react-router';
+import 'whatwg-fetch';
 import createStore from '../../../utils/configureStore';
-import AdminMainSidebar from '../adminMainSidebar.jsx';
-import AdminLessonSidebar from '../adminLessonSidebar';
 import Question from '../../questions/question';
+import Admin from "../admin";
+import AdminLessonSidebar from '../adminLessonSidebar';
+import AdminMainSidebar from '../adminMainSidebar.jsx';
 
 describe('adminContainer component', () => {
 

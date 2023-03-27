@@ -1,11 +1,11 @@
 import React from 'react';
 
 import LoadingIndicator from './loading_indicator.jsx';
-import SchoolOption from './school_option'
+import SchoolOption from './school_option';
 
-import { Input, smallWhiteCheckIcon, NOT_LISTED, NO_SCHOOL_SELECTED, } from '../../../Shared/index'
-import useDebounce from '../../hooks/useDebounce'
-import { requestPost, requestGet, } from '../../../../modules/request'
+import { requestGet, requestPost } from '../../../../modules/request';
+import { Input, NOT_LISTED, NO_SCHOOL_SELECTED, smallWhiteCheckIcon } from '../../../Shared/index';
+import useDebounce from '../../hooks/useDebounce';
 
 const mapSearchSrc = `${import.meta.env.VITE_PROCESS_ENV_CDN_URL}/images/onboarding/map-search.svg`
 

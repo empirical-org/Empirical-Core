@@ -1,9 +1,9 @@
 import * as React from 'react';
 
-import { tableSortWordsThatIncludeNumbers, } from './shared'
+import { tableSortWordsThatIncludeNumbers } from './shared';
 
-import { getColumnWidth, } from '../../shared/getColumnWidth'
-import { ReactTable, } from '../../../../Shared/index'
+import { ReactTable } from '../../../../Shared/index';
+import { getColumnWidth } from '../../shared/getColumnWidth';
 
 interface RecordColumnProps {
   records: Array<any>,

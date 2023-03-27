@@ -1,17 +1,17 @@
-import React from 'react'
-import { BrowserRouter, Route, Switch, Redirect } from 'react-router-dom';
-import AssignActivitiesContainer from './AssignActivitiesContainer.jsx'
-import UnitTemplateAssigned from '../components/assignment_flow/unit_template_assigned'
-import UnitTemplatesManager from '../components/assignment_flow/unit_templates_manager/unit_templates_manager'
-import UnitTemplateProfile from '../components/assignment_flow/unit_templates_manager/unit_template_profile/unit_template_profile.tsx'
-import AssignANewActivity from '../components/assignment_flow/create_unit/assign_a_new_activity'
-import AssignADiagnostic from '../components/assignment_flow/create_unit/assign_a_diagnostic.tsx'
-import CollegeBoard from '../components/assignment_flow/create_unit/college_board.tsx'
-import AssignPreAp from '../components/assignment_flow/create_unit/assign_pre_ap.tsx'
-import AssignAp from '../components/assignment_flow/create_unit/assign_ap.tsx'
-import AssignSpringBoard from '../components/assignment_flow/create_unit/assign_springboard.tsx'
-import CreateUnit from '../components/assignment_flow/create_unit/create_unit'
-import ActivityType from '../components/assignment_flow/create_unit/activity_type.tsx'
+import React from 'react';
+import { BrowserRouter, Redirect, Route, Switch } from 'react-router-dom';
+import ActivityType from '../components/assignment_flow/create_unit/activity_type.tsx';
+import AssignAp from '../components/assignment_flow/create_unit/assign_ap.tsx';
+import AssignADiagnostic from '../components/assignment_flow/create_unit/assign_a_diagnostic.tsx';
+import AssignANewActivity from '../components/assignment_flow/create_unit/assign_a_new_activity';
+import AssignPreAp from '../components/assignment_flow/create_unit/assign_pre_ap.tsx';
+import AssignSpringBoard from '../components/assignment_flow/create_unit/assign_springboard.tsx';
+import CollegeBoard from '../components/assignment_flow/create_unit/college_board.tsx';
+import CreateUnit from '../components/assignment_flow/create_unit/create_unit';
+import UnitTemplatesManager from '../components/assignment_flow/unit_templates_manager/unit_templates_manager';
+import UnitTemplateProfile from '../components/assignment_flow/unit_templates_manager/unit_template_profile/unit_template_profile.tsx';
+import UnitTemplateAssigned from '../components/assignment_flow/unit_template_assigned';
+import AssignActivitiesContainer from './AssignActivitiesContainer.jsx';
 
 const AssignActivitiesRouter = props => (
   <BrowserRouter>

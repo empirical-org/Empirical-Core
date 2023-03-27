@@ -1,5 +1,5 @@
 import React from 'react';
-import { Input, } from '../../../../../Shared/index'
+import { Input } from '../../../../../Shared/index';
 
 const NameTheUnit = ({ nameError, unitName, updateUnitName, timesSubmitted, }) => {
   return (

@@ -1,30 +1,19 @@
 declare function require(name:string);
-import * as React from 'react'
 import * as moment from 'moment'
+import * as React from 'react'
 
-import { sortByLastName, sortByDisplayed, sortByTime, sortByFlag, sortByAnswer } from './studentSorts'
-import ReviewStudentRow from './reviewStudentRow'
-import MultipleTextEditor from './multipleTextEditor'
-import StepHtml from './stepHtml'
-import Cues from '../../renderForQuestions/cues';
-import { findDifferences } from './findDifferences'
-import { textEditorInputNotEmpty, textEditorInputClean } from './textEditorClean'
 import {
-  ClassroomLessonSessions,
-  ClassroomLessonSession,
-  QuestionSubmissionsList,
-  SelectedSubmissions,
-  SelectedSubmissionsForQuestion,
-  Presence,
-  Students,
-  Submissions,
-  Modes,
-  FlaggedStudents,
-  Timestamps,
-} from '../interfaces';
-import {
-  ScriptItem
+    ScriptItem
 } from '../../../interfaces/classroomLessons'
+import Cues from '../../renderForQuestions/cues'
+import {
+    SelectedSubmissions, Submissions
+} from '../interfaces'
+import MultipleTextEditor from './multipleTextEditor'
+import ReviewStudentRow from './reviewStudentRow'
+import StepHtml from './stepHtml'
+import { sortByAnswer, sortByDisplayed, sortByFlag, sortByLastName, sortByTime } from './studentSorts'
+import { textEditorInputClean, textEditorInputNotEmpty } from './textEditorClean'
 const uncheckedGrayCheckbox = 'https://assets.quill.org/images/icons/box_gray_unchecked.svg'
 const checkedGrayCheckbox = 'https://assets.quill.org/images/icons/box_gray_checked.svg'
 const uncheckedGreenCheckbox = 'https://assets.quill.org/images/icons/box_green_unchecked.svg'

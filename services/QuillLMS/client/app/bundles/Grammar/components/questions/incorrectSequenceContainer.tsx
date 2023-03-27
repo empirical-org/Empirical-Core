@@ -1,12 +1,10 @@
+import { ContentState, EditorState } from 'draft-js';
 import * as React from 'react';
 import { connect } from 'react-redux';
 import _ from 'underscore';
-import { EditorState, ContentState } from 'draft-js'
 
-import { TextEditor } from '../../../Shared/index';
+import { hashToCollection, SortableList, TextEditor } from '../../../Shared/index';
 import * as questionActions from '../../actions/questions';
-import { hashToCollection, SortableList, } from '../../../Shared/index';
-import dispatch from '../../../Evidence/__mocks__/dispatch';
 
 class IncorrectSequencesContainer extends React.Component {
 

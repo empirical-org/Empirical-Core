@@ -1,7 +1,7 @@
 import * as React from "react";
-import XLSX from 'xlsx'
+import XLSX from 'xlsx';
 
-import { requestPost, } from '../../../modules/request/index'
+import { requestPost } from '../../../modules/request/index';
 
 export const UploadRosters = () => {
 

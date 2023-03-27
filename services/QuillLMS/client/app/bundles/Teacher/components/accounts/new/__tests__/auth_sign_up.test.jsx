@@ -1,10 +1,10 @@
-import React from 'react';
 import { shallow } from 'enzyme';
+import React from 'react';
 
 import AuthSignUp from '../auth_sign_up';
 
-import CleverSignUp from '../clever_sign_up'
 import AuthGoogleAccessForm from '../../AuthGoogleAccessForm';
+import CleverSignUp from '../clever_sign_up';
 
 describe('AuthSignUp component', () => {
 

@@ -1,16 +1,16 @@
-import React from 'react';
-import moment from 'moment';
-import _ from 'underscore';
 import l from 'lodash';
+import moment from 'moment';
+import React from 'react';
+import _ from 'underscore';
 
 import CSVDownloadForProgressReport from './csv_download_for_progress_report.jsx';
 import StudentOveriewTable from './student_overview_table.jsx';
 
+import notLessonsOrDiagnostic from '../../../../modules/activity_classifications.js';
+import { requestGet } from '../../../../modules/request/index';
+import { getTimeSpent } from '../../helpers/studentReports';
 import getParameterByName from '../modules/get_parameter_by_name';
 import LoadingSpinner from '../shared/loading_indicator.jsx';
-import { getTimeSpent } from '../../helpers/studentReports';
-import notLessonsOrDiagnostic from '../../../../modules/activity_classifications.js';
-import { requestGet, } from '../../../../modules/request/index'
 
 export default class extends React.Component {
   constructor() {

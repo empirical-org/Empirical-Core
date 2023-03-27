@@ -1124,7 +1124,7 @@ Combine simple sentences to create 5 new compound or complex sentences that incl
         "description": "Combine sentences to create 6 sentences about the importance of the buffalo to the Native American tribes living on the Great Plains. This is an advanced, un-cued sentence combining activity.",
         "flags": "{production}",
         "id": 585,
-        "name": "The Importance of the Buffalo",
+        "name": "The importance of the Buffalo",
         "readability_grade_level": "8th-9th",
         "standard_level": Object {
           "id": 13,
@@ -2575,7 +2575,7 @@ Combine simple sentences to create 5 new compound or complex sentences that incl
             "description": "Combine sentences to create 6 sentences about the importance of the buffalo to the Native American tribes living on the Great Plains. This is an advanced, un-cued sentence combining activity.",
             "flags": "{production}",
             "id": 585,
-            "name": "The Importance of the Buffalo",
+            "name": "The importance of the Buffalo",
             "readability_grade_level": "8th-9th",
             "standard_level": Object {
               "id": 13,
@@ -4018,7 +4018,7 @@ Combine simple sentences to create 5 new compound or complex sentences that incl
             "description": "Combine sentences to create 6 sentences about the importance of the buffalo to the Native American tribes living on the Great Plains. This is an advanced, un-cued sentence combining activity.",
             "flags": "{production}",
             "id": 585,
-            "name": "The Importance of the Buffalo",
+            "name": "The importance of the Buffalo",
             "readability_grade_level": "8th-9th",
             "standard_level": Object {
               "id": 13,
@@ -5485,7 +5485,7 @@ Combine simple sentences to create 5 new compound or complex sentences that incl
             "description": "Combine sentences to create 6 sentences about the importance of the buffalo to the Native American tribes living on the Great Plains. This is an advanced, un-cued sentence combining activity.",
             "flags": "{production}",
             "id": 585,
-            "name": "The Importance of the Buffalo",
+            "name": "The importance of the Buffalo",
             "readability_grade_level": "8th-9th",
             "standard_level": Object {
               "id": 13,
@@ -6928,7 +6928,7 @@ Combine simple sentences to create 5 new compound or complex sentences that incl
             "description": "Combine sentences to create 6 sentences about the importance of the buffalo to the Native American tribes living on the Great Plains. This is an advanced, un-cued sentence combining activity.",
             "flags": "{production}",
             "id": 585,
-            "name": "The Importance of the Buffalo",
+            "name": "The importance of the Buffalo",
             "readability_grade_level": "8th-9th",
             "standard_level": Object {
               "id": 13,
@@ -7281,7 +7281,7 @@ Combine simple sentences to create 5 new compound or complex sentences that incl
             </div>
             <p>
               31
-               of 
+               of
               31
                activities
             </p>
@@ -8408,7 +8408,7 @@ Combine simple sentences to create 5 new compound or complex sentences that incl
                   "description": "Combine sentences to create 6 sentences about the importance of the buffalo to the Native American tribes living on the Great Plains. This is an advanced, un-cued sentence combining activity.",
                   "flags": "{production}",
                   "id": 585,
-                  "name": "The Importance of the Buffalo",
+                  "name": "The importance of the Buffalo",
                   "readability_grade_level": "8th-9th",
                   "standard_level": Object {
                     "id": 13,
@@ -9888,7 +9888,7 @@ Combine simple sentences to create 5 new compound or complex sentences that incl
                       "description": "Combine sentences to create 6 sentences about the importance of the buffalo to the Native American tribes living on the Great Plains. This is an advanced, un-cued sentence combining activity.",
                       "flags": "{production}",
                       "id": 585,
-                      "name": "The Importance of the Buffalo",
+                      "name": "The importance of the Buffalo",
                       "readability_grade_level": "8th-9th",
                       "standard_level": Object {
                         "id": 13,
@@ -11387,7 +11387,7 @@ Combine simple sentences to create 5 new compound or complex sentences that incl
                       "description": "Combine sentences to create 6 sentences about the importance of the buffalo to the Native American tribes living on the Great Plains. This is an advanced, un-cued sentence combining activity.",
                       "flags": "{production}",
                       "id": 585,
-                      "name": "The Importance of the Buffalo",
+                      "name": "The importance of the Buffalo",
                       "readability_grade_level": "8th-9th",
                       "standard_level": Object {
                         "id": 13,
@@ -12885,7 +12885,7 @@ Combine simple sentences to create 5 new compound or complex sentences that incl
                       "description": "Combine sentences to create 6 sentences about the importance of the buffalo to the Native American tribes living on the Great Plains. This is an advanced, un-cued sentence combining activity.",
                       "flags": "{production}",
                       "id": 585,
-                      "name": "The Importance of the Buffalo",
+                      "name": "The importance of the Buffalo",
                       "readability_grade_level": "8th-9th",
                       "standard_level": Object {
                         "id": 13,
@@ -14378,7 +14378,7 @@ Combine simple sentences to create 5 new compound or complex sentences that incl
                       "description": "Combine sentences to create 6 sentences about the importance of the buffalo to the Native American tribes living on the Great Plains. This is an advanced, un-cued sentence combining activity.",
                       "flags": "{production}",
                       "id": 585,
-                      "name": "The Importance of the Buffalo",
+                      "name": "The importance of the Buffalo",
                       "readability_grade_level": "8th-9th",
                       "standard_level": Object {
                         "id": 13,
@@ -14794,7 +14794,7 @@ Combine simple sentences to create 5 new compound or complex sentences that incl
                       <label
                         htmlFor="grade-level-slider"
                       >
-                        Grade Level Range: 
+                        Grade Level Range:
                         All Grades
                       </label>
                       <div
@@ -14876,7 +14876,7 @@ Combine simple sentences to create 5 new compound or complex sentences that incl
                         <label
                           htmlFor="grade-level-slider"
                         >
-                          Grade Level Range: 
+                          Grade Level Range:
                           All Grades
                         </label>
                         <div
@@ -15346,9 +15346,9 @@ Combine simple sentences to create 5 new compound or complex sentences that incl
                       <label
                         htmlFor="readability-grade-level-slider"
                       >
-                        Grade Level: 
+                        Grade Level:
                         2
-                         - 
+                         -
                         12
                          Grade Text
                       </label>
@@ -15423,9 +15423,9 @@ Combine simple sentences to create 5 new compound or complex sentences that incl
                         <label
                           htmlFor="readability-grade-level-slider"
                         >
-                          Grade Level: 
+                          Grade Level:
                           2
-                           - 
+                           -
                           12
                            Grade Text
                         </label>
@@ -16020,9 +16020,9 @@ Combine simple sentences to create 5 new compound or complex sentences that incl
                       <label
                         htmlFor="ccss-grade-level-slider"
                       >
-                        Standard: 
+                        Standard:
                         1
-                         - 
+                         -
                         11
                          Grade Level
                       </label>
@@ -16103,9 +16103,9 @@ Combine simple sentences to create 5 new compound or complex sentences that incl
                         <label
                           htmlFor="ccss-grade-level-slider"
                         >
-                          Standard: 
+                          Standard:
                           1
-                           - 
+                           -
                           11
                            Grade Level
                         </label>
@@ -18156,7 +18156,7 @@ Combine simple sentences to create 5 new compound or complex sentences that incl
                   "description": "Combine sentences to create 6 sentences about the importance of the buffalo to the Native American tribes living on the Great Plains. This is an advanced, un-cued sentence combining activity.",
                   "flags": "{production}",
                   "id": 585,
-                  "name": "The Importance of the Buffalo",
+                  "name": "The importance of the Buffalo",
                   "readability_grade_level": "8th-9th",
                   "standard_level": Object {
                     "id": 13,
@@ -19631,7 +19631,7 @@ Combine simple sentences to create 5 new compound or complex sentences that incl
                             "description": "Combine sentences to create 6 sentences about the importance of the buffalo to the Native American tribes living on the Great Plains. This is an advanced, un-cued sentence combining activity.",
                             "flags": "{production}",
                             "id": 585,
-                            "name": "The Importance of the Buffalo",
+                            "name": "The importance of the Buffalo",
                             "readability_grade_level": "8th-9th",
                             "standard_level": Object {
                               "id": 13,
@@ -21137,7 +21137,7 @@ Combine simple sentences to create 5 new compound or complex sentences that incl
                               "description": "Combine sentences to create 6 sentences about the importance of the buffalo to the Native American tribes living on the Great Plains. This is an advanced, un-cued sentence combining activity.",
                               "flags": "{production}",
                               "id": 585,
-                              "name": "The Importance of the Buffalo",
+                              "name": "The importance of the Buffalo",
                               "readability_grade_level": "8th-9th",
                               "standard_level": Object {
                                 "id": 13,
@@ -22645,7 +22645,7 @@ Combine simple sentences to create 5 new compound or complex sentences that incl
                   "description": "Combine sentences to create 6 sentences about the importance of the buffalo to the Native American tribes living on the Great Plains. This is an advanced, un-cued sentence combining activity.",
                   "flags": "{production}",
                   "id": 585,
-                  "name": "The Importance of the Buffalo",
+                  "name": "The importance of the Buffalo",
                   "readability_grade_level": "8th-9th",
                   "standard_level": Object {
                     "id": 13,
@@ -24103,7 +24103,7 @@ Combine simple sentences to create 5 new compound or complex sentences that incl
                       "description": "Combine sentences to create 6 sentences about the importance of the buffalo to the Native American tribes living on the Great Plains. This is an advanced, un-cued sentence combining activity.",
                       "flags": "{production}",
                       "id": 585,
-                      "name": "The Importance of the Buffalo",
+                      "name": "The importance of the Buffalo",
                       "readability_grade_level": "8th-9th",
                       "standard_level": Object {
                         "id": 13,
@@ -25607,7 +25607,7 @@ Combine simple sentences to create 5 new compound or complex sentences that incl
                       "description": "Combine sentences to create 6 sentences about the importance of the buffalo to the Native American tribes living on the Great Plains. This is an advanced, un-cued sentence combining activity.",
                       "flags": "{production}",
                       "id": 585,
-                      "name": "The Importance of the Buffalo",
+                      "name": "The importance of the Buffalo",
                       "readability_grade_level": "8th-9th",
                       "standard_level": Object {
                         "id": 13,
@@ -27111,7 +27111,7 @@ Combine simple sentences to create 5 new compound or complex sentences that incl
                       "description": "Combine sentences to create 6 sentences about the importance of the buffalo to the Native American tribes living on the Great Plains. This is an advanced, un-cued sentence combining activity.",
                       "flags": "{production}",
                       "id": 585,
-                      "name": "The Importance of the Buffalo",
+                      "name": "The importance of the Buffalo",
                       "readability_grade_level": "8th-9th",
                       "standard_level": Object {
                         "id": 13,
@@ -28646,7 +28646,7 @@ Combine simple sentences to create 5 new compound or complex sentences that incl
                       "description": "Combine sentences to create 6 sentences about the importance of the buffalo to the Native American tribes living on the Great Plains. This is an advanced, un-cued sentence combining activity.",
                       "flags": "{production}",
                       "id": 585,
-                      "name": "The Importance of the Buffalo",
+                      "name": "The importance of the Buffalo",
                       "readability_grade_level": "8th-9th",
                       "standard_level": Object {
                         "id": 13,
@@ -30150,7 +30150,7 @@ Combine simple sentences to create 5 new compound or complex sentences that incl
                       "description": "Combine sentences to create 6 sentences about the importance of the buffalo to the Native American tribes living on the Great Plains. This is an advanced, un-cued sentence combining activity.",
                       "flags": "{production}",
                       "id": 585,
-                      "name": "The Importance of the Buffalo",
+                      "name": "The importance of the Buffalo",
                       "readability_grade_level": "8th-9th",
                       "standard_level": Object {
                         "id": 13,
@@ -31656,7 +31656,7 @@ Combine simple sentences to create 5 new compound or complex sentences that incl
                   "description": "Combine sentences to create 6 sentences about the importance of the buffalo to the Native American tribes living on the Great Plains. This is an advanced, un-cued sentence combining activity.",
                   "flags": "{production}",
                   "id": 585,
-                  "name": "The Importance of the Buffalo",
+                  "name": "The importance of the Buffalo",
                   "readability_grade_level": "8th-9th",
                   "standard_level": Object {
                     "id": 13,
@@ -33110,7 +33110,7 @@ Combine simple sentences to create 5 new compound or complex sentences that incl
                   "description": "Combine sentences to create 6 sentences about the importance of the buffalo to the Native American tribes living on the Great Plains. This is an advanced, un-cued sentence combining activity.",
                   "flags": "{production}",
                   "id": 585,
-                  "name": "The Importance of the Buffalo",
+                  "name": "The importance of the Buffalo",
                   "readability_grade_level": "8th-9th",
                   "standard_level": Object {
                     "id": 13,
@@ -34569,7 +34569,7 @@ Combine simple sentences to create 5 new compound or complex sentences that incl
                       "description": "Combine sentences to create 6 sentences about the importance of the buffalo to the Native American tribes living on the Great Plains. This is an advanced, un-cued sentence combining activity.",
                       "flags": "{production}",
                       "id": 585,
-                      "name": "The Importance of the Buffalo",
+                      "name": "The importance of the Buffalo",
                       "readability_grade_level": "8th-9th",
                       "standard_level": Object {
                         "id": 13,
@@ -36089,7 +36089,7 @@ Combine simple sentences to create 5 new compound or complex sentences that incl
               "description": "Combine sentences to create 6 sentences about the importance of the buffalo to the Native American tribes living on the Great Plains. This is an advanced, un-cued sentence combining activity.",
               "flags": "{production}",
               "id": 585,
-              "name": "The Importance of the Buffalo",
+              "name": "The importance of the Buffalo",
               "readability_grade_level": "8th-9th",
               "standard_level": Object {
                 "id": 13,
@@ -36477,11 +36477,11 @@ Combine simple sentences to create 5 new compound or complex sentences that incl
                     onClick={[Function]}
                     type="button"
                   >
-                    Sort by: 
+                    Sort by:
                     <span>
                       Default
                     </span>
-                     
+
                     <img
                       alt=""
                       className="dropdown-icon false"
@@ -36847,7 +36847,7 @@ Combine simple sentences to create 5 new compound or complex sentences that incl
                         src="undefined/images/icons/description-readability.svg"
                       />
                       <span>
-                        Grades: 
+                        Grades:
                         <span
                           className="grade-level filtered"
                         >
@@ -37310,7 +37310,7 @@ Combine simple sentences to create 5 new compound or complex sentences that incl
                         src="undefined/images/icons/description-readability.svg"
                       />
                       <span>
-                        Grades: 
+                        Grades:
                         <span
                           className="grade-level filtered"
                         >
@@ -37765,7 +37765,7 @@ Combine simple sentences to create 5 new compound or complex sentences that incl
                         src="undefined/images/icons/description-readability.svg"
                       />
                       <span>
-                        Grades: 
+                        Grades:
                         <span
                           className="grade-level filtered"
                         >
@@ -38228,7 +38228,7 @@ Combine simple sentences to create 5 new compound or complex sentences that incl
                         src="undefined/images/icons/description-readability.svg"
                       />
                       <span>
-                        Grades: 
+                        Grades:
                         <span
                           className="grade-level filtered"
                         >
@@ -38683,7 +38683,7 @@ Combine simple sentences to create 5 new compound or complex sentences that incl
                         src="undefined/images/icons/description-readability.svg"
                       />
                       <span>
-                        Grades: 
+                        Grades:
                         <span
                           className="grade-level filtered"
                         >
@@ -39146,7 +39146,7 @@ Combine simple sentences to create 5 new compound or complex sentences that incl
                         src="undefined/images/icons/description-readability.svg"
                       />
                       <span>
-                        Grades: 
+                        Grades:
                         <span
                           className="grade-level filtered"
                         >
@@ -39583,7 +39583,7 @@ Combine simple sentences to create 5 new compound or complex sentences that incl
                         src="undefined/images/icons/description-readability.svg"
                       />
                       <span>
-                        Grades: 
+                        Grades:
                         <span
                           className="grade-level filtered"
                         >
@@ -40020,7 +40020,7 @@ Combine simple sentences to create 5 new compound or complex sentences that incl
                         src="undefined/images/icons/description-readability.svg"
                       />
                       <span>
-                        Grades: 
+                        Grades:
                         <span
                           className="grade-level filtered"
                         >
@@ -40475,7 +40475,7 @@ Combine simple sentences to create 5 new compound or complex sentences that incl
                         src="undefined/images/icons/description-readability.svg"
                       />
                       <span>
-                        Grades: 
+                        Grades:
                         <span
                           className="grade-level filtered"
                         >
@@ -40956,7 +40956,7 @@ Combine simple sentences to create 5 new compound or complex sentences that incl
                         src="undefined/images/icons/description-readability.svg"
                       />
                       <span>
-                        Grades: 
+                        Grades:
                         <span
                           className="grade-level filtered"
                         >
@@ -41437,7 +41437,7 @@ Combine simple sentences to create 5 new compound or complex sentences that incl
                         src="undefined/images/icons/description-readability.svg"
                       />
                       <span>
-                        Grades: 
+                        Grades:
                         <span
                           className="grade-level filtered"
                         >
@@ -41900,7 +41900,7 @@ Combine simple sentences to create 5 new compound or complex sentences that incl
                         src="undefined/images/icons/description-readability.svg"
                       />
                       <span>
-                        Grades: 
+                        Grades:
                         <span
                           className="grade-level filtered"
                         >
@@ -42337,7 +42337,7 @@ Combine simple sentences to create 5 new compound or complex sentences that incl
                         src="undefined/images/icons/description-readability.svg"
                       />
                       <span>
-                        Grades: 
+                        Grades:
                         <span
                           className="grade-level filtered"
                         >
@@ -42774,7 +42774,7 @@ Combine simple sentences to create 5 new compound or complex sentences that incl
                         src="undefined/images/icons/description-readability.svg"
                       />
                       <span>
-                        Grades: 
+                        Grades:
                         <span
                           className="grade-level filtered"
                         >
@@ -43229,7 +43229,7 @@ Combine simple sentences to create 5 new compound or complex sentences that incl
                         src="undefined/images/icons/description-readability.svg"
                       />
                       <span>
-                        Grades: 
+                        Grades:
                         <span
                           className="grade-level filtered"
                         >
@@ -43692,7 +43692,7 @@ Combine simple sentences to create 5 new compound or complex sentences that incl
                         src="undefined/images/icons/description-readability.svg"
                       />
                       <span>
-                        Grades: 
+                        Grades:
                         <span
                           className="grade-level filtered"
                         >
@@ -44129,7 +44129,7 @@ Combine simple sentences to create 5 new compound or complex sentences that incl
                         src="undefined/images/icons/description-readability.svg"
                       />
                       <span>
-                        Grades: 
+                        Grades:
                         <span
                           className="grade-level filtered"
                         >
@@ -44566,7 +44566,7 @@ Combine simple sentences to create 5 new compound or complex sentences that incl
                         src="undefined/images/icons/description-readability.svg"
                       />
                       <span>
-                        Grades: 
+                        Grades:
                         <span
                           className="grade-level filtered"
                         >
@@ -45021,7 +45021,7 @@ Combine simple sentences to create 5 new compound or complex sentences that incl
                         src="undefined/images/icons/description-readability.svg"
                       />
                       <span>
-                        Grades: 
+                        Grades:
                         <span
                           className="grade-level filtered"
                         >
@@ -45502,7 +45502,7 @@ Combine simple sentences to create 5 new compound or complex sentences that incl
                         src="undefined/images/icons/description-readability.svg"
                       />
                       <span>
-                        Grades: 
+                        Grades:
                         <span
                           className="grade-level filtered"
                         >
@@ -46791,7 +46791,7 @@ Combine simple sentences to create 5 new compound or complex sentences that incl
                   "description": "Combine sentences to create 6 sentences about the importance of the buffalo to the Native American tribes living on the Great Plains. This is an advanced, un-cued sentence combining activity.",
                   "flags": "{production}",
                   "id": 585,
-                  "name": "The Importance of the Buffalo",
+                  "name": "The importance of the Buffalo",
                   "readability_grade_level": "8th-9th",
                   "standard_level": Object {
                     "id": 13,
@@ -47155,7 +47155,7 @@ Combine simple sentences to create 5 new compound or complex sentences that incl
                 1
                 -
                 20
-                 of 
+                 of
                 31
                  activities
               </p>

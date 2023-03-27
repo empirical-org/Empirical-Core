@@ -1,7 +1,7 @@
-import * as React from 'react'
+import * as React from 'react';
 import ContentEditable from 'react-contenteditable';
 
-import { WordObject } from '../../interfaces/proofreaderActivities'
+import { WordObject } from '../../interfaces/proofreaderActivities';
 
 type EditInputProps = WordObject & { onWordChange: Function, numberOfResets: number, isFollowedByPunctuation: boolean, underlineErrors: boolean }
 

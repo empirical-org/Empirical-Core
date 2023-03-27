@@ -1,18 +1,12 @@
+import pluralize from 'pluralize';
 import * as React from 'react';
-import pluralize from 'pluralize'
 
 import PreviewCard from '../shared/preview_card.jsx';
 import {
-  STUDENT,
-  STUDENT_CENTER_SLUG,
-  TEACHER_CENTER_SLUG,
-  GETTING_STARTED,
-  WHATS_NEW,
-  TEACHER_STORIES,
-  WRITING_INSTRUCTION_RESEARCH,
-  IN_THE_NEWS,
-  USING_QUILL_FOR_READING_COMPREHENSION
-} from './blog_post_constants'
+    STUDENT,
+    STUDENT_CENTER_SLUG,
+    TEACHER_CENTER_SLUG, USING_QUILL_FOR_READING_COMPREHENSION
+} from './blog_post_constants';
 
 export default class TopicSection extends React.Component {
   displayTitle() {

@@ -1,9 +1,9 @@
-import * as React from 'react';
 import { shallow } from 'enzyme';
+import * as React from 'react';
 
-import SemanticLabelsOverview from '../semanticRules/semanticLabelsOverview';
 import LabelsTable from '../semanticRules/labelsTable';
 import ModelsTable from '../semanticRules/modelsTable';
+import SemanticLabelsOverview from '../semanticRules/semanticLabelsOverview';
 
 const mockProps = {
   activityId: '17',

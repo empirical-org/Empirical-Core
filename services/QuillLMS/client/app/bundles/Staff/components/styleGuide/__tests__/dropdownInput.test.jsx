@@ -2,7 +2,7 @@ import * as React from 'react';
 
 import { shallow } from 'enzyme';
 
-import { DropdownInput } from '../../../../Shared/index'
+import { DropdownInput } from '../../../../Shared/index';
 
 const options = [
   {value: 1, label: 'One'},

@@ -9,17 +9,15 @@ declare global {
 }
 
 import _ from 'underscore';
-import { submitResponse } from './responses';
-import { Questions, Question, FocusPoint, IncorrectSequence } from '../interfaces/questions'
+import { requestPost } from '../../../modules/request/index';
+import lessonActions from '../actions/lessons';
+import { Question } from '../interfaces/questions';
+import { LessonApi, TYPE_CONNECT_LESSON } from '../libs/lessons_api';
 import {
-  QuestionApi,
-  FocusPointApi,
-  IncorrectSequenceApi,
-  SENTENCE_COMBINING_TYPE
-} from '../libs/questions_api'
-import { LessonApi, TYPE_CONNECT_LESSON} from  '../libs/lessons_api'
-import lessonActions from '../actions/lessons'
-import { requestPost, } from '../../../modules/request/index'
+    FocusPointApi,
+    IncorrectSequenceApi, QuestionApi, SENTENCE_COMBINING_TYPE
+} from '../libs/questions_api';
+import { submitResponse } from './responses';
 
 function startListeningToQuestions() {
   return loadQuestions();

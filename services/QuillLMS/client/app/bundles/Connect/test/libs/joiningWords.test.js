@@ -1,8 +1,6 @@
 import expect from 'expect';
 import {
-  getFeedbackForMissingWord,
-  getconceptUIDForMissingWord,
-  trimMissingWord,
+    getFeedbackForMissingWord
 } from '../../libs/algorithms/joiningWords.js';
 
 describe('Checking for feedback for missing words', () => {

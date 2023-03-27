@@ -1,13 +1,12 @@
 import * as React from 'react';
 
-import BlogPostContent from './blog_post_content'
 import {
-  TEACHER_CENTER_SLUG,
-  BLOG_POST_TO_COLOR,
-} from './blog_post_constants'
+    BLOG_POST_TO_COLOR, TEACHER_CENTER_SLUG
+} from './blog_post_constants';
+import BlogPostContent from './blog_post_content';
 
+import { requestPost } from '../../../../modules/request/index';
 import PreviewCard from '../shared/preview_card.jsx';
-import { requestPost, } from '../../../../modules/request/index'
 
 const RATING_MESSAGES = {
   instructions: 'Was this article helpful?',

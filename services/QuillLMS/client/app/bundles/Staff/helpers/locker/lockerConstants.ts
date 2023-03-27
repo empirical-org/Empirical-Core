@@ -1,4 +1,4 @@
-import { EVIDENCE, CONNECT, DIAGNOSTIC, GRAMMAR, LESSONS, PROOFREADER, CURRICULUM, PARTNERSHIPS, PRODUCT, SUPPORT } from "../../../Shared"
+import { CONNECT, DIAGNOSTIC, EVIDENCE, GRAMMAR, LESSONS, PROOFREADER } from "../../../Shared";
 
 export const USERS = 'users';
 export const SCHOOLS = 'schools';

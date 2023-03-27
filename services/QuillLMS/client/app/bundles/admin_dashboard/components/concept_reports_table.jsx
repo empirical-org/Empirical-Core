@@ -1,8 +1,8 @@
 import React from 'react';
 
-import EmptyStateForReport from '../../Teacher/components/progress_reports/empty_state_for_report';
 import { sortTableByLastName } from '../../../modules/sortingMethods';
-import { ReactTable, } from '../../Shared'
+import { ReactTable } from '../../Shared';
+import EmptyStateForReport from '../../Teacher/components/progress_reports/empty_state_for_report';
 
 const ConceptReportsTable = ({ data, }) => {
   const columns = [

@@ -1,8 +1,8 @@
-import * as React from 'react'
 import { mount } from 'enzyme';
+import * as React from 'react';
 
-import SortDropdown from '../sort_dropdown'
-import { DEFAULT, } from '../shared'
+import { DEFAULT } from '../shared';
+import SortDropdown from '../sort_dropdown';
 
 describe('SortDropdown component', () => {
   const props = {

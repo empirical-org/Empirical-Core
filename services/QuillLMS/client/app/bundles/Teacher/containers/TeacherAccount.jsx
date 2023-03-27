@@ -1,14 +1,14 @@
 import React from 'react';
 
-import { Snackbar, defaultSnackbarTimeout } from '../../Shared/index'
-import TeacherGeneralAccountInfo from '../components/accounts/edit/teacher_general'
-import TeacherPasswordAccountInfo from '../components/accounts/edit/update_password'
-import TeacherLinkedAccounts from '../components/accounts/edit/teacher_linked_accounts'
-import TeacherEmailNotifications from '../components/accounts/edit/teacher_email_notifications'
-import TeacherGradeLevels from '../components/accounts/edit/teacher_grade_levels'
-import TeacherSubjectAreas from '../components/accounts/edit/teacher_subject_areas'
-import TeacherDangerZone from '../components/accounts/edit/teacher_danger_zone'
-import { requestPut, requestPost, } from '../../../modules/request/index';
+import { requestPost, requestPut } from '../../../modules/request/index';
+import { defaultSnackbarTimeout, Snackbar } from '../../Shared/index';
+import TeacherDangerZone from '../components/accounts/edit/teacher_danger_zone';
+import TeacherEmailNotifications from '../components/accounts/edit/teacher_email_notifications';
+import TeacherGeneralAccountInfo from '../components/accounts/edit/teacher_general';
+import TeacherGradeLevels from '../components/accounts/edit/teacher_grade_levels';
+import TeacherLinkedAccounts from '../components/accounts/edit/teacher_linked_accounts';
+import TeacherSubjectAreas from '../components/accounts/edit/teacher_subject_areas';
+import TeacherPasswordAccountInfo from '../components/accounts/edit/update_password';
 
 function gradeLevelToOption(gradeLevel) {
   return gradeLevel ? { value: gradeLevel, label: gradeLevel, } : null

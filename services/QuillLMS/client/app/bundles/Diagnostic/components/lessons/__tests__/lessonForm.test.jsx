@@ -1,13 +1,12 @@
-import React from 'react';
+import { ContentState, EditorState } from 'draft-js';
 import { shallow } from 'enzyme';
-import { LessonForm } from '../lessonForm';
+import React from 'react';
 import {
-  SortableList,
-  TextEditor
+    SortableList,
+    TextEditor
 } from '../../../../Shared/index';
-import { EditorState, ContentState } from 'draft-js'
-import ChooseModel from '../chooseModel.tsx'
-import _ from 'underscore';
+import ChooseModel from '../chooseModel.tsx';
+import { LessonForm } from '../lessonForm';
 import { NameInput } from '../lessonFormComponents.tsx';
 
 describe('LessonForm component', () => {

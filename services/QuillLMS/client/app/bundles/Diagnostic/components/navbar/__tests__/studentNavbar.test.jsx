@@ -1,6 +1,6 @@
-import React from 'react';
 import { mount } from 'enzyme';
-import { StudentNavbar, } from '../studentNavbar';
+import React from 'react';
+import { StudentNavbar } from '../studentNavbar';
 
 describe('StudentNavbar', () => {
   it('renders when the language menu is open', () => {

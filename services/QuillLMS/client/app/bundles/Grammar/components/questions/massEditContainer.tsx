@@ -1,25 +1,23 @@
+import { ContentState, EditorState } from 'draft-js';
+import { Response } from 'quill-marking-logic';
 import * as React from 'react';
 import { connect } from 'react-redux';
-import { Response } from 'quill-marking-logic'
-import { EditorState, ContentState } from 'draft-js'
 import _ from 'underscore';
 
 
 import getBoilerplateFeedback from './boilerplateFeedback';
 import ConceptResultList from './conceptResultList';
 
+import { requestPost } from '../../../../modules/request/index';
+import { TextEditor } from '../../../Shared/index';
+import { clearDisplayMessageAndError } from '../../actions/display';
 import * as massEdit from '../../actions/massEdit';
 import {
-  submitMassEditFeedback,
-  submitMassEditConceptResults,
-  massEditDeleteResponses
+  massEditDeleteResponses, submitMassEditConceptResults, submitMassEditFeedback
 } from '../../actions/responses';
-import { Match } from '../../interfaces/match'
-import { DisplayReducerState } from '../../reducers/displayReducer'
-import { MassEditReducerState } from '../../reducers/massEditReducer'
-import { clearDisplayMessageAndError } from '../../actions/display';
-import { TextEditor, } from '../../../Shared/index'
-import { requestPost, } from '../../../../modules/request/index'
+import { Match } from '../../interfaces/match';
+import { DisplayReducerState } from '../../reducers/displayReducer';
+import { MassEditReducerState } from '../../reducers/massEditReducer';
 
 interface MassEditState {
   responses: {[key: string]: Response},

@@ -1,19 +1,9 @@
-import expect, {createSpy, spyOn, isSpy} from 'expect';
-import {diffWords} from 'diff'
+import { diffWords } from 'diff';
+import expect from 'expect';
 import {
-  getChangeObjects,
-  getChangeObjectsWithoutRemoved,
-  getChangeObjectsWithoutAdded,
-  getErroneousWordLength,
-  getErroneousWordOffset,
-  getInlineStyleRangeObject,
-  getErrorType,
-  getMissingWordErrorString,
-  getMissingInlineStyleRangeObject,
-  getAdditionalInlineStyleRangeObject,
-  generateStyleObjects,
-  getImportantStyleRangeObject
-} from '../../libs/markupUserResponses.js'
+    generateStyleObjects, getAdditionalInlineStyleRangeObject, getChangeObjects, getChangeObjectsWithoutAdded, getChangeObjectsWithoutRemoved, getErroneousWordLength,
+    getErroneousWordOffset, getErrorType, getInlineStyleRangeObject, getMissingInlineStyleRangeObject, getMissingWordErrorString
+} from '../../libs/markupUserResponses.js';
 
 describe("finding the position of the substring", () => {
   const target = "I like NYC.";
@@ -444,9 +434,9 @@ describe('the important flag', ()=>{
   it('responds differently if the error if the generate style object is passed an important flag',()=>{
     const target = "If you don’t like to ski, try ice skating."
     const user = "If you dont like to ski, tr ice skating."
-    const withImportant = generateStyleObjects(target, user, true)
-    const withOutImportant = generateStyleObjects(target, user, false)
-    expect(withImportant).toNotEqual(withOutImportant)
+    const withimportant = generateStyleObjects(target, user, true)
+    const withOutimportant = generateStyleObjects(target, user, false)
+    expect(withimportant).toNotEqual(withOutimportant)
   })
 
   it('correctly handles underlining when flagged as important', () => {

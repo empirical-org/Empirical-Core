@@ -1,10 +1,10 @@
-import React from 'react';
 import { shallow } from 'enzyme';
+import React from 'react';
 
-import ClassReport from '../class_report.jsx';
-import ProgressReport from '../../progress_report.jsx'
-import OverviewBoxes from '../overview_boxes.jsx'
 import { getTimeSpent } from '../../../../helpers/studentReports';
+import ProgressReport from '../../progress_report.jsx';
+import ClassReport from '../class_report.jsx';
+import OverviewBoxes from '../overview_boxes.jsx';
 
 describe('ClassReport component', () => {
   const CLASSROOM_ID = 42;

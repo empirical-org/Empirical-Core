@@ -1,9 +1,9 @@
 import * as React from "react";
-import Header from "./Header";
-import {renderRoutes} from "react-router-config";
+import { renderRoutes } from "react-router-config";
 import { routes } from "../routes";
+import Header from "./Header";
 
-import { ScreenreaderInstructions, } from '../../Shared/index'
+import { ScreenreaderInstructions } from '../../Shared/index';
 
 export default class PageLayout extends React.Component<any, { showFocusState: boolean }> {
   constructor(props: any) {

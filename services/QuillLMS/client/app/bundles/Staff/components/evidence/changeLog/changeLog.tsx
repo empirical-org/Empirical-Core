@@ -1,13 +1,13 @@
 import * as React from "react";
-import stripHtml from "string-strip-html";
-import { useQuery } from 'react-query';
-;
 import DateTimePicker from 'react-datetime-picker';
+import { useQuery } from 'react-query';
+import stripHtml from "string-strip-html";
+;
 
-import { renderHeader } from '../../../helpers/evidence/renderHelpers';
 import { sort } from '../../../../../modules/sortingMethods.js';
-import { fetchChangeLogs, fetchActivity } from '../../../utils/evidence/activityAPIs';
-import { DropdownInput, Spinner, ReactTable, uniqueValuesArray, } from '../../../../Shared/index';
+import { ReactTable, Spinner, uniqueValuesArray } from '../../../../Shared/index';
+import { renderHeader } from '../../../helpers/evidence/renderHelpers';
+import { fetchActivity, fetchChangeLogs } from '../../../utils/evidence/activityAPIs';
 
 const ChangeLog = ({ history, match }) => {
   const { params } = match;

@@ -1,6 +1,6 @@
-import React from 'react';
-import moment from 'moment';
 import _ from 'lodash';
+import moment from 'moment';
+import React from 'react';
 
 export default class extends React.Component {
 

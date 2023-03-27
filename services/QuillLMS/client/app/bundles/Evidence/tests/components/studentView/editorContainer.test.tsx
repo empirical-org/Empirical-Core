@@ -1,6 +1,6 @@
-import * as React from 'react'
-import { shallow, mount, } from 'enzyme'
+import { mount } from 'enzyme'
 import toJson from 'enzyme-to-json'
+import * as React from 'react'
 
 import EditorContainer from '../../../components/studentView/editorContainer'
 

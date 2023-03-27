@@ -1,5 +1,4 @@
 import React from 'react';
-import moment from 'moment';
 
 const DateRangeFilterOption = props => {
   const selected = props.selected ? 'selected' : ''

@@ -1,8 +1,7 @@
-import React from 'react';
 import $ from 'jquery';
+import React from 'react';
 
 import { DropdownInput } from '../../../../Shared/index';
-import { requestGet } from '../../../../../modules/request/index';
 
 const studentsButton = ({ buttonGroupCallback, }) => {
   const identifier = 'students'

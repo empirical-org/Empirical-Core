@@ -1,14 +1,13 @@
-import { combineReducers } from 'redux';
-import { SubmitActions } from '../actions';
 import { routerReducer } from 'react-router-redux';
-import activityHealth from './activityHealth'
+import { combineReducers } from 'redux';
+import activityHealth from './activityHealth';
 import classroomLesson from './classroomLesson';
 import classroomLessons from './classroomLessons'; // this is the admin one
-import classroomLessonsReviews from './classroomLessonsReviews'
+import classroomLessonsReviews from './classroomLessonsReviews';
 import classroomSessions from './classroomSessions';
 import concepts from './concepts';
 import conceptsFeedback from './concepts-feedback';
-import customize, * as FromCustomize from './customize'
+import customize, * as FromCustomize from './customize';
 import display from './display';
 import fillInBlank from './fillInBlank';
 import filters from './filtersReducer';

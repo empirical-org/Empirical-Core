@@ -1,8 +1,7 @@
-import React from 'react'
+import React from 'react';
 
-import PasswordWrapper from '../shared/password_wrapper'
-import getAuthToken from '../../modules/get_auth_token';
-import { requestPut, } from '../../../../../modules/request/index'
+import { requestPut } from '../../../../../modules/request/index';
+import PasswordWrapper from '../shared/password_wrapper';
 
 export default class ForgotPassword extends React.Component {
   constructor() {

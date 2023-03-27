@@ -1,8 +1,7 @@
-import * as React from 'react'
+import * as React from 'react';
 import Datetime from 'react-datetime';
-import * as moment from 'moment'
 
-import { copyIcon, } from '../../Shared/index'
+import { copyIcon } from '../../Shared/index';
 
 const copyImage = <img alt={copyIcon.alt} src={copyIcon.src} />
 

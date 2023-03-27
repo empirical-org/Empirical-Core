@@ -1,10 +1,9 @@
-import React from 'react'
+import React from 'react';
 
-import CmsIndexTable from '../components/cms/cms_index_table/cms_index_table.jsx'
+import { requestPut } from '../../../modules/request/index';
+import CmsIndexTable from '../components/cms/cms_index_table/cms_index_table.jsx';
 import ItemDropdown from '../components/general_components/dropdown_selectors/item_dropdown';
-import Server from '../components/modules/server/server'
-import getAuthToken from '../components/modules/get_auth_token'
-import { requestPut, } from '../../../modules/request/index'
+import Server from '../components/modules/server/server';
 
 export default class Cms extends React.Component {
 

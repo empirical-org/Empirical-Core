@@ -1,11 +1,11 @@
+import $ from 'jquery'
 import React from 'react'
 import { Route, Switch } from 'react-router-dom'
-import NavBar from './nav_bar.jsx'
-import $ from 'jquery'
 import LoadingSpinner from '../../shared/loading_indicator.jsx'
-import StudentReport from './student_report.tsx'
 import ClassReport from './class_report.jsx'
+import NavBar from './nav_bar.jsx'
 import QuestionReport from './question_report.jsx'
+import StudentReport from './student_report.tsx'
 
 class DiagnosticReports extends React.Component {
   constructor(props) {

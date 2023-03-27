@@ -1,6 +1,6 @@
-import 'isomorphic-fetch'
-import * as React from 'react';
 import { mount } from 'enzyme';
+import 'isomorphic-fetch';
+import * as React from 'react';
 
 import Dashboard from '../dashboard';
 

@@ -1,5 +1,5 @@
-import C from '../constants';
 import _ from 'lodash';
+import C from '../constants';
 
 const initialState = {
   questions: {

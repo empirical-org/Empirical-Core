@@ -1,8 +1,8 @@
 'use strict'
 
-import _ from 'lodash'
-import Saver from './saver'
-import $ from 'jquery'
+import $ from 'jquery';
+import _ from 'lodash';
+import Saver from './saver';
 
 
 export default  function (resourceNameSingular, resourceNamePlural, urlPrefix) {

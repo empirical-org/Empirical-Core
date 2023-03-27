@@ -1,8 +1,8 @@
 import React from 'react';
 
 import Pusher from 'pusher-js';
+import { requestPost } from '../../../../modules/request/index';
 import ButtonLoadingIndicator from '../shared/button_loading_indicator.jsx';
-import { requestPost, } from '../../../../modules/request/index'
 
 export default class ExportCSV extends React.Component {
   static defaultProps = {requestUrl: `${import.meta.env.VITE_DEFAULT_URL}/teachers/progress_reports/csv_exports`};

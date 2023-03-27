@@ -1,7 +1,7 @@
-import * as React from 'react';
 import { mount } from 'enzyme';
+import * as React from 'react';
 
-import { blogPosts, blogPostWithBody, author, } from './data'
+import { author, blogPosts, blogPostWithBody } from './data';
 
 import BlogPost from '../blog_post';
 

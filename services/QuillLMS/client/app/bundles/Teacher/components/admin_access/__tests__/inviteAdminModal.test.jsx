@@ -1,7 +1,7 @@
-import React from 'react';
 import { mount } from 'enzyme';
+import React from 'react';
 
-import InviteAdminModal from '../inviteAdminModal'
+import InviteAdminModal from '../inviteAdminModal';
 
 describe('InviteAdminModal container', () => {
   it('should render', () => {

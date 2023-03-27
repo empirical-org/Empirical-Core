@@ -1,9 +1,9 @@
 import * as React from "react";
 import { Link } from 'react-router-dom';
 
-import { ActivityInterface, InvalidHighlight } from '../../interfaces/evidenceInterfaces';
+import { RULE_TYPE_TO_NAME, RULE_TYPE_TO_ROUTE_PART } from "../../../../constants/evidence";
 import { DataTable } from "../../../Shared";
-import { RULE_TYPE_TO_ROUTE_PART, RULE_TYPE_TO_NAME } from "../../../../constants/evidence";
+import { ActivityInterface, InvalidHighlight } from '../../interfaces/evidenceInterfaces';
 
 const quillCheckmark = `/images/green_check.svg`;
 const quillX = '/images/red_x.svg';

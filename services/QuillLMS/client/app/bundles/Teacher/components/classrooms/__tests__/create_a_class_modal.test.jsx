@@ -1,10 +1,10 @@
-import React from 'react';
 import { shallow } from 'enzyme';
+import React from 'react';
 
+import AddStudents from '../add_students';
+import CreateAClassForm from '../create_a_class_form';
 import CreateAClassModal from '../create_a_class_modal.tsx';
-import CreateAClassForm from '../create_a_class_form'
-import AddStudents from '../add_students'
-import SetupInstructions from '../setup_instructions'
+import SetupInstructions from '../setup_instructions';
 
 describe('CreateAClassModal component', () => {
 

@@ -1,18 +1,12 @@
-import React from 'react';
 import { mount } from 'enzyme';
+import React from 'react';
 
-import { expiredSubscriptionStatus, } from './data'
+import { expiredSubscriptionStatus } from './data';
 
-import CurrentSubscription from '../current_subscription';
 import {
-  TEACHER_PREMIUM_TRIAL,
-  TEACHER_PREMIUM_CREDIT,
-  TEACHER_PREMIUM_SCHOLARSHIP,
-  TEACHER_PREMIUM,
-  SCHOOL_PREMIUM,
-  SCHOOL_PREMIUM_SCHOLARSHIP,
-  DISTRICT_PREMIUM,
-} from '../constants'
+    SCHOOL_PREMIUM
+} from '../constants';
+import CurrentSubscription from '../current_subscription';
 
 const sharedProps = {
   "authorityLevel": null,

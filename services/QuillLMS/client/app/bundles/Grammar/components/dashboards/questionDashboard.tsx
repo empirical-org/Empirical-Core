@@ -2,13 +2,13 @@ import * as React from 'react';
 import * as Redux from "redux";
 
 import { connect } from 'react-redux';
-import DashboardFilters from './dashboardFilters'
-import LoadingSpinner from '../shared/loading_spinner'
-import * as QuestionAndConceptMapActions from '../../actions/questionAndConceptMap'
-import { QuestionAndConceptMapReducerState } from '../../reducers/questionAndConceptMapReducer'
-import { DashboardActivity } from '../../interfaces/dashboards'
-import Constants from '../../constants'
-import { ReactTable, } from '../../../Shared/index'
+import { ReactTable } from '../../../Shared/index';
+import * as QuestionAndConceptMapActions from '../../actions/questionAndConceptMap';
+import Constants from '../../constants';
+import { DashboardActivity } from '../../interfaces/dashboards';
+import { QuestionAndConceptMapReducerState } from '../../reducers/questionAndConceptMapReducer';
+import LoadingSpinner from '../shared/loading_spinner';
+import DashboardFilters from './dashboardFilters';
 
 const { PRODUCTION, GAMMA, BETA, ALPHA, ARCHIVED, NONE, } = Constants
 

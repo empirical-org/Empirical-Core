@@ -1,6 +1,6 @@
 import React from 'react';
 
-import { requestPost, } from '../../../../modules/request/index'
+import { requestPost } from '../../../../modules/request/index';
 
 class MergeTwoSchools extends React.Component {
   constructor(props) {

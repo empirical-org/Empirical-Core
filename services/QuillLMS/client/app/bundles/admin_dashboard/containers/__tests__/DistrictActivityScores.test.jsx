@@ -1,10 +1,10 @@
+import { mount, shallow } from 'enzyme';
 import React from 'react';
-import { shallow, mount, } from 'enzyme';
 import { createMockStore } from 'redux-test-utils';
 
 import DistrictActivityScores from '../DistrictActivityScores.jsx';
 
-import { FULL, RESTRICTED, LIMITED, } from '../../shared'
+import { FULL, LIMITED, RESTRICTED } from '../../shared';
 
 const emptyState = {
   district_activity_scores: {

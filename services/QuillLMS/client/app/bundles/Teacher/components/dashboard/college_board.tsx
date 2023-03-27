@@ -1,6 +1,6 @@
 import * as React from 'react'
 
-import { helpIcon, arrowPointingRightIcon, } from '../../../Shared/index'
+import { arrowPointingRightIcon, helpIcon } from '../../../Shared/index'
 
 const collegeBoardQuillLogoSrc = `${import.meta.env.VITE_PROCESS_ENV_CDN_URL}/images/pages/dashboard/logo-quill-collegeboard.svg`
 

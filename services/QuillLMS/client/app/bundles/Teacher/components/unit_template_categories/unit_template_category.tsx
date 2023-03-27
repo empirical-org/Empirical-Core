@@ -1,7 +1,7 @@
-import * as React from 'react'
-import _ from 'underscore'
+import * as React from 'react';
+import _ from 'underscore';
 
-import TextInputGenerator from '../modules/componentGenerators/text_input_generator.jsx'
+import TextInputGenerator from '../modules/componentGenerators/text_input_generator.jsx';
 import Server from '../modules/server/server.jsx';
 
 interface UnitTemplateCategoryProps {

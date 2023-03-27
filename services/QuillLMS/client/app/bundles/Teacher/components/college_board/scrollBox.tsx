@@ -1,8 +1,8 @@
 import * as React from 'react';
-import scrollIntoView from 'smooth-scroll-into-view-if-needed'
+import scrollIntoView from 'smooth-scroll-into-view-if-needed';
 
-import { handleSetActiveSection } from '../../helpers/collegeBoard';
 import { ScrollSection } from '../../../../interfaces/collegeBoard';
+import { handleSetActiveSection } from '../../helpers/collegeBoard';
 
 const ScrollBox = ({ activeSection, showScrollBox, sections, setActiveSection, setIsScrollingFromClick}) => {
 

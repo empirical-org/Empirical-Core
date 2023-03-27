@@ -1,16 +1,15 @@
 import React from 'react';
-import { connect } from 'react-redux';
-import _ from 'underscore';
 import ReactTransition from 'react-addons-css-transition-group';
+import { connect } from 'react-redux';
 
-import TextEditor from '../renderForQuestions/renderTextEditor.jsx';
-import POSMatcher from '../../libs/sentenceFragment.js';
+import { Feedback, getDisplayedText, getLatestAttempt, hashToCollection, renderPreviewFeedback } from '../../../Shared/index';
 import {
-  getGradedResponsesWithCallback
+    getGradedResponsesWithCallback
 } from '../../actions/responses.js';
-const icon = `${import.meta.env.VITE_PROCESS_ENV_CDN_URL}/images/icons/direction.svg`
+import POSMatcher from '../../libs/sentenceFragment.js';
+import TextEditor from '../renderForQuestions/renderTextEditor.jsx';
 import updateResponseResource from '../renderForQuestions/updateResponseResource.js';
-import { hashToCollection, Feedback, getLatestAttempt, renderPreviewFeedback, getDisplayedText } from '../../../Shared/index'
+const icon = `${import.meta.env.VITE_PROCESS_ENV_CDN_URL}/images/icons/direction.svg`
 
 const key = ''; // enables this component to be used by both play/sentence-fragments and play/diagnostic
 

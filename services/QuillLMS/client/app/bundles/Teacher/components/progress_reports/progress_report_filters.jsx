@@ -1,7 +1,7 @@
-import React from 'react'
-import _ from 'underscore'
+import React from 'react';
+import _ from 'underscore';
 
-import { DropdownInput, } from '../../../Shared/index'
+import { DropdownInput } from '../../../Shared/index';
 
 export default class ProgressReportFilters extends React.Component {
   activeFilter = (selected, options) => {

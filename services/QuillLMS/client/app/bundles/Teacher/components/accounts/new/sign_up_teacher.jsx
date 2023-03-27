@@ -1,15 +1,14 @@
 import React from 'react';
 
-import AuthSignUp from './auth_sign_up'
+import AuthSignUp from './auth_sign_up';
 
-import PasswordWrapper from '../shared/password_wrapper'
-import TeacherSignUpInfo from '../shared/teacher_sign_up_info'
-import AnalyticsWrapper from '../../shared/analytics_wrapper'
-import AgreementsAndLinkToLogin from './agreements_and_link_to_login'
-import AssignActivityPackBanner from '../assignActivityPackBanner'
-import { Input, } from '../../../../Shared/index'
-import { requestPost, } from '../../../../../modules/request/index'
-import { INDIVIDUAL_CONTRIBUTOR, ADMIN, TEACHER, } from '../../../../Shared/index';
+import { requestPost } from '../../../../../modules/request/index';
+import { ADMIN, INDIVIDUAL_CONTRIBUTOR, Input, TEACHER } from '../../../../Shared/index';
+import AnalyticsWrapper from '../../shared/analytics_wrapper';
+import AssignActivityPackBanner from '../assignActivityPackBanner';
+import PasswordWrapper from '../shared/password_wrapper';
+import TeacherSignUpInfo from '../shared/teacher_sign_up_info';
+import AgreementsAndLinkToLogin from './agreements_and_link_to_login';
 
 class SignUpTeacher extends React.Component {
   constructor(props) {

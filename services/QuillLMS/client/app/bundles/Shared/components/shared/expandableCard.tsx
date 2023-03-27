@@ -1,4 +1,4 @@
-import * as React from 'react'
+import * as React from 'react';
 
 const expandSrc = `${import.meta.env.VITE_PROCESS_ENV_CDN_URL}/images/icons/expand.svg`;
 

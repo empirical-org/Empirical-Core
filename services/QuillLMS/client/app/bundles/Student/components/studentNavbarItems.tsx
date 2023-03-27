@@ -1,4 +1,4 @@
-import * as React from 'react'
+import * as React from 'react';
 
 const avatarSrc = `${import.meta.env.VITE_PROCESS_ENV_CDN_URL}/images/icons/avatar.svg`
 const menuSrc = `${import.meta.env.VITE_PROCESS_ENV_CDN_URL}/images/icons/menu.svg`

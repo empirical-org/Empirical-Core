@@ -1,7 +1,6 @@
 import expect from 'expect';
+import { getAllSentenceFragmentConceptResults, getCompleteSentenceConceptResult, getIdentificationConceptResult } from '../../libs/conceptResults/sentenceFragment';
 import data from '../jsonFromDiagnostic';
-import { getIdentificationConceptResult, getCompleteSentenceConceptResult, getAllSentenceFragmentConceptResults } from '../../libs/conceptResults/sentenceFragment';
-import conceptResults from './conceptResultsWithMetadata.js';
 describe('Getting concept results from an answered sf object', () => {
   const question = data[0].data;
 

@@ -1,14 +1,14 @@
-import * as React from 'react'
-import { Route, Switch, Link, } from 'react-router-dom';
+import * as React from 'react';
+import { Link, Route, Switch } from 'react-router-dom';
 
-import RecordColumns from './recordColumns'
-import ChangeLogTable from './changeLogTable'
-import Search from '../../shared/search'
-import StandardsTable from './standardsTable'
-import { STANDARD, STANDARD_CATEGORY, STANDARD_LEVEL,   } from './shared'
+import Search from '../../shared/search';
+import ChangeLogTable from './changeLogTable';
+import RecordColumns from './recordColumns';
+import { STANDARD, STANDARD_CATEGORY, STANDARD_LEVEL } from './shared';
+import StandardsTable from './standardsTable';
 
-import { Snackbar, defaultSnackbarTimeout } from '../../../../Shared/index'
-import { requestGet, requestPut, requestPost, } from '../../../../../modules/request/index'
+import { requestGet, requestPost, requestPut } from '../../../../../modules/request/index';
+import { defaultSnackbarTimeout, Snackbar } from '../../../../Shared/index';
 
 const ARCHIVED = 'archived'
 const NEW = 'new'

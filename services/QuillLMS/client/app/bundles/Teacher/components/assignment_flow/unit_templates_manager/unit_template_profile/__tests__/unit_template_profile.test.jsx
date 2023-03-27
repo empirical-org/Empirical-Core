@@ -1,14 +1,13 @@
-import React from 'react';
 import { shallow } from 'enzyme';
-import $ from 'jquery'
+import React from 'react';
 
-import response from '../../../../../../../test_data/unit_template_profile'
-import { UnitTemplateProfile } from '../unit_template_profile.tsx'
-import LoadingIndicator from '../../../../shared/loading_indicator'
-import UnitTemplateProfileDescription from '../unit_template_profile_description'
-import UnitTemplateProfileShareButtons from '../unit_template_profile_share_buttons';
-import UnitTemplateAuthenticationButtons from '../unit_template_authentication_buttons';
+import response from '../../../../../../../test_data/unit_template_profile';
+import LoadingIndicator from '../../../../shared/loading_indicator';
 import { CLICKED_ACTIVITY_PACK_ID } from '../../../assignmentFlowConstants';
+import UnitTemplateAuthenticationButtons from '../unit_template_authentication_buttons';
+import { UnitTemplateProfile } from '../unit_template_profile.tsx';
+import UnitTemplateProfileDescription from '../unit_template_profile_description';
+import UnitTemplateProfileShareButtons from '../unit_template_profile_share_buttons';
 
 const props = {
   history: {

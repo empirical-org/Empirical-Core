@@ -1,5 +1,5 @@
-import * as React from 'react'
-import ConceptSelector from './conceptSelector'
+import * as React from 'react';
+import ConceptSelector from './conceptSelector';
 
 interface ConceptSelectorWithCheckboxProps {
   handleSelectorChange: Function;

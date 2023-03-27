@@ -1,5 +1,5 @@
-import React from 'react';
 import { shallow } from 'enzyme';
+import React from 'react';
 
 import MergeActivityPacks from '../merge_activity_packs';
 

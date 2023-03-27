@@ -1,10 +1,10 @@
-import * as React from 'react'
-import { Route, Switch, Link, } from 'react-router-dom';
+import * as React from 'react';
+import { Link, Route, Switch } from 'react-router-dom';
 
-import ContentPartnersTable from './contentPartnersTable'
+import ContentPartnersTable from './contentPartnersTable';
 
-import { Snackbar, defaultSnackbarTimeout } from '../../../../Shared/index'
-import { requestGet, requestPut, requestPost, } from '../../../../../modules/request/index'
+import { requestGet, requestPost, requestPut } from '../../../../../modules/request/index';
+import { defaultSnackbarTimeout, Snackbar } from '../../../../Shared/index';
 
 const ARCHIVED = 'archived'
 

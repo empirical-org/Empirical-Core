@@ -1,15 +1,8 @@
 import * as React from 'react';
 import {
-  ClassroomLessonSessions,
-  ClassroomLessonSession,
-  QuestionSubmissionsList,
-  SelectedSubmissions,
-  SelectedSubmissionsForQuestion,
-  Presence,
-  Students
+    ClassroomLessonSession
 } from '../interfaces';
-import { sortByLastName } from '../shared/studentSorts'
-import { getParameterByName } from '../../../libs/getParameterByName'
+import { sortByLastName } from '../shared/studentSorts';
 
 const LaptopConnectingToLessonsSrc = `${import.meta.env.VITE_PROCESS_ENV_CDN_URL}/images/illustrations/laptop-connecting-to-lessons.svg`
 

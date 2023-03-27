@@ -1,25 +1,23 @@
-import * as React from 'react'
-import qs from 'qs'
-import { withRouter, Link, } from 'react-router-dom';
+import qs from 'qs';
+import * as React from 'react';
+import { withRouter } from 'react-router-dom';
 
 import {
-  baseDiagnosticImageSrc,
-  noDataYet,
-  fileDocumentIcon,
-} from './shared'
-import PercentageCircle from './percentageCircle'
-import SkillGroupTooltip from './skillGroupTooltip'
+    SkillGroupSummary,
+    StudentResult
+} from './interfaces';
+import PercentageCircle from './percentageCircle';
 import {
-  SkillGroupSummary,
-  StudentResult,
-} from './interfaces'
+    baseDiagnosticImageSrc, fileDocumentIcon, noDataYet
+} from './shared';
+import SkillGroupTooltip from './skillGroupTooltip';
 
-import DemoOnboardingTour, { DEMO_ONBOARDING_DIAGNOSTIC_RESULTS_SUMMARY, } from '../../../shared/demo_onboarding_tour'
-import LoadingSpinner from '../../../shared/loading_indicator.jsx'
 import { requestGet } from '../../../../../../modules/request/index';
 import {
-  Tooltip,
-} from '../../../../../Shared/index'
+    Tooltip
+} from '../../../../../Shared/index';
+import DemoOnboardingTour, { DEMO_ONBOARDING_DIAGNOSTIC_RESULTS_SUMMARY } from '../../../shared/demo_onboarding_tour';
+import LoadingSpinner from '../../../shared/loading_indicator.jsx';
 
 const timeRewindIllustration = <img alt="Illustration of a clock with an arrow pointing backwards" src={`${baseDiagnosticImageSrc}/time-rewind.svg`} />
 

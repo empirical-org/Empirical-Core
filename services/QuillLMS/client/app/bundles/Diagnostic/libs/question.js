@@ -1,18 +1,18 @@
-import _ from 'underscore';
 import fuzzy from 'fuzzyset.js';
+import _ from 'underscore';
 import constants from '../constants';
-import { checkForMissingWords } from './requiredWords';
 import {
-  checkChangeObjectMatch
+    checkChangeObjectMatch
 } from './algorithms/changeObjects';
 import {
-  spacingBeforePunctuation
-} from './algorithms/spacingBeforePunctuation';
-import {
-  getFeedbackForMissingWord
+    getFeedbackForMissingWord
 } from './algorithms/joiningWords';
+import {
+    spacingBeforePunctuation
+} from './algorithms/spacingBeforePunctuation';
+import quillNormalize from './quillNormalizer';
+import { checkForMissingWords } from './requiredWords';
 import { getOptimalResponses, getTopOptimalResponse } from './sharedResponseFunctions';
-import quillNormalize from './quillNormalizer'
 
 const jsDiff = require('diff');
 

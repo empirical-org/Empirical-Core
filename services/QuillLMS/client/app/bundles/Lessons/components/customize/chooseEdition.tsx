@@ -1,34 +1,30 @@
+import * as _ from 'lodash';
 import * as React from 'react';
 import { connect } from 'react-redux';
-import * as _ from 'lodash';
-import { Spinner } from '../../../Shared/index'
+import { Spinner } from '../../../Shared/index';
 
 import {
-  getClassLesson
-} from '../../actions/classroomLesson'
+    getClassLesson
+} from '../../actions/classroomLesson';
 
 import {
-  createNewEdition,
-  saveEditionName,
-  archiveEdition,
-  deleteEdition,
-  getCurrentUserAndCoteachersFromLMS,
-  getEditionMetadataForUserIds
-} from '../../actions/customize';
-import {
-  startListeningToSession,
-  setEditionId
+    setEditionId, startListeningToSession
 } from '../../actions/classroomSessions';
 import {
-  ClassroomSessionId,
-  ClassroomUnitId
-} from '../classroomLessons/interfaces'
+    archiveEdition, createNewEdition, deleteEdition,
+    getCurrentUserAndCoteachersFromLMS,
+    getEditionMetadataForUserIds, saveEditionName
+} from '../../actions/customize';
+import * as CustomizeIntF from '../../interfaces/customize';
+import { getParameterByName } from '../../libs/getParameterByName';
+import {
+    ClassroomSessionId,
+    ClassroomUnitId
+} from '../classroomLessons/interfaces';
+import SignupModal from '../classroomLessons/teach/signupModal';
+import CreateCustomizedEditionNavbar from '../navbar/createCustomizedEditionNavbar';
 import EditionNamingModal from './editionNamingModal';
 import EditionRow from './editionRow';
-import SignupModal from '../classroomLessons/teach/signupModal';
-import CreateCustomizedEditionNavbar from '../navbar/createCustomizedEditionNavbar'
-import { getParameterByName } from '../../libs/getParameterByName';
-import * as CustomizeIntF from '../../interfaces/customize';
 
 class ChooseEdition extends React.Component<any, any> {
   constructor(props) {

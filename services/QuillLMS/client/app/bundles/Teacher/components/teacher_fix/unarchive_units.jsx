@@ -1,6 +1,6 @@
-import React from 'react'
+import React from 'react';
 
-import { requestGet, requestPost, } from '../../../../modules/request/index'
+import { requestGet, requestPost } from '../../../../modules/request/index';
 
 export default class UnarchiveUnits extends React.Component {
   constructor(props) {

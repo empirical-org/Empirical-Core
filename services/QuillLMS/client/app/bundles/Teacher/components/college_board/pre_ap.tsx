@@ -1,15 +1,15 @@
-import * as React from 'react'
+import * as React from 'react';
 import VisibilitySensor from 'react-visibility-sensor';
 
+import { ALIGNED_TO_PREAP, FEEDBACK_AND_REPORTS, MESSAGE_FROM_COLLEGE_BOARD, PASSAGE_ALIGNED_ACTIVITIES, QUESTIONS_AND_ANSWERS, TOP_SECTION, WRITING_SKILLS_SURVEYS } from './collegeBoardConstants';
 import ScrollBox from './scrollBox';
-import { WRITING_SKILLS_SURVEYS, FEEDBACK_AND_REPORTS, PASSAGE_ALIGNED_ACTIVITIES, ALIGNED_TO_PREAP, MESSAGE_FROM_COLLEGE_BOARD, QUESTIONS_AND_ANSWERS, TOP_SECTION } from './collegeBoardConstants';
 
-import ExpandableUnitSection from '../shared/expandableUnit'
-import QuestionsAndAnswers from '../../containers/QuestionsAndAnswers'
-import { PRE_AP_WRITINGS_SKILLS_1_UNIT_TEMPLATE_ID, PRE_AP_WRITINGS_SKILLS_2_UNIT_TEMPLATE_ID, ELL_STARTER_DIAGNOSTIC_UNIT_TEMPLATE_ID, ELL_INTERMEDIATE_DIAGNOSTIC_UNIT_TEMPLATE_ID, ELL_ADVANCED_DIAGNOSTIC_UNIT_TEMPLATE_ID, PRE_AP_SLUG } from '../assignment_flow/assignmentFlowConstants'
-import { generateLink, getStartedButton, getActivityCount } from '../../helpers/collegeBoard';
-import { scrollToTop } from '../../hooks/scrollToTop';
 import { PassageAlignedUnit } from '../../../../interfaces/collegeBoard';
+import QuestionsAndAnswers from '../../containers/QuestionsAndAnswers';
+import { generateLink, getActivityCount, getStartedButton } from '../../helpers/collegeBoard';
+import { scrollToTop } from '../../hooks/scrollToTop';
+import { ELL_ADVANCED_DIAGNOSTIC_UNIT_TEMPLATE_ID, ELL_INTERMEDIATE_DIAGNOSTIC_UNIT_TEMPLATE_ID, ELL_STARTER_DIAGNOSTIC_UNIT_TEMPLATE_ID, PRE_AP_SLUG, PRE_AP_WRITINGS_SKILLS_1_UNIT_TEMPLATE_ID, PRE_AP_WRITINGS_SKILLS_2_UNIT_TEMPLATE_ID } from '../assignment_flow/assignmentFlowConstants';
+import ExpandableUnitSection from '../shared/expandableUnit';
 
 interface PreApContainerProps {
   isPartOfAssignmentFlow?: boolean;

@@ -1,9 +1,8 @@
 import React from 'react';
-import TextEditor from './renderTextEditor.jsx';
-import _ from 'underscore';
-import EndState from './renderEndState.jsx';
-import getAnswerState from './answerState';
 import { Modal } from '../../../Shared/index';
+import getAnswerState from './answerState';
+import EndState from './renderEndState.jsx';
+import TextEditor from './renderTextEditor.jsx';
 
 const getLatestAttempt = (attempts = []) => {
   const lastIndex = attempts.length - 1;

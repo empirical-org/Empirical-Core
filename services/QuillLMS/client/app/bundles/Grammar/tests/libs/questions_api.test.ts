@@ -1,8 +1,8 @@
 import {
-  mockRequestDelete,
-  mockRequestGet,
-  mockRequestPost,
-  mockRequestPut,
+    mockRequestDelete,
+    mockRequestGet,
+    mockRequestPost,
+    mockRequestPut
 } from '../__mocks__/request_wrapper'
 jest.mock('../../../../modules/request/index', () => ({
   requestDelete: mockRequestDelete,
@@ -12,10 +12,8 @@ jest.mock('../../../../modules/request/index', () => ({
 }))
 
 import {
-  QuestionApi,
-  FocusPointApi,
-  IncorrectSequenceApi,
-  questionApiBaseUrl,
+    FocusPointApi,
+    IncorrectSequenceApi, QuestionApi, questionApiBaseUrl
 } from '../../libs/questions_api'
 
 describe('QuestionApi calls', () => {

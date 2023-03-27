@@ -1,6 +1,6 @@
 import React from 'react';
+import HeaderSection from '../components/blog_posts/header_section';
 import PreviewCard from '../components/shared/preview_card.jsx';
-import HeaderSection from '../components/blog_posts/header_section'
 
 export default (props) => {
   const articles = props.blogPosts.length > 0 ? props.blogPosts.map(article =>

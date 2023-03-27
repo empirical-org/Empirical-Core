@@ -1,8 +1,8 @@
 import {
-  mockRequestDelete,
-  mockRequestGet,
-  mockRequestPost,
-  mockRequestPut,
+    mockRequestDelete,
+    mockRequestGet,
+    mockRequestPost,
+    mockRequestPut
 } from '../__mocks__/request_wrapper'
 jest.mock('../../../../modules/request/index', () => ({
   requestDelete: mockRequestDelete,
@@ -12,14 +12,9 @@ jest.mock('../../../../modules/request/index', () => ({
 }))
 
 import {
-  GrammarActivityApi,
-  TYPE_GRAMMAR_ACTIVITY,
-  grammarActivityApiBaseUrl,
+    GrammarActivityApi, grammarActivityApiBaseUrl, TYPE_GRAMMAR_ACTIVITY
 } from '../../libs/grammar_activities_api'
 
-import {
-  GrammarActivity
-} from '../../interfaces/grammarActivities'
 
 describe('GrammarActivityApi calls', () => {
   describe('getAll', () => {

@@ -1,9 +1,9 @@
-import React from 'react';
 import { shallow } from 'enzyme';
+import React from 'react';
 
-import SetupInstructions from '../setup_instructions'
+import SetupInstructions from '../setup_instructions';
 
-import { classroomWithStudents, classroomWithoutStudents } from './test_data/test_data'
+import { classroomWithoutStudents, classroomWithStudents } from './test_data/test_data';
 
 describe('SetupInstructions component', () => {
 

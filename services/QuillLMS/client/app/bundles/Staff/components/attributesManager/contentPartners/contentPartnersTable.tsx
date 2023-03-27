@@ -1,11 +1,11 @@
-import * as React from 'react'
 import moment from 'moment';
+import * as React from 'react';
 
-import RecordBox from './recordBox'
-import NewRecordBox from './newRecordBox'
-import ArchivedRecordBox from './archivedRecordBox'
+import ArchivedRecordBox from './archivedRecordBox';
+import NewRecordBox from './newRecordBox';
+import RecordBox from './recordBox';
 
-import { momentFormatConstants, ReactTable, } from '../../../../Shared/index'
+import { momentFormatConstants, ReactTable } from '../../../../Shared/index';
 
 function columns(selectRecord, visible) {
   const sharedColumn = {

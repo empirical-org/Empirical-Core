@@ -1,28 +1,28 @@
 import * as React from "react";
+import { convertNodeToElement } from 'react-html-parser';
 import { connect } from "react-redux";
 import stripHtml from "string-strip-html";
-import { convertNodeToElement } from 'react-html-parser'
 
-import RightPanel from './rightPanel'
 import ActivityFollowUp from './activityFollowUp';
-import ReadPassageContainer from './readPassageContainer'
+import ReadPassageContainer from './readPassageContainer';
+import RightPanel from './rightPanel';
 
+import { CLICK, KEYDOWN, KEYPRESS, MOUSEDOWN, MOUSEMOVE, READ_PASSAGE_STEP_NUMBER, roundMillisecondsToSeconds, SO_PASSAGE_STEP_NUMBER, VISIBILITYCHANGE } from '../../../Shared/index';
+import { getActivity } from "../../actions/activities";
+import { TrackAnalyticsEvent } from "../../actions/analytics";
+import { completeActivitySession, fetchActiveActivitySession, getFeedback, processUnfetchableSession, reportAProblem, saveActiveActivitySession, saveActivitySurveyResponse, setActiveStepForSession, setActivityIsCompleteForSession, setExplanationSlidesCompletedForSession } from '../../actions/session';
+import { everyOtherStepCompleted, getCurrentStepDataForEventTracking, getLastSubmittedResponse, getStrippedPassageHighlights, getUrlParam, onMobile, outOfAttemptsForActivePrompt } from '../../helpers/containerActionHelpers';
+import { renderDirections } from '../../helpers/containerRenderHelpers';
+import getParameterByName from '../../helpers/getParameterByName';
+import { generateConceptResults } from '../../libs/conceptResults';
+import { Events } from '../../modules/analytics';
+import { ActivitiesReducerState } from '../../reducers/activitiesReducer';
+import { SessionReducerState } from '../../reducers/sessionReducer';
+import { postTurkSession } from '../../utils/turkAPI';
 import { explanationData } from "../activitySlides/explanationData";
 import ExplanationSlide from "../activitySlides/explanationSlide";
 import WelcomeSlide from "../activitySlides/welcomeSlide";
-import LoadingSpinner from '../shared/loadingSpinner'
-import { getActivity } from "../../actions/activities";
-import { TrackAnalyticsEvent } from "../../actions/analytics";
-import { Events } from '../../modules/analytics'
-import { completeActivitySession, fetchActiveActivitySession, getFeedback, processUnfetchableSession, saveActiveActivitySession, saveActivitySurveyResponse, reportAProblem, setActiveStepForSession, setExplanationSlidesCompletedForSession, setActivityIsCompleteForSession } from '../../actions/session'
-import { generateConceptResults, } from '../../libs/conceptResults'
-import { ActivitiesReducerState } from '../../reducers/activitiesReducer'
-import { SessionReducerState } from '../../reducers/sessionReducer'
-import getParameterByName from '../../helpers/getParameterByName';
-import { getUrlParam, onMobile, outOfAttemptsForActivePrompt, getCurrentStepDataForEventTracking, everyOtherStepCompleted, getStrippedPassageHighlights, getLastSubmittedResponse } from '../../helpers/containerActionHelpers';
-import { renderDirections} from '../../helpers/containerRenderHelpers';
-import { postTurkSession } from '../../utils/turkAPI';
-import { roundMillisecondsToSeconds, KEYDOWN, MOUSEMOVE, MOUSEDOWN, CLICK, KEYPRESS, VISIBILITYCHANGE, READ_PASSAGE_STEP_NUMBER, SO_PASSAGE_STEP_NUMBER } from '../../../Shared/index'
+import LoadingSpinner from '../shared/loadingSpinner';
 
 interface StudentViewContainerProps {
   dispatch: Function;

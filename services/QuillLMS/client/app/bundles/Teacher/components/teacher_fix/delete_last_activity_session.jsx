@@ -1,6 +1,6 @@
-import React from 'react'
+import React from 'react';
 
-import { requestPost, } from '../../../../modules/request/index'
+import { requestPost } from '../../../../modules/request/index';
 
 export default class DeleteLastActivitySession extends React.Component {
   constructor(props) {

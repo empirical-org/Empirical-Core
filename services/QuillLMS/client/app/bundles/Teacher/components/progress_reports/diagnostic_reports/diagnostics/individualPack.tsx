@@ -1,23 +1,22 @@
-import * as React from 'react'
+import * as React from 'react';
 
-import { Switch, Route, withRouter, NavLink, } from 'react-router-dom';
-import qs from 'qs'
+import qs from 'qs';
+import { NavLink, Route, Switch, withRouter } from 'react-router-dom';
 
-import GrowthResults from './growthResults'
-import Results from './results'
-import GrowthSummary from './growthSummary'
-import Summary from './summary'
-import StudentResponsesIndex from './studentResponsesIndex'
-import IndividualStudentResponses from './individualStudentResponses'
-import Recommendations from './recommendations'
-import Questions from './questions'
-import { Classroom, Activity, Diagnostic, } from './interfaces'
-import { goToAssign, baseDiagnosticImageSrc, accountCommentIcon, closeIcon, } from './shared'
+import GrowthResults from './growthResults';
+import GrowthSummary from './growthSummary';
+import IndividualStudentResponses from './individualStudentResponses';
+import Questions from './questions';
+import Recommendations from './recommendations';
+import Results from './results';
+import { accountCommentIcon, baseDiagnosticImageSrc, closeIcon, goToAssign } from './shared';
+import StudentResponsesIndex from './studentResponsesIndex';
+import Summary from './summary';
 
-import { PROGRESS_REPORTS_SELECTED_CLASSROOM_ID, } from '../../progress_report_constants'
-import { DropdownInput, } from '../../../../../Shared/index'
-import ArticleSpotlight from '../../../shared/articleSpotlight';
+import { DropdownInput } from '../../../../../Shared/index';
 import { GRAY_ARTICLE_FOOTER_BACKGROUND_COLOR, RESULTS_AND_RECOMMENDATIONS_FEATURED_BLOG_POST_ID } from '../../../../constants/featuredBlogPost';
+import ArticleSpotlight from '../../../shared/articleSpotlight';
+import { PROGRESS_REPORTS_SELECTED_CLASSROOM_ID } from '../../progress_report_constants';
 
 const barChartIcon = <img alt="Bar chart icon" src={`${baseDiagnosticImageSrc}/icons-bar-chart.svg`} />
 const barChartGrowthIcon = <img alt="Chart showing growth icon" src={`${baseDiagnosticImageSrc}/icons-bar-chart-growth.svg`} />

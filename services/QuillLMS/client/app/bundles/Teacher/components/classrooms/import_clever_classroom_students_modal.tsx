@@ -1,24 +1,24 @@
-import * as React from 'react'
 import Pusher from 'pusher-js';
+import * as React from 'react';
 
-import ButtonLoadingIndicator from '../shared/button_loading_indicator'
 import { requestPut } from '../../../../modules/request/index';
+import ButtonLoadingIndicator from '../shared/button_loading_indicator';
 
 const smallWhiteCheckSrc = `${import.meta.env.VITE_PROCESS_ENV_CDN_URL}/images/shared/check-small-white.svg`
 
-interface ImportCleverClassroomStudentsModalProps {
+interface importCleverClassroomStudentsModalProps {
   close: () => void;
   onSuccess: (snackbarCopy: string) => void;
   classroom: any;
 }
 
-interface ImportCleverClassroomStudentsModalState {
+interface importCleverClassroomStudentsModalState {
   checkboxOne?: boolean;
   waiting: boolean;
 }
 
-export default class ImportCleverClassroomStudentsModal
-  extends React.Component<ImportCleverClassroomStudentsModalProps, ImportCleverClassroomStudentsModalState> {
+export default class importCleverClassroomStudentsModal
+  extends React.Component<importCleverClassroomStudentsModalProps, importCleverClassroomStudentsModalState> {
 
   constructor(props) {
     super(props)
@@ -29,7 +29,7 @@ export default class ImportCleverClassroomStudentsModal
     }
   }
 
-  initializePusherForCleverStudentImport(userId) {
+  initializePusherForCleverStudentimport(userId) {
     if (import.meta.env.RAILS_ENV === 'development') {
       Pusher.logToConsole = true;
     }
@@ -44,12 +44,12 @@ export default class ImportCleverClassroomStudentsModal
     });
   }
 
-  handleImportStudents = () => {
+  handleimportStudents = () => {
     const { classroom, } = this.props
     this.setState({ waiting: true })
 
     requestPut(`/clever_integration/teachers/import_students`, { selected_classroom_ids: [classroom.id] }, body => {
-      this.initializePusherForCleverStudentImport(body.user_id)
+      this.initializePusherForCleverStudentimport(body.user_id)
     })
   }
 
@@ -96,7 +96,7 @@ export default class ImportCleverClassroomStudentsModal
     )
   }
 
-  renderImportButton() {
+  renderimportButton() {
     const { waiting } = this.state
     if (waiting) {
       return (
@@ -106,8 +106,8 @@ export default class ImportCleverClassroomStudentsModal
       )
     } else {
       return (
-        <button className={this.submitButtonClass()} onClick={this.handleImportStudents} type="button">
-          Import students
+        <button className={this.submitButtonClass()} onClick={this.handleimportStudents} type="button">
+          import students
         </button>
       )
     }
@@ -121,7 +121,7 @@ export default class ImportCleverClassroomStudentsModal
         <div className="import-clever-classroom-students-modal quill-modal modal-body">
           <div>
             <h3 className="title">
-              Import students from Clever
+              import students from Clever
             </h3>
           </div>
           <p>You are about to import students from the class {classroom.name}.</p>
@@ -130,7 +130,7 @@ export default class ImportCleverClassroomStudentsModal
             <button className="quill-button outlined secondary medium" onClick={close} type="button">
               Cancel
             </button>
-            {this.renderImportButton()}
+            {this.renderimportButton()}
           </div>
         </div>
       </div>

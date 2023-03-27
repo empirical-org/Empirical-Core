@@ -1,15 +1,14 @@
 import React from 'react';
-import _ from 'underscore';
 
-import ActivityPack from './activity_pack'
+import ActivityPack from './activity_pack';
 
-import LoadingIndicator from '../../shared/loading_indicator';
-import getParameterByName from '../../modules/get_parameter_by_name';
-import { DropdownInput, Snackbar, defaultSnackbarTimeout, } from '../../../../Shared/index'
-import { PROGRESS_REPORTS_SELECTED_CLASSROOM_ID, } from '../../progress_reports/progress_report_constants'
-import { requestGet, } from '../../../../../modules/request'
-import ArticleSpotlight from '../../shared/articleSpotlight';
+import { requestGet } from '../../../../../modules/request';
+import { defaultSnackbarTimeout, DropdownInput, Snackbar } from '../../../../Shared/index';
 import { MY_ACTIVITIES_FEATURED_BLOG_ID } from '../../../constants/featuredBlogPost';
+import getParameterByName from '../../modules/get_parameter_by_name';
+import { PROGRESS_REPORTS_SELECTED_CLASSROOM_ID } from '../../progress_reports/progress_report_constants';
+import ArticleSpotlight from '../../shared/articleSpotlight';
+import LoadingIndicator from '../../shared/loading_indicator';
 
 const clipboardSrc = `${import.meta.env.VITE_PROCESS_ENV_CDN_URL}/images/illustrations/clipboard.svg`
 

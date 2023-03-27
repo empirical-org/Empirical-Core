@@ -1,11 +1,11 @@
 import React, { Component } from 'react';
-import { Link, NavLink, Route, Switch, withRouter } from 'react-router-dom';
 import { connect } from 'react-redux';
+import { Link, NavLink, Route, Switch, withRouter } from 'react-router-dom';
+import MassEditContainer from '../questions/massEditContainer.jsx';
+import ResponseComponentWrapper from '../questions/responseRouteWrapper.jsx';
 import Cues from '../renderForQuestions/cues.tsx';
 import EditFillInBlank from './editFillInBlank.jsx';
 import TestFillInBlankQuestionContainer from './testFillInBlankQuestionContainer.jsx';
-import ResponseComponentWrapper from '../questions/responseRouteWrapper.jsx';
-import MassEditContainer from '../questions/massEditContainer.jsx';
 
 const icon = `${import.meta.env.VITE_PROCESS_ENV_CDN_URL}/images/icons/direction.svg`
 

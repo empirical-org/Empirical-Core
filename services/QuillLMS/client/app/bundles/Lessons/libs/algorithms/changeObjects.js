@@ -1,5 +1,5 @@
-import _ from 'underscore';
 import { diffWords } from 'diff';
+import _ from 'underscore';
 
 export function checkChangeObjectMatch(userString, responses, stringManipulationFn, skipSort = false) {
   if (!skipSort) {

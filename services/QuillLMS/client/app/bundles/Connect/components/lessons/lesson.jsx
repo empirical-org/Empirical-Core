@@ -1,20 +1,19 @@
 import React from 'react';
 import { connect } from 'react-redux';
 import { Link } from 'react-router-dom';
-import _ from 'underscore';
-import lessonActions from '../../actions/lessons';
-import { permittedFlag } from '../../libs/flagArray'
-import C from '../../constants.js';
-import EditLessonForm from './lessonForm.jsx';
-import QuestionForm from '../questions/questionForm'
-import SentenceFragmentForm from '../sentenceFragments/sentenceFragmentForm'
-import FillInBlankForm from '../fillInBlank/fillInBlankForm'
-import TitleCardForm from '../titleCards/titleCardForm'
-import questionActions from '../../actions/questions'
-import sentenceFragmentActions from '../../actions/sentenceFragments'
-import fillInBlankActions from '../../actions/fillInBlank'
-import titleCardActions from '../../actions/titleCards'
 import { FlagDropdown, Modal } from '../../../Shared/index';
+import fillInBlankActions from '../../actions/fillInBlank';
+import lessonActions from '../../actions/lessons';
+import questionActions from '../../actions/questions';
+import sentenceFragmentActions from '../../actions/sentenceFragments';
+import titleCardActions from '../../actions/titleCards';
+import C from '../../constants.js';
+import { permittedFlag } from '../../libs/flagArray';
+import FillInBlankForm from '../fillInBlank/fillInBlankForm';
+import QuestionForm from '../questions/questionForm';
+import SentenceFragmentForm from '../sentenceFragments/sentenceFragmentForm';
+import TitleCardForm from '../titleCards/titleCardForm';
+import EditLessonForm from './lessonForm.jsx';
 
 const icon = `${import.meta.env.VITE_PROCESS_ENV_CDN_URL}/images/icons/direction.svg`
 

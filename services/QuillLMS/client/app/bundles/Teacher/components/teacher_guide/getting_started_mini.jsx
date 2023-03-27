@@ -1,7 +1,7 @@
 import React from 'react'
 
-import PercentageGraph from './percentage_graph'
 import CheckboxSection from './checkbox_sections'
+import PercentageGraph from './percentage_graph'
 
 import LoadingIndicator from '../shared/loading_indicator'
 

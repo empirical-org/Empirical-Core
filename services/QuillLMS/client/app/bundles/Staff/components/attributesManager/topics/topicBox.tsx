@@ -1,11 +1,11 @@
+import _ from 'lodash';
+import moment from 'moment';
 import * as React from "react";
-import _ from 'lodash'
-import moment from 'moment'
 
-import { Topic } from './interfaces'
-import IndividualRecordChangeLogs from '../../shared/individualRecordChangeLogs'
-import ChangeLogModal from '../../shared/changeLogModal'
-import { Input, DropdownInput, } from '../../../../Shared/index'
+import { DropdownInput, Input } from '../../../../Shared/index';
+import ChangeLogModal from '../../shared/changeLogModal';
+import IndividualRecordChangeLogs from '../../shared/individualRecordChangeLogs';
+import { Topic } from './interfaces';
 
 interface TopicBoxProps {
   originalTopic: Topic;

@@ -1,8 +1,8 @@
-import * as React from 'react';
 import { shallow } from 'enzyme';
+import * as React from 'react';
 
+import { BECAUSE, BUT, FIRST_STRONG_EXAMPLE, SECOND_STRONG_EXAMPLE, SO, TEXT } from '../../../../../constants/evidence';
 import PromptsForm from '../configureSettings/promptsForm';
-import { BUT, BECAUSE, SO, TEXT, FIRST_STRONG_EXAMPLE, SECOND_STRONG_EXAMPLE }  from '../../../../../constants/evidence';
 
 const FEEDBACK = 'At no point in your rambling, incoherent response were you even close to anything that could be considered a rational thought. I award you no points, and may God have mercy on your soul.'
 

@@ -1,9 +1,9 @@
 import React from 'react';
 
-import { PROGRESS_REPORTS_SELECTED_CLASSROOM_ID, } from './progress_report_constants'
+import { PROGRESS_REPORTS_SELECTED_CLASSROOM_ID } from './progress_report_constants';
 
-import DemoOnboardingTour, { DEMO_ONBOARDING_STUDENT_REPORTS_LANDING_PAGE, } from '../shared/demo_onboarding_tour'
-import { DropdownInput, } from '../../../Shared/index'
+import { DropdownInput } from '../../../Shared/index';
+import DemoOnboardingTour, { DEMO_ONBOARDING_STUDENT_REPORTS_LANDING_PAGE } from '../shared/demo_onboarding_tour';
 
 const ALL = 'ALL'
 const ALL_OPTION = { label: 'All classrooms', value: ALL }

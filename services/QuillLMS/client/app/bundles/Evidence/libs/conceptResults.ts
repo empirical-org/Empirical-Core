@@ -1,4 +1,4 @@
-import { DIRECTIONS, } from '../components/studentView/promptStep'
+import { DIRECTIONS } from '../components/studentView/promptStep'
 
 
 export const ATTEMPTS_TO_SCORE = {

@@ -3,10 +3,10 @@ import React from 'react'
 import UnitTemplateFirstRow from './unit_template_first_row'
 import UnitTemplateSecondRow from './unit_template_second_row'
 
-import String from '../../modules/string.jsx'
-import { CLICKED_ACTIVITY_PACK_ID, CREATE_YOUR_OWN_ID } from '../assignmentFlowConstants'
 import { Tooltip } from '../../../../Shared'
 import { renderActivityPackTooltipElement } from '../../../helpers/unitTemplates'
+import String from '../../modules/string.jsx'
+import { CLICKED_ACTIVITY_PACK_ID, CREATE_YOUR_OWN_ID } from '../assignmentFlowConstants'
 
 export class UnitTemplateMini extends React.Component {
   constructor(props) {

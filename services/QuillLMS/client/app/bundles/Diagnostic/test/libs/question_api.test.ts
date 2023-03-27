@@ -1,9 +1,9 @@
 import {
-  mockRequestDelete,
-  mockRequestGet,
-  mockRequestPost,
-  mockRequestPut,
-} from '../__mocks__/request_wrapper'
+    mockRequestDelete,
+    mockRequestGet,
+    mockRequestPost,
+    mockRequestPut
+} from '../__mocks__/request_wrapper';
 jest.mock('../../../../modules/request/index', () => ({
   requestDelete: mockRequestDelete,
   requestGet: mockRequestGet,
@@ -12,18 +12,16 @@ jest.mock('../../../../modules/request/index', () => ({
 }))
 
 import {
-  QuestionApi,
-  FocusPointApi,
-  IncorrectSequenceApi
-} from '../../libs/questions_api'
+    FocusPointApi,
+    IncorrectSequenceApi, QuestionApi
+} from '../../libs/questions_api';
 
 import { ApiConstants } from '../../utils/api';
 
 import {
-  Question,
-  FocusPoint,
-  IncorrectSequence
-} from '../../interfaces/questions'
+    FocusPoint,
+    IncorrectSequence, Question
+} from '../../interfaces/questions';
 
 const questionApiBaseUrl = ApiConstants.questionApiBaseUrl
 

@@ -1,9 +1,8 @@
 import * as React from "react";
-import _ from 'lodash'
 
-import { Record } from './interfaces'
+import { Record } from './interfaces';
 
-import { Input, TextArea, } from '../../../../Shared/index'
+import { Input, TextArea } from '../../../../Shared/index';
 
 interface NewRecordBoxProps {
   createNewContentPartner(record: Record): void,

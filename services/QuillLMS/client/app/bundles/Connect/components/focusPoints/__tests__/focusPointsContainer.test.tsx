@@ -1,10 +1,10 @@
+import { mount } from 'enzyme';
 import * as React from 'react';
-import 'whatwg-fetch'
 import { BrowserRouter as Router } from 'react-router-dom';
-import { shallow, mount } from 'enzyme';
+import 'whatwg-fetch';
+import { SortableList } from '../../../../Shared/index';
 import { genericQuestion } from '../../../test/data/jest_data.js';
 import { FocusPointsContainer } from '../focusPointsContainer.jsx';
-import { SortableList } from '../../../../Shared/index';
 
 function setup() {
   const params = { questionID: 100, };

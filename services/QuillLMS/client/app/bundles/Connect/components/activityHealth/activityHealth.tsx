@@ -1,17 +1,16 @@
-import * as React from 'react'
 import { matchSorter } from 'match-sorter';
-import _ from 'underscore'
-import stripHtml from "string-strip-html"
-import { CSVLink } from 'react-csv'
+import * as React from 'react';
+import { CSVLink } from 'react-csv';
 import { connect } from 'react-redux';
+import stripHtml from "string-strip-html";
 
-import PromptHealth from './promptHealth'
+import PromptHealth from './promptHealth';
 
-import LoadingSpinner from '../shared/loading_indicator.jsx'
-import { tableSort, sortTableByList } from '../../../../modules/sortingMethods.js'
-import { FlagDropdown, ReactTable, expanderColumn, TextFilter, NumberFilterInput, filterNumbers } from '../../../Shared/index'
-import actions from '../../actions/activityHealth'
-import { requestGet, } from '../../../../modules/request/index'
+import { requestGet } from '../../../../modules/request/index';
+import { sortTableByList, tableSort } from '../../../../modules/sortingMethods.js';
+import { expanderColumn, filterNumbers, FlagDropdown, NumberFilterInput, ReactTable, TextFilter } from '../../../Shared/index';
+import actions from '../../actions/activityHealth';
+import LoadingSpinner from '../shared/loading_indicator.jsx';
 
 const CONNECT_TOOL = "connect"
 const ACTIVITY_HEALTHS_URL = `${import.meta.env.VITE_DEFAULT_URL}/api/v1/activities/activities_health.json`

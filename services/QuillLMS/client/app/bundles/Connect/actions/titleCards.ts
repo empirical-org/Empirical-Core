@@ -1,10 +1,9 @@
-import _ from 'lodash';
-import { push, goBack } from 'react-router-redux';
-import { TitleCardApi, CONNECT_TITLE_CARD_TYPE } from '../libs/title_cards_api'
+import { goBack, push } from 'react-router-redux';
+import lessonActions from '../actions/lessons';
+import { LessonApi, TYPE_CONNECT_LESSON } from '../libs/lessons_api';
+import { CONNECT_TITLE_CARD_TYPE, TitleCardApi } from '../libs/title_cards_api';
 
 const C = require('../constants').default;
-import { LessonApi, TYPE_CONNECT_LESSON } from '../libs/lessons_api'
-import lessonActions from '../actions/lessons'
 
 
 function startListeningToTitleCards() {

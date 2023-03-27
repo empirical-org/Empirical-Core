@@ -1,5 +1,5 @@
-import React from 'react'
-import ProgressReport from './progress_report.jsx'
+import React from 'react';
+import ProgressReport from './progress_report.jsx';
 
 export default class StandardsByClassroomProgressReport extends React.Component {
   constructor(props) {

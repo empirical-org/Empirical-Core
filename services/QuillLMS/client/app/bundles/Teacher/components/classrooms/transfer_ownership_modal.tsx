@@ -1,6 +1,6 @@
-import * as React from 'react'
+import * as React from 'react';
 
-import { requestPost, requestDelete } from '../../../../modules/request/index';
+import { requestPost } from '../../../../modules/request/index';
 
 const smallWhiteCheckSrc = `${import.meta.env.VITE_PROCESS_ENV_CDN_URL}/images/shared/check-small-white.svg`
 

@@ -1,7 +1,6 @@
-import { applyFeatureToPercentage } from '../libs/apply-feature';
 
-import { SessionApi } from '../libs/sessions_api';
 import _ from 'lodash';
+import { SessionApi } from '../libs/sessions_api';
 
 const C = require('../constants').default;
 
@@ -141,7 +140,8 @@ function delete_null_properties(test, recurse) {
 }
 
 export {
-  denormalizeSession,
-  normalizeSession,
-  allQuestions,
-}
+    denormalizeSession,
+    normalizeSession,
+    allQuestions,
+};
+

@@ -1,18 +1,18 @@
-import * as React from 'react'
-import qs from 'qs'
-import { withRouter, Link, } from 'react-router-dom';
+import qs from 'qs';
+import * as React from 'react';
+import { withRouter } from 'react-router-dom';
 import stripHtml from "string-strip-html";
 
 import {
-  fileDocumentIcon,
-} from './shared'
+    fileDocumentIcon
+} from './shared';
 
-import LoadingSpinner from '../../../shared/loading_indicator.jsx'
 import { requestGet } from '../../../../../../modules/request/index';
 import {
-  DataTable,
-  Tooltip,
-} from '../../../../../Shared/index'
+    DataTable,
+    Tooltip
+} from '../../../../../Shared/index';
+import LoadingSpinner from '../../../shared/loading_indicator.jsx';
 
 interface Question {
   instructions: string;

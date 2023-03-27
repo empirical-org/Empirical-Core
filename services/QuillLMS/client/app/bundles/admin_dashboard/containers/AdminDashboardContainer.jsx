@@ -1,5 +1,5 @@
 import React from 'react';
-import { Switch, Route } from 'react-router-dom';
+import { Route, Switch } from 'react-router-dom';
 
 import AdminDashboard from './AdminDashboard';
 import DistrictActivityScoresProgressReport from './DistrictActivityScores';
@@ -7,11 +7,11 @@ import DistrictConceptReportsProgressReport from './DistrictConceptReports';
 import DistrictStandardsReportsProgressReport from './DistrictStandardsReports';
 import SchoolSubscriptionsContainer from './SchoolSubscriptionsContainer';
 
-import { RESTRICTED, LIMITED, FULL, APPROVED, PENDING, DENIED, SKIPPED, LOADING } from '../shared'
-import { requestGet, } from '../../../modules/request/index'
-import SubnavTabs from '../components/subnav_tabs.tsx';
+import { requestGet } from '../../../modules/request/index';
+import { NOT_LISTED, NO_SCHOOL_SELECTED, Spinner } from '../../Shared/index';
 import ActivityScoresStudentOverview from '../components/activity_scores_student_overview.tsx';
-import { Spinner, NOT_LISTED, NO_SCHOOL_SELECTED } from '../../Shared/index'
+import SubnavTabs from '../components/subnav_tabs.tsx';
+import { APPROVED, DENIED, FULL, LIMITED, LOADING, PENDING, RESTRICTED, SKIPPED } from '../shared';
 
 const BANNER_BUTTON_CLASS_NAME = "quill-button small secondary outlined focus-on-light"
 

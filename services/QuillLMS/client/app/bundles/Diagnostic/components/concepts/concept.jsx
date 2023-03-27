@@ -1,10 +1,10 @@
 import React from 'react'
 import { connect } from 'react-redux'
 import { Link } from 'react-router-dom'
-import actions from '../../actions/concepts'
-import questionActions from '../../actions/questions'
 import _ from 'underscore'
 import { hashToCollection } from '../../../Shared/index'
+import actions from '../../actions/concepts'
+import questionActions from '../../actions/questions'
 import QuestionForm from '../questions/questionForm'
 
 class Concept extends React.Component {

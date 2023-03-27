@@ -1,11 +1,11 @@
-import React from 'react'
 import { mount } from 'enzyme'
+import React from 'react'
 
-import {
-  IMMEDIATE,
-  STAGGERED,
-} from '../shared'
 import ReleaseMethodModal from '../releaseMethodModal'
+import {
+    IMMEDIATE,
+    STAGGERED
+} from '../shared'
 
 const sharedProps = {
   visible: true,

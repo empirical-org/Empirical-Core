@@ -1,4 +1,4 @@
-import * as React from 'react'
+import * as React from 'react';
 const emptyClassSrc = `${import.meta.env.VITE_PROCESS_ENV_CDN_URL}/images/illustrations/empty-class.svg`
 
 interface CleverClassroomsEmptyModalProps {

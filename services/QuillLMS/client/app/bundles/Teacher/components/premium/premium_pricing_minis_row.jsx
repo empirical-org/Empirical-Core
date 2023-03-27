@@ -1,9 +1,9 @@
 import React from 'react';
 
-import { premiumFeatures, } from './premium_features_data'
+import { premiumFeatures } from './premium_features_data';
 import BasicPricingMini from './premium_minis/basic_pricing_mini.jsx';
-import TeacherPricingMini from './premium_minis/teacher_pricing_mini.jsx';
 import SchoolPricingMini from './premium_minis/school_pricing_mini.jsx';
+import TeacherPricingMini from './premium_minis/teacher_pricing_mini.jsx';
 
 const MOBILE_WIDTH = 991
 const VERTICAL_INTERSECTION_OF_PREMIUM_PRICING_ROW_AND_TABLE = 337

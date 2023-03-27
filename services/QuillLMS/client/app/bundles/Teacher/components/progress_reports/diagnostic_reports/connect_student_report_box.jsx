@@ -1,11 +1,11 @@
-import React from 'react'
+import React from 'react';
 const Diff = require('diff');
 
-import { formatString, formatStringAndAddSpacesAfterPeriods, } from './formatString'
-import ConceptResultTableRow from './concept_result_table_row.tsx'
+import ConceptResultTableRow from './concept_result_table_row.tsx';
+import { formatString, formatStringAndAddSpacesAfterPeriods } from './formatString';
 
-import ScoreColor from '../../modules/score_color.js'
-import NumberSuffix from '../../modules/numberSuffixBuilder.js'
+import NumberSuffix from '../../modules/numberSuffixBuilder.js';
+import ScoreColor from '../../modules/score_color.js';
 
 const ConnectStudentReportBox = ({ questionData, boxNumber, showScore, showDiff, }) => {
   function groupByAttempt() {

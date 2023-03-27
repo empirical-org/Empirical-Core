@@ -1,9 +1,9 @@
 import React from 'react';
-import { HashRouter, Route,  } from 'react-router-dom'
-import { QueryClientProvider } from 'react-query'
+import { QueryClientProvider } from 'react-query';
+import { HashRouter, Route } from 'react-router-dom';
 
-import EvidenceLanding from '../components/evidence/EvidenceLanding';
 import { DefaultReactQueryClient } from '../../Shared';
+import EvidenceLanding from '../components/evidence/EvidenceLanding';
 
 const queryClient = new DefaultReactQueryClient();
 

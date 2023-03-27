@@ -1,11 +1,9 @@
-import React from 'react';
-import _ from 'underscore';
 import Pluralize from 'pluralize';
+import React from 'react';
 
-import getAuthToken from '../../modules/get_auth_token'
-import ClassroomActivity from './classroom_activity';
+import { requestPut } from '../../../../../modules/request/index';
 import AddClassroomActivityRow from './add_classroom_activity_row.jsx';
-import { requestPut, } from '../../../../../modules/request/index'
+import ClassroomActivity from './classroom_activity';
 
 export default class Unit extends React.Component {
   constructor(props) {

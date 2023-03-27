@@ -1,9 +1,9 @@
-import React from 'react';
 import { shallow } from 'enzyme';
+import React from 'react';
 
-import ScorebookFilters from '../scorebook_filters.jsx'
-import DateRangeFilter from '../../general_components/date_range_filter.jsx'
-import { DropdownInput, } from '../../../../Shared/index'
+import { DropdownInput } from '../../../../Shared/index';
+import DateRangeFilter from '../../general_components/date_range_filter.jsx';
+import ScorebookFilters from '../scorebook_filters.jsx';
 
 describe('Scorebook component', () => {
   const wrapper = shallow(

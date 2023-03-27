@@ -1,8 +1,8 @@
 import React from 'react';
 import { connect } from 'react-redux';
 
+import { closeLanguageMenu } from '../../actions/diagnostics';
 import { LanguageOptions } from '../shared/languageOptions';
-import { closeLanguageMenu } from '../../actions/diagnostics'
 
 const quillLogoSrc = `${import.meta.env.VITE_PROCESS_ENV_CDN_URL}/images/logos/quill-logo-white-2022.svg`
 const closeSrc = `${import.meta.env.VITE_PROCESS_ENV_CDN_URL}/images/icons/close-white.svg`

@@ -1,7 +1,7 @@
 import * as React from 'react'
 
+import { Tooltip } from '../../../../../Shared/index'
 import { postTestWarningModalPreNameCorrespondence } from '../../assignmentFlowConstants'
-import { Tooltip, } from '../../../../../Shared/index'
 
 const SkipRecommendationsWarningModal = ({ handleClickAssign, handleCloseModal, studentNames, restrictedActivityId, }) => {
   const tooltip = (<Tooltip

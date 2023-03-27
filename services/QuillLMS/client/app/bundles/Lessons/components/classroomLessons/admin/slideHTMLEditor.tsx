@@ -6,7 +6,7 @@ const Editor = require('@draft-js-plugins/editor').default
 const {convertFromHTML, convertToHTML} = require('draft-convert')
 const DraftPasteProcessor = require('draft-js/lib/DraftPasteProcessor').default
 
-import { richButtonsPlugin, } from '../../../../Shared/index'
+import { richButtonsPlugin } from '../../../../Shared/index';
 
 class MultipleTextEditor extends React.Component<any, any> {
   constructor(props) {

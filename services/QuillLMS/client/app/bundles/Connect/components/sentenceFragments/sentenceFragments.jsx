@@ -1,8 +1,7 @@
 import React from 'react'
-import {connect} from 'react-redux'
-import { Link } from 'react-router-dom'
+import { connect } from 'react-redux'
+import { ArchivedButton, hashToCollection } from '../../../Shared/index'
 import { QuestionList } from '../shared/questionList'
-import { hashToCollection, ArchivedButton, } from '../../../Shared/index'
 
 class SentenceFragments extends React.Component {
   constructor(props) {

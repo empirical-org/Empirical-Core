@@ -1,17 +1,17 @@
-import * as React from 'react';
 import queryString from 'query-string';
+import * as React from 'react';
 
-import { Activity, ActivityCategoryEditor } from './interfaces'
-import { calculateNumberOfPages, activityClassificationGroupings, filters, filterByFlag, DEFAULT } from './shared'
-import ActivityTableContainer from './activity_table_container'
-import FilterColumn from './filter_column'
-import Header from './header'
-import MobileFilterMenu from './mobile_filter_menu'
-import MobileSortMenu from './mobile_sort_menu'
+import ActivityTableContainer from './activity_table_container';
+import FilterColumn from './filter_column';
+import Header from './header';
+import { Activity, ActivityCategoryEditor } from './interfaces';
+import MobileFilterMenu from './mobile_filter_menu';
+import MobileSortMenu from './mobile_sort_menu';
+import { activityClassificationGroupings, calculateNumberOfPages, DEFAULT, filterByFlag, filters } from './shared';
 
-import useDebounce from '../../../../hooks/useDebounce'
-import { requestGet, requestPost, requestDelete } from '../../../../../../modules/request/index'
-import { Spinner, Snackbar, defaultSnackbarTimeout } from '../../../../../Shared/index'
+import { requestDelete, requestGet, requestPost } from '../../../../../../modules/request/index';
+import { defaultSnackbarTimeout, Snackbar, Spinner } from '../../../../../Shared/index';
+import useDebounce from '../../../../hooks/useDebounce';
 
 const DEBOUNCE_LENGTH = 500
 

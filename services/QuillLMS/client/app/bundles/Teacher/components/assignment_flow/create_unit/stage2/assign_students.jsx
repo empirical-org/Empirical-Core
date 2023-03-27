@@ -1,19 +1,19 @@
-import React from 'react'
 import Pusher from 'pusher-js';
+import React from 'react';
 
-import CreateAClassInlineForm from './create_a_class_inline_form.tsx'
-import ClassroomCard from './classroom_card.tsx'
+import ClassroomCard from './classroom_card.tsx';
+import CreateAClassInlineForm from './create_a_class_inline_form.tsx';
 
-import ButtonLoadingIndicator from '../../../shared/button_loading_indicator';
-import ImportCleverClassroomsModal from '../../../classrooms/import_clever_classrooms_modal.tsx'
-import ImportGoogleClassroomsModal from '../../../classrooms/import_google_classrooms_modal.tsx'
-import ReauthorizeCleverModal from '../../../classrooms/reauthorize_clever_modal'
-import LinkCleverAccountModal from '../../../classrooms/link_clever_account_modal.tsx'
-import LinkGoogleAccountModal from '../../../classrooms/link_google_account_modal.tsx'
-import CleverClassroomsEmptyModal from '../../../classrooms/clever_classrooms_empty_modal.tsx'
-import GoogleClassroomsEmptyModal from '../../../classrooms/google_classrooms_empty_modal.tsx'
-import { Snackbar, defaultSnackbarTimeout } from '../../../../../Shared/index'
 import { requestGet } from '../../../../../../modules/request';
+import { defaultSnackbarTimeout, Snackbar } from '../../../../../Shared/index';
+import CleverClassroomsEmptyModal from '../../../classrooms/clever_classrooms_empty_modal.tsx';
+import GoogleClassroomsEmptyModal from '../../../classrooms/google_classrooms_empty_modal.tsx';
+import importCleverClassroomsModal from '../../../classrooms/import_clever_classrooms_modal.tsx';
+import importGoogleClassroomsModal from '../../../classrooms/import_google_classrooms_modal.tsx';
+import LinkCleverAccountModal from '../../../classrooms/link_clever_account_modal.tsx';
+import LinkGoogleAccountModal from '../../../classrooms/link_google_account_modal.tsx';
+import ReauthorizeCleverModal from '../../../classrooms/reauthorize_clever_modal';
+import ButtonLoadingIndicator from '../../../shared/button_loading_indicator';
 
 const cleverIconSrc = `${import.meta.env.VITE_PROCESS_ENV_CDN_URL}/images/icons/clever.svg`
 const googleClassroomIconSrc = `${import.meta.env.VITE_PROCESS_ENV_CDN_URL}/images/icons/google-classroom.svg`
@@ -65,7 +65,7 @@ export default class AssignStudents extends React.Component {
         const { classrooms } = classrooms_data
         const cleverClassrooms = classrooms.filter(classroom => !existing_clever_ids.includes(classroom.clever_id))
 
-        this.setState({cleverClassrooms, attemptedImportCleverClassrooms: false})
+        this.setState({cleverClassrooms, attemptedimportCleverClassrooms: false})
 
         if (cleverClassrooms.length) {
           this.openFormOrModal(importCleverClassroomsModal)
@@ -76,14 +76,14 @@ export default class AssignStudents extends React.Component {
     })
   }
 
-  clickImportFromClever = () => {
+  clickimportFromClever = () => {
     const { user } = this.props
     const { clever_id } = user
 
     if (!clever_id) {
       this.openFormOrModal(linkCleverAccountModal)
     } else {
-      this.setState({ attemptedImportCleverClassrooms: true })
+      this.setState({ attemptedimportCleverClassrooms: true })
       this.importCleverClassrooms()
     }
   }
@@ -105,7 +105,7 @@ export default class AssignStudents extends React.Component {
   getGoogleClassrooms = () => {
     const { user } = this.props
     const { google_id } = user
-    const { attemptedImportGoogleClassrooms } = this.state
+    const { attemptedimportGoogleClassrooms } = this.state
 
     if (user && google_id) {
       this.setState({ googleClassroomsLoading: true}, () => {
@@ -113,11 +113,11 @@ export default class AssignStudents extends React.Component {
           if (body.quill_retrieval_processing) {
             this.initializePusherForGoogleClassrooms(body.id)
           } else {
-            const googleClassrooms = body.classrooms.filter(classroom => !classroom.alreadyImported)
+            const googleClassrooms = body.classrooms.filter(classroom => !classroom.alreadyimported)
             const newStateObj = { googleClassrooms, googleClassroomsLoading: false, }
-            if (attemptedImportGoogleClassrooms) {
-              newStateObj.attemptedImportGoogleClassrooms = false
-              this.setState(newStateObj, this.clickImportGoogleClassrooms)
+            if (attemptedimportGoogleClassrooms) {
+              newStateObj.attemptedimportGoogleClassrooms = false
+              this.setState(newStateObj, this.clickimportGoogleClassrooms)
             } else {
               this.setState(newStateObj)
             }
@@ -141,14 +141,14 @@ export default class AssignStudents extends React.Component {
     });
   }
 
-  clickImportGoogleClassrooms = () => {
+  clickimportGoogleClassrooms = () => {
     const { user } = this.props
     const { google_id } = user
     const { googleClassrooms, googleClassroomsLoading, } = this.state
     if (!google_id) {
       this.openFormOrModal(linkGoogleAccountModal)
     } else if (googleClassroomsLoading) {
-      this.setState({ attemptedImportGoogleClassrooms: true, })
+      this.setState({ attemptedimportGoogleClassrooms: true, })
     } else if (googleClassrooms.length) {
       this.openFormOrModal(importGoogleClassroomsModal)
     } else {
@@ -238,8 +238,8 @@ export default class AssignStudents extends React.Component {
             <span className="assignment-section-name">Choose classes or students</span>
           </div>
           <div className="import-or-create-classroom-buttons">
-            {this.renderImportFromCleverButton()}
-            {this.renderImportFromGoogleClassroomButton()}
+            {this.renderimportFromCleverButton()}
+            {this.renderimportFromGoogleClassroomButton()}
             <button
               className="quill-button medium secondary outlined create-a-class-button"
               onClick={() => this.openFormOrModal(createAClassForm)}
@@ -322,58 +322,58 @@ export default class AssignStudents extends React.Component {
     }
   }
 
-  renderImportFromCleverButton() {
+  renderimportFromCleverButton() {
     const { user } = this.props
     const { clever_id, google_id } = user
-    const { attemptedImportCleverClassrooms } = this.state
-    let buttonContent = 'Import from Clever'
+    const { attemptedimportCleverClassrooms } = this.state
+    let buttonContent = 'import from Clever'
     let buttonClassName = "interactive-wrapper import-from-clever-button"
 
     if (!clever_id && google_id) { return null }
 
-    if (attemptedImportCleverClassrooms) {
-      buttonContent = <React.Fragment>Import from Clever<ButtonLoadingIndicator /></React.Fragment>
+    if (attemptedimportCleverClassrooms) {
+      buttonContent = <React.Fragment>import from Clever<ButtonLoadingIndicator /></React.Fragment>
       buttonClassName += ' loading'
     }
 
     return (
-      <button className={buttonClassName} onClick={this.clickImportFromClever} type="button">
+      <button className={buttonClassName} onClick={this.clickimportFromClever} type="button">
         <img alt="Clever Icon" className='import-from-clever-button-icon' src={cleverIconSrc} />
         {buttonContent}
       </button>
     )
   }
 
-  renderImportFromGoogleClassroomButton() {
+  renderimportFromGoogleClassroomButton() {
     const { user } = this.props
     const { clever_id, google_id } = user
 
-    const { googleClassroomsLoading, attemptedImportGoogleClassrooms } = this.state
-    let buttonContent = ' Import from Google Classroom'
+    const { googleClassroomsLoading, attemptedimportGoogleClassrooms } = this.state
+    let buttonContent = ' import from Google Classroom'
     let buttonClassName = "interactive-wrapper import-from-google-button"
 
     if (!google_id && clever_id) { return null }
 
-    if (googleClassroomsLoading && attemptedImportGoogleClassrooms) {
-      buttonContent = <React.Fragment>Import from Google Classroom<ButtonLoadingIndicator /></React.Fragment>
+    if (googleClassroomsLoading && attemptedimportGoogleClassrooms) {
+      buttonContent = <React.Fragment>import from Google Classroom<ButtonLoadingIndicator /></React.Fragment>
       buttonClassName += ' loading'
     }
 
     return (
-      <button className={buttonClassName} onClick={this.clickImportGoogleClassrooms} type="button">
+      <button className={buttonClassName} onClick={this.clickimportGoogleClassrooms} type="button">
         <img alt="Google Classroom Icon" className='import-from-google-button-icon' src={googleClassroomIconSrc} />
         {buttonContent}
       </button>
     )
   }
 
-  renderImportGoogleClassroomsModal() {
+  renderimportGoogleClassroomsModal() {
     const { user } = this.props
     const { googleClassrooms, showFormOrModal } = this.state
 
     if (showFormOrModal === importGoogleClassroomsModal) {
       return (
-        <ImportGoogleClassroomsModal
+        <importGoogleClassroomsModal
           classrooms={googleClassrooms}
           close={this.closeFormOrModal}
           onSuccess={this.onSuccess}
@@ -383,15 +383,15 @@ export default class AssignStudents extends React.Component {
     }
   }
 
-  renderImportCleverClassroomsModal() {
+  renderimportCleverClassroomsModal() {
     const { user } = this.props
     const { cleverClassrooms, showFormOrModal } = this.state
 
     if (showFormOrModal === importCleverClassroomsModal) {
       return (
-        <ImportCleverClassroomsModal
+        <importCleverClassroomsModal
           classrooms={cleverClassrooms}
-          close={() => this.closeFormOrModal(() => this.setState({attemptedImportCleverClassrooms: false}))}
+          close={() => this.closeFormOrModal(() => this.setState({attemptedimportCleverClassrooms: false}))}
           onSuccess={this.onSuccess}
           user={user}
         />
@@ -421,8 +421,8 @@ export default class AssignStudents extends React.Component {
   render() {
     return (
       <div>
-        {this.renderImportCleverClassroomsModal()}
-        {this.renderImportGoogleClassroomsModal()}
+        {this.renderimportCleverClassroomsModal()}
+        {this.renderimportGoogleClassroomsModal()}
         {this.renderReauthorizeCleverModal()}
         {this.renderLinkCleverAccountModal()}
         {this.renderLinkGoogleAccountModal()}

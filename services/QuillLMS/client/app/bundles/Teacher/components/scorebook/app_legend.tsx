@@ -1,5 +1,5 @@
 "use strict";
-import * as React from 'react'
+import * as React from 'react';
 
 const EVIDENCE_ICON_SRC = `${import.meta.env.VITE_PROCESS_ENV_CDN_URL}/images/icons/tool-evidence-light-gray.svg`
 

@@ -1,4 +1,4 @@
-import React from 'react'
+import React from 'react';
 
 export default class CheckboxSections extends React.Component {
   checkOrNumber = (box) => {

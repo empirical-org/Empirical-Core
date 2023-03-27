@@ -1,31 +1,31 @@
+import { Response } from 'quill-marking-logic';
 import * as React from 'react';
 import { connect } from 'react-redux';
-import { withRouter, Link, Route, Switch } from 'react-router-dom'
+import { Link, Route, Switch, withRouter } from 'react-router-dom';
 import _ from 'underscore';
-import { Response } from 'quill-marking-logic'
 
-import { ActionTypes } from '../../actions/actionTypes'
+import { Modal } from '../../../Shared/index';
+import { ActionTypes } from '../../actions/actionTypes';
 import * as questionActions from '../../actions/questions';
 import {
-  submitResponse
+    submitResponse
 } from '../../actions/responses';
-import EditForm from './questionForm';
+import { Match } from '../../interfaces/match';
+import { QuestionsReducerState } from '../../reducers/questionsReducer';
+import Cues from '../grammarActivities/cues';
 import getBoilerplateFeedback from './boilerplateFeedback';
+import ChooseModelContainer from './chooseModelContainer';
+import EditFocusPointsContainer from './editFocusPointsContainer';
+import EditIncorrectSequenceContainer from './editIncorrectSequenceContainer';
+import FocusPointsContainer from './focusPointsContainer';
+import IncorrectSequenceContainer from './incorrectSequenceContainer';
+import MassEditContainer from './massEditContainer';
+import NewFocusPointsContainer from './newFocusPointsContainer';
+import NewIncorrectSequenceContainer from './newIncorrectSequenceContainer';
+import EditForm from './questionForm';
+import ResponseComponentWrapper from './responseRouteWrapper';
+import TestQuestion from './testQuestion';
 const icon = `${import.meta.env.VITE_PROCESS_ENV_CDN_URL}/images/icons/question_icon.svg`
-import ResponseComponentWrapper from './responseRouteWrapper'
-import ChooseModelContainer from './chooseModelContainer'
-import TestQuestion from './testQuestion'
-import MassEditContainer from './massEditContainer'
-import NewIncorrectSequenceContainer from './newIncorrectSequenceContainer'
-import EditIncorrectSequenceContainer from './editIncorrectSequenceContainer'
-import IncorrectSequenceContainer from './incorrectSequenceContainer'
-import EditFocusPointsContainer from './editFocusPointsContainer'
-import NewFocusPointsContainer from './newFocusPointsContainer'
-import FocusPointsContainer from './focusPointsContainer'
-import Cues from '../grammarActivities/cues'
-import { Match } from '../../interfaces/match'
-import { QuestionsReducerState } from '../../reducers/questionsReducer'
-import { Modal } from '../../../Shared/index';
 
 interface AdminQuestionProps {
   dispatch: Function,

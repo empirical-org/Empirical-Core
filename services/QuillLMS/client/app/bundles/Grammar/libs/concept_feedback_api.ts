@@ -28,7 +28,8 @@ class ConceptFeedbackApi {
 }
 
 export {
-  ConceptFeedbackApi,
-  conceptFeedbackApiBaseUrl,
-  GRAMMAR_TYPE
-}
+    ConceptFeedbackApi,
+    conceptFeedbackApiBaseUrl,
+    GRAMMAR_TYPE
+};
+

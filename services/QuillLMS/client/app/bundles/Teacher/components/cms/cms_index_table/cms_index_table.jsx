@@ -1,9 +1,8 @@
-import React from 'react'
-import _ from 'underscore'
+import React from 'react';
 
-import CmsIndexTableRow from './cms_index_table_row.jsx'
+import CmsIndexTableRow from './cms_index_table_row.jsx';
 
-import { SortableList, } from '../../../../Shared/index'
+import { SortableList } from '../../../../Shared/index';
 
 export default class CmsIndexTable extends React.Component {
   furnishRows = () => {

@@ -2,7 +2,7 @@
 import _ from 'underscore';
 const moment = require('moment');
 
-import { requestGet, requestPost, requestPut, requestDelete } from '../../../modules/request/index';
+import { requestDelete, requestGet, requestPost, requestPut } from '../../../modules/request/index';
 import objectWithSnakeKeysFromCamel from '../libs/objectWithSnakeKeysFromCamel';
 
 const C = require('../constants').default;

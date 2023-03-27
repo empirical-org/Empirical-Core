@@ -1,5 +1,5 @@
+import { hashToCollection } from '../../../Shared/index';
 import { formattedCues } from '../formattedCues';
-import { hashToCollection, } from '../../../Shared/index'
 
 export function getConceptResultsForAttempt(question, attemptIndex, question_type, defaultInstructions = '') {
   let directions;

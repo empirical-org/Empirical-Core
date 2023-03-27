@@ -1,5 +1,5 @@
-import { nextQuestion } from '../../actions';
 import expect from 'expect';
+import { nextQuestion } from '../../actions';
 
 describe("submit actions", () => {
   it("should be able to generate a next question action", () => {

@@ -1,9 +1,9 @@
-import * as React from 'react';
-import {EditorState, ContentState, convertToRaw} from 'draft-js';
 import Editor from '@draft-js-plugins/editor';
-import {convertFromHTML, convertToHTML} from 'draft-convert'
+import { convertFromHTML, convertToHTML } from 'draft-convert';
+import { EditorState } from 'draft-js';
+import * as React from 'react';
 
-import { richButtonsPlugin, } from '../../../../Shared/index'
+import { richButtonsPlugin } from '../../../../Shared/index';
 
 class MultipleTextEditor extends React.Component<any, any> {
   constructor(props) {

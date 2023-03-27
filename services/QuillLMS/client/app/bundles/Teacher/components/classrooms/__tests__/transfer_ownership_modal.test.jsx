@@ -1,9 +1,9 @@
-import React from 'react';
 import { shallow } from 'enzyme';
+import React from 'react';
 
-import TransferOwnershipModal from '../transfer_ownership_modal'
+import TransferOwnershipModal from '../transfer_ownership_modal';
 
-import { classroomWithStudents } from './test_data/test_data'
+import { classroomWithStudents } from './test_data/test_data';
 
 describe('TransferOwnershipModal component', () => {
   const wrapper = shallow(

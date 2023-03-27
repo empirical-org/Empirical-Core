@@ -1,9 +1,9 @@
 import React from 'react';
 
 import { sortTableByLastName, sortTableFromSQLTimeStamp } from 'modules/sortingMethods';
+import { ReactTable } from '../../Shared/index';
 import getAuthToken from '../components/modules/get_auth_token';
-import LoadingIndicator from '../components/shared/loading_indicator'
-import { ReactTable, } from '../../Shared/index'
+import LoadingIndicator from '../components/shared/loading_indicator';
 
 export default class CmsUserIndex extends React.Component {
   constructor(props) {

@@ -1,13 +1,13 @@
 import React from 'react';
 import _ from 'underscore';
 
+import PinnedActivityBar from './pinned_activity_bar';
+import PinnedActivityModal from './pinned_activity_modal';
+import PreviewActivityModal from './preview_activity_modal';
 import StudentProfileUnit from './student_profile_unit.jsx';
-import PinnedActivityModal from './pinned_activity_modal'
-import PreviewActivityModal from './preview_activity_modal'
-import PinnedActivityBar from './pinned_activity_bar'
 
-import LoadingIndicator from '../shared/loading_indicator'
-import { TO_DO_ACTIVITIES, COMPLETED_ACTIVITIES, } from '../../../../constants/student_profile'
+import { COMPLETED_ACTIVITIES, TO_DO_ACTIVITIES } from '../../../../constants/student_profile';
+import LoadingIndicator from '../shared/loading_indicator';
 
 const clipboardSrc = `${import.meta.env.VITE_PROCESS_ENV_CDN_URL}/images/illustrations/clipboard.svg`
 

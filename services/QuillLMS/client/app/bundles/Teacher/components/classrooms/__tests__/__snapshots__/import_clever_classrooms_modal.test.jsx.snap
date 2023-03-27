@@ -1,7 +1,7 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`ImportCleverClassroomsModal component #handleClickImportClasses should set a classroom that is checked 1`] = `
-<ImportCleverClassroomsModal
+exports[`importCleverClassroomsModal component #handleClickimportClasses should set a classroom that is checked 1`] = `
+<importCleverClassroomsModal
   classrooms={
     Array [
       Object {
@@ -75,7 +75,7 @@ exports[`ImportCleverClassroomsModal component #handleClickImportClasses should 
         <h3
           className="title"
         >
-          Import classes from Clever
+          import classes from Clever
         </h3>
       </div>
       <div
@@ -1736,17 +1736,17 @@ exports[`ImportCleverClassroomsModal component #handleClickImportClasses should 
             onClick={[Function]}
             type="button"
           >
-            Import classes
+            import classes
           </button>
         </div>
       </div>
     </div>
   </div>
-</ImportCleverClassroomsModal>
+</importCleverClassroomsModal>
 `;
 
-exports[`ImportCleverClassroomsModal component initial load should render 1`] = `
-<ImportCleverClassroomsModal
+exports[`importCleverClassroomsModal component initial load should render 1`] = `
+<importCleverClassroomsModal
   classrooms={
     Array [
       Object {
@@ -1820,7 +1820,7 @@ exports[`ImportCleverClassroomsModal component initial load should render 1`] = 
         <h3
           className="title"
         >
-          Import classes from Clever
+          import classes from Clever
         </h3>
       </div>
       <div
@@ -2058,11 +2058,11 @@ exports[`ImportCleverClassroomsModal component initial load should render 1`] = 
             onClick={[Function]}
             type="button"
           >
-            Import classes
+            import classes
           </button>
         </div>
       </div>
     </div>
   </div>
-</ImportCleverClassroomsModal>
+</importCleverClassroomsModal>
 `;

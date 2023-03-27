@@ -1,6 +1,6 @@
 import * as React from 'react';
 
-import { connectToolIcon, diagnosticToolIcon, grammarToolIcon, lessonsToolIcon, proofreaderToolIcon, evidenceToolIcon } from "../../Shared";
+import { connectToolIcon, diagnosticToolIcon, evidenceToolIcon, grammarToolIcon, lessonsToolIcon, proofreaderToolIcon } from "../../Shared";
 
 export const getIconForActivityClassification = (activityClassificationId: number) => {
   let imgAlt: string = '';

@@ -884,7 +884,7 @@ exports[`Ap component should render when it is not part of the assignment flow 1
             <p
               className="activity-sub-text"
             >
-              ELL students complete a 22 item survey to gauge their mastery of foundational English grammar. This survey is most appropriate for students who are in the Entering or Emerging 
+              ELL students complete a 22 item survey to gauge their mastery of foundational English grammar. This survey is most appropriate for students who are in the Entering or Emerging
               <a
                 className="underlined_link"
                 href="https://wida.wisc.edu/sites/default/files/resource/CanDo-KeyUses-Gr-9-12.pdf"
@@ -934,7 +934,7 @@ exports[`Ap component should render when it is not part of the assignment flow 1
             <p
               className="activity-sub-text"
             >
-              ELL students complete a 23 item survey to gauge their mastery of English grammar. This survey is most appropriate for students who are in the Emerging or Developing 
+              ELL students complete a 23 item survey to gauge their mastery of English grammar. This survey is most appropriate for students who are in the Emerging or Developing
               <a
                 className="underlined_link"
                 href="https://wida.wisc.edu/sites/default/files/resource/CanDo-KeyUses-Gr-9-12.pdf"
@@ -984,7 +984,7 @@ exports[`Ap component should render when it is not part of the assignment flow 1
             <p
               className="activity-sub-text"
             >
-              ELL students complete a 23 item survey to gauge their mastery of English grammar, specifically in areas that are challenging for non-native English speakers. This survey is most appropriate for students who are in the Developing or Expanding 
+              ELL students complete a 23 item survey to gauge their mastery of English grammar, specifically in areas that are challenging for non-native English speakers. This survey is most appropriate for students who are in the Developing or Expanding
               <a
                 className="underlined_link"
                 href="https://wida.wisc.edu/sites/default/files/resource/CanDo-KeyUses-Gr-9-12.pdf"
@@ -1330,7 +1330,7 @@ exports[`Ap component should render when it is not part of the assignment flow 1
               qa={
                 Object {
                   "answer": <p>
-                    Quill's writing skills surveys can be used in lieu of Quill's general diagnostics. For example, an AP teacher would likely assign the AP Writing Skills Survey in lieu of the Advanced Diagnostic. Keep in mind, however, that teachers may want ELL students in AP courses to begin with one of the ELL Diagnostics instead of a writing skills survey. 
+                    Quill's writing skills surveys can be used in lieu of Quill's general diagnostics. For example, an AP teacher would likely assign the AP Writing Skills Survey in lieu of the Advanced Diagnostic. Keep in mind, however, that teachers may want ELL students in AP courses to begin with one of the ELL Diagnostics instead of a writing skills survey.
                     <a
                       href="ttps://support.quill.org/en/articles/2554430-what-are-the-differences-between-the-various-diagnostic-assessments"
                       rel="noopener noreferrer"
@@ -1421,7 +1421,7 @@ exports[`Ap component should render when it is not part of the assignment flow 1
               qa={
                 Object {
                   "answer": <p>
-                    After you have assigned the Survey and your students have completed it, Quill will show you how your students performed and provide recommendations of personalized practice activities you can digitally assign to students who need further skill development. 
+                    After you have assigned the Survey and your students have completed it, Quill will show you how your students performed and provide recommendations of personalized practice activities you can digitally assign to students who need further skill development.
                     <a
                       href="https://support.quill.org/en/articles/1589522-how-do-i-assign-diagnostic-recommendations"
                     >
@@ -1472,19 +1472,19 @@ exports[`Ap component should render when it is not part of the assignment flow 1
                     <p
                       className="college-board-q-and-a-text"
                     >
-                      Depending on their performance, students will be recommended some or all of the following AP Writing Practice packs. The packs provide practice through 
+                      Depending on their performance, students will be recommended some or all of the following AP Writing Practice packs. The packs provide practice through
                       <a
                         href="https://www.quill.org/tools/connect"
                       >
                         Quill Connect
                       </a>
-                      , 
+                      ,
                       <a
                         href="https://www.quill.org/teacher-center/-3"
                       >
                         Quill's sentence combining tool
                       </a>
-                      . With the exception of the 
+                      . With the exception of the
                       <a
                         href="https://www.quill.org/activities/packs/142"
                       >
@@ -1495,7 +1495,7 @@ exports[`Ap component should render when it is not part of the assignment flow 1
                     <p
                       className="college-board-sub-header"
                     >
-                      AP Writing Practice - 
+                      AP Writing Practice -
                       <a
                         href="https://www.quill.org/activities/packs/139"
                         rel="noopener noreferrer"
@@ -1512,7 +1512,7 @@ exports[`Ap component should render when it is not part of the assignment flow 1
                     <p
                       className="college-board-sub-header"
                     >
-                      AP Writing Practice - 
+                      AP Writing Practice -
                       <a
                         href="https://www.quill.org/activities/packs/140"
                         rel="noopener noreferrer"
@@ -1529,7 +1529,7 @@ exports[`Ap component should render when it is not part of the assignment flow 1
                     <p
                       className="college-board-sub-header"
                     >
-                      AP Writing Practice - 
+                      AP Writing Practice -
                       <a
                         href="https://www.quill.org/activities/packs/143"
                         rel="noopener noreferrer"
@@ -1546,7 +1546,7 @@ exports[`Ap component should render when it is not part of the assignment flow 1
                     <p
                       className="college-board-sub-header"
                     >
-                      AP Writing Practice - 
+                      AP Writing Practice -
                       <a
                         href="https://www.quill.org/activities/packs/144"
                         rel="noopener noreferrer"
@@ -1563,7 +1563,7 @@ exports[`Ap component should render when it is not part of the assignment flow 1
                     <p
                       className="college-board-sub-header"
                     >
-                      AP Writing Practice - 
+                      AP Writing Practice -
                       <a
                         href="https://www.quill.org/activities/packs/192"
                         rel="noopener noreferrer"
@@ -1580,7 +1580,7 @@ exports[`Ap component should render when it is not part of the assignment flow 1
                     <p
                       className="college-board-sub-header"
                     >
-                      AP Writing Practice - 
+                      AP Writing Practice -
                       <a
                         href="https://www.quill.org/activities/packs/141"
                         rel="noopener noreferrer"
@@ -1597,7 +1597,7 @@ exports[`Ap component should render when it is not part of the assignment flow 1
                     <p
                       className="college-board-sub-header"
                     >
-                      AP Writing Practice - 
+                      AP Writing Practice -
                       <a
                         href="https://www.quill.org/activities/packs/142"
                         rel="noopener noreferrer"
@@ -1844,7 +1844,7 @@ exports[`Ap component should render when it is not part of the assignment flow 1
               qa={
                 Object {
                   "answer": <p>
-                    Quill has a variety of reports to help you track your students' performance and progress. In the 
+                    Quill has a variety of reports to help you track your students' performance and progress. In the
                     <a
                       href="https://support.quill.org/en/articles/1140159-how-does-the-activity-summary-work"
                       rel="noopener noreferrer"
@@ -1852,7 +1852,7 @@ exports[`Ap component should render when it is not part of the assignment flow 1
                     >
                       Activity Summary report
                     </a>
-                    , you can quickly see which activities your students have completed, along with color-coded icons indicating their proficiency with each activity. Quill has several other reports as well. 
+                    , you can quickly see which activities your students have completed, along with color-coded icons indicating their proficiency with each activity. Quill has several other reports as well.
                     <a
                       href="https://s3.amazonaws.com/quill-image-uploads/uploads/files/Quill_Reports_Cheat_Sheet_Updated04_08_20.pdf"
                       rel="noopener noreferrer"
@@ -1860,7 +1860,7 @@ exports[`Ap component should render when it is not part of the assignment flow 1
                     >
                       This Cheat Sheet
                     </a>
-                     shows you which report to go to for particular information, and 
+                     shows you which report to go to for particular information, and
                     <a
                       href="https://s3.amazonaws.com/quill-image-uploads/uploads/files/Getting_Started_-_Student_Data_Reports__Basic_.mp4"
                       rel="noopener noreferrer"
@@ -2009,7 +2009,7 @@ exports[`Ap component should render when it is not part of the assignment flow 1
               qa={
                 Object {
                   "answer": <p>
-                    Yes! Quill offers 
+                    Yes! Quill offers
                     <a
                       href="https://support.quill.org/en/articles/1327607-what-are-each-of-the-different-quill-tools"
                       rel="noopener noreferrer"
@@ -2017,7 +2017,7 @@ exports[`Ap component should render when it is not part of the assignment flow 1
                     >
                       5 different tools
                     </a>
-                     with more than 700 writing, grammar, and proofreading activities designed to engage students in the writing process. 
+                     with more than 700 writing, grammar, and proofreading activities designed to engage students in the writing process.
                     <a
                       href="https://support.quill.org/en/articles/1049944-how-do-i-assign-a-featured-activity-pack"
                       rel="noopener noreferrer"
@@ -2025,7 +2025,7 @@ exports[`Ap component should render when it is not part of the assignment flow 1
                     >
                       This article
                     </a>
-                     will show you how to explore and assign Quill’s featured activity packs, and 
+                     will show you how to explore and assign Quill’s featured activity packs, and
                     <a
                       href="https://support.quill.org/en/articles/1049954-how-do-i-create-and-assign-a-new-activity-pack"
                       rel="noopener noreferrer"
@@ -2078,7 +2078,7 @@ exports[`Ap component should render when it is not part of the assignment flow 1
                     <p
                       className="college-board-q-and-a-text"
                     >
-                      It is recommended that you and your students create free accounts on Quill.org. Creating an account will give you access to the Survey and its recommended practice. Creating an account also allows you to track your students’ progress and view data reports. You can create an account by visiting the 
+                      It is recommended that you and your students create free accounts on Quill.org. Creating an account will give you access to the Survey and its recommended practice. Creating an account also allows you to track your students’ progress and view data reports. You can create an account by visiting the
                       <a
                         href="https://www.quill.org/account/new"
                         rel="noopener noreferrer"
@@ -2091,7 +2091,7 @@ exports[`Ap component should render when it is not part of the assignment flow 1
                     <p
                       className="college-board-q-and-a-text"
                     >
-                      If you do not want to create an account, you or your students can complete the Survey 
+                      If you do not want to create an account, you or your students can complete the Survey
                       <a
                         href="https://quill.org/diagnostic/#/play/diagnostic/-L_wPCxbrT6toCb1fnYR?anonymous=true"
                         rel="noopener noreferrer"
@@ -2153,7 +2153,7 @@ exports[`Ap component should render when it is not part of the assignment flow 1
                       <strong>
                         Quill Instructional Coach:
                       </strong>
-                       You can reach out directly to Sherry Lewkowicz, Quill's coach dedicated to supporting College Board teachers, at 
+                       You can reach out directly to Sherry Lewkowicz, Quill's coach dedicated to supporting College Board teachers, at
                       <a
                         href="mailto:sherry@quill.org"
                       >
@@ -2181,7 +2181,7 @@ exports[`Ap component should render when it is not part of the assignment flow 1
                       <strong>
                         Support:
                       </strong>
-                       Having a technical issue? Email 
+                       Having a technical issue? Email
                       <a
                         href="mailto:support@quill.org"
                       >
@@ -3122,7 +3122,7 @@ exports[`Ap component should render when it is part of the assignment flow 1`] =
             <p
               className="activity-sub-text"
             >
-              ELL students complete a 22 item survey to gauge their mastery of foundational English grammar. This survey is most appropriate for students who are in the Entering or Emerging 
+              ELL students complete a 22 item survey to gauge their mastery of foundational English grammar. This survey is most appropriate for students who are in the Entering or Emerging
               <a
                 className="underlined_link"
                 href="https://wida.wisc.edu/sites/default/files/resource/CanDo-KeyUses-Gr-9-12.pdf"
@@ -3172,7 +3172,7 @@ exports[`Ap component should render when it is part of the assignment flow 1`] =
             <p
               className="activity-sub-text"
             >
-              ELL students complete a 23 item survey to gauge their mastery of English grammar. This survey is most appropriate for students who are in the Emerging or Developing 
+              ELL students complete a 23 item survey to gauge their mastery of English grammar. This survey is most appropriate for students who are in the Emerging or Developing
               <a
                 className="underlined_link"
                 href="https://wida.wisc.edu/sites/default/files/resource/CanDo-KeyUses-Gr-9-12.pdf"
@@ -3222,7 +3222,7 @@ exports[`Ap component should render when it is part of the assignment flow 1`] =
             <p
               className="activity-sub-text"
             >
-              ELL students complete a 23 item survey to gauge their mastery of English grammar, specifically in areas that are challenging for non-native English speakers. This survey is most appropriate for students who are in the Developing or Expanding 
+              ELL students complete a 23 item survey to gauge their mastery of English grammar, specifically in areas that are challenging for non-native English speakers. This survey is most appropriate for students who are in the Developing or Expanding
               <a
                 className="underlined_link"
                 href="https://wida.wisc.edu/sites/default/files/resource/CanDo-KeyUses-Gr-9-12.pdf"
@@ -3568,7 +3568,7 @@ exports[`Ap component should render when it is part of the assignment flow 1`] =
               qa={
                 Object {
                   "answer": <p>
-                    Quill's writing skills surveys can be used in lieu of Quill's general diagnostics. For example, an AP teacher would likely assign the AP Writing Skills Survey in lieu of the Advanced Diagnostic. Keep in mind, however, that teachers may want ELL students in AP courses to begin with one of the ELL Diagnostics instead of a writing skills survey. 
+                    Quill's writing skills surveys can be used in lieu of Quill's general diagnostics. For example, an AP teacher would likely assign the AP Writing Skills Survey in lieu of the Advanced Diagnostic. Keep in mind, however, that teachers may want ELL students in AP courses to begin with one of the ELL Diagnostics instead of a writing skills survey.
                     <a
                       href="ttps://support.quill.org/en/articles/2554430-what-are-the-differences-between-the-various-diagnostic-assessments"
                       rel="noopener noreferrer"
@@ -3659,7 +3659,7 @@ exports[`Ap component should render when it is part of the assignment flow 1`] =
               qa={
                 Object {
                   "answer": <p>
-                    After you have assigned the Survey and your students have completed it, Quill will show you how your students performed and provide recommendations of personalized practice activities you can digitally assign to students who need further skill development. 
+                    After you have assigned the Survey and your students have completed it, Quill will show you how your students performed and provide recommendations of personalized practice activities you can digitally assign to students who need further skill development.
                     <a
                       href="https://support.quill.org/en/articles/1589522-how-do-i-assign-diagnostic-recommendations"
                     >
@@ -3710,19 +3710,19 @@ exports[`Ap component should render when it is part of the assignment flow 1`] =
                     <p
                       className="college-board-q-and-a-text"
                     >
-                      Depending on their performance, students will be recommended some or all of the following AP Writing Practice packs. The packs provide practice through 
+                      Depending on their performance, students will be recommended some or all of the following AP Writing Practice packs. The packs provide practice through
                       <a
                         href="https://www.quill.org/tools/connect"
                       >
                         Quill Connect
                       </a>
-                      , 
+                      ,
                       <a
                         href="https://www.quill.org/teacher-center/-3"
                       >
                         Quill's sentence combining tool
                       </a>
-                      . With the exception of the 
+                      . With the exception of the
                       <a
                         href="https://www.quill.org/activities/packs/142"
                       >
@@ -3733,7 +3733,7 @@ exports[`Ap component should render when it is part of the assignment flow 1`] =
                     <p
                       className="college-board-sub-header"
                     >
-                      AP Writing Practice - 
+                      AP Writing Practice -
                       <a
                         href="https://www.quill.org/activities/packs/139"
                         rel="noopener noreferrer"
@@ -3750,7 +3750,7 @@ exports[`Ap component should render when it is part of the assignment flow 1`] =
                     <p
                       className="college-board-sub-header"
                     >
-                      AP Writing Practice - 
+                      AP Writing Practice -
                       <a
                         href="https://www.quill.org/activities/packs/140"
                         rel="noopener noreferrer"
@@ -3767,7 +3767,7 @@ exports[`Ap component should render when it is part of the assignment flow 1`] =
                     <p
                       className="college-board-sub-header"
                     >
-                      AP Writing Practice - 
+                      AP Writing Practice -
                       <a
                         href="https://www.quill.org/activities/packs/143"
                         rel="noopener noreferrer"
@@ -3784,7 +3784,7 @@ exports[`Ap component should render when it is part of the assignment flow 1`] =
                     <p
                       className="college-board-sub-header"
                     >
-                      AP Writing Practice - 
+                      AP Writing Practice -
                       <a
                         href="https://www.quill.org/activities/packs/144"
                         rel="noopener noreferrer"
@@ -3801,7 +3801,7 @@ exports[`Ap component should render when it is part of the assignment flow 1`] =
                     <p
                       className="college-board-sub-header"
                     >
-                      AP Writing Practice - 
+                      AP Writing Practice -
                       <a
                         href="https://www.quill.org/activities/packs/192"
                         rel="noopener noreferrer"
@@ -3818,7 +3818,7 @@ exports[`Ap component should render when it is part of the assignment flow 1`] =
                     <p
                       className="college-board-sub-header"
                     >
-                      AP Writing Practice - 
+                      AP Writing Practice -
                       <a
                         href="https://www.quill.org/activities/packs/141"
                         rel="noopener noreferrer"
@@ -3835,7 +3835,7 @@ exports[`Ap component should render when it is part of the assignment flow 1`] =
                     <p
                       className="college-board-sub-header"
                     >
-                      AP Writing Practice - 
+                      AP Writing Practice -
                       <a
                         href="https://www.quill.org/activities/packs/142"
                         rel="noopener noreferrer"
@@ -4082,7 +4082,7 @@ exports[`Ap component should render when it is part of the assignment flow 1`] =
               qa={
                 Object {
                   "answer": <p>
-                    Quill has a variety of reports to help you track your students' performance and progress. In the 
+                    Quill has a variety of reports to help you track your students' performance and progress. In the
                     <a
                       href="https://support.quill.org/en/articles/1140159-how-does-the-activity-summary-work"
                       rel="noopener noreferrer"
@@ -4090,7 +4090,7 @@ exports[`Ap component should render when it is part of the assignment flow 1`] =
                     >
                       Activity Summary report
                     </a>
-                    , you can quickly see which activities your students have completed, along with color-coded icons indicating their proficiency with each activity. Quill has several other reports as well. 
+                    , you can quickly see which activities your students have completed, along with color-coded icons indicating their proficiency with each activity. Quill has several other reports as well.
                     <a
                       href="https://s3.amazonaws.com/quill-image-uploads/uploads/files/Quill_Reports_Cheat_Sheet_Updated04_08_20.pdf"
                       rel="noopener noreferrer"
@@ -4098,7 +4098,7 @@ exports[`Ap component should render when it is part of the assignment flow 1`] =
                     >
                       This Cheat Sheet
                     </a>
-                     shows you which report to go to for particular information, and 
+                     shows you which report to go to for particular information, and
                     <a
                       href="https://s3.amazonaws.com/quill-image-uploads/uploads/files/Getting_Started_-_Student_Data_Reports__Basic_.mp4"
                       rel="noopener noreferrer"
@@ -4247,7 +4247,7 @@ exports[`Ap component should render when it is part of the assignment flow 1`] =
               qa={
                 Object {
                   "answer": <p>
-                    Yes! Quill offers 
+                    Yes! Quill offers
                     <a
                       href="https://support.quill.org/en/articles/1327607-what-are-each-of-the-different-quill-tools"
                       rel="noopener noreferrer"
@@ -4255,7 +4255,7 @@ exports[`Ap component should render when it is part of the assignment flow 1`] =
                     >
                       5 different tools
                     </a>
-                     with more than 700 writing, grammar, and proofreading activities designed to engage students in the writing process. 
+                     with more than 700 writing, grammar, and proofreading activities designed to engage students in the writing process.
                     <a
                       href="https://support.quill.org/en/articles/1049944-how-do-i-assign-a-featured-activity-pack"
                       rel="noopener noreferrer"
@@ -4263,7 +4263,7 @@ exports[`Ap component should render when it is part of the assignment flow 1`] =
                     >
                       This article
                     </a>
-                     will show you how to explore and assign Quill’s featured activity packs, and 
+                     will show you how to explore and assign Quill’s featured activity packs, and
                     <a
                       href="https://support.quill.org/en/articles/1049954-how-do-i-create-and-assign-a-new-activity-pack"
                       rel="noopener noreferrer"
@@ -4316,7 +4316,7 @@ exports[`Ap component should render when it is part of the assignment flow 1`] =
                     <p
                       className="college-board-q-and-a-text"
                     >
-                      It is recommended that you and your students create free accounts on Quill.org. Creating an account will give you access to the Survey and its recommended practice. Creating an account also allows you to track your students’ progress and view data reports. You can create an account by visiting the 
+                      It is recommended that you and your students create free accounts on Quill.org. Creating an account will give you access to the Survey and its recommended practice. Creating an account also allows you to track your students’ progress and view data reports. You can create an account by visiting the
                       <a
                         href="https://www.quill.org/account/new"
                         rel="noopener noreferrer"
@@ -4329,7 +4329,7 @@ exports[`Ap component should render when it is part of the assignment flow 1`] =
                     <p
                       className="college-board-q-and-a-text"
                     >
-                      If you do not want to create an account, you or your students can complete the Survey 
+                      If you do not want to create an account, you or your students can complete the Survey
                       <a
                         href="https://quill.org/diagnostic/#/play/diagnostic/-L_wPCxbrT6toCb1fnYR?anonymous=true"
                         rel="noopener noreferrer"
@@ -4391,7 +4391,7 @@ exports[`Ap component should render when it is part of the assignment flow 1`] =
                       <strong>
                         Quill Instructional Coach:
                       </strong>
-                       You can reach out directly to Sherry Lewkowicz, Quill's coach dedicated to supporting College Board teachers, at 
+                       You can reach out directly to Sherry Lewkowicz, Quill's coach dedicated to supporting College Board teachers, at
                       <a
                         href="mailto:sherry@quill.org"
                       >
@@ -4419,7 +4419,7 @@ exports[`Ap component should render when it is part of the assignment flow 1`] =
                       <strong>
                         Support:
                       </strong>
-                       Having a technical issue? Email 
+                       Having a technical issue? Email
                       <a
                         href="mailto:support@quill.org"
                       >

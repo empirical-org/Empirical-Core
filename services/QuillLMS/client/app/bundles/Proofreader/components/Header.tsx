@@ -1,14 +1,14 @@
 import * as React from "react";
-import * as Redux from "redux";
 import { connect } from "react-redux";
-import '../styles/headerStyling.scss'
+import * as Redux from "redux";
+import '../styles/headerStyling.scss';
 
 import getParameterByName from '../helpers/getParameterByName';
 
 const quillLogoSrc = `${import.meta.env.VITE_PROCESS_ENV_CDN_URL}/images/logos/quill-logo-white-2022.svg`
 
 import {
-  updateSessionOnFirebase,
+    updateSessionOnFirebase
 } from "../actions/session";
 
 class Header extends React.Component<any, any> {

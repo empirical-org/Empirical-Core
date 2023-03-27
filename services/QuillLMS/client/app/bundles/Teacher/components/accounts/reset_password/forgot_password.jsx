@@ -1,7 +1,7 @@
-import React from 'react'
+import React from 'react';
 
-import { Input, } from '../../../../Shared/index'
-import { requestPost, } from '../../../../../modules/request/index'
+import { requestPost } from '../../../../../modules/request/index';
+import { Input } from '../../../../Shared/index';
 
 const bulbSrc = `${import.meta.env.VITE_PROCESS_ENV_CDN_URL}/images/onboarding/bulb.svg`
 

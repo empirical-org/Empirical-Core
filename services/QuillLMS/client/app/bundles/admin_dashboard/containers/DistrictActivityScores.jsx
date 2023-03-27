@@ -1,15 +1,14 @@
 import React from 'react';
 import { connect } from 'react-redux';
-import LoadingSpinner from '../../Teacher/components/shared/loading_indicator';
-import ActivityScores from '../components/activity_scores.tsx';
 import {
-  switchClassroom,
-  switchSchool,
-  switchTeacher,
-  getDistrictActivityScores,
+    getDistrictActivityScores, switchClassroom,
+    switchSchool,
+    switchTeacher
 } from '../../../actions/district_activity_scores';
+import LoadingSpinner from '../../Teacher/components/shared/loading_indicator';
 import { getTimeSpent } from '../../Teacher/helpers/studentReports';
-import { FULL, restrictedPage, } from '../shared'
+import ActivityScores from '../components/activity_scores.tsx';
+import { FULL, restrictedPage } from '../shared';
 
 class DistrictActivityScores extends React.Component {
   componentDidMount() {

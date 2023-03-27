@@ -1,8 +1,8 @@
 'use strict';
-import React from 'react'
+import React from 'react';
 
-import { proficiencyCutoffsAsPercentage } from '../../../../modules/proficiency_cutoffs.js'
-import { Tooltip } from '../../../Shared/index'
+import { proficiencyCutoffsAsPercentage } from '../../../../modules/proficiency_cutoffs.js';
+import { Tooltip } from '../../../Shared/index';
 
 export default class ScoreLegend extends React.Component {
   render() {

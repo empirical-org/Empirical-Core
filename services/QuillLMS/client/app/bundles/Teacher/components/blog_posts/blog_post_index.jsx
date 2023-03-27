@@ -1,30 +1,15 @@
+import pluralize from 'pluralize';
 import * as React from 'react';
 import _ from 'underscore';
-import pluralize from 'pluralize'
 
-import TopicSection from './topic_section.jsx';
-import HeaderSection from './header_section'
 import {
-  STUDENT,
-  STUDENT_CENTER,
-  STUDENT_CENTER_SLUG,
-  TEACHER_CENTER,
-  TEACHER_CENTER_SLUG,
-  TOPIC,
-  ALL,
-  SEARCH,
-  TEACHER_STORIES,
-  GETTING_STARTED,
-  WRITING_INSTRUCTION_RESEARCH,
-  TEACHER_MATERIALS,
-  VIDEO_TUTORIALS,
-  WHATS_NEW,
-  BEST_PRACTICES,
-  SUPPORT,
-  WEBINARS,
-  USING_QUILL_FOR_READING_COMPREHENSION,
-  BLOG_POST_TO_COLOR,
-} from './blog_post_constants'
+    ALL, BEST_PRACTICES, BLOG_POST_TO_COLOR, GETTING_STARTED, SEARCH, STUDENT,
+    STUDENT_CENTER,
+    STUDENT_CENTER_SLUG, SUPPORT, TEACHER_CENTER,
+    TEACHER_CENTER_SLUG, TEACHER_MATERIALS, TEACHER_STORIES, TOPIC, USING_QUILL_FOR_READING_COMPREHENSION, VIDEO_TUTORIALS, WEBINARS, WHATS_NEW, WRITING_INSTRUCTION_RESEARCH
+} from './blog_post_constants';
+import HeaderSection from './header_section';
+import TopicSection from './topic_section.jsx';
 
 import PreviewCard from '../shared/preview_card.jsx';
 

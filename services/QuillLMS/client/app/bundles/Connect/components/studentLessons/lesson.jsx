@@ -1,39 +1,26 @@
 import React from 'react';
 import { connect } from 'react-redux';
 import { withRouter } from 'react-router-dom';
-import _ from 'lodash';
 
+import PlayFillInTheBlankQuestion from './fillInBlank.tsx';
+import Finished from './finished.jsx';
 import PlayLessonQuestion from './question';
 import PlaySentenceFragment from './sentenceFragment.jsx';
-import PlayFillInTheBlankQuestion from './fillInBlank.tsx'
-import Finished from './finished.jsx';
 
+import { requestPost, requestPut } from '../../../../modules/request/index';
+import {
+    CLICK, KEYDOWN, KEYPRESS, MOUSEDOWN, MOUSEMOVE, PlayTitleCard, ProgressBar,
+    Register, roundValuesToSeconds, SCROLL, Spinner, TeacherPreviewMenuButton, VISIBILITYCHANGE
+} from '../../../Shared/index';
+import { clearData, loadData, nextQuestion, resumePreviousSession, setCurrentQuestion, submitResponse, updateCurrentQuestion } from '../../actions.js';
 import SessionActions from '../../actions/sessions.js';
 import {
-  PlayTitleCard,
-  Spinner,
-  ProgressBar,
-  Register,
-  TeacherPreviewMenuButton,
-  roundValuesToSeconds,
-  KEYDOWN,
-  MOUSEMOVE,
-  MOUSEDOWN,
-  CLICK,
-  KEYPRESS,
-  VISIBILITYCHANGE,
-  SCROLL,
-} from '../../../Shared/index';
-import { clearData, loadData, nextQuestion, submitResponse, updateCurrentQuestion, resumePreviousSession, setCurrentQuestion } from '../../actions.js';
-import { getConceptResultsForAllQuestions, calculateScoreForLesson } from '../../libs/conceptResults/lesson';
+    answeredQuestionCount,
+    getProgressPercent, questionCount
+} from '../../libs/calculateProgress';
+import { calculateScoreForLesson, getConceptResultsForAllQuestions } from '../../libs/conceptResults/lesson';
+import { permittedFlag } from '../../libs/flagArray';
 import { getParameterByName } from '../../libs/getParameterByName';
-import { permittedFlag } from '../../libs/flagArray'
-import {
-  questionCount,
-  answeredQuestionCount,
-  getProgressPercent
-} from '../../libs/calculateProgress'
-import { requestPut, requestPost, } from '../../../../modules/request/index'
 
 const TITLE_CARD_TYPE = "TL"
 

@@ -1,22 +1,19 @@
-import * as React from 'react'
+import * as React from 'react';
 
-import { Card, Snackbar, defaultSnackbarTimeout } from '../../../../Shared/index'
 import { CopyToClipboard } from 'react-copy-to-clipboard';
+import { Card, defaultSnackbarTimeout, Snackbar } from '../../../../Shared/index';
 
-import AssignmentFlowNavigation from '../assignment_flow_navigation'
+import AssignmentFlowNavigation from '../assignment_flow_navigation';
 
 import {
-  UNIT_TEMPLATE_NAME,
-  UNIT_TEMPLATE_ID,
-  UNIT_NAME,
-  ACTIVITY_IDS_ARRAY,
-  CLASSROOMS,
-  UNIT_ID,
-} from '../assignmentFlowConstants'
+    ACTIVITY_IDS_ARRAY,
+    CLASSROOMS,
+    UNIT_ID, UNIT_NAME, UNIT_TEMPLATE_ID, UNIT_TEMPLATE_NAME
+} from '../assignmentFlowConstants';
 
-import ScrollToTop from '../../shared/scroll_to_top'
-import ViewAsStudentModal from '../../shared/view_as_student_modal'
-import { Input, } from '../../../../Shared/index'
+import { Input } from '../../../../Shared/index';
+import ScrollToTop from '../../shared/scroll_to_top';
+import ViewAsStudentModal from '../../shared/view_as_student_modal';
 
 const assignedActivitiesSrc = `${import.meta.env.VITE_PROCESS_ENV_CDN_URL}/images/illustrations/assigned-activities.svg`
 const assignActivitiesSrc = `${import.meta.env.VITE_PROCESS_ENV_CDN_URL}/images/illustrations/assign-activities.svg`

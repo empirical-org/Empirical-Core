@@ -1,7 +1,7 @@
 import * as React from 'react'
 
 import {
-  Tooltip,
+    Tooltip
 } from '../../../../../Shared/index'
 
 const AVERAGE_FONT_WIDTH = 7

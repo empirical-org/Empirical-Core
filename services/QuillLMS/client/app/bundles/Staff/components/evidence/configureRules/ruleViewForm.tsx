@@ -2,21 +2,21 @@ import * as React from "react";
 import { useQuery, useQueryClient } from 'react-query';
 import { Link, withRouter } from 'react-router-dom';
 
-import RuleGenericAttributes from '../configureRules/ruleGenericAttributes';
-import RulePlagiarismAttributes from '../configureRules/rulePlagiarismAttributes';
-import RuleSemanticAttributes from '../configureRules/ruleSemanticAttributes';
-import RuleRegexAttributes from '../configureRules/ruleRegexAttributes';
-import RulePrompts from '../configureRules/rulePrompts';
-import RuleUniversalAttributes from '../configureRules/ruleUniversalAttributes';
-import RuleHintPicker from '../configureRules/ruleHintPicker'
+import { LOW_CONFIDENCE, PLAGIARISM, regexRuleTypes, ruleOptimalOptions } from '../../../../../constants/evidence';
 import { Spinner } from '../../../../Shared/index';
-import { deleteRule, fetchRules, fetchUniversalRules } from '../../../utils/evidence/ruleAPIs';
-import { fetchConcepts, } from '../../../utils/evidence/conceptAPIs';
-import { renderErrorsContainer, renderHeader } from '../../../helpers/evidence/renderHelpers';
 import { formatPrompts } from '../../../helpers/evidence/promptHelpers';
-import { handleSubmitRule, getInitialRuleType, formatInitialFeedbacks, returnInitialFeedback, formatRegexRules, getReturnLinkRuleType, getReturnLinkLabel, renderDeleteRuleModal } from '../../../helpers/evidence/ruleHelpers';
-import { ruleOptimalOptions, regexRuleTypes, PLAGIARISM, LOW_CONFIDENCE } from '../../../../../constants/evidence';
-import { RuleInterface, DropdownObjectInterface } from '../../../interfaces/evidenceInterfaces';
+import { renderErrorsContainer, renderHeader } from '../../../helpers/evidence/renderHelpers';
+import { formatInitialFeedbacks, formatRegexRules, getInitialRuleType, getReturnLinkLabel, getReturnLinkRuleType, handleSubmitRule, renderDeleteRuleModal, returnInitialFeedback } from '../../../helpers/evidence/ruleHelpers';
+import { DropdownObjectInterface, RuleInterface } from '../../../interfaces/evidenceInterfaces';
+import { fetchConcepts } from '../../../utils/evidence/conceptAPIs';
+import { deleteRule, fetchRules, fetchUniversalRules } from '../../../utils/evidence/ruleAPIs';
+import RuleGenericAttributes from '../configureRules/ruleGenericAttributes';
+import RuleHintPicker from '../configureRules/ruleHintPicker';
+import RulePlagiarismAttributes from '../configureRules/rulePlagiarismAttributes';
+import RulePrompts from '../configureRules/rulePrompts';
+import RuleRegexAttributes from '../configureRules/ruleRegexAttributes';
+import RuleSemanticAttributes from '../configureRules/ruleSemanticAttributes';
+import RuleUniversalAttributes from '../configureRules/ruleUniversalAttributes';
 
 interface RuleViewFormProps {
   activityData?: any,

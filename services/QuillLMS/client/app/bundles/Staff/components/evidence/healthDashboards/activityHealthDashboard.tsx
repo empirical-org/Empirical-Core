@@ -1,15 +1,15 @@
 import * as React from "react";
 import { useRef } from 'react';
-import { useQuery } from 'react-query';
 import { CSVLink } from 'react-csv';
+import { useQuery } from 'react-query';
 import { firstBy } from 'thenby';
 
 
-import { PromptHealthRows } from './promptHealthRow'
+import { PromptHealthRows } from './promptHealthRow';
 
-import { FlagDropdown, ReactTable, filterNumbers, expanderColumn } from '../../../../Shared/index'
+import { expanderColumn, filterNumbers, FlagDropdown, ReactTable } from '../../../../Shared/index';
+import { addCommasToThousands, getLinkToActivity, secondsToHumanReadableTime } from "../../../helpers/evidence/miscHelpers";
 import { fetchAggregatedActivityHealths } from '../../../utils/evidence/ruleFeedbackHistoryAPIs';
-import { getLinkToActivity, secondsToHumanReadableTime, addCommasToThousands } from "../../../helpers/evidence/miscHelpers";
 
 const ALL_FLAGS = "All Flags"
 const NAME_COLUMN = "name"

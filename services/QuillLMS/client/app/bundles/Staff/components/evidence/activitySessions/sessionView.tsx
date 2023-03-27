@@ -1,16 +1,16 @@
 import * as React from "react";
-import { Link, NavLink, Redirect, Route, Switch, withRouter } from 'react-router-dom';
 import { useQuery } from 'react-query';
+import { Link, NavLink, Redirect, Route, Switch, withRouter } from 'react-router-dom';
 
 import PromptTable from './promptTable';
 import SessionOverview from './sessionOverview';
 
-import { Error, Spinner } from '../../../../Shared/index';
-import { fetchRules, } from '../../../utils/evidence/ruleAPIs';
-import { fetchActivity, fetchActivitySession } from '../../../utils/evidence/activityAPIs';
-import { renderHeader } from "../../../helpers/evidence/renderHelpers";
-import { getPromptForActivitySession } from "../../../helpers/evidence/promptHelpers";
 import { BECAUSE, BUT, SO } from '../../../../../constants/evidence';
+import { Error, Spinner } from '../../../../Shared/index';
+import { getPromptForActivitySession } from "../../../helpers/evidence/promptHelpers";
+import { renderHeader } from "../../../helpers/evidence/renderHelpers";
+import { fetchActivity, fetchActivitySession } from '../../../utils/evidence/activityAPIs';
+import { fetchRules } from '../../../utils/evidence/ruleAPIs';
 
 const SessionView = ({ match }) => {
   const { params } = match;

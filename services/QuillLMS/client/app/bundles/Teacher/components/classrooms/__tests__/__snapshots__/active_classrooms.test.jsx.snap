@@ -273,7 +273,7 @@ exports[`ActiveClassrooms component with classrooms should render with classroom
             className="import-from-clever-button-icon"
             src="undefined/images/icons/clever.svg"
           />
-          Import from Clever
+          import from Clever
         </button>
         <button
           className="interactive-wrapper import-from-google-button"
@@ -285,7 +285,7 @@ exports[`ActiveClassrooms component with classrooms should render with classroom
             className="import-from-google-button-icon"
             src="undefined/images/icons/google-classroom.svg"
           />
-           Import from Google Classroom
+           import from Google Classroom
         </button>
         <button
           className="quill-button medium primary contained create-a-class-button"
@@ -1625,7 +1625,7 @@ exports[`ActiveClassrooms component with no classrooms or coteacher invitations 
             className="import-from-clever-button-icon"
             src="undefined/images/icons/clever.svg"
           />
-          Import from Clever
+          import from Clever
         </button>
         <button
           className="interactive-wrapper import-from-google-button"
@@ -1637,7 +1637,7 @@ exports[`ActiveClassrooms component with no classrooms or coteacher invitations 
             className="import-from-google-button-icon"
             src="undefined/images/icons/google-classroom.svg"
           />
-           Import from Google Classroom
+           import from Google Classroom
         </button>
         <button
           className="quill-button medium primary contained create-a-class-button"
@@ -1659,7 +1659,7 @@ exports[`ActiveClassrooms component with no classrooms or coteacher invitations 
         Add your first class
       </h2>
       <p>
-        All teachers need a class! Choose to create or import your classes. 
+        All teachers need a class! Choose to create or import your classes.
       </p>
     </div>
   </div>

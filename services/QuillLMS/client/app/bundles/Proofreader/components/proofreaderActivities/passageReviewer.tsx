@@ -1,17 +1,12 @@
 import * as React from 'react';
 
-import Edit from './edit'
-import { isAnEditRegex, negativeMatchRegex } from './sharedRegexes'
+import Edit from './edit';
+import { isAnEditRegex, negativeMatchRegex } from './sharedRegexes';
 
-import { Concept } from '../../interfaces/concepts'
 import {
-  UNNECESSARY_SPACE,
-  MULTIPLE_UNNECESSARY_DELETION,
-  SINGLE_UNNECESSARY_DELETION,
-  MULTIPLE_UNNECESSARY_ADDITION,
-  SINGLE_UNNECESSARY_ADDITION,
-  UNNECESSARY_CHANGE
-} from '../../helpers/determineUnnecessaryEditType'
+    MULTIPLE_UNNECESSARY_ADDITION, MULTIPLE_UNNECESSARY_DELETION, SINGLE_UNNECESSARY_ADDITION, SINGLE_UNNECESSARY_DELETION, UNNECESSARY_CHANGE, UNNECESSARY_SPACE
+} from '../../helpers/determineUnnecessaryEditType';
+import { Concept } from '../../interfaces/concepts';
 
 const unnecessaryArray = [UNNECESSARY_SPACE, MULTIPLE_UNNECESSARY_DELETION, SINGLE_UNNECESSARY_DELETION, MULTIPLE_UNNECESSARY_ADDITION, SINGLE_UNNECESSARY_ADDITION, UNNECESSARY_CHANGE]
 

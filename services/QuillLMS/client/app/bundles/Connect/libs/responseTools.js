@@ -1,5 +1,5 @@
-import _ from 'underscore';
 import Levenshtein from 'levenshtein';
+import _ from 'underscore';
 
 export function getStatusForResponse(response = {}) {
   if (!response.feedback) {

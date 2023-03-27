@@ -1,10 +1,10 @@
 import React from 'react';
+import { connect } from 'react-redux';
 import _ from 'underscore';
 import { Feedback } from '../../../Shared/index';
-import { connect } from 'react-redux';
 const jsDiff = require('diff');
 
-import { hashToCollection, } from '../../../Shared/index'
+import { hashToCollection } from '../../../Shared/index';
 
 class EndState extends React.Component {
   findDiffs(answer) {

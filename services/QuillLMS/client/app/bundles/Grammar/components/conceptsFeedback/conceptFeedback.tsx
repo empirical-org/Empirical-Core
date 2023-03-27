@@ -1,14 +1,14 @@
 import * as React from 'react'
-import { ActionTypes } from '../../actions/actionTypes'
 import { connect } from 'react-redux'
+import { ConceptExplanation } from '../../../Shared/index'
+import { ActionTypes } from '../../actions/actionTypes'
 import * as actions from '../../actions/conceptsFeedback'
-import FeedbackForm from './feedbackForm'
-import { ConceptExplanation } from '../../../Shared/index';
+import { Concept } from '../../interfaces/concepts'
 import { ConceptFeedback } from '../../interfaces/conceptsFeedback'
 import { Match } from '../../interfaces/match'
-import { Concept } from '../../interfaces/concepts'
 import { ConceptsFeedbackState } from '../../reducers/conceptsFeedbackReducer'
 import { ConceptReducerState } from '../../reducers/conceptsReducer'
+import FeedbackForm from './feedbackForm'
 
 interface ConceptFeedbackComponentProps {
   dispatch: Function;

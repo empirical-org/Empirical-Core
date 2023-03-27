@@ -2,19 +2,19 @@ import * as React from "react";
 import { useQuery } from 'react-query';
 
 import RuleGenericAttributes from './ruleGenericAttributes';
+import RuleHintPicker from './ruleHintPicker';
 import RulePlagiarismAttributes from './rulePlagiarismAttributes';
-import RuleRegexAttributes from './ruleRegexAttributes';
 import RulePrompts from './rulePrompts';
+import RuleRegexAttributes from './ruleRegexAttributes';
 import RuleUniversalAttributes from './ruleUniversalAttributes';
-import RuleHintPicker from './ruleHintPicker'
 
-import { fetchRules, fetchUniversalRules } from '../../../utils/evidence/ruleAPIs';
-import { fetchConcepts, } from '../../../utils/evidence/conceptAPIs';
-import { renderErrorsContainer } from '../../../helpers/evidence/renderHelpers';
+import { PLAGIARISM, regexRuleTypes, ruleOptimalOptions } from '../../../../../constants/evidence';
 import { formatPrompts } from '../../../helpers/evidence/promptHelpers';
-import { handleSubmitRule, getInitialRuleType, formatInitialFeedbacks, returnInitialFeedback, formatRegexRules } from '../../../helpers/evidence/ruleHelpers';
-import { ruleOptimalOptions, regexRuleTypes, PLAGIARISM } from '../../../../../constants/evidence';
-import { ActivityInterface, RuleInterface, DropdownObjectInterface } from '../../../interfaces/evidenceInterfaces';
+import { renderErrorsContainer } from '../../../helpers/evidence/renderHelpers';
+import { formatInitialFeedbacks, formatRegexRules, getInitialRuleType, handleSubmitRule, returnInitialFeedback } from '../../../helpers/evidence/ruleHelpers';
+import { ActivityInterface, DropdownObjectInterface, RuleInterface } from '../../../interfaces/evidenceInterfaces';
+import { fetchConcepts } from '../../../utils/evidence/conceptAPIs';
+import { fetchRules, fetchUniversalRules } from '../../../utils/evidence/ruleAPIs';
 
 interface RuleFormProps {
   activityData?: ActivityInterface,

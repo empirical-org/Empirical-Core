@@ -1,8 +1,8 @@
 import React from 'react';
 
-import ActivityIconWithTooltip from '../general_components/activity_icon_with_tooltip';
 import shouldCountForScoring from '../../../../modules/activity_classifications.js';
 import { getTimeSpent } from '../../helpers/studentReports';
+import ActivityIconWithTooltip from '../general_components/activity_icon_with_tooltip';
 
 export const StudentScores = ({ data, premium_state }) => {
   function calculateAverageScore() {

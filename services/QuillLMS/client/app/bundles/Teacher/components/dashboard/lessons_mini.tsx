@@ -1,15 +1,9 @@
 import * as React from 'react';
-import _ from 'underscore';
 
 import {
-  DataTable,
-  helpIcon,
-  expandIcon,
-  fileDownloadIcon,
-  fileChartIcon,
-  playBoxIcon,
-  previewIcon,
-} from '../../../Shared/index'
+    DataTable, expandIcon, fileChartIcon, fileDownloadIcon, helpIcon, playBoxIcon,
+    previewIcon
+} from '../../../Shared/index';
 
 const INITIAL_MAX = 5
 

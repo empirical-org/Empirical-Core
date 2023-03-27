@@ -1,11 +1,11 @@
-import * as React from 'react';
 import { shallow } from 'enzyme';
-import { createMemoryHistory, createLocation } from 'history';
-import { QueryClient, QueryClientProvider } from 'react-query'
+import { createLocation, createMemoryHistory } from 'history';
+import * as React from 'react';
+import { QueryClientProvider } from 'react-query';
 
-import RuleAnalysis from '../rulesAnalysis/ruleAnalysis';
-import { DefaultReactQueryClient } from '../../../../Shared';
 import 'whatwg-fetch';
+import { DefaultReactQueryClient } from '../../../../Shared';
+import RuleAnalysis from '../rulesAnalysis/ruleAnalysis';
 
 const mockProps = {
   match: {

@@ -1,10 +1,10 @@
-import * as React from 'react';
 import { mount } from 'enzyme';
+import * as React from 'react';
+import { QueryClientProvider } from 'react-query';
 import { MemoryRouter } from 'react-router-dom';
-import { QueryClient, QueryClientProvider } from 'react-query'
 
+import { DefaultReactQueryClient, Input } from '../../../../Shared/index';
 import ModelForm from '../semanticRules/modelForm';
-import { Input, DefaultReactQueryClient } from '../../../../Shared/index';
 
 const mockProps = {
   match: {

@@ -1,6 +1,6 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`ImportGoogleClassroomStudentsModal component should render ImportGoogleClassroomStudentsModal 1`] = `
+exports[`importGoogleClassroomStudentsModal component should render importGoogleClassroomStudentsModal 1`] = `
 <div
   className="modal-container import-google-classroom-students-modal-container"
 >
@@ -14,11 +14,11 @@ exports[`ImportGoogleClassroomStudentsModal component should render ImportGoogle
       <h3
         className="title"
       >
-        Import students from Google Classroom
+        import students from Google Classroom
       </h3>
     </div>
     <p>
-      You are about to import students from the class 
+      You are about to import students from the class
       Quill Classroom
       .
     </p>
@@ -52,7 +52,7 @@ exports[`ImportGoogleClassroomStudentsModal component should render ImportGoogle
         onClick={[Function]}
         type="button"
       >
-        Import students
+        import students
       </button>
     </div>
   </div>

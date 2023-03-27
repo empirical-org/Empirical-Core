@@ -1,6 +1,6 @@
-import * as React from 'react'
+import * as React from 'react';
 
-import { baseDiagnosticImageSrc, triangleUpIcon, } from './shared'
+import { baseDiagnosticImageSrc, triangleUpIcon } from './shared';
 
 const barGraphIncreasingIcon = <img alt="Bar chart growth icon" src={`${baseDiagnosticImageSrc}/icons-bar-graph-increasing.svg`} />
 

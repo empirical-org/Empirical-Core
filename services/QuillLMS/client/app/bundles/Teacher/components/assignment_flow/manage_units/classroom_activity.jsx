@@ -1,11 +1,11 @@
-import React from 'react';
 import moment from 'moment';
 import Pluralize from 'pluralize';
+import React from 'react';
+import { Tooltip } from '../../../../Shared/index';
 import activityFromClassificationId from '../../modules/activity_from_classification_id.js';
-import { Tooltip } from '../../../../Shared/index'
 
+import { nonRelevantActivityClassificationIds } from '../../../../../modules/activity_classifications';
 import PreviewOrLaunchModal from '../../shared/preview_or_launch_modal';
-import { nonRelevantActivityClassificationIds, } from '../../../../../modules/activity_classifications'
 
 const styles = {
   row: {

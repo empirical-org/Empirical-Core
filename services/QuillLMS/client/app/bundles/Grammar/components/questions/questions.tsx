@@ -1,15 +1,14 @@
 import * as React from 'react';
 import { connect } from 'react-redux';
-import * as actions from '../../actions/questions';
-import _ from 'underscore';
-import QuestionListByConcept from './questionListByConcept'
-import checkAnswer from '../../libs/checkAnswer';
 import { push } from 'react-router-redux';
-import { submitResponseEdit, deleteResponse } from '../../actions/responses';
+import _ from 'underscore';
 import {
-  Modal,
-  ArchivedButton
+    ArchivedButton, Modal
 } from '../../../Shared/index';
+import * as actions from '../../actions/questions';
+import { deleteResponse, submitResponseEdit } from '../../actions/responses';
+import checkAnswer from '../../libs/checkAnswer';
+import QuestionListByConcept from './questionListByConcept';
 
 function sleep(milliseconds) {
   const start = new Date().getTime();

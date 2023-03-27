@@ -1,15 +1,12 @@
-import React from 'react'
 import $ from 'jquery';
+import React from 'react';
+import _ from 'underscore';
 import { requestGet } from '../../../modules/request';
-import _ from 'underscore'
-import _l from 'lodash'
-import ManageUnits from '../components/assignment_flow/manage_units/manage_units'
-import UnitTemplatesManager from '../components/assignment_flow/unit_templates_manager/unit_templates_manager'
-import fnl from '../components/modules/fnl'
-import updaterGenerator from '../components/modules/updater'
-import Server from '../components/modules/server/server'
-import WindowPosition from '../components/modules/windowPosition'
-import AnalyticsWrapper from '../components/shared/analytics_wrapper'
+import UnitTemplatesManager from '../components/assignment_flow/unit_templates_manager/unit_templates_manager';
+import fnl from '../components/modules/fnl';
+import Server from '../components/modules/server/server';
+import updaterGenerator from '../components/modules/updater';
+import WindowPosition from '../components/modules/windowPosition';
 
 
 export default class PublicActivityPacks extends React.Component {

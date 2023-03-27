@@ -1,7 +1,7 @@
-import React from 'react';
 import { mount } from 'enzyme';
+import React from 'react';
 
-import { alternativeSchools, alternativeSchoolsNameMap, noSchoolSelectedSchool, notListedSchool, } from './data'
+import { alternativeSchools, alternativeSchoolsNameMap, noSchoolSelectedSchool, notListedSchool } from './data';
 
 import TeacherGeneralAccountInfo from '../teacher_general.jsx';
 

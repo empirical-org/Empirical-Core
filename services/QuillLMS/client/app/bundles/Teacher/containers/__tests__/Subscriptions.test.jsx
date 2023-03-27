@@ -1,19 +1,12 @@
-import React from 'react';
 import { mount } from 'enzyme';
+import React from 'react';
 
-import Subscriptions from '../Subscriptions';
 import {
-  TEACHER_TRIAL,
-  PREMIUM_CREDIT,
-  TEACHER_SPONSORED_FREE,
-  TEACHER_PAID,
-  COLLEGE_BOARD_EDUCATOR_LIFETIME_PREMIUM,
-  SCHOOL_PAID,
-  SCHOOL_PAID_VIA_STRIPE,
-  SCHOOL_SPONSORED_FREE,
-  SCHOOL_DISTRICT_PAID,
-  CREDIT_CARD
-} from '../../components/subscriptions/constants'
+    CREDIT_CARD, PREMIUM_CREDIT, SCHOOL_DISTRICT_PAID, SCHOOL_PAID,
+    SCHOOL_PAID_VIA_STRIPE,
+    SCHOOL_SPONSORED_FREE, TEACHER_PAID, TEACHER_SPONSORED_FREE, TEACHER_TRIAL
+} from '../../components/subscriptions/constants';
+import Subscriptions from '../Subscriptions';
 
 const TEACHER_RENEWAL_PRICE = 80
 const SCHOOL_RENEWAL_PRICE = 1800

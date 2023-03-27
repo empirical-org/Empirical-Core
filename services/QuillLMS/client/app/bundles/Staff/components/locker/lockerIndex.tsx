@@ -2,8 +2,8 @@ import * as React from "react";
 
 import Locker from './locker';
 
-import { lockerItems } from "../../helpers/locker/lockerItems";
 import { TEAMS } from "../../../Shared";
+import { lockerItems } from "../../helpers/locker/lockerItems";
 
 export const LockerIndex = ({ personalLocker }) => {
   const allLockers = [...TEAMS, 'index'];

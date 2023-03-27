@@ -8,9 +8,9 @@ jest.mock('../../../../modules/request/index', () => ({
   requestPost: mockPost
 }))
 
-import dispatch from '../../__mocks__/dispatch'
 import { getFeedback } from '../../actions/session'
 import { Events } from '../../modules/analytics'
+import dispatch from '../../__mocks__/dispatch'
 
 describe('Session actions', () => {
   describe('when the getFeedback action is dispatched', () => {

@@ -1,18 +1,18 @@
 // The progress report showing all students in a given classroom
 // along with their result counts.
-import React from 'react'
 import queryString from 'query-string';
+import React from 'react';
 
-import CSVDownloadForProgressReport from './csv_download_for_progress_report.jsx'
-import { PROGRESS_REPORTS_SELECTED_CLASSROOM_ID, } from './progress_report_constants'
-import EmptyStateForReport from './empty_state_for_report'
+import CSVDownloadForProgressReport from './csv_download_for_progress_report.jsx';
+import EmptyStateForReport from './empty_state_for_report';
+import { PROGRESS_REPORTS_SELECTED_CLASSROOM_ID } from './progress_report_constants';
 
-import {sortTableByLastName} from '../../../../modules/sortingMethods.js'
-import LoadingSpinner from '../shared/loading_indicator.jsx'
-import ItemDropdown from '../general_components/dropdown_selectors/item_dropdown'
-import userIsPremium from '../modules/user_is_premium'
-import { ReactTable, } from '../../../Shared/index'
-import { requestGet, } from '../../../../modules/request/index'
+import { requestGet } from '../../../../modules/request/index';
+import { sortTableByLastName } from '../../../../modules/sortingMethods.js';
+import { ReactTable } from '../../../Shared/index';
+import ItemDropdown from '../general_components/dropdown_selectors/item_dropdown';
+import userIsPremium from '../modules/user_is_premium';
+import LoadingSpinner from '../shared/loading_indicator.jsx';
 
 const showAllClassroomKey = 'All Classrooms'
 

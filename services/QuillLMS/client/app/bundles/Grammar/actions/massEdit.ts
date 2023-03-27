@@ -1,4 +1,4 @@
-import { ActionTypes } from './actionTypes'
+import { ActionTypes } from './actionTypes';
 
 export const addResponseToMassEditArray = (key: string) => {
   return { type: ActionTypes.ADD_RESPONSE_TO_MASS_EDIT_ARRAY, responseKey: key };

@@ -1,10 +1,10 @@
 import * as React from 'react'
 
+import { requestPost } from '../../../modules/request'
+import useSnackbarMonitor from '../../Shared/hooks/useSnackbarMonitor'
+import { defaultSnackbarTimeout, Snackbar, Tooltip } from '../../Shared/index'
 import AdminRequestModal from '../components/admin_access/adminRequestModal'
 import InviteAdminModal from '../components/admin_access/inviteAdminModal'
-import { requestPost, } from '../../../modules/request'
-import { Snackbar, defaultSnackbarTimeout, Tooltip, } from '../../Shared/index'
-import useSnackbarMonitor from '../../Shared/hooks/useSnackbarMonitor'
 
 const ADMIN_REQUEST_MODAL = 'adminRequestModal'
 const INVITE_ADMIN_MODAL = 'inviteAdminModal'

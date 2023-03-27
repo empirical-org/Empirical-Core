@@ -1,11 +1,11 @@
-import React from 'react';
 import { shallow } from 'enzyme';
+import React from 'react';
 
 import Classroom from '../classroom.tsx';
-import ClassroomStudentSection from '../classroom_student_section'
-import ClassroomTeacherSection from '../classroom_teacher_section'
+import ClassroomStudentSection from '../classroom_student_section';
+import ClassroomTeacherSection from '../classroom_teacher_section';
 
-import { classroomWithStudents, userProps, classroomProps, } from './test_data/test_data'
+import { classroomProps, classroomWithStudents, userProps } from './test_data/test_data';
 
 describe('Classroom component', () => {
 

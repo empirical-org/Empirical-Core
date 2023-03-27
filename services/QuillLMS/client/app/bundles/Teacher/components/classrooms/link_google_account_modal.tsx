@@ -1,6 +1,6 @@
-import * as React from 'react'
+import * as React from 'react';
 
-import AuthGoogleAccessForm from '../accounts/AuthGoogleAccessForm'
+import AuthGoogleAccessForm from '../accounts/AuthGoogleAccessForm';
 
 const smallWhiteCheckSrc = `${import.meta.env.VITE_PROCESS_ENV_CDN_URL}/images/shared/check-small-white.svg`
 

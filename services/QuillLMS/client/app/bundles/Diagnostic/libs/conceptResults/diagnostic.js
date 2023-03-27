@@ -1,12 +1,12 @@
 import {
-  getAllSentenceFragmentConceptResults
-} from './sentenceFragment';
+    getConceptResultsForFillInTheBlanks
+} from './fillInTheBlanks';
 import {
-  getConceptResultsForSentenceCombining
+    getConceptResultsForSentenceCombining
 } from './sentenceCombining';
 import {
-  getConceptResultsForFillInTheBlanks
-} from './fillInTheBlanks';
+    getAllSentenceFragmentConceptResults
+} from './sentenceFragment';
 
 export function getConceptResultsForQuestion(question) {
   if (question.type === 'SF') {

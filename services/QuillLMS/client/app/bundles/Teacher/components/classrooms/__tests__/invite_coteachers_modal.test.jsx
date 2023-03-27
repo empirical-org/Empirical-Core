@@ -1,11 +1,11 @@
-import React from 'react';
 import { shallow } from 'enzyme';
+import React from 'react';
 
-import InviteCoteacherModal from '../invite_coteachers_modal'
-import { Input, DataTable, } from '../../../../Shared/index'
+import { DataTable, Input } from '../../../../Shared/index';
+import InviteCoteacherModal from '../invite_coteachers_modal';
 
-import { classroomWithStudents, classroomProps } from './test_data/test_data'
 import { requestPost } from '../../../../../modules/request';
+import { classroomProps, classroomWithStudents } from './test_data/test_data';
 
 jest.mock('../../../../../modules/request/index', () => ({
   requestPost: jest.fn()

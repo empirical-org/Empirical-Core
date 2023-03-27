@@ -8257,7 +8257,7 @@ exports[`CreateOrEditBlogPost component renders for a new blog post 1`] = `
             <label
               key="description-label"
             >
-              Description: 
+              Description:
               <i>
                 (Please, choose the juiciest quote from the article that makes you want to read it and you should aim for 200 characters for the card description., for example: "I put jazz on and my kids work on Quill.")
               </i>

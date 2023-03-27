@@ -1,15 +1,12 @@
-import React from 'react';
 import { mount } from 'enzyme';
 import toJson from 'enzyme-to-json';
+import React from 'react';
 
 import FollowUp from '../followUp';
 
 import {
-  SMALL_GROUP_AND_INDEPENDENT,
-  PRACTICE_NOW,
-  PRACTICE_LATER,
-  NO_PRACTICE
-} from '../../../constants'
+    NO_PRACTICE, PRACTICE_LATER, PRACTICE_NOW, SMALL_GROUP_AND_INDEPENDENT
+} from '../../../constants';
 
 describe('FollowUp component', () => {
 

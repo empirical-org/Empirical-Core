@@ -1,4 +1,4 @@
-import * as React from 'react'
+import * as React from 'react';
 
 const personWithChecklistSrc = `${import.meta.env.VITE_PROCESS_ENV_CDN_URL}/images/pages/dashboard/person-with-checklist.svg`
 const bigCheckIconSrc = `${import.meta.env.VITE_PROCESS_ENV_CDN_URL}/images/pages/dashboard/icons-check-big.svg`

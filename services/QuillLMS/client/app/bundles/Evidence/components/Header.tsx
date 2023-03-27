@@ -1,13 +1,13 @@
 import * as React from "react";
-import * as Redux from "redux";
 import { connect } from "react-redux";
+import * as Redux from "redux";
 import { TrackAnalyticsEvent } from '../actions/analytics';
 import { Events } from '../modules/analytics';
-import '../styles/headerStyling.scss'
+import '../styles/headerStyling.scss';
 
-import getParameterByName from '../helpers/getParameterByName';
-import { Tooltip, READ_PASSAGE_STEP_NUMBER, BECAUSE_PASSAGE_STEP_NUMBER, BUT_PASSAGE_STEP_NUMBER, SO_PASSAGE_STEP_NUMBER, whiteCheckGreenBackgroundIcon } from '../../Shared/index'
+import { BECAUSE_PASSAGE_STEP_NUMBER, BUT_PASSAGE_STEP_NUMBER, READ_PASSAGE_STEP_NUMBER, SO_PASSAGE_STEP_NUMBER, Tooltip, whiteCheckGreenBackgroundIcon } from '../../Shared/index';
 import { onMobile } from '../helpers/containerActionHelpers';
+import getParameterByName from '../helpers/getParameterByName';
 
 const logoSrc = `${import.meta.env.VITE_PROCESS_ENV_CDN_URL}/images/logos/quill-logo-white-2022.svg`
 const mobileLogoSrc = `${import.meta.env.VITE_PROCESS_ENV_CDN_URL}/images/logos/quill-logo-white-mobile.svg`

@@ -1,12 +1,12 @@
-import * as React from 'react'
+import * as React from 'react';
 
-import Classroom from './classroom'
-import UnarchiveClassroomModal from './unarchive_classroom_modal'
+import Classroom from './classroom';
+import UnarchiveClassroomModal from './unarchive_classroom_modal';
 
-import { Snackbar, defaultSnackbarTimeout } from '../../../Shared/index'
 import { requestGet } from '../../../../modules/request/index';
-import ArticleSpotlight from '../shared/articleSpotlight';
+import { defaultSnackbarTimeout, Snackbar } from '../../../Shared/index';
 import { MY_CLASSES_FEATURED_BLOG_POST_ID } from '../../constants/featuredBlogPost';
+import ArticleSpotlight from '../shared/articleSpotlight';
 
 interface ArchivedClassroomsProps {
   classrooms: Array<any>;

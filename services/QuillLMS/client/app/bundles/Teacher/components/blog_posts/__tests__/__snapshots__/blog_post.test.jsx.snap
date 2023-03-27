@@ -302,12 +302,12 @@ exports[`BlogPost component renders 1`] = `
         "order_number": 14,
         "premium": false,
         "press_name": "",
-        "preview_card_content": "<img class='preview-card-image' src='https://s3.amazonaws.com/quill-image-uploads/uploads/files/Cover__7_.png' />\\\\n    <div class='preview-card-body'>\\\\n       <h3>Student Center Video 📹 | Why is Writing Important?</h3>\\\\n       <p>This video from the Student Center discusses why writing is important and provides an example of writing a strong sentence.</p>\\\\n       <span/>\\\\n    </div>\\\\n    <div class='preview-card-footer'>\\\\n      <p class='author'>by Sherry L.</p>\\\\n    </div>",
+        "preview_card_content": "<img class='preview-card-image' src='https://s3.amazonaws.com/quill-image-uploads/uploads/files/Cover__7_.png' />\\\\n    <div class='preview-card-body'>\\\\n       <h3>Student Center Video 📹 | Why is Writing important?</h3>\\\\n       <p>This video from the Student Center discusses why writing is important and provides an example of writing a strong sentence.</p>\\\\n       <span/>\\\\n    </div>\\\\n    <div class='preview-card-footer'>\\\\n      <p class='author'>by Sherry L.</p>\\\\n    </div>",
         "published_at": "2022-02-14T17:14:21.947Z",
         "read_count": 160,
         "slug": "student-center-video---why-is-writing-important",
         "subtitle": "",
-        "title": "Student Center Video 📹 | Why is Writing Important?",
+        "title": "Student Center Video 📹 | Why is Writing important?",
         "topic": "Video tutorials",
         "tsv": "'/tools/connect).':24B 'activ':21B,41B 'appli':55B 'applic':80B 'ask':52B 'caption':93B,101B 'center':2A 'click':86B,94B 'connect':20B 'content':73B 'cover':15B 'even':81B 'follow':45B 'follow-up':44B 'import':7A 'learn':76B 'make':78B 'model':10B 'one':36B 'organ':85B 'practic':65B 'quill':19B 'recommend':26B 'relev':83B 'revis':64B 'sever':38B 'show':27B 'skill':9B,58B,68B 'student':1A,28B,53B 'tutori':103C 'use':66B 've':33B 'video':3A,13B,30B,49B,91B,99B,102C 'watch':89B,97B 'without':100B 'work':34B 'write':6A,62B,70B 'www.quill.org':23B 'www.quill.org/tools/connect).':22B",
         "updated_at": "2022-11-02T23:29:52.869Z",
@@ -439,7 +439,7 @@ exports[`BlogPost component renders 1`] = `
             <p
               className="author"
             >
-              By 
+              By
               Edgar O.
             </p>
           </header>
@@ -466,7 +466,7 @@ exports[`BlogPost component renders 1`] = `
                   >
                     Brandon Reynold’s Best Practices
                   </strong>
-                  \\n\\n* Give students a Diagnostic at the beginning and end of each quarter/semester to see the progress they’ve made between the first and second attempts. \\n* Use Lessons to determine which students need the most help, and flag those who may be struggling and could use extra support around the material. \\n* Assign Diagnostic Recommendations concept-by-concept, so that students aren’t overwhelmed by everything on their dashboards and can focus on what the teacher deems most important at the moment. \\n\\nTo find more Teacher Stories like Brandon Reynold's, click 
+                  \\n\\n* Give students a Diagnostic at the beginning and end of each quarter/semester to see the progress they’ve made between the first and second attempts. \\n* Use Lessons to determine which students need the most help, and flag those who may be struggling and could use extra support around the material. \\n* Assign Diagnostic Recommendations concept-by-concept, so that students aren’t overwhelmed by everything on their dashboards and can focus on what the teacher deems most important at the moment. \\n\\nTo find more Teacher Stories like Brandon Reynold's, click
                   <a
                     href="https://www.quill.org/teacher-center/topic/teacher-stories"
                     key="1:1-1:427962"
@@ -594,7 +594,7 @@ exports[`BlogPost component renders 1`] = `
                         key="1:1-1:5021"
                       />
                     </HtmlRenderer>
-                    \\n    
+                    \\n
                     <HtmlRenderer
                       escapeHtml={false}
                       isBlock={false}
@@ -612,7 +612,7 @@ exports[`BlogPost component renders 1`] = `
                         key="1:1-1:5024"
                       />
                     </HtmlRenderer>
-                    \\n       
+                    \\n
                     <HtmlRenderer
                       escapeHtml={false}
                       isBlock={false}
@@ -648,7 +648,7 @@ exports[`BlogPost component renders 1`] = `
                         key="1:1-1:50211"
                       />
                     </HtmlRenderer>
-                    \\n       
+                    \\n
                     <HtmlRenderer
                       escapeHtml={false}
                       isBlock={false}
@@ -684,7 +684,7 @@ exports[`BlogPost component renders 1`] = `
                         key="1:1-1:50216"
                       />
                     </HtmlRenderer>
-                    \\n       
+                    \\n
                     <HtmlRenderer
                       escapeHtml={false}
                       isBlock={false}
@@ -702,7 +702,7 @@ exports[`BlogPost component renders 1`] = `
                         key="1:1-1:50219"
                       />
                     </HtmlRenderer>
-                    \\n    
+                    \\n
                     <HtmlRenderer
                       escapeHtml={false}
                       isBlock={false}
@@ -720,7 +720,7 @@ exports[`BlogPost component renders 1`] = `
                         key="1:1-1:50222"
                       />
                     </HtmlRenderer>
-                    \\n    
+                    \\n
                     <HtmlRenderer
                       escapeHtml={false}
                       isBlock={false}
@@ -738,7 +738,7 @@ exports[`BlogPost component renders 1`] = `
                         key="1:1-1:50225"
                       />
                     </HtmlRenderer>
-                    \\n      
+                    \\n
                     <HtmlRenderer
                       escapeHtml={false}
                       isBlock={false}
@@ -774,7 +774,7 @@ exports[`BlogPost component renders 1`] = `
                         key="1:1-1:50230"
                       />
                     </HtmlRenderer>
-                    \\n    
+                    \\n
                     <HtmlRenderer
                       escapeHtml={false}
                       isBlock={false}
@@ -846,7 +846,7 @@ exports[`BlogPost component renders 1`] = `
                         key="1:1-1:4881"
                       />
                     </HtmlRenderer>
-                    \\n    
+                    \\n
                     <HtmlRenderer
                       escapeHtml={false}
                       isBlock={false}
@@ -864,7 +864,7 @@ exports[`BlogPost component renders 1`] = `
                         key="1:1-1:4884"
                       />
                     </HtmlRenderer>
-                    \\n       
+                    \\n
                     <HtmlRenderer
                       escapeHtml={false}
                       isBlock={false}
@@ -900,7 +900,7 @@ exports[`BlogPost component renders 1`] = `
                         key="1:1-1:4889"
                       />
                     </HtmlRenderer>
-                    \\n       
+                    \\n
                     <HtmlRenderer
                       escapeHtml={false}
                       isBlock={false}
@@ -936,7 +936,7 @@ exports[`BlogPost component renders 1`] = `
                         key="1:1-1:48815"
                       />
                     </HtmlRenderer>
-                    \\n       
+                    \\n
                     <HtmlRenderer
                       escapeHtml={false}
                       isBlock={false}
@@ -954,7 +954,7 @@ exports[`BlogPost component renders 1`] = `
                         key="1:1-1:48818"
                       />
                     </HtmlRenderer>
-                    \\n    
+                    \\n
                     <HtmlRenderer
                       escapeHtml={false}
                       isBlock={false}
@@ -972,7 +972,7 @@ exports[`BlogPost component renders 1`] = `
                         key="1:1-1:48821"
                       />
                     </HtmlRenderer>
-                    \\n    
+                    \\n
                     <HtmlRenderer
                       escapeHtml={false}
                       isBlock={false}
@@ -990,7 +990,7 @@ exports[`BlogPost component renders 1`] = `
                         key="1:1-1:48824"
                       />
                     </HtmlRenderer>
-                    \\n      
+                    \\n
                     <HtmlRenderer
                       escapeHtml={false}
                       isBlock={false}
@@ -1026,7 +1026,7 @@ exports[`BlogPost component renders 1`] = `
                         key="1:1-1:48829"
                       />
                     </HtmlRenderer>
-                    \\n    
+                    \\n
                     <HtmlRenderer
                       escapeHtml={false}
                       isBlock={false}
@@ -1098,7 +1098,7 @@ exports[`BlogPost component renders 1`] = `
                         key="1:1-1:4881"
                       />
                     </HtmlRenderer>
-                    \\n    
+                    \\n
                     <HtmlRenderer
                       escapeHtml={false}
                       isBlock={false}
@@ -1116,7 +1116,7 @@ exports[`BlogPost component renders 1`] = `
                         key="1:1-1:4884"
                       />
                     </HtmlRenderer>
-                    \\n       
+                    \\n
                     <HtmlRenderer
                       escapeHtml={false}
                       isBlock={false}
@@ -1152,7 +1152,7 @@ exports[`BlogPost component renders 1`] = `
                         key="1:1-1:4889"
                       />
                     </HtmlRenderer>
-                    \\n       
+                    \\n
                     <HtmlRenderer
                       escapeHtml={false}
                       isBlock={false}
@@ -1188,7 +1188,7 @@ exports[`BlogPost component renders 1`] = `
                         key="1:1-1:48814"
                       />
                     </HtmlRenderer>
-                    \\n       
+                    \\n
                     <HtmlRenderer
                       escapeHtml={false}
                       isBlock={false}
@@ -1206,7 +1206,7 @@ exports[`BlogPost component renders 1`] = `
                         key="1:1-1:48817"
                       />
                     </HtmlRenderer>
-                    \\n    
+                    \\n
                     <HtmlRenderer
                       escapeHtml={false}
                       isBlock={false}
@@ -1224,7 +1224,7 @@ exports[`BlogPost component renders 1`] = `
                         key="1:1-1:48820"
                       />
                     </HtmlRenderer>
-                    \\n    
+                    \\n
                     <HtmlRenderer
                       escapeHtml={false}
                       isBlock={false}
@@ -1242,7 +1242,7 @@ exports[`BlogPost component renders 1`] = `
                         key="1:1-1:48823"
                       />
                     </HtmlRenderer>
-                    \\n      
+                    \\n
                     <HtmlRenderer
                       escapeHtml={false}
                       isBlock={false}
@@ -1278,7 +1278,7 @@ exports[`BlogPost component renders 1`] = `
                         key="1:1-1:48828"
                       />
                     </HtmlRenderer>
-                    \\n    
+                    \\n
                     <HtmlRenderer
                       escapeHtml={false}
                       isBlock={false}
@@ -1350,7 +1350,7 @@ exports[`BlogPost component renders 1`] = `
                         key="1:1-1:4461"
                       />
                     </HtmlRenderer>
-                    \\n    
+                    \\n
                     <HtmlRenderer
                       escapeHtml={false}
                       isBlock={false}
@@ -1368,7 +1368,7 @@ exports[`BlogPost component renders 1`] = `
                         key="1:1-1:4464"
                       />
                     </HtmlRenderer>
-                    \\n       
+                    \\n
                     <HtmlRenderer
                       escapeHtml={false}
                       isBlock={false}
@@ -1404,7 +1404,7 @@ exports[`BlogPost component renders 1`] = `
                         key="1:1-1:4469"
                       />
                     </HtmlRenderer>
-                    \\n       
+                    \\n
                     <HtmlRenderer
                       escapeHtml={false}
                       isBlock={false}
@@ -1422,7 +1422,7 @@ exports[`BlogPost component renders 1`] = `
                         key="1:1-1:44612"
                       />
                     </HtmlRenderer>
-                     This PDF provides an overview of what information you can find in each of Quill's student data reports. 
+                     This PDF provides an overview of what information you can find in each of Quill's student data reports.
                     <HtmlRenderer
                       escapeHtml={false}
                       isBlock={false}
@@ -1440,7 +1440,7 @@ exports[`BlogPost component renders 1`] = `
                         key="1:1-1:44616"
                       />
                     </HtmlRenderer>
-                    \\n       
+                    \\n
                     <HtmlRenderer
                       escapeHtml={false}
                       isBlock={false}
@@ -1458,7 +1458,7 @@ exports[`BlogPost component renders 1`] = `
                         key="1:1-1:44619"
                       />
                     </HtmlRenderer>
-                    \\n    
+                    \\n
                     <HtmlRenderer
                       escapeHtml={false}
                       isBlock={false}
@@ -1476,7 +1476,7 @@ exports[`BlogPost component renders 1`] = `
                         key="1:1-1:44622"
                       />
                     </HtmlRenderer>
-                    \\n    
+                    \\n
                     <HtmlRenderer
                       escapeHtml={false}
                       isBlock={false}
@@ -1494,7 +1494,7 @@ exports[`BlogPost component renders 1`] = `
                         key="1:1-1:44625"
                       />
                     </HtmlRenderer>
-                    \\n      
+                    \\n
                     <HtmlRenderer
                       escapeHtml={false}
                       isBlock={false}
@@ -1530,7 +1530,7 @@ exports[`BlogPost component renders 1`] = `
                         key="1:1-1:44630"
                       />
                     </HtmlRenderer>
-                    \\n    
+                    \\n
                     <HtmlRenderer
                       escapeHtml={false}
                       isBlock={false}
@@ -1602,7 +1602,7 @@ exports[`BlogPost component renders 1`] = `
                         key="1:1-1:4831"
                       />
                     </HtmlRenderer>
-                    \\n       
+                    \\n
                     <HtmlRenderer
                       escapeHtml={false}
                       isBlock={false}
@@ -1620,7 +1620,7 @@ exports[`BlogPost component renders 1`] = `
                         key="1:1-1:4834"
                       />
                     </HtmlRenderer>
-                    \\n       
+                    \\n
                     <HtmlRenderer
                       escapeHtml={false}
                       isBlock={false}
@@ -1638,7 +1638,7 @@ exports[`BlogPost component renders 1`] = `
                         key="1:1-1:4837"
                       />
                     </HtmlRenderer>
-                    📋 PDF | Introducing Quill Reading for  Evidence: One-Pager 
+                    📋 PDF | Introducing Quill Reading for  Evidence: One-Pager
                     <HtmlRenderer
                       escapeHtml={false}
                       isBlock={false}
@@ -1656,7 +1656,7 @@ exports[`BlogPost component renders 1`] = `
                         key="1:1-1:4839"
                       />
                     </HtmlRenderer>
-                    \\n       
+                    \\n
                     <HtmlRenderer
                       escapeHtml={false}
                       isBlock={false}
@@ -1692,7 +1692,7 @@ exports[`BlogPost component renders 1`] = `
                         key="1:1-1:48315"
                       />
                     </HtmlRenderer>
-                    \\n       
+                    \\n
                     <HtmlRenderer
                       escapeHtml={false}
                       isBlock={false}
@@ -1710,7 +1710,7 @@ exports[`BlogPost component renders 1`] = `
                         key="1:1-1:48318"
                       />
                     </HtmlRenderer>
-                    \\n    
+                    \\n
                     <HtmlRenderer
                       escapeHtml={false}
                       isBlock={false}
@@ -1728,7 +1728,7 @@ exports[`BlogPost component renders 1`] = `
                         key="1:1-1:48321"
                       />
                     </HtmlRenderer>
-                    \\n    
+                    \\n
                     <HtmlRenderer
                       escapeHtml={false}
                       isBlock={false}
@@ -1746,7 +1746,7 @@ exports[`BlogPost component renders 1`] = `
                         key="1:1-1:48324"
                       />
                     </HtmlRenderer>
-                    \\n      
+                    \\n
                     <HtmlRenderer
                       escapeHtml={false}
                       isBlock={false}
@@ -1782,7 +1782,7 @@ exports[`BlogPost component renders 1`] = `
                         key="1:1-1:48329"
                       />
                     </HtmlRenderer>
-                    \\n    
+                    \\n
                     <HtmlRenderer
                       escapeHtml={false}
                       isBlock={false}
@@ -1854,7 +1854,7 @@ exports[`BlogPost component renders 1`] = `
                         key="1:1-1:4791"
                       />
                     </HtmlRenderer>
-                    \\n    
+                    \\n
                     <HtmlRenderer
                       escapeHtml={false}
                       isBlock={false}
@@ -1872,7 +1872,7 @@ exports[`BlogPost component renders 1`] = `
                         key="1:1-1:4794"
                       />
                     </HtmlRenderer>
-                    \\n       
+                    \\n
                     <HtmlRenderer
                       escapeHtml={false}
                       isBlock={false}
@@ -1908,7 +1908,7 @@ exports[`BlogPost component renders 1`] = `
                         key="1:1-1:4799"
                       />
                     </HtmlRenderer>
-                    \\n       
+                    \\n
                     <HtmlRenderer
                       escapeHtml={false}
                       isBlock={false}
@@ -1944,7 +1944,7 @@ exports[`BlogPost component renders 1`] = `
                         key="1:1-1:47914"
                       />
                     </HtmlRenderer>
-                    \\n       
+                    \\n
                     <HtmlRenderer
                       escapeHtml={false}
                       isBlock={false}
@@ -1962,7 +1962,7 @@ exports[`BlogPost component renders 1`] = `
                         key="1:1-1:47917"
                       />
                     </HtmlRenderer>
-                    \\n    
+                    \\n
                     <HtmlRenderer
                       escapeHtml={false}
                       isBlock={false}
@@ -1980,7 +1980,7 @@ exports[`BlogPost component renders 1`] = `
                         key="1:1-1:47920"
                       />
                     </HtmlRenderer>
-                    \\n    
+                    \\n
                     <HtmlRenderer
                       escapeHtml={false}
                       isBlock={false}
@@ -1998,7 +1998,7 @@ exports[`BlogPost component renders 1`] = `
                         key="1:1-1:47923"
                       />
                     </HtmlRenderer>
-                    \\n      
+                    \\n
                     <HtmlRenderer
                       escapeHtml={false}
                       isBlock={false}
@@ -2034,7 +2034,7 @@ exports[`BlogPost component renders 1`] = `
                         key="1:1-1:47928"
                       />
                     </HtmlRenderer>
-                    \\n    
+                    \\n
                     <HtmlRenderer
                       escapeHtml={false}
                       isBlock={false}
@@ -2106,7 +2106,7 @@ exports[`BlogPost component renders 1`] = `
                         key="1:1-1:5061"
                       />
                     </HtmlRenderer>
-                    \\n    
+                    \\n
                     <HtmlRenderer
                       escapeHtml={false}
                       isBlock={false}
@@ -2124,7 +2124,7 @@ exports[`BlogPost component renders 1`] = `
                         key="1:1-1:5064"
                       />
                     </HtmlRenderer>
-                    \\n       
+                    \\n
                     <HtmlRenderer
                       escapeHtml={false}
                       isBlock={false}
@@ -2160,7 +2160,7 @@ exports[`BlogPost component renders 1`] = `
                         key="1:1-1:5069"
                       />
                     </HtmlRenderer>
-                    \\n       
+                    \\n
                     <HtmlRenderer
                       escapeHtml={false}
                       isBlock={false}
@@ -2196,7 +2196,7 @@ exports[`BlogPost component renders 1`] = `
                         key="1:1-1:50614"
                       />
                     </HtmlRenderer>
-                    \\n       
+                    \\n
                     <HtmlRenderer
                       escapeHtml={false}
                       isBlock={false}
@@ -2214,7 +2214,7 @@ exports[`BlogPost component renders 1`] = `
                         key="1:1-1:50617"
                       />
                     </HtmlRenderer>
-                    \\n    
+                    \\n
                     <HtmlRenderer
                       escapeHtml={false}
                       isBlock={false}
@@ -2232,7 +2232,7 @@ exports[`BlogPost component renders 1`] = `
                         key="1:1-1:50620"
                       />
                     </HtmlRenderer>
-                    \\n    
+                    \\n
                     <HtmlRenderer
                       escapeHtml={false}
                       isBlock={false}
@@ -2250,7 +2250,7 @@ exports[`BlogPost component renders 1`] = `
                         key="1:1-1:50623"
                       />
                     </HtmlRenderer>
-                    \\n      
+                    \\n
                     <HtmlRenderer
                       escapeHtml={false}
                       isBlock={false}
@@ -2286,7 +2286,7 @@ exports[`BlogPost component renders 1`] = `
                         key="1:1-1:50628"
                       />
                     </HtmlRenderer>
-                    \\n    
+                    \\n
                     <HtmlRenderer
                       escapeHtml={false}
                       isBlock={false}
@@ -2358,7 +2358,7 @@ exports[`BlogPost component renders 1`] = `
                         key="1:1-1:4331"
                       />
                     </HtmlRenderer>
-                    \\n    
+                    \\n
                     <HtmlRenderer
                       escapeHtml={false}
                       isBlock={false}
@@ -2376,7 +2376,7 @@ exports[`BlogPost component renders 1`] = `
                         key="1:1-1:4334"
                       />
                     </HtmlRenderer>
-                    \\n       
+                    \\n
                     <HtmlRenderer
                       escapeHtml={false}
                       isBlock={false}
@@ -2412,7 +2412,7 @@ exports[`BlogPost component renders 1`] = `
                         key="1:1-1:4339"
                       />
                     </HtmlRenderer>
-                    \\n       
+                    \\n
                     <HtmlRenderer
                       escapeHtml={false}
                       isBlock={false}
@@ -2448,7 +2448,7 @@ exports[`BlogPost component renders 1`] = `
                         key="1:1-1:43314"
                       />
                     </HtmlRenderer>
-                    \\n       
+                    \\n
                     <HtmlRenderer
                       escapeHtml={false}
                       isBlock={false}
@@ -2466,7 +2466,7 @@ exports[`BlogPost component renders 1`] = `
                         key="1:1-1:43317"
                       />
                     </HtmlRenderer>
-                    \\n    
+                    \\n
                     <HtmlRenderer
                       escapeHtml={false}
                       isBlock={false}
@@ -2484,7 +2484,7 @@ exports[`BlogPost component renders 1`] = `
                         key="1:1-1:43320"
                       />
                     </HtmlRenderer>
-                    \\n    
+                    \\n
                     <HtmlRenderer
                       escapeHtml={false}
                       isBlock={false}
@@ -2502,7 +2502,7 @@ exports[`BlogPost component renders 1`] = `
                         key="1:1-1:43323"
                       />
                     </HtmlRenderer>
-                    \\n      
+                    \\n
                     <HtmlRenderer
                       escapeHtml={false}
                       isBlock={false}
@@ -2538,7 +2538,7 @@ exports[`BlogPost component renders 1`] = `
                         key="1:1-1:43328"
                       />
                     </HtmlRenderer>
-                    \\n    
+                    \\n
                     <HtmlRenderer
                       escapeHtml={false}
                       isBlock={false}
@@ -2610,7 +2610,7 @@ exports[`BlogPost component renders 1`] = `
                         key="1:1-1:4961"
                       />
                     </HtmlRenderer>
-                    \\n    
+                    \\n
                     <HtmlRenderer
                       escapeHtml={false}
                       isBlock={false}
@@ -2628,7 +2628,7 @@ exports[`BlogPost component renders 1`] = `
                         key="1:1-1:4964"
                       />
                     </HtmlRenderer>
-                    \\n       
+                    \\n
                     <HtmlRenderer
                       escapeHtml={false}
                       isBlock={false}
@@ -2664,7 +2664,7 @@ exports[`BlogPost component renders 1`] = `
                         key="1:1-1:4969"
                       />
                     </HtmlRenderer>
-                    \\n       
+                    \\n
                     <HtmlRenderer
                       escapeHtml={false}
                       isBlock={false}
@@ -2700,7 +2700,7 @@ exports[`BlogPost component renders 1`] = `
                         key="1:1-1:49614"
                       />
                     </HtmlRenderer>
-                    \\n       
+                    \\n
                     <HtmlRenderer
                       escapeHtml={false}
                       isBlock={false}
@@ -2718,7 +2718,7 @@ exports[`BlogPost component renders 1`] = `
                         key="1:1-1:49617"
                       />
                     </HtmlRenderer>
-                    \\n    
+                    \\n
                     <HtmlRenderer
                       escapeHtml={false}
                       isBlock={false}
@@ -2736,7 +2736,7 @@ exports[`BlogPost component renders 1`] = `
                         key="1:1-1:49620"
                       />
                     </HtmlRenderer>
-                    \\n    
+                    \\n
                     <HtmlRenderer
                       escapeHtml={false}
                       isBlock={false}
@@ -2754,7 +2754,7 @@ exports[`BlogPost component renders 1`] = `
                         key="1:1-1:49623"
                       />
                     </HtmlRenderer>
-                    \\n      
+                    \\n
                     <HtmlRenderer
                       escapeHtml={false}
                       isBlock={false}
@@ -2790,7 +2790,7 @@ exports[`BlogPost component renders 1`] = `
                         key="1:1-1:49628"
                       />
                     </HtmlRenderer>
-                    \\n    
+                    \\n
                     <HtmlRenderer
                       escapeHtml={false}
                       isBlock={false}
@@ -2862,7 +2862,7 @@ exports[`BlogPost component renders 1`] = `
                         key="1:1-1:5281"
                       />
                     </HtmlRenderer>
-                    \\n    
+                    \\n
                     <HtmlRenderer
                       escapeHtml={false}
                       isBlock={false}
@@ -2880,7 +2880,7 @@ exports[`BlogPost component renders 1`] = `
                         key="1:1-1:5284"
                       />
                     </HtmlRenderer>
-                    \\n       
+                    \\n
                     <HtmlRenderer
                       escapeHtml={false}
                       isBlock={false}
@@ -2916,7 +2916,7 @@ exports[`BlogPost component renders 1`] = `
                         key="1:1-1:5289"
                       />
                     </HtmlRenderer>
-                    \\n       
+                    \\n
                     <HtmlRenderer
                       escapeHtml={false}
                       isBlock={false}
@@ -2952,7 +2952,7 @@ exports[`BlogPost component renders 1`] = `
                         key="1:1-1:52816"
                       />
                     </HtmlRenderer>
-                    \\n       
+                    \\n
                     <HtmlRenderer
                       escapeHtml={false}
                       isBlock={false}
@@ -2970,7 +2970,7 @@ exports[`BlogPost component renders 1`] = `
                         key="1:1-1:52819"
                       />
                     </HtmlRenderer>
-                    \\n    
+                    \\n
                     <HtmlRenderer
                       escapeHtml={false}
                       isBlock={false}
@@ -2988,7 +2988,7 @@ exports[`BlogPost component renders 1`] = `
                         key="1:1-1:52822"
                       />
                     </HtmlRenderer>
-                    \\n    
+                    \\n
                     <HtmlRenderer
                       escapeHtml={false}
                       isBlock={false}
@@ -3006,7 +3006,7 @@ exports[`BlogPost component renders 1`] = `
                         key="1:1-1:52825"
                       />
                     </HtmlRenderer>
-                    \\n      
+                    \\n
                     <HtmlRenderer
                       escapeHtml={false}
                       isBlock={false}
@@ -3042,7 +3042,7 @@ exports[`BlogPost component renders 1`] = `
                         key="1:1-1:52830"
                       />
                     </HtmlRenderer>
-                    \\n    
+                    \\n
                     <HtmlRenderer
                       escapeHtml={false}
                       isBlock={false}
@@ -3114,7 +3114,7 @@ exports[`BlogPost component renders 1`] = `
                         key="1:1-1:5341"
                       />
                     </HtmlRenderer>
-                    \\n    
+                    \\n
                     <HtmlRenderer
                       escapeHtml={false}
                       isBlock={false}
@@ -3132,7 +3132,7 @@ exports[`BlogPost component renders 1`] = `
                         key="1:1-1:5344"
                       />
                     </HtmlRenderer>
-                    \\n       
+                    \\n
                     <HtmlRenderer
                       escapeHtml={false}
                       isBlock={false}
@@ -3168,7 +3168,7 @@ exports[`BlogPost component renders 1`] = `
                         key="1:1-1:5349"
                       />
                     </HtmlRenderer>
-                    \\n       
+                    \\n
                     <HtmlRenderer
                       escapeHtml={false}
                       isBlock={false}
@@ -3186,7 +3186,7 @@ exports[`BlogPost component renders 1`] = `
                         key="1:1-1:53412"
                       />
                     </HtmlRenderer>
-                    Like our other tools, the Quill Lessons tool has numerous features and uses, and many of our educators have found innovative ways to incorporate Quill Lessons into their classrooms.\\n       
+                    Like our other tools, the Quill Lessons tool has numerous features and uses, and many of our educators have found innovative ways to incorporate Quill Lessons into their classrooms.\\n
                     <HtmlRenderer
                       escapeHtml={false}
                       isBlock={false}
@@ -3204,7 +3204,7 @@ exports[`BlogPost component renders 1`] = `
                         key="1:1-1:53416"
                       />
                     </HtmlRenderer>
-                    \\n    
+                    \\n
                     <HtmlRenderer
                       escapeHtml={false}
                       isBlock={false}
@@ -3222,7 +3222,7 @@ exports[`BlogPost component renders 1`] = `
                         key="1:1-1:53419"
                       />
                     </HtmlRenderer>
-                    \\n    
+                    \\n
                     <HtmlRenderer
                       escapeHtml={false}
                       isBlock={false}
@@ -3240,7 +3240,7 @@ exports[`BlogPost component renders 1`] = `
                         key="1:1-1:53422"
                       />
                     </HtmlRenderer>
-                    \\n      
+                    \\n
                     <HtmlRenderer
                       escapeHtml={false}
                       isBlock={false}
@@ -3276,7 +3276,7 @@ exports[`BlogPost component renders 1`] = `
                         key="1:1-1:53427"
                       />
                     </HtmlRenderer>
-                    \\n    
+                    \\n
                     <HtmlRenderer
                       escapeHtml={false}
                       isBlock={false}
@@ -3309,9 +3309,9 @@ exports[`BlogPost component renders 1`] = `
           </PreviewCard>
           <PreviewCard
             color="violet"
-            content="<img class='preview-card-image' src='https://s3.amazonaws.com/quill-image-uploads/uploads/files/Cover__7_.png' />\\\\n    <div class='preview-card-body'>\\\\n       <h3>Student Center Video 📹 | Why is Writing Important?</h3>\\\\n       <p>This video from the Student Center discusses why writing is important and provides an example of writing a strong sentence.</p>\\\\n       <span/>\\\\n    </div>\\\\n    <div class='preview-card-footer'>\\\\n      <p class='author'>by Sherry L.</p>\\\\n    </div>"
+            content="<img class='preview-card-image' src='https://s3.amazonaws.com/quill-image-uploads/uploads/files/Cover__7_.png' />\\\\n    <div class='preview-card-body'>\\\\n       <h3>Student Center Video 📹 | Why is Writing important?</h3>\\\\n       <p>This video from the Student Center discusses why writing is important and provides an example of writing a strong sentence.</p>\\\\n       <span/>\\\\n    </div>\\\\n    <div class='preview-card-footer'>\\\\n      <p class='author'>by Sherry L.</p>\\\\n    </div>"
             externalLink={false}
-            key="Student Center Video 📹 | Why is Writing Important?"
+            key="Student Center Video 📹 | Why is Writing important?"
             link="/teacher-center/student-center-video---why-is-writing-important"
           >
             <a
@@ -3323,7 +3323,7 @@ exports[`BlogPost component renders 1`] = `
                 className="preview-card"
                 containerTagName="div"
                 parserOptions={Object {}}
-                source="<img class='preview-card-image' src='https://s3.amazonaws.com/quill-image-uploads/uploads/files/Cover__7_.png' />\\\\n    <div class='preview-card-body'>\\\\n       <h3>Student Center Video 📹 | Why is Writing Important?</h3>\\\\n       <p>This video from the Student Center discusses why writing is important and provides an example of writing a strong sentence.</p>\\\\n       <span/>\\\\n    </div>\\\\n    <div class='preview-card-footer'>\\\\n      <p class='author'>by Sherry L.</p>\\\\n    </div>"
+                source="<img class='preview-card-image' src='https://s3.amazonaws.com/quill-image-uploads/uploads/files/Cover__7_.png' />\\\\n    <div class='preview-card-body'>\\\\n       <h3>Student Center Video 📹 | Why is Writing important?</h3>\\\\n       <p>This video from the Student Center discusses why writing is important and provides an example of writing a strong sentence.</p>\\\\n       <span/>\\\\n    </div>\\\\n    <div class='preview-card-footer'>\\\\n      <p class='author'>by Sherry L.</p>\\\\n    </div>"
               >
                 <div
                   className="preview-card"
@@ -3348,7 +3348,7 @@ exports[`BlogPost component renders 1`] = `
                         key="1:1-1:4791"
                       />
                     </HtmlRenderer>
-                    \\n    
+                    \\n
                     <HtmlRenderer
                       escapeHtml={false}
                       isBlock={false}
@@ -3366,7 +3366,7 @@ exports[`BlogPost component renders 1`] = `
                         key="1:1-1:4794"
                       />
                     </HtmlRenderer>
-                    \\n       
+                    \\n
                     <HtmlRenderer
                       escapeHtml={false}
                       isBlock={false}
@@ -3384,7 +3384,7 @@ exports[`BlogPost component renders 1`] = `
                         key="1:1-1:4797"
                       />
                     </HtmlRenderer>
-                    Student Center Video 📹 | Why is Writing Important?
+                    Student Center Video 📹 | Why is Writing important?
                     <HtmlRenderer
                       escapeHtml={false}
                       isBlock={false}
@@ -3402,7 +3402,7 @@ exports[`BlogPost component renders 1`] = `
                         key="1:1-1:4799"
                       />
                     </HtmlRenderer>
-                    \\n       
+                    \\n
                     <HtmlRenderer
                       escapeHtml={false}
                       isBlock={false}
@@ -3438,7 +3438,7 @@ exports[`BlogPost component renders 1`] = `
                         key="1:1-1:47914"
                       />
                     </HtmlRenderer>
-                    \\n       
+                    \\n
                     <HtmlRenderer
                       escapeHtml={false}
                       isBlock={false}
@@ -3456,7 +3456,7 @@ exports[`BlogPost component renders 1`] = `
                         key="1:1-1:47917"
                       />
                     </HtmlRenderer>
-                    \\n    
+                    \\n
                     <HtmlRenderer
                       escapeHtml={false}
                       isBlock={false}
@@ -3474,7 +3474,7 @@ exports[`BlogPost component renders 1`] = `
                         key="1:1-1:47920"
                       />
                     </HtmlRenderer>
-                    \\n    
+                    \\n
                     <HtmlRenderer
                       escapeHtml={false}
                       isBlock={false}
@@ -3492,7 +3492,7 @@ exports[`BlogPost component renders 1`] = `
                         key="1:1-1:47923"
                       />
                     </HtmlRenderer>
-                    \\n      
+                    \\n
                     <HtmlRenderer
                       escapeHtml={false}
                       isBlock={false}
@@ -3528,7 +3528,7 @@ exports[`BlogPost component renders 1`] = `
                         key="1:1-1:47928"
                       />
                     </HtmlRenderer>
-                    \\n    
+                    \\n
                     <HtmlRenderer
                       escapeHtml={false}
                       isBlock={false}
@@ -3600,7 +3600,7 @@ exports[`BlogPost component renders 1`] = `
                         key="1:1-1:4701"
                       />
                     </HtmlRenderer>
-                    \\n    
+                    \\n
                     <HtmlRenderer
                       escapeHtml={false}
                       isBlock={false}
@@ -3618,7 +3618,7 @@ exports[`BlogPost component renders 1`] = `
                         key="1:1-1:4704"
                       />
                     </HtmlRenderer>
-                    \\n       
+                    \\n
                     <HtmlRenderer
                       escapeHtml={false}
                       isBlock={false}
@@ -3654,7 +3654,7 @@ exports[`BlogPost component renders 1`] = `
                         key="1:1-1:4709"
                       />
                     </HtmlRenderer>
-                    \\n       
+                    \\n
                     <HtmlRenderer
                       escapeHtml={false}
                       isBlock={false}
@@ -3690,7 +3690,7 @@ exports[`BlogPost component renders 1`] = `
                         key="1:1-1:47017"
                       />
                     </HtmlRenderer>
-                    \\n       
+                    \\n
                     <HtmlRenderer
                       escapeHtml={false}
                       isBlock={false}
@@ -3708,7 +3708,7 @@ exports[`BlogPost component renders 1`] = `
                         key="1:1-1:47020"
                       />
                     </HtmlRenderer>
-                    \\n    
+                    \\n
                     <HtmlRenderer
                       escapeHtml={false}
                       isBlock={false}
@@ -3726,7 +3726,7 @@ exports[`BlogPost component renders 1`] = `
                         key="1:1-1:47023"
                       />
                     </HtmlRenderer>
-                    \\n    
+                    \\n
                     <HtmlRenderer
                       escapeHtml={false}
                       isBlock={false}
@@ -3744,7 +3744,7 @@ exports[`BlogPost component renders 1`] = `
                         key="1:1-1:47026"
                       />
                     </HtmlRenderer>
-                    \\n      
+                    \\n
                     <HtmlRenderer
                       escapeHtml={false}
                       isBlock={false}
@@ -3780,7 +3780,7 @@ exports[`BlogPost component renders 1`] = `
                         key="1:1-1:47031"
                       />
                     </HtmlRenderer>
-                    \\n    
+                    \\n
                     <HtmlRenderer
                       escapeHtml={false}
                       isBlock={false}
@@ -3852,7 +3852,7 @@ exports[`BlogPost component renders 1`] = `
                         key="1:1-1:5071"
                       />
                     </HtmlRenderer>
-                    \\n    
+                    \\n
                     <HtmlRenderer
                       escapeHtml={false}
                       isBlock={false}
@@ -3870,7 +3870,7 @@ exports[`BlogPost component renders 1`] = `
                         key="1:1-1:5074"
                       />
                     </HtmlRenderer>
-                    \\n       
+                    \\n
                     <HtmlRenderer
                       escapeHtml={false}
                       isBlock={false}
@@ -3906,7 +3906,7 @@ exports[`BlogPost component renders 1`] = `
                         key="1:1-1:5079"
                       />
                     </HtmlRenderer>
-                    \\n       
+                    \\n
                     <HtmlRenderer
                       escapeHtml={false}
                       isBlock={false}
@@ -3924,7 +3924,7 @@ exports[`BlogPost component renders 1`] = `
                         key="1:1-1:50712"
                       />
                     </HtmlRenderer>
-                    Create a writing classroom at home for your school-age learner and develop a personalized learning plan with the help of Quill's diagnostic assessments. 
+                    Create a writing classroom at home for your school-age learner and develop a personalized learning plan with the help of Quill's diagnostic assessments.
                     <HtmlRenderer
                       escapeHtml={false}
                       isBlock={false}
@@ -3942,7 +3942,7 @@ exports[`BlogPost component renders 1`] = `
                         key="1:1-1:50716"
                       />
                     </HtmlRenderer>
-                    \\n       
+                    \\n
                     <HtmlRenderer
                       escapeHtml={false}
                       isBlock={false}
@@ -3960,7 +3960,7 @@ exports[`BlogPost component renders 1`] = `
                         key="1:1-1:50719"
                       />
                     </HtmlRenderer>
-                    \\n    
+                    \\n
                     <HtmlRenderer
                       escapeHtml={false}
                       isBlock={false}
@@ -3978,7 +3978,7 @@ exports[`BlogPost component renders 1`] = `
                         key="1:1-1:50722"
                       />
                     </HtmlRenderer>
-                    \\n    
+                    \\n
                     <HtmlRenderer
                       escapeHtml={false}
                       isBlock={false}
@@ -3996,7 +3996,7 @@ exports[`BlogPost component renders 1`] = `
                         key="1:1-1:50725"
                       />
                     </HtmlRenderer>
-                    \\n      
+                    \\n
                     <HtmlRenderer
                       escapeHtml={false}
                       isBlock={false}
@@ -4032,7 +4032,7 @@ exports[`BlogPost component renders 1`] = `
                         key="1:1-1:50730"
                       />
                     </HtmlRenderer>
-                    \\n    
+                    \\n
                     <HtmlRenderer
                       escapeHtml={false}
                       isBlock={false}
@@ -4104,7 +4104,7 @@ exports[`BlogPost component renders 1`] = `
                         key="1:1-1:4581"
                       />
                     </HtmlRenderer>
-                    \\n    
+                    \\n
                     <HtmlRenderer
                       escapeHtml={false}
                       isBlock={false}
@@ -4122,7 +4122,7 @@ exports[`BlogPost component renders 1`] = `
                         key="1:1-1:4584"
                       />
                     </HtmlRenderer>
-                    \\n       
+                    \\n
                     <HtmlRenderer
                       escapeHtml={false}
                       isBlock={false}
@@ -4140,7 +4140,7 @@ exports[`BlogPost component renders 1`] = `
                         key="1:1-1:4587"
                       />
                     </HtmlRenderer>
-                    📋  PDF  |  Quill Premium Resources 
+                    📋  PDF  |  Quill Premium Resources
                     <HtmlRenderer
                       escapeHtml={false}
                       isBlock={false}
@@ -4158,7 +4158,7 @@ exports[`BlogPost component renders 1`] = `
                         key="1:1-1:4589"
                       />
                     </HtmlRenderer>
-                    \\n       
+                    \\n
                     <HtmlRenderer
                       escapeHtml={false}
                       isBlock={false}
@@ -4176,7 +4176,7 @@ exports[`BlogPost component renders 1`] = `
                         key="1:1-1:45812"
                       />
                     </HtmlRenderer>
-                    This PDF contains links to informational resources about Quill Premium that you can share with your school or team. 
+                    This PDF contains links to informational resources about Quill Premium that you can share with your school or team.
                     <HtmlRenderer
                       escapeHtml={false}
                       isBlock={false}
@@ -4194,7 +4194,7 @@ exports[`BlogPost component renders 1`] = `
                         key="1:1-1:45814"
                       />
                     </HtmlRenderer>
-                    \\n       
+                    \\n
                     <HtmlRenderer
                       escapeHtml={false}
                       isBlock={false}
@@ -4212,7 +4212,7 @@ exports[`BlogPost component renders 1`] = `
                         key="1:1-1:45817"
                       />
                     </HtmlRenderer>
-                    \\n    
+                    \\n
                     <HtmlRenderer
                       escapeHtml={false}
                       isBlock={false}
@@ -4230,7 +4230,7 @@ exports[`BlogPost component renders 1`] = `
                         key="1:1-1:45820"
                       />
                     </HtmlRenderer>
-                    \\n    
+                    \\n
                     <HtmlRenderer
                       escapeHtml={false}
                       isBlock={false}
@@ -4248,7 +4248,7 @@ exports[`BlogPost component renders 1`] = `
                         key="1:1-1:45823"
                       />
                     </HtmlRenderer>
-                    \\n      
+                    \\n
                     <HtmlRenderer
                       escapeHtml={false}
                       isBlock={false}
@@ -4284,7 +4284,7 @@ exports[`BlogPost component renders 1`] = `
                         key="1:1-1:45828"
                       />
                     </HtmlRenderer>
-                    \\n    
+                    \\n
                     <HtmlRenderer
                       escapeHtml={false}
                       isBlock={false}
@@ -4356,7 +4356,7 @@ exports[`BlogPost component renders 1`] = `
                         key="1:1-1:5351"
                       />
                     </HtmlRenderer>
-                    \\n    
+                    \\n
                     <HtmlRenderer
                       escapeHtml={false}
                       isBlock={false}
@@ -4374,7 +4374,7 @@ exports[`BlogPost component renders 1`] = `
                         key="1:1-1:5354"
                       />
                     </HtmlRenderer>
-                    \\n       
+                    \\n
                     <HtmlRenderer
                       escapeHtml={false}
                       isBlock={false}
@@ -4410,7 +4410,7 @@ exports[`BlogPost component renders 1`] = `
                         key="1:1-1:53511"
                       />
                     </HtmlRenderer>
-                    \\n       
+                    \\n
                     <HtmlRenderer
                       escapeHtml={false}
                       isBlock={false}
@@ -4428,7 +4428,7 @@ exports[`BlogPost component renders 1`] = `
                         key="1:1-1:53514"
                       />
                     </HtmlRenderer>
-                    Quill has 5 different tools and over 700 activities to help students become strong writers. Read on for a comprehensive list of resources to help you use Quill with your English Language Learners. 
+                    Quill has 5 different tools and over 700 activities to help students become strong writers. Read on for a comprehensive list of resources to help you use Quill with your English Language Learners.
                     <HtmlRenderer
                       escapeHtml={false}
                       isBlock={false}
@@ -4446,7 +4446,7 @@ exports[`BlogPost component renders 1`] = `
                         key="1:1-1:53516"
                       />
                     </HtmlRenderer>
-                    \\n       
+                    \\n
                     <HtmlRenderer
                       escapeHtml={false}
                       isBlock={false}
@@ -4464,7 +4464,7 @@ exports[`BlogPost component renders 1`] = `
                         key="1:1-1:53519"
                       />
                     </HtmlRenderer>
-                    \\n    
+                    \\n
                     <HtmlRenderer
                       escapeHtml={false}
                       isBlock={false}
@@ -4482,7 +4482,7 @@ exports[`BlogPost component renders 1`] = `
                         key="1:1-1:53522"
                       />
                     </HtmlRenderer>
-                    \\n    
+                    \\n
                     <HtmlRenderer
                       escapeHtml={false}
                       isBlock={false}
@@ -4500,7 +4500,7 @@ exports[`BlogPost component renders 1`] = `
                         key="1:1-1:53525"
                       />
                     </HtmlRenderer>
-                    \\n      
+                    \\n
                     <HtmlRenderer
                       escapeHtml={false}
                       isBlock={false}
@@ -4536,7 +4536,7 @@ exports[`BlogPost component renders 1`] = `
                         key="1:1-1:53530"
                       />
                     </HtmlRenderer>
-                    \\n    
+                    \\n
                     <HtmlRenderer
                       escapeHtml={false}
                       isBlock={false}

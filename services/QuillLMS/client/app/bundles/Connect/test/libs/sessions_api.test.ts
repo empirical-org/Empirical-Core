@@ -1,6 +1,6 @@
 import {
-  mockRequestGet,
-  mockRequestPut,
+    mockRequestGet,
+    mockRequestPut
 } from '../__mocks__/request_wrapper'
 jest.mock('../../../../modules/request/index', () => ({
   requestGet: mockRequestGet,
@@ -8,8 +8,8 @@ jest.mock('../../../../modules/request/index', () => ({
 }))
 
 import {
-  SessionApi,
-  sessionApiBaseUrl,
+    SessionApi,
+    sessionApiBaseUrl
 } from '../../libs/sessions_api'
 
 describe('SessionApi calls', () => {

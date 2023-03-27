@@ -1,7 +1,7 @@
 import * as React from 'react'
 
-import { whiteCheckGreenBackgroundIcon, READ_PASSAGE_STEP_NUMBER, BECAUSE_PASSAGE_STEP_NUMBER, BUT_PASSAGE_STEP_NUMBER, SO_PASSAGE_STEP_NUMBER } from '../../../Shared/index'
 import useFocus from '../../../Shared/hooks/useFocus'
+import { BECAUSE_PASSAGE_STEP_NUMBER, BUT_PASSAGE_STEP_NUMBER, READ_PASSAGE_STEP_NUMBER, SO_PASSAGE_STEP_NUMBER, whiteCheckGreenBackgroundIcon } from '../../../Shared/index'
 
 const steps = {
   [READ_PASSAGE_STEP_NUMBER]: {

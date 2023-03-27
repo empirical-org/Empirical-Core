@@ -1,9 +1,9 @@
 import * as React from 'react';
 
-import { Input, Snackbar, defaultSnackbarTimeout, Spinner } from '../../Shared';
-import useSnackbarMonitor from '../../Shared/hooks/useSnackbarMonitor'
-import { InputEvent } from '../interfaces/evidenceInterfaces';
 import { requestPost } from '../../../modules/request';
+import { defaultSnackbarTimeout, Input, Snackbar, Spinner } from '../../Shared';
+import useSnackbarMonitor from '../../Shared/hooks/useSnackbarMonitor';
+import { InputEvent } from '../interfaces/evidenceInterfaces';
 
 const ADMIN = 'admin';
 

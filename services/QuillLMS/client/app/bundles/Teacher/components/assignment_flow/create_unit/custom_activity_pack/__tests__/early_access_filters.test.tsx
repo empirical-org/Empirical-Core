@@ -1,10 +1,10 @@
-import * as React from 'react'
 import { mount } from 'enzyme';
+import * as React from 'react';
 
-import { activities } from './data'
+import { activities } from './data';
 
-import EarlyAccessFilters from '../early_access_filters'
-import { EVIDENCE_BETA1, EVIDENCE_BETA2, } from '../../../../../../../constants/flagOptions'
+import { EVIDENCE_BETA1, EVIDENCE_BETA2 } from '../../../../../../../constants/flagOptions';
+import EarlyAccessFilters from '../early_access_filters';
 
 function filterActivities(ignoredKey=null) { return activities }
 

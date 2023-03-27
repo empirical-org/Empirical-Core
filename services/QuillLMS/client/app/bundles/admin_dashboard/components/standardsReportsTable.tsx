@@ -1,7 +1,7 @@
 import * as React from 'react';
 
+import { ReactTable } from '../../Shared/index';
 import EmptyStateForReport from '../../Teacher/components/progress_reports/empty_state_for_report';
-import { ReactTable, } from '../../Shared/index'
 import { getTimeSpent } from '../../Teacher/helpers/studentReports';
 
 export const StandardsReportsTable = ({ data, isFreemiumView }) => {

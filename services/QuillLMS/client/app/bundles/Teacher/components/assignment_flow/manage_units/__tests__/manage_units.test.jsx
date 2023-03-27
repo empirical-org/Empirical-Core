@@ -3,8 +3,8 @@
 // (See https://github.com/empirical-org/Empirical-Core/issues/3019
 // under the 'High Priority' heading for more information.)
 
-import React from 'react';
 import { shallow } from 'enzyme';
+import React from 'react';
 
 import ManageUnits from '../manage_units.jsx';
 

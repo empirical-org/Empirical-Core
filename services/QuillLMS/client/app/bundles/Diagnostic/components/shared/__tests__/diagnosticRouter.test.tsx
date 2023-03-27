@@ -1,8 +1,8 @@
-import * as React from 'react';
 import { shallow } from 'enzyme';
+import * as React from 'react';
 
-import { DiagnosticRouter } from '../diagnosticRouter';
 import { SmartSpinner } from '../../../../Shared/index';
+import { DiagnosticRouter } from '../diagnosticRouter';
 
 let mockProps = {
   children: null,

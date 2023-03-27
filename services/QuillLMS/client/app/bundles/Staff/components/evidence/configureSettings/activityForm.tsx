@@ -1,19 +1,18 @@
+import { ContentState, EditorState } from 'draft-js';
 import * as React from "react";
-import { EditorState, ContentState } from 'draft-js';
-import * as _ from 'lodash'
 
+import ImageSection from "./imageSection";
+import MaxAttemptsEditor from "./maxAttemptsEditor";
 import PromptsForm from './promptsForm';
 import UpperFormSection from './upperFormSection';
-import MaxAttemptsEditor from "./maxAttemptsEditor";
-import ImageSection from "./imageSection";
 
-import { validateForm, buildActivity, validateFormSection } from '../../../helpers/evidence/miscHelpers';
-import { renderInvalidHighlightLinks} from '../../../helpers/evidence/renderHelpers';
-import { getActivityPrompt, promptsByConjunction, buildBlankPrompt, getActivityPromptSetter, trimmedPrompt  } from '../../../helpers/evidence/promptHelpers';
-import { BECAUSE, BUT, SO, activityFormKeys, PASSAGE, HIGHLIGHT_PROMPT, BUILDING_ESSENTIAL_KNOWLEDGE, HIGHLIGHTING_PROMPT, IMAGE, MAX_ATTEMPTS_FEEDBACK, BREAK_TAG, TEXT, PROMPTS } from '../../../../../constants/evidence';
-import { ActivityInterface, PromptInterface, PassagesInterface, InputEvent, ClickEvent,  TextAreaEvent } from '../../../interfaces/evidenceInterfaces';
-import { Input, TextEditor, ToggleComponentSection, DataTable, titleCase } from '../../../../Shared/index'
-import { DEFAULT_HIGHLIGHT_PROMPT } from '../../../../Shared/utils/constants'
+import { activityFormKeys, BECAUSE, BREAK_TAG, BUILDING_ESSENTIAL_KNOWLEDGE, BUT, HIGHLIGHTING_PROMPT, HIGHLIGHT_PROMPT, IMAGE, MAX_ATTEMPTS_FEEDBACK, PASSAGE, PROMPTS, SO, TEXT } from '../../../../../constants/evidence';
+import { DataTable, Input, TextEditor, titleCase, ToggleComponentSection } from '../../../../Shared/index';
+import { DEFAULT_HIGHLIGHT_PROMPT } from '../../../../Shared/utils/constants';
+import { buildActivity, validateForm, validateFormSection } from '../../../helpers/evidence/miscHelpers';
+import { buildBlankPrompt, getActivityPrompt, getActivityPromptSetter, promptsByConjunction, trimmedPrompt } from '../../../helpers/evidence/promptHelpers';
+import { renderInvalidHighlightLinks } from '../../../helpers/evidence/renderHelpers';
+import { ActivityInterface, ClickEvent, InputEvent, PassagesInterface, PromptInterface, TextAreaEvent } from '../../../interfaces/evidenceInterfaces';
 
 interface ActivityFormProps {
   activity: ActivityInterface,

@@ -1,6 +1,6 @@
-import React from 'react';
 import moment from 'moment';
 import pluralize from 'pluralize';
+import React from 'react';
 
 const PremiumCreditsTable = ({ premiumCredits, earnedCredits, }) => {
   const renderPremiumCreditsTable = () => {

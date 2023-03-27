@@ -1,5 +1,5 @@
+import { apiFetch, handleApiError, handleRequestErrors, requestFailed } from '../../helpers/evidence/routingHelpers';
 import { HintInterface } from '../../interfaces/evidenceInterfaces';
-import { handleApiError, apiFetch, handleRequestErrors, requestFailed } from '../../helpers/evidence/routingHelpers';
 
 export const fetchHints = async () => {
   const response = await apiFetch(`hints`);

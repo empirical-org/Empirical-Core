@@ -12,4 +12,5 @@ const Modal = (props: any) => (
   </div>
 )
 
-export { Modal }
+export { Modal };
+

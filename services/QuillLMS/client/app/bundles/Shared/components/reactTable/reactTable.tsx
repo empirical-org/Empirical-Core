@@ -1,7 +1,7 @@
 import * as React from "react";
-import { useTable, useSortBy, usePagination, useFilters, useExpanded, useGroupBy, } from "react-table";
+import { useExpanded, useFilters, useGroupBy, usePagination, useSortBy, useTable } from "react-table";
 
-import ReactTablePagination from './reactTablePagination'
+import ReactTablePagination from './reactTablePagination';
 
 import { NumberFilterInputProps } from "../../interfaces";
 

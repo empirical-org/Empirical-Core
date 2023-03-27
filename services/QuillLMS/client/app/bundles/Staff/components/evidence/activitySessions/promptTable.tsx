@@ -1,13 +1,13 @@
 import * as React from "react";
-import stripHtml from "string-strip-html";
+import { useQueryClient } from 'react-query';
 import { Link } from 'react-router-dom';
-import { useQueryClient, } from 'react-query';
+import stripHtml from "string-strip-html";
 
-import { createOrUpdateFeedbackHistoryRating } from '../../../utils/evidence/feedbackHistoryRatingAPIs';
-import { DataTable, Spinner, ButtonLoadingSpinner } from '../../../../Shared/index';
-import { PROMPT_ATTEMPTS_FEEDBACK_LABELS, PROMPT_HEADER_LABELS, DEFAULT_MAX_ATTEMPTS, NONE, STRONG, WEAK } from '../../../../../constants/evidence';
-import { ActivityInterface, PromptInterface, RuleInterface } from "../../../interfaces/evidenceInterfaces";
+import { DEFAULT_MAX_ATTEMPTS, NONE, PROMPT_ATTEMPTS_FEEDBACK_LABELS, PROMPT_HEADER_LABELS, STRONG, WEAK } from '../../../../../constants/evidence';
+import { ButtonLoadingSpinner, DataTable, Spinner } from '../../../../Shared/index';
 import { getCheckIcon } from "../../../helpers/evidence/renderHelpers";
+import { ActivityInterface, PromptInterface, RuleInterface } from "../../../interfaces/evidenceInterfaces";
+import { createOrUpdateFeedbackHistoryRating } from '../../../utils/evidence/feedbackHistoryRatingAPIs';
 
 interface PromptTableProps {
   activity: ActivityInterface;

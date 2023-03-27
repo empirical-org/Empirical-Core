@@ -1,6 +1,6 @@
 import * as React from 'react'
 
-import { LESSONS, EVIDENCE } from '../../../Shared'
+import { EVIDENCE, LESSONS } from '../../../Shared'
 
 const quillLessonsTeacherSrc = `${import.meta.env.VITE_PROCESS_ENV_CDN_URL}/images/illustrations/quill-lessons-teacher.svg`
 const headerOptions = {

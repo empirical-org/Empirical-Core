@@ -1,16 +1,12 @@
+import _ from 'lodash';
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
-import _ from 'lodash'
 import {
-  addLesson
-} from '../../../actions/classroomLesson'
-import {
-  startListeningToEditionMetadata
-} from '../../../actions/customize'
-import {
-  listenForClassroomLessons,
-  listenForClassroomLessonReviews
+    addLesson, listenForClassroomLessonReviews, listenForClassroomLessons
 } from '../../../actions/classroomLesson';
+import {
+    startListeningToEditionMetadata
+} from '../../../actions/customize';
 
 class ClassLessonsIndex extends Component<any, any> {
   constructor(props) {

@@ -1,14 +1,9 @@
 import * as React from 'react'
 
-import {
-  UNNECESSARY_SPACE,
-  MULTIPLE_UNNECESSARY_DELETION,
-  SINGLE_UNNECESSARY_DELETION,
-  MULTIPLE_UNNECESSARY_ADDITION,
-  SINGLE_UNNECESSARY_ADDITION,
-  UNNECESSARY_CHANGE
-} from '../../helpers/determineUnnecessaryEditType'
 import useFocus from '../../../Shared/hooks/useFocus'
+import {
+    MULTIPLE_UNNECESSARY_ADDITION, MULTIPLE_UNNECESSARY_DELETION, SINGLE_UNNECESSARY_ADDITION, SINGLE_UNNECESSARY_DELETION, UNNECESSARY_CHANGE, UNNECESSARY_SPACE
+} from '../../helpers/determineUnnecessaryEditType'
 
 const notNecessaryIconSrc = `${import.meta.env.VITE_PROCESS_ENV_CDN_URL}/images/icons/review-not-necessary.svg`
 const incorrectIconSrc = `${import.meta.env.VITE_PROCESS_ENV_CDN_URL}/images/icons/review-incorrect.svg`

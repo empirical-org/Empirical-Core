@@ -1,8 +1,8 @@
-import dispatch from '../../__mocks__/dispatch'
+import { requestGet } from '../../../../modules/request/index'
 import { getActivity } from '../../actions/activities'
 import { TrackAnalyticsEvent } from '../../actions/analytics'
 import { Events } from '../../modules/analytics'
-import { requestGet, } from '../../../../modules/request/index'
+import dispatch from '../../__mocks__/dispatch'
 
 jest.mock('../../../../modules/request/index', () => ({
   requestGet: jest.fn()

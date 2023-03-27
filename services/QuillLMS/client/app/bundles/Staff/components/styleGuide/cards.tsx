@@ -1,5 +1,5 @@
 import * as React from "react";
-import { Card } from '../../../Shared/index'
+import { Card } from '../../../Shared/index';
 
 const Cards = () => {
   return (

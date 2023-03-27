@@ -10,8 +10,7 @@ component must have the following API -
 */
 'use strict';
 
-import _ from 'underscore'
-import $ from 'jquery'
+import $ from 'jquery';
 export default function () {
 
   let _scrollComputation = function (selector, component) {

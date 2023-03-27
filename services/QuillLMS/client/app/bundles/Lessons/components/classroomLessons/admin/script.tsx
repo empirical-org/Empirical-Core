@@ -1,4 +1,4 @@
-import * as React from 'react'
+import * as React from 'react';
 import { SortableList } from '../../../../Shared/index';
 
 class Script extends React.Component<any, any> {

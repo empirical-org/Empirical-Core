@@ -1,10 +1,10 @@
-import React from 'react'
-import moment from 'moment'
 import * as _ from 'lodash'
+import moment from 'moment'
+import React from 'react'
 
-import CategoryLabel from '../category_label'
-import { imageTagForClassification, READING_TEXTS } from '../assignmentFlowConstants'
 import { hexToRGBA } from '../../../../Shared'
+import { imageTagForClassification, READING_TEXTS } from '../assignmentFlowConstants'
+import CategoryLabel from '../category_label'
 
 const cutOffTimeForNew = moment().subtract(1, 'months').unix()
 const DEFAULT_ACTIVITY_PACK_IMAGE_LINKS = {

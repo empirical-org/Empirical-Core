@@ -2,15 +2,14 @@ import * as React from "react";
 import { useQuery } from 'react-query';
 import { firstBy } from 'thenby';
 
-import FilterWidget from "../shared/filterWidget";
-import { getVersionOptions, handlePageFilterClick, activitySessionIndexResponseHeaders, colorCodeAttemptsCount, formatSessionsData } from "../../../helpers/evidence/miscHelpers";
-import { renderHeader } from "../../../helpers/evidence/renderHelpers";
-import { Error, Spinner, DropdownInput, ReactTable, Tooltip, informationIcon, Snackbar, defaultSnackbarTimeout, } from '../../../../Shared/index';
-import { fetchActivity, fetchActivitySessions, fetchActivityVersions, emailActivitySessionsDataForCSV } from '../../../utils/evidence/activityAPIs';
-import { DropdownObjectInterface, ActivitySessionInterface, ActivitySessionsInterface } from '../../../interfaces/evidenceInterfaces';
 import { activitySessionFilterOptions, SESSION_INDEX } from '../../../../../constants/evidence';
-import { renderCSVDownloadButton } from "../../../helpers/evidence/miscHelpers";
-import useSnackbarMonitor from '../../../../Shared/hooks/useSnackbarMonitor'
+import useSnackbarMonitor from '../../../../Shared/hooks/useSnackbarMonitor';
+import { defaultSnackbarTimeout, DropdownInput, Error, informationIcon, ReactTable, Snackbar, Spinner, Tooltip } from '../../../../Shared/index';
+import { activitySessionIndexResponseHeaders, formatSessionsData, getVersionOptions, handlePageFilterClick, renderCSVDownloadButton } from "../../../helpers/evidence/miscHelpers";
+import { renderHeader } from "../../../helpers/evidence/renderHelpers";
+import { ActivitySessionInterface, ActivitySessionsInterface, DropdownObjectInterface } from '../../../interfaces/evidenceInterfaces';
+import { emailActivitySessionsDataForCSV, fetchActivity, fetchActivitySessions, fetchActivityVersions } from '../../../utils/evidence/activityAPIs';
+import FilterWidget from "../shared/filterWidget";
 
 const SessionsIndex = ({ match }) => {
   const { params } = match;

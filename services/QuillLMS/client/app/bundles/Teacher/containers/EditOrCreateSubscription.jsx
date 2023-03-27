@@ -1,11 +1,11 @@
-import React from 'react';
-import { SingleDatePicker } from 'react-dates'
 import _ from 'lodash';
-import { DataTable } from '../../Shared/index'
-import ItemDropdown from '../components/general_components/dropdown_selectors/item_dropdown.jsx';
 import moment from 'moment';
+import React from 'react';
+import { SingleDatePicker } from 'react-dates';
+import { DataTable } from '../../Shared/index';
+import ItemDropdown from '../components/general_components/dropdown_selectors/item_dropdown.jsx';
 
-import { requestPut, requestPost, } from '../../../modules/request/index'
+import { requestPost, requestPut } from '../../../modules/request/index';
 
 export default class EditOrCreateSubscription extends React.Component {
   constructor(props) {

@@ -1,9 +1,9 @@
 import * as React from 'react';
 
-import { Activity, Topic } from './interfaces'
-import { TOPIC_FILTERS, AVERAGE_FONT_WIDTH, activityClassificationGroupings, } from './shared'
+import { Activity, Topic } from './interfaces';
+import { AVERAGE_FONT_WIDTH, TOPIC_FILTERS } from './shared';
 
-import { Tooltip } from '../../../../../Shared/index'
+import { Tooltip } from '../../../../../Shared/index';
 
 const dropdownIconSrc = `${import.meta.env.VITE_PROCESS_ENV_CDN_URL}/images/icons/dropdown.svg`
 const indeterminateSrc = `${import.meta.env.VITE_PROCESS_ENV_CDN_URL}/images/icons/indeterminate.svg`

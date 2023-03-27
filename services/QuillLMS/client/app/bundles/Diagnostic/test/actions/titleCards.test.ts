@@ -1,9 +1,9 @@
-import { mockTitleCardApi, } from '../__mocks__/title_card_api'
+import { mockTitleCardApi } from '../__mocks__/title_card_api'
 jest.mock('../../libs/title_cards_api', () => ({
   TitleCardApi: mockTitleCardApi,
 }))
 
-import { mockDispatch as dispatch, } from '../__mocks__/dispatch'
+import { mockDispatch as dispatch } from '../__mocks__/dispatch'
 
 import { CONNECT_TITLE_CARD_TYPE } from '../../libs/title_cards_api'
 

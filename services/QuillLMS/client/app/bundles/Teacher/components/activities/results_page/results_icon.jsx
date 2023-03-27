@@ -1,6 +1,6 @@
 'use strict'
-import React from 'react'
-import ScoreColor from '../../modules/score_color.js'
+import React from 'react';
+import ScoreColor from '../../modules/score_color.js';
 
 export default class ResultsIcon extends React.Component {
   backgroundColor = () => {

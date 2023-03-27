@@ -1,11 +1,11 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`ImportGoogleClassroomsModal component #handleClickImportClasses should set a classroom that is checked but has no grade to have an error 1`] = `
-<ImportGoogleClassroomsModal
+exports[`importGoogleClassroomsModal component #handleClickimportClasses should set a classroom that is checked but has no grade to have an error 1`] = `
+<importGoogleClassroomsModal
   classrooms={
     Array [
       Object {
-        "alreadyImported": true,
+        "alreadyimported": true,
         "checked": true,
         "creationTime": "2017-08-17T21:19:02.818Z",
         "error": "Select a grade for your class",
@@ -17,7 +17,7 @@ exports[`ImportGoogleClassroomsModal component #handleClickImportClasses should 
         "studentCount": 0,
       },
       Object {
-        "alreadyImported": true,
+        "alreadyimported": true,
         "creationTime": "2017-04-24T18:36:15.711Z",
         "grade": null,
         "id": 1986991936,
@@ -27,7 +27,7 @@ exports[`ImportGoogleClassroomsModal component #handleClickImportClasses should 
         "studentCount": 0,
       },
       Object {
-        "alreadyImported": true,
+        "alreadyimported": true,
         "creationTime": "2017-03-13T16:31:05.568Z",
         "grade": null,
         "id": 5145051365,
@@ -37,7 +37,7 @@ exports[`ImportGoogleClassroomsModal component #handleClickImportClasses should 
         "studentCount": 9,
       },
       Object {
-        "alreadyImported": true,
+        "alreadyimported": true,
         "creationTime": "2017-03-13T16:14:31.136Z",
         "grade": null,
         "id": 5144891078,
@@ -47,7 +47,7 @@ exports[`ImportGoogleClassroomsModal component #handleClickImportClasses should 
         "studentCount": 0,
       },
       Object {
-        "alreadyImported": true,
+        "alreadyimported": true,
         "creationTime": "2017-03-13T16:07:49.735Z",
         "grade": null,
         "id": 5144690989,
@@ -57,7 +57,7 @@ exports[`ImportGoogleClassroomsModal component #handleClickImportClasses should 
         "studentCount": 2,
       },
       Object {
-        "alreadyImported": true,
+        "alreadyimported": true,
         "creationTime": "2017-03-13T16:05:33.074Z",
         "grade": null,
         "id": 5145161709,
@@ -117,7 +117,7 @@ exports[`ImportGoogleClassroomsModal component #handleClickImportClasses should 
         <h3
           className="title"
         >
-          Import classes from Google Classroom
+          import classes from Google Classroom
         </h3>
       </div>
       <div
@@ -2062,21 +2062,21 @@ exports[`ImportGoogleClassroomsModal component #handleClickImportClasses should 
             onClick={[Function]}
             type="button"
           >
-            Import classes
+            import classes
           </button>
         </div>
       </div>
     </div>
   </div>
-</ImportGoogleClassroomsModal>
+</importGoogleClassroomsModal>
 `;
 
-exports[`ImportGoogleClassroomsModal component initial load should render 1`] = `
-<ImportGoogleClassroomsModal
+exports[`importGoogleClassroomsModal component initial load should render 1`] = `
+<importGoogleClassroomsModal
   classrooms={
     Array [
       Object {
-        "alreadyImported": true,
+        "alreadyimported": true,
         "checked": true,
         "creationTime": "2017-08-17T21:19:02.818Z",
         "grade": null,
@@ -2087,7 +2087,7 @@ exports[`ImportGoogleClassroomsModal component initial load should render 1`] = 
         "studentCount": 0,
       },
       Object {
-        "alreadyImported": true,
+        "alreadyimported": true,
         "creationTime": "2017-04-24T18:36:15.711Z",
         "grade": null,
         "id": 1986991936,
@@ -2097,7 +2097,7 @@ exports[`ImportGoogleClassroomsModal component initial load should render 1`] = 
         "studentCount": 0,
       },
       Object {
-        "alreadyImported": true,
+        "alreadyimported": true,
         "creationTime": "2017-03-13T16:31:05.568Z",
         "grade": null,
         "id": 5145051365,
@@ -2107,7 +2107,7 @@ exports[`ImportGoogleClassroomsModal component initial load should render 1`] = 
         "studentCount": 9,
       },
       Object {
-        "alreadyImported": true,
+        "alreadyimported": true,
         "creationTime": "2017-03-13T16:14:31.136Z",
         "grade": null,
         "id": 5144891078,
@@ -2117,7 +2117,7 @@ exports[`ImportGoogleClassroomsModal component initial load should render 1`] = 
         "studentCount": 0,
       },
       Object {
-        "alreadyImported": true,
+        "alreadyimported": true,
         "creationTime": "2017-03-13T16:07:49.735Z",
         "grade": null,
         "id": 5144690989,
@@ -2127,7 +2127,7 @@ exports[`ImportGoogleClassroomsModal component initial load should render 1`] = 
         "studentCount": 2,
       },
       Object {
-        "alreadyImported": true,
+        "alreadyimported": true,
         "creationTime": "2017-03-13T16:05:33.074Z",
         "grade": null,
         "id": 5145161709,
@@ -2187,7 +2187,7 @@ exports[`ImportGoogleClassroomsModal component initial load should render 1`] = 
         <h3
           className="title"
         >
-          Import classes from Google Classroom
+          import classes from Google Classroom
         </h3>
       </div>
       <div
@@ -2763,11 +2763,11 @@ exports[`ImportGoogleClassroomsModal component initial load should render 1`] = 
             onClick={[Function]}
             type="button"
           >
-            Import classes
+            import classes
           </button>
         </div>
       </div>
     </div>
   </div>
-</ImportGoogleClassroomsModal>
+</importGoogleClassroomsModal>
 `;

@@ -1,20 +1,20 @@
-import * as React from 'react'
 import Pusher from 'pusher-js';
+import * as React from 'react';
 
-import GradeOptions from './grade_options'
+import GradeOptions from './grade_options';
 
-import { DropdownInput, DataTable } from '../../../Shared/index'
-import ButtonLoadingIndicator from '../shared/button_loading_indicator'
 import { requestPost } from '../../../../modules/request/index';
+import { DataTable, DropdownInput } from '../../../Shared/index';
+import ButtonLoadingIndicator from '../shared/button_loading_indicator';
 
-interface ImportCleverClassroomsModalProps {
+interface importCleverClassroomsModalProps {
   close: (event) => void;
   onSuccess: (event) => void;
   classrooms: Array<any>;
   user: any;
 }
 
-interface ImportCleverClassroomsModalState {
+interface importCleverClassroomsModalState {
   classrooms: Array<any>;
   waiting: boolean;
   timesSubmitted: number;
@@ -37,7 +37,7 @@ const headers = [
   }
 ]
 
-export default class ImportCleverClassroomsModal extends React.Component<ImportCleverClassroomsModalProps, ImportCleverClassroomsModalState> {
+export default class importCleverClassroomsModal extends React.Component<importCleverClassroomsModalProps, importCleverClassroomsModalState> {
   constructor(props) {
     super(props)
 
@@ -90,7 +90,7 @@ export default class ImportCleverClassroomsModal extends React.Component<ImportC
     this.setState({ classrooms })
   }
 
-  initializePusherForCleverStudentImport(userId) {
+  initializePusherForCleverStudentimport(userId) {
     if (import.meta.env.RAILS_ENV === 'development') { Pusher.logToConsole = true }
 
     const pusher = new Pusher(import.meta.env.PUSHER_KEY, { encrypted: true, });
@@ -104,14 +104,14 @@ export default class ImportCleverClassroomsModal extends React.Component<ImportC
     })
   }
 
-  handleClickImportClasses = () => {
+  handleClickimportClasses = () => {
     const { classrooms } = this.state
     const selectedClassrooms = classrooms.filter(classroom => classroom.checked)
 
     this.setState({ waiting: true })
 
     requestPost('/clever_integration/teachers/import_classrooms', { selected_classrooms: selectedClassrooms }, body => {
-      this.initializePusherForCleverStudentImport(body.user_id)
+      this.initializePusherForCleverStudentimport(body.user_id)
     })
   }
 
@@ -158,7 +158,7 @@ export default class ImportCleverClassroomsModal extends React.Component<ImportC
     )
   }
 
-  renderImportButton() {
+  renderimportButton() {
     const { waiting } = this.state
     if (waiting) {
       return (
@@ -176,10 +176,10 @@ export default class ImportCleverClassroomsModal extends React.Component<ImportC
         <button
           className={this.footerButtonClass()}
           key="import-button"
-          onClick={this.handleClickImportClasses}
+          onClick={this.handleClickimportClasses}
           type="button"
         >
-          Import classes
+          import classes
         </button>
       )
     }
@@ -194,7 +194,7 @@ export default class ImportCleverClassroomsModal extends React.Component<ImportC
         <div className="import-clever-classrooms-modal quill-modal">
           <div className="import-clever-classrooms-modal-header">
             <h3 className="title">
-              Import classes from Clever
+              import classes from Clever
             </h3>
           </div>
           <div className="import-clever-classrooms-modal-body modal-body">
@@ -210,7 +210,7 @@ export default class ImportCleverClassroomsModal extends React.Component<ImportC
               >
                 Cancel
               </button>
-              {this.renderImportButton()}
+              {this.renderimportButton()}
             </div>
           </div>
         </div>

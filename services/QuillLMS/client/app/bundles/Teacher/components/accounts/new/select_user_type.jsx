@@ -1,8 +1,8 @@
 import * as React from 'react'
 
+import { requestPost } from '../../../../../modules/request/index'
+import { ADMIN, Card, INDIVIDUAL_CONTRIBUTOR, networkIcon, STUDENT, TEACHER } from '../../../../Shared/index'
 import AssignActivityPackBanner from '../assignActivityPackBanner'
-import { Card, networkIcon, STUDENT, TEACHER, INDIVIDUAL_CONTRIBUTOR, ADMIN } from '../../../../Shared/index'
-import { requestPost, } from '../../../../../modules/request/index'
 
 const studentPencilImg = `${import.meta.env.VITE_PROCESS_ENV_CDN_URL}/images/onboarding/student-pencil-colored.svg`
 const teacherChalkboardImg = `${import.meta.env.VITE_PROCESS_ENV_CDN_URL}/images/onboarding/teacher-chalkboard-colored.svg`

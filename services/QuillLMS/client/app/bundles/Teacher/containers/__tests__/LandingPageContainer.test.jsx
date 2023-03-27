@@ -1,11 +1,9 @@
-import React from 'react';
 import { shallow } from 'enzyme';
+import React from 'react';
 
 import LandingPageContainer from '../LandingPageContainer.jsx';
 
-import $ from 'jquery'
-import LandingPage from '../../components/progress_reports/landing_page.jsx'
-import LoadingIndicator from '../../components/shared/loading_indicator.jsx'
+import LandingPage from '../../components/progress_reports/landing_page.jsx';
 
 // This is a mock. We want to simulate a flag we set elsewhere.
 document.getElementById = () => { return { getAttribute: () => 'beta' } };

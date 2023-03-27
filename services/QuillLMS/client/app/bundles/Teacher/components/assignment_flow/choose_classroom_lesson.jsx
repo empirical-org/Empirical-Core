@@ -1,7 +1,7 @@
 import React from 'react';
 
-import LoadingSpinner from '../shared/loading_indicator'
-import { requestGet, } from '../../../../modules/request/index'
+import { requestGet } from '../../../../modules/request/index';
+import LoadingSpinner from '../shared/loading_indicator';
 
 export default class ChooseClassroomLesson extends React.Component {
   constructor(props) {

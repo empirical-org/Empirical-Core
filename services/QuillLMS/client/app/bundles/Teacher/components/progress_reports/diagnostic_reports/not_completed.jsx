@@ -1,5 +1,5 @@
-import React from 'react'
-import $ from 'jquery'
+import $ from 'jquery';
+import React from 'react';
 
 export default class extends React.Component {
   UNSAFE_componentWillMount = () => {

@@ -1,10 +1,10 @@
 import React from 'react';
-import AdminLessonSidebar from './adminLessonSidebar.jsx'
-import Question from '../questions/question';
-import TitleCardForm from '../titleCards/titleCardForm.tsx';
-import ShowTitleCard from '../titleCards/showTitleCard.tsx';
 import FillInBlankQuestion from '../fillInBlank/fillInBlankQuestion.jsx';
+import Question from '../questions/question';
 import SentenceFragment from '../sentenceFragments/sentenceFragment.jsx';
+import ShowTitleCard from '../titleCards/showTitleCard.tsx';
+import TitleCardForm from '../titleCards/titleCardForm.tsx';
+import AdminLessonSidebar from './adminLessonSidebar.jsx';
 
 import { Route, Switch, withRouter } from 'react-router-dom';
 

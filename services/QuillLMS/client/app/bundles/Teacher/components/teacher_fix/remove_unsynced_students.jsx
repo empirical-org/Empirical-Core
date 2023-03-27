@@ -1,6 +1,6 @@
 import React from 'react'
 
-import { requestGet, requestPost, } from '../../../../modules/request/index'
+import { requestGet, requestPost } from '../../../../modules/request/index'
 
 export default class RemoveUnsyncedStudents extends React.Component {
   state = {

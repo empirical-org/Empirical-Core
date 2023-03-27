@@ -1,9 +1,9 @@
-import * as React from 'react';
 import { mount } from 'enzyme';
+import * as React from 'react';
 
-import { blogPostWithBody, author, topics, } from './data'
+import { author, blogPostWithBody, topics } from './data';
 
-import CreateOrEditBlogPost, { EDIT, NEW, } from '../create_or_edit_blog_post';
+import CreateOrEditBlogPost, { EDIT, NEW } from '../create_or_edit_blog_post';
 
 const editProps = {
   authors: [author],

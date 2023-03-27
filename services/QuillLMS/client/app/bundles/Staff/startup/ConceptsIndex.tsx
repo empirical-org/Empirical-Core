@@ -1,11 +1,11 @@
 import React from 'react';
+import { ApolloProvider } from "react-apollo";
+import { HashRouter, Route } from 'react-router-dom';
+import client from '../../../modules/apollo';
+import ConceptsChangeLogIndex from '../containers/ConceptsChangeLogIndex';
+import ConceptsFindAndReplace from '../containers/ConceptsFindAndReplace';
 import ConceptsIndex from '../containers/ConceptsIndex';
 import ConceptsNew from '../containers/ConceptsNew';
-import ConceptsFindAndReplace from '../containers/ConceptsFindAndReplace';
-import ConceptsChangeLogIndex from '../containers/ConceptsChangeLogIndex'
-import { HashRouter, Route,  } from 'react-router-dom'
-import { ApolloProvider } from "react-apollo";
-import client from '../../../modules/apollo';
 
 export default () => (
   <ApolloProvider client={client}>

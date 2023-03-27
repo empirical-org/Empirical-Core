@@ -1,6 +1,6 @@
 'use strict'
 
-import _ from 'underscore'
+import _ from 'underscore';
 
 export default  function () {
 

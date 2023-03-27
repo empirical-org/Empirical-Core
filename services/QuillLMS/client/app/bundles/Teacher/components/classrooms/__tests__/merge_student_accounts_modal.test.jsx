@@ -1,9 +1,9 @@
-import React from 'react';
 import { shallow } from 'enzyme';
+import React from 'react';
 
-import MergeStudentAccountsModal from '../merge_student_accounts_modal'
+import MergeStudentAccountsModal from '../merge_student_accounts_modal';
 
-import { classroomWithStudents } from './test_data/test_data'
+import { classroomWithStudents } from './test_data/test_data';
 
 describe('MergeStudentAccountsModal component', () => {
   const studentIds = [classroomWithStudents.students[0].id, classroomWithStudents.students[1].id]

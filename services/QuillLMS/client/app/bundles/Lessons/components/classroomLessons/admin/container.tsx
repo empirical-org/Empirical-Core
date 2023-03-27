@@ -1,22 +1,21 @@
 import * as React from 'react';
 import { connect } from 'react-redux';
-import { Redirect, Route, Switch, withRouter, Link } from 'react-router-dom';
+import { Route, Switch, withRouter } from 'react-router-dom';
 
-import ClassroomLessonsIndex from './index'
 import AllUserEditions from './allUserEditions';
+import ClassroomLessonsIndex from './index';
 import ShowClassroomLesson from './show';
 import ShowAdminEdition from './showAdminEdition';
-import ShowEditionSlide from './showSlide';
 import ShowEditionScriptItem from './showScriptItem';
+import ShowEditionSlide from './showSlide';
 import ShowClassroomLessonUserEditions from './userEditions';
 
 import {
-  startListeningToEditionMetadata
-} from '../../../actions/customize'
-import {
-  listenForClassroomLessons,
-  listenForClassroomLessonReviews
+    listenForClassroomLessonReviews, listenForClassroomLessons
 } from '../../../actions/classroomLesson';
+import {
+    startListeningToEditionMetadata
+} from '../../../actions/customize';
 
 class AdminClassLessonsContainer extends React.Component<any, any> {
   constructor(props) {

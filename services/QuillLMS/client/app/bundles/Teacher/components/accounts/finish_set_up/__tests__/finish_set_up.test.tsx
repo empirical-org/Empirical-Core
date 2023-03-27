@@ -1,6 +1,5 @@
-import * as React from 'react';
-import qs from 'qs'
 import { mount } from 'enzyme';
+import * as React from 'react';
 
 import FinishSetUp from '../finish_set_up';
 

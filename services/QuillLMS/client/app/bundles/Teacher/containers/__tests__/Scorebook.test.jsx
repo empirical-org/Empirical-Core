@@ -1,14 +1,14 @@
-import React from 'react';
-import { shallow, mount } from 'enzyme';
+import { shallow } from 'enzyme';
 import moment from 'moment';
+import React from 'react';
 
-import Scorebook from '../Scorebook.jsx';
-import EmptyProgressReport from '../../components/shared/EmptyProgressReport';
-import LoadingIndicator from '../../components/shared/loading_indicator';
-import StudentScores from '../../components/scorebook/student_scores';
+import { AppLegend } from '../../components/scorebook/app_legend.tsx';
 import ScorebookFilters from '../../components/scorebook/scorebook_filters';
 import ScoreLegend from '../../components/scorebook/score_legend';
-import { AppLegend } from '../../components/scorebook/app_legend.tsx';
+import StudentScores from '../../components/scorebook/student_scores';
+import EmptyProgressReport from '../../components/shared/EmptyProgressReport';
+import LoadingIndicator from '../../components/shared/loading_indicator';
+import Scorebook from '../Scorebook.jsx';
 
 const resolvedScores = new Map();
 resolvedScores.set('441555', { name: 'blah blah', scores: [{ cuId: '341930', userId: '441555', updated: '2016-09-16 15:39:00.775325', name: 'America Used to be a Different Place', percentage: '1', activity_classification_id: '1', completed_attempts: 0, started_at: '2016-09-16 15:39:00.775325', marked_complete: 'false', activityId: '1', started: 0}], }, );

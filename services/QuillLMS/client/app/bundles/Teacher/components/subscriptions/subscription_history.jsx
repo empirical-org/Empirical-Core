@@ -1,10 +1,10 @@
-import React from 'react';
 import moment from 'moment';
 import pluralize from 'pluralize';
+import React from 'react';
 
 import { ACCOUNT_TYPE_TO_SUBSCRIPTION_TYPES } from './constants';
 
-import { Tooltip, helpIcon, } from '../../../Shared/index'
+import { helpIcon, Tooltip } from '../../../Shared/index';
 
 export default class SubscriptionHistory extends React.Component {
 

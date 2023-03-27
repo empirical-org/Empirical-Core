@@ -1,14 +1,14 @@
 import * as React from 'react';
 
-import { Activity, Topic } from './interfaces'
-import { lowerBound, upperBound, sortFunctions, } from './shared'
-import ActivityRow from './activity_row'
-import Pagination from './pagination'
-import SortDropdown from './sort_dropdown'
+import ActivityRow from './activity_row';
+import { Activity, Topic } from './interfaces';
+import Pagination from './pagination';
+import { lowerBound, sortFunctions, upperBound } from './shared';
+import SortDropdown from './sort_dropdown';
 
-import ActivityDisclaimerBanner from '../../../shared/activityDisclaimerBanner'
-import { requestPost, } from '../../../../../../modules/request'
-import { LESSONS, EVIDENCE } from '../../../../../Shared';
+import { requestPost } from '../../../../../../modules/request';
+import { EVIDENCE, LESSONS } from '../../../../../Shared';
+import ActivityDisclaimerBanner from '../../../shared/activityDisclaimerBanner';
 
 const searchIconSrc = `${import.meta.env.VITE_PROCESS_ENV_CDN_URL}/images/icons/search.svg`
 const closeIconSrc = `${import.meta.env.VITE_PROCESS_ENV_CDN_URL}/images/icons/close.svg`

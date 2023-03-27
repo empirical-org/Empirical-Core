@@ -1,7 +1,7 @@
 import * as React from 'react';
 
-import { requestPost, } from '../../../../../../modules/request';
-import { UNIT_TEMPLATE_NAME, } from '../../assignmentFlowConstants';
+import { requestPost } from '../../../../../../modules/request';
+import { UNIT_TEMPLATE_NAME } from '../../assignmentFlowConstants';
 
 export const UnitTemplateAuthenticationButtons = ({ name }) => {
 

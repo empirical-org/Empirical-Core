@@ -1,8 +1,8 @@
 import * as React from 'react';
 
-import SchoolSelector from '../shared/school_selector'
-import { requestPost, requestPut, } from '../../../../modules/request';
-import { closeIcon, DropdownInput, Spinner, NOT_LISTED, } from '../../../Shared/index'
+import { requestPost, requestPut } from '../../../../modules/request';
+import { closeIcon, DropdownInput, NOT_LISTED, Spinner } from '../../../Shared/index';
+import SchoolSelector from '../shared/school_selector';
 
 export const SCHOOL_SELECTION_STAGE = 'school_premium_purchase_selection_stage'
 

@@ -1,6 +1,6 @@
 import React from 'react';
-import socket from '../utils/socketStore';
 import { getParameterByName } from '../libs/getParameterByName';
+import socket from '../utils/socketStore';
 
 class SocketProvider extends React.Component {
   constructor(props) {

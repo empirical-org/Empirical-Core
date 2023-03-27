@@ -1,29 +1,27 @@
 import React from 'react';
 import { connect } from 'react-redux';
 
-import * as filterActions from '../../actions/filters';
 import _ from 'underscore';
-import ResponseList from './responseList.jsx';
-import QuestionMatcher from '../../libs/question';
+import { requestGet } from '../../../../modules/request/index';
+import {
+    hashToCollection, QuestionBar, ResponseSortFields,
+    ResponseToggleFields
+} from '../../../Shared/index';
+import * as filterActions from '../../actions/filters';
+import massEdit from '../../actions/massEdit';
 import questionActions from '../../actions/questions';
+import { submitResponseEdit } from '../../actions/responses';
 import sentenceFragmentActions from '../../actions/sentenceFragments';
+import {
+    rematchAll,
+    rematchOne
+} from '../../libs/grading/rematching.ts';
 import { getPartsOfSpeechTags } from '../../libs/partsOfSpeechTagging.js';
-import POSForResponsesList from './POSForResponsesList.jsx';
+import QuestionMatcher from '../../libs/question';
 import respWithStatus from '../../libs/responseTools.js';
 import POSMatcher from '../../libs/sentenceFragment.js';
-import {
-  rematchAll,
-  rematchOne
-} from '../../libs/grading/rematching.ts';
-import massEdit from '../../actions/massEdit';
-import { submitResponseEdit } from '../../actions/responses';
-import {
-  ResponseSortFields,
-  ResponseToggleFields,
-  QuestionBar,
-  hashToCollection
-} from '../../../Shared/index'
-import { requestGet, } from '../../../../modules/request/index'
+import POSForResponsesList from './POSForResponsesList.jsx';
+import ResponseList from './responseList.jsx';
 
 const C = require('../../constants').default;
 

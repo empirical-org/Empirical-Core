@@ -1,8 +1,8 @@
 import React from 'react';
-import { Card } from '../../../../Shared/index'
+import { Card } from '../../../../Shared/index';
 
-import AssignActivityPackBanner from '../assignActivityPackBanner'
-import { requestPut, } from '../../../../../modules/request/index'
+import { requestPut } from '../../../../../modules/request/index';
+import AssignActivityPackBanner from '../assignActivityPackBanner';
 
 const homeSchoolSrc = `${import.meta.env.VITE_PROCESS_ENV_CDN_URL}/images/onboarding/home-building.svg`
 const internationalSrc = `${import.meta.env.VITE_PROCESS_ENV_CDN_URL}/images/onboarding/globe.svg`

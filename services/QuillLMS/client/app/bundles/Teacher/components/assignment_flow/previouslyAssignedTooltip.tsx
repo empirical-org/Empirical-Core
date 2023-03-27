@@ -1,6 +1,6 @@
 import * as React from 'react';
 
-import { Tooltip, assignedBadgeIconGray } from '../../../Shared';
+import { assignedBadgeIconGray, Tooltip } from '../../../Shared';
 import { renderPreviouslyAssignedActivitiesTooltipElement } from '../../helpers/unitTemplates';
 
 export const PreviouslyAssignedTooltip = ({ previouslyAssignedActivityData }) => {

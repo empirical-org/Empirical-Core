@@ -1,8 +1,8 @@
 import * as React from 'react';
 
-import PreviouslyAssignedTooltip from '../../previouslyAssignedTooltip';
-import { Tooltip, ReactTable, getIconForActivityClassification, redirectToActivity } from '../../../../../Shared/index'
 import { requestGet } from '../../../../../../modules/request';
+import { getIconForActivityClassification, ReactTable, redirectToActivity, Tooltip } from '../../../../../Shared/index';
+import PreviouslyAssignedTooltip from '../../previouslyAssignedTooltip';
 
 export const UnitTemplateProfileActivityTable = ({ data }) => {
   const { activities } = data;

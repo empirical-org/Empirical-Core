@@ -1,10 +1,10 @@
+import { ContentState, EditorState } from 'draft-js';
 import * as React from "react";
-import { EditorState, ContentState } from 'draft-js'
-import Dropzone from 'react-dropzone'
+import Dropzone from 'react-dropzone';
 
-import { TextAreaEvent,  } from '../../../interfaces/evidenceInterfaces';
 import { TextEditor } from '../../../../Shared/index';
-import getAuthToken from '../../../../Teacher/components/modules/get_auth_token'
+import getAuthToken from '../../../../Teacher/components/modules/get_auth_token';
+import { TextAreaEvent } from '../../../interfaces/evidenceInterfaces';
 
 const RuleHint = ({
   errors,

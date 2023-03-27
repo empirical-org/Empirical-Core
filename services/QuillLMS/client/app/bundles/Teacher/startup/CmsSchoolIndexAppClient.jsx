@@ -1,8 +1,8 @@
 import React from 'react';
-import { ReactTable, } from '../../Shared/index'
+import { ReactTable } from '../../Shared/index';
 
 import getAuthToken from '../components/modules/get_auth_token';
-import LoadingIndicator from '../components/shared/loading_indicator'
+import LoadingIndicator from '../components/shared/loading_indicator';
 
 export default class CmsSchoolIndex extends React.Component {
   constructor(props) {

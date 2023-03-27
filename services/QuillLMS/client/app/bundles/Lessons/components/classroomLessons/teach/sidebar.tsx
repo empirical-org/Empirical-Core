@@ -1,27 +1,24 @@
 declare function require(name:string);
 import * as React from 'react';
 import { connect } from 'react-redux';
+import {
+    updateCurrentSlide
+} from '../../../actions/classroomSessions';
+import {
+    ClassroomLesson
+} from '../../../interfaces/classroomLessons';
+import * as CustomizeIntf from '../../../interfaces/customize';
 import { getParameterByName } from '../../../libs/getParameterByName';
 import {
-  updateCurrentSlide,
-} from '../../../actions/classroomSessions';
-import CLStudentLobby from '../play/lobby';
-import CLStudentStatic from '../play/static';
-import CLStudentSingleAnswer from '../play/singleAnswer';
-import CLStudentListBlanks from '../play/listBlanks';
+    ClassroomLessonSession, ClassroomUnitId, QuestionSubmissionsList
+} from '../interfaces';
 import CLStudentFillInTheBlank from '../play/fillInTheBlank';
+import CLStudentListBlanks from '../play/listBlanks';
+import CLStudentLobby from '../play/lobby';
 import CLStudentModelQuestion from '../play/modelQuestion';
 import CLStudentMultistep from '../play/multistep';
-import {
-  ClassroomLessonSession,
-  QuestionSubmissionsList,
-  ClassroomSessionId,
-  ClassroomUnitId
-} from '../interfaces';
-import {
-  ClassroomLesson
-} from '../../../interfaces/classroomLessons';
-import * as CustomizeIntf from '../../../interfaces/customize'
+import CLStudentSingleAnswer from '../play/singleAnswer';
+import CLStudentStatic from '../play/static';
 const studentIcon = 'https://assets.quill.org/images/icons/student_icon.svg'
 
 interface ReducerSidebarProps extends React.Props<any> {

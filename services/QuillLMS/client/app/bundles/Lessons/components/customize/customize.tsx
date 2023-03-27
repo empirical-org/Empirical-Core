@@ -1,8 +1,8 @@
 import * as React from 'react';
 import { Route, Switch, withRouter } from 'react-router-dom';
 
-import Edition from './edition'
-import ChooseEdition from './chooseEdition'
+import ChooseEdition from './chooseEdition';
+import Edition from './edition';
 
 const Customize = () => (
   <Switch>

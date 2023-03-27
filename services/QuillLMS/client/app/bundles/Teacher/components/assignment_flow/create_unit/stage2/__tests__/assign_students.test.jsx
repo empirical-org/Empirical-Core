@@ -1,19 +1,16 @@
-import React from 'react'
 import { shallow } from 'enzyme'
+import React from 'react'
 
 import { classroomProps, user } from './test_data/test_data'
 
+import GoogleClassroomsEmptyModal from '../../../../classrooms/google_classrooms_empty_modal.tsx'
+import LinkGoogleAccountModal from '../../../../classrooms/link_google_account_modal.tsx'
 import AssignStudents, {
-  createAClassForm,
-  importGoogleClassroomsModal,
-  linkGoogleAccountModal,
-  googleClassroomsEmptyModal
+    createAClassForm, googleClassroomsEmptyModal, importGoogleClassroomsModal,
+    linkGoogleAccountModal
 } from '../assign_students'
 import ClassroomCard from '../classroom_card.tsx'
 import CreateAClassInlineForm from '../create_a_class_inline_form.tsx'
-import ImportGoogleClassroomsModal from '../../../../classrooms/import_google_classrooms_modal.tsx'
-import LinkGoogleAccountModal from '../../../../classrooms/link_google_account_modal.tsx'
-import GoogleClassroomsEmptyModal from '../../../../classrooms/google_classrooms_empty_modal.tsx'
 
 
 describe('Assign students component', () => {
@@ -61,7 +58,7 @@ describe('Assign students component', () => {
     wrapper.setState({ showFormOrModal: importGoogleClassroomsModal })
 
     it('should render a importGoogleClassroomsModal component', () => {
-      expect(wrapper.find(ImportGoogleClassroomsModal).exists()).toBe(true)
+      expect(wrapper.find(importGoogleClassroomsModal).exists()).toBe(true)
     })
   })
 

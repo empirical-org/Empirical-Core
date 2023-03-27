@@ -1,8 +1,8 @@
 import React, { Component } from 'react';
 
-import { timeZoneOptions, } from './shared'
+import { timeZoneOptions } from './shared';
 
-import { Input, DropdownInput, } from '../../../../Shared/index'
+import { DropdownInput, Input } from '../../../../Shared/index';
 
 export default class StudentGeneralAccountInfo extends Component {
   constructor(props) {

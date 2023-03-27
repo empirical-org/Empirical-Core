@@ -1,9 +1,9 @@
-import * as React from 'react'
+import * as React from 'react';
 import { CopyToClipboard } from 'react-copy-to-clipboard';
 
-import { defaultSnackbarTimeout, Snackbar, DropdownInput, Spinner } from '../../../../../Shared/index'
+import { ActivityElement, ActivityPack, Classroom, ClassroomUnit, DropdownObject } from '../../../../../../interfaces/activityPack';
 import { requestGet } from '../../../../../../modules/request';
-import { Classroom, ClassroomUnit, DropdownObject, ActivityPack, ActivityElement } from '../../../../../../interfaces/activityPack';
+import { defaultSnackbarTimeout, DropdownInput, Snackbar, Spinner } from '../../../../../Shared/index';
 import { DropdownObjectInterface } from '../../../../../Staff/interfaces/evidenceInterfaces';
 
 const closeIconSrc = `${import.meta.env.VITE_PROCESS_ENV_CDN_URL}/images/icons/close.svg`;

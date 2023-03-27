@@ -1,14 +1,13 @@
-import React from "react";
 import { mount } from "enzyme";
+import React from "react";
 
 import { activities } from "./test_data";
 
-import StudentProfileUnits from "../student_profile_units";
-import StudentProfileUnit, { LOCKED, UNLOCKED } from "../student_profile_unit";
 import {
-  TO_DO_ACTIVITIES,
-  COMPLETED_ACTIVITIES,
+    COMPLETED_ACTIVITIES, TO_DO_ACTIVITIES
 } from "../../../../../constants/student_profile";
+import StudentProfileUnit, { LOCKED, UNLOCKED } from "../student_profile_unit";
+import StudentProfileUnits from "../student_profile_units";
 
 describe("StudentProfileUnits component", () => {
   it("should render <StudentProfileUnit /> components with correct props", () => {

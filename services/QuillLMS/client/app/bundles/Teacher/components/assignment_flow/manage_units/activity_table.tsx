@@ -1,21 +1,18 @@
-import * as React from 'react'
 import * as moment from 'moment';
+import * as React from 'react';
 
-import CopyModal from './copy_modal'
+import CopyModal from './copy_modal';
 import RemoveActivityModal from './remove_activity_modal';
 
-import * as api from '../../modules/call_api';
-import {
-  formatDateTimeForDisplay,
-  DatePickerContainer,
-  DUE_DATE_DEFAULT_TEXT,
-  PUBLISH_DATE_DEFAULT_TEXT,
-  INVALID_DATES_SNACKBAR_COPY,
-} from '../../../helpers/unitActivityDates'
 import { requestPut } from '../../../../../modules/request/index';
-import { DataTable, Tooltip, publishedIcon, scheduledIcon, Snackbar, defaultSnackbarTimeout, } from '../../../../Shared/index'
-import useSnackbarMonitor from '../../../../Shared/hooks/useSnackbarMonitor'
+import useSnackbarMonitor from '../../../../Shared/hooks/useSnackbarMonitor';
+import { DataTable, defaultSnackbarTimeout, publishedIcon, scheduledIcon, Snackbar, Tooltip } from '../../../../Shared/index';
 import { getIconForActivityClassification } from '../../../../Shared/libs';
+import {
+    DatePickerContainer,
+    DUE_DATE_DEFAULT_TEXT, formatDateTimeForDisplay, INVALID_DATES_SNACKBAR_COPY, PUBLISH_DATE_DEFAULT_TEXT
+} from '../../../helpers/unitActivityDates';
+import * as api from '../../modules/call_api';
 
 const shareActivitySrc = `${import.meta.env.VITE_PROCESS_ENV_CDN_URL}/images/icons/icons-share.svg`
 

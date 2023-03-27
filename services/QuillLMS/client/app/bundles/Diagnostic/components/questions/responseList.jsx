@@ -1,10 +1,9 @@
-import * as React from 'react'
-import _ from 'underscore'
-import { AffectedResponse, isValidRegex } from '../../../Shared/index'
 import { focusPointMatchHelper, incorrectSequenceMatchHelper } from "quill-marking-logic"
+import * as React from 'react'
+import { AffectedResponse, isValidRegex } from '../../../Shared/index'
 
+import massEdit from '../../actions/massEdit'
 import Response from './response'
-import massEdit from '../../actions/massEdit';
 
 export default class ResponseList extends React.Component {
   allResponsesChecked = () => {

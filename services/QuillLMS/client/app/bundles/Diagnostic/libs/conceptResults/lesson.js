@@ -1,17 +1,16 @@
 import {
-  getConceptResultsForSentenceCombining
+    getConceptResultsForSentenceCombining
 } from './sentenceCombiningLessonQuestion';
 
 import {
-  getAllSentenceFragmentConceptResults,
-  calculateCorrectnessOfSentence
+    getAllSentenceFragmentConceptResults
 } from './sentenceFragment.js';
 
 import {
-  getConceptResultsForFillInTheBlanks
-} from './fillInTheBlanks'
+    getConceptResultsForFillInTheBlanks
+} from './fillInTheBlanks';
 
-import _ from 'underscore'
+import _ from 'underscore';
 
 const scoresForNAttempts = {
   1: 1,

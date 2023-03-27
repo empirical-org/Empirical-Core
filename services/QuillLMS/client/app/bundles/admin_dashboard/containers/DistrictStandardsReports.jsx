@@ -1,11 +1,11 @@
 import React from 'react';
 import { connect } from 'react-redux';
 
-import LoadingSpinner from '../../Teacher/components/shared/loading_indicator';
-import StandardsReports from '../components/standardsReports';
 import { getDistrictStandardsReports } from '../../../actions/district_standards_reports';
+import LoadingSpinner from '../../Teacher/components/shared/loading_indicator';
 import { getTimeSpent } from '../../Teacher/helpers/studentReports';
-import { restrictedPage, FULL, LIMITED } from '../shared'
+import StandardsReports from '../components/standardsReports';
+import { FULL, LIMITED, restrictedPage } from '../shared';
 
 class DistrictStandardsReports extends React.Component {
   componentDidMount() {

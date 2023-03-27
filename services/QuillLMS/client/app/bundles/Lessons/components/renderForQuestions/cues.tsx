@@ -1,7 +1,7 @@
 import * as React from 'react';
 import {
-  Cue,
-  CueExplanation
+    Cue,
+    CueExplanation
 } from '../../../Shared/index';
 
 const arrow = `${import.meta.env.VITE_PROCESS_ENV_CDN_URL}/images/icons/pointing-arrow.svg`;

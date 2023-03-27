@@ -1,16 +1,16 @@
-import React from 'react';
 import Pusher from 'pusher-js';
+import React from 'react';
 import _ from 'underscore';
 
 import { requestGet } from '../../../modules/request';
-import CreateAClassModal from '../components/classrooms/create_a_class_modal.tsx'
-import ImportGoogleClassroomsModal from '../components/classrooms/import_google_classrooms_modal.tsx'
-import LinkGoogleAccountModal from '../components/classrooms/link_google_account_modal.tsx'
-import GoogleClassroomsEmptyModal from '../components/classrooms/google_classrooms_empty_modal.tsx'
+import { defaultSnackbarTimeout, Snackbar } from '../../Shared/index';
+import CreateAClassModal from '../components/classrooms/create_a_class_modal.tsx';
+import GoogleClassroomsEmptyModal from '../components/classrooms/google_classrooms_empty_modal.tsx';
+import importGoogleClassroomsModal from '../components/classrooms/import_google_classrooms_modal.tsx';
+import LinkGoogleAccountModal from '../components/classrooms/link_google_account_modal.tsx';
 import ClassroomsWithStudents from '../components/classrooms_with_students/ClassroomsWithStudents.jsx';
+import ButtonLoadingIndicator from '../components/shared/button_loading_indicator';
 import LoadingIndicator from '../components/shared/loading_indicator.jsx';
-import ButtonLoadingIndicator from '../components/shared/button_loading_indicator'
-import { Snackbar, defaultSnackbarTimeout } from '../../Shared/index'
 
 export const createAClassModal = 'createAClassModal'
 export const importGoogleClassroomsModal = 'importGoogleClassroomsModal'
@@ -69,7 +69,7 @@ export default class ClassroomsWithStudentsContainer extends React.Component {
   };
 
   getGoogleClassrooms = () => {
-    const { attemptedImportGoogleClassrooms, } = this.state
+    const { attemptedimportGoogleClassrooms, } = this.state
     const { user, } = this.props
     if (!(user && user.google_id)) { return }
 
@@ -78,11 +78,11 @@ export default class ClassroomsWithStudentsContainer extends React.Component {
         if (body.quill_retrieval_processing) {
           this.initializePusherForGoogleClassrooms(body.id)
         } else {
-          const googleClassrooms = body.classrooms.filter(classroom => !classroom.alreadyImported)
+          const googleClassrooms = body.classrooms.filter(classroom => !classroom.alreadyimported)
           const newStateObj = { googleClassrooms, googleClassroomsLoading: false, }
-          if (attemptedImportGoogleClassrooms) {
-            newStateObj.attemptedImportGoogleClassrooms = false
-            this.setState(newStateObj, this.handleClickImportGoogleClassrooms)
+          if (attemptedimportGoogleClassrooms) {
+            newStateObj.attemptedimportGoogleClassrooms = false
+            this.setState(newStateObj, this.handleClickimportGoogleClassrooms)
           } else {
             this.setState(newStateObj)
           }
@@ -133,13 +133,13 @@ export default class ClassroomsWithStudentsContainer extends React.Component {
     return updated;
   }
 
-  handleClickImportGoogleClassrooms = () => {
+  handleClickimportGoogleClassrooms = () => {
     const { user, } = this.props
     const { googleClassrooms, googleClassroomsLoading, } = this.state
     if (!user.google_id) {
       this.openModal(linkGoogleAccountModal)
     } else if (googleClassroomsLoading) {
-      this.setState({ attemptedImportGoogleClassrooms: true })
+      this.setState({ attemptedimportGoogleClassrooms: true })
     } else if (googleClassrooms.length) {
       this.openModal(importGoogleClassroomsModal)
     } else {
@@ -373,18 +373,18 @@ export default class ClassroomsWithStudentsContainer extends React.Component {
     }
   }
 
-  renderImportGoogleClassroomsButton() {
-    const { googleClassroomsLoading, attemptedImportGoogleClassrooms, } = this.state
-    let buttonContent = 'Import from Google Classroom'
+  renderimportGoogleClassroomsButton() {
+    const { googleClassroomsLoading, attemptedimportGoogleClassrooms, } = this.state
+    let buttonContent = 'import from Google Classroom'
     let buttonClassName = 'quill-button medium secondary outlined import-from-google-button'
-    if (googleClassroomsLoading && attemptedImportGoogleClassrooms) {
+    if (googleClassroomsLoading && attemptedimportGoogleClassrooms) {
       buttonContent = <ButtonLoadingIndicator />
       buttonClassName += ' loading'
     }
     return (
       <button
         className={buttonClassName}
-        onClick={this.handleClickImportGoogleClassrooms}
+        onClick={this.handleClickimportGoogleClassrooms}
         type="button"
       >
         {buttonContent}
@@ -392,13 +392,13 @@ export default class ClassroomsWithStudentsContainer extends React.Component {
     )
   }
 
-  renderImportGoogleClassroomsModal() {
+  renderimportGoogleClassroomsModal() {
     const { user, } = this.props
     const { googleClassrooms, showModal, } = this.state
 
     if (showModal === importGoogleClassroomsModal) {
       return (
-        <ImportGoogleClassroomsModal
+        <importGoogleClassroomsModal
           classrooms={googleClassrooms}
           close={this.closeModal}
           onSuccess={this.handleSuccess}
@@ -417,14 +417,14 @@ export default class ClassroomsWithStudentsContainer extends React.Component {
     return (
       <div className="classroom-with-students-container container gray-background-accommodate-footer">
         {this.renderCreateAClassModal()}
-        {this.renderImportGoogleClassroomsModal()}
+        {this.renderimportGoogleClassroomsModal()}
         {this.renderGoogleClassroomEmailModal()}
         {this.renderGoogleClassroomsEmptyModal()}
         {this.renderSnackbar()}
         <div className="classroom-with-students-header">
           <h2>{this.headerCopy()}</h2>
           <div className="buttons">
-            {this.renderImportGoogleClassroomsButton()}
+            {this.renderimportGoogleClassroomsButton()}
             <button className="quill-button medium primary contained create-a-class-button" onClick={() => this.openModal(createAClassModal)} type="button">Create a class</button>
           </div>
         </div>

@@ -1,8 +1,8 @@
-import React from 'react';
 import { mount } from 'enzyme';
+import React from 'react';
 
-import HandyActions from '../handy_actions';
 import { handleHasAppSetting } from "../../../../Shared/utils/appSettingAPIs";
+import HandyActions from '../handy_actions';
 
 
 jest.mock('../../../../Shared/utils/appSettingAPIs')
