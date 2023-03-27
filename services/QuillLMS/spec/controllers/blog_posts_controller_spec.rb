@@ -84,8 +84,19 @@ describe BlogPostsController, type: :controller do
       expect(assigns(:description)).to eq(blog_post.subtitle)
     end
 
+    it 'should return the image link' do
+      get :show, params: { slug: blog_post.slug }
+      expect(assigns(:image_link)).to eq(BlogPostsController::SOCIAL_MEDIA_SHARE_IMAGE)
+    end
+
     it 'should return the title as description if no subtitle exists' do
       blog_post = create(:blog_post, subtitle: nil)
+      get :show, params: { slug: blog_post.slug }
+      expect(assigns(:description)).to eq(blog_post.title)
+    end
+
+    it 'should return the title as description if the subtitle is an empty string' do
+      blog_post = create(:blog_post, subtitle: "")
       get :show, params: { slug: blog_post.slug }
       expect(assigns(:description)).to eq(blog_post.title)
     end

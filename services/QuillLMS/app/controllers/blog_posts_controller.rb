@@ -9,6 +9,7 @@ class BlogPostsController < ApplicationController
   before_action :set_root_url
   before_action :set_defer_js, except: :search
 
+  SOCIAL_MEDIA_SHARE_IMAGE = "#{ENV['CDN_URL']}/images/share/facebook.png"
 
   def index
     topic_names = BlogPost::TEACHER_TOPICS
@@ -89,8 +90,8 @@ class BlogPostsController < ApplicationController
 
     @related_posts = @blog_post.related_posts
     @title = @blog_post.title
-    @description = @blog_post.subtitle || @title
-    @image_link = @blog_post.image_link
+    @description = @blog_post.subtitle.presence || @title
+    @image_link = SOCIAL_MEDIA_SHARE_IMAGE
   end
 
   private def attempt_corrected_slug_and_redirect(slug, draft_statuses)

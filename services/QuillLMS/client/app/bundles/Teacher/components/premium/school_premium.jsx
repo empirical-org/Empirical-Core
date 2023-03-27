@@ -71,13 +71,11 @@ const professionalDevelopmentSessions = (
       <PremiumFeature
         imageAlt="A student focusing on his laptop while working on Quill Diagnostic"
         imageSrc={studentCompletingDiagnosticSrc}
-        popular={true}
         text="Flexible and comprehensive training that fits your schedule with virtual and on-demand formats"
       />
       <PremiumFeature
         imageAlt="A photograph of the book, Writing for Understanding"
         imageSrc={backwardsPlanningSrc}
-        popular={true}
         text="A focus on instructional best practices and practical application with workshop-style training"
       />
       <PremiumFeature
@@ -105,14 +103,14 @@ const topicsExplored = (
     <div className="topics-row last-row">
       <TopicExplored color="#C04500" imgAlt="code editor" imgSrc={`${baseImageLink}/code-editor.svg`} text="Impactful feedback practices" />
       <TopicExplored color="#9035D6" imgAlt="student icons" imgSrc={`${baseImageLink}/add-students.svg`} text="Empowering student writers" />
+      <TopicExplored color="#4D8DD9" imgAlt="student icons" imgSrc={`${baseImageLink}/teacher-chalkboard.svg`} text="Writing across content areas" />
     </div>
   </section>
 )
 
 const coachingSessions = (
   <section>
-    <h3 className="coaching-header">One-on-one coaching sessions with our Senior Instructional Coaches</h3>
-    <p>Once per quarter, teachers are invited to schedule 1:1 coaching sessions to work directly with a senior instructional coach on Quill&apos;s team. These sessions enable teachers to solve issues and understand reports. The coach and the teacher are looking at the Quill dashboard and leave the coaching session with more confidence in the tool.</p>
+    <h3 className="coaching-header">What are people saying?</h3>
   </section>
 )
 
