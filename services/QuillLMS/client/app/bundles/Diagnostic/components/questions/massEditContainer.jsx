@@ -7,7 +7,6 @@ import getBoilerplateFeedback from './boilerplateFeedback.jsx';
 import ConceptResultList from './conceptResultList.jsx';
 import _ from 'underscore';
 import {
-  incrementResponseCount,
   submitMassEditFeedback,
   submitMassEditConceptResults,
   massEditDeleteResponses
@@ -69,7 +68,6 @@ class MassEditContainer extends React.Component {
   incrementAllResponsesInMassEditArray() {
     const { dispatch, massEdit, questionID } = this.props;
     const { selectedResponses } = massEdit;
-    selectedResponses.forEach(response => dispatch(incrementResponseCount(questionID, response)));
   }
 
   goBackToResponses() {
