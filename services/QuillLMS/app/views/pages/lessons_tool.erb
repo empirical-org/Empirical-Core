@@ -199,7 +199,9 @@
         </a>
     </section>
 
-    <%= react_component('QuestionsAndAnswersApp', props: {questionsAndAnswersFile: 'lessons', supportLink: "https://support.quill.org/using-quill-tools#quill-lessons"})%>
+    <div id="q-and-a">
+      <%= render partial: 'pages/shared/questions_and_answers_section', locals: { questions_and_answers: lessons_tool_questions_and_answers, button_type: 'text', background_color: 'dark' } %>
+    </div>
 
     <section class="how-to">
       <div class="text">

@@ -4,7 +4,6 @@ exports[`Ap component should render when it is not part of the assignment flow 1
 <Ap>
   <div
     className="college-board-container"
-    onScroll={[Function]}
   >
     <div
       className="section-wrapper"
@@ -15,39 +14,21 @@ exports[`Ap component should render when it is not part of the assignment flow 1
         <div
           className="header-left"
         >
-          <VisibilitySensor
-            active={true}
-            containment={null}
-            delayedCall={false}
-            intervalCheck={true}
-            intervalDelay={100}
-            minTopValue={0}
-            offset={Object {}}
-            onChange={[Function]}
-            partialVisibility={false}
-            resizeCheck={false}
-            resizeDelay={250}
-            resizeThrottle={-1}
-            scrollCheck={false}
-            scrollDelay={250}
-            scrollThrottle={-1}
+          <div
+            className="logo-container"
           >
+            <img
+              alt="College Board logo"
+              src="https://assets.quill.org/images/college_board/college-board-logo.svg"
+            />
             <div
-              className="logo-container"
-            >
-              <img
-                alt="College Board logo"
-                src="https://assets.quill.org/images/college_board/college-board-logo.svg"
-              />
-              <div
-                className="divider"
-              />
-              <img
-                alt="Quill logo"
-                src="https://assets.quill.org/images/logos/quill-logo-green.svg"
-              />
-            </div>
-          </VisibilitySensor>
+              className="divider"
+            />
+            <img
+              alt="Quill logo"
+              src="https://assets.quill.org/images/logos/quill-logo-green.svg"
+            />
+          </div>
           <div
             className="header-text-container"
           >
@@ -73,689 +54,6 @@ exports[`Ap component should render when it is not part of the assignment flow 1
         />
       </div>
     </div>
-    <ScrollBox
-      activeSection=""
-      sections={
-        Array [
-          Object {
-            "count": 4,
-            "ref": Object {
-              "current": <div
-                class="activities-subheader"
-              >
-                <h2>
-                  AP Writing Skills Survey
-                </h2>
-              </div>,
-            },
-            "title": "Writing Skills Surveys",
-          },
-          Object {
-            "ref": Object {
-              "current": <div
-                class="white-section-wrapper"
-                id="info-blurbs-1-wrapper"
-              >
-                <div
-                  class="container info-blurbs-section"
-                >
-                  <div
-                    class="info-blurb-container"
-                  >
-                    <img
-                      alt="A recommended activity pack report showing four students being recommended a mixture of activities for relative clauses and participial phrases."
-                      src="https://assets.quill.org/images/college_board/ap-recommendations.svg"
-                    />
-                    <div
-                      class="text-container"
-                    >
-                      <p
-                        class="info-blurb-header"
-                      >
-                        Personalized Recommendations
-                      </p>
-                      <p
-                        class="info-blurb-text"
-                      >
-                        After students complete the AP Writing Skills Survey, you'll receive recommendations for each student based on their responses and tailored to their individual needs. Each student will be recommended up to 45 sentence combining activities, grouped by concept into seven packs, that provide meaningful, targeted practice. You can assign all the activities with one click, or you can pick and choose.
-                      </p>
-                    </div>
-                  </div>
-                  <div
-                    class="info-blurb-container"
-                  >
-                    <div
-                      class="text-container"
-                    >
-                      <p
-                        class="info-blurb-header"
-                      >
-                        Writing with Targeted Feedback
-                      </p>
-                      <p
-                        class="info-blurb-text"
-                      >
-                        Students receive immediate feedback that guides them through the revision process, pushing them to think critically about their writing and make revisions that ultimately lead to strong, sophisticated, and grammatically accurate sentences. The feedback inspires students to strengthen their sentence structure, but also supports them in editing for mechanics such as punctuation and spelling.
-                      </p>
-                    </div>
-                    <img
-                      alt="An illustration showing a student combining two sentences, getting feedback from Quill, and then getting a correct response."
-                      src="https://assets.quill.org/images/college_board/ap-additional-practice.svg"
-                    />
-                  </div>
-                  <div
-                    class="info-blurb-container"
-                  >
-                    <img
-                      alt="A report showing that a student scored 79% on parallel structure, 98% on parallel structure with joining words, and 58% on advanced parallel structure."
-                      src="https://assets.quill.org/images/college_board/ap-reports.svg"
-                    />
-                    <div
-                      class="text-container"
-                    >
-                      <p
-                        class="info-blurb-header"
-                      >
-                        Data Reports
-                      </p>
-                      <p
-                        class="info-blurb-text"
-                      >
-                        You can monitor the progress of your students and continue to identify areas of need and areas of strength through multiple data reports. Use the analysis report to review your students' work sentence-by-sentence, or use the summary report to get a high-level sense of where your students could use some extra support.
-                      </p>
-                    </div>
-                  </div>
-                </div>
-              </div>,
-            },
-            "title": "Feedback & Reports",
-          },
-          Object {
-            "ref": Object {
-              "current": <p
-                class="info-blurb-text"
-              >
-                You can monitor the progress of your students and continue to identify areas of need and areas of strength through multiple data reports. Use the analysis report to review your students' work sentence-by-sentence, or use the summary report to get a high-level sense of where your students could use some extra support.
-              </p>,
-            },
-            "title": "Message From College Board",
-          },
-          Object {
-            "ref": Object {
-              "current": <div>
-                <div
-                  id="q-and-a"
-                >
-                  <div
-                    class="q-and-a-inner-wrapper"
-                  >
-                    <h1>
-                      Questions and Answers
-                    </h1>
-                    <div
-                      class="qa-section"
-                    >
-                      <div
-                        class="qa"
-                      >
-                        <button
-                          class="question"
-                          tabindex="-1"
-                          type="button"
-                        >
-                          What is Quill.org?
-                        </button>
-                      </div>
-                      <div>
-                        <button
-                          class="expand-collapse-button focus-on-light"
-                          type="button"
-                        >
-                          <img
-                            alt="expand-and-collapse"
-                            src="undefined/images/shared/expand.svg"
-                          />
-                        </button>
-                      </div>
-                    </div>
-                    <div
-                      class="qa-section"
-                    >
-                      <div
-                        class="qa"
-                      >
-                        <button
-                          class="question"
-                          tabindex="-1"
-                          type="button"
-                        >
-                          What is the AP Writing Skills Survey?
-                        </button>
-                      </div>
-                      <div>
-                        <button
-                          class="expand-collapse-button focus-on-light"
-                          type="button"
-                        >
-                          <img
-                            alt="expand-and-collapse"
-                            src="undefined/images/shared/expand.svg"
-                          />
-                        </button>
-                      </div>
-                    </div>
-                    <div
-                      class="qa-section"
-                    >
-                      <div
-                        class="qa"
-                      >
-                        <button
-                          class="question"
-                          tabindex="-1"
-                          type="button"
-                        >
-                          For which AP courses is this practice most relevant?
-                        </button>
-                      </div>
-                      <div>
-                        <button
-                          class="expand-collapse-button focus-on-light"
-                          type="button"
-                        >
-                          <img
-                            alt="expand-and-collapse"
-                            src="undefined/images/shared/expand.svg"
-                          />
-                        </button>
-                      </div>
-                    </div>
-                    <div
-                      class="qa-section"
-                    >
-                      <div
-                        class="qa"
-                      >
-                        <button
-                          class="question"
-                          tabindex="-1"
-                          type="button"
-                        >
-                          Is a writing skills survey different than a diagnostic?
-                        </button>
-                      </div>
-                      <div>
-                        <button
-                          class="expand-collapse-button focus-on-light"
-                          type="button"
-                        >
-                          <img
-                            alt="expand-and-collapse"
-                            src="undefined/images/shared/expand.svg"
-                          />
-                        </button>
-                      </div>
-                    </div>
-                    <div
-                      class="qa-section"
-                    >
-                      <div
-                        class="qa"
-                      >
-                        <button
-                          class="question"
-                          tabindex="-1"
-                          type="button"
-                        >
-                          How long does the Survey take?
-                        </button>
-                      </div>
-                      <div>
-                        <button
-                          class="expand-collapse-button focus-on-light"
-                          type="button"
-                        >
-                          <img
-                            alt="expand-and-collapse"
-                            src="undefined/images/shared/expand.svg"
-                          />
-                        </button>
-                      </div>
-                    </div>
-                    <div
-                      class="qa-section"
-                    >
-                      <div
-                        class="qa"
-                      >
-                        <button
-                          class="question"
-                          tabindex="-1"
-                          type="button"
-                        >
-                          What happens after I assign the Survey and my students complete it?
-                        </button>
-                      </div>
-                      <div>
-                        <button
-                          class="expand-collapse-button focus-on-light"
-                          type="button"
-                        >
-                          <img
-                            alt="expand-and-collapse"
-                            src="undefined/images/shared/expand.svg"
-                          />
-                        </button>
-                      </div>
-                    </div>
-                    <div
-                      class="qa-section"
-                    >
-                      <div
-                        class="qa"
-                      >
-                        <button
-                          class="question"
-                          tabindex="-1"
-                          type="button"
-                        >
-                          What kind of activities will be recommended to my students after they take the AP Writing Skills Survey?
-                        </button>
-                      </div>
-                      <div>
-                        <button
-                          class="expand-collapse-button focus-on-light"
-                          type="button"
-                        >
-                          <img
-                            alt="expand-and-collapse"
-                            src="undefined/images/shared/expand.svg"
-                          />
-                        </button>
-                      </div>
-                    </div>
-                    <div
-                      class="qa-section"
-                    >
-                      <div
-                        class="qa"
-                      >
-                        <button
-                          class="question"
-                          tabindex="-1"
-                          type="button"
-                        >
-                          Can students complete the AP Writing Practice packs independently?
-                        </button>
-                      </div>
-                      <div>
-                        <button
-                          class="expand-collapse-button focus-on-light"
-                          type="button"
-                        >
-                          <img
-                            alt="expand-and-collapse"
-                            src="undefined/images/shared/expand.svg"
-                          />
-                        </button>
-                      </div>
-                    </div>
-                    <div
-                      class="qa-section"
-                    >
-                      <div
-                        class="qa"
-                      >
-                        <button
-                          class="question"
-                          tabindex="-1"
-                          type="button"
-                        >
-                          How many activities are in each AP Writing Practice pack?
-                        </button>
-                      </div>
-                      <div>
-                        <button
-                          class="expand-collapse-button focus-on-light"
-                          type="button"
-                        >
-                          <img
-                            alt="expand-and-collapse"
-                            src="undefined/images/shared/expand.svg"
-                          />
-                        </button>
-                      </div>
-                    </div>
-                    <div
-                      class="qa-section"
-                    >
-                      <div
-                        class="qa"
-                      >
-                        <button
-                          class="question"
-                          tabindex="-1"
-                          type="button"
-                        >
-                          What grade-level or reading level are the AP Activity Packs designed for?
-                        </button>
-                      </div>
-                      <div>
-                        <button
-                          class="expand-collapse-button focus-on-light"
-                          type="button"
-                        >
-                          <img
-                            alt="expand-and-collapse"
-                            src="undefined/images/shared/expand.svg"
-                          />
-                        </button>
-                      </div>
-                    </div>
-                    <div
-                      class="qa-section"
-                    >
-                      <div
-                        class="qa"
-                      >
-                        <button
-                          class="question"
-                          tabindex="-1"
-                          type="button"
-                        >
-                          Will my students receive feedback as they work through the AP Writing Practice activity packs?
-                        </button>
-                      </div>
-                      <div>
-                        <button
-                          class="expand-collapse-button focus-on-light"
-                          type="button"
-                        >
-                          <img
-                            alt="expand-and-collapse"
-                            src="undefined/images/shared/expand.svg"
-                          />
-                        </button>
-                      </div>
-                    </div>
-                    <div
-                      class="qa-section"
-                    >
-                      <div
-                        class="qa"
-                      >
-                        <button
-                          class="question"
-                          tabindex="-1"
-                          type="button"
-                        >
-                          Where can I track my students' completion of and performance on the AP Writing Practice packs?
-                        </button>
-                      </div>
-                      <div>
-                        <button
-                          class="expand-collapse-button focus-on-light"
-                          type="button"
-                        >
-                          <img
-                            alt="expand-and-collapse"
-                            src="undefined/images/shared/expand.svg"
-                          />
-                        </button>
-                      </div>
-                    </div>
-                    <div
-                      class="qa-section"
-                    >
-                      <div
-                        class="qa"
-                      >
-                        <button
-                          class="question"
-                          tabindex="-1"
-                          type="button"
-                        >
-                          How many AP Writing Practice packs should I assign to my students and how long will it take them to complete a pack?
-                        </button>
-                      </div>
-                      <div>
-                        <button
-                          class="expand-collapse-button focus-on-light"
-                          type="button"
-                        >
-                          <img
-                            alt="expand-and-collapse"
-                            src="undefined/images/shared/expand.svg"
-                          />
-                        </button>
-                      </div>
-                    </div>
-                    <div
-                      class="qa-section"
-                    >
-                      <div
-                        class="qa"
-                      >
-                        <button
-                          class="question"
-                          tabindex="-1"
-                          type="button"
-                        >
-                          If my students have been using Quill for a while, will they encounter activities in the AP Writing Practice packs that they have completed before?
-                        </button>
-                      </div>
-                      <div>
-                        <button
-                          class="expand-collapse-button focus-on-light"
-                          type="button"
-                        >
-                          <img
-                            alt="expand-and-collapse"
-                            src="undefined/images/shared/expand.svg"
-                          />
-                        </button>
-                      </div>
-                    </div>
-                    <div
-                      class="qa-section"
-                    >
-                      <div
-                        class="qa"
-                      >
-                        <button
-                          class="question"
-                          tabindex="-1"
-                          type="button"
-                        >
-                          Can I assign my students practice beyond the recommended AP Writing Practice packs?
-                        </button>
-                      </div>
-                      <div>
-                        <button
-                          class="expand-collapse-button focus-on-light"
-                          type="button"
-                        >
-                          <img
-                            alt="expand-and-collapse"
-                            src="undefined/images/shared/expand.svg"
-                          />
-                        </button>
-                      </div>
-                    </div>
-                    <div
-                      class="qa-section"
-                    >
-                      <div
-                        class="qa"
-                      >
-                        <button
-                          class="question"
-                          tabindex="-1"
-                          type="button"
-                        >
-                          Do I need to create an account on Quill.org to assign the AP Writing Skills Survey?
-                        </button>
-                      </div>
-                      <div>
-                        <button
-                          class="expand-collapse-button focus-on-light"
-                          type="button"
-                        >
-                          <img
-                            alt="expand-and-collapse"
-                            src="undefined/images/shared/expand.svg"
-                          />
-                        </button>
-                      </div>
-                    </div>
-                    <div
-                      class="qa-section"
-                    >
-                      <div
-                        class="qa"
-                      >
-                        <button
-                          class="question"
-                          tabindex="-1"
-                          type="button"
-                        >
-                          What if I still have questions?
-                        </button>
-                      </div>
-                      <div>
-                        <button
-                          class="expand-collapse-button focus-on-light"
-                          type="button"
-                        >
-                          <img
-                            alt="expand-and-collapse"
-                            src="undefined/images/shared/expand.svg"
-                          />
-                        </button>
-                      </div>
-                    </div>
-                    <a
-                      class="support-link hidden"
-                      href=""
-                    >
-                      View all questions and answers
-                    </a>
-                  </div>
-                </div>
-              </div>,
-            },
-            "title": "Questions and Answers",
-          },
-        ]
-      }
-      setActiveSection={[Function]}
-      setIsScrollingFromClick={[Function]}
-      showScrollBox=""
-    >
-      <div
-        className="scrollbox-container "
-      >
-        <section
-          className="header"
-        >
-          Scroll to
-        </section>
-        <section
-          className="sections-container"
-        >
-          <button
-            className="section-container"
-            key="Writing Skills Surveys"
-            onClick={[Function]}
-            type="button"
-          >
-            <section
-              className="title-container"
-            >
-              <div
-                className="section-status inactive"
-              />
-              <p
-                className="section-title "
-              >
-                Writing Skills Surveys
-              </p>
-            </section>
-            <p
-              className="section-count "
-            >
-              4
-            </p>
-          </button>
-          <button
-            className="section-container"
-            key="Feedback & Reports"
-            onClick={[Function]}
-            type="button"
-          >
-            <section
-              className="title-container"
-            >
-              <div
-                className="section-status inactive"
-              />
-              <p
-                className="section-title "
-              >
-                Feedback & Reports
-              </p>
-            </section>
-            <p
-              className="section-count hidden"
-            />
-          </button>
-          <button
-            className="section-container"
-            key="Message From College Board"
-            onClick={[Function]}
-            type="button"
-          >
-            <section
-              className="title-container"
-            >
-              <div
-                className="section-status inactive"
-              />
-              <p
-                className="section-title "
-              >
-                Message From College Board
-              </p>
-            </section>
-            <p
-              className="section-count hidden"
-            />
-          </button>
-          <button
-            className="section-container"
-            key="Questions and Answers"
-            onClick={[Function]}
-            type="button"
-          >
-            <section
-              className="title-container"
-            >
-              <div
-                className="section-status inactive"
-              />
-              <p
-                className="section-title "
-              >
-                Questions and Answers
-              </p>
-            </section>
-            <p
-              className="section-count hidden"
-            />
-          </button>
-        </section>
-      </div>
-    </ScrollBox>
     <div
       className="white-section-wrapper"
     >
@@ -787,65 +85,47 @@ exports[`Ap component should render when it is not part of the assignment flow 1
             AP Writing Skills Survey
           </h2>
         </div>
-        <VisibilitySensor
-          active={true}
-          containment={null}
-          delayedCall={false}
-          intervalCheck={true}
-          intervalDelay={100}
-          minTopValue={0}
-          offset={Object {}}
-          onChange={[Function]}
-          partialVisibility={false}
-          resizeCheck={false}
-          resizeDelay={250}
-          resizeThrottle={-1}
-          scrollCheck={false}
-          scrollDelay={250}
-          scrollThrottle={-1}
+        <div
+          className="activity-container"
         >
           <div
-            className="activity-container"
+            className="activity-header-container"
           >
-            <div
-              className="activity-header-container"
+            <p
+              className="activity-header"
+              id="writing-skills-survey"
             >
-              <p
-                className="activity-header"
-                id="writing-skills-survey"
-              >
-                AP Writing Skills Survey
-              </p>
-              <a
-                className="quill-button medium primary outlined view-button focus-on-light"
-                href="/activities/packs/193"
-                rel="noopener noreferrer"
-                target="_blank"
-              >
-                View
-              </a>
-            </div>
-            <div
-              className="activity-text-container"
+              AP Writing Skills Survey
+            </p>
+            <a
+              className="quill-button medium primary outlined view-button focus-on-light"
+              href="/activities/packs/193"
+              rel="noopener noreferrer"
+              target="_blank"
             >
-              <p
-                className="activity-sub-text"
-              >
-                Students complete a 17 item survey to gauge their understanding of key writing skills that are essential to successful AP- and SAT-level writing. After students complete the survey, Quill will automatically recommend up to seven activity packs for each student based on their needs. Each pack contains a series of activities that each take about 15 minutes to complete and provide scaffolded, sequenced practice with one of the skills covered by the survey.
-              </p>
-              <p
-                className="activity-sub-header"
-              >
-                Skills
-              </p>
-              <p
-                className="activity-sub-text"
-              >
-                Complex Sentences; relative clauses; appositive phrases; participial phrases; parallel structure; compound-complex sentences; advanced combining
-              </p>
-            </div>
+              View
+            </a>
           </div>
-        </VisibilitySensor>
+          <div
+            className="activity-text-container"
+          >
+            <p
+              className="activity-sub-text"
+            >
+              Students complete a 17 item survey to gauge their understanding of key writing skills that are essential to successful AP- and SAT-level writing. After students complete the survey, Quill will automatically recommend up to seven activity packs for each student based on their needs. Each pack contains a series of activities that each take about 15 minutes to complete and provide scaffolded, sequenced practice with one of the skills covered by the survey.
+            </p>
+            <p
+              className="activity-sub-header"
+            >
+              Skills
+            </p>
+            <p
+              className="activity-sub-text"
+            >
+              Complex Sentences; relative clauses; appositive phrases; participial phrases; parallel structure; compound-complex sentences; advanced combining
+            </p>
+          </div>
+        </div>
         <div
           className="activities-subheader"
           id="ell-subheader"
@@ -1016,46 +296,28 @@ exports[`Ap component should render when it is not part of the assignment flow 1
       <div
         className="container info-blurbs-section"
       >
-        <VisibilitySensor
-          active={true}
-          containment={null}
-          delayedCall={false}
-          intervalCheck={true}
-          intervalDelay={100}
-          minTopValue={0}
-          offset={Object {}}
-          onChange={[Function]}
-          partialVisibility={false}
-          resizeCheck={false}
-          resizeDelay={250}
-          resizeThrottle={-1}
-          scrollCheck={false}
-          scrollDelay={250}
-          scrollThrottle={-1}
+        <div
+          className="info-blurb-container"
         >
+          <img
+            alt="A recommended activity pack report showing four students being recommended a mixture of activities for relative clauses and participial phrases."
+            src="https://assets.quill.org/images/college_board/ap-recommendations.svg"
+          />
           <div
-            className="info-blurb-container"
+            className="text-container"
           >
-            <img
-              alt="A recommended activity pack report showing four students being recommended a mixture of activities for relative clauses and participial phrases."
-              src="https://assets.quill.org/images/college_board/ap-recommendations.svg"
-            />
-            <div
-              className="text-container"
+            <p
+              className="info-blurb-header"
             >
-              <p
-                className="info-blurb-header"
-              >
-                Personalized Recommendations
-              </p>
-              <p
-                className="info-blurb-text"
-              >
-                After students complete the AP Writing Skills Survey, you'll receive recommendations for each student based on their responses and tailored to their individual needs. Each student will be recommended up to 45 sentence combining activities, grouped by concept into seven packs, that provide meaningful, targeted practice. You can assign all the activities with one click, or you can pick and choose.
-              </p>
-            </div>
+              Personalized Recommendations
+            </p>
+            <p
+              className="info-blurb-text"
+            >
+              After students complete the AP Writing Skills Survey, you'll receive recommendations for each student based on their responses and tailored to their individual needs. Each student will be recommended up to 45 sentence combining activities, grouped by concept into seven packs, that provide meaningful, targeted practice. You can assign all the activities with one click, or you can pick and choose.
+            </p>
           </div>
-        </VisibilitySensor>
+        </div>
         <div
           className="info-blurb-container"
         >
@@ -1108,29 +370,11 @@ exports[`Ap component should render when it is not part of the assignment flow 1
       <div
         className="container cb-message-container"
       >
-        <VisibilitySensor
-          active={true}
-          containment={null}
-          delayedCall={false}
-          intervalCheck={true}
-          intervalDelay={100}
-          minTopValue={0}
-          offset={Object {}}
-          onChange={[Function]}
-          partialVisibility={false}
-          resizeCheck={false}
-          resizeDelay={250}
-          resizeThrottle={-1}
-          scrollCheck={false}
-          scrollDelay={250}
-          scrollThrottle={-1}
+        <p
+          className="cb-message-header"
         >
-          <p
-            className="cb-message-header"
-          >
-            Quill and College Board have partnered to provide students with meaningful practice of their sentence-level writing skills.
-          </p>
-        </VisibilitySensor>
+          Quill and College Board have partnered to provide students with meaningful practice of their sentence-level writing skills.
+        </p>
         <div
           className="sub-header-container"
         >
@@ -1168,7 +412,6 @@ exports[`Ap component should render when it is not part of the assignment flow 1
     </div>
     <div>
       <QuestionsAndAnswers
-        handleChange={[Function]}
         questionsAndAnswersFile="ap"
         supportLink=""
       >
@@ -1178,27 +421,9 @@ exports[`Ap component should render when it is not part of the assignment flow 1
           <div
             className="q-and-a-inner-wrapper"
           >
-            <VisibilitySensor
-              active={true}
-              containment={null}
-              delayedCall={false}
-              intervalCheck={true}
-              intervalDelay={100}
-              minTopValue={0}
-              offset={Object {}}
-              onChange={[Function]}
-              partialVisibility={false}
-              resizeCheck={false}
-              resizeDelay={250}
-              resizeThrottle={-1}
-              scrollCheck={false}
-              scrollDelay={250}
-              scrollThrottle={-1}
-            >
-              <h1>
-                Questions and Answers
-              </h1>
-            </VisibilitySensor>
+            <h1>
+              Questions and Answers
+            </h1>
             <QuestionAndAnswer
               key="0"
               qa={
@@ -1332,7 +557,7 @@ exports[`Ap component should render when it is not part of the assignment flow 1
                   "answer": <p>
                     Quill's writing skills surveys can be used in lieu of Quill's general diagnostics. For example, an AP teacher would likely assign the AP Writing Skills Survey in lieu of the Advanced Diagnostic. Keep in mind, however, that teachers may want ELL students in AP courses to begin with one of the ELL Diagnostics instead of a writing skills survey. 
                     <a
-                      href="ttps://support.quill.org/en/articles/2554430-what-are-the-differences-between-the-various-diagnostic-assessments"
+                      href="https://support.quill.org/en/articles/2554430-what-are-the-differences-between-the-various-diagnostic-assessments"
                       rel="noopener noreferrer"
                       target="_blank"
                     >
@@ -2250,7 +1475,6 @@ exports[`Ap component should render when it is part of the assignment flow 1`] =
 >
   <div
     className="college-board-container"
-    onScroll={[Function]}
   >
     <div
       className="section-wrapper"
@@ -2261,39 +1485,21 @@ exports[`Ap component should render when it is part of the assignment flow 1`] =
         <div
           className="header-left"
         >
-          <VisibilitySensor
-            active={true}
-            containment={null}
-            delayedCall={false}
-            intervalCheck={true}
-            intervalDelay={100}
-            minTopValue={0}
-            offset={Object {}}
-            onChange={[Function]}
-            partialVisibility={false}
-            resizeCheck={false}
-            resizeDelay={250}
-            resizeThrottle={-1}
-            scrollCheck={false}
-            scrollDelay={250}
-            scrollThrottle={-1}
+          <div
+            className="logo-container"
           >
+            <img
+              alt="College Board logo"
+              src="https://assets.quill.org/images/college_board/college-board-logo.svg"
+            />
             <div
-              className="logo-container"
-            >
-              <img
-                alt="College Board logo"
-                src="https://assets.quill.org/images/college_board/college-board-logo.svg"
-              />
-              <div
-                className="divider"
-              />
-              <img
-                alt="Quill logo"
-                src="https://assets.quill.org/images/logos/quill-logo-green.svg"
-              />
-            </div>
-          </VisibilitySensor>
+              className="divider"
+            />
+            <img
+              alt="Quill logo"
+              src="https://assets.quill.org/images/logos/quill-logo-green.svg"
+            />
+          </div>
           <div
             className="header-text-container"
           >
@@ -2311,689 +1517,6 @@ exports[`Ap component should render when it is part of the assignment flow 1`] =
         />
       </div>
     </div>
-    <ScrollBox
-      activeSection=""
-      sections={
-        Array [
-          Object {
-            "count": 4,
-            "ref": Object {
-              "current": <div
-                class="activities-subheader"
-              >
-                <h2>
-                  AP Writing Skills Survey
-                </h2>
-              </div>,
-            },
-            "title": "Writing Skills Surveys",
-          },
-          Object {
-            "ref": Object {
-              "current": <div
-                class="white-section-wrapper"
-                id="info-blurbs-1-wrapper"
-              >
-                <div
-                  class="container info-blurbs-section"
-                >
-                  <div
-                    class="info-blurb-container"
-                  >
-                    <img
-                      alt="A recommended activity pack report showing four students being recommended a mixture of activities for relative clauses and participial phrases."
-                      src="https://assets.quill.org/images/college_board/ap-recommendations.svg"
-                    />
-                    <div
-                      class="text-container"
-                    >
-                      <p
-                        class="info-blurb-header"
-                      >
-                        Personalized Recommendations
-                      </p>
-                      <p
-                        class="info-blurb-text"
-                      >
-                        After students complete the AP Writing Skills Survey, you'll receive recommendations for each student based on their responses and tailored to their individual needs. Each student will be recommended up to 45 sentence combining activities, grouped by concept into seven packs, that provide meaningful, targeted practice. You can assign all the activities with one click, or you can pick and choose.
-                      </p>
-                    </div>
-                  </div>
-                  <div
-                    class="info-blurb-container"
-                  >
-                    <div
-                      class="text-container"
-                    >
-                      <p
-                        class="info-blurb-header"
-                      >
-                        Writing with Targeted Feedback
-                      </p>
-                      <p
-                        class="info-blurb-text"
-                      >
-                        Students receive immediate feedback that guides them through the revision process, pushing them to think critically about their writing and make revisions that ultimately lead to strong, sophisticated, and grammatically accurate sentences. The feedback inspires students to strengthen their sentence structure, but also supports them in editing for mechanics such as punctuation and spelling.
-                      </p>
-                    </div>
-                    <img
-                      alt="An illustration showing a student combining two sentences, getting feedback from Quill, and then getting a correct response."
-                      src="https://assets.quill.org/images/college_board/ap-additional-practice.svg"
-                    />
-                  </div>
-                  <div
-                    class="info-blurb-container"
-                  >
-                    <img
-                      alt="A report showing that a student scored 79% on parallel structure, 98% on parallel structure with joining words, and 58% on advanced parallel structure."
-                      src="https://assets.quill.org/images/college_board/ap-reports.svg"
-                    />
-                    <div
-                      class="text-container"
-                    >
-                      <p
-                        class="info-blurb-header"
-                      >
-                        Data Reports
-                      </p>
-                      <p
-                        class="info-blurb-text"
-                      >
-                        You can monitor the progress of your students and continue to identify areas of need and areas of strength through multiple data reports. Use the analysis report to review your students' work sentence-by-sentence, or use the summary report to get a high-level sense of where your students could use some extra support.
-                      </p>
-                    </div>
-                  </div>
-                </div>
-              </div>,
-            },
-            "title": "Feedback & Reports",
-          },
-          Object {
-            "ref": Object {
-              "current": <p
-                class="info-blurb-text"
-              >
-                You can monitor the progress of your students and continue to identify areas of need and areas of strength through multiple data reports. Use the analysis report to review your students' work sentence-by-sentence, or use the summary report to get a high-level sense of where your students could use some extra support.
-              </p>,
-            },
-            "title": "Message From College Board",
-          },
-          Object {
-            "ref": Object {
-              "current": <div>
-                <div
-                  id="q-and-a"
-                >
-                  <div
-                    class="q-and-a-inner-wrapper"
-                  >
-                    <h1>
-                      Questions and Answers
-                    </h1>
-                    <div
-                      class="qa-section"
-                    >
-                      <div
-                        class="qa"
-                      >
-                        <button
-                          class="question"
-                          tabindex="-1"
-                          type="button"
-                        >
-                          What is Quill.org?
-                        </button>
-                      </div>
-                      <div>
-                        <button
-                          class="expand-collapse-button focus-on-light"
-                          type="button"
-                        >
-                          <img
-                            alt="expand-and-collapse"
-                            src="undefined/images/shared/expand.svg"
-                          />
-                        </button>
-                      </div>
-                    </div>
-                    <div
-                      class="qa-section"
-                    >
-                      <div
-                        class="qa"
-                      >
-                        <button
-                          class="question"
-                          tabindex="-1"
-                          type="button"
-                        >
-                          What is the AP Writing Skills Survey?
-                        </button>
-                      </div>
-                      <div>
-                        <button
-                          class="expand-collapse-button focus-on-light"
-                          type="button"
-                        >
-                          <img
-                            alt="expand-and-collapse"
-                            src="undefined/images/shared/expand.svg"
-                          />
-                        </button>
-                      </div>
-                    </div>
-                    <div
-                      class="qa-section"
-                    >
-                      <div
-                        class="qa"
-                      >
-                        <button
-                          class="question"
-                          tabindex="-1"
-                          type="button"
-                        >
-                          For which AP courses is this practice most relevant?
-                        </button>
-                      </div>
-                      <div>
-                        <button
-                          class="expand-collapse-button focus-on-light"
-                          type="button"
-                        >
-                          <img
-                            alt="expand-and-collapse"
-                            src="undefined/images/shared/expand.svg"
-                          />
-                        </button>
-                      </div>
-                    </div>
-                    <div
-                      class="qa-section"
-                    >
-                      <div
-                        class="qa"
-                      >
-                        <button
-                          class="question"
-                          tabindex="-1"
-                          type="button"
-                        >
-                          Is a writing skills survey different than a diagnostic?
-                        </button>
-                      </div>
-                      <div>
-                        <button
-                          class="expand-collapse-button focus-on-light"
-                          type="button"
-                        >
-                          <img
-                            alt="expand-and-collapse"
-                            src="undefined/images/shared/expand.svg"
-                          />
-                        </button>
-                      </div>
-                    </div>
-                    <div
-                      class="qa-section"
-                    >
-                      <div
-                        class="qa"
-                      >
-                        <button
-                          class="question"
-                          tabindex="-1"
-                          type="button"
-                        >
-                          How long does the Survey take?
-                        </button>
-                      </div>
-                      <div>
-                        <button
-                          class="expand-collapse-button focus-on-light"
-                          type="button"
-                        >
-                          <img
-                            alt="expand-and-collapse"
-                            src="undefined/images/shared/expand.svg"
-                          />
-                        </button>
-                      </div>
-                    </div>
-                    <div
-                      class="qa-section"
-                    >
-                      <div
-                        class="qa"
-                      >
-                        <button
-                          class="question"
-                          tabindex="-1"
-                          type="button"
-                        >
-                          What happens after I assign the Survey and my students complete it?
-                        </button>
-                      </div>
-                      <div>
-                        <button
-                          class="expand-collapse-button focus-on-light"
-                          type="button"
-                        >
-                          <img
-                            alt="expand-and-collapse"
-                            src="undefined/images/shared/expand.svg"
-                          />
-                        </button>
-                      </div>
-                    </div>
-                    <div
-                      class="qa-section"
-                    >
-                      <div
-                        class="qa"
-                      >
-                        <button
-                          class="question"
-                          tabindex="-1"
-                          type="button"
-                        >
-                          What kind of activities will be recommended to my students after they take the AP Writing Skills Survey?
-                        </button>
-                      </div>
-                      <div>
-                        <button
-                          class="expand-collapse-button focus-on-light"
-                          type="button"
-                        >
-                          <img
-                            alt="expand-and-collapse"
-                            src="undefined/images/shared/expand.svg"
-                          />
-                        </button>
-                      </div>
-                    </div>
-                    <div
-                      class="qa-section"
-                    >
-                      <div
-                        class="qa"
-                      >
-                        <button
-                          class="question"
-                          tabindex="-1"
-                          type="button"
-                        >
-                          Can students complete the AP Writing Practice packs independently?
-                        </button>
-                      </div>
-                      <div>
-                        <button
-                          class="expand-collapse-button focus-on-light"
-                          type="button"
-                        >
-                          <img
-                            alt="expand-and-collapse"
-                            src="undefined/images/shared/expand.svg"
-                          />
-                        </button>
-                      </div>
-                    </div>
-                    <div
-                      class="qa-section"
-                    >
-                      <div
-                        class="qa"
-                      >
-                        <button
-                          class="question"
-                          tabindex="-1"
-                          type="button"
-                        >
-                          How many activities are in each AP Writing Practice pack?
-                        </button>
-                      </div>
-                      <div>
-                        <button
-                          class="expand-collapse-button focus-on-light"
-                          type="button"
-                        >
-                          <img
-                            alt="expand-and-collapse"
-                            src="undefined/images/shared/expand.svg"
-                          />
-                        </button>
-                      </div>
-                    </div>
-                    <div
-                      class="qa-section"
-                    >
-                      <div
-                        class="qa"
-                      >
-                        <button
-                          class="question"
-                          tabindex="-1"
-                          type="button"
-                        >
-                          What grade-level or reading level are the AP Activity Packs designed for?
-                        </button>
-                      </div>
-                      <div>
-                        <button
-                          class="expand-collapse-button focus-on-light"
-                          type="button"
-                        >
-                          <img
-                            alt="expand-and-collapse"
-                            src="undefined/images/shared/expand.svg"
-                          />
-                        </button>
-                      </div>
-                    </div>
-                    <div
-                      class="qa-section"
-                    >
-                      <div
-                        class="qa"
-                      >
-                        <button
-                          class="question"
-                          tabindex="-1"
-                          type="button"
-                        >
-                          Will my students receive feedback as they work through the AP Writing Practice activity packs?
-                        </button>
-                      </div>
-                      <div>
-                        <button
-                          class="expand-collapse-button focus-on-light"
-                          type="button"
-                        >
-                          <img
-                            alt="expand-and-collapse"
-                            src="undefined/images/shared/expand.svg"
-                          />
-                        </button>
-                      </div>
-                    </div>
-                    <div
-                      class="qa-section"
-                    >
-                      <div
-                        class="qa"
-                      >
-                        <button
-                          class="question"
-                          tabindex="-1"
-                          type="button"
-                        >
-                          Where can I track my students' completion of and performance on the AP Writing Practice packs?
-                        </button>
-                      </div>
-                      <div>
-                        <button
-                          class="expand-collapse-button focus-on-light"
-                          type="button"
-                        >
-                          <img
-                            alt="expand-and-collapse"
-                            src="undefined/images/shared/expand.svg"
-                          />
-                        </button>
-                      </div>
-                    </div>
-                    <div
-                      class="qa-section"
-                    >
-                      <div
-                        class="qa"
-                      >
-                        <button
-                          class="question"
-                          tabindex="-1"
-                          type="button"
-                        >
-                          How many AP Writing Practice packs should I assign to my students and how long will it take them to complete a pack?
-                        </button>
-                      </div>
-                      <div>
-                        <button
-                          class="expand-collapse-button focus-on-light"
-                          type="button"
-                        >
-                          <img
-                            alt="expand-and-collapse"
-                            src="undefined/images/shared/expand.svg"
-                          />
-                        </button>
-                      </div>
-                    </div>
-                    <div
-                      class="qa-section"
-                    >
-                      <div
-                        class="qa"
-                      >
-                        <button
-                          class="question"
-                          tabindex="-1"
-                          type="button"
-                        >
-                          If my students have been using Quill for a while, will they encounter activities in the AP Writing Practice packs that they have completed before?
-                        </button>
-                      </div>
-                      <div>
-                        <button
-                          class="expand-collapse-button focus-on-light"
-                          type="button"
-                        >
-                          <img
-                            alt="expand-and-collapse"
-                            src="undefined/images/shared/expand.svg"
-                          />
-                        </button>
-                      </div>
-                    </div>
-                    <div
-                      class="qa-section"
-                    >
-                      <div
-                        class="qa"
-                      >
-                        <button
-                          class="question"
-                          tabindex="-1"
-                          type="button"
-                        >
-                          Can I assign my students practice beyond the recommended AP Writing Practice packs?
-                        </button>
-                      </div>
-                      <div>
-                        <button
-                          class="expand-collapse-button focus-on-light"
-                          type="button"
-                        >
-                          <img
-                            alt="expand-and-collapse"
-                            src="undefined/images/shared/expand.svg"
-                          />
-                        </button>
-                      </div>
-                    </div>
-                    <div
-                      class="qa-section"
-                    >
-                      <div
-                        class="qa"
-                      >
-                        <button
-                          class="question"
-                          tabindex="-1"
-                          type="button"
-                        >
-                          Do I need to create an account on Quill.org to assign the AP Writing Skills Survey?
-                        </button>
-                      </div>
-                      <div>
-                        <button
-                          class="expand-collapse-button focus-on-light"
-                          type="button"
-                        >
-                          <img
-                            alt="expand-and-collapse"
-                            src="undefined/images/shared/expand.svg"
-                          />
-                        </button>
-                      </div>
-                    </div>
-                    <div
-                      class="qa-section"
-                    >
-                      <div
-                        class="qa"
-                      >
-                        <button
-                          class="question"
-                          tabindex="-1"
-                          type="button"
-                        >
-                          What if I still have questions?
-                        </button>
-                      </div>
-                      <div>
-                        <button
-                          class="expand-collapse-button focus-on-light"
-                          type="button"
-                        >
-                          <img
-                            alt="expand-and-collapse"
-                            src="undefined/images/shared/expand.svg"
-                          />
-                        </button>
-                      </div>
-                    </div>
-                    <a
-                      class="support-link hidden"
-                      href=""
-                    >
-                      View all questions and answers
-                    </a>
-                  </div>
-                </div>
-              </div>,
-            },
-            "title": "Questions and Answers",
-          },
-        ]
-      }
-      setActiveSection={[Function]}
-      setIsScrollingFromClick={[Function]}
-      showScrollBox=""
-    >
-      <div
-        className="scrollbox-container "
-      >
-        <section
-          className="header"
-        >
-          Scroll to
-        </section>
-        <section
-          className="sections-container"
-        >
-          <button
-            className="section-container"
-            key="Writing Skills Surveys"
-            onClick={[Function]}
-            type="button"
-          >
-            <section
-              className="title-container"
-            >
-              <div
-                className="section-status inactive"
-              />
-              <p
-                className="section-title "
-              >
-                Writing Skills Surveys
-              </p>
-            </section>
-            <p
-              className="section-count "
-            >
-              4
-            </p>
-          </button>
-          <button
-            className="section-container"
-            key="Feedback & Reports"
-            onClick={[Function]}
-            type="button"
-          >
-            <section
-              className="title-container"
-            >
-              <div
-                className="section-status inactive"
-              />
-              <p
-                className="section-title "
-              >
-                Feedback & Reports
-              </p>
-            </section>
-            <p
-              className="section-count hidden"
-            />
-          </button>
-          <button
-            className="section-container"
-            key="Message From College Board"
-            onClick={[Function]}
-            type="button"
-          >
-            <section
-              className="title-container"
-            >
-              <div
-                className="section-status inactive"
-              />
-              <p
-                className="section-title "
-              >
-                Message From College Board
-              </p>
-            </section>
-            <p
-              className="section-count hidden"
-            />
-          </button>
-          <button
-            className="section-container"
-            key="Questions and Answers"
-            onClick={[Function]}
-            type="button"
-          >
-            <section
-              className="title-container"
-            >
-              <div
-                className="section-status inactive"
-              />
-              <p
-                className="section-title "
-              >
-                Questions and Answers
-              </p>
-            </section>
-            <p
-              className="section-count hidden"
-            />
-          </button>
-        </section>
-      </div>
-    </ScrollBox>
     <div
       className="white-section-wrapper"
     >
@@ -3025,65 +1548,47 @@ exports[`Ap component should render when it is part of the assignment flow 1`] =
             AP Writing Skills Survey
           </h2>
         </div>
-        <VisibilitySensor
-          active={true}
-          containment={null}
-          delayedCall={false}
-          intervalCheck={true}
-          intervalDelay={100}
-          minTopValue={0}
-          offset={Object {}}
-          onChange={[Function]}
-          partialVisibility={false}
-          resizeCheck={false}
-          resizeDelay={250}
-          resizeThrottle={-1}
-          scrollCheck={false}
-          scrollDelay={250}
-          scrollThrottle={-1}
+        <div
+          className="activity-container"
         >
           <div
-            className="activity-container"
+            className="activity-header-container"
           >
-            <div
-              className="activity-header-container"
+            <p
+              className="activity-header"
+              id="writing-skills-survey"
             >
-              <p
-                className="activity-header"
-                id="writing-skills-survey"
-              >
-                AP Writing Skills Survey
-              </p>
-              <a
-                className="quill-button medium primary outlined view-button focus-on-light"
-                href="/assign/featured-activity-packs/193?college-board=ap"
-                rel="noopener noreferrer"
-                target=""
-              >
-                View
-              </a>
-            </div>
-            <div
-              className="activity-text-container"
+              AP Writing Skills Survey
+            </p>
+            <a
+              className="quill-button medium primary outlined view-button focus-on-light"
+              href="/assign/featured-activity-packs/193?college-board=ap"
+              rel="noopener noreferrer"
+              target=""
             >
-              <p
-                className="activity-sub-text"
-              >
-                Students complete a 17 item survey to gauge their understanding of key writing skills that are essential to successful AP- and SAT-level writing. After students complete the survey, Quill will automatically recommend up to seven activity packs for each student based on their needs. Each pack contains a series of activities that each take about 15 minutes to complete and provide scaffolded, sequenced practice with one of the skills covered by the survey.
-              </p>
-              <p
-                className="activity-sub-header"
-              >
-                Skills
-              </p>
-              <p
-                className="activity-sub-text"
-              >
-                Complex Sentences; relative clauses; appositive phrases; participial phrases; parallel structure; compound-complex sentences; advanced combining
-              </p>
-            </div>
+              View
+            </a>
           </div>
-        </VisibilitySensor>
+          <div
+            className="activity-text-container"
+          >
+            <p
+              className="activity-sub-text"
+            >
+              Students complete a 17 item survey to gauge their understanding of key writing skills that are essential to successful AP- and SAT-level writing. After students complete the survey, Quill will automatically recommend up to seven activity packs for each student based on their needs. Each pack contains a series of activities that each take about 15 minutes to complete and provide scaffolded, sequenced practice with one of the skills covered by the survey.
+            </p>
+            <p
+              className="activity-sub-header"
+            >
+              Skills
+            </p>
+            <p
+              className="activity-sub-text"
+            >
+              Complex Sentences; relative clauses; appositive phrases; participial phrases; parallel structure; compound-complex sentences; advanced combining
+            </p>
+          </div>
+        </div>
         <div
           className="activities-subheader"
           id="ell-subheader"
@@ -3254,46 +1759,28 @@ exports[`Ap component should render when it is part of the assignment flow 1`] =
       <div
         className="container info-blurbs-section"
       >
-        <VisibilitySensor
-          active={true}
-          containment={null}
-          delayedCall={false}
-          intervalCheck={true}
-          intervalDelay={100}
-          minTopValue={0}
-          offset={Object {}}
-          onChange={[Function]}
-          partialVisibility={false}
-          resizeCheck={false}
-          resizeDelay={250}
-          resizeThrottle={-1}
-          scrollCheck={false}
-          scrollDelay={250}
-          scrollThrottle={-1}
+        <div
+          className="info-blurb-container"
         >
+          <img
+            alt="A recommended activity pack report showing four students being recommended a mixture of activities for relative clauses and participial phrases."
+            src="https://assets.quill.org/images/college_board/ap-recommendations.svg"
+          />
           <div
-            className="info-blurb-container"
+            className="text-container"
           >
-            <img
-              alt="A recommended activity pack report showing four students being recommended a mixture of activities for relative clauses and participial phrases."
-              src="https://assets.quill.org/images/college_board/ap-recommendations.svg"
-            />
-            <div
-              className="text-container"
+            <p
+              className="info-blurb-header"
             >
-              <p
-                className="info-blurb-header"
-              >
-                Personalized Recommendations
-              </p>
-              <p
-                className="info-blurb-text"
-              >
-                After students complete the AP Writing Skills Survey, you'll receive recommendations for each student based on their responses and tailored to their individual needs. Each student will be recommended up to 45 sentence combining activities, grouped by concept into seven packs, that provide meaningful, targeted practice. You can assign all the activities with one click, or you can pick and choose.
-              </p>
-            </div>
+              Personalized Recommendations
+            </p>
+            <p
+              className="info-blurb-text"
+            >
+              After students complete the AP Writing Skills Survey, you'll receive recommendations for each student based on their responses and tailored to their individual needs. Each student will be recommended up to 45 sentence combining activities, grouped by concept into seven packs, that provide meaningful, targeted practice. You can assign all the activities with one click, or you can pick and choose.
+            </p>
           </div>
-        </VisibilitySensor>
+        </div>
         <div
           className="info-blurb-container"
         >
@@ -3346,29 +1833,11 @@ exports[`Ap component should render when it is part of the assignment flow 1`] =
       <div
         className="container cb-message-container"
       >
-        <VisibilitySensor
-          active={true}
-          containment={null}
-          delayedCall={false}
-          intervalCheck={true}
-          intervalDelay={100}
-          minTopValue={0}
-          offset={Object {}}
-          onChange={[Function]}
-          partialVisibility={false}
-          resizeCheck={false}
-          resizeDelay={250}
-          resizeThrottle={-1}
-          scrollCheck={false}
-          scrollDelay={250}
-          scrollThrottle={-1}
+        <p
+          className="cb-message-header"
         >
-          <p
-            className="cb-message-header"
-          >
-            Quill and College Board have partnered to provide students with meaningful practice of their sentence-level writing skills.
-          </p>
-        </VisibilitySensor>
+          Quill and College Board have partnered to provide students with meaningful practice of their sentence-level writing skills.
+        </p>
         <div
           className="sub-header-container"
         >
@@ -3406,7 +1875,6 @@ exports[`Ap component should render when it is part of the assignment flow 1`] =
     </div>
     <div>
       <QuestionsAndAnswers
-        handleChange={[Function]}
         questionsAndAnswersFile="ap"
         supportLink=""
       >
@@ -3416,27 +1884,9 @@ exports[`Ap component should render when it is part of the assignment flow 1`] =
           <div
             className="q-and-a-inner-wrapper"
           >
-            <VisibilitySensor
-              active={true}
-              containment={null}
-              delayedCall={false}
-              intervalCheck={true}
-              intervalDelay={100}
-              minTopValue={0}
-              offset={Object {}}
-              onChange={[Function]}
-              partialVisibility={false}
-              resizeCheck={false}
-              resizeDelay={250}
-              resizeThrottle={-1}
-              scrollCheck={false}
-              scrollDelay={250}
-              scrollThrottle={-1}
-            >
-              <h1>
-                Questions and Answers
-              </h1>
-            </VisibilitySensor>
+            <h1>
+              Questions and Answers
+            </h1>
             <QuestionAndAnswer
               key="0"
               qa={
@@ -3570,7 +2020,7 @@ exports[`Ap component should render when it is part of the assignment flow 1`] =
                   "answer": <p>
                     Quill's writing skills surveys can be used in lieu of Quill's general diagnostics. For example, an AP teacher would likely assign the AP Writing Skills Survey in lieu of the Advanced Diagnostic. Keep in mind, however, that teachers may want ELL students in AP courses to begin with one of the ELL Diagnostics instead of a writing skills survey. 
                     <a
-                      href="ttps://support.quill.org/en/articles/2554430-what-are-the-differences-between-the-various-diagnostic-assessments"
+                      href="https://support.quill.org/en/articles/2554430-what-are-the-differences-between-the-various-diagnostic-assessments"
                       rel="noopener noreferrer"
                       target="_blank"
                     >
