@@ -7,6 +7,8 @@ import { requestPut, } from '../../../../../modules/request/index'
 const networkSrc = `${process.env.CDN_URL}/images/onboarding/network.svg`
 const districtAdminWarningIconSrc = `${process.env.CDN_URL}/images/onboarding/district-admin-warning-icon.svg`
 
+const DISTRICT_ADMINISTRATOR = 'District administrator'
+
 const SelectSubRole = ({ subRoles, }) => {
   const [subRole, setSubRole] = React.useState(null)
 
@@ -34,7 +36,7 @@ const SelectSubRole = ({ subRoles, }) => {
     nextButton = <button className={nextButtonClassName} onClick={submitAdminInfo} type="button">Next</button>
   }
 
-  if (subRole === 'District administrator') {
+  if (subRole === DISTRICT_ADMINISTRATOR) {
     districtAdminNote = (
       <section className="district-admin-note">
         <img alt="" src={districtAdminWarningIconSrc} />
