@@ -962,7 +962,8 @@ CREATE TABLE public.blog_posts (
     order_number integer,
     image_link character varying,
     press_name character varying,
-    featured_order_number integer
+    featured_order_number integer,
+    footer_content text DEFAULT ''::text
 );
 
 
@@ -9355,6 +9356,7 @@ INSERT INTO "schema_migrations" (version) VALUES
 ('20230201202210'),
 ('20230206203447'),
 ('20230301151808'),
-('20230301160642');
+('20230301160642'),
+('20230328155819');
 
 
