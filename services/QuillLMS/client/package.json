@@ -55,7 +55,7 @@
     "file-loader": "^6.1.0",
     "font-awesome": "^4.7.0",
     "fuse.js": "^3.2.1",
-    "fuzzyset.js": "0.0.7",
+    "fuzzyset.js": "1.0.7",
     "graphql": "^15.5.3",
     "graphql-tag": "^2.9.2",
     "history": "^2.0.1",

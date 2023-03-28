@@ -1,4 +1,9 @@
 <head>
+  <script type="text/javascript">
+    window.global ||= window;
+    var process = process || { env: {} };
+  </script>
+
   <% if Rails.env.development? %>
     <title>[DEV] Quill.org | <%= @title || 'Interactive Writing and Grammar' %></title>
     <%= favicon_link_tag 'favicon-dev.ico' %>
