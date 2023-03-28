@@ -5,6 +5,7 @@ import { DropdownInput, } from '../../../../Shared/index'
 import { requestPut, } from '../../../../../modules/request/index'
 
 const networkSrc = `${process.env.CDN_URL}/images/onboarding/network.svg`
+const districtAdminWarningIconSrc = `${process.env.CDN_URL}/images/onboarding/district-admin-warning-icon.svg`
 
 const SelectSubRole = ({ subRoles, }) => {
   const [subRole, setSubRole] = React.useState(null)
@@ -27,9 +28,19 @@ const SelectSubRole = ({ subRoles, }) => {
 
   const nextButtonClassName = "quill-button primary contained medium focus-on-light"
   let nextButton = <button className={`${nextButtonClassName} disabled`} disabled type="button">Next</button>
+  let districtAdminNote
 
   if (subRole) {
     nextButton = <button className={nextButtonClassName} onClick={submitAdminInfo} type="button">Next</button>
+  }
+
+  if (subRole === 'District administrator') {
+    districtAdminNote = (
+      <section className="district-admin-note">
+        <img alt="" src={districtAdminWarningIconSrc} />
+        <p>Thanks for indicating that you are a District Administrator. Currently, you can only sign up as an administrator of <b>one</b> school. Once approved, you will receive an email regarding how to become an administrator of all schools in your district.</p>
+      </section>
+    )
   }
 
   const options = subRoles.map(sr => ({ value: sr, label: sr, }))
@@ -51,6 +62,7 @@ const SelectSubRole = ({ subRoles, }) => {
             value={selectedOption}
           />
         </section>
+        {districtAdminNote}
         <div className="button-wrapper">
           {nextButton}
         </div>
