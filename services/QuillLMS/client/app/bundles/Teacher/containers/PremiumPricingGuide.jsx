@@ -1,8 +1,6 @@
 import React from 'react';
 import qs from 'qs'
 
-import QuestionsAndAnswers from './QuestionsAndAnswers.tsx'
-
 import SchoolAndDistrictPremiumModal, { SCHOOL_SELECTION_STAGE, } from '../components/premium/school_and_district_premium_modal'
 import PremiumBannerBuilder from '../components/scorebook/premium_banners/premium_banner_builder.jsx'
 import PremiumPricingMinisRow from '../components/premium/premium_pricing_minis_row.jsx';
@@ -135,7 +133,7 @@ export const PremiumPricingGuide = ({
 
   return (
     <div>
-      <div className="container premium-page white-background-accommodate-footer">
+      <div className="container premium-page">
         <Snackbar text="Sorry, you need to select a school to purchase School Premium." visible={showSnackbar} />
         {userIsSignedIn() && <PremiumBannerBuilder originPage="premium" upgradeToPremiumNowButton={upgradeToPremiumNowButton} />}
         {showSchoolAndDistrictPremiumModal && (
@@ -175,10 +173,6 @@ export const PremiumPricingGuide = ({
           <SchoolPremium />
           <SubscriberLogos subscribers={subscribers} />
         </div>
-        <QuestionsAndAnswers
-          questionsAndAnswersFile="premium"
-          supportLink="https://support.quill.org/quill-premium"
-        />
       </div>
     </div>
   )
