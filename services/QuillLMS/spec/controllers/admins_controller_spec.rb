@@ -200,7 +200,7 @@ describe AdminsController  do
         end
       end
     end
-    
+  
   end
 
   describe '#deny_admin_request' do
