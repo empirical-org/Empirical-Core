@@ -1,5 +1,5 @@
 import * as React from "react";
-import { useQuery } from 'react-query';
+import { useQuery, useQueryClient } from 'react-query';
 import { withRouter, Link } from 'react-router-dom';
 
 import { activateModel, fetchModel, fetchModels } from '../../../utils/evidence/modelAPIs';
@@ -19,6 +19,8 @@ const ActivateModelForm = ({ match }) => {
   const [existingLabels, setExistingLabels] = React.useState(null);
   const [modelReady, setModelReady] = React.useState(false);
   const [modelToActivate, setModelToActivate] = React.useState(null);
+
+  const queryClient = useQueryClient()
 
   // cache model data for updates
   const { data: modelData } = useQuery({
@@ -81,6 +83,7 @@ const ActivateModelForm = ({ match }) => {
         setActiveModel(modelToActivate);
         updateActiveLabels(modelToActivate);
         setIsLoading(false);
+        queryClient.clear();
       }
     })
   }
