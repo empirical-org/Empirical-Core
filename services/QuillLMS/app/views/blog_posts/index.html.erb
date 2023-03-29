@@ -1,4 +1,4 @@
-<%= render partial: 'pages/shared/teacher_center_navbar', locals: {active_tab: @topic || BlogPost::ALL_RESOURCES } if (!current_user || current_user&.role == 'teacher') %>
+<%= render partial: 'pages/shared/teacher_center_navbar', locals: {active_tab: @topic || BlogPost::ALL_RESOURCES } if (!current_user || current_user&.role != 'student') %>
 <%= render partial: 'pages/shared/student_center_navbar', locals: {active_tab: @topic || BlogPost::ALL_RESOURCES } if current_user&.role == 'student' %>
 <div class="container">
   <%= react_component('BlogPostsApp', props: {
