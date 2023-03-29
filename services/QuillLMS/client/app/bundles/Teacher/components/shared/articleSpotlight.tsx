@@ -22,6 +22,7 @@ export const ArticleSpotlight = ({ backgroundColor, blogPostId } : ArticleSpotli
   function getBlogPost(id: string) {
     requestGet(`/featured_blog_post/${id}`,
       (data) => {
+        console.log("🚀 ~ file: articleSpotlight.tsx:33 ~ getBlogPost ~ data:", data)
         if(data.blog_post) {
           const { blog_post, author } = data;
           setBlogPost(blog_post)

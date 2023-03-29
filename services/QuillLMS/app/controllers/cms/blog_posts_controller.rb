@@ -26,6 +26,7 @@ class Cms::BlogPostsController < Cms::CmsController
 
   def update
     @blog_post.update(blog_post_params)
+    Rails.logger.info "@blog_post, update: #{@blog_post}"
     render json: @blog_post
   end
 
