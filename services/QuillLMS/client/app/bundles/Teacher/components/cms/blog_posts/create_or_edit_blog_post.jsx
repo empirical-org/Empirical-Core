@@ -304,7 +304,6 @@ export default class CreateOrEditBlogPost extends React.Component {
         footer_content: footerContent
       }
     }
-    console.log("🚀 ~ file: create_or_edit_blog_post.jsx:307 ~ CreateOrEditBlogPost ~ blogPost:", blogPost)
 
     if (action === NEW && !unpublish) {
       requestPost(
@@ -326,7 +325,6 @@ export default class CreateOrEditBlogPost extends React.Component {
         url,
         blogPost,
         (body) => {
-          console.log("🚀 ~ file: create_or_edit_blog_post.jsx:329 ~ CreateOrEditBlogPost ~ body:", body)
           this.setState({draft: body.draft})
           alert('Update successful!');
           callback ? callback() : null

@@ -65,7 +65,6 @@ class BlogPostsController < ApplicationController
 
   def featured_blog_post
     featured_blog_post = BlogPost.find(params[:id])
-    Rails.logger.info "featured_blog_post, blog_posts_controller: #{featured_blog_post.footer_content}"
     featured_blog_post_author = featured_blog_post&.author&.name
     render json: { blog_post: featured_blog_post, author: featured_blog_post_author }
   end
