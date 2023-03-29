@@ -70,16 +70,16 @@ describe AdminAccessController do
   describe '#request_upgrade_to_admin_from_existing_admins' do
     it 'creates an admin info record with the requisite information, an admin approval request record, and fires the necessary segment workers' do
       reason = 'I really want to be an admin.'
-      new_user = [true, false].sample
+      [true, false].each do |new_user|
+        expect(AdminReceivedAdminUpgradeRequestFromTeacherAnalyticsWorker).to receive(:perform_async).with(school_admin.user.id.to_s, user.id, reason, new_user)
+        expect(TeacherRequestedToBecomeAdminAnalyticsWorker).to receive(:perform_async).with(user.id, new_user)
 
-      expect(AdminReceivedAdminUpgradeRequestFromTeacherAnalyticsWorker).to receive(:perform_async).with(school_admin.user.id.to_s, user.id, reason, new_user)
-      expect(TeacherRequestedToBecomeAdminAnalyticsWorker).to receive(:perform_async).with(user.id, new_user)
+        post :request_upgrade_to_admin_from_existing_admins, params: { admin_ids: [school_admin.user.id], reason: reason, new_user: new_user }
 
-      post :request_upgrade_to_admin_from_existing_admins, params: { admin_ids: [school_admin.user.id], reason: reason, new_user: new_user }
-
-      expect(user.admin_info.approval_status).to eq(AdminInfo::PENDING)
-      expect(user.admin_info.approver_role).to eq(User::ADMIN)
-      expect(AdminApprovalRequest.find_by(admin_info: user.admin_info, requestee_id: school_admin.user.id, request_made_during_sign_up: new_user)).to be
+        expect(user.admin_info.approval_status).to eq(AdminInfo::PENDING)
+        expect(user.admin_info.approver_role).to eq(User::ADMIN)
+        expect(AdminApprovalRequest.find_by(admin_info: user.admin_info, requestee_id: school_admin.user.id, request_made_during_sign_up: new_user)).to be
+      end
     end
   end
 

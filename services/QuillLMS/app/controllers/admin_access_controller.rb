@@ -19,7 +19,7 @@ class AdminAccessController < ApplicationController
   def request_upgrade_to_admin_from_existing_admins
     admin_ids = request_upgrade_to_admin_from_existing_admins_params[:admin_ids]
     reason = request_upgrade_to_admin_from_existing_admins_params[:reason]
-    new_user = request_upgrade_to_admin_from_existing_admins_params[:new_user].to_s == 'true'
+    new_user = ActiveRecord::Type::Boolean.new.deserialize(request_upgrade_to_admin_from_existing_admins_params[:new_user])
     admin_info = AdminInfo.find_or_create_by!(user: current_user)
     admin_info.update(approval_status: AdminInfo::PENDING, approver_role: User::ADMIN)
     admin_ids.each do |admin_id|
