@@ -16,4 +16,19 @@ describe("Getting concept results from a completed Evidence activity", () => {
     const result = generateConceptResults(currentActivity, submittedResponses)
     expect(result).toEqual(expectedPayload.concept_results)
   })
+
+  it("should generate topic-optimal ConceptResults when a non-optimal post-autoML feedback is received", () => {
+    delete submittedResponses["1"]
+    delete submittedResponses["2"]
+    submittedResponses["3"].splice(1)
+    const result = generateConceptResults(currentActivity, submittedResponses)
+    expect(result.filter(conceptResult => (
+      conceptResult.concept_uid == "placeholder" &&
+        conceptResult.metadata.correct == 0
+    )).length).toEqual(1)
+    expect(result.filter(conceptResult => (
+      conceptResult.concept_uid == "IBdOFpAWi42LgfXvcz0scQ" && 
+        conceptResult.metadata.correct == 1
+    )).length).toEqual(1)
+  })
 });
