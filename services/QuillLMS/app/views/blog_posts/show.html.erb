@@ -4,7 +4,7 @@
   <% active_tab = 'All resources'%>
 <% end %>
 
-<%= render partial: 'pages/shared/teacher_center_navbar', locals: {active_tab: active_tab} if (!current_user || current_user&.role != 'student') %>
+<%= render partial: 'pages/shared/teacher_center_navbar', locals: {active_tab: active_tab} if (!current_user || current_user&.teacher?) %>
 <%= render partial: 'pages/shared/student_center_navbar', locals: {active_tab: active_tab} if current_user&.role == 'student' %>
 <%= react_component('BlogPostsApp', props: {
   route: 'show',
