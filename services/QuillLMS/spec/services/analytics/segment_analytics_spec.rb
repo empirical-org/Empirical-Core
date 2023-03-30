@@ -322,10 +322,10 @@ describe 'SegmentAnalytics' do
       analytics.track_admin_received_admin_upgrade_request_from_teacher(
         admin,
         teacher,
-        reason
+        reason,
+        false
       )
       expect(track_calls.size).to eq(1)
-      expect(track_calls[0][:event]).to eq(SegmentIo::BackgroundEvents::ADMIN_RECEIVED_ADMIN_UPGRADE_REQUEST_FROM_TEACHER)
       expect(track_calls[0][:user_id]).to eq(admin.id)
       expect(track_calls[0][:properties][:teacher_first_name]).to eq(teacher.first_name)
       expect(track_calls[0][:properties][:teacher_last_name]).to eq(teacher.last_name)
@@ -335,6 +335,33 @@ describe 'SegmentAnalytics' do
 
       expect(identify_calls.size).to eq(1)
     end
+
+    context 'user is a new user' do
+      it 'sends the new user event' do
+        reason = 'I really want to be an admin.'
+        analytics.track_admin_received_admin_upgrade_request_from_teacher(
+          admin,
+          teacher,
+          reason,
+          true
+        )
+        expect(track_calls[0][:event]).to eq(SegmentIo::BackgroundEvents::ADMIN_RECEIVED_ADMIN_UPGRADE_REQUEST_FROM_NEW_USER)
+      end
+    end
+
+    context 'user is not a new user' do
+      it 'sends the teacher event' do
+        reason = 'I really want to be an admin.'
+        analytics.track_admin_received_admin_upgrade_request_from_teacher(
+          admin,
+          teacher,
+          reason,
+          false
+        )
+        expect(track_calls[0][:event]).to eq(SegmentIo::BackgroundEvents::ADMIN_RECEIVED_ADMIN_UPGRADE_REQUEST_FROM_TEACHER)
+      end
+    end
+
   end
 
   context '#track_admin_invited_by_teacher' do

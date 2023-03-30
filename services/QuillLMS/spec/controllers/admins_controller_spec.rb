@@ -182,31 +182,33 @@ describe AdminsController  do
   end
 
   describe '#approve_admin_request' do
-    before do
-      create(:admin_info, user: teacher, approval_status: AdminInfo::PENDING)
-    end
 
-    it 'should update the teacher admin info to be approved, create a school admin record, call the analytics worker, and return a message' do
-      expect(TeacherApprovedToBecomeAdminAnalyticsWorker).to receive(:perform_async).with(teacher.id)
+    [true, false].each do |request_made_during_sign_up|
+      describe "when request_made_during_sign_up is #{request_made_during_sign_up}" do
+        it 'should update the teacher admin info to be approved, create a school admin record, call the analytics worker, and return a message' do
+          admin_info = create(:admin_info, user: teacher, approval_status: AdminInfo::PENDING)
+          admin_approval_request = create(:admin_approval_request, admin_info: admin_info, requestee: admin, request_made_during_sign_up: request_made_during_sign_up )
+          expect(TeacherApprovedToBecomeAdminAnalyticsWorker).to receive(:perform_async).with(teacher.id, admin_approval_request.request_made_during_sign_up)
 
-      post :approve_admin_request, params: { id: teacher.id, school_id: school.id  }
+          post :approve_admin_request, params: { id: teacher.id, school_id: school.id  }
 
-      teacher.admin_info.reload
-      expect(teacher.admin_info.approval_status).to eq(AdminInfo::APPROVED)
-      expect(teacher.admin_info.sub_role).to eq(AdminInfo::TEACHER_ADMIN)
-      expect(SchoolsAdmins.find_by(user: teacher, school: school)).to be
-      expect(response.body).to eq({message: I18n.t('admin.approve_admin_request')}.to_json)
+          teacher.admin_info.reload
+          expect(teacher.admin_info.approval_status).to eq(AdminInfo::APPROVED)
+          expect(teacher.admin_info.sub_role).to eq(AdminInfo::TEACHER_ADMIN)
+          expect(SchoolsAdmins.find_by(user: teacher, school: school)).to be
+          expect(response.body).to eq({message: I18n.t('admin.approve_admin_request')}.to_json)
+        end
+      end
     end
 
   end
 
   describe '#deny_admin_request' do
-    before do
-      create(:admin_info, user: teacher, approval_status: AdminInfo::PENDING)
-    end
-
     it 'should update the teacher admin info to be denied, call the analytics worker, and return a message' do
-      expect(TeacherDeniedToBecomeAdminAnalyticsWorker).to receive(:perform_async).with(teacher.id)
+      admin_info = create(:admin_info, user: teacher, approval_status: AdminInfo::PENDING)
+      admin_approval_request = create(:admin_approval_request, admin_info: admin_info, requestee: admin, request_made_during_sign_up: [true, false].sample )
+
+      expect(TeacherDeniedToBecomeAdminAnalyticsWorker).to receive(:perform_async).with(teacher.id, admin_approval_request.request_made_during_sign_up)
 
       post :deny_admin_request, params: { id: teacher.id  }
 

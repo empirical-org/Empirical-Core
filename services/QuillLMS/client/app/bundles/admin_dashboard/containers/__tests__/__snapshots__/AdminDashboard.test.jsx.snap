@@ -2922,7 +2922,7 @@ exports[`AdminDashboard container should render with a full access type 1`] = `
     />
     <AdminsTeachers
       accessType="full"
-      adminApprovalRequestAdminInfoIds={Array []}
+      adminApprovalRequests={Array []}
       data={Array []}
       handleUserAction={[Function]}
       refreshData={[Function]}
@@ -7245,7 +7245,7 @@ exports[`AdminDashboard container should render with a limited access type 1`] =
     />
     <AdminsTeachers
       accessType="full"
-      adminApprovalRequestAdminInfoIds={Array []}
+      adminApprovalRequests={Array []}
       data={Array []}
       handleUserAction={[Function]}
       refreshData={[Function]}
@@ -11568,7 +11568,7 @@ exports[`AdminDashboard container should render with a restricted access type 1`
     />
     <AdminsTeachers
       accessType="full"
-      adminApprovalRequestAdminInfoIds={Array []}
+      adminApprovalRequests={Array []}
       data={Array []}
       handleUserAction={[Function]}
       refreshData={[Function]}
