@@ -20,7 +20,16 @@ exports[`VerifySchool component should render if there are admins 1`] = `
     <div
       className="container account-form add-admin-info"
     >
-      <SchoolVerificationForm
+      <RequestAdminAccessForm
+        admins={
+          Array [
+            Object {
+              "email": "joyharjo@quill.org",
+              "id": 1,
+              "name": "Joy Harjo",
+            },
+          ]
+        }
         schoolName="School Name"
       >
         <img
@@ -29,7 +38,7 @@ exports[`VerifySchool component should render if there are admins 1`] = `
         />
         <h1>
           <span>
-            Please verify your connection to:
+            Request permission to become an admin of:
           </span>
           <span
             className="school-name"
@@ -40,72 +49,88 @@ exports[`VerifySchool component should render if there are admins 1`] = `
         <p
           className="sub-header"
         >
-          Quill is committed to securing the privacy of districts, schools, teachers, and students. Complete the form below to ensure we are providing you with the appropriate access.
+          Which admin(s) do you want to send the request to?
         </p>
         <section
-          className="user-account-section school-verification-section"
+          className="user-account-section admin-access-request-section"
         >
-          <h3>
-            Please provide the URL of your LinkedIn profile
-          </h3>
-          <Input
-            autoComplete="on"
-            handleChange={[Function]}
-            helperText="If you do not have a LinkedIn profile, please provide a link to another website that demonstrates your connection to School Name."
-            placeholder="Enter URL"
-            showPlaceholderWhenInactive={true}
-            value={null}
+          <AdminTable
+            schoolAdmins={
+              Array [
+                Object {
+                  "email": "joyharjo@quill.org",
+                  "id": 1,
+                  "name": "Joy Harjo",
+                },
+              ]
+            }
+            selectedAdminIds={Array []}
+            setSelectedAdminIds={[Function]}
           >
             <div
-              className="input-container  inactive  undefined "
-              onClick={[Function]}
-              onKeyDown={[Function]}
-              role="button"
-              tabIndex={-1}
+              className="admin-selection-table"
             >
-              <label />
-              <input
-                autoComplete="on"
-                maxLength={10000}
-                onChange={[Function]}
-                onFocus={[Function]}
-                placeholder="Enter URL"
-                value={null}
-              />
-              <span
-                className="helper-text"
+              <div
+                className="admin-selection-row top-row"
               >
-                If you do not have a LinkedIn profile, please provide a link to another website that demonstrates your connection to School Name.
-              </span>
+                <button
+                  aria-label="Select all admins"
+                  className="focus-on-light quill-checkbox unselected"
+                  onClick={[Function]}
+                  type="button"
+                />
+                <div>
+                  Select all
+                </div>
+              </div>
+              <div
+                className="admin-selection-row"
+                key="1"
+              >
+                <button
+                  aria-label="Select Joy Harjo"
+                  className="focus-on-light quill-checkbox unselected"
+                  onClick={[Function]}
+                  type="button"
+                />
+                <div>
+                  <span
+                    className="name"
+                  >
+                    Joy Harjo
+                  </span>
+                  <span
+                    className="email"
+                  >
+                    joyharjo@quill.org
+                  </span>
+                </div>
+              </div>
             </div>
-          </Input>
-          <h3>
-            Why do you want to be an admin for 
-            School Name
-            ?
-          </h3>
+          </AdminTable>
           <Input
             autoComplete="on"
+            className="reason"
             handleChange={[Function]}
-            placeholder="Type an answer"
-            showPlaceholderWhenInactive={true}
-            value={null}
+            label="Why do you want to be an admin?"
+            value=""
           >
             <div
-              className="input-container  inactive  undefined "
+              className="input-container  inactive  reason "
               onClick={[Function]}
               onKeyDown={[Function]}
               role="button"
               tabIndex={-1}
             >
-              <label />
+              <label>
+                Why do you want to be an admin?
+              </label>
               <input
                 autoComplete="on"
                 maxLength={10000}
                 onChange={[Function]}
                 onFocus={[Function]}
-                placeholder="Type an answer"
-                value={null}
+                value=""
               />
             </div>
           </Input>
@@ -129,7 +154,7 @@ exports[`VerifySchool component should render if there are admins 1`] = `
             Skip for now
           </a>
         </SkipForNow>
-      </SchoolVerificationForm>
+      </RequestAdminAccessForm>
     </div>
   </div>
 </VerifySchool>
