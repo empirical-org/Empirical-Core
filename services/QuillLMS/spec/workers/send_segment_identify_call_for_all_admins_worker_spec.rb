@@ -6,18 +6,13 @@ describe SendSegmentIdentifyCallForAllAdminsWorker do
   subject { described_class.new }
 
   describe '#perform' do
-    let!(:schools_admins) { create_list(:schools_admins, 5) }
-    let!(:random_other_school) { create(:school)}
+    let!(:admins) { create_list(:admin, 5) }
 
-    it 'should kick off a worker for the school of every school admin' do
-      schools_admins.each do |sa|
-        expect(CalculateAndCacheSchoolDataForSegmentWorker).to receive(:perform_async).with(sa.school_id)
+    it 'should kick off a worker for every admin user' do
+      admins.each do |admin|
+        expect(IdentifyWorker).to receive(:perform_async).with(admin.id)
       end
       subject.perform
-    end
-
-    it 'should not kick off a worker for any other schools' do
-      expect(CalculateAndCacheSchoolDataForSegmentWorker).not_to receive(:perform_async).with(random_other_school.id)
     end
   end
 end
