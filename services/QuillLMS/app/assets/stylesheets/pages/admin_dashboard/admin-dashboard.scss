@@ -387,15 +387,15 @@
       text-decoration: none;
     }
     .premium {
-      border: 1px solid #eda41b;
-      color: #875a12;
+      background-color: rgba(255, 255, 255, 0.35);
+      color: white;
       .fa-star {
         color: #eda41b;
       }
       &.active, &:hover {
         text-decoration: none;
-        background: #eda41b;
-        color: white;
+        background-color: #FFFFFF;
+        color: #06806B;
         .fa-star {
           color: white;
         }

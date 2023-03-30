@@ -14,7 +14,7 @@
   display: flex;
   align-items: center;
   height: 70px;
-  background-color: #00c2a2;
+  background-color: #FFFFFF;
   margin-top: 0px;
   border-radius: 0px;
   margin-bottom: 0px;
@@ -55,14 +55,15 @@
   margin-top: 2px;
   &.on-dashboard {
     .user-dropdown-button {
-      background: #fff;
-      color: #00c2a2;
+      background-color: #E3F0EE;
+      color: #06806B;
     }
   }
   &.not-on-dashboard {
     .user-dropdown-button {
       border: solid 1px #ffffff;
-      color: #fff;
+      background-color: #E3F0EE;
+      color: #06806B;
     }
   }
   .user-dropdown-button {
@@ -363,9 +364,9 @@ nav.q-navbar-home {
     list-style-type: none;
     margin: 0;
     padding-left: 0px;
-    &.desktop-nav-list {
-      margin-bottom: 1px;
-    }
+    // &.desktop-nav-list {
+    //   margin-bottom: 1px;
+    // }
   }
 
   li {
@@ -511,7 +512,7 @@ nav.q-navbar-home {
   margin-bottom: -20px;
   padding-bottom: 20px;
   span {
-    color: #fff;
+    color: #06806B;
   }
   &#learning-tools {
     .navbar-tooltip {
@@ -651,4 +652,9 @@ nav.q-navbar-home {
       color: $quillgreen;
     }
   }
+}
+
+.navbar-divider {
+  background-color: #06806B;
+  height: 16px;
 }

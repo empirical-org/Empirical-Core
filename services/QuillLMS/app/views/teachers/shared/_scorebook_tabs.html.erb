@@ -1,19 +1,13 @@
 <% current_path = request.env['PATH_INFO'] %>
 
 <% if !in_assignment_flow? %>
-  <div class="full-screen bg-quillgreen">
+  <div class="full-screen bg-white">
     <div class="q-nav-bar">
       <ul class="desktop-nav-list" role="tablist" id="teacher-nav-tabs">
 
         <li class="<%= 'active' if home_page_should_be_active? %>">
           <%= link_to 'Home', dashboard_teachers_classrooms_path %>
         </li>
-
-        <% if current_user.admin? && !admin_impersonating_user?(current_user) %>
-          <li class="admin-tab <%= 'active' if admin_page_should_be_active? %>">
-            <%= link_to 'Admin Dashboard', teachers_admin_dashboard_path, role: 'tab' %>
-          </li>
-        <% end %>
 
         <li class="<%= 'active' if classes_page_should_be_active? %>">
           <%= link_to 'My Classes', teachers_classrooms_path %>
@@ -28,12 +22,18 @@
         </li>
 
         <li class="<%= 'active' if student_reports_page_should_be_active? %>" id="student-reports-link">
-          <%= link_to raw("<span class='hide-on-mobile'>My Student </span>Reports"), teachers_progress_reports_landing_page_path %>
+          <%= link_to raw("<span class='hide-on-mobile'>My Reports</span>"), teachers_progress_reports_landing_page_path %>
         </li>
 
         <% unless current_user.premium_state == 'paid' %>
           <li class="premium-tab <%= 'active' if premium_page_should_be_active? %>">
             <%= link_to raw("<span class='hide-on-mobile premium-tab-copy'>#{premium_tab_copy}</span><span class='hide-on-desktop premium-tab-small'>Premium</span>"), premium_path %>
+          </li>
+        <% end %>
+
+        <% if current_user.admin? && !admin_impersonating_user?(current_user) %>
+          <li class="admin-tab <%= 'active' if admin_page_should_be_active? %>">
+            <a href="/teachers/admin_dashboard">Premium Hub</a>
           </li>
         <% end %>
 

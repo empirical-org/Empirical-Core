@@ -5,9 +5,9 @@
   width: 100%;
   li {
     a {
-      background: #06806B;
-      border-left: 1px solid #006150;
-      color: $white;
+      background: #E3F0EE;
+      border-left: 1px solid #BAD6D1;
+      color: #06806B;
       font-size: 14px;
       font-weight: 600;
       line-height: 41px;
@@ -34,10 +34,10 @@
 
     &.active {
       a {
-        background: $white;
+        background: #06806B;
         border-bottom: none;
         border-left-width: 0;
-        color: #027360;
+        color: #FFFFFF;
         position: relative;
 
         &:after {
@@ -58,9 +58,9 @@
 }
 
 .tab-subnavigation-wrapper {
-  background: #fff;
+  background: #06806B;
   border-bottom: 1px solid #cecece;
-  margin-top: -1px;
+  // margin-top: -1px;
   min-height: 48px;
   padding: 8px 0;
 
@@ -82,13 +82,14 @@
       }
       a {
         border-radius: 6px;
-        color: #3b3b3b;
+        color: #FFFFFF;
         font-size: 13px;
         height: 35px;
         padding: 5px 12px;
 
         &.active {
-          background: #e6e6e6;
+          background: #FFFFFF;
+          color: #06806B;
         }
 
         .fa-external-link {
@@ -102,15 +103,15 @@
 }
 
 .student-reports-subnav.tab-subnavigation-wrapper {
-  margin-top: -1px;
+  // margin-top: -1px;
   $orange: #eda41b;
 
   a:not(.default) {
-    border: 1px solid $orange;
-    color: #875a12;
+    background-color: rgba(255, 255, 255, 0.35);
+    color: white;
     &.active {
-      background: $orange;
-      color: white;
+      background-color: #FFFFFF;
+      color: #06806B;
 
       i, svg {
         color: white;
@@ -127,8 +128,8 @@
 
     &:hover {
       text-decoration: none;
-      background: $orange;
-      color: white;
+      background-color: #FFFFFF;
+      color: #06806B;
 
       i, svg {
         color: white;
