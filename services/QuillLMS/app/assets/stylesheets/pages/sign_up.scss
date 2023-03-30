@@ -172,6 +172,11 @@
   .input-container.inactive .dropdown__placeholder {
     display: inherit;
   }
+  .skip-for-now {
+    font-weight: 600;
+    color: #009A80;
+    margin-top: 32px;
+  }
   @media (min-width: 560px) {
     h1 {
       white-space: nowrap;
@@ -213,6 +218,15 @@
   }
   .input-container.inactive:not(.has-text) input {
     height: 25px;
+  }
+}
+
+.admin-access-request-section {
+  .admin-selection-table {
+    border: 1px solid #E0E0E0;
+    border-radius: 6px;
+    padding: 16px;
+    margin-bottom: 32px;
   }
 }
 

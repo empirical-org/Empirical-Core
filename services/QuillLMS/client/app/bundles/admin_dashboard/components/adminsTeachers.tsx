@@ -6,13 +6,22 @@ import { RESTRICTED, FULL, restrictedElement, } from '../shared'
 import { ADMIN, TEACHER, PENDING, } from '../../Shared/utils/constants'
 import useSnackbarMonitor from '../../Shared/hooks/useSnackbarMonitor'
 
+interface AdminApprovalRequest {
+  id: number;
+  request_made_during_sign_up: boolean;
+  created_at: number;
+  updated_at: number;
+  admin_info_id: number;
+  requestee_id: number;
+}
+
 interface AdminsTeachersProps {
   data: Array<Object>;
   schools: Array<{ name: string, id: number, role: string }>;
   adminAssociatedSchool: any;
   accessType: string;
   handleUserAction(url: string, data: Object): void;
-  adminApprovalRequestAdminInfoIds: number[]
+  adminApprovalRequests: Array<AdminApprovalRequest>
 }
 
 enum modalNames {
@@ -53,7 +62,7 @@ export const AdminsTeachers: React.SFC<AdminsTeachersProps> = ({
   schools,
   adminAssociatedSchool,
   accessType,
-  adminApprovalRequestAdminInfoIds,
+  adminApprovalRequests,
 }) => {
   const defaultSchool = schools.find(s => s.id === adminAssociatedSchool?.id) || schools[0]
   const [selectedSchoolId, setSelectedSchoolId] = React.useState(defaultSchool?.id)
@@ -174,7 +183,7 @@ export const AdminsTeachers: React.SFC<AdminsTeachersProps> = ({
     if (relevantSchool.role.toLowerCase() === ADMIN) {
       actions = user.last_sign_in ? [] : [actionsHash.resendLoginDetailsAdmin]
       actions = actions.concat([actionsHash.loginAsAdmin, actionsHash.viewPremiumReports, actionsHash.removeAsAdmin])
-    } else if (userHasPendingAdminRequest(user, relevantSchool)) {
+    } else if (pendingAdminRequest(user, relevantSchool)) {
       actions = user.last_sign_in ? [] : [actionsHash.resendLoginDetailsTeacher]
       actions = actions.concat([actionsHash.loginAsTeacher, actionsHash.viewPremiumReports, actionsHash.approveAdminRequest, actionsHash.denyAdminRequest, actionsHash.unlinkFromSchool])
     } else {
@@ -184,8 +193,8 @@ export const AdminsTeachers: React.SFC<AdminsTeachersProps> = ({
     return actions
   }
 
-  function userHasPendingAdminRequest(user, relevantSchool) {
-    return relevantSchool.role.toLowerCase() === TEACHER && adminApprovalRequestAdminInfoIds.includes(user.admin_info?.id) && user.admin_info?.approval_status === PENDING
+  function pendingAdminRequest(user, relevantSchool) {
+    return relevantSchool.role.toLowerCase() === TEACHER && user.admin_info?.approval_status === PENDING && adminApprovalRequests.find(request => request.admin_info_id === user.admin_info?.id)
   }
 
   const teacherColumns = [
@@ -226,7 +235,12 @@ export const AdminsTeachers: React.SFC<AdminsTeachersProps> = ({
   const filteredData = data.filter((d: { school: string }) => d.schools.find(s => s.id === selectedSchoolId)).map(user => {
     const relevantSchool = user.schools.find(s => s.id === selectedSchoolId)
     user.actions = actionsForUser(user, relevantSchool)
-    user.role = userHasPendingAdminRequest(user, relevantSchool) ? "🛎️ Teacher requested to become admin" : relevantSchool.role
+    const adminRequest = pendingAdminRequest(user, relevantSchool)
+    if (adminRequest) {
+      user.role = adminRequest.request_made_during_sign_up ? "🛎️ New user requested to become admin" : "🛎️ Teacher requested to become admin"
+    } else {
+      user.role = relevantSchool.role
+    }
     return user
   })
 
