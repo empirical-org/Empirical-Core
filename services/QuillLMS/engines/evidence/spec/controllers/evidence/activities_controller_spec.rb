@@ -420,5 +420,49 @@ module Evidence
         expect(response).to have_http_status(:success)
       end
     end
+
+    context "#topic_optimal_info" do
+      let(:because_concept) { SecureRandom.hex }
+      let(:but_concept) { SecureRandom.hex }
+      let(:so_concept) { SecureRandom.hex }
+
+      let(:because_rule) { create(:evidence_rule, rule_type: Evidence::Rule::TYPE_AUTOML, concept_uid: because_concept, optimal: true) }
+      let(:but_rule) { create(:evidence_rule, rule_type: Evidence::Rule::TYPE_AUTOML, concept_uid: but_concept, optimal: true) }
+      let(:so_rule) { create(:evidence_rule, rule_type: Evidence::Rule::TYPE_AUTOML, concept_uid: so_concept, optimal: true) }
+
+      let(:because_prompt) { create(:evidence_prompt, rules: [because_rule]) }
+      let(:but_prompt) { create(:evidence_prompt, rules: [but_rule]) }
+      let(:so_prompt) { create(:evidence_prompt, rules: [so_rule]) }
+
+      let(:activity) { create(:evidence_activity, prompts: [because_prompt, but_prompt, so_prompt]) }
+
+      it "should return a payload that includes the appropriate concept_uids for each prompt" do
+        get :topic_optimal_info, params: { id: activity.id }
+
+        parsed_response = JSON.parse(response.body)
+
+
+        expect(response).to have_http_status(:success)
+        expect(parsed_response['concept_uids']).to eq({
+          because_prompt.id.to_s => because_concept,
+          but_prompt.id.to_s => but_concept,
+          so_prompt.id.to_s => so_concept
+        })
+      end
+
+      it "should return a payload that includes the static list of rule_types that only trigger after semantic (autoML) rules" do
+        get :topic_optimal_info, params: { id: activity.id }
+
+        parsed_response = JSON.parse(response.body)
+
+        expect(response).to have_http_status(:success)
+        expect(parsed_response['rule_types']).to eq([
+          'rules-based-2',
+          'grammar',
+          'spelling',
+          'rules-based-3'
+        ])
+      end
+    end
   end
 end
