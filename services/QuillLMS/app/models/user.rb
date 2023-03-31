@@ -215,6 +215,7 @@ class User < ApplicationRecord
   # This is a little weird, but in our current conception, all Admins are Teachers
   scope :teacher, -> { where(role: [ADMIN, TEACHER]) }
   scope :student, -> { where(role: STUDENT) }
+  scope :admin, ->  { where(role: ADMIN) }
 
   def self.deleted_users
     where(
