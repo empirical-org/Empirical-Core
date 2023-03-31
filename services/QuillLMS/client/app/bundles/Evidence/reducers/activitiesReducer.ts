@@ -20,6 +20,8 @@ export default (
       return Object.assign({}, currentState, { currentActivity: action.data, hasReceivedData: true });
     case ActionTypes.NO_ACTIVITY_FOUND:
       return Object.assign({}, currentState, { error: 'No activity found.'})
+    case ActionTypes.RECEIVE_TOPIC_OPTIMAL_DATA:
+      return Object.assign({}, currentState, { topicOptimalData: action.data });
     default:
       return currentState;
   }

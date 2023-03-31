@@ -11,7 +11,7 @@ import { explanationData } from "../activitySlides/explanationData";
 import ExplanationSlide from "../activitySlides/explanationSlide";
 import WelcomeSlide from "../activitySlides/welcomeSlide";
 import LoadingSpinner from '../shared/loadingSpinner'
-import { getActivity } from "../../actions/activities";
+import { getActivity, getTopicOptimalInfo } from "../../actions/activities";
 import { TrackAnalyticsEvent } from "../../actions/analytics";
 import { Events } from '../../modules/analytics'
 import { completeActivitySession, fetchActiveActivitySession, getFeedback, processUnfetchableSession, saveActiveActivitySession, saveActivitySurveyResponse, reportAProblem, setActiveStepForSession, setExplanationSlidesCompletedForSession, setActivityIsCompleteForSession } from '../../actions/session'
@@ -103,6 +103,7 @@ export const StudentViewContainer = ({ dispatch, session, isTurk, location, acti
   }, [hasStartedReadPassageStep]);
 
   React.useEffect(() => {
+    dispatch(getTopicOptimalInfo(activityUID))
     if (sessionFromUrl) {
       const fetchActiveActivitySessionArgs = {
         sessionID: sessionFromUrl,
@@ -247,9 +248,9 @@ export const StudentViewContainer = ({ dispatch, session, isTurk, location, acti
 
   function defaultHandleFinishActivity() {
     const { sessionID, submittedResponses, } = session
-    const { currentActivity, } = activities
+    const { currentActivity, topicOptimalData } = activities
     const percentage = null // We always set percentages to "null"
-    const conceptResults = generateConceptResults(currentActivity, submittedResponses)
+    const conceptResults = generateConceptResults(currentActivity, submittedResponses, topicOptimalData)
     const data = {
       time_tracking: {
         onboarding: roundMillisecondsToSeconds(timeTracking[ONBOARDING]),

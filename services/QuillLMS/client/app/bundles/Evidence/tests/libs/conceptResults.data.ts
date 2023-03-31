@@ -145,12 +145,12 @@ export const expectedPayload = {
       }
     },
     {
-      "concept_uid": "placeholder",
+      "concept_uid": "IBdOFpAWi42LgfXvcz0scQ",
       "question_type":"comprehension",
       "metadata":{
         "answer":"Type an answer, so some response should be provided.",
         "attemptNumber":1,
-        "correct":0,
+        "correct":1,
         "directions":"Use information from the text to finish the sentence:",
         "prompt":"Type an answer, so",
         "questionNumber":3,
@@ -158,12 +158,12 @@ export const expectedPayload = {
       }
     },
     {
-      "concept_uid": "IBdOFpAWi42LgfXvcz0scQ",
+      "concept_uid": "placeholder",
       "question_type":"comprehension",
       "metadata":{
         "answer":"Type an answer, so some response should be provided.",
         "attemptNumber":1,
-        "correct":1,
+        "correct":0,
         "directions":"Use information from the text to finish the sentence:",
         "prompt":"Type an answer, so",
         "questionNumber":3,
@@ -185,3 +185,11 @@ export const expectedPayload = {
     }
   ]
 }
+
+export const topicOptimalData = {
+  concept_uids: {
+    3: "IBdOFpAWi42LgfXvcz0scQ"
+  },
+  rule_types: ["grammar"]
+}
+
