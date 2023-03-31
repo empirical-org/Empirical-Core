@@ -278,7 +278,7 @@ module Demo::ReportDemoCreator
   def self.create_demo_classroom_data(teacher, teacher_demo: false, classroom: nil, student_names: nil)
     units = reset_units(teacher)
 
-    classroom = classroom || create_classroom(teacher)
+    classroom ||= create_classroom(teacher)
     student_templates = student_names ? student_names.map { |name| StudentTemplate.new(name: name, email_eligible: false) } : STUDENT_TEMPLATES
     students = create_students(classroom, teacher_demo, student_templates)
 

@@ -31,7 +31,6 @@ class Demo::CreateAdminReport
     user
   end
 
-  # rubocop:disable Metrics/AbcSize, Metrics/CyclomaticComplexity
   private def create_demo
     # Create admin teacher
     admin_teacher = User.create!(
@@ -69,7 +68,6 @@ class Demo::CreateAdminReport
       activity_sessions_for_classroom.sample(number_of_sessions_to_destroy).each { |as| as.destroy }
     end
   end
-  # rubocop:enable Metrics/AbcSize, Metrics/CyclomaticComplexity
 
   private def data
     @data ||= [
