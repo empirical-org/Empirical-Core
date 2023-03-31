@@ -4,7 +4,7 @@ require_dependency 'evidence/application_controller'
 
 module Evidence
   class ActivitiesController < ApiController
-    before_action :set_activity, only: [:activity_versions, :create, :show, :update, :destroy, :seed_data, :change_logs, :labeled_synthetic_data]
+    before_action :set_activity, only: [:activity_versions, :create, :show, :update, :destroy, :seed_data, :change_logs, :labeled_synthetic_data, :topic_optimal_info]
     before_action :set_lms_user_id, only: [:create, :destroy, :update]
 
     # GET /activities.json
@@ -116,6 +116,35 @@ module Evidence
       end
 
       head :no_content
+    end
+
+    # params [:id]
+    def topic_optimal_info
+      prompt_concept_uids = @activity.prompts.map do |prompt|
+        automl_rules = prompt.rules.filter { |rule| rule.rule_type == Evidence::Rule::TYPE_AUTOML && rule.optimal }
+        # Our expectation is that all AutoML rules for a given prompt have
+        # the same concept_uid, so this should always extract the correct
+        # value
+        automl_concept_uid = automl_rules.map(&:concept_uid).uniq.first
+
+        [prompt.id, automl_concept_uid]
+      end.to_h
+
+      # This is hard-coded because I couldn't figure out a clean way to
+      # generate it dynamically.  This is basically the items in
+      # Evidence::Check::ALL_CHECKS array cross referenced against the
+      # Evdience::Rule::TYPES array.
+      topic_optimal_rule_types = [
+        'rules-based-2',
+        'grammar',
+        'spelling',
+        'rules-based-3'
+      ]
+
+      render json: {
+        concept_uids: prompt_concept_uids,
+        rule_types: topic_optimal_rule_types
+      }
     end
 
     private def set_activity

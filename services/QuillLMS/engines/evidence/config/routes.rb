@@ -6,6 +6,7 @@ Evidence::Engine.routes.draw do
       get :activity_versions
       get :change_logs
       get :rules
+      get :topic_optimal_info
       put :increment_version
       post :seed_data
       post :labeled_synthetic_data
