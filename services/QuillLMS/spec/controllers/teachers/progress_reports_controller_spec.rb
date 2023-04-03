@@ -99,7 +99,7 @@ describe Teachers::ProgressReportsController do
 
         expect(Demo::CreateAdminReport)
           .to receive(:new)
-          .with("test", "test", "hello+demoadmin-test@quill.org")
+          .with("test")
           .and_return(admin_report_service)
 
         get :admin_demo, params: { name: "test" }
@@ -122,7 +122,7 @@ describe Teachers::ProgressReportsController do
 
         expect(Demo::CreateAdminReport)
           .to receive(:new)
-          .with("Admin Demo School", "admindemoschool", "hello+demoadmin-admindemoschool@quill.org")
+          .with("Admin Demo School")
           .and_return(admin_report_service)
 
         get :admin_demo
