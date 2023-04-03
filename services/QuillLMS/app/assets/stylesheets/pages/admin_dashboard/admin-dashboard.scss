@@ -398,33 +398,6 @@
   }
 }
 
-.q-nav-bar {
-  #teacher-nav-tabs {
-    .admin-tab {
-      &.active {
-        a {
-          background-color: #EFA67E;
-        }
-      }
-      a {
-        display: flex;
-        background-color: #FFDCC8;
-        color: #C04500;
-        margin-left: 4px;
-        border-radius: 8px 8px 0px 0px;
-        border-left: none;
-      }
-      a:hover {
-        background-color: #EFA67E;
-      }
-      img {
-        margin-left: 4px;
-        margin-right: 4px;
-      }
-    }
-  }
-}
-
 @media (max-width: 991px) {
   .sub-container {
     .admin-features-container {

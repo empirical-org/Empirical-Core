@@ -147,8 +147,8 @@ export default class StudentNavbarItems extends React.Component<StudentNavbarIte
     const displayedName = name.length > MAXIMUM_NAME_LENGTH ? `${name.substring(0, MAXIMUM_NAME_LENGTH)}...`: name
     return (
       <div className="home-nav-right wide">
-        <a className="text-white student-navbar-item focus-on-dark" href="/">Classes</a>
-        <a className="text-white student-navbar-item focus-on-dark" href="/student-center">Resources</a>
+        <a className="student-navbar-item focus-on-light" href="/">Classes</a>
+        <a className="student-navbar-item focus-on-light" href="/student-center">Resources</a>
         <div className="student-navbar-dropdown student-navbar-item" ref={this.dropdownContainerRef}>
           <button className="focus-on-dark" id="name-container" onClick={this.handleOpenToggle} type="button">
             <img alt="Avatar icon" src={avatarSrc} />

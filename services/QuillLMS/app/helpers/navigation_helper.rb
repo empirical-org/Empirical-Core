@@ -36,6 +36,10 @@ module NavigationHelper
     action_name == 'premium'
   end
 
+  def quill_academy_should_be_active?
+    action_name == 'quill_academy'
+  end
+
   def premium_tab_copy
     diamond_img = "<img src='https://assets.quill.org/images/icons/yellow-diamond.svg'></img>"
     case current_user.premium_state
