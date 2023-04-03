@@ -14,6 +14,7 @@ module Demo
     FILE_CONCEPT_RESULTS = 'concept_results.yml'
     FILE_CONCEPT_RESULT_QUESTION_TYPES = 'concept_result_question_types.yml'
     FILE_CONCEPT_RESULT_LEGACY_METADATA = 'concept_result_legacy_metadata.yml'
+    FILE_ADMIN_DEMO_DATA = 'admin_demo_data.yml'
 
     REPLAYED_PAIR = [Demo::ReportDemoCreator::REPLAYED_ACTIVITY_ID, Demo::ReportDemoCreator::REPLAYED_SAMPLE_USER_ID]
 
@@ -36,6 +37,10 @@ module Demo
 
     def concept_result_legacy_metadata
       @concept_result_legacy_metadata ||= load_file(FILE_CONCEPT_RESULT_LEGACY_METADATA)
+    end
+
+    def admin_demo_data
+      @admin_demo_data ||= load_file(FILE_ADMIN_DEMO_DATA)
     end
 
     private def load_file(file)

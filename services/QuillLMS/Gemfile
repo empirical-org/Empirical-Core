@@ -196,7 +196,6 @@ end
 
 group :test, :development, :cypress do
   gem 'cypress-on-rails', '~> 1.0'
-  gem 'faker'
 end
 
 group :test do

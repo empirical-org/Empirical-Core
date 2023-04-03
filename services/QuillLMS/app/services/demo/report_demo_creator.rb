@@ -276,7 +276,7 @@ module Demo::ReportDemoCreator
   end
 
   def self.create_demo_classroom_data(teacher, teacher_demo: false, classroom: nil, student_names: nil)
-    units = reset_units(teacher)
+    units = reset_units(teacher, student_names.nil?)
 
     classroom ||= create_classroom(teacher)
     student_templates = student_names ? student_names.map { |name| StudentTemplate.new(name: name, email_eligible: false) } : STUDENT_TEMPLATES
@@ -292,8 +292,10 @@ module Demo::ReportDemoCreator
     TeacherActivityFeedRefillWorker.perform_async(teacher.id)
   end
 
-  def self.reset_units(teacher)
-    teacher.units&.destroy_all
+  def self.reset_units(teacher, destroy_existing_units)
+    if destroy_existing_units
+      teacher.units&.destroy_all
+    end
 
     create_units(teacher)
   end

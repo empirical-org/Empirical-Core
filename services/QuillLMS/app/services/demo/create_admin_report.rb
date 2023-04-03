@@ -69,56 +69,7 @@ class Demo::CreateAdminReport
     end
   end
 
-  private def data
-    @data ||= [
-      {"School"=>"MLK Middle School", "Teacher"=>"Angie Cruz", "Classroom"=>"Period 1"},
-      {"School"=>"MLK Middle School", "Teacher"=>"James Baldwin", "Classroom"=>"Intro to Poetry"},
-      {"School"=>"MLK Middle School", "Teacher"=>"Amy Tan", "Classroom"=>"Period 2"},
-      {"School"=>"MLK Middle School", "Teacher"=>"Amy Tan", "Classroom"=>"Period 3"},
-      {"School"=>"MLK Middle School", "Teacher"=>"Maya Angelou", "Classroom"=>"Period 1a"},
-      {"School"=>"MLK Middle School", "Teacher"=>"Harper Lee", "Classroom"=>"Period 1a"},
-      {"School"=>"MLK Middle School", "Teacher"=>"Colson Whitehead", "Classroom"=>"ELA Block 1"},
-      {"School"=>"MLK Middle School", "Teacher"=>"Toni Morrison", "Classroom"=>"English AP - Literature"},
-      {"School"=>"MLK Middle School", "Teacher"=>"Madeleine L'engle", "Classroom"=>"Period 4"},
-      {"School"=>"MLK Middle School", "Teacher"=>"Madeleine L'engle", "Classroom"=>"Period 5"},
-      {"School"=>"MLK Middle School", "Teacher"=>"Celeste Ng", "Classroom"=>"English Honors"},
-      {"School"=>"MLK Middle School", "Teacher"=>"Celeste Ng", "Classroom"=>"English I"},
-      {"School"=>"MLK Middle School", "Teacher"=>"Lorrie Moore", "Classroom"=>"English II - 1a"},
-      {"School"=>"MLK Middle School", "Teacher"=>"Lorrie Moore", "Classroom"=>"English II - 2a"},
-      {"School"=>"MLK Middle School", "Teacher"=>"Julia Alvarez", "Classroom"=>"Pre-AP"},
-      {"School"=>"MLK Middle School", "Teacher"=>"Ta-Nehisi Coates", "Classroom"=>"Intro to Journalism"},
-      {"School"=>"MLK Middle School", "Teacher"=>"Jhumpa Lahiri", "Classroom"=>"Short Story Writing"},
-      {"School"=>"MLK Middle School", "Teacher"=>"Jhumpa Lahiri", "Classroom"=>"Short Story Writing (Honors)"},
-      {"School"=>"MLK Middle School", "Teacher"=>"Zora Neale Hurston", "Classroom"=>"Pre-AP English - 7b"},
-      {"School"=>"MLK Middle School", "Teacher"=>"Zora Neale Hurston", "Classroom"=>"Pre-AP English - 8a"},
-      {"School"=>"MLK Middle School", "Teacher"=>"N.K. Jemisin", "Classroom"=>"English AP"},
-      {"School"=>"MLK Middle School", "Teacher"=>"Nick Hornby", "Classroom"=>"Period 3"},
-      {"School"=>"MLK Middle School", "Teacher"=>"Octavia Butler", "Classroom"=>"Creative Writing 1"},
-      {"School"=>"MLK Middle School", "Teacher"=>"Octavia Butler", "Classroom"=>"Creative Writing 2"},
-      {"School"=>"Douglass High School", "Teacher"=>"Kevin Kwan", "Classroom"=>"Period 4"},
-      {"School"=>"Douglass High School", "Teacher"=>"Kevin Kwan", "Classroom"=>"Period 5"},
-      {"School"=>"Douglass High School", "Teacher"=>"Bram Stoker", "Classroom"=>"ELA Block 2"},
-      {"School"=>"Douglass High School", "Teacher"=>"Emily Acevedo", "Classroom"=>"Period 2"},
-      {"School"=>"Douglass High School", "Teacher"=>"Paul Coelho", "Classroom"=>"Humanities 1a"},
-      {"School"=>"Douglass High School", "Teacher"=>"Paul Coelho", "Classroom"=>"Humanities 2a"},
-      {"School"=>"Douglass High School", "Teacher"=>"George Orwell", "Classroom"=>"Period 8"},
-      {"School"=>"Douglass High School", "Teacher"=>"James Joyce", "Classroom"=>"European Literature 7a"},
-      {"School"=>"Douglass High School", "Teacher"=>"James Joyce", "Classroom"=>"European Literature 8a"},
-      {"School"=>"Douglass High School", "Teacher"=>"Harriet Beecher Stowe", "Classroom"=>"Period 9"},
-      {"School"=>"Douglass High School", "Teacher"=>"Ralph Ellison", "Classroom"=>"AP English - Composition"},
-      {"School"=>"Douglass High School", "Teacher"=>"Judy Blume", "Classroom"=>"AP English - Composition"},
-      {"School"=>"Douglass High School", "Teacher"=>"Zadie Smith", "Classroom"=>"English II - Period 1"},
-      {"School"=>"Douglass High School", "Teacher"=>"Zadie Smith", "Classroom"=>"English II - Period 2"},
-      {"School"=>"Douglass High School", "Teacher"=>"Marie Shelley", "Classroom"=>"Period 5"},
-      {"School"=>"Douglass High School", "Teacher"=>"Margaret Atwood", "Classroom"=>"ELA 1H"},
-      {"School"=>"Douglass High School", "Teacher"=>"James McBride", "Classroom"=>"English - Period 6"},
-      {"School"=>"Douglass High School", "Teacher"=>"William Shakespeare", "Classroom"=>"Intro to Playwriting"},
-      {"School"=>"Douglass High School", "Teacher"=>"Emily Bronte", "Classroom"=>"AP - Literature"},
-      {"School"=>"Douglass High School", "Teacher"=>"Jane Austen", "Classroom"=>"Period 2"},
-      {"School"=>"Douglass High School", "Teacher"=>"Leigh Bardugo", "Classroom"=>"Period 8"},
-      {"School"=>"Douglass High School", "Teacher"=>"Tomi Adeyemi", "Classroom"=>"Period 7"},
-      {"School"=>"Douglass High School", "Teacher"=>"Alice Walker", "Classroom"=>"Period 1"},
-      {"School"=>"Douglass High School", "Teacher"=>"Sylvia Plath", "Classroom"=>"Period 4"}
-    ]
+  def data
+    @data ||= Demo::SessionData.new.admin_demo_data
   end
 end
