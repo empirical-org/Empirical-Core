@@ -1,4 +1,5 @@
 import * as React from 'react';
+import ReactMarkdown from 'react-markdown'
 
 import PreviewCard from './preview_card.jsx';
 
@@ -12,6 +13,7 @@ interface ArticleSpotlightProps {
 
 export const ArticleSpotlight = ({ backgroundColor, blogPostId } : ArticleSpotlightProps ) => {
   const [blogPost, setBlogPost] = React.useState(null);
+  const [blogPostAuthor, setBlogPostAuthor] = React.useState(null);
 
   React.useEffect(() => {
     getBlogPost(blogPostId)
@@ -21,16 +23,39 @@ export const ArticleSpotlight = ({ backgroundColor, blogPostId } : ArticleSpotli
     requestGet(`/featured_blog_post/${id}`,
       (data) => {
         if(data.blog_post) {
-          const { blog_post} = data;
+          const { blog_post, author } = data;
           setBlogPost(blog_post)
+          setBlogPostAuthor(author)
         }
       }
     )
   }
 
+  function renderPreviewContent({ title, slug, preview_card_content, external_link, footer_content }) {
+    if(footer_content) {
+      return(
+        <section className="content-section">
+          <h4>{title}</h4>
+          <ReactMarkdown className="preview-card" source={footer_content} />
+          <section className="footer-section">
+            {blogPostAuthor && <p className="author">{`By ${blogPostAuthor}`}</p>}
+            <a className="quill-button contained primary fun" href={`${teacherCenterBaseUrl}/${slug}`} rel="noopener noreferrer" target="_blank">Read</a>
+          </section>
+        </section>
+      )
+    }
+    return(
+      <PreviewCard
+        content={preview_card_content}
+        externalLink={!!external_link}
+        key={title}
+        link={external_link ? external_link : `/teacher-center/${slug}`}
+      />
+    )
+  }
+
   if(!blogPost) { return <span /> }
 
-  const { title, slug, preview_card_content, external_link } = blogPost;
   const teacherCenterBaseUrl = `${process.env.DEFAULT_URL}/teacher-center`;
   const backgroundColorStyle = backgroundColor ? { backgroundColor: backgroundColor } : {};
 
@@ -44,12 +69,7 @@ export const ArticleSpotlight = ({ backgroundColor, blogPostId } : ArticleSpotli
           </section>
           <a className="quill-button contained primary fun focus-on-light" href={teacherCenterBaseUrl} rel="noopener noreferrer" target="_blank">Show more</a>
         </div>
-        <PreviewCard
-          content={preview_card_content}
-          externalLink={!!external_link}
-          key={title}
-          link={external_link ? external_link : `/teacher-center/${slug}`}
-        />
+        {renderPreviewContent(blogPost)}
       </div>
     </div>
   )

@@ -1,9 +1,9 @@
 import * as React from 'react';
 import Dropzone from 'react-dropzone'
 import moment from 'moment'
-import { EditorState, ContentState } from 'draft-js';
 import "react-dates/initialize";
 import { SingleDatePicker } from 'react-dates'
+import Textarea from 'react-textarea-autosize';
 
 import ItemDropdown from '../../general_components/dropdown_selectors/item_dropdown.jsx'
 import PreviewCard from '../../shared/preview_card.jsx';
@@ -11,7 +11,7 @@ import BlogPostContent from '../../blog_posts/blog_post_content'
 import getAuthToken from '../../modules/get_auth_token'
 import { requestPost, requestPut, } from '../../../../../modules/request/index'
 import { BLOG_POST_TO_COLOR, } from '../../blog_posts/blog_post_constants'
-import { smallWhiteCheckIcon, } from '../../../../Shared/index'
+import { smallWhiteCheckIcon } from '../../../../Shared/index'
 
 const defaultPreviewCardContent = `<div class='preview-card-body'>
    <h3>Party Parrot Parade</h3>
@@ -42,11 +42,12 @@ export default class CreateOrEditBlogPost extends React.Component {
       draft,
       slug,
       preview_card_content,
+      footer_content,
       premium,
       press_name,
       published_at,
       external_link,
-      center_images,
+      center_images
     } = postToEdit
     // set state to empty values or those of the postToEdit
 
@@ -78,7 +79,8 @@ export default class CreateOrEditBlogPost extends React.Component {
       publishedAt: published_at,
       externalLink: external_link,
       centerImages: center_images,
-      focused: false
+      focused: false,
+      footerContent: footer_content
     };
   }
 
@@ -187,6 +189,10 @@ export default class CreateOrEditBlogPost extends React.Component {
     this.setState({externalLink: e.target.value})
   }
 
+  handleFooterChange = (e) => {
+    this.setState({ footerContent: e.target.value })
+  }
+
   handleImageLinkChange = (e) => {
     const { value, } = e.target;
     const { previewCardHasAlreadyBeenManuallyEdited, } = this.state
@@ -271,6 +277,7 @@ export default class CreateOrEditBlogPost extends React.Component {
       externalLink,
       centerImages,
       pressName,
+      footerContent
     } = this.state
 
     e.preventDefault()
@@ -293,7 +300,8 @@ export default class CreateOrEditBlogPost extends React.Component {
         published_at: publishedAt ? new Date(publishedAt) : null,
         external_link: externalLink,
         center_images: centerImages,
-        press_name: pressName
+        press_name: pressName,
+        footer_content: footerContent
       }
     }
 
@@ -500,7 +508,7 @@ export default class CreateOrEditBlogPost extends React.Component {
   renderArticleMarkdownOrPreview = () => {
     const { publishedAt, showArticlePreview, body, centerImages, author_id, title, } = this.state
     const { postToEdit, authors, } = this.props
-    let content, toolbarLeft, mdLink, dateDisplayed
+    let content, toolbarLeft, dateDisplayed
     if (publishedAt) {
       dateDisplayed = publishedAt
     } else if (postToEdit) {
@@ -539,7 +547,6 @@ export default class CreateOrEditBlogPost extends React.Component {
         <i className="far fa-square" onClick={this.handleInsertSecondaryButton} />
       </div>)
       content = <textarea id="markdown-content" onChange={this.handleBodyChange} rows={20} type="text" value={body} />
-      mdLink = <a className='quill-button fun outlined secondary focus-on-light' href="http://commonmark.org/help/" rel="noopener noreferrer" target="_blank">Markdown Cheatsheet</a>
     }
     return (
       <div>
@@ -553,7 +560,6 @@ export default class CreateOrEditBlogPost extends React.Component {
           </div>
           {content}
         </div>
-        {mdLink}
       </div>
     )
 
@@ -702,8 +708,7 @@ export default class CreateOrEditBlogPost extends React.Component {
       externalLink,
       uploadedMediaLink,
       preview_card_content,
-      premium,
-      centerImages,
+      footerContent
     } = this.state
     const nullAuthor = {id: null, name: 'None'}
     const allTopics = topics.concat(studentTopics)
@@ -758,7 +763,30 @@ export default class CreateOrEditBlogPost extends React.Component {
 
             {this.renderPremiumCheckbox()}
 
-            {this.renderArticleMarkdownOrPreview()}
+
+            <div>
+              <div className="article-content-header-container">
+                <label>Article Content</label>
+                <a className='quill-button fun outlined secondary focus-on-light' href="http://commonmark.org/help/" rel="noopener noreferrer" target="_blank">Markdown Cheatsheet</a>
+              </div>
+              {this.renderArticleMarkdownOrPreview()}
+            </div>
+
+            <div>
+              <div className="article-content-header-container">
+                <label>Recommended Article Footer Content</label>
+                <a className='quill-button fun outlined secondary focus-on-light' href="http://commonmark.org/help/" rel="noopener noreferrer" target="_blank">Markdown Cheatsheet</a>
+              </div>
+              <p className="footer-content-disclaimer">(Please note that recommended article footers are currently hardcoded for particular pages so there is no need to fill this out unless this article will be displayed as a recommended article on one of the teacher dashboard pages. If left blank, the preview card content will be used for the footer. <strong>This should also be written with Markdown syntax.</strong>)</p>
+              <Textarea
+                autoCapitalize="off"
+                autoCorrect="off"
+                className="footer-content-text-editor"
+                onInput={this.handleFooterChange}
+                spellCheck={false}
+                value={footerContent}
+              />
+            </div>
 
             <div className="save-buttons">
               {this.renderSaveDraftButton()}

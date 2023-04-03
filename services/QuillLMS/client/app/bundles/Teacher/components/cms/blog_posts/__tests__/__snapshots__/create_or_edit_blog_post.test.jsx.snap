@@ -8034,107 +8034,166 @@ exports[`CreateOrEditBlogPost component renders for a new blog post 1`] = `
         </div>
         <div>
           <div
-            className="article-content-container"
+            className="article-content-header-container"
           >
+            <label>
+              Article Content
+            </label>
+            <a
+              className="quill-button fun outlined secondary focus-on-light"
+              href="http://commonmark.org/help/"
+              rel="noopener noreferrer"
+              target="_blank"
+            >
+              Markdown Cheatsheet
+            </a>
+          </div>
+          <div>
             <div
-              id="article-preview-bar"
+              className="article-content-container"
             >
               <div
-                className="toolbar-left"
+                id="article-preview-bar"
               >
-                <button
-                  className="interactive-wrapper"
-                  onClick={[Function]}
-                  type="button"
+                <div
+                  className="toolbar-left"
                 >
-                  H1
-                </button>
-                <button
-                  className="interactive-wrapper"
-                  onClick={[Function]}
-                  type="button"
-                >
-                  H2
-                </button>
-                <button
-                  className="interactive-wrapper"
-                  onClick={[Function]}
-                  type="button"
-                >
-                  H3
-                </button>
-                <i
-                  className="fas fa-bold"
-                  onClick={[Function]}
-                />
-                <i
-                  className="fas fa-italic"
-                  onClick={[Function]}
-                />
-                <i
-                  className="fas fa-list-ul"
-                  onClick={[Function]}
-                />
-                <i
-                  className="fas fa-list-ol"
-                  onClick={[Function]}
-                />
-                <i
-                  className="fas fa-quote-left"
-                  onClick={[Function]}
-                />
-                <i
-                  className="fas fa-link"
-                  onClick={[Function]}
-                />
-                <i
-                  className="fas fa-file-image"
-                  onClick={[Function]}
-                />
-                <i
-                  className="fas fa-video"
-                  onClick={[Function]}
-                />
-                <i
-                  className="fas fa-square"
-                  onClick={[Function]}
-                />
-                <i
-                  className="far fa-square"
-                  onClick={[Function]}
-                />
+                  <button
+                    className="interactive-wrapper"
+                    onClick={[Function]}
+                    type="button"
+                  >
+                    H1
+                  </button>
+                  <button
+                    className="interactive-wrapper"
+                    onClick={[Function]}
+                    type="button"
+                  >
+                    H2
+                  </button>
+                  <button
+                    className="interactive-wrapper"
+                    onClick={[Function]}
+                    type="button"
+                  >
+                    H3
+                  </button>
+                  <i
+                    className="fas fa-bold"
+                    onClick={[Function]}
+                  />
+                  <i
+                    className="fas fa-italic"
+                    onClick={[Function]}
+                  />
+                  <i
+                    className="fas fa-list-ul"
+                    onClick={[Function]}
+                  />
+                  <i
+                    className="fas fa-list-ol"
+                    onClick={[Function]}
+                  />
+                  <i
+                    className="fas fa-quote-left"
+                    onClick={[Function]}
+                  />
+                  <i
+                    className="fas fa-link"
+                    onClick={[Function]}
+                  />
+                  <i
+                    className="fas fa-file-image"
+                    onClick={[Function]}
+                  />
+                  <i
+                    className="fas fa-video"
+                    onClick={[Function]}
+                  />
+                  <i
+                    className="fas fa-square"
+                    onClick={[Function]}
+                  />
+                  <i
+                    className="far fa-square"
+                    onClick={[Function]}
+                  />
+                </div>
+                <div>
+                  <span
+                    className="article-tab active"
+                    onClick={[Function]}
+                  >
+                    Edit
+                  </span>
+                  <span
+                    className="article-tab null"
+                    onClick={[Function]}
+                  >
+                    Preview
+                  </span>
+                </div>
               </div>
-              <div>
-                <span
-                  className="article-tab active"
-                  onClick={[Function]}
-                >
-                  Edit
-                </span>
-                <span
-                  className="article-tab null"
-                  onClick={[Function]}
-                >
-                  Preview
-                </span>
-              </div>
+              <textarea
+                id="markdown-content"
+                onChange={[Function]}
+                rows={20}
+                type="text"
+                value=""
+              />
             </div>
-            <textarea
-              id="markdown-content"
-              onChange={[Function]}
-              rows={20}
-              type="text"
-              value=""
-            />
           </div>
-          <a
-            className="quill-button fun outlined secondary focus-on-light"
-            href="http://commonmark.org/help/"
-            rel="noopener noreferrer"
-            target="_blank"
+        </div>
+        <div>
+          <div
+            className="article-content-header-container"
           >
-            Markdown Cheatsheet
-          </a>
+            <label>
+              Recommended Article Footer Content
+            </label>
+            <a
+              className="quill-button fun outlined secondary focus-on-light"
+              href="http://commonmark.org/help/"
+              rel="noopener noreferrer"
+              target="_blank"
+            >
+              Markdown Cheatsheet
+            </a>
+          </div>
+          <p
+            className="footer-content-disclaimer"
+          >
+            (Please note that recommended article footers are currently hardcoded for particular pages so there is no need to fill this out unless this article will be displayed as a recommended article on one of the teacher dashboard pages. If left blank, the preview card content will be used for the footer. 
+            <strong>
+              This should also be written with Markdown syntax.
+            </strong>
+            )
+          </p>
+          <TextareaAutosize
+            autoCapitalize="off"
+            autoCorrect="off"
+            className="footer-content-text-editor"
+            onChange={[Function]}
+            onHeightChange={[Function]}
+            onInput={[Function]}
+            spellCheck={false}
+            useCacheForDOMMeasurements={false}
+          >
+            <textarea
+              autoCapitalize="off"
+              autoCorrect="off"
+              className="footer-content-text-editor"
+              onChange={[Function]}
+              onInput={[Function]}
+              spellCheck={false}
+              style={
+                Object {
+                  "height": 0,
+                }
+              }
+            />
+          </TextareaAutosize>
         </div>
         <div
           className="save-buttons"
@@ -16323,107 +16382,166 @@ exports[`CreateOrEditBlogPost component renders for an existing blog post 1`] = 
         </div>
         <div>
           <div
-            className="article-content-container"
+            className="article-content-header-container"
           >
+            <label>
+              Article Content
+            </label>
+            <a
+              className="quill-button fun outlined secondary focus-on-light"
+              href="http://commonmark.org/help/"
+              rel="noopener noreferrer"
+              target="_blank"
+            >
+              Markdown Cheatsheet
+            </a>
+          </div>
+          <div>
             <div
-              id="article-preview-bar"
+              className="article-content-container"
             >
               <div
-                className="toolbar-left"
+                id="article-preview-bar"
               >
-                <button
-                  className="interactive-wrapper"
-                  onClick={[Function]}
-                  type="button"
+                <div
+                  className="toolbar-left"
                 >
-                  H1
-                </button>
-                <button
-                  className="interactive-wrapper"
-                  onClick={[Function]}
-                  type="button"
-                >
-                  H2
-                </button>
-                <button
-                  className="interactive-wrapper"
-                  onClick={[Function]}
-                  type="button"
-                >
-                  H3
-                </button>
-                <i
-                  className="fas fa-bold"
-                  onClick={[Function]}
-                />
-                <i
-                  className="fas fa-italic"
-                  onClick={[Function]}
-                />
-                <i
-                  className="fas fa-list-ul"
-                  onClick={[Function]}
-                />
-                <i
-                  className="fas fa-list-ol"
-                  onClick={[Function]}
-                />
-                <i
-                  className="fas fa-quote-left"
-                  onClick={[Function]}
-                />
-                <i
-                  className="fas fa-link"
-                  onClick={[Function]}
-                />
-                <i
-                  className="fas fa-file-image"
-                  onClick={[Function]}
-                />
-                <i
-                  className="fas fa-video"
-                  onClick={[Function]}
-                />
-                <i
-                  className="fas fa-square"
-                  onClick={[Function]}
-                />
-                <i
-                  className="far fa-square"
-                  onClick={[Function]}
-                />
+                  <button
+                    className="interactive-wrapper"
+                    onClick={[Function]}
+                    type="button"
+                  >
+                    H1
+                  </button>
+                  <button
+                    className="interactive-wrapper"
+                    onClick={[Function]}
+                    type="button"
+                  >
+                    H2
+                  </button>
+                  <button
+                    className="interactive-wrapper"
+                    onClick={[Function]}
+                    type="button"
+                  >
+                    H3
+                  </button>
+                  <i
+                    className="fas fa-bold"
+                    onClick={[Function]}
+                  />
+                  <i
+                    className="fas fa-italic"
+                    onClick={[Function]}
+                  />
+                  <i
+                    className="fas fa-list-ul"
+                    onClick={[Function]}
+                  />
+                  <i
+                    className="fas fa-list-ol"
+                    onClick={[Function]}
+                  />
+                  <i
+                    className="fas fa-quote-left"
+                    onClick={[Function]}
+                  />
+                  <i
+                    className="fas fa-link"
+                    onClick={[Function]}
+                  />
+                  <i
+                    className="fas fa-file-image"
+                    onClick={[Function]}
+                  />
+                  <i
+                    className="fas fa-video"
+                    onClick={[Function]}
+                  />
+                  <i
+                    className="fas fa-square"
+                    onClick={[Function]}
+                  />
+                  <i
+                    className="far fa-square"
+                    onClick={[Function]}
+                  />
+                </div>
+                <div>
+                  <span
+                    className="article-tab active"
+                    onClick={[Function]}
+                  >
+                    Edit
+                  </span>
+                  <span
+                    className="article-tab null"
+                    onClick={[Function]}
+                  >
+                    Preview
+                  </span>
+                </div>
               </div>
-              <div>
-                <span
-                  className="article-tab active"
-                  onClick={[Function]}
-                >
-                  Edit
-                </span>
-                <span
-                  className="article-tab null"
-                  onClick={[Function]}
-                >
-                  Preview
-                </span>
-              </div>
+              <textarea
+                id="markdown-content"
+                onChange={[Function]}
+                rows={20}
+                type="text"
+                value="Brandon Reynolds, a middle school writing teacher at Milano Jr. High School in Milano, Texas, has witnessed his students make significant writing gains since introducing Quill in the classroom. “I noticed that even simple things like capitalization would sometimes throw them off. Whenever I noticed something like that, Quill’s a really easy resource just to go back and say ‘Look, there are so many different activities, so we’re going to work on this for a little while and just see how it goes.’”\\\\n\\\\nIn addition to his middle school classes, Reynolds also teaches a remedial high school class. “I’ve primarily been just a middle school teacher, so I didn’t know some high school students really do struggle with some of these basic writing skills. I really noticed while I’ve been here —they have gotten so much better about how sentences actually look, the structure of them, and putting things in place, so that’s been one of the big success stories I’ve seen this year.” \\\\n\\\\nReynolds uses Quill Proofreader to help his students prepare for state standardized tests. “I really think that helps them because they’re able to just identify, ‘Hey, there’s a mistake right here,’ and I really guide them on those.”\\\\n\\\\nQuill Diagnostics gave Reynolds a good starting point to assess where his students were in terms of their writing level, which helped him determine the best plan of action for each individual student. “I think what’s really good is to start off with the diagnostic. And I start every class off with the beginner diagnostic no matter where they are.” He then re-assigns the diagnostic later in the year to see how far his students have come. “What I do is at the beginning of the next six-week quarter, I’ll give them the same diagnostic again to see how they do on that and compare their results.”\\\\n\\\\n![](http://s3.amazonaws.com/quill-image-uploads/uploads/files/brandonteacherstory1.jpg)\\\\n\\\\nReynolds also recommends sifting through the diagnostic recommendations for each student and being strategic about what to assign for the moment, instead of assigning everything at once, which can be “really overwhelming” for students. He says, pick “one thing, so you can look and see ‘okay there’s checkmarks all the way down adjectives. We can work on that.’ So I would just say ‘chunk by chunk,’ going down.”\\\\n\\\\nReynolds found Quill Lessons ultimately helpful for finding and pinpointing those who need the most help, making it easy for him to work more closely with them. “What’s really nice is I can work with many of them individually.” Because of the interactive nature of Lessons, he’s been able to clearly and easily see which students are participating and then find ways to increase the participation of those who may be struggling more with the material, and flag them for more guided instruction afterward. “Even as they’re working on their own, I’ll call on different students and say, ‘Okay what’s this adjective? What adjectives can we put here?,” so I really try to take advantage of everything that’s there.”\\\\nReynolds uses Quill to provide his students with skills that they can incorporate into their writing assignments afterwards. “I often challenge them, especially my eighth graders, whenever we do a higher level activity combining sentences together, to put that into their next essay. It’ll be something specific that I look for, and for the most part it becomes second nature to them.” He has noticed that students are taking the concepts they’ve learned through Quill’s activities and putting them into practice in essays, which further reinforces the material.\\\\n\\\\n**Brandon Reynold’s Best Practices**\\\\n\\\\n* Give students a Diagnostic at the beginning and end of each quarter/semester to see the progress they’ve made between the first and second attempts. \\\\n* Use Lessons to determine which students need the most help, and flag those who may be struggling and could use extra support around the material. \\\\n* Assign Diagnostic Recommendations concept-by-concept, so that students aren’t overwhelmed by everything on their dashboards and can focus on what the teacher deems most important at the moment. \\\\n\\\\nTo find more Teacher Stories like Brandon Reynold's, click [**here!**](https://www.quill.org/teacher-center/topic/teacher-stories)"
+              />
             </div>
-            <textarea
-              id="markdown-content"
-              onChange={[Function]}
-              rows={20}
-              type="text"
-              value="Brandon Reynolds, a middle school writing teacher at Milano Jr. High School in Milano, Texas, has witnessed his students make significant writing gains since introducing Quill in the classroom. “I noticed that even simple things like capitalization would sometimes throw them off. Whenever I noticed something like that, Quill’s a really easy resource just to go back and say ‘Look, there are so many different activities, so we’re going to work on this for a little while and just see how it goes.’”\\\\n\\\\nIn addition to his middle school classes, Reynolds also teaches a remedial high school class. “I’ve primarily been just a middle school teacher, so I didn’t know some high school students really do struggle with some of these basic writing skills. I really noticed while I’ve been here —they have gotten so much better about how sentences actually look, the structure of them, and putting things in place, so that’s been one of the big success stories I’ve seen this year.” \\\\n\\\\nReynolds uses Quill Proofreader to help his students prepare for state standardized tests. “I really think that helps them because they’re able to just identify, ‘Hey, there’s a mistake right here,’ and I really guide them on those.”\\\\n\\\\nQuill Diagnostics gave Reynolds a good starting point to assess where his students were in terms of their writing level, which helped him determine the best plan of action for each individual student. “I think what’s really good is to start off with the diagnostic. And I start every class off with the beginner diagnostic no matter where they are.” He then re-assigns the diagnostic later in the year to see how far his students have come. “What I do is at the beginning of the next six-week quarter, I’ll give them the same diagnostic again to see how they do on that and compare their results.”\\\\n\\\\n![](http://s3.amazonaws.com/quill-image-uploads/uploads/files/brandonteacherstory1.jpg)\\\\n\\\\nReynolds also recommends sifting through the diagnostic recommendations for each student and being strategic about what to assign for the moment, instead of assigning everything at once, which can be “really overwhelming” for students. He says, pick “one thing, so you can look and see ‘okay there’s checkmarks all the way down adjectives. We can work on that.’ So I would just say ‘chunk by chunk,’ going down.”\\\\n\\\\nReynolds found Quill Lessons ultimately helpful for finding and pinpointing those who need the most help, making it easy for him to work more closely with them. “What’s really nice is I can work with many of them individually.” Because of the interactive nature of Lessons, he’s been able to clearly and easily see which students are participating and then find ways to increase the participation of those who may be struggling more with the material, and flag them for more guided instruction afterward. “Even as they’re working on their own, I’ll call on different students and say, ‘Okay what’s this adjective? What adjectives can we put here?,” so I really try to take advantage of everything that’s there.”\\\\nReynolds uses Quill to provide his students with skills that they can incorporate into their writing assignments afterwards. “I often challenge them, especially my eighth graders, whenever we do a higher level activity combining sentences together, to put that into their next essay. It’ll be something specific that I look for, and for the most part it becomes second nature to them.” He has noticed that students are taking the concepts they’ve learned through Quill’s activities and putting them into practice in essays, which further reinforces the material.\\\\n\\\\n**Brandon Reynold’s Best Practices**\\\\n\\\\n* Give students a Diagnostic at the beginning and end of each quarter/semester to see the progress they’ve made between the first and second attempts. \\\\n* Use Lessons to determine which students need the most help, and flag those who may be struggling and could use extra support around the material. \\\\n* Assign Diagnostic Recommendations concept-by-concept, so that students aren’t overwhelmed by everything on their dashboards and can focus on what the teacher deems most important at the moment. \\\\n\\\\nTo find more Teacher Stories like Brandon Reynold's, click [**here!**](https://www.quill.org/teacher-center/topic/teacher-stories)"
-            />
           </div>
-          <a
-            className="quill-button fun outlined secondary focus-on-light"
-            href="http://commonmark.org/help/"
-            rel="noopener noreferrer"
-            target="_blank"
+        </div>
+        <div>
+          <div
+            className="article-content-header-container"
           >
-            Markdown Cheatsheet
-          </a>
+            <label>
+              Recommended Article Footer Content
+            </label>
+            <a
+              className="quill-button fun outlined secondary focus-on-light"
+              href="http://commonmark.org/help/"
+              rel="noopener noreferrer"
+              target="_blank"
+            >
+              Markdown Cheatsheet
+            </a>
+          </div>
+          <p
+            className="footer-content-disclaimer"
+          >
+            (Please note that recommended article footers are currently hardcoded for particular pages so there is no need to fill this out unless this article will be displayed as a recommended article on one of the teacher dashboard pages. If left blank, the preview card content will be used for the footer. 
+            <strong>
+              This should also be written with Markdown syntax.
+            </strong>
+            )
+          </p>
+          <TextareaAutosize
+            autoCapitalize="off"
+            autoCorrect="off"
+            className="footer-content-text-editor"
+            onChange={[Function]}
+            onHeightChange={[Function]}
+            onInput={[Function]}
+            spellCheck={false}
+            useCacheForDOMMeasurements={false}
+          >
+            <textarea
+              autoCapitalize="off"
+              autoCorrect="off"
+              className="footer-content-text-editor"
+              onChange={[Function]}
+              onInput={[Function]}
+              spellCheck={false}
+              style={
+                Object {
+                  "height": 0,
+                }
+              }
+            />
+          </TextareaAutosize>
         </div>
         <div
           className="save-buttons"

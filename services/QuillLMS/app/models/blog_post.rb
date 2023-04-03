@@ -10,6 +10,7 @@
 #  draft                 :boolean          default(TRUE)
 #  external_link         :string
 #  featured_order_number :integer
+#  footer_content        :text             default("")
 #  image_link            :string
 #  order_number          :integer
 #  premium               :boolean          default(FALSE)
