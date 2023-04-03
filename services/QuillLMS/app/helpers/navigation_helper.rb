@@ -37,14 +37,14 @@ module NavigationHelper
   end
 
   def premium_tab_copy
-    star_img = "<img alt='' src='https://assets.quill.org/images/icons/star.svg'></img>"
+    diamond_img = "<img src='https://assets.quill.org/images/icons/yellow-diamond.svg'></img>"
     case current_user.premium_state
     when 'trial'
-      "<span>Premium</span>#{star_img}<span>#{current_user.trial_days_remaining} Days Left</span>"
+      "<span>Premium</span>#{diamond_img}<span>#{current_user.trial_days_remaining} Days Left</span>"
     when 'locked'
-      current_user.last_expired_subscription&.is_trial? ? "<span>Premium</span>#{star_img}<span>Trial Expired</span>" : "<span>Premium</span>#{star_img}<span>Expired</span>"
+      current_user.last_expired_subscription&.is_trial? ? "<span>Premium</span>#{diamond_img}<span>Trial Expired</span>" : "<span>Premium</span>#{diamond_img}<span>Expired</span>"
     when 'none', nil
-      "<span>Explore Premium</span>#{star_img}"
+      "<span>Explore Premium</span>#{diamond_img}"
     end
   end
 

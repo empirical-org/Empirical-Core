@@ -33,6 +33,11 @@
   }
 }
 
+.navbar-divider-bar {
+  background-color: #06806B;
+  height: 16px;
+}
+
 .home-nav-right {
   font-weight: 600;
   font-size: 16px;
@@ -42,10 +47,16 @@
     align-items: center;
     display: flex;
     border-radius: 6px;
-    border: white 1px solid;
+    border: #06806B 1px solid;
     &:hover {
       color: #00c2a2;
       background-color: #ffffff;
+    }
+  }
+  .on-home-page {
+    color: #FFFFFF !important;
+    &.sign-up-button {
+      border: #FFFFFF 1px solid;
     }
   }
 }
@@ -190,25 +201,20 @@ nav.q-navbar-home {
     justify-content: flex-end;
     align-items: center;
 
+    .nav-element {
+      color: #06806B;
+    }
+
     .nav-element, .navbar-tooltip-trigger {
       margin-left: 32px;
     }
 
     .nav-element:not(.sign-up-button):hover {
-      color: #7cfbdf;
+      color: #BCDCD6;
     }
 
     &.narrow {
       display: none;
-    }
-
-    .sign-up-btn {
-      border: 1px solid $white;
-      //Instead of the line below you could use @includeborder-radius($radius, $vertical-radius)
-      border-radius: 4px;
-      padding: 4px 9px 2px;
-      background-color: $white;
-      color: $quillgreen;
     }
   }
 
@@ -602,7 +608,7 @@ nav.q-navbar-home {
   &:hover:not(.unhoverable), &:focus {
     outline: none;
     span {
-      color: #7cfbdf;
+      color: #BCDCD6;
     }
     .navbar-tooltip {
       display: flex;
@@ -610,7 +616,7 @@ nav.q-navbar-home {
   }
   &.active {
     span {
-      color: #7cfbdf;
+      color: #BCDCD6;
     }
   }
 }

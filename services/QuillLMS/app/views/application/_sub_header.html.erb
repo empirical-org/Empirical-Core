@@ -1,5 +1,8 @@
 <% current_path = request.env['PATH_INFO'] %>
+<% on_home_page = current_path == '/' %>
 <% on_sign_up_or_log_in = ['account/new', '/session', 'password_reset', 'sign-up', 'finish_set_up'].any? { |str| current_path.include?(str)} %>
+<% logo_src = on_home_page ? "https://assets.quill.org/images/logos/quill-logo-white-2022.svg" : "https://assets.quill.org/images/logos/quill-logo-green.svg" %>
+<% home_page_class = on_home_page ? 'on-home-page' : '' %>
 
 <% if current_path.include?('teachers') || current_path.include?('assign') %>
 	<% user_dropdown_class = 'on-dashboard' %>
@@ -17,7 +20,7 @@
 
 <% if current_path.include?('tools') %>
 	<% active_tab = 'Learning Tools' %>
-<% elsif ['announcements', 'mission', 'impact', 'press', 'team', 'pathways', 'careers'].any? { |str| current_path.include?(str)} %>
+<% elsif ['about', 'announcements', 'mission', 'impact', 'press', 'team', 'pathways', 'careers'].any? { |str| current_path.include?(str)} %>
 	<% active_tab = 'About Us' %>
 <% elsif current_path.include?('activities') %>
 	<% active_tab = 'Explore Curriculum' %>
@@ -37,7 +40,7 @@
   <% else %>
 	  <div>
 			<a aria-label="Quill" class="focus-on-dark" href=<%= root_path %> >
-  			<img src="https://assets.quill.org/images/logos/quill-logo-green.svg" alt="Quill.org logo" />
+  			<img src=<%= logo_src %> alt="Quill.org logo" />
   		</a>
   	</div>
 
@@ -56,8 +59,8 @@
 	  			<%= render 'navbar/quill_support', active_tab: active_tab  %>
 	   		<% end %>
   		<%- if current_user.nil? %>
-				<a class="text-white nav-element" href="/session/new">Log In</a>
-				<a class="text-white nav-element sign-up-button" href="/account/new">Sign Up</a>
+				<a class="<%= home_page_class %> text-white nav-element" href="/session/new">Log In</a>
+				<a class="<%= home_page_class %> text-white nav-element sign-up-button" href="/account/new">Sign Up</a>
   		<%- elsif current_user.teacher? %>
   			<div id="nav-user-dropdown" class="dropdown-closed hide-on-mobile nav-element <%= show_notification_badges_class %> <%= user_dropdown_class %>">
   				<span onclick="toggleDropdown()" class='user-dropdown-button notification-badge-relative'>

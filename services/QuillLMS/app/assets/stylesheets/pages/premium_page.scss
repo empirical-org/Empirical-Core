@@ -18,11 +18,14 @@
 
 .premium-tab {
   a {
-    background-color: #DF9E3D !important;
-    color: #FFFFFF !important;
+    background-color: #FFE8C5 !important;
+    color: #C97C00 !important;
     padding-left: 40px;
     padding-right: 40px;
+    border-radius: 8px 8px 0px 0px !important;
+    margin-left: 4px;
     border-right: none !important;
+    border-left: none !important;
     cursor: pointer !important;
   }
   .premium-tab-copy {
@@ -82,15 +85,11 @@
 }
 li.active.premium-tab > a,
 li.premium-tab > a:hover {
-  background-color: #D3982A !important;
-  // border-top: 3px solid #875A12 !important;
-  // padding-top: 0 !important;
+  background-color: #FCD79F !important;
 }
 .premium-tab a.active,
 .premium-tab a:hover {
-  background-color: #D3982A !important;
-  // border-top: 3px solid #875A12 !important;
-  // padding-top: 0 !important;
+  background-color: #FCD79F !important;
 }
 
 .premium-page {
