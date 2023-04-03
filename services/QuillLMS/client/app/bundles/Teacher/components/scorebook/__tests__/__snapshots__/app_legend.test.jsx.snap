@@ -9,7 +9,7 @@ exports[`AppLegend component should render 1`] = `
   >
     <a
       className="icon focus-on-light"
-      href="undefined/tools/grammar"
+      href="undefined/tools/evidence"
       rel="noopener noreferrer"
       target="_blank"
     >
