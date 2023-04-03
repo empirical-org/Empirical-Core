@@ -8,7 +8,7 @@ import SelectSearch from 'react-select-search';
 import { fuzzySearch } from 'react-select-search';
 import { push } from 'react-router-redux';
 import respWithStatus from '../../libs/responseTools.js';
-import { submitResponseEdit, setUpdatedResponse, deleteResponse } from '../../actions/responses';
+import { submitResponseEdit, deleteResponse } from '../../actions/responses';
 import {
   hashToCollection,
   Modal,
@@ -115,9 +115,6 @@ class Questions extends React.Component {
           gradeIndex: `unmatched${response.questionUID}`,
         };
         sleep(150);
-        this.props.dispatch(
-          setUpdatedResponse(response.key, newValues)
-        );
       } else if (newMatchedResponse.response.parentID === undefined) {
         this.props.dispatch(
           deleteResponse(question.key, response.key)

@@ -35,7 +35,6 @@ import { ProofreaderActivityState } from '../../reducers/proofreaderActivitiesRe
 import { ConceptResultObject, WordObject } from '../../interfaces/proofreaderActivities'
 import LoadingSpinner from '../shared/loading_spinner'
 import { requestPut, requestPost, } from '../../../../modules/request/index'
-
 import {
   roundValuesToSeconds,
   KEYDOWN,
@@ -203,7 +202,7 @@ export class PlayProofreaderContainer extends React.Component<PlayProofreaderCon
       const { proofreaderActivities } = this.props
       const { currentActivity, hasreceiveddata } = proofreaderActivities
 
-      if (prevProps.proofreaderActivities.hasreceiveddata != hasreceiveddata && hasreceiveddata) {
+      if (prevProps.proofreaderActivities.hasreceiveddata !== hasreceiveddata && hasreceiveddata) {
         document.title = `Quill.org | ${currentActivity.title}`
       }
     }
@@ -348,7 +347,7 @@ export class PlayProofreaderContainer extends React.Component<PlayProofreaderCon
           const words:Array<string> = []
           paragraph.forEach((word: any) => {
             const { necessaryEditIndex, correctText, conceptUID, originalText, currentText, wordIndex } = word
-            const stringNormalizedCurrentText = stringNormalize(currentText)
+            const stringNormalizedCurrentText = stringNormalize(currentText).trim()
             const stringNormalizedCorrectText = stringNormalize(correctText)
             const stringNormalizedOriginalText = stringNormalize(originalText)
             const prompt = findSentence(paragraphSentences, wordIndex, stringNormalizedOriginalText)
@@ -624,7 +623,7 @@ export class PlayProofreaderContainer extends React.Component<PlayProofreaderCon
                 <div>
                   <img alt="Directions icon" src={directionSrc} />
                   <p dangerouslySetInnerHTML={{__html: currentActivity.description || this.defaultInstructions()}} />
-                  <p className="sr-only">Screenreader users: once you have finished reading the passage, use the tab keys to navigate between words and make changes to ones that have errors. {currentActivity.underlineErrorsInProofreader && 'Words that contain errors will be described as underlined.'} Words that you have already changed will be described as bolded. There are {necessaryEditsLength} errors to find and fix. When you are done, navigate to the "Get Feedback" button after the passage and select it.</p>
+                  <p className="sr-only">Screenreader users: once you have finished reading the passage, use the tab keys to navigate between words and make changes to ones that have errors. {currentActivity.underlineErrorsInProofreader && 'Words that contain errors will be described as underlined.'} Words that you have already changed will be described as bolded. There are {necessaryEditsLength} errors to find and fix. When you are done, navigate to the &#34;Get Feedback&#34; button after the passage and select it.</p>
                 </div>
               </div>
             </div>

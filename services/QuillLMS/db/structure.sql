@@ -694,7 +694,8 @@ CREATE TABLE public.admin_approval_requests (
     admin_info_id bigint,
     requestee_id integer,
     created_at timestamp(6) without time zone NOT NULL,
-    updated_at timestamp(6) without time zone NOT NULL
+    updated_at timestamp(6) without time zone NOT NULL,
+    request_made_during_sign_up boolean DEFAULT false
 );
 
 
@@ -9357,6 +9358,7 @@ INSERT INTO "schema_migrations" (version) VALUES
 ('20230206203447'),
 ('20230301151808'),
 ('20230301160642'),
+('20230323114351');
 ('20230328155819');
 
 
