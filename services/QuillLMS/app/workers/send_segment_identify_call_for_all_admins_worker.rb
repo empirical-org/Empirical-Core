@@ -5,6 +5,6 @@ class SendSegmentIdentifyCallForAllAdminsWorker
   sidekiq_options queue: SidekiqQueue::LOW
 
   def perform
-    User.admin.ids { |id| IdentifyWorker.perform_async(id) }
+    User.admin.ids.each { |id| IdentifyWorker.perform_async(id) }
   end
 end
