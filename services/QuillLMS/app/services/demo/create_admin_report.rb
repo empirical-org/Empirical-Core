@@ -2,8 +2,9 @@
 
 class Demo::CreateAdminReport
 
-  def initialize(teacher_email)
+  def initialize(teacher_email, passed_data=nil)
     @teacher_email = teacher_email
+    @passed_data = passed_data
   end
 
   def call
@@ -40,7 +41,7 @@ class Demo::CreateAdminReport
       username: '',
       password: SecureRandom.urlsafe_base64
     )
-    subscription = Subscription.create!(purchaser_id: admin_teacher.id, account_type: 'Demo Premium', expiration: Date.current + 100.years)
+    subscription = Subscription.create!(purchaser_id: admin_teacher.id, account_type: Subscription::SCHOOL_DISTRICT_PAID, expiration: Date.current + 100.years)
 
     all_classrooms = []
 
@@ -70,6 +71,6 @@ class Demo::CreateAdminReport
   end
 
   def data
-    @data ||= Demo::SessionData.new.admin_demo_data
+    @data ||= @passed_data || Demo::SessionData.new.admin_demo_data
   end
 end
