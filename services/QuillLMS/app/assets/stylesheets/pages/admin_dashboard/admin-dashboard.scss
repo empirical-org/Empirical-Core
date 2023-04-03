@@ -388,17 +388,38 @@
     }
     .premium {
       background-color: rgba(255, 255, 255, 0.35);
-      color: white;
-      .fa-star {
-        color: #eda41b;
-      }
+      color: #FFFFFF;
       &.active, &:hover {
         text-decoration: none;
-        background-color: #FFFFFF;
-        color: #06806B;
-        .fa-star {
-          color: white;
+        background-color: rgba(255, 255, 255, 0.15);
+        color: #FFFFFF;
+      }
+    }
+  }
+}
+
+.q-nav-bar {
+  #teacher-nav-tabs {
+    .admin-tab {
+      &.active {
+        a {
+          background-color: #EFA67E;
         }
+      }
+      a {
+        display: flex;
+        background-color: #FFDCC8;
+        color: #C04500;
+        margin-left: 4px;
+        border-radius: 8px 8px 0px 0px;
+        border-left: none;
+      }
+      a:hover {
+        background-color: #EFA67E;
+      }
+      img {
+        margin-left: 4px;
+        margin-right: 4px;
       }
     }
   }

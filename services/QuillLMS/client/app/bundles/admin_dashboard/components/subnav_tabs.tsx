@@ -1,5 +1,6 @@
 import * as React from 'react';
 import { Link } from 'react-router-dom';
+import { whiteDiamondIcon } from '../../Shared';
 
 export default class AdminSubnav extends React.Component<any, any> {
   constructor(props) {
@@ -30,9 +31,10 @@ export default class AdminSubnav extends React.Component<any, any> {
 
   render() {
     const { overview, schoolSubscriptions, activityScores, conceptReports, standardsReports, } = this.state
+    const premiumIcon = <img alt={whiteDiamondIcon.alt} src={whiteDiamondIcon.src} />
 
     return(
-      <div className="tab-subnavigation-wrapper class-subnav">
+      <div className="tab-subnavigation-wrapper class-subnav admin-dashboard-subnav">
         <div className="container">
           <ul>
             <li>
@@ -47,17 +49,17 @@ export default class AdminSubnav extends React.Component<any, any> {
             </li>
             <li>
               <Link className={`premium ${activityScores}`} to="/teachers/admin_dashboard/district_activity_scores">
-            Activity Scores <i className="fas fa-star" />
+            Activity Scores {premiumIcon}
               </Link>
             </li>
             <li>
               <Link className={`premium ${conceptReports}`} to="/teachers/admin_dashboard/district_concept_reports">
-          Concept Reports <i className="fas fa-star" />
+          Concept Reports {premiumIcon}
               </Link>
             </li>
             <li>
               <Link className={`premium ${standardsReports}`} to="/teachers/admin_dashboard/district_standards_reports">
-        Standards Reports <i className="fas fa-star" />
+        Standards Reports {premiumIcon}
               </Link>
             </li>
           </ul>

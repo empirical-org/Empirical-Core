@@ -11,3 +11,7 @@
   	</div>
   </nav>
 <% end %>
+
+<% if show_site_navigation? && current_path.include?('cms') %>
+	<div class="navbar-divider-bar"></div>'
+<% end %>

@@ -33,7 +33,7 @@ module NavigationHelper
   end
 
   def premium_page_should_be_active?
-    # action_name == 'premium'
+    action_name == 'premium'
   end
 
   def premium_tab_copy

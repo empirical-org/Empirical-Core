@@ -222,3 +222,8 @@ export const networkIcon = {
   alt: 'Black silhouette of group of 4 people',
   src: `${process.env.CDN_URL}/images/onboarding/network.svg`
 }
+
+export const whiteDiamondIcon = {
+  alt: 'White diamond',
+  src: `${process.env.CDN_URL}/images/icons/white-diamond.svg`
+}
