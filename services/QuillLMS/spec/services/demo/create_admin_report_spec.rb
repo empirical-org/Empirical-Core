@@ -6,7 +6,6 @@ RSpec.describe Demo::CreateAdminReport do
   let!(:teacher_email) { 'hello+demoadmin-admindemoschool@quill.org' }
 
   subject { described_class.new(teacher_email, passed_data) }
-  let!(:data) { subject.data }
 
   before do
     Demo::ReportDemoCreator::ACTIVITY_PACKS_TEMPLATES
@@ -21,7 +20,7 @@ RSpec.describe Demo::CreateAdminReport do
       .uniq
       .each {|concept_id| create(:concept, id: concept_id)}
 
-      subject.call
+    subject.call
   end
 
   it 'should create an admin user with the passed email who has purchased a district subscription' do
@@ -30,7 +29,7 @@ RSpec.describe Demo::CreateAdminReport do
   end
 
   it 'should create the schools from the data hash and make the admin an administrator of them' do
-    school_names = data.map { |d| d['School'] }.uniq
+    school_names = subject.data.map { |d| d['School'] }.uniq
     school_names.each do |name|
       school = School.find_by_name(name)
       expect(school).to be
@@ -40,7 +39,7 @@ RSpec.describe Demo::CreateAdminReport do
   end
 
   it 'should create every teacher account from the data hash, associated with the correct school' do
-    schools_and_teachers = data.map { |d| { 'School' => d['School'], 'Teacher' => d['Teacher'] } }.uniq
+    schools_and_teachers = subject.data.map { |d| { 'School' => d['School'], 'Teacher' => d['Teacher'] } }.uniq
     schools_and_teachers.each do |row|
       teacher = User.find_by_name(row['Teacher'])
       school = School.find_by_name(row['School'])
@@ -72,7 +71,7 @@ RSpec.describe Demo::CreateAdminReport do
     [
       {"School"=>"MLK Middle School", "Teacher"=>"Maya Angelou", "Classroom"=>"Period 1a"},
       {"School"=>"Douglass High School", "Teacher"=>"Kevin Kwan", "Classroom"=>"Period 4"},
-      {"School"=>"Douglass High School", "Teacher"=>"Kevin Kwan", "Classroom"=>"Period 5"},
+      {"School"=>"Douglass High School", "Teacher"=>"Kevin Kwan", "Classroom"=>"Period 5"}
     ]
   end
 
