@@ -109,6 +109,11 @@ describe "Cron", type: :model do
       expect(CalculateAndCacheSchoolsDataForSegmentWorker).to receive(:perform_async)
       Cron.interval_1_day
     end
+
+    it "enqueues SendSegmentIdentifyCallForAllAdminsWorker" do
+      expect(SendSegmentIdentifyCallForAllAdminsWorker).to receive(:perform_async)
+      Cron.interval_1_day
+    end
   end
 
   describe "#run_weekday" do

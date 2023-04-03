@@ -23,7 +23,7 @@ const VerifySchool = ({ passedSchoolName, passedAdmins, }) => {
   let content = <Spinner />
 
   if (schoolName) {
-    content = admins?.length && window.location.href.includes('show-admin-access-form') ? <RequestAdminAccessForm admins={admins} schoolName={schoolName} /> : <SchoolVerificationForm schoolName={schoolName} />
+    content = admins?.length ? <RequestAdminAccessForm admins={admins} schoolName={schoolName} /> : <SchoolVerificationForm schoolName={schoolName} />
   }
 
   return (
