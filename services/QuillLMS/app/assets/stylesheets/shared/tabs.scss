@@ -12,10 +12,10 @@
       font-weight: 600;
       line-height: 41px;
       margin-top: 0px;
-      padding: 3px 30px 3px;
+      padding: 3px 24px 3px;
       text-decoration: none;
       &:hover {
-        background-color: #0E927C;
+        background-color: rgba(188, 220, 214, 1);
       }
 
       &.mobile {
@@ -85,7 +85,7 @@
         color: #FFFFFF;
         font-size: 13px;
         height: 35px;
-        padding: 5px 12px;
+        padding: 5px 16px;
 
         &.active {
           background: #FFFFFF;
