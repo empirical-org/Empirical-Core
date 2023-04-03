@@ -18,7 +18,6 @@ export {
   TextFilter,
   expanderColumn,
   NumberFilterInput,
-  CheckboxFilter
 } from './components/reactTable/reactTable'
 
 export {
@@ -205,10 +204,5 @@ export {
   NOT_LISTED,
   NO_SCHOOL_SELECTED
 } from './utils/constants'
-
-export {
-  UserIdsForEvent,
-  Question,
-  QuestionObject } from './interfaces'
 
 export { DefaultReactQueryClient } from './utils/defaultReactQueryClient'
