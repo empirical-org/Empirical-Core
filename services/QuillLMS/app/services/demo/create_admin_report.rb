@@ -11,6 +11,10 @@ class Demo::CreateAdminReport
     create_demo
   end
 
+  def data
+    @data ||= @passed_data || Demo::SessionData.new.admin_demo_data
+  end
+
   attr_reader :teacher_email
   private :teacher_email
 
@@ -68,9 +72,5 @@ class Demo::CreateAdminReport
       number_of_sessions_to_destroy = (14..28).to_a.sample # 10-20% of 140
       activity_sessions_for_classroom.sample(number_of_sessions_to_destroy).each { |as| as.destroy }
     end
-  end
-
-  def data
-    @data ||= @passed_data || Demo::SessionData.new.admin_demo_data
   end
 end
