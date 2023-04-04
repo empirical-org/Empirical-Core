@@ -46,6 +46,14 @@
   margin-left: 4px;
 }
 
+.subnav-diamond-icon {
+  width: 14.52px;
+  height: 11.81px;
+  background-repeat: no-repeat;
+  background-size: contain;
+  margin-left: 4px;
+}
+
 .q-nav-bar {
   #teacher-nav-tabs {
 
@@ -262,7 +270,7 @@ nav.q-navbar-home {
     }
 
     .nav-element:not(.sign-up-button):hover {
-      color: #BCDCD6;
+      color: #086252;
     }
 
     &.narrow {
@@ -660,7 +668,7 @@ nav.q-navbar-home {
   &:hover:not(.unhoverable), &:focus {
     outline: none;
     span {
-      color: #BCDCD6;
+      color: #086252;
     }
     .navbar-tooltip {
       display: flex;
@@ -668,7 +676,7 @@ nav.q-navbar-home {
   }
   &.active {
     span {
-      color: #BCDCD6;
+      color: #086252;
     }
   }
 }

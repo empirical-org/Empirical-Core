@@ -101,41 +101,37 @@
 }
 
 .student-reports-subnav.tab-subnavigation-wrapper {
-  // margin-top: -1px;
+  min-height: 44px;
   $orange: #eda41b;
 
+  ul {
+    display: flex;
+    align-items: center;
+    li {
+      padding: 0px 5px !important;
+    }
+  }
+
   a:not(.default) {
+    display: flex;
+    align-items: center;
+    height: auto;
     background-color: rgba(255, 255, 255, 0.35);
     color: white;
     &.active {
       background-color: #FFFFFF;
       color: #06806B;
-
-      i, svg {
-        color: white;
-      }
-
-      img {
-        filter: brightness(0) invert(1);
+      &:hover {
+        color: #FFFFFF;
       }
     }
-
-    i, svg {
-      color: $orange;
+    .subnav-diamond-icon {
+      background-image: url("https://assets.quill.org/images/icons/white-diamond.svg");
     }
 
     &:hover {
       text-decoration: none;
-      background-color: #FFFFFF;
-      color: #06806B;
-
-      i, svg {
-        color: white;
-      }
-
-      img {
-        filter: brightness(0) invert(1);
-      }
+      background-color: rgba(255, 255, 255, 0.5);
     }
   }
 

@@ -4,21 +4,28 @@
   .student-navbar-dropdown {
     position: relative;
     #name-container {
-      background-color: transparent;
-      font-size: 16px;
       font-weight: 600;
-      color: #06806B;
-      padding: 0px;
       display: flex;
       align-items: center;
       border: none;
+      background-color: #E3F0EE;
+      color: #06806B;
+      padding: 4px 16px;
+      font-size: 14px;
+      border-radius: 6px;
       .dropdown-indicator {
-        background: url(https://assets.quill.org/images/icons/dropdown.svg);
-        height: 15px;
-        width: 15px;
-        filter: brightness(0) invert(1.5);
-        margin-bottom: 2px;
-        margin-left: 4px;
+        border: solid #06806B;
+        border-width: 0 2px 2px 0;
+        display: inline-block;
+        padding: 3px;
+        transform: rotate(45deg);
+        -webkit-transform: rotate(45deg);
+        margin: 0px 0px 4px 8px;
+        &.rotated {
+          transform: rotate(-135deg);
+          -webkit-transform: rotate(-135deg);
+          margin: 0px 0px 0px 8px;
+        }
       }
       img {
         margin-right: 8px;
