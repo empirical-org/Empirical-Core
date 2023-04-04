@@ -4,6 +4,13 @@ require 'rails_helper'
 
 RSpec.describe Demo::CreateAdminReport do
   let!(:teacher_email) { 'hello+demoadmin-admindemoschool@quill.org' }
+  let!(:passed_data) {
+    [
+      {"School"=>"MLK Middle School", "Teacher"=>"Maya Angelou", "Classroom"=>"Period 1a"},
+      {"School"=>"Douglass High School", "Teacher"=>"Kevin Kwan", "Classroom"=>"Period 4"},
+      {"School"=>"Douglass High School", "Teacher"=>"Kevin Kwan", "Classroom"=>"Period 5"}
+    ]
+  }
 
   subject { described_class.new(teacher_email, passed_data) }
 
@@ -65,14 +72,6 @@ RSpec.describe Demo::CreateAdminReport do
 
   def subscription
     Subscription.find_by(purchaser: admin, account_type: Subscription::SCHOOL_DISTRICT_PAID)
-  end
-
-  def passed_data
-    [
-      {"School"=>"MLK Middle School", "Teacher"=>"Maya Angelou", "Classroom"=>"Period 1a"},
-      {"School"=>"Douglass High School", "Teacher"=>"Kevin Kwan", "Classroom"=>"Period 4"},
-      {"School"=>"Douglass High School", "Teacher"=>"Kevin Kwan", "Classroom"=>"Period 5"}
-    ]
   end
 
 end

@@ -5,6 +5,8 @@ class Demo::CreateAdminReport
   NUMBER_OF_CLASSROOMS_TO_DESTROY_SESSIONS_FOR = 20
   RANGE_OF_NUMBER_OF_SESSIONS_TO_DESTROY = 14..28 # 10-20% of 140
 
+  attr_reader :teacher_email
+
   def initialize(teacher_email, passed_data=nil)
     @teacher_email = teacher_email
     @passed_data = passed_data
@@ -17,9 +19,6 @@ class Demo::CreateAdminReport
   def data
     @data ||= @passed_data || Demo::SessionData.new.admin_demo_data
   end
-
-  attr_reader :teacher_email
-  private :teacher_email
 
   private def find_or_create_school(school_name)
     School.find_or_create_by(name: school_name)
