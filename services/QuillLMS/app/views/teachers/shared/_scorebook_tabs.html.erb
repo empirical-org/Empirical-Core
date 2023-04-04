@@ -35,7 +35,7 @@
           <li class="admin-tab <%= 'active' if admin_page_should_be_active? %>">
             <a href="/teachers/admin_dashboard">
               <span>Premium Hub</span>
-              <div class="nav-diamond-icon"></div>
+              <div class="large-diamond-icon"></div>
             </a>
           </li>
         <% end %>
@@ -80,10 +80,10 @@
             <li><%= active_link_to 'Activity Summary', scorebook_teachers_classrooms_path, class: 'default'%></li>
             <li><%= active_link_to 'Activity Analysis', '/teachers/progress_reports/diagnostic_reports/#/activity_packs', class: 'default activity-analysis-tab'%></li>
             <li><%= active_link_to 'Diagnostics', '/teachers/progress_reports/diagnostic_reports/#/diagnostics', class: 'default diagnostic-tab'%></li>
-            <li><a href='/teachers/progress_reports/activities_scores_by_classroom' class=<%=%w(/teachers/progress_reports/student_overview /teachers/progress_reports/activities_scores_by_classroom).include?(request.path) ? 'active' : nil%> ><span>Activity Scores</span><div class='subnav-diamond-icon'></div></a></li>
-            <li class="premium-reports-tab"><%= active_link_to raw('<span>Concepts</span><div class="subnav-diamond-icon"></div>'), teachers_progress_reports_concepts_students_path%></li>
-            <li class="premium-reports-tab"><%= active_link_to raw('<span>Standards</span><div class="subnav-diamond-icon"></div>'), teachers_progress_reports_standards_classrooms_path %></li>
-            <li class="premium-reports-tab"><%= active_link_to raw('<span>Data Export</span><div class="subnav-diamond-icon"></div>'), teachers_progress_reports_activity_sessions_path %></li>
+            <li><a href='/teachers/progress_reports/activities_scores_by_classroom' class=<%=%w(/teachers/progress_reports/student_overview /teachers/progress_reports/activities_scores_by_classroom).include?(request.path) ? 'active' : nil%> ><span>Activity Scores</span><div class='small-diamond-icon'></div></a></li>
+            <li class="premium-reports-tab"><%= active_link_to raw('<span>Concepts</span><div class="small-diamond-icon"></div>'), teachers_progress_reports_concepts_students_path%></li>
+            <li class="premium-reports-tab"><%= active_link_to raw('<span>Standards</span><div class="small-diamond-icon"></div>'), teachers_progress_reports_standards_classrooms_path %></li>
+            <li class="premium-reports-tab"><%= active_link_to raw('<span>Data Export</span><div class="small-diamond-icon"></div>'), teachers_progress_reports_activity_sessions_path %></li>
           <% end %>
 
         </ul>

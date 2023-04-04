@@ -41,8 +41,8 @@ module NavigationHelper
   end
 
   def premium_tab_copy
-    middle_diamond_img = "<div class='nav-diamond-icon is-in-middle'></div>"
-    end_diamond_img = "<div class='nav-diamond-icon'></div>"
+    middle_diamond_img = "<div class='large-diamond-icon is-in-middle'></div>"
+    end_diamond_img = "<div class='large-diamond-icon'></div>"
     case current_user.premium_state
     when 'trial'
       "<span>Premium</span>#{middle_diamond_img}<span>#{current_user.trial_days_remaining} Days Left</span>"
@@ -64,11 +64,11 @@ module NavigationHelper
     school = current_user.school
     district = school&.district
     if district&.subscription.present?
-      "<div class='premium-navbar-badge-container'><span>District Premium</span><div class='diamond-icon'></div></div>"
+      "<div class='premium-navbar-badge-container red'><span>DISTRICT PREMIUM</span><div class='small-diamond-icon'></div></div>".html_safe
     elsif school&.subscription.present?
-      "<div class='premium-navbar-badge-container'><span>School Premium</span><div class='diamond-icon'></div></div>"
+      "<div class='premium-navbar-badge-container red'><span>SCHOOL PREMIUM</span><div class='small-diamond-icon'></div></div>".html_safe
     else
-      "<div class='premium-navbar-badge-container'><span>Teacher Premium</span><div class='diamond-icon'></div></div>"
+      "<div class='premium-navbar-badge-container yellow'><span>TEACHER PREMIUM</span><div class='small-diamond-icon'></div></div>".html_safe
     end
   end
 
