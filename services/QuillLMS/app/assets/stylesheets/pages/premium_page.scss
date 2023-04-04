@@ -18,14 +18,14 @@
 
 .premium-pricing-guide-page {
   .navbar-divider-bar {
-    background-color: #DF9E3D;
+    background-color: $quillgoldmedium;
   }
 }
 
 .premium-tab {
   a {
-    background-color: #FFE8C5 !important;
-    color: #C97C00 !important;
+    background-color: $quillgoldlight !important;
+    color: $quillgolddark !important;
     padding-left: 40px;
     padding-right: 40px;
     border-radius: 8px 8px 0px 0px !important;
@@ -98,7 +98,7 @@
 
 }
 li.active.premium-tab > a {
-  background-color: #DF9E3D !important;
+  background-color: $quillgoldmedium !important;
   span {
     color: #ffffff;
     .large-diamond-icon {

@@ -86,11 +86,11 @@ describe NavigationHelper do
       trial_subscription = create(:subscription)
       premium_subscription = create(:subscription, account_type: 'Not A Trial')
       allow(helper).to receive(:current_user) { double(:user, premium_state: "trial", trial_days_remaining: 5) }
-      expect(helper.premium_tab_copy).to eq "<span>Premium</span><div class='small-diamond-icon'></div><span>5 Days Left</span>"
+      expect(helper.premium_tab_copy).to eq "<span>Premium</span><div class='large-diamond-icon is-in-middle'></div><span>5 Days Left</span>"
       allow(helper).to receive(:current_user) { double(:user, premium_state: "locked", last_expired_subscription: premium_subscription) }
-      expect(helper.premium_tab_copy).to eq "<span>Premium</span><div class='small-diamond-icon'></div><span>Expired</span>"
+      expect(helper.premium_tab_copy).to eq "<span>Premium</span><div class='small-diamond-icon is-in-middle'></div><span>Expired</span>"
       allow(helper).to receive(:current_user) { double(:user, premium_state: "locked", last_expired_subscription: trial_subscription) }
-      expect(helper.premium_tab_copy).to eq "<span>Premium</span><div class='small-diamond-icon'></div><span>Trial Expired</span>"
+      expect(helper.premium_tab_copy).to eq "<span>Premium</span><div class='small-diamond-icon is-in-middle'></div><span>Trial Expired</span>"
       allow(helper).to receive(:current_user) { double(:user, premium_state: nil) }
       expect(helper.premium_tab_copy).to eq "<span>Explore Premium</span><div class='small-diamond-icon'></div>"
       allow(helper).to receive(:current_user) { double(:user, premium_state: "none") }

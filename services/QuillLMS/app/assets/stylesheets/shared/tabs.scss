@@ -5,9 +5,9 @@
   width: 100%;
   li {
     a {
-      background: #E3F0EE;
+      background: $quillgreenlight;
       border-left: 1px solid #BAD6D1;
-      color: #06806B;
+      color: $quillgreenmedium;
       font-size: 14px;
       font-weight: 600;
       line-height: 41px;
@@ -34,7 +34,7 @@
 
     &.active {
       a {
-        background: #06806B;
+        background: $quillgreenmedium;
         border-bottom: none;
         border-left-width: 0;
         color: #FFFFFF;
@@ -58,7 +58,7 @@
 }
 
 .tab-subnavigation-wrapper {
-  background: #06806B;
+  background: $quillgreenmedium;
   min-height: 48px;
   padding: 8px 0;
 
@@ -87,7 +87,7 @@
 
         &.active {
           background: #FFFFFF;
-          color: #06806B;
+          color: $quillgreenmedium;
         }
 
         .fa-external-link {
@@ -102,7 +102,6 @@
 
 .student-reports-subnav.tab-subnavigation-wrapper {
   min-height: 44px;
-  $orange: #eda41b;
 
   ul {
     display: flex;
@@ -120,7 +119,7 @@
     color: white;
     &.active {
       background-color: #FFFFFF;
-      color: #06806B;
+      color: $quillgreenmedium;
       &:hover {
         color: #FFFFFF;
       }
