@@ -14,6 +14,9 @@ RSpec.describe Demo::CreateAdminReport do
 
   subject { described_class.new(teacher_email, passed_data) }
 
+  let!(:admin) { User.find_by(email: teacher_email, role: User::ADMIN) }
+  let!(:subscription) { Subscription.find_by(purchaser: admin, account_type: Subscription::SCHOOL_DISTRICT_PAID) }
+
   before do
     Demo::ReportDemoCreator::ACTIVITY_PACKS_TEMPLATES
       .map {|template| Demo::ReportDemoCreator.activity_ids_for_config(template) }
@@ -65,13 +68,4 @@ RSpec.describe Demo::CreateAdminReport do
       expect(classroom.activity_sessions.count).to be_between(112, 140)
     end
   end
-
-  def admin
-    User.find_by(email: teacher_email, role: User::ADMIN)
-  end
-
-  def subscription
-    Subscription.find_by(purchaser: admin, account_type: Subscription::SCHOOL_DISTRICT_PAID)
-  end
-
 end
