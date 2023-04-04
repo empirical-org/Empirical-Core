@@ -1,6 +1,11 @@
 # frozen_string_literal: true
 
 module NavigationHelper
+  PAID = 'paid'
+  TRIAL = 'trial'
+  LOCKED = 'locked'
+  NONE = 'none'
+
   def home_page_should_be_active?
     ['dashboard', 'my_account', 'teacher_guide', 'google_sync'].include?(action_name) || (controller_name == 'subscriptions' && action_name == 'index') || controller_name == 'referrals' || controller_name == 'admin_access'
   end
@@ -44,19 +49,21 @@ module NavigationHelper
     middle_diamond_img = "<div class='large-diamond-icon is-in-middle'></div>"
     end_diamond_img = "<div class='large-diamond-icon'></div>"
     case current_user.premium_state
-    when 'trial'
+    when TRIAL
       "<span>Premium</span>#{middle_diamond_img}<span>#{current_user.trial_days_remaining} Days Left</span>"
-    when 'locked'
+    when LOCKED
       current_user.last_expired_subscription&.is_trial? ? "<span>Premium</span>#{middle_diamond_img}<span>Trial Expired</span>" : "<span>Premium</span>#{middle_diamond_img}<span>Expired</span>"
-    when 'none', nil
+    when NONE, nil
       "<span>Explore Premium</span>#{end_diamond_img}"
     end
   end
 
   def determine_premium_badge
     return unless current_user
+
     premium_state = current_user.premium_state
-    return unless premium_state == 'trial' || premium_state == 'paid'
+    return unless [PAID, TRIAL].include?(premium_state)
+
     render_premium_badge
   end
 
