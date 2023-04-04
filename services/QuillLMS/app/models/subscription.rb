@@ -105,7 +105,8 @@ class Subscription < ApplicationRecord
   TYPES_HASH = {
     trial: TRIAL_TYPES,
     teacher: OFFICIAL_TEACHER_TYPES,
-    school: OFFICIAL_SCHOOL_TYPES
+    school: OFFICIAL_SCHOOL_TYPES,
+    district: OFFICIAL_DISTRICT_TYPES
   }
 
   PAYMENT_METHODS = [

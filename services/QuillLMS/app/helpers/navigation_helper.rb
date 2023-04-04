@@ -41,14 +41,34 @@ module NavigationHelper
   end
 
   def premium_tab_copy
-    diamond_img = "<img src='https://assets.quill.org/images/icons/yellow-diamond.svg'></img>"
+    middle_diamond_img = "<div class='nav-diamond-icon is-in-middle'></div>"
+    end_diamond_img = "<div class='nav-diamond-icon'></div>"
     case current_user.premium_state
     when 'trial'
-      "<span>Premium</span>#{diamond_img}<span>#{current_user.trial_days_remaining} Days Left</span>"
+      "<span>Premium</span>#{middle_diamond_img}<span>#{current_user.trial_days_remaining} Days Left</span>"
     when 'locked'
-      current_user.last_expired_subscription&.is_trial? ? "<span>Premium</span>#{diamond_img}<span>Trial Expired</span>" : "<span>Premium</span>#{diamond_img}<span>Expired</span>"
+      current_user.last_expired_subscription&.is_trial? ? "<span>Premium</span>#{middle_diamond_img}<span>Trial Expired</span>" : "<span>Premium</span>#{middle_diamond_img}<span>Expired</span>"
     when 'none', nil
-      "<span>Explore Premium</span>#{diamond_img}"
+      "<span>Explore Premium</span>#{end_diamond_img}"
+    end
+  end
+
+  def determine_premium_badge
+    return unless current_user
+    premium_state = current_user.premium_state
+    return unless premium_state == 'trial' || premium_state == 'paid'
+    render_premium_badge
+  end
+
+  def render_premium_badge
+    school = current_user.school
+    district = school&.district
+    if district&.subscription.present?
+      "<div class='premium-navbar-badge-container'><span>District Premium</span><div class='diamond-icon'></div></div>"
+    elsif school&.subscription.present?
+      "<div class='premium-navbar-badge-container'><span>School Premium</span><div class='diamond-icon'></div></div>"
+    else
+      "<div class='premium-navbar-badge-container'><span>Teacher Premium</span><div class='diamond-icon'></div></div>"
     end
   end
 

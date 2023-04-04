@@ -1,6 +1,6 @@
 import * as React from 'react';
 import { Link } from 'react-router-dom';
-import { whiteDiamondIcon } from '../../Shared';
+import { whiteDiamondIcon, redDiamondIcon } from '../../Shared';
 
 export default class AdminSubnav extends React.Component<any, any> {
   constructor(props) {
@@ -29,9 +29,15 @@ export default class AdminSubnav extends React.Component<any, any> {
     return state
   }
 
+  getIcon(activeTab) {
+    if(activeTab) {
+      return <img alt={redDiamondIcon.alt} src={redDiamondIcon.src} />
+    }
+    return <img alt={whiteDiamondIcon.alt} src={whiteDiamondIcon.src} />
+  }
+
   render() {
     const { overview, schoolSubscriptions, activityScores, conceptReports, standardsReports, } = this.state
-    const premiumIcon = <img alt={whiteDiamondIcon.alt} src={whiteDiamondIcon.src} />
 
     return(
       <div className="tab-subnavigation-wrapper class-subnav admin-dashboard-subnav">
@@ -49,17 +55,17 @@ export default class AdminSubnav extends React.Component<any, any> {
             </li>
             <li>
               <Link className={`premium ${activityScores}`} to="/teachers/admin_dashboard/district_activity_scores">
-            Activity Scores {premiumIcon}
+                Activity Scores{this.getIcon(activityScores)}
               </Link>
             </li>
             <li>
               <Link className={`premium ${conceptReports}`} to="/teachers/admin_dashboard/district_concept_reports">
-          Concept Reports {premiumIcon}
+                Concept Reports{this.getIcon(conceptReports)}
               </Link>
             </li>
             <li>
               <Link className={`premium ${standardsReports}`} to="/teachers/admin_dashboard/district_standards_reports">
-        Standards Reports {premiumIcon}
+                Standards Reports{this.getIcon(standardsReports)}
               </Link>
             </li>
           </ul>

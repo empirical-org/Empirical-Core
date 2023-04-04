@@ -42,6 +42,7 @@
 			<a aria-label="Quill" class="focus-on-dark" href=<%= root_path %> >
   			<img src=<%= logo_src %> alt="Quill.org logo" />
   		</a>
+			<%= determine_premium_badge %>
   	</div>
 
 		<% if current_user&.student? && !current_path.include?('tools') %>

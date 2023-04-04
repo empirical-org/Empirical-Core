@@ -227,3 +227,7 @@ export const whiteDiamondIcon = {
   alt: 'White diamond',
   src: `${process.env.CDN_URL}/images/icons/white-diamond.svg`
 }
+export const redDiamondIcon = {
+  alt: 'Red diamond',
+  src: `${process.env.CDN_URL}/images/icons/red-diamond.svg`
+}

@@ -383,16 +383,25 @@
     }
   }
   .tab-subnavigation-wrapper {
-    .active, a:hover {
+    .active {
       text-decoration: none;
     }
-    .premium {
-      background-color: rgba(255, 255, 255, 0.35);
-      color: #FFFFFF;
-      &.active, &:hover {
-        text-decoration: none;
-        background-color: rgba(255, 255, 255, 0.15);
-        color: #FFFFFF;
+  }
+}
+
+.admin-dashboard-subnav {
+  background-color: #C04500 !important;
+  ul {
+    li {
+      a {
+        &.active {
+          color: #C04500 !important;
+        }
+        img {
+          width: 14.52px;
+          height: 11.81px;
+          margin: 0px 0px 2px 8px;
+        }
       }
     }
   }

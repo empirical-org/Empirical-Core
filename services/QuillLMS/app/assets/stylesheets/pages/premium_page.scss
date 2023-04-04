@@ -33,6 +33,14 @@
     border-right: none !important;
     border-left: none !important;
     cursor: pointer !important;
+    span {
+      .nav-diamond-icon {
+        background-image: url("https://assets.quill.org/images/icons/yellow-diamond.svg");
+        &.is-in-middle {
+          margin: 0px 4px 0px 4px;
+        }
+      }
+    }
   }
   .premium-tab-copy {
     display: flex;
@@ -89,12 +97,17 @@
   }
 
 }
-li.active.premium-tab > a,
-li.premium-tab > a:hover {
-  background-color: #FCD79F !important;
+li.active.premium-tab > a {
+  background-color: #DF9E3D !important;
+  span {
+    color: #ffffff;
+    .nav-diamond-icon {
+      background-image: url("https://assets.quill.org/images/icons/white-diamond.svg");
+    }
+  }
 }
-.premium-tab a.active,
-.premium-tab a:hover {
+
+li.premium-tab > a:hover {
   background-color: #FCD79F !important;
 }
 
