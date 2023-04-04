@@ -34,3 +34,50 @@
     h4 {margin-bottom: 7px;}
   }
 }
+.school-premium-banner {
+  margin-left: 0px !important;
+  margin-right: 0px !important;
+  color: #333333;
+  font-size: 14px;
+  padding-top: 27px;
+  min-height: 115px;
+  text-align: left;
+  background-color: #FFE7BE;
+  width: 100%;
+  .pull-left {
+    padding-left: 0px !important;
+    padding-right: 0px !important;
+    max-width: 705px;
+  }
+  .pull-right {
+    padding-left: 45px;
+  }
+  .spinner-container {
+    max-height: 97px;
+    margin: 0;
+    padding: 0 0 22px;
+  }
+  h4 {
+    font-size: 18px;
+    font-weight: 700;
+  }
+  a {
+    color: #027360;
+  }
+  .row > div {
+    margin-bottom: 24px;
+    padding-top: 10px;
+  }
+  .free-trial-promo > div {
+    margin-bottom: 24px;
+  }
+  h4,
+  .btn-orange {
+    margin-bottom: 7px;
+  }
+  .new-sign-up-banner {
+    margin-bottom: 0px;
+    .button-green{ width: 326px;}
+    h4 {margin-bottom: 7px;}
+  }
+}
