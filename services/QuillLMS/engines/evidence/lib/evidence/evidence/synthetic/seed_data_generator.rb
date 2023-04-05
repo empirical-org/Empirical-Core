@@ -63,7 +63,6 @@ module Evidence
         passage = activity.passages.first.text
         prompts = conjunctions.present? ? activity.prompts.where(conjunction: conjunctions) : activity.prompts
         short_name = activity.title.first(20).gsub(' ', '_')
-        passage_csv_name = "#{short_name}_passage_chunks#{CSV_SUFFIX}"
 
         csvs = {}
 
@@ -81,11 +80,6 @@ module Evidence
           seed_data_generator.run
 
           csvs[csv_name] = seed_data_generator.results_csv_string
-        end
-
-        # include a csv with a text guide to the passage chunks
-        if use_passage
-          csvs[passage_csv_name] = new(passage: passage, stem: '', conjunction: 'but').text_guide_csv_string
         end
 
         csvs
@@ -272,13 +266,6 @@ module Evidence
         CSV.generate do |csv|
           csv << ['Text', 'Seed', 'Initial Label']
           results.each {|r| csv << [r.text, r.seed, r.label]}
-        end
-      end
-
-      def text_guide_csv_string
-        CSV.generate do |csv|
-          csv << ['Index', 'Passage Chunk']
-          split_passage.each.with_index {|s,i| csv << [i + 1, s]}
         end
       end
     end

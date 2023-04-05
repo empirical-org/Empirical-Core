@@ -333,7 +333,7 @@ module Evidence
 
       it "should generate a hash" do
         expect(subject.class).to be Hash
-        expect(subject.keys).to eq(['Some_Activity_Name_because.csv', 'Some_Activity_Name_passage_chunks.csv'])
+        expect(subject.keys).to eq(['Some_Activity_Name_because.csv'])
 
         # values should be a multi-line valid CSV
         csv = CSV.parse(subject.values.first)
