@@ -146,6 +146,7 @@ class BlogPost < ApplicationRecord
     BlogPost
       .where(topic: topic)
       .where.not(id: id)
+      .where(draft: false)
       .order(created_at: :desc)
       .limit(MOST_RECENT_LIMIT)
   end
