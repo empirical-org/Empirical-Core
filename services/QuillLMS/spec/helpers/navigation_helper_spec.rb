@@ -3,12 +3,12 @@
 require 'rails_helper'
 
 describe NavigationHelper do
-  describe '#home_be_active?' do
+  describe '#home_active?' do
     context 'when action name is dashboard, my account, teacher guide or google sync' do
       before { allow(helper).to receive(:action_name) { "dashboard" } }
 
       it 'should return true' do
-        expect(helper.home_be_active?).to eq true
+        expect(helper.home_active?).to eq true
       end
     end
 
@@ -19,17 +19,17 @@ describe NavigationHelper do
       end
 
       it 'should return true' do
-        expect(helper.home_be_active?).to eq true
+        expect(helper.home_active?).to eq true
       end
     end
   end
 
-  describe '#classes_be_active?' do
+  describe '#classes_active?' do
     context 'when teachers classroom controller' do
       before { allow(helper).to receive(:controller) { double(:controller, class: Teachers::ClassroomsController) } }
 
       it 'should return true' do
-        expect(helper.classes_be_active?).to eq true
+        expect(helper.classes_active?).to eq true
       end
     end
 
@@ -46,38 +46,38 @@ describe NavigationHelper do
       end
 
       it 'should return true' do
-        expect(helper.classes_be_active?).to eq true
+        expect(helper.classes_active?).to eq true
       end
     end
   end
 
-  describe "#assign_activity_be_active?" do
+  describe "#assign_activity_active?" do
     before do
       allow(helper).to receive(:controller) { double(:controller, class: Teachers::ClassroomManagerController) }
       without_partial_double_verification { allow(helper).to receive(:action_name) { "assign" } }
     end
 
     it 'should return true when classroom manager controller and assign activities action' do
-      expect(helper.assign_activity_be_active?).to eq true
+      expect(helper.assign_activity_active?).to eq true
     end
   end
 
-  describe '#my_activities_be_active?' do
+  describe '#my_activities_active?' do
     before do
       allow(helper).to receive(:controller) { double(:controller, class: Teachers::ClassroomManagerController) }
       without_partial_double_verification { allow(helper).to receive(:action_name) { "lesson_planner" } }
     end
 
     it 'should return true if classroom manager controller and lesson planner action' do
-      expect(helper.my_activities_be_active?).to eq true
+      expect(helper.my_activities_active?).to eq true
     end
   end
 
-  describe '#admin_be_active?' do
+  describe '#admin_active?' do
     before { allow(helper).to receive(:action_name) { "admin_dashboard" } }
 
     it 'should return true on admin dashboard action' do
-      expect(helper.admin_be_active?).to eq true
+      expect(helper.admin_active?).to eq true
     end
   end
 
@@ -100,14 +100,14 @@ describe NavigationHelper do
 
   describe '#should_render_subnav?' do
     it 'should give the true on the right cases' do
-      allow(helper).to receive(:home_be_active?) { true }
+      allow(helper).to receive(:home_active?) { true }
       expect(helper.should_render_subnav?).to eq true
-      allow(helper).to receive(:home_be_active?) { false }
-      allow(helper).to receive(:classes_be_active?) { true }
+      allow(helper).to receive(:home_active?) { false }
+      allow(helper).to receive(:classes_active?) { true }
       expect(helper.should_render_subnav?).to eq true
-      allow(helper).to receive(:home_be_active?) { false }
-      allow(helper).to receive(:classes_be_active?) { false }
-      allow(helper).to receive(:student_reports_be_active?) { true }
+      allow(helper).to receive(:home_active?) { false }
+      allow(helper).to receive(:classes_active?) { false }
+      allow(helper).to receive(:student_reports_active?) { true }
       expect(helper.should_render_subnav?).to eq true
     end
   end
