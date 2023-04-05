@@ -1,0 +1,103 @@
+.teacher-premium {
+  .navbar-divider-bar {
+    background-color: $quillgoldmedium;
+  }
+  .container {
+    display: flex;
+    align-items: center;
+    flex-direction: column;
+  }
+
+  section {
+    width: 100%;
+    border-bottom: none;
+  }
+
+  h2 {
+    font-weight: 700;
+    font-size: 24px;
+    line-height: 30px;
+  }
+
+  .header {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding-bottom: 64px;
+    img {
+      height: 140px;
+      margin-bottom: 32px;
+    }
+    h1 {
+      font-weight: 700;
+      font-size: 30px;
+      line-height: 38px;
+    }
+  }
+
+  .explanation {
+    text-align: center;
+    border-top: 1px solid #E0E0E0;
+    border-bottom: 1px solid #E0E0E0;
+    padding: 64px 0px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+
+    p {
+      margin-top: 8px;
+      font-size: 16px;
+      line-height: 22px;
+      color: #373737;
+      max-width: 800px;
+    }
+  }
+
+  .report-links {
+    padding-top: 64px;
+    display: grid;
+    grid-template-columns: auto auto;
+    grid-row: auto auto;
+    grid-column-gap: 32px;
+    grid-row-gap: 32px;
+
+    div {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      padding: 32px 32px 45px;
+
+      max-width: 584px;
+
+      background: #F8F8F8;
+      border-radius: 8px;
+      text-align: center;
+    }
+
+    h2 {
+      margin: 16px 0px;
+    }
+
+    p {
+      min-height: 90px;
+      font-size: 16px;
+      line-height: 24px;
+      color: #373737;
+    }
+
+    .quill-button {
+      margin: 16px 0px 32px;
+      background-color: $quillgoldmedium;
+      &:hover, &:focus {
+        background-color: $quillgolddark !important;
+      }
+    }
+
+    a:not(.quill-button) {
+      font-weight: 700;
+      line-height: 14px;
+      color: $quillgolddark;
+    }
+  }
+
+}

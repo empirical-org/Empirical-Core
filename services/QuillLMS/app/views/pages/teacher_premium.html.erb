@@ -1,0 +1,46 @@
+<% base_image_url = "#{ENV['CDN_URL']}/images/pages/teacher_premium" %>
+
+<%= render 'teachers/shared/scorebook_tabs' %>
+<div class="white-background-accommodate-footer teacher-premium">
+  <div class="navbar-divider-bar"></div>'
+  <div class="container">
+    <section class="header">
+      <img alt="" src=<%= "#{base_image_url}/teacher-premium.png" %> />
+      <h1>Quill Premium for Teachers</h1>
+    </section>
+    <section class="explanation">
+      <h2>What does Quill Premium for Teachers Provide?</h2>
+      <p>With Quill Teacher Premium, you will have access to all of Quill’s free reports as well as additional advanced reporting. You will also be able to view and print reports of your students’ progress. Our advanced reports support concept, Common Core, and overall progress analysis.</p>
+    </section>
+    <section class="report-links">
+      <div>
+        <img alt="" src=<%= "#{base_image_url}/bar-graph-increasing.svg" %> />
+        <h2>Activity Scores</h2>
+        <p>View students’ overall average on Quill as well as their individual scores by Activity Pack and Activity. Print this progress report for each of your students to help them visualize their progress on Quill.</p>
+        <a class="quill-button contained medium primary focus-on-light" href="/teachers/progress_reports/activities_scores_by_classroom">View my activity scores report</a>
+        <a class="focus-on-light" href="https://support.quill.org/en/articles/1650560-how-do-i-read-the-activity-scores-report">Read the Best Practices Guide</a>
+      </div>
+      <div>
+        <img alt="" src=<%= "#{base_image_url}/clipboard-concepts.svg" %> />
+        <h2>Concepts Report</h2>
+        <p>Get insight into which concepts are areas of strength for students, and which are areas for growth. Use this information to build a personalized curriculum.</p>
+        <a class="quill-button contained medium primary focus-on-light" href="/teachers/progress_reports/concepts/students">View my concepts reports</a>
+        <a class="focus-on-light" href="https://support.quill.org/en/articles/1049943-how-do-i-read-the-concepts-premium-reports">Read the Best Practices Guide</a>
+      </div>
+      <div>
+        <img alt="" src=<%= "#{base_image_url}/clipboard-common-core.svg" %> />
+        <h2>Common Core Standards Report</h2>
+        <p>Track class and student level progress of Common Core Standards to determine student mastery and next steps.</p>
+        <a class="quill-button contained medium primary focus-on-light" href="/teachers/progress_reports/standards/classrooms">View my Common Core standards report</a>
+        <a class="focus-on-light" href="https://support.quill.org/en/articles/1049953-how-do-i-read-the-standards-premium-reports">Read the Best Practices Guide</a>
+      </div>
+      <div>
+        <img alt="" src=<%= "#{base_image_url}/file-document.svg" %> />
+        <h2>Export Data as CSV</h2>
+        <p>You can export your Quill results data as a CSV file so that you can share your data with other educators analyze it. You can filter by classrooms, activity packs, or students.</p>
+        <a class="quill-button contained medium primary focus-on-light" href="/teachers/progress_reports/activity_sessions">Go to CSV Data Export Page</a>
+        <a class="focus-on-light" href="https://support.quill.org/en/articles/1049942-how-do-i-export-data-with-premium">Read the Best Practices Guide</a>
+      </div>
+    </section>
+  </div>
+</div>
