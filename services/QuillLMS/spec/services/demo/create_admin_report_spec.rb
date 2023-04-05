@@ -11,11 +11,10 @@ RSpec.describe Demo::CreateAdminReport do
       {"School"=>"Douglass High School", "Teacher"=>"Kevin Kwan", "Classroom"=>"Period 5"}
     ]
   }
+  let(:admin) { User.find_by(email: teacher_email, role: User::ADMIN) }
+  let(:subscription) { Subscription.find_by(purchaser: admin, account_type: Subscription::SCHOOL_DISTRICT_PAID) }
 
   subject { described_class.new(teacher_email, passed_data) }
-
-  let!(:admin) { User.find_by(email: teacher_email, role: User::ADMIN) }
-  let!(:subscription) { Subscription.find_by(purchaser: admin, account_type: Subscription::SCHOOL_DISTRICT_PAID) }
 
   before do
     Demo::ReportDemoCreator::ACTIVITY_PACKS_TEMPLATES
