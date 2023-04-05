@@ -136,7 +136,7 @@ RSpec.describe Demo::ReportDemoCreator do
       subject { classroom.students }
 
       context 'teacher-facing' do
-        before { Demo::ReportDemoCreator.create_students(classroom, true) }
+        before { Demo::ReportDemoCreator.create_students(classroom, true, Demo::ReportDemoCreator::STUDENT_TEMPLATES) }
 
         it { expect(subject.count).to eq 5 }
         it { expect(subject.map(&:name).sort).to eq student_names }
@@ -146,7 +146,7 @@ RSpec.describe Demo::ReportDemoCreator do
       end
 
       context 'not teacher-facing' do
-        before { Demo::ReportDemoCreator.create_students(classroom, false) }
+        before { Demo::ReportDemoCreator.create_students(classroom, false, Demo::ReportDemoCreator::STUDENT_TEMPLATES) }
 
         it { expect(subject.count).to eq 5 }
         it { expect(subject.map(&:name).sort).to eq student_names }
