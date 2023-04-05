@@ -120,8 +120,14 @@
     &.active {
       background-color: #FFFFFF;
       color: $quillgreenmedium;
+      .small-diamond-icon {
+        background-image: url("https://assets.quill.org/images/icons/green-diamond.svg");
+      }
       &:hover {
         color: #FFFFFF;
+        .small-diamond-icon {
+          background-image: url("https://assets.quill.org/images/icons/white-diamond.svg");
+        }
       }
     }
     .small-diamond-icon {

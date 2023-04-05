@@ -6,26 +6,26 @@ module NavigationHelper
   LOCKED = 'locked'
   NONE = 'none'
 
-  def home_page_should_be_active?
+  def home_page_active?
     ['dashboard', 'my_account', 'teacher_guide', 'google_sync'].include?(action_name) || (controller_name == 'subscriptions' && action_name == 'index') || controller_name == 'referrals' || controller_name == 'admin_access'
   end
 
-  def classes_page_should_be_active?
+  def classes_page_active?
     (controller.class == Teachers::ClassroomsController ||
     controller_name == 'students' ||
     action_name == 'invite_students') &&
     controller.class.module_parent != Teachers::ProgressReports::Concepts
   end
 
-  def assign_activity_page_should_be_active?
+  def assign_activity_page_active?
     controller.class == Teachers::ClassroomManagerController && action_name == 'assign'
   end
 
-  def my_activities_page_should_be_active?
+  def my_activities_page_active?
     controller.class == Teachers::ClassroomManagerController && action_name == 'lesson_planner'
   end
 
-  def student_reports_page_should_be_active?
+  def student_reports_page_active?
     controller.class == Teachers::ProgressReportsController ||
       controller.class.module_parent == Teachers::ProgressReports ||
       controller.class.module_parent == Teachers::ProgressReports::Standards ||
@@ -33,15 +33,15 @@ module NavigationHelper
       action_name == 'scorebook'
   end
 
-  def admin_page_should_be_active?
+  def admin_page_active?
     action_name == 'admin_dashboard'
   end
 
-  def premium_page_should_be_active?
+  def premium_page_active?
     action_name == 'premium'
   end
 
-  def quill_academy_should_be_active?
+  def quill_academy_active?
     action_name == 'quill_academy'
   end
 
@@ -102,7 +102,7 @@ module NavigationHelper
 
   # NOTE: subnavs for other pages are handled on the front end with React.
   def should_render_subnav?
-    home_page_should_be_active? || classes_page_should_be_active? || student_reports_page_should_be_active?
+    home_page_active? || classes_page_active? || student_reports_page_active?
   end
 
   def should_show_admin_access_tab?
