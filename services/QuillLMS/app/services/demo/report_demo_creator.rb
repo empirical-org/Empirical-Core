@@ -275,11 +275,12 @@ module Demo::ReportDemoCreator
     # ignore invalid records
   end
 
-  def self.create_demo_classroom_data(teacher, teacher_demo: false)
-    units = reset_units(teacher)
+  def self.create_demo_classroom_data(teacher, teacher_demo: false, classroom: nil, student_names: nil)
+    units = reset_units(teacher, student_names.nil?)
 
-    classroom = create_classroom(teacher)
-    students = create_students(classroom, teacher_demo)
+    classroom ||= create_classroom(teacher)
+    student_templates = student_names ? student_names.map { |name| StudentTemplate.new(name: name, email_eligible: false) } : STUDENT_TEMPLATES
+    students = create_students(classroom, teacher_demo, student_templates)
 
     classroom_units = create_classroom_units(classroom, units)
 
@@ -291,8 +292,10 @@ module Demo::ReportDemoCreator
     TeacherActivityFeedRefillWorker.perform_async(teacher.id)
   end
 
-  def self.reset_units(teacher)
-    teacher.units&.destroy_all
+  def self.reset_units(teacher, destroy_existing_units)
+    if destroy_existing_units
+      teacher.units&.destroy_all
+    end
 
     create_units(teacher)
   end
@@ -405,10 +408,10 @@ module Demo::ReportDemoCreator
     Subscription.create_and_attach_subscriber(attributes, teacher)
   end
 
-  def self.create_students(classroom, is_teacher_facing)
+  def self.create_students(classroom, is_teacher_facing, student_templates)
     delete_student_email_accounts if is_teacher_facing
 
-    STUDENT_TEMPLATES.map do |template|
+    student_templates.map do |template|
       student = User.create!(
         name: template.name,
         username: template.username(classroom.id),
