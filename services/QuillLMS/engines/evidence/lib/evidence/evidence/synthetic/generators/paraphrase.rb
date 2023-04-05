@@ -21,16 +21,19 @@ module Evidence
               .map {|s| lowercaser.run(s) }
               .uniq
 
-            generator = Evidence::Synthetic::Generator.new(
+            generator = Evidence::TextGeneration.new(
               name: 'LabelParaphrase',
               source_text: string,
               temperature: TEMPERATURE,
               ml_prompt: ml_prompt(string),
-              count: COUNT,
-              results: results
+              count: COUNT
+            )
+            generator_results = Evidence::Synthetic::GeneratorResults.new(
+              generator: generator,
+              results: results,
             )
 
-            results_hash[string].append(generator)
+            results_hash[string].append(generator_results)
           end
         end
 

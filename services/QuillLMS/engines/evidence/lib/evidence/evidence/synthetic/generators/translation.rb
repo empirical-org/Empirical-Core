@@ -53,13 +53,18 @@ module Evidence
             strings_slice.each.with_index do |string, index|
               result = lowercaser.run(english_texts[index].text)
 
-              generator = Evidence::Synthetic::Generator.new(
+              generator = Evidence::TextGeneration.new(
                 name: 'Translation',
                 source_text: string,
                 language: language.to_s,
-                results: [result],
               )
-              results_hash[string].append(generator)
+
+              generator_results = Evidence::Synthetic::GeneratorResults.new(
+                generator: generator,
+                results: [result]
+              )
+
+              results_hash[string].append(generator_results)
             end
           end
         end

@@ -15,10 +15,12 @@ describe Evidence::Synthetic::Generators::Spelling do
       expect(subject.count).to eq 2
       expect(subject.class).to eq Hash
 
-      generator = subject[text1].first
+      generator_results = subject[text1].first
+      generator = generator_results.generator
+
       expect(generator.name).to eq 'Spelling'
       expect(generator.word).to eq('their')
-      expect(generator.results).to eq(['ther text'])
+      expect(generator_results.results).to eq(['ther text'])
 
       expect(subject[text2]).to be_empty
     end

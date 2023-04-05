@@ -10,10 +10,13 @@ describe Evidence::Synthetic::LabeledDataGenerator do
 
   let(:mock_translator) { double }
 
-  let(:translation_generator1) { Evidence::Synthetic::Generator.new(name: 'Translation', results: ['goodbye'], language: 'es')}
-  let(:translation_generator2) { Evidence::Synthetic::Generator.new(name: 'Translation', results: ['korean'], language: 'ko')}
-  let(:translation_generator3) { Evidence::Synthetic::Generator.new(name: 'Translation', results: ['goodbye 2'], language: 'es')}
-  let(:translation_generator4) { Evidence::Synthetic::Generator.new(name: 'Translation', results: ['korean 2'], language: 'ko')}
+  let(:spanish_generation) { Evidence::TextGeneration.new(name: 'Translation', language: 'es') }
+  let(:korean_generation) { Evidence::TextGeneration.new(name: 'Translation', language: 'ko') }
+
+  let(:translation_generator1) { Evidence::Synthetic::GeneratorResults.new(generator: spanish_generation, results: ['goodbye'])}
+  let(:translation_generator2) { Evidence::Synthetic::GeneratorResults.new(generator: korean_generation, results: ['korean'])}
+  let(:translation_generator3) { Evidence::Synthetic::GeneratorResults.new(generator: spanish_generation, results: ['goodbye 2'])}
+  let(:translation_generator4) { Evidence::Synthetic::GeneratorResults.new(generator: korean_generation,  results: ['korean 2'])}
 
 
   let(:translation_response) do
@@ -23,7 +26,8 @@ describe Evidence::Synthetic::LabeledDataGenerator do
     }
   end
 
-  let(:spelling_generator) { Evidence::Synthetic::Generator.new(name: 'Spelling', results: ['ther response'], word: 'their')}
+  let(:spelling_generation) { Evidence::TextGeneration.new(name: 'Spelling', word: 'their') }
+  let(:spelling_generator) { Evidence::Synthetic::GeneratorResults.new(generator: spelling_generation, results: ['ther response'])}
 
   let(:spelling_response) do
     {
@@ -31,7 +35,8 @@ describe Evidence::Synthetic::LabeledDataGenerator do
     }
   end
 
-  let(:paraphrase_generator) { Evidence::Synthetic::Generator.new(name: 'LabelParaphrase', results: ['word string', 'sentence string'], word: 'their')}
+  let(:paraphrase_generation) { Evidence::TextGeneration.new(name: 'LabelParaphrase', temperature: 1, source_text: 'noun string') }
+  let(:paraphrase_generator) { Evidence::Synthetic::GeneratorResults.new(generator: paraphrase_generation, results: ['word string', 'sentence string'])}
 
   let(:paraphrase_response) do
     {
@@ -81,11 +86,11 @@ describe Evidence::Synthetic::LabeledDataGenerator do
       expect(first_result.text).to eq text1
       expect(first_result.label).to eq label1
 
-      generator1 = first_result.generated.first
+      generator_results1 = first_result.generated.first
 
-      expect(generator1.results).to eq(['goodbye'])
-      expect(generator1.name).to eq 'Translation'
-      expect(generator1.language).to eq('es')
+      expect(generator_results1.results).to eq(['goodbye'])
+      expect(generator_results1.generator.name).to eq 'Translation'
+      expect(generator_results1.generator.language).to eq('es')
     end
   end
 
@@ -101,11 +106,11 @@ describe Evidence::Synthetic::LabeledDataGenerator do
       expect(first_result.text).to eq text1
       expect(first_result.label).to eq label1
 
-      generator = first_result.generated.first
+      generator_results = first_result.generated.first
 
-      expect(generator.results).to eq(['ther response'])
-      expect(generator.name).to eq 'Spelling'
-      expect(generator.word).to eq('their')
+      expect(generator_results.results).to eq(['ther response'])
+      expect(generator_results.generator.name).to eq 'Spelling'
+      expect(generator_results.generator.word).to eq('their')
     end
   end
 
@@ -126,10 +131,10 @@ describe Evidence::Synthetic::LabeledDataGenerator do
       expect(first_result.text).to eq text1
       expect(first_result.label).to eq label1
 
-      generator = first_result.generated.first
+      generator_results = first_result.generated.first
 
-      expect(generator.results).to eq(['word string', 'sentence string'])
-      expect(generator.name).to eq 'LabelParaphrase'
+      expect(generator_results.results).to eq(['word string', 'sentence string'])
+      expect(generator_results.generator.name).to eq 'LabelParaphrase'
     end
   end
 
@@ -156,10 +161,10 @@ describe Evidence::Synthetic::LabeledDataGenerator do
       expect(first_result.text).to eq text1
       expect(first_result.label).to eq label1
 
-      generator = first_result.generated.first
+      generator_results = first_result.generated.first
 
-      expect(generator.results).to be_present
-      expect(generator.name).to eq 'SpellingPassage'
+      expect(generator_results.results).to be_present
+      expect(generator_results.generator.name).to eq 'SpellingPassage'
     end
 
     context 'manual types' do
@@ -169,7 +174,7 @@ describe Evidence::Synthetic::LabeledDataGenerator do
         subject { generator.results.find {|r| r.type == "TEST"} }
 
         it 'should populate passage errors' do
-          expect(subject.generated.first.name).to eq 'SpellingPassage'
+          expect(subject.generated.first.generator.name).to eq 'SpellingPassage'
         end
       end
 
@@ -177,7 +182,7 @@ describe Evidence::Synthetic::LabeledDataGenerator do
         subject { generator.results.find {|r| r.type == "VALIDATION"} }
 
         it 'should populate passage errors' do
-          expect(subject.generated.first.name).to eq 'SpellingPassage'
+          expect(subject.generated.first.generator.name).to eq 'SpellingPassage'
         end
       end
     end

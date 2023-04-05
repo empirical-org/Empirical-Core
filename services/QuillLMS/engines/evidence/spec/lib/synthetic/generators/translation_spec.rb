@@ -28,13 +28,16 @@ describe Evidence::Synthetic::Generators::Translation do
       expect(subject.count).to eq 2
       expect(subject.class).to eq Hash
 
-      generator1 = subject[text1].first
-      expect(generator1.results).to eq [text1_english]
+      generator_results1 = subject[text1].first
+      generator1 = generator_results1.generator
+
+      expect(generator_results1.results).to eq [text1_english]
       expect(generator1.name).to eq 'Translation'
       expect(generator1.language).to eq('es')
 
-      generator2 = subject[text2].first
-      expect(generator2.results).to eq [text2_english]
+      generator_results2 = subject[text2].first
+
+      expect(generator_results2.results).to eq [text2_english]
     end
 
     context 'google translate returns a single item (not an array)' do
@@ -50,10 +53,12 @@ describe Evidence::Synthetic::Generators::Translation do
         expect(subject.count).to eq 1
         expect(subject.class).to eq Hash
 
-        generator1 = subject[text1].first
-        expect(generator1.results).to eq [text1_english]
-        expect(generator1.name).to eq 'Translation'
-        expect(generator1.language).to eq('es')
+        generator_results = subject[text1].first
+        generator = generator_results.generator
+
+        expect(generator_results.results).to eq [text1_english]
+        expect(generator.name).to eq 'Translation'
+        expect(generator.language).to eq('es')
       end
     end
   end

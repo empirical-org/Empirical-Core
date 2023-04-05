@@ -45,10 +45,10 @@ module Evidence
       [
         "full_passage_temp_1_but",
         "full_passage_temp_1_but the counter argument is that",
-        "full_passage_temp_1_Even though %<stem>s",
+        "full_passage_temp_1_even though %<stem>s",
         "full_passage_temp_0.9_but",
         "full_passage_temp_0.9_but the counter argument is that",
-        "full_passage_temp_0.9_Even though %<stem>s",
+        "full_passage_temp_0.9_even though %<stem>s",
         "full_passage_noun_temp_0.8_noun1",
         "passage_chunk_1_temp_0.4_but",
         "passage_chunk_2_temp_0.4_but",
@@ -156,6 +156,7 @@ module Evidence
           .and_return(example_response)
 
         subject.run
+
         expect(subject.results.count).to be(10)
         expect(subject.results.map(&:seed)).to eq(seed_labels)
         expect(subject.results.map(&:label)).to eq([nil, nil, nil, nil, nil, nil, nil, nil, nil, "label1"])
@@ -190,7 +191,7 @@ module Evidence
     describe "#run_generator" do
       let(:rejected_response) {['one response']}
       let(:because) {described_class.new(passage: '', stem: stem, conjunction: 'because')}
-      let(:generator) { described_class::Generator.new(ml_prompt: '', count: 1, temperature: 1) }
+      let(:generator) { Evidence::TextGeneration.new(ml_prompt: '', count: 1, temperature: 1) }
 
       before do
         allow(Evidence::OpenAI::Completion).to receive(:run).and_return(response)
@@ -262,7 +263,7 @@ module Evidence
     describe 'API timeout' do
       let(:openai_url) {'https://api.openai.com/v1/completions'}
       let(:because) {described_class.new(passage: '', stem: stem, conjunction: 'because')}
-      let(:generator) { described_class::Generator.new(ml_prompt: '', count: 1, temperature: 1) }
+      let(:generator) { Evidence::TextGeneration.new(ml_prompt: '', count: 1, temperature: 1) }
 
       before do
         stub_request(:post, openai_url).to_timeout

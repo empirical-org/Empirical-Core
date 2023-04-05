@@ -5,16 +5,11 @@ module Evidence
     class SeedDataGenerator
       Result = Struct.new(:text, :generator, keyword_init: true) do
         def seed
-          generator&.seed
+          generator&.seed_descriptor
         end
 
         def label
           generator&.label
-        end
-      end
-      Generator = Struct.new(:name, :ml_prompt, :source_text, :temperature, :noun, :label, :stem, :index, :count, :conjunction, keyword_init: true) do
-        def seed
-          [name&.underscore, label, index, "temp", temperature, conjunction, noun].compact.join("_")
         end
       end
 
@@ -124,7 +119,7 @@ module Evidence
         TEMPS_PASSAGE.each do |temp|
           stem_variants_hash.each do |conjunction, stem_variant|
             prompt = prompt_text(context: passage, stem_variant: stem_variant)
-            generator = Generator.new(
+            generator = Evidence::TextGeneration.new(
               name: "FullPassage",
               temperature: temp,
               ml_prompt: prompt,
@@ -142,7 +137,7 @@ module Evidence
       private def generate_full_passage_noun_responses
         nouns.each do |noun|
           prompt = prompt_text(context: passage, noun: noun)
-            generator = Generator.new(
+            generator = Evidence::TextGeneration.new(
               name: "FullPassageNoun",
               temperature: TEMP_NOUN,
               ml_prompt: prompt,
@@ -160,7 +155,7 @@ module Evidence
         split_passage.each.with_index do |text_chunk, index|
           stem_variants_hash.each do |conjunction, stem_variant|
             prompt = prompt_text(context: text_chunk, stem_variant: stem_variant)
-            generator = Generator.new(
+            generator = Evidence::TextGeneration.new(
               name: "PassageChunk",
               temperature: TEMP_SECTION,
               ml_prompt: prompt,
@@ -182,7 +177,7 @@ module Evidence
         label_configs.each do |label_config|
           label_config[EXAMPLES_KEY].map(&:strip).uniq.compact.each.with_index do |example, index|
             prompt = Evidence::OpenAI::PARAPHRASE_INSTRUCTION + example
-            generator = Generator.new(
+            generator = Evidence::TextGeneration.new(
               name: "LabelExample",
               temperature: TEMP_PARAPHRASE,
               ml_prompt: prompt,

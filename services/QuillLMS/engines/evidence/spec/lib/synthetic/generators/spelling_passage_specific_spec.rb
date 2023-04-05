@@ -14,10 +14,12 @@ describe Evidence::Synthetic::Generators::SpellingPassageSpecific do
       expect(subject.count).to eq 1
       expect(subject.class).to eq Hash
 
-      generator = subject[text1].first
+      generator_results = subject[text1].first
+      generator = generator_results.generator
+
       expect(generator.name).to eq 'SpellingPassage'
       expect(generator.word).to eq('dancing')
-      expect(generator.results).to eq(['the dacing step'])
+      expect(generator_results.results).to eq(['the dacing step'])
       expect(generator.word_list).to eq(['dancing'])
     end
   end
@@ -32,10 +34,12 @@ describe Evidence::Synthetic::Generators::SpellingPassageSpecific do
       expect(subject.count).to eq 1
       expect(subject.class).to eq Hash
 
-      generator = subject[text1].first
+      generator_results = subject[text1].first
+      generator = generator_results.generator
+
       expect(generator.name).to eq 'SpellingPassage'
       expect(generator.word).to eq('longlonglong')
-      expect(generator.results).to eq(['the loglonglong word'])
+      expect(generator_results.results).to eq(['the loglonglong word'])
       expect(generator.word_list).to eq(['longlonglong'])
     end
   end

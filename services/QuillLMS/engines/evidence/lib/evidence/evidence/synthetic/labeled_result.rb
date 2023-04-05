@@ -13,7 +13,7 @@ module Evidence
 
       private def generated_training_rows
         generated
-          .map {|generator| generator.results.map {|new_text| [type, new_text, label]}}
+          .map {|generator_results| generator_results.results.map {|new_text| [type, new_text, label]}}
           .flatten(1)
       end
 
@@ -27,18 +27,20 @@ module Evidence
 
       private def generated_detail_rows
         generated
-          .map {|generator| generator_results_detail_rows(generator)}
+          .map {|generator_results| generator_results_detail_rows(generator_results)}
           .flatten(1)
       end
 
-      private def generator_results_detail_rows(generator)
-        generator.results.map do |new_text|
+      private def generator_results_detail_rows(generator_results)
+        descriptor = generator_results.generator.labeled_descriptor
+
+        generator_results.results.map do |new_text|
           [
             new_text,
             label,
             text,
             new_text == text ? 'no_change' : '',
-            [generator.name, generator.language,generator.word].compact.join('-').downcase,
+            descriptor,
             type
           ]
         end
