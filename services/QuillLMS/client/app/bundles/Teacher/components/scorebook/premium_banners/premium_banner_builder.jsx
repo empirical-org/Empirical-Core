@@ -68,22 +68,11 @@ export default class PremiumBannerBuilder extends React.Component {
     }
   };
 
-  stateSpecificBackGroundImage = () => {
-    const { daysLeft, } = this.props
-    if (daysLeft === 30){
-      return('none');
-    } else {
-      return('url(/images/star_pattern_5.png)');
-    }
-  };
-
   hasPremium = () => {
     const { has_premium, first_day_of_premium_or_trial, } = this.state
     let color = this.stateSpecificBackGroundColor();
-    let img = this.stateSpecificBackGroundImage();
     let divStyle = {
-      backgroundColor: color,
-      backgroundImage: img
+      backgroundColor: color
     };
     if ((has_premium === null) || (has_premium === 'school') || ((has_premium === 'paid') && (first_day_of_premium_or_trial === false))) {
       return (<span />);
