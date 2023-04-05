@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 class CreateLearnWorldsAccounts < ActiveRecord::Migration[6.1]
   def change
     create_table :learn_worlds_accounts do |t|
