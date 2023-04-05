@@ -133,6 +133,10 @@ class District < ApplicationRecord
       .count
   end
 
+  def premium?
+    subscription&.present?
+  end
+
   private def latest_subscription
     subscriptions.not_expired.not_de_activated.order(expiration: :desc).first
   end

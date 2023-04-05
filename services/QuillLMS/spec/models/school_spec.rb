@@ -218,11 +218,33 @@ describe School, type: :model do
     end
   end
 
-  describe('vitally_data') do
+  describe 'vitally_data'  do
     let(:school) { create(:school) }
 
     it 'sends a payload that contains the correct data for vitally' do
       expect(school.vitally_data).to eq({externalId: school.id.to_s, name: school.name})
+    end
+  end
+
+  describe '#premium?' do
+    let(:school) { create(:school) }
+
+    subject { school.premium? }
+
+    context 'no school or district subscription exists' do
+      it { expect(subject).to be_falsey }
+    end
+
+    context 'school subscription exists' do
+      before { allow(school).to receive(:subscription).and_return(double(:subscription)) }
+
+      it { expect(subject).to be true }
+    end
+
+    context 'district is premium' do
+      before { allow(school).to receive(:district).and_return(double(:district, premium?: true)) }
+
+      it { expect(subject).to be true }
     end
   end
 end
