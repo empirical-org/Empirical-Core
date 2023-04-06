@@ -163,6 +163,8 @@ class User < ApplicationRecord
 
   has_one :user_email_verification, dependent: :destroy
 
+  has_one :learn_worlds_account, dependent: :destroy
+
   accepts_nested_attributes_for :auth_credential
 
   delegate :name, :mail_city, :mail_state,
