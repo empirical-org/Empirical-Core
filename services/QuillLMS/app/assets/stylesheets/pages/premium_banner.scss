@@ -1,8 +1,7 @@
 #premium-banner {
   color: #333333;
-  font-size: 14px;
+  font-size: 15px;
   padding-top: 27px;
-  background-image: url(/images/star_pattern_5.png);
   min-height: 115px;
   text-align: left;
   .spinner-container {
@@ -11,7 +10,7 @@
     padding: 0 0 22px;
   }
   h4 {
-    font-size: 18px;
+    font-size: 20px;
     font-weight: 700;
   }
   a {
@@ -32,5 +31,67 @@
     margin-bottom: 0px;
     .button-green{ width: 326px;}
     h4 {margin-bottom: 7px;}
+  }
+  .pull-right {
+    padding-right: 12px !important;
+    .premium-button-box {
+      float: right;
+    }
+  }
+
+  @media screen and (max-width: 1000px) {
+    .pull-right {
+      .premium-button-box {
+        float: none !important;
+      }
+    }
+  }
+
+}
+.school-premium-banner {
+  margin-left: 0px !important;
+  margin-right: 0px !important;
+  color: #333333;
+  font-size: 15px;
+  padding-top: 27px;
+  min-height: 135px;
+  text-align: left;
+  background-color: #F7F5F5;
+  width: 100%;
+  .pull-left {
+    padding-left: 15px !important;
+    padding-right: 0px !important;
+    max-width: 715px;
+    margin-top: 5px;
+  }
+  .pull-right {
+    margin-top: 20px;
+    margin-bottom: 20px;
+    margin-left: 0px !important;
+    padding-right: 10px;
+    .premium-button-box {
+      min-width: 115px;
+      float: right;
+    }
+  }
+  h4 {
+    font-size: 20px;
+    font-weight: 700;
+  }
+  .row > div {
+    margin-bottom: 24px;
+    padding-top: 10px;
+  }
+  h4,
+  .btn-orange {
+    margin-bottom: 7px;
+  }
+
+  @media screen and (max-width: 1000px) {
+    .pull-right {
+      .premium-button-box {
+        float: none !important;
+      }
+    }
   }
 }
