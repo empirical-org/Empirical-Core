@@ -1,17 +1,16 @@
+import { checkSentenceFragment, Response } from 'quill-marking-logic';
 import * as React from 'react';
-import * as _ from 'underscore';
-import {checkSentenceFragment, Response } from 'quill-marking-logic'
 
-import TextEditor from '../renderForQuestions/renderTextEditor.jsx';
-import Feedback from '../renderForQuestions/feedback';
-import RenderQuestionFeedback from '../renderForQuestions/feedbackStatements.jsx';
+import { ConceptExplanation, getLatestAttempt, hashToCollection } from '../../../Shared/index';
 import {
-  getGradedResponsesWithCallback
+    getGradedResponsesWithCallback
 } from '../../actions/responses';
-import updateResponseResource from '../renderForQuestions/updateResponseResource.js';
 import { SentenceFragmentQuestion } from '../../interfaces/questions';
 import { Attempt } from '../renderForQuestions/answerState.js';
-import { hashToCollection, ConceptExplanation, getLatestAttempt } from '../../../Shared/index'
+import Feedback from '../renderForQuestions/feedback';
+import RenderQuestionFeedback from '../renderForQuestions/feedbackStatements.jsx';
+import TextEditor from '../renderForQuestions/renderTextEditor.jsx';
+import updateResponseResource from '../renderForQuestions/updateResponseResource.js';
 
 const icon = `${process.env.CDN_URL}/images/icons/direction.svg`
 

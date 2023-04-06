@@ -1,10 +1,6 @@
-import _ from 'underscore';
-import generateFeedbackString from './generateFeedbackString.js';
 import {
-  incrementResponseCount,
-  submitResponse,
+    submitResponse
 } from '../../actions/responses.js';
-import { hashToCollection } from '../../../Shared/index';
 
 
 const getLatestAttempt = function (attempts = []) {

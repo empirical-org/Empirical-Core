@@ -1,5 +1,5 @@
-@import 'variables';
-@import 'textbox';
+@import "variables";
+@import "textbox";
 @import "components/activity-health";
 @import "components/admin-regex-rules";
 @import "components/student-nav";
@@ -9,12 +9,12 @@
 @import "components/landing-page-html";
 @import "components/multiple-choice";
 @import "components/_question_health";
-@import '~react-select/dist/react-select.css';
-@import '~font-awesome/css/font-awesome.css';
-@import '../../../../../app/assets/stylesheets/shared/teacher-preview-menu.scss';
+@import "~react-select/dist/react-select.css";
+@import "~font-awesome/css/font-awesome.css";
+@import "../../../../../app/assets/stylesheets/shared/teacher-preview-menu.scss";
 
 body {
-  color: #3D3D3D;
+  color: #3d3d3d;
   font-family: adelle-sans, "Arial", sans-serif;
   -moz-font-feature-settings: "ss04", "tnum";
   -webkit-font-feature-settings: "ss04", "tnum";
@@ -34,7 +34,6 @@ body {
       margin-right: 0px;
     }
   }
-
 }
 
 #pie-chart {
@@ -52,8 +51,6 @@ body {
   }
 }
 
-
-
 .has-bottom-margin {
   margin-bottom: 20px;
 }
@@ -70,26 +67,26 @@ ul.is-unstyled {
 }
 
 .is-success.is-algo-optimal {
-  background-color: #BA68C8;
+  background-color: #ba68c8;
 }
 
 .algorithm-optimal-response {
-  background-color: #F6ECF8;
+  background-color: #f6ecf8;
 }
 
 .algorithm-sub-optimal-response {
-  background-color: #E9EDF7;
+  background-color: #e9edf7;
 }
 
 .not-found-response {
-  background-color: #FFF0F2;
+  background-color: #fff0f2;
 }
 
 .human-sub-optimal-response {
-  background-color: #FFF9E8;
+  background-color: #fff9e8;
 }
 .human-optimal-response {
-  background-color: #F5FAEF;
+  background-color: #f5faef;
 }
 
 .unexpanded {
@@ -122,7 +119,7 @@ ul.is-unstyled {
 }
 
 .register-list {
-  display: 'inline-block';
+  display: "inline-block";
   margin: 0 auto;
 
   li {
@@ -131,7 +128,8 @@ ul.is-unstyled {
   }
 }
 
-.register-container, .register {
+.register-container,
+.register {
   width: 100%;
   margin: 0 auto;
 }
@@ -152,7 +150,7 @@ ul.is-unstyled {
 
 .sentence-fragment-buttons-leave.sentence-fragment-buttons-leave-active {
   opacity: 0.01;
-  transition: opacity 3.0s ease-in;
+  transition: opacity 3s ease-in;
 }
 
 .text-editor-appear {
@@ -223,7 +221,7 @@ textarea.submission {
   font-family: sans-serif;
   line-height: 50px;
   justify-content: flex-start;
-  padding-right: 36px
+  padding-right: 36px;
 }
 
 /** If it's a multiple select, you can style it with this selector */
@@ -250,7 +248,7 @@ textarea.submission {
   font-weight: 400;
   color: #616b74;
   padding: 15px 15px;
-  box-shadow: 0 1px 0 rgba(0,0,0,.1);
+  box-shadow: 0 1px 0 rgba(0, 0, 0, 0.1);
   cursor: pointer;
   white-space: nowrap;
   overflow: hidden;
@@ -259,22 +257,21 @@ textarea.submission {
 
 /** When the option has been selected */
 .select-search-box__option--selected {
-
 }
 
 /** When the option is selected (when navigation with the arrow keys, up/down) */
-.select-search-box__option--hover, .select-search-box__option:hover {
+.select-search-box__option--hover,
+.select-search-box__option:hover {
   background-color: #a3e8dc;
 }
 
 .sortable-list-item {
   border: 1px dashed gray;
-  padding: .5em;
-  margin: .5em;
+  padding: 0.5em;
+  margin: 0.5em;
 }
 
-
-.menu-list a.no-feedback  {
+.menu-list a.no-feedback {
   color: red;
 }
 
@@ -293,7 +290,6 @@ textarea.submission {
     }
   }
 }
-
 
 .response-pagination-container {
   max-height: 50px;
@@ -315,7 +311,6 @@ textarea.submission {
   }
 }
 
-
 .response-pagination {
   // position: relative;
   // top: 50%;
@@ -327,14 +322,12 @@ textarea.submission {
   background-color: #42afe3;
 }
 
-
-
 .section {
   &.student {
     background-color: $background;
     padding-top: 0;
   }
-  &.is-fullheight{
+  &.is-fullheight {
     min-height: 100vh;
     &.minus-nav {
       min-height: calc(100vh - 64px);
@@ -345,14 +338,11 @@ textarea.submission {
       & > .container {
         flex-grow: 1;
       }
-
     }
-
   }
   .is-on-mobile {
     padding-top: 24px;
   }
-
 }
 
 .student-container-diagnostic {
@@ -370,9 +360,9 @@ textarea.submission {
   padding: 15;
   height: calc(100vh - 30px);
   overflow-y: auto;
-    .select {
-      display: block !important;
-    }
+  .select {
+    display: block !important;
+  }
 }
 
 .wf-loading {
@@ -413,7 +403,7 @@ textarea.submission {
 
 .admin-menu {
   min-width: 220;
-  border-right: '1px solid #e3e3e3';
+  border-right: "1px solid #e3e3e3";
   padding: 30px 15px 15px 0px;
 }
 
