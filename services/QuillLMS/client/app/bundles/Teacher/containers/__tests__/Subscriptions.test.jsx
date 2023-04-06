@@ -2,15 +2,15 @@ import { mount } from 'enzyme';
 import React from 'react';
 
 import {
-    CREDIT_CARD,
-    PREMIUM_CREDIT,
-    SCHOOL_DISTRICT_PAID,
-    SCHOOL_PAID,
-    SCHOOL_PAID_VIA_STRIPE,
-    SCHOOL_SPONSORED_FREE,
-    TEACHER_PAID,
-    TEACHER_SPONSORED_FREE,
-    TEACHER_TRIAL
+  CREDIT_CARD,
+  PREMIUM_CREDIT,
+  SCHOOL_DISTRICT_PAID,
+  SCHOOL_PAID,
+  SCHOOL_PAID_VIA_STRIPE,
+  SCHOOL_SPONSORED_FREE,
+  TEACHER_PAID,
+  TEACHER_SPONSORED_FREE,
+  TEACHER_TRIAL
 } from '../../components/subscriptions/constants';
 import Subscriptions from '../Subscriptions';
 

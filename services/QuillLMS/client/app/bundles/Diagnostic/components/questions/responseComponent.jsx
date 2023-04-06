@@ -3,10 +3,10 @@ import { connect } from 'react-redux';
 import _ from 'underscore';
 import { requestGet, } from '../../../../modules/request/index';
 import {
-    QuestionBar,
-    ResponseSortFields,
-    ResponseToggleFields,
-    hashToCollection
+  QuestionBar,
+  ResponseSortFields,
+  ResponseToggleFields,
+  hashToCollection
 } from '../../../Shared/index';
 import filterActions from '../../actions/filters';
 import massEdit from '../../actions/massEdit';
@@ -14,8 +14,8 @@ import questionActions from '../../actions/questions';
 import { submitResponseEdit } from '../../actions/responses';
 import sentenceFragmentActions from '../../actions/sentenceFragments.ts';
 import {
-    rematchAll,
-    rematchOne
+  rematchAll,
+  rematchOne
 } from '../../libs/grading/rematching.ts';
 import { getPartsOfSpeechTags } from '../../libs/partsOfSpeechTagging.js';
 import QuestionMatcher from '../../libs/question';

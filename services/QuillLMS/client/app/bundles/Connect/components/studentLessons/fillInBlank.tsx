@@ -5,12 +5,12 @@ import stripHtml from "string-strip-html";
 import * as _ from 'underscore';
 
 import {
-    ConceptExplanation,
-    Feedback,
-    Prompt,
-    fillInBlankInputLabel,
-    getLatestAttempt,
-    hashToCollection,
+  ConceptExplanation,
+  Feedback,
+  Prompt,
+  fillInBlankInputLabel,
+  getLatestAttempt,
+  hashToCollection,
 } from '../../../Shared/index';
 import { getGradedResponsesWithCallback } from '../../actions/responses.js';
 import { FillInBlankQuestion } from '../../interfaces/questions';

@@ -1,5 +1,5 @@
 import {
-    submitResponse
+  submitResponse
 } from '../../actions/responses.js';
 
 

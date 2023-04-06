@@ -3,8 +3,8 @@ import * as React from 'react';
 import { connect } from 'react-redux';
 import { Modal, TextEditor } from '../../../Shared/index';
 import {
-    submitNewTitleCard,
-    submitTitleCardEdit
+  submitNewTitleCard,
+  submitTitleCardEdit
 } from '../../actions/titleCards';
 import { commonText } from '../../modules/translation/commonText';
 

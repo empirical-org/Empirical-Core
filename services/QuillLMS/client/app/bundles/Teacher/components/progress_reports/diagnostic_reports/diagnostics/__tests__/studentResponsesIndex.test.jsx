@@ -3,10 +3,10 @@ import React from 'react';
 import { BrowserRouter as Router } from 'react-router-dom';
 
 import {
-    dummyLocationData,
-    dummyMatchData,
-    passedStudentsWithNoStudentData,
-    passedStudentsWithStudentData,
+  dummyLocationData,
+  dummyMatchData,
+  passedStudentsWithNoStudentData,
+  passedStudentsWithStudentData,
 } from './test_data';
 
 import { StudentResponsesIndex, } from '../studentResponsesIndex';

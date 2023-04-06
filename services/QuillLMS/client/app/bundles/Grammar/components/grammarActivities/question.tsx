@@ -6,12 +6,12 @@ import Cues from './cues';
 
 import { getParameterByName } from '../../../Connect/libs/getParameterByName';
 import {
-    ConceptExplanation,
-    Feedback,
-    ProgressBar,
-    TeacherPreviewMenuButton,
-    getLatestAttempt,
-    hashToCollection
+  ConceptExplanation,
+  Feedback,
+  ProgressBar,
+  TeacherPreviewMenuButton,
+  getLatestAttempt,
+  hashToCollection
 } from '../../../Shared/index';
 import * as responseActions from '../../actions/responses';
 import { setCurrentQuestion } from '../../actions/session';

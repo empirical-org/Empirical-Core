@@ -3,10 +3,10 @@ import React from 'react';
 import { BrowserRouter as Router } from 'react-router-dom';
 
 import {
-    independentRecommendationsNoStudentData,
-    independentRecommendationsWithStudentData,
-    previouslyAssignedIndependentRecommendationsNoStudentData,
-    previouslyAssignedIndependentRecommendationsWithStudentData
+  independentRecommendationsNoStudentData,
+  independentRecommendationsWithStudentData,
+  previouslyAssignedIndependentRecommendationsNoStudentData,
+  previouslyAssignedIndependentRecommendationsWithStudentData
 } from './test_data';
 
 import RecommendationsTable from '../recommendationsTable';

@@ -5,19 +5,19 @@ import { classroomProps, coteacherInvitations, userProps } from './test_data/tes
 
 import { SortableList } from '../../../../Shared/index';
 import ActiveClassrooms, {
-    archiveClassModal,
-    changeGradeModal,
-    cleverClassroomsEmptyModal,
-    createAClassModal,
-    googleClassroomsEmptyModal,
-    importCleverClassroomStudentsModal,
-    importCleverClassroomsModal,
-    importGoogleClassroomStudentsModal,
-    importGoogleClassroomsModal,
-    inviteStudentsModal,
-    linkGoogleAccountModal,
-    reauthorizeCleverModal,
-    renameClassModal
+  archiveClassModal,
+  changeGradeModal,
+  cleverClassroomsEmptyModal,
+  createAClassModal,
+  googleClassroomsEmptyModal,
+  importCleverClassroomStudentsModal,
+  importCleverClassroomsModal,
+  importGoogleClassroomStudentsModal,
+  importGoogleClassroomsModal,
+  inviteStudentsModal,
+  linkGoogleAccountModal,
+  reauthorizeCleverModal,
+  renameClassModal
 } from '../active_classrooms.tsx';
 import ArchiveClassModal from '../archive_classroom_modal';
 import ChangeGradeModal from '../change_grade_modal';

@@ -7,13 +7,13 @@ import UnitAssignmentFollowup from './unit_assignment_followup.tsx';
 
 import { requestGet, requestPost, } from '../../../../../modules/request';
 import {
-    ACTIVITY_IDS_ARRAY,
-    ASSIGNED_CLASSROOMS,
-    CLASSROOMS,
-    UNIT_ID,
-    UNIT_NAME,
-    UNIT_TEMPLATE_ID,
-    UNIT_TEMPLATE_NAME
+  ACTIVITY_IDS_ARRAY,
+  ASSIGNED_CLASSROOMS,
+  CLASSROOMS,
+  UNIT_ID,
+  UNIT_NAME,
+  UNIT_TEMPLATE_ID,
+  UNIT_TEMPLATE_NAME
 } from '../assignmentFlowConstants';
 import parsedQueryParams from '../parsedQueryParams';
 

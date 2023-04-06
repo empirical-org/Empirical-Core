@@ -2,11 +2,11 @@ import moment from 'moment';
 import React from 'react';
 
 import {
-    CREDIT_CARD,
-    SCHOOL_PREMIUM_SCHOLARSHIP,
-    TEACHER_PREMIUM_CREDIT,
-    TEACHER_PREMIUM_SCHOLARSHIP,
-    TEACHER_PREMIUM_TRIAL
+  CREDIT_CARD,
+  SCHOOL_PREMIUM_SCHOLARSHIP,
+  TEACHER_PREMIUM_CREDIT,
+  TEACHER_PREMIUM_SCHOLARSHIP,
+  TEACHER_PREMIUM_TRIAL
 } from './constants';
 import TitleAndContent from './current_subscription_title_and_content';
 

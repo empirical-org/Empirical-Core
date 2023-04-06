@@ -5,7 +5,7 @@ import _ from 'underscore';
 import { Feedback, SentenceFragments, getDisplayedText, getLatestAttempt, renderPreviewFeedback } from '../../../Shared/index';
 import { submitResponse } from '../../actions/diagnostics.js';
 import {
-    getGradedResponsesWithCallback
+  getGradedResponsesWithCallback
 } from '../../actions/responses.js';
 import getResponse from '../renderForQuestions/checkAnswer';
 import RenderQuestionCues from '../renderForQuestions/cues.tsx';

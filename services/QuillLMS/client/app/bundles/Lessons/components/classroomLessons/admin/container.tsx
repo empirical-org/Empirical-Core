@@ -11,11 +11,11 @@ import ShowEditionSlide from './showSlide';
 import ShowClassroomLessonUserEditions from './userEditions';
 
 import {
-    listenForClassroomLessonReviews,
-    listenForClassroomLessons
+  listenForClassroomLessonReviews,
+  listenForClassroomLessons
 } from '../../../actions/classroomLesson';
 import {
-    startListeningToEditionMetadata
+  startListeningToEditionMetadata
 } from '../../../actions/customize';
 
 class AdminClassLessonsContainer extends React.Component<any, any> {

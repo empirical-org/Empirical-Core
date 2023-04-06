@@ -1,7 +1,7 @@
 import React from 'react';
 import {
-    BrowserRouter,
-    Route,
+  BrowserRouter,
+  Route,
 } from 'react-router-dom';
 import AddTeacherInfo from './add_teacher_info';
 import SelectNonUSK12 from './select_non_us_k12';

@@ -3,9 +3,9 @@ import * as React from 'react';
 import { connect } from 'react-redux';
 import SelectSearch, { fuzzySearch } from 'react-select-search';
 import {
-    SortableList,
-    TextEditor,
-    hashToCollection
+  SortableList,
+  TextEditor,
+  hashToCollection
 } from '../../../Shared/index';
 import { Lesson } from '../../interfaces/lesson';
 import { ConceptsReducerState } from '../../reducers/concepts';

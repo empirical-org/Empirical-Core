@@ -2,8 +2,8 @@ import _ from 'lodash';
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import {
-    deleteLesson,
-    updateClassroomLessonDetails
+  deleteLesson,
+  updateClassroomLessonDetails
 } from '../../../actions/classroomLesson';
 import { createNewAdminEdition } from '../../../actions/customize';
 import EditLessonDetails from './editLessonDetails';

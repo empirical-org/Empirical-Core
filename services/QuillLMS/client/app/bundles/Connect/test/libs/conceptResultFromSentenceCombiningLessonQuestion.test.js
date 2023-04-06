@@ -1,8 +1,8 @@
 import expect from 'expect';
 
 import {
-    getConceptResultsForSentenceCombining,
-    getConceptResultsForSentenceCombiningAttempt
+  getConceptResultsForSentenceCombining,
+  getConceptResultsForSentenceCombiningAttempt
 } from '../../libs/conceptResults/sentenceCombiningLessonQuestion';
 import data from '../dataFromLesson';
 

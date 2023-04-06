@@ -1,7 +1,7 @@
 import * as React from 'react'
 
 import {
-    ScriptItem
+  ScriptItem
 } from '../../../interfaces/classroomLessons'
 
 

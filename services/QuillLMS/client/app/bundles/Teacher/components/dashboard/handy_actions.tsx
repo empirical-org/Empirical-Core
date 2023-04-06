@@ -1,14 +1,14 @@
 import * as React from 'react';
 
 import {
-    accountViewIcon,
-    clipboardCheckIcon,
-    demoViewIcon,
-    giftIcon,
-    googleClassroomIcon,
-    groupAccountIcon,
-    searchMapIcon,
-    tableCheckIcon,
+  accountViewIcon,
+  clipboardCheckIcon,
+  demoViewIcon,
+  giftIcon,
+  googleClassroomIcon,
+  groupAccountIcon,
+  searchMapIcon,
+  tableCheckIcon,
 } from '../../../Shared/index';
 
 const HandyAction = ({ icon, text, link, }) => (

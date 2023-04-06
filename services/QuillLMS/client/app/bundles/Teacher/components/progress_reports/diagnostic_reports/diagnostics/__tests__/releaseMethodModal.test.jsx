@@ -3,8 +3,8 @@ import React from 'react'
 
 import ReleaseMethodModal from '../releaseMethodModal'
 import {
-    IMMEDIATE,
-    STAGGERED,
+  IMMEDIATE,
+  STAGGERED,
 } from '../shared'
 
 const sharedProps = {

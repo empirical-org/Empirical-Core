@@ -1,12 +1,12 @@
 import * as React from 'react'
 
 import {
-    SkillGroup
+  SkillGroup
 } from './interfaces'
 import {
-    FULLY_CORRECT,
-    expandIcon,
-    triangleUpIcon,
+  FULLY_CORRECT,
+  expandIcon,
+  triangleUpIcon,
 } from './shared'
 
 const DEFAULT_ROW_COUNT = 3

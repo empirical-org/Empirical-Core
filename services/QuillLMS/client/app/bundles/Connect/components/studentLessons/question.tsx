@@ -4,16 +4,16 @@ import * as React from 'react';
 import * as _ from 'underscore';
 
 import {
-    ConceptExplanation,
-    MultipleChoice,
-    SentenceFragments,
-    getLatestAttempt,
-    hashToCollection
+  ConceptExplanation,
+  MultipleChoice,
+  SentenceFragments,
+  getLatestAttempt,
+  hashToCollection
 } from '../../../Shared/index';
 import { submitResponse } from '../../actions.js';
 import {
-    getGradedResponsesWithCallback,
-    getMultipleChoiceResponseOptionsWithCallback
+  getGradedResponsesWithCallback,
+  getMultipleChoiceResponseOptionsWithCallback
 } from '../../actions/responses.js';
 import EditCaretPositioning from '../../libs/EditCaretPositioning';
 import Question from '../../libs/question';

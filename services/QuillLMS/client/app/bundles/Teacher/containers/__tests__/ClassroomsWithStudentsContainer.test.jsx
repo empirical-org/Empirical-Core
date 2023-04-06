@@ -1,6 +1,6 @@
 import {
-    mount,
-    shallow
+  mount,
+  shallow
 } from 'enzyme';
 import _ from 'lodash';
 import React from 'react';

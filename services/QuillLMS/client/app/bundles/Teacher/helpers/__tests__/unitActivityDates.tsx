@@ -3,8 +3,8 @@ import * as moment from 'moment';
 import * as React from 'react';
 
 import {
-    DatePickerContainer,
-    formatDateTimeForDisplay
+  DatePickerContainer,
+  formatDateTimeForDisplay
 } from '../unitActivityDates';
 
 beforeAll(() => {

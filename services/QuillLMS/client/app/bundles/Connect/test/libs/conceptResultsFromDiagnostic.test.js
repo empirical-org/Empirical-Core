@@ -1,9 +1,9 @@
 import expect from 'expect';
 import {
-    embedQuestionNumbers,
-    getConceptResultsForAllQuestions,
-    getConceptResultsForQuestion,
-    getNestedConceptResultsForAllQuestions
+  embedQuestionNumbers,
+  getConceptResultsForAllQuestions,
+  getConceptResultsForQuestion,
+  getNestedConceptResultsForAllQuestions
 } from '../../libs/conceptResults/diagnostic';
 import data from '../jsonFromDiagnostic';
 import conceptResults from './conceptResultsWithMetadata.js';

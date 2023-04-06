@@ -1,10 +1,10 @@
 import React from 'react';
 import { connect } from 'react-redux';
 import {
-    getDistrictActivityScores,
-    switchClassroom,
-    switchSchool,
-    switchTeacher,
+  getDistrictActivityScores,
+  switchClassroom,
+  switchSchool,
+  switchTeacher,
 } from '../../../actions/district_activity_scores';
 import LoadingSpinner from '../../Teacher/components/shared/loading_indicator';
 import { getTimeSpent } from '../../Teacher/helpers/studentReports';

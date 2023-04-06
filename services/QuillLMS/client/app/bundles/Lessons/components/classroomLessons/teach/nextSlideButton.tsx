@@ -2,13 +2,13 @@ import * as React from 'react';
 import { connect } from 'react-redux';
 import { goToNextSlide } from '../../../actions/classroomSessions';
 import {
-    EditionQuestions
+  EditionQuestions
 } from '../../../interfaces/customize';
 import { getParameterByName } from '../../../libs/getParameterByName';
 import {
-    ClassroomLessonSession,
-    ClassroomSessionId,
-    ClassroomUnitId
+  ClassroomLessonSession,
+  ClassroomSessionId,
+  ClassroomUnitId
 } from '../interfaces';
 
 interface NextSlideButtonProps {

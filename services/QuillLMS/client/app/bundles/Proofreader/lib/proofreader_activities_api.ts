@@ -28,8 +28,8 @@ class ProofreaderPassageApi {
 }
 
 export {
-    ProofreaderPassageApi,
-    PROOFREADER_PASSAGE_TYPE,
-    lessonApiBaseUrl
+  ProofreaderPassageApi,
+  PROOFREADER_PASSAGE_TYPE,
+  lessonApiBaseUrl
 };
 

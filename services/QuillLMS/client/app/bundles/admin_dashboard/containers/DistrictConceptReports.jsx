@@ -1,10 +1,10 @@
 import React from 'react';
 import { connect } from 'react-redux';
 import {
-    getDistrictConceptReports,
-    switchClassroom,
-    switchSchool,
-    switchTeacher,
+  getDistrictConceptReports,
+  switchClassroom,
+  switchSchool,
+  switchTeacher,
 } from '../../../actions/district_concept_reports';
 import LoadingSpinner from '../../Teacher/components/shared/loading_indicator';
 import ConceptReports from '../components/concept_reports';

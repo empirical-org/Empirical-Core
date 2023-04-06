@@ -2,10 +2,10 @@ declare function require(name:string);
 import * as React from 'react';
 
 import {
-    NO_PRACTICE,
-    PRACTICE_LATER,
-    PRACTICE_NOW,
-    SMALL_GROUP_AND_INDEPENDENT
+  NO_PRACTICE,
+  PRACTICE_LATER,
+  PRACTICE_NOW,
+  SMALL_GROUP_AND_INDEPENDENT
 } from '../../constants';
 
 

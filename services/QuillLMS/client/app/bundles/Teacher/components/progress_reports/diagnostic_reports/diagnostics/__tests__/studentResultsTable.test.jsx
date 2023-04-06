@@ -2,10 +2,10 @@ import { mount } from 'enzyme'
 import React from 'react'
 
 import {
-    growthSummarySkillGroupSummaries,
-    growthSummarySkillGroupSummariesNoData,
-    growthSummaryStudentResults,
-    growthSummaryStudentResultsNoData,
+  growthSummarySkillGroupSummaries,
+  growthSummarySkillGroupSummariesNoData,
+  growthSummaryStudentResults,
+  growthSummaryStudentResultsNoData,
 } from './test_data'
 
 import StudentResultsTable from '../studentResultsTable'

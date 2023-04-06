@@ -2,9 +2,9 @@ import React from 'react';
 import { connect } from 'react-redux';
 import _ from 'underscore';
 import {
-    ArchivedButton,
-    FlagDropdown,
-    Modal,
+  ArchivedButton,
+  FlagDropdown,
+  Modal,
 } from '../../../Shared/index';
 import actions from '../../actions/lessons';
 import { ExpandLessonQuestions } from './expandLessonQuestions';

@@ -1,10 +1,10 @@
 import expect from 'expect';
 
 import {
-    calculateScoreForLesson,
-    embedQuestionNumbers,
-    getConceptResultsForAllQuestions,
-    getNestedConceptResultsForAllQuestions
+  calculateScoreForLesson,
+  embedQuestionNumbers,
+  getConceptResultsForAllQuestions,
+  getNestedConceptResultsForAllQuestions
 } from '../../libs/conceptResults/lesson';
 import data from '../dataFromLesson';
 

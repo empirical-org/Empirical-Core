@@ -3,7 +3,7 @@ import { connect } from 'react-redux';
 import { NavLink, Route, Switch, withRouter } from 'react-router-dom';
 import { Modal, UploadOptimalResponses, } from '../../../Shared/index';
 import {
-    submitOptimalResponses
+  submitOptimalResponses
 } from '../../actions/responses';
 import fragmentActions from '../../actions/sentenceFragments';
 import C from '../../constants';

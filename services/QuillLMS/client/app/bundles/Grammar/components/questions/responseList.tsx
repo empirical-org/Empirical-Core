@@ -3,8 +3,8 @@ import { AffectedResponse, isValidRegex } from '../../../Shared/index'
 
 import { focusPointMatchHelper, incorrectSequenceMatchHelper } from "quill-marking-logic"
 import {
-    addResponsesToMassEditArray,
-    removeResponsesFromMassEditArray
+  addResponsesToMassEditArray,
+  removeResponsesFromMassEditArray
 } from '../../actions/massEdit'
 import Response from './response'
 

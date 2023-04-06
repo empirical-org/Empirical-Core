@@ -3,21 +3,21 @@ import * as React from "react";
 import stripHtml from "string-strip-html";
 
 import {
-    AUTO_ML,
-    FEEDBACK,
-    FEEDBACK_LAYER_ADDITION,
-    FEEDBACK_LAYER_REMOVAL,
-    HIGHLIGHT_ADDITION,
-    HIGHLIGHT_REMOVAL,
-    HIGHLIGHT_TEXT,
-    HIGHLIGHT_TYPE,
-    PLAGIARISM,
-    RULES_BASED_1,
-    RULES_BASED_2,
-    RULES_BASED_3,
-    numericalWordOptions, regexRuleSequenceOptions, regexRuleTypes,
-    ruleHighlightOptions,
-    ruleTypeOptions, universalRuleTypeOptions
+  AUTO_ML,
+  FEEDBACK,
+  FEEDBACK_LAYER_ADDITION,
+  FEEDBACK_LAYER_REMOVAL,
+  HIGHLIGHT_ADDITION,
+  HIGHLIGHT_REMOVAL,
+  HIGHLIGHT_TEXT,
+  HIGHLIGHT_TYPE,
+  PLAGIARISM,
+  RULES_BASED_1,
+  RULES_BASED_2,
+  RULES_BASED_3,
+  numericalWordOptions, regexRuleSequenceOptions, regexRuleTypes,
+  ruleHighlightOptions,
+  ruleTypeOptions, universalRuleTypeOptions
 } from '../../../../constants/evidence';
 import { DropdownInput, Modal, TextEditor } from '../../../Shared/index';
 import { DropdownObjectInterface, InputEvent, RuleInterface } from '../../interfaces/evidenceInterfaces';

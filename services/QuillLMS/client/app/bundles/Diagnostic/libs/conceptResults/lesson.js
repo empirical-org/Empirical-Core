@@ -1,13 +1,13 @@
 import {
-    getConceptResultsForSentenceCombining
+  getConceptResultsForSentenceCombining
 } from './sentenceCombiningLessonQuestion';
 
 import {
-    getAllSentenceFragmentConceptResults
+  getAllSentenceFragmentConceptResults
 } from './sentenceFragment.js';
 
 import {
-    getConceptResultsForFillInTheBlanks
+  getConceptResultsForFillInTheBlanks
 } from './fillInTheBlanks';
 
 import _ from 'underscore';

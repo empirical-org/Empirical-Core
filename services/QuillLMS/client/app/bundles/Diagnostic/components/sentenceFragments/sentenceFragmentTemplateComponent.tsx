@@ -5,7 +5,7 @@ import { connect } from 'react-redux';
 
 import { ConceptExplanation, getDisplayedText, getLatestAttempt, hashToCollection, renderPreviewFeedback } from '../../../Shared/index';
 import {
-    getGradedResponsesWithCallback
+  getGradedResponsesWithCallback
 } from '../../actions/responses';
 import Feedback from '../renderForQuestions/feedback';
 import RenderQuestionFeedback from '../renderForQuestions/feedbackStatements.jsx';

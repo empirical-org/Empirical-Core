@@ -4,12 +4,12 @@ import Edit from './edit';
 import { isAnEditRegex, negativeMatchRegex } from './sharedRegexes';
 
 import {
-    MULTIPLE_UNNECESSARY_ADDITION,
-    MULTIPLE_UNNECESSARY_DELETION,
-    SINGLE_UNNECESSARY_ADDITION,
-    SINGLE_UNNECESSARY_DELETION,
-    UNNECESSARY_CHANGE,
-    UNNECESSARY_SPACE
+  MULTIPLE_UNNECESSARY_ADDITION,
+  MULTIPLE_UNNECESSARY_DELETION,
+  SINGLE_UNNECESSARY_ADDITION,
+  SINGLE_UNNECESSARY_DELETION,
+  UNNECESSARY_CHANGE,
+  UNNECESSARY_SPACE
 } from '../../helpers/determineUnnecessaryEditType';
 import { Concept } from '../../interfaces/concepts';
 

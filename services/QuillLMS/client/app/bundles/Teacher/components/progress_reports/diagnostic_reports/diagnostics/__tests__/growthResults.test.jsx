@@ -2,12 +2,12 @@ import { mount } from 'enzyme'
 import React from 'react'
 
 import {
-    dummyLocationData,
-    dummyMatchData,
-    growthSummarySkillGroupSummaries,
-    growthSummarySkillGroupSummariesNoData,
-    growthSummaryStudentResults,
-    growthSummaryStudentResultsNoData,
+  dummyLocationData,
+  dummyMatchData,
+  growthSummarySkillGroupSummaries,
+  growthSummarySkillGroupSummariesNoData,
+  growthSummaryStudentResults,
+  growthSummaryStudentResultsNoData,
 } from './test_data'
 
 import { GrowthResults, } from '../growthResults'

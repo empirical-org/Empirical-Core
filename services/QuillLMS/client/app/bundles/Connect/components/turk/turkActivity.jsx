@@ -4,16 +4,16 @@ import { withRouter } from 'react-router-dom';
 
 import { requestPost, requestPut, } from '../../../../modules/request/index';
 import {
-    CarouselAnimation,
-    PlayTitleCard,
-    ProgressBar,
-    Spinner
+  CarouselAnimation,
+  PlayTitleCard,
+  ProgressBar,
+  Spinner
 } from '../../../Shared/index';
 import { clearData, loadData, nextQuestion, submitResponse, updateCurrentQuestion } from '../../actions/turk.js';
 import {
-    answeredQuestionCount,
-    getProgressPercent,
-    questionCount
+  answeredQuestionCount,
+  getProgressPercent,
+  questionCount
 } from '../../libs/calculateProgress';
 import { getConceptResultsForAllQuestions } from '../../libs/conceptResults/diagnostic';
 import diagnosticQuestions from './diagnosticQuestions.jsx';

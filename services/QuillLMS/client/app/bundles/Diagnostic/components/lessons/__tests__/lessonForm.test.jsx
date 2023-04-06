@@ -2,8 +2,8 @@ import { ContentState, EditorState } from 'draft-js';
 import { shallow } from 'enzyme';
 import React from 'react';
 import {
-    SortableList,
-    TextEditor
+  SortableList,
+  TextEditor
 } from '../../../../Shared/index';
 import ChooseModel from '../chooseModel.tsx';
 import { LessonForm } from '../lessonForm';

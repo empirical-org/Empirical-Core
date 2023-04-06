@@ -3,13 +3,13 @@ import pluralize from 'pluralize';
 import React from 'react';
 
 import {
-    DISTRICT_PREMIUM,
-    SCHOOL_PREMIUM,
-    SCHOOL_PREMIUM_SCHOLARSHIP,
-    TEACHER_PREMIUM,
-    TEACHER_PREMIUM_CREDIT,
-    TEACHER_PREMIUM_SCHOLARSHIP,
-    TEACHER_PREMIUM_TRIAL
+  DISTRICT_PREMIUM,
+  SCHOOL_PREMIUM,
+  SCHOOL_PREMIUM_SCHOLARSHIP,
+  TEACHER_PREMIUM,
+  TEACHER_PREMIUM_CREDIT,
+  TEACHER_PREMIUM_SCHOLARSHIP,
+  TEACHER_PREMIUM_TRIAL
 } from './constants';
 
 import StripeSubscriptionCheckoutSessionButton from '../shared/StripeSubscriptionCheckoutSessionButton';

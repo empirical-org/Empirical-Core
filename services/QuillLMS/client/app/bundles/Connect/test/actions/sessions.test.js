@@ -1,8 +1,8 @@
 import 'whatwg-fetch';
 import SessionActions, {
-    allQuestions,
-    denormalizeSession,
-    normalizeSession
+  allQuestions,
+  denormalizeSession,
+  normalizeSession
 } from '../../actions/sessions';
 import { mockSentenceCompletionQuestions, v2mockSession, v4mockSession } from './sessions.data';
 

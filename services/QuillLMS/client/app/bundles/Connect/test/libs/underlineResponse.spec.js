@@ -1,17 +1,17 @@
 import { diffWords } from 'diff';
 import expect from 'expect';
 import {
-    generateStyleObjects,
-    getAdditionalInlineStyleRangeObject,
-    getChangeObjects,
-    getChangeObjectsWithoutAdded,
-    getChangeObjectsWithoutRemoved,
-    getErroneousWordLength,
-    getErroneousWordOffset,
-    getErrorType,
-    getInlineStyleRangeObject,
-    getMissingInlineStyleRangeObject,
-    getMissingWordErrorString
+  generateStyleObjects,
+  getAdditionalInlineStyleRangeObject,
+  getChangeObjects,
+  getChangeObjectsWithoutAdded,
+  getChangeObjectsWithoutRemoved,
+  getErroneousWordLength,
+  getErroneousWordOffset,
+  getErrorType,
+  getInlineStyleRangeObject,
+  getMissingInlineStyleRangeObject,
+  getMissingWordErrorString
 } from '../../libs/markupUserResponses.js';
 
 describe("finding the position of the substring", () => {

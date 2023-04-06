@@ -4,9 +4,9 @@ import { push } from 'react-router-redux';
 import SelectSearch, { fuzzySearch } from 'react-select-search';
 import _ from 'underscore';
 import {
-    ArchivedButton,
-    Modal,
-    hashToCollection
+  ArchivedButton,
+  Modal,
+  hashToCollection
 } from '../../../Shared/index';
 import actions from '../../actions/questions';
 import { deleteResponse, submitResponseEdit } from '../../actions/responses';

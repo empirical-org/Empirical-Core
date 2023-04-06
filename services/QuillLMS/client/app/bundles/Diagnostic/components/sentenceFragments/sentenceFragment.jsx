@@ -3,12 +3,12 @@ import { connect } from 'react-redux';
 import { NavLink, Route, Switch, withRouter } from 'react-router-dom';
 
 import {
-    Modal,
-    UploadOptimalResponses,
+  Modal,
+  UploadOptimalResponses,
 } from '../../../Shared/index';
 import {
-    listenToResponsesWithCallback,
-    submitOptimalResponses
+  listenToResponsesWithCallback,
+  submitOptimalResponses
 } from '../../actions/responses';
 import fragmentActions from '../../actions/sentenceFragments.ts';
 import C from '../../constants';

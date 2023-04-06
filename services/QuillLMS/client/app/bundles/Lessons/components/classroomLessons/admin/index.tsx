@@ -2,12 +2,12 @@ import _ from 'lodash';
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import {
-    addLesson,
-    listenForClassroomLessonReviews,
-    listenForClassroomLessons
+  addLesson,
+  listenForClassroomLessonReviews,
+  listenForClassroomLessons
 } from '../../../actions/classroomLesson';
 import {
-    startListeningToEditionMetadata
+  startListeningToEditionMetadata
 } from '../../../actions/customize';
 
 class ClassLessonsIndex extends Component<any, any> {

@@ -2,10 +2,10 @@ import { mount } from 'enzyme'
 import React from 'react'
 
 import {
-    dummyLocationData,
-    dummyMatchData,
-    passedQuestionsWithNoStudentData,
-    passedQuestionsWithStudentData,
+  dummyLocationData,
+  dummyMatchData,
+  passedQuestionsWithNoStudentData,
+  passedQuestionsWithStudentData,
 } from './test_data'
 
 import { Questions, } from '../questions'

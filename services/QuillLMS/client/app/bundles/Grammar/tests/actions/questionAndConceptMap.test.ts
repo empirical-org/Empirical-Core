@@ -6,9 +6,9 @@ jest.mock('../../libs/shared_cache_api', () => ({
 import { mockDispatch as dispatch, } from '../__mocks__/dispatch'
 
 import {
-    SHARED_CACHE_KEY,
-    checkTimeout,
-    startListeningToQuestionAndConceptMapData
+  SHARED_CACHE_KEY,
+  checkTimeout,
+  startListeningToQuestionAndConceptMapData
 } from '../../actions/questionAndConceptMap'
 
 describe('QuestionAndConceptMap actions', () => {

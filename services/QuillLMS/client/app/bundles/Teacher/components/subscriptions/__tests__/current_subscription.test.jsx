@@ -4,7 +4,7 @@ import React from 'react';
 import { expiredSubscriptionStatus, } from './data';
 
 import {
-    SCHOOL_PREMIUM
+  SCHOOL_PREMIUM
 } from '../constants';
 import CurrentSubscription from '../current_subscription';
 

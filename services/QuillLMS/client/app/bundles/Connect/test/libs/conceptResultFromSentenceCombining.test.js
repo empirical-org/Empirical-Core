@@ -1,6 +1,6 @@
 import expect from 'expect';
 import {
-    getConceptResultsForSentenceCombining
+  getConceptResultsForSentenceCombining
 } from '../../libs/conceptResults/sentenceCombining';
 import data from '../jsonFromDiagnostic';
 

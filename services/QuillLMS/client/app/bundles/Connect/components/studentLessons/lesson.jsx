@@ -9,26 +9,26 @@ import PlaySentenceFragment from './sentenceFragment.jsx';
 
 import { requestPost, requestPut, } from '../../../../modules/request/index';
 import {
-    CLICK,
-    KEYDOWN,
-    KEYPRESS,
-    MOUSEDOWN,
-    MOUSEMOVE,
-    PlayTitleCard,
-    ProgressBar,
-    Register,
-    SCROLL,
-    Spinner,
-    TeacherPreviewMenuButton,
-    VISIBILITYCHANGE,
-    roundValuesToSeconds,
+  CLICK,
+  KEYDOWN,
+  KEYPRESS,
+  MOUSEDOWN,
+  MOUSEMOVE,
+  PlayTitleCard,
+  ProgressBar,
+  Register,
+  SCROLL,
+  Spinner,
+  TeacherPreviewMenuButton,
+  VISIBILITYCHANGE,
+  roundValuesToSeconds,
 } from '../../../Shared/index';
 import { clearData, loadData, nextQuestion, resumePreviousSession, setCurrentQuestion, submitResponse, updateCurrentQuestion } from '../../actions.js';
 import SessionActions from '../../actions/sessions.js';
 import {
-    answeredQuestionCount,
-    getProgressPercent,
-    questionCount
+  answeredQuestionCount,
+  getProgressPercent,
+  questionCount
 } from '../../libs/calculateProgress';
 import { calculateScoreForLesson, getConceptResultsForAllQuestions } from '../../libs/conceptResults/lesson';
 import { permittedFlag } from '../../libs/flagArray';

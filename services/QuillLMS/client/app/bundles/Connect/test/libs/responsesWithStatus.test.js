@@ -2,11 +2,11 @@
 import expect from 'expect';
 import responsesWithStatus, { getStatusForResponse } from '../../libs/responseTools.js';
 import responses, {
-    algoOptimalResponse,
-    algoSubOptimalResponse,
-    optimalResponse,
-    subOptimalResponse,
-    ungradedResponse,
+  algoOptimalResponse,
+  algoSubOptimalResponse,
+  optimalResponse,
+  subOptimalResponse,
+  ungradedResponse,
 } from '../data/sentenceFragmentResponses';
 
 describe('Responses with status', () => {

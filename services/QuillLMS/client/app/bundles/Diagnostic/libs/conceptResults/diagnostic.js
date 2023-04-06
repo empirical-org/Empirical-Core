@@ -1,11 +1,11 @@
 import {
-    getConceptResultsForFillInTheBlanks
+  getConceptResultsForFillInTheBlanks
 } from './fillInTheBlanks';
 import {
-    getConceptResultsForSentenceCombining
+  getConceptResultsForSentenceCombining
 } from './sentenceCombining';
 import {
-    getAllSentenceFragmentConceptResults
+  getAllSentenceFragmentConceptResults
 } from './sentenceFragment';
 
 export function getConceptResultsForQuestion(question) {

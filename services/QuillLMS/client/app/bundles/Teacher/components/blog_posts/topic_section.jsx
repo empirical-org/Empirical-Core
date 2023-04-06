@@ -3,10 +3,10 @@ import * as React from 'react';
 
 import PreviewCard from '../shared/preview_card.jsx';
 import {
-    STUDENT,
-    STUDENT_CENTER_SLUG,
-    TEACHER_CENTER_SLUG,
-    USING_QUILL_FOR_READING_COMPREHENSION
+  STUDENT,
+  STUDENT_CENTER_SLUG,
+  TEACHER_CENTER_SLUG,
+  USING_QUILL_FOR_READING_COMPREHENSION
 } from './blog_post_constants';
 
 export default class TopicSection extends React.Component {

@@ -7,10 +7,10 @@ import GoogleClassroomsEmptyModal from '../../../../classrooms/google_classrooms
 import ImportGoogleClassroomsModal from '../../../../classrooms/import_google_classrooms_modal.tsx'
 import LinkGoogleAccountModal from '../../../../classrooms/link_google_account_modal.tsx'
 import AssignStudents, {
-    createAClassForm,
-    googleClassroomsEmptyModal,
-    importGoogleClassroomsModal,
-    linkGoogleAccountModal
+  createAClassForm,
+  googleClassroomsEmptyModal,
+  importGoogleClassroomsModal,
+  linkGoogleAccountModal
 } from '../assign_students'
 import ClassroomCard from '../classroom_card.tsx'
 import CreateAClassInlineForm from '../create_a_class_inline_form.tsx'

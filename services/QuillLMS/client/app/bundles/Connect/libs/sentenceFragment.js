@@ -2,7 +2,7 @@ import _ from 'underscore';
 import constants from '../constants';
 import validEndingPunctuation from '../libs/validEndingPunctuation.js';
 import {
-    spacingBeforePunctuation
+  spacingBeforePunctuation
 } from './algorithms/spacingBeforePunctuation';
 import * as qpos from './partsOfSpeechTagging';
 import { checkForMissingWords } from './requiredWords';
