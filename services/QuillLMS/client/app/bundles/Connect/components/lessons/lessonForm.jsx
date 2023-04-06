@@ -1,16 +1,15 @@
+import { ContentState, EditorState } from 'draft-js';
 import React from 'react';
 import { connect } from 'react-redux';
-import SelectSearch from 'react-select-search';
-import { fuzzySearch } from 'react-select-search';
-import { EditorState, ContentState } from 'draft-js'
-import ChooseModelContainer from './chooseModelContainer.jsx'
+import SelectSearch, { fuzzySearch } from 'react-select-search';
 import _ from 'underscore';
+import ChooseModelContainer from './chooseModelContainer.jsx';
 
 import {
-  hashToCollection,
-  SortableList,
-  TextEditor
-} from '../../../Shared/index'
+    hashToCollection,
+    SortableList,
+    TextEditor
+} from '../../../Shared/index';
 
 class LessonForm extends React.Component {
   constructor(props) {

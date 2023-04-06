@@ -17,6 +17,7 @@ class SharedCacheApi {
 }
 
 export {
-  SharedCacheApi,
-  sharedCacheApiBaseUrl
-}
+    SharedCacheApi,
+    sharedCacheApiBaseUrl
+};
+

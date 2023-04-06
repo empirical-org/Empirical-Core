@@ -1,12 +1,12 @@
-import * as React from 'react'
-import * as moment from 'moment'
+import * as moment from 'moment';
 import Pusher from 'pusher-js';
+import * as React from 'react';
 
-import GradeOptions from './grade_options'
+import GradeOptions from './grade_options';
 
-import { DropdownInput, DataTable } from '../../../Shared/index'
-import ButtonLoadingIndicator from '../shared/button_loading_indicator'
 import { requestPost, requestPut } from '../../../../modules/request/index';
+import { DataTable, DropdownInput } from '../../../Shared/index';
+import ButtonLoadingIndicator from '../shared/button_loading_indicator';
 
 interface ImportGoogleClassroomsModalProps {
   close: (event) => void;

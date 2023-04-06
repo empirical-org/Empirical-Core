@@ -1,8 +1,8 @@
-import * as React from 'react';
 import { mount } from 'enzyme';
+import * as React from 'react';
 
-import { UnitTemplateProfileDisclaimer } from '../unit_template_profile_assign_button';
 import { activityPack, evidenceActivity } from '../../../../../../../test_data/activityPack';
+import { UnitTemplateProfileDisclaimer } from '../unit_template_profile_assign_button';
 
 const mockProps = {
   data: activityPack

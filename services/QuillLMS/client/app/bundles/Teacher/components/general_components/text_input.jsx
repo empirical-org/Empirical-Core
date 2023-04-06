@@ -1,6 +1,6 @@
-import React from 'react'
-import $ from 'jquery'
-import _ from 'underscore'
+import $ from 'jquery';
+import React from 'react';
+import _ from 'underscore';
 
 export default class TextInput extends React.Component {
   componentDidMount() {

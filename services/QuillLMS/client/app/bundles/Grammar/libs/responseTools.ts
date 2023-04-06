@@ -1,5 +1,5 @@
 import Levenshtein from 'levenshtein';
-import { Response } from 'quill-marking-logic'
+import { Response } from 'quill-marking-logic';
 
 type ResponseWithLevenshtein = Response & { levenshtein: any }
 

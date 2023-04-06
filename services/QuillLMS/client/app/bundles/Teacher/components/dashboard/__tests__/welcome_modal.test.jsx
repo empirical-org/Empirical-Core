@@ -1,7 +1,7 @@
-import React from 'react';
 import { shallow } from 'enzyme';
+import React from 'react';
 
-import WelcomeModal from '../welcome_modal.tsx'
+import WelcomeModal from '../welcome_modal.tsx';
 
 describe('WelcomeModal component', () => {
 

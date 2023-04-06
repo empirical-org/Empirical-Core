@@ -1,20 +1,20 @@
-import React from 'react';
 import Pusher from 'pusher-js';
+import qs from 'qs';
+import React from 'react';
 import { connect } from 'react-redux';
-import qs from 'qs'
 
-import StudentProfileUnits from '../components/student_profile/student_profile_units.jsx';
-import StudentProfileHeader from '../components/student_profile/student_profile_header';
-import StudentProfileClassworkTabs from '../components/student_profile/student_profile_classwork_tabs';
-import SelectAClassroom from '../../Student/components/selectAClassroom'
-import LoadingIndicator from '../components/shared/loading_indicator'
 import {
-  fetchStudentProfile,
-  fetchStudentsClassrooms,
-  handleClassroomClick,
-  updateActiveClassworkTab
+    fetchStudentProfile,
+    fetchStudentsClassrooms,
+    handleClassroomClick,
+    updateActiveClassworkTab
 } from '../../../actions/student_profile';
-import { TO_DO_ACTIVITIES, COMPLETED_ACTIVITIES, } from '../../../constants/student_profile'
+import { TO_DO_ACTIVITIES } from '../../../constants/student_profile';
+import SelectAClassroom from '../../Student/components/selectAClassroom';
+import LoadingIndicator from '../components/shared/loading_indicator';
+import StudentProfileClassworkTabs from '../components/student_profile/student_profile_classwork_tabs';
+import StudentProfileHeader from '../components/student_profile/student_profile_header';
+import StudentProfileUnits from '../components/student_profile/student_profile_units.jsx';
 
 class StudentProfile extends React.Component {
   componentDidMount() {

@@ -1,5 +1,5 @@
-import * as React from 'react';
 import { mount } from 'enzyme';
+import * as React from 'react';
 
 import RequestAdminAccessForm from '../request_admin_access_form';
 

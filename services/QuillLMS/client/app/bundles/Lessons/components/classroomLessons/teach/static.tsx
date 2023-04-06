@@ -1,12 +1,9 @@
 import React, { Component } from 'react';
+import * as CustomizeIntf from '../../../interfaces/customize';
+import {
+    ClassroomLessonSession
+} from '../interfaces';
 import ScriptComponent from '../shared/scriptComponent';
-import {
-  ClassroomLessonSession
-} from '../interfaces'
-import {
-  ClassroomLesson
-} from '../../../interfaces/classroomLessons'
-import * as CustomizeIntf from '../../../interfaces/customize'
 
 interface StaticProps {
   data: ClassroomLessonSession,

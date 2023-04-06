@@ -1,6 +1,6 @@
 'use strict';
-import $ from 'jquery'
-import React from 'react'
+import $ from 'jquery';
+import React from 'react';
 
 export default class CleverSignUp extends React.Component {
   constructor(props) {

@@ -1,17 +1,12 @@
-import React, {Component} from 'react'
+import _ from 'lodash';
+import React, { Component } from 'react';
 import { connect } from 'react-redux';
-import _ from 'lodash'
 import {
-  getComponentDisplayName,
-  slideTypeKeys
-} from './helpers'
-import {
-  deleteLesson,
-  updateClassroomLessonDetails
-} from '../../../actions/classroomLesson'
-import { createNewAdminEdition } from '../../../actions/customize'
-import EditLessonDetails from './editLessonDetails'
-import { SortableList } from '../../../../Shared/index';
+    deleteLesson,
+    updateClassroomLessonDetails
+} from '../../../actions/classroomLesson';
+import { createNewAdminEdition } from '../../../actions/customize';
+import EditLessonDetails from './editLessonDetails';
 
 class ShowClassroomLesson extends Component<any, any> {
   constructor(props){

@@ -1,9 +1,8 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
-import _ from 'underscore';
-import IncorrectSequencesInputAndConceptSelectorForm from '../shared/incorrectSequencesInputAndConceptSelectorForm.jsx';
 import questionActions from '../../actions/questions.ts';
 import sentenceFragmentActions from '../../actions/sentenceFragments.ts';
+import IncorrectSequencesInputAndConceptSelectorForm from '../shared/incorrectSequencesInputAndConceptSelectorForm.jsx';
 
 class EditIncorrectSequencesContainer extends Component {
   constructor(props) {

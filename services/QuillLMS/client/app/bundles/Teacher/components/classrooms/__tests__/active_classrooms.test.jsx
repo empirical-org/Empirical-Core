@@ -1,38 +1,38 @@
-import React from 'react';
 import { shallow } from 'enzyme';
+import React from 'react';
 
-import { classroomProps, userProps, coteacherInvitations } from './test_data/test_data'
+import { classroomProps, coteacherInvitations, userProps } from './test_data/test_data';
 
+import { SortableList } from '../../../../Shared/index';
 import ActiveClassrooms, {
-  createAClassModal,
-  renameClassModal,
-  changeGradeModal,
-  archiveClassModal,
-  inviteStudentsModal,
-  importGoogleClassroomsModal,
-  importCleverClassroomsModal,
-  importCleverClassroomStudentsModal,
-  importGoogleClassroomStudentsModal,
-  reauthorizeCleverModal,
-  linkGoogleAccountModal,
-  cleverClassroomsEmptyModal,
-  googleClassroomsEmptyModal
+    archiveClassModal,
+    changeGradeModal,
+    cleverClassroomsEmptyModal,
+    createAClassModal,
+    googleClassroomsEmptyModal,
+    importCleverClassroomStudentsModal,
+    importCleverClassroomsModal,
+    importGoogleClassroomStudentsModal,
+    importGoogleClassroomsModal,
+    inviteStudentsModal,
+    linkGoogleAccountModal,
+    reauthorizeCleverModal,
+    renameClassModal
 } from '../active_classrooms.tsx';
-import CreateAClassModal from '../create_a_class_modal'
-import RenameClassModal from '../rename_classroom_modal'
-import ChangeGradeModal from '../change_grade_modal'
-import ArchiveClassModal from '../archive_classroom_modal'
-import InviteStudentsModal from '../invite_students_modal'
-import ImportCleverClassroomsModal from '../import_clever_classrooms_modal'
-import ImportGoogleClassroomsModal from '../import_google_classrooms_modal'
-import ImportCleverClassroomStudentsModal from '../import_clever_classroom_students_modal'
-import ImportGoogleClassroomStudentsModal from '../import_google_classroom_students_modal'
-import ReauthorizeCleverModal from '../reauthorize_clever_modal'
-import LinkGoogleAccountModal from '../link_google_account_modal'
-import CleverClassroomsEmptyModal from '../clever_classrooms_empty_modal'
-import GoogleClassroomsEmptyModal from '../google_classrooms_empty_modal'
-import CoteacherInvitation from '../coteacher_invitation'
-import { SortableList } from '../../../../Shared/index'
+import ArchiveClassModal from '../archive_classroom_modal';
+import ChangeGradeModal from '../change_grade_modal';
+import CleverClassroomsEmptyModal from '../clever_classrooms_empty_modal';
+import CoteacherInvitation from '../coteacher_invitation';
+import CreateAClassModal from '../create_a_class_modal';
+import GoogleClassroomsEmptyModal from '../google_classrooms_empty_modal';
+import ImportCleverClassroomStudentsModal from '../import_clever_classroom_students_modal';
+import ImportCleverClassroomsModal from '../import_clever_classrooms_modal';
+import ImportGoogleClassroomStudentsModal from '../import_google_classroom_students_modal';
+import ImportGoogleClassroomsModal from '../import_google_classrooms_modal';
+import InviteStudentsModal from '../invite_students_modal';
+import LinkGoogleAccountModal from '../link_google_account_modal';
+import ReauthorizeCleverModal from '../reauthorize_clever_modal';
+import RenameClassModal from '../rename_classroom_modal';
 
 jest.spyOn(global.Date, 'now').mockImplementation(() =>
   new Date('2019-08-14T11:01:58.135Z').valueOf()

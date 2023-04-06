@@ -1,17 +1,16 @@
 declare function require(name:string);
+import { checkDiagnosticSentenceFragment, Response } from 'quill-marking-logic';
 import * as React from 'react';
 import { connect } from 'react-redux';
-import {checkDiagnosticSentenceFragment, Response } from 'quill-marking-logic'
-import * as _ from 'underscore';
 
-import TextEditor from '../renderForQuestions/renderTextEditor.jsx';
+import { ConceptExplanation, getDisplayedText, getLatestAttempt, hashToCollection, renderPreviewFeedback } from '../../../Shared/index';
 import {
-  getGradedResponsesWithCallback
+    getGradedResponsesWithCallback
 } from '../../actions/responses';
-import updateResponseResource from '../renderForQuestions/updateResponseResource.js';
 import Feedback from '../renderForQuestions/feedback';
 import RenderQuestionFeedback from '../renderForQuestions/feedbackStatements.jsx';
-import { hashToCollection, ConceptExplanation, getLatestAttempt, renderPreviewFeedback, getDisplayedText } from '../../../Shared/index'
+import TextEditor from '../renderForQuestions/renderTextEditor.jsx';
+import updateResponseResource from '../renderForQuestions/updateResponseResource.js';
 
 class PlaySentenceFragment extends React.Component<any, any> {
   constructor(props) {

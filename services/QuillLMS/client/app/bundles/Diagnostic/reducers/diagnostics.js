@@ -1,5 +1,5 @@
+import { getCurrentQuestion, getFilteredQuestions, getQuestionsWithAttempts } from '../../Shared/index';
 import { SubmitActions } from '../actions/diagnostics.js';
-import { getCurrentQuestion, getQuestionsWithAttempts, getFilteredQuestions } from '../../Shared/index';
 // / make this playLessonsReducer.
 const initialState = {
   answeredQuestions: [],

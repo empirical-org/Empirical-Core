@@ -1,6 +1,6 @@
-import React from 'react';
 import moment from 'moment';
 import pluralize from 'pluralize';
+import React from 'react';
 
 import { ACCOUNT_TYPE_TO_SUBSCRIPTION_TYPES } from './constants';
 

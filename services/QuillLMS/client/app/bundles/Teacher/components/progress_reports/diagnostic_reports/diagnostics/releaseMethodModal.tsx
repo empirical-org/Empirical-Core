@@ -1,14 +1,14 @@
 import * as React from 'react'
 
 import {
-  IMMEDIATE,
-  STAGGERED,
-  baseDiagnosticImageSrc,
+    IMMEDIATE,
+    STAGGERED,
+    baseDiagnosticImageSrc,
 } from './shared'
 
 import {
-  infoIcon,
-  Tooltip,
+    Tooltip,
+    infoIcon,
 } from '../../../../../Shared/index'
 
 const baseStaggeredReleaseSrc = `${baseDiagnosticImageSrc}/staggered_release`

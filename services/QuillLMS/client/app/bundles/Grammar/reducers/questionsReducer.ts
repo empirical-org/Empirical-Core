@@ -1,7 +1,7 @@
+import * as _ from 'lodash';
 import { Action } from "redux";
 import { ActionTypes } from "../actions/actionTypes";
-import { Questions } from '../interfaces/questions'
-import * as _ from 'lodash'
+import { Questions } from '../interfaces/questions';
 
 export interface QuestionsReducerState {
   hasreceiveddata: boolean;

@@ -1,11 +1,10 @@
 import * as React from 'react'
-import _ from 'lodash'
-import LinkListItem from '../shared/linkListItem'
+import { hashToCollection } from '../../../Shared/index'
 import { Concept } from '../../interfaces/concepts'
+import { Question } from '../../interfaces/questions'
 import { ConceptReducerState } from '../../reducers/conceptsReducer'
 import { QuestionsReducerState } from '../../reducers/questionsReducer'
-import { Question } from '../../interfaces/questions'
-import { hashToCollection } from '../../../Shared/index'
+import LinkListItem from '../shared/linkListItem'
 
 interface QuestionListByConceptProps {
   concepts: ConceptReducerState;

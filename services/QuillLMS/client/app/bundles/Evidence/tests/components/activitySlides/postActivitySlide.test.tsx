@@ -1,8 +1,8 @@
-import * as React from 'react';
 import { shallow } from 'enzyme';
+import * as React from 'react';
 
+import { BECAUSE, BUT, SO } from '../../../../Shared/index';
 import { PostActivitySlide } from '../../../components/activitySlides/postActivitySlide';
-import { BECAUSE, BUT, SO } from '../../../../Shared/index'
 
 describe('PostActivitySlide Component', () => {
   const mockProps = {

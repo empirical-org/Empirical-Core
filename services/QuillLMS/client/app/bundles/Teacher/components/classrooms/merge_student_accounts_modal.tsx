@@ -1,7 +1,7 @@
-import * as React from 'react'
+import * as React from 'react';
 
-import { DropdownInput } from '../../../Shared/index'
 import { requestPost } from '../../../../modules/request/index';
+import { DropdownInput } from '../../../Shared/index';
 
 const smallWhiteCheckSrc = `${process.env.CDN_URL}/images/shared/check-small-white.svg`
 const swapVerticalSrc = `${process.env.CDN_URL}/images/icons/swap-vertical.svg`

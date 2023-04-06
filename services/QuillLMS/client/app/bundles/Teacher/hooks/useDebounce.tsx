@@ -1,4 +1,4 @@
-import * as React from 'react'
+import * as React from 'react';
 
 // from https://usehooks.com/useDebounce/ on 10/08/20
 

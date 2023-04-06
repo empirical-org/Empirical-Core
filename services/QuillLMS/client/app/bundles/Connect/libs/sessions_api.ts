@@ -13,6 +13,7 @@ class SessionApi {
 }
 
 export {
-  SessionApi,
-  sessionApiBaseUrl
-}
+    SessionApi,
+    sessionApiBaseUrl
+};
+

@@ -1,10 +1,10 @@
-import * as React from 'react';
 import { mount } from 'enzyme';
-import * as moment from 'moment'
+import * as moment from 'moment';
+import * as React from 'react';
 
 import {
-  formatDateTimeForDisplay,
-  DatePickerContainer
+    DatePickerContainer,
+    formatDateTimeForDisplay
 } from '../unitActivityDates';
 
 beforeAll(() => {

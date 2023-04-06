@@ -1,22 +1,21 @@
-import React from 'react';
 import moment from 'moment';
-import * as _ from 'lodash'
+import React from 'react';
 
-import {
-  formatDateTimeForDisplay,
-  DatePickerContainer,
-  DUE_DATE_DEFAULT_TEXT,
-  PUBLISH_DATE_DEFAULT_TEXT,
-  INVALID_DATES_SNACKBAR_COPY,
-} from '../../../../helpers/unitActivityDates'
-import {
-  DataTable,
-  Tooltip,
-  getIconForActivityClassification,
-  Snackbar,
-  defaultSnackbarTimeout,
-} from '../../../../../Shared/index'
 import { requestGet } from '../../../../../../modules/request';
+import {
+    DataTable,
+    Snackbar,
+    Tooltip,
+    defaultSnackbarTimeout,
+    getIconForActivityClassification,
+} from '../../../../../Shared/index';
+import {
+    DUE_DATE_DEFAULT_TEXT,
+    DatePickerContainer,
+    INVALID_DATES_SNACKBAR_COPY,
+    PUBLISH_DATE_DEFAULT_TEXT,
+    formatDateTimeForDisplay,
+} from '../../../../helpers/unitActivityDates';
 import PreviouslyAssignedTooltip from '../../previouslyAssignedTooltip';
 
 const PUBLISH_DATE_ATTRIBUTE_KEY = 'publishDates'

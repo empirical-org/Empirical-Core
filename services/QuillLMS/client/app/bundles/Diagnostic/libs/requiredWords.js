@@ -1,6 +1,6 @@
 import _ from 'underscore';
 import {
-  getPartsOfSpeechWordsWithTags
+    getPartsOfSpeechWordsWithTags
 } from './partsOfSpeechTagging';
 
 const posTranslations = {

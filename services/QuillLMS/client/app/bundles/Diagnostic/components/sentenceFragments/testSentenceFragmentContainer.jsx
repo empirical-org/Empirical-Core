@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
+import { clearData, loadData, nextQuestion, submitResponse, updateCurrentQuestion } from '../../actions/diagnostics.js';
 import PlaySentenceFragment from '../diagnostics/sentenceFragment.jsx';
-import { clearData, loadData, nextQuestion, submitResponse, updateName, updateCurrentQuestion, resumePreviousSession } from '../../actions/diagnostics.js';
 
 class TestQuestion extends Component {
   constructor(props) {
@@ -77,7 +77,7 @@ class TestQuestion extends Component {
     const { currentQuestion } = playDiagnostic
     const { params } = match
     const { questionID } = params
-    
+
     if (currentQuestion) {
       const { data } = currentQuestion
       return (

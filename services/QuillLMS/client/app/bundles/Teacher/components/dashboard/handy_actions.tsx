@@ -1,15 +1,15 @@
 import * as React from 'react';
 
 import {
-  searchMapIcon,
-  clipboardCheckIcon,
-  tableCheckIcon,
-  accountViewIcon,
-  demoViewIcon,
-  giftIcon,
-  groupAccountIcon,
-  googleClassroomIcon,
-} from '../../../Shared/index'
+    accountViewIcon,
+    clipboardCheckIcon,
+    demoViewIcon,
+    giftIcon,
+    googleClassroomIcon,
+    groupAccountIcon,
+    searchMapIcon,
+    tableCheckIcon,
+} from '../../../Shared/index';
 
 const HandyAction = ({ icon, text, link, }) => (
   <a className="handy-action focus-on-light" href={link}>
