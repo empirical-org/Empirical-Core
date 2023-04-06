@@ -505,8 +505,7 @@ class PagesController < ApplicationController
     @style_file = 'staff'
   end
 
-  def teacher_premium
-  end
+  def teacher_premium; end
 
   private def determine_layout
     case action_name
