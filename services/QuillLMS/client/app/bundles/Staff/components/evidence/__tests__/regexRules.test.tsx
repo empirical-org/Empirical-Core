@@ -1,5 +1,5 @@
-import * as React from 'react';
 import { shallow } from 'enzyme';
+import * as React from 'react';
 
 import { Input } from '../../../../Shared/index';
 import RegexRules from '../configureRules/regexRules';

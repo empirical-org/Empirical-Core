@@ -1,6 +1,6 @@
 import { Action } from "redux";
 import { ActionTypes } from "../actions/actionTypes";
-import { Concept } from '../interfaces/concepts'
+import { Concept } from '../interfaces/concepts';
 
 type ConceptReducerAction = Action & {data: Concept[][]}
 export interface ConceptReducerState {

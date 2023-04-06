@@ -1,5 +1,5 @@
-import { ProofreaderActivityState } from "../../reducers/proofreaderActivitiesReducer"
 import { ProofreaderActivity } from "../../interfaces/proofreaderActivities"
+import { ProofreaderActivityState } from "../../reducers/proofreaderActivitiesReducer"
 
 export const currentActivity: ProofreaderActivity = {
   description: "Correct the following nine errors.",

@@ -1,8 +1,8 @@
-import * as React from 'react';
 import { shallow } from 'enzyme';
+import * as React from 'react';
 
-import MaxAttemptsEditor from '../configureSettings/maxAttemptsEditor';
 import { BECAUSE, FEEDBACK } from '../../../../../constants/evidence';
+import MaxAttemptsEditor from '../configureSettings/maxAttemptsEditor';
 
 const mockProps = {
   conjunction: '',

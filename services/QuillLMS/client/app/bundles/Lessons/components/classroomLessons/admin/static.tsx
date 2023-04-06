@@ -1,8 +1,8 @@
-import * as React from 'react'
+import * as _ from 'lodash';
+import * as React from 'react';
 import * as CLIntF from '../../../interfaces/classroomLessons';
-import * as _ from 'lodash'
-import MultipleTextEditor from './slideHTMLEditor'
-import StudentStatic from '../play/static'
+import StudentStatic from '../play/static';
+import MultipleTextEditor from './slideHTMLEditor';
 
 interface AdminStaticProps {
   question: CLIntF.QuestionData,

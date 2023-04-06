@@ -1,6 +1,6 @@
 // adapted from https://github.com/JackPu/reactjs-percentage-circle/blob/master/src/index.js
 
-import * as React from 'react'
+import * as React from 'react';
 
 const PercentageCircle = ({ percent, borderWidth, radius, bgcolor, color, children, textStyle, innerColor, }) => {
 

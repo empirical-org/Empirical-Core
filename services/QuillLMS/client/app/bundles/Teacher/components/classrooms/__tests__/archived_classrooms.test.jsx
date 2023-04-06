@@ -1,13 +1,13 @@
-import React from 'react';
 import { shallow } from 'enzyme';
+import React from 'react';
 
 import ArchivedClassrooms, {
-  unarchiveClassroomModal
+    unarchiveClassroomModal
 } from '../archived_classrooms.tsx';
-import Classroom from '../classroom.tsx'
-import UnarchiveClassroomModal from '../unarchive_classroom_modal'
+import Classroom from '../classroom.tsx';
+import UnarchiveClassroomModal from '../unarchive_classroom_modal';
 
-import { classroomProps, userProps } from './test_data/test_data'
+import { classroomProps, userProps } from './test_data/test_data';
 
 describe('ArchivedClassrooms component', () => {
 

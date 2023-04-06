@@ -1,11 +1,11 @@
-import React from 'react'
 import { mount } from 'enzyme'
+import React from 'react'
 
 import {
-  dummyLocationData,
-  dummyMatchData,
-  passedQuestionsWithNoStudentData,
-  passedQuestionsWithStudentData,
+    dummyLocationData,
+    dummyMatchData,
+    passedQuestionsWithNoStudentData,
+    passedQuestionsWithStudentData,
 } from './test_data'
 
 import { Questions, } from '../questions'
@@ -18,7 +18,7 @@ jest.mock('qs', () => ({
 )
 
 jest.mock('string-strip-html', () => ({
-  default: (str) => str 
+  default: (str) => str
 }));
 
 describe('Questions component', () => {

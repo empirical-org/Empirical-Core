@@ -1,18 +1,17 @@
-import React from 'react';
 import { mount } from 'enzyme';
+import React from 'react';
 
-import { cleverClassroomsData, userProps } from './test_data/test_data'
+import { cleverClassroomsData, userProps } from './test_data/test_data';
 
-import ImportCleverClassroomsModal from '../import_clever_classrooms_modal'
-import { DataTable } from '../../../../Shared/index'
+import { DataTable } from '../../../../Shared/index';
 
-describe('ImportCleverClassroomsModal component', () => {
+describe('importCleverClassroomsModal component', () => {
   const close = () => {}
   const onSuccess = () => {}
 
   describe('initial load', () => {
     const wrapper = mount(
-      <ImportCleverClassroomsModal
+      <importCleverClassroomsModal
         classrooms={cleverClassroomsData}
         close={close}
         onSuccess={onSuccess}
@@ -29,9 +28,9 @@ describe('ImportCleverClassroomsModal component', () => {
     })
   })
 
-  describe('#handleClickImportClasses', () => {
+  describe('#handleClickimportClasses', () => {
     const wrapper = mount(
-      <ImportCleverClassroomsModal
+      <importCleverClassroomsModal
         classrooms={cleverClassroomsData}
         close={close}
         onSuccess={onSuccess}
@@ -44,7 +43,7 @@ describe('ImportCleverClassroomsModal component', () => {
     wrapper.setState({ classrooms: checkedCleverClassrooms })
 
     it('should set a classroom that is checked', () => {
-      wrapper.instance().handleClickImportClasses()
+      wrapper.instance().handleClickimportClasses()
       expect(wrapper).toMatchSnapshot();
     })
   })

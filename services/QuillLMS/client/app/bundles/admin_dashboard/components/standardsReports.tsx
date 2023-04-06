@@ -1,6 +1,6 @@
 import * as React from 'react';
-import StandardsReportsTable from './standardsReportsTable';
 import CSVDownloadForProgressReport from '../../Teacher/components/progress_reports/csv_download_for_progress_report';
+import StandardsReportsTable from './standardsReportsTable';
 
 export const StandardsReports = ({
   csvData,

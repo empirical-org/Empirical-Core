@@ -1,7 +1,6 @@
 import * as React from 'react';
-import { Redirect, Route, Switch, withRouter, Link } from 'react-router-dom';
-import NavBar from '../navbar/navbar.jsx';
-import AdminClassroomLessonsContainer from '../classroomLessons/admin/container'
+import { Link, Route, Switch, withRouter } from 'react-router-dom';
+import AdminClassroomLessonsContainer from '../classroomLessons/admin/container';
 
 const TabLink = ({ to, children, }) => (
   <li>

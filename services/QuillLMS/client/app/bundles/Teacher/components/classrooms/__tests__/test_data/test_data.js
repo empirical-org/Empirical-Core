@@ -280,7 +280,7 @@ export const googleClassrooms = [
     name: "Big Class 1",
     ownerId: "102184716939792017986",
     section: "1",
-    alreadyImported: true,
+    alreadyimported: true,
     grade: null,
     creationTime: "2017-08-17T21:19:02.818Z",
     studentCount: 0
@@ -290,7 +290,7 @@ export const googleClassrooms = [
     name: "shared class",
     ownerId: "112188393285935083024",
     section: null,
-    alreadyImported: true,
+    alreadyimported: true,
     grade: null,
     creationTime: "2017-04-24T18:36:15.711Z",
     studentCount: 0
@@ -300,7 +300,7 @@ export const googleClassrooms = [
     name: "test teacher is not a student",
     ownerId: "102184716939792017986",
     section: null,
-    alreadyImported: true,
+    alreadyimported: true,
     grade: null,
     creationTime: "2017-03-13T16:31:05.568Z",
     studentCount: 9
@@ -310,7 +310,7 @@ export const googleClassrooms = [
     name: "this won't work either",
     ownerId: "102184716939792017986",
     section: null,
-    alreadyImported: true,
+    alreadyimported: true,
     grade: null,
     creationTime: "2017-03-13T16:14:31.136Z",
     studentCount: 0
@@ -320,7 +320,7 @@ export const googleClassrooms = [
     name: "this will not work",
     ownerId: "102184716939792017986",
     section: null,
-    alreadyImported: true,
+    alreadyimported: true,
     grade: null,
     creationTime: "2017-03-13T16:07:49.735Z",
     studentCount: 2
@@ -330,7 +330,7 @@ export const googleClassrooms = [
     name: "test teacher is a student",
     ownerId: "102184716939792017986",
     section: null,
-    alreadyImported: true,
+    alreadyimported: true,
     grade: null,
     creationTime: "2017-03-13T16:05:33.074Z",
     studentCount: 1

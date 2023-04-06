@@ -1,12 +1,12 @@
+import Fuse from 'fuse.js';
+import gql from "graphql-tag";
 import * as React from "react";
 import { Query } from "react-apollo";
-import gql from "graphql-tag";
-import Fuse from 'fuse.js'
 
-import { ChangeLog } from '../interfaces/interfaces'
 import ChangeLogTable from "../components/ChangeLogTable";
-import Search from "../components/shared/search";
 import ConceptManagerNav from "../components/ConceptManagerNav";
+import Search from "../components/shared/search";
+import { ChangeLog } from '../interfaces/interfaces';
 
 const conceptsChangeLogIndexQuery:string = `
 {

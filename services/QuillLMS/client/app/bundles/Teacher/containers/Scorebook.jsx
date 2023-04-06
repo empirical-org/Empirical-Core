@@ -1,20 +1,19 @@
-import React from 'react';
 import createReactClass from 'create-react-class';
 import $ from 'jquery';
-import _ from 'underscore';
 import moment from 'moment';
+import React from 'react';
 
-import Scrollify from '../components/modules/scrollify';
-import { PROGRESS_REPORTS_SELECTED_CLASSROOM_ID, } from '../components/progress_reports/progress_report_constants'
+import { requestGet, } from '../../../modules/request/index';
 import TableFilterMixin from '../components/general_components/table/sortable_table/table_filter_mixin.js';
-import StudentScores from '../components/scorebook/student_scores';
-import LoadingIndicator from '../components/shared/loading_indicator';
-import ScorebookFilters from '../components/scorebook/scorebook_filters';
-import ScoreLegend from '../components/scorebook/score_legend';
+import Scrollify from '../components/modules/scrollify';
+import { PROGRESS_REPORTS_SELECTED_CLASSROOM_ID, } from '../components/progress_reports/progress_report_constants';
 import { AppLegend } from '../components/scorebook/app_legend.tsx';
+import ScoreLegend from '../components/scorebook/score_legend';
+import ScorebookFilters from '../components/scorebook/scorebook_filters';
+import StudentScores from '../components/scorebook/student_scores';
 import EmptyProgressReport from '../components/shared/EmptyProgressReport';
-import { requestGet, } from '../../../modules/request/index'
 import ArticleSpotlight from '../components/shared/articleSpotlight';
+import LoadingIndicator from '../components/shared/loading_indicator';
 import { ACTIVITY_SUMMARY_FEATURED_BLOG_POST_ID } from '../constants/featuredBlogPost';
 
 export default createReactClass({

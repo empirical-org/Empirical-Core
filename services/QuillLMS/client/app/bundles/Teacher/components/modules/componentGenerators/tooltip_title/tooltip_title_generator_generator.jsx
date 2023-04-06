@@ -1,6 +1,6 @@
 import PercentageDisplayer from '../../percentage_displayer.jsx';
-import StudentProfileTooltipTitleGenerator from './student_profile_tooltip_title_generator.jsx';
 import ScorebookTooltipTitleGenerator from './scorebook_tooltip_title_generator.jsx';
+import StudentProfileTooltipTitleGenerator from './student_profile_tooltip_title_generator.jsx';
 
 export default function (context) {
   if (context == undefined) {

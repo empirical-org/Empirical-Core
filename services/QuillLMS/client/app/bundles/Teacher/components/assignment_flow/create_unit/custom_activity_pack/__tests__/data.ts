@@ -916,7 +916,7 @@ export const activities: Activity[] = [
     readability_grade_level: "8th-9th",
   },
   {
-    name: "The Importance of the Buffalo",
+    name: "The importance of the Buffalo",
     description:
       "Combine sentences to create 6 sentences about the importance of the buffalo to the Native American tribes living on the Great Plains. This is an advanced, un-cued sentence combining activity.",
     flags: "{production}",

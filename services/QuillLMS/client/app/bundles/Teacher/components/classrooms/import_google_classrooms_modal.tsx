@@ -1,21 +1,21 @@
-import * as React from 'react'
-import * as moment from 'moment'
+import * as moment from 'moment';
 import Pusher from 'pusher-js';
+import * as React from 'react';
 
-import GradeOptions from './grade_options'
+import GradeOptions from './grade_options';
 
-import { DropdownInput, DataTable } from '../../../Shared/index'
-import ButtonLoadingIndicator from '../shared/button_loading_indicator'
 import { requestPost, requestPut } from '../../../../modules/request/index';
+import { DataTable, DropdownInput } from '../../../Shared/index';
+import ButtonLoadingIndicator from '../shared/button_loading_indicator';
 
-interface ImportGoogleClassroomsModalProps {
+interface importGoogleClassroomsModalProps {
   close: (event) => void;
   onSuccess: (event) => void;
   classrooms: Array<any>;
   user: any;
 }
 
-interface ImportGoogleClassroomsModalState {
+interface importGoogleClassroomsModalState {
   classrooms: Array<any>;
   waiting: boolean;
   timesSubmitted: number;
@@ -42,7 +42,7 @@ const headers = [
   }
 ]
 
-export default class ImportGoogleClassroomsModal extends React.Component<ImportGoogleClassroomsModalProps, ImportGoogleClassroomsModalState> {
+export default class importGoogleClassroomsModal extends React.Component<importGoogleClassroomsModalProps, importGoogleClassroomsModalState> {
   constructor(props) {
     super(props)
 
@@ -95,7 +95,7 @@ export default class ImportGoogleClassroomsModal extends React.Component<ImportG
     this.setState({ classrooms })
   }
 
-  initializePusherForGoogleStudentImport(id) {
+  initializePusherForGoogleStudentimport(id) {
     if (process.env.RAILS_ENV === 'development') {
       Pusher.logToConsole = true;
     }
@@ -109,7 +109,7 @@ export default class ImportGoogleClassroomsModal extends React.Component<ImportG
     });
   }
 
-  handleClickImportClasses = () => {
+  handleClickimportClasses = () => {
     const { classrooms } = this.state
     const classroomsCheckedWithNoGrade = classrooms.filter(classroom => classroom.checked && !classroom.grade)
 
@@ -131,7 +131,7 @@ export default class ImportGoogleClassroomsModal extends React.Component<ImportG
       const newClassrooms = body.classrooms.filter(classroom => selectedClassrooms.find(sc => sc.id === classroom.google_classroom_id))
       const selectedClassroomIds = newClassrooms.map(classroom => classroom.id)
       requestPut('/teachers/classrooms/import_google_students', { selected_classroom_ids: selectedClassroomIds }, (body) => {
-        this.initializePusherForGoogleStudentImport(body.id)
+        this.initializePusherForGoogleStudentimport(body.id)
       })
     })
   }
@@ -179,12 +179,12 @@ export default class ImportGoogleClassroomsModal extends React.Component<ImportG
     )
   }
 
-  renderImportButton() {
+  renderimportButton() {
     const { waiting } = this.state
     if (waiting) {
       return <button aria-label="Loading" className={this.footerButtonClass()} type="button"><ButtonLoadingIndicator /></button>
     } else {
-      return <button className={this.footerButtonClass()} onClick={this.handleClickImportClasses} type="button">Import classes</button>
+      return <button className={this.footerButtonClass()} onClick={this.handleClickimportClasses} type="button">import classes</button>
     }
   }
 
@@ -196,7 +196,7 @@ export default class ImportGoogleClassroomsModal extends React.Component<ImportG
         <div className="import-google-classrooms-modal quill-modal">
 
           <div className="import-google-classrooms-modal-header">
-            <h3 className="title">Import classes from Google Classroom</h3>
+            <h3 className="title">import classes from Google Classroom</h3>
           </div>
 
           <div className="import-google-classrooms-modal-body modal-body">
@@ -206,7 +206,7 @@ export default class ImportGoogleClassroomsModal extends React.Component<ImportG
           <div className="import-google-classrooms-modal-footer">
             <div className="buttons">
               <button className="quill-button outlined secondary medium" onClick={close} type="button">Cancel</button>
-              {this.renderImportButton()}
+              {this.renderimportButton()}
             </div>
           </div>
 

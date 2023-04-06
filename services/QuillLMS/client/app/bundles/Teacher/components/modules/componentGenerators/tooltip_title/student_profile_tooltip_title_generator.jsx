@@ -1,6 +1,6 @@
 import React from 'react';
-import ActivityDetails from '../../../general_components/tooltip/activity_details.jsx';
 import ReactDOMServer from 'react-dom/server';
+import ActivityDetails from '../../../general_components/tooltip/activity_details.jsx';
 
 export default function (percentageDisplayer) {
   const _displayPercentage = percentageDisplayer.run;

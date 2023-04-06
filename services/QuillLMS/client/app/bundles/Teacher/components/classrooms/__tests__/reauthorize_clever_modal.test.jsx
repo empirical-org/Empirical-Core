@@ -1,7 +1,7 @@
-import React from 'react';
 import { shallow } from 'enzyme';
+import React from 'react';
 
-import ReauthorizeCleverModal from '../reauthorize_clever_modal'
+import ReauthorizeCleverModal from '../reauthorize_clever_modal';
 
 describe('ReauthorizeCleverModal component', () => {
   const close = () => {}

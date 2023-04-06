@@ -6,9 +6,9 @@ import _ from 'underscore';
 import ChooseModelContainer from './chooseModelContainer.jsx';
 
 import {
-  hashToCollection,
-  SortableList,
-  TextEditor
+    hashToCollection,
+    SortableList,
+    TextEditor
 } from '../../../Shared/index';
 
 class LessonForm extends React.Component {

@@ -1,4 +1,4 @@
-import * as React from 'react'
+import * as React from 'react';
 
 // from https://usehooks.com/useWindowSize/ on 08/31/20
 function useWindowSize() {

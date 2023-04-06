@@ -1,7 +1,7 @@
-import React from 'react'
-import _ from 'underscore'
-import POSForResponse from './POSForResponse.jsx'
-import keysForPOS from './POSIndex.jsx'
+import React from 'react';
+import _ from 'underscore';
+import POSForResponse from './POSForResponse.jsx';
+import keysForPOS from './POSIndex.jsx';
 
 export default class extends React.Component {
   // getPOSTagsList: function() {

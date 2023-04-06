@@ -1,6 +1,5 @@
-import * as React from 'react';
 import { shallow } from 'enzyme';
-import * as _ from 'underscore'
+import * as React from 'react';
 
 import { AdminsTeachers } from '../adminsTeachers';
 

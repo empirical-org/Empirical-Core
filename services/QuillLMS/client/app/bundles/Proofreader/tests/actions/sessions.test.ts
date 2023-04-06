@@ -1,6 +1,6 @@
+import * as sessionActions from '../../actions/session'
 import { SessionApi } from '../../lib/sessions_api'
 import { mockDispatch as dispatch } from '../__mocks__/dispatch'
-import * as sessionActions from '../../actions/session'
 
 describe('Session actions', () => {
 

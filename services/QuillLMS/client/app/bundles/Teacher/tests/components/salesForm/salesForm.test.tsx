@@ -1,7 +1,7 @@
-import * as React from 'react';
 import { mount } from 'enzyme';
+import * as React from 'react';
 
-import { SalesForm }from '../../../components/salesForm';
+import { SalesForm } from '../../../components/salesForm';
 
 jest.mock('fuse.js', () => ({
   default: jest.fn()

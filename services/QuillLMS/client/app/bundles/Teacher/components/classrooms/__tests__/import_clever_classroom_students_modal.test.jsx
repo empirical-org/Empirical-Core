@@ -1,24 +1,23 @@
-import React from 'react';
 import { shallow } from 'enzyme';
+import React from 'react';
 
-import { classroomWithStudents } from './test_data/test_data'
-
-import ImportCleverClassroomStudentsModal from '../import_clever_classroom_students_modal'
+import { classroomWithStudents } from './test_data/test_data';
 
 
-describe('ImportCleverClassroomStudentsModal component', () => {
+
+describe('importCleverClassroomStudentsModal component', () => {
   const close = () => {}
   const onSuccess = () => {}
 
   const wrapper = shallow(
-    <ImportCleverClassroomStudentsModal
+    <importCleverClassroomStudentsModal
       classroom={classroomWithStudents}
       close={close}
       onSuccess={onSuccess}
     />
   );
 
-  it('should render ImportCleverClassroomStudentsModal', () => {
+  it('should render importCleverClassroomStudentsModal', () => {
     expect(wrapper).toMatchSnapshot()
   })
 

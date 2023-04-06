@@ -1,7 +1,7 @@
-import * as React from 'react';
 import { shallow } from 'enzyme';
+import * as React from 'react';
 
-import CreateAClassForm from '../create_a_class_form'
+import CreateAClassForm from '../create_a_class_form';
 
 describe('CreateAClassForm component', () => {
 

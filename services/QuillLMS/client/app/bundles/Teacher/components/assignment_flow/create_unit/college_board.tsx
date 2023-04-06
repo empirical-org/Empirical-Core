@@ -1,7 +1,7 @@
 import * as React from 'react';
+import ScrollToTop from '../../shared/scroll_to_top';
+import AssignmentFlowNavigation from '../assignment_flow_navigation';
 import AssignmentCard from './assignment_card';
-import AssignmentFlowNavigation from '../assignment_flow_navigation'
-import ScrollToTop from '../../shared/scroll_to_top'
 
 const selectCard = (history: any, link: string) => {
   history.push(link)

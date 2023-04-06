@@ -1,9 +1,9 @@
 import * as React from "react";
 import { RouteConfig } from "react-router-config";
-import Admin from "./components/admin/admin"
-import Customize from "./components/customize/customize"
-import StudentRoot from "./components/studentRoot"
-import TeacherRoot from './components/root'
+import Admin from "./components/admin/admin";
+import Customize from "./components/customize/customize";
+import TeacherRoot from './components/root';
+import StudentRoot from "./components/studentRoot";
 
 export const routes: RouteConfig[] = [
   {
