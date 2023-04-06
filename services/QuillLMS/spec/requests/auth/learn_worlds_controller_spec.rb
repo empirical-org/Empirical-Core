@@ -5,7 +5,7 @@ require 'rails_helper'
 RSpec.describe Auth::LearnWorldsController do
   subject { post auth_learn_worlds_courses_path }
 
-  let(:courses_endpoint) { stub_const('Auth::LearnWorlds::COURSES_ENDPOINT', 'https://learnworlds.com/courses') }
+  let(:courses_endpoint) { 'https://learnworlds.com/courses' }
 
   before do
     allow(User).to receive(:find).with(user.id).and_return(user)
