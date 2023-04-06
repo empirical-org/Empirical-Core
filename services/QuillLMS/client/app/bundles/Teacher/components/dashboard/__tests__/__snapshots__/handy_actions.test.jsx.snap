@@ -338,7 +338,7 @@ exports[`HandyActions component should render when the user is not linked to Cle
         }
       }
       link="/teachers/classrooms?modal=google-classroom"
-      text="Import classes from Google"
+      text="import classes from Google"
     >
       <a
         className="handy-action focus-on-light"
@@ -349,7 +349,7 @@ exports[`HandyActions component should render when the user is not linked to Cle
           src="undefined/images/icons/icons-google-classroom.svg"
         />
         <span>
-          Import classes from Google
+          import classes from Google
         </span>
       </a>
     </HandyAction>
