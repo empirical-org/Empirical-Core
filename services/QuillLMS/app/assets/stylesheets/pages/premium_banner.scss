@@ -32,6 +32,21 @@
     .button-green{ width: 326px;}
     h4 {margin-bottom: 7px;}
   }
+  .pull-right {
+    padding-right: 12px !important;
+    .premium-button-box {
+      float: right;
+    }
+  }
+
+  @media screen and (max-width: 1000px) {
+    .pull-right {
+      .premium-button-box {
+        float: none !important;
+      }
+    }
+  }
+
 }
 .school-premium-banner {
   margin-left: 0px !important;
@@ -44,7 +59,7 @@
   background-color: #F7F5F5;
   width: 100%;
   .pull-left {
-    padding-left: 0px !important;
+    padding-left: 15px !important;
     padding-right: 0px !important;
     max-width: 715px;
     margin-top: 5px;
@@ -52,8 +67,11 @@
   .pull-right {
     margin-top: 20px;
     margin-bottom: 20px;
+    margin-left: 0px !important;
+    padding-right: 10px;
     .premium-button-box {
       min-width: 115px;
+      float: right;
     }
   }
   h4 {
@@ -69,11 +87,10 @@
     margin-bottom: 7px;
   }
 
-  @media screen and (min-width: 1000px) {
+  @media screen and (max-width: 1000px) {
     .pull-right {
       .premium-button-box {
-        margin-left: 78px;
-        margin-right: -27px;
+        float: none !important;
       }
     }
   }
