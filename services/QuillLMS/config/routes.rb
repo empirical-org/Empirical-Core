@@ -585,6 +585,7 @@ EmpiricalGrammar::Application.routes.draw do
 
   namespace :auth do
     get '/clever/callback', to: 'clever#clever'
+    post '/learn_worlds/courses', to: 'learn_worlds#courses'
   end
 
   namespace :clever_integration do

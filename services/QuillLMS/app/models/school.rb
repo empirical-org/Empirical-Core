@@ -184,6 +184,10 @@ class School < ApplicationRecord
     district&.name
   end
 
+  def premium?
+    subscription&.present? || district&.premium?
+  end
+
   private def generate_leap_csv_row(student, teacher, classroom, activity_session)
     [
       student.id,

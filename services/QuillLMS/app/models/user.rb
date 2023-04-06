@@ -785,6 +785,10 @@ class User < ApplicationRecord
     end
   end
 
+  def learn_worlds_access?
+    teacher? && school&.premium?
+  end
+
   private def validate_flags
     invalid_flags = flags - VALID_FLAGS
 
