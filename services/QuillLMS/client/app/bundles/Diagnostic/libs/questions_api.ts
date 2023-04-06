@@ -1,11 +1,11 @@
 import { requestDelete, requestGet, requestPost, requestPut } from '../../../modules/request/index';
 import {
-  FocusPoint,
-  IncorrectSequence,
-  Question,
-  QuestionCollection,
-  FocusPointCollection,
-  IncorrectSequenceCollection
+    FocusPoint,
+    FocusPointCollection,
+    IncorrectSequence,
+    IncorrectSequenceCollection,
+    Question,
+    QuestionCollection
 } from '../interfaces/questions';
 import { ApiConstants } from '../utils/api';
 
@@ -101,10 +101,11 @@ class IncorrectSequenceApi {
 }
 
 export {
-  QuestionApi,
-  FocusPointApi,
-  IncorrectSequenceApi,
-  SENTENCE_COMBINING_TYPE,
-  SENTENCE_FRAGMENTS_TYPE,
-  FILL_IN_BLANKS_TYPE
-}
+    QuestionApi,
+    FocusPointApi,
+    IncorrectSequenceApi,
+    SENTENCE_COMBINING_TYPE,
+    SENTENCE_FRAGMENTS_TYPE,
+    FILL_IN_BLANKS_TYPE
+};
+

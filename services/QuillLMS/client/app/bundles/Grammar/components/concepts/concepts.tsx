@@ -1,8 +1,8 @@
 import * as React from 'react'
 import { connect } from 'react-redux'
-import LinkListItem from '../shared/linkListItem'
-import { ConceptReducerState } from '../../reducers/conceptsReducer'
 import { Concept } from '../../interfaces/concepts'
+import { ConceptReducerState } from '../../reducers/conceptsReducer'
+import LinkListItem from '../shared/linkListItem'
 
 interface ConceptsProps {
   concepts: ConceptReducerState;

@@ -1,6 +1,5 @@
-import _ from 'lodash';
 import { push } from 'react-router-redux';
-import { TitleCardApi, DIAGNOSTIC_TITLE_CARD_TYPE } from '../libs/title_cards_api'
+import { DIAGNOSTIC_TITLE_CARD_TYPE, TitleCardApi } from '../libs/title_cards_api';
 import sessionActions from './sessions';
 
 const C = require('../constants').default;
@@ -66,9 +65,10 @@ function submitTitleCardEdit(uid, content) {
 }
 
 export {
-  submitNewTitleCard,
-  loadTitleCards,
-  loadSpecifiedTitleCards,
-  startListeningToTitleCards,
-  submitTitleCardEdit,
-}
+    submitNewTitleCard,
+    loadTitleCards,
+    loadSpecifiedTitleCards,
+    startListeningToTitleCards,
+    submitTitleCardEdit,
+};
+

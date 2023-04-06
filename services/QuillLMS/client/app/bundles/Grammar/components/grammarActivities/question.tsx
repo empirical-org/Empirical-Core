@@ -1,22 +1,22 @@
+import { ConceptResult, Response } from 'quill-marking-logic';
 import * as React from "react";
 import ContentEditable from 'react-contenteditable';
-import { Response, ConceptResult } from 'quill-marking-logic';
 
-import Cues from './cues'
+import Cues from './cues';
 
-import { Question } from '../../interfaces/questions'
-import { GrammarActivity } from '../../interfaces/grammarActivities'
-import * as responseActions from '../../actions/responses'
-import { setCurrentQuestion } from '../../actions/session'
 import { getParameterByName } from '../../../Connect/libs/getParameterByName';
 import {
-  hashToCollection,
-  ProgressBar,
-  ConceptExplanation,
-  Feedback,
-  getLatestAttempt,
-  TeacherPreviewMenuButton
-} from '../../../Shared/index'
+    ConceptExplanation,
+    Feedback,
+    ProgressBar,
+    TeacherPreviewMenuButton,
+    getLatestAttempt,
+    hashToCollection
+} from '../../../Shared/index';
+import * as responseActions from '../../actions/responses';
+import { setCurrentQuestion } from '../../actions/session';
+import { GrammarActivity } from '../../interfaces/grammarActivities';
+import { Question } from '../../interfaces/questions';
 
 const ALLOWED_ATTEMPTS = 5
 const UNANSWERED = 'unanswered'
