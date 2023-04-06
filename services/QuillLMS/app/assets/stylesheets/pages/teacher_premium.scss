@@ -101,4 +101,12 @@
     }
   }
 
+  @media (max-width: 1250px) {
+    .report-links {
+      display: flex;
+      align-items: center;
+      flex-direction: column;
+    }
+  }
+
 }
