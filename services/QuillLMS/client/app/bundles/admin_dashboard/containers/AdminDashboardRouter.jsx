@@ -6,7 +6,7 @@ export default function AdminDashboardRouter(props) {
   return (
     <BrowserRouter>
       <Route
-        path="/teachers/admin_dashboard"
+        path="/teachers/premium_hub"
         render={passedProps => (
           <AdminDashboardContainer {...props} {...passedProps} />
         )}

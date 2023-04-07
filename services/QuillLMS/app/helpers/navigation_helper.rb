@@ -34,7 +34,7 @@ module NavigationHelper
   end
 
   def admin_page_active?
-    action_name == 'admin_dashboard'
+    action_name == 'premium_hub'
   end
 
   def premium_page_active?

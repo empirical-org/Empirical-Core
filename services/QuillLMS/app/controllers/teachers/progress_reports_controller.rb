@@ -29,7 +29,7 @@ class Teachers::ProgressReportsController < ApplicationController
   def admin_demo
     set_admin_user
     switch_current_user(@admin_user)
-    redirect_to teachers_admin_dashboard_path
+    redirect_to teachers_premium_hub_path
   end
 
   def landing_page

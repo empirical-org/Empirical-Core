@@ -133,12 +133,12 @@ const AdminDashboardContainer = ({ id, location, children, }) => {
           {children}
           {renderBanner()}
           <Switch>
-            <Route component={routerProps => <ActivityScoresStudentOverview {...sharedProps} {...routerProps} />} path="/teachers/admin_dashboard/district_activity_scores/student_overview" />
-            <Route component={routerProps => <DistrictActivityScoresProgressReport {...sharedProps} {...routerProps} />} path="/teachers/admin_dashboard/district_activity_scores" />
-            <Route component={routerProps => <DistrictConceptReportsProgressReport {...sharedProps} {...routerProps} />} path="/teachers/admin_dashboard/district_concept_reports" />
-            <Route component={routerProps => <DistrictStandardsReportsProgressReport {...sharedProps} {...routerProps} />} path="/teachers/admin_dashboard/district_standards_reports" />
-            <Route component={routerProps => <SchoolSubscriptionsContainer {...sharedProps} {...routerProps} />} path="/teachers/admin_dashboard/school_subscriptions" />
-            <Route component={routerProps => <AdminDashboard adminId={id} {...sharedProps} {...routerProps} />} exact path="/teachers/admin_dashboard/" />
+            <Route component={routerProps => <ActivityScoresStudentOverview {...sharedProps} {...routerProps} />} path="/teachers/premium_hub/district_activity_scores/student_overview" />
+            <Route component={routerProps => <DistrictActivityScoresProgressReport {...sharedProps} {...routerProps} />} path="/teachers/premium_hub/district_activity_scores" />
+            <Route component={routerProps => <DistrictConceptReportsProgressReport {...sharedProps} {...routerProps} />} path="/teachers/premium_hub/district_concept_reports" />
+            <Route component={routerProps => <DistrictStandardsReportsProgressReport {...sharedProps} {...routerProps} />} path="/teachers/premium_hub/district_standards_reports" />
+            <Route component={routerProps => <SchoolSubscriptionsContainer {...sharedProps} {...routerProps} />} path="/teachers/premium_hub/school_subscriptions" />
+            <Route component={routerProps => <AdminDashboard adminId={id} {...sharedProps} {...routerProps} />} exact path="/teachers/premium_hub/" />
           </Switch>
         </div>
       </div>

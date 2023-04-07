@@ -23,7 +23,7 @@ export default class AdminSubnav extends React.Component<any, any> {
       state.standardsReports = 'active'
     } else if (props.path.pathname.includes('school_subscriptions')) {
       state.schoolSubscriptions = 'active'
-    } else if (props.path.pathname.includes('admin_dashboard')) {
+    } else if (props.path.pathname.includes('premium_hub')) {
       state.overview = 'active'
     }
     return state
@@ -44,27 +44,27 @@ export default class AdminSubnav extends React.Component<any, any> {
         <div className="container">
           <ul>
             <li>
-              <Link className={overview} to="/teachers/admin_dashboard">
+              <Link className={overview} to="/teachers/premium_hub">
               Overview
               </Link>
             </li>
             <li>
-              <Link className={schoolSubscriptions} to="/teachers/admin_dashboard/school_subscriptions">
+              <Link className={schoolSubscriptions} to="/teachers/premium_hub/school_subscriptions">
               School Subscriptions
               </Link>
             </li>
             <li>
-              <Link className={`premium ${activityScores}`} to="/teachers/admin_dashboard/district_activity_scores">
+              <Link className={`premium ${activityScores}`} to="/teachers/premium_hub/district_activity_scores">
                 Activity Scores{this.getIcon(activityScores)}
               </Link>
             </li>
             <li>
-              <Link className={`premium ${conceptReports}`} to="/teachers/admin_dashboard/district_concept_reports">
+              <Link className={`premium ${conceptReports}`} to="/teachers/premium_hub/district_concept_reports">
                 Concept Reports{this.getIcon(conceptReports)}
               </Link>
             </li>
             <li>
-              <Link className={`premium ${standardsReports}`} to="/teachers/admin_dashboard/district_standards_reports">
+              <Link className={`premium ${standardsReports}`} to="/teachers/premium_hub/district_standards_reports">
                 Standards Reports{this.getIcon(standardsReports)}
               </Link>
             </li>

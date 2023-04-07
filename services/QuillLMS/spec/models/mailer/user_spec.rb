@@ -16,7 +16,7 @@ RSpec.describe Mailer::User do
     allow(user).to receive(:mailer_user).and_return(mailer_user)
   end
 
-  context 'Admin Dashboard' do
+  context 'Premium Hub' do
     let(:mailer_class)  { AdminDashboardUserMailer }
 
     describe '#send_admin_dashboard_teacher_account_created_email' do
