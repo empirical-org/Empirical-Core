@@ -505,6 +505,8 @@ class PagesController < ApplicationController
     @style_file = 'staff'
   end
 
+  def quill_academy; end
+
   private def determine_layout
     case action_name
     when 'home'

@@ -746,6 +746,7 @@ EmpiricalGrammar::Application.routes.draw do
     springboard_units
     administrator
     locker
+    quill_academy
   )
 
   all_pages = other_pages
