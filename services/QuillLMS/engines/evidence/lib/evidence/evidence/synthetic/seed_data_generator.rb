@@ -3,15 +3,15 @@
 module Evidence
   module Synthetic
     class SeedDataGenerator
-      Result = Struct.new(:text, :generator, keyword_init: true) do
-        def seed
-          generator&.seed_descriptor
-        end
+      # Result = Struct.new(:text, :generator, keyword_init: true) do
+      #   def seed
+      #     generator&.seed_descriptor
+      #   end
 
-        def label
-          generator&.label
-        end
-      end
+      #   def label
+      #     generator&.label
+      #   end
+      # end
 
       WORD_SPLIT_COUNT = 70
       SPACE = ' '
@@ -55,7 +55,7 @@ module Evidence
         BECAUSE => [/^of/],
       }
 
-      attr_reader :passage, :stem, :conjunction, :nouns, :results, :label_configs, :use_passage
+      attr_reader :passage, :stem, :conjunction, :nouns, :results, :label_configs, :use_passage, :batch
 
       # returns a hash of the form {'csv name' => CSVString, 'csv name2' =>...}
       def self.csvs_for_activity(activity_id:, nouns: [], conjunctions: nil, label_configs: {}, use_passage: true)
@@ -68,32 +68,31 @@ module Evidence
 
         prompts.each do |prompt|
           csv_name = "#{short_name}_#{prompt.conjunction}#{CSV_SUFFIX}"
-
-          seed_data_generator = new(
-            passage: passage,
-            stem: prompt.text,
-            conjunction: prompt.conjunction,
+          batch = Evidence::PromptTextBatch.new(
+            type: "SeedData",
+            prompt: prompt,
             nouns: nouns,
-            label_configs: label_configs[prompt.conjunction] || [],
+            label_configs: label_configs,
             use_passage: use_passage
           )
+          seed_data_generator = new(batch)
           seed_data_generator.run
 
-          csvs[csv_name] = seed_data_generator.results_csv_string
+          csvs[batch.csv_name] = batch.seed_csv_string
         end
 
         csvs
       end
 
-      def initialize(passage:, stem:, conjunction:, nouns: [], label_configs: [], use_passage: true)
-        @passage = Evidence::HTMLTagRemover.run(passage)
-        @stem = stem
-        @conjunction = conjunction
-        @nouns = nouns
-        @label_configs = label_configs
+      def initialize(batch)
+        @batch = batch
+        @passage = batch.passage
+        @stem = batch.stem
+        @conjunction = batch.conjunction
+        @nouns = batch.nouns
+        @label_configs = batch.label_configs
+        @use_passage = batch.use_passage
         @results = []
-        @use_passage = use_passage
-        raise InvalidConjunctionError unless conjunction.in?(CONJUNCTIONS)
       end
 
       def run
@@ -105,7 +104,7 @@ module Evidence
 
         generate_label_paraphrases
 
-        results
+        results.map(&:save)
       end
 
       # whole passage plus prompt
@@ -129,6 +128,8 @@ module Evidence
 
       # whole passage plus prompt for each noun
       private def generate_full_passage_noun_responses
+        return unless nouns.present?
+
         nouns.each do |noun|
           prompt = prompt_text(context: passage, noun: noun)
             generator = Evidence::TextGeneration.new(
@@ -168,6 +169,8 @@ module Evidence
       EXAMPLES_KEY = 'examples'
 
       private def generate_label_paraphrases
+        return unless label_configs.present?
+
         label_configs.each do |label_config|
           label_config[EXAMPLES_KEY].map(&:strip).uniq.compact.each.with_index do |example, index|
             prompt = Evidence::OpenAI::PARAPHRASE_INSTRUCTION + example
@@ -202,11 +205,12 @@ module Evidence
       private def parse_generator_api_results(api_results, current_texts:, generator:)
         api_results
           .map {|s| lowercaser.run(s) }
-          .map {|s| Result.new(text: [generator.noun, s].join(SPACE).strip, generator: generator)}
-          .uniq {|r| r.text }
-          .reject {|r| r.text.in?(current_texts)}
-          .reject {|r| regex_exclude?(r.text) }
-          .reject {|r| opinion_api_flagged?(r.text) }
+          .map {|s| [generator.noun, s].join(SPACE).strip }
+          .uniq
+          .reject {|s| s.in?(current_texts)}
+          .reject {|s| regex_exclude?(s) }
+          .reject {|s| opinion_api_flagged?(s) }
+          .map {|s| batch.prompt_texts.new(text: s, text_generation: generator)}
       end
 
       private def lowercaser
@@ -262,12 +266,12 @@ module Evidence
         CONJUNCTION_EXCLUSIONS[conjunction]
       end
 
-      def results_csv_string
-        CSV.generate do |csv|
-          csv << ['Text', 'Seed', 'Initial Label']
-          results.each {|r| csv << [r.text, r.seed, r.label]}
-        end
-      end
+      # def results_csv_string
+      #   CSV.generate do |csv|
+      #     csv << ['Text', 'Seed', 'Initial Label']
+      #     results.each {|r| csv << [r.text, r.seed, r.label]}
+      #   end
+      # end
     end
   end
 end

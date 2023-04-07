@@ -4,14 +4,14 @@ require 'rails_helper'
 
 module Evidence
   RSpec.describe(Synthetic::SeedDataGenerator, type: :model) do
-    let(:passage) { '<p>one two <strong>three four five six</p>' }
-    let(:passage_clean) { 'one two three four five six' }
-    let(:stem) { 'Adding esports could benefit the Olympics, but'}
+    let(:passage_text) { '<p>one two <strong>three four five six seven eight</p>' }
+    let(:passage_clean) { 'one two three four five six seven eight' }
+    let(:stem) { 'Intro, but'}
     let(:conjunction) {'but'}
     let(:nouns) { ['noun1']}
-    let(:full_passage_prompt) {"#{passage_clean}. Adding esports could benefit the Olympics, but"}
-    let(:full_passage_prompt_alternate1) {"#{passage_clean}. Adding esports could benefit the Olympics, but the counter argument is that"}
-    let(:full_passage_prompt_alternate2) {"#{passage_clean}. Even though Adding esports could benefit the Olympics,"}
+    let(:full_passage_prompt) {"#{passage_clean}. #{stem}"}
+    let(:full_passage_prompt_alternate1) {"#{passage_clean}. Intro, but the counter argument is that"}
+    let(:full_passage_prompt_alternate2) {"#{passage_clean}. Even though Intro,"}
 
     let(:full_passage_response) {['one response']}
     let(:full_passage_response2) {['one response 2']}
@@ -23,14 +23,14 @@ module Evidence
     let(:full_noun_prompt) {"#{passage_clean}. #{stem} #{nouns.first}"}
     let(:full_noun_response) {['two response']}
 
-    let(:chunk1_prompt) {"one two three four. Adding esports could benefit the Olympics, but"}
-    let(:chunk1_prompt_alternate1) {"one two three four. Adding esports could benefit the Olympics, but the counter argument is that"}
-    let(:chunk1_prompt_alternate2) {"one two three four. Even though Adding esports could benefit the Olympics,"}
+    let(:chunk1_prompt) {"one two three four. #{stem}"}
+    let(:chunk1_prompt_alternate1) {"one two three four. Intro, but the counter argument is that"}
+    let(:chunk1_prompt_alternate2) {"one two three four. Even though Intro,"}
     let(:chunk1_response) {['three response']}
 
-    let(:chunk2_prompt) {"five six. Adding esports could benefit the Olympics, but"}
-    let(:chunk2_prompt_alternate1) {"five six. Adding esports could benefit the Olympics, but the counter argument is that"}
-    let(:chunk2_prompt_alternate2) {"five six. Even though Adding esports could benefit the Olympics,"}
+    let(:chunk2_prompt) {"five six seven eight. Intro, but"}
+    let(:chunk2_prompt_alternate1) {"five six seven eight. Intro, but the counter argument is that"}
+    let(:chunk2_prompt_alternate2) {"five six seven eight. Even though Intro,"}
     let(:chunk2_response) {['four response']}
 
     let(:example) {'Example to paraphrase.'}
@@ -56,15 +56,12 @@ module Evidence
       ]
     end
 
-    subject do
-      described_class.new(
-        passage: passage,
-        stem: stem,
-        nouns: nouns,
-        conjunction: conjunction,
-        label_configs: [label_config]
-      )
-    end
+    let(:activity) { create(:evidence_activity) }
+    let!(:passage) { create(:evidence_passage, text: passage_text, activity: activity)}
+    let(:prompt) { create(:evidence_prompt, activity: activity, text: stem, conjunction: conjunction)}
+    let(:batch) { create(:seed_prompt_text_batch, prompt: prompt, use_passage: true, nouns: nouns, label_configs: [label_config])}
+
+    subject { described_class.new(batch)}
 
     before do
       stub_const("Evidence::Synthetic::SeedDataGenerator::WORD_SPLIT_COUNT", 4)
@@ -83,18 +80,6 @@ module Evidence
         expect(subject.nouns).to eq(nouns)
         expect(subject.conjunction).to eq(conjunction)
         expect(subject.results).to eq([])
-      end
-
-      let(:passage_dirty) {' <p><strong>&quot;It&#x27;s</strong> a good day&quot;, he said.</p>  '}
-      let(:data_dirty) { described_class.new(passage: passage_dirty, stem: stem, conjunction: conjunction)}
-      let(:invalid_conjunction) { described_class.new(passage: '', stem: '', conjunction: 'hello')}
-
-      it "should clean passage of all special characters" do
-        expect(data_dirty.passage).to eq("\"It's a good day\", he said.")
-      end
-
-      it "should raise if invalid conjunction" do
-        expect{invalid_conjunction}.to raise_error(described_class::InvalidConjunctionError)
       end
     end
 
@@ -158,21 +143,16 @@ module Evidence
         subject.run
 
         expect(subject.results.count).to be(10)
-        expect(subject.results.map(&:seed)).to eq(seed_labels)
-        expect(subject.results.map(&:label)).to eq([nil, nil, nil, nil, nil, nil, nil, nil, nil, "label1"])
+        expect(subject.results.map(&:seed_descriptor)).to eq(seed_labels)
+        expect(subject.results.map(&:seed_label)).to eq([nil, nil, nil, nil, nil, nil, nil, nil, nil, "label1"])
       end
 
+
       context "use_passage=false" do
-        subject do
-          described_class.new(
-            passage: passage,
-            stem: stem,
-            nouns: nouns,
-            conjunction: conjunction,
-            label_configs: [label_config],
-            use_passage: false
-          )
-        end
+        let(:batch) { create(:seed_prompt_text_batch, use_passage: false, label_configs: [label_config])}
+
+        subject { described_class.new(batch)}
+
         it "should generate ONLY label paraphrases" do
           # label example
           expect(Evidence::OpenAI::Completion).to receive(:run)
@@ -182,15 +162,16 @@ module Evidence
           subject.run
 
           expect(subject.results.count).to be(1)
-          expect(subject.results.map(&:seed)).to eq([label_tag])
-          expect(subject.results.map(&:label)).to eq(["label1"])
+          expect(subject.results.map(&:seed_descriptor)).to eq([label_tag])
+          expect(subject.results.map(&:seed_label)).to eq(["label1"])
         end
       end
     end
 
     describe "#run_generator" do
       let(:rejected_response) {['one response']}
-      let(:because) {described_class.new(passage: '', stem: stem, conjunction: 'because')}
+      let(:conjunction) {'because'}
+      let(:because) {described_class.new(batch)}
       let(:generator) { Evidence::TextGeneration.new(ml_prompt: '', count: 1, temperature: 1) }
 
       before do
@@ -216,8 +197,9 @@ module Evidence
       end
 
       context 'lowercasing responses' do
+        let(:passage_text) { 'Juliet calls out to Romeo and says yo, how are you?' }
         let(:response) {['They is a common word', 'Romeo dies (spoiler)', 'Calls out to him', 'lowercase']}
-        let(:because) {described_class.new(passage: 'Juliet calls out to Romeo', stem: stem, conjunction: 'because')}
+        let(:because) {described_class.new(batch)}
 
         it "should downcase first letter if common word or lowercase in passage" do
           expect(subject.first.text).to eq 'they is a common word'
@@ -262,7 +244,7 @@ module Evidence
 
     describe 'API timeout' do
       let(:openai_url) {'https://api.openai.com/v1/completions'}
-      let(:because) {described_class.new(passage: '', stem: stem, conjunction: 'because')}
+      let(:because) {described_class.new(batch)}
       let(:generator) { Evidence::TextGeneration.new(ml_prompt: '', count: 1, temperature: 1) }
 
       before do
@@ -279,29 +261,35 @@ module Evidence
     end
 
     describe "#stem_variants_hash" do
-      let(:conjunction) {'thus'}
+      let(:conjunction) {'so'}
       let(:stem) {"It is true, #{conjunction}"}
-      let(:conjunction_config) { {conjunction => ['therefore', 'Since %<stem>s this is']}}
+      let(:subs) {['therefore', 'Since %<stem>s this is']}
+      let(:conjunction_config) { {conjunction => subs}}
 
       before do
         stub_const("Evidence::Synthetic::SeedDataGenerator::CONJUNCTION_SUBS", conjunction_config)
         stub_const("Evidence::Synthetic::SeedDataGenerator::CONJUNCTIONS", [conjunction])
       end
 
-      subject {described_class.new(passage: '', stem: stem, conjunction: conjunction).send(:stem_variants_hash)}
+      subject {described_class.new(batch).send(:stem_variants_hash)}
 
       it "should return hash of conjunctions => stems" do
-        expect(subject.keys).to eq(['thus', 'therefore', 'Since %<stem>s this is'])
-        expect(subject['thus']).to eq "It is true, thus"
+        expect(subject.keys).to eq([conjunction] + subs)
+        expect(subject[conjunction]).to eq stem
         expect(subject['therefore']).to eq "It is true, therefore"
         expect(subject['Since %<stem>s this is']).to eq "Since It is true, this is"
       end
     end
 
     describe "#regex_exclude?" do
-      let(:because) {described_class.new(passage: '', stem: '', conjunction: 'because')}
-      let(:so) {described_class.new(passage: '', stem: '', conjunction: 'so')}
-      let(:but) {described_class.new(passage: '', stem: '', conjunction: 'but')}
+      let(:prompt_so) { create(:evidence_prompt, conjunction: 'so')}
+      let(:prompt_because) { create(:evidence_prompt, conjunction: 'because')}
+      let(:batch_so) { create(:seed_prompt_text_batch, prompt: prompt_so)}
+      let(:batch_because) { create(:seed_prompt_text_batch, prompt: prompt_because)}
+
+      let(:because) {described_class.new(batch_because)}
+      let(:so) {described_class.new(batch_so)}
+      let(:but) {described_class.new(batch)}
 
       it "should be true for matching regex" do
         expect(because.send(:regex_exclude?, "of the reason")).to be true
@@ -342,7 +330,7 @@ module Evidence
       end
 
       context "label examples only" do
-        subject { described_class.csvs_for_activity(activity_id: activity.id, label_configs: label_config, use_passage: false) }
+        subject { described_class.csvs_for_activity(activity_id: activity.id, label_configs: [label_config], use_passage: false) }
 
         it "should generate a hash without prompt_chunks csv" do
           expect(subject.class).to be Hash
@@ -350,7 +338,7 @@ module Evidence
 
           # values should be a multi-line valid CSV
           csv = CSV.parse(subject.values.first)
-          expect(csv.size).to be 1
+          expect(csv.size).to be 2
           expect(csv.first).to eq(["Text", "Seed", "Initial Label"])
         end
       end
