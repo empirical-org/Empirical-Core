@@ -70,12 +70,13 @@ module NavigationHelper
   def render_premium_badge
     school = current_user.school
     district = school&.district
+
     if district&.subscription.present?
-      "<div class='premium-navbar-badge-container red'><span>DISTRICT PREMIUM</span><div class='small-diamond-icon'></div></div>".html_safe
+      "<a class='premium-navbar-badge-container focus-on-light red' href='/premium' rel='noopener noreferrer' target='_blank' ><span>DISTRICT PREMIUM</span><div class='small-diamond-icon'></div></a>".html_safe
     elsif school&.subscription.present?
-      "<div class='premium-navbar-badge-container red'><span>SCHOOL PREMIUM</span><div class='small-diamond-icon'></div></div>".html_safe
+      "<a class='premium-navbar-badge-container focus-on-light red' href='/premium' rel='noopener noreferrer' target='_blank' ><span>SCHOOL PREMIUM</span><div class='small-diamond-icon'></div></a>".html_safe
     else
-      "<div class='premium-navbar-badge-container yellow'><span>TEACHER PREMIUM</span><div class='small-diamond-icon'></div></div>".html_safe
+      "<a class='premium-navbar-badge-container focus-on-light yellow' href='/premium' rel='noopener noreferrer' target='_blank' ><span>TEACHER PREMIUM</span><div class='small-diamond-icon'></div></a>".html_safe
     end
   end
 
