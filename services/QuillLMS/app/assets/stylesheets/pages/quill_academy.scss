@@ -1,0 +1,40 @@
+.quill-academy-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding-top: 64px;
+  .top-section {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    border-bottom: none;
+    margin-bottom: 128px;
+    .availability-disclaimer {
+      display: flex;
+      align-items: center;
+      background-color: rgba(223, 158, 61, 0.1);
+      border-radius: 10px;
+      color: #9F6405;
+      font-weight: 510;
+      font-size: 16px;
+      padding: 32px;
+      max-width: 990px;
+      margin-bottom: 64px;
+        img {
+          margin-right: 4px;
+        }
+      }
+    h2 {
+      font-weight: 700;
+      font-size: 30px;
+      margin: 16px 0px;
+    }
+    .subheader {
+      font-weight: 400;
+      font-size: 16px;
+      max-width: 656px;
+      margin-bottom: 32px;
+      text-align: center;
+    }
+  }
+}
