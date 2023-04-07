@@ -19,4 +19,5 @@
 
 ActiveSupport::Inflector.inflections do |inflect|
   inflect.irregular 'criterion', 'criteria'
+  inflect.acronym 'SSO'
 end

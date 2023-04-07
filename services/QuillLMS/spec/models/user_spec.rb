@@ -1612,7 +1612,6 @@ describe User, type: :model do
     end
   end
 
-
   describe 'email verification logic' do
     let(:user) { create(:user) }
     let!(:user_email_verification) { create(:user_email_verification, user: user) }
@@ -1741,5 +1740,40 @@ describe User, type: :model do
     end
   end
 
+  describe '#learn_worlds_access?' do
+    subject { user.learn_worlds_access? }
+
+    context 'user is a student' do
+      let(:user) { create(:student) }
+
+      it { expect(subject).to be_falsey }
+    end
+
+    context 'user is a teacher' do
+      let(:user) { create(:teacher) }
+
+      context 'school is nil' do
+        it { expect(subject).to be_falsey }
+      end
+
+      context 'school is present' do
+        let(:school) { double(premium?: premium) }
+
+        before { allow(user).to receive(:school).and_return(school) }
+
+        context 'school is not premium' do
+          let(:premium) { false }
+
+          it { expect(subject).to be_falsey }
+        end
+
+        context 'school is premium' do
+          let(:premium) { true }
+
+          it { expect(subject).to be true}
+        end
+      end
+    end
+  end
 end
 # rubocop:enable Metrics/BlockLength

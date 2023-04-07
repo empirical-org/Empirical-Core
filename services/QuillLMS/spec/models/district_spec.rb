@@ -243,4 +243,18 @@ describe District, type: :model do
       end
     end
   end
+
+  context '#premium?' do
+    subject { district.premium? }
+
+    context 'no subscription exists' do
+      it { expect(subject).to be_falsey }
+    end
+
+    context 'subscription exists' do
+      before { allow(district).to receive(:subscription).and_return(double(:subscription))}
+
+      it { expect(subject).to be true }
+    end
+  end
 end

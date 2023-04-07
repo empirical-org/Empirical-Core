@@ -256,11 +256,15 @@ nav.q-navbar-home {
       font-weight: 700;
       font-size: 12px;
       height: 20px;
+      text-decoration: none;
       &.yellow {
         background-color: $quillgoldlight;
         color: $quillgolddark;
         .small-diamond-icon {
           background-image: url("https://assets.quill.org/images/icons/yellow-diamond.svg");
+        }
+        &:hover {
+          background-color: #FCD79F;
         }
       }
       &.red {
@@ -268,6 +272,9 @@ nav.q-navbar-home {
         color: $quillmaroon;
         .small-diamond-icon {
           background-image: url("https://assets.quill.org/images/icons/red-diamond.svg");
+        }
+        &:hover {
+          background-color: #EFA67E;
         }
       }
     }
