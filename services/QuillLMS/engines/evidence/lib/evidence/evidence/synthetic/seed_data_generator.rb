@@ -3,16 +3,6 @@
 module Evidence
   module Synthetic
     class SeedDataGenerator
-      # Result = Struct.new(:text, :generator, keyword_init: true) do
-      #   def seed
-      #     generator&.seed_descriptor
-      #   end
-
-      #   def label
-      #     generator&.label
-      #   end
-      # end
-
       WORD_SPLIT_COUNT = 70
       SPACE = ' '
       BLANK = ''
@@ -103,8 +93,9 @@ module Evidence
         end
 
         generate_label_paraphrases
+        batch.save
 
-        results.map(&:save)
+        results
       end
 
       # whole passage plus prompt
@@ -112,7 +103,7 @@ module Evidence
         TEMPS_PASSAGE.each do |temp|
           stem_variants_hash.each do |conjunction, stem_variant|
             prompt = prompt_text(context: passage, stem_variant: stem_variant)
-            generator = Evidence::TextGeneration.new(
+            generator = Evidence::TextGeneration.create(
               name: "FullPassage",
               temperature: temp,
               ml_prompt: prompt,
@@ -132,7 +123,7 @@ module Evidence
 
         nouns.each do |noun|
           prompt = prompt_text(context: passage, noun: noun)
-            generator = Evidence::TextGeneration.new(
+            generator = Evidence::TextGeneration.create(
               name: "FullPassageNoun",
               temperature: TEMP_NOUN,
               ml_prompt: prompt,
@@ -150,7 +141,7 @@ module Evidence
         split_passage.each.with_index do |text_chunk, index|
           stem_variants_hash.each do |conjunction, stem_variant|
             prompt = prompt_text(context: text_chunk, stem_variant: stem_variant)
-            generator = Evidence::TextGeneration.new(
+            generator = Evidence::TextGeneration.create(
               name: "PassageChunk",
               temperature: TEMP_SECTION,
               ml_prompt: prompt,
@@ -174,7 +165,7 @@ module Evidence
         label_configs.each do |label_config|
           label_config[EXAMPLES_KEY].map(&:strip).uniq.compact.each.with_index do |example, index|
             prompt = Evidence::OpenAI::PARAPHRASE_INSTRUCTION + example
-            generator = Evidence::TextGeneration.new(
+            generator = Evidence::TextGeneration.create(
               name: "LabelExample",
               temperature: TEMP_PARAPHRASE,
               ml_prompt: prompt,
@@ -265,13 +256,6 @@ module Evidence
       private def conjunction_exclusions
         CONJUNCTION_EXCLUSIONS[conjunction]
       end
-
-      # def results_csv_string
-      #   CSV.generate do |csv|
-      #     csv << ['Text', 'Seed', 'Initial Label']
-      #     results.each {|r| csv << [r.text, r.seed, r.label]}
-      #   end
-      # end
     end
   end
 end
