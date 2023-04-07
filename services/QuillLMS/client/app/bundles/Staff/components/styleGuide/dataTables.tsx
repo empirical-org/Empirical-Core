@@ -326,7 +326,7 @@ const headers3 = ${JSON.stringify(headers3)}
           <div>
             <h4 className="style-guide-h4">Data table with ordering</h4>
             <pre>
-{`
+            {`
   export class DataTableWrapper {
     constructor(props) {
       super(props)
