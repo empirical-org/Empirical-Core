@@ -45,6 +45,10 @@ module NavigationHelper
     action_name == 'quill_academy'
   end
 
+  def teacher_premium_active?
+    action_name == 'teacher_premium'
+  end
+
   def premium_tab_copy
     middle_diamond_img = "<div class='large-diamond-icon is-in-middle'></div>"
     end_diamond_img = "<div class='large-diamond-icon'></div>"
@@ -83,6 +87,10 @@ module NavigationHelper
   def in_assignment_flow?
     current_uri = request.env['PATH_INFO']
     current_uri&.match(%r{assign/.*}) != nil
+  end
+
+  def should_render_teacher_premium?
+    current_user&.premium_state == PAID && Subscription::OFFICIAL_TEACHER_TYPES.include?(current_user.subscription.account_type)
   end
 
   def playing_activity?

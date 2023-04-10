@@ -744,6 +744,7 @@ EmpiricalGrammar::Application.routes.draw do
     springboard_units
     administrator
     locker
+    teacher_premium
   )
 
   all_pages = other_pages
