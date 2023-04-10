@@ -8,7 +8,7 @@ import UnitTemplateMinisTable from './unitTemplateMinisTable'
 
 import AssignmentFlowNavigation from '../assignment_flow_navigation.tsx'
 import { DropdownInput } from '../../../../Shared/index'
-import { ACTIVITY_PACK_TYPES, READING_TEXTS, DIAGNOSTIC, WHOLE_CLASS_LESSONS, LANGUAGE_SKILLS, DAILY_PROOFREADING, CREATE_YOUR_OWN_ID, INDEPENDENT_PRACTICE, WHOLE_CLASS_AND_INDEPENDENT } from '../assignmentFlowConstants'
+import { ACTIVITY_PACK_TYPES, READING_TEXTS, DIAGNOSTIC, WHOLE_CLASS_LESSONS, LANGUAGE_SKILLS, DAILY_PROOFREADING, CREATE_YOUR_OWN_ID } from '../assignmentFlowConstants'
 
 const ALL = 'All'
 const GRADE_LEVEL_LABELS = ['4th-12th', '6th-12th', '8th-12th', '10th-12th']
@@ -122,19 +122,22 @@ export default class UnitTemplateMinis extends React.Component {
     )
   };
 
-  getModelCardsByType(models, filterType) {
+  getModelCardsByType(models, type) {
     const filteredModels = models.filter(model => {
-      const { type, id } = model
-      if(id === CREATE_YOUR_OWN_ID && filterType === WHOLE_CLASS_LESSONS)  {
+      const { unit_template_category, id } = model
+      if(id === CREATE_YOUR_OWN_ID && type === WHOLE_CLASS_LESSONS)  {
         // we want to include the create your own pack card as the last card in the last section which is Whole Class Lessons
         return model
       }
-      if(!type) { return }
+      if(unit_template_category && type === LANGUAGE_SKILLS) {
+        return ACTIVITY_PACK_TYPES.find(type => type.name === LANGUAGE_SKILLS).types.includes(unit_template_category.name)
+      }
+      if(!unit_template_category) { return }
 
-      return type.name === filterType
+      return unit_template_category.name === type
     })
     return filteredModels.map((model, index) => {
-      return this.generateUnitTemplateView(model, index, filterType)
+      return this.generateUnitTemplateView(model, index, type)
     });
   }
 
@@ -154,24 +157,36 @@ export default class UnitTemplateMinis extends React.Component {
       models = this.addCreateYourOwnModel(models);
     }
     if(!selectedTypeId) {
-      const independentPracticeModels = this.getModelCardsByType(models, INDEPENDENT_PRACTICE)
-      const wholeClassAndIndependentModels = this.getModelCardsByType(models, WHOLE_CLASS_AND_INDEPENDENT)
+      const readingTextModels = this.getModelCardsByType(models, READING_TEXTS)
       const diagnosticModels = this.getModelCardsByType(models, DIAGNOSTIC)
+      const languageSkillsModels = this.getModelCardsByType(models, LANGUAGE_SKILLS)
+      const dailyProofreadingModels = this.getModelCardsByType(models, DAILY_PROOFREADING)
+      const wholeClassModels = this.getModelCardsByType(models, WHOLE_CLASS_LESSONS)
       return(
         <React.Fragment>
-          {!!independentPracticeModels.length && <section className="all-packs-section">
+          {!!readingTextModels.length && <section className="all-packs-section">
             <section className="packs-section">
-              {independentPracticeModels}
-            </section>
-          </section>}
-          {!!wholeClassAndIndependentModels.length && <section className="all-packs-section">
-            <section className="packs-section">
-              {wholeClassAndIndependentModels}
+              {readingTextModels}
             </section>
           </section>}
           {!!diagnosticModels.length && <section className="all-packs-section">
             <section className="packs-section">
               {diagnosticModels}
+            </section>
+          </section>}
+          {!!languageSkillsModels.length && <section className="all-packs-section">
+            <section className="packs-section">
+              {languageSkillsModels}
+            </section>
+          </section>}
+          {!!dailyProofreadingModels.length && <section className="all-packs-section">
+            <section className="packs-section">
+              {dailyProofreadingModels}
+            </section>
+          </section>}
+          {!!wholeClassModels.length && <section className="all-packs-section">
+            <section className="packs-section">
+              {wholeClassModels}
             </section>
           </section>}
         </React.Fragment>
@@ -277,13 +292,13 @@ export default class UnitTemplateMinis extends React.Component {
         value: `${baseLink}${qs}`
       }
     });
-    typeOptionsForDropdown.unshift({ label: 'All packs', value: '/activities/packs' });
+    typeOptionsForDropdown.unshift({ label: 'All Packs', value: '/activities/packs' });
 
     const allPacksLink = (
       <Link
         className={`focus-on-light ${!selectedTypeId ? 'active' : null}`}
         to={`${baseLink}${this.generateQueryString(currentCategory, data.selectedGradeLevel)}`}
-      >All packs</Link>
+      >All Packs</Link>
     );
 
     const typeOptionsWidget = onMobile ? (
@@ -302,12 +317,11 @@ export default class UnitTemplateMinis extends React.Component {
 
     return (
       <div className="filter-options">
-        {typeOptionsWidget}
         <div className="dropdowns">
           <DropdownInput
             className="grade-level-dropdown"
             handleChange={selectGradeLevel}
-            label="Grade level"
+            label="Grade level range"
             options={gradeLevelOptions}
             value={currentGradeLevel || gradeLevelOptions[0]}
           />
@@ -318,7 +332,15 @@ export default class UnitTemplateMinis extends React.Component {
             options={categoryOptions}
             value={currentCategory || categoryOptions[0]}
           />
+          <DropdownInput
+            className="category-dropdown view-options"
+            handleChange={(option) => this.selectView(option)}
+            label="View"
+            options={viewOptions}
+            value={currentView || viewOptions[0]}
+          />
         </div>
+        {typeOptionsWidget}
       </div>
     )
   }

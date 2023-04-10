@@ -235,20 +235,23 @@ export const DIAGNOSTIC = 'Diagnostic'
 export const GRAMMAR = 'Grammar'
 export const PROOFREADER = 'Proofreader'
 export const LESSONS = 'Lessons'
-export const INDEPENDENT_PRACTICE = 'Independent Practice'
-export const WHOLE_CLASS_AND_INDEPENDENT = 'Whole class + Independent practice'
 
 export const ACTIVITY_PACK_TYPES = [
   {
-    name: 'Independent Practice',
-    id: 'independent-practice'
-  },
-  {
-    name: 'Whole class + Independent practice',
-    id: 'whole-class-and-independent'
+    name: 'Reading Texts',
+    id: 'reading-texts'
   },
   {
     name: 'Diagnostic',
     id: 'diagnostic'
-  }
+  },
+  {
+    name: 'Language Skills',
+    id: 'independent-practice',
+    types: ['Language Skill Review', 'Language Skills for Writing Genres', 'Language Skills Themed Practice']
+  },
+  {
+    name: 'Whole Class Lessons',
+    id: 'whole-class'
+  },
 ]
