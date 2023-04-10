@@ -1,7 +1,6 @@
 import { Action } from "redux";
 import { ActionTypes } from "../actions/actionTypes";
-import { DashboardConceptRow, DashboardQuestionRow } from '../interfaces/dashboards'
-import * as _ from 'lodash'
+import { DashboardConceptRow, DashboardQuestionRow } from '../interfaces/dashboards';
 
 export interface QuestionAndConceptMapReducerState {
   hasreceiveddata: boolean;

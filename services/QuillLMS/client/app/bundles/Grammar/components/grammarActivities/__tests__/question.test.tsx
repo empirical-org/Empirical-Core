@@ -1,17 +1,17 @@
+import { mount } from "enzyme";
 import * as React from "react";
-import {mount} from "enzyme";
 import ContentEditable from 'react-contenteditable';
 import { QuestionComponent } from "../question";
 import {
+  conceptsFeedback,
   currentActivity,
-  session,
   currentQuestion,
-  currentQuestionWithOneIncorrectAttempt,
   currentQuestionWithFiveIncorrectAttempts,
   currentQuestionWithOneCorrectAttempt,
-  conceptsFeedback,
-  responses
-} from './data'
+  currentQuestionWithOneIncorrectAttempt,
+  responses,
+  session
+} from './data';
 
 Object.defineProperty(window, 'matchMedia', {
   writable: true,

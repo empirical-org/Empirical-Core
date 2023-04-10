@@ -1,7 +1,7 @@
 import * as React from 'react';
 
+import { IMAGE_ALT_TEXT, IMAGE_ATTRIBUTION, IMAGE_CAPTION, IMAGE_LINK } from '../../../../../constants/evidence';
 import { Input } from '../../../../Shared';
-import { IMAGE_LINK, IMAGE_ALT_TEXT, IMAGE_CAPTION, IMAGE_ATTRIBUTION } from '../../../../../constants/evidence';
 
 export const ImageSection = ({
   activityPassages,

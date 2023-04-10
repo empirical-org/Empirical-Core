@@ -1,10 +1,10 @@
-import * as React from 'react'
-import * as moment from 'moment'
+import * as moment from 'moment';
+import * as React from 'react';
 
-import { DataTable } from '../../../Shared/index'
+import { DataTable } from '../../../Shared/index';
 
-import GradeOptions from '../classrooms/grade_options'
 import { requestPost } from '../../../../modules/request/index';
+import GradeOptions from '../classrooms/grade_options';
 
 const headers = [
   {

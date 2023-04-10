@@ -1,14 +1,14 @@
+import { ContentState, EditorState } from 'draft-js';
 import * as React from "react";
-import { EditorState, ContentState } from 'draft-js'
 
+import { FEEDBACK, HIGHLIGHT_ADDITION, HIGHLIGHT_REMOVAL, } from '../../../../../constants/evidence';
+import { TextEditor } from '../../../../Shared/index';
 import {
+  handleSetFeedback,
   handleSetPlagiarismTexts,
-  renderHighlights,
-  handleSetFeedback
+  renderHighlights
 } from '../../../helpers/evidence/ruleHelpers';
 import { ClickEvent } from '../../../interfaces/evidenceInterfaces';
-import { TextEditor } from '../../../../Shared/index'
-import { HIGHLIGHT_ADDITION, HIGHLIGHT_REMOVAL, FEEDBACK, } from '../../../../../constants/evidence';
 
 // TODO: add props interface
 

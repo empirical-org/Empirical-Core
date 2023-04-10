@@ -1,8 +1,8 @@
 import * as React from 'react';
 import { connect } from 'react-redux';
 import _ from 'underscore';
-import FocusPointsInputAndConceptResultSelectorForm from '../shared/focusPointsInputAndConceptSelectorForm'
 import * as questionActions from '../../actions/questions';
+import FocusPointsInputAndConceptResultSelectorForm from '../shared/focusPointsInputAndConceptSelectorForm';
 
 class NewFocusPointsContainer extends React.Component {
   constructor(props) {

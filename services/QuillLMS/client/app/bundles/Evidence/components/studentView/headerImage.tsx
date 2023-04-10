@@ -1,8 +1,8 @@
+import { marked } from 'marked';
 import * as React from "react";
 import stripHtml from "string-strip-html";
-import { marked } from 'marked';
 
-import {  Tooltip, Modal } from '../../../Shared/index'
+import { Modal, Tooltip } from '../../../Shared/index';
 
 export const HeaderImage = ({ headerImage, passage }) => {
 

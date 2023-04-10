@@ -1,6 +1,6 @@
-import * as React from 'react';
-import {SortableContainer, SortableElement} from 'react-sortable-hoc';
 import arrayMove from 'array-move';
+import * as React from 'react';
+import { SortableContainer, SortableElement } from 'react-sortable-hoc';
 
 const SortableComponentItem = SortableElement(({value}) => <div className="list-item">{value}</div>);
 

@@ -1,4 +1,4 @@
-import * as React from 'react'
+import * as React from 'react';
 import { components } from 'react-select';
 
 export const CheckableDropdownValueContainer = props => {

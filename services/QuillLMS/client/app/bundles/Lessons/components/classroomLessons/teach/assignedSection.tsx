@@ -1,12 +1,12 @@
 declare function require(name:string);
-import * as React from 'react'
+import * as React from 'react';
 
 import {
-  SMALL_GROUP_AND_INDEPENDENT,
-  PRACTICE_NOW,
+  NO_PRACTICE,
   PRACTICE_LATER,
-  NO_PRACTICE
-} from '../../constants'
+  PRACTICE_NOW,
+  SMALL_GROUP_AND_INDEPENDENT
+} from '../../constants';
 
 
 const AssignedSection = ({ selectedOptionKey, }) => {

@@ -1,7 +1,7 @@
 import React from 'react';
 
-import AssignmentFlowNavigation from '../assignment_flow_navigation'
-import PreApContainer from '../../../containers/PreApContainer'
+import PreApContainer from '../../../containers/PreApContainer';
+import AssignmentFlowNavigation from '../assignment_flow_navigation';
 
 const AssignPreAp = () => {
   return (

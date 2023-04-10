@@ -1,10 +1,10 @@
-import * as React from 'react';
 import { mount } from 'enzyme';
+import * as React from 'react';
+import { QueryClientProvider } from 'react-query';
 import { MemoryRouter } from 'react-router-dom';
-import { QueryClientProvider } from 'react-query'
 
-import PlagiarismRulesRouter from '../plagiarismRules/plagiarismRulesRouter';
 import { DefaultReactQueryClient } from '../../../../Shared';
+import PlagiarismRulesRouter from '../plagiarismRules/plagiarismRulesRouter';
 
 const queryClient = new DefaultReactQueryClient();
 

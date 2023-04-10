@@ -1,7 +1,7 @@
 import { Action } from "redux";
 import { ActionTypes } from "../actions/actionTypes";
 
-import { Activity } from '../interfaces/activities'
+import { Activity } from '../interfaces/activities';
 
 export interface ActivitiesReducerState {
   hasReceivedData: boolean;

@@ -1,8 +1,8 @@
-import * as React from 'react';
 import { shallow } from 'enzyme';
+import * as React from 'react';
 
-import RulePrompts from '../configureRules/rulePrompts';
 import { BECAUSE, BUT, SO } from '../../../../../constants/evidence';
+import RulePrompts from '../configureRules/rulePrompts';
 
 const mockProps = {
   errors: {},

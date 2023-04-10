@@ -1,9 +1,9 @@
 import * as React from 'react';
 
-import ReadAndHighlightInstructions from './readAndHighlightInstructions'
-import BottomNavigation from './bottomNavigation'
-import StepOverview from './stepOverview'
-import Steps from './steps'
+import BottomNavigation from './bottomNavigation';
+import ReadAndHighlightInstructions from './readAndHighlightInstructions';
+import StepOverview from './stepOverview';
+import Steps from './steps';
 
 import { READ_PASSAGE_STEP } from '../../helpers/containerActionHelpers';
 

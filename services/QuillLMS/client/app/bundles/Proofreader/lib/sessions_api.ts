@@ -1,4 +1,4 @@
-import { requestDelete, requestGet, requestPost, requestPut } from '../../../modules/request/index';
+import { requestGet, requestPut } from '../../../modules/request/index';
 
 const sessionApiBaseUrl = `${process.env.DEFAULT_URL}/api/v1/active_activity_sessions`;
 
@@ -15,4 +15,5 @@ class SessionApi {
 export {
   SessionApi,
   sessionApiBaseUrl
-}
+};
+

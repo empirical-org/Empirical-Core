@@ -1,4 +1,4 @@
-import { ActionTypes } from './actionTypes'
+import { ActionTypes } from './actionTypes';
 
 export const toggleExpandSingleResponse = (rkey: string) => {
   return {type: ActionTypes.TOGGLE_EXPAND_SINGLE_RESPONSE, rkey, };

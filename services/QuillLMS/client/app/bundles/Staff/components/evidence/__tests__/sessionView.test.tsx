@@ -1,7 +1,7 @@
+import { shallow } from 'enzyme';
+import { createLocation, createMemoryHistory } from 'history';
 import * as React from 'react';
 import 'whatwg-fetch';
-import { shallow } from 'enzyme';
-import { createMemoryHistory, createLocation } from 'history';
 
 import SessionView from '../activitySessions/sessionView';
 

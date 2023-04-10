@@ -1,45 +1,37 @@
 declare function require(name:string);
+import _ from 'lodash';
 import * as React from 'react';
 import { connect } from 'react-redux';
-import _ from 'lodash'
 
-import NavBar from '../../navbar/navbar';
 import {
-  startListeningToSessionForTeacher,
+  clearClassroomLessonFromStore,
+  getClassLesson
+} from '../../../actions/classroomLesson';
+import {
+  createPreviewSession,
   goToNextSlide,
   goToPreviousSlide,
   registerTeacherPresence,
   startLesson,
-  createPreviewSession
+  startListeningToSessionForTeacher
 } from '../../../actions/classroomSessions';
 import {
-  getClassLesson,
-  clearClassroomLessonFromStore
-} from '../../../actions/classroomLesson';
-import {
+  clearEditionQuestions,
   getCurrentUserAndCoteachersFromLMS,
   getEditionMetadataForUserIds,
-  getEditionQuestions,
-  clearEditionQuestions
-} from '../../../actions/customize'
-import MainContentContainer from './mainContentContainer';
-import CLStudentSingleAnswer from '../play/singleAnswer';
+  getEditionQuestions
+} from '../../../actions/customize';
+import * as CustomizeIntf from '../../../interfaces/customize';
 import { getParameterByName } from '../../../libs/getParameterByName';
-import Sidebar from './sidebar';
-import ErrorPage from '../shared/errorPage';
+import NavBar from '../../navbar/navbar';
 import {
-  ClassroomLessonSessions,
   ClassroomLessonSession,
-  QuestionSubmissionsList,
-  SelectedSubmissions,
-  SelectedSubmissionsForQuestion,
   ClassroomSessionId,
   ClassroomUnitId
 } from '../interfaces';
-import {
-  ClassroomLesson
-} from '../../../interfaces/classroomLessons'
-import * as CustomizeIntf from '../../../interfaces/customize'
+import ErrorPage from '../shared/errorPage';
+import MainContentContainer from './mainContentContainer';
+import Sidebar from './sidebar';
 
 class TeachClassroomLessonContainer extends React.Component<any, any> {
   constructor(props) {

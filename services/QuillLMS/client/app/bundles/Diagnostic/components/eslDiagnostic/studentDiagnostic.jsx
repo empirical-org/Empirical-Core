@@ -1,53 +1,52 @@
 import React from 'react';
-import { connect } from 'react-redux';
-import _ from 'underscore';
 import { withTranslation } from 'react-i18next';
+import { connect } from 'react-redux';
 
-import PlaySentenceFragment from './sentenceFragment.jsx';
-import PlayDiagnosticQuestion from './sentenceCombining.jsx';
+import FinishedDiagnostic from './finishedDiagnostic.jsx';
+import Footer from './footer';
 import LandingPage from './landingPage.jsx';
 import LanguagePage from './languagePage.jsx';
-import PlayTitleCard from './titleCard.tsx'
-import FinishedDiagnostic from './finishedDiagnostic.jsx';
-import Footer from './footer'
+import PlayDiagnosticQuestion from './sentenceCombining.jsx';
+import PlaySentenceFragment from './sentenceFragment.jsx';
+import PlayTitleCard from './titleCard.tsx';
 
+import { requestPost, requestPut, } from '../../../../modules/request/index';
 import {
-  CarouselAnimation,
-  ProgressBar,
-  TeacherPreviewMenuButton,
-  roundValuesToSeconds,
-  KEYDOWN,
-  MOUSEMOVE,
-  MOUSEDOWN,
   CLICK,
+  CarouselAnimation,
+  KEYDOWN,
   KEYPRESS,
-  VISIBILITYCHANGE,
+  MOUSEDOWN,
+  MOUSEMOVE,
+  ProgressBar,
   SCROLL,
+  TeacherPreviewMenuButton,
+  VISIBILITYCHANGE,
+  roundValuesToSeconds,
 } from '../../../Shared/index';
 import {
   clearData,
   loadData,
   nextQuestion,
+  openLanguageMenu,
+  resumePreviousDiagnosticSession,
+  setCurrentQuestion,
+  setDiagnosticID,
   submitResponse,
   updateCurrentQuestion,
-  resumePreviousDiagnosticSession,
-  updateLanguage,
-  setDiagnosticID,
-  openLanguageMenu,
-  setCurrentQuestion
+  updateLanguage
 } from '../../actions/diagnostics.js';
 import SessionActions from '../../actions/sessions.js';
-import PlayFillInTheBlankQuestion from '../fillInBlank/playFillInTheBlankQuestion'
-import { getConceptResultsForAllQuestions } from '../../libs/conceptResults/diagnostic';
-import {
-  questionCount,
-  answeredQuestionCount,
-  getProgressPercent
-} from '../../libs/calculateProgress'
-import { getParameterByName } from '../../libs/getParameterByName';
 import i18n from '../../i18n';
+import {
+  answeredQuestionCount,
+  getProgressPercent,
+  questionCount
+} from '../../libs/calculateProgress';
+import { getConceptResultsForAllQuestions } from '../../libs/conceptResults/diagnostic';
+import { getParameterByName } from '../../libs/getParameterByName';
 import { ENGLISH } from '../../modules/translation/languagePageInfo';
-import { requestPut, requestPost, } from '../../../../modules/request/index'
+import PlayFillInTheBlankQuestion from '../fillInBlank/playFillInTheBlankQuestion';
 
 const TITLE_CARD_TYPE = "TL"
 

@@ -1,8 +1,8 @@
-import * as React from 'react';
 import * as expect from 'expect';
+import * as React from 'react';
 
-import { getCurrentQuestion, getQuestionsWithAttempts, getFilteredQuestions, getDisplayedText, renderPreviewFeedback } from '../../libs/activityPreviewHelpers';
 import { Feedback } from '../../../Shared/index';
+import { getCurrentQuestion, getDisplayedText, getFilteredQuestions, getQuestionsWithAttempts, renderPreviewFeedback } from '../../libs/activityPreviewHelpers';
 
 jest.mock("string-strip-html", () => ({
   default: jest.fn((value) => ((value)))

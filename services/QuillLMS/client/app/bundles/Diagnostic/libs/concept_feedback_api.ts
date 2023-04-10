@@ -31,4 +31,5 @@ export {
   ConceptFeedbackApi,
   conceptFeedbackApiBaseUrl,
   CONNECT_TYPE
-}
+};
+

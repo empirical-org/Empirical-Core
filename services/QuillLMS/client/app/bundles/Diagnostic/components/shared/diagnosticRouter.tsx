@@ -2,8 +2,6 @@ import * as React from 'react';
 import { connect } from 'react-redux';
 import { BrowserRouter, Route, withRouter } from 'react-router-dom';
 
-import StudentDiagnostic from '../diagnostics/studentDiagnostic';
-import ELLStudentDiagnostic from '../eslDiagnostic/studentDiagnostic';
 import { SmartSpinner } from '../../../Shared/index';
 import { Location } from '../../interfaces/location';
 import { PlayDiagnostic } from '../../interfaces/playDiagnostic';
@@ -14,6 +12,8 @@ import { LessonsReducerState } from '../../reducers/lessons';
 import { QuestionsReducerState } from '../../reducers/questions';
 import { SentenceFragmentsReducerState } from '../../reducers/sentenceFragments';
 import { TitleCardsReducerState } from '../../reducers/titleCards';
+import StudentDiagnostic from '../diagnostics/studentDiagnostic';
+import ELLStudentDiagnostic from '../eslDiagnostic/studentDiagnostic';
 
 // TODO: The StudentDiagnostic and ELLDiagnostic have the same state shape and share most of the same functions. Since they are receiving props from
 // here as well, we should extract those functions into this DiagnosticRouter component, pass them as props and convert them into functional components.

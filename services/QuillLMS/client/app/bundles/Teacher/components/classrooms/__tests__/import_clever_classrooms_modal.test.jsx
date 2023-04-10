@@ -1,10 +1,10 @@
-import React from 'react';
 import { mount } from 'enzyme';
+import React from 'react';
 
-import { cleverClassroomsData, userProps } from './test_data/test_data'
+import { cleverClassroomsData, userProps } from './test_data/test_data';
 
-import ImportCleverClassroomsModal from '../import_clever_classrooms_modal'
-import { DataTable } from '../../../../Shared/index'
+import { DataTable } from '../../../../Shared/index';
+import ImportCleverClassroomsModal from '../import_clever_classrooms_modal';
 
 describe('ImportCleverClassroomsModal component', () => {
   const close = () => {}

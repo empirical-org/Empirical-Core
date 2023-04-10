@@ -1,12 +1,12 @@
 import * as React from 'react';
 
-import ExpandableUnitSection from '../shared/expandableUnit'
-import { SPRING_BOARD_SLUG } from '../assignment_flow/assignmentFlowConstants'
+import { PassageAlignedUnit } from '../../../../interfaces/collegeBoard';
 import QuestionsAndAnswers from '../../containers/QuestionsAndAnswers';
-import * as constants from '../assignment_flow/assignmentFlowConstants';
 import { generateLink, getStartedButton } from '../../helpers/collegeBoard';
 import { scrollToTop } from '../../hooks/scrollToTop';
-import { PassageAlignedUnit } from '../../../../interfaces/collegeBoard';
+import * as constants from '../assignment_flow/assignmentFlowConstants';
+import { SPRING_BOARD_SLUG } from '../assignment_flow/assignmentFlowConstants';
+import ExpandableUnitSection from '../shared/expandableUnit';
 
 interface SpringBoardProps {
   isPartOfAssignmentFlow?: boolean;

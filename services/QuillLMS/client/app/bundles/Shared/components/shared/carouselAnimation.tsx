@@ -11,4 +11,5 @@ const CarouselAnimation = ({ children, }) => (
   </ReactCSSTransitionGroup>
 )
 
-export { CarouselAnimation }
+export { CarouselAnimation };
+

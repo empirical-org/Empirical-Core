@@ -1,7 +1,6 @@
-import React from 'react'
-import {Link} from 'react-router-dom'
-import {connect} from 'react-redux'
-import _ from 'lodash'
+import React from 'react';
+import { connect } from 'react-redux';
+import { Link } from 'react-router-dom';
 
 class ItemLevelForm extends React.Component {
   constructor(props) {

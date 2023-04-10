@@ -1,10 +1,10 @@
-import * as React from 'react'
-import { connect } from 'react-redux'
+import * as React from 'react';
+import { connect } from 'react-redux';
 // import Select from 'react-select-search'
 import Select from 'react-select';
-import { Concept } from '../../interfaces/concepts'
-import { ConceptReducerState } from '../../reducers/conceptsReducer'
-import { ConceptsFeedbackState } from '../../reducers/conceptsFeedbackReducer'
+import { Concept } from '../../interfaces/concepts';
+import { ConceptsFeedbackState } from '../../reducers/conceptsFeedbackReducer';
+import { ConceptReducerState } from '../../reducers/conceptsReducer';
 
 // TODO: delete everywhere else that we use conceptsToOptions
 

@@ -1,5 +1,5 @@
 'use strict';
-import React from 'react'
+import React from 'react';
 
 export default class ButtonLoadingIndicator extends React.Component {
   render() {

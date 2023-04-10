@@ -4,10 +4,10 @@ import _ from 'underscore';
 
 import EditLessonForm from './lessonForm';
 
-import * as actions from '../../actions/proofreaderActivities';
-import LinkListItem from '../shared/linkListItem'
-import { ProofreaderActivity } from '../../interfaces/proofreaderActivities'
 import { FlagDropdown } from '../../../Shared/index';
+import * as actions from '../../actions/proofreaderActivities';
+import { ProofreaderActivity } from '../../interfaces/proofreaderActivities';
+import LinkListItem from '../shared/linkListItem';
 
 interface LessonsProps {
   dispatch: Function;

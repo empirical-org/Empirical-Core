@@ -1,6 +1,6 @@
-import { mockQuestionApi, } from '../__mocks__/question_api'
 import { mockFocusPointApi, } from '../__mocks__/focus_point_api'
 import { mockIncorrectSequenceApi, } from '../__mocks__/incorrect_sequence_api'
+import { mockQuestionApi, } from '../__mocks__/question_api'
 jest.mock('../../libs/questions_api', () => ({
   FocusPointApi: mockFocusPointApi,
   IncorrectSequenceApi: mockIncorrectSequenceApi,
@@ -14,19 +14,19 @@ import {
 } from '../../libs/questions_api'
 
 import {
-  startListeningToQuestions,
+  deleteFocusPoint,
+  deleteIncorrectSequence,
   getQuestion,
-  updateFlag,
+  startListeningToQuestions,
+  submitBatchEditedFocusPoint,
+  submitEditedFocusPoint,
+  submitEditedIncorrectSequence,
+  submitNewFocusPoint,
+  submitNewIncorrectSequence,
   submitNewQuestion,
   submitQuestionEdit,
-  submitNewIncorrectSequence,
-  submitEditedIncorrectSequence,
-  deleteIncorrectSequence,
+  updateFlag,
   updateIncorrectSequences,
-  submitNewFocusPoint,
-  submitEditedFocusPoint,
-  submitBatchEditedFocusPoint,
-  deleteFocusPoint,
 } from '../../actions/questions'
 
 describe('Questions actions', () => {
