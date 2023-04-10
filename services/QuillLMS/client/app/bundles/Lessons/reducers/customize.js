@@ -1,5 +1,4 @@
 import C from '../constants';
-import _ from 'lodash';
 
 const initialState = {
   user_id: null,

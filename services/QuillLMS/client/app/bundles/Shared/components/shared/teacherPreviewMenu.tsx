@@ -1,12 +1,12 @@
 import * as React from "react";
-import * as Redux from "redux";
 import { connect } from "react-redux";
+import * as Redux from "redux";
 import stripHtml from "string-strip-html";
 
-import { Question } from '../../../Grammar/interfaces/questions';
-import * as diagnosticActions from '../../../Diagnostic/actions/diagnostics.js';
 import * as connectActions from '../../../Connect/actions';
+import * as diagnosticActions from '../../../Diagnostic/actions/diagnostics.js';
 import * as grammarActions from '../../../Grammar/actions/session';
+import { Question } from '../../../Grammar/interfaces/questions';
 
 interface Activity {
   title?: string;

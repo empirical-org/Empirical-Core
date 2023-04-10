@@ -1,9 +1,9 @@
 import { Event } from './event_definitions';
 import Events from './events';
 
-import getParameterByName from '../../helpers/getParameterByName';
-import { fetchUserIdsForSession } from '../../../Shared/utils/userAPIs';
 import { isTrackableStudentEvent } from '../../../Shared';
+import { fetchUserIdsForSession } from '../../../Shared/utils/userAPIs';
+import getParameterByName from '../../helpers/getParameterByName';
 
 class SegmentAnalytics {
   analytics(): object {
@@ -94,3 +94,4 @@ export {
   segmentInstance as SegmentAnalytics,
   Events,
 };
+

@@ -1,11 +1,11 @@
-import React from 'react';
 import { shallow } from 'enzyme';
+import React from 'react';
 
+import AddStudents from '../add_students';
 import InviteStudentsModal from '../invite_students_modal.tsx';
-import AddStudents from '../add_students'
-import SetupInstructions from '../setup_instructions'
+import SetupInstructions from '../setup_instructions';
 
-import { classroomWithStudents } from './test_data/test_data'
+import { classroomWithStudents } from './test_data/test_data';
 
 describe('InviteStudentsModal component', () => {
 

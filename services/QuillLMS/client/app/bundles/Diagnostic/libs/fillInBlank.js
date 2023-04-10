@@ -1,7 +1,7 @@
 import _ from 'underscore';
 import constants from '../constants';
-import { getOptimalResponses, getSubOptimalResponses } from './sharedResponseFunctions';
-import quillNormalize from './quillNormalizer'
+import quillNormalize from './quillNormalizer';
+import { getOptimalResponses } from './sharedResponseFunctions';
 const jsDiff = require('diff');
 
 const ERROR_TYPES = {

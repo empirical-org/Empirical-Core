@@ -4,12 +4,12 @@ import { Link } from 'react-router-dom';
 
 import EditLessonForm from './lessonForm';
 
+import { ActionTypes } from '../../actions/actionTypes';
 import * as lessonActions from '../../actions/proofreaderActivities';
-import ProofreaderActivityContainer from '../proofreaderActivities/container'
-import { ActionTypes } from '../../actions/actionTypes'
-import { ProofreaderActivityState } from '../../reducers/proofreaderActivitiesReducer'
-import { ConceptReducerState } from '../../reducers/conceptsReducer'
-import { ProofreaderActivity } from '../../interfaces/proofreaderActivities'
+import { ProofreaderActivity } from '../../interfaces/proofreaderActivities';
+import { ConceptReducerState } from '../../reducers/conceptsReducer';
+import { ProofreaderActivityState } from '../../reducers/proofreaderActivitiesReducer';
+import ProofreaderActivityContainer from '../proofreaderActivities/container';
 
 interface LessonProps {
   dispatch: Function;

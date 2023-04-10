@@ -1,7 +1,7 @@
-import React from 'react';
 import { mount } from 'enzyme';
+import React from 'react';
 
-import AdminAccess from '../AdminAccess'
+import AdminAccess from '../AdminAccess';
 
 const school = {
   school: {

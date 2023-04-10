@@ -1,9 +1,9 @@
 import * as React from 'react';
 
-import SkipForNow from './skip_for_now'
+import SkipForNow from './skip_for_now';
 
-import { Input, } from '../../../../Shared/index'
-import { requestPut, } from '../../../../../modules/request/index'
+import { requestPut, } from '../../../../../modules/request/index';
+import { Input, } from '../../../../Shared/index';
 
 const schoolVerificationSrc = `${process.env.CDN_URL}/images/onboarding/school_verification.svg`
 

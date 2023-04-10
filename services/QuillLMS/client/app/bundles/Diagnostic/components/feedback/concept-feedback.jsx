@@ -1,11 +1,8 @@
 import React from 'react'
-import C from '../../constants'
 import { connect } from 'react-redux'
-import { Link } from 'react-router-dom'
-import actions from '../../actions/concepts-feedback'
-import feedbackActions from '../../actions/concepts-feedback'
-import _ from 'underscore'
 import { ConceptExplanation } from '../../../Shared/index'
+import { default as actions, default as feedbackActions } from '../../actions/concepts-feedback'
+import C from '../../constants'
 import FeedbackForm from './feedbackForm.jsx'
 
 class ConceptFeedback extends React.Component {

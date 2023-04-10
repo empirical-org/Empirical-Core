@@ -1,7 +1,7 @@
-import React from 'react'
-import { BrowserRouter, Route, Switch, Redirect } from 'react-router-dom';
+import React from 'react';
+import { BrowserRouter, Route } from 'react-router-dom';
 
-import LessonPlannerContainer from './LessonPlannerContainer.jsx'
+import LessonPlannerContainer from './LessonPlannerContainer.jsx';
 
 const LessonPlannerRouter = (props) => {
   return (

@@ -1,12 +1,12 @@
 import React from 'react';
 
-import AboutPremium from '../../../general_components/tooltip/about_premium.jsx';
-import ConceptResultStats from '../../../general_components/tooltip/concept_result_stats.jsx';
-import ActivityDetails from '../../../general_components/tooltip/activity_details.jsx';
-import LoadingDots from '../../../shared/loading_dots.jsx';
-import numberSuffixBuilder from '../../numberSuffixBuilder'
-import PercentageDisplayer from '../../percentage_displayer.jsx';
 import { getTimeSpent } from '../../../../helpers/studentReports';
+import AboutPremium from '../../../general_components/tooltip/about_premium.jsx';
+import ActivityDetails from '../../../general_components/tooltip/activity_details.jsx';
+import ConceptResultStats from '../../../general_components/tooltip/concept_result_stats.jsx';
+import LoadingDots from '../../../shared/loading_dots.jsx';
+import numberSuffixBuilder from '../../numberSuffixBuilder';
+import PercentageDisplayer from '../../percentage_displayer.jsx';
 const percentageDisplayer = new PercentageDisplayer()
 
 export default class ScorebookTooltip extends React.Component {

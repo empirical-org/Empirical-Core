@@ -17,4 +17,5 @@ const QuestionBar = (props: any) => (
   </div>
 )
 
-export { QuestionBar }
+export { QuestionBar };
+

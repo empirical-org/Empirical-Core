@@ -1,5 +1,5 @@
 import { requestDelete, requestGet, requestPost, requestPut } from '../../../modules/request/index';
-import { GrammarActivities, GrammarActivity } from '../interfaces/grammarActivities'
+import { GrammarActivities, GrammarActivity } from '../interfaces/grammarActivities';
 
 const grammarActivityApiBaseUrl = `${process.env.DEFAULT_URL}/api/v1/lessons`;
 
@@ -31,4 +31,5 @@ export {
   GrammarActivityApi,
   grammarActivityApiBaseUrl,
   TYPE_GRAMMAR_ACTIVITY
-}
+};
+

@@ -1,10 +1,10 @@
 import * as React from 'react';
 
-import SkipForNow from './skip_for_now'
+import SkipForNow from './skip_for_now';
 
-import AdminTable from '../../admin_access/adminTable'
-import { Input, } from '../../../../Shared/index'
-import { requestPost, } from '../../../../../modules/request/index'
+import { requestPost, } from '../../../../../modules/request/index';
+import { Input, } from '../../../../Shared/index';
+import AdminTable from '../../admin_access/adminTable';
 
 const schoolVerificationSrc = `${process.env.CDN_URL}/images/onboarding/school_verification.svg`
 

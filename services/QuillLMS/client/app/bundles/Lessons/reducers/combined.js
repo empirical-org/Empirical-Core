@@ -1,6 +1,5 @@
-import { combineReducers } from 'redux';
-import { SubmitActions } from '../actions';
 import { routerReducer } from 'react-router-redux';
+import { combineReducers } from 'redux';
 import classroomLesson from './classroomLesson';
 import classroomLessons from './classroomLessons'; // this is the admin one
 import classroomLessonsReviews from './classroomLessonsReviews';

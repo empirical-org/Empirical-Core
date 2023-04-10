@@ -138,4 +138,5 @@ class Register extends React.Component<any, any> {
   }
 }
 
-export { Register }
+export { Register };
+

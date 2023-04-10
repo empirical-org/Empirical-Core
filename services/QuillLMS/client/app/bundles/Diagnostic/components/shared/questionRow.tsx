@@ -1,4 +1,4 @@
-import React from 'react'
+import React from 'react';
 import { Link } from 'react-router-dom';
 
 const QuestionRow = (props: any) => (
@@ -16,4 +16,4 @@ const QuestionRow = (props: any) => (
   </tr>
 )
 
-export { QuestionRow }
+export { QuestionRow };

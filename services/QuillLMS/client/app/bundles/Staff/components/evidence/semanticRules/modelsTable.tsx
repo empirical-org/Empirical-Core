@@ -1,12 +1,12 @@
-import * as React from "react";
 import * as moment from 'moment';
-import { Link } from 'react-router-dom'
+import * as React from "react";
 import { useQuery } from 'react-query';
+import { Link } from 'react-router-dom';
 import { firstBy } from 'thenby';
 
+import { DataTable, Spinner } from '../../../../Shared/index';
 import { titleCase } from '../../../helpers/evidence/miscHelpers';
 import { fetchModels } from '../../../utils/evidence/modelAPIs';
-import { DataTable, Spinner } from '../../../../Shared/index';
 
 const renderUnsafeHtml = (html) => {
   return(

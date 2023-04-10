@@ -1,15 +1,15 @@
 import * as React from 'react'
 
-import QuestionAndAnswer from '../components/shared/QuestionAndAnswer.jsx'
-import lessons from '../components/modules/questionsAndAnswers/lessons'
+import { EVIDENCE, LESSONS } from '../../Shared'
+import { AP, PRE_AP, SPRINGBOARD } from '../components/college_board/collegeBoardConstants'
 import admin from '../components/modules/questionsAndAnswers/admin'
-import premium from '../components/modules/questionsAndAnswers/premium'
-import preap from '../components/modules/questionsAndAnswers/preap'
 import ap from '../components/modules/questionsAndAnswers/ap'
 import evidence from '../components/modules/questionsAndAnswers/evidence'
+import lessons from '../components/modules/questionsAndAnswers/lessons'
+import preap from '../components/modules/questionsAndAnswers/preap'
+import premium from '../components/modules/questionsAndAnswers/premium'
 import springboard from '../components/modules/questionsAndAnswers/springboard'
-import { AP, PRE_AP, SPRINGBOARD } from '../components/college_board/collegeBoardConstants';
-import { EVIDENCE, LESSONS } from '../../Shared'
+import QuestionAndAnswer from '../components/shared/QuestionAndAnswer.jsx'
 
 export interface QuestionsAndAnswersProps {
   questionsAndAnswersFile: string;
