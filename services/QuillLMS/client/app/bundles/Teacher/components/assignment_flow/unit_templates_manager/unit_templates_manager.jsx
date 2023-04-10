@@ -102,10 +102,8 @@ export default class UnitTemplatesManager extends React.Component {
       const selectedType = ACTIVITY_PACK_TYPES.find(t => t.id === typeId)
       const { name } = selectedType
       displayedModels = displayedModels.filter(ut => {
-        const { type, unit_template_category } = ut
-        if(unit_template_category) {
-          return unit_template_category.name === name
-        } else if(type) {
+        const { type } = ut
+        if(type) {
           return type.name === name
         }
       })

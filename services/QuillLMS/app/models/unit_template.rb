@@ -59,8 +59,8 @@ class UnitTemplate < ApplicationRecord
 
   around_save :delete_relevant_caches
 
-  WHOLE_CLASS_LESSONS = 'Whole class lessons'
-  INDEPENDENT_PRACTICE = 'Independent practice'
+  WHOLE_CLASS_LESSONS = 'Whole class + Independent practice'
+  INDEPENDENT_PRACTICE = 'Independent Practice'
   DIAGNOSTIC = 'Diagnostic'
 
   def readability

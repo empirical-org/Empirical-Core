@@ -240,11 +240,11 @@ export const WHOLE_CLASS_AND_INDEPENDENT = 'Whole class + Independent practice'
 
 export const ACTIVITY_PACK_TYPES = [
   {
-    name: 'Independent practice',
+    name: 'Independent Practice',
     id: 'independent-practice'
   },
   {
-    name: 'Whole class lessons',
+    name: 'Whole class + Independent practice',
     id: 'whole-class-and-independent'
   },
   {

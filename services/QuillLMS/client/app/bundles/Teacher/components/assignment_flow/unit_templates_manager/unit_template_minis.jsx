@@ -122,22 +122,19 @@ export default class UnitTemplateMinis extends React.Component {
     )
   };
 
-  getModelCardsByType(models, type) {
+  getModelCardsByType(models, filterType) {
     const filteredModels = models.filter(model => {
-      const { unit_template_category, id } = model
-      if(id === CREATE_YOUR_OWN_ID && type === WHOLE_CLASS_LESSONS)  {
+      const { type, id } = model
+      if(id === CREATE_YOUR_OWN_ID && filterType === WHOLE_CLASS_LESSONS)  {
         // we want to include the create your own pack card as the last card in the last section which is Whole Class Lessons
         return model
       }
-      if(unit_template_category && type === LANGUAGE_SKILLS) {
-        return ACTIVITY_PACK_TYPES.find(type => type.name === LANGUAGE_SKILLS).types.includes(unit_template_category.name)
-      }
-      if(!unit_template_category) { return }
+      if(!type) { return }
 
-      return unit_template_category.name === type
+      return type.name === filterType
     })
     return filteredModels.map((model, index) => {
-      return this.generateUnitTemplateView(model, index, type)
+      return this.generateUnitTemplateView(model, index, filterType)
     });
   }
 
@@ -305,6 +302,22 @@ export default class UnitTemplateMinis extends React.Component {
 
     return (
       <div className="filter-options">
+        <div className="dropdowns">
+          <DropdownInput
+            className="grade-level-dropdown"
+            handleChange={selectGradeLevel}
+            label="Grade level range"
+            options={gradeLevelOptions}
+            value={currentGradeLevel || gradeLevelOptions[0]}
+          />
+          <DropdownInput
+            className="category-dropdown"
+            handleChange={selectCategory}
+            label="Pack type"
+            options={categoryOptions}
+            value={currentCategory || categoryOptions[0]}
+          />
+        </div>
         {typeOptionsWidget}
       </div>
     )
