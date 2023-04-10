@@ -34,8 +34,16 @@
 }
 
 .navbar-divider-bar {
-  background-color: $quillgreenmedium;
   height: 16px;
+  &.green {
+    background-color: $quillgreenmedium;
+  }
+  &.gold {
+    background-color: $quillgoldmedium;
+  }
+  &.maroon {
+    background-color: $quillmaroon;
+  }
 }
 
 .large-diamond-icon {
@@ -63,6 +71,9 @@
         a {
           color: #FFFFFF;
           background-color: $quillmaroon;
+          .large-diamond-icon {
+            background-image: url("https://assets.quill.org/images/icons/white-diamond.svg");
+          }
         }
       }
 
@@ -74,10 +85,17 @@
         margin-left: 4px;
         border-radius: 8px 8px 0px 0px;
         border-left: none;
+        .large-diamond-icon {
+          background-image: url("https://assets.quill.org/images/icons/red-diamond.svg");
+        }
       }
 
       a:hover {
         background-color: #EFA67E;
+        color: $quillmaroon;
+        .large-diamond-icon {
+            background-image: url("https://assets.quill.org/images/icons/red-diamond.svg");
+          }
       }
 
       img {
