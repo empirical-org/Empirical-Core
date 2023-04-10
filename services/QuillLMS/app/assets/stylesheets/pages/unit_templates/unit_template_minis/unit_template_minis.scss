@@ -17,20 +17,20 @@
   }
 
   .filter-options {
-    margin-bottom: 32px;
     display: flex;
-    flex-direction: column;
+    flex-direction: row;
     justify-content: space-between;
     align-items: center;
+    max-width: 950px;
     .dropdowns {
       display: flex;
       margin-bottom: 32px;
+      margin-top: 30px;
     }
     .dropdown-container {
       justify-content: flex-start;
       min-height: min-content;
       width: 120px;
-      margin-right: 24px;
       .dropdown__control {
         background-color: #f7f5f5;
       }
@@ -38,16 +38,16 @@
         margin-bottom: 29px;
       }
       &.grade-level-dropdown {
-        width: 130px;
+        width: 125px;
         margin-right: 24px;
       }
       &.category-dropdown {
-        width: 140px;
+        width: 125px;
       }
     }
-    .dropdown-container:nth-of-type(2) {
-      width: 325px;
-    }
+    // .dropdown-container:nth-of-type(2) {
+    //   width: 325px;
+    // }
   }
 
   .pack-type-header, .top-card-margin-top {
@@ -59,14 +59,18 @@
   .type-options {
     display: flex;
     width: 668px;
-    justify-content: space-between;
+    font-size: 14px;
+    font-weight: 700;
+    line-height: 16px;
     a {
+      color: #757575;
       line-height: 1;
-      font-size: 16px;
-      margin-right: 24px;
+      font-size: 14px;
       padding-bottom: 8px;
       text-decoration: none !important;
+      margin-right: 32px;
       &.active {
+        color: black;
         border-bottom: 2px solid #000;
       }
     }

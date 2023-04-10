@@ -277,13 +277,13 @@ export default class UnitTemplateMinis extends React.Component {
         value: `${baseLink}${qs}`
       }
     });
-    typeOptionsForDropdown.unshift({ label: 'All Packs', value: '/activities/packs' });
+    typeOptionsForDropdown.unshift({ label: 'All packs', value: '/activities/packs' });
 
     const allPacksLink = (
       <Link
         className={`focus-on-light ${!selectedTypeId ? 'active' : null}`}
         to={`${baseLink}${this.generateQueryString(currentCategory, data.selectedGradeLevel)}`}
-      >All Packs</Link>
+      >All packs</Link>
     );
 
     const typeOptionsWidget = onMobile ? (
@@ -302,11 +302,12 @@ export default class UnitTemplateMinis extends React.Component {
 
     return (
       <div className="filter-options">
+        {typeOptionsWidget}
         <div className="dropdowns">
           <DropdownInput
             className="grade-level-dropdown"
             handleChange={selectGradeLevel}
-            label="Grade level range"
+            label="Grade level"
             options={gradeLevelOptions}
             value={currentGradeLevel || gradeLevelOptions[0]}
           />
@@ -318,7 +319,6 @@ export default class UnitTemplateMinis extends React.Component {
             value={currentCategory || categoryOptions[0]}
           />
         </div>
-        {typeOptionsWidget}
       </div>
     )
   }
