@@ -66,4 +66,37 @@ module QuillAcademyHelper
       text: "Explore Quill's content created specifically for English Language Learners and learn strategies to utilize these resources to support students' written language acquisition."
     }
   }
+
+  def quill_academy_button
+    if current_user&.has_school_or_district_premium?
+      "<a class='interactive-wrapper quill-academy-button premium-user' href='/auth/learn_worlds/courses' target='_blank'>
+        <img src='https://assets.quill.org/images/quill_academy/quill-academy-icon.svg'></img>
+        <h2>Quill Academy</h2>
+        <p class='subheader'>Access a growing library of self-paced training courses and resources to help you become a <u>Quill.org</u> expert and writing pedagogue.</p>
+        <p class='quill-button primary contained medium focus-on-light'>Access my course library</p>
+      </a>".html_safe
+    else
+      "<div class='quill-academy-button'>
+        <img src='https://assets.quill.org/images/quill_academy/quill-academy-icon.svg'></img>
+        <h2>Quill Academy</h2>
+        <p class='subheader'>Access a growing library of self-paced training courses and resources to help you become a <u>Quill.org</u> expert and writing pedagogue.</p>
+        <a class='quill-button primary contained medium focus-on-light' href='/premium' tabIndex=0 target='_blank'>Learn more about Premium</a>
+      </div>".html_safe
+    end
+  end
+
+  def quill_academy_availability_disclaimer
+    return if !current_user
+    if current_user.has_school_or_district_premium?
+      "<div class='availability-disclaimer accessible'>
+      <i class='fas fa-icon fa-check-circle'></i>
+      <p>You have access to Quill Academy through a School Premium or District Premium subscription.<p>
+      </div>".html_safe
+    else
+      "<div class='availability-disclaimer restricted'>
+        <i class='fas fa-icon fa-exclamation-circle'></i>
+        <p>Quill Academy and Quill's Professional Development are included in School Premium and District Premium subscriptions.<p>
+      </div>".html_safe
+    end
+  end
 end

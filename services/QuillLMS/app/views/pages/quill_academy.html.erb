@@ -3,14 +3,8 @@
 <div class="quill-academy-container white-background-accommodate-footer">
   <div class="container">
     <section class="top-section">
-      <div class="availability-disclaimer">
-        <img src="https://assets.quill.org/images/icons/information.svg"></img>
-        <p>Quill Academy and Quill&apos;s Professional Development are included in School Premium and District Premium subscriptions.<p>
-      </div>
-      <img src="https://assets.quill.org/images/quill_academy/quill-academy-icon.svg"></img>
-      <h2>Quill Academy</h2>
-      <p class="subheader">Access a growing library of self-paced training courses and resources to help you become a <u>Quill.org</u> expert and writing pedagogue.</p>
-      <a class="quill-button primary contained medium focus-on-light">Learn more about Premium</a>
+      <%= quill_academy_availability_disclaimer %>
+      <%= quill_academy_button %>
     </section>
     <section class="middle-section">
       <%= render partial: 'quill_academy/category_card', locals: { image: "graduation-cap-green", text: "Courses to help you take full advantage of what Quill has to offer" } %>

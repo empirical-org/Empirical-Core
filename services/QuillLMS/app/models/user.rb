@@ -789,6 +789,19 @@ class User < ApplicationRecord
     teacher? && school&.premium?
   end
 
+  def has_school_premium?
+    school&.subscription.present?
+  end
+
+  def has_district_premium?
+    district = school&.district
+    district&.subscription.present?
+  end
+
+  def has_school_or_district_premium?
+    has_school_premium? || has_district_premium?
+  end
+
   private def validate_flags
     invalid_flags = flags - VALID_FLAGS
 
