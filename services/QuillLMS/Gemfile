@@ -22,6 +22,7 @@ gem 'atomic_arrays', '~> 1.1.0'
 # USER AUTH, ETC
 gem 'bcrypt', '~> 3.1.12'
 gem "doorkeeper", "5.0.3"
+gem 'googleauth', '1.5.1'
 gem 'omniauth', '~> 1.9'
 gem 'omniauth-google-oauth2', '0.6.0'
 gem 'omniauth-clever', git: 'https://github.com/Pioneer-Valley-Books/omniauth-clever'
@@ -54,7 +55,7 @@ gem 'maxminddb'
 
 # OTHERS
 gem 'global'
-gem 'google-api-client', '0.8.6'
+gem 'google-cloud-bigquery', '~> 1.42.0'
 gem 'faraday_middleware'
 gem 'newrelic_rpm', '~> 7.2'
 gem 'stripe', '~> 5.30'
