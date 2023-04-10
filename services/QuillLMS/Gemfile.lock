@@ -100,8 +100,8 @@ GEM
       minitest (>= 5.1)
       tzinfo (~> 2.0)
       zeitwerk (~> 2.3)
-    addressable (2.8.4)
-      public_suffix (>= 2.0.2, < 6.0)
+    addressable (2.8.0)
+      public_suffix (>= 2.0.2, < 5.0)
     afm (0.2.2)
     analytics-ruby (2.0.13)
     ancestry (3.0.7)
@@ -505,7 +505,7 @@ GEM
     parslet (2.0.0)
     patience_diff (1.2.0)
       optimist (~> 3.0)
-    pdf-core (0.9.0)
+    pdf-core (0.7.0)
     pdf-inspector (1.3.0)
       pdf-reader (>= 1.0, < 3.0.a)
     pdf-reader (2.11.0)
@@ -517,18 +517,17 @@ GEM
     pg (1.4.2)
     pragmatic_segmenter (0.3.23)
       unicode
-    prawn (2.4.0)
-      pdf-core (~> 0.9.0)
-      ttfunk (~> 1.7)
+    prawn (2.2.2)
+      pdf-core (~> 0.7.0)
+      ttfunk (~> 1.5)
     prawn-table (0.2.2)
       prawn (>= 1.3.0, < 3.0.0)
     premailer (1.21.0)
       addressable
       css_parser (>= 1.12.0)
       htmlentities (>= 4.0.0)
-    premailer-rails (1.12.0)
+    premailer-rails (1.11.1)
       actionmailer (>= 3)
-      net-smtp
       premailer (~> 1.7, >= 1.7.9)
     pry (0.13.1)
       coderay (~> 1.1)
@@ -550,7 +549,7 @@ GEM
     pry-stack_explorer (0.6.1)
       binding_of_caller (~> 1.0)
       pry (~> 0.13)
-    public_suffix (5.0.1)
+    public_suffix (4.0.7)
     puma (5.6.5)
       nio4r (~> 2.0)
     puma_worker_killer (0.3.1)
@@ -831,7 +830,7 @@ DEPENDENCIES
   actionpack-action_caching
   active_link_to
   active_model_serializers (~> 0.10.13)
-  addressable
+  addressable (= 2.8.0)
   analytics-ruby (~> 2.0.0)
   ancestry (~> 3.0.5)
   annotate
@@ -895,12 +894,12 @@ DEPENDENCIES
   paperclip
   parallel_tests
   parslet
-  pdf-core
-  pdf-inspector
+  pdf-core (~> 0.7.0)
+  pdf-inspector (~> 1.3.0)
   pg (= 1.4.2)
-  prawn
+  prawn (~> 2.2.2)
   prawn-table
-  premailer-rails
+  premailer-rails (~> 1.11.1)
   pry (~> 0.13.1)
   pry-byebug
   pry-coolline
