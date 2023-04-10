@@ -10,7 +10,7 @@ import ScorebookApp from './ScorebookAppClient';
 import PremiumPricingGuideApp from './PremiumPricingGuideAppClient';
 import ProgressReportApp from './ProgressReportAppClient';
 import ResultsPageApp from './ResultsPageAppClient';
-import AdminDashboardApp from './AdminDashboardAppClient';
+import PremiumHubApp from './PremiumHubAppClient';
 import AdminAccountsApp from './AdminAccountsAppClient';
 import AdminsEditorApp from './AdminsEditorAppClient';
 import PublicActivityPacksApp from './PublicActivityPacksAppClient.jsx';
@@ -60,7 +60,7 @@ ReactOnRails.register({ TeacherGuideApp,
   PremiumPricingGuideApp,
   ProgressReportApp,
   ResultsPageApp,
-  AdminDashboardApp,
+  PremiumHubApp,
   AdminAccountsApp,
   AdminsEditorApp,
   PublicActivityPacksApp,

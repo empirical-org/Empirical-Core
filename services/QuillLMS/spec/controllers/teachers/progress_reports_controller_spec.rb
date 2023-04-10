@@ -85,13 +85,13 @@ describe Teachers::ProgressReportsController do
 
   describe '#admin_demo' do
     context 'when name given' do
-      it 'sets the user and redirects to teacher_admin_dashboard path when user exists' do
+      it 'sets the user and redirects to teacher_premium_hub path when user exists' do
         user = create(:user, email: "hello+demoadmin-test@quill.org")
         get :admin_demo, params: { name: "test" }
         expect(assigns(:admin_user)).to eq user
       end
 
-      it 'sets the user, redirects to teacher_admin_dashboard path when user doesnt exist' do
+      it 'sets the user, redirects to teacher_premium_hub path when user doesnt exist' do
         admin_report_service = double('admin_report_service')
         allow(admin_report_service).to receive(:call) do
           create(:user, email: "hello+demoadmin-test@quill.org")
@@ -107,14 +107,14 @@ describe Teachers::ProgressReportsController do
     end
 
     context 'when name not given' do
-      it 'sets the user and redirect to teacher_admin_dashboard path when user exists' do
+      it 'sets the user and redirect to teacher_premium_hub path when user exists' do
         user = create(:user, email: "hello+demoadmin-admindemoschool@quill.org")
 
         get :admin_demo
         expect(assigns(:admin_user)).to eq user
       end
 
-      it 'sets the user, redirects to teacher_admin_dashboard path when user does not exist' do
+      it 'sets the user, redirects to teacher_premium_hub path when user does not exist' do
         admin_report_service = double('admin_report_service')
         allow(admin_report_service).to receive(:call) do
           create(:user, email: "hello+demoadmin-admindemoschool@quill.org")
