@@ -8,7 +8,7 @@ import UnitTemplateMinisTable from './unitTemplateMinisTable'
 
 import AssignmentFlowNavigation from '../assignment_flow_navigation.tsx'
 import { DropdownInput } from '../../../../Shared/index'
-import { ACTIVITY_PACK_TYPES, READING_TEXTS, DIAGNOSTIC, WHOLE_CLASS_LESSONS, LANGUAGE_SKILLS, DAILY_PROOFREADING, CREATE_YOUR_OWN_ID } from '../assignmentFlowConstants'
+import { ACTIVITY_PACK_TYPES, READING_TEXTS, DIAGNOSTIC, WHOLE_CLASS_LESSONS, LANGUAGE_SKILLS, DAILY_PROOFREADING, CREATE_YOUR_OWN_ID, INDEPENDENT_PRACTICE, WHOLE_CLASS_AND_INDEPENDENT } from '../assignmentFlowConstants'
 
 const ALL = 'All'
 const GRADE_LEVEL_LABELS = ['4th-12th', '6th-12th', '8th-12th', '10th-12th']
@@ -157,36 +157,24 @@ export default class UnitTemplateMinis extends React.Component {
       models = this.addCreateYourOwnModel(models);
     }
     if(!selectedTypeId) {
-      const readingTextModels = this.getModelCardsByType(models, READING_TEXTS)
+      const independentPracticeModels = this.getModelCardsByType(models, INDEPENDENT_PRACTICE)
+      const wholeClassAndIndependentModels = this.getModelCardsByType(models, WHOLE_CLASS_AND_INDEPENDENT)
       const diagnosticModels = this.getModelCardsByType(models, DIAGNOSTIC)
-      const languageSkillsModels = this.getModelCardsByType(models, LANGUAGE_SKILLS)
-      const dailyProofreadingModels = this.getModelCardsByType(models, DAILY_PROOFREADING)
-      const wholeClassModels = this.getModelCardsByType(models, WHOLE_CLASS_LESSONS)
       return(
         <React.Fragment>
-          {!!readingTextModels.length && <section className="all-packs-section">
+          {!!independentPracticeModels.length && <section className="all-packs-section">
             <section className="packs-section">
-              {readingTextModels}
+              {independentPracticeModels}
+            </section>
+          </section>}
+          {!!wholeClassAndIndependentModels.length && <section className="all-packs-section">
+            <section className="packs-section">
+              {wholeClassAndIndependentModels}
             </section>
           </section>}
           {!!diagnosticModels.length && <section className="all-packs-section">
             <section className="packs-section">
               {diagnosticModels}
-            </section>
-          </section>}
-          {!!languageSkillsModels.length && <section className="all-packs-section">
-            <section className="packs-section">
-              {languageSkillsModels}
-            </section>
-          </section>}
-          {!!dailyProofreadingModels.length && <section className="all-packs-section">
-            <section className="packs-section">
-              {dailyProofreadingModels}
-            </section>
-          </section>}
-          {!!wholeClassModels.length && <section className="all-packs-section">
-            <section className="packs-section">
-              {wholeClassModels}
             </section>
           </section>}
         </React.Fragment>
@@ -317,29 +305,6 @@ export default class UnitTemplateMinis extends React.Component {
 
     return (
       <div className="filter-options">
-        <div className="dropdowns">
-          <DropdownInput
-            className="grade-level-dropdown"
-            handleChange={selectGradeLevel}
-            label="Grade level range"
-            options={gradeLevelOptions}
-            value={currentGradeLevel || gradeLevelOptions[0]}
-          />
-          <DropdownInput
-            className="category-dropdown"
-            handleChange={selectCategory}
-            label="Pack type"
-            options={categoryOptions}
-            value={currentCategory || categoryOptions[0]}
-          />
-          <DropdownInput
-            className="category-dropdown view-options"
-            handleChange={(option) => this.selectView(option)}
-            label="View"
-            options={viewOptions}
-            value={currentView || viewOptions[0]}
-          />
-        </div>
         {typeOptionsWidget}
       </div>
     )
