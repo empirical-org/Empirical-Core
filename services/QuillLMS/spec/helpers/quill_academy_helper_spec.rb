@@ -27,6 +27,7 @@ describe QuillAcademyHelper do
       it 'should return false if app setting is disabled' do
         expect(helper.should_render_quill_academy_button).to eq(false)
       end
+
       it 'should return false if app setting is enabled but user_id is not in allow_list' do
         app_setting.enabled = true
         app_setting.user_ids_allow_list = []
