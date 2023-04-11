@@ -1,12 +1,11 @@
+import { mount, shallow, } from 'enzyme';
 import React from 'react';
-import ReactDOM from 'react-dom';
-import { shallow, mount, } from 'enzyme';
 import { createMockStore } from 'redux-test-utils';
 
 import PremiumHubRouter from '../PremiumHubRouter.jsx';
 import DistrictStandardsReports from '../DistrictStandardsReports.jsx';
 
-import { FULL, RESTRICTED, LIMITED, } from '../../shared'
+import { FULL, LIMITED, RESTRICTED, } from '../../shared';
 
 const emptyState = {
   district_standards_reports: {

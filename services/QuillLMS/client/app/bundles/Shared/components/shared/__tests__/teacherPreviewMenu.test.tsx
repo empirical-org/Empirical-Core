@@ -1,9 +1,9 @@
-import * as React from 'react';
 import { mount } from 'enzyme';
+import * as React from 'react';
 import { Provider } from "react-redux";
 
-import { TeacherPreviewMenu } from '../../../../Shared/index';
 import createStore from '../../../../Connect/utils/configureStore';
+import { TeacherPreviewMenu } from '../../../../Shared/index';
 const store = createStore();
 
 describe('TeacherPreviewMenu component', () => {

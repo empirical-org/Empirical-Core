@@ -1,8 +1,8 @@
 import * as React from 'react';
 import stripHtml from "string-strip-html";
 
-import { QuestionObject } from '../interfaces/question';
 import { Feedback, getLatestAttempt } from '../../Shared/index';
+import { QuestionObject } from '../interfaces/question';
 
 export const getCurrentQuestion = ({ action, answeredQuestions, questionSet, unansweredQuestions }) => {
   const { data, question } = action;

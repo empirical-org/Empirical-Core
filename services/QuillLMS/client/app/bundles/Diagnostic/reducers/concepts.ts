@@ -1,6 +1,6 @@
+import _ from 'lodash';
 import { Action } from "redux";
 import ActionTypes from '../constants';
-import _ from 'lodash';
 import { Concept } from '../interfaces/concept';
 
 export interface ConceptsReducerState {
@@ -13,10 +13,10 @@ export interface ConceptsReducerState {
 type ConceptsReducerAction = Action & { data: Concept, qid: string }
 
 const initialState = {
-  data: {}, 
+  data: {},
   hasreceiveddata: false,
   newConceptModalOpen: false,
-  states: {}, 
+  states: {},
   submittingnew: false,
 }
 

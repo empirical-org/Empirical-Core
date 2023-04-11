@@ -1,12 +1,12 @@
+import Fuse from 'fuse.js';
+import gql from "graphql-tag";
 import * as React from "react";
 import { Query } from "react-apollo";
-import gql from "graphql-tag";
-import ConceptsTable from "../components/ConceptsTable";
-import ConceptLevels from "../components/ConceptLevels";
-import Search from "../components/shared/search";
-import ConceptManagerNav from "../components/ConceptManagerNav";
 import ConceptBoxContainer from "../components/ConceptBoxContainer";
-import Fuse from 'fuse.js'
+import ConceptLevels from "../components/ConceptLevels";
+import ConceptManagerNav from "../components/ConceptManagerNav";
+import ConceptsTable from "../components/ConceptsTable";
+import Search from "../components/shared/search";
 const conceptsIndexQuery:string = `
   {
     concepts {

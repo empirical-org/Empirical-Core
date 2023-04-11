@@ -1,5 +1,5 @@
-import * as React from 'react';
 import { mount } from 'enzyme';
+import * as React from 'react';
 
 import SchoolVerificationForm from '../school_verification_form';
 
@@ -9,5 +9,5 @@ describe('SchoolVerificationForm component', () => {
     const component = mount(<SchoolVerificationForm schoolName="School Name" />);
     expect(component).toMatchSnapshot();
   });
-  
+
 });

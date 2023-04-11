@@ -1,5 +1,5 @@
-import React from 'react'
 import { shallow } from 'enzyme'
+import React from 'react'
 
 import NameTheUnit from '../name_the_unit.jsx'
 

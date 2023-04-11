@@ -1,11 +1,11 @@
 import expect from 'expect';
-import data from '../jsonFromDiagnostic';
 import {
-  getConceptResultsForQuestion,
-  getNestedConceptResultsForAllQuestions,
+  embedQuestionNumbers,
   getConceptResultsForAllQuestions,
-  embedQuestionNumbers
+  getConceptResultsForQuestion,
+  getNestedConceptResultsForAllQuestions
 } from '../../libs/conceptResults/diagnostic';
+import data from '../jsonFromDiagnostic';
 import conceptResults from './conceptResultsWithMetadata.js';
 
 describe('Getting concept results from an answered SC object',

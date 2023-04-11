@@ -1,6 +1,6 @@
-import * as React from 'react'
+import * as React from 'react';
 
-import { PROJECT } from './constants'
+import { PROJECT } from './constants';
 
 const PromptSection = ({ promptElement, mode, }) => {
   if (mode !== PROJECT) { return promptElement }

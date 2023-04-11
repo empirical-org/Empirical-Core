@@ -1,7 +1,7 @@
 import React from 'react';
 
-import UnlinkModal from './unlink_modal'
 import AuthGoogleAccessForm from '../AuthGoogleAccessForm';
+import UnlinkModal from './unlink_modal';
 
 export default class TeacherLinkedAccounts extends React.Component {
   constructor(props) {

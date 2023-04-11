@@ -1,10 +1,10 @@
-import * as _ from 'lodash'
+import * as _ from 'lodash';
 import { push } from 'react-router-redux';
 
-import { ActionTypes } from './actionTypes'
+import { ActionTypes } from './actionTypes';
 
-import { ProofreaderPassageApi } from '../lib/proofreader_activities_api'
-import { ProofreaderActivity } from '../interfaces/proofreaderActivities'
+import { ProofreaderActivity } from '../interfaces/proofreaderActivities';
+import { ProofreaderPassageApi } from '../lib/proofreader_activities_api';
 
 export const startListeningToActivities = () => {
   return (dispatch: Function) => {

@@ -1,8 +1,8 @@
-import React from 'react';
 import { mount } from 'enzyme';
+import React from 'react';
 
 import PremiumHub from '../PremiumHub';
-import { FULL, LIMITED, RESTRICTED, } from '../../shared'
+import { FULL } from '../../shared'
 
 const sharedProps = {
   passedModel: { teachers: [], schools: [], admin_approval_requests: [] },

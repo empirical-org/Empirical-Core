@@ -1,6 +1,6 @@
 import * as React from 'react';
 
-import Constants from '../../constants'
+import Constants from '../../constants';
 
 const { PRODUCTION, GAMMA, BETA, ALPHA, ARCHIVED, NONE, } = Constants
 

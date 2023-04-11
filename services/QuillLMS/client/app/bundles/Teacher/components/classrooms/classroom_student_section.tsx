@@ -1,13 +1,13 @@
-import * as React from 'react'
 import moment from 'moment'
+import * as React from 'react'
 
 import EditStudentAccountModal from './edit_student_account_modal'
-import ResetStudentPasswordModal from './reset_student_password_modal'
 import MergeStudentAccountsModal from './merge_student_accounts_modal'
 import MoveStudentsModal from './move_students_modal'
 import RemoveStudentsModal from './remove_students_modal'
+import ResetStudentPasswordModal from './reset_student_password_modal'
 
-import { DropdownInput, DataTable, Tooltip, helpIcon, warningIcon, } from '../../../Shared/index'
+import { DataTable, DropdownInput, Tooltip, helpIcon, warningIcon, } from '../../../Shared/index'
 
 const emptyDeskSrc = `${process.env.CDN_URL}/images/illustrations/empty-desks.svg`
 const bulbSrc = `${process.env.CDN_URL}/images/illustrations/bulb.svg`

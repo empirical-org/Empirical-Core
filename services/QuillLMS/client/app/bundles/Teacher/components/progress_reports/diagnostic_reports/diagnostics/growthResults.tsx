@@ -1,25 +1,25 @@
-import * as React from 'react'
-import { withRouter, Link, } from 'react-router-dom';
+import * as React from 'react';
+import { withRouter } from 'react-router-dom';
 
+import {
+  OpenPopover,
+  SkillGroupSummary,
+  StudentResult
+} from './interfaces';
 import {
   fileDocumentIcon,
-  noProficiencyTag,
-  partialProficiencyTag,
   gainedProficiencyTag,
   maintainedProficiencyTag,
-} from './shared'
-import StudentResultsTable from './studentResultsTable'
-import {
-  SkillGroupSummary,
-  StudentResult,
-  OpenPopover
-} from './interfaces'
+  noProficiencyTag,
+  partialProficiencyTag,
+} from './shared';
+import StudentResultsTable from './studentResultsTable';
 
-import LoadingSpinner from '../../../shared/loading_indicator.jsx'
 import { requestGet } from '../../../../../../modules/request/index';
 import {
   CLICK,
-} from '../../../../../Shared/index'
+} from '../../../../../Shared/index';
+import LoadingSpinner from '../../../shared/loading_indicator.jsx';
 
 export const GrowthResults = ({ passedStudentResults, passedSkillGroupSummaries, match, mobileNavigation, }) => {
   const [loading, setLoading] = React.useState<boolean>(!passedStudentResults);

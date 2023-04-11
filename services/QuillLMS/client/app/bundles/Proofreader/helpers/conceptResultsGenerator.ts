@@ -1,5 +1,5 @@
-import { ConceptResult } from 'quill-marking-logic'
-import { Question, FormattedConceptResult, ConceptResultMetadata } from '../interfaces/questions'
+import { ConceptResult } from 'quill-marking-logic';
+import { FormattedConceptResult, Question } from '../interfaces/questions';
 
 export function getConceptResultsForQuestion(question: Question): FormattedConceptResult[]|undefined {
   const prompt = question.prompt.replace(/(<([^>]+)>)/ig, '').replace(/&nbsp;/ig, '');

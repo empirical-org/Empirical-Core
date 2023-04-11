@@ -1,9 +1,8 @@
-import React from 'react';
 import { mount } from 'enzyme';
-import _ from 'lodash'
+import React from 'react';
 
 import { activityPack } from '../../../../../../../test_data/activityPack';
-import UnitTemplateProfileDescription from '../unit_template_profile_description'
+import UnitTemplateProfileDescription from '../unit_template_profile_description';
 
 const mockProps = {
   data: activityPack

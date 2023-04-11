@@ -1,6 +1,6 @@
 import React from 'react';
 
-import IndividualFeaturesTable from './individual_features_table'
+import IndividualFeaturesTable from './individual_features_table';
 
 const greenCheckSrc = `${process.env.CDN_URL}/images/icons/icons-check-green.svg`
 

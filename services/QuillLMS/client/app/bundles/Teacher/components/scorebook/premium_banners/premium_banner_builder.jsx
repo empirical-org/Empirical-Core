@@ -1,9 +1,9 @@
-import React from 'react'
 import $ from 'jquery'
+import React from 'react'
 
 import FreeTrialBanner from './free_trial_banner.jsx'
-import NewSignUpBanner from './new_signup_banner.jsx'
 import FreeTrialStatus from './free_trial_status.jsx'
+import NewSignUpBanner from './new_signup_banner.jsx'
 
 export default class PremiumBannerBuilder extends React.Component {
   constructor(props) {

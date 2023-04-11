@@ -1,6 +1,6 @@
-import * as React from 'react';
 import { shallow } from 'enzyme';
-import { QueryClient, QueryClientProvider } from 'react-query'
+import * as React from 'react';
+import { QueryClientProvider } from 'react-query';
 
 import { Home } from '../home';
 

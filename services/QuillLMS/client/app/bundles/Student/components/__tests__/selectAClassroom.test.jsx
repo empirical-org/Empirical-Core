@@ -1,7 +1,7 @@
-import React from 'react';
 import { shallow } from 'enzyme';
+import React from 'react';
 
-import SelectAClassroom from '../selectAClassroom'
+import SelectAClassroom from '../selectAClassroom';
 
 const handleClassroomTabClick = () => {}
 

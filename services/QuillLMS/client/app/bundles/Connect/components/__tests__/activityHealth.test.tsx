@@ -1,10 +1,10 @@
-import * as React from 'react';
 import { shallow } from 'enzyme';
+import * as React from 'react';
 import { Provider } from 'react-redux';
 
+import 'whatwg-fetch';
 import createStore from '../../utils/configureStore';
 import ActivityHealth from '../activityHealth/activityHealth';
-import 'whatwg-fetch';
 
 const mockProps = {
   activityHealth: {

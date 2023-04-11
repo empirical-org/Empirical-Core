@@ -1,4 +1,4 @@
-import { TO_DO_ACTIVITIES, } from '../constants/student_profile'
+import { TO_DO_ACTIVITIES, } from '../constants/student_profile';
 
 const initialState = {
   classrooms: [],

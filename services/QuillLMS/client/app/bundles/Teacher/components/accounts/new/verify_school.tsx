@@ -1,11 +1,11 @@
 import * as React from 'react';
 
-import SchoolVerificationForm from './school_verification_form'
-import RequestAdminAccessForm from './request_admin_access_form'
+import RequestAdminAccessForm from './request_admin_access_form';
+import SchoolVerificationForm from './school_verification_form';
 
-import AssignActivityPackBanner from '../assignActivityPackBanner'
-import { Spinner, } from '../../../../Shared/index'
-import { requestGet, } from '../../../../../modules/request/index'
+import { requestGet, } from '../../../../../modules/request/index';
+import { Spinner, } from '../../../../Shared/index';
+import AssignActivityPackBanner from '../assignActivityPackBanner';
 
 const VerifySchool = ({ passedSchoolName, passedAdmins, }) => {
   const [schoolName, setSchoolName] = React.useState(passedSchoolName || '')

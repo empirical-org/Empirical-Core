@@ -1,9 +1,9 @@
-import React from 'react';
 import { mount } from 'enzyme';
+import React from 'react';
 
 import ResultsPage from '../ResultsPage.jsx';
 
-import ResultsIcon from '../../components/activities/results_page/results_icon.jsx'
+import ResultsIcon from '../../components/activities/results_page/results_icon.jsx';
 
 describe('ResultsPage container', () => {
 

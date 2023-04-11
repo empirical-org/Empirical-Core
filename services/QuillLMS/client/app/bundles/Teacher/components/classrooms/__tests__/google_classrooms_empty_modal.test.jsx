@@ -1,7 +1,7 @@
-import React from 'react';
 import { shallow } from 'enzyme';
+import React from 'react';
 
-import GoogleClassroomsEmptyModal from '../google_classrooms_empty_modal'
+import GoogleClassroomsEmptyModal from '../google_classrooms_empty_modal';
 
 describe('GoogleClassroomsEmptyModal component', () => {
 

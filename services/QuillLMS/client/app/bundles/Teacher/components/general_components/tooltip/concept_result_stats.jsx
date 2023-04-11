@@ -1,6 +1,6 @@
+import $ from 'jquery';
 import React from 'react';
 import ConceptResultStat from './concept_result_stat.jsx';
-import $ from 'jquery';
 
 export default class ConceptResultStats extends React.Component {
   addTotalAndPercentageToConRes = (conResArr) => {

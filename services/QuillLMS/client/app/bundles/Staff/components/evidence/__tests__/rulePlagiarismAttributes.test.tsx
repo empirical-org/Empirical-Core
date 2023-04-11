@@ -1,8 +1,8 @@
-import * as React from 'react';
 import { shallow } from 'enzyme';
+import * as React from 'react';
 
+import { TextEditor } from '../../../../Shared/index';
 import RulePlagiarismAttributes, { PlagiarismTextEditor, } from '../configureRules/rulePlagiarismAttributes';
-import { TextEditor } from '../../../../Shared/index'
 
 const mockProps = {
   errors: {},

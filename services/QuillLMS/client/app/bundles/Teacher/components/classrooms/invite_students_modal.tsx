@@ -1,7 +1,7 @@
-import * as React from 'react'
+import * as React from 'react';
 
-import AddStudents from './add_students'
-import SetupInstructions from './setup_instructions'
+import AddStudents from './add_students';
+import SetupInstructions from './setup_instructions';
 
 const closeIconSrc = `${process.env.CDN_URL}/images/icons/close.svg`
 

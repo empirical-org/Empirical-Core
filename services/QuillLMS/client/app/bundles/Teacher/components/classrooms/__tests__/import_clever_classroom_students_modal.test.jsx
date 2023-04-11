@@ -1,9 +1,9 @@
-import React from 'react';
 import { shallow } from 'enzyme';
+import React from 'react';
 
-import { classroomWithStudents } from './test_data/test_data'
+import { classroomWithStudents } from './test_data/test_data';
 
-import ImportCleverClassroomStudentsModal from '../import_clever_classroom_students_modal'
+import ImportCleverClassroomStudentsModal from '../import_clever_classroom_students_modal';
 
 
 describe('ImportCleverClassroomStudentsModal component', () => {

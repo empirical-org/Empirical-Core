@@ -1,12 +1,12 @@
 import React from 'react';
-import PremiumHubRouter from 'bundles/PremiumHub/containers/PremiumHubRouter';
 import { combineReducers, createStore, applyMiddleware, compose } from 'redux';
 import thunk from 'redux-thunk';
-import premiumHubReducer from 'reducers/premium_hub';
+import { Provider } from 'react-redux';
+
+import PremiumHubRouter from 'bundles/PremiumHub/containers/PremiumHubRouter';
 import districtActivityScores from 'reducers/district_activity_scores';
 import districtConceptReports from 'reducers/district_concept_reports';
 import districtStandardsReports from 'reducers/district_standards_reports';
-import { Provider } from 'react-redux';
 
 
 const bigApp = combineReducers({
