@@ -1,15 +1,14 @@
 const C = require('../constants').default;
-import _ from 'lodash';
 import { push } from 'react-router-redux';
-import { submitResponse } from './responses';
-import sessionActions from './sessions';
-import { Questions, Question, FocusPoint, IncorrectSequence } from '../interfaces/questions'
+import { Question } from '../interfaces/questions';
 import {
-  QuestionApi,
+  FILL_IN_BLANKS_TYPE,
   FocusPointApi,
   IncorrectSequenceApi,
-  FILL_IN_BLANKS_TYPE
-} from '../libs/questions_api'
+  QuestionApi
+} from '../libs/questions_api';
+import { submitResponse } from './responses';
+import sessionActions from './sessions';
 
 function startListeningToQuestions() {
   return loadQuestions();

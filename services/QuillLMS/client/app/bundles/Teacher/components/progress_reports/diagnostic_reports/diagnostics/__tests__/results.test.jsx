@@ -1,13 +1,12 @@
-import React from 'react'
 import { mount } from 'enzyme'
-import * as $ from 'jquery'
+import React from 'react'
 
 import {
   dummyLocationData,
   dummyMatchData,
-  resultsSummaryStudentResults,
   resultsSummarySkillGroupSummaries,
   resultsSummarySkillGroupSummariesNoData,
+  resultsSummaryStudentResults,
   resultsSummaryStudentResultsNoData,
 } from './test_data'
 

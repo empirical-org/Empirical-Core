@@ -33,4 +33,5 @@ export {
   lessonApiBaseUrl,
   TYPE_CONNECT_LESSON,
   TYPE_DIAGNOSTIC_LESSON
-}
+};
+

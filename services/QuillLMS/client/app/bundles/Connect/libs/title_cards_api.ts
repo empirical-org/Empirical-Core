@@ -28,4 +28,5 @@ export {
   CONNECT_TITLE_CARD_TYPE,
   DIAGNOSTIC_TITLE_CARD_TYPE,
   titleCardApiBaseUrl
-}
+};
+

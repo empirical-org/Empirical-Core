@@ -1,8 +1,8 @@
-import React from 'react'
 import { shallow } from 'enzyme'
+import React from 'react'
 
-import UnitAssignmentFollowup from '../unit_assignment_followup'
 import { classroomProps } from '../stage2/__tests__/test_data/test_data'
+import UnitAssignmentFollowup from '../unit_assignment_followup'
 
 
 describe('Unit assignment followup component', () => {

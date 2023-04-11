@@ -1,12 +1,12 @@
-import * as React from "react";
 import queryString from 'query-string';
+import * as React from "react";
 import { connect } from "react-redux";
 
-import TurkLanding from './landing';
 import TurkCompleted from './completed';
+import TurkLanding from './landing';
 
+import validateTurkSession from '../../utils/turkAPI';
 import StudentView from '../studentView/container';
-import validateTurkSession from '../../utils/turkAPI'
 
 export const TurkerView = ({ session }) => {
   const { sessionID } = session;

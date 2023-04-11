@@ -1,14 +1,14 @@
 import * as React from "react";
+import { useQuery, useQueryClient } from 'react-query';
 import { Link } from 'react-router-dom';
-import { useQueryClient, useQuery } from 'react-query';
 import stripHtml from "string-strip-html";
 
-import Navigation from '../navigation'
-import RuleForm from '../configureRules/ruleForm';
-import { updateRule, deleteRule, fetchRule } from '../../../utils/evidence/ruleAPIs';
-import { RuleInterface } from '../../../interfaces/evidenceInterfaces';
 import { DataTable, Error, Modal, Spinner } from '../../../../Shared/index';
 import { renderErrorsContainer } from '../../../helpers/evidence/renderHelpers';
+import { RuleInterface } from '../../../interfaces/evidenceInterfaces';
+import { deleteRule, fetchRule, updateRule } from '../../../utils/evidence/ruleAPIs';
+import RuleForm from '../configureRules/ruleForm';
+import Navigation from '../navigation';
 
 const UniversalRule = ({ history, location, match }) => {
   const { params } = match;

@@ -4,10 +4,10 @@ import { withRouter } from 'react-router-dom';
 
 import RuleViewForm from './ruleViewForm';
 
-import { RuleInterface } from '../../../interfaces/evidenceInterfaces';
 import { blankRule } from '../../../../../constants/evidence';
-import { fetchRule } from '../../../utils/evidence/ruleAPIs';
 import { Spinner } from '../../../../Shared/index';
+import { RuleInterface } from '../../../interfaces/evidenceInterfaces';
+import { fetchRule } from '../../../utils/evidence/ruleAPIs';
 
 const RuleViewFormWrapper = ({ activityData, isSemantic, isUniversal, location, requestErrors, rulePromptsDisabled, ruleTypeDisabled, submitRule, match }) => {
   const { state } = location;

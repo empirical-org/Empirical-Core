@@ -2,10 +2,10 @@
 import expect from 'expect';
 import responsesWithStatus, { getStatusForResponse } from '../../libs/responseTools.js';
 import responses, {
-  optimalResponse,
-  subOptimalResponse,
   algoOptimalResponse,
   algoSubOptimalResponse,
+  optimalResponse,
+  subOptimalResponse,
   ungradedResponse,
 } from '../data/sentenceFragmentResponses';
 

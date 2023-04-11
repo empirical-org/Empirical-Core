@@ -1,4 +1,4 @@
-import { Response, ConceptResult } from 'quill-marking-logic'
+import { ConceptResult, Response } from 'quill-marking-logic';
 
 // TODO: add/remove/update all interfaces to accurately reflect full data shape
 
@@ -38,13 +38,13 @@ export interface SentenceFragmentQuestion {
   prompt: string;
   type: string;
   wordCountChange: {
-    max: number; 
-    min: number; 
+    max: number;
+    min: number;
   }
   identified?: boolean;
-  ignoreCaseAndPunc?: boolean; 
-  incorrectSequences?: any; 
-  focusPoints?: any; 
+  ignoreCaseAndPunc?: boolean;
+  incorrectSequences?: any;
+  focusPoints?: any;
   concept_uid?: string;
 }
 

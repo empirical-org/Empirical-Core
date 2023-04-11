@@ -1,7 +1,7 @@
-import * as React from 'react';
 import { mount } from 'enzyme';
+import * as React from 'react';
 
-import { LowerFormFields }from '../../../components/salesForm/lowerFormFields';
+import { LowerFormFields } from '../../../components/salesForm/lowerFormFields';
 
 jest.mock('fuse.js', () => ({
   default: jest.fn()

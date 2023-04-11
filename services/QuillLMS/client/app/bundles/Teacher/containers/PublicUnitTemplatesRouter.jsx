@@ -1,6 +1,6 @@
-import React from 'react'
-import { BrowserRouter, Route } from 'react-router-dom'
-import LessonPlannerContainer from './LessonPlannerContainer'
+import React from 'react';
+import { BrowserRouter, Route } from 'react-router-dom';
+import LessonPlannerContainer from './LessonPlannerContainer';
 
 const PublicUnitTemplatesRouter = () => {
   return(

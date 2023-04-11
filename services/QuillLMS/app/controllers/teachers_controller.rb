@@ -26,7 +26,7 @@ class TeachersController < ApplicationController
     end
   end
 
-  def admin_dashboard
+  def premium_hub
     if current_user.present? && current_user.admin? && !admin_impersonating_user?(current_user)
       render 'admin'
     else

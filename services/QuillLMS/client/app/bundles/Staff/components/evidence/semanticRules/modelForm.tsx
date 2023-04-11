@@ -1,12 +1,12 @@
 import * as React from "react";
-import { useQuery, queryCache } from 'react-query';
-import { withRouter, Link } from 'react-router-dom';
+import { useQuery } from 'react-query';
+import { Link, withRouter } from 'react-router-dom';
 
-import { InputEvent } from '../../../interfaces/evidenceInterfaces';
 import { Input, Spinner, TextArea } from '../../../../Shared/index';
-import { createModel } from '../../../utils/evidence/modelAPIs';
-import { fetchActivity } from '../../../utils/evidence/activityAPIs';
 import { renderHeader } from '../../../helpers/evidence/renderHelpers';
+import { InputEvent } from '../../../interfaces/evidenceInterfaces';
+import { fetchActivity } from '../../../utils/evidence/activityAPIs';
+import { createModel } from '../../../utils/evidence/modelAPIs';
 
 const ModelForm = ({ location, history, match }) => {
   const { params } = match;

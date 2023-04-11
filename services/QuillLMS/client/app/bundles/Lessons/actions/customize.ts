@@ -1,11 +1,11 @@
 declare function require(name:string);
+import _ from 'lodash';
+import { v4 as uuid } from 'uuid';
+import lessonSlideBoilerplates from '../components/classroomLessons/shared/lessonSlideBoilerplates';
 import C from '../constants';
-import * as CustomizeIntf from '../interfaces/customize'
-import lessonSlideBoilerplates from '../components/classroomLessons/shared/lessonSlideBoilerplates'
-import _ from 'lodash'
-import {v4 as uuid} from 'uuid';
+import * as CustomizeIntf from '../interfaces/customize';
 
-import socket from '../utils/socketStore'
+import socket from '../utils/socketStore';
 
 export function getCurrentUserAndCoteachersFromLMS() {
   return function(dispatch) {

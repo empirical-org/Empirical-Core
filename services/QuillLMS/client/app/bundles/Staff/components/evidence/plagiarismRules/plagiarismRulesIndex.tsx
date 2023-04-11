@@ -1,17 +1,17 @@
 import * as React from "react";
-import { Link, RouteComponentProps } from 'react-router-dom'
 import { useQuery } from 'react-query';
+import { Link, RouteComponentProps } from 'react-router-dom';
 import stripHtml from "string-strip-html";
 
+import { BECAUSE, BUT, PLAGIARISM, SO } from '../../../../../constants/evidence';
+import { DataTable, Error, Spinner } from '../../../../Shared/index';
 import { titleCase } from "../../../helpers/evidence/miscHelpers";
-import { renderHeader } from "../../../helpers/evidence/renderHelpers";
 import { promptsByConjunction } from "../../../helpers/evidence/promptHelpers";
+import { renderHeader } from "../../../helpers/evidence/renderHelpers";
 import { getPromptIdString } from '../../../helpers/evidence/ruleHelpers';
 import { ActivityRouteProps, RuleInterface } from '../../../interfaces/evidenceInterfaces';
-import { BECAUSE, BUT, SO, PLAGIARISM } from '../../../../../constants/evidence';
-import { fetchRules } from '../../../utils/evidence/ruleAPIs';
 import { fetchActivity } from '../../../utils/evidence/activityAPIs';
-import { DataTable, Error, Spinner } from '../../../../Shared/index';
+import { fetchRules } from '../../../utils/evidence/ruleAPIs';
 
 const PlagiarismRulesIndex: React.FC<RouteComponentProps<ActivityRouteProps>> = ({ match }) => {
   const { params } = match;

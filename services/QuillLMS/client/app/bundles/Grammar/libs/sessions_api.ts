@@ -15,4 +15,5 @@ class SessionApi {
 export {
   SessionApi,
   sessionApiBaseUrl
-}
+};
+

@@ -74,10 +74,18 @@ describe NavigationHelper do
   end
 
   describe '#admin_page_active?' do
-    before { allow(helper).to receive(:action_name) { "admin_dashboard" } }
+    before { allow(helper).to receive(:action_name) { "premium_hub" } }
 
     it 'should return true on admin dashboard action' do
       expect(helper.admin_page_active?).to eq true
+    end
+  end
+
+  describe '#teacher_premium_active?' do
+    before { allow(helper).to receive(:action_name) { "teacher_premium" } }
+
+    it 'should return true on teacher premium action' do
+      expect(helper.teacher_premium_active?).to eq true
     end
   end
 
@@ -109,6 +117,42 @@ describe NavigationHelper do
       allow(helper).to receive(:classes_page_active?) { false }
       allow(helper).to receive(:student_reports_page_active?) { true }
       expect(helper.should_render_subnav?).to eq true
+    end
+  end
+
+  describe '#should_render_teacher_premium?' do
+    it 'should return true if the teacher has a paid teacher premium subscription' do
+      teacher = create(:teacher)
+      subscription = create(:subscription, account_type: Subscription::TEACHER_PAID)
+      create(:user_subscription, user: teacher, subscription: subscription)
+      allow(helper).to receive(:current_user) { teacher }
+
+      expect(helper.should_render_teacher_premium?).to eq true
+    end
+
+    it 'should return false if the teacher has an unpaid subscription' do
+      teacher = create(:teacher)
+      subscription = create(:subscription, account_type: Subscription::TEACHER_TRIAL)
+      create(:user_subscription, user: teacher, subscription: subscription)
+      allow(helper).to receive(:current_user) { teacher }
+
+      expect(helper.should_render_teacher_premium?).to eq false
+    end
+
+    it 'should return false if the teacher has a school subscription' do
+      teacher = create(:teacher)
+      subscription = create(:subscription, account_type: Subscription::SCHOOL_PAID)
+      create(:user_subscription, user: teacher, subscription: subscription)
+      allow(helper).to receive(:current_user) { teacher }
+
+      expect(helper.should_render_teacher_premium?).to eq false
+    end
+
+    it 'should return false if the teacher has no subscription' do
+      teacher = create(:teacher)
+      allow(helper).to receive(:current_user) { teacher }
+
+      expect(helper.should_render_teacher_premium?).to eq false
     end
   end
 

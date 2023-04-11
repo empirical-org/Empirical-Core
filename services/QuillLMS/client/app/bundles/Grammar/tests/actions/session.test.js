@@ -1,12 +1,14 @@
-import 'whatwg-fetch'
-import { allQuestions,
+import 'whatwg-fetch';
+import {
+  allQuestions,
   denormalizeSession,
   normalizeSession,
-  populateQuestions } from '../../actions/session';
+  populateQuestions
+} from '../../actions/session';
 import {
   denormalizedSession,
-  normalizedSession,
   mockQuestions,
+  normalizedSession,
 } from './session.data';
 
 // Populate our question cache to use in denormalization

@@ -1,6 +1,6 @@
 import * as React from 'react'
 
-import { smallWhiteCheckIcon, indeterminateCheckIcon, } from '../../../Shared/index'
+import { indeterminateCheckIcon, smallWhiteCheckIcon, } from '../../../Shared/index'
 
 const AdminTable = ({ schoolAdmins, selectedAdminIds, setSelectedAdminIds, }) => {
   function selectAdmin(id) {

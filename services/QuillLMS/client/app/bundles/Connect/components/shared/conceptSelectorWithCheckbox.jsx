@@ -1,7 +1,7 @@
-import React from 'react'
+import React from 'react';
 import { connect } from 'react-redux';
 
-import ConceptSelector from './conceptSelector.jsx'
+import ConceptSelector from './conceptSelector.jsx';
 
 import { ConceptExplanation } from '../../../Shared/index';
 

@@ -34,7 +34,7 @@ module NavigationHelper
   end
 
   def admin_page_active?
-    action_name == 'admin_dashboard'
+    action_name == 'premium_hub'
   end
 
   def premium_page_active?
@@ -43,6 +43,10 @@ module NavigationHelper
 
   def quill_academy_active?
     action_name == 'quill_academy'
+  end
+
+  def teacher_premium_active?
+    action_name == 'teacher_premium'
   end
 
   def premium_tab_copy
@@ -76,6 +80,10 @@ module NavigationHelper
   def in_assignment_flow?
     current_uri = request.env['PATH_INFO']
     current_uri&.match(%r{assign/.*}) != nil
+  end
+
+  def should_render_teacher_premium?
+    current_user&.premium_state == PAID && Subscription::OFFICIAL_TEACHER_TYPES.include?(current_user.subscription.account_type)
   end
 
   def playing_activity?

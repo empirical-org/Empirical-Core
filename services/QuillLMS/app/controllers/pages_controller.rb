@@ -509,6 +509,8 @@ class PagesController < ApplicationController
     redirect_to root_path unless current_user
   end
 
+  def teacher_premium; end
+
   private def determine_layout
     case action_name
     when 'home'
