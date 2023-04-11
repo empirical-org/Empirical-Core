@@ -4,7 +4,16 @@
   <div class="container">
     <section class="top-section">
       <%= quill_academy_availability_disclaimer %>
-      <%= quill_academy_button %>
+      <% if should_render_quill_academy_button %>
+        <%= button_to "/auth/learn_worlds/courses", method: "post", class: "interactive-wrapper quill-academy-button-or-info-section premium-user" do %>
+          <img src='https://assets.quill.org/images/quill_academy/quill-academy-icon.svg'></img>
+          <h2>Quill Academy</h2>
+          <p class='subheader'>Access a growing library of self-paced training courses and resources to help you become a <u>Quill.org</u> expert and writing pedagogue.</p>
+          <p class='quill-button primary contained medium focus-on-light'>Access my course library</p>
+        <% end %>
+      <% else %>
+        <%= quill_academy_info_section %>
+      <% end %>
     </section>
     <section class="middle-section">
       <%= render partial: 'quill_academy/category_card', locals: { image: "graduation-cap-green", text: "Courses to help you take full advantage of what Quill has to offer" } %>

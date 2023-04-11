@@ -67,25 +67,21 @@ module QuillAcademyHelper
     }
   }
 
-  def quill_academy_button
+  def should_render_quill_academy_button
     quill_academy_feature_flag = AppSetting.where(name: 'quill_academy')&.first
-    quill_academy_enabled = current_user && quill_academy_feature_flag && quill_academy_feature_flag.enabled && quill_academy_feature_flag.user_ids_allow_list.include?(current_user.id)
-    if quill_academy_enabled
-      "<a class='interactive-wrapper quill-academy-button premium-user' data-method='post' href='/auth/learn_worlds/courses' target='_blank'>
-        <img src='https://assets.quill.org/images/quill_academy/quill-academy-icon.svg'></img>
-        <h2>Quill Academy</h2>
-        <p class='subheader'>Access a growing library of self-paced training courses and resources to help you become a <u>Quill.org</u> expert and writing pedagogue.</p>
-        <p class='quill-button primary contained medium focus-on-light'>Access my course library</p>
-      </a>".html_safe
-    elsif current_user&.has_school_or_district_premium?
-      "<div class='quill-academy-button'>
+    current_user && quill_academy_feature_flag && quill_academy_feature_flag.enabled && quill_academy_feature_flag.user_ids_allow_list.include?(current_user.id)
+  end
+
+  def quill_academy_info_section
+    if current_user&.has_school_or_district_premium?
+      "<div class='quill-academy-button-or-info-section'>
         <img src='https://assets.quill.org/images/quill_academy/quill-academy-icon.svg'></img>
         <h2>Quill Academy</h2>
         <p class='subheader'>Access a growing library of self-paced training courses and resources to help you become a <u>Quill.org</u> expert and writing pedagogue.</p>
         <button class='quill-button primary contained medium focus-on-light disabled' disabled>Coming Soon</button>
       </div>".html_safe
     else
-      "<div class='quill-academy-button'>
+      "<div class='quill-academy-button-or-info-section'>
         <img src='https://assets.quill.org/images/quill_academy/quill-academy-icon.svg'></img>
         <h2>Quill Academy</h2>
         <p class='subheader'>Access a growing library of self-paced training courses and resources to help you become a <u>Quill.org</u> expert and writing pedagogue.</p>
