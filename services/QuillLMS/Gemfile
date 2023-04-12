@@ -54,7 +54,8 @@ gem 'maxminddb'
 
 # OTHERS
 gem 'global'
-gem 'google-api-client', '0.8.6'
+#gem 'google-api-client', '0.8.6'
+gem 'google-api-client', git: 'https://github.com/empirical-org/google-api-client.git', branch: 'develop'
 gem 'faraday_middleware'
 gem 'newrelic_rpm', '~> 7.2'
 gem 'stripe', '~> 5.30'
