@@ -1,7 +1,7 @@
 'use strict';
-import React from 'react'
+import React from 'react';
 import AuthGoogleAccessForm from '../AuthGoogleAccessForm';
-import CleverSignUp from './clever_sign_up'
+import CleverSignUp from './clever_sign_up';
 
 const AuthSignUp = () => {
   return (

@@ -1,5 +1,5 @@
-import React from 'react';
 import { mount } from 'enzyme';
+import React from 'react';
 
 import PinnedActivityModal from '../pinned_activity_modal';
 

@@ -1,6 +1,6 @@
 import * as React from 'react';
 
-import GradeLevelSection from '../shared/grade_level_section'
+import GradeLevelSection from '../shared/grade_level_section';
 
 const TeacherGradeLevels = ({ activateSection, active, deactivateSection, passedMaximumGradeLevel, passedMinimumGradeLevel, updateTeacherInfo, }) => {
   const [minimumGradeLevel, setMinimumGradeLevel] = React.useState(passedMinimumGradeLevel)

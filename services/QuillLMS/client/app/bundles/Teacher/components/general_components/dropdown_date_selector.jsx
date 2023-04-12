@@ -1,5 +1,5 @@
-import React from 'react'
-import _ from 'underscore'
+import React from 'react';
+import _ from 'underscore';
 
 export default class DropdownDateSelector extends React.Component {
   getDateParts = () => {

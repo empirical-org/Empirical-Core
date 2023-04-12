@@ -1,8 +1,8 @@
 import React from 'react';
-import { Card } from '../../../../Shared/index'
+import { Card } from '../../../../Shared/index';
 
-import AssignActivityPackBanner from '../assignActivityPackBanner'
-import { requestPut, } from '../../../../../modules/request/index'
+import { requestPut, } from '../../../../../modules/request/index';
+import AssignActivityPackBanner from '../assignActivityPackBanner';
 
 const homeSchoolSrc = `${process.env.CDN_URL}/images/onboarding/home-building.svg`
 const internationalSrc = `${process.env.CDN_URL}/images/onboarding/globe.svg`

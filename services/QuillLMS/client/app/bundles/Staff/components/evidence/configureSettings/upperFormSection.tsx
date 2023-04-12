@@ -1,9 +1,9 @@
 import * as React from 'react';
 
-import { Input, DropdownInput } from '../../../../Shared';
-import { renderErrorsContainer, renderIDorUID } from '../../../helpers/evidence/renderHelpers';
-import { PARENT_ACTIVITY_ID, TITLE, NOTES } from '../../../../../constants/evidence';
+import { NOTES, PARENT_ACTIVITY_ID, TITLE } from '../../../../../constants/evidence';
 import { flagOptions } from '../../../../../constants/flagOptions';
+import { DropdownInput, Input } from '../../../../Shared';
+import { renderErrorsContainer, renderIDorUID } from '../../../helpers/evidence/renderHelpers';
 
 export const UpperFormSection = ({
   activity,

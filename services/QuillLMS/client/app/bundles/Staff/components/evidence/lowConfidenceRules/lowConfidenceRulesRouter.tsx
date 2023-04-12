@@ -4,12 +4,12 @@ import { Route, Switch, withRouter } from 'react-router-dom';
 
 import LowConfidenceRulesIndex from './lowConfidenceRulesIndex';
 
-import RuleViewFormWrapper from '../configureRules/ruleViewFormWrapper';
+import { Error, Spinner } from '../../../../Shared/index';
+import { getRefetchQueryString } from '../../../helpers/evidence/ruleHelpers';
+import { RuleInterface } from '../../../interfaces/evidenceInterfaces';
 import { fetchActivity } from '../../../utils/evidence/activityAPIs';
 import { createRule, updateRule } from '../../../utils/evidence/ruleAPIs';
-import { Error, Spinner } from '../../../../Shared/index';
-import { RuleInterface } from '../../../interfaces/evidenceInterfaces';
-import { getRefetchQueryString } from '../../../helpers/evidence/ruleHelpers';
+import RuleViewFormWrapper from '../configureRules/ruleViewFormWrapper';
 
 const LowConfidenceRulesRouter = ({ history, match }) => {
   const { params } = match;

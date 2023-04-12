@@ -1,11 +1,11 @@
+import * as moment from 'moment';
 import * as React from "react";
-import * as moment from 'moment'
 
 import PromptTable from './promptTable';
 
+import { BECAUSE, BUT, SO } from '../../../../../constants/evidence';
 import { DataTable, Error, Spinner } from '../../../../Shared/index';
 import { getPromptForActivitySession } from "../../../helpers/evidence/promptHelpers";
-import { BECAUSE, BUT, SO } from '../../../../../constants/evidence';
 
 const SessionOverview = ({ activity, rules, sessionData }) => {
 

@@ -1,13 +1,13 @@
+import _ from 'lodash';
 import { Action } from "redux";
 import ActionTypes from '../constants';
-import _ from 'lodash';
 import { Lesson } from '../interfaces/lesson';
 
 const initialState = {
-  data: {}, 
+  data: {},
   hasreceiveddata: false,
   newLessonModalOpen: false,
-  states: {}, 
+  states: {},
   submittingnew: false,
 };
 
@@ -17,7 +17,7 @@ export interface LessonsReducerState {
     states: { [key: string]: string },
     submittingnew: boolean,
 }
-  
+
 type LessonsReducerAction = Action & { data: Lesson, cid: string }
 
 export default (

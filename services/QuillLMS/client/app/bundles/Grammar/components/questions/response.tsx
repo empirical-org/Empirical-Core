@@ -1,25 +1,23 @@
+import * as jsDiff from 'diff';
+import { ContentState, EditorState } from 'draft-js';
 import * as React from 'react';
 import * as _ from 'underscore';
-import * as jsDiff from 'diff'
-import { EditorState, ContentState } from 'draft-js'
 
+import ConceptResults from './conceptResults';
 import ResponseList from './responseList';
-import ConceptResults from './conceptResults'
-import getBoilerplateFeedback from './boilerplateFeedback';
 
-import * as questionActions from '../../actions/questions';
+import {
+  Modal,
+  TextEditor
+} from '../../../Shared/index';
+import { ActionTypes } from '../../actions/actionTypes';
 import * as massEdit from '../../actions/massEdit';
+import * as questionActions from '../../actions/questions';
 import {
   deleteResponse,
-  submitResponseEdit,
   getGradedResponsesWithCallback,
+  submitResponseEdit,
 } from '../../actions/responses';
-import { ActionTypes } from '../../actions/actionTypes';
-import {
-  hashToCollection,
-  Modal,
-  TextEditor,
-} from '../../../Shared/index'
 
 interface ResponseState {
   feedback: string,

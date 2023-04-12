@@ -26,4 +26,5 @@ class SmartSpinner extends React.Component<any, any> {
 
 }
 
-export { SmartSpinner }
+export { SmartSpinner };
+

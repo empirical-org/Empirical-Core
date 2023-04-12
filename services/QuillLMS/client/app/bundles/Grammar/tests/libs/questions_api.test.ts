@@ -12,9 +12,9 @@ jest.mock('../../../../modules/request/index', () => ({
 }))
 
 import {
-  QuestionApi,
   FocusPointApi,
   IncorrectSequenceApi,
+  QuestionApi,
   questionApiBaseUrl,
 } from '../../libs/questions_api'
 

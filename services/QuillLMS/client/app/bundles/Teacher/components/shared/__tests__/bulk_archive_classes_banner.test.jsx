@@ -1,8 +1,7 @@
-import * as React from 'react';
 import { mount } from 'enzyme';
+import * as React from 'react';
 
-import BulkArchiveClassesBanner from '../bulk_archive_classes_banner'
-import BulkArchiveClassesModal from '../bulk_archive_classes_modal'
+import BulkArchiveClassesBanner from '../bulk_archive_classes_banner';
 
 const classes = [
   {

@@ -1,6 +1,6 @@
-import React from 'react'
-import CheckBox from './check_box.jsx'
-import _ from 'underscore'
+import React from 'react';
+import _ from 'underscore';
+import CheckBox from './check_box.jsx';
 
 export default class CheckBoxes extends React.Component {
   determineIfChecked = (item) => {

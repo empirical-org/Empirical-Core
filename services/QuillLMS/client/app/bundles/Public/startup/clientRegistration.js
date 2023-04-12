@@ -2,8 +2,8 @@ import 'lazysizes';
 import 'lazysizes/plugins/parent-fit/ls.parent-fit';
 import ReactOnRails from 'react-on-rails';
 
+import DemoAccountBanner from './demoAccountBannerApp';
 import PremiumPricingGuideApp from './premiumPricingGuideApp';
-import DemoAccountBanner from './demoAccountBannerApp'
 
 require('../../../assets/styles/home.scss');
 require('../../Home/bootstrap_carousel.js');

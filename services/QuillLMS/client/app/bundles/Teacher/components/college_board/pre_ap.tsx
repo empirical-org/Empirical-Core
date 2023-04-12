@@ -1,11 +1,11 @@
-import * as React from 'react'
+import * as React from 'react';
 
-import ExpandableUnitSection from '../shared/expandableUnit'
-import QuestionsAndAnswers from '../../containers/QuestionsAndAnswers'
-import { PRE_AP_WRITINGS_SKILLS_1_UNIT_TEMPLATE_ID, PRE_AP_WRITINGS_SKILLS_2_UNIT_TEMPLATE_ID, ELL_STARTER_DIAGNOSTIC_UNIT_TEMPLATE_ID, ELL_INTERMEDIATE_DIAGNOSTIC_UNIT_TEMPLATE_ID, ELL_ADVANCED_DIAGNOSTIC_UNIT_TEMPLATE_ID, PRE_AP_SLUG } from '../assignment_flow/assignmentFlowConstants'
+import { PassageAlignedUnit } from '../../../../interfaces/collegeBoard';
+import QuestionsAndAnswers from '../../containers/QuestionsAndAnswers';
 import { generateLink, getStartedButton } from '../../helpers/collegeBoard';
 import { scrollToTop } from '../../hooks/scrollToTop';
-import { PassageAlignedUnit } from '../../../../interfaces/collegeBoard';
+import { ELL_ADVANCED_DIAGNOSTIC_UNIT_TEMPLATE_ID, ELL_INTERMEDIATE_DIAGNOSTIC_UNIT_TEMPLATE_ID, ELL_STARTER_DIAGNOSTIC_UNIT_TEMPLATE_ID, PRE_AP_SLUG, PRE_AP_WRITINGS_SKILLS_1_UNIT_TEMPLATE_ID, PRE_AP_WRITINGS_SKILLS_2_UNIT_TEMPLATE_ID } from '../assignment_flow/assignmentFlowConstants';
+import ExpandableUnitSection from '../shared/expandableUnit';
 
 interface PreApContainerProps {
   isPartOfAssignmentFlow?: boolean;

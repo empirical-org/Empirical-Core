@@ -1,7 +1,7 @@
-import * as React from 'react';
 import { mount } from 'enzyme';
+import * as React from 'react';
 
-import { UpperFormFields }from '../../../components/salesForm/upperFormFields';
+import { UpperFormFields } from '../../../components/salesForm/upperFormFields';
 
 jest.mock('fuse.js', () => ({
   default: jest.fn()

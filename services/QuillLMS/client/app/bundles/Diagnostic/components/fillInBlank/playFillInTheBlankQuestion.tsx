@@ -4,14 +4,14 @@ import * as _ from 'underscore';
 import { checkFillInTheBlankQuestion } from 'quill-marking-logic';
 import { stringNormalize } from 'quill-string-normalizer';
 
-import { getGradedResponsesWithCallback } from '../../actions/responses.js';
+import { Feedback, Prompt, fillInBlankInputLabel, getLatestAttempt, hashToCollection, renderPreviewFeedback, } from '../../../Shared/index';
 import { submitResponse, } from '../../actions/diagnostics.js';
+import { getGradedResponsesWithCallback } from '../../actions/responses.js';
+import { Question } from '../../interfaces/Question';
+import { ENGLISH, rightToLeftLanguages } from '../../modules/translation/languagePageInfo';
+import Cues from '../renderForQuestions/cues';
 import { submitQuestionResponse } from '../renderForQuestions/submitResponse.js';
 import updateResponseResource from '../renderForQuestions/updateResponseResource.js';
-import Cues from '../renderForQuestions/cues';
-import { ENGLISH, rightToLeftLanguages } from '../../modules/translation/languagePageInfo';
-import { Question } from '../../interfaces/Question';
-import { hashToCollection, Prompt, Feedback, getLatestAttempt, renderPreviewFeedback, fillInBlankInputLabel, } from '../../../Shared/index'
 
 interface PlayFillInTheBlankQuestionProps {
   currentKey: string,

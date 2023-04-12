@@ -2,9 +2,9 @@ import * as React from 'react'
 
 import { DataTable } from '../../../Shared/index'
 
+import InviteCoteachersModal from './invite_coteachers_modal'
 import RemoveCoteacherModal from './remove_coteacher_modal'
 import TransferOwnershipModal from './transfer_ownership_modal'
-import InviteCoteachersModal from './invite_coteachers_modal'
 
 const CoteacherDisplayName = 'Co-teacher'
 const OwnerDisplayName = 'Owner'

@@ -1,7 +1,7 @@
 import * as React from 'react';
 import {
   QuestionData
-} from '../../../interfaces/classroomLessons'
+} from '../../../interfaces/classroomLessons';
 
 interface StaticProps {
   data: QuestionData

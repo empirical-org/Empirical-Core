@@ -1,9 +1,9 @@
-import * as React from 'react'
 import { mount } from 'enzyme';
+import * as React from 'react';
 
-import { activities } from './data'
+import { activities } from './data';
 
-import Header from '../header'
+import Header from '../header';
 
 describe('Header component', () => {
   const props = {

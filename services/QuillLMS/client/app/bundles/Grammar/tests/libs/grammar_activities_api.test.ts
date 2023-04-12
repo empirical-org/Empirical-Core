@@ -17,9 +17,6 @@ import {
   grammarActivityApiBaseUrl,
 } from '../../libs/grammar_activities_api'
 
-import {
-  GrammarActivity
-} from '../../interfaces/grammarActivities'
 
 describe('GrammarActivityApi calls', () => {
   describe('getAll', () => {

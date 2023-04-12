@@ -1,8 +1,8 @@
-import * as React from 'react';
 import { shallow } from 'enzyme';
+import * as React from 'react';
 
-import PromptHealth from '../activityHealth/promptHealth';
 import 'whatwg-fetch';
+import PromptHealth from '../activityHealth/promptHealth';
 
 const mockProps = {
   dataResults: []

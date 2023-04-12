@@ -1,4 +1,4 @@
-import * as React from 'react'
+import * as React from 'react';
 
 interface ProgressBarProps {
   percent: number;
@@ -13,4 +13,5 @@ const ProgressBar = ({ percent, answeredQuestionCount, questionCount, label, }: 
     <p>{answeredQuestionCount} of {questionCount} {label}</p>
   </div>)
 
-export { ProgressBar }
+export { ProgressBar };
+

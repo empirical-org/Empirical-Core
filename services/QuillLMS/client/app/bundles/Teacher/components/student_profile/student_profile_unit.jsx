@@ -1,15 +1,15 @@
-import * as React from 'react'
-import moment from 'moment'
+import moment from 'moment';
+import * as React from 'react';
 
 import {
-  onMobile,
   DataTable,
   Tooltip,
   closedLockIcon,
+  onMobile,
   openLockIcon,
-} from '../../../Shared/index'
+} from '../../../Shared/index';
+import { formatDateTimeForDisplay, } from '../../helpers/unitActivityDates';
 import activityLaunchLink from '../modules/generate_activity_launch_link.js';
-import { formatDateTimeForDisplay, } from '../../helpers/unitActivityDates'
 
 const diagnosticSrc = `${process.env.CDN_URL}/images/icons/tool-diagnostic-gray.svg`
 const connectSrc = `${process.env.CDN_URL}/images/icons/tool-connect-gray.svg`

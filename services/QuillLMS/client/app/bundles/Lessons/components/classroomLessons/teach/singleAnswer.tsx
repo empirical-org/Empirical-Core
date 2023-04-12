@@ -1,13 +1,10 @@
 import * as React from 'react';
-import ScriptComponent from '../shared/scriptComponent';
+import * as CustomizeIntf from '../../../interfaces/customize';
 import {
   ClassroomLessonSession,
-} from '../interfaces'
-import {
-  ClassroomLesson
-} from '../../../interfaces/classroomLessons'
-import { textEditorInputNotEmpty } from '../shared/textEditorClean'
-import * as CustomizeIntf from '../../../interfaces/customize'
+} from '../interfaces';
+import ScriptComponent from '../shared/scriptComponent';
+import { textEditorInputNotEmpty } from '../shared/textEditorClean';
 
 interface SingleAnswerProps {
   data: ClassroomLessonSession,

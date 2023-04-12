@@ -1,13 +1,13 @@
-import * as React from 'react'
-import * as $ from 'jquery'
-import { Switch, Route, withRouter } from 'react-router-dom';
+import * as $ from 'jquery';
+import * as React from 'react';
+import { Route, Switch, withRouter } from 'react-router-dom';
 
-import DiagnosticActivityPacks from './diagnostic_activity_packs'
-import IndividualPack from './individualPack'
-import { Classroom, Activity, Diagnostic, } from './interfaces'
+import DiagnosticActivityPacks from './diagnostic_activity_packs';
+import IndividualPack from './individualPack';
+import { Classroom } from './interfaces';
 
-import LoadingSpinner from '../../../shared/loading_indicator.jsx'
 import { requestGet } from '../../../../../../modules/request/index';
+import LoadingSpinner from '../../../shared/loading_indicator.jsx';
 
 const DiagnosticsIndex = ({ passedClassrooms, history, match, lessonsBannerIsShowable, }) => {
   const [loading, setLoading] = React.useState<boolean>(!passedClassrooms);

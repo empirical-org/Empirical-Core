@@ -1,9 +1,9 @@
-import React from 'react';
 import { mount } from 'enzyme';
 import toJson from 'enzyme-to-json';
+import React from 'react';
 
 import SingleAnswer, { PROJECT } from '../singleAnswer';
-import { singleAnswerProps } from './data'
+import { singleAnswerProps } from './data';
 
 const submissions = {
   student:

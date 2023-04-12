@@ -1,7 +1,7 @@
 import React from 'react'
-import GettingStartedMini from './getting_started_mini.jsx'
-import CheckboxSection from './checkbox_sections.jsx'
 import _ from 'underscore'
+import CheckboxSection from './checkbox_sections.jsx'
+import GettingStartedMini from './getting_started_mini.jsx'
 
 export default class TeacherGuide extends React.Component {
   constructor(props) {

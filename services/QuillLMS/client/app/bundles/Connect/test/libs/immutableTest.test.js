@@ -1,5 +1,5 @@
 import expect from 'expect';
-import Immutable, {List, Map} from 'immutable';
+import Immutable, { List, Map } from 'immutable';
 
 
 describe('immutable', () => {

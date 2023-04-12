@@ -1,6 +1,5 @@
-import React from 'react'
 import { mount } from 'enzyme'
-import * as $ from 'jquery'
+import React from 'react'
 
 import PercentageCircle from '../percentageCircle'
 

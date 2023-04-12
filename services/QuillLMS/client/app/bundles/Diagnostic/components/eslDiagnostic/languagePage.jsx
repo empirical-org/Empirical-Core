@@ -1,8 +1,8 @@
 import React from 'react';
 
-import { ENGLISH, languages, languageData } from '../../modules/translation/languagePageInfo';
-import { TrackAnalyticsEvent} from '../../actions/analytics'
-import { Events } from '../../modules/analytics'
+import { TrackAnalyticsEvent } from '../../actions/analytics';
+import { Events } from '../../modules/analytics';
+import { ENGLISH, languageData, languages } from '../../modules/translation/languagePageInfo';
 
 export class LanguagePage extends React.Component {
 

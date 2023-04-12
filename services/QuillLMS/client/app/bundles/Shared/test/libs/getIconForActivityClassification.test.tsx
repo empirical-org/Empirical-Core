@@ -1,7 +1,7 @@
-import * as React from 'react';
 import * as expect from 'expect';
+import * as React from 'react';
 
-import { getIconForActivityClassification, connectToolIcon, diagnosticToolIcon, grammarToolIcon, lessonsToolIcon, proofreaderToolIcon, evidenceToolIcon } from '../../../Shared';
+import { connectToolIcon, diagnosticToolIcon, evidenceToolIcon, getIconForActivityClassification, grammarToolIcon, lessonsToolIcon, proofreaderToolIcon } from '../../../Shared';
 
 describe('#getIconForActivityClassification', () => {
   it('returns the expected icons', () => {

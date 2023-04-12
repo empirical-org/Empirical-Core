@@ -3,7 +3,7 @@ import * as React from "react";
 import ActivityHealthDashboard from "./activityHealthDashboard";
 import PromptHealthDashboard from "./promptHealthDashboard";
 
-import Navigation from '../navigation'
+import Navigation from '../navigation';
 
 const HealthDashboards = ({ location, match }) => {
   const [showActivities, setShowActivities] = React.useState<boolean>(true);
