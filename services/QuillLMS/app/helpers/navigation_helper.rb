@@ -68,9 +68,9 @@ module NavigationHelper
     premium_state = current_user.premium_state
     return unless [PAID, TRIAL].include?(premium_state)
 
-    if current_user.has_district_premium?
+    if current_user.district_premium?
       "<a class='premium-navbar-badge-container focus-on-light red' href='/premium' rel='noopener noreferrer' target='_blank' ><span>DISTRICT PREMIUM</span><div class='small-diamond-icon'></div></a>".html_safe
-    elsif current_user.has_school_premium?
+    elsif current_user.school_premium?
       "<a class='premium-navbar-badge-container focus-on-light red' href='/premium' rel='noopener noreferrer' target='_blank' ><span>SCHOOL PREMIUM</span><div class='small-diamond-icon'></div></a>".html_safe
     else
       "<a class='premium-navbar-badge-container focus-on-light yellow' href='/premium' rel='noopener noreferrer' target='_blank' ><span>TEACHER PREMIUM</span><div class='small-diamond-icon'></div></a>".html_safe

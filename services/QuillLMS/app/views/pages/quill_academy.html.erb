@@ -3,8 +3,8 @@
 <div class="quill-academy-container white-background-accommodate-footer">
   <div class="container">
     <section class="top-section">
-      <%= quill_academy_availability_disclaimer.html_safe %>
-      <% if should_render_quill_academy_button %>
+      <%= render partial: 'quill_academy/availability_disclaimer' %>
+      <% if render_quill_academy_button? %>
         <%= button_to "/auth/learn_worlds/courses", method: "post", class: "interactive-wrapper quill-academy-button-or-info-section premium-user" do %>
           <img src='https://assets.quill.org/images/quill_academy/quill-academy-icon.svg'></img>
           <h2>Quill Academy</h2>
@@ -12,7 +12,7 @@
           <p class='quill-button primary contained medium focus-on-light'>Access my course library</p>
         <% end %>
       <% else %>
-        <%= quill_academy_info_section.html_safe %>
+        <%= render partial: 'quill_academy/info_section' %>
       <% end %>
     </section>
     <section class="middle-section">
