@@ -786,11 +786,11 @@ class User < ApplicationRecord
   end
 
   def learn_worlds_access?
-    teacher? && school&.premium?
+    school_premium? || district_premium?
   end
 
   def school_premium?
-    school&.subscription.present?
+    school&.subscription&.present?
   end
 
   def district_premium?
