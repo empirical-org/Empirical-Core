@@ -28,17 +28,28 @@ module Evidence
       FREE_GENERATORS = GENERATORS.except(:translations, :paraphrase)
       DEFAULT_LANGUAGES = Evidence::Synthetic::Generators::Translation::TRAIN_LANGUAGES.keys
 
-      attr_reader :results, :languages, :labels, :generators, :passage
+      attr_reader :results, :languages, :labels, :generators, :passage, :batch, :prompt
 
       # params:
       # texts_and_labels: [['text', 'label_5'],['text', 'label_1'],...]
       # languages: [:es, :ja, ...]
       # manual_types: bool, whether to assign TEXT,VALIDATION,TRAIN to each row
-      def initialize(texts_and_labels, languages: DEFAULT_LANGUAGES, generators: DEFAULT_GENERATORS.keys, passage: nil, manual_types: false)
+      def initialize(texts_and_labels, prompt:, languages: DEFAULT_LANGUAGES, generators: DEFAULT_GENERATORS.keys, manual_types: false)
         @languages = languages
         @manual_types = manual_types
         @generators = GENERATORS.slice(*generators)
-        @passage = passage if passage
+
+        @prompt = prompt
+        @batch = Evidence::PromptTextBatch.create(
+          type: Evidence::PromptTextBatch::TYPE_LABELED,
+          prompt: prompt,
+          user_id: 1,
+          languages: languages,
+          manual_types: manual_types,
+          generators: generators
+        )
+
+        @passage = @batch.passage
 
         clean_text_and_labels = labeled_data_cleaner(texts_and_labels)
 
@@ -63,8 +74,37 @@ module Evidence
           run_generators(test_generators, results_test_validation)
         end
 
+        store_results
+
         self
       end
+
+      def store_results
+        original = Evidence::TextGeneration.create(name: Evidence::TextGeneration::TYPE_ORIGINAL)
+
+        results.each do |result|
+          batch.prompt_texts.new(
+            text: result.text,
+            label: result.label,
+            ml_type: result.type,
+            text_generation: original
+          )
+
+          result.generated.each do |generator_results|
+            generator_results.results.each do |new_text|
+              batch.prompt_texts.new(
+                text: new_text,
+                label: result.label,
+                ml_type: result.type,
+                text_generation: generator_results.generator
+              )
+            end
+          end
+        end
+
+        batch.save
+      end
+
       # generated
       # {'their originial response' => [Generated(spelling)]}
       def run_generators(generator_hash, results_set)
@@ -99,11 +139,11 @@ module Evidence
       LABEL_TRAINING = 'automl_upload.csv'
       LABEL_ANALYSIS = 'analysis.csv'
 
-      def self.csvs_from_run(texts_and_labels, filename, passage = nil)
+      def self.csvs_from_run(texts_and_labels, filename, prompt)
         generator = Evidence::Synthetic::LabeledDataGenerator.new(
           texts_and_labels,
-          manual_types: true,
-          passage: passage
+          prompt: prompt,
+          manual_types: true
         )
 
         generator.run

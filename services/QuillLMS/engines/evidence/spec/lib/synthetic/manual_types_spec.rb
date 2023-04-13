@@ -10,15 +10,18 @@ describe Evidence::Synthetic::ManualTypes do
       7.times.map {|i| ["other string #{i}", label2]}
   end
 
+  let(:activity) { create(:evidence_activity, :with_prompt_and_passage) }
+  let(:prompt)  { activity.prompts.first }
+
   let(:not_enough_labeled_data) { [['text string', label1], ['other text', label2]] }
 
   describe '#new' do
-    let(:generator) { Evidence::Synthetic::LabeledDataGenerator.new(enough_labeled_data, languages: [:es], manual_types: true)}
+    let(:generator) { Evidence::Synthetic::LabeledDataGenerator.new(enough_labeled_data, prompt: prompt, languages: [:es], manual_types: true)}
 
-    let(:generator_low_data) { Evidence::Synthetic::LabeledDataGenerator.new(not_enough_labeled_data, languages: [:es], manual_types: true)}
+    let(:generator_low_data) { Evidence::Synthetic::LabeledDataGenerator.new(not_enough_labeled_data, prompt: prompt, languages: [:es], manual_types: true)}
 
     # multiple languages to generate more data
-    let(:generator_high_generated) { Evidence::Synthetic::LabeledDataGenerator.new(enough_labeled_data, languages: [:es, :ko, :ja], manual_types: true)}
+    let(:generator_high_generated) { Evidence::Synthetic::LabeledDataGenerator.new(enough_labeled_data, prompt: prompt, languages: [:es, :ko, :ja], manual_types: true)}
 
     before do
       stub_const("Evidence::Synthetic::ManualTypes::MIN_TRAIN_PER_LABEL", 5)

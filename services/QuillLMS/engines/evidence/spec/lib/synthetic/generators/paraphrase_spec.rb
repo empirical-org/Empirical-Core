@@ -36,7 +36,7 @@ describe Evidence::Synthetic::Generators::Paraphrase do
       generator_results = subject[text1].first
       generator = generator_results.generator
 
-      expect(generator.name).to eq 'LabelParaphrase'
+      expect(generator.name).to eq 'Paraphrase'
       expect(generator.count).to eq(4)
       expect(generator.temperature).to eq(0.7)
       expect(generator_results.results).to eq(api_results)
@@ -50,7 +50,7 @@ describe Evidence::Synthetic::Generators::Paraphrase do
       generator_results = subject[text1].first
       generator = generator_results.generator
 
-      expect(generator.name).to eq 'LabelParaphrase'
+      expect(generator.name).to eq 'Paraphrase'
       expect(generator.count).to eq(4)
       expect(generator.temperature).to eq(0.7)
       expect(generator_results.results).to eq([uppercase_result.downcase])

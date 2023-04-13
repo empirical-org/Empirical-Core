@@ -7,6 +7,9 @@ module Evidence
       :nouns,
       :label_configs,
       :use_passage,
+      :languages,
+      :generators,
+      :manual_types
     ]
 
     CSV_SUFFIX = '.csv'

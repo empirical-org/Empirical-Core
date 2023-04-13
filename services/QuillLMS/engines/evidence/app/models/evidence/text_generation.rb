@@ -26,7 +26,7 @@ module Evidence
       TYPE_LABEL_EXAMPLE = "LabelExample",
       TYPE_PARAPHRASE = "Paraphrase",
       TYPE_SPELLING = "Spelling",
-      TYPE_SPELLING_PASSAGE = "SpellingPassage"
+      TYPE_SPELLING_PASSAGE = "SpellingPassage",
       TYPE_TRANSLATION = "Translation"
     ]
 

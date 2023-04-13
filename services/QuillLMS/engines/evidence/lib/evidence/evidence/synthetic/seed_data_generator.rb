@@ -59,7 +59,7 @@ module Evidence
         prompts.each do |prompt|
           csv_name = "#{short_name}_#{prompt.conjunction}#{CSV_SUFFIX}"
           batch = Evidence::PromptTextBatch.new(
-            Evidence::PromptTextBatch::TYPE_SEED,
+            name: Evidence::PromptTextBatch::TYPE_SEED,
             prompt: prompt,
             nouns: nouns,
             label_configs: label_configs,
