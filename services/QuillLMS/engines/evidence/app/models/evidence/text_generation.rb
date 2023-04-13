@@ -18,7 +18,19 @@ module Evidence
     store :data, accessors: DATA_ACCESSORS, coder: JSON
     has_many :prompt_texts
 
-    validates :name, presence: true
+    TYPES = [
+      TYPE_ORIGINAL = "Original",
+      TYPE_FULL_PASSAGE = "FullPassage",
+      TYPE_FULL_PASSAGE_NOUN = "FullPassageNoun",
+      TYPE_PASSAGE_CHUNK = "PassageChunk",
+      TYPE_LABEL_EXAMPLE = "LabelExample",
+      TYPE_PARAPHRASE = "Paraphrase",
+      TYPE_SPELLING = "Spelling",
+      TYPE_SPELLING_PASSAGE = "SpellingPassage"
+      TYPE_TRANSLATION = "Translation"
+    ]
+
+    validates :name, presence: true, inclusion: {in: TYPES}
 
     def seed_descriptor
       seed_descriptor_fields.compact.join("_").downcase

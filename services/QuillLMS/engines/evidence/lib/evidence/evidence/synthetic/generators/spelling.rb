@@ -20,7 +20,7 @@ module Evidence
               text_with_misspell = string.gsub(Regexp.new(padded_key), SPELLING_SUBSTITUTES[spelling_key]&.first)
 
               generator = Evidence::TextGeneration.create(
-                name: 'Spelling',
+                name: Evidence::TextGeneration::TYPE_SPELLING,
                 source_text: string,
                 word: spelling_key
               )

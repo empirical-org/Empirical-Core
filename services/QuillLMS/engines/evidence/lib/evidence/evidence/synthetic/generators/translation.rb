@@ -54,7 +54,7 @@ module Evidence
               result = lowercaser.run(english_texts[index].text)
 
               generator = Evidence::TextGeneration.create(
-                name: 'Translation',
+                name: Evidence::TextGeneration::TYPE_TRANSLATION,
                 source_text: string,
                 language: language.to_s,
               )
