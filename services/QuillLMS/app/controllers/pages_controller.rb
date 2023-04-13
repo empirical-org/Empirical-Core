@@ -505,6 +505,10 @@ class PagesController < ApplicationController
     @style_file = 'staff'
   end
 
+  def quill_academy
+    redirect_to root_path unless current_user
+  end
+
   def teacher_premium; end
 
   private def determine_layout

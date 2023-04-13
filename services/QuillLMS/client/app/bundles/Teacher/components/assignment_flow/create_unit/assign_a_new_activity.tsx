@@ -156,7 +156,7 @@ const AssignANewActivity = ({ numberOfActivitiesAssigned, showDiagnosticBanner }
 
   return (
     <React.Fragment>
-      <div className="navbar-divider-bar" />
+      <div className="navbar-divider-bar green" />
       <div className="assign-a-new-activity-container gray-background-accommodate-footer">
         <div className="assign-a-new-activity container">
           <h1>Find the perfect writing activities for your students.</h1>

@@ -744,6 +744,7 @@ EmpiricalGrammar::Application.routes.draw do
     springboard_units
     administrator
     locker
+    quill_academy
     teacher_premium
   )
 
