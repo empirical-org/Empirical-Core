@@ -989,14 +989,46 @@ ALTER SEQUENCE public.blog_posts_id_seq OWNED BY public.blog_posts.id;
 
 
 --
+-- Name: canvas_accounts; Type: TABLE; Schema: public; Owner: -
+--
+
+CREATE TABLE public.canvas_accounts (
+    id bigint NOT NULL,
+    user_id bigint NOT NULL,
+    canvas_config_id bigint NOT NULL,
+    created_at timestamp(6) without time zone NOT NULL,
+    updated_at timestamp(6) without time zone NOT NULL
+);
+
+
+--
+-- Name: canvas_accounts_id_seq; Type: SEQUENCE; Schema: public; Owner: -
+--
+
+CREATE SEQUENCE public.canvas_accounts_id_seq
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+
+--
+-- Name: canvas_accounts_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: -
+--
+
+ALTER SEQUENCE public.canvas_accounts_id_seq OWNED BY public.canvas_accounts.id;
+
+
+--
 -- Name: canvas_configs; Type: TABLE; Schema: public; Owner: -
 --
 
 CREATE TABLE public.canvas_configs (
     id bigint NOT NULL,
     url character varying NOT NULL,
-    client_id character varying NOT NULL,
-    client_secret character varying NOT NULL,
+    client_id_ciphertext text NOT NULL,
+    client_secret_ciphertext text NOT NULL,
     created_at timestamp(6) without time zone NOT NULL,
     updated_at timestamp(6) without time zone NOT NULL
 );
@@ -5014,6 +5046,13 @@ ALTER TABLE ONLY public.blog_posts ALTER COLUMN id SET DEFAULT nextval('public.b
 
 
 --
+-- Name: canvas_accounts id; Type: DEFAULT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY public.canvas_accounts ALTER COLUMN id SET DEFAULT nextval('public.canvas_accounts_id_seq'::regclass);
+
+
+--
 -- Name: canvas_configs id; Type: DEFAULT; Schema: public; Owner: -
 --
 
@@ -5950,6 +5989,14 @@ ALTER TABLE ONLY public.blog_post_user_ratings
 
 ALTER TABLE ONLY public.blog_posts
     ADD CONSTRAINT blog_posts_pkey PRIMARY KEY (id);
+
+
+--
+-- Name: canvas_accounts canvas_accounts_pkey; Type: CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY public.canvas_accounts
+    ADD CONSTRAINT canvas_accounts_pkey PRIMARY KEY (id);
 
 
 --
@@ -7117,6 +7164,20 @@ CREATE INDEX index_blog_posts_on_title ON public.blog_posts USING btree (title);
 --
 
 CREATE INDEX index_blog_posts_on_topic ON public.blog_posts USING btree (topic);
+
+
+--
+-- Name: index_canvas_accounts_on_canvas_config_id; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX index_canvas_accounts_on_canvas_config_id ON public.canvas_accounts USING btree (canvas_config_id);
+
+
+--
+-- Name: index_canvas_accounts_on_user_id; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX index_canvas_accounts_on_user_id ON public.canvas_accounts USING btree (user_id);
 
 
 --
@@ -8928,6 +8989,14 @@ ALTER TABLE ONLY public.comprehension_regex_rules
 
 
 --
+-- Name: canvas_accounts fk_rails_e2efdd920f; Type: FK CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY public.canvas_accounts
+    ADD CONSTRAINT fk_rails_e2efdd920f FOREIGN KEY (user_id) REFERENCES public.users(id);
+
+
+--
 -- Name: sales_stages fk_rails_e5da9d6c2d; Type: FK CONSTRAINT; Schema: public; Owner: -
 --
 
@@ -8957,6 +9026,14 @@ ALTER TABLE ONLY public.content_partner_activities
 
 ALTER TABLE ONLY public.auth_credentials
     ADD CONSTRAINT fk_rails_f92a275310 FOREIGN KEY (user_id) REFERENCES public.users(id);
+
+
+--
+-- Name: canvas_accounts fk_rails_fd3997fcb2; Type: FK CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY public.canvas_accounts
+    ADD CONSTRAINT fk_rails_fd3997fcb2 FOREIGN KEY (canvas_config_id) REFERENCES public.canvas_configs(id);
 
 
 --
@@ -9471,6 +9548,7 @@ INSERT INTO "schema_migrations" (version) VALUES
 ('20230323114351'),
 ('20230328155819'),
 ('20230405140349'),
-('20230411145241');
+('20230411145241'),
+('20230413140558');
 
 

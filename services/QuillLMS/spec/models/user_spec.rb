@@ -84,6 +84,8 @@ describe User, type: :model do
   it { should have_many(:milestones).through(:user_milestones) }
   it { should have_many(:admin_approval_requests).with_foreign_key('requestee_id') }
   it { should have_one(:learn_worlds_account) }
+  it { should have_many(:canvas_accounts).dependent(:destroy) }
+  it { should have_many(:canvas_configs).through(:canvas_accounts) }
 
   it { should delegate_method(:name).to(:school).with_prefix(:school) }
   it { should delegate_method(:mail_city).to(:school).with_prefix(:school) }
