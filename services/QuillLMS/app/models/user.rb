@@ -165,6 +165,9 @@ class User < ApplicationRecord
 
   has_one :learn_worlds_account, dependent: :destroy
 
+  has_many :canvas_accounts, dependent: :destroy
+  has_many :canvas_configs, through: :canvas_accounts
+
   accepts_nested_attributes_for :auth_credential
 
   delegate :name, :mail_city, :mail_state,

@@ -153,6 +153,9 @@ gem 'paperclip'
 gem 'rb-readline'
 gem 'awesome_print'
 
+# TODO: to be removed with Rails 7
+gem 'lockbox'
+
 group :production, :staging do
   gem 'rails-autoscale-web'
   gem 'rails-autoscale-sidekiq'

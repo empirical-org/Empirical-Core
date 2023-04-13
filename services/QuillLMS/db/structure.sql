@@ -989,6 +989,39 @@ ALTER SEQUENCE public.blog_posts_id_seq OWNED BY public.blog_posts.id;
 
 
 --
+-- Name: canvas_configs; Type: TABLE; Schema: public; Owner: -
+--
+
+CREATE TABLE public.canvas_configs (
+    id bigint NOT NULL,
+    url character varying NOT NULL,
+    client_id character varying NOT NULL,
+    client_secret character varying NOT NULL,
+    created_at timestamp(6) without time zone NOT NULL,
+    updated_at timestamp(6) without time zone NOT NULL
+);
+
+
+--
+-- Name: canvas_configs_id_seq; Type: SEQUENCE; Schema: public; Owner: -
+--
+
+CREATE SEQUENCE public.canvas_configs_id_seq
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+
+--
+-- Name: canvas_configs_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: -
+--
+
+ALTER SEQUENCE public.canvas_configs_id_seq OWNED BY public.canvas_configs.id;
+
+
+--
 -- Name: categories; Type: TABLE; Schema: public; Owner: -
 --
 
@@ -4981,6 +5014,13 @@ ALTER TABLE ONLY public.blog_posts ALTER COLUMN id SET DEFAULT nextval('public.b
 
 
 --
+-- Name: canvas_configs id; Type: DEFAULT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY public.canvas_configs ALTER COLUMN id SET DEFAULT nextval('public.canvas_configs_id_seq'::regclass);
+
+
+--
 -- Name: categories id; Type: DEFAULT; Schema: public; Owner: -
 --
 
@@ -5910,6 +5950,14 @@ ALTER TABLE ONLY public.blog_post_user_ratings
 
 ALTER TABLE ONLY public.blog_posts
     ADD CONSTRAINT blog_posts_pkey PRIMARY KEY (id);
+
+
+--
+-- Name: canvas_configs canvas_configs_pkey; Type: CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY public.canvas_configs
+    ADD CONSTRAINT canvas_configs_pkey PRIMARY KEY (id);
 
 
 --
@@ -9422,6 +9470,7 @@ INSERT INTO "schema_migrations" (version) VALUES
 ('20230301160642'),
 ('20230323114351'),
 ('20230328155819'),
-('20230405140349');
+('20230405140349'),
+('20230411145241');
 
 

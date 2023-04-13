@@ -588,6 +588,8 @@ EmpiricalGrammar::Application.routes.draw do
     post '/learn_worlds/courses', to: 'learn_worlds#courses'
   end
 
+  resources :canvas_configs, only: [:create]
+
   namespace :clever_integration do
     get '/teachers/retrieve_classrooms', to: 'teachers#retrieve_classrooms'
     post '/teachers/import_classrooms', to: 'teachers#import_classrooms'
