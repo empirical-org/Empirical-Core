@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 # All messages to BigQuery should use this module
 
 require 'google/api_client'
@@ -6,14 +8,32 @@ require 'stringio'
 
 module QuillBigQuery
   PROJECT_ID = 'analytics-data-stores'
+  FLOAT_FIELDS = %w(correct incorrect percentage)
+
+  class UnsupportedSchemaError < StandardError ; end
+
+  def self.valid_schema?(json_body)
+    return false unless json_body['schema']['fields'].respond_to?(:count)
+    return false unless json_body['rows'].respond_to?(:count)
+    true
+  end
+
+  def self.floatify_fields(array_of_hashes)
+    array_of_hashes.map do |hsh|
+       hsh.each {|k,v| FLOAT_FIELDS.include?(k) && hsh[k] = v.to_f }
+    end
+    array_of_hashes
+  end
 
   def self.transform_response(json_body)
-    #puts json_body
+    raise UnsupportedSchemaError, json_body unless valid_schema?(json_body)
+
     # Parsing - It returns row names and values separately in an odd setup
     # This parses them down to [{"id" => 1, "name"=> "Dan", }, {"id" => 2, "name" => "Peter"}]
     fields = json_body["schema"]["fields"].map {|h| h["name"]}
     values = json_body["rows"].map {|r| r.values_at("f").flatten.map {|h| h.values.first}}
     hash_results = values.map {|v| fields.zip(v).to_h}
+    floatify_fields(hash_results)
   end
 
   def self.get_response(query)

@@ -11,41 +11,42 @@ class ProgressReports::DistrictConceptReports
     # Uncomment the line below, and comment out the active record line
     # in order to bypass the database while testing
     # [{"school_name"=>"Hogwarts", "teacher_name"=>"Severus Snape", "classroom_name"=>"Potions III", "student_name"=>"Ron Weasley", "correct"=>"15", "incorrect"=>"8", "percentage"=>"65"}]
-    RawSqlRunner.execute(query).to_a
+    QuillBigQuery.execute(query)
   end
 
   private def query
+    # For testing, see the Metabase version of this query: https://data.quill.org/question/1026-progressreports-districtconceptreports
     <<~SQL
       WITH results AS (
         SELECT
           schools.name AS school_name,
           teachers.name AS teacher_name,
           classrooms.name AS classroom_name,
-          students.name AS student_name,
+          MAX(students.name) AS student_name,
           students.id AS student_id,
-          SUM(CAST(concept_results.correct as INT)) AS correct,
+          SUM(CAST(concept_results.correct as INT64)) AS correct,
           COUNT(concept_results) AS concept_results_count
-        FROM schools_admins
-        JOIN schools
+        FROM lms.schools_admins
+        JOIN lms.schools
           ON schools.id = schools_admins.school_id
-        JOIN schools_users
+        JOIN lms.schools_users
           ON schools_users.school_id = schools.id
-        JOIN users AS teachers
+        JOIN lms.users AS teachers
           ON teachers.id = schools_users.user_id
-        JOIN classrooms_teachers
+        JOIN lms.classrooms_teachers
           ON classrooms_teachers.user_id = teachers.id
           AND classrooms_teachers.role = 'owner'
-        JOIN classrooms
+        JOIN lms.classrooms
           ON classrooms.id = classrooms_teachers.classroom_id
-        JOIN classroom_units
+        JOIN lms.classroom_units
           ON classroom_units.classroom_id = classrooms.id
-        JOIN activity_sessions
+        JOIN lms.activity_sessions
           ON activity_sessions.classroom_unit_id = classroom_units.id
-        JOIN users AS students
+        JOIN lms.users AS students
           ON students.id = activity_sessions.user_id
-        JOIN concept_results
+        JOIN special.concept_results
           ON concept_results.activity_session_id = activity_sessions.id
-        WHERE schools_admins.user_id = #{@admin_id}
+        WHERE schools_admins.user_id = #{admin_id}
         GROUP BY
           student_id,
           teacher_name,
@@ -60,7 +61,7 @@ class ProgressReports::DistrictConceptReports
         student_name,
         correct,
         (concept_results_count - correct) as incorrect,
-        FLOOR(( correct/concept_results_count::float ) * 100 ) as percentage
+        FLOOR( correct/concept_results_count * 100 ) as percentage
       FROM results;
     SQL
   end

@@ -3,37 +3,32 @@
 require 'rails_helper'
 
 describe ProgressReports::DistrictConceptReports do
-  describe '#results' do
-    let!(:school) { create(:school) }
-    let!(:teacher) { create(:teacher) }
-    let!(:admin) { create(:teacher) }
-    let!(:classroom) { create(:classroom) }
-    let!(:student) { create(:student) }
-    let!(:schools_admins) { create(:schools_admins, school: school, user: admin) }
-    let!(:schools_users) { create(:schools_users, school: school, user: teacher) }
-    let!(:classrooms_teacher) { create(:classrooms_teacher, user: teacher, role: "owner", classroom: classroom) }
-    let!(:classroom_unit) { create(:classroom_unit, classroom: classroom, assigned_student_ids: [student.id]) }
-    let!(:activity_session) { create(:activity_session_without_concept_results, classroom_unit: classroom_unit, user_id: student.id) }
-    let!(:concept_result) { create(:concept_result, activity_session: activity_session) }
+  context 'integration', :integration do
+    let(:sample_prod_admin_id) { 3737095 }
+    let(:expected_row_keys) do
+      %w(school_name teacher_name classroom_name student_name correct incorrect percentage)
+    end
 
-    subject { described_class.new(admin.id) }
+    around do |a_spec|
+      VCR.configure { |c| c.allow_http_connections_when_no_cassette = true }
+      a_spec.run
+      VCR.configure { |c| c.allow_http_connections_when_no_cassette = false }
+    end
 
-    it 'should return the correct results' do
-      correct = concept_result.correct ? 1 : 0
-      incorrect = ConceptResult.count - correct
-      percentage = (100 * correct.to_f / ConceptResult.count).floor
+    it 'tests end to end' do
+      results = ProgressReports::DistrictConceptReports.new(sample_prod_admin_id).results
+      sample_row = results.first
+      puts sample_row
+      expect(sample_row.keys).to match_array(expected_row_keys)
 
-      expect(subject.results).to eq(
-        [{
-          school_name: school.name,
-          teacher_name: teacher.name,
-          classroom_name: classroom.name,
-          student_name: student.name,
-          correct: correct,
-          incorrect: incorrect,
-          percentage: percentage,
-        }.stringify_keys]
-      )
+      %w(school_name teacher_name classroom_name).each do |key|
+        expect(sample_row[key].is_a? String).to be true
+      end
+      QuillBigQuery::FLOAT_FIELDS.each do |key|
+        expect(sample_row[key].is_a? Float).to be true
+      end
+
     end
   end
+
 end
