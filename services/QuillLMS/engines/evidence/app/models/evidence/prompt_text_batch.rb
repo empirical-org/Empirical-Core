@@ -52,5 +52,49 @@ module Evidence
         prompt_texts.each {|t| csv << [t.text, t.seed_descriptor, t.label]}
       end
     end
+
+    LABEL_FILE = 'synthetic'
+    LABEL_ORIGINAL = 'original.csv'
+    LABEL_TRAINING = 'automl_upload.csv'
+    LABEL_ANALYSIS = 'analysis.csv'
+
+    def csv_file_hash(filename)
+      {
+        file_name(filename, LABEL_TRAINING) => labeled_training_csv_string,
+        file_name(filename, LABEL_ANALYSIS) => labeled_analysis_csv_string,
+        file_name(filename, LABEL_ORIGINAL) => CSV.generate {|csv| original_labeled_items.each {|pt| csv << [pt.text, pt.label] }}
+      }
+    end
+
+    def original_labeled_items
+      prompt_texts
+        .joins(:text_generation)
+        .merge(Evidence::TextGeneration.original)
+    end
+
+    def file_name(filename, file_ending)
+      [filename.gsub('.csv',''), LABEL_FILE, file_ending].join('_')
+    end
+
+    def labeled_training_csv_string
+      CSV.generate do |csv|
+        labeled_training_csv_rows.each {|row| csv << row }
+      end
+    end
+
+    def labeled_training_csv_rows
+      prompt_texts.map(&:labeled_training_csv_row)
+    end
+
+    def labeled_analysis_csv_string
+      CSV.generate do |csv|
+        csv << ['Text', 'Label', 'Original', 'Changed?', 'Language/Spelling', 'Type']
+        labeled_analysis_csv_rows.each {|row| csv << row }
+      end
+    end
+
+    def labeled_analysis_csv_rows
+      prompt_texts.map(&:labeled_analysis_csv_row)
+    end
   end
 end

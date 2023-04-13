@@ -10,8 +10,10 @@ describe Evidence::Synthetic::LabeledDataGenerator do
 
   let(:mock_translator) { double }
 
-  let(:spanish_generation) { create(:evidence_text_generation, type: 'Translation', language: 'es') }
-  let(:korean_generation) {  create(:evidence_text_generation, type: 'Translation', language: 'ko') }
+  let(:source_text) { 'text string' }
+
+  let(:spanish_generation) { create(:evidence_text_generation, type: 'Translation', language: 'es', source_text: source_text) }
+  let(:korean_generation) {  create(:evidence_text_generation, type: 'Translation', language: 'ko', source_text: source_text) }
 
   let(:translation_generator1) { Evidence::Synthetic::GeneratorResults.new(generator: spanish_generation, results: ['goodbye'])}
   let(:translation_generator2) { Evidence::Synthetic::GeneratorResults.new(generator: korean_generation, results: ['korean'])}
@@ -26,7 +28,7 @@ describe Evidence::Synthetic::LabeledDataGenerator do
     }
   end
 
-  let(:spelling_generation) { create(:evidence_text_generation, type: 'Spelling', word: 'their') }
+  let(:spelling_generation) { create(:evidence_text_generation, type: 'Spelling', word: 'their', source_text: source_text) }
   let(:spelling_generator) { Evidence::Synthetic::GeneratorResults.new(generator: spelling_generation, results: ['ther response'])}
 
   let(:spelling_response) do
@@ -58,7 +60,7 @@ describe Evidence::Synthetic::LabeledDataGenerator do
 
       first_result = subject.results.first
 
-      expect(first_result.text).to eq 'text string'
+      expect(first_result.text).to eq source_text
       expect(first_result.label).to eq 'label_5'
       expect(first_result.generated).to eq([])
     end
@@ -71,7 +73,7 @@ describe Evidence::Synthetic::LabeledDataGenerator do
 
         first_result = subject.results.first
 
-        expect(first_result.text).to eq 'text string'
+        expect(first_result.text).to eq source_text
         expect(first_result.label).to eq 'label_5'
         expect(first_result.generated).to eq([])
       end
@@ -206,7 +208,7 @@ describe Evidence::Synthetic::LabeledDataGenerator do
 
     describe "#training_data_rows" do
       it 'should produce an array of arrays to make a csv used for training' do
-        training_data = generator.training_data_rows
+        training_data = generator.batch.labeled_training_csv_rows
         first_row = training_data.first
 
         # 2 original, 4 translations, 1 spelling error
@@ -221,7 +223,7 @@ describe Evidence::Synthetic::LabeledDataGenerator do
 
     describe "#detail_data_rows" do
       it 'should produce an array of arrays to make a csv used for analyzing synthetic data' do
-        data = generator.detail_data_rows
+        data = generator.batch.labeled_analysis_csv_rows
 
         # 2 original, 4 translations, 1 spelling error
         expect(data.size).to eq 7

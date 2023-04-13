@@ -8,7 +8,7 @@ module Evidence
     validates :text, presence: true
 
     def seed_csv_row
-      [text, text_generation&.seed_descriptor, text_generation&.label]
+      [text, seed_descriptor, seed_label]
     end
 
     def seed_label
@@ -17,6 +17,29 @@ module Evidence
 
     def seed_descriptor
       text_generation&.seed_descriptor
+    end
+
+    def labeled_training_csv_row
+      [ml_type, text, label]
+    end
+
+    def labeled_analysis_csv_row
+      [
+        text,
+        label,
+        source_text || '',
+        text == source_text ? 'no_change' : '',
+        labeled_descriptor,
+        ml_type
+      ]
+    end
+
+    def source_text
+      text_generation&.source_text
+    end
+
+    def labeled_descriptor
+      text_generation&.labeled_descriptor
     end
   end
 end

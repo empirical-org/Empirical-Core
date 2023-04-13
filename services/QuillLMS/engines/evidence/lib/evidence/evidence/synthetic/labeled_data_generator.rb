@@ -147,46 +147,7 @@ module Evidence
 
         generator.run
 
-        generator.csv_file_hash(filename, texts_and_labels)
-      end
-
-      def csv_file_hash(filename, texts_and_labels)
-        {
-          file_name(filename, LABEL_TRAINING) => training_csv_string,
-          file_name(filename, LABEL_ANALYSIS) => analysis_csv_string,
-          file_name(filename, LABEL_ORIGINAL) => CSV.generate {|csv| texts_and_labels.each {|row| csv << row }}
-        }
-      end
-
-      def file_name(filename, file_ending)
-        [filename.gsub('.csv',''), LABEL_FILE, file_ending].join('_')
-      end
-
-      def training_csv_string
-        CSV.generate do |csv|
-          training_data_rows.uniq.each {|row| csv << row }
-        end
-      end
-
-      def analysis_csv_string
-        CSV.generate do |csv|
-          csv << ['Text', 'Label', 'Original', 'Changed?', 'Language/Spelling', 'Type']
-          detail_data_rows.each {|row| csv << row }
-        end
-      end
-
-      def training_data_rows
-        results
-          .map(&:to_training_rows)
-          .flatten(1)
-          .reject(&:empty?)
-      end
-
-      def detail_data_rows
-        results
-          .map(&:to_detail_rows)
-          .flatten(1)
-          .reject(&:empty?)
+        generator.batch.csv_file_hash(filename)
       end
 
       private def labeled_data_cleaner(texts_and_labels)
