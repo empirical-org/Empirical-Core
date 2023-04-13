@@ -145,6 +145,7 @@ module Evidence
         expect(subject.results.count).to be(10)
         expect(subject.results.map(&:seed_descriptor)).to eq(seed_labels)
         expect(subject.results.map(&:seed_label)).to eq([nil, nil, nil, nil, nil, nil, nil, nil, nil, "label1"])
+        expect(batch.prompt_texts.count).to eq 10
       end
 
 
