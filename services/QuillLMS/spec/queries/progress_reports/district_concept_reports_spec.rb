@@ -22,10 +22,10 @@ describe ProgressReports::DistrictConceptReports do
       expect(sample_row.keys).to match_array(expected_row_keys)
 
       %w(school_name teacher_name classroom_name).each do |key|
-        expect(sample_row[key].is_a? String).to be true
+        expect(sample_row[key].is_a?(String)).to be true
       end
       QuillBigQuery::FLOAT_FIELDS.each do |key|
-        expect(sample_row[key].is_a? Float).to be true
+        expect(sample_row[key].is_a?(Float)).to be true
       end
 
     end

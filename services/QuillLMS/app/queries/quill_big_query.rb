@@ -10,17 +10,18 @@ module QuillBigQuery
   PROJECT_ID = 'analytics-data-stores'
   FLOAT_FIELDS = %w(correct incorrect percentage)
 
-  class UnsupportedSchemaError < StandardError ; end
+  class UnsupportedSchemaError < StandardError; end
 
   def self.valid_schema?(json_body)
     return false unless json_body['schema']['fields'].respond_to?(:count)
     return false unless json_body['rows'].respond_to?(:count)
+
     true
   end
 
   def self.floatify_fields(array_of_hashes)
     array_of_hashes.map do |hsh|
-       hsh.each {|k,v| FLOAT_FIELDS.include?(k) && hsh[k] = v.to_f }
+      hsh.each {|k,v| FLOAT_FIELDS.include?(k) && hsh[k] = v.to_f }
     end
     array_of_hashes
   end

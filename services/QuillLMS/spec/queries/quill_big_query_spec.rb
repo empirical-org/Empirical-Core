@@ -17,10 +17,11 @@ describe QuillBigQuery do
       {
         "kind"=>"bigquery#queryResponse",
         "schema"=> {
-        "fields"=>[
-          {"name"=>"name", "type"=>"STRING", "mode"=>"NULLABLE"},
-          {"name"=>"created_at", "type"=>"DATETIME", "mode"=>"NULLABLE"}
-        ]},
+          "fields"=>[
+            {"name"=>"name", "type"=>"STRING", "mode"=>"NULLABLE"},
+            {"name"=>"created_at", "type"=>"DATETIME", "mode"=>"NULLABLE"}
+          ]
+        },
         "jobReference"=> {
           "projectId"=>"analytics-data-stores",
           "jobId"=>"job_rnsEGMAIr3Zsx25hDkFm1oDviQ8t",
