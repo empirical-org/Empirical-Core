@@ -18,7 +18,6 @@ describe ProgressReports::DistrictConceptReports do
     it 'tests end to end' do
       results = ProgressReports::DistrictConceptReports.new(sample_prod_admin_id).results
       sample_row = results.first
-      puts sample_row
       expect(sample_row.keys).to match_array(expected_row_keys)
 
       %w(school_name teacher_name classroom_name).each do |key|
