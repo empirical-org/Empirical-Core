@@ -53,7 +53,7 @@ module Evidence
             strings_slice.each.with_index do |string, index|
               result = lowercaser.run(english_texts[index].text)
 
-              generator = Evidence::TextGeneration.new(
+              generator = Evidence::TextGeneration.create(
                 name: 'Translation',
                 source_text: string,
                 language: language.to_s,

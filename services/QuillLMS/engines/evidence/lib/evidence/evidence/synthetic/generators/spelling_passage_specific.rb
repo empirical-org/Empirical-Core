@@ -35,7 +35,7 @@ module Evidence
 
               text_with_misspell = string.gsub(Regexp.new(padded_word), misspell(word))
 
-              generator = Evidence::TextGeneration.new(
+              generator = Evidence::TextGeneration.create(
                 name: 'SpellingPassage',
                 source_text: string,
                 word: word,

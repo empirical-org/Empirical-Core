@@ -21,7 +21,7 @@ module Evidence
               .map {|s| lowercaser.run(s) }
               .uniq
 
-            generator = Evidence::TextGeneration.new(
+            generator = Evidence::TextGeneration.create(
               name: 'LabelParaphrase',
               source_text: string,
               temperature: TEMPERATURE,
