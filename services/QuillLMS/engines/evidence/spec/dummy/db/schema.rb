@@ -233,9 +233,7 @@ ActiveRecord::Schema.define(version: 2023_03_06_215624) do
   create_table "evidence_prompt_text_batches", force: :cascade do |t|
     t.string "type", null: false
     t.integer "prompt_id", null: false
-    t.integer "user_id", null: false
-    t.string "file"
-    t.jsonb "metadata"
+    t.jsonb "data"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
   end
@@ -251,8 +249,8 @@ ActiveRecord::Schema.define(version: 2023_03_06_215624) do
   end
 
   create_table "evidence_text_generations", force: :cascade do |t|
-    t.string "name", null: false
-    t.jsonb "data"
+    t.string "type", null: false
+    t.jsonb "config"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
   end

@@ -22,7 +22,7 @@ module Evidence
               .uniq
 
             generator = Evidence::TextGeneration.create(
-              name: Evidence::TextGeneration::TYPE_PARAPHRASE,
+              type: Evidence::TextGeneration::TYPE_PARAPHRASE,
               source_text: string,
               temperature: TEMPERATURE,
               ml_prompt: ml_prompt(string),

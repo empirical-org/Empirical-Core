@@ -1,6 +1,9 @@
 module Evidence
   class TextGeneration < ApplicationRecord
-    DATA_ACCESSORS = [
+    # TODO, use STI for this in the future
+    self.inheritance_column = :_type_disabled
+
+    CONFIG_ACCESSORS = [
       :source_text,
       :language,
       :word,
@@ -15,7 +18,7 @@ module Evidence
       :noun
     ]
 
-    store :data, accessors: DATA_ACCESSORS, coder: JSON
+    store :config, accessors: CONFIG_ACCESSORS, coder: JSON
     has_many :prompt_texts
 
     TYPES = [
@@ -30,14 +33,14 @@ module Evidence
       TYPE_TRANSLATION = "Translation"
     ]
 
-    validates :name, presence: true, inclusion: {in: TYPES}
+    validates :type, presence: true, inclusion: {in: TYPES}
 
     def seed_descriptor
       seed_descriptor_fields.compact.join("_").downcase
     end
 
     private def seed_descriptor_fields
-      [name&.underscore, label, index, "temp", temperature, conjunction, noun]
+      [type&.underscore, label, index, "temp", temperature, conjunction, noun]
     end
 
     def labeled_descriptor
@@ -45,7 +48,7 @@ module Evidence
     end
 
     private def labeled_descriptor_fields
-      [name&.underscore, language, word]
+      [type&.underscore, language, word]
     end
   end
 end

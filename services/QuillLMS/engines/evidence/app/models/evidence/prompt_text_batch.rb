@@ -3,7 +3,7 @@ module Evidence
     # TODO, use STI for this in the future
     self.inheritance_column = :_type_disabled
 
-    DATA_ACCESSORS = [
+    CONFIG_ACCESSORS = [
       :nouns,
       :label_configs,
       :use_passage,
@@ -19,7 +19,7 @@ module Evidence
       TYPE_LABELED = "LabeledData"
     ]
 
-    store :metadata, accessors: DATA_ACCESSORS, coder: JSON
+    store :config, accessors: CONFIG_ACCESSORS, coder: JSON
 
     belongs_to :prompt
     has_one :activity, through: :prompt
@@ -29,7 +29,6 @@ module Evidence
 
     validates :type, presence: true
     validates :prompt_id, presence: true
-    validates :user_id, presence: true
 
     def stem
       prompt.text

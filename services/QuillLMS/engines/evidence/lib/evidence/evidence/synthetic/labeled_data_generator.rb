@@ -43,7 +43,6 @@ module Evidence
         @batch = Evidence::PromptTextBatch.create(
           type: Evidence::PromptTextBatch::TYPE_LABELED,
           prompt: prompt,
-          user_id: 1,
           languages: languages,
           manual_types: manual_types,
           generators: generators
@@ -80,7 +79,7 @@ module Evidence
       end
 
       def store_results
-        original = Evidence::TextGeneration.create(name: Evidence::TextGeneration::TYPE_ORIGINAL)
+        original = Evidence::TextGeneration.create(type: Evidence::TextGeneration::TYPE_ORIGINAL)
 
         results.each do |result|
           batch.prompt_texts.new(

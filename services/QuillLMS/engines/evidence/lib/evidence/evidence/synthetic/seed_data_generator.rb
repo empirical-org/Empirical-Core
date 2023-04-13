@@ -59,7 +59,7 @@ module Evidence
         prompts.each do |prompt|
           csv_name = "#{short_name}_#{prompt.conjunction}#{CSV_SUFFIX}"
           batch = Evidence::PromptTextBatch.new(
-            name: Evidence::PromptTextBatch::TYPE_SEED,
+            type: Evidence::PromptTextBatch::TYPE_SEED,
             prompt: prompt,
             nouns: nouns,
             label_configs: label_configs,
@@ -104,7 +104,7 @@ module Evidence
           stem_variants_hash.each do |conjunction, stem_variant|
             prompt = prompt_text(context: passage, stem_variant: stem_variant)
             generator = Evidence::TextGeneration.create(
-              name: Evidence::TextGeneration::TYPE_FULL_PASSAGE,
+              type: Evidence::TextGeneration::TYPE_FULL_PASSAGE,
               temperature: temp,
               ml_prompt: prompt,
               source_text: passage,
@@ -124,7 +124,7 @@ module Evidence
         nouns.each do |noun|
           prompt = prompt_text(context: passage, noun: noun)
             generator = Evidence::TextGeneration.create(
-              name: Evidence::TextGeneration::TYPE_FULL_PASSAGE_NOUN,
+              type: Evidence::TextGeneration::TYPE_FULL_PASSAGE_NOUN,
               temperature: TEMP_NOUN,
               ml_prompt: prompt,
               stem: [stem, noun].join(SPACE),
@@ -142,7 +142,7 @@ module Evidence
           stem_variants_hash.each do |conjunction, stem_variant|
             prompt = prompt_text(context: text_chunk, stem_variant: stem_variant)
             generator = Evidence::TextGeneration.create(
-              name: Evidence::TextGeneration::TYPE_PASSAGE_CHUNK,
+              type: Evidence::TextGeneration::TYPE_PASSAGE_CHUNK,
               temperature: TEMP_SECTION,
               ml_prompt: prompt,
               stem: stem_variant,
@@ -166,7 +166,7 @@ module Evidence
           label_config[EXAMPLES_KEY].map(&:strip).uniq.compact.each.with_index do |example, index|
             prompt = Evidence::OpenAI::PARAPHRASE_INSTRUCTION + example
             generator = Evidence::TextGeneration.create(
-              name: Evidence::TextGeneration::TYPE_LABEL_EXAMPLE,
+              type: Evidence::TextGeneration::TYPE_LABEL_EXAMPLE,
               temperature: TEMP_PARAPHRASE,
               ml_prompt: prompt,
               source_text: example,

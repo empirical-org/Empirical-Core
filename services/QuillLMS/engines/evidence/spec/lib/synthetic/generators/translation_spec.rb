@@ -32,7 +32,7 @@ describe Evidence::Synthetic::Generators::Translation do
       generator1 = generator_results1.generator
 
       expect(generator_results1.results).to eq [text1_english]
-      expect(generator1.name).to eq 'Translation'
+      expect(generator1.type).to eq 'Translation'
       expect(generator1.language).to eq('es')
 
       generator_results2 = subject[text2].first
@@ -57,7 +57,7 @@ describe Evidence::Synthetic::Generators::Translation do
         generator = generator_results.generator
 
         expect(generator_results.results).to eq [text1_english]
-        expect(generator.name).to eq 'Translation'
+        expect(generator.type).to eq 'Translation'
         expect(generator.language).to eq('es')
       end
     end

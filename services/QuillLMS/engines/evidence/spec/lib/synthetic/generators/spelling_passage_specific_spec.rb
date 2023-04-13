@@ -17,7 +17,7 @@ describe Evidence::Synthetic::Generators::SpellingPassageSpecific do
       generator_results = subject[text1].first
       generator = generator_results.generator
 
-      expect(generator.name).to eq 'SpellingPassage'
+      expect(generator.type).to eq 'SpellingPassage'
       expect(generator.word).to eq('dancing')
       expect(generator_results.results).to eq(['the dacing step'])
       expect(generator.word_list).to eq(['dancing'])
@@ -37,7 +37,7 @@ describe Evidence::Synthetic::Generators::SpellingPassageSpecific do
       generator_results = subject[text1].first
       generator = generator_results.generator
 
-      expect(generator.name).to eq 'SpellingPassage'
+      expect(generator.type).to eq 'SpellingPassage'
       expect(generator.word).to eq('longlonglong')
       expect(generator_results.results).to eq(['the loglonglong word'])
       expect(generator.word_list).to eq(['longlonglong'])

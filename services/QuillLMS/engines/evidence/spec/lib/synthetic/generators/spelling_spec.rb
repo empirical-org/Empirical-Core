@@ -18,7 +18,7 @@ describe Evidence::Synthetic::Generators::Spelling do
       generator_results = subject[text1].first
       generator = generator_results.generator
 
-      expect(generator.name).to eq 'Spelling'
+      expect(generator.type).to eq 'Spelling'
       expect(generator.word).to eq('their')
       expect(generator_results.results).to eq(['ther text'])
 

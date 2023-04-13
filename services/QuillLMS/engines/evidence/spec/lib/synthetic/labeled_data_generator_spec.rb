@@ -10,8 +10,8 @@ describe Evidence::Synthetic::LabeledDataGenerator do
 
   let(:mock_translator) { double }
 
-  let(:spanish_generation) { Evidence::TextGeneration.create(name: 'Translation', language: 'es') }
-  let(:korean_generation) { Evidence::TextGeneration.create(name: 'Translation', language: 'ko') }
+  let(:spanish_generation) { create(:evidence_text_generation, type: 'Translation', language: 'es') }
+  let(:korean_generation) {  create(:evidence_text_generation, type: 'Translation', language: 'ko') }
 
   let(:translation_generator1) { Evidence::Synthetic::GeneratorResults.new(generator: spanish_generation, results: ['goodbye'])}
   let(:translation_generator2) { Evidence::Synthetic::GeneratorResults.new(generator: korean_generation, results: ['korean'])}
@@ -26,7 +26,7 @@ describe Evidence::Synthetic::LabeledDataGenerator do
     }
   end
 
-  let(:spelling_generation) { Evidence::TextGeneration.create(name: 'Spelling', word: 'their') }
+  let(:spelling_generation) { create(:evidence_text_generation, type: 'Spelling', word: 'their') }
   let(:spelling_generator) { Evidence::Synthetic::GeneratorResults.new(generator: spelling_generation, results: ['ther response'])}
 
   let(:spelling_response) do
@@ -35,7 +35,7 @@ describe Evidence::Synthetic::LabeledDataGenerator do
     }
   end
 
-  let(:paraphrase_generation) { Evidence::TextGeneration.create(name: 'Paraphrase', temperature: 1, source_text: 'noun string') }
+  let(:paraphrase_generation) { create(:evidence_text_generation, type: 'Paraphrase', temperature: 1, source_text: 'noun string') }
   let(:paraphrase_generator) { Evidence::Synthetic::GeneratorResults.new(generator: paraphrase_generation, results: ['word string', 'sentence string'])}
 
   let(:paraphrase_response) do
@@ -93,7 +93,7 @@ describe Evidence::Synthetic::LabeledDataGenerator do
       generator_results1 = first_result.generated.first
 
       expect(generator_results1.results).to eq(['goodbye'])
-      expect(generator_results1.generator.name).to eq 'Translation'
+      expect(generator_results1.generator.type).to eq 'Translation'
       expect(generator_results1.generator.language).to eq('es')
       expect(Evidence::PromptText.count).to eq 6
     end
@@ -114,7 +114,7 @@ describe Evidence::Synthetic::LabeledDataGenerator do
       generator_results = first_result.generated.first
 
       expect(generator_results.results).to eq(['ther response'])
-      expect(generator_results.generator.name).to eq 'Spelling'
+      expect(generator_results.generator.type).to eq 'Spelling'
       expect(generator_results.generator.word).to eq('their')
     end
   end
@@ -138,7 +138,7 @@ describe Evidence::Synthetic::LabeledDataGenerator do
       generator_results = first_result.generated.first
 
       expect(generator_results.results).to eq(['word string', 'sentence string'])
-      expect(generator_results.generator.name).to eq 'Paraphrase'
+      expect(generator_results.generator.type).to eq 'Paraphrase'
     end
   end
 
@@ -172,7 +172,7 @@ describe Evidence::Synthetic::LabeledDataGenerator do
       generator_results = first_result.generated.first
 
       expect(generator_results.results).to be_present
-      expect(generator_results.generator.name).to eq 'SpellingPassage'
+      expect(generator_results.generator.type).to eq 'SpellingPassage'
     end
 
     context 'manual types' do
@@ -182,7 +182,7 @@ describe Evidence::Synthetic::LabeledDataGenerator do
         subject { generator.results.find {|r| r.type == "TEST"} }
 
         it 'should populate passage errors' do
-          expect(subject.generated.first.generator.name).to eq 'SpellingPassage'
+          expect(subject.generated.first.generator.type).to eq 'SpellingPassage'
         end
       end
 
@@ -190,7 +190,7 @@ describe Evidence::Synthetic::LabeledDataGenerator do
         subject { generator.results.find {|r| r.type == "VALIDATION"} }
 
         it 'should populate passage errors' do
-          expect(subject.generated.first.generator.name).to eq 'SpellingPassage'
+          expect(subject.generated.first.generator.type).to eq 'SpellingPassage'
         end
       end
     end
