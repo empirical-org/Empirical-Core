@@ -8,7 +8,7 @@ module QuillBigQuery
   PROJECT_ID = 'analytics-data-stores'
 
   def self.transform_response(json_body)
-    puts json_body
+    #puts json_body
     # Parsing - It returns row names and values separately in an odd setup
     # This parses them down to [{"id" => 1, "name"=> "Dan", }, {"id" => 2, "name" => "Peter"}]
     fields = json_body["schema"]["fields"].map {|h| h["name"]}
@@ -24,7 +24,7 @@ module QuillBigQuery
     bigquery = client.discovered_api('bigquery', 'v2')
     scope = 'https://www.googleapis.com/auth/bigquery'
 
-    # make_creds expects a file, so we wrap our JSON env var in an IO stream
+    # make_creds expects a file, so we wrap the JSON env var in an IO stream
     json_credential_io = StringIO.new(ENV.fetch('BIGQUERY_CREDENTIALS'))
 
     # Auth Service account: https://github.com/googleapis/google-auth-library-ruby#example-service-account
