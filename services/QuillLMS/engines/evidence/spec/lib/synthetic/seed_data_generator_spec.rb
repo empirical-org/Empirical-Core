@@ -283,10 +283,8 @@ module Evidence
     end
 
     describe "#regex_exclude?" do
-      let(:prompt_so) { create(:evidence_prompt, conjunction: 'so')}
-      let(:prompt_because) { create(:evidence_prompt, conjunction: 'because')}
-      let(:batch_so) { create(:seed_prompt_text_batch, prompt: prompt_so)}
-      let(:batch_because) { create(:seed_prompt_text_batch, prompt: prompt_because)}
+      let(:batch_so) { create(:seed_prompt_text_batch, prompt: create(:evidence_prompt, conjunction: 'so'))}
+      let(:batch_because) { create(:seed_prompt_text_batch, prompt: create(:evidence_prompt, conjunction: 'because'))}
 
       let(:because) {described_class.new(batch_because)}
       let(:so) {described_class.new(batch_so)}

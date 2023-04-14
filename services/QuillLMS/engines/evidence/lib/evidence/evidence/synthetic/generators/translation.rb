@@ -56,7 +56,7 @@ module Evidence
               generator = Evidence::TextGeneration.create(
                 type: Evidence::TextGeneration::TYPE_TRANSLATION,
                 source_text: string,
-                language: language.to_s,
+                language: language.to_s
               )
 
               generator_results = Evidence::Synthetic::GeneratorResults.new(
