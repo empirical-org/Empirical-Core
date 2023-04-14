@@ -4,9 +4,9 @@ class CanvasInstancesController < ApplicationController
   before_action :admin!
 
   def create
-    if canvas_instance.errors
+    if canvas_instance.errors.any?
       render json: canvas_instance.errors, status: :unprocessable_entity
-    elsif canvas_config.errors
+    elsif canvas_config.errors.any?
       render json: canvas_config.errors, status: :unprocessable_entity
     elsif canvas_instance_schools_errors
       render json: canvas_instance_schools.errors, status: :unprocessable_entity
@@ -20,11 +20,14 @@ class CanvasInstancesController < ApplicationController
   end
 
   private def canvas_config
-    @canvas_config ||= CanvasConfig.find_or_create_by(canvas_config_params)
+    @canvas_config ||= canvas_instance.canvas_configs.create(canvas_config_params)
+    # change log for canvas config creation with admin_id
   end
 
   private def canvas_instance_schools
-    @canvas_instance_schools ||= CanvasInstanceSchools.create(canvas_instance_school_params)
+    @canvas_instance_schools ||= school_ids.each do |school_id|
+      canvas_instance.canvas_school_instances.find_or_create_by(school_id: school_id)
+    end
   end
 
   private def canvas_config_params
@@ -39,9 +42,13 @@ class CanvasInstancesController < ApplicationController
       .permit(:url)
   end
 
-  private def canvas_instance_school_params
+  private def canvas_instance_schools_params
     params
-      .require(:canvas_instance_school)
+      .require(:canvas_instance_schools)
       .permit(:school_ids)
+  end
+
+  private def school_ids
+    canvas_instance_schools_params[:school_ids].split(',')
   end
 end

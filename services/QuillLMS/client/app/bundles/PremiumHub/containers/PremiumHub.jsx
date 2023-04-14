@@ -11,6 +11,7 @@ import AdminsTeachers from '../components/adminsTeachers.tsx';
 import CreateNewAccounts from '../components/createNewAccounts.tsx';
 import PremiumFeatures from '../components/premiumFeatures.tsx';
 import { FULL, LIMITED, RESTRICTED, } from '../shared';
+import CanvasInstanceForm from '../components/CanvasInstanceForm';
 
 const DEFAULT_MODEL = { teachers: [] }
 
@@ -136,6 +137,7 @@ const PremiumHub = ({ adminId, accessType, passedModel, }) => {
 
   return(
     <div className="sub-container">
+      <CanvasInstanceForm />
       <Snackbar text={snackbarText} visible={showSnackbar} />
       <PremiumFeatures handleClick={onClickTeacherAccess} trainingOptionsElement={trainingOptionsElement} />
       {renderFreemiumStandardsReports()}
