@@ -8,6 +8,7 @@
 #  created_at       :datetime         not null
 #  updated_at       :datetime         not null
 #  canvas_config_id :bigint           not null
+#  external_id      :string           not null
 #  user_id          :bigint           not null
 #
 # Indexes
