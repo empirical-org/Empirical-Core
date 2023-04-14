@@ -635,17 +635,19 @@ exports[`BlogPostIndex component renders 1`] = `
             <h1>
               Using Quill for reading comprehension
             </h1>
-            <h2>
-              2
-               
-              articles
-            </h2>
-            <a
-              className="quill-button focus-on-light fun contained primary"
-              href="/teacher-center/topic/using-quill-for-reading-comprehension"
-            >
-              Show all
-            </a>
+            <div>
+              <h2>
+                2
+                 
+                articles
+              </h2>
+              <a
+                className="quill-button focus-on-light fun contained primary"
+                href="/teacher-center/topic/using-quill-for-reading-comprehension"
+              >
+                Show all
+              </a>
+            </div>
           </div>
           <div
             id="preview-card-container"
@@ -654,6 +656,7 @@ exports[`BlogPostIndex component renders 1`] = `
               color="purple"
               content="<img class='preview-card-image' src='https://s3.amazonaws.com/quill-image-uploads/uploads/files/Cover__4_.png' />\\\\n    <div class='preview-card-body'>\\\\n       <h3>List of Available Quill Reading for Evidence Activities</h3>\\\\n       <p>This article offers a great way to get a sense of the content and topics available in current Reading for Evidence activities!</p>\\\\n       <span/>\\\\n    </div>\\\\n    <div class='preview-card-footer'>\\\\n      <p class='author'>by Quill Staff</p>\\\\n    </div>"
               externalLink={false}
+              key="835"
               link="/teacher-center/list-of-available-quill-reading-for-evidence-activities"
             >
               <a
@@ -905,6 +908,7 @@ exports[`BlogPostIndex component renders 1`] = `
               color="purple"
               content="<img class='preview-card-image' src='https://s3.amazonaws.com/quill-image-uploads/uploads/files/Cover__2_.png' />\\\\n       <div class='preview-card-body'>\\\\n       <h3>📋 PDF | Introducing Quill Reading for  Evidence: One-Pager </h3>\\\\n       <p>This one-pager will introduce you to our newest tool, Quill Reading for  Evidence. Includes a link to a demo video!</p>\\\\n       <span/>\\\\n    </div>\\\\n    <div class='preview-card-footer'>\\\\n      <p class='author'>by Sherry L.</p>\\\\n    </div>"
               externalLink={false}
+              key="633"
               link="/teacher-center/-pdf--introducing-quill-evidence-onepager-"
             >
               <a
@@ -1245,17 +1249,19 @@ exports[`BlogPostIndex component renders 1`] = `
             <h1>
               Getting started
             </h1>
-            <h2>
-              3
-               
-              articles
-            </h2>
-            <a
-              className="quill-button focus-on-light fun contained primary"
-              href="/teacher-center/topic/getting-started"
-            >
-              Show all
-            </a>
+            <div>
+              <h2>
+                3
+                 
+                articles
+              </h2>
+              <a
+                className="quill-button focus-on-light fun contained primary"
+                href="/teacher-center/topic/getting-started"
+              >
+                Show all
+              </a>
+            </div>
           </div>
           <div
             id="preview-card-container"
@@ -1264,6 +1270,7 @@ exports[`BlogPostIndex component renders 1`] = `
               color="blue"
               content="<img class='preview-card-image' src='https://s3.amazonaws.com/quill-image-uploads/uploads/files/Cover__22_.png' />\\\\n    <div class='preview-card-body'>\\\\n       <h3>Quill's Professional Learning Webinars</h3>\\\\n       <p>Looking to maximize our tools? If you are new to the platform or a seasoned veteran, each of our free live webinars will help you get the most out of Quill.</p>\\\\n       <span/>\\\\n    </div>\\\\n    <div class='preview-card-footer'>\\\\n      <p class='author'>by Quill Staff</p>\\\\n    </div>"
               externalLink={false}
+              key="480"
               link="/teacher-center/webinars"
             >
               <a
@@ -1515,6 +1522,7 @@ exports[`BlogPostIndex component renders 1`] = `
               color="blue"
               content="<img class='preview-card-image' src='https://s3.amazonaws.com/quill-image-uploads/uploads/files/Cover__22_.png' />\\\\n    <div class='preview-card-body'>\\\\n       <h3>What activities will be recommended after students complete a Pre-AP® Writing Skills Survey?</h3>\\\\n       <p>Check out the Pre-AP Writing Skills Surveys' recommended activity packs!</p>\\\\n       <span/>\\\\n    </div>\\\\n    <div class='preview-card-footer'>\\\\n      <p class='author'>by Sherry L.</p>\\\\n    </div>"
               externalLink={false}
+              key="475"
               link="/teacher-center/what-activities-should-i-assign-to-my-students-after-they-take-one-of-the-preap-writing-skills-surveys"
             >
               <a
@@ -1766,6 +1774,7 @@ exports[`BlogPostIndex component renders 1`] = `
               color="blue"
               content="<img class='preview-card-image' src='https://s3.amazonaws.com/quill-image-uploads/uploads/files/Cover__18_.png' />\\\\n    <div class='preview-card-body'>\\\\n       <h3>📋  PDF  |  Quill Premium Resources </h3>\\\\n       <p>This PDF contains links to informational resources about Quill Premium that you can share with your school or team. </p>\\\\n       <span/>\\\\n    </div>\\\\n    <div class='preview-card-footer'>\\\\n      <p class='author'>by Daniel G.</p>\\\\n    </div>"
               externalLink={true}
+              key="768"
               link="https://s3.amazonaws.com/quill-image-uploads/uploads/files/Quill_Premium_A_Guide_to_Our_Informational_Resources__3__2276.pdf"
             >
               <a
@@ -2152,17 +2161,19 @@ exports[`BlogPostIndex component renders 1`] = `
             <h1>
               Best practices
             </h1>
-            <h2>
-              5
-               
-              articles
-            </h2>
-            <a
-              className="quill-button focus-on-light fun contained primary"
-              href="/teacher-center/topic/best-practices"
-            >
-              Show all
-            </a>
+            <div>
+              <h2>
+                5
+                 
+                articles
+              </h2>
+              <a
+                className="quill-button focus-on-light fun contained primary"
+                href="/teacher-center/topic/best-practices"
+              >
+                Show all
+              </a>
+            </div>
           </div>
           <div
             id="preview-card-container"
@@ -2171,6 +2182,7 @@ exports[`BlogPostIndex component renders 1`] = `
               color="gold"
               content="<img class='preview-card-image' src='https://s3.amazonaws.com/quill-image-uploads/uploads/files/Cover__7_.png' />\\\\n    <div class='preview-card-body'>\\\\n       <h3>Best Practices: Using Quill as a Homeschool Educator</h3>\\\\n       <p>Quill can be a valuable resource for homeschool teachers seeking unique ways to help students sharpen their grammar, vocabulary and writing skills.</p>\\\\n       <span/>\\\\n    </div>\\\\n    <div class='preview-card-footer'>\\\\n      <p class='author'>by Edgar Otero</p>\\\\n    </div>"
               externalLink={false}
+              key="133"
               link="/teacher-center/using-quill-as-a-homeschool-educator"
             >
               <a
@@ -2422,6 +2434,7 @@ exports[`BlogPostIndex component renders 1`] = `
               color="gold"
               content="<img class='preview-card-image' src='https://s3.amazonaws.com/quill-image-uploads/uploads/files/Cover__2_.png' />\\\\n    <div class='preview-card-body'>\\\\n       <h3>Best Practices: Using Quill to Support Mastery-Based Learning</h3>\\\\n       <p>Quill's tools make it easy to support a mastery-based learning classroom, making this instructional approach manageable for teachers and meaningful for students.</p>\\\\n       <span/>\\\\n    </div>\\\\n    <div class='preview-card-footer'>\\\\n      <p class='author'>by Shannon B.</p>\\\\n    </div>"
               externalLink={false}
+              key="450"
               link="/teacher-center/quill-and-masterybased-learning"
             >
               <a
@@ -2673,6 +2686,7 @@ exports[`BlogPostIndex component renders 1`] = `
               color="gold"
               content="<img class='preview-card-image' src='https://s3.amazonaws.com/quill-image-uploads/uploads/files/Cover__10_.png' />\\\\n    <div class='preview-card-body'>\\\\n       <h3>Tiny Tips for Teachers: Four Ways to use Quill Lessons</h3>\\\\n       <p>Like our other tools, the Quill Lessons tool has numerous features and uses, and many of our educators have found innovative ways to incorporate Quill Lessons into their classrooms.\\\\n       <span/>\\\\n    </div>\\\\n    <div class='preview-card-footer'>\\\\n      <p class='author'>by Rod A.</p>\\\\n    </div>"
               externalLink={false}
+              key="100"
               link="/teacher-center/4-ways-to-use-quill-lessons"
             >
               <a
@@ -2995,17 +3009,19 @@ exports[`BlogPostIndex component renders 1`] = `
             <h1>
               Video tutorials
             </h1>
-            <h2>
-              3
-               
-              articles
-            </h2>
-            <a
-              className="quill-button focus-on-light fun contained primary"
-              href="/teacher-center/topic/video-tutorials"
-            >
-              Show all
-            </a>
+            <div>
+              <h2>
+                3
+                 
+                articles
+              </h2>
+              <a
+                className="quill-button focus-on-light fun contained primary"
+                href="/teacher-center/topic/video-tutorials"
+              >
+                Show all
+              </a>
+            </div>
           </div>
           <div
             id="preview-card-container"
@@ -3014,6 +3030,7 @@ exports[`BlogPostIndex component renders 1`] = `
               color="violet"
               content="<img class='preview-card-image' src='https://s3.amazonaws.com/quill-image-uploads/uploads/files/Cover__19_.png' />\\\\n    <div class='preview-card-body'>\\\\n       <h3>Getting Started Video: An Overview of Quill Lessons</h3>\\\\n       <p>This video will guide you through the ins and outs of our Quill Lessons tool.</p>\\\\n       <span/>\\\\n    </div>\\\\n    <div class='preview-card-footer'>\\\\n      <p class='author'>by Maddy M.</p>\\\\n    </div>"
               externalLink={true}
+              key="462"
               link="http://s3.amazonaws.com/quill-image-uploads/uploads/files/Introduction_to_Quill_Lessons.mp4"
             >
               <a
@@ -3265,6 +3282,7 @@ exports[`BlogPostIndex component renders 1`] = `
               color="violet"
               content="<img class='preview-card-image' src='https://s3.amazonaws.com/quill-image-uploads/uploads/files/lower.png'/>\\\\n    <div class='preview-card-body'>\\\\n       <h3>Getting Started Video: How to Assign a Growth Diagnostic</h3>\\\\n       <p>This video will guide you through assigning a Growth Diagnostic, understanding the student reports, and assigning the recommended practice.</p>\\\\n       <span/>\\\\n    </div>\\\\n    <div class='preview-card-footer'>\\\\n      <p class='author'>by Scarlet M.</p>\\\\n    </div>"
               externalLink={false}
+              key="720"
               link="/teacher-center/getting-started-video-assigning-a-growth-diagnostic"
             >
               <a
@@ -3516,6 +3534,7 @@ exports[`BlogPostIndex component renders 1`] = `
               color="violet"
               content="<img class='preview-card-image' src='https://s3.amazonaws.com/quill-image-uploads/uploads/files/Cover__7_.png' />\\\\n    <div class='preview-card-body'>\\\\n       <h3>Student Center Video 📹 | Why is Writing Important?</h3>\\\\n       <p>This video from the Student Center discusses why writing is important and provides an example of writing a strong sentence.</p>\\\\n       <span/>\\\\n    </div>\\\\n    <div class='preview-card-footer'>\\\\n      <p class='author'>by Sherry L.</p>\\\\n    </div>"
               externalLink={false}
+              key="727"
               link="/teacher-center/student-center-video---why-is-writing-important"
             >
               <a
@@ -3833,17 +3852,19 @@ exports[`BlogPostIndex component renders 1`] = `
             <h1>
               Teacher materials
             </h1>
-            <h2>
-              2
-               
-              articles
-            </h2>
-            <a
-              className="quill-button focus-on-light fun contained primary"
-              href="/teacher-center/topic/teacher-materials"
-            >
-              Show all
-            </a>
+            <div>
+              <h2>
+                2
+                 
+                articles
+              </h2>
+              <a
+                className="quill-button focus-on-light fun contained primary"
+                href="/teacher-center/topic/teacher-materials"
+              >
+                Show all
+              </a>
+            </div>
           </div>
           <div
             id="preview-card-container"
@@ -3852,6 +3873,7 @@ exports[`BlogPostIndex component renders 1`] = `
               color="teal"
               content="<img class='preview-card-image' src='https://s3.amazonaws.com/quill-image-uploads/uploads/files/Cover__9_.png' />\\\\n    <div class='preview-card-body'>\\\\n       <h3>📋 PDF | Quill Reports Cheat Sheet</h3>\\\\n       <p> This PDF provides an overview of what information you can find in each of Quill's student data reports. </p>\\\\n       <span/>\\\\n    </div>\\\\n    <div class='preview-card-footer'>\\\\n      <p class='author'>by Quill Staff</p>\\\\n    </div>"
               externalLink={true}
+              key="115"
               link="http://s3.amazonaws.com/quill-image-uploads/uploads/files/Quill_Reports_Cheat_Sheet_Updated04_08_20.pdf"
             >
               <a
@@ -4103,6 +4125,7 @@ exports[`BlogPostIndex component renders 1`] = `
               color="teal"
               content="<img class='preview-card-image' src='https://s3.amazonaws.com/quill-image-uploads/uploads/files/Cover__10_.png' />\\\\n    <div class='preview-card-body'>\\\\n       <h3>📋 PDF | Quill and Beyond: Recommended Tools to Support Remote Learning</h3>\\\\n       <p>This PDF provides information on tools teachers can use to support students with remote instruction.</p>\\\\n       <span/>\\\\n    </div>\\\\n    <div class='preview-card-footer'>\\\\n      <p class='author'>by Quill Staff</p>\\\\n    </div>"
               externalLink={true}
+              key="399"
               link="http://s3.amazonaws.com/quill-image-uploads/uploads/files/Quill___Beyond__1_.pdf"
             >
               <a
@@ -4397,17 +4420,19 @@ exports[`BlogPostIndex component renders 1`] = `
             <h1>
               Teacher stories
             </h1>
-            <h2>
-              1
-               
-              article
-            </h2>
-            <a
-              className="quill-button focus-on-light fun contained primary"
-              href="/teacher-center/topic/teacher-stories"
-            >
-              Show all
-            </a>
+            <div>
+              <h2>
+                1
+                 
+                article
+              </h2>
+              <a
+                className="quill-button focus-on-light fun contained primary"
+                href="/teacher-center/topic/teacher-stories"
+              >
+                Show all
+              </a>
+            </div>
           </div>
           <div
             id="preview-card-container"
@@ -4416,6 +4441,7 @@ exports[`BlogPostIndex component renders 1`] = `
               color="purple"
               content="<img class='preview-card-image' src='https://s3.amazonaws.com/quill-image-uploads/uploads/files/Cover__7_.png' />\\\\n    <div class='preview-card-body'>\\\\n       <h3>Michele Ellis uses Quill to Facilitate a Dialogue with her 7th Grade Language Arts Class</h3>\\\\n       <p>“Thanks to Quill’s differentiation tools, students at all writing levels have something to say.”</p>\\\\n       <span/>\\\\n    </div>\\\\n    <div class='preview-card-footer'>\\\\n      <p class='author'>by Maddy M.</p>\\\\n    </div>"
               externalLink={false}
+              key="62"
               link="/teacher-center/michele-ellis-teacher-story"
             >
               <a
