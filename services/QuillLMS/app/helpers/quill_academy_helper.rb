@@ -2,7 +2,7 @@
 
 module QuillAcademyHelper
   AVAILABLE = "Available now"
-  COMING_SOON = "Coming SY '22-'23"
+  COMING_SOON = "Coming SY '23-'24"
   JUMPSTART_WITH_QUILL = "Jump Start with Quill"
   PLANNING_AND_IMPLEMENTING_A_DIAGNOSTICS_STRATEGY = "Planning & Implementing a Diagnostics Strategy"
   QUILLS_INDEPENDENT_TOOLS = "Quill's Independent Tools: Grammar, Connect, & Proofreader"
