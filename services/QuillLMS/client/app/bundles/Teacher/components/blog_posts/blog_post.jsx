@@ -79,7 +79,7 @@ export default class BlogPost extends React.Component {
 
     return (
       <div id='article-container'>
-        <article>
+        <article className="container">
           <BlogPostContent
             author={author}
             body={blogPost.body}
@@ -94,7 +94,7 @@ export default class BlogPost extends React.Component {
           </footer>
         </article>
         <div id='similar-posts'>
-          <div id='similar-post-container'>
+          <div className="container" id='similar-post-container'>
             <h2>
               <span>Teacher Center Articles</span>
               <a className="quill-button contained primary fun focus-on-light" href={`/${TEACHER_CENTER_SLUG}`}>Show more</a>
