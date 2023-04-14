@@ -66,7 +66,6 @@ jobs:
             TESTFILES=$(circleci tests glob "spec/**/*_spec.rb" | grep -v "spec/system/" | grep -v "/skip_ci/" | circleci tests split)
             bin/rspec -- ${TESTFILES}
           environment:
-            LOCKBOX_MASTER_KEY: '752f11c475684ee949a5325a4edaf16b76d72d25cba77a1569a5ee5c87c35dd8'
             SUPPRESS_PUTS: "true"
   lms_integration_build:
     working_directory: ~/Empirical-Core
