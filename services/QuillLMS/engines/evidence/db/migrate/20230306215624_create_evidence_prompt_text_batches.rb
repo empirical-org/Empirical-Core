@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 class CreateEvidencePromptTextBatches < ActiveRecord::Migration[6.1]
   def change
     create_table :evidence_prompt_text_batches do |t|

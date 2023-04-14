@@ -123,15 +123,15 @@ module Evidence
 
         nouns.each do |noun|
           prompt = prompt_text(context: passage, noun: noun)
-            generator = Evidence::TextGeneration.create(
-              type: Evidence::TextGeneration::TYPE_FULL_PASSAGE_NOUN,
-              temperature: TEMP_NOUN,
-              ml_prompt: prompt,
-              stem: [stem, noun].join(SPACE),
-              source_text: passage,
-              noun: noun,
-              count: FULL_NOUN_COUNT
-            )
+          generator = Evidence::TextGeneration.create(
+            type: Evidence::TextGeneration::TYPE_FULL_PASSAGE_NOUN,
+            temperature: TEMP_NOUN,
+            ml_prompt: prompt,
+            stem: [stem, noun].join(SPACE),
+            source_text: passage,
+            noun: noun,
+            count: FULL_NOUN_COUNT
+          )
           run_generator(generator)
         end
       end

@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 # This migration comes from evidence (originally 20230306215123)
 class CreateEvidencePromptTextGenerations < ActiveRecord::Migration[6.1]
   def change

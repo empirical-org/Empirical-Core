@@ -30,7 +30,7 @@ module Evidence
             )
             generator_results = Evidence::Synthetic::GeneratorResults.new(
               generator: generator,
-              results: results,
+              results: results
             )
 
             results_hash[string].append(generator_results)

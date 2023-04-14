@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 module Evidence
   class TextGeneration < ApplicationRecord
     # TODO, use STI for this in the future

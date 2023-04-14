@@ -27,7 +27,7 @@ module Evidence
 
               generator_results = Evidence::Synthetic::GeneratorResults.new(
                 generator: generator,
-                results: [text_with_misspell],
+                results: [text_with_misspell]
               )
 
               results_hash[string].append(generator_results)

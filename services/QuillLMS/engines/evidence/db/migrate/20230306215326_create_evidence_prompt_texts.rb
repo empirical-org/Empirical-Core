@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 class CreateEvidencePromptTexts < ActiveRecord::Migration[6.1]
   def change
     create_table :evidence_prompt_texts do |t|

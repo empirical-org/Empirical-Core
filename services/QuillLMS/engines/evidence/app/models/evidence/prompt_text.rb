@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 module Evidence
   class PromptText < ApplicationRecord
     belongs_to :prompt_text_batch
@@ -7,16 +9,14 @@ module Evidence
     validates :text_generation_id, presence: true
     validates :text, presence: true
 
+    delegate :seed_descriptor, :source_text, :labeled_descriptor, to: :text_generation
+
     def seed_csv_row
       [text, seed_descriptor, seed_label]
     end
 
     def seed_label
       text_generation&.label
-    end
-
-    def seed_descriptor
-      text_generation&.seed_descriptor
     end
 
     def labeled_training_csv_row
@@ -32,14 +32,6 @@ module Evidence
         labeled_descriptor,
         ml_type
       ]
-    end
-
-    def source_text
-      text_generation&.source_text
-    end
-
-    def labeled_descriptor
-      text_generation&.labeled_descriptor
     end
   end
 end

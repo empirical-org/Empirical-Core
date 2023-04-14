@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 module Evidence
   class PromptTextBatch < ApplicationRecord
     # TODO, use STI for this in the future
@@ -30,12 +32,10 @@ module Evidence
     validates :type, presence: true
     validates :prompt_id, presence: true
 
+    delegate :conjunction, to: :prompt
+
     def stem
       prompt.text
-    end
-
-    def conjunction
-      prompt.conjunction
     end
 
     def passage
