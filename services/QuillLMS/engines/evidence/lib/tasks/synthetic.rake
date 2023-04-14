@@ -32,16 +32,17 @@ namespace :synthetic do
     end
   end
 
-  # Run: bundle exec rake synthetic:generate_labeled_data\['/Users/username/synthetic_surge_sample.csv',1\]
+  # Run: bundle exec rake synthetic:generate_labeled_data\['/Users/danieldrabik/Dropbox/quill/synthetic_surge_sample.csv',133, 1\]
   desc "generate labeled data from a local file"
-  task :generate_labeled_data, [:filepath, :run_number] => :environment do |t, args|
+  task :generate_labeled_data, [:filepath, :prompt_id, :run_number] => :environment do |t, args|
     filepath = args[:filepath]
+    prompt_id = args[:prompt_id]
     run_number = args[:run_number]
-
+    prompt = Evidence::Prompt.find(prompt_id)
     text_labels = CSV.read(filepath)
 
     puts "Creating CSVs"
-    csv_hash = Evidence::Synthetic::LabeledDataGenerator.csvs_from_run(text_labels, filepath, nil)
+    csv_hash = Evidence::Synthetic::LabeledDataGenerator.csvs_from_run(text_labels, filepath, prompt)
 
     csv_hash.each do |filename, contents|
       # insert run_number in filename

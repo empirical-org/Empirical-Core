@@ -304,7 +304,6 @@ module Evidence
         expect(so.send(:regex_exclude?, "happened like that")).to be false
         expect(so.send(:regex_exclude?, "of the reason")).to be false
       end
-
     end
 
     describe "#self.csvs_for_activity" do
