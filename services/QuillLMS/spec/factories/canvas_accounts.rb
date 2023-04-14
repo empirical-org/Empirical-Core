@@ -23,6 +23,7 @@
 #
 FactoryBot.define do
   factory :canvas_account do
+    external_id { SecureRandom.hex(12) }
     user
     canvas_config
   end

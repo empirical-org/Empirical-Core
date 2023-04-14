@@ -14,6 +14,7 @@
 class CanvasConfig < ApplicationRecord
   has_encrypted :client_id, :client_secret
 
+  has_many :school_canvas_configs, dependent: :destroy
   has_many :canvas_accounts, dependent: :destroy
   has_many :users, through: :canvas_accounts
 end

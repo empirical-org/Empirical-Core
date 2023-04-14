@@ -58,6 +58,8 @@ class School < ApplicationRecord
   has_many :users, through: :schools_users
   has_many :schools_admins, class_name: 'SchoolsAdmins'
   has_many :admins, through: :schools_admins, source: :user
+  has_many :school_canvas_configs, dependent: :destroy
+
   belongs_to :authorizer, class_name: 'User'
   belongs_to :coordinator, class_name: 'User'
   belongs_to :district

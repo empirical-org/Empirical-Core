@@ -17,6 +17,8 @@ RSpec.describe CanvasConfig, type: :model do
   let(:canvas_config) { create(:canvas_config) }
 
   it { expect(canvas_config).to be_valid }
+
+  it { should have_many(:school_canvas_configs).dependent(:destroy)}
   it { should have_many(:canvas_accounts).dependent(:destroy) }
   it { should have_many(:users).through(:canvas_accounts)}
 end
