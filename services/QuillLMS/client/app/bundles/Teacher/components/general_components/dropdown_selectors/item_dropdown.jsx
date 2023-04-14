@@ -1,6 +1,6 @@
 import React from 'react';
 
-import { DropdownInput } from '../../../../Shared/index'
+import { DropdownInput } from '../../../../Shared/index';
 
 export default class ItemDropdown extends React.Component {
   constructor(props) {

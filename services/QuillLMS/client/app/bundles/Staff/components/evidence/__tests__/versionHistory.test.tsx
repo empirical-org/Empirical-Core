@@ -1,7 +1,7 @@
-import * as React from 'react';
 import { shallow } from 'enzyme';
 import { createMemoryHistory } from 'history';
-import { QueryClientProvider } from 'react-query'
+import * as React from 'react';
+import { QueryClientProvider } from 'react-query';
 
 import { DefaultReactQueryClient } from '../../../../Shared';
 import VersionHistory from '../versionHistory/versionHistory';

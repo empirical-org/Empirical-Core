@@ -3,7 +3,7 @@
 exports[`PremiumPricingGuide container should render 1`] = `
 <div>
   <div
-    className="container premium-page white-background-accommodate-footer"
+    className="container premium-page"
   >
     <Snackbar
       text="Sorry, you need to select a school to purchase School Premium."
@@ -116,10 +116,6 @@ exports[`PremiumPricingGuide container should render 1`] = `
         }
       />
     </div>
-    <QuestionsAndAnswers
-      questionsAndAnswersFile="premium"
-      supportLink="https://support.quill.org/quill-premium"
-    />
   </div>
 </div>
 `;

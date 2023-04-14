@@ -1,5 +1,5 @@
 import { requestDelete, requestGet, requestPost, requestPut } from '../../../modules/request/index';
-import { Lesson, Lessons, LessonQuestion } from '../interfaces/lessons';
+import { Lesson, LessonQuestion, Lessons } from '../interfaces/lessons';
 
 const lessonApiBaseUrl = `${process.env.DEFAULT_URL}/api/v1/lessons`;
 
@@ -37,4 +37,5 @@ export {
   lessonApiBaseUrl,
   TYPE_CONNECT_LESSON,
   TYPE_DIAGNOSTIC_LESSON
-}
+};
+

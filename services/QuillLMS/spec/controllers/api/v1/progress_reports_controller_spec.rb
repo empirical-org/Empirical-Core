@@ -117,8 +117,17 @@ describe Api::V1::ProgressReportsController, type: :controller do
       allow_any_instance_of(ProgressReports::DistrictStandardsReports).to receive(:results) { "some data" }
     end
 
-    it 'should return the district activit scores progress reports' do
+    it 'should return the district activities scores progress reports for the standards reports page' do
+      # expect(Rails.cache).to receive(:fetch).with("#{SchoolsAdmins::DISTRICT_STANDARD_REPORTS_CACHE_KEY_STEM}#{teacher.id}").and_return(nil)
+      expect(FindDistrictStandardsReportsWorker).to receive(:perform_async).with(teacher.id, false)
       get :district_standards_reports, as: :json
+      expect(response.body).to eq({id: teacher.id}.to_json)
+    end
+
+    it 'should return the district activities scores progress reports for the freemium section of the admin dashboard' do
+      # expect(Rails.cache).to receive(:fetch).with("#{SchoolsAdmins::FREEMIUM_DISTRICT_STANDARD_REPORTS_CACHE_KEY_STEM}#{teacher.id}").and_return(nil)
+      expect(FindDistrictStandardsReportsWorker).to receive(:perform_async).with(teacher.id, true)
+      get :district_standards_reports, params: { freemium: true }, as: :json
       expect(response.body).to eq({id: teacher.id}.to_json)
     end
   end

@@ -43,7 +43,7 @@ class StripeUidValidator < ActiveModel::EachValidator
   def validate_each(record, attribute, value)
     return if regex(options[:prefix]).match?(value)
 
-    record.errors[attribute] << "is not a valid Stripe #{PREFIX_TRANSLATION[options[:prefix]]}"
+    record.errors.add(attribute, "is not a valid Stripe #{PREFIX_TRANSLATION[options[:prefix]]}")
   end
 
   private def regex(prefix)

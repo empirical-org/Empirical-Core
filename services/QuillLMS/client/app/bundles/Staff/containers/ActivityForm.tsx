@@ -1,10 +1,10 @@
 import * as React from 'react'
 
-import Topics from '../components/activityForm/topics'
-import RawScore from '../components/activityForm/rawScore'
-import ContentPartners from '../components/activityForm/contentPartners'
-import { defaultSnackbarTimeout, Snackbar } from '../../Shared/index'
 import { requestGet, requestPost, requestPut } from '../../../modules/request/index'
+import { defaultSnackbarTimeout, Snackbar } from '../../Shared/index'
+import ContentPartners from '../components/activityForm/contentPartners'
+import RawScore from '../components/activityForm/rawScore'
+import Topics from '../components/activityForm/topics'
 
 const DEFAULT_MAXIMUM_GRADE_LEVEL = 12
 

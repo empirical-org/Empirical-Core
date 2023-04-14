@@ -7,6 +7,7 @@ module SegmentIntegration
         user_id: id,
         traits: {
           **common_params,
+          **school_params,
           auditor: auditor?,
           first_name: first_name,
           last_name: last_name,
@@ -51,6 +52,22 @@ module SegmentIntegration
         premium_state: premium_state,
         premium_type: subscription&.account_type,
       }.reject {|_,v| v.nil? }
+    end
+
+    def school_params
+      if admin? && school && School::ALTERNATIVE_SCHOOL_NAMES.exclude?(school.name)
+        cache = CacheSegmentSchoolData.new(school).read || {}
+        {
+          total_teachers_at_school: cache[CacheSegmentSchoolData::TOTAL_TEACHERS_AT_SCHOOL],
+          total_students_at_school: cache[CacheSegmentSchoolData::TOTAL_STUDENTS_AT_SCHOOL],
+          total_activities_completed_by_students_at_school: cache[CacheSegmentSchoolData::TOTAL_ACTIVITIES_COMPLETED_BY_STUDENTS_AT_SCHOOL],
+          active_teachers_at_school_this_year: cache[CacheSegmentSchoolData::ACTIVE_TEACHERS_AT_SCHOOL_THIS_YEAR],
+          active_students_at_school_this_year: cache[CacheSegmentSchoolData::ACTIVE_STUDENTS_AT_SCHOOL_THIS_YEAR],
+          total_activities_completed_by_students_at_school_this_year: cache[CacheSegmentSchoolData::TOTAL_ACTIVITIES_COMPLETED_BY_STUDENTS_AT_SCHOOL_THIS_YEAR]
+        }.reject {|_,v| v.nil? }
+      else
+        {}
+      end
     end
 
     def integration_rules

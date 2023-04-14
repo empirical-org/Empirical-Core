@@ -71,7 +71,8 @@ class Cms::BlogPostsController < Cms::CmsController
                     :center_images,
                     :image_link,
                     :press_name,
-                    :featured_order_number
+                    :featured_order_number,
+                    :footer_content
                   )
   end
 

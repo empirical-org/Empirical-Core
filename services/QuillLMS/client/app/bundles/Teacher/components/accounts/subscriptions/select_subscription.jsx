@@ -1,6 +1,6 @@
+import $ from 'jquery';
 import React from 'react';
 import _ from 'underscore';
-import $ from 'jquery';
 import DropdownDateSelector from '../../general_components/dropdown_date_selector.jsx';
 
 export default class SelectSubscription extends React.Component {

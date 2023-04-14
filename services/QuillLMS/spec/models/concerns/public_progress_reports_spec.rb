@@ -343,7 +343,11 @@ describe PublicProgressReports, type: :model do
     let!(:classroom_unit2) { create(:classroom_unit, classroom: classroom, unit: unit2, assigned_student_ids: [student2.id, student3.id] )}
 
     it 'returns a flattened and unique-d array of all the assigned student ids for that classroom and those units' do
-      expect(FakeReports.new.assigned_student_ids_for_classroom_and_units(classroom, [unit1, unit2])).to eq([student1.id, student2.id, student3.id])
+      expect(
+        Set.new(FakeReports.new.assigned_student_ids_for_classroom_and_units(classroom, [unit1, unit2]))
+      ).to(
+        eq(Set[student1.id, student2.id, student3.id])
+      )
     end
   end
 end

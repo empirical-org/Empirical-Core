@@ -1,5 +1,5 @@
 import expect from 'expect';
-import {formattedCues} from '../../libs/formattedCues.js'
+import { formattedCues } from '../../libs/formattedCues.js';
 
 describe("formattedCues in concept results should change", () => {
 

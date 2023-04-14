@@ -1,7 +1,7 @@
-import React from 'react';
 import { shallow } from 'enzyme';
+import React from 'react';
 
-import ScoreLegend from '../score_legend.jsx'
+import ScoreLegend from '../score_legend.jsx';
 
 describe('ScoreLegend component', () => {
 

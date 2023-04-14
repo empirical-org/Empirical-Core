@@ -694,7 +694,8 @@ CREATE TABLE public.admin_approval_requests (
     admin_info_id bigint,
     requestee_id integer,
     created_at timestamp(6) without time zone NOT NULL,
-    updated_at timestamp(6) without time zone NOT NULL
+    updated_at timestamp(6) without time zone NOT NULL,
+    request_made_during_sign_up boolean DEFAULT false
 );
 
 
@@ -962,7 +963,8 @@ CREATE TABLE public.blog_posts (
     order_number integer,
     image_link character varying,
     press_name character varying,
-    featured_order_number integer
+    featured_order_number integer,
+    footer_content text DEFAULT ''::text
 );
 
 
@@ -2916,6 +2918,38 @@ CREATE SEQUENCE public.ip_locations_id_seq
 --
 
 ALTER SEQUENCE public.ip_locations_id_seq OWNED BY public.ip_locations.id;
+
+
+--
+-- Name: learn_worlds_accounts; Type: TABLE; Schema: public; Owner: -
+--
+
+CREATE TABLE public.learn_worlds_accounts (
+    id bigint NOT NULL,
+    user_id bigint,
+    external_id character varying NOT NULL,
+    created_at timestamp(6) without time zone NOT NULL,
+    updated_at timestamp(6) without time zone NOT NULL
+);
+
+
+--
+-- Name: learn_worlds_accounts_id_seq; Type: SEQUENCE; Schema: public; Owner: -
+--
+
+CREATE SEQUENCE public.learn_worlds_accounts_id_seq
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+
+--
+-- Name: learn_worlds_accounts_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: -
+--
+
+ALTER SEQUENCE public.learn_worlds_accounts_id_seq OWNED BY public.learn_worlds_accounts.id;
 
 
 --
@@ -5459,6 +5493,13 @@ ALTER TABLE ONLY public.ip_locations ALTER COLUMN id SET DEFAULT nextval('public
 
 
 --
+-- Name: learn_worlds_accounts id; Type: DEFAULT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY public.learn_worlds_accounts ALTER COLUMN id SET DEFAULT nextval('public.learn_worlds_accounts_id_seq'::regclass);
+
+
+--
 -- Name: lockers id; Type: DEFAULT; Schema: public; Owner: -
 --
 
@@ -6463,6 +6504,14 @@ ALTER TABLE ONLY public.invitations
 
 ALTER TABLE ONLY public.ip_locations
     ADD CONSTRAINT ip_locations_pkey PRIMARY KEY (id);
+
+
+--
+-- Name: learn_worlds_accounts learn_worlds_accounts_pkey; Type: CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY public.learn_worlds_accounts
+    ADD CONSTRAINT learn_worlds_accounts_pkey PRIMARY KEY (id);
 
 
 --
@@ -7714,6 +7763,13 @@ CREATE INDEX index_ip_locations_on_zip ON public.ip_locations USING btree (zip);
 
 
 --
+-- Name: index_learn_worlds_accounts_on_user_id; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX index_learn_worlds_accounts_on_user_id ON public.learn_worlds_accounts USING btree (user_id);
+
+
+--
 -- Name: index_milestones_on_name; Type: INDEX; Schema: public; Owner: -
 --
 
@@ -8826,6 +8882,14 @@ ALTER TABLE ONLY public.activity_topics
 
 
 --
+-- Name: learn_worlds_accounts fk_rails_96f37b8ce0; Type: FK CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY public.learn_worlds_accounts
+    ADD CONSTRAINT fk_rails_96f37b8ce0 FOREIGN KEY (user_id) REFERENCES public.users(id);
+
+
+--
 -- Name: comprehension_highlights fk_rails_9d58aa0a3c; Type: FK CONSTRAINT; Schema: public; Owner: -
 --
 
@@ -9560,5 +9624,8 @@ INSERT INTO "schema_migrations" (version) VALUES
 ('20230413215936'),
 ('20230413215937'),
 ('20230413215938');
+('20230323114351'),
+('20230328155819'),
+('20230405140349');
 
 

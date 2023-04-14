@@ -163,6 +163,8 @@ class User < ApplicationRecord
 
   has_one :user_email_verification, dependent: :destroy
 
+  has_one :learn_worlds_account, dependent: :destroy
+
   accepts_nested_attributes_for :auth_credential
 
   delegate :name, :mail_city, :mail_state,
@@ -215,6 +217,7 @@ class User < ApplicationRecord
   # This is a little weird, but in our current conception, all Admins are Teachers
   scope :teacher, -> { where(role: [ADMIN, TEACHER]) }
   scope :student, -> { where(role: STUDENT) }
+  scope :admin, ->  { where(role: ADMIN) }
 
   def self.deleted_users
     where(
@@ -780,6 +783,10 @@ class User < ApplicationRecord
     else
       AdminInfo.create(sub_role: sub_role, user_id: id)
     end
+  end
+
+  def learn_worlds_access?
+    teacher? && school&.premium?
   end
 
   private def validate_flags

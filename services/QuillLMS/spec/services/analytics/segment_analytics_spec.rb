@@ -322,19 +322,46 @@ describe 'SegmentAnalytics' do
       analytics.track_admin_received_admin_upgrade_request_from_teacher(
         admin,
         teacher,
-        reason
+        reason,
+        false
       )
       expect(track_calls.size).to eq(1)
-      expect(track_calls[0][:event]).to eq(SegmentIo::BackgroundEvents::ADMIN_RECEIVED_ADMIN_UPGRADE_REQUEST_FROM_TEACHER)
       expect(track_calls[0][:user_id]).to eq(admin.id)
       expect(track_calls[0][:properties][:teacher_first_name]).to eq(teacher.first_name)
       expect(track_calls[0][:properties][:teacher_last_name]).to eq(teacher.last_name)
       expect(track_calls[0][:properties][:teacher_email]).to eq(teacher.email)
       expect(track_calls[0][:properties][:teacher_school]).to eq(teacher.school.name)
       expect(track_calls[0][:properties][:reason]).to eq(reason)
-      expect(track_calls[0][:context][:traits][:email]).to eq(admin.email)
-      expect(track_calls[0][:context][:traits][:name]).to eq(admin.name)
+
+      expect(identify_calls.size).to eq(1)
     end
+
+    context 'user is a new user' do
+      it 'sends the new user event' do
+        reason = 'I really want to be an admin.'
+        analytics.track_admin_received_admin_upgrade_request_from_teacher(
+          admin,
+          teacher,
+          reason,
+          true
+        )
+        expect(track_calls[0][:event]).to eq(SegmentIo::BackgroundEvents::ADMIN_RECEIVED_ADMIN_UPGRADE_REQUEST_FROM_NEW_USER)
+      end
+    end
+
+    context 'user is not a new user' do
+      it 'sends the teacher event' do
+        reason = 'I really want to be an admin.'
+        analytics.track_admin_received_admin_upgrade_request_from_teacher(
+          admin,
+          teacher,
+          reason,
+          false
+        )
+        expect(track_calls[0][:event]).to eq(SegmentIo::BackgroundEvents::ADMIN_RECEIVED_ADMIN_UPGRADE_REQUEST_FROM_TEACHER)
+      end
+    end
+
   end
 
   context '#track_admin_invited_by_teacher' do
@@ -361,8 +388,8 @@ describe 'SegmentAnalytics' do
         expect(track_calls[0][:properties][:teacher_last_name]).to eq(teacher.last_name)
         expect(track_calls[0][:properties][:teacher_school]).to eq(teacher.school.name)
         expect(track_calls[0][:properties][:note]).to eq(note)
-        expect(track_calls[0][:context][:traits][:email]).to eq(admin.email)
-        expect(track_calls[0][:context][:traits][:name]).to eq(admin.name)
+
+        expect(identify_calls.size).to eq(1)
       end
     end
 
@@ -386,8 +413,9 @@ describe 'SegmentAnalytics' do
         expect(track_calls[0][:properties][:teacher_last_name]).to eq(teacher.last_name)
         expect(track_calls[0][:properties][:teacher_school]).to eq(teacher.school.name)
         expect(track_calls[0][:properties][:note]).to eq(note)
-        expect(track_calls[0][:context][:traits][:email]).to eq(admin_email)
-        expect(track_calls[0][:context][:traits][:name]).to eq(admin_name)
+        expect(identify_calls[0][:traits][:email]).to eq(admin_email)
+        expect(identify_calls[0][:traits][:name]).to eq(admin_name)
+        expect(identify_calls[0][:anonymous_id]).to eq(admin_email)
       end
     end
   end

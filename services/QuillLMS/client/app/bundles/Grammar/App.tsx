@@ -1,9 +1,9 @@
 import * as React from "react";
-import {HashRouter} from "react-router-dom";
-import {Provider} from "react-redux";
-import { QueryClient, QueryClientProvider } from 'react-query'
+import { QueryClientProvider } from 'react-query';
+import { Provider } from "react-redux";
+import { HashRouter } from "react-router-dom";
 
-import {route} from "./routes";
+import { route } from "./routes";
 import { configureStore, initStore } from "./store/configStore";
 
 import { DefaultReactQueryClient } from "../Shared";

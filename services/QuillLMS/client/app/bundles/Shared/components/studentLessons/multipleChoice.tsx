@@ -25,4 +25,5 @@ const MultipleChoice = ({ prompt, answers, next, }) => (
   </section>
 )
 
-export { MultipleChoice }
+export { MultipleChoice };
+

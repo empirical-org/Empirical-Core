@@ -1,5 +1,5 @@
 import React from 'react';
-import { Switch, Route } from 'react-router-dom';
+import { Route, Switch } from 'react-router-dom';
 
 import AdminDashboard from './AdminDashboard';
 import DistrictActivityScoresProgressReport from './DistrictActivityScores';
@@ -7,11 +7,11 @@ import DistrictConceptReportsProgressReport from './DistrictConceptReports';
 import DistrictStandardsReportsProgressReport from './DistrictStandardsReports';
 import SchoolSubscriptionsContainer from './SchoolSubscriptionsContainer';
 
-import { RESTRICTED, LIMITED, FULL, APPROVED, PENDING, DENIED, SKIPPED, } from '../shared'
-import { requestGet, } from '../../../modules/request/index'
-import SubnavTabs from '../components/subnav_tabs.tsx';
+import { requestGet, } from '../../../modules/request/index';
+import { NOT_LISTED, NO_SCHOOL_SELECTED, Spinner } from '../../Shared/index';
 import ActivityScoresStudentOverview from '../components/activity_scores_student_overview.tsx';
-import { Spinner, NOT_LISTED, NO_SCHOOL_SELECTED } from '../../Shared/index'
+import SubnavTabs from '../components/subnav_tabs.tsx';
+import { APPROVED, DENIED, FULL, LIMITED, LOADING, PENDING, RESTRICTED, SKIPPED } from '../shared';
 
 const BANNER_BUTTON_CLASS_NAME = "quill-button small secondary outlined focus-on-light"
 
@@ -44,7 +44,7 @@ const AdminDashboardContainer = ({ id, location, children, }) => {
   }
 
   function accessType() {
-    if (Object.keys(adminInfo).length === 0) { return FULL } // prevents incorrect banner flashing during loading
+    if (Object.keys(adminInfo).length === 0) { return LOADING } // prevents incorrect banner flashing and reports rendering during loading
 
     const { admin_approval_status, administers_school_with_premium, } = adminInfo
 
@@ -58,7 +58,7 @@ const AdminDashboardContainer = ({ id, location, children, }) => {
   function renderBanner() {
     const { admin_approval_status, associated_school, } = adminInfo
 
-    if (accessType() === FULL) { return <span /> }
+    if (accessType() === FULL || accessType() === LOADING) { return <span /> }
 
     if (accessType() === LIMITED) {
       return (

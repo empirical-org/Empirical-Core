@@ -1,18 +1,18 @@
-import React from 'react'
 import _l from 'lodash'
-import _ from 'underscore'
 import qs from 'qs'
+import React from 'react'
+import _ from 'underscore'
 
 import UnitTemplateMinis from './unit_template_minis'
 
-import ScrollToTop from '../../shared/scroll_to_top'
+import { requestGet } from '../../../../../modules/request'
 import fnl from '../../modules/fnl'
+import getParameterByName from '../../modules/get_parameter_by_name'
 import updaterGenerator from '../../modules/updater'
-import getParameterByName from '../../modules/get_parameter_by_name';
 import WindowPosition from '../../modules/windowPosition'
 import AnalyticsWrapper from '../../shared/analytics_wrapper'
 import LoadingIndicator from '../../shared/loading_indicator'
-import { requestGet } from '../../../../../modules/request';
+import ScrollToTop from '../../shared/scroll_to_top'
 import { ACTIVITY_PACK_TYPES } from '../assignmentFlowConstants'
 
 export default class UnitTemplatesManager extends React.Component {

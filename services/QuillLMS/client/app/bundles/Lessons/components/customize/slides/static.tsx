@@ -1,9 +1,9 @@
-import React, {Component} from 'react'
+import _ from 'lodash';
+import React, { Component } from 'react';
 import * as CLIntF from '../../../interfaces/classroomLessons';
-import _ from 'lodash'
-import PromptField from './slideComponents/promptField'
-import StudentStatic from '../../classroomLessons/play/static'
-import TitleField from './slideComponents/titleField'
+import StudentStatic from '../../classroomLessons/play/static';
+import PromptField from './slideComponents/promptField';
+import TitleField from './slideComponents/titleField';
 
 interface CustomizeStaticProps {
   question: CLIntF.QuestionData,

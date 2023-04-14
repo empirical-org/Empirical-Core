@@ -108,28 +108,29 @@
     }
   }
 
-  .admin-selection-row {
+}
+
+.admin-selection-row {
+  display: flex;
+  .quill-checkbox {
+    margin-right: 24px;
+  }
+  .email {
+    color: #666666;
+  }
+  div {
     display: flex;
+    flex-direction: column;
+  }
+  &.top-row {
+    padding-bottom: 16px;
+    align-items: center;
+    border-bottom: 1px solid #CFCFCF;
+  }
+  &:not(.top-row) {
+    margin-top: 16px;
     .quill-checkbox {
-      margin-right: 24px;
-    }
-    .email {
-      color: #666666;
-    }
-    div {
-      display: flex;
-      flex-direction: column;
-    }
-    &.top-row {
-      padding-bottom: 16px;
-      align-items: center;
-      border-bottom: 1px solid #CFCFCF;
-    }
-    &:not(.top-row) {
-      margin-top: 16px;
-      .quill-checkbox {
-        margin-top: 4px;
-      }
+      margin-top: 4px;
     }
   }
 }

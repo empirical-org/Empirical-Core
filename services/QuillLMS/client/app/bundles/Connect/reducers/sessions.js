@@ -1,7 +1,6 @@
-import C from '../constants';
-import _ from 'lodash';
 import Immutable from 'immutable';
 import { REHYDRATE } from 'redux-persist/constants';
+import C from '../constants';
 
 const initialState = Immutable.fromJS({
   data: {}, // This will contain lesson data

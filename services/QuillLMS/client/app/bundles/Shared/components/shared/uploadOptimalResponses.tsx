@@ -1,5 +1,5 @@
-import * as React from 'react'
-import XLSX from 'xlsx'
+import * as React from 'react';
+import XLSX from 'xlsx';
 
 interface UploadOptimalResponsesProps {
   submitOptimalResponses: Function;

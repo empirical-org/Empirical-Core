@@ -1,5 +1,5 @@
 import { requestDelete, requestGet, requestPost, requestPut } from '../../../modules/request/index';
-import { ProofreaderActivity, ProofreaderActivities } from '../interfaces/proofreaderActivities';
+import { ProofreaderActivities, ProofreaderActivity } from '../interfaces/proofreaderActivities';
 
 const PROOFREADER_PASSAGE_TYPE = 'proofreader_passage'
 
@@ -31,4 +31,5 @@ export {
   ProofreaderPassageApi,
   PROOFREADER_PASSAGE_TYPE,
   lessonApiBaseUrl
-}
+};
+

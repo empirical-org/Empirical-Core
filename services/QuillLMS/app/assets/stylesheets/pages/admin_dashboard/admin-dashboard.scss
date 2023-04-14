@@ -5,6 +5,16 @@
       padding: 0;
       border-bottom: none;
     }
+    .freemium-section {
+      .standards-reports-by-classroom {
+        padding-top: 0;
+        .progress-report {
+          .rt-tbody > .rt-tr-group:nth-child(n+6) {
+            @extend .non-premium-blur
+          }
+        }
+      }
+    }
   }
 
   .error, .message {

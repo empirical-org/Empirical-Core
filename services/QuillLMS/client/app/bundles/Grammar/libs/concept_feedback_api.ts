@@ -31,4 +31,5 @@ export {
   ConceptFeedbackApi,
   conceptFeedbackApiBaseUrl,
   GRAMMAR_TYPE
-}
+};
+

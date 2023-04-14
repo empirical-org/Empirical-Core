@@ -1,19 +1,19 @@
-import React from 'react'
 import Pusher from 'pusher-js';
+import React from 'react';
 
-import CreateAClassInlineForm from './create_a_class_inline_form.tsx'
-import ClassroomCard from './classroom_card.tsx'
+import ClassroomCard from './classroom_card.tsx';
+import CreateAClassInlineForm from './create_a_class_inline_form.tsx';
 
-import ButtonLoadingIndicator from '../../../shared/button_loading_indicator';
-import ImportCleverClassroomsModal from '../../../classrooms/import_clever_classrooms_modal.tsx'
-import ImportGoogleClassroomsModal from '../../../classrooms/import_google_classrooms_modal.tsx'
-import ReauthorizeCleverModal from '../../../classrooms/reauthorize_clever_modal'
-import LinkCleverAccountModal from '../../../classrooms/link_clever_account_modal.tsx'
-import LinkGoogleAccountModal from '../../../classrooms/link_google_account_modal.tsx'
-import CleverClassroomsEmptyModal from '../../../classrooms/clever_classrooms_empty_modal.tsx'
-import GoogleClassroomsEmptyModal from '../../../classrooms/google_classrooms_empty_modal.tsx'
-import { Snackbar, defaultSnackbarTimeout } from '../../../../../Shared/index'
 import { requestGet } from '../../../../../../modules/request';
+import { Snackbar, defaultSnackbarTimeout } from '../../../../../Shared/index';
+import CleverClassroomsEmptyModal from '../../../classrooms/clever_classrooms_empty_modal.tsx';
+import GoogleClassroomsEmptyModal from '../../../classrooms/google_classrooms_empty_modal.tsx';
+import ImportCleverClassroomsModal from '../../../classrooms/import_clever_classrooms_modal.tsx';
+import ImportGoogleClassroomsModal from '../../../classrooms/import_google_classrooms_modal.tsx';
+import LinkCleverAccountModal from '../../../classrooms/link_clever_account_modal.tsx';
+import LinkGoogleAccountModal from '../../../classrooms/link_google_account_modal.tsx';
+import ReauthorizeCleverModal from '../../../classrooms/reauthorize_clever_modal';
+import ButtonLoadingIndicator from '../../../shared/button_loading_indicator';
 
 const cleverIconSrc = `${process.env.CDN_URL}/images/icons/clever.svg`
 const googleClassroomIconSrc = `${process.env.CDN_URL}/images/icons/google-classroom.svg`

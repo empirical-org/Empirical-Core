@@ -1,9 +1,9 @@
+import { shallow } from 'enzyme';
 import React from 'react';
-import { shallow, mount } from 'enzyme';
 
 import Cms from '../Cms.jsx';
 
-import CmsIndexTable from '../../components/cms/cms_index_table/cms_index_table.jsx'
+import CmsIndexTable from '../../components/cms/cms_index_table/cms_index_table.jsx';
 
 describe('Cms container', () => {
 

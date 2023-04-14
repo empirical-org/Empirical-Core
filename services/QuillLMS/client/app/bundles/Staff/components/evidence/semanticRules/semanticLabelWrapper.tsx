@@ -4,10 +4,10 @@ import { withRouter } from 'react-router-dom';
 
 import SemanticLabelForm from './semanticLabelForm';
 
-import { RuleInterface } from '../../../interfaces/evidenceInterfaces';
 import { blankRule, DEFAULT_CONCEPT_UIDS } from '../../../../../constants/evidence';
-import { fetchRule } from '../../../utils/evidence/ruleAPIs';
 import { Spinner } from '../../../../Shared/index';
+import { RuleInterface } from '../../../interfaces/evidenceInterfaces';
+import { fetchRule } from '../../../utils/evidence/ruleAPIs';
 
 const SemanticLabelWrapper = ({ activityData, isSemantic, isUniversal, requestErrors, submitRule, match }) => {
   const { params } = match;

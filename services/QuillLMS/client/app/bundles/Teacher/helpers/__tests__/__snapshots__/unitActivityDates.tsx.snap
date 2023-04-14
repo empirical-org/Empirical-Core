@@ -6,7 +6,7 @@ exports[`DatePickerContainer component renders when there is an initial value 1`
   defaultText="No date selected"
   handleClickCopyToAll={[Function]}
   icon={null}
-  initialValue={"2022-11-10T03:00:00.000Z"}
+  initialValue={"2022-11-10T05:00:00.000Z"}
   rowIndex={0}
 >
   <div
@@ -21,7 +21,7 @@ exports[`DatePickerContainer component renders when there is an initial value 1`
         closeOnSelect={false}
         closeOnTab={true}
         dateFormat="MMM D"
-        initialValue={"2022-11-10T03:00:00.000Z"}
+        initialValue={"2022-11-10T05:00:00.000Z"}
         initialViewDate={2022-11-10T09:00:00.000Z}
         input={true}
         inputProps={Object {}}
@@ -85,7 +85,7 @@ exports[`DatePickerContainer component renders when there is an initial value 1`
                       "onFocus": [Function],
                       "onKeyDown": [Function],
                       "type": "text",
-                      "value": "Nov 10 3:00 am",
+                      "value": "Nov 10 5:00 am",
                     }
                   }
                 >
@@ -102,7 +102,7 @@ exports[`DatePickerContainer component renders when there is an initial value 1`
                       onKeyDown={[Function]}
                       placeholder="No date selected"
                       type="text"
-                      value="Nov 10 3:00 am"
+                      value="Nov 10 5:00 am"
                     />
                     <img
                       alt="dropdown indicator"
@@ -120,7 +120,7 @@ exports[`DatePickerContainer component renders when there is an initial value 1`
                   moment={[Function]}
                   navigate={[Function]}
                   renderDay={[Function]}
-                  selectedDate={"2022-11-10T03:00:00.000Z"}
+                  selectedDate={"2022-11-10T05:00:00.000Z"}
                   showView={[Function]}
                   timeFormat="h:mm a"
                   updateDate={[Function]}

@@ -42,7 +42,7 @@ module NavigationHelper
     when 'trial'
       "<span>Premium</span>#{star_img}<span>#{current_user.trial_days_remaining} Days Left</span>"
     when 'locked'
-      current_user.last_expired_subscription&.is_trial? ? "<span>Premium</span>#{star_img}<span>Trial Expired</span>" : "<span>Premium</span>#{star_img}<span>Subscription Expired</span>"
+      current_user.last_expired_subscription&.is_trial? ? "<span>Premium</span>#{star_img}<span>Trial Expired</span>" : "<span>Premium</span>#{star_img}<span>Expired</span>"
     when 'none', nil
       "<span>Explore Premium</span>#{star_img}"
     end
@@ -75,7 +75,7 @@ module NavigationHelper
   end
 
   def should_show_admin_access_tab?
-    !!(request.original_url&.include?('admin_access') && current_user.teacher? && !current_user.admin? && current_user.school && School::ALTERNATIVE_SCHOOL_NAMES.exclude?(current_user.school.name))
+    !!(current_user.teacher? && !current_user.admin? && current_user.school && School::ALTERNATIVE_SCHOOL_NAMES.exclude?(current_user.school.name))
   end
 
   # this is a duplicate of the QuillAuthentication method, used here because we can't import it directly

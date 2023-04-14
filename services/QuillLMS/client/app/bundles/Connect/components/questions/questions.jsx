@@ -1,19 +1,18 @@
 import * as React from 'react';
 import { connect } from 'react-redux';
-import actions from '../../actions/questions';
-import _ from 'underscore';
-import { QuestionListByConcept } from '../shared/questionListByConcept'
-import Question from '../../libs/question';
-import SelectSearch from 'react-select-search';
-import { fuzzySearch } from 'react-select-search';
 import { push } from 'react-router-redux';
-import respWithStatus from '../../libs/responseTools.js';
-import { submitResponseEdit, setUpdatedResponse, deleteResponse } from '../../actions/responses';
+import SelectSearch, { fuzzySearch } from 'react-select-search';
+import _ from 'underscore';
 import {
-  hashToCollection,
+  ArchivedButton,
   Modal,
-  ArchivedButton
-} from '../../../Shared/index'
+  hashToCollection
+} from '../../../Shared/index';
+import actions from '../../actions/questions';
+import { deleteResponse, submitResponseEdit } from '../../actions/responses';
+import Question from '../../libs/question';
+import respWithStatus from '../../libs/responseTools.js';
+import { QuestionListByConcept } from '../shared/questionListByConcept';
 
 function sleep(milliseconds) {
   const start = new Date().getTime();
@@ -115,9 +114,6 @@ class Questions extends React.Component {
           gradeIndex: `unmatched${response.questionUID}`,
         };
         sleep(150);
-        this.props.dispatch(
-          setUpdatedResponse(response.key, newValues)
-        );
       } else if (newMatchedResponse.response.parentID === undefined) {
         this.props.dispatch(
           deleteResponse(question.key, response.key)

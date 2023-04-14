@@ -33,7 +33,7 @@
 
         <% unless current_user.premium_state == 'paid' %>
           <li class="premium-tab <%= 'active' if premium_page_should_be_active? %>">
-            <%= link_to raw("<span class='hide-on-mobile premium-tab-copy'>#{premium_tab_copy}</span><span class='hide-on-desktop'>Premium</span>"), premium_path %>
+            <%= link_to raw("<span class='hide-on-mobile premium-tab-copy'>#{premium_tab_copy}</span><span class='hide-on-desktop premium-tab-small'>Premium</span>"), premium_path %>
           </li>
         <% end %>
 

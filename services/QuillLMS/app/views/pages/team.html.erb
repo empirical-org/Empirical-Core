@@ -38,6 +38,12 @@
     <% board_and_advisors_info.each do |team_type| %>
       <section>
         <h2><%= team_type[:team] %></h2>
+        <% if team_type[:description_one] && team_type[:description_two]%>
+          <div class='board-and-advisory-description'>
+            <p><%= team_type[:description_one] %></p>
+            <p><%= team_type[:description_two] %></p>
+          </div>
+        <% end %>
         <div class='board-and-advisory-members'>
           <% team_type[:members].each do |person| %>
             <div class='board-or-advisory-member'>
@@ -45,6 +51,9 @@
               <div>
                 <h4> <%= person[:name] %> </h4>
                 <h5 class="square-small-img-width"> <%= person[:title] %> </h5>
+                <% if person[:subtitle] %>
+                  <h5><%= person[:subtitle]%></h5>
+                <% end %>
               </div>
             </div>
           <% end %>

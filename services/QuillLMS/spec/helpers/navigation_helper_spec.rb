@@ -88,7 +88,7 @@ describe NavigationHelper do
       allow(helper).to receive(:current_user) { double(:user, premium_state: "trial", trial_days_remaining: 5) }
       expect(helper.premium_tab_copy).to eq "<span>Premium</span><img alt='' src='https://assets.quill.org/images/icons/star.svg'></img><span>5 Days Left</span>"
       allow(helper).to receive(:current_user) { double(:user, premium_state: "locked", last_expired_subscription: premium_subscription) }
-      expect(helper.premium_tab_copy).to eq "<span>Premium</span><img alt='' src='https://assets.quill.org/images/icons/star.svg'></img><span>Subscription Expired</span>"
+      expect(helper.premium_tab_copy).to eq "<span>Premium</span><img alt='' src='https://assets.quill.org/images/icons/star.svg'></img><span>Expired</span>"
       allow(helper).to receive(:current_user) { double(:user, premium_state: "locked", last_expired_subscription: trial_subscription) }
       expect(helper.premium_tab_copy).to eq "<span>Premium</span><img alt='' src='https://assets.quill.org/images/icons/star.svg'></img><span>Trial Expired</span>"
       allow(helper).to receive(:current_user) { double(:user, premium_state: nil) }
@@ -113,55 +113,43 @@ describe NavigationHelper do
   end
 
   describe '#should_show_admin_access_tab?' do
-    it 'should return false if the url does not contain admin_access' do
-      allow_any_instance_of(ActionController::TestRequest).to receive(:original_url) { 'localhost:5000' }
+    it 'should return false if current_user.teacher? is falsy' do
+      student = create(:student)
+      allow(helper).to receive(:current_user) { student }
+
       expect(helper.should_show_admin_access_tab?).to eq false
     end
 
-    context 'the url contains admin_access' do
-      before do
-        allow_any_instance_of(ActionController::TestRequest).to receive(:original_url) { 'localhost:5000/admin_access' }
-      end
+    it 'should return false if current_user.admin? is truthy' do
+      admin = create(:admin)
+      allow(helper).to receive(:current_user) { admin }
 
-      it 'should return false if current_user.teacher? is falsy' do
-        student = create(:student)
-        allow(helper).to receive(:current_user) { student }
+      expect(helper.should_show_admin_access_tab?).to eq false
+    end
 
-        expect(helper.should_show_admin_access_tab?).to eq false
-      end
+    it 'should return false if current_user.school is falsy' do
+      teacher = create(:teacher)
+      allow(helper).to receive(:current_user) { teacher }
 
-      it 'should return false if current_user.admin? is truthy' do
-        admin = create(:admin)
-        allow(helper).to receive(:current_user) { admin }
+      expect(helper.should_show_admin_access_tab?).to eq false
+    end
 
-        expect(helper.should_show_admin_access_tab?).to eq false
-      end
+    it 'should return false if the current user has a school that is one of the alternative schools' do
+      teacher = create(:teacher)
+      school = create(:school, name: School::ALTERNATIVE_SCHOOL_NAMES.sample)
+      create(:schools_users, user: teacher, school: school)
+      allow(helper).to receive(:current_user) { teacher.reload }
 
-      it 'should return false if current_user.school is falsy' do
-        teacher = create(:teacher)
-        allow(helper).to receive(:current_user) { teacher }
+      expect(helper.should_show_admin_access_tab?).to eq false
+    end
 
-        expect(helper.should_show_admin_access_tab?).to eq false
-      end
+    it 'should return true if none of the above conditions are met' do
+      teacher = create(:teacher)
+      school = create(:school)
+      create(:schools_users, user: teacher, school: school)
+      allow(helper).to receive(:current_user) { teacher.reload }
 
-      it 'should return false if the current user has a school that is one of the alternative schools' do
-        teacher = create(:teacher)
-        school = create(:school, name: School::ALTERNATIVE_SCHOOL_NAMES.sample)
-        create(:schools_users, user: teacher, school: school)
-        allow(helper).to receive(:current_user) { teacher.reload }
-
-        expect(helper.should_show_admin_access_tab?).to eq false
-      end
-
-      it 'should return true if none of the above conditions are met' do
-        teacher = create(:teacher)
-        school = create(:school)
-        create(:schools_users, user: teacher, school: school)
-        allow(helper).to receive(:current_user) { teacher.reload }
-
-        expect(helper.should_show_admin_access_tab?).to eq true
-      end
-
+      expect(helper.should_show_admin_access_tab?).to eq true
     end
   end
 end

@@ -1,6 +1,5 @@
-import React from 'react';
-import moment from 'moment';
 import pluralize from 'pluralize';
+import React from 'react';
 
 const AvailableCredits = ({ userHasValidSub, redeemPremiumCredits, availableCredits, }) => {
   const redeemIfNoCurrentSub = () => {

@@ -45,9 +45,9 @@ class AdminInfo < ApplicationRecord
     BILLING_CONTACT = "Billing contact"
   ]
 
-  SUB_ROLES = SELECTABLE_SUB_ROLES.concat([
+  SUB_ROLES = SELECTABLE_SUB_ROLES + [
     TEACHER_ADMIN = 'Teacher admin'
-  ])
+  ]
 
   APPROVER_ROLES = [
     User::ADMIN,

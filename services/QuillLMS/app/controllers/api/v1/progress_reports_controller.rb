@@ -47,15 +47,14 @@ class Api::V1::ProgressReportsController < Api::ApiController
   def district_standards_reports
     return unless current_user&.admin?
 
-    serialized_district_standards_reports_json = $redis.get("#{SchoolsAdmins::DISTRICT_STANDARD_REPORTS_CACHE_KEY_STEM}#{current_user.id}")
-    if serialized_district_standards_reports_json
-      serialized_district_standards_reports = JSON.parse(serialized_district_standards_reports_json)
-    end
-    if serialized_district_standards_reports.nil?
-      FindDistrictStandardsReportsWorker.perform_async(current_user.id)
+    is_freemium = params && params[:freemium] ? true : false
+    cache_key = is_freemium ? SchoolsAdmins::FREEMIUM_DISTRICT_STANDARD_REPORTS_CACHE_KEY_STEM : SchoolsAdmins::DISTRICT_STANDARD_REPORTS_CACHE_KEY_STEM
+    data = Rails.cache.fetch("#{cache_key}#{current_user.id}")
+    if data.nil?
+      FindDistrictStandardsReportsWorker.perform_async(current_user.id, is_freemium)
       render json: { id: current_user.id }
     else
-      render json: { data: serialized_district_standards_reports }
+      render json: { data: JSON.parse(data) }
     end
   end
 

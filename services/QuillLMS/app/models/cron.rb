@@ -36,6 +36,8 @@ class Cron
 
     # third party analytics
     SyncVitallyWorker.perform_async
+    CalculateAndCacheSchoolsDataForSegmentWorker.perform_async
+    SendSegmentIdentifyCallForAllAdminsWorker.perform_async
 
     # caching
     MaterializedViewRefreshWorker.perform_async

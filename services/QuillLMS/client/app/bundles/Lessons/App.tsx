@@ -1,12 +1,12 @@
 import Promise from 'promise-polyfill';
-import BackOff from './utils/backOff';
+import Raven from 'raven-js';
 import React from 'react';
-import createStore from './utils/configureStore';
 import { Provider } from 'react-redux';
 import { HashRouter, Route, Switch } from 'react-router-dom';
-import Raven from 'raven-js';
+import Home from './components/home';
 import SocketProvider from './components/socketProvider';
-import Home from './components/home'
+import BackOff from './utils/backOff';
+import createStore from './utils/configureStore';
 
 // To add to window
 if (!window.Promise) {

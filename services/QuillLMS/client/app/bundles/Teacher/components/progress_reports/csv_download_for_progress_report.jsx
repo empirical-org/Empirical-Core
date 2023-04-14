@@ -1,8 +1,8 @@
-import React from 'react'
-import {CSVLink} from 'react-csv'
-import userIsPremium from '../modules/user_is_premium'
-import _ from 'underscore'
 import _l from 'lodash'
+import React from 'react'
+import { CSVLink } from 'react-csv'
+import _ from 'underscore'
+import userIsPremium from '../modules/user_is_premium'
 
 function formatData(data) {
   return data.map(row => {

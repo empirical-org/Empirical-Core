@@ -1,18 +1,16 @@
+import { ContentState, EditorState } from 'draft-js';
 import React from 'react';
 import { connect } from 'react-redux';
-import massEdit from '../../actions/massEdit';
-import { TextEditor } from '../../../Shared/index';
-import { EditorState, ContentState } from 'draft-js'
-import getBoilerplateFeedback from './boilerplateFeedback.jsx';
-import ConceptResultList from './conceptResultList.jsx';
 import _ from 'underscore';
+import { requestPost, } from '../../../../modules/request/index';
+import { TextEditor } from '../../../Shared/index';
+import massEdit from '../../actions/massEdit';
 import {
-  incrementResponseCount,
-  submitMassEditFeedback,
+  massEditDeleteResponses,
   submitMassEditConceptResults,
-  massEditDeleteResponses
+  submitMassEditFeedback
 } from '../../actions/responses';
-import { requestPost, } from '../../../../modules/request/index'
+import ConceptResultList from './conceptResultList.jsx';
 
 import { clearDisplayMessageAndError } from '../../actions/display';
 
@@ -69,7 +67,6 @@ class MassEditContainer extends React.Component {
   incrementAllResponsesInMassEditArray() {
     const { dispatch, massEdit, questionID } = this.props;
     const { selectedResponses } = massEdit;
-    selectedResponses.forEach(response => dispatch(incrementResponseCount(questionID, response)));
   }
 
   goBackToResponses() {

@@ -1,9 +1,9 @@
-import React from 'react';
 import { shallow } from 'enzyme';
+import React from 'react';
 
-import EditStudentAccountModal from '../edit_student_account_modal'
+import EditStudentAccountModal from '../edit_student_account_modal';
 
-import { classroomWithStudents } from './test_data/test_data'
+import { classroomWithStudents } from './test_data/test_data';
 
 describe('EditStudentAccountModal component', () => {
 

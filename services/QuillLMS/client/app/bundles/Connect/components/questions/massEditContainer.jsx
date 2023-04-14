@@ -1,24 +1,19 @@
 import React from 'react';
 import { connect } from 'react-redux';
 
-import massEdit from '../../actions/massEdit';
+import { ContentState, EditorState } from 'draft-js';
+import _ from 'underscore';
+import { requestPost, } from '../../../../modules/request/index';
 import { TextEditor } from '../../../Shared/index';
-import { EditorState, ContentState } from 'draft-js'
+import { clearDisplayMessageAndError } from '../../actions/display';
+import massEdit from '../../actions/massEdit';
+import {
+  massEditDeleteResponses,
+  submitMassEditConceptResults,
+  submitMassEditFeedback
+} from '../../actions/responses';
 import getBoilerplateFeedback from './boilerplateFeedback.jsx';
 import ConceptResultList from './conceptResultList.jsx';
-import _ from 'underscore';
-import {
-  deleteResponse,
-  incrementResponseCount,
-  submitResponseEdit,
-  removeLinkToParentID,
-  setUpdatedResponse,
-  submitMassEditFeedback,
-  submitMassEditConceptResults,
-  massEditDeleteResponses
-} from '../../actions/responses';
-import { requestPost, } from '../../../../modules/request/index'
-import { clearDisplayMessageAndError } from '../../actions/display';
 
 class MassEditContainer extends React.Component {
   constructor(props) {
@@ -116,7 +111,6 @@ class MassEditContainer extends React.Component {
 
   incrementAllResponsesInMassEditArray = () => {
     const selectedResponses = this.props.massEdit.selectedResponses;
-    selectedResponses.forEach(response => this.props.dispatch(incrementResponseCount(this.props.questionID, response)));
   }
 
   removeResponseFromMassEditArray = (responseKey) => {

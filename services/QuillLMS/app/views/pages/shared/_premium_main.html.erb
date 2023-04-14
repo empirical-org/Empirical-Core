@@ -11,7 +11,7 @@ document.addEventListener('click', function(e) {
 
 <span id='user-logged-in' data-signed-in= <%= !!current_user%>>
 
-<div id="first-preview-section">
+<div class="white-background-accommodate-footer" id="first-preview-section">
   <%= react_component('PremiumPricingGuideApp', props: {
       associatedSchools: @associated_schools,
       eligibleSchools: @eligible_schools,
@@ -27,4 +27,7 @@ document.addEventListener('click', function(e) {
       userIsEligibleForTrial: @user_is_eligible_for_trial
     })
   %>
+  <div id="q-and-a">
+    <%= render partial: 'pages/shared/questions_and_answers_section', locals: { questions_and_answers: premium_questions_and_answers, button_type: 'icon', background_color: 'light' } %>
+  </div>
 </div>

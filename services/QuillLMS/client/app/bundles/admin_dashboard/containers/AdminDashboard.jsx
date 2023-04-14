@@ -1,16 +1,16 @@
-import React from 'react';
 import Pusher from 'pusher-js';
+import React from 'react';
 
-import { RESTRICTED, LIMITED, FULL, } from '../shared'
-import AdminsTeachers from '../components/adminsTeachers.tsx';
-import PremiumFeatures from '../components/premiumFeatures.tsx';
-import CreateNewAccounts from '../components/createNewAccounts.tsx';
+import DistrictStandardsReports from './DistrictStandardsReports';
+
+import { requestGet, requestPost, } from '../../../modules/request/index';
+import useSnackbarMonitor from '../../Shared/hooks/useSnackbarMonitor';
+import { Snackbar, defaultSnackbarTimeout } from '../../Shared/index';
 import LoadingSpinner from '../../Teacher/components/shared/loading_indicator';
-import QuestionsAndAnswers from '../../Teacher/containers/QuestionsAndAnswers.tsx';
-import getAuthToken from '../../Teacher/components/modules/get_auth_token';
-import { requestGet, requestPost, } from '../../../modules/request/index'
-import { Snackbar, defaultSnackbarTimeout } from '../../Shared/index'
-import useSnackbarMonitor from '../../Shared/hooks/useSnackbarMonitor'
+import AdminsTeachers from '../components/adminsTeachers.tsx';
+import CreateNewAccounts from '../components/createNewAccounts.tsx';
+import PremiumFeatures from '../components/premiumFeatures.tsx';
+import { FULL, LIMITED, RESTRICTED, } from '../shared';
 
 const DEFAULT_MODEL = { teachers: [] }
 
@@ -98,27 +98,6 @@ const AdminDashboard = ({ adminId, accessType, passedModel, }) => {
     );
   }
 
-  function resendLoginDetails(data) {
-    setError('')
-    requestPost(
-      `${process.env.DEFAULT_URL}/admins/${adminId}/create_and_link_accounts`,
-      data,
-      (response) => {
-        getData(true)
-        setSnackbarText(response.message)
-        setShowSnackbar(true)
-      },
-      (response) => {
-        if (response.error) {
-          setError(response.error);
-        } else {
-          // to do, use Sentry to capture error
-        }
-      }
-    );
-
-  }
-
   function scrollToCreateNewAccounts() {
     const section = document.querySelector('#scroll-location');
     section.scrollIntoView({ behavior: 'smooth', block: 'start' });
@@ -134,6 +113,12 @@ const AdminDashboard = ({ adminId, accessType, passedModel, }) => {
       showRestrictedElementSnackbar()
     } else {
       scrollToCreateNewAccounts()
+    }
+  }
+
+  function renderFreemiumStandardsReports() {
+    if (accessType === LIMITED) {
+      return <DistrictStandardsReports accessType={accessType} isFreemiumView={true} />
     }
   }
 
@@ -153,6 +138,12 @@ const AdminDashboard = ({ adminId, accessType, passedModel, }) => {
     <div className="sub-container">
       <Snackbar text={snackbarText} visible={showSnackbar} />
       <PremiumFeatures handleClick={onClickTeacherAccess} trainingOptionsElement={trainingOptionsElement} />
+      {renderFreemiumStandardsReports()}
+      <div className='dark-divider' />
+      <div className="header">
+        <h2>Upload Teachers via CSV</h2>
+        {uploadTeachersViaCSVElement}
+      </div>
       <div className='dark-divider' />
       <CreateNewAccounts
         accessType={accessType}
@@ -161,15 +152,10 @@ const AdminDashboard = ({ adminId, accessType, passedModel, }) => {
         error={error}
         schools={model.schools}
       />
-      <div className='dark-divider' />
-      <div className="header">
-        <h2>Upload Teachers via CSV</h2>
-        {uploadTeachersViaCSVElement}
-      </div>
       <div className='dark-divider' id="scroll-location" />
       <AdminsTeachers
         accessType={accessType}
-        adminApprovalRequestAdminInfoIds={model.admin_approval_requests.map(r => r.admin_info_id)}
+        adminApprovalRequests={model.admin_approval_requests}
         adminAssociatedSchool={model.associated_school}
         data={model.teachers}
         handleUserAction={handleUserAction}

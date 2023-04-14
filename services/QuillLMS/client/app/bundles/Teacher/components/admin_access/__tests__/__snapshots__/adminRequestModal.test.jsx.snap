@@ -34,69 +34,88 @@ exports[`AdminRequestModal container should render 1`] = `
       <p>
         Which admin(s) do you want to send this request to?
       </p>
-      <div
-        className="admin-selection-table"
+      <AdminTable
+        schoolAdmins={
+          Array [
+            Object {
+              "email": "toni.morrison@quill.org",
+              "id": 1,
+              "name": "Toni Morrison",
+            },
+            Object {
+              "email": "james.baldwin@quill.org",
+              "id": 2,
+              "name": "James Baldwin",
+            },
+          ]
+        }
+        selectedAdminIds={Array []}
+        setSelectedAdminIds={[Function]}
       >
         <div
-          className="admin-selection-row top-row"
+          className="admin-selection-table"
         >
-          <button
-            aria-label="Select all admins"
-            className="focus-on-light quill-checkbox unselected"
-            onClick={[Function]}
-            type="button"
-          />
-          <div>
-            Select all
+          <div
+            className="admin-selection-row top-row"
+          >
+            <button
+              aria-label="Select all admins"
+              className="focus-on-light quill-checkbox unselected"
+              onClick={[Function]}
+              type="button"
+            />
+            <div>
+              Select all
+            </div>
+          </div>
+          <div
+            className="admin-selection-row"
+            key="1"
+          >
+            <button
+              aria-label="Select Toni Morrison"
+              className="focus-on-light quill-checkbox unselected"
+              onClick={[Function]}
+              type="button"
+            />
+            <div>
+              <span
+                className="name"
+              >
+                Toni Morrison
+              </span>
+              <span
+                className="email"
+              >
+                toni.morrison@quill.org
+              </span>
+            </div>
+          </div>
+          <div
+            className="admin-selection-row"
+            key="2"
+          >
+            <button
+              aria-label="Select James Baldwin"
+              className="focus-on-light quill-checkbox unselected"
+              onClick={[Function]}
+              type="button"
+            />
+            <div>
+              <span
+                className="name"
+              >
+                James Baldwin
+              </span>
+              <span
+                className="email"
+              >
+                james.baldwin@quill.org
+              </span>
+            </div>
           </div>
         </div>
-        <div
-          className="admin-selection-row"
-          key="1"
-        >
-          <button
-            aria-label="Select Toni Morrison"
-            className="focus-on-light quill-checkbox unselected"
-            onClick={[Function]}
-            type="button"
-          />
-          <div>
-            <span
-              className="name"
-            >
-              Toni Morrison
-            </span>
-            <span
-              className="email"
-            >
-              toni.morrison@quill.org
-            </span>
-          </div>
-        </div>
-        <div
-          className="admin-selection-row"
-          key="2"
-        >
-          <button
-            aria-label="Select James Baldwin"
-            className="focus-on-light quill-checkbox unselected"
-            onClick={[Function]}
-            type="button"
-          />
-          <div>
-            <span
-              className="name"
-            >
-              James Baldwin
-            </span>
-            <span
-              className="email"
-            >
-              james.baldwin@quill.org
-            </span>
-          </div>
-        </div>
-      </div>
+      </AdminTable>
       <Input
         autoComplete="on"
         className="reason"

@@ -1,7 +1,7 @@
 import React from 'react';
-import ConceptReportsTable from './concept_reports_table';
 import ItemDropdown from '../../Teacher/components/general_components/dropdown_selectors/item_dropdown';
 import CSVDownloadForProgressReport from '../../Teacher/components/progress_reports/csv_download_for_progress_report';
+import ConceptReportsTable from './concept_reports_table';
 
 const ConceptReports = ({
   csvData,
@@ -25,6 +25,7 @@ const ConceptReports = ({
         <p>
             Each question on Quill targets a specific writing concept. This report shows the number of times the student correctly or incorrectly used the targeted concept to answer the question. You can print this report by downloading a PDF file or export this data by downloading a CSV file.
         </p>
+        <p><b>These reports are updated nightly.</b></p>
       </div>
       <div className="csv-and-how-we-grade">
         <CSVDownloadForProgressReport data={csvData} />

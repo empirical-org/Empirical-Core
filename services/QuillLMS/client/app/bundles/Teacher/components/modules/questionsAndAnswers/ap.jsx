@@ -15,7 +15,7 @@ const ap = () => [
   },
   {
     question: 'Is a writing skills survey different than a diagnostic?',
-    answer: <p>Quill&apos;s writing skills surveys can be used in lieu of Quill&apos;s general diagnostics. For example, an AP teacher would likely assign the AP Writing Skills Survey in lieu of the Advanced Diagnostic. Keep in mind, however, that teachers may want ELL students in AP courses to begin with one of the ELL Diagnostics instead of a writing skills survey. <a href="ttps://support.quill.org/en/articles/2554430-what-are-the-differences-between-the-various-diagnostic-assessments" rel="noopener noreferrer" target="_blank">This article explains the differences between Quill’s various diagnostics and surveys in more depth.</a></p>
+    answer: <p>Quill&apos;s writing skills surveys can be used in lieu of Quill&apos;s general diagnostics. For example, an AP teacher would likely assign the AP Writing Skills Survey in lieu of the Advanced Diagnostic. Keep in mind, however, that teachers may want ELL students in AP courses to begin with one of the ELL Diagnostics instead of a writing skills survey. <a href="https://support.quill.org/en/articles/2554430-what-are-the-differences-between-the-various-diagnostic-assessments" rel="noopener noreferrer" target="_blank">This article explains the differences between Quill’s various diagnostics and surveys in more depth.</a></p>
   },
   {
     question: 'How long does the Survey take?',

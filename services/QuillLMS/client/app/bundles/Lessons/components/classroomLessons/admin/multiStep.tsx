@@ -1,7 +1,7 @@
-import * as React from 'react'
+import * as _ from 'lodash';
+import * as React from 'react';
 import * as CLIntF from '../../../interfaces/classroomLessons';
-import * as _ from 'lodash'
-import StudentMultistep from '../play/multistep'
+import StudentMultistep from '../play/multistep';
 
 interface AdminMultistepProps {
   question: CLIntF.QuestionData,

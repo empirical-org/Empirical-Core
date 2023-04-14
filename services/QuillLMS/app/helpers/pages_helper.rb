@@ -256,22 +256,87 @@ module PagesHelper
         ]
       },
       {
-        team: 'Advisors',
+        team: 'Teacher Advisors',
+        description_one: 'Quill works with an advisory council of more than 300 teachers from 42 states who advise us on the development of new tools. The following 13 teachers are some of the most active teachers who have contributed to the development of our learning tools.',
+        description_two: 'Email us at advisorycouncil@quill.org if you’re a Quill educator who would like to join this group!',
         members: [
           {
-            name: 'Rick Benger',
-            title: 'Creator of Once upon a Pancake',
-            img: 'advisor-rick-benger.webp'
+            name: 'Carmen Adamucci',
+            title: 'Saint Monica Preparatory',
+            subtitle: 'Santa Monica, CA',
+            img: 'advisor-carmen-adamucci@2x.png'
           },
           {
-            name: 'Alex Redmon',
-            title: 'Engineering Manager at Hearst',
-            img: 'advisor-alex-redmon.webp'
+            name: 'Juan G. Alvarado',
+            title: 'Valley View High School',
+            subtitle: 'Hidalgo, TX',
+            img: 'advisor-juan-alvarado@2x.png'
           },
           {
-            name: 'Ashley Winn',
-            title: 'English Language Arts Teacher, Educational Consultant',
-            img: 'advisor-ashley-winn.webp'
+            name: 'Alesha Cary',
+            title: 'Madison-Ridgeland Academy',
+            subtitle: 'Madison, MS',
+            img: 'advisor-alesha-cary@2x.png'
+          },
+          {
+            name: 'Rebecca Foland',
+            title: 'Waukee Public Schools',
+            subtitle: 'Waukee, IA',
+            img: 'advisor-rebecca-foland@2x.png'
+          },
+          {
+            name: 'Audrey Gebber',
+            title: 'Gulf Coast High School',
+            subtitle: 'Naples, FL',
+            img: 'advisor-audrey-gebber@2x.png'
+          },
+          {
+            name: 'Deana M. Harris',
+            title: 'Thorndale High School',
+            subtitle: 'Thorndale, TX',
+            img: 'advisor-deana-harris@2x.png'
+          },
+          {
+            name: 'Jasmine Hobson Rodriguez',
+            title: 'Hesperia High School',
+            subtitle: 'Hesperia, CA',
+            img: 'advisor-jasmine-hobson-rodriguez@2x.png'
+          },
+          {
+            name: 'Jennifer James',
+            title: 'Vinemont High School',
+            subtitle: 'Vinemont, AL',
+            img: 'advisor-jennifer-james@2x.png'
+          },
+          {
+            name: 'Meleighsa McLaughlin',
+            title: 'James Clemens High School',
+            subtitle: 'Madison, AL',
+            img: 'advisor-meleighsa-mclaughlin@2x.png'
+          },
+          {
+            name: 'Sera Ramirez',
+            title: 'Fort Stockton High School',
+            subtitle: 'Fort Stockton, TX',
+            img: 'advisor-sera-ramirez@2x.png'
+          },
+          {
+            name: 'Elma Ruiz',
+            title: 'Port Isabel Junior High',
+            subtitle: 'Port Isabel, TX',
+            img: 'advisor-elma-ruiz@2x.png'
+          },
+          {
+            name: 'Elizabeth Tanner',
+            title: 'Westwood High School',
+            subtitle: 'Mesa, AZ',
+            img: 'advisor-elizabeth-tanner@2x.png'
+          },
+          {
+            name: 'Megan Tourda-Nelsen',
+            title: 'Bay City Central High School',
+            subtitle: 'Bay City, MI',
+            img: 'advisor-megan-tourda-nelsen@2x.png'
           }
         ]
       }

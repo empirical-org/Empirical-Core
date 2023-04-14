@@ -10,6 +10,7 @@
 #  draft                 :boolean          default(TRUE)
 #  external_link         :string
 #  featured_order_number :integer
+#  footer_content        :text             default("")
 #  image_link            :string
 #  order_number          :integer
 #  premium               :boolean          default(FALSE)
@@ -135,13 +136,13 @@ describe BlogPost, type: :model do
     let(:blog_post1) { create(:blog_post, topic: "What's new") }
     let(:blog_post2) { create(:blog_post, topic: "What's new", created_at: 1.day.ago) }
     let(:blog_post3) { create(:blog_post, topic: "Getting started") }
-    let(:blog_post4) { create(:blog_post, topic: "What's new", created_at: 1.year.ago) }
+    let(:blog_post4) { create(:blog_post, topic: "What's new", created_at: 1.year.ago, draft: true) }
     let(:blog_post5) { create(:blog_post, topic: "What's new", created_at: 1.week.ago) }
 
     subject { blog_post1.related_posts }
 
     it 'should fetch posts of the same topic sorted by most recent' do
-      expect(subject).to eq([blog_post2, blog_post5, blog_post4])
+      expect(subject).to eq([blog_post2, blog_post5])
     end
   end
 end

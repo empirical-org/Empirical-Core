@@ -1,14 +1,14 @@
 import React from 'react';
 import { connect } from 'react-redux';
-import LoadingSpinner from '../../Teacher/components/shared/loading_indicator';
-import ConceptReports from '../components/concept_reports';
 import {
+  getDistrictConceptReports,
   switchClassroom,
   switchSchool,
   switchTeacher,
-  getDistrictConceptReports,
 } from '../../../actions/district_concept_reports';
-import { restrictedPage, FULL, } from '../shared'
+import LoadingSpinner from '../../Teacher/components/shared/loading_indicator';
+import ConceptReports from '../components/concept_reports';
+import { FULL, restrictedPage, } from '../shared';
 
 class DistrictConceptReports extends React.Component {
   componentDidMount() {

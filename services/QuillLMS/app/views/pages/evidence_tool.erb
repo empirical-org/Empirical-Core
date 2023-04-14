@@ -142,7 +142,9 @@
       </section>
     </section>
   </section>
-  <%= react_component('QuestionsAndAnswersApp', props: {questionsAndAnswersFile: 'evidence', supportLink: "https://www.quill.org/teacher-center/quill-reading-for-evidence-resources"})%>
+  <div id="q-and-a">
+    <%= render partial: 'pages/shared/questions_and_answers_section', locals: { questions_and_answers: evidence_tool_questions_and_answers , button_type: 'text', background_color: 'light' } %>
+  </div>
   <section class="tool-try-it bg-connect-teal bg-book-pattern">
     <h2 class='q-h1'>Try It Out for Yourself</h2>
     <section class="tool-ctas evidence-tool">

@@ -84,8 +84,19 @@ describe BlogPostsController, type: :controller do
       expect(assigns(:description)).to eq(blog_post.subtitle)
     end
 
+    it 'should return the image link' do
+      get :show, params: { slug: blog_post.slug }
+      expect(assigns(:image_link)).to eq(BlogPostsController::SOCIAL_MEDIA_SHARE_IMAGE)
+    end
+
     it 'should return the title as description if no subtitle exists' do
       blog_post = create(:blog_post, subtitle: nil)
+      get :show, params: { slug: blog_post.slug }
+      expect(assigns(:description)).to eq(blog_post.title)
+    end
+
+    it 'should return the title as description if the subtitle is an empty string' do
+      blog_post = create(:blog_post, subtitle: "")
       get :show, params: { slug: blog_post.slug }
       expect(assigns(:description)).to eq(blog_post.title)
     end
@@ -94,9 +105,11 @@ describe BlogPostsController, type: :controller do
   describe '#featured_blog_post' do
     let(:blog_post) { create(:blog_post_with_author) }
 
-    it 'should return the blog post with passed id param' do
+    it 'should return the blog post and author with passed id param' do
       get :featured_blog_post, params: { id: blog_post.id }
+
       expect(JSON.parse(response.body)["blog_post"]["id"]).to eq(blog_post.id)
+      expect(JSON.parse(response.body)["author"]).to eq(blog_post.author.name)
     end
   end
 

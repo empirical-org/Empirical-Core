@@ -8,6 +8,7 @@ RSpec.describe SegmentIntegration::User do
     let(:admin_info) { create(:admin_info, admin: admin, verification_url: 'quill.org', verification_reason: 'I am an admin.') }
     let(:user_email_verification ) { create(:user_email_verification, user: admin, verified_at: Time.zone.today, verification_method: UserEmailVerification::EMAIL_VERIFICATION) }
     let(:schools) { create_list(:school, 3) }
+    let!(:schools_user) { create(:schools_users, school: schools.first, user: admin)}
     let(:districts) { create_list(:district, 3) }
 
     before do
@@ -52,6 +53,41 @@ RSpec.describe SegmentIntegration::User do
           number_of_districts_administered: districts.count
         }.reject {|_,v| v.nil? }
         expect(admin.segment_user.common_params).to eq params
+      end
+    end
+
+    describe '#school_params' do
+      it 'returns the expected params hash' do
+        total_teachers_at_school = 2
+        total_students_at_school = 40
+        total_activities_completed_by_students_at_school = 400
+        active_teachers_at_school_this_year = 1
+        active_students_at_school_this_year = 20
+        total_activities_completed_by_students_at_school_this_year = 200
+
+        cache = CacheSegmentSchoolData.new(admin.school)
+
+        data = {
+          CacheSegmentSchoolData::TOTAL_TEACHERS_AT_SCHOOL => total_teachers_at_school,
+          CacheSegmentSchoolData::TOTAL_STUDENTS_AT_SCHOOL => total_students_at_school,
+          CacheSegmentSchoolData::TOTAL_ACTIVITIES_COMPLETED_BY_STUDENTS_AT_SCHOOL => total_activities_completed_by_students_at_school,
+          CacheSegmentSchoolData::ACTIVE_TEACHERS_AT_SCHOOL_THIS_YEAR => active_teachers_at_school_this_year,
+          CacheSegmentSchoolData::ACTIVE_STUDENTS_AT_SCHOOL_THIS_YEAR => active_students_at_school_this_year,
+          CacheSegmentSchoolData::TOTAL_ACTIVITIES_COMPLETED_BY_STUDENTS_AT_SCHOOL_THIS_YEAR => total_activities_completed_by_students_at_school_this_year
+        }
+
+        cache.write(data)
+
+        params = {
+          total_teachers_at_school: total_teachers_at_school,
+          total_students_at_school: total_students_at_school,
+          total_activities_completed_by_students_at_school: total_activities_completed_by_students_at_school,
+          active_teachers_at_school_this_year: active_teachers_at_school_this_year,
+          active_students_at_school_this_year: active_students_at_school_this_year,
+          total_activities_completed_by_students_at_school_this_year: total_activities_completed_by_students_at_school_this_year
+        }
+
+        expect(admin.segment_user.school_params).to eq params
       end
     end
 
@@ -122,6 +158,12 @@ RSpec.describe SegmentIntegration::User do
           premium_type: teacher.subscription&.account_type
         }.reject {|_,v| v.nil? }
         expect(teacher.segment_user.premium_params).to eq params
+      end
+    end
+
+    describe '#school_params' do
+      it 'returns an empty hash' do
+        expect(teacher.segment_user.school_params.keys.length).to eq 0
       end
     end
 

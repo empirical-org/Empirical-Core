@@ -36,8 +36,45 @@ describe Subscription, type: :model do
     let(:subscription) { build(:subscription) }
 
     it 'expects stripe_invoice_id to be of a given format' do
+      subscription.stripe_invoice_id = 'not_the_invoice_format'
+      expect(subscription).not_to be_valid
+    end
+
+    it 'expects stripe_subscription_id to be of a given format' do
       subscription.stripe_invoice_id = 'not_the_subscription_format'
       expect(subscription).not_to be_valid
+    end
+  end
+
+  context 'before_validation' do
+    let(:subscription) { build(:subscription) }
+
+    context '#strip_stripe_id_whitespace' do
+      it 'should strip whitespace from stripe_invoice_id if present' do
+        invoice_id = " in_#{SecureRandom.hex} "
+        subscription.stripe_invoice_id = invoice_id
+
+        expect(subscription).to be_valid
+        expect(subscription.stripe_invoice_id).to eq(invoice_id.strip)
+      end
+
+      it 'should do nothing to stripe_invoice_id if it is not set' do
+        expect(subscription).to be_valid
+        expect(subscription.stripe_invoice_id).to be(nil)
+      end
+
+      it 'should strip whitespace from stripe_subscription_id if present' do
+        subscription_id = " sub_#{SecureRandom.hex} "
+        subscription.stripe_subscription_id = subscription_id
+
+        expect(subscription).to be_valid
+        expect(subscription.stripe_subscription_id).to eq(subscription_id.strip)
+      end
+
+      it 'should do nothing to stripe_subscription_id if not set' do
+        expect(subscription).to be_valid
+        expect(subscription.stripe_subscription_id).to be(nil)
+      end
     end
   end
 
@@ -143,8 +180,8 @@ describe Subscription, type: :model do
         allow(Date).to receive(:current).and_return Date.new(2018,4,4)
       end
 
-      it "returns an expiration date of June 30 the next year when called on a day prior to July" do
-        expect(Subscription.promotional_dates[:expiration]).to eq(Date.new(2019,6,30))
+      it "returns an expiration date of July 31 the next year when called on a day prior to July" do
+        expect(Subscription.promotional_dates[:expiration]).to eq(Date.new(2019,7,31))
       end
 
       it "returns a start date one year from the day it was called" do

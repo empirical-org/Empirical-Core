@@ -1,51 +1,50 @@
-import * as React from "react";
-import * as Redux from "redux";
-import {connect} from "react-redux";
 import * as _ from 'lodash';
-import { stringNormalize } from 'quill-string-normalizer'
-import { sentences } from 'sbd'
+import { stringNormalize } from 'quill-string-normalizer';
+import * as React from "react";
+import { connect } from "react-redux";
+import * as Redux from "redux";
+import { sentences } from 'sbd';
 
 const directionSrc = `${process.env.CDN_URL}/images/icons/direction.svg`
 
-import { startsWithPunctuationRegex, isAnEditRegex, negativeMatchRegex } from './sharedRegexes'
-import PassageReviewer from './passageReviewer'
-import EarlySubmitModal from './earlySubmitModal'
-import Paragraph from './paragraph'
-import ResetModal from './resetModal'
-import ReviewModal from './reviewModal'
-import FollowupModal from './followupModal'
-import ProgressBar from './progressBar'
-import WelcomePage from './welcomePage'
-import formatInitialPassage from './formatInitialPassage'
+import EarlySubmitModal from './earlySubmitModal';
+import FollowupModal from './followupModal';
+import formatInitialPassage from './formatInitialPassage';
+import Paragraph from './paragraph';
+import PassageReviewer from './passageReviewer';
+import ProgressBar from './progressBar';
+import ResetModal from './resetModal';
+import ReviewModal from './reviewModal';
+import { isAnEditRegex, negativeMatchRegex, startsWithPunctuationRegex } from './sharedRegexes';
+import WelcomePage from './welcomePage';
 
-import getParameterByName from '../../helpers/getParameterByName';
-import EditCaretPositioning from '../../helpers/EditCaretPositioning'
-import { getActivity } from "../../actions/proofreaderActivities";
-import { startListeningToConcepts } from "../../actions/concepts";
+import { requestPost, requestPut, } from '../../../../modules/request/index';
 import {
+  CLICK,
+  KEYDOWN,
+  KEYPRESS,
+  MOUSEDOWN,
+  MOUSEMOVE,
+  SCROLL,
+  VISIBILITYCHANGE,
+  roundValuesToSeconds,
+} from '../../../Shared/index';
+import { startListeningToConcepts } from "../../actions/concepts";
+import { getActivity } from "../../actions/proofreaderActivities";
+import {
+  setPassage,
+  setSessionReducerToSavedSession,
   updateConceptResultsOnFirebase,
   updateSessionOnFirebase,
-  setSessionReducerToSavedSession,
-  setPassage,
   updateTimeTracking
 } from "../../actions/session";
-import determineUnnecessaryEditType, { unnecessarySpaceSplitResponse, UNNECESSARY_SPACE, } from '../../helpers/determineUnnecessaryEditType'
-import { SessionState } from '../../reducers/sessionReducer'
-import { ProofreaderActivityState } from '../../reducers/proofreaderActivitiesReducer'
-import { ConceptResultObject, WordObject } from '../../interfaces/proofreaderActivities'
-import LoadingSpinner from '../shared/loading_spinner'
-import { requestPut, requestPost, } from '../../../../modules/request/index'
-
-import {
-  roundValuesToSeconds,
-  KEYDOWN,
-  MOUSEMOVE,
-  MOUSEDOWN,
-  CLICK,
-  KEYPRESS,
-  VISIBILITYCHANGE,
-  SCROLL,
-} from '../../../Shared/index'
+import EditCaretPositioning from '../../helpers/EditCaretPositioning';
+import determineUnnecessaryEditType, { UNNECESSARY_SPACE, unnecessarySpaceSplitResponse, } from '../../helpers/determineUnnecessaryEditType';
+import getParameterByName from '../../helpers/getParameterByName';
+import { ConceptResultObject, WordObject } from '../../interfaces/proofreaderActivities';
+import { ProofreaderActivityState } from '../../reducers/proofreaderActivitiesReducer';
+import { SessionState } from '../../reducers/sessionReducer';
+import LoadingSpinner from '../shared/loading_spinner';
 
 interface PlayProofreaderContainerProps {
   proofreaderActivities: ProofreaderActivityState;
@@ -203,7 +202,7 @@ export class PlayProofreaderContainer extends React.Component<PlayProofreaderCon
       const { proofreaderActivities } = this.props
       const { currentActivity, hasreceiveddata } = proofreaderActivities
 
-      if (prevProps.proofreaderActivities.hasreceiveddata != hasreceiveddata && hasreceiveddata) {
+      if (prevProps.proofreaderActivities.hasreceiveddata !== hasreceiveddata && hasreceiveddata) {
         document.title = `Quill.org | ${currentActivity.title}`
       }
     }
@@ -348,7 +347,7 @@ export class PlayProofreaderContainer extends React.Component<PlayProofreaderCon
           const words:Array<string> = []
           paragraph.forEach((word: any) => {
             const { necessaryEditIndex, correctText, conceptUID, originalText, currentText, wordIndex } = word
-            const stringNormalizedCurrentText = stringNormalize(currentText)
+            const stringNormalizedCurrentText = stringNormalize(currentText).trim()
             const stringNormalizedCorrectText = stringNormalize(correctText)
             const stringNormalizedOriginalText = stringNormalize(originalText)
             const prompt = findSentence(paragraphSentences, wordIndex, stringNormalizedOriginalText)
@@ -624,7 +623,7 @@ export class PlayProofreaderContainer extends React.Component<PlayProofreaderCon
                 <div>
                   <img alt="Directions icon" src={directionSrc} />
                   <p dangerouslySetInnerHTML={{__html: currentActivity.description || this.defaultInstructions()}} />
-                  <p className="sr-only">Screenreader users: once you have finished reading the passage, use the tab keys to navigate between words and make changes to ones that have errors. {currentActivity.underlineErrorsInProofreader && 'Words that contain errors will be described as underlined.'} Words that you have already changed will be described as bolded. There are {necessaryEditsLength} errors to find and fix. When you are done, navigate to the "Get Feedback" button after the passage and select it.</p>
+                  <p className="sr-only">Screenreader users: once you have finished reading the passage, use the tab keys to navigate between words and make changes to ones that have errors. {currentActivity.underlineErrorsInProofreader && 'Words that contain errors will be described as underlined.'} Words that you have already changed will be described as bolded. There are {necessaryEditsLength} errors to find and fix. When you are done, navigate to the &#34;Get Feedback&#34; button after the passage and select it.</p>
                 </div>
               </div>
             </div>

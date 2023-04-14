@@ -1,9 +1,9 @@
-import * as React from 'react';
 import { mount } from 'enzyme';
+import * as React from 'react';
 import { Provider } from "react-redux";
 
-import Concept from '../concepts/concept';
 import createStore from '../../utils/configureStore';
+import Concept from '../concepts/concept';
 
 const store = createStore();
 const mockProps = {

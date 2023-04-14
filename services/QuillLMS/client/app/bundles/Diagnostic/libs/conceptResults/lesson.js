@@ -3,15 +3,14 @@ import {
 } from './sentenceCombiningLessonQuestion';
 
 import {
-  getAllSentenceFragmentConceptResults,
-  calculateCorrectnessOfSentence
+  getAllSentenceFragmentConceptResults
 } from './sentenceFragment.js';
 
 import {
   getConceptResultsForFillInTheBlanks
-} from './fillInTheBlanks'
+} from './fillInTheBlanks';
 
-import _ from 'underscore'
+import _ from 'underscore';
 
 const scoresForNAttempts = {
   1: 1,

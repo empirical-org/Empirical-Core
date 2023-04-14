@@ -1,10 +1,10 @@
 import { Action } from "redux";
 import { v4 as uuid4 } from "uuid";
 
+import { READ_PASSAGE_STEP_NUMBER } from '../../Shared/index';
 import { ActionTypes } from "../actions/actionTypes";
-import { FeedbackObject } from '../interfaces/feedback';
 import getParameterByName from '../helpers/getParameterByName';
-import { READ_PASSAGE_STEP_NUMBER } from '../../Shared/index'
+import { FeedbackObject } from '../interfaces/feedback';
 
 export interface SessionReducerState {
   sessionID: string

@@ -1,16 +1,15 @@
 import * as React from 'react'
-import VisibilitySensor from 'react-visibility-sensor'
 
-import QuestionAndAnswer from '../components/shared/QuestionAndAnswer.jsx'
-import lessons from '../components/modules/questionsAndAnswers/lessons'
+import { EVIDENCE, LESSONS } from '../../Shared'
+import { AP, PRE_AP, SPRINGBOARD } from '../components/college_board/collegeBoardConstants'
 import admin from '../components/modules/questionsAndAnswers/admin'
-import premium from '../components/modules/questionsAndAnswers/premium'
-import preap from '../components/modules/questionsAndAnswers/preap'
 import ap from '../components/modules/questionsAndAnswers/ap'
 import evidence from '../components/modules/questionsAndAnswers/evidence'
+import lessons from '../components/modules/questionsAndAnswers/lessons'
+import preap from '../components/modules/questionsAndAnswers/preap'
+import premium from '../components/modules/questionsAndAnswers/premium'
 import springboard from '../components/modules/questionsAndAnswers/springboard'
-import { QUESTIONS_AND_ANSWERS, AP, PRE_AP, SPRINGBOARD } from '../components/college_board/collegeBoardConstants';
-import { EVIDENCE, LESSONS } from '../../Shared'
+import QuestionAndAnswer from '../components/shared/QuestionAndAnswer.jsx'
 
 export interface QuestionsAndAnswersProps {
   questionsAndAnswersFile: string;
@@ -66,19 +65,13 @@ export default class QuestionsAndAnswers extends React.Component<QuestionsAndAns
   }
 
   render() {
-    const { supportLink, handleChange, questionsAndAnswersFile } = this.props;
+    const { supportLink } = this.props;
     const style = `support-link ${!supportLink ? 'hidden' : ''}`;
-    const collegeBoardPages = [AP, PRE_AP, SPRINGBOARD];
-    const showVisibilitySensor = collegeBoardPages.includes(questionsAndAnswersFile);
 
     return(
       <div id="q-and-a">
         <div className="q-and-a-inner-wrapper">
-          {/* eslint-disable-next-line react/jsx-no-bind */}
-          {showVisibilitySensor && <VisibilitySensor onChange={(isVisible) => handleChange(isVisible, QUESTIONS_AND_ANSWERS)}>
-            <h1>Questions and Answers</h1>
-          </VisibilitySensor>}
-          {!showVisibilitySensor && <h1>Questions and Answers</h1>}
+          <h1>Questions and Answers</h1>
           {this.renderQuestionsAndAnswers()}
           <a className={style} href={supportLink}>View all questions and answers</a>
         </div>
