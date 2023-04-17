@@ -11,7 +11,7 @@ class ProgressReports::DistrictConceptReports
     # Uncomment the line below, and comment out the active record line
     # in order to bypass the database while testing
     # [{"school_name"=>"Hogwarts", "teacher_name"=>"Severus Snape", "classroom_name"=>"Potions III", "student_name"=>"Ron Weasley", "correct"=>"15", "incorrect"=>"8", "percentage"=>"65"}]
-    QuillBigQuery.execute(query)
+    QuillBigQuery::Runner.execute(query)
   end
 
   private def query

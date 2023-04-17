@@ -2,12 +2,16 @@
 
 require 'rails_helper'
 
-describe QuillBigQuery do
-  describe '#floatify_fields' do
+describe QuillBigQuery::Runner do
+  describe '#coerce_values' do
     it 'should floatify fields do' do
+      fields = [
+        {'name' => 'correct', 'type' => 'FLOAT'},
+        {'name' => 'incorrect', 'type' => 'INTEGER'},
+      ]
       input = [{ "correct" => "1", "incorrect" => 2, "percentage" => 3.0, foo: "1" }]
       expected_output = [{ "correct" => 1.0, "incorrect" => 2.0, "percentage" => 3.0, foo: "1" }]
-      expect(QuillBigQuery.floatify_fields(input)).to eq expected_output
+      expect(QuillBigQuery::Runner.coerce_values(fields, input)).to eq expected_output
     end
   end
 
@@ -48,9 +52,12 @@ describe QuillBigQuery do
         }
       end
 
-      it 'should raise error' do
-        expect { QuillBigQuery.transform_response(invalid_response)}.to raise_error(NoMethodError)
-        expect { QuillBigQuery.transform_response(another_invalid_response)}.to raise_error(QuillBigQuery::UnsupportedSchemaError)
+      it 'should raise NoMethodError' do
+        expect { QuillBigQuery::Runner.transform_response(invalid_response)}.to raise_error(NoMethodError)
+      end
+
+      it 'should raise UnsupportedSchemaError' do
+        expect { QuillBigQuery::Runner.transform_response(another_invalid_response)}.to raise_error(QuillBigQuery::Runner::UnsupportedSchemaError)
       end
     end
 
@@ -60,7 +67,8 @@ describe QuillBigQuery do
         {"name"=>"Demo Teacher", "created_at"=>"2022-09-21T16:49:54.054296"}
       ]
 
-      expect(QuillBigQuery.transform_response(bigquery_response)).to eq expected_transformation
+      expect(QuillBigQuery::Runner.transform_response(bigquery_response)).to eq expected_transformation
     end
+
   end
 end
