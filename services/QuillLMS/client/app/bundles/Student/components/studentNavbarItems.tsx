@@ -143,17 +143,18 @@ export default class StudentNavbarItems extends React.Component<StudentNavbarIte
   }
 
   renderDesktopNavbar = () => {
+    const { isOpen, } = this.state
     const { name, } = this.props
     const displayedName = name.length > MAXIMUM_NAME_LENGTH ? `${name.substring(0, MAXIMUM_NAME_LENGTH)}...`: name
+    const dropdownIndicatorClass = isOpen ? "dropdown-indicator rotated" : "dropdown-indicator"
     return (
       <div className="home-nav-right wide">
-        <a className="text-white student-navbar-item focus-on-dark" href="/">Classes</a>
-        <a className="text-white student-navbar-item focus-on-dark" href="/student-center">Resources</a>
+        <a className="student-navbar-item focus-on-light" href="/">Classes</a>
+        <a className="student-navbar-item focus-on-light" href="/student-center">Resources</a>
         <div className="student-navbar-dropdown student-navbar-item" ref={this.dropdownContainerRef}>
           <button className="focus-on-dark" id="name-container" onClick={this.handleOpenToggle} type="button">
-            <img alt="Avatar icon" src={avatarSrc} />
             <span>{displayedName}</span>
-            <div aria-label="Dropdown icon" className="dropdown-indicator" />
+            <div aria-label="Dropdown icon" className={dropdownIndicatorClass} />
           </button>
           {this.renderDropdown()}
         </div>

@@ -786,7 +786,19 @@ class User < ApplicationRecord
   end
 
   def learn_worlds_access?
-    teacher? && school&.premium?
+    school_premium? || district_premium?
+  end
+
+  def school_premium?
+    school&.subscription&.present?
+  end
+
+  def district_premium?
+    school&.district&.subscription&.present?
+  end
+
+  def school_or_district_premium?
+    school_premium? || district_premium?
   end
 
   private def validate_flags

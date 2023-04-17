@@ -35,7 +35,7 @@
       padding-left: 5px;
       padding-right: 5px;
       &:focus {
-        outline: dashed 2px #06806b;
+        outline: dashed 2px $quillgreenmedium;
         outline-offset: -3px;
       }
     }

@@ -3,6 +3,9 @@
 exports[`AssignANewActivity component default should render 1`] = `
 <AssignANewActivity>
   <div
+    className="navbar-divider-bar green"
+  />
+  <div
     className="assign-a-new-activity-container gray-background-accommodate-footer"
   >
     <div
