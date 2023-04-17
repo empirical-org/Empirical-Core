@@ -14,12 +14,12 @@
   display: flex;
   align-items: center;
   height: 70px;
-  background-color: #00c2a2;
+  background-color: #FFFFFF;
   margin-top: 0px;
   border-radius: 0px;
   margin-bottom: 0px;
   &.non-standard-navbar {
-    background-color: #06806B;
+    background-color: $quillgreenmedium;
     .navbar-header {
       display: flex;
       justify-content: center;
@@ -33,6 +33,89 @@
   }
 }
 
+.navbar-divider-bar {
+  height: 16px;
+  &.green {
+    background-color: $quillgreenmedium;
+  }
+  &.gold {
+    background-color: $quillgoldmedium;
+  }
+  &.maroon {
+    background-color: $quillmaroon;
+  }
+}
+
+.large-diamond-icon {
+  width: 19.36px;
+  height: 15.75px;
+  background-repeat: no-repeat;
+  background-size: contain;
+  margin-left: 4px;
+}
+
+.small-diamond-icon {
+  width: 14.52px;
+  height: 11.81px;
+  background-repeat: no-repeat;
+  background-size: contain;
+  margin-left: 4px;
+}
+
+.q-nav-bar {
+  #teacher-nav-tabs {
+
+    .admin-tab,
+    .quill-academy-tab {
+      &.active {
+        a {
+          color: #FFFFFF;
+          background-color: $quillmaroon;
+          .large-diamond-icon {
+            background-image: url("https://assets.quill.org/images/icons/white-diamond.svg");
+          }
+        }
+      }
+
+      a {
+        display: flex;
+        align-items: center;
+        background-color: $quillmaroonlight;
+        color: $quillmaroon;
+        margin-left: 4px;
+        border-radius: 8px 8px 0px 0px;
+        border-left: none;
+        .large-diamond-icon {
+          background-image: url("https://assets.quill.org/images/icons/red-diamond.svg");
+        }
+      }
+
+      a:hover {
+        background-color: #EFA67E;
+        color: $quillmaroon;
+        .large-diamond-icon {
+            background-image: url("https://assets.quill.org/images/icons/red-diamond.svg");
+          }
+      }
+
+      img {
+        margin-left: 4px;
+        margin-right: 4px;
+      }
+    }
+  }
+  .admin-tab {
+    .large-diamond-icon {
+      background-image: url("https://assets.quill.org/images/icons/red-diamond.svg");
+    }
+    &.active {
+      .large-diamond-icon {
+        background-image: url("https://assets.quill.org/images/icons/white-diamond.svg");
+      }
+    }
+  }
+}
+
 .home-nav-right {
   font-weight: 600;
   font-size: 16px;
@@ -42,10 +125,16 @@
     align-items: center;
     display: flex;
     border-radius: 6px;
-    border: white 1px solid;
+    border: $quillgreenmedium 1px solid;
     &:hover {
       color: #00c2a2;
       background-color: #ffffff;
+    }
+  }
+  .on-home-page {
+    color: #FFFFFF !important;
+    &.sign-up-button {
+      border: #FFFFFF 1px solid;
     }
   }
 }
@@ -55,14 +144,15 @@
   margin-top: 2px;
   &.on-dashboard {
     .user-dropdown-button {
-      background: #fff;
-      color: #00c2a2;
+      background-color: $quillgreenlight;
+      color: $quillgreenmedium;
     }
   }
   &.not-on-dashboard {
     .user-dropdown-button {
       border: solid 1px #ffffff;
-      color: #fff;
+      background-color: $quillgreenlight;
+      color: $quillgreenmedium;
     }
   }
   .user-dropdown-button {
@@ -171,6 +261,43 @@ nav.q-navbar-home {
   position:relative;
   margin: 0px auto;
 
+  .logo-and-badge-container {
+    display: flex;
+    align-items: flex-end;
+    .premium-navbar-badge-container {
+      display: flex;
+      align-items: center;
+      width: max-content;
+      margin: 0px 0px 2px 16px;
+      padding: 0px 8px;
+      border-radius: 6px;
+      font-weight: 700;
+      font-size: 12px;
+      height: 20px;
+      text-decoration: none;
+      &.yellow {
+        background-color: $quillgoldlight;
+        color: $quillgolddark;
+        .small-diamond-icon {
+          background-image: url("https://assets.quill.org/images/icons/yellow-diamond.svg");
+        }
+        &:hover {
+          background-color: #FCD79F;
+        }
+      }
+      &.red {
+        background-color: $quillmaroonlight;
+        color: $quillmaroon;
+        .small-diamond-icon {
+          background-image: url("https://assets.quill.org/images/icons/red-diamond.svg");
+        }
+        &:hover {
+          background-color: #EFA67E;
+        }
+      }
+    }
+  }
+
   .logo-only {
     width: 100%;
     display: flex;
@@ -189,25 +316,20 @@ nav.q-navbar-home {
     justify-content: flex-end;
     align-items: center;
 
+    .nav-element {
+      color: $quillgreenmedium;
+    }
+
     .nav-element, .navbar-tooltip-trigger {
       margin-left: 32px;
     }
 
     .nav-element:not(.sign-up-button):hover {
-      color: #7cfbdf;
+      color: $quillgreendark;
     }
 
     &.narrow {
       display: none;
-    }
-
-    .sign-up-btn {
-      border: 1px solid $white;
-      //Instead of the line below you could use @includeborder-radius($radius, $vertical-radius)
-      border-radius: 4px;
-      padding: 4px 9px 2px;
-      background-color: $white;
-      color: $quillgreen;
     }
   }
 
@@ -363,9 +485,6 @@ nav.q-navbar-home {
     list-style-type: none;
     margin: 0;
     padding-left: 0px;
-    &.desktop-nav-list {
-      margin-bottom: 1px;
-    }
   }
 
   li {
@@ -511,7 +630,7 @@ nav.q-navbar-home {
   margin-bottom: -20px;
   padding-bottom: 20px;
   span {
-    color: #fff;
+    color: $quillgreenmedium;
   }
   &#learning-tools {
     .navbar-tooltip {
@@ -601,7 +720,7 @@ nav.q-navbar-home {
   &:hover:not(.unhoverable), &:focus {
     outline: none;
     span {
-      color: #7cfbdf;
+      color: $quillgreendark;
     }
     .navbar-tooltip {
       display: flex;
@@ -609,7 +728,7 @@ nav.q-navbar-home {
   }
   &.active {
     span {
-      color: #7cfbdf;
+      color: $quillgreendark;
     }
   }
 }

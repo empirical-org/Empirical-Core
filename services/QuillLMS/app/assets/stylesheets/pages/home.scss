@@ -618,11 +618,3 @@
 .button-white.big {
   @extend %extend_1;
 }
-.nav-tabs > li {
-  &.active:not(.premium-tab) > a {
-    //.nav-tabs > li > a: focus;
-  }
-  &:not(.premium-tab) > a:hover {
-    //.nav-tabs > li > a: focus;
-  }
-}

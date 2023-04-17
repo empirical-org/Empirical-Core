@@ -120,7 +120,7 @@ export const PremiumPricingGuide = ({
   const upgradeToPremiumNowButton = () => {
     return (
       <StripeSubscriptionCheckoutSessionButton
-        buttonClassName='btn-orange'
+        buttonClassName='btn-orange focus-on-light'
         buttonText='Upgrade to Premium Now'
         cancelPath='premium'
         customerEmail={customerEmail}
