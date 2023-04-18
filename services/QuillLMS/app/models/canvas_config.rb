@@ -7,14 +7,20 @@
 #  id                       :bigint           not null, primary key
 #  client_id_ciphertext     :text             not null
 #  client_secret_ciphertext :text             not null
-#  url                      :string           not null
 #  created_at               :datetime         not null
 #  updated_at               :datetime         not null
+#  canvas_instance_id       :bigint           not null
+#
+# Indexes
+#
+#  index_canvas_configs_on_canvas_instance_id  (canvas_instance_id)
+#
+# Foreign Keys
+#
+#  fk_rails_...  (canvas_instance_id => canvas_instances.id)
 #
 class CanvasConfig < ApplicationRecord
   has_encrypted :client_id, :client_secret
 
-  has_many :school_canvas_configs, dependent: :destroy
-  has_many :canvas_accounts, dependent: :destroy
-  has_many :users, through: :canvas_accounts
+  belongs_to :canvas_instance
 end

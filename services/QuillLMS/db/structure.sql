@@ -996,7 +996,7 @@ CREATE TABLE public.canvas_accounts (
     id bigint NOT NULL,
     external_id character varying NOT NULL,
     user_id bigint NOT NULL,
-    canvas_config_id bigint NOT NULL,
+    canvas_instance_id bigint NOT NULL,
     created_at timestamp(6) without time zone NOT NULL,
     updated_at timestamp(6) without time zone NOT NULL
 );
@@ -1027,7 +1027,7 @@ ALTER SEQUENCE public.canvas_accounts_id_seq OWNED BY public.canvas_accounts.id;
 
 CREATE TABLE public.canvas_configs (
     id bigint NOT NULL,
-    url character varying NOT NULL,
+    canvas_instance_id bigint NOT NULL,
     client_id_ciphertext text NOT NULL,
     client_secret_ciphertext text NOT NULL,
     created_at timestamp(6) without time zone NOT NULL,
@@ -1052,6 +1052,37 @@ CREATE SEQUENCE public.canvas_configs_id_seq
 --
 
 ALTER SEQUENCE public.canvas_configs_id_seq OWNED BY public.canvas_configs.id;
+
+
+--
+-- Name: canvas_instances; Type: TABLE; Schema: public; Owner: -
+--
+
+CREATE TABLE public.canvas_instances (
+    id bigint NOT NULL,
+    url character varying NOT NULL,
+    created_at timestamp(6) without time zone NOT NULL,
+    updated_at timestamp(6) without time zone NOT NULL
+);
+
+
+--
+-- Name: canvas_instances_id_seq; Type: SEQUENCE; Schema: public; Owner: -
+--
+
+CREATE SEQUENCE public.canvas_instances_id_seq
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+
+--
+-- Name: canvas_instances_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: -
+--
+
+ALTER SEQUENCE public.canvas_instances_id_seq OWNED BY public.canvas_instances.id;
 
 
 --
@@ -3662,23 +3693,23 @@ CREATE TABLE public.schema_migrations (
 
 
 --
--- Name: school_canvas_configs; Type: TABLE; Schema: public; Owner: -
+-- Name: school_canvas_instances; Type: TABLE; Schema: public; Owner: -
 --
 
-CREATE TABLE public.school_canvas_configs (
+CREATE TABLE public.school_canvas_instances (
     id bigint NOT NULL,
     school_id bigint NOT NULL,
-    canvas_config_id bigint NOT NULL,
+    canvas_instance_id bigint NOT NULL,
     created_at timestamp(6) without time zone NOT NULL,
     updated_at timestamp(6) without time zone NOT NULL
 );
 
 
 --
--- Name: school_canvas_configs_id_seq; Type: SEQUENCE; Schema: public; Owner: -
+-- Name: school_canvas_instances_id_seq; Type: SEQUENCE; Schema: public; Owner: -
 --
 
-CREATE SEQUENCE public.school_canvas_configs_id_seq
+CREATE SEQUENCE public.school_canvas_instances_id_seq
     START WITH 1
     INCREMENT BY 1
     NO MINVALUE
@@ -3687,10 +3718,10 @@ CREATE SEQUENCE public.school_canvas_configs_id_seq
 
 
 --
--- Name: school_canvas_configs_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: -
+-- Name: school_canvas_instances_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: -
 --
 
-ALTER SEQUENCE public.school_canvas_configs_id_seq OWNED BY public.school_canvas_configs.id;
+ALTER SEQUENCE public.school_canvas_instances_id_seq OWNED BY public.school_canvas_instances.id;
 
 
 --
@@ -5093,6 +5124,13 @@ ALTER TABLE ONLY public.canvas_configs ALTER COLUMN id SET DEFAULT nextval('publ
 
 
 --
+-- Name: canvas_instances id; Type: DEFAULT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY public.canvas_instances ALTER COLUMN id SET DEFAULT nextval('public.canvas_instances_id_seq'::regclass);
+
+
+--
 -- Name: categories id; Type: DEFAULT; Schema: public; Owner: -
 --
 
@@ -5604,10 +5642,10 @@ ALTER TABLE ONLY public.sales_stages ALTER COLUMN id SET DEFAULT nextval('public
 
 
 --
--- Name: school_canvas_configs id; Type: DEFAULT; Schema: public; Owner: -
+-- Name: school_canvas_instances id; Type: DEFAULT; Schema: public; Owner: -
 --
 
-ALTER TABLE ONLY public.school_canvas_configs ALTER COLUMN id SET DEFAULT nextval('public.school_canvas_configs_id_seq'::regclass);
+ALTER TABLE ONLY public.school_canvas_instances ALTER COLUMN id SET DEFAULT nextval('public.school_canvas_instances_id_seq'::regclass);
 
 
 --
@@ -6045,6 +6083,14 @@ ALTER TABLE ONLY public.canvas_accounts
 
 ALTER TABLE ONLY public.canvas_configs
     ADD CONSTRAINT canvas_configs_pkey PRIMARY KEY (id);
+
+
+--
+-- Name: canvas_instances canvas_instances_pkey; Type: CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY public.canvas_instances
+    ADD CONSTRAINT canvas_instances_pkey PRIMARY KEY (id);
 
 
 --
@@ -6640,11 +6686,11 @@ ALTER TABLE ONLY public.schema_migrations
 
 
 --
--- Name: school_canvas_configs school_canvas_configs_pkey; Type: CONSTRAINT; Schema: public; Owner: -
+-- Name: school_canvas_instances school_canvas_instances_pkey; Type: CONSTRAINT; Schema: public; Owner: -
 --
 
-ALTER TABLE ONLY public.school_canvas_configs
-    ADD CONSTRAINT school_canvas_configs_pkey PRIMARY KEY (id);
+ALTER TABLE ONLY public.school_canvas_instances
+    ADD CONSTRAINT school_canvas_instances_pkey PRIMARY KEY (id);
 
 
 --
@@ -7215,10 +7261,10 @@ CREATE INDEX index_blog_posts_on_topic ON public.blog_posts USING btree (topic);
 
 
 --
--- Name: index_canvas_accounts_on_canvas_config_id; Type: INDEX; Schema: public; Owner: -
+-- Name: index_canvas_accounts_on_canvas_instance_id; Type: INDEX; Schema: public; Owner: -
 --
 
-CREATE INDEX index_canvas_accounts_on_canvas_config_id ON public.canvas_accounts USING btree (canvas_config_id);
+CREATE INDEX index_canvas_accounts_on_canvas_instance_id ON public.canvas_accounts USING btree (canvas_instance_id);
 
 
 --
@@ -7226,6 +7272,13 @@ CREATE INDEX index_canvas_accounts_on_canvas_config_id ON public.canvas_accounts
 --
 
 CREATE INDEX index_canvas_accounts_on_user_id ON public.canvas_accounts USING btree (user_id);
+
+
+--
+-- Name: index_canvas_configs_on_canvas_instance_id; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX index_canvas_configs_on_canvas_instance_id ON public.canvas_configs USING btree (canvas_instance_id);
 
 
 --
@@ -7943,17 +7996,17 @@ CREATE INDEX index_sales_stages_on_user_id ON public.sales_stages USING btree (u
 
 
 --
--- Name: index_school_canvas_configs_on_canvas_config_id; Type: INDEX; Schema: public; Owner: -
+-- Name: index_school_canvas_instances_on_canvas_instance_id; Type: INDEX; Schema: public; Owner: -
 --
 
-CREATE INDEX index_school_canvas_configs_on_canvas_config_id ON public.school_canvas_configs USING btree (canvas_config_id);
+CREATE INDEX index_school_canvas_instances_on_canvas_instance_id ON public.school_canvas_instances USING btree (canvas_instance_id);
 
 
 --
--- Name: index_school_canvas_configs_on_school_id; Type: INDEX; Schema: public; Owner: -
+-- Name: index_school_canvas_instances_on_school_id; Type: INDEX; Schema: public; Owner: -
 --
 
-CREATE INDEX index_school_canvas_configs_on_school_id ON public.school_canvas_configs USING btree (school_id);
+CREATE INDEX index_school_canvas_instances_on_school_id ON public.school_canvas_instances USING btree (school_id);
 
 
 --
@@ -8707,14 +8760,6 @@ ALTER TABLE ONLY public.stripe_checkout_sessions
 
 
 --
--- Name: school_canvas_configs fk_rails_430c62529d; Type: FK CONSTRAINT; Schema: public; Owner: -
---
-
-ALTER TABLE ONLY public.school_canvas_configs
-    ADD CONSTRAINT fk_rails_430c62529d FOREIGN KEY (canvas_config_id) REFERENCES public.canvas_configs(id);
-
-
---
 -- Name: classroom_unit_activity_states fk_rails_457a11a3eb; Type: FK CONSTRAINT; Schema: public; Owner: -
 --
 
@@ -8747,6 +8792,14 @@ ALTER TABLE ONLY public.activity_topics
 
 
 --
+-- Name: school_canvas_instances fk_rails_4e0c8dda5b; Type: FK CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY public.school_canvas_instances
+    ADD CONSTRAINT fk_rails_4e0c8dda5b FOREIGN KEY (school_id) REFERENCES public.schools(id);
+
+
+--
 -- Name: skill_concepts fk_rails_51a05a5948; Type: FK CONSTRAINT; Schema: public; Owner: -
 --
 
@@ -8768,14 +8821,6 @@ ALTER TABLE ONLY public.prompt_healths
 
 ALTER TABLE ONLY public.feedback_history_ratings
     ADD CONSTRAINT fk_rails_54039a8fd0 FOREIGN KEY (user_id) REFERENCES public.users(id);
-
-
---
--- Name: school_canvas_configs fk_rails_5c19eac272; Type: FK CONSTRAINT; Schema: public; Owner: -
---
-
-ALTER TABLE ONLY public.school_canvas_configs
-    ADD CONSTRAINT fk_rails_5c19eac272 FOREIGN KEY (school_id) REFERENCES public.schools(id);
 
 
 --
@@ -8995,6 +9040,14 @@ ALTER TABLE ONLY public.teacher_infos
 
 
 --
+-- Name: canvas_configs fk_rails_c246baa530; Type: FK CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY public.canvas_configs
+    ADD CONSTRAINT fk_rails_c246baa530 FOREIGN KEY (canvas_instance_id) REFERENCES public.canvas_instances(id);
+
+
+--
 -- Name: standards fk_rails_c84477fd6e; Type: FK CONSTRAINT; Schema: public; Owner: -
 --
 
@@ -9040,6 +9093,14 @@ ALTER TABLE ONLY public.user_activity_classifications
 
 ALTER TABLE ONLY public.sales_contacts
     ADD CONSTRAINT fk_rails_d6738e130a FOREIGN KEY (user_id) REFERENCES public.users(id);
+
+
+--
+-- Name: canvas_accounts fk_rails_d739d9f5b3; Type: FK CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY public.canvas_accounts
+    ADD CONSTRAINT fk_rails_d739d9f5b3 FOREIGN KEY (canvas_instance_id) REFERENCES public.canvas_instances(id);
 
 
 --
@@ -9091,6 +9152,14 @@ ALTER TABLE ONLY public.activity_survey_responses
 
 
 --
+-- Name: school_canvas_instances fk_rails_f391c29379; Type: FK CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY public.school_canvas_instances
+    ADD CONSTRAINT fk_rails_f391c29379 FOREIGN KEY (canvas_instance_id) REFERENCES public.canvas_instances(id);
+
+
+--
 -- Name: content_partner_activities fk_rails_f7c9018094; Type: FK CONSTRAINT; Schema: public; Owner: -
 --
 
@@ -9104,14 +9173,6 @@ ALTER TABLE ONLY public.content_partner_activities
 
 ALTER TABLE ONLY public.auth_credentials
     ADD CONSTRAINT fk_rails_f92a275310 FOREIGN KEY (user_id) REFERENCES public.users(id);
-
-
---
--- Name: canvas_accounts fk_rails_fd3997fcb2; Type: FK CONSTRAINT; Schema: public; Owner: -
---
-
-ALTER TABLE ONLY public.canvas_accounts
-    ADD CONSTRAINT fk_rails_fd3997fcb2 FOREIGN KEY (canvas_config_id) REFERENCES public.canvas_configs(id);
 
 
 --
@@ -9626,6 +9687,7 @@ INSERT INTO "schema_migrations" (version) VALUES
 ('20230323114351'),
 ('20230328155819'),
 ('20230405140349'),
+('20230411145111'),
 ('20230411145241'),
 ('20230413140558'),
 ('20230414164818');
