@@ -1,8 +1,8 @@
-import * as React from 'react'
 import Pusher from 'pusher-js';
+import * as React from 'react';
 
-import ButtonLoadingIndicator from '../shared/button_loading_indicator'
 import { requestPut } from '../../../../modules/request/index';
+import ButtonLoadingIndicator from '../shared/button_loading_indicator';
 
 const smallWhiteCheckSrc = `${process.env.CDN_URL}/images/shared/check-small-white.svg`
 

@@ -193,8 +193,11 @@ button {
 
 .btn-orange {
   height: 40px;
-  background-color: #eda41b;
+  background-color: $quillgoldmedium;
   color: white;
+  &:hover {
+    opacity: 0.85;
+  }
 }
 
 .button-green, .btn-orange {

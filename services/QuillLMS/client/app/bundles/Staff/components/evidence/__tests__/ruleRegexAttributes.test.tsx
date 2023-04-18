@@ -1,9 +1,9 @@
-import * as React from 'react';
 import { shallow } from 'enzyme';
+import * as React from 'react';
 
-import RuleRegexAttributes from '../configureRules/ruleRegexAttributes';
+import { TextEditor } from '../../../../Shared/index';
 import RegexRules from '../configureRules/regexRules';
-import { TextEditor } from '../../../../Shared/index'
+import RuleRegexAttributes from '../configureRules/ruleRegexAttributes';
 
 const mockProps = {
   errors: {},

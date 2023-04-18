@@ -1,4 +1,4 @@
-import React from 'react'
+import React from 'react';
 import _ from 'underscore';
 
 export default class DropdownSeletor extends React.Component {

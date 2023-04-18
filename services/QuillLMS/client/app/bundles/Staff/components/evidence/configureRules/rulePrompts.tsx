@@ -1,7 +1,7 @@
 import * as React from "react";
 
-import { handleRulePromptChange } from '../../../helpers/evidence/ruleHelpers';
 import { BECAUSE, BUT, SO } from '../../../../../constants/evidence';
+import { handleRulePromptChange } from '../../../helpers/evidence/ruleHelpers';
 import { InputEvent } from '../../../interfaces/evidenceInterfaces';
 
 interface RulePromptsProps {

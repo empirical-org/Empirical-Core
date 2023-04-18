@@ -1,15 +1,15 @@
-import React from 'react';
-import 'whatwg-fetch'
 import { mount } from 'enzyme';
+import React from 'react';
+import { Provider } from 'react-redux';
 import { MemoryRouter } from 'react-router';
-import AdminLesson from "../adminLesson"
-import { Provider } from 'react-redux'
+import 'whatwg-fetch';
 import createStore from '../../../utils/configureStore';
-import AdminLessonSidebar from '../adminLessonSidebar';
-import Question from '../../questions/question'
-import SentenceFragment from '../../sentenceFragments/sentenceFragment'
 import FillInBlankQuestion from '../../fillInBlank/fillInBlankQuestion.jsx';
+import Question from '../../questions/question';
+import SentenceFragment from '../../sentenceFragments/sentenceFragment';
 import ShowTitleCard from '../../titleCards/showTitleCard.tsx';
+import AdminLesson from "../adminLesson";
+import AdminLessonSidebar from '../adminLessonSidebar';
 
 
 describe('adminLesson component', () => {

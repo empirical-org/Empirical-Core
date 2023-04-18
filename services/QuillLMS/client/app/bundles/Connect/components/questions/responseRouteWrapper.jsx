@@ -11,7 +11,7 @@ class ResponseComponentWrapper extends React.Component {
   returnAppropriateDataset = () => {
     const { match, questions } = this.props
     const { data } = questions
-    const { params } = match 
+    const { params } = match
     const { questionID, } = params;
     const datasets = ['fillInBlank', 'sentenceFragments']
     let datasetMatch = data[questionID]
@@ -28,8 +28,8 @@ class ResponseComponentWrapper extends React.Component {
   render() {
     const { responses } = this.state
     const { dispatch, match, questions } = this.props
-    const { states } = questions 
-    const { params } = match 
+    const { states } = questions
+    const { params } = match
     const { questionID } = params
     const appropriateData = this.returnAppropriateDataset()
     const { dataset, mode } = appropriateData;

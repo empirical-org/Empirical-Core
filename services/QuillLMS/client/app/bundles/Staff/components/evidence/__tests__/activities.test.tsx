@@ -1,11 +1,11 @@
-import * as React from 'react';
 import { shallow } from 'enzyme';
-import { createMemoryHistory, createLocation } from 'history';
+import { createLocation, createMemoryHistory } from 'history';
+import * as React from 'react';
+import { QueryClientProvider } from 'react-query';
 import 'whatwg-fetch';
-import { QueryClientProvider } from 'react-query'
 
-import Activities from '../activities';
 import { DefaultReactQueryClient } from '../../../../Shared/index';
+import Activities from '../activities';
 
 const queryClient = new DefaultReactQueryClient();
 

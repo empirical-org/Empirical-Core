@@ -1,31 +1,31 @@
-import * as React from 'react'
 import Pusher from 'pusher-js';
+import * as React from 'react';
 import { SortableHandle, } from 'react-sortable-hoc';
 
-import CreateAClassModal from './create_a_class_modal'
-import RenameClassModal from './rename_classroom_modal'
-import ChangeGradeModal from './change_grade_modal'
-import ArchiveClassModal from './archive_classroom_modal'
-import InviteStudentsModal from './invite_students_modal'
-import ImportCleverClassroomsModal from './import_clever_classrooms_modal'
-import ImportGoogleClassroomsModal from './import_google_classrooms_modal'
-import ImportCleverClassroomStudentsModal from './import_clever_classroom_students_modal'
-import ImportGoogleClassroomStudentsModal from './import_google_classroom_students_modal'
-import ReauthorizeCleverModal from './reauthorize_clever_modal'
-import LinkCleverAccountModal from './link_clever_account_modal'
-import LinkGoogleAccountModal from './link_google_account_modal'
-import CleverClassroomsEmptyModal from './clever_classrooms_empty_modal'
-import GoogleClassroomsEmptyModal from './google_classrooms_empty_modal'
-import Classroom from './classroom'
-import CoteacherInvitation from './coteacher_invitation'
+import ArchiveClassModal from './archive_classroom_modal';
+import ChangeGradeModal from './change_grade_modal';
+import Classroom from './classroom';
+import CleverClassroomsEmptyModal from './clever_classrooms_empty_modal';
+import CoteacherInvitation from './coteacher_invitation';
+import CreateAClassModal from './create_a_class_modal';
+import GoogleClassroomsEmptyModal from './google_classrooms_empty_modal';
+import ImportCleverClassroomStudentsModal from './import_clever_classroom_students_modal';
+import ImportCleverClassroomsModal from './import_clever_classrooms_modal';
+import ImportGoogleClassroomStudentsModal from './import_google_classroom_students_modal';
+import ImportGoogleClassroomsModal from './import_google_classrooms_modal';
+import InviteStudentsModal from './invite_students_modal';
+import LinkCleverAccountModal from './link_clever_account_modal';
+import LinkGoogleAccountModal from './link_google_account_modal';
+import ReauthorizeCleverModal from './reauthorize_clever_modal';
+import RenameClassModal from './rename_classroom_modal';
 
-import ButtonLoadingIndicator from '../shared/button_loading_indicator'
-import BulkArchiveClassesBanner from '../shared/bulk_archive_classes_banner'
-import ViewAsStudentModal from '../shared/view_as_student_modal'
-import { Snackbar, defaultSnackbarTimeout, SortableList } from '../../../Shared/index'
 import { requestGet, requestPut } from '../../../../modules/request/index';
-import ArticleSpotlight from '../shared/articleSpotlight';
+import { Snackbar, SortableList, defaultSnackbarTimeout } from '../../../Shared/index';
 import { MY_CLASSES_FEATURED_BLOG_POST_ID } from '../../constants/featuredBlogPost';
+import ArticleSpotlight from '../shared/articleSpotlight';
+import BulkArchiveClassesBanner from '../shared/bulk_archive_classes_banner';
+import ButtonLoadingIndicator from '../shared/button_loading_indicator';
+import ViewAsStudentModal from '../shared/view_as_student_modal';
 
 const bookEmptySrc = `${process.env.CDN_URL}/images/illustrations/book-empty.svg`
 const cleverIconSrc = `${process.env.CDN_URL}/images/icons/clever.svg`

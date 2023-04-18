@@ -1,7 +1,7 @@
-import * as React from 'react';
 import { shallow } from 'enzyme';
+import * as React from 'react';
 
-import UnitTemplateFilterInputs from '../../UnitTemplates/unitTemplateFilterInputs'
+import UnitTemplateFilterInputs from '../../UnitTemplates/unitTemplateFilterInputs';
 
 describe('UnitTemplateFilterInputs component', () => {
   const mockProps = {

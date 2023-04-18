@@ -4,9 +4,9 @@ import AssignmentCard from './assignment_card'
 
 import { requestGet, requestPost, } from '../../../../../modules/request'
 import { evidenceToolIcon } from "../../../../Shared"
-import { CLICKED_ACTIVITY_PACK_ID } from '../assignmentFlowConstants'
-import ArticleSpotlight from '../../shared/articleSpotlight'
 import { ASSIGN_ACTIVITIES_FEATURED_BLOG_ID } from '../../../constants/featuredBlogPost'
+import ArticleSpotlight from '../../shared/articleSpotlight'
+import { CLICKED_ACTIVITY_PACK_ID } from '../assignmentFlowConstants'
 
 interface ActivityToSuggest {
   name: string;
@@ -156,6 +156,7 @@ const AssignANewActivity = ({ numberOfActivitiesAssigned, showDiagnosticBanner }
 
   return (
     <React.Fragment>
+      <div className="navbar-divider-bar green" />
       <div className="assign-a-new-activity-container gray-background-accommodate-footer">
         <div className="assign-a-new-activity container">
           <h1>Find the perfect writing activities for your students.</h1>

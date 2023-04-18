@@ -72,9 +72,9 @@ class AdminsController < ApplicationController
     ExpirePasswordTokenWorker.perform_in(30.days, @teacher.id)
 
     if params[:role] == 'admin'
-      AdminDashboard::AdminAccountCreatedEmailWorker.perform_async(@teacher.id, current_user.id, params[:school_id], true)
+      PremiumHub::AdminAccountCreatedEmailWorker.perform_async(@teacher.id, current_user.id, params[:school_id], true)
     else
-      AdminDashboard::TeacherAccountCreatedEmailWorker.perform_async(@teacher.id, current_user.id, params[:school_id], true)
+      PremiumHub::TeacherAccountCreatedEmailWorker.perform_async(@teacher.id, current_user.id, params[:school_id], true)
     end
 
     render json: {message: t('admin.resend_login_details')}, status: 200
@@ -88,7 +88,7 @@ class AdminsController < ApplicationController
 
   def make_admin
     SchoolsAdmins.create!(user_id: params[:id], school_id: params[:school_id])
-    AdminDashboard::MadeSchoolAdminEmailWorker.perform_async(params[:id], current_user.id, params[:school_id])
+    PremiumHub::MadeSchoolAdminEmailWorker.perform_async(params[:id], current_user.id, params[:school_id])
     reset_admin_users_cache
     render json: {message: t('admin.make_admin')}, status: 200
   end
@@ -98,16 +98,19 @@ class AdminsController < ApplicationController
     SchoolsAdmins.create!(user_id: user.id, school_id: params[:school_id])
     user.admin_info.update(sub_role: AdminInfo::TEACHER_ADMIN, approval_status: AdminInfo::APPROVED)
     reset_admin_users_cache
-    TeacherApprovedToBecomeAdminAnalyticsWorker.perform_async(user.id)
+    admin_approval_request = AdminApprovalRequest.find_by(requestee_id: current_user.id, admin_info_id: user.admin_info.id)
+    TeacherApprovedToBecomeAdminAnalyticsWorker.perform_async(user.id, admin_approval_request&.request_made_during_sign_up)
 
     render json: {message: t('admin.approve_admin_request')}, status: 200
   end
 
   def deny_admin_request
     user = User.find_by(id: params[:id])
+    user.update(role: User::TEACHER)
     user.admin_info.update(approval_status: AdminInfo::DENIED)
     reset_admin_users_cache
-    TeacherDeniedToBecomeAdminAnalyticsWorker.perform_async(user.id)
+    admin_approval_request = AdminApprovalRequest.find_by(requestee_id: current_user.id, admin_info_id: user.admin_info.id)
+    TeacherDeniedToBecomeAdminAnalyticsWorker.perform_async(user.id, admin_approval_request&.request_made_during_sign_up)
 
     render json: {message: t('admin.deny_admin_request')}, status: 200
   end
@@ -168,11 +171,11 @@ class AdminsController < ApplicationController
 
   private def handle_new_school_admin_email
     if @teacher.school.nil? || @teacher.school.name == School::NOT_LISTED_SCHOOL_NAME
-      AdminDashboard::MadeSchoolAdminLinkSchoolEmailWorker.perform_async(@teacher.id, current_user.id, @school.id)
+      PremiumHub::MadeSchoolAdminLinkSchoolEmailWorker.perform_async(@teacher.id, current_user.id, @school.id)
     elsif @teacher.school == @school
-      AdminDashboard::MadeSchoolAdminEmailWorker.perform_async(@teacher.id, current_user.id, @school.id)
+      PremiumHub::MadeSchoolAdminEmailWorker.perform_async(@teacher.id, current_user.id, @school.id)
     else
-      AdminDashboard::MadeSchoolAdminChangeSchoolEmailWorker.perform_async(@teacher.id, current_user.id, @school.id, @teacher.school.id)
+      PremiumHub::MadeSchoolAdminChangeSchoolEmailWorker.perform_async(@teacher.id, current_user.id, @school.id, @teacher.school.id)
     end
   end
 
@@ -194,7 +197,7 @@ class AdminsController < ApplicationController
     else
       # Send invite to the school to the teacher via email.
       @message = t('admin_created_account.existing_account.teacher.new', school_name: @school.name)
-      AdminDashboard::TeacherLinkSchoolEmailWorker.perform_async(@teacher.id, current_user.id, @school.id)
+      PremiumHub::TeacherLinkSchoolEmailWorker.perform_async(@teacher.id, current_user.id, @school.id)
     end
   end
 
@@ -206,10 +209,10 @@ class AdminsController < ApplicationController
     if @is_admin
       SchoolsAdmins.create(user: @teacher, school: @school)
       @message = t('admin_created_account.new_account.admin')
-      AdminDashboard::AdminAccountCreatedEmailWorker.perform_async(@teacher.id, current_user.id, @school.id, false)
+      PremiumHub::AdminAccountCreatedEmailWorker.perform_async(@teacher.id, current_user.id, @school.id, false)
     else
       @message = t('admin_created_account.new_account.teacher')
-      AdminDashboard::TeacherAccountCreatedEmailWorker.perform_async(@teacher.id, current_user.id, @school.id, false)
+      PremiumHub::TeacherAccountCreatedEmailWorker.perform_async(@teacher.id, current_user.id, @school.id, false)
     end
   end
 

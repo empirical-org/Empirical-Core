@@ -1,11 +1,11 @@
-import React from 'react'
+import React from 'react';
 import _ from 'underscore';
 
-import OverviewBoxes from './overview_boxes.jsx'
-import MissedLessonRow from './missed_lesson_row.jsx'
+import MissedLessonRow from './missed_lesson_row.jsx';
+import OverviewBoxes from './overview_boxes.jsx';
 
-import ProgressReport from '../progress_report.jsx'
 import { getTimeSpent } from '../../../helpers/studentReports';
+import ProgressReport from '../progress_report.jsx';
 
 export default class ClassReport extends React.Component {
   constructor(props) {

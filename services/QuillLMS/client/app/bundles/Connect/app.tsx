@@ -1,25 +1,25 @@
+import * as Sentry from '@sentry/browser';
 import Promise from 'promise-polyfill';
-import { QueryClient, QueryClientProvider } from 'react-query'
 import * as React from 'react';
+import { QueryClientProvider } from 'react-query';
 import { Provider } from 'react-redux';
 import { HashRouter, Route, Switch } from 'react-router-dom';
-import * as Sentry from '@sentry/browser';
+import conceptActions from './actions/concepts';
+import conceptsFeedbackActions from './actions/concepts-feedback';
+import fillInBlankActions from './actions/fillInBlank';
+import lessonActions from './actions/lessons';
+import questionActions from './actions/questions';
+import sentenceFragmentActions from './actions/sentenceFragments';
+import titleCardActions from './actions/titleCards.ts';
+import Home from './components/home.tsx';
+import quillNormalizer from './libs/quillNormalizer';
+import BackOff from './utils/backOff';
+import createStore from './utils/configureStore';
 
 // To add to window
 if (!window.Promise) {
   window.Promise = Promise;
 }
-import BackOff from './utils/backOff';
-import createStore from './utils/configureStore';
-import conceptActions from './actions/concepts';
-import conceptsFeedbackActions from './actions/concepts-feedback';
-import questionActions from './actions/questions';
-import fillInBlankActions from './actions/fillInBlank';
-import sentenceFragmentActions from './actions/sentenceFragments';
-import lessonActions from './actions/lessons';
-import titleCardActions from './actions/titleCards.ts';
-import quillNormalizer from './libs/quillNormalizer';
-import Home from './components/home.tsx';
 
 import { DefaultReactQueryClient } from '../Shared';
 

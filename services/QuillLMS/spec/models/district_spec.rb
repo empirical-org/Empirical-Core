@@ -243,4 +243,5 @@ describe District, type: :model do
       end
     end
   end
+
 end

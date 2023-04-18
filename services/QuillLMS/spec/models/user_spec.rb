@@ -83,6 +83,7 @@ describe User, type: :model do
   it { should have_many(:user_milestones) }
   it { should have_many(:milestones).through(:user_milestones) }
   it { should have_many(:admin_approval_requests).with_foreign_key('requestee_id') }
+  it { should have_one(:learn_worlds_account) }
 
   it { should delegate_method(:name).to(:school).with_prefix(:school) }
   it { should delegate_method(:mail_city).to(:school).with_prefix(:school) }
@@ -1611,7 +1612,6 @@ describe User, type: :model do
     end
   end
 
-
   describe 'email verification logic' do
     let(:user) { create(:user) }
     let!(:user_email_verification) { create(:user_email_verification, user: user) }
@@ -1740,5 +1740,32 @@ describe User, type: :model do
     end
   end
 
+  describe '#learn_worlds_access?' do
+    subject { user.learn_worlds_access? }
+
+    let(:user) { create(:teacher) }
+
+    context 'school_premium? is false' do
+      before { allow(user).to receive(:school_premium?).and_return(false) }
+
+      context 'district_premium? is false' do
+        before { allow(user).to receive(:district_premium?).and_return(false) }
+
+        it { expect(subject).to be_falsey }
+      end
+
+      context 'district_premium? is true' do
+        before { allow(user).to receive(:district_premium?).and_return(true) }
+
+        it { expect(subject).to be_truthy }
+      end
+    end
+
+    context 'school_premium? is true' do
+      before { allow(user).to receive(:school_premium?).and_return(true) }
+
+      it { expect(subject).to be_truthy }
+    end
+  end
 end
 # rubocop:enable Metrics/BlockLength

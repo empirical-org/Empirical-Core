@@ -1,8 +1,8 @@
-import * as React from 'react'
-import { shallow, mount, } from 'enzyme';
+import { mount } from 'enzyme';
 import toJson from 'enzyme-to-json';
+import * as React from 'react';
 
-import { activityOne } from './data'
+import { activityOne } from './data';
 
 const csrfToken = 'mocked-csrf-token';
 document.head.innerHTML = `<meta name="csrf-token" content="${csrfToken}">`;
@@ -54,7 +54,7 @@ jest.mock('string-strip-html', () => ({
   })
 }))
 
-import { StudentViewContainer } from '../../../components/studentView/container'
+import { StudentViewContainer } from '../../../components/studentView/container';
 
 const dispatch = () => {}
 

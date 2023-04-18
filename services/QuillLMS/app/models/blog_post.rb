@@ -10,6 +10,7 @@
 #  draft                 :boolean          default(TRUE)
 #  external_link         :string
 #  featured_order_number :integer
+#  footer_content        :text             default("")
 #  image_link            :string
 #  order_number          :integer
 #  premium               :boolean          default(FALSE)
@@ -145,6 +146,7 @@ class BlogPost < ApplicationRecord
     BlogPost
       .where(topic: topic)
       .where.not(id: id)
+      .live
       .order(created_at: :desc)
       .limit(MOST_RECENT_LIMIT)
   end

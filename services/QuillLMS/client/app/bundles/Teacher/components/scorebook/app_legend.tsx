@@ -1,5 +1,5 @@
 "use strict";
-import * as React from 'react'
+import * as React from 'react';
 
 const EVIDENCE_ICON_SRC = `${process.env.CDN_URL}/images/icons/tool-evidence-light-gray.svg`
 
@@ -55,7 +55,7 @@ export const AppLegend = () => {
   )
 
   const evidence = (
-    <a className="icon focus-on-light" href={`${process.env.DEFAULT_URL}/tools/grammar`} rel="noopener noreferrer" target="_blank">
+    <a className="icon focus-on-light" href={`${process.env.DEFAULT_URL}/tools/evidence`} rel="noopener noreferrer" target="_blank">
       <img alt="Book representing Quill Reading for Evidence" className="icon-wrapper evidence-icon" src={EVIDENCE_ICON_SRC} />
       <div className="icons-description-wrapper">
         <p className="title">Quill Reading for Evidence</p>

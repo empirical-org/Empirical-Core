@@ -1,6 +1,6 @@
-import { mockQuestionApi, } from '../__mocks__/question_api'
 import { mockFocusPointApi, } from '../__mocks__/focus_point_api'
 import { mockIncorrectSequenceApi, } from '../__mocks__/incorrect_sequence_api'
+import { mockQuestionApi, } from '../__mocks__/question_api'
 jest.mock('../../libs/questions_api', () => ({
   FocusPointApi: mockFocusPointApi,
   IncorrectSequenceApi: mockIncorrectSequenceApi,

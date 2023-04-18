@@ -1,8 +1,8 @@
-import * as React from 'react'
-import ReactJoyride, { CallBackProps, STATUS, Step } from 'react-joyride';
+import * as React from 'react';
+import ReactJoyride, { CallBackProps, STATUS } from 'react-joyride';
 
-import useWindowSize from '../../../Shared/hooks/useWindowSize'
 import { requestGet } from '../../../../modules/request/index';
+import useWindowSize from '../../../Shared/hooks/useWindowSize';
 
 export const DEMO_ONBOARDING_DASHBOARD = 'demo-onboarding-dashboard'
 export const DEMO_ONBOARDING_STUDENT_REPORTS_LANDING_PAGE = 'demo-onboarding-student-reports-landing-page'

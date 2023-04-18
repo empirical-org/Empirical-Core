@@ -1,7 +1,7 @@
 import * as React from 'react'
 
-import CreateAClassForm from './create_a_class_form'
 import AddStudents from './add_students'
+import CreateAClassForm from './create_a_class_form'
 import SetupInstructions from './setup_instructions'
 
 const closeIconSrc = `${process.env.CDN_URL}/images/icons/close.svg`

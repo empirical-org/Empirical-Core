@@ -1,9 +1,9 @@
-import React, {Component} from 'react'
+import _ from 'lodash';
+import React, { Component } from 'react';
 import * as CLIntF from '../../../interfaces/classroomLessons';
-import _ from 'lodash'
-import PromptField from './slideComponents/promptField'
-import StudentFillInTheList from '../../classroomLessons/play/listBlanks'
-import TitleField from './slideComponents/titleField'
+import StudentFillInTheList from '../../classroomLessons/play/listBlanks';
+import PromptField from './slideComponents/promptField';
+import TitleField from './slideComponents/titleField';
 
 interface CustomizeFillInTheListProps {
   question: CLIntF.QuestionData,

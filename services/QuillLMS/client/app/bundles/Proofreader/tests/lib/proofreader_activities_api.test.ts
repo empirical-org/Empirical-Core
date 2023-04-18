@@ -12,8 +12,8 @@ jest.mock('../../../../modules/request/index', () => ({
 }))
 
 import {
-  ProofreaderPassageApi,
   PROOFREADER_PASSAGE_TYPE,
+  ProofreaderPassageApi,
   lessonApiBaseUrl,
 } from '../../lib/proofreader_activities_api'
 

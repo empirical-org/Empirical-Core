@@ -1,9 +1,8 @@
-import * as React from 'react'
 import { mount } from 'enzyme';
+import * as React from 'react';
 
-import { activities } from './data'
 
-import ReadabilityGradeLevelFilters from '../readability_grade_level_filters'
+import ReadabilityGradeLevelFilters from '../readability_grade_level_filters';
 
 describe('readabilityGradeLevelFilters component', () => {
   const props = {

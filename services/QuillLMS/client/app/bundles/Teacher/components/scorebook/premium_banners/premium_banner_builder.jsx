@@ -1,9 +1,9 @@
-import React from 'react'
 import $ from 'jquery'
+import React from 'react'
 
 import FreeTrialBanner from './free_trial_banner.jsx'
-import NewSignUpBanner from './new_signup_banner.jsx'
 import FreeTrialStatus from './free_trial_status.jsx'
+import NewSignUpBanner from './new_signup_banner.jsx'
 
 export default class PremiumBannerBuilder extends React.Component {
   constructor(props) {
@@ -68,31 +68,39 @@ export default class PremiumBannerBuilder extends React.Component {
     }
   };
 
-  stateSpecificBackGroundImage = () => {
-    const { daysLeft, } = this.props
-    if (daysLeft === 30){
-      return('none');
-    } else {
-      return('url(/images/star_pattern_5.png)');
-    }
-  };
-
   hasPremium = () => {
     const { has_premium, first_day_of_premium_or_trial, } = this.state
     let color = this.stateSpecificBackGroundColor();
-    let img = this.stateSpecificBackGroundImage();
     let divStyle = {
-      backgroundColor: color,
-      backgroundImage: img
+      backgroundColor: color
     };
     if ((has_premium === null) || (has_premium === 'school') || ((has_premium === 'paid') && (first_day_of_premium_or_trial === false))) {
       return (<span />);
     } else
     {
       return (
-        <div id='premium-banner' style={divStyle}>
-          <div className='container'>
-            {this.stateSpecificComponents()}
+        <div>
+          <div id='premium-banner' style={divStyle}>
+            <div className='container'>
+              {this.stateSpecificComponents()}
+            </div>
+          </div>
+          <div className='row school-premium-banner'>
+            <div className='container'>
+              <span>
+                <div className='row'>
+                  <div className='col-md-9 col-xs-12 pull-left'>
+                    <h4>Representing a School or District?</h4>
+                    <span>Starting April 1st, when you purchase School or District Premium, you&apos;ll receive Quill Premium for free for the remainder of the school year!</span>
+                  </div>
+                  <div className='col-md-3 col-xs-12 pull-right'>
+                    <div className='premium-button-box text-center'>
+                      <a href='/premium/request-school-quote'><button className='btn-orange' type='button'>Get in touch!</button></a>
+                    </div>
+                  </div>
+                </div>
+              </span>
+            </div>
           </div>
         </div>
       );

@@ -1,16 +1,16 @@
-import React from 'react';
 import Pusher from 'pusher-js';
+import React from 'react';
 import _ from 'underscore';
 
 import { requestGet } from '../../../modules/request';
-import CreateAClassModal from '../components/classrooms/create_a_class_modal.tsx'
-import ImportGoogleClassroomsModal from '../components/classrooms/import_google_classrooms_modal.tsx'
-import LinkGoogleAccountModal from '../components/classrooms/link_google_account_modal.tsx'
-import GoogleClassroomsEmptyModal from '../components/classrooms/google_classrooms_empty_modal.tsx'
+import { Snackbar, defaultSnackbarTimeout } from '../../Shared/index';
+import CreateAClassModal from '../components/classrooms/create_a_class_modal.tsx';
+import GoogleClassroomsEmptyModal from '../components/classrooms/google_classrooms_empty_modal.tsx';
+import ImportGoogleClassroomsModal from '../components/classrooms/import_google_classrooms_modal.tsx';
+import LinkGoogleAccountModal from '../components/classrooms/link_google_account_modal.tsx';
 import ClassroomsWithStudents from '../components/classrooms_with_students/ClassroomsWithStudents.jsx';
+import ButtonLoadingIndicator from '../components/shared/button_loading_indicator';
 import LoadingIndicator from '../components/shared/loading_indicator.jsx';
-import ButtonLoadingIndicator from '../components/shared/button_loading_indicator'
-import { Snackbar, defaultSnackbarTimeout } from '../../Shared/index'
 
 export const createAClassModal = 'createAClassModal'
 export const importGoogleClassroomsModal = 'importGoogleClassroomsModal'

@@ -1,5 +1,5 @@
+import C from '../../constants.js';
 import reducer from '../../reducers/lessons.js';
-import C from '../../constants.js'
 
 describe('lessons readucer', () => {
   const initialReducerState = {

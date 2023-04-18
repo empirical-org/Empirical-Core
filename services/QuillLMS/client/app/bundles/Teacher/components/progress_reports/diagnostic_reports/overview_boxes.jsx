@@ -1,6 +1,6 @@
-import React from 'react'
-import ScoreColor from '../../modules/score_color.js'
-import Pluralize from 'pluralize'
+import Pluralize from 'pluralize';
+import React from 'react';
+import ScoreColor from '../../modules/score_color.js';
 
 export default class OverviewBoxes extends React.Component {
   componentDidMount() {

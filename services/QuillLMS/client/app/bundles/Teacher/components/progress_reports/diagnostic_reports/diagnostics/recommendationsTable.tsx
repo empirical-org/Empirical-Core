@@ -1,21 +1,21 @@
 import * as React from 'react'
 import { Link, } from 'react-router-dom'
 
-import {
-  noDataYet,
-  recommendedGlyph,
-  correctImage,
-  baseDiagnosticImageSrc,
-  DEFAULT_LEFT_PADDING,
-  MOBILE_WIDTH,
-  DEFAULT_LEFT_PADDING_FOR_MOBILE
-} from './shared'
+import ActivityPackHeader from './activityPackHeader'
 import {
   Recommendation,
   Student,
 } from './interfaces'
+import {
+  DEFAULT_LEFT_PADDING,
+  DEFAULT_LEFT_PADDING_FOR_MOBILE,
+  MOBILE_WIDTH,
+  baseDiagnosticImageSrc,
+  correctImage,
+  noDataYet,
+  recommendedGlyph
+} from './shared'
 import StudentNameOrTooltip from './studentNameOrTooltip'
-import ActivityPackHeader from './activityPackHeader'
 
 import {
   smallWhiteCheckIcon,

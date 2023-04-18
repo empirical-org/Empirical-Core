@@ -1,7 +1,7 @@
-import React from 'react'
-import _ from 'underscore'
-import keysForPOS from './POSIndex.jsx'
-import POSForResponse from './POSForResponse.jsx'
+import React from 'react';
+import _ from 'underscore';
+import POSForResponse from './POSForResponse.jsx';
+import keysForPOS from './POSIndex.jsx';
 
 export default class extends React.Component {
 
@@ -39,7 +39,7 @@ export default class extends React.Component {
           tagsToRender.push(posTagKeys[index])
         })
       }
-      
+
       const headerStyle = {
         "padding": "10px 20px",
         "borderBottom": "0.2px solid #e6e6e6"

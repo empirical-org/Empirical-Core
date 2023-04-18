@@ -1,0 +1,139 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`RequestAdminAccessForm component should render 1`] = `
+<RequestAdminAccessForm
+  admins={
+    Array [
+      Object {
+        "email": "joyharjo@quill.org",
+        "id": 1,
+        "name": "Joy Harjo",
+      },
+    ]
+  }
+  schoolName="School Name"
+>
+  <img
+    alt=""
+    src="undefined/images/onboarding/school_verification.svg"
+  />
+  <h1>
+    <span>
+      Request permission to become an admin of:
+    </span>
+    <span
+      className="school-name"
+    >
+      School Name
+    </span>
+  </h1>
+  <p
+    className="sub-header"
+  >
+    Which admin(s) do you want to send the request to?
+  </p>
+  <section
+    className="user-account-section admin-access-request-section"
+  >
+    <AdminTable
+      schoolAdmins={
+        Array [
+          Object {
+            "email": "joyharjo@quill.org",
+            "id": 1,
+            "name": "Joy Harjo",
+          },
+        ]
+      }
+      selectedAdminIds={Array []}
+      setSelectedAdminIds={[Function]}
+    >
+      <div
+        className="admin-selection-table"
+      >
+        <div
+          className="admin-selection-row top-row"
+        >
+          <button
+            aria-label="Select all admins"
+            className="focus-on-light quill-checkbox unselected"
+            onClick={[Function]}
+            type="button"
+          />
+          <div>
+            Select all
+          </div>
+        </div>
+        <div
+          className="admin-selection-row"
+          key="1"
+        >
+          <button
+            aria-label="Select Joy Harjo"
+            className="focus-on-light quill-checkbox unselected"
+            onClick={[Function]}
+            type="button"
+          />
+          <div>
+            <span
+              className="name"
+            >
+              Joy Harjo
+            </span>
+            <span
+              className="email"
+            >
+              joyharjo@quill.org
+            </span>
+          </div>
+        </div>
+      </div>
+    </AdminTable>
+    <Input
+      autoComplete="on"
+      className="reason"
+      handleChange={[Function]}
+      label="Why do you want to be an admin?"
+      value=""
+    >
+      <div
+        className="input-container  inactive  reason "
+        onClick={[Function]}
+        onKeyDown={[Function]}
+        role="button"
+        tabIndex={-1}
+      >
+        <label>
+          Why do you want to be an admin?
+        </label>
+        <input
+          autoComplete="on"
+          maxLength={10000}
+          onChange={[Function]}
+          onFocus={[Function]}
+          value=""
+        />
+      </div>
+    </Input>
+  </section>
+  <div
+    className="button-wrapper"
+  >
+    <button
+      className="quill-button primary contained medium focus-on-light disabled"
+      disabled={true}
+      type="button"
+    >
+      Submit
+    </button>
+  </div>
+  <SkipForNow>
+    <a
+      className="skip-for-now"
+      href="/finish_sign_up"
+    >
+      Skip for now
+    </a>
+  </SkipForNow>
+</RequestAdminAccessForm>
+`;

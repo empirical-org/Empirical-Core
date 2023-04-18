@@ -1,5 +1,5 @@
-import React from 'react'
 import { mount } from 'enzyme'
+import React from 'react'
 
 import {
   dummyLocationData,
@@ -18,7 +18,7 @@ jest.mock('qs', () => ({
 )
 
 jest.mock('string-strip-html', () => ({
-  default: (str) => str 
+  default: (str) => str
 }));
 
 describe('Questions component', () => {

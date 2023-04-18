@@ -29,7 +29,7 @@ class Teachers::ProgressReportsController < ApplicationController
   def admin_demo
     set_admin_user
     switch_current_user(@admin_user)
-    redirect_to teachers_admin_dashboard_path
+    redirect_to teachers_premium_hub_path
   end
 
   def landing_page
@@ -59,11 +59,7 @@ class Teachers::ProgressReportsController < ApplicationController
 
   private def set_admin_user
     @admin_user = User.find_by(email: teacher_email) ||
-      Demo::CreateAdminReport.new(
-        admin_demo_name,
-        email_safe_school_name,
-        teacher_email
-      ).call
+      Demo::CreateAdminReport.new(teacher_email).call
   end
 
   private def teacher_email

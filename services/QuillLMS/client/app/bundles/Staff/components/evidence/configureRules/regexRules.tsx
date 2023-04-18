@@ -1,9 +1,9 @@
 import * as React from "react";
 
-import { DropdownInput, Input } from '../../../../Shared/index';
 import { regexRuleSequenceOptions } from '../../../../../constants/evidence';
-import { DropdownObjectInterface } from '../../../interfaces/evidenceInterfaces';
+import { DropdownInput, Input } from '../../../../Shared/index';
 import { getSequenceType } from "../../../helpers/evidence/ruleHelpers";
+import { DropdownObjectInterface } from '../../../interfaces/evidenceInterfaces';
 
 const MAX_REGEX_LENGTH = 200
 

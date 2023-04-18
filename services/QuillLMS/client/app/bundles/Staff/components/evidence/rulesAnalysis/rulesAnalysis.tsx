@@ -1,20 +1,19 @@
-import * as React from "react";
-import { RouteComponentProps } from 'react-router-dom'
-import { useQuery } from 'react-query';
-import { firstBy } from "thenby";
-import qs from 'qs';
 import _ from 'lodash';
+import qs from 'qs';
+import * as React from "react";
+import { useQuery } from 'react-query';
+import { RouteComponentProps } from 'react-router-dom';
+import { firstBy } from "thenby";
 
-import FilterWidget from "../shared/filterWidget";
-import { handlePageFilterClick, getVersionOptions } from "../../../helpers/evidence/miscHelpers";
+import { RULES_ANALYSIS } from '../../../../../constants/evidence';
+import { DropdownInput, ReactTable, Spinner } from '../../../../Shared/index';
+import { getVersionOptions, handlePageFilterClick } from "../../../helpers/evidence/miscHelpers";
 import { renderHeader } from "../../../helpers/evidence/renderHelpers";
 import { calculatePercentageForResponses } from "../../../helpers/evidence/ruleHelpers";
-import { ActivityRouteProps, PromptInterface, DropdownObjectInterface } from '../../../interfaces/evidenceInterfaces';
+import { ActivityRouteProps, DropdownObjectInterface, PromptInterface } from '../../../interfaces/evidenceInterfaces';
 import { fetchActivity, fetchActivityVersions } from '../../../utils/evidence/activityAPIs';
 import { fetchRuleFeedbackHistories } from '../../../utils/evidence/ruleFeedbackHistoryAPIs';
-import { DropdownInput, Spinner, ReactTable } from '../../../../Shared/index';
-import { RULES_ANALYSIS } from '../../../../../constants/evidence';
-import { fetchModels } from "../../../utils/evidence/modelAPIs";
+import FilterWidget from "../shared/filterWidget";
 
 const DEFAULT_RULE_TYPE = 'All Rules'
 

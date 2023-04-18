@@ -2,7 +2,7 @@ import * as React from 'react';
 
 import { mount } from 'enzyme';
 
-import { Tooltip } from '../../../../Shared/index'
+import { Tooltip } from '../../../../Shared/index';
 
 describe('Tooltip component', () => {
   it('should render when it is not searchable', () => {

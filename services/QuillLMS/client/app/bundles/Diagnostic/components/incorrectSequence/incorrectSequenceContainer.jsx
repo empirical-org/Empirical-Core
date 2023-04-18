@@ -1,12 +1,11 @@
+import { ContentState, EditorState } from 'draft-js';
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import _ from 'underscore';
-import { EditorState, ContentState } from 'draft-js'
 
-import { TextEditor } from '../../../Shared/index';
+import { hashToCollection, SortableList, TextEditor } from '../../../Shared/index';
 import questionActions from '../../actions/questions';
 import sentenceFragmentActions from '../../actions/sentenceFragments.ts';
-import { hashToCollection, SortableList } from '../../../Shared/index';
 
 class IncorrectSequencesContainer extends Component {
   constructor(props) {

@@ -1,7 +1,6 @@
-import { applyFeatureToPercentage } from '../libs/apply-feature';
 
-import { SessionApi } from '../libs/sessions_api';
 import _ from 'lodash';
+import { SessionApi } from '../libs/sessions_api';
 
 const C = require('../constants').default;
 
@@ -144,4 +143,5 @@ export {
   denormalizeSession,
   normalizeSession,
   allQuestions,
-}
+};
+
