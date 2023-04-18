@@ -571,6 +571,7 @@ exports[`AddTeacherInfo component should render 1`] = `
                         }
                         onKeyDown={[Function]}
                       >
+                        <Noop />
                         <div
                           className="dropdown css-2b097c-container"
                           onKeyDown={[Function]}
@@ -821,6 +822,7 @@ exports[`AddTeacherInfo component should render 1`] = `
                               onMouseDown={[Function]}
                               onTouchEnd={[Function]}
                             >
+                              <Noop />
                               <div
                                 className="dropdown__control css-yk16xz-control"
                                 onMouseDown={[Function]}
@@ -1050,6 +1052,7 @@ exports[`AddTeacherInfo component should render 1`] = `
                                       }
                                     }
                                   >
+                                    <Noop />
                                     <div
                                       className="dropdown__value-container css-g1d714-ValueContainer"
                                     >
@@ -1278,6 +1281,7 @@ exports[`AddTeacherInfo component should render 1`] = `
                                             }
                                           }
                                         >
+                                          <Noop />
                                           <div
                                             className="dropdown__placeholder css-1wa3eu0-placeholder"
                                           />
@@ -1454,6 +1458,7 @@ exports[`AddTeacherInfo component should render 1`] = `
                                             }
                                           }
                                         >
+                                          <Noop />
                                           <div
                                             className="css-b8ldur-Input"
                                           >
@@ -1766,6 +1771,7 @@ exports[`AddTeacherInfo component should render 1`] = `
                                       }
                                     }
                                   >
+                                    <Noop />
                                     <div
                                       className="dropdown__indicators css-1hb7zxy-IndicatorsContainer"
                                     >
@@ -1992,6 +1998,7 @@ exports[`AddTeacherInfo component should render 1`] = `
                                             }
                                           }
                                         >
+                                          <Noop />
                                           <span
                                             className="dropdown__indicator-separator css-1okebmr-indicatorSeparator"
                                           />
@@ -2232,6 +2239,7 @@ exports[`AddTeacherInfo component should render 1`] = `
                                           onMouseDown={[Function]}
                                           onTouchEnd={[Function]}
                                         >
+                                          <Noop />
                                           <div
                                             aria-hidden="true"
                                             className="dropdown__indicator dropdown__dropdown-indicator css-tlfecz-indicatorContainer"
@@ -2259,6 +2267,7 @@ exports[`AddTeacherInfo component should render 1`] = `
                                                   viewBox="0 0 20 20"
                                                   width={20}
                                                 >
+                                                  <Noop />
                                                   <svg
                                                     aria-hidden="true"
                                                     className="css-6q0nyr-Svg"
@@ -2778,6 +2787,7 @@ exports[`AddTeacherInfo component should render 1`] = `
                         }
                         onKeyDown={[Function]}
                       >
+                        <Noop />
                         <div
                           className="dropdown css-2b097c-container"
                           onKeyDown={[Function]}
@@ -3028,6 +3038,7 @@ exports[`AddTeacherInfo component should render 1`] = `
                               onMouseDown={[Function]}
                               onTouchEnd={[Function]}
                             >
+                              <Noop />
                               <div
                                 className="dropdown__control css-yk16xz-control"
                                 onMouseDown={[Function]}
@@ -3257,6 +3268,7 @@ exports[`AddTeacherInfo component should render 1`] = `
                                       }
                                     }
                                   >
+                                    <Noop />
                                     <div
                                       className="dropdown__value-container css-g1d714-ValueContainer"
                                     >
@@ -3485,6 +3497,7 @@ exports[`AddTeacherInfo component should render 1`] = `
                                             }
                                           }
                                         >
+                                          <Noop />
                                           <div
                                             className="dropdown__placeholder css-1wa3eu0-placeholder"
                                           />
@@ -3661,6 +3674,7 @@ exports[`AddTeacherInfo component should render 1`] = `
                                             }
                                           }
                                         >
+                                          <Noop />
                                           <div
                                             className="css-b8ldur-Input"
                                           >
@@ -3973,6 +3987,7 @@ exports[`AddTeacherInfo component should render 1`] = `
                                       }
                                     }
                                   >
+                                    <Noop />
                                     <div
                                       className="dropdown__indicators css-1hb7zxy-IndicatorsContainer"
                                     >
@@ -4199,6 +4214,7 @@ exports[`AddTeacherInfo component should render 1`] = `
                                             }
                                           }
                                         >
+                                          <Noop />
                                           <span
                                             className="dropdown__indicator-separator css-1okebmr-indicatorSeparator"
                                           />
@@ -4439,6 +4455,7 @@ exports[`AddTeacherInfo component should render 1`] = `
                                           onMouseDown={[Function]}
                                           onTouchEnd={[Function]}
                                         >
+                                          <Noop />
                                           <div
                                             aria-hidden="true"
                                             className="dropdown__indicator dropdown__dropdown-indicator css-tlfecz-indicatorContainer"
@@ -4466,6 +4483,7 @@ exports[`AddTeacherInfo component should render 1`] = `
                                                   viewBox="0 0 20 20"
                                                   width={20}
                                                 >
+                                                  <Noop />
                                                   <svg
                                                     aria-hidden="true"
                                                     className="css-6q0nyr-Svg"
