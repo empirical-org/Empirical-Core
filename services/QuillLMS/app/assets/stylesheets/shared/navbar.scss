@@ -771,3 +771,20 @@ nav.q-navbar-home {
     }
   }
 }
+
+@media (max-width: 895px) {
+  .desktop-navbar {
+    display: none;
+  }
+  .mobile-navbar {
+    display: inherit;
+  }
+}
+@media (min-width: 896px) {
+  .desktop-navbar {
+    display: flex;
+  }
+  .mobile-navbar {
+    display: none;
+  }
+}
