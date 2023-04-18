@@ -10,6 +10,73 @@
   max-height: 77px;
 }
 
+.mobile-navbar:not(.non-standard-navbar) {
+  height: 100%;
+  background-color: transparent;
+  .q-navbar-home {
+    .logo-and-badge-container {
+      .mobile-quill-logo {
+        background-image: url('https://assets.quill.org/images/icons/quill-logo-mobile-white.svg');
+        width: 30px;
+        height: 36px;
+        background-repeat: no-repeat;
+        background-size: contain;
+        padding: 5px;
+        margin-left: 16px;
+      }
+    }
+    .right-side-mobile-nav {
+      display: flex;
+      align-items: center;
+      .active-tab {
+        font-weight: 500;
+        font-size: 18px;
+        margin: 0;
+        margin: 0;
+        color: #FFFFFF;
+      }
+      .mobile-hamburger-container {
+        .hamburger-icon {
+          padding: 13px 13px 7px 13px;
+          margin: 0px 16px;
+          background-color: rgba(255, 255, 255, 0.3);
+          border-radius: 6px;
+          .horizontal-line {
+            width: 24px;
+            height: 2px;
+            background: #FFFFFF;
+            border-radius: 1px;
+            margin-bottom: 6px;
+          }
+        }
+        .home-navbar-list {
+          position: absolute;
+          left: 0px;
+          width: 100%;
+        }
+      }
+    }
+    // &.sub-page {
+    //   background-color: #FFFFFF;
+    //   .logo-and-badge-container {
+    //     .mobile-quill-logo {
+    //       background-image: url('https://assets.quill.org/images/icons/quill-logo-mobile-green.svg');
+    //     }
+    //   }
+    //   .right-side-mobile-nav {
+    //     .mobile-hamburger-container {
+    //       .hamburger-icon {
+    //         background-color: rgba(227, 240, 238, 1);
+    //         .horizontal-line {
+    //           background: $quillgreenmedium;
+    //         }
+    //       }
+    //     }
+    //   }
+    // }
+  }
+}
+
 .navbar {
   display: flex;
   align-items: center;
@@ -403,12 +470,12 @@ nav.q-navbar-home {
       // }
     }
   }
-  @media screen and (min-width: 896px) {
+  @media screen and (min-width: 921px) {
     nav.home-nav-dropdown[role="home-custom-dropdown"] {
       display: none;
     }
   }
-  @media screen and (max-width: 895px) {
+  @media screen and (max-width: 920px) {
     height: 60px;
 
     .home-nav-right.wide {
@@ -772,7 +839,7 @@ nav.q-navbar-home {
   }
 }
 
-@media (max-width: 895px) {
+@media (max-width: 920px) {
   .desktop-navbar {
     display: none;
   }
@@ -780,7 +847,7 @@ nav.q-navbar-home {
     display: inherit;
   }
 }
-@media (min-width: 896px) {
+@media (min-width: 921px) {
   .desktop-navbar {
     display: flex;
   }

@@ -6,17 +6,14 @@
 
 <% if show_site_navigation? %>
 	<nav class="<%=desktop_navbar_class_name%>" role="navigation">
-		<div class="container">
-			<%= render partial: 'sub_header' %>
-		</div>
+		<%= render partial: 'sub_header' %>
 	</nav>
 	<nav class="<%=mobile_navbar_class_name%>" role="navigation">
-		<div class="container">
-			<%= render partial: 'mobile_sub_header' %>
-		</div>
+		<%= render partial: 'mobile_sub_header' %>
 	</nav>
 <% end %>
 
 <% if show_site_navigation? && current_path.include?('cms') %>
 	<div class="navbar-divider-bar green"></div>
 <% end %>
+

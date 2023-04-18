@@ -110,56 +110,6 @@
 	  </div>
 	  <% end %>
 	<% end %>
-
-	<% if !on_sign_up_or_log_in && current_user&.role != 'student' %>
-	  <nav class="home-nav-dropdown" role="home-custom-dropdown">
-	    <input class="home-nav-checkbox" type="checkbox" id="button-nav">
-	    <label for="button-nav" onclick=""></label>
-	    <ul class="home-navbar-list">
-				<% if current_user.nil? %>
-		      <li>
-		        <a href="/tools/connect" class="text-white">Learning Tools</a>
-		      </li>
-		      <li>
-		        <a href="/activities/packs" class="text-white">Explore Curriculum</a>
-		      </li>
-					<li>
-						<a href='/teacher-center' class="text-white">Teacher Center</a>
-					</li>
-		      <li>
-		        <a href="/about" class="text-white">About Us</a>
-		      </li>
-		      <li>
-						<a class="text-white" href="/session/new">Log In</a>
-		      </li>
-		      <li>
-						<a class="text-white" href="/account/new">Sign Up</a>
-		      </li>
-				<% else %>
-					<li>
-						<a href="/tools/connect" class="text-white">Learning Tools</a>
-					</li>
-					<li>
-						<a href="/teacher-center" class="text-white">Teacher Center</a>
-					</li>
-					<li>
-						<a href="https://support.quill.org/" class="text-white">Quill Support</a>
-					</li>
-				<% if current_user.teacher? %>
-					<li>
-						<a href="/teachers/classrooms/dashboard" class="text-white">My Dashboard</a>
-					</li>
-					<li>
-						<a href="/teachers/my_account" class="text-white">My Account</a>
-					</li>
-				<% end %>
-					<li>
-						<a href="/session" class="text-white">Logout</a>
-					</li>
-	      <% end %>
-	    </ul>
-	  </nav>
-	<% end %>
 </nav>
 
 <script>
