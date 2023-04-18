@@ -297,6 +297,11 @@ section.q-hero {
   background-position: center center;
   .navbar {
     background-color: initial;
+    .navbar-tooltip-trigger {
+      span {
+        color: #FFFFFF;
+      }
+    }
   }
   .header-section {
     display: flex;

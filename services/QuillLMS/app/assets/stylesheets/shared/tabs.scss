@@ -5,17 +5,17 @@
   width: 100%;
   li {
     a {
-      background: #06806B;
-      border-left: 1px solid #006150;
-      color: $white;
+      background: $quillgreenlight;
+      border-left: 1px solid #BAD6D1;
+      color: $quillgreenmedium;
       font-size: 14px;
       font-weight: 600;
       line-height: 41px;
       margin-top: 0px;
-      padding: 3px 30px 3px;
+      padding: 3px 24px 3px;
       text-decoration: none;
       &:hover {
-        background-color: #0E927C;
+        background-color: rgba(188, 220, 214, 1);
       }
 
       &.mobile {
@@ -34,10 +34,10 @@
 
     &.active {
       a {
-        background: $white;
+        background: $quillgreenmedium;
         border-bottom: none;
         border-left-width: 0;
-        color: #027360;
+        color: #FFFFFF;
         position: relative;
 
         &:after {
@@ -58,9 +58,7 @@
 }
 
 .tab-subnavigation-wrapper {
-  background: #fff;
-  border-bottom: 1px solid #cecece;
-  margin-top: -1px;
+  background: $quillgreenmedium;
   min-height: 48px;
   padding: 8px 0;
 
@@ -82,13 +80,14 @@
       }
       a {
         border-radius: 6px;
-        color: #3b3b3b;
+        color: #FFFFFF;
         font-size: 13px;
         height: 35px;
-        padding: 5px 12px;
+        padding: 5px 16px;
 
         &.active {
-          background: #e6e6e6;
+          background: #FFFFFF;
+          color: $quillgreenmedium;
         }
 
         .fa-external-link {
@@ -102,41 +101,42 @@
 }
 
 .student-reports-subnav.tab-subnavigation-wrapper {
-  margin-top: -1px;
-  $orange: #eda41b;
+  min-height: 44px;
+
+  ul {
+    display: flex;
+    align-items: center;
+    li {
+      padding: 0px 5px !important;
+    }
+  }
 
   a:not(.default) {
-    border: 1px solid $orange;
-    color: #875a12;
+    display: flex;
+    align-items: center;
+    height: auto;
+    background-color: rgba(255, 255, 255, 0.35);
+    color: white;
     &.active {
-      background: $orange;
-      color: white;
-
-      i, svg {
-        color: white;
+      background-color: #FFFFFF;
+      color: $quillgreenmedium;
+      .small-diamond-icon {
+        background-image: url("https://assets.quill.org/images/icons/green-diamond.svg");
       }
-
-      img {
-        filter: brightness(0) invert(1);
+      &:hover {
+        color: #FFFFFF;
+        .small-diamond-icon {
+          background-image: url("https://assets.quill.org/images/icons/white-diamond.svg");
+        }
       }
     }
-
-    i, svg {
-      color: $orange;
+    .small-diamond-icon {
+      background-image: url("https://assets.quill.org/images/icons/white-diamond.svg");
     }
 
     &:hover {
       text-decoration: none;
-      background: $orange;
-      color: white;
-
-      i, svg {
-        color: white;
-      }
-
-      img {
-        filter: brightness(0) invert(1);
-      }
+      background-color: rgba(255, 255, 255, 0.5);
     }
   }
 
@@ -161,6 +161,12 @@
 
   img {
     margin-right: 9px;
+  }
+}
+
+#student-reports-link {
+  a {
+    border-radius: 0px 8px 0px 0px;
   }
 }
 

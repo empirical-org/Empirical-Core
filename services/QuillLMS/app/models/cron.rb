@@ -42,7 +42,7 @@ class Cron
     # caching
     MaterializedViewRefreshWorker.perform_async
     RematchUpdatedQuestionsWorker.perform_async(date.beginning_of_day, date.end_of_day)
-    PreCacheAdminDashboardsWorker.perform_async
+    PreCachePremiumHubsWorker.perform_async
     PopulateAggregatedEvidenceActivityHealthsWorker.perform_async
     Question::TYPES.each { |type| RefreshQuestionCacheWorker.perform_async(type) }
   end

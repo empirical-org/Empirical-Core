@@ -60,7 +60,7 @@ class ProfilesController < ApplicationController
   def admin
     return redirect_to dashboard_teachers_classrooms_path if admin_impersonating_user?(@user)
 
-    redirect_to teachers_admin_dashboard_path
+    redirect_to teachers_premium_hub_path
   end
 
   def teacher

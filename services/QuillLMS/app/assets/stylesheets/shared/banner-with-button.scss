@@ -31,7 +31,7 @@
 }
 
 .premium-footer {
-  background-color: #DF9E3D;
+  background-color: $quillgoldmedium;
   color: white;
   padding: 32px 61px;
   .content-container {
@@ -74,7 +74,7 @@
     }
   }
   .explore-premium-button {
-    color: #DF9E3D;
+    color: $quillgoldmedium;
     background-color: white;
     font-weight: 700;
     font-size: 14px;

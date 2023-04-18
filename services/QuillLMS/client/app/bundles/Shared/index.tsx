@@ -156,7 +156,9 @@ export {
   infoIcon,
   closedLockIcon,
   openLockIcon,
-  networkIcon
+  networkIcon,
+  whiteDiamondIcon,
+  redDiamondIcon
 } from './images/index'
 
 export {

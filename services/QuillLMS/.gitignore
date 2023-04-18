@@ -72,3 +72,5 @@ nohup.out
 
 /cypress/screenshots
 /cypress/videos
+
+**/.DS_Store
