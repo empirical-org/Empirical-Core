@@ -41,9 +41,12 @@ jest.mock('../../../actions/analytics', () => ({
 }))
 
 const mockGetActivity = jest.fn()
+const mockGetTopicOptimalInfo = jest.fn()
 jest.mock('../../../actions/activities', () => ({
-  getActivity: mockGetActivity
+  getActivity: mockGetActivity,
+  getTopicOptimalInfo: mockGetTopicOptimalInfo
 }))
+
 
 jest.mock('string-strip-html', () => ({
   default: jest.fn(() => {
