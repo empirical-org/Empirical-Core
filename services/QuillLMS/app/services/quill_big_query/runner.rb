@@ -10,7 +10,7 @@ module QuillBigQuery
 
     def self.valid_schema?(json_body)
       json_body['schema']['fields'].respond_to?(:count) &&
-      json_body['rows'].respond_to?(:count)
+        json_body['rows'].respond_to?(:count)
     end
 
     # Params:

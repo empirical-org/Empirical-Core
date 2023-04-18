@@ -7,7 +7,7 @@ describe QuillBigQuery::Runner do
     it 'should floatify fields do' do
       fields = [
         {'name' => 'correct', 'type' => 'FLOAT'},
-        {'name' => 'incorrect', 'type' => 'INTEGER'},
+        {'name' => 'incorrect', 'type' => 'INTEGER'}
       ]
       input = [{ "correct" => "1", "incorrect" => 2, "percentage" => 3.0, foo: "1" }]
       expected_output = [{ "correct" => 1.0, "incorrect" => 2.0, "percentage" => 3.0, foo: "1" }]

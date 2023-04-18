@@ -4,6 +4,7 @@ require 'rails_helper'
 
 describe ProgressReports::DistrictConceptReports do
   let(:sample_prod_admin_id) { 3737095 }
+
   context 'stubbed' do
     let(:example_json) do
       {
@@ -33,8 +34,7 @@ describe ProgressReports::DistrictConceptReports do
               {"v"=>"479"},
               {"v"=>"300"},
               {"v"=>"61.0"}
-            ]
-          },
+          ]},
           {"f"=>[
               {"v"=>"Huntington Park Institute of Applied Medicine"},
               {"v"=>"Ariana Pinto"},
@@ -43,8 +43,7 @@ describe ProgressReports::DistrictConceptReports do
               {"v"=>"10"},
               {"v"=>"15"},
               {"v"=>"40.0"}
-            ]
-          },
+          ]},
           {"f"=>[
               {"v"=>"Huntington Park Institute of Applied Medicine"},
               {"v"=>"Jason Suarez"},
@@ -53,8 +52,7 @@ describe ProgressReports::DistrictConceptReports do
               {"v"=>"615"},
               {"v"=>"239"},
               {"v"=>"72.0"}
-            ]
-          }
+          ]}
         ],
         "totalBytesProcessed"=>"26242358705",
         "jobComplete"=>true,
