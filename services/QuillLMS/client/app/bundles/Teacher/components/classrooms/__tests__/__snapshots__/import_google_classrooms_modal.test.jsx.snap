@@ -679,6 +679,7 @@ exports[`ImportGoogleClassroomsModal component #handleClickImportClasses should 
                               }
                               onKeyDown={[Function]}
                             >
+                              <Noop />
                               <div
                                 className="dropdown css-2b097c-container"
                                 onKeyDown={[Function]}
@@ -821,6 +822,7 @@ exports[`ImportGoogleClassroomsModal component #handleClickImportClasses should 
                                     onMouseDown={[Function]}
                                     onTouchEnd={[Function]}
                                   >
+                                    <Noop />
                                     <div
                                       className="dropdown__control css-yk16xz-control"
                                       onMouseDown={[Function]}
@@ -942,6 +944,7 @@ exports[`ImportGoogleClassroomsModal component #handleClickImportClasses should 
                                             }
                                           }
                                         >
+                                          <Noop />
                                           <div
                                             className="dropdown__value-container css-g1d714-ValueContainer"
                                           >
@@ -1062,6 +1065,7 @@ exports[`ImportGoogleClassroomsModal component #handleClickImportClasses should 
                                                   }
                                                 }
                                               >
+                                                <Noop />
                                                 <div
                                                   className="dropdown__placeholder css-1wa3eu0-placeholder"
                                                 />
@@ -1185,6 +1189,7 @@ exports[`ImportGoogleClassroomsModal component #handleClickImportClasses should 
                                                   }
                                                 }
                                               >
+                                                <Noop />
                                                 <div
                                                   className="css-b8ldur-Input"
                                                 >
@@ -1389,6 +1394,7 @@ exports[`ImportGoogleClassroomsModal component #handleClickImportClasses should 
                                             }
                                           }
                                         >
+                                          <Noop />
                                           <div
                                             className="dropdown__indicators css-1hb7zxy-IndicatorsContainer"
                                           >
@@ -1507,6 +1513,7 @@ exports[`ImportGoogleClassroomsModal component #handleClickImportClasses should 
                                                   }
                                                 }
                                               >
+                                                <Noop />
                                                 <span
                                                   className="dropdown__indicator-separator css-1okebmr-indicatorSeparator"
                                                 />
@@ -1639,6 +1646,7 @@ exports[`ImportGoogleClassroomsModal component #handleClickImportClasses should 
                                                 onMouseDown={[Function]}
                                                 onTouchEnd={[Function]}
                                               >
+                                                <Noop />
                                                 <div
                                                   aria-hidden="true"
                                                   className="dropdown__indicator dropdown__dropdown-indicator css-tlfecz-indicatorContainer"
@@ -1666,6 +1674,7 @@ exports[`ImportGoogleClassroomsModal component #handleClickImportClasses should 
                                                         viewBox="0 0 20 20"
                                                         width={20}
                                                       >
+                                                        <Noop />
                                                         <svg
                                                           aria-hidden="true"
                                                           className="css-6q0nyr-Svg"
