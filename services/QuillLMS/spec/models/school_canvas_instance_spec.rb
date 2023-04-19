@@ -12,8 +12,9 @@
 #
 # Indexes
 #
-#  index_school_canvas_instances_on_canvas_instance_id  (canvas_instance_id)
-#  index_school_canvas_instances_on_school_id           (school_id)
+#  index_school_canvas_instances_on_canvas_instance_and_school  (canvas_instance_id,school_id) UNIQUE
+#  index_school_canvas_instances_on_canvas_instance_id          (canvas_instance_id)
+#  index_school_canvas_instances_on_school_id                   (school_id)
 #
 # Foreign Keys
 #
@@ -23,10 +24,14 @@
 require 'rails_helper'
 
 RSpec.describe SchoolCanvasInstance, type: :model do
-  let(:school_canvas_instance) { create(:school_canvas_instance) }
+  subject { create(:school_canvas_instance) }
 
-  it { expect(school_canvas_instance).to be_valid }
+  it { expect(subject).to be_valid }
 
   it { should belong_to(:canvas_instance) }
   it { should belong_to(:school) }
+
+  context 'uniqueness' do
+    it { expect { subject.dup.save!}.to raise_error ActiveRecord::RecordNotUnique }
+  end
 end

@@ -12,8 +12,9 @@
 #
 # Indexes
 #
-#  index_school_canvas_instances_on_canvas_instance_id  (canvas_instance_id)
-#  index_school_canvas_instances_on_school_id           (school_id)
+#  index_school_canvas_instances_on_canvas_instance_and_school  (canvas_instance_id,school_id) UNIQUE
+#  index_school_canvas_instances_on_canvas_instance_id          (canvas_instance_id)
+#  index_school_canvas_instances_on_school_id                   (school_id)
 #
 # Foreign Keys
 #

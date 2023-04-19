@@ -8003,6 +8003,13 @@ CREATE INDEX index_sales_stages_on_user_id ON public.sales_stages USING btree (u
 
 
 --
+-- Name: index_school_canvas_instances_on_canvas_instance_and_school; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE UNIQUE INDEX index_school_canvas_instances_on_canvas_instance_and_school ON public.school_canvas_instances USING btree (canvas_instance_id, school_id);
+
+
+--
 -- Name: index_school_canvas_instances_on_canvas_instance_id; Type: INDEX; Schema: public; Owner: -
 --
 
