@@ -28,6 +28,12 @@ module PublicPagesHelper
     "#{ENV['DEFAULT_URL']}/activities/packs/#{activity_id}"
   end
 
+  def evidence_article_link(article)
+    return article.external_link if article.external_link.present?
+
+    "/teacher-center/#{article.slug}"
+  end
+
   # rubocop:disable Layout/LineLength
   def ap_questions_and_answers
     [

@@ -1,5 +1,7 @@
 <% text_data = evidence_text_helper %>
 <% key = device == 'mobile' ? 'small'.to_sym : 'large'.to_sym %>
+<% evidence_handbook_link = "https://docsend.com/view/29vcfdqa5aupkmfp" %>
+
 <section class="tool-header">
   <%= render partial: 'pages/shared/navbar' %>
   <% @active_tab = 'Quill Reading for Evidence' %>
@@ -142,6 +144,28 @@
       </section>
     </section>
   </section>
+  <section class="banner-container">
+    <section class="evidence-teacher-handbook-banner">
+      <section class="information-section">
+        <h2>Quill Reading for Evidence Teacher Handbook</h2>
+        <p>Looking for support integrating Quill Reading for Evidence into your instruction? Our handbook for teachers using our newest literacy tool is packed with best practices and strategies--and it&apos;s FREE!</p>
+        <a class="quill-button focus-on-light small primary contained" href="<%= evidence_handbook_link %>" rel='noopener noreferrer' target="_blank">Get the Teacher Handbook <i class="fas fa-arrow-right"></i></a>
+      </section>
+      <img alt='Stack of papers with text "Quill Reading for Evidence Teacher Handbook"' src="https://assets.quill.org/images/evidence/evidence-teacher-handbook.svg"></img>
+    </section>
+  </section>
+  <div class="evidence-preview-card-container container">
+    <% @feature_evidence_articles.map do |article| %>
+      <a class="preview-card-link teal focus-on-light" href="<%= evidence_article_link(article) %>" rel='noopener noreferrer' target="_blank">
+        <div class="preview-card">
+          <div>
+            <%= sanitize article.preview_card_content %>
+          </div>
+        </div>
+        <button class="quill-button fun contained primary focus-on-light" href="<%= evidence_article_link(article) %>" rel="noopener noreferrer" target="_blank">Read</button>
+      </a>
+    <% end %>
+  </div>
   <div id="q-and-a">
     <%= render partial: 'pages/shared/questions_and_answers_section', locals: { questions_and_answers: evidence_tool_questions_and_answers , button_type: 'text', background_color: 'light' } %>
   </div>
