@@ -2622,40 +2622,6 @@ ALTER SEQUENCE public.evidence_prompt_text_batches_id_seq OWNED BY public.eviden
 
 
 --
--- Name: evidence_prompt_text_generations; Type: TABLE; Schema: public; Owner: -
---
-
-CREATE TABLE public.evidence_prompt_text_generations (
-    id bigint NOT NULL,
-    generator character varying NOT NULL,
-    source_text character varying,
-    ml_prompt_text text,
-    metadata jsonb,
-    created_at timestamp(6) without time zone NOT NULL,
-    updated_at timestamp(6) without time zone NOT NULL
-);
-
-
---
--- Name: evidence_prompt_text_generations_id_seq; Type: SEQUENCE; Schema: public; Owner: -
---
-
-CREATE SEQUENCE public.evidence_prompt_text_generations_id_seq
-    START WITH 1
-    INCREMENT BY 1
-    NO MINVALUE
-    NO MAXVALUE
-    CACHE 1;
-
-
---
--- Name: evidence_prompt_text_generations_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: -
---
-
-ALTER SEQUENCE public.evidence_prompt_text_generations_id_seq OWNED BY public.evidence_prompt_text_generations.id;
-
-
---
 -- Name: evidence_prompt_texts; Type: TABLE; Schema: public; Owner: -
 --
 
@@ -5566,13 +5532,6 @@ ALTER TABLE ONLY public.evidence_prompt_text_batches ALTER COLUMN id SET DEFAULT
 
 
 --
--- Name: evidence_prompt_text_generations id; Type: DEFAULT; Schema: public; Owner: -
---
-
-ALTER TABLE ONLY public.evidence_prompt_text_generations ALTER COLUMN id SET DEFAULT nextval('public.evidence_prompt_text_generations_id_seq'::regclass);
-
-
---
 -- Name: evidence_prompt_texts id; Type: DEFAULT; Schema: public; Owner: -
 --
 
@@ -6597,14 +6556,6 @@ ALTER TABLE ONLY public.evidence_prompt_healths
 
 ALTER TABLE ONLY public.evidence_prompt_text_batches
     ADD CONSTRAINT evidence_prompt_text_batches_pkey PRIMARY KEY (id);
-
-
---
--- Name: evidence_prompt_text_generations evidence_prompt_text_generations_pkey; Type: CONSTRAINT; Schema: public; Owner: -
---
-
-ALTER TABLE ONLY public.evidence_prompt_text_generations
-    ADD CONSTRAINT evidence_prompt_text_generations_pkey PRIMARY KEY (id);
 
 
 --
@@ -9902,12 +9853,12 @@ INSERT INTO "schema_migrations" (version) VALUES
 ('20230323114351'),
 ('20230328155819'),
 ('20230405140349'),
-('20230413215936'),
-('20230413215937'),
-('20230413215938'),
 ('20230411145111'),
 ('20230411145241'),
 ('20230413140558'),
+('20230413215936'),
+('20230413215937'),
+('20230413215938'),
 ('20230414164818');
 
 
