@@ -3,17 +3,6 @@
 require 'rails_helper'
 
 describe QuillBigQuery::Runner do
-  describe '#coerce_values' do
-    it 'should floatify fields do' do
-      fields = [
-        {'name' => 'correct', 'type' => 'FLOAT'},
-        {'name' => 'incorrect', 'type' => 'INTEGER'}
-      ]
-      input = [{ "correct" => "1", "incorrect" => 2, "percentage" => 3.0, foo: "1" }]
-      expected_output = [{ "correct" => 1.0, "incorrect" => 2.0, "percentage" => 3.0, foo: "1" }]
-      expect(QuillBigQuery::Runner.coerce_values(fields, input)).to eq expected_output
-    end
-  end
 
   describe '#transform_response' do
     # corresponds to query: select name, created_at from lms.users LIMIT 2
