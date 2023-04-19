@@ -17,7 +17,7 @@ export const WEBINARS = 'Webinars'
 export const VIDEO_TUTORIALS = 'Video tutorials'
 export const BEST_PRACTICES = 'Best practices'
 export const TEACHER_MATERIALS = 'Teacher materials'
-export const USING_QUILL_FOR_READING_COMPREHENSION = "Using quill for reading comprehension"
+export const WRITING_FOR_LEARNING = "Writing for learning"
 export const CASE_STUDIES = "Case studies"
 export const TWITTER_LOVE = "Twitter love"
 
@@ -36,7 +36,7 @@ const TEAL = 'teal'
 // colors just cycle through topics linearly then repeat, but we need to store them for reference in search pages etc
 export const BLOG_POST_TO_COLOR = {
   [WHATS_NEW]: GREEN,
-  [USING_QUILL_FOR_READING_COMPREHENSION]: TEAL,
+  [WRITING_FOR_LEARNING]: TEAL,
   [GETTING_STARTED]: BLUE,
   [BEST_PRACTICES]: GOLD,
   [WEBINARS]: RED,

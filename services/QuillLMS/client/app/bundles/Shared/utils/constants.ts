@@ -38,3 +38,5 @@ export const NOT_LISTED = 'not listed'
 export const NO_SCHOOL_SELECTED = 'no school selected'
 
 export const PENDING = 'Pending'
+
+export const EVIDENCE_HANDBOOK_LINK = 'https://docsend.com/view/29vcfdqa5aupkmfp'

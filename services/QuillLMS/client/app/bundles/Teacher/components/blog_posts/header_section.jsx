@@ -1,8 +1,8 @@
 import qs from 'qs'
 import * as React from 'react'
 
-import { TEACHER_CENTER, TEACHER_CENTER_SLUG, USING_QUILL_FOR_READING_COMPREHENSION } from './blog_post_constants'
-import { evidenceHandbookIcon } from '../../../Shared'
+import { TEACHER_CENTER, TEACHER_CENTER_SLUG } from './blog_post_constants'
+import { evidenceHandbookIcon, EVIDENCE_HANDBOOK_LINK } from '../../../Shared'
 
 const searchTokens = [
   'getting started',
@@ -24,13 +24,6 @@ const SearchToken = ({ text }) => {
 
 export const HeaderSection = ({ title, subtitle, showCancelSearchButton, query }) => {
 
-  function renderTitle() {
-    if(title === USING_QUILL_FOR_READING_COMPREHENSION) {
-      return title.replace('quill', 'Quill')
-    }
-    return title;
-  }
-
   function renderEvidenceHandbookBanner() {
     if(title !== TEACHER_CENTER) {
       return <span />
@@ -40,7 +33,7 @@ export const HeaderSection = ({ title, subtitle, showCancelSearchButton, query }
         <section className="information-section">
           <h2>Quill Reading for Evidence Teacher Handbook</h2>
           <p>Looking for support integrating Quill Reading for Evidence into your instruction? Our handbook for teachers using our newest literacy tool is packed with best practices and strategies--and it's FREE!</p>
-          <a className="quill-button focus-on-light small primary contained" href={`${process.env.DEFAULT_URL}/`}>Get the Teacher Handbook <i className="fa fa-arrow-up-right" /></a>
+          <a className="quill-button focus-on-light small primary contained" href={EVIDENCE_HANDBOOK_LINK} rel='noopener noreferrer' target="_blank">Get the Teacher Handbook <i className="fas fa-arrow-right" /></a>
         </section>
         <img alt={evidenceHandbookIcon.alt} src={evidenceHandbookIcon.src} />
       </section>
@@ -49,7 +42,7 @@ export const HeaderSection = ({ title, subtitle, showCancelSearchButton, query }
   return(
     <div className="header-section">
       <div className="text">
-        <h1>{renderTitle()}</h1>
+        <h1>{title}</h1>
         <p>{subtitle}</p>
       </div>
       <form action={SEARCH_LINK}>
