@@ -43,10 +43,11 @@ describe PublicPagesHelper do
 
   describe '#evidence_article_url' do
     let(:blog_post1) { create(:blog_post, external_link: 'test_url') }
-    let(:blog_post2) { create(:blog_post, slug: 'test-slug') }
+    let(:blog_post2) { create(:blog_post) }
+
     it('should return the expected url path string') do
       expect(helper.evidence_article_url(blog_post1)).to eq('test_url')
-      expect(helper.evidence_article_url(blog_post2)).to eq('/teacher-center/test-slug')
+      expect(helper.evidence_article_url(blog_post2)).to eq('/teacher-center/post-title-2')
     end
   end
 end
