@@ -13,6 +13,8 @@ module PublicPagesHelper
   AP_WRITINGS_SKILLS_UNIT_TEMPLATE_ID = 193
   SPRING_BOARD_SKILLS_UNIT_TEMPLATE_ID = 253
 
+  EVIDENCE_HANDBOOK_URL = "https://docsend.com/view/29vcfdqa5aupkmfp"
+
   def should_render_react_component
     !!(current_user && current_user.email != Demo::ReportDemoCreator::EMAIL)
   end
@@ -28,7 +30,7 @@ module PublicPagesHelper
     "#{ENV['DEFAULT_URL']}/activities/packs/#{activity_id}"
   end
 
-  def evidence_article_link(article)
+  def evidence_article_url(article)
     return article.external_link if article.external_link.present?
 
     "/teacher-center/#{article.slug}"

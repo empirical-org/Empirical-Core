@@ -4,7 +4,6 @@ exports[`Container component should render 1`] = `
 <ContextProvider
   value={
     Object {
-      "getServerState": undefined,
       "store": Object {
         "dispatch": [Function],
         "getAction": [Function],
@@ -21,6 +20,7 @@ exports[`Container component should render 1`] = `
         "handleChangeWrapper": [Function],
         "isSubscribed": [Function],
         "notifyNestedSubs": [Function],
+        "onStateChange": [Function],
         "trySubscribe": [Function],
         "tryUnsubscribe": [Function],
       },

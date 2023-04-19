@@ -3260,7 +3260,7 @@ exports[`ActivityTable component renders if the current user created the unit 1`
                                         <div
                                           className="rdtPicker"
                                         >
-                                          <i
+                                          <a
                                             isValidDate={[Function]}
                                             moment={[Function]}
                                             navigate={[Function]}
@@ -3818,7 +3818,7 @@ exports[`ActivityTable component renders if the current user created the unit 1`
                                                 </tfoot>
                                               </table>
                                             </div>
-                                          </i>
+                                          </a>
                                         </div>
                                       </div>
                                     </n>
@@ -3970,7 +3970,7 @@ exports[`ActivityTable component renders if the current user created the unit 1`
                                         <div
                                           className="rdtPicker"
                                         >
-                                          <i
+                                          <a
                                             isValidDate={[Function]}
                                             moment={[Function]}
                                             navigate={[Function]}
@@ -4528,7 +4528,7 @@ exports[`ActivityTable component renders if the current user created the unit 1`
                                                 </tfoot>
                                               </table>
                                             </div>
-                                          </i>
+                                          </a>
                                         </div>
                                       </div>
                                     </n>
@@ -5041,7 +5041,7 @@ exports[`ActivityTable component renders if the current user created the unit 1`
                                         <div
                                           className="rdtPicker"
                                         >
-                                          <i
+                                          <a
                                             isValidDate={[Function]}
                                             moment={[Function]}
                                             navigate={[Function]}
@@ -5599,7 +5599,7 @@ exports[`ActivityTable component renders if the current user created the unit 1`
                                                 </tfoot>
                                               </table>
                                             </div>
-                                          </i>
+                                          </a>
                                         </div>
                                       </div>
                                     </n>
@@ -5734,7 +5734,7 @@ exports[`ActivityTable component renders if the current user created the unit 1`
                                         <div
                                           className="rdtPicker"
                                         >
-                                          <i
+                                          <a
                                             isValidDate={[Function]}
                                             moment={[Function]}
                                             navigate={[Function]}
@@ -6292,7 +6292,7 @@ exports[`ActivityTable component renders if the current user created the unit 1`
                                                 </tfoot>
                                               </table>
                                             </div>
-                                          </i>
+                                          </a>
                                         </div>
                                       </div>
                                     </n>
@@ -6788,7 +6788,7 @@ exports[`ActivityTable component renders if the current user created the unit 1`
                                         <div
                                           className="rdtPicker"
                                         >
-                                          <i
+                                          <a
                                             isValidDate={[Function]}
                                             moment={[Function]}
                                             navigate={[Function]}
@@ -7346,7 +7346,7 @@ exports[`ActivityTable component renders if the current user created the unit 1`
                                                 </tfoot>
                                               </table>
                                             </div>
-                                          </i>
+                                          </a>
                                         </div>
                                       </div>
                                     </n>
@@ -7481,7 +7481,7 @@ exports[`ActivityTable component renders if the current user created the unit 1`
                                         <div
                                           className="rdtPicker"
                                         >
-                                          <i
+                                          <a
                                             isValidDate={[Function]}
                                             moment={[Function]}
                                             navigate={[Function]}
@@ -8039,7 +8039,7 @@ exports[`ActivityTable component renders if the current user created the unit 1`
                                                 </tfoot>
                                               </table>
                                             </div>
-                                          </i>
+                                          </a>
                                         </div>
                                       </div>
                                     </n>
@@ -8535,7 +8535,7 @@ exports[`ActivityTable component renders if the current user created the unit 1`
                                         <div
                                           className="rdtPicker"
                                         >
-                                          <i
+                                          <a
                                             isValidDate={[Function]}
                                             moment={[Function]}
                                             navigate={[Function]}
@@ -9093,7 +9093,7 @@ exports[`ActivityTable component renders if the current user created the unit 1`
                                                 </tfoot>
                                               </table>
                                             </div>
-                                          </i>
+                                          </a>
                                         </div>
                                       </div>
                                     </n>
@@ -9228,7 +9228,7 @@ exports[`ActivityTable component renders if the current user created the unit 1`
                                         <div
                                           className="rdtPicker"
                                         >
-                                          <i
+                                          <a
                                             isValidDate={[Function]}
                                             moment={[Function]}
                                             navigate={[Function]}
@@ -9786,7 +9786,7 @@ exports[`ActivityTable component renders if the current user created the unit 1`
                                                 </tfoot>
                                               </table>
                                             </div>
-                                          </i>
+                                          </a>
                                         </div>
                                       </div>
                                     </n>
@@ -10282,7 +10282,7 @@ exports[`ActivityTable component renders if the current user created the unit 1`
                                         <div
                                           className="rdtPicker"
                                         >
-                                          <i
+                                          <a
                                             isValidDate={[Function]}
                                             moment={[Function]}
                                             navigate={[Function]}
@@ -10840,7 +10840,7 @@ exports[`ActivityTable component renders if the current user created the unit 1`
                                                 </tfoot>
                                               </table>
                                             </div>
-                                          </i>
+                                          </a>
                                         </div>
                                       </div>
                                     </n>
@@ -10975,7 +10975,7 @@ exports[`ActivityTable component renders if the current user created the unit 1`
                                         <div
                                           className="rdtPicker"
                                         >
-                                          <i
+                                          <a
                                             isValidDate={[Function]}
                                             moment={[Function]}
                                             navigate={[Function]}
@@ -11533,7 +11533,7 @@ exports[`ActivityTable component renders if the current user created the unit 1`
                                                 </tfoot>
                                               </table>
                                             </div>
-                                          </i>
+                                          </a>
                                         </div>
                                       </div>
                                     </n>

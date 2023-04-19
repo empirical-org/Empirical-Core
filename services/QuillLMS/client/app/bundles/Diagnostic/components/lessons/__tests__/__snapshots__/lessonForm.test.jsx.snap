@@ -237,7 +237,8 @@ exports[`LessonForm component renderSearchBox renders a SelectSearch component w
     htmlFor="all-questions"
   >
     All Questions
-    <Memo(SelectSearch)
+    <Memo(ForwardRef)
+      filterOptions={[Function]}
       id="all-questions"
       key="questions"
       onChange={[Function]}

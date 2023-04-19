@@ -9347,7 +9347,6 @@ exports[`TeacherGeneralAccountInfo component should render when the school is no
                     }
                     onKeyDown={[Function]}
                   >
-                    <Noop />
                     <div
                       className="dropdown css-2b097c-container"
                       onKeyDown={[Function]}
@@ -13004,7 +13003,6 @@ exports[`TeacherGeneralAccountInfo component should render when the school is no
                           onMouseDown={[Function]}
                           onTouchEnd={[Function]}
                         >
-                          <Noop />
                           <div
                             className="dropdown__control css-yk16xz-control"
                             onMouseDown={[Function]}
@@ -16640,7 +16638,6 @@ exports[`TeacherGeneralAccountInfo component should render when the school is no
                                   }
                                 }
                               >
-                                <Noop />
                                 <div
                                   className="dropdown__value-container css-g1d714-ValueContainer"
                                 >
@@ -20275,7 +20272,6 @@ exports[`TeacherGeneralAccountInfo component should render when the school is no
                                         }
                                       }
                                     >
-                                      <Noop />
                                       <div
                                         className="dropdown__placeholder css-1wa3eu0-placeholder"
                                       />
@@ -22155,7 +22151,6 @@ exports[`TeacherGeneralAccountInfo component should render when the school is no
                                         }
                                       }
                                     >
-                                      <Noop />
                                       <div
                                         className="css-b8ldur-Input"
                                       >
@@ -25874,7 +25869,6 @@ exports[`TeacherGeneralAccountInfo component should render when the school is no
                                   }
                                 }
                               >
-                                <Noop />
                                 <div
                                   className="dropdown__indicators css-1hb7zxy-IndicatorsContainer"
                                 >
@@ -29507,7 +29501,6 @@ exports[`TeacherGeneralAccountInfo component should render when the school is no
                                         }
                                       }
                                     >
-                                      <Noop />
                                       <span
                                         className="dropdown__indicator-separator css-1okebmr-indicatorSeparator"
                                       />
@@ -33154,7 +33147,6 @@ exports[`TeacherGeneralAccountInfo component should render when the school is no
                                       onMouseDown={[Function]}
                                       onTouchEnd={[Function]}
                                     >
-                                      <Noop />
                                       <div
                                         aria-hidden="true"
                                         className="dropdown__indicator dropdown__dropdown-indicator css-tlfecz-indicatorContainer"
@@ -33182,7 +33174,6 @@ exports[`TeacherGeneralAccountInfo component should render when the school is no
                                               viewBox="0 0 20 20"
                                               width={20}
                                             >
-                                              <Noop />
                                               <svg
                                                 aria-hidden="true"
                                                 className="css-6q0nyr-Svg"
@@ -33561,7 +33552,6 @@ exports[`TeacherGeneralAccountInfo component should render when the school is no
                     }
                     onKeyDown={[Function]}
                   >
-                    <Noop />
                     <div
                       className="dropdown css-2b097c-container"
                       onKeyDown={[Function]}
@@ -33751,7 +33741,6 @@ exports[`TeacherGeneralAccountInfo component should render when the school is no
                           onMouseDown={[Function]}
                           onTouchEnd={[Function]}
                         >
-                          <Noop />
                           <div
                             className="dropdown__control css-yk16xz-control"
                             onMouseDown={[Function]}
@@ -33920,7 +33909,6 @@ exports[`TeacherGeneralAccountInfo component should render when the school is no
                                   }
                                 }
                               >
-                                <Noop />
                                 <div
                                   className="dropdown__value-container dropdown__value-container--has-value css-g1d714-ValueContainer"
                                 >
@@ -34096,7 +34084,6 @@ exports[`TeacherGeneralAccountInfo component should render when the school is no
                                         }
                                       }
                                     >
-                                      <Noop />
                                       <div
                                         className="dropdown__single-value css-1uccc91-singleValue"
                                       >
@@ -34246,7 +34233,6 @@ exports[`TeacherGeneralAccountInfo component should render when the school is no
                                         }
                                       }
                                     >
-                                      <Noop />
                                       <div
                                         className="css-b8ldur-Input"
                                       >
@@ -34498,7 +34484,6 @@ exports[`TeacherGeneralAccountInfo component should render when the school is no
                                   }
                                 }
                               >
-                                <Noop />
                                 <div
                                   className="dropdown__indicators css-1hb7zxy-IndicatorsContainer"
                                 >
@@ -34664,7 +34649,6 @@ exports[`TeacherGeneralAccountInfo component should render when the school is no
                                         }
                                       }
                                     >
-                                      <Noop />
                                       <span
                                         className="dropdown__indicator-separator css-1okebmr-indicatorSeparator"
                                       />
@@ -34844,7 +34828,6 @@ exports[`TeacherGeneralAccountInfo component should render when the school is no
                                       onMouseDown={[Function]}
                                       onTouchEnd={[Function]}
                                     >
-                                      <Noop />
                                       <div
                                         aria-hidden="true"
                                         className="dropdown__indicator dropdown__dropdown-indicator css-tlfecz-indicatorContainer"
@@ -34872,7 +34855,6 @@ exports[`TeacherGeneralAccountInfo component should render when the school is no
                                               viewBox="0 0 20 20"
                                               width={20}
                                             >
-                                              <Noop />
                                               <svg
                                                 aria-hidden="true"
                                                 className="css-6q0nyr-Svg"
@@ -44296,7 +44278,6 @@ exports[`TeacherGeneralAccountInfo component should render when the school is no
                     }
                     onKeyDown={[Function]}
                   >
-                    <Noop />
                     <div
                       className="dropdown css-2b097c-container"
                       onKeyDown={[Function]}
@@ -47953,7 +47934,6 @@ exports[`TeacherGeneralAccountInfo component should render when the school is no
                           onMouseDown={[Function]}
                           onTouchEnd={[Function]}
                         >
-                          <Noop />
                           <div
                             className="dropdown__control css-yk16xz-control"
                             onMouseDown={[Function]}
@@ -51589,7 +51569,6 @@ exports[`TeacherGeneralAccountInfo component should render when the school is no
                                   }
                                 }
                               >
-                                <Noop />
                                 <div
                                   className="dropdown__value-container css-g1d714-ValueContainer"
                                 >
@@ -55224,7 +55203,6 @@ exports[`TeacherGeneralAccountInfo component should render when the school is no
                                         }
                                       }
                                     >
-                                      <Noop />
                                       <div
                                         className="dropdown__placeholder css-1wa3eu0-placeholder"
                                       />
@@ -57104,7 +57082,6 @@ exports[`TeacherGeneralAccountInfo component should render when the school is no
                                         }
                                       }
                                     >
-                                      <Noop />
                                       <div
                                         className="css-b8ldur-Input"
                                       >
@@ -60823,7 +60800,6 @@ exports[`TeacherGeneralAccountInfo component should render when the school is no
                                   }
                                 }
                               >
-                                <Noop />
                                 <div
                                   className="dropdown__indicators css-1hb7zxy-IndicatorsContainer"
                                 >
@@ -64456,7 +64432,6 @@ exports[`TeacherGeneralAccountInfo component should render when the school is no
                                         }
                                       }
                                     >
-                                      <Noop />
                                       <span
                                         className="dropdown__indicator-separator css-1okebmr-indicatorSeparator"
                                       />
@@ -68103,7 +68078,6 @@ exports[`TeacherGeneralAccountInfo component should render when the school is no
                                       onMouseDown={[Function]}
                                       onTouchEnd={[Function]}
                                     >
-                                      <Noop />
                                       <div
                                         aria-hidden="true"
                                         className="dropdown__indicator dropdown__dropdown-indicator css-tlfecz-indicatorContainer"
@@ -68131,7 +68105,6 @@ exports[`TeacherGeneralAccountInfo component should render when the school is no
                                               viewBox="0 0 20 20"
                                               width={20}
                                             >
-                                              <Noop />
                                               <svg
                                                 aria-hidden="true"
                                                 className="css-6q0nyr-Svg"
@@ -68510,7 +68483,6 @@ exports[`TeacherGeneralAccountInfo component should render when the school is no
                     }
                     onKeyDown={[Function]}
                   >
-                    <Noop />
                     <div
                       className="dropdown css-2b097c-container"
                       onKeyDown={[Function]}
@@ -68700,7 +68672,6 @@ exports[`TeacherGeneralAccountInfo component should render when the school is no
                           onMouseDown={[Function]}
                           onTouchEnd={[Function]}
                         >
-                          <Noop />
                           <div
                             className="dropdown__control css-yk16xz-control"
                             onMouseDown={[Function]}
@@ -68869,7 +68840,6 @@ exports[`TeacherGeneralAccountInfo component should render when the school is no
                                   }
                                 }
                               >
-                                <Noop />
                                 <div
                                   className="dropdown__value-container dropdown__value-container--has-value css-g1d714-ValueContainer"
                                 >
@@ -69045,7 +69015,6 @@ exports[`TeacherGeneralAccountInfo component should render when the school is no
                                         }
                                       }
                                     >
-                                      <Noop />
                                       <div
                                         className="dropdown__single-value css-1uccc91-singleValue"
                                       >
@@ -69195,7 +69164,6 @@ exports[`TeacherGeneralAccountInfo component should render when the school is no
                                         }
                                       }
                                     >
-                                      <Noop />
                                       <div
                                         className="css-b8ldur-Input"
                                       >
@@ -69447,7 +69415,6 @@ exports[`TeacherGeneralAccountInfo component should render when the school is no
                                   }
                                 }
                               >
-                                <Noop />
                                 <div
                                   className="dropdown__indicators css-1hb7zxy-IndicatorsContainer"
                                 >
@@ -69613,7 +69580,6 @@ exports[`TeacherGeneralAccountInfo component should render when the school is no
                                         }
                                       }
                                     >
-                                      <Noop />
                                       <span
                                         className="dropdown__indicator-separator css-1okebmr-indicatorSeparator"
                                       />
@@ -69793,7 +69759,6 @@ exports[`TeacherGeneralAccountInfo component should render when the school is no
                                       onMouseDown={[Function]}
                                       onTouchEnd={[Function]}
                                     >
-                                      <Noop />
                                       <div
                                         aria-hidden="true"
                                         className="dropdown__indicator dropdown__dropdown-indicator css-tlfecz-indicatorContainer"
@@ -69821,7 +69786,6 @@ exports[`TeacherGeneralAccountInfo component should render when the school is no
                                               viewBox="0 0 20 20"
                                               width={20}
                                             >
-                                              <Noop />
                                               <svg
                                                 aria-hidden="true"
                                                 className="css-6q0nyr-Svg"

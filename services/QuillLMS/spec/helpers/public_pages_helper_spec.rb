@@ -34,10 +34,19 @@ describe PublicPagesHelper do
   end
 
   describe '#featured_activity_url' do
-    it('should return the expect url path string') do
+    it('should return the expected url path string') do
       expect(helper.featured_activity_url(PublicPagesHelper::STARTER_DIAGNOSTIC_UNIT_TEMPLATE_ID)).to eq("#{ENV['DEFAULT_URL']}/activities/packs/#{PublicPagesHelper::STARTER_DIAGNOSTIC_UNIT_TEMPLATE_ID}")
       expect(helper.featured_activity_url(PublicPagesHelper::INTERMEDIATE_DIAGNOSTIC_UNIT_TEMPLATE_ID)).to eq("#{ENV['DEFAULT_URL']}/activities/packs/#{PublicPagesHelper::INTERMEDIATE_DIAGNOSTIC_UNIT_TEMPLATE_ID}")
       expect(helper.featured_activity_url(PublicPagesHelper::ELL_ADVANCED_DIAGNOSTIC_UNIT_TEMPLATE_ID)).to eq("#{ENV['DEFAULT_URL']}/activities/packs/#{PublicPagesHelper::ELL_ADVANCED_DIAGNOSTIC_UNIT_TEMPLATE_ID}")
+    end
+  end
+
+  describe '#evidence_article_url' do
+    let(:blog_post1) { create(:blog_post, external_link: 'test_url') }
+    let(:blog_post2) { create(:blog_post, slug: 'test-slug') }
+    it('should return the expected url path string') do
+      expect(helper.evidence_article_url(blog_post1)).to eq('test_url')
+      expect(helper.evidence_article_url(blog_post2)).to eq('/teacher-center/test-slug')
     end
   end
 end

@@ -393,7 +393,7 @@ class PagesController < ApplicationController
   def evidence_tool
     @title = 'Quill Reading for Evidence | Use a text to write with evidence'
     @description = 'Provide your students with nonfiction texts paired with AI-powered writing prompts, instead of multiple-choice questions, to enable deeper thinking.'
-    @feature_evidence_articles = BlogPost.where(topic: BlogPost::WRITING_FOR_LEARNING).order(created_at: :desc).limit(4)
+    @featured_evidence_articles = BlogPost.where(topic: BlogPost::WRITING_FOR_LEARNING).order(created_at: :desc).limit(4)
   end
 
   def activities
