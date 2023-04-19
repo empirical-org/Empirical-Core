@@ -1,17 +1,17 @@
 # frozen_string_literal: true
 
-class CreateSchoolCanvasInstances < ActiveRecord::Migration[6.1]
+class CreateCanvasInstanceSchools < ActiveRecord::Migration[6.1]
   def change
-    create_table :school_canvas_instances do |t|
+    create_table :canvas_instance_schools do |t|
       t.references :school, foreign_key: true, null: false
       t.references :canvas_instance, foreign_key: true, null: false
 
       t.timestamps
     end
 
-    add_index :school_canvas_instances,
+    add_index :canvas_instance_schools,
       [:canvas_instance_id, :school_id],
-      name: :index_school_canvas_instances_on_canvas_instance_and_school,
+      name: :index_canvas_instance_schools_on_canvas_instance_and_school,
       unique: true
   end
 end

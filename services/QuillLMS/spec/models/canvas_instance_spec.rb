@@ -20,8 +20,8 @@ RSpec.describe CanvasInstance, type: :model do
 
   it { expect(subject).to be_valid }
 
-  it { should have_many(:school_canvas_instances).dependent(:destroy) }
-  it { should have_many(:schools).through(:school_canvas_instances) }
+  it { should have_many(:canvas_instance_schools).dependent(:destroy) }
+  it { should have_many(:schools).through(:canvas_instance_schools) }
 
   it { should have_many(:canvas_accounts).dependent(:destroy) }
   it { should have_many(:users).through(:canvas_accounts) }

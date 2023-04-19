@@ -1055,6 +1055,38 @@ ALTER SEQUENCE public.canvas_configs_id_seq OWNED BY public.canvas_configs.id;
 
 
 --
+-- Name: canvas_instance_schools; Type: TABLE; Schema: public; Owner: -
+--
+
+CREATE TABLE public.canvas_instance_schools (
+    id bigint NOT NULL,
+    school_id bigint NOT NULL,
+    canvas_instance_id bigint NOT NULL,
+    created_at timestamp(6) without time zone NOT NULL,
+    updated_at timestamp(6) without time zone NOT NULL
+);
+
+
+--
+-- Name: canvas_instance_schools_id_seq; Type: SEQUENCE; Schema: public; Owner: -
+--
+
+CREATE SEQUENCE public.canvas_instance_schools_id_seq
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+
+--
+-- Name: canvas_instance_schools_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: -
+--
+
+ALTER SEQUENCE public.canvas_instance_schools_id_seq OWNED BY public.canvas_instance_schools.id;
+
+
+--
 -- Name: canvas_instances; Type: TABLE; Schema: public; Owner: -
 --
 
@@ -3693,38 +3725,6 @@ CREATE TABLE public.schema_migrations (
 
 
 --
--- Name: school_canvas_instances; Type: TABLE; Schema: public; Owner: -
---
-
-CREATE TABLE public.school_canvas_instances (
-    id bigint NOT NULL,
-    school_id bigint NOT NULL,
-    canvas_instance_id bigint NOT NULL,
-    created_at timestamp(6) without time zone NOT NULL,
-    updated_at timestamp(6) without time zone NOT NULL
-);
-
-
---
--- Name: school_canvas_instances_id_seq; Type: SEQUENCE; Schema: public; Owner: -
---
-
-CREATE SEQUENCE public.school_canvas_instances_id_seq
-    START WITH 1
-    INCREMENT BY 1
-    NO MINVALUE
-    NO MAXVALUE
-    CACHE 1;
-
-
---
--- Name: school_canvas_instances_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: -
---
-
-ALTER SEQUENCE public.school_canvas_instances_id_seq OWNED BY public.school_canvas_instances.id;
-
-
---
 -- Name: school_subscriptions; Type: TABLE; Schema: public; Owner: -
 --
 
@@ -5124,6 +5124,13 @@ ALTER TABLE ONLY public.canvas_configs ALTER COLUMN id SET DEFAULT nextval('publ
 
 
 --
+-- Name: canvas_instance_schools id; Type: DEFAULT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY public.canvas_instance_schools ALTER COLUMN id SET DEFAULT nextval('public.canvas_instance_schools_id_seq'::regclass);
+
+
+--
 -- Name: canvas_instances id; Type: DEFAULT; Schema: public; Owner: -
 --
 
@@ -5642,13 +5649,6 @@ ALTER TABLE ONLY public.sales_stages ALTER COLUMN id SET DEFAULT nextval('public
 
 
 --
--- Name: school_canvas_instances id; Type: DEFAULT; Schema: public; Owner: -
---
-
-ALTER TABLE ONLY public.school_canvas_instances ALTER COLUMN id SET DEFAULT nextval('public.school_canvas_instances_id_seq'::regclass);
-
-
---
 -- Name: school_subscriptions id; Type: DEFAULT; Schema: public; Owner: -
 --
 
@@ -6083,6 +6083,14 @@ ALTER TABLE ONLY public.canvas_accounts
 
 ALTER TABLE ONLY public.canvas_configs
     ADD CONSTRAINT canvas_configs_pkey PRIMARY KEY (id);
+
+
+--
+-- Name: canvas_instance_schools canvas_instance_schools_pkey; Type: CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY public.canvas_instance_schools
+    ADD CONSTRAINT canvas_instance_schools_pkey PRIMARY KEY (id);
 
 
 --
@@ -6686,14 +6694,6 @@ ALTER TABLE ONLY public.schema_migrations
 
 
 --
--- Name: school_canvas_instances school_canvas_instances_pkey; Type: CONSTRAINT; Schema: public; Owner: -
---
-
-ALTER TABLE ONLY public.school_canvas_instances
-    ADD CONSTRAINT school_canvas_instances_pkey PRIMARY KEY (id);
-
-
---
 -- Name: school_subscriptions school_subscriptions_pkey; Type: CONSTRAINT; Schema: public; Owner: -
 --
 
@@ -7279,6 +7279,27 @@ CREATE INDEX index_canvas_accounts_on_user_id ON public.canvas_accounts USING bt
 --
 
 CREATE INDEX index_canvas_configs_on_canvas_instance_id ON public.canvas_configs USING btree (canvas_instance_id);
+
+
+--
+-- Name: index_canvas_instance_schools_on_canvas_instance_and_school; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE UNIQUE INDEX index_canvas_instance_schools_on_canvas_instance_and_school ON public.canvas_instance_schools USING btree (canvas_instance_id, school_id);
+
+
+--
+-- Name: index_canvas_instance_schools_on_canvas_instance_id; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX index_canvas_instance_schools_on_canvas_instance_id ON public.canvas_instance_schools USING btree (canvas_instance_id);
+
+
+--
+-- Name: index_canvas_instance_schools_on_school_id; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX index_canvas_instance_schools_on_school_id ON public.canvas_instance_schools USING btree (school_id);
 
 
 --
@@ -8000,27 +8021,6 @@ CREATE INDEX index_sales_stages_on_sales_stage_type_id ON public.sales_stages US
 --
 
 CREATE INDEX index_sales_stages_on_user_id ON public.sales_stages USING btree (user_id);
-
-
---
--- Name: index_school_canvas_instances_on_canvas_instance_and_school; Type: INDEX; Schema: public; Owner: -
---
-
-CREATE UNIQUE INDEX index_school_canvas_instances_on_canvas_instance_and_school ON public.school_canvas_instances USING btree (canvas_instance_id, school_id);
-
-
---
--- Name: index_school_canvas_instances_on_canvas_instance_id; Type: INDEX; Schema: public; Owner: -
---
-
-CREATE INDEX index_school_canvas_instances_on_canvas_instance_id ON public.school_canvas_instances USING btree (canvas_instance_id);
-
-
---
--- Name: index_school_canvas_instances_on_school_id; Type: INDEX; Schema: public; Owner: -
---
-
-CREATE INDEX index_school_canvas_instances_on_school_id ON public.school_canvas_instances USING btree (school_id);
 
 
 --
@@ -8806,14 +8806,6 @@ ALTER TABLE ONLY public.activity_topics
 
 
 --
--- Name: school_canvas_instances fk_rails_4e0c8dda5b; Type: FK CONSTRAINT; Schema: public; Owner: -
---
-
-ALTER TABLE ONLY public.school_canvas_instances
-    ADD CONSTRAINT fk_rails_4e0c8dda5b FOREIGN KEY (school_id) REFERENCES public.schools(id);
-
-
---
 -- Name: skill_concepts fk_rails_51a05a5948; Type: FK CONSTRAINT; Schema: public; Owner: -
 --
 
@@ -8907,6 +8899,14 @@ ALTER TABLE ONLY public.pack_sequences
 
 ALTER TABLE ONLY public.standards
     ADD CONSTRAINT fk_rails_7c2e427970 FOREIGN KEY (standard_level_id) REFERENCES public.standard_levels(id);
+
+
+--
+-- Name: canvas_instance_schools fk_rails_7da1e5386c; Type: FK CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY public.canvas_instance_schools
+    ADD CONSTRAINT fk_rails_7da1e5386c FOREIGN KEY (school_id) REFERENCES public.schools(id);
 
 
 --
@@ -9046,6 +9046,14 @@ ALTER TABLE ONLY public.comprehension_plagiarism_texts
 
 
 --
+-- Name: canvas_instance_schools fk_rails_bf91c7cfc4; Type: FK CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY public.canvas_instance_schools
+    ADD CONSTRAINT fk_rails_bf91c7cfc4 FOREIGN KEY (canvas_instance_id) REFERENCES public.canvas_instances(id);
+
+
+--
 -- Name: teacher_infos fk_rails_bff7948d7b; Type: FK CONSTRAINT; Schema: public; Owner: -
 --
 
@@ -9163,14 +9171,6 @@ ALTER TABLE ONLY public.sales_stages
 
 ALTER TABLE ONLY public.activity_survey_responses
     ADD CONSTRAINT fk_rails_e65c2d2818 FOREIGN KEY (activity_session_id) REFERENCES public.activity_sessions(id);
-
-
---
--- Name: school_canvas_instances fk_rails_f391c29379; Type: FK CONSTRAINT; Schema: public; Owner: -
---
-
-ALTER TABLE ONLY public.school_canvas_instances
-    ADD CONSTRAINT fk_rails_f391c29379 FOREIGN KEY (canvas_instance_id) REFERENCES public.canvas_instances(id);
 
 
 --

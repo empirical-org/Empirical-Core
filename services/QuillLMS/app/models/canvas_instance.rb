@@ -14,8 +14,8 @@
 #  index_canvas_instances_on_url  (url) UNIQUE
 #
 class CanvasInstance < ApplicationRecord
-  has_many :school_canvas_instances, dependent: :destroy
-  has_many :schools, through: :school_canvas_instances
+  has_many :canvas_instance_schools, dependent: :destroy
+  has_many :schools, through: :canvas_instance_schools
 
   has_many :canvas_accounts, dependent: :destroy
   has_many :users, through: :canvas_accounts
