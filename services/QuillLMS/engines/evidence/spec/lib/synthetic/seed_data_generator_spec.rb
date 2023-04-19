@@ -145,7 +145,11 @@ module Evidence
         expect(subject.results.count).to be(10)
         expect(subject.results.map(&:seed_descriptor)).to eq(seed_labels)
         expect(subject.results.map(&:seed_label)).to eq([nil, nil, nil, nil, nil, nil, nil, nil, nil, "label1"])
+
         expect(batch.prompt_texts.count).to eq 10
+        expect(batch.use_passage).to be true
+        expect(batch.nouns).to eq nouns
+        expect(batch.label_configs).to eq([label_config])
       end
 
 
@@ -328,7 +332,7 @@ module Evidence
       end
 
       context "label examples only" do
-        subject { described_class.csvs_for_activity(activity_id: activity.id, label_configs: [label_config], use_passage: false) }
+        subject { described_class.csvs_for_activity(activity_id: activity.id, label_configs: {"because" => [label_config]}, use_passage: false) }
 
         it "should generate a hash without prompt_chunks csv" do
           expect(subject.class).to be Hash

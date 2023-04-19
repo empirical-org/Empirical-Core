@@ -2467,7 +2467,7 @@ CREATE TABLE public.evidence_prompt_text_batches (
     id bigint NOT NULL,
     type character varying NOT NULL,
     prompt_id integer NOT NULL,
-    data jsonb,
+    config jsonb,
     created_at timestamp(6) without time zone NOT NULL,
     updated_at timestamp(6) without time zone NOT NULL
 );
@@ -9621,11 +9621,11 @@ INSERT INTO "schema_migrations" (version) VALUES
 ('20230317151920'),
 ('20230317151921'),
 ('20230317151922'),
-('20230413215936'),
-('20230413215937'),
-('20230413215938'),
 ('20230323114351'),
 ('20230328155819'),
-('20230405140349');
+('20230405140349'),
+('20230413215936'),
+('20230413215937'),
+('20230413215938');
 
 
