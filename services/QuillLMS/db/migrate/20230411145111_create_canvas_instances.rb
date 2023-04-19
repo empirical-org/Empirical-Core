@@ -7,5 +7,7 @@ class CreateCanvasInstances < ActiveRecord::Migration[6.1]
 
       t.timestamps
     end
+
+    add_index :canvas_instances, :url, unique: true
   end
 end

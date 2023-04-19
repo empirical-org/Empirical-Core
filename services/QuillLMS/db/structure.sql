@@ -7282,6 +7282,13 @@ CREATE INDEX index_canvas_configs_on_canvas_instance_id ON public.canvas_configs
 
 
 --
+-- Name: index_canvas_instances_on_url; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE UNIQUE INDEX index_canvas_instances_on_url ON public.canvas_instances USING btree (url);
+
+
+--
 -- Name: index_change_logs_on_changed_record_type_and_changed_record_id; Type: INDEX; Schema: public; Owner: -
 --
 

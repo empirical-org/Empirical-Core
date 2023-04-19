@@ -9,6 +9,10 @@
 #  created_at :datetime         not null
 #  updated_at :datetime         not null
 #
+# Indexes
+#
+#  index_canvas_instances_on_url  (url) UNIQUE
+#
 FactoryBot.define do
   factory :canvas_instance do
     url { "https://#{SecureRandom.hex(12)}.instructure.com" }
