@@ -1,13 +1,14 @@
 import pluralize from 'pluralize';
 import * as React from 'react';
 
-import PreviewCard from '../shared/preview_card.jsx';
 import {
   STUDENT,
   STUDENT_CENTER_SLUG,
   TEACHER_CENTER_SLUG,
   USING_QUILL_FOR_READING_COMPREHENSION
 } from './blog_post_constants';
+
+import PreviewCard from '../shared/preview_card.jsx';
 
 export default class TopicSection extends React.Component {
   displayTitle() {
@@ -34,6 +35,7 @@ export default class TopicSection extends React.Component {
         color={color}
         content={article.preview_card_content}
         externalLink={!!article.external_link}
+        key={article.id}
         link={article.external_link ? article.external_link : `/${this.sectionLink()}/${article.slug}`}
       />)
     )
@@ -45,8 +47,10 @@ export default class TopicSection extends React.Component {
       <section className={`topic-section ${color}`}>
         <div className='meta'>
           <h1>{this.displayTitle()}</h1>
-          <h2>{articleCount} {pluralize('article', articleCount)}</h2>
-          {!onSearchPage && <a className="quill-button focus-on-light fun contained primary" href={`/${this.sectionLink()}/topic/${slug}`}>Show all</a>}
+          <div>
+            <h2>{articleCount} {pluralize('article', articleCount)}</h2>
+            {!onSearchPage && <a className="quill-button focus-on-light fun contained primary" href={`/${this.sectionLink()}/topic/${slug}`}>Show all</a>}
+          </div>
         </div>
         <div id="preview-card-container">
           {this.renderArticleCards()}

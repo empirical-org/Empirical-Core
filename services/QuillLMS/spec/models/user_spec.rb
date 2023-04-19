@@ -84,6 +84,8 @@ describe User, type: :model do
   it { should have_many(:milestones).through(:user_milestones) }
   it { should have_many(:admin_approval_requests).with_foreign_key('requestee_id') }
   it { should have_one(:learn_worlds_account) }
+  it { should have_many(:canvas_accounts).dependent(:destroy) }
+  it { should have_many(:canvas_instances).through(:canvas_accounts) }
 
   it { should delegate_method(:name).to(:school).with_prefix(:school) }
   it { should delegate_method(:mail_city).to(:school).with_prefix(:school) }
@@ -1743,36 +1745,28 @@ describe User, type: :model do
   describe '#learn_worlds_access?' do
     subject { user.learn_worlds_access? }
 
-    context 'user is a student' do
-      let(:user) { create(:student) }
+    let(:user) { create(:teacher) }
 
-      it { expect(subject).to be_falsey }
-    end
+    context 'school_premium? is false' do
+      before { allow(user).to receive(:school_premium?).and_return(false) }
 
-    context 'user is a teacher' do
-      let(:user) { create(:teacher) }
+      context 'district_premium? is false' do
+        before { allow(user).to receive(:district_premium?).and_return(false) }
 
-      context 'school is nil' do
         it { expect(subject).to be_falsey }
       end
 
-      context 'school is present' do
-        let(:school) { double(premium?: premium) }
+      context 'district_premium? is true' do
+        before { allow(user).to receive(:district_premium?).and_return(true) }
 
-        before { allow(user).to receive(:school).and_return(school) }
-
-        context 'school is not premium' do
-          let(:premium) { false }
-
-          it { expect(subject).to be_falsey }
-        end
-
-        context 'school is premium' do
-          let(:premium) { true }
-
-          it { expect(subject).to be true}
-        end
+        it { expect(subject).to be_truthy }
       end
+    end
+
+    context 'school_premium? is true' do
+      before { allow(user).to receive(:school_premium?).and_return(true) }
+
+      it { expect(subject).to be_truthy }
     end
   end
 end

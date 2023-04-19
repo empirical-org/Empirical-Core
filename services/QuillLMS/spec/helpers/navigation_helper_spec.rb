@@ -3,12 +3,12 @@
 require 'rails_helper'
 
 describe NavigationHelper do
-  describe '#home_page_should_be_active?' do
+  describe '#home_page_active?' do
     context 'when action name is dashboard, my account, teacher guide or google sync' do
       before { allow(helper).to receive(:action_name) { "dashboard" } }
 
       it 'should return true' do
-        expect(helper.home_page_should_be_active?).to eq true
+        expect(helper.home_page_active?).to eq true
       end
     end
 
@@ -19,17 +19,17 @@ describe NavigationHelper do
       end
 
       it 'should return true' do
-        expect(helper.home_page_should_be_active?).to eq true
+        expect(helper.home_page_active?).to eq true
       end
     end
   end
 
-  describe '#classes_page_should_be_active?' do
+  describe '#classes_page_active?' do
     context 'when teachers classroom controller' do
       before { allow(helper).to receive(:controller) { double(:controller, class: Teachers::ClassroomsController) } }
 
       it 'should return true' do
-        expect(helper.classes_page_should_be_active?).to eq true
+        expect(helper.classes_page_active?).to eq true
       end
     end
 
@@ -46,38 +46,46 @@ describe NavigationHelper do
       end
 
       it 'should return true' do
-        expect(helper.classes_page_should_be_active?).to eq true
+        expect(helper.classes_page_active?).to eq true
       end
     end
   end
 
-  describe "#assign_activity_page_should_be_active?" do
+  describe "#assign_activity_page_active?" do
     before do
       allow(helper).to receive(:controller) { double(:controller, class: Teachers::ClassroomManagerController) }
       without_partial_double_verification { allow(helper).to receive(:action_name) { "assign" } }
     end
 
     it 'should return true when classroom manager controller and assign activities action' do
-      expect(helper.assign_activity_page_should_be_active?).to eq true
+      expect(helper.assign_activity_page_active?).to eq true
     end
   end
 
-  describe '#my_activities_page_should_be_active?' do
+  describe '#my_activities_page_active?' do
     before do
       allow(helper).to receive(:controller) { double(:controller, class: Teachers::ClassroomManagerController) }
       without_partial_double_verification { allow(helper).to receive(:action_name) { "lesson_planner" } }
     end
 
     it 'should return true if classroom manager controller and lesson planner action' do
-      expect(helper.my_activities_page_should_be_active?).to eq true
+      expect(helper.my_activities_page_active?).to eq true
     end
   end
 
-  describe '#admin_page_should_be_active?' do
-    before { allow(helper).to receive(:action_name) { "admin_dashboard" } }
+  describe '#admin_page_active?' do
+    before { allow(helper).to receive(:action_name) { "premium_hub" } }
 
     it 'should return true on admin dashboard action' do
-      expect(helper.admin_page_should_be_active?).to eq true
+      expect(helper.admin_page_active?).to eq true
+    end
+  end
+
+  describe '#teacher_premium_active?' do
+    before { allow(helper).to receive(:action_name) { "teacher_premium" } }
+
+    it 'should return true on teacher premium action' do
+      expect(helper.teacher_premium_active?).to eq true
     end
   end
 
@@ -86,29 +94,65 @@ describe NavigationHelper do
       trial_subscription = create(:subscription)
       premium_subscription = create(:subscription, account_type: 'Not A Trial')
       allow(helper).to receive(:current_user) { double(:user, premium_state: "trial", trial_days_remaining: 5) }
-      expect(helper.premium_tab_copy).to eq "<span>Premium</span><img alt='' src='https://assets.quill.org/images/icons/star.svg'></img><span>5 Days Left</span>"
+      expect(helper.premium_tab_copy).to eq "<span>Premium</span><div class='large-diamond-icon is-in-middle'></div><span>5 Days Left</span>"
       allow(helper).to receive(:current_user) { double(:user, premium_state: "locked", last_expired_subscription: premium_subscription) }
-      expect(helper.premium_tab_copy).to eq "<span>Premium</span><img alt='' src='https://assets.quill.org/images/icons/star.svg'></img><span>Expired</span>"
+      expect(helper.premium_tab_copy).to eq "<span>Premium</span><div class='large-diamond-icon is-in-middle'></div><span>Expired</span>"
       allow(helper).to receive(:current_user) { double(:user, premium_state: "locked", last_expired_subscription: trial_subscription) }
-      expect(helper.premium_tab_copy).to eq "<span>Premium</span><img alt='' src='https://assets.quill.org/images/icons/star.svg'></img><span>Trial Expired</span>"
+      expect(helper.premium_tab_copy).to eq "<span>Premium</span><div class='large-diamond-icon is-in-middle'></div><span>Trial Expired</span>"
       allow(helper).to receive(:current_user) { double(:user, premium_state: nil) }
-      expect(helper.premium_tab_copy).to eq "<span>Explore Premium</span><img alt='' src='https://assets.quill.org/images/icons/star.svg'></img>"
+      expect(helper.premium_tab_copy).to eq "<span>Explore Premium</span><div class='large-diamond-icon'></div>"
       allow(helper).to receive(:current_user) { double(:user, premium_state: "none") }
-      expect(helper.premium_tab_copy).to eq "<span>Explore Premium</span><img alt='' src='https://assets.quill.org/images/icons/star.svg'></img>"
+      expect(helper.premium_tab_copy).to eq "<span>Explore Premium</span><div class='large-diamond-icon'></div>"
     end
   end
 
   describe '#should_render_subnav?' do
     it 'should give the true on the right cases' do
-      allow(helper).to receive(:home_page_should_be_active?) { true }
+      allow(helper).to receive(:home_page_active?) { true }
       expect(helper.should_render_subnav?).to eq true
-      allow(helper).to receive(:home_page_should_be_active?) { false }
-      allow(helper).to receive(:classes_page_should_be_active?) { true }
+      allow(helper).to receive(:home_page_active?) { false }
+      allow(helper).to receive(:classes_page_active?) { true }
       expect(helper.should_render_subnav?).to eq true
-      allow(helper).to receive(:home_page_should_be_active?) { false }
-      allow(helper).to receive(:classes_page_should_be_active?) { false }
-      allow(helper).to receive(:student_reports_page_should_be_active?) { true }
+      allow(helper).to receive(:home_page_active?) { false }
+      allow(helper).to receive(:classes_page_active?) { false }
+      allow(helper).to receive(:student_reports_page_active?) { true }
       expect(helper.should_render_subnav?).to eq true
+    end
+  end
+
+  describe '#should_render_teacher_premium?' do
+    it 'should return true if the teacher has a paid teacher premium subscription' do
+      teacher = create(:teacher)
+      subscription = create(:subscription, account_type: Subscription::TEACHER_PAID)
+      create(:user_subscription, user: teacher, subscription: subscription)
+      allow(helper).to receive(:current_user) { teacher }
+
+      expect(helper.should_render_teacher_premium?).to eq true
+    end
+
+    it 'should return false if the teacher has an unpaid subscription' do
+      teacher = create(:teacher)
+      subscription = create(:subscription, account_type: Subscription::TEACHER_TRIAL)
+      create(:user_subscription, user: teacher, subscription: subscription)
+      allow(helper).to receive(:current_user) { teacher }
+
+      expect(helper.should_render_teacher_premium?).to eq false
+    end
+
+    it 'should return false if the teacher has a school subscription' do
+      teacher = create(:teacher)
+      subscription = create(:subscription, account_type: Subscription::SCHOOL_PAID)
+      create(:user_subscription, user: teacher, subscription: subscription)
+      allow(helper).to receive(:current_user) { teacher }
+
+      expect(helper.should_render_teacher_premium?).to eq false
+    end
+
+    it 'should return false if the teacher has no subscription' do
+      teacher = create(:teacher)
+      allow(helper).to receive(:current_user) { teacher }
+
+      expect(helper.should_render_teacher_premium?).to eq false
     end
   end
 

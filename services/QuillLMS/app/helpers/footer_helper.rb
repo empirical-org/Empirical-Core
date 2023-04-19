@@ -7,7 +7,7 @@ module FooterHelper
       { href: '/assign', label: 'Assign Activities' },
       { href: '/teachers/classrooms', label: 'My Classes' },
       { href: '/teachers/classrooms/activity_planner', label: 'My Activities' },
-      { href: '/teachers/progress_reports/landing_page', label: 'My Student Reports' }
+      { href: '/teachers/progress_reports/landing_page', label: 'My Reports' }
     ]
   end
 

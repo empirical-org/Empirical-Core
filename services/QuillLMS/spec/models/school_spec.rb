@@ -53,6 +53,8 @@ require 'rails_helper'
 
 describe School, type: :model do
   it { should belong_to(:district) }
+  it { should have_many(:canvas_instance_schools).dependent(:destroy) }
+  it { should have_many(:canvas_instances).through(:canvas_instance_schools) }
 
   it_behaves_like 'a subscriber'
 
@@ -226,25 +228,4 @@ describe School, type: :model do
     end
   end
 
-  describe '#premium?' do
-    let(:school) { create(:school) }
-
-    subject { school.premium? }
-
-    context 'no school or district subscription exists' do
-      it { expect(subject).to be_falsey }
-    end
-
-    context 'school subscription exists' do
-      before { allow(school).to receive(:subscription).and_return(double(:subscription)) }
-
-      it { expect(subject).to be true }
-    end
-
-    context 'district is premium' do
-      before { allow(school).to receive(:district).and_return(double(:district, premium?: true)) }
-
-      it { expect(subject).to be true }
-    end
-  end
 end

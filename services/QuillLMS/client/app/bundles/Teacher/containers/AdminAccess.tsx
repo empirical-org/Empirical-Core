@@ -48,7 +48,7 @@ const AdminAccess = ({ school, hasVerifiedEmail, schoolAdmins, hasSchoolPremium,
     setModalToShow(null)
   }
 
-  const learnMoreLink = hasSchoolPremium ? <a href="https://support.quill.org/en/articles/1588988-how-do-i-navigate-the-school-dashboard" rel="noopener noreferrer" target="_blank">Learn more about the Admin Dashboard</a> : <a href="/premium" rel="noopener noreferrer" target="_blank">Learn more about Quill Premium</a>
+  const learnMoreLink = hasSchoolPremium ? <a href="https://support.quill.org/en/articles/1588988-how-do-i-navigate-the-school-dashboard" rel="noopener noreferrer" target="_blank">Learn more about the Premium Hub</a> : <a href="/premium" rel="noopener noreferrer" target="_blank">Learn more about Quill Premium</a>
   const adminParagraph = <p>Admins {hasSchoolPremium ? '' : 'at schools with Quill Premium'} can manage teacher accounts, access teacher reports, and view school-wide student data.</p>
   const emailVerificationParagraph = hasVerifiedEmail ? '' : (
     <p className="email-verification-paragraph">

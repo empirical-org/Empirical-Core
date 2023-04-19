@@ -165,6 +165,9 @@ class User < ApplicationRecord
 
   has_one :learn_worlds_account, dependent: :destroy
 
+  has_many :canvas_accounts, dependent: :destroy
+  has_many :canvas_instances, through: :canvas_accounts
+
   accepts_nested_attributes_for :auth_credential
 
   delegate :name, :mail_city, :mail_state,
@@ -786,7 +789,19 @@ class User < ApplicationRecord
   end
 
   def learn_worlds_access?
-    teacher? && school&.premium?
+    school_premium? || district_premium?
+  end
+
+  def school_premium?
+    school&.subscription&.present?
+  end
+
+  def district_premium?
+    school&.district&.subscription&.present?
+  end
+
+  def school_or_district_premium?
+    school_premium? || district_premium?
   end
 
   private def validate_flags

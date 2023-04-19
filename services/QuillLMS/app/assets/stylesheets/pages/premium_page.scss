@@ -18,12 +18,23 @@
 
 .premium-tab {
   a {
-    background-color: #DF9E3D !important;
-    color: #FFFFFF !important;
+    background-color: $quillgoldlight !important;
+    color: $quillgolddark !important;
     padding-left: 40px;
     padding-right: 40px;
+    border-radius: 8px 8px 0px 0px !important;
+    margin-left: 4px;
     border-right: none !important;
+    border-left: none !important;
     cursor: pointer !important;
+    span {
+      .large-diamond-icon {
+        background-image: url("https://assets.quill.org/images/icons/yellow-diamond.svg");
+        &.is-in-middle {
+          margin: 0px 4px 0px 4px;
+        }
+      }
+    }
   }
   .premium-tab-copy {
     display: flex;
@@ -31,6 +42,12 @@
     img {
       margin-left: 4px;
       margin-right: 4px;
+    }
+  }
+  &.teacher-premium-tab {
+    img {
+      width: 20px;
+      margin-left: 4px;
     }
   }
 }
@@ -80,17 +97,18 @@
   }
 
 }
-li.active.premium-tab > a,
-li.premium-tab > a:hover {
-  background-color: #D3982A !important;
-  // border-top: 3px solid #875A12 !important;
-  // padding-top: 0 !important;
+li.active.premium-tab > a {
+  background-color: $quillgoldmedium !important;
+  span {
+    color: #ffffff;
+    .large-diamond-icon {
+      background-image: url("https://assets.quill.org/images/icons/white-diamond.svg");
+    }
+  }
 }
-.premium-tab a.active,
-.premium-tab a:hover {
-  background-color: #D3982A !important;
-  // border-top: 3px solid #875A12 !important;
-  // padding-top: 0 !important;
+
+li.premium-tab > a:hover {
+  background-color: #FCD79F !important;
 }
 
 .premium-page {
