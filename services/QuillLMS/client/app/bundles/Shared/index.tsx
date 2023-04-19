@@ -158,7 +158,8 @@ export {
   openLockIcon,
   networkIcon,
   whiteDiamondIcon,
-  redDiamondIcon
+  redDiamondIcon,
+  evidenceHandbookIcon
 } from './images/index'
 
 export {

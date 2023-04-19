@@ -1,7 +1,8 @@
 import qs from 'qs'
 import * as React from 'react'
 
-import { TEACHER_CENTER_SLUG, USING_QUILL_FOR_READING_COMPREHENSION } from './blog_post_constants'
+import { TEACHER_CENTER, TEACHER_CENTER_SLUG, USING_QUILL_FOR_READING_COMPREHENSION } from './blog_post_constants'
+import { evidenceHandbookIcon } from '../../../Shared'
 
 const searchTokens = [
   'getting started',
@@ -29,6 +30,22 @@ export const HeaderSection = ({ title, subtitle, showCancelSearchButton, query }
     }
     return title;
   }
+
+  function renderEvidenceHandbookBanner() {
+    if(title !== TEACHER_CENTER) {
+      return <span />
+    }
+    return(
+      <section className="evidence-teacher-handbook-banner">
+        <section className="information-section">
+          <h2>Quill Reading for Evidence Teacher Handbook</h2>
+          <p>Looking for support integrating Quill Reading for Evidence into your instruction? Our handbook for teachers using our newest literacy tool is packed with best practices and strategies--and it's FREE!</p>
+          <a className="quill-button focus-on-light small primary contained" href={`${process.env.DEFAULT_URL}/`}>Get the Teacher Handbook <i className="fa fa-arrow-up-right" /></a>
+        </section>
+        <img alt={evidenceHandbookIcon.alt} src={evidenceHandbookIcon.src} />
+      </section>
+    )
+  }
   return(
     <div className="header-section">
       <div className="text">
@@ -41,6 +58,7 @@ export const HeaderSection = ({ title, subtitle, showCancelSearchButton, query }
         {showCancelSearchButton ? <button className="interactive-wrapper focus-on-light" onClick={() => window.location.href = `${process.env.DEFAULT_URL}/${TEACHER_CENTER_SLUG}/`} type="button"><img alt="" className="cancel-button" src={`${process.env.CDN_URL}/images/icons/CloseIcon.svg`} /></button> : null}
       </form>
       <div className="search-tokens">{searchTokens.map(t => <SearchToken key={t} text={t} />)}</div>
+      {renderEvidenceHandbookBanner()}
     </div>
   )
 }

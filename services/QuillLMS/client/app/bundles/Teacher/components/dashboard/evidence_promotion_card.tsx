@@ -16,6 +16,7 @@ const EvidencePromotionCard = () => {
           <a href={`${process.env.DEFAULT_URL}/teacher-center/introducing-quills-new-writing-and-reading-tool-quill-evidence`}><span>Learn more</span><img alt={arrowPointingRightIcon.alt} src={arrowPointingRightIcon.src} /></a>
           <a href={`${process.env.DEFAULT_URL}/assign/activity-library?activityClassificationFilters[]=evidence`}><span>View activities</span><img alt={arrowPointingRightIcon.alt} src={arrowPointingRightIcon.src} /></a>
           <a href={`${process.env.DEFAULT_URL}/tools/evidence`}><span>See tool demo</span><img alt={arrowPointingRightIcon.alt} src={arrowPointingRightIcon.src} /></a>
+          <a href={`${process.env.DEFAULT_URL}/`}><span>Get the Teacher Handbook</span><img alt={arrowPointingRightIcon.alt} src={arrowPointingRightIcon.src} /></a>
         </div>
       </div>
     </section>

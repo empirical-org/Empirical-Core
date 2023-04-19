@@ -36,12 +36,12 @@ const TEAL = 'teal'
 // colors just cycle through topics linearly then repeat, but we need to store them for reference in search pages etc
 export const BLOG_POST_TO_COLOR = {
   [WHATS_NEW]: GREEN,
-  [USING_QUILL_FOR_READING_COMPREHENSION]: PURPLE,
+  [USING_QUILL_FOR_READING_COMPREHENSION]: TEAL,
   [GETTING_STARTED]: BLUE,
   [BEST_PRACTICES]: GOLD,
   [WEBINARS]: RED,
   [VIDEO_TUTORIALS]: VIOLET,
-  [TEACHER_MATERIALS]: TEAL,
+  [TEACHER_MATERIALS]: PURPLE,
   [WRITING_INSTRUCTION_RESEARCH]: GREEN,
   [TEACHER_STORIES]: PURPLE,
   [PRESS_RELEASES]: BLUE,

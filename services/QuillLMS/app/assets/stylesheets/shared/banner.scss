@@ -41,3 +41,39 @@
     margin: 0px auto;
   }
 }
+
+.evidence-teacher-handbook-banner {
+  display: flex;
+  padding: 20px !important;
+  background-color: rgba(44, 127, 155, 0.15);
+  border: 1px solid rgba(44, 127, 155, 0.15);
+  border-radius: 8px;
+  margin-top: 39px;
+  .information-section {
+    padding: 0;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    h2 {
+      font-weight: 700;
+      font-size: 20px;
+      line-height: 26px;
+    }
+    p {
+      margin: 8px 0px !important;
+      font-weight: 400;
+      font-size: 14px;
+      line-height: 20px !important;
+    }
+    a {
+      background-color: $quillteal !important;
+      &:hover {
+        filter: brightness(110%);
+      }
+    }
+  }
+  img {
+    width: 115px;
+    height: 115px;
+  }
+}
