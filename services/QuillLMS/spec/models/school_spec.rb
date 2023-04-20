@@ -53,6 +53,8 @@ require 'rails_helper'
 
 describe School, type: :model do
   it { should belong_to(:district) }
+  it { should have_many(:canvas_instance_schools).dependent(:destroy) }
+  it { should have_many(:canvas_instances).through(:canvas_instance_schools) }
 
   it_behaves_like 'a subscriber'
 

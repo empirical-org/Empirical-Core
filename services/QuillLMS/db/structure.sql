@@ -989,6 +989,135 @@ ALTER SEQUENCE public.blog_posts_id_seq OWNED BY public.blog_posts.id;
 
 
 --
+-- Name: canvas_accounts; Type: TABLE; Schema: public; Owner: -
+--
+
+CREATE TABLE public.canvas_accounts (
+    id bigint NOT NULL,
+    external_id character varying NOT NULL,
+    user_id bigint NOT NULL,
+    canvas_instance_id bigint NOT NULL,
+    created_at timestamp(6) without time zone NOT NULL,
+    updated_at timestamp(6) without time zone NOT NULL
+);
+
+
+--
+-- Name: canvas_accounts_id_seq; Type: SEQUENCE; Schema: public; Owner: -
+--
+
+CREATE SEQUENCE public.canvas_accounts_id_seq
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+
+--
+-- Name: canvas_accounts_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: -
+--
+
+ALTER SEQUENCE public.canvas_accounts_id_seq OWNED BY public.canvas_accounts.id;
+
+
+--
+-- Name: canvas_configs; Type: TABLE; Schema: public; Owner: -
+--
+
+CREATE TABLE public.canvas_configs (
+    id bigint NOT NULL,
+    canvas_instance_id bigint NOT NULL,
+    client_id_ciphertext text NOT NULL,
+    client_secret_ciphertext text NOT NULL,
+    created_at timestamp(6) without time zone NOT NULL,
+    updated_at timestamp(6) without time zone NOT NULL
+);
+
+
+--
+-- Name: canvas_configs_id_seq; Type: SEQUENCE; Schema: public; Owner: -
+--
+
+CREATE SEQUENCE public.canvas_configs_id_seq
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+
+--
+-- Name: canvas_configs_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: -
+--
+
+ALTER SEQUENCE public.canvas_configs_id_seq OWNED BY public.canvas_configs.id;
+
+
+--
+-- Name: canvas_instance_schools; Type: TABLE; Schema: public; Owner: -
+--
+
+CREATE TABLE public.canvas_instance_schools (
+    id bigint NOT NULL,
+    school_id bigint NOT NULL,
+    canvas_instance_id bigint NOT NULL,
+    created_at timestamp(6) without time zone NOT NULL,
+    updated_at timestamp(6) without time zone NOT NULL
+);
+
+
+--
+-- Name: canvas_instance_schools_id_seq; Type: SEQUENCE; Schema: public; Owner: -
+--
+
+CREATE SEQUENCE public.canvas_instance_schools_id_seq
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+
+--
+-- Name: canvas_instance_schools_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: -
+--
+
+ALTER SEQUENCE public.canvas_instance_schools_id_seq OWNED BY public.canvas_instance_schools.id;
+
+
+--
+-- Name: canvas_instances; Type: TABLE; Schema: public; Owner: -
+--
+
+CREATE TABLE public.canvas_instances (
+    id bigint NOT NULL,
+    url character varying NOT NULL,
+    created_at timestamp(6) without time zone NOT NULL,
+    updated_at timestamp(6) without time zone NOT NULL
+);
+
+
+--
+-- Name: canvas_instances_id_seq; Type: SEQUENCE; Schema: public; Owner: -
+--
+
+CREATE SEQUENCE public.canvas_instances_id_seq
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+
+--
+-- Name: canvas_instances_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: -
+--
+
+ALTER SEQUENCE public.canvas_instances_id_seq OWNED BY public.canvas_instances.id;
+
+
+--
 -- Name: categories; Type: TABLE; Schema: public; Owner: -
 --
 
@@ -4981,6 +5110,34 @@ ALTER TABLE ONLY public.blog_posts ALTER COLUMN id SET DEFAULT nextval('public.b
 
 
 --
+-- Name: canvas_accounts id; Type: DEFAULT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY public.canvas_accounts ALTER COLUMN id SET DEFAULT nextval('public.canvas_accounts_id_seq'::regclass);
+
+
+--
+-- Name: canvas_configs id; Type: DEFAULT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY public.canvas_configs ALTER COLUMN id SET DEFAULT nextval('public.canvas_configs_id_seq'::regclass);
+
+
+--
+-- Name: canvas_instance_schools id; Type: DEFAULT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY public.canvas_instance_schools ALTER COLUMN id SET DEFAULT nextval('public.canvas_instance_schools_id_seq'::regclass);
+
+
+--
+-- Name: canvas_instances id; Type: DEFAULT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY public.canvas_instances ALTER COLUMN id SET DEFAULT nextval('public.canvas_instances_id_seq'::regclass);
+
+
+--
 -- Name: categories id; Type: DEFAULT; Schema: public; Owner: -
 --
 
@@ -5910,6 +6067,38 @@ ALTER TABLE ONLY public.blog_post_user_ratings
 
 ALTER TABLE ONLY public.blog_posts
     ADD CONSTRAINT blog_posts_pkey PRIMARY KEY (id);
+
+
+--
+-- Name: canvas_accounts canvas_accounts_pkey; Type: CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY public.canvas_accounts
+    ADD CONSTRAINT canvas_accounts_pkey PRIMARY KEY (id);
+
+
+--
+-- Name: canvas_configs canvas_configs_pkey; Type: CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY public.canvas_configs
+    ADD CONSTRAINT canvas_configs_pkey PRIMARY KEY (id);
+
+
+--
+-- Name: canvas_instance_schools canvas_instance_schools_pkey; Type: CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY public.canvas_instance_schools
+    ADD CONSTRAINT canvas_instance_schools_pkey PRIMARY KEY (id);
+
+
+--
+-- Name: canvas_instances canvas_instances_pkey; Type: CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY public.canvas_instances
+    ADD CONSTRAINT canvas_instances_pkey PRIMARY KEY (id);
 
 
 --
@@ -7069,6 +7258,55 @@ CREATE INDEX index_blog_posts_on_title ON public.blog_posts USING btree (title);
 --
 
 CREATE INDEX index_blog_posts_on_topic ON public.blog_posts USING btree (topic);
+
+
+--
+-- Name: index_canvas_accounts_on_canvas_instance_id; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX index_canvas_accounts_on_canvas_instance_id ON public.canvas_accounts USING btree (canvas_instance_id);
+
+
+--
+-- Name: index_canvas_accounts_on_user_id; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX index_canvas_accounts_on_user_id ON public.canvas_accounts USING btree (user_id);
+
+
+--
+-- Name: index_canvas_configs_on_canvas_instance_id; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX index_canvas_configs_on_canvas_instance_id ON public.canvas_configs USING btree (canvas_instance_id);
+
+
+--
+-- Name: index_canvas_instance_schools_on_canvas_instance_and_school; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE UNIQUE INDEX index_canvas_instance_schools_on_canvas_instance_and_school ON public.canvas_instance_schools USING btree (canvas_instance_id, school_id);
+
+
+--
+-- Name: index_canvas_instance_schools_on_canvas_instance_id; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX index_canvas_instance_schools_on_canvas_instance_id ON public.canvas_instance_schools USING btree (canvas_instance_id);
+
+
+--
+-- Name: index_canvas_instance_schools_on_school_id; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX index_canvas_instance_schools_on_school_id ON public.canvas_instance_schools USING btree (school_id);
+
+
+--
+-- Name: index_canvas_instances_on_url; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE UNIQUE INDEX index_canvas_instances_on_url ON public.canvas_instances USING btree (url);
 
 
 --
@@ -8664,6 +8902,14 @@ ALTER TABLE ONLY public.standards
 
 
 --
+-- Name: canvas_instance_schools fk_rails_7da1e5386c; Type: FK CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY public.canvas_instance_schools
+    ADD CONSTRAINT fk_rails_7da1e5386c FOREIGN KEY (school_id) REFERENCES public.schools(id);
+
+
+--
 -- Name: user_pack_sequence_items fk_rails_8011bf338d; Type: FK CONSTRAINT; Schema: public; Owner: -
 --
 
@@ -8800,11 +9046,27 @@ ALTER TABLE ONLY public.comprehension_plagiarism_texts
 
 
 --
+-- Name: canvas_instance_schools fk_rails_bf91c7cfc4; Type: FK CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY public.canvas_instance_schools
+    ADD CONSTRAINT fk_rails_bf91c7cfc4 FOREIGN KEY (canvas_instance_id) REFERENCES public.canvas_instances(id);
+
+
+--
 -- Name: teacher_infos fk_rails_bff7948d7b; Type: FK CONSTRAINT; Schema: public; Owner: -
 --
 
 ALTER TABLE ONLY public.teacher_infos
     ADD CONSTRAINT fk_rails_bff7948d7b FOREIGN KEY (user_id) REFERENCES public.users(id);
+
+
+--
+-- Name: canvas_configs fk_rails_c246baa530; Type: FK CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY public.canvas_configs
+    ADD CONSTRAINT fk_rails_c246baa530 FOREIGN KEY (canvas_instance_id) REFERENCES public.canvas_instances(id);
 
 
 --
@@ -8856,6 +9118,14 @@ ALTER TABLE ONLY public.sales_contacts
 
 
 --
+-- Name: canvas_accounts fk_rails_d739d9f5b3; Type: FK CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY public.canvas_accounts
+    ADD CONSTRAINT fk_rails_d739d9f5b3 FOREIGN KEY (canvas_instance_id) REFERENCES public.canvas_instances(id);
+
+
+--
 -- Name: student_problem_reports fk_rails_d7543aef9e; Type: FK CONSTRAINT; Schema: public; Owner: -
 --
 
@@ -8877,6 +9147,14 @@ ALTER TABLE ONLY public.recommendations
 
 ALTER TABLE ONLY public.comprehension_regex_rules
     ADD CONSTRAINT fk_rails_dd1bb7c35b FOREIGN KEY (rule_id) REFERENCES public.comprehension_rules(id) ON DELETE CASCADE;
+
+
+--
+-- Name: canvas_accounts fk_rails_e2efdd920f; Type: FK CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY public.canvas_accounts
+    ADD CONSTRAINT fk_rails_e2efdd920f FOREIGN KEY (user_id) REFERENCES public.users(id);
 
 
 --
@@ -9422,6 +9700,10 @@ INSERT INTO "schema_migrations" (version) VALUES
 ('20230301160642'),
 ('20230323114351'),
 ('20230328155819'),
-('20230405140349');
+('20230405140349'),
+('20230411145111'),
+('20230411145241'),
+('20230413140558'),
+('20230414164818');
 
 
