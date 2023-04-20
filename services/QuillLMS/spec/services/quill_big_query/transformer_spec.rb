@@ -60,11 +60,23 @@ describe QuillBigQuery::Transformer do
     # Many ISO 8601 date formats exist. Bigquery currently uses this one.
     let(:example_iso_8601_date_string) { "2022-05-06T17:08:44.915791" }
 
-    it 'should should DATETIME values correctly' do
+    it 'should transform DATETIME values correctly' do
       result = QuillBigQuery::Transformer::LAMBDA_TO_DATETIME.call(example_iso_8601_date_string)
       expect(result.class).to eq DateTime
       expect([result.year, result.month, result.day]).to eq [2022, 5, 6]
 
+    end
+  end
+
+  describe 'boolean proc' do
+    it 'should transform BOOLEAN false values correctly' do
+      result = QuillBigQuery::Transformer::LAMBDA_TO_BOOLEAN.call('false')
+      expect(result.class).to eq FalseClass
+    end
+
+    it 'should transform BOOLEAN true values correctly' do
+      result = QuillBigQuery::Transformer::LAMBDA_TO_BOOLEAN.call('true')
+      expect(result.class).to eq TrueClass
     end
   end
 end
