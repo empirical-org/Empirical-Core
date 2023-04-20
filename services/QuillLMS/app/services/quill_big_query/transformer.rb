@@ -11,11 +11,11 @@ module QuillBigQuery
       @array_of_hashes = array_of_hashes
     end
 
-    LAMBDA_IDENTITY     = ->(val) { val }
     LAMBDA_TO_BOOLEAN   = ->(val) { val == 'true' }
     LAMBDA_TO_DATETIME  = ->(val) { DateTime.parse(val) }
     LAMBDA_TO_F         = ->(val) { val.to_f }
     LAMBDA_TO_INT       = ->(val) { val.to_i }
+    LAMBDA_IDENTITY     = ->(val) { val }
 
     TYPE_TO_LAMBDA_LOOKUP = {
       'ARRAY'       => LAMBDA_IDENTITY,
@@ -47,6 +47,8 @@ module QuillBigQuery
     end
 
     def transform_pair(key, value)
+      return nil unless value
+
       field_to_lambda.fetch(key).call(value)
     end
 

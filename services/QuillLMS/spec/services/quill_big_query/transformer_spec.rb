@@ -49,6 +49,11 @@ describe QuillBigQuery::Transformer do
       transformer = QuillBigQuery::Transformer.new(example_fields, example_array_of_hashes)
       expect(transformer.transform_pair('school_id', '1')).to eq 1.0
     end
+
+    it 'should allow nil values to pass through' do
+      transformer = QuillBigQuery::Transformer.new(example_fields, example_array_of_hashes)
+      expect(transformer.transform_pair('school_id', nil)).to eq nil
+    end
   end
 
   describe '#transform' do
@@ -71,27 +76,54 @@ describe QuillBigQuery::Transformer do
     end
   end
 
-  describe 'datetime proc' do
-    # Many ISO 8601 date formats exist. Bigquery currently uses this one.
-    let(:example_iso_8601_date_string) { "2022-05-06T17:08:44.915791" }
+  describe 'procs' do
+    describe 'LAMBDA_TO_BOOLEAN' do
+      it 'should transform BOOLEAN false values correctly' do
+        result = QuillBigQuery::Transformer::LAMBDA_TO_BOOLEAN.call('false')
+        expect(result.class).to eq FalseClass
+      end
 
-    it 'should transform DATETIME values correctly' do
-      result = QuillBigQuery::Transformer::LAMBDA_TO_DATETIME.call(example_iso_8601_date_string)
-      expect(result.class).to eq DateTime
-      expect([result.year, result.month, result.day]).to eq [2022, 5, 6]
-
-    end
-  end
-
-  describe 'boolean proc' do
-    it 'should transform BOOLEAN false values correctly' do
-      result = QuillBigQuery::Transformer::LAMBDA_TO_BOOLEAN.call('false')
-      expect(result.class).to eq FalseClass
+      it 'should transform BOOLEAN true values correctly' do
+        result = QuillBigQuery::Transformer::LAMBDA_TO_BOOLEAN.call('true')
+        expect(result.class).to eq TrueClass
+      end
     end
 
-    it 'should transform BOOLEAN true values correctly' do
-      result = QuillBigQuery::Transformer::LAMBDA_TO_BOOLEAN.call('true')
-      expect(result.class).to eq TrueClass
+    describe 'LAMBDA_TO_DATETIME' do
+      # Many ISO 8601 date formats exist. Bigquery currently uses this one.
+      let(:example_iso_8601_date_string) { "2022-05-06T17:08:44.915791" }
+
+      it 'should transform DATETIME values correctly' do
+        result = QuillBigQuery::Transformer::LAMBDA_TO_DATETIME.call(example_iso_8601_date_string)
+        expect(result.class).to eq DateTime
+        expect([result.year, result.month, result.day]).to eq [2022, 5, 6]
+
+      end
     end
+
+    describe 'LAMBDA_TO_F' do
+      it 'should transform float values correctly' do
+        result = QuillBigQuery::Transformer::LAMBDA_TO_F.call('1.0')
+        expect(result).to eq 1.0
+      end
+    end
+
+    describe 'LAMBDA_TO_INT' do
+      it 'should transform float values correctly' do
+        result = QuillBigQuery::Transformer::LAMBDA_TO_INT.call('1')
+        expect(result).to eq 1
+      end
+    end
+
+    describe 'LAMBDA_IDENTITY' do
+      it 'should return the input' do
+        result = QuillBigQuery::Transformer::LAMBDA_IDENTITY.call(1)
+        expect(result).to eq 1
+
+        result = QuillBigQuery::Transformer::LAMBDA_IDENTITY.call('a')
+        expect(result).to eq 'a'
+      end
+    end
+
   end
 end
