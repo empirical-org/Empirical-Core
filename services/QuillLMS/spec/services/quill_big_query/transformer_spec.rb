@@ -59,6 +59,7 @@ describe QuillBigQuery::Transformer do
   describe 'datetime proc' do
     # Many ISO 8601 date formats exist. Bigquery currently uses this one.
     let(:example_iso_8601_date_string) { "2022-05-06T17:08:44.915791" }
+
     it 'should should DATETIME values correctly' do
       result = QuillBigQuery::Transformer::LAMBDA_TO_DATETIME.call(example_iso_8601_date_string)
       expect(result.class).to eq DateTime
