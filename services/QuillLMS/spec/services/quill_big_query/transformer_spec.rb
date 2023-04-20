@@ -22,10 +22,25 @@ describe QuillBigQuery::Transformer do
       lookup = QuillBigQuery::Transformer.build_field_to_lambda_lookup(example_fields)
 
       expected = {
-        'school_id' => QuillBigQuery::Transformer::LAMBDA_TO_F,
+        'school_id' => QuillBigQuery::Transformer::LAMBDA_TO_INT,
         'color' => QuillBigQuery::Transformer::LAMBDA_IDENTITY
       }
       expect(lookup).to include(expected)
+    end
+
+    context 'encountered type does not exist in lookup table' do
+      it 'should default to using the identity function' do
+        example_fields = [
+          {'name' => 'foo', 'type' => 'NEW_TYPE'}
+        ]
+
+        lookup = QuillBigQuery::Transformer.build_field_to_lambda_lookup(example_fields)
+
+        expected = {
+          'foo' => QuillBigQuery::Transformer::LAMBDA_IDENTITY
+        }
+        expect(lookup).to include(expected)
+      end
     end
   end
 

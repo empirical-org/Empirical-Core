@@ -15,6 +15,7 @@ module QuillBigQuery
     LAMBDA_TO_BOOLEAN   = ->(val) { val == 'true' }
     LAMBDA_TO_DATETIME  = ->(val) { DateTime.parse(val) }
     LAMBDA_TO_F         = ->(val) { val.to_f }
+    LAMBDA_TO_INT       = ->(val) { val.to_i }
 
     TYPE_TO_LAMBDA_LOOKUP = {
       'ARRAY'       => LAMBDA_IDENTITY,
@@ -27,9 +28,9 @@ module QuillBigQuery
       'FLOAT'       => LAMBDA_TO_F,
       'FLOAT64'     => LAMBDA_TO_F,
       'GEOGRAPHY'   => LAMBDA_IDENTITY,
-      'INTEGER'     => LAMBDA_TO_F,
-      'INT64'       => LAMBDA_TO_F,
-      'NUMERIC'     => LAMBDA_TO_F,
+      'INTEGER'     => LAMBDA_TO_INT,
+      'INT64'       => LAMBDA_TO_INT,
+      'NUMERIC'     => LAMBDA_TO_INT,
       'STRING'      => LAMBDA_IDENTITY,
       'STRUCT'      => LAMBDA_IDENTITY,
       'TIME'        => LAMBDA_TO_DATETIME,
@@ -40,7 +41,7 @@ module QuillBigQuery
       fields.reduce({}) do |memo, field|
         field_name = field['name']
         field_type = field['type']
-        memo[field_name] = TYPE_TO_LAMBDA_LOOKUP[field_type]
+        memo[field_name] = TYPE_TO_LAMBDA_LOOKUP.fetch(field_type, LAMBDA_IDENTITY)
         memo
       end
     end
