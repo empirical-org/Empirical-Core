@@ -115,7 +115,7 @@ class User < ApplicationRecord
   has_one :teacher_info, dependent: :destroy
   has_many :teacher_info_subject_areas, through: :teacher_info
   has_many :teacher_notifications
-  has_many :teacher_notification_settings
+  has_many :teacher_notification_settings, dependent: :destroy
   has_many :subject_areas, through: :teacher_info_subject_areas
   has_many :checkboxes
   has_many :credit_transactions
