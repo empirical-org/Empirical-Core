@@ -53,16 +53,16 @@ class TeacherNotification < ApplicationRecord
   end
 
   private def params_must_be_hash
-    unless params_is_hash?
-      errors.add(:params, "must be a hash")
-    end
+    return if params_is_hash?
+
+    errors.add(:params, "must be a hash")
   end
 
   private def params_payload_has_required_keys
     return unless params_is_hash?
 
-    unless params.keys.map(&:to_s).to_set == NOTIFICATION_TYPE_VALIDATION[notification_type].map(&:to_s).to_set
-      errors.add(:params, "must have all required keys for its notification_type")
-    end
-  end  
+    return if params.keys.map(&:to_s).to_set == NOTIFICATION_TYPE_VALIDATION[notification_type].map(&:to_s).to_set
+
+    errors.add(:params, "must have all required keys for its notification_type")
+  end
 end
