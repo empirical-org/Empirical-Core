@@ -17,8 +17,6 @@ const LabeledDataUploadForm = ({ history, match }) => {
   const [showSubmissionModal, setShowSubmissionModal] = React.useState<boolean>(false);
   const queryClient = useQueryClient()
 
-  const [filenames, setFilenames] = React.useState<string[]>([]);
-
   const blankPromptFiles = { [BECAUSE] : [], [BUT] : [], [SO] : [], };
   const [promptFiles, setPromptFiles] = React.useState({...blankPromptFiles});
 
@@ -68,7 +66,7 @@ const LabeledDataUploadForm = ({ history, match }) => {
   }
 
   const handleSubmit = () => {
-    createLabeledSyntheticData(filenames, activityId).then((response) => {
+    createLabeledSyntheticData(promptFiles, activityId).then((response) => {
       const { errors } = response;
       if(errors && errors.length) {
         setErrors(errors);
