@@ -1771,5 +1771,37 @@ describe User, type: :model do
       it { expect(subject).to be_truthy }
     end
   end
+
+  describe '#generate_default_teacher_notification_settings' do
+    it 'should be called after creation if teacher?' do
+      teacher = build(:teacher)
+
+      expect(teacher).to receive(:generate_default_teacher_notification_settings)
+      teacher.save
+    end
+
+    it 'should not be called after creation if not teacher?' do
+      student = build(:student)
+
+      expect(student).not_to receive(:generate_default_teacher_notification_settings)
+      student.save
+    end
+
+    it 'should not be called on non-create updates' do
+      teacher = create(:teacher)
+
+      expect(teacher).not_to receive(:generate_default_teacher_notification_settings)
+      teacher.name = 'New Name'
+      teacher.save
+    end
+
+    it 'should create new TeacherNotificationSetting records based on configured defaults' do
+      teacher = build(:teacher)
+
+      expect do
+        teacher.save
+      end.to change(TeacherNotificationSetting, :count).by(TeacherNotificationSetting::DEFAULT_FOR_NEW_USERS.length)
+    end
+  end
 end
 # rubocop:enable Metrics/BlockLength
