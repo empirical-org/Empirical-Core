@@ -76,6 +76,7 @@ describe User, type: :model do
   it { should have_many(:classrooms_teachers) }
   it { should have_many(:teacher_saved_activities).with_foreign_key('teacher_id') }
   it { should have_many(:teacher_notifications) }
+  it { should have_many(:teacher_notification_settings) }
   it { should have_many(:activities).through(:teacher_saved_activities)}
   it { should have_many(:classrooms_i_teach).through(:classrooms_teachers).source(:classroom) }
   it { should have_and_belong_to_many(:districts) }
