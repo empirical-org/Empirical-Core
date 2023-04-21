@@ -5,7 +5,7 @@
 # Table name: teacher_notifications
 #
 #  id                :bigint           not null, primary key
-#  email_sent        :boolean          default(FALSE)
+#  email_sent        :datetime
 #  notification_type :text             not null
 #  params            :jsonb
 #  created_at        :datetime         not null
