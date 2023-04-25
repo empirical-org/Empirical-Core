@@ -6,7 +6,7 @@ class CreateTeacherNotifications < ActiveRecord::Migration[6.1]
       t.references :user, index: true, foreign_key: true, null: false
       t.text :notification_type, null: false
       t.datetime :email_sent
-      t.jsonb :params
+      t.jsonb :message_attrs
 
       t.timestamps
     end
