@@ -3,63 +3,54 @@ import React from 'react'
 
 import { requestPost, } from '../../../../modules/request/index'
 
-export default class RecalculateStaggeredReleaseLocks extends React.Component {
-  state = {
-    teacherIdentifier: '',
-    error: null
-  }
+const RecalculateStaggeredReleaseLocks = () => {
+  const [teacherIdentifier, setTeacherIdentifier] = React.useState('')
+  const [error, setError] = React.useState(null)
 
-  handleRecalculateStaggeredReleaseLocks = () => {
-    const { teacherIdentifier } = this.state
-
+  function handleRecalculateStaggeredReleaseLocks() {
     requestPost(
       `${process.env.DEFAULT_URL}/teacher_fix/recalculate_staggered_release_locks`,
       { teacher_identifier: teacherIdentifier, },
       (body) => {
-        this.setState({ teacherIdentifier: '', error: null})
+        setTeacherIdentifier('')
+        setError(null)
         window.alert('Staggered Release Lock recalculation is underway.  Please wait a few minutes for this to complete.')
       },
       (body) => {
-        this.setState({
-          teacherIdentifier: '',
-          error: 'Teacher not found',
-        });
+        setTeacherIdentifier('')
+        setError('Teacher not found')
       }
     )
   }
 
-  handleTeacherIdentifierUpdate = (e) => {
-    this.setState({teacherIdentifier: e.target.value})
+  function handleTeacherIdentifierUpdate() {
+    setTeacherIdentifier(e.target.value)
   };
 
-  renderTeacherIdentifierForm() {
-    const { teacherIdentifier } = this.state
-
+  function renderTeacherIdentifierForm() {
     return (
       <div className="input-row">
         <label>
           Teacher Email Or Username:
           <input
             aria-label="Teacher Email Or Username"
-            onChange={this.handleTeacherIdentifierUpdate}
+            onChange={handleTeacherIdentifierUpdate}
             type="text"
             value={teacherIdentifier}
           />
         </label>
-        <button onClick={this.handleRecalculateStaggeredReleaseLocks} type="button" >Recalculate</button>
+        <button onClick={handleRecalculateStaggeredReleaseLocks} type="button" >Recalculate</button>
       </div>
     )
   }
 
-  renderError() {
-    const { error } = this.state
-
+  function renderError() {
     if(error) {
       return <p className="error">{error}</p>
     }
   }
 
-  renderInstructions() {
+  function renderInstructions() {
     return (
       <p>
         For a given teacher, this fix will recalculate the Staggered Release locks of every student in all of that
@@ -68,15 +59,15 @@ export default class RecalculateStaggeredReleaseLocks extends React.Component {
     )
   }
 
-  render() {
-    return (
-      <div>
-        <h1><a href="/teacher_fix">Teacher Fixes</a></h1>
-        <h2>Recalculate Staggered Release Locks</h2>
-        {this.renderInstructions()}
-        {this.renderTeacherIdentifierForm()}
-        {this.renderError()}
-      </div>
-    )
-  }
+  return (
+    <div>
+      <h1><a href="/teacher_fix">Teacher Fixes</a></h1>
+      <h2>Recalculate Staggered Release Locks</h2>
+      {renderInstructions()}
+      {renderTeacherIdentifierForm()}
+      {renderError()}
+    </div>
+  )
 }
+
+export default RecalculateStaggeredReleaseLocks
