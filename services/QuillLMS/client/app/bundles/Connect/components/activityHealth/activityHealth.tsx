@@ -2,7 +2,7 @@ import { matchSorter } from 'match-sorter';
 import * as React from 'react';
 import { CSVLink } from 'react-csv';
 import { connect } from 'react-redux';
-import stripHtml from "string-strip-html";
+import { stripHtml } from "string-strip-html";
 
 import PromptHealth from './promptHealth';
 
@@ -306,7 +306,7 @@ class ActivityHealth extends React.Component<ActivityHealthProps, ActivityHealth
     let filteredData = activityHealth.flag === ALL_FLAGS ? fetchedData : fetchedData.filter(data => data.flag === activityHealth.flag)
     filteredData = filteredData.filter(value => {
       return (
-        value.prompt_healths && value.prompt_healths.map(x => x.text || '').some(y => stripHtml(y).toLowerCase().includes(promptSearchInput.toLowerCase()))
+        value.prompt_healths && value.prompt_healths.map(x => x.text || '').some(y => stripHtml(y).result.toLowerCase().includes(promptSearchInput.toLowerCase()))
       );
     })
     return filteredData

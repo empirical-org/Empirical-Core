@@ -1,6 +1,6 @@
 import { ContentState, EditorState } from 'draft-js';
 import * as React from "react";
-import stripHtml from "string-strip-html";
+import { stripHtml } from "string-strip-html";
 
 import {
   AUTO_ML,
@@ -342,7 +342,7 @@ export const buildRule = ({
   } else if(newOrUpdatedRule.rule_type === PLAGIARISM) {
     const rules = plagiarismTexts.map(plagiarismText => ({
       ...plagiarismText,
-      text: stripHtml(plagiarismText.text)
+      text: stripHtml(plagiarismText.text).result
     }))
     newOrUpdatedRule.plagiarism_texts_attributes = rules
   } else if(newOrUpdatedRule.rule_type === AUTO_ML) {

@@ -2,7 +2,7 @@ import { matchSorter } from 'match-sorter';
 import moment from 'moment';
 import * as React from 'react';
 import { Link } from 'react-router-dom';
-import stripHtml from "string-strip-html";
+import { stripHtml } from "string-strip-html";
 
 import {
   BREAK_TAG,
@@ -167,7 +167,7 @@ export const validateForm = (keys: string[], state: any[], ruleType?: string) =>
         }
         break;
       default:
-        const strippedValue = value && stripHtml(value);
+        const strippedValue = value && stripHtml(value).result;
         if(!strippedValue || strippedValue.length === 0) {
           errors[keys[i]] = `${keys[i]} cannot be blank.`;
         }

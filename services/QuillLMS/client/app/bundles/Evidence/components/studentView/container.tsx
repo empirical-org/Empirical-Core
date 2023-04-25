@@ -1,7 +1,7 @@
 import * as React from "react";
 import { convertNodeToElement } from 'react-html-parser';
 import { connect } from "react-redux";
-import stripHtml from "string-strip-html";
+import { stripHtml } from "string-strip-html";
 
 import ActivityFollowUp from './activityFollowUp';
 import ReadPassageContainer from './readPassageContainer';
@@ -287,7 +287,7 @@ export const StudentViewContainer = ({ dispatch, session, isTurk, location, acti
     const activityUID = getUrlParam('uid', location, isTurk)
     const previousFeedback = session.submittedResponses[promptID] || [];
     // strip any HTML injected by browser extensions (such as Chrome highlight)
-    const strippedEntry = stripHtml(entry);
+    const strippedEntry = stripHtml(entry).result;
     if (activityUID) {
       const args = {
         sessionID,

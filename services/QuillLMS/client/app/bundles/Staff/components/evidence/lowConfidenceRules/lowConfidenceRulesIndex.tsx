@@ -1,7 +1,7 @@
 import * as React from "react";
 import { useQuery } from 'react-query';
 import { Link, RouteComponentProps } from 'react-router-dom';
-import stripHtml from "string-strip-html";
+import { stripHtml } from "string-strip-html";
 
 import { BECAUSE, BUT, DEFAULT_CONCEPT_UIDS, LOW_CONFIDENCE, SO, } from '../../../../../constants/evidence';
 import { DataTable, Error, Spinner } from '../../../../Shared/index';
@@ -81,7 +81,7 @@ const LowConfidenceRulesIndex: React.FC<RouteComponentProps<ActivityRouteProps>>
       const { text } = feedback;
       return {
         label: `Feedback ${i + 1}`,
-        value: stripHtml(text)
+        value: stripHtml(text).result
       }
     })
   }

@@ -1,7 +1,7 @@
 import * as React from "react";
 import { connect } from "react-redux";
 import * as Redux from "redux";
-import stripHtml from "string-strip-html";
+import { stripHtml } from "string-strip-html";
 
 import * as connectActions from '../../../Connect/actions';
 import * as diagnosticActions from '../../../Diagnostic/actions/diagnostics.js';
@@ -71,13 +71,13 @@ const renderTitleSection = (activity: Activity) => {
 
 const renderIntroductionSection = (activity: Activity, lesson: any, session: any) => {
   if(!activity) { return }
-  const isEmptyIntroduction = activity.landingPageHtml && !stripHtml(activity.landingPageHtml);
+  const isEmptyIntroduction = activity.landingPageHtml && !stripHtml(activity.landingPageHtml).result;
   if(activity && (!activity.landingPageHtml || isEmptyIntroduction)) { return }
 
   const introductionHTML = new DOMParser().parseFromString(activity.landingPageHtml, 'text/html');
   // we strip HTML because some activites have h3 introduction text wrapped in <strong> tags
   const htmlElement = introductionHTML.getElementsByTagName('h3')[0];
-  const introductionText = htmlElement && htmlElement.innerHTML ? stripHtml(htmlElement.innerHTML) : null;
+  const introductionText = htmlElement && htmlElement.innerHTML ? stripHtml(htmlElement.innerHTML).result : null;
   // in some cases, landing pages do not have h3 headers so we early return to prevent the page from crashing
   if(!introductionText) {
     return;
@@ -168,7 +168,7 @@ const renderQuestions = ({
       return(
         <button className={`question-container ${highlightedStyle} ${titleCardStyle} focus-on-light`} id={key} key={key} onClick={handleQuestionUpdate} type="button">
           {questionNumber && <p className={`question-number ${indentationStyle}`}>{questionNumber}</p>}
-          <p className="question-text">{stripHtml(questionText)}</p>
+          <p className="question-text">{stripHtml(questionText).result}</p>
         </button>
       );
     })
@@ -180,7 +180,7 @@ const renderQuestions = ({
       return(
         <button className={`question-container ${highlightedStyle} focus-on-light`} id={uid} key={uid} onClick={handleQuestionUpdate} type="button">
           <p className={`question-number ${indentationStyle}`}>{`${i + 1}.  `}</p>
-          <p className="question-text">{stripHtml(question.prompt)}</p>
+          <p className="question-text">{stripHtml(question.prompt).result}</p>
         </button>
       );
     });

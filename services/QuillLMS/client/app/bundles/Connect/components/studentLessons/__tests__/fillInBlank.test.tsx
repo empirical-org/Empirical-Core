@@ -1,6 +1,6 @@
 import { shallow } from 'enzyme';
 import * as React from 'react';
-import stripHtml from "string-strip-html";
+import { stripHtml } from "string-strip-html";
 import 'whatwg-fetch';
 
 import { conceptsFeedback, fillInBlankQuestionWithOneAttempt } from '../../../test/studentLessonData';
