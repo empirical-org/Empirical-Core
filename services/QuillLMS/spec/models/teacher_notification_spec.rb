@@ -6,8 +6,8 @@
 #
 #  id                :bigint           not null, primary key
 #  email_sent        :datetime
+#  message_attrs     :jsonb
 #  notification_type :text             not null
-#  params            :jsonb
 #  created_at        :datetime         not null
 #  updated_at        :datetime         not null
 #  user_id           :bigint           not null
@@ -33,37 +33,37 @@ RSpec.describe TeacherNotification, type: :model do
     it { should validate_inclusion_of(:notification_type).in_array(TeacherNotification::NOTIFICATION_TYPES) }
   end
 
-  context 'params validation' do
+  context 'message_attrs validation' do
     let(:teacher_notification) { build(:teacher_notification) }
-    let(:valid_params) {
+    let(:valid_message_attrs) {
       {
         student_name: 'Student Name',
         classroom_name: 'Classroom Name'
       }
     }
 
-    it 'should require params to be a hash' do
-      teacher_notification.params = ''
+    it 'should require message_attrs to be a hash' do
+      teacher_notification.message_attrs = ''
 
-      expect(teacher_notification.valid?).to be(false)
+      expect(teacher_notification).not_to be_valid
     end
 
-    it 'should be invalid if some required keys are not in params' do
-      teacher_notification.params = {}
+    it 'should be invalid if some required keys are not in message_attrs' do
+      teacher_notification.message_attrs = {}
 
-      expect(teacher_notification.valid?).to be(false)
+      expect(teacher_notification).not_to be_valid
     end
 
-    it 'should be valid if all required keys are in params' do
-      teacher_notification.params = valid_params
+    it 'should be valid if all required keys are in message_attrs' do
+      teacher_notification.message_attrs = valid_message_attrs
 
-      expect(teacher_notification.valid?).to be(true)
+      expect(teacher_notification).to be_valid
     end
 
-    it 'should be invalid if params has keys not in the required list' do
-      teacher_notification.params[:non_validated_key] = 'some value'
+    it 'should be invalid if message_attrs has keys not in the required list' do
+      teacher_notification.message_attrs[:non_validated_key] = 'some value'
 
-      expect(teacher_notification.valid?).to be(false)
+      expect(teacher_notification).not_to be_valid
     end
   end
 end

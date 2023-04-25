@@ -6,8 +6,8 @@
 #
 #  id                :bigint           not null, primary key
 #  email_sent        :datetime
+#  message_attrs     :jsonb
 #  notification_type :text             not null
-#  params            :jsonb
 #  created_at        :datetime         not null
 #  updated_at        :datetime         not null
 #  user_id           :bigint           not null
@@ -46,23 +46,23 @@ class TeacherNotification < ApplicationRecord
   belongs_to :user
 
   validates :notification_type, presence: true, inclusion: {in: NOTIFICATION_TYPES}
-  validate :params_must_be_hash, :params_payload_has_required_keys
+  validate :message_attrs_must_be_hash, :message_attrs_payload_has_required_keys
 
-  private def params_is_hash?
-    params.is_a?(Hash)
+  private def message_attrs_is_hash?
+    message_attrs.is_a?(Hash)
   end
 
-  private def params_must_be_hash
-    return if params_is_hash?
+  private def message_attrs_must_be_hash
+    return if message_attrs_is_hash?
 
-    errors.add(:params, "must be a hash")
+    errors.add(:message_attrs, "must be a hash")
   end
 
-  private def params_payload_has_required_keys
-    return unless params_is_hash?
+  private def message_attrs_payload_has_required_keys
+    return unless message_attrs_is_hash?
 
-    return if params.keys.map(&:to_s).to_set == NOTIFICATION_TYPE_VALIDATION[notification_type].map(&:to_s).to_set
+    return if message_attrs.keys.map(&:to_s).to_set == NOTIFICATION_TYPE_VALIDATION[notification_type].map(&:to_s).to_set
 
-    errors.add(:params, "must have all required keys for its notification_type")
+    errors.add(:message_attrs, "must have all required keys for its notification_type")
   end
 end
