@@ -1,5 +1,5 @@
 import * as React from "react";
-import DateTimePicker from 'react-datetime-picker';
+import Datetime from 'react-datetime';
 import { DropdownInput } from "../../../../Shared";
 
 const FilterWidget = ({
@@ -25,22 +25,20 @@ const FilterWidget = ({
         />
         <div className="filter-container">
           <p className="date-picker-label">Start Date:</p>
-          <DateTimePicker
-            ampm={false}
-            className="start-date-picker"
-            format='y-MM-dd HH:mm'
+          <Datetime
+            dateFormat='y-MM-D'
             onChange={onStartDateChange}
-            value={startDate}
+            timeFormat='HH:mm'
+            value={startDate || new Date()}
           />
         </div>
         <div className="filter-container">
           <p className="date-picker-label">End Date:</p>
-          <DateTimePicker
-            ampm={false}
-            className="end-date-picker"
-            format='y-MM-dd HH:mm'
-            onChange={onEndDateChange}
-            value={endDate}
+          <Datetime
+            dateFormat='y-MM-D'
+            onChange={onStartDateChange}
+            timeFormat='HH:mm'
+            value={endDate || new Date()}
           />
         </div>
       </div>

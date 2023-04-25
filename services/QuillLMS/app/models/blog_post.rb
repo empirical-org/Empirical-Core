@@ -50,7 +50,7 @@ class BlogPost < ApplicationRecord
   TWITTER_LOVE = "Twitter love"
   VIDEO_TUTORIALS = "Video tutorials"
   WHATS_NEW = "What's new?"
-  USING_QUILL_FOR_READING_COMPREHENSION = "Using quill for reading comprehension"
+  WRITING_FOR_LEARNING = "Writing for learning"
 
   STUDENT_GETTING_STARTED = 'Student getting started'
   STUDENT_HOW_TO = 'Student how to'
@@ -62,7 +62,7 @@ class BlogPost < ApplicationRecord
 
   TOPICS = [
     WHATS_NEW,
-    USING_QUILL_FOR_READING_COMPREHENSION,
+    WRITING_FOR_LEARNING,
     GETTING_STARTED,
     BEST_PRACTICES,
     WEBINARS,

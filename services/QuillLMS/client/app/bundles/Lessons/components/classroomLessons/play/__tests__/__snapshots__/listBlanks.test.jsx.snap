@@ -123,18 +123,15 @@ exports[`ListBlanks component projector view inactive renders 1`] = `
             placeholder="Type your response here"
             value="Students type responses here"
           >
-            <TextareaAutosize
+            <ForwardRef(TextareaAutosize)
               autoCapitalize="off"
               autoCorrect="off"
               className="student text-editor card is-fullwidth disabled-editor"
               disabled={true}
-              onChange={[Function]}
-              onHeightChange={[Function]}
               onInput={[Function]}
               onKeyDown={[Function]}
               placeholder="Type your response here"
               spellCheck={false}
-              useCacheForDOMMeasurements={false}
               value="Students type responses here"
             >
               <textarea
@@ -147,14 +144,9 @@ exports[`ListBlanks component projector view inactive renders 1`] = `
                 onKeyDown={[Function]}
                 placeholder="Type your response here"
                 spellCheck={false}
-                style={
-                  Object {
-                    "height": 0,
-                  }
-                }
                 value="Students type responses here"
               />
-            </TextareaAutosize>
+            </ForwardRef(TextareaAutosize)>
           </RenderTextEditor>
         </div>
         <div
@@ -173,18 +165,15 @@ exports[`ListBlanks component projector view inactive renders 1`] = `
             placeholder="Type your response here"
             value="Students type responses here"
           >
-            <TextareaAutosize
+            <ForwardRef(TextareaAutosize)
               autoCapitalize="off"
               autoCorrect="off"
               className="student text-editor card is-fullwidth disabled-editor"
               disabled={true}
-              onChange={[Function]}
-              onHeightChange={[Function]}
               onInput={[Function]}
               onKeyDown={[Function]}
               placeholder="Type your response here"
               spellCheck={false}
-              useCacheForDOMMeasurements={false}
               value="Students type responses here"
             >
               <textarea
@@ -197,14 +186,9 @@ exports[`ListBlanks component projector view inactive renders 1`] = `
                 onKeyDown={[Function]}
                 placeholder="Type your response here"
                 spellCheck={false}
-                style={
-                  Object {
-                    "height": 0,
-                  }
-                }
                 value="Students type responses here"
               />
-            </TextareaAutosize>
+            </ForwardRef(TextareaAutosize)>
           </RenderTextEditor>
         </div>
         <div
@@ -223,18 +207,15 @@ exports[`ListBlanks component projector view inactive renders 1`] = `
             placeholder="Type your response here"
             value="Students type responses here"
           >
-            <TextareaAutosize
+            <ForwardRef(TextareaAutosize)
               autoCapitalize="off"
               autoCorrect="off"
               className="student text-editor card is-fullwidth disabled-editor"
               disabled={true}
-              onChange={[Function]}
-              onHeightChange={[Function]}
               onInput={[Function]}
               onKeyDown={[Function]}
               placeholder="Type your response here"
               spellCheck={false}
-              useCacheForDOMMeasurements={false}
               value="Students type responses here"
             >
               <textarea
@@ -247,14 +228,9 @@ exports[`ListBlanks component projector view inactive renders 1`] = `
                 onKeyDown={[Function]}
                 placeholder="Type your response here"
                 spellCheck={false}
-                style={
-                  Object {
-                    "height": 0,
-                  }
-                }
                 value="Students type responses here"
               />
-            </TextareaAutosize>
+            </ForwardRef(TextareaAutosize)>
           </RenderTextEditor>
         </div>
       </div>
@@ -433,18 +409,15 @@ exports[`ListBlanks component projector view when an answer is being displayed r
             placeholder="Type your response here"
             value="Students type responses here"
           >
-            <TextareaAutosize
+            <ForwardRef(TextareaAutosize)
               autoCapitalize="off"
               autoCorrect="off"
               className="student text-editor card is-fullwidth disabled-editor"
               disabled={true}
-              onChange={[Function]}
-              onHeightChange={[Function]}
               onInput={[Function]}
               onKeyDown={[Function]}
               placeholder="Type your response here"
               spellCheck={false}
-              useCacheForDOMMeasurements={false}
               value="Students type responses here"
             >
               <textarea
@@ -457,14 +430,9 @@ exports[`ListBlanks component projector view when an answer is being displayed r
                 onKeyDown={[Function]}
                 placeholder="Type your response here"
                 spellCheck={false}
-                style={
-                  Object {
-                    "height": 0,
-                  }
-                }
                 value="Students type responses here"
               />
-            </TextareaAutosize>
+            </ForwardRef(TextareaAutosize)>
           </RenderTextEditor>
         </div>
         <div
@@ -483,18 +451,15 @@ exports[`ListBlanks component projector view when an answer is being displayed r
             placeholder="Type your response here"
             value="Students type responses here"
           >
-            <TextareaAutosize
+            <ForwardRef(TextareaAutosize)
               autoCapitalize="off"
               autoCorrect="off"
               className="student text-editor card is-fullwidth disabled-editor"
               disabled={true}
-              onChange={[Function]}
-              onHeightChange={[Function]}
               onInput={[Function]}
               onKeyDown={[Function]}
               placeholder="Type your response here"
               spellCheck={false}
-              useCacheForDOMMeasurements={false}
               value="Students type responses here"
             >
               <textarea
@@ -507,14 +472,9 @@ exports[`ListBlanks component projector view when an answer is being displayed r
                 onKeyDown={[Function]}
                 placeholder="Type your response here"
                 spellCheck={false}
-                style={
-                  Object {
-                    "height": 0,
-                  }
-                }
                 value="Students type responses here"
               />
-            </TextareaAutosize>
+            </ForwardRef(TextareaAutosize)>
           </RenderTextEditor>
         </div>
         <div
@@ -533,18 +493,15 @@ exports[`ListBlanks component projector view when an answer is being displayed r
             placeholder="Type your response here"
             value="Students type responses here"
           >
-            <TextareaAutosize
+            <ForwardRef(TextareaAutosize)
               autoCapitalize="off"
               autoCorrect="off"
               className="student text-editor card is-fullwidth disabled-editor"
               disabled={true}
-              onChange={[Function]}
-              onHeightChange={[Function]}
               onInput={[Function]}
               onKeyDown={[Function]}
               placeholder="Type your response here"
               spellCheck={false}
-              useCacheForDOMMeasurements={false}
               value="Students type responses here"
             >
               <textarea
@@ -557,14 +514,9 @@ exports[`ListBlanks component projector view when an answer is being displayed r
                 onKeyDown={[Function]}
                 placeholder="Type your response here"
                 spellCheck={false}
-                style={
-                  Object {
-                    "height": 0,
-                  }
-                }
                 value="Students type responses here"
               />
-            </TextareaAutosize>
+            </ForwardRef(TextareaAutosize)>
           </RenderTextEditor>
         </div>
       </div>
@@ -685,17 +637,14 @@ exports[`ListBlanks component student view inactive renders 1`] = `
             handleChange={[Function]}
             placeholder="Type your response here"
           >
-            <TextareaAutosize
+            <ForwardRef(TextareaAutosize)
               autoCapitalize="off"
               autoCorrect="off"
               className="student text-editor card is-fullwidth null"
-              onChange={[Function]}
-              onHeightChange={[Function]}
               onInput={[Function]}
               onKeyDown={[Function]}
               placeholder="Type your response here"
               spellCheck={false}
-              useCacheForDOMMeasurements={false}
             >
               <textarea
                 autoCapitalize="off"
@@ -706,13 +655,8 @@ exports[`ListBlanks component student view inactive renders 1`] = `
                 onKeyDown={[Function]}
                 placeholder="Type your response here"
                 spellCheck={false}
-                style={
-                  Object {
-                    "height": 0,
-                  }
-                }
               />
-            </TextareaAutosize>
+            </ForwardRef(TextareaAutosize)>
           </RenderTextEditor>
         </div>
         <div
@@ -729,17 +673,14 @@ exports[`ListBlanks component student view inactive renders 1`] = `
             handleChange={[Function]}
             placeholder="Type your response here"
           >
-            <TextareaAutosize
+            <ForwardRef(TextareaAutosize)
               autoCapitalize="off"
               autoCorrect="off"
               className="student text-editor card is-fullwidth null"
-              onChange={[Function]}
-              onHeightChange={[Function]}
               onInput={[Function]}
               onKeyDown={[Function]}
               placeholder="Type your response here"
               spellCheck={false}
-              useCacheForDOMMeasurements={false}
             >
               <textarea
                 autoCapitalize="off"
@@ -750,13 +691,8 @@ exports[`ListBlanks component student view inactive renders 1`] = `
                 onKeyDown={[Function]}
                 placeholder="Type your response here"
                 spellCheck={false}
-                style={
-                  Object {
-                    "height": 0,
-                  }
-                }
               />
-            </TextareaAutosize>
+            </ForwardRef(TextareaAutosize)>
           </RenderTextEditor>
         </div>
         <div
@@ -773,17 +709,14 @@ exports[`ListBlanks component student view inactive renders 1`] = `
             handleChange={[Function]}
             placeholder="Type your response here"
           >
-            <TextareaAutosize
+            <ForwardRef(TextareaAutosize)
               autoCapitalize="off"
               autoCorrect="off"
               className="student text-editor card is-fullwidth null"
-              onChange={[Function]}
-              onHeightChange={[Function]}
               onInput={[Function]}
               onKeyDown={[Function]}
               placeholder="Type your response here"
               spellCheck={false}
-              useCacheForDOMMeasurements={false}
             >
               <textarea
                 autoCapitalize="off"
@@ -794,13 +727,8 @@ exports[`ListBlanks component student view inactive renders 1`] = `
                 onKeyDown={[Function]}
                 placeholder="Type your response here"
                 spellCheck={false}
-                style={
-                  Object {
-                    "height": 0,
-                  }
-                }
               />
-            </TextareaAutosize>
+            </ForwardRef(TextareaAutosize)>
           </RenderTextEditor>
         </div>
       </div>
@@ -940,17 +868,14 @@ exports[`ListBlanks component student view when an answer is being displayed ren
             handleChange={[Function]}
             placeholder="Type your response here"
           >
-            <TextareaAutosize
+            <ForwardRef(TextareaAutosize)
               autoCapitalize="off"
               autoCorrect="off"
               className="student text-editor card is-fullwidth null"
-              onChange={[Function]}
-              onHeightChange={[Function]}
               onInput={[Function]}
               onKeyDown={[Function]}
               placeholder="Type your response here"
               spellCheck={false}
-              useCacheForDOMMeasurements={false}
             >
               <textarea
                 autoCapitalize="off"
@@ -961,13 +886,8 @@ exports[`ListBlanks component student view when an answer is being displayed ren
                 onKeyDown={[Function]}
                 placeholder="Type your response here"
                 spellCheck={false}
-                style={
-                  Object {
-                    "height": 0,
-                  }
-                }
               />
-            </TextareaAutosize>
+            </ForwardRef(TextareaAutosize)>
           </RenderTextEditor>
         </div>
         <div
@@ -984,17 +904,14 @@ exports[`ListBlanks component student view when an answer is being displayed ren
             handleChange={[Function]}
             placeholder="Type your response here"
           >
-            <TextareaAutosize
+            <ForwardRef(TextareaAutosize)
               autoCapitalize="off"
               autoCorrect="off"
               className="student text-editor card is-fullwidth null"
-              onChange={[Function]}
-              onHeightChange={[Function]}
               onInput={[Function]}
               onKeyDown={[Function]}
               placeholder="Type your response here"
               spellCheck={false}
-              useCacheForDOMMeasurements={false}
             >
               <textarea
                 autoCapitalize="off"
@@ -1005,13 +922,8 @@ exports[`ListBlanks component student view when an answer is being displayed ren
                 onKeyDown={[Function]}
                 placeholder="Type your response here"
                 spellCheck={false}
-                style={
-                  Object {
-                    "height": 0,
-                  }
-                }
               />
-            </TextareaAutosize>
+            </ForwardRef(TextareaAutosize)>
           </RenderTextEditor>
         </div>
         <div
@@ -1028,17 +940,14 @@ exports[`ListBlanks component student view when an answer is being displayed ren
             handleChange={[Function]}
             placeholder="Type your response here"
           >
-            <TextareaAutosize
+            <ForwardRef(TextareaAutosize)
               autoCapitalize="off"
               autoCorrect="off"
               className="student text-editor card is-fullwidth null"
-              onChange={[Function]}
-              onHeightChange={[Function]}
               onInput={[Function]}
               onKeyDown={[Function]}
               placeholder="Type your response here"
               spellCheck={false}
-              useCacheForDOMMeasurements={false}
             >
               <textarea
                 autoCapitalize="off"
@@ -1049,13 +958,8 @@ exports[`ListBlanks component student view when an answer is being displayed ren
                 onKeyDown={[Function]}
                 placeholder="Type your response here"
                 spellCheck={false}
-                style={
-                  Object {
-                    "height": 0,
-                  }
-                }
               />
-            </TextareaAutosize>
+            </ForwardRef(TextareaAutosize)>
           </RenderTextEditor>
         </div>
       </div>
@@ -1187,17 +1091,14 @@ exports[`ListBlanks component student view when the student has submitted an ans
             handleChange={[Function]}
             placeholder="Type your response here"
           >
-            <TextareaAutosize
+            <ForwardRef(TextareaAutosize)
               autoCapitalize="off"
               autoCorrect="off"
               className="student text-editor card is-fullwidth null"
-              onChange={[Function]}
-              onHeightChange={[Function]}
               onInput={[Function]}
               onKeyDown={[Function]}
               placeholder="Type your response here"
               spellCheck={false}
-              useCacheForDOMMeasurements={false}
             >
               <textarea
                 autoCapitalize="off"
@@ -1208,13 +1109,8 @@ exports[`ListBlanks component student view when the student has submitted an ans
                 onKeyDown={[Function]}
                 placeholder="Type your response here"
                 spellCheck={false}
-                style={
-                  Object {
-                    "height": 0,
-                  }
-                }
               />
-            </TextareaAutosize>
+            </ForwardRef(TextareaAutosize)>
           </RenderTextEditor>
         </div>
         <div
@@ -1231,17 +1127,14 @@ exports[`ListBlanks component student view when the student has submitted an ans
             handleChange={[Function]}
             placeholder="Type your response here"
           >
-            <TextareaAutosize
+            <ForwardRef(TextareaAutosize)
               autoCapitalize="off"
               autoCorrect="off"
               className="student text-editor card is-fullwidth null"
-              onChange={[Function]}
-              onHeightChange={[Function]}
               onInput={[Function]}
               onKeyDown={[Function]}
               placeholder="Type your response here"
               spellCheck={false}
-              useCacheForDOMMeasurements={false}
             >
               <textarea
                 autoCapitalize="off"
@@ -1252,13 +1145,8 @@ exports[`ListBlanks component student view when the student has submitted an ans
                 onKeyDown={[Function]}
                 placeholder="Type your response here"
                 spellCheck={false}
-                style={
-                  Object {
-                    "height": 0,
-                  }
-                }
               />
-            </TextareaAutosize>
+            </ForwardRef(TextareaAutosize)>
           </RenderTextEditor>
         </div>
         <div
@@ -1275,17 +1163,14 @@ exports[`ListBlanks component student view when the student has submitted an ans
             handleChange={[Function]}
             placeholder="Type your response here"
           >
-            <TextareaAutosize
+            <ForwardRef(TextareaAutosize)
               autoCapitalize="off"
               autoCorrect="off"
               className="student text-editor card is-fullwidth null"
-              onChange={[Function]}
-              onHeightChange={[Function]}
               onInput={[Function]}
               onKeyDown={[Function]}
               placeholder="Type your response here"
               spellCheck={false}
-              useCacheForDOMMeasurements={false}
             >
               <textarea
                 autoCapitalize="off"
@@ -1296,13 +1181,8 @@ exports[`ListBlanks component student view when the student has submitted an ans
                 onKeyDown={[Function]}
                 placeholder="Type your response here"
                 spellCheck={false}
-                style={
-                  Object {
-                    "height": 0,
-                  }
-                }
               />
-            </TextareaAutosize>
+            </ForwardRef(TextareaAutosize)>
           </RenderTextEditor>
         </div>
       </div>
@@ -1434,17 +1314,14 @@ exports[`ListBlanks component student view when the student has submitted an ans
             handleChange={[Function]}
             placeholder="Type your response here"
           >
-            <TextareaAutosize
+            <ForwardRef(TextareaAutosize)
               autoCapitalize="off"
               autoCorrect="off"
               className="student text-editor card is-fullwidth null"
-              onChange={[Function]}
-              onHeightChange={[Function]}
               onInput={[Function]}
               onKeyDown={[Function]}
               placeholder="Type your response here"
               spellCheck={false}
-              useCacheForDOMMeasurements={false}
             >
               <textarea
                 autoCapitalize="off"
@@ -1455,13 +1332,8 @@ exports[`ListBlanks component student view when the student has submitted an ans
                 onKeyDown={[Function]}
                 placeholder="Type your response here"
                 spellCheck={false}
-                style={
-                  Object {
-                    "height": 0,
-                  }
-                }
               />
-            </TextareaAutosize>
+            </ForwardRef(TextareaAutosize)>
           </RenderTextEditor>
         </div>
         <div
@@ -1478,17 +1350,14 @@ exports[`ListBlanks component student view when the student has submitted an ans
             handleChange={[Function]}
             placeholder="Type your response here"
           >
-            <TextareaAutosize
+            <ForwardRef(TextareaAutosize)
               autoCapitalize="off"
               autoCorrect="off"
               className="student text-editor card is-fullwidth null"
-              onChange={[Function]}
-              onHeightChange={[Function]}
               onInput={[Function]}
               onKeyDown={[Function]}
               placeholder="Type your response here"
               spellCheck={false}
-              useCacheForDOMMeasurements={false}
             >
               <textarea
                 autoCapitalize="off"
@@ -1499,13 +1368,8 @@ exports[`ListBlanks component student view when the student has submitted an ans
                 onKeyDown={[Function]}
                 placeholder="Type your response here"
                 spellCheck={false}
-                style={
-                  Object {
-                    "height": 0,
-                  }
-                }
               />
-            </TextareaAutosize>
+            </ForwardRef(TextareaAutosize)>
           </RenderTextEditor>
         </div>
         <div
@@ -1522,17 +1386,14 @@ exports[`ListBlanks component student view when the student has submitted an ans
             handleChange={[Function]}
             placeholder="Type your response here"
           >
-            <TextareaAutosize
+            <ForwardRef(TextareaAutosize)
               autoCapitalize="off"
               autoCorrect="off"
               className="student text-editor card is-fullwidth null"
-              onChange={[Function]}
-              onHeightChange={[Function]}
               onInput={[Function]}
               onKeyDown={[Function]}
               placeholder="Type your response here"
               spellCheck={false}
-              useCacheForDOMMeasurements={false}
             >
               <textarea
                 autoCapitalize="off"
@@ -1543,13 +1404,8 @@ exports[`ListBlanks component student view when the student has submitted an ans
                 onKeyDown={[Function]}
                 placeholder="Type your response here"
                 spellCheck={false}
-                style={
-                  Object {
-                    "height": 0,
-                  }
-                }
               />
-            </TextareaAutosize>
+            </ForwardRef(TextareaAutosize)>
           </RenderTextEditor>
         </div>
       </div>

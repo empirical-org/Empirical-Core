@@ -1,9 +1,8 @@
 import * as React from "react";
-import DateTimePicker from 'react-datetime-picker';
+import Datetime from 'react-datetime';
 import { useQuery } from 'react-query';
 import stripHtml from "string-strip-html";
 import * as _ from 'underscore';
-;
 
 import { sort } from '../../../../../modules/sortingMethods.js';
 import { ReactTable, Spinner, uniqueValuesArray } from '../../../../Shared/index';
@@ -15,8 +14,8 @@ const ChangeLog = ({ history, match }) => {
   const { activityId, } = params;
   const initialStartDateString = '';
   const initialEndDateString = '';
-  const initialStartDate = initialStartDateString ? new Date(initialStartDateString) : null;
-  const initialEndDate = initialEndDateString ? new Date(initialEndDateString) : null;
+  const initialStartDate = initialStartDateString ? new Date(initialStartDateString) : new Date();
+  const initialEndDate = initialEndDateString ? new Date(initialEndDateString) : new Date();
   const DEFAULT_RULE = 'all'
   const DEFAULT_PROMPT = 'all'
 
@@ -220,17 +219,17 @@ const ChangeLog = ({ history, match }) => {
         </div>
         <div id="bottom-selectors">
           <p className="date-picker-label">Start Date:</p>
-          <DateTimePicker
-            ampm={false}
-            format='y-MM-dd HH:mm'
+          <Datetime
+            dateFormat='y-MM-D'
             onChange={onStartDateChange}
+            timeFormat='HH:mm'
             value={startDate}
           />
           <p className="date-picker-label">End Date (optional):</p>
-          <DateTimePicker
-            ampm={false}
-            format='y-MM-dd HH:mm'
+          <Datetime
+            dateFormat='y-MM-D'
             onChange={onEndDateChange}
+            timeFormat='HH:mm'
             value={endDate}
           />
         </div>
