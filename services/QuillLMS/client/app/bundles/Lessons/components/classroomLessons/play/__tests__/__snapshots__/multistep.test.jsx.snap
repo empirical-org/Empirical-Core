@@ -111,18 +111,15 @@ exports[`Multistep component projector view inactive renders 1`] = `
             placeholder="Type your response here"
             value="Students type responses here"
           >
-            <TextareaAutosize
+            <ForwardRef(TextareaAutosize)
               autoCapitalize="off"
               autoCorrect="off"
               className="student text-editor card is-fullwidth disabled-editor"
               disabled={true}
-              onChange={[Function]}
-              onHeightChange={[Function]}
               onInput={[Function]}
               onKeyDown={[Function]}
               placeholder="Type your response here"
               spellCheck={false}
-              useCacheForDOMMeasurements={false}
               value="Students type responses here"
             >
               <textarea
@@ -135,14 +132,9 @@ exports[`Multistep component projector view inactive renders 1`] = `
                 onKeyDown={[Function]}
                 placeholder="Type your response here"
                 spellCheck={false}
-                style={
-                  Object {
-                    "height": 0,
-                  }
-                }
                 value="Students type responses here"
               />
-            </TextareaAutosize>
+            </ForwardRef(TextareaAutosize)>
           </RenderTextEditor>
         </div>
         <div
@@ -161,18 +153,15 @@ exports[`Multistep component projector view inactive renders 1`] = `
             placeholder="Type your response here"
             value="Students type responses here"
           >
-            <TextareaAutosize
+            <ForwardRef(TextareaAutosize)
               autoCapitalize="off"
               autoCorrect="off"
               className="student text-editor card is-fullwidth disabled-editor"
               disabled={true}
-              onChange={[Function]}
-              onHeightChange={[Function]}
               onInput={[Function]}
               onKeyDown={[Function]}
               placeholder="Type your response here"
               spellCheck={false}
-              useCacheForDOMMeasurements={false}
               value="Students type responses here"
             >
               <textarea
@@ -185,14 +174,9 @@ exports[`Multistep component projector view inactive renders 1`] = `
                 onKeyDown={[Function]}
                 placeholder="Type your response here"
                 spellCheck={false}
-                style={
-                  Object {
-                    "height": 0,
-                  }
-                }
                 value="Students type responses here"
               />
-            </TextareaAutosize>
+            </ForwardRef(TextareaAutosize)>
           </RenderTextEditor>
         </div>
         <div
@@ -211,18 +195,15 @@ exports[`Multistep component projector view inactive renders 1`] = `
             placeholder="Type your response here"
             value="Students type responses here"
           >
-            <TextareaAutosize
+            <ForwardRef(TextareaAutosize)
               autoCapitalize="off"
               autoCorrect="off"
               className="student text-editor card is-fullwidth disabled-editor"
               disabled={true}
-              onChange={[Function]}
-              onHeightChange={[Function]}
               onInput={[Function]}
               onKeyDown={[Function]}
               placeholder="Type your response here"
               spellCheck={false}
-              useCacheForDOMMeasurements={false}
               value="Students type responses here"
             >
               <textarea
@@ -235,14 +216,9 @@ exports[`Multistep component projector view inactive renders 1`] = `
                 onKeyDown={[Function]}
                 placeholder="Type your response here"
                 spellCheck={false}
-                style={
-                  Object {
-                    "height": 0,
-                  }
-                }
                 value="Students type responses here"
               />
-            </TextareaAutosize>
+            </ForwardRef(TextareaAutosize)>
           </RenderTextEditor>
         </div>
       </div>
@@ -413,18 +389,15 @@ exports[`Multistep component projector view when an answer is being displayed re
             placeholder="Type your response here"
             value="Students type responses here"
           >
-            <TextareaAutosize
+            <ForwardRef(TextareaAutosize)
               autoCapitalize="off"
               autoCorrect="off"
               className="student text-editor card is-fullwidth disabled-editor"
               disabled={true}
-              onChange={[Function]}
-              onHeightChange={[Function]}
               onInput={[Function]}
               onKeyDown={[Function]}
               placeholder="Type your response here"
               spellCheck={false}
-              useCacheForDOMMeasurements={false}
               value="Students type responses here"
             >
               <textarea
@@ -437,14 +410,9 @@ exports[`Multistep component projector view when an answer is being displayed re
                 onKeyDown={[Function]}
                 placeholder="Type your response here"
                 spellCheck={false}
-                style={
-                  Object {
-                    "height": 0,
-                  }
-                }
                 value="Students type responses here"
               />
-            </TextareaAutosize>
+            </ForwardRef(TextareaAutosize)>
           </RenderTextEditor>
         </div>
         <div
@@ -463,18 +431,15 @@ exports[`Multistep component projector view when an answer is being displayed re
             placeholder="Type your response here"
             value="Students type responses here"
           >
-            <TextareaAutosize
+            <ForwardRef(TextareaAutosize)
               autoCapitalize="off"
               autoCorrect="off"
               className="student text-editor card is-fullwidth disabled-editor"
               disabled={true}
-              onChange={[Function]}
-              onHeightChange={[Function]}
               onInput={[Function]}
               onKeyDown={[Function]}
               placeholder="Type your response here"
               spellCheck={false}
-              useCacheForDOMMeasurements={false}
               value="Students type responses here"
             >
               <textarea
@@ -487,14 +452,9 @@ exports[`Multistep component projector view when an answer is being displayed re
                 onKeyDown={[Function]}
                 placeholder="Type your response here"
                 spellCheck={false}
-                style={
-                  Object {
-                    "height": 0,
-                  }
-                }
                 value="Students type responses here"
               />
-            </TextareaAutosize>
+            </ForwardRef(TextareaAutosize)>
           </RenderTextEditor>
         </div>
         <div
@@ -513,18 +473,15 @@ exports[`Multistep component projector view when an answer is being displayed re
             placeholder="Type your response here"
             value="Students type responses here"
           >
-            <TextareaAutosize
+            <ForwardRef(TextareaAutosize)
               autoCapitalize="off"
               autoCorrect="off"
               className="student text-editor card is-fullwidth disabled-editor"
               disabled={true}
-              onChange={[Function]}
-              onHeightChange={[Function]}
               onInput={[Function]}
               onKeyDown={[Function]}
               placeholder="Type your response here"
               spellCheck={false}
-              useCacheForDOMMeasurements={false}
               value="Students type responses here"
             >
               <textarea
@@ -537,14 +494,9 @@ exports[`Multistep component projector view when an answer is being displayed re
                 onKeyDown={[Function]}
                 placeholder="Type your response here"
                 spellCheck={false}
-                style={
-                  Object {
-                    "height": 0,
-                  }
-                }
                 value="Students type responses here"
               />
-            </TextareaAutosize>
+            </ForwardRef(TextareaAutosize)>
           </RenderTextEditor>
         </div>
       </div>
@@ -654,17 +606,14 @@ exports[`Multistep component student view inactive renders 1`] = `
             placeholder="Type your response here"
             value=""
           >
-            <TextareaAutosize
+            <ForwardRef(TextareaAutosize)
               autoCapitalize="off"
               autoCorrect="off"
               className="student text-editor card is-fullwidth null"
-              onChange={[Function]}
-              onHeightChange={[Function]}
               onInput={[Function]}
               onKeyDown={[Function]}
               placeholder="Type your response here"
               spellCheck={false}
-              useCacheForDOMMeasurements={false}
               value=""
             >
               <textarea
@@ -676,14 +625,9 @@ exports[`Multistep component student view inactive renders 1`] = `
                 onKeyDown={[Function]}
                 placeholder="Type your response here"
                 spellCheck={false}
-                style={
-                  Object {
-                    "height": 0,
-                  }
-                }
                 value=""
               />
-            </TextareaAutosize>
+            </ForwardRef(TextareaAutosize)>
           </RenderTextEditor>
         </div>
         <div
@@ -701,17 +645,14 @@ exports[`Multistep component student view inactive renders 1`] = `
             placeholder="Type your response here"
             value=""
           >
-            <TextareaAutosize
+            <ForwardRef(TextareaAutosize)
               autoCapitalize="off"
               autoCorrect="off"
               className="student text-editor card is-fullwidth null"
-              onChange={[Function]}
-              onHeightChange={[Function]}
               onInput={[Function]}
               onKeyDown={[Function]}
               placeholder="Type your response here"
               spellCheck={false}
-              useCacheForDOMMeasurements={false}
               value=""
             >
               <textarea
@@ -723,14 +664,9 @@ exports[`Multistep component student view inactive renders 1`] = `
                 onKeyDown={[Function]}
                 placeholder="Type your response here"
                 spellCheck={false}
-                style={
-                  Object {
-                    "height": 0,
-                  }
-                }
                 value=""
               />
-            </TextareaAutosize>
+            </ForwardRef(TextareaAutosize)>
           </RenderTextEditor>
         </div>
         <div
@@ -748,17 +684,14 @@ exports[`Multistep component student view inactive renders 1`] = `
             placeholder="Type your response here"
             value=""
           >
-            <TextareaAutosize
+            <ForwardRef(TextareaAutosize)
               autoCapitalize="off"
               autoCorrect="off"
               className="student text-editor card is-fullwidth null"
-              onChange={[Function]}
-              onHeightChange={[Function]}
               onInput={[Function]}
               onKeyDown={[Function]}
               placeholder="Type your response here"
               spellCheck={false}
-              useCacheForDOMMeasurements={false}
               value=""
             >
               <textarea
@@ -770,14 +703,9 @@ exports[`Multistep component student view inactive renders 1`] = `
                 onKeyDown={[Function]}
                 placeholder="Type your response here"
                 spellCheck={false}
-                style={
-                  Object {
-                    "height": 0,
-                  }
-                }
                 value=""
               />
-            </TextareaAutosize>
+            </ForwardRef(TextareaAutosize)>
           </RenderTextEditor>
         </div>
       </div>
@@ -909,17 +837,14 @@ exports[`Multistep component student view when an answer is being displayed rend
             placeholder="Type your response here"
             value=""
           >
-            <TextareaAutosize
+            <ForwardRef(TextareaAutosize)
               autoCapitalize="off"
               autoCorrect="off"
               className="student text-editor card is-fullwidth null"
-              onChange={[Function]}
-              onHeightChange={[Function]}
               onInput={[Function]}
               onKeyDown={[Function]}
               placeholder="Type your response here"
               spellCheck={false}
-              useCacheForDOMMeasurements={false}
               value=""
             >
               <textarea
@@ -931,14 +856,9 @@ exports[`Multistep component student view when an answer is being displayed rend
                 onKeyDown={[Function]}
                 placeholder="Type your response here"
                 spellCheck={false}
-                style={
-                  Object {
-                    "height": 0,
-                  }
-                }
                 value=""
               />
-            </TextareaAutosize>
+            </ForwardRef(TextareaAutosize)>
           </RenderTextEditor>
         </div>
         <div
@@ -956,17 +876,14 @@ exports[`Multistep component student view when an answer is being displayed rend
             placeholder="Type your response here"
             value=""
           >
-            <TextareaAutosize
+            <ForwardRef(TextareaAutosize)
               autoCapitalize="off"
               autoCorrect="off"
               className="student text-editor card is-fullwidth null"
-              onChange={[Function]}
-              onHeightChange={[Function]}
               onInput={[Function]}
               onKeyDown={[Function]}
               placeholder="Type your response here"
               spellCheck={false}
-              useCacheForDOMMeasurements={false}
               value=""
             >
               <textarea
@@ -978,14 +895,9 @@ exports[`Multistep component student view when an answer is being displayed rend
                 onKeyDown={[Function]}
                 placeholder="Type your response here"
                 spellCheck={false}
-                style={
-                  Object {
-                    "height": 0,
-                  }
-                }
                 value=""
               />
-            </TextareaAutosize>
+            </ForwardRef(TextareaAutosize)>
           </RenderTextEditor>
         </div>
         <div
@@ -1003,17 +915,14 @@ exports[`Multistep component student view when an answer is being displayed rend
             placeholder="Type your response here"
             value=""
           >
-            <TextareaAutosize
+            <ForwardRef(TextareaAutosize)
               autoCapitalize="off"
               autoCorrect="off"
               className="student text-editor card is-fullwidth null"
-              onChange={[Function]}
-              onHeightChange={[Function]}
               onInput={[Function]}
               onKeyDown={[Function]}
               placeholder="Type your response here"
               spellCheck={false}
-              useCacheForDOMMeasurements={false}
               value=""
             >
               <textarea
@@ -1025,14 +934,9 @@ exports[`Multistep component student view when an answer is being displayed rend
                 onKeyDown={[Function]}
                 placeholder="Type your response here"
                 spellCheck={false}
-                style={
-                  Object {
-                    "height": 0,
-                  }
-                }
                 value=""
               />
-            </TextareaAutosize>
+            </ForwardRef(TextareaAutosize)>
           </RenderTextEditor>
         </div>
       </div>
@@ -1154,17 +1058,14 @@ exports[`Multistep component student view when the student has submitted an answ
             placeholder="Type your response here"
             value=""
           >
-            <TextareaAutosize
+            <ForwardRef(TextareaAutosize)
               autoCapitalize="off"
               autoCorrect="off"
               className="student text-editor card is-fullwidth null"
-              onChange={[Function]}
-              onHeightChange={[Function]}
               onInput={[Function]}
               onKeyDown={[Function]}
               placeholder="Type your response here"
               spellCheck={false}
-              useCacheForDOMMeasurements={false}
               value=""
             >
               <textarea
@@ -1176,14 +1077,9 @@ exports[`Multistep component student view when the student has submitted an answ
                 onKeyDown={[Function]}
                 placeholder="Type your response here"
                 spellCheck={false}
-                style={
-                  Object {
-                    "height": 0,
-                  }
-                }
                 value=""
               />
-            </TextareaAutosize>
+            </ForwardRef(TextareaAutosize)>
           </RenderTextEditor>
         </div>
         <div
@@ -1201,17 +1097,14 @@ exports[`Multistep component student view when the student has submitted an answ
             placeholder="Type your response here"
             value=""
           >
-            <TextareaAutosize
+            <ForwardRef(TextareaAutosize)
               autoCapitalize="off"
               autoCorrect="off"
               className="student text-editor card is-fullwidth null"
-              onChange={[Function]}
-              onHeightChange={[Function]}
               onInput={[Function]}
               onKeyDown={[Function]}
               placeholder="Type your response here"
               spellCheck={false}
-              useCacheForDOMMeasurements={false}
               value=""
             >
               <textarea
@@ -1223,14 +1116,9 @@ exports[`Multistep component student view when the student has submitted an answ
                 onKeyDown={[Function]}
                 placeholder="Type your response here"
                 spellCheck={false}
-                style={
-                  Object {
-                    "height": 0,
-                  }
-                }
                 value=""
               />
-            </TextareaAutosize>
+            </ForwardRef(TextareaAutosize)>
           </RenderTextEditor>
         </div>
         <div
@@ -1248,17 +1136,14 @@ exports[`Multistep component student view when the student has submitted an answ
             placeholder="Type your response here"
             value=""
           >
-            <TextareaAutosize
+            <ForwardRef(TextareaAutosize)
               autoCapitalize="off"
               autoCorrect="off"
               className="student text-editor card is-fullwidth null"
-              onChange={[Function]}
-              onHeightChange={[Function]}
               onInput={[Function]}
               onKeyDown={[Function]}
               placeholder="Type your response here"
               spellCheck={false}
-              useCacheForDOMMeasurements={false}
               value=""
             >
               <textarea
@@ -1270,14 +1155,9 @@ exports[`Multistep component student view when the student has submitted an answ
                 onKeyDown={[Function]}
                 placeholder="Type your response here"
                 spellCheck={false}
-                style={
-                  Object {
-                    "height": 0,
-                  }
-                }
                 value=""
               />
-            </TextareaAutosize>
+            </ForwardRef(TextareaAutosize)>
           </RenderTextEditor>
         </div>
       </div>
@@ -1398,17 +1278,14 @@ exports[`Multistep component student view when the student has submitted an answ
             placeholder="Type your response here"
             value=""
           >
-            <TextareaAutosize
+            <ForwardRef(TextareaAutosize)
               autoCapitalize="off"
               autoCorrect="off"
               className="student text-editor card is-fullwidth null"
-              onChange={[Function]}
-              onHeightChange={[Function]}
               onInput={[Function]}
               onKeyDown={[Function]}
               placeholder="Type your response here"
               spellCheck={false}
-              useCacheForDOMMeasurements={false}
               value=""
             >
               <textarea
@@ -1420,14 +1297,9 @@ exports[`Multistep component student view when the student has submitted an answ
                 onKeyDown={[Function]}
                 placeholder="Type your response here"
                 spellCheck={false}
-                style={
-                  Object {
-                    "height": 0,
-                  }
-                }
                 value=""
               />
-            </TextareaAutosize>
+            </ForwardRef(TextareaAutosize)>
           </RenderTextEditor>
         </div>
         <div
@@ -1445,17 +1317,14 @@ exports[`Multistep component student view when the student has submitted an answ
             placeholder="Type your response here"
             value=""
           >
-            <TextareaAutosize
+            <ForwardRef(TextareaAutosize)
               autoCapitalize="off"
               autoCorrect="off"
               className="student text-editor card is-fullwidth null"
-              onChange={[Function]}
-              onHeightChange={[Function]}
               onInput={[Function]}
               onKeyDown={[Function]}
               placeholder="Type your response here"
               spellCheck={false}
-              useCacheForDOMMeasurements={false}
               value=""
             >
               <textarea
@@ -1467,14 +1336,9 @@ exports[`Multistep component student view when the student has submitted an answ
                 onKeyDown={[Function]}
                 placeholder="Type your response here"
                 spellCheck={false}
-                style={
-                  Object {
-                    "height": 0,
-                  }
-                }
                 value=""
               />
-            </TextareaAutosize>
+            </ForwardRef(TextareaAutosize)>
           </RenderTextEditor>
         </div>
         <div
@@ -1492,17 +1356,14 @@ exports[`Multistep component student view when the student has submitted an answ
             placeholder="Type your response here"
             value=""
           >
-            <TextareaAutosize
+            <ForwardRef(TextareaAutosize)
               autoCapitalize="off"
               autoCorrect="off"
               className="student text-editor card is-fullwidth null"
-              onChange={[Function]}
-              onHeightChange={[Function]}
               onInput={[Function]}
               onKeyDown={[Function]}
               placeholder="Type your response here"
               spellCheck={false}
-              useCacheForDOMMeasurements={false}
               value=""
             >
               <textarea
@@ -1514,14 +1375,9 @@ exports[`Multistep component student view when the student has submitted an answ
                 onKeyDown={[Function]}
                 placeholder="Type your response here"
                 spellCheck={false}
-                style={
-                  Object {
-                    "height": 0,
-                  }
-                }
                 value=""
               />
-            </TextareaAutosize>
+            </ForwardRef(TextareaAutosize)>
           </RenderTextEditor>
         </div>
       </div>
