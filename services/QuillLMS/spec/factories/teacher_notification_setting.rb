@@ -2,7 +2,7 @@
 
 FactoryBot.define do
   factory :teacher_notification_setting, class: TeacherNotificationSetting do
-    association :user
+    user
     notification_type { TeacherNotification::STUDENT_COMPLETED_ALL_ASSIGNED_ACTIVITIES }
   end
 end

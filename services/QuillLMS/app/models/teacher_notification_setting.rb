@@ -27,5 +27,5 @@ class TeacherNotificationSetting < ApplicationRecord
   ]
 
   belongs_to :user
-  validates :notification_type, presence: true, inclusion: {in: TeacherNotification::NOTIFICATION_TYPES}
+  validates :notification_type, presence: true, inclusion: {in: TeacherNotification::NOTIFICATION_TYPES, message: "%{value} is not a valid TeacherNotification.notification_type"}
 end

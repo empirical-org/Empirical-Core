@@ -179,6 +179,11 @@ EmpiricalGrammar::Application.routes.draw do
 
   resources :grades, only: [:index]
 
+  resources :teacher_notification_settings, param: :notification_type, only: [] do
+    post 'activate', on: :member
+    post 'deactivate', on: :member
+  end
+
   resources :teacher_saved_activities, only: [] do
     get :saved_activity_ids_for_current_user, on: :collection
     post :create_by_activity_id_for_current_user, on: :collection
