@@ -46,7 +46,7 @@
 
   <%= render partial: 'typekit' unless Rails.env.test? %>
   <% # stylesheet_pack_tag('shared') %>
-  <%= vite_stylesheet_tag 'shared' %>
+  <%= vite_stylesheet_tag 'shared.scss' %>
 
   <% if !playing_activity? %>
     <%# stylesheet_pack_tag('app') %>
