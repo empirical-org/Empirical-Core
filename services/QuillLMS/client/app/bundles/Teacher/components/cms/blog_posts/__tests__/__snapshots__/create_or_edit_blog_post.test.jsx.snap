@@ -45,7 +45,7 @@ exports[`CreateOrEditBlogPost component renders for a new blog post 1`] = `
       },
       Object {
         "name": "Using quill for reading comprehension",
-        "slug": "using-quill-for-reading-comprehension",
+        "slug": "writing-for-learning",
       },
       Object {
         "name": "Getting started",
@@ -4622,7 +4622,7 @@ exports[`CreateOrEditBlogPost component renders for a new blog post 1`] = `
                   },
                   Object {
                     "name": "Using quill for reading comprehension",
-                    "slug": "using-quill-for-reading-comprehension",
+                    "slug": "writing-for-learning",
                   },
                   Object {
                     "name": "Getting started",
@@ -4686,7 +4686,7 @@ exports[`CreateOrEditBlogPost component renders for a new blog post 1`] = `
                       "label": "Using quill for reading comprehension",
                       "value": Object {
                         "name": "Using quill for reading comprehension",
-                        "slug": "using-quill-for-reading-comprehension",
+                        "slug": "writing-for-learning",
                       },
                     },
                     Object {
@@ -4821,7 +4821,7 @@ exports[`CreateOrEditBlogPost component renders for a new blog post 1`] = `
                           "label": "Using quill for reading comprehension",
                           "value": Object {
                             "name": "Using quill for reading comprehension",
-                            "slug": "using-quill-for-reading-comprehension",
+                            "slug": "writing-for-learning",
                           },
                         },
                         Object {
@@ -4982,7 +4982,7 @@ exports[`CreateOrEditBlogPost component renders for a new blog post 1`] = `
                             "label": "Using quill for reading comprehension",
                             "value": Object {
                               "name": "Using quill for reading comprehension",
-                              "slug": "using-quill-for-reading-comprehension",
+                              "slug": "writing-for-learning",
                             },
                           },
                           Object {
@@ -5120,7 +5120,7 @@ exports[`CreateOrEditBlogPost component renders for a new blog post 1`] = `
                               "label": "Using quill for reading comprehension",
                               "value": Object {
                                 "name": "Using quill for reading comprehension",
-                                "slug": "using-quill-for-reading-comprehension",
+                                "slug": "writing-for-learning",
                               },
                             },
                             Object {
@@ -5267,7 +5267,7 @@ exports[`CreateOrEditBlogPost component renders for a new blog post 1`] = `
                                 "label": "Using quill for reading comprehension",
                                 "value": Object {
                                   "name": "Using quill for reading comprehension",
-                                  "slug": "using-quill-for-reading-comprehension",
+                                  "slug": "writing-for-learning",
                                 },
                               },
                               Object {
@@ -5679,7 +5679,7 @@ exports[`CreateOrEditBlogPost component renders for a new blog post 1`] = `
                                     "label": "Using quill for reading comprehension",
                                     "value": Object {
                                       "name": "Using quill for reading comprehension",
-                                      "slug": "using-quill-for-reading-comprehension",
+                                      "slug": "writing-for-learning",
                                     },
                                   },
                                   Object {
@@ -5826,7 +5826,7 @@ exports[`CreateOrEditBlogPost component renders for a new blog post 1`] = `
                                       "label": "Using quill for reading comprehension",
                                       "value": Object {
                                         "name": "Using quill for reading comprehension",
-                                        "slug": "using-quill-for-reading-comprehension",
+                                        "slug": "writing-for-learning",
                                       },
                                     },
                                     Object {
@@ -6512,7 +6512,7 @@ exports[`CreateOrEditBlogPost component renders for a new blog post 1`] = `
                                     "label": "Using quill for reading comprehension",
                                     "value": Object {
                                       "name": "Using quill for reading comprehension",
-                                      "slug": "using-quill-for-reading-comprehension",
+                                      "slug": "writing-for-learning",
                                     },
                                   },
                                   Object {
@@ -6659,7 +6659,7 @@ exports[`CreateOrEditBlogPost component renders for a new blog post 1`] = `
                                       "label": "Using quill for reading comprehension",
                                       "value": Object {
                                         "name": "Using quill for reading comprehension",
-                                        "slug": "using-quill-for-reading-comprehension",
+                                        "slug": "writing-for-learning",
                                       },
                                     },
                                     Object {
@@ -7084,7 +7084,7 @@ exports[`CreateOrEditBlogPost component renders for a new blog post 1`] = `
                                           "label": "Using quill for reading comprehension",
                                           "value": Object {
                                             "name": "Using quill for reading comprehension",
-                                            "slug": "using-quill-for-reading-comprehension",
+                                            "slug": "writing-for-learning",
                                           },
                                         },
                                         Object {
@@ -7231,7 +7231,7 @@ exports[`CreateOrEditBlogPost component renders for a new blog post 1`] = `
                                             "label": "Using quill for reading comprehension",
                                             "value": Object {
                                               "name": "Using quill for reading comprehension",
-                                              "slug": "using-quill-for-reading-comprehension",
+                                              "slug": "writing-for-learning",
                                             },
                                           },
                                           Object {
@@ -7651,7 +7651,7 @@ exports[`CreateOrEditBlogPost component renders for a new blog post 1`] = `
                                                 "label": "Using quill for reading comprehension",
                                                 "value": Object {
                                                   "name": "Using quill for reading comprehension",
-                                                  "slug": "using-quill-for-reading-comprehension",
+                                                  "slug": "writing-for-learning",
                                                 },
                                               },
                                               Object {
@@ -7798,7 +7798,7 @@ exports[`CreateOrEditBlogPost component renders for a new blog post 1`] = `
                                                   "label": "Using quill for reading comprehension",
                                                   "value": Object {
                                                     "name": "Using quill for reading comprehension",
-                                                    "slug": "using-quill-for-reading-comprehension",
+                                                    "slug": "writing-for-learning",
                                                   },
                                                 },
                                                 Object {
@@ -8225,7 +8225,7 @@ exports[`CreateOrEditBlogPost component renders for a new blog post 1`] = `
                                                 "label": "Using quill for reading comprehension",
                                                 "value": Object {
                                                   "name": "Using quill for reading comprehension",
-                                                  "slug": "using-quill-for-reading-comprehension",
+                                                  "slug": "writing-for-learning",
                                                 },
                                               },
                                               Object {
@@ -8373,7 +8373,7 @@ exports[`CreateOrEditBlogPost component renders for a new blog post 1`] = `
                                                   "label": "Using quill for reading comprehension",
                                                   "value": Object {
                                                     "name": "Using quill for reading comprehension",
-                                                    "slug": "using-quill-for-reading-comprehension",
+                                                    "slug": "writing-for-learning",
                                                   },
                                                 },
                                                 Object {
@@ -8844,7 +8844,7 @@ exports[`CreateOrEditBlogPost component renders for a new blog post 1`] = `
                                           "label": "Using quill for reading comprehension",
                                           "value": Object {
                                             "name": "Using quill for reading comprehension",
-                                            "slug": "using-quill-for-reading-comprehension",
+                                            "slug": "writing-for-learning",
                                           },
                                         },
                                         Object {
@@ -8991,7 +8991,7 @@ exports[`CreateOrEditBlogPost component renders for a new blog post 1`] = `
                                             "label": "Using quill for reading comprehension",
                                             "value": Object {
                                               "name": "Using quill for reading comprehension",
-                                              "slug": "using-quill-for-reading-comprehension",
+                                              "slug": "writing-for-learning",
                                             },
                                           },
                                           Object {
@@ -9398,7 +9398,7 @@ exports[`CreateOrEditBlogPost component renders for a new blog post 1`] = `
                                                 "label": "Using quill for reading comprehension",
                                                 "value": Object {
                                                   "name": "Using quill for reading comprehension",
-                                                  "slug": "using-quill-for-reading-comprehension",
+                                                  "slug": "writing-for-learning",
                                                 },
                                               },
                                               Object {
@@ -9545,7 +9545,7 @@ exports[`CreateOrEditBlogPost component renders for a new blog post 1`] = `
                                                   "label": "Using quill for reading comprehension",
                                                   "value": Object {
                                                     "name": "Using quill for reading comprehension",
-                                                    "slug": "using-quill-for-reading-comprehension",
+                                                    "slug": "writing-for-learning",
                                                   },
                                                 },
                                                 Object {
@@ -9963,7 +9963,7 @@ exports[`CreateOrEditBlogPost component renders for a new blog post 1`] = `
                                                 "label": "Using quill for reading comprehension",
                                                 "value": Object {
                                                   "name": "Using quill for reading comprehension",
-                                                  "slug": "using-quill-for-reading-comprehension",
+                                                  "slug": "writing-for-learning",
                                                 },
                                               },
                                               Object {
@@ -10110,7 +10110,7 @@ exports[`CreateOrEditBlogPost component renders for a new blog post 1`] = `
                                                   "label": "Using quill for reading comprehension",
                                                   "value": Object {
                                                     "name": "Using quill for reading comprehension",
-                                                    "slug": "using-quill-for-reading-comprehension",
+                                                    "slug": "writing-for-learning",
                                                   },
                                                 },
                                                 Object {
@@ -16873,7 +16873,7 @@ exports[`CreateOrEditBlogPost component renders for an existing blog post 1`] = 
       },
       Object {
         "name": "Using quill for reading comprehension",
-        "slug": "using-quill-for-reading-comprehension",
+        "slug": "writing-for-learning",
       },
       Object {
         "name": "Getting started",
@@ -21465,7 +21465,7 @@ exports[`CreateOrEditBlogPost component renders for an existing blog post 1`] = 
                   },
                   Object {
                     "name": "Using quill for reading comprehension",
-                    "slug": "using-quill-for-reading-comprehension",
+                    "slug": "writing-for-learning",
                   },
                   Object {
                     "name": "Getting started",
@@ -21529,7 +21529,7 @@ exports[`CreateOrEditBlogPost component renders for an existing blog post 1`] = 
                       "label": "Using quill for reading comprehension",
                       "value": Object {
                         "name": "Using quill for reading comprehension",
-                        "slug": "using-quill-for-reading-comprehension",
+                        "slug": "writing-for-learning",
                       },
                     },
                     Object {
@@ -21664,7 +21664,7 @@ exports[`CreateOrEditBlogPost component renders for an existing blog post 1`] = 
                           "label": "Using quill for reading comprehension",
                           "value": Object {
                             "name": "Using quill for reading comprehension",
-                            "slug": "using-quill-for-reading-comprehension",
+                            "slug": "writing-for-learning",
                           },
                         },
                         Object {
@@ -21825,7 +21825,7 @@ exports[`CreateOrEditBlogPost component renders for an existing blog post 1`] = 
                             "label": "Using quill for reading comprehension",
                             "value": Object {
                               "name": "Using quill for reading comprehension",
-                              "slug": "using-quill-for-reading-comprehension",
+                              "slug": "writing-for-learning",
                             },
                           },
                           Object {
@@ -21963,7 +21963,7 @@ exports[`CreateOrEditBlogPost component renders for an existing blog post 1`] = 
                               "label": "Using quill for reading comprehension",
                               "value": Object {
                                 "name": "Using quill for reading comprehension",
-                                "slug": "using-quill-for-reading-comprehension",
+                                "slug": "writing-for-learning",
                               },
                             },
                             Object {
@@ -22110,7 +22110,7 @@ exports[`CreateOrEditBlogPost component renders for an existing blog post 1`] = 
                                 "label": "Using quill for reading comprehension",
                                 "value": Object {
                                   "name": "Using quill for reading comprehension",
-                                  "slug": "using-quill-for-reading-comprehension",
+                                  "slug": "writing-for-learning",
                                 },
                               },
                               Object {
@@ -22522,7 +22522,7 @@ exports[`CreateOrEditBlogPost component renders for an existing blog post 1`] = 
                                     "label": "Using quill for reading comprehension",
                                     "value": Object {
                                       "name": "Using quill for reading comprehension",
-                                      "slug": "using-quill-for-reading-comprehension",
+                                      "slug": "writing-for-learning",
                                     },
                                   },
                                   Object {
@@ -22669,7 +22669,7 @@ exports[`CreateOrEditBlogPost component renders for an existing blog post 1`] = 
                                       "label": "Using quill for reading comprehension",
                                       "value": Object {
                                         "name": "Using quill for reading comprehension",
-                                        "slug": "using-quill-for-reading-comprehension",
+                                        "slug": "writing-for-learning",
                                       },
                                     },
                                     Object {
@@ -23355,7 +23355,7 @@ exports[`CreateOrEditBlogPost component renders for an existing blog post 1`] = 
                                     "label": "Using quill for reading comprehension",
                                     "value": Object {
                                       "name": "Using quill for reading comprehension",
-                                      "slug": "using-quill-for-reading-comprehension",
+                                      "slug": "writing-for-learning",
                                     },
                                   },
                                   Object {
@@ -23502,7 +23502,7 @@ exports[`CreateOrEditBlogPost component renders for an existing blog post 1`] = 
                                       "label": "Using quill for reading comprehension",
                                       "value": Object {
                                         "name": "Using quill for reading comprehension",
-                                        "slug": "using-quill-for-reading-comprehension",
+                                        "slug": "writing-for-learning",
                                       },
                                     },
                                     Object {
@@ -23927,7 +23927,7 @@ exports[`CreateOrEditBlogPost component renders for an existing blog post 1`] = 
                                           "label": "Using quill for reading comprehension",
                                           "value": Object {
                                             "name": "Using quill for reading comprehension",
-                                            "slug": "using-quill-for-reading-comprehension",
+                                            "slug": "writing-for-learning",
                                           },
                                         },
                                         Object {
@@ -24074,7 +24074,7 @@ exports[`CreateOrEditBlogPost component renders for an existing blog post 1`] = 
                                             "label": "Using quill for reading comprehension",
                                             "value": Object {
                                               "name": "Using quill for reading comprehension",
-                                              "slug": "using-quill-for-reading-comprehension",
+                                              "slug": "writing-for-learning",
                                             },
                                           },
                                           Object {
@@ -24494,7 +24494,7 @@ exports[`CreateOrEditBlogPost component renders for an existing blog post 1`] = 
                                                 "label": "Using quill for reading comprehension",
                                                 "value": Object {
                                                   "name": "Using quill for reading comprehension",
-                                                  "slug": "using-quill-for-reading-comprehension",
+                                                  "slug": "writing-for-learning",
                                                 },
                                               },
                                               Object {
@@ -24641,7 +24641,7 @@ exports[`CreateOrEditBlogPost component renders for an existing blog post 1`] = 
                                                   "label": "Using quill for reading comprehension",
                                                   "value": Object {
                                                     "name": "Using quill for reading comprehension",
-                                                    "slug": "using-quill-for-reading-comprehension",
+                                                    "slug": "writing-for-learning",
                                                   },
                                                 },
                                                 Object {
@@ -25068,7 +25068,7 @@ exports[`CreateOrEditBlogPost component renders for an existing blog post 1`] = 
                                                 "label": "Using quill for reading comprehension",
                                                 "value": Object {
                                                   "name": "Using quill for reading comprehension",
-                                                  "slug": "using-quill-for-reading-comprehension",
+                                                  "slug": "writing-for-learning",
                                                 },
                                               },
                                               Object {
@@ -25216,7 +25216,7 @@ exports[`CreateOrEditBlogPost component renders for an existing blog post 1`] = 
                                                   "label": "Using quill for reading comprehension",
                                                   "value": Object {
                                                     "name": "Using quill for reading comprehension",
-                                                    "slug": "using-quill-for-reading-comprehension",
+                                                    "slug": "writing-for-learning",
                                                   },
                                                 },
                                                 Object {
@@ -25687,7 +25687,7 @@ exports[`CreateOrEditBlogPost component renders for an existing blog post 1`] = 
                                           "label": "Using quill for reading comprehension",
                                           "value": Object {
                                             "name": "Using quill for reading comprehension",
-                                            "slug": "using-quill-for-reading-comprehension",
+                                            "slug": "writing-for-learning",
                                           },
                                         },
                                         Object {
@@ -25834,7 +25834,7 @@ exports[`CreateOrEditBlogPost component renders for an existing blog post 1`] = 
                                             "label": "Using quill for reading comprehension",
                                             "value": Object {
                                               "name": "Using quill for reading comprehension",
-                                              "slug": "using-quill-for-reading-comprehension",
+                                              "slug": "writing-for-learning",
                                             },
                                           },
                                           Object {
@@ -26241,7 +26241,7 @@ exports[`CreateOrEditBlogPost component renders for an existing blog post 1`] = 
                                                 "label": "Using quill for reading comprehension",
                                                 "value": Object {
                                                   "name": "Using quill for reading comprehension",
-                                                  "slug": "using-quill-for-reading-comprehension",
+                                                  "slug": "writing-for-learning",
                                                 },
                                               },
                                               Object {
@@ -26388,7 +26388,7 @@ exports[`CreateOrEditBlogPost component renders for an existing blog post 1`] = 
                                                   "label": "Using quill for reading comprehension",
                                                   "value": Object {
                                                     "name": "Using quill for reading comprehension",
-                                                    "slug": "using-quill-for-reading-comprehension",
+                                                    "slug": "writing-for-learning",
                                                   },
                                                 },
                                                 Object {
@@ -26806,7 +26806,7 @@ exports[`CreateOrEditBlogPost component renders for an existing blog post 1`] = 
                                                 "label": "Using quill for reading comprehension",
                                                 "value": Object {
                                                   "name": "Using quill for reading comprehension",
-                                                  "slug": "using-quill-for-reading-comprehension",
+                                                  "slug": "writing-for-learning",
                                                 },
                                               },
                                               Object {
@@ -26953,7 +26953,7 @@ exports[`CreateOrEditBlogPost component renders for an existing blog post 1`] = 
                                                   "label": "Using quill for reading comprehension",
                                                   "value": Object {
                                                     "name": "Using quill for reading comprehension",
-                                                    "slug": "using-quill-for-reading-comprehension",
+                                                    "slug": "writing-for-learning",
                                                   },
                                                 },
                                                 Object {
