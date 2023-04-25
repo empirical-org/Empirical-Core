@@ -1,7 +1,7 @@
 import qs from 'qs'
 import * as React from 'react'
 
-import { TEACHER_CENTER, TEACHER_CENTER_SLUG } from './blog_post_constants'
+import { TEACHER_CENTER, TEACHER_CENTER_SLUG, WRITING_FOR_LEARNING } from './blog_post_constants'
 import { evidenceHandbookIcon, EVIDENCE_HANDBOOK_LINK } from '../../../Shared'
 
 const searchTokens = [
@@ -25,19 +25,19 @@ const SearchToken = ({ text }) => {
 export const HeaderSection = ({ title, subtitle, showCancelSearchButton, query }) => {
 
   function renderEvidenceHandbookBanner() {
-    if(title !== TEACHER_CENTER) {
-      return <span />
-    }
-    return(
-      <section className="evidence-teacher-handbook-banner">
-        <section className="information-section">
-          <h2>Quill Reading for Evidence Teacher Handbook</h2>
-          <p>Looking for support integrating Quill Reading for Evidence into your instruction? Our handbook for teachers using our newest literacy tool is packed with best practices and strategies--and it's FREE!</p>
-          <a className="quill-button focus-on-light small primary contained" href={EVIDENCE_HANDBOOK_LINK} rel='noopener noreferrer' target="_blank">Get the Teacher Handbook <i className="fas fa-arrow-right" /></a>
+    if ([TEACHER_CENTER, WRITING_FOR_LEARNING].includes(title)) {
+      return (
+        <section className="evidence-teacher-handbook-banner">
+          <section className="information-section">
+            <h2>Quill Reading for Evidence Teacher Handbook</h2>
+            <p>Looking for support integrating Quill Reading for Evidence into your instruction? Our handbook for teachers using our newest literacy tool is packed with best practices and strategies--and it's FREE!</p>
+            <a className="quill-button focus-on-light small primary contained" href={EVIDENCE_HANDBOOK_LINK} rel='noopener noreferrer' target="_blank">Get the Teacher Handbook <i className="fas fa-arrow-right" /></a>
+          </section>
+          <img alt={evidenceHandbookIcon.alt} src={evidenceHandbookIcon.src} />
         </section>
-        <img alt={evidenceHandbookIcon.alt} src={evidenceHandbookIcon.src} />
-      </section>
-    )
+      )
+    }
+    return <span />
   }
   return(
     <div className="header-section">
