@@ -45,7 +45,6 @@
     border-radius: 0px;
     width: 100%;
     font-size: 16px;
-    padding: 0px 0px 3px;
     color: #000;
     -webkit-transition: all 0.2s ease-in;
     -moz-transition: all 0.2s ease-in;
@@ -54,7 +53,7 @@
   }
 
   input, input:focus {
-    height: 25px;
+    height: 20px;
   }
 
   textarea, textarea:focus {
@@ -112,12 +111,8 @@
     .dropdown__menu-list {
       padding: 8px 0px;
     }
-    .checkable-dropdown-value-container {
-      height: 25px;
-    }
     .dropdown__control {
       min-height: 0px;
-      padding: 0px 0px 4px;
       margin-bottom: 4px;
       margin-top: 0px;
       border: none;
@@ -131,6 +126,7 @@
     .dropdown__placeholder {
       top: 27%;
       margin-left: 0px;
+      height: 20px;
     }
     .dropdown__value {
       border: solid 2px #009a80;
@@ -152,11 +148,10 @@
       }
     }
     .dropdown__value-container {
-      padding: 0px 0px 3px;
+      padding: 0px;
       font-size: 16px;
       line-height: 1;
       color: #000;
-      height: 20px;
     }
     .dropdown__indicator-separator {
       display: none;
@@ -179,6 +174,7 @@
     }
     .dropdown__input {
       padding: 0px;
+      height: 20px;
       input, textarea {
         border: none;
         margin-bottom: 0px;
@@ -243,17 +239,11 @@
       }
     }
     &:not(.has-text) {
-      input {
-        height: 1px;
-      }
       &.dropdown-container {
         label {
-          margin-bottom: -21px;
+          margin-bottom: -26px;
           z-index: 1;
-          margin-top: 20px;
-        }
-        .dropdown__value-container {
-          height: 25px;
+          margin-top: 26px;
         }
         .dropdown__indicators {
           padding-top: 4px;
@@ -261,7 +251,7 @@
       }
       &.has-character-limit {
         label {
-          margin-top: 20px;
+          margin-top: 33px;
         }
       }
     }
@@ -286,10 +276,8 @@
         border-color: #e0e0e0;
       }
       .dropdown__control {
-        padding: 0px 0px 3px;
         border: 1px #e0e0e0;
         border-style: none none solid;
-        height: 25px;
       }
       .dropdown__menu {
         display: none;
