@@ -3,6 +3,7 @@
 <% on_sign_up_or_log_in = ['account/new', '/session', 'password_reset', 'sign-up', 'finish_set_up'].any? { |str| current_path.include?(str)} %>
 <% logo_src = on_home_page ? "https://assets.quill.org/images/logos/quill-logo-white-2022.svg" : "https://assets.quill.org/images/logos/quill-logo-green.svg" %>
 <% home_page_class = on_home_page ? 'on-home-page' : '' %>
+<% active_tab = determine_active_tab(current_path) %>
 
 <% if current_path.include?('teachers') || current_path.include?('assign') %>
 	<% user_dropdown_class = 'on-dashboard' %>
@@ -16,18 +17,6 @@
   <% show_notification_badges_class = 'show-notification-badges' %>
 <% else %>
   <% show_notification_badges_class = '' %>
-<% end %>
-
-<% if current_path.include?('tools') %>
-	<% active_tab = 'Learning Tools' %>
-<% elsif ['about', 'announcements', 'mission', 'impact', 'press', 'team', 'pathways', 'careers'].any? { |str| current_path.include?(str)} %>
-	<% active_tab = 'About Us' %>
-<% elsif current_path.include?('activities') %>
-	<% active_tab = 'Explore Curriculum' %>
-<% elsif ['teacher-center', 'faq', 'premium'].any? { |str| current_path.include?(str)} %>
-	<% active_tab = 'Teacher Center' %>
-<% else %>
-	<% active_tab = '' %>
 <% end %>
 
 <nav class="q-navbar-home">

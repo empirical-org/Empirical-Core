@@ -1,7 +1,7 @@
 <% current_path = request.env['PATH_INFO'] %>
-<% on_home_page = current_path == '/' %>
+<% on_home_or_tools_page = current_path == '/' || current_path.include?('tools') %>
 <% on_sign_up_or_log_in = ['account/new', '/session', 'password_reset', 'sign-up', 'finish_set_up'].any? { |str| current_path.include?(str)} %>
-<% subheader_class = on_home_page ? 'q-navbar-home' : 'q-navbar-home sub-page' %>
+<% subheader_class = on_home_or_tools_page ? 'q-navbar-home' : 'q-navbar-home sub-page' %>
 
 <% if current_path.include?('teachers') || current_path.include?('assign') %>
 	<% user_dropdown_class = 'on-dashboard' %>
@@ -15,18 +15,6 @@
   <% show_notification_badges_class = 'show-notification-badges' %>
 <% else %>
   <% show_notification_badges_class = '' %>
-<% end %>
-
-<% if current_path.include?('tools') %>
-	<% active_tab = 'Learning Tools' %>
-<% elsif ['about', 'announcements', 'mission', 'impact', 'press', 'team', 'pathways', 'careers'].any? { |str| current_path.include?(str)} %>
-	<% active_tab = 'About Us' %>
-<% elsif current_path.include?('activities') %>
-	<% active_tab = 'Explore Curriculum' %>
-<% elsif ['teacher-center', 'faq', 'premium'].any? { |str| current_path.include?(str)} %>
-	<% active_tab = 'Teacher Center' %>
-<% else %>
-	<% active_tab = 'Home' %>
 <% end %>
 
 <nav class="<%= subheader_class %>">
@@ -49,7 +37,7 @@
     <% end %>
 	<% end %>
   <div class="right-side-mobile-nav">
-    <p class="active-tab"><%= active_tab %></p>
+    <p class="active-tab"><%= determine_active_tab(current_path) %></p>
     <div class="mobile-hamburger-container">
       <div class="hamburger-icon">
         <div class="horizontal-line"></div>

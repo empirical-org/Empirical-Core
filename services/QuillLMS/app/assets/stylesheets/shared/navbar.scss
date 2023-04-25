@@ -11,8 +11,8 @@
 }
 
 .mobile-navbar:not(.non-standard-navbar) {
-  height: 100%;
   background-color: transparent;
+  height: min-content;
   .q-navbar-home {
     .logo-and-badge-container {
       .mobile-quill-logo {
@@ -56,24 +56,27 @@
         }
       }
     }
-    // &.sub-page {
-    //   background-color: #FFFFFF;
-    //   .logo-and-badge-container {
-    //     .mobile-quill-logo {
-    //       background-image: url('https://assets.quill.org/images/icons/quill-logo-mobile-green.svg');
-    //     }
-    //   }
-    //   .right-side-mobile-nav {
-    //     .mobile-hamburger-container {
-    //       .hamburger-icon {
-    //         background-color: rgba(227, 240, 238, 1);
-    //         .horizontal-line {
-    //           background: $quillgreenmedium;
-    //         }
-    //       }
-    //     }
-    //   }
-    // }
+    &.sub-page {
+      background-color: #FFFFFF;
+      .logo-and-badge-container {
+        .mobile-quill-logo {
+          background-image: url('https://assets.quill.org/images/icons/quill-logo-mobile-green.svg');
+        }
+      }
+      .right-side-mobile-nav {
+        .active-tab {
+          color: $quillgreenmedium;
+        }
+        .mobile-hamburger-container {
+          .hamburger-icon {
+            background-color: rgba(227, 240, 238, 1);
+            .horizontal-line {
+              background: $quillgreenmedium;
+            }
+          }
+        }
+      }
+    }
   }
 }
 
@@ -540,8 +543,13 @@ nav.q-navbar-home {
   @media only screen and (max-width : 1165px) and (min-width: 600px) {
     width: calc(100% - 30px);
   }
-
 }
+
+// @media only screen and (max-width : 1165px) and (min-width: 600px) {
+//   .navbar {
+//     width: calc(100% - 30px);
+//   }
+// }
 
 .q-nav-bar {
   margin: auto;

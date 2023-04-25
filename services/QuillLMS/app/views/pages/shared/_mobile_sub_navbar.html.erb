@@ -1,0 +1,32 @@
+<% home_or_tools_page_class = local_assigns[:on_home_or_tools_page] ? 'home-or-tools-page' : '' %>
+
+<div class="tab-subnavigation-wrapper mobile <%= home_or_tools_page_class %>">
+  <div class="dropdown-container">
+    <div>
+      <button class="interactive-wrapper" onclick="toggleMobileSecondaryDropdown()" id="mobile-subnav-dropdown" type='button'>
+        <p><%= active_tab %></p>
+        <i class="fa fa-thin fa-angle-down"></i>
+      </button>
+      <ul class="dropdown-menu" role='menu'>
+        <% tabs.each do |tab| %>
+          <li>
+            <a class="focus-on-dark" href=<%= tab[:url] %>><%= tab[:name] %></a>
+            <img class="<%= (tab[:name] == active_tab || tab[:id] == active_tab) ? 'active' : '' %>" src="https://assets.quill.org/images/shared/check-small-white.svg"></img>
+          </li>
+        <% end %>
+      </ul>
+    </div>
+  </div>
+</div>
+
+<script>
+  function toggleMobileSecondaryDropdown() {
+    const dropdown = document.querySelector('#mobile-subnav-dropdown');
+    const parent = dropdown.parentElement
+		if(parent.classList.contains('open')) {
+			parent.classList.remove('open');
+		} else {
+			parent.classList.add('open');
+		}
+  }
+</script>
