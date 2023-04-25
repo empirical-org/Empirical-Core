@@ -1,6 +1,6 @@
 import React from 'react';
-import { BrowserRouter, Route, Switch } from 'react-router-dom';
-import { CompatRouter } from "react-router-dom-v5-compat";
+import { BrowserRouter, } from 'react-router-dom';
+import { CompatRouter, Routes, Route, } from "react-router-dom-v5-compat";
 
 import TutorialIndex from '../components/tutorials/TutorialIndex';
 
@@ -8,11 +8,11 @@ const TutorialsRouter = () => {
   return (
     <BrowserRouter>
       <CompatRouter>
-        <Switch>
-          <Route component={TutorialIndex} path="/tutorials/:tool/:slideNumber" />
-          <Route component={TutorialIndex} path="/tutorials/:tool" />
-          <Route component={TutorialIndex} path="/tutorials" />
-        </Switch>
+        <Routes>
+          <Route element={<TutorialIndex />} path="/tutorials/:tool/:slideNumber" />
+          <Route element={<TutorialIndex />} path="/tutorials/:tool" />
+          <Route element={<TutorialIndex />} path="/tutorials" />
+        </Routes>
       </CompatRouter>
     </BrowserRouter>
   );
