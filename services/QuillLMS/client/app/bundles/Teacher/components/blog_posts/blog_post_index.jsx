@@ -17,7 +17,7 @@ import {
   TEACHER_MATERIALS,
   TEACHER_STORIES,
   TOPIC,
-  USING_QUILL_FOR_READING_COMPREHENSION,
+  WRITING_FOR_LEARNING,
   VIDEO_TUTORIALS,
   WEBINARS,
   WHATS_NEW,
@@ -65,16 +65,16 @@ export default class BlogPostIndex extends React.Component {
       case VIDEO_TUTORIALS:
         return "View detailed walkthroughs of Quill tools, set-up, and features"
       case BEST_PRACTICES:
-        return 'Explore implementation ideas from Quill’s instructional experts'
+        return "Explore implementation ideas from Quill's instructional experts"
       case WHATS_NEW:
         return 'Stay up to date on the latest Quill news'
       case TEACHER_MATERIALS:
         return 'Read and download useful materials to help navigate Quill, support students, and teach writing'
-      case USING_QUILL_FOR_READING_COMPREHENSION:
-        return "Learn all about Quill's new reading and writing tool"
+      case WRITING_FOR_LEARNING:
+        return "Learn about using Quill to simultaneously strengthen students' content knowledge and writing skills"
       case TEACHER_CENTER:
       default:
-        return 'Everything you need to know about Quill’s pedagogy and use in the classroom'
+        return "Everything you need to know about Quill's pedagogy and use in the classroom"
     }
   }
 

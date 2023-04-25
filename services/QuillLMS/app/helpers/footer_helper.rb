@@ -45,7 +45,7 @@ module FooterHelper
     [
       { href: '/teacher-center', label: 'All Resources' },
       { href: '/teacher-center/topic/whats-new', label: "What's New?" },
-      { href: '/teacher-center/topic/using-quill-for-reading-comprehension', label: 'Reading Comprehension' },
+      { href: '/teacher-center/topic/writing-for-learning', label: 'Writing For Learning' },
       { href: '/teacher-center/topic/getting_started', label: 'Getting Started' },
       { href: '/teacher-center/topic/video-tutorials', label: 'Video Tutorials' },
       { href: '/teacher-center/topic/best-practices', label: 'Best Practices' },
