@@ -1,7 +1,6 @@
 import * as React from 'react';
 import { connect } from 'react-redux';
-import { BrowserRouter, Route, withRouter } from 'react-router-dom';
-import { CompatRouter } from "react-router-dom-v5-compat";
+import { Route, withRouter } from 'react-router-dom';
 
 import { SmartSpinner } from '../../../Shared/index';
 import { Location } from '../../interfaces/location';
@@ -60,22 +59,12 @@ export const DiagnosticRouter: React.SFC<DiagnosticRouterProps> = (props: Diagno
       return(
         <div>
           <ELLStudentDiagnostic {...props} />
-          <BrowserRouter>
-            <CompatRouter>
-              <Route component={ELLStudentDiagnostic} path='/play/diagnostic/:diagnosticID' />
-            </CompatRouter>
-          </BrowserRouter>
         </div>
       )
     } else if(data[diagnosticID] && !data[diagnosticID].isELL) {
       return(
         <div>
           <StudentDiagnostic {...props} />
-          <BrowserRouter>
-            <CompatRouter>
-              <Route component={StudentDiagnostic} path='/play/diagnostic/:diagnosticID' />
-            </CompatRouter>
-          </BrowserRouter>
         </div>
       )
     }
