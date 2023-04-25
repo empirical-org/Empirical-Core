@@ -8197,15 +8197,12 @@ exports[`CreateOrEditBlogPost component renders for a new blog post 1`] = `
             </strong>
             )
           </p>
-          <TextareaAutosize
+          <ForwardRef(TextareaAutosize)
             autoCapitalize="off"
             autoCorrect="off"
             className="footer-content-text-editor"
-            onChange={[Function]}
-            onHeightChange={[Function]}
             onInput={[Function]}
             spellCheck={false}
-            useCacheForDOMMeasurements={false}
           >
             <textarea
               autoCapitalize="off"
@@ -8214,13 +8211,8 @@ exports[`CreateOrEditBlogPost component renders for a new blog post 1`] = `
               onChange={[Function]}
               onInput={[Function]}
               spellCheck={false}
-              style={
-                Object {
-                  "height": 0,
-                }
-              }
             />
-          </TextareaAutosize>
+          </ForwardRef(TextareaAutosize)>
         </div>
         <div
           className="save-buttons"
@@ -16572,15 +16564,12 @@ exports[`CreateOrEditBlogPost component renders for an existing blog post 1`] = 
             </strong>
             )
           </p>
-          <TextareaAutosize
+          <ForwardRef(TextareaAutosize)
             autoCapitalize="off"
             autoCorrect="off"
             className="footer-content-text-editor"
-            onChange={[Function]}
-            onHeightChange={[Function]}
             onInput={[Function]}
             spellCheck={false}
-            useCacheForDOMMeasurements={false}
           >
             <textarea
               autoCapitalize="off"
@@ -16589,13 +16578,8 @@ exports[`CreateOrEditBlogPost component renders for an existing blog post 1`] = 
               onChange={[Function]}
               onInput={[Function]}
               spellCheck={false}
-              style={
-                Object {
-                  "height": 0,
-                }
-              }
             />
-          </TextareaAutosize>
+          </ForwardRef(TextareaAutosize)>
         </div>
         <div
           className="save-buttons"
