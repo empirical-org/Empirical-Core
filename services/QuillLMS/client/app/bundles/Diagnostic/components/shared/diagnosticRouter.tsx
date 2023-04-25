@@ -1,6 +1,7 @@
 import * as React from 'react';
 import { connect } from 'react-redux';
 import { BrowserRouter, Route, withRouter } from 'react-router-dom';
+import { CompatRouter } from "react-router-dom-v5-compat";
 
 import { SmartSpinner } from '../../../Shared/index';
 import { Location } from '../../interfaces/location';
@@ -60,7 +61,9 @@ export const DiagnosticRouter: React.SFC<DiagnosticRouterProps> = (props: Diagno
         <div>
           <ELLStudentDiagnostic {...props} />
           <BrowserRouter>
-            <Route component={ELLStudentDiagnostic} path='/play/diagnostic/:diagnosticID' />
+            <CompatRouter>
+              <Route component={ELLStudentDiagnostic} path='/play/diagnostic/:diagnosticID' />
+            </CompatRouter>
           </BrowserRouter>
         </div>
       )
@@ -69,7 +72,9 @@ export const DiagnosticRouter: React.SFC<DiagnosticRouterProps> = (props: Diagno
         <div>
           <StudentDiagnostic {...props} />
           <BrowserRouter>
-            <Route component={StudentDiagnostic} path='/play/diagnostic/:diagnosticID' />
+            <CompatRouter>
+              <Route component={StudentDiagnostic} path='/play/diagnostic/:diagnosticID' />
+            </CompatRouter>
           </BrowserRouter>
         </div>
       )
