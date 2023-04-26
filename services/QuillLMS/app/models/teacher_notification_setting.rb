@@ -31,5 +31,5 @@ class TeacherNotificationSetting < ApplicationRecord
   end
 
   belongs_to :user
-  validates :notification_type, presence: true, inclusion: {in: ->(model) { model.class.notification_types }, message: "%{value} is not a valid TeacherNotification type"}
+  validates :notification_type, presence: true, inclusion: {in: ->(model) { model.class.notification_types }, message: "%<value>s is not a valid TeacherNotification type"}
 end

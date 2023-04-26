@@ -1,7 +1,7 @@
 # frozen_string_literal: true
 
 class Api::V1::TeacherNotificationSettingsController < ApplicationController
-  before_action :set_current_settings, only: [:index, :bulk_update ]
+  before_action :set_current_settings, only: [:index, :bulk_update]
 
   def index
     render json: types_and_values
@@ -22,8 +22,8 @@ class Api::V1::TeacherNotificationSettingsController < ApplicationController
     end
 
     render json: types_and_values
-  rescue ActiveRecord::RecordNotDestroyed, ActiveRecord::RecordInvalid => invalid
-    render json: { errors: invalid }, status: 400
+  rescue ActiveRecord::RecordNotDestroyed, ActiveRecord::RecordInvalid => e
+    render json: { errors: e }, status: 400
   end
 
   private def types_and_values

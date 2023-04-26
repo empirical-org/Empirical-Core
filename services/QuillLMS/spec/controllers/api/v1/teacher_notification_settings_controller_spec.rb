@@ -81,7 +81,7 @@ describe Api::V1::TeacherNotificationSettingsController do
         post :bulk_update, params: { notification_types: { notification_type_name => false, TeacherNotification::StudentCompletedAllAssignedActivities.name => true } }
 
         expect(response.status).to eq(400)
-      end.not_to change(TeacherNotificationSetting, :count)      
+      end.not_to change(TeacherNotificationSetting, :count)
     end
   end
 end
