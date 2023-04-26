@@ -12,11 +12,11 @@ module QuillBigQuery
     class JobNotCompletedError < StandardError; end
 
     def self.valid_schema?(json_body)
-      raise JobNotCompletedError, json_body unless json_body.dig('jobComplete')
+      raise JobNotCompletedError, json_body unless json_body['jobComplete']
 
       json_body.dig('schema','fields').respond_to?(:count) &&
-        json_body.dig('rows').respond_to?(:count) &&
-        json_body.dig('totalRows').respond_to?(:to_i)
+        json_body['rows'].respond_to?(:count) &&
+        json_body['totalRows'].respond_to?(:to_i)
     end
 
     def self.transform_response(json_body)
