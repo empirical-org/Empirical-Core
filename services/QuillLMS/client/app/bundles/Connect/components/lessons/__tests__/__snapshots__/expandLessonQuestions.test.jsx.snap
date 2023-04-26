@@ -4,6 +4,7 @@ exports[`ExpandLessonQuestions component matches the snapshot 1`] = `
 <ContextProvider
   value={
     Object {
+      "getServerState": undefined,
       "store": Object {
         "dispatch": [Function],
         "getState": [Function],
