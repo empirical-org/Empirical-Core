@@ -55,9 +55,21 @@ exports[`PremiumHub container should render with a full access type 1`] = `
             value=""
           />
         </div>
+        <div>
+          <label>
+            Schools to integrate with Canvas
+          </label>
+          <CanvasInstanceSchoolsSection
+            schools={Array []}
+            selectedSchoolIds={Array []}
+            setSelectedSchoolIds={[Function]}
+          />
+        </div>
         <button
           className="quill-button medium primary contained focus-on-light disabled"
           disabled={true}
+          id="submit_canvas_instance"
+          onClick={[Function]}
           type="button"
         >
           Submit
@@ -4454,9 +4466,21 @@ exports[`PremiumHub container should render with a limited access type 1`] = `
             value=""
           />
         </div>
+        <div>
+          <label>
+            Schools to integrate with Canvas
+          </label>
+          <CanvasInstanceSchoolsSection
+            schools={Array []}
+            selectedSchoolIds={Array []}
+            setSelectedSchoolIds={[Function]}
+          />
+        </div>
         <button
           className="quill-button medium primary contained focus-on-light disabled"
           disabled={true}
+          id="submit_canvas_instance"
+          onClick={[Function]}
           type="button"
         >
           Submit
@@ -8853,9 +8877,21 @@ exports[`PremiumHub container should render with a restricted access type 1`] = 
             value=""
           />
         </div>
+        <div>
+          <label>
+            Schools to integrate with Canvas
+          </label>
+          <CanvasInstanceSchoolsSection
+            schools={Array []}
+            selectedSchoolIds={Array []}
+            setSelectedSchoolIds={[Function]}
+          />
+        </div>
         <button
           className="quill-button medium primary contained focus-on-light disabled"
           disabled={true}
+          id="submit_canvas_instance"
+          onClick={[Function]}
           type="button"
         >
           Submit

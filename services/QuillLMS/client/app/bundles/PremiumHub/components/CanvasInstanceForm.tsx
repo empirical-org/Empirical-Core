@@ -4,15 +4,16 @@ import { requestGet, requestPost } from '../../../modules/request';
 import CanvasInstanceSchoolsSection from './CanvasInstanceSchoolsSection';
 
 export const CREATE_CANVAS_INSTANCE_PATH = "/canvas_instances"
+export const SCHOOLS_WITH_SUBSCRIPTIONS_PATH = "/subscriptions/school_admin_subscriptions"
 
 type InputElement = React.ChangeEvent<HTMLInputElement>
 
-const CanvasInstanceForm = () => {
+const CanvasInstanceForm = ({ passedSchools }) => {
   const [url, setUrl] = React.useState('')
   const [clientId, setClientId] = React.useState('')
   const [clientSecret, setClientSecret] = React.useState('')
   const [selectedSchoolIds, setSelectedSchoolIds] = React.useState([])
-  const [schoolsWithSubscriptions, setSchoolsWithSubscriptions] = React.useState([])
+  const [schoolsWithSubscriptions, setSchoolsWithSubscriptions] = React.useState(passedSchools || [])
 
   const handleChangeUrl = (e: InputElement) => { setUrl(e.target.value) }
   const handleChangeClientId = (e: InputElement) => { setClientId(e.target.value) }
@@ -20,6 +21,7 @@ const CanvasInstanceForm = () => {
 
   const handleSubmit = e => {
     e.preventDefault()
+    if (!validInput) { return }
 
     return requestPost(CREATE_CANVAS_INSTANCE_PATH, {
       canvas_instance: {
@@ -45,7 +47,7 @@ const CanvasInstanceForm = () => {
   React.useEffect(() => { getSchoolsWithSubscriptions() }, [])
 
   const getSchoolsWithSubscriptions = () => {
-    requestGet('/subscriptions/school_admin_subscriptions', (body) => {
+    requestGet(SCHOOLS_WITH_SUBSCRIPTIONS_PATH, (body) => {
       setSchoolsWithSubscriptions(body.schools)
     })
   }
@@ -99,22 +101,15 @@ const CanvasInstanceForm = () => {
     </div>
   )
 
-  const submitButton = validInput ? (
+  const submitButton = (
     <button
-      className="quill-button medium primary contained focus-on-light"
+      className={`quill-button medium primary contained focus-on-light ${validInput ? '' : 'disabled'}`}
+      disabled={!validInput}
       id='submit_canvas_instance'
       onClick={handleSubmit}
       type="button"
     >
       Submit
-    </button>
-  ) : (
-    <button
-      className="quill-button medium primary contained focus-on-light disabled"
-      disabled
-      type="button"
-    >
-        Submit
     </button>
   )
 

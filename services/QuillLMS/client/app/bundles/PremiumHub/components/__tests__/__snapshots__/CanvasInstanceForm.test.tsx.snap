@@ -1,51 +1,107 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
 exports[`CanvasInstanceForm  renders form 1`] = `
-<div
-  id="canvas_instance_form"
+<CanvasInstanceForm
+  passedSchools={
+    Array [
+      Object {
+        "id": 1,
+        "name": "School 1",
+      },
+    ]
+  }
 >
-  <h2>
-    Canvas Instance Form
-  </h2>
-  <div>
-    <label>
-      Url:
-    </label>
-    <input
-      id="url"
-      onChange={[Function]}
-      type="text"
-      value=""
-    />
-  </div>
-  <div>
-    <label>
-      Client ID:
-    </label>
-    <input
-      id="client_id"
-      onChange={[Function]}
-      type="text"
-      value=""
-    />
-  </div>
-  <div>
-    <label>
-      Client Secret:
-    </label>
-    <input
-      id="client_secret"
-      onChange={[Function]}
-      type="password"
-      value=""
-    />
-  </div>
-  <button
-    className="quill-button medium primary contained focus-on-light disabled"
-    disabled={true}
-    type="button"
+  <div
+    id="canvas_instance_form"
   >
-    Submit
-  </button>
-</div>
+    <h2>
+      Canvas Instance Form
+    </h2>
+    <div>
+      <label>
+        Url:
+      </label>
+      <input
+        id="url"
+        onChange={[Function]}
+        type="text"
+        value=""
+      />
+    </div>
+    <div>
+      <label>
+        Client ID:
+      </label>
+      <input
+        id="client_id"
+        onChange={[Function]}
+        type="text"
+        value=""
+      />
+    </div>
+    <div>
+      <label>
+        Client Secret:
+      </label>
+      <input
+        id="client_secret"
+        onChange={[Function]}
+        type="password"
+        value=""
+      />
+    </div>
+    <div>
+      <label>
+        Schools to integrate with Canvas
+      </label>
+      <CanvasInstanceSchoolsSection
+        schools={
+          Array [
+            Object {
+              "id": 1,
+              "name": "School 1",
+            },
+          ]
+        }
+        selectedSchoolIds={Array []}
+        setSelectedSchoolIds={[Function]}
+      >
+        <CanvasInstanceSchoolRow
+          school={
+            Object {
+              "id": 1,
+              "name": "School 1",
+            }
+          }
+          selectedSchoolIds={Array []}
+          setSelectedSchoolIds={[Function]}
+        >
+          <div
+            className="school-row"
+            key="1"
+          >
+            <button
+              aria-label="Unchecked checkbox"
+              className="quill-checkbox unselected"
+              onClick={[Function]}
+              type="button"
+            />
+            <span>
+              School 1
+            </span>
+          </div>
+        </CanvasInstanceSchoolRow>
+      </CanvasInstanceSchoolsSection>
+    </div>
+    <button
+      className="quill-button medium primary contained focus-on-light disabled"
+      disabled={true}
+      id="submit_canvas_instance"
+      onClick={[Function]}
+      type="button"
+    >
+      Submit
+    </button>
+  </div>
+</CanvasInstanceForm>
 `;

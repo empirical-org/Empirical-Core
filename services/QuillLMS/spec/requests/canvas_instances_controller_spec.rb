@@ -24,11 +24,15 @@ RSpec.describe CanvasInstancesController do
     it { expect(subject).to redirect_to new_session_path }
   end
 
-  # context 'user is an admin' do
-  #   let(:user) { create(:admin) }
+  context 'user is an admin' do
+    let(:user) { create(:admin) }
 
-  #   context 'nil url' do
+    context 'valid params' do
+    end
 
-  #   end
-  # end
+    context 'invalid params' do
+      context 'nil url' do
+        it expect(subject).to render_template(:new)
+      end
+  end
 end
