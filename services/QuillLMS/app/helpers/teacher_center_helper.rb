@@ -4,7 +4,6 @@ module TeacherCenterHelper
   FAQ = 'FAQ'
   PREMIUM = 'Premium'
   RESEARCH = 'Research'
-  COMPREHENSION = 'Reading comprehension'
   ALL = 'All'
   FEATURED_ACTIVITIES = 'Featured Activities'
   AP_ACTIVITIES = 'AP Activities'
@@ -25,9 +24,9 @@ module TeacherCenterHelper
         url: "/teacher-center/topic/whats-new"
       },
       {
-        id: BlogPost::USING_QUILL_FOR_READING_COMPREHENSION,
-        name: COMPREHENSION,
-        url: '/teacher-center/topic/using-quill-for-reading-comprehension'
+        id: BlogPost::WRITING_FOR_LEARNING,
+        name: BlogPost::WRITING_FOR_LEARNING,
+        url: '/teacher-center/topic/writing-for-learning'
       },
       {
         id: BlogPost::GETTING_STARTED,

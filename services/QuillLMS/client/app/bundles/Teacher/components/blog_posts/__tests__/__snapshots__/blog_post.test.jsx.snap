@@ -809,14 +809,13 @@ exports[`BlogPost component renders 1`] = `
             </a>
           </PreviewCard>
           <PreviewCard
-            color="purple"
             content="<img class='preview-card-image' src='https://s3.amazonaws.com/quill-image-uploads/uploads/files/Cover__4_.png' />\\\\n    <div class='preview-card-body'>\\\\n       <h3>List of Available Quill Reading for Evidence Activities</h3>\\\\n       <p>This article offers a great way to get a sense of the content and topics available in current Reading for Evidence activities!</p>\\\\n       <span/>\\\\n    </div>\\\\n    <div class='preview-card-footer'>\\\\n      <p class='author'>by Quill Staff</p>\\\\n    </div>"
             externalLink={false}
             key="List of Available Quill Reading for Evidence Activities"
             link="/teacher-center/list-of-available-quill-reading-for-evidence-activities"
           >
             <a
-              className="preview-card-link purple"
+              className="preview-card-link green"
               href="/teacher-center/list-of-available-quill-reading-for-evidence-activities"
               target="_self"
             >
@@ -1313,14 +1312,14 @@ exports[`BlogPost component renders 1`] = `
             </a>
           </PreviewCard>
           <PreviewCard
-            color="teal"
+            color="purple"
             content="<img class='preview-card-image' src='https://s3.amazonaws.com/quill-image-uploads/uploads/files/Cover__9_.png' />\\\\n    <div class='preview-card-body'>\\\\n       <h3>📋 PDF | Quill Reports Cheat Sheet</h3>\\\\n       <p> This PDF provides an overview of what information you can find in each of Quill's student data reports. </p>\\\\n       <span/>\\\\n    </div>\\\\n    <div class='preview-card-footer'>\\\\n      <p class='author'>by Quill Staff</p>\\\\n    </div>"
             externalLink={true}
             key="📋 PDF | Quill Reports Cheat Sheet"
             link="http://s3.amazonaws.com/quill-image-uploads/uploads/files/Quill_Reports_Cheat_Sheet_Updated04_08_20.pdf"
           >
             <a
-              className="preview-card-link teal"
+              className="preview-card-link purple"
               href="http://s3.amazonaws.com/quill-image-uploads/uploads/files/Quill_Reports_Cheat_Sheet_Updated04_08_20.pdf"
               target="_blank"
             >
@@ -1565,14 +1564,13 @@ exports[`BlogPost component renders 1`] = `
             </a>
           </PreviewCard>
           <PreviewCard
-            color="purple"
             content="<img class='preview-card-image' src='https://s3.amazonaws.com/quill-image-uploads/uploads/files/Cover__2_.png' />\\\\n       <div class='preview-card-body'>\\\\n       <h3>📋 PDF | Introducing Quill Reading for  Evidence: One-Pager </h3>\\\\n       <p>This one-pager will introduce you to our newest tool, Quill Reading for  Evidence. Includes a link to a demo video!</p>\\\\n       <span/>\\\\n    </div>\\\\n    <div class='preview-card-footer'>\\\\n      <p class='author'>by Sherry L.</p>\\\\n    </div>"
             externalLink={false}
             key="📋 PDF | Introducing Quill Reading for Evidence: One-Pager "
             link="/teacher-center/-pdf--introducing-quill-evidence-onepager-"
           >
             <a
-              className="preview-card-link purple"
+              className="preview-card-link green"
               href="/teacher-center/-pdf--introducing-quill-evidence-onepager-"
               target="_self"
             >
@@ -1817,14 +1815,14 @@ exports[`BlogPost component renders 1`] = `
             </a>
           </PreviewCard>
           <PreviewCard
-            color="teal"
+            color="purple"
             content="<img class='preview-card-image' src='https://s3.amazonaws.com/quill-image-uploads/uploads/files/Cover__10_.png' />\\\\n    <div class='preview-card-body'>\\\\n       <h3>📋 PDF | Quill and Beyond: Recommended Tools to Support Remote Learning</h3>\\\\n       <p>This PDF provides information on tools teachers can use to support students with remote instruction.</p>\\\\n       <span/>\\\\n    </div>\\\\n    <div class='preview-card-footer'>\\\\n      <p class='author'>by Quill Staff</p>\\\\n    </div>"
             externalLink={true}
             key="📋 PDF | Quill and Beyond: Recommended Tools to Support Remote Learning"
             link="http://s3.amazonaws.com/quill-image-uploads/uploads/files/Quill___Beyond__1_.pdf"
           >
             <a
-              className="preview-card-link teal"
+              className="preview-card-link purple"
               href="http://s3.amazonaws.com/quill-image-uploads/uploads/files/Quill___Beyond__1_.pdf"
               target="_blank"
             >

@@ -10,7 +10,7 @@ describe TeacherCenterHelper do
       [
         { id: "All resources", name: "All", url: "/teacher-center" },
         { id: BlogPost::WHATS_NEW, name: BlogPost::WHATS_NEW, url: "/teacher-center/topic/whats-new" },
-        { id: BlogPost::USING_QUILL_FOR_READING_COMPREHENSION, name: "Reading comprehension", url: "/teacher-center/topic/using-quill-for-reading-comprehension" },
+        { id: BlogPost::WRITING_FOR_LEARNING, name: BlogPost::WRITING_FOR_LEARNING, url: "/teacher-center/topic/writing-for-learning" },
         { id: BlogPost::GETTING_STARTED, name: BlogPost::GETTING_STARTED, url: "/teacher-center/topic/getting-started" },
         { id: BlogPost::BEST_PRACTICES, name: BlogPost::BEST_PRACTICES, url: "/teacher-center/topic/best-practices" },
         { id: BlogPost::WRITING_INSTRUCTION_RESEARCH, name: "Research", url: "/teacher-center/topic/writing-instruction-research" },

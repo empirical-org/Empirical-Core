@@ -237,6 +237,47 @@
     padding: 82px 22%;
     background-color: #F8F9F9;
   }
+  .banner-container {
+    display: flex;
+    justify-content: center;
+    margin-bottom: 64px;
+    .evidence-teacher-handbook-banner {
+      max-width: 950px;
+      .information-section {
+        align-items: flex-start;
+        h2 {
+          margin: 0;
+        }
+        p {
+          text-align: left;
+        }
+      }
+      img {
+        margin-left: 8px;
+      }
+    }
+  }
+  .evidence-preview-card-container {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    margin-bottom: 46px;
+    .preview-card-link {
+      max-width: 459px;
+      text-align: left;
+      flex-basis: 50%;
+      flex-grow: 1;
+    }
+    .preview-card-link:nth-of-type(1), .preview-card-link:nth-of-type(3) {
+      margin-right: 32px;
+    }
+    .preview-card-link:nth-of-type(1) {
+      margin-bottom: 32px;
+    }
+    button {
+      background-color: $quillteal !important;
+    }
+  }
 }
 
 .prompts-walkthrough-container {
@@ -382,6 +423,9 @@
           }
         }
       }
+    }
+    .banner-container, .evidence-preview-card-container {
+      display: none;
     }
     #q-and-a {
       padding-left: 24px;

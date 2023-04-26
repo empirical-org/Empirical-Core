@@ -1,6 +1,6 @@
 import * as React from 'react'
 
-import { arrowPointingRightIcon } from '../../../Shared/index'
+import { arrowPointingRightIcon, EVIDENCE_HANDBOOK_LINK } from '../../../Shared/index'
 
 const EvidencePromotionCard = () => {
 
@@ -16,6 +16,7 @@ const EvidencePromotionCard = () => {
           <a href={`${process.env.DEFAULT_URL}/teacher-center/introducing-quills-new-writing-and-reading-tool-quill-evidence`}><span>Learn more</span><img alt={arrowPointingRightIcon.alt} src={arrowPointingRightIcon.src} /></a>
           <a href={`${process.env.DEFAULT_URL}/assign/activity-library?activityClassificationFilters[]=evidence`}><span>View activities</span><img alt={arrowPointingRightIcon.alt} src={arrowPointingRightIcon.src} /></a>
           <a href={`${process.env.DEFAULT_URL}/tools/evidence`}><span>See tool demo</span><img alt={arrowPointingRightIcon.alt} src={arrowPointingRightIcon.src} /></a>
+          <a href={EVIDENCE_HANDBOOK_LINK} rel='noopener noreferrer' target="_blank"><span>Get the Teacher Handbook</span><img alt={arrowPointingRightIcon.alt} src={arrowPointingRightIcon.src} /></a>
         </div>
       </div>
     </section>
