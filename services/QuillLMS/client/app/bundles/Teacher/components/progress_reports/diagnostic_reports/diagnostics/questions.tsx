@@ -1,7 +1,7 @@
 import qs from 'qs';
 import * as React from 'react';
 import { withRouter } from 'react-router-dom';
-import stripHtml from "string-strip-html";
+import { stripHtml } from "string-strip-html";
 
 import {
   fileDocumentIcon,
@@ -84,17 +84,17 @@ const DirectionsAndPrompt = ({ directions, prompt, onMobile, }) => {
       return <p dangerouslySetInnerHTML={{ __html: text }} />
     }
 
-    if ((stripHtml(text).length * AVERAGE_FONT_WIDTH) >= ALLOTTED_WIDTH) {
+    if ((stripHtml(text).result.length * AVERAGE_FONT_WIDTH) >= ALLOTTED_WIDTH) {
       return (
         <Tooltip
           tooltipText={text}
-          tooltipTriggerText={stripHtml(text)}
+          tooltipTriggerText={stripHtml(text).result}
           tooltipTriggerTextClass="directions-or-prompt"
         />
       )
     }
 
-    return <p>{stripHtml(text)}</p>
+    return <p>{stripHtml(text).result}</p>
   }
 
   return (

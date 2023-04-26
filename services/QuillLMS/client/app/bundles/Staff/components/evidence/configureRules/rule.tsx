@@ -1,7 +1,7 @@
 import * as React from "react";
 import { useQuery, useQueryClient } from 'react-query';
 import { Link } from 'react-router-dom';
-import stripHtml from "string-strip-html";
+import { stripHtml } from "string-strip-html";
 
 import RuleForm from './ruleForm';
 
@@ -49,7 +49,7 @@ const Rule = ({ history, match }) => {
         const { text } = plagiarism_text;
         return {
           label: `Plagiarism Text - Text String ${i + 1}`,
-          value: stripHtml(text)
+          value: stripHtml(text).result
         }
       });
     }
@@ -57,7 +57,7 @@ const Rule = ({ history, match }) => {
       const { text } = feedback;
       return {
         label: `Feedback ${i + 1}`,
-        value: stripHtml(text)
+        value: stripHtml(text).result
       }
     });
     return attributesArray.concat(feedbacksArray);

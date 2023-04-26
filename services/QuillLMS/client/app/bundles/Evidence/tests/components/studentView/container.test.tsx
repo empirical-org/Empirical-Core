@@ -48,12 +48,6 @@ jest.mock('../../../actions/activities', () => ({
 }))
 
 
-jest.mock('string-strip-html', () => ({
-  default: jest.fn(() => {
-    return {};
-  })
-}))
-
 import { StudentViewContainer } from '../../../components/studentView/container';
 
 const dispatch = () => {}
