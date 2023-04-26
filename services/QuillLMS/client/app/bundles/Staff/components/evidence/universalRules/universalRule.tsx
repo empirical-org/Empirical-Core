@@ -1,7 +1,7 @@
 import * as React from "react";
 import { useQuery, useQueryClient } from 'react-query';
 import { Link } from 'react-router-dom';
-import stripHtml from "string-strip-html";
+import { stripHtml } from "string-strip-html";
 
 import { DataTable, Error, Modal, Spinner } from '../../../../Shared/index';
 import { renderErrorsContainer } from '../../../helpers/evidence/renderHelpers';
@@ -39,7 +39,7 @@ const UniversalRule = ({ history, location, match }) => {
       const { text } = feedback;
       return {
         label: `Feedback ${i + 1}`,
-        value: stripHtml(text)
+        value: stripHtml(text).result
       }
     });
   }
@@ -62,7 +62,7 @@ const UniversalRule = ({ history, location, match }) => {
       },
       {
         label: 'Rule Note',
-        value: note && stripHtml(note)
+        value: note && stripHtml(note).result
       },
       {
         label: 'Order',

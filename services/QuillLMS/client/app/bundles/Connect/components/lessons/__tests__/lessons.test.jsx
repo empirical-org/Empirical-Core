@@ -1,4 +1,4 @@
-import { shallow } from 'enzyme';
+import { mount } from 'enzyme';
 import toJson from 'enzyme-to-json';
 import React from 'react';
 import { Provider } from 'react-redux';
@@ -17,7 +17,7 @@ describe('Lessons component', () => {
     data: {},
   }}
 
-  const wrapper = shallow(<Provider store={store}><Lessons props={props} /></Provider>)
+  const wrapper = mount(<Provider store={store}><Lessons props={props} /></Provider>)
   it('matches the snapshot', () => {
     expect(toJson(wrapper)).toMatchSnapshot()
   })

@@ -1,7 +1,7 @@
 declare function require(name:string);
 import { stringNormalize } from 'quill-string-normalizer';
 import * as React from 'react';
-import stripHtml from "string-strip-html";
+import { stripHtml } from "string-strip-html";
 import * as _ from 'underscore';
 
 import {
@@ -280,7 +280,7 @@ export class PlayFillInTheBlankQuestion extends React.Component<PlayFillInTheBla
     const zipped = _.zip(splitPrompt, trimmedInputVals);
     const formatted = _.flatten(zipped).join('').trim();
     // we use stripHtml for prompts that have stylized elements
-    return stripHtml(formatted);
+    return stripHtml(formatted).result;
   }
 
   handleSubmitClick = () => {
