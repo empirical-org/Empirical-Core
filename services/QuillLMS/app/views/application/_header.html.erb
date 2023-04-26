@@ -17,3 +17,34 @@
 	<div class="navbar-divider-bar green"></div>
 <% end %>
 
+<script>
+	function toggleMobileSecondaryDropdown(primaryDropdownOpen) {
+    const dropdown = document.querySelector('#mobile-subnav-dropdown');
+
+		if(!dropdown) { return }
+
+    const parent = dropdown.parentElement
+
+    if(primaryDropdownOpen) {
+      parent.classList.remove('open');
+      return;
+    }
+		if(parent.classList.contains('open')) {
+			parent.classList.remove('open');
+		} else {
+			parent.classList.add('open');
+		}
+  }
+
+	function toggleMobilePrimaryDropdown() {
+    toggleMobileSecondaryDropdown(true)
+    const dropdown = document.querySelector('#mobile-primary-dropdown-container');
+    const child = dropdown.firstElementChild
+		if(child.classList.contains('open')) {
+			child.classList.remove('open');
+		} else {
+			child.classList.add('open');
+		}
+  }
+</script>
+

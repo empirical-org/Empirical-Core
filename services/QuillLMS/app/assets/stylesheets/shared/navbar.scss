@@ -28,6 +28,8 @@
     .right-side-mobile-nav {
       display: flex;
       align-items: center;
+      position: absolute;
+      right: 0;
       .active-tab {
         font-weight: 500;
         font-size: 18px;
@@ -53,6 +55,50 @@
           position: absolute;
           left: 0px;
           width: 100%;
+        }
+      }
+    }
+    #mobile-primary-dropdown-container {
+      div {
+        .dropdown-menu {
+          margin: 0;
+          padding: 0;
+          border: none;
+          border-radius: 0px 0px 10px 10px;
+          padding: 16px;
+          li {
+            display: flex;
+            justify-content: space-between;
+            padding: 13.5px 16px 10px 16px;
+            border-radius: 6px;
+            &.active {
+              background-color: $quillgreenlight;
+            }
+            &#my-account {
+              margin-bottom: 8px;
+            }
+            &#logout-tab {
+              border-radius: 0px;
+              border-top: 1px solid rgba(6, 128, 107, 0.3);
+              padding: 16px 16px 8px 16px;
+            }
+            a {
+              padding: 0;
+              color: $quillgreenmedium !important;
+              background-color: inherit;
+              font-size: 16px;
+              font-weight: 600;
+            }
+            img {
+              width: 18px;
+              height: 19px;
+              display: none;
+              margin-right: 10.5px;
+              &.active {
+                display: inherit;
+              }
+            }
+          }
         }
       }
     }

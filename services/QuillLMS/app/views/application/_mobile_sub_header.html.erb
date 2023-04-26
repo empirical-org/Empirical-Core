@@ -2,6 +2,9 @@
 <% on_home_or_tools_page = current_path == '/' || current_path.include?('tools') %>
 <% on_sign_up_or_log_in = ['account/new', '/session', 'password_reset', 'sign-up', 'finish_set_up'].any? { |str| current_path.include?(str)} %>
 <% subheader_class = on_home_or_tools_page ? 'q-navbar-home' : 'q-navbar-home sub-page' %>
+<% on_home_or_tools_page_class = on_home_or_tools_page ? 'on-home-page' : '' %>
+<% active_tab = determine_active_tab(current_path) %>
+<% tabs = determine_mobile_navbar_tabs %>
 
 <% if current_path.include?('teachers') || current_path.include?('assign') %>
 	<% user_dropdown_class = 'on-dashboard' %>
@@ -32,18 +35,30 @@
 			<%= determine_premium_badge %>
   	</div>
 
-		<% if current_user&.student? && !current_path.include?('tools') %>
-			<%= react_component('StudentNavbarItems', props: { name: current_user.name }) %>
+    <% if current_user&.student? && !current_path.include?('tools') %>
+      <%= react_component('StudentNavbarItems', props: { name: current_user.name }) %>
     <% end %>
-	<% end %>
-  <div class="right-side-mobile-nav">
-    <p class="active-tab"><%= determine_active_tab(current_path) %></p>
-    <div class="mobile-hamburger-container">
-      <div class="hamburger-icon">
-        <div class="horizontal-line"></div>
-        <div class="horizontal-line"></div>
-        <div class="horizontal-line"></div>
+    <div class="right-side-mobile-nav">
+      <p class="active-tab"><%= active_tab %></p>
+      <div class="mobile-hamburger-container">
+        <div class="hamburger-icon" onclick="toggleMobilePrimaryDropdown()">
+          <div class="horizontal-line"></div>
+          <div class="horizontal-line"></div>
+          <div class="horizontal-line"></div>
+        </div>
       </div>
     </div>
-  <div>
+    <div class="dropdown-container" id="mobile-primary-dropdown-container">
+      <div>
+        <ul class="dropdown-menu" role='menu'>
+          <% tabs.each do |tab| %>
+            <li class="<%= (tab[:name] == active_tab || tab[:id] == active_tab) ? 'active' : '' %>" id="<%= tab[:id] ? tab[:id] : '' %>">
+              <a class="focus-on-dark" href=<%= tab[:url] %>><%= tab[:name] %></a>
+              <img class="<%= (tab[:name] == active_tab || tab[:id] == active_tab) ? 'active' : '' %>" src="https://assets.quill.org/images/pages/diagnostic_reports/icons-check-small-green.svg"></img>
+            </li>
+          <% end %>
+        </ul>
+      </div>
+    </div>
+  <% end %>
 </nav>
