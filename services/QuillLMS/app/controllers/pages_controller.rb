@@ -487,7 +487,7 @@ class PagesController < ApplicationController
 
   def connect
     allow_iframe
-    @style_file = ApplicationController::CONNECT
+    @style_file = "#{ApplicationController::CONNECT}.scss"
   end
 
   def diagnostic
