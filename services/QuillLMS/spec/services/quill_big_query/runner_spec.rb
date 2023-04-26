@@ -31,18 +31,43 @@ describe QuillBigQuery::Runner do
       }
     end
 
+    context 'BigQuery response contains no rows' do
+      let(:no_rows_bigquery_response) { bigquery_response.merge({ 'totalRows' => "0" }) }
+      it 'should return early' do
+        allow(QuillBigQuery::Transformer).to receive(:new).exactly(0).times
+        QuillBigQuery::Runner.transform_response(no_rows_bigquery_response)
+      end
+    end
+
+    context 'inoperable BigQuey response schema' do
+      context 'job is not completed' do
+        let(:job_not_completed_response) { {'jobComplete' => false } }
+        it 'should raise JobNotCompleted' do
+          expect do
+            QuillBigQuery::Runner.transform_response(job_not_completed_response)
+          end.to raise_error(QuillBigQuery::Runner::JobNotCompletedError)
+        end
+      end
+
+      context 'jobComplete field is missing' do
+        let(:jobcomplete_missing_bigquery_response) { {} }
+        it 'should raise JobNotCompleted' do
+          expect do
+            QuillBigQuery::Runner.transform_response(jobcomplete_missing_bigquery_response)
+          end.to raise_error(QuillBigQuery::Runner::JobNotCompletedError)
+        end
+      end
+    end
+
     context 'invalid BigQuery response schema' do
       let(:invalid_response) { { foo: 1 } }
       let(:another_invalid_response) do
         {
           "schema" => {
             "fields" => 42
-          }
+          },
+          "jobComplete" => true
         }
-      end
-
-      it 'should raise NoMethodError' do
-        expect { QuillBigQuery::Runner.transform_response(invalid_response)}.to raise_error(NoMethodError)
       end
 
       it 'should raise UnsupportedSchemaError' do

@@ -5,17 +5,23 @@
 module QuillBigQuery
   class Runner
     PROJECT_ID = 'analytics-data-stores'
+    ZERO_ROW_RESPONSE = []
 
     class UnsupportedSchemaError < StandardError; end
     class ClientExecutionError < StandardError; end
+    class JobNotCompletedError < StandardError; end
 
     def self.valid_schema?(json_body)
-      json_body['schema']['fields'].respond_to?(:count) &&
-        json_body['rows'].respond_to?(:count)
+      raise JobNotCompletedError, json_body unless json_body.dig('jobComplete')
+
+      json_body.dig('schema','fields').respond_to?(:count) &&
+        json_body.dig('rows').respond_to?(:count) &&
+        json_body.dig('totalRows').respond_to?(:to_i)
     end
 
     def self.transform_response(json_body)
       raise UnsupportedSchemaError, json_body unless valid_schema?(json_body)
+      return ZERO_ROW_RESPONSE unless json_body['totalRows'].to_i > 0
 
       # This parses to [{"id" => 1, "name"=> "Dan", }, {"id" => 2, "name" => "Peter"}]
       raw_fields = json_body["schema"]["fields"]
