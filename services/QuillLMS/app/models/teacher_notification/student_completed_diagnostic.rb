@@ -20,6 +20,10 @@
 #
 #  fk_rails_...  (user_id => users.id)
 #
-class TeacherNotification < ApplicationRecord
-  belongs_to :user
+class TeacherNotification::StudentCompletedDiagnostic < TeacherNotification
+  store :message_attrs, accessors: [:student_name, :classroom_name, :diagnostic_name], coder: JSON
+
+  validates :student_name, presence: true
+  validates :classroom_name, presence: true
+  validates :diagnostic_name, presence: true
 end

@@ -4462,7 +4462,7 @@ ALTER SEQUENCE public.teacher_notification_settings_id_seq OWNED BY public.teach
 CREATE TABLE public.teacher_notifications (
     id bigint NOT NULL,
     user_id bigint NOT NULL,
-    notification_type text NOT NULL,
+    type text,
     email_sent timestamp without time zone,
     message_attrs jsonb,
     created_at timestamp(6) without time zone NOT NULL,
