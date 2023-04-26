@@ -179,11 +179,6 @@ EmpiricalGrammar::Application.routes.draw do
 
   resources :grades, only: [:index]
 
-  resources :teacher_notification_settings, param: :notification_type, only: [] do
-    post 'activate', on: :member
-    post 'deactivate', on: :member
-  end
-
   resources :teacher_saved_activities, only: [] do
     get :saved_activity_ids_for_current_user, on: :collection
     post :create_by_activity_id_for_current_user, on: :collection
@@ -540,6 +535,10 @@ EmpiricalGrammar::Application.routes.draw do
       resources :activity_survey_responses, only: [:create]
       resources :student_problem_reports, only: [:create]
       resources :lockers, only: [:show, :create, :update]
+
+      resources :teacher_notification_settings, only: [:index] do
+        post 'bulk_update', on: :collection
+      end
 
       mount Evidence::Engine => "/evidence", as: :evidence
     end

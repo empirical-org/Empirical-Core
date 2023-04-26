@@ -3,6 +3,6 @@
 FactoryBot.define do
   factory :teacher_notification_setting, class: TeacherNotificationSetting do
     user
-    notification_type { TeacherNotification::STUDENT_COMPLETED_ALL_ASSIGNED_ACTIVITIES }
+    notification_type { TeacherNotification::StudentCompletedAllAssignedActivities }
   end
 end

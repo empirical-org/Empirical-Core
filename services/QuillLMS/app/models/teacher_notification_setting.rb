@@ -21,11 +21,15 @@
 #
 class TeacherNotificationSetting < ApplicationRecord
   DEFAULT_FOR_NEW_USERS = [
-    TeacherNotification::STUDENT_COMPLETED_DIAGNOSTIC,
-    TeacherNotification::STUDENT_COMPLETED_ALL_DIAGNOSTIC_RECOMMENDATIONS,
-    TeacherNotification::STUDENT_COMPLETED_ALL_ASSIGNED_ACTIVITIES
-  ]
+    TeacherNotification::StudentCompletedDiagnostic,
+    TeacherNotification::StudentCompletedAllDiagnosticRecommendations,
+    TeacherNotification::StudentCompletedAllAssignedActivities
+  ].map(&:name).freeze
+
+  def self.notification_types
+    TeacherNotification.subclasses.map(&:name)
+  end
 
   belongs_to :user
-  validates :notification_type, presence: true, inclusion: {in: TeacherNotification::NOTIFICATION_TYPES, message: "%{value} is not a valid TeacherNotification.notification_type"}
+  validates :notification_type, presence: true, inclusion: {in: ->(model) { model.class.notification_types }, message: "%{value} is not a valid TeacherNotification type"}
 end

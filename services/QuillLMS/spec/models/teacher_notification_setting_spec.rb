@@ -29,6 +29,6 @@ RSpec.describe TeacherNotificationSetting, type: :model do
   context 'should validations' do
     it { should validate_presence_of(:notification_type) }
 
-    it { should validate_inclusion_of(:notification_type).in_array(TeacherNotification::NOTIFICATION_TYPES) }
+    it { should validate_inclusion_of(:notification_type).in_array(TeacherNotificationSetting.notification_types).with_message(/is not a valid TeacherNotification type/) }
   end
 end
