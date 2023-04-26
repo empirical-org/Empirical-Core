@@ -493,7 +493,7 @@ class PagesController < ApplicationController
 
   def diagnostic
     allow_iframe
-    @style_file = ApplicationController::DIAGNOSTIC
+    @style_file = "#{ApplicationController::DIAGNOSTIC}.scss"
   end
 
   def administrator
