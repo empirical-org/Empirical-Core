@@ -483,7 +483,7 @@ class PagesController < ApplicationController
 
   def lessons
     allow_iframe
-    @style_file = ApplicationController::LESSONS
+    @style_file = "#{ApplicationController::LESSONS}.scss"
   end
 
   def connect
