@@ -20,12 +20,12 @@
 #
 #  fk_rails_...  (user_id => users.id)
 #
-require 'rails_helper'
-
-RSpec.describe TeacherNotification::StudentCompletedDiagnostic, type: :model do
-  context 'validations' do
-    it { should validate_presence_of(:student_name) }
-    it { should validate_presence_of(:classroom_name) }
-    it { should validate_presence_of(:diagnostic_name) }
+module TeacherNotifications
+  class StudentCompletedDiagnostic < ::TeacherNotification
+    store :message_attrs, accessors: [:student_name, :classroom_name, :diagnostic_name], coder: JSON
+  
+    validates :student_name, presence: true
+    validates :classroom_name, presence: true
+    validates :diagnostic_name, presence: true
   end
 end
