@@ -592,7 +592,7 @@ EmpiricalGrammar::Application.routes.draw do
     put '/teachers/import_students', to: 'teachers#import_students'
   end
 
-  resources :canvas_instances, only: [:create, :show]
+  resources :canvas_instances, only: [:create]
 
   get '/clever/auth_url_details', to: 'clever#auth_url_details'
   get '/clever/no_classroom', to: 'clever#no_classroom'

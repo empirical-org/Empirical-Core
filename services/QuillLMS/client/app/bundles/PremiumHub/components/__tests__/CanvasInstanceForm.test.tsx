@@ -1,6 +1,7 @@
 import * as React from 'react'
 import { ReactWrapper, mount } from 'enzyme';
 import CanvasInstanceForm, { CREATE_CANVAS_INSTANCE_PATH } from '../CanvasInstanceForm';
+
 import * as requestsApi from '../../../../modules/request';
 
 const updateInput = (wrapper: ReactWrapper, selector: string, newValue: string) => {
