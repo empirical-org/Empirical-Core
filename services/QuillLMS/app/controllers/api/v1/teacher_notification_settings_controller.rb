@@ -13,11 +13,16 @@ class Api::V1::TeacherNotificationSettingsController < ApplicationController
         # Convert the string to a boolean so that 'false' is treated as false
         active = ActiveModel::Type::Boolean.new.cast(active)
 
-        # Destroy settings that are not in the payload params
-        @current_settings.find_by(notification_type: notification_type)&.destroy! unless active
-
         # Create settings that are in the payload params but not in the database
-        TeacherNotificationSetting.create!(user: current_user, notification_type: notification_type) if active && !@current_settings.exists?(notification_type: notification_type)
+        if active
+          # Skip notification_types that are already set
+          next if @current_settings.exists?(notification_type: notification_type)
+
+          TeacherNotificationSetting.create!(user: current_user, notification_type: notification_type)
+        else
+          # Destroy settings that are not in the payload params
+          @current_settings.find_by(notification_type: notification_type)&.destroy!
+        end
       end
     end
 
@@ -27,9 +32,9 @@ class Api::V1::TeacherNotificationSettingsController < ApplicationController
   end
 
   private def types_and_values
-    TeacherNotificationSetting.notification_types.map do |notification_type|
+    TeacherNotificationSetting.notification_types.to_h do |notification_type|
       [notification_type, @current_settings.exists?(notification_type: notification_type)]
-    end.to_h
+    end
   end
 
 

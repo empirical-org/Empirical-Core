@@ -4,7 +4,7 @@ require 'rails_helper'
 
 describe Api::V1::TeacherNotificationSettingsController do
   let!(:teacher) { create(:teacher) }
-  let(:notification_type) { TeacherNotification::StudentCompletedDiagnostic }
+  let(:notification_type) { TeacherNotifications::StudentCompletedDiagnostic }
   let(:notification_type_name) { notification_type.name }
 
   before do
@@ -78,7 +78,7 @@ describe Api::V1::TeacherNotificationSettingsController do
       expect(TeacherNotificationSetting).to receive(:create!).and_raise(ActiveRecord::RecordInvalid)
 
       expect do
-        post :bulk_update, params: { notification_types: { notification_type_name => false, TeacherNotification::StudentCompletedAllAssignedActivities.name => true } }
+        post :bulk_update, params: { notification_types: { notification_type_name => false, TeacherNotifications::StudentCompletedAllAssignedActivities.name => true } }
 
         expect(response.status).to eq(400)
       end.not_to change(TeacherNotificationSetting, :count)

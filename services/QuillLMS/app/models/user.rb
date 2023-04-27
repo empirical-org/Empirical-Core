@@ -865,7 +865,7 @@ class User < ApplicationRecord
 
   private def generate_default_teacher_notification_settings
     TeacherNotificationSetting::DEFAULT_FOR_NEW_USERS.each do |notification_type|
-      TeacherNotificationSetting.create!(user: self, notification_type: notification_type)
+      teacher_notification_settings.create!(notification_type: notification_type)
     end
   end
 end
