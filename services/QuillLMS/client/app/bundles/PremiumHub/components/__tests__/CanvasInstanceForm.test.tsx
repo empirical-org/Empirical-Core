@@ -9,6 +9,12 @@ const updateInput = (wrapper: ReactWrapper, selector: string, newValue: string) 
     .simulate('change', { target: { value: newValue } });
 }
 
+const selectSchoolCheckbox = (wrapper: ReactWrapper) => {
+  wrapper
+    .find('.school-row button.quill-checkbox')
+    .simulate('click')
+}
+
 describe('CanvasInstanceForm ', () => {
   const url = 'http://canvas.example.com'
   const clientId = 'abcdedfghijk';
@@ -32,6 +38,7 @@ describe('CanvasInstanceForm ', () => {
     updateInput(wrapper, '#url', url)
     updateInput(wrapper, '#client_id', clientId)
     updateInput(wrapper, '#client_secret', '')
+    selectSchoolCheckbox(wrapper)
 
     expect(submitFormSpy).not.toHaveBeenCalled()
   })
@@ -40,6 +47,7 @@ describe('CanvasInstanceForm ', () => {
     updateInput(wrapper, '#url', url)
     updateInput(wrapper, '#client_id', '')
     updateInput(wrapper, '#client_secret', clientSecret)
+    selectSchoolCheckbox(wrapper)
 
     expect(submitFormSpy).not.toHaveBeenCalled()
   })
@@ -48,12 +56,22 @@ describe('CanvasInstanceForm ', () => {
     updateInput(wrapper, '#url', '')
     updateInput(wrapper, '#client_id', clientId)
     updateInput(wrapper, '#client_secret', clientSecret)
+    selectSchoolCheckbox(wrapper)
 
     expect(submitFormSpy).not.toHaveBeenCalled()
   })
 
   it('prevents submission if url is invalid', () => {
     updateInput(wrapper, '#url', 'not-a-url')
+    updateInput(wrapper, '#client_id', clientId)
+    updateInput(wrapper, '#client_secret', clientSecret)
+    selectSchoolCheckbox(wrapper)
+
+    expect(submitFormSpy).not.toHaveBeenCalled()
+  })
+
+  it('prevents submission if no school is selected', () => {
+    updateInput(wrapper, '#url', url)
     updateInput(wrapper, '#client_id', clientId)
     updateInput(wrapper, '#client_secret', clientSecret)
 
@@ -64,10 +82,7 @@ describe('CanvasInstanceForm ', () => {
     updateInput(wrapper, '#url', url)
     updateInput(wrapper, '#client_id', clientId)
     updateInput(wrapper, '#client_secret', clientSecret)
-
-    wrapper
-      .find('.school-row button.quill-checkbox')
-      .simulate('click')
+    selectSchoolCheckbox(wrapper)
 
     wrapper
       .find('#submit_canvas_instance')

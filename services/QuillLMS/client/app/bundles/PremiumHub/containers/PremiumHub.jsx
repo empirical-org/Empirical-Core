@@ -137,7 +137,6 @@ const PremiumHub = ({ adminId, accessType, passedModel, }) => {
 
   return(
     <div className="sub-container">
-      <CanvasInstanceForm />
       <Snackbar text={snackbarText} visible={showSnackbar} />
       <PremiumFeatures handleClick={onClickTeacherAccess} trainingOptionsElement={trainingOptionsElement} />
       {renderFreemiumStandardsReports()}
@@ -164,6 +163,7 @@ const PremiumHub = ({ adminId, accessType, passedModel, }) => {
         refreshData={getData}
         schools={model.schools}
       />
+      <CanvasInstanceForm />
     </div>
   );
 }

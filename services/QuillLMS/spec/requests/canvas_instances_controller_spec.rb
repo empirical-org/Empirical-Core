@@ -26,13 +26,13 @@ RSpec.describe CanvasInstancesController do
 
   context 'user is an admin' do
     let(:user) { create(:admin) }
-    let(:school_ids) { [school.id] }
+    let(:school) { create(:school) }
 
     let(:valid_params) do
       {
         canvas_instance: attributes_for(:canvas_instance),
         canvas_config: attributes_for(:canvas_config),
-        canvas_instance_schools: school_ids
+        canvas_instance_schools: { school_ids: [school.id] }
       }
     end
 
@@ -43,14 +43,6 @@ RSpec.describe CanvasInstancesController do
       it { expect { subject}.to change(CanvasInstance, :count).from(0).to(1) }
       it { expect { subject}.to change(CanvasConfig, :count).from(0).to(1) }
       it { expect { subject}.to change(CanvasInstanceSchool, :count).from(0).to(1) }
-
-      context 'school_ids is empty' do
-        let(:school_ids) { [] }
-
-        it { expect { subject}.to change(CanvasInstance, :count).from(0).to(1) }
-        it { expect { subject}.to change(CanvasConfig, :count).from(0).to(1) }
-        it { expect { subject}.not_to change(CanvasInstanceSchool, :count) }
-      end
     end
 
     context 'invalid params' do
@@ -95,8 +87,8 @@ RSpec.describe CanvasInstancesController do
   end
 
   def should_not_create_canvas_objects
-    expect(CanvasInstance.count).to eq(0)
-    expect(CanvasConfig.count).to eq(0)
-    expect(CanvasInstanceSchool.count).to eq(0)
+    expect(CanvasInstance.count).to eq 0
+    expect(CanvasConfig.count).to eq 0
+    expect(CanvasInstanceSchool.count).to eq 0
   end
 end

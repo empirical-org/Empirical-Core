@@ -52,7 +52,12 @@ const CanvasInstanceForm = ({ passedSchools }) => {
     })
   }
 
-  const validInput = url.length > 0 && isValidURL(url) && clientId.length > 0 && clientSecret.length > 0
+  const validInput = (
+    url.length > 0
+    && isValidURL(url) && clientId.length > 0
+    && clientSecret.length > 0
+    && selectedSchoolIds.length > 0
+  )
 
   const urlInput = (
     <div>
