@@ -61,7 +61,7 @@ export function rematchAll(mode: string, questionID: string, callback:Function) 
     type = 'fillInBlankQuestions';
   }
 
-  const rematchAllUrl = `${import.meta.env.QUILL_CMS}/responses/rematch_all`;
+  const rematchAllUrl = `${import.meta.env.VITE_CMS_URL}/responses/rematch_all`;
   fetch(rematchAllUrl, {
     method: 'POST',
     body: JSON.stringify({type, uid: questionID}),
@@ -96,7 +96,7 @@ export function rematchOne(response: string, mode: string, question: Question, q
 
 export function paginatedNonHumanResponses(matcher, matcherFields, qid, page, callback) {
   requestPost(
-    `${import.meta.env.QUILL_CMS}/questions/${qid}/responses/search`,
+    `${import.meta.env.VITE_CMS_URL}/questions/${qid}/responses/search`,
     getResponseBody(page),
     (data) => {
       const parsedResponses = _.indexBy(data.results, 'id');
@@ -175,7 +175,7 @@ function deleteRematchedResponse(response) {
 function updateResponse(rid, content) {
   const rubyConvertedResponse = objectWithSnakeKeysFromCamel(content, false);
   return requestPut(
-    `${import.meta.env.QUILL_CMS}/responses/${rid}`,
+    `${import.meta.env.VITE_CMS_URL}/responses/${rid}`,
     { response: rubyConvertedResponse, }
   )
 }
@@ -260,7 +260,7 @@ function getResponseBody(pageNumber) {
 }
 
 function getGradedResponses(questionID) {
-  return requestGet(`${import.meta.env.QUILL_CMS}/questions/${questionID}/responses`);
+  return requestGet(`${import.meta.env.VITE_CMS_URL}/questions/${questionID}/responses`);
 }
 
 function formatGradedResponses(jsonString):{[key:string]: Response} {

@@ -1,5 +1,5 @@
 /* eslint-env browser*/
-import * as moment from 'moment';
+import moment from 'moment';
 import { ConceptResult, Response } from 'quill-marking-logic';
 
 import { ActionTypes } from './actionTypes';
@@ -28,7 +28,7 @@ export function submitResponse(content: Response, prid: string, isFirstAttempt: 
   rubyConvertedResponse.is_first_attempt = isFirstAttempt;
   return (dispatch: Function) => {
     requestPost(
-      `${import.meta.env.QUILL_CMS}/responses/create_or_increment`,
+      `${import.meta.env.VITE_CMS_URL}/responses/create_or_increment`,
       { response: rubyConvertedResponse, },
       (body) => {
         dispatch({ type: ActionTypes.DISPLAY_MESSAGE, message: 'Submission successfully saved!', });
@@ -44,7 +44,7 @@ export function submitMassEditFeedback(ids: string[], properties, qid: string) {
   return (dispatch: Function) => {
     const updatedAttribute = properties;
     requestPut(
-      `${import.meta.env.QUILL_CMS}/responses/mass_edit/edit_many`,
+      `${import.meta.env.VITE_CMS_URL}/responses/mass_edit/edit_many`,
       { ids, updated_attribute: updatedAttribute, },
       (body) => {
         dispatch({ type: ActionTypes.DISPLAY_MESSAGE, message: 'Submission successfully saved!', });
@@ -63,7 +63,7 @@ export function submitMassEditConceptResults(ids: string[], conceptResults: Conc
       concept_results: conceptResults,
     };
     requestPut(
-      `${import.meta.env.QUILL_CMS}/responses/mass_edit/edit_many`,
+      `${import.meta.env.VITE_CMS_URL}/responses/mass_edit/edit_many`,
       { ids, updated_attribute: updatedAttribute, },
       (body) => {
         dispatch({ type: ActionTypes.DISPLAY_MESSAGE, message: 'Submission successfully saved!', });
@@ -79,7 +79,7 @@ export function submitMassEditConceptResults(ids: string[], conceptResults: Conc
 export function massEditDeleteResponses(ids: string[], qid: string) {
   return (dispatch: Function) => {
     requestPost(
-      `${import.meta.env.QUILL_CMS}/responses/mass_edit/delete_many`,
+      `${import.meta.env.VITE_CMS_URL}/responses/mass_edit/delete_many`,
       { ids, },
       (body) => {
         dispatch({ type: ActionTypes.DISPLAY_MESSAGE, message: 'Submission successfully saved!', });
@@ -96,7 +96,7 @@ export function submitResponseEdit(rid: string, content: Response & { concept_re
   const rubyConvertedResponse = objectWithSnakeKeysFromCamel(content);
   return (dispatch: Function) => {
     requestPut(
-      `${import.meta.env.QUILL_CMS}/responses/${rid}`,
+      `${import.meta.env.VITE_CMS_URL}/responses/${rid}`,
       { response: rubyConvertedResponse, },
       (body) => {
         dispatch({ type: ActionTypes.DISPLAY_MESSAGE, message: 'Submission successfully saved!', });
@@ -113,7 +113,7 @@ export function updateConceptResults(rid, content, qid) {
   const rubyConvertedResponse = objectWithSnakeKeysFromCamel(content, false);
   return (dispatch) => {
     requestPut(
-      `${import.meta.env.QUILL_CMS}/responses/${rid}`,
+      `${import.meta.env.VITE_CMS_URL}/responses/${rid}`,
       { response: rubyConvertedResponse, },
       (body) => {
         dispatch({ type: ActionTypes.DISPLAY_MESSAGE, message: 'Submission successfully saved!', });
@@ -132,7 +132,7 @@ export function deleteConceptResult(rid, content, qid) {
   const updatedResponse = objectWithSnakeKeysFromCamel(content, false);
   return (dispatch) => {
     requestPut(
-      `${import.meta.env.QUILL_CMS}/responses/${rid}`,
+      `${import.meta.env.VITE_CMS_URL}/responses/${rid}`,
       { response: updatedResponse, },
       (body) => {
         dispatch({ type: ActionTypes.DISPLAY_MESSAGE, message: 'Submission successfully saved!', });
@@ -149,7 +149,7 @@ export function deleteConceptResult(rid, content, qid) {
 export function deleteResponse(qid, rid) {
   return (dispatch) => {
     requestDelete(
-      `${import.meta.env.QUILL_CMS}/responses/${rid}`,
+      `${import.meta.env.VITE_CMS_URL}/responses/${rid}`,
       null,
       (body) => {
         dispatch({ type: ActionTypes.DISPLAY_MESSAGE, message: 'Submission successfully saved!', });
@@ -175,7 +175,7 @@ function makeIterator(array) {
 }
 
 export function getGradedResponsesWithCallback(questionID, callback) {
-  requestGet(`${import.meta.env.QUILL_CMS}/questions/${questionID}/responses`,
+  requestGet(`${import.meta.env.VITE_CMS_URL}/questions/${questionID}/responses`,
     (body) => {
       const bodyToObj = {};
       body.forEach((resp) => {
@@ -199,7 +199,7 @@ export function getGradedResponsesWithCallback(questionID, callback) {
 
 export function getGradedResponsesWithoutCallback(questionID) {
   requestGet(
-    `${import.meta.env.QUILL_CMS}/questions/${questionID}/responses`,
+    `${import.meta.env.VITE_CMS_URL}/questions/${questionID}/responses`,
     (body) => {
       const bodyToObj = {};
       body.forEach((resp) => {
