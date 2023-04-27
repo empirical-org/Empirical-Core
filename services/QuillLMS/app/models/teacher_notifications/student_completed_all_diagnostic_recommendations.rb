@@ -23,7 +23,7 @@
 module TeacherNotifications
   class StudentCompletedAllDiagnosticRecommendations < ::TeacherNotification
     store :message_attrs, accessors: [:student_name, :classroom_name], coder: JSON
-  
+
     validates :student_name, presence: true
     validates :classroom_name, presence: true
   end
