@@ -21,7 +21,7 @@
 #  fk_rails_...  (user_id => users.id)
 #
 FactoryBot.define do
-  factory :teacher_notification_student_completed_all_assigned_activities, class: 'TeacherNotification::StudentCompletedAllAssignedActivities' do
+  factory :teacher_notification_student_completed_all_diagnostic_recommendations, class: 'TeacherNotifications::StudentCompletedAllDiagnosticRecommendations' do
     user
     student_name { 'Student Name' }
     classroom_name { 'Classroom Name' }
