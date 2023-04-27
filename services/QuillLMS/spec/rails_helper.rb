@@ -12,6 +12,9 @@ require 'sidekiq/testing'
 require 'factory_bot_rails'
 require 'spec_helper'
 
+# This should eager load the TeacherNotification sub-classes which is necessary in our testing environment because we use the TeacherNotification.subclasses call for validation, and without eager loading that value starts as an empty array
+Dir[File.join(__dir__, '..', 'app', 'models', 'teacher_notifications', '*.rb')].each { |file| require file }
+
 # Use a fake Sidekiq since we don't maintain redis for testing
 Sidekiq::Testing.fake!
 
