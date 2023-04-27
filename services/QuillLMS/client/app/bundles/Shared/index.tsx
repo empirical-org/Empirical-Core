@@ -206,7 +206,8 @@ export {
   ADMIN,
   NOT_LISTED,
   NO_SCHOOL_SELECTED,
-  EVIDENCE_HANDBOOK_LINK
+  EVIDENCE_HANDBOOK_LINK,
+  MAX_VIEW_WIDTH_FOR_MOBILE_NAVBAR
 } from './utils/constants'
 
 export { DefaultReactQueryClient } from './utils/defaultReactQueryClient'

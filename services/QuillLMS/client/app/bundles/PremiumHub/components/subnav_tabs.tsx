@@ -1,6 +1,12 @@
 import * as React from 'react';
 import { Link } from 'react-router-dom';
-import { whiteDiamondIcon, redDiamondIcon } from '../../Shared';
+import { whiteDiamondIcon, redDiamondIcon, MAX_VIEW_WIDTH_FOR_MOBILE_NAVBAR } from '../../Shared';
+
+const OVERVIEW = 'Overview';
+const SCHOOL_SUBSCRIPTIONS = 'School Subscriptions';
+const ACTIVITY_SCORES = 'Activity Scores';
+const CONCEPT_REPORTS = 'Concept Reports';
+const STANDARDS_REPORTS = 'Standards Reports';
 
 export default class AdminSubnav extends React.Component<any, any> {
   constructor(props) {
@@ -14,17 +20,22 @@ export default class AdminSubnav extends React.Component<any, any> {
   }
 
   getStateFromProps(props) {
-    const state = {activityScores: '', conceptReports: '', standardsReports: '', overview: '', schoolSubscriptions: ''}
+    const state = {activityScores: '', conceptReports: '', standardsReports: '', overview: '', schoolSubscriptions: '', activeTab: ''}
     if (props.path.pathname.includes('/district_activity_scores')) {
       state.activityScores = 'active'
+      state.activeTab = ACTIVITY_SCORES
     } else if (props.path.pathname.includes('/district_concept_reports')) {
       state.conceptReports = 'active'
+      state.activeTab = CONCEPT_REPORTS
     } else if (props.path.pathname.includes('/district_standards_reports')) {
       state.standardsReports = 'active'
+      state.activeTab = STANDARDS_REPORTS
     } else if (props.path.pathname.includes('school_subscriptions')) {
       state.schoolSubscriptions = 'active'
+      state.activeTab = SCHOOL_SUBSCRIPTIONS
     } else if (props.path.pathname.includes('premium_hub')) {
       state.overview = 'active'
+      state.activeTab = OVERVIEW
     }
     return state
   }
@@ -36,11 +47,69 @@ export default class AdminSubnav extends React.Component<any, any> {
     return <img alt={whiteDiamondIcon.alt} src={whiteDiamondIcon.src} />
   }
 
+  handleDropdownClick = () => {
+    const { dropdownOpen } = this.state;
+    this.setState({ dropdownOpen: !dropdownOpen });
+  }
+
+  handleLinkClick = () => {
+    this.setState({ dropdownOpen: false });
+  }
+
   render() {
-    const { overview, schoolSubscriptions, activityScores, conceptReports, standardsReports, } = this.state
+    const { overview, schoolSubscriptions, activityScores, conceptReports, standardsReports, dropdownOpen, activeTab } = this.state
+    const onMobile = window.innerWidth <= MAX_VIEW_WIDTH_FOR_MOBILE_NAVBAR;
+    const dropdownClass = dropdownOpen ? 'open' : '';
+
+    if(onMobile) {
+      return(
+        <div className="tab-subnavigation-wrapper class-subnav premium-hub-subnav mobile red">
+          <div className="dropdown-container">
+            <div className={dropdownClass}>
+              <button className="interactive-wrapper" onClick={this.handleDropdownClick} id="mobile-subnav-dropdown" type='button'>
+                <p>{activeTab}</p>
+                <i className="fa fa-thin fa-angle-down"></i>
+              </button>
+              <ul className="dropdown-menu">
+                <li>
+                  <Link className={overview} onClick={this.handleLinkClick}to="/teachers/premium_hub">
+                    Overview
+                  </Link>
+                  <img className={overview} src="https://assets.quill.org/images/shared/check-small-white.svg" />
+                </li>
+                <li>
+                  <Link className={schoolSubscriptions} onClick={this.handleLinkClick}to="/teachers/premium_hub/school_subscriptions">
+                    School Subscriptions
+                  </Link>
+                  <img className={schoolSubscriptions} src="https://assets.quill.org/images/shared/check-small-white.svg" />
+                </li>
+                <li>
+                  <Link className={`premium ${activityScores}`} onClick={this.handleLinkClick}to="/teachers/premium_hub/district_activity_scores">
+                    Activity Scores{this.getIcon(activityScores)}
+                  </Link>
+                  <img className={activityScores} src="https://assets.quill.org/images/shared/check-small-white.svg" />
+                </li>
+                <li>
+                  <Link className={`premium ${conceptReports}`} onClick={this.handleLinkClick}to="/teachers/premium_hub/district_concept_reports">
+                    Concept Reports{this.getIcon(conceptReports)}
+                  </Link>
+                  <img className={conceptReports} src="https://assets.quill.org/images/shared/check-small-white.svg" />
+                </li>
+                <li>
+                  <Link className={`premium ${standardsReports}`} onClick={this.handleLinkClick}to="/teachers/premium_hub/district_standards_reports">
+                    Standards Reports{this.getIcon(standardsReports)}
+                  </Link>
+                  <img className={standardsReports} src="https://assets.quill.org/images/shared/check-small-white.svg" />
+                </li>
+              </ul>
+            </div>
+          </div>
+        </div >
+      )
+    }
 
     return(
-      <div className="tab-subnavigation-wrapper class-subnav premium-hub-subnav">
+      <div className="tab-subnavigation-wrapper class-subnav premium-hub-subnav desktop">
         <div className="container">
           <ul>
             <li>

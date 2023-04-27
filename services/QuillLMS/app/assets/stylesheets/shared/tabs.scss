@@ -171,6 +171,22 @@
         }
       }
     }
+    &.red {
+      .dropdown-container {
+        background-color: $quillmaroon;
+        #mobile-subnav-dropdown {
+          color: $quillmaroon;
+        }
+        .dropdown-menu {
+          background-color: $quillmaroon;
+          li {
+            a {
+              color: #FFFFFF !important;
+            }
+          }
+        }
+      }
+    }
   }
 }
 

@@ -1,6 +1,8 @@
 # frozen_string_literal: true
 
 module NavbarHelper
+  include Rails.application.routes.url_helpers
+
   LEARNING_TOOLS_TAB = { name: 'Learning Tools', url: '/tools/connect' }
   EXPLORE_CURRICULUM_TAB = { name: 'Explore Curriculum', url: '/activities/packs' }
   TEACHER_CENTER_TAB = { name: 'Teacher Center', url: '/teacher-center' }
