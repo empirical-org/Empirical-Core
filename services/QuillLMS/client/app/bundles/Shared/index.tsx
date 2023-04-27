@@ -158,7 +158,8 @@ export {
   openLockIcon,
   networkIcon,
   whiteDiamondIcon,
-  redDiamondIcon
+  redDiamondIcon,
+  evidenceHandbookIcon
 } from './images/index'
 
 export {
@@ -204,7 +205,8 @@ export {
   INDIVIDUAL_CONTRIBUTOR,
   ADMIN,
   NOT_LISTED,
-  NO_SCHOOL_SELECTED
+  NO_SCHOOL_SELECTED,
+  EVIDENCE_HANDBOOK_LINK
 } from './utils/constants'
 
 export { DefaultReactQueryClient } from './utils/defaultReactQueryClient'

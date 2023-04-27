@@ -3,7 +3,7 @@ import React from 'react';
 import createReactClass from 'create-react-class';
 
 import $ from 'jquery';
-import stripHtml from "string-strip-html";
+import { stripHtml } from "string-strip-html";
 import SortableTable from '../general_components/table/sortable_table/sortable_table.jsx';
 import TableFilterMixin from '../general_components/table/sortable_table/table_filter_mixin';
 import TableSortingMixin from '../general_components/table/sortable_table/table_sorting_mixin';
@@ -72,7 +72,7 @@ export default createReactClass({
   strippedResults: function(results) {
     return results.map((r) => {
       if(r.prompt) {
-        r.prompt = stripHtml(r.prompt)
+        r.prompt = stripHtml(r.prompt).result
       }
       return r
     })

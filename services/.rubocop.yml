@@ -12,8 +12,8 @@ AllCops:
   Exclude:
     - "QuillLMS/engines/evidence/spec/dummy/**/*"
     - "QuillLMS/engines/evidence/lib/generators/**/*"
-    - 'QuillLMS/node_modules/**/*'
-    - 'QuillLMS/client/node_modules/**/*'
+    - "QuillLMS/node_modules/**/*"
+    - "QuillLMS/client/node_modules/**/*"
 
 #######################################################################################################################
 # GEMSPEC
@@ -554,7 +554,7 @@ Style/DocumentDynamicEvalDefinition:
   Enabled: true
 
 Style/EachWithObject:
-  Enabled: true
+  Enabled: false
 
 Style/EmptyElse:
   Enabled: false

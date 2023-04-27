@@ -1,7 +1,7 @@
 import * as React from "react";
 import { useQueryClient, } from 'react-query';
 import { Link } from 'react-router-dom';
-import stripHtml from "string-strip-html";
+import { stripHtml } from "string-strip-html";
 
 import { DEFAULT_MAX_ATTEMPTS, NONE, PROMPT_ATTEMPTS_FEEDBACK_LABELS, PROMPT_HEADER_LABELS, STRONG, WEAK } from '../../../../../constants/evidence';
 import { ButtonLoadingSpinner, DataTable, Spinner } from '../../../../Shared/index';
@@ -123,7 +123,7 @@ const PromptTable = ({ activity, rules, prompt, showHeader, sessionId }: PromptT
       const feedbackObject: any = {
         id: `${rule_uid}:${i}:feedback`,
         status: feedbackLabel,
-        results: <p className="word-wrap">{stripHtml(feedback_text)}</p>,
+        results: <p className="word-wrap">{stripHtml(feedback_text).result}</p>,
         feedback: feedbackLink,
         buttons: getStrongWeakButtons(attempt),
         className: optimal ? 'optimal' : 'sub-optimal'

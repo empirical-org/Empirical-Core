@@ -1,7 +1,7 @@
 import * as React from "react";
 import { useQuery } from 'react-query';
 import { Link, RouteComponentProps } from 'react-router-dom';
-import stripHtml from "string-strip-html";
+import { stripHtml } from "string-strip-html";
 
 import { BECAUSE, BUT, PLAGIARISM, SO } from '../../../../../constants/evidence';
 import { DataTable, Error, Spinner } from '../../../../Shared/index';
@@ -82,7 +82,7 @@ const PlagiarismRulesIndex: React.FC<RouteComponentProps<ActivityRouteProps>> = 
       const { text } = feedback;
       return {
         label: `Feedback ${i + 1}`,
-        value: stripHtml(text)
+        value: stripHtml(text).result
       }
     })
   }
@@ -101,7 +101,7 @@ const PlagiarismRulesIndex: React.FC<RouteComponentProps<ActivityRouteProps>> = 
       const { text } = plagiarismText;
       return {
         label: `Plagiarism Text - Text String ${i + 1}`,
-        value: stripHtml(text)
+        value: stripHtml(text).result
       }
     })
   }

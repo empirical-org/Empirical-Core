@@ -2,6 +2,7 @@ import * as React from "react";
 import { QueryClientProvider } from 'react-query';
 import { Provider } from "react-redux";
 import { HashRouter } from "react-router-dom";
+import { CompatRouter } from "react-router-dom-v5-compat";
 
 import { DefaultReactQueryClient } from '../Shared';
 import { route } from "./routes";
@@ -17,7 +18,11 @@ class App extends React.Component<{user: string}, {}> {
     return (
       <QueryClientProvider client={queryClient} contextSharing={true}>
         <Provider store={store}>
-          <HashRouter basename="/">{route(user)}</HashRouter>
+          <HashRouter basename="/">
+            <CompatRouter>
+              {route(user)}
+            </CompatRouter>
+          </HashRouter>
         </Provider>
       </QueryClientProvider>
     );

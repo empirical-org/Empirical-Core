@@ -1,71 +1,69 @@
 import React from 'react';
+import { useParams, useNavigate, } from "react-router-dom-v5-compat";
+
 import getParameterByName from '../modules/get_parameter_by_name';
 import LessonsSlides from './LessonsSlides';
 
 import { requestPost, } from '../../../../modules/request/index';
 
-export default class TutorialIndex extends React.Component {
-  constructor(props) {
-    super(props);
+const LESSONS = 'lessons'
 
-    let slides;
-    switch (props.match.params.tool) {
-      case 'lessons':
-      default:
-        slides = LessonsSlides;
-        break;
+const TutorialIndex = ({}) => {
+  const navigate = useNavigate();
+  const params = useParams();
+
+  const defaultSlideNumber = params.slideNumber ? Number(params.slideNumber) : 1
+  let defaultSlides
+
+  switch (params.tool) {
+    case LESSONS:
+    default:
+      defaultSlides = LessonsSlides;
+      break;
+  }
+
+  const [slideNumber, setSlideNumber] = React.useState(defaultSlideNumber)
+  const [slides, setSlides] = React.useState(defaultSlides)
+
+  React.useEffect(() => {
+    document.addEventListener('keydown', handleKeyDown);
+    return () => {
+      document.removeEventListener('keydown', handleKeyDown)
     }
+  }, [])
 
-    this.state = {
-      slides,
-      slideNumber: props.match.params.slideNumber ? Number(props.match.params.slideNumber) : 1,
-    };
-
-    document.addEventListener('keydown', this.handleKeyDown.bind(this));
-  }
-
-  UNSAFE_componentWillReceiveProps(nextProps) {
-    if (Number(nextProps.match.params.slideNumber) === this.state.slides.length) {
-      this.finishTutorial();
-    }
-  }
-
-  componentWillUnmount() {
-    document.removeEventListener('keydown', this.handleKeyDown.bind(this));
-  }
-
-  circles() {
-    const circles = this.state.slides.map((el, index) => {
-      const currSlide = this.state.slideNumber - 1;
+  function circles() {
+    const circles = slides.map((el, index) => {
+      const currSlide = slideNumber - 1;
       const current = index === currSlide ? 'current' : null;
-      return (<div className={`${current} circle`} key={index} onClick={() => this.goToSlide(index + 1)} />);
+      return (<div className={`${current} circle`} key={index} onClick={() => goToSlide(index + 1)} />);
     });
     return <div className="circles">{circles}</div>;
   }
 
-  finishTutorial() {
-    if (this.props.match.params.tool === 'lessons') {
+  function finishTutorial() {
+    if (params.tool === LESSONS) {
       requestPost(`${process.env.DEFAULT_URL}/milestones/complete_view_lesson_tutorial`)
     }
   }
 
-  goToSlide(slideNumber) {
-    this.props.history.push(`/tutorials/${this.props.match.params.tool}/${slideNumber}${this.qs()}`);
-    this.setState({ slideNumber ,  });
+  function goToSlide(slideNumber) {
+    navigate(`/tutorials/${params.tool}/${slideNumber}${qs()}`);
+    setSlideNumber(slideNumber)
   }
 
-  handleKeyDown(event) {
-    if (event.keyCode === 39 && this.state.slideNumber !== this.state.slides.length) {
-      this.goToSlide(this.state.slideNumber + 1);
-    } else if (event.keyCode === 37 && this.state.slideNumber !== 1) {
-      this.goToSlide(this.state.slideNumber - 1);
+  function handleKeyDown(event) {
+    if (event.keyCode === 39 && slideNumber !== slides.length) {
+      goToSlide(slideNumber + 1);
+    } else if (event.keyCode === 37 && slideNumber !== 1) {
+      goToSlide(slideNumber - 1);
     }
   }
 
-  nextButton() {
+  function nextButton() {
     const lessonsUrl = process.env.QUILL_LESSONS_URL || 'https://quill.org/lessons';
-    if (this.state.slideNumber !== this.state.slides.length) {
-      return <button className="text-white bg-quillgreen next-button" onClick={() => this.goToSlide(this.state.slideNumber + 1)}>Next</button>;
+    if (slideNumber !== slides.length) {
+      return <button className="text-white bg-quillgreen next-button" onClick={() => goToSlide(slideNumber + 1)}>Next</button>;
     } else if (getParameterByName('url')) {
       const url = getParameterByName('url');
       return <button className="text-white bg-quillgreen next-button" onClick={() => window.location = decodeURIComponent(url)}>Next</button>;
@@ -75,14 +73,14 @@ export default class TutorialIndex extends React.Component {
     return <button className="text-white bg-quillgreen try-button" onClick={() => { window.location = `${lessonsUrl}/#/teach/class-lessons/-KsKpXAoaEIY5jvWMIzJ/preview`; }}>Try Sample Activity</button>;
   }
 
-  previousButton() {
-    if (this.state.slideNumber !== 1) {
-      return <button className="text-quillgreen previous-button interactive-wrapper" onClick={() => this.goToSlide(this.state.slideNumber - 1)} type="button">Back</button>;
+  function previousButton() {
+    if (slideNumber !== 1) {
+      return <button className="text-quillgreen previous-button interactive-wrapper" onClick={() => goToSlide(slideNumber - 1)} type="button">Back</button>;
     }
     return <div className="text-quillgreen previous-button interactive-wrapper" style={{ height: '22px', }} />;
   }
 
-  qs() {
+  function qs() {
     if (getParameterByName('url')) {
       return `?url=${encodeURIComponent(getParameterByName('url'))}`;
     } else if (getParameterByName('nocta')) {
@@ -91,16 +89,16 @@ export default class TutorialIndex extends React.Component {
     return '';
   }
 
-  render() {
-    return (
-      <div className="tutorial-slides">
-        {this.state.slides[this.state.slideNumber - 1]}
-        <div className="slide-controls">
-          {this.nextButton()}
-          {this.previousButton()}
-          {this.circles()}
-        </div>
+  return (
+    <div className="tutorial-slides">
+      {slides[slideNumber - 1]}
+      <div className="slide-controls">
+        {nextButton()}
+        {previousButton()}
+        {circles()}
       </div>
-    );
-  }
+    </div>
+  );
 }
+
+export default TutorialIndex

@@ -4,6 +4,8 @@ import * as React from 'react';
 import { QueryClientProvider } from 'react-query';
 import { Provider } from 'react-redux';
 import { HashRouter, Route, Switch } from 'react-router-dom';
+import { CompatRouter } from "react-router-dom-v5-compat";
+
 import conceptActions from './actions/concepts';
 import conceptsFeedbackActions from './actions/concepts-feedback';
 import fillInBlankActions from './actions/fillInBlank';
@@ -69,9 +71,11 @@ if (lessonUid) {
 String.prototype.quillNormalize = quillNormalizer;
 
 const route = (
-  <Switch>
-    <Route component={Home} path="/" />
-  </Switch>
+  <CompatRouter>
+    <Switch>
+      <Route component={Home} path="/" />
+    </Switch>
+  </CompatRouter>
 );
 
 const App = () => {
