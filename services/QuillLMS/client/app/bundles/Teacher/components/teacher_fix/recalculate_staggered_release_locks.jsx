@@ -23,7 +23,7 @@ const RecalculateStaggeredReleaseLocks = () => {
     )
   }
 
-  function handleTeacherIdentifierUpdate() {
+  function handleTeacherIdentifierUpdate(e) {
     setTeacherIdentifier(e.target.value)
   };
 
