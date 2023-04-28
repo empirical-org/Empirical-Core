@@ -4,13 +4,14 @@
 #
 # Table name: teacher_infos
 #
-#  id                      :bigint           not null, primary key
-#  maximum_grade_level     :integer
-#  minimum_grade_level     :integer
-#  role_selected_at_signup :string           default("")
-#  created_at              :datetime         not null
-#  updated_at              :datetime         not null
-#  user_id                 :bigint           not null
+#  id                           :bigint           not null, primary key
+#  maximum_grade_level          :integer
+#  minimum_grade_level          :integer
+#  notification_email_frequency :text
+#  role_selected_at_signup      :string           default("")
+#  created_at                   :datetime         not null
+#  updated_at                   :datetime         not null
+#  user_id                      :bigint           not null
 #
 # Indexes
 #
@@ -21,6 +22,14 @@
 #  fk_rails_...  (user_id => users.id)
 #
 class TeacherInfo < ApplicationRecord
+
+  NOTIFICATION_EMAIL_FREQUENCIES = [
+    NEVER_EMAIL = 'never',
+    HOURLY_EMAIL = 'hourly',
+    DAILY_EMAIL = 'daily',
+    WEEKLY_EMAIL = 'weekly'
+  ]
+
   belongs_to :user
 
   has_many :teacher_info_subject_areas, dependent: :destroy
@@ -29,6 +38,8 @@ class TeacherInfo < ApplicationRecord
   validates :minimum_grade_level, numericality: { in: 0..12 }, :allow_nil => true
   validates :maximum_grade_level, numericality: { in: 0..12 }, :allow_nil => true
   validates :user_id, presence: true, uniqueness: true
+
+  validates :notification_email_frequency, inclusion: {in: NOTIFICATION_EMAIL_FREQUENCIES}, allow_blank: true
 
   KINDERGARTEN_DISPLAY_STRING = 'K'
   KINDERGARTEN_DATABASE_INTEGER = 0
