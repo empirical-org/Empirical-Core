@@ -101,6 +101,8 @@ RSpec.describe SegmentIntegration::User do
     let(:teacher_info) { create(:teacher_info, user: teacher) }
 
     before {
+      # We want to be able to use teacher_info defined above to take advantage of the factory rather than using the default teacher_info created by the User after_create hook
+      teacher.teacher_info.destroy
       create(:user_subscription, user: teacher)
       create(:teacher_info_subject_area, teacher_info: teacher_info, subject_area: subject1)
       create(:teacher_info_subject_area, teacher_info: teacher_info, subject_area: subject2)
