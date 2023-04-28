@@ -217,6 +217,7 @@ class User < ApplicationRecord
   after_save  :update_invitee_email_address, if: proc { saved_change_to_email? }
   after_save :check_for_school
   after_create :generate_referrer_id, if: proc { teacher? }
+  after_create :generate_default_notification_email_frequency, if: :teacher?
 
   # This is a little weird, but in our current conception, all Admins are Teachers
   scope :teacher, -> { where(role: [ADMIN, TEACHER]) }
@@ -859,6 +860,10 @@ class User < ApplicationRecord
 
   private def update_invitee_email_address
     Invitation.where(invitee_email: email_before_last_save).update_all(invitee_email: email)
+  end
+
+  private def generate_default_notification_email_frequency
+    TeacherInfo.create!(user: self, notification_email_frequency: TeacherInfo::DAILY_EMAIL)
   end
 end
 # rubocop:enable Metrics/ClassLength
