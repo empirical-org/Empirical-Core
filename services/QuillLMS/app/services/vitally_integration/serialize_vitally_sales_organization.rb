@@ -32,11 +32,12 @@ class SerializeVitallySalesOrganization
   def activities_and_students_rollups
     current_time = Time.current
     school_year_start = School.school_year_start(current_time)
-    last_school_year_start = School.school_year_start(current_time - 1.year)
-    active_students_this_year = active_students(school_year_start, current_time)
+    last_school_year_start = school_year_start - 1.year
+
+    active_students_this_year = active_students(school_year_start)
     active_students_last_year = active_students(last_school_year_start, school_year_start)
     active_students_all_time = active_students
-    activities_completed_this_year = activities_completed(school_year_start, current_time)
+    activities_completed_this_year = activities_completed(school_year_start)
     activities_completed_last_year = activities_completed(last_school_year_start, school_year_start)
     activities_completed_all_time = activities_completed
 
@@ -46,9 +47,9 @@ class SerializeVitallySalesOrganization
       active_students_all_time: active_students_all_time,
       activities_completed_this_year: activities_completed_this_year,
       activities_completed_last_year: activities_completed_last_year,
-      activites_completed_all_time: activities_completed_all_time,
+      activities_completed_all_time: activities_completed_all_time,
       activities_completed_per_student_this_year: (active_students_this_year > 0) ? ((activities_completed_this_year.to_f / active_students_this_year).round(2)) : 0,
-      activites_completed_per_student_last_year: active_students_last_year > 0 ? ((activities_completed_last_year.to_f / active_students_last_year).round(2)) : 0,
+      activities_completed_per_student_last_year: active_students_last_year > 0 ? ((activities_completed_last_year.to_f / active_students_last_year).round(2)) : 0,
       activities_completed_per_student_all_time: active_students_all_time > 0 ? ((activities_completed_all_time.to_f / active_students_all_time).round(2)) : 0,
       last_active_time: last_active_time,
     }
@@ -129,11 +130,11 @@ class SerializeVitallySalesOrganization
       .where(state: 'finished').where('districts.id = ?', @district.id)
 
     if start_date.present?
-      active_students = active_students.where("activity_sessions.updated_at >= ?", start_date)
+      active_students = active_students.where("activity_sessions.completed_at >= ?", start_date)
     end
 
     if end_date.present?
-      active_students = active_students.where("activity_sessions.updated_at <= ?", end_date)
+      active_students = active_students.where("activity_sessions.completed_at <= ?", end_date)
     end
 
     active_students.count
@@ -153,23 +154,25 @@ class SerializeVitallySalesOrganization
       .where('activity_sessions.state = ?', 'finished')
 
     if start_date.present?
-      activities_completed = activities_completed.where("activity_sessions.updated_at >= ?", start_date)
+      activities_completed = activities_completed.where("activity_sessions.completed_at >= ?", start_date)
     end
 
     if end_date.present?
-      activities_completed = activities_completed.where("activity_sessions.updated_at <= ?", end_date)
+      activities_completed = activities_completed.where("activity_sessions.completed_at <= ?", end_date)
     end
 
-    activities_completed.distinct.count
+    activities_completed.count
   end
 
   def last_active_time
-    User.joins("JOIN schools_users ON schools_users.user_id = users.id")
-      .joins("JOIN schools ON schools_users.school_id = schools.id")
-      .joins("JOIN districts ON schools.district_id = districts.id")
-      .where('districts.id = ?', @district.id)
-      .order(last_sign_in: :desc)
-      .first.last_sign_in
+    User.select("students.last_sign_in")
+      .includes(schools_users: [school: :district])
+      .where('districts.id = ?', @district.id).references(:district)
+      .includes(classrooms_teachers: [classroom: :students_classrooms])
+      .joins("JOIN users students ON students.id = students_classrooms.student_id")
+      .order("students.last_sign_in DESC")
+      .first
+      .last_sign_in
   end
 
   private def latest_subscription

@@ -33,14 +33,24 @@ describe 'SerializeVitallySalesOrganization' do
           diagnostics_assigned_last_year: 0,
           diagnostics_completed_this_year: 0,
           diagnostics_completed_last_year: 0,
-          percent_diagnostics_completed_this_year: 0,
-          percent_diagnostics_completed_last_year: 0,
+          percent_diagnostics_completed_this_year: 0.0,
+          percent_diagnostics_completed_last_year: 0.0,
           premium_start_date: SerializeVitallySalesOrganization::VITALLY_NOT_APPLICABLE,
           premium_expiry_date: SerializeVitallySalesOrganization::VITALLY_NOT_APPLICABLE,
           district_subscription: SerializeVitallySalesOrganization::VITALLY_NOT_APPLICABLE,
           annual_revenue_current_contract: SerializeVitallySalesOrganization::VITALLY_NOT_APPLICABLE,
           stripe_invoice_id_current_contract: SerializeVitallySalesOrganization::VITALLY_NOT_APPLICABLE,
-          purchase_order_number_current_contract: SerializeVitallySalesOrganization::VITALLY_NOT_APPLICABLE
+          purchase_order_number_current_contract: SerializeVitallySalesOrganization::VITALLY_NOT_APPLICABLE,
+          active_students_this_year: 0,
+          active_students_last_year: 0,
+          active_students_all_time: 0,
+          activities_completed_this_year: 0,
+          activities_completed_last_year: 0,
+          activities_completed_all_time: 0,
+          activities_completed_per_student_this_year: 0,
+          activities_completed_per_student_last_year: 0,
+          activities_completed_per_student_all_time: 0,
+          last_active_time: nil,
         }
       })
     end
@@ -188,6 +198,67 @@ describe 'SerializeVitallySalesOrganization' do
         expect(SerializeVitallySalesOrganization.new(district).data[:traits][:premium_expiry_date]).to eq(later_subscription.expiration)
       end
     end
-  end
 
+    describe '#activities_and_students_rollups' do
+      let!(:classroom_unit) {create(:classroom_unit, classroom: classroom1, unit: unit, assigned_student_ids: [student1.id, student2.id])}
+      let!(:session1) { create(:activity_session, state: 'finished', completed_at: Time.current, user: student1, classroom_unit: classroom_unit, activity: diagnostic)}
+      let!(:session2) { create(:activity_session, state: 'finished', completed_at: Time.current, user: student2, classroom_unit: classroom_unit, activity: diagnostic)}
+      let!(:session3) { create(:activity_session, state: 'finished', completed_at: Time.current - 1.year, user: student2, classroom_unit: classroom_unit, activity: diagnostic)}
+      let!(:session4) { create(:activity_session, state: 'finished', completed_at: Time.current - 1.year, user: student1, classroom_unit: classroom_unit, activity: diagnostic)}
+      let!(:session5) { create(:activity_session, state: 'finished', completed_at: Time.current - 1.year, user: student1, classroom_unit: classroom_unit, activity: diagnostic)}
+
+      it 'gets the last sign in date of the most recent student' do
+        last_active = Date.today - 1.month
+        student1.update(last_sign_in: last_active)
+        student2.update(last_sign_in: Date.today - 1.year)
+
+        expect(SerializeVitallySalesOrganization.new(district).data[:traits][:last_active_time]).to eq(last_active)
+      end
+
+      context 'gets the number of activites completed' do
+
+        it 'in this school year' do
+          expect(SerializeVitallySalesOrganization.new(district).data[:traits][:activities_completed_this_year]).to eq(2)
+        end
+
+        it 'in the previous school year' do
+          expect(SerializeVitallySalesOrganization.new(district).data[:traits][:activities_completed_last_year]).to eq(3)
+        end
+
+        it 'for all time' do
+          expect(SerializeVitallySalesOrganization.new(district).data[:traits][:activities_completed_all_time]).to eq(5)
+        end
+      end
+
+      context 'gets the number of activites completed per student' do
+
+        it 'in this school year' do
+          expect(SerializeVitallySalesOrganization.new(district).data[:traits][:activities_completed_per_student_this_year]).to eq(1.0)
+        end
+
+        it 'in the previous school year' do
+          expect(SerializeVitallySalesOrganization.new(district).data[:traits][:activities_completed_per_student_last_year]).to eq(1.5)
+        end
+
+        it 'for all time' do
+          expect(SerializeVitallySalesOrganization.new(district).data[:traits][:activities_completed_per_student_all_time]).to eq(2.5)
+        end
+      end
+
+      context 'gets the number of active students' do
+
+        it 'in this school year' do
+          expect(SerializeVitallySalesOrganization.new(district).data[:traits][:active_students_this_year]).to eq(2)
+        end
+
+        it 'in the previous school year' do
+          expect(SerializeVitallySalesOrganization.new(district).data[:traits][:active_students_last_year]).to eq(2)
+        end
+
+        it 'for all time' do
+          expect(SerializeVitallySalesOrganization.new(district).data[:traits][:active_students_all_time]).to eq(2)
+        end
+      end
+    end
+  end
 end
