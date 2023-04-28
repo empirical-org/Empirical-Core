@@ -53,7 +53,28 @@
         <ul class="dropdown-menu" role='menu'>
           <% tabs.each do |tab| %>
             <li class="<%= (tab[:name] == active_tab || tab[:id] == active_tab) ? 'active' : '' %>" id="<%= tab[:id] ? tab[:id] : '' %>">
-              <a class="focus-on-dark" href=<%= tab[:url] %>><%= tab[:name] %></a>
+              <a class="focus-on-dark" href=<%= tab[:url] %>>
+                <% if tab[:name] == 'Premium' %>
+                  <%= render partial: 'pages/shared/tabs/premium_tab' %>
+                <% elsif tab[:name] == 'Teacher Premium' %>
+                  <div class='premium-tab-copy'>
+                    <span>Teacher Premium</span>
+                    <img src='https://assets.quill.org/images/icons/yellow-diamond.svg'></img>
+                  </div>
+                <% elsif tab[:name] == 'Premium Hub' %>
+                  <div class='premium-tab-copy'>
+                    <span>Premium Hub</span>
+                    <img src='https://assets.quill.org/images/icons/red-diamond.svg'></img>
+                  </div>
+                <% elsif tab[:name] == 'Quill Academy' %>
+                  <div class='premium-tab-copy'>
+                    <span>Quill Academy</span>
+                    <img src='https://assets.quill.org/images/icons/red-diamond.svg'></img>
+                  </div>
+                <% else %>
+                  <%= tab[:name] %>
+                <% end %>
+              </a>
               <img class="<%= (tab[:name] == active_tab || tab[:id] == active_tab) ? 'active' : '' %>" src="https://assets.quill.org/images/pages/diagnostic_reports/icons-check-small-green.svg"></img>
             </li>
           <% end %>

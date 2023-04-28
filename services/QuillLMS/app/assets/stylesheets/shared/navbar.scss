@@ -77,6 +77,37 @@
             &#my-account {
               margin-bottom: 8px;
             }
+            &#premium-tab, &#admin-tab, &#quill-academy-tab {
+              a {
+                display: flex;
+                color: $quillgoldmedium !important;
+                .premium-tab-copy {
+                  display: flex;
+                  .large-diamond-icon {
+                    background-image: url("https://assets.quill.org/images/icons/yellow-diamond.svg");
+                    margin: 2px 8px;
+                  }
+                  img {
+                    display: inherit;
+                    margin-left: 8px;
+                  }
+                }
+              }
+            }
+            &#premium-tab {
+              a {
+                color: $quillgoldmedium !important;
+              }
+            }
+            &#quill-academy-tab {
+              border-bottom: 1px solid rgba(6, 128, 107, 0.3);
+              border-radius: 0;
+            }
+            &#admin-tab, &#quill-academy-tab {
+              a {
+                color: $quillmaroon !important;
+              }
+            }
             &#logout-tab {
               border-radius: 0px;
               border-top: 1px solid rgba(6, 128, 107, 0.3);

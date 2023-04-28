@@ -116,16 +116,20 @@
         .dropdown-menu {
           display: block;
           margin: 0;
-          padding: 0;
+          padding: 0px 16px;
           border: none;
           border-radius: 0;
           background-color: $quillgreenmedium;
           li {
-            padding: 16px;
+            padding: 16px 0px;
             font-size: 16px;
             display: flex;
             justify-content: space-between;
             align-items: center;
+            &#diagnostics-tab {
+              border-bottom: 1px solid rgba(255, 255, 255, 0.3);
+              border-radius: 0;
+            }
             a {
               padding: 0px;
               margin-left: 16px;
@@ -133,6 +137,14 @@
               font-weight: 600;
               line-height: 20px;
               background-color: transparent !important;
+              .premium-tab-copy {
+                display: flex;
+
+                img {
+                  display: inherit;
+                  margin-left: 8px;
+                }
+              }
             }
             img {
               width: 18px;

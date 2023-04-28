@@ -1,17 +1,42 @@
 <% home_or_tools_page_class = local_assigns[:on_home_or_tools_page] ? 'home-or-tools-page' : '' %>
+<% active_tab_label = local_assigns[:active_subtab] ? active_subtab : active_tab %>
 
 <div class="tab-subnavigation-wrapper mobile <%= home_or_tools_page_class %>">
   <div class="dropdown-container">
     <div>
       <button class="interactive-wrapper" onclick="toggleMobileSecondaryDropdown()" id="mobile-subnav-dropdown" type='button'>
-        <p><%= active_tab %></p>
+        <p><%= active_tab_label %></p>
         <i class="fa fa-thin fa-angle-down"></i>
       </button>
       <ul class="dropdown-menu" role='menu'>
         <% tabs.each do |tab| %>
-          <li>
-            <a class="focus-on-dark" href=<%= tab[:url] %>><%= tab[:name] %></a>
-            <img class="<%= (tab[:name] == active_tab || tab[:id] == active_tab) ? 'active' : '' %>" src="https://assets.quill.org/images/shared/check-small-white.svg"></img>
+          <li id="<%= tab[:id] ? tab[:id] : '' %>">
+            <a class="focus-on-dark" href=<%= tab[:url] %>>
+              <% if tab[:name] == 'Activity Scores' %>
+                <div class='premium-tab-copy'>
+                  <span>Activity Scores</span>
+                  <img src='https://assets.quill.org/images/icons/white-diamond.svg'></img>
+                </div>
+              <% elsif tab[:name] == 'Concepts' %>
+                <div class='premium-tab-copy'>
+                  <span>Concepts</span>
+                  <img src='https://assets.quill.org/images/icons/white-diamond.svg'></img>
+                </div>
+              <% elsif tab[:name] == 'Standards' %>
+                <div class='premium-tab-copy'>
+                  <span>Standards</span>
+                  <img src='https://assets.quill.org/images/icons/white-diamond.svg'></img>
+                </div>
+              <% elsif tab[:name] == 'Data Export' %>
+                <div class='premium-tab-copy'>
+                  <span>Data Export</span>
+                  <img src='https://assets.quill.org/images/icons/white-diamond.svg'></img>
+                </div>
+              <% else %>
+                <%= tab[:name] %>
+              <% end %>
+            </a>
+            <img class="<%= (tab[:name] == active_tab_label || tab[:id] == active_tab_label) ? 'active' : '' %>" src="https://assets.quill.org/images/shared/check-small-white.svg"></img>
           </li>
         <% end %>
       </ul>
