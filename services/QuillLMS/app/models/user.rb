@@ -115,6 +115,7 @@ class User < ApplicationRecord
   has_one :teacher_info, dependent: :destroy
   has_many :teacher_info_subject_areas, through: :teacher_info
   has_many :teacher_notifications, dependent: :destroy
+  has_many :teacher_notification_settings, dependent: :destroy
   has_many :subject_areas, through: :teacher_info_subject_areas
   has_many :checkboxes
   has_many :credit_transactions
@@ -218,6 +219,7 @@ class User < ApplicationRecord
   after_save :check_for_school
   after_create :generate_referrer_id, if: proc { teacher? }
   after_create :generate_default_notification_email_frequency, if: :teacher?
+  after_create :generate_default_teacher_notification_settings, if: :teacher?
 
   # This is a little weird, but in our current conception, all Admins are Teachers
   scope :teacher, -> { where(role: [ADMIN, TEACHER]) }
@@ -864,6 +866,12 @@ class User < ApplicationRecord
 
   private def generate_default_notification_email_frequency
     create_teacher_info(notification_email_frequency: TeacherInfo::DAILY_EMAIL)
+  end
+
+  private def generate_default_teacher_notification_settings
+    TeacherNotificationSetting::DEFAULT_FOR_NEW_USERS.each do |notification_type|
+      teacher_notification_settings.create!(notification_type: notification_type)
+    end
   end
 end
 # rubocop:enable Metrics/ClassLength

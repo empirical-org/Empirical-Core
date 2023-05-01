@@ -32,6 +32,12 @@ const TutorialIndex = ({}) => {
     }
   }, [])
 
+  React.useEffect(() => {
+    if (Number(params.slideNumber) === slides.length) {
+      finishTutorial();
+    }
+  }, [params.slideNumber])
+
   function circles() {
     const circles = slides.map((el, index) => {
       const currSlide = slideNumber - 1;
