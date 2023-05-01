@@ -537,6 +537,10 @@ EmpiricalGrammar::Application.routes.draw do
       resources :student_problem_reports, only: [:create]
       resources :lockers, only: [:show, :create, :update]
 
+      resources :teacher_notification_settings, only: [:index] do
+        post 'bulk_update', on: :collection
+      end
+
       mount Evidence::Engine => "/evidence", as: :evidence
     end
 
