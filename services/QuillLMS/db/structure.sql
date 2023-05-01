@@ -4400,7 +4400,8 @@ CREATE TABLE public.teacher_infos (
     user_id bigint NOT NULL,
     created_at timestamp(6) without time zone NOT NULL,
     updated_at timestamp(6) without time zone NOT NULL,
-    role_selected_at_signup character varying DEFAULT ''::character varying
+    role_selected_at_signup character varying DEFAULT ''::character varying,
+    notification_email_frequency text
 );
 
 
@@ -9839,6 +9840,7 @@ INSERT INTO "schema_migrations" (version) VALUES
 ('20230413140558'),
 ('20230414164818'),
 ('20230420141952'),
-('20230421172858');
+('20230421172858'),
+('20230428190706');
 
 

@@ -1772,6 +1772,30 @@ describe User, type: :model do
     end
   end
 
+  describe '#generate_default_notification_email_frequency' do
+    it 'should be called after creation if teacher?' do
+      teacher = build(:teacher)
+
+      expect(teacher).to receive(:generate_default_notification_email_frequency)
+      teacher.save
+    end
+
+    it 'should not be called after creation if not teacher?' do
+      student = build(:student)
+
+      expect(student).not_to receive(:generate_default_notification_email_frequency)
+      student.save
+    end
+
+    it 'should not be called on non-create updates' do
+      teacher = create(:teacher)
+
+      expect(teacher).not_to receive(:generate_default_notification_email_frequency)
+      teacher.name = 'New Name'
+      teacher.save
+    end
+  end
+
   describe '#generate_default_teacher_notification_settings' do
     it 'should be called after creation if teacher?' do
       teacher = build(:teacher)
@@ -1790,9 +1814,17 @@ describe User, type: :model do
     it 'should not be called on non-create updates' do
       teacher = create(:teacher)
 
-      expect(teacher).not_to receive(:generate_default_teacher_notification_settings)
+      expect(teacher).not_to receive(:generate_default_notification_email_frequency)
       teacher.name = 'New Name'
       teacher.save
+    end
+
+    it 'should create new TeacherInfo record' do
+      teacher = build(:teacher)
+
+      expect do
+        teacher.save
+      end.to change(TeacherInfo, :count).by(1)
     end
 
     it 'should create new TeacherNotificationSetting records based on configured defaults' do

@@ -390,16 +390,16 @@ describe Teachers::ClassroomManagerController, type: :controller do
 
     describe 'teacher info milestone' do
 
-      describe 'when the teacher already has teacher info' do
+      describe 'when the teacher already has teacher info minimum grade level' do
         it 'assigns must_see_teacher_info_modal to false' do
-          create(:teacher_info, user: teacher)
+          teacher.teacher_info.update(minimum_grade_level: 3)
 
           get :dashboard
           expect(assigns(:must_see_teacher_info_modal)).to eq false
         end
       end
 
-      describe 'when the teacher does not have teacher info' do
+      describe 'when the teacher does not have minimum_grade_level set on teacher_info' do
 
         it 'assigns must_see_teacher_info_modal to true if the user_milestone does not exist' do
           get :dashboard
