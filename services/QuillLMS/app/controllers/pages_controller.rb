@@ -478,7 +478,7 @@ class PagesController < ApplicationController
 
   def grammar
     allow_iframe
-    @style_file = ApplicationController::GRAMMAR
+    @style_file = "#{ApplicationController::GRAMMAR}.scss"
   end
 
   def lessons
