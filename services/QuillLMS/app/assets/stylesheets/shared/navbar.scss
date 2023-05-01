@@ -120,7 +120,10 @@
               font-size: 16px;
               font-weight: 600;
             }
-            img {
+            .checkmark-icon {
+              background-image: url("https://assets.quill.org/images/icons/mobile-dark-green-check.svg");
+              background-repeat: no-repeat;
+              background-position: center;
               width: 18px;
               height: 19px;
               display: none;

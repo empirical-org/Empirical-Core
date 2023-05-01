@@ -139,14 +139,16 @@
               background-color: transparent !important;
               .premium-tab-copy {
                 display: flex;
-
                 img {
                   display: inherit;
                   margin-left: 8px;
                 }
               }
             }
-            img {
+            .checkmark-icon {
+              background-image: url("https://assets.quill.org/images/icons/mobile-white-check.svg");
+              background-repeat: no-repeat;
+              background-position: center;
               width: 18px;
               height: 19px;
               display: none;

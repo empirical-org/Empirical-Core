@@ -36,7 +36,7 @@
                 <%= tab[:name] %>
               <% end %>
             </a>
-            <img class="<%= (tab[:name] == active_tab_label || tab[:id] == active_tab_label) ? 'active' : '' %>" src="https://assets.quill.org/images/shared/check-small-white.svg"></img>
+            <div class="checkmark-icon <%= (tab[:name] == active_tab_label || tab[:id] == active_tab_label) ? 'active' : '' %>"></div>
           </li>
         <% end %>
       </ul>
