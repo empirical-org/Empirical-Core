@@ -78,7 +78,7 @@ describe TeacherInfosController do
       expect do
         post :create, params: {minimum_grade_level: 4, maximum_grade_level: 12, subject_area_ids: [subject_area1.id], notification_email_frequency: TeacherInfo::WEEKLY_EMAIL}
 
-        expect(response.status).to eq(200)
+        expect(response.status).to eq(400)
       end.not_to change(TeacherInfo, :count)
     end
   end

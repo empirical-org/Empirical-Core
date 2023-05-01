@@ -2,11 +2,11 @@
 
 class TeacherInfosController < ApplicationController
 
-  before_action :set_teacher_info, only: [:create, :update]
+  before_action :set_teacher_info, only: [:update]
 
   def create
     role = User::TEACHER_INFO_ROLES.include?(session[:role]) ? session[:role] : ''
-    @teacher_info.update!(
+    @teacher_info = TeacherInfo.create!(
       user: current_user,
       minimum_grade_level: minimum_grade_level,
       maximum_grade_level: maximum_grade_level,
@@ -18,6 +18,8 @@ class TeacherInfosController < ApplicationController
     @teacher_info.subject_areas.push(subject_areas)
 
     render json: {}, status: 200
+  rescue ActiveRecord::RecordInvalid => e
+    render json: {errors: e}, status: 400
   end
 
   def update
@@ -28,7 +30,9 @@ class TeacherInfosController < ApplicationController
 
     if subject_area_ids
       @teacher_info.teacher_info_subject_areas.destroy_all
-      subject_area_ids.each { |subject_area_id| TeacherInfoSubjectArea.create!(teacher_info: @teacher_info, subject_area_id: subject_area_id) }
+      subject_area_ids.each do |subject_area_id|
+        @teacher_info.teacher_info_subject_areas.create!(subject_area_id: subject_area_id)
+      end
     end
 
     if notification_email_frequency

@@ -863,7 +863,7 @@ class User < ApplicationRecord
   end
 
   private def generate_default_notification_email_frequency
-    TeacherInfo.create!(user: self, notification_email_frequency: TeacherInfo::DAILY_EMAIL)
+    create_teacher_info(notification_email_frequency: TeacherInfo::DAILY_EMAIL)
   end
 end
 # rubocop:enable Metrics/ClassLength
