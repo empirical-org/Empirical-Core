@@ -5,7 +5,7 @@ import SkipForNow from './skip_for_now';
 import { requestPut, } from '../../../../../modules/request/index';
 import { Input, } from '../../../../Shared/index';
 
-const schoolVerificationSrc = `${process.env.CDN_URL}/images/onboarding/school_verification.svg`
+const schoolVerificationSrc = `${import.meta.env.VITE_PROCESS_ENV_CDN_URL}/images/onboarding/school_verification.svg`
 
 const SchoolVerificationForm = ({ schoolName, }) => {
   const [verificationUrl, setVerificationUrl] = React.useState(null)

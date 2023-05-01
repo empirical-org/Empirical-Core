@@ -6,7 +6,7 @@ import useSnackbarMonitor from '../../../../Shared/hooks/useSnackbarMonitor';
 import { ADMIN, Snackbar, Spinner, defaultSnackbarTimeout, } from '../../../../Shared/index';
 import AssignActivityPackBanner from '../assignActivityPackBanner';
 
-const emailVerificationSrc = `${process.env.CDN_URL}/images/onboarding/email_verification.svg`
+const emailVerificationSrc = `${import.meta.env.VITE_PROCESS_ENV_CDN_URL}/images/onboarding/email_verification.svg`
 
 const VerifyEmail = ({ user, location, }) => {
   const token = qs.parse(location.search.replace('?', '')).token

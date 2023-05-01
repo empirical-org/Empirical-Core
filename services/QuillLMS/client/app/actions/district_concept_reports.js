@@ -20,10 +20,10 @@ export const switchTeacher = (teacher) => {
 
 export const initializePusherForDistrictConceptReports = (adminId) => {
   return (dispatch) => {
-    if (process.env.RAILS_ENV === 'development') {
+    if (import.meta.env.VITE_PROCESS_ENV_RAILS_ENV === 'development') {
       Pusher.logToConsole = true;
     }
-    const pusher = new Pusher(process.env.PUSHER_KEY, { encrypted: true, });
+    const pusher = new Pusher(import.meta.env.VITE_PROCESS_ENV_PUSHER_KEY, { encrypted: true, });
     const channel = pusher.subscribe(adminId);
     channel.bind('district-concept-reports-found', () => {
       dispatch(getDistrictConceptReports())

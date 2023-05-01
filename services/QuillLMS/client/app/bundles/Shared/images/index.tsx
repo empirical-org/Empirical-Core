@@ -89,7 +89,7 @@ export const smallWhiteCheckIcon = {
 }
 
 export const indeterminateCheckIcon = {
-  src: `${process.env.CDN_URL}/images/icons/indeterminate.svg`,
+  src: `${import.meta.env.VITE_PROCESS_ENV_CDN_URL}/images/icons/indeterminate.svg`,
   alt: 'Indeterminate check icon'
 }
 
@@ -225,14 +225,14 @@ export const networkIcon = {
 
 export const whiteDiamondIcon = {
   alt: 'White diamond',
-  src: `${process.env.CDN_URL}/images/icons/white-diamond.svg`
+  src: `${import.meta.env.VITE_PROCESS_ENV_CDN_URL}/images/icons/white-diamond.svg`
 }
 export const redDiamondIcon = {
   alt: 'Red diamond',
-  src: `${process.env.CDN_URL}/images/icons/red-diamond.svg`
+  src: `${import.meta.env.VITE_PROCESS_ENV_CDN_URL}/images/icons/red-diamond.svg`
 }
 
 export const evidenceHandbookIcon = {
   alt: 'Stack of papers with text "Quill Reading for Evidence Teacher Handbook"',
-  src: `${process.env.CDN_URL}/images/evidence/evidence-teacher-handbook.svg`
+  src: `${import.meta.env.VITE_PROCESS_ENV_CDN_URL}/images/evidence/evidence-teacher-handbook.svg`
 }

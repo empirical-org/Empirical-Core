@@ -10,7 +10,7 @@ const sharedProps = {
 }
 
 describe('PremiumHub container', () => {
-  process.env.PUSHER_KEY = 'pusher';
+  import.meta.env.VITE_PROCESS_ENV_PUSHER_KEY = 'pusher';
 
   it('should render with a full access type', () => {
     const wrapper = mount(<PremiumHub {...sharedProps} accessType={FULL} />);

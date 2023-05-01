@@ -6,7 +6,7 @@ import { requestPost, } from '../../../../../modules/request/index';
 import { Input, } from '../../../../Shared/index';
 import AdminTable from '../../admin_access/adminTable';
 
-const schoolVerificationSrc = `${process.env.CDN_URL}/images/onboarding/school_verification.svg`
+const schoolVerificationSrc = `${import.meta.env.VITE_PROCESS_ENV_CDN_URL}/images/onboarding/school_verification.svg`
 
 const RequestAdminAccessForm = ({ schoolName, admins, }) => {
   const [selectedAdminIds, setSelectedAdminIds] = React.useState([])
