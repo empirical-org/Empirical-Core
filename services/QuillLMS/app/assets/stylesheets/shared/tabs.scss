@@ -126,9 +126,12 @@
             display: flex;
             justify-content: space-between;
             align-items: center;
-            &#diagnostics-tab {
+            &#mobile-diagnostics-tab {
               border-bottom: 1px solid rgba(255, 255, 255, 0.3);
               border-radius: 0;
+            }
+            &#my-account {
+              margin-bottom: 0px;
             }
             a {
               padding: 0px;

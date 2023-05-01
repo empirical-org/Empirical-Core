@@ -75,31 +75,31 @@ export default class AdminSubnav extends React.Component<any, any> {
                   <Link className={overview} onClick={this.handleLinkClick}to="/teachers/premium_hub">
                     Overview
                   </Link>
-                  <img className={overview} src="https://assets.quill.org/images/shared/check-small-white.svg" />
+                  <div className={`checkmark-icon ${overview}`} />
                 </li>
                 <li>
                   <Link className={schoolSubscriptions} onClick={this.handleLinkClick}to="/teachers/premium_hub/school_subscriptions">
                     School Subscriptions
                   </Link>
-                  <img className={schoolSubscriptions} src="https://assets.quill.org/images/shared/check-small-white.svg" />
+                  <div className={`checkmark-icon ${schoolSubscriptions}`} />
                 </li>
                 <li>
                   <Link className={`premium ${activityScores}`} onClick={this.handleLinkClick}to="/teachers/premium_hub/district_activity_scores">
                     Activity Scores{this.getIcon(activityScores)}
                   </Link>
-                  <img className={activityScores} src="https://assets.quill.org/images/shared/check-small-white.svg" />
+                  <div className={`checkmark-icon ${activityScores}`} />
                 </li>
                 <li>
                   <Link className={`premium ${conceptReports}`} onClick={this.handleLinkClick}to="/teachers/premium_hub/district_concept_reports">
                     Concept Reports{this.getIcon(conceptReports)}
                   </Link>
-                  <img className={conceptReports} src="https://assets.quill.org/images/shared/check-small-white.svg" />
+                  <div className={`checkmark-icon ${conceptReports}`} />
                 </li>
                 <li>
                   <Link className={`premium ${standardsReports}`} onClick={this.handleLinkClick}to="/teachers/premium_hub/district_standards_reports">
                     Standards Reports{this.getIcon(standardsReports)}
                   </Link>
-                  <img className={standardsReports} src="https://assets.quill.org/images/shared/check-small-white.svg" />
+                  <div className={`checkmark-icon ${standardsReports}`} />
                 </li>
               </ul>
             </div>

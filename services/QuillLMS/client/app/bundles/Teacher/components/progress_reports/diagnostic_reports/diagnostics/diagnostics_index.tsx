@@ -17,6 +17,14 @@ const DiagnosticsIndex = ({ passedClassrooms, history, match, lessonsBannerIsSho
     getDiagnostics();
     $('.diagnostic-tab').addClass('active');
     $('.activity-analysis-tab').removeClass('active');
+    const mobileDiagnosticTab = $('#mobile-diagnostics-tab-checkmark')
+    const mobileActivityAnalysisTab = $('#mobile-activity-analysis-tab-checkmark')
+    if (mobileDiagnosticTab) {
+      mobileDiagnosticTab.addClass('active');
+    }
+    if(mobileActivityAnalysisTab) {
+      mobileActivityAnalysisTab.removeClass('active');
+    }
   }, []);
 
   function getDiagnostics() {

@@ -5,14 +5,7 @@
 <% on_home_or_tools_page_class = on_home_or_tools_page ? 'on-home-page' : '' %>
 <% active_tab = determine_active_tab(current_path) %>
 <% tabs = determine_mobile_navbar_tabs %>
-
-<% if current_path.include?('teachers') || current_path.include?('assign') %>
-	<% user_dropdown_class = 'on-dashboard' %>
-	<% user_dropdown_img = 'https://assets.quill.org/images/navbar/navbar-dashboard-solid.svg' %>
-<% else %>
-	<% user_dropdown_class = 'not-on-dashboard' %>
-	<% user_dropdown_img = 'https://assets.quill.org/images/navbar/navbar-dashboard-white.svg' %>
-<% end %>
+<% premium_class = determine_premium_class(current_path) %>
 
 <% if show_school_selection_reminders %>
   <% show_notification_badges_class = 'show-notification-badges' %>
@@ -39,9 +32,9 @@
       <%= react_component('StudentNavbarItems', props: { name: current_user.name }) %>
     <% end %>
     <div class="right-side-mobile-nav">
-      <p class="active-tab"><%= active_tab %></p>
+      <p class="active-tab <%= premium_class if premium_class %>"><%= active_tab %></p>
       <div class="mobile-hamburger-container">
-        <div class="hamburger-icon" onclick="toggleMobilePrimaryDropdown()">
+        <div class="hamburger-icon <%= premium_class if premium_class %>" onclick="toggleMobilePrimaryDropdown()">
           <div class="horizontal-line"></div>
           <div class="horizontal-line"></div>
           <div class="horizontal-line"></div>

@@ -42,15 +42,15 @@ const MyActivitiesTabs = () => {
             <ul className="dropdown-menu" role='menu'>
               <li>
                 <a className={openActivityPacksClassName} href="/teachers/classrooms/activity_planner">{MY_OPEN_ACTIVITY_PACKS}</a>
-                <img className={openActivityPacksClassName} src="https://assets.quill.org/images/shared/check-small-white.svg"></img>
+                <div className={`checkmark-icon ${openActivityPacksClassName}`} />
               </li>
               <li>
                 <a className={closedActivityPacksClassName} href="/teachers/classrooms/activity_planner/closed">{MY_CLOSED_ACTIVITY_PACKS}</a>
-                <img className={closedActivityPacksClassName} src="https://assets.quill.org/images/shared/check-small-white.svg"></img>
+                <div className={`checkmark-icon ${closedActivityPacksClassName}`} />
               </li>
               <li>
                 <a className={lessonsClassName} href="/teachers/classrooms/activity_planner/lessons">{LAUNCH_LESSONS}</a>
-                <img className={lessonsClassName} src="https://assets.quill.org/images/shared/check-small-white.svg"></img>
+                <div className={`checkmark-icon ${lessonsClassName}`} />
               </li>
             </ul>
           </div>

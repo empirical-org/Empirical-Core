@@ -7,7 +7,7 @@ module NavbarHelper
   EXPLORE_CURRICULUM_TAB = { name: 'Explore Curriculum', url: '/activities/packs' }
   TEACHER_CENTER_TAB = { name: 'Teacher Center', url: '/teacher-center' }
   STUDENT_CENTER_TAB = { name: 'Student Center', url: '/student-center' }
-  QUILL_SUPPORT_TAB = { name: 'Quill Support', url: '/https://support.quill.org/' }
+  QUILL_SUPPORT_TAB = { name: 'Quill Support', url: 'https://support.quill.org/' }
   ABOUT_US_TAB = { name: 'About Us', url: '/about' }
   LOGIN_TAB = { name: 'Log In', url: '/session/new' }
   LOGOUT_TAB = { name: 'Log Out', url: '/session', id: 'logout-tab' }
@@ -24,8 +24,8 @@ module NavbarHelper
   MY_ACTIVITIES_TAB = { name: 'My Activities', url: '/teachers/classrooms/activity_planner' }
   MY_REPORTS_TAB = { name: 'My Reports', url: '/teachers/progress_reports/landing_page' }
   ACTIVITY_SUMMARY_TAB = { name: 'Activity Summary', url: '/teachers/classrooms/scorebook' }
-  ACTIVITY_ANALYSIS_TAB = { name: 'Activity Analysis', url: '/teachers/progress_reports/diagnostic_reports/#/activity_packs' }
-  DIAGNOSTICS_TAB = { name: 'Diagnostics', url: '/teachers/progress_reports/diagnostic_reports/#/diagnostics', id: 'diagnostics-tab' }
+  ACTIVITY_ANALYSIS_TAB = { name: 'Activity Analysis', url: '/teachers/progress_reports/diagnostic_reports/#/activity_packs', id: 'mobile-activity-analysis-tab' }
+  DIAGNOSTICS_TAB = { name: 'Diagnostics', url: '/teachers/progress_reports/diagnostic_reports/#/diagnostics', id: 'mobile-diagnostics-tab' }
   ACTIVITY_SCORES_TAB = { name: 'Activity Scores', url: '/teachers/progress_reports/activities_scores_by_classroom' }
   CONCEPTS_TAB = { name: 'Concepts', url: '/teachers/progress_reports/concepts/students' }
   STANDARDS_TAB = { name: 'Standards', url: '/teachers/progress_reports/standards/classrooms' }
@@ -49,6 +49,8 @@ module NavbarHelper
 	    'Explore Curriculum'
     elsif ['teacher-center', 'faq'].any? { |str| current_path.include?(str)}
 	    'Teacher Center'
+    elsif current_path.include?('student-center')
+      'Student Center'
     else
 	    determine_dashboard_active_tab(current_path)
     end
@@ -87,6 +89,14 @@ module NavbarHelper
     end
   end
 
+  def determine_premium_class(current_path)
+    if ['premium_hub', 'quill_academy'].any? { |str| current_path.include?(str) }
+      'red'
+    elsif current_path.include?('premium')
+      'yellow'
+    end
+  end
+
   def determine_mobile_navbar_tabs
     return UNAUTHED_USER_TABS if !current_user
 
@@ -116,61 +126,15 @@ module NavbarHelper
     tabs
   end
 
-
-#   <% if should_render_subnav? %>
-#     <div class="tab-subnavigation-wrapper mobile class-subnav <%= 'student-reports-subnav' if student_reports_page_active? %>">
-#       <div class="container">
-#         <ul>
-#           <% if home_page_active? %>
-#             <% if current_user.has_classrooms? || current_user.archived_classrooms.any? || current_user.coteacher_invitations.any? %>
-#               <li><%= active_link_to 'Overview', dashboard_teachers_classrooms_path %></li>
-#             <% end %>
-#             <li><%= active_link_to 'My Account', teachers_my_account_path %></li>
-#             <li><%= active_link_to 'My Subscriptions', subscriptions_path %></li>
-#             <% if should_show_admin_access_tab? %>
-#               <li><%= active_link_to 'Admin Access', admin_access_index_path %></li>
-#             <% end %>
-#           <% end %>
-
-#           <% if classes_page_active? %>
-#             <li><%= link_to 'Active Classes', teachers_classrooms_path, class: !current_path.include?('archived') ? 'active' : '' %></li>
-#             <li><%= link_to 'Archived Classes', archived_teachers_classrooms_path, class: current_path.include?('archived') ? 'active' : '' %></li>
-#           <% end %>
-
-#           <% if student_reports_page_active? %>
-
-#             <%# <li> %>
-#               <%# active_link_to 'Real-time', '/teachers/progress_reports/real_time', class: 'default' %>
-#             <%# </li>  %>
-
-#             <li><%= active_link_to 'Activity Summary', scorebook_teachers_classrooms_path, class: 'default'%></li>
-#             <li><%= active_link_to 'Activity Analysis', '/teachers/progress_reports/diagnostic_reports/#/activity_packs', class: 'default activity-analysis-tab'%></li>
-#             <li><%= active_link_to 'Diagnostics', '/teachers/progress_reports/diagnostic_reports/#/diagnostics', class: 'default diagnostic-tab'%></li>
-#             <li><a href='/teachers/progress_reports/activities_scores_by_classroom' class=<%=%w(/teachers/progress_reports/student_overview /teachers/progress_reports/activities_scores_by_classroom).include?(request.path) ? 'active' : nil%> ><span>Activity Scores</span><div class='small-diamond-icon'></div></a></li>
-#             <li class="premium-reports-tab"><%= active_link_to raw('<span>Concepts</span><div class="small-diamond-icon"></div>'), teachers_progress_reports_concepts_students_path%></li>
-#             <li class="premium-reports-tab"><%= active_link_to raw('<span>Standards</span><div class="small-diamond-icon"></div>'), teachers_progress_reports_standards_classrooms_path %></li>
-#             <li class="premium-reports-tab"><%= active_link_to raw('<span>Data Export</span><div class="small-diamond-icon"></div>'), teachers_progress_reports_activity_sessions_path %></li>
-#           <% end %>
-
-#         </ul>
-#       </div>
-#     </div>
-#   <% end %>
-
-#   <% if student_reports_page_active? %>
-#     <div id='premium-banner-container'></div>
-#   <% end %>
-# <% end %>
-
   private def determine_dashboard_active_tab(current_path)
     if current_path.include?('dashboard')
       'Overview'
     elsif current_path.include?('my_account')
       'My Account'
     elsif current_path.include?('assign')
-      'Assign Activites'
+      'Assign Activities'
     elsif current_path.include?('teachers/classrooms/activity_planner')
-      'My Activites'
+      'My Activities'
     elsif ['progress_reports', 'scorebook'].any? { |str| current_path.include?(str)}
       'My Reports'
     elsif current_path.include?('teachers/classrooms')
@@ -189,7 +153,7 @@ module NavbarHelper
   end
 
   private def authed_user_tabs
-    tabs = [HOME_TAB, OVERVIEW_TAB, MY_CLASSES_TAB, MY_REPORTS_TAB]
+    tabs = [HOME_TAB, OVERVIEW_TAB, MY_CLASSES_TAB, ASSIGN_ACTIVITIES_TAB, MY_ACTIVITIES_TAB, MY_REPORTS_TAB]
 
     unless current_user.premium_state == 'paid' || should_render_teacher_premium?
       tabs.push(PREMIUM_TAB)

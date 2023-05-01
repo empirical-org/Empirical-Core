@@ -146,10 +146,28 @@
       .right-side-mobile-nav {
         .active-tab {
           color: $quillgreenmedium;
+          &.red {
+            color: $quillmaroon;
+          }
+          &.yellow {
+            color: $quillgoldmedium;
+          }
         }
         .mobile-hamburger-container {
           .hamburger-icon {
             background-color: rgba(227, 240, 238, 1);
+            &.red {
+              background-color: $quillmaroonlight;
+              .horizontal-line {
+                background: $quillmaroon;
+              }
+            }
+            &.yellow {
+              background-color: $quillgoldlight;
+              .horizontal-line {
+                background: $quillgoldmedium;
+              }
+            }
             .horizontal-line {
               background: $quillgreenmedium;
             }
@@ -933,6 +951,18 @@ nav.q-navbar-home {
   }
   .mobile-navbar {
     display: inherit;
+  }
+  .q-navbar-home {
+    .logo-and-badge-container {
+      .premium-navbar-badge-container {
+        .premium-badge-text {
+          display: none;
+        }
+        .small-diamond-icon {
+          margin-left: 0;
+        }
+      }
+    }
   }
 }
 @media (min-width: 921px) {

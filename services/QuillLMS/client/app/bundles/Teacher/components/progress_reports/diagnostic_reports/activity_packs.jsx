@@ -26,6 +26,14 @@ export default class ActivityPacks extends React.Component {
   UNSAFE_componentWillMount() {
     document.getElementsByClassName('diagnostic-tab')[0].classList.remove('active');
     document.getElementsByClassName('activity-analysis-tab')[0].classList.add('active');
+    const mobileActivityAnalysisTab = document.getElementById('mobile-activity-analysis-tab-checkmark')
+    const mobileDiagnosticTab = document.getElementById('mobile-diagnostics-tab-checkmark')
+    if(mobileActivityAnalysisTab) {
+      mobileActivityAnalysisTab.classList.add('active');
+    }
+    if(mobileDiagnosticTab) {
+      mobileDiagnosticTab.classList.remove('active');
+    }
   }
 
   componentDidMount() {
