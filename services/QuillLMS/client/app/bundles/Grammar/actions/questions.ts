@@ -41,7 +41,7 @@ export const getQuestion = (questionID: string) => {
 }
 
 export const getGradedResponsesWithCallback = (questionID: string, callback: Function) => {
-  requestGet(`${import.meta.env.QUILL_CMS}/questions/${questionID}/responses`, (body) => {
+  requestGet(`${import.meta.env.VITE_CMS_URL}/questions/${questionID}/responses`, (body) => {
     const bodyToObj: {[key: string]: Response} = {};
     body.forEach((resp: Response) => {
       bodyToObj[resp.id] = resp;
@@ -84,7 +84,7 @@ export const searchResponses = (qid: string) => {
     const requestNumber = getState().filters.requestCount
     // check for request number in state, save as const
     requestPost(
-      `${import.meta.env.QUILL_CMS}/questions/${qid}/responses/search`,
+      `${import.meta.env.VITE_CMS_URL}/questions/${qid}/responses/search`,
       { search: getFormattedSearchData(getState()), },
       (data) => {
         // check again for number in state
