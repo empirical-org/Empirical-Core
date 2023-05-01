@@ -70,7 +70,7 @@ const AssignANewActivity = ({ numberOfActivitiesAssigned, showDiagnosticBanner }
 
   const getData = () => {
     requestGet(
-      `${process.env.DEFAULT_URL}/activities/suggested_activities`,
+      `${import.meta.env.VITE_DEFAULT_URL}/activities/suggested_activities`,
       (body) => {
         setActivitiesToSuggest(body.activities)
       }

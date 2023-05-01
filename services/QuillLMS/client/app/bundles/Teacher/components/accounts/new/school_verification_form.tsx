@@ -13,7 +13,7 @@ const SchoolVerificationForm = ({ schoolName, }) => {
 
   function submitAdminInfo() {
     requestPut(
-      `${process.env.DEFAULT_URL}/admin_infos`,
+      `${import.meta.env.VITE_DEFAULT_URL}/admin_infos`,
       {
         verification_url: verificationUrl,
         verification_reason: verificationReason

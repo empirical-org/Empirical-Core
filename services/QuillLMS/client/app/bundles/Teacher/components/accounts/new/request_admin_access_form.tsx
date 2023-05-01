@@ -15,7 +15,7 @@ const RequestAdminAccessForm = ({ schoolName, admins, }) => {
   function handleChangeReason(e) { setReason(e.target.value) }
 
   function handleClickSubmit() {
-    requestPost(`${process.env.DEFAULT_URL}/admin_access/request_upgrade_to_admin_from_existing_admins`, {
+    requestPost(`${import.meta.env.VITE_DEFAULT_URL}/admin_access/request_upgrade_to_admin_from_existing_admins`, {
       admin_ids: selectedAdminIds,
       new_user: true,
       reason

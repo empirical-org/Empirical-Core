@@ -32,14 +32,14 @@ const VerifyEmail = ({ user, location, }) => {
   }
 
   function resendVerification() {
-    requestPut(`${process.env.DEFAULT_URL}/verify_emails/resend_verification_email`, {}, () => {
+    requestPut(`${import.meta.env.VITE_DEFAULT_URL}/verify_emails/resend_verification_email`, {}, () => {
       setSnackbarText(`We sent another verification email to ${user.email}`)
       setShowSnackbar(true)
     })
   }
 
   function verifyToken() {
-    requestPut(`${process.env.DEFAULT_URL}/verify_emails/verify_by_token`, { token, },
+    requestPut(`${import.meta.env.VITE_DEFAULT_URL}/verify_emails/verify_by_token`, { token, },
       () => {
         window.location.href = user.role === ADMIN ? '/sign-up/select-sub-role' : '/profile'
       },

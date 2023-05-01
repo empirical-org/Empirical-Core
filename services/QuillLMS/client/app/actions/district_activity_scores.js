@@ -34,7 +34,7 @@ export const initializePusherForDistrictActivityScores = (adminId) => {
 export const getDistrictActivityScores = () => {
   return (dispatch) => {
     requestGet(
-      `${process.env.DEFAULT_URL}/api/v1/progress_reports/district_activity_scores`,
+      `${import.meta.env.VITE_DEFAULT_URL}/api/v1/progress_reports/district_activity_scores`,
       (body) => {
         if (body.id) {
           dispatch(initializePusherForDistrictActivityScores(String(body.id)))

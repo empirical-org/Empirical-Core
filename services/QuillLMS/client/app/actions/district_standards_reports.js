@@ -35,7 +35,7 @@ export const getDistrictStandardsReports = (isFreemiumView) => {
   const freemiumParam = isFreemiumView ? '?freemium=true' : ''
   return (dispatch) => {
     requestGet(
-      `${process.env.DEFAULT_URL}/api/v1/progress_reports/district_standards_reports${freemiumParam}`,
+      `${import.meta.env.VITE_DEFAULT_URL}/api/v1/progress_reports/district_standards_reports${freemiumParam}`,
       (body) => {
         if (body.id && (process.env.RAILS_ENV === 'production')) {
           dispatch(initializePusherForDistrictStandardsReports(String(body.id)))

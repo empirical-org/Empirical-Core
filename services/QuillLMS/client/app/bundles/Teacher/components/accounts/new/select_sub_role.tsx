@@ -18,7 +18,7 @@ const SelectSubRole = ({ subRoles, }) => {
 
   function submitAdminInfo() {
     requestPut(
-      `${process.env.DEFAULT_URL}/admin_infos`,
+      `${import.meta.env.VITE_DEFAULT_URL}/admin_infos`,
       {
         sub_role: subRole
       },

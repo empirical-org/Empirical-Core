@@ -34,7 +34,7 @@ export const initializePusherForDistrictConceptReports = (adminId) => {
 export const getDistrictConceptReports = () => {
   return (dispatch) => {
     requestGet(
-      `${process.env.DEFAULT_URL}/api/v1/progress_reports/district_concept_reports`,
+      `${import.meta.env.VITE_DEFAULT_URL}/api/v1/progress_reports/district_concept_reports`,
       (body) => {
         if (body.id) {
           dispatch(initializePusherForDistrictConceptReports(String(body.id)))
