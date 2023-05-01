@@ -59,7 +59,7 @@
     <% # stylesheet_link_tag 'application', media: 'all', 'data-turbolinks-track' => true %>
   <% end %>
   <%= render partial: 'application/head_embed_codes' %>
-  <%= vite_typescript_tag @js_file || 'application.tsx' %>
+  <%= vite_typescript_tag @js_file || 'application' %>
 
   <%= csrf_meta_tags %>
   <meta id='current-user-testing-flag' property="flag" content=<%= current_user&.testing_flag%> />

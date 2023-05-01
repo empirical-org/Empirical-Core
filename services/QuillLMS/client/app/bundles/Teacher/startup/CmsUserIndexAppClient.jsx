@@ -1,6 +1,6 @@
 import React from 'react';
 
-import { sortTableByLastName, sortTableFromSQLTimeStamp } from 'modules/sortingMethods';
+import { sortTableByLastName, sortTableFromSQLTimeStamp } from '../../../modules/sortingMethods';
 import { ReactTable, } from '../../Shared/index';
 import getAuthToken from '../components/modules/get_auth_token';
 import LoadingIndicator from '../components/shared/loading_indicator';
