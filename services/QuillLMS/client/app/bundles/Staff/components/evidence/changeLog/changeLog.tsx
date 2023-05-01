@@ -1,7 +1,7 @@
 import * as React from "react";
 import Datetime from 'react-datetime';
 import { useQuery } from 'react-query';
-import stripHtml from "string-strip-html";
+import { stripHtml } from "string-strip-html";
 import * as _ from 'underscore';
 
 import { sort } from '../../../../../modules/sortingMethods.js';
@@ -155,7 +155,7 @@ const ChangeLog = ({ history, match }) => {
       key: "previousValue",
       sortMethod: sort,
       width: 200,
-      Cell: ({row}) => row.original.previousValue ? (stripHtml(row.original.previousValue)) : ''
+      Cell: ({row}) => row.original.previousValue ? (stripHtml(row.original.previousValue).result) : ''
     },
     {
       Header: 'New Value',
@@ -163,7 +163,7 @@ const ChangeLog = ({ history, match }) => {
       key: "newValue",
       sortMethod: sort,
       width: 200,
-      Cell: ({row}) => row.original.newValue ? (stripHtml(row.original.newValue)) : ''
+      Cell: ({row}) => row.original.newValue ? (stripHtml(row.original.newValue).result) : ''
     },
     {
       Header: 'Author',

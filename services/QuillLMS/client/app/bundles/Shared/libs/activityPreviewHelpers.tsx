@@ -1,5 +1,5 @@
 import * as React from 'react';
-import stripHtml from "string-strip-html";
+import { stripHtml } from "string-strip-html";
 
 import { Feedback, getLatestAttempt } from '../../Shared/index';
 import { QuestionObject } from '../interfaces/question';
@@ -90,7 +90,7 @@ export const getDisplayedText = ({ previewMode, question, response }) => {
 export const renderPreviewFeedback = (latestAttempt) => {
   const { response } = latestAttempt;
   const { feedback, optimal } = response;
-  const strippedFeedback = feedback ? stripHtml(feedback) : '';
+  const strippedFeedback = feedback ? stripHtml(feedback).result : '';
 
   if(optimal && strippedFeedback) {
     return <Feedback feedback={strippedFeedback} feedbackType="correct-matched" />

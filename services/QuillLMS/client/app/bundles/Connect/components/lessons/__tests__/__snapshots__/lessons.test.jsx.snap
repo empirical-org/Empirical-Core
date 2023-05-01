@@ -1,26 +1,14 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
 exports[`Lessons component matches the snapshot 1`] = `
-<ContextProvider
-  value={
+<Provider
+  store={
     Object {
-      "getServerState": undefined,
-      "store": Object {
-        "dispatch": [Function],
-        "getState": [Function],
-        "replaceReducer": [Function],
-        "subscribe": [Function],
-        Symbol(observable): [Function],
-      },
-      "subscription": Object {
-        "addNestedSub": [Function],
-        "getListeners": [Function],
-        "handleChangeWrapper": [Function],
-        "isSubscribed": [Function],
-        "notifyNestedSubs": [Function],
-        "trySubscribe": [Function],
-        "tryUnsubscribe": [Function],
-      },
+      "dispatch": [Function],
+      "getState": [Function],
+      "replaceReducer": [Function],
+      "subscribe": [Function],
+      Symbol(observable): [Function],
     }
   }
 >
@@ -35,6 +23,204 @@ exports[`Lessons component matches the snapshot 1`] = `
         },
       }
     }
-  />
-</ContextProvider>
+  >
+    <Lessons
+      dispatch={[Function]}
+      fillInBlank={
+        Object {
+          "data": Object {},
+          "hasreceiveddata": false,
+          "states": Object {},
+          "submittingnew": false,
+        }
+      }
+      lessons={
+        Object {
+          "data": Object {},
+          "flag": "alpha",
+          "hasreceiveddata": false,
+          "states": Object {},
+          "submittingnew": false,
+        }
+      }
+      props={
+        Object {
+          "lessons": Object {
+            "data": Object {},
+            "hasreceiveddata": false,
+            "states": Object {},
+            "submittingnew": false,
+          },
+        }
+      }
+      questions={
+        Object {
+          "data": Object {},
+          "hasreceiveddata": false,
+          "states": Object {},
+          "submittingnew": false,
+        }
+      }
+      routing={
+        Object {
+          "locationBeforeTransitions": null,
+        }
+      }
+      sentenceFragments={
+        Object {
+          "data": Object {},
+          "hasreceiveddata": false,
+          "states": Object {},
+          "submittingnew": false,
+        }
+      }
+      titleCards={
+        Object {
+          "data": Object {},
+          "hasreceiveddata": false,
+        }
+      }
+    >
+      <section
+        className="section"
+      >
+        <div
+          className="container"
+        >
+          <h1
+            className="title"
+          >
+            <button
+              className="button is-primary"
+              onClick={[Function]}
+            >
+              Create New Activity
+            </button>
+          </h1>
+          <div
+            style={
+              Object {
+                "display": "inline-block",
+              }
+            }
+          >
+            <FlagDropdown
+              flag="alpha"
+              handleFlagChange={[Function]}
+              isLessons={true}
+            >
+              <p
+                className="control"
+              >
+                <span
+                  className="select"
+                >
+                  <select
+                    defaultValue="alpha"
+                    onChange={[Function]}
+                  >
+                    <option
+                      value="All Flags"
+                    >
+                      All Flags
+                    </option>
+                    <option
+                      value="alpha"
+                    >
+                      alpha
+                    </option>
+                    <option
+                      value="private"
+                    >
+                      private
+                    </option>
+                    <option
+                      value="beta"
+                    >
+                      beta
+                    </option>
+                    <option
+                      value="gamma"
+                    >
+                      gamma
+                    </option>
+                    <option
+                      value="evidence_beta1"
+                    >
+                      Evidence Beta 1
+                    </option>
+                    <option
+                      value="evidence_beta2"
+                    >
+                      Evidence Beta 2
+                    </option>
+                    <option
+                      value="college_board"
+                    >
+                      College Board
+                    </option>
+                    <option
+                      value="production"
+                    >
+                      production
+                    </option>
+                    <option
+                      value="archived"
+                    >
+                      archived
+                    </option>
+                  </select>
+                </span>
+              </p>
+            </FlagDropdown>
+          </div>
+          <ArchivedButton
+            lessons={true}
+            showOnlyArchived={false}
+            toggleShowArchived={[Function]}
+          >
+            <div
+              style={
+                Object {
+                  "display": "inline-block",
+                }
+              }
+            >
+              <label
+                className="panel-checkbox toggle"
+              >
+                <span
+                  className="tag"
+                  onClick={[Function]}
+                >
+                  Activities With Archived Questions
+                </span>
+              </label>
+            </div>
+          </ArchivedButton>
+          <div
+            className="columns"
+          >
+            <div
+              className="column"
+            >
+              <aside
+                className="menu"
+              >
+                <p
+                  className="menu-label"
+                >
+                  Activities
+                </p>
+                <ul
+                  className="menu-list activities-list"
+                />
+              </aside>
+            </div>
+          </div>
+        </div>
+      </section>
+    </Lessons>
+  </Connect(Lessons)>
+</Provider>
 `;

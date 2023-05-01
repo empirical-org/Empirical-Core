@@ -4,10 +4,6 @@ import * as React from 'react';
 import { Feedback } from '../../../Shared/index';
 import { getCurrentQuestion, getDisplayedText, getFilteredQuestions, getQuestionsWithAttempts, renderPreviewFeedback } from '../../libs/activityPreviewHelpers';
 
-jest.mock("string-strip-html", () => ({
-  default: jest.fn((value) => ((value)))
-}));
-
 describe('#getCurrentQuestion', () => {
 
   const action = { data: { key: 'abc'} };

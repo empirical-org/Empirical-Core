@@ -1,5 +1,5 @@
 import * as React from 'react';
-import stripHtml from "string-strip-html";
+import { stripHtml } from "string-strip-html";
 
 import { ReactTable, } from '../../../Shared/index';
 
@@ -26,7 +26,7 @@ class PromptHealth extends React.Component<PromptHealthProps, PromptHealthState>
         resizeable: true,
         minWidth: 400,
         Cell: ({row}) => {
-          return (<a href={row.original.url} rel="noopener noreferrer" style={{color: 'mediumSeaGreen'}} target="_blank">{row.original.text && stripHtml(row.original.text)}</a>)},
+          return (<a href={row.original.url} rel="noopener noreferrer" style={{color: 'mediumSeaGreen'}} target="_blank">{row.original.text && stripHtml(row.original.text).result}</a>)},
         style: { 'whiteSpace': 'unset' }
       },
       {

@@ -114,6 +114,7 @@ class User < ApplicationRecord
   has_one :auth_credential, dependent: :destroy
   has_one :teacher_info, dependent: :destroy
   has_many :teacher_info_subject_areas, through: :teacher_info
+  has_many :teacher_notifications, dependent: :destroy
   has_many :subject_areas, through: :teacher_info_subject_areas
   has_many :checkboxes
   has_many :credit_transactions
