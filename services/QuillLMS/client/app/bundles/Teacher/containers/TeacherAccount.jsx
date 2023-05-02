@@ -32,6 +32,8 @@ export default class TeacherAccount extends React.Component {
       school,
       school_type,
       send_newsletter,
+      notification_email_frequency,
+      teacher_notification_settings,
       minimum_grade_level,
       maximum_grade_level,
       subject_area_ids,
@@ -46,6 +48,8 @@ export default class TeacherAccount extends React.Component {
       googleId: google_id,
       cleverId: clever_id,
       sendNewsletter: send_newsletter,
+      notificationEmailFrequency: notification_email_frequency,
+      teacherNotificationSettings: teacher_notification_settings,
       minimumGradeLevel: minimum_grade_level,
       maximumGradeLevel: maximum_grade_level,
       selectedSubjectAreaIds: subject_area_ids,
@@ -125,6 +129,27 @@ export default class TeacherAccount extends React.Component {
     )
   }
 
+  updateTeacherNotificationSettings = (data) => {
+    requestPut(
+      '/api/v1/teacher_notification_settings',
+      data,
+      (body) => {
+        const {
+          teacher_notification_settings,
+        } = body
+        this.setState({
+          teacherNotificationSettings: teacher_notification_settings,
+          errors: {}
+        }, () => {
+          this.setState({activeSection: null, })
+        })
+      },
+      (body) => {
+        this.setState({ errors: body.errors, timesSubmitted: timesSubmitted + 1, })
+      }
+    )
+  }
+
   updateUser = (data, url, snackbarCopy) => {
     const { timesSubmitted, } = this.state
     requestPut(
@@ -181,6 +206,8 @@ export default class TeacherAccount extends React.Component {
       timesSubmitted,
       activeSection,
       sendNewsletter,
+      notificationEmailFrequency,
+      teacherNotificationSettings,
       postGoogleClassroomAssignments,
       minimumGradeLevel,
       maximumGradeLevel,
@@ -230,7 +257,11 @@ export default class TeacherAccount extends React.Component {
         />
         <TeacherEmailNotifications
           sendNewsletter={sendNewsletter}
+          notificationEmailFrequency={notificationEmailFrequency}
+          teacherNotificationSettings={teacherNotificationSettings}
           updateUser={this.updateUser}
+          updateTeacherInfo={this.updateTeacherInfo}
+          updateTeacherNotificationSettings={this.updateTeacherNotificationSettings}
         />
         <TeacherGradeLevels
           activateSection={() => this.activateSection(GRADE_LEVEL)}
