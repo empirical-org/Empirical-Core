@@ -805,6 +805,10 @@ class User < ApplicationRecord
     school_premium? || district_premium?
   end
 
+  def should_render_teacher_premium?
+    premium_state == 'paid' && Subscription::OFFICIAL_TEACHER_TYPES.include?(subscription&.account_type)
+  end
+
   private def validate_flags
     invalid_flags = flags - VALID_FLAGS
 

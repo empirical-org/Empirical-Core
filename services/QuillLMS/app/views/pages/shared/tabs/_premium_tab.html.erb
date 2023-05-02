@@ -1,32 +1,51 @@
 <% state = current_user.premium_state %>
 <% is_trial = current_user.last_expired_subscription&.is_trial? %>
 
-<% if state == NavigationHelper::TRIAL %>
-  <div class="premium-tab-copy">
-    <span>Premium</span>
-    <div class='large-diamond-icon is-in-middle'></div>
-    <span><%= current_user.trial_days_remaining %> Days Left</span>
-  </div>
-<% elsif state == NavigationHelper::LOCKED && is_trial %>
-  <div class="premium-tab-copy">
-    <span>Premium</span>
-    <div class='large-diamond-icon is-in-middle'></div>
-    <span>Trial Expired</span>
-  </div>
-<% elsif state == NavigationHelper::LOCKED %>
-  <div class="premium-tab-copy">
-    <span>Premium</span>
-    <div class='large-diamond-icon is-in-middle'></div>
-    <span>Expired</span>
-  </div>
-<% elsif state == NavigationHelper::NONE %>
+<% if tab_name == 'Premium' %>
+  <% if state == NavigationHelper::TRIAL %>
+    <div class="premium-tab-copy">
+      <span>Premium</span>
+      <div class='large-diamond-icon is-in-middle'></div>
+      <span><%= current_user.trial_days_remaining %> Days Left</span>
+    </div>
+  <% elsif state == NavigationHelper::LOCKED && is_trial %>
+    <div class="premium-tab-copy">
+      <span>Premium</span>
+      <div class='large-diamond-icon is-in-middle'></div>
+      <span>Trial Expired</span>
+    </div>
+  <% elsif state == NavigationHelper::LOCKED %>
+    <div class="premium-tab-copy">
+      <span>Premium</span>
+      <div class='large-diamond-icon is-in-middle'></div>
+      <span>Expired</span>
+    </div>
+  <% elsif state == NavigationHelper::NONE %>
+    <div class="premium-tab-copy">
+      <span>Explore Premium</span>
+      <div class='large-diamond-icon'></div>
+    </div>
+  <% else %>
   <div class="premium-tab-copy">
     <span>Explore Premium</span>
     <div class='large-diamond-icon'></div>
-  </div>
+    </div>
+  <% end %>
 <% else %>
-  <div class="premium-tab-copy">
-    <span>Explore Premium</span>
-    <div class='large-diamond-icon'></div>
-  </div>
+  <% if tab_name == 'Teacher Premium' %>
+    <div class='premium-tab-copy'>
+      <span><%= tab_name %></span>
+      <img src='https://assets.quill.org/images/icons/yellow-diamond.svg'></img>
+    </div>
+  <% elsif tab_name == 'Premium Hub' %>
+    <div class='premium-tab-copy'>
+      <span><%= tab_name %></span>
+      <img src='https://assets.quill.org/images/icons/red-diamond.svg'></img>
+    </div>
+  <% else %>
+    <div class='premium-tab-copy'>
+      <span><%= tab_name %></span>
+      <img src='https://assets.quill.org/images/icons/red-diamond.svg'></img>
+    </div>
+  <% end %>
 <% end %>

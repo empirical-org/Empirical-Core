@@ -1770,5 +1770,37 @@ describe User, type: :model do
       it { expect(subject).to be_truthy }
     end
   end
+
+  describe '#should_render_teacher_premium?' do
+    let(:user) { create(:user) }
+    subject { user.should_render_teacher_premium? }
+
+    it 'should return true if the teacher has a paid teacher premium subscription' do
+      subscription = create(:subscription, account_type: Subscription::TEACHER_PAID)
+      create(:user_subscription, user: user, subscription: subscription)
+
+      expect(subject).to eq true
+    end
+
+    it 'should return false if the teacher has an unpaid subscription' do
+      subscription = create(:subscription, account_type: Subscription::TEACHER_TRIAL)
+      create(:user_subscription, user: user, subscription: subscription)
+
+      expect(subject).to eq false
+    end
+
+    it 'should return false if the teacher has a school subscription' do
+      subscription = create(:subscription, account_type: Subscription::SCHOOL_PAID)
+      create(:user_subscription, user: user, subscription: subscription)
+
+      expect(subject).to eq false
+    end
+
+    it 'should return false if the teacher has no subscription' do
+      teacher = create(:teacher)
+
+      expect(subject).to eq false
+    end
+  end
 end
 # rubocop:enable Metrics/BlockLength

@@ -6,6 +6,7 @@
 <% active_tab = determine_active_tab(current_path) %>
 <% tabs = determine_mobile_navbar_tabs %>
 <% premium_class = determine_premium_class(current_path) %>
+<% premium_tabs = ['Premium', 'Teacher Premium', 'Premium Hub', 'Quill Academy'] %>
 
 <% if show_school_selection_reminders %>
   <% show_notification_badges_class = 'show-notification-badges' %>
@@ -33,8 +34,8 @@
     <% end %>
     <div class="right-side-mobile-nav">
       <p class="active-tab <%= premium_class if premium_class %>"><%= active_tab %></p>
-      <div class="mobile-hamburger-container">
-        <div class="hamburger-icon <%= premium_class if premium_class %>" onclick="toggleMobilePrimaryDropdown()">
+      <div class="mobile-hamburger-container <%= show_notification_badges_class %>">
+        <div class="hamburger-icon <%= premium_class if premium_class %> notification-badge-relative" onclick="toggleMobilePrimaryDropdown()">
           <div class="horizontal-line"></div>
           <div class="horizontal-line"></div>
           <div class="horizontal-line"></div>
@@ -45,25 +46,12 @@
       <div>
         <ul class="dropdown-menu" role='menu'>
           <% tabs.each do |tab| %>
-            <li class="<%= (tab[:name] == active_tab || tab[:id] == active_tab) ? 'active' : '' %>" id="<%= tab[:id] ? tab[:id] : '' %>">
+            <li class="<%= (tab[:name] == active_tab || tab[:id] == active_tab) ? 'active' : '' %> <%= show_notification_badges_class %>" id="<%= tab[:id] ? tab[:id] : '' %>">
               <a class="focus-on-dark" href=<%= tab[:url] %>>
-                <% if tab[:name] == 'Premium' %>
-                  <%= render partial: 'pages/shared/tabs/premium_tab' %>
-                <% elsif tab[:name] == 'Teacher Premium' %>
-                  <div class='premium-tab-copy'>
-                    <span>Teacher Premium</span>
-                    <img src='https://assets.quill.org/images/icons/yellow-diamond.svg'></img>
-                  </div>
-                <% elsif tab[:name] == 'Premium Hub' %>
-                  <div class='premium-tab-copy'>
-                    <span>Premium Hub</span>
-                    <img src='https://assets.quill.org/images/icons/red-diamond.svg'></img>
-                  </div>
-                <% elsif tab[:name] == 'Quill Academy' %>
-                  <div class='premium-tab-copy'>
-                    <span>Quill Academy</span>
-                    <img src='https://assets.quill.org/images/icons/red-diamond.svg'></img>
-                  </div>
+                <% if premium_tabs.include?(tab[:name]) %>
+                  <%= render partial: 'pages/shared/tabs/premium_tab', locals: { tab_name: tab[:name] } %>
+                <% elsif tab[:name] == 'My Account' %>
+                  <span class="notification-badge-relative"><%= tab[:name] %></span>
                 <% else %>
                   <%= tab[:name] %>
                 <% end %>

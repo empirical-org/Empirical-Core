@@ -120,42 +120,6 @@ describe NavigationHelper do
     end
   end
 
-  describe '#should_render_teacher_premium?' do
-    it 'should return true if the teacher has a paid teacher premium subscription' do
-      teacher = create(:teacher)
-      subscription = create(:subscription, account_type: Subscription::TEACHER_PAID)
-      create(:user_subscription, user: teacher, subscription: subscription)
-      allow(helper).to receive(:current_user) { teacher }
-
-      expect(helper.should_render_teacher_premium?).to eq true
-    end
-
-    it 'should return false if the teacher has an unpaid subscription' do
-      teacher = create(:teacher)
-      subscription = create(:subscription, account_type: Subscription::TEACHER_TRIAL)
-      create(:user_subscription, user: teacher, subscription: subscription)
-      allow(helper).to receive(:current_user) { teacher }
-
-      expect(helper.should_render_teacher_premium?).to eq false
-    end
-
-    it 'should return false if the teacher has a school subscription' do
-      teacher = create(:teacher)
-      subscription = create(:subscription, account_type: Subscription::SCHOOL_PAID)
-      create(:user_subscription, user: teacher, subscription: subscription)
-      allow(helper).to receive(:current_user) { teacher }
-
-      expect(helper.should_render_teacher_premium?).to eq false
-    end
-
-    it 'should return false if the teacher has no subscription' do
-      teacher = create(:teacher)
-      allow(helper).to receive(:current_user) { teacher }
-
-      expect(helper.should_render_teacher_premium?).to eq false
-    end
-  end
-
   describe '#should_show_admin_access_tab?' do
     it 'should return false if current_user.teacher? is falsy' do
       student = create(:student)

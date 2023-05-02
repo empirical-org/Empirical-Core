@@ -118,7 +118,7 @@
           margin: 0;
           padding: 0px 16px;
           border: none;
-          border-radius: 0;
+          border-radius: 0px 0px 10px 10px;
           background-color: $quillgreenmedium;
           li {
             padding: 16px 0px;
@@ -130,7 +130,7 @@
               border-bottom: 1px solid rgba(255, 255, 255, 0.3);
               border-radius: 0;
             }
-            &#my-account {
+            &#my-account-tab {
               margin-bottom: 0px;
             }
             a {

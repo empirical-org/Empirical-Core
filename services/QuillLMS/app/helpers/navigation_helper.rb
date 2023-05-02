@@ -82,11 +82,6 @@ module NavigationHelper
     current_uri&.match(%r{assign/.*}) != nil
   end
 
-  def should_render_teacher_premium?
-    true
-    # current_user&.premium_state == PAID && Subscription::OFFICIAL_TEACHER_TYPES.include?(current_user.subscription.account_type)
-  end
-
   def playing_activity?
     activity_actions = [
         ApplicationController::EVIDENCE,

@@ -3,19 +3,19 @@
 module NavbarHelper
   include Rails.application.routes.url_helpers
 
-  LEARNING_TOOLS_TAB = { name: 'Learning Tools', url: '/tools/connect' }
+  LEARNING_TOOLS_TAB = { name: 'Learning Tools', url: '/tools/connect', id: 'learning-tools' }
   EXPLORE_CURRICULUM_TAB = { name: 'Explore Curriculum', url: '/activities/packs' }
   TEACHER_CENTER_TAB = { name: 'Teacher Center', url: '/teacher-center' }
   STUDENT_CENTER_TAB = { name: 'Student Center', url: '/student-center' }
-  QUILL_SUPPORT_TAB = { name: 'Quill Support', url: 'https://support.quill.org/' }
+  QUILL_SUPPORT_TAB = { name: 'Quill Support', url: 'https://support.quill.org/', id: 'quill-support-tab' }
   ABOUT_US_TAB = { name: 'About Us', url: '/about' }
   LOGIN_TAB = { name: 'Log In', url: '/session/new' }
   LOGOUT_TAB = { name: 'Log Out', url: '/session', id: 'logout-tab' }
   SIGN_UP_TAB = { name: 'Sign Up', url: '/account/new' }
-  MY_ACCOUNT_TAB = { name: 'My Account', url: '/teachers/my_account', id: 'my-account' }
+  MY_ACCOUNT_TAB = { name: 'My Account', url: '/teachers/my_account', id: 'my-account-tab' }
   ADMIN_ACCESS_TAB = { name: 'Admin Access', url: '/admin_access' }
   MY_SUBSCRIPTIONS_TAB = { name: 'My Subscriptions', url: '/subscriptions' }
-  HOME_TAB = { name: 'Home', url: '/' }
+  HOME_TAB = { name: 'Home', url: '/', id: 'home-tab' }
   OVERVIEW_TAB = { name: 'Overview', url: '/teachers/classrooms/dashboard' }
   MY_CLASSES_TAB = { name: 'My Classes', url: '/teachers/classrooms' }
   ACTIVE_CLASSES_TAB = { name: 'Active Classes', url: '/teachers/classrooms' }
@@ -115,6 +115,11 @@ module NavbarHelper
     end
   end
 
+  # this is a duplicate of the QuillAuthentication method, used here because we can't import it directly
+  def admin_impersonating_user?(user)
+    session[:admin_id].present? && session[:admin_id] != user.id
+  end
+
   private def home_page_subnav_tabs
     tabs = [MY_ACCOUNT_TAB, MY_SUBSCRIPTIONS_TAB]
     if current_user.has_classrooms? || current_user.archived_classrooms.any? || current_user.coteacher_invitations.any?
@@ -129,7 +134,7 @@ module NavbarHelper
   private def determine_dashboard_active_tab(current_path)
     if current_path.include?('dashboard')
       'Overview'
-    elsif current_path.include?('my_account')
+    elsif ['my_account', 'subscriptions'].any? { |str| current_path.include?(str)}
       'My Account'
     elsif current_path.include?('assign')
       'Assign Activities'
@@ -155,11 +160,11 @@ module NavbarHelper
   private def authed_user_tabs
     tabs = [HOME_TAB, OVERVIEW_TAB, MY_CLASSES_TAB, ASSIGN_ACTIVITIES_TAB, MY_ACTIVITIES_TAB, MY_REPORTS_TAB]
 
-    unless current_user.premium_state == 'paid' || should_render_teacher_premium?
+    unless current_user.premium_state == 'paid' || current_user.should_render_teacher_premium?
       tabs.push(PREMIUM_TAB)
     end
 
-    if should_render_teacher_premium?
+    if current_user.should_render_teacher_premium?
       tabs.push(TEACHER_PREMIUM_TAB)
     end
 

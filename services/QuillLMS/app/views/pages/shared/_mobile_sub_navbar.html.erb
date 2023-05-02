@@ -12,29 +12,7 @@
         <% tabs.each do |tab| %>
           <li id="<%= tab[:id] ? tab[:id] : '' %>">
             <a class="focus-on-dark" href=<%= tab[:url] %>>
-              <% if tab[:name] == 'Activity Scores' %>
-                <div class='premium-tab-copy'>
-                  <span>Activity Scores</span>
-                  <img src='https://assets.quill.org/images/icons/white-diamond.svg'></img>
-                </div>
-              <% elsif tab[:name] == 'Concepts' %>
-                <div class='premium-tab-copy'>
-                  <span>Concepts</span>
-                  <img src='https://assets.quill.org/images/icons/white-diamond.svg'></img>
-                </div>
-              <% elsif tab[:name] == 'Standards' %>
-                <div class='premium-tab-copy'>
-                  <span>Standards</span>
-                  <img src='https://assets.quill.org/images/icons/white-diamond.svg'></img>
-                </div>
-              <% elsif tab[:name] == 'Data Export' %>
-                <div class='premium-tab-copy'>
-                  <span>Data Export</span>
-                  <img src='https://assets.quill.org/images/icons/white-diamond.svg'></img>
-                </div>
-              <% else %>
-                <%= tab[:name] %>
-              <% end %>
+              <%= render partial: 'pages/shared/tabs/my_reports_tab', locals: { tab_name: tab[:name] } %>
             </a>
             <div class="checkmark-icon <%= (tab[:name] == active_tab_label || tab[:id] == active_tab_label) ? 'active' : '' %>" id="<%= tab[:id] %>-checkmark"></div>
           </li>
