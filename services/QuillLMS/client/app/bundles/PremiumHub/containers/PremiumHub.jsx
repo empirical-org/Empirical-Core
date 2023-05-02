@@ -49,7 +49,7 @@ const PremiumHub = ({ adminId, accessType, passedModel, }) => {
     if (import.meta.env.RAILS_ENV === 'development') {
       Pusher.logToConsole = true;
     }
-    const pusher = new Pusher(import.meta.env.PUSHER_KEY, { encrypted: true, });
+    const pusher = new Pusher(import.meta.env.VITE_PROCESS_ENV_PUSHER_KEY, { encrypted: true, });
     const channel = pusher.subscribe(String(adminId));
     channel.bind('admin-users-found', () => {
       getData(skipLoading)

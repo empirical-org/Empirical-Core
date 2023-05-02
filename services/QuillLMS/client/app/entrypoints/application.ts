@@ -25,14 +25,8 @@ console.log('Vite ⚡️ Rails - Visit the guide for more information: ', 'https
 // Example: Import a stylesheet in app/frontend/index.css
 // import '~/index.css'
 
+import '../bundles/Teacher/startup/clientRegistration';
 
-
-import '../bundles/Login/startup/clientRegistration';
-import '../bundles/Staff/startup/clientRegistration';
-
-
-
-// import LockerApp from '../../Staff/startup/lockerAppClient'
 // module.exports = {
 //   mode,
 //   context: __dirname,

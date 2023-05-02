@@ -126,7 +126,7 @@ export const initializeSubscription = (qid: string) => {
       Pusher.logToConsole = true;
     }
     if (!window.pusher) {
-      window.pusher = new Pusher(import.meta.env.PUSHER_KEY, { encrypted: true, });
+      window.pusher = new Pusher(import.meta.env.VITE_PROCESS_ENV_PUSHER_KEY, { encrypted: true, });
     }
     const channel = window.pusher.subscribe(`admin-${qid}`);
     channel.bind('new-response', (data) => {

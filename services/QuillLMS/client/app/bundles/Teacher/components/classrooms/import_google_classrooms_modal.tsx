@@ -1,4 +1,4 @@
-import * as moment from 'moment';
+import moment from 'moment';
 import Pusher from 'pusher-js';
 import * as React from 'react';
 
@@ -99,7 +99,7 @@ export default class ImportGoogleClassroomsModal extends React.Component<ImportG
     if (import.meta.env.RAILS_ENV === 'development') {
       Pusher.logToConsole = true;
     }
-    const pusher = new Pusher(import.meta.env.PUSHER_KEY, { encrypted: true, });
+    const pusher = new Pusher(import.meta.env.VITE_PROCESS_ENV_PUSHER_KEY, { encrypted: true, });
     const channelName = String(id)
     const channel = pusher.subscribe(channelName);
     const that = this;

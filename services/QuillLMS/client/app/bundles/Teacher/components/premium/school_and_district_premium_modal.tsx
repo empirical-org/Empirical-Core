@@ -8,8 +8,8 @@ export const SCHOOL_SELECTION_STAGE = 'school_premium_purchase_selection_stage'
 
 const PLAN_SELECTION_STAGE_NUMBER = 1
 const SCHOOL_SELECTION_STAGE_NUMBER = 2
-const requestSchoolQuoteLink = `${process.env.DEFAULT_URL}/premium/request-school-quote`
-const requestDistrictQuoteLink = `${process.env.DEFAULT_URL}/premium/request-district-quote`
+const requestSchoolQuoteLink = `${import.meta.env.VITE_DEFAULT_URL}/premium/request-school-quote`
+const requestDistrictQuoteLink = `${import.meta.env.VITE_DEFAULT_URL}/premium/request-district-quote`
 
 const SchoolSelectionStage = ({ eligibleSchools, selectedSchool, goToStripeWithSelectedSchool, setSelectedSchool, closeModal, selectSchool, }) => {
   if (eligibleSchools.length) {

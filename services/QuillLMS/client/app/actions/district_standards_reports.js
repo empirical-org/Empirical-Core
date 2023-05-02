@@ -20,10 +20,10 @@ export const switchTeacher = (teacher) => {
 
 export const initializePusherForDistrictStandardsReports = (adminId) => {
   return (dispatch) => {
-    if (process.env.RAILS_ENV === 'development') {
+    if (import.meta.env.VITE_PROCESS_ENV_RAILS_ENV === 'development') {
       Pusher.logToConsole = true;
     }
-    const pusher = new Pusher(process.env.PUSHER_KEY, { encrypted: true, });
+    const pusher = new Pusher(import.meta.env.VITE_PROCESS_ENV_PUSHER_KEY, { encrypted: true, });
     const channel = pusher.subscribe(adminId);
     channel.bind('district-standards-reports-found', () => {
       dispatch(getDistrictStandardsReports())
@@ -35,9 +35,9 @@ export const getDistrictStandardsReports = (isFreemiumView) => {
   const freemiumParam = isFreemiumView ? '?freemium=true' : ''
   return (dispatch) => {
     requestGet(
-      `${process.env.DEFAULT_URL}/api/v1/progress_reports/district_standards_reports${freemiumParam}`,
+      `${import.meta.env.VITE_DEFAULT_URL}/api/v1/progress_reports/district_standards_reports${freemiumParam}`,
       (body) => {
-        if (body.id && (process.env.RAILS_ENV === 'production')) {
+        if (body.id && (import.meta.env.VITE_PROCESS_ENV_RAILS_ENV === 'production')) {
           dispatch(initializePusherForDistrictStandardsReports(String(body.id)))
         } else {
           dispatch(recieveDistrictStandardsReports(body))

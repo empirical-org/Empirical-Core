@@ -44,7 +44,7 @@ export default class ExportCSV extends React.Component {
     if (import.meta.env.RAILS_ENV === 'development') {
       Pusher.logToConsole = true;
     }
-    const pusher = new Pusher(import.meta.env.PUSHER_KEY, {encrypted: true});
+    const pusher = new Pusher(import.meta.env.VITE_PROCESS_ENV_PUSHER_KEY, {encrypted: true});
     let teacherId = this.props.teacher.id
     const channel = pusher.subscribe(teacherId.toString());
     const that = this;
