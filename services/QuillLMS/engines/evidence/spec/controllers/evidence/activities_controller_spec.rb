@@ -402,20 +402,28 @@ module Evidence
 
     context "#labeled_synthetic_data" do
       let(:activity) { create(:evidence_activity) }
+      let(:because) {create(:evidence_prompt, conjunction: 'because', activity: activity)}
+      let(:but) {create(:evidence_prompt, conjunction: 'but', activity: activity)}
+      let(:so) {create(:evidence_prompt, conjunction: 'so', activity: activity)}
+
+      let(:blank_prompts) {{'because' => [], 'but' => [], 'so' => []}}
+      let(:prompt_files) {{'because' => ['one'], 'but' => ['two'], 'so' => ['three', 'four']}}
 
       it "should NOT call background worker if no filenames" do
         expect(Evidence::SyntheticLabeledDataWorker).to_not receive(:perform_async)
 
-        post :labeled_synthetic_data, params: { id: activity.id, filenames: [] }
+        post :labeled_synthetic_data, params: { id: activity.id, prompt_files: blank_prompts }
 
         expect(response).to have_http_status(:success)
       end
 
       it "should call background worker for each filename" do
-        expect(Evidence::SyntheticLabeledDataWorker).to receive(:perform_async).with('one', activity.id)
-        expect(Evidence::SyntheticLabeledDataWorker).to receive(:perform_async).with('two', activity.id)
+        expect(Evidence::SyntheticLabeledDataWorker).to receive(:perform_async).with('one', because.id)
+        expect(Evidence::SyntheticLabeledDataWorker).to receive(:perform_async).with('two', but.id)
+        expect(Evidence::SyntheticLabeledDataWorker).to receive(:perform_async).with('three', so.id)
+        expect(Evidence::SyntheticLabeledDataWorker).to receive(:perform_async).with('four', so.id)
 
-        post :labeled_synthetic_data, params: { id: activity.id, filenames: ['one', 'two'] }
+        post :labeled_synthetic_data, params: { id: activity.id, prompt_files: prompt_files }
 
         expect(response).to have_http_status(:success)
       end

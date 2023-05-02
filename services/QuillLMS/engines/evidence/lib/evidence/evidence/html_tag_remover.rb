@@ -12,6 +12,8 @@ module Evidence
     end
 
     def run
+      return "" if html.nil?
+
       html
         .gsub(HTML_TAG_REGEX, SPACE) # remove html tags
         .gsub("&#x27;", "'") # replace html single quotes
