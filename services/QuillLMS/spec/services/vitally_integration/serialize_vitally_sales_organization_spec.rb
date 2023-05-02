@@ -201,11 +201,16 @@ describe 'SerializeVitallySalesOrganization' do
 
     describe '#activities_and_students_rollups' do
       let!(:classroom_unit) {create(:classroom_unit, classroom: classroom1, unit: unit, assigned_student_ids: [student1.id, student2.id])}
+      let!(:connect_activity) { create(:connect_activity) }
       let!(:session1) { create(:activity_session, state: 'finished', completed_at: Time.current, user: student1, classroom_unit: classroom_unit, activity: diagnostic)}
       let!(:session2) { create(:activity_session, state: 'finished', completed_at: Time.current, user: student2, classroom_unit: classroom_unit, activity: diagnostic)}
       let!(:session3) { create(:activity_session, state: 'finished', completed_at: Time.current - 1.year, user: student2, classroom_unit: classroom_unit, activity: diagnostic)}
       let!(:session4) { create(:activity_session, state: 'finished', completed_at: Time.current - 1.year, user: student1, classroom_unit: classroom_unit, activity: diagnostic)}
-      let!(:session5) { create(:activity_session, state: 'finished', completed_at: Time.current - 1.year, user: student1, classroom_unit: classroom_unit, activity: diagnostic)}
+      let!(:session5) { create(:activity_session, state: 'finished', completed_at: Time.current - 1.year, user: student1, classroom_unit: classroom_unit, activity: connect_activity)}
+      let!(:session6) { create(:activity_session, state: 'started', completed_at: Time.current, user: student2, classroom_unit: classroom_unit, activity: diagnostic)}
+
+      let!(:other_district_student) { create(:student)}
+      let!(:session7) { create(:activity_session, state: 'finished', completed_at: Time.current, user: other_district_student)}
 
       it 'gets the last sign in date of the most recent student' do
         last_active = Date.today - 1.month
