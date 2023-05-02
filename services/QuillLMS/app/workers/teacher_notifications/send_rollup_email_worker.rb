@@ -3,7 +3,7 @@
 module TeacherNotifications
   class SendRollupEmailWorker
     include Sidekiq::Worker
-  
+
     def perform(user_id)
       user = User.find_by(id: user_id)
       notifications = TeacherNotification.where(user: user, email_sent: nil)

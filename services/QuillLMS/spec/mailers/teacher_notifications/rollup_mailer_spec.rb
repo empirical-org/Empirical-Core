@@ -80,7 +80,6 @@ module TeacherNotifications
       it 'pluralizes "students" if there are more than 1 truncated student name' do
         notifications.push(create(:teacher_notification_student_completed_all_assigned_activities))
 
-        
         expect(mail.body.encoded).to match("...and #{notifications.length - 10} other students")
       end
     end

@@ -1,10 +1,10 @@
 # frozen_string_literal: true
 
 module TeacherNotifications
-  class RollupMailer < ActionMailer::Base
+  class RollupMailer < ApplicationMailer
     include EmailApiHelper
     include ActionView::Helpers::NumberHelper
-  
+
     FREQUENCY_WORD_LOOKUP = {
       TeacherInfo::HOURLY_EMAIL => 'hour',
       TeacherInfo::DAILY_EMAIL  => 'day',
@@ -12,7 +12,7 @@ module TeacherNotifications
     }
 
     default from: "The Quill Team <hello@quill.org>"
-  
+
     def rollup(user, teacher_notifications)
       @user = user
       @frequency = FREQUENCY_WORD_LOOKUP[user.teacher_info.notification_email_frequency]
