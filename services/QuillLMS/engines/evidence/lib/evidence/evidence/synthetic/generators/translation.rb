@@ -51,7 +51,20 @@ module Evidence
             english_texts = Array(translator.translate(translations.map(&:text), from: language, to: ENGLISH))
 
             strings_slice.each.with_index do |string, index|
-              results_hash[string][language.to_s] = lowercaser.run(english_texts[index].text)
+              result = lowercaser.run(english_texts[index].text)
+
+              generator = Evidence::TextGeneration.create(
+                type: Evidence::TextGeneration::TYPE_TRANSLATION,
+                source_text: string,
+                language: language.to_s
+              )
+
+              generator_results = Evidence::Synthetic::GeneratorResults.new(
+                generator: generator,
+                results: [result]
+              )
+
+              results_hash[string].append(generator_results)
             end
           end
         end
