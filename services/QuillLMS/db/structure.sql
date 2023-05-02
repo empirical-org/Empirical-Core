@@ -4500,7 +4500,8 @@ CREATE TABLE public.teacher_infos (
     user_id bigint NOT NULL,
     created_at timestamp(6) without time zone NOT NULL,
     updated_at timestamp(6) without time zone NOT NULL,
-    role_selected_at_signup character varying DEFAULT ''::character varying
+    role_selected_at_signup character varying DEFAULT ''::character varying,
+    notification_email_frequency text
 );
 
 
@@ -4521,6 +4522,72 @@ CREATE SEQUENCE public.teacher_infos_id_seq
 --
 
 ALTER SEQUENCE public.teacher_infos_id_seq OWNED BY public.teacher_infos.id;
+
+
+--
+-- Name: teacher_notification_settings; Type: TABLE; Schema: public; Owner: -
+--
+
+CREATE TABLE public.teacher_notification_settings (
+    id bigint NOT NULL,
+    user_id bigint NOT NULL,
+    notification_type text NOT NULL,
+    created_at timestamp(6) without time zone NOT NULL,
+    updated_at timestamp(6) without time zone NOT NULL
+);
+
+
+--
+-- Name: teacher_notification_settings_id_seq; Type: SEQUENCE; Schema: public; Owner: -
+--
+
+CREATE SEQUENCE public.teacher_notification_settings_id_seq
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+
+--
+-- Name: teacher_notification_settings_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: -
+--
+
+ALTER SEQUENCE public.teacher_notification_settings_id_seq OWNED BY public.teacher_notification_settings.id;
+
+
+--
+-- Name: teacher_notifications; Type: TABLE; Schema: public; Owner: -
+--
+
+CREATE TABLE public.teacher_notifications (
+    id bigint NOT NULL,
+    user_id bigint NOT NULL,
+    type text,
+    email_sent timestamp without time zone,
+    message_attrs jsonb,
+    created_at timestamp(6) without time zone NOT NULL,
+    updated_at timestamp(6) without time zone NOT NULL
+);
+
+
+--
+-- Name: teacher_notifications_id_seq; Type: SEQUENCE; Schema: public; Owner: -
+--
+
+CREATE SEQUENCE public.teacher_notifications_id_seq
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+
+--
+-- Name: teacher_notifications_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: -
+--
+
+ALTER SEQUENCE public.teacher_notifications_id_seq OWNED BY public.teacher_notifications.id;
 
 
 --
@@ -5910,6 +5977,20 @@ ALTER TABLE ONLY public.teacher_infos ALTER COLUMN id SET DEFAULT nextval('publi
 
 
 --
+-- Name: teacher_notification_settings id; Type: DEFAULT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY public.teacher_notification_settings ALTER COLUMN id SET DEFAULT nextval('public.teacher_notification_settings_id_seq'::regclass);
+
+
+--
+-- Name: teacher_notifications id; Type: DEFAULT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY public.teacher_notifications ALTER COLUMN id SET DEFAULT nextval('public.teacher_notifications_id_seq'::regclass);
+
+
+--
 -- Name: teacher_saved_activities id; Type: DEFAULT; Schema: public; Owner: -
 --
 
@@ -6996,6 +7077,22 @@ ALTER TABLE ONLY public.teacher_info_subject_areas
 
 ALTER TABLE ONLY public.teacher_infos
     ADD CONSTRAINT teacher_infos_pkey PRIMARY KEY (id);
+
+
+--
+-- Name: teacher_notification_settings teacher_notification_settings_pkey; Type: CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY public.teacher_notification_settings
+    ADD CONSTRAINT teacher_notification_settings_pkey PRIMARY KEY (id);
+
+
+--
+-- Name: teacher_notifications teacher_notifications_pkey; Type: CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY public.teacher_notifications
+    ADD CONSTRAINT teacher_notifications_pkey PRIMARY KEY (id);
 
 
 --
@@ -8407,6 +8504,27 @@ CREATE INDEX index_teacher_infos_on_user_id ON public.teacher_infos USING btree 
 
 
 --
+-- Name: index_teacher_notification_settings_on_user_id; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX index_teacher_notification_settings_on_user_id ON public.teacher_notification_settings USING btree (user_id);
+
+
+--
+-- Name: index_teacher_notification_settings_on_user_id_and_type; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE UNIQUE INDEX index_teacher_notification_settings_on_user_id_and_type ON public.teacher_notification_settings USING btree (user_id, notification_type);
+
+
+--
+-- Name: index_teacher_notifications_on_user_id; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX index_teacher_notifications_on_user_id ON public.teacher_notifications USING btree (user_id);
+
+
+--
 -- Name: index_teacher_saved_activities_on_activity_id; Type: INDEX; Schema: public; Owner: -
 --
 
@@ -8863,6 +8981,14 @@ ALTER TABLE ONLY public.evidence_prompt_healths
 
 
 --
+-- Name: teacher_notification_settings fk_rails_3291865e04; Type: FK CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY public.teacher_notification_settings
+    ADD CONSTRAINT fk_rails_3291865e04 FOREIGN KEY (user_id) REFERENCES public.users(id);
+
+
+--
 -- Name: comprehension_automl_models fk_rails_35c32f80fc; Type: FK CONSTRAINT; Schema: public; Owner: -
 --
 
@@ -9060,6 +9186,14 @@ ALTER TABLE ONLY public.canvas_instance_schools
 
 ALTER TABLE ONLY public.user_pack_sequence_items
     ADD CONSTRAINT fk_rails_8011bf338d FOREIGN KEY (pack_sequence_item_id) REFERENCES public.pack_sequence_items(id);
+
+
+--
+-- Name: teacher_notifications fk_rails_81552fbc91; Type: FK CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY public.teacher_notifications
+    ADD CONSTRAINT fk_rails_81552fbc91 FOREIGN KEY (user_id) REFERENCES public.users(id);
 
 
 --
@@ -9859,6 +9993,10 @@ INSERT INTO "schema_migrations" (version) VALUES
 ('20230413215936'),
 ('20230413215937'),
 ('20230413215938'),
-('20230414164818');
+('20230414164818'),
+('20230414164818'),
+('20230420141952'),
+('20230421172858'),
+('20230428190706');
 
 

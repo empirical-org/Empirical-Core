@@ -4,8 +4,7 @@ import * as React from 'react';
 import {
   STUDENT,
   STUDENT_CENTER_SLUG,
-  TEACHER_CENTER_SLUG,
-  USING_QUILL_FOR_READING_COMPREHENSION
+  TEACHER_CENTER_SLUG
 } from './blog_post_constants';
 
 import PreviewCard from '../shared/preview_card.jsx';
@@ -13,9 +12,7 @@ import PreviewCard from '../shared/preview_card.jsx';
 export default class TopicSection extends React.Component {
   displayTitle() {
     const { role, title, } = this.props
-    if (role !== STUDENT && title === USING_QUILL_FOR_READING_COMPREHENSION) {
-      return title.replace('quill', 'Quill')
-    } else if(role !== STUDENT) {
+    if(role !== STUDENT) {
       return title
     }
     const titleWithoutWordStudent = title.replace('Student ', '')

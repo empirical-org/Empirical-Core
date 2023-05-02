@@ -8,10 +8,6 @@ import EditorContainer from '../../../components/studentView/editorContainer';
 import PromptStep from '../../../components/studentView/promptStep';
 import { stripEvidenceHtml } from '../../../libs/stringFormatting';
 
-jest.mock('string-strip-html', () => ({
-  default: jest.fn()
-}));
-
 const prompt = activityOne.prompts[2]
 
 const defaultProps = {

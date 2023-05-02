@@ -382,7 +382,7 @@ exports[`BlogPostIndex component renders 1`] = `
       },
       Object {
         "name": "Using quill for reading comprehension",
-        "slug": "using-quill-for-reading-comprehension",
+        "slug": "writing-for-learning",
       },
       Object {
         "name": "Getting started",
@@ -432,7 +432,7 @@ exports[`BlogPostIndex component renders 1`] = `
   >
     <HeaderSection
       showCancelSearchButton={false}
-      subtitle="Everything you need to know about Quill’s pedagogy and use in the classroom"
+      subtitle="Everything you need to know about Quill's pedagogy and use in the classroom"
       title="Teacher Center"
     >
       <div
@@ -445,7 +445,7 @@ exports[`BlogPostIndex component renders 1`] = `
             Teacher Center
           </h1>
           <p>
-            Everything you need to know about Quill’s pedagogy and use in the classroom
+            Everything you need to know about Quill's pedagogy and use in the classroom
           </p>
         </div>
         <form
@@ -564,6 +564,35 @@ exports[`BlogPostIndex component renders 1`] = `
             </a>
           </SearchToken>
         </div>
+        <section
+          className="evidence-teacher-handbook-banner"
+        >
+          <section
+            className="information-section"
+          >
+            <h2>
+              Quill Reading for Evidence Teacher Handbook
+            </h2>
+            <p>
+              Looking for support integrating Quill Reading for Evidence into your instruction? Our handbook for teachers using our newest literacy tool is packed with best practices and strategies--and it's FREE!
+            </p>
+            <a
+              className="quill-button focus-on-light small primary contained"
+              href="https://docsend.com/view/29vcfdqa5aupkmfp"
+              rel="noopener noreferrer"
+              target="_blank"
+            >
+              Get the Teacher Handbook 
+              <i
+                className="fas fa-arrow-right"
+              />
+            </a>
+          </section>
+          <img
+            alt="Stack of papers with text \\"Quill Reading for Evidence Teacher Handbook\\""
+            src="undefined/images/evidence/evidence-teacher-handbook.svg"
+          />
+        </section>
       </div>
     </HeaderSection>
     <span />
@@ -620,20 +649,19 @@ exports[`BlogPostIndex component renders 1`] = `
             },
           ]
         }
-        color="purple"
         key="Using quill for reading comprehension"
         onSearchPage={false}
-        slug="using-quill-for-reading-comprehension"
+        slug="writing-for-learning"
         title="Using quill for reading comprehension"
       >
         <section
-          className="topic-section purple"
+          className="topic-section undefined"
         >
           <div
             className="meta"
           >
             <h1>
-              Using Quill for reading comprehension
+              Using quill for reading comprehension
             </h1>
             <div>
               <h2>
@@ -643,7 +671,7 @@ exports[`BlogPostIndex component renders 1`] = `
               </h2>
               <a
                 className="quill-button focus-on-light fun contained primary"
-                href="/teacher-center/topic/using-quill-for-reading-comprehension"
+                href="/teacher-center/topic/writing-for-learning"
               >
                 Show all
               </a>
@@ -653,14 +681,13 @@ exports[`BlogPostIndex component renders 1`] = `
             id="preview-card-container"
           >
             <PreviewCard
-              color="purple"
               content="<img class='preview-card-image' src='https://s3.amazonaws.com/quill-image-uploads/uploads/files/Cover__4_.png' />\\\\n    <div class='preview-card-body'>\\\\n       <h3>List of Available Quill Reading for Evidence Activities</h3>\\\\n       <p>This article offers a great way to get a sense of the content and topics available in current Reading for Evidence activities!</p>\\\\n       <span/>\\\\n    </div>\\\\n    <div class='preview-card-footer'>\\\\n      <p class='author'>by Quill Staff</p>\\\\n    </div>"
               externalLink={false}
               key="835"
               link="/teacher-center/list-of-available-quill-reading-for-evidence-activities"
             >
               <a
-                className="preview-card-link purple"
+                className="preview-card-link green"
                 href="/teacher-center/list-of-available-quill-reading-for-evidence-activities"
                 target="_self"
               >
@@ -905,14 +932,13 @@ exports[`BlogPostIndex component renders 1`] = `
               </a>
             </PreviewCard>
             <PreviewCard
-              color="purple"
               content="<img class='preview-card-image' src='https://s3.amazonaws.com/quill-image-uploads/uploads/files/Cover__2_.png' />\\\\n       <div class='preview-card-body'>\\\\n       <h3>📋 PDF | Introducing Quill Reading for  Evidence: One-Pager </h3>\\\\n       <p>This one-pager will introduce you to our newest tool, Quill Reading for  Evidence. Includes a link to a demo video!</p>\\\\n       <span/>\\\\n    </div>\\\\n    <div class='preview-card-footer'>\\\\n      <p class='author'>by Sherry L.</p>\\\\n    </div>"
               externalLink={false}
               key="633"
               link="/teacher-center/-pdf--introducing-quill-evidence-onepager-"
             >
               <a
-                className="preview-card-link purple"
+                className="preview-card-link green"
                 href="/teacher-center/-pdf--introducing-quill-evidence-onepager-"
                 target="_self"
               >
@@ -3837,14 +3863,14 @@ exports[`BlogPostIndex component renders 1`] = `
             },
           ]
         }
-        color="teal"
+        color="purple"
         key="Teacher materials"
         onSearchPage={false}
         slug="teacher-materials"
         title="Teacher materials"
       >
         <section
-          className="topic-section teal"
+          className="topic-section purple"
         >
           <div
             className="meta"
@@ -3870,14 +3896,14 @@ exports[`BlogPostIndex component renders 1`] = `
             id="preview-card-container"
           >
             <PreviewCard
-              color="teal"
+              color="purple"
               content="<img class='preview-card-image' src='https://s3.amazonaws.com/quill-image-uploads/uploads/files/Cover__9_.png' />\\\\n    <div class='preview-card-body'>\\\\n       <h3>📋 PDF | Quill Reports Cheat Sheet</h3>\\\\n       <p> This PDF provides an overview of what information you can find in each of Quill's student data reports. </p>\\\\n       <span/>\\\\n    </div>\\\\n    <div class='preview-card-footer'>\\\\n      <p class='author'>by Quill Staff</p>\\\\n    </div>"
               externalLink={true}
               key="115"
               link="http://s3.amazonaws.com/quill-image-uploads/uploads/files/Quill_Reports_Cheat_Sheet_Updated04_08_20.pdf"
             >
               <a
-                className="preview-card-link teal"
+                className="preview-card-link purple"
                 href="http://s3.amazonaws.com/quill-image-uploads/uploads/files/Quill_Reports_Cheat_Sheet_Updated04_08_20.pdf"
                 target="_blank"
               >
@@ -4122,14 +4148,14 @@ exports[`BlogPostIndex component renders 1`] = `
               </a>
             </PreviewCard>
             <PreviewCard
-              color="teal"
+              color="purple"
               content="<img class='preview-card-image' src='https://s3.amazonaws.com/quill-image-uploads/uploads/files/Cover__10_.png' />\\\\n    <div class='preview-card-body'>\\\\n       <h3>📋 PDF | Quill and Beyond: Recommended Tools to Support Remote Learning</h3>\\\\n       <p>This PDF provides information on tools teachers can use to support students with remote instruction.</p>\\\\n       <span/>\\\\n    </div>\\\\n    <div class='preview-card-footer'>\\\\n      <p class='author'>by Quill Staff</p>\\\\n    </div>"
               externalLink={true}
               key="399"
               link="http://s3.amazonaws.com/quill-image-uploads/uploads/files/Quill___Beyond__1_.pdf"
             >
               <a
-                className="preview-card-link teal"
+                className="preview-card-link purple"
                 href="http://s3.amazonaws.com/quill-image-uploads/uploads/files/Quill___Beyond__1_.pdf"
                 target="_blank"
               >

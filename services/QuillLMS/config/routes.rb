@@ -208,6 +208,7 @@ EmpiricalGrammar::Application.routes.draw do
   put 'students/update_password' => 'students#update_password'
   get 'join/:classcode' => 'students#join_classroom'
   get 'teachers/premium_hub' => 'teachers#premium_hub'
+  get 'teachers/premium_hub/school_subscriptions' => 'teachers#premium_hub', as: :premium_hub_school_subscriptions
   get 'teachers/premium_hub/:tab' => 'teachers#premium_hub'
   get 'teachers/admin_dashboard', to: redirect('teachers/premium_hub')
   get 'teachers/admin_dashboard/:tab', to: redirect('teachers/premium_hub/%{tab}')
@@ -535,6 +536,10 @@ EmpiricalGrammar::Application.routes.draw do
       resources :activity_survey_responses, only: [:create]
       resources :student_problem_reports, only: [:create]
       resources :lockers, only: [:show, :create, :update]
+
+      resources :teacher_notification_settings, only: [:index] do
+        post 'bulk_update', on: :collection
+      end
 
       mount Evidence::Engine => "/evidence", as: :evidence
     end

@@ -1,5 +1,5 @@
 import * as React from 'react'
-import stripHtml from "string-strip-html"
+import { stripHtml } from "string-strip-html"
 
 import EditorContainer from './editorContainer'
 import Feedback from './feedback'
@@ -328,7 +328,7 @@ export class PromptStep extends React.Component<PromptStepProps, PromptStepState
     const { prompt, } = this.props
     const text = html.replace(/<b>|<\/b>|<p>|<\/p>|<br>|<u>|<\/u>/g, '').replace('&nbsp;', '')
     const textWithoutStem = text.replace(prompt.text, '').trim()
-    const textForCharacterCount = stripHtml(textWithoutStem);
+    const textForCharacterCount = stripHtml(textWithoutStem).result;
     const spaceAtEnd = text.match(/\s$/m) ? '&nbsp;' : ''
     return {
       htmlWithBolding: `<p>${this.highlightsAddedPrompt(this.htmlStrippedPrompt())}${this.formatStudentResponse(textWithoutStem, prompt.text.length)}${spaceAtEnd}</p>`,

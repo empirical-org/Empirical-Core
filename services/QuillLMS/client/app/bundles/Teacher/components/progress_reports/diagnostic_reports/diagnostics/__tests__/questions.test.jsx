@@ -17,10 +17,6 @@ jest.mock('qs', () => ({
 })
 )
 
-jest.mock('string-strip-html', () => ({
-  default: (str) => str
-}));
-
 describe('Questions component', () => {
   it('should render when there is no student data', () => {
     const wrapper = mount(<Questions

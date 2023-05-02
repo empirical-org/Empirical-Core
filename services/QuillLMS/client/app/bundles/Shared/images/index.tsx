@@ -231,3 +231,8 @@ export const redDiamondIcon = {
   alt: 'Red diamond',
   src: `${process.env.CDN_URL}/images/icons/red-diamond.svg`
 }
+
+export const evidenceHandbookIcon = {
+  alt: 'Stack of papers with text "Quill Reading for Evidence Teacher Handbook"',
+  src: `${process.env.CDN_URL}/images/evidence/evidence-teacher-handbook.svg`
+}
