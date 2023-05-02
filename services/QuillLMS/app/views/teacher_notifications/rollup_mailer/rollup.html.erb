@@ -8,10 +8,10 @@
     <% if notification_type == "TeacherNotifications::StudentCompletedDiagnostic" %>
       <%= render 'students_completed_diagnostics',
         notifications: notifications %>
-    <% elsif notification_type == "TeacherNotifications::StudentCompletedAllAssignedActivities" %>
-      <%= render 'students_completed_all_assigned_activities', notifications: notifications %>
     <% elsif notification_type == "TeacherNotifications::StudentCompletedAllDiagnosticRecommendations" %>
       <%= render 'students_completed_all_diagnostic_recommendations', notifications: notifications %>
+    <% elsif notification_type == "TeacherNotifications::StudentCompletedAllAssignedActivities" %>
+      <%= render 'students_completed_all_assigned_activities', notifications: notifications %>
     <% end %>
   <% end %>
 <% end %>
