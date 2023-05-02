@@ -118,7 +118,7 @@ class SerializeVitallySalesOrganization
 
   def active_students(start_date=nil, end_date=nil)
     # use raw SQL to bypass scope limits (visible: true) on classrooms
-    active_students = ActivitySession
+    @active_students ||= ActivitySession
       .joins(classroom_unit: [classroom: :classrooms_teachers])
       .joins("JOIN schools_users ON classrooms_teachers.user_id = schools_users.user_id")
       .joins("JOIN schools ON schools_users.school_id = schools.id")
@@ -127,34 +127,38 @@ class SerializeVitallySalesOrganization
       .distinct
       .where(state: 'finished')
 
+    return @active_students.count if start_date.blank? && end_date.blank?
+
     if start_date.present?
-      active_students = active_students.where("activity_sessions.completed_at >= ?", start_date)
+      filtered_results = @active_students.where("activity_sessions.completed_at >= ?", start_date)
     end
 
     if end_date.present?
-      active_students = active_students.where("activity_sessions.completed_at <= ?", end_date)
+      filtered_results = @active_students.where("activity_sessions.completed_at <= ?", end_date)
     end
 
-    active_students.count
+    filtered_results.count
   end
 
   def activities_completed(start_date=nil, end_date=nil)
     # use raw SQL to bypass scope limits (visible: true) on classrooms
-    activities_completed = ClassroomsTeacher
+    @activities_completed ||= ClassroomsTeacher
       .joins([user: [schools_users: [school: :district]]])
       .joins([classroom: [classroom_units: :activity_sessions]])
       .where('districts.id = ?', @district.id)
       .where('activity_sessions.state = ?', 'finished')
 
+    return @activities_completed.count if start_date.blank? && end_date.blank?
+
     if start_date.present?
-      activities_completed = activities_completed.where("activity_sessions.completed_at >= ?", start_date)
+      filtered_results = @activities_completed.where("activity_sessions.completed_at >= ?", start_date)
     end
 
     if end_date.present?
-      activities_completed = activities_completed.where("activity_sessions.completed_at <= ?", end_date)
+      filtered_results = @activities_completed.where("activity_sessions.completed_at <= ?", end_date)
     end
 
-    activities_completed.count
+    filtered_results.count
   end
 
   def last_active_time
