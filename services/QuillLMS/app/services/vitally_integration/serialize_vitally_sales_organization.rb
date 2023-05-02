@@ -48,7 +48,7 @@ class SerializeVitallySalesOrganization
       activities_completed_this_year: activities_completed_this_year,
       activities_completed_last_year: activities_completed_last_year,
       activities_completed_all_time: activities_completed_all_time,
-      activities_completed_per_student_this_year: (active_students_this_year > 0) ? ((activities_completed_this_year.to_f / active_students_this_year).round(2)) : 0,
+      activities_completed_per_student_this_year: active_students_this_year > 0 ? ((activities_completed_this_year.to_f / active_students_this_year).round(2)) : 0,
       activities_completed_per_student_last_year: active_students_last_year > 0 ? ((activities_completed_last_year.to_f / active_students_last_year).round(2)) : 0,
       activities_completed_per_student_all_time: active_students_all_time > 0 ? ((activities_completed_all_time.to_f / active_students_all_time).round(2)) : 0,
       last_active_time: last_active_time,
@@ -117,7 +117,6 @@ class SerializeVitallySalesOrganization
   end
 
   def active_students(start_date=nil, end_date=nil)
-
     # use raw SQL to bypass scope limits (visible: true) on classrooms
     active_students = ActivitySession
       .joins(classroom_unit: [classroom: :classrooms_teachers])
@@ -166,7 +165,7 @@ class SerializeVitallySalesOrganization
       .joins("JOIN users students ON students.id = students_classrooms.student_id")
       .order("students.last_sign_in DESC")
       .first
-      .last_sign_in
+      &.last_sign_in
   end
 
   private def latest_subscription

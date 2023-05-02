@@ -7,7 +7,7 @@ class SyncVitallyOrganizationWorker
     district = District.find(district_id)
     api = VitallyRestApi.new
 
-    response = api.create(VitallyRestApi::ENDPOINT_ORGANIZATIONS, district.vitally_data)
+    response = api.create(VitallyRestApi::ENDPOINT_ORGANIZATIONS, SerializeVitallySalesOrganization.new(district).data)
 
     return if response.success?
 
