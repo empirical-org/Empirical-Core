@@ -17,15 +17,20 @@ const DiagnosticsIndex = ({ passedClassrooms, history, match, lessonsBannerIsSho
     getDiagnostics();
     $('.diagnostic-tab').addClass('active');
     $('.activity-analysis-tab').removeClass('active');
-    const mobileDiagnosticTab = $('#mobile-diagnostics-tab-checkmark')
-    const mobileActivityAnalysisTab = $('#mobile-activity-analysis-tab-checkmark')
-    if (mobileDiagnosticTab) {
+    handleMobileDropdown();
+  }, []);
+
+  function handleMobileDropdown() {
+    const mobileDiagnosticTab = $('#mobile-diagnostics-tab-checkmark');
+    const mobileActivityAnalysisTab = $('#mobile-activity-analysis-tab-checkmark');
+    const mobileDropdown = $('#mobile-subnav-toggle');
+
+    if (mobileDropdown && mobileDiagnosticTab && mobileActivityAnalysisTab ) {
+      mobileDropdown.removeClass('open');
       mobileDiagnosticTab.addClass('active');
-    }
-    if(mobileActivityAnalysisTab) {
       mobileActivityAnalysisTab.removeClass('active');
     }
-  }, []);
+  }
 
   function getDiagnostics() {
     requestGet('/teachers/diagnostic_units',

@@ -283,12 +283,8 @@ describe NavigationHelper do
       end
 
       it 'should return "Teacher Center" for relevant paths' do
-        expect(helper.determine_active_tab('/activities/packs')).to eq(NavigationHelper::EXPLORE_CURRICULUM)
-        expect(helper.determine_active_tab('/activities/packs/459')).to eq(NavigationHelper::EXPLORE_CURRICULUM)
-        expect(helper.determine_active_tab('/activities/standard_level/7')).to eq(NavigationHelper::EXPLORE_CURRICULUM)
-        expect(helper.determine_active_tab('/ap')).to eq(NavigationHelper::EXPLORE_CURRICULUM)
-        expect(helper.determine_active_tab('/preap')).to eq(NavigationHelper::EXPLORE_CURRICULUM)
-        expect(helper.determine_active_tab('/springboard')).to eq(NavigationHelper::EXPLORE_CURRICULUM)
+        expect(helper.determine_active_tab('/teacher-center')).to eq(NavigationHelper::TEACHER_CENTER)
+        expect(helper.determine_active_tab('/faq')).to eq(NavigationHelper::TEACHER_CENTER)
       end
 
       it 'should return "Student Center" for relevant paths' do

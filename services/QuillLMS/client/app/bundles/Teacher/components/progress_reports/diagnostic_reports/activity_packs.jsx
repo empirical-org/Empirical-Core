@@ -28,10 +28,11 @@ export default class ActivityPacks extends React.Component {
     document.getElementsByClassName('activity-analysis-tab')[0].classList.add('active');
     const mobileActivityAnalysisTab = document.getElementById('mobile-activity-analysis-tab-checkmark')
     const mobileDiagnosticTab = document.getElementById('mobile-diagnostics-tab-checkmark')
-    if(mobileActivityAnalysisTab) {
+    const mobileDropdown = document.getElementById('mobile-subnav-toggle')
+
+    if (mobileDropdown && mobileActivityAnalysisTab && mobileDiagnosticTab) {
+      mobileDropdown.classList.remove('open');
       mobileActivityAnalysisTab.classList.add('active');
-    }
-    if(mobileDiagnosticTab) {
       mobileDiagnosticTab.classList.remove('active');
     }
   }

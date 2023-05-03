@@ -189,6 +189,7 @@ module NavigationHelper
     session[:admin_id].present? && session[:admin_id] != user.id
   end
 
+  # rubocop:disable Metrics/CyclomaticComplexity
   def determine_active_tab(current_path)
     if current_path.include?('tools')
 	    LEARNING_TOOLS
@@ -302,6 +303,7 @@ module NavigationHelper
       HOME
     end
   end
+  # rubocop:enable Metrics/CyclomaticComplexity
 
   private def authed_user_tabs
     tabs = [HOME_TAB, OVERVIEW_TAB, MY_CLASSES_TAB, ASSIGN_ACTIVITIES_TAB, MY_ACTIVITIES_TAB, MY_REPORTS_TAB]

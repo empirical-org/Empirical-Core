@@ -66,37 +66,37 @@ export default class AdminSubnav extends React.Component<any, any> {
         <div className="tab-subnavigation-wrapper class-subnav premium-hub-subnav mobile red">
           <div className="dropdown-container">
             <div className={dropdownClass}>
-              <button className="interactive-wrapper" onClick={this.handleDropdownClick} id="mobile-subnav-dropdown" type='button'>
+              <button className="interactive-wrapper" id="mobile-subnav-dropdown" onClick={this.handleDropdownClick} type='button'>
                 <p>{activeTab}</p>
-                <i className="fa fa-thin fa-angle-down"></i>
+                <i className="fa fa-thin fa-angle-down" />
               </button>
               <ul className="dropdown-menu">
                 <li>
-                  <Link className={overview} onClick={this.handleLinkClick}to="/teachers/premium_hub">
+                  <Link className={overview} onClick={this.handleLinkClick} to="/teachers/premium_hub">
                     Overview
                   </Link>
                   <div className={`checkmark-icon ${overview}`} />
                 </li>
                 <li>
-                  <Link className={schoolSubscriptions} onClick={this.handleLinkClick}to="/teachers/premium_hub/school_subscriptions">
+                  <Link className={schoolSubscriptions} onClick={this.handleLinkClick} to="/teachers/premium_hub/school_subscriptions">
                     School Subscriptions
                   </Link>
                   <div className={`checkmark-icon ${schoolSubscriptions}`} />
                 </li>
                 <li>
-                  <Link className={`premium ${activityScores}`} onClick={this.handleLinkClick}to="/teachers/premium_hub/district_activity_scores">
+                  <Link className={`premium ${activityScores}`} onClick={this.handleLinkClick} to="/teachers/premium_hub/district_activity_scores">
                     Activity Scores{this.getIcon(activityScores)}
                   </Link>
                   <div className={`checkmark-icon ${activityScores}`} />
                 </li>
                 <li>
-                  <Link className={`premium ${conceptReports}`} onClick={this.handleLinkClick}to="/teachers/premium_hub/district_concept_reports">
+                  <Link className={`premium ${conceptReports}`} onClick={this.handleLinkClick} to="/teachers/premium_hub/district_concept_reports">
                     Concept Reports{this.getIcon(conceptReports)}
                   </Link>
                   <div className={`checkmark-icon ${conceptReports}`} />
                 </li>
                 <li>
-                  <Link className={`premium ${standardsReports}`} onClick={this.handleLinkClick}to="/teachers/premium_hub/district_standards_reports">
+                  <Link className={`premium ${standardsReports}`} onClick={this.handleLinkClick} to="/teachers/premium_hub/district_standards_reports">
                     Standards Reports{this.getIcon(standardsReports)}
                   </Link>
                   <div className={`checkmark-icon ${standardsReports}`} />

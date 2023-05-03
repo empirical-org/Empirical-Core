@@ -1773,6 +1773,7 @@ describe User, type: :model do
 
   describe '#should_render_teacher_premium?' do
     let(:user) { create(:user) }
+
     subject { user.should_render_teacher_premium? }
 
     it 'should return true if the teacher has a paid teacher premium subscription' do

@@ -8,7 +8,7 @@ describe TeacherCenterHelper do
     let(:app_setting) { create(:app_setting, name: "comprehension") }
     let(:tabs) {
       [
-        { id: BlogPost::ALL_RESOURCES, BlogPost::ALL_RESOURCES, url: "/teacher-center" },
+        { id: BlogPost::ALL_RESOURCES, name: BlogPost::ALL_RESOURCES, url: "/teacher-center" },
         { id: BlogPost::WHATS_NEW, name: BlogPost::WHATS_NEW, url: "/teacher-center/topic/whats-new" },
         { id: BlogPost::WRITING_FOR_LEARNING, name: BlogPost::WRITING_FOR_LEARNING, url: "/teacher-center/topic/writing-for-learning" },
         { id: BlogPost::GETTING_STARTED, name: BlogPost::GETTING_STARTED, url: "/teacher-center/topic/getting-started" },
