@@ -117,28 +117,28 @@ class SerializeVitallySalesOrganization
   end
 
   def active_students(start_date=nil, end_date=nil)
-    return activities_completed_for_district_all_time.group("students.id").length if start_date.blank? && end_date.blank?
+    return activities_completed_all_time.group("students.id").length if start_date.blank? && end_date.blank?
 
     if start_date.present?
-      filtered_results = activities_completed_for_district_all_time.where("activity_sessions.completed_at >= ?", start_date).group("students.id")
+      filtered_results = activities_completed_all_time.where("activity_sessions.completed_at >= ?", start_date).group("students.id")
     end
 
     if end_date.present?
-      filtered_results = activities_completed_for_district_all_time.where("activity_sessions.completed_at <= ?", end_date).group("students.id")
+      filtered_results = activities_completed_all_time.where("activity_sessions.completed_at <= ?", end_date).group("students.id")
     end
 
     filtered_results.length
   end
 
   def activities_completed(start_date=nil, end_date=nil)
-    return activities_completed_for_district_all_time.count if start_date.blank? && end_date.blank?
+    return activities_completed_all_time.count if start_date.blank? && end_date.blank?
 
     if start_date.present?
-      filtered_results = activities_completed_for_district_all_time.where("activity_sessions.completed_at >= ?", start_date)
+      filtered_results = activities_completed_all_time.where("activity_sessions.completed_at >= ?", start_date)
     end
 
     if end_date.present?
-      filtered_results = activities_completed_for_district_all_time.where("activity_sessions.completed_at <= ?", end_date)
+      filtered_results = activities_completed_all_time.where("activity_sessions.completed_at <= ?", end_date)
     end
 
     filtered_results.count
@@ -155,7 +155,7 @@ class SerializeVitallySalesOrganization
       &.last_sign_in
   end
 
-  def activities_completed_for_district_all_time
+  def activities_completed_all_time
     @activities_completed ||= ClassroomsTeacher.select("students.id")
       .joins([user: [schools_users: [school: :district]]])
       .joins([classroom: [classroom_units: :activity_sessions]])
