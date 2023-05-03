@@ -109,10 +109,13 @@ module Evidence
       head :no_content
     end
 
-    # params [:id, :filenames]
+    # params [:id, :prompt_files]
     def labeled_synthetic_data
-      (params[:filenames] || []).each do |filename|
-        Evidence::SyntheticLabeledDataWorker.perform_async(filename, @activity.id)
+      (params[:prompt_files] || {}).each do |conjunction, filenames|
+        prompt = @activity.prompts.find_by(conjunction: conjunction)
+        filenames.each do |filename|
+          Evidence::SyntheticLabeledDataWorker.perform_async(filename, prompt.id)
+        end
       end
 
       head :no_content

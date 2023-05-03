@@ -76,6 +76,7 @@ describe User, type: :model do
   it { should have_many(:classrooms_teachers) }
   it { should have_many(:teacher_saved_activities).with_foreign_key('teacher_id') }
   it { should have_many(:teacher_notifications) }
+  it { should have_many(:teacher_notification_settings) }
   it { should have_many(:activities).through(:teacher_saved_activities)}
   it { should have_many(:classrooms_i_teach).through(:classrooms_teachers).source(:classroom) }
   it { should have_and_belong_to_many(:districts) }
@@ -1768,6 +1769,70 @@ describe User, type: :model do
       before { allow(user).to receive(:school_premium?).and_return(true) }
 
       it { expect(subject).to be_truthy }
+    end
+  end
+
+  describe '#generate_default_notification_email_frequency' do
+    it 'should be called after creation if teacher?' do
+      teacher = build(:teacher)
+
+      expect(teacher).to receive(:generate_default_notification_email_frequency)
+      teacher.save
+    end
+
+    it 'should not be called after creation if not teacher?' do
+      student = build(:student)
+
+      expect(student).not_to receive(:generate_default_notification_email_frequency)
+      student.save
+    end
+
+    it 'should not be called on non-create updates' do
+      teacher = create(:teacher)
+
+      expect(teacher).not_to receive(:generate_default_notification_email_frequency)
+      teacher.name = 'New Name'
+      teacher.save
+    end
+  end
+
+  describe '#generate_default_teacher_notification_settings' do
+    it 'should be called after creation if teacher?' do
+      teacher = build(:teacher)
+
+      expect(teacher).to receive(:generate_default_teacher_notification_settings)
+      teacher.save
+    end
+
+    it 'should not be called after creation if not teacher?' do
+      student = build(:student)
+
+      expect(student).not_to receive(:generate_default_teacher_notification_settings)
+      student.save
+    end
+
+    it 'should not be called on non-create updates' do
+      teacher = create(:teacher)
+
+      expect(teacher).not_to receive(:generate_default_notification_email_frequency)
+      teacher.name = 'New Name'
+      teacher.save
+    end
+
+    it 'should create new TeacherInfo record' do
+      teacher = build(:teacher)
+
+      expect do
+        teacher.save
+      end.to change(TeacherInfo, :count).by(1)
+    end
+
+    it 'should create new TeacherNotificationSetting records based on configured defaults' do
+      teacher = build(:teacher)
+
+      expect do
+        teacher.save
+      end.to change(TeacherNotificationSetting, :count).by(TeacherNotificationSetting::DEFAULT_FOR_NEW_USERS.length)
     end
   end
 

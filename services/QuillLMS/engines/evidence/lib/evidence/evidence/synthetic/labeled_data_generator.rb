@@ -28,17 +28,27 @@ module Evidence
       FREE_GENERATORS = GENERATORS.except(:translations, :paraphrase)
       DEFAULT_LANGUAGES = Evidence::Synthetic::Generators::Translation::TRAIN_LANGUAGES.keys
 
-      attr_reader :results, :languages, :labels, :generators, :passage
+      attr_reader :results, :languages, :labels, :generators, :passage, :batch, :prompt
 
       # params:
       # texts_and_labels: [['text', 'label_5'],['text', 'label_1'],...]
       # languages: [:es, :ja, ...]
       # manual_types: bool, whether to assign TEXT,VALIDATION,TRAIN to each row
-      def initialize(texts_and_labels, languages: DEFAULT_LANGUAGES, generators: DEFAULT_GENERATORS.keys, passage: nil, manual_types: false)
+      def initialize(texts_and_labels, prompt:, languages: DEFAULT_LANGUAGES, generators: DEFAULT_GENERATORS.keys, manual_types: false)
         @languages = languages
         @manual_types = manual_types
         @generators = GENERATORS.slice(*generators)
-        @passage = passage if passage
+
+        @prompt = prompt
+        @batch = Evidence::PromptTextBatch.create(
+          type: Evidence::PromptTextBatch::TYPE_LABELED,
+          prompt: prompt,
+          languages: languages,
+          manual_types: manual_types,
+          generators: generators
+        )
+
+        @passage = @batch.passage
 
         clean_text_and_labels = labeled_data_cleaner(texts_and_labels)
 
@@ -49,7 +59,7 @@ module Evidence
           Synthetic::LabeledResult.new(
             text: text_and_label.first, # text is a unique ID
             label: text_and_label.last,
-            generated: {}
+            generated: []
           )
         end
 
@@ -63,15 +73,46 @@ module Evidence
           run_generators(test_generators, results_test_validation)
         end
 
+        store_results
+
         self
       end
 
+      def store_results
+        original = Evidence::TextGeneration.create(type: Evidence::TextGeneration::TYPE_ORIGINAL)
+
+        results.each do |result|
+          batch.prompt_texts.new(
+            text: result.text,
+            label: result.label,
+            ml_type: result.type,
+            text_generation: original
+          )
+
+          result.generated.each do |generator_results|
+            generator_results.results.each do |new_text|
+              batch.prompt_texts.new(
+                text: new_text,
+                label: result.label,
+                ml_type: result.type,
+                text_generation: generator_results.generator
+              )
+            end
+          end
+        end
+
+        batch.save
+      end
+
+      # generated
+      # {'their originial response' => [Generated(spelling)]}
       def run_generators(generator_hash, results_set)
         generator_hash.each do |type, generator|
           results_hash = generator.run(results_set.map(&:text), languages: languages, passage: passage)
 
           results_set.each do |result|
-            result.generated[type] = results_hash[result.text] || {}
+            array_for_result = results_hash[result.text] || []
+            result.generated.concat(array_for_result)
           end
         end
       end
@@ -97,55 +138,16 @@ module Evidence
       LABEL_TRAINING = 'automl_upload.csv'
       LABEL_ANALYSIS = 'analysis.csv'
 
-      def self.csvs_from_run(texts_and_labels, filename, passage = nil)
+      def self.csvs_from_run(texts_and_labels, filename, prompt)
         generator = Evidence::Synthetic::LabeledDataGenerator.new(
           texts_and_labels,
-          manual_types: true,
-          passage: passage
+          prompt: prompt,
+          manual_types: true
         )
 
         generator.run
 
-        generator.csv_file_hash(filename, texts_and_labels)
-      end
-
-      def csv_file_hash(filename, texts_and_labels)
-        {
-          file_name(filename, LABEL_TRAINING) => training_csv_string,
-          file_name(filename, LABEL_ANALYSIS) => analysis_csv_string,
-          file_name(filename, LABEL_ORIGINAL) => CSV.generate {|csv| texts_and_labels.each {|row| csv << row }}
-        }
-      end
-
-      def file_name(filename, file_ending)
-        [filename.gsub('.csv',''), LABEL_FILE, file_ending].join('_')
-      end
-
-      def training_csv_string
-        CSV.generate do |csv|
-          training_data_rows.uniq.each {|row| csv << row }
-        end
-      end
-
-      def analysis_csv_string
-        CSV.generate do |csv|
-          csv << ['Text', 'Label', 'Original', 'Changed?', 'Language/Spelling', 'Type']
-          detail_data_rows.each {|row| csv << row }
-        end
-      end
-
-      def training_data_rows
-        results
-          .map(&:to_training_rows)
-          .flatten(1)
-          .reject(&:empty?)
-      end
-
-      def detail_data_rows
-        results
-          .map(&:to_detail_rows)
-          .flatten(1)
-          .reject(&:empty?)
+        generator.batch.csv_file_hash(filename)
       end
 
       private def labeled_data_cleaner(texts_and_labels)
