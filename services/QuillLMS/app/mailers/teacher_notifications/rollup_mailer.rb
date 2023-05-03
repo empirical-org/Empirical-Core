@@ -11,6 +11,14 @@ module TeacherNotifications
       TeacherInfo::WEEKLY_EMAIL => 'week'
     }
 
+    TRUNCATE_STUDENT_NAMES_AFTER = 10
+
+    NOTIFICATION_TYPE_PARTIAL_LOOKUP = {
+      "TeacherNotifications::StudentCompletedDiagnostic" => "students_completed_diagnostics",
+      "TeacherNotifications::StudentCompletedAllDiagnosticRecommendations" => "students_completed_all_diagnostic_recommendations",
+      "TeacherNotifications::StudentCompletedAllAssignedActivities" => "students_completed_all_assigned_activities"
+    }
+
     default from: "The Quill Team <hello@quill.org>"
 
     def rollup(user, teacher_notifications)
