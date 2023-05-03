@@ -118,44 +118,31 @@ class SerializeVitallySalesOrganization
 
   def active_students(start_date=nil, end_date=nil)
     # use raw SQL to bypass scope limits (visible: true) on classrooms
-    @active_students ||= ActivitySession
-      .joins(classroom_unit: [classroom: :classrooms_teachers])
-      .joins("JOIN schools_users ON classrooms_teachers.user_id = schools_users.user_id")
-      .joins("JOIN schools ON schools_users.school_id = schools.id")
-      .joins("JOIN districts ON schools.district_id = districts.id")
-      .select(:user_id)
-      .distinct
-      .where(state: 'finished')
+    @active_students = activities_completed_for_district_all_time.group("students.id")
 
-    return @active_students.count if start_date.blank? && end_date.blank?
+    return @active_students.length if start_date.blank? && end_date.blank?
 
     if start_date.present?
-      filtered_results = @active_students.where("activity_sessions.completed_at >= ?", start_date)
+      filtered_results = activities_completed_for_district_all_time.where("activity_sessions.completed_at >= ?", start_date).group("students.id")
     end
 
     if end_date.present?
-      filtered_results = @active_students.where("activity_sessions.completed_at <= ?", end_date)
+      filtered_results = activities_completed_for_district_all_time.where("activity_sessions.completed_at <= ?", end_date).group("students.id")
     end
 
-    filtered_results.count
+    filtered_results.length
   end
 
   def activities_completed(start_date=nil, end_date=nil)
     # use raw SQL to bypass scope limits (visible: true) on classrooms
-    @activities_completed ||= ClassroomsTeacher
-      .joins([user: [schools_users: [school: :district]]])
-      .joins([classroom: [classroom_units: :activity_sessions]])
-      .where('districts.id = ?', @district.id)
-      .where('activity_sessions.state = ?', 'finished')
-
-    return @activities_completed.count if start_date.blank? && end_date.blank?
+    return activities_completed_for_district_all_time.count if start_date.blank? && end_date.blank?
 
     if start_date.present?
-      filtered_results = @activities_completed.where("activity_sessions.completed_at >= ?", start_date)
+      filtered_results = activities_completed_for_district_all_time.where("activity_sessions.completed_at >= ?", start_date)
     end
 
     if end_date.present?
-      filtered_results = @activities_completed.where("activity_sessions.completed_at <= ?", end_date)
+      filtered_results = activities_completed_for_district_all_time.where("activity_sessions.completed_at <= ?", end_date)
     end
 
     filtered_results.count
@@ -170,6 +157,15 @@ class SerializeVitallySalesOrganization
       .order("students.last_sign_in DESC")
       .first
       &.last_sign_in
+  end
+
+  def activities_completed_for_district_all_time
+    @activities_completed ||= ClassroomsTeacher.select("students.id")
+      .joins([user: [schools_users: [school: :district]]])
+      .joins([classroom: [classroom_units: :activity_sessions]])
+      .joins("JOIN users students on students.id = activity_sessions.user_id")
+      .where('districts.id = ?', @district.id)
+      .where('activity_sessions.state = ?', 'finished')
   end
 
   private def latest_subscription
