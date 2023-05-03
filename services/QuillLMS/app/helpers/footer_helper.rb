@@ -7,7 +7,7 @@ module FooterHelper
       { href: '/assign', label: 'Assign Activities' },
       { href: '/teachers/classrooms', label: 'My Classes' },
       { href: '/teachers/classrooms/activity_planner', label: 'My Activities' },
-      { href: '/teachers/progress_reports/landing_page', label: 'My Student Reports' }
+      { href: '/teachers/progress_reports/landing_page', label: 'My Reports' }
     ]
   end
 
@@ -45,7 +45,7 @@ module FooterHelper
     [
       { href: '/teacher-center', label: 'All Resources' },
       { href: '/teacher-center/topic/whats-new', label: "What's New?" },
-      { href: '/teacher-center/topic/using-quill-for-reading-comprehension', label: 'Reading Comprehension' },
+      { href: '/teacher-center/topic/writing-for-learning', label: 'Writing For Learning' },
       { href: '/teacher-center/topic/getting_started', label: 'Getting Started' },
       { href: '/teacher-center/topic/video-tutorials', label: 'Video Tutorials' },
       { href: '/teacher-center/topic/best-practices', label: 'Best Practices' },

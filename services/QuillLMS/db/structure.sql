@@ -989,6 +989,135 @@ ALTER SEQUENCE public.blog_posts_id_seq OWNED BY public.blog_posts.id;
 
 
 --
+-- Name: canvas_accounts; Type: TABLE; Schema: public; Owner: -
+--
+
+CREATE TABLE public.canvas_accounts (
+    id bigint NOT NULL,
+    external_id character varying NOT NULL,
+    user_id bigint NOT NULL,
+    canvas_instance_id bigint NOT NULL,
+    created_at timestamp(6) without time zone NOT NULL,
+    updated_at timestamp(6) without time zone NOT NULL
+);
+
+
+--
+-- Name: canvas_accounts_id_seq; Type: SEQUENCE; Schema: public; Owner: -
+--
+
+CREATE SEQUENCE public.canvas_accounts_id_seq
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+
+--
+-- Name: canvas_accounts_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: -
+--
+
+ALTER SEQUENCE public.canvas_accounts_id_seq OWNED BY public.canvas_accounts.id;
+
+
+--
+-- Name: canvas_configs; Type: TABLE; Schema: public; Owner: -
+--
+
+CREATE TABLE public.canvas_configs (
+    id bigint NOT NULL,
+    canvas_instance_id bigint NOT NULL,
+    client_id_ciphertext text NOT NULL,
+    client_secret_ciphertext text NOT NULL,
+    created_at timestamp(6) without time zone NOT NULL,
+    updated_at timestamp(6) without time zone NOT NULL
+);
+
+
+--
+-- Name: canvas_configs_id_seq; Type: SEQUENCE; Schema: public; Owner: -
+--
+
+CREATE SEQUENCE public.canvas_configs_id_seq
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+
+--
+-- Name: canvas_configs_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: -
+--
+
+ALTER SEQUENCE public.canvas_configs_id_seq OWNED BY public.canvas_configs.id;
+
+
+--
+-- Name: canvas_instance_schools; Type: TABLE; Schema: public; Owner: -
+--
+
+CREATE TABLE public.canvas_instance_schools (
+    id bigint NOT NULL,
+    school_id bigint NOT NULL,
+    canvas_instance_id bigint NOT NULL,
+    created_at timestamp(6) without time zone NOT NULL,
+    updated_at timestamp(6) without time zone NOT NULL
+);
+
+
+--
+-- Name: canvas_instance_schools_id_seq; Type: SEQUENCE; Schema: public; Owner: -
+--
+
+CREATE SEQUENCE public.canvas_instance_schools_id_seq
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+
+--
+-- Name: canvas_instance_schools_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: -
+--
+
+ALTER SEQUENCE public.canvas_instance_schools_id_seq OWNED BY public.canvas_instance_schools.id;
+
+
+--
+-- Name: canvas_instances; Type: TABLE; Schema: public; Owner: -
+--
+
+CREATE TABLE public.canvas_instances (
+    id bigint NOT NULL,
+    url character varying NOT NULL,
+    created_at timestamp(6) without time zone NOT NULL,
+    updated_at timestamp(6) without time zone NOT NULL
+);
+
+
+--
+-- Name: canvas_instances_id_seq; Type: SEQUENCE; Schema: public; Owner: -
+--
+
+CREATE SEQUENCE public.canvas_instances_id_seq
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+
+--
+-- Name: canvas_instances_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: -
+--
+
+ALTER SEQUENCE public.canvas_instances_id_seq OWNED BY public.canvas_instances.id;
+
+
+--
 -- Name: categories; Type: TABLE; Schema: public; Owner: -
 --
 
@@ -2457,6 +2586,106 @@ CREATE SEQUENCE public.evidence_prompt_healths_id_seq
 --
 
 ALTER SEQUENCE public.evidence_prompt_healths_id_seq OWNED BY public.evidence_prompt_healths.id;
+
+
+--
+-- Name: evidence_prompt_text_batches; Type: TABLE; Schema: public; Owner: -
+--
+
+CREATE TABLE public.evidence_prompt_text_batches (
+    id bigint NOT NULL,
+    type character varying NOT NULL,
+    prompt_id integer NOT NULL,
+    config jsonb,
+    created_at timestamp(6) without time zone NOT NULL,
+    updated_at timestamp(6) without time zone NOT NULL
+);
+
+
+--
+-- Name: evidence_prompt_text_batches_id_seq; Type: SEQUENCE; Schema: public; Owner: -
+--
+
+CREATE SEQUENCE public.evidence_prompt_text_batches_id_seq
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+
+--
+-- Name: evidence_prompt_text_batches_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: -
+--
+
+ALTER SEQUENCE public.evidence_prompt_text_batches_id_seq OWNED BY public.evidence_prompt_text_batches.id;
+
+
+--
+-- Name: evidence_prompt_texts; Type: TABLE; Schema: public; Owner: -
+--
+
+CREATE TABLE public.evidence_prompt_texts (
+    id bigint NOT NULL,
+    prompt_text_batch_id integer NOT NULL,
+    text_generation_id integer NOT NULL,
+    text character varying NOT NULL,
+    label character varying,
+    ml_type character varying,
+    created_at timestamp(6) without time zone NOT NULL,
+    updated_at timestamp(6) without time zone NOT NULL
+);
+
+
+--
+-- Name: evidence_prompt_texts_id_seq; Type: SEQUENCE; Schema: public; Owner: -
+--
+
+CREATE SEQUENCE public.evidence_prompt_texts_id_seq
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+
+--
+-- Name: evidence_prompt_texts_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: -
+--
+
+ALTER SEQUENCE public.evidence_prompt_texts_id_seq OWNED BY public.evidence_prompt_texts.id;
+
+
+--
+-- Name: evidence_text_generations; Type: TABLE; Schema: public; Owner: -
+--
+
+CREATE TABLE public.evidence_text_generations (
+    id bigint NOT NULL,
+    type character varying NOT NULL,
+    config jsonb,
+    created_at timestamp(6) without time zone NOT NULL,
+    updated_at timestamp(6) without time zone NOT NULL
+);
+
+
+--
+-- Name: evidence_text_generations_id_seq; Type: SEQUENCE; Schema: public; Owner: -
+--
+
+CREATE SEQUENCE public.evidence_text_generations_id_seq
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+
+--
+-- Name: evidence_text_generations_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: -
+--
+
+ALTER SEQUENCE public.evidence_text_generations_id_seq OWNED BY public.evidence_text_generations.id;
 
 
 --
@@ -4271,7 +4500,8 @@ CREATE TABLE public.teacher_infos (
     user_id bigint NOT NULL,
     created_at timestamp(6) without time zone NOT NULL,
     updated_at timestamp(6) without time zone NOT NULL,
-    role_selected_at_signup character varying DEFAULT ''::character varying
+    role_selected_at_signup character varying DEFAULT ''::character varying,
+    notification_email_frequency text
 );
 
 
@@ -4292,6 +4522,72 @@ CREATE SEQUENCE public.teacher_infos_id_seq
 --
 
 ALTER SEQUENCE public.teacher_infos_id_seq OWNED BY public.teacher_infos.id;
+
+
+--
+-- Name: teacher_notification_settings; Type: TABLE; Schema: public; Owner: -
+--
+
+CREATE TABLE public.teacher_notification_settings (
+    id bigint NOT NULL,
+    user_id bigint NOT NULL,
+    notification_type text NOT NULL,
+    created_at timestamp(6) without time zone NOT NULL,
+    updated_at timestamp(6) without time zone NOT NULL
+);
+
+
+--
+-- Name: teacher_notification_settings_id_seq; Type: SEQUENCE; Schema: public; Owner: -
+--
+
+CREATE SEQUENCE public.teacher_notification_settings_id_seq
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+
+--
+-- Name: teacher_notification_settings_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: -
+--
+
+ALTER SEQUENCE public.teacher_notification_settings_id_seq OWNED BY public.teacher_notification_settings.id;
+
+
+--
+-- Name: teacher_notifications; Type: TABLE; Schema: public; Owner: -
+--
+
+CREATE TABLE public.teacher_notifications (
+    id bigint NOT NULL,
+    user_id bigint NOT NULL,
+    type text,
+    email_sent timestamp without time zone,
+    message_attrs jsonb,
+    created_at timestamp(6) without time zone NOT NULL,
+    updated_at timestamp(6) without time zone NOT NULL
+);
+
+
+--
+-- Name: teacher_notifications_id_seq; Type: SEQUENCE; Schema: public; Owner: -
+--
+
+CREATE SEQUENCE public.teacher_notifications_id_seq
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+
+--
+-- Name: teacher_notifications_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: -
+--
+
+ALTER SEQUENCE public.teacher_notifications_id_seq OWNED BY public.teacher_notifications.id;
 
 
 --
@@ -4981,6 +5277,34 @@ ALTER TABLE ONLY public.blog_posts ALTER COLUMN id SET DEFAULT nextval('public.b
 
 
 --
+-- Name: canvas_accounts id; Type: DEFAULT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY public.canvas_accounts ALTER COLUMN id SET DEFAULT nextval('public.canvas_accounts_id_seq'::regclass);
+
+
+--
+-- Name: canvas_configs id; Type: DEFAULT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY public.canvas_configs ALTER COLUMN id SET DEFAULT nextval('public.canvas_configs_id_seq'::regclass);
+
+
+--
+-- Name: canvas_instance_schools id; Type: DEFAULT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY public.canvas_instance_schools ALTER COLUMN id SET DEFAULT nextval('public.canvas_instance_schools_id_seq'::regclass);
+
+
+--
+-- Name: canvas_instances id; Type: DEFAULT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY public.canvas_instances ALTER COLUMN id SET DEFAULT nextval('public.canvas_instances_id_seq'::regclass);
+
+
+--
 -- Name: categories id; Type: DEFAULT; Schema: public; Owner: -
 --
 
@@ -5265,6 +5589,27 @@ ALTER TABLE ONLY public.evidence_hints ALTER COLUMN id SET DEFAULT nextval('publ
 --
 
 ALTER TABLE ONLY public.evidence_prompt_healths ALTER COLUMN id SET DEFAULT nextval('public.evidence_prompt_healths_id_seq'::regclass);
+
+
+--
+-- Name: evidence_prompt_text_batches id; Type: DEFAULT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY public.evidence_prompt_text_batches ALTER COLUMN id SET DEFAULT nextval('public.evidence_prompt_text_batches_id_seq'::regclass);
+
+
+--
+-- Name: evidence_prompt_texts id; Type: DEFAULT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY public.evidence_prompt_texts ALTER COLUMN id SET DEFAULT nextval('public.evidence_prompt_texts_id_seq'::regclass);
+
+
+--
+-- Name: evidence_text_generations id; Type: DEFAULT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY public.evidence_text_generations ALTER COLUMN id SET DEFAULT nextval('public.evidence_text_generations_id_seq'::regclass);
 
 
 --
@@ -5632,6 +5977,20 @@ ALTER TABLE ONLY public.teacher_infos ALTER COLUMN id SET DEFAULT nextval('publi
 
 
 --
+-- Name: teacher_notification_settings id; Type: DEFAULT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY public.teacher_notification_settings ALTER COLUMN id SET DEFAULT nextval('public.teacher_notification_settings_id_seq'::regclass);
+
+
+--
+-- Name: teacher_notifications id; Type: DEFAULT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY public.teacher_notifications ALTER COLUMN id SET DEFAULT nextval('public.teacher_notifications_id_seq'::regclass);
+
+
+--
 -- Name: teacher_saved_activities id; Type: DEFAULT; Schema: public; Owner: -
 --
 
@@ -5910,6 +6269,38 @@ ALTER TABLE ONLY public.blog_post_user_ratings
 
 ALTER TABLE ONLY public.blog_posts
     ADD CONSTRAINT blog_posts_pkey PRIMARY KEY (id);
+
+
+--
+-- Name: canvas_accounts canvas_accounts_pkey; Type: CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY public.canvas_accounts
+    ADD CONSTRAINT canvas_accounts_pkey PRIMARY KEY (id);
+
+
+--
+-- Name: canvas_configs canvas_configs_pkey; Type: CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY public.canvas_configs
+    ADD CONSTRAINT canvas_configs_pkey PRIMARY KEY (id);
+
+
+--
+-- Name: canvas_instance_schools canvas_instance_schools_pkey; Type: CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY public.canvas_instance_schools
+    ADD CONSTRAINT canvas_instance_schools_pkey PRIMARY KEY (id);
+
+
+--
+-- Name: canvas_instances canvas_instances_pkey; Type: CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY public.canvas_instances
+    ADD CONSTRAINT canvas_instances_pkey PRIMARY KEY (id);
 
 
 --
@@ -6238,6 +6629,30 @@ ALTER TABLE ONLY public.evidence_hints
 
 ALTER TABLE ONLY public.evidence_prompt_healths
     ADD CONSTRAINT evidence_prompt_healths_pkey PRIMARY KEY (id);
+
+
+--
+-- Name: evidence_prompt_text_batches evidence_prompt_text_batches_pkey; Type: CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY public.evidence_prompt_text_batches
+    ADD CONSTRAINT evidence_prompt_text_batches_pkey PRIMARY KEY (id);
+
+
+--
+-- Name: evidence_prompt_texts evidence_prompt_texts_pkey; Type: CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY public.evidence_prompt_texts
+    ADD CONSTRAINT evidence_prompt_texts_pkey PRIMARY KEY (id);
+
+
+--
+-- Name: evidence_text_generations evidence_text_generations_pkey; Type: CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY public.evidence_text_generations
+    ADD CONSTRAINT evidence_text_generations_pkey PRIMARY KEY (id);
 
 
 --
@@ -6665,6 +7080,22 @@ ALTER TABLE ONLY public.teacher_infos
 
 
 --
+-- Name: teacher_notification_settings teacher_notification_settings_pkey; Type: CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY public.teacher_notification_settings
+    ADD CONSTRAINT teacher_notification_settings_pkey PRIMARY KEY (id);
+
+
+--
+-- Name: teacher_notifications teacher_notifications_pkey; Type: CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY public.teacher_notifications
+    ADD CONSTRAINT teacher_notifications_pkey PRIMARY KEY (id);
+
+
+--
 -- Name: teacher_saved_activities teacher_saved_activities_pkey; Type: CONSTRAINT; Schema: public; Owner: -
 --
 
@@ -7069,6 +7500,55 @@ CREATE INDEX index_blog_posts_on_title ON public.blog_posts USING btree (title);
 --
 
 CREATE INDEX index_blog_posts_on_topic ON public.blog_posts USING btree (topic);
+
+
+--
+-- Name: index_canvas_accounts_on_canvas_instance_id; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX index_canvas_accounts_on_canvas_instance_id ON public.canvas_accounts USING btree (canvas_instance_id);
+
+
+--
+-- Name: index_canvas_accounts_on_user_id; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX index_canvas_accounts_on_user_id ON public.canvas_accounts USING btree (user_id);
+
+
+--
+-- Name: index_canvas_configs_on_canvas_instance_id; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX index_canvas_configs_on_canvas_instance_id ON public.canvas_configs USING btree (canvas_instance_id);
+
+
+--
+-- Name: index_canvas_instance_schools_on_canvas_instance_and_school; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE UNIQUE INDEX index_canvas_instance_schools_on_canvas_instance_and_school ON public.canvas_instance_schools USING btree (canvas_instance_id, school_id);
+
+
+--
+-- Name: index_canvas_instance_schools_on_canvas_instance_id; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX index_canvas_instance_schools_on_canvas_instance_id ON public.canvas_instance_schools USING btree (canvas_instance_id);
+
+
+--
+-- Name: index_canvas_instance_schools_on_school_id; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX index_canvas_instance_schools_on_school_id ON public.canvas_instance_schools USING btree (school_id);
+
+
+--
+-- Name: index_canvas_instances_on_url; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE UNIQUE INDEX index_canvas_instances_on_url ON public.canvas_instances USING btree (url);
 
 
 --
@@ -8024,6 +8504,27 @@ CREATE INDEX index_teacher_infos_on_user_id ON public.teacher_infos USING btree 
 
 
 --
+-- Name: index_teacher_notification_settings_on_user_id; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX index_teacher_notification_settings_on_user_id ON public.teacher_notification_settings USING btree (user_id);
+
+
+--
+-- Name: index_teacher_notification_settings_on_user_id_and_type; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE UNIQUE INDEX index_teacher_notification_settings_on_user_id_and_type ON public.teacher_notification_settings USING btree (user_id, notification_type);
+
+
+--
+-- Name: index_teacher_notifications_on_user_id; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX index_teacher_notifications_on_user_id ON public.teacher_notifications USING btree (user_id);
+
+
+--
 -- Name: index_teacher_saved_activities_on_activity_id; Type: INDEX; Schema: public; Owner: -
 --
 
@@ -8480,6 +8981,14 @@ ALTER TABLE ONLY public.evidence_prompt_healths
 
 
 --
+-- Name: teacher_notification_settings fk_rails_3291865e04; Type: FK CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY public.teacher_notification_settings
+    ADD CONSTRAINT fk_rails_3291865e04 FOREIGN KEY (user_id) REFERENCES public.users(id);
+
+
+--
 -- Name: comprehension_automl_models fk_rails_35c32f80fc; Type: FK CONSTRAINT; Schema: public; Owner: -
 --
 
@@ -8664,11 +9173,27 @@ ALTER TABLE ONLY public.standards
 
 
 --
+-- Name: canvas_instance_schools fk_rails_7da1e5386c; Type: FK CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY public.canvas_instance_schools
+    ADD CONSTRAINT fk_rails_7da1e5386c FOREIGN KEY (school_id) REFERENCES public.schools(id);
+
+
+--
 -- Name: user_pack_sequence_items fk_rails_8011bf338d; Type: FK CONSTRAINT; Schema: public; Owner: -
 --
 
 ALTER TABLE ONLY public.user_pack_sequence_items
     ADD CONSTRAINT fk_rails_8011bf338d FOREIGN KEY (pack_sequence_item_id) REFERENCES public.pack_sequence_items(id);
+
+
+--
+-- Name: teacher_notifications fk_rails_81552fbc91; Type: FK CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY public.teacher_notifications
+    ADD CONSTRAINT fk_rails_81552fbc91 FOREIGN KEY (user_id) REFERENCES public.users(id);
 
 
 --
@@ -8800,11 +9325,27 @@ ALTER TABLE ONLY public.comprehension_plagiarism_texts
 
 
 --
+-- Name: canvas_instance_schools fk_rails_bf91c7cfc4; Type: FK CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY public.canvas_instance_schools
+    ADD CONSTRAINT fk_rails_bf91c7cfc4 FOREIGN KEY (canvas_instance_id) REFERENCES public.canvas_instances(id);
+
+
+--
 -- Name: teacher_infos fk_rails_bff7948d7b; Type: FK CONSTRAINT; Schema: public; Owner: -
 --
 
 ALTER TABLE ONLY public.teacher_infos
     ADD CONSTRAINT fk_rails_bff7948d7b FOREIGN KEY (user_id) REFERENCES public.users(id);
+
+
+--
+-- Name: canvas_configs fk_rails_c246baa530; Type: FK CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY public.canvas_configs
+    ADD CONSTRAINT fk_rails_c246baa530 FOREIGN KEY (canvas_instance_id) REFERENCES public.canvas_instances(id);
 
 
 --
@@ -8856,6 +9397,14 @@ ALTER TABLE ONLY public.sales_contacts
 
 
 --
+-- Name: canvas_accounts fk_rails_d739d9f5b3; Type: FK CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY public.canvas_accounts
+    ADD CONSTRAINT fk_rails_d739d9f5b3 FOREIGN KEY (canvas_instance_id) REFERENCES public.canvas_instances(id);
+
+
+--
 -- Name: student_problem_reports fk_rails_d7543aef9e; Type: FK CONSTRAINT; Schema: public; Owner: -
 --
 
@@ -8877,6 +9426,14 @@ ALTER TABLE ONLY public.recommendations
 
 ALTER TABLE ONLY public.comprehension_regex_rules
     ADD CONSTRAINT fk_rails_dd1bb7c35b FOREIGN KEY (rule_id) REFERENCES public.comprehension_rules(id) ON DELETE CASCADE;
+
+
+--
+-- Name: canvas_accounts fk_rails_e2efdd920f; Type: FK CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY public.canvas_accounts
+    ADD CONSTRAINT fk_rails_e2efdd920f FOREIGN KEY (user_id) REFERENCES public.users(id);
 
 
 --
@@ -9351,6 +9908,7 @@ INSERT INTO "schema_migrations" (version) VALUES
 ('20211019143514'),
 ('20211026160939'),
 ('20211108171529'),
+('20211202235402'),
 ('20220105145446'),
 ('20220106193721'),
 ('20220128175405'),
@@ -9420,8 +9978,24 @@ INSERT INTO "schema_migrations" (version) VALUES
 ('20230206203447'),
 ('20230301151808'),
 ('20230301160642'),
+('20230306220015'),
+('20230306220016'),
+('20230306220017'),
+('20230317151920'),
+('20230317151921'),
+('20230317151922'),
 ('20230323114351'),
 ('20230328155819'),
-('20230405140349');
+('20230405140349'),
+('20230411145111'),
+('20230411145241'),
+('20230413140558'),
+('20230413215936'),
+('20230413215937'),
+('20230413215938'),
+('20230414164818'),
+('20230420141952'),
+('20230421172858'),
+('20230428190706');
 
 

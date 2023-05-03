@@ -402,22 +402,74 @@ module Evidence
 
     context "#labeled_synthetic_data" do
       let(:activity) { create(:evidence_activity) }
+      let(:because) {create(:evidence_prompt, conjunction: 'because', activity: activity)}
+      let(:but) {create(:evidence_prompt, conjunction: 'but', activity: activity)}
+      let(:so) {create(:evidence_prompt, conjunction: 'so', activity: activity)}
+
+      let(:blank_prompts) {{'because' => [], 'but' => [], 'so' => []}}
+      let(:prompt_files) {{'because' => ['one'], 'but' => ['two'], 'so' => ['three', 'four']}}
 
       it "should NOT call background worker if no filenames" do
         expect(Evidence::SyntheticLabeledDataWorker).to_not receive(:perform_async)
 
-        post :labeled_synthetic_data, params: { id: activity.id, filenames: [] }
+        post :labeled_synthetic_data, params: { id: activity.id, prompt_files: blank_prompts }
 
         expect(response).to have_http_status(:success)
       end
 
       it "should call background worker for each filename" do
-        expect(Evidence::SyntheticLabeledDataWorker).to receive(:perform_async).with('one', activity.id)
-        expect(Evidence::SyntheticLabeledDataWorker).to receive(:perform_async).with('two', activity.id)
+        expect(Evidence::SyntheticLabeledDataWorker).to receive(:perform_async).with('one', because.id)
+        expect(Evidence::SyntheticLabeledDataWorker).to receive(:perform_async).with('two', but.id)
+        expect(Evidence::SyntheticLabeledDataWorker).to receive(:perform_async).with('three', so.id)
+        expect(Evidence::SyntheticLabeledDataWorker).to receive(:perform_async).with('four', so.id)
 
-        post :labeled_synthetic_data, params: { id: activity.id, filenames: ['one', 'two'] }
+        post :labeled_synthetic_data, params: { id: activity.id, prompt_files: prompt_files }
 
         expect(response).to have_http_status(:success)
+      end
+    end
+
+    context "#topic_optimal_info" do
+      let(:because_concept) { SecureRandom.hex }
+      let(:but_concept) { SecureRandom.hex }
+      let(:so_concept) { SecureRandom.hex }
+
+      let(:because_rule) { create(:evidence_rule, rule_type: Evidence::Rule::TYPE_AUTOML, concept_uid: because_concept, optimal: true) }
+      let(:but_rule) { create(:evidence_rule, rule_type: Evidence::Rule::TYPE_AUTOML, concept_uid: but_concept, optimal: true) }
+      let(:so_rule) { create(:evidence_rule, rule_type: Evidence::Rule::TYPE_AUTOML, concept_uid: so_concept, optimal: true) }
+
+      let(:because_prompt) { create(:evidence_prompt, rules: [because_rule]) }
+      let(:but_prompt) { create(:evidence_prompt, rules: [but_rule]) }
+      let(:so_prompt) { create(:evidence_prompt, rules: [so_rule]) }
+
+      let(:activity) { create(:evidence_activity, prompts: [because_prompt, but_prompt, so_prompt]) }
+
+      it "should return a payload that includes the appropriate concept_uids for each prompt" do
+        get :topic_optimal_info, params: { id: activity.id }
+
+        parsed_response = JSON.parse(response.body)
+
+
+        expect(response).to have_http_status(:success)
+        expect(parsed_response['concept_uids']).to eq({
+          because_prompt.id.to_s => because_concept,
+          but_prompt.id.to_s => but_concept,
+          so_prompt.id.to_s => so_concept
+        })
+      end
+
+      it "should return a payload that includes the static list of rule_types that only trigger after semantic (autoML) rules" do
+        get :topic_optimal_info, params: { id: activity.id }
+
+        parsed_response = JSON.parse(response.body)
+
+        expect(response).to have_http_status(:success)
+        expect(parsed_response['rule_types']).to eq([
+          'rules-based-2',
+          'grammar',
+          'spelling',
+          'rules-based-3'
+        ])
       end
     end
   end

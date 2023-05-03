@@ -1,0 +1,22 @@
+#premium-hub-header {
+  background-color: white;
+  border-bottom: 10px solid #00c2a2;
+  .admin-nav-bar {
+    max-width: $sitewidepagewidth;
+    margin: 0 auto;
+  }
+  h4 {
+    cursor: pointer;
+    font-weight: 700 !important;
+    padding-top: 20px;
+    padding-bottom: 20px;
+  }
+  i, svg {
+    margin: 0px 15px;
+    color: $lightgray
+  }
+  hr {
+    border-top-color: $gray;
+    margin: 0px;
+  }
+}

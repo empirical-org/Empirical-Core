@@ -9,6 +9,7 @@
 @import '../../../../app/assets/stylesheets/shared/flash.scss';
 @import '../../../../app/assets/stylesheets/shared/banner.scss';
 @import '../../../../app/assets/stylesheets/shared/banner-with-button.scss';
+@import '../../../../app/assets/stylesheets/pages/blog_posts.scss';
 @import './typography.scss';
 @import './tool-section.scss';
 @import './schools-section.scss';
@@ -297,6 +298,11 @@ section.q-hero {
   background-position: center center;
   .navbar {
     background-color: initial;
+    .navbar-tooltip-trigger {
+      span {
+        color: #FFFFFF;
+      }
+    }
   }
   .header-section {
     display: flex;

@@ -114,6 +114,8 @@ class User < ApplicationRecord
   has_one :auth_credential, dependent: :destroy
   has_one :teacher_info, dependent: :destroy
   has_many :teacher_info_subject_areas, through: :teacher_info
+  has_many :teacher_notifications, dependent: :destroy
+  has_many :teacher_notification_settings, dependent: :destroy
   has_many :subject_areas, through: :teacher_info_subject_areas
   has_many :checkboxes
   has_many :credit_transactions
@@ -165,6 +167,9 @@ class User < ApplicationRecord
 
   has_one :learn_worlds_account, dependent: :destroy
 
+  has_many :canvas_accounts, dependent: :destroy
+  has_many :canvas_instances, through: :canvas_accounts
+
   accepts_nested_attributes_for :auth_credential
 
   delegate :name, :mail_city, :mail_state,
@@ -213,6 +218,8 @@ class User < ApplicationRecord
   after_save  :update_invitee_email_address, if: proc { saved_change_to_email? }
   after_save :check_for_school
   after_create :generate_referrer_id, if: proc { teacher? }
+  after_create :generate_default_notification_email_frequency, if: :teacher?
+  after_create :generate_default_teacher_notification_settings, if: :teacher?
 
   # This is a little weird, but in our current conception, all Admins are Teachers
   scope :teacher, -> { where(role: [ADMIN, TEACHER]) }
@@ -786,7 +793,19 @@ class User < ApplicationRecord
   end
 
   def learn_worlds_access?
-    teacher? && school&.premium?
+    school_premium? || district_premium?
+  end
+
+  def school_premium?
+    school&.subscription&.present?
+  end
+
+  def district_premium?
+    school&.district&.subscription&.present?
+  end
+
+  def school_or_district_premium?
+    school_premium? || district_premium?
   end
 
   private def validate_flags
@@ -843,6 +862,16 @@ class User < ApplicationRecord
 
   private def update_invitee_email_address
     Invitation.where(invitee_email: email_before_last_save).update_all(invitee_email: email)
+  end
+
+  private def generate_default_notification_email_frequency
+    create_teacher_info(notification_email_frequency: TeacherInfo::DAILY_EMAIL)
+  end
+
+  private def generate_default_teacher_notification_settings
+    TeacherNotificationSetting::DEFAULT_FOR_NEW_USERS.each do |notification_type|
+      teacher_notification_settings.create!(notification_type: notification_type)
+    end
   end
 end
 # rubocop:enable Metrics/ClassLength

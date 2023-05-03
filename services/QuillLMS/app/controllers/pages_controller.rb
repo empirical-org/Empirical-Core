@@ -393,6 +393,7 @@ class PagesController < ApplicationController
   def evidence_tool
     @title = 'Quill Reading for Evidence | Use a text to write with evidence'
     @description = 'Provide your students with nonfiction texts paired with AI-powered writing prompts, instead of multiple-choice questions, to enable deeper thinking.'
+    @featured_evidence_articles = BlogPost.where(topic: BlogPost::WRITING_FOR_LEARNING).order(created_at: :desc).limit(4)
   end
 
   def activities
@@ -504,6 +505,12 @@ class PagesController < ApplicationController
 
     @style_file = 'staff'
   end
+
+  def quill_academy
+    redirect_to root_path unless current_user
+  end
+
+  def teacher_premium; end
 
   private def determine_layout
     case action_name

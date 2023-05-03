@@ -78,7 +78,7 @@ export default class ClassReport extends React.Component {
     return names.sort((a, b) => {
       const aLast = a.split(' ')[1]
       const bLast = b.split(' ')[1]
-      return aLast.localeCompare(bLast)
+      return aLast?.localeCompare(bLast)
     })
   }
 

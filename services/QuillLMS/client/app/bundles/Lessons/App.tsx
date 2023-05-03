@@ -3,6 +3,8 @@ import Raven from 'raven-js';
 import React from 'react';
 import { Provider } from 'react-redux';
 import { HashRouter, Route, Switch } from 'react-router-dom';
+import { CompatRouter } from "react-router-dom-v5-compat";
+
 import Home from './components/home';
 import SocketProvider from './components/socketProvider';
 import BackOff from './utils/backOff';
@@ -28,9 +30,11 @@ BackOff();
 const store = createStore();
 
 const route = (
-  <Switch>
-    <Route component={Home} path="/" />
-  </Switch>
+  <CompatRouter>
+    <Switch>
+      <Route component={Home} path="/" />
+    </Switch>
+  </CompatRouter>
 );
 
 const App = () => (

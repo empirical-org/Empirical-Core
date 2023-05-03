@@ -207,12 +207,11 @@ EmpiricalGrammar::Application.routes.draw do
   put 'students/update_account' => 'students#update_account'
   put 'students/update_password' => 'students#update_password'
   get 'join/:classcode' => 'students#join_classroom'
-  get 'teachers/admin_dashboard' => 'teachers#admin_dashboard'
-  get 'teachers/admin_dashboard/school_subscriptions' => 'teachers#admin_dashboard', as: :teacher_admin_subscriptions
-  get 'teachers/admin_dashboard/district_activity_scores' => 'teachers#admin_dashboard'
-  get 'teachers/admin_dashboard/district_activity_scores/student_overview' => 'teachers#admin_dashboard'
-  get 'teachers/admin_dashboard/district_concept_reports' => 'teachers#admin_dashboard'
-  get 'teachers/admin_dashboard/district_standards_reports' => 'teachers#admin_dashboard'
+  get 'teachers/premium_hub' => 'teachers#premium_hub'
+  get 'teachers/premium_hub/school_subscriptions' => 'teachers#premium_hub', as: :premium_hub_school_subscriptions
+  get 'teachers/premium_hub/:tab' => 'teachers#premium_hub'
+  get 'teachers/admin_dashboard', to: redirect('teachers/premium_hub')
+  get 'teachers/admin_dashboard/:tab', to: redirect('teachers/premium_hub/%{tab}')
   post 'teachers/unlink/:teacher_id' => 'teachers#unlink'
   put 'teachers/update_current_user' => 'teachers#update_current_user'
   post 'teachers/unlink/:teacher_id' => 'teachers#unlink'
@@ -538,6 +537,10 @@ EmpiricalGrammar::Application.routes.draw do
       resources :student_problem_reports, only: [:create]
       resources :lockers, only: [:show, :create, :update]
 
+      resources :teacher_notification_settings, only: [:index] do
+        post 'bulk_update', on: :collection
+      end
+
       mount Evidence::Engine => "/evidence", as: :evidence
     end
 
@@ -746,6 +749,8 @@ EmpiricalGrammar::Application.routes.draw do
     springboard_units
     administrator
     locker
+    quill_academy
+    teacher_premium
   )
 
   all_pages = other_pages

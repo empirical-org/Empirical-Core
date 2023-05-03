@@ -2,4 +2,3 @@
 --color
 --format progress
 --format ParallelTests::RSpec::SummaryLogger --out tmp/spec_summary.log
---exclude-pattern "spec/skip_ci/*"

@@ -222,3 +222,17 @@ export const networkIcon = {
   alt: 'Black silhouette of group of 4 people',
   src: `${process.env.CDN_URL}/images/onboarding/network.svg`
 }
+
+export const whiteDiamondIcon = {
+  alt: 'White diamond',
+  src: `${process.env.CDN_URL}/images/icons/white-diamond.svg`
+}
+export const redDiamondIcon = {
+  alt: 'Red diamond',
+  src: `${process.env.CDN_URL}/images/icons/red-diamond.svg`
+}
+
+export const evidenceHandbookIcon = {
+  alt: 'Stack of papers with text "Quill Reading for Evidence Teacher Handbook"',
+  src: `${process.env.CDN_URL}/images/evidence/evidence-teacher-handbook.svg`
+}

@@ -75,6 +75,8 @@ describe User, type: :model do
   it { should have_many(:administered_schools).through(:schools_admins).source(:school).with_foreign_key('user_id') }
   it { should have_many(:classrooms_teachers) }
   it { should have_many(:teacher_saved_activities).with_foreign_key('teacher_id') }
+  it { should have_many(:teacher_notifications) }
+  it { should have_many(:teacher_notification_settings) }
   it { should have_many(:activities).through(:teacher_saved_activities)}
   it { should have_many(:classrooms_i_teach).through(:classrooms_teachers).source(:classroom) }
   it { should have_and_belong_to_many(:districts) }
@@ -84,6 +86,8 @@ describe User, type: :model do
   it { should have_many(:milestones).through(:user_milestones) }
   it { should have_many(:admin_approval_requests).with_foreign_key('requestee_id') }
   it { should have_one(:learn_worlds_account) }
+  it { should have_many(:canvas_accounts).dependent(:destroy) }
+  it { should have_many(:canvas_instances).through(:canvas_accounts) }
 
   it { should delegate_method(:name).to(:school).with_prefix(:school) }
   it { should delegate_method(:mail_city).to(:school).with_prefix(:school) }
@@ -1743,36 +1747,92 @@ describe User, type: :model do
   describe '#learn_worlds_access?' do
     subject { user.learn_worlds_access? }
 
-    context 'user is a student' do
-      let(:user) { create(:student) }
+    let(:user) { create(:teacher) }
 
-      it { expect(subject).to be_falsey }
-    end
+    context 'school_premium? is false' do
+      before { allow(user).to receive(:school_premium?).and_return(false) }
 
-    context 'user is a teacher' do
-      let(:user) { create(:teacher) }
+      context 'district_premium? is false' do
+        before { allow(user).to receive(:district_premium?).and_return(false) }
 
-      context 'school is nil' do
         it { expect(subject).to be_falsey }
       end
 
-      context 'school is present' do
-        let(:school) { double(premium?: premium) }
+      context 'district_premium? is true' do
+        before { allow(user).to receive(:district_premium?).and_return(true) }
 
-        before { allow(user).to receive(:school).and_return(school) }
-
-        context 'school is not premium' do
-          let(:premium) { false }
-
-          it { expect(subject).to be_falsey }
-        end
-
-        context 'school is premium' do
-          let(:premium) { true }
-
-          it { expect(subject).to be true}
-        end
+        it { expect(subject).to be_truthy }
       end
+    end
+
+    context 'school_premium? is true' do
+      before { allow(user).to receive(:school_premium?).and_return(true) }
+
+      it { expect(subject).to be_truthy }
+    end
+  end
+
+  describe '#generate_default_notification_email_frequency' do
+    it 'should be called after creation if teacher?' do
+      teacher = build(:teacher)
+
+      expect(teacher).to receive(:generate_default_notification_email_frequency)
+      teacher.save
+    end
+
+    it 'should not be called after creation if not teacher?' do
+      student = build(:student)
+
+      expect(student).not_to receive(:generate_default_notification_email_frequency)
+      student.save
+    end
+
+    it 'should not be called on non-create updates' do
+      teacher = create(:teacher)
+
+      expect(teacher).not_to receive(:generate_default_notification_email_frequency)
+      teacher.name = 'New Name'
+      teacher.save
+    end
+  end
+
+  describe '#generate_default_teacher_notification_settings' do
+    it 'should be called after creation if teacher?' do
+      teacher = build(:teacher)
+
+      expect(teacher).to receive(:generate_default_teacher_notification_settings)
+      teacher.save
+    end
+
+    it 'should not be called after creation if not teacher?' do
+      student = build(:student)
+
+      expect(student).not_to receive(:generate_default_teacher_notification_settings)
+      student.save
+    end
+
+    it 'should not be called on non-create updates' do
+      teacher = create(:teacher)
+
+      expect(teacher).not_to receive(:generate_default_notification_email_frequency)
+      teacher.name = 'New Name'
+      teacher.save
+    end
+
+    it 'should create new TeacherInfo record' do
+      teacher = build(:teacher)
+
+      expect do
+        teacher.save
+      end.to change(TeacherInfo, :count).by(1)
+    end
+
+    it 'should create new TeacherNotificationSetting records based on configured defaults' do
+      teacher = build(:teacher)
+
+      expect do
+        teacher.save
+      end.to change(TeacherNotificationSetting, :count).by(TeacherNotificationSetting::DEFAULT_FOR_NEW_USERS.length)
     end
   end
 end

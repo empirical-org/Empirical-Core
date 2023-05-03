@@ -23,3 +23,15 @@ export const getActivity = (sessionID: string, activityUID: string) => {
     })
   }
 }
+
+export const getTopicOptimalInfo = (activityID: number) => {
+  return async (dispatch: Function) => {
+    const topicOptimalInfoUrl = `${process.env.DEFAULT_URL}/api/v1/evidence/activities/${activityID}/topic_optimal_info`
+
+    await requestGet(topicOptimalInfoUrl, (body) => {
+      if (body) {
+        dispatch({ type: ActionTypes.RECEIVE_TOPIC_OPTIMAL_DATA, data: body, });
+      }
+    })
+  }
+}

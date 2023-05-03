@@ -12,16 +12,16 @@ describe TeachersController, type: :controller do
 
     before { allow(controller).to receive(:current_user) { teacher } }
 
-    describe '#admin_dashboard' do
+    describe '#premium_hub' do
       it 'redirect to profile if not admin' do
-        get :admin_dashboard
+        get :premium_hub
         expect(response).to redirect_to profile_path
       end
 
       it 'render admin dashboard' do
         user = create(:admin)
         allow(controller).to receive(:current_user) { user }
-        get :admin_dashboard
+        get :premium_hub
         expect(response).to render_template('admin')
       end
     end

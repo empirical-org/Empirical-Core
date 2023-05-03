@@ -5,7 +5,6 @@ import ReactOnRails from 'react-on-rails';
 import ActivityClassificationsApp from './ActivityClassificationsAppClient';
 import AdminAccessApp from './AdminAccessAppClient';
 import AdminAccountsApp from './AdminAccountsAppClient';
-import AdminDashboardApp from './AdminDashboardAppClient';
 import AdminsEditorApp from './AdminsEditorAppClient';
 import AnnouncementsApp from './AnnouncementsAppClient';
 import ApApp from './ApAppClient';
@@ -25,6 +24,7 @@ import PreApApp from './PreApAppClient';
 import PremiumPricingGuideApp from './PremiumPricingGuideAppClient';
 import PressApp from './PressAppClient';
 import ProgressReportApp from './ProgressReportAppClient';
+import PremiumHubApp from './PremiumHubAppClient';
 import PublicActivityPacksApp from './PublicActivityPacksAppClient.jsx';
 import PublicUnitTemplatesApp from './PublicUnitTemplatesAppClient.jsx';
 import QuestionsAndAnswersSection from './QuestionsAndAnswersClient';
@@ -60,7 +60,7 @@ ReactOnRails.register({ TeacherGuideApp,
   PremiumPricingGuideApp,
   ProgressReportApp,
   ResultsPageApp,
-  AdminDashboardApp,
+  PremiumHubApp,
   AdminAccountsApp,
   AdminsEditorApp,
   PublicActivityPacksApp,

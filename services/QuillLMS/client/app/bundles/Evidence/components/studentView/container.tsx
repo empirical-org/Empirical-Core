@@ -1,14 +1,14 @@
 import * as React from "react";
 import { convertNodeToElement } from 'react-html-parser';
 import { connect } from "react-redux";
-import stripHtml from "string-strip-html";
+import { stripHtml } from "string-strip-html";
 
 import ActivityFollowUp from './activityFollowUp';
 import ReadPassageContainer from './readPassageContainer';
 import RightPanel from './rightPanel';
 
 import { CLICK, KEYDOWN, KEYPRESS, MOUSEDOWN, MOUSEMOVE, READ_PASSAGE_STEP_NUMBER, SO_PASSAGE_STEP_NUMBER, VISIBILITYCHANGE, roundMillisecondsToSeconds } from '../../../Shared/index';
-import { getActivity } from "../../actions/activities";
+import { getActivity, getTopicOptimalInfo } from "../../actions/activities";
 import { TrackAnalyticsEvent } from "../../actions/analytics";
 import { completeActivitySession, fetchActiveActivitySession, getFeedback, processUnfetchableSession, reportAProblem, saveActiveActivitySession, saveActivitySurveyResponse, setActiveStepForSession, setActivityIsCompleteForSession, setExplanationSlidesCompletedForSession } from '../../actions/session';
 import { everyOtherStepCompleted, getCurrentStepDataForEventTracking, getLastSubmittedResponse, getStrippedPassageHighlights, getUrlParam, onMobile, outOfAttemptsForActivePrompt } from '../../helpers/containerActionHelpers';
@@ -103,6 +103,7 @@ export const StudentViewContainer = ({ dispatch, session, isTurk, location, acti
   }, [hasStartedReadPassageStep]);
 
   React.useEffect(() => {
+    dispatch(getTopicOptimalInfo(activityUID))
     if (sessionFromUrl) {
       const fetchActiveActivitySessionArgs = {
         sessionID: sessionFromUrl,
@@ -247,9 +248,9 @@ export const StudentViewContainer = ({ dispatch, session, isTurk, location, acti
 
   function defaultHandleFinishActivity() {
     const { sessionID, submittedResponses, } = session
-    const { currentActivity, } = activities
+    const { currentActivity, topicOptimalData } = activities
     const percentage = null // We always set percentages to "null"
-    const conceptResults = generateConceptResults(currentActivity, submittedResponses)
+    const conceptResults = generateConceptResults(currentActivity, submittedResponses, topicOptimalData)
     const data = {
       time_tracking: {
         onboarding: roundMillisecondsToSeconds(timeTracking[ONBOARDING]),
@@ -286,7 +287,7 @@ export const StudentViewContainer = ({ dispatch, session, isTurk, location, acti
     const activityUID = getUrlParam('uid', location, isTurk)
     const previousFeedback = session.submittedResponses[promptID] || [];
     // strip any HTML injected by browser extensions (such as Chrome highlight)
-    const strippedEntry = stripHtml(entry);
+    const strippedEntry = stripHtml(entry).result;
     if (activityUID) {
       const args = {
         sessionID,
