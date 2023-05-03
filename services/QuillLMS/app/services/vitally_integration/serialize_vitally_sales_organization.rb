@@ -117,10 +117,7 @@ class SerializeVitallySalesOrganization
   end
 
   def active_students(start_date=nil, end_date=nil)
-    # use raw SQL to bypass scope limits (visible: true) on classrooms
-    @active_students = activities_completed_for_district_all_time.group("students.id")
-
-    return @active_students.length if start_date.blank? && end_date.blank?
+    return activities_completed_for_district_all_time.group("students.id").length if start_date.blank? && end_date.blank?
 
     if start_date.present?
       filtered_results = activities_completed_for_district_all_time.where("activity_sessions.completed_at >= ?", start_date).group("students.id")
@@ -134,7 +131,6 @@ class SerializeVitallySalesOrganization
   end
 
   def activities_completed(start_date=nil, end_date=nil)
-    # use raw SQL to bypass scope limits (visible: true) on classrooms
     return activities_completed_for_district_all_time.count if start_date.blank? && end_date.blank?
 
     if start_date.present?
