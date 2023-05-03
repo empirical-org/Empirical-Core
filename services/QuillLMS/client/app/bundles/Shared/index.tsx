@@ -108,7 +108,8 @@ export {
   hexToRGBA,
   uniqueValuesArray,
   filterNumbers,
-  redirectToActivity
+  redirectToActivity,
+  renderNavList
 } from './libs/index'
 
 export {

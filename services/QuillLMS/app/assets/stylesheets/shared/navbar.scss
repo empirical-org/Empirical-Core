@@ -90,7 +90,6 @@
             &#premium-tab, &#admin-tab, &#quill-academy-tab {
               a {
                 display: flex;
-                // color: $quillgoldmedium !important;
                 .premium-tab-copy {
                   display: flex;
                   .large-diamond-icon {
@@ -653,12 +652,6 @@ nav.q-navbar-home {
     width: calc(100% - 30px);
   }
 }
-
-// @media only screen and (max-width : 1165px) and (min-width: 600px) {
-//   .navbar {
-//     width: calc(100% - 30px);
-//   }
-// }
 
 .q-nav-bar {
   margin: auto;

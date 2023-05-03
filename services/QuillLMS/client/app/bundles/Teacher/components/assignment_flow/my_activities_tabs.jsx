@@ -1,11 +1,25 @@
 import React from 'react';
 import useWindowSize from '../../../Shared/hooks/useWindowSize';
-import { MAX_VIEW_WIDTH_FOR_MOBILE_NAVBAR } from '../../../Shared';
+import { MAX_VIEW_WIDTH_FOR_MOBILE_NAVBAR, renderNavList } from '../../../Shared';
 
 const ACTIVE = 'active'
 const LAUNCH_LESSONS = 'Launch Lessons'
 const MY_OPEN_ACTIVITY_PACKS = 'My Open Activity Packs'
 const MY_CLOSED_ACTIVITY_PACKS = 'My Closed Activity Packs'
+const tabs = {
+  [MY_OPEN_ACTIVITY_PACKS]: {
+    label: MY_OPEN_ACTIVITY_PACKS,
+    url: '/teachers/classrooms/activity_planner'
+  },
+  [MY_CLOSED_ACTIVITY_PACKS]: {
+    label: MY_CLOSED_ACTIVITY_PACKS,
+    url: '/teachers/classrooms/activity_planner/closed'
+  },
+  [LAUNCH_LESSONS]: {
+    label: LAUNCH_LESSONS,
+    url: '/teachers/classrooms/activity_planner/lessons'
+  }
+}
 
 const MyActivitiesTabs = () => {
   const [dropdownOpen, setDropdownOpen] = React.useState(false);
@@ -29,6 +43,7 @@ const MyActivitiesTabs = () => {
 
   const size = useWindowSize();
   const onMobile = size.width <= MAX_VIEW_WIDTH_FOR_MOBILE_NAVBAR;
+  const activeStates = [openActivityPacksClassName, closedActivityPacksClassName, lessonsClassName];
 
   if(onMobile) {
     return(
@@ -39,20 +54,7 @@ const MyActivitiesTabs = () => {
               <p>{activeTab}</p>
               <i className="fa fa-thin fa-angle-down" />
             </button>
-            <ul className="dropdown-menu" role='menu'>
-              <li>
-                <a className={openActivityPacksClassName} href="/teachers/classrooms/activity_planner">{MY_OPEN_ACTIVITY_PACKS}</a>
-                <div className={`checkmark-icon ${openActivityPacksClassName}`} />
-              </li>
-              <li>
-                <a className={closedActivityPacksClassName} href="/teachers/classrooms/activity_planner/closed">{MY_CLOSED_ACTIVITY_PACKS}</a>
-                <div className={`checkmark-icon ${closedActivityPacksClassName}`} />
-              </li>
-              <li>
-                <a className={lessonsClassName} href="/teachers/classrooms/activity_planner/lessons">{LAUNCH_LESSONS}</a>
-                <div className={`checkmark-icon ${lessonsClassName}`} />
-              </li>
-            </ul>
+            {renderNavList({ tabs, activeStates, handleLinkClick: handleDropdownClick, listClass: 'dropdown-menu' })}
           </div>
         </div >
       </div >
@@ -62,11 +64,7 @@ const MyActivitiesTabs = () => {
   return (
     <div className='unit-tabs tab-subnavigation-wrapper desktop'>
       <div className="container">
-        <ul>
-          <li><a className={openActivityPacksClassName} href="/teachers/classrooms/activity_planner">{MY_OPEN_ACTIVITY_PACKS}</a></li>
-          <li><a className={closedActivityPacksClassName} href="/teachers/classrooms/activity_planner/closed">{MY_CLOSED_ACTIVITY_PACKS}</a></li>
-          <li><a className={lessonsClassName} href="/teachers/classrooms/activity_planner/lessons">{LAUNCH_LESSONS}</a></li>
-        </ul>
+        {renderNavList({ tabs, activeStates, handleLinkClick: handleDropdownClick })}
       </div>
     </div>
   )
