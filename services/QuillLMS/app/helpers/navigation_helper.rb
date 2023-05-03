@@ -192,18 +192,18 @@ module NavigationHelper
   # rubocop:disable Metrics/CyclomaticComplexity
   def determine_active_tab(current_path)
     if current_path.include?('tools')
-	    LEARNING_TOOLS
+      LEARNING_TOOLS
     elsif ['about', 'announcements', 'mission', 'impact', 'press', 'team', 'pathways', 'careers'].any? { |str| current_path.include?(str)}
-	    ABOUT_US
+      ABOUT_US
     # /activities/ is for the Featured Activities and ELA Standards sub pages of the Explore Curriculum section
     elsif ['/activities/', 'ap', 'preap', 'springboard'].any? { |str| current_path.include?(str)}
-	    EXPLORE_CURRICULUM
+      EXPLORE_CURRICULUM
     elsif ['teacher-center', 'faq'].any? { |str| current_path.include?(str)}
-	    TEACHER_CENTER
+      TEACHER_CENTER
     elsif current_path.include?('student-center')
       STUDENT_CENTER
     else
-	    determine_dashboard_active_tab(current_path)
+      determine_dashboard_active_tab(current_path)
     end
   end
 

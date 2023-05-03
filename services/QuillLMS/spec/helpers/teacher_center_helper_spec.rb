@@ -13,7 +13,7 @@ describe TeacherCenterHelper do
         { id: BlogPost::WRITING_FOR_LEARNING, name: BlogPost::WRITING_FOR_LEARNING, url: "/teacher-center/topic/writing-for-learning" },
         { id: BlogPost::GETTING_STARTED, name: BlogPost::GETTING_STARTED, url: "/teacher-center/topic/getting-started" },
         { id: BlogPost::BEST_PRACTICES, name: BlogPost::BEST_PRACTICES, url: "/teacher-center/topic/best-practices" },
-        { id: BlogPost::WRITING_INSTRUCTION_RESEARCH, name: "Research", url: "/teacher-center/topic/writing-instruction-research" },
+        { id: BlogPost::WRITING_INSTRUCTION_RESEARCH, name: BlogPost::WRITING_INSTRUCTION_RESEARCH, url: "/teacher-center/topic/writing-instruction-research" },
         { id: TeacherCenterHelper::FAQ, name: TeacherCenterHelper::FAQ, url: "/faq" },
         { id: BlogPost::WEBINARS, name: BlogPost::WEBINARS, url: "/teacher-center/topic/webinars" },
         { id: BlogPost::TEACHER_MATERIALS, name: BlogPost::TEACHER_MATERIALS, url: "/teacher-center/topic/teacher-materials" },

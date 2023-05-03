@@ -50,7 +50,7 @@ const MyActivitiesTabs = () => {
       <div className="unit-tabs tab-subnavigation-wrapper mobile">
         <div className="dropdown-container">
           <div className={`${dropdownOpen ? 'open' : ''}`}>
-            <button className="interactive-wrapper" onClick={handleDropdownClick} id="mobile-subnav-dropdown" type='button'>
+            <button className="interactive-wrapper" id="mobile-subnav-dropdown" onClick={handleDropdownClick} type='button'>
               <p>{activeTab}</p>
               <i className="fa fa-thin fa-angle-down" />
             </button>
