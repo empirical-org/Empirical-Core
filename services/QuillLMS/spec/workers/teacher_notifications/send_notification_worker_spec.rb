@@ -4,7 +4,7 @@ require 'rails_helper'
 
 module TeacherNotifications
   describe SendNotificationWorker, type: :worker do
-    let(:subject) { described_class.new }
+    subject { described_class.new }
 
     let(:classroom) { create(:classroom, :with_no_teacher)}
     let(:student) { create(:student, classrooms: [classroom])}
@@ -141,7 +141,7 @@ module TeacherNotifications
         incomplete_activity = create(:activity)
         unit_template.activities_unit_templates.create!(activity: incomplete_activity)
         unit.unit_activities.create!(activity: incomplete_activity)
-        
+
         expect(subject).not_to receive(:send_notification)
 
         subject.perform(activity_session.id)
@@ -152,7 +152,7 @@ module TeacherNotifications
         unit_template.activities_unit_templates.create(activity: unassigned_activity)
         unit.unit_activities.create(activity: unassigned_activity, visible: true)
         create(:activity_session, user: student, activity: unassigned_activity, classroom_unit: classroom_unit, completed_at: nil, state: 'started')
-        
+
         expect(subject).not_to receive(:send_notification)
 
         subject.perform(activity_session.id)
