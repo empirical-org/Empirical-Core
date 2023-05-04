@@ -21,6 +21,7 @@ class Api::V1::ActivitySessionsController < Api::ApiController
       status = :ok
       message = "Activity Session Updated"
       handle_concept_results
+      send_teacher_notifications
       ActiveActivitySession.find_by_uid(@activity_session.uid)&.destroy if @activity_session.completed_at
     else
       status = :unprocessable_entity
@@ -86,6 +87,12 @@ class Api::V1::ActivitySessionsController < Api::ApiController
       .map { |cr| concept_results_hash(cr) }
       .reject(&:empty?)
       .each { |crh| SaveActivitySessionConceptResultsWorker.perform_async(crh) }
+  end
+
+  private def send_teacher_notifications
+    return unless @activity_session.completed_at.present?
+
+    TeacherNotifications::SendNotificationWorker.perform_async(@activity_session.id)
   end
 
   private def concept_results_hash(concept_result)
