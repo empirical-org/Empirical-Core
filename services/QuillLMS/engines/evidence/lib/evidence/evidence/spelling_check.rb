@@ -16,6 +16,7 @@ module Evidence
 
     # TODO: replace with better exception code
     EXCEPTIONS = [
+      'antisemitic',
       'solartogether',
       'jerom',
       'espana',
