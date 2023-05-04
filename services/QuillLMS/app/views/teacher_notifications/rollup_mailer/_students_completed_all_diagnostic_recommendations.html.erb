@@ -1,0 +1,8 @@
+<h2>Completed all diagnostic diagnostic recommendations</h2>
+<p><i>Assign a post-test diagnostic <a href="https://www.quill.org/assign">here</a>.</i></p>
+<ul>
+  <% notifications.first(TeacherNotifications::RollupMailer::TRUNCATE_STUDENT_NAMES_AFTER).each do |notification| %>
+    <li><%= notification.student_name %></li>
+  <% end %>
+  <%= render 'truncate_student_names', notifications: notifications %>
+</ul>

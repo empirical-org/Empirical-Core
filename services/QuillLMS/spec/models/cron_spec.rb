@@ -29,6 +29,11 @@ describe "Cron", type: :model do
       expect(CreditReferringAccountsWorker).to receive(:perform_async)
       Cron.interval_1_hour
     end
+
+    it "enqueues TeacherNotifications::EnqueueUsersForRollupEmailWorker" do
+      expect(TeacherNotifications::EnqueueUsersForRollupEmailWorker).to receive(:perform_async).with(TeacherInfo::HOURLY_EMAIL)
+      Cron.interval_1_hour
+    end
   end
 
   describe "#interval_1_day" do
@@ -114,12 +119,24 @@ describe "Cron", type: :model do
       expect(SendSegmentIdentifyCallForAllAdminsWorker).to receive(:perform_async)
       Cron.interval_1_day
     end
+
+    it "enqueues TeacherNotifications::EnqueueUsersForRollupEmailWorker" do
+      expect(TeacherNotifications::EnqueueUsersForRollupEmailWorker).to receive(:perform_async).with(TeacherInfo::DAILY_EMAIL)
+      Cron.interval_1_day
+    end
   end
 
   describe "#run_weekday" do
     it "enqueues IdentifyStripeInvoicesWithoutSubscriptionsWorker" do
       expect(IdentifyStripeInvoicesWithoutSubscriptionsWorker).to receive(:perform_async)
       Cron.run_weekday
+    end
+  end
+
+  describe "#run_friday" do
+    it "enqueues TeacherNotifications::EnqueueUsersForRollupEmailWorker" do
+      expect(TeacherNotifications::EnqueueUsersForRollupEmailWorker).to receive(:perform_async).with(TeacherInfo::WEEKLY_EMAIL)
+      Cron.run_friday
     end
   end
 
