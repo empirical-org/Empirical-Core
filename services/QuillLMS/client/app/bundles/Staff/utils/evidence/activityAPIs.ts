@@ -68,10 +68,10 @@ export const createSeedData = async (nouns: string, labelConfigs: object, activi
   return { errors: [] };
 }
 
-export const createLabeledSyntheticData = async (filenames: string[], activityId: string) => {
+export const createLabeledSyntheticData = async (promptFiles: object, activityId: string) => {
   const response = await apiFetch(`activities/${activityId}/labeled_synthetic_data`, {
     method: 'POST',
-    body: JSON.stringify({filenames})
+    body: JSON.stringify({prompt_files: promptFiles})
   });
   const { status } = response;
 

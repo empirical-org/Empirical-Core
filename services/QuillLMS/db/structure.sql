@@ -2589,6 +2589,106 @@ ALTER SEQUENCE public.evidence_prompt_healths_id_seq OWNED BY public.evidence_pr
 
 
 --
+-- Name: evidence_prompt_text_batches; Type: TABLE; Schema: public; Owner: -
+--
+
+CREATE TABLE public.evidence_prompt_text_batches (
+    id bigint NOT NULL,
+    type character varying NOT NULL,
+    prompt_id integer NOT NULL,
+    config jsonb,
+    created_at timestamp(6) without time zone NOT NULL,
+    updated_at timestamp(6) without time zone NOT NULL
+);
+
+
+--
+-- Name: evidence_prompt_text_batches_id_seq; Type: SEQUENCE; Schema: public; Owner: -
+--
+
+CREATE SEQUENCE public.evidence_prompt_text_batches_id_seq
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+
+--
+-- Name: evidence_prompt_text_batches_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: -
+--
+
+ALTER SEQUENCE public.evidence_prompt_text_batches_id_seq OWNED BY public.evidence_prompt_text_batches.id;
+
+
+--
+-- Name: evidence_prompt_texts; Type: TABLE; Schema: public; Owner: -
+--
+
+CREATE TABLE public.evidence_prompt_texts (
+    id bigint NOT NULL,
+    prompt_text_batch_id integer NOT NULL,
+    text_generation_id integer NOT NULL,
+    text character varying NOT NULL,
+    label character varying,
+    ml_type character varying,
+    created_at timestamp(6) without time zone NOT NULL,
+    updated_at timestamp(6) without time zone NOT NULL
+);
+
+
+--
+-- Name: evidence_prompt_texts_id_seq; Type: SEQUENCE; Schema: public; Owner: -
+--
+
+CREATE SEQUENCE public.evidence_prompt_texts_id_seq
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+
+--
+-- Name: evidence_prompt_texts_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: -
+--
+
+ALTER SEQUENCE public.evidence_prompt_texts_id_seq OWNED BY public.evidence_prompt_texts.id;
+
+
+--
+-- Name: evidence_text_generations; Type: TABLE; Schema: public; Owner: -
+--
+
+CREATE TABLE public.evidence_text_generations (
+    id bigint NOT NULL,
+    type character varying NOT NULL,
+    config jsonb,
+    created_at timestamp(6) without time zone NOT NULL,
+    updated_at timestamp(6) without time zone NOT NULL
+);
+
+
+--
+-- Name: evidence_text_generations_id_seq; Type: SEQUENCE; Schema: public; Owner: -
+--
+
+CREATE SEQUENCE public.evidence_text_generations_id_seq
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+
+--
+-- Name: evidence_text_generations_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: -
+--
+
+ALTER SEQUENCE public.evidence_text_generations_id_seq OWNED BY public.evidence_text_generations.id;
+
+
+--
 -- Name: feedback_histories; Type: TABLE; Schema: public; Owner: -
 --
 
@@ -5492,6 +5592,27 @@ ALTER TABLE ONLY public.evidence_prompt_healths ALTER COLUMN id SET DEFAULT next
 
 
 --
+-- Name: evidence_prompt_text_batches id; Type: DEFAULT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY public.evidence_prompt_text_batches ALTER COLUMN id SET DEFAULT nextval('public.evidence_prompt_text_batches_id_seq'::regclass);
+
+
+--
+-- Name: evidence_prompt_texts id; Type: DEFAULT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY public.evidence_prompt_texts ALTER COLUMN id SET DEFAULT nextval('public.evidence_prompt_texts_id_seq'::regclass);
+
+
+--
+-- Name: evidence_text_generations id; Type: DEFAULT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY public.evidence_text_generations ALTER COLUMN id SET DEFAULT nextval('public.evidence_text_generations_id_seq'::regclass);
+
+
+--
 -- Name: feedback_histories id; Type: DEFAULT; Schema: public; Owner: -
 --
 
@@ -6508,6 +6629,30 @@ ALTER TABLE ONLY public.evidence_hints
 
 ALTER TABLE ONLY public.evidence_prompt_healths
     ADD CONSTRAINT evidence_prompt_healths_pkey PRIMARY KEY (id);
+
+
+--
+-- Name: evidence_prompt_text_batches evidence_prompt_text_batches_pkey; Type: CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY public.evidence_prompt_text_batches
+    ADD CONSTRAINT evidence_prompt_text_batches_pkey PRIMARY KEY (id);
+
+
+--
+-- Name: evidence_prompt_texts evidence_prompt_texts_pkey; Type: CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY public.evidence_prompt_texts
+    ADD CONSTRAINT evidence_prompt_texts_pkey PRIMARY KEY (id);
+
+
+--
+-- Name: evidence_text_generations evidence_text_generations_pkey; Type: CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY public.evidence_text_generations
+    ADD CONSTRAINT evidence_text_generations_pkey PRIMARY KEY (id);
 
 
 --
@@ -9763,6 +9908,7 @@ INSERT INTO "schema_migrations" (version) VALUES
 ('20211019143514'),
 ('20211026160939'),
 ('20211108171529'),
+('20211202235402'),
 ('20220105145446'),
 ('20220106193721'),
 ('20220128175405'),
@@ -9832,12 +9978,21 @@ INSERT INTO "schema_migrations" (version) VALUES
 ('20230206203447'),
 ('20230301151808'),
 ('20230301160642'),
+('20230306220015'),
+('20230306220016'),
+('20230306220017'),
+('20230317151920'),
+('20230317151921'),
+('20230317151922'),
 ('20230323114351'),
 ('20230328155819'),
 ('20230405140349'),
 ('20230411145111'),
 ('20230411145241'),
 ('20230413140558'),
+('20230413215936'),
+('20230413215937'),
+('20230413215938'),
 ('20230414164818'),
 ('20230420141952'),
 ('20230421172858'),
