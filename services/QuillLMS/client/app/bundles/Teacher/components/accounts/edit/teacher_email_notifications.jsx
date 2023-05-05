@@ -4,92 +4,164 @@ import { DropdownInput, } from '../../../../Shared/index';
 
 const smallWhiteCheckSrc = `${process.env.CDN_URL}/images/shared/check-small-white.svg`
 
-export default class TeacherEmailNotifications extends React.Component {
-  toggleSendNewsletter = () => {
-    const { sendNewsletter, updateUser, } = this.props
-    const data = {
-      send_newsletter: !sendNewsletter,
-      school_options_do_not_apply: true
-    };
-    updateUser(data, '/teachers/update_my_account', 'Settings saved')
-  };
+const TeacherEmailNotifications = ({ activateSection, active, deactivateSection, passedSendNewsletter, passedNotificationSettings, passedNotificationEmailFrequency, updateUser, updateNotificationSettings, updateTeacherInfo }) => {
 
-  toggleNotificationSetting = (setting) => {
-    const
+  const [sendNewsletter, setSendNewsletter] = React.useState(passedSendNewsletter)
+  const [notificationSettings, setNotificationSettings] = React.useState(passedNotificationSettings)
+  const [notificationEmailFrequency, setNotificationEmailFrequency] = React.useState(passedNotificationEmailFrequency)
 
-  renderCheckbox() {
-    const { sendNewsletter, } = this.props
-    if (sendNewsletter) {
-      return <div className="quill-checkbox selected" onClick={this.toggleSendNewsletter}><img alt="check" src={smallWhiteCheckSrc} /></div>
-    } else {
-      return <div className="quill-checkbox unselected" onClick={this.toggleSendNewsletter} />
-    }
+  React.useEffect(() => {
+    if (active) { return }
+
+    reset()
+  }, [active])
+
+  // The following three useEffect calls should be unnecesary, but I was finding
+  // in testing that during render cycles where "passed" values updated, the useState
+  // calls weren't updating, so the UI would revert to the original state until refresh.
+  // I suspect that it might be because the save call makes three separate API calls,
+  // but at least adding these hooks makes things work.
+  React.useEffect(() => {
+    setSendNewsletter(passedSendNewsletter)
+  }, [passedSendNewsletter])
+
+  React.useEffect(() => {
+    setNotificationSettings(passedNotificationSettings)
+  }, [passedNotificationSettings])
+
+  React.useEffect(() => {
+    setNotificationEmailFrequency(passedNotificationEmailFrequency)
+  }, [passedNotificationEmailFrequency])
+
+  function reset() {
+    setSendNewsletter(passedSendNewsletter)
+    setNotificationSettings(passedNotificationSettings)
+    setNotificationEmailFrequency(passedNotificationEmailFrequency)
   }
 
-  renderStudentEventCheckboxes() {
-    const { teacherNotificationSettings, } = this.props
+  function resetAndDeactivateSection() {
+    reset()
+    deactivateSection()
+  }
 
-    return Object.entries(teacherNotificationSettings).map((entry) => {
-      const [setting, value] = entry
+  function toggleSendNewsletter() {
+    setSendNewsletter(!sendNewsletter)
+  };
 
-      if (value) {
-        return (
-          <div>
-            <div className="quill-checkbox selected" onClick={this.toggleSendNewsletter}><img alt="check" src={smallWhiteCheckSrc} /></div>
-            <span>{setting}</span>
-          </div>
-        )
-      } else {
-        return (
-          <div>
-            <div className="quill-checkbox unselected" onClick={this.toggleSendNewsletter} />
-            <span>{setting}</span>
-          </div>
-        )
-      }
+  function toggleNotificationSetting(setting) {
+    setNotificationSettings({
+      ...notificationSettings,
+      ...{ [setting]: !notificationSettings[setting] }
     })
   }
 
-  renderNotificationEmailFrequencyDropdown() {
-    const { notificationEmailFrequency, } = this.props
+  function updateNotificationEmailFrequency(e) {
+    setNotificationEmailFrequency(e.value)
+  }
+
+  function handleSubmit(e) {
+    e?.preventDefault()
+
+    updateUser({
+      send_newsletter: sendNewsletter,
+      school_options_do_not_apply: true,
+    }, '/teachers/update_my_account', 'Settings saved')
+
+    updateNotificationSettings({
+      notification_types: notificationSettings
+    })
+
+    updateTeacherInfo({
+      notification_email_frequency: notificationEmailFrequency
+    })
+  }
+
+  function renderNewsletterCheckbox() {
+    const selectedClass = (sendNewsletter) ? "selected" : "unselected"
+    const checkboxImg = (sendNewsletter) ? (<img alt="check" src={smallWhiteCheckSrc} />) : ""
+
+    return (
+      <div className="checkbox-row">
+        <div className={`quill-checkbox ${selectedClass}`} onClick={toggleSendNewsletter}>{checkboxImg}</div>
+        <span>Receive bi-weekly newsletter (every two weeks)</span>
+      </div>
+    )
+  }
+
+  function renderStudentEventCheckboxes() {
+    const notificationSettingsToLabels = {
+      "TeacherNotifications::StudentCompletedDiagnostic": "Completed diagnostic",
+      "TeacherNotifications::StudentCompletedAllDiagnosticRecommendations": "Completed all diagnostic recommendations",
+      "TeacherNotifications::StudentCompletedAllAssignedActivities": "Completed all assigned activities"
+    }
+
+    return Object.entries(notificationSettings).map((entry) => {
+      const [setting, value] = entry
+
+      const selectedClass = (value) ? "selected" : "unselected"
+      const checkboxImg = (value) ? (<img alt="check" src={smallWhiteCheckSrc} />) : ""
+
+      return (
+        <div className="checkbox-row">
+          <div className={`quill-checkbox ${selectedClass}`} onClick={() => toggleNotificationSetting(setting)}>{checkboxImg}</div>
+          <span>{notificationSettingsToLabels[setting]}</span>
+        </div>
+      )
+    })
+  }
+
+  function renderNotificationEmailFrequencyDropdown() {
     const options = [
       { value: 'never', label: 'Never' },
       { value: 'hourly', label: 'Hourly' },
-      { value: 'daily', label: 'Daily' },
+      { value: 'daily', "label": 'Daily' },
       { value: 'weekly', label: 'Weekly' }
     ]
 
+    const selectedOption = options.find((option) => option.value === notificationEmailFrequency)
 
     return (
       <div>
         <DropdownInput
+          handleChange={updateNotificationEmailFrequency}
           label="Frequency"
           options={options}
-          handleChange={(e) => {this.changeSavedValues('dropdownThree', e)}}
-          value={notificationEmailFrequency}
-          isSearchable={false}
-          placeholder="Frequency"
+          value={selectedOption}
         />
         <p>You will only receive an email if an event occurs.</p>
       </div>
     )
   }
 
-  render() {
+  function renderButtonSection() {
+    if (!active) { return }
+
     return (
-      <div className="teacher-account-email-notifications user-account-section">
-        <h1>Email notifications</h1>
-        <div className="checkboxes">
-          <h2>Newsletters</h2>
-          <div className="checkbox-row">
-            {this.renderCheckbox('checkboxOne')}
-            <span>Receive bi-weekly newsletter (every two weeks)</span>
-          </div>
-          <h2>Student events</h2>
-          {this.renderStudentEventCheckboxes()}
-          {this.renderNotificationEmailFrequencyDropdown()}
-        </div>
+      <div className="button-section">
+        <button className="quill-button outlined secondary medium focus-on-light" id="cancel" onClick={resetAndDeactivateSection} type="button">Cancel</button>
+        <input aria-label="Save changes" className="quill-button primary contained medium focus-on-light" type="submit" value="Save changes" />
       </div>
     )
   }
+
+  return (
+    <div className="teacher-account-email-notifications user-account-section">
+      <h1>Email notifications</h1>
+      <form acceptCharset="UTF-8" onSubmit={handleSubmit}>
+        <div className="fields" onClick={activateSection} onKeyDown={activateSection}>
+          <div className="checkboxes">
+            <h2>Newsletters</h2>
+            {renderNewsletterCheckbox()}
+            <h2>Student events</h2>
+            {renderStudentEventCheckboxes()}
+          </div>
+          <h2>Email frequency</h2>
+          {renderNotificationEmailFrequencyDropdown()}
+        </div>
+        {renderButtonSection()}
+      </form>
+    </div>
+  )
 }
+
+export default TeacherEmailNotifications

@@ -18,6 +18,7 @@ const PASSWORD = 'password'
 const GRADE_LEVEL = 'gradeLevel'
 const SUBJECT_AREAS = 'subjectAreas'
 const GENERAL = 'general'
+const EMAIL_NOTIFICATIONS = 'emailNotifications'
 
 export default class TeacherAccount extends React.Component {
   constructor(props) {
@@ -110,12 +111,14 @@ export default class TeacherAccount extends React.Component {
         const {
           minimum_grade_level,
           maximum_grade_level,
-          subject_area_ids
+          subject_area_ids,
+          notification_email_frequency
         } = body
         this.setState({
           minimumGradeLevel: minimum_grade_level,
           maximumGradeLevel: maximum_grade_level,
           selectedSubjectAreaIds: subject_area_ids,
+          notificationEmailFrequency: notification_email_frequency,
           snackbarCopy,
           errors: {}
         }, () => {
@@ -129,14 +132,12 @@ export default class TeacherAccount extends React.Component {
     )
   }
 
-  updateTeacherNotificationSettings = (data) => {
-    requestPut(
-      '/api/v1/teacher_notification_settings',
+  updateNotificationSettings = (data) => {
+    requestPost(
+      '/api/v1/teacher_notification_settings/bulk_update',
       data,
       (body) => {
-        const {
-          teacher_notification_settings,
-        } = body
+        const { teacher_notification_settings, } = body
         this.setState({
           teacherNotificationSettings: teacher_notification_settings,
           errors: {}
@@ -213,6 +214,7 @@ export default class TeacherAccount extends React.Component {
       maximumGradeLevel,
       selectedSubjectAreaIds,
     } = this.state
+
     const { accountInfo, alternativeSchools, alternativeSchoolsNameMap, cleverLink, showDismissSchoolSelectionReminderCheckbox, subjectAreas, } = this.props
     return (
       <div className="user-account white-background-accommodate-footer">
@@ -256,12 +258,15 @@ export default class TeacherAccount extends React.Component {
           updateUser={this.updateUser}
         />
         <TeacherEmailNotifications
-          sendNewsletter={sendNewsletter}
-          notificationEmailFrequency={notificationEmailFrequency}
-          teacherNotificationSettings={teacherNotificationSettings}
+          activateSection={() => this.activateSection(EMAIL_NOTIFICATIONS)}
+          active={activeSection === EMAIL_NOTIFICATIONS}
+          deactivateSection={() => this.deactivateSection(EMAIL_NOTIFICATIONS)}
+          passedSendNewsletter={sendNewsletter}
+          passedNotificationSettings={teacherNotificationSettings}
+          passedNotificationEmailFrequency={notificationEmailFrequency}
           updateUser={this.updateUser}
+          updateNotificationSettings={this.updateNotificationSettings}
           updateTeacherInfo={this.updateTeacherInfo}
-          updateTeacherNotificationSettings={this.updateTeacherNotificationSettings}
         />
         <TeacherGradeLevels
           activateSection={() => this.activateSection(GRADE_LEVEL)}
