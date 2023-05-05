@@ -529,7 +529,13 @@ describe User, type: :model do
         school_type: School::US_K12_SCHOOL_DISPLAY_NAME,
         minimum_grade_level: teacher_info.minimum_grade_level,
         maximum_grade_level: teacher_info.maximum_grade_level,
-        subject_area_ids: teacher_info.subject_area_ids
+        subject_area_ids: teacher_info.subject_area_ids,
+        notification_email_frequency: TeacherInfo::DAILY_EMAIL,
+        teacher_notification_settings: {
+          "TeacherNotifications::StudentCompletedDiagnostic" => false,
+          "TeacherNotifications::StudentCompletedAllDiagnosticRecommendations" => false,
+          "TeacherNotifications::StudentCompletedAllAssignedActivities" => false
+        }
       })
       expect(user.generate_teacher_account_info).to eq(hash)
     end
@@ -542,7 +548,13 @@ describe User, type: :model do
         school_type: School::US_K12_SCHOOL_DISPLAY_NAME,
         minimum_grade_level: teacher_info.minimum_grade_level,
         maximum_grade_level: teacher_info.maximum_grade_level,
-        subject_area_ids: teacher_info.subject_area_ids
+        subject_area_ids: teacher_info.subject_area_ids,
+        notification_email_frequency: TeacherInfo::DAILY_EMAIL,
+        teacher_notification_settings: {
+          "TeacherNotifications::StudentCompletedDiagnostic" => false,
+          "TeacherNotifications::StudentCompletedAllDiagnosticRecommendations" => false,
+          "TeacherNotifications::StudentCompletedAllAssignedActivities" => false
+        }
       })
       expect(user.generate_teacher_account_info).to eq(hash)
     end
