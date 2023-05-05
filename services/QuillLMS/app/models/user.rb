@@ -879,9 +879,9 @@ class User < ApplicationRecord
   end
 
   private def school_account_info
-      return school if school&.name
+    return school if school&.name
 
-      School.find_by_name(School::NO_SCHOOL_SELECTED_SCHOOL_NAME)
+    School.find_by_name(School::NO_SCHOOL_SELECTED_SCHOOL_NAME)
   end
 
   private def school_type_account_info
