@@ -1,6 +1,6 @@
 import React from 'react';
 
-import { DropdownInput, } from '../../../../Shared/index';
+import { DropdownInput, informationIcon, } from '../../../../Shared/index';
 
 const smallWhiteCheckSrc = `${process.env.CDN_URL}/images/shared/check-small-white.svg`
 
@@ -128,7 +128,10 @@ const TeacherEmailNotifications = ({ activateSection, active, deactivateSection,
           options={options}
           value={selectedOption}
         />
-        <p>You will only receive an email if an event occurs.</p>
+        <p>
+          <img alt={informationIcon.alt} src={informationIcon.src} />
+          You will only receive an email if an event occurs.
+        </p>
       </div>
     )
   }
@@ -149,10 +152,12 @@ const TeacherEmailNotifications = ({ activateSection, active, deactivateSection,
       <h1>Email notifications</h1>
       <form acceptCharset="UTF-8" onSubmit={handleSubmit}>
         <div className="fields" onClick={activateSection} onKeyDown={activateSection}>
+          <h2>Newsletters</h2>
           <div className="checkboxes">
-            <h2>Newsletters</h2>
             {renderNewsletterCheckbox()}
-            <h2>Student events</h2>
+          </div>
+          <h2>Student events</h2>
+          <div className="checkboxes">
             {renderStudentEventCheckboxes()}
           </div>
           <h2>Email frequency</h2>

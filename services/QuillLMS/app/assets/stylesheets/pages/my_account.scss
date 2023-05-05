@@ -266,12 +266,17 @@
   h1 {
     font-size: 24px;
     font-weight: bold;
-    margin-bottom: 42px;
+    margin-bottom: 32px;
   }
   h2 {
     font-size: 16px;
     font-weight: bold;
     margin-bottom: 20px;
+  }
+  p {
+    img {
+      margin-right: 10px;
+    }
   }
   .input-container {
     margin-bottom: 20px;
@@ -322,6 +327,10 @@
       width: 80px;
       margin-right: 24px;
     }
+  }
+
+  .checkboxes {
+    margin-bottom: 32px;
   }
 
   .checkbox-row {
@@ -393,7 +402,7 @@
 }
 
 .user-linked-accounts {
-  padding-bottom: 42px;
+  padding-bottom: 32px;
   hr {
     width: 576px;
     margin: 25px 0px 25px -32px;
