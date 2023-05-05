@@ -639,9 +639,7 @@ class User < ApplicationRecord
     user_attributes[:minimum_grade_level] = teacher_info&.minimum_grade_level
     user_attributes[:maximum_grade_level] = teacher_info&.maximum_grade_level
     user_attributes[:notification_email_frequency] = teacher_info&.notification_email_frequency
-    user_attributes[:teacher_notification_settings] = TeacherNotificationSetting.notification_types.to_h do |notification_type|
-      [notification_type, teacher_notification_settings.exists?(notification_type: notification_type)]
-    end
+    user_attributes[:teacher_notification_settings] = teacher_notification_settings_info
     user_attributes[:subject_area_ids] = subject_area_ids
 
     if school && school.name
@@ -875,6 +873,12 @@ class User < ApplicationRecord
   private def generate_default_teacher_notification_settings
     TeacherNotificationSetting::DEFAULT_FOR_NEW_USERS.each do |notification_type|
       teacher_notification_settings.create!(notification_type: notification_type)
+    end
+  end
+
+  private def teacher_notification_settings_info
+    TeacherNotificationSetting.notification_types.to_h do |notification_type|
+      [notification_type, teacher_notification_settings.exists?(notification_type: notification_type)]
     end
   end
 end

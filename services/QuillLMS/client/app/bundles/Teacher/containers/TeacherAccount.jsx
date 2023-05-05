@@ -261,12 +261,12 @@ export default class TeacherAccount extends React.Component {
           activateSection={() => this.activateSection(EMAIL_NOTIFICATIONS)}
           active={activeSection === EMAIL_NOTIFICATIONS}
           deactivateSection={() => this.deactivateSection(EMAIL_NOTIFICATIONS)}
-          passedSendNewsletter={sendNewsletter}
-          passedNotificationSettings={teacherNotificationSettings}
           passedNotificationEmailFrequency={notificationEmailFrequency}
-          updateUser={this.updateUser}
+          passedNotificationSettings={teacherNotificationSettings}
+          passedSendNewsletter={sendNewsletter}
           updateNotificationSettings={this.updateNotificationSettings}
           updateTeacherInfo={this.updateTeacherInfo}
+          updateUser={this.updateUser}
         />
         <TeacherGradeLevels
           activateSection={() => this.activateSection(GRADE_LEVEL)}
