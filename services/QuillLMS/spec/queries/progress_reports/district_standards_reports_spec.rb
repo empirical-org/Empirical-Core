@@ -36,6 +36,53 @@ describe ProgressReports::DistrictStandardsReports do
     it { expect(subject).to eq [] }
   end
 
+  context '#standards_report_query' do
+    let(:assigned_student_ids) { [student1.id, student2.id] }
+    let(:activity1) { create(:activity, standard: standard1) }
+    let(:activity2) { create(:activity, standard: standard2) }
+
+    before do
+      create(
+        :activity_session,
+        :finished,
+        activity: activity1,
+        percentage: percentage1,
+        timespent: timespent1,
+        classroom_unit: classroom_unit,
+        user: student1
+      )
+
+      create(
+        :activity_session,
+        :finished,
+        activity: activity1,
+        percentage: percentage2,
+        timespent: timespent2,
+        classroom_unit: classroom_unit,
+        user: student2
+      )
+    end
+
+    it 'should WIP' do
+      report = described_class.new(admin.id)
+      query_result = report.standards_report_query(teacher.id, standard1.id)
+      expected =
+        {
+          "name"=>"Standard 1",
+          "standard_level_name"=>"Standard Level 1",
+          "total_activity_count"=>1,
+          "total_student_count"=>2,
+          "proficient_count"=>2,
+          "timespent"=>"30"
+        }
+      expect(query_result.count).to eq 1
+      expect(expected < query_result.first).to be true
+      expect(query_result.first.keys).to match_array(
+        %w(id name standard_level_name total_activity_count total_student_count proficient_count timespent)
+      )
+    end
+  end
+
   context 'student1 is assigned to classroom_unit' do
     let(:assigned_student_ids) { [student1.id] }
 
