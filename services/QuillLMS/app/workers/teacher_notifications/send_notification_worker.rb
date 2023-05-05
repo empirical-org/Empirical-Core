@@ -19,7 +19,7 @@ module TeacherNotifications
       ::ActivitySession.where(id: activity_session_id)
         .where.not(completed_at: nil)
         .includes(:user)
-        .includes(:teachers)
+        .includes(teachers: :teacher_notification_settings)
         .includes(:classroom)
         .includes(activity: :classification)
         .includes(unit_template: :recommendations)
@@ -71,8 +71,12 @@ module TeacherNotifications
 
     private def send_notification(type, message_attrs)
       @activity_session.teachers.each do |teacher|
-        type.create!(user: teacher, message_attrs: message_attrs)
+        type.create!(user: teacher, message_attrs: message_attrs) if teacher_receives_type(teacher, type)
       end
+    end
+
+    private def teacher_receives_type(user, type)
+      user.teacher_notification_settings.find_by(notification_type: type)
     end
   end
 end

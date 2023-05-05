@@ -45,7 +45,7 @@ module TeacherNotifications
       end
 
       it 'should return early if the activity associated with the session is not a diagnostic' do
-        activity_session.activity.classification.update(key: ActivityClassification::CONNECT_KEY)
+        activity.classification.update(key: ActivityClassification::CONNECT_KEY)
 
         expect(subject).not_to receive(:send_notification)
 
@@ -53,13 +53,13 @@ module TeacherNotifications
       end
 
       it 'should send a notification with appropriate values' do
-        activity_session.activity.classification.update(key: ActivityClassification::DIAGNOSTIC_KEY)
+        activity.classification.update(key: ActivityClassification::DIAGNOSTIC_KEY)
 
         expect(subject).to receive(:send_notification)
           .with(TeacherNotifications::StudentCompletedDiagnostic, {
-            student_name: activity_session.user.name,
-            classroom_name: activity_session.classroom.name,
-            diagnostic_name: activity_session.activity.name
+            student_name: student.name,
+            classroom_name: classroom.name,
+            diagnostic_name: activity.name
           })
 
         subject.perform(activity_session.id)
@@ -122,8 +122,8 @@ module TeacherNotifications
       it 'should send a notification with appropriate values' do
         expect(subject).to receive(:send_notification)
           .with(TeacherNotifications::StudentCompletedAllDiagnosticRecommendations, {
-            student_name: activity_session.user.name,
-            classroom_name: activity_session.classroom.name
+            student_name: student.name,
+            classroom_name: classroom.name
           })
 
         subject.perform(activity_session.id)
@@ -161,8 +161,8 @@ module TeacherNotifications
       it 'should send a notification with appropriate values' do
         expect(subject).to receive(:send_notification)
           .with(TeacherNotifications::StudentCompletedAllAssignedActivities, {
-            student_name: activity_session.user.name,
-            classroom_name: activity_session.classroom.name
+            student_name: student.name,
+            classroom_name: classroom.name
           })
 
         subject.perform(activity_session.id)
@@ -173,21 +173,35 @@ module TeacherNotifications
       let(:teacher1) { create(:teacher) }
       let(:teacher2) { create(:teacher) }
 
-      it 'should create TeacherNotification records of the appropriate type' do
+      before do
         classroom.classrooms_teachers.create(user: teacher1, role: 'owner')
+      end
 
+      it 'should create TeacherNotification records of the appropriate type' do
         expect do
           subject.perform(activity_session.id)
         end.to change(TeacherNotification, :count).by(1)
       end
 
       it 'should create a notification for each teacher of the classroom that the activity_session is related to' do
-        classroom.classrooms_teachers.create(user: teacher1, role: 'owner')
         classroom.classrooms_teachers.create(user: teacher2, role: 'coteacher')
 
         expect do
           subject.perform(activity_session.id)
         end.to change(TeacherNotification, :count).by(2)
+      end
+
+      it 'should skip sending notification types that the teacher does not have a TeacherNotificationSetting to receive' do
+        # This should set us up to qualify for two events: completed diagnostic and completed all activities
+        activity.classification.update(key: ActivityClassification::CONNECT_KEY)
+
+        # Our current code defaults to all TeacherNotificationSettings being turned on for new teachers, so we need to specifically disable one to test for when they're off
+        teacher1.teacher_notification_settings.find_by(notification_type: TeacherNotifications::StudentCompletedDiagnostic).destroy
+
+        expect(TeacherNotifications::StudentCompletedDiagnostic).not_to receive(:create!)
+        expect(TeacherNotifications::StudentCompletedAllAssignedActivities).to receive(:create!)
+
+        subject.perform(activity_session.id)
       end
     end
 
@@ -197,7 +211,7 @@ module TeacherNotifications
 
       before do
         # This makes our one activity a Diagnostic so that its completion triggers both "StudentCompletedDiagnostic" and "StudentCompletedAllAssignedActivities"
-        activity_session.activity.classification.update(key: ActivityClassification::DIAGNOSTIC_KEY)
+        activity.classification.update(key: ActivityClassification::DIAGNOSTIC_KEY)
       end
 
       it 'should write no records if there are any errors so that the job can safely re-run' do
