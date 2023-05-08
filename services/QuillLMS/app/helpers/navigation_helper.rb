@@ -48,7 +48,7 @@ module NavigationHelper
   ABOUT_US_TAB = { name: ABOUT_US, url: '/about' }
   ASSIGN_ACTIVITIES_TAB = { name: ASSIGN_ACTIVITIES, url: '/assign' }
   EXPLORE_CURRICULUM_TAB = { name: EXPLORE_CURRICULUM, url: '/activities/packs' }
-  HOME_TAB = { name: HOME, url: '/' }
+  HOME_TAB = { name: HOME, url: routes.root_path }
   LEARNING_TOOLS_TAB = { name: LEARNING_TOOLS, url: '/tools/connect', id: 'learning-tools' }
   LOGIN_TAB = { name: LOG_IN, url: '/session/new' }
   LOGOUT_TAB = { name: LOG_OUT, url: '/session', id: 'logout-tab' }
