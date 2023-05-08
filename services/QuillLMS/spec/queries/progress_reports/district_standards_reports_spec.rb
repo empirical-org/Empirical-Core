@@ -92,50 +92,63 @@ describe ProgressReports::DistrictStandardsReports do
       #   )
       # end
       let(:example_json) do
-        {"kind"=>"bigquery#queryResponse",
-        "schema"=>
-         {"fields"=>
-           [{"name"=>"id", "type"=>"INTEGER", "mode"=>"NULLABLE"},
-            {"name"=>"name", "type"=>"STRING", "mode"=>"NULLABLE"},
-            {"name"=>"standard_level_name", "type"=>"STRING", "mode"=>"NULLABLE"},
-            {"name"=>"total_activity_count", "type"=>"INTEGER", "mode"=>"NULLABLE"},
-            {"name"=>"total_student_count", "type"=>"INTEGER", "mode"=>"NULLABLE"},
-            {"name"=>"proficient_count", "type"=>"INTEGER", "mode"=>"NULLABLE"},
-            {"name"=>"timespent", "type"=>"FLOAT", "mode"=>"NULLABLE"}]},
-        "jobReference"=>
-         {"projectId"=>"analytics-data-stores", "jobId"=>"job_kS-b_Iml8O5mCgYv0soGWRXdxP6d", "location"=>"us-central1"},
-        "totalRows"=>"1",
-        "rows"=>
-         [{"f"=>
-            [{"v"=>"7"},
-             {"v"=>"1.1b Use common, proper, and possessive nouns"},
-             {"v"=>"CCSS: Grade 1"},
-             {"v"=>"1"},
-             {"v"=>"82"},
-             {"v"=>"82"},
-             {"v"=>nil}]}],
-        "totalBytesProcessed"=>"7817015634",
-        "jobComplete"=>true,
-        "cacheHit"=>false}
+        {
+          "kind"=>"bigquery#queryResponse",
+          "schema"=>{
+            "fields"=>[
+              {"name"=>"id", "type"=>"INTEGER", "mode"=>"NULLABLE"},
+              {"name"=>"name", "type"=>"STRING", "mode"=>"NULLABLE"},
+              {"name"=>"standard_level_name", "type"=>"STRING", "mode"=>"NULLABLE"},
+              {"name"=>"total_activity_count", "type"=>"INTEGER", "mode"=>"NULLABLE"},
+              {"name"=>"total_student_count", "type"=>"INTEGER", "mode"=>"NULLABLE"},
+              {"name"=>"proficient_count", "type"=>"INTEGER", "mode"=>"NULLABLE"},
+              {"name"=>"timespent", "type"=>"FLOAT", "mode"=>"NULLABLE"}
+            ]
+          },
+          "jobReference"=>{
+            "projectId"=>"analytics-data-stores", "jobId"=>"job_kS-b_Iml8O5mCgYv0soGWRXdxP6d", "location"=>"us-central1"
+          },
+          "totalRows"=>"1",
+          "rows"=>[
+            {
+              "f"=>[
+                {"v"=>"7"},
+                {"v"=>"1.1b Use common, proper, and possessive nouns"},
+                {"v"=>"CCSS: Grade 1"},
+                {"v"=>"1"},
+                {"v"=>"82"},
+                {"v"=>"82"},
+                {"v"=>nil}
+              ]
+            }
+          ],
+          "totalBytesProcessed"=>"7817015634",
+          "jobComplete"=>true,
+          "cacheHit"=>false
+        }
       end
 
-      xit 'should WIP' do
+      it 'should transform stubbed payload correctly' do
+        allow(QuillBigQuery::Runner).to receive(:get_response).and_return(example_json)
+
         report = described_class.new(admin.id)
         query_result = report.standards_report_query(teacher.id, standard1.id)
-        expected =
-          {
-            "name"=>"Standard 1",
-            "standard_level_name"=>"Standard Level 1",
-            "total_activity_count"=>1,
-            "total_student_count"=>2,
-            "proficient_count"=>2,
-            "timespent"=>"30"
-          }
+
+        expected = {
+          "id"=>7,
+          "name"=>"1.1b Use common, proper, and possessive nouns",
+          "standard_level_name"=>"CCSS: Grade 1",
+          "total_activity_count"=>1,
+          "total_student_count"=>82,
+          "proficient_count"=>82,
+          "timespent"=>nil
+        }
+
         expect(query_result.count).to eq 1
-        expect(expected < query_result.first).to be true
         expect(query_result.first.keys).to match_array(
           %w(id name standard_level_name total_activity_count total_student_count proficient_count timespent)
         )
+        expect(query_result.first).to eq expected
       end
     end
   end

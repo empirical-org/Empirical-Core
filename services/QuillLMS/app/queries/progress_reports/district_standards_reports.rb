@@ -29,7 +29,7 @@ class ProgressReports::DistrictStandardsReports
   end
 
   def standards_report_query(user_ids, standard_id)
-    RawSqlRunner.execute(
+    QuillBigQuery::Runner.execute(
       <<-SQL
         WITH final_activity_sessions AS (
           SELECT
@@ -39,14 +39,14 @@ class ProgressReports::DistrictStandardsReports
             activity_sessions.timespent,
             activity_sessions.user_id,
             activities.standard_id
-          FROM activity_sessions
-          JOIN classroom_units
-            ON activity_sessions.classroom_unit_id = classroom_units.id
-          JOIN activities
-            ON activity_sessions.activity_id = activities.id
-          JOIN classrooms_teachers
-            ON classrooms_teachers.classroom_id = classroom_units.classroom_id
-          WHERE activity_sessions.is_final_score
+            FROM lms.activity_sessions AS activity_sessions
+            JOIN lms.classroom_units AS classroom_units
+              ON activity_sessions.classroom_unit_id = classroom_units.id
+            JOIN lms.activities AS activities
+              ON activity_sessions.activity_id = activities.id
+            JOIN lms.classrooms_teachers
+              ON classrooms_teachers.classroom_id = classroom_units.classroom_id
+            WHERE activity_sessions.is_final_score
             AND classrooms_teachers.user_id in (#{user_ids})
             AND activity_sessions.visible
             AND classroom_units.visible
@@ -55,14 +55,14 @@ class ProgressReports::DistrictStandardsReports
 
         SELECT
           standards.id,
-          standards.name,
+          MAX(standards.name) AS name,
           standard_levels.name as standard_level_name,
           COUNT(DISTINCT(final_activity_sessions.activity_id)) as total_activity_count,
           COUNT(DISTINCT(final_activity_sessions.user_id)) as total_student_count,
           COUNT(DISTINCT(avg_score_for_standard_by_user.user_id)) as proficient_count,
           ROUND(AVG(final_activity_sessions.timespent) * COUNT(DISTINCT(final_activity_sessions.id))) AS timespent
-        FROM standards
-        JOIN standard_levels
+        FROM lms.standards
+        JOIN lms.standard_levels
           ON standard_levels.id = standards.standard_level_id
         JOIN final_activity_sessions
           ON final_activity_sessions.standard_id = standards.id
@@ -75,14 +75,14 @@ class ProgressReports::DistrictStandardsReports
           GROUP BY
             final_activity_sessions.standard_id,
             final_activity_sessions.user_id
-          HAVING AVG(percentage) >= #{PROFICIENT_THRESHOLD}
+          HAVING AVG(percentage) >= 0.8
         ) AS avg_score_for_standard_by_user
           ON avg_score_for_standard_by_user.standard_id = standards.id
         GROUP BY
           standards.id,
           standard_levels.name
-      SQL
-    ).to_a
+        SQL
+      ).to_a
   end
 
   def user_ids_query(admin_id)

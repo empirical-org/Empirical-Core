@@ -46,6 +46,7 @@ module QuillBigQuery
       rescue => e
         raise ClientExecutionError, "Query: #{query}, wrapped error: #{e}"
       end
+      #binding.pry
       body = JSON.parse(result.response.body)
     end
 
