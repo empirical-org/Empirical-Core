@@ -1,6 +1,5 @@
 import React from 'react';
-import useWindowSize from '../../../Shared/hooks/useWindowSize';
-import { MAX_VIEW_WIDTH_FOR_MOBILE_NAVBAR, renderNavList } from '../../../Shared';
+import { renderNavList } from '../../../Shared';
 
 const ACTIVE = 'active'
 const LAUNCH_LESSONS = 'Launch Lessons'
@@ -41,12 +40,10 @@ const MyActivitiesTabs = () => {
     setDropdownOpen(!dropdownOpen)
   }
 
-  const size = useWindowSize();
-  const onMobile = size.width <= MAX_VIEW_WIDTH_FOR_MOBILE_NAVBAR;
   const activeStates = [openActivityPacksClassName, closedActivityPacksClassName, lessonsClassName];
 
-  if(onMobile) {
-    return(
+  return(
+    <React.Fragment>
       <div className="unit-tabs tab-subnavigation-wrapper mobile">
         <div className="dropdown-container">
           <div className={`${dropdownOpen ? 'open' : ''}`}>
@@ -58,16 +55,13 @@ const MyActivitiesTabs = () => {
           </div>
         </div >
       </div >
-    )
-  }
-
-  return (
-    <div className='unit-tabs tab-subnavigation-wrapper desktop'>
-      <div className="container">
-        {renderNavList({ tabs, activeStates, handleLinkClick: handleDropdownClick })}
+      <div className='unit-tabs tab-subnavigation-wrapper desktop'>
+        <div className="container">
+          {renderNavList({ tabs, activeStates, handleLinkClick: handleDropdownClick })}
+        </div>
       </div>
-    </div>
-  )
+    </React.Fragment>
+  );
 }
 
 export default MyActivitiesTabs

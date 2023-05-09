@@ -41,4 +41,4 @@ export const PENDING = 'Pending'
 
 export const EVIDENCE_HANDBOOK_LINK = 'https://docsend.com/view/29vcfdqa5aupkmfp'
 
-export const MAX_VIEW_WIDTH_FOR_MOBILE_NAVBAR = 920
+export const MAX_VIEW_WIDTH_FOR_MOBILE_NAVBAR = 1150

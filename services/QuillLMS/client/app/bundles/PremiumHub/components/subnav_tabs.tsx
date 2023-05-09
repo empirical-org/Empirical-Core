@@ -1,5 +1,5 @@
 import * as React from 'react';
-import { whiteDiamondIcon, redDiamondIcon, MAX_VIEW_WIDTH_FOR_MOBILE_NAVBAR, renderNavList } from '../../Shared';
+import { whiteDiamondIcon, redDiamondIcon, renderNavList } from '../../Shared';
 
 const OVERVIEW = 'Overview';
 const SCHOOL_SUBSCRIPTIONS = 'School Subscriptions';
@@ -80,12 +80,11 @@ export default class AdminSubnav extends React.Component<any, any> {
   render() {
     const { overview, schoolSubscriptions, activityScores, conceptReports, standardsReports, dropdownOpen, activeTab } = this.state
     const activeStates = [overview, schoolSubscriptions, activityScores, conceptReports, standardsReports]
-    const onMobile = window.innerWidth <= MAX_VIEW_WIDTH_FOR_MOBILE_NAVBAR;
     const dropdownClass = dropdownOpen ? 'open' : '';
 
-    if(onMobile) {
-      return(
-        <div className="tab-subnavigation-wrapper class-subnav premium-hub-subnav mobile red">
+    return(
+      <React.Fragment>
+        <div className="tab-subnavigation-wrapper mobile class-subnav premium-hub-subnav red">
           <div className="dropdown-container">
             <div className={dropdownClass}>
               <button className="interactive-wrapper" id="mobile-subnav-dropdown" onClick={this.handleDropdownClick} type='button'>
@@ -96,15 +95,12 @@ export default class AdminSubnav extends React.Component<any, any> {
             </div>
           </div>
         </div >
-      )
-    }
-
-    return(
-      <div className="tab-subnavigation-wrapper class-subnav premium-hub-subnav desktop">
-        <div className="container">
-          {renderNavList({ tabs, activeStates, handleLinkClick: this.handleLinkClick })}
+        <div className="tab-subnavigation-wrapper desktop class-subnav premium-hub-subnav">
+          <div className="container">
+            {renderNavList({ tabs, activeStates, handleLinkClick: this.handleLinkClick })}
+          </div>
         </div>
-      </div>
+      </React.Fragment>
     );
   }
 };
