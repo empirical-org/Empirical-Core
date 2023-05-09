@@ -4,6 +4,10 @@ class Rack::Attack
   # Use redis for caching
   Rack::Attack.cache.store = Rack::Attack::StoreProxy::RedisStoreProxy.new($redis.redis)
 
+  RACK_ATTACK_THROTTLED_REGEX = Regexp.new(ENV.fetch('RACK_ATTACK_THROTTLED_REGEX'))
+  RACK_ATTACK_THROTTLED_REGEX_LIMIT = ENV.fetch('RACK_ATTACK_THROTTLED_REGEX_LIMIT').to_i
+  RACK_ATTACK_THROTTLED_REGEX_PERIOD = ENV.fetch('RACK_ATTACK_THROTTLED_REGEX_PERIOD').to_i.minutes
+
   Rack::Attack.throttle('limit logins per email', limit: 20, period: 10.minutes) do |req|
     if req.path == '/session/login_through_ajax' && req.post?
       # Important to use req.body.string here and not req.body.read,
@@ -11,6 +15,16 @@ class Rack::Attack
       # https://ruby-doc.org/stdlib-2.6.4/libdoc/stringio/rdoc/StringIO.html
       params = JSON.parse( req.body.string )
       params['user']['email'].to_s.downcase.gsub(/\s+/, "")
+    end
+  end
+
+  Rack::Attack.throttle(
+    'throttled URLs',
+    limit: RACK_ATTACK_THROTTLED_REGEX_LIMIT,
+    period: RACK_ATTACK_THROTTLED_REGEX_PERIOD
+  ) do |req|
+    if req.path.match?(RACK_ATTACK_THROTTLED_REGEX)
+      req.ip
     end
   end
 
