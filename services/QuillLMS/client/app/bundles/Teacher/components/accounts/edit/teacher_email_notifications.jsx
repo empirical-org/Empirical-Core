@@ -77,8 +77,8 @@ const TeacherEmailNotifications = ({ activateSection, active, deactivateSection,
   }
 
   function renderNewsletterCheckbox() {
-    const selectedClass = (sendNewsletter) ? "selected" : "unselected"
-    const checkboxImg = (sendNewsletter) ? (<img alt="check" src={smallWhiteCheckSrc} />) : ""
+    const selectedClass = sendNewsletter ? "selected" : "unselected"
+    const checkboxImg = sendNewsletter ? <img alt="check" src={smallWhiteCheckSrc} /> : ""
 
     return (
       <div className="checkbox-row">
