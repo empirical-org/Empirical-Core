@@ -11,7 +11,8 @@ module Evidence
       :use_passage,
       :languages,
       :generators,
-      :manual_types
+      :manual_types,
+      :import
     ]
 
     CSV_SUFFIX = '.csv'
@@ -95,6 +96,26 @@ module Evidence
 
     def labeled_analysis_csv_rows
       prompt_texts.map(&:labeled_analysis_csv_row)
+    end
+
+    # expects an array of arrays of the form [[ml_type, text, label],...]
+    # matches autoML upload
+    def self.import_labeled_csv(prompt_id, csv_array)
+      batch = create(type: TYPE_LABELED, prompt_id: prompt_id, import: true)
+      import_generation = Evidence::TextGeneration.create(type: Evidence::TextGeneration::TYPE_IMPORT)
+
+      csv_array.each do |array|
+        ml_type,text,label = array
+
+        batch.prompt_texts.new(
+          text_generation: import_generation,
+          text: text,
+          label: label,
+          ml_type: ml_type
+        )
+      end
+
+      batch.save
     end
   end
 end

@@ -32,7 +32,8 @@ module Evidence
       TYPE_PARAPHRASE = "Paraphrase",
       TYPE_SPELLING = "Spelling",
       TYPE_SPELLING_PASSAGE = "SpellingPassage",
-      TYPE_TRANSLATION = "Translation"
+      TYPE_TRANSLATION = "Translation",
+      TYPE_IMPORT = "Import"
     ]
 
     validates :type, presence: true, inclusion: {in: TYPES}

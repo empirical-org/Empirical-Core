@@ -51,4 +51,85 @@ namespace :synthetic do
       File.write(filename_with_number, contents)
     end
   end
+
+  # Processes a jsonl file (json lines file)
+  # Run: bundle exec rake synthetic:generate_embeddings\['/Users/danieldrabik/Dropbox/quill/gpt-experiments-data/quokkas_because_v7_train.jsonl',445\]
+  desc "generate labeled data from a local file"
+  task :generate_embeddings, [:filepath, :prompt_id] => :environment do |t, args|
+    filepath = args[:filepath]
+    prompt_id = args[:prompt_id]
+
+    array = File.readlines(filepath).map {|line| JSON.parse(line)}
+
+    array.each do |text_label_hash|
+      text = text_label_hash['text']
+      label = text_label_hash['label']
+      puts [label, text].join(" - ")
+      next if Evidence::Embedding.exists?(text: text, label: label, prompt_id: prompt_id)
+      puts "generating embedding"
+      embeddings = Evidence::OpenAI::Embedding.run(input: text)
+      Evidence::Embedding.create(
+        prompt_id: prompt_id,
+        text: text,
+        label: label,
+        embeddings: embeddings
+      )
+    end
+  end
+
+  # Run: bundle exec rake synthetic:generate_embedding_analysis\[999,445,5\]
+  desc "generate labeled data from a local file"
+  task :generate_embedding_analysis, [:analysis_prompt_id, :prompt_id, :limit] => :environment do |t, args|
+    analysis_prompt_id = args[:analysis_prompt_id]
+    prompt_id = args[:prompt_id]
+    limit = args[:limit] || Evidence::Embedding::LIMIT
+
+    path = ENV.fetch('SYNTHETIC_LOCAL_PATH', '~/Documents/')
+
+    CSV.open("#{path}/embedding-analysis-labels-#{prompt_id}-#{limit}.csv", "wb") do |csv|
+      header = ["text", "label", "closest", "similar", "popular", "algorithm"]
+      csv << header
+      rows = []
+      Evidence::Embedding.where(prompt_id: analysis_prompt_id).find_each do |embedding|
+        analysis_columns = [
+          embedding.closest_label(prompt_id),
+          embedding.similar_label(prompt_id, limit),
+          embedding.popular_label(prompt_id, limit),
+          embedding.algorithm_label(prompt_id, limit)
+        ]
+
+        rows << ([embedding.text, embedding.label] + analysis_columns)
+      end
+      rows.each {|r| csv << r}
+
+      total_count = rows.count.to_f
+      percentages = (2..5).map {|i| rows.count {|r| r[i] == r[1]} / total_count}
+
+      csv << ['','', percentages].flatten
+    end
+  end
+
+  # Run: bundle exec rake synthetic:generate_expanded_embedding_analysis\[999,445,5\]
+  desc "generate labeled data from a local file"
+  task :generate_expanded_embedding_analysis, [:analysis_prompt_id, :prompt_id, :limit] => :environment do |t, args|
+    analysis_prompt_id = args[:analysis_prompt_id]
+    prompt_id = args[:prompt_id]
+    limit = args[:limit] || Evidence::Embedding::LIMIT
+
+    path = ENV.fetch('SYNTHETIC_LOCAL_PATH', '~/Documents/')
+
+    CSV.open("#{path}/embedding-analysis-#{prompt_id}-#{limit}.csv", "wb") do |csv|
+      extra_columns = limit
+        .to_i
+        .times
+        .map {|i| ["label#{i+1}", "distance#{i+1}", "text#{i+1}"]}.flatten
+      header = ["text", "label"] + extra_columns
+      csv << header
+      Evidence::Embedding.where(prompt_id: analysis_prompt_id).find_each do |embedding|
+        analysis_columns = embedding.similar(prompt_id, limit).flatten
+
+        csv << ([embedding.text, embedding.label] + analysis_columns)
+      end
+    end
+  end
 end

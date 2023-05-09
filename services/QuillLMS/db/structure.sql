@@ -2507,6 +2507,39 @@ ALTER SEQUENCE public.evidence_activity_healths_id_seq OWNED BY public.evidence_
 
 
 --
+-- Name: evidence_embeddings; Type: TABLE; Schema: public; Owner: -
+--
+
+CREATE TABLE public.evidence_embeddings (
+    id integer NOT NULL,
+    prompt_id integer NOT NULL,
+    text text NOT NULL,
+    label text NOT NULL,
+    embeddings public.vector(1536) NOT NULL
+);
+
+
+--
+-- Name: evidence_embeddings_id_seq; Type: SEQUENCE; Schema: public; Owner: -
+--
+
+CREATE SEQUENCE public.evidence_embeddings_id_seq
+    AS integer
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+
+--
+-- Name: evidence_embeddings_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: -
+--
+
+ALTER SEQUENCE public.evidence_embeddings_id_seq OWNED BY public.evidence_embeddings.id;
+
+
+--
 -- Name: evidence_hints; Type: TABLE; Schema: public; Owner: -
 --
 
@@ -5578,6 +5611,13 @@ ALTER TABLE ONLY public.evidence_activity_healths ALTER COLUMN id SET DEFAULT ne
 
 
 --
+-- Name: evidence_embeddings id; Type: DEFAULT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY public.evidence_embeddings ALTER COLUMN id SET DEFAULT nextval('public.evidence_embeddings_id_seq'::regclass);
+
+
+--
 -- Name: evidence_hints id; Type: DEFAULT; Schema: public; Owner: -
 --
 
@@ -6616,6 +6656,14 @@ ALTER TABLE ONLY public.evidence_activity_healths
 
 
 --
+-- Name: evidence_embeddings evidence_embeddings_pkey; Type: CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY public.evidence_embeddings
+    ADD CONSTRAINT evidence_embeddings_pkey PRIMARY KEY (id);
+
+
+--
 -- Name: evidence_hints evidence_hints_pkey; Type: CONSTRAINT; Schema: public; Owner: -
 --
 
@@ -7255,6 +7303,13 @@ CREATE INDEX email_idx ON public.users USING gin (email public.gin_trgm_ops);
 --
 
 CREATE UNIQUE INDEX feedback_history_ratings_uniqueness ON public.feedback_history_ratings USING btree (user_id, feedback_history_id);
+
+
+--
+-- Name: idx_evidence_embeddings_embeddings; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX idx_evidence_embeddings_embeddings ON public.evidence_embeddings USING ivfflat (embeddings);
 
 
 --
@@ -9996,6 +10051,7 @@ INSERT INTO "schema_migrations" (version) VALUES
 ('20230414164818'),
 ('20230420141952'),
 ('20230421172858'),
-('20230428190706');
+('20230428190706'),
+('20230503205315');
 
 
