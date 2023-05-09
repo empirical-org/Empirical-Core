@@ -75,14 +75,14 @@ class ProgressReports::DistrictStandardsReports
           GROUP BY
             final_activity_sessions.standard_id,
             final_activity_sessions.user_id
-          HAVING AVG(percentage) >= 0.8
+          HAVING AVG(percentage) >= #{PROFICIENT_THRESHOLD}
         ) AS avg_score_for_standard_by_user
           ON avg_score_for_standard_by_user.standard_id = standards.id
         GROUP BY
           standards.id,
           standard_levels.name
-        SQL
-      ).to_a
+      SQL
+    )
   end
 
   def user_ids_query(admin_id)

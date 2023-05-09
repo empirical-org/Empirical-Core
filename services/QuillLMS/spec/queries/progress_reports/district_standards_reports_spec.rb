@@ -72,7 +72,8 @@ describe ProgressReports::DistrictStandardsReports do
         ]
       },
       "jobReference"=>{
-        "projectId"=>"analytics-data-stores", "jobId"=>"job_hdxcHeTAbIgInJ5nZvPUwryG853s", "location"=>"us-central1"},
+        "projectId"=>"analytics-data-stores", "jobId"=>"job_hdxcHeTAbIgInJ5nZvPUwryG853s", "location"=>"us-central1"
+      },
         "totalRows"=>"1",
         "rows"=>[
           {
@@ -88,8 +89,8 @@ describe ProgressReports::DistrictStandardsReports do
         "totalBytesProcessed"=>"7823614651",
         "jobComplete"=>true,
         "cacheHit"=>false
-      }
-    end
+    }
+  end
 
 
   context '#standards_report_query' do
@@ -103,8 +104,7 @@ describe ProgressReports::DistrictStandardsReports do
       end
 
       it 'tests end to end' do
-        expected =
-        [
+        expected = [
           {
           "id"=>7,
           "name"=>"1.1b Use common, proper, and possessive nouns",
@@ -188,7 +188,7 @@ describe ProgressReports::DistrictStandardsReports do
 
       results = report.results
 
-      expect(results.first.pluck('id')).to match_array [7]
+      expect(results.pluck('id')).to eq [7]
       expect(results.count).to eq 1
     end
 
