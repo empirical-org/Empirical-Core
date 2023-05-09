@@ -294,7 +294,7 @@ describe 'SerializeVitallySalesOrganization' do
       runtime = Benchmark.realtime { expect(SerializeVitallySalesOrganization.new(district).active_students(Time.zone.today - 1.year)).to eq(2000) }
       puts format('Average runtime for active students this year: %<runtime>.3f seconds', {runtime: runtime })
 
-      runtime = Benchmark.realtime { expect(SerializeVitallySalesOrganization.new(district).active_students(Time.zone.today - 2.year, Time.zone.today - 1.year)).to eq(0) }
+      runtime = Benchmark.realtime { expect(SerializeVitallySalesOrganization.new(district).active_students(Time.zone.today - 2.years, Time.zone.today - 1.year)).to eq(0) }
       puts format('Average runtime for active students last year: %<runtime>.3f seconds', {runtime: runtime })
 
       runtime = Benchmark.realtime { expect(SerializeVitallySalesOrganization.new(district).activities_completed).to eq(10000) }
@@ -303,7 +303,7 @@ describe 'SerializeVitallySalesOrganization' do
       runtime = Benchmark.realtime { expect(SerializeVitallySalesOrganization.new(district).activities_completed(Time.zone.today - 1.year)).to eq(10000) }
       puts format('Average runtime for activities completed this year: %<runtime>.3f seconds', {runtime: runtime })
 
-      runtime = Benchmark.realtime { expect(SerializeVitallySalesOrganization.new(district).activities_completed(Time.zone.today - 2.year, Time.zone.today - 1.year)).to eq(0) }
+      runtime = Benchmark.realtime { expect(SerializeVitallySalesOrganization.new(district).activities_completed(Time.zone.today - 2.years, Time.zone.today - 1.year)).to eq(0) }
       puts format('Average runtime for activities completed last year: %<runtime>.3f seconds', {runtime: runtime })
 
       runtime = Benchmark.realtime { expect(SerializeVitallySalesOrganization.new(district).last_active_time).to eq(Time.zone.today) }
