@@ -3,9 +3,14 @@
 <p>Here’s what happened in the last <%= @frequency %> on Quill:</p>
 
 <% @teacher_notifications.each do |classroom_name, notifications_by_type| %>
-  <h1><%= classroom_name %></h1>
-  <% notifications_by_type.each do |notification_type, notifications| %>
+  <h2><%= classroom_name %></h2>
+  <% TeacherNotifications::RollupMailer::NOTIFICATION_TYPE_SORT_ORDER.map(&:to_s).each do |notification_type| %>
+    <% next unless notifications_by_type[notification_type] %>
     <%= render TeacherNotifications::RollupMailer::NOTIFICATION_TYPE_PARTIAL_LOOKUP[notification_type],
-        notifications: notifications %>
+        notifications: notifications_by_type[notification_type] %>
   <% end %>
+  <hr>
+  <p><a href="https://www.quill.org/teachers/my_account">Manage email preferences</a></p>
+  <p>Quill.org</p>
+  <p>41 E 11th St, New York, NY 10003, USA</p>
 <% end %>
