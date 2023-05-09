@@ -4,9 +4,10 @@ class Rack::Attack
   # Use redis for caching
   Rack::Attack.cache.store = Rack::Attack::StoreProxy::RedisStoreProxy.new($redis.redis)
 
-  RACK_ATTACK_THROTTLED_REGEX = Regexp.new(ENV.fetch('RACK_ATTACK_THROTTLED_REGEX'))
-  RACK_ATTACK_THROTTLED_REGEX_LIMIT = ENV.fetch('RACK_ATTACK_THROTTLED_REGEX_LIMIT').to_i
-  RACK_ATTACK_THROTTLED_REGEX_PERIOD = ENV.fetch('RACK_ATTACK_THROTTLED_REGEX_PERIOD').to_i.minutes
+  THROTTLED_REGEX_STRING = ENV.fetch('RACK_ATTACK_THROTTLED_REGEX', '')
+  THROTTLED_REGEX = THROTTLED_REGEX_STRING.present? ? Regexp.new(THROTTLED_REGEX_STRING) : nil
+  THROTTLED_REGEX_LIMIT = ENV.fetch('RACK_ATTACK_THROTTLED_REGEX_LIMIT', 20).to_i
+  THROTTLED_REGEX_PERIOD = ENV.fetch('RACK_ATTACK_THROTTLED_REGEX_PERIOD', 60).to_i.minutes
 
   Rack::Attack.throttle('limit logins per email', limit: 20, period: 10.minutes) do |req|
     if req.path == '/session/login_through_ajax' && req.post?
@@ -20,11 +21,15 @@ class Rack::Attack
 
   Rack::Attack.throttle(
     'throttled URLs',
-    limit: RACK_ATTACK_THROTTLED_REGEX_LIMIT,
-    period: RACK_ATTACK_THROTTLED_REGEX_PERIOD
+    limit: THROTTLED_REGEX_LIMIT,
+    period: THROTTLED_REGEX_PERIOD
   ) do |req|
-    if req.path.match?(RACK_ATTACK_THROTTLED_REGEX)
-      req.ip
+    if THROTTLED_REGEX.present?
+      if req.path != '/404' && req.path != '/500'
+        if req.path.match?(THROTTLED_REGEX)
+          req.ip
+        end
+      end
     end
   end
 
@@ -37,7 +42,7 @@ class Rack::Attack
 
     # Using 503 because it may make attacker think that they have successfully
     # DOSed the site. Rack::Attack returns 429 for throttling by default
-    [503, {}, [{ message: 'Too many login attempts. Please try again later.', type: 'password' }.to_json]]
+    [503, {}, [{ message: 'Too many attempts. Please try again later.', type: 'password' }.to_json]]
   end
 
 end
