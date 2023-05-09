@@ -11,11 +11,13 @@ class Cron
   # Configured in Heroku Scheduler to run every hour on the XX:30 mark
   def self.interval_1_hour
     CreditReferringAccountsWorker.perform_async
+    TeacherNotifications::EnqueueUsersForRollupEmailWorker.perform_async(TeacherInfo::HOURLY_EMAIL)
   end
 
   # Configured in Heroku Scheduler to run every day at 07:00UTC
   # Which is 02:00 or 03:00 Eastern depending on Daylight Savings
   def self.interval_1_day
+    run_friday if now.wday == 5
     run_saturday if now.wday == 6
     run_weekday if (1..5).include?(now.wday)
     run_school_year_start if now.month == 7 && now.day == 1
@@ -45,6 +47,9 @@ class Cron
     PreCachePremiumHubsWorker.perform_async
     PopulateAggregatedEvidenceActivityHealthsWorker.perform_async
     Question::TYPES.each { |type| RefreshQuestionCacheWorker.perform_async(type) }
+
+    # Email notifications
+    TeacherNotifications::EnqueueUsersForRollupEmailWorker.perform_async(TeacherInfo::DAILY_EMAIL)
   end
 
   # Configured in Heroku Scheduler to run at XX:20
@@ -59,6 +64,10 @@ class Cron
 
   def self.run_weekday
     IdentifyStripeInvoicesWithoutSubscriptionsWorker.perform_async
+  end
+
+  def self.run_friday
+    TeacherNotifications::EnqueueUsersForRollupEmailWorker.perform_async(TeacherInfo::WEEKLY_EMAIL)
   end
 
   def self.run_saturday
