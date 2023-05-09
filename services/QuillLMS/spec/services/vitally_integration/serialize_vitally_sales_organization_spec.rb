@@ -267,4 +267,38 @@ describe 'SerializeVitallySalesOrganization' do
       end
     end
   end
+
+  context 'benchmarking', :benchmarking do
+    let!(:district) { create(:district) }
+    let!(:connect_activity) { create(:connect_activity) }
+    let!(:last_school_year) { Time.zone.today - 1.year }
+    let!(:schools) { create_list(:school, 80, district: district)}
+
+    it 'run benchmarking on a district with 80 schools and 10000 activities' do
+      schools.each do |school|
+        teacher = create(:teacher, school: school)
+        classroom = create(:classroom)
+        classroom_teacher = create(:classrooms_teacher, user: teacher, classroom: classroom)
+        diagnostic = create(:diagnostic_activity)
+        unit = create(:unit, activities: [diagnostic])
+        students = create_list(:student, 25, student_in_classroom: [classroom], last_sign_in: Date.today)
+        classroom_unit = create(:classroom_unit, classroom: classroom, unit: unit, assigned_student_ids: students.map(&:id))
+        students.each do |student|
+          create_list(:activity_session, 5, state: 'finished', completed_at: Time.current, user: student, classroom_unit: classroom_unit, activity: diagnostic)
+        end
+      end
+
+      runtime = Benchmark.realtime { expect(SerializeVitallySalesOrganization.new(district).active_students).to eq(2000) }
+      puts format('Average runtime for active students all time: %<runtime>.3f seconds', {runtime: runtime })
+
+      runtime = Benchmark.realtime { expect(SerializeVitallySalesOrganization.new(district).active_students(Date.today - 1.year)).to eq(2000) }
+      puts format('Average runtime for active students this year: %<runtime>.3f seconds', {runtime: runtime })
+
+      runtime = Benchmark.realtime { expect(SerializeVitallySalesOrganization.new(district).activities_completed).to eq(10000) }
+      puts format('Average runtime for activities completed all time: %<runtime>.3f seconds', {runtime: runtime })
+
+      runtime = Benchmark.realtime { expect(SerializeVitallySalesOrganization.new(district).last_active_time).to eq(Date.today) }
+      puts format('Average runtime for last sign in: %<runtime>.3f seconds', {runtime: runtime })
+    end
+  end
 end
