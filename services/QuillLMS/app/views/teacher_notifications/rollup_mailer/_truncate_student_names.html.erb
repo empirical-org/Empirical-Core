@@ -1,0 +1,3 @@
+<% if notifications.length > 10 %>
+  <li>...and <%= pluralize(notifications.length - 10, 'other student') %>.</li>
+<% end %>
