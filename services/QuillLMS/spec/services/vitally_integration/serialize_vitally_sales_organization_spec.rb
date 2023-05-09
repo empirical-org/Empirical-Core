@@ -281,7 +281,7 @@ describe 'SerializeVitallySalesOrganization' do
         classroom_teacher = create(:classrooms_teacher, user: teacher, classroom: classroom)
         diagnostic = create(:diagnostic_activity)
         unit = create(:unit, activities: [diagnostic])
-        students = create_list(:student, 25, student_in_classroom: [classroom], last_sign_in: Date.today)
+        students = create_list(:student, 25, student_in_classroom: [classroom], last_sign_in: Time.zone.today)
         classroom_unit = create(:classroom_unit, classroom: classroom, unit: unit, assigned_student_ids: students.map(&:id))
         students.each do |student|
           create_list(:activity_session, 5, state: 'finished', completed_at: Time.current, user: student, classroom_unit: classroom_unit, activity: diagnostic)
@@ -291,13 +291,22 @@ describe 'SerializeVitallySalesOrganization' do
       runtime = Benchmark.realtime { expect(SerializeVitallySalesOrganization.new(district).active_students).to eq(2000) }
       puts format('Average runtime for active students all time: %<runtime>.3f seconds', {runtime: runtime })
 
-      runtime = Benchmark.realtime { expect(SerializeVitallySalesOrganization.new(district).active_students(Date.today - 1.year)).to eq(2000) }
+      runtime = Benchmark.realtime { expect(SerializeVitallySalesOrganization.new(district).active_students(Time.zone.today - 1.year)).to eq(2000) }
       puts format('Average runtime for active students this year: %<runtime>.3f seconds', {runtime: runtime })
+
+      runtime = Benchmark.realtime { expect(SerializeVitallySalesOrganization.new(district).active_students(Time.zone.today - 2.year, Time.zone.today - 1.year)).to eq(0) }
+      puts format('Average runtime for active students last year: %<runtime>.3f seconds', {runtime: runtime })
 
       runtime = Benchmark.realtime { expect(SerializeVitallySalesOrganization.new(district).activities_completed).to eq(10000) }
       puts format('Average runtime for activities completed all time: %<runtime>.3f seconds', {runtime: runtime })
 
-      runtime = Benchmark.realtime { expect(SerializeVitallySalesOrganization.new(district).last_active_time).to eq(Date.today) }
+      runtime = Benchmark.realtime { expect(SerializeVitallySalesOrganization.new(district).activities_completed(Time.zone.today - 1.year)).to eq(10000) }
+      puts format('Average runtime for activities completed this year: %<runtime>.3f seconds', {runtime: runtime })
+
+      runtime = Benchmark.realtime { expect(SerializeVitallySalesOrganization.new(district).activities_completed(Time.zone.today - 2.year, Time.zone.today - 1.year)).to eq(0) }
+      puts format('Average runtime for activities completed last year: %<runtime>.3f seconds', {runtime: runtime })
+
+      runtime = Benchmark.realtime { expect(SerializeVitallySalesOrganization.new(district).last_active_time).to eq(Time.zone.today) }
       puts format('Average runtime for last sign in: %<runtime>.3f seconds', {runtime: runtime })
     end
   end
