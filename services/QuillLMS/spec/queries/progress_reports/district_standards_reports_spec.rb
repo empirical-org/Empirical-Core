@@ -8,7 +8,7 @@ describe ProgressReports::DistrictStandardsReports do
     %w(id name standard_level_name total_activity_count total_student_count proficient_count timespent)
   end
 
-  let(:exmaple_null_json) do
+  let(:example_null_json) do
     {
       "schema" => {
         "fields" => []
@@ -180,7 +180,7 @@ describe ProgressReports::DistrictStandardsReports do
 
     it 'should handle bigquery responses with null rows' do
       create(:standard, id: 6)
-      stubbed_payload_sequence = [example_json, exmaple_null_json]
+      stubbed_payload_sequence = [example_json, example_null_json]
       allow(QuillBigQuery::Runner).to receive(:get_response).and_return(*stubbed_payload_sequence)
 
       report = described_class.new(admin.id)
