@@ -24,12 +24,12 @@ class Rack::Attack
     limit: THROTTLED_REGEX_LIMIT,
     period: THROTTLED_REGEX_PERIOD
   ) do |req|
-    return nil unless req.get?
-    return nil if THROTTLED_REGEX.blank?
-    return nil if req.path == '/404'
-    return nil if req.path == '/500'
+    if !req.get? &&
+      THROTTLED_REGEX.present? &&
+      req.path != '/404' &&
+      req.path != '/500' &&
+      req.path.match?(THROTTLED_REGEX)
 
-    if req.path.match?(THROTTLED_REGEX)
       req.ip
     end
   end
