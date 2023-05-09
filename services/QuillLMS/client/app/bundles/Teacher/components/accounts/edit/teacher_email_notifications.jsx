@@ -16,6 +16,19 @@ const TeacherEmailNotifications = ({ activateSection, active, deactivateSection,
     reset()
   }, [active])
 
+  React.useEffect(() => {
+    if (!Object.values(notificationSettings).some(v => v === true)) { return }
+    if (notificationEmailFrequency !== 'never') { return }
+
+    setNotificationEmailFrequency('daily')
+  }, [notificationSettings])
+
+  React.useEffect(() => {
+    if (notificationEmailFrequency !== 'never') { return }
+
+    unsetAllNotificationSettings()
+  }, [notificationEmailFrequency])
+
   // The following three useEffect calls should be unnecesary, but I was finding
   // in testing that during render cycles where "passed" values updated, the useState
   // calls weren't updating, so the UI would revert to the original state until refresh.
@@ -55,6 +68,14 @@ const TeacherEmailNotifications = ({ activateSection, active, deactivateSection,
     })
   }
 
+  function unsetAllNotificationSettings() {
+    Object.keys(notificationSettings).forEach(k => notificationSettings[k] = false)
+
+    setNotificationSettings(
+      notificationSettings
+    )
+  }
+
   function updateNotificationEmailFrequency(e) {
     setNotificationEmailFrequency(e.value)
   }
@@ -83,16 +104,16 @@ const TeacherEmailNotifications = ({ activateSection, active, deactivateSection,
     return (
       <div className="checkbox-row">
         <div className={`quill-checkbox ${selectedClass}`} onClick={toggleSendNewsletter}>{checkboxImg}</div>
-        <span>Receive bi-weekly newsletter (every two weeks)</span>
+        <span>Bi-weekly newsletter</span>
       </div>
     )
   }
 
   function renderStudentEventCheckboxes() {
     const notificationSettingsToLabels = {
-      "TeacherNotifications::StudentCompletedDiagnostic": "Completed diagnostic",
-      "TeacherNotifications::StudentCompletedAllDiagnosticRecommendations": "Completed all diagnostic recommendations",
-      "TeacherNotifications::StudentCompletedAllAssignedActivities": "Completed all assigned activities"
+      "TeacherNotifications::StudentCompletedDiagnostic": "Student completed diagnostic",
+      "TeacherNotifications::StudentCompletedAllDiagnosticRecommendations": "Student completed all diagnostic recommendations",
+      "TeacherNotifications::StudentCompletedAllAssignedActivities": "Student completed all assigned activities"
     }
 
     return Object.entries(notificationSettings).map((entry) => {
@@ -114,7 +135,7 @@ const TeacherEmailNotifications = ({ activateSection, active, deactivateSection,
     const options = [
       { value: 'never', label: 'Never' },
       { value: 'hourly', label: 'Hourly' },
-      { value: 'daily', "label": 'Daily' },
+      { value: 'daily', label: 'Daily' },
       { value: 'weekly', label: 'Weekly' }
     ]
 
@@ -149,18 +170,18 @@ const TeacherEmailNotifications = ({ activateSection, active, deactivateSection,
 
   return (
     <div className="teacher-account-email-notifications user-account-section">
-      <h1>Email notifications</h1>
+      <h1>Email preferences</h1>
       <form acceptCharset="UTF-8" onSubmit={handleSubmit}>
         <div className="fields" onClick={activateSection} onKeyDown={activateSection}>
           <h2>Newsletters</h2>
           <div className="checkboxes">
             {renderNewsletterCheckbox()}
           </div>
-          <h2>Student events</h2>
+          <h2>Notifications</h2>
           <div className="checkboxes">
             {renderStudentEventCheckboxes()}
           </div>
-          <h2>Email frequency</h2>
+          <h2>Notification frequency</h2>
           {renderNotificationEmailFrequencyDropdown()}
         </div>
         {renderButtonSection()}
