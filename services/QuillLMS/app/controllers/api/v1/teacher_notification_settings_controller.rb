@@ -33,9 +33,7 @@ class Api::V1::TeacherNotificationSettingsController < ApplicationController
 
   private def types_and_values
     {
-      teacher_notification_settings: TeacherNotificationSetting.notification_types.to_h do |notification_type|
-        [notification_type, @current_settings.exists?(notification_type: notification_type)]
-      end
+      teacher_notification_settings: @current_settings.rollup_hash
     }
   end
 

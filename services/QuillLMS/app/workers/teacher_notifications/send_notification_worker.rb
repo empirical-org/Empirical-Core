@@ -27,7 +27,7 @@ module TeacherNotifications
     end
 
     private def send_complete_diagnostic
-      return unless @activity_session.activity.classification.key == ActivityClassification::DIAGNOSTIC_KEY
+      return unless @activity_session.activity.is_diagnostic?
 
       send_notification(TeacherNotifications::StudentCompletedDiagnostic, {
         student_name: @activity_session.user.name,
@@ -44,14 +44,17 @@ module TeacherNotifications
       # Return early if the user has never completed a Diagnostic since any activities that they might be assigned can't be from recommendations in that case
       return unless @activity_session.user.activity_sessions
         .joins(activity: :classification)
+        .joins(:classroom)
         .where(activity_classifications: {key: ActivityClassification::DIAGNOSTIC_KEY})
-        .count > 0
+        .where(classrooms: @activity_session.classroom)
+        .exists?
 
       # Return early if the user has any incomplete assigned activities that are recommendations
-      # Note that if the student has recommendations from two different diagnostics, they have to finish all recommendations from BOTH or this will returrn early
+      # Note that if the student has recommendations from two different diagnostics, they have to finish all recommendations from BOTH or this will return early
       return if @activity_session.user.incomplete_assigned_activities
-        .where("classrooms.id = ?", @activity_session.classroom.id)
-        .joins(unit_templates: :recommendations).distinct.count > 0
+        .joins(unit_templates: :recommendations)
+        .where(classrooms: @activity_session.classroom)
+        .exists?
 
       send_notification(TeacherNotifications::StudentCompletedAllDiagnosticRecommendations, {
         student_name: @activity_session.user.name,
@@ -61,7 +64,8 @@ module TeacherNotifications
 
     private def send_complete_all_assigned_activities
       return if @activity_session.user.incomplete_assigned_activities
-        .where("classrooms.id = ?", @activity_session.classroom.id).count > 0
+        .where(classrooms: @activity_session.classroom)
+        .exists?
 
       send_notification(TeacherNotifications::StudentCompletedAllAssignedActivities, {
         student_name: @activity_session.user.name,

@@ -873,9 +873,7 @@ class User < ApplicationRecord
   end
 
   private def teacher_notification_settings_info
-    TeacherNotificationSetting.notification_types.to_h do |notification_type|
-      [notification_type, teacher_notification_settings.exists?(notification_type: notification_type)]
-    end
+    teacher_notification_settings.rollup_hash
   end
 
   private def school_account_info
