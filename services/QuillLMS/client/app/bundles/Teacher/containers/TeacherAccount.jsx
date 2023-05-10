@@ -132,18 +132,15 @@ export default class TeacherAccount extends React.Component {
           notification_email_frequency
         } = body
 
-        // This Object.assign pattern avoids setting snackbarCopy if it is
-        // a false-y value
-        this.setState(Object.assign({}, {
+        this.setState({
           minimumGradeLevel: minimum_grade_level,
           maximumGradeLevel: maximum_grade_level,
           selectedSubjectAreaIds: subject_area_ids,
           notificationEmailFrequency: notification_email_frequency,
           tempNotificationEmailFrequency: notification_email_frequency,
+          snackbarCopy,
           errors: {}
-        },
-          snackbarCopy && {snackbarCopy}
-        ), () => {
+        }, () => {
           if (snackbarCopy) { this.showSnackbar() }
           this.setState({ activeSection: null, })
         })
