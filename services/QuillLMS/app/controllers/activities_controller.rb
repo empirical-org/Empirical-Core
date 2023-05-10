@@ -74,7 +74,11 @@ class ActivitiesController < ApplicationController
   def activity_session
     return redirect_to profile_path unless current_user.student?
 
-    if classroom_unit.unit.closed?
+    if classroom_unit.unit.blank?
+      flash[:error] = t('activity_link.errors.activity_belongs_to_archived_pack')
+      flash.keep(:error)
+      redirect_to classes_path
+    elsif classroom_unit.unit.closed?
       flash[:error] = t('activity_link.errors.activity_belongs_to_closed_pack')
       flash.keep(:error)
       redirect_to classes_path
