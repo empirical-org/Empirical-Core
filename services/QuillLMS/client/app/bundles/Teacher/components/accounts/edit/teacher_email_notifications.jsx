@@ -4,23 +4,19 @@ import { DropdownInput, informationIcon, } from '../../../../Shared/index';
 
 const smallWhiteCheckSrc = `${process.env.CDN_URL}/images/shared/check-small-white.svg`
 
-const TeacherEmailNotifications = ({ activateSection, active, deactivateSection, passedSendNewsletter, passedNotificationSettings, passedNotificationEmailFrequency, updateUser, updateNotificationSettings, updateTeacherInfo }) => {
-
-  const [sendNewsletter, setSendNewsletter] = React.useState(passedSendNewsletter)
-  const [notificationSettings, setNotificationSettings] = React.useState(passedNotificationSettings)
-  const [notificationEmailFrequency, setNotificationEmailFrequency] = React.useState(passedNotificationEmailFrequency)
+const TeacherEmailNotifications = ({ activateSection, active, deactivateSection, resetTeacherNotificationSection, setTeacherNotificationOption, notificationEmailFrequency, notificationSettings, sendNewsletter, updateUser, updateNotificationSettings, updateTeacherInfo }) => {
 
   React.useEffect(() => {
     if (active) { return }
 
-    reset()
+    resetTeacherNotificationSection()
   }, [active])
 
   React.useEffect(() => {
     if (!Object.values(notificationSettings).some(v => v === true)) { return }
     if (notificationEmailFrequency !== 'never') { return }
 
-    setNotificationEmailFrequency('daily')
+    updateNotificationEmailFrequency({value: 'daily'})
   }, [notificationSettings])
 
   React.useEffect(() => {
@@ -29,55 +25,32 @@ const TeacherEmailNotifications = ({ activateSection, active, deactivateSection,
     unsetAllNotificationSettings()
   }, [notificationEmailFrequency])
 
-  // The following three useEffect calls should be unnecesary, but I was finding
-  // in testing that during render cycles where "passed" values updated, the useState
-  // calls weren't updating, so the UI would revert to the original state until refresh.
-  // I suspect that it might be because the save call makes three separate API calls,
-  // but at least adding these hooks makes things work.
-  React.useEffect(() => {
-    setSendNewsletter(passedSendNewsletter)
-  }, [passedSendNewsletter])
-
-  React.useEffect(() => {
-    setNotificationSettings(passedNotificationSettings)
-  }, [passedNotificationSettings])
-
-  React.useEffect(() => {
-    setNotificationEmailFrequency(passedNotificationEmailFrequency)
-  }, [passedNotificationEmailFrequency])
-
-  function reset() {
-    setSendNewsletter(passedSendNewsletter)
-    setNotificationSettings(passedNotificationSettings)
-    setNotificationEmailFrequency(passedNotificationEmailFrequency)
-  }
-
   function resetAndDeactivateSection() {
-    reset()
+    resetTeacherNotificationSection()
     deactivateSection()
   }
 
   function toggleSendNewsletter() {
-    setSendNewsletter(!sendNewsletter)
+    setTeacherNotificationOption("tempSendNewsletter", !sendNewsletter)
   };
 
   function toggleNotificationSetting(setting) {
-    setNotificationSettings({
-      ...notificationSettings,
-      ...{ [setting]: !notificationSettings[setting] }
-    })
+    setTeacherNotificationOption("tempTeacherNotificationSettings",
+      {
+        ...notificationSettings,
+        ...{ [setting]: !notificationSettings[setting] }
+      }
+    )
+  }
+
+  function updateNotificationEmailFrequency(e) {
+    setTeacherNotificationOption("tempNotificationEmailFrequency", e.value)
   }
 
   function unsetAllNotificationSettings() {
     Object.keys(notificationSettings).forEach(k => notificationSettings[k] = false)
 
-    setNotificationSettings(
-      notificationSettings
-    )
-  }
-
-  function updateNotificationEmailFrequency(e) {
-    setNotificationEmailFrequency(e.value)
+    setTeacherNotificationOption("tempTeacherNotificationSettings", notificationSettings)
   }
 
   function handleSubmit(e) {

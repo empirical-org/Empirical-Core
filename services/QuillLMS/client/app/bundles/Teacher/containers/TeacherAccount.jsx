@@ -49,8 +49,11 @@ export default class TeacherAccount extends React.Component {
       googleId: google_id,
       cleverId: clever_id,
       sendNewsletter: send_newsletter,
+      tempSendNewsletter: send_newsletter,
       notificationEmailFrequency: notification_email_frequency,
+      tempNotificationEmailFrequency: notification_email_frequency,
       teacherNotificationSettings: teacher_notification_settings,
+      tempTeacherNotificationSettings: teacher_notification_settings,
       minimumGradeLevel: minimum_grade_level,
       maximumGradeLevel: maximum_grade_level,
       selectedSubjectAreaIds: subject_area_ids,
@@ -73,6 +76,20 @@ export default class TeacherAccount extends React.Component {
       }
       this.setState({ snackbarCopy, }, this.showSnackbar)
     }
+  }
+
+  setTeacherNotificationOption = (key, value) => {
+    this.setState({[key]: value})
+  }
+
+  resetTeacherNotificationSection = () => {
+    const { sendNewsletter, notificationEmailFrequency, teacherNotificationSettings } = this.state
+
+    this.setState({
+      "tempSendNewsletter": sendNewsletter,
+      "tempNotificationEmailFrequency": notificationEmailFrequency,
+      "tempTeacherNotificationSettings": teacherNotificationSettings
+    })
   }
 
   activateSection = section => {
@@ -114,15 +131,20 @@ export default class TeacherAccount extends React.Component {
           subject_area_ids,
           notification_email_frequency
         } = body
-        this.setState({
+
+        // This Object.assign pattern avoids setting snackbarCopy if it is
+        // a false-y value
+        this.setState(Object.assign({}, {
           minimumGradeLevel: minimum_grade_level,
           maximumGradeLevel: maximum_grade_level,
           selectedSubjectAreaIds: subject_area_ids,
           notificationEmailFrequency: notification_email_frequency,
-          snackbarCopy,
+          tempNotificationEmailFrequency: notification_email_frequency,
           errors: {}
-        }, () => {
-          this.showSnackbar()
+        },
+          snackbarCopy && {snackbarCopy}
+        ), () => {
+          if (snackbarCopy) { this.showSnackbar() }
           this.setState({ activeSection: null, })
         })
       },
@@ -140,6 +162,7 @@ export default class TeacherAccount extends React.Component {
         const { teacher_notification_settings, } = body
         this.setState({
           teacherNotificationSettings: teacher_notification_settings,
+          tempTeacherNotificationSettings: teacher_notification_settings,
           errors: {}
         }, () => {
           this.setState({activeSection: null, })
@@ -176,6 +199,7 @@ export default class TeacherAccount extends React.Component {
           googleId: google_id,
           cleverId: clever_id,
           sendNewsletter: send_newsletter,
+          tempSendNewsletter: send_newsletter,
           snackbarCopy,
           errors: {}
         }, () => {
@@ -206,9 +230,9 @@ export default class TeacherAccount extends React.Component {
       errors,
       timesSubmitted,
       activeSection,
-      sendNewsletter,
-      notificationEmailFrequency,
-      teacherNotificationSettings,
+      tempSendNewsletter,
+      tempNotificationEmailFrequency,
+      tempTeacherNotificationSettings,
       postGoogleClassroomAssignments,
       minimumGradeLevel,
       maximumGradeLevel,
@@ -261,9 +285,11 @@ export default class TeacherAccount extends React.Component {
           activateSection={() => this.activateSection(EMAIL_NOTIFICATIONS)}
           active={activeSection === EMAIL_NOTIFICATIONS}
           deactivateSection={() => this.deactivateSection(EMAIL_NOTIFICATIONS)}
-          passedNotificationEmailFrequency={notificationEmailFrequency}
-          passedNotificationSettings={teacherNotificationSettings}
-          passedSendNewsletter={sendNewsletter}
+          notificationEmailFrequency={tempNotificationEmailFrequency}
+          notificationSettings={tempTeacherNotificationSettings}
+          resetTeacherNotificationSection={this.resetTeacherNotificationSection}
+          sendNewsletter={tempSendNewsletter}
+          setTeacherNotificationOption={this.setTeacherNotificationOption}
           updateNotificationSettings={this.updateNotificationSettings}
           updateTeacherInfo={this.updateTeacherInfo}
           updateUser={this.updateUser}
