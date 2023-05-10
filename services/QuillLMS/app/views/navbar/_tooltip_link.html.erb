@@ -1,23 +1,24 @@
 <% image_id ||= nil%>
 <% image_src ||= nil%>
-<% hover_image_src ||= nil %>
 <% new_tab ||= false %>
+<% element_id ||= '' %>
 
 <a
   class="tooltip-link"
   href="<%= link %>"
   target="<%= new_tab ? '_blank' : '_self' %>"
 >
-  <div class="image-container">
-    <% if image_src && hover_image_src %>
-      <img id="<%=image_id%>" class="static lazyload" loading="lazy" data-src="<%= image_src %>" src="<%= image_src %>"></img>
-      <img id="hover-<%=image_id%>" class="hover lazyload" loading="lazy" data-src="<%= hover_image_src %>" src="<%= hover_image_src %>"></img>
-    <% elsif fa_class %>
-      <i class="<%= fa_class %>"></i>
-    <% end %>
-  </div>
-  <div>
-    <h3><%= text %></h3>
-    <p><%= subtext %></p>
+  <div class ="content-container" id="<%=element_id%>">
+    <div class="image-container">
+      <% if image_src %>
+        <img id="<%=image_id%>" class="static lazyload" loading="lazy" data-src="<%= image_src %>" src="<%= image_src %>"></img>
+      <% elsif fa_class %>
+        <i class="<%= fa_class %>"></i>
+      <% end %>
+    </div>
+    <div>
+      <h3><%= text %></h3>
+      <p><%= subtext %></p>
+    </div>
   </div>
 </a>

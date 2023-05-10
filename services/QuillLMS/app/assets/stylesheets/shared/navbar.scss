@@ -818,24 +818,25 @@ nav.q-navbar-home {
   }
   &#teacher-center {
     .navbar-tooltip {
-      .tooltip-link {
-        padding: 13px 20px 13px 25px;
-      }
+      left: -89px;
+    }
+  }
+  &#quill-support {
+    .navbar-tooltip {
+      right: -166px;
     }
   }
   .navbar-tooltip {
     z-index: 100;
     display: none;
     position: absolute;
-    width: 300px;
+    width: max-content !important;
     border-radius: 5px;
     background-color: #ffffff;
     box-shadow: 0 1px 5px 0 #c0c0c0;
     flex-direction: column;
     top: 40px;
-    left: 50%;
-    transform: translateX(-50%);
-    padding: 10px 0px;
+    padding-top: 16px;
     .fa-caret-up {
       color: white;
       position: absolute;
@@ -845,49 +846,59 @@ nav.q-navbar-home {
       transform: translateX(-50%);
     }
     .tooltip-link {
-      padding: 13px 25px;
+      padding: 0px 16px 16px 16px;
       display: flex;
       align-items: flex-start;
-      .image-container {
+      .content-container {
         display: flex;
         align-items: center;
-        justify-content: center;
-        min-width: 30px;
-        height: 30px;
-        margin-right: 15px;
-        border-radius: 3px;
-        box-shadow: 0 1px 2px 0 #e4e4e4;
-        i, svg {
-          color:  #00947b;
+        border-radius: 6px;
+        width: 100%;
+        padding: 8px;
+        &:hover {
+          background-color: $quillgreenlight;
         }
-        .hover {
-          display: none;
+        &#premium-section {
+          border-top: 1px solid rgba(92, 92, 92, 0.3);
+          border-top-left-radius: 0px;
+          border-top-right-radius: 0px;
+          padding-top: 16px;
+          h3, p {
+            color: $quillgolddark;
+          }
         }
-      }
-      h3 {
-        font-size: 16px;
-        font-weight: 600;
-        color: #027360;
-        margin-top: 0px;
-        margin-bottom: 6px;
-      }
-      p {
-        font-size: 13px;
-        color: #949494;
-        margin-bottom: 0px;
-        font-weight: 300;
+        .image-container {
+          display: flex;
+          align-items: center;
+          justify-content: center;
+          min-width: 30px;
+          // height: 30px;
+          margin-right: 15px;
+          border-radius: 3px;
+          i, svg {
+            color:  #00947b;
+          }
+          .hover {
+            display: none;
+          }
+        }
+        h3 {
+          font-size: 16px;
+          font-weight: 600;
+          color: $quillgreenmedium;
+          margin-top: 0px;
+          margin-bottom: 6px;
+        }
+        p {
+          font-size: 13px;
+          color: #949494;
+          margin-bottom: 0px;
+          font-weight: 300;
+        }
       }
       &:hover {
         text-decoration: none;
-        h3, p, i, svg {
-          color: #00c2a2;
-        }
-        .static {
-          display: none;
-        }
-        .hover {
-          display: flex;
-        }
+
       }
     }
   }
