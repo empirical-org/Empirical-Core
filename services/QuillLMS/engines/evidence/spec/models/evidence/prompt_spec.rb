@@ -1,5 +1,20 @@
 # frozen_string_literal: true
 
+# == Schema Information
+#
+# Table name: comprehension_prompts
+#
+#  id                    :integer          not null, primary key
+#  activity_id           :integer
+#  max_attempts          :integer
+#  conjunction           :string(20)
+#  text                  :string
+#  max_attempts_feedback :text
+#  created_at            :datetime         not null
+#  updated_at            :datetime         not null
+#  first_strong_example  :string           default("")
+#  second_strong_example :string           default("")
+#
 require 'rails_helper'
 
 module Evidence
