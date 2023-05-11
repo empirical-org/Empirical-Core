@@ -5,13 +5,7 @@
 <% home_page_class = on_home_page ? 'on-home-page' : '' %>
 <% active_tab = determine_active_tab(current_path) %>
 
-<% if current_path.include?('teachers') || current_path.include?('assign') %>
-	<% user_dropdown_class = 'on-dashboard' %>
-	<% user_dropdown_img = 'https://assets.quill.org/images/navbar/navbar-dashboard-solid.svg' %>
-<% else %>
-	<% user_dropdown_class = 'not-on-dashboard' %>
-	<% user_dropdown_img = 'https://assets.quill.org/images/navbar/navbar-dashboard-white.svg' %>
-<% end %>
+<% user_dropdown_class = current_path.include?('teachers') || current_path.include?('assign') ? 'on-dashboard' : 'not-on-dashboard' %>
 
 <% if show_school_selection_reminders %>
   <% show_notification_badges_class = 'show-notification-badges' %>
@@ -57,39 +51,31 @@
             <%="#{truncate(current_user.name, length: 50)}"%>
           </span>
   				<div>
-  					<i class="fas fa-caret-up"></i>
   					<%= link_to raw(
-  						"<span class='image-container'><img class='static' src='https://assets.quill.org/images/navbar/navbar-dashboard-gradient.svg'></img>
-  						<img class='hover' src='https://assets.quill.org/images/navbar/navbar-dashboard-solid.svg'></img></span>
+  						"<span class='image-container'><img class='static' src='https://assets.quill.org/images/icons/pulldown_icons/clipboard-icon-green.svg'></img></span>
   						My Dashboard"
   					),
   						dashboard_teachers_classrooms_path
    					%>
   					<%= link_to raw(
   						"<span class='image-container'>
-                <img class='static' src='https://assets.quill.org/images/navbar/navbar-account-gradient-1.svg'></img>
-  						  <img class='hover' src='https://assets.quill.org/images/navbar/navbar-account-solid-1.svg'></img>
+                <img class='static' src='https://assets.quill.org/images/icons/pulldown_icons/account-icon-green.svg'></img>
               </span>
   						<span class='notification-badge-relative'>My Account</span>"
             ),
   						teachers_my_account_path
   					%>
   					<%= link_to raw(
-  						"<span class='image-container'><img class='static' src='https://assets.quill.org/images/navbar/navbar-support-gradient-1.svg'></img>
-  						<img class='hover' src='https://assets.quill.org/images/navbar/navbar-support-solid-1.svg'></img></span>
-  						Support"
+  						"<span class='image-container'><img class='static' src='https://assets.quill.org/images/icons/pulldown_icons/settings-icon-green.svg'></img></span>Support"
   					),
   						'https://support.quill.org',
   						target: "_blank"
   					%>
+						<img class='divider'></img>
   					<%= link_to raw(
-  						"<span class='image-container'><img class='static' src='https://assets.quill.org/images/navbar/navbar-logout-gradient-1.svg'></img>
-  						<img class='hover' src='https://assets.quill.org/images/navbar/navbar-logout-solid-1.svg'></img></span>
-  						Logout"
+  						"<span class='image-container'><img class='static' src='https://assets.quill.org/images/icons/pulldown_icons/logout-icon-green.svg'></img></span>Logout"
   					),
-  						'/session',
-  						onmouseover: "changeImageOnMouseOver('logout-img', 'https://assets.quill.org/images/navbar/navbar-logout-solid.svg')",
-  						onmouseout: "changeImageOnMouseOut('logout-img', 'https://assets.quill.org/images/navbar/navbar-logout-gradient.svg')"
+  						'/session'
   					%>
   				</div>
   			</div>
