@@ -4,15 +4,26 @@ module TeacherNotifications
   class SendNotificationWorker
     include Sidekiq::Worker
 
+    attr_accessor :activity_session
+
     def perform(activity_session_id)
       @activity_session = find_activity_session(activity_session_id)
       return unless @activity_session
+      return unless should_send_notification?
 
-      TeacherNotification.transaction do
-        send_complete_diagnostic
-        send_complete_all_diagnostic_recommendations
-        send_complete_all_assigned_activities
-      end
+      send_notification(notification_type, message_attrs)
+    end
+
+    private def should_send_notification?
+      raise NotImplementedError
+    end
+
+    private def notification_type
+      raise NotImplementedError
+    end
+
+    private def message_attrs
+      raise NotImplementedError
     end
 
     private def find_activity_session(activity_session_id)
@@ -26,61 +37,14 @@ module TeacherNotifications
         .first
     end
 
-    private def send_complete_diagnostic
-      return unless @activity_session.activity.is_diagnostic?
-
-      send_notification(TeacherNotifications::StudentCompletedDiagnostic, {
-        student_name: @activity_session.user.name,
-        classroom_name: @activity_session.classroom.name,
-        diagnostic_name: @activity_session.activity.name
-      })
-    end
-
-    private def send_complete_all_diagnostic_recommendations
-      unit_template = @activity_session.unit_template
-      # Return early if the activity that was just completed wasn't a recommendation
-      return if unit_template.nil? || unit_template.recommendations.empty?
-
-      # Return early if the user has never completed a Diagnostic since any activities that they might be assigned can't be from recommendations in that case
-      return unless @activity_session.user.activity_sessions
-        .joins(activity: :classification)
-        .joins(:classroom)
-        .where(activity_classifications: {key: ActivityClassification::DIAGNOSTIC_KEY})
-        .where(classrooms: @activity_session.classroom)
-        .exists?
-
-      # Return early if the user has any incomplete assigned activities that are recommendations
-      # Note that if the student has recommendations from two different diagnostics, they have to finish all recommendations from BOTH or this will return early
-      return if @activity_session.user.incomplete_assigned_activities
-        .joins(unit_templates: :recommendations)
-        .where(classrooms: @activity_session.classroom)
-        .exists?
-
-      send_notification(TeacherNotifications::StudentCompletedAllDiagnosticRecommendations, {
-        student_name: @activity_session.user.name,
-        classroom_name: @activity_session.classroom.name
-      })
-    end
-
-    private def send_complete_all_assigned_activities
-      return if @activity_session.user.incomplete_assigned_activities
-        .where(classrooms: @activity_session.classroom)
-        .exists?
-
-      send_notification(TeacherNotifications::StudentCompletedAllAssignedActivities, {
-        student_name: @activity_session.user.name,
-        classroom_name: @activity_session.classroom.name
-      })
-    end
-
     private def send_notification(type, message_attrs)
       @activity_session.teachers.each do |teacher|
-        type.create!(user: teacher, message_attrs: message_attrs) if teacher_receives_type(teacher, type)
+        type.create!(user: teacher, message_attrs: message_attrs) if teacher_receives_type?(teacher, type)
       end
     end
 
-    private def teacher_receives_type(user, type)
-      user.teacher_notification_settings.find_by(notification_type: type)
+    private def teacher_receives_type?(user, type)
+      user.receives_notification_type?(type)
     end
   end
 end
