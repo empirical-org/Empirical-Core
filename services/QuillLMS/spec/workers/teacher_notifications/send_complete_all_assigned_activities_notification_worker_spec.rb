@@ -85,15 +85,5 @@ module TeacherNotifications
         subject.perform(activity_session.id)
       end
     end
-
-    describe 'transaction' do
-      # Redefined :classroom as a standard Classroom factory instance which has a teacher attached to it
-      let(:classroom) { create(:classroom) }
-
-      before do
-        # This makes our one activity a Diagnostic so that its completion triggers both "StudentCompletedDiagnostic" and "StudentCompletedAllAssignedActivities"
-        activity.classification.update(key: ActivityClassification::DIAGNOSTIC_KEY)
-      end
-    end
   end
 end
