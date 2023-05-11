@@ -19,7 +19,7 @@ class SyncSalesFormSubmissionToVitallyWorker
 
   def create_school_or_district_if_none_exist
     if @sales_form_submission.district_collection? && @sales_form_submission.district.present?
-      api.create_unless_exists(SalesFormSubmission::VITALLY_DISTRICTS_TYPE, @sales_form_submission.district.id, @sales_form_submission.district.vitally_data)
+      api.create_unless_exists(SalesFormSubmission::VITALLY_DISTRICTS_TYPE, @sales_form_submission.district.id, SerializeVitallySalesOrganization.new(@sales_form_submission.district).data)
     elsif @sales_form_submission.school_collection? && @sales_form_submission.school.present?
       api.create_unless_exists(SalesFormSubmission::VITALLY_SCHOOLS_TYPE, @sales_form_submission.school.id, @sales_form_submission.school.vitally_data)
     end
