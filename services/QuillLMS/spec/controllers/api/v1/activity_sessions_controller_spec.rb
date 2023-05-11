@@ -246,14 +246,14 @@ describe Api::V1::ActivitySessionsController, type: :controller do
           activity_session.update(completed_at: nil, state: 'started')
         end
 
-        it 'should enqueue a SendNotificationWorker job if the activity session has been completed' do
-          expect(TeacherNotifications::SendNotificationWorker).to receive(:perform_async).with(activity_session.id)
+        it 'should enqueue a FanoutSendNotificationsWorker job if the activity session has been completed' do
+          expect(TeacherNotifications::FanoutSendNotificationsWorker).to receive(:perform_async).with(activity_session.id)
 
           put :update, params: { id: activity_session.uid, completed_at: Time.current }, as: :json
         end
 
-        it 'should not enqueue a SendNotificationWorker job if the activity session is being updated, but not marked complete' do
-          expect(TeacherNotifications::SendNotificationWorker).not_to receive(:perform_async)
+        it 'should not enqueue a FanoutSendNotificationWorker job if the activity session is being updated, but not marked complete' do
+          expect(TeacherNotifications::FanoutSendNotificationsWorker).not_to receive(:perform_async)
 
           put :update, params: { id: activity_session.uid }, as: :json
         end

@@ -92,7 +92,7 @@ class Api::V1::ActivitySessionsController < Api::ApiController
   private def send_teacher_notifications
     return unless @activity_session.completed_at.present?
 
-    TeacherNotifications::SendNotificationWorker.perform_async(@activity_session.id)
+    TeacherNotifications::FanoutSendNotificationsWorker.perform_async(@activity_session.id)
   end
 
   private def concept_results_hash(concept_result)
