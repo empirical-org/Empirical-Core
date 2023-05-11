@@ -385,7 +385,7 @@
     z-index: 100;
     padding: 16px;
     border-radius: 10px;
-    transform: translateX(-53px);
+    transform: translateX(-38px);
     .fa-caret-up {
       color: white;
       position: absolute;
@@ -827,24 +827,26 @@ nav.q-navbar-home {
   span {
     color: $quillgreenmedium;
   }
-  &#learning-tools {
-    .navbar-tooltip {
-      width: 248px;
+  &:nth-child(3) {
+    &#teacher-center {
+      .navbar-tooltip {
+        left: -97px;
+      }
     }
   }
   &#our-story {
     .navbar-tooltip {
-      width: 261px;
+      left: -27px;
     }
   }
   &#teacher-center {
     .navbar-tooltip {
-      left: -89px;
+      left: -75px;
     }
   }
   &#quill-support {
     .navbar-tooltip {
-      right: -166px;
+      right: -184px;
     }
   }
   .navbar-tooltip {
