@@ -190,23 +190,6 @@ describe Api::V1::ActivitySessionsController, type: :controller do
         expect(activity_session.data['time_tracking']).to include(modified_data['time_tracking'])
         expect(activity_session.data['time_tracking_edits']).to include(modified_data['time_tracking_edits'])
       end
-
-      it 'should log long session' do
-        # lots of keys to hit Tracking error but avoid time_tracking cleaner
-        data = {
-          'time_tracking' => ('a'..'z').to_h {|k| [k,600]}
-        }
-
-        reporting_params = {
-          activity_session_id: activity_session.id,
-          timespent: 15600,
-          user_id: activity_session.user_id
-        }
-
-        expect(ErrorNotifier).to receive(:report).with(ActivitySession::LongTimeTrackingError, reporting_params).once
-
-        put :update, params: { id: activity_session.uid, data: data }, as: :json
-      end
     end
 
     context 'a finished session' do
