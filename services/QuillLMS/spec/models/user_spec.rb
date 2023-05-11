@@ -1847,5 +1847,20 @@ describe User, type: :model do
       end.to change(TeacherNotificationSetting, :count).by(TeacherNotificationSetting::DEFAULT_FOR_NEW_USERS.length)
     end
   end
+
+  describe '#receives_notification_type?' do
+    let(:user) { create(:user) }
+    let(:notification_type) { TeacherNotifications::StudentCompletedDiagnostic }
+
+    it 'should return true if the user has the appropriate TeacherNotification type' do
+      user.teacher_notification_settings.create(notification_type: notification_type)
+
+      expect(user.receives_notification_type?(notification_type)).to be(true)
+    end
+
+    it 'should return false if the user does not have the appropriate TeacherNotification type' do
+      expect(user.receives_notification_type?(notification_type)).to be(false)
+    end
+  end
 end
 # rubocop:enable Metrics/BlockLength

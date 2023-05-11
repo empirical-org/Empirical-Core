@@ -806,6 +806,10 @@ class User < ApplicationRecord
     school_premium? || district_premium?
   end
 
+  def receives_notification_type?(type)
+    teacher_notification_settings.exists?(notification_type: type)
+  end
+
   private def validate_flags
     invalid_flags = flags - VALID_FLAGS
 
@@ -879,7 +883,7 @@ class User < ApplicationRecord
   private def school_account_info
     return school if school&.name
 
-    School.find_by_name(School::NO_SCHOOL_SELECTED_SCHOOL_NAME)
+    School.find_by(name: School::NO_SCHOOL_SELECTED_SCHOOL_NAME)
   end
 
   private def school_type_account_info
