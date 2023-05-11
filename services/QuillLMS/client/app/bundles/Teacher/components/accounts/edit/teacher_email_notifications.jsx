@@ -124,7 +124,7 @@ const TeacherEmailNotifications = ({ activateSection, active, deactivateSection,
         />
         <p>
           <img alt={informationIcon.alt} src={informationIcon.src} />
-          You will only receive an email if an event occurs.
+          You will only receive a notification email if an event occurs.
         </p>
       </div>
     )
