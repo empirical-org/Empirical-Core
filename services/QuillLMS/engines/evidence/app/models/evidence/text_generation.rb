@@ -1,5 +1,15 @@
 # frozen_string_literal: true
 
+# == Schema Information
+#
+# Table name: evidence_text_generations
+#
+#  id         :bigint           not null, primary key
+#  type       :string           not null
+#  config     :jsonb
+#  created_at :datetime         not null
+#  updated_at :datetime         not null
+#
 module Evidence
   class TextGeneration < ApplicationRecord
     # TODO, use STI for this in the future
