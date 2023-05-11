@@ -8,6 +8,9 @@
   href="<%= link %>"
   target="<%= new_tab ? '_blank' : '_self' %>"
 >
+  <% if element_id == 'premium-section' %>
+    <div class='divider'></div>
+  <% end %>
   <div class ="content-container" id="<%=element_id%>">
     <div class="image-container">
       <% if image_src %>
