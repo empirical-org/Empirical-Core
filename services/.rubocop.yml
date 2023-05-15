@@ -9,6 +9,7 @@ inherit_mode:
     - Exclude
 
 AllCops:
+  TargetRubyVersion: 2.7.6
   Exclude:
     - "QuillLMS/engines/evidence/spec/dummy/**/*"
     - "QuillLMS/engines/evidence/lib/generators/**/*"

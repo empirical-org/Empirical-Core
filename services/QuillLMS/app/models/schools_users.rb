@@ -27,8 +27,8 @@ class SchoolsUsers < ApplicationRecord
   end
 
   private def should_write_change_log?
-    saved_change_to_attribute?(:school_id) &&
-      attribute_before_last_save(:school_id)
+    (saved_change_to_attribute?(:school_id) &&
+      attribute_before_last_save(:school_id))
   end
 
   private def school_changed_change_log
