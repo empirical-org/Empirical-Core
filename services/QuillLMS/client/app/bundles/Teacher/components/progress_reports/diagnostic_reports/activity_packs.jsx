@@ -35,6 +35,14 @@ export default class ActivityPacks extends React.Component {
       mobileActivityAnalysisTab.classList.add('active');
       mobileDiagnosticTab.classList.remove('active');
     }
+    // this is an override since we can only access the current_path from the backend so we just pass back an empty space
+    // from the NavigationHelper module
+    if (mobileDropdown && mobileDropdown.children[0] && mobileDropdown.children[0].children[0]) {
+      const subTabElement = mobileDropdown.children[0].children[0]
+      if (subTabElement.textContent === ' ' || subTabElement.textContent === 'Diagnostics') {
+        subTabElement.textContent = 'Activity Analysis'
+      }
+    }
   }
 
   componentDidMount() {

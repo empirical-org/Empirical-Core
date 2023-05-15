@@ -1,5 +1,16 @@
 # frozen_string_literal: true
 
+# == Schema Information
+#
+# Table name: evidence_prompt_text_batches
+#
+#  id         :bigint           not null, primary key
+#  type       :string           not null
+#  prompt_id  :integer          not null
+#  config     :jsonb
+#  created_at :datetime         not null
+#  updated_at :datetime         not null
+#
 module Evidence
   class PromptTextBatch < ApplicationRecord
     # TODO, use STI for this in the future
