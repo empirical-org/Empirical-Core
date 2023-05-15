@@ -106,25 +106,11 @@ class Api::V1::ActivitySessionsController < Api::ApiController
     time_tracking = clean_data&.fetch(ActivitySession::TIME_TRACKING_KEY, nil)
     timespent = ActivitySession.calculate_timespent(@activity_session, time_tracking)
 
-    record_long_timespent(timespent, @activity_session&.user_id, @activity_session&.id)
-
     params
       .permit(activity_session_permitted_params)
       .merge(data: clean_data&.permit!)
       .reject { |_, v| v.nil? }
       .merge(timespent: timespent)
-  end
-
-  private def record_long_timespent(timespent, user_id, activity_session_id)
-    return if timespent.nil?
-    return if timespent <= 3600
-
-    ErrorNotifier.report(
-      ActivitySession::LongTimeTrackingError.new,
-      activity_session_id: activity_session_id,
-      timespent: timespent,
-      user_id: user_id
-    )
   end
 
   private def transform_incoming_request

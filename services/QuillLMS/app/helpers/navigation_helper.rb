@@ -83,6 +83,43 @@ module NavigationHelper
   STUDENT_TABS = [LEARNING_TOOLS_TAB, STUDENT_CENTER_TAB, QUILL_SUPPORT_TAB, LOGOUT_TAB]
   COMMON_AUTHED_USER_TABS = [LEARNING_TOOLS_TAB, TEACHER_CENTER_TAB, QUILL_SUPPORT_TAB, MY_ACCOUNT_TAB, LOGOUT_TAB]
 
+  ACTIVE_TAB_PATHS = {
+    LEARNING_TOOLS => ['tools'],
+    ABOUT_US => ['about', 'announcements', 'mission', 'impact', 'press', 'team', 'pathways', 'careers'],
+    EXPLORE_CURRICULUM => ['activities/', 'ap', 'preap', 'springboard'],
+    TEACHER_CENTER => ['teacher-center', 'faq'],
+    STUDENT_CENTER => ['student-center']
+  }
+
+  ACTIVE_DASHBOARD_TAB_PATHS = {
+    OVERVIEW => ['dashboard'],
+    MY_ACCOUNT => ['my_account', 'subscriptions', 'admin_access'],
+    ASSIGN_ACTIVITIES => ['assign'],
+    MY_ACTIVITIES => ['teachers/classrooms/activity_planner'],
+    MY_REPORTS => ['progress_reports', 'scorebook'],
+    MY_CLASSES => ['teachers/classrooms'],
+    TEACHER_PREMIUM => ['teacher_premium'],
+    PREMIUM_HUB => ['premium_hub'],
+    PREMIUM => ['premium'],
+    QUILL_ACADEMY => ['quill_academy']
+  }
+
+  ACTIVE_SUBTAB_PATHS = {
+    OVERVIEW => ['teachers/classrooms/dashboard'],
+    MY_ACCOUNT => ['teachers/my_account'],
+    MY_SUBSCRIPTIONS => ['subscriptions'],
+    ADMIN_ACCESS => ['admin_access'],
+    ARCHIVED_CLASSES => ['teachers/classrooms/archived'],
+    ACTIVITY_SUMMARY => ['teachers/classrooms/scorebook'],
+    ACTIVE_CLASSES => ['teachers/classrooms'],
+    ACTIVITY_ANALYSIS => ['teachers/progress_reports/diagnostic_reports'],
+    DIAGNOSTICS => ['teachers/progress_reports/diagnostic_reports'],
+    ACTIVITY_SCORES => ['teachers/progress_reports/activities_scores_by_classroom'],
+    CONCEPTS => ['teachers/progress_reports/concepts/students'],
+    STANDARDS => ['teachers/progress_reports/standards/classrooms'],
+    DATA_EXPORT => ['teachers/progress_reports/activity_sessions']
+  }
+
   def home_page_active?
     ['dashboard', 'my_account', 'teacher_guide', 'google_sync'].include?(action_name) || (controller_name == 'subscriptions' && action_name == 'index') || controller_name == 'referrals' || controller_name == 'admin_access'
   end
@@ -189,55 +226,24 @@ module NavigationHelper
     session[:admin_id].present? && session[:admin_id] != user.id
   end
 
-  # rubocop:disable Metrics/CyclomaticComplexity
   def determine_active_tab(current_path)
-    if current_path.include?('tools')
-      LEARNING_TOOLS
-    elsif ['about', 'announcements', 'mission', 'impact', 'press', 'team', 'pathways', 'careers'].any? { |str| current_path.include?(str)}
-      ABOUT_US
-    # /activities/ is for the Featured Activities and ELA Standards sub pages of the Explore Curriculum section
-    elsif ['/activities/', 'ap', 'preap', 'springboard'].any? { |str| current_path.include?(str)}
-      EXPLORE_CURRICULUM
-    elsif ['teacher-center', 'faq'].any? { |str| current_path.include?(str)}
-      TEACHER_CENTER
-    elsif current_path.include?('student-center')
-      STUDENT_CENTER
-    else
-      determine_dashboard_active_tab(current_path)
+    ACTIVE_TAB_PATHS.each do |tab, paths|
+      return tab if paths.any? { |path| current_path.include?(path) }
     end
+
+    determine_dashboard_active_tab(current_path)
   end
 
   def determine_active_subtab(current_path)
-    if current_path.include?('teachers/classrooms/dashboard')
-      OVERVIEW
-    elsif current_path.include?('teachers/my_account')
-      MY_ACCOUNT
-    elsif current_path.include?('subscriptions')
-      MY_SUBSCRIPTIONS
-    elsif current_path.include?('admin_access')
-      ADMIN_ACCESS
-    elsif current_path.include?('teachers/classrooms/archived')
-      ARCHIVED_CLASSES
-    elsif current_path.include?('teachers/classrooms/scorebook')
-      ACTIVITY_SUMMARY
-    elsif current_path.include?('/teachers/classrooms')
-      ACTIVE_CLASSES
-    elsif current_path.include?('/teachers/progress_reports/diagnostic_reports/#/activity_packs')
-      ACTIVITY_ANALYSIS
-    elsif current_path.include?('/teachers/progress_reports/diagnostic_reports/#/diagnostics')
-      DIAGNOSTICS
-    elsif current_path.include?('/teachers/progress_reports/activities_scores_by_classroom')
-      ACTIVITY_SCORES
-    elsif current_path.include?('/teachers/progress_reports/concepts/students')
-      CONCEPTS
-    elsif current_path.include?('/teachers/progress_reports/standards/classrooms')
-      STANDARDS
-    elsif current_path.include?('/teachers/progress_reports/activity_sessions')
-      DATA_EXPORT
-    else
-      # default to active_tab
-      nil
+    ACTIVE_SUBTAB_PATHS.each do |tab, paths|
+      # since the Activity Analysis and Diagnostics routes are handled by the frontend and we don't have access to the hash path from the backend,
+      #  we just return a space that will be detected and overridden by the frontend
+      return ' ' if current_path == 'teachers/progress_reports/diagnostic_reports'
+
+      return tab if paths.any? { |path| current_path.include?(path) }
     end
+
+    nil
   end
 
   def determine_premium_class(current_path)
@@ -279,31 +285,12 @@ module NavigationHelper
   end
 
   private def determine_dashboard_active_tab(current_path)
-    if current_path.include?('dashboard')
-      OVERVIEW
-    elsif ['my_account', 'subscriptions', 'admin_access'].any? { |str| current_path.include?(str)}
-      MY_ACCOUNT
-    elsif current_path.include?('assign')
-      ASSIGN_ACTIVITIES
-    elsif current_path.include?('teachers/classrooms/activity_planner')
-      MY_ACTIVITIES
-    elsif ['progress_reports', 'scorebook'].any? { |str| current_path.include?(str)}
-      MY_REPORTS
-    elsif current_path.include?('teachers/classrooms')
-      MY_CLASSES
-    elsif current_path.include?('teacher_premium')
-      TEACHER_PREMIUM
-    elsif current_path.include?('premium_hub')
-      PREMIUM_HUB
-    elsif current_path.include?('premium')
-      PREMIUM
-    elsif current_path.include?('quill_academy')
-      QUILL_ACADEMY
-    else
-      HOME
+    ACTIVE_DASHBOARD_TAB_PATHS.each do |tab, paths|
+      return tab if paths.any? { |path| current_path.include?(path) }
     end
+
+    HOME
   end
-  # rubocop:enable Metrics/CyclomaticComplexity
 
   private def authed_user_tabs
     tabs = [HOME_TAB, OVERVIEW_TAB, MY_CLASSES_TAB, ASSIGN_ACTIVITIES_TAB, MY_ACTIVITIES_TAB, MY_REPORTS_TAB]

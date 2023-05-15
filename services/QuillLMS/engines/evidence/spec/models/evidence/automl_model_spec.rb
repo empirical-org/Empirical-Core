@@ -1,5 +1,19 @@
 # frozen_string_literal: true
 
+# == Schema Information
+#
+# Table name: comprehension_automl_models
+#
+#  id              :integer          not null, primary key
+#  automl_model_id :string           not null
+#  name            :string           not null
+#  labels          :string           default([]), is an Array
+#  prompt_id       :integer
+#  state           :string           not null
+#  created_at      :datetime         not null
+#  updated_at      :datetime         not null
+#  notes           :text             default("")
+#
 require 'rails_helper'
 
 module Evidence
