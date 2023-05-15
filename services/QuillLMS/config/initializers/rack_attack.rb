@@ -4,10 +4,8 @@ class Rack::Attack
   # Use redis for caching
   Rack::Attack.cache.store = Rack::Attack::StoreProxy::RedisStoreProxy.new($redis.redis)
 
-  THROTTLED_REGEX_STRING = ENV.fetch('RACK_ATTACK_THROTTLED_REGEX', '')
-  THROTTLED_REGEX = THROTTLED_REGEX_STRING.present? ? Regexp.new(THROTTLED_REGEX_STRING) : nil
-  THROTTLED_REGEX_LIMIT = ENV.fetch('RACK_ATTACK_THROTTLED_REGEX_LIMIT', 20).to_i
-  THROTTLED_REGEX_PERIOD = ENV.fetch('RACK_ATTACK_THROTTLED_REGEX_PERIOD', 60).to_i.minutes
+  BLOCKLIST_REGEX_STRING = ENV.fetch('RACK_ATTACK_BLOCKLIST_REGEX', '')
+  BLOCKLIST_REGEX = BLOCKLIST_REGEX_STRING.present? ? Regexp.new(BLOCKLIST_REGEX_STRING) : nil
 
   Rack::Attack.throttle('limit logins per email', limit: 20, period: 10.minutes) do |req|
     if req.path == '/session/login_through_ajax' && req.post?
@@ -19,19 +17,12 @@ class Rack::Attack
     end
   end
 
-  Rack::Attack.throttle(
-    'throttled URLs',
-    limit: THROTTLED_REGEX_LIMIT,
-    period: THROTTLED_REGEX_PERIOD
-  ) do |req|
-    if req.get? &&
-       THROTTLED_REGEX.present? &&
-       req.path != '/404' &&
-       req.path != '/500' &&
-       req.path.match?(THROTTLED_REGEX)
-
-      req.ip
-    end
+  Rack::Attack.blocklist('block bad urls') do |req|
+    req.get? &&
+      BLOCKLIST_REGEX.present? &&
+      req.path != '/404' &&
+      req.path != '/500' &&
+      req.path.match?(BLOCKLIST_REGEX)
   end
 
   Rack::Attack.throttled_response = lambda do |request|
@@ -44,6 +35,12 @@ class Rack::Attack
     # Using 503 because it may make attacker think that they have successfully
     # DOSed the site. Rack::Attack returns 429 for throttling by default
     [503, {}, [{ message: 'Too many attempts. Please try again later.', type: 'password' }.to_json]]
+  end
+
+  Rack::Attack.blocklisted_response = lambda do |request|
+    # Using 503 because it may make attacker think that they have successfully
+    # DOSed the site. Rack::Attack returns 429 for throttling by default
+    [503, {}, [{ message: 'Too many attempts. Please try again later.'}.to_json]]
   end
 
 end
