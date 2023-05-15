@@ -15,11 +15,29 @@ describe SyncVitallyWorker, type: :worker do
       district = create(:district)
       school = create(:school, district: district)
       user = create(:user, role: 'teacher')
-      SchoolsUsers.create(school: school, user: user)
+      schools_user = create(:schools_users, school: school, user: user)
+      create(:change_log,
+        changed_record_type: 'User',
+        changed_record_id: user.id,
+        changed_attribute: 'school',
+        new_value: school.id)
 
+      expect(SyncVitallyUnlinksWorker).to receive(:perform_async).with(user.id, school.id)
       expect(SyncVitallyAccountsWorker).to receive(:perform_in).with(0.seconds, [school.id])
       expect(SyncVitallyUsersWorker).to receive(:perform_in).with(0.seconds, [user.id])
       expect(SyncVitallyOrganizationWorker).to receive(:perform_in).with(0.seconds, district.id)
+      worker.perform
+    end
+
+    it 'does not kick off a job to unlink users if the ChangeLog is more than 25 hours long' do
+      create(:change_log,
+        changed_record_type: 'User',
+        changed_record_id: 1,
+        changed_attribute: 'school',
+        new_value: 1,
+        created_at: DateTime.current - 72.hours)
+
+      expect(SyncVitallyUnlinksWorker).not_to receive(:perform_async)
       worker.perform
     end
 
