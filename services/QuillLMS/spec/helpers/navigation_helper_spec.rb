@@ -361,9 +361,8 @@ describe NavigationHelper do
         expect(helper.determine_active_subtab('/teachers/classrooms/archived')).to eq(NavigationHelper::ARCHIVED_CLASSES)
         expect(helper.determine_active_subtab('/teachers/classrooms')).to eq(NavigationHelper::ACTIVE_CLASSES)
         expect(helper.determine_active_subtab('/teachers/classrooms/scorebook')).to eq(NavigationHelper::ACTIVITY_SUMMARY)
-        # see comment in NavigationHelper about the following 2 tests
-        expect(helper.determine_active_subtab('/teachers/progress_reports/diagnostic_reports/#/activity_packs')).to eq(' ')
-        expect(helper.determine_active_subtab('/teachers/progress_reports/diagnostic_reports/#/diagnostics')).to eq(' ')
+        # see comment in NavigationHelper about the following test
+        expect(helper.determine_active_subtab('/teachers/progress_reports/diagnostic_reports')).to eq(' ')
         expect(helper.determine_active_subtab('/teachers/progress_reports/activities_scores_by_classroom')).to eq(NavigationHelper::ACTIVITY_SCORES)
         expect(helper.determine_active_subtab('/teachers/progress_reports/concepts/students')).to eq(NavigationHelper::CONCEPTS)
         expect(helper.determine_active_subtab('/teachers/progress_reports/standards/classrooms')).to eq(NavigationHelper::STANDARDS)

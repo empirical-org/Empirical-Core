@@ -288,6 +288,8 @@ module NavigationHelper
     ACTIVE_DASHBOARD_TAB_PATHS.each do |tab, paths|
       return tab if paths.any? { |path| current_path.include?(path) }
     end
+
+    HOME
   end
 
   private def authed_user_tabs
