@@ -1,5 +1,15 @@
 # frozen_string_literal: true
 
+# == Schema Information
+#
+# Table name: comprehension_labels
+#
+#  id         :integer          not null, primary key
+#  name       :string           not null
+#  rule_id    :integer          not null
+#  created_at :datetime         not null
+#  updated_at :datetime         not null
+#
 require 'rails_helper'
 
 module Evidence

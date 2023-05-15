@@ -28,6 +28,7 @@ group :test do
 end
 
 group :test, :development do
+  gem 'annotate'
   gem 'factory_bot_rails', '~> 4.8.2', require: false
   gem 'pry'
   gem 'rspec-rails', '~> 5.0'
