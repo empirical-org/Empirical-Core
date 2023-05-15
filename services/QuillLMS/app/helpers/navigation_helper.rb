@@ -86,7 +86,7 @@ module NavigationHelper
   ACTIVE_TAB_PATHS = {
     LEARNING_TOOLS => ['tools'],
     ABOUT_US => ['about', 'announcements', 'mission', 'impact', 'press', 'team', 'pathways', 'careers'],
-    EXPLORE_CURRICULUM => ['/activities/', 'ap', 'preap', 'springboard'],
+    EXPLORE_CURRICULUM => ['activities/', 'ap', 'preap', 'springboard'],
     TEACHER_CENTER => ['teacher-center', 'faq'],
     STUDENT_CENTER => ['student-center']
   }
