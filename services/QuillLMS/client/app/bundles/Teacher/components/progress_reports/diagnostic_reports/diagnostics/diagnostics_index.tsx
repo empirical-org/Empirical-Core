@@ -25,10 +25,19 @@ const DiagnosticsIndex = ({ passedClassrooms, history, match, lessonsBannerIsSho
     const mobileActivityAnalysisTab = $('#mobile-activity-analysis-tab-checkmark');
     const mobileDropdown = $('#mobile-subnav-toggle');
 
-    if (mobileDropdown && mobileDiagnosticTab && mobileActivityAnalysisTab ) {
+
+    if(mobileDropdown && mobileDiagnosticTab && mobileActivityAnalysisTab ) {
       mobileDropdown.removeClass('open');
       mobileDiagnosticTab.addClass('active');
       mobileActivityAnalysisTab.removeClass('active');
+    }
+    // this is an override since we can only access the current_path from the backend so we just pass back an empty space
+    // from the NavigationHelper module
+    if(mobileDropdown && mobileDropdown.children()[0] && mobileDropdown.children()[0].children[0]) {
+      const subTabElement = $(mobileDropdown.children()[0].children[0]);
+      if(subTabElement.text() === ' ' || subTabElement.text() === 'Activity Analysis') {
+        subTabElement.text('Diagnostics');
+      }
     }
   }
 
