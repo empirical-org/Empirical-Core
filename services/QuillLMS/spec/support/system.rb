@@ -5,7 +5,7 @@ RSpec.configure do |config|
     options = Selenium::WebDriver::Chrome::Options.new(
       args: [
         'headless',
-        'window-size=1920x1280'
+        'window-size=1920,1280'
       ]
     )
 

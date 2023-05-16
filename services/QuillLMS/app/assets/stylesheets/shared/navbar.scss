@@ -948,10 +948,10 @@ nav.q-navbar-home {
 
 @media (max-width: 1200px) {
   .desktop-navbar, .q-nav-bar{
-    display: none;
+    display: none !important;
   }
   .mobile-navbar {
-    display: inherit;
+    display: inherit !important;
   }
   .q-navbar-home {
     width: 100%;
@@ -961,10 +961,10 @@ nav.q-navbar-home {
 
 @media (min-width: 1201px) {
   .desktop-navbar {
-    display: flex;
+    display: flex !important;
   }
   .mobile-navbar {
-    display: none;
+    display: none !important;
   }
 }
 
