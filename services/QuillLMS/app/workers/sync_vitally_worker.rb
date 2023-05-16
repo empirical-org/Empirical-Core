@@ -47,8 +47,8 @@ class SyncVitallyWorker
   end
 
   private def unlinks_to_run
-    ChangeLog.where(changed_record_type: 'User')
-      .where(changed_attribute: 'school')
+    ChangeLog.where(changed_record_type: User.name)
+      .where(changed_attribute: User::SCHOOL_CHANGELOG_ATTRIBUTE)
       .where(created_at: (DateTime.current - 25.hours)..Float::INFINITY)
   end
 

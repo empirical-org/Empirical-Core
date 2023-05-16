@@ -17,9 +17,9 @@ describe SyncVitallyWorker, type: :worker do
       user = create(:user, role: 'teacher')
       schools_user = create(:schools_users, school: school, user: user)
       create(:change_log,
-        changed_record_type: 'User',
+        changed_record_type: User.name,
         changed_record_id: user.id,
-        changed_attribute: 'school',
+        changed_attribute: User::SCHOOL_CHANGELOG_ATTRIBUTE,
         new_value: school.id)
 
       expect(SyncVitallyUnlinksWorker).to receive(:perform_async).with(user.id, school.id)
