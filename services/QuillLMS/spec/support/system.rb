@@ -4,8 +4,8 @@ RSpec.configure do |config|
   Capybara.register_driver :local_selenium_chrome_headless do |app|
     options = Selenium::WebDriver::Chrome::Options.new(
       args: [
-        'headless',
-        'window-size=1920x1280'
+        # 'headless',  # Comment this line out to see the browser locally when running a system test
+        'window-size=1920,1280'
       ]
     )
 
@@ -39,6 +39,7 @@ RSpec.configure do |config|
   config.before(type: :system) { driven_by :rack_test }
 
   config.before(type: :system, js: true) do
+    # SELENIUM_DRIVER_URL is for circleci
     if ENV["SELENIUM_DRIVER_URL"].present?
       driven_by :remote_selenium_chrome
     else

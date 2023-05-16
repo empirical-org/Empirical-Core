@@ -61,7 +61,7 @@ RSpec.describe 'Activity Pack Assignment' do
   it 'teachers can assign an activity packs to their students', :js, retry: 3 do
     login_user(teacher.email, teacher.password)
     click_button "Let's go!"
-    find('li#student-reports-link', text: 'My Reports').click
+    visit '/teachers/progress_reports/landing_page'
     find('a.diagnostic-tab', text: 'Diagnostics').click
     click_on 'Assign a diagnostic'
     first(:button, 'Select').click
@@ -77,6 +77,7 @@ RSpec.describe 'Activity Pack Assignment' do
     logout_user(teacher)
 
     login_user(student.username, student.password)
+
     click_on classroom.name
     click_on 'Start'
     expect(page).to have_content activity_landing_page_instructions
