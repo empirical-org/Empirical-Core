@@ -107,6 +107,8 @@ class User < ApplicationRecord
   GOOGLE_CLASSROOM_ACCOUNT = 'Google Classroom'
   CLEVER_ACCOUNT = 'Clever'
 
+  SCHOOL_CHANGELOG_ATTRIBUTE = 'school_id'
+
   attr_accessor :validate_username, :require_password_confirmation_when_password_present, :newsletter
 
   has_secure_password validations: false
