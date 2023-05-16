@@ -90,9 +90,12 @@ export default class TeacherGeneralAccountInfo extends React.Component {
   };
 
   handleSchoolTypeChange = schoolType => {
+    const { alternativeSchools, alternativeSchoolsNameMap, } = this.props
     // we don't want teachers to set their school as "not-listed" if they already have a school selected
     if (schoolType.value !== US_K12_SCHOOL || this.state.schoolType !== US_K12_SCHOOL) {
-      this.setState({ schoolType: schoolType.value, school: schoolType, changedSchools: true});
+      const alternativeSchoolName = Object.keys(alternativeSchoolsNameMap).find(key => alternativeSchoolsNameMap[key] === schoolType.value)
+      const school = alternativeSchools.find(school => school.name === alternativeSchoolName)
+      this.setState({ schoolType: schoolType.value, school, changedSchools: true});
     }
   };
 
