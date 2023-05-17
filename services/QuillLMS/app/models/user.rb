@@ -810,6 +810,10 @@ class User < ApplicationRecord
     school_premium? || district_premium?
   end
 
+  def save_user_pack_sequence_items
+    classrooms.each { |classroom| SaveUserPackSequenceItemsWorker.perform_async(classroom.id, id) }
+  end
+
   private def validate_flags
     invalid_flags = flags - VALID_FLAGS
 
