@@ -533,7 +533,7 @@ export default class ClassroomStudentSection
         synced,
         name,
         id,
-        usernameOrEmail: synced ? email : username,
+        usernameOrEmail: email || username,
         checked,
         logInMethod,
         lastActive: last_active ? moment(last_active).format('MM/DD/YY HH:mm') : '',
