@@ -63,6 +63,7 @@ module QuillAuthentication
 
     unless staff_impersonating_user?(user) || admin_impersonating_user?(user)
       user.update(ip_address: request&.remote_ip, last_sign_in: Time.current)
+      user.save_user_pack_sequence_items
       UserLoginWorker.perform_async(user.id)
     end
 
