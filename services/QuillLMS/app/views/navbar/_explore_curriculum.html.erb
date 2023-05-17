@@ -1,53 +1,40 @@
 <div id="explore-curriculum" class="navbar-tooltip-trigger <%= active_tab == 'Explore Curriculum' ? 'active' : '' %>" tabindex="0">
   <span>Explore Curriculum</span>
   <div class="navbar-tooltip">
-    <i class="fas fa-caret-up"></i>
     <%= render 'navbar/tooltip_link',
       text: 'Featured Activities',
       subtext: 'Explore featured activity packs that are created by our teachers',
-      fa_class: 'fas fa-icon fa-book',
-      link: '/activities/packs',
-      image_id: nil
+      image_src: 'https://assets.quill.org/images/icons/pulldown_icons/evidence-icon-green.svg',
+      image_id: 'featured-activities-image',
+      link: '/activities/packs'
     %>
     <%= render 'navbar/tooltip_link',
       text: 'AP Activities',
       subtext: 'Official free AP English writing practice',
-      hover_image_src: 'https://assets.quill.org/images/college_board/pre-ap-icon-hover.svg',
-      image_src: 'https://assets.quill.org/images/college_board/pre-ap-icon.svg',
+      image_src: 'https://assets.quill.org/images/icons/pulldown_icons/pencil-icon-green.svg',
       image_id: 'ap-img',
       link: '/ap'
     %>
     <%= render 'navbar/tooltip_link',
       text: 'Pre-AP Activities',
       subtext: 'Official free Pre-AP English writing practice',
-      hover_image_src: 'https://assets.quill.org/images/college_board/pre-ap-icon-hover.svg',
-      image_src: 'https://assets.quill.org/images/college_board/pre-ap-icon.svg',
+      image_src: 'https://assets.quill.org/images/icons/pulldown_icons/pencil-icon-green.svg',
       image_id: 'pre-ap-img',
       link: '/preap'
     %>
     <%= render 'navbar/tooltip_link',
       text: 'SpringBoard Activities',
       subtext: 'Official free SpringBoard writing practice',
-      hover_image_src: 'https://assets.quill.org/images/college_board/pre-ap-icon-hover.svg',
-      image_src: 'https://assets.quill.org/images/college_board/pre-ap-icon.svg',
+      image_src: 'https://assets.quill.org/images/icons/pulldown_icons/pencil-icon-green.svg',
       image_id: 'pre-ap-img',
       link: '/springboard'
     %>
     <%= render 'navbar/tooltip_link',
       text: 'ELA Standards',
       subtext: 'See a list of ELA standards upon which we base our activities ',
-      hover_image_src: 'https://assets.quill.org/images/navbar/navbar-common-solid.svg',
-      image_src: 'https://assets.quill.org/images/navbar/navbar-common-gradient.svg',
+      image_src: 'https://assets.quill.org/images/icons/pulldown_icons/standards-icon-green.svg',
       image_id: 'standards-img',
       link: '/activities/standard_level/7'
     %>
-    <!-- <%= render 'navbar/tooltip_link',
-      text: 'Our Pedagogy',
-      subtext: 'Read about our evidence-based approach to writing instruction',
-      hover_image_src: 'https://assets.quill.org/images/navbar/navbar-pedagogy-solid.svg',
-      image_src: 'https://assets.quill.org/images/navbar/navbar-pedagogy-gradient.svg',
-      image_id: 'pedagogy-img',
-      link: ''
-    %> -->
   </div>
 </div>
