@@ -1,4 +1,4 @@
-import moment from 'moment'
+import * as moment from 'moment'
 import * as React from 'react'
 
 import EditStudentAccountModal from './edit_student_account_modal'
@@ -10,25 +10,46 @@ import ResetStudentPasswordModal from './reset_student_password_modal'
 import { DataTable, DropdownInput, Tooltip, helpIcon, warningIcon, } from '../../../Shared/index'
 
 const emptyDeskSrc = `${process.env.CDN_URL}/images/illustrations/empty-desks.svg`
-const bulbSrc = `${process.env.CDN_URL}/images/illustrations/bulb.svg`
+const lightBulbSrc = `${process.env.CDN_URL}/images/pages/classrooms/lightbulb.svg`
+const questionMarkSrc = `${process.env.CDN_URL}/images/pages/classrooms/question_mark.svg`
 const cleverSetupInstructionsPdf = `${process.env.CDN_URL}/documents/setup_instructions_pdfs/clever_setup_instructions.pdf`
 const googleSetupInstructionsPdf = `${process.env.CDN_URL}/documents/setup_instructions_pdfs/google_setup_instructions.pdf`
 
 function activeHeaders(hasProviderClassroom: boolean) {
   const name = {
-    width: '380px',
+    width: '220px',
     name: 'Name',
     attribute: 'name'
   }
 
-  const username = {
-    width: hasProviderClassroom ? '442px' : '566px',
-    name: 'Username',
-    attribute: 'username'
+  const usernameOrEmail = {
+    width: hasProviderClassroom ? '280px' : '330px',
+    name: 'Username/Email',
+    attribute: 'usernameOrEmail'
+  }
+
+  const logInMethod = {
+    width: '110px',
+    name: 'Log-in Method',
+    attribute: 'logInMethod'
+  }
+
+  const lastActive = {
+    width: '110px',
+    name: 'Last Active',
+    attribute: 'lastActive',
+    rowSectionClassName: 'show-overflow'
+  }
+
+  const activities = {
+    width: '70px',
+    name: 'Activities',
+    attribute: 'activities',
+    rowSectionClassName: 'left-align'
   }
 
   const synced = {
-    width: '124px',
+    width: '50px',
     name: 'Synced',
     attribute: 'synced',
     noTooltip: true,
@@ -41,7 +62,7 @@ function activeHeaders(hasProviderClassroom: boolean) {
     isActions: true
   }
 
-  return hasProviderClassroom ? [name, username, synced, actions] : [name, username, actions]
+  return hasProviderClassroom ? [name, usernameOrEmail, logInMethod, lastActive, activities, synced, actions] : [name, usernameOrEmail, logInMethod, lastActive, activities, actions]
 }
 
 function archivedHeaders(hasProviderClassroom: boolean) {
@@ -51,10 +72,10 @@ function archivedHeaders(hasProviderClassroom: boolean) {
     attribute: 'name'
   }
 
-  const username = {
+  const usernameOrEmail = {
     width: hasProviderClassroom ? '407px' : '531px',
-    name: 'Username',
-    attribute: 'username'
+    name: 'Username/Email',
+    attribute: 'usernameOrEmail'
   }
 
   const synced = {
@@ -65,7 +86,7 @@ function archivedHeaders(hasProviderClassroom: boolean) {
     rowSectionClassName: 'show-overflow'
   }
 
-  return hasProviderClassroom ? [name, username, synced] : [name, username]
+  return hasProviderClassroom ? [name, usernameOrEmail, synced] : [name, usernameOrEmail]
 }
 
 enum modalNames {
@@ -434,22 +455,37 @@ export default class ClassroomStudentSection
     const allCleverStudents = this.allCleverStudents()
 
     if (allGoogleStudents || allCleverStudents) {
+      let header
       let copy
       if (allGoogleStudents) {
+        header = <h4>This class is managed through <u>Google</u></h4>
         copy = "Your students’ account information is linked to your Google Classroom account. Go to your Google Classroom account to edit your students."
       } else if (allCleverStudents) {
+        header = <h4>This class is managed through <u>Clever</u></h4>
         copy = "Your students’ account information is auto-synced from your Clever account. You can modify your Quill class rosters from your Clever account."
       }
       return (
         <div className="google-or-clever-note-of-explanation">
+          <img alt="" src={questionMarkSrc} />
           <div className="google-or-clever-note-of-explanation-text">
-            <h4>Why can&#39;t I edit my students’ account information?</h4>
+            {header}
             <p>{copy}</p>
           </div>
-          <img alt="lightbulb" src={bulbSrc} />
         </div>
       )
     }
+  }
+
+  renderDuplicateAccountProTip() {
+    return (
+      <div className="duplicate-account-pro-tip">
+        <img alt="" src={lightBulbSrc} />
+        <div className="duplicate-account-pro-tip-text">
+          <h4>Pro Tip - How to manage duplicate accounts</h4>
+          <p>If a student has multiple accounts that were created manually (with a Quill password), you can merge those accounts together. However, Google or Clever accounts cannot be merged together. Instead, if a student has a duplicate Google or Clever account, go to the “Actions” menu and select the “remove the student” option for the duplicate account.</p>
+        </div>
+      </div>
+    )
   }
 
   syncedStatus(student: any, providerClassroom: string) {
@@ -482,15 +518,26 @@ export default class ClassroomStudentSection
     const hasProviderClassroom = providerClassroom !== undefined
 
     const rows = classroom.students.map(student => {
-      const { name, username, id, } = student
+      const { name, username, email, id, google_id, clever_id, last_active, number_of_completed_activities, } = student
       const checked = !!selectedStudentIds.includes(id)
       const synced = this.syncedStatus(student, providerClassroom)
+      let logInMethod = 'Username'
+
+      if (clever_id) {
+        logInMethod = 'Clever'
+      } else if (google_id) {
+        logInMethod = 'Google'
+      }
+
       return {
         synced,
         name,
         id,
-        username,
+        usernameOrEmail: synced ? email : username,
         checked,
+        logInMethod,
+        lastActive: last_active ? moment(last_active).format('MM/DD/YY HH:mm') : '',
+        activities: number_of_completed_activities,
         actions: classroom.visible ? this.actionsForIndividualStudent(student) : null
       }
     })
@@ -525,7 +572,7 @@ export default class ClassroomStudentSection
       download = true
     }
     /* eslint-disable react/jsx-no-target-blank */
-    const loginPdfLink = <a className="quill-button secondary outlined small" download={download} href={loginPdfHref} rel="noopener noreferrer" target="_blank">Download setup instructions</a>
+    const loginPdfLink = <a className="quill-button secondary outlined small" download={download} href={loginPdfHref} rel="noopener noreferrer" target="_blank">Download student log-in instructions</a>
     /* eslint-enable react/jsx-no-target-blank */
 
     return (
@@ -596,6 +643,7 @@ export default class ClassroomStudentSection
           {this.renderGoogleOrCleverNoteOfExplanation()}
           {this.renderStudentActions()}
           {this.renderStudentDataTable()}
+          {this.renderDuplicateAccountProTip()}
         </div>
       )
     } else if (classroom.visible) {
