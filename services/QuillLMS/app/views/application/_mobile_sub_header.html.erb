@@ -35,7 +35,7 @@
     <div class="right-side-mobile-nav">
       <p class="active-tab <%= premium_class if premium_class %>"><%= active_tab %></p>
       <div class="mobile-hamburger-container <%= show_notification_badges_class %>">
-        <div class="hamburger-icon <%= premium_class if premium_class %> notification-badge-relative" onclick="toggleMobilePrimaryDropdown()">
+        <div class="hamburger-icon <%= premium_class if premium_class %> <%= 'notification-badge-relative' if show_school_selection_reminders %>" onclick="toggleMobilePrimaryDropdown()">
           <div class="horizontal-line"></div>
           <div class="horizontal-line"></div>
           <div class="horizontal-line"></div>

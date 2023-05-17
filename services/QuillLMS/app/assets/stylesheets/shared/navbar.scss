@@ -43,6 +43,9 @@
           margin: 0px 16px;
           background-color: rgba(255, 255, 255, 0.3);
           border-radius: 6px;
+          &.notification-badge-relative {
+            margin-right: 32px;
+          }
           .horizontal-line {
             width: 24px;
             height: 2px;
