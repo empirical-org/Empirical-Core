@@ -180,7 +180,7 @@ exports[`ClassroomStudentSection component with students should render 1`] = `
           "logInMethod": "Username",
           "name": "Maya Angelou",
           "synced": "",
-          "usernameOrEmail": "maya.angelou.285383@demo-teacher",
+          "usernameOrEmail": "maya_angelou_demo@quill.org",
         },
         Object {
           "actions": Array [
