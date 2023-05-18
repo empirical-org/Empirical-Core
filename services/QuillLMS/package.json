@@ -53,7 +53,9 @@
     "react-csv": "^1.1.2"
   },
   "devDependencies": {
-    "qs": "^6.11.1",
+    "@types/enzyme": "^3.10.13",
+    "@types/enzyme-adapter-react-16": "^1.0.6",
+    "qs": "^6.9.0",
     "redux-test-utils": "^0.2.2"
   },
   "jest": {
