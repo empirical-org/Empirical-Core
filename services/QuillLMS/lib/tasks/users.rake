@@ -62,8 +62,8 @@ namespace :users do
       .where(role: [User::TEACHER, User::ADMIN])
       .where(teacher_info: {id: nil})
       .find_each do |user|
-        puts "Creating TeacherInfo record for user #{user.id}"
-        user.create_teacher_info(notification_email_frequency: TeacherInfo::NEVER_EMAIL)
+      puts "Creating TeacherInfo record for user #{user.id}"
+      user.create_teacher_info(notification_email_frequency: TeacherInfo::NEVER_EMAIL)
     end
 
     # Now find any existing TeacherInfo records without notification_email_frequency set, and set it to "never"
