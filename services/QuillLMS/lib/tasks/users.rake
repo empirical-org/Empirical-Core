@@ -54,4 +54,18 @@ namespace :users do
       user.verify_email(verification_method)
     end
   end
+
+  task set_default_notification_frequency: :environment do
+    # First make sure all teachers and admins have a TeacherInfo record with
+    # notification_email_frequency set to "never"
+    User.left_outer_joins(:teacher_info)
+      .where(role: [User::TEACHER, User::ADMIN])
+      .where(teacher_info: {id: nil})
+      .each do |user|
+        user.create_teacher_info(notification_email_frequency: TeacherInfo::NEVER_EMAIL)
+    end
+
+    # Now find any existing TeacherInfo records without notification_email_frequency set, and set it to "never"
+    TeacherInfo.where(notification_email_frequency: nil).update_all(notification_email_frequency: TeacherInfo::NEVER)
+  end
 end
