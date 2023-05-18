@@ -35,4 +35,12 @@ class TeacherNotificationSetting < ApplicationRecord
     presence: true,
     inclusion: {in: ->(model) { model.class.notification_types },
       message: "%<value>s is not a valid TeacherNotification type"}
+
+  def self.rollup_hash
+    active_types = pluck(:notification_type).uniq
+
+    notification_types.to_h do |notification_type|
+      [notification_type, notification_type.in?(active_types)]
+    end
+  end
 end

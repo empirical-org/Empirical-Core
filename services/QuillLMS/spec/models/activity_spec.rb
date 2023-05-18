@@ -37,6 +37,7 @@
 require 'rails_helper'
 
 describe Activity, type: :model, redis: true do
+  it { should have_many(:activity_sessions) }
   it { should have_many(:skill_group_activities) }
   it { should have_many(:skill_groups).through(:skill_group_activities) }
 

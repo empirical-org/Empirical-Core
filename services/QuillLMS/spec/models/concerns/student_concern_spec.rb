@@ -306,4 +306,49 @@ describe 'Student Concern', type: :model do
       end
     end
   end
+
+  context 'assigned activity helpers' do
+    let(:clean_classroom) { create(:classroom)}
+    let(:student) { create(:student, classrooms: [clean_classroom])}
+    let(:activity1) { create(:activity) }
+    let(:activity2) { create(:activity) }
+    let(:activity3) { create(:activity) }
+    let(:unit_template1) { create(:unit_template_with_activities, activities: [activity1, activity2, activity3])}
+    let(:unit_template2) { create(:unit_template_with_activities)}
+    let(:unit1) { create(:unit, unit_template: unit_template1, activities: unit_template1.activities) }
+    let(:unit2) { create(:unit, unit_template: unit_template2, activities: unit_template2.activities) }
+    let!(:assigned_classroom_unit) do
+      create(:classroom_unit, unit: unit1, classroom: clean_classroom, assigned_student_ids: [student.id])
+    end
+    let!(:unassigned_classroom_unit) do
+      create(:classroom_unit, unit: unit2, classroom: clean_classroom, assigned_student_ids: [])
+    end
+
+    describe '#assigned_activities' do
+      it 'should include all activities assigned to the student' do
+        expect(student.assigned_activities).to include(activity1, activity2, activity3)
+      end
+
+      it 'should not include any activities that are assigned to classroom the student is in but are not directly assigned to the studeent' do
+        expect(student.assigned_activities).not_to include(*unit_template2.activities)
+      end
+    end
+
+    describe '#incomplete_assigned_activities' do
+      let!(:incomplete_activity_session) { create(:activity_session, :unstarted, activity: activity2, user: student, classroom_unit: assigned_classroom_unit) }
+      let!(:complete_activity_session) { create(:activity_session, activity: activity3, user: student, classroom_unit: assigned_classroom_unit) }
+
+      it 'should include activity assignments without associated activity_sessions' do
+        expect(student.incomplete_assigned_activities).to include(activity1)
+      end
+
+      it 'should include activity assignments with associated activity_sessions as long as the activity_sessions do not have a completed_at value' do
+        expect(student.incomplete_assigned_activities).to include(activity2)
+      end
+
+      it 'should exclude activity assignments with associated completed activity_sessions' do
+        expect(student.incomplete_assigned_activities).not_to include(activity3)
+      end
+    end
+  end
 end

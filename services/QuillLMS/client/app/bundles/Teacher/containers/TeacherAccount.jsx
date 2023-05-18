@@ -18,6 +18,7 @@ const PASSWORD = 'password'
 const GRADE_LEVEL = 'gradeLevel'
 const SUBJECT_AREAS = 'subjectAreas'
 const GENERAL = 'general'
+const EMAIL_NOTIFICATIONS = 'emailNotifications'
 
 export default class TeacherAccount extends React.Component {
   constructor(props) {
@@ -32,6 +33,8 @@ export default class TeacherAccount extends React.Component {
       school,
       school_type,
       send_newsletter,
+      notification_email_frequency,
+      teacher_notification_settings,
       minimum_grade_level,
       maximum_grade_level,
       subject_area_ids,
@@ -46,6 +49,11 @@ export default class TeacherAccount extends React.Component {
       googleId: google_id,
       cleverId: clever_id,
       sendNewsletter: send_newsletter,
+      tempSendNewsletter: send_newsletter,
+      notificationEmailFrequency: notification_email_frequency,
+      tempNotificationEmailFrequency: notification_email_frequency,
+      teacherNotificationSettings: teacher_notification_settings,
+      tempTeacherNotificationSettings: teacher_notification_settings,
       minimumGradeLevel: minimum_grade_level,
       maximumGradeLevel: maximum_grade_level,
       selectedSubjectAreaIds: subject_area_ids,
@@ -68,6 +76,20 @@ export default class TeacherAccount extends React.Component {
       }
       this.setState({ snackbarCopy, }, this.showSnackbar)
     }
+  }
+
+  setTeacherNotificationOption = (key, value) => {
+    this.setState({[key]: value})
+  }
+
+  resetTeacherNotificationSection = () => {
+    const { sendNewsletter, notificationEmailFrequency, teacherNotificationSettings } = this.state
+
+    this.setState({
+      "tempSendNewsletter": sendNewsletter,
+      "tempNotificationEmailFrequency": notificationEmailFrequency,
+      "tempTeacherNotificationSettings": teacherNotificationSettings
+    })
   }
 
   activateSection = section => {
@@ -106,17 +128,41 @@ export default class TeacherAccount extends React.Component {
         const {
           minimum_grade_level,
           maximum_grade_level,
-          subject_area_ids
+          subject_area_ids,
+          notification_email_frequency
         } = body
+
         this.setState({
           minimumGradeLevel: minimum_grade_level,
           maximumGradeLevel: maximum_grade_level,
           selectedSubjectAreaIds: subject_area_ids,
+          notificationEmailFrequency: notification_email_frequency,
+          tempNotificationEmailFrequency: notification_email_frequency,
           snackbarCopy,
           errors: {}
         }, () => {
-          this.showSnackbar()
+          if (snackbarCopy) { this.showSnackbar() }
           this.setState({ activeSection: null, })
+        })
+      },
+      (body) => {
+        this.setState({ errors: body.errors, timesSubmitted: timesSubmitted + 1, })
+      }
+    )
+  }
+
+  updateNotificationSettings = (data) => {
+    requestPost(
+      '/api/v1/teacher_notification_settings/bulk_update',
+      data,
+      (body) => {
+        const { teacher_notification_settings, } = body
+        this.setState({
+          teacherNotificationSettings: teacher_notification_settings,
+          tempTeacherNotificationSettings: teacher_notification_settings,
+          errors: {}
+        }, () => {
+          this.setState({activeSection: null, })
         })
       },
       (body) => {
@@ -150,6 +196,7 @@ export default class TeacherAccount extends React.Component {
           googleId: google_id,
           cleverId: clever_id,
           sendNewsletter: send_newsletter,
+          tempSendNewsletter: send_newsletter,
           snackbarCopy,
           errors: {}
         }, () => {
@@ -180,12 +227,15 @@ export default class TeacherAccount extends React.Component {
       errors,
       timesSubmitted,
       activeSection,
-      sendNewsletter,
+      tempSendNewsletter,
+      tempNotificationEmailFrequency,
+      tempTeacherNotificationSettings,
       postGoogleClassroomAssignments,
       minimumGradeLevel,
       maximumGradeLevel,
       selectedSubjectAreaIds,
     } = this.state
+
     const { accountInfo, alternativeSchools, alternativeSchoolsNameMap, cleverLink, showDismissSchoolSelectionReminderCheckbox, subjectAreas, } = this.props
     return (
       <div className="user-account white-background-accommodate-footer">
@@ -229,7 +279,16 @@ export default class TeacherAccount extends React.Component {
           updateUser={this.updateUser}
         />
         <TeacherEmailNotifications
-          sendNewsletter={sendNewsletter}
+          activateSection={() => this.activateSection(EMAIL_NOTIFICATIONS)}
+          active={activeSection === EMAIL_NOTIFICATIONS}
+          deactivateSection={() => this.deactivateSection(EMAIL_NOTIFICATIONS)}
+          notificationEmailFrequency={tempNotificationEmailFrequency}
+          notificationSettings={tempTeacherNotificationSettings}
+          resetTeacherNotificationSection={this.resetTeacherNotificationSection}
+          sendNewsletter={tempSendNewsletter}
+          setTeacherNotificationOption={this.setTeacherNotificationOption}
+          updateNotificationSettings={this.updateNotificationSettings}
+          updateTeacherInfo={this.updateTeacherInfo}
           updateUser={this.updateUser}
         />
         <TeacherGradeLevels
