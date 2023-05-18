@@ -13,7 +13,7 @@ describe SyncVitallyOrganizationWorker do
 
   describe '#perform' do
     it 'build payload from district object and send them to Vitally' do
-      expect(vitally_api_double).to receive(:create).with('organizations', district.vitally_data).and_return(response_double)
+      expect(vitally_api_double).to receive(:create).with('organizations', SerializeVitallySalesOrganization.new(district).data).and_return(response_double)
       expect(VitallyRestApi).to receive(:new).and_return(vitally_api_double)
 
       subject.perform(district.id)
@@ -23,7 +23,7 @@ describe SyncVitallyOrganizationWorker do
       let(:response_double) { double(success?: false, code: 429) }
 
       it 'build payload from district object and send them to Vitally' do
-        expect(vitally_api_double).to receive(:create).with('organizations', district.vitally_data).and_return(response_double)
+        expect(vitally_api_double).to receive(:create).with('organizations', SerializeVitallySalesOrganization.new(district).data).and_return(response_double)
         expect(VitallyRestApi).to receive(:new).and_return(vitally_api_double)
 
         expect { subject.perform(district.id) }.to raise_error(VitallyRestApi::RateLimitError)
@@ -34,7 +34,7 @@ describe SyncVitallyOrganizationWorker do
       let(:response_double) { double(success?: false, code: 500) }
 
       it 'build payload from district object and send them to Vitally' do
-        expect(vitally_api_double).to receive(:create).with('organizations', district.vitally_data).and_return(response_double)
+        expect(vitally_api_double).to receive(:create).with('organizations', SerializeVitallySalesOrganization.new(district).data).and_return(response_double)
         expect(VitallyRestApi).to receive(:new).and_return(vitally_api_double)
 
         expect { subject.perform(district.id) }.to raise_error(VitallyRestApi::ApiError)

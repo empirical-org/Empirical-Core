@@ -1,5 +1,23 @@
 # frozen_string_literal: true
 
+# == Schema Information
+#
+# Table name: comprehension_rules
+#
+#  id          :integer          not null, primary key
+#  uid         :string           not null
+#  name        :string           not null
+#  note        :string
+#  universal   :boolean          not null
+#  rule_type   :string           not null
+#  optimal     :boolean          not null
+#  suborder    :integer
+#  concept_uid :string
+#  created_at  :datetime         not null
+#  updated_at  :datetime         not null
+#  state       :string           not null
+#  hint_id     :bigint
+#
 FactoryBot.define do
   factory :evidence_rule, class: 'Evidence::Rule' do
     uid { SecureRandom.uuid }

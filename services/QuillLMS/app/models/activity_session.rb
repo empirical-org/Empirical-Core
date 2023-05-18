@@ -43,7 +43,6 @@ class ActivitySession < ApplicationRecord
 
   class ConceptResultSubmittedWithoutActivitySessionError < StandardError; end
   class StudentNotAssignedActivityError < StandardError; end
-  class LongTimeTrackingError < StandardError; end
 
   include Uid
   include Concepts

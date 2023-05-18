@@ -107,6 +107,8 @@ class User < ApplicationRecord
   GOOGLE_CLASSROOM_ACCOUNT = 'Google Classroom'
   CLEVER_ACCOUNT = 'Clever'
 
+  SCHOOL_CHANGELOG_ATTRIBUTE = 'school_id'
+
   attr_accessor :validate_username, :require_password_confirmation_when_password_present, :newsletter
 
   has_secure_password validations: false
@@ -808,6 +810,10 @@ class User < ApplicationRecord
 
   def receives_notification_type?(type)
     teacher_notification_settings.exists?(notification_type: type)
+  end
+
+  def save_user_pack_sequence_items
+    classrooms.each { |classroom| SaveUserPackSequenceItemsWorker.perform_async(classroom.id, id) }
   end
 
   private def validate_flags
