@@ -223,6 +223,24 @@ describe Api::V1::ActivitySessionsController, type: :controller do
         parsed_body = JSON.parse(response.body)
         expect(parsed_body["meta"]["message"]).to eq("Activity Session Already Completed")
       end
+
+      context '#send_teacher_notifications' do
+        before do
+          activity_session.update(completed_at: nil, state: 'started')
+        end
+
+        it 'should enqueue a FanoutSendNotificationsWorker job if the activity session has been completed' do
+          expect(TeacherNotifications::FanoutSendNotificationsWorker).to receive(:perform_async).with(activity_session.id)
+
+          put :update, params: { id: activity_session.uid, completed_at: Time.current }, as: :json
+        end
+
+        it 'should not enqueue a FanoutSendNotificationWorker job if the activity session is being updated, but not marked complete' do
+          expect(TeacherNotifications::FanoutSendNotificationsWorker).not_to receive(:perform_async)
+
+          put :update, params: { id: activity_session.uid }, as: :json
+        end
+      end
     end
   end
 

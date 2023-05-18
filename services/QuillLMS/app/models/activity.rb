@@ -49,6 +49,7 @@ class Activity < ApplicationRecord
 
   has_one :standard_level, through: :standard
 
+  has_many :activity_sessions
   has_many :skill_group_activities
   has_many :skill_groups, through: :skill_group_activities
   has_many :skills, through: :skill_groups

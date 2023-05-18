@@ -640,15 +640,13 @@ class User < ApplicationRecord
     user_attributes[:subscription]['subscriptionType'] = premium_state
     user_attributes[:minimum_grade_level] = teacher_info&.minimum_grade_level
     user_attributes[:maximum_grade_level] = teacher_info&.maximum_grade_level
+    user_attributes[:notification_email_frequency] = teacher_info&.notification_email_frequency
+    user_attributes[:teacher_notification_settings] = teacher_notification_settings_info
     user_attributes[:subject_area_ids] = subject_area_ids
 
-    if school && school.name
-      user_attributes[:school] = school
-      user_attributes[:school_type] = School::ALTERNATIVE_SCHOOLS_DISPLAY_NAME_MAP[school.name] || School::US_K12_SCHOOL_DISPLAY_NAME
-    else
-      user_attributes[:school] = School.find_by_name(School::NO_SCHOOL_SELECTED_SCHOOL_NAME)
-      user_attributes[:school_type] = School::US_K12_SCHOOL_DISPLAY_NAME
-    end
+    user_attributes[:school] = school_account_info
+    user_attributes[:school_type] = school_type_account_info
+
     user_attributes
   end
 
@@ -810,6 +808,10 @@ class User < ApplicationRecord
     school_premium? || district_premium?
   end
 
+  def receives_notification_type?(type)
+    teacher_notification_settings.exists?(notification_type: type)
+  end
+
   def save_user_pack_sequence_items
     classrooms.each { |classroom| SaveUserPackSequenceItemsWorker.perform_async(classroom.id, id) }
   end
@@ -878,6 +880,22 @@ class User < ApplicationRecord
     TeacherNotificationSetting::DEFAULT_FOR_NEW_USERS.each do |notification_type|
       teacher_notification_settings.create!(notification_type: notification_type)
     end
+  end
+
+  private def teacher_notification_settings_info
+    teacher_notification_settings.rollup_hash
+  end
+
+  private def school_account_info
+    return school if school&.name
+
+    School.find_by(name: School::NO_SCHOOL_SELECTED_SCHOOL_NAME)
+  end
+
+  private def school_type_account_info
+    return (School::ALTERNATIVE_SCHOOLS_DISPLAY_NAME_MAP[school.name] || School::US_K12_SCHOOL_DISPLAY_NAME) if school&.name
+
+    School::US_K12_SCHOOL_DISPLAY_NAME
   end
 end
 # rubocop:enable Metrics/ClassLength
