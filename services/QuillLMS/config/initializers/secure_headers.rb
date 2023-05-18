@@ -60,7 +60,8 @@ SecureHeaders::Configuration.default do |config|
       "https://*.sentry.io",
       "https://*.heapanalytics.com",
       "https://cdn.jsdelivr.net/npm/vanilla-lazyload@17.8.3/dist/lazyload.min.js",
-      "https://*.salesmate.io"
+      "https://*.salesmate.io",
+      "https://*.googletagmanager.com"
     ],
 
     font_src: [

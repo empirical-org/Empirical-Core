@@ -1868,5 +1868,21 @@ describe User, type: :model do
       expect(subject).to eq false
     end
   end
+
+  context 'save_user_pack_sequence_items' do
+    subject { user.save_user_pack_sequence_items}
+
+    context 'user has no classrooms' do
+      it { expect { subject }.not_to change { SaveUserPackSequenceItemsWorker.jobs.size } }
+    end
+
+    context 'user belongs to a classroom' do
+      let(:classroom) { double(:classroom, id: 1) }
+
+      before { allow(user).to receive(:classrooms).and_return([classroom]) }
+
+      it { expect { subject }.to change { SaveUserPackSequenceItemsWorker.jobs.size }.by(1) }
+    end
+  end
 end
 # rubocop:enable Metrics/BlockLength

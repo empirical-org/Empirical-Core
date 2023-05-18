@@ -16,6 +16,13 @@ class SyncVitallyWorker
     queue_district_syncs
     queue_school_syncs
     queue_user_syncs
+    queue_unlink_syncs
+  end
+
+  private def queue_unlink_syncs
+    unlinks_to_run.each do |change_log|
+      SyncVitallyUnlinksWorker.perform_async(change_log.changed_record_id, change_log.new_value.to_i)
+    end
   end
 
   private def queue_district_syncs
@@ -37,6 +44,12 @@ class SyncVitallyWorker
     users_to_sync.find_in_batches(batch_size: BATCH_SIZE).with_index do |users, index|
       SyncVitallyUsersWorker.perform_in(index.seconds, users.map(&:id))
     end
+  end
+
+  private def unlinks_to_run
+    ChangeLog.where(changed_record_type: User.name)
+      .where(changed_attribute: User::SCHOOL_CHANGELOG_ATTRIBUTE)
+      .where(created_at: (DateTime.current - 25.hours)..Float::INFINITY)
   end
 
   private def schools_to_sync

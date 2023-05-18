@@ -26,6 +26,7 @@ class Rack::Attack
       BLOCKLIST_REGEX.present? &&
       req.path != '/404' &&
       req.path != '/500' &&
+      !req.path.start_with?('/apple-touch-icon') &&
       req.path.match?(BLOCKLIST_REGEX)
   end
 
