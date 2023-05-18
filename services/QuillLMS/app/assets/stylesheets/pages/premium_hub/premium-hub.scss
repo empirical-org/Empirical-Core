@@ -144,6 +144,8 @@
       background-color: transparent;
     }
     .progress-report {
+      max-width: none;
+      width: max-content;
       table {
         thead {
           tr {
@@ -411,6 +413,13 @@
   }
 }
 
+.reports-table-container {
+  overflow-x: auto;
+  .progress-report {
+    width: max-content !important;
+  }
+}
+
 @media (max-width: 991px) {
   .sub-container {
     .admin-features-container {
@@ -438,5 +447,11 @@
         position: relative !important;
       }
     }
+  }
+}
+
+@media (max-width: 787px) {
+  .how-we-grade {
+    text-align: left !important;
   }
 }

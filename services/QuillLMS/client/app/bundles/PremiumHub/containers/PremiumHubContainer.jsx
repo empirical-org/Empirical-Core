@@ -129,7 +129,7 @@ const PremiumHubContainer = ({ id, location, children, }) => {
     <div className="tab-content">
       <div className="tab-pane active" id="class-manager">
         <SubnavTabs path={location} />
-        <div id="premium-hub">
+        <div className="container" id="premium-hub">
           {children}
           {renderBanner()}
           <Switch>

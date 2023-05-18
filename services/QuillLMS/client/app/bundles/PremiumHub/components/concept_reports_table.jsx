@@ -5,6 +5,7 @@ import { ReactTable, } from '../../Shared';
 import EmptyStateForReport from '../../Teacher/components/progress_reports/empty_state_for_report';
 
 const ConceptReportsTable = ({ data, }) => {
+  console.log("🚀 ~ file: concept_reports_table.jsx:8 ~ ConceptReportsTable ~ data:", data)
   const columns = [
     {
       Header: 'Student',
@@ -44,7 +45,7 @@ const ConceptReportsTable = ({ data, }) => {
 
   if (data && data.length) {
     return (
-      <div key={`${data.length}-length-for-activities-scores-by-classroom`}>
+      <div className="reports-table-container" key={`${data.length}-length-for-activities-scores-by-classroom`}>
         <ReactTable
           className="progress-report has-green-arrow"
           columns={columns}
