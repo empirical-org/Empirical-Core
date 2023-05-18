@@ -67,6 +67,6 @@ namespace :users do
     end
 
     # Now find any existing TeacherInfo records without notification_email_frequency set, and set it to "never"
-    TeacherInfo.where(notification_email_frequency: nil).update_all(notification_email_frequency: TeacherInfo::NEVER)
+    TeacherInfo.where(notification_email_frequency: nil).update_all(notification_email_frequency: TeacherInfo::NEVER_EMAIL)
   end
 end
