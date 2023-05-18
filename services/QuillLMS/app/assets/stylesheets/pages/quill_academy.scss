@@ -182,6 +182,8 @@
 @media (max-width: 1200px) {
   .quill-academy-container {
     .container {
+      padding-left: 86px;
+      padding-right: 86px;
       .top-section {
         .availability-disclaimer {
           i {
@@ -215,6 +217,15 @@
           margin-left: 0;
         }
       }
+    }
+  }
+}
+
+@media (max-width: 650px) {
+  .quill-academy-container {
+    .container {
+      padding-left: 16px;
+      padding-right: 16px;
     }
   }
 }
