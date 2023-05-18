@@ -178,3 +178,63 @@
     }
   }
 }
+
+@media (max-width: 1200px) {
+  .quill-academy-container {
+    .container {
+      .top-section {
+        .availability-disclaimer {
+          i {
+            margin-right: 16px;
+          }
+        }
+      }
+      .middle-section {
+        flex-direction: column;
+        align-items: center;
+        padding-bottom: 88px;
+        .category-card {
+          margin-bottom: 36px;
+        }
+      }
+    }
+  }
+}
+
+@media (max-width: 770px) {
+  .quill-academy-container {
+    .container {
+      .content-section {
+        flex-direction: column;
+        align-items: center;
+        .category-card {
+          margin-bottom: 36px;
+        }
+        .content-cards {
+          justify-content: space-around;
+          margin-left: 0;
+        }
+      }
+    }
+  }
+}
+
+@media (max-width: 410px) {
+  .quill-academy-container {
+    .container {
+      .middle-section, .content-section {
+        .category-card {
+          display: flex;
+          flex-direction: column;
+          .icon-image {
+            align-self: center;
+            padding: 20px 66px;
+          }
+          p {
+            padding: 0px 46px;
+          }
+        }
+      }
+    }
+  }
+}
