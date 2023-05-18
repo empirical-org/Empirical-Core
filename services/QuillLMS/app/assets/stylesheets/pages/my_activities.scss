@@ -52,6 +52,10 @@
         padding-top: 20px;
       }
     }
+    .data-table {
+      overflow-x: auto !important;
+      max-width: 80vw;
+    }
     .activity-pack-top-section {
       padding: 32px;
       border-bottom: 1px solid #e0e0e0;
@@ -243,9 +247,16 @@
         }
       }
     }
+    .quill-modal {
+      width: 80vw;
+    }
   }
 
   @media (max-width: 500px) {
+    .my-activities-header {
+      padding-left: 16px;
+      padding-right: 16px;
+    }
     .my-activities-header .top-line {
       flex-direction: column;
       align-items: flex-start;
