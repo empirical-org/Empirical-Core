@@ -61,6 +61,7 @@ namespace :users do
     User.left_outer_joins(:teacher_info)
       .where(role: [User::TEACHER, User::ADMIN])
       .where(teacher_info: {id: nil})
+      .all
       .each do |user|
         puts "Creating TeacherInfo record for user #{user.id}"
         user.create_teacher_info(notification_email_frequency: TeacherInfo::NEVER_EMAIL)
