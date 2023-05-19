@@ -478,6 +478,9 @@
         }
       }
     }
+    .classroom-card-header {
+      height: max-content;
+    }
     .students-section-header-buttons {
       flex-direction: column;
       .top-buttons-container {
