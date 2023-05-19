@@ -121,7 +121,7 @@ describe "Cron", type: :model do
     end
 
     it "enqueues TeacherNotifications::EnqueueUsersForRollupEmailWorker" do
-      expect(TeacherNotifications::EnqueueUsersForRollupEmailWorker).to receive(:perform_async).with(TeacherInfo::WEEKLY_EMAIL) if Date.today.wday == 5
+      expect(TeacherNotifications::EnqueueUsersForRollupEmailWorker).to receive(:perform_async).with(TeacherInfo::WEEKLY_EMAIL) if Time.zone.today.wday == 5
       expect(TeacherNotifications::EnqueueUsersForRollupEmailWorker).to receive(:perform_async).with(TeacherInfo::DAILY_EMAIL)
       Cron.interval_1_day
     end
