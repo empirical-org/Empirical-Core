@@ -212,3 +212,11 @@
     margin-right: 20px;
   }
 }
+
+@media (max-width: 850px) {
+  .progress-reports-2018 {
+    .progress-report {
+      overflow-x: auto;
+    }
+  }
+}

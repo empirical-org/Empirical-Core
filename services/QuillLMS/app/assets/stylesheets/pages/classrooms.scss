@@ -439,6 +439,14 @@
   }
 }
 
+@media(max-width: 1200px) {
+  .classrooms-page {
+    .data-table {
+      overflow-x: auto !important;
+    }
+  }
+}
+
 @media (min-width: 768px) and (max-width: 992px) {
   .sortable-classroom, .classrooms-page .list-item {
     display: flex;
@@ -454,5 +462,37 @@
     align-items: baseline;
     width: auto;
     margin-left: 0px;
+  }
+}
+
+@media (max-width: 600px) {
+  .classrooms-page {
+    .header {
+      flex-direction: column;
+      align-items: center;
+      .buttons {
+        flex-direction: column;
+        align-items: center;
+        button:first-of-type {
+          margin: 16px 0px;
+        }
+      }
+    }
+    .students-section-header-buttons {
+      flex-direction: column;
+      .top-buttons-container {
+        flex-direction: column;
+      }
+    }
+    .class-settings {
+      .class-settings-buttons {
+        flex-direction: column;
+      }
+    }
+    .classroom {
+      &.open {
+        width: 80vw;
+      }
+    }
   }
 }
