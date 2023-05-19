@@ -72,6 +72,7 @@ gem 'configs'
 gem 'rack-test', '~> 0.6.3'
 gem 'secure_headers', '6.3.2'
 gem 'faker'
+gem 'cgi', '~> 0.3.6'
 
 # Engines
 gem 'evidence', path: 'engines/evidence'
