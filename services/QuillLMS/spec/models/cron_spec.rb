@@ -121,7 +121,9 @@ describe "Cron", type: :model do
     end
 
     it "enqueues TeacherNotifications::EnqueueUsersForRollupEmailWorker" do
-      expect(TeacherNotifications::EnqueueUsersForRollupEmailWorker).to receive(:perform_async).with(TeacherInfo::WEEKLY_EMAIL) if Time.zone.today.wday == 5
+      # Don't actually call run_friday because we don't want to trigger the
+      # WEEKLY rollup logic
+      allow(Cron).to receive(:run_friday)
       expect(TeacherNotifications::EnqueueUsersForRollupEmailWorker).to receive(:perform_async).with(TeacherInfo::DAILY_EMAIL)
       Cron.interval_1_day
     end

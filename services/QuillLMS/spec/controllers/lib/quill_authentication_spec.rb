@@ -79,6 +79,58 @@ describe FakeController, type: :controller do
         end
       end
     end
+  end
 
+  describe '#sign_in' do
+    let(:user) { create(:user) }
+
+    subject { controller.sign_in(user) }
+
+    it { expect { subject }.to change { session[:user_id] }.from(nil).to(user.id) }
+
+    context 'teacher' do
+      before { allow(user).to receive(:teacher?).and_return(true) }
+
+      it do
+        expect(TestForEarnedCheckboxesWorker).to receive(:perform_async).with(user.id)
+        expect(user).to receive(:update)
+        expect(user).not_to receive(:save_user_pack_sequence_items)
+        subject
+      end
+    end
+
+    context 'student' do
+      before { allow(user).to receive(:student?).and_return(true) }
+
+      it do
+        expect(TestForEarnedCheckboxesWorker).not_to receive(:perform_async)
+        expect(user).to receive(:update)
+        expect(user).to receive(:save_user_pack_sequence_items)
+        subject
+      end
+    end
+
+    context 'staff impersonating user' do
+      before { allow(controller).to receive(:staff_impersonating_user?).and_return(true) }
+
+      it do
+        expect(TestForEarnedCheckboxesWorker).not_to receive(:perform_async)
+        expect(user).not_to receive(:update)
+        expect(user).not_to receive(:save_user_pack_sequence_items)
+        subject
+      end
+
+    end
+
+    context 'admin impersonating user' do
+      before { allow(controller).to receive(:admin_impersonating_user?).and_return(true) }
+
+      it do
+        expect(TestForEarnedCheckboxesWorker).not_to receive(:perform_async)
+        expect(user).not_to receive(:update)
+        expect(user).not_to receive(:save_user_pack_sequence_items)
+        subject
+      end
+    end
   end
 end

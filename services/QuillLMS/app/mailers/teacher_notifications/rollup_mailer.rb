@@ -19,6 +19,12 @@ module TeacherNotifications
       "TeacherNotifications::StudentCompletedAllAssignedActivities" => "students_completed_all_assigned_activities"
     }
 
+    NOTIFICATION_TYPE_SORT_ORDER = [
+      TeacherNotifications::StudentCompletedDiagnostic,
+      TeacherNotifications::StudentCompletedAllDiagnosticRecommendations,
+      TeacherNotifications::StudentCompletedAllAssignedActivities
+    ]
+
     default from: "The Quill Team <hello@quill.org>"
 
     def rollup(user, teacher_notifications)
@@ -26,11 +32,12 @@ module TeacherNotifications
       @frequency = FREQUENCY_WORD_LOOKUP[user.teacher_info.notification_email_frequency]
 
       @teacher_notifications = teacher_notifications.sort_by(&:student_name)
+        .sort { |a, b| NOTIFICATION_TYPE_SORT_ORDER.find_index(a.type) <=> NOTIFICATION_TYPE_SORT_ORDER.find_index(b.type) }
       @teacher_notifications = @teacher_notifications.group_by(&:classroom_name).transform_values do |inner_group_by|
         inner_group_by.group_by(&:type)
       end
 
-      subject = "Your #{user.teacher_info.notification_email_frequency} event update"
+      subject = "Your Quill #{user.teacher_info.notification_email_frequency} roundup"
       mail(to: @user.email, subject: subject)
     end
   end

@@ -20,7 +20,7 @@ module TeacherNotifications
       [TeacherInfo::HOURLY_EMAIL, TeacherInfo::DAILY_EMAIL, TeacherInfo::WEEKLY_EMAIL].each do |frequency|
         user.teacher_info.update(notification_email_frequency: frequency)
 
-        expect(described_class.rollup(user, notifications).deliver_now.subject).to eq("Your #{frequency} event update")
+        expect(described_class.rollup(user, notifications).deliver_now.subject).to eq("Your Quill #{frequency} roundup")
       end
     end
 
@@ -44,10 +44,23 @@ module TeacherNotifications
       it { expect(mail.body.encoded).to match("Assign your students more activities") }
     end
 
-    context 'should include the diagnostic recommendations section of diagnostic recommendation notifications are provided' do
+    context 'should include the diagnostic recommendations section if diagnostic recommendation notifications are provided' do
       let(:notifications) { [create(:teacher_notification_student_completed_all_diagnostic_recommendations, user: user)] }
 
-      it { expect(mail.body.encoded).to match("Assign a post-test diagnostic") }
+      it { expect(mail.body.encoded).to match("Assign a growth diagnostic") }
+    end
+
+    context 'should sort the notification types consistently as defined' do
+      # This array is built intentionally in the "wrong" order
+      let(:notifications) {
+        [
+          create(:teacher_notification_student_completed_all_diagnostic_recommendations, user: user),
+          create(:teacher_notification_student_completed_diagnostic, user: user),
+          create(:teacher_notification_student_completed_all_assigned_activities, user: user)
+        ]
+      }
+
+      it { expect(mail.body.encoded).to match(/Student completed diagnostic.*Student completed all diagnostic recommendations.*Student completed all assigned activities/m) }
     end
 
     context 'should not include the diagnostics section if diagnostic notifications are not provided' do
@@ -62,7 +75,7 @@ module TeacherNotifications
       it { expect(mail.body.encoded).not_to match("Assign your students more activities") }
     end
 
-    context 'should not include the diagnostic recommendations sectiion of diagnostic recommendation notifications are not provided' do
+    context 'should not include the diagnostic recommendations sectiion if diagnostic recommendation notifications are not provided' do
       let(:notifications) { [] }
 
       it { expect(mail.body.encoded).not_to match("Assign a post-test diagnostic") }

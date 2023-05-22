@@ -15,7 +15,6 @@ module QuillBigQuery
       raise JobNotCompletedError, json_body unless json_body['jobComplete']
 
       json_body.dig('schema','fields').respond_to?(:count) &&
-        json_body['rows'].respond_to?(:count) &&
         json_body['totalRows'].respond_to?(:to_i)
     end
 
@@ -46,6 +45,7 @@ module QuillBigQuery
       rescue => e
         raise ClientExecutionError, "Query: #{query}, wrapped error: #{e}"
       end
+
       body = JSON.parse(result.response.body)
     end
 
