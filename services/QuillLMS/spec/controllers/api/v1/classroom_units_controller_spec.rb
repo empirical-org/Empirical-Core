@@ -101,7 +101,6 @@ describe Api::V1::ClassroomUnitsController, type: :controller do
           follow_up: true
         },
         as: :json
-
       expect(response.status).to be_in([303, 404])
     end
 

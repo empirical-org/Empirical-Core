@@ -127,7 +127,7 @@ class ActivitySessionsController < ApplicationController
     return auth_failed if current_user.nil?
 
     @classroom_unit = ClassroomUnit.find params[:classroom_unit_id]
-    if current_user.classrooms.exclude?(@classroom_unit.classroom) then auth_failed(hard: false) end
+    if current_user.classrooms.exclude?(@classroom_unit.classroom) then auth_failed end
   end
 
   private def determine_layout

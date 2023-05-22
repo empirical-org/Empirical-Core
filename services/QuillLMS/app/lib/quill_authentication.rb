@@ -123,15 +123,13 @@ module QuillAuthentication
     auth_failed
   end
 
-  def auth_failed(hard: true)
-    if hard
-      sign_out
-      session[:attempted_path] = request.fullpath
-      redirect_to(new_session_path, status: :see_other)
-    else
-      redirect_to(profile_path, notice: "404")
+  def auth_failed
+    if request.headers['Accept'] == 'application/json'
+      puts "\n\n HERE \n\n"
+      render(json: {redirect: new_session_path}, status: 401) and return
     end
 
+    redirect_to(profile_path, notice: "404")
   end
 
   def admin?
