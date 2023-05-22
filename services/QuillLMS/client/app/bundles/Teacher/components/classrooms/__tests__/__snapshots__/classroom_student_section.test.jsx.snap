@@ -49,7 +49,9 @@ exports[`ClassroomStudentSection component with students should render 1`] = `
     <div
       className="students-section-header-buttons"
     >
-      <div>
+      <div
+        className="login-pdf-and-view-as-student"
+      >
         <a
           className="quill-button secondary outlined small"
           href="/teachers/classrooms/285383/student_logins"
