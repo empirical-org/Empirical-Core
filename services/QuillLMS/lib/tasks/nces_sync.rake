@@ -36,7 +36,7 @@ namespace :nces_sync do
           grade_range: "#{row['Lowest Grade Offered']} - #{row['Highest Grade Offered']}"
         }
 
-        district = District.where("lower(name) = ?", attributes_hash[:name].downcase).first
+        district = District.where("nces_id = ?", attributes_hash[:nces_id]).first
         if district.present?
           district.update!(attributes_hash)
         else

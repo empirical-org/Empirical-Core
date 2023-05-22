@@ -224,8 +224,9 @@ describe Teachers::ClassroomsController, type: :controller do
           let!(:cu) { create(:classroom_unit, classroom: classroom, assigned_student_ids: [student.id])}
           let!(:ua) { create(:unit_activity, unit: cu.unit, activity: activity)}
           let!(:activity_session) { create(:activity_session, user: student, activity: activity, classroom_unit: cu, state: 'finished') }
+          let!(:activity_session2) { create(:activity_session, user: student, state: 'finished') }
 
-          it 'should assign students and number_of_completed_activities' do
+          it 'should assign students and number_of_completed_activities for activities completed for that class' do
             get :index
 
             classrooms.count.times do |i|
