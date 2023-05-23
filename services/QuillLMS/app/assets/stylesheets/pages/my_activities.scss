@@ -264,6 +264,16 @@
         margin-top: 16px;
       }
     }
+    .activity-packs {
+      .activity-pack {
+        .data-table {
+          display: none;
+        }
+        .add-activities-button {
+          display: none;
+        }
+      }
+    }
   }
 }
 

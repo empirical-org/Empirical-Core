@@ -525,6 +525,25 @@
     .classroom {
       &.open {
         width: 80vw;
+        .student-actions-dropdown-wrapper {
+          display: none;
+        }
+        .students-section-header {
+          .students-section-header-buttons {
+            .top-buttons-container {
+              a {
+                white-space: pre-wrap;
+                height: auto;
+                text-align: left;
+                width: 100%;
+                padding: 16px;
+              }
+            }
+          }
+        }
+        .data-table {
+          display: none;
+        }
       }
     }
   }
