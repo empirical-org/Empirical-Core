@@ -46,6 +46,12 @@ class SnapshotsController < ApplicationController
       previous_start: proc { DateTime.current.beginning_of_year - 2.years },
       current_start: proc { DateTime.new(2010,1,1) }, # This is well before anydata exists in our system, so works for "all time"
       current_end: proc { DateTime.current },
+    }, {
+      value: Snapshots::CacheKeys::CUSTOM_TIMEFRAME_NAME,
+      name: 'Custom',
+      previous_start: :custom_previous_start,
+      current_start: :custom_current_start,
+      current_end: :custom_current_end
     }
   ]
 
@@ -97,7 +103,11 @@ class SnapshotsController < ApplicationController
   private def cache_key
     Snapshots::CacheKeys.generate_key(snapshot_params[:query],
       current_user.id,
-      snapshot_params[:timeframe_name],
+      {
+        name: snapshot_params[:timeframe_name],
+        custom_start: snapshot_params[:timeframe_custom_start],
+        custom_end: snapshot_params[:timeframe_custom_end]
+      },
       snapshot_params[:school_ids],
       snapshot_params[:grades])
   end
@@ -115,18 +125,28 @@ class SnapshotsController < ApplicationController
   end
 
   private def calculate_timeframes
-    if snapshot_params[:timeframe_custom_start] && snapshot_params[:timeframe_custom_end]
-      current_start = DateTime.parse(snapshot_params[:timeframe_custom_start])
-      current_end = DateTime.parse(snapshot_params[:timeframe_custom_end])
-      timeframe_length = current_end - current_start
-      previous_start = current_start - timeframe_length
-      [previous_start, current_start, current_end]
-    else
-      timeframe = find_timeframe(snapshot_params[:timeframe])
-      [timeframe[:previous_start].call,
-       timeframe[:current_start].call,
-       timeframe[:current_end].call]
-    end
+    timeframe = find_timeframe(snapshot_params[:timeframe])
+
+    return [send(timeframe[:previous_start]),
+     send(timeframe[:current_start]),
+     send(timeframe[:current_end])] if snapshot_params[:timeframe] == 'custom'
+
+    [timeframe[:previous_start].call,
+     timeframe[:current_start].call,
+     timeframe[:current_end].call]
+  end
+
+  private def custom_previous_start
+    timeframe_length = custom_current_end - custom_current_start
+    custom_current_start - timeframe_length
+  end
+
+  private def custom_current_start
+    DateTime.parse(snapshot_params[:timeframe_custom_start])
+  end
+
+  private def custom_current_end
+    DateTime.parse(snapshot_params[:timeframe_custom_end])
   end
 
   private def snapshot_params

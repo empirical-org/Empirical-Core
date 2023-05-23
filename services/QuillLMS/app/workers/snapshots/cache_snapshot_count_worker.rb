@@ -5,7 +5,6 @@ module Snapshots
     include Sidekiq::Worker
 
     DEFAULT_CACHE_EXPIRATION = 24.hours
-
     PUSHER_EVENT = 'admin-snapshot-count-cached'
 
     QUERIES = {
@@ -33,7 +32,15 @@ module Snapshots
 
       payload = { current: current_snapshot, previous: previous_snapshot }
 
-      cache_key = Snapshots::CacheKeys.generate_key(query, user_id, timeframe_name, school_ids, grades)
+      cache_key = Snapshots::CacheKeys.generate_key(query,
+        user_id,
+        {
+          name: timeframe_name,
+          custom_start: timeframe_name == Snapshots::CacheKeys::CUSTOM_TIMEFRAME_NAME ? current_timeframe_start : nil,
+          custom_end: timeframe_name == Snapshots::CacheKeys::CUSTOM_TIMEFRAME_NAME ? current_timeframe_end : nil 
+        },
+        school_ids,
+        grades)
 
       Rails.cache.write(cache_key, payload, expires_in: DEFAULT_CACHE_EXPIRATION)
 

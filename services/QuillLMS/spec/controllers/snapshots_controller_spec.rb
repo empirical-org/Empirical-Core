@@ -43,11 +43,8 @@ describe SnapshotsController, type: :controller do
       let(:current_timeframe) { 'CURRENT_TIMEFRAME' }
       let(:timeframe_end) { 'TIMEFRAME_END' }
 
-      before do
-        allow(controller).to receive(:calculate_timeframes).and_return([previous_timeframe, current_timeframe, timeframe_end])
-      end
-
       it 'should trigger a job to cache data if the cache is empty' do
+        allow(controller).to receive(:calculate_timeframes).and_return([previous_timeframe, current_timeframe, timeframe_end])
         expect(Rails.cache).to receive(:read).with(cache_key).and_return(nil)
         expect(Snapshots::CacheSnapshotCountWorker).to receive(:perform_async).with(query_name,
           user.id,
@@ -69,6 +66,7 @@ describe SnapshotsController, type: :controller do
         school_ids = ["1","2","3"]
         grades = ["Kindergarten", "1", "2"]
 
+        allow(controller).to receive(:calculate_timeframes).and_return([previous_timeframe, current_timeframe, timeframe_end])
         expect(Rails.cache).to receive(:read).with(cache_key).and_return(nil)
         expect(Snapshots::CacheSnapshotCountWorker).to receive(:perform_async).with(query_name,
           user.id,
@@ -80,10 +78,25 @@ describe SnapshotsController, type: :controller do
           grades)
 
         get :count, params: { query: query_name, timeframe: timeframe_name, school_ids: school_ids, grades: grades }
+      end
 
-        json_response = JSON.parse(response.body)
+      it 'should properly calculate custom timeframes' do
+        timeframe_name = 'custom'
+        current_end = Date.today
+        timeframe_length = 3.days
+        current_start = current_end - timeframe_length
 
-        expect(json_response).to eq("message" => "Generating snapshot")
+        expect(Rails.cache).to receive(:read).with(cache_key).and_return(nil)
+        expect(Snapshots::CacheSnapshotCountWorker).to receive(:perform_async).with(query_name,
+          user.id,
+          timeframe_name,
+          current_start - timeframe_length,
+          current_start,
+          current_end,
+          nil,
+          nil)
+
+        get :count, params: { query: query_name, timeframe: timeframe_name, timeframe_custom_start: current_start.to_s, timeframe_custom_end: current_end.to_s }
       end
     end
   end
@@ -112,7 +125,8 @@ describe SnapshotsController, type: :controller do
         {"default"=>false, "name"=>"This month", "value"=>"last-month"},
         {"default"=>false, "name"=>"This year", "value"=>"this-year"},
         {"default"=>false, "name"=>"Last year", "value"=>"last-year"},
-        {"default"=>false, "name"=>"All time", "value"=>"all-time"}
+        {"default"=>false, "name"=>"All time", "value"=>"all-time"},
+        {"default"=>false, "name"=>"Custom", "value"=>"custom"}
       ])
     end
 
