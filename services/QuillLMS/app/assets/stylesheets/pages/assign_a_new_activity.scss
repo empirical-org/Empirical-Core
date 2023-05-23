@@ -269,3 +269,24 @@
     display: none !important;
   }
 }
+
+@media (max-width: 850px) {
+  .assign-a-new-activity {
+    .previously-assigned-container {
+      flex-direction: column;
+      margin-bottom: 24px;
+      .previously-assigned-activities {
+        margin-bottom: 16px;
+      }
+    }
+    .minis {
+      justify-content: center;
+    }
+  }
+  .diagnostic-page {
+    .minis {
+      justify-content: center;
+      max-width: 90vw;
+    }
+  }
+}

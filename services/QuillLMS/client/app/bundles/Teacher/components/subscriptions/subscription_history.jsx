@@ -112,7 +112,9 @@ export default class SubscriptionHistory extends React.Component {
     return (
       <section className="subscription-history">
         <h2>Premium Subscription History</h2>
-        {this.content()}
+        <div className="table-container">
+          {this.content()}
+        </div>
       </section>
     );
   }

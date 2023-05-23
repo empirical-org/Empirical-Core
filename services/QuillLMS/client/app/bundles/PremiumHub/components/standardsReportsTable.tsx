@@ -47,7 +47,7 @@ export const StandardsReportsTable = ({ data, isFreemiumView }) => {
   if (data && data.length) {
     const defaultSortedRule = isFreemiumView ? [{ id: 'total_activity_count', desc: true, }] : [{ id: 'last_active', desc: true, }]
     return (
-      <div key={`${data.length}-length-for-activities-scores-by-classroom`}>
+      <div className="reports-table-container" key={`${data.length}-length-for-activities-scores-by-classroom`}>
         <ReactTable
           className="admin-standards progress-report has-green-arrow"
           columns={columns}

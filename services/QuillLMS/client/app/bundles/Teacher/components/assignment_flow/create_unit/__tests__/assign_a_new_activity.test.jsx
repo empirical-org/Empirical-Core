@@ -1,7 +1,12 @@
 import { mount } from 'enzyme';
 import * as React from 'react';
+import { stripHtml } from "string-strip-html";
 
 import AssignANewActivity from '../assign_a_new_activity';
+
+jest.mock('string-strip-html', () => ({
+  stripHtml: jest.fn(val => ({ result: val }))
+}));
 
 describe('AssignANewActivity component', () => {
 

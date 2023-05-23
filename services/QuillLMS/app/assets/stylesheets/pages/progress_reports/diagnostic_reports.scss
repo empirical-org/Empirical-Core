@@ -766,3 +766,11 @@ $lightgray: #cecece;
     content: none;
   }
 }
+
+@media (max-width: 850px) {
+  .activity-analysis {
+    .table {
+      overflow-x: auto !important;
+    }
+  }
+}

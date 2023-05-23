@@ -1,5 +1,6 @@
 import { shallow } from 'enzyme';
 import * as React from 'react';
+import { stripHtml } from "string-strip-html";
 
 import ClassroomStudentSection from '../classroom_student_section';
 import EditStudentAccountModal from '../edit_student_account_modal';
@@ -8,6 +9,10 @@ import ResetStudentPasswordModal from '../reset_student_password_modal';
 import { DataTable, DropdownInput } from '../../../../Shared/index';
 
 import { classroomProps, classroomWithStudents, classroomWithoutStudents, userProps } from './test_data/test_data';
+
+jest.mock('string-strip-html', () => ({
+  stripHtml: jest.fn(val => ({ result: val }))
+}));
 
 describe('ClassroomStudentSection component', () => {
 
