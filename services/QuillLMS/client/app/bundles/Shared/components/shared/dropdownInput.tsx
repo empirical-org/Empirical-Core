@@ -285,7 +285,7 @@ export class DropdownInput extends React.Component<DropdownInputProps, DropdownI
   }
 
   renderInput() {
-    const { active, errorAcknowledged, menuIsOpen, cursor, inputValue, options } = this.state
+    const { active, errorAcknowledged, menuIsOpen, cursor, inputValue, } = this.state
     const { className, label, value, placeholder, error, type, id, isSearchable, isMulti, optionType, usesCustomOption, filterOptions } = this.props
     const passedValue = value || ''
     const hasText = value || isMulti ? 'has-text' : ''
@@ -301,7 +301,7 @@ export class DropdownInput extends React.Component<DropdownInputProps, DropdownI
       type,
       placeholder: placeholder || '',
       onKeyDown: this.onKeyDown,
-      options,
+      options: this.filteredOptions(),
       isClearable: false,
       className: "dropdown",
       classNamePrefix: "dropdown",
