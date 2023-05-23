@@ -83,6 +83,7 @@ class ActivitySession < ApplicationRecord
   has_many :user_activity_classifications, through: :classification
   has_one :classroom, through: :classroom_unit
   has_one :unit, through: :classroom_unit
+  has_one :unit_template, through: :unit
   has_many :concept_results
   has_many :teachers, through: :classroom
   has_many :concepts, -> { distinct }, through: :concept_results

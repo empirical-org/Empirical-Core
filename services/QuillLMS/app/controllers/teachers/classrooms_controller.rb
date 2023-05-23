@@ -193,14 +193,10 @@ class Teachers::ClassroomsController < ApplicationController
       )
       .order('classrooms_teachers.order ASC, created_at DESC')
 
-    student_ids = classrooms.flat_map(&:students).map(&:id)
-
-    activity_counts_by_student = UserActivityClassification.completed_activities_by_student(student_ids)
-
     classrooms.compact.map do |classroom|
       classroom_obj = classroom.attributes
       classroom_obj[:providerClassroom] = classroom.provider_classroom if classroom.provider_classroom?
-      classroom_obj[:students] = format_students_for_classroom(classroom, activity_counts_by_student)
+      classroom_obj[:students] = format_students_for_classroom(classroom)
       classroom_teachers = format_teachers_for_classroom(classroom)
       pending_coteachers = format_pending_coteachers_for_classroom(classroom)
       classroom_obj[:teachers] = classroom_teachers.concat(pending_coteachers)
@@ -208,11 +204,12 @@ class Teachers::ClassroomsController < ApplicationController
     end.compact
   end
 
-  private def format_students_for_classroom(classroom, activity_counts)
+  private def format_students_for_classroom(classroom)
     sorted_students = classroom.students.sort_by(&:last_name)
+    classroom_unit_ids = ClassroomUnit.where(classroom: classroom).ids
 
     students = sorted_students.map do |student|
-      student.attributes.merge(number_of_completed_activities: activity_counts[student.id] || 0)
+      student.attributes.merge(number_of_completed_activities: ActivitySession.where(state: ActivitySession::STATE_FINISHED, user_id: student.id, classroom_unit_id: classroom_unit_ids).count || 0)
     end
 
     return students unless classroom.provider_classroom?

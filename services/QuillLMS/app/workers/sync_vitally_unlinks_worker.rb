@@ -7,7 +7,8 @@ class SyncVitallyUnlinksWorker
     api = VitallyApi.new
     api.unlink({
       userId: user_id,
-      accountId: school_id
+      accountId: school_id,
+      timestamp: DateTime.current
     })
   end
 end

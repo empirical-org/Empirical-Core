@@ -140,7 +140,7 @@ export default class StudentProfileUnit extends React.Component {
 
     if (finished) {
       linkText = `Replay`;
-    } else if (resume_link === 1) {
+    } else if (resume_link > 0) {
       linkText = `Resume`;
     }
 

@@ -31,4 +31,20 @@ RSpec.describe TeacherNotificationSetting, type: :model do
 
     it { should validate_inclusion_of(:notification_type).in_array(TeacherNotificationSetting.notification_types).with_message(/is not a valid TeacherNotification type/) }
   end
+
+  context '#rollup_hash' do
+    it 'should include all types as keys' do
+      expect(TeacherNotificationSetting.rollup_hash.keys).to eq(TeacherNotificationSetting.notification_types)
+    end
+
+    it 'should have only false values if records are not present' do
+      expect(TeacherNotificationSetting.rollup_hash.values).not_to include(true)
+    end
+
+    it 'should have a true value for keys corresponding to saved records' do
+      setting = create(:teacher_notification_setting)
+
+      expect(TeacherNotificationSetting.rollup_hash[setting.notification_type]).to eq(true)
+    end
+  end
 end

@@ -18,7 +18,7 @@ describe Api::V1::TeacherNotificationSettingsController do
     it 'should include all notification_types' do
       get :index
 
-      expect(JSON.parse(response.body).keys).to eq(TeacherNotificationSetting.notification_types)
+      expect(JSON.parse(response.body)['teacher_notification_settings'].keys).to eq(TeacherNotificationSetting.notification_types)
     end
 
     it 'should set values to true for notification_types with saved settings' do
@@ -26,13 +26,13 @@ describe Api::V1::TeacherNotificationSettingsController do
 
       get :index
 
-      expect(JSON.parse(response.body)[notification_type_name]).to be(true)
+      expect(JSON.parse(response.body)['teacher_notification_settings'][notification_type_name]).to be(true)
     end
 
     it 'should set values to false for notification_types without saved settings' do
       get :index
 
-      expect(JSON.parse(response.body)[notification_type_name]).to be(false)
+      expect(JSON.parse(response.body)['teacher_notification_settings'][notification_type_name]).to be(false)
     end
   end
 

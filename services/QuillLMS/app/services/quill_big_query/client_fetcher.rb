@@ -11,9 +11,9 @@ module QuillBigQuery
 
     def run
       client = Google::APIClient.new(application_name: APPLICATION_NAME, user_agent: USER_AGENT_DIRECTIVES)
-
+      json_credential_iostream = StringIO.new(ENV.fetch('BIGQUERY_CREDENTIALS', ''))
       # Auth Service account: https://github.com/googleapis/google-auth-library-ruby#example-service-account
-      authorizer = Google::Auth::ServiceAccountCredentials.make_creds(json_key_io: JSON_CREDENTIAL_IOSTREAM, scope: SCOPE)
+      authorizer = Google::Auth::ServiceAccountCredentials.make_creds(json_key_io: json_credential_iostream, scope: SCOPE)
 
       client.authorization = authorizer
       client.authorization.fetch_access_token!

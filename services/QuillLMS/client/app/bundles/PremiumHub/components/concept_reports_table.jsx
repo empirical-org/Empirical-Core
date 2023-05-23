@@ -5,7 +5,6 @@ import { ReactTable, } from '../../Shared';
 import EmptyStateForReport from '../../Teacher/components/progress_reports/empty_state_for_report';
 
 const ConceptReportsTable = ({ data, }) => {
-  console.log("🚀 ~ file: concept_reports_table.jsx:8 ~ ConceptReportsTable ~ data:", data)
   const columns = [
     {
       Header: 'Student',

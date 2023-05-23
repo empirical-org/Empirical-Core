@@ -1,5 +1,6 @@
 import { mount } from 'enzyme';
 import React from 'react';
+import { stripHtml } from "string-strip-html";
 
 import SubscriptionHistory from '../subscription_history';
 
@@ -8,6 +9,10 @@ const sharedProps = {
   premiumCredits: [],
   subscriptions: []
 }
+
+jest.mock('string-strip-html', () => ({
+  stripHtml: jest.fn(val => ({ result: val }))
+}));
 
 describe('SubscriptionHistory container', () => {
 
