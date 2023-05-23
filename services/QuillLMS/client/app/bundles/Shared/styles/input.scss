@@ -218,6 +218,14 @@
     .dropdown__menu {
       border-radius: 0px 4px 4px 4px;
     }
+    .dropdown__value-container {
+      display: flex;
+    }
+    &.searchable {
+      .multi-option-summary-text {
+        margin-left: -5px;
+      }
+    }
   }
 
   &.inactive {

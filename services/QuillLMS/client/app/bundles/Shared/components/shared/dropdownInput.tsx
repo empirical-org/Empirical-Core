@@ -3,6 +3,7 @@ import Select from 'react-select';
 
 import { CheckableDropdownOption } from './checkableDropdownOption';
 import { CheckableDropdownValueContainer } from './checkableDropdownValueContainer';
+import { CheckableDropdownMultiContainer } from './checkableDropdownValueContainer';
 import { HTMLDropdownOption } from './htmlDropdownOption';
 import { HTMLDropdownSingleValue } from './htmlDropdownSingleValue';
 import { StandardDropdownOption } from './standardDropdownOption';
@@ -291,8 +292,9 @@ export class DropdownInput extends React.Component<DropdownInputProps, DropdownI
     const hasText = value || isMulti ? 'has-text' : ''
     const inactiveOrActive = active ? 'active' : 'inactive'
     const notEditable = isSearchable || isMulti ? '' : 'not-editable'
+    const searchable = isSearchable ? 'searchable' : ''
     const checkboxDropdown = isMulti ? 'checkbox-dropdown' : ''
-    const sharedClasses = `dropdown-container input-container ${inactiveOrActive} ${hasText} ${notEditable} ${className} ${checkboxDropdown}`
+    const sharedClasses = `dropdown-container input-container ${inactiveOrActive} ${hasText} ${notEditable} ${className} ${searchable} ${checkboxDropdown}`
     const sharedProps = {
       id,
       cursor,
@@ -368,7 +370,6 @@ export class DropdownInput extends React.Component<DropdownInputProps, DropdownI
             components={{ Option: CheckableDropdownOption, ValueContainer: CheckableDropdownValueContainer }}
             hideSelectedOptions={false}
             isMulti
-            isSearchable={false}
             menuIsOpen={active ? menuIsOpen : false}
             onChange={this.handleOptionSelection}
             optionType={optionType}
