@@ -1,5 +1,6 @@
 import { mount } from 'enzyme';
 import React from 'react';
+import { stripHtml } from "string-strip-html";
 
 import {
   CREDIT_CARD,
@@ -45,6 +46,10 @@ const sharedProps = {
 jest.spyOn(global.Date, 'now').mockImplementation(() =>
   new Date('2022-05-26T11:01:58.135Z').valueOf()
 );
+
+jest.mock('string-strip-html', () => ({
+  stripHtml: jest.fn(val => ({ result: val }))
+}));
 
 describe('Subscriptions UI state iterations', () => {
   const expiredAttributes = { expiration: '2022-01-1', expired: true }

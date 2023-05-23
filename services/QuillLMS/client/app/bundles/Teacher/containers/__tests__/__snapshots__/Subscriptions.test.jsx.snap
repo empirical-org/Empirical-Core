@@ -83,10 +83,10 @@ exports[`Subscriptions UI state iterations district paid via invoice the current
         className="subscription-status"
       >
         <div
-          className="flex-row space-between"
+          className="upper-section"
         >
           <div
-            className="box-and-h2 flex-row space-between"
+            className="left-side-container"
           >
             <div
               className="box"
@@ -124,7 +124,9 @@ exports[`Subscriptions UI state iterations district paid via invoice the current
             </span>
           </span>
         </div>
-        <p>
+        <p
+          className="premium-subscription-copy"
+        >
           <span>
             With 
             District Premium
@@ -457,77 +459,55 @@ exports[`Subscriptions UI state iterations district paid via invoice the current
         <h2>
           Premium Subscription History
         </h2>
-        <table>
-          <tbody>
-            <tr>
-              <th
-                key="0-table-header"
+        <div
+          className="table-container"
+        >
+          <table>
+            <tbody>
+              <tr>
+                <th
+                  key="0-table-header"
+                >
+                  Purchase Date
+                </th>
+                <th
+                  key="1-table-header"
+                >
+                  Subscription
+                </th>
+                <th
+                  key="2-table-header"
+                >
+                  Payment
+                </th>
+                <th
+                  key="3-table-header"
+                >
+                  Length
+                </th>
+                <th
+                  key="4-table-header"
+                >
+                  Start & End Date
+                </th>
+              </tr>
+              <tr
+                key="7-subscription-table"
               >
-                Purchase Date
-              </th>
-              <th
-                key="1-table-header"
-              >
-                Subscription
-              </th>
-              <th
-                key="2-table-header"
-              >
-                Payment
-              </th>
-              <th
-                key="3-table-header"
-              >
-                Length
-              </th>
-              <th
-                key="4-table-header"
-              >
-                Start & End Date
-              </th>
-            </tr>
-            <tr
-              key="7-subscription-table"
-            >
-              <td
-                key="7-1-row"
-              >
-                Invalid date
-              </td>
-              <td
-                key="7-2-row"
-              >
-                <span>
-                  District Premium
-                  <Tooltip
-                    isTabbable={true}
-                    tooltipText="School District Paid subscription"
-                    tooltipTriggerText={
-                      <span>
-                        <img
-                          alt="Question mark icon"
-                          className="subscription-tooltip"
-                          src="undefined/images/icons/icons-help.svg"
-                        />
-                      </span>
-                    }
-                  >
-                    <span
-                      aria-hidden={false}
-                      className="quill-tooltip-trigger "
-                      role="tooltip"
-                    >
-                      <span
-                        className="undefined"
-                        onBlur={[Function]}
-                        onClick={[Function]}
-                        onFocus={[Function]}
-                        onKeyDown={[Function]}
-                        onMouseEnter={[Function]}
-                        onMouseLeave={[Function]}
-                        role="button"
-                        tabIndex={0}
-                      >
+                <td
+                  key="7-1-row"
+                >
+                  Invalid date
+                </td>
+                <td
+                  key="7-2-row"
+                >
+                  <span>
+                    District Premium
+                    <Tooltip
+                      isTabbable={true}
+                      tooltipText="School District Paid subscription"
+                      tooltipTriggerText={
                         <span>
                           <img
                             alt="Question mark icon"
@@ -535,37 +515,63 @@ exports[`Subscriptions UI state iterations district paid via invoice the current
                             src="undefined/images/icons/icons-help.svg"
                           />
                         </span>
-                      </span>
+                      }
+                    >
                       <span
-                        className="quill-tooltip-wrapper"
+                        aria-hidden={false}
+                        className="quill-tooltip-trigger "
+                        role="tooltip"
                       >
                         <span
-                          aria-live="polite"
-                          className="quill-tooltip"
-                        />
+                          className="undefined"
+                          onBlur={[Function]}
+                          onClick={[Function]}
+                          onFocus={[Function]}
+                          onKeyDown={[Function]}
+                          onMouseEnter={[Function]}
+                          onMouseLeave={[Function]}
+                          role="button"
+                          tabIndex={0}
+                        >
+                          <span>
+                            <img
+                              alt="Question mark icon"
+                              className="subscription-tooltip"
+                              src="undefined/images/icons/icons-help.svg"
+                            />
+                          </span>
+                        </span>
+                        <span
+                          className="quill-tooltip-wrapper"
+                        >
+                          <span
+                            aria-live="polite"
+                            className="quill-tooltip"
+                          />
+                        </span>
                       </span>
-                    </span>
-                  </Tooltip>
-                </span>
-              </td>
-              <td
-                key="7-3-row"
-              >
-                --
-              </td>
-              <td
-                key="7-4-row"
-              >
-                574 months
-              </td>
-              <td
-                key="7-5-row"
-              >
-                02/16/22 - 01/01/70
-              </td>
-            </tr>
-          </tbody>
-        </table>
+                    </Tooltip>
+                  </span>
+                </td>
+                <td
+                  key="7-3-row"
+                >
+                  --
+                </td>
+                <td
+                  key="7-4-row"
+                >
+                  574 months
+                </td>
+                <td
+                  key="7-5-row"
+                >
+                  02/16/22 - 01/01/70
+                </td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
       </section>
     </SubscriptionHistory>
     <AvailableCredits
@@ -768,10 +774,10 @@ exports[`Subscriptions UI state iterations district paid via invoice the current
         className="subscription-status"
       >
         <div
-          className="flex-row space-between"
+          className="upper-section"
         >
           <div
-            className="box-and-h2 flex-row space-between"
+            className="left-side-container"
           >
             <div
               className="box"
@@ -795,7 +801,9 @@ exports[`Subscriptions UI state iterations district paid via invoice the current
             Contact us to renew
           </a>
         </div>
-        <p>
+        <p
+          className="premium-subscription-copy"
+        >
           <span>
             <strong>
               Your 
@@ -889,77 +897,55 @@ exports[`Subscriptions UI state iterations district paid via invoice the current
         <h2>
           Premium Subscription History
         </h2>
-        <table>
-          <tbody>
-            <tr>
-              <th
-                key="0-table-header"
+        <div
+          className="table-container"
+        >
+          <table>
+            <tbody>
+              <tr>
+                <th
+                  key="0-table-header"
+                >
+                  Purchase Date
+                </th>
+                <th
+                  key="1-table-header"
+                >
+                  Subscription
+                </th>
+                <th
+                  key="2-table-header"
+                >
+                  Payment
+                </th>
+                <th
+                  key="3-table-header"
+                >
+                  Length
+                </th>
+                <th
+                  key="4-table-header"
+                >
+                  Start & End Date
+                </th>
+              </tr>
+              <tr
+                key="7-subscription-table"
               >
-                Purchase Date
-              </th>
-              <th
-                key="1-table-header"
-              >
-                Subscription
-              </th>
-              <th
-                key="2-table-header"
-              >
-                Payment
-              </th>
-              <th
-                key="3-table-header"
-              >
-                Length
-              </th>
-              <th
-                key="4-table-header"
-              >
-                Start & End Date
-              </th>
-            </tr>
-            <tr
-              key="7-subscription-table"
-            >
-              <td
-                key="7-1-row"
-              >
-                Invalid date
-              </td>
-              <td
-                key="7-2-row"
-              >
-                <span>
-                  District Premium
-                  <Tooltip
-                    isTabbable={true}
-                    tooltipText="School District Paid subscription"
-                    tooltipTriggerText={
-                      <span>
-                        <img
-                          alt="Question mark icon"
-                          className="subscription-tooltip"
-                          src="undefined/images/icons/icons-help.svg"
-                        />
-                      </span>
-                    }
-                  >
-                    <span
-                      aria-hidden={false}
-                      className="quill-tooltip-trigger "
-                      role="tooltip"
-                    >
-                      <span
-                        className="undefined"
-                        onBlur={[Function]}
-                        onClick={[Function]}
-                        onFocus={[Function]}
-                        onKeyDown={[Function]}
-                        onMouseEnter={[Function]}
-                        onMouseLeave={[Function]}
-                        role="button"
-                        tabIndex={0}
-                      >
+                <td
+                  key="7-1-row"
+                >
+                  Invalid date
+                </td>
+                <td
+                  key="7-2-row"
+                >
+                  <span>
+                    District Premium
+                    <Tooltip
+                      isTabbable={true}
+                      tooltipText="School District Paid subscription"
+                      tooltipTriggerText={
                         <span>
                           <img
                             alt="Question mark icon"
@@ -967,37 +953,63 @@ exports[`Subscriptions UI state iterations district paid via invoice the current
                             src="undefined/images/icons/icons-help.svg"
                           />
                         </span>
-                      </span>
+                      }
+                    >
                       <span
-                        className="quill-tooltip-wrapper"
+                        aria-hidden={false}
+                        className="quill-tooltip-trigger "
+                        role="tooltip"
                       >
                         <span
-                          aria-live="polite"
-                          className="quill-tooltip"
-                        />
+                          className="undefined"
+                          onBlur={[Function]}
+                          onClick={[Function]}
+                          onFocus={[Function]}
+                          onKeyDown={[Function]}
+                          onMouseEnter={[Function]}
+                          onMouseLeave={[Function]}
+                          role="button"
+                          tabIndex={0}
+                        >
+                          <span>
+                            <img
+                              alt="Question mark icon"
+                              className="subscription-tooltip"
+                              src="undefined/images/icons/icons-help.svg"
+                            />
+                          </span>
+                        </span>
+                        <span
+                          className="quill-tooltip-wrapper"
+                        >
+                          <span
+                            aria-live="polite"
+                            className="quill-tooltip"
+                          />
+                        </span>
                       </span>
-                    </span>
-                  </Tooltip>
-                </span>
-              </td>
-              <td
-                key="7-3-row"
-              >
-                --
-              </td>
-              <td
-                key="7-4-row"
-              >
-                1 month
-              </td>
-              <td
-                key="7-5-row"
-              >
-                02/16/22 - 01/01/22
-              </td>
-            </tr>
-          </tbody>
-        </table>
+                    </Tooltip>
+                  </span>
+                </td>
+                <td
+                  key="7-3-row"
+                >
+                  --
+                </td>
+                <td
+                  key="7-4-row"
+                >
+                  1 month
+                </td>
+                <td
+                  key="7-5-row"
+                >
+                  02/16/22 - 01/01/22
+                </td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
       </section>
     </SubscriptionHistory>
     <AvailableCredits
@@ -1200,10 +1212,10 @@ exports[`Subscriptions UI state iterations district paid via invoice the current
         className="subscription-status"
       >
         <div
-          className="flex-row space-between"
+          className="upper-section"
         >
           <div
-            className="box-and-h2 flex-row space-between"
+            className="left-side-container"
           >
             <div
               className="box"
@@ -1241,7 +1253,9 @@ exports[`Subscriptions UI state iterations district paid via invoice the current
             </span>
           </span>
         </div>
-        <p>
+        <p
+          className="premium-subscription-copy"
+        >
           <span>
             With 
             District Premium
@@ -1639,77 +1653,55 @@ exports[`Subscriptions UI state iterations district paid via invoice the current
         <h2>
           Premium Subscription History
         </h2>
-        <table>
-          <tbody>
-            <tr>
-              <th
-                key="0-table-header"
+        <div
+          className="table-container"
+        >
+          <table>
+            <tbody>
+              <tr>
+                <th
+                  key="0-table-header"
+                >
+                  Purchase Date
+                </th>
+                <th
+                  key="1-table-header"
+                >
+                  Subscription
+                </th>
+                <th
+                  key="2-table-header"
+                >
+                  Payment
+                </th>
+                <th
+                  key="3-table-header"
+                >
+                  Length
+                </th>
+                <th
+                  key="4-table-header"
+                >
+                  Start & End Date
+                </th>
+              </tr>
+              <tr
+                key="7-subscription-table"
               >
-                Purchase Date
-              </th>
-              <th
-                key="1-table-header"
-              >
-                Subscription
-              </th>
-              <th
-                key="2-table-header"
-              >
-                Payment
-              </th>
-              <th
-                key="3-table-header"
-              >
-                Length
-              </th>
-              <th
-                key="4-table-header"
-              >
-                Start & End Date
-              </th>
-            </tr>
-            <tr
-              key="7-subscription-table"
-            >
-              <td
-                key="7-1-row"
-              >
-                Invalid date
-              </td>
-              <td
-                key="7-2-row"
-              >
-                <span>
-                  District Premium
-                  <Tooltip
-                    isTabbable={true}
-                    tooltipText="School District Paid subscription"
-                    tooltipTriggerText={
-                      <span>
-                        <img
-                          alt="Question mark icon"
-                          className="subscription-tooltip"
-                          src="undefined/images/icons/icons-help.svg"
-                        />
-                      </span>
-                    }
-                  >
-                    <span
-                      aria-hidden={false}
-                      className="quill-tooltip-trigger "
-                      role="tooltip"
-                    >
-                      <span
-                        className="undefined"
-                        onBlur={[Function]}
-                        onClick={[Function]}
-                        onFocus={[Function]}
-                        onKeyDown={[Function]}
-                        onMouseEnter={[Function]}
-                        onMouseLeave={[Function]}
-                        role="button"
-                        tabIndex={0}
-                      >
+                <td
+                  key="7-1-row"
+                >
+                  Invalid date
+                </td>
+                <td
+                  key="7-2-row"
+                >
+                  <span>
+                    District Premium
+                    <Tooltip
+                      isTabbable={true}
+                      tooltipText="School District Paid subscription"
+                      tooltipTriggerText={
                         <span>
                           <img
                             alt="Question mark icon"
@@ -1717,37 +1709,63 @@ exports[`Subscriptions UI state iterations district paid via invoice the current
                             src="undefined/images/icons/icons-help.svg"
                           />
                         </span>
-                      </span>
+                      }
+                    >
                       <span
-                        className="quill-tooltip-wrapper"
+                        aria-hidden={false}
+                        className="quill-tooltip-trigger "
+                        role="tooltip"
                       >
                         <span
-                          aria-live="polite"
-                          className="quill-tooltip"
-                        />
+                          className="undefined"
+                          onBlur={[Function]}
+                          onClick={[Function]}
+                          onFocus={[Function]}
+                          onKeyDown={[Function]}
+                          onMouseEnter={[Function]}
+                          onMouseLeave={[Function]}
+                          role="button"
+                          tabIndex={0}
+                        >
+                          <span>
+                            <img
+                              alt="Question mark icon"
+                              className="subscription-tooltip"
+                              src="undefined/images/icons/icons-help.svg"
+                            />
+                          </span>
+                        </span>
+                        <span
+                          className="quill-tooltip-wrapper"
+                        >
+                          <span
+                            aria-live="polite"
+                            className="quill-tooltip"
+                          />
+                        </span>
                       </span>
-                    </span>
-                  </Tooltip>
-                </span>
-              </td>
-              <td
-                key="7-3-row"
-              >
-                --
-              </td>
-              <td
-                key="7-4-row"
-              >
-                574 months
-              </td>
-              <td
-                key="7-5-row"
-              >
-                02/16/22 - 01/01/70
-              </td>
-            </tr>
-          </tbody>
-        </table>
+                    </Tooltip>
+                  </span>
+                </td>
+                <td
+                  key="7-3-row"
+                >
+                  --
+                </td>
+                <td
+                  key="7-4-row"
+                >
+                  574 months
+                </td>
+                <td
+                  key="7-5-row"
+                >
+                  02/16/22 - 01/01/70
+                </td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
       </section>
     </SubscriptionHistory>
     <AvailableCredits
@@ -1950,10 +1968,10 @@ exports[`Subscriptions UI state iterations district paid via invoice the current
         className="subscription-status"
       >
         <div
-          className="flex-row space-between"
+          className="upper-section"
         >
           <div
-            className="box-and-h2 flex-row space-between"
+            className="left-side-container"
           >
             <div
               className="box"
@@ -1977,7 +1995,9 @@ exports[`Subscriptions UI state iterations district paid via invoice the current
             Contact us to renew
           </a>
         </div>
-        <p>
+        <p
+          className="premium-subscription-copy"
+        >
           <span>
             <strong>
               Your 
@@ -2060,77 +2080,55 @@ exports[`Subscriptions UI state iterations district paid via invoice the current
         <h2>
           Premium Subscription History
         </h2>
-        <table>
-          <tbody>
-            <tr>
-              <th
-                key="0-table-header"
+        <div
+          className="table-container"
+        >
+          <table>
+            <tbody>
+              <tr>
+                <th
+                  key="0-table-header"
+                >
+                  Purchase Date
+                </th>
+                <th
+                  key="1-table-header"
+                >
+                  Subscription
+                </th>
+                <th
+                  key="2-table-header"
+                >
+                  Payment
+                </th>
+                <th
+                  key="3-table-header"
+                >
+                  Length
+                </th>
+                <th
+                  key="4-table-header"
+                >
+                  Start & End Date
+                </th>
+              </tr>
+              <tr
+                key="7-subscription-table"
               >
-                Purchase Date
-              </th>
-              <th
-                key="1-table-header"
-              >
-                Subscription
-              </th>
-              <th
-                key="2-table-header"
-              >
-                Payment
-              </th>
-              <th
-                key="3-table-header"
-              >
-                Length
-              </th>
-              <th
-                key="4-table-header"
-              >
-                Start & End Date
-              </th>
-            </tr>
-            <tr
-              key="7-subscription-table"
-            >
-              <td
-                key="7-1-row"
-              >
-                Invalid date
-              </td>
-              <td
-                key="7-2-row"
-              >
-                <span>
-                  District Premium
-                  <Tooltip
-                    isTabbable={true}
-                    tooltipText="School District Paid subscription"
-                    tooltipTriggerText={
-                      <span>
-                        <img
-                          alt="Question mark icon"
-                          className="subscription-tooltip"
-                          src="undefined/images/icons/icons-help.svg"
-                        />
-                      </span>
-                    }
-                  >
-                    <span
-                      aria-hidden={false}
-                      className="quill-tooltip-trigger "
-                      role="tooltip"
-                    >
-                      <span
-                        className="undefined"
-                        onBlur={[Function]}
-                        onClick={[Function]}
-                        onFocus={[Function]}
-                        onKeyDown={[Function]}
-                        onMouseEnter={[Function]}
-                        onMouseLeave={[Function]}
-                        role="button"
-                        tabIndex={0}
-                      >
+                <td
+                  key="7-1-row"
+                >
+                  Invalid date
+                </td>
+                <td
+                  key="7-2-row"
+                >
+                  <span>
+                    District Premium
+                    <Tooltip
+                      isTabbable={true}
+                      tooltipText="School District Paid subscription"
+                      tooltipTriggerText={
                         <span>
                           <img
                             alt="Question mark icon"
@@ -2138,37 +2136,63 @@ exports[`Subscriptions UI state iterations district paid via invoice the current
                             src="undefined/images/icons/icons-help.svg"
                           />
                         </span>
-                      </span>
+                      }
+                    >
                       <span
-                        className="quill-tooltip-wrapper"
+                        aria-hidden={false}
+                        className="quill-tooltip-trigger "
+                        role="tooltip"
                       >
                         <span
-                          aria-live="polite"
-                          className="quill-tooltip"
-                        />
+                          className="undefined"
+                          onBlur={[Function]}
+                          onClick={[Function]}
+                          onFocus={[Function]}
+                          onKeyDown={[Function]}
+                          onMouseEnter={[Function]}
+                          onMouseLeave={[Function]}
+                          role="button"
+                          tabIndex={0}
+                        >
+                          <span>
+                            <img
+                              alt="Question mark icon"
+                              className="subscription-tooltip"
+                              src="undefined/images/icons/icons-help.svg"
+                            />
+                          </span>
+                        </span>
+                        <span
+                          className="quill-tooltip-wrapper"
+                        >
+                          <span
+                            aria-live="polite"
+                            className="quill-tooltip"
+                          />
+                        </span>
                       </span>
-                    </span>
-                  </Tooltip>
-                </span>
-              </td>
-              <td
-                key="7-3-row"
-              >
-                --
-              </td>
-              <td
-                key="7-4-row"
-              >
-                1 month
-              </td>
-              <td
-                key="7-5-row"
-              >
-                02/16/22 - 01/01/22
-              </td>
-            </tr>
-          </tbody>
-        </table>
+                    </Tooltip>
+                  </span>
+                </td>
+                <td
+                  key="7-3-row"
+                >
+                  --
+                </td>
+                <td
+                  key="7-4-row"
+                >
+                  1 month
+                </td>
+                <td
+                  key="7-5-row"
+                >
+                  02/16/22 - 01/01/22
+                </td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
       </section>
     </SubscriptionHistory>
     <AvailableCredits
@@ -2371,10 +2395,10 @@ exports[`Subscriptions UI state iterations premium credit renders when there is 
         className="subscription-status"
       >
         <div
-          className="flex-row space-between"
+          className="upper-section"
         >
           <div
-            className="box-and-h2 flex-row space-between"
+            className="left-side-container"
           >
             <div
               className="box"
@@ -2412,7 +2436,9 @@ exports[`Subscriptions UI state iterations premium credit renders when there is 
             </span>
           </span>
         </div>
-        <p>
+        <p
+          className="premium-subscription-copy"
+        >
           <span>
             With 
             Teacher Premium Credit
@@ -2730,77 +2756,55 @@ exports[`Subscriptions UI state iterations premium credit renders when there is 
         <h2>
           Premium Subscription History
         </h2>
-        <table>
-          <tbody>
-            <tr>
-              <th
-                key="0-table-header"
+        <div
+          className="table-container"
+        >
+          <table>
+            <tbody>
+              <tr>
+                <th
+                  key="0-table-header"
+                >
+                  Purchase Date
+                </th>
+                <th
+                  key="1-table-header"
+                >
+                  Subscription
+                </th>
+                <th
+                  key="2-table-header"
+                >
+                  Payment
+                </th>
+                <th
+                  key="3-table-header"
+                >
+                  Length
+                </th>
+                <th
+                  key="4-table-header"
+                >
+                  Start & End Date
+                </th>
+              </tr>
+              <tr
+                key="7-subscription-table"
               >
-                Purchase Date
-              </th>
-              <th
-                key="1-table-header"
-              >
-                Subscription
-              </th>
-              <th
-                key="2-table-header"
-              >
-                Payment
-              </th>
-              <th
-                key="3-table-header"
-              >
-                Length
-              </th>
-              <th
-                key="4-table-header"
-              >
-                Start & End Date
-              </th>
-            </tr>
-            <tr
-              key="7-subscription-table"
-            >
-              <td
-                key="7-1-row"
-              >
-                Invalid date
-              </td>
-              <td
-                key="7-2-row"
-              >
-                <span>
-                  Teacher Premium Credit
-                  <Tooltip
-                    isTabbable={true}
-                    tooltipText="Premium Credit subscription"
-                    tooltipTriggerText={
-                      <span>
-                        <img
-                          alt="Question mark icon"
-                          className="subscription-tooltip"
-                          src="undefined/images/icons/icons-help.svg"
-                        />
-                      </span>
-                    }
-                  >
-                    <span
-                      aria-hidden={false}
-                      className="quill-tooltip-trigger "
-                      role="tooltip"
-                    >
-                      <span
-                        className="undefined"
-                        onBlur={[Function]}
-                        onClick={[Function]}
-                        onFocus={[Function]}
-                        onKeyDown={[Function]}
-                        onMouseEnter={[Function]}
-                        onMouseLeave={[Function]}
-                        role="button"
-                        tabIndex={0}
-                      >
+                <td
+                  key="7-1-row"
+                >
+                  Invalid date
+                </td>
+                <td
+                  key="7-2-row"
+                >
+                  <span>
+                    Teacher Premium Credit
+                    <Tooltip
+                      isTabbable={true}
+                      tooltipText="Premium Credit subscription"
+                      tooltipTriggerText={
                         <span>
                           <img
                             alt="Question mark icon"
@@ -2808,37 +2812,63 @@ exports[`Subscriptions UI state iterations premium credit renders when there is 
                             src="undefined/images/icons/icons-help.svg"
                           />
                         </span>
-                      </span>
+                      }
+                    >
                       <span
-                        className="quill-tooltip-wrapper"
+                        aria-hidden={false}
+                        className="quill-tooltip-trigger "
+                        role="tooltip"
                       >
                         <span
-                          aria-live="polite"
-                          className="quill-tooltip"
-                        />
+                          className="undefined"
+                          onBlur={[Function]}
+                          onClick={[Function]}
+                          onFocus={[Function]}
+                          onKeyDown={[Function]}
+                          onMouseEnter={[Function]}
+                          onMouseLeave={[Function]}
+                          role="button"
+                          tabIndex={0}
+                        >
+                          <span>
+                            <img
+                              alt="Question mark icon"
+                              className="subscription-tooltip"
+                              src="undefined/images/icons/icons-help.svg"
+                            />
+                          </span>
+                        </span>
+                        <span
+                          className="quill-tooltip-wrapper"
+                        >
+                          <span
+                            aria-live="polite"
+                            className="quill-tooltip"
+                          />
+                        </span>
                       </span>
-                    </span>
-                  </Tooltip>
-                </span>
-              </td>
-              <td
-                key="7-3-row"
-              >
-                --
-              </td>
-              <td
-                key="7-4-row"
-              >
-                574 months
-              </td>
-              <td
-                key="7-5-row"
-              >
-                02/16/22 - 01/01/70
-              </td>
-            </tr>
-          </tbody>
-        </table>
+                    </Tooltip>
+                  </span>
+                </td>
+                <td
+                  key="7-3-row"
+                >
+                  --
+                </td>
+                <td
+                  key="7-4-row"
+                >
+                  574 months
+                </td>
+                <td
+                  key="7-5-row"
+                >
+                  02/16/22 - 01/01/70
+                </td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
       </section>
     </SubscriptionHistory>
     <AvailableCredits
@@ -3041,10 +3071,10 @@ exports[`Subscriptions UI state iterations premium credit renders when there is 
         className="subscription-status"
       >
         <div
-          className="flex-row space-between"
+          className="upper-section"
         >
           <div
-            className="box-and-h2 flex-row space-between"
+            className="left-side-container"
           >
             <div
               className="box"
@@ -3068,7 +3098,9 @@ exports[`Subscriptions UI state iterations premium credit renders when there is 
             Subscribe to premium
           </a>
         </div>
-        <p>
+        <p
+          className="premium-subscription-copy"
+        >
           <span>
             <strong>
               Your 
@@ -3162,77 +3194,55 @@ exports[`Subscriptions UI state iterations premium credit renders when there is 
         <h2>
           Premium Subscription History
         </h2>
-        <table>
-          <tbody>
-            <tr>
-              <th
-                key="0-table-header"
+        <div
+          className="table-container"
+        >
+          <table>
+            <tbody>
+              <tr>
+                <th
+                  key="0-table-header"
+                >
+                  Purchase Date
+                </th>
+                <th
+                  key="1-table-header"
+                >
+                  Subscription
+                </th>
+                <th
+                  key="2-table-header"
+                >
+                  Payment
+                </th>
+                <th
+                  key="3-table-header"
+                >
+                  Length
+                </th>
+                <th
+                  key="4-table-header"
+                >
+                  Start & End Date
+                </th>
+              </tr>
+              <tr
+                key="7-subscription-table"
               >
-                Purchase Date
-              </th>
-              <th
-                key="1-table-header"
-              >
-                Subscription
-              </th>
-              <th
-                key="2-table-header"
-              >
-                Payment
-              </th>
-              <th
-                key="3-table-header"
-              >
-                Length
-              </th>
-              <th
-                key="4-table-header"
-              >
-                Start & End Date
-              </th>
-            </tr>
-            <tr
-              key="7-subscription-table"
-            >
-              <td
-                key="7-1-row"
-              >
-                Invalid date
-              </td>
-              <td
-                key="7-2-row"
-              >
-                <span>
-                  Teacher Premium Credit
-                  <Tooltip
-                    isTabbable={true}
-                    tooltipText="Premium Credit subscription"
-                    tooltipTriggerText={
-                      <span>
-                        <img
-                          alt="Question mark icon"
-                          className="subscription-tooltip"
-                          src="undefined/images/icons/icons-help.svg"
-                        />
-                      </span>
-                    }
-                  >
-                    <span
-                      aria-hidden={false}
-                      className="quill-tooltip-trigger "
-                      role="tooltip"
-                    >
-                      <span
-                        className="undefined"
-                        onBlur={[Function]}
-                        onClick={[Function]}
-                        onFocus={[Function]}
-                        onKeyDown={[Function]}
-                        onMouseEnter={[Function]}
-                        onMouseLeave={[Function]}
-                        role="button"
-                        tabIndex={0}
-                      >
+                <td
+                  key="7-1-row"
+                >
+                  Invalid date
+                </td>
+                <td
+                  key="7-2-row"
+                >
+                  <span>
+                    Teacher Premium Credit
+                    <Tooltip
+                      isTabbable={true}
+                      tooltipText="Premium Credit subscription"
+                      tooltipTriggerText={
                         <span>
                           <img
                             alt="Question mark icon"
@@ -3240,37 +3250,63 @@ exports[`Subscriptions UI state iterations premium credit renders when there is 
                             src="undefined/images/icons/icons-help.svg"
                           />
                         </span>
-                      </span>
+                      }
+                    >
                       <span
-                        className="quill-tooltip-wrapper"
+                        aria-hidden={false}
+                        className="quill-tooltip-trigger "
+                        role="tooltip"
                       >
                         <span
-                          aria-live="polite"
-                          className="quill-tooltip"
-                        />
+                          className="undefined"
+                          onBlur={[Function]}
+                          onClick={[Function]}
+                          onFocus={[Function]}
+                          onKeyDown={[Function]}
+                          onMouseEnter={[Function]}
+                          onMouseLeave={[Function]}
+                          role="button"
+                          tabIndex={0}
+                        >
+                          <span>
+                            <img
+                              alt="Question mark icon"
+                              className="subscription-tooltip"
+                              src="undefined/images/icons/icons-help.svg"
+                            />
+                          </span>
+                        </span>
+                        <span
+                          className="quill-tooltip-wrapper"
+                        >
+                          <span
+                            aria-live="polite"
+                            className="quill-tooltip"
+                          />
+                        </span>
                       </span>
-                    </span>
-                  </Tooltip>
-                </span>
-              </td>
-              <td
-                key="7-3-row"
-              >
-                --
-              </td>
-              <td
-                key="7-4-row"
-              >
-                1 month
-              </td>
-              <td
-                key="7-5-row"
-              >
-                02/16/22 - 01/01/22
-              </td>
-            </tr>
-          </tbody>
-        </table>
+                    </Tooltip>
+                  </span>
+                </td>
+                <td
+                  key="7-3-row"
+                >
+                  --
+                </td>
+                <td
+                  key="7-4-row"
+                >
+                  1 month
+                </td>
+                <td
+                  key="7-5-row"
+                >
+                  02/16/22 - 01/01/22
+                </td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
       </section>
     </SubscriptionHistory>
     <AvailableCredits
@@ -3473,10 +3509,10 @@ exports[`Subscriptions UI state iterations school free renders when there is an 
         className="subscription-status"
       >
         <div
-          className="flex-row space-between"
+          className="upper-section"
         >
           <div
-            className="box-and-h2 flex-row space-between"
+            className="left-side-container"
           >
             <div
               className="box"
@@ -3514,7 +3550,9 @@ exports[`Subscriptions UI state iterations school free renders when there is an 
             </span>
           </span>
         </div>
-        <p>
+        <p
+          className="premium-subscription-copy"
+        >
           <span>
             With 
             School Premium (Scholarship)
@@ -3832,77 +3870,55 @@ exports[`Subscriptions UI state iterations school free renders when there is an 
         <h2>
           Premium Subscription History
         </h2>
-        <table>
-          <tbody>
-            <tr>
-              <th
-                key="0-table-header"
+        <div
+          className="table-container"
+        >
+          <table>
+            <tbody>
+              <tr>
+                <th
+                  key="0-table-header"
+                >
+                  Purchase Date
+                </th>
+                <th
+                  key="1-table-header"
+                >
+                  Subscription
+                </th>
+                <th
+                  key="2-table-header"
+                >
+                  Payment
+                </th>
+                <th
+                  key="3-table-header"
+                >
+                  Length
+                </th>
+                <th
+                  key="4-table-header"
+                >
+                  Start & End Date
+                </th>
+              </tr>
+              <tr
+                key="7-subscription-table"
               >
-                Purchase Date
-              </th>
-              <th
-                key="1-table-header"
-              >
-                Subscription
-              </th>
-              <th
-                key="2-table-header"
-              >
-                Payment
-              </th>
-              <th
-                key="3-table-header"
-              >
-                Length
-              </th>
-              <th
-                key="4-table-header"
-              >
-                Start & End Date
-              </th>
-            </tr>
-            <tr
-              key="7-subscription-table"
-            >
-              <td
-                key="7-1-row"
-              >
-                Invalid date
-              </td>
-              <td
-                key="7-2-row"
-              >
-                <span>
-                  School Premium (Scholarship)
-                  <Tooltip
-                    isTabbable={true}
-                    tooltipText="School Sponsored Free subscription"
-                    tooltipTriggerText={
-                      <span>
-                        <img
-                          alt="Question mark icon"
-                          className="subscription-tooltip"
-                          src="undefined/images/icons/icons-help.svg"
-                        />
-                      </span>
-                    }
-                  >
-                    <span
-                      aria-hidden={false}
-                      className="quill-tooltip-trigger "
-                      role="tooltip"
-                    >
-                      <span
-                        className="undefined"
-                        onBlur={[Function]}
-                        onClick={[Function]}
-                        onFocus={[Function]}
-                        onKeyDown={[Function]}
-                        onMouseEnter={[Function]}
-                        onMouseLeave={[Function]}
-                        role="button"
-                        tabIndex={0}
-                      >
+                <td
+                  key="7-1-row"
+                >
+                  Invalid date
+                </td>
+                <td
+                  key="7-2-row"
+                >
+                  <span>
+                    School Premium (Scholarship)
+                    <Tooltip
+                      isTabbable={true}
+                      tooltipText="School Sponsored Free subscription"
+                      tooltipTriggerText={
                         <span>
                           <img
                             alt="Question mark icon"
@@ -3910,37 +3926,63 @@ exports[`Subscriptions UI state iterations school free renders when there is an 
                             src="undefined/images/icons/icons-help.svg"
                           />
                         </span>
-                      </span>
+                      }
+                    >
                       <span
-                        className="quill-tooltip-wrapper"
+                        aria-hidden={false}
+                        className="quill-tooltip-trigger "
+                        role="tooltip"
                       >
                         <span
-                          aria-live="polite"
-                          className="quill-tooltip"
-                        />
+                          className="undefined"
+                          onBlur={[Function]}
+                          onClick={[Function]}
+                          onFocus={[Function]}
+                          onKeyDown={[Function]}
+                          onMouseEnter={[Function]}
+                          onMouseLeave={[Function]}
+                          role="button"
+                          tabIndex={0}
+                        >
+                          <span>
+                            <img
+                              alt="Question mark icon"
+                              className="subscription-tooltip"
+                              src="undefined/images/icons/icons-help.svg"
+                            />
+                          </span>
+                        </span>
+                        <span
+                          className="quill-tooltip-wrapper"
+                        >
+                          <span
+                            aria-live="polite"
+                            className="quill-tooltip"
+                          />
+                        </span>
                       </span>
-                    </span>
-                  </Tooltip>
-                </span>
-              </td>
-              <td
-                key="7-3-row"
-              >
-                --
-              </td>
-              <td
-                key="7-4-row"
-              >
-                574 months
-              </td>
-              <td
-                key="7-5-row"
-              >
-                02/16/22 - 01/01/70
-              </td>
-            </tr>
-          </tbody>
-        </table>
+                    </Tooltip>
+                  </span>
+                </td>
+                <td
+                  key="7-3-row"
+                >
+                  --
+                </td>
+                <td
+                  key="7-4-row"
+                >
+                  574 months
+                </td>
+                <td
+                  key="7-5-row"
+                >
+                  02/16/22 - 01/01/70
+                </td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
       </section>
     </SubscriptionHistory>
     <AvailableCredits
@@ -4143,10 +4185,10 @@ exports[`Subscriptions UI state iterations school free renders when there is an 
         className="subscription-status"
       >
         <div
-          className="flex-row space-between"
+          className="upper-section"
         >
           <div
-            className="box-and-h2 flex-row space-between"
+            className="left-side-container"
           >
             <div
               className="box"
@@ -4170,7 +4212,9 @@ exports[`Subscriptions UI state iterations school free renders when there is an 
             Subscribe to premium
           </a>
         </div>
-        <p>
+        <p
+          className="premium-subscription-copy"
+        >
           <span>
             <strong>
               Your 
@@ -4264,77 +4308,55 @@ exports[`Subscriptions UI state iterations school free renders when there is an 
         <h2>
           Premium Subscription History
         </h2>
-        <table>
-          <tbody>
-            <tr>
-              <th
-                key="0-table-header"
+        <div
+          className="table-container"
+        >
+          <table>
+            <tbody>
+              <tr>
+                <th
+                  key="0-table-header"
+                >
+                  Purchase Date
+                </th>
+                <th
+                  key="1-table-header"
+                >
+                  Subscription
+                </th>
+                <th
+                  key="2-table-header"
+                >
+                  Payment
+                </th>
+                <th
+                  key="3-table-header"
+                >
+                  Length
+                </th>
+                <th
+                  key="4-table-header"
+                >
+                  Start & End Date
+                </th>
+              </tr>
+              <tr
+                key="7-subscription-table"
               >
-                Purchase Date
-              </th>
-              <th
-                key="1-table-header"
-              >
-                Subscription
-              </th>
-              <th
-                key="2-table-header"
-              >
-                Payment
-              </th>
-              <th
-                key="3-table-header"
-              >
-                Length
-              </th>
-              <th
-                key="4-table-header"
-              >
-                Start & End Date
-              </th>
-            </tr>
-            <tr
-              key="7-subscription-table"
-            >
-              <td
-                key="7-1-row"
-              >
-                Invalid date
-              </td>
-              <td
-                key="7-2-row"
-              >
-                <span>
-                  School Premium (Scholarship)
-                  <Tooltip
-                    isTabbable={true}
-                    tooltipText="School Sponsored Free subscription"
-                    tooltipTriggerText={
-                      <span>
-                        <img
-                          alt="Question mark icon"
-                          className="subscription-tooltip"
-                          src="undefined/images/icons/icons-help.svg"
-                        />
-                      </span>
-                    }
-                  >
-                    <span
-                      aria-hidden={false}
-                      className="quill-tooltip-trigger "
-                      role="tooltip"
-                    >
-                      <span
-                        className="undefined"
-                        onBlur={[Function]}
-                        onClick={[Function]}
-                        onFocus={[Function]}
-                        onKeyDown={[Function]}
-                        onMouseEnter={[Function]}
-                        onMouseLeave={[Function]}
-                        role="button"
-                        tabIndex={0}
-                      >
+                <td
+                  key="7-1-row"
+                >
+                  Invalid date
+                </td>
+                <td
+                  key="7-2-row"
+                >
+                  <span>
+                    School Premium (Scholarship)
+                    <Tooltip
+                      isTabbable={true}
+                      tooltipText="School Sponsored Free subscription"
+                      tooltipTriggerText={
                         <span>
                           <img
                             alt="Question mark icon"
@@ -4342,37 +4364,63 @@ exports[`Subscriptions UI state iterations school free renders when there is an 
                             src="undefined/images/icons/icons-help.svg"
                           />
                         </span>
-                      </span>
+                      }
+                    >
                       <span
-                        className="quill-tooltip-wrapper"
+                        aria-hidden={false}
+                        className="quill-tooltip-trigger "
+                        role="tooltip"
                       >
                         <span
-                          aria-live="polite"
-                          className="quill-tooltip"
-                        />
+                          className="undefined"
+                          onBlur={[Function]}
+                          onClick={[Function]}
+                          onFocus={[Function]}
+                          onKeyDown={[Function]}
+                          onMouseEnter={[Function]}
+                          onMouseLeave={[Function]}
+                          role="button"
+                          tabIndex={0}
+                        >
+                          <span>
+                            <img
+                              alt="Question mark icon"
+                              className="subscription-tooltip"
+                              src="undefined/images/icons/icons-help.svg"
+                            />
+                          </span>
+                        </span>
+                        <span
+                          className="quill-tooltip-wrapper"
+                        >
+                          <span
+                            aria-live="polite"
+                            className="quill-tooltip"
+                          />
+                        </span>
                       </span>
-                    </span>
-                  </Tooltip>
-                </span>
-              </td>
-              <td
-                key="7-3-row"
-              >
-                --
-              </td>
-              <td
-                key="7-4-row"
-              >
-                1 month
-              </td>
-              <td
-                key="7-5-row"
-              >
-                02/16/22 - 01/01/22
-              </td>
-            </tr>
-          </tbody>
-        </table>
+                    </Tooltip>
+                  </span>
+                </td>
+                <td
+                  key="7-3-row"
+                >
+                  --
+                </td>
+                <td
+                  key="7-4-row"
+                >
+                  1 month
+                </td>
+                <td
+                  key="7-5-row"
+                >
+                  02/16/22 - 01/01/22
+                </td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
       </section>
     </SubscriptionHistory>
     <AvailableCredits
@@ -4575,10 +4623,10 @@ exports[`Subscriptions UI state iterations school paid via invoice the current u
         className="subscription-status"
       >
         <div
-          className="flex-row space-between"
+          className="upper-section"
         >
           <div
-            className="box-and-h2 flex-row space-between"
+            className="left-side-container"
           >
             <div
               className="box"
@@ -4616,7 +4664,9 @@ exports[`Subscriptions UI state iterations school paid via invoice the current u
             </span>
           </span>
         </div>
-        <p>
+        <p
+          className="premium-subscription-copy"
+        >
           <span>
             With 
             School Premium
@@ -4949,77 +4999,55 @@ exports[`Subscriptions UI state iterations school paid via invoice the current u
         <h2>
           Premium Subscription History
         </h2>
-        <table>
-          <tbody>
-            <tr>
-              <th
-                key="0-table-header"
+        <div
+          className="table-container"
+        >
+          <table>
+            <tbody>
+              <tr>
+                <th
+                  key="0-table-header"
+                >
+                  Purchase Date
+                </th>
+                <th
+                  key="1-table-header"
+                >
+                  Subscription
+                </th>
+                <th
+                  key="2-table-header"
+                >
+                  Payment
+                </th>
+                <th
+                  key="3-table-header"
+                >
+                  Length
+                </th>
+                <th
+                  key="4-table-header"
+                >
+                  Start & End Date
+                </th>
+              </tr>
+              <tr
+                key="7-subscription-table"
               >
-                Purchase Date
-              </th>
-              <th
-                key="1-table-header"
-              >
-                Subscription
-              </th>
-              <th
-                key="2-table-header"
-              >
-                Payment
-              </th>
-              <th
-                key="3-table-header"
-              >
-                Length
-              </th>
-              <th
-                key="4-table-header"
-              >
-                Start & End Date
-              </th>
-            </tr>
-            <tr
-              key="7-subscription-table"
-            >
-              <td
-                key="7-1-row"
-              >
-                Invalid date
-              </td>
-              <td
-                key="7-2-row"
-              >
-                <span>
-                  School Premium
-                  <Tooltip
-                    isTabbable={true}
-                    tooltipText="School Paid subscription"
-                    tooltipTriggerText={
-                      <span>
-                        <img
-                          alt="Question mark icon"
-                          className="subscription-tooltip"
-                          src="undefined/images/icons/icons-help.svg"
-                        />
-                      </span>
-                    }
-                  >
-                    <span
-                      aria-hidden={false}
-                      className="quill-tooltip-trigger "
-                      role="tooltip"
-                    >
-                      <span
-                        className="undefined"
-                        onBlur={[Function]}
-                        onClick={[Function]}
-                        onFocus={[Function]}
-                        onKeyDown={[Function]}
-                        onMouseEnter={[Function]}
-                        onMouseLeave={[Function]}
-                        role="button"
-                        tabIndex={0}
-                      >
+                <td
+                  key="7-1-row"
+                >
+                  Invalid date
+                </td>
+                <td
+                  key="7-2-row"
+                >
+                  <span>
+                    School Premium
+                    <Tooltip
+                      isTabbable={true}
+                      tooltipText="School Paid subscription"
+                      tooltipTriggerText={
                         <span>
                           <img
                             alt="Question mark icon"
@@ -5027,37 +5055,63 @@ exports[`Subscriptions UI state iterations school paid via invoice the current u
                             src="undefined/images/icons/icons-help.svg"
                           />
                         </span>
-                      </span>
+                      }
+                    >
                       <span
-                        className="quill-tooltip-wrapper"
+                        aria-hidden={false}
+                        className="quill-tooltip-trigger "
+                        role="tooltip"
                       >
                         <span
-                          aria-live="polite"
-                          className="quill-tooltip"
-                        />
+                          className="undefined"
+                          onBlur={[Function]}
+                          onClick={[Function]}
+                          onFocus={[Function]}
+                          onKeyDown={[Function]}
+                          onMouseEnter={[Function]}
+                          onMouseLeave={[Function]}
+                          role="button"
+                          tabIndex={0}
+                        >
+                          <span>
+                            <img
+                              alt="Question mark icon"
+                              className="subscription-tooltip"
+                              src="undefined/images/icons/icons-help.svg"
+                            />
+                          </span>
+                        </span>
+                        <span
+                          className="quill-tooltip-wrapper"
+                        >
+                          <span
+                            aria-live="polite"
+                            className="quill-tooltip"
+                          />
+                        </span>
                       </span>
-                    </span>
-                  </Tooltip>
-                </span>
-              </td>
-              <td
-                key="7-3-row"
-              >
-                --
-              </td>
-              <td
-                key="7-4-row"
-              >
-                574 months
-              </td>
-              <td
-                key="7-5-row"
-              >
-                02/16/22 - 01/01/70
-              </td>
-            </tr>
-          </tbody>
-        </table>
+                    </Tooltip>
+                  </span>
+                </td>
+                <td
+                  key="7-3-row"
+                >
+                  --
+                </td>
+                <td
+                  key="7-4-row"
+                >
+                  574 months
+                </td>
+                <td
+                  key="7-5-row"
+                >
+                  02/16/22 - 01/01/70
+                </td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
       </section>
     </SubscriptionHistory>
     <AvailableCredits
@@ -5260,10 +5314,10 @@ exports[`Subscriptions UI state iterations school paid via invoice the current u
         className="subscription-status"
       >
         <div
-          className="flex-row space-between"
+          className="upper-section"
         >
           <div
-            className="box-and-h2 flex-row space-between"
+            className="left-side-container"
           >
             <div
               className="box"
@@ -5296,7 +5350,9 @@ exports[`Subscriptions UI state iterations school paid via invoice the current u
             </button>
           </StripeSubscriptionCheckoutSessionButton>
         </div>
-        <p>
+        <p
+          className="premium-subscription-copy"
+        >
           <span>
             <strong>
               Your 
@@ -5390,77 +5446,55 @@ exports[`Subscriptions UI state iterations school paid via invoice the current u
         <h2>
           Premium Subscription History
         </h2>
-        <table>
-          <tbody>
-            <tr>
-              <th
-                key="0-table-header"
+        <div
+          className="table-container"
+        >
+          <table>
+            <tbody>
+              <tr>
+                <th
+                  key="0-table-header"
+                >
+                  Purchase Date
+                </th>
+                <th
+                  key="1-table-header"
+                >
+                  Subscription
+                </th>
+                <th
+                  key="2-table-header"
+                >
+                  Payment
+                </th>
+                <th
+                  key="3-table-header"
+                >
+                  Length
+                </th>
+                <th
+                  key="4-table-header"
+                >
+                  Start & End Date
+                </th>
+              </tr>
+              <tr
+                key="7-subscription-table"
               >
-                Purchase Date
-              </th>
-              <th
-                key="1-table-header"
-              >
-                Subscription
-              </th>
-              <th
-                key="2-table-header"
-              >
-                Payment
-              </th>
-              <th
-                key="3-table-header"
-              >
-                Length
-              </th>
-              <th
-                key="4-table-header"
-              >
-                Start & End Date
-              </th>
-            </tr>
-            <tr
-              key="7-subscription-table"
-            >
-              <td
-                key="7-1-row"
-              >
-                Invalid date
-              </td>
-              <td
-                key="7-2-row"
-              >
-                <span>
-                  School Premium
-                  <Tooltip
-                    isTabbable={true}
-                    tooltipText="School Paid subscription"
-                    tooltipTriggerText={
-                      <span>
-                        <img
-                          alt="Question mark icon"
-                          className="subscription-tooltip"
-                          src="undefined/images/icons/icons-help.svg"
-                        />
-                      </span>
-                    }
-                  >
-                    <span
-                      aria-hidden={false}
-                      className="quill-tooltip-trigger "
-                      role="tooltip"
-                    >
-                      <span
-                        className="undefined"
-                        onBlur={[Function]}
-                        onClick={[Function]}
-                        onFocus={[Function]}
-                        onKeyDown={[Function]}
-                        onMouseEnter={[Function]}
-                        onMouseLeave={[Function]}
-                        role="button"
-                        tabIndex={0}
-                      >
+                <td
+                  key="7-1-row"
+                >
+                  Invalid date
+                </td>
+                <td
+                  key="7-2-row"
+                >
+                  <span>
+                    School Premium
+                    <Tooltip
+                      isTabbable={true}
+                      tooltipText="School Paid subscription"
+                      tooltipTriggerText={
                         <span>
                           <img
                             alt="Question mark icon"
@@ -5468,37 +5502,63 @@ exports[`Subscriptions UI state iterations school paid via invoice the current u
                             src="undefined/images/icons/icons-help.svg"
                           />
                         </span>
-                      </span>
+                      }
+                    >
                       <span
-                        className="quill-tooltip-wrapper"
+                        aria-hidden={false}
+                        className="quill-tooltip-trigger "
+                        role="tooltip"
                       >
                         <span
-                          aria-live="polite"
-                          className="quill-tooltip"
-                        />
+                          className="undefined"
+                          onBlur={[Function]}
+                          onClick={[Function]}
+                          onFocus={[Function]}
+                          onKeyDown={[Function]}
+                          onMouseEnter={[Function]}
+                          onMouseLeave={[Function]}
+                          role="button"
+                          tabIndex={0}
+                        >
+                          <span>
+                            <img
+                              alt="Question mark icon"
+                              className="subscription-tooltip"
+                              src="undefined/images/icons/icons-help.svg"
+                            />
+                          </span>
+                        </span>
+                        <span
+                          className="quill-tooltip-wrapper"
+                        >
+                          <span
+                            aria-live="polite"
+                            className="quill-tooltip"
+                          />
+                        </span>
                       </span>
-                    </span>
-                  </Tooltip>
-                </span>
-              </td>
-              <td
-                key="7-3-row"
-              >
-                --
-              </td>
-              <td
-                key="7-4-row"
-              >
-                1 month
-              </td>
-              <td
-                key="7-5-row"
-              >
-                02/16/22 - 01/01/22
-              </td>
-            </tr>
-          </tbody>
-        </table>
+                    </Tooltip>
+                  </span>
+                </td>
+                <td
+                  key="7-3-row"
+                >
+                  --
+                </td>
+                <td
+                  key="7-4-row"
+                >
+                  1 month
+                </td>
+                <td
+                  key="7-5-row"
+                >
+                  02/16/22 - 01/01/22
+                </td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
       </section>
     </SubscriptionHistory>
     <AvailableCredits
@@ -5701,10 +5761,10 @@ exports[`Subscriptions UI state iterations school paid via invoice the current u
         className="subscription-status"
       >
         <div
-          className="flex-row space-between"
+          className="upper-section"
         >
           <div
-            className="box-and-h2 flex-row space-between"
+            className="left-side-container"
           >
             <div
               className="box"
@@ -5742,7 +5802,9 @@ exports[`Subscriptions UI state iterations school paid via invoice the current u
             </span>
           </span>
         </div>
-        <p>
+        <p
+          className="premium-subscription-copy"
+        >
           <span>
             With 
             School Premium
@@ -6140,77 +6202,55 @@ exports[`Subscriptions UI state iterations school paid via invoice the current u
         <h2>
           Premium Subscription History
         </h2>
-        <table>
-          <tbody>
-            <tr>
-              <th
-                key="0-table-header"
+        <div
+          className="table-container"
+        >
+          <table>
+            <tbody>
+              <tr>
+                <th
+                  key="0-table-header"
+                >
+                  Purchase Date
+                </th>
+                <th
+                  key="1-table-header"
+                >
+                  Subscription
+                </th>
+                <th
+                  key="2-table-header"
+                >
+                  Payment
+                </th>
+                <th
+                  key="3-table-header"
+                >
+                  Length
+                </th>
+                <th
+                  key="4-table-header"
+                >
+                  Start & End Date
+                </th>
+              </tr>
+              <tr
+                key="7-subscription-table"
               >
-                Purchase Date
-              </th>
-              <th
-                key="1-table-header"
-              >
-                Subscription
-              </th>
-              <th
-                key="2-table-header"
-              >
-                Payment
-              </th>
-              <th
-                key="3-table-header"
-              >
-                Length
-              </th>
-              <th
-                key="4-table-header"
-              >
-                Start & End Date
-              </th>
-            </tr>
-            <tr
-              key="7-subscription-table"
-            >
-              <td
-                key="7-1-row"
-              >
-                Invalid date
-              </td>
-              <td
-                key="7-2-row"
-              >
-                <span>
-                  School Premium
-                  <Tooltip
-                    isTabbable={true}
-                    tooltipText="School Paid subscription"
-                    tooltipTriggerText={
-                      <span>
-                        <img
-                          alt="Question mark icon"
-                          className="subscription-tooltip"
-                          src="undefined/images/icons/icons-help.svg"
-                        />
-                      </span>
-                    }
-                  >
-                    <span
-                      aria-hidden={false}
-                      className="quill-tooltip-trigger "
-                      role="tooltip"
-                    >
-                      <span
-                        className="undefined"
-                        onBlur={[Function]}
-                        onClick={[Function]}
-                        onFocus={[Function]}
-                        onKeyDown={[Function]}
-                        onMouseEnter={[Function]}
-                        onMouseLeave={[Function]}
-                        role="button"
-                        tabIndex={0}
-                      >
+                <td
+                  key="7-1-row"
+                >
+                  Invalid date
+                </td>
+                <td
+                  key="7-2-row"
+                >
+                  <span>
+                    School Premium
+                    <Tooltip
+                      isTabbable={true}
+                      tooltipText="School Paid subscription"
+                      tooltipTriggerText={
                         <span>
                           <img
                             alt="Question mark icon"
@@ -6218,37 +6258,63 @@ exports[`Subscriptions UI state iterations school paid via invoice the current u
                             src="undefined/images/icons/icons-help.svg"
                           />
                         </span>
-                      </span>
+                      }
+                    >
                       <span
-                        className="quill-tooltip-wrapper"
+                        aria-hidden={false}
+                        className="quill-tooltip-trigger "
+                        role="tooltip"
                       >
                         <span
-                          aria-live="polite"
-                          className="quill-tooltip"
-                        />
+                          className="undefined"
+                          onBlur={[Function]}
+                          onClick={[Function]}
+                          onFocus={[Function]}
+                          onKeyDown={[Function]}
+                          onMouseEnter={[Function]}
+                          onMouseLeave={[Function]}
+                          role="button"
+                          tabIndex={0}
+                        >
+                          <span>
+                            <img
+                              alt="Question mark icon"
+                              className="subscription-tooltip"
+                              src="undefined/images/icons/icons-help.svg"
+                            />
+                          </span>
+                        </span>
+                        <span
+                          className="quill-tooltip-wrapper"
+                        >
+                          <span
+                            aria-live="polite"
+                            className="quill-tooltip"
+                          />
+                        </span>
                       </span>
-                    </span>
-                  </Tooltip>
-                </span>
-              </td>
-              <td
-                key="7-3-row"
-              >
-                --
-              </td>
-              <td
-                key="7-4-row"
-              >
-                574 months
-              </td>
-              <td
-                key="7-5-row"
-              >
-                02/16/22 - 01/01/70
-              </td>
-            </tr>
-          </tbody>
-        </table>
+                    </Tooltip>
+                  </span>
+                </td>
+                <td
+                  key="7-3-row"
+                >
+                  --
+                </td>
+                <td
+                  key="7-4-row"
+                >
+                  574 months
+                </td>
+                <td
+                  key="7-5-row"
+                >
+                  02/16/22 - 01/01/70
+                </td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
       </section>
     </SubscriptionHistory>
     <AvailableCredits
@@ -6451,10 +6517,10 @@ exports[`Subscriptions UI state iterations school paid via invoice the current u
         className="subscription-status"
       >
         <div
-          className="flex-row space-between"
+          className="upper-section"
         >
           <div
-            className="box-and-h2 flex-row space-between"
+            className="left-side-container"
           >
             <div
               className="box"
@@ -6487,7 +6553,9 @@ exports[`Subscriptions UI state iterations school paid via invoice the current u
             </button>
           </StripeSubscriptionCheckoutSessionButton>
         </div>
-        <p>
+        <p
+          className="premium-subscription-copy"
+        >
           <span>
             <strong>
               Your 
@@ -6570,77 +6638,55 @@ exports[`Subscriptions UI state iterations school paid via invoice the current u
         <h2>
           Premium Subscription History
         </h2>
-        <table>
-          <tbody>
-            <tr>
-              <th
-                key="0-table-header"
+        <div
+          className="table-container"
+        >
+          <table>
+            <tbody>
+              <tr>
+                <th
+                  key="0-table-header"
+                >
+                  Purchase Date
+                </th>
+                <th
+                  key="1-table-header"
+                >
+                  Subscription
+                </th>
+                <th
+                  key="2-table-header"
+                >
+                  Payment
+                </th>
+                <th
+                  key="3-table-header"
+                >
+                  Length
+                </th>
+                <th
+                  key="4-table-header"
+                >
+                  Start & End Date
+                </th>
+              </tr>
+              <tr
+                key="7-subscription-table"
               >
-                Purchase Date
-              </th>
-              <th
-                key="1-table-header"
-              >
-                Subscription
-              </th>
-              <th
-                key="2-table-header"
-              >
-                Payment
-              </th>
-              <th
-                key="3-table-header"
-              >
-                Length
-              </th>
-              <th
-                key="4-table-header"
-              >
-                Start & End Date
-              </th>
-            </tr>
-            <tr
-              key="7-subscription-table"
-            >
-              <td
-                key="7-1-row"
-              >
-                Invalid date
-              </td>
-              <td
-                key="7-2-row"
-              >
-                <span>
-                  School Premium
-                  <Tooltip
-                    isTabbable={true}
-                    tooltipText="School Paid subscription"
-                    tooltipTriggerText={
-                      <span>
-                        <img
-                          alt="Question mark icon"
-                          className="subscription-tooltip"
-                          src="undefined/images/icons/icons-help.svg"
-                        />
-                      </span>
-                    }
-                  >
-                    <span
-                      aria-hidden={false}
-                      className="quill-tooltip-trigger "
-                      role="tooltip"
-                    >
-                      <span
-                        className="undefined"
-                        onBlur={[Function]}
-                        onClick={[Function]}
-                        onFocus={[Function]}
-                        onKeyDown={[Function]}
-                        onMouseEnter={[Function]}
-                        onMouseLeave={[Function]}
-                        role="button"
-                        tabIndex={0}
-                      >
+                <td
+                  key="7-1-row"
+                >
+                  Invalid date
+                </td>
+                <td
+                  key="7-2-row"
+                >
+                  <span>
+                    School Premium
+                    <Tooltip
+                      isTabbable={true}
+                      tooltipText="School Paid subscription"
+                      tooltipTriggerText={
                         <span>
                           <img
                             alt="Question mark icon"
@@ -6648,37 +6694,63 @@ exports[`Subscriptions UI state iterations school paid via invoice the current u
                             src="undefined/images/icons/icons-help.svg"
                           />
                         </span>
-                      </span>
+                      }
+                    >
                       <span
-                        className="quill-tooltip-wrapper"
+                        aria-hidden={false}
+                        className="quill-tooltip-trigger "
+                        role="tooltip"
                       >
                         <span
-                          aria-live="polite"
-                          className="quill-tooltip"
-                        />
+                          className="undefined"
+                          onBlur={[Function]}
+                          onClick={[Function]}
+                          onFocus={[Function]}
+                          onKeyDown={[Function]}
+                          onMouseEnter={[Function]}
+                          onMouseLeave={[Function]}
+                          role="button"
+                          tabIndex={0}
+                        >
+                          <span>
+                            <img
+                              alt="Question mark icon"
+                              className="subscription-tooltip"
+                              src="undefined/images/icons/icons-help.svg"
+                            />
+                          </span>
+                        </span>
+                        <span
+                          className="quill-tooltip-wrapper"
+                        >
+                          <span
+                            aria-live="polite"
+                            className="quill-tooltip"
+                          />
+                        </span>
                       </span>
-                    </span>
-                  </Tooltip>
-                </span>
-              </td>
-              <td
-                key="7-3-row"
-              >
-                --
-              </td>
-              <td
-                key="7-4-row"
-              >
-                1 month
-              </td>
-              <td
-                key="7-5-row"
-              >
-                02/16/22 - 01/01/22
-              </td>
-            </tr>
-          </tbody>
-        </table>
+                    </Tooltip>
+                  </span>
+                </td>
+                <td
+                  key="7-3-row"
+                >
+                  --
+                </td>
+                <td
+                  key="7-4-row"
+                >
+                  1 month
+                </td>
+                <td
+                  key="7-5-row"
+                >
+                  02/16/22 - 01/01/22
+                </td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
       </section>
     </SubscriptionHistory>
     <AvailableCredits
@@ -6881,10 +6953,10 @@ exports[`Subscriptions UI state iterations school paid via stripe the current us
         className="subscription-status"
       >
         <div
-          className="flex-row space-between"
+          className="upper-section"
         >
           <div
-            className="box-and-h2 flex-row space-between"
+            className="left-side-container"
           >
             <div
               className="box"
@@ -6922,7 +6994,9 @@ exports[`Subscriptions UI state iterations school paid via stripe the current us
             </span>
           </span>
         </div>
-        <p>
+        <p
+          className="premium-subscription-copy"
+        >
           <span>
             With 
             School Premium
@@ -7249,77 +7323,55 @@ exports[`Subscriptions UI state iterations school paid via stripe the current us
         <h2>
           Premium Subscription History
         </h2>
-        <table>
-          <tbody>
-            <tr>
-              <th
-                key="0-table-header"
+        <div
+          className="table-container"
+        >
+          <table>
+            <tbody>
+              <tr>
+                <th
+                  key="0-table-header"
+                >
+                  Purchase Date
+                </th>
+                <th
+                  key="1-table-header"
+                >
+                  Subscription
+                </th>
+                <th
+                  key="2-table-header"
+                >
+                  Payment
+                </th>
+                <th
+                  key="3-table-header"
+                >
+                  Length
+                </th>
+                <th
+                  key="4-table-header"
+                >
+                  Start & End Date
+                </th>
+              </tr>
+              <tr
+                key="7-subscription-table"
               >
-                Purchase Date
-              </th>
-              <th
-                key="1-table-header"
-              >
-                Subscription
-              </th>
-              <th
-                key="2-table-header"
-              >
-                Payment
-              </th>
-              <th
-                key="3-table-header"
-              >
-                Length
-              </th>
-              <th
-                key="4-table-header"
-              >
-                Start & End Date
-              </th>
-            </tr>
-            <tr
-              key="7-subscription-table"
-            >
-              <td
-                key="7-1-row"
-              >
-                Invalid date
-              </td>
-              <td
-                key="7-2-row"
-              >
-                <span>
-                  School Premium
-                  <Tooltip
-                    isTabbable={true}
-                    tooltipText="School Paid (via Stripe) subscription"
-                    tooltipTriggerText={
-                      <span>
-                        <img
-                          alt="Question mark icon"
-                          className="subscription-tooltip"
-                          src="undefined/images/icons/icons-help.svg"
-                        />
-                      </span>
-                    }
-                  >
-                    <span
-                      aria-hidden={false}
-                      className="quill-tooltip-trigger "
-                      role="tooltip"
-                    >
-                      <span
-                        className="undefined"
-                        onBlur={[Function]}
-                        onClick={[Function]}
-                        onFocus={[Function]}
-                        onKeyDown={[Function]}
-                        onMouseEnter={[Function]}
-                        onMouseLeave={[Function]}
-                        role="button"
-                        tabIndex={0}
-                      >
+                <td
+                  key="7-1-row"
+                >
+                  Invalid date
+                </td>
+                <td
+                  key="7-2-row"
+                >
+                  <span>
+                    School Premium
+                    <Tooltip
+                      isTabbable={true}
+                      tooltipText="School Paid (via Stripe) subscription"
+                      tooltipTriggerText={
                         <span>
                           <img
                             alt="Question mark icon"
@@ -7327,37 +7379,63 @@ exports[`Subscriptions UI state iterations school paid via stripe the current us
                             src="undefined/images/icons/icons-help.svg"
                           />
                         </span>
-                      </span>
+                      }
+                    >
                       <span
-                        className="quill-tooltip-wrapper"
+                        aria-hidden={false}
+                        className="quill-tooltip-trigger "
+                        role="tooltip"
                       >
                         <span
-                          aria-live="polite"
-                          className="quill-tooltip"
-                        />
+                          className="undefined"
+                          onBlur={[Function]}
+                          onClick={[Function]}
+                          onFocus={[Function]}
+                          onKeyDown={[Function]}
+                          onMouseEnter={[Function]}
+                          onMouseLeave={[Function]}
+                          role="button"
+                          tabIndex={0}
+                        >
+                          <span>
+                            <img
+                              alt="Question mark icon"
+                              className="subscription-tooltip"
+                              src="undefined/images/icons/icons-help.svg"
+                            />
+                          </span>
+                        </span>
+                        <span
+                          className="quill-tooltip-wrapper"
+                        >
+                          <span
+                            aria-live="polite"
+                            className="quill-tooltip"
+                          />
+                        </span>
                       </span>
-                    </span>
-                  </Tooltip>
-                </span>
-              </td>
-              <td
-                key="7-3-row"
-              >
-                --
-              </td>
-              <td
-                key="7-4-row"
-              >
-                574 months
-              </td>
-              <td
-                key="7-5-row"
-              >
-                02/16/22 - 01/01/70
-              </td>
-            </tr>
-          </tbody>
-        </table>
+                    </Tooltip>
+                  </span>
+                </td>
+                <td
+                  key="7-3-row"
+                >
+                  --
+                </td>
+                <td
+                  key="7-4-row"
+                >
+                  574 months
+                </td>
+                <td
+                  key="7-5-row"
+                >
+                  02/16/22 - 01/01/70
+                </td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
       </section>
     </SubscriptionHistory>
     <AvailableCredits
@@ -7560,10 +7638,10 @@ exports[`Subscriptions UI state iterations school paid via stripe the current us
         className="subscription-status"
       >
         <div
-          className="flex-row space-between"
+          className="upper-section"
         >
           <div
-            className="box-and-h2 flex-row space-between"
+            className="left-side-container"
           >
             <div
               className="box"
@@ -7601,7 +7679,9 @@ exports[`Subscriptions UI state iterations school paid via stripe the current us
             </span>
           </span>
         </div>
-        <p>
+        <p
+          className="premium-subscription-copy"
+        >
           <span>
             With 
             School Premium
@@ -7940,77 +8020,55 @@ exports[`Subscriptions UI state iterations school paid via stripe the current us
         <h2>
           Premium Subscription History
         </h2>
-        <table>
-          <tbody>
-            <tr>
-              <th
-                key="0-table-header"
+        <div
+          className="table-container"
+        >
+          <table>
+            <tbody>
+              <tr>
+                <th
+                  key="0-table-header"
+                >
+                  Purchase Date
+                </th>
+                <th
+                  key="1-table-header"
+                >
+                  Subscription
+                </th>
+                <th
+                  key="2-table-header"
+                >
+                  Payment
+                </th>
+                <th
+                  key="3-table-header"
+                >
+                  Length
+                </th>
+                <th
+                  key="4-table-header"
+                >
+                  Start & End Date
+                </th>
+              </tr>
+              <tr
+                key="7-subscription-table"
               >
-                Purchase Date
-              </th>
-              <th
-                key="1-table-header"
-              >
-                Subscription
-              </th>
-              <th
-                key="2-table-header"
-              >
-                Payment
-              </th>
-              <th
-                key="3-table-header"
-              >
-                Length
-              </th>
-              <th
-                key="4-table-header"
-              >
-                Start & End Date
-              </th>
-            </tr>
-            <tr
-              key="7-subscription-table"
-            >
-              <td
-                key="7-1-row"
-              >
-                Invalid date
-              </td>
-              <td
-                key="7-2-row"
-              >
-                <span>
-                  School Premium
-                  <Tooltip
-                    isTabbable={true}
-                    tooltipText="School Paid (via Stripe) subscription"
-                    tooltipTriggerText={
-                      <span>
-                        <img
-                          alt="Question mark icon"
-                          className="subscription-tooltip"
-                          src="undefined/images/icons/icons-help.svg"
-                        />
-                      </span>
-                    }
-                  >
-                    <span
-                      aria-hidden={false}
-                      className="quill-tooltip-trigger "
-                      role="tooltip"
-                    >
-                      <span
-                        className="undefined"
-                        onBlur={[Function]}
-                        onClick={[Function]}
-                        onFocus={[Function]}
-                        onKeyDown={[Function]}
-                        onMouseEnter={[Function]}
-                        onMouseLeave={[Function]}
-                        role="button"
-                        tabIndex={0}
-                      >
+                <td
+                  key="7-1-row"
+                >
+                  Invalid date
+                </td>
+                <td
+                  key="7-2-row"
+                >
+                  <span>
+                    School Premium
+                    <Tooltip
+                      isTabbable={true}
+                      tooltipText="School Paid (via Stripe) subscription"
+                      tooltipTriggerText={
                         <span>
                           <img
                             alt="Question mark icon"
@@ -8018,37 +8076,63 @@ exports[`Subscriptions UI state iterations school paid via stripe the current us
                             src="undefined/images/icons/icons-help.svg"
                           />
                         </span>
-                      </span>
+                      }
+                    >
                       <span
-                        className="quill-tooltip-wrapper"
+                        aria-hidden={false}
+                        className="quill-tooltip-trigger "
+                        role="tooltip"
                       >
                         <span
-                          aria-live="polite"
-                          className="quill-tooltip"
-                        />
+                          className="undefined"
+                          onBlur={[Function]}
+                          onClick={[Function]}
+                          onFocus={[Function]}
+                          onKeyDown={[Function]}
+                          onMouseEnter={[Function]}
+                          onMouseLeave={[Function]}
+                          role="button"
+                          tabIndex={0}
+                        >
+                          <span>
+                            <img
+                              alt="Question mark icon"
+                              className="subscription-tooltip"
+                              src="undefined/images/icons/icons-help.svg"
+                            />
+                          </span>
+                        </span>
+                        <span
+                          className="quill-tooltip-wrapper"
+                        >
+                          <span
+                            aria-live="polite"
+                            className="quill-tooltip"
+                          />
+                        </span>
                       </span>
-                    </span>
-                  </Tooltip>
-                </span>
-              </td>
-              <td
-                key="7-3-row"
-              >
-                --
-              </td>
-              <td
-                key="7-4-row"
-              >
-                574 months
-              </td>
-              <td
-                key="7-5-row"
-              >
-                02/16/22 - 01/01/70
-              </td>
-            </tr>
-          </tbody>
-        </table>
+                    </Tooltip>
+                  </span>
+                </td>
+                <td
+                  key="7-3-row"
+                >
+                  --
+                </td>
+                <td
+                  key="7-4-row"
+                >
+                  574 months
+                </td>
+                <td
+                  key="7-5-row"
+                >
+                  02/16/22 - 01/01/70
+                </td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
       </section>
     </SubscriptionHistory>
     <AvailableCredits
@@ -8251,10 +8335,10 @@ exports[`Subscriptions UI state iterations school paid via stripe the current us
         className="subscription-status"
       >
         <div
-          className="flex-row space-between"
+          className="upper-section"
         >
           <div
-            className="box-and-h2 flex-row space-between"
+            className="left-side-container"
           >
             <div
               className="box"
@@ -8287,7 +8371,9 @@ exports[`Subscriptions UI state iterations school paid via stripe the current us
             </button>
           </StripeSubscriptionCheckoutSessionButton>
         </div>
-        <p>
+        <p
+          className="premium-subscription-copy"
+        >
           <span>
             <strong>
               Your 
@@ -8381,77 +8467,55 @@ exports[`Subscriptions UI state iterations school paid via stripe the current us
         <h2>
           Premium Subscription History
         </h2>
-        <table>
-          <tbody>
-            <tr>
-              <th
-                key="0-table-header"
+        <div
+          className="table-container"
+        >
+          <table>
+            <tbody>
+              <tr>
+                <th
+                  key="0-table-header"
+                >
+                  Purchase Date
+                </th>
+                <th
+                  key="1-table-header"
+                >
+                  Subscription
+                </th>
+                <th
+                  key="2-table-header"
+                >
+                  Payment
+                </th>
+                <th
+                  key="3-table-header"
+                >
+                  Length
+                </th>
+                <th
+                  key="4-table-header"
+                >
+                  Start & End Date
+                </th>
+              </tr>
+              <tr
+                key="7-subscription-table"
               >
-                Purchase Date
-              </th>
-              <th
-                key="1-table-header"
-              >
-                Subscription
-              </th>
-              <th
-                key="2-table-header"
-              >
-                Payment
-              </th>
-              <th
-                key="3-table-header"
-              >
-                Length
-              </th>
-              <th
-                key="4-table-header"
-              >
-                Start & End Date
-              </th>
-            </tr>
-            <tr
-              key="7-subscription-table"
-            >
-              <td
-                key="7-1-row"
-              >
-                Invalid date
-              </td>
-              <td
-                key="7-2-row"
-              >
-                <span>
-                  School Premium
-                  <Tooltip
-                    isTabbable={true}
-                    tooltipText="School Paid (via Stripe) subscription"
-                    tooltipTriggerText={
-                      <span>
-                        <img
-                          alt="Question mark icon"
-                          className="subscription-tooltip"
-                          src="undefined/images/icons/icons-help.svg"
-                        />
-                      </span>
-                    }
-                  >
-                    <span
-                      aria-hidden={false}
-                      className="quill-tooltip-trigger "
-                      role="tooltip"
-                    >
-                      <span
-                        className="undefined"
-                        onBlur={[Function]}
-                        onClick={[Function]}
-                        onFocus={[Function]}
-                        onKeyDown={[Function]}
-                        onMouseEnter={[Function]}
-                        onMouseLeave={[Function]}
-                        role="button"
-                        tabIndex={0}
-                      >
+                <td
+                  key="7-1-row"
+                >
+                  Invalid date
+                </td>
+                <td
+                  key="7-2-row"
+                >
+                  <span>
+                    School Premium
+                    <Tooltip
+                      isTabbable={true}
+                      tooltipText="School Paid (via Stripe) subscription"
+                      tooltipTriggerText={
                         <span>
                           <img
                             alt="Question mark icon"
@@ -8459,37 +8523,63 @@ exports[`Subscriptions UI state iterations school paid via stripe the current us
                             src="undefined/images/icons/icons-help.svg"
                           />
                         </span>
-                      </span>
+                      }
+                    >
                       <span
-                        className="quill-tooltip-wrapper"
+                        aria-hidden={false}
+                        className="quill-tooltip-trigger "
+                        role="tooltip"
                       >
                         <span
-                          aria-live="polite"
-                          className="quill-tooltip"
-                        />
+                          className="undefined"
+                          onBlur={[Function]}
+                          onClick={[Function]}
+                          onFocus={[Function]}
+                          onKeyDown={[Function]}
+                          onMouseEnter={[Function]}
+                          onMouseLeave={[Function]}
+                          role="button"
+                          tabIndex={0}
+                        >
+                          <span>
+                            <img
+                              alt="Question mark icon"
+                              className="subscription-tooltip"
+                              src="undefined/images/icons/icons-help.svg"
+                            />
+                          </span>
+                        </span>
+                        <span
+                          className="quill-tooltip-wrapper"
+                        >
+                          <span
+                            aria-live="polite"
+                            className="quill-tooltip"
+                          />
+                        </span>
                       </span>
-                    </span>
-                  </Tooltip>
-                </span>
-              </td>
-              <td
-                key="7-3-row"
-              >
-                --
-              </td>
-              <td
-                key="7-4-row"
-              >
-                1 month
-              </td>
-              <td
-                key="7-5-row"
-              >
-                02/16/22 - 01/01/22
-              </td>
-            </tr>
-          </tbody>
-        </table>
+                    </Tooltip>
+                  </span>
+                </td>
+                <td
+                  key="7-3-row"
+                >
+                  --
+                </td>
+                <td
+                  key="7-4-row"
+                >
+                  1 month
+                </td>
+                <td
+                  key="7-5-row"
+                >
+                  02/16/22 - 01/01/22
+                </td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
       </section>
     </SubscriptionHistory>
     <AvailableCredits
@@ -8692,10 +8782,10 @@ exports[`Subscriptions UI state iterations school paid via stripe the current us
         className="subscription-status"
       >
         <div
-          className="flex-row space-between"
+          className="upper-section"
         >
           <div
-            className="box-and-h2 flex-row space-between"
+            className="left-side-container"
           >
             <div
               className="box"
@@ -8733,7 +8823,9 @@ exports[`Subscriptions UI state iterations school paid via stripe the current us
             </span>
           </span>
         </div>
-        <p>
+        <p
+          className="premium-subscription-copy"
+        >
           <span>
             With 
             School Premium
@@ -9073,77 +9165,55 @@ exports[`Subscriptions UI state iterations school paid via stripe the current us
         <h2>
           Premium Subscription History
         </h2>
-        <table>
-          <tbody>
-            <tr>
-              <th
-                key="0-table-header"
+        <div
+          className="table-container"
+        >
+          <table>
+            <tbody>
+              <tr>
+                <th
+                  key="0-table-header"
+                >
+                  Purchase Date
+                </th>
+                <th
+                  key="1-table-header"
+                >
+                  Subscription
+                </th>
+                <th
+                  key="2-table-header"
+                >
+                  Payment
+                </th>
+                <th
+                  key="3-table-header"
+                >
+                  Length
+                </th>
+                <th
+                  key="4-table-header"
+                >
+                  Start & End Date
+                </th>
+              </tr>
+              <tr
+                key="7-subscription-table"
               >
-                Purchase Date
-              </th>
-              <th
-                key="1-table-header"
-              >
-                Subscription
-              </th>
-              <th
-                key="2-table-header"
-              >
-                Payment
-              </th>
-              <th
-                key="3-table-header"
-              >
-                Length
-              </th>
-              <th
-                key="4-table-header"
-              >
-                Start & End Date
-              </th>
-            </tr>
-            <tr
-              key="7-subscription-table"
-            >
-              <td
-                key="7-1-row"
-              >
-                Invalid date
-              </td>
-              <td
-                key="7-2-row"
-              >
-                <span>
-                  School Premium
-                  <Tooltip
-                    isTabbable={true}
-                    tooltipText="School Paid (via Stripe) subscription"
-                    tooltipTriggerText={
-                      <span>
-                        <img
-                          alt="Question mark icon"
-                          className="subscription-tooltip"
-                          src="undefined/images/icons/icons-help.svg"
-                        />
-                      </span>
-                    }
-                  >
-                    <span
-                      aria-hidden={false}
-                      className="quill-tooltip-trigger "
-                      role="tooltip"
-                    >
-                      <span
-                        className="undefined"
-                        onBlur={[Function]}
-                        onClick={[Function]}
-                        onFocus={[Function]}
-                        onKeyDown={[Function]}
-                        onMouseEnter={[Function]}
-                        onMouseLeave={[Function]}
-                        role="button"
-                        tabIndex={0}
-                      >
+                <td
+                  key="7-1-row"
+                >
+                  Invalid date
+                </td>
+                <td
+                  key="7-2-row"
+                >
+                  <span>
+                    School Premium
+                    <Tooltip
+                      isTabbable={true}
+                      tooltipText="School Paid (via Stripe) subscription"
+                      tooltipTriggerText={
                         <span>
                           <img
                             alt="Question mark icon"
@@ -9151,37 +9221,63 @@ exports[`Subscriptions UI state iterations school paid via stripe the current us
                             src="undefined/images/icons/icons-help.svg"
                           />
                         </span>
-                      </span>
+                      }
+                    >
                       <span
-                        className="quill-tooltip-wrapper"
+                        aria-hidden={false}
+                        className="quill-tooltip-trigger "
+                        role="tooltip"
                       >
                         <span
-                          aria-live="polite"
-                          className="quill-tooltip"
-                        />
+                          className="undefined"
+                          onBlur={[Function]}
+                          onClick={[Function]}
+                          onFocus={[Function]}
+                          onKeyDown={[Function]}
+                          onMouseEnter={[Function]}
+                          onMouseLeave={[Function]}
+                          role="button"
+                          tabIndex={0}
+                        >
+                          <span>
+                            <img
+                              alt="Question mark icon"
+                              className="subscription-tooltip"
+                              src="undefined/images/icons/icons-help.svg"
+                            />
+                          </span>
+                        </span>
+                        <span
+                          className="quill-tooltip-wrapper"
+                        >
+                          <span
+                            aria-live="polite"
+                            className="quill-tooltip"
+                          />
+                        </span>
                       </span>
-                    </span>
-                  </Tooltip>
-                </span>
-              </td>
-              <td
-                key="7-3-row"
-              >
-                --
-              </td>
-              <td
-                key="7-4-row"
-              >
-                574 months
-              </td>
-              <td
-                key="7-5-row"
-              >
-                02/16/22 - 01/01/70
-              </td>
-            </tr>
-          </tbody>
-        </table>
+                    </Tooltip>
+                  </span>
+                </td>
+                <td
+                  key="7-3-row"
+                >
+                  --
+                </td>
+                <td
+                  key="7-4-row"
+                >
+                  574 months
+                </td>
+                <td
+                  key="7-5-row"
+                >
+                  02/16/22 - 01/01/70
+                </td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
       </section>
     </SubscriptionHistory>
     <AvailableCredits
@@ -9384,10 +9480,10 @@ exports[`Subscriptions UI state iterations school paid via stripe the current us
         className="subscription-status"
       >
         <div
-          className="flex-row space-between"
+          className="upper-section"
         >
           <div
-            className="box-and-h2 flex-row space-between"
+            className="left-side-container"
           >
             <div
               className="box"
@@ -9425,7 +9521,9 @@ exports[`Subscriptions UI state iterations school paid via stripe the current us
             </span>
           </span>
         </div>
-        <p>
+        <p
+          className="premium-subscription-copy"
+        >
           <span>
             With 
             School Premium
@@ -9786,77 +9884,55 @@ exports[`Subscriptions UI state iterations school paid via stripe the current us
         <h2>
           Premium Subscription History
         </h2>
-        <table>
-          <tbody>
-            <tr>
-              <th
-                key="0-table-header"
+        <div
+          className="table-container"
+        >
+          <table>
+            <tbody>
+              <tr>
+                <th
+                  key="0-table-header"
+                >
+                  Purchase Date
+                </th>
+                <th
+                  key="1-table-header"
+                >
+                  Subscription
+                </th>
+                <th
+                  key="2-table-header"
+                >
+                  Payment
+                </th>
+                <th
+                  key="3-table-header"
+                >
+                  Length
+                </th>
+                <th
+                  key="4-table-header"
+                >
+                  Start & End Date
+                </th>
+              </tr>
+              <tr
+                key="7-subscription-table"
               >
-                Purchase Date
-              </th>
-              <th
-                key="1-table-header"
-              >
-                Subscription
-              </th>
-              <th
-                key="2-table-header"
-              >
-                Payment
-              </th>
-              <th
-                key="3-table-header"
-              >
-                Length
-              </th>
-              <th
-                key="4-table-header"
-              >
-                Start & End Date
-              </th>
-            </tr>
-            <tr
-              key="7-subscription-table"
-            >
-              <td
-                key="7-1-row"
-              >
-                Invalid date
-              </td>
-              <td
-                key="7-2-row"
-              >
-                <span>
-                  School Premium
-                  <Tooltip
-                    isTabbable={true}
-                    tooltipText="School Paid (via Stripe) subscription"
-                    tooltipTriggerText={
-                      <span>
-                        <img
-                          alt="Question mark icon"
-                          className="subscription-tooltip"
-                          src="undefined/images/icons/icons-help.svg"
-                        />
-                      </span>
-                    }
-                  >
-                    <span
-                      aria-hidden={false}
-                      className="quill-tooltip-trigger "
-                      role="tooltip"
-                    >
-                      <span
-                        className="undefined"
-                        onBlur={[Function]}
-                        onClick={[Function]}
-                        onFocus={[Function]}
-                        onKeyDown={[Function]}
-                        onMouseEnter={[Function]}
-                        onMouseLeave={[Function]}
-                        role="button"
-                        tabIndex={0}
-                      >
+                <td
+                  key="7-1-row"
+                >
+                  Invalid date
+                </td>
+                <td
+                  key="7-2-row"
+                >
+                  <span>
+                    School Premium
+                    <Tooltip
+                      isTabbable={true}
+                      tooltipText="School Paid (via Stripe) subscription"
+                      tooltipTriggerText={
                         <span>
                           <img
                             alt="Question mark icon"
@@ -9864,37 +9940,63 @@ exports[`Subscriptions UI state iterations school paid via stripe the current us
                             src="undefined/images/icons/icons-help.svg"
                           />
                         </span>
-                      </span>
+                      }
+                    >
                       <span
-                        className="quill-tooltip-wrapper"
+                        aria-hidden={false}
+                        className="quill-tooltip-trigger "
+                        role="tooltip"
                       >
                         <span
-                          aria-live="polite"
-                          className="quill-tooltip"
-                        />
+                          className="undefined"
+                          onBlur={[Function]}
+                          onClick={[Function]}
+                          onFocus={[Function]}
+                          onKeyDown={[Function]}
+                          onMouseEnter={[Function]}
+                          onMouseLeave={[Function]}
+                          role="button"
+                          tabIndex={0}
+                        >
+                          <span>
+                            <img
+                              alt="Question mark icon"
+                              className="subscription-tooltip"
+                              src="undefined/images/icons/icons-help.svg"
+                            />
+                          </span>
+                        </span>
+                        <span
+                          className="quill-tooltip-wrapper"
+                        >
+                          <span
+                            aria-live="polite"
+                            className="quill-tooltip"
+                          />
+                        </span>
                       </span>
-                    </span>
-                  </Tooltip>
-                </span>
-              </td>
-              <td
-                key="7-3-row"
-              >
-                --
-              </td>
-              <td
-                key="7-4-row"
-              >
-                574 months
-              </td>
-              <td
-                key="7-5-row"
-              >
-                02/16/22 - 01/01/70
-              </td>
-            </tr>
-          </tbody>
-        </table>
+                    </Tooltip>
+                  </span>
+                </td>
+                <td
+                  key="7-3-row"
+                >
+                  --
+                </td>
+                <td
+                  key="7-4-row"
+                >
+                  574 months
+                </td>
+                <td
+                  key="7-5-row"
+                >
+                  02/16/22 - 01/01/70
+                </td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
       </section>
     </SubscriptionHistory>
     <AvailableCredits
@@ -10097,10 +10199,10 @@ exports[`Subscriptions UI state iterations school paid via stripe the current us
         className="subscription-status"
       >
         <div
-          className="flex-row space-between"
+          className="upper-section"
         >
           <div
-            className="box-and-h2 flex-row space-between"
+            className="left-side-container"
           >
             <div
               className="box"
@@ -10133,7 +10235,9 @@ exports[`Subscriptions UI state iterations school paid via stripe the current us
             </button>
           </StripeSubscriptionCheckoutSessionButton>
         </div>
-        <p>
+        <p
+          className="premium-subscription-copy"
+        >
           <span>
             <strong>
               Your 
@@ -10216,77 +10320,55 @@ exports[`Subscriptions UI state iterations school paid via stripe the current us
         <h2>
           Premium Subscription History
         </h2>
-        <table>
-          <tbody>
-            <tr>
-              <th
-                key="0-table-header"
+        <div
+          className="table-container"
+        >
+          <table>
+            <tbody>
+              <tr>
+                <th
+                  key="0-table-header"
+                >
+                  Purchase Date
+                </th>
+                <th
+                  key="1-table-header"
+                >
+                  Subscription
+                </th>
+                <th
+                  key="2-table-header"
+                >
+                  Payment
+                </th>
+                <th
+                  key="3-table-header"
+                >
+                  Length
+                </th>
+                <th
+                  key="4-table-header"
+                >
+                  Start & End Date
+                </th>
+              </tr>
+              <tr
+                key="7-subscription-table"
               >
-                Purchase Date
-              </th>
-              <th
-                key="1-table-header"
-              >
-                Subscription
-              </th>
-              <th
-                key="2-table-header"
-              >
-                Payment
-              </th>
-              <th
-                key="3-table-header"
-              >
-                Length
-              </th>
-              <th
-                key="4-table-header"
-              >
-                Start & End Date
-              </th>
-            </tr>
-            <tr
-              key="7-subscription-table"
-            >
-              <td
-                key="7-1-row"
-              >
-                Invalid date
-              </td>
-              <td
-                key="7-2-row"
-              >
-                <span>
-                  School Premium
-                  <Tooltip
-                    isTabbable={true}
-                    tooltipText="School Paid (via Stripe) subscription"
-                    tooltipTriggerText={
-                      <span>
-                        <img
-                          alt="Question mark icon"
-                          className="subscription-tooltip"
-                          src="undefined/images/icons/icons-help.svg"
-                        />
-                      </span>
-                    }
-                  >
-                    <span
-                      aria-hidden={false}
-                      className="quill-tooltip-trigger "
-                      role="tooltip"
-                    >
-                      <span
-                        className="undefined"
-                        onBlur={[Function]}
-                        onClick={[Function]}
-                        onFocus={[Function]}
-                        onKeyDown={[Function]}
-                        onMouseEnter={[Function]}
-                        onMouseLeave={[Function]}
-                        role="button"
-                        tabIndex={0}
-                      >
+                <td
+                  key="7-1-row"
+                >
+                  Invalid date
+                </td>
+                <td
+                  key="7-2-row"
+                >
+                  <span>
+                    School Premium
+                    <Tooltip
+                      isTabbable={true}
+                      tooltipText="School Paid (via Stripe) subscription"
+                      tooltipTriggerText={
                         <span>
                           <img
                             alt="Question mark icon"
@@ -10294,37 +10376,63 @@ exports[`Subscriptions UI state iterations school paid via stripe the current us
                             src="undefined/images/icons/icons-help.svg"
                           />
                         </span>
-                      </span>
+                      }
+                    >
                       <span
-                        className="quill-tooltip-wrapper"
+                        aria-hidden={false}
+                        className="quill-tooltip-trigger "
+                        role="tooltip"
                       >
                         <span
-                          aria-live="polite"
-                          className="quill-tooltip"
-                        />
+                          className="undefined"
+                          onBlur={[Function]}
+                          onClick={[Function]}
+                          onFocus={[Function]}
+                          onKeyDown={[Function]}
+                          onMouseEnter={[Function]}
+                          onMouseLeave={[Function]}
+                          role="button"
+                          tabIndex={0}
+                        >
+                          <span>
+                            <img
+                              alt="Question mark icon"
+                              className="subscription-tooltip"
+                              src="undefined/images/icons/icons-help.svg"
+                            />
+                          </span>
+                        </span>
+                        <span
+                          className="quill-tooltip-wrapper"
+                        >
+                          <span
+                            aria-live="polite"
+                            className="quill-tooltip"
+                          />
+                        </span>
                       </span>
-                    </span>
-                  </Tooltip>
-                </span>
-              </td>
-              <td
-                key="7-3-row"
-              >
-                --
-              </td>
-              <td
-                key="7-4-row"
-              >
-                1 month
-              </td>
-              <td
-                key="7-5-row"
-              >
-                02/16/22 - 01/01/22
-              </td>
-            </tr>
-          </tbody>
-        </table>
+                    </Tooltip>
+                  </span>
+                </td>
+                <td
+                  key="7-3-row"
+                >
+                  --
+                </td>
+                <td
+                  key="7-4-row"
+                >
+                  1 month
+                </td>
+                <td
+                  key="7-5-row"
+                >
+                  02/16/22 - 01/01/22
+                </td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
       </section>
     </SubscriptionHistory>
     <AvailableCredits
@@ -10527,10 +10635,10 @@ exports[`Subscriptions UI state iterations teacher free renders when there is an
         className="subscription-status"
       >
         <div
-          className="flex-row space-between"
+          className="upper-section"
         >
           <div
-            className="box-and-h2 flex-row space-between"
+            className="left-side-container"
           >
             <div
               className="box"
@@ -10568,7 +10676,9 @@ exports[`Subscriptions UI state iterations teacher free renders when there is an
             </span>
           </span>
         </div>
-        <p>
+        <p
+          className="premium-subscription-copy"
+        >
           <span>
             With 
             Teacher Premium (Scholarship)
@@ -10886,77 +10996,55 @@ exports[`Subscriptions UI state iterations teacher free renders when there is an
         <h2>
           Premium Subscription History
         </h2>
-        <table>
-          <tbody>
-            <tr>
-              <th
-                key="0-table-header"
+        <div
+          className="table-container"
+        >
+          <table>
+            <tbody>
+              <tr>
+                <th
+                  key="0-table-header"
+                >
+                  Purchase Date
+                </th>
+                <th
+                  key="1-table-header"
+                >
+                  Subscription
+                </th>
+                <th
+                  key="2-table-header"
+                >
+                  Payment
+                </th>
+                <th
+                  key="3-table-header"
+                >
+                  Length
+                </th>
+                <th
+                  key="4-table-header"
+                >
+                  Start & End Date
+                </th>
+              </tr>
+              <tr
+                key="7-subscription-table"
               >
-                Purchase Date
-              </th>
-              <th
-                key="1-table-header"
-              >
-                Subscription
-              </th>
-              <th
-                key="2-table-header"
-              >
-                Payment
-              </th>
-              <th
-                key="3-table-header"
-              >
-                Length
-              </th>
-              <th
-                key="4-table-header"
-              >
-                Start & End Date
-              </th>
-            </tr>
-            <tr
-              key="7-subscription-table"
-            >
-              <td
-                key="7-1-row"
-              >
-                Invalid date
-              </td>
-              <td
-                key="7-2-row"
-              >
-                <span>
-                  Teacher Premium (Scholarship)
-                  <Tooltip
-                    isTabbable={true}
-                    tooltipText="Teacher Sponsored Free subscription"
-                    tooltipTriggerText={
-                      <span>
-                        <img
-                          alt="Question mark icon"
-                          className="subscription-tooltip"
-                          src="undefined/images/icons/icons-help.svg"
-                        />
-                      </span>
-                    }
-                  >
-                    <span
-                      aria-hidden={false}
-                      className="quill-tooltip-trigger "
-                      role="tooltip"
-                    >
-                      <span
-                        className="undefined"
-                        onBlur={[Function]}
-                        onClick={[Function]}
-                        onFocus={[Function]}
-                        onKeyDown={[Function]}
-                        onMouseEnter={[Function]}
-                        onMouseLeave={[Function]}
-                        role="button"
-                        tabIndex={0}
-                      >
+                <td
+                  key="7-1-row"
+                >
+                  Invalid date
+                </td>
+                <td
+                  key="7-2-row"
+                >
+                  <span>
+                    Teacher Premium (Scholarship)
+                    <Tooltip
+                      isTabbable={true}
+                      tooltipText="Teacher Sponsored Free subscription"
+                      tooltipTriggerText={
                         <span>
                           <img
                             alt="Question mark icon"
@@ -10964,37 +11052,63 @@ exports[`Subscriptions UI state iterations teacher free renders when there is an
                             src="undefined/images/icons/icons-help.svg"
                           />
                         </span>
-                      </span>
+                      }
+                    >
                       <span
-                        className="quill-tooltip-wrapper"
+                        aria-hidden={false}
+                        className="quill-tooltip-trigger "
+                        role="tooltip"
                       >
                         <span
-                          aria-live="polite"
-                          className="quill-tooltip"
-                        />
+                          className="undefined"
+                          onBlur={[Function]}
+                          onClick={[Function]}
+                          onFocus={[Function]}
+                          onKeyDown={[Function]}
+                          onMouseEnter={[Function]}
+                          onMouseLeave={[Function]}
+                          role="button"
+                          tabIndex={0}
+                        >
+                          <span>
+                            <img
+                              alt="Question mark icon"
+                              className="subscription-tooltip"
+                              src="undefined/images/icons/icons-help.svg"
+                            />
+                          </span>
+                        </span>
+                        <span
+                          className="quill-tooltip-wrapper"
+                        >
+                          <span
+                            aria-live="polite"
+                            className="quill-tooltip"
+                          />
+                        </span>
                       </span>
-                    </span>
-                  </Tooltip>
-                </span>
-              </td>
-              <td
-                key="7-3-row"
-              >
-                --
-              </td>
-              <td
-                key="7-4-row"
-              >
-                574 months
-              </td>
-              <td
-                key="7-5-row"
-              >
-                02/16/22 - 01/01/70
-              </td>
-            </tr>
-          </tbody>
-        </table>
+                    </Tooltip>
+                  </span>
+                </td>
+                <td
+                  key="7-3-row"
+                >
+                  --
+                </td>
+                <td
+                  key="7-4-row"
+                >
+                  574 months
+                </td>
+                <td
+                  key="7-5-row"
+                >
+                  02/16/22 - 01/01/70
+                </td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
       </section>
     </SubscriptionHistory>
     <AvailableCredits
@@ -11197,10 +11311,10 @@ exports[`Subscriptions UI state iterations teacher free renders when there is an
         className="subscription-status"
       >
         <div
-          className="flex-row space-between"
+          className="upper-section"
         >
           <div
-            className="box-and-h2 flex-row space-between"
+            className="left-side-container"
           >
             <div
               className="box"
@@ -11224,7 +11338,9 @@ exports[`Subscriptions UI state iterations teacher free renders when there is an
             Subscribe to premium
           </a>
         </div>
-        <p>
+        <p
+          className="premium-subscription-copy"
+        >
           <span>
             <strong>
               Your 
@@ -11318,77 +11434,55 @@ exports[`Subscriptions UI state iterations teacher free renders when there is an
         <h2>
           Premium Subscription History
         </h2>
-        <table>
-          <tbody>
-            <tr>
-              <th
-                key="0-table-header"
+        <div
+          className="table-container"
+        >
+          <table>
+            <tbody>
+              <tr>
+                <th
+                  key="0-table-header"
+                >
+                  Purchase Date
+                </th>
+                <th
+                  key="1-table-header"
+                >
+                  Subscription
+                </th>
+                <th
+                  key="2-table-header"
+                >
+                  Payment
+                </th>
+                <th
+                  key="3-table-header"
+                >
+                  Length
+                </th>
+                <th
+                  key="4-table-header"
+                >
+                  Start & End Date
+                </th>
+              </tr>
+              <tr
+                key="7-subscription-table"
               >
-                Purchase Date
-              </th>
-              <th
-                key="1-table-header"
-              >
-                Subscription
-              </th>
-              <th
-                key="2-table-header"
-              >
-                Payment
-              </th>
-              <th
-                key="3-table-header"
-              >
-                Length
-              </th>
-              <th
-                key="4-table-header"
-              >
-                Start & End Date
-              </th>
-            </tr>
-            <tr
-              key="7-subscription-table"
-            >
-              <td
-                key="7-1-row"
-              >
-                Invalid date
-              </td>
-              <td
-                key="7-2-row"
-              >
-                <span>
-                  Teacher Premium (Scholarship)
-                  <Tooltip
-                    isTabbable={true}
-                    tooltipText="Teacher Sponsored Free subscription"
-                    tooltipTriggerText={
-                      <span>
-                        <img
-                          alt="Question mark icon"
-                          className="subscription-tooltip"
-                          src="undefined/images/icons/icons-help.svg"
-                        />
-                      </span>
-                    }
-                  >
-                    <span
-                      aria-hidden={false}
-                      className="quill-tooltip-trigger "
-                      role="tooltip"
-                    >
-                      <span
-                        className="undefined"
-                        onBlur={[Function]}
-                        onClick={[Function]}
-                        onFocus={[Function]}
-                        onKeyDown={[Function]}
-                        onMouseEnter={[Function]}
-                        onMouseLeave={[Function]}
-                        role="button"
-                        tabIndex={0}
-                      >
+                <td
+                  key="7-1-row"
+                >
+                  Invalid date
+                </td>
+                <td
+                  key="7-2-row"
+                >
+                  <span>
+                    Teacher Premium (Scholarship)
+                    <Tooltip
+                      isTabbable={true}
+                      tooltipText="Teacher Sponsored Free subscription"
+                      tooltipTriggerText={
                         <span>
                           <img
                             alt="Question mark icon"
@@ -11396,37 +11490,63 @@ exports[`Subscriptions UI state iterations teacher free renders when there is an
                             src="undefined/images/icons/icons-help.svg"
                           />
                         </span>
-                      </span>
+                      }
+                    >
                       <span
-                        className="quill-tooltip-wrapper"
+                        aria-hidden={false}
+                        className="quill-tooltip-trigger "
+                        role="tooltip"
                       >
                         <span
-                          aria-live="polite"
-                          className="quill-tooltip"
-                        />
+                          className="undefined"
+                          onBlur={[Function]}
+                          onClick={[Function]}
+                          onFocus={[Function]}
+                          onKeyDown={[Function]}
+                          onMouseEnter={[Function]}
+                          onMouseLeave={[Function]}
+                          role="button"
+                          tabIndex={0}
+                        >
+                          <span>
+                            <img
+                              alt="Question mark icon"
+                              className="subscription-tooltip"
+                              src="undefined/images/icons/icons-help.svg"
+                            />
+                          </span>
+                        </span>
+                        <span
+                          className="quill-tooltip-wrapper"
+                        >
+                          <span
+                            aria-live="polite"
+                            className="quill-tooltip"
+                          />
+                        </span>
                       </span>
-                    </span>
-                  </Tooltip>
-                </span>
-              </td>
-              <td
-                key="7-3-row"
-              >
-                --
-              </td>
-              <td
-                key="7-4-row"
-              >
-                1 month
-              </td>
-              <td
-                key="7-5-row"
-              >
-                02/16/22 - 01/01/22
-              </td>
-            </tr>
-          </tbody>
-        </table>
+                    </Tooltip>
+                  </span>
+                </td>
+                <td
+                  key="7-3-row"
+                >
+                  --
+                </td>
+                <td
+                  key="7-4-row"
+                >
+                  1 month
+                </td>
+                <td
+                  key="7-5-row"
+                >
+                  02/16/22 - 01/01/22
+                </td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
       </section>
     </SubscriptionHistory>
     <AvailableCredits
@@ -11629,10 +11749,10 @@ exports[`Subscriptions UI state iterations teacher paid renders when there is an
         className="subscription-status"
       >
         <div
-          className="flex-row space-between"
+          className="upper-section"
         >
           <div
-            className="box-and-h2 flex-row space-between"
+            className="left-side-container"
           >
             <div
               className="box"
@@ -11670,7 +11790,9 @@ exports[`Subscriptions UI state iterations teacher paid renders when there is an
             </span>
           </span>
         </div>
-        <p>
+        <p
+          className="premium-subscription-copy"
+        >
           <span>
             With 
             Teacher Premium
@@ -12010,77 +12132,55 @@ exports[`Subscriptions UI state iterations teacher paid renders when there is an
         <h2>
           Premium Subscription History
         </h2>
-        <table>
-          <tbody>
-            <tr>
-              <th
-                key="0-table-header"
+        <div
+          className="table-container"
+        >
+          <table>
+            <tbody>
+              <tr>
+                <th
+                  key="0-table-header"
+                >
+                  Purchase Date
+                </th>
+                <th
+                  key="1-table-header"
+                >
+                  Subscription
+                </th>
+                <th
+                  key="2-table-header"
+                >
+                  Payment
+                </th>
+                <th
+                  key="3-table-header"
+                >
+                  Length
+                </th>
+                <th
+                  key="4-table-header"
+                >
+                  Start & End Date
+                </th>
+              </tr>
+              <tr
+                key="7-subscription-table"
               >
-                Purchase Date
-              </th>
-              <th
-                key="1-table-header"
-              >
-                Subscription
-              </th>
-              <th
-                key="2-table-header"
-              >
-                Payment
-              </th>
-              <th
-                key="3-table-header"
-              >
-                Length
-              </th>
-              <th
-                key="4-table-header"
-              >
-                Start & End Date
-              </th>
-            </tr>
-            <tr
-              key="7-subscription-table"
-            >
-              <td
-                key="7-1-row"
-              >
-                Invalid date
-              </td>
-              <td
-                key="7-2-row"
-              >
-                <span>
-                  Teacher Premium
-                  <Tooltip
-                    isTabbable={true}
-                    tooltipText="Teacher Paid subscription"
-                    tooltipTriggerText={
-                      <span>
-                        <img
-                          alt="Question mark icon"
-                          className="subscription-tooltip"
-                          src="undefined/images/icons/icons-help.svg"
-                        />
-                      </span>
-                    }
-                  >
-                    <span
-                      aria-hidden={false}
-                      className="quill-tooltip-trigger "
-                      role="tooltip"
-                    >
-                      <span
-                        className="undefined"
-                        onBlur={[Function]}
-                        onClick={[Function]}
-                        onFocus={[Function]}
-                        onKeyDown={[Function]}
-                        onMouseEnter={[Function]}
-                        onMouseLeave={[Function]}
-                        role="button"
-                        tabIndex={0}
-                      >
+                <td
+                  key="7-1-row"
+                >
+                  Invalid date
+                </td>
+                <td
+                  key="7-2-row"
+                >
+                  <span>
+                    Teacher Premium
+                    <Tooltip
+                      isTabbable={true}
+                      tooltipText="Teacher Paid subscription"
+                      tooltipTriggerText={
                         <span>
                           <img
                             alt="Question mark icon"
@@ -12088,37 +12188,63 @@ exports[`Subscriptions UI state iterations teacher paid renders when there is an
                             src="undefined/images/icons/icons-help.svg"
                           />
                         </span>
-                      </span>
+                      }
+                    >
                       <span
-                        className="quill-tooltip-wrapper"
+                        aria-hidden={false}
+                        className="quill-tooltip-trigger "
+                        role="tooltip"
                       >
                         <span
-                          aria-live="polite"
-                          className="quill-tooltip"
-                        />
+                          className="undefined"
+                          onBlur={[Function]}
+                          onClick={[Function]}
+                          onFocus={[Function]}
+                          onKeyDown={[Function]}
+                          onMouseEnter={[Function]}
+                          onMouseLeave={[Function]}
+                          role="button"
+                          tabIndex={0}
+                        >
+                          <span>
+                            <img
+                              alt="Question mark icon"
+                              className="subscription-tooltip"
+                              src="undefined/images/icons/icons-help.svg"
+                            />
+                          </span>
+                        </span>
+                        <span
+                          className="quill-tooltip-wrapper"
+                        >
+                          <span
+                            aria-live="polite"
+                            className="quill-tooltip"
+                          />
+                        </span>
                       </span>
-                    </span>
-                  </Tooltip>
-                </span>
-              </td>
-              <td
-                key="7-3-row"
-              >
-                --
-              </td>
-              <td
-                key="7-4-row"
-              >
-                574 months
-              </td>
-              <td
-                key="7-5-row"
-              >
-                02/16/22 - 01/01/70
-              </td>
-            </tr>
-          </tbody>
-        </table>
+                    </Tooltip>
+                  </span>
+                </td>
+                <td
+                  key="7-3-row"
+                >
+                  --
+                </td>
+                <td
+                  key="7-4-row"
+                >
+                  574 months
+                </td>
+                <td
+                  key="7-5-row"
+                >
+                  02/16/22 - 01/01/70
+                </td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
       </section>
     </SubscriptionHistory>
     <AvailableCredits
@@ -12321,10 +12447,10 @@ exports[`Subscriptions UI state iterations teacher paid renders when there is an
         className="subscription-status"
       >
         <div
-          className="flex-row space-between"
+          className="upper-section"
         >
           <div
-            className="box-and-h2 flex-row space-between"
+            className="left-side-container"
           >
             <div
               className="box"
@@ -12362,7 +12488,9 @@ exports[`Subscriptions UI state iterations teacher paid renders when there is an
             </span>
           </span>
         </div>
-        <p>
+        <p
+          className="premium-subscription-copy"
+        >
           <span>
             With 
             Teacher Premium
@@ -12723,77 +12851,55 @@ exports[`Subscriptions UI state iterations teacher paid renders when there is an
         <h2>
           Premium Subscription History
         </h2>
-        <table>
-          <tbody>
-            <tr>
-              <th
-                key="0-table-header"
+        <div
+          className="table-container"
+        >
+          <table>
+            <tbody>
+              <tr>
+                <th
+                  key="0-table-header"
+                >
+                  Purchase Date
+                </th>
+                <th
+                  key="1-table-header"
+                >
+                  Subscription
+                </th>
+                <th
+                  key="2-table-header"
+                >
+                  Payment
+                </th>
+                <th
+                  key="3-table-header"
+                >
+                  Length
+                </th>
+                <th
+                  key="4-table-header"
+                >
+                  Start & End Date
+                </th>
+              </tr>
+              <tr
+                key="7-subscription-table"
               >
-                Purchase Date
-              </th>
-              <th
-                key="1-table-header"
-              >
-                Subscription
-              </th>
-              <th
-                key="2-table-header"
-              >
-                Payment
-              </th>
-              <th
-                key="3-table-header"
-              >
-                Length
-              </th>
-              <th
-                key="4-table-header"
-              >
-                Start & End Date
-              </th>
-            </tr>
-            <tr
-              key="7-subscription-table"
-            >
-              <td
-                key="7-1-row"
-              >
-                Invalid date
-              </td>
-              <td
-                key="7-2-row"
-              >
-                <span>
-                  Teacher Premium
-                  <Tooltip
-                    isTabbable={true}
-                    tooltipText="Teacher Paid subscription"
-                    tooltipTriggerText={
-                      <span>
-                        <img
-                          alt="Question mark icon"
-                          className="subscription-tooltip"
-                          src="undefined/images/icons/icons-help.svg"
-                        />
-                      </span>
-                    }
-                  >
-                    <span
-                      aria-hidden={false}
-                      className="quill-tooltip-trigger "
-                      role="tooltip"
-                    >
-                      <span
-                        className="undefined"
-                        onBlur={[Function]}
-                        onClick={[Function]}
-                        onFocus={[Function]}
-                        onKeyDown={[Function]}
-                        onMouseEnter={[Function]}
-                        onMouseLeave={[Function]}
-                        role="button"
-                        tabIndex={0}
-                      >
+                <td
+                  key="7-1-row"
+                >
+                  Invalid date
+                </td>
+                <td
+                  key="7-2-row"
+                >
+                  <span>
+                    Teacher Premium
+                    <Tooltip
+                      isTabbable={true}
+                      tooltipText="Teacher Paid subscription"
+                      tooltipTriggerText={
                         <span>
                           <img
                             alt="Question mark icon"
@@ -12801,37 +12907,63 @@ exports[`Subscriptions UI state iterations teacher paid renders when there is an
                             src="undefined/images/icons/icons-help.svg"
                           />
                         </span>
-                      </span>
+                      }
+                    >
                       <span
-                        className="quill-tooltip-wrapper"
+                        aria-hidden={false}
+                        className="quill-tooltip-trigger "
+                        role="tooltip"
                       >
                         <span
-                          aria-live="polite"
-                          className="quill-tooltip"
-                        />
+                          className="undefined"
+                          onBlur={[Function]}
+                          onClick={[Function]}
+                          onFocus={[Function]}
+                          onKeyDown={[Function]}
+                          onMouseEnter={[Function]}
+                          onMouseLeave={[Function]}
+                          role="button"
+                          tabIndex={0}
+                        >
+                          <span>
+                            <img
+                              alt="Question mark icon"
+                              className="subscription-tooltip"
+                              src="undefined/images/icons/icons-help.svg"
+                            />
+                          </span>
+                        </span>
+                        <span
+                          className="quill-tooltip-wrapper"
+                        >
+                          <span
+                            aria-live="polite"
+                            className="quill-tooltip"
+                          />
+                        </span>
                       </span>
-                    </span>
-                  </Tooltip>
-                </span>
-              </td>
-              <td
-                key="7-3-row"
-              >
-                --
-              </td>
-              <td
-                key="7-4-row"
-              >
-                574 months
-              </td>
-              <td
-                key="7-5-row"
-              >
-                02/16/22 - 01/01/70
-              </td>
-            </tr>
-          </tbody>
-        </table>
+                    </Tooltip>
+                  </span>
+                </td>
+                <td
+                  key="7-3-row"
+                >
+                  --
+                </td>
+                <td
+                  key="7-4-row"
+                >
+                  574 months
+                </td>
+                <td
+                  key="7-5-row"
+                >
+                  02/16/22 - 01/01/70
+                </td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
       </section>
     </SubscriptionHistory>
     <AvailableCredits
@@ -13034,10 +13166,10 @@ exports[`Subscriptions UI state iterations teacher paid renders when there is an
         className="subscription-status"
       >
         <div
-          className="flex-row space-between"
+          className="upper-section"
         >
           <div
-            className="box-and-h2 flex-row space-between"
+            className="left-side-container"
           >
             <div
               className="box"
@@ -13070,7 +13202,9 @@ exports[`Subscriptions UI state iterations teacher paid renders when there is an
             </button>
           </StripeSubscriptionCheckoutSessionButton>
         </div>
-        <p>
+        <p
+          className="premium-subscription-copy"
+        >
           <span>
             <strong>
               Your 
@@ -13164,77 +13298,55 @@ exports[`Subscriptions UI state iterations teacher paid renders when there is an
         <h2>
           Premium Subscription History
         </h2>
-        <table>
-          <tbody>
-            <tr>
-              <th
-                key="0-table-header"
+        <div
+          className="table-container"
+        >
+          <table>
+            <tbody>
+              <tr>
+                <th
+                  key="0-table-header"
+                >
+                  Purchase Date
+                </th>
+                <th
+                  key="1-table-header"
+                >
+                  Subscription
+                </th>
+                <th
+                  key="2-table-header"
+                >
+                  Payment
+                </th>
+                <th
+                  key="3-table-header"
+                >
+                  Length
+                </th>
+                <th
+                  key="4-table-header"
+                >
+                  Start & End Date
+                </th>
+              </tr>
+              <tr
+                key="7-subscription-table"
               >
-                Purchase Date
-              </th>
-              <th
-                key="1-table-header"
-              >
-                Subscription
-              </th>
-              <th
-                key="2-table-header"
-              >
-                Payment
-              </th>
-              <th
-                key="3-table-header"
-              >
-                Length
-              </th>
-              <th
-                key="4-table-header"
-              >
-                Start & End Date
-              </th>
-            </tr>
-            <tr
-              key="7-subscription-table"
-            >
-              <td
-                key="7-1-row"
-              >
-                Invalid date
-              </td>
-              <td
-                key="7-2-row"
-              >
-                <span>
-                  Teacher Premium
-                  <Tooltip
-                    isTabbable={true}
-                    tooltipText="Teacher Paid subscription"
-                    tooltipTriggerText={
-                      <span>
-                        <img
-                          alt="Question mark icon"
-                          className="subscription-tooltip"
-                          src="undefined/images/icons/icons-help.svg"
-                        />
-                      </span>
-                    }
-                  >
-                    <span
-                      aria-hidden={false}
-                      className="quill-tooltip-trigger "
-                      role="tooltip"
-                    >
-                      <span
-                        className="undefined"
-                        onBlur={[Function]}
-                        onClick={[Function]}
-                        onFocus={[Function]}
-                        onKeyDown={[Function]}
-                        onMouseEnter={[Function]}
-                        onMouseLeave={[Function]}
-                        role="button"
-                        tabIndex={0}
-                      >
+                <td
+                  key="7-1-row"
+                >
+                  Invalid date
+                </td>
+                <td
+                  key="7-2-row"
+                >
+                  <span>
+                    Teacher Premium
+                    <Tooltip
+                      isTabbable={true}
+                      tooltipText="Teacher Paid subscription"
+                      tooltipTriggerText={
                         <span>
                           <img
                             alt="Question mark icon"
@@ -13242,37 +13354,63 @@ exports[`Subscriptions UI state iterations teacher paid renders when there is an
                             src="undefined/images/icons/icons-help.svg"
                           />
                         </span>
-                      </span>
+                      }
+                    >
                       <span
-                        className="quill-tooltip-wrapper"
+                        aria-hidden={false}
+                        className="quill-tooltip-trigger "
+                        role="tooltip"
                       >
                         <span
-                          aria-live="polite"
-                          className="quill-tooltip"
-                        />
+                          className="undefined"
+                          onBlur={[Function]}
+                          onClick={[Function]}
+                          onFocus={[Function]}
+                          onKeyDown={[Function]}
+                          onMouseEnter={[Function]}
+                          onMouseLeave={[Function]}
+                          role="button"
+                          tabIndex={0}
+                        >
+                          <span>
+                            <img
+                              alt="Question mark icon"
+                              className="subscription-tooltip"
+                              src="undefined/images/icons/icons-help.svg"
+                            />
+                          </span>
+                        </span>
+                        <span
+                          className="quill-tooltip-wrapper"
+                        >
+                          <span
+                            aria-live="polite"
+                            className="quill-tooltip"
+                          />
+                        </span>
                       </span>
-                    </span>
-                  </Tooltip>
-                </span>
-              </td>
-              <td
-                key="7-3-row"
-              >
-                --
-              </td>
-              <td
-                key="7-4-row"
-              >
-                1 month
-              </td>
-              <td
-                key="7-5-row"
-              >
-                02/16/22 - 01/01/22
-              </td>
-            </tr>
-          </tbody>
-        </table>
+                    </Tooltip>
+                  </span>
+                </td>
+                <td
+                  key="7-3-row"
+                >
+                  --
+                </td>
+                <td
+                  key="7-4-row"
+                >
+                  1 month
+                </td>
+                <td
+                  key="7-5-row"
+                >
+                  02/16/22 - 01/01/22
+                </td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
       </section>
     </SubscriptionHistory>
     <AvailableCredits
@@ -13475,10 +13613,10 @@ exports[`Subscriptions UI state iterations trial renders when there is an active
         className="subscription-status"
       >
         <div
-          className="flex-row space-between"
+          className="upper-section"
         >
           <div
-            className="box-and-h2 flex-row space-between"
+            className="left-side-container"
           >
             <div
               className="box"
@@ -13516,7 +13654,9 @@ exports[`Subscriptions UI state iterations trial renders when there is an active
             </span>
           </span>
         </div>
-        <p>
+        <p
+          className="premium-subscription-copy"
+        >
           <span>
             With 
             Teacher Premium Trial
@@ -13834,77 +13974,55 @@ exports[`Subscriptions UI state iterations trial renders when there is an active
         <h2>
           Premium Subscription History
         </h2>
-        <table>
-          <tbody>
-            <tr>
-              <th
-                key="0-table-header"
+        <div
+          className="table-container"
+        >
+          <table>
+            <tbody>
+              <tr>
+                <th
+                  key="0-table-header"
+                >
+                  Purchase Date
+                </th>
+                <th
+                  key="1-table-header"
+                >
+                  Subscription
+                </th>
+                <th
+                  key="2-table-header"
+                >
+                  Payment
+                </th>
+                <th
+                  key="3-table-header"
+                >
+                  Length
+                </th>
+                <th
+                  key="4-table-header"
+                >
+                  Start & End Date
+                </th>
+              </tr>
+              <tr
+                key="7-subscription-table"
               >
-                Purchase Date
-              </th>
-              <th
-                key="1-table-header"
-              >
-                Subscription
-              </th>
-              <th
-                key="2-table-header"
-              >
-                Payment
-              </th>
-              <th
-                key="3-table-header"
-              >
-                Length
-              </th>
-              <th
-                key="4-table-header"
-              >
-                Start & End Date
-              </th>
-            </tr>
-            <tr
-              key="7-subscription-table"
-            >
-              <td
-                key="7-1-row"
-              >
-                Invalid date
-              </td>
-              <td
-                key="7-2-row"
-              >
-                <span>
-                  Teacher Premium Trial
-                  <Tooltip
-                    isTabbable={true}
-                    tooltipText="Teacher Trial subscription"
-                    tooltipTriggerText={
-                      <span>
-                        <img
-                          alt="Question mark icon"
-                          className="subscription-tooltip"
-                          src="undefined/images/icons/icons-help.svg"
-                        />
-                      </span>
-                    }
-                  >
-                    <span
-                      aria-hidden={false}
-                      className="quill-tooltip-trigger "
-                      role="tooltip"
-                    >
-                      <span
-                        className="undefined"
-                        onBlur={[Function]}
-                        onClick={[Function]}
-                        onFocus={[Function]}
-                        onKeyDown={[Function]}
-                        onMouseEnter={[Function]}
-                        onMouseLeave={[Function]}
-                        role="button"
-                        tabIndex={0}
-                      >
+                <td
+                  key="7-1-row"
+                >
+                  Invalid date
+                </td>
+                <td
+                  key="7-2-row"
+                >
+                  <span>
+                    Teacher Premium Trial
+                    <Tooltip
+                      isTabbable={true}
+                      tooltipText="Teacher Trial subscription"
+                      tooltipTriggerText={
                         <span>
                           <img
                             alt="Question mark icon"
@@ -13912,37 +14030,63 @@ exports[`Subscriptions UI state iterations trial renders when there is an active
                             src="undefined/images/icons/icons-help.svg"
                           />
                         </span>
-                      </span>
+                      }
+                    >
                       <span
-                        className="quill-tooltip-wrapper"
+                        aria-hidden={false}
+                        className="quill-tooltip-trigger "
+                        role="tooltip"
                       >
                         <span
-                          aria-live="polite"
-                          className="quill-tooltip"
-                        />
+                          className="undefined"
+                          onBlur={[Function]}
+                          onClick={[Function]}
+                          onFocus={[Function]}
+                          onKeyDown={[Function]}
+                          onMouseEnter={[Function]}
+                          onMouseLeave={[Function]}
+                          role="button"
+                          tabIndex={0}
+                        >
+                          <span>
+                            <img
+                              alt="Question mark icon"
+                              className="subscription-tooltip"
+                              src="undefined/images/icons/icons-help.svg"
+                            />
+                          </span>
+                        </span>
+                        <span
+                          className="quill-tooltip-wrapper"
+                        >
+                          <span
+                            aria-live="polite"
+                            className="quill-tooltip"
+                          />
+                        </span>
                       </span>
-                    </span>
-                  </Tooltip>
-                </span>
-              </td>
-              <td
-                key="7-3-row"
-              >
-                --
-              </td>
-              <td
-                key="7-4-row"
-              >
-                574 months
-              </td>
-              <td
-                key="7-5-row"
-              >
-                02/16/22 - 01/01/70
-              </td>
-            </tr>
-          </tbody>
-        </table>
+                    </Tooltip>
+                  </span>
+                </td>
+                <td
+                  key="7-3-row"
+                >
+                  --
+                </td>
+                <td
+                  key="7-4-row"
+                >
+                  574 months
+                </td>
+                <td
+                  key="7-5-row"
+                >
+                  02/16/22 - 01/01/70
+                </td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
       </section>
     </SubscriptionHistory>
     <AvailableCredits
@@ -14145,10 +14289,10 @@ exports[`Subscriptions UI state iterations trial renders when there is an expire
         className="subscription-status"
       >
         <div
-          className="flex-row space-between"
+          className="upper-section"
         >
           <div
-            className="box-and-h2 flex-row space-between"
+            className="left-side-container"
           >
             <div
               className="box"
@@ -14172,7 +14316,9 @@ exports[`Subscriptions UI state iterations trial renders when there is an expire
             Subscribe to premium
           </a>
         </div>
-        <p>
+        <p
+          className="premium-subscription-copy"
+        >
           <span>
             <strong>
               Your 
@@ -14266,77 +14412,55 @@ exports[`Subscriptions UI state iterations trial renders when there is an expire
         <h2>
           Premium Subscription History
         </h2>
-        <table>
-          <tbody>
-            <tr>
-              <th
-                key="0-table-header"
+        <div
+          className="table-container"
+        >
+          <table>
+            <tbody>
+              <tr>
+                <th
+                  key="0-table-header"
+                >
+                  Purchase Date
+                </th>
+                <th
+                  key="1-table-header"
+                >
+                  Subscription
+                </th>
+                <th
+                  key="2-table-header"
+                >
+                  Payment
+                </th>
+                <th
+                  key="3-table-header"
+                >
+                  Length
+                </th>
+                <th
+                  key="4-table-header"
+                >
+                  Start & End Date
+                </th>
+              </tr>
+              <tr
+                key="7-subscription-table"
               >
-                Purchase Date
-              </th>
-              <th
-                key="1-table-header"
-              >
-                Subscription
-              </th>
-              <th
-                key="2-table-header"
-              >
-                Payment
-              </th>
-              <th
-                key="3-table-header"
-              >
-                Length
-              </th>
-              <th
-                key="4-table-header"
-              >
-                Start & End Date
-              </th>
-            </tr>
-            <tr
-              key="7-subscription-table"
-            >
-              <td
-                key="7-1-row"
-              >
-                Invalid date
-              </td>
-              <td
-                key="7-2-row"
-              >
-                <span>
-                  Teacher Premium Trial
-                  <Tooltip
-                    isTabbable={true}
-                    tooltipText="Teacher Trial subscription"
-                    tooltipTriggerText={
-                      <span>
-                        <img
-                          alt="Question mark icon"
-                          className="subscription-tooltip"
-                          src="undefined/images/icons/icons-help.svg"
-                        />
-                      </span>
-                    }
-                  >
-                    <span
-                      aria-hidden={false}
-                      className="quill-tooltip-trigger "
-                      role="tooltip"
-                    >
-                      <span
-                        className="undefined"
-                        onBlur={[Function]}
-                        onClick={[Function]}
-                        onFocus={[Function]}
-                        onKeyDown={[Function]}
-                        onMouseEnter={[Function]}
-                        onMouseLeave={[Function]}
-                        role="button"
-                        tabIndex={0}
-                      >
+                <td
+                  key="7-1-row"
+                >
+                  Invalid date
+                </td>
+                <td
+                  key="7-2-row"
+                >
+                  <span>
+                    Teacher Premium Trial
+                    <Tooltip
+                      isTabbable={true}
+                      tooltipText="Teacher Trial subscription"
+                      tooltipTriggerText={
                         <span>
                           <img
                             alt="Question mark icon"
@@ -14344,37 +14468,63 @@ exports[`Subscriptions UI state iterations trial renders when there is an expire
                             src="undefined/images/icons/icons-help.svg"
                           />
                         </span>
-                      </span>
+                      }
+                    >
                       <span
-                        className="quill-tooltip-wrapper"
+                        aria-hidden={false}
+                        className="quill-tooltip-trigger "
+                        role="tooltip"
                       >
                         <span
-                          aria-live="polite"
-                          className="quill-tooltip"
-                        />
+                          className="undefined"
+                          onBlur={[Function]}
+                          onClick={[Function]}
+                          onFocus={[Function]}
+                          onKeyDown={[Function]}
+                          onMouseEnter={[Function]}
+                          onMouseLeave={[Function]}
+                          role="button"
+                          tabIndex={0}
+                        >
+                          <span>
+                            <img
+                              alt="Question mark icon"
+                              className="subscription-tooltip"
+                              src="undefined/images/icons/icons-help.svg"
+                            />
+                          </span>
+                        </span>
+                        <span
+                          className="quill-tooltip-wrapper"
+                        >
+                          <span
+                            aria-live="polite"
+                            className="quill-tooltip"
+                          />
+                        </span>
                       </span>
-                    </span>
-                  </Tooltip>
-                </span>
-              </td>
-              <td
-                key="7-3-row"
-              >
-                --
-              </td>
-              <td
-                key="7-4-row"
-              >
-                1 month
-              </td>
-              <td
-                key="7-5-row"
-              >
-                02/16/22 - 01/01/22
-              </td>
-            </tr>
-          </tbody>
-        </table>
+                    </Tooltip>
+                  </span>
+                </td>
+                <td
+                  key="7-3-row"
+                >
+                  --
+                </td>
+                <td
+                  key="7-4-row"
+                >
+                  1 month
+                </td>
+                <td
+                  key="7-5-row"
+                >
+                  02/16/22 - 01/01/22
+                </td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
       </section>
     </SubscriptionHistory>
     <AvailableCredits
