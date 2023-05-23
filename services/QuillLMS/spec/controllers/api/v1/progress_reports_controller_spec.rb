@@ -124,7 +124,7 @@ describe Api::V1::ProgressReportsController, type: :controller do
       expect(response.body).to eq({id: teacher.id}.to_json)
     end
 
-    it 'should return the district activities scores progress reports for the freemium section of the admin dashboard' do
+    it 'should return the district activities scores progress reports for the freemium section of the Premium Hub dashboard' do
       # expect(Rails.cache).to receive(:fetch).with("#{SchoolsAdmins::FREEMIUM_DISTRICT_STANDARD_REPORTS_CACHE_KEY_STEM}#{teacher.id}").and_return(nil)
       expect(FindDistrictStandardsReportsWorker).to receive(:perform_async).with(teacher.id, true)
       get :district_standards_reports, params: { freemium: true }, as: :json

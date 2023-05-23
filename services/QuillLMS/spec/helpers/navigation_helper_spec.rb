@@ -76,7 +76,7 @@ describe NavigationHelper do
   describe '#admin_page_active?' do
     before { allow(helper).to receive(:action_name) { "premium_hub" } }
 
-    it 'should return true on admin dashboard action' do
+    it 'should return true on premium hub action' do
       expect(helper.admin_page_active?).to eq true
     end
   end
