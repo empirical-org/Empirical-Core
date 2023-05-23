@@ -503,6 +503,13 @@
     }
     .classroom-card-header {
       height: max-content;
+      .classroom-data {
+        display: flex;
+        flex-direction: column;
+        .bullet.item {
+          display: none;
+        }
+      }
     }
     .students-section-header-buttons {
       flex-direction: column;

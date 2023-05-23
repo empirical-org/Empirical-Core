@@ -391,6 +391,15 @@
   .subscriptions {
     padding-left: 86px;
     padding-right: 86px;
+    .subscription-status {
+      .upper-section {
+        flex-direction: column;
+        align-items: flex-start;
+        .expiration-date {
+          padding: 10px 22px 0px 29px;
+        }
+      }
+    }
   }
 }
 
@@ -398,7 +407,9 @@
   .subscriptions {
     .subscription-status {
       .upper-section {
-        flex-direction: column;
+        img {
+          display: none;
+        }
       }
     }
     .subscription-history {
@@ -419,9 +430,9 @@
     padding-right: 16px;
     .subscription-status {
       .upper-section {
+        align-items: flex-start;
         .expiration-date {
-          text-align: center;
-          padding: 10px 22px 0px 22px;
+          padding: 10px 22px 0px 29px;
         }
       }
     }
