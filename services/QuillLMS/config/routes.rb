@@ -717,6 +717,13 @@ EmpiricalGrammar::Application.routes.draw do
     end
   end
 
+  resources :snapshots, only: [] do
+    collection do
+      get :count
+      get :options
+    end
+  end
+
   other_pages = %w(
     beta
     board
