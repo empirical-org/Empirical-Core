@@ -377,7 +377,7 @@ exports[`ImportCleverClassroomsModal component #handleClickImportClasses should 
                     }
                   >
                     <div
-                      className="dropdown-container input-container inactive has-text not-editable grade "
+                      className="dropdown-container input-container inactive has-text not-editable grade  "
                       onClick={[Function]}
                       onKeyDown={[Function]}
                       role="button"

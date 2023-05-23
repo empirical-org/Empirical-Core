@@ -202,7 +202,7 @@ exports[`CreateOrEditBlogPost component renders for a new blog post 1`] = `
                 }
               >
                 <div
-                  className="dropdown-container input-container inactive has-text not-editable blog-dropdown "
+                  className="dropdown-container input-container inactive has-text not-editable blog-dropdown  "
                   onClick={[Function]}
                   onKeyDown={[Function]}
                   role="button"
@@ -4784,7 +4784,7 @@ exports[`CreateOrEditBlogPost component renders for a new blog post 1`] = `
                 }
               >
                 <div
-                  className="dropdown-container input-container inactive has-text not-editable blog-dropdown "
+                  className="dropdown-container input-container inactive has-text not-editable blog-dropdown  "
                   onClick={[Function]}
                   onKeyDown={[Function]}
                   role="button"
@@ -10832,7 +10832,7 @@ exports[`CreateOrEditBlogPost component renders for a new blog post 1`] = `
                 }
               >
                 <div
-                  className="dropdown-container input-container inactive has-text not-editable blog-dropdown "
+                  className="dropdown-container input-container inactive has-text not-editable blog-dropdown  "
                   onClick={[Function]}
                   onKeyDown={[Function]}
                   role="button"
@@ -17032,7 +17032,7 @@ exports[`CreateOrEditBlogPost component renders for an existing blog post 1`] = 
                 }
               >
                 <div
-                  className="dropdown-container input-container inactive has-text not-editable blog-dropdown "
+                  className="dropdown-container input-container inactive has-text not-editable blog-dropdown  "
                   onClick={[Function]}
                   onKeyDown={[Function]}
                   role="button"
@@ -21627,7 +21627,7 @@ exports[`CreateOrEditBlogPost component renders for an existing blog post 1`] = 
                 }
               >
                 <div
-                  className="dropdown-container input-container inactive has-text not-editable blog-dropdown "
+                  className="dropdown-container input-container inactive has-text not-editable blog-dropdown  "
                   onClick={[Function]}
                   onKeyDown={[Function]}
                   role="button"
@@ -27675,7 +27675,7 @@ exports[`CreateOrEditBlogPost component renders for an existing blog post 1`] = 
                 }
               >
                 <div
-                  className="dropdown-container input-container inactive has-text not-editable blog-dropdown "
+                  className="dropdown-container input-container inactive has-text not-editable blog-dropdown  "
                   onClick={[Function]}
                   onKeyDown={[Function]}
                   role="button"
