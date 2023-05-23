@@ -27,7 +27,7 @@ class SnapshotsController < ApplicationController
       name: 'This month',
       previous_start: proc { DateTime.current.beginning_of_month - 2.months },
       current_start: proc { DateTime.current.beginning_of_month - 1.month },
-      current_end: proc { DateTime.current },
+      current_end: proc { DateTime.current.beginning_of_month },
     }, {
       value: 'this-year',
       name: 'This year',
@@ -39,11 +39,11 @@ class SnapshotsController < ApplicationController
       name: 'Last year',
       previous_start: proc { DateTime.current.beginning_of_year - 2.years },
       current_start: proc { DateTime.current.beginning_of_year - 1.year },
-      current_end: proc { DateTime.current },
+      current_end: proc { DateTime.current.beginning_of_year },
     }, {
       value: 'all-time',
       name: 'All time',
-      previous_start: proc { DateTime.current.beginning_of_year - 2.years },
+      previous_start: proc { DateTime.new(2010,1,1) }, # This is well before anydata exists in our system, so works for "all time"
       current_start: proc { DateTime.new(2010,1,1) }, # This is well before anydata exists in our system, so works for "all time"
       current_end: proc { DateTime.current },
     }, {
@@ -82,10 +82,12 @@ class SnapshotsController < ApplicationController
 
     Snapshots::CacheSnapshotCountWorker.perform_async(snapshot_params[:query],
       current_user.id,
-      snapshot_params[:timeframe],
-      previous_timeframe_start,
-      current_timeframe_start,
-      timeframe_end,
+      {
+        name: snapshot_params[:timeframe],
+        previous_start: previous_timeframe_start,
+        current_start: current_timeframe_start,
+        current_end: timeframe_end
+      },
       snapshot_params[:school_ids],
       snapshot_params[:grades])
 
@@ -127,13 +129,19 @@ class SnapshotsController < ApplicationController
   private def calculate_timeframes
     timeframe = find_timeframe(snapshot_params[:timeframe])
 
-    return [send(timeframe[:previous_start]),
-     send(timeframe[:current_start]),
-     send(timeframe[:current_end])] if snapshot_params[:timeframe] == 'custom'
+    if snapshot_params[:timeframe] == 'custom'
+      return [
+        send(timeframe[:previous_start]),
+        send(timeframe[:current_start]),
+        send(timeframe[:current_end])
+      ]
+    end
 
-    [timeframe[:previous_start].call,
-     timeframe[:current_start].call,
-     timeframe[:current_end].call]
+    [
+      timeframe[:previous_start].call,
+      timeframe[:current_start].call,
+      timeframe[:current_end].call
+    ]
   end
 
   private def custom_previous_start

@@ -26,7 +26,7 @@ module Snapshots
       end
 
       it 'should compile a valid cache key when there is a custom timeframe' do
-        custom_end = Date.today
+        custom_end = DateTime.current
         custom_start = custom_end - 1.day
 
         expect(Snapshots::CacheKeys.generate_key(query,

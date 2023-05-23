@@ -17,7 +17,12 @@ module Snapshots
       'student-learning-hours' => Snapshots::StudentLearningHoursQuery
     }
 
-    def perform(query, user_id, timeframe_name, previous_timeframe_start, current_timeframe_start, timeframe_end, school_ids, grades)
+    def perform(query, user_id, timeframe, school_ids, grades)
+      timeframe_name = timeframe[:name]
+      previous_timeframe_start = timeframe[:previous_start]
+      current_timeframe_start = timeframe[:current_start]
+      timeframe_end = timeframe[:current_end]
+
       current_snapshot = QUERIES[query].run(user_id,
         current_timeframe_start,
         timeframe_end,
@@ -37,7 +42,7 @@ module Snapshots
         {
           name: timeframe_name,
           custom_start: timeframe_name == Snapshots::CacheKeys::CUSTOM_TIMEFRAME_NAME ? current_timeframe_start : nil,
-          custom_end: timeframe_name == Snapshots::CacheKeys::CUSTOM_TIMEFRAME_NAME ? current_timeframe_end : nil 
+          custom_end: timeframe_name == Snapshots::CacheKeys::CUSTOM_TIMEFRAME_NAME ? current_timeframe_end : nil
         },
         school_ids,
         grades)

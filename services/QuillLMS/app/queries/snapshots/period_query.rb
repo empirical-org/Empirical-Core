@@ -79,7 +79,7 @@ module Snapshots
 
       "AND classrooms.grade IN (#{grades.map { |g| "'#{g}'" }.join(',')})"
     end
-    
+
     def group_by_clause
       ""
     end

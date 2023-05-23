@@ -25,7 +25,7 @@ module Snapshots
     end
 
     def group_by_clause
-      super + ", activity_sessions.id, concept_results.question_number"
+      "#{super}, activity_sessions.id, concept_results.question_number"
     end
   end
 end

@@ -48,10 +48,12 @@ describe SnapshotsController, type: :controller do
         expect(Rails.cache).to receive(:read).with(cache_key).and_return(nil)
         expect(Snapshots::CacheSnapshotCountWorker).to receive(:perform_async).with(query_name,
           user.id,
-          timeframe_name,
-          previous_timeframe,
-          current_timeframe,
-          timeframe_end,
+          {
+            name: timeframe_name,
+            previous_start: previous_timeframe,
+            current_start: current_timeframe,
+            current_end: timeframe_end
+          },
           nil,
           nil)
 
@@ -70,10 +72,12 @@ describe SnapshotsController, type: :controller do
         expect(Rails.cache).to receive(:read).with(cache_key).and_return(nil)
         expect(Snapshots::CacheSnapshotCountWorker).to receive(:perform_async).with(query_name,
           user.id,
-          timeframe_name,
-          previous_timeframe,
-          current_timeframe,
-          timeframe_end,
+          {
+            name: timeframe_name,
+            previous_start: previous_timeframe,
+            current_start: current_timeframe,
+            current_end: timeframe_end
+          },
           school_ids,
           grades)
 
@@ -82,17 +86,19 @@ describe SnapshotsController, type: :controller do
 
       it 'should properly calculate custom timeframes' do
         timeframe_name = 'custom'
-        current_end = Date.today
+        current_end = DateTime.now
         timeframe_length = 3.days
         current_start = current_end - timeframe_length
 
         expect(Rails.cache).to receive(:read).with(cache_key).and_return(nil)
         expect(Snapshots::CacheSnapshotCountWorker).to receive(:perform_async).with(query_name,
           user.id,
-          timeframe_name,
-          current_start - timeframe_length,
-          current_start,
-          current_end,
+          {
+            name: timeframe_name,
+            previous_start: current_start - timeframe_length,
+            current_start: current_start,
+            current_end: current_end
+          },
           nil,
           nil)
 
@@ -148,7 +154,38 @@ describe SnapshotsController, type: :controller do
   end
 
   context "#calculate_timeframes" do
+    it 'accurately calculates a 30-day timeframe' do
+      now = DateTime.current
+      allow(DateTime).to receive(:current).and_return(now)
 
+      allow(controller).to receive(:snapshot_params).and_return({
+        timeframe: 'last-30-days'
+      })
+
+      expect(controller.send(:calculate_timeframes)).to eq([
+        now - 60.days,
+        now - 30.days,
+        now
+      ])
+    end
+
+    it 'accurately calculates a custom timeframe previous_start value' do
+      now = DateTime.current.change(usec: 0) # strip fractional seconds to simplify conversion between string and DateTime
+      custom_start = now - 10.hours
+      custom_end = now - 30.minutes
+      timeframe_length = custom_end - custom_start
+
+      allow(controller).to receive(:snapshot_params).and_return({
+        timeframe: Snapshots::CacheKeys::CUSTOM_TIMEFRAME_NAME,
+        timeframe_custom_start: custom_start.to_s,
+        timeframe_custom_end: custom_end.to_s
+      })
+
+      expect(controller.send(:calculate_timeframes)).to eq([
+        custom_start - timeframe_length,
+        custom_start,
+        custom_end
+      ])
+    end
   end
-
 end

@@ -18,6 +18,6 @@ module Snapshots
 
         expect(result[:count]).to eq(783)
       end
-    end  
+    end
   end
 end
