@@ -529,7 +529,13 @@ describe User, type: :model do
         school_type: School::US_K12_SCHOOL_DISPLAY_NAME,
         minimum_grade_level: teacher_info.minimum_grade_level,
         maximum_grade_level: teacher_info.maximum_grade_level,
-        subject_area_ids: teacher_info.subject_area_ids
+        subject_area_ids: teacher_info.subject_area_ids,
+        notification_email_frequency: TeacherInfo::DAILY_EMAIL,
+        teacher_notification_settings: {
+          "TeacherNotifications::StudentCompletedDiagnostic" => false,
+          "TeacherNotifications::StudentCompletedAllDiagnosticRecommendations" => false,
+          "TeacherNotifications::StudentCompletedAllAssignedActivities" => false
+        }
       })
       expect(user.generate_teacher_account_info).to eq(hash)
     end
@@ -542,7 +548,13 @@ describe User, type: :model do
         school_type: School::US_K12_SCHOOL_DISPLAY_NAME,
         minimum_grade_level: teacher_info.minimum_grade_level,
         maximum_grade_level: teacher_info.maximum_grade_level,
-        subject_area_ids: teacher_info.subject_area_ids
+        subject_area_ids: teacher_info.subject_area_ids,
+        notification_email_frequency: TeacherInfo::DAILY_EMAIL,
+        teacher_notification_settings: {
+          "TeacherNotifications::StudentCompletedDiagnostic" => false,
+          "TeacherNotifications::StudentCompletedAllDiagnosticRecommendations" => false,
+          "TeacherNotifications::StudentCompletedAllAssignedActivities" => false
+        }
       })
       expect(user.generate_teacher_account_info).to eq(hash)
     end
@@ -1866,6 +1878,21 @@ describe User, type: :model do
       teacher = create(:teacher)
 
       expect(subject).to eq false
+    end
+  end
+
+  describe '#receives_notification_type?' do
+    let(:user) { create(:user) }
+    let(:notification_type) { TeacherNotifications::StudentCompletedDiagnostic }
+
+    it 'should return true if the user has the appropriate TeacherNotification type' do
+      user.teacher_notification_settings.create(notification_type: notification_type)
+
+      expect(user.receives_notification_type?(notification_type)).to be(true)
+    end
+
+    it 'should return false if the user does not have the appropriate TeacherNotification type' do
+      expect(user.receives_notification_type?(notification_type)).to be(false)
     end
   end
 

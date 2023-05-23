@@ -18,8 +18,27 @@ module Student
       class_name: "Classroom"
 
     has_many :activity_sessions, dependent: :destroy
-    has_many :assigned_activities, through: :classrooms, source: :activities
+    has_many :assigned_activities, -> { where("students_classrooms.student_id = ANY (classroom_units.assigned_student_ids)") }, through: :classrooms, source: :activities
     has_many :started_activities, through: :activity_sessions, source: :activity
+
+    def incomplete_assigned_activities
+      assigned_activities_with_activity_sessions
+        .where(activity_sessions: {completed_at: nil})
+    end
+
+    private def assigned_activities_with_activity_sessions
+      # Because we're looking for a very narrow join condition, we have to
+      # do the join clause manually (the ON conditions are too complex for
+      # ActiveRecord relationships)
+      assigned_activities
+        .joins(<<-SQL
+          LEFT OUTER JOIN activity_sessions
+            ON classroom_units.id = activity_sessions.classroom_unit_id
+              AND students_classrooms.student_id = activity_sessions.user_id
+              AND activities.id = activity_sessions.activity_id
+        SQL
+        )
+    end
 
     def finished_activities(classroom)
       classroom_unit_score_join(classroom).where('activity_sessions.completed_at is not null')

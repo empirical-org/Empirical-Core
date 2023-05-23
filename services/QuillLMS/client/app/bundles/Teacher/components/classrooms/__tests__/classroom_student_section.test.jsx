@@ -1,5 +1,5 @@
 import { shallow } from 'enzyme';
-import React from 'react';
+import * as React from 'react';
 
 import ClassroomStudentSection from '../classroom_student_section';
 import EditStudentAccountModal from '../edit_student_account_modal';
