@@ -46,7 +46,8 @@ describe SnapshotsController, type: :controller do
       it 'should trigger a job to cache data if the cache is empty' do
         allow(controller).to receive(:calculate_timeframes).and_return([previous_timeframe, current_timeframe, timeframe_end])
         expect(Rails.cache).to receive(:read).with(cache_key).and_return(nil)
-        expect(Snapshots::CacheSnapshotCountWorker).to receive(:perform_async).with(query_name,
+        expect(Snapshots::CacheSnapshotCountWorker).to receive(:perform_async).with(cache_key,
+          query_name,
           user.id,
           {
             name: timeframe_name,
@@ -70,7 +71,8 @@ describe SnapshotsController, type: :controller do
 
         allow(controller).to receive(:calculate_timeframes).and_return([previous_timeframe, current_timeframe, timeframe_end])
         expect(Rails.cache).to receive(:read).with(cache_key).and_return(nil)
-        expect(Snapshots::CacheSnapshotCountWorker).to receive(:perform_async).with(query_name,
+        expect(Snapshots::CacheSnapshotCountWorker).to receive(:perform_async).with(cache_key,
+          query_name,
           user.id,
           {
             name: timeframe_name,
@@ -91,7 +93,8 @@ describe SnapshotsController, type: :controller do
         current_start = current_end - timeframe_length
 
         expect(Rails.cache).to receive(:read).with(cache_key).and_return(nil)
-        expect(Snapshots::CacheSnapshotCountWorker).to receive(:perform_async).with(query_name,
+        expect(Snapshots::CacheSnapshotCountWorker).to receive(:perform_async).with(cache_key,
+          query_name,
           user.id,
           {
             name: timeframe_name,

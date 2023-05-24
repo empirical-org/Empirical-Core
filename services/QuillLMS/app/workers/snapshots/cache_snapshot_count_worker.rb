@@ -17,7 +17,7 @@ module Snapshots
       'student-learning-hours' => Snapshots::StudentLearningHoursQuery
     }
 
-    def perform(query, user_id, timeframe, school_ids, grades)
+    def perform(cache_key, query, user_id, timeframe, school_ids, grades)
       timeframe_name = timeframe[:name]
       previous_timeframe_start = timeframe[:previous_start]
       current_timeframe_start = timeframe[:current_start]
@@ -36,16 +36,6 @@ module Snapshots
         grades)
 
       payload = { current: current_snapshot, previous: previous_snapshot }
-
-      cache_key = Snapshots::CacheKeys.generate_key(query,
-        user_id,
-        {
-          name: timeframe_name,
-          custom_start: timeframe_name == Snapshots::CacheKeys::CUSTOM_TIMEFRAME_NAME ? current_timeframe_start : nil,
-          custom_end: timeframe_name == Snapshots::CacheKeys::CUSTOM_TIMEFRAME_NAME ? current_timeframe_end : nil
-        },
-        school_ids,
-        grades)
 
       Rails.cache.write(cache_key, payload, expires_in: DEFAULT_CACHE_EXPIRATION)
 

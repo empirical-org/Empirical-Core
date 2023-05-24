@@ -6,6 +6,7 @@ module Snapshots
   describe CacheSnapshotCountWorker, type: :worker do
     subject { described_class.new }
 
+    let(:cache_key) { 'CACHE_KEY' }
     let(:query) { 'active-classrooms' }
     let(:user_id) { 123 }
     let(:timeframe_name) { 'last-30-days' }
@@ -41,20 +42,18 @@ module Snapshots
         expect(query_double).to receive(:run).with(user_id, current_timeframe_start, timeframe_end, school_ids, grades)
         expect(query_double).to receive(:run).with(user_id, previous_timeframe_start, current_timeframe_start, school_ids, grades)
 
-        subject.perform(query, user_id, timeframe, school_ids, grades)
+        subject.perform(cache_key, query, user_id, timeframe, school_ids, grades)
       end
 
       it 'should write a payload to cache' do
-        cache_key = 'CACHE_KEY'
         previous_snapshot = 'PREVIOUS_SNAPSHOT'
         current_snapshot = 'CURRENT_SNAPSHOT'
         payload = { current: current_snapshot, previous: previous_snapshot }
 
         expect(query_double).to receive(:run).and_return(current_snapshot, previous_snapshot)
-        expect(Snapshots::CacheKeys).to receive(:generate_key).and_return(cache_key)
         expect(Rails.cache).to receive(:write).with(cache_key, payload, expires_in: described_class::DEFAULT_CACHE_EXPIRATION)
 
-        subject.perform(query, user_id, timeframe, school_ids, grades)
+        subject.perform(cache_key, query, user_id, timeframe, school_ids, grades)
       end
 
       it 'should send a Pusher notification' do
@@ -65,7 +64,7 @@ module Snapshots
           grades: grades
         })
 
-        subject.perform(query, user_id, timeframe, school_ids, grades)
+        subject.perform(cache_key, query, user_id, timeframe, school_ids, grades)
       end
     end
   end
