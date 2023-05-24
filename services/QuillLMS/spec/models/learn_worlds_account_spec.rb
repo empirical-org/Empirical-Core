@@ -26,7 +26,7 @@ RSpec.describe LearnWorldsAccount, type: :model do
   subject { create(:learn_worlds_account) }
 
   it { should belong_to(:user) }
-  it { should validate_uniqueness_of(:external_id).case_insensitive }
+  it { should validate_uniqueness_of(:external_id) }
 
   it { expect(subject).to be_valid }
 

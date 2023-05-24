@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 # == Schema Information
 #
 # Table name: learn_worlds_account_course_events
@@ -22,5 +24,13 @@
 require 'rails_helper'
 
 RSpec.describe LearnWorldsAccountCourseEvent, type: :model do
-  pending "add some examples to (or delete) #{__FILE__}"
+  subject { create(:learn_worlds_account_course_event) }
+
+  it { should belong_to(:learn_worlds_account) }
+  it { should belong_to(:learn_worlds_course) }
+
+  it { should validate_presence_of(:event_type) }
+  it { should validate_inclusion_of(:event_type).in_array(LearnWorldsAccountCourseEvent::EVENT_TYPES) }
+
+  it { expect(subject).to be_valid }
 end
