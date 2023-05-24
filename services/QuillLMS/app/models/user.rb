@@ -808,6 +808,10 @@ class User < ApplicationRecord
     school_premium? || district_premium?
   end
 
+  def should_render_teacher_premium?
+    premium_state == 'paid' && Subscription::OFFICIAL_TEACHER_TYPES.include?(subscription&.account_type)
+  end
+
   def receives_notification_type?(type)
     teacher_notification_settings.exists?(notification_type: type)
   end

@@ -25,13 +25,13 @@
           <%= link_to raw("<span class='hide-on-mobile'>My Reports</span>"), teachers_progress_reports_landing_page_path %>
         </li>
 
-        <% unless current_user.premium_state == 'paid' || should_render_teacher_premium? %>
+        <% unless current_user.premium_state == 'paid' || current_user.should_render_teacher_premium? %>
           <li class="premium-tab <%= 'active' if premium_page_active? %>">
             <%= link_to raw("<span class='hide-on-mobile premium-tab-copy'>#{premium_tab_copy}</span><span class='hide-on-desktop premium-tab-small'>Premium <img src='https://assets.quill.org/images/icons/yellow-diamond.svg'></img></span>"), premium_path %>
           </li>
         <% end %>
 
-        <% if should_render_teacher_premium? %>
+        <% if current_user.should_render_teacher_premium? %>
           <li class="premium-tab teacher-premium-tab <%= 'active' if teacher_premium_active? %>">
             <a href="/teacher_premium">
               <span>Teacher Premium</span>
@@ -65,7 +65,7 @@
   </div>
 
   <% if should_render_subnav? %>
-    <div class="tab-subnavigation-wrapper class-subnav <%= 'student-reports-subnav' if student_reports_page_active? %>">
+    <div class="tab-subnavigation-wrapper desktop class-subnav <%= 'student-reports-subnav' if student_reports_page_active? %>">
       <div class="container">
         <ul>
           <% if home_page_active? %>
@@ -102,6 +102,7 @@
         </ul>
       </div>
     </div>
+    <%= render partial: 'pages/shared/mobile_sub_navbar', locals: { tabs: mobile_subnav_tabs, active_tab: determine_active_tab(current_path), active_subtab: determine_active_subtab(current_path) } %>
   <% end %>
 
   <% if student_reports_page_active? %>

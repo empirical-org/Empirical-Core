@@ -196,3 +196,10 @@
     }
   }
 }
+
+@media (max-width: 850px) {
+  .quill-modal {
+    max-width: 90vw;
+    height: min-content !important;
+  }
+}

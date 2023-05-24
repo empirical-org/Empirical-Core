@@ -44,7 +44,7 @@ const ConceptReportsTable = ({ data, }) => {
 
   if (data && data.length) {
     return (
-      <div key={`${data.length}-length-for-activities-scores-by-classroom`}>
+      <div className="reports-table-container" key={`${data.length}-length-for-activities-scores-by-classroom`}>
         <ReactTable
           className="progress-report has-green-arrow"
           columns={columns}

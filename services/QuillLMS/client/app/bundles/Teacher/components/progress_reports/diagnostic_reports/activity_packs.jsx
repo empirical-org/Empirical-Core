@@ -26,6 +26,23 @@ export default class ActivityPacks extends React.Component {
   UNSAFE_componentWillMount() {
     document.getElementsByClassName('diagnostic-tab')[0].classList.remove('active');
     document.getElementsByClassName('activity-analysis-tab')[0].classList.add('active');
+    const mobileActivityAnalysisTab = document.getElementById('mobile-activity-analysis-tab-checkmark')
+    const mobileDiagnosticTab = document.getElementById('mobile-diagnostics-tab-checkmark')
+    const mobileDropdown = document.getElementById('mobile-subnav-toggle')
+
+    if (mobileDropdown && mobileActivityAnalysisTab && mobileDiagnosticTab) {
+      mobileDropdown.classList.remove('open');
+      mobileActivityAnalysisTab.classList.add('active');
+      mobileDiagnosticTab.classList.remove('active');
+    }
+    // this is an override since we can only access the current_path from the backend so we just pass back an empty space
+    // from the NavigationHelper module
+    if (mobileDropdown && mobileDropdown.children[0] && mobileDropdown.children[0].children[0]) {
+      const subTabElement = mobileDropdown.children[0].children[0]
+      if (subTabElement.textContent === ' ' || subTabElement.textContent === 'Diagnostics') {
+        subTabElement.textContent = 'Activity Analysis'
+      }
+    }
   }
 
   componentDidMount() {
