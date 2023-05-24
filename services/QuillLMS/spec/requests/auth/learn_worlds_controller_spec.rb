@@ -62,6 +62,7 @@ RSpec.describe Auth::LearnWorldsController do
           before { create(:learn_worlds_account, user: user, external_id: learn_worlds_account_external_id) }
 
           it { expect { subject }.not_to change(user, :learn_worlds_account) }
+          it { expect { subject }.to change { user.learn_worlds_account.last_login } }
         end
       end
     end
