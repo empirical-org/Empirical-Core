@@ -6,6 +6,7 @@ const SCHOOL_SUBSCRIPTIONS = 'School Subscriptions';
 const ACTIVITY_SCORES = 'Activity Scores';
 const CONCEPT_REPORTS = 'Concept Reports';
 const STANDARDS_REPORTS = 'Standards Reports';
+const USAGE_SNAPSHOT_REPORT = 'Usage Snapshot Report'
 const tabs = {
   [OVERVIEW]: {
     label: OVERVIEW,
@@ -15,6 +16,10 @@ const tabs = {
     label: SCHOOL_SUBSCRIPTIONS,
     url: '/teachers/premium_hub/school_subscriptions'
   },
+  [USAGE_SNAPSHOT_REPORT]: {
+    label: USAGE_SNAPSHOT_REPORT,
+    url: '/teachers/premium_hub/usage_snapshot_report'
+  },
   [ACTIVITY_SCORES]: {
     label: ACTIVITY_SCORES,
     url: '/teachers/premium_hub/district_activity_scores'
@@ -22,6 +27,10 @@ const tabs = {
   [CONCEPT_REPORTS]: {
     label: CONCEPT_REPORTS,
     url: '/teachers/premium_hub/district_concept_reports'
+  },
+  [STANDARDS_REPORTS]: {
+    label: STANDARDS_REPORTS,
+    url: '/teachers/premium_hub/district_standards_reports'
   },
   [STANDARDS_REPORTS]: {
     label: STANDARDS_REPORTS,
@@ -41,7 +50,7 @@ export default class AdminSubnav extends React.Component<any, any> {
   }
 
   getStateFromProps(props) {
-    const state = {activityScores: '', conceptReports: '', standardsReports: '', overview: '', schoolSubscriptions: '', activeTab: ''}
+    const state = {activityScores: '', conceptReports: '', standardsReports: '', overview: '', schoolSubscriptions: '', activeTab: '', usageSnapshotReport: ''}
     if (props.path.pathname.includes('/district_activity_scores')) {
       state.activityScores = 'active'
       state.activeTab = ACTIVITY_SCORES
@@ -54,6 +63,9 @@ export default class AdminSubnav extends React.Component<any, any> {
     } else if (props.path.pathname.includes('school_subscriptions')) {
       state.schoolSubscriptions = 'active'
       state.activeTab = SCHOOL_SUBSCRIPTIONS
+    } else if (props.path.pathname.includes('usage_snapshot_report')) {
+      state.usageSnapshotReport = 'active'
+      state.activeTab = USAGE_SNAPSHOT_REPORT
     } else if (props.path.pathname.includes('premium_hub')) {
       state.overview = 'active'
       state.activeTab = OVERVIEW
@@ -78,8 +90,8 @@ export default class AdminSubnav extends React.Component<any, any> {
   }
 
   render() {
-    const { overview, schoolSubscriptions, activityScores, conceptReports, standardsReports, dropdownOpen, activeTab } = this.state
-    const activeStates = [overview, schoolSubscriptions, activityScores, conceptReports, standardsReports]
+    const { overview, schoolSubscriptions, activityScores, conceptReports, standardsReports, dropdownOpen, usageSnapshotReport, activeTab } = this.state
+    const activeStates = [overview, schoolSubscriptions, usageSnapshotReport, activityScores, conceptReports, standardsReports]
     const dropdownClass = dropdownOpen ? 'open' : '';
 
     return(

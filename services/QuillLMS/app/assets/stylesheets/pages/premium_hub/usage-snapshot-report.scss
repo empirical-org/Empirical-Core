@@ -1,0 +1,131 @@
+.usage-snapshots-container {
+  display: flex;
+  section {
+    border-bottom: none;
+  }
+  .filters {
+    width: 317px;
+    border-right: 1px solid #E0E0E0;
+  }
+  main {
+    padding: 32px 64px;
+    width: 100%;
+    max-width: 1215px;
+    .header {
+      display: flex;
+      justify-content: space-between;
+    }
+    h1 {
+      font-weight: 700;
+      font-size: 24px;
+    }
+    .tabs {
+      margin-top: 32px;
+      display: flex;
+      .tab {
+        padding: 0px 32px;
+        height: 40px;
+        background: #F7F5F5;
+        border: 1px solid #D3D3D3;
+        display: flex;
+        align-items: center;
+        border-right: none;
+        font-weight: 600;
+        &.selected-tab {
+          background: #06806B;
+          color: white;
+          border: 1px solid #06806B;
+        }
+        &:first-of-type {
+          border-radius: 4px 0px 0px 4px;
+        }
+        &:last-of-type {
+          border-right: 1px solid #D3D3D3;
+          border-radius: 0px 4px 4px 0px;
+        }
+      }
+    }
+    .snapshot-section {
+      box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.15);
+      border-radius: 8px;
+      margin-top: 32px;
+      padding: 24px;
+      h2 {
+        font-weight: 600;
+        font-size: 20px;
+        line-height: 32px;
+        color: #373737;
+        margin-bottom: 16px;
+      }
+      .snapshot-section-content {
+        display: grid;
+        display: grid;
+        grid-template-columns: repeat(2, 1fr);
+        gap: 16px;
+      }
+      .snapshot-item {
+        background: #F8F8F8;
+        border: 1px solid #E0E0E0;
+        border-radius: 8px;
+        display: flex;
+        justify-content: space-between;
+        .count-and-label {
+          display: flex;
+          flex-direction: column;
+          justify-content: space-between;
+        }
+        .count {
+          font-weight: 700;
+          font-size: 28px;
+          line-height: 34px;
+          color: #757575;
+          margin-bottom: 46px;
+        }
+        .snapshot-label {
+          font-weight: 500;
+          font-size: 14px;
+          line-height: 18px;
+          color: #373737;
+        }
+        .change {
+          font-weight: 700;
+          font-size: 20px;
+          line-height: 24px;
+          color: #373737;
+          display: flex;
+          height: min-content;
+          align-items: center;
+          img {
+            margin-right: 4px;
+          }
+        }
+        &.small {
+          padding: 16px;
+        }
+        &.medium {
+          padding: 32px;
+        }
+        &.positive {
+          background: #F1FAF6;
+          border: 1px solid #B4E6D1;
+          .count {
+            color: #373737;
+          }
+          .change {
+            color: #129E6C;
+          }
+        }
+        &.negative {
+          background: #FFEFEC;
+          border: 1px solid #FFC0B3;
+          .count {
+            color: #373737;
+          }
+          .change {
+            color: #F65C3A;
+          }
+        }
+      }
+    }
+  }
+}
