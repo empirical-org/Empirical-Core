@@ -8,7 +8,7 @@ module Snapshots
       new(*args).run
     end
 
-    def initialize(admin_id, timeframe_start, timeframe_end, school_ids = nil, grades = nil)
+    def initialize(admin_id, timeframe_start, timeframe_end, school_ids, grades = nil)
       @admin_id = admin_id
       @timeframe_start = timeframe_start
       @timeframe_end = timeframe_end
@@ -69,8 +69,6 @@ module Snapshots
     end
 
     def school_ids_where_clause
-      return "" unless school_ids
-
       "AND schools.id IN (#{school_ids.join(',')})"
     end
 
