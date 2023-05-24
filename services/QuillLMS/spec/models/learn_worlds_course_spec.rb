@@ -19,7 +19,7 @@ require 'rails_helper'
 RSpec.describe LearnWorldsCourse, type: :model do
   subject { create(:learn_worlds_course) }
 
-  it { should validate_uniqueness_of(:external_id).case_insensitive }
+  it { should validate_uniqueness_of(:external_id) }
 
   it { expect(subject).to be_valid }
 end

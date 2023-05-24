@@ -24,7 +24,7 @@ RSpec.shared_context 'LearnWorlds Enrolled Free Course Event Data' do
         "label" => nil,
         "modified" => 1637232244.922408,
         "original_price" => 0,
-        "title" => "sample course",
+        "title" => learn_worlds_course.title,
         "identifiers" => {
           "google_store_id" => "sample_course",
           "apple_store_id" => "sample_course"

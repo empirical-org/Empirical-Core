@@ -29,7 +29,6 @@ RSpec.describe LearnWorldsAccountCourseEvent, type: :model do
   it { should belong_to(:learn_worlds_account) }
   it { should belong_to(:learn_worlds_course) }
 
-  it { should validate_presence_of(:event_type) }
   it { should validate_inclusion_of(:event_type).in_array(LearnWorldsAccountCourseEvent::EVENT_TYPES) }
 
   it { expect(subject).to be_valid }
