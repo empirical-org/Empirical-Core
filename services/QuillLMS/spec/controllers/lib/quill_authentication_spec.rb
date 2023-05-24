@@ -11,7 +11,7 @@ class FakeController < ApplicationController
   end
 
   def new_session_path
-    'session/new'
+    '/session/new'
   end
 
   def example_action
@@ -20,6 +20,7 @@ class FakeController < ApplicationController
 end
 
 describe FakeController, type: :controller do
+
   describe '#auth_failed' do
     before do
       Rails.application.routes.draw do
@@ -32,7 +33,7 @@ describe FakeController, type: :controller do
     end
 
     context 'Accept: text/html' do
-      it 'should return JSON, status 401' do
+      it 'should return HTML, status 302' do
         get :example_action
         expect(response).to redirect_to('/profile')
         expect(response.status).to eq 302
@@ -44,11 +45,12 @@ describe FakeController, type: :controller do
         request.accept = "application/json"
         get :example_action
         expect(response.status).to eq 401
-        expect(JSON.parse(response.body)).to eq {"redirect"=>"session/new"}
+        expect(JSON.parse(response.body)).to eq({ "redirect" => "/session/new" })
       end
     end
 
   end
+
   describe 'authentication methods' do
     let(:classroom) { create(:classroom, :with_coteacher) }
     let(:coteacher) { classroom.coteachers.first }

@@ -125,11 +125,10 @@ module QuillAuthentication
 
   def auth_failed
     if request.headers['Accept'] == 'application/json'
-      puts "\n\n HERE \n\n"
-      render(json: {redirect: new_session_path}, status: 401) and return
+      render(json: { redirect: new_session_path }, status: 401)
+    else
+      redirect_to(profile_path, notice: "404")
     end
-
-    redirect_to(profile_path, notice: "404")
   end
 
   def admin?
