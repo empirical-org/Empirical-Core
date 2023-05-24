@@ -63,7 +63,7 @@ const PremiumHubContainer = ({ id, location, children, }) => {
     if (accessType() === LIMITED) {
       return (
         <Banner
-          bodyText="Subscribe to School or District Premium to unlock all admin dashboard features. Manage teacher accounts, access teacher reports, and view school-wide student data."
+          bodyText="Subscribe to School or District Premium to unlock all Premium Hub features. Manage teacher accounts, access teacher reports, and view school-wide student data."
           buttons={(
             <div className="banner-buttons">
               <a className={BANNER_BUTTON_CLASS_NAME} href="https://calendly.com/alex-quill" rel="noopener noreferrer" target="_blank">Talk to sales</a>
@@ -78,7 +78,7 @@ const PremiumHubContainer = ({ id, location, children, }) => {
     if (!associated_school || [NOT_LISTED, NO_SCHOOL_SELECTED].includes(associated_school.name)) {
       return (
         <Banner
-          bodyText="Please select a school to use the admin dashboard."
+          bodyText="Please select a school to use the Premium Hub."
           buttons={<a className={BANNER_BUTTON_CLASS_NAME} href="/teachers/my_account">Select school</a>}
           headerText="Action required"
         />
@@ -98,7 +98,7 @@ const PremiumHubContainer = ({ id, location, children, }) => {
     if (admin_approval_status === PENDING) {
       return (
         <Banner
-          bodyText="Your verification request is pending approval. Once approved, you will be able to use the admin dashboard. If you need help in the meantime, contact us."
+          bodyText="Your verification request is pending approval. Once approved, you will be able to use the Premium Hub. If you need help in the meantime, contact us."
           buttons={<a className={BANNER_BUTTON_CLASS_NAME} href="mailto:hello@quill.org">Contact us</a>}
           headerText="We’re reviewing your request"
         />
@@ -108,7 +108,7 @@ const PremiumHubContainer = ({ id, location, children, }) => {
     if (admin_approval_status === SKIPPED) {
       return (
         <Banner
-          bodyText={`Please verify your connection to ${associated_school?.name} to use the admin dashboard.`}
+          bodyText={`Please verify your connection to ${associated_school?.name} to use the Premium Hub.`}
           buttons={<a className={BANNER_BUTTON_CLASS_NAME} href="/sign-up/verify-school">Begin verification</a>}
           headerText="Action required"
         />
