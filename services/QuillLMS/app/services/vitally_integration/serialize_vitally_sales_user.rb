@@ -28,6 +28,11 @@ class SerializeVitallySalesUser
     evidence_activities_assigned_this_year = evidence_assigned_in_year_count(@user, school_year_start, school_year_end)
     evidence_activities_completed_this_year = evidence_completed_in_year_count(@user, school_year_start, school_year_end)
     date_of_last_completed_evidence_activity = evidence_finished(@user).order("activity_sessions.completed_at DESC").select("activity_sessions.completed_at").first&.completed_at&.strftime("%F") || 'N/A'
+    learn_worlds_account = @user.learn_worlds_account
+    learn_worlds_enrolled_courses = learn_worlds_account&.enrolled_courses&.pluck(:title)
+    learn_worlds_completed_courses = learn_worlds_account&.completed_courses&.pluck(:title)
+    learn_worlds_earned_certificate_courses = learn_worlds_account&.earned_certificate_courses&.pluck(:title)
+
     {
       accountId: @user.school&.id&.to_s,
       userId: @user.id.to_s,
@@ -100,7 +105,14 @@ class SerializeVitallySalesUser
         email_verification_status: @user.email_verification_status,
         admin_approval_status: @user.admin_approval_status,
         number_of_schools_administered: number_of_schools_administered,
-        number_of_districts_administered: number_of_districts_administered
+        number_of_districts_administered: number_of_districts_administered,
+        learn_worlds_last_login: learn_worlds_account&.last_login,
+        learn_worlds_num_enrolled_courses: learn_worlds_enrolled_courses,
+        learn_worlds_enrolled_courses: learn_worlds_enrolled_courses&.count,
+        learn_worlds_num_completed_courses: learn_worlds_completed_courses,
+        learn_worlds_completed_courses: learn_worlds_completed_courses&.count,
+        learn_worlds_num_earned_certificate_courses: learn_worlds_earned_certificate_courses&.count,
+        learn_worlds_earned_certificate_courses: learn_worlds_earned_certificate_courses
       }.merge(account_data_params)
     }
   end

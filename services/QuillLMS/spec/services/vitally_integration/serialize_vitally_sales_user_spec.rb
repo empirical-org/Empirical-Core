@@ -21,6 +21,8 @@ describe 'SerializeVitallySalesUser' do
   let!(:old_unit_activity) { create(:unit_activity, unit: old_unit, created_at: current_time - 1.year) }
   let!(:student) { create(:user, role: 'student') }
   let!(:old_student) { create(:user, role: 'student') }
+  let!(:learn_worlds_account) { create(:learn_worlds_account, user: teacher) }
+  let!(:learn_worlds_account_course_event) { create(:learn_worlds_account_course_event, learn_worlds_account: learn_worlds_account) }
 
   before do
     create(:activity_classification, key: 'diagnostic')
