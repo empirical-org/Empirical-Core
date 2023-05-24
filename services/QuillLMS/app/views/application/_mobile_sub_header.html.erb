@@ -1,0 +1,66 @@
+<% current_path = request.env['PATH_INFO'] %>
+<% on_home_or_tools_page = current_path == '/' || current_path.include?('tools') %>
+<% on_sign_up_or_log_in = ['account/new', '/session', 'password_reset', 'sign-up', 'finish_set_up'].any? { |str| current_path.include?(str)} %>
+<% subheader_class = on_home_or_tools_page ? 'q-navbar-home' : 'q-navbar-home sub-page' %>
+<% on_home_or_tools_page_class = on_home_or_tools_page ? 'on-home-page' : '' %>
+<% active_tab = determine_active_tab(current_path) %>
+<% tabs = determine_mobile_navbar_tabs %>
+<% premium_class = determine_premium_class(current_path) %>
+<% premium_tabs = ['Premium', 'Teacher Premium', 'Premium Hub', 'Quill Academy'] %>
+
+<% if show_school_selection_reminders %>
+  <% show_notification_badges_class = 'show-notification-badges' %>
+<% else %>
+  <% show_notification_badges_class = '' %>
+<% end %>
+
+<nav class="<%= subheader_class %>">
+  <% if on_sign_up_or_log_in %>
+    <div class="logo-only">
+      <a aria-label="Quill" class="focus-on-dark" href=<%= root_path %>>
+        <img src="/images/quill_header_logo.svg" alt="Quill logo" />
+      </a>
+    </div>
+  <% else %>
+	  <div class="logo-and-badge-container">
+      <a aria-label="Quill" class="focus-on-dark" href=<%= root_path %>>
+        <div class="mobile-quill-logo"></div>
+      </a>
+			<%= determine_premium_badge %>
+  	</div>
+
+    <% if current_user&.student? && !current_path.include?('tools') %>
+      <%= react_component('StudentNavbarItems', props: { name: current_user.name }) %>
+    <% end %>
+    <div class="right-side-mobile-nav">
+      <p class="active-tab <%= premium_class if premium_class %>"><%= active_tab %></p>
+      <div class="mobile-hamburger-container <%= show_notification_badges_class %>">
+        <div class="hamburger-icon <%= premium_class if premium_class %> <%= 'notification-badge-relative' if show_school_selection_reminders %>" onclick="toggleMobilePrimaryDropdown()">
+          <div class="horizontal-line"></div>
+          <div class="horizontal-line"></div>
+          <div class="horizontal-line"></div>
+        </div>
+      </div>
+    </div>
+    <div class="dropdown-container" id="mobile-primary-dropdown-container">
+      <div>
+        <ul class="dropdown-menu" role='menu'>
+          <% tabs.each do |tab| %>
+            <li class="<%= (tab[:name] == active_tab || tab[:id] == active_tab) ? 'active' : '' %> <%= show_notification_badges_class %>" id="<%= tab[:id] ? tab[:id] : '' %>">
+              <a class="focus-on-dark" href=<%= tab[:url] %>>
+                <% if premium_tabs.include?(tab[:name]) %>
+                  <%= render partial: 'pages/shared/tabs/premium_tab', locals: { tab_name: tab[:name] } %>
+                <% elsif tab[:name] == 'My Account' %>
+                  <span class="notification-badge-relative"><%= tab[:name] %></span>
+                <% else %>
+                  <%= tab[:name] %>
+                <% end %>
+              </a>
+              <div class="checkmark-icon <%= (tab[:name] == active_tab || tab[:id] == active_tab) ? 'active' : '' %>"></div>
+            </li>
+          <% end %>
+        </ul>
+      </div>
+    </div>
+  <% end %>
+</nav>

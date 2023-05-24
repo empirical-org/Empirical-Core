@@ -18,7 +18,8 @@ class Menus extends React.Component {
       dropdownTwo: options[0],
       dropdownThree: null,
       dropdownFour: options[1],
-      dropdownFive: []
+      dropdownFive: [],
+      dropdownSix: []
     }
 
     this.changeSavedValues = this.changeSavedValues.bind(this)
@@ -130,6 +131,7 @@ class Menus extends React.Component {
 <DropdownInput
 value={this.state.dropdownFive}
 isMulti={true}
+isSearchable={false}
 options={options}
 optionType='option'
 handleChange={(e) => {this.changeSavedValues('dropdownFive', e)}}
@@ -138,12 +140,39 @@ handleChange={(e) => {this.changeSavedValues('dropdownFive', e)}}
               <DropdownInput
                 handleChange={(e) => {this.changeSavedValues('dropdownFive', e)}}
                 isMulti={true}
+                isSearchable={false}
                 options={options}
                 optionType='option'
                 value={this.state.dropdownFive}
               />
             </div>
           </div>
+          <h3 className="style-guide-h3">Editable Checkbox Dropdown Menu</h3>
+          <div className="element-row">
+            <div className="big-element">
+              <pre>
+                {`const options = ${JSON.stringify(options)}
+
+<DropdownInput
+value={this.state.dropdownSix}
+isMulti={true}
+isSearchable={true}
+options={options}
+optionType='option'
+handleChange={(e) => {this.changeSavedValues('dropdownSix', e)}}
+/>`}
+              </pre>
+              <DropdownInput
+                handleChange={(e) => {this.changeSavedValues('dropdownSix', e)}}
+                isMulti={true}
+                isSearchable={true}
+                options={options}
+                optionType='option'
+                value={this.state.dropdownSix}
+              />
+            </div>
+          </div>
+
         </div>
       </div>
     )

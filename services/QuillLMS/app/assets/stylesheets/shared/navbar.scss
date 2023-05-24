@@ -10,6 +10,187 @@
   max-height: 77px;
 }
 
+.mobile-navbar:not(.non-standard-navbar) {
+  background-color: transparent;
+  height: min-content;
+  .q-navbar-home {
+    .logo-and-badge-container {
+      .mobile-quill-logo {
+        background-image: url('https://assets.quill.org/images/icons/quill-logo-mobile-white.svg');
+        width: 30px;
+        height: 36px;
+        background-repeat: no-repeat;
+        background-size: contain;
+        padding: 5px;
+        margin-left: 16px;
+      }
+    }
+    .right-side-mobile-nav {
+      display: flex;
+      align-items: center;
+      position: absolute;
+      right: 0;
+      .active-tab {
+        font-weight: 600;
+        font-size: 18px;
+        margin: 0;
+        margin: 0;
+        color: #FFFFFF;
+      }
+      .mobile-hamburger-container {
+        .hamburger-icon {
+          padding: 13px 13px 7px 13px;
+          margin: 0px 16px;
+          background-color: rgba(255, 255, 255, 0.3);
+          border-radius: 6px;
+          &.notification-badge-relative {
+            margin-right: 32px;
+          }
+          .horizontal-line {
+            width: 24px;
+            height: 2px;
+            background: #FFFFFF;
+            border-radius: 1px;
+            margin-bottom: 6px;
+          }
+        }
+        .home-navbar-list {
+          position: absolute;
+          left: 0px;
+          width: 100%;
+        }
+      }
+    }
+    #mobile-primary-dropdown-container {
+      div {
+        .dropdown-menu {
+          margin: 0;
+          padding: 0;
+          border: none;
+          border-radius: 0px 0px 10px 10px;
+          padding: 16px;
+          li {
+            display: flex;
+            justify-content: space-between;
+            padding: 13.5px 16px 10px 16px;
+            border-radius: 6px;
+            &.hover {
+              background-color: $quillgreenlight;
+            }
+            &#my-account-tab {
+              border-top: 1px solid rgba(6, 128, 107, 0.3);
+              border-radius: 0;
+              margin-bottom: 0;
+              padding-bottom: 16px;
+            }
+            &#learning-tools-tab {
+              padding-top: 16px;
+            }
+            &#quill-support-tab {
+              padding-bottom: 16px;
+            }
+
+            &#premium-tab, &#admin-tab, &#quill-academy-tab {
+              a {
+                display: flex;
+                .premium-tab-copy {
+                  display: flex;
+                  .large-diamond-icon {
+                    background-image: url("https://assets.quill.org/images/icons/yellow-diamond.svg");
+                    margin: 2px 8px;
+                  }
+                  img {
+                    display: inherit;
+                    margin-left: 8px;
+                  }
+                }
+              }
+            }
+            &#premium-tab {
+              a {
+                color: $quillgoldextradark !important;
+              }
+            }
+            &#quill-academy-tab {
+              border-bottom: 1px solid rgba(6, 128, 107, 0.3);
+              border-radius: 0;
+              padding-bottom: 16px;
+            }
+            &#admin-tab, &#quill-academy-tab {
+              a {
+                color: $quillmaroon !important;
+              }
+            }
+            &#logout-tab {
+              border-radius: 0px;
+              border-top: 1px solid rgba(6, 128, 107, 0.3);
+              padding: 16px 16px 8px 16px;
+            }
+            a {
+              padding: 0;
+              color: $quillgreenmedium !important;
+              background-color: inherit;
+              font-size: 16px;
+              font-weight: 600;
+            }
+            .checkmark-icon {
+              background-image: url("https://assets.quill.org/images/icons/mobile-dark-green-check.svg");
+              background-repeat: no-repeat;
+              background-position: center;
+              width: 18px;
+              height: 19px;
+              display: none;
+              margin-right: 10.5px;
+              &.active {
+                display: inherit;
+              }
+            }
+          }
+        }
+      }
+    }
+    &.sub-page {
+      background-color: #FFFFFF;
+      .logo-and-badge-container {
+        .mobile-quill-logo {
+          background-image: url('https://assets.quill.org/images/icons/quill-logo-mobile-green.svg');
+        }
+      }
+      .right-side-mobile-nav {
+        .active-tab {
+          color: $quillgreenmedium;
+          &.red {
+            color: $quillmaroon;
+          }
+          &.yellow {
+            color: $quillgoldmedium;
+          }
+        }
+        .mobile-hamburger-container {
+          .hamburger-icon {
+            background-color: rgba(227, 240, 238, 1);
+            &.red {
+              background-color: $quillmaroonlight;
+              .horizontal-line {
+                background: $quillmaroon;
+              }
+            }
+            &.yellow {
+              background-color: $quillgoldlight;
+              .horizontal-line {
+                background: $quillgoldmedium;
+              }
+            }
+            .horizontal-line {
+              background: $quillgreenmedium;
+            }
+          }
+        }
+      }
+    }
+  }
+}
+
 .navbar {
   display: flex;
   align-items: center;
@@ -127,7 +308,7 @@
     border-radius: 6px;
     border: $quillgreenmedium 1px solid;
     &:hover {
-      color: #00c2a2;
+      color: #00c2a2 !important;
       background-color: #ffffff;
     }
   }
@@ -153,6 +334,20 @@
       border: solid 1px #ffffff;
       background-color: $quillgreenlight;
       color: $quillgreenmedium;
+    }
+  }
+  &.show-notification-badges {
+    .user-dropdown-button {
+      &.notification-badge-relative {
+        &::before {
+          right: 6px;
+          top: 8px;
+          background-color: transparent;
+        }
+        &::after {
+          margin: 2px 16px 0px 8px;
+        }
+      }
     }
   }
   .user-dropdown-button {
@@ -183,14 +378,17 @@
   div {
     padding: 0;
     top: 40px;
-    width: 100%;
+    width: max-content;
     border-radius: 2px;
-    box-shadow: 0 1px 2px 0 #c0c0c0;
+    box-shadow: 0px 0px 30px rgba(0, 0, 0, 0.25);
     position: absolute;
     list-style: none;
     left: 0;
     background-color: #ffffff;
     z-index: 100;
+    padding: 16px;
+    border-radius: 10px;
+    transform: translateX(-38px);
     .fa-caret-up {
       color: white;
       position: absolute;
@@ -201,33 +399,40 @@
       border-radius: 0;
       font-size: 14px;
       padding: 6px 12px;
+      border-radius: 6px;
       width: 100%;
       display: flex;
       align-items: center;
       font-weight: 600px;
       color: #027360;
+      &:hover {
+          background-color: $quillgreenlight;
+        }
       .image-container {
         display: flex;
-        max-height: 12px;
-        margin-right: 8px;
+        margin-right: 16px;
       }
       .hover {
         display: none;
       }
       &:hover {
         text-decoration: none;
-        color: #00c2a2;
-        .static {
-          display: none;
-        }
-        .hover {
-          display: inline;
-        }
+      }
+      &:nth-of-type(2) {
+        margin: 8px 0px;
       }
       &:last-of-type {
         padding: 8px 12px;
-        border-top: solid 1px #e9e9e9;
       }
+    }
+    .divider {
+      height: 1px;
+      position: initial;
+      width: 100%;
+      background-color: rgba(92, 92, 92, 0.3);
+      margin: 8px 0px;
+      padding: 0;
+      box-shadow: none;
     }
   }
   &.dropdown-closed {
@@ -263,12 +468,12 @@ nav.q-navbar-home {
 
   .logo-and-badge-container {
     display: flex;
-    align-items: flex-end;
+    align-items: center;
     .premium-navbar-badge-container {
       display: flex;
       align-items: center;
       width: max-content;
-      margin: 0px 0px 2px 16px;
+      margin: 0px 0px 0px 16px;
       padding: 0px 8px;
       border-radius: 6px;
       font-weight: 700;
@@ -403,12 +608,12 @@ nav.q-navbar-home {
       // }
     }
   }
-  @media screen and (min-width: 896px) {
+  @media screen and (min-width: 921px) {
     nav.home-nav-dropdown[role="home-custom-dropdown"] {
       display: none;
     }
   }
-  @media screen and (max-width: 895px) {
+  @media screen and (max-width: 920px) {
     height: 60px;
 
     .home-nav-right.wide {
@@ -470,10 +675,6 @@ nav.q-navbar-home {
       }
     }
   }
-  @media only screen and (max-width : 1165px) and (min-width: 600px) {
-    width: calc(100% - 30px);
-  }
-
 }
 
 .q-nav-bar {
@@ -632,36 +833,39 @@ nav.q-navbar-home {
   span {
     color: $quillgreenmedium;
   }
-  &#learning-tools {
-    .navbar-tooltip {
-      width: 248px;
+  &:nth-child(3) {
+    &#teacher-center {
+      .navbar-tooltip {
+        left: -97px;
+      }
     }
   }
   &#our-story {
     .navbar-tooltip {
-      width: 261px;
+      left: -27px;
     }
   }
   &#teacher-center {
     .navbar-tooltip {
-      .tooltip-link {
-        padding: 13px 20px 13px 25px;
-      }
+      left: -75px;
+    }
+  }
+  &#quill-support {
+    .navbar-tooltip {
+      right: -184px;
     }
   }
   .navbar-tooltip {
     z-index: 100;
     display: none;
     position: absolute;
-    width: 300px;
+    width: max-content !important;
     border-radius: 5px;
     background-color: #ffffff;
     box-shadow: 0 1px 5px 0 #c0c0c0;
     flex-direction: column;
     top: 40px;
-    left: 50%;
-    transform: translateX(-50%);
-    padding: 10px 0px;
+    padding-top: 16px;
     .fa-caret-up {
       color: white;
       position: absolute;
@@ -671,49 +875,61 @@ nav.q-navbar-home {
       transform: translateX(-50%);
     }
     .tooltip-link {
-      padding: 13px 25px;
+      padding: 0px 16px 16px 16px;
       display: flex;
+      flex-direction: column;
       align-items: flex-start;
-      .image-container {
+      .divider {
+        height: 1px;
+        width: 100%;
+        background-color: rgba(92, 92, 92, 0.3);
+        margin-bottom: 16px;
+      }
+      .content-container {
         display: flex;
         align-items: center;
-        justify-content: center;
-        min-width: 30px;
-        height: 30px;
-        margin-right: 15px;
-        border-radius: 3px;
-        box-shadow: 0 1px 2px 0 #e4e4e4;
-        i, svg {
-          color:  #00947b;
+        border-radius: 6px;
+        width: 100%;
+        padding: 8px;
+        &:hover {
+          background-color: $quillgreenlight;
         }
-        .hover {
-          display: none;
+        &#premium-section {
+          h3, p {
+            color: $quillgoldextradark;
+          }
         }
-      }
-      h3 {
-        font-size: 16px;
-        font-weight: 600;
-        color: #027360;
-        margin-top: 0px;
-        margin-bottom: 6px;
-      }
-      p {
-        font-size: 13px;
-        color: #949494;
-        margin-bottom: 0px;
-        font-weight: 300;
+        .image-container {
+          display: flex;
+          align-items: center;
+          justify-content: center;
+          min-width: 30px;
+          margin-right: 15px;
+          border-radius: 3px;
+          i, svg {
+            color:  #00947b;
+          }
+          .hover {
+            display: none;
+          }
+        }
+        h3 {
+          font-size: 16px;
+          font-weight: 600;
+          color: $quillgreenmedium;
+          margin-top: 0px;
+          margin-bottom: 6px;
+        }
+        p {
+          font-size: 13px;
+          color: #949494;
+          margin-bottom: 0px;
+          font-weight: 300;
+        }
       }
       &:hover {
         text-decoration: none;
-        h3, p, i, svg {
-          color: #00c2a2;
-        }
-        .static {
-          display: none;
-        }
-        .hover {
-          display: flex;
-        }
+
       }
     }
   }
@@ -768,6 +984,43 @@ nav.q-navbar-home {
     &:hover a {
       background-color: $white;
       color: $quillgreen;
+    }
+  }
+}
+
+@media (max-width: 1200px) {
+  .desktop-navbar, .q-nav-bar{
+    display: none !important;
+  }
+  .mobile-navbar {
+    display: inherit !important;
+  }
+  .q-navbar-home {
+    width: 100%;
+    min-height: 76px;
+  }
+}
+
+@media (min-width: 1201px) {
+  .desktop-navbar {
+    display: flex !important;
+  }
+  .mobile-navbar {
+    display: none !important;
+  }
+}
+
+@media (max-width: 460px) {
+.q-navbar-home {
+    .logo-and-badge-container {
+      .premium-navbar-badge-container {
+        .premium-badge-text {
+          display: none;
+        }
+        .small-diamond-icon {
+          margin-left: 0;
+        }
+      }
     }
   }
 }

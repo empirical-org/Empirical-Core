@@ -471,7 +471,7 @@ exports[`ImportGoogleClassroomsModal component #handleClickImportClasses should 
                     timesSubmitted={0}
                   >
                     <div
-                      className="dropdown-container input-container inactive  not-editable grade "
+                      className="dropdown-container input-container inactive  not-editable grade  "
                       onClick={[Function]}
                       onKeyDown={[Function]}
                       role="button"

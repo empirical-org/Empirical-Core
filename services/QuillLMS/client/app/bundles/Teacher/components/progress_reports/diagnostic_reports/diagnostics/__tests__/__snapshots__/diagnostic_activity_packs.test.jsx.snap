@@ -177,7 +177,7 @@ exports[`DiagnosticActivityPacks component should render when there are classroo
         }
       >
         <div
-          className="dropdown-container input-container inactive has-text not-editable undefined "
+          className="dropdown-container input-container inactive has-text not-editable undefined  "
           onClick={[Function]}
           onKeyDown={[Function]}
           role="button"

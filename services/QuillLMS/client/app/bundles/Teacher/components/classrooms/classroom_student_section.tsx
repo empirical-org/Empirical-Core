@@ -577,7 +577,7 @@ export default class ClassroomStudentSection
 
     return (
       <div className="students-section-header-buttons">
-        <div className="login-pdf-and-view-as-student">
+        <div className="login-pdf-and-view-as-student top-buttons-container">
           {loginPdfLink}
           <button className="quill-button secondary outlined small" onClick={this.handleClickViewAsStudentButton} type="button">
             View as student

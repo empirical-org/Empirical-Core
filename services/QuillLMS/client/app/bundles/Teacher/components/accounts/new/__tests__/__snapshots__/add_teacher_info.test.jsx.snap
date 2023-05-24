@@ -145,7 +145,7 @@ exports[`AddTeacherInfo component should render 1`] = `
               value={null}
             >
               <div
-                className="dropdown-container input-container inactive  not-editable undefined "
+                className="dropdown-container input-container inactive  not-editable undefined  "
                 onClick={[Function]}
                 onKeyDown={[Function]}
                 role="button"
@@ -5208,7 +5208,7 @@ exports[`AddTeacherInfo component should render 1`] = `
               value={null}
             >
               <div
-                className="dropdown-container input-container inactive  not-editable undefined "
+                className="dropdown-container input-container inactive  not-editable undefined  "
                 onClick={[Function]}
                 onKeyDown={[Function]}
                 role="button"

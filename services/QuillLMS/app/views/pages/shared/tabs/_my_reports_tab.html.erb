@@ -1,0 +1,23 @@
+<% if tab_name == 'Activity Scores' %>
+  <div class='premium-tab-copy'>
+    <span>Activity Scores</span>
+    <img src='https://assets.quill.org/images/icons/white-diamond.svg'></img>
+  </div>
+<% elsif tab_name == 'Concepts' %>
+  <div class='premium-tab-copy'>
+    <span>Concepts</span>
+    <img src='https://assets.quill.org/images/icons/white-diamond.svg'></img>
+  </div>
+<% elsif tab_name == 'Standards' %>
+  <div class='premium-tab-copy'>
+    <span>Standards</span>
+    <img src='https://assets.quill.org/images/icons/white-diamond.svg'></img>
+  </div>
+<% elsif tab_name == 'Data Export' %>
+  <div class='premium-tab-copy'>
+    <span>Data Export</span>
+    <img src='https://assets.quill.org/images/icons/white-diamond.svg'></img>
+  </div>
+<% else %>
+  <%= tab_name %>
+<% end %>

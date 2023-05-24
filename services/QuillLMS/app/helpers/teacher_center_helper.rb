@@ -4,18 +4,17 @@ module TeacherCenterHelper
   FAQ = 'FAQ'
   PREMIUM = 'Premium'
   RESEARCH = 'Research'
-  ALL = 'All'
   FEATURED_ACTIVITIES = 'Featured Activities'
   AP_ACTIVITIES = 'AP Activities'
   PRE_AP_ACTIVITIES = 'Pre-AP Activities'
   SPRINGBOARD_ACTIVITIES = 'SpringBoard Activities'
   ELA_STANDARDS = 'ELA Standards'
 
-  def teacher_center_tabs(large: true)
+  def teacher_center_tabs
     [
       {
         id: BlogPost::ALL_RESOURCES,
-        name: ALL,
+        name: BlogPost::ALL_RESOURCES,
         url: '/teacher-center'
       },
       {
@@ -40,7 +39,7 @@ module TeacherCenterHelper
       },
       {
         id: BlogPost::WRITING_INSTRUCTION_RESEARCH,
-        name: RESEARCH,
+        name: BlogPost::WRITING_INSTRUCTION_RESEARCH,
         url: '/teacher-center/topic/writing-instruction-research'
       },
       {
@@ -66,11 +65,11 @@ module TeacherCenterHelper
     ]
   end
 
-  def student_center_tabs(large: true)
+  def student_center_tabs
     [
      {
        id: BlogPost::ALL_RESOURCES,
-       name: large ? BlogPost::ALL_RESOURCES : ALL,
+       name: BlogPost::ALL_RESOURCES,
        url: '/student-center'
      },
      {
@@ -86,31 +85,31 @@ module TeacherCenterHelper
    ]
   end
 
-  def explore_curriculum_tabs(large: true)
+  def explore_curriculum_tabs
     [
       {
         id: FEATURED_ACTIVITIES,
-        name: large ? FEATURED_ACTIVITIES : 'Featured',
+        name: FEATURED_ACTIVITIES,
         url: '/activities/packs'
       },
       {
         id: AP_ACTIVITIES,
-        name: large ? AP_ACTIVITIES : 'AP',
+        name: AP_ACTIVITIES,
         url: '/ap'
       },
       {
         id: PRE_AP_ACTIVITIES,
-        name: large ? PRE_AP_ACTIVITIES : 'Pre-AP',
+        name: PRE_AP_ACTIVITIES,
         url: '/preap'
       },
       {
         id: SPRINGBOARD_ACTIVITIES,
-        name: large ? SPRINGBOARD_ACTIVITIES : 'SpringBoard',
+        name: SPRINGBOARD_ACTIVITIES,
         url: '/springboard'
       },
       {
         id: ELA_STANDARDS,
-        name: large ? ELA_STANDARDS : 'Standards',
+        name: ELA_STANDARDS,
         url: '/activities/standard_level/7'
       }
     ]

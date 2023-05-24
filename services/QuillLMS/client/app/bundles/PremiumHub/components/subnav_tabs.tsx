@@ -1,6 +1,33 @@
 import * as React from 'react';
-import { Link } from 'react-router-dom';
-import { whiteDiamondIcon, redDiamondIcon } from '../../Shared';
+import { whiteDiamondIcon, redDiamondIcon, renderNavList } from '../../Shared';
+
+const OVERVIEW = 'Overview';
+const SCHOOL_SUBSCRIPTIONS = 'School Subscriptions';
+const ACTIVITY_SCORES = 'Activity Scores';
+const CONCEPT_REPORTS = 'Concept Reports';
+const STANDARDS_REPORTS = 'Standards Reports';
+const tabs = {
+  [OVERVIEW]: {
+    label: OVERVIEW,
+    url: '/teachers/premium_hub'
+  },
+  [SCHOOL_SUBSCRIPTIONS]: {
+    label: SCHOOL_SUBSCRIPTIONS,
+    url: '/teachers/premium_hub/school_subscriptions'
+  },
+  [ACTIVITY_SCORES]: {
+    label: ACTIVITY_SCORES,
+    url: '/teachers/premium_hub/district_activity_scores'
+  },
+  [CONCEPT_REPORTS]: {
+    label: CONCEPT_REPORTS,
+    url: '/teachers/premium_hub/district_concept_reports'
+  },
+  [STANDARDS_REPORTS]: {
+    label: STANDARDS_REPORTS,
+    url: '/teachers/premium_hub/district_standards_reports'
+  },
+}
 
 export default class AdminSubnav extends React.Component<any, any> {
   constructor(props) {
@@ -14,17 +41,22 @@ export default class AdminSubnav extends React.Component<any, any> {
   }
 
   getStateFromProps(props) {
-    const state = {activityScores: '', conceptReports: '', standardsReports: '', overview: '', schoolSubscriptions: ''}
+    const state = {activityScores: '', conceptReports: '', standardsReports: '', overview: '', schoolSubscriptions: '', activeTab: ''}
     if (props.path.pathname.includes('/district_activity_scores')) {
       state.activityScores = 'active'
+      state.activeTab = ACTIVITY_SCORES
     } else if (props.path.pathname.includes('/district_concept_reports')) {
       state.conceptReports = 'active'
+      state.activeTab = CONCEPT_REPORTS
     } else if (props.path.pathname.includes('/district_standards_reports')) {
       state.standardsReports = 'active'
+      state.activeTab = STANDARDS_REPORTS
     } else if (props.path.pathname.includes('school_subscriptions')) {
       state.schoolSubscriptions = 'active'
+      state.activeTab = SCHOOL_SUBSCRIPTIONS
     } else if (props.path.pathname.includes('premium_hub')) {
       state.overview = 'active'
+      state.activeTab = OVERVIEW
     }
     return state
   }
@@ -36,41 +68,39 @@ export default class AdminSubnav extends React.Component<any, any> {
     return <img alt={whiteDiamondIcon.alt} src={whiteDiamondIcon.src} />
   }
 
+  handleDropdownClick = () => {
+    const { dropdownOpen } = this.state;
+    this.setState({ dropdownOpen: !dropdownOpen });
+  }
+
+  handleLinkClick = () => {
+    this.setState({ dropdownOpen: false });
+  }
+
   render() {
-    const { overview, schoolSubscriptions, activityScores, conceptReports, standardsReports, } = this.state
+    const { overview, schoolSubscriptions, activityScores, conceptReports, standardsReports, dropdownOpen, activeTab } = this.state
+    const activeStates = [overview, schoolSubscriptions, activityScores, conceptReports, standardsReports]
+    const dropdownClass = dropdownOpen ? 'open' : '';
 
     return(
-      <div className="tab-subnavigation-wrapper class-subnav premium-hub-subnav">
-        <div className="container">
-          <ul>
-            <li>
-              <Link className={overview} to="/teachers/premium_hub">
-              Overview
-              </Link>
-            </li>
-            <li>
-              <Link className={schoolSubscriptions} to="/teachers/premium_hub/school_subscriptions">
-              School Subscriptions
-              </Link>
-            </li>
-            <li>
-              <Link className={`premium ${activityScores}`} to="/teachers/premium_hub/district_activity_scores">
-                Activity Scores{this.getIcon(activityScores)}
-              </Link>
-            </li>
-            <li>
-              <Link className={`premium ${conceptReports}`} to="/teachers/premium_hub/district_concept_reports">
-                Concept Reports{this.getIcon(conceptReports)}
-              </Link>
-            </li>
-            <li>
-              <Link className={`premium ${standardsReports}`} to="/teachers/premium_hub/district_standards_reports">
-                Standards Reports{this.getIcon(standardsReports)}
-              </Link>
-            </li>
-          </ul>
+      <React.Fragment>
+        <div className="tab-subnavigation-wrapper mobile class-subnav premium-hub-subnav red">
+          <div className="dropdown-container">
+            <div className={dropdownClass}>
+              <button className="interactive-wrapper" id="mobile-subnav-dropdown" onClick={this.handleDropdownClick} type='button'>
+                <p>{activeTab}</p>
+                <i className="fa fa-thin fa-angle-down" />
+              </button>
+              {renderNavList({ tabs, activeStates, handleLinkClick: this.handleLinkClick, listClass: 'dropdown-menu' })}
+            </div>
+          </div>
+        </div >
+        <div className="tab-subnavigation-wrapper desktop class-subnav premium-hub-subnav">
+          <div className="container">
+            {renderNavList({ tabs, activeStates, handleLinkClick: this.handleLinkClick })}
+          </div>
         </div>
-      </div>
+      </React.Fragment>
     );
   }
 };
