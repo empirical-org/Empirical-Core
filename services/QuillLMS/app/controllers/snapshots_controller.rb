@@ -7,45 +7,45 @@ class SnapshotsController < ApplicationController
     {
       value: 'last-30-days',
       name: 'Last 30 days',
-      previous_start: proc { DateTime.current - 60.days },
-      current_start: proc { DateTime.current - 30.days },
-      current_end: proc { DateTime.current }
+      previous_start: proc { |end_of_yesterday| end_of_yesterday - 60.days },
+      current_start: proc { |end_of_yesterday| end_of_yesterday - 30.days },
+      current_end: proc { |end_of_yesterday| end_of_yesterday }
     }, {
       value: 'last-90-days',
       name: 'Last 90 days',
-      previous_start: proc { DateTime.current - 180.days },
-      current_start: proc { DateTime.current - 90.days },
-      current_end: proc { DateTime.current },
+      previous_start: proc { |end_of_yesterday| end_of_yesterday - 180.days },
+      current_start: proc { |end_of_yesterday| end_of_yesterday - 90.days },
+      current_end: proc { |end_of_yesterday| end_of_yesterday },
     }, {
       value: 'this-month',
       name: 'This month',
-      previous_start: proc { DateTime.current.beginning_of_month - 1.month },
-      current_start: proc { DateTime.current.beginning_of_month },
-      current_end: proc { DateTime.current },
+      previous_start: proc { |end_of_yesterday| end_of_yesterday.beginning_of_month - 1.month },
+      current_start: proc { |end_of_yesterday| end_of_yesterday.beginning_of_month },
+      current_end: proc { |end_of_yesterday| end_of_yesterday },
     }, {
       value: 'last-month',
       name: 'This month',
-      previous_start: proc { DateTime.current.beginning_of_month - 2.months },
-      current_start: proc { DateTime.current.beginning_of_month - 1.month },
-      current_end: proc { DateTime.current.beginning_of_month },
+      previous_start: proc { |end_of_yesterday| end_of_yesterday.beginning_of_month - 2.months },
+      current_start: proc { |end_of_yesterday| end_of_yesterday.beginning_of_month - 1.month },
+      current_end: proc { |end_of_yesterday| end_of_yesterday.beginning_of_month },
     }, {
       value: 'this-year',
       name: 'This year',
-      previous_start: proc { DateTime.current.beginning_of_year - 1.year },
-      current_start: proc { DateTime.current.beginning_of_year },
-      current_end: proc { DateTime.current },
+      previous_start: proc { |end_of_yesterday| end_of_yesterday.beginning_of_year - 1.year },
+      current_start: proc { |end_of_yesterday| end_of_yesterday.beginning_of_year },
+      current_end: proc { |end_of_yesterday| end_of_yesterday },
     }, {
       value: 'last-year',
       name: 'Last year',
-      previous_start: proc { DateTime.current.beginning_of_year - 2.years },
-      current_start: proc { DateTime.current.beginning_of_year - 1.year },
-      current_end: proc { DateTime.current.beginning_of_year },
+      previous_start: proc { |end_of_yesterday| end_of_yesterday.beginning_of_year - 2.years },
+      current_start: proc { |end_of_yesterday| end_of_yesterday.beginning_of_year - 1.year },
+      current_end: proc { |end_of_yesterday| end_of_yesterday.beginning_of_year },
     }, {
       value: 'all-time',
       name: 'All time',
       previous_start: proc { DateTime.new(2010,1,1) }, # This is well before anydata exists in our system, so works for "all time"
       current_start: proc { DateTime.new(2010,1,1) }, # This is well before anydata exists in our system, so works for "all time"
-      current_end: proc { DateTime.current },
+      current_end: proc { |end_of_yesterday| end_of_yesterday },
     }, {
       value: Snapshots::CacheKeys::CUSTOM_TIMEFRAME_NAME,
       name: 'Custom',
@@ -129,6 +129,8 @@ class SnapshotsController < ApplicationController
   private def calculate_timeframes
     timeframe = find_timeframe(snapshot_params[:timeframe])
 
+    end_of_yesterday = DateTime.current.end_of_day - 1.day
+
     if snapshot_params[:timeframe] == 'custom'
       return [
         send(timeframe[:previous_start]),
@@ -138,9 +140,9 @@ class SnapshotsController < ApplicationController
     end
 
     [
-      timeframe[:previous_start].call,
-      timeframe[:current_start].call,
-      timeframe[:current_end].call
+      timeframe[:previous_start].call(end_of_yesterday),
+      timeframe[:current_start].call(end_of_yesterday),
+      timeframe[:current_end].call(end_of_yesterday)
     ]
   end
 

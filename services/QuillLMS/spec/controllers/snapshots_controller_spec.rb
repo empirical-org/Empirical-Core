@@ -156,6 +156,7 @@ describe SnapshotsController, type: :controller do
   context "#calculate_timeframes" do
     it 'accurately calculates a 30-day timeframe' do
       now = DateTime.current
+      end_of_yesterday = now.end_of_day - 1.day
       allow(DateTime).to receive(:current).and_return(now)
 
       allow(controller).to receive(:snapshot_params).and_return({
@@ -163,9 +164,9 @@ describe SnapshotsController, type: :controller do
       })
 
       expect(controller.send(:calculate_timeframes)).to eq([
-        now - 60.days,
-        now - 30.days,
-        now
+        end_of_yesterday - 60.days,
+        end_of_yesterday - 30.days,
+        end_of_yesterday
       ])
     end
 
