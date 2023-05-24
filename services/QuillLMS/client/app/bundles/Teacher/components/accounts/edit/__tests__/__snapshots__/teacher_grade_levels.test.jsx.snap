@@ -47,7 +47,7 @@ exports[`TeacherGradeLevels component should render 1`] = `
               value={1}
             >
               <div
-                className="dropdown-container input-container inactive has-text not-editable undefined "
+                className="dropdown-container input-container inactive has-text not-editable undefined  "
                 onClick={[Function]}
                 onKeyDown={[Function]}
                 role="button"
@@ -4095,7 +4095,7 @@ exports[`TeacherGradeLevels component should render 1`] = `
               value={12}
             >
               <div
-                className="dropdown-container input-container inactive has-text not-editable undefined "
+                className="dropdown-container input-container inactive has-text not-editable undefined  "
                 onClick={[Function]}
                 onKeyDown={[Function]}
                 role="button"
