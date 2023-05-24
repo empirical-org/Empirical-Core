@@ -104,15 +104,13 @@ class SnapshotsController < ApplicationController
   end
 
   private def cache_key
-    Snapshots::CacheKeys.generate_key(snapshot_params[:query],
-      current_user.id,
-      {
-        name: snapshot_params[:timeframe_name],
-        custom_start: snapshot_params[:timeframe_custom_start],
-        custom_end: snapshot_params[:timeframe_custom_end]
-      },
-      snapshot_params[:school_ids],
-      snapshot_params[:grades])
+    _, current_timeframe_start, timeframe_end = calculate_timeframes
+
+    Snapshots::CacheKeys.generate_key(snapshots_params[:query],
+      current_timeframe_start,
+      timeframe_end,
+      snapshot_params.fetch(:school_ids, []),
+      snapshot_params.fetch(:grades, []))
   end
 
   private def format_timeframe_option(timeframe)

@@ -19,7 +19,7 @@ describe SnapshotsController, type: :controller do
     let(:previous_snapshot_stub) { 'PREVIOUS' }
 
     before do
-      allow(Snapshots::CacheKeys).to receive(:generate_key).and_return(cache_key)
+      allow(controller).to receive(:cache_key).and_return(cache_key)
       allow(DateTime).to receive(:current).and_return(now)
     end
 

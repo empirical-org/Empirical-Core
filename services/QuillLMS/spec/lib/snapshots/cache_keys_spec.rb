@@ -4,24 +4,25 @@ module Snapshots
   describe CacheKeys do
     let(:user_id) { 123 }
     let(:query) { 'active-classrooms' }
-    let(:timeframe_name) { 'last-30-days' }
+    let(:current_timeframe_start) { DateTime.current.end_of_day - 31.days }
+    let(:timeframe_end) { DateTime.current.end_of_day - 1.day }
     let(:school_ids) { [1,2,3] }
     let(:grades) { ['Kindergarten',1,2,3,4] }
 
     context '#generate_key' do
       it 'should compile a valid cache key' do
         expect(Snapshots::CacheKeys.generate_key(query,
-          user_id,
-          { name:  timeframe_name },
+          current_timeframe_start,
+          timeframe_end,
           school_ids,
           grades)
         ).to eq([
           "admin-snapshot",
           query,
-          timeframe_name,
+          current_timeframe_start,
+          timeframe_end,
           "school-ids-#{school_ids.sort.join('-')}",
-          "grades-#{grades.map(&:to_s).sort.join('-')}",
-          user_id
+          "grades-#{grades.map(&:to_s).sort.join('-')}"
         ])
       end
 
@@ -30,33 +31,29 @@ module Snapshots
         custom_start = custom_end - 1.day
 
         expect(Snapshots::CacheKeys.generate_key(query,
-          user_id,
-          {
-            name: Snapshots::CacheKeys::CUSTOM_TIMEFRAME_NAME,
-            custom_start: custom_start,
-            custom_end: custom_end
-          },
+          custom_start,
+          custom_end,
           school_ids,
           grades)
         ).to eq([
           "admin-snapshot",
           query,
-          "#{Snapshots::CacheKeys::CUSTOM_TIMEFRAME_NAME}-#{custom_start}-#{custom_end}",
+          custom_start,
+          custom_end,
           "school-ids-#{school_ids.sort.join('-')}",
-          "grades-#{grades.map(&:to_s).sort.join('-')}",
-          user_id
+          "grades-#{grades.map(&:to_s).sort.join('-')}"
         ])
       end
 
       it 'should generate the same cache key when arrays are in different orders' do
         expect(Snapshots::CacheKeys.generate_key(query,
-          user_id,
-          { name: timeframe_name },
+          current_timeframe_start,
+          timeframe_end,
           school_ids,
           grades)
         ).to eq(Snapshots::CacheKeys.generate_key(query,
-          user_id,
-          { name: timeframe_name },
+          current_timeframe_start,
+          timeframe_end,
           school_ids.reverse,
           grades.reverse))
       end
