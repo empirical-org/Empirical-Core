@@ -3,7 +3,7 @@ import Select from 'react-select';
 
 import { CheckableDropdownOption } from './checkableDropdownOption';
 import { CheckableDropdownValueContainer } from './checkableDropdownValueContainer';
-import { CheckableDropdownMultiContainer } from './checkableDropdownValueContainer';
+import { SearchableCheckableDropdownMenuList } from './searchableCheckableDropdownMenuList';
 import { HTMLDropdownOption } from './htmlDropdownOption';
 import { HTMLDropdownSingleValue } from './htmlDropdownSingleValue';
 import { StandardDropdownOption } from './standardDropdownOption';
@@ -22,6 +22,7 @@ interface DropdownInputProps {
   isSearchable?: boolean;
   onClick?: (event?: any) => void;
   optionType?: string;
+  optionTypeDescriptor?: string;
   placeholder?: string;
   timesSubmitted?: Number;
   type?: string;
@@ -287,7 +288,7 @@ export class DropdownInput extends React.Component<DropdownInputProps, DropdownI
 
   renderInput() {
     const { active, errorAcknowledged, menuIsOpen, cursor, inputValue, } = this.state
-    const { className, label, value, placeholder, error, type, id, isSearchable, isMulti, optionType, usesCustomOption, filterOptions } = this.props
+    const { className, label, value, placeholder, error, type, id, isSearchable, isMulti, optionType, optionTypeDescriptor, usesCustomOption, filterOptions } = this.props
     const passedValue = value || ''
     const hasText = value || isMulti ? 'has-text' : ''
     const inactiveOrActive = active ? 'active' : 'inactive'
@@ -354,28 +355,55 @@ export class DropdownInput extends React.Component<DropdownInputProps, DropdownI
         )
       }
     } else if (isMulti) {
-      return (
-        <div
-          className={sharedClasses}
-          onClick={this.handleInputActivation}
-          onKeyDown={this.handleKeyDownOnInputContainer}
-          ref={node => this.node = node}
-          role="button"
-          tabIndex={0}
-        >
-          <label htmlFor={id}>{label}</label>
-          <Select
-            {...sharedProps}
-            closeMenuOnSelect={false}
-            components={{ Option: CheckableDropdownOption, ValueContainer: CheckableDropdownValueContainer }}
-            hideSelectedOptions={false}
-            isMulti
-            menuIsOpen={active ? menuIsOpen : false}
-            onChange={this.handleOptionSelection}
-            optionType={optionType}
-          />
-        </div>
-      )
+      if (isSearchable) {
+        return (
+          <div
+            className={sharedClasses}
+            onClick={this.handleInputActivation}
+            onKeyDown={this.handleKeyDownOnInputContainer}
+            ref={node => this.node = node}
+            role="button"
+            tabIndex={0}
+          >
+            <label htmlFor={id}>{label}</label>
+            <Select
+              {...sharedProps}
+              closeMenuOnSelect={false}
+              components={{ Option: CheckableDropdownOption, ValueContainer: CheckableDropdownValueContainer, MenuList: SearchableCheckableDropdownMenuList }}
+              hideSelectedOptions={false}
+              isMulti
+              menuIsOpen={active ? menuIsOpen : false}
+              onChange={this.handleOptionSelection}
+              optionType={optionType}
+              optionTypeDescriptor="selected"
+            />
+          </div>
+        )
+      } else {
+        return (
+          <div
+            className={sharedClasses}
+            onClick={this.handleInputActivation}
+            onKeyDown={this.handleKeyDownOnInputContainer}
+            ref={node => this.node = node}
+            role="button"
+            tabIndex={0}
+          >
+            <label htmlFor={id}>{label}</label>
+            <Select
+              {...sharedProps}
+              closeMenuOnSelect={false}
+              components={{ Option: CheckableDropdownOption, ValueContainer: CheckableDropdownValueContainer }}
+              hideSelectedOptions={false}
+              isMulti
+              menuIsOpen={active ? menuIsOpen : false}
+              onChange={this.handleOptionSelection}
+              optionType={optionType}
+              optionTypeDescriptor={optionTypeDescriptor}
+            />
+          </div>
+        )
+      }
     } else if (usesCustomOption) {
       return (
         <div
