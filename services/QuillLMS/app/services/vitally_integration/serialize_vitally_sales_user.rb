@@ -29,9 +29,9 @@ class SerializeVitallySalesUser
     evidence_activities_completed_this_year = evidence_completed_in_year_count(@user, school_year_start, school_year_end)
     date_of_last_completed_evidence_activity = evidence_finished(@user).order("activity_sessions.completed_at DESC").select("activity_sessions.completed_at").first&.completed_at&.strftime("%F") || 'N/A'
     learn_worlds_account = @user.learn_worlds_account
-    learn_worlds_enrolled_courses = learn_worlds_account&.enrolled_courses&.pluck(:title)
-    learn_worlds_completed_courses = learn_worlds_account&.completed_courses&.pluck(:title)
-    learn_worlds_earned_certificate_courses = learn_worlds_account&.earned_certificate_courses&.pluck(:title)
+    learn_worlds_enrolled_courses = learn_worlds_account&.enrolled_courses&.pluck(:title)&.join(',')
+    learn_worlds_completed_courses = learn_worlds_account&.completed_courses&.pluck(:title)&.join(',')
+    learn_worlds_earned_certificate_courses = learn_worlds_account&.earned_certificate_courses&.pluck(:title)&.join(',')
 
     {
       accountId: @user.school&.id&.to_s,

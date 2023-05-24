@@ -77,5 +77,5 @@ EmpiricalGrammar::Application.configure do
   config.active_record.database_resolver = ActiveRecord::Middleware::DatabaseSelector::Resolver
   config.active_record.database_resolver_context = ActiveRecord::Middleware::DatabaseSelector::Resolver::Session
 
-  config.hosts << ENV.fetch("NGROK_HOST") if ENV.fetch("NGROK_HOST")
+  config.hosts << ENV.fetch("NGROK_HOST") if ENV.fetch("NGROK_HOST", false)
 end
