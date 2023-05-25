@@ -1785,6 +1785,7 @@ describe User, type: :model do
 
     context 'learn_worlds_access override? is true' do
       before { allow(user).to receive(:learn_worlds_access_override?).and_return(true) }
+
       it { expect(subject).to be_truthy }
     end
   end
