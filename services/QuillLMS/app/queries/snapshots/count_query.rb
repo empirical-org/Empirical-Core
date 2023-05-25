@@ -20,9 +20,5 @@ module Snapshots
     def relevant_date_column
       "activity_sessions.completed_at"
     end
-
-    def group_by_clause
-      "GROUP BY admins.id"
-    end
   end
 end

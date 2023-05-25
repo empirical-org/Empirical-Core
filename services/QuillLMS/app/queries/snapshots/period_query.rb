@@ -2,14 +2,13 @@
 
 module Snapshots
   class PeriodQuery
-    attr_accessor :admin_id, :timeframe_start, :timeframe_end, :school_ids, :grades
+    attr_accessor :timeframe_start, :timeframe_end, :school_ids, :grades
 
     def self.run(*args)
       new(*args).run
     end
 
-    def initialize(admin_id, timeframe_start, timeframe_end, school_ids, grades = nil)
-      @admin_id = admin_id
+    def initialize(timeframe_start, timeframe_end, school_ids, grades = nil)
       @timeframe_start = timeframe_start
       @timeframe_end = timeframe_end
       @school_ids = school_ids
@@ -48,16 +47,12 @@ module Snapshots
             ON classrooms_teachers.user_id = schools_users.user_id
           JOIN lms.schools
             ON schools_users.school_id = schools.id
-          JOIN lms.schools_admins
-            ON schools.id = schools_admins.school_id
-          JOIN lms.users AS admins
-            ON schools_admins.user_id = admins.id
       SQL
     end
 
     def where_clause
       <<-SQL
-        WHERE admins.id = #{admin_id}
+        WHERE 
           #{timeframe_where_clause}
           #{school_ids_where_clause}
           #{grade_where_clause}
@@ -65,7 +60,7 @@ module Snapshots
     end
 
     def timeframe_where_clause
-      "AND #{relevant_date_column} BETWEEN '#{timeframe_start}' AND '#{timeframe_end}'"
+      "#{relevant_date_column} BETWEEN '#{timeframe_start}' AND '#{timeframe_end}'"
     end
 
     def school_ids_where_clause

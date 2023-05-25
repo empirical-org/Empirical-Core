@@ -14,7 +14,7 @@ module Snapshots
     end
 
     def select_clause
-      "SELECT COUNT(admins.id)"
+      "SELECT COUNT(*)"
     end
 
     def from_and_join_clauses
@@ -25,7 +25,7 @@ module Snapshots
     end
 
     def group_by_clause
-      "#{super}, activity_sessions.id, concept_results.question_number"
+      "GROUP BY activity_sessions.id, concept_results.question_number"
     end
   end
 end
