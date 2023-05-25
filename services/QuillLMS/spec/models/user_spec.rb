@@ -1782,6 +1782,30 @@ describe User, type: :model do
 
       it { expect(subject).to be_truthy }
     end
+
+    context 'learn_worlds_access override? is true' do
+      before { allow(user).to receive(:learn_worlds_access_override?).and_return(true) }
+      it { expect(subject).to be_truthy }
+    end
+  end
+
+  describe '#learn_worlds_access_override?' do
+    subject { user.learn_worlds_access_override? }
+
+    it { expect(subject).to be_falsey }
+
+    context 'override exists' do
+      before do
+        create(
+          :app_setting,
+          name: User::LEARN_WORLDS_ACCESS_OVERRIDE,
+          enabled: true,
+          user_ids_allow_list: [user.id]
+        )
+      end
+
+      it { expect(subject).to be_truthy }
+    end
   end
 
   describe '#generate_default_notification_email_frequency' do

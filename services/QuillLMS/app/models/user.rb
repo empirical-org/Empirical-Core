@@ -109,6 +109,8 @@ class User < ApplicationRecord
 
   SCHOOL_CHANGELOG_ATTRIBUTE = 'school_id'
 
+  LEARN_WORLDS_ACCESS_OVERRIDE = 'learn_worlds_access_override'
+
   attr_accessor :validate_username, :require_password_confirmation_when_password_present, :newsletter
 
   has_secure_password validations: false
@@ -793,7 +795,11 @@ class User < ApplicationRecord
   end
 
   def learn_worlds_access?
-    school_premium? || district_premium?
+    school_premium? || district_premium? || learn_worlds_access_override?
+  end
+
+  def learn_worlds_access_override?
+    AppSetting.enabled?(name: LEARN_WORLDS_ACCESS_OVERRIDE, user: self)
   end
 
   def school_premium?
