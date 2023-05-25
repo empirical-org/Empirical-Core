@@ -89,9 +89,7 @@ describe SnapshotsController, type: :controller do
         expect(Rails.cache).to receive(:read).with(cache_key).and_return(nil)
         expect(Snapshots::CacheSnapshotCountWorker).to receive(:perform_async).with(cache_key,
           query_name,
-          user.id,
           {
-            name: timeframe_name,
             previous_start: previous_timeframe,
             current_start: current_timeframe,
             current_end: timeframe_end
@@ -113,9 +111,7 @@ describe SnapshotsController, type: :controller do
         expect(Rails.cache).to receive(:read).with(cache_key).and_return(nil)
         expect(Snapshots::CacheSnapshotCountWorker).to receive(:perform_async).with(cache_key,
           query_name,
-          user.id,
           {
-            name: timeframe_name,
             previous_start: previous_timeframe,
             current_start: current_timeframe,
             current_end: timeframe_end
@@ -135,9 +131,7 @@ describe SnapshotsController, type: :controller do
         expect(Rails.cache).to receive(:read).with(cache_key).and_return(nil)
         expect(Snapshots::CacheSnapshotCountWorker).to receive(:perform_async).with(cache_key,
           query_name,
-          user.id,
           {
-            name: timeframe_name,
             previous_start: current_start - timeframe_length,
             current_start: current_start,
             current_end: current_end

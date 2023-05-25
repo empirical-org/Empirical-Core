@@ -85,9 +85,7 @@ class SnapshotsController < ApplicationController
 
     Snapshots::CacheSnapshotCountWorker.perform_async(cache_key,
       snapshot_params[:query],
-      current_user.id,
       {
-        name: snapshot_params[:timeframe],
         previous_start: previous_timeframe_start,
         current_start: current_timeframe_start,
         current_end: timeframe_end
