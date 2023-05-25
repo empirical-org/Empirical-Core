@@ -76,7 +76,7 @@ describe SnapshotsController, type: :controller do
         get :count, params: { query: query_name, timeframe: timeframe_name, school_ids: [] }
 
         expect(response.status).to eq(400)
-      end      
+      end
     end
 
     context 'param variation' do

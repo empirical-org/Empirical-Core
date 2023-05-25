@@ -52,7 +52,7 @@ module Snapshots
 
     def where_clause
       <<-SQL
-        WHERE 
+        WHERE
           #{timeframe_where_clause}
           #{school_ids_where_clause}
           #{grade_where_clause}
