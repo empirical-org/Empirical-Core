@@ -29,11 +29,15 @@ module Snapshots
         school_ids,
         grades)
 
-      previous_snapshot = QUERIES[query].run(user_id,
-        previous_timeframe_start,
-        current_timeframe_start,
-        school_ids,
-        grades)
+      if previous_timeframe_start
+        previous_snapshot = QUERIES[query].run(user_id,
+          previous_timeframe_start,
+          current_timeframe_start,
+          school_ids,
+          grades)
+      else
+        previous_snapshot = nil
+      end
 
       payload = { current: current_snapshot, previous: previous_snapshot }
 

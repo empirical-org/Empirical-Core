@@ -45,6 +45,13 @@ module Snapshots
         subject.perform(cache_key, query, user_id, timeframe, school_ids, grades)
       end
 
+      it 'should only execute a query for current timeframe if the previous_timeframe_start is nil' do
+        expect(query_double).to receive(:run).once
+        timeframe[:previous_start] = nil
+
+        subject.perform(cache_key, query, user_id, timeframe, school_ids, grades)
+      end
+
       it 'should write a payload to cache' do
         previous_snapshot = 'PREVIOUS_SNAPSHOT'
         current_snapshot = 'CURRENT_SNAPSHOT'
