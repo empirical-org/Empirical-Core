@@ -127,9 +127,10 @@ class SnapshotsController < ApplicationController
   end
 
   private def cache_key
-    _, current_timeframe_start, timeframe_end = calculate_timeframes
+    previous_timeframe_start, current_timeframe_start, timeframe_end = calculate_timeframes
 
     Snapshots::CacheKeys.generate_key(snapshots_params[:query],
+      previous_timeframe_start,
       current_timeframe_start,
       timeframe_end,
       snapshot_params.fetch(:school_ids, []),
