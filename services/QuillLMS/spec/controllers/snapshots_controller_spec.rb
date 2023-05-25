@@ -17,8 +17,12 @@ describe SnapshotsController, type: :controller do
     let(:now) { DateTime.current }
     let(:current_snapshot_stub) { 'CURRENT' }
     let(:previous_snapshot_stub) { 'PREVIOUS' }
+    let(:school) { create(:school) }
+    let(:user) { create(:user, administered_schools: [school]) }
+    let(:school_ids) { [school.id.to_s] }
 
     before do
+      allow(controller).to receive(:current_user).and_return(user)
       allow(controller).to receive(:cache_key).and_return(cache_key)
       allow(DateTime).to receive(:current).and_return(now)
     end
@@ -31,11 +35,48 @@ describe SnapshotsController, type: :controller do
 
       expect(Rails.cache).to receive(:read).with(cache_key).and_return(payload)
 
-      get :count, params: { query: query_name, timeframe: timeframe_name }
+      get :count, params: { query: query_name, timeframe: timeframe_name, school_ids: school_ids }
 
       json_response = JSON.parse(response.body)
 
       expect(json_response).to eq(payload)
+    end
+
+    context 'authentication' do
+      it 'should return a 403 if the current_user is not an admin for all of the school_ids provided' do
+        school2 = create(:school)
+        expanded_school_ids = school_ids + [school2.id.to_s]
+
+        get :count, params: { query: query_name, timeframe: timeframe_name, school_ids: expanded_school_ids }
+
+        expect(response.status).to eq(403)
+      end
+    end
+
+    context 'param validation' do
+      it 'should 400 if the timeframe param is not provided' do
+        get :count, params: { query: query_name, school_ids: school_ids }
+
+        expect(response.status).to eq(400)
+      end
+
+      it 'should 400 if the timeframe param is not from the TIMEFRAME list' do
+        get :count, params: { query: query_name, timeframe: 'INVALID_TIMEFRAME', school_ids: school_ids }
+
+        expect(response.status).to eq(400)
+      end
+
+      it 'should 400 if the school_ids param is not provided' do
+        get :count, params: { query: query_name, timeframe: timeframe_name }
+
+        expect(response.status).to eq(400)
+      end
+
+      it 'should 400 if the school_ids param is empty' do
+        get :count, params: { query: query_name, timeframe: timeframe_name, school_ids: [] }
+
+        expect(response.status).to eq(400)
+      end      
     end
 
     context 'param variation' do
@@ -55,10 +96,10 @@ describe SnapshotsController, type: :controller do
             current_start: current_timeframe,
             current_end: timeframe_end
           },
-          nil,
+          school_ids,
           nil)
 
-        get :count, params: { query: query_name, timeframe: timeframe_name }
+        get :count, params: { query: query_name, timeframe: timeframe_name, school_ids: school_ids }
 
         json_response = JSON.parse(response.body)
 
@@ -66,7 +107,6 @@ describe SnapshotsController, type: :controller do
       end
 
       it 'should include school_ids and grades in the call to the cache worker if they are in params' do
-        school_ids = ["1","2","3"]
         grades = ["Kindergarten", "1", "2"]
 
         allow(controller).to receive(:calculate_timeframes).and_return([previous_timeframe, current_timeframe, timeframe_end])
@@ -102,10 +142,10 @@ describe SnapshotsController, type: :controller do
             current_start: current_start,
             current_end: current_end
           },
-          nil,
+          school_ids,
           nil)
 
-        get :count, params: { query: query_name, timeframe: timeframe_name, timeframe_custom_start: current_start.to_s, timeframe_custom_end: current_end.to_s }
+        get :count, params: { query: query_name, timeframe: timeframe_name, timeframe_custom_start: current_start.to_s, timeframe_custom_end: current_end.to_s, school_ids: school_ids }
       end
     end
   end
@@ -131,7 +171,7 @@ describe SnapshotsController, type: :controller do
         {"default"=>true, "name"=>"Last 30 days", "value"=>"last-30-days"},
         {"default"=>false, "name"=>"Last 90 days", "value"=>"last-90-days"},
         {"default"=>false, "name"=>"This month", "value"=>"this-month"},
-        {"default"=>false, "name"=>"This month", "value"=>"last-month"},
+        {"default"=>false, "name"=>"Last month", "value"=>"last-month"},
         {"default"=>false, "name"=>"This year", "value"=>"this-year"},
         {"default"=>false, "name"=>"Last year", "value"=>"last-year"},
         {"default"=>false, "name"=>"All time", "value"=>"all-time"},
@@ -180,7 +220,7 @@ describe SnapshotsController, type: :controller do
       timeframe_length = custom_end - custom_start
 
       allow(controller).to receive(:snapshot_params).and_return({
-        timeframe: Snapshots::CacheKeys::CUSTOM_TIMEFRAME_NAME,
+        timeframe: 'custom',
         timeframe_custom_start: custom_start.to_s,
         timeframe_custom_end: custom_end.to_s
       })

@@ -24,7 +24,7 @@ class SnapshotsController < ApplicationController
       current_end: proc { |end_of_yesterday| end_of_yesterday },
     }, {
       value: 'last-month',
-      name: 'This month',
+      name: 'Last month',
       previous_start: proc { |end_of_yesterday| end_of_yesterday.beginning_of_month - 2.months },
       current_start: proc { |end_of_yesterday| end_of_yesterday.beginning_of_month - 1.month },
       current_end: proc { |end_of_yesterday| end_of_yesterday.beginning_of_month },
@@ -47,7 +47,7 @@ class SnapshotsController < ApplicationController
       current_start: proc { DateTime.new(2010,1,1) }, # This is well before anydata exists in our system, so works for "all time"
       current_end: proc { |end_of_yesterday| end_of_yesterday },
     }, {
-      value: Snapshots::CacheKeys::CUSTOM_TIMEFRAME_NAME,
+      value: 'custom',
       name: 'Custom',
       previous_start: :custom_previous_start,
       current_start: :custom_current_start,
@@ -72,6 +72,9 @@ class SnapshotsController < ApplicationController
     {value: "University", name: "University"},
     {value: "Other", name: "Other"}
   ]
+
+  before_action :validate_request, only: [:count]
+  before_action :authorize_request, only: [:count]
 
   def count
     response = Rails.cache.read(cache_key)
@@ -101,6 +104,26 @@ class SnapshotsController < ApplicationController
       schools: Snapshots::SchoolsOptionsQuery.run(current_user.id),
       grades: GRADE_OPTIONS
     }
+  end
+
+  private def validate_request
+    return render json: { error: 'timeframe must be present and valid' }, status: 400 unless timeframe_param_valid?
+
+    return render json: { error: 'school_ids are required' }, status: 400 unless school_ids_param_valid?
+  end
+
+  private def timeframe_param_valid?
+    TIMEFRAMES.map { |t| t[:value] }.include?(snapshot_params[:timeframe])
+  end
+
+  private def school_ids_param_valid?
+    snapshot_params[:school_ids]&.any?
+  end
+
+  private def authorize_request
+    schools_user_admins = current_user.administered_schools.pluck(:id)
+
+    return render json: { error: 'user is not authorized for all specified schools' }, status: 403 unless snapshot_params[:school_ids]&.all? { |param_id| schools_user_admins.include?(param_id.to_i) }
   end
 
   private def cache_key
