@@ -7,7 +7,7 @@ class FakeController < ApplicationController
   include Rails.application.routes.url_helpers
 
   def profile_path
-    "/profile"
+    '/profile'
   end
 
   def new_session_path
@@ -35,8 +35,8 @@ describe FakeController, type: :controller do
     context 'Accept: text/html' do
       it 'should return HTML, status 302' do
         get :example_action
-        expect(response).to redirect_to('/profile')
-        expect(response.status).to eq 302
+        expect(response).to redirect_to('/session/new')
+        expect(response.status).to eq 303
       end
     end
 
