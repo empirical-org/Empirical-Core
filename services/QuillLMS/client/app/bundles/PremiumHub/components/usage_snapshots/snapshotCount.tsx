@@ -7,16 +7,21 @@ const smallArrowDownIcon = <img alt="Arrow pointing down" src={`${process.env.CD
 const mediumArrowUpIcon = <img alt="Arrow pointing up" src={`${process.env.CDN_URL}/images/pages/administrator/medium_arrow_up_icon.svg`} />
 const mediumArrowDownIcon = <img alt="Arrow pointing down" src={`${process.env.CDN_URL}/images/pages/administrator/medium_arrow_down_icon.svg`} />
 
-interface SnapshotItemProps {
+interface SnapshotCountProps {
   label: string;
-  change: number;
   size: 'small'|'medium';
-  count?: number;
-  changeDirection?: 'positive'|'negative';
+  queryKey: string;
+  comingSoon?: boolean;
 }
 
-const SnapshotCount = ({ count, label, change, size, changeDirection,}: SnapshotItemProps) => {
-  const className = `snapshot-item ${size} ${changeDirection || ''}`
+const SnapshotCount = ({ label, size, queryKey, comingSoon, }: SnapshotCountProps) => {
+  const [count, setCount] = React.useState(null)
+  const [change, setChange] = React.useState(0)
+  const [changeDirection, setChangeDirection] = React.useState(null)
+
+  // query will happen in here
+
+  const className = `snapshot-item snapshot-count ${size} ${changeDirection || ''}`
 
   let icon
 
@@ -29,7 +34,7 @@ const SnapshotCount = ({ count, label, change, size, changeDirection,}: Snapshot
   return (
     <section className={className}>
       <div className="count-and-label">
-        <span className="count">{count?.toLocaleString() || '—'}</span>
+        {comingSoon ? <span className="coming-soon">Coming soon</span> : <span className="count">{count?.toLocaleString() || '—'}</span>}
         <span className="snapshot-label">{label}</span>
       </div>
       <div className="change">

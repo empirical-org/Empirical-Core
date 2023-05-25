@@ -1,15 +1,7 @@
 import React from 'react'
 
-import Highlights from '../components/usage_snapshots/highlights'
-
-const ALL = 'All'
-const HIGHLIGHTS = 'Highlights'
-const USERS = 'Users'
-const PRACTICE = 'Practice'
-const CLASSROOMS = 'Classrooms'
-const SCHOOLS = 'Schools'
-
-const TAB_NAMES = [ALL, HIGHLIGHTS, USERS, PRACTICE, CLASSROOMS, SCHOOLS]
+import SnapshotSection from '../components/usage_snapshots/snapshotSection'
+import { snapshotSections, TAB_NAMES, ALL, } from '../components/usage_snapshots/shared'
 
 const Tab = ({ section, setSelectedTab, selectedTab }) => {
   function handleSetSelectedTab() { setSelectedTab(section) }
@@ -36,11 +28,15 @@ const UsageSnapshotsContainer = ({}) => {
     />
   ))
 
-  const tabNameToComponent = {
-    [HIGHLIGHTS]: <Highlights />
-  }
-
-  const visibleSections = selectedTab === ALL ? Object.values(tabNameToComponent) : [tabNameToComponent[selectedTab]]
+  const sectionsToShow = selectedTab === ALL ? snapshotSections : snapshotSections.filter(s => s.name === selectedTab)
+  const snapshotSectionComponents = sectionsToShow.map(section => (
+    <SnapshotSection
+      className={section.className}
+      itemGroupings={section.itemGroupings}
+      key={section.name}
+      name={section.name}
+    />
+  ))
 
   return (
     <div className="usage-snapshots-container white-background-accommodate-footer">
@@ -55,7 +51,7 @@ const UsageSnapshotsContainer = ({}) => {
           {tabs}
         </div>
         <div className="sections">
-          {visibleSections}
+          {snapshotSectionComponents}
         </div>
       </main>
     </div>

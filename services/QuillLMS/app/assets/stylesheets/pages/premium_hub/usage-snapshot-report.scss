@@ -57,18 +57,18 @@
         color: #373737;
         margin-bottom: 16px;
       }
-      .snapshot-section-content {
-        display: grid;
-        display: grid;
-        grid-template-columns: repeat(2, 1fr);
-        gap: 16px;
-      }
       .snapshot-item {
         background: #F8F8F8;
         border: 1px solid #E0E0E0;
         border-radius: 8px;
         display: flex;
         justify-content: space-between;
+        .coming-soon {
+          font-weight: 700;
+          font-size: 18px;
+          line-height: 22px;
+          color: #757575;
+        }
         .count-and-label {
           display: flex;
           flex-direction: column;
@@ -124,6 +124,63 @@
           .change {
             color: #F65C3A;
           }
+        }
+      }
+      .snapshot-ranking {
+        padding: 32px;
+        display: flex;
+        flex-direction: column;
+        .header {
+          margin-bottom: 26px;
+        }
+        .table {
+          margin-bottom: 0px;
+        }
+        .header-row {
+          border-top: 1px solid #AEAEAE;
+          span {
+            font-weight: 700;
+            font-size: 14px;
+            line-height: 17px;
+            color: #373737;
+          }
+        }
+        .header-row, .data-row {
+          padding: 12px 0px;
+          display: flex;
+          justify-content: space-between;
+          color: #373737;
+          font-size: 14px;
+        }
+        .data-row {
+          border-top: 1px solid #E0E0E0;
+          span:first-of-type {
+            font-weight: 400;
+            line-height: 16px;
+          }
+          span:last-of-type {
+            font-weight: 700;
+            line-height: 17px;
+          }
+        }
+      }
+      &.highlights {
+        .counts {
+          display: grid;
+          grid-template-columns: repeat(2, 1fr);
+          gap: 16px;
+        }
+      }
+      &.users {
+        .snapshot-section-content {
+          display: grid;
+          grid-template-columns: repeat(2, 1fr);
+          gap: 16px;
+        }
+        .counts {
+          display: grid;
+          grid-template: repeat(2, 1fr) / repeat(2, 1fr);
+          gap: 16px;
         }
       }
     }
