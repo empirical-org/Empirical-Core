@@ -148,7 +148,7 @@ export const snapshotSections = [
         ]
       },
       {
-        className: 'third-row',
+        className: 'third-and-fourth-row',
         items: [
           {
             label: 'Baseline diagnostics assigned',
@@ -178,11 +178,6 @@ export const snapshotSections = [
             queryKey: 'growth-diagnostics-completed',
             comingSoon: true
           },
-        ]
-      },
-      {
-        className: 'fourth-row',
-        items: [
           {
             label: 'Average activities completed per student',
             size: SMALL,

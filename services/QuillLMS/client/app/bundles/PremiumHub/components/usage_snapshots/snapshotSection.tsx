@@ -2,7 +2,8 @@ import React from 'react'
 
 import SnapshotCount from './snapshotCount'
 import SnapshotRanking from './snapshotRanking'
-import { SMALL, MEDIUM, POSITIVE, NEGATIVE, COUNT, RANKING, } from './shared'
+import SnapshotFeedback from './snapshotFeedback'
+import { COUNT, RANKING, FEEDBACK, } from './shared'
 
 const SnapshotSection = ({ name, className, itemGroupings, }) => {
   const snapshotItemGroupings = itemGroupings.map(grouping => {
@@ -28,6 +29,8 @@ const SnapshotSection = ({ name, className, itemGroupings, }) => {
             queryKey={queryKey}
           />
         )
+      } else if (type === FEEDBACK) {
+        return <SnapshotFeedback />
       }
     })
 
