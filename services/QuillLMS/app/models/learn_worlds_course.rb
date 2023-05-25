@@ -19,4 +19,8 @@ class LearnWorldsCourse < ApplicationRecord
 
   validates :title, presence: true
   validates :external_id, presence: true, uniqueness: true
+
+  def self.titles_string
+    pluck(:title).join(',')
+  end
 end
