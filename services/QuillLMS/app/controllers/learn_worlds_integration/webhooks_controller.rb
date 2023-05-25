@@ -6,7 +6,7 @@ module LearnWorldsIntegration
     class InvalidSignatureError < Error; end
     class UnknownEventTypeError < Error; end
 
-    EVENT_TYPE_HANDLER_MAPPING = {
+    HANDLER_MAPPING = {
       'enrolledFreeCourse' => LearnWorldsIntegration::Webhooks::EnrolledFreeCourseEventHandler,
       'courseCompleted' => LearnWorldsIntegration::Webhooks::CourseCompletedEventHandler,
       'awardedCertificate' => LearnWorldsIntegration::Webhooks::EarnedCertificateEventHandler
@@ -34,7 +34,7 @@ module LearnWorldsIntegration
     end
 
     private def payload
-      @payload ||= JSON.parse(request.body.read)
+      @payload ||= JSON.parse(request.body.string)
     end
 
     private def signature_header
