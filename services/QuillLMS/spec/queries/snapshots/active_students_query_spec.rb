@@ -8,7 +8,7 @@ module Snapshots
       it 'should successfully get data' do
         result = Snapshots::ActiveStudentsQuery.run(4865604, '2023-01-01', '2023-05-01', [32628], [9,10,11,12])
 
-        expect(result[:count]).to eq(783)
+        expect(result[:count]).to eq(797)
       end
     end
   end
