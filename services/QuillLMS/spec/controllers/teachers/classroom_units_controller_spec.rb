@@ -113,7 +113,7 @@ describe Teachers::ClassroomUnitsController, type: :controller do
       it 'should redirect to login' do
         get :launch_lesson, params: { id: classroom_unit.id, lesson_uid: activity.uid }
 
-        expect(response).to redirect_to('/session/new')
+        expect(response).to redirect_to('/profile')
       end
     end
 
@@ -122,7 +122,7 @@ describe Teachers::ClassroomUnitsController, type: :controller do
       it 'should redirect to login' do
         get :mark_lesson_as_completed, params: { id: classroom_unit.id, lesson_uid: activity.uid }
 
-        expect(response).to redirect_to('/session/new')
+        expect(response).to redirect_to('/profile')
       end
     end
   end
