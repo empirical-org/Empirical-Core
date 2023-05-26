@@ -9,6 +9,7 @@ module Auth
     def courses
       if learn_worlds_access? && sso_success?
         create_learn_worlds_user
+        update_last_login
         redirect_to learn_worlds_courses_endpoint
       else
         redirect_to root_path
@@ -35,6 +36,10 @@ module Auth
 
     private def sso_success?
       sso_response["success"] == true
+    end
+
+    private def update_last_login
+      current_user.learn_worlds_account.update(last_login: DateTime.current)
     end
   end
 end
