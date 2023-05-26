@@ -73,29 +73,58 @@ const UsageSnapshotsContainer = ({}) => {
   const [selectedSchools, setSelectedSchools] = React.useState(null)
   const [selectedGrades, setSelectedGrades] = React.useState(null)
   const [selectedTimeframe, setSelectedTimeframe] = React.useState(null)
+  const [hasAdjustedFilters, setHasAdjustedFilters] = React.useState(null)
   const [customStartDate, setCustomStartDate] = React.useState(null)
   const [customEndDate, setCustomEndDate] = React.useState(null)
-
+  const [searchCount, setSearchCount] = React.useState(0)
   const [selectedTab, setSelectedTab] = React.useState(ALL)
+  const [filterButtonsAreFixed, setFilterButtonsAreFixed] = React.useState(true)
 
   React.useEffect(() => {
     getFilters()
   }, [])
+
+  React.useEffect(() => {
+    const el = document.getElementsByClassName('home-footer')[0]
+    const observer = new IntersectionObserver(([entry]) => { entry.isIntersecting ? setFilterButtonsAreFixed(false) : setFilterButtonsAreFixed(true); });
+
+    el && observer.observe(el);
+  }, []);
+
+  React.useEffect(() => {
+    if (selectedSchools !== allSchools || selectedGrades !== allGrades || selectedTimeframe !== defaultTimeframe(allTimeframes)) {
+      setHasAdjustedFilters(true)
+    }
+  }, [selectedSchools, selectedGrades, selectedTimeframe])
+
+  function defaultTimeframe(timeframes) {
+    return timeframes?.find(timeframe => timeframe.default) || null
+  }
 
   function getFilters() {
     const timeframeOptions = filterData.timeframes.map(tf => ({ ...tf, label: tf.name }))
     const gradeOptions = filterData.grades.map(grade => ({ ...grade, label: grade.name }))
     const schoolOptions = filterData.schools.map(school => ({ ...school, label: school.name, value: school.id }))
 
-    const defaultTimeFrame = timeframeOptions.find(timeframe => timeframe.default)
-
     setAllGrades(gradeOptions)
     setAllTimeframes(timeframeOptions)
     setAllSchools(schoolOptions)
     setSelectedGrades(gradeOptions)
     setSelectedSchools(schoolOptions)
-    setSelectedTimeframe(defaultTimeFrame.value)
+    setSelectedTimeframe(defaultTimeframe(timeframeOptions))
     setLoadingFilters(false)
+  }
+
+  function clearFilters() {
+    setSelectedGrades(allGrades)
+    setSelectedSchools(allSchools)
+    setSelectedTimeframe(defaultTimeframe(allTimeframes))
+    applyFilters()
+    setHasAdjustedFilters(false)
+  }
+
+  function applyFilters() {
+    setSearchCount(searchCount + 1)
   }
 
   if (loadingFilters) {
@@ -103,8 +132,6 @@ const UsageSnapshotsContainer = ({}) => {
   }
 
   function handleClickDownloadReport() { window.print() }
-
-  function onChangeTimeframe(timeframe) { setSelectedTimeframe(timeframe.value) }
 
   function handleRemoveSchool(school) {
     const newSchools = selectedSchools.filter(s => s.id !== school.id)
@@ -115,8 +142,6 @@ const UsageSnapshotsContainer = ({}) => {
     const newGrades = selectedGrades.filter(g => g.value !== grade.value)
     setSelectedGrades(newGrades)
   }
-
-  const selectedTimeFrameOption = allTimeframes.find(tf => tf.value === selectedTimeframe)
 
   const schoolSearchTokens = selectedSchools !== allSchools && selectedSchools.map(s => (
     <SearchToken
@@ -150,21 +175,39 @@ const UsageSnapshotsContainer = ({}) => {
       itemGroupings={section.itemGroupings}
       key={section.name}
       name={section.name}
+      searchCount={searchCount}
+      selectedGrades={selectedGrades}
+      selectedSchools={selectedSchools}
+      selectedTimeframe={selectedTimeframe}
     />
   ))
 
+  function renderFilterButtons(alwaysShow) {
+    if (!hasAdjustedFilters) { return null }
+
+    if (!alwaysShow && !filterButtonsAreFixed) { return null }
+
+    return (
+      <div className={`filter-buttons ${filterButtonsAreFixed && !alwaysShow ? 'fixed' : ''}`}>
+        <button className="quill-button small outlined secondary focus-on-light" onClick={clearFilters} type="button">Clear filters</button>
+        <button className="quill-button small contained primary focus-on-light" onClick={applyFilters} type="button">Apply filters</button>
+      </div>
+    )
+  }
+
+
   return (
-    <div className="usage-snapshots-container white-background-accommodate-footer">
+    <div className="usage-snapshots-container white-background">
       <section className="filter-container">
         <div className="filters">
           <label className="filter-label" htmlFor="timeframe-filter">Timeframe</label>
           <DropdownInput
-            handleChange={onChangeTimeframe}
+            handleChange={setSelectedTimeframe}
             id="timeframe-filter"
             isSearchable={false}
             label=""
             options={allTimeframes}
-            value={selectedTimeFrameOption}
+            value={selectedTimeframe}
           />
           <label className="filter-label" htmlFor="school-filter">School</label>
           <DropdownInput
@@ -177,7 +220,7 @@ const UsageSnapshotsContainer = ({}) => {
             optionType='school'
             value={selectedSchools}
           />
-          {schoolSearchTokens}
+          <div className="search-tokens">{schoolSearchTokens}</div>
           <label className="filter-label" htmlFor="grade-filter">Grade</label>
           <DropdownInput
             handleChange={setSelectedGrades}
@@ -189,8 +232,10 @@ const UsageSnapshotsContainer = ({}) => {
             optionType='grade'
             value={selectedGrades}
           />
-          {gradeSearchTokens}
+          <div className="search-tokens">{gradeSearchTokens}</div>
         </div>
+        {renderFilterButtons(true)}
+        {renderFilterButtons(false)}
       </section>
       <main>
         <div className="header">

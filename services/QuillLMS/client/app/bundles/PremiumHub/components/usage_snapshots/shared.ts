@@ -1,3 +1,24 @@
+// interfaces
+export interface Grade {
+  label: string;
+  name: string;
+  value: string;
+}
+
+export interface School {
+  label: string;
+  name: string;
+  value: number;
+  id: number;
+}
+
+export interface Timeframe {
+  label: string;
+  name: string;
+  value: string;
+  default: boolean;
+}
+
 // sizes
 export const SMALL = 'small'
 export const MEDIUM = 'medium'
@@ -20,7 +41,6 @@ const CLASSROOMS = 'Classrooms'
 const SCHOOLS = 'Schools'
 
 export const TAB_NAMES = [ALL, HIGHLIGHTS, USERS, PRACTICE, CLASSROOMS, SCHOOLS]
-
 
 export const snapshotSections = [
   {

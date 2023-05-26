@@ -1,6 +1,6 @@
 import React from 'react'
 
-import { SMALL, MEDIUM, POSITIVE, NEGATIVE, } from './shared'
+import { SMALL, MEDIUM, POSITIVE, NEGATIVE, Grade, School, Timeframe, } from './shared'
 
 const smallArrowUpIcon = <img alt="Arrow pointing up" src={`${process.env.CDN_URL}/images/pages/administrator/small_arrow_up_icon.svg`} />
 const smallArrowDownIcon = <img alt="Arrow pointing down" src={`${process.env.CDN_URL}/images/pages/administrator/small_arrow_down_icon.svg`} />
@@ -11,10 +11,14 @@ interface SnapshotCountProps {
   label: string;
   size: 'small'|'medium';
   queryKey: string;
+  searchCount: number;
+  selectedGrades: Array<Grade>;
+  selectedSchools: Array<School>;
+  selectedTimeframe: Array<Timeframe>;
   comingSoon?: boolean;
 }
 
-const SnapshotCount = ({ label, size, queryKey, comingSoon, }: SnapshotCountProps) => {
+const SnapshotCount = ({ label, size, queryKey, comingSoon, searchCount, selectedGrades, selectedSchools, selectedTimeframe, }: SnapshotCountProps) => {
   const [count, setCount] = React.useState(null)
   const [change, setChange] = React.useState(0)
   const [changeDirection, setChangeDirection] = React.useState(null)

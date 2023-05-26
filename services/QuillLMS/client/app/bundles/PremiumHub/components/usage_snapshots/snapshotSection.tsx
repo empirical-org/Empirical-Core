@@ -5,28 +5,33 @@ import SnapshotRanking from './snapshotRanking'
 import SnapshotFeedback from './snapshotFeedback'
 import { COUNT, RANKING, FEEDBACK, } from './shared'
 
-const SnapshotSection = ({ name, className, itemGroupings, }) => {
+const SnapshotSection = ({ name, className, itemGroupings, searchCount, selectedGrades, selectedSchools, selectedTimeframe }) => {
   const snapshotItemGroupings = itemGroupings.map(grouping => {
     const snapshotItems = grouping.items.map(item => {
       const {label, size, type, queryKey, comingSoon, headers, } = item
+      const sharedProps = {
+        comingSoon,
+        key: queryKey,
+        label,
+        queryKey,
+        searchCount,
+        selectedGrades,
+        selectedSchools,
+        selectedTimeframe
+      }
+
       if (type === COUNT) {
         return (
           <SnapshotCount
-            comingSoon={comingSoon}
-            key={queryKey}
-            label={label}
-            queryKey={queryKey}
+            {...sharedProps}
             size={size}
           />
         )
       } else if (type === RANKING) {
         return (
           <SnapshotRanking
-            comingSoon={comingSoon}
+            {...sharedProps}
             headers={headers}
-            key={queryKey}
-            label={label}
-            queryKey={queryKey}
           />
         )
       } else if (type === FEEDBACK) {

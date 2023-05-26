@@ -1,13 +1,19 @@
 import React from 'react'
 
+import { Grade, School, Timeframe, } from './shared'
+
 interface SnapshotRankingProps {
   label: string;
   headers: Array<string>;
   queryKey: string;
+  searchCount: number;
+  selectedGrades: Array<Grade>;
+  selectedSchools: Array<School>;
+  selectedTimeframe: Array<Timeframe>;
   comingSoon?: boolean;
 }
 
-const SnapshotRanking = ({ label, queryKey, headers, comingSoon, }: SnapshotRankingProps) => {
+const SnapshotRanking = ({ label, queryKey, headers, comingSoon, searchCount, selectedGrades, selectedSchools, selectedTimeframe, }: SnapshotRankingProps) => {
   const [data, setData] = React.useState(null)
 
   // query goes here
