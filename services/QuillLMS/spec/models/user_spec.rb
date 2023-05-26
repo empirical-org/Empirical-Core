@@ -1799,7 +1799,7 @@ describe User, type: :model do
       before do
         create(
           :app_setting,
-          name: User::LEARN_WORLDS_ACCESS_OVERRIDE,
+          name: AppSetting::LEARN_WORLDS_ACCESS_OVERRIDE,
           enabled: true,
           user_ids_allow_list: [user.id]
         )
