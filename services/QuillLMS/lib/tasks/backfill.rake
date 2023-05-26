@@ -9,11 +9,9 @@ namespace :backfill do
 
     fill_datetime = args[:fill_datetime] ? DateTime.parse(args[:fill_datetime]) : fallback_fill_datetime
 
-    records = klass.unscoped.where(updated_at: nil)
-
-    records.each do |record|
+    klass.unscoped.where(updated_at: nil).find_each do |record|
       backfill_value = record.created_at || fill_datetime
-      puts "updating #{klass} with id #{record.id}"
+      puts "updating #{klass} with id #{record.id}, created_at: #{record.created_at}, to updated_at value #{backfill_value}"
 
       record.update_columns(
         updated_at: backfill_value
