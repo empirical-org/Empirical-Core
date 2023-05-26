@@ -6,10 +6,16 @@ module Snapshots
   describe ActiveClassroomsQuery do
     include_context 'Snapshot Query Params'
 
-    context 'external_api', :external_api do
+    around do |example|
+      VCR.configure { |c| c.allow_http_connections_when_no_cassette = true }
+      example.run
+      VCR.configure { |c| c.allow_http_connections_when_no_cassette = false }
+    end
+
+    context 'external_api' do
       let(:big_query_runner) { QuillBigQuery::Runner }
 
-      # BigQuery doesn't support CTE aliases with period in the name, so we need to remove the `lms.` prefix
+      # BigQuery doesn't support CTE aliases with period in the name, so we need to remove the `lms.` prefix from 'FROM' and 'JOIN' clauses
       let(:query) { ActiveClassroomsQuery.new("", "", []).query.gsub(/(FROM|JOIN) lms\.(\w+)/, '\1 \2') }
 
       let(:num_classrooms) { 2 }
