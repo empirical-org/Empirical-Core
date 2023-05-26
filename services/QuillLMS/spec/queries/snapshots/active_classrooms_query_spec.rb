@@ -7,11 +7,47 @@ module Snapshots
     include_context 'Snapshot Query Params'
 
     context 'external_api', :external_api do
-      it 'should successfully get data' do
-        result = described_class.run(timeframe_start, timeframe_end, school_ids, grades)
+      let(:big_query_runner) { QuillBigQuery::Runner }
 
-        expect(result[:count]).to eq(34)
+      # BigQuery doesn't support CTE aliases with period in the name, so we need to remove the `lms.` prefix
+      let(:query) { ActiveClassroomsQuery.new("", "", []).query.gsub(/(FROM|JOIN) lms\.(\w+)/, '\1 \2') }
+
+      let(:num_classrooms) { 2 }
+      let!(:classrooms) { create_list(:classroom, num_classrooms) }
+      let(:classrooms_teachers) { classrooms.map(&:reload).map(&:classrooms_teachers).flatten }
+
+      let!(:classrooms_data) { data_helper(classrooms) }
+
+      let!(:classrooms_teachers_data) { data_helper(ClassroomsTeacher.all) }
+
+      let(:cte_query) do
+        <<-SQL
+          WITH
+            classrooms AS ( #{classrooms_data} ),
+            classrooms_teachers AS ( #{classrooms_teachers_data} )
+          #{query}
+        SQL
       end
+
+      let(:actual_results) { big_query_runner.execute(cte_query) }
+      let(:expected_results) do
+        [
+          { 'classrooms_count' => classrooms.count,
+            'classrooms_teachers_count' => classrooms_teachers.count
+          }
+        ]
+      end
+
+      it 'should successfully get data' do
+        expect(actual_results).to eq expected_results
+      end
+    end
+
+    def data_helper(records)
+      records
+        .map { |record| record.attributes }
+        .map { |attrs| "SELECT " + attrs.map { |k, v| "'#{v}' AS #{k}" }.join(', ') }
+        .join(" UNION ALL \n")
     end
   end
 end
