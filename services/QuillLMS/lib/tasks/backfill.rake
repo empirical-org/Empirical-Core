@@ -16,7 +16,7 @@ namespace :backfill do
       puts "updating #{klass} with id #{record.id}"
 
       record.update_columns(
-        updated_at: backfill_value,
+        updated_at: backfill_value
       )
     end
 
