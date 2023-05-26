@@ -125,10 +125,8 @@ module QuillAuthentication
 
   def auth_failed(hard: true)
     if request.headers['Accept'] == 'application/json'
-      render(json: { redirect: new_session_path }, status: 401) and return
-    end
-
-    if hard
+      render(json: { redirect: new_session_path }, status: 401)
+    elsif hard
       sign_out
       session[:attempted_path] = request.fullpath
       redirect_to(new_session_path, status: :see_other)

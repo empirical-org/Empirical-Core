@@ -24,7 +24,7 @@ describe Api::V1::ClassroomUnitsController, type: :controller do
   end
   let(:teacher) { classroom.owner }
 
-  before(:each) {  request.accept = 'application/json' }
+  before {  request.accept = 'application/json' }
 
   context '#student_names' do
     it 'does not authenticate a teacher who is not associated with the classroom activity' do
