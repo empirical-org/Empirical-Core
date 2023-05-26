@@ -3,9 +3,32 @@
   section {
     border-bottom: none;
   }
-  .filters {
+  .filter-container {
     width: 317px;
     border-right: 1px solid #E0E0E0;
+    padding: 32px 24px;
+    .filter-label {
+      font-size: 16px;
+      line-height: 22px;
+      &:not(:first-of-type) {
+        margin-top: 24px;
+      }
+    }
+    .input-container.checkbox-dropdown .dropdown__control {
+      width: 100%;
+    }
+    .search-token {
+      padding: 6px 6px 6px 16px;
+      background: #06806B;
+      border-radius: 16px;
+      color: white;
+      width: min-content;
+      display: flex;
+      margin-bottom: 16px;
+      span {
+        margin-right: 10px;
+      }
+    }
   }
   main {
     padding: 32px 64px;
