@@ -36,6 +36,7 @@ module Snapshots
       end
 
       let(:actual_results) { big_query_runner.execute(cte_query) }
+
       let(:expected_results) do
         [
           { 'classrooms_count' => classrooms.count,
@@ -45,14 +46,15 @@ module Snapshots
       end
 
       it 'should successfully get data' do
+        puts cte_query
         expect(actual_results).to eq expected_results
       end
     end
 
     def data_helper(records)
       records
-        .map { |record| record.attributes }
-        .map { |attrs| "SELECT " + attrs.map { |k, v| "'#{v}' AS #{k}" }.join(', ') }
+        .map { |record| record.attributes.except('order') }
+        .map { |attrs| [:SELECT, attrs.map { |k, v| "'#{v}' AS #{k}" }.join(', ') ].join(' ') }
         .join(" UNION ALL \n")
     end
   end
