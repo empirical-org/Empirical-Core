@@ -5,8 +5,8 @@ require 'rails_helper'
 RSpec.describe ActivityFeedbackHistory, type: :model do
 
   before do
-    @main_activity = Evidence::Activity.create!(notes: 'Title_1', title: 'Title 1', parent_activity_id: 1, target_level: 1)
-    @prompt1 = Evidence::Prompt.create!(activity: @main_activity, conjunction: 'because', text: 'Some feedback text', max_attempts_feedback: 'Feedback')
+    @main_activity = create(:evidence_activity, notes: 'Title_1', title: 'Title 1', parent_activity_id: 1, target_level: 1)
+    @prompt1 = create(:evidence_prompt, activity: @main_activity, conjunction: 'because', text: 'Some feedback text', max_attempts_feedback: 'Feedback')
   end
 
   describe '#activity_stats_query' do

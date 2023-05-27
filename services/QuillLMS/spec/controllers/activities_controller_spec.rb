@@ -182,10 +182,10 @@ describe ActivitiesController, type: :controller, redis: true do
   end
 
   describe '#suggested_activities' do
-    let!(:production_activity1) { create(:evidence_activity, flags: [Flags::PRODUCTION])}
-    let!(:production_activity2) { create(:evidence_activity, flags: [Flags::PRODUCTION])}
-    let!(:beta2_activity) { create(:evidence_activity, flags: [Flags::EVIDENCE_BETA2])}
-    let!(:beta1_activity) { create(:evidence_activity, flags: [Flags::EVIDENCE_BETA1])}
+    let!(:production_activity1) { create(:evidence_lms_activity, flags: [Flags::PRODUCTION])}
+    let!(:production_activity2) { create(:evidence_lms_activity, flags: [Flags::PRODUCTION])}
+    let!(:beta2_activity) { create(:evidence_lms_activity, flags: [Flags::EVIDENCE_BETA2])}
+    let!(:beta1_activity) { create(:evidence_lms_activity, flags: [Flags::EVIDENCE_BETA1])}
     let(:teacher_info) { create(:teacher_info, minimum_grade_level: 9, maximum_grade_level: 12)}
     let(:user) { create(:user, flagset: Flags::PRODUCTION, teacher_info: teacher_info)}
 
@@ -193,7 +193,7 @@ describe ActivitiesController, type: :controller, redis: true do
       Evidence::Activity.create(parent_activity_id: production_activity1.id, notes: "notes", title: "title")
       Evidence::Activity.create(parent_activity_id: production_activity2.id, notes: "notes", title: "title")
       Evidence::Activity.create(parent_activity_id: beta1_activity.id, notes: "notes", title: "title")
-      Evidence::Activity.create(parent_activity_id: beta2_activity.id, notes: "notes", title: "title")
+      create(:evidence_activity, parent_activity_id: beta2_activity.id, notes: "notes", title: "title")
       allow(controller).to receive(:current_user) { user }
     end
 

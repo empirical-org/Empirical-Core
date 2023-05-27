@@ -105,7 +105,7 @@ FactoryBot.define do
     end
 
     factory :evidence_activity_session do
-      activity { create(:evidence_activity) }
+      activity { create(:evidence_lms_activity) }
       # We explicitly don't record percentages for Evidence sessions
       percentage { nil }
     end

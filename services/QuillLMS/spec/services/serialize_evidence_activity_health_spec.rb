@@ -5,14 +5,14 @@ require 'rails_helper'
 describe 'SerializeEvidenceActivityHealth' do
 
   before do
-    @activity = Evidence::Activity.create!(notes: 'Title_1', title: 'Title 1', parent_activity_id: 1, target_level: 1)
+    @activity = create(:evidence_activity, notes: 'Title_1', title: 'Title 1', parent_activity_id: 1, target_level: 1)
     @activity.update(flag: "production")
     @previous_version = @activity.version
     @activity.increment_version!
 
-    @because_prompt1 = Evidence::Prompt.create!(activity: @activity, conjunction: 'because', text: 'Some feedback text because', max_attempts_feedback: 'Feedback')
-    @but_prompt1 = Evidence::Prompt.create!(activity: @activity, conjunction: 'but', text: 'Some feedback text but', max_attempts_feedback: 'Feedback')
-    @so_prompt1 = Evidence::Prompt.create!(activity: @activity, conjunction: 'so', text: 'Some feedback text so', max_attempts_feedback: 'Feedback')
+    @because_prompt1 = create(:evidence_prompt, activity: @activity, conjunction: 'because', text: 'Some feedback text because', max_attempts_feedback: 'Feedback')
+    @but_prompt1 = create(:evidence_prompt, activity: @activity, conjunction: 'but', text: 'Some feedback text but', max_attempts_feedback: 'Feedback')
+    @so_prompt1 = create(:evidence_prompt, activity: @activity, conjunction: 'so', text: 'Some feedback text so', max_attempts_feedback: 'Feedback')
 
     @activity_session1 = create(:activity_session, state: "finished", timespent: 600)
     @activity_session2 = create(:activity_session, state: "finished", timespent: 300)

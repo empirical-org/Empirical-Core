@@ -58,8 +58,8 @@ describe Api::V1::SessionFeedbackHistoriesController, type: :controller do
 
       context 'activity_id' do
         before do
-          @activity = Evidence::Activity.create!(notes: 'Title 1', title: 'Title 1', parent_activity_id: 1, target_level: 1)
-          @prompt = Evidence::Prompt.create!(activity: @activity, conjunction: 'because', text: 'Some feedback text', max_attempts_feedback: 'Feedback')
+          @activity = create(:evidence_activity, notes: 'Title 1', title: 'Title 1', parent_activity_id: 1, target_level: 1)
+          @prompt = create(:evidence_prompt, activity: @activity, conjunction: 'because', text: 'Some feedback text', max_attempts_feedback: 'Feedback')
           create_list(:feedback_history, 10, prompt: @prompt)
           create_list(:feedback_history, 10)
         end
@@ -177,10 +177,10 @@ describe Api::V1::SessionFeedbackHistoriesController, type: :controller do
         end
 
         it 'should retrieve only complete sessions when filter_type is complete' do
-          activity = Evidence::Activity.create!(notes: 'Title 1', title: 'Title 1', parent_activity_id: 1, target_level: 1)
-          because_prompt = Evidence::Prompt.create!(activity: activity, conjunction: 'because', text: 'Some feedback text', max_attempts_feedback: 'Feedback')
-          but_prompt = Evidence::Prompt.create!(activity: activity, conjunction: 'but', text: 'Some feedback text', max_attempts_feedback: 'Feedback')
-          so_prompt = Evidence::Prompt.create!(activity: activity, conjunction: 'so', text: 'Some feedback text', max_attempts_feedback: 'Feedback')
+          activity = create(:evidence_activity, notes: 'Title 1', title: 'Title 1', parent_activity_id: 1, target_level: 1)
+          because_prompt = create(:evidence_prompt, activity: activity, conjunction: 'because', text: 'Some feedback text', max_attempts_feedback: 'Feedback')
+          but_prompt = create(:evidence_prompt, activity: activity, conjunction: 'but', text: 'Some feedback text', max_attempts_feedback: 'Feedback')
+          so_prompt = create(:evidence_prompt, activity: activity, conjunction: 'so', text: 'Some feedback text', max_attempts_feedback: 'Feedback')
           activity_session = create(:activity_session)
           feedback_history3 = create(:feedback_history, feedback_session_uid: activity_session.uid, prompt: because_prompt, optimal: true)
           feedback_history4 = create(:feedback_history, feedback_session_uid: activity_session.uid, prompt: but_prompt, optimal: true)
@@ -218,7 +218,7 @@ describe Api::V1::SessionFeedbackHistoriesController, type: :controller do
 
   context "email_csv_data" do
     let!(:user) { create(:user)}
-    let!(:activity) { create(:evidence_activity) }
+    let!(:activity) { create(:evidence_lms_activity) }
 
     before { allow(controller).to receive(:current_user) { user } }
 
