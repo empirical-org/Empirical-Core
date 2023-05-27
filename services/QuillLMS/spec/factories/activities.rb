@@ -87,10 +87,10 @@ FactoryBot.define do
       end
     end
 
-    factory :evidence_activity do
-      classification { ActivityClassification.find_by_key(attributes_for(:evidence)[:key]) || create(:evidence) }
-      activity_classification_id { ActivityClassification.find_by_key(attributes_for(:evidence)[:key])&.id || create(:evidence).id }
-    end
+    # factory :evidence_activity do
+    #   classification { ActivityClassification.find_by_key(attributes_for(:evidence)[:key]) || create(:evidence) }
+    #   activity_classification_id { ActivityClassification.find_by_key(attributes_for(:evidence)[:key])&.id || create(:evidence).id }
+    # end
 
     trait :production do
       flags ['production']
