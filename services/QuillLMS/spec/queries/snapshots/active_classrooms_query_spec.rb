@@ -39,7 +39,8 @@ module Snapshots
 
       let(:expected_results) do
         [
-          { 'classrooms_count' => classrooms.count,
+          {
+            'classrooms_count' => classrooms.count,
             'classrooms_teachers_count' => classrooms_teachers.count
           }
         ]
@@ -54,7 +55,7 @@ module Snapshots
     def data_helper(records)
       records
         .map { |record| record.attributes.except('order') }
-        .map { |attrs| [:SELECT, attrs.map { |k, v| "'#{v}' AS #{k}" }.join(', ') ].join(' ') }
+        .map { |attrs| [:SELECT, attrs.map { |k, v| "'#{v}' AS #{k}" }.join(', ')].join(' ') }
         .join(" UNION ALL \n")
     end
   end
