@@ -330,6 +330,11 @@
           margin-right: 20px;
         }
       }
+      .DateInput::after {
+        content: url('https://assets.quill.org/images/pages/administrator/calendar.svg');
+        position: absolute;
+        right: 3px;
+      }
       .DateRangePicker_picker {
         top: 28px !important;
         left: -68px !important;

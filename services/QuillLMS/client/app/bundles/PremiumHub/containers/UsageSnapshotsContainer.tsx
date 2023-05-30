@@ -5,7 +5,7 @@ import { DateRangePicker } from 'react-dates';
 
 import SnapshotSection from '../components/usage_snapshots/snapshotSection'
 import { snapshotSections, TAB_NAMES, ALL, CUSTOM, } from '../components/usage_snapshots/shared'
-import { Spinner, DropdownInput, } from '../../Shared/index'
+import { Spinner, DropdownInput, KEYDOWN, MOUSEDOWN } from '../../Shared/index'
 
 const removeSearchTokenSrc = `${process.env.CDN_URL}/images/pages/administrator/remove_search_token.svg`
 
@@ -52,6 +52,7 @@ const CustomDateModal = ({ close, passedStartDate, setCustomDates, passedEndDate
   const [focusedInput, setFocusedInput] = React.useState("startDate")
   const [startDate, setStartDate] = React.useState(passedStartDate)
   const [endDate, setEndDate] = React.useState(passedEndDate)
+  const [buttonSectionStyle, setButtonSectionStyle] = React.useState({})
 
   function handleDateChange(newDates) {
     setStartDate(newDates.startDate)
@@ -66,6 +67,20 @@ const CustomDateModal = ({ close, passedStartDate, setCustomDates, passedEndDate
     if (!newFocusedInput) { return }
 
     setFocusedInput(newFocusedInput)
+  }
+
+  function calculateAndSetButtonSectionMarginTop(arg) {
+    const dateRangePickerPickerElements = document.getElementsByClassName('DayPicker')
+
+    if (dateRangePickerPickerElements.length === 0) { return }
+
+    const element = dateRangePickerPickerElements[0]
+
+    if (element.offsetHeight === 0) { return }
+
+    const buttonSectionMarginTop = (element.offsetHeight * 0.775) + 30
+
+    setButtonSectionStyle({ marginTop: buttonSectionMarginTop})
   }
 
   function isOutsideRange() { return false }
@@ -84,9 +99,11 @@ const CustomDateModal = ({ close, passedStartDate, setCustomDates, passedEndDate
           navPrev={leftArrowImg}
           onDatesChange={handleDateChange}
           onFocusChange={handleSetFocusedInput}
+          onNextMonthClick={calculateAndSetButtonSectionMarginTop}
+          onPrevMonthClick={calculateAndSetButtonSectionMarginTop}
           startDate={startDate}
         />
-        <div className="button-section">
+        <div className="button-section" style={buttonSectionStyle}>
           <button className="quill-button medium secondary outlined focus-on-light" onClick={close} type="button">Cancel</button>
           <button className="quill-button medium primary contained focus-on-light" onClick={handleClickApply} type="button">Apply</button>
         </div>
@@ -152,12 +169,6 @@ const UsageSnapshotsContainer = ({}) => {
   }, [selectedSchools, selectedGrades, selectedTimeframe])
 
   React.useEffect(() => {
-    if (selectedTimeframe?.value === CUSTOM) {
-      setShowCustomDateModal(true)
-    }
-  }, [selectedTimeframe])
-
-  React.useEffect(() => {
     if (showCustomDateModal || (customStartDate && customEndDate) || !lastUsedTimeframe) { return }
 
     setSelectedTimeframe(lastUsedTimeframe)
@@ -166,6 +177,10 @@ const UsageSnapshotsContainer = ({}) => {
   function handleSetSelectedTimeframe(timeframe) {
     setLastUsedTimeframe(selectedTimeframe)
     setSelectedTimeframe(timeframe)
+
+    if (timeframe.value === CUSTOM) {
+      setShowCustomDateModal(true)
+    }
   }
 
   function defaultTimeframe(timeframes) {
