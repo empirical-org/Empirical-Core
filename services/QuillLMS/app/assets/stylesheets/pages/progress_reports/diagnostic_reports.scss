@@ -772,5 +772,23 @@ $lightgray: #cecece;
     .table {
       overflow-x: auto !important;
     }
+    .classroom-selector {
+      flex-direction: column;
+      align-items: flex-start !important;
+    }
+    .activities-unit {
+      .unit-header-row {
+        flex-direction: column;
+        .unit-name {
+          margin-bottom: 0 !important;
+        }
+      }
+    }
+    .number-of-students:before {
+      top: -22px !important;
+    }
+    .row.activity {
+      min-height: 80px;
+    }
   }
 }
