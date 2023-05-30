@@ -299,7 +299,7 @@
     .button-section {
       display: flex;
       justify-content: flex-end;
-      margin-top: 264px; // accommodating calendar heights
+      margin-top: 298px; // accommodating calendar heights
       .quill-button {
         margin-left: 16px;
       }
@@ -352,6 +352,9 @@
         background: #ACD6CF;
         border: 1px solid #EBEBEB;
         color: inherit;
+      }
+      .DayPicker {
+        height: 337px;
       }
     }
   }

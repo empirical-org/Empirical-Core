@@ -69,20 +69,6 @@ const CustomDateModal = ({ close, passedStartDate, setCustomDates, passedEndDate
     setFocusedInput(newFocusedInput)
   }
 
-  function calculateAndSetButtonSectionMarginTop(arg) {
-    const dateRangePickerPickerElements = document.getElementsByClassName('DayPicker')
-
-    if (dateRangePickerPickerElements.length === 0) { return }
-
-    const element = dateRangePickerPickerElements[0]
-
-    if (element.offsetHeight === 0) { return }
-
-    const buttonSectionMarginTop = (element.offsetHeight * 0.775) + 30
-
-    setButtonSectionStyle({ marginTop: buttonSectionMarginTop})
-  }
-
   function isOutsideRange() { return false }
 
   return (
@@ -99,11 +85,9 @@ const CustomDateModal = ({ close, passedStartDate, setCustomDates, passedEndDate
           navPrev={leftArrowImg}
           onDatesChange={handleDateChange}
           onFocusChange={handleSetFocusedInput}
-          onNextMonthClick={calculateAndSetButtonSectionMarginTop}
-          onPrevMonthClick={calculateAndSetButtonSectionMarginTop}
           startDate={startDate}
         />
-        <div className="button-section" style={buttonSectionStyle}>
+        <div className="button-section">
           <button className="quill-button medium secondary outlined focus-on-light" onClick={close} type="button">Cancel</button>
           <button className="quill-button medium primary contained focus-on-light" onClick={handleClickApply} type="button">Apply</button>
         </div>
