@@ -13,6 +13,7 @@
     position: sticky;
     .filters {
       padding: 32px 24px;
+      height: calc(100% - 68px); // accounting for height of filter buttons
     }
     .filter-buttons {
       display: flex;
@@ -281,6 +282,75 @@
       }
     }
   }
+
+  .custom-date-modal {
+    max-width: 548px;
+    width: 100%;
+    background: #F7F5F5;
+    border: 1px solid #E0E0E0;
+    border-radius: 8px;
+    height: min-content;
+    h2 {
+      font-size: 24px;
+      line-height: 29px;
+      color: #373737;
+      margin-bottom: 24px;
+    }
+    .button-section {
+      display: flex;
+      justify-content: flex-end;
+      margin-top: 264px; // accommodating calendar heights
+      .quill-button {
+        margin-left: 16px;
+      }
+    }
+    .DateRangePicker {
+      width: 100%;
+      .DateRangePickerInput {
+        width: 100%;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        padding: 16px;
+      }
+      .DateInput {
+        border-radius: 0px;
+        width: 100%;
+        padding: 0px;
+        input {
+          height: 21px;
+          width: 100%;
+          padding: 0px;
+          border-bottom: 1px solid #E0E0E0;
+          &:focus {
+            border-bottom: 1px solid #06806B;
+          }
+        }
+        &:first-of-type {
+          margin-right: 20px;
+        }
+      }
+      .DateRangePicker_picker {
+        top: 28px !important;
+        left: -68px !important;
+        scale: 77.5%;
+      }
+      .DateRangePickerInput_arrow, .DateInput_fang, .DayPickerKeyboardShortcuts_buttonReset {
+        display: none;
+      }
+      .CalendarDay__selected, .CalendarDay__selected:active, .CalendarDay__selected:hover {
+        color: #fff;
+        background: #06806B;
+        border: 1px solid #EBEBEB;
+      }
+      .CalendarDay__selected_span, .CalendarDay__hovered_span, .CalendarDay__hovered_span:hover {
+        background: #ACD6CF;
+        border: 1px solid #EBEBEB;
+        color: inherit;
+      }
+    }
+  }
+
   @media (max-width: 1450px) {
     main {
       .snapshot-section.highlights .counts {

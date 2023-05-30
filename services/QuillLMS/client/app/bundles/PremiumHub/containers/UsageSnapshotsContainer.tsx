@@ -1,10 +1,16 @@
 import React from 'react'
+import "react-dates/initialize";
+import moment from 'moment'
+import { DateRangePicker } from 'react-dates';
 
 import SnapshotSection from '../components/usage_snapshots/snapshotSection'
-import { snapshotSections, TAB_NAMES, ALL, } from '../components/usage_snapshots/shared'
+import { snapshotSections, TAB_NAMES, ALL, CUSTOM, } from '../components/usage_snapshots/shared'
 import { Spinner, DropdownInput, } from '../../Shared/index'
 
 const removeSearchTokenSrc = `${process.env.CDN_URL}/images/pages/administrator/remove_search_token.svg`
+
+const rightArrowImg = <img alt="" src={`${process.env.CDN_URL}/images/pages/administrator/right_arrow.svg`} />
+const leftArrowImg = <img alt="" src={`${process.env.CDN_URL}/images/pages/administrator/left_arrow.svg`} />
 
 const filterData = {
   timeframes: [
@@ -15,7 +21,7 @@ const filterData = {
     {default: false, name: "This year",  value: "this-year"},
     {default: false, name: "Last year",  value: "last-year"},
     {default: false, name: "All time",  value: "all-time"},
-    {default: false, name: "Custom",  value: "custom"}
+    {default: false, name: "Custom date range",  value: "custom"}
   ],
   schools: [
     {"id":32628, name: "Wayne High School"},
@@ -42,6 +48,52 @@ const filterData = {
   ]
 }
 
+const CustomDateModal = ({ close, passedStartDate, setCustomDates, passedEndDate, }) => {
+  const [focusedInput, setFocusedInput] = React.useState("startDate")
+  const [startDate, setStartDate] = React.useState(passedStartDate)
+  const [endDate, setEndDate] = React.useState(passedEndDate)
+
+  function handleDateChange(newDates) {
+    setStartDate(newDates.startDate)
+    setEndDate(newDates.endDate)
+  }
+
+  function handleClickApply() {
+    setCustomDates(startDate, endDate)
+  }
+
+  function handleSetFocusedInput(newFocusedInput) {
+    if (!newFocusedInput) { return }
+
+    setFocusedInput(newFocusedInput)
+  }
+
+  function isOutsideRange() { return false }
+
+  return (
+    <div className="modal-container custom-date-modal-container">
+      <div className="modal-background" />
+      <div className="custom-date-modal quill-modal modal-body">
+        <h2>Select custom date range</h2>
+        <DateRangePicker
+          autoFocus={true}
+          endDate={endDate}
+          focusedInput={focusedInput}
+          isOutsideRange={isOutsideRange}
+          navNext={rightArrowImg}
+          navPrev={leftArrowImg}
+          onDatesChange={handleDateChange}
+          onFocusChange={handleSetFocusedInput}
+          startDate={startDate}
+        />
+        <div className="button-section">
+          <button className="quill-button medium secondary outlined focus-on-light" onClick={close} type="button">Cancel</button>
+          <button className="quill-button medium primary contained focus-on-light" onClick={handleClickApply} type="button">Apply</button>
+        </div>
+      </div>
+    </div>
+  )
+}
 
 const Tab = ({ section, setSelectedTab, selectedTab }) => {
   function handleSetSelectedTab() { setSelectedTab(section) }
@@ -79,6 +131,8 @@ const UsageSnapshotsContainer = ({}) => {
   const [searchCount, setSearchCount] = React.useState(0)
   const [selectedTab, setSelectedTab] = React.useState(ALL)
   const [filterButtonsAreFixed, setFilterButtonsAreFixed] = React.useState(true)
+  const [showCustomDateModal, setShowCustomDateModal] = React.useState(false)
+  const [lastUsedTimeframe, setLastUsedTimeframe] = React.useState(null)
 
   React.useEffect(() => {
     getFilters()
@@ -97,6 +151,23 @@ const UsageSnapshotsContainer = ({}) => {
     }
   }, [selectedSchools, selectedGrades, selectedTimeframe])
 
+  React.useEffect(() => {
+    if (selectedTimeframe?.value === CUSTOM) {
+      setShowCustomDateModal(true)
+    }
+  }, [selectedTimeframe])
+
+  React.useEffect(() => {
+    if (showCustomDateModal || (customStartDate && customEndDate) || !lastUsedTimeframe) { return }
+
+    setSelectedTimeframe(lastUsedTimeframe)
+  }, [showCustomDateModal])
+
+  function handleSetSelectedTimeframe(timeframe) {
+    setLastUsedTimeframe(selectedTimeframe)
+    setSelectedTimeframe(timeframe)
+  }
+
   function defaultTimeframe(timeframes) {
     return timeframes?.find(timeframe => timeframe.default) || null
   }
@@ -106,12 +177,15 @@ const UsageSnapshotsContainer = ({}) => {
     const gradeOptions = filterData.grades.map(grade => ({ ...grade, label: grade.name }))
     const schoolOptions = filterData.schools.map(school => ({ ...school, label: school.name, value: school.id }))
 
+    const timeframe = defaultTimeframe(timeframeOptions)
+
     setAllGrades(gradeOptions)
     setAllTimeframes(timeframeOptions)
     setAllSchools(schoolOptions)
     setSelectedGrades(gradeOptions)
     setSelectedSchools(schoolOptions)
-    setSelectedTimeframe(defaultTimeframe(timeframeOptions))
+    setLastUsedTimeframe(timeframe)
+    setSelectedTimeframe(timeframe)
     setLoadingFilters(false)
   }
 
@@ -125,6 +199,14 @@ const UsageSnapshotsContainer = ({}) => {
 
   function applyFilters() {
     setSearchCount(searchCount + 1)
+  }
+
+  function closeCustomDateModal() { setShowCustomDateModal(false) }
+
+  function setCustomDates(startDate, endDate) {
+    setCustomStartDate(startDate)
+    setCustomEndDate(endDate)
+    closeCustomDateModal()
   }
 
   if (loadingFilters) {
@@ -195,14 +277,21 @@ const UsageSnapshotsContainer = ({}) => {
     )
   }
 
-
   return (
     <div className="usage-snapshots-container white-background">
+      {showCustomDateModal && (
+        <CustomDateModal
+          close={closeCustomDateModal}
+          passedEndDate={customEndDate}
+          passedStartDate={customStartDate}
+          setCustomDates={setCustomDates}
+        />
+      )}
       <section className="filter-container">
         <div className="filters">
           <label className="filter-label" htmlFor="timeframe-filter">Timeframe</label>
           <DropdownInput
-            handleChange={setSelectedTimeframe}
+            handleChange={handleSetSelectedTimeframe}
             id="timeframe-filter"
             isSearchable={false}
             label=""

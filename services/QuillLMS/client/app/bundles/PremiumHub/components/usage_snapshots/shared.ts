@@ -40,6 +40,9 @@ const PRACTICE = 'Practice'
 const CLASSROOMS = 'Classrooms'
 const SCHOOLS = 'Schools'
 
+// custom date
+export const CUSTOM = 'custom'
+
 export const TAB_NAMES = [ALL, HIGHLIGHTS, USERS, PRACTICE, CLASSROOMS, SCHOOLS]
 
 export const snapshotSections = [
