@@ -19,7 +19,7 @@ class SnapshotsController < ApplicationController
     }, {
       value: 'this-month',
       name: 'This month',
-      previous_start: proc { |reference_time| reference_time.beginning_of_month - 1.month },
+      previous_start: proc { |reference_time| reference_time.beginning_of_month - (reference_time - reference_time.beginning_of_month) },
       current_start: proc { |reference_time| reference_time.beginning_of_month },
       current_end: proc { |reference_time| reference_time },
     }, {
@@ -31,7 +31,7 @@ class SnapshotsController < ApplicationController
     }, {
       value: 'this-year',
       name: 'This year',
-      previous_start: proc { |reference_time| reference_time.beginning_of_year - 1.year },
+      previous_start: proc { |reference_time| reference_time.beginning_of_year - (reference_time - reference_time.beginning_of_year) },
       current_start: proc { |reference_time| reference_time.beginning_of_year },
       current_end: proc { |reference_time| reference_time },
     }, {
