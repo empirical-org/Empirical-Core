@@ -3,12 +3,12 @@
 require 'rails_helper'
 
 module Snapshots
-  describe 'ActiveClassroomsQuery' do
+  describe ActiveClassroomsQuery do
     include_context 'Snapshot Query Params'
 
     context 'external_api', :external_api do
       it 'should successfully get data' do
-        result = Snapshots::ActiveClassroomsQuery.run(timeframe_start, timeframe_end, school_ids, grades)
+        result = described_class.run(timeframe_start, timeframe_end, school_ids, grades)
 
         expect(result[:count]).to eq(34)
       end

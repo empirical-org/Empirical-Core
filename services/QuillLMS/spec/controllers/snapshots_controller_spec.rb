@@ -22,8 +22,7 @@ describe SnapshotsController, type: :controller do
     let(:school_ids) { [school.id.to_s] }
 
     before do
-      allow(controller).to receive(:current_user).and_return(user)
-      allow(controller).to receive(:cache_key).and_return(cache_key)
+      allow(controller).to receive(:cache_key_for_timeframe).and_return(cache_key)
       allow(DateTime).to receive(:current).and_return(now)
     end
 

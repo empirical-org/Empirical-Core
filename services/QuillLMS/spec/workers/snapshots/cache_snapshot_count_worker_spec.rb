@@ -39,8 +39,8 @@ module Snapshots
       end
 
       it 'should execute queries for both the current and previous timeframes' do
-        expect(query_double).to receive(:run).with(user_id, current_timeframe_start, timeframe_end, school_ids, grades)
-        expect(query_double).to receive(:run).with(user_id, previous_timeframe_start, current_timeframe_start, school_ids, grades)
+        expect(query_double).to receive(:run).with(current_timeframe_start, timeframe_end, school_ids, grades)
+        expect(query_double).to receive(:run).with(previous_timeframe_start, current_timeframe_start, school_ids, grades)
 
         subject.perform(cache_key, query, user_id, timeframe, school_ids, grades)
       end
@@ -58,7 +58,7 @@ module Snapshots
         payload = { current: current_snapshot, previous: previous_snapshot }
 
         expect(query_double).to receive(:run).and_return(current_snapshot, previous_snapshot)
-        expect(Rails.cache).to receive(:write).with(cache_key, payload, expires_in: described_class::DEFAULT_CACHE_EXPIRATION)
+        expect(Rails.cache).to receive(:write).with(cache_key, payload, expires_in: timeframe_end + 1.day)
 
         subject.perform(cache_key, query, user_id, timeframe, school_ids, grades)
       end

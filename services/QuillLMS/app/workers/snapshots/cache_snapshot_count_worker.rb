@@ -4,7 +4,6 @@ module Snapshots
   class CacheSnapshotCountWorker
     include Sidekiq::Worker
 
-    DEFAULT_CACHE_EXPIRATION = 24.hours
     PUSHER_EVENT = 'admin-snapshot-count-cached'
 
     QUERIES = {
@@ -39,7 +38,7 @@ module Snapshots
 
       payload = { current: current_snapshot, previous: previous_snapshot }
 
-      Rails.cache.write(cache_key, payload, expires_in: DEFAULT_CACHE_EXPIRATION)
+      Rails.cache.write(cache_key, payload, expires_in: timeframe_end + 1.day)
 
       PusherTrigger.run(user_id, PUSHER_EVENT,
         {

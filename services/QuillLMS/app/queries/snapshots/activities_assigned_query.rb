@@ -29,9 +29,5 @@ module Snapshots
     def relevant_date_column
       "classroom_units.created_at"
     end
-
-    def group_by_clause
-      ""
-    end
   end
 end

@@ -1,7 +1,7 @@
 # frozen_string_literal: true
 
 module Snapshots
-  class PeriodQuery
+  class PeriodQuery < ApplicationService
     attr_accessor :timeframe_start, :timeframe_end, :school_ids, :grades
 
     def self.run(*args)

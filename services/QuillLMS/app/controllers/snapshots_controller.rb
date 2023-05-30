@@ -7,51 +7,51 @@ class SnapshotsController < ApplicationController
     {
       value: 'last-30-days',
       name: 'Last 30 days',
-      previous_start: proc { |end_of_yesterday| end_of_yesterday - 60.days },
-      current_start: proc { |end_of_yesterday| end_of_yesterday - 30.days },
-      current_end: proc { |end_of_yesterday| end_of_yesterday }
+      previous_start: proc { |reference_time| reference_time - 60.days },
+      current_start: proc { |reference_time| reference_time - 30.days },
+      current_end: proc { |reference_time| reference_time }
     }, {
       value: 'last-90-days',
       name: 'Last 90 days',
-      previous_start: proc { |end_of_yesterday| end_of_yesterday - 180.days },
-      current_start: proc { |end_of_yesterday| end_of_yesterday - 90.days },
-      current_end: proc { |end_of_yesterday| end_of_yesterday },
+      previous_start: proc { |reference_time| reference_time - 180.days },
+      current_start: proc { |reference_time| reference_time - 90.days },
+      current_end: proc { |reference_time| reference_time },
     }, {
       value: 'this-month',
       name: 'This month',
-      previous_start: proc { |end_of_yesterday| end_of_yesterday.beginning_of_month - 1.month },
-      current_start: proc { |end_of_yesterday| end_of_yesterday.beginning_of_month },
-      current_end: proc { |end_of_yesterday| end_of_yesterday },
+      previous_start: proc { |reference_time| reference_time.beginning_of_month - 1.month },
+      current_start: proc { |reference_time| reference_time.beginning_of_month },
+      current_end: proc { |reference_time| reference_time },
     }, {
       value: 'last-month',
       name: 'Last month',
-      previous_start: proc { |end_of_yesterday| end_of_yesterday.beginning_of_month - 2.months },
-      current_start: proc { |end_of_yesterday| end_of_yesterday.beginning_of_month - 1.month },
-      current_end: proc { |end_of_yesterday| end_of_yesterday.beginning_of_month },
+      previous_start: proc { |reference_time| reference_time.beginning_of_month - 2.months },
+      current_start: proc { |reference_time| reference_time.beginning_of_month - 1.month },
+      current_end: proc { |reference_time| reference_time.beginning_of_month },
     }, {
       value: 'this-year',
       name: 'This year',
-      previous_start: proc { |end_of_yesterday| end_of_yesterday.beginning_of_year - 1.year },
-      current_start: proc { |end_of_yesterday| end_of_yesterday.beginning_of_year },
-      current_end: proc { |end_of_yesterday| end_of_yesterday },
+      previous_start: proc { |reference_time| reference_time.beginning_of_year - 1.year },
+      current_start: proc { |reference_time| reference_time.beginning_of_year },
+      current_end: proc { |reference_time| reference_time },
     }, {
       value: 'last-year',
       name: 'Last year',
-      previous_start: proc { |end_of_yesterday| end_of_yesterday.beginning_of_year - 2.years },
-      current_start: proc { |end_of_yesterday| end_of_yesterday.beginning_of_year - 1.year },
-      current_end: proc { |end_of_yesterday| end_of_yesterday.beginning_of_year },
+      previous_start: proc { |reference_time| reference_time.beginning_of_year - 2.years },
+      current_start: proc { |reference_time| reference_time.beginning_of_year - 1.year },
+      current_end: proc { |reference_time| reference_time.beginning_of_year },
     }, {
       value: 'all-time',
       name: 'All time',
       previous_start: proc { }, # A nil previous start passed to the worker results in the previous-period query being skipped
       current_start: proc { DateTime.new(2010,1,1) }, # This is well before any data exists in our system, so works for "all time"
-      current_end: proc { |end_of_yesterday| end_of_yesterday },
+      current_end: proc { |reference_time| reference_time },
     }, {
       value: 'custom',
       name: 'Custom',
-      previous_start: :custom_previous_start,
-      current_start: :custom_current_start,
-      current_end: :custom_current_end
+      previous_start: proc { |_, params| DateTime.parse(params[:timeframe_custom_start]) - (DateTime.parse(params[:timeframe_custom_end]) - DateTime.parse(params[:timeframe_custom_start])) },
+      current_start: proc { |_, params| DateTime.parse(params[:timeframe_custom_start]) },
+      current_end: proc { |_, params| DateTime.parse(params[:timeframe_custom_end]) }
     }
   ]
 
@@ -77,20 +77,21 @@ class SnapshotsController < ApplicationController
   before_action :authorize_request, only: [:count]
 
   def count
+    previous_start, current_start, current_end = calculate_timeframes
+    cache_key = cache_key_for_timeframe(previous_start, current_start, current_end)
     response = Rails.cache.read(cache_key)
 
     return render json: response if response
 
-    previous_timeframe_start, current_timeframe_start, timeframe_end = calculate_timeframes
 
     Snapshots::CacheSnapshotCountWorker.perform_async(cache_key,
       snapshot_params[:query],
       current_user.id,
       {
         name: snapshot_params[:timeframe],
-        previous_start: previous_timeframe_start,
-        current_start: current_timeframe_start,
-        current_end: timeframe_end
+        previous_start: previous_start,
+        current_start: current_start,
+        current_end: current_end
       },
       snapshot_params[:school_ids],
       snapshot_params[:grades])
@@ -123,16 +124,17 @@ class SnapshotsController < ApplicationController
   private def authorize_request
     schools_user_admins = current_user.administered_schools.pluck(:id)
 
-    return render json: { error: 'user is not authorized for all specified schools' }, status: 403 unless snapshot_params[:school_ids]&.all? { |param_id| schools_user_admins.include?(param_id.to_i) }
+    return if snapshot_params[:school_ids]&.all? { |param_id| schools_user_admins.include?(param_id.to_i) }
+
+    return render json: { error: 'user is not authorized for all specified schools' }, status: 403
   end
 
-  private def cache_key
-    previous_timeframe_start, current_timeframe_start, timeframe_end = calculate_timeframes
+  private def cache_key_for_timeframe(previous_start, current_start, current_end)
 
     Snapshots::CacheKeys.generate_key(snapshots_params[:query],
-      previous_timeframe_start,
-      current_timeframe_start,
-      timeframe_end,
+      previous_start,
+      current_start,
+      current_end,
       snapshot_params.fetch(:school_ids, []),
       snapshot_params.fetch(:grades, []))
   end
@@ -154,32 +156,11 @@ class SnapshotsController < ApplicationController
 
     end_of_yesterday = DateTime.current.end_of_day - 1.day
 
-    if snapshot_params[:timeframe] == 'custom'
-      return [
-        send(timeframe[:previous_start]),
-        send(timeframe[:current_start]),
-        send(timeframe[:current_end])
-      ]
-    end
-
     [
-      timeframe[:previous_start].call(end_of_yesterday),
-      timeframe[:current_start].call(end_of_yesterday),
-      timeframe[:current_end].call(end_of_yesterday)
+      timeframe[:previous_start].call(end_of_yesterday, snapshot_params),
+      timeframe[:current_start].call(end_of_yesterday, snapshot_params),
+      timeframe[:current_end].call(end_of_yesterday, snapshot_params)
     ]
-  end
-
-  private def custom_previous_start
-    timeframe_length = custom_current_end - custom_current_start
-    custom_current_start - timeframe_length
-  end
-
-  private def custom_current_start
-    DateTime.parse(snapshot_params[:timeframe_custom_start])
-  end
-
-  private def custom_current_end
-    DateTime.parse(snapshot_params[:timeframe_custom_end])
   end
 
   private def snapshot_params
