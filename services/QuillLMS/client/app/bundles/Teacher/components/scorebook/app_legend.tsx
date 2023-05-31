@@ -3,10 +3,11 @@ import * as React from 'react';
 import useWindowSize from '../../../Shared/hooks/useWindowSize';
 
 const EVIDENCE_ICON_SRC = `${process.env.CDN_URL}/images/icons/tool-evidence-light-gray.svg`
+const SCOREBOOK_MOBILE_BREAKPOINT = 600
 
 export const AppLegend = () => {
   const size = useWindowSize();
-  const evidenceDescription = size.width <= 600 ? 'Write using evidence' : 'Use a text to write with evidence';
+  const evidenceDescription = size.width <= SCOREBOOK_MOBILE_BREAKPOINT ? 'Write using evidence' : 'Use a text to write with evidence';
   const diagnostic = (
     <a className="icon focus-on-light" href={`${process.env.DEFAULT_URL}/tools/diagnostic`} rel="noopener noreferrer" target="_blank">
       <div className="icon-wrapper icon-diagnostic-embossed" />
