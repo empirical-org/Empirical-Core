@@ -9,7 +9,9 @@ module Snapshots
     context 'external_api', :big_query_snapshot do
       include_context 'Snapshots Count CTE'
 
-      it { expect(results).to eq [{'count' => num_activity_sessions}] }
+      let(:num_active_students) { activity_sessions.map(&:user_id).uniq.count }
+
+      it { expect(results).to eq [{'count' => num_active_students }] }
 
       context 'filters' do
         it_behaves_like 'snapshots period query with a timeframe', 1.day.ago, 1.hour.ago, [{'count' => 0}]

@@ -6,7 +6,6 @@ RSpec.shared_context 'Snapshots Count CTE' do
   let(:classroom_units) { classrooms.map { |classroom| create(:classroom_unit, classroom: classroom) } }
   let(:classroom_units_cte_query) { cte_query(classroom_units) }
 
-  let(:num_activity_sessions) { activity_sessions.count }
   let(:activity_sessions) { classroom_units.map { |classroom_unit| create(:activity_session, classroom_unit: classroom_unit) } }
   let(:activity_sessions_cte_query) { cte_query(activity_sessions) }
 
