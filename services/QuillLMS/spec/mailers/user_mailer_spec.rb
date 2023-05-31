@@ -244,7 +244,7 @@ describe UserMailer, type: :mailer do
     end
 
     it 'should delete the file after the email has been sent' do
-      subject
+      subject.subject
       expect(File).not_to exist(csv_file_path)
     end
   end
