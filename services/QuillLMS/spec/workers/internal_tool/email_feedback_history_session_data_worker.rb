@@ -31,7 +31,7 @@ describe InternalTool::EmailFeedbackHistorySessionDataWorker, type: :worker do
       feedback_histories.find_each(batch_size: 10_000) { |feedback_history| results << feedback_history.serialize_csv_data }
       results.sort! { |a,b| b["datetime"] <=> a["datetime"] }
 
-      expect(UserMailer).to receive(:feedback_history_session_csv_download).with("test@test.com", results)
+      expect(UserMailer).to receive(:feedback_history_session_csv_download).with("test@test.com", csv(results))
       described_class.new.perform(activity.id, nil, nil, nil, nil, "test@test.com")
     end
 
@@ -43,7 +43,7 @@ describe InternalTool::EmailFeedbackHistorySessionDataWorker, type: :worker do
       feedback_histories.find_each(batch_size: 10_000) { |feedback_history| results << feedback_history.serialize_csv_data }
       results.sort! { |a,b| b["datetime"] <=> a["datetime"] }
 
-      expect(UserMailer).to receive(:feedback_history_session_csv_download).with("test@test.com", results)
+      expect(UserMailer).to receive(:feedback_history_session_csv_download).with("test@test.com", csv(results))
       described_class.new.perform(activity.id, start_date, end_date, nil, nil, "test@test.com")
     end
 
@@ -53,8 +53,28 @@ describe InternalTool::EmailFeedbackHistorySessionDataWorker, type: :worker do
       feedback_histories.find_each(batch_size: 10_000) { |feedback_history| results << feedback_history.serialize_csv_data }
       results.sort! { |a,b| b["datetime"] <=> a["datetime"] }
 
-      expect(UserMailer).to receive(:feedback_history_session_csv_download).with("test@test.com", results)
+      expect(UserMailer).to receive(:feedback_history_session_csv_download).with("test@test.com", csv(results))
       described_class.new.perform(activity.id, nil, nil, nil, true, "test@test.com")
     end
   end
+end
+
+def csv(results)
+  CSV.generate(headers: true) do |csv_body|
+    csv_body << InternalTool::EmailFeedbackHistorySessionDataWorker::FEEDBACK_HISTORY_CSV_HEADERS
+    results.each do |row|
+      csv_body << [
+        row["datetime"],
+        row["session_uid"],
+        row["conjunction"],
+        row["attempt"],
+        row["optimal"],
+        row['optimal'] || row['attempt'] == InternalTool::EmailFeedbackHistorySessionDataWorker::DEFAULT_MAX_ATTEMPTS,
+        row["response"],
+        row["feedback"],
+        "#{row['feedback_type']}: #{row['name']}"
+      ]
+    end
+  end
+
 end

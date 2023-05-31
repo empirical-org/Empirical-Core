@@ -177,7 +177,7 @@ describe UserMailer, type: :mailer do
 
   describe 'feedback_history_session_csv_download' do
     # I like to structure specs starting with subject which matches the describe block
-    subject { described_class.feedback_history_session_csv_download(email, data) }
+    subject { described_class.feedback_history_session_csv_download(email, csv_body) }
 
     # factor out parameters provided to subject as let variables
     let(:email) { 'team@quill.org' }
@@ -197,12 +197,10 @@ describe UserMailer, type: :mailer do
       ]
     end
 
-    # Add some constants to UserMailer to make explicit the coupling with the spec:
-    let(:csv_headers) { described_class::FEEDBACK_HISTORY_CSV_HEADERS }
-    let(:csv_attachment) { subject.attachments[described_class::FEEDBACK_SESSIONS_CSV_FILENAME] }
+    let(:csv_headers) { InternalTool::EmailFeedbackHistorySessionDataWorker::FEEDBACK_HISTORY_CSV_HEADERS }
 
-    it 'should set the subject, receiver and the sender' do
-      csv_body = CSV.generate(headers: true) do |csv|
+    let(:csv_body) {
+      CSV.generate(headers: true) do |csv|
         csv << csv_headers
         data.each do |row|
           #  break up multiple parameter method into multiple lines for readability
@@ -212,13 +210,19 @@ describe UserMailer, type: :mailer do
             row["conjunction"],
             row["attempt"],
             row["optimal"],
-            row['optimal'] || row['attempt'] == described_class::DEFAULT_MAX_ATTEMPTS,
+            row['optimal'] || row['attempt'] == InternalTool::EmailFeedbackHistorySessionDataWorker::DEFAULT_MAX_ATTEMPTS,
             row["response"],
             row["feedback"],
             "#{row['feedback_type']}: #{row['name']}"
           ]
         end
       end
+    }
+
+    # Add some constants to UserMailer to make explicit the coupling with the spec:
+    let(:csv_attachment) { subject.attachments[described_class::FEEDBACK_SESSIONS_CSV_FILENAME] }
+
+    it 'should set the subject, receiver and the sender' do
 
       expect(subject.to).to eq [email]
 
