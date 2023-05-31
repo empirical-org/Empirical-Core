@@ -84,7 +84,7 @@ describe SnapshotsController, type: :controller do
       let(:timeframe_end) { 'TIMEFRAME_END' }
 
       it 'should trigger a job to cache data if the cache is empty' do
-        allow(controller).to receive(:calculate_timeframes).and_return([previous_timeframe, current_timeframe, timeframe_end])
+        allow(Snapshots::Timeframes).to receive(:calculate_timeframes).and_return([previous_timeframe, current_timeframe, timeframe_end])
         expect(Rails.cache).to receive(:read).with(cache_key).and_return(nil)
         expect(Snapshots::CacheSnapshotCountWorker).to receive(:perform_async).with(cache_key,
           query_name,
@@ -108,7 +108,7 @@ describe SnapshotsController, type: :controller do
       it 'should include school_ids and grades in the call to the cache worker if they are in params' do
         grades = ["Kindergarten", "1", "2"]
 
-        allow(controller).to receive(:calculate_timeframes).and_return([previous_timeframe, current_timeframe, timeframe_end])
+        allow(Snapshots::Timeframes).to receive(:calculate_timeframes).and_return([previous_timeframe, current_timeframe, timeframe_end])
         expect(Rails.cache).to receive(:read).with(cache_key).and_return(nil)
         expect(Snapshots::CacheSnapshotCountWorker).to receive(:perform_async).with(cache_key,
           query_name,
@@ -166,16 +166,7 @@ describe SnapshotsController, type: :controller do
 
       json_response = JSON.parse(response.body)
 
-      expect(json_response['timeframes']).to eq([
-        {"default"=>true, "name"=>"Last 30 days", "value"=>"last-30-days"},
-        {"default"=>false, "name"=>"Last 90 days", "value"=>"last-90-days"},
-        {"default"=>false, "name"=>"This month", "value"=>"this-month"},
-        {"default"=>false, "name"=>"Last month", "value"=>"last-month"},
-        {"default"=>false, "name"=>"This year", "value"=>"this-year"},
-        {"default"=>false, "name"=>"Last year", "value"=>"last-year"},
-        {"default"=>false, "name"=>"All time", "value"=>"all-time"},
-        {"default"=>false, "name"=>"Custom", "value"=>"custom"}
-      ])
+      expect(json_response['timeframes']).to eq(Snapshots::Timeframes.frontend_options.map(&:stringify_keys))
     end
 
     it 'should return a list of all schools and their ids tied to the current_user' do
@@ -192,43 +183,6 @@ describe SnapshotsController, type: :controller do
       json_response = JSON.parse(response.body)
 
       expect(json_response['grades']).to eq(controller.class::GRADE_OPTIONS.map(&:stringify_keys))
-    end
-  end
-
-  context "#calculate_timeframes" do
-    it 'accurately calculates a 30-day timeframe' do
-      now = DateTime.current
-      end_of_yesterday = now.end_of_day - 1.day
-      allow(DateTime).to receive(:current).and_return(now)
-
-      allow(controller).to receive(:snapshot_params).and_return({
-        timeframe: 'last-30-days'
-      })
-
-      expect(controller.send(:calculate_timeframes)).to eq([
-        end_of_yesterday - 60.days,
-        end_of_yesterday - 30.days,
-        end_of_yesterday
-      ])
-    end
-
-    it 'accurately calculates a custom timeframe previous_start value' do
-      now = DateTime.current.change(usec: 0) # strip fractional seconds to simplify conversion between string and DateTime
-      custom_start = now - 10.hours
-      custom_end = now - 30.minutes
-      timeframe_length = custom_end - custom_start
-
-      allow(controller).to receive(:snapshot_params).and_return({
-        timeframe: 'custom',
-        timeframe_custom_start: custom_start.to_s,
-        timeframe_custom_end: custom_end.to_s
-      })
-
-      expect(controller.send(:calculate_timeframes)).to eq([
-        custom_start - timeframe_length,
-        custom_start,
-        custom_end
-      ])
     end
   end
 end
