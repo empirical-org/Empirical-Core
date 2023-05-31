@@ -23,28 +23,11 @@ class SnapshotsController < ApplicationController
   before_action :authorize_request, only: [:count]
 
   def count
-    previous_start, current_start, current_end = Snapshots::Timeframes.calculate_timeframes(snapshot_params[:timeframe],
-      snapshot_params[:timeframe_custom_start],
-      snapshot_params[:timeframe_custom_end])
-    cache_key = cache_key_for_timeframe(previous_start, current_start, current_end)
-    response = Rails.cache.read(cache_key)
+    render json: retrieve_cache_or_enqueue_worker(Snapshots::CacheSnapshotCountWorker)
+  end
 
-    return render json: response if response
-
-
-    Snapshots::CacheSnapshotCountWorker.perform_async(cache_key,
-      snapshot_params[:query],
-      current_user.id,
-      {
-        name: snapshot_params[:timeframe],
-        previous_start: previous_start,
-        current_start: current_start,
-        current_end: current_end
-      },
-      snapshot_params[:school_ids],
-      snapshot_params[:grades])
-
-    render json: { message: 'Generating snapshot' }
+  def top_x
+    render json: retrieve_cache_or_enqueue_worker(Snapshots::CacheSnapshotTopXWorker)
   end
 
   def options
@@ -75,6 +58,32 @@ class SnapshotsController < ApplicationController
     return if snapshot_params[:school_ids]&.all? { |param_id| schools_user_admins.include?(param_id.to_i) }
 
     return render json: { error: 'user is not authorized for all specified schools' }, status: 403
+  end
+
+  private def retrieve_cache_or_enqueue_worker(worker)
+    return { error: 'unrecognized query type for this endpoint' } unless worker::QUERIES.keys.include?(snapshot_params[:query])
+
+    previous_start, current_start, current_end = Snapshots::Timeframes.calculate_timeframes(snapshot_params[:timeframe],
+      snapshot_params[:timeframe_custom_start],
+      snapshot_params[:timeframe_custom_end])
+    cache_key = cache_key_for_timeframe(previous_start, current_start, current_end)
+    response = Rails.cache.read(cache_key)
+
+    return response if response
+
+    worker.perform_async(cache_key,
+      snapshot_params[:query],
+      current_user.id,
+      {
+        name: snapshot_params[:timeframe],
+        previous_start: previous_start,
+        current_start: current_start,
+        current_end: current_end
+      },
+      snapshot_params[:school_ids],
+      snapshot_params[:grades])
+
+    { message: 'Generating snapshot' }
   end
 
   private def cache_key_for_timeframe(previous_start, current_start, current_end)

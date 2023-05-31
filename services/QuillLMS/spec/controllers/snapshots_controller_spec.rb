@@ -9,7 +9,7 @@ describe SnapshotsController, type: :controller do
     allow(controller).to receive(:current_user).and_return(user)
   end
 
-  context "#count" do
+  context "#actions" do
     let(:cache_key) { 'CACHE_KEY' }
     let(:query_name) { 'active-classrooms' }
     let(:timeframe_name) { 'last-30-days' }
