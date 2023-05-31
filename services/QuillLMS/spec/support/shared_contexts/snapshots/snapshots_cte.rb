@@ -2,11 +2,10 @@
 
 RSpec.shared_context 'Snapshots CTE' do
   # BigQuery doesn't support CTE aliases with period in the name.
-  # So, we need to remove the `lms.` prefix from 'FROM' and 'JOIN' clauses
-  let(:query) { pg_query.gsub(/(FROM|JOIN) lms\.(\w+)/, '\1 \2') }
-
-  let(:results) { QuillBigQuery::Runner.execute(bg_query) }
+  # So, we need to remove the 'lms.' and 'special.' prefixes from 'FROM' and 'JOIN' clauses
+  let(:query) { pg_query.gsub(/(FROM|JOIN)\s+(?:lms|special)\.(\w+)/, '\1 \2') }
   let(:bq_query) { "WITH #{cte} #{query}" }
+  let(:results) { QuillBigQuery::Runner.execute(bq_query) }
 
   def cte_query(records)
     records

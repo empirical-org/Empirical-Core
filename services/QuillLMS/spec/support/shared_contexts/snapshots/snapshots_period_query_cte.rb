@@ -8,8 +8,6 @@ RSpec.shared_context 'Snapshots Period CTE' do
   let(:timeframe_start) { 1.day.ago }
   let(:timeframe_end) { 1.day.from_now }
 
-  let(:results) { QuillBigQuery::Runner.execute(bq_query) }
-
   let(:num_classrooms) { 2 }
   let(:classrooms) { create_list(:classroom, num_classrooms) }
   let(:classrooms_cte_query) { cte_query(classrooms) }
