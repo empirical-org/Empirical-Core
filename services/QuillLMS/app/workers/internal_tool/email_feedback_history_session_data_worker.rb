@@ -20,7 +20,7 @@ class InternalTool::EmailFeedbackHistorySessionDataWorker
     results.sort! { |a,b| b["datetime"] <=> a["datetime"] }
     return if !results
 
-    csv_file_path = Rails.root.join('public', "feedback_history_#{activity_id}_#{Time.now.to_i}.csv")
+    csv_file_path = Rails.root.join('public', "feedback_history_#{activity_id}_#{Time.current.to_i}.csv")
 
     CSV.open(csv_file_path, 'wb') do |csv_body|
       csv_body << FEEDBACK_HISTORY_CSV_HEADERS

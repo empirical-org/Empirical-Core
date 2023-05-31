@@ -17,14 +17,14 @@ describe InternalTool::EmailFeedbackHistorySessionDataWorker, type: :worker do
   let!(:feedback_history5) { create(:feedback_history, feedback_session_uid: activity_session1_uid, created_at: '2021-04-09T20:43:27.698Z', prompt_id: so_prompt.id) }
   let!(:feedback_history6) { create(:feedback_history, feedback_session_uid: activity_session1_uid, created_at: '2021-04-10T20:43:27.698Z', prompt_id: so_prompt.id) }
   let!(:feedback_history7) { create(:feedback_history, feedback_session_uid: activity_session2_uid, created_at: '2021-04-11T20:43:27.698Z', prompt_id: because_prompt.id) }
-  let!(:time_now) { Time.now }
-  let!(:csv_file_path) { Rails.root.join('public', "feedback_history_#{activity.id}_#{time_now.to_i}.csv") }
+  let!(:time_current) { Time.current }
+  let!(:csv_file_path) { Rails.root.join('public', "feedback_history_#{activity.id}_#{time_current.to_i}.csv") }
 
   describe 'called with only activity id' do
 
     before do
       allow(UserMailer).to receive(:feedback_history_session_csv_download).and_return(double(:email, deliver_now!: true))
-      allow(Time).to receive(:now).and_return(time_now)
+      allow(Time).to receive(:current).and_return(time_current)
     end
 
     it 'should fetch all feedback history sessions for that activity' do
