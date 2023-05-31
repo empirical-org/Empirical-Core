@@ -23,7 +23,12 @@ module Snapshots
     end
 
     def select_clause
-      "SELECT DISTINCT classroom_units.id, classroom_units.unit_id, array_length(classroom_units.assigned_student_ids) AS students_assigned_count"
+      <<-SQL
+        SELECT
+          DISTINCT classroom_units.id,
+          classroom_units.unit_id,
+          array_length(classroom_units.assigned_student_ids) AS students_assigned_count
+      SQL
     end
 
     def relevant_date_column

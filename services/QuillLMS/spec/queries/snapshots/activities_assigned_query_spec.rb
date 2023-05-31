@@ -6,12 +6,19 @@ module Snapshots
   describe ActivitiesAssignedQuery do
     include_context 'Snapshot Query Params'
 
-    context 'external_api', :external_api do
-      it 'should successfully get data' do
-        result = described_class.run(timeframe_start, timeframe_end, school_ids, grades)
+    context 'external_api', :big_query_snapshot do
+      include_context 'Snapshots Count CTE'
 
-        expect(result[:count]).to eq(46522)
-      end
+      let(:num_activities_assigned) { 0 }
+
+      it { puts bq_query; expect(results).to eq [{'count' => num_activities_assigned }] }
+
+      # context 'filters' do
+      #   it_behaves_like 'snapshots period query with a timeframe', 1.day.ago, 1.hour.ago, [{'count' => 0}]
+      #   it_behaves_like 'snapshots period query with a timeframe', 1.hour.from_now, 1.day.from_now, [{'count' => 0}]
+      #   it_behaves_like 'snapshots period query with a timeframe', 1.hour.from_now, 1.day.ago, [{'count' => 0}]
+      #   it_behaves_like 'snapshots period query with a different school id', [{'count' => 0 }]
+      # end
     end
   end
 end
