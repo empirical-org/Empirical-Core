@@ -33,7 +33,7 @@ module Snapshots
         })
 
         # Intercept theses calls to isolate them in separate cases
-        allow(query_double).to receive(:run)
+        allow(query_double).to receive(:run).and_return({})
         allow(Rails.cache).to receive(:write)
         allow(PusherTrigger).to receive(:run)
       end
@@ -46,18 +46,20 @@ module Snapshots
       end
 
       it 'should only execute a query for current timeframe if the previous_timeframe_start is nil' do
-        expect(query_double).to receive(:run).once
+        expect(query_double).to receive(:run).and_return({}).once
         timeframe[:previous_start] = nil
 
         subject.perform(cache_key, query, user_id, timeframe, school_ids, grades)
       end
 
       it 'should write a payload to cache' do
-        previous_snapshot = 'PREVIOUS_SNAPSHOT'
-        current_snapshot = 'CURRENT_SNAPSHOT'
-        payload = { current: current_snapshot, previous: previous_snapshot }
+        previous_count = 100
+        previous_timeframe_query_result = {'count' => previous_count}
+        current_count = 50
+        current_timeframe_query_result = {'count' => current_count}
+        payload = { current: current_count, previous: previous_count }
 
-        expect(query_double).to receive(:run).and_return(current_snapshot, previous_snapshot)
+        expect(query_double).to receive(:run).and_return(current_timeframe_query_result, previous_timeframe_query_result)
         expect(Rails.cache).to receive(:write).with(cache_key, payload, expires_in: timeframe_end + 1.day)
 
         subject.perform(cache_key, query, user_id, timeframe, school_ids, grades)
