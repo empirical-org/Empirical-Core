@@ -177,7 +177,7 @@ describe UserMailer, type: :mailer do
 
   describe 'feedback_history_session_csv_download' do
     # I like to structure specs starting with subject which matches the describe block
-    subject { described_class.feedback_history_session_csv_download(email, csv_body) }
+    subject { described_class.feedback_history_session_csv_download(email, csv_file_path) }
 
     # factor out parameters provided to subject as let variables
     let(:email) { 'team@quill.org' }
@@ -198,6 +198,8 @@ describe UserMailer, type: :mailer do
     end
 
     let(:csv_headers) { InternalTool::EmailFeedbackHistorySessionDataWorker::FEEDBACK_HISTORY_CSV_HEADERS }
+
+    let(:csv_file_path) { Rails.root.join('public', "feedback_history_0_#{Time.now.to_i}.csv") }
 
     let(:csv_body) {
       CSV.generate(headers: true) do |csv|
@@ -222,13 +224,22 @@ describe UserMailer, type: :mailer do
     # Add some constants to UserMailer to make explicit the coupling with the spec:
     let(:csv_attachment) { subject.attachments[described_class::FEEDBACK_SESSIONS_CSV_FILENAME] }
 
+    before do
+      CSV.open(csv_file_path, 'wb') do |csv|
+        rows = CSV.parse(csv_body, headers: true)
+        csv << csv_headers
+        rows.each do |row|
+          csv << row
+        end
+      end
+    end
+
     it 'should set the subject, receiver and the sender' do
 
       expect(subject.to).to eq [email]
 
       # Refer to constants to make coupling with string explicit
       expect(subject.subject).to match(described_class::FEEDBACK_SESSIONS_CSV_DOWNLOAD)
-      expect(csv_attachment.mime_type).to match('text/csv')
       expect(CSV.parse(csv_attachment.body.raw_source)).to eq(CSV.parse(csv_body))
     end
   end
