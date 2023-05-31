@@ -12,7 +12,7 @@ module Snapshots
     end
 
     def relevant_count_column
-      "DISTINCT activity_sessions.id"
+      "activity_sessions.id"
     end
 
     def relevant_date_column

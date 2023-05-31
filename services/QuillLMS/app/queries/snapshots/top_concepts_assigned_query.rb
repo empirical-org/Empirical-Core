@@ -2,9 +2,23 @@
 
 module Snapshots
   class TopConceptsAssignedQuery < TopXQuery
+    def run_query
+      QuillBigQuery::Runner.execute(utilizing_subquery)
+    end
+
+    def utilizing_subquery
+      <<-SQL
+        SELECT value, SUM(count) AS count
+          FROM (#{query})
+          GROUP BY value
+          ORDER BY count DESC
+          LIMIT #{NUMBER_OF_RECORDS}
+      SQL
+    end
+
     def from_and_join_clauses
       super + <<-SQL
-        JOIN lms.classroom_units
+        JOIN (SELECT created_at, classroom_id, unit_id, ARRAY_LENGTH(assigned_student_ids) AS assigned_student_count FROM lms.classroom_units) AS classroom_units
           ON classrooms.id = classroom_units.classroom_id
         JOIN lms.unit_activities
           ON classroom_units.unit_id = unit_activities.unit_id
@@ -15,15 +29,16 @@ module Snapshots
       SQL
     end
 
-    def where_clause
-      # Excluding co-teachers avoids double-counting ClassroomUnits
-      super + <<-SQL
-        "AND classrooms_teachers.role = #{ClassroomsTeacher.ROLE_TYPES[:owner]}"
-      SQL
+    def relevant_count_column
+      "unit_activities.id"
     end
 
-    def relevant_count_column
-      "DISTINCT activity_sessions.id"
+    def count_clause
+      "#{super} * classroom_units.assigned_student_count"
+    end
+
+    def group_by_clause
+      "#{super}, classroom_units.assigned_student_count"
     end
 
     def relevant_date_column
@@ -32,6 +47,10 @@ module Snapshots
 
     def relevant_group_column
       "concepts.name"
+    end
+
+    def limit_clause
+      ""
     end
   end
 end

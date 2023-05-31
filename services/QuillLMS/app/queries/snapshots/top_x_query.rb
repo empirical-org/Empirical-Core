@@ -10,7 +10,7 @@ module Snapshots
 
     def select_clause
       <<-SQL
-        SELECT #{relevant_group_column} AS value, COUNT(#{relevant_count_column}) AS count
+        SELECT #{relevant_group_column} AS value, #{count_clause} AS count
       SQL
     end
 
@@ -22,12 +22,16 @@ module Snapshots
       "*"
     end
 
+    def count_clause
+      "COUNT(DISTINCT #{relevant_count_column})"
+    end
+
     def group_by_clause
       "GROUP BY #{relevant_group_column}"
     end
 
     def order_by_clause
-      "ORDER BY COUNT(#{relevant_group_column}) DESC"
+      "ORDER BY count DESC"
     end
 
     def limit_clause
