@@ -242,5 +242,10 @@ describe UserMailer, type: :mailer do
       expect(subject.subject).to match(described_class::FEEDBACK_SESSIONS_CSV_DOWNLOAD)
       expect(CSV.parse(csv_attachment.body.raw_source)).to eq(CSV.parse(csv_body))
     end
+
+    it 'should delete the file after the email has been sent' do
+      subject
+      expect(File).not_to exist(csv_file_path)
+    end
   end
 end
