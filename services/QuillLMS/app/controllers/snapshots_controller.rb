@@ -19,8 +19,8 @@ class SnapshotsController < ApplicationController
     {value: "Other", name: "Other"}
   ]
 
-  before_action :validate_request, only: [:count]
-  before_action :authorize_request, only: [:count]
+  before_action :validate_request, only: [:count, :top_x]
+  before_action :authorize_request, only: [:count, :top_x]
 
   def count
     render json: retrieve_cache_or_enqueue_worker(Snapshots::CacheSnapshotCountWorker)

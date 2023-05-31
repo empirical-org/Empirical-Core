@@ -721,6 +721,7 @@ EmpiricalGrammar::Application.routes.draw do
     collection do
       get :count
       get :options
+      get :top_x
     end
   end
 
