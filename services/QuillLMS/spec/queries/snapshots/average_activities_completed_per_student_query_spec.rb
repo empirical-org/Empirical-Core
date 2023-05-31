@@ -6,12 +6,12 @@ module Snapshots
   describe AverageActivitiesCompletedPerStudentQuery do
     include_context 'Snapshot Query Params'
 
-    context 'external_api', :external_api do
-      it 'should successfully get data' do
-        result = described_class.run(timeframe_start, timeframe_end, school_ids, grades)
+    context 'external_api', :big_query_snapshot do
+      include_context 'Snapshots Count CTE'
 
-        expect(result[:count]).to eq(41.534246575342465)
-      end
+      let(:average_activities_completed_per_student) { activity_sessions.count / activity_sessions.map(&:user_id).uniq.count.to_f }
+
+      it { expect(results).to eq [{'count' => average_activities_completed_per_student }] }
     end
   end
 end

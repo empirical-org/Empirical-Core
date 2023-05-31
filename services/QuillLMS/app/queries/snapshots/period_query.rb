@@ -1,12 +1,8 @@
 # frozen_string_literal: true
 
 module Snapshots
-  class PeriodQuery < ApplicationService
+  class PeriodQuery < ::ApplicationService
     attr_accessor :timeframe_start, :timeframe_end, :school_ids, :grades
-
-    def self.run(*args)
-      new(*args).run
-    end
 
     def initialize(timeframe_start, timeframe_end, school_ids, grades = nil)
       @timeframe_start = timeframe_start
@@ -20,7 +16,11 @@ module Snapshots
     end
 
     def run_query
-      QuillBigQuery::Runner.execute(query)
+      QuillBigQuery::Runner.execute(query_to_run)
+    end
+
+    def query_to_run
+      query
     end
 
     def query

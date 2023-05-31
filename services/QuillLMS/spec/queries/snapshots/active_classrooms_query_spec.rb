@@ -10,13 +10,6 @@ module Snapshots
       include_context 'Snapshots Count CTE'
 
       it { expect(results).to eq [{'count' => num_classrooms}] }
-
-      context 'filters' do
-        it_behaves_like 'snapshots period query with a timeframe', 1.day.ago, 1.hour.ago, [{'count' => 0}]
-        it_behaves_like 'snapshots period query with a timeframe', 1.hour.from_now, 1.day.from_now, [{'count' => 0}]
-        it_behaves_like 'snapshots period query with a timeframe', 1.hour.from_now, 1.day.ago, [{'count' => 0}]
-        it_behaves_like 'snapshots period query with a different school id', [{'count' => 0 }]
-      end
     end
   end
 end

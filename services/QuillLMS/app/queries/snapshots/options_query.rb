@@ -1,12 +1,8 @@
 # frozen_string_literal: true
 
 module Snapshots
-  class OptionsQuery
+  class OptionsQuery < ::ApplicationService
     attr_accessor :admin_id
-
-    def self.run(*args)
-      new(*args).run
-    end
 
     def initialize(admin_id)
       @admin_id = admin_id

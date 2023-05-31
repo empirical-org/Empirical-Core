@@ -9,16 +9,12 @@ module Snapshots
     context 'external_api', :big_query_snapshot do
       include_context 'Snapshots Count CTE'
 
-      let(:num_activities_assigned) { 0 }
+      let(:unit_activities) { classroom_units.map { |classroom_unit| create(:unit_activity, unit: classroom_unit.unit) } }
+      let(:cte_table_collections) { count_query_cte_table_collections << unit_activities }
 
-      it { puts bq_query; expect(results).to eq [{'count' => num_activities_assigned }] }
+      let(:num_activities_assigned) { unit_activities.count }
 
-      # context 'filters' do
-      #   it_behaves_like 'snapshots period query with a timeframe', 1.day.ago, 1.hour.ago, [{'count' => 0}]
-      #   it_behaves_like 'snapshots period query with a timeframe', 1.hour.from_now, 1.day.from_now, [{'count' => 0}]
-      #   it_behaves_like 'snapshots period query with a timeframe', 1.hour.from_now, 1.day.ago, [{'count' => 0}]
-      #   it_behaves_like 'snapshots period query with a different school id', [{'count' => 0 }]
-      # end
+      it { expect(results).to eq [{'count' => num_activities_assigned }] }
     end
   end
 end

@@ -9,14 +9,10 @@ module Snapshots
     context 'external_api', :big_query_snapshot do
       include_context 'Snapshots Count CTE'
 
-      let(:cte) do
-        <<-SQL
-          #{snapshots_count_cte},
-          concept_results AS ( #{concept_results_cte_query} )
-        SQL
-      end
+      let(:concept_results) { activity_sessions.map { |activity_session| create(:concept_result, activity_session: activity_session) } }
+      let(:cte_table_collections) { count_query_cte_table_collections << concept_results }
 
-      it { p concept_results; expect(results).to eq [{'count' => concept_results.count }] }
+      it { expect(results).to eq [{'count' => concept_results.count }] }
     end
   end
 end

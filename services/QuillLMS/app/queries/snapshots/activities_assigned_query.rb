@@ -2,8 +2,8 @@
 
 module Snapshots
   class ActivitiesAssignedQuery < CountQuery
-    def run_query
-      QuillBigQuery::Runner.execute(utilizing_subquery)
+    def query_to_run
+      utilizing_subquery
     end
 
     def utilizing_subquery
