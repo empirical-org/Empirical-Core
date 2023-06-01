@@ -492,4 +492,16 @@
       transform: translateX(-50%)
     }
   }
+
+  @media print {
+    main {
+      border-left: none;
+    }
+    .tabs, .filter-button-container, .filter-container, .header button {
+      display: none !important;
+    }
+    .snapshot-item {
+      break-inside: avoid;
+    }
+  }
 }
