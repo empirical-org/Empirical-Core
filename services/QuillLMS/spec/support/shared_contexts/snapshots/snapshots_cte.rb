@@ -51,10 +51,10 @@ RSpec.shared_context 'Snapshots CTE' do
   def attr_type_value(attr_type, value)
     case attr_type
     when :boolean, :decimal, :float, :integer then value
-    when :jsonb, :string then "'#{value}'"
+    when :inet, :jsonb, :string then "'#{value}'"
     when :datetime then "'#{value&.iso8601}'"
     else
-      raise "Error: type #{attr_type} not found" # "'#{value}'"
+      raise "Error: value:'#{value}' type #{attr_type} not found"
     end
   end
 end
