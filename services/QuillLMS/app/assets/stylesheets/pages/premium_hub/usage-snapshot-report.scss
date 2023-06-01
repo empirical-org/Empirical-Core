@@ -1,5 +1,8 @@
 .usage-snapshots-container {
   display: flex;
+  .modal-background {
+    z-index: 3;
+  }
   section {
     border-bottom: none;
   }
@@ -11,6 +14,22 @@
     top: 0;
     padding: 0px;
     position: sticky;
+    .top-section {
+      height: 64px;
+      padding: 0px 16px;
+      display: flex;
+      border-bottom: 1px solid #e0e0e0;
+      justify-content: flex-end;
+      .interactive-wrapper {
+        font-size: 16px;
+        font-weight: 600;
+        display: flex;
+        align-items: center;
+        img {
+          margin-right: 4px;
+        }
+      }
+    }
     .filters {
       padding: 32px 24px;
       height: calc(100% - 68px); // accounting for height of filter buttons
@@ -93,6 +112,27 @@
         &:last-of-type {
           border-right: 1px solid #D3D3D3;
           border-radius: 0px 4px 4px 0px;
+        }
+      }
+      .dropdown-container {
+        width: 100%;
+      }
+    }
+    .filter-button-container {
+      margin-top: 32px;
+      width: 100%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      border-width: 1px 0px;
+      border-style: solid;
+      border-color: #E0E0E0;
+      padding: 20px 0px;
+      .interactive-wrapper {
+        display: flex;
+        align-items: center;
+        img {
+          margin-right: 11px;
         }
       }
     }
@@ -386,6 +426,70 @@
           }
         }
       }
+    }
+  }
+
+  @media (min-width: 1135px) {
+    .filter-container .top-section, main .filter-button-container {
+      display: none;
+    }
+  }
+
+  @media (max-width: 1134px) {
+    .filter-container {
+      position: fixed;
+      top: 0;
+      z-index: 2;
+      background-color: white;
+      height: 100%;
+      width: 100vw;
+      .filter-buttons {
+        width: 100%;
+        justify-content: flex-end;
+        .quill-button {
+          margin-left: 12px;
+        }
+      }
+      &.space-for-buttons {
+        height: calc(100% - 68px);
+      }
+      &.mobile-hidden {
+        display: none;
+      }
+    }
+  }
+
+  @media (max-width: 850px) {
+    main {
+      padding: 16px;
+      > .header {
+        flex-direction: column;
+        h1 {
+          margin-bottom: 16px;
+        }
+      }
+      .snapshot-section {
+        &.users, &.classrooms {
+          .counts {
+            display: flex;
+            flex-direction: column;
+          }
+        }
+        &.practice {
+          .first-row, .third-and-fourth-row, .fifth-row {
+            display: flex;
+            flex-direction: column;
+          }
+        }
+      }
+    }
+  }
+
+  @media (max-width: 600px) {
+    .custom-date-modal .DateRangePicker .DateRangePicker_picker {
+      left: 39% !important;
+      -webkit-transform: translateX(-50%);
+      transform: translateX(-50%)
     }
   }
 }
