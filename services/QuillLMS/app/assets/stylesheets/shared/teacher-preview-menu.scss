@@ -1,3 +1,5 @@
+@import '../variables.scss';
+
 .teacher-preview-menu-container {
   h1, h2 {
     color: black;
@@ -7,6 +9,11 @@
   max-width: 410px;
   &.hidden {
     display: none;
+  }
+  .divider {
+    height: 1px;
+    background: #CFCFCF;
+    margin: 0px 16px;
   }
   .header-container {
     display: flex;
@@ -37,19 +44,26 @@
     }
   }
   .preview-section {
-    margin: 24px 16px 0px 16px;
+    margin: 16px;
     border-bottom: 1px solid #d1d1d1;
-    padding: 0px 0px 24px 0px;
+    padding: 16px;
+    border: 1px solid $quillgoldmedium;
+    border-radius: 8px;
+    background-color: $quillgoldlight;
+
     h2 {
       font-size: 14px;
       font-weight: bold;
-      color: black;
+      color: $quillgoldextradark;
     }
     p {
       padding-top: 4px;
       font-size: 14px;
-      color: #2f2f2f;
+      color: $quillgoldextradark;
     }
+  }
+  .title-section {
+    padding: 16px;
   }
   section {
     padding: 24px 16px 0px 16px;
@@ -125,6 +139,7 @@
 .sider-container {
   border-right: 1px solid #d1d1d1;
   background-color: white;
+  min-width: 360px;
 }
 
 .ant-layout-sider-zero-width-trigger {

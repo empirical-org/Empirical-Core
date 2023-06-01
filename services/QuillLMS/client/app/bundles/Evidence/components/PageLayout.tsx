@@ -19,7 +19,6 @@ const PageLayout: React.StatelessComponent<{}> = (props: any) => {
   const isTeacherOrAdmin = data && data.role && data.role !== 'student';
 
   const [previewShowing, setPreviewShowing] = React.useState<boolean>(!studentOrTurk);
-  console.log("🚀 ~ file: PageLayout.tsx:22 ~ previewShowing:", previewShowing)
   const [questionToPreview, setQuestionToPreview] = React.useState<any>(null);
   const [switchedBackToPreview, setSwitchedBackToPreview] = React.useState<boolean>(false);
   const [skippedToQuestionFromIntro, setSkippedToQuestionFromIntro] = React.useState<boolean>(false);

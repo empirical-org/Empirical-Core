@@ -159,11 +159,8 @@
     }
     #button-container {
       justify-content: space-between;
-      position: fixed;
+      position: sticky;
       bottom: 0;
-      width: -webkit-fill-available;
-      width: -moz-available;
-      width: fill-available;
     }
   }
 }

@@ -85,8 +85,8 @@ export class Header extends React.Component<any, any> {
     const showStepsCounter = explanationSlidesCompleted && !activityIsComplete
     const isNotTurk = !window.location.href.includes('turk')
     const tooltipTrigger = <div><img alt="Question mark icon" src={helpIcon} /><span>Beta: <span>in development</span></span></div>
-    const showTeacherPreviewMenuButton = isTeacher && !previewShowing && !isOnMobile;
-    console.log("🚀 ~ file: Header.tsx:90 ~ Header ~ render ~ showTeacherPreviewMenuButton:", showTeacherPreviewMenuButton)
+    // we check previewShowing is false because it may initially be returned as null
+    const showTeacherPreviewMenuButton = isTeacher && !isOnMobile && previewShowing === false;
     const mobileStyle = onMobile() || (!showStepsCounter && !showTeacherPreviewMenuButton) ? 'mobile' : '';
 
     return (
