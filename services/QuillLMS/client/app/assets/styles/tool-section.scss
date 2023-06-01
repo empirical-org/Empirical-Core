@@ -32,6 +32,11 @@ $tool-grey: #f8f9f9;
   .q-nav-bar {
     max-width: $sitewidepagewidth;
   }
+  @media only screen and (max-width : 921px) {
+    background-image: url(https://assets.quill.org/images/background_images/homepage_pattern.webp);
+    background-position: top;
+    background-position-y: 24px;
+  }
 }
 
 .tool-section {

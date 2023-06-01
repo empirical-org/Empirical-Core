@@ -9,7 +9,7 @@ module TeachersData
   # num_questions_completd
   # num_time_spent
 
-  # use Outer Joins to account for the fact that some of the teachers shown in the admin dashboard
+  # use Outer Joins to account for the fact that some of the teachers shown in the Premium Hub dashboard
   # will have no classrooms, etc.
 
   def self.run(teacher_ids)

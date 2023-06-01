@@ -79,7 +79,7 @@ const ActivityScoresTable = ({ data }) => {
 
   if (data && data.length) {
     return (
-      <div key={`${data.length}-length-for-activities-scores-by-classroom`}>
+      <div className="reports-table-container" key={`${data.length}-length-for-activities-scores-by-classroom`}>
         <ReactTable
           className='progress-report activity-scores-table has-green-arrow'
           columns={columns}

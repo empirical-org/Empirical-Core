@@ -5,6 +5,7 @@
 # Table name: learn_worlds_accounts
 #
 #  id          :bigint           not null, primary key
+#  last_login  :datetime
 #  created_at  :datetime         not null
 #  updated_at  :datetime         not null
 #  external_id :string           not null
@@ -12,7 +13,8 @@
 #
 # Indexes
 #
-#  index_learn_worlds_accounts_on_user_id  (user_id)
+#  index_learn_worlds_accounts_on_external_id  (external_id) UNIQUE
+#  index_learn_worlds_accounts_on_user_id      (user_id)
 #
 # Foreign Keys
 #
@@ -22,5 +24,6 @@ FactoryBot.define do
   factory :learn_worlds_account do
     user
     external_id { SecureRandom.hex(12) }
+    last_login { DateTime.current }
   end
 end

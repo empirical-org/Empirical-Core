@@ -3016,6 +3016,39 @@ ALTER SEQUENCE public.ip_locations_id_seq OWNED BY public.ip_locations.id;
 
 
 --
+-- Name: learn_worlds_account_course_events; Type: TABLE; Schema: public; Owner: -
+--
+
+CREATE TABLE public.learn_worlds_account_course_events (
+    id bigint NOT NULL,
+    learn_worlds_account_id bigint NOT NULL,
+    learn_worlds_course_id bigint NOT NULL,
+    event_type character varying NOT NULL,
+    created_at timestamp(6) without time zone NOT NULL,
+    updated_at timestamp(6) without time zone NOT NULL
+);
+
+
+--
+-- Name: learn_worlds_account_course_events_id_seq; Type: SEQUENCE; Schema: public; Owner: -
+--
+
+CREATE SEQUENCE public.learn_worlds_account_course_events_id_seq
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+
+--
+-- Name: learn_worlds_account_course_events_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: -
+--
+
+ALTER SEQUENCE public.learn_worlds_account_course_events_id_seq OWNED BY public.learn_worlds_account_course_events.id;
+
+
+--
 -- Name: learn_worlds_accounts; Type: TABLE; Schema: public; Owner: -
 --
 
@@ -3024,7 +3057,8 @@ CREATE TABLE public.learn_worlds_accounts (
     user_id bigint,
     external_id character varying NOT NULL,
     created_at timestamp(6) without time zone NOT NULL,
-    updated_at timestamp(6) without time zone NOT NULL
+    updated_at timestamp(6) without time zone NOT NULL,
+    last_login timestamp without time zone
 );
 
 
@@ -3045,6 +3079,38 @@ CREATE SEQUENCE public.learn_worlds_accounts_id_seq
 --
 
 ALTER SEQUENCE public.learn_worlds_accounts_id_seq OWNED BY public.learn_worlds_accounts.id;
+
+
+--
+-- Name: learn_worlds_courses; Type: TABLE; Schema: public; Owner: -
+--
+
+CREATE TABLE public.learn_worlds_courses (
+    id bigint NOT NULL,
+    title character varying NOT NULL,
+    external_id character varying NOT NULL,
+    created_at timestamp(6) without time zone NOT NULL,
+    updated_at timestamp(6) without time zone NOT NULL
+);
+
+
+--
+-- Name: learn_worlds_courses_id_seq; Type: SEQUENCE; Schema: public; Owner: -
+--
+
+CREATE SEQUENCE public.learn_worlds_courses_id_seq
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+
+--
+-- Name: learn_worlds_courses_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: -
+--
+
+ALTER SEQUENCE public.learn_worlds_courses_id_seq OWNED BY public.learn_worlds_courses.id;
 
 
 --
@@ -5676,10 +5742,24 @@ ALTER TABLE ONLY public.ip_locations ALTER COLUMN id SET DEFAULT nextval('public
 
 
 --
+-- Name: learn_worlds_account_course_events id; Type: DEFAULT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY public.learn_worlds_account_course_events ALTER COLUMN id SET DEFAULT nextval('public.learn_worlds_account_course_events_id_seq'::regclass);
+
+
+--
 -- Name: learn_worlds_accounts id; Type: DEFAULT; Schema: public; Owner: -
 --
 
 ALTER TABLE ONLY public.learn_worlds_accounts ALTER COLUMN id SET DEFAULT nextval('public.learn_worlds_accounts_id_seq'::regclass);
+
+
+--
+-- Name: learn_worlds_courses id; Type: DEFAULT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY public.learn_worlds_courses ALTER COLUMN id SET DEFAULT nextval('public.learn_worlds_courses_id_seq'::regclass);
 
 
 --
@@ -6728,11 +6808,27 @@ ALTER TABLE ONLY public.ip_locations
 
 
 --
+-- Name: learn_worlds_account_course_events learn_worlds_account_course_events_pkey; Type: CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY public.learn_worlds_account_course_events
+    ADD CONSTRAINT learn_worlds_account_course_events_pkey PRIMARY KEY (id);
+
+
+--
 -- Name: learn_worlds_accounts learn_worlds_accounts_pkey; Type: CONSTRAINT; Schema: public; Owner: -
 --
 
 ALTER TABLE ONLY public.learn_worlds_accounts
     ADD CONSTRAINT learn_worlds_accounts_pkey PRIMARY KEY (id);
+
+
+--
+-- Name: learn_worlds_courses learn_worlds_courses_pkey; Type: CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY public.learn_worlds_courses
+    ADD CONSTRAINT learn_worlds_courses_pkey PRIMARY KEY (id);
 
 
 --
@@ -8049,10 +8145,24 @@ CREATE INDEX index_ip_locations_on_zip ON public.ip_locations USING btree (zip);
 
 
 --
+-- Name: index_learn_worlds_accounts_on_external_id; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE UNIQUE INDEX index_learn_worlds_accounts_on_external_id ON public.learn_worlds_accounts USING btree (external_id);
+
+
+--
 -- Name: index_learn_worlds_accounts_on_user_id; Type: INDEX; Schema: public; Owner: -
 --
 
 CREATE INDEX index_learn_worlds_accounts_on_user_id ON public.learn_worlds_accounts USING btree (user_id);
+
+
+--
+-- Name: index_learn_worlds_courses_on_external_id; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE UNIQUE INDEX index_learn_worlds_courses_on_external_id ON public.learn_worlds_courses USING btree (external_id);
 
 
 --
@@ -8777,6 +8887,20 @@ CREATE UNIQUE INDEX index_zipcode_infos_on_zipcode ON public.zipcode_infos USING
 
 
 --
+-- Name: learn_worlds_account_course_events_on_account_id; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX learn_worlds_account_course_events_on_account_id ON public.learn_worlds_account_course_events USING btree (learn_worlds_account_id);
+
+
+--
+-- Name: learn_worlds_account_course_events_on_course_id; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX learn_worlds_account_course_events_on_course_id ON public.learn_worlds_account_course_events USING btree (learn_worlds_course_id);
+
+
+--
 -- Name: name_idx; Type: INDEX; Schema: public; Owner: -
 --
 
@@ -9365,6 +9489,14 @@ ALTER TABLE ONLY public.teacher_saved_activities
 
 
 --
+-- Name: learn_worlds_account_course_events fk_rails_d14877312a; Type: FK CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY public.learn_worlds_account_course_events
+    ADD CONSTRAINT fk_rails_d14877312a FOREIGN KEY (learn_worlds_account_id) REFERENCES public.learn_worlds_accounts(id);
+
+
+--
 -- Name: skill_group_activities fk_rails_d286b719ca; Type: FK CONSTRAINT; Schema: public; Owner: -
 --
 
@@ -9466,6 +9598,14 @@ ALTER TABLE ONLY public.content_partner_activities
 
 ALTER TABLE ONLY public.auth_credentials
     ADD CONSTRAINT fk_rails_f92a275310 FOREIGN KEY (user_id) REFERENCES public.users(id);
+
+
+--
+-- Name: learn_worlds_account_course_events fk_rails_f9564aaf30; Type: FK CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY public.learn_worlds_account_course_events
+    ADD CONSTRAINT fk_rails_f9564aaf30 FOREIGN KEY (learn_worlds_course_id) REFERENCES public.learn_worlds_courses(id);
 
 
 --
@@ -9908,7 +10048,6 @@ INSERT INTO "schema_migrations" (version) VALUES
 ('20211019143514'),
 ('20211026160939'),
 ('20211108171529'),
-('20211202235402'),
 ('20220105145446'),
 ('20220106193721'),
 ('20220128175405'),
@@ -9978,12 +10117,6 @@ INSERT INTO "schema_migrations" (version) VALUES
 ('20230206203447'),
 ('20230301151808'),
 ('20230301160642'),
-('20230306220015'),
-('20230306220016'),
-('20230306220017'),
-('20230317151920'),
-('20230317151921'),
-('20230317151922'),
 ('20230323114351'),
 ('20230328155819'),
 ('20230405140349'),
@@ -9996,6 +10129,11 @@ INSERT INTO "schema_migrations" (version) VALUES
 ('20230414164818'),
 ('20230420141952'),
 ('20230421172858'),
-('20230428190706');
+('20230428190706'),
+('20230523191206'),
+('20230523191347'),
+('20230523192828'),
+('20230524142914'),
+('20230524143000');
 
 

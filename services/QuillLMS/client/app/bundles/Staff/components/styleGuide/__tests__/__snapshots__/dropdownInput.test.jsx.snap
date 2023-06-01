@@ -2,7 +2,7 @@
 
 exports[`Dropdown input component should render when it is multi-option 1`] = `
 <div
-  className="dropdown-container input-container inactive has-text  undefined checkbox-dropdown"
+  className="dropdown-container input-container inactive has-text  undefined  checkbox-dropdown"
   onClick={[Function]}
   onKeyDown={[Function]}
   role="button"
@@ -25,7 +25,6 @@ exports[`Dropdown input component should render when it is multi-option 1`] = `
     inputValue=""
     isClearable={false}
     isMulti={true}
-    isSearchable={false}
     menuIsOpen={false}
     onChange={[Function]}
     onInputChange={[Function]}
@@ -65,7 +64,7 @@ exports[`Dropdown input component should render when it is multi-option 1`] = `
 
 exports[`Dropdown input component should render when it is not searchable 1`] = `
 <div
-  className="dropdown-container input-container inactive has-text not-editable undefined "
+  className="dropdown-container input-container inactive has-text not-editable undefined  "
   onClick={[Function]}
   onKeyDown={[Function]}
   role="button"
@@ -125,7 +124,7 @@ exports[`Dropdown input component should render when it is not searchable 1`] = 
 
 exports[`Dropdown input component should render when it is searchable 1`] = `
 <div
-  className="dropdown-container input-container inactive has-text  undefined "
+  className="dropdown-container input-container inactive has-text  undefined searchable "
   onClick={[Function]}
   onKeyDown={[Function]}
   role="button"

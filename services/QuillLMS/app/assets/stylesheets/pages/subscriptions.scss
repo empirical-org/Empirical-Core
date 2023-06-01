@@ -1,7 +1,7 @@
 .subscriptions {
   max-width: $sitewidepagewidth;
-  margin: auto;
   padding-top: 22px;
+  margin: auto;
   border-bottom: none;
 
   .school-dropdown-container {
@@ -97,6 +97,14 @@
     padding-top: 16px;
     color: #3b3b3b;
     padding-bottom: 0px;
+    .upper-section {
+      align-items: center;
+      display: flex;
+      justify-content: space-between;
+      .left-side-container {
+        display: flex;
+      }
+    }
     .quill-button {
       margin-right: 16px;
     }
@@ -135,7 +143,6 @@
     }
 
     .expiration-date {
-      background-color: #fafafa;
       padding: 10px 8px;
       font-size: 18px;
 
@@ -254,7 +261,7 @@
 
   .available-credit {
     border-radius: 3px;
-    background-color: #f8a724;
+    background-color: $quillgolddark;
     border: solid 1px #f5ba5b;
     min-height: 77px;
     color: white;
@@ -263,11 +270,12 @@
 
     &.no-credits {
       background-color: white;
-      color: #f8a724;
+      color: $quillgolddark;
+      margin-top: 36px;
     }
 
     .button {
-      background-color: #f8a724;
+      background-color: $quillgolddark;
       border: solid 1px #fff;
       font-size: 16px;
       color: white;
@@ -275,7 +283,7 @@
     }
 
     .credit-quantity {
-      color: #f8a72;
+      color: $quillgoldextradark;
       font-size: 18px;
 
       span {
@@ -375,33 +383,78 @@
   }
 }
 
-@media (max-width: 767px) {
-  .subscriptions{
-    width: 95%;
+.subscription-tooltip {
+  padding-left: 5px;
+}
+
+@media (max-width: 1050px) {
+  .subscriptions {
+    padding-left: 86px;
+    padding-right: 86px;
     .subscription-status {
-      div{
-        div{
-          .box{
-            display: none;
-          }
-          margin-left: 18%;
-          margin-bottom: 4%;
+      .upper-section {
+        flex-direction: column;
+        align-items: flex-start;
+        .expiration-date {
+          padding: 10px 22px 0px 29px;
         }
-        a{
-          margin-left: 8%;
+        .quill-button {
+          margin: 28px 28px 8px 28px;
         }
       }
     }
-    .current-subscription-information-and-cta {
-      .sub-button-row{
-        a[href$=".pdf"]{
-          margin-left: 10%;
+    .subscription-history {
+      .table-container {
+        .empty-state {
+          padding: 28px;
+          justify-content: center;
+        }
+      }
+    }
+    .green-link {
+      margin-bottom: 16px;
+    }
+    .credit-quantity {
+      margin-bottom: 8px;
+    }
+  }
+}
+
+@media (max-width: 850px) {
+  .subscriptions {
+    .subscription-status {
+      .upper-section {
+        img {
+          display: none;
+        }
+      }
+    }
+    .subscription-history {
+      min-height: 174px;
+      .table-container {
+        overflow-x: scroll;
+        table {
+          white-space: nowrap;
         }
       }
     }
   }
 }
 
-.subscription-tooltip {
-  padding-left: 5px;
+@media (max-width: 650px) {
+  .subscriptions {
+    padding-left: 16px;
+    padding-right: 16px;
+    .subscription-status {
+      .upper-section {
+        align-items: flex-start;
+        .expiration-date {
+          padding: 10px 22px 0px 29px;
+        }
+      }
+    }
+    .premium-subscription-copy {
+      padding: 0px 24px 24px 24px;
+    }
+  }
 }

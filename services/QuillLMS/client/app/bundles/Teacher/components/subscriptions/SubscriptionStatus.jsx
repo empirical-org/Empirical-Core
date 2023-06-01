@@ -196,14 +196,14 @@ const SubscriptionStatus = ({
 
   return (
     <section className="subscription-status">
-      <div className="flex-row space-between">
-        <div className="box-and-h2 flex-row space-between">
+      <div className="upper-section">
+        <div className="left-side-container">
           <div className="box" style={{ backgroundColor: content.boxColor, }} />
           {content.status}
         </div>
         {content.buttonOrDate}
       </div>
-      <p>{content.premiumCopy}</p>
+      <p className="premium-subscription-copy">{content.premiumCopy}</p>
     </section>
   );
 }

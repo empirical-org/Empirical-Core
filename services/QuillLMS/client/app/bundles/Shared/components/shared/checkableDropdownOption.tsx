@@ -12,9 +12,9 @@ const handleMouseEnter = (props) => {
 
 const renderCheckbox = (props) => {
   const { selectProps, } = props
-  const { value, options } = selectProps
+  const { value, options, inputValue } = selectProps
   const anyOptionsAreSelected = !!value.length
-  const allOptionsAreSelected = value.length === (options.length - 1)
+  const allOptionsAreSelected = !inputValue && value.length === (options.length - 1)
   let checkbox = <span className="quill-checkbox unselected" />
   if (props.isSelected || allOptionsAreSelected) {
     checkbox = (<span className="quill-checkbox selected">

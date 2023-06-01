@@ -78,11 +78,6 @@ module PagesHelper
             img: 'team-peter-gault.webp'
           },
           {
-            name: 'Sarah Kelly',
-            title: 'Managing Director of Strategic Impact',
-            img: 'team-sarah-kelly.webp'
-          },
-          {
             name: 'Lila Jane Mabe',
             title: 'Managing Director of Strategy & Impact',
             img: 'team-lila-jane-mabe.webp'
@@ -192,11 +187,6 @@ module PagesHelper
             name: 'Brendan Shean',
             title: 'Staff Software Engineer',
             img: 'team-brendan-shean.webp'
-          },
-          {
-            name: 'Emma Volk',
-            title: 'Lead Curriculum Developer',
-            img: 'team-emma-volk.webp'
           },
           {
             name: 'Anna Waterman',

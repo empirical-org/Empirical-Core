@@ -1782,6 +1782,31 @@ describe User, type: :model do
 
       it { expect(subject).to be_truthy }
     end
+
+    context 'learn_worlds_access override? is true' do
+      before { allow(user).to receive(:learn_worlds_access_override?).and_return(true) }
+
+      it { expect(subject).to be_truthy }
+    end
+  end
+
+  describe '#learn_worlds_access_override?' do
+    subject { user.learn_worlds_access_override? }
+
+    it { expect(subject).to be_falsey }
+
+    context 'override exists' do
+      before do
+        create(
+          :app_setting,
+          name: AppSetting::LEARN_WORLDS_ACCESS_OVERRIDE,
+          enabled: true,
+          user_ids_allow_list: [user.id]
+        )
+      end
+
+      it { expect(subject).to be_truthy }
+    end
   end
 
   describe '#generate_default_notification_email_frequency' do
@@ -1845,6 +1870,39 @@ describe User, type: :model do
       expect do
         teacher.save
       end.to change(TeacherNotificationSetting, :count).by(TeacherNotificationSetting::DEFAULT_FOR_NEW_USERS.length)
+    end
+  end
+
+  describe '#should_render_teacher_premium?' do
+    let(:user) { create(:user) }
+
+    subject { user.should_render_teacher_premium? }
+
+    it 'should return true if the teacher has a paid teacher premium subscription' do
+      subscription = create(:subscription, account_type: Subscription::TEACHER_PAID)
+      create(:user_subscription, user: user, subscription: subscription)
+
+      expect(subject).to eq true
+    end
+
+    it 'should return false if the teacher has an unpaid subscription' do
+      subscription = create(:subscription, account_type: Subscription::TEACHER_TRIAL)
+      create(:user_subscription, user: user, subscription: subscription)
+
+      expect(subject).to eq false
+    end
+
+    it 'should return false if the teacher has a school subscription' do
+      subscription = create(:subscription, account_type: Subscription::SCHOOL_PAID)
+      create(:user_subscription, user: user, subscription: subscription)
+
+      expect(subject).to eq false
+    end
+
+    it 'should return false if the teacher has no subscription' do
+      teacher = create(:teacher)
+
+      expect(subject).to eq false
     end
   end
 

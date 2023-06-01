@@ -3,31 +3,14 @@
 <% on_sign_up_or_log_in = ['account/new', '/session', 'password_reset', 'sign-up', 'finish_set_up'].any? { |str| current_path.include?(str)} %>
 <% logo_src = on_home_page ? "https://assets.quill.org/images/logos/quill-logo-white-2022.svg" : "https://assets.quill.org/images/logos/quill-logo-green.svg" %>
 <% home_page_class = on_home_page ? 'on-home-page' : '' %>
+<% active_tab = determine_active_tab(current_path) %>
 
-<% if current_path.include?('teachers') || current_path.include?('assign') %>
-	<% user_dropdown_class = 'on-dashboard' %>
-	<% user_dropdown_img = 'https://assets.quill.org/images/navbar/navbar-dashboard-solid.svg' %>
-<% else %>
-	<% user_dropdown_class = 'not-on-dashboard' %>
-	<% user_dropdown_img = 'https://assets.quill.org/images/navbar/navbar-dashboard-white.svg' %>
-<% end %>
+<% user_dropdown_class = current_path.include?('teachers') || current_path.include?('assign') ? 'on-dashboard' : 'not-on-dashboard' %>
 
 <% if show_school_selection_reminders %>
   <% show_notification_badges_class = 'show-notification-badges' %>
 <% else %>
   <% show_notification_badges_class = '' %>
-<% end %>
-
-<% if current_path.include?('tools') %>
-	<% active_tab = 'Learning Tools' %>
-<% elsif ['about', 'announcements', 'mission', 'impact', 'press', 'team', 'pathways', 'careers'].any? { |str| current_path.include?(str)} %>
-	<% active_tab = 'About Us' %>
-<% elsif current_path.include?('activities') %>
-	<% active_tab = 'Explore Curriculum' %>
-<% elsif ['teacher-center', 'faq', 'premium'].any? { |str| current_path.include?(str)} %>
-	<% active_tab = 'Teacher Center' %>
-<% else %>
-	<% active_tab = '' %>
 <% end %>
 
 <nav class="q-navbar-home">
@@ -68,39 +51,31 @@
             <%="#{truncate(current_user.name, length: 50)}"%>
           </span>
   				<div>
-  					<i class="fas fa-caret-up"></i>
   					<%= link_to raw(
-  						"<span class='image-container'><img class='static' src='https://assets.quill.org/images/navbar/navbar-dashboard-gradient.svg'></img>
-  						<img class='hover' src='https://assets.quill.org/images/navbar/navbar-dashboard-solid.svg'></img></span>
+  						"<span class='image-container'><img class='static' src='https://assets.quill.org/images/icons/pulldown_icons/clipboard-icon-green.svg'></img></span>
   						My Dashboard"
   					),
   						dashboard_teachers_classrooms_path
    					%>
   					<%= link_to raw(
   						"<span class='image-container'>
-                <img class='static' src='https://assets.quill.org/images/navbar/navbar-account-gradient-1.svg'></img>
-  						  <img class='hover' src='https://assets.quill.org/images/navbar/navbar-account-solid-1.svg'></img>
+                <img class='static' src='https://assets.quill.org/images/icons/pulldown_icons/account-icon-green.svg'></img>
               </span>
   						<span class='notification-badge-relative'>My Account</span>"
             ),
   						teachers_my_account_path
   					%>
   					<%= link_to raw(
-  						"<span class='image-container'><img class='static' src='https://assets.quill.org/images/navbar/navbar-support-gradient-1.svg'></img>
-  						<img class='hover' src='https://assets.quill.org/images/navbar/navbar-support-solid-1.svg'></img></span>
-  						Support"
+  						"<span class='image-container'><img class='static' src='https://assets.quill.org/images/icons/pulldown_icons/settings-icon-green.svg'></img></span>Support"
   					),
   						'https://support.quill.org',
   						target: "_blank"
   					%>
+						<img class='divider'></img>
   					<%= link_to raw(
-  						"<span class='image-container'><img class='static' src='https://assets.quill.org/images/navbar/navbar-logout-gradient-1.svg'></img>
-  						<img class='hover' src='https://assets.quill.org/images/navbar/navbar-logout-solid-1.svg'></img></span>
-  						Logout"
+  						"<span class='image-container'><img class='static' src='https://assets.quill.org/images/icons/pulldown_icons/logout-icon-green.svg'></img></span>Logout"
   					),
-  						'/session',
-  						onmouseover: "changeImageOnMouseOver('logout-img', 'https://assets.quill.org/images/navbar/navbar-logout-solid.svg')",
-  						onmouseout: "changeImageOnMouseOut('logout-img', 'https://assets.quill.org/images/navbar/navbar-logout-gradient.svg')"
+  						'/session'
   					%>
   				</div>
   			</div>
@@ -109,56 +84,6 @@
 			<% end %>
 	  </div>
 	  <% end %>
-	<% end %>
-
-	<% if !on_sign_up_or_log_in && current_user&.role != 'student' %>
-	  <nav class="home-nav-dropdown" role="home-custom-dropdown">
-	    <input class="home-nav-checkbox" type="checkbox" id="button-nav">
-	    <label for="button-nav" onclick=""></label>
-	    <ul class="home-navbar-list">
-				<% if current_user.nil? %>
-		      <li>
-		        <a href="/tools/connect" class="text-white">Learning Tools</a>
-		      </li>
-		      <li>
-		        <a href="/activities/packs" class="text-white">Explore Curriculum</a>
-		      </li>
-					<li>
-						<a href='/teacher-center' class="text-white">Teacher Center</a>
-					</li>
-		      <li>
-		        <a href="/about" class="text-white">About Us</a>
-		      </li>
-		      <li>
-						<a class="text-white" href="/session/new">Log In</a>
-		      </li>
-		      <li>
-						<a class="text-white" href="/account/new">Sign Up</a>
-		      </li>
-				<% else %>
-					<li>
-						<a href="/tools/connect" class="text-white">Learning Tools</a>
-					</li>
-					<li>
-						<a href="/teacher-center" class="text-white">Teacher Center</a>
-					</li>
-					<li>
-						<a href="https://support.quill.org/" class="text-white">Quill Support</a>
-					</li>
-				<% if current_user.teacher? %>
-					<li>
-						<a href="/teachers/classrooms/dashboard" class="text-white">My Dashboard</a>
-					</li>
-					<li>
-						<a href="/teachers/my_account" class="text-white">My Account</a>
-					</li>
-				<% end %>
-					<li>
-						<a href="/session" class="text-white">Logout</a>
-					</li>
-	      <% end %>
-	    </ul>
-	  </nav>
 	<% end %>
 </nav>
 

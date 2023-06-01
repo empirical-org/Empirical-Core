@@ -76,7 +76,7 @@ exports[`SelectSubRole component should render 1`] = `
           placeholder="Select a role"
         >
           <div
-            className="dropdown-container input-container inactive  not-editable undefined "
+            className="dropdown-container input-container inactive  not-editable undefined  "
             onClick={[Function]}
             onKeyDown={[Function]}
             role="button"

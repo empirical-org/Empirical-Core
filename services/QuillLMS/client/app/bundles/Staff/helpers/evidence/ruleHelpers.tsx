@@ -322,7 +322,7 @@ export const buildRule = ({
     rule_type: ruleType.value,
     suborder: suborder ? suborder : order,
     universal: universal,
-    hint_id: ruleHint?.id,
+    hint_id: ruleHint?.id || null,
     state
   };
 

@@ -188,7 +188,7 @@ const SessionsIndex = ({ match }) => {
 
   const { activitySessions } = sessionsData;
   const { total_activity_sessions, activity_sessions } = activitySessions;
-  const metabaseLink = `https://data.quill.org/question/615?activity_id=${activityId}`
+  const metabaseLink = `https://data.quill.org/question/1048?activity_id=${activityId}`
 
   return(
     <div className="sessions-index-container">

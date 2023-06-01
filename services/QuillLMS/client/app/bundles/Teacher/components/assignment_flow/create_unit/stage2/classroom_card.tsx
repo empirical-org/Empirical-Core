@@ -104,7 +104,8 @@ export default class ClassroomCard extends React.Component<ClassroomCardProps, C
       return (
         <DropdownInput
           handleChange={(e) => { this.selectStudents(e, id) }}
-          isMulti
+          isMulti={true}
+          isSearchable={false}
           options={options}
           optionType="student"
           value={selectedStudents}

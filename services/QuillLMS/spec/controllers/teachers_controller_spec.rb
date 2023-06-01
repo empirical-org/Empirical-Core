@@ -18,7 +18,7 @@ describe TeachersController, type: :controller do
         expect(response).to redirect_to profile_path
       end
 
-      it 'render admin dashboard' do
+      it 'render Premium Hub dashboard' do
         user = create(:admin)
         allow(controller).to receive(:current_user) { user }
         get :premium_hub

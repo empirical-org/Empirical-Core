@@ -1,2 +1,3 @@
-<% tabs = device == 'mobile' ? explore_curriculum_tabs(large: false) : explore_curriculum_tabs(large: true) %>
+<% tabs = explore_curriculum_tabs %>
 <%= render partial: "pages/shared/sub_navbar", locals: { tabs: tabs, active_tab:  @active_tab } %>
+<%= render partial: 'pages/shared/mobile_sub_navbar', locals: { tabs: tabs, active_tab:  @active_tab } %>

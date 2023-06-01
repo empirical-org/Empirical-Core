@@ -296,3 +296,19 @@ a.progress-reports-nav {
   margin-left: 15px;
   width: calc(100% - 30px);
 }
+
+@media (max-width: 650px) {
+  .progress-report-filters {
+    flex-direction: column;
+    align-items: baseline;
+    padding-right: 16px;
+  }
+  .progress-report-filters > * {
+    margin: 0px;
+  }
+  .progress-report {
+    table {
+      min-width: 1000px;
+    }
+  }
+}

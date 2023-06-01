@@ -51,7 +51,7 @@ export default class ProgressReportIndex extends React.Component {
       }
     });
 
-    const containerStyle = component ? 'gray-background-accommodate-footer' : ''
+    const containerStyle = component ? 'gray-background-accommodate-footer container' : ''
 
     return (
       <div className={containerStyle}>

@@ -698,3 +698,24 @@
     }
   }
 }
+
+@media (max-width: 800px) {
+  .activity-page-dropdown-wrapper {
+    &.scorebook-filters {
+      flex-direction: column;
+      .scorebook-filter-group {
+        margin-bottom: 16px;
+        .input-container {
+          min-width: 294px;
+        }
+      }
+    }
+  }
+  .icons-wrapper {
+    .icons {
+      row-gap: 16px;
+      column-gap: 16px;
+      justify-content: space-between;
+    }
+  }
+}
