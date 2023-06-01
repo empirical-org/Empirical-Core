@@ -37,6 +37,16 @@ body, button, input, select, textarea {
   height: 100%;
 }
 
+.app-container {
+  .activity-container {
+    display: flex;
+    flex-direction: row;
+    #main-content {
+      width: 100%;
+    }
+  }
+}
+
 button {
   cursor: pointer;
 }
