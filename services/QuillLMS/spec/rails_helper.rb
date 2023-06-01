@@ -96,6 +96,12 @@ RSpec.configure do |config|
     ActionController::Base.perform_caching = caching
   end
 
+  config.around(:each, :external_api) do |example|
+    VCR.configure { |c| c.allow_http_connections_when_no_cassette = true }
+    example.run
+    VCR.configure { |c| c.allow_http_connections_when_no_cassette = false }
+  end
+
   if ENV.fetch('SUPPRESS_PUTS', false) == 'true'
     config.before do
       allow($stdout).to receive(:puts)
