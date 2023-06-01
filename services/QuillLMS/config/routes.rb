@@ -91,6 +91,10 @@ EmpiricalGrammar::Application.routes.draw do
     post '/webhooks', to: 'webhooks#create'
   end
 
+  namespace :learn_worlds_integration do
+    post '/webhooks', to: 'webhooks#create', format: :json
+  end
+
   namespace :intercom_integration do
     post '/webhooks', to: 'webhooks#create'
   end

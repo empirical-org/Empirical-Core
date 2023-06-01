@@ -394,4 +394,35 @@ describe 'SerializeVitallySalesUser' do
       expect(vitally_user.send(:sum_students, records)).to eq 3
     end
   end
+
+  context 'learnworlds' do
+    subject { SerializeVitallySalesUser.new(teacher).data[:traits] }
+
+    before { create(:learn_worlds_account, user: teacher) }
+
+    let(:learn_worlds_account) { teacher.learn_worlds_account }
+
+    it { expect(subject[:learn_worlds_last_login]).to eq learn_worlds_account.last_login.to_date }
+
+    context 'enrolled courses' do
+      before { create(:learn_worlds_account_enrolled_course_event, learn_worlds_account: learn_worlds_account) }
+
+      it { expect(subject[:learn_worlds_enrolled_courses]).to eq learn_worlds_account.enrolled_courses.titles_string}
+      it { expect(subject[:learn_worlds_num_enrolled_courses]).to eq 1 }
+    end
+
+    context 'completed courses' do
+      before { create(:learn_worlds_account_completed_course_event, learn_worlds_account: learn_worlds_account) }
+
+      it { expect(subject[:learn_worlds_completed_courses]).to eq learn_worlds_account.completed_courses.titles_string }
+      it { expect(subject[:learn_worlds_num_completed_courses]).to eq 1 }
+    end
+
+    context 'earned certificate courses' do
+      before { create(:learn_worlds_account_earned_certificate_course_event, learn_worlds_account: learn_worlds_account) }
+
+      it { expect(subject[:learn_worlds_earned_certificate_courses]).to eq learn_worlds_account.earned_certificate_courses.titles_string }
+      it { expect(subject[:learn_worlds_num_earned_certificate_courses]).to eq 1 }
+    end
+  end
 end

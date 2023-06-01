@@ -793,7 +793,11 @@ class User < ApplicationRecord
   end
 
   def learn_worlds_access?
-    school_premium? || district_premium?
+    school_premium? || district_premium? || learn_worlds_access_override?
+  end
+
+  def learn_worlds_access_override?
+    AppSetting.enabled?(name: AppSetting::LEARN_WORLDS_ACCESS_OVERRIDE, user: self)
   end
 
   def school_premium?

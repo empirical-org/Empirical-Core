@@ -22,6 +22,7 @@ require 'zlib'
 class AppSetting < ApplicationRecord
 
   COMPREHENSION = 'comprehension'
+  LEARN_WORLDS_ACCESS_OVERRIDE = 'learn_worlds_access_override'
 
   validates :percent_active, numericality: {
     only_integer: true,

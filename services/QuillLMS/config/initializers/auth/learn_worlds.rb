@@ -8,5 +8,7 @@ module Auth
 
     SSO_ENDPOINT = "#{BASE_URI}/admin/api/sso"
     COURSES_ENDPOINT = "#{BASE_URI}/courses"
+
+    WEBHOOK_SIGNATURE = ENV.fetch('LEARN_WORLDS_WEBHOOK_SIGNATURE', '')
   end
 end
