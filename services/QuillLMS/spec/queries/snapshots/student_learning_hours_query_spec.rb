@@ -11,8 +11,7 @@ module Snapshots
 
       let(:total_timespent) { activity_sessions.sum(&:timespent) / 3600.0 }
 
-      it { binding.pry;
-        expect(results).to eq [{'count' => total_timespent }] }
+      it { expect(results).to eq [{'count' => total_timespent }] }
     end
   end
 end

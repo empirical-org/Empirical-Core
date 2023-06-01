@@ -9,7 +9,6 @@ module Snapshots
     context 'external_api', :big_query_snapshot do
       include_context 'Snapshots Count CTE'
 
-      let(:activity_session_trait) { :finished }
       let(:num_completed_activities) { activity_sessions.count }
 
       it { expect(results).to eq [{'count' => num_completed_activities }] }
