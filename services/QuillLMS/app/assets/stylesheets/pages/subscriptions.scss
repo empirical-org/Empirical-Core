@@ -398,7 +398,24 @@
         .expiration-date {
           padding: 10px 22px 0px 29px;
         }
+        .quill-button {
+          margin: 28px 28px 8px 28px;
+        }
       }
+    }
+    .subscription-history {
+      .table-container {
+        .empty-state {
+          padding: 28px;
+          justify-content: center;
+        }
+      }
+    }
+    .green-link {
+      margin-bottom: 16px;
+    }
+    .credit-quantity {
+      margin-bottom: 8px;
     }
   }
 }

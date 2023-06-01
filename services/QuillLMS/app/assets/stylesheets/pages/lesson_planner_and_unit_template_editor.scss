@@ -705,6 +705,9 @@
       flex-direction: column;
       .scorebook-filter-group {
         margin-bottom: 16px;
+        .input-container {
+          min-width: 294px;
+        }
       }
     }
   }

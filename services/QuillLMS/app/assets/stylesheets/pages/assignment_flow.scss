@@ -202,4 +202,15 @@
     max-width: 90vw;
     height: min-content !important;
   }
+  .share-activity-pack-modal {
+    .form-buttons {
+      flex-direction: column;
+      button {
+        margin-left: 0px !important;
+      }
+      button:last-of-type {
+        margin-top: 16px;
+      }
+    }
+  }
 }
