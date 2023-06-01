@@ -303,6 +303,9 @@ a.progress-reports-nav {
     align-items: baseline;
     padding-right: 16px;
   }
+  .progress-report-filters > * {
+    margin: 0px;
+  }
   .progress-report {
     table {
       min-width: 1000px;
