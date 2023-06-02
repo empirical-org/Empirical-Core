@@ -7,7 +7,7 @@ module Snapshots
     context 'external_api', :big_query_snapshot do
       include_context 'Snapshots Count CTE'
 
-      it { expect(results).to eq [{'count' => num_classrooms}] }
+      it { expect(results).to eq(count: num_classrooms) }
     end
   end
 end

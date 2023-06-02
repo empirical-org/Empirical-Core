@@ -1,12 +1,13 @@
 # frozen_string_literal: true
 
 RSpec.shared_context 'Snapshots Period CTE' do
-  include_context 'Snapshots CTE'
+  include_context 'QuillBigQuery TestRunner Setup'
 
-  let(:params) { [timeframe_start, timeframe_end, school_ids] }
+  let(:params) { [timeframe_start, timeframe_end, school_ids, grades] }
 
   let(:timeframe_start) { 1.week.ago.to_date }
   let(:timeframe_end) { 1.week.from_now.to_date }
+  let(:grades) { nil }
 
   let(:num_classrooms) { 2 }
   let(:classrooms) { create_list(:classroom, num_classrooms) }

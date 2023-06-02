@@ -1,26 +1,16 @@
 # frozen_string_literal: true
 
 module Snapshots
-  class OptionsQuery < ::ApplicationService
+  class OptionsQuery < ::QuillBigQuery::Query
     attr_accessor :admin_id
 
-    def initialize(admin_id)
+    def initialize(admin_id, options = {})
       @admin_id = admin_id
+      super(options)
     end
 
     def run
-      QuillBigQuery::Runner.execute(query)
-    end
-
-    def query
-      <<-SQL
-        #{select_clause}
-          #{from_and_join_clauses}
-          #{where_clause}
-          #{group_by_clause}
-          #{order_by_clause}
-          #{limit_clause}
-      SQL
+      run_query
     end
 
     def select_clause
@@ -43,18 +33,6 @@ module Snapshots
 
     def where_clause
       "WHERE admins.id = #{admin_id}"
-    end
-
-    def group_by_clause
-      ""
-    end
-
-    def order_by_clause
-      ""
-    end
-
-    def limit_clause
-      ""
     end
   end
 end

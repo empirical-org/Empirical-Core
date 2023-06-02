@@ -1,7 +1,7 @@
 # frozen_string_literal: true
 
 RSpec.shared_context 'Snapshots Option CTE' do
-  include_context 'Snapshots CTE'
+  include_context 'QuillBigQuery TestRunner Setup'
 
   let(:params) { [admin.id] }
 

@@ -9,7 +9,7 @@ module Snapshots
 
       let(:average_activities_completed_per_student) { activity_sessions.count / activity_sessions.map(&:user_id).uniq.count.to_f }
 
-      it { expect(results).to eq [{'count' => average_activities_completed_per_student }] }
+      it { expect(results).to eq(count: average_activities_completed_per_student) }
     end
   end
 end

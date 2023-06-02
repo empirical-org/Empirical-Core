@@ -9,7 +9,7 @@ module Snapshots
 
       let(:num_completed_activities) { activity_sessions.count }
 
-      it { expect(results).to eq [{'count' => num_completed_activities }] }
+      it { expect(results).to eq(count: num_completed_activities) }
     end
   end
 end

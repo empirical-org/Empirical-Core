@@ -1,29 +1,28 @@
 # frozen_string_literal: true
 
 module QuillBigQuery
-  class TestRunner < ::ApplicationService
-    attr_reader :cte_records, :query
+  class TestRunner
+    attr_reader :cte_records
 
-    def initialize(query, cte_records)
-      @query = query
+    def initialize(cte_records)
       @cte_records = cte_records
     end
 
-    def run
-      QuillBigQuery::Runner.execute(bq_query)
+    def execute(query)
+      QuillBigQuery::Runner.execute(translate_to_big_query_with_cte(query))
     end
 
-    private def bq_query
+    private def translate_to_big_query_with_cte(query)
       <<-SQL
         WITH
           #{cte}
-        #{table_namespaces_removed_query}
+        #{table_namespaces_removed_query(query)}
       SQL
     end
 
     # BigQuery doesn't support CTE aliases with period in the name.
     # So, we need to remove the 'lms.' and 'special.' prefixes from 'FROM' and 'JOIN' clauses
-    private def table_namespaces_removed_query
+    private def table_namespaces_removed_query(query)
       query.gsub(/(FROM|JOIN)\s+(?:lms|special)\.(\w+)/, '\1 \2')
     end
 
