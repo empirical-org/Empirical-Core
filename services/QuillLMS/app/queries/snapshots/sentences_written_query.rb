@@ -2,14 +2,14 @@
 
 module Snapshots
   class SentencesWrittenQuery < CountQuery
-    def query_to_run
+    def final_query
       utilizing_subquery
     end
 
     def utilizing_subquery
       <<-SQL
         SELECT COUNT(*) AS count
-          FROM (#{query})
+          FROM (#{core_query})
       SQL
     end
 

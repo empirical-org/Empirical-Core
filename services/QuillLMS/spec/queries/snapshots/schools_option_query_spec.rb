@@ -8,7 +8,7 @@ module Snapshots
       include_context 'Snapshots Option CTE'
 
       let(:schools) { School.where(id: schools_users.pluck(:school_id)) }
-      let(:cte_table_collections) { option_query_cte_table_collections << schools }
+      let(:cte_records) { option_query_cte_records << schools }
 
       let(:school) { schools.first }
 

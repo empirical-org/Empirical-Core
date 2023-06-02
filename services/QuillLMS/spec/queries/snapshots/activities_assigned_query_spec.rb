@@ -8,7 +8,7 @@ module Snapshots
       include_context 'Snapshots Count CTE'
 
       let(:unit_activities) { classroom_units.map { |classroom_unit| create(:unit_activity, unit: classroom_unit.unit) } }
-      let(:cte_table_collections) { count_query_cte_table_collections << unit_activities }
+      let(:cte_records) { count_query_cte_records << unit_activities }
 
       let(:num_activities_assigned) { unit_activities.count }
 

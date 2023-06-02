@@ -11,6 +11,6 @@ RSpec.shared_context 'Snapshots Count CTE' do
     end
   end
 
-  let(:count_query_cte_table_collections) { period_query_cte_table_collections << classroom_units << activity_sessions }
-  let(:cte_table_collections) { count_query_cte_table_collections }
+  let(:count_query_cte_records) { period_query_cte_records << classroom_units << activity_sessions }
+  let(:cte_records) { count_query_cte_records }
 end

@@ -16,14 +16,14 @@ module Snapshots
     end
 
     def run_query
-      QuillBigQuery::Runner.execute(query_to_run)
+      QuillBigQuery::Runner.execute(final_query)
     end
 
-    def query_to_run
-      query
+    def final_query
+      core_query
     end
 
-    def query
+    def core_query
       <<-SQL
         #{select_clause}
           #{from_and_join_clauses}

@@ -3,7 +3,7 @@
 RSpec.shared_context 'Snapshots Option CTE' do
   include_context 'Snapshots CTE'
 
-  let(:pg_query) { described_class.new(admin.id).query_to_run }
+  let(:params) { [admin.id] }
 
   let(:num_classrooms) { 2 }
   let(:classrooms) { create_list(:classroom, num_classrooms) }
@@ -13,6 +13,7 @@ RSpec.shared_context 'Snapshots Option CTE' do
   let(:users) { User.all }
   let(:admin) { users.admin.first }
 
-  let(:option_query_cte_table_collections) { [classrooms, classrooms_teachers, schools_users, schools_admins, users] }
-  let(:cte_table_collections) { option_query_cte_table_collections }
+  let(:option_query_cte_records) { [classrooms, classrooms_teachers, schools_users, schools_admins, users] }
+
+  let(:cte_records) { option_query_cte_records }
 end

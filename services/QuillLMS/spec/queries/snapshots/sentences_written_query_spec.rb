@@ -8,7 +8,7 @@ module Snapshots
       include_context 'Snapshots Count CTE'
 
       let(:concept_results) { activity_sessions.map { |activity_session| create(:concept_result, activity_session: activity_session) } }
-      let(:cte_table_collections) { count_query_cte_table_collections << concept_results }
+      let(:cte_records) { count_query_cte_records << concept_results }
 
       it { expect(results).to eq [{'count' => concept_results.count }] }
     end
