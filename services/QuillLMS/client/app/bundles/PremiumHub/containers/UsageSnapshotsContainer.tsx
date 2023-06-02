@@ -6,46 +6,11 @@ import Filters from '../components/usage_snapshots/filters'
 import { snapshotSections, TAB_NAMES, ALL, CUSTOM, } from '../components/usage_snapshots/shared'
 import { Spinner, DropdownInput, } from '../../Shared/index'
 import useWindowSize from '../../Shared/hooks/useWindowSize';
+import { requestGet, } from '../../../modules/request'
 
 const MAX_VIEW_WIDTH_FOR_MOBILE = 850
 
 const filterIconSrc = `${process.env.CDN_URL}/images/icons/icons-filter.svg`
-
-const filterData = {
-  timeframes: [
-    {default: true, name: "Last 30 days",  value: "last-30-days"},
-    {default: false, name: "Last 90 days",  value: "last-90-days"},
-    {default: false, name: "This month",  value: "this-month"},
-    {default: false, name: "This month",  value: "last-month"},
-    {default: false, name: "This year",  value: "this-year"},
-    {default: false, name: "Last year",  value: "last-year"},
-    {default: false, name: "All time",  value: "all-time"},
-    {default: false, name: "Custom date range",  value: "custom"}
-  ],
-  schools: [
-    {"id":32628, name: "Wayne High School"},
-    {"id":32629, name: "John High School"},
-    {"id":32630, name: "Brooks High School"},
-    {"id":32631, name: "Water High School"},
-  ],
-  grades: [
-    { value: "Kindergarten", name: "Kindergarten"},
-    { value: "1", name: "1st"},
-    { value: "2", name: "2nd"},
-    { value: "3", name: "3rd"},
-    { value: "4", name: "4th"},
-    { value: "5", name: "5th"},
-    { value: "6", name: "6th"},
-    { value: "7", name: "7th"},
-    { value: "8", name: "8th"},
-    { value: "9", name: "9th"},
-    { value: "10", name: "10th"},
-    { value: "11", name: "11th"},
-    { value: "12", name: "12th"},
-    { value: "University", name: "University"},
-    { value: "Other", name: "Other"}
-  ]
-}
 
 const Tab = ({ section, setSelectedTab, selectedTab }) => {
   function handleSetSelectedTab() { setSelectedTab(section) }
@@ -58,7 +23,7 @@ const Tab = ({ section, setSelectedTab, selectedTab }) => {
   return <button className={className} onClick={handleSetSelectedTab} type="button">{section}</button>
 }
 
-const UsageSnapshotsContainer = ({}) => {
+const UsageSnapshotsContainer = ({ adminInfo, }) => {
   const [loadingFilters, setLoadingFilters] = React.useState(true)
   const [allTimeframes, setAllTimeframes] = React.useState(null)
   const [allSchools, setAllSchools] = React.useState(null)
@@ -82,6 +47,8 @@ const UsageSnapshotsContainer = ({}) => {
   }, [])
 
   React.useEffect(() => {
+    if (loadingFilters) { return }
+    
     if (selectedSchools !== allSchools || selectedGrades !== allGrades || selectedTimeframe !== defaultTimeframe(allTimeframes)) {
       setHasAdjustedFilters(true)
     }
@@ -111,20 +78,22 @@ const UsageSnapshotsContainer = ({}) => {
   }
 
   function getFilters() {
-    const timeframeOptions = filterData.timeframes.map(tf => ({ ...tf, label: tf.name }))
-    const gradeOptions = filterData.grades.map(grade => ({ ...grade, label: grade.name }))
-    const schoolOptions = filterData.schools.map(school => ({ ...school, label: school.name, value: school.id }))
+    requestGet('/snapshots/options', (filterData) => {
+      const timeframeOptions = filterData.timeframes.map(tf => ({ ...tf, label: tf.name }))
+      const gradeOptions = filterData.grades.map(grade => ({ ...grade, label: grade.name }))
+      const schoolOptions = filterData.schools.map(school => ({ ...school, label: school.name, value: school.id }))
 
-    const timeframe = defaultTimeframe(timeframeOptions)
+      const timeframe = defaultTimeframe(timeframeOptions)
 
-    setAllGrades(gradeOptions)
-    setAllTimeframes(timeframeOptions)
-    setAllSchools(schoolOptions)
-    setSelectedGrades(gradeOptions)
-    setSelectedSchools(schoolOptions)
-    setLastUsedTimeframe(timeframe)
-    setSelectedTimeframe(timeframe)
-    setLoadingFilters(false)
+      setAllGrades(gradeOptions)
+      setAllTimeframes(timeframeOptions)
+      setAllSchools(schoolOptions)
+      setSelectedGrades(gradeOptions)
+      setSelectedSchools(schoolOptions)
+      setLastUsedTimeframe(timeframe)
+      setSelectedTimeframe(timeframe)
+      setLoadingFilters(false)
+    })
   }
 
   function clearFilters() {
@@ -180,14 +149,17 @@ const UsageSnapshotsContainer = ({}) => {
   const sectionsToShow = selectedTab === ALL ? snapshotSections : snapshotSections.filter(s => s.name === selectedTab)
   const snapshotSectionComponents = sectionsToShow.map(section => (
     <SnapshotSection
+      adminId={adminInfo.id}
       className={section.className}
+      customTimeframeEnd={customEndDate?.toDate()}
+      customTimeframeStart={customStartDate?.toDate()}
       itemGroupings={section.itemGroupings}
       key={section.name}
       name={section.name}
       searchCount={searchCount}
-      selectedGrades={selectedGrades}
-      selectedSchools={selectedSchools}
-      selectedTimeframe={selectedTimeframe}
+      selectedGrades={selectedGrades.map(g => g.value)}
+      selectedSchoolIds={selectedSchools.map(s => s.id)}
+      selectedTimeframe={selectedTimeframe.value}
     />
   ))
 

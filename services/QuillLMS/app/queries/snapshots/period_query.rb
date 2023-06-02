@@ -60,7 +60,7 @@ module Snapshots
     end
 
     def timeframe_where_clause
-      "#{relevant_date_column} BETWEEN '#{timeframe_start}' AND '#{timeframe_end}'"
+      "#{relevant_date_column} BETWEEN '#{timeframe_start.to_date.to_s(:db)}' AND '#{timeframe_end.to_date.to_s(:db)}'"
     end
 
     def school_ids_where_clause

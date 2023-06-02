@@ -80,7 +80,8 @@ export const snapshotSections = [
             label: 'Active teachers',
             size: SMALL,
             type: COUNT,
-            queryKey: 'active-teachers'
+            queryKey: 'active-teachers',
+            comingSoon: true
           },
           {
             label: 'Active students',

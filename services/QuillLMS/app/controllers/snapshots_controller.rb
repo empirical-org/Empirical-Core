@@ -79,7 +79,7 @@ class SnapshotsController < ApplicationController
 
   private def cache_key_for_timeframe(previous_start, current_start, current_end)
 
-    Snapshots::CacheKeys.generate_key(snapshots_params[:query],
+    Snapshots::CacheKeys.generate_key(snapshot_params[:query],
       previous_start,
       current_start,
       current_end,

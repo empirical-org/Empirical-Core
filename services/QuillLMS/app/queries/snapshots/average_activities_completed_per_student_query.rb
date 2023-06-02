@@ -3,7 +3,8 @@
 module Snapshots
   class AverageActivitiesCompletedPerStudentQuery < CountQuery
     def select_clause
-      "SELECT COUNT(DISTINCT activity_sessions.id) / COUNT(DISTINCT activity_sessions.user_id) AS count"
+      # "greatest" avoids division by 0 error
+      "SELECT COUNT(DISTINCT activity_sessions.id) / greatest(COUNT(DISTINCT activity_sessions.user_id), 1) AS count"
     end
   end
 end
