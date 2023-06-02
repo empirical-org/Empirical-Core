@@ -82,6 +82,7 @@ describe User, type: :model do
   it { should have_and_belong_to_many(:districts) }
   it { should have_one(:ip_location) }
   it { should have_many(:user_activity_classifications).dependent(:destroy) }
+  it { should have_many(:user_logins).dependent(:destroy) }
   it { should have_many(:user_milestones) }
   it { should have_many(:milestones).through(:user_milestones) }
   it { should have_many(:admin_approval_requests).with_foreign_key('requestee_id') }
