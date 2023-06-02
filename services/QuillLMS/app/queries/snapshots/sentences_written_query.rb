@@ -2,14 +2,10 @@
 
 module Snapshots
   class SentencesWrittenQuery < CountQuery
-    def run_query
-      QuillBigQuery::Runner.execute(utilizing_subquery)
-    end
-
-    def utilizing_subquery
+    def query
       <<-SQL
         SELECT COUNT(*) AS count
-          FROM (#{query})
+          FROM (#{super})
       SQL
     end
 

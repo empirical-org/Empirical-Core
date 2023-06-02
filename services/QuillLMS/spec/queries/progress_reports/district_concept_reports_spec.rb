@@ -101,12 +101,6 @@ describe ProgressReports::DistrictConceptReports do
       %w(school_name teacher_name classroom_name student_name correct incorrect percentage)
     end
 
-    around do |a_spec|
-      VCR.configure { |c| c.allow_http_connections_when_no_cassette = true }
-      a_spec.run
-      VCR.configure { |c| c.allow_http_connections_when_no_cassette = false }
-    end
-
     it 'tests end to end' do
       results = ProgressReports::DistrictConceptReports.new(sample_prod_admin_id).results
       sample_row = results.first
