@@ -5004,6 +5004,36 @@ ALTER SEQUENCE public.user_email_verifications_id_seq OWNED BY public.user_email
 
 
 --
+-- Name: user_logins; Type: TABLE; Schema: public; Owner: -
+--
+
+CREATE TABLE public.user_logins (
+    id bigint NOT NULL,
+    user_id bigint NOT NULL,
+    created_at timestamp without time zone NOT NULL
+);
+
+
+--
+-- Name: user_logins_id_seq; Type: SEQUENCE; Schema: public; Owner: -
+--
+
+CREATE SEQUENCE public.user_logins_id_seq
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+
+--
+-- Name: user_logins_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: -
+--
+
+ALTER SEQUENCE public.user_logins_id_seq OWNED BY public.user_logins.id;
+
+
+--
 -- Name: user_milestones; Type: TABLE; Schema: public; Owner: -
 --
 
@@ -6141,6 +6171,13 @@ ALTER TABLE ONLY public.user_email_verifications ALTER COLUMN id SET DEFAULT nex
 
 
 --
+-- Name: user_logins id; Type: DEFAULT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY public.user_logins ALTER COLUMN id SET DEFAULT nextval('public.user_logins_id_seq'::regclass);
+
+
+--
 -- Name: user_milestones id; Type: DEFAULT; Schema: public; Owner: -
 --
 
@@ -7269,6 +7306,14 @@ ALTER TABLE ONLY public.user_activity_classifications
 
 ALTER TABLE ONLY public.user_email_verifications
     ADD CONSTRAINT user_email_verifications_pkey PRIMARY KEY (id);
+
+
+--
+-- Name: user_logins user_logins_pkey; Type: CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY public.user_logins
+    ADD CONSTRAINT user_logins_pkey PRIMARY KEY (id);
 
 
 --
@@ -8754,6 +8799,13 @@ CREATE UNIQUE INDEX index_user_email_verifications_on_user_id ON public.user_ema
 
 
 --
+-- Name: index_user_logins_on_user_id; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX index_user_logins_on_user_id ON public.user_logins USING btree (user_id);
+
+
+--
 -- Name: index_user_milestones_on_milestone_id; Type: INDEX; Schema: public; Owner: -
 --
 
@@ -9166,6 +9218,14 @@ ALTER TABLE ONLY public.pack_sequences
 
 ALTER TABLE ONLY public.stripe_checkout_sessions
     ADD CONSTRAINT fk_rails_428a7d5f1b FOREIGN KEY (user_id) REFERENCES public.users(id);
+
+
+--
+-- Name: user_logins fk_rails_43d9929204; Type: FK CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY public.user_logins
+    ADD CONSTRAINT fk_rails_43d9929204 FOREIGN KEY (user_id) REFERENCES public.users(id);
 
 
 --
@@ -10134,6 +10194,7 @@ INSERT INTO "schema_migrations" (version) VALUES
 ('20230523191347'),
 ('20230523192828'),
 ('20230524142914'),
-('20230524143000');
+('20230524143000'),
+('20230601210338');
 
 

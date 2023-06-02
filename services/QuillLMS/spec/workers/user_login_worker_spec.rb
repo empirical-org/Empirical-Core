@@ -16,6 +16,14 @@ describe UserLoginWorker, type: :worker do
       expect(analyzer).to receive(:track_with_attributes).with(teacher, SegmentIo::BackgroundEvents::TEACHER_SIGNIN, properties: teacher.segment_user.common_params)
       worker.perform(teacher.id)
     end
+
+    it 'creates a UserLogin' do
+      allow(analyzer).to receive(:track_with_attributes)
+
+      expect do
+        worker.perform(teacher.id)
+      end.to change(UserLogin, :count).by(1)
+    end
   end
 
   context 'when student with teacher logs in' do
