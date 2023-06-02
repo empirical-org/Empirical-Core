@@ -240,7 +240,7 @@ describe UserMailer, type: :mailer do
 
       # Refer to constants to make coupling with string explicit
       expect(subject.subject).to match(described_class::FEEDBACK_SESSIONS_CSV_DOWNLOAD)
-      expect(ActiveSupport::Gzip.decompress(CSV.parse(csv_attachment.body.raw_source))).to eq(CSV.parse(csv_body))
+      expect(CSV.parse(ActiveSupport::Gzip.decompress(csv_attachment.body.raw_source))).to eq(CSV.parse(csv_body))
     end
 
     it 'should delete the file after the email has been sent' do
