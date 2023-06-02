@@ -124,6 +124,7 @@ class User < ApplicationRecord
   has_many :invitations, foreign_key: 'inviter_id'
   has_many :objectives, through: :checkboxes
   has_many :user_activity_classifications, dependent: :destroy
+  has_many :user_logins, dependent: :destroy
   has_many :user_subscriptions
   has_many :subscriptions, through: :user_subscriptions
   has_many :activity_sessions
@@ -822,6 +823,10 @@ class User < ApplicationRecord
 
   def save_user_pack_sequence_items
     classrooms.each { |classroom| SaveUserPackSequenceItemsWorker.perform_async(classroom.id, id) }
+  end
+
+  def record_login
+    user_logins.create
   end
 
   private def validate_flags
