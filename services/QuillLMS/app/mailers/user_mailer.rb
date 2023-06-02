@@ -165,7 +165,7 @@ class UserMailer < ActionMailer::Base
   end
 
   def feedback_history_session_csv_download(email, csv_file_path)
-    attachments[FEEDBACK_SESSIONS_CSV_FILENAME] = File.read(csv_file_path)
+    attachments[FEEDBACK_SESSIONS_CSV_FILENAME] = ActiveSupport::Gzip.compress(File.read(csv_file_path))
     mail from: "The Quill Team <hello@quill.org>", to: email, subject: FEEDBACK_SESSIONS_CSV_DOWNLOAD
 
     File.delete(csv_file_path) if File.exist?(csv_file_path)
