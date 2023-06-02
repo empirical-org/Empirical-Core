@@ -2,17 +2,12 @@
 
 module Snapshots
   class ActivitiesAssignedQuery < CountQuery
-    def final_query
-      utilizing_subquery
-    end
-
-    def utilizing_subquery
+    def query
       <<-SQL
         SELECT SUM(sub_query.activities_assigned) AS count
           FROM (
-            SELECT (sub_sub_query.students_assigned_count *
-              COUNT(unit_activities.unit_id)) AS activities_assigned
-            FROM (#{core_query}) AS sub_sub_query
+            SELECT (sub_sub_query.students_assigned_count * COUNT(unit_activities.unit_id)) AS activities_assigned
+            FROM (#{super}) AS sub_sub_query
             JOIN lms.unit_activities
               ON sub_sub_query.unit_id = unit_activities.unit_id
             GROUP BY sub_sub_query.id,

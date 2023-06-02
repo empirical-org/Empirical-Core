@@ -9,11 +9,7 @@ module Snapshots
     end
 
     def run
-      QuillBigQuery::Runner.execute(final_query)
-    end
-
-    def final_query
-      query
+      QuillBigQuery::Runner.execute(query)
     end
 
     def query
