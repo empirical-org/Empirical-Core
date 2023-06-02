@@ -229,6 +229,10 @@
         padding: 16px;
         flex-direction: column;
         grid-column: span 3;
+        justify-content: flex-start;
+        .header {
+          margin-bottom: 8px;
+        }
         p {
           font-weight: 400;
           font-size: 14px;

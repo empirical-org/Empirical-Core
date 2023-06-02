@@ -1,0 +1,233 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`SnapshotRanking component when it is coming soon should match snapshot 1`] = `
+<SnapshotRanking
+  adminId={1}
+  comingSoon={true}
+  customTimeframeEnd={null}
+  customTimeframeStart={null}
+  headers={
+    Array [
+      "Teacher",
+      "Activities completed",
+    ]
+  }
+  label="Sentences written"
+  queryKey="sentences-written"
+  searchCount={1}
+  selectedGrades={
+    Array [
+      "Kindergarten",
+      "1",
+      "2",
+      "3",
+      "4",
+      "5",
+      "6",
+      "7",
+      "8",
+      "9",
+      "10",
+      "11",
+      "12",
+      "University",
+      "Other",
+    ]
+  }
+  selectedSchoolIds={
+    Array [
+      58452,
+    ]
+  }
+  selectedTimeframe="last-30-days"
+>
+  <section
+    className="snapshot-item snapshot-ranking no-data"
+  >
+    <div
+      className="header"
+    >
+      <span
+        className="coming-soon"
+      >
+        Coming soon
+      </span>
+    </div>
+    <div
+      className="table"
+    >
+      <div
+        className="header-row"
+      >
+        <span
+          key="Teacher"
+        >
+          Teacher
+        </span>
+        <span
+          key="Activities completed"
+        >
+          Activities completed
+        </span>
+      </div>
+      <div
+        className="data-row"
+      >
+        <span
+          key="Teacher-undefined"
+        >
+          —
+        </span>
+        <span
+          key="Activities completed-undefined"
+        >
+          —
+        </span>
+      </div>
+      <div
+        className="data-row"
+      >
+        <span
+          key="Teacher-undefined"
+        >
+          —
+        </span>
+        <span
+          key="Activities completed-undefined"
+        >
+          —
+        </span>
+      </div>
+      <div
+        className="data-row"
+      >
+        <span
+          key="Teacher-undefined"
+        >
+          —
+        </span>
+        <span
+          key="Activities completed-undefined"
+        >
+          —
+        </span>
+      </div>
+    </div>
+  </section>
+</SnapshotRanking>
+`;
+
+exports[`SnapshotRanking component when there is no data  should match snapshot 1`] = `
+<SnapshotRanking
+  adminId={1}
+  comingSoon={false}
+  customTimeframeEnd={null}
+  customTimeframeStart={null}
+  headers={
+    Array [
+      "Teacher",
+      "Activities completed",
+    ]
+  }
+  label="Sentences written"
+  queryKey="sentences-written"
+  searchCount={1}
+  selectedGrades={
+    Array [
+      "Kindergarten",
+      "1",
+      "2",
+      "3",
+      "4",
+      "5",
+      "6",
+      "7",
+      "8",
+      "9",
+      "10",
+      "11",
+      "12",
+      "University",
+      "Other",
+    ]
+  }
+  selectedSchoolIds={
+    Array [
+      58452,
+    ]
+  }
+  selectedTimeframe="last-30-days"
+>
+  <section
+    className="snapshot-item snapshot-ranking no-data"
+  >
+    <div
+      className="header"
+    >
+      <h3>
+        Sentences written
+      </h3>
+    </div>
+    <div
+      className="table"
+    >
+      <div
+        className="header-row"
+      >
+        <span
+          key="Teacher"
+        >
+          Teacher
+        </span>
+        <span
+          key="Activities completed"
+        >
+          Activities completed
+        </span>
+      </div>
+      <div
+        className="data-row"
+      >
+        <span
+          key="Teacher-undefined"
+        >
+          —
+        </span>
+        <span
+          key="Activities completed-undefined"
+        >
+          —
+        </span>
+      </div>
+      <div
+        className="data-row"
+      >
+        <span
+          key="Teacher-undefined"
+        >
+          —
+        </span>
+        <span
+          key="Activities completed-undefined"
+        >
+          —
+        </span>
+      </div>
+      <div
+        className="data-row"
+      >
+        <span
+          key="Teacher-undefined"
+        >
+          —
+        </span>
+        <span
+          key="Activities completed-undefined"
+        >
+          —
+        </span>
+      </div>
+    </div>
+  </section>
+</SnapshotRanking>
+`;

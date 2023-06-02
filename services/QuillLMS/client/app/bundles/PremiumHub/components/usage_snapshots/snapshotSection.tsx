@@ -1,4 +1,4 @@
-import React from 'react'
+import * as React from 'react'
 
 import SnapshotCount from './snapshotCount'
 import SnapshotRanking from './snapshotRanking'

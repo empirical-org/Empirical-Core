@@ -1,10 +1,9 @@
-import React from 'react'
+import * as React from 'react'
 import queryString from 'query-string';
-import Pusher from 'pusher-js';
+import * as Pusher from 'pusher-js';
 import _ from 'lodash'
 
-import { SMALL, MEDIUM, POSITIVE, NEGATIVE, } from './shared'
-
+import { SMALL, POSITIVE, NEGATIVE, } from './shared'
 import { requestGet, } from './../../../../modules/request'
 
 const smallArrowUpIcon = <img alt="Arrow pointing up" src={`${process.env.CDN_URL}/images/pages/administrator/small_arrow_up_icon.svg`} />
@@ -24,6 +23,9 @@ interface SnapshotCountProps {
   customTimeframeStart?: any;
   customTimeframeEnd?: any;
   comingSoon?: boolean;
+  passedCount?: number;
+  passedChange?: number;
+  passedChangeDirection?: 'negative'|'positive';
 }
 
 const SnapshotCount = ({ label, size, queryKey, comingSoon, searchCount, selectedGrades, selectedSchoolIds, selectedTimeframe, customTimeframeStart, customTimeframeEnd, adminId, passedCount, passedChange, passedChangeDirection }: SnapshotCountProps) => {

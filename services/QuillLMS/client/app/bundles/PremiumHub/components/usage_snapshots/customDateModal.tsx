@@ -1,4 +1,4 @@
-import React from 'react'
+import * as React from 'react'
 import "react-dates/initialize";
 import { DateRangePicker } from 'react-dates';
 
@@ -33,6 +33,8 @@ const CustomDateModal = ({ close, passedStartDate, setCustomDates, passedEndDate
 
   function isOutsideRange() { return false }
 
+  // disabling autofocus lint here as it is a) necessary to get the calendar to stay open at all times and b) presents less of an accessibility issue because we do in fact want users to be focused into this modal when it appears
+  /* eslint-disable jsx-a11y/no-autofocus */
   return (
     <div className="modal-container custom-date-modal-container">
       <div className="modal-background" />
@@ -57,6 +59,7 @@ const CustomDateModal = ({ close, passedStartDate, setCustomDates, passedEndDate
       </div>
     </div>
   )
+  /* eslint-enable jsx-a11y/no-autofocus */
 }
 
 export default CustomDateModal

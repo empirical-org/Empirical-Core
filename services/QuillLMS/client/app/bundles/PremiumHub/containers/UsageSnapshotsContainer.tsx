@@ -48,7 +48,7 @@ const UsageSnapshotsContainer = ({ adminInfo, }) => {
 
   React.useEffect(() => {
     if (loadingFilters) { return }
-    
+
     if (selectedSchools !== allSchools || selectedGrades !== allGrades || selectedTimeframe !== defaultTimeframe(allTimeframes)) {
       setHasAdjustedFilters(true)
     }
@@ -114,6 +114,7 @@ const UsageSnapshotsContainer = ({ adminInfo, }) => {
     setCustomStartDate(startDate)
     setCustomEndDate(endDate)
     closeCustomDateModal()
+    applyFilters()
   }
 
   function handleSetSelectedTabFromDropdown(option) { setSelectedTab(option.value) }
