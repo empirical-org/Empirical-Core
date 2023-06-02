@@ -364,6 +364,7 @@ describe NavigationHelper do
         # see comment in NavigationHelper about the following test
         expect(helper.determine_active_subtab('teachers/progress_reports/diagnostic_reports')).to eq(' ')
         expect(helper.determine_active_subtab('teachers/progress_reports/activities_scores_by_classroom')).to eq(NavigationHelper::ACTIVITY_SCORES)
+        expect(helper.determine_active_subtab('teachers/progress_reports/student_overview')).to eq(NavigationHelper::ACTIVITY_SCORES)
         expect(helper.determine_active_subtab('teachers/progress_reports/concepts/students')).to eq(NavigationHelper::CONCEPTS)
         expect(helper.determine_active_subtab('teachers/progress_reports/standards/classrooms')).to eq(NavigationHelper::STANDARDS)
         expect(helper.determine_active_subtab('teachers/progress_reports/activity_sessions')).to eq(NavigationHelper::DATA_EXPORT)

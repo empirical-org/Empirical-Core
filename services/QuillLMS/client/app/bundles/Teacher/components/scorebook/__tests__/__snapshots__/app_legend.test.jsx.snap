@@ -19,6 +19,9 @@ exports[`AppLegend component should render 1`] = `
         src="undefined/images/icons/tool-evidence-light-gray.svg"
       />
       <div
+        className="icon-wrapper icon-evidence-lightgray"
+      />
+      <div
         className="icons-description-wrapper"
       >
         <p

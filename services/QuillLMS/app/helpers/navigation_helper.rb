@@ -114,7 +114,7 @@ module NavigationHelper
     ACTIVE_CLASSES => ['teachers/classrooms'],
     ACTIVITY_ANALYSIS => ['teachers/progress_reports/diagnostic_reports'],
     DIAGNOSTICS => ['teachers/progress_reports/diagnostic_reports'],
-    ACTIVITY_SCORES => ['teachers/progress_reports/activities_scores_by_classroom'],
+    ACTIVITY_SCORES => ['teachers/progress_reports/activities_scores_by_classroom', 'teachers/progress_reports/student_overview'],
     CONCEPTS => ['teachers/progress_reports/concepts/students'],
     STANDARDS => ['teachers/progress_reports/standards/classrooms'],
     DATA_EXPORT => ['teachers/progress_reports/activity_sessions']
