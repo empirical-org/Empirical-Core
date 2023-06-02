@@ -33,6 +33,6 @@ class UserLoginWorker
   end
 
   def record_user_login
-    UserLogin.create(user: @user)
+    @user.record_login
   end
 end

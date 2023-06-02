@@ -825,6 +825,10 @@ class User < ApplicationRecord
     classrooms.each { |classroom| SaveUserPackSequenceItemsWorker.perform_async(classroom.id, id) }
   end
 
+  def record_login
+    user_logins.create
+  end
+
   private def validate_flags
     invalid_flags = flags - VALID_FLAGS
 
