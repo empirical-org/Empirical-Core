@@ -1,4 +1,4 @@
-import { mount } from 'enzyme';
+import { shallow } from 'enzyme';
 import * as React from 'react';
 
 import CustomDateModal from '../customDateModal';
@@ -10,7 +10,7 @@ describe('CustomDateModal component', () => {
     passedStartDate: null,
     passedEndDate: null
   }
-  const component = mount(<CustomDateModal {...mockProps} />);
+  const component = shallow(<CustomDateModal {...mockProps} />);
 
   it('should match snapshot', () => {
     expect(component).toMatchSnapshot();
