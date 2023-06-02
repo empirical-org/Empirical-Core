@@ -16,6 +16,7 @@ class UserLoginWorker
         SegmentIo::BackgroundEvents::TEACHER_SIGNIN,
         properties: @user&.segment_user&.common_params
       )
+      record_user_login
     when User::STUDENT
       # keep these in the following order so the student is the last one identified
       teacher = @user.teacher_of_student
@@ -29,5 +30,9 @@ class UserLoginWorker
         )
       end
     end
+  end
+
+  def record_user_login
+    @user.record_login
   end
 end
