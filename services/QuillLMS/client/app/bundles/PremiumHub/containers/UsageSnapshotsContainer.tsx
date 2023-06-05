@@ -1,5 +1,6 @@
 import React from 'react'
 
+import { FULL, restrictedPage, } from '../shared';
 import CustomDateModal from '../components/usage_snapshots/customDateModal'
 import SnapshotSection from '../components/usage_snapshots/snapshotSection'
 import Filters from '../components/usage_snapshots/filters'
@@ -23,7 +24,7 @@ const Tab = ({ section, setSelectedTab, selectedTab }) => {
   return <button className={className} onClick={handleSetSelectedTab} type="button">{section}</button>
 }
 
-const UsageSnapshotsContainer = ({ adminInfo, }) => {
+const UsageSnapshotsContainer = ({ adminInfo, accessType, }) => {
   const [loadingFilters, setLoadingFilters] = React.useState(true)
   const [allTimeframes, setAllTimeframes] = React.useState(null)
   const [allSchools, setAllSchools] = React.useState(null)
@@ -207,6 +208,10 @@ const UsageSnapshotsContainer = ({ adminInfo, }) => {
     hasAdjustedFiltersSinceLastSubmission,
     customStartDate,
     customEndDate,
+  }
+
+  if (accessType !== FULL) {
+    return restrictedPage
   }
 
   return (
