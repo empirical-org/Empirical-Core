@@ -105,8 +105,8 @@ module GoogleIntegration
     private def refresh_token_options
       {
         body: {
-          client_id: ENV["GOOGLE_CLIENT_ID"],
-          client_secret: ENV["GOOGLE_CLIENT_SECRET"],
+          client_id: Auth::Google::CLIENT_ID,
+          client_secret: Auth::Google::CLIENT_SECRET,
           refresh_token: refresh_token,
           grant_type: 'refresh_token'
         },
