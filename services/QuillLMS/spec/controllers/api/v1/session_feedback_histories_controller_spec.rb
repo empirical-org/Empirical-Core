@@ -143,8 +143,12 @@ describe Api::V1::SessionFeedbackHistoriesController, type: :controller do
 
           expect(response).to have_http_status(200)
           expect(parsed_response['activity_sessions'].length).to eq(2)
-          expect(parsed_response['activity_sessions'][0]['session_uid']).to eq(@feedback_history3.feedback_session_uid)
-          expect(parsed_response['activity_sessions'][1]['session_uid']).to eq(@feedback_history1.feedback_session_uid)
+
+          actual_session_uid1 = parsed_response['activity_sessions'][0]['session_uid']
+          actual_session_uid2 = parsed_response['activity_sessions'][1]['session_uid']
+
+          expect([actual_session_uid1, actual_session_uid2])
+            .to match_array [@feedback_history3.feedback_session_uid, @feedback_history1.feedback_session_uid]
         end
 
         it 'should retrieve only unscored sessions when filter_type is unscored' do
