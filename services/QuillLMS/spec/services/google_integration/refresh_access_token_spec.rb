@@ -169,14 +169,20 @@ describe GoogleIntegration::RefreshAccessToken do
   end
 
   describe '#refresh_token_options' do
+    let(:google_client_id) { 'foo' }
+    let(:google_client_secret) { 'bar' }
+    let(:refresh_token) { 'baz' }
+
+    before do
+      stub_const("Auth::Google::CLIENT_ID", google_client_id)
+      stub_const("Auth::Google::CLIENT_SECRET", google_client_secret)
+    end
+
     it 'should return the expected payload' do
-      client_id = 'foo'
-      client_secret = 'bar'
-      refresh_token = 'baz'
       expected_payload = {
         body: {
-          client_id: client_id,
-          client_secret: client_secret,
+          client_id: google_client_id,
+          client_secret: google_client_secret,
           refresh_token: refresh_token,
           grant_type: 'refresh_token'
         },
@@ -185,8 +191,6 @@ describe GoogleIntegration::RefreshAccessToken do
         }
       }
 
-      expect(ENV).to receive(:[]).with('GOOGLE_CLIENT_ID').and_return(client_id)
-      expect(ENV).to receive(:[]).with('GOOGLE_CLIENT_SECRET').and_return(client_secret)
       expect(subject).to receive(:refresh_token).and_return(refresh_token)
       expect(subject.send(:refresh_token_options)).to eq(expected_payload)
     end
