@@ -92,6 +92,14 @@ describe SnapshotsController, type: :controller do
           expect(response.status).to eq(400)
         end
       end
+
+      it 'should 400 if the query name provided is not valid for the endpoint' do
+        controller_actions.each do |action, _|
+          get action, params: { query: 'INVALID_QUERY_NAME', timeframe: timeframe_name, school_ids: [] }
+
+          expect(response.status).to eq(400)
+        end
+      end
     end
 
     context 'param variation' do

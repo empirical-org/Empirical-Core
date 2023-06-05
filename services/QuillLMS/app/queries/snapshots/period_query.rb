@@ -13,21 +13,6 @@ module Snapshots
       super(options)
     end
 
-    def query
-      <<-SQL
-        #{select_clause}
-          #{from_and_join_clauses}
-          #{where_clause}
-          #{group_by_clause}
-          #{order_by_clause}
-          #{limit_clause}
-      SQL
-    end
-
-    def select_clause
-      raise NotImplementedError
-    end
-
     def from_and_join_clauses
       <<-SQL
         FROM lms.classrooms
