@@ -497,7 +497,7 @@ RSpec.describe FeedbackHistory, type: :model do
       it 'return the total count of activity sessions' do
         expect(FeedbackHistory.get_total_count).to eq(2)
         expect(FeedbackHistory.get_total_count(activity_id: @activity1.id)).to eq(1)
-        expect(FeedbackHistory.get_total_count(start_date: Time.current)).to eq(0)
+        expect(FeedbackHistory.get_total_count(start_date: FeedbackHistory.last.created_at.since(1.minute))).to eq(0)
         expect(FeedbackHistory.get_total_count(activity_version: @current_activity_version)).to eq(1)
         expect(FeedbackHistory.get_total_count(activity_version: @previous_activity_version)).to eq(1)
       end
