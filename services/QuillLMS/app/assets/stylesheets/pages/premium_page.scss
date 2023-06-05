@@ -122,7 +122,7 @@ li.premium-tab > a:hover {
   .quill-modal {
     z-index: 6;
   }
-  .already-has-premium-modal {
+  .already-has-premium-modal, .log-in-to-purchase-modal {
     max-width: calc(100vw - 20px);
     min-height: min-content;
     p {
