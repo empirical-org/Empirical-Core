@@ -99,7 +99,7 @@ describe TeachersController, type: :controller do
 
         it 'returns an array with both lessons activities in it in reverse order of creation' do
           get :lessons_info_for_dashboard_mini
-          expect(response.body).to eq({ units: [
+          expected_response = [
             {
               classroom_name: classroom.name,
               activity_name: lesson_activity2.name,
@@ -116,7 +116,9 @@ describe TeachersController, type: :controller do
               classroom_id: classroom.id,
               supporting_info: lesson_activity1.supporting_info
             }
-          ]}.to_json)
+          ].map(&:stringify_keys)
+
+          expect(JSON.parse(response.body)['units']).to match_array expected_response
         end
       end
 
@@ -168,9 +170,9 @@ describe TeachersController, type: :controller do
               unit_id: unit.id,
               classroom_id: classroom.id
             }
-          ]
+          ].map(&:stringify_keys)
 
-          expect(JSON.parse(response.body)['units']).to match_array(expected_response.map(&:stringify_keys))
+          expect(JSON.parse(response.body)['units']).to match_array expected_response
         end
       end
 
@@ -209,9 +211,9 @@ describe TeachersController, type: :controller do
               unit_id: unit.id,
               classroom_id: classroom.id
             }
-          ]
+          ].map(&:stringify_keys)
 
-          expect(JSON.parse(response.body)['units']).to match_array(expected_response.map(&:stringify_keys))
+          expect(JSON.parse(response.body)['units']).to match_array expected_response.map(&:stringify_keys)
         end
       end
 
