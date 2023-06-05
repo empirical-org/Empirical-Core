@@ -4,14 +4,13 @@ require 'rails_helper'
 
 module Snapshots
   describe SentencesWrittenQuery do
-    include_context 'Snapshot Query Params'
+    context 'external_api', :big_query_snapshot do
+      include_context 'Snapshots Count CTE'
 
-    context 'external_api', :external_api do
-      it 'should successfully get data' do
-        result = described_class.run(timeframe_start, timeframe_end, school_ids, grades)
+      let(:concept_results) { activity_sessions.map { |activity_session| create(:concept_result, activity_session: activity_session) } }
+      let(:cte_records) { count_query_cte_records << concept_results }
 
-        expect(result[:count]).to eq(245835)
-      end
+      it { expect(results).to eq(count: concept_results.count) }
     end
   end
 end

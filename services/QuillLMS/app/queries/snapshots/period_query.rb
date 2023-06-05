@@ -1,26 +1,16 @@
 # frozen_string_literal: true
 
 module Snapshots
-  class PeriodQuery < ApplicationService
+  class PeriodQuery < ::QuillBigQuery::Query
     attr_accessor :timeframe_start, :timeframe_end, :school_ids, :grades
 
-    def self.run(*args)
-      new(*args).run
-    end
-
-    def initialize(timeframe_start, timeframe_end, school_ids, grades = nil)
+    def initialize(timeframe_start, timeframe_end, school_ids, grades = nil, options = {})
       @timeframe_start = timeframe_start
       @timeframe_end = timeframe_end
       @school_ids = school_ids
       @grades = grades
-    end
 
-    def run
-      raise NotImplementedError
-    end
-
-    def run_query
-      QuillBigQuery::Runner.execute(query)
+      super(options)
     end
 
     def query
@@ -71,18 +61,6 @@ module Snapshots
       return "" unless grades
 
       "AND classrooms.grade IN (#{grades.map { |g| "'#{g}'" }.join(',')})"
-    end
-
-    def group_by_clause
-      ""
-    end
-
-    def order_by_clause
-      ""
-    end
-
-    def limit_clause
-      ""
     end
   end
 end
