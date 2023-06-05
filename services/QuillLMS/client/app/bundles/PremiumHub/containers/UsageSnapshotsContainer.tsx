@@ -66,15 +66,6 @@ const UsageSnapshotsContainer = ({ adminInfo, accessType, }) => {
   }, [selectedSchools, selectedGrades, selectedTimeframe, customStartDate, customEndDate])
 
   React.useEffect(() => {
-    if (selectedSchools?.length === 0) {
-      setSelectedSchools(allSchools)
-    }
-    if (selectedGrades?.length === 0) {
-      setSelectedGrades(allGrades)
-    }
-  }, [selectedSchools, selectedGrades])
-
-  React.useEffect(() => {
     if (showCustomDateModal || (customStartDate && customEndDate) || !lastUsedTimeframe) { return }
 
     setSelectedTimeframe(lastUsedTimeframe)
