@@ -47,6 +47,8 @@ export default defineConfig(({command, mode}) => {
       //   }
       // },
       //'FOOBAR': env.LOCAL_TEST_ENV_VALUE, // not visible from js code,
+      'process.env': process.env,
+      "process.env.BAR": JSON.stringify("foo")
       //'process.env.LOCAL_TEST_ENV_VALUE': `"${env.LOCAL_TEST_ENV_VALUE}"` // not visible
 
 

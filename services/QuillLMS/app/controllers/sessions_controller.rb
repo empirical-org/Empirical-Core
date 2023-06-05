@@ -124,6 +124,10 @@ class SessionsController < ApplicationController
     session[ApplicationController::POST_AUTH_REDIRECT] = params[:redirect] if params[:redirect]
   end
 
+  def foo
+    render foo, layout: false
+  end
+
   def failure
     login_failure_message
     # redirect_to signed_out_path

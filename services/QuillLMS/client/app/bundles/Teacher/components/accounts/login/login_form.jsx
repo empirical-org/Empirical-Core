@@ -13,7 +13,7 @@ class LoginFormApp extends React.Component {
 
   constructor(props) {
     super(props);
-
+    console.log("process.env.BAR: ", process.env.BAR)
     this.state = {
       email: '',
       password: '',
