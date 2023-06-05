@@ -106,7 +106,7 @@ describe SnapshotsController, type: :controller do
       end
 
       it 'should include school_ids and grades in the call to the cache worker if they are in params' do
-        grades = ["Kindergarten", "1", "2"]
+        grades = ["1", "2"]
 
         allow(Snapshots::Timeframes).to receive(:calculate_timeframes).and_return([previous_timeframe, current_timeframe, timeframe_end])
         expect(Rails.cache).to receive(:read).with(cache_key).and_return(nil)
