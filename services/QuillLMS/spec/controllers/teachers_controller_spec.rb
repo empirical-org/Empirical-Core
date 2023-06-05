@@ -93,13 +93,13 @@ describe TeachersController, type: :controller do
         let!(:classroom_teacher) { create(:classrooms_teacher, classroom: classroom, user: teacher) }
         let!(:classroom_unit) { create(:classroom_unit, classroom: classroom, unit: unit, assigned_student_ids: classroom.students.ids)}
         let!(:unit_activity1) { create(:unit_activity, unit: unit, activity: lesson_activity1)}
-        let!(:unit_activity2) { create(:unit_activity, unit: unit, activity: lesson_activity2)}
+        let!(:unit_activity2) { create(:unit_activity, created_at: unit_activity1.created_at.since(1.minute), unit: unit, activity: lesson_activity2)}
         let!(:classroom_unit_activity_state1) { create(:classroom_unit_activity_state, unit_activity: unit_activity1, classroom_unit: classroom_unit, completed: false)}
         let!(:classroom_unit_activity_state2) { create(:classroom_unit_activity_state, unit_activity: unit_activity2, classroom_unit: classroom_unit, completed: false)}
 
         it 'returns an array with both lessons activities in it in reverse order of creation' do
           get :lessons_info_for_dashboard_mini
-          expected_response = [
+          expect(response.body).to eq({ units: [
             {
               classroom_name: classroom.name,
               activity_name: lesson_activity2.name,
@@ -116,9 +116,7 @@ describe TeachersController, type: :controller do
               classroom_id: classroom.id,
               supporting_info: lesson_activity1.supporting_info
             }
-          ].map(&:stringify_keys)
-
-          expect(JSON.parse(response.body)['units']).to match_array expected_response
+          ]}.to_json)
         end
       end
 
