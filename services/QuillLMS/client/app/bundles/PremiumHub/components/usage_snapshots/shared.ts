@@ -55,12 +55,14 @@ export const snapshotSections = [
         items: [
           {
             label: 'Sentences written',
+            singularLabel: 'Sentence written',
             size: MEDIUM,
             type: COUNT,
             queryKey: 'sentences-written'
           },
           {
             label: 'Student learning hours',
+            singularLabel: 'Student learning hour',
             size: MEDIUM,
             type: COUNT,
             queryKey: 'student-learning-hours'
@@ -78,6 +80,7 @@ export const snapshotSections = [
         items: [
           {
             label: 'Active teachers',
+            singularLabel: 'Active teacher',
             size: SMALL,
             type: COUNT,
             queryKey: 'active-teachers',
@@ -85,12 +88,14 @@ export const snapshotSections = [
           },
           {
             label: 'Active students',
+            singularLabel: 'Active student',
             size: SMALL,
             type: COUNT,
             queryKey: 'active-students'
           },
           {
             label: 'Teacher accounts created',
+            singularLabel: 'Teacher account created',
             size: SMALL,
             type: COUNT,
             queryKey: 'teacher-accounts-created',
@@ -98,6 +103,7 @@ export const snapshotSections = [
           },
           {
             label: 'Student accounts created',
+            singularLabel: 'Student account created',
             size: SMALL,
             type: COUNT,
             queryKey: 'student-accounts-created',
@@ -128,18 +134,21 @@ export const snapshotSections = [
         items: [
           {
             label: 'Activities assigned',
+            singularLabel: 'Activity assigned',
             size: SMALL,
             type: COUNT,
             queryKey: 'activities-assigned'
           },
           {
             label: 'Activities completed',
+            singularLabel: 'Activity completed',
             size: SMALL,
             type: COUNT,
             queryKey: 'activities-completed'
           },
           {
             label: 'Activity packs assigned',
+            singularLabel: 'Activity pack assigned',
             size: SMALL,
             type: COUNT,
             queryKey: 'activity-packs-assigned',
@@ -147,6 +156,7 @@ export const snapshotSections = [
           },
           {
             label: 'Activity packs completed',
+            singularLabel: 'Activity pack completed',
             size: SMALL,
             type: COUNT,
             queryKey: 'activity-packs-completed',
@@ -176,6 +186,7 @@ export const snapshotSections = [
         items: [
           {
             label: 'Baseline diagnostics assigned',
+            singularLabel: 'Baseline diagnostic assigned',
             size: SMALL,
             type: COUNT,
             queryKey: 'baseline-diagnostics-assigned',
@@ -183,6 +194,7 @@ export const snapshotSections = [
           },
           {
             label: 'Baseline diagnostics completed',
+            singularLabel: 'Baseline diagnostic completed',
             size: SMALL,
             type: COUNT,
             queryKey: 'baseline-diagnostics-completed',
@@ -190,6 +202,7 @@ export const snapshotSections = [
           },
           {
             label: 'Growth diagnostics assigned',
+            singularLabel: 'Growth diagnostic assigned',
             size: SMALL,
             type: COUNT,
             queryKey: 'growth-diagnostics-assigned',
@@ -197,6 +210,7 @@ export const snapshotSections = [
           },
           {
             label: 'Growth diagnostics completed',
+            singularLabel: 'Growth diagnostic completed',
             size: SMALL,
             type: COUNT,
             queryKey: 'growth-diagnostics-completed',
@@ -243,6 +257,7 @@ export const snapshotSections = [
         items: [
           {
             label: 'Active classrooms',
+            singularLabel: 'Active classroom',
             size: SMALL,
             type: COUNT,
             queryKey: 'active-classrooms'
@@ -256,6 +271,7 @@ export const snapshotSections = [
           },
           {
             label: 'Classrooms created',
+            singularLabel: 'Classroom created',
             size: SMALL,
             type: COUNT,
             queryKey: 'classrooms-created',
@@ -302,3 +318,43 @@ export const snapshotSections = [
     ]
   }
 ]
+
+export function unorderedArraysAreEqual(arr1, arr2) {
+  if (arr1?.length !== arr2?.length) {
+    return false;
+  }
+
+  // Create a copy of the second array
+  const arr2Copy = [...arr2];
+
+  for (let i = 0; i < arr1.length; i++) {
+    const obj1 = arr1[i];
+    const obj2Index = arr2Copy.findIndex(obj => objectsAreEqual(obj, obj1));
+
+    if (obj2Index === -1) {
+      return false;
+    }
+
+    // Remove the matched object from the copy
+    arr2Copy.splice(obj2Index, 1);
+  }
+
+  return true;
+}
+
+function objectsAreEqual(obj1, obj2) {
+  const obj1Keys = Object.keys(obj1);
+  const obj2Keys = Object.keys(obj2);
+
+  if (obj1Keys.length !== obj2Keys.length) {
+    return false;
+  }
+
+  for (let key of obj1Keys) {
+    if (obj1[key] !== obj2[key]) {
+      return false;
+    }
+  }
+
+  return true;
+}

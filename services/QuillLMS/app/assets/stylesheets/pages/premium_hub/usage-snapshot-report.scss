@@ -32,7 +32,7 @@
     }
     .filters {
       padding: 32px 24px;
-      height: calc(100% - 68px); // accounting for height of filter buttons
+      min-height: calc(100% - 68px); // accounting for height of filter buttons
     }
     .filter-buttons {
       display: flex;
@@ -59,7 +59,7 @@
       width: 100%;
     }
     .search-token {
-      padding: 6px 6px 6px 16px;
+      padding: 5px 8px 5px 16px;
       background: #06806B;
       border-radius: 16px;
       color: white;
@@ -68,6 +68,7 @@
       overflow: hidden;
       text-overflow: ellipsis;
       max-width: 100%;
+      display: flex;
       span {
         margin-right: 10px;
       }
@@ -155,6 +156,7 @@
         display: flex;
         justify-content: space-between;
         min-height: min-content;
+        position: relative;
         h3 {
           font-weight: 700;
           font-size: 18px;
@@ -193,6 +195,14 @@
           align-items: center;
           img {
             margin-right: 4px;
+          }
+        }
+        &.snapshot-count {
+          .loading-spinner-wrapper {
+            position: absolute;
+            left: 50%;
+            top: 50%;
+            transform: translate(-50%, -50%);
           }
         }
         &.small {
@@ -236,7 +246,7 @@
         p {
           font-weight: 400;
           font-size: 14px;
-          line-height: 16px;
+          line-height: 20px;
           color: #373737;
         }
       }

@@ -5,6 +5,7 @@ import _ from 'lodash'
 
 import { SMALL, POSITIVE, NEGATIVE, } from './shared'
 import { requestGet, } from './../../../../modules/request'
+import { ButtonLoadingSpinner, } from '../../../Shared/index'
 
 const smallArrowUpIcon = <img alt="Arrow pointing up" src={`${process.env.CDN_URL}/images/pages/administrator/small_arrow_up_icon.svg`} />
 const smallArrowDownIcon = <img alt="Arrow pointing down" src={`${process.env.CDN_URL}/images/pages/administrator/small_arrow_down_icon.svg`} />
@@ -26,12 +27,14 @@ interface SnapshotCountProps {
   passedCount?: number;
   passedChange?: number;
   passedChangeDirection?: 'negative'|'positive';
+  singularLabel?: string;
 }
 
-const SnapshotCount = ({ label, size, queryKey, comingSoon, searchCount, selectedGrades, selectedSchoolIds, selectedTimeframe, customTimeframeStart, customTimeframeEnd, adminId, passedCount, passedChange, passedChangeDirection }: SnapshotCountProps) => {
+const SnapshotCount = ({ label, size, queryKey, comingSoon, searchCount, selectedGrades, selectedSchoolIds, selectedTimeframe, customTimeframeStart, customTimeframeEnd, adminId, passedCount, passedChange, passedChangeDirection, singularLabel, }: SnapshotCountProps) => {
   const [count, setCount] = React.useState(passedCount || null)
   const [change, setChange] = React.useState(passedChange || 0)
   const [changeDirection, setChangeDirection] = React.useState(passedChangeDirection || null)
+  const [loading, setLoading] = React.useState(false)
 
   React.useEffect(() => {
     if (comingSoon) { return }
@@ -62,24 +65,27 @@ const SnapshotCount = ({ label, size, queryKey, comingSoon, searchCount, selecte
     const requestUrl = queryString.stringifyUrl({ url: '/snapshots/count', query: searchParams }, { arrayFormat: 'bracket' })
 
     requestGet(`${requestUrl}`, (body) => {
-      if (!body.hasOwnProperty('current')) { return }
+      if (!body.hasOwnProperty('current')) {
+        setLoading(true)
+      } else {
+        const { previous, current, } = body
 
-      const { previous, current, } = body
+        const roundedCurrent = Math.round(current || 0)
 
-      const roundedCurrent = Math.round(current || 0)
+        setCount(roundedCurrent)
 
-      setCount(roundedCurrent)
+        if (!previous) {
+          setChangeDirection(POSITIVE)
+          return
+        }
 
-      if (!previous) {
-        setChangeDirection(POSITIVE)
-        return
+        const roundedPrevious = Math.round(previous || 0)
+
+        const changeTotal = Math.round(((roundedCurrent - roundedPrevious) / (roundedPrevious || 1)) * 100)
+        setChange(Math.abs(changeTotal))
+        setChangeDirection(changeTotal > 0 ? POSITIVE : NEGATIVE)
+        setLoading(false)
       }
-
-      const roundedPrevious = Math.round(previous || 0)
-
-      const changeTotal = Math.round(((roundedCurrent - roundedPrevious) / (roundedPrevious || 1)) * 100)
-      setChange(Math.abs(changeTotal))
-      setChangeDirection(changeTotal > 0 ? POSITIVE : NEGATIVE)
     })
   }
 
@@ -112,9 +118,10 @@ const SnapshotCount = ({ label, size, queryKey, comingSoon, searchCount, selecte
 
   return (
     <section className={className}>
+      {loading && <div className="loading-spinner-wrapper"><ButtonLoadingSpinner /></div>}
       <div className="count-and-label">
         {comingSoon ? <span className="coming-soon">Coming soon</span> : <span className="count">{count?.toLocaleString() || '—'}</span>}
-        <span className="snapshot-label">{label}</span>
+        <span className="snapshot-label">{count === 1 && singularLabel ? singularLabel : label}</span>
       </div>
       <div className="change">
         {icon}

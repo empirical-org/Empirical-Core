@@ -3,7 +3,7 @@ import React from 'react'
 import CustomDateModal from '../components/usage_snapshots/customDateModal'
 import SnapshotSection from '../components/usage_snapshots/snapshotSection'
 import Filters from '../components/usage_snapshots/filters'
-import { snapshotSections, TAB_NAMES, ALL, CUSTOM, } from '../components/usage_snapshots/shared'
+import { snapshotSections, TAB_NAMES, ALL, CUSTOM, unorderedArraysAreEqual, } from '../components/usage_snapshots/shared'
 import { Spinner, DropdownInput, } from '../../Shared/index'
 import useWindowSize from '../../Shared/hooks/useWindowSize';
 import { requestGet, } from '../../../modules/request'
@@ -31,7 +31,13 @@ const UsageSnapshotsContainer = ({ adminInfo, }) => {
   const [selectedSchools, setSelectedSchools] = React.useState(null)
   const [selectedGrades, setSelectedGrades] = React.useState(null)
   const [selectedTimeframe, setSelectedTimeframe] = React.useState(null)
-  const [hasAdjustedFilters, setHasAdjustedFilters] = React.useState(null)
+  const [lastSubmittedSchools, setLastSubmittedSchools] = React.useState(null)
+  const [lastSubmittedGrades, setLastSubmittedGrades] = React.useState(null)
+  const [lastSubmittedTimeframe, setLastSubmittedTimeframe] = React.useState(null)
+  const [lastSubmittedCustomStartDate, setLastSubmittedCustomStartDate] = React.useState(null)
+  const [lastSubmittedCustomEndDate, setLastSubmittedCustomEndDate] = React.useState(null)
+  const [hasAdjustedFiltersFromDefault, setHasAdjustedFiltersFromDefault] = React.useState(null)
+  const [hasAdjustedFiltersSinceLastSubmission, setHasAdjustedFiltersSinceLastSubmission] = React.useState(null)
   const [customStartDate, setCustomStartDate] = React.useState(null)
   const [customEndDate, setCustomEndDate] = React.useState(null)
   const [searchCount, setSearchCount] = React.useState(0)
@@ -49,10 +55,23 @@ const UsageSnapshotsContainer = ({ adminInfo, }) => {
   React.useEffect(() => {
     if (loadingFilters) { return }
 
-    if (selectedSchools !== allSchools || selectedGrades !== allGrades || selectedTimeframe !== defaultTimeframe(allTimeframes)) {
-      setHasAdjustedFilters(true)
+    const newValueForHasAdjustedFiltersFromDefault = !unorderedArraysAreEqual(selectedSchools, allSchools) || !unorderedArraysAreEqual(selectedGrades, allGrades) || !unorderedArraysAreEqual(selectedTimeframe, defaultTimeframe(allTimeframes))
+
+    setHasAdjustedFiltersFromDefault(newValueForHasAdjustedFiltersFromDefault)
+
+    const newValueForHasAdjustedFiltersSinceLastSubmission = (!unorderedArraysAreEqual(selectedSchools, lastSubmittedSchools) || !unorderedArraysAreEqual(selectedGrades, lastSubmittedGrades) || !unorderedArraysAreEqual(selectedTimeframe, lastSubmittedTimeframe) || customStartDate !== lastSubmittedCustomStartDate || customEndDate !== lastSubmittedCustomEndDate)
+
+    setHasAdjustedFiltersSinceLastSubmission(newValueForHasAdjustedFiltersSinceLastSubmission)
+  }, [selectedSchools, selectedGrades, selectedTimeframe, customStartDate, customEndDate])
+
+  React.useEffect(() => {
+    if (selectedSchools?.length === 0) {
+      setSelectedSchools(allSchools)
     }
-  }, [selectedSchools, selectedGrades, selectedTimeframe])
+    if (selectedGrades?.length === 0) {
+      setSelectedGrades(allGrades)
+    }
+  }, [selectedSchools, selectedGrades])
 
   React.useEffect(() => {
     if (showCustomDateModal || (customStartDate && customEndDate) || !lastUsedTimeframe) { return }
@@ -101,11 +120,17 @@ const UsageSnapshotsContainer = ({ adminInfo, }) => {
     setSelectedSchools(allSchools)
     setSelectedTimeframe(defaultTimeframe(allTimeframes))
     applyFilters()
-    setHasAdjustedFilters(false)
+    setHasAdjustedFiltersFromDefault(false)
   }
 
   function applyFilters() {
     setSearchCount(searchCount + 1)
+    setLastSubmittedGrades(selectedGrades)
+    setLastSubmittedSchools(selectedSchools)
+    setLastSubmittedTimeframe(selectedTimeframe)
+    setLastSubmittedCustomStartDate(customStartDate)
+    setLastSubmittedCustomEndDate(customEndDate)
+    setHasAdjustedFiltersSinceLastSubmission(false)
   }
 
   function closeCustomDateModal() { setShowCustomDateModal(false) }
@@ -172,17 +197,20 @@ const UsageSnapshotsContainer = ({ adminInfo, }) => {
     clearFilters,
     selectedGrades,
     setSelectedGrades,
-    hasAdjustedFilters,
+    hasAdjustedFiltersFromDefault,
     handleSetSelectedTimeframe,
     selectedTimeframe,
     selectedSchools,
     setSelectedSchools,
     closeMobileFilterMenu,
     showMobileFilterMenu,
+    hasAdjustedFiltersSinceLastSubmission,
+    customStartDate,
+    customEndDate,
   }
 
   return (
-    <div className="usage-snapshots-container white-background">
+    <div className="usage-snapshots-container white-background-accommodate-footer">
       {showCustomDateModal && (
         <CustomDateModal
           close={closeCustomDateModal}
@@ -211,6 +239,7 @@ const UsageSnapshotsContainer = ({ adminInfo, }) => {
         <div className="sections">
           {snapshotSectionComponents}
         </div>
+        <div id="bottom-element" />
       </main>
     </div>
   )

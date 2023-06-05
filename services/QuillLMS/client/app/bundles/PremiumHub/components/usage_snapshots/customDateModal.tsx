@@ -33,6 +33,10 @@ const CustomDateModal = ({ close, passedStartDate, setCustomDates, passedEndDate
 
   function isOutsideRange() { return false }
 
+  let applyClassName = "quill-button medium primary contained focus-on-light"
+
+  applyClassName += startDate && endDate ? '' : ' disabled'
+
   // disabling autofocus lint here as it is a) necessary to get the calendar to stay open at all times and b) presents less of an accessibility issue because we do in fact want users to be focused into this modal when it appears
   /* eslint-disable jsx-a11y/no-autofocus */
   return (
@@ -54,7 +58,7 @@ const CustomDateModal = ({ close, passedStartDate, setCustomDates, passedEndDate
         />
         <div className="button-section">
           <button className="quill-button medium secondary outlined focus-on-light" onClick={close} type="button">Cancel</button>
-          <button className="quill-button medium primary contained focus-on-light" onClick={handleClickApply} type="button">Apply</button>
+          <button className={applyClassName} disabled={!(startDate && endDate)} onClick={handleClickApply} type="button">Apply</button>
         </div>
       </div>
     </div>

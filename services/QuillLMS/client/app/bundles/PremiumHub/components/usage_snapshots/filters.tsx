@@ -18,12 +18,12 @@ const SearchToken = ({ searchItem, onRemoveSearchItem, }) => {
   )
 }
 
-const Filters = ({ allTimeframes, allSchools, allGrades, applyFilters, clearFilters, selectedGrades, setSelectedGrades, hasAdjustedFilters, handleSetSelectedTimeframe, selectedTimeframe, selectedSchools, setSelectedSchools, closeMobileFilterMenu, showMobileFilterMenu, }) => {
+const Filters = ({ allTimeframes, allSchools, allGrades, applyFilters, clearFilters, selectedGrades, setSelectedGrades, hasAdjustedFiltersFromDefault, handleSetSelectedTimeframe, selectedTimeframe, selectedSchools, setSelectedSchools, closeMobileFilterMenu, showMobileFilterMenu, hasAdjustedFiltersSinceLastSubmission, customStartDate, customEndDate, }) => {
   const [filterButtonsAreFixed, setFilterButtonsAreFixed] = React.useState(true)
   const size = useWindowSize();
 
   React.useEffect(() => {
-    const el = document.getElementsByClassName('home-footer')[0]
+    const el = document.getElementById('bottom-element')
     const observer = new IntersectionObserver(([entry]) => { entry.isIntersecting ? setFilterButtonsAreFixed(false) : setFilterButtonsAreFixed(true); });
 
     el && observer.observe(el);
@@ -56,22 +56,28 @@ const Filters = ({ allTimeframes, allSchools, allGrades, applyFilters, clearFilt
   ))
 
   function renderFilterButtons(alwaysShow) {
-    if (!hasAdjustedFilters) { return null }
+    if (!hasAdjustedFiltersFromDefault) { return null }
 
     if (!alwaysShow && !filterButtonsAreFixed) { return null }
 
     const showAsFixed = (filterButtonsAreFixed && !alwaysShow) || size.width <= MAX_VIEW_WIDTH_FOR_MOBILE
 
+    let applyClassName = "quill-button small contained primary focus-on-light"
+
+    applyClassName += hasAdjustedFiltersSinceLastSubmission ? '' : ' disabled'
+
     return (
       <div className={`filter-buttons ${showAsFixed ? 'fixed' : ''}`}>
         <button className="quill-button small outlined secondary focus-on-light" onClick={clearFilters} type="button">Clear filters</button>
-        <button className="quill-button small contained primary focus-on-light" onClick={applyFilters} type="button">Apply filters</button>
+        <button className={applyClassName} onClick={applyFilters} type="button">Apply filters</button>
       </div>
     )
   }
 
+  const timeframeHelperText = customStartDate && customEndDate ? `${customStartDate.format('MM/DD/YYYY')} - ${customEndDate.format('MM/DD/YYYY')}` : null
+
   return (
-    <section className={`filter-container ${showMobileFilterMenu ? 'mobile-open' : 'mobile-hidden'} ${hasAdjustedFilters ? 'space-for-buttons' : ''}`}>
+    <section className={`filter-container ${showMobileFilterMenu ? 'mobile-open' : 'mobile-hidden'} ${hasAdjustedFiltersFromDefault ? 'space-for-buttons' : ''}`}>
       <div className="top-section">
         <button className="interactive-wrapper focus-on-light" onClick={closeMobileFilterMenu} type="button">
           <img alt="" src={closeIconSrc} />
@@ -82,6 +88,7 @@ const Filters = ({ allTimeframes, allSchools, allGrades, applyFilters, clearFilt
         <label className="filter-label" htmlFor="timeframe-filter">Timeframe</label>
         <DropdownInput
           handleChange={handleSetSelectedTimeframe}
+          helperText={timeframeHelperText}
           id="timeframe-filter"
           isSearchable={false}
           label=""

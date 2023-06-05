@@ -8,7 +8,7 @@ import { COUNT, RANKING, FEEDBACK, } from './shared'
 const SnapshotSection = ({ name, className, itemGroupings, searchCount, selectedGrades, selectedSchoolIds, selectedTimeframe, customTimeframeStart, customTimeframeEnd, adminId, }) => {
   const snapshotItemGroupings = itemGroupings.map(grouping => {
     const snapshotItems = grouping.items.map(item => {
-      const {label, size, type, queryKey, comingSoon, headers, } = item
+      const { label, size, type, queryKey, comingSoon, headers, singularLabel, } = item
       const sharedProps = {
         comingSoon,
         key: queryKey,
@@ -27,6 +27,7 @@ const SnapshotSection = ({ name, className, itemGroupings, searchCount, selected
         return (
           <SnapshotCount
             {...sharedProps}
+            singularLabel={singularLabel}
             size={size}
           />
         )
