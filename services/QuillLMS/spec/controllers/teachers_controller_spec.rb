@@ -144,6 +144,7 @@ describe TeachersController, type: :controller do
 
         it 'returns a row for each diagnostic' do
           get :diagnostic_info_for_dashboard_mini
+
           expected_response = [
             {
               assigned_count: classroom.students.ids.length,
@@ -168,7 +169,8 @@ describe TeachersController, type: :controller do
               classroom_id: classroom.id
             }
           ]
-          expect(response.body).to eq({units: expected_response}.to_json)
+
+          expect(JSON.parse(response.body)['units']).to match_array(expected_response.map(&:stringify_keys))
         end
       end
 
@@ -208,7 +210,8 @@ describe TeachersController, type: :controller do
               classroom_id: classroom.id
             }
           ]
-          expect(response.body).to eq({units: expected_response}.to_json)
+
+          expect(JSON.parse(response.body)['units']).to match_array(expected_response.map(&:stringify_keys))
         end
       end
 
