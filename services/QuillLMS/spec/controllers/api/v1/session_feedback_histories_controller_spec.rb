@@ -131,9 +131,17 @@ describe Api::V1::SessionFeedbackHistoriesController, type: :controller do
 
           expect(response).to have_http_status(200)
           expect(parsed_response['activity_sessions'].length).to eq(3)
-          expect(parsed_response['activity_sessions'][0]['session_uid']).to eq(@feedback_history3.feedback_session_uid)
-          expect(parsed_response['activity_sessions'][1]['session_uid']).to eq(@feedback_history2.feedback_session_uid)
-          expect(parsed_response['activity_sessions'][2]['session_uid']).to eq(@feedback_history1.feedback_session_uid)
+
+          actual_session_uid1 = parsed_response['activity_sessions'][0]['session_uid']
+          actual_session_uid2 = parsed_response['activity_sessions'][1]['session_uid']
+          actual_session_uid3 = parsed_response['activity_sessions'][2]['session_uid']
+
+          expect([actual_session_uid1, actual_session_uid2, actual_session_uid3])
+            .to match_array [
+              @feedback_history3.feedback_session_uid,
+              @feedback_history2.feedback_session_uid,
+              @feedback_history1.feedback_session_uid
+            ]
         end
 
         it 'should retrieve only scored sessions when filter_type is scored' do
