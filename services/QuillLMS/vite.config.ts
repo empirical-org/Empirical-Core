@@ -37,21 +37,7 @@ export default defineConfig(({command, mode}) => {
     },
 
     define: {
-      // global: {}
-      //process: { env: {}}
-
-      // Note: declare node-accessible variable (i.e. CDN_URL) in .env.<mode>, not here
-      // 'process': {
-      //   env: {
-      //     DEFAULT_URL: 1//import.meta.env.VITE_DEFAULT_URL
-      //   }
-      // },
-      //'FOOBAR': env.LOCAL_TEST_ENV_VALUE, // not visible from js code,
-      //'process.env': process.env,
       "process.env.BAR": JSON.stringify("foo")
-      //'process.env.LOCAL_TEST_ENV_VALUE': `"${env.LOCAL_TEST_ENV_VALUE}"` // not visible
-
-
     },
     plugins: [
       requireTransform(),
