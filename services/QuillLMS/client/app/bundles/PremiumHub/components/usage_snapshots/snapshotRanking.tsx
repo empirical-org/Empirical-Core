@@ -140,13 +140,18 @@ const SnapshotRanking = ({ label, queryKey, headers, comingSoon, searchCount, se
     });
   };
 
-  function openModal() { setShowModal(true) }
+  function openModal() {
+    if (!data) { return }
+    setShowModal(true)
+  }
 
   function closeModal() { setShowModal(false) }
 
   let className = "snapshot-item snapshot-ranking"
   className+= data ? ' has-data' : ' no-data'
 
+  // disabling these rules for the div container because the behavior is handled by the button for keyboard users
+  /* eslint-disable jsx-a11y/click-events-have-key-events, jsx-a11y/no-static-element-interactions */
   return (
     <section className={className}>
       {showModal && (
@@ -157,18 +162,21 @@ const SnapshotRanking = ({ label, queryKey, headers, comingSoon, searchCount, se
           label={label}
         />
       )}
-      <div className="header">
-        {comingSoon ? <h3 className="coming-soon">{label} (coming soon)</h3> : <h3>{label}</h3>}
-        {loading && <div className="loading-spinner-wrapper"><ButtonLoadingSpinner /></div>}
-        {data && <button aria-hidden={true} className="interactive-wrapper focus-on-light" onClick={openModal} type="button">{expandImg}</button>}
+      <div onClick={openModal}>
+        <div className="header">
+          {comingSoon ? <h3 className="coming-soon">{label} (coming soon)</h3> : <h3>{label}</h3>}
+          {loading && <div className="loading-spinner-wrapper"><ButtonLoadingSpinner /></div>}
+          {data && <button aria-label="Open modal with additional seven lines of table data" onClick={openModal} type="button">{expandImg}</button>}
+        </div>
+        <DataTable
+          data={data}
+          headers={headers}
+          numberOfRows={3}
+        />
       </div>
-      <DataTable
-        data={data}
-        headers={headers}
-        numberOfRows={3}
-      />
     </section>
   )
 }
+/* eslint-enable jsx-a11y/click-events-have-key-events, jsx-a11y/no-static-element-interactions */
 
 export default SnapshotRanking

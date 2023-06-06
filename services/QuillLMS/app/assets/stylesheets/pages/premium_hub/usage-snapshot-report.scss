@@ -65,14 +65,17 @@
       background: #06806B;
       border-radius: 16px;
       color: white;
-      width: min-content;
-      white-space: nowrap;
+      width: fit-content;
       overflow: hidden;
       text-overflow: ellipsis;
       max-width: 100%;
       display: flex;
+      align-items: flex-start;
       span {
         margin-right: 10px;
+      }
+      .interactive-wrapper {
+        padding-top: 2px;
       }
       &:not(:last-of-type) {
         margin-bottom: 16px;
@@ -306,6 +309,9 @@
             line-height: 17px;
           }
         }
+        &.has-data {
+          cursor: pointer;
+        }
       }
       &.highlights {
         .counts {
@@ -362,8 +368,6 @@
       border: 1px solid #E0E0E0;
       border-radius: 8px;
       height: min-content;
-      max-height: 80%;
-      overflow: scroll;
 
       h2 {
         font-weight: 700;
@@ -549,6 +553,13 @@
       left: 39% !important;
       -webkit-transform: translateX(-50%);
       transform: translateX(-50%)
+    }
+  }
+
+  @media (max-height: 800px) {
+    .ranking-modal {
+      top: 0px;
+      bottom: 0px;
     }
   }
 
