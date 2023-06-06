@@ -409,7 +409,7 @@ exports[`SnapshotSection component when the section is Classrooms should match s
                 className="coming-soon"
               >
                 Most active grades
-                 | Coming soon
+                 (coming soon)
               </h3>
             </div>
             <div
@@ -1748,7 +1748,7 @@ exports[`SnapshotSection component when the section is Practice should match sna
                 className="coming-soon"
               >
                 Most assigned activities
-                 | Coming soon
+                 (coming soon)
               </h3>
             </div>
             <div
@@ -1864,7 +1864,7 @@ exports[`SnapshotSection component when the section is Practice should match sna
                 className="coming-soon"
               >
                 Most completed activities
-                 | Coming soon
+                 (coming soon)
               </h3>
             </div>
             <div
@@ -2531,7 +2531,7 @@ exports[`SnapshotSection component when the section is Users should match snapsh
                 className="coming-soon"
               >
                 Most active teachers
-                 | Coming soon
+                 (coming soon)
               </h3>
             </div>
             <div
