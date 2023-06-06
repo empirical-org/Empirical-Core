@@ -2,14 +2,10 @@
 
 module Snapshots
   class TopConceptsAssignedQuery < TopXQuery
-    def run_query
-      QuillBigQuery::Runner.execute(utilizing_subquery)
-    end
-
-    def utilizing_subquery
+    def query
       <<-SQL
         SELECT value, SUM(count) AS count
-          FROM (#{query})
+          FROM (#{super})
           GROUP BY value
           ORDER BY count DESC
           LIMIT #{NUMBER_OF_RECORDS}
@@ -49,6 +45,7 @@ module Snapshots
       "concepts.name"
     end
 
+    # Set to "" here because we want to create an un-LIMITed sub-query
     def limit_clause
       ""
     end

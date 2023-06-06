@@ -2,7 +2,7 @@
 
 module Snapshots
   class TopXQuery < PeriodQuery
-    NUMBER_OF_RECORDS = 3
+    NUMBER_OF_RECORDS = 10
 
     def run
       run_query

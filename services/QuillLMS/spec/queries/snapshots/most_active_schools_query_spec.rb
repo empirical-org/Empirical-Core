@@ -7,73 +7,71 @@ module Snapshots
     include_context 'Snapshots TopX CTE'
 
     context 'external_api', :external_api do
-      let(:num_classrooms) { 4 }
-      let(:classrooms) { create_list(:classroom, num_classrooms) }
-      let(:teachers) { classrooms.map(&:teachers).flatten }
-      let(:schools) { teachers.map(&:school) }
-      let(:classroom_units) { classrooms.map { |classroom| create(:classroom_unit, classroom: classroom) } }
-      let(:first_school_relevant_session_count) { 10 }
-      let(:second_school_relevant_session_count) { 7 }
-      let(:third_school_relevant_session_count) { 5 }
-      let(:fourth_school_relevant_session_count) { 1 }
+      let(:num_classrooms) { 11 }
+      let(:max_activity_session_count) { 20 }
 
-      let(:first_school_relevant_sessions) { create_list(:activity_session, first_school_relevant_session_count, classroom_unit: classroom_units[0]) }
-      let(:second_school_relevant_sessions) { create_list(:activity_session, second_school_relevant_session_count, classroom_unit: classroom_units[1]) }
-      let(:third_school_relevant_sessions) { create_list(:activity_session, third_school_relevant_session_count, classroom_unit: classroom_units[2]) }
-      let(:fourth_school_relevant_sessions) { create_list(:activity_session, fourth_school_relevant_session_count, classroom_unit: classroom_units[3]) }
+      let(:classroom_units) { classrooms.map { |classroom| create(:classroom_unit, classroom: classroom) } }
+
+      # For each classroom (each of which has a single classroom_unit), create activity_sessions for it, but creating one less for each subsequent classroom so that they'll have different relevant counts
+      let(:activity_sessions) do
+        classroom_units.map.with_index do |classroom_unit, i|
+          create_list(:activity_session, (max_activity_session_count - i), classroom_unit: classroom_unit)
+        end
+      end
 
       let(:runner_context) {
         [
           classrooms,
           teachers,
-          teachers.map(&:classrooms_teachers),
+          classrooms_teachers,
           schools,
-          schools.map(&:schools_users),
-          classroom_units
+          schools_users,
+          classroom_units,
         ]
       }
 
-      it 'should include the top 3 results if they are present' do
+      it 'should include the top 10 results if they are present' do
         runner = QuillBigQuery::TestRunner.new([
           runner_context,
-          first_school_relevant_sessions,
-          second_school_relevant_sessions,
-          third_school_relevant_sessions,
+          activity_sessions
         ])
         result = described_class.run(timeframe_start, timeframe_end, school_ids, grades, runner: runner)
 
         expect(result).to eq([
-          {"value" => schools[0].name, "count" => first_school_relevant_session_count },
-          {"value" => schools[1].name, "count" => second_school_relevant_session_count },
-          {"value" => schools[2].name, "count" => third_school_relevant_session_count }
+          {"value"=>schools[0].name, "count"=>activity_sessions[0].length },
+          {"value"=>schools[1].name, "count"=>activity_sessions[1].length },
+          {"value"=>schools[2].name, "count"=>activity_sessions[2].length },
+          {"value"=>schools[3].name, "count"=>activity_sessions[3].length },
+          {"value"=>schools[4].name, "count"=>activity_sessions[4].length },
+          {"value"=>schools[5].name, "count"=>activity_sessions[5].length },
+          {"value"=>schools[6].name, "count"=>activity_sessions[6].length },
+          {"value"=>schools[7].name, "count"=>activity_sessions[7].length },
+          {"value"=>schools[8].name, "count"=>activity_sessions[8].length },
+          {"value"=>schools[9].name, "count"=>activity_sessions[9].length }
         ])
       end
 
-      it 'should include fewer than 3 results if there are limited available results' do
+      it 'should include fewer than 10 results if there are limited available results' do
         runner = QuillBigQuery::TestRunner.new([
           runner_context,
-          first_school_relevant_sessions
+          activity_sessions[0]
         ])
         result = described_class.run(timeframe_start, timeframe_end, school_ids, grades, runner: runner)
 
         expect(result).to eq([
-          {"value" => schools[0].name, "count" => first_school_relevant_session_count }
+          {"value" => schools[0].name, "count" => activity_sessions[0].length }
         ])
       end
 
-      it 'should not include the fourth highest count' do
+      it 'should not include the 11th highest count' do
         runner = QuillBigQuery::TestRunner.new([
           runner_context,
-          first_school_relevant_sessions,
-          second_school_relevant_sessions,
-          third_school_relevant_sessions,
-          fourth_school_relevant_sessions,
+          activity_sessions
         ])
         result = described_class.run(timeframe_start, timeframe_end, school_ids, grades, runner: runner)
 
-        expect(result).not_to include(
-          {"value" => schools[3].name, "count" => fourth_school_relevant_session_count }
-        )
+        expect(result.length).to eq(10)
+        expect(result.map { |r| r["value"] }).not_to include(schools[10].name)
       end
 
       it 'should not count sessions outside of the timeframe' do
@@ -82,14 +80,14 @@ module Snapshots
         
         runner = QuillBigQuery::TestRunner.new([
           runner_context,
-          first_school_relevant_sessions,
+          activity_sessions[0].first,
           too_old_session,
           too_new_session
         ])
         result = described_class.run(timeframe_start, timeframe_end, school_ids, grades, runner: runner)
 
         expect(result).to eq([
-          {"value" => schools[0].name, "count" => first_school_relevant_session_count }
+          {"value" => schools[0].name, "count" => 1 }
         ])
       end
 
@@ -100,7 +98,7 @@ module Snapshots
 
         runner = QuillBigQuery::TestRunner.new([
           runner_context,
-          first_school_relevant_sessions,
+          activity_sessions[0].first,
           unstarted_session,
           started_session
         ])
@@ -108,7 +106,7 @@ module Snapshots
         result = described_class.run(timeframe_start, timeframe_end, school_ids, grades, runner: runner)
 
         expect(result).to eq([
-          {"value" => schools[0].name, "count" => first_school_relevant_session_count }
+          {"value" => schools[0].name, "count" => 1 }
         ])
       end
     end

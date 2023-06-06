@@ -43,7 +43,7 @@ module Snapshots
     end
 
     def grade_where_clause
-      return "" unless grades
+      return "" if grades.nil? || grades.empty?
 
       "AND classrooms.grade IN (#{grades.map { |g| "'#{g}'" }.join(',')})"
     end

@@ -64,7 +64,9 @@ module QuillBigQuery
     private def attr_type_value(attr_type, value)
       case attr_type
       when :boolean, :decimal, :float, :integer then value
-      when :inet, :jsonb, :string then "'#{value}'"
+      when :inet then "'#{value}'"
+      when :jsonb then "'#{value.to_json}'"
+      when :string, :text then "\"#{value}\""
       when :datetime then "'#{value&.iso8601}'"
       else
         raise "Error: value:'#{value}' type #{attr_type} not found"
