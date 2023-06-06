@@ -40,7 +40,7 @@ const SnapshotRanking = ({ label, queryKey, headers, comingSoon, searchCount, se
   return (
     <section className={className}>
       <div className="header">
-        {comingSoon ? <h3 className="coming-soon">{label} | Coming soon</h3> : <h3>{label}</h3>}
+        {comingSoon ? <h3 className="coming-soon">{label} (coming soon)</h3> : <h3>{label}</h3>}
         {loading && <div className="loading-spinner-wrapper"><ButtonLoadingSpinner /></div>}
       </div>
       <div className="table">
