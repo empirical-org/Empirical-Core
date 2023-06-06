@@ -1,5 +1,6 @@
 import 'lazysizes';
 import 'lazysizes/plugins/parent-fit/ls.parent-fit';
+import React from 'react';
 import ReactOnRails from 'react-on-rails';
 
 const FooApp = (props) => {

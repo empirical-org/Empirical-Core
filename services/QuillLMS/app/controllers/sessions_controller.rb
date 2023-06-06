@@ -125,7 +125,7 @@ class SessionsController < ApplicationController
   end
 
   def foo
-    render foo, layout: false
+    render 'foo.html.erb', layout: false
   end
 
   def failure
