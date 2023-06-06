@@ -7,7 +7,8 @@ const ACTIVITY_SCORES = 'Activity Scores';
 const CONCEPT_REPORTS = 'Concept Reports';
 const STANDARDS_REPORTS = 'Standards Reports';
 const USAGE_SNAPSHOT_REPORT = 'Usage Snapshot Report'
-const tabs = {
+
+const tabsWithoutUsageSnapshotReport = {
   [OVERVIEW]: {
     label: OVERVIEW,
     url: '/teachers/premium_hub'
@@ -15,10 +16,6 @@ const tabs = {
   [SCHOOL_SUBSCRIPTIONS]: {
     label: SCHOOL_SUBSCRIPTIONS,
     url: '/teachers/premium_hub/school_subscriptions'
-  },
-  [USAGE_SNAPSHOT_REPORT]: {
-    label: USAGE_SNAPSHOT_REPORT,
-    url: '/teachers/premium_hub/usage_snapshot_report'
   },
   [ACTIVITY_SCORES]: {
     label: ACTIVITY_SCORES,
@@ -35,6 +32,14 @@ const tabs = {
   [STANDARDS_REPORTS]: {
     label: STANDARDS_REPORTS,
     url: '/teachers/premium_hub/district_standards_reports'
+  },
+}
+
+const tabs = {
+  ...tabsWithoutUsageSnapshotReport,
+  [USAGE_SNAPSHOT_REPORT]: {
+    label: USAGE_SNAPSHOT_REPORT,
+    url: '/teachers/premium_hub/usage_snapshot_report'
   },
 }
 
@@ -91,8 +96,10 @@ export default class AdminSubnav extends React.Component<any, any> {
 
   render() {
     const { overview, schoolSubscriptions, activityScores, conceptReports, standardsReports, dropdownOpen, usageSnapshotReport, activeTab } = this.state
-    const activeStates = [overview, schoolSubscriptions, usageSnapshotReport, activityScores, conceptReports, standardsReports]
+    const activeStates = [overview, schoolSubscriptions, activityScores, conceptReports, standardsReports, usageSnapshotReport]
     const dropdownClass = dropdownOpen ? 'open' : '';
+
+    const tabsToShow = window.location.href.includes('usage_snapshot') ? tabs : tabsWithoutUsageSnapshotReport
 
     return(
       <React.Fragment>
@@ -103,13 +110,13 @@ export default class AdminSubnav extends React.Component<any, any> {
                 <p>{activeTab}</p>
                 <i className="fa fa-thin fa-angle-down" />
               </button>
-              {renderNavList({ tabs, activeStates, handleLinkClick: this.handleLinkClick, listClass: 'dropdown-menu' })}
+              {renderNavList({ tabs: tabsToShow, activeStates, handleLinkClick: this.handleLinkClick, listClass: 'dropdown-menu' })}
             </div>
           </div>
         </div >
         <div className="tab-subnavigation-wrapper desktop class-subnav premium-hub-subnav">
           <div className="container">
-            {renderNavList({ tabs, activeStates, handleLinkClick: this.handleLinkClick })}
+            {renderNavList({ tabs: tabsToShow, activeStates, handleLinkClick: this.handleLinkClick })}
           </div>
         </div>
       </React.Fragment>

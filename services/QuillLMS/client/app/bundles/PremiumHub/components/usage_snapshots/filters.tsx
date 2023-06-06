@@ -2,6 +2,8 @@ import * as React from 'react'
 
 import { DropdownInput } from '../../../Shared/index'
 import useWindowSize from '../../../Shared/hooks/useWindowSize';
+import { unorderedArraysAreEqual, } from '../../../../modules/unorderedArraysAreEqual'
+
 const MAX_VIEW_WIDTH_FOR_MOBILE = 1134
 
 const removeSearchTokenSrc = `${process.env.CDN_URL}/images/pages/administrator/remove_search_token.svg`
@@ -39,7 +41,7 @@ const Filters = ({ allTimeframes, allSchools, allGrades, applyFilters, clearFilt
     setSelectedGrades(newGrades)
   }
 
-  const schoolSearchTokens = selectedSchools !== allSchools && selectedSchools.map(s => (
+  const schoolSearchTokens = !unorderedArraysAreEqual(selectedSchools, allSchools) && selectedSchools.map(s => (
     <SearchToken
       key={s.id}
       onRemoveSearchItem={handleRemoveSchool}
@@ -47,7 +49,7 @@ const Filters = ({ allTimeframes, allSchools, allGrades, applyFilters, clearFilt
     />
   ))
 
-  const gradeSearchTokens = selectedGrades !== allGrades && selectedGrades.map(grade => (
+  const gradeSearchTokens = !unorderedArraysAreEqual(selectedGrades, allGrades) && selectedGrades.map(grade => (
     <SearchToken
       key={grade.value}
       onRemoveSearchItem={handleRemoveGrade}

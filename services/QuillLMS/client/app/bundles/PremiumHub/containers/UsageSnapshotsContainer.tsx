@@ -4,10 +4,11 @@ import { FULL, restrictedPage, } from '../shared';
 import CustomDateModal from '../components/usage_snapshots/customDateModal'
 import SnapshotSection from '../components/usage_snapshots/snapshotSection'
 import Filters from '../components/usage_snapshots/filters'
-import { snapshotSections, TAB_NAMES, ALL, CUSTOM, unorderedArraysAreEqual, } from '../components/usage_snapshots/shared'
+import { snapshotSections, TAB_NAMES, ALL, CUSTOM, } from '../components/usage_snapshots/shared'
 import { Spinner, DropdownInput, } from '../../Shared/index'
 import useWindowSize from '../../Shared/hooks/useWindowSize';
 import { requestGet, } from '../../../modules/request'
+import { unorderedArraysAreEqual, } from '../../../modules/unorderedArraysAreEqual'
 
 const MAX_VIEW_WIDTH_FOR_MOBILE = 850
 
@@ -164,6 +165,9 @@ const UsageSnapshotsContainer = ({ adminInfo, accessType, }) => {
     />
   )
 
+  // we need to pass the backend an empty array when all grades are selected so we include data from classrooms that do not have a grade
+  const selectedGradesToPass = selectedGrades.length === allGrades.length ? [] : selectedGrades.map(g => g.value)
+
   const sectionsToShow = selectedTab === ALL ? snapshotSections : snapshotSections.filter(s => s.name === selectedTab)
   const snapshotSectionComponents = sectionsToShow.map(section => (
     <SnapshotSection
@@ -175,7 +179,7 @@ const UsageSnapshotsContainer = ({ adminInfo, accessType, }) => {
       key={section.name}
       name={section.name}
       searchCount={searchCount}
-      selectedGrades={selectedGrades.map(g => g.value)}
+      selectedGrades={selectedGradesToPass}
       selectedSchoolIds={selectedSchools.map(s => s.id)}
       selectedTimeframe={selectedTimeframe.value}
     />
@@ -206,7 +210,7 @@ const UsageSnapshotsContainer = ({ adminInfo, accessType, }) => {
   }
 
   return (
-    <div className="usage-snapshots-container white-background-accommodate-footer">
+    <div className="usage-snapshots-container white-background">
       {showCustomDateModal && (
         <CustomDateModal
           close={closeCustomDateModal}
