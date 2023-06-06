@@ -26,7 +26,7 @@ module Snapshots
           classrooms_teachers,
           schools,
           schools_users,
-          classroom_units,
+          classroom_units
         ]
       }
 
@@ -77,7 +77,7 @@ module Snapshots
       it 'should not count sessions outside of the timeframe' do
         too_old_session = create(:activity_session, classroom_unit: classroom_units[0], completed_at: timeframe_start - 1.day)
         too_new_session = create(:activity_session, classroom_unit: classroom_units[0], completed_at: timeframe_end + 1.day)
-        
+
         runner = QuillBigQuery::TestRunner.new([
           runner_context,
           activity_sessions[0].first,

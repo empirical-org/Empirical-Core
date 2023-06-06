@@ -3,5 +3,6 @@
 RSpec.shared_context 'Snapshots TopX CTE' do
   include_context 'Snapshots Period CTE'
 
-  let(:cte_records) { }
+  # Intentionally empty.  Only defined because it's currently expected in the Snapshot inclusion stack.
+  let(:cte_records) { [] }
 end

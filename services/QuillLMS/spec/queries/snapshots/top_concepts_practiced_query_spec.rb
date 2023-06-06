@@ -32,7 +32,7 @@ module Snapshots
           schools_users,
           concepts,
           activities,
-          classroom_units,
+          classroom_units
         ]
       }
 
@@ -69,8 +69,8 @@ module Snapshots
       end
 
       it 'should count concepts in unit_activities outside of the timeframe' do
-          too_old = create(:activity_session, activity: activities.first, classroom_unit: classroom_units.first, completed_at: timeframe_start - 1.day)
-          too_new = create(:activity_session, activity: activities.first, classroom_unit: classroom_units.first, completed_at: timeframe_end + 1.day)
+        too_old = create(:activity_session, activity: activities.first, classroom_unit: classroom_units.first, completed_at: timeframe_start - 1.day)
+        too_new = create(:activity_session, activity: activities.first, classroom_unit: classroom_units.first, completed_at: timeframe_end + 1.day)
 
         runner = QuillBigQuery::TestRunner.new([
           runner_context,
