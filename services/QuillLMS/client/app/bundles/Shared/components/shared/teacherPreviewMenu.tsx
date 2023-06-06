@@ -13,7 +13,8 @@ import {
   returnLessonData,
   renderTitleSection,
   renderIntroductionSection,
-  renderQuestions
+  renderQuestions,
+  renderEvidenceActivityContent
 } from "../../libs";
 
 interface Activity {
@@ -71,6 +72,11 @@ const TeacherPreviewMenuComponent = ({
   titleCards
 }: TeacherPreviewMenuProps) => {
 
+  const [textIsExpanded, setTextIsExpanded] = React.useState<boolean>(false);
+
+  function toggleExpandedText() {
+    setTextIsExpanded(!textIsExpanded)
+  }
   const handleToggleMenu = () => {
     onTogglePreview();
   }
@@ -114,7 +120,7 @@ const TeacherPreviewMenuComponent = ({
       </section>
       {renderTitleSection(activity)}
       {renderIntroductionSection(activity, lesson, session)}
-      <section>
+      {!isEvidenceActivity && <section>
         <h2>Questions</h2>
         <ul>
           {renderQuestions({
@@ -130,7 +136,13 @@ const TeacherPreviewMenuComponent = ({
             isDiagnosticActivity
           })}
         </ul>
-      </section>
+      </section>}
+      {isEvidenceActivity && renderEvidenceActivityContent({
+        activity,
+        handleQuestionUpdate,
+        toggleExpandedText,
+        textIsExpanded
+      })}
     </aside>
   );
 }

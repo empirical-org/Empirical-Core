@@ -1,5 +1,7 @@
 import * as React from 'react';
 import { stripHtml } from "string-strip-html";
+import clip from "text-clipper";
+import ReactHtmlParser, { convertNodeToElement } from 'react-html-parser';
 
 import { Feedback, getLatestAttempt } from '../../Shared/index';
 import { QuestionObject, Activity } from '../interfaces';
@@ -271,4 +273,87 @@ export const renderQuestions = ({
       );
     });
   }
+}
+
+function transformNode(node, index) {
+  if (node.name === 'mark') {
+    return node.children[0].data
+  }
+  if(node.name === 'strong') {
+    node.name = 'i'
+  }
+}
+
+const renderPassageAndPrompts = ({ passage, prompts, textIsExpanded, toggleExpandedText, handleQuestionUpdate }) => {
+  if(!passage || !prompts) { return }
+
+  const { text } = passage;
+  const clippedHtml = textIsExpanded ? text : clip(text, 350, { html: true, maxLines: 10 });
+  const buttonLabel = textIsExpanded ? 'Collapse text' : 'Preview the full text';
+
+  return(
+    <React.Fragment>
+      <div className="divider" />
+      <section className="text-preview-section">
+        <h2>Text</h2>
+        {ReactHtmlParser(clippedHtml, {transform: transformNode})}
+        <button className="interactive-wrapper toggle-text-button" onClick={toggleExpandedText}>{buttonLabel}</button>
+      </section>
+      <section className="prompt-preview-section">
+        <i className="prompt-preview-instructions">Directions: Use information from the text to finish the sentence. Put the information in your own words.</i>
+        <ul className="evidence-prompts">
+          {prompts.map((prompt, i) => {
+            const { id, text } = prompt;
+            return (
+              <button className={`question-container focus-on-light`} id={id} key={id} onClick={handleQuestionUpdate} type="button">
+                <p className="question-text">{text}</p>
+              </button>
+            )
+          })}
+        </ul>
+      </section>
+    </React.Fragment>
+  )
+}
+
+export const renderEvidenceActivityContent = ({ activity, toggleExpandedText, textIsExpanded, handleQuestionUpdate }) => {
+
+  if(!activity) { return }
+
+  const { prompts, passages } = activity
+
+  return(
+    <React.Fragment>
+      <section className="evidence-content-section">
+        <h2>What Students Will Do</h2>
+        <ul className="activity-steps-overivew">
+          <li>Learn about Reading for Evidence.</li>
+          <li>See a checklist of the steps of the activity.</li>
+          <li>Read a text and highlight sentences.</li>
+          <li>Expand 3 sentence stems about the text using...</li>
+        </ul>
+        <ul>
+          <li>
+            <button className={`question-container focus-on-light`} id={prompts[0].id} key={prompts[0].id} onClick={handleQuestionUpdate} type="button">
+              <p className="question-number">1. </p>
+              <p className="question-text">“because” to give a reason</p>
+            </button>
+          </li>
+          <li>
+            <button className={`question-container focus-on-light`} id={prompts[1].id} key={prompts[1].id} onClick={handleQuestionUpdate} type="button">
+              <p className="question-number">2. </p>
+              <p className="question-text">“but” to give an opposing idea</p>
+            </button>
+          </li>
+          <li>
+            <button className={`question-container focus-on-light`} id={prompts[2].id} key={prompts[2].id} onClick={handleQuestionUpdate} type="button">
+              <p className="question-number">3. </p>
+              <p className="question-text">“so” to give a result</p>
+            </button>
+          </li>
+        </ul>
+      </section>
+      {renderPassageAndPrompts({ passage: passages[0], prompts, textIsExpanded, toggleExpandedText, handleQuestionUpdate })}
+    </React.Fragment>
+  );
 }

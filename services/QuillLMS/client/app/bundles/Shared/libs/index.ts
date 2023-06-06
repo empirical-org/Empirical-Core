@@ -14,7 +14,8 @@ export {
   returnLessonData,
   renderTitleSection,
   renderIntroductionSection,
-  renderQuestions
+  renderQuestions,
+  renderEvidenceActivityContent
 } from './activityPreviewHelpers'
 export { roundValuesToSeconds, roundMillisecondsToSeconds, } from './timeTrackingSharedFunctions'
 export { titleCase } from './titleCase'

@@ -58,7 +58,7 @@ const PageLayout: React.StatelessComponent<{}> = (props: any) => {
       <div className="activity-container">
         {showPreview && <aside
           className="sider-container"
-          style={{ height: '100vh', overflowY: 'auto', width: '360px' }}
+          style={{ overflowY: 'auto', width: '360px' }}
         >
           <TeacherPreviewMenu
             isOnMobile={isOnMobile}

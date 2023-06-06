@@ -85,7 +85,7 @@
         border-radius: 4px;
       }
     }
-    ul {
+    ul, .evidence-prompts {
       display: flex;
       align-items: center;
       flex-direction: column;
@@ -131,6 +131,44 @@
       .question-container:hover {
         cursor: pointer;
         background-color: #f2f2f2;;
+      }
+    }
+  }
+  .evidence-content-section {
+    padding-bottom: 24px;
+    ul {
+      align-items: flex-start;
+    }
+    .activity-steps-overivew {
+      list-style: disc;
+      color: $quillgreenmedium;
+      font-size: 14px;
+      font-weight: 700;
+      margin-left: 16px;
+    }
+  }
+  .text-preview-section {
+    p {
+      margin-bottom: 8px;
+    }
+    .toggle-text-button {
+      color: $quillgreenmedium;
+      font-weight: 700;
+      text-decoration: underline;
+      margin-top: 16px;
+    }
+  }
+  .prompt-preview-section {
+    padding-bottom: 16px;
+    .prompt-preview-instructions {
+      font-size: 14px;
+    }
+    .evidence-prompts {
+      margin-left: -13px;
+      .question-container {
+        .question-text {
+          font-weight: 700;
+        }
       }
     }
   }
