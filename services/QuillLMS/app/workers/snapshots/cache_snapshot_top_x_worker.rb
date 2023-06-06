@@ -28,11 +28,8 @@ module Snapshots
     end
 
     private def generate_payload(query, timeframe, school_ids, grades)
-      timeframe_start = timeframe[:current_start]
-      timeframe_end = timeframe[:current_end]
-
-      QUERIES[query].run(timeframe_start,
-        timeframe_end,
+      QUERIES[query].run(timeframe[:current_start],
+        timeframe[:current_end],
         school_ids,
         grades)
     end

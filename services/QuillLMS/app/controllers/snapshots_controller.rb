@@ -24,6 +24,7 @@ class SnapshotsController < ApplicationController
     "top_x" => Snapshots::CacheSnapshotTopXWorker
   }
 
+  before_action :set_query, only: [:count, :top_x]
   before_action :validate_request, only: [:count, :top_x]
   before_action :authorize_request, only: [:count, :top_x]
 
@@ -43,12 +44,16 @@ class SnapshotsController < ApplicationController
     }
   end
 
+  private def set_query
+    @query = snapshot_params[:query]
+  end
+
   private def validate_request
     return render json: { error: 'timeframe must be present and valid' }, status: 400 unless timeframe_param_valid?
 
     return render json: { error: 'school_ids are required' }, status: 400 unless school_ids_param_valid?
 
-    return render json: { error: 'unrecognized query type for this endpoint' }, status: 400 unless WORKERS_FOR_ACTIONS[action_name]::QUERIES.keys.include?(snapshot_params[:query])
+    return render json: { error: 'unrecognized query type for this endpoint' }, status: 400 unless WORKERS_FOR_ACTIONS[action_name]::QUERIES.keys.include?(@query)
   end
 
   private def timeframe_param_valid?
@@ -78,7 +83,7 @@ class SnapshotsController < ApplicationController
     return response if response
 
     worker.perform_async(cache_key,
-      snapshot_params[:query],
+      @query,
       current_user.id,
       {
         name: snapshot_params[:timeframe],
@@ -94,7 +99,7 @@ class SnapshotsController < ApplicationController
 
   private def cache_key_for_timeframe(previous_start, current_start, current_end)
 
-    Snapshots::CacheKeys.generate_key(snapshots_param[:query],
+    Snapshots::CacheKeys.generate_key(@query,
       previous_start,
       current_start,
       current_end,
