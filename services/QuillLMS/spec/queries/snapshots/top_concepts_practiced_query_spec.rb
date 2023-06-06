@@ -59,18 +59,20 @@ module Snapshots
         expect(result.map { |r| r['value'] }).not_to include(concepts[10].name)
       end
 
-      it 'should count concepts in unit_activities outside of the timeframe' do
-        too_old = create(:activity_session, activity: activities.first, classroom_unit: classroom_units.first, completed_at: timeframe_start - 1.day)
-        too_new = create(:activity_session, activity: activities.first, classroom_unit: classroom_units.first, completed_at: timeframe_end + 1.day)
+      context 'activity_sessions completed outside of timeframe' do
+        let(:too_old) { create(:activity_session, activity: activities.first, classroom_unit: classroom_units.first, completed_at: timeframe_start - 1.day) }
+        let(:too_new) { create(:activity_session, activity: activities.first, classroom_unit: classroom_units.first, completed_at: timeframe_end + 1.day) }
 
-        runner = QuillBigQuery::TestRunner.new([
-          runner_context,
-          too_old,
-          too_new
-        ])
-        result = described_class.run(timeframe_start, timeframe_end, school_ids, grades, runner: runner)
+        it 'should count concepts in unit_activities outside of the timeframe' do
+          runner = QuillBigQuery::TestRunner.new([
+            runner_context,
+            too_old,
+            too_new
+          ])
+          result = described_class.run(timeframe_start, timeframe_end, school_ids, grades, runner: runner)
 
-        expect(result).to eq([])
+          expect(result).to eq([])
+        end
       end
     end
   end
