@@ -31,7 +31,7 @@ describe UnitActivity, type: :model, redis: true do
 
   it { should belong_to(:activity) }
   it { should belong_to(:unit) }
-  it { should have_many(:classroom_unit_activity_states) }
+  it { should have_many(:classroom_unit_activity_states).dependent(:destroy) }
 
   it { is_expected.to callback(:teacher_checkbox).after(:save) }
   it { is_expected.to callback(:hide_appropriate_activity_sessions).after(:save) }
