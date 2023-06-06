@@ -36,43 +36,24 @@ module Snapshots
         ]
       }
 
-      it 'should successfully get data' do
-        runner = QuillBigQuery::TestRunner.new([
-          runner_context,
-          activity_session_bundles
-        ])
+      let(:runner) { QuillBigQuery::TestRunner.new(cte_records) }
+      let(:results) { described_class.run(timeframe_start, timeframe_end, school_ids, grades, runner: runner) }
 
-        result = described_class.run(timeframe_start, timeframe_end, school_ids, grades, runner: runner)
+      context 'all activity_sessions'
+        let(:expected_result) do
+          (0..9).map { |i| {"count"=>activity_session_bundles[i].length, "value"=>concepts[i].name} }
+        end
+        let(:cte_records) { [runner_context, activity_session_bundles] }
 
-        expected_result = (0..9).map { |i| {"count"=>activity_session_bundles[i].length, "value"=>concepts[i].name} }
-
-        expect(result).to eq(expected_result)
-      end
-
-      it 'should not include data from the 11th most common concept' do
-        runner = QuillBigQuery::TestRunner.new([
-          runner_context,
-          activity_session_bundles
-        ])
-        result = described_class.run(timeframe_start, timeframe_end, school_ids, grades, runner: runner)
-
-        expect(result.map { |r| r['value'] }).not_to include(concepts[10].name)
-      end
+        it { expect(results).to eq(expected_result) }
+        it { expect(results.map { |r| r['value'] }).not_to include(concepts[10].name) }
 
       context 'activity_sessions completed outside of timeframe' do
         let(:too_old) { create(:activity_session, activity: activities.first, classroom_unit: classroom_units.first, completed_at: timeframe_start - 1.day) }
         let(:too_new) { create(:activity_session, activity: activities.first, classroom_unit: classroom_units.first, completed_at: timeframe_end + 1.day) }
+        let(:cte_records) { [runner_context, too_old, too_new] }
 
-        it 'should count concepts in unit_activities outside of the timeframe' do
-          runner = QuillBigQuery::TestRunner.new([
-            runner_context,
-            too_old,
-            too_new
-          ])
-          result = described_class.run(timeframe_start, timeframe_end, school_ids, grades, runner: runner)
-
-          expect(result).to eq([])
-        end
+        it { expect(results).to eq([]) }
       end
     end
   end

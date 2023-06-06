@@ -29,75 +29,43 @@ module Snapshots
         ]
       }
 
-      it 'should include the top 10 results if they are present' do
-        runner = QuillBigQuery::TestRunner.new([
-          runner_context,
-          activity_sessions
-        ])
-        result = described_class.run(timeframe_start, timeframe_end, school_ids, grades, runner: runner)
+      let(:runner) { QuillBigQuery::TestRunner.new(cte_records) }
+      let(:results) { described_class.run(timeframe_start, timeframe_end, school_ids, grades, runner: runner) }
 
-        expected_result = (0..9).map { |i| {"value"=>schools[i].name, "count"=>activity_sessions[i].length} }
+      context 'all activity_sessions' do
+        let(:expected_result) do
+          (0..9).map { |i| {"value"=>schools[i].name, "count"=>activity_sessions[i].length} }
+        end
+        let(:cte_records) { [runner_context, activity_sessions] }
 
-        expect(result).to eq(expected_result)
+        it { expect(results).to eq(expected_result) }
+        it { expect(results.length).to eq(10) }
+        it { expect(results.map { |r| r["value"] }).not_to include(schools[10].name) }
       end
 
-      it 'should include fewer than 10 results if there are limited available results' do
-        runner = QuillBigQuery::TestRunner.new([
-          runner_context,
-          activity_sessions[0]
-        ])
-        result = described_class.run(timeframe_start, timeframe_end, school_ids, grades, runner: runner)
+      context 'limited activity_sessions' do
+        let(:cte_records) { [runner_context, activity_sessions[0]] }
 
-        expect(result).to eq([
-          {"value" => schools[0].name, "count" => activity_sessions[0].length }
-        ])
+        it { expect(results).to eq([{"value"=>schools[0].name, "count"=>activity_sessions[0].length }]) }
       end
 
-      it 'should not include the 11th highest count' do
-        runner = QuillBigQuery::TestRunner.new([
-          runner_context,
-          activity_sessions
-        ])
-        result = described_class.run(timeframe_start, timeframe_end, school_ids, grades, runner: runner)
+      context 'activity_sessions completed outsidee of timeframe' do
+        let(:too_old_session) { create(:activity_session, classroom_unit: classroom_units[0], completed_at: timeframe_start - 1.day) }
+        let(:too_new_session) { create(:activity_session, classroom_unit: classroom_units[0], completed_at: timeframe_end + 1.day) }
 
-        expect(result.length).to eq(10)
-        expect(result.map { |r| r["value"] }).not_to include(schools[10].name)
+        let(:cte_records) { [runner_context, too_old_session, too_new_session] }
+
+        it { expect(results).to eq([]) }
       end
 
-      it 'should not count sessions outside of the timeframe' do
-        too_old_session = create(:activity_session, classroom_unit: classroom_units[0], completed_at: timeframe_start - 1.day)
-        too_new_session = create(:activity_session, classroom_unit: classroom_units[0], completed_at: timeframe_end + 1.day)
-
-        runner = QuillBigQuery::TestRunner.new([
-          runner_context,
-          activity_sessions[0].first,
-          too_old_session,
-          too_new_session
-        ])
-        result = described_class.run(timeframe_start, timeframe_end, school_ids, grades, runner: runner)
-
-        expect(result).to eq([
-          {"value" => schools[0].name, "count" => 1 }
-        ])
-      end
-
-      it 'should not count unstarted or started-but-not-finished sessions' do
+      context 'unstarted and unfinished activity_sessions' do
         # percentage has to be set for CTE to UNION these with items that have percentages set
-        unstarted_session = create(:activity_session, :unstarted, classroom_unit: classroom_units[0], percentage: 0.0)
-        started_session = create(:activity_session, :started, classroom_unit: classroom_units[0], percentage: 0.0)
+        let(:unstarted_session) { create(:activity_session, :unstarted, classroom_unit: classroom_units[0], percentage: 0.0) }
+        let(:started_session) { create(:activity_session, :started, classroom_unit: classroom_units[0], percentage: 0.0) }
 
-        runner = QuillBigQuery::TestRunner.new([
-          runner_context,
-          activity_sessions[0].first,
-          unstarted_session,
-          started_session
-        ])
+        let(:cte_records) { [runner_context, unstarted_session, started_session] }
 
-        result = described_class.run(timeframe_start, timeframe_end, school_ids, grades, runner: runner)
-
-        expect(result).to eq([
-          {"value" => schools[0].name, "count" => 1 }
-        ])
+        it { expect(results).to eq([]) }
       end
     end
   end

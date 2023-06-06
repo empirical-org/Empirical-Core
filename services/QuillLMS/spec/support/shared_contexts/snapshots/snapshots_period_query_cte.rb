@@ -18,5 +18,4 @@ RSpec.shared_context 'Snapshots Period CTE' do
   let(:school_ids) { schools.pluck(:id) }
 
   let(:period_query_cte_records) { [classrooms, classrooms_teachers, schools_users, schools] }
-  let(:cte_records) { period_query_cte_records }
 end

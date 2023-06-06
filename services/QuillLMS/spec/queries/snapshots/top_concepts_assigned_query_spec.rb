@@ -40,38 +40,26 @@ module Snapshots
         ]
       }
 
-      it 'should successfully get data' do
-        runner = QuillBigQuery::TestRunner.new([
-          runner_context,
-          unit_activity_bundles
-        ])
-        result = described_class.run(timeframe_start, timeframe_end, school_ids, grades, runner: runner)
+      let(:cte_records) { [runner_context, unit_activity_bundles] }
 
-        expected_result = (0..9).map { |i| {"count"=>unit_activity_bundles[i].length, "value"=>concepts[i].name} }
+      let(:runner) { QuillBigQuery::TestRunner.new(cte_records) }
+      let(:results) { described_class.run(timeframe_start, timeframe_end, school_ids, grades, runner: runner) }
 
-        expect(result).to eq(expected_result)
+      context 'query LIMITs and shape' do
+        let(:expected_result) do
+          (0..9).map { |i| {"count"=>unit_activity_bundles[i].length, "value"=>concepts[i].name} }
+        end
+
+        it { expect(results).to eq(expected_result) }
+        it { expect(results.map { |r| r['value'] }).not_to include(concepts[10].name) }
       end
 
-      it 'should not include data from the 11th most common concept' do
-        runner = QuillBigQuery::TestRunner.new([
-          runner_context,
-          unit_activity_bundles
-        ])
-        result = described_class.run(timeframe_start, timeframe_end, school_ids, grades, runner: runner)
+      context 'classroom_units created outside of timeframe' do
+        before do
+          classroom_units.each { |cu| cu.update(created_at: timeframe_start - 1.day) }
+        end
 
-        expect(result.map { |r| r['value'] }).not_to include(concepts[10].name)
-      end
-
-      it 'should count concepts in unit_activities outside of the timeframe' do
-        classroom_units.each { |cu| cu.update(created_at: timeframe_start - 1.day) }
-
-        runner = QuillBigQuery::TestRunner.new([
-          runner_context,
-          unit_activity_bundles
-        ])
-        result = described_class.run(timeframe_start, timeframe_end, school_ids, grades, runner: runner)
-
-        expect(result).to eq([])
+        it { expect(results).to eq([]) }
       end
     end
   end
