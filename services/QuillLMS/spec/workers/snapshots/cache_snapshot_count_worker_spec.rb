@@ -20,10 +20,10 @@ module Snapshots
       let(:previous_timeframe_start) { current_timeframe_start - 30.days }
       let(:timeframe) {
         {
-          name: timeframe_name,
-          previous_start: previous_timeframe_start,
-          current_start: current_timeframe_start,
-          current_end: timeframe_end
+          'name' => timeframe_name,
+          'previous_start' => previous_timeframe_start,
+          'current_start' => current_timeframe_start,
+          'current_end' => timeframe_end
         }
       }
 
@@ -47,20 +47,20 @@ module Snapshots
 
       it 'should only execute a query for current timeframe if the previous_timeframe_start is nil' do
         expect(query_double).to receive(:run).and_return({}).once
-        timeframe[:previous_start] = nil
+        timeframe['previous_start'] = nil
 
         subject.perform(cache_key, query, user_id, timeframe, school_ids, grades)
       end
 
       it 'should write a payload to cache' do
         previous_count = 100
-        previous_timeframe_query_result = {'count' => previous_count}
+        previous_timeframe_query_result = { count: previous_count}
         current_count = 50
-        current_timeframe_query_result = {'count' => current_count}
+        current_timeframe_query_result = { count: current_count}
         payload = { current: current_count, previous: previous_count }
 
         expect(query_double).to receive(:run).and_return(current_timeframe_query_result, previous_timeframe_query_result)
-        expect(Rails.cache).to receive(:write).with(cache_key, payload, expires_in: timeframe_end + 1.day)
+        expect(Rails.cache).to receive(:write).with(cache_key, payload, expires_in: DateTime.current.end_of_day)
 
         subject.perform(cache_key, query, user_id, timeframe, school_ids, grades)
       end
