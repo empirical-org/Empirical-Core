@@ -62,7 +62,11 @@ const UsageSnapshotsContainer = ({ adminInfo, accessType, }) => {
 
     setHasAdjustedFiltersFromDefault(newValueForHasAdjustedFiltersFromDefault)
 
-    const newValueForHasAdjustedFiltersSinceLastSubmission = (!unorderedArraysAreEqual(selectedSchools, lastSubmittedSchools) || !unorderedArraysAreEqual(selectedGrades, lastSubmittedGrades) || !_.isEqual(selectedTimeframe, lastSubmittedTimeframe) || customStartDate !== lastSubmittedCustomStartDate || customEndDate !== lastSubmittedCustomEndDate)
+    const arraysUnequal = !unorderedArraysAreEqual(selectedSchools, lastSubmittedSchools) || !unorderedArraysAreEqual(selectedGrades, lastSubmittedGrades)
+
+    const datesDoNotMatch = !_.isEqual(selectedTimeframe, lastSubmittedTimeframe) || customStartDate !== lastSubmittedCustomStartDate || customEndDate !== lastSubmittedCustomEndDate
+
+    const newValueForHasAdjustedFiltersSinceLastSubmission = arraysUnequal || datesDoNotMatch
 
     setHasAdjustedFiltersSinceLastSubmission(newValueForHasAdjustedFiltersSinceLastSubmission)
   }, [selectedSchools, selectedGrades, selectedTimeframe, customStartDate, customEndDate])
