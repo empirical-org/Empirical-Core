@@ -6,7 +6,7 @@ module Snapshots
   describe TopConceptsAssignedQuery do
     include_context 'Snapshots TopX CTE'
 
-    context 'external_api', :external_api do
+    context 'big_query_snapshot', :big_query_snapshot do
       let(:num_classrooms) { 1 }
       let(:num_concepts) { 11 }
 
