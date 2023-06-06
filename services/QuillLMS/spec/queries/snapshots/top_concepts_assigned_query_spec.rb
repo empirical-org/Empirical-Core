@@ -57,7 +57,7 @@ module Snapshots
           {"count"=>unit_activity_bundles[6].length, "value"=>concepts[6].name},
           {"count"=>unit_activity_bundles[7].length, "value"=>concepts[7].name},
           {"count"=>unit_activity_bundles[8].length, "value"=>concepts[8].name},
-          {"count"=>unit_activity_bundles[9].length, "value"=>concepts[9].name},
+          {"count"=>unit_activity_bundles[9].length, "value"=>concepts[9].name}
         ])
       end
 
