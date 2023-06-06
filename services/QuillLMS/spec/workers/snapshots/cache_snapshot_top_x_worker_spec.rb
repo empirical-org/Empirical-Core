@@ -12,7 +12,7 @@ module Snapshots
     let(:timeframe_name) { 'last-30-days' }
     let(:school_ids) { [1,2,3] }
     let(:grades) { ['Kindergarten',1,2,3,4] }
-    let(:query_double) { double }
+    let(:query_double) { double(run: {}) }
 
     context '#perform' do
       let(:timeframe_end) { DateTime.now }
@@ -31,15 +31,12 @@ module Snapshots
         stub_const("Snapshots::CacheSnapshotTopXWorker::QUERIES", {
           query => query_double
         })
-
-        # Intercept theses calls to isolate them in separate cases
-        allow(query_double).to receive(:run).and_return({})
-        allow(Rails.cache).to receive(:write)
-        allow(PusherTrigger).to receive(:run)
       end
 
       it 'should execute a query for the timeframe' do
         expect(query_double).to receive(:run).with(current_timeframe_start, timeframe_end, school_ids, grades)
+        expect(Rails.cache).to receive(:write)
+        expect(PusherTrigger).to receive(:run)
 
         subject.perform(cache_key, query, user_id, timeframe, school_ids, grades)
       end
@@ -49,11 +46,13 @@ module Snapshots
 
         expect(query_double).to receive(:run).and_return(payload)
         expect(Rails.cache).to receive(:write).with(cache_key, payload, expires_in: timeframe_end + 1.day)
+        expect(PusherTrigger).to receive(:run)
 
         subject.perform(cache_key, query, user_id, timeframe, school_ids, grades)
       end
 
       it 'should send a Pusher notification' do
+        expect(Rails.cache).to receive(:write)
         expect(PusherTrigger).to receive(:run).with(user_id, described_class::PUSHER_EVENT, {
           query: query,
           timeframe: timeframe_name,
