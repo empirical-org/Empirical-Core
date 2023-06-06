@@ -39,7 +39,7 @@ module Snapshots
       let(:runner) { QuillBigQuery::TestRunner.new(cte_records) }
       let(:results) { described_class.run(timeframe_start, timeframe_end, school_ids, grades, runner: runner) }
 
-      context 'all activity_sessions'
+      context 'all activity_sessions' do
         let(:expected_result) do
           (0..9).map { |i| {"count"=>activity_session_bundles[i].length, "value"=>concepts[i].name} }
         end
@@ -47,6 +47,7 @@ module Snapshots
 
         it { expect(results).to eq(expected_result) }
         it { expect(results.map { |r| r['value'] }).not_to include(concepts[10].name) }
+      end
 
       context 'activity_sessions completed outside of timeframe' do
         let(:too_old) { create(:activity_session, activity: activities.first, classroom_unit: classroom_units.first, completed_at: timeframe_start - 1.day) }
