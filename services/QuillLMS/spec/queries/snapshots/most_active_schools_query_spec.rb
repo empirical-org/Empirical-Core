@@ -4,18 +4,17 @@ require 'rails_helper'
 
 module Snapshots
   describe MostActiveSchoolsQuery do
-    include_context 'Snapshots TopX CTE'
+    include_context 'Snapshots Period CTE'
 
     context 'big_query_snapshot', :big_query_snapshot do
       let(:num_classrooms) { 11 }
-      let(:max_activity_session_count) { 20 }
 
       let(:classroom_units) { classrooms.map { |classroom| create(:classroom_unit, classroom: classroom) } }
 
       # For each classroom (each of which has a single classroom_unit), create activity_sessions for it, but creating one less for each subsequent classroom so that they'll have different relevant counts
       let(:activity_sessions) do
         classroom_units.map.with_index do |classroom_unit, i|
-          create_list(:activity_session, (max_activity_session_count - i), classroom_unit: classroom_unit)
+          create_list(:activity_session, (num_classrooms - i), classroom_unit: classroom_unit)
         end
       end
 
@@ -37,18 +36,9 @@ module Snapshots
         ])
         result = described_class.run(timeframe_start, timeframe_end, school_ids, grades, runner: runner)
 
-        expect(result).to eq([
-          {"value"=>schools[0].name, "count"=>activity_sessions[0].length },
-          {"value"=>schools[1].name, "count"=>activity_sessions[1].length },
-          {"value"=>schools[2].name, "count"=>activity_sessions[2].length },
-          {"value"=>schools[3].name, "count"=>activity_sessions[3].length },
-          {"value"=>schools[4].name, "count"=>activity_sessions[4].length },
-          {"value"=>schools[5].name, "count"=>activity_sessions[5].length },
-          {"value"=>schools[6].name, "count"=>activity_sessions[6].length },
-          {"value"=>schools[7].name, "count"=>activity_sessions[7].length },
-          {"value"=>schools[8].name, "count"=>activity_sessions[8].length },
-          {"value"=>schools[9].name, "count"=>activity_sessions[9].length }
-        ])
+        expected_result = (0..9).map { |i| {"value"=>schools[i].name, "count"=>activity_sessions[i].length} }
+
+        expect(result).to eq(expected_result)
       end
 
       it 'should include fewer than 10 results if there are limited available results' do

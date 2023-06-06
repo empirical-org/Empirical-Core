@@ -4,7 +4,7 @@ require 'rails_helper'
 
 module Snapshots
   describe TopConceptsAssignedQuery do
-    include_context 'Snapshots TopX CTE'
+    include_context 'Snapshots Period CTE'
 
     context 'big_query_snapshot', :big_query_snapshot do
       let(:num_classrooms) { 1 }
@@ -47,18 +47,9 @@ module Snapshots
         ])
         result = described_class.run(timeframe_start, timeframe_end, school_ids, grades, runner: runner)
 
-        expect(result).to eq([
-          {"count"=>unit_activity_bundles[0].length, "value"=>concepts[0].name},
-          {"count"=>unit_activity_bundles[1].length, "value"=>concepts[1].name},
-          {"count"=>unit_activity_bundles[2].length, "value"=>concepts[2].name},
-          {"count"=>unit_activity_bundles[3].length, "value"=>concepts[3].name},
-          {"count"=>unit_activity_bundles[4].length, "value"=>concepts[4].name},
-          {"count"=>unit_activity_bundles[5].length, "value"=>concepts[5].name},
-          {"count"=>unit_activity_bundles[6].length, "value"=>concepts[6].name},
-          {"count"=>unit_activity_bundles[7].length, "value"=>concepts[7].name},
-          {"count"=>unit_activity_bundles[8].length, "value"=>concepts[8].name},
-          {"count"=>unit_activity_bundles[9].length, "value"=>concepts[9].name}
-        ])
+        expected_result = (0..9).map { |i| {"count"=>unit_activity_bundles[i].length, "value"=>concepts[i].name} }
+
+        expect(result).to eq(expected_result)
       end
 
       it 'should not include data from the 11th most common concept' do

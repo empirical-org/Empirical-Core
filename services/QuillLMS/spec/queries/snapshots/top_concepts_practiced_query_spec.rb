@@ -4,7 +4,7 @@ require 'rails_helper'
 
 module Snapshots
   describe TopConceptsPracticedQuery do
-    include_context 'Snapshots TopX CTE'
+    include_context 'Snapshots Period CTE'
 
     context 'big_query_snapshot', :big_query_snapshot do
       let(:num_classrooms) { 1 }
@@ -44,18 +44,9 @@ module Snapshots
 
         result = described_class.run(timeframe_start, timeframe_end, school_ids, grades, runner: runner)
 
-        expect(result).to eq([
-          {"count"=>activity_session_bundles[0].length, "value"=>concepts[0].name},
-          {"count"=>activity_session_bundles[1].length, "value"=>concepts[1].name},
-          {"count"=>activity_session_bundles[2].length, "value"=>concepts[2].name},
-          {"count"=>activity_session_bundles[3].length, "value"=>concepts[3].name},
-          {"count"=>activity_session_bundles[4].length, "value"=>concepts[4].name},
-          {"count"=>activity_session_bundles[5].length, "value"=>concepts[5].name},
-          {"count"=>activity_session_bundles[6].length, "value"=>concepts[6].name},
-          {"count"=>activity_session_bundles[7].length, "value"=>concepts[7].name},
-          {"count"=>activity_session_bundles[8].length, "value"=>concepts[8].name},
-          {"count"=>activity_session_bundles[9].length, "value"=>concepts[9].name}
-        ])
+        expected_result = (0..9).map { |i| {"count"=>activity_session_bundles[i].length, "value"=>concepts[i].name} }
+
+        expect(result).to eq(expected_result)
       end
 
       it 'should not include data from the 11th most common concept' do
