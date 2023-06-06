@@ -97,12 +97,6 @@ describe ProgressReports::DistrictStandardsReports do
     let(:assigned_student_ids) { [] }
 
     context 'integration', :external_api do
-      around do |a_spec|
-        VCR.configure { |c| c.allow_http_connections_when_no_cassette = true }
-        a_spec.run
-        VCR.configure { |c| c.allow_http_connections_when_no_cassette = false }
-      end
-
       it 'tests end to end' do
         expected = [
           {

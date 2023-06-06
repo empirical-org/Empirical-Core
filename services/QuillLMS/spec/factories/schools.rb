@@ -79,12 +79,6 @@ FactoryBot.define do
       fte_classroom_teacher { 100 }
       ppin { "A1234567" }
     end
-
-    factory :school_with_three_teachers do
-      after(:create) do |school|
-        activities = create_list(:schools_users, 2, school: school)
-      end
-    end
   end
 
   factory :simple_school, class: 'School'

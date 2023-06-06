@@ -4,14 +4,12 @@ require 'rails_helper'
 
 module Snapshots
   describe StudentLearningHoursQuery do
-    include_context 'Snapshot Query Params'
+    context 'external_api', :big_query_snapshot do
+      include_context 'Snapshots Count CTE'
 
-    context 'external_api', :external_api do
-      it 'should successfully get data' do
-        result = described_class.run(timeframe_start, timeframe_end, school_ids, grades)
+      let(:total_timespent) { activity_sessions.sum(&:timespent) / 3600.0 }
 
-        expect(result[:count]).to eq(4418.901944444445)
-      end
+      it { expect(results).to eq(count: total_timespent) }
     end
   end
 end

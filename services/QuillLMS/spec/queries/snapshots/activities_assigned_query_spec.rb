@@ -4,14 +4,15 @@ require 'rails_helper'
 
 module Snapshots
   describe ActivitiesAssignedQuery do
-    include_context 'Snapshot Query Params'
+    context 'external_api', :big_query_snapshot do
+      include_context 'Snapshots Count CTE'
 
-    context 'external_api', :external_api do
-      it 'should successfully get data' do
-        result = described_class.run(timeframe_start, timeframe_end, school_ids, grades)
+      let(:unit_activities) { classroom_units.map { |classroom_unit| create(:unit_activity, unit: classroom_unit.unit) } }
+      let(:cte_records) { count_query_cte_records << unit_activities }
 
-        expect(result[:count]).to eq(46522)
-      end
+      let(:num_activities_assigned) { unit_activities.count }
+
+      it { expect(results).to eq(count: num_activities_assigned) }
     end
   end
 end
