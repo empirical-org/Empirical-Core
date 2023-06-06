@@ -1,7 +1,14 @@
 import * as React from 'react'
+import queryString from 'query-string';
+import * as Pusher from 'pusher-js';
 
 import { Grade, School, Timeframe, } from './shared'
+
+import { requestGet, } from './../../../../modules/request'
 import { ButtonLoadingSpinner, } from '../../../Shared/index'
+import { unorderedArraysAreEqual, } from '../../../../modules/unorderedArraysAreEqual'
+
+const expandImg = <img alt="" src={`${process.env.CDN_URL}/images/pages/administrator/expand.svg`} />
 
 interface SnapshotRankingProps {
   label: string;
@@ -17,38 +24,149 @@ interface SnapshotRankingProps {
   comingSoon?: boolean;
 }
 
-const SnapshotRanking = ({ label, queryKey, headers, comingSoon, searchCount, selectedGrades, selectedSchoolIds, selectedTimeframe, customTimeframeStart, customTimeframeEnd, adminId, }: SnapshotRankingProps) => {
-  const [data, setData] = React.useState(null)
-  const [loading, setLoading] = React.useState(false)
-
-  // query goes here
-
-  let className = "snapshot-item snapshot-ranking"
-  className+= data ? ' has-data' : ' no-data'
-
-  const headerElements = headers.map(header => (<span key={header}>{header}</span>))
-
-  const rowElements = Array.from(Array(3)).map(i => {
-    const rowSections = headers.map(header => (<span key={`${header}-${i}`}>—</span>))
-    return (
-      <div className="data-row" key={i}>
-        {rowSections}
+const RankingModal = ({ label, closeModal, headers, data, }) => {
+  return (
+    <div className="modal-container ranking-modal-container">
+      <div className="modal-background" />
+      <div className="ranking-modal quill-modal modal-body">
+        <h2>{label}</h2>
+        <DataTable
+          data={data}
+          headers={headers}
+          numberOfRows={10}
+        />
+        <div className="button-section">
+          <button className="quill-button medium secondary outlined focus-on-light" onClick={closeModal} type="button">Close</button>
+        </div>
       </div>
+    </div>
+  )
+}
+
+const DataTable = ({ headers, data, numberOfRows, }) => {
+  const headerElements = headers.map(header => (<th key={header}>{header}</th>))
+
+  const dataRowsForTable = data ? data.slice(0, numberOfRows) : [{}, {}, {}]
+
+  const rowElements = dataRowsForTable.map((row, i) => {
+    const { value, count, } = row
+
+    return (
+      <tr className="data-row" key={i}>
+        <td>{value || '—'}</td>
+        <td>{value ? count : '—'}</td>
+      </tr>
     )
   })
 
   return (
+    <table className="table">
+      <tr className="header-row">
+        {headerElements}
+      </tr>
+      {rowElements}
+    </table>
+  )
+}
+
+const SnapshotRanking = ({ label, queryKey, headers, comingSoon, searchCount, selectedGrades, selectedSchoolIds, selectedTimeframe, customTimeframeStart, customTimeframeEnd, adminId, passedData, }: SnapshotRankingProps) => {
+  const [data, setData] = React.useState(null)
+  const [loading, setLoading] = React.useState(false)
+  const [showModal, setShowModal] = React.useState(false)
+
+  React.useEffect(() => {
+    if (comingSoon) { return }
+
+    resetToDefault()
+
+    getData()
+  }, [searchCount])
+
+  function resetToDefault() {
+    setData(passedData || null)
+  }
+
+  function getData() {
+    initializePusher()
+
+    const searchParams = {
+      query: queryKey,
+      timeframe: selectedTimeframe,
+      timeframe_custom_start: customTimeframeStart,
+      timeframe_custom_end: customTimeframeEnd,
+      school_ids: selectedSchoolIds,
+      grades: selectedGrades
+    }
+
+    const requestUrl = queryString.stringifyUrl({ url: '/snapshots/count', query: searchParams }, { arrayFormat: 'bracket' })
+
+    requestGet(`${requestUrl}`, (body) => {
+      const fakeData = [
+        {value: "Comma Before Coordinating Conjunctions", count: 3777 },
+        {value: "Compound Objects", count: 3339 },
+        {value: "Subordinating Conjunction at the Beginning of a Sentence", count: 2232 },
+        {value: "Gerunds as Subjects", count: 456 },
+        {value: "Split Infinitives", count: 789 },
+        {value: "Parallel Structure", count: 1234 },
+        {value: "Subject-Verb Agreement", count: 5678 },
+        {value: "Pronoun-Antecedent Agreement", count: 9012 },
+        {value: "Appositive Phrases", count: 3456 },
+        {value: "Dangling Modifiers", count: 7890 }
+      ]
+      setData(fakeData)
+      // if (body.hasOwnProperty('message')) {
+      //   setLoading(true)
+      // } else {
+      //   setData(body)
+      //   setLoading(false)
+      // }
+    })
+  }
+
+  function initializePusher() {
+    const pusher = new Pusher(process.env.PUSHER_KEY, { encrypted: true, });
+    const channel = pusher.subscribe(String(adminId));
+    channel.bind('admin-snapshot-top-x-cached', (body) => {
+      const { message, } = body
+
+      const queryKeysAreEqual = message.query === queryKey
+      const timeframesAreEqual = message.timeframe === selectedTimeframe
+      const schoolIdsAreEqual = unorderedArraysAreEqual(message.school_ids, selectedSchoolIds.map(id => String(id)))
+      const gradesAreEqual =  unorderedArraysAreEqual(message.grades, selectedGrades.map(grade => String(grade))) || (!message.grades && !selectedGrades.length)
+
+      if (queryKeysAreEqual && timeframesAreEqual && schoolIdsAreEqual && gradesAreEqual) {
+        getData()
+      }
+    });
+  };
+
+  function openModal() { setShowModal(true) }
+
+  function closeModal() { setShowModal(false) }
+
+  let className = "snapshot-item snapshot-ranking"
+  className+= data ? ' has-data' : ' no-data'
+
+  return (
     <section className={className}>
+      {showModal && (
+        <RankingModal
+          closeModal={closeModal}
+          data={data}
+          headers={headers}
+          label={label}
+        />
+      )}
       <div className="header">
         {comingSoon ? <h3 className="coming-soon">{label} (coming soon)</h3> : <h3>{label}</h3>}
         {loading && <div className="loading-spinner-wrapper"><ButtonLoadingSpinner /></div>}
+        {data && <button aria-hidden={true} className="interactive-wrapper focus-on-light" onClick={openModal} type="button">{expandImg}</button>}
       </div>
-      <div className="table">
-        <div className="header-row">
-          {headerElements}
-        </div>
-        {rowElements}
-      </div>
+      <DataTable
+        data={data}
+        headers={headers}
+        numberOfRows={3}
+      />
     </section>
   )
 }

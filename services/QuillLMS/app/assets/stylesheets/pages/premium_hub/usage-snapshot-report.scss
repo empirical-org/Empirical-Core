@@ -1,4 +1,4 @@
-.usage-snapshots-container {
+#premium-hub .usage-snapshots-container {
   display: flex;
   min-height: 100vh;
   .modal-background {
@@ -189,9 +189,7 @@
           color: #757575;
         }
         .snapshot-label {
-          font-weight: 500;
-          font-size: 14px;
-          line-height: 18px;
+          font-weight: 600;
           color: #373737;
         }
         .change {
@@ -217,10 +215,18 @@
         &.small {
           padding: 16px;
           height: 133px;
+          .snapshot-label {
+            font-size: 14px;
+            line-height: 18px;
+          }
         }
         &.medium {
           padding: 32px;
           height: 137px;
+          .snapshot-label {
+            font-size: 16px;
+            line-height: 21px;
+          }
         }
         &.positive {
           background: #F1FAF6;
@@ -274,7 +280,7 @@
         }
         .header-row {
           border-top: 1px solid #AEAEAE;
-          span {
+          th {
             font-weight: 700;
             font-size: 14px;
             line-height: 17px;
@@ -290,11 +296,12 @@
         }
         .data-row {
           border-top: 1px solid #E0E0E0;
-          span:first-of-type {
+          td:first-of-type {
             font-weight: 400;
             line-height: 16px;
+            margin-right: 20px;
           }
-          span:last-of-type {
+          td:last-of-type {
             font-weight: 700;
             line-height: 17px;
           }
@@ -347,6 +354,32 @@
         }
       }
     }
+
+    .ranking-modal {
+      max-width: 900px;
+      width: 100%;
+      background: #F8F8F8;
+      border: 1px solid #E0E0E0;
+      border-radius: 8px;
+      height: min-content;
+      max-height: 80%;
+      overflow: scroll;
+
+      h2 {
+        font-weight: 700;
+        font-size: 24px;
+        line-height: 29px;
+        color: #373737;
+        margin-bottom: 32px;
+      }
+
+      .button-section {
+        display: flex;
+        justify-content: flex-end;
+        margin-top: 32px;
+      }
+    }
+
   }
 
   .custom-date-modal {
