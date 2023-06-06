@@ -180,7 +180,7 @@ exports[`Filters component when a filter has been adjusted should match snapshot
   showMobileFilterMenu={[MockFunction]}
 >
   <section
-    className="filter-container mobile-open space-for-buttons"
+    className="filter-container mobile-open "
   >
     <div
       className="top-section"
@@ -208,6 +208,7 @@ exports[`Filters component when a filter has been adjusted should match snapshot
       </label>
       <DropdownInput
         handleChange={[MockFunction]}
+        helperText={null}
         id="timeframe-filter"
         isSearchable={false}
         label=""
@@ -13676,42 +13677,6 @@ exports[`Filters component when a filter has been adjusted should match snapshot
         </SearchToken>
       </div>
     </div>
-    <div
-      className="filter-buttons fixed"
-    >
-      <button
-        className="quill-button small outlined secondary focus-on-light"
-        onClick={[MockFunction]}
-        type="button"
-      >
-        Clear filters
-      </button>
-      <button
-        className="quill-button small contained primary focus-on-light"
-        onClick={[MockFunction]}
-        type="button"
-      >
-        Apply filters
-      </button>
-    </div>
-    <div
-      className="filter-buttons fixed"
-    >
-      <button
-        className="quill-button small outlined secondary focus-on-light"
-        onClick={[MockFunction]}
-        type="button"
-      >
-        Clear filters
-      </button>
-      <button
-        className="quill-button small contained primary focus-on-light"
-        onClick={[MockFunction]}
-        type="button"
-      >
-        Apply filters
-      </button>
-    </div>
   </section>
 </Filters>
 `;
@@ -13994,6 +13959,7 @@ exports[`Filters component when no filters have been adjusted should match snaps
       </label>
       <DropdownInput
         handleChange={[MockFunction]}
+        helperText={null}
         id="timeframe-filter"
         isSearchable={false}
         label=""

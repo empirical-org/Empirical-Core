@@ -1,6 +1,7 @@
 .button-loading-spinner-container {
   .button-loading-spinner {
     -webkit-animation: rotation 2s infinite linear;
+    height: 24px;
   }
 
   @-webkit-keyframes rotation {

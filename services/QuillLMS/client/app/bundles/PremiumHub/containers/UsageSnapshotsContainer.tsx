@@ -1,4 +1,5 @@
 import React from 'react'
+import * as _ from 'lodash'
 
 import { FULL, restrictedPage, } from '../shared';
 import CustomDateModal from '../components/usage_snapshots/customDateModal'
@@ -57,11 +58,11 @@ const UsageSnapshotsContainer = ({ adminInfo, accessType, }) => {
   React.useEffect(() => {
     if (loadingFilters) { return }
 
-    const newValueForHasAdjustedFiltersFromDefault = !unorderedArraysAreEqual(selectedSchools, allSchools) || !unorderedArraysAreEqual(selectedGrades, allGrades) || !unorderedArraysAreEqual(selectedTimeframe, defaultTimeframe(allTimeframes))
+    const newValueForHasAdjustedFiltersFromDefault = !unorderedArraysAreEqual(selectedSchools, allSchools) || !unorderedArraysAreEqual(selectedGrades, allGrades) || !_.isEqual(selectedTimeframe, defaultTimeframe(allTimeframes))
 
     setHasAdjustedFiltersFromDefault(newValueForHasAdjustedFiltersFromDefault)
 
-    const newValueForHasAdjustedFiltersSinceLastSubmission = (!unorderedArraysAreEqual(selectedSchools, lastSubmittedSchools) || !unorderedArraysAreEqual(selectedGrades, lastSubmittedGrades) || !unorderedArraysAreEqual(selectedTimeframe, lastSubmittedTimeframe) || customStartDate !== lastSubmittedCustomStartDate || customEndDate !== lastSubmittedCustomEndDate)
+    const newValueForHasAdjustedFiltersSinceLastSubmission = (!unorderedArraysAreEqual(selectedSchools, lastSubmittedSchools) || !unorderedArraysAreEqual(selectedGrades, lastSubmittedGrades) || !_.isEqual(selectedTimeframe, lastSubmittedTimeframe) || customStartDate !== lastSubmittedCustomStartDate || customEndDate !== lastSubmittedCustomEndDate)
 
     setHasAdjustedFiltersSinceLastSubmission(newValueForHasAdjustedFiltersSinceLastSubmission)
   }, [selectedSchools, selectedGrades, selectedTimeframe, customStartDate, customEndDate])

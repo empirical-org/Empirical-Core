@@ -14,6 +14,7 @@ exports[`SnapshotSection component when the section is Classrooms should match s
           Object {
             "label": "Active classrooms",
             "queryKey": "active-classrooms",
+            "singularLabel": "Active classroom",
             "size": "small",
             "type": "count",
           },
@@ -28,6 +29,7 @@ exports[`SnapshotSection component when the section is Classrooms should match s
             "comingSoon": true,
             "label": "Classrooms created",
             "queryKey": "classrooms-created",
+            "singularLabel": "Classroom created",
             "size": "small",
             "type": "count",
           },
@@ -131,6 +133,7 @@ exports[`SnapshotSection component when the section is Classrooms should match s
             ]
           }
           selectedTimeframe="last-30-days"
+          singularLabel="Active classroom"
           size="small"
         >
           <section
@@ -257,6 +260,7 @@ exports[`SnapshotSection component when the section is Classrooms should match s
             ]
           }
           selectedTimeframe="last-30-days"
+          singularLabel="Classroom created"
           size="small"
         >
           <section
@@ -401,11 +405,12 @@ exports[`SnapshotSection component when the section is Classrooms should match s
             <div
               className="header"
             >
-              <span
+              <h3
                 className="coming-soon"
               >
-                Coming soon
-              </span>
+                Most active grades
+                 | Coming soon
+              </h3>
             </div>
             <div
               className="table"
@@ -489,12 +494,14 @@ exports[`SnapshotSection component when the section is Highlights should match s
           Object {
             "label": "Sentences written",
             "queryKey": "sentences-written",
+            "singularLabel": "Sentence written",
             "size": "medium",
             "type": "count",
           },
           Object {
             "label": "Student learning hours",
             "queryKey": "student-learning-hours",
+            "singularLabel": "Student learning hour",
             "size": "medium",
             "type": "count",
           },
@@ -576,6 +583,7 @@ exports[`SnapshotSection component when the section is Highlights should match s
             ]
           }
           selectedTimeframe="last-30-days"
+          singularLabel="Sentence written"
           size="medium"
         >
           <section
@@ -638,6 +646,7 @@ exports[`SnapshotSection component when the section is Highlights should match s
             ]
           }
           selectedTimeframe="last-30-days"
+          singularLabel="Student learning hour"
           size="medium"
         >
           <section
@@ -687,12 +696,14 @@ exports[`SnapshotSection component when the section is Practice should match sna
           Object {
             "label": "Activities assigned",
             "queryKey": "activities-assigned",
+            "singularLabel": "Activity assigned",
             "size": "small",
             "type": "count",
           },
           Object {
             "label": "Activities completed",
             "queryKey": "activities-completed",
+            "singularLabel": "Activity completed",
             "size": "small",
             "type": "count",
           },
@@ -700,6 +711,7 @@ exports[`SnapshotSection component when the section is Practice should match sna
             "comingSoon": true,
             "label": "Activity packs assigned",
             "queryKey": "activity-packs-assigned",
+            "singularLabel": "Activity pack assigned",
             "size": "small",
             "type": "count",
           },
@@ -707,6 +719,7 @@ exports[`SnapshotSection component when the section is Practice should match sna
             "comingSoon": true,
             "label": "Activity packs completed",
             "queryKey": "activity-packs-completed",
+            "singularLabel": "Activity pack completed",
             "size": "small",
             "type": "count",
           },
@@ -742,6 +755,7 @@ exports[`SnapshotSection component when the section is Practice should match sna
             "comingSoon": true,
             "label": "Baseline diagnostics assigned",
             "queryKey": "baseline-diagnostics-assigned",
+            "singularLabel": "Baseline diagnostic assigned",
             "size": "small",
             "type": "count",
           },
@@ -749,6 +763,7 @@ exports[`SnapshotSection component when the section is Practice should match sna
             "comingSoon": true,
             "label": "Baseline diagnostics completed",
             "queryKey": "baseline-diagnostics-completed",
+            "singularLabel": "Baseline diagnostic completed",
             "size": "small",
             "type": "count",
           },
@@ -756,6 +771,7 @@ exports[`SnapshotSection component when the section is Practice should match sna
             "comingSoon": true,
             "label": "Growth diagnostics assigned",
             "queryKey": "growth-diagnostics-assigned",
+            "singularLabel": "Growth diagnostic assigned",
             "size": "small",
             "type": "count",
           },
@@ -763,6 +779,7 @@ exports[`SnapshotSection component when the section is Practice should match sna
             "comingSoon": true,
             "label": "Growth diagnostics completed",
             "queryKey": "growth-diagnostics-completed",
+            "singularLabel": "Growth diagnostic completed",
             "size": "small",
             "type": "count",
           },
@@ -878,6 +895,7 @@ exports[`SnapshotSection component when the section is Practice should match sna
             ]
           }
           selectedTimeframe="last-30-days"
+          singularLabel="Activity assigned"
           size="small"
         >
           <section
@@ -940,6 +958,7 @@ exports[`SnapshotSection component when the section is Practice should match sna
             ]
           }
           selectedTimeframe="last-30-days"
+          singularLabel="Activity completed"
           size="small"
         >
           <section
@@ -1003,6 +1022,7 @@ exports[`SnapshotSection component when the section is Practice should match sna
             ]
           }
           selectedTimeframe="last-30-days"
+          singularLabel="Activity pack assigned"
           size="small"
         >
           <section
@@ -1066,6 +1086,7 @@ exports[`SnapshotSection component when the section is Practice should match sna
             ]
           }
           selectedTimeframe="last-30-days"
+          singularLabel="Activity pack completed"
           size="small"
         >
           <section
@@ -1363,6 +1384,7 @@ exports[`SnapshotSection component when the section is Practice should match sna
             ]
           }
           selectedTimeframe="last-30-days"
+          singularLabel="Baseline diagnostic assigned"
           size="small"
         >
           <section
@@ -1426,6 +1448,7 @@ exports[`SnapshotSection component when the section is Practice should match sna
             ]
           }
           selectedTimeframe="last-30-days"
+          singularLabel="Baseline diagnostic completed"
           size="small"
         >
           <section
@@ -1489,6 +1512,7 @@ exports[`SnapshotSection component when the section is Practice should match sna
             ]
           }
           selectedTimeframe="last-30-days"
+          singularLabel="Growth diagnostic assigned"
           size="small"
         >
           <section
@@ -1552,6 +1576,7 @@ exports[`SnapshotSection component when the section is Practice should match sna
             ]
           }
           selectedTimeframe="last-30-days"
+          singularLabel="Growth diagnostic completed"
           size="small"
         >
           <section
@@ -1644,8 +1669,12 @@ exports[`SnapshotSection component when the section is Practice should match sna
           </section>
         </SnapshotCount>
         <SnapshotFeedback>
-          <section
-            className="snapshot-item snapshot-feedback"
+          <a
+            aria-label="Open link to feedback forum in new tab"
+            className="focus-on-light snapshot-item snapshot-feedback"
+            href="https://quillorg.canny.io/admin-feedback"
+            rel="noopener noreferrer"
+            target="_blank"
           >
             <div
               className="header"
@@ -1653,23 +1682,15 @@ exports[`SnapshotSection component when the section is Practice should match sna
               <h3>
                 We’d love your feedback
               </h3>
-              <a
-                aria-label="Open link to feedback forum in new tab"
-                className="focus-on-light"
-                href="https://quillorg.canny.io/admin-feedback"
-                rel="noopener noreferrer"
-                target="_blank"
-              >
-                <img
-                  alt=""
-                  src="undefined/images/pages/administrator/new_tab.svg"
-                />
-              </a>
+              <img
+                alt=""
+                src="undefined/images/pages/administrator/new_tab.svg"
+              />
             </div>
             <p>
               Looking for a specific metric? Visit our feedback forum to make a request and vote on ideas.
             </p>
-          </section>
+          </a>
         </SnapshotFeedback>
       </div>
       <div
@@ -1723,11 +1744,12 @@ exports[`SnapshotSection component when the section is Practice should match sna
             <div
               className="header"
             >
-              <span
+              <h3
                 className="coming-soon"
               >
-                Coming soon
-              </span>
+                Most assigned activities
+                 | Coming soon
+              </h3>
             </div>
             <div
               className="table"
@@ -1838,11 +1860,12 @@ exports[`SnapshotSection component when the section is Practice should match sna
             <div
               className="header"
             >
-              <span
+              <h3
                 className="coming-soon"
               >
-                Coming soon
-              </span>
+                Most completed activities
+                 | Coming soon
+              </h3>
             </div>
             <div
               className="table"
@@ -2110,12 +2133,14 @@ exports[`SnapshotSection component when the section is Users should match snapsh
             "comingSoon": true,
             "label": "Active teachers",
             "queryKey": "active-teachers",
+            "singularLabel": "Active teacher",
             "size": "small",
             "type": "count",
           },
           Object {
             "label": "Active students",
             "queryKey": "active-students",
+            "singularLabel": "Active student",
             "size": "small",
             "type": "count",
           },
@@ -2123,6 +2148,7 @@ exports[`SnapshotSection component when the section is Users should match snapsh
             "comingSoon": true,
             "label": "Teacher accounts created",
             "queryKey": "teacher-accounts-created",
+            "singularLabel": "Teacher account created",
             "size": "small",
             "type": "count",
           },
@@ -2130,6 +2156,7 @@ exports[`SnapshotSection component when the section is Users should match snapsh
             "comingSoon": true,
             "label": "Student accounts created",
             "queryKey": "student-accounts-created",
+            "singularLabel": "Student account created",
             "size": "small",
             "type": "count",
           },
@@ -2227,6 +2254,7 @@ exports[`SnapshotSection component when the section is Users should match snapsh
             ]
           }
           selectedTimeframe="last-30-days"
+          singularLabel="Active teacher"
           size="small"
         >
           <section
@@ -2289,6 +2317,7 @@ exports[`SnapshotSection component when the section is Users should match snapsh
             ]
           }
           selectedTimeframe="last-30-days"
+          singularLabel="Active student"
           size="small"
         >
           <section
@@ -2352,6 +2381,7 @@ exports[`SnapshotSection component when the section is Users should match snapsh
             ]
           }
           selectedTimeframe="last-30-days"
+          singularLabel="Teacher account created"
           size="small"
         >
           <section
@@ -2415,6 +2445,7 @@ exports[`SnapshotSection component when the section is Users should match snapsh
             ]
           }
           selectedTimeframe="last-30-days"
+          singularLabel="Student account created"
           size="small"
         >
           <section
@@ -2496,11 +2527,12 @@ exports[`SnapshotSection component when the section is Users should match snapsh
             <div
               className="header"
             >
-              <span
+              <h3
                 className="coming-soon"
               >
-                Coming soon
-              </span>
+                Most active teachers
+                 | Coming soon
+              </h3>
             </div>
             <div
               className="table"

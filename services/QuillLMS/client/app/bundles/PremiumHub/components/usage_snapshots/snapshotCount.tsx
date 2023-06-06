@@ -1,11 +1,12 @@
 import * as React from 'react'
 import queryString from 'query-string';
 import * as Pusher from 'pusher-js';
-import _ from 'lodash'
 
 import { SMALL, POSITIVE, NEGATIVE, } from './shared'
+
 import { requestGet, } from './../../../../modules/request'
 import { ButtonLoadingSpinner, } from '../../../Shared/index'
+import { unorderedArraysAreEqual, } from '../../../../modules/unorderedArraysAreEqual'
 
 const smallArrowUpIcon = <img alt="Arrow pointing up" src={`${process.env.CDN_URL}/images/pages/administrator/small_arrow_up_icon.svg`} />
 const smallArrowDownIcon = <img alt="Arrow pointing down" src={`${process.env.CDN_URL}/images/pages/administrator/small_arrow_down_icon.svg`} />
@@ -97,8 +98,8 @@ const SnapshotCount = ({ label, size, queryKey, comingSoon, searchCount, selecte
 
       const queryKeysAreEqual = message.query === queryKey
       const timeframesAreEqual = message.timeframe === selectedTimeframe
-      const schoolIdsAreEqual = _.isEqual(message.school_ids, selectedSchoolIds.map(id => String(id)))
-      const gradesAreEqual =  _.isEqual(message.grades, selectedGrades.map(grade => String(grade)))
+      const schoolIdsAreEqual = unorderedArraysAreEqual(message.school_ids, selectedSchoolIds.map(id => String(id)))
+      const gradesAreEqual =  unorderedArraysAreEqual(message.grades, selectedGrades.map(grade => String(grade)))
 
       if (queryKeysAreEqual && timeframesAreEqual && schoolIdsAreEqual && gradesAreEqual) {
         getData()

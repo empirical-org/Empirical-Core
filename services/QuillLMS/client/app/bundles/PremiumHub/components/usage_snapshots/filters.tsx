@@ -21,15 +21,7 @@ const SearchToken = ({ searchItem, onRemoveSearchItem, }) => {
 }
 
 const Filters = ({ allTimeframes, allSchools, allGrades, applyFilters, clearFilters, selectedGrades, setSelectedGrades, hasAdjustedFiltersFromDefault, handleSetSelectedTimeframe, selectedTimeframe, selectedSchools, setSelectedSchools, closeMobileFilterMenu, showMobileFilterMenu, hasAdjustedFiltersSinceLastSubmission, customStartDate, customEndDate, }) => {
-  const [filterButtonsAreFixed, setFilterButtonsAreFixed] = React.useState(true)
   const size = useWindowSize();
-
-  React.useEffect(() => {
-    const el = document.getElementById('bottom-element')
-    const observer = new IntersectionObserver(([entry]) => { entry.isIntersecting ? setFilterButtonsAreFixed(false) : setFilterButtonsAreFixed(true); });
-
-    el && observer.observe(el);
-  }, []);
 
   function handleRemoveSchool(school) {
     const newSchools = selectedSchools.filter(s => s.id !== school.id)
@@ -57,19 +49,15 @@ const Filters = ({ allTimeframes, allSchools, allGrades, applyFilters, clearFilt
     />
   ))
 
-  function renderFilterButtons(alwaysShow) {
+  function renderFilterButtons() {
     if (!hasAdjustedFiltersFromDefault) { return null }
-
-    if (!alwaysShow && !filterButtonsAreFixed) { return null }
-
-    const showAsFixed = (filterButtonsAreFixed && !alwaysShow) || size.width <= MAX_VIEW_WIDTH_FOR_MOBILE
 
     let applyClassName = "quill-button small contained primary focus-on-light"
 
     applyClassName += hasAdjustedFiltersSinceLastSubmission ? '' : ' disabled'
 
     return (
-      <div className={`filter-buttons ${showAsFixed ? 'fixed' : ''}`}>
+      <div className="filter-buttons fixed">
         <button className="quill-button small outlined secondary focus-on-light" onClick={clearFilters} type="button">Clear filters</button>
         <button className={applyClassName} onClick={applyFilters} type="button">Apply filters</button>
       </div>
@@ -122,8 +110,7 @@ const Filters = ({ allTimeframes, allSchools, allGrades, applyFilters, clearFilt
         />
         <div className="search-tokens">{gradeSearchTokens}</div>
       </div>
-      {renderFilterButtons(true)}
-      {renderFilterButtons(false)}
+      {renderFilterButtons()}
     </section>
   )
 }

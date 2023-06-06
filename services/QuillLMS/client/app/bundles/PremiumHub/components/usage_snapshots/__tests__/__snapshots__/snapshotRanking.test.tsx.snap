@@ -47,11 +47,12 @@ exports[`SnapshotRanking component when it is coming soon should match snapshot 
     <div
       className="header"
     >
-      <span
+      <h3
         className="coming-soon"
       >
-        Coming soon
-      </span>
+        Sentences written
+         | Coming soon
+      </h3>
     </div>
     <div
       className="table"

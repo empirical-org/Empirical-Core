@@ -136,7 +136,8 @@ exports[`CustomDateModal component should match snapshot 1`] = `
         Cancel
       </button>
       <button
-        className="quill-button medium primary contained focus-on-light"
+        className="quill-button medium primary contained focus-on-light disabled"
+        disabled={true}
         onClick={[Function]}
         type="button"
       >
