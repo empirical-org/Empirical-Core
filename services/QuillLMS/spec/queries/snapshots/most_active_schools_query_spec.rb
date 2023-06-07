@@ -29,9 +29,6 @@ module Snapshots
         ]
       }
 
-      let(:runner) { QuillBigQuery::TestRunner.new(cte_records) }
-      let(:results) { described_class.run(timeframe_start, timeframe_end, school_ids, grades, runner: runner) }
-
       context 'all activity_sessions' do
         let(:expected_result) do
           (0..9).map { |i| {"value"=>schools[i].name, "count"=>activity_sessions[i].length} }
@@ -39,8 +36,6 @@ module Snapshots
         let(:cte_records) { [runner_context, activity_sessions] }
 
         it { expect(results).to eq(expected_result) }
-        it { expect(results.length).to eq(10) }
-        it { expect(results.map { |r| r["value"] }).not_to include(schools[10].name) }
       end
 
       context 'limited activity_sessions' do
