@@ -98,28 +98,15 @@ const SnapshotRanking = ({ label, queryKey, headers, comingSoon, searchCount, se
       grades: selectedGrades
     }
 
-    const requestUrl = queryString.stringifyUrl({ url: '/snapshots/count', query: searchParams }, { arrayFormat: 'bracket' })
+    const requestUrl = queryString.stringifyUrl({ url: '/snapshots/top_x', query: searchParams }, { arrayFormat: 'bracket' })
 
     requestGet(`${requestUrl}`, (body) => {
-      const fakeData = [
-        {value: "Comma Before Coordinating Conjunctions", count: 3777 },
-        {value: "Compound Objects", count: 3339 },
-        {value: "Subordinating Conjunction at the Beginning of a Sentence", count: 2232 },
-        {value: "Gerunds as Subjects", count: 456 },
-        {value: "Split Infinitives", count: 789 },
-        {value: "Parallel Structure", count: 1234 },
-        {value: "Subject-Verb Agreement", count: 5678 },
-        {value: "Pronoun-Antecedent Agreement", count: 9012 },
-        {value: "Appositive Phrases", count: 3456 },
-        {value: "Dangling Modifiers", count: 7890 }
-      ]
-      setData(fakeData)
-      // if (body.hasOwnProperty('message')) {
-      //   setLoading(true)
-      // } else {
-      //   setData(body)
-      //   setLoading(false)
-      // }
+      if (body.hasOwnProperty('message')) {
+        setLoading(true)
+      } else {
+        setData(body)
+        setLoading(false)
+      }
     })
   }
 
