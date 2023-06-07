@@ -3,11 +3,11 @@
 require 'rails_helper'
 
 module Snapshots
-  describe CacheSnapshotCountWorker, type: :worker do
+  describe CacheSnapshotTopXWorker, type: :worker do
     subject { described_class.new }
 
     let(:cache_key) { 'CACHE_KEY' }
-    let(:query) { 'active-classrooms' }
+    let(:query) { 'most-active-schools' }
     let(:user_id) { 123 }
     let(:timeframe_name) { 'last-30-days' }
     let(:school_ids) { [1,2,3] }
@@ -28,37 +28,23 @@ module Snapshots
       }
 
       before do
-        stub_const("Snapshots::CacheSnapshotCountWorker::QUERIES", {
+        stub_const("Snapshots::CacheSnapshotTopXWorker::QUERIES", {
           query => query_double
         })
       end
 
-      it 'should execute queries for both the current and previous timeframes' do
+      it 'should execute a query for the timeframe' do
         expect(query_double).to receive(:run).with(current_timeframe_start, timeframe_end, school_ids, grades)
-        expect(query_double).to receive(:run).with(previous_timeframe_start, current_timeframe_start, school_ids, grades)
         expect(Rails.cache).to receive(:write)
         expect(PusherTrigger).to receive(:run)
-
-        subject.perform(cache_key, query, user_id, timeframe, school_ids, grades)
-      end
-
-      it 'should only execute a query for current timeframe if the previous_timeframe_start is nil' do
-        expect(query_double).to receive(:run).and_return({}).once
-        expect(Rails.cache).to receive(:write)
-        expect(PusherTrigger).to receive(:run)
-        timeframe[:previous_start] = nil
 
         subject.perform(cache_key, query, user_id, timeframe, school_ids, grades)
       end
 
       it 'should write a payload to cache' do
-        previous_count = 100
-        previous_timeframe_query_result = {'count' => previous_count}
-        current_count = 50
-        current_timeframe_query_result = {'count' => current_count}
-        payload = { current: current_count, previous: previous_count }
+        payload = [{ value: 'Some Thing', count: 10 }]
 
-        expect(query_double).to receive(:run).and_return(current_timeframe_query_result, previous_timeframe_query_result)
+        expect(query_double).to receive(:run).and_return(payload)
         expect(Rails.cache).to receive(:write).with(cache_key, payload, expires_in: timeframe_end + 1.day)
         expect(PusherTrigger).to receive(:run)
 

@@ -19,32 +19,21 @@ class SnapshotsController < ApplicationController
     {value: "Other", name: "Other"}
   ]
 
-  before_action :validate_request, only: [:count]
-  before_action :authorize_request, only: [:count]
+  WORKERS_FOR_ACTIONS = {
+    "count" => Snapshots::CacheSnapshotCountWorker,
+    "top_x" => Snapshots::CacheSnapshotTopXWorker
+  }
+
+  before_action :set_query, only: [:count, :top_x]
+  before_action :validate_request, only: [:count, :top_x]
+  before_action :authorize_request, only: [:count, :top_x]
 
   def count
-    previous_start, current_start, current_end = Snapshots::Timeframes.calculate_timeframes(snapshot_params[:timeframe],
-      snapshot_params[:timeframe_custom_start],
-      snapshot_params[:timeframe_custom_end])
-    cache_key = cache_key_for_timeframe(previous_start, current_start, current_end)
-    response = Rails.cache.read(cache_key)
+    render json: retrieve_cache_or_enqueue_worker(WORKERS_FOR_ACTIONS[action_name])
+  end
 
-    return render json: response if response
-
-
-    Snapshots::CacheSnapshotCountWorker.perform_async(cache_key,
-      snapshot_params[:query],
-      current_user.id,
-      {
-        name: snapshot_params[:timeframe],
-        previous_start: previous_start,
-        current_start: current_start,
-        current_end: current_end
-      },
-      snapshot_params[:school_ids],
-      snapshot_params[:grades])
-
-    render json: { message: 'Generating snapshot' }
+  def top_x
+    render json: retrieve_cache_or_enqueue_worker(WORKERS_FOR_ACTIONS[action_name])
   end
 
   def options
@@ -55,10 +44,16 @@ class SnapshotsController < ApplicationController
     }
   end
 
+  private def set_query
+    @query = snapshot_params[:query]
+  end
+
   private def validate_request
     return render json: { error: 'timeframe must be present and valid' }, status: 400 unless timeframe_param_valid?
 
     return render json: { error: 'school_ids are required' }, status: 400 unless school_ids_param_valid?
+
+    return render json: { error: 'unrecognized query type for this endpoint' }, status: 400 unless WORKERS_FOR_ACTIONS[action_name]::QUERIES.keys.include?(@query)
   end
 
   private def timeframe_param_valid?
@@ -77,9 +72,34 @@ class SnapshotsController < ApplicationController
     return render json: { error: 'user is not authorized for all specified schools' }, status: 403
   end
 
+  private def retrieve_cache_or_enqueue_worker(worker)
+
+    previous_start, current_start, current_end = Snapshots::Timeframes.calculate_timeframes(snapshot_params[:timeframe],
+      snapshot_params[:timeframe_custom_start],
+      snapshot_params[:timeframe_custom_end])
+    cache_key = cache_key_for_timeframe(previous_start, current_start, current_end)
+    response = Rails.cache.read(cache_key)
+
+    return response if response
+
+    worker.perform_async(cache_key,
+      @query,
+      current_user.id,
+      {
+        name: snapshot_params[:timeframe],
+        previous_start: previous_start,
+        current_start: current_start,
+        current_end: current_end
+      },
+      snapshot_params[:school_ids],
+      snapshot_params[:grades])
+
+    { message: 'Generating snapshot' }
+  end
+
   private def cache_key_for_timeframe(previous_start, current_start, current_end)
 
-    Snapshots::CacheKeys.generate_key(snapshots_params[:query],
+    Snapshots::CacheKeys.generate_key(@query,
       previous_start,
       current_start,
       current_end,
