@@ -166,7 +166,7 @@ const SnapshotRanking = ({ label, queryKey, headers, comingSoon, searchCount, se
         <div className="header">
           {comingSoon ? <h3 className="coming-soon">{label} (coming soon)</h3> : <h3>{label}</h3>}
           {loading && <div className="loading-spinner-wrapper"><ButtonLoadingSpinner /></div>}
-          {data && <button aria-label="Open modal with additional seven lines of table data" onClick={openModal} type="button">{expandImg}</button>}
+          {data && <button aria-label="Open modal with additional seven lines of table data" className="interactive-wrapper focus-on-light" onClick={openModal} type="button">{expandImg}</button>}
         </div>
         <DataTable
           data={data}

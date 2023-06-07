@@ -277,6 +277,7 @@ exports[`Filters component when a filter has been adjusted should match snapshot
           className="dropdown-container input-container inactive has-text not-editable undefined  "
           onClick={[Function]}
           onKeyDown={[Function]}
+          onTouchStart={[Function]}
           role="button"
           tabIndex={0}
         >
@@ -5080,6 +5081,7 @@ exports[`Filters component when a filter has been adjusted should match snapshot
           className="dropdown-container input-container inactive has-text  undefined searchable checkbox-dropdown"
           onClick={[Function]}
           onKeyDown={[Function]}
+          onTouchStart={[Function]}
           role="button"
           tabIndex={0}
         >
@@ -8800,6 +8802,7 @@ exports[`Filters component when a filter has been adjusted should match snapshot
           className="dropdown-container input-container inactive has-text  undefined searchable checkbox-dropdown"
           onClick={[Function]}
           onKeyDown={[Function]}
+          onTouchStart={[Function]}
           role="button"
           tabIndex={0}
         >
@@ -14028,6 +14031,7 @@ exports[`Filters component when no filters have been adjusted should match snaps
           className="dropdown-container input-container inactive has-text not-editable undefined  "
           onClick={[Function]}
           onKeyDown={[Function]}
+          onTouchStart={[Function]}
           role="button"
           tabIndex={0}
         >
@@ -18831,6 +18835,7 @@ exports[`Filters component when no filters have been adjusted should match snaps
           className="dropdown-container input-container inactive has-text  undefined searchable checkbox-dropdown"
           onClick={[Function]}
           onKeyDown={[Function]}
+          onTouchStart={[Function]}
           role="button"
           tabIndex={0}
         >
@@ -22621,6 +22626,7 @@ exports[`Filters component when no filters have been adjusted should match snaps
           className="dropdown-container input-container inactive has-text  undefined searchable checkbox-dropdown"
           onClick={[Function]}
           onKeyDown={[Function]}
+          onTouchStart={[Function]}
           role="button"
           tabIndex={0}
         >

@@ -129,6 +129,11 @@
       }
       .dropdown-container {
         width: 100%;
+        min-height: 58px;
+        justify-content: flex-start;
+      }
+      .dropdown {
+        margin-right: 0px;
       }
     }
     .filter-button-container {

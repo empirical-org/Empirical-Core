@@ -223,6 +223,7 @@ exports[`SnapshotRanking component when there is data  should match snapshot 1`]
         </h3>
         <button
           aria-label="Open modal with additional seven lines of table data"
+          className="interactive-wrapper focus-on-light"
           onClick={[Function]}
           type="button"
         >
