@@ -27,6 +27,10 @@ module QuillBigQuery
       SQL
     end
 
+    def select_clause
+      raise NotImplementedError
+    end
+
     def group_by_clause
       ""
     end

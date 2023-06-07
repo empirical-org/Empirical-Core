@@ -7,8 +7,16 @@ module Snapshots
     context 'external_api', :big_query_snapshot do
       include_context 'Snapshots Option CTE'
 
-      let(:schools) { School.where(id: schools_users.pluck(:school_id)) }
-      let(:cte_records) { option_query_cte_records << schools }
+      let(:cte_records) {
+        [
+          classrooms,
+          classrooms_teachers,
+          schools,
+          schools_users,
+          schools_admins,
+          users
+        ]
+      }
 
       let(:school) { schools.first }
 
