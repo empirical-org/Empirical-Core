@@ -5,6 +5,7 @@ exports[`Dropdown input component should render when it is multi-option 1`] = `
   className="dropdown-container input-container inactive has-text  undefined  checkbox-dropdown"
   onClick={[Function]}
   onKeyDown={[Function]}
+  onTouchStart={[Function]}
   role="button"
   tabIndex={0}
 >
@@ -67,6 +68,7 @@ exports[`Dropdown input component should render when it is not searchable 1`] = 
   className="dropdown-container input-container inactive has-text not-editable undefined  "
   onClick={[Function]}
   onKeyDown={[Function]}
+  onTouchStart={[Function]}
   role="button"
   tabIndex={0}
 >
@@ -127,6 +129,7 @@ exports[`Dropdown input component should render when it is searchable 1`] = `
   className="dropdown-container input-container inactive has-text  undefined searchable "
   onClick={[Function]}
   onKeyDown={[Function]}
+  onTouchStart={[Function]}
   role="button"
   tabIndex={0}
 >

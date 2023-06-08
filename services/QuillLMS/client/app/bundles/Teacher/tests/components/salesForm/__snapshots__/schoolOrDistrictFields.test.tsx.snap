@@ -90,6 +90,7 @@ exports[`SchoolAndDistrictFields Component should match snapshot 1`] = `
           className="dropdown-container input-container inactive   form-input school-dropdown searchable "
           onClick={[Function]}
           onKeyDown={[Function]}
+          onTouchStart={[Function]}
           role="button"
           tabIndex={0}
         >
@@ -4148,6 +4149,7 @@ exports[`SchoolAndDistrictFields Component should match snapshot 1`] = `
           className="dropdown-container input-container inactive   form-input district-dropdown searchable "
           onClick={[Function]}
           onKeyDown={[Function]}
+          onTouchStart={[Function]}
           role="button"
           tabIndex={0}
         >
