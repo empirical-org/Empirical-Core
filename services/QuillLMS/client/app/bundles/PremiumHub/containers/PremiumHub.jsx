@@ -140,34 +140,36 @@ const PremiumHub = ({ adminId, accessType, passedModel, }) => {
   }
 
   return(
-    <div className="sub-container">
-      <Snackbar text={snackbarText} visible={showSnackbar} />
-      <PremiumFeatures handleClick={onClickTeacherAccess} trainingOptionsElement={trainingOptionsElement} />
-      {renderFreemiumStandardsReports()}
-      <div className='dark-divider' />
-      <div className="header">
-        <h2>Upload Teachers via CSV</h2>
-        {uploadTeachersViaCSVElement}
+    <div className="container gray-background-accommodate-footer">
+      <div className="sub-container">
+        <Snackbar text={snackbarText} visible={showSnackbar} />
+        <PremiumFeatures handleClick={onClickTeacherAccess} trainingOptionsElement={trainingOptionsElement} />
+        {renderFreemiumStandardsReports()}
+        <div className='dark-divider' />
+        <div className="header">
+          <h2>Upload Teachers via CSV</h2>
+          {uploadTeachersViaCSVElement}
+        </div>
+        <div className='dark-divider' />
+        <CreateNewAccounts
+          accessType={accessType}
+          addTeacherAccount={addTeacherAccount}
+          adminAssociatedSchool={model.associated_school}
+          error={error}
+          schools={model.schools}
+        />
+        <div className='dark-divider' id="scroll-location" />
+        <AdminsTeachers
+          accessType={accessType}
+          adminApprovalRequests={model.admin_approval_requests}
+          adminAssociatedSchool={model.associated_school}
+          data={model.teachers}
+          handleUserAction={handleUserAction}
+          refreshData={getData}
+          schools={model.schools}
+        />
+        {hasAppSetting && <CanvasInstanceForm />}
       </div>
-      <div className='dark-divider' />
-      <CreateNewAccounts
-        accessType={accessType}
-        addTeacherAccount={addTeacherAccount}
-        adminAssociatedSchool={model.associated_school}
-        error={error}
-        schools={model.schools}
-      />
-      <div className='dark-divider' id="scroll-location" />
-      <AdminsTeachers
-        accessType={accessType}
-        adminApprovalRequests={model.admin_approval_requests}
-        adminAssociatedSchool={model.associated_school}
-        data={model.teachers}
-        handleUserAction={handleUserAction}
-        refreshData={getData}
-        schools={model.schools}
-      />
-      {hasAppSetting && <CanvasInstanceForm />}
     </div>
   );
 }

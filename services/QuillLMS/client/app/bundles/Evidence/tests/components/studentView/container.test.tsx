@@ -8,25 +8,6 @@ const csrfToken = 'mocked-csrf-token';
 document.head.innerHTML = `<meta name="csrf-token" content="${csrfToken}">`;
 
 global.scrollTo = jest.fn()
-global.IntersectionObserver = class IntersectionObserver {
-  constructor() {}
-
-  disconnect() {
-    return null;
-  }
-
-  observe() {
-    return null;
-  }
-
-  takeRecords() {
-    return null;
-  }
-
-  unobserve() {
-    return null;
-  }
-};
 
 const mockParse = () => ({ uid: activityOne.activity_id })
 jest.mock('query-string', () => ({
