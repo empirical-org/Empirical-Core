@@ -20,12 +20,12 @@ module Snapshots
     def perform(cache_key, query, user_id, timeframe, school_ids, grades)
       payload = generate_payload(query, timeframe, school_ids, grades)
 
-      Rails.cache.write(cache_key, payload, expires_in: timeframe[:current_end] + 1.day)
+      Rails.cache.write(cache_key, payload, expires_in: DateTime.current.end_of_day)
 
       PusherTrigger.run(user_id, PUSHER_EVENT,
         {
           query: query,
-          timeframe: timeframe[:name],
+          timeframe: timeframe['name'],
           school_ids: school_ids,
           grades: grades
         }
@@ -33,9 +33,9 @@ module Snapshots
     end
 
     private def generate_payload(query, timeframe, school_ids, grades)
-      previous_timeframe_start = timeframe[:previous_start]
-      current_timeframe_start = timeframe[:current_start]
-      timeframe_end = timeframe[:current_end]
+      previous_timeframe_start = timeframe['previous_start']
+      current_timeframe_start = timeframe['current_start']
+      timeframe_end = timeframe['current_end']
 
       current_snapshot = QUERIES[query].run(current_timeframe_start,
         timeframe_end,
@@ -51,7 +51,7 @@ module Snapshots
         previous_snapshot = nil
       end
 
-      { current: current_snapshot&.fetch('count', nil), previous: previous_snapshot&.fetch('count', nil) }
+      { current: current_snapshot&.fetch(:count, nil), previous: previous_snapshot&.fetch(:count, nil) }
     end
   end
 end

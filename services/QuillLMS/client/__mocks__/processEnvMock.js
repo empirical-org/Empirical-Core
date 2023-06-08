@@ -1,5 +1,5 @@
 export default {
   env: {
-    CDN_URL: 'http://cdn.quill.org'
+    PUSHER_KEY: 'pusher'
   }
 }

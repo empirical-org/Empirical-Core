@@ -8,11 +8,13 @@ const ActivityScoresStudentOverview = ({ location }) => {
   const imageSrc = 'https://assets.quill.org/images/icons/chevron-dark-green.svg';
 
   return (
-    <StudentOverview location={location} >
-      <Link className='navigate-back' to={previous}>
-        <img alt="" src={imageSrc} /> Back to Activity Scores
-      </Link>
-    </StudentOverview>
+    <div className="container gray-background-accommodate-footer">
+      <StudentOverview location={location} >
+        <Link className='navigate-back' to={previous}>
+          <img alt="" src={imageSrc} /> Back to Activity Scores
+        </Link>
+      </StudentOverview>
+    </div>
   );
 };
 

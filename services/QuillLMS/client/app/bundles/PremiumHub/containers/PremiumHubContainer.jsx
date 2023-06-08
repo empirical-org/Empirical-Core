@@ -6,6 +6,7 @@ import DistrictActivityScoresProgressReport from './DistrictActivityScores';
 import DistrictConceptReportsProgressReport from './DistrictConceptReports';
 import DistrictStandardsReportsProgressReport from './DistrictStandardsReports';
 import SchoolSubscriptionsContainer from './SchoolSubscriptionsContainer';
+import UsageSnapshotsContainer from './UsageSnapshotsContainer';
 
 import { requestGet, } from '../../../modules/request/index';
 import { NOT_LISTED, NO_SCHOOL_SELECTED, Spinner } from '../../Shared/index';
@@ -129,7 +130,7 @@ const PremiumHubContainer = ({ id, location, children, }) => {
     <div className="tab-content">
       <div className="tab-pane active" id="class-manager">
         <SubnavTabs path={location} />
-        <div className="container" id="premium-hub">
+        <div id="premium-hub">
           {children}
           {renderBanner()}
           <Switch>
@@ -138,6 +139,7 @@ const PremiumHubContainer = ({ id, location, children, }) => {
             <Route component={routerProps => <DistrictConceptReportsProgressReport {...sharedProps} {...routerProps} />} path="/teachers/premium_hub/district_concept_reports" />
             <Route component={routerProps => <DistrictStandardsReportsProgressReport {...sharedProps} {...routerProps} />} path="/teachers/premium_hub/district_standards_reports" />
             <Route component={routerProps => <SchoolSubscriptionsContainer {...sharedProps} {...routerProps} />} path="/teachers/premium_hub/school_subscriptions" />
+            <Route component={routerProps => <UsageSnapshotsContainer {...sharedProps} {...routerProps} />} path="/teachers/premium_hub/usage_snapshot_report" />
             <Route component={routerProps => <PremiumHub adminId={id} {...sharedProps} {...routerProps} />} exact path="/teachers/premium_hub/" />
           </Switch>
         </div>

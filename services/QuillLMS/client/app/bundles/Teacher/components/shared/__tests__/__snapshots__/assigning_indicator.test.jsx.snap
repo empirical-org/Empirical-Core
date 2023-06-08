@@ -7,7 +7,7 @@ exports[`AssigningIndicator component should render 1`] = `
   <img
     alt="a circle being retraced"
     className="assigner"
-    src="http://cdn.quill.org/images/shared/assigner_still.png"
+    src="undefined/images/shared/assigner_still.png"
   />
 </span>
 `;

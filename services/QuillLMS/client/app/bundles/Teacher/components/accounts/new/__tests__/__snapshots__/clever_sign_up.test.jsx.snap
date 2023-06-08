@@ -9,7 +9,7 @@ exports[`CleverSignUp component should render 1`] = `
 >
   <img
     alt="Clever icon"
-    src="http://cdn.quill.org/images/shared/clever_icon.svg"
+    src="undefined/images/shared/clever_icon.svg"
   />
   <span>
     Sign up with Clever
