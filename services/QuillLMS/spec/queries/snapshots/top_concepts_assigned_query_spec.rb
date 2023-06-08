@@ -42,16 +42,12 @@ module Snapshots
 
       let(:cte_records) { [runner_context, unit_activity_bundles] }
 
-      let(:runner) { QuillBigQuery::TestRunner.new(cte_records) }
-      let(:results) { described_class.run(timeframe_start, timeframe_end, school_ids, grades, runner: runner) }
-
       context 'query LIMITs and shape' do
         let(:expected_result) do
           (0..9).map { |i| {"count"=>unit_activity_bundles[i].length, "value"=>concepts[i].name} }
         end
 
         it { expect(results).to eq(expected_result) }
-        it { expect(results.map { |r| r['value'] }).not_to include(concepts[10].name) }
       end
 
       context 'classroom_units created outside of timeframe' do

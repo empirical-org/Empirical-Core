@@ -9,6 +9,7 @@ module Snapshots
     QUERIES = {
       'active-classrooms' => Snapshots::ActiveClassroomsQuery,
       'active-students' => Snapshots::ActiveStudentsQuery,
+      'active-teachers' => Snapshots::ActiveTeachersQuery,
       'activities-assigned' => Snapshots::ActivitiesAssignedQuery,
       'activities-completed' => Snapshots::ActivitiesCompletedQuery,
       'average-activities-completed-per-student' => Snapshots::AverageActivitiesCompletedPerStudentQuery,
