@@ -62,7 +62,7 @@ then
     sh ../../scripts/post_slack_deploy.sh $app_name $1 $current_branch false
     if [ $1 == 'prod' ]
     then
-        CURRENT_DATE=(date +'%l:%M%p')
+        CURRENT_DATE=`date +%l:%M%p`
         read -r -p "Does this deploy include a migration that need to run?  Quill policy is to not run migrations between the hours of 10am and 3pm Eastern time on school days unless it is an emergency.  Your local time is $CURRENT_DATE.  You may cancel your deploy with ctrl-c.  If you want to continue this deploy, press any key."  response
         # For production, push directly from the remote production branch without going local
         # This 'remote merge' requires your local git history/pointers of the remote branches to be up-to-date, so we run a 'git fetch' to do that.
