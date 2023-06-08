@@ -15,49 +15,41 @@ case $1 in
     DEPLOY_GIT_BRANCH=deploy-lms-staging
     HEROKU_APP=empirical-grammar-staging
     URL="https://staging.quill.org/"
-    NR_URL="https://rpm.newrelic.com/accounts/2639113/applications/551848140"
     ;;
   dan)
     DEPLOY_GIT_BRANCH=deploy-lms-dan
     HEROKU_APP=quill-lms-dan
     URL="https://dan.quill.org/"
-    NR_URL="https://rpm.newrelic.com/accounts/2639113/applications/551848140"
     ;;
   brendan)
     DEPLOY_GIT_BRANCH=deploy-lms-brendan
     HEROKU_APP=quill-lms-brendan
     URL="https://brendan.quill.org/"
-    NR_URL="https://rpm.newrelic.com/accounts/2639113/applications/551848140"
     ;;
   eric)
     DEPLOY_GIT_BRANCH=deploy-lms-eric
     HEROKU_APP=quill-lms-eric
     URL="https://eric.quill.org/"
-    NR_URL="https://rpm.newrelic.com/accounts/2639113/applications/551848140"
     ;;
   pkong)
     DEPLOY_GIT_BRANCH=deploy-lms-pkong
     HEROKU_APP=quill-lms-pkong
     URL="https://pkong.quill.org/"
-    NR_URL="https://rpm.newrelic.com/accounts/2639113/applications/551848140"
     ;;
   thomas)
     DEPLOY_GIT_BRANCH=deploy-lms-thomas
     HEROKU_APP=quill-lms-thomas
     URL="https://thomas.quill.org/"
-    NR_URL="https://rpm.newrelic.com/accounts/2639113/applications/551848140"
     ;;
   cissy)
     DEPLOY_GIT_BRANCH=deploy-lms-cissy
     HEROKU_APP=quill-lms-cissy
     URL="https://cissy.quill.org/"
-    NR_URL="https://rpm.newrelic.com/accounts/2639113/applications/551848140"
     ;;
   emilia)
     DEPLOY_GIT_BRANCH=deploy-lms-emilia
     HEROKU_APP=quill-lms-emilia
     URL="https://emilia.quill.org/"
-    NR_URL="https://rpm.newrelic.com/accounts/2639113/applications/551848140"
     ;;
   *)
     echo "You must provide an environment argument of 'staging', 'prod', or a developer name."
@@ -80,13 +72,14 @@ then
         git push --no-verify --force origin origin/production:refs/heads/$DEPLOY_GIT_BRANCH
 
         sh ../../scripts/post_slack_deploy_description.sh $app_name
+
+        open $NR_URL
     else
         git fetch origin $DEPLOY_GIT_BRANCH
         git push --no-verify --force origin ${current_branch}:$DEPLOY_GIT_BRANCH
     fi
     open "https://dashboard.heroku.com/apps/$HEROKU_APP/activity"
     open $URL
-    open $NR_URL
     echo "Deploy screen opened in your browser, you can monitor from there."
 else
     echo "Ok, we won't deploy. Have a good day!"
