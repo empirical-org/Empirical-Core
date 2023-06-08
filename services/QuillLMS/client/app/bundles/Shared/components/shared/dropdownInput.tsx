@@ -47,6 +47,7 @@ interface DropdownInputState {
 
 const KEYDOWN = 'keydown'
 const MOUSEDOWN = 'mousedown'
+const TOUCHSTART = 'touchstart'
 
 const ARROWDOWN = 'ArrowDown'
 const ARROWUP = 'ArrowUp'
@@ -73,6 +74,7 @@ export class DropdownInput extends React.Component<DropdownInputProps, DropdownI
   componentDidMount() {
     this.handleUpdatedOptions(null);
     document.addEventListener(MOUSEDOWN, this.handleClick, true)
+    document.addEventListener(TOUCHSTART, this.handleClick, true)
     document.addEventListener(KEYDOWN, this.handleKeyDown, true)
   }
 
@@ -99,6 +101,7 @@ export class DropdownInput extends React.Component<DropdownInputProps, DropdownI
   componentWillUnmount() {
     document.removeEventListener(MOUSEDOWN, this.handleClick, true)
     document.removeEventListener(KEYDOWN, this.handleClick, true)
+    document.removeEventListener(TOUCHSTART, this.handleClick, true)
   }
 
   handleUpdatedOptions = (receivedOptions: any) => {
@@ -325,6 +328,7 @@ export class DropdownInput extends React.Component<DropdownInputProps, DropdownI
             className={`error ${sharedClasses}`}
             onClick={this.handleInputInteraction}
             onKeyDown={this.handleKeyDownOnInputContainer}
+            onTouchStart={this.handleInputInteraction}
             ref={node => this.node = node}
             role="button"
             tabIndex={0}
@@ -343,6 +347,7 @@ export class DropdownInput extends React.Component<DropdownInputProps, DropdownI
             className={`error unacknowledged ${sharedClasses}`}
             onClick={this.handleErrorAcknowledgement}
             onKeyDown={this.handleErrorAcknowledgement}
+            onTouchStart={this.handleErrorAcknowledgement}
             ref={node => this.node = node}
             role="button"
             tabIndex={0}
@@ -363,6 +368,7 @@ export class DropdownInput extends React.Component<DropdownInputProps, DropdownI
             className={sharedClasses}
             onClick={this.handleInputInteraction}
             onKeyDown={this.handleKeyDownOnInputContainer}
+            onTouchStart={this.handleInputInteraction}
             ref={node => this.node = node}
             role="button"
             tabIndex={0}
@@ -387,6 +393,7 @@ export class DropdownInput extends React.Component<DropdownInputProps, DropdownI
             className={sharedClasses}
             onClick={this.handleInputInteraction}
             onKeyDown={this.handleKeyDownOnInputContainer}
+            onTouchStart={this.handleInputInteraction}
             ref={node => this.node = node}
             role="button"
             tabIndex={0}
@@ -412,6 +419,7 @@ export class DropdownInput extends React.Component<DropdownInputProps, DropdownI
           className={sharedClasses}
           onClick={this.handleInputInteraction}
           onKeyDown={this.handleKeyDownOnInputContainer}
+          onTouchStart={this.handleInputInteraction}
           ref={node => this.node = node}
           role="button"
           tabIndex={0}
@@ -432,6 +440,7 @@ export class DropdownInput extends React.Component<DropdownInputProps, DropdownI
           className={`${sharedClasses}`}
           onClick={this.handleInputInteraction}
           onKeyDown={this.handleKeyDownOnInputContainer}
+          onTouchStart={this.handleInputInteraction}
           ref={node => this.node = node}
           role="button"
           tabIndex={0}
@@ -450,6 +459,7 @@ export class DropdownInput extends React.Component<DropdownInputProps, DropdownI
           className={`dropdown ${sharedClasses}`}
           onClick={this.handleInputInteraction}
           onKeyDown={this.handleKeyDownOnInputContainer}
+          onTouchStart={this.handleInputInteraction}
           ref={node => this.node = node}
           role="button"
           tabIndex={0}

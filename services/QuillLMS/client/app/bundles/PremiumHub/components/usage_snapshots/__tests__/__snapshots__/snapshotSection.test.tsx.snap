@@ -403,74 +403,80 @@ exports[`SnapshotSection component when the section is Classrooms should match s
             className="snapshot-item snapshot-ranking no-data"
           >
             <div
-              className="header"
-            >
-              <h3
-                className="coming-soon"
-              >
-                Most active grades
-                 (coming soon)
-              </h3>
-            </div>
-            <div
-              className="table"
+              onClick={[Function]}
             >
               <div
-                className="header-row"
+                className="header"
               >
-                <span
-                  key="Grade"
+                <h3
+                  className="coming-soon"
                 >
-                  Grade
-                </span>
-                <span
-                  key="Activities completed"
-                >
-                  Activities completed
-                </span>
+                  Most active grades
+                   (coming soon)
+                </h3>
               </div>
-              <div
-                className="data-row"
+              <DataTable
+                data={null}
+                headers={
+                  Array [
+                    "Grade",
+                    "Activities completed",
+                  ]
+                }
+                numberOfRows={3}
               >
-                <span
-                  key="Grade-undefined"
+                <table
+                  className="table"
                 >
-                  —
-                </span>
-                <span
-                  key="Activities completed-undefined"
-                >
-                  —
-                </span>
-              </div>
-              <div
-                className="data-row"
-              >
-                <span
-                  key="Grade-undefined"
-                >
-                  —
-                </span>
-                <span
-                  key="Activities completed-undefined"
-                >
-                  —
-                </span>
-              </div>
-              <div
-                className="data-row"
-              >
-                <span
-                  key="Grade-undefined"
-                >
-                  —
-                </span>
-                <span
-                  key="Activities completed-undefined"
-                >
-                  —
-                </span>
-              </div>
+                  <tr
+                    className="header-row"
+                  >
+                    <th
+                      key="Grade"
+                    >
+                      Grade
+                    </th>
+                    <th
+                      key="Activities completed"
+                    >
+                      Activities completed
+                    </th>
+                  </tr>
+                  <tr
+                    className="data-row"
+                    key="0"
+                  >
+                    <td>
+                      —
+                    </td>
+                    <td>
+                      —
+                    </td>
+                  </tr>
+                  <tr
+                    className="data-row"
+                    key="1"
+                  >
+                    <td>
+                      —
+                    </td>
+                    <td>
+                      —
+                    </td>
+                  </tr>
+                  <tr
+                    className="data-row"
+                    key="2"
+                  >
+                    <td>
+                      —
+                    </td>
+                    <td>
+                      —
+                    </td>
+                  </tr>
+                </table>
+              </DataTable>
             </div>
           </section>
         </SnapshotRanking>
@@ -1165,71 +1171,77 @@ exports[`SnapshotSection component when the section is Practice should match sna
             className="snapshot-item snapshot-ranking no-data"
           >
             <div
-              className="header"
-            >
-              <h3>
-                Top concepts assigned
-              </h3>
-            </div>
-            <div
-              className="table"
+              onClick={[Function]}
             >
               <div
-                className="header-row"
+                className="header"
               >
-                <span
-                  key="Concept"
-                >
-                  Concept
-                </span>
-                <span
-                  key="Activities assigned"
-                >
-                  Activities assigned
-                </span>
+                <h3>
+                  Top concepts assigned
+                </h3>
               </div>
-              <div
-                className="data-row"
+              <DataTable
+                data={null}
+                headers={
+                  Array [
+                    "Concept",
+                    "Activities assigned",
+                  ]
+                }
+                numberOfRows={3}
               >
-                <span
-                  key="Concept-undefined"
+                <table
+                  className="table"
                 >
-                  —
-                </span>
-                <span
-                  key="Activities assigned-undefined"
-                >
-                  —
-                </span>
-              </div>
-              <div
-                className="data-row"
-              >
-                <span
-                  key="Concept-undefined"
-                >
-                  —
-                </span>
-                <span
-                  key="Activities assigned-undefined"
-                >
-                  —
-                </span>
-              </div>
-              <div
-                className="data-row"
-              >
-                <span
-                  key="Concept-undefined"
-                >
-                  —
-                </span>
-                <span
-                  key="Activities assigned-undefined"
-                >
-                  —
-                </span>
-              </div>
+                  <tr
+                    className="header-row"
+                  >
+                    <th
+                      key="Concept"
+                    >
+                      Concept
+                    </th>
+                    <th
+                      key="Activities assigned"
+                    >
+                      Activities assigned
+                    </th>
+                  </tr>
+                  <tr
+                    className="data-row"
+                    key="0"
+                  >
+                    <td>
+                      —
+                    </td>
+                    <td>
+                      —
+                    </td>
+                  </tr>
+                  <tr
+                    className="data-row"
+                    key="1"
+                  >
+                    <td>
+                      —
+                    </td>
+                    <td>
+                      —
+                    </td>
+                  </tr>
+                  <tr
+                    className="data-row"
+                    key="2"
+                  >
+                    <td>
+                      —
+                    </td>
+                    <td>
+                      —
+                    </td>
+                  </tr>
+                </table>
+              </DataTable>
             </div>
           </section>
         </SnapshotRanking>
@@ -1277,71 +1289,77 @@ exports[`SnapshotSection component when the section is Practice should match sna
             className="snapshot-item snapshot-ranking no-data"
           >
             <div
-              className="header"
-            >
-              <h3>
-                Top concepts practiced
-              </h3>
-            </div>
-            <div
-              className="table"
+              onClick={[Function]}
             >
               <div
-                className="header-row"
+                className="header"
               >
-                <span
-                  key="Concept"
-                >
-                  Concept
-                </span>
-                <span
-                  key="Activities completed"
-                >
-                  Activities completed
-                </span>
+                <h3>
+                  Top concepts practiced
+                </h3>
               </div>
-              <div
-                className="data-row"
+              <DataTable
+                data={null}
+                headers={
+                  Array [
+                    "Concept",
+                    "Activities completed",
+                  ]
+                }
+                numberOfRows={3}
               >
-                <span
-                  key="Concept-undefined"
+                <table
+                  className="table"
                 >
-                  —
-                </span>
-                <span
-                  key="Activities completed-undefined"
-                >
-                  —
-                </span>
-              </div>
-              <div
-                className="data-row"
-              >
-                <span
-                  key="Concept-undefined"
-                >
-                  —
-                </span>
-                <span
-                  key="Activities completed-undefined"
-                >
-                  —
-                </span>
-              </div>
-              <div
-                className="data-row"
-              >
-                <span
-                  key="Concept-undefined"
-                >
-                  —
-                </span>
-                <span
-                  key="Activities completed-undefined"
-                >
-                  —
-                </span>
-              </div>
+                  <tr
+                    className="header-row"
+                  >
+                    <th
+                      key="Concept"
+                    >
+                      Concept
+                    </th>
+                    <th
+                      key="Activities completed"
+                    >
+                      Activities completed
+                    </th>
+                  </tr>
+                  <tr
+                    className="data-row"
+                    key="0"
+                  >
+                    <td>
+                      —
+                    </td>
+                    <td>
+                      —
+                    </td>
+                  </tr>
+                  <tr
+                    className="data-row"
+                    key="1"
+                  >
+                    <td>
+                      —
+                    </td>
+                    <td>
+                      —
+                    </td>
+                  </tr>
+                  <tr
+                    className="data-row"
+                    key="2"
+                  >
+                    <td>
+                      —
+                    </td>
+                    <td>
+                      —
+                    </td>
+                  </tr>
+                </table>
+              </DataTable>
             </div>
           </section>
         </SnapshotRanking>
@@ -1742,74 +1760,80 @@ exports[`SnapshotSection component when the section is Practice should match sna
             className="snapshot-item snapshot-ranking no-data"
           >
             <div
-              className="header"
-            >
-              <h3
-                className="coming-soon"
-              >
-                Most assigned activities
-                 (coming soon)
-              </h3>
-            </div>
-            <div
-              className="table"
+              onClick={[Function]}
             >
               <div
-                className="header-row"
+                className="header"
               >
-                <span
-                  key="Activity"
+                <h3
+                  className="coming-soon"
                 >
-                  Activity
-                </span>
-                <span
-                  key="Activities completed"
-                >
-                  Activities completed
-                </span>
+                  Most assigned activities
+                   (coming soon)
+                </h3>
               </div>
-              <div
-                className="data-row"
+              <DataTable
+                data={null}
+                headers={
+                  Array [
+                    "Activity",
+                    "Activities completed",
+                  ]
+                }
+                numberOfRows={3}
               >
-                <span
-                  key="Activity-undefined"
+                <table
+                  className="table"
                 >
-                  —
-                </span>
-                <span
-                  key="Activities completed-undefined"
-                >
-                  —
-                </span>
-              </div>
-              <div
-                className="data-row"
-              >
-                <span
-                  key="Activity-undefined"
-                >
-                  —
-                </span>
-                <span
-                  key="Activities completed-undefined"
-                >
-                  —
-                </span>
-              </div>
-              <div
-                className="data-row"
-              >
-                <span
-                  key="Activity-undefined"
-                >
-                  —
-                </span>
-                <span
-                  key="Activities completed-undefined"
-                >
-                  —
-                </span>
-              </div>
+                  <tr
+                    className="header-row"
+                  >
+                    <th
+                      key="Activity"
+                    >
+                      Activity
+                    </th>
+                    <th
+                      key="Activities completed"
+                    >
+                      Activities completed
+                    </th>
+                  </tr>
+                  <tr
+                    className="data-row"
+                    key="0"
+                  >
+                    <td>
+                      —
+                    </td>
+                    <td>
+                      —
+                    </td>
+                  </tr>
+                  <tr
+                    className="data-row"
+                    key="1"
+                  >
+                    <td>
+                      —
+                    </td>
+                    <td>
+                      —
+                    </td>
+                  </tr>
+                  <tr
+                    className="data-row"
+                    key="2"
+                  >
+                    <td>
+                      —
+                    </td>
+                    <td>
+                      —
+                    </td>
+                  </tr>
+                </table>
+              </DataTable>
             </div>
           </section>
         </SnapshotRanking>
@@ -1858,74 +1882,80 @@ exports[`SnapshotSection component when the section is Practice should match sna
             className="snapshot-item snapshot-ranking no-data"
           >
             <div
-              className="header"
-            >
-              <h3
-                className="coming-soon"
-              >
-                Most completed activities
-                 (coming soon)
-              </h3>
-            </div>
-            <div
-              className="table"
+              onClick={[Function]}
             >
               <div
-                className="header-row"
+                className="header"
               >
-                <span
-                  key="Activity"
+                <h3
+                  className="coming-soon"
                 >
-                  Activity
-                </span>
-                <span
-                  key="Activities completed"
-                >
-                  Activities completed
-                </span>
+                  Most completed activities
+                   (coming soon)
+                </h3>
               </div>
-              <div
-                className="data-row"
+              <DataTable
+                data={null}
+                headers={
+                  Array [
+                    "Activity",
+                    "Activities completed",
+                  ]
+                }
+                numberOfRows={3}
               >
-                <span
-                  key="Activity-undefined"
+                <table
+                  className="table"
                 >
-                  —
-                </span>
-                <span
-                  key="Activities completed-undefined"
-                >
-                  —
-                </span>
-              </div>
-              <div
-                className="data-row"
-              >
-                <span
-                  key="Activity-undefined"
-                >
-                  —
-                </span>
-                <span
-                  key="Activities completed-undefined"
-                >
-                  —
-                </span>
-              </div>
-              <div
-                className="data-row"
-              >
-                <span
-                  key="Activity-undefined"
-                >
-                  —
-                </span>
-                <span
-                  key="Activities completed-undefined"
-                >
-                  —
-                </span>
-              </div>
+                  <tr
+                    className="header-row"
+                  >
+                    <th
+                      key="Activity"
+                    >
+                      Activity
+                    </th>
+                    <th
+                      key="Activities completed"
+                    >
+                      Activities completed
+                    </th>
+                  </tr>
+                  <tr
+                    className="data-row"
+                    key="0"
+                  >
+                    <td>
+                      —
+                    </td>
+                    <td>
+                      —
+                    </td>
+                  </tr>
+                  <tr
+                    className="data-row"
+                    key="1"
+                  >
+                    <td>
+                      —
+                    </td>
+                    <td>
+                      —
+                    </td>
+                  </tr>
+                  <tr
+                    className="data-row"
+                    key="2"
+                  >
+                    <td>
+                      —
+                    </td>
+                    <td>
+                      —
+                    </td>
+                  </tr>
+                </table>
+              </DataTable>
             </div>
           </section>
         </SnapshotRanking>
@@ -2044,71 +2074,77 @@ exports[`SnapshotSection component when the section is Schools should match snap
             className="snapshot-item snapshot-ranking no-data"
           >
             <div
-              className="header"
-            >
-              <h3>
-                Most active schools
-              </h3>
-            </div>
-            <div
-              className="table"
+              onClick={[Function]}
             >
               <div
-                className="header-row"
+                className="header"
               >
-                <span
-                  key="School"
-                >
-                  School
-                </span>
-                <span
-                  key="Activities completed"
-                >
-                  Activities completed
-                </span>
+                <h3>
+                  Most active schools
+                </h3>
               </div>
-              <div
-                className="data-row"
+              <DataTable
+                data={null}
+                headers={
+                  Array [
+                    "School",
+                    "Activities completed",
+                  ]
+                }
+                numberOfRows={3}
               >
-                <span
-                  key="School-undefined"
+                <table
+                  className="table"
                 >
-                  —
-                </span>
-                <span
-                  key="Activities completed-undefined"
-                >
-                  —
-                </span>
-              </div>
-              <div
-                className="data-row"
-              >
-                <span
-                  key="School-undefined"
-                >
-                  —
-                </span>
-                <span
-                  key="Activities completed-undefined"
-                >
-                  —
-                </span>
-              </div>
-              <div
-                className="data-row"
-              >
-                <span
-                  key="School-undefined"
-                >
-                  —
-                </span>
-                <span
-                  key="Activities completed-undefined"
-                >
-                  —
-                </span>
-              </div>
+                  <tr
+                    className="header-row"
+                  >
+                    <th
+                      key="School"
+                    >
+                      School
+                    </th>
+                    <th
+                      key="Activities completed"
+                    >
+                      Activities completed
+                    </th>
+                  </tr>
+                  <tr
+                    className="data-row"
+                    key="0"
+                  >
+                    <td>
+                      —
+                    </td>
+                    <td>
+                      —
+                    </td>
+                  </tr>
+                  <tr
+                    className="data-row"
+                    key="1"
+                  >
+                    <td>
+                      —
+                    </td>
+                    <td>
+                      —
+                    </td>
+                  </tr>
+                  <tr
+                    className="data-row"
+                    key="2"
+                  >
+                    <td>
+                      —
+                    </td>
+                    <td>
+                      —
+                    </td>
+                  </tr>
+                </table>
+              </DataTable>
             </div>
           </section>
         </SnapshotRanking>
@@ -2525,74 +2561,80 @@ exports[`SnapshotSection component when the section is Users should match snapsh
             className="snapshot-item snapshot-ranking no-data"
           >
             <div
-              className="header"
-            >
-              <h3
-                className="coming-soon"
-              >
-                Most active teachers
-                 (coming soon)
-              </h3>
-            </div>
-            <div
-              className="table"
+              onClick={[Function]}
             >
               <div
-                className="header-row"
+                className="header"
               >
-                <span
-                  key="Teacher"
+                <h3
+                  className="coming-soon"
                 >
-                  Teacher
-                </span>
-                <span
-                  key="Activities completed"
-                >
-                  Activities completed
-                </span>
+                  Most active teachers
+                   (coming soon)
+                </h3>
               </div>
-              <div
-                className="data-row"
+              <DataTable
+                data={null}
+                headers={
+                  Array [
+                    "Teacher",
+                    "Activities completed",
+                  ]
+                }
+                numberOfRows={3}
               >
-                <span
-                  key="Teacher-undefined"
+                <table
+                  className="table"
                 >
-                  —
-                </span>
-                <span
-                  key="Activities completed-undefined"
-                >
-                  —
-                </span>
-              </div>
-              <div
-                className="data-row"
-              >
-                <span
-                  key="Teacher-undefined"
-                >
-                  —
-                </span>
-                <span
-                  key="Activities completed-undefined"
-                >
-                  —
-                </span>
-              </div>
-              <div
-                className="data-row"
-              >
-                <span
-                  key="Teacher-undefined"
-                >
-                  —
-                </span>
-                <span
-                  key="Activities completed-undefined"
-                >
-                  —
-                </span>
-              </div>
+                  <tr
+                    className="header-row"
+                  >
+                    <th
+                      key="Teacher"
+                    >
+                      Teacher
+                    </th>
+                    <th
+                      key="Activities completed"
+                    >
+                      Activities completed
+                    </th>
+                  </tr>
+                  <tr
+                    className="data-row"
+                    key="0"
+                  >
+                    <td>
+                      —
+                    </td>
+                    <td>
+                      —
+                    </td>
+                  </tr>
+                  <tr
+                    className="data-row"
+                    key="1"
+                  >
+                    <td>
+                      —
+                    </td>
+                    <td>
+                      —
+                    </td>
+                  </tr>
+                  <tr
+                    className="data-row"
+                    key="2"
+                  >
+                    <td>
+                      —
+                    </td>
+                    <td>
+                      —
+                    </td>
+                  </tr>
+                </table>
+              </DataTable>
             </div>
           </section>
         </SnapshotRanking>

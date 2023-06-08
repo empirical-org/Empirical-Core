@@ -141,6 +141,7 @@ exports[`ViewAsStudentModal component without a defaultClassroomId should render
             className="dropdown-container input-container inactive has-text not-editable classroom-dropdown  "
             onClick={[Function]}
             onKeyDown={[Function]}
+            onTouchStart={[Function]}
             role="button"
             tabIndex={0}
           >
@@ -5330,6 +5331,7 @@ exports[`ViewAsStudentModal component without a defaultClassroomId should render
             className="dropdown-container input-container inactive has-text not-editable classroom-dropdown  "
             onClick={[Function]}
             onKeyDown={[Function]}
+            onTouchStart={[Function]}
             role="button"
             tabIndex={0}
           >

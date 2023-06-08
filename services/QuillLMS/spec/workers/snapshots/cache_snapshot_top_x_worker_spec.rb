@@ -20,10 +20,10 @@ module Snapshots
       let(:previous_timeframe_start) { current_timeframe_start - 30.days }
       let(:timeframe) {
         {
-          name: timeframe_name,
-          previous_start: previous_timeframe_start,
-          current_start: current_timeframe_start,
-          current_end: timeframe_end
+          'name' => timeframe_name,
+          'previous_start' => previous_timeframe_start,
+          'current_start' => current_timeframe_start,
+          'current_end' => timeframe_end
         }
       }
 
@@ -45,7 +45,7 @@ module Snapshots
         payload = [{ value: 'Some Thing', count: 10 }]
 
         expect(query_double).to receive(:run).and_return(payload)
-        expect(Rails.cache).to receive(:write).with(cache_key, payload, expires_in: timeframe_end + 1.day)
+        expect(Rails.cache).to receive(:write).with(cache_key, payload, expires_in: DateTime.current.end_of_day)
         expect(PusherTrigger).to receive(:run)
 
         subject.perform(cache_key, query, user_id, timeframe, school_ids, grades)
