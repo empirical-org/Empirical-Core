@@ -77,6 +77,7 @@ const SnapshotCount = ({ label, size, queryKey, comingSoon, searchCount, selecte
 
         if (!previous) {
           setChangeDirection(POSITIVE)
+          setLoading(false)
           return
         }
 

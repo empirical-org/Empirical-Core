@@ -2166,7 +2166,6 @@ exports[`SnapshotSection component when the section is Users should match snapsh
         "className": "counts",
         "items": Array [
           Object {
-            "comingSoon": true,
             "label": "Active teachers",
             "queryKey": "active-teachers",
             "singularLabel": "Active teacher",
@@ -2258,7 +2257,6 @@ exports[`SnapshotSection component when the section is Users should match snapsh
       >
         <SnapshotCount
           adminId={1}
-          comingSoon={true}
           customTimeframeEnd={null}
           customTimeframeStart={null}
           key="active-teachers"
@@ -2300,9 +2298,9 @@ exports[`SnapshotSection component when the section is Users should match snapsh
               className="count-and-label"
             >
               <span
-                className="coming-soon"
+                className="count"
               >
-                Coming soon
+                —
               </span>
               <span
                 className="snapshot-label"

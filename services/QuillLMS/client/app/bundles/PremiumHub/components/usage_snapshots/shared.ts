@@ -83,8 +83,7 @@ export const snapshotSections = [
             singularLabel: 'Active teacher',
             size: SMALL,
             type: COUNT,
-            queryKey: 'active-teachers',
-            comingSoon: true
+            queryKey: 'active-teachers'
           },
           {
             label: 'Active students',
