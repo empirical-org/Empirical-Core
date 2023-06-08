@@ -16,7 +16,6 @@ import {
   renderQuestions,
   renderEvidenceActivityContent
 } from "../../libs";
-import { BECAUSE, BUT, SO } from "../../utils/constants";
 
 interface Activity {
   title?: string;
@@ -43,7 +42,7 @@ interface TeacherPreviewMenuProps {
   isOnMobile: boolean;
   onHandleSkipToQuestionFromIntro?: () => void;
   onTogglePreview?: () => void;
-  onToggleQuestion?: (question: Question) => void;
+  onToggleQuestion?: (question: Question | string) => void;
   lesson: any;
   questions: Question[];
   questionToPreview?: {
@@ -74,6 +73,13 @@ const TeacherPreviewMenuComponent = ({
 }: TeacherPreviewMenuProps) => {
 
   const [textIsExpanded, setTextIsExpanded] = React.useState<boolean>(false);
+
+  React.useEffect(() => {
+    const { previewSessionStep } = session;
+    if(previewSessionStep) {
+      onToggleQuestion(previewSessionStep);
+    }
+  }, [session.previewSessionStep])
 
   function toggleExpandedText() {
     setTextIsExpanded(!textIsExpanded)
@@ -107,6 +113,7 @@ const TeacherPreviewMenuComponent = ({
   const handleEvidenceStepUpdate = (e: React.SyntheticEvent) => {
     const evidenceStep = e.currentTarget.id;
     dispatch(evidenceActions.setPreviewSessionStep(evidenceStep))
+    onToggleQuestion(evidenceStep);
   }
 
   const hiddenStyle = !showPreview ? 'hidden' : '';
@@ -147,7 +154,8 @@ const TeacherPreviewMenuComponent = ({
         activity,
         handleEvidenceStepUpdate,
         toggleExpandedText,
-        textIsExpanded
+        textIsExpanded,
+        questionToPreview
       })}
     </aside>
   );

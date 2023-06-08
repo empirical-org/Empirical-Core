@@ -5,7 +5,7 @@ import { useQuery } from 'react-query';
 import Header from "./Header";
 
 import { fetchUserRole } from '../../Shared/utils/userAPIs';
-import { ScreenreaderInstructions, TeacherPreviewMenu } from '../../Shared/index';
+import { ScreenreaderInstructions, TeacherPreviewMenu, INTRODUCTION } from '../../Shared/index';
 import { routes } from "../routes";
 import getParameterByName from '../helpers/getParameterByName';
 
@@ -19,8 +19,7 @@ const PageLayout = (props: any) => {
   const isTeacherOrAdmin = data && data.role && data.role !== 'student';
 
   const [previewShowing, setPreviewShowing] = React.useState<boolean>(!studentOrTurk);
-  const [questionToPreview, setQuestionToPreview] = React.useState<any>(null);
-  const [switchedBackToPreview, setSwitchedBackToPreview] = React.useState<boolean>(false);
+  const [questionToPreview, setQuestionToPreview] = React.useState<any>(INTRODUCTION);
 
   function handleSkipToMainContentClick () {
     const element = document.getElementById("main-content")
@@ -30,16 +29,11 @@ const PageLayout = (props: any) => {
   }
 
   function handleTogglePreviewMenu() {
-    if (previewShowing) {
-      setSwitchedBackToPreview(false);
-    } else {
-      setSwitchedBackToPreview(true);
-    }
     setPreviewShowing(!previewShowing);
   }
 
-  function handleToggleQuestion(question: object) {
-    setQuestionToPreview(question);
+  function handleToggleQuestion(step: string) {
+    setQuestionToPreview(step);
   }
 
   const showPreview = previewShowing && isTeacherOrAdmin && isPlaying;
@@ -67,7 +61,6 @@ const PageLayout = (props: any) => {
           user,
           isOnMobile: isOnMobile,
           handleTogglePreviewMenu: handleTogglePreviewMenu,
-          switchedBackToPreview: switchedBackToPreview,
           handleToggleQuestion: handleToggleQuestion,
           previewMode: showPreview,
           questionToPreview: questionToPreview

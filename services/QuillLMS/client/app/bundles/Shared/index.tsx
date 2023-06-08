@@ -208,7 +208,10 @@ export {
   NOT_LISTED,
   NO_SCHOOL_SELECTED,
   EVIDENCE_HANDBOOK_LINK,
-  MAX_VIEW_WIDTH_FOR_MOBILE_NAVBAR
+  MAX_VIEW_WIDTH_FOR_MOBILE_NAVBAR,
+  INTRODUCTION,
+  CHECKLIST,
+  READ_AND_HIGHLIGHT
 } from './utils/constants'
 
 export { DefaultReactQueryClient } from './utils/defaultReactQueryClient'

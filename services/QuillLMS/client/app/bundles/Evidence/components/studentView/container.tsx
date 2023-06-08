@@ -7,10 +7,10 @@ import ActivityFollowUp from './activityFollowUp';
 import ReadPassageContainer from './readPassageContainer';
 import RightPanel from './rightPanel';
 
-import { BECAUSE, BUT, CLICK, KEYDOWN, KEYPRESS, MOUSEDOWN, MOUSEMOVE, READ_PASSAGE_STEP_NUMBER, SO, SO_PASSAGE_STEP_NUMBER, VISIBILITYCHANGE, roundMillisecondsToSeconds } from '../../../Shared/index';
+import { BECAUSE, BUT, CHECKLIST, CLICK, INTRODUCTION, KEYDOWN, KEYPRESS, MOUSEDOWN, MOUSEMOVE, READ_AND_HIGHLIGHT, READ_PASSAGE_STEP_NUMBER, SO, SO_PASSAGE_STEP_NUMBER, VISIBILITYCHANGE, roundMillisecondsToSeconds } from '../../../Shared/index';
 import { getActivity, getTopicOptimalInfo } from "../../actions/activities";
 import { TrackAnalyticsEvent } from "../../actions/analytics";
-import { completeActivitySession, fetchActiveActivitySession, getFeedback, processUnfetchableSession, reportAProblem, saveActiveActivitySession, saveActivitySurveyResponse, setActiveStepForSession, setActivityIsCompleteForSession, setExplanationSlidesCompletedForSession } from '../../actions/session';
+import { completeActivitySession, fetchActiveActivitySession, getFeedback, processUnfetchableSession, reportAProblem, saveActiveActivitySession, saveActivitySurveyResponse, setActiveStepForSession, setActivityIsCompleteForSession, setExplanationSlidesCompletedForSession, setPreviewSessionStep } from '../../actions/session';
 import { everyOtherStepCompleted, getCurrentStepDataForEventTracking, getLastSubmittedResponse, getStrippedPassageHighlights, getUrlParam, onMobile, outOfAttemptsForActivePrompt } from '../../helpers/containerActionHelpers';
 import { renderDirections } from '../../helpers/containerRenderHelpers';
 import getParameterByName from '../../helpers/getParameterByName';
@@ -32,6 +32,7 @@ interface StudentViewContainerProps {
   handleFinishActivity?: () => void;
   isTurk?: boolean;
   user: string;
+  previewMode: boolean;
 }
 
 interface StudentViewContainerState {
@@ -58,7 +59,7 @@ const STUDENT_HIGHLIGHT_ENDS_TEXT = "(highlighted text ends here)"
 const PASSAGE_HIGHLIGHT_STARTS_TEXT = "(yellow underlined text begins here)"
 const PASSAGE_HIGHLIGHT_ENDS_TEXT = "(yellow underlined text ends here)"
 
-export const StudentViewContainer = ({ dispatch, session, isTurk, location, activities, handleFinishActivity, user }: StudentViewContainerProps) => {
+export const StudentViewContainer = ({ dispatch, session, isTurk, location, activities, handleFinishActivity, user, previewMode }: StudentViewContainerProps) => {
   const skipToSpecificStep = window.location.href.includes('skipToStep')
   const shouldSkipToPrompts = window.location.href.includes('turk') || window.location.href.includes('skipToPrompts') || skipToSpecificStep
   const defaultCompletedSteps = shouldSkipToPrompts ? [READ_PASSAGE_STEP_NUMBER] : []
@@ -79,6 +80,7 @@ export const StudentViewContainer = ({ dispatch, session, isTurk, location, acti
   const [completedSteps, setCompletedSteps] = React.useState(defaultCompletedSteps)
   const [showFocusState, setShowFocusState] = React.useState(false)
   const [showStepsSummary, setShowStepsSummary] = React.useState(false)
+  console.log("🚀 ~ file: container.tsx:83 ~ StudentViewContainer ~ showStepsSummary:", showStepsSummary)
   const [startTime, setStartTime] = React.useState(Date.now())
   const [isIdle, setIsIdle] = React.useState(false)
   const [studentHighlights, setStudentHighlights] = React.useState([])
@@ -200,58 +202,94 @@ export const StudentViewContainer = ({ dispatch, session, isTurk, location, acti
     if (e) { resetTimers(e) }
   }
 
+  function preparePreviewIntroductionStep() {
+    dispatch(setPreviewSessionStep(INTRODUCTION))
+    dispatch(setActiveStepForSession(1))
+    dispatch(setExplanationSlidesCompletedForSession(false))
+    setExplanationSlideStep(0)
+    setHasStartedReadPassageStep(false)
+    setShowReadTheDirectionsButton(false)
+    setScrolledToEndOfPassage(false)
+    setDoneHighlighting(false)
+    setHasStartedPromptsSteps(false)
+  }
+
+  function preparePreviewChecklistStep() {
+    dispatch(setPreviewSessionStep(CHECKLIST))
+    dispatch(setActiveStepForSession(1))
+    dispatch(setExplanationSlidesCompletedForSession(true))
+    setHasStartedReadPassageStep(false)
+    setShowReadTheDirectionsButton(false)
+    setScrolledToEndOfPassage(false)
+    setDoneHighlighting(false)
+    setHasStartedPromptsSteps(false)
+  }
+
+  function preparePreviewReadAndHighlightStep() {
+    dispatch(setPreviewSessionStep(READ_AND_HIGHLIGHT))
+    dispatch(setActiveStepForSession(1))
+    dispatch(setExplanationSlidesCompletedForSession(true))
+    setHasStartedReadPassageStep(true)
+    setShowReadTheDirectionsButton(true)
+    setScrolledToEndOfPassage(false)
+    setStudentHighlights([])
+    setDoneHighlighting(false)
+    setHasStartedPromptsSteps(false)
+  }
+
+  function preparePreviewBecauseStep() {
+    dispatch(setPreviewSessionStep(BECAUSE))
+    dispatch(setActiveStepForSession(2))
+    dispatch(setExplanationSlidesCompletedForSession(true))
+    setHasStartedReadPassageStep(true)
+    setShowReadTheDirectionsButton(false)
+    setScrolledToEndOfPassage(true)
+    setDoneHighlighting(true)
+    setHasStartedPromptsSteps(true)
+  }
+
+  function preparePreviewButStep() {
+    dispatch(setPreviewSessionStep(BUT))
+    dispatch(setActiveStepForSession(3))
+    dispatch(setExplanationSlidesCompletedForSession(true))
+    setHasStartedReadPassageStep(true)
+    setShowReadTheDirectionsButton(false)
+    setScrolledToEndOfPassage(true)
+    setDoneHighlighting(true)
+    setHasStartedPromptsSteps(true)
+  }
+
+  function preparePreviewSoStep() {
+    dispatch(setPreviewSessionStep(SO))
+    dispatch(setActiveStepForSession(4))
+    dispatch(setExplanationSlidesCompletedForSession(true))
+    setHasStartedReadPassageStep(true)
+    setShowReadTheDirectionsButton(false)
+    setScrolledToEndOfPassage(true)
+    setDoneHighlighting(true)
+    setHasStartedPromptsSteps(true)
+  }
+
   React.useEffect(() => {
     const { previewSessionStep } = session;
 
-    if(previewSessionStep === 'introduction') {
-      dispatch(setActiveStepForSession(1))
-      dispatch(setExplanationSlidesCompletedForSession(false))
-      setExplanationSlideStep(0)
-      setHasStartedReadPassageStep(false)
-      setScrolledToEndOfPassage(false)
-      setDoneHighlighting(false)
-      setHasStartedPromptsSteps(false)
+    if(previewSessionStep === INTRODUCTION) {
+      preparePreviewIntroductionStep()
     }
-    if(previewSessionStep === 'checklist') {
-      dispatch(setActiveStepForSession(1))
-      dispatch(setExplanationSlidesCompletedForSession(true))
-      setHasStartedReadPassageStep(false)
-      setScrolledToEndOfPassage(false)
-      setDoneHighlighting(false)
-      setHasStartedPromptsSteps(false)
+    if(previewSessionStep === CHECKLIST) {
+      preparePreviewChecklistStep()
     }
-    if(previewSessionStep === 'read-and-highlight') {
-      dispatch(setActiveStepForSession(1))
-      dispatch(setExplanationSlidesCompletedForSession(true))
-      setHasStartedReadPassageStep(true)
-      setScrolledToEndOfPassage(false)
-      setStudentHighlights([])
-      setDoneHighlighting(false)
-      setHasStartedPromptsSteps(false)
+    if(previewSessionStep === READ_AND_HIGHLIGHT) {
+      preparePreviewReadAndHighlightStep()
     }
     if(previewSessionStep === BECAUSE) {
-      dispatch(setActiveStepForSession(2))
-      dispatch(setExplanationSlidesCompletedForSession(true))
-      setHasStartedReadPassageStep(true)
-      setScrolledToEndOfPassage(true)
-      setDoneHighlighting(true)
-      setHasStartedPromptsSteps(true)
+      preparePreviewBecauseStep()
     }
     if (previewSessionStep === BUT) {
-      dispatch(setActiveStepForSession(3))
-      dispatch(setExplanationSlidesCompletedForSession(true))
-      setHasStartedReadPassageStep(true)
-      setScrolledToEndOfPassage(true)
-      setDoneHighlighting(true)
-      setHasStartedPromptsSteps(true)
+      preparePreviewButStep()
     }
     if (previewSessionStep === SO) {
-      dispatch(setActiveStepForSession(4))
-      dispatch(setExplanationSlidesCompletedForSession(true))
-      setHasStartedReadPassageStep(true)
-      setScrolledToEndOfPassage(true)
-      setDoneHighlighting(true)
-      setHasStartedPromptsSteps(true)
+      preparePreviewSoStep()
     }
 
   }, [session.previewSessionStep])
@@ -399,6 +437,7 @@ export const StudentViewContainer = ({ dispatch, session, isTurk, location, acti
   }
 
   function completeStep(stepNumber: number) {
+    console.log("🚀 ~ file: container.tsx:440 ~ completeStep ~ stepNumber:", stepNumber)
     const newCompletedSteps = completedSteps.concat(stepNumber)
     const uniqueCompletedSteps = Array.from(new Set(newCompletedSteps))
     trackCurrentPromptCompletedEvent()
@@ -406,6 +445,12 @@ export const StudentViewContainer = ({ dispatch, session, isTurk, location, acti
     // we only want to render the step summary list again after completing the because and but prompts
     if(stepNumber > READ_PASSAGE_STEP_NUMBER && stepNumber < SO_PASSAGE_STEP_NUMBER) {
       setShowStepsSummary(true);
+    }
+    // preview mode actions
+    if(previewMode && stepNumber === 2) {
+      preparePreviewButStep()
+    } else if(previewMode && stepNumber === 3) {
+      preparePreviewSoStep()
     }
   }
 
@@ -432,11 +477,21 @@ export const StudentViewContainer = ({ dispatch, session, isTurk, location, acti
 
   function onStartReadPassage(e) {
     e.stopPropagation()
-    setHasStartedReadPassageStep(true)
-    setShowReadTheDirectionsButton(true)
+    if (previewMode) {
+      preparePreviewReadAndHighlightStep()
+    } else {
+      setHasStartedReadPassageStep(true)
+      setShowReadTheDirectionsButton(true)
+    }
   }
 
-  function onStartPromptSteps() { setHasStartedPromptsSteps(true) }
+  function onStartPromptSteps() {
+    if(previewMode) {
+      preparePreviewBecauseStep()
+    } else {
+      setHasStartedPromptsSteps(true)
+    }
+  }
 
   function submitProblemReport(args) {
     const { sessionID, } = session
@@ -587,7 +642,9 @@ export const StudentViewContainer = ({ dispatch, session, isTurk, location, acti
 
   function handleExplanationSlideClick() {
     const nextStep = explanationSlideStep + 1;
-    if (nextStep > 3) {
+    if (nextStep > 3 && previewMode) {
+      preparePreviewChecklistStep()
+    } else if (nextStep > 3) {
       dispatch(setExplanationSlidesCompletedForSession(true))
     } else {
       setExplanationSlideStep(nextStep)

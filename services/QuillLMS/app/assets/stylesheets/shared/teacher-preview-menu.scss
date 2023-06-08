@@ -139,18 +139,28 @@
     ul {
       align-items: flex-start;
     }
-    .activity-steps-overivew {
-      list-style: disc;
-      margin-left: 16px;
-      li {
+    .activity-steps-overview {
+      padding: 0;
+      margin-left: 10px;
+      .bullet-point {
+        margin-right: 4px;
+      }
+      button {
+        display: flex;
+        color: $quillgreenmedium;
         font-size: 14px;
-        padding: 4px 0px;
-        button {
-          color: $quillgreenmedium;
-          font-weight: 700;
-          text-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
-          text-decoration: underline;
+        font-weight: 700;
+        padding: 0px 4px 4px 4px;
+        margin: 4px 0px;
+        &.highlighted {
+          background-color: #e1f3f1;
+          border-radius: 4px;
         }
+      }
+      .sentence-stems-explanation-container {
+        display: flex;
+        font-size: 14px;
+        padding-left: 4px;
       }
     }
   }
