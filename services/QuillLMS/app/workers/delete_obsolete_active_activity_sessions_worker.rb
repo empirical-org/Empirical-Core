@@ -4,13 +4,17 @@ class DeleteObsoleteActiveActivitySessionsWorker
   include Sidekiq::Worker
   sidekiq_options queue: SidekiqQueue::LOW
 
+  BATCH_SIZE = 100
+
   def perform
-    obsolete_query.in_batches.delete_all
+    while obsolete_query.delete_all > 0
+      # empty loop since condtional is also the action
+    end
   end
 
   private def obsolete_query
     ActiveActivitySession
-      .select(:id)
       .obsolete
+      .limit(BATCH_SIZE)
   end
 end
