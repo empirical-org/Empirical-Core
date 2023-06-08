@@ -17,18 +17,6 @@ case $1 in
     URL="https://staging.quill.org/"
     NR_URL="https://rpm.newrelic.com/accounts/2639113/applications/551848140"
     ;;
-  staging2)
-    DEPLOY_GIT_BRANCH=deploy-lms-staging2
-    HEROKU_APP=empirical-grammar-staging2
-    URL="https://staging2.quill.org/"
-    NR_URL="https://rpm.newrelic.com/accounts/2639113/applications/551848140"
-    ;;
-  sprint)
-    DEPLOY_GIT_BRANCH=deploy-lms-sprint
-    HEROKU_APP=quill-lms-sprint
-    URL="https://sprint.quill.org/"
-    NR_URL="https://rpm.newrelic.com/accounts/2639113/applications/551848140"
-    ;;
   dan)
     DEPLOY_GIT_BRANCH=deploy-lms-dan
     HEROKU_APP=quill-lms-dan
@@ -72,7 +60,7 @@ case $1 in
     NR_URL="https://rpm.newrelic.com/accounts/2639113/applications/551848140"
     ;;
   *)
-    echo "You must provide an environment argument of 'sprint', 'staging', or 'prod'."
+    echo "You must provide an environment argument of 'staging', 'prod', or a developer name."
     exit 1
 esac
 
