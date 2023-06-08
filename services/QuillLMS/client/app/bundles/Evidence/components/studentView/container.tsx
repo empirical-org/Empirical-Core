@@ -7,7 +7,7 @@ import ActivityFollowUp from './activityFollowUp';
 import ReadPassageContainer from './readPassageContainer';
 import RightPanel from './rightPanel';
 
-import { CLICK, KEYDOWN, KEYPRESS, MOUSEDOWN, MOUSEMOVE, READ_PASSAGE_STEP_NUMBER, SO_PASSAGE_STEP_NUMBER, VISIBILITYCHANGE, roundMillisecondsToSeconds } from '../../../Shared/index';
+import { BECAUSE, BUT, CLICK, KEYDOWN, KEYPRESS, MOUSEDOWN, MOUSEMOVE, READ_PASSAGE_STEP_NUMBER, SO, SO_PASSAGE_STEP_NUMBER, VISIBILITYCHANGE, roundMillisecondsToSeconds } from '../../../Shared/index';
 import { getActivity, getTopicOptimalInfo } from "../../actions/activities";
 import { TrackAnalyticsEvent } from "../../actions/analytics";
 import { completeActivitySession, fetchActiveActivitySession, getFeedback, processUnfetchableSession, reportAProblem, saveActiveActivitySession, saveActivitySurveyResponse, setActiveStepForSession, setActivityIsCompleteForSession, setExplanationSlidesCompletedForSession } from '../../actions/session';
@@ -199,6 +199,62 @@ export const StudentViewContainer = ({ dispatch, session, isTurk, location, acti
   function handleReadPassageContainerScroll(e=null) {
     if (e) { resetTimers(e) }
   }
+
+  React.useEffect(() => {
+    const { previewSessionStep } = session;
+
+    if(previewSessionStep === 'introduction') {
+      dispatch(setActiveStepForSession(1))
+      dispatch(setExplanationSlidesCompletedForSession(false))
+      setExplanationSlideStep(0)
+      setHasStartedReadPassageStep(false)
+      setScrolledToEndOfPassage(false)
+      setDoneHighlighting(false)
+      setHasStartedPromptsSteps(false)
+    }
+    if(previewSessionStep === 'checklist') {
+      dispatch(setActiveStepForSession(1))
+      dispatch(setExplanationSlidesCompletedForSession(true))
+      setHasStartedReadPassageStep(false)
+      setScrolledToEndOfPassage(false)
+      setDoneHighlighting(false)
+      setHasStartedPromptsSteps(false)
+    }
+    if(previewSessionStep === 'read-and-highlight') {
+      dispatch(setActiveStepForSession(1))
+      dispatch(setExplanationSlidesCompletedForSession(true))
+      setHasStartedReadPassageStep(true)
+      setScrolledToEndOfPassage(false)
+      setStudentHighlights([])
+      setDoneHighlighting(false)
+      setHasStartedPromptsSteps(false)
+    }
+    if(previewSessionStep === BECAUSE) {
+      dispatch(setActiveStepForSession(2))
+      dispatch(setExplanationSlidesCompletedForSession(true))
+      setHasStartedReadPassageStep(true)
+      setScrolledToEndOfPassage(true)
+      setDoneHighlighting(true)
+      setHasStartedPromptsSteps(true)
+    }
+    if (previewSessionStep === BUT) {
+      dispatch(setActiveStepForSession(3))
+      dispatch(setExplanationSlidesCompletedForSession(true))
+      setHasStartedReadPassageStep(true)
+      setScrolledToEndOfPassage(true)
+      setDoneHighlighting(true)
+      setHasStartedPromptsSteps(true)
+    }
+    if (previewSessionStep === SO) {
+      dispatch(setActiveStepForSession(4))
+      dispatch(setExplanationSlidesCompletedForSession(true))
+      setHasStartedReadPassageStep(true)
+      setScrolledToEndOfPassage(true)
+      setDoneHighlighting(true)
+      setHasStartedPromptsSteps(true)
+    }
+
+  }, [session.previewSessionStep])
 
   function handleReadTheDirectionsButtonClick() { setShowReadTheDirectionsButton(false) }
 

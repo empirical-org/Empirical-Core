@@ -9,7 +9,7 @@ import { ScreenreaderInstructions, TeacherPreviewMenu } from '../../Shared/index
 import { routes } from "../routes";
 import getParameterByName from '../helpers/getParameterByName';
 
-const PageLayout: React.StatelessComponent<{}> = (props: any) => {
+const PageLayout = (props: any) => {
   const { user } = props;
   const studentSession = getParameterByName('student', window.location.href);
   const turkSession = getParameterByName('turk', window.location.href);
@@ -21,7 +21,6 @@ const PageLayout: React.StatelessComponent<{}> = (props: any) => {
   const [previewShowing, setPreviewShowing] = React.useState<boolean>(!studentOrTurk);
   const [questionToPreview, setQuestionToPreview] = React.useState<any>(null);
   const [switchedBackToPreview, setSwitchedBackToPreview] = React.useState<boolean>(false);
-  const [skippedToQuestionFromIntro, setSkippedToQuestionFromIntro] = React.useState<boolean>(false);
 
   function handleSkipToMainContentClick () {
     const element = document.getElementById("main-content")
@@ -43,10 +42,6 @@ const PageLayout: React.StatelessComponent<{}> = (props: any) => {
     setQuestionToPreview(question);
   }
 
-  function handleSkipToQuestionFromIntro() {
-    setSkippedToQuestionFromIntro(true);
-  }
-
   const showPreview = previewShowing && isTeacherOrAdmin && isPlaying;
   const isOnMobile = window.innerWidth < 1100;
 
@@ -62,7 +57,6 @@ const PageLayout: React.StatelessComponent<{}> = (props: any) => {
         >
           <TeacherPreviewMenu
             isOnMobile={isOnMobile}
-            onHandleSkipToQuestionFromIntro={handleSkipToQuestionFromIntro}
             onTogglePreview={handleTogglePreviewMenu}
             onToggleQuestion={handleToggleQuestion}
             questionToPreview={questionToPreview}
@@ -76,8 +70,7 @@ const PageLayout: React.StatelessComponent<{}> = (props: any) => {
           switchedBackToPreview: switchedBackToPreview,
           handleToggleQuestion: handleToggleQuestion,
           previewMode: showPreview,
-          questionToPreview: questionToPreview,
-          skippedToQuestionFromIntro: skippedToQuestionFromIntro
+          questionToPreview: questionToPreview
           })}</div>
       </div>
     </div>

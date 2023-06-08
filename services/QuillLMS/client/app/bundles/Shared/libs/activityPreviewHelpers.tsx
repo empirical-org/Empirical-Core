@@ -1,10 +1,11 @@
 import * as React from 'react';
 import { stripHtml } from "string-strip-html";
 import clip from "text-clipper";
-import ReactHtmlParser, { convertNodeToElement } from 'react-html-parser';
+import ReactHtmlParser from 'react-html-parser';
 
-import { Feedback, getLatestAttempt } from '../../Shared/index';
+import { BECAUSE, BUT, Feedback, SO, getLatestAttempt } from '../../Shared/index';
 import { QuestionObject, Activity } from '../interfaces';
+import { PromptInterface } from '../../Staff/interfaces/evidenceInterfaces';
 
 export const getCurrentQuestion = ({ action, answeredQuestions, questionSet, unansweredQuestions }) => {
   const { data, question } = action;
@@ -284,7 +285,7 @@ function transformNode(node, index) {
   }
 }
 
-const renderPassageAndPrompts = ({ passage, prompts, textIsExpanded, toggleExpandedText, handleQuestionUpdate }) => {
+const renderPassageAndPrompts = ({ passage, prompts, textIsExpanded, toggleExpandedText, handleEvidenceStepUpdate }) => {
   if(!passage || !prompts) { return }
 
   const { text } = passage;
@@ -302,10 +303,10 @@ const renderPassageAndPrompts = ({ passage, prompts, textIsExpanded, toggleExpan
       <section className="prompt-preview-section">
         <i className="prompt-preview-instructions">Directions: Use information from the text to finish the sentence. Put the information in your own words.</i>
         <ul className="evidence-prompts">
-          {prompts.map((prompt, i) => {
-            const { id, text } = prompt;
+          {prompts.map((prompt: PromptInterface) => {
+            const { text, conjunction } = prompt;
             return (
-              <button className={`question-container focus-on-light`} id={id} key={id} onClick={handleQuestionUpdate} type="button">
+              <button className={`question-container focus-on-light`} id={conjunction} key={conjunction} onClick={handleEvidenceStepUpdate} type="button">
                 <p className="question-text">{text}</p>
               </button>
             )
@@ -316,7 +317,7 @@ const renderPassageAndPrompts = ({ passage, prompts, textIsExpanded, toggleExpan
   )
 }
 
-export const renderEvidenceActivityContent = ({ activity, toggleExpandedText, textIsExpanded, handleQuestionUpdate }) => {
+export const renderEvidenceActivityContent = ({ activity, toggleExpandedText, textIsExpanded, handleEvidenceStepUpdate }) => {
 
   if(!activity) { return }
 
@@ -327,33 +328,39 @@ export const renderEvidenceActivityContent = ({ activity, toggleExpandedText, te
       <section className="evidence-content-section">
         <h2>What Students Will Do</h2>
         <ul className="activity-steps-overivew">
-          <li>Learn about Reading for Evidence.</li>
-          <li>See a checklist of the steps of the activity.</li>
-          <li>Read a text and highlight sentences.</li>
+          <li>
+            <button className="interactive-wrapper" onClick={handleEvidenceStepUpdate} id="introduction">Learn about Reading for Evidence.</button>
+          </li>
+          <li>
+            <button className="interactive-wrapper" onClick={handleEvidenceStepUpdate} id="checklist">See a checklist of the steps of the activity.</button>
+          </li>
+          <li>
+            <button className="interactive-wrapper" onClick={handleEvidenceStepUpdate} id="read-and-highlight">Read a text and highlight sentences.</button>
+          </li>
           <li>Expand 3 sentence stems about the text using...</li>
         </ul>
         <ul>
           <li>
-            <button className={`question-container focus-on-light`} id={prompts[0].id} key={prompts[0].id} onClick={handleQuestionUpdate} type="button">
+            <button className={`question-container focus-on-light`} id={BECAUSE} onClick={handleEvidenceStepUpdate} type="button">
               <p className="question-number">1. </p>
               <p className="question-text">“because” to give a reason</p>
             </button>
           </li>
           <li>
-            <button className={`question-container focus-on-light`} id={prompts[1].id} key={prompts[1].id} onClick={handleQuestionUpdate} type="button">
+            <button className={`question-container focus-on-light`} id={BUT} onClick={handleEvidenceStepUpdate} type="button">
               <p className="question-number">2. </p>
               <p className="question-text">“but” to give an opposing idea</p>
             </button>
           </li>
           <li>
-            <button className={`question-container focus-on-light`} id={prompts[2].id} key={prompts[2].id} onClick={handleQuestionUpdate} type="button">
+            <button className={`question-container focus-on-light`} id={SO} onClick={handleEvidenceStepUpdate} type="button">
               <p className="question-number">3. </p>
               <p className="question-text">“so” to give a result</p>
             </button>
           </li>
         </ul>
       </section>
-      {renderPassageAndPrompts({ passage: passages[0], prompts, textIsExpanded, toggleExpandedText, handleQuestionUpdate })}
+      {renderPassageAndPrompts({ passage: passages[0], prompts, textIsExpanded, toggleExpandedText, handleEvidenceStepUpdate })}
     </React.Fragment>
   );
 }

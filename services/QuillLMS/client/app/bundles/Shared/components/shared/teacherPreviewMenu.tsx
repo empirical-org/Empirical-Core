@@ -1,11 +1,11 @@
 import * as React from "react";
 import { connect } from "react-redux";
 import * as Redux from "redux";
-import { stripHtml } from "string-strip-html";
 
 import * as connectActions from '../../../Connect/actions';
 import * as diagnosticActions from '../../../Diagnostic/actions/diagnostics.js';
 import * as grammarActions from '../../../Grammar/actions/session';
+import * as evidenceActions from '../../../Evidence/actions/session';
 import { Question } from '../../../Grammar/interfaces/questions';
 import {
   returnActivity,
@@ -16,6 +16,7 @@ import {
   renderQuestions,
   renderEvidenceActivityContent
 } from "../../libs";
+import { BECAUSE, BUT, SO } from "../../utils/constants";
 
 interface Activity {
   title?: string;
@@ -40,7 +41,7 @@ interface TeacherPreviewMenuProps {
   dispatch: Function;
   fillInBlank: any[];
   isOnMobile: boolean;
-  onHandleSkipToQuestionFromIntro: () => void;
+  onHandleSkipToQuestionFromIntro?: () => void;
   onTogglePreview?: () => void;
   onToggleQuestion?: (question: Question) => void;
   lesson: any;
@@ -103,6 +104,11 @@ const TeacherPreviewMenuComponent = ({
     onToggleQuestion(question);
   }
 
+  const handleEvidenceStepUpdate = (e: React.SyntheticEvent) => {
+    const evidenceStep = e.currentTarget.id;
+    dispatch(evidenceActions.setPreviewSessionStep(evidenceStep))
+  }
+
   const hiddenStyle = !showPreview ? 'hidden' : '';
 
   return (
@@ -139,7 +145,7 @@ const TeacherPreviewMenuComponent = ({
       </section>}
       {isEvidenceActivity && renderEvidenceActivityContent({
         activity,
-        handleQuestionUpdate,
+        handleEvidenceStepUpdate,
         toggleExpandedText,
         textIsExpanded
       })}
