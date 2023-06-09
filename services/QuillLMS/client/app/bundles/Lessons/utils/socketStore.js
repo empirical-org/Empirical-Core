@@ -4,7 +4,7 @@ class SocketStore {
   constructor() {
     this.instance = null;
     this.classroomUnitId = null;
-    this.tokenUrl = `${process.env.VITE_DEFAULT_URL}/api/v1/lessons_tokens`;
+    this.tokenUrl = `${process.env.DEFAULT_URL}/api/v1/lessons_tokens`;
     this.socketsUrl = process.env.VITE_LESSONS_WEBSOCKETS_URL;
     this.token = null;
   }

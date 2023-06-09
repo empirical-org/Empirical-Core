@@ -10,11 +10,11 @@ import { requestPost, } from '../../../../../../modules/request';
 import { EVIDENCE, LESSONS } from '../../../../../Shared';
 import ActivityDisclaimerBanner from '../../../shared/activityDisclaimerBanner';
 
-const searchIconSrc = `${process.env.VITE_PROCESS_ENV_CDN_URL}/images/icons/search.svg`
-const closeIconSrc = `${process.env.VITE_PROCESS_ENV_CDN_URL}/images/icons/close.svg`
-const filterIconSrc = `${process.env.VITE_PROCESS_ENV_CDN_URL}/images/icons/icons-filter.svg`
-const sortIconSrc = `${process.env.VITE_PROCESS_ENV_CDN_URL}/images/icons/icons-sort.svg`
-const emptySearchSrc = `${process.env.VITE_PROCESS_ENV_CDN_URL}/images/illustrations/search-empty.svg`
+const searchIconSrc = `${process.env.CDN_URL}/images/icons/search.svg`
+const closeIconSrc = `${process.env.CDN_URL}/images/icons/close.svg`
+const filterIconSrc = `${process.env.CDN_URL}/images/icons/icons-filter.svg`
+const sortIconSrc = `${process.env.CDN_URL}/images/icons/icons-sort.svg`
+const emptySearchSrc = `${process.env.CDN_URL}/images/illustrations/search-empty.svg`
 
 interface ActivityTableContainerProps {
   filteredActivities: Activity[],

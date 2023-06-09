@@ -43,7 +43,7 @@ const TutorialIndex = ({}) => {
 
   function finishTutorial() {
     if (params.tool === LESSONS) {
-      requestPost(`${process.env.VITE_DEFAULT_URL}/milestones/complete_view_lesson_tutorial`)
+      requestPost(`${process.env.DEFAULT_URL}/milestones/complete_view_lesson_tutorial`)
     }
   }
 

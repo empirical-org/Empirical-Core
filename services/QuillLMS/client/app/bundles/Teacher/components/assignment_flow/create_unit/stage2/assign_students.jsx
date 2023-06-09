@@ -15,11 +15,11 @@ import LinkGoogleAccountModal from '../../../classrooms/link_google_account_moda
 import ReauthorizeCleverModal from '../../../classrooms/reauthorize_clever_modal';
 import ButtonLoadingIndicator from '../../../shared/button_loading_indicator';
 
-const cleverIconSrc = `${process.env.VITE_PROCESS_ENV_CDN_URL}/images/icons/clever.svg`
-const googleClassroomIconSrc = `${process.env.VITE_PROCESS_ENV_CDN_URL}/images/icons/google-classroom.svg`
-const emptyClassSrc = `${process.env.VITE_PROCESS_ENV_CDN_URL}/images/illustrations/empty-class.svg`
-const smallWhiteCheckSrc = `${process.env.VITE_PROCESS_ENV_CDN_URL}/images/shared/check-small-white.svg`
-const indeterminateSrc = `${process.env.VITE_PROCESS_ENV_CDN_URL}/images/icons/indeterminate.svg`
+const cleverIconSrc = `${process.env.CDN_URL}/images/icons/clever.svg`
+const googleClassroomIconSrc = `${process.env.CDN_URL}/images/icons/google-classroom.svg`
+const emptyClassSrc = `${process.env.CDN_URL}/images/illustrations/empty-class.svg`
+const smallWhiteCheckSrc = `${process.env.CDN_URL}/images/shared/check-small-white.svg`
+const indeterminateSrc = `${process.env.CDN_URL}/images/icons/indeterminate.svg`
 
 export const createAClassForm = 'createAClassForm'
 export const importCleverClassroomsModal = 'importCleverClassroomsModal'
@@ -91,7 +91,7 @@ export default class AssignStudents extends React.Component {
   initializePusherForCleverClassrooms(userId) {
     if (process.env.RAILS_ENV === 'development') { Pusher.logToConsole = true }
 
-    const pusher = new Pusher(process.env.VITE_PROCESS_ENV_PUSHER_KEY, { encrypted: true, });
+    const pusher = new Pusher(process.env.PUSHER_KEY, { encrypted: true, });
     const channelName = String(userId)
     const channel = pusher.subscribe(channelName);
     const that = this
@@ -131,7 +131,7 @@ export default class AssignStudents extends React.Component {
     if (process.env.RAILS_ENV === 'development') {
       Pusher.logToConsole = true;
     }
-    const pusher = new Pusher(process.env.VITE_PROCESS_ENV_PUSHER_KEY, { encrypted: true, });
+    const pusher = new Pusher(process.env.PUSHER_KEY, { encrypted: true, });
     const channelName = String(id)
     const channel = pusher.subscribe(channelName);
     const that = this;

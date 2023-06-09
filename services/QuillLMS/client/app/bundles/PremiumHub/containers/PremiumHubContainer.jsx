@@ -35,7 +35,7 @@ const PremiumHubContainer = ({ id, location, children, }) => {
 
   function getData() {
     requestGet(
-      `${process.env.VITE_DEFAULT_URL}/admins/${id}/admin_info`,
+      `${process.env.DEFAULT_URL}/admins/${id}/admin_info`,
       (body) => {
         setAdminInfo(body)
         setLoading(false)

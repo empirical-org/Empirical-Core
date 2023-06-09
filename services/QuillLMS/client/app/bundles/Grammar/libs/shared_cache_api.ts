@@ -1,6 +1,6 @@
 import { requestDelete, requestGet, requestPut } from '../../../modules/request/index';
 
-const sharedCacheApiBaseUrl = `${process.env.VITE_DEFAULT_URL}/api/v1/shared_cache`;
+const sharedCacheApiBaseUrl = `${process.env.DEFAULT_URL}/api/v1/shared_cache`;
 
 class SharedCacheApi {
   static get(uid: string): Promise<object> {

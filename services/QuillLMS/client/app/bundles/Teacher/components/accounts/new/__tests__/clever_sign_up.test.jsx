@@ -4,7 +4,7 @@ import React from 'react';
 import CleverSignUp from '../clever_sign_up';
 
 import processEnvMock from '../../../../../../../__mocks__/processEnvMock.js';
-window.process.env.VITE_PROCESS_ENV_CDN_URL = processEnvMock.env.CDN_URL;
+window.process.env.CDN_URL = processEnvMock.env.CDN_URL;
 
 describe('CleverSignUp component', () => {
 

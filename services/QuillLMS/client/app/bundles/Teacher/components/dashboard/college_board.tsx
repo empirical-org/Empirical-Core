@@ -2,7 +2,7 @@ import * as React from 'react'
 
 import { arrowPointingRightIcon, helpIcon, } from '../../../Shared/index'
 
-const collegeBoardQuillLogoSrc = `${process.env.VITE_PROCESS_ENV_CDN_URL}/images/pages/dashboard/logo-quill-collegeboard.svg`
+const collegeBoardQuillLogoSrc = `${process.env.CDN_URL}/images/pages/dashboard/logo-quill-collegeboard.svg`
 
 const CollegeBoard = () => (
   <section className="college-board">

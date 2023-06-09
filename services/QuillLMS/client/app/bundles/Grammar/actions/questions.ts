@@ -41,7 +41,7 @@ export const getQuestion = (questionID: string) => {
 }
 
 export const getGradedResponsesWithCallback = (questionID: string, callback: Function) => {
-  requestGet(`${process.env.VITE_CMS_URL}/questions/${questionID}/responses`, (body) => {
+  requestGet(`${process.env.CMS_URL}/questions/${questionID}/responses`, (body) => {
     const bodyToObj: {[key: string]: Response} = {};
     body.forEach((resp: Response) => {
       bodyToObj[resp.id] = resp;
@@ -84,7 +84,7 @@ export const searchResponses = (qid: string) => {
     const requestNumber = getState().filters.requestCount
     // check for request number in state, save as const
     requestPost(
-      `${process.env.VITE_CMS_URL}/questions/${qid}/responses/search`,
+      `${process.env.CMS_URL}/questions/${qid}/responses/search`,
       { search: getFormattedSearchData(getState()), },
       (data) => {
         // check again for number in state
@@ -126,7 +126,7 @@ export const initializeSubscription = (qid: string) => {
       Pusher.logToConsole = true;
     }
     if (!window.pusher) {
-      window.pusher = new Pusher(process.env.VITE_PROCESS_ENV_PUSHER_KEY, { encrypted: true, });
+      window.pusher = new Pusher(process.env.PUSHER_KEY, { encrypted: true, });
     }
     const channel = window.pusher.subscribe(`admin-${qid}`);
     channel.bind('new-response', (data) => {

@@ -7,7 +7,7 @@ import Cues from '../renderForQuestions/cues.tsx';
 import EditFillInBlank from './editFillInBlank.jsx';
 import TestFillInBlankQuestionContainer from './testFillInBlankQuestionContainer.jsx';
 
-const icon = `${process.env.VITE_PROCESS_ENV_CDN_URL}/images/icons/direction.svg`
+const icon = `${process.env.CDN_URL}/images/icons/direction.svg`
 
 class FillInBlankQuestion extends Component {
 

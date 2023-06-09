@@ -56,7 +56,7 @@ export const ArticleSpotlight = ({ backgroundColor, blogPostId } : ArticleSpotli
 
   if(!blogPost) { return <span /> }
 
-  const teacherCenterBaseUrl = `${process.env.VITE_DEFAULT_URL}/teacher-center`;
+  const teacherCenterBaseUrl = `${process.env.DEFAULT_URL}/teacher-center`;
   const backgroundColorStyle = backgroundColor ? { backgroundColor: backgroundColor } : {};
 
   return(

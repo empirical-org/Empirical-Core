@@ -12,7 +12,7 @@ const AdminRequestModal = ({ onSuccess, schoolAdmins, closeModal, }) => {
   function handleChangeReason(e) { setReason(e.target.value) }
 
   function handleClickSendRequest() {
-    requestPost(`${process.env.VITE_DEFAULT_URL}/admin_access/request_upgrade_to_admin_from_existing_admins`, {
+    requestPost(`${process.env.DEFAULT_URL}/admin_access/request_upgrade_to_admin_from_existing_admins`, {
       admin_ids: selectedAdminIds,
       new_user: false,
       reason

@@ -23,7 +23,7 @@ import EditForm from './questionForm.jsx';
 import ResponseComponentWrapper from './responseRouteWrapper.jsx';
 import TestQuestionContainer from './testQuestion';
 
-const icon = `${process.env.VITE_PROCESS_ENV_CDN_URL}/images/icons/direction.svg`
+const icon = `${process.env.CDN_URL}/images/icons/direction.svg`
 
 export class Question extends React.Component {
   constructor(props) {

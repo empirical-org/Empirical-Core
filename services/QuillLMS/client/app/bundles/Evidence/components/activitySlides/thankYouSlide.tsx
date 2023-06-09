@@ -2,7 +2,7 @@ import * as React from 'react'
 
 import useFocus from '../../../Shared/hooks/useFocus'
 
-const applaudingSrc = `${process.env.VITE_PROCESS_ENV_CDN_URL}/images/pages/evidence/applauding.svg`
+const applaudingSrc = `${process.env.CDN_URL}/images/pages/evidence/applauding.svg`
 
 const ThankYouSlide = () => {
   const [containerRef, setContainerFocus] = useFocus()
@@ -12,7 +12,7 @@ const ThankYouSlide = () => {
   }, [])
 
   const backToDashboard = () => {
-    window.location.href = process.env.VITE_DEFAULT_URL
+    window.location.href = process.env.DEFAULT_URL
   }
 
   return (
@@ -25,7 +25,7 @@ const ThankYouSlide = () => {
         <img alt="Two hands clapping together" src={applaudingSrc} />
       </div>
       <div className="button-section">
-        <a className='quill-button large secondary outlined focus-on-dark' href={process.env.VITE_DEFAULT_URL} onClick={backToDashboard}>Back to my dashboard</a>
+        <a className='quill-button large secondary outlined focus-on-dark' href={process.env.DEFAULT_URL} onClick={backToDashboard}>Back to my dashboard</a>
       </div>
     </div>
   )

@@ -44,7 +44,7 @@ function fullyQualifiedUrl(url) {
   if (fullUrlTest.test(url)) {
     return url;
   }
-  return `${process.env.VITE_DEFAULT_URL}${url}`;
+  return `${process.env.DEFAULT_URL}${url}`;
 }
 
 function addCsrfHeaders(headers = {}) {

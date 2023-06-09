@@ -41,7 +41,7 @@ class SignUpStudent extends React.Component {
     const emailToSubmit = email && email.length ? email : null
     e.preventDefault();
     requestPost(
-      `${process.env.VITE_DEFAULT_URL}/account`,
+      `${process.env.DEFAULT_URL}/account`,
       {
         user: {
           name: `${firstName} ${lastName}`,
@@ -53,7 +53,7 @@ class SignUpStudent extends React.Component {
         }
       },
       (body) => {
-        window.location = `${process.env.VITE_DEFAULT_URL}${body.redirect}`;
+        window.location = `${process.env.DEFAULT_URL}${body.redirect}`;
       },
       (body) => {
         let state

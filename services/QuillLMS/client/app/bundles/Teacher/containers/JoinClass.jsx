@@ -4,7 +4,7 @@ import { Input, } from '../../Shared/index'
 import getAuthToken from '../components/modules/get_auth_token'
 import LoadingIndicator from '../components/shared/loading_indicator'
 
-const bulbSrc = `${process.env.VITE_PROCESS_ENV_CDN_URL}/images/onboarding/bulb.svg`
+const bulbSrc = `${process.env.CDN_URL}/images/onboarding/bulb.svg`
 
 export default class JoinClass extends React.Component {
   constructor(props) {
@@ -28,7 +28,7 @@ export default class JoinClass extends React.Component {
     // this.setState({ loading: true, })
     const data = new FormData()
     data.append('classcode', classCodeInput)
-    fetch(`${process.env.VITE_DEFAULT_URL}/students_classrooms`, {
+    fetch(`${process.env.DEFAULT_URL}/students_classrooms`, {
       method: 'POST',
       mode: 'cors',
       credentials: 'include',

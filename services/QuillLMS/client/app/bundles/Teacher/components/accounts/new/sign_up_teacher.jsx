@@ -51,7 +51,7 @@ class SignUpTeacher extends React.Component {
     const isAdmin = window.location.href.includes(ADMIN)
 
     requestPost(
-      `${process.env.VITE_DEFAULT_URL}/account`,
+      `${process.env.DEFAULT_URL}/account`,
       {
         user: {
           name: `${firstName} ${lastName}`,

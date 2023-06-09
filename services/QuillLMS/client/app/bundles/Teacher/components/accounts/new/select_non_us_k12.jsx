@@ -4,11 +4,11 @@ import { Card } from '../../../../Shared/index';
 import { requestPut, } from '../../../../../modules/request/index';
 import AssignActivityPackBanner from '../assignActivityPackBanner';
 
-const homeSchoolSrc = `${process.env.VITE_PROCESS_ENV_CDN_URL}/images/onboarding/home-building.svg`
-const internationalSrc = `${process.env.VITE_PROCESS_ENV_CDN_URL}/images/onboarding/globe.svg`
-const higherEdSrc = `${process.env.VITE_PROCESS_ENV_CDN_URL}/images/onboarding/school-campus.svg`
-const otherSrc = `${process.env.VITE_PROCESS_ENV_CDN_URL}/images/onboarding/business-building.svg`
-const mapSearchImgSrc = `${process.env.VITE_PROCESS_ENV_CDN_URL}/images/accounts/map-search.svg`
+const homeSchoolSrc = `${process.env.CDN_URL}/images/onboarding/home-building.svg`
+const internationalSrc = `${process.env.CDN_URL}/images/onboarding/globe.svg`
+const higherEdSrc = `${process.env.CDN_URL}/images/onboarding/school-campus.svg`
+const otherSrc = `${process.env.CDN_URL}/images/onboarding/business-building.svg`
+const mapSearchImgSrc = `${process.env.CDN_URL}/images/accounts/map-search.svg`
 
 class SelectUSNonK12 extends React.Component {
   componentDidMount() {
@@ -25,7 +25,7 @@ class SelectUSNonK12 extends React.Component {
 
   selectSchool = (idOrType) => {
     requestPut(
-      `${process.env.VITE_DEFAULT_URL}/select_school`,
+      `${process.env.DEFAULT_URL}/select_school`,
       { school_id_or_type: idOrType, },
       (body) => {
         window.location = '/sign-up/add-teacher-info'

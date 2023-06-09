@@ -6,7 +6,7 @@ import useSnackbarMonitor from '../../../../Shared/hooks/useSnackbarMonitor';
 import { ADMIN, Snackbar, Spinner, defaultSnackbarTimeout, } from '../../../../Shared/index';
 import AssignActivityPackBanner from '../assignActivityPackBanner';
 
-const emailVerificationSrc = `${process.env.VITE_PROCESS_ENV_CDN_URL}/images/onboarding/email_verification.svg`
+const emailVerificationSrc = `${process.env.CDN_URL}/images/onboarding/email_verification.svg`
 
 const VerifyEmail = ({ user, location, }) => {
   const token = qs.parse(location.search.replace('?', '')).token
@@ -32,14 +32,14 @@ const VerifyEmail = ({ user, location, }) => {
   }
 
   function resendVerification() {
-    requestPut(`${process.env.VITE_DEFAULT_URL}/verify_emails/resend_verification_email`, {}, () => {
+    requestPut(`${process.env.DEFAULT_URL}/verify_emails/resend_verification_email`, {}, () => {
       setSnackbarText(`We sent another verification email to ${user.email}`)
       setShowSnackbar(true)
     })
   }
 
   function verifyToken() {
-    requestPut(`${process.env.VITE_DEFAULT_URL}/verify_emails/verify_by_token`, { token, },
+    requestPut(`${process.env.DEFAULT_URL}/verify_emails/verify_by_token`, { token, },
       () => {
         window.location.href = user.role === ADMIN ? '/sign-up/select-sub-role' : '/profile'
       },

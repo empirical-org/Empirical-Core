@@ -25,7 +25,7 @@ import NewIncorrectSequenceContainer from './newIncorrectSequenceContainer';
 import EditForm from './questionForm';
 import ResponseComponentWrapper from './responseRouteWrapper';
 import TestQuestion from './testQuestion';
-const icon = `${process.env.VITE_PROCESS_ENV_CDN_URL}/images/icons/question_icon.svg`
+const icon = `${process.env.CDN_URL}/images/icons/question_icon.svg`
 
 interface AdminQuestionProps {
   dispatch: Function,

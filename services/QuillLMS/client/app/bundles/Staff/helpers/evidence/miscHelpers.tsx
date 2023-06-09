@@ -480,11 +480,11 @@ export function addCommasToThousands(num)
 }
 
 export function getLinkToActivity(id) {
-  return `${process.env.VITE_DEFAULT_URL}/cms/evidence#/activities/${id}/settings`
+  return `${process.env.DEFAULT_URL}/cms/evidence#/activities/${id}/settings`
 }
 
 export function getLinkToPrompt(activity_id, conjunction) {
-  return `${process.env.VITE_DEFAULT_URL}/cms/evidence#/activities/${activity_id}/rules-analysis/${conjunction}?selected_rule_type=All%20Rules`
+  return `${process.env.DEFAULT_URL}/cms/evidence#/activities/${activity_id}/rules-analysis/${conjunction}?selected_rule_type=All%20Rules`
 }
 
 export function secondsToHumanReadableTime(seconds) {
