@@ -596,8 +596,9 @@ EmpiricalGrammar::Application.routes.draw do
   end
 
   namespace :canvas_integration do
-    get 'lti/launch_config.xml' => 'lti#launch_config'
-    post 'lti/launch' => 'lti#launch'
+    get '/lti/launch_config.xml' => 'lti#launch_config'
+    post '/lti/launch' => 'lti#launch'
+    get '/lti/sso', to: 'lti#sso'
   end
 
   namespace :clever_integration do

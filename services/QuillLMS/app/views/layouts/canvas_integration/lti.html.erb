@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <%= csrf_meta_tags %>
+  </head>
+
+  <body>
+    <div style='background-color:green'>
+      <a aria-label='Quill' class='focus-on-dark' href='https://www.quill.org/'>
+        <img src='https://assets.quill.org/images/logos/quill-logo-white-2022.svg' alt='Quill.org logo'>
+      </a>
+
+      <br/>
+      <br/>
+    </div>
+
+    <div class='account-container text-center'>
+      <br />
+      <%= yield %>
+    </div>
+  </body>
+</html>
