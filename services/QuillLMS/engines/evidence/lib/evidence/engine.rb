@@ -1,7 +1,12 @@
 # frozen_string_literal: true
 
 # require_relative '../quill_scaffold_controller'
-require 'factory_bot_rails' unless Rails.env.production?
+begin
+  require 'factory_bot_rails'
+rescue LoadError
+  # factory_bot_rails is only available when development_dependencies
+  # from the gemspec are loaded (development and test environments).
+end
 
 module Evidence
   class Engine < ::Rails::Engine
@@ -23,7 +28,7 @@ module Evidence
       g.fallbacks[:shoulda] = :test_unit
     end
 
-    unless Rails.env.production?
+    if defined?(FactoryBot)
       initializer "evidence.factories", after: "factory_bot.set_factory_paths" do
         FactoryBot.definition_file_paths << File.expand_path('../../../spec/factories/evidence', __FILE__)
       end
