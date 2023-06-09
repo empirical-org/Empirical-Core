@@ -5,7 +5,7 @@ module CanvasIntegration
     # launch is loaded within Canvas in an iframe muddling the CSRF token
     skip_before_action :verify_authenticity_token, only: :launch
 
-    SSO_LINK_TEXT = 'This link will redirect you to Quill.org for SSO'
+    SSO_LINK_TEXT = 'Log in to Quill.org with your Canvas credentials'
 
     def launch
       @link_text = SSO_LINK_TEXT
