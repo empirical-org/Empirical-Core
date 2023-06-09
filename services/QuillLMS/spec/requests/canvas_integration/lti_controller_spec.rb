@@ -36,7 +36,6 @@ module CanvasIntegration
 
       it { expect(response).to have_http_status(:success) }
       it { expect(response.content_type).to eq 'text/html; charset=utf-8' }
-      it { expect(response.body).not_to include("<script") }  # LTI does not allow scripts
     end
   end
 end

@@ -1,1 +1,10 @@
-<%= button_to @button_text, @button_url, params: { canvas_instance_id: @canvas_instance_id } %>
+<% button_id = 'redirect_to_canvas_to_verify_credentials' %>
+
+<span>You be will redirected to Canvas to verify credentials...please wait.</span>
+<%= button_to @button_text, @button_url, id: button_id, params: { canvas_instance_id: @canvas_instance_id } %>
+
+<script type='text/javascript'>
+  document.addEventListener('DOMContentLoaded', function() {
+    document.getElementById("<%= button_id %>").click();
+  });
+</script>

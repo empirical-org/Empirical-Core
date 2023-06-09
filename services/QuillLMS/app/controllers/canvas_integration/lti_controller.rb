@@ -7,12 +7,12 @@ module CanvasIntegration
 
     layout 'canvas_integration/lti'
 
-    LAUNCH_TEXT = 'This link will redirect you to Quill.org for SSO'
-    SSO_TEXT = 'Log into Quill with your Canvas account (SSO)'
+    LAUNCH_TEXT = 'Log in to Quill.org with your Canvas credentials'
+    SSO_BUTTON_TEXT = 'Click here if you are not redirected automatically.'
 
     def launch
       @link_text = LAUNCH_TEXT
-      @link_url = canvas_integration_lti_sso_path(canvas_instance_url: params[:custom_canvas_api_domain])
+      @link_url = canvas_integration_lti_sso_path(canvas_instance_url: params[:custom_canvas_api_baseurl])
     end
 
     def launch_config
@@ -21,7 +21,7 @@ module CanvasIntegration
 
     def sso
       @canvas_instance_id = CanvasInstance.find_by(url: params[:canvas_instance_url])&.id
-      @button_text = SSO_TEXT
+      @button_text = SSO_BUTTON_TEXT
       @button_url = Auth::Canvas::ACCESS_PATH
     end
   end
