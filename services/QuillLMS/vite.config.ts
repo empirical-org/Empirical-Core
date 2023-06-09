@@ -1,5 +1,6 @@
 import { viteCommonjs } from '@originjs/vite-plugin-commonjs';
 //import react from '@vitejs/plugin-react';
+import replace from '@rollup/plugin-replace';
 import fs from 'fs/promises';
 import path, { resolve } from 'path';
 import friendlyTypeImports from 'rollup-plugin-friendly-type-imports';
@@ -52,6 +53,10 @@ export default defineConfig(({command, mode}) => {
 
     },
     plugins: [
+      replace({
+        'process.env.NODE_ENV': JSON.stringify('production'),
+        'process.env.BAR': JSON.stringify('foo')
+      }),
       requireTransform(),
       viteCommonjs(),
       friendlyTypeImports(),

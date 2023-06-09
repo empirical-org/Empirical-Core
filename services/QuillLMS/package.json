@@ -62,6 +62,7 @@
   "devDependencies": {
     "@originjs/vite-plugin-commonjs": "^1.0.3",
     "@vitejs/plugin-react": "^3.1.0",
+    "@rollup/plugin-replace": "^5.0.2",
     "autoprefixer": "^10.4.13",
     "qs": "^6.9.0",
     "redux-test-utils": "^0.2.2",
