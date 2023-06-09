@@ -58,10 +58,6 @@ RSpec.configure do |config|
   config.filter_run_excluding benchmarking: true
 end
 
-factory_files = Dir.glob('spec/factories/evidence/*')
-
-factory_files.each {|f| require File.expand_path(File.join(Rails.root, '..', '..', f))}
-
 Shoulda::Matchers.configure do |config|
   config.integrate do |with|
     with.test_framework :rspec
