@@ -3,7 +3,7 @@
 module CanvasIntegration
   class LtiController < ApplicationController
     # launch is loaded within Canvas in an iframe muddling the CSRF token
-    skip_before_action :verify_authenticity_token, only: [:launch, :sso]
+    skip_before_action :verify_authenticity_token, only: [:launch]
 
     layout 'canvas_integration/lti'
 
