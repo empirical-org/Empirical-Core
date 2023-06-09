@@ -4,6 +4,8 @@
 begin
   require 'factory_bot_rails'
 rescue LoadError
+  # factory_bot_rails is only available when development_dependencies
+  # from the gemspec are loaded (development and test environments).
 end
 
 module Evidence
