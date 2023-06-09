@@ -9,27 +9,27 @@ import PlaySentenceFragment from './sentenceFragment.jsx';
 
 import { requestPost, requestPut, } from '../../../../modules/request/index';
 import {
-  CLICK,
-  CarouselAnimation,
-  KEYDOWN,
-  KEYPRESS,
-  MOUSEDOWN,
-  MOUSEMOVE,
-  PlayTitleCard,
-  ProgressBar,
-  SCROLL,
-  SmartSpinner,
-  TeacherPreviewMenuButton,
-  VISIBILITYCHANGE,
-  hashToCollection,
-  roundValuesToSeconds,
+    CLICK,
+    CarouselAnimation,
+    KEYDOWN,
+    KEYPRESS,
+    MOUSEDOWN,
+    MOUSEMOVE,
+    PlayTitleCard,
+    ProgressBar,
+    SCROLL,
+    SmartSpinner,
+    TeacherPreviewMenuButton,
+    VISIBILITYCHANGE,
+    hashToCollection,
+    roundValuesToSeconds,
 } from '../../../Shared/index';
 import { clearData, loadData, nextQuestion, resumePreviousDiagnosticSession, setCurrentQuestion, setDiagnosticID, submitResponse, updateCurrentQuestion } from '../../actions/diagnostics.js';
 import SessionActions from '../../actions/sessions.js';
 import {
-  answeredQuestionCount,
-  getProgressPercent,
-  questionCount
+    answeredQuestionCount,
+    getProgressPercent,
+    questionCount
 } from '../../libs/calculateProgress';
 import { getConceptResultsForAllQuestions } from '../../libs/conceptResults/diagnostic';
 import { getParameterByName } from '../../libs/getParameterByName';
@@ -202,7 +202,7 @@ export class StudentDiagnostic extends React.Component {
 
   finishActivitySession = (sessionID, results, score, data) => {
     requestPut(
-      `${import.meta.env.VITE_DEFAULT_URL}/api/v1/activity_sessions/${sessionID}`,
+      `${process.env.VITE_DEFAULT_URL}/api/v1/activity_sessions/${sessionID}`,
       {
         state: 'finished',
         concept_results: results,
@@ -210,7 +210,7 @@ export class StudentDiagnostic extends React.Component {
         data
       },
       (body) => {
-        document.location.href = import.meta.env.VITE_DEFAULT_URL;
+        document.location.href = process.env.VITE_DEFAULT_URL;
         this.setState({ saved: true, });
       },
       (body) => {
@@ -224,7 +224,7 @@ export class StudentDiagnostic extends React.Component {
 
   createAnonActivitySession = (lessonID, results, score, data) => {
     requestPost(
-      `${import.meta.env.VITE_DEFAULT_URL}/api/v1/activity_sessions/`,
+      `${process.env.VITE_DEFAULT_URL}/api/v1/activity_sessions/`,
       {
         state: 'finished',
         activity_uid: lessonID,
@@ -233,7 +233,7 @@ export class StudentDiagnostic extends React.Component {
         data
       },
       (body) => {
-        document.location.href = import.meta.env.VITE_DEFAULT_URL;
+        document.location.href = process.env.VITE_DEFAULT_URL;
         this.setState({ saved: true, });
       }
     )

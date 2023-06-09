@@ -5,8 +5,8 @@ import _ from 'underscore';
 import { Modal, UploadOptimalResponses, } from '../../../Shared/index';
 import questionActions from '../../actions/questions';
 import {
-  submitOptimalResponses,
-  submitResponse
+    submitOptimalResponses,
+    submitResponse
 } from '../../actions/responses';
 import C from '../../constants';
 import EditFocusPointsContainer from '../focusPoints/editFocusPointsContainer.jsx';
@@ -23,7 +23,7 @@ import EditForm from './questionForm.jsx';
 import ResponseComponentWrapper from './responseRouteWrapper.jsx';
 import TestQuestionContainer from './testQuestion';
 
-const icon = `${import.meta.env.VITE_PROCESS_ENV_CDN_URL}/images/icons/direction.svg`
+const icon = `${process.env.VITE_PROCESS_ENV_CDN_URL}/images/icons/direction.svg`
 
 export class Question extends React.Component {
   constructor(props) {

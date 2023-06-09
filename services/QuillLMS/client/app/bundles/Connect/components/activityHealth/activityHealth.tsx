@@ -13,7 +13,7 @@ import actions from '../../actions/activityHealth';
 import LoadingSpinner from '../shared/loading_indicator.jsx';
 
 const CONNECT_TOOL = "connect"
-const ACTIVITY_HEALTHS_URL = `${import.meta.env.VITE_DEFAULT_URL}/api/v1/activities/activities_health.json`
+const ACTIVITY_HEALTHS_URL = `${process.env.VITE_DEFAULT_URL}/api/v1/activities/activities_health.json`
 const ALL_FLAGS = "All Flags"
 const NO_DATA_FOUND_MESSAGE = "Activity Health data could not be found. Refresh to try again, or contact the engineering team."
 

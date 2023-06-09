@@ -13,9 +13,9 @@ import { TextEditor, } from '../../../Shared/index';
 import { clearDisplayMessageAndError } from '../../actions/display';
 import * as massEdit from '../../actions/massEdit';
 import {
-  massEditDeleteResponses,
-  submitMassEditConceptResults,
-  submitMassEditFeedback
+    massEditDeleteResponses,
+    submitMassEditConceptResults,
+    submitMassEditFeedback
 } from '../../actions/responses';
 import { Match } from '../../interfaces/match';
 import { DisplayReducerState } from '../../reducers/displayReducer';
@@ -62,7 +62,7 @@ class MassEditContainer extends React.Component<MassEditProps, MassEditState> {
 
   getResponses = () => {
     requestPost(
-      `${import.meta.env.VITE_CMS_URL}/responses/mass_edit/show_many`,
+      `${process.env.VITE_CMS_URL}/responses/mass_edit/show_many`,
       { responses: this.props.massEdit.selectedResponses, },
       (body) => {
         const parsedResponses = _.indexBy(body.responses, 'id');

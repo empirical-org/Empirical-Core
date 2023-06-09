@@ -39,7 +39,7 @@ const LabeledDataUploadForm = ({ history, match }) => {
     acceptedFiles.forEach(file => {
       const data = new FormData()
       data.append('file', file)
-      fetch(`${import.meta.env.VITE_DEFAULT_URL}/cms/csv_uploads`, {
+      fetch(`${process.env.VITE_DEFAULT_URL}/cms/csv_uploads`, {
         method: 'POST',
         mode: 'cors',
         credentials: 'include',

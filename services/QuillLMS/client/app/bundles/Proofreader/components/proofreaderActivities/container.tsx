@@ -5,7 +5,7 @@ import { connect } from "react-redux";
 import * as Redux from "redux";
 import { sentences } from 'sbd';
 
-const directionSrc = `${import.meta.env.VITE_PROCESS_ENV_CDN_URL}/images/icons/direction.svg`
+const directionSrc = `${process.env.VITE_PROCESS_ENV_CDN_URL}/images/icons/direction.svg`
 
 import EarlySubmitModal from './earlySubmitModal';
 import FollowupModal from './followupModal';
@@ -20,23 +20,23 @@ import WelcomePage from './welcomePage';
 
 import { requestPost, requestPut, } from '../../../../modules/request/index';
 import {
-  CLICK,
-  KEYDOWN,
-  KEYPRESS,
-  MOUSEDOWN,
-  MOUSEMOVE,
-  SCROLL,
-  VISIBILITYCHANGE,
-  roundValuesToSeconds,
+    CLICK,
+    KEYDOWN,
+    KEYPRESS,
+    MOUSEDOWN,
+    MOUSEMOVE,
+    SCROLL,
+    VISIBILITYCHANGE,
+    roundValuesToSeconds,
 } from '../../../Shared/index';
 import { startListeningToConcepts } from "../../actions/concepts";
 import { getActivity } from "../../actions/proofreaderActivities";
 import {
-  setPassage,
-  setSessionReducerToSavedSession,
-  updateConceptResultsOnFirebase,
-  updateSessionOnFirebase,
-  updateTimeTracking
+    setPassage,
+    setSessionReducerToSavedSession,
+    updateConceptResultsOnFirebase,
+    updateSessionOnFirebase,
+    updateTimeTracking
 } from "../../actions/session";
 import EditCaretPositioning from '../../helpers/EditCaretPositioning';
 import determineUnnecessaryEditType, { UNNECESSARY_SPACE, unnecessarySpaceSplitResponse, } from '../../helpers/determineUnnecessaryEditType';
@@ -302,7 +302,7 @@ export class PlayProofreaderContainer extends React.Component<PlayProofreaderCon
 
     handleCheckWorkClickSession = (sessionID: string, results: ConceptResultObject[], score: number, data) => {
       requestPut(
-        `${import.meta.env.VITE_DEFAULT_URL}/api/v1/activity_sessions/${sessionID}`,
+        `${process.env.VITE_DEFAULT_URL}/api/v1/activity_sessions/${sessionID}`,
         {
           state: 'finished',
           concept_results: results,
@@ -310,14 +310,14 @@ export class PlayProofreaderContainer extends React.Component<PlayProofreaderCon
           data
         },
         (body) => {
-          document.location.href = `${import.meta.env.VITE_DEFAULT_URL}/activity_sessions/${sessionID}`;
+          document.location.href = `${process.env.VITE_DEFAULT_URL}/activity_sessions/${sessionID}`;
         }
       )
     }
 
     createAnonActivitySession = (lessonID: string, results: ConceptResultObject[], score: number, sessionID: string|null, data) => {
       requestPost(
-        `${import.meta.env.VITE_DEFAULT_URL}/api/v1/activity_sessions/`,
+        `${process.env.VITE_DEFAULT_URL}/api/v1/activity_sessions/`,
         {
           state: 'finished',
           activity_uid: lessonID,
@@ -326,7 +326,7 @@ export class PlayProofreaderContainer extends React.Component<PlayProofreaderCon
           data
         },
         (body) => {
-          document.location.href = `${import.meta.env.VITE_DEFAULT_URL}/activity_sessions/${body.activity_session.uid}`;
+          document.location.href = `${process.env.VITE_DEFAULT_URL}/activity_sessions/${body.activity_session.uid}`;
         }
       )
 
@@ -416,10 +416,10 @@ export class PlayProofreaderContainer extends React.Component<PlayProofreaderCon
 
     goToFollowupPractice = () => {
       const { firebaseSessionID,  } = this.state
-      window.location.href = `${import.meta.env.QUILL_GRAMMAR_URL}/play/sw?proofreaderSessionId=${firebaseSessionID}`
+      window.location.href = `${process.env.QUILL_GRAMMAR_URL}/play/sw?proofreaderSessionId=${firebaseSessionID}`
     }
 
-    goToLMS = () =>  window.location.href = `${import.meta.env.VITE_DEFAULT_URL}`
+    goToLMS = () =>  window.location.href = `${process.env.VITE_DEFAULT_URL}`
 
     finishReview = () => {
       const { firebaseSessionID, originalPassage, conceptResultsObjects, necessaryEdits, numberOfCorrectChanges, } = this.state

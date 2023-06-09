@@ -5,7 +5,7 @@ const SENTENCE_COMBINING_TYPE = 'connect_sentence_combining',
   SENTENCE_FRAGMENTS_TYPE = 'connect_sentence_fragments',
   FILL_IN_BLANKS_TYPE = 'connect_fill_in_blanks'
 
-const questionApiBaseUrl = `${import.meta.env.VITE_DEFAULT_URL}/api/v1/questions`;
+const questionApiBaseUrl = `${process.env.VITE_DEFAULT_URL}/api/v1/questions`;
 
 class QuestionApi {
   static getAll(questionType: string): Promise<Array<Question>> {
@@ -94,12 +94,12 @@ class IncorrectSequenceApi {
 }
 
 export {
-  QuestionApi,
-  FocusPointApi,
-  IncorrectSequenceApi,
-  SENTENCE_COMBINING_TYPE,
-  SENTENCE_FRAGMENTS_TYPE,
-  FILL_IN_BLANKS_TYPE,
-  questionApiBaseUrl
+    QuestionApi,
+    FocusPointApi,
+    IncorrectSequenceApi,
+    SENTENCE_COMBINING_TYPE,
+    SENTENCE_FRAGMENTS_TYPE,
+    FILL_IN_BLANKS_TYPE,
+    questionApiBaseUrl
 };
 

@@ -2,21 +2,21 @@ import moment from 'moment';
 import * as React from 'react';
 
 import {
-  DataTable,
-  Tooltip,
-  closedLockIcon,
-  onMobile,
-  openLockIcon,
+    DataTable,
+    Tooltip,
+    closedLockIcon,
+    onMobile,
+    openLockIcon,
 } from '../../../Shared/index';
 import { formatDateTimeForDisplay, } from '../../helpers/unitActivityDates';
 import activityLaunchLink from '../modules/generate_activity_launch_link.js';
 
-const diagnosticSrc = `${import.meta.env.VITE_PROCESS_ENV_CDN_URL}/images/icons/tool-diagnostic-gray.svg`
-const connectSrc = `${import.meta.env.VITE_PROCESS_ENV_CDN_URL}/images/icons/tool-connect-gray.svg`
-const grammarSrc = `${import.meta.env.VITE_PROCESS_ENV_CDN_URL}/images/icons/tool-grammar-gray.svg`
-const proofreaderSrc = `${import.meta.env.VITE_PROCESS_ENV_CDN_URL}/images/icons/tool-proofreader-gray.svg`
-const lessonsSrc = `${import.meta.env.VITE_PROCESS_ENV_CDN_URL}/images/icons/tool-lessons-gray.svg`
-const evidenceSrc = `${import.meta.env.VITE_PROCESS_ENV_CDN_URL}/images/icons/tool-evidence-gray.svg`
+const diagnosticSrc = `${process.env.VITE_PROCESS_ENV_CDN_URL}/images/icons/tool-diagnostic-gray.svg`
+const connectSrc = `${process.env.VITE_PROCESS_ENV_CDN_URL}/images/icons/tool-connect-gray.svg`
+const grammarSrc = `${process.env.VITE_PROCESS_ENV_CDN_URL}/images/icons/tool-grammar-gray.svg`
+const proofreaderSrc = `${process.env.VITE_PROCESS_ENV_CDN_URL}/images/icons/tool-proofreader-gray.svg`
+const lessonsSrc = `${process.env.VITE_PROCESS_ENV_CDN_URL}/images/icons/tool-lessons-gray.svg`
+const evidenceSrc = `${process.env.VITE_PROCESS_ENV_CDN_URL}/images/icons/tool-evidence-gray.svg`
 
 const CONNECT_ACTIVITY_CLASSIFICATION_KEY = "connect"
 const GRAMMAR_ACTIVITY_CLASSIFICATION_KEY = "sentence"

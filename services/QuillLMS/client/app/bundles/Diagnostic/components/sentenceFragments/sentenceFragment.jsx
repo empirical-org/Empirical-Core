@@ -3,12 +3,12 @@ import { connect } from 'react-redux';
 import { NavLink, Route, Switch, withRouter } from 'react-router-dom';
 
 import {
-  Modal,
-  UploadOptimalResponses,
+    Modal,
+    UploadOptimalResponses,
 } from '../../../Shared/index';
 import {
-  listenToResponsesWithCallback,
-  submitOptimalResponses
+    listenToResponsesWithCallback,
+    submitOptimalResponses
 } from '../../actions/responses';
 import fragmentActions from '../../actions/sentenceFragments.ts';
 import C from '../../constants';
@@ -25,7 +25,7 @@ import ChooseModelContainer from './chooseModelContainer.jsx';
 import EditForm from './sentenceFragmentForm.jsx';
 import TestQuestionContainer from './testSentenceFragmentContainer';
 
-const icon = `${import.meta.env.VITE_PROCESS_ENV_CDN_URL}/images/icons/direction.svg`
+const icon = `${process.env.VITE_PROCESS_ENV_CDN_URL}/images/icons/direction.svg`
 
 
 class SentenceFragment extends React.Component {

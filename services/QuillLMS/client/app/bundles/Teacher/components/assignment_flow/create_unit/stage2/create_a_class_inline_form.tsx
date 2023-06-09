@@ -4,7 +4,7 @@ import { requestGet, requestPost } from '../../../../../../modules/request/index
 import { DropdownInput, Input, } from '../../../../../Shared/index';
 import GradeOptions from '../../../classrooms/grade_options';
 
-const informationSrc = `${import.meta.env.VITE_PROCESS_ENV_CDN_URL}/images/icons/information.svg`
+const informationSrc = `${process.env.VITE_PROCESS_ENV_CDN_URL}/images/icons/information.svg`
 
 interface CreateAClassInlineFormProps {
   onSuccess: (event: any) => void;

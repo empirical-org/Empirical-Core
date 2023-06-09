@@ -57,7 +57,7 @@ export function rematchAll(mode: string, question: Question, questionID: string,
     type = 'diagnostic_fillInBlankQuestions';
   }
 
-  const rematchAllUrl = `${import.meta.env.VITE_CMS_URL}/responses/rematch_all`;
+  const rematchAllUrl = `${process.env.VITE_CMS_URL}/responses/rematch_all`;
   fetch(rematchAllUrl, {
     method: 'POST',
     body: JSON.stringify({type, uid: questionID}),
@@ -91,7 +91,7 @@ export function rematchOne(response: string, mode: string, question: Question, q
 
 export function paginatedNonHumanResponses(matcher, matcherFields, qid, page, callback) {
   requestPost(
-    `${import.meta.env.VITE_CMS_URL}/questions/${qid}/responses/search`,
+    `${process.env.VITE_CMS_URL}/questions/${qid}/responses/search`,
     getResponseBody(page),
     (data) => {
       const parsedResponses = _.indexBy(data.results, 'id');
@@ -170,7 +170,7 @@ function deleteRematchedResponse(response) {
 function updateResponse(rid, content) {
   const rubyConvertedResponse = objectWithSnakeKeysFromCamel(content, false);
   return requestPut(
-    `${import.meta.env.VITE_CMS_URL}/responses/${rid}`,
+    `${process.env.VITE_CMS_URL}/responses/${rid}`,
     { response: rubyConvertedResponse, }
   )
 }
@@ -222,7 +222,7 @@ function getMatcherFields(mode:string, question:Question, responses:{[key:string
       incorrectSequences: incorrectSequences,
       ignoreCaseAndPunc: question.ignoreCaseAndPunc,
       checkML: true,
-      mlUrl: import.meta.env.CMS_URL,
+      mlUrl: process.env.CMS_URL,
       defaultConceptUID
     };
   } else if (mode === 'diagnosticQuestions') {
@@ -253,7 +253,7 @@ function getResponseBody(pageNumber) {
 }
 
 function getGradedResponses(questionID) {
-  return requestGet(`${import.meta.env.VITE_CMS_URL}/questions/${questionID}/responses`);
+  return requestGet(`${process.env.VITE_CMS_URL}/questions/${questionID}/responses`);
 }
 
 function formatGradedResponses(jsonString):{[key:string]: Response} {

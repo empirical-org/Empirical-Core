@@ -9,15 +9,15 @@ import useSnackbarMonitor from '../../../../Shared/hooks/useSnackbarMonitor';
 import { DataTable, Snackbar, Tooltip, defaultSnackbarTimeout, publishedIcon, scheduledIcon, } from '../../../../Shared/index';
 import { getIconForActivityClassification } from '../../../../Shared/libs';
 import {
-  DUE_DATE_DEFAULT_TEXT,
-  DatePickerContainer,
-  INVALID_DATES_SNACKBAR_COPY,
-  PUBLISH_DATE_DEFAULT_TEXT,
-  formatDateTimeForDisplay,
+    DUE_DATE_DEFAULT_TEXT,
+    DatePickerContainer,
+    INVALID_DATES_SNACKBAR_COPY,
+    PUBLISH_DATE_DEFAULT_TEXT,
+    formatDateTimeForDisplay,
 } from '../../../helpers/unitActivityDates';
 import * as api from '../../modules/call_api';
 
-const shareActivitySrc = `${import.meta.env.VITE_PROCESS_ENV_CDN_URL}/images/icons/icons-share.svg`
+const shareActivitySrc = `${process.env.VITE_PROCESS_ENV_CDN_URL}/images/icons/icons-share.svg`
 
 const publishedIconImage = <img alt={publishedIcon.alt} className="published-icon" src={publishedIcon.src} />
 const scheduledIconImage = <img alt={scheduledIcon.alt} className="scheduled-icon" src={scheduledIcon.src} />
@@ -87,7 +87,7 @@ const ActivityTable = ({ data, onSuccess, isOwner, handleActivityClicked, handle
   }, [data])
 
   function removeActivity(unitActivityId) {
-    requestPut(`${import.meta.env.VITE_DEFAULT_URL}/teachers/unit_activities/${unitActivityId}/hide`, {}, () => onSuccess('Activity removed'))
+    requestPut(`${process.env.VITE_DEFAULT_URL}/teachers/unit_activities/${unitActivityId}/hide`, {}, () => onSuccess('Activity removed'))
     setShowRemoveActivityModal(false)
   }
 

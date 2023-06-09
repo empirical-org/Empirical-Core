@@ -1,7 +1,7 @@
 import { requestDelete, requestGet, requestPost, requestPut } from '../../../modules/request/index';
 import { Lesson, Lessons } from '../interfaces/lessons';
 
-const lessonApiBaseUrl = `${import.meta.env.VITE_DEFAULT_URL}/api/v1/lessons`;
+const lessonApiBaseUrl = `${process.env.VITE_DEFAULT_URL}/api/v1/lessons`;
 
 const TYPE_CONNECT_LESSON = 'connect_lesson'
 const TYPE_DIAGNOSTIC_LESSON = 'diagnostic_lesson'
@@ -29,9 +29,9 @@ class LessonApi {
 }
 
 export {
-  LessonApi,
-  lessonApiBaseUrl,
-  TYPE_CONNECT_LESSON,
-  TYPE_DIAGNOSTIC_LESSON
+    LessonApi,
+    lessonApiBaseUrl,
+    TYPE_CONNECT_LESSON,
+    TYPE_DIAGNOSTIC_LESSON
 };
 

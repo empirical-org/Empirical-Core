@@ -1,10 +1,10 @@
 import * as React from 'react';
 import {
-  ClassroomLessonSession
+    ClassroomLessonSession
 } from '../interfaces';
 import { sortByLastName } from '../shared/studentSorts';
 
-const LaptopConnectingToLessonsSrc = `${import.meta.env.VITE_PROCESS_ENV_CDN_URL}/images/illustrations/laptop-connecting-to-lessons.svg`
+const LaptopConnectingToLessonsSrc = `${process.env.VITE_PROCESS_ENV_CDN_URL}/images/illustrations/laptop-connecting-to-lessons.svg`
 
 interface LobbyProps {
   title: string,

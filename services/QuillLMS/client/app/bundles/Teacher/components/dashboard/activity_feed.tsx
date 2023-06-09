@@ -2,7 +2,7 @@ import * as React from 'react';
 
 import { DataTable, expandIcon, } from '../../../Shared/index';
 
-const listIllustrationSrc = `${import.meta.env.VITE_PROCESS_ENV_CDN_URL}/images/pages/dashboard/illustrations-list.svg`
+const listIllustrationSrc = `${process.env.VITE_PROCESS_ENV_CDN_URL}/images/pages/dashboard/illustrations-list.svg`
 
 const headers = [
   {

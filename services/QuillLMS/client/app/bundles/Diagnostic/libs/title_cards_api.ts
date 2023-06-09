@@ -1,7 +1,7 @@
 import { requestGet, requestPost, requestPut } from '../../../modules/request/index';
 import { TitleCard, TitleCards } from '../interfaces/title_cards';
 
-const titleCardApiBaseUrl = `${import.meta.env.VITE_DEFAULT_URL}/api/v1/title_cards`;
+const titleCardApiBaseUrl = `${process.env.VITE_DEFAULT_URL}/api/v1/title_cards`;
 const CONNECT_TITLE_CARD_TYPE = 'connect_title_card';
 const DIAGNOSTIC_TITLE_CARD_TYPE = 'diagnostic_title_card';
 
@@ -24,9 +24,9 @@ class TitleCardApi {
 }
 
 export {
-  TitleCardApi,
-  CONNECT_TITLE_CARD_TYPE,
-  DIAGNOSTIC_TITLE_CARD_TYPE,
-  titleCardApiBaseUrl
+    TitleCardApi,
+    CONNECT_TITLE_CARD_TYPE,
+    DIAGNOSTIC_TITLE_CARD_TYPE,
+    titleCardApiBaseUrl
 };
 

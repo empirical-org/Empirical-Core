@@ -1,7 +1,7 @@
 import { requestDelete, requestGet, requestPost, requestPut } from '../../../modules/request/index';
 import { GrammarActivities, GrammarActivity } from '../interfaces/grammarActivities';
 
-const grammarActivityApiBaseUrl = `${import.meta.env.VITE_DEFAULT_URL}/api/v1/lessons`;
+const grammarActivityApiBaseUrl = `${process.env.VITE_DEFAULT_URL}/api/v1/lessons`;
 
 const TYPE_GRAMMAR_ACTIVITY = 'grammar_activity'
 
@@ -28,8 +28,8 @@ class GrammarActivityApi {
 }
 
 export {
-  GrammarActivityApi,
-  grammarActivityApiBaseUrl,
-  TYPE_GRAMMAR_ACTIVITY
+    GrammarActivityApi,
+    grammarActivityApiBaseUrl,
+    TYPE_GRAMMAR_ACTIVITY
 };
 

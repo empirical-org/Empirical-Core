@@ -9,7 +9,7 @@ import StudentProfileUnit from './student_profile_unit.jsx';
 import { COMPLETED_ACTIVITIES, TO_DO_ACTIVITIES, } from '../../../../constants/student_profile';
 import LoadingIndicator from '../shared/loading_indicator';
 
-const clipboardSrc = `${import.meta.env.VITE_PROCESS_ENV_CDN_URL}/images/illustrations/clipboard.svg`
+const clipboardSrc = `${process.env.VITE_PROCESS_ENV_CDN_URL}/images/illustrations/clipboard.svg`
 
 export default class StudentProfileUnits extends React.Component {
   constructor(props) {

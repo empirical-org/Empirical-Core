@@ -4,12 +4,12 @@ import { connect } from 'react-redux';
 
 import { Feedback, getDisplayedText, getLatestAttempt, hashToCollection, renderPreviewFeedback } from '../../../Shared/index';
 import {
-  getGradedResponsesWithCallback
+    getGradedResponsesWithCallback
 } from '../../actions/responses.js';
 import POSMatcher from '../../libs/sentenceFragment.js';
 import TextEditor from '../renderForQuestions/renderTextEditor.jsx';
 import updateResponseResource from '../renderForQuestions/updateResponseResource.js';
-const icon = `${import.meta.env.VITE_PROCESS_ENV_CDN_URL}/images/icons/direction.svg`
+const icon = `${process.env.VITE_PROCESS_ENV_CDN_URL}/images/icons/direction.svg`
 
 const key = ''; // enables this component to be used by both play/sentence-fragments and play/diagnostic
 

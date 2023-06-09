@@ -28,7 +28,7 @@ const PremiumHub = ({ adminId, accessType, passedModel, }) => {
   function getData(skipLoading=false) {
     initializePusher(skipLoading);
     requestGet(
-      `${import.meta.env.VITE_DEFAULT_URL}/admins/${adminId}`,
+      `${process.env.VITE_DEFAULT_URL}/admins/${adminId}`,
       (body) => {
         receiveData(body, skipLoading)
       }
@@ -46,10 +46,10 @@ const PremiumHub = ({ adminId, accessType, passedModel, }) => {
   };
 
   initializePusher = (skipLoading) => {
-    if (import.meta.env.RAILS_ENV === 'development') {
+    if (process.env.RAILS_ENV === 'development') {
       Pusher.logToConsole = true;
     }
-    const pusher = new Pusher(import.meta.env.VITE_PROCESS_ENV_PUSHER_KEY, { encrypted: true, });
+    const pusher = new Pusher(process.env.VITE_PROCESS_ENV_PUSHER_KEY, { encrypted: true, });
     const channel = pusher.subscribe(String(adminId));
     channel.bind('admin-users-found', () => {
       getData(skipLoading)
@@ -60,7 +60,7 @@ const PremiumHub = ({ adminId, accessType, passedModel, }) => {
     setError('')
     initializePusher(true)
     requestPost(
-      `${import.meta.env.VITE_DEFAULT_URL}/admins/${adminId}/create_and_link_accounts`,
+      `${process.env.VITE_DEFAULT_URL}/admins/${adminId}/create_and_link_accounts`,
       data,
       (response) => {
         getData(true)

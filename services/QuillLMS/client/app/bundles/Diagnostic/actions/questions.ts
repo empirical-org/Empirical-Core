@@ -11,10 +11,10 @@ import { push } from 'react-router-redux';
 import _ from 'underscore';
 import { requestPost, } from '../../../modules/request/index';
 import {
-  FocusPointApi,
-  IncorrectSequenceApi,
-  QuestionApi,
-  SENTENCE_COMBINING_TYPE
+    FocusPointApi,
+    IncorrectSequenceApi,
+    QuestionApi,
+    SENTENCE_COMBINING_TYPE
 } from '../libs/questions_api';
 import { submitResponse } from './responses';
 import sessionActions from './sessions';
@@ -222,7 +222,7 @@ function searchResponses(qid) {
     const requestNumber = getState().filters.requestCount
     // check for request number in state, save as const
     requestPost(
-      `${import.meta.env.VITE_CMS_URL}/questions/${qid}/responses/search`,
+      `${process.env.VITE_CMS_URL}/questions/${qid}/responses/search`,
       { search: getFormattedSearchData(getState()), },
       (body) => {
         // check again for number in state
@@ -248,11 +248,11 @@ function searchResponses(qid) {
 
 function initializeSubscription(qid) {
   return (dispatch) => {
-    if (import.meta.env.NODE_ENV === 'development') {
+    if (process.env.NODE_ENV === 'development') {
       Pusher.logToConsole = true;
     }
     if (!window.pusher) {
-      window.pusher = new Pusher(import.meta.env.VITE_PROCESS_ENV_PUSHER_KEY, { encrypted: true, });
+      window.pusher = new Pusher(process.env.VITE_PROCESS_ENV_PUSHER_KEY, { encrypted: true, });
     }
     const channel = window.pusher.subscribe(`admin-${qid}`);
     channel.bind('new-response', (data) => {

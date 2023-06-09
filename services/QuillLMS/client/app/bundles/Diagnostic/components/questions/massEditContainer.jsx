@@ -6,8 +6,8 @@ import { requestPost, } from '../../../../modules/request/index';
 import { TextEditor } from '../../../Shared/index';
 import massEdit from '../../actions/massEdit';
 import {
-  submitMassEditConceptResults,
-  submitMassEditFeedback
+    submitMassEditConceptResults,
+    submitMassEditFeedback
 } from '../../actions/responses';
 import ConceptResultList from './conceptResultList.jsx';
 
@@ -41,7 +41,7 @@ class MassEditContainer extends React.Component {
 
   getResponses() {
     requestPost(
-      `${import.meta.env.VITE_CMS_URL}/responses/mass_edit/show_many`,
+      `${process.env.VITE_CMS_URL}/responses/mass_edit/show_many`,
       { responses: this.props.massEdit.selectedResponses, },
       (body) => {
         const parsedResponses = _.indexBy(body.responses, 'id');

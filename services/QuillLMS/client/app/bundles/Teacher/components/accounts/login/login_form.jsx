@@ -7,7 +7,7 @@ import AssignActivityPackBanner from '../assignActivityPackBanner';
 import PasswordWrapper from '../shared/password_wrapper';
 import PasswordInfo from './password_info.jsx';
 
-const smallWhiteCheckSrc = `${import.meta.env.VITE_PROCESS_ENV_CDN_URL}/images/shared/check-small-white.svg`
+const smallWhiteCheckSrc = `${process.env.VITE_PROCESS_ENV_CDN_URL}/images/shared/check-small-white.svg`
 
 class LoginFormApp extends React.Component {
 
@@ -68,7 +68,7 @@ class LoginFormApp extends React.Component {
     e.preventDefault();
 
     requestPost(
-      `${import.meta.env.VITE_DEFAULT_URL}/session/login_through_ajax`,
+      `${process.env.VITE_DEFAULT_URL}/session/login_through_ajax`,
       {
         user: {
           email,
@@ -134,8 +134,6 @@ class LoginFormApp extends React.Component {
   }
 
   render() {
-    // console.log("login component: ", import.meta.env)
-    // console.log("LOCAL_TEST_ENV_VALUE: ", process.env.LOCAL_TEST_ENV_VALUE)
     const { googleOfflineAccessExpired, expiredSessionRedirect } = this.props
     const { errors, email, password, timesSubmitted, authToken, } = this.state;
 
@@ -151,7 +149,7 @@ class LoginFormApp extends React.Component {
             <div className="auth-section">
               <AuthGoogleAccessForm text='Log in with Google' />
               <button onClick={this.handleCleverClick} type="button">
-                <img alt="Clever icon" src={`${import.meta.env.VITE_PROCESS_ENV_CDN_URL}/images/shared/clever_icon.svg`} />
+                <img alt="Clever icon" src={`${process.env.VITE_PROCESS_ENV_CDN_URL}/images/shared/clever_icon.svg`} />
                 <span>Log in with Clever</span>
               </button>
             </div>

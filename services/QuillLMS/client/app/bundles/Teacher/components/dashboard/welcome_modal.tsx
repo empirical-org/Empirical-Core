@@ -2,9 +2,9 @@ import * as React from 'react';
 import Confetti from 'react-confetti';
 
 
-const classroomActivitiesSrc = `${import.meta.env.VITE_PROCESS_ENV_CDN_URL}/images/pages/dashboard/illustrations-classroom-activities-2.svg`
+const classroomActivitiesSrc = `${process.env.VITE_PROCESS_ENV_CDN_URL}/images/pages/dashboard/illustrations-classroom-activities-2.svg`
 
-const exploreDemoLink = `${import.meta.env.VITE_DEFAULT_URL}/teachers/view_demo`
+const exploreDemoLink = `${process.env.VITE_DEFAULT_URL}/teachers/view_demo`
 
 const WelcomeModalWithoutDemo = ({close}) => (
   <div className="welcome-modal-without-demo quill-modal">

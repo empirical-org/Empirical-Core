@@ -2,11 +2,11 @@ import * as React from 'react'
 
 import { Tooltip, } from '../../../../Shared/index'
 
-const renameSrc = `${import.meta.env.VITE_PROCESS_ENV_CDN_URL}/images/icons/icons-rename.svg`
-const shareActivitySrc = `${import.meta.env.VITE_PROCESS_ENV_CDN_URL}/images/icons/icons-share.svg`
-const deleteActivityPackSrc = `${import.meta.env.VITE_PROCESS_ENV_CDN_URL}/images/pages/my_activities/delete_activity_pack_icon.svg`
-const closeActivityPackSrc = `${import.meta.env.VITE_PROCESS_ENV_CDN_URL}/images/pages/my_activities/close_activity_pack_icon.svg`
-const openActivityPackSrc = `${import.meta.env.VITE_PROCESS_ENV_CDN_URL}/images/pages/my_activities/open_activity_pack_icon.svg`
+const renameSrc = `${process.env.VITE_PROCESS_ENV_CDN_URL}/images/icons/icons-rename.svg`
+const shareActivitySrc = `${process.env.VITE_PROCESS_ENV_CDN_URL}/images/icons/icons-share.svg`
+const deleteActivityPackSrc = `${process.env.VITE_PROCESS_ENV_CDN_URL}/images/pages/my_activities/delete_activity_pack_icon.svg`
+const closeActivityPackSrc = `${process.env.VITE_PROCESS_ENV_CDN_URL}/images/pages/my_activities/close_activity_pack_icon.svg`
+const openActivityPackSrc = `${process.env.VITE_PROCESS_ENV_CDN_URL}/images/pages/my_activities/open_activity_pack_icon.svg`
 
 const ActivityPackUpdateButtons = ({
   handleClickShareActivityPack,

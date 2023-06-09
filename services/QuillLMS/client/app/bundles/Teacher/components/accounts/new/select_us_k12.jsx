@@ -5,7 +5,7 @@ import { NOT_LISTED, NO_SCHOOL_SELECTED, } from '../../../../Shared/index';
 import SchoolSelector from '../../shared/school_selector.jsx';
 import AssignActivityPackBanner from '../assignActivityPackBanner';
 
-const schoolBuildingImgSrc = `${import.meta.env.VITE_PROCESS_ENV_CDN_URL}/images/accounts/school-building.svg`
+const schoolBuildingImgSrc = `${process.env.VITE_PROCESS_ENV_CDN_URL}/images/accounts/school-building.svg`
 
 class SelectUSK12 extends React.Component {
   componentDidMount() {
@@ -22,7 +22,7 @@ class SelectUSK12 extends React.Component {
     // with the argument 'non listed', while actually selecting a school triggers it
     // with a school identifier.
     requestPut(
-      `${import.meta.env.VITE_DEFAULT_URL}/select_school`,
+      `${process.env.VITE_DEFAULT_URL}/select_school`,
       { school_id_or_type: idOrType, },
       (body) => {
         if (isAdmin) {

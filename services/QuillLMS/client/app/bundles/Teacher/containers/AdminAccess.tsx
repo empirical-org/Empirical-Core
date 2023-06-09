@@ -17,7 +17,7 @@ const AdminAccess = ({ school, hasVerifiedEmail, schoolAdmins, hasSchoolPremium,
   useSnackbarMonitor(showSnackbar, setShowSnackbar, defaultSnackbarTimeout)
 
   function handleEmailVerificationClick() {
-    requestPost(`${import.meta.env.VITE_DEFAULT_URL}/verify_emails/require_email_verification`, {}, (body) => {
+    requestPost(`${process.env.VITE_DEFAULT_URL}/verify_emails/require_email_verification`, {}, (body) => {
       if (body.redirect) {
         window.location.href = body.redirect
       } else {
@@ -30,7 +30,7 @@ const AdminAccess = ({ school, hasVerifiedEmail, schoolAdmins, hasSchoolPremium,
     if (schoolAdmins.length) {
       setModalToShow(ADMIN_REQUEST_MODAL)
     } else {
-      requestPost(`${import.meta.env.VITE_DEFAULT_URL}/admin_access/upgrade_to_admin`, {}, () => {
+      requestPost(`${process.env.VITE_DEFAULT_URL}/admin_access/upgrade_to_admin`, {}, () => {
         window.location.href = '/sign-up/verify-school'
       })
     }

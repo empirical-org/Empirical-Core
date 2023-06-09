@@ -44,7 +44,7 @@ function fullyQualifiedUrl(url) {
   if (fullUrlTest.test(url)) {
     return url;
   }
-  return `${import.meta.env.VITE_DEFAULT_URL}${url}`;
+  return `${process.env.VITE_DEFAULT_URL}${url}`;
 }
 
 function addCsrfHeaders(headers = {}) {
@@ -73,8 +73,9 @@ function requestDelete(url: string, payload?: any, success?: Function, error?: F
 }
 
 export {
-  requestGet,
-  requestPost,
-  requestPut,
-  requestDelete
+    requestGet,
+    requestPost,
+    requestPut,
+    requestDelete
 };
+

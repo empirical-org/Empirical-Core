@@ -8,12 +8,12 @@ import { ASSIGN_ACTIVITIES_FEATURED_BLOG_ID } from '../../../constants/featuredB
 import ArticleSpotlight from '../../shared/articleSpotlight'
 import { CLICKED_ACTIVITY_PACK_ID } from '../assignmentFlowConstants'
 
-const diagnosticWaveSrc = `${import.meta.env.VITE_PROCESS_ENV_CDN_URL}/images/illustrations/diagnostic-wave.svg`
-const activityLibrarySrc = `${import.meta.env.VITE_PROCESS_ENV_CDN_URL}/images/icons/icons-activity-library.svg`
-const activityPacksSrc = `${import.meta.env.VITE_PROCESS_ENV_CDN_URL}/images/icons/icons-activity-packs.svg`
-const allDiagnosticsSrc = `${import.meta.env.VITE_PROCESS_ENV_CDN_URL}/images/icons/icons-diagnostics-all.svg`
-const graduationCapSrc = `${import.meta.env.VITE_PROCESS_ENV_CDN_URL}/images/icons/icons-graduation-cap.svg`
-const closeIconSrc = `${import.meta.env.VITE_PROCESS_ENV_CDN_URL}/images/icons/close.svg`
+const diagnosticWaveSrc = `${process.env.VITE_PROCESS_ENV_CDN_URL}/images/illustrations/diagnostic-wave.svg`
+const activityLibrarySrc = `${process.env.VITE_PROCESS_ENV_CDN_URL}/images/icons/icons-activity-library.svg`
+const activityPacksSrc = `${process.env.VITE_PROCESS_ENV_CDN_URL}/images/icons/icons-activity-packs.svg`
+const allDiagnosticsSrc = `${process.env.VITE_PROCESS_ENV_CDN_URL}/images/icons/icons-diagnostics-all.svg`
+const graduationCapSrc = `${process.env.VITE_PROCESS_ENV_CDN_URL}/images/icons/icons-graduation-cap.svg`
+const closeIconSrc = `${process.env.VITE_PROCESS_ENV_CDN_URL}/images/icons/close.svg`
 
 const minis = (diagnosticBannerShowing) => [
   (<AssignmentCard
@@ -70,7 +70,7 @@ const AssignANewActivity = ({ numberOfActivitiesAssigned, showDiagnosticBanner }
 
   const getData = () => {
     requestGet(
-      `${import.meta.env.VITE_DEFAULT_URL}/activities/suggested_activities`,
+      `${process.env.VITE_DEFAULT_URL}/activities/suggested_activities`,
       (body) => {
         setActivitiesToSuggest(body.activities)
       }

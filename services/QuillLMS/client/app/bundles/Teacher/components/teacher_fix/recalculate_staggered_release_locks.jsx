@@ -9,7 +9,7 @@ const RecalculateStaggeredReleaseLocks = () => {
 
   function handleRecalculateStaggeredReleaseLocks() {
     requestPost(
-      `${import.meta.env.VITE_DEFAULT_URL}/teacher_fix/recalculate_staggered_release_locks`,
+      `${process.env.VITE_DEFAULT_URL}/teacher_fix/recalculate_staggered_release_locks`,
       { teacher_identifier: teacherIdentifier, },
       (body) => {
         setTeacherIdentifier('')

@@ -29,7 +29,7 @@ export default class ForgotPassword extends React.Component {
         }
       },
       (body) => {
-        window.location = `${import.meta.env.VITE_DEFAULT_URL}${body.redirect}`;
+        window.location = `${process.env.VITE_DEFAULT_URL}${body.redirect}`;
       },
       (body) => {
         let state

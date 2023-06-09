@@ -3,16 +3,16 @@ import { connect } from 'react-redux';
 import { withRouter } from 'react-router-dom';
 import { requestPost, requestPut, } from '../../../../modules/request/index';
 import {
-  CarouselAnimation,
-  PlayTitleCard,
-  ProgressBar,
-  SmartSpinner
+    CarouselAnimation,
+    PlayTitleCard,
+    ProgressBar,
+    SmartSpinner
 } from '../../../Shared/index';
 import { clearData, loadData, nextQuestion, submitResponse, updateCurrentQuestion } from '../../actions/diagnostics.js';
 import {
-  answeredQuestionCount,
-  getProgressPercent,
-  questionCount
+    answeredQuestionCount,
+    getProgressPercent,
+    questionCount
 } from '../../libs/calculateProgress';
 import { getConceptResultsForAllQuestions } from '../../libs/conceptResults/diagnostic';
 import { getParameterByName } from '../../libs/getParameterByName';
@@ -88,7 +88,7 @@ class TurkDiagnostic extends React.Component {
 
   finishActivitySession = (sessionID, results, score) => {
     requestPut(
-      `${import.meta.env.VITE_DEFAULT_URL}/api/v1/activity_sessions/${sessionID}`,
+      `${process.env.VITE_DEFAULT_URL}/api/v1/activity_sessions/${sessionID}`,
       {
         state: 'finished',
         concept_results: results,
@@ -96,7 +96,7 @@ class TurkDiagnostic extends React.Component {
         data
       },
       (body) => {
-        document.location.href = `${import.meta.env.VITE_DEFAULT_URL}/activity_sessions/${sessionID}`;
+        document.location.href = `${process.env.VITE_DEFAULT_URL}/activity_sessions/${sessionID}`;
         this.setState({ saved: true, });
       },
       (body) => {
@@ -110,7 +110,7 @@ class TurkDiagnostic extends React.Component {
 
   createAnonActivitySession = (lessonID, results, score) => {
     requestPost(
-      `${import.meta.env.VITE_DEFAULT_URL}/api/v1/activity_sessions/`,
+      `${process.env.VITE_DEFAULT_URL}/api/v1/activity_sessions/`,
       {
         state: 'finished',
         activity_uid: lessonID,
@@ -119,7 +119,7 @@ class TurkDiagnostic extends React.Component {
         data
       },
       (body) => {
-        document.location.href = `${import.meta.env.VITE_DEFAULT_URL}/activity_sessions/${body.activity_session.uid}`;
+        document.location.href = `${process.env.VITE_DEFAULT_URL}/activity_sessions/${body.activity_session.uid}`;
         this.setState({ saved: true, });
       }
     )

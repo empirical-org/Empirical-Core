@@ -12,36 +12,36 @@ import PlayTitleCard from './titleCard.tsx';
 
 import { requestPost, requestPut, } from '../../../../modules/request/index';
 import {
-  CLICK,
-  CarouselAnimation,
-  KEYDOWN,
-  KEYPRESS,
-  MOUSEDOWN,
-  MOUSEMOVE,
-  ProgressBar,
-  SCROLL,
-  TeacherPreviewMenuButton,
-  VISIBILITYCHANGE,
-  roundValuesToSeconds,
+    CLICK,
+    CarouselAnimation,
+    KEYDOWN,
+    KEYPRESS,
+    MOUSEDOWN,
+    MOUSEMOVE,
+    ProgressBar,
+    SCROLL,
+    TeacherPreviewMenuButton,
+    VISIBILITYCHANGE,
+    roundValuesToSeconds,
 } from '../../../Shared/index';
 import {
-  clearData,
-  loadData,
-  nextQuestion,
-  openLanguageMenu,
-  resumePreviousDiagnosticSession,
-  setCurrentQuestion,
-  setDiagnosticID,
-  submitResponse,
-  updateCurrentQuestion,
-  updateLanguage
+    clearData,
+    loadData,
+    nextQuestion,
+    openLanguageMenu,
+    resumePreviousDiagnosticSession,
+    setCurrentQuestion,
+    setDiagnosticID,
+    submitResponse,
+    updateCurrentQuestion,
+    updateLanguage
 } from '../../actions/diagnostics.js';
 import SessionActions from '../../actions/sessions.js';
 import i18n from '../../i18n';
 import {
-  answeredQuestionCount,
-  getProgressPercent,
-  questionCount
+    answeredQuestionCount,
+    getProgressPercent,
+    questionCount
 } from '../../libs/calculateProgress';
 import { getConceptResultsForAllQuestions } from '../../libs/conceptResults/diagnostic';
 import { getParameterByName } from '../../libs/getParameterByName';
@@ -203,7 +203,7 @@ export class ELLStudentDiagnostic extends React.Component {
 
   finishActivitySession = (sessionID, results, score, data) => {
     requestPut(
-      `${import.meta.env.VITE_DEFAULT_URL}/api/v1/activity_sessions/${sessionID}`,
+      `${process.env.VITE_DEFAULT_URL}/api/v1/activity_sessions/${sessionID}`,
       {
         state: 'finished',
         concept_results: results,
@@ -211,7 +211,7 @@ export class ELLStudentDiagnostic extends React.Component {
         data
       },
       (body) => {
-        document.location.href = import.meta.env.VITE_DEFAULT_URL;
+        document.location.href = process.env.VITE_DEFAULT_URL;
         this.setState({ saved: true, });
       },
       (body) => {
@@ -225,7 +225,7 @@ export class ELLStudentDiagnostic extends React.Component {
 
   createAnonActivitySession = (diagnosticID, results, score, data) => {
     requestPost(
-      `${import.meta.env.VITE_DEFAULT_URL}/api/v1/activity_sessions/`,
+      `${process.env.VITE_DEFAULT_URL}/api/v1/activity_sessions/`,
       {
         state: 'finished',
         activity_uid: lessonID,
@@ -234,7 +234,7 @@ export class ELLStudentDiagnostic extends React.Component {
         data
       },
       (body) => {
-        document.location.href = import.meta.env.VITE_DEFAULT_URL;
+        document.location.href = process.env.VITE_DEFAULT_URL;
         this.setState({ saved: true, });
       }
     )

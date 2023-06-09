@@ -8,7 +8,7 @@ import { unitTemplateActivityRows, unitTemplateDataTableFields } from '../../hel
 import Pagination from '../assignment_flow/create_unit/custom_activity_pack/pagination'
 import { lowerBound, upperBound, } from '../assignment_flow/create_unit/custom_activity_pack/shared'
 
-const ACTIVITIES_URL = `${import.meta.env.VITE_DEFAULT_URL}/activities/index_with_unit_templates`
+const ACTIVITIES_URL = `${process.env.VITE_DEFAULT_URL}/activities/index_with_unit_templates`
 const DEFAULT_FLAG = 'All Flags'
 const DEFAULT_TOOL = 'All Tools'
 const DEFAULT_READABILITY = 'All readability levels'

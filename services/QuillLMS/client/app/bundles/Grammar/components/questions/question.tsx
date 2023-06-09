@@ -8,7 +8,7 @@ import { Modal } from '../../../Shared/index';
 import { ActionTypes } from '../../actions/actionTypes';
 import * as questionActions from '../../actions/questions';
 import {
-  submitResponse
+    submitResponse
 } from '../../actions/responses';
 import { Match } from '../../interfaces/match';
 import { QuestionsReducerState } from '../../reducers/questionsReducer';
@@ -25,7 +25,7 @@ import NewIncorrectSequenceContainer from './newIncorrectSequenceContainer';
 import EditForm from './questionForm';
 import ResponseComponentWrapper from './responseRouteWrapper';
 import TestQuestion from './testQuestion';
-const icon = `${import.meta.env.VITE_PROCESS_ENV_CDN_URL}/images/icons/question_icon.svg`
+const icon = `${process.env.VITE_PROCESS_ENV_CDN_URL}/images/icons/question_icon.svg`
 
 interface AdminQuestionProps {
   dispatch: Function,
