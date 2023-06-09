@@ -104,7 +104,7 @@ const SnapshotRanking = ({ label, queryKey, headers, comingSoon, searchCount, se
       if (body.hasOwnProperty('message')) {
         setLoading(true)
       } else {
-        setData(body)
+        setData(body.results)
         setLoading(false)
       }
     })

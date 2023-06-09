@@ -30,20 +30,21 @@ describe SnapshotsController, type: :controller do
       allow(DateTime).to receive(:current).and_return(now)
     end
 
-    it 'should return the value in the cache if it is available for all actions' do
-      payload = {
+    it 'should return the value in the cache assigned to the `results` key if it is available for all actions' do
+      cache_payload = {
         "current" => "CURRENT",
         "previous" => "PREVIOUS"
       }
+      expected_response = { "results" => cache_payload }
 
-      expect(Rails.cache).to receive(:read).exactly(controller_actions.length).times.with(cache_key).and_return(payload)
+      expect(Rails.cache).to receive(:read).exactly(controller_actions.length).times.with(cache_key).and_return(cache_payload)
 
       controller_actions.each do |action, query_name|
         get action, params: { query: query_name, timeframe: timeframe_name, school_ids: school_ids }
 
         json_response = JSON.parse(response.body)
 
-        expect(json_response).to eq(payload)
+        expect(json_response).to eq(expected_response)
       end
     end
 
