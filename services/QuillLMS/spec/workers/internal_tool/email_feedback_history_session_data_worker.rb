@@ -4,10 +4,10 @@ require 'rails_helper'
 
 describe InternalTool::EmailFeedbackHistorySessionDataWorker, type: :worker do
   let!(:user) { create(:user)}
-  let!(:activity) { create(:evidence_activity) }
-  let!(:because_prompt) { Evidence::Prompt.create!(activity: activity, conjunction: 'because', text: 'Some feedback text', max_attempts_feedback: 'Feedback') }
-  let!(:but_prompt) { Evidence::Prompt.create!(activity: activity, conjunction: 'but', text: 'Some feedback text', max_attempts_feedback: 'Feedback') }
-  let!(:so_prompt) { Evidence::Prompt.create!(activity: activity, conjunction: 'so', text: 'Some feedback text', max_attempts_feedback: 'Feedback') }
+  let!(:activity) { create(:evidence_lms_activity) }
+  let!(:because_prompt) { create(:evidence_prompt, activity: activity, conjunction: 'because', text: 'Some feedback text', max_attempts_feedback: 'Feedback') }
+  let!(:but_prompt) { create(:evidence_prompt, activity: activity, conjunction: 'but', text: 'Some feedback text', max_attempts_feedback: 'Feedback') }
+  let!(:so_prompt) { create(:evidence_prompt, activity: activity, conjunction: 'so', text: 'Some feedback text', max_attempts_feedback: 'Feedback') }
   let!(:activity_session1_uid) { SecureRandom.uuid }
   let!(:activity_session2_uid) { SecureRandom.uuid }
   let!(:feedback_history1) { create(:feedback_history, feedback_session_uid: activity_session1_uid, created_at: '2021-04-05T20:43:27.698Z', prompt_id: because_prompt.id) }

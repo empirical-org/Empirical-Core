@@ -8,76 +8,19 @@ RSpec.describe RuleFeedbackHistory, type: :model do
     ActiveRecord::Base.refresh_materialized_view('feedback_histories_grouped_by_rule_uid', concurrently: false)
   end
 
-  def rule_factory(&hash_block)
-    Evidence::Rule.create!(
-      {
-        uid: SecureRandom.uuid,
-        name: 'name',
-        universal: true,
-        suborder: 1,
-        rule_type: Evidence::Rule::TYPES.first,
-        optimal: true,
-        concept_uid: SecureRandom.uuid,
-        state: Evidence::Rule::STATES.first
-      }.merge(yield)
-    )
-  end
-
-  def activity_factory(&hash_block)
-    Evidence::Activity.create!(
-      {
-        title: "Activity Title",
-        notes: "Activity notes",
-        target_level: 1,
-        parent_activity_id: 1
-      }.merge(yield)
-    )
-  end
-
-  def prompt_factory(&hash_block)
-    Evidence::Prompt.create!(
-      {
-        activity: yield[:activity] || activity_factory { {} },
-        conjunction: "because",
-        text: "my text would go here.",
-        max_attempts_feedback: "MyText"
-      }.merge(yield)
-    )
-  end
-
-  def prompt_rule_factory(&hash_block)
-    Evidence::PromptsRule.find_or_create_by!(
-      {
-        prompt: yield[:prompt] || prompt_factory { {} },
-        rule: yield[:rule] || rule_factory { {} }
-      }.merge(yield)
-    )
-  end
-
-  def feedback_factory(&hash_block)
-    Evidence::Feedback.create!(
-      {
-        rule: rule_factory { {} },
-        text: 'Feedback string',
-        description: 'Internal description of feedback',
-        order: 1
-      }.merge(yield)
-    )
-  end
-
   describe '#generate_report' do
     it 'should format' do
-      activity1 = activity_factory { {title: 'Title 1', parent_activity_id: 1, target_level: 1, notes: 'an_activity_1'} }
+      activity1 = create(:evidence_activity, title: 'Title 1', parent_activity_id: 1, target_level: 1, notes: 'an_activity_1')
 
-      so_prompt1 = prompt_factory { {activity: activity1, conjunction: 'so', text: 'Some feedback text', max_attempts_feedback: 'Feedback'} }
-      because_prompt1 = prompt_factory { {activity: activity1, conjunction: 'because', text: 'Some feedback text', max_attempts_feedback: 'Feedback'} }
+      so_prompt1 = create(:evidence_prompt, activity: activity1, conjunction: 'so', text: 'Some feedback text', max_attempts_feedback: 'Feedback')
+      because_prompt1 = create(:evidence_prompt, activity: activity1, conjunction: 'because', text: 'Some feedback text', max_attempts_feedback: 'Feedback')
 
-      so_rule1 = rule_factory { { name: 'so_rule1', rule_type: 'autoML'} }
+      so_rule1 = create(:evidence_rule, name: 'so_rule1', rule_type: 'autoML')
 
-      prompt_rule = prompt_rule_factory { {prompt: so_prompt1, rule: so_rule1} }
+      prompt_rule = create(:evidence_prompts_rule, prompt: so_prompt1, rule: so_rule1)
 
-      so_feedback1 = feedback_factory { { rule: so_rule1 } }
-      so_feedback2 = feedback_factory { { rule: so_rule1, order: 2 } }
+      so_feedback1 = create(:evidence_feedback, rule: so_rule1)
+      so_feedback2 = create(:evidence_feedback, rule: so_rule1, order: 2)
 
       first_confidence_level = 0.9599
       second_confidence_level = 0.8523
@@ -122,20 +65,20 @@ RSpec.describe RuleFeedbackHistory, type: :model do
 
   describe '#exec_query' do
     it 'should aggregate feedbacks for a given rule' do
-      activity1 = Evidence::Activity.create!(title: 'Title 1', parent_activity_id: 1, target_level: 1, notes: 'an_activity_1')
+      activity1 = create(:evidence_activity, title: 'Title 1', parent_activity_id: 1, target_level: 1, notes: 'an_activity_1')
 
-      so_prompt1 = Evidence::Prompt.create!(activity: activity1, conjunction: 'so', text: 'Some feedback text', max_attempts_feedback: 'Feedback')
-      because_prompt1 = Evidence::Prompt.create!(activity: activity1, conjunction: 'because', text: 'Some feedback text', max_attempts_feedback: 'Feedback')
+      so_prompt1 = create(:evidence_prompt, activity: activity1, conjunction: 'so', text: 'Some feedback text', max_attempts_feedback: 'Feedback')
+      because_prompt1 = create(:evidence_prompt, activity: activity1, conjunction: 'because', text: 'Some feedback text', max_attempts_feedback: 'Feedback')
 
-      so_rule1 = rule_factory { { name: 'so_rule1', rule_type: 'autoML' } }
-      so_rule2 = rule_factory { { name: 'so_rule2', rule_type: 'autoML' } }
-      so_rule3 = rule_factory { { name: 'so_rule3', rule_type: 'autoML' } }
-      so_rule4 = rule_factory { { name: 'so_rule4', rule_type: 'autoML' } }
+      so_rule1 = create(:evidence_rule, name: 'so_rule1', rule_type: 'autoML')
+      so_rule2 = create(:evidence_rule, name: 'so_rule2', rule_type: 'autoML')
+      so_rule3 = create(:evidence_rule, name: 'so_rule3', rule_type: 'autoML')
+      so_rule4 = create(:evidence_rule, name: 'so_rule4', rule_type: 'autoML')
 
-      prompt_rule = prompt_rule_factory { {prompt: so_prompt1, rule: so_rule1} }
-      prompt_rule = prompt_rule_factory { {prompt: so_prompt1, rule: so_rule2} }
-      prompt_rule = prompt_rule_factory { {prompt: so_prompt1, rule: so_rule3} }
-      prompt_rule = prompt_rule_factory { {prompt: so_prompt1, rule: so_rule4} }
+      prompt_rule = create(:evidence_prompts_rule, prompt: so_prompt1, rule: so_rule1)
+      prompt_rule = create(:evidence_prompts_rule, prompt: so_prompt1, rule: so_rule2)
+      prompt_rule = create(:evidence_prompts_rule, prompt: so_prompt1, rule: so_rule3)
+      prompt_rule = create(:evidence_prompts_rule, prompt: so_prompt1, rule: so_rule4)
 
       activity_session = create(:activity_session)
 
@@ -149,20 +92,20 @@ RSpec.describe RuleFeedbackHistory, type: :model do
     end
 
     it 'should filter by activity_version if specified' do
-      activity1 = Evidence::Activity.create!(title: 'Title 1', parent_activity_id: 1, target_level: 1, notes: 'an_activity_1')
+      activity1 = create(:evidence_activity, title: 'Title 1', parent_activity_id: 1, target_level: 1, notes: 'an_activity_1')
 
-      so_prompt1 = Evidence::Prompt.create!(activity: activity1, conjunction: 'so', text: 'Some feedback text', max_attempts_feedback: 'Feedback')
-      because_prompt1 = Evidence::Prompt.create!(activity: activity1, conjunction: 'because', text: 'Some feedback text', max_attempts_feedback: 'Feedback')
+      so_prompt1 = create(:evidence_prompt, activity: activity1, conjunction: 'so', text: 'Some feedback text', max_attempts_feedback: 'Feedback')
+      because_prompt1 = create(:evidence_prompt, activity: activity1, conjunction: 'because', text: 'Some feedback text', max_attempts_feedback: 'Feedback')
 
-      so_rule1 = rule_factory { { name: 'so_rule1', rule_type: 'autoML' } }
-      so_rule2 = rule_factory { { name: 'so_rule2', rule_type: 'autoML' } }
-      so_rule3 = rule_factory { { name: 'so_rule3', rule_type: 'autoML' } }
-      so_rule4 = rule_factory { { name: 'so_rule4', rule_type: 'autoML' } }
+      so_rule1 = create(:evidence_rule, name: 'so_rule1', rule_type: 'autoML')
+      so_rule2 = create(:evidence_rule, name: 'so_rule2', rule_type: 'autoML')
+      so_rule3 = create(:evidence_rule, name: 'so_rule3', rule_type: 'autoML')
+      so_rule4 = create(:evidence_rule, name: 'so_rule4', rule_type: 'autoML')
 
-      prompt_rule = prompt_rule_factory { {prompt: so_prompt1, rule: so_rule1} }
-      prompt_rule = prompt_rule_factory { {prompt: so_prompt1, rule: so_rule2} }
-      prompt_rule = prompt_rule_factory { {prompt: so_prompt1, rule: so_rule3} }
-      prompt_rule = prompt_rule_factory { {prompt: so_prompt1, rule: so_rule4} }
+      prompt_rule = create(:evidence_prompts_rule, prompt: so_prompt1, rule: so_rule1)
+      prompt_rule = create(:evidence_prompts_rule, prompt: so_prompt1, rule: so_rule2)
+      prompt_rule = create(:evidence_prompts_rule, prompt: so_prompt1, rule: so_rule3)
+      prompt_rule = create(:evidence_prompts_rule, prompt: so_prompt1, rule: so_rule4)
 
       activity_session = create(:activity_session)
 
@@ -180,8 +123,8 @@ RSpec.describe RuleFeedbackHistory, type: :model do
 
   describe '#generate_rulewise_report' do
     it 'should render feedback histories' do
-      so_rule1 = rule_factory { { name: 'so_rule1', rule_type: 'autoML'} }
-      unused_rule = rule_factory { { name: 'unused', rule_type: 'autoML'} }
+      so_rule1 = create(:evidence_rule, name: 'so_rule1', rule_type: 'autoML')
+      unused_rule = create(:evidence_rule, name: 'unused', rule_type: 'autoML')
 
       f_h1 = create(:feedback_history, rule_uid: so_rule1.uid, prompt_id: 1)
       f_h2 = create(:feedback_history, rule_uid: so_rule1.uid, prompt_id: 1)
@@ -206,7 +149,7 @@ RSpec.describe RuleFeedbackHistory, type: :model do
     end
 
     it 'should include rules that have no related FeedbackHistory records' do
-      so_rule1 = rule_factory { { name: 'so_rule1', rule_type: 'autoML'} }
+      so_rule1 = create(:evidence_rule, name: 'so_rule1', rule_type: 'autoML')
 
       result = RuleFeedbackHistory.generate_rulewise_report(
         rule_uid: so_rule1.uid,
@@ -223,8 +166,8 @@ RSpec.describe RuleFeedbackHistory, type: :model do
     end
 
     it 'should filter feedback histories by prompt id, used=true and time params' do
-      so_rule1 = rule_factory { { name: 'so_rule1', rule_type: 'autoML'} }
-      unused_rule = rule_factory { { name: 'unused', rule_type: 'autoML'} }
+      so_rule1 = create(:evidence_rule, name: 'so_rule1', rule_type: 'autoML')
+      unused_rule = create(:evidence_rule, name: 'unused', rule_type: 'autoML')
       activity_session = create(:activity_session)
 
       f_h1 = create(:feedback_history, rule_uid: so_rule1.uid)
@@ -254,8 +197,8 @@ RSpec.describe RuleFeedbackHistory, type: :model do
     end
 
     it 'should display the most recent feedback history rating, if it exists' do
-      so_rule1 = rule_factory { { name: 'so_rule1', rule_type: 'autoML'} }
-      unused_rule = rule_factory { { name: 'unused', rule_type: 'autoML'} }
+      so_rule1 = create(:evidence_rule, name: 'so_rule1', rule_type: 'autoML')
+      unused_rule = create(:evidence_rule, name: 'unused', rule_type: 'autoML')
 
       user1 = create(:user)
       user2 = create(:user)
@@ -296,7 +239,7 @@ RSpec.describe RuleFeedbackHistory, type: :model do
 
   describe '#feedback_history_to_json' do
     it 'should render feedback history to json object' do
-      so_rule = rule_factory { { name: 'so_rule', rule_type: 'autoML'} }
+      so_rule = create(:evidence_rule, name: 'so_rule', rule_type: 'autoML')
       f_h = create(:feedback_history, rule_uid: so_rule.uid, prompt_id: 1)
       result = RuleFeedbackHistory.feedback_history_to_json(f_h)
       expected = {
