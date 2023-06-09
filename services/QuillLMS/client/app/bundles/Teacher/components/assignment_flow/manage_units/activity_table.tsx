@@ -17,7 +17,7 @@ import {
 } from '../../../helpers/unitActivityDates';
 import * as api from '../../modules/call_api';
 
-const shareActivitySrc = `${process.env.VITE_PROCESS_ENV_CDN_URL}/images/icons/icons-share.svg`
+const shareActivitySrc = `${process.env.CDN_URL}/images/icons/icons-share.svg`
 
 const publishedIconImage = <img alt={publishedIcon.alt} className="published-icon" src={publishedIcon.src} />
 const scheduledIconImage = <img alt={scheduledIcon.alt} className="scheduled-icon" src={scheduledIcon.src} />
@@ -87,7 +87,7 @@ const ActivityTable = ({ data, onSuccess, isOwner, handleActivityClicked, handle
   }, [data])
 
   function removeActivity(unitActivityId) {
-    requestPut(`${process.env.VITE_DEFAULT_URL}/teachers/unit_activities/${unitActivityId}/hide`, {}, () => onSuccess('Activity removed'))
+    requestPut(`${process.env.DEFAULT_URL}/teachers/unit_activities/${unitActivityId}/hide`, {}, () => onSuccess('Activity removed'))
     setShowRemoveActivityModal(false)
   }
 

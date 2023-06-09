@@ -5,7 +5,7 @@ import { requestPost, } from '../../../../modules/request/index';
 import ButtonLoadingIndicator from '../shared/button_loading_indicator.jsx';
 
 export default class ExportCSV extends React.Component {
-  static defaultProps = {requestUrl: `${process.env.VITE_DEFAULT_URL}/teachers/progress_reports/csv_exports`};
+  static defaultProps = {requestUrl: `${process.env.DEFAULT_URL}/teachers/progress_reports/csv_exports`};
 
   constructor(props) {
     super(props)
@@ -44,7 +44,7 @@ export default class ExportCSV extends React.Component {
     if (process.env.RAILS_ENV === 'development') {
       Pusher.logToConsole = true;
     }
-    const pusher = new Pusher(process.env.VITE_PROCESS_ENV_PUSHER_KEY, {encrypted: true});
+    const pusher = new Pusher(process.env.PUSHER_KEY, {encrypted: true});
     let teacherId = this.props.teacher.id
     const channel = pusher.subscribe(teacherId.toString());
     const that = this;

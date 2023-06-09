@@ -17,9 +17,9 @@ import {
 } from '../../assignmentFlowConstants';
 import AssignmentFlowNavigation from '../../assignment_flow_navigation';
 
-const addStudentsSrc = `${process.env.VITE_PROCESS_ENV_CDN_URL}/images/illustrations/add-students.svg`
-const addShareActivityPackSrc = `${process.env.VITE_PROCESS_ENV_CDN_URL}/images/icons/icons-share-activity-pack.svg`
-const shareActivitySrc = `${process.env.VITE_PROCESS_ENV_CDN_URL}/images/icons/icons-share.svg`
+const addStudentsSrc = `${process.env.CDN_URL}/images/illustrations/add-students.svg`
+const addShareActivityPackSrc = `${process.env.CDN_URL}/images/icons/icons-share-activity-pack.svg`
+const shareActivitySrc = `${process.env.CDN_URL}/images/icons/icons-share.svg`
 
 export const ShareToStudents = ({ activityPackData, moveToStage4 }) => {
 
@@ -40,7 +40,7 @@ export const ShareToStudents = ({ activityPackData, moveToStage4 }) => {
   React.useEffect(() => {
     if (leaving) {
       handleUnmount();
-      window.location.href = `${process.env.VITE_DEFAULT_URL}/teachers/classrooms`;
+      window.location.href = `${process.env.DEFAULT_URL}/teachers/classrooms`;
     }
   }, [leaving]);
 

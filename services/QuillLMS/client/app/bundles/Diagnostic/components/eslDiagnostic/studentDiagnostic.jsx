@@ -203,7 +203,7 @@ export class ELLStudentDiagnostic extends React.Component {
 
   finishActivitySession = (sessionID, results, score, data) => {
     requestPut(
-      `${process.env.VITE_DEFAULT_URL}/api/v1/activity_sessions/${sessionID}`,
+      `${process.env.DEFAULT_URL}/api/v1/activity_sessions/${sessionID}`,
       {
         state: 'finished',
         concept_results: results,
@@ -211,7 +211,7 @@ export class ELLStudentDiagnostic extends React.Component {
         data
       },
       (body) => {
-        document.location.href = process.env.VITE_DEFAULT_URL;
+        document.location.href = process.env.DEFAULT_URL;
         this.setState({ saved: true, });
       },
       (body) => {
@@ -225,7 +225,7 @@ export class ELLStudentDiagnostic extends React.Component {
 
   createAnonActivitySession = (diagnosticID, results, score, data) => {
     requestPost(
-      `${process.env.VITE_DEFAULT_URL}/api/v1/activity_sessions/`,
+      `${process.env.DEFAULT_URL}/api/v1/activity_sessions/`,
       {
         state: 'finished',
         activity_uid: lessonID,
@@ -234,7 +234,7 @@ export class ELLStudentDiagnostic extends React.Component {
         data
       },
       (body) => {
-        document.location.href = process.env.VITE_DEFAULT_URL;
+        document.location.href = process.env.DEFAULT_URL;
         this.setState({ saved: true, });
       }
     )

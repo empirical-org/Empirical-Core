@@ -229,7 +229,7 @@ function searchResponses(qid) {
     const requestNumber = getState().filters.requestCount
     // check for request number in state, save as const
     requestPost(
-      `${process.env.VITE_CMS_URL}/questions/${qid}/responses/search`,
+      `${process.env.CMS_URL}/questions/${qid}/responses/search`,
       { search: getFormattedSearchData(getState()), },
       (data) => {
         // check again for number in state
@@ -259,7 +259,7 @@ function initializeSubscription(qid) {
       Pusher.logToConsole = true;
     }
     if (!window.pusher) {
-      window.pusher = new Pusher(process.env.VITE_PROCESS_ENV_PUSHER_KEY, { encrypted: true, });
+      window.pusher = new Pusher(process.env.PUSHER_KEY, { encrypted: true, });
     }
     const channel = window.pusher.subscribe(`admin-${qid}`);
     channel.bind('new-response', (data) => {

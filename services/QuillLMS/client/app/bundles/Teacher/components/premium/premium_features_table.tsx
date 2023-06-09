@@ -3,7 +3,7 @@ import * as React from 'react'
 import InfoTooltip from './infoTooltip'
 import { premiumFeatures, } from './premium_features_data'
 
-const greenCheckSrc = `${process.env.VITE_PROCESS_ENV_CDN_URL}/images/icons/icons-check-green.svg`
+const greenCheckSrc = `${process.env.CDN_URL}/images/icons/icons-check-green.svg`
 
 const greenCheckCell = (<span className="check-or-empty-wrapper">
   <img alt="Check icon" src={greenCheckSrc} />

@@ -5,7 +5,7 @@ import SkipForNow from './skip_for_now';
 import { requestPut, } from '../../../../../modules/request/index';
 import { Input, } from '../../../../Shared/index';
 
-const schoolVerificationSrc = `${process.env.VITE_PROCESS_ENV_CDN_URL}/images/onboarding/school_verification.svg`
+const schoolVerificationSrc = `${process.env.CDN_URL}/images/onboarding/school_verification.svg`
 
 const SchoolVerificationForm = ({ schoolName, }) => {
   const [verificationUrl, setVerificationUrl] = React.useState(null)
@@ -13,7 +13,7 @@ const SchoolVerificationForm = ({ schoolName, }) => {
 
   function submitAdminInfo() {
     requestPut(
-      `${process.env.VITE_DEFAULT_URL}/admin_infos`,
+      `${process.env.DEFAULT_URL}/admin_infos`,
       {
         verification_url: verificationUrl,
         verification_reason: verificationReason

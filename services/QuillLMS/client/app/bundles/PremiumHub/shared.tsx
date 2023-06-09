@@ -10,7 +10,7 @@ export const PENDING = 'Pending'
 export const DENIED = 'Denied'
 export const SKIPPED = 'Skipped'
 
-export const premiumLockImage = <img alt="Gray lock" src={`${process.env.VITE_PROCESS_ENV_CDN_URL}/images/pages/administrator/premium_lock.svg`} />
+export const premiumLockImage = <img alt="Gray lock" src={`${process.env.CDN_URL}/images/pages/administrator/premium_lock.svg`} />
 
 export const restrictedElement = (
   <div className="restricted">

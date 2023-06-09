@@ -213,7 +213,7 @@ export class Lesson extends React.Component {
 
   createAnonActivitySession = (lessonID, results, score, data) => {
     requestPost(
-      `${process.env.VITE_DEFAULT_URL}/api/v1/activity_sessions/`,
+      `${process.env.DEFAULT_URL}/api/v1/activity_sessions/`,
       {
         state: 'finished',
         activity_uid: lessonID,
@@ -222,7 +222,7 @@ export class Lesson extends React.Component {
         data
       },
       (body) => {
-        document.location.href = `${process.env.VITE_DEFAULT_URL}/activity_sessions/${body.activity_session.uid}`;
+        document.location.href = `${process.env.DEFAULT_URL}/activity_sessions/${body.activity_session.uid}`;
         this.setState({ saved: true, });
       }
     )
@@ -230,7 +230,7 @@ export class Lesson extends React.Component {
 
   finishActivitySession = (sessionID, results, score, data) => {
     requestPut(
-      `${process.env.VITE_DEFAULT_URL}/api/v1/activity_sessions/${sessionID}`,
+      `${process.env.DEFAULT_URL}/api/v1/activity_sessions/${sessionID}`,
       {
         state: 'finished',
         concept_results: results,
@@ -238,7 +238,7 @@ export class Lesson extends React.Component {
         data
       },
       (body) => {
-        document.location.href = `${process.env.VITE_DEFAULT_URL}/activity_sessions/${sessionID}`;
+        document.location.href = `${process.env.DEFAULT_URL}/activity_sessions/${sessionID}`;
         this.setState({ saved: true, });
       },
       (body) => {

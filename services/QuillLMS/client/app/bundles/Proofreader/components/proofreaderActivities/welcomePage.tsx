@@ -1,8 +1,8 @@
 import * as React from 'react'
 
-const readExampleSrc = `${process.env.VITE_PROCESS_ENV_CDN_URL}/images/illustrations/proofreader-example-proofread.svg`
-const reviewExampleSrc = `${process.env.VITE_PROCESS_ENV_CDN_URL}/images/illustrations/proofreader-example-review.svg`
-const practiceExampleSrc = `${process.env.VITE_PROCESS_ENV_CDN_URL}/images/illustrations/proofreader-example-practice.svg`
+const readExampleSrc = `${process.env.CDN_URL}/images/illustrations/proofreader-example-proofread.svg`
+const reviewExampleSrc = `${process.env.CDN_URL}/images/illustrations/proofreader-example-review.svg`
+const practiceExampleSrc = `${process.env.CDN_URL}/images/illustrations/proofreader-example-practice.svg`
 
 const WelcomePage = ({onNextClick}) => {
   return (

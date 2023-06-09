@@ -1,6 +1,6 @@
 import * as React from 'react';
 import { Cue, CueExplanation, } from '../../../Shared/index';
-const arrow = `${process.env.VITE_PROCESS_ENV_CDN_URL}/images/icons/pointing-arrow.svg`;
+const arrow = `${process.env.CDN_URL}/images/icons/pointing-arrow.svg`;
 
 interface CuesProps {
   cuesLabel?: string;

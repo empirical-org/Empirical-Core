@@ -7,8 +7,8 @@ import { ACTIVITY_CATEGORY_FILTERS, AVERAGE_FONT_WIDTH, } from './shared';
 import { requestPost, } from '../../../../../../modules/request/index';
 import { Input, Snackbar, SortableList, Tooltip, defaultSnackbarTimeout, } from '../../../../../Shared/index';
 
-const smallWhiteCheckSrc = `${process.env.VITE_PROCESS_ENV_CDN_URL}/images/shared/check-small-white.svg`
-const reorderSrc = `${process.env.VITE_PROCESS_ENV_CDN_URL}/images/icons/reorder.svg`
+const smallWhiteCheckSrc = `${process.env.CDN_URL}/images/shared/check-small-white.svg`
+const reorderSrc = `${process.env.CDN_URL}/images/icons/reorder.svg`
 
 interface StaffActivityCategoryFilterRowProps {
   selectedActivityCategoryId: number,

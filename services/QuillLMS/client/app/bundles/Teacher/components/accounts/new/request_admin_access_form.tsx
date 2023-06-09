@@ -6,7 +6,7 @@ import { requestPost, } from '../../../../../modules/request/index';
 import { Input, } from '../../../../Shared/index';
 import AdminTable from '../../admin_access/adminTable';
 
-const schoolVerificationSrc = `${process.env.VITE_PROCESS_ENV_CDN_URL}/images/onboarding/school_verification.svg`
+const schoolVerificationSrc = `${process.env.CDN_URL}/images/onboarding/school_verification.svg`
 
 const RequestAdminAccessForm = ({ schoolName, admins, }) => {
   const [selectedAdminIds, setSelectedAdminIds] = React.useState([])
@@ -15,7 +15,7 @@ const RequestAdminAccessForm = ({ schoolName, admins, }) => {
   function handleChangeReason(e) { setReason(e.target.value) }
 
   function handleClickSubmit() {
-    requestPost(`${process.env.VITE_DEFAULT_URL}/admin_access/request_upgrade_to_admin_from_existing_admins`, {
+    requestPost(`${process.env.DEFAULT_URL}/admin_access/request_upgrade_to_admin_from_existing_admins`, {
       admin_ids: selectedAdminIds,
       new_user: true,
       reason

@@ -58,7 +58,7 @@ export class TurkActivity extends React.Component {
 
   createAnonActivitySession = (lessonID, results, score) => {
     requestPost(
-      `${process.env.VITE_DEFAULT_URL}/api/v1/activity_sessions/`,
+      `${process.env.DEFAULT_URL}/api/v1/activity_sessions/`,
       {
         state: 'finished',
         activity_uid: lessonID,
@@ -73,7 +73,7 @@ export class TurkActivity extends React.Component {
 
   finishActivitySession = (sessionID, results, score) => {
     requestPut(
-      `${process.env.VITE_DEFAULT_URL}/api/v1/activity_sessions/${sessionID}`,
+      `${process.env.DEFAULT_URL}/api/v1/activity_sessions/${sessionID}`,
       {
         state: 'finished',
         concept_results: results,

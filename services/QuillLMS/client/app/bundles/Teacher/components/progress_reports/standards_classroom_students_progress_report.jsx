@@ -27,7 +27,7 @@ export default class extends React.Component {
     const that = this;
 
     requestGet(
-      `${process.env.VITE_DEFAULT_URL}/${this.props.sourceUrl}`,
+      `${process.env.DEFAULT_URL}/${this.props.sourceUrl}`,
       (body) => {
         const parsedClassrooms = this.parseClassrooms(body.classrooms_with_student_ids)
         const dropdownClassrooms = parsedClassrooms.dropdownClassrooms;

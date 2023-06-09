@@ -5,11 +5,11 @@ import { stripHtml } from "string-strip-html";
 import { GRAMMAR, RULES_BASED_3, SPELLING, } from '../../../../constants/evidence';
 import useFocus from '../../../Shared/hooks/useFocus';
 
-const loopSrc = `${process.env.VITE_PROCESS_ENV_CDN_URL}/images/icons/loop.svg`
-const smallCheckCircleSrc = `${process.env.VITE_PROCESS_ENV_CDN_URL}/images/icons/check-circle-small.svg`
-const closeIconSrc = `${process.env.VITE_PROCESS_ENV_CDN_URL}/images/icons/clear-enabled.svg`
-const informationSrc = `${process.env.VITE_PROCESS_ENV_CDN_URL}/images/pages/evidence/icons-information-small.svg`
-const lightbulbSrc = `${process.env.VITE_PROCESS_ENV_CDN_URL}/images/pages/evidence/icons-lightbulb-small.svg`
+const loopSrc = `${process.env.CDN_URL}/images/icons/loop.svg`
+const smallCheckCircleSrc = `${process.env.CDN_URL}/images/icons/check-circle-small.svg`
+const closeIconSrc = `${process.env.CDN_URL}/images/icons/clear-enabled.svg`
+const informationSrc = `${process.env.CDN_URL}/images/pages/evidence/icons-information-small.svg`
+const lightbulbSrc = `${process.env.CDN_URL}/images/pages/evidence/icons-lightbulb-small.svg`
 
 const reportAProblemOptions = (optimal) => ([
   "I don't think this feedback applies to what I wrote",

@@ -37,7 +37,7 @@ export const UploadRosters = () => {
   }
 
   function submitRosters() {
-    requestPost(`${process.env.VITE_DEFAULT_URL}/cms/rosters/upload_teachers_and_students`,
+    requestPost(`${process.env.DEFAULT_URL}/cms/rosters/upload_teachers_and_students`,
       {
         school_id: schoolId,
         teachers: teachers,

@@ -7,7 +7,7 @@ import AssignActivityPackBanner from '../assignActivityPackBanner';
 import PasswordWrapper from '../shared/password_wrapper';
 import PasswordInfo from './password_info.jsx';
 
-const smallWhiteCheckSrc = `${process.env.VITE_PROCESS_ENV_CDN_URL}/images/shared/check-small-white.svg`
+const smallWhiteCheckSrc = `${process.env.CDN_URL}/images/shared/check-small-white.svg`
 
 class LoginFormApp extends React.Component {
 
@@ -68,7 +68,7 @@ class LoginFormApp extends React.Component {
     e.preventDefault();
 
     requestPost(
-      `${process.env.VITE_DEFAULT_URL}/session/login_through_ajax`,
+      `${process.env.DEFAULT_URL}/session/login_through_ajax`,
       {
         user: {
           email,
@@ -149,7 +149,7 @@ class LoginFormApp extends React.Component {
             <div className="auth-section">
               <AuthGoogleAccessForm text='Log in with Google' />
               <button onClick={this.handleCleverClick} type="button">
-                <img alt="Clever icon" src={`${process.env.VITE_PROCESS_ENV_CDN_URL}/images/shared/clever_icon.svg`} />
+                <img alt="Clever icon" src={`${process.env.CDN_URL}/images/shared/clever_icon.svg`} />
                 <span>Log in with Clever</span>
               </button>
             </div>

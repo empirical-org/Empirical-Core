@@ -16,7 +16,7 @@ const InviteAdminModal = ({ onSuccess, closeModal, }) => {
   function handleChangeNote(e) { setNote(e.target.value) }
 
   function handleClickSendRequest() {
-    requestPost(`${process.env.VITE_DEFAULT_URL}/admin_access/invite_admin`, {
+    requestPost(`${process.env.DEFAULT_URL}/admin_access/invite_admin`, {
       admin_name: adminName,
       admin_email: adminEmail,
       note

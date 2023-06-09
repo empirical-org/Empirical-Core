@@ -35,7 +35,7 @@ const FinishSetUp = ({ email, passedFirstName, passedLastName, token, }) => {
     e.preventDefault();
 
     requestPut(
-      `${process.env.VITE_DEFAULT_URL}/account/${token}`,
+      `${process.env.DEFAULT_URL}/account/${token}`,
       {
         user: {
           name: `${firstName} ${lastName}`,
@@ -43,7 +43,7 @@ const FinishSetUp = ({ email, passedFirstName, passedLastName, token, }) => {
         }
       },
       (body) => {
-        window.location.href = process.env.VITE_DEFAULT_URL
+        window.location.href = process.env.DEFAULT_URL
       },
       (body) => {
         setErrors(body.errors)

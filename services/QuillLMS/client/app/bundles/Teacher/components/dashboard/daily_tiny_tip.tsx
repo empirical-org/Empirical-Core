@@ -1,6 +1,6 @@
 import * as React from 'react';
 
-const baseImageUrl = `${process.env.VITE_PROCESS_ENV_CDN_URL}/images/pages/dashboard/daily_tiny_tips`
+const baseImageUrl = `${process.env.CDN_URL}/images/pages/dashboard/daily_tiny_tips`
 
 const dailyTinyTips = [
   {

@@ -9,7 +9,7 @@ import {
 import POSMatcher from '../../libs/sentenceFragment.js';
 import TextEditor from '../renderForQuestions/renderTextEditor.jsx';
 import updateResponseResource from '../renderForQuestions/updateResponseResource.js';
-const icon = `${process.env.VITE_PROCESS_ENV_CDN_URL}/images/icons/direction.svg`
+const icon = `${process.env.CDN_URL}/images/icons/direction.svg`
 
 const key = ''; // enables this component to be used by both play/sentence-fragments and play/diagnostic
 

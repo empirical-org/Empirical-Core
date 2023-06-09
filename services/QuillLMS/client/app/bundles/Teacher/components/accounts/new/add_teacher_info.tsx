@@ -6,7 +6,7 @@ import { requestPost, } from '../../../../../modules/request/index';
 import GradeLevelSection from '../shared/grade_level_section';
 import SubjectAreaSection from '../shared/subject_area_section';
 
-const teacherAtBoardSrc = `${process.env.VITE_PROCESS_ENV_CDN_URL}/images/onboarding/packs-whole.svg`
+const teacherAtBoardSrc = `${process.env.CDN_URL}/images/onboarding/packs-whole.svg`
 
 const AddTeacherInfo = ({ subjectAreas, }) => {
   const [minimumGradeLevel, setMinimumGradeLevel] = React.useState(null)
@@ -15,7 +15,7 @@ const AddTeacherInfo = ({ subjectAreas, }) => {
 
   function submitTeacherInfo() {
     requestPost(
-      `${process.env.VITE_DEFAULT_URL}/teacher_infos`,
+      `${process.env.DEFAULT_URL}/teacher_infos`,
       {
         minimum_grade_level: minimumGradeLevel.value,
         maximum_grade_level: maximumGradeLevel.value,

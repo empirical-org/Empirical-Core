@@ -10,9 +10,9 @@ import { SortableList, Tooltip } from '../../../Shared/index'
 import getAuthToken from '../../components/modules/get_auth_token'
 import { ALL_DIAGNOSTICS, ALL_FLAGS, NOT_ARCHIVED_FLAG, orderedUnitTemplates, sortUnitTemplates } from '../../helpers/unitTemplates'
 
-const UNIT_TEMPLATES_URL = `${process.env.VITE_DEFAULT_URL}/cms/unit_templates.json`
-const DIAGNOSTICS_URL = `${process.env.VITE_DEFAULT_URL}/api/v1/activities/diagnostic_activities.json`
-const UPDATE_ORDER_URL = `${process.env.VITE_DEFAULT_URL}/cms/unit_templates/update_order_numbers`
+const UNIT_TEMPLATES_URL = `${process.env.DEFAULT_URL}/cms/unit_templates.json`
+const DIAGNOSTICS_URL = `${process.env.DEFAULT_URL}/api/v1/activities/diagnostic_activities.json`
+const UPDATE_ORDER_URL = `${process.env.DEFAULT_URL}/cms/unit_templates/update_order_numbers`
 
 // TODO: flag display
 const flagOptionValues = flagOptions.map(option => option.value)
@@ -120,7 +120,7 @@ export const UnitTemplates = () => {
   };
 
   function onDelete(id) {
-    const link = `${process.env.VITE_DEFAULT_URL}/cms/unit_templates/${id}`
+    const link = `${process.env.DEFAULT_URL}/cms/unit_templates/${id}`
     fetch(link, {
       method: 'DELETE',
       mode: 'cors',
@@ -146,7 +146,7 @@ export const UnitTemplates = () => {
     const newUnitTemplate = unitTemplate
     newUnitTemplate.unit_template_category_id = unitTemplate.unit_template_category.id
     newUnitTemplate.activity_ids = unitTemplate.activity_ids || unitTemplate.activities.map((a) => a.id)
-    const link = `${process.env.VITE_DEFAULT_URL}/cms/unit_templates/${unitTemplate.id}.json`
+    const link = `${process.env.DEFAULT_URL}/cms/unit_templates/${unitTemplate.id}.json`
     const index = fetchedData.findIndex((e) => e.id === unitTemplate.id)
     fetch(link, {
       method: 'PUT',

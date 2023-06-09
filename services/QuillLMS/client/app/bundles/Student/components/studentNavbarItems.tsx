@@ -1,8 +1,8 @@
 import * as React from 'react';
 
-const avatarSrc = `${process.env.VITE_PROCESS_ENV_CDN_URL}/images/icons/avatar.svg`
-const menuSrc = `${process.env.VITE_PROCESS_ENV_CDN_URL}/images/icons/menu.svg`
-const closeSrc = `${process.env.VITE_PROCESS_ENV_CDN_URL}/images/icons/close-white.svg`
+const avatarSrc = `${process.env.CDN_URL}/images/icons/avatar.svg`
+const menuSrc = `${process.env.CDN_URL}/images/icons/menu.svg`
+const closeSrc = `${process.env.CDN_URL}/images/icons/close-white.svg`
 
 interface StudentNavbarItemsProps {
   name: string;
