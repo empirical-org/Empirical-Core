@@ -10,27 +10,27 @@ import TurkCodePage from './turkCodePage';
 
 import { requestPost, requestPut, } from '../../../../modules/request/index';
 import {
-  CLICK,
-  KEYDOWN,
-  KEYPRESS,
-  MOUSEDOWN,
-  MOUSEMOVE,
-  SCROLL,
-  VISIBILITYCHANGE,
-  roundValuesToSeconds,
+    CLICK,
+    KEYDOWN,
+    KEYPRESS,
+    MOUSEDOWN,
+    MOUSEMOVE,
+    SCROLL,
+    VISIBILITYCHANGE,
+    roundValuesToSeconds,
 } from '../../../Shared/index';
 import { startListeningToConcepts } from '../../actions/concepts';
 import { startListeningToConceptsFeedback } from '../../actions/conceptsFeedback';
 import { getActivity } from "../../actions/grammarActivities";
 import { startListeningToQuestions } from '../../actions/questions';
 import {
-  checkAnswer,
-  getQuestions,
-  getQuestionsForConcepts,
-  goToNextQuestion,
-  startListeningToFollowUpQuestionsForProofreaderSession,
-  startNewSession,
-  updateSession,
+    checkAnswer,
+    getQuestions,
+    getQuestionsForConcepts,
+    goToNextQuestion,
+    startListeningToFollowUpQuestionsForProofreaderSession,
+    startNewSession,
+    updateSession,
 } from "../../actions/session";
 import { calculateScoreForLesson, getConceptResultsForAllQuestions } from '../../helpers/conceptResultsGenerator';
 import getParameterByName from '../../helpers/getParameterByName';
@@ -273,7 +273,7 @@ export class PlayGrammarContainer extends React.Component<PlayGrammarContainerPr
 
     finishActivitySession = (sessionID: string, results: FormattedConceptResult[], score: number, data) => {
       requestPut(
-        `${import.meta.env.VITE_DEFAULT_URL}/api/v1/activity_sessions/${sessionID}`,
+        `${process.env.VITE_DEFAULT_URL}/api/v1/activity_sessions/${sessionID}`,
         {
           state: 'finished',
           concept_results: results,
@@ -281,7 +281,7 @@ export class PlayGrammarContainer extends React.Component<PlayGrammarContainerPr
           data
         },
         (body) => {
-          document.location.href = `${import.meta.env.VITE_DEFAULT_URL}/activity_sessions/${body.activity_session.uid}`;
+          document.location.href = `${process.env.VITE_DEFAULT_URL}/activity_sessions/${body.activity_session.uid}`;
           this.setState({ saved: true, });
         },
         (body) => {
@@ -298,7 +298,7 @@ export class PlayGrammarContainer extends React.Component<PlayGrammarContainerPr
       const { previewMode } = this.props;
 
       requestPost(
-        `${import.meta.env.VITE_DEFAULT_URL}/api/v1/activity_sessions/`,
+        `${process.env.VITE_DEFAULT_URL}/api/v1/activity_sessions/`,
         {
           state: 'finished',
           activity_uid: lessonID,
@@ -308,7 +308,7 @@ export class PlayGrammarContainer extends React.Component<PlayGrammarContainerPr
         },
         (body) => {
           if (!showTurkCode && !previewMode) {
-            document.location.href = `${import.meta.env.VITE_DEFAULT_URL}/activity_sessions/${body.activity_session.uid}`;
+            document.location.href = `${process.env.VITE_DEFAULT_URL}/activity_sessions/${body.activity_session.uid}`;
           }
         }
       )

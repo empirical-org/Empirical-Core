@@ -3,8 +3,8 @@ import * as React from "react";
 import { PlayProofreaderContainer } from "../../components/proofreaderActivities/container";
 import { ProofreaderActivityReducer } from './data';
 
-import.meta.env.VITE_DEFAULT_URL = 'https://staging.quill.org'
-import.meta.env.VITE_CMS_URL = 'https://cms.quill.org'
+process.env.VITE_DEFAULT_URL = 'https://staging.quill.org'
+process.env.VITE_CMS_URL = 'https://cms.quill.org'
 
 describe("<PlayProofreaderContainer />", () => {
   const wrapper = mount(<PlayProofreaderContainer

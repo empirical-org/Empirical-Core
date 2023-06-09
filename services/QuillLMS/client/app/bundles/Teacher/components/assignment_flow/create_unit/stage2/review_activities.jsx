@@ -3,18 +3,18 @@ import React from 'react';
 
 import { requestGet } from '../../../../../../modules/request';
 import {
-  DataTable,
-  Snackbar,
-  Tooltip,
-  defaultSnackbarTimeout,
-  getIconForActivityClassification,
+    DataTable,
+    Snackbar,
+    Tooltip,
+    defaultSnackbarTimeout,
+    getIconForActivityClassification,
 } from '../../../../../Shared/index';
 import {
-  DUE_DATE_DEFAULT_TEXT,
-  DatePickerContainer,
-  INVALID_DATES_SNACKBAR_COPY,
-  PUBLISH_DATE_DEFAULT_TEXT,
-  formatDateTimeForDisplay,
+    DUE_DATE_DEFAULT_TEXT,
+    DatePickerContainer,
+    INVALID_DATES_SNACKBAR_COPY,
+    PUBLISH_DATE_DEFAULT_TEXT,
+    formatDateTimeForDisplay,
 } from '../../../../helpers/unitActivityDates';
 import PreviouslyAssignedTooltip from '../../previouslyAssignedTooltip';
 
@@ -97,7 +97,7 @@ export default class ReviewActivities extends React.Component {
   getPreviouslyAssignedActivityData = () => {
     const { activities } = this.props
     const activityIds = JSON.stringify(activities.map(activity => activity.id))
-    requestGet(`${import.meta.env.VITE_DEFAULT_URL}/teachers/unit_templates/previously_assigned_activities?activity_ids=${activityIds}`, (response) => {
+    requestGet(`${process.env.VITE_DEFAULT_URL}/teachers/unit_templates/previously_assigned_activities?activity_ids=${activityIds}`, (response) => {
       if(response.previously_assigned_activity_data && Object.keys(response.previously_assigned_activity_data).length) {
         const { previously_assigned_activity_data } = response
         this.setState({ previouslyAssignedActivityData: previously_assigned_activity_data })

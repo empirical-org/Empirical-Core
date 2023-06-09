@@ -96,7 +96,7 @@ export default class Unit extends React.Component {
 
   handleSubmit = () => {
     requestPut(
-      `${import.meta.env.VITE_DEFAULT_URL}/teachers/units/${this.props.data.unitId}`,
+      `${process.env.VITE_DEFAULT_URL}/teachers/units/${this.props.data.unitId}`,
       { unit: { name: this.state.unitName, }, },
       (body) => {
         this.setState({

@@ -7,7 +7,7 @@ import LeaveClassModal from './leave_class_modal'
 
 import { Tooltip, helpIcon, } from '../../../Shared/index'
 import NumberSuffix from '../modules/numberSuffixBuilder.js'
-const expandSrc = `${import.meta.env.VITE_PROCESS_ENV_CDN_URL}/images/icons/expand.svg`
+const expandSrc = `${process.env.VITE_PROCESS_ENV_CDN_URL}/images/icons/expand.svg`
 
 export const leaveClassModal = 'leaveClassModal'
 

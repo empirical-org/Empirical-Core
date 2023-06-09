@@ -4,18 +4,18 @@ import * as React from 'react';
 import { connect } from 'react-redux';
 import * as _ from 'underscore';
 import {
-  ConceptExplanation,
-  hashToCollection,
+    ConceptExplanation,
+    hashToCollection,
 } from '../../../Shared/index';
 import {
-  getGradedResponsesWithCallback
+    getGradedResponsesWithCallback
 } from '../../actions/responses';
 import Feedback from '../renderForQuestions/feedback';
 import RenderQuestionFeedback from '../renderForQuestions/feedbackStatements.jsx';
 import TextEditor from '../renderForQuestions/renderTextEditor.jsx';
 import updateResponseResource from '../renderForQuestions/updateResponseResource.js';
 
-const icon = `${import.meta.env.VITE_PROCESS_ENV_CDN_URL}/images/icons/direction.svg`
+const icon = `${process.env.VITE_PROCESS_ENV_CDN_URL}/images/icons/direction.svg`
 
 class PlaySentenceFragment extends React.Component {
   constructor(props) {

@@ -4,10 +4,10 @@ import React from 'react';
 import { connect } from 'react-redux';
 
 import {
-  fetchStudentProfile,
-  fetchStudentsClassrooms,
-  handleClassroomClick,
-  updateActiveClassworkTab
+    fetchStudentProfile,
+    fetchStudentsClassrooms,
+    handleClassroomClick,
+    updateActiveClassworkTab
 } from '../../../actions/student_profile';
 import { TO_DO_ACTIVITIES } from '../../../constants/student_profile';
 import SelectAClassroom from '../../Student/components/selectAClassroom';
@@ -89,10 +89,10 @@ class StudentProfile extends React.Component {
     if (student) {
       const classroomId = student.classroom.id;
 
-      if (import.meta.env.RAILS_ENV === 'development') {
+      if (process.env.RAILS_ENV === 'development') {
         Pusher.logToConsole = true;
       }
-      const pusher = new Pusher(import.meta.env.VITE_PROCESS_ENV_PUSHER_KEY, { encrypted: true, });
+      const pusher = new Pusher(process.env.VITE_PROCESS_ENV_PUSHER_KEY, { encrypted: true, });
       const channel = pusher.subscribe(classroomId.toString());
       channel.bind('lesson-launched', () => {
         fetchStudentProfile(classroomId);

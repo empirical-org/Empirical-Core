@@ -10,7 +10,7 @@ import { PROGRESS_REPORTS_SELECTED_CLASSROOM_ID, } from '../../progress_reports/
 import ArticleSpotlight from '../../shared/articleSpotlight';
 import LoadingIndicator from '../../shared/loading_indicator';
 
-const clipboardSrc = `${import.meta.env.VITE_PROCESS_ENV_CDN_URL}/images/illustrations/clipboard.svg`
+const clipboardSrc = `${process.env.VITE_PROCESS_ENV_CDN_URL}/images/illustrations/clipboard.svg`
 
 const allClassroomKey = 'All Classes';
 
@@ -42,7 +42,7 @@ export default class ManageUnits extends React.Component {
   getClassrooms = () => {
     const { selectedClassroomId, } = this.state
     requestGet(
-      `${import.meta.env.VITE_DEFAULT_URL}/teachers/classrooms/classrooms_i_teach`,
+      `${process.env.VITE_DEFAULT_URL}/teachers/classrooms/classrooms_i_teach`,
       (body) => {
         const classrooms = body.classrooms;
         const localStorageSelectedClassroomId = window.localStorage.getItem(PROGRESS_REPORTS_SELECTED_CLASSROOM_ID)
@@ -56,7 +56,7 @@ export default class ManageUnits extends React.Component {
   };
 
   getRecommendationIds = () => {
-    fetch(`${import.meta.env.VITE_DEFAULT_URL}/teachers/progress_reports/activity_with_recommendations_ids`, {
+    fetch(`${process.env.VITE_DEFAULT_URL}/teachers/progress_reports/activity_with_recommendations_ids`, {
       method: 'GET',
       mode: 'cors',
       credentials: 'include',
@@ -90,7 +90,7 @@ export default class ManageUnits extends React.Component {
   };
 
   getUnits = () => {
-    requestGet(`${import.meta.env.VITE_DEFAULT_URL}/teachers/units`, (body) => {
+    requestGet(`${process.env.VITE_DEFAULT_URL}/teachers/units`, (body) => {
       this.setAllUnits(body);
     });
   };

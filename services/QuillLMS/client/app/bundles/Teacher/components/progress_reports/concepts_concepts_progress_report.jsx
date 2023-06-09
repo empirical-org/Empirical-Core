@@ -20,7 +20,7 @@ export default class IndividualStudentConceptReport extends React.Component {
 
   componentDidMount() {
     requestGet(
-      `${import.meta.env.VITE_DEFAULT_URL}/${this.props.sourceUrl}`,
+      `${process.env.VITE_DEFAULT_URL}/${this.props.sourceUrl}`,
       (body) => {
         this.setState({
           loading: false,

@@ -2,17 +2,17 @@ declare function require(name:string);
 import * as React from 'react';
 
 import {
-  PRACTICE_LATER,
-  PRACTICE_NOW,
-  SMALL_GROUP_AND_INDEPENDENT
+    PRACTICE_LATER,
+    PRACTICE_NOW,
+    SMALL_GROUP_AND_INDEPENDENT
 } from '../../constants';
 
 
-const FollowUpIllustration = `${import.meta.env.VITE_PROCESS_ENV_CDN_URL}/images/illustrations/celebrating-activity-completion.svg`
+const FollowUpIllustration = `${process.env.VITE_PROCESS_ENV_CDN_URL}/images/illustrations/celebrating-activity-completion.svg`
 
 const buttonClassName = "quill-button large outlined secondary focus-on-dark"
 
-const generic = <a className={buttonClassName} href={`${import.meta.env.VITE_DEFAULT_URL}`}>Exit lesson</a>
+const generic = <a className={buttonClassName} href={`${process.env.VITE_DEFAULT_URL}`}>Exit lesson</a>
 
 const flagged = <h2>Wait for instructions from your teacher.</h2>
 

@@ -9,7 +9,7 @@ export const fetchStudentProfile = (classroomId) => {
   return (dispatch) => {
     const qs = classroomId ? `?current_classroom_id=${classroomId}` : ''
     requestGet(
-      `${import.meta.env.VITE_DEFAULT_URL}/student_profile_data${qs}`,
+      `${process.env.VITE_DEFAULT_URL}/student_profile_data${qs}`,
       (body) => {
         dispatch(receiveStudentProfile(body))
       }
@@ -41,7 +41,7 @@ export const updateActiveClassworkTab = (activeClassworkTab) => {
 export const fetchStudentsClassrooms = () => {
   return (dispatch) => {
     requestGet(
-      `${import.meta.env.VITE_DEFAULT_URL}/students_classrooms_json`,
+      `${process.env.VITE_DEFAULT_URL}/students_classrooms_json`,
       (body) => {
         dispatch(receiveStudentsClassrooms(body.classrooms))
       }

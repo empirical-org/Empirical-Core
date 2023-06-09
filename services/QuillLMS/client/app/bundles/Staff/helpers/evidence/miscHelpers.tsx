@@ -5,25 +5,25 @@ import { Link } from 'react-router-dom';
 import { stripHtml } from "string-strip-html";
 
 import {
-  BREAK_TAG,
-  BUILDING_ESSENTIAL_KNOWLEDGE,
-  DEFAULT_MAX_ATTEMPTS,
-  FLAG,
-  HIGHLIGHTING_PROMPT,
-  HIGHLIGHT_PROMPT,
-  IMAGE,
-  IMAGE_ALT_TEXT,
-  IMAGE_ATTRIBUTION,
-  IMAGE_CAPTION,
-  IMAGE_LINK,
-  MAXIMUM_READING_LEVEL,
-  MAX_ATTEMPTS_FEEDBACK,
-  MINIMUM_READING_LEVEL,
-  PLAGIARISM,
-  PROMPTS,
-  SCORED_READING_LEVEL,
-  TARGET_READING_LEVEL,
-  TEXT,
+    BREAK_TAG,
+    BUILDING_ESSENTIAL_KNOWLEDGE,
+    DEFAULT_MAX_ATTEMPTS,
+    FLAG,
+    HIGHLIGHTING_PROMPT,
+    HIGHLIGHT_PROMPT,
+    IMAGE,
+    IMAGE_ALT_TEXT,
+    IMAGE_ATTRIBUTION,
+    IMAGE_CAPTION,
+    IMAGE_LINK,
+    MAXIMUM_READING_LEVEL,
+    MAX_ATTEMPTS_FEEDBACK,
+    MINIMUM_READING_LEVEL,
+    PLAGIARISM,
+    PROMPTS,
+    SCORED_READING_LEVEL,
+    TARGET_READING_LEVEL,
+    TEXT,
 } from '../../../../constants/evidence';
 import { DEFAULT_HIGHLIGHT_PROMPT, NumberFilterInput, TextFilter, filterNumbers } from "../../../Shared";
 import { ActivitySessionInterface, DropdownObjectInterface } from '../../interfaces/evidenceInterfaces';
@@ -480,11 +480,11 @@ export function addCommasToThousands(num)
 }
 
 export function getLinkToActivity(id) {
-  return `${import.meta.env.VITE_DEFAULT_URL}/cms/evidence#/activities/${id}/settings`
+  return `${process.env.VITE_DEFAULT_URL}/cms/evidence#/activities/${id}/settings`
 }
 
 export function getLinkToPrompt(activity_id, conjunction) {
-  return `${import.meta.env.VITE_DEFAULT_URL}/cms/evidence#/activities/${activity_id}/rules-analysis/${conjunction}?selected_rule_type=All%20Rules`
+  return `${process.env.VITE_DEFAULT_URL}/cms/evidence#/activities/${activity_id}/rules-analysis/${conjunction}?selected_rule_type=All%20Rules`
 }
 
 export function secondsToHumanReadableTime(seconds) {

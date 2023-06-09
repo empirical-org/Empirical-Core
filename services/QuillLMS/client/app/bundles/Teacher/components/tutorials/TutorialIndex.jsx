@@ -1,5 +1,5 @@
 import React from 'react';
-import { useParams, useNavigate, } from "react-router-dom-v5-compat";
+import { useNavigate, useParams, } from "react-router-dom-v5-compat";
 
 import getParameterByName from '../modules/get_parameter_by_name';
 import LessonsSlides from './LessonsSlides';
@@ -43,7 +43,7 @@ const TutorialIndex = ({}) => {
 
   function finishTutorial() {
     if (params.tool === LESSONS) {
-      requestPost(`${import.meta.env.VITE_DEFAULT_URL}/milestones/complete_view_lesson_tutorial`)
+      requestPost(`${process.env.VITE_DEFAULT_URL}/milestones/complete_view_lesson_tutorial`)
     }
   }
 
@@ -61,7 +61,7 @@ const TutorialIndex = ({}) => {
   }
 
   function nextButton() {
-    const lessonsUrl = import.meta.env.QUILL_LESSONS_URL || 'https://quill.org/lessons';
+    const lessonsUrl = process.env.QUILL_LESSONS_URL || 'https://quill.org/lessons';
     if (slideNumber !== slides.length) {
       return <button className="text-white bg-quillgreen next-button" onClick={() => goToSlide(slideNumber + 1)}>Next</button>;
     } else if (getParameterByName('url')) {

@@ -1,10 +1,10 @@
 import * as React from 'react'
 
 import {
-  Tooltip,
+    Tooltip,
 } from '../../../../Shared/index'
 
-const multipleAccountOutlinedSrc = `${import.meta.env.VITE_PROCESS_ENV_CDN_URL}/images/icons/icons-account-multiple-check-outlined.svg`
+const multipleAccountOutlinedSrc = `${process.env.VITE_PROCESS_ENV_CDN_URL}/images/icons/icons-account-multiple-check-outlined.svg`
 const AVERAGE_FONT_WIDTH = 7
 
 const IndividualClassroom = ({ classroom, }) => {

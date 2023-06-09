@@ -3,17 +3,17 @@ import * as React from 'react';
 import { connect } from 'react-redux';
 
 import {
-  removeWatchTeacherState,
-  setWatchTeacherState,
-  showSignupModal,
-  unpinActivityOnSaveAndExit
+    removeWatchTeacherState,
+    setWatchTeacherState,
+    showSignupModal,
+    unpinActivityOnSaveAndExit
 } from '../../actions/classroomSessions';
 import {
-  createNewEdition
+    createNewEdition
 } from '../../actions/customize';
 import { getParameterByName } from '../../libs/getParameterByName';
 import {
-  ClassroomUnitId
+    ClassroomUnitId
 } from '../classroomLessons/interfaces';
 import Tooltip from '../classroomLessons/shared/tooltip';
 
@@ -179,7 +179,7 @@ class TeacherNavbar extends React.Component<any, any> {
       /* eslint-disable react/jsx-no-target-blank */
       return (
         <a
-          href={`${import.meta.env.VITE_DEFAULT_URL}/activities/${params.lessonID}/supporting_info`}
+          href={`${process.env.VITE_DEFAULT_URL}/activities/${params.lessonID}/supporting_info`}
           onMouseEnter={this.handleMouseEnterPDFIcon}
           onMouseLeave={this.handleMouseLeaveTooltip}
           target="_blank"
@@ -204,7 +204,7 @@ class TeacherNavbar extends React.Component<any, any> {
     return (
       <div className='help-dropdown'>
         <i className="fa fa-caret-up" />
-        <a href={`${import.meta.env.VITE_DEFAULT_URL}/tutorials/lessons?nocta=true`} target="_blank"><p>Tutorial</p></a>
+        <a href={`${process.env.VITE_DEFAULT_URL}/tutorials/lessons?nocta=true`} target="_blank"><p>Tutorial</p></a>
         <a href="https://support.quill.org/using-quill-tools#quill-lessons" target="_blank"><p>Quill Lessons - Q&A</p></a>
       </div>
     )
@@ -331,7 +331,7 @@ class TeacherNavbar extends React.Component<any, any> {
 
     if (shouldExit) {
       unpinActivityOnSaveAndExit(params.lessonID, classroomUnitId)
-      document.location.href = import.meta.env.VITE_DEFAULT_URL || 'https://www.quill.org';
+      document.location.href = process.env.VITE_DEFAULT_URL || 'https://www.quill.org';
     }
   }
 
@@ -353,7 +353,7 @@ class TeacherNavbar extends React.Component<any, any> {
     const { classroomSessions, } = this.props
     const { preview } = classroomSessions.data
     if (preview === true) {
-      const assignLink = `${import.meta.env.VITE_DEFAULT_URL}/assign/activity-library?activityClassificationFilters[]=lessons`
+      const assignLink = `${process.env.VITE_DEFAULT_URL}/assign/activity-library?activityClassificationFilters[]=lessons`
       const studentLink = window.location.href.replace('teach', 'play').concat('&student=student')
       /* eslint-disable react/jsx-no-target-blank */
       return (

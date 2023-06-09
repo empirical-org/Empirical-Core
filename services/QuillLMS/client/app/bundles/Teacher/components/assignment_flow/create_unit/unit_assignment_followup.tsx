@@ -6,27 +6,27 @@ import { Card, Snackbar, defaultSnackbarTimeout } from '../../../../Shared/index
 import AssignmentFlowNavigation from '../assignment_flow_navigation';
 
 import {
-  ACTIVITY_IDS_ARRAY,
-  CLASSROOMS,
-  UNIT_ID,
-  UNIT_NAME,
-  UNIT_TEMPLATE_ID,
-  UNIT_TEMPLATE_NAME,
+    ACTIVITY_IDS_ARRAY,
+    CLASSROOMS,
+    UNIT_ID,
+    UNIT_NAME,
+    UNIT_TEMPLATE_ID,
+    UNIT_TEMPLATE_NAME,
 } from '../assignmentFlowConstants';
 
 import { Input, } from '../../../../Shared/index';
 import ScrollToTop from '../../shared/scroll_to_top';
 import ViewAsStudentModal from '../../shared/view_as_student_modal';
 
-const assignedActivitiesSrc = `${import.meta.env.VITE_PROCESS_ENV_CDN_URL}/images/illustrations/assigned-activities.svg`
-const assignActivitiesSrc = `${import.meta.env.VITE_PROCESS_ENV_CDN_URL}/images/illustrations/assign-activities.svg`
-const addStudentsSrc = `${import.meta.env.VITE_PROCESS_ENV_CDN_URL}/images/illustrations/add-students.svg`
-const giftSrc = `${import.meta.env.VITE_PROCESS_ENV_CDN_URL}/images/illustrations/gift.svg`
-const viewStudentSrc = `${import.meta.env.VITE_PROCESS_ENV_CDN_URL}/images/illustrations/view-student.svg`
-const twitterSrc = `${import.meta.env.VITE_PROCESS_ENV_CDN_URL}/images/icons/ui-share-twitter.svg`
-const facebookSrc = `${import.meta.env.VITE_PROCESS_ENV_CDN_URL}/images/icons/ui-share-facebook.svg`
-const googleSrc = `${import.meta.env.VITE_PROCESS_ENV_CDN_URL}/images/icons/ui-share-google.svg`
-const emailSrc = `${import.meta.env.VITE_PROCESS_ENV_CDN_URL}/images/icons/ui-share-email.svg`
+const assignedActivitiesSrc = `${process.env.VITE_PROCESS_ENV_CDN_URL}/images/illustrations/assigned-activities.svg`
+const assignActivitiesSrc = `${process.env.VITE_PROCESS_ENV_CDN_URL}/images/illustrations/assign-activities.svg`
+const addStudentsSrc = `${process.env.VITE_PROCESS_ENV_CDN_URL}/images/illustrations/add-students.svg`
+const giftSrc = `${process.env.VITE_PROCESS_ENV_CDN_URL}/images/illustrations/gift.svg`
+const viewStudentSrc = `${process.env.VITE_PROCESS_ENV_CDN_URL}/images/illustrations/view-student.svg`
+const twitterSrc = `${process.env.VITE_PROCESS_ENV_CDN_URL}/images/icons/ui-share-twitter.svg`
+const facebookSrc = `${process.env.VITE_PROCESS_ENV_CDN_URL}/images/icons/ui-share-facebook.svg`
+const googleSrc = `${process.env.VITE_PROCESS_ENV_CDN_URL}/images/icons/ui-share-google.svg`
+const emailSrc = `${process.env.VITE_PROCESS_ENV_CDN_URL}/images/icons/ui-share-email.svg`
 
 interface UnitAssignmentFollowupProps {
   classrooms: Array<any>;
@@ -109,18 +109,18 @@ export default class UnitAssignmentFollowup extends React.Component<UnitAssignme
     return `${numberOfClassrooms} ${numberOfClassrooms === 1 ? 'class' : 'classes'}`
   }
 
-  handleClickToDashboard = () => this.prepareToLeavePage().then(() => window.location.href = import.meta.env.VITE_DEFAULT_URL)
+  handleClickToDashboard = () => this.prepareToLeavePage().then(() => window.location.href = process.env.VITE_DEFAULT_URL)
 
-  handleGoToClassroomIndex = () => this.prepareToLeavePage().then(() => window.location.href = `${import.meta.env.VITE_DEFAULT_URL}/teachers/classrooms`)
+  handleGoToClassroomIndex = () => this.prepareToLeavePage().then(() => window.location.href = `${process.env.VITE_DEFAULT_URL}/teachers/classrooms`)
 
   handleGoToAssignedActivity = () => {
     const unitId = window.localStorage.getItem(UNIT_ID)
-    this.prepareToLeavePage().then(() => window.location.href = `${import.meta.env.VITE_DEFAULT_URL}/teachers/classrooms/activity_planner#${unitId}`)
+    this.prepareToLeavePage().then(() => window.location.href = `${process.env.VITE_DEFAULT_URL}/teachers/classrooms/activity_planner#${unitId}`)
   }
 
-  handleGoToAssignMoreActivities = () => this.prepareToLeavePage().then(() => window.location.href = `${import.meta.env.VITE_DEFAULT_URL}/assign`)
+  handleGoToAssignMoreActivities = () => this.prepareToLeavePage().then(() => window.location.href = `${process.env.VITE_DEFAULT_URL}/assign`)
 
-  onClickViewAsIndividualStudent = (studentId) => this.prepareToLeavePage().then(() => window.location.href = `${import.meta.env.VITE_DEFAULT_URL}/teachers/preview_as_student/${studentId}`)
+  onClickViewAsIndividualStudent = (studentId) => this.prepareToLeavePage().then(() => window.location.href = `${process.env.VITE_DEFAULT_URL}/teachers/preview_as_student/${studentId}`)
 
   handleViewAsStudent = () => this.setState({ showViewAsStudentModal: true, })
 
@@ -179,7 +179,7 @@ export default class UnitAssignmentFollowup extends React.Component<UnitAssignme
 
   renderReferral = () => {
     const { referralCode, } = this.props
-    const referralLink = `${import.meta.env.VITE_DEFAULT_URL}/?referral_code=${referralCode}`
+    const referralLink = `${process.env.VITE_DEFAULT_URL}/?referral_code=${referralCode}`
     return (
       <div className="unit-assignment-followup referral">
         {this.renderSnackbar()}

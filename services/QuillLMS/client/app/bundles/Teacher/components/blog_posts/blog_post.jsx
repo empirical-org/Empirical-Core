@@ -1,8 +1,8 @@
 import * as React from 'react';
 
 import {
-  BLOG_POST_TO_COLOR,
-  TEACHER_CENTER_SLUG,
+    BLOG_POST_TO_COLOR,
+    TEACHER_CENTER_SLUG,
 } from './blog_post_constants';
 import BlogPostContent from './blog_post_content';
 
@@ -31,7 +31,7 @@ export default class BlogPost extends React.Component {
     const { blogPost, } = this.props
 
     requestPost(
-      `${import.meta.env.VITE_DEFAULT_URL}/rate_blog_post`,
+      `${process.env.VITE_DEFAULT_URL}/rate_blog_post`,
       {
         rating: rating,
         blog_post_id: blogPost.id

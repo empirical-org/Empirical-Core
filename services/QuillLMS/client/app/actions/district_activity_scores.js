@@ -20,10 +20,10 @@ export const switchTeacher = (teacher) => {
 
 export const initializePusherForDistrictActivityScores = (adminId) => {
   return (dispatch) => {
-    if (import.meta.env.VITE_PROCESS_ENV_RAILS_ENV === 'development') {
+    if (process.env.VITE_PROCESS_ENV_RAILS_ENV === 'development') {
       Pusher.logToConsole = true;
     }
-    const pusher = new Pusher(import.meta.env.VITE_PROCESS_ENV_PUSHER_KEY, { encrypted: true, });
+    const pusher = new Pusher(process.env.VITE_PROCESS_ENV_PUSHER_KEY, { encrypted: true, });
     const channel = pusher.subscribe(adminId);
     channel.bind('district-activity-scores-found', () => {
       dispatch(getDistrictActivityScores())
@@ -34,7 +34,7 @@ export const initializePusherForDistrictActivityScores = (adminId) => {
 export const getDistrictActivityScores = () => {
   return (dispatch) => {
     requestGet(
-      `${import.meta.env.VITE_DEFAULT_URL}/api/v1/progress_reports/district_activity_scores`,
+      `${process.env.VITE_DEFAULT_URL}/api/v1/progress_reports/district_activity_scores`,
       (body) => {
         if (body.id) {
           dispatch(initializePusherForDistrictActivityScores(String(body.id)))

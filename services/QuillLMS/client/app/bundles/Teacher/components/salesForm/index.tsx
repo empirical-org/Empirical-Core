@@ -5,20 +5,20 @@ import SchoolAndDistrictFields from './schoolAndDistrictFields';
 import UpperFormFields from './upperFormFields';
 
 import {
-  COMMENTS,
-  DISTRICT,
-  DISTRICT_NOT_LISTED,
-  EMAIL,
-  FIRST_NAME, LAST_NAME,
-  PHONE_NUMBER,
-  SCHOOL,
-  SCHOOL_NOT_LISTED,
-  SCHOOL_OR_DISTRICT,
-  SCHOOL_PREMIUM_ESTIMATE,
-  STUDENT_PREMIUM_ESTIMATE,
-  SUBMISSION_ERROR,
-  TEACHER_PREMIUM_ESTIMATE,
-  ZIPCODE
+    COMMENTS,
+    DISTRICT,
+    DISTRICT_NOT_LISTED,
+    EMAIL,
+    FIRST_NAME, LAST_NAME,
+    PHONE_NUMBER,
+    SCHOOL,
+    SCHOOL_NOT_LISTED,
+    SCHOOL_OR_DISTRICT,
+    SCHOOL_PREMIUM_ESTIMATE,
+    STUDENT_PREMIUM_ESTIMATE,
+    SUBMISSION_ERROR,
+    TEACHER_PREMIUM_ESTIMATE,
+    ZIPCODE
 } from '../../../../constants/salesForm';
 import { DropdownObjectInterface, InputEvent } from '../../../Staff/interfaces/evidenceInterfaces';
 import { getSchoolsAndDistricts, submitSalesForm, validateSalesForm } from '../../helpers/salesForms';
@@ -153,7 +153,7 @@ export const SalesForm = ({ type }) => {
   }
 
   function handleClick() {
-    window.location.href = `${import.meta.env.VITE_DEFAULT_URL}/premium`;
+    window.location.href = `${process.env.VITE_DEFAULT_URL}/premium`;
   }
 
   function renderForm() {

@@ -3,7 +3,7 @@ import { connect } from 'react-redux';
 import { NavLink, Route, Switch, withRouter } from 'react-router-dom';
 import { Modal, UploadOptimalResponses, } from '../../../Shared/index';
 import {
-  submitOptimalResponses
+    submitOptimalResponses
 } from '../../actions/responses';
 import fragmentActions from '../../actions/sentenceFragments';
 import C from '../../constants';
@@ -20,7 +20,7 @@ import ChooseModelContainer from './chooseModelContainer.jsx';
 import EditForm from './sentenceFragmentForm.jsx';
 import TestQuestionContainer from './testSentenceFragmentContainer';
 
-const icon = `${import.meta.env.VITE_PROCESS_ENV_CDN_URL}/images/icons/direction.svg`
+const icon = `${process.env.VITE_PROCESS_ENV_CDN_URL}/images/icons/direction.svg`
 
 class SentenceFragment extends React.Component {
   constructor(props) {

@@ -30,8 +30,8 @@ import ShowTitleCard from '../titleCards/showTitleCard.tsx';
 import TitleCardForm from '../titleCards/titleCardForm.tsx';
 import TitleCards from '../titleCards/titleCards.tsx';
 
-const usersEndpoint = `${import.meta.env.VITE_DEFAULT_URL}/api/v1/users.json`;
-const newSessionEndpoint = `${import.meta.env.VITE_DEFAULT_URL}/session/new`;
+const usersEndpoint = `${process.env.VITE_DEFAULT_URL}/api/v1/users.json`;
+const newSessionEndpoint = `${process.env.VITE_DEFAULT_URL}/session/new`;
 
 const TabLink = props => {
   const { children, to, } = props

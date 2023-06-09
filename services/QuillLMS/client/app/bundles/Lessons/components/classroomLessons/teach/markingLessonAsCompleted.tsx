@@ -2,17 +2,17 @@ import * as React from 'react';
 import { connect } from 'react-redux';
 
 import {
-  finishActivity,
-  startListeningToSessionForTeacher,
+    finishActivity,
+    startListeningToSessionForTeacher,
 } from '../../../actions/classroomSessions';
 import {
-  getEditionQuestions,
+    getEditionQuestions,
 } from '../../../actions/customize';
 import { generate } from '../../../libs/conceptResults/classroomLessons.js';
 import { getParameterByName } from '../../../libs/getParameterByName';
 import {
-  ClassroomSessionId,
-  ClassroomUnitId
+    ClassroomSessionId,
+    ClassroomUnitId
 } from '../interfaces';
 
 interface MarkingLessonsAsCompletedState {
@@ -65,7 +65,7 @@ class MarkingLessonAsCompleted extends React.Component<any, MarkingLessonsAsComp
     if (classroomUnitId) {
       finishActivity(false, conceptResults, null, activityId, classroomUnitId,
         (response) => {
-          window.location.href = `${import.meta.env.VITE_DEFAULT_URL}/teachers/classrooms/activity_planner/lessons`;
+          window.location.href = `${process.env.VITE_DEFAULT_URL}/teachers/classrooms/activity_planner/lessons`;
         }
       );
     }

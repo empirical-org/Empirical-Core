@@ -3,7 +3,7 @@ import * as React from 'react';
 
 import { ConceptExplanation, getLatestAttempt, hashToCollection } from '../../../Shared/index';
 import {
-  getGradedResponsesWithCallback
+    getGradedResponsesWithCallback
 } from '../../actions/responses';
 import { SentenceFragmentQuestion } from '../../interfaces/questions';
 import { Attempt } from '../renderForQuestions/answerState.js';
@@ -12,7 +12,7 @@ import RenderQuestionFeedback from '../renderForQuestions/feedbackStatements.jsx
 import TextEditor from '../renderForQuestions/renderTextEditor.jsx';
 import updateResponseResource from '../renderForQuestions/updateResponseResource.js';
 
-const icon = `${import.meta.env.VITE_PROCESS_ENV_CDN_URL}/images/icons/direction.svg`
+const icon = `${process.env.VITE_PROCESS_ENV_CDN_URL}/images/icons/direction.svg`
 
 interface PlaySentenceFragmentProps {
   question: SentenceFragmentQuestion;

@@ -15,7 +15,7 @@ import SentenceFragmentForm from '../sentenceFragments/sentenceFragmentForm';
 import TitleCardForm from '../titleCards/titleCardForm';
 import EditLessonForm from './lessonForm.jsx';
 
-const icon = `${import.meta.env.VITE_PROCESS_ENV_CDN_URL}/images/icons/direction.svg`
+const icon = `${process.env.VITE_PROCESS_ENV_CDN_URL}/images/icons/direction.svg`
 
 //fake commit for linting
 String.prototype.toKebab = function () {
