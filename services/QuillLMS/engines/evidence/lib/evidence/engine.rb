@@ -1,7 +1,7 @@
 # frozen_string_literal: true
 
 # require_relative '../quill_scaffold_controller'
-require 'factory_bot_rails'
+require 'factory_bot_rails' unless Rails.env.production?
 
 module Evidence
   class Engine < ::Rails::Engine
@@ -23,8 +23,10 @@ module Evidence
       g.fallbacks[:shoulda] = :test_unit
     end
 
-    initializer "evidence.factories", after: "factory_bot.set_factory_paths" do
-      FactoryBot.definition_file_paths << File.expand_path('../../../spec/factories/evidence', __FILE__) if defined?(FactoryBot)
+    unless Rails.env.production?
+      initializer "evidence.factories", after: "factory_bot.set_factory_paths" do
+        FactoryBot.definition_file_paths << File.expand_path('../../../spec/factories/evidence', __FILE__)
+      end
     end
   end
 end
