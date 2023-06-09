@@ -75,11 +75,10 @@ const TeacherPreviewMenuComponent = ({
   const [textIsExpanded, setTextIsExpanded] = React.useState<boolean>(false);
 
   React.useEffect(() => {
-    const { previewSessionStep } = session;
-    if(previewSessionStep) {
-      onToggleQuestion(previewSessionStep);
+    if(session && session.previewSessionStep) {
+      onToggleQuestion(session.previewSessionStep);
     }
-  }, [session.previewSessionStep])
+  }, [session])
 
   function toggleExpandedText() {
     setTextIsExpanded(!textIsExpanded)

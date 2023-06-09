@@ -80,7 +80,6 @@ export const StudentViewContainer = ({ dispatch, session, isTurk, location, acti
   const [completedSteps, setCompletedSteps] = React.useState(defaultCompletedSteps)
   const [showFocusState, setShowFocusState] = React.useState(false)
   const [showStepsSummary, setShowStepsSummary] = React.useState(false)
-  console.log("🚀 ~ file: container.tsx:83 ~ StudentViewContainer ~ showStepsSummary:", showStepsSummary)
   const [startTime, setStartTime] = React.useState(Date.now())
   const [isIdle, setIsIdle] = React.useState(false)
   const [studentHighlights, setStudentHighlights] = React.useState([])
@@ -212,6 +211,7 @@ export const StudentViewContainer = ({ dispatch, session, isTurk, location, acti
     setScrolledToEndOfPassage(false)
     setDoneHighlighting(false)
     setHasStartedPromptsSteps(false)
+    setCompleteButtonClicked(false)
   }
 
   function preparePreviewChecklistStep() {
@@ -223,6 +223,7 @@ export const StudentViewContainer = ({ dispatch, session, isTurk, location, acti
     setScrolledToEndOfPassage(false)
     setDoneHighlighting(false)
     setHasStartedPromptsSteps(false)
+    setCompleteButtonClicked(false)
   }
 
   function preparePreviewReadAndHighlightStep() {
@@ -235,6 +236,7 @@ export const StudentViewContainer = ({ dispatch, session, isTurk, location, acti
     setStudentHighlights([])
     setDoneHighlighting(false)
     setHasStartedPromptsSteps(false)
+    setCompleteButtonClicked(false)
   }
 
   function preparePreviewBecauseStep() {
@@ -246,6 +248,7 @@ export const StudentViewContainer = ({ dispatch, session, isTurk, location, acti
     setScrolledToEndOfPassage(true)
     setDoneHighlighting(true)
     setHasStartedPromptsSteps(true)
+    setCompleteButtonClicked(false)
   }
 
   function preparePreviewButStep() {
@@ -257,6 +260,7 @@ export const StudentViewContainer = ({ dispatch, session, isTurk, location, acti
     setScrolledToEndOfPassage(true)
     setDoneHighlighting(true)
     setHasStartedPromptsSteps(true)
+    setCompleteButtonClicked(false)
   }
 
   function preparePreviewSoStep() {
@@ -268,6 +272,7 @@ export const StudentViewContainer = ({ dispatch, session, isTurk, location, acti
     setScrolledToEndOfPassage(true)
     setDoneHighlighting(true)
     setHasStartedPromptsSteps(true)
+    setCompleteButtonClicked(false)
   }
 
   React.useEffect(() => {
@@ -294,7 +299,9 @@ export const StudentViewContainer = ({ dispatch, session, isTurk, location, acti
 
   }, [session.previewSessionStep])
 
-  function handleReadTheDirectionsButtonClick() { setShowReadTheDirectionsButton(false) }
+  function handleReadTheDirectionsButtonClick() {
+    setShowReadTheDirectionsButton(false)
+  }
 
   function resetTimers(e=null) {
     const now = Date.now()
@@ -437,7 +444,6 @@ export const StudentViewContainer = ({ dispatch, session, isTurk, location, acti
   }
 
   function completeStep(stepNumber: number) {
-    console.log("🚀 ~ file: container.tsx:440 ~ completeStep ~ stepNumber:", stepNumber)
     const newCompletedSteps = completedSteps.concat(stepNumber)
     const uniqueCompletedSteps = Array.from(new Set(newCompletedSteps))
     trackCurrentPromptCompletedEvent()

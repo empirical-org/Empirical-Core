@@ -44,6 +44,25 @@ body, button, input, select, textarea {
     flex-direction: row;
     #main-content {
       width: 100%;
+      overflow-y: scroll;
+    }
+    .evidence-preview-mode {
+      .post-activity-slide-container {
+        .responses-exemplars-container {
+          .response-exemplars-section {
+            .response-section {
+              .response-box {
+                max-width: 360px;
+              }
+            }
+            .exemplars-section {
+              .exemplar-box {
+                max-width: 360px;
+              }
+            }
+          }
+        }
+      }
     }
   }
 }

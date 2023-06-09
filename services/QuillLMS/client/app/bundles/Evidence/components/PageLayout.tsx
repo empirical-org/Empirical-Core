@@ -37,6 +37,7 @@ const PageLayout = (props: any) => {
   }
 
   const showPreview = previewShowing && isTeacherOrAdmin && isPlaying;
+  const contentClass = showPreview ? 'evidence-preview-mode' : '';
   const isOnMobile = window.innerWidth < 1100;
 
   return (
@@ -57,14 +58,10 @@ const PageLayout = (props: any) => {
             showPreview={previewShowing}
           />
         </aside>}
-        <div id="main-content" tabIndex={-1}>{renderRoutes(routes, {
+        <div id="main-content" className={contentClass} tabIndex={-1}>{renderRoutes(routes, {
           user,
-          isOnMobile: isOnMobile,
-          handleTogglePreviewMenu: handleTogglePreviewMenu,
-          handleToggleQuestion: handleToggleQuestion,
-          previewMode: showPreview,
-          questionToPreview: questionToPreview
-          })}</div>
+          previewMode: showPreview
+        })}</div>
       </div>
     </div>
   );

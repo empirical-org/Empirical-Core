@@ -333,15 +333,15 @@ export const renderEvidenceActivityContent = ({ activity, toggleExpandedText, te
       <section className="evidence-content-section">
         <h2>What Students Will Do</h2>
         <section className="activity-steps-overview">
-          <button className={`interactive-wrapper question-container ${getEvidenceStepStyling(INTRODUCTION, questionToPreview)} focus-on-light`} onClick={handleEvidenceStepUpdate} id={INTRODUCTION}>
+          <button className={`interactive-wrapper question-container ${getEvidenceStepStyling(INTRODUCTION, questionToPreview)} focus-on-light`} id={INTRODUCTION} onClick={handleEvidenceStepUpdate}>
             <p className="bullet-point">•</p>
             <p>Learn about Reading for Evidence.</p>
           </button>
-          <button className={`interactive-wrapper question-container ${getEvidenceStepStyling(CHECKLIST, questionToPreview)} focus-on-light`} onClick={handleEvidenceStepUpdate} id={CHECKLIST}>
+          <button className={`interactive-wrapper question-container ${getEvidenceStepStyling(CHECKLIST, questionToPreview)} focus-on-light`} id={CHECKLIST}  onClick={handleEvidenceStepUpdate}>
             <p className="bullet-point">•</p>
             <p>See a checklist of the steps of the activity.</p>
           </button>
-          <button className={`interactive-wrapper question-container ${getEvidenceStepStyling(READ_AND_HIGHLIGHT, questionToPreview)} focus-on-light`} onClick={handleEvidenceStepUpdate} id={READ_AND_HIGHLIGHT}>
+          <button className={`interactive-wrapper question-container ${getEvidenceStepStyling(READ_AND_HIGHLIGHT, questionToPreview)} focus-on-light`} id={READ_AND_HIGHLIGHT} onClick={handleEvidenceStepUpdate}>
             <p className="bullet-point">•</p>
             <p>Read a text and highlight sentences.</p>
           </button>
