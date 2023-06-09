@@ -595,6 +595,11 @@ EmpiricalGrammar::Application.routes.draw do
     post '/learn_worlds/courses', to: 'learn_worlds#courses'
   end
 
+  namespace :canvas_integration do
+    get 'lti/launch_config.xml' => 'lti#launch_config'
+    post 'lti/launch' => 'lti#launch'
+  end
+
   namespace :clever_integration do
     get '/teachers/retrieve_classrooms', to: 'teachers#retrieve_classrooms'
     post '/teachers/import_classrooms', to: 'teachers#import_classrooms'
