@@ -424,10 +424,12 @@ export const StudentViewContainer = ({ dispatch, session, isTurk, location, acti
     const { sessionID, } = session
     const activityUID = getUrlParam('uid', location, isTurk)
 
-    dispatch(TrackAnalyticsEvent(Events.EVIDENCE_PASSAGE_READ, {
-      activityID: activityUID,
-      sessionID: sessionID
-    }));
+    if(!previewMode) {
+      dispatch(TrackAnalyticsEvent(Events.EVIDENCE_PASSAGE_READ, {
+        activityID: activityUID,
+        sessionID: sessionID
+      }));
+    }
   }
 
   function trackCurrentPromptStartedEvent() {
@@ -435,7 +437,9 @@ export const StudentViewContainer = ({ dispatch, session, isTurk, location, acti
     const trackingParams = getCurrentStepDataForEventTracking({ activeStep, activities, session, isTurk })
     if (!trackingParams) return; // Bail if there's no data to track
 
-    dispatch(TrackAnalyticsEvent(Events.EVIDENCE_PROMPT_STARTED, trackingParams))
+    if(!previewMode) {
+      dispatch(TrackAnalyticsEvent(Events.EVIDENCE_PROMPT_STARTED, trackingParams))
+    }
   }
 
   function trackCurrentPromptCompletedEvent() {
@@ -443,7 +447,9 @@ export const StudentViewContainer = ({ dispatch, session, isTurk, location, acti
     const trackingParams = getCurrentStepDataForEventTracking({ activeStep, activities, session, isTurk })
     if (!trackingParams) return; // Bail if there's no data to track
 
-    dispatch(TrackAnalyticsEvent(Events.EVIDENCE_PROMPT_COMPLETED, trackingParams))
+    if(!previewMode) {
+      dispatch(TrackAnalyticsEvent(Events.EVIDENCE_PROMPT_COMPLETED, trackingParams))
+    }
   }
 
   function trackActivityCompletedEvent() {

@@ -94,7 +94,7 @@ export const PostActivitySlide = ({ handleClick, previewMode, prompts, responses
         {renderResponseAndExamplarsSection(SO)}
       </section>
       <section id="button-container">
-        <button className={buttonClass} onClick={handleClick} disabled={previewMode} type="button">Next</button>
+        <button className={buttonClass} disabled={previewMode} onClick={handleClick} type="button">Next</button>
       </section>
     </div>
   );
