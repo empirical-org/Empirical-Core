@@ -28,13 +28,16 @@ export class Header extends React.Component<any, any> {
   }
 
   trackSaveAndExitEvent = () => {
-    const { dispatch } = this.props
+    const { dispatch, previewShowing } = this.props
     const { sessionID, } = this.state
-    const activityID = getParameterByName('uid', window.location.href)
-    dispatch(TrackAnalyticsEvent(Events.EVIDENCE_ACTIVITY_SAVED, {
-      activityID: activityID,
-      sessionID
-    }))
+
+    if(!previewShowing) {
+      const activityID = getParameterByName('uid', window.location.href)
+      dispatch(TrackAnalyticsEvent(Events.EVIDENCE_ACTIVITY_SAVED, {
+        activityID: activityID,
+        sessionID
+      }))
+    }
   }
 
   saveAndExit = () => {
@@ -80,7 +83,7 @@ export class Header extends React.Component<any, any> {
   }
 
   render() {
-    const { session, isTeacher, previewShowing, isOnMobile } = this.props;
+    const { session, isTeacher, previewShowing } = this.props;
     const { explanationSlidesCompleted, activityIsComplete } = session;
     const showStepsCounter = explanationSlidesCompleted && !activityIsComplete
     const isNotTurk = !window.location.href.includes('turk')
