@@ -1,7 +1,6 @@
 # frozen_string_literal: true
 
 module ApplicationHelper
-
   def next_page
     next_action = pages[pages.index(params[:action]) + 1] || 'home'
     url_for(controller: 'pages', action: next_action)
@@ -63,6 +62,11 @@ module ApplicationHelper
     current_path = request.env['PATH_INFO'] || ''
 
     current_path.include?('sign-up')
+  end
+
+  def on_sign_up_or_log_in?
+    %w[account/new /session password_reset sign-up finish_set_up /canvas_integration/lti/sso]
+      .any? { |str| request.path.include?(str) }
   end
 
   def user_is_trackable_teacher?

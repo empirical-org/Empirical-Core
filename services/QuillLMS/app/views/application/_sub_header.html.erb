@@ -1,6 +1,5 @@
 <% current_path = request.env['PATH_INFO'] %>
 <% on_home_page = current_path == '/' %>
-<% on_sign_up_or_log_in = ['account/new', '/session', 'password_reset', 'sign-up', 'finish_set_up'].any? { |str| current_path.include?(str)} %>
 <% logo_src = on_home_page ? "https://assets.quill.org/images/logos/quill-logo-white-2022.svg" : "https://assets.quill.org/images/logos/quill-logo-green.svg" %>
 <% home_page_class = on_home_page ? 'on-home-page' : '' %>
 <% active_tab = determine_active_tab(current_path) %>
@@ -14,7 +13,7 @@
 <% end %>
 
 <nav class="q-navbar-home">
-  <% if on_sign_up_or_log_in %>
+  <% if on_sign_up_or_log_in? %>
     <div class="logo-only">
       <a aria-label="Quill" class="focus-on-dark" href=<%= root_path %>>
         <img src="/images/quill_header_logo.svg" alt="Quill logo" />
