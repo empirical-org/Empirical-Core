@@ -69,7 +69,8 @@ const SnapshotCount = ({ label, size, queryKey, comingSoon, searchCount, selecte
       if (!body.hasOwnProperty('current')) {
         setLoading(true)
       } else {
-        const { previous, current, } = body.results
+        const { results, } = body
+        const { previous, current, } = results
 
         const roundedCurrent = Math.round(current || 0)
 
