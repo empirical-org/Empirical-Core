@@ -15,10 +15,15 @@ const PageLayout = (props: any) => {
   const isPlaying = window.location.href.includes('play');
   const { data } = useQuery("user-role", fetchUserRole);
   const isTeacherOrAdmin = data && data.role && data.role !== 'student';
-  const studentOrTurk = !isTeacherOrAdmin || turkSession;
 
-  const [previewShowing, setPreviewShowing] = React.useState<boolean>(!studentOrTurk);
+  const [previewShowing, setPreviewShowing] = React.useState<boolean>(false);
   const [questionToPreview, setQuestionToPreview] = React.useState<any>(INTRODUCTION);
+
+  React.useEffect(() => {
+    if(isTeacherOrAdmin && !turkSession) {
+      setPreviewShowing(true)
+    }
+  }, [isTeacherOrAdmin])
 
   function handleSkipToMainContentClick () {
     const element = document.getElementById("main-content")
@@ -43,7 +48,7 @@ const PageLayout = (props: any) => {
     <div className="app-container">
       <ScreenreaderInstructions />
       <button className="skip-main" onClick={handleSkipToMainContentClick} type="button">Skip to main content</button>
-      <Header isOnMobile={isOnMobile} isTeacher={!studentOrTurk} onTogglePreview={handleTogglePreviewMenu} previewShowing={showPreview} />
+      <Header isOnMobile={isOnMobile} isTeacher={isTeacherOrAdmin} onTogglePreview={handleTogglePreviewMenu} previewShowing={showPreview} />
       <div className="activity-container">
         {showPreview && <aside
           className="sider-container"
