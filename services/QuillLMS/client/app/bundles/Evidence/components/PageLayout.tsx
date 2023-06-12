@@ -11,12 +11,11 @@ import getParameterByName from '../helpers/getParameterByName';
 
 const PageLayout = (props: any) => {
   const { user } = props;
-  const studentSession = getParameterByName('student', window.location.href);
   const turkSession = getParameterByName('turk', window.location.href);
   const isPlaying = window.location.href.includes('play');
-  const studentOrTurk = studentSession || turkSession;
   const { data } = useQuery("user-role", fetchUserRole);
   const isTeacherOrAdmin = data && data.role && data.role !== 'student';
+  const studentOrTurk = !isTeacherOrAdmin || turkSession;
 
   const [previewShowing, setPreviewShowing] = React.useState<boolean>(!studentOrTurk);
   const [questionToPreview, setQuestionToPreview] = React.useState<any>(INTRODUCTION);
