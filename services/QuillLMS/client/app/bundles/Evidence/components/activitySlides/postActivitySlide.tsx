@@ -9,11 +9,12 @@ const conjunctions = [BECAUSE, BUT, SO];
 
 interface PostActivitySlideProps {
   handleClick: () => void,
+  previewMode: boolean,
   prompts: PromptInterface[],
   responses: any
 }
 
-export const PostActivitySlide = ({ handleClick, prompts, responses }: PostActivitySlideProps) => {
+export const PostActivitySlide = ({ handleClick, previewMode, prompts, responses }: PostActivitySlideProps) => {
   const [containerRef, setContainerFocus] = useFocus()
 
   React.useEffect(() => {
@@ -64,6 +65,10 @@ export const PostActivitySlide = ({ handleClick, prompts, responses }: PostActiv
       </section>
     );
   }
+  let buttonClass = "quill-button large secondary outlined focus-on-dark"
+  if(previewMode) {
+    buttonClass += " disabled"
+  }
 
   return(
     <div className="post-activity-slide-container no-focus-outline" ref={containerRef} tabIndex={-1}>
@@ -89,7 +94,7 @@ export const PostActivitySlide = ({ handleClick, prompts, responses }: PostActiv
         {renderResponseAndExamplarsSection(SO)}
       </section>
       <section id="button-container">
-        <button className="quill-button large secondary outlined focus-on-dark" onClick={handleClick} type="button">Next</button>
+        <button className={buttonClass} onClick={handleClick} disabled={previewMode} type="button">Next</button>
       </section>
     </div>
   );

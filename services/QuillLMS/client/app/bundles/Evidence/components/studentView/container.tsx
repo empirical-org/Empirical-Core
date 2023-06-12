@@ -97,11 +97,13 @@ export const StudentViewContainer = ({ dispatch, session, isTurk, location, acti
   })
 
   React.useEffect(() => {
-    const el = document.getElementById('end-of-passage')
-    const observer = new IntersectionObserver(([entry]) => { entry.isIntersecting ? setScrolledToEndOfPassage(entry.isIntersecting) : null; });
+    if(hasStartedReadPassageStep || session.previewSessionStep === READ_AND_HIGHLIGHT) {
+      const el = document.getElementById('end-of-passage')
+      const observer = new IntersectionObserver(([entry]) => { entry.isIntersecting ? setScrolledToEndOfPassage(entry.isIntersecting) : null; });
 
-    el && observer.observe(el);
-  }, [hasStartedReadPassageStep]);
+      el && observer.observe(el);
+    }
+  }, [hasStartedReadPassageStep, session.previewSessionStep]);
 
   React.useEffect(() => {
     dispatch(getTopicOptimalInfo(activityUID))
@@ -205,6 +207,7 @@ export const StudentViewContainer = ({ dispatch, session, isTurk, location, acti
     dispatch(setPreviewSessionStep(INTRODUCTION))
     dispatch(setActiveStepForSession(1))
     dispatch(setExplanationSlidesCompletedForSession(false))
+    dispatch(setActivityIsCompleteForSession(false))
     setExplanationSlideStep(0)
     setHasStartedReadPassageStep(false)
     setShowReadTheDirectionsButton(false)
@@ -212,24 +215,28 @@ export const StudentViewContainer = ({ dispatch, session, isTurk, location, acti
     setDoneHighlighting(false)
     setHasStartedPromptsSteps(false)
     setCompleteButtonClicked(false)
+    setCompletedSteps([])
   }
 
   function preparePreviewChecklistStep() {
     dispatch(setPreviewSessionStep(CHECKLIST))
     dispatch(setActiveStepForSession(1))
     dispatch(setExplanationSlidesCompletedForSession(true))
+    dispatch(setActivityIsCompleteForSession(false))
     setHasStartedReadPassageStep(false)
     setShowReadTheDirectionsButton(false)
     setScrolledToEndOfPassage(false)
     setDoneHighlighting(false)
     setHasStartedPromptsSteps(false)
     setCompleteButtonClicked(false)
+    setCompletedSteps([])
   }
 
   function preparePreviewReadAndHighlightStep() {
     dispatch(setPreviewSessionStep(READ_AND_HIGHLIGHT))
     dispatch(setActiveStepForSession(1))
     dispatch(setExplanationSlidesCompletedForSession(true))
+    dispatch(setActivityIsCompleteForSession(false))
     setHasStartedReadPassageStep(true)
     setShowReadTheDirectionsButton(true)
     setScrolledToEndOfPassage(false)
@@ -243,36 +250,42 @@ export const StudentViewContainer = ({ dispatch, session, isTurk, location, acti
     dispatch(setPreviewSessionStep(BECAUSE))
     dispatch(setActiveStepForSession(2))
     dispatch(setExplanationSlidesCompletedForSession(true))
+    dispatch(setActivityIsCompleteForSession(false))
     setHasStartedReadPassageStep(true)
     setShowReadTheDirectionsButton(false)
     setScrolledToEndOfPassage(true)
     setDoneHighlighting(true)
     setHasStartedPromptsSteps(true)
     setCompleteButtonClicked(false)
+    setCompletedSteps([1])
   }
 
   function preparePreviewButStep() {
     dispatch(setPreviewSessionStep(BUT))
     dispatch(setActiveStepForSession(3))
     dispatch(setExplanationSlidesCompletedForSession(true))
+    dispatch(setActivityIsCompleteForSession(false))
     setHasStartedReadPassageStep(true)
     setShowReadTheDirectionsButton(false)
     setScrolledToEndOfPassage(true)
     setDoneHighlighting(true)
     setHasStartedPromptsSteps(true)
     setCompleteButtonClicked(false)
+    setCompletedSteps([1, 2])
   }
 
   function preparePreviewSoStep() {
     dispatch(setPreviewSessionStep(SO))
     dispatch(setActiveStepForSession(4))
     dispatch(setExplanationSlidesCompletedForSession(true))
+    dispatch(setActivityIsCompleteForSession(false))
     setHasStartedReadPassageStep(true)
     setShowReadTheDirectionsButton(false)
     setScrolledToEndOfPassage(true)
     setDoneHighlighting(true)
     setHasStartedPromptsSteps(true)
     setCompleteButtonClicked(false)
+    setCompletedSteps([1, 2, 3])
   }
 
   React.useEffect(() => {
@@ -299,7 +312,9 @@ export const StudentViewContainer = ({ dispatch, session, isTurk, location, acti
 
   }, [session.previewSessionStep])
 
-  function handleReadTheDirectionsButtonClick() {
+  function handleReadTheDirectionsButtonClick(e) {
+    // prevents firing when clicking back to read and highlight step again during preview mode
+    if(!e && previewMode) { return }
     setShowReadTheDirectionsButton(false)
   }
 
@@ -434,13 +449,19 @@ export const StudentViewContainer = ({ dispatch, session, isTurk, location, acti
   function trackActivityCompletedEvent() {
     const { sessionID, } = session
     const activityID = getUrlParam('uid', location, isTurk)
-
-    dispatch(TrackAnalyticsEvent(Events.EVIDENCE_ACTIVITY_COMPLETED, {
-      activityID,
-      sessionID
-    }));
+    if(!previewMode) {
+      dispatch(TrackAnalyticsEvent(Events.EVIDENCE_ACTIVITY_COMPLETED, {
+        activityID,
+        sessionID
+      }));
+    }
     dispatch(setActivityIsCompleteForSession(true));
-    defaultHandleFinishActivity()
+    if(!previewMode) {
+      defaultHandleFinishActivity()
+    } else if(previewMode && session.previewSessionStep === SO) {
+      dispatch(setPreviewSessionStep('complete'))
+      setCompleteButtonClicked(true)
+    }
   }
 
   function completeStep(stepNumber: number) {
@@ -453,7 +474,9 @@ export const StudentViewContainer = ({ dispatch, session, isTurk, location, acti
       setShowStepsSummary(true);
     }
     // preview mode actions
-    if(previewMode && stepNumber === 2) {
+    if(previewMode && stepNumber === 1) {
+      preparePreviewBecauseStep()
+    } else if(previewMode && stepNumber === 2) {
       preparePreviewButStep()
     } else if(previewMode && stepNumber === 3) {
       preparePreviewSoStep()
@@ -478,7 +501,9 @@ export const StudentViewContainer = ({ dispatch, session, isTurk, location, acti
     completeStep(READ_PASSAGE_STEP_NUMBER)
     const scrollContainer = document.getElementsByClassName("read-passage-container")[0]
     scrollContainer.scrollTo(0, 0)
-    trackPassageReadEvent();
+    if(!previewMode) {
+      trackPassageReadEvent();
+    }
   }
 
   function onStartReadPassage(e) {
@@ -542,6 +567,9 @@ export const StudentViewContainer = ({ dispatch, session, isTurk, location, acti
   }
 
   function callSaveActiveActivitySession() {
+    // we don't want to save an active activity session during preview mode because it will cause inconsistent behavior if page is refreshed
+    if(previewMode) { return }
+
     const args = {
       completedSteps,
       timeTracking,
@@ -674,7 +702,7 @@ export const StudentViewContainer = ({ dispatch, session, isTurk, location, acti
 
   if(completeButtonClicked && !window.location.href.includes('turk')) {
     return(
-      <ActivityFollowUp activity={activities.currentActivity} dispatch={dispatch} responses={submittedResponses} saveActivitySurveyResponse={saveActivitySurveyResponse} sessionID={sessionID} />
+      <ActivityFollowUp activity={activities.currentActivity} dispatch={dispatch} previewMode={previewMode} responses={submittedResponses} saveActivitySurveyResponse={saveActivitySurveyResponse} sessionID={sessionID} />
     );
   }
 

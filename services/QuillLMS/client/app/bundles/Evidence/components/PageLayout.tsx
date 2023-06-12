@@ -58,7 +58,7 @@ const PageLayout = (props: any) => {
             showPreview={previewShowing}
           />
         </aside>}
-        <div id="main-content" className={contentClass} tabIndex={-1}>{renderRoutes(routes, {
+        <div className={contentClass} id="main-content" tabIndex={-1}>{renderRoutes(routes, {
           user,
           previewMode: showPreview
         })}</div>

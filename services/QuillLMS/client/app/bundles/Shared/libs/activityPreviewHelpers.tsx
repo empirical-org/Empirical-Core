@@ -337,7 +337,7 @@ export const renderEvidenceActivityContent = ({ activity, toggleExpandedText, te
             <p className="bullet-point">•</p>
             <p>Learn about Reading for Evidence.</p>
           </button>
-          <button className={`interactive-wrapper question-container ${getEvidenceStepStyling(CHECKLIST, questionToPreview)} focus-on-light`} id={CHECKLIST}  onClick={handleEvidenceStepUpdate}>
+          <button className={`interactive-wrapper question-container ${getEvidenceStepStyling(CHECKLIST, questionToPreview)} focus-on-light`} id={CHECKLIST} onClick={handleEvidenceStepUpdate}>
             <p className="bullet-point">•</p>
             <p>See a checklist of the steps of the activity.</p>
           </button>
