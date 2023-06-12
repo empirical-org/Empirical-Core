@@ -48,6 +48,19 @@ describe SnapshotsController, type: :controller do
       end
     end
 
+    it 'should fine if a cached top_x query is "[]"' do
+      cache_payload = []
+      expected_response = { "results" => cache_payload }
+
+      expect(Rails.cache).to receive(:read).once.with(cache_key).and_return(cache_payload)
+
+      get :top_x, params: { query: 'most-active-schools', timeframe: timeframe_name, school_ids: school_ids }
+
+      json_response = JSON.parse(response.body)
+
+      expect(json_response).to eq(expected_response)
+    end
+
     context 'authentication' do
       it 'should return a 403 if the current_user is not an admin for all of the school_ids provided' do
         school2 = create(:school)
