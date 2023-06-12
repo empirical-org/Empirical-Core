@@ -87,4 +87,8 @@ module ApplicationHelper
   def device
     request.user_agent =~ /Mobile/ ? 'mobile' : 'desktop'
   end
+
+  def footer_base_only?
+    @footer_base_only
+  end
 end
