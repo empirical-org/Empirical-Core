@@ -81,7 +81,7 @@
       font-size: 14px;
       &.highlighted {
         background-color: #e1f3f1;;
-        font-weight: 600;
+        font-weight: 700;
         border-radius: 4px;
       }
     }
@@ -101,7 +101,7 @@
         font-family: adelle-sans !important;
         &.highlighted {
           background-color: #e1f3f1;
-          font-weight: 600;
+          font-weight: 700;
         }
         &.inverted-indent {
           padding: 10px 5px 10px 10px;
@@ -139,6 +139,9 @@
     ul {
       align-items: flex-start;
     }
+    p {
+      font-weight: 700 !important;
+    }
     .activity-steps-overview {
       padding: 0;
       margin-left: 10px;
@@ -149,7 +152,6 @@
         display: flex;
         color: $quillgreenmedium;
         font-size: 14px;
-        font-weight: 700;
         padding: 0px 4px 4px 4px;
         margin: 4px 0px;
         &.highlighted {
@@ -163,8 +165,18 @@
         padding-left: 4px;
       }
     }
+    .upper-prompts-preview-section {
+      margin-left: 12px;
+      font-weight: 700;
+      li {
+        button {
+          color: $quillgreenmedium;
+        }
+      }
+    }
   }
   .text-preview-section {
+    padding-bottom: 24px;
     p {
       margin-bottom: 8px;
     }
@@ -175,8 +187,11 @@
       margin-top: 16px;
     }
   }
-  .prompt-preview-section {
+  .lower-prompts-preview-section {
     padding-bottom: 16px;
+    h2 {
+      margin-bottom: 4px;
+    }
     .prompt-preview-instructions {
       font-size: 14px;
     }
@@ -185,6 +200,7 @@
       .question-container {
         .question-text {
           font-weight: 700;
+          color: $quillgreenmedium;
         }
       }
     }

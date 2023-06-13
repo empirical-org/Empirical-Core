@@ -305,14 +305,16 @@ const renderPassageAndPrompts = ({ passage, prompts, textIsExpanded, toggleExpan
         {ReactHtmlParser(clippedHtml, {transform: transformNode})}
         <button className="interactive-wrapper toggle-text-button" onClick={toggleExpandedText}>{buttonLabel}</button>
       </section>
-      <section className="prompt-preview-section">
+      <div className="divider" />
+      <section className="lower-prompts-preview-section">
+        <h2>Prompts</h2>
         <i className="prompt-preview-instructions">Directions: Use information from the text to finish the sentence. Put the information in your own words.</i>
         <ul className="evidence-prompts">
           {orderedPrompts.map((prompt: PromptInterface) => {
             const { text, conjunction } = prompt;
             return (
               <button className={`question-container ${getEvidenceStepStyling(conjunction, questionToPreview) } focus-on-light`} id={conjunction} key={conjunction} onClick={handleEvidenceStepUpdate} type="button">
-                <p className="question-text">{text}</p>
+                <p className="question-text">{text}...</p>
               </button>
             )
           })}
@@ -350,7 +352,7 @@ export const renderEvidenceActivityContent = ({ activity, toggleExpandedText, te
             <p>Expand 3 sentence stems about the text using...</p>
           </div>
         </section>
-        <ul>
+        <ul className="upper-prompts-preview-section">
           <li>
             <button className={`question-container ${getEvidenceStepStyling(BECAUSE, questionToPreview)} focus-on-light`} id={BECAUSE} onClick={handleEvidenceStepUpdate} type="button">
               <p className="question-number">1. </p>
