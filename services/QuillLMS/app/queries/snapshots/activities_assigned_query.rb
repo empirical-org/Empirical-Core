@@ -26,6 +26,13 @@ module Snapshots
       SQL
     end
 
+    def from_and_join_clauses
+      super + <<-SQL
+        JOIN lms.classroom_units
+          ON classrooms.id = classroom_units.classroom_id
+      SQL
+    end
+
     def relevant_date_column
       "classroom_units.created_at"
     end
