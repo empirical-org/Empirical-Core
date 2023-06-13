@@ -22,4 +22,15 @@ RSpec.describe UserLogin, type: :model do
   context 'should relations' do
     it { should belong_to(:user) }
   end
+
+  context 'dependent destroy' do
+    let(:user_login) { create(:user_login) }
+    let(:user) { user_login.user }
+
+    it 'should destroy all user_logins parent user is destroyed' do
+      user.destroy!
+
+      expect(UserLogin.find_by(id: user_login.id)).to eq(nil)
+    end
+  end
 end
