@@ -293,20 +293,15 @@ export const StudentViewContainer = ({ dispatch, session, isTurk, location, acti
 
     if(previewSessionStep === INTRODUCTION) {
       preparePreviewIntroductionStep()
-    }
-    if(previewSessionStep === CHECKLIST) {
+    } else if(previewSessionStep === CHECKLIST) {
       preparePreviewChecklistStep()
-    }
-    if(previewSessionStep === READ_AND_HIGHLIGHT) {
+    } else if(previewSessionStep === READ_AND_HIGHLIGHT) {
       preparePreviewReadAndHighlightStep()
-    }
-    if(previewSessionStep === BECAUSE) {
+    } else if(previewSessionStep === BECAUSE) {
       preparePreviewBecauseStep()
-    }
-    if (previewSessionStep === BUT) {
+    } else if (previewSessionStep === BUT) {
       preparePreviewButStep()
-    }
-    if (previewSessionStep === SO) {
+    } else if (previewSessionStep === SO) {
       preparePreviewSoStep()
     }
 
