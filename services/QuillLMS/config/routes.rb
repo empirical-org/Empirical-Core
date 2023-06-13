@@ -589,10 +589,17 @@ EmpiricalGrammar::Application.routes.draw do
 
   get Auth::Google::OFFLINE_ACCESS_CALLBACK_PATH => 'auth/google#offline_access_callback'
   get Auth::Google::ONLINE_ACCESS_CALLBACK_PATH => 'auth/google#online_access_callback'
+  get Auth::Canvas::ACCESS_CALLBACK_PATH => 'auth/canvas#canvas'
 
   namespace :auth do
     get '/clever/callback', to: 'clever#clever'
     post '/learn_worlds/courses', to: 'learn_worlds#courses'
+  end
+
+  namespace :canvas_integration do
+    get '/lti/launch_config.xml' => 'lti#launch_config'
+    post '/lti/launch' => 'lti#launch'
+    get '/lti/sso', to: 'lti#sso'
   end
 
   namespace :clever_integration do
@@ -725,6 +732,7 @@ EmpiricalGrammar::Application.routes.draw do
     collection do
       get :count
       get :options
+      get :top_x
     end
   end
 

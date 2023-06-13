@@ -85,6 +85,7 @@ RSpec.configure do |config|
   config.filter_run focus: true
   config.filter_run_excluding benchmarking: true
   config.filter_run_excluding external_api: true
+  config.filter_run_excluding big_query_snapshot: true
 
   config.silence_filter_announcements = true
   config.run_all_when_everything_filtered = true
@@ -96,11 +97,8 @@ RSpec.configure do |config|
     ActionController::Base.perform_caching = caching
   end
 
-  config.around(:each, :external_api) do |example|
-    VCR.configure { |c| c.allow_http_connections_when_no_cassette = true }
-    example.run
-    VCR.configure { |c| c.allow_http_connections_when_no_cassette = false }
-  end
+  config.around(:each, :external_api) { |example| with_vcr_disabled { example.run } }
+  config.around(:each, :big_query_snapshot) { |example| with_vcr_disabled { example.run } }
 
   if ENV.fetch('SUPPRESS_PUTS', false) == 'true'
     config.before do
@@ -110,6 +108,8 @@ RSpec.configure do |config|
   end
 end
 
-def vcr_ignores_localhost
-  VCR.configuration.ignore_localhost = true
+private def with_vcr_disabled
+  VCR.configure { |c| c.allow_http_connections_when_no_cassette = true }
+  yield
+  VCR.configure { |c| c.allow_http_connections_when_no_cassette = false }
 end

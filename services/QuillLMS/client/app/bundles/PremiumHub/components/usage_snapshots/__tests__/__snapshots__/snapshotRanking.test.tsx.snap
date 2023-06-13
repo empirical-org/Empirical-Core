@@ -1,0 +1,465 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`SnapshotRanking component when it is coming soon should match snapshot 1`] = `
+<SnapshotRanking
+  adminId={1}
+  comingSoon={true}
+  customTimeframeEnd={null}
+  customTimeframeStart={null}
+  headers={
+    Array [
+      "Teacher",
+      "Activities completed",
+    ]
+  }
+  label="Sentences written"
+  queryKey="sentences-written"
+  searchCount={1}
+  selectedGrades={
+    Array [
+      "Kindergarten",
+      "1",
+      "2",
+      "3",
+      "4",
+      "5",
+      "6",
+      "7",
+      "8",
+      "9",
+      "10",
+      "11",
+      "12",
+      "University",
+      "Other",
+    ]
+  }
+  selectedSchoolIds={
+    Array [
+      58452,
+    ]
+  }
+  selectedTimeframe="last-30-days"
+>
+  <section
+    className="snapshot-item snapshot-ranking no-data"
+  >
+    <div
+      onClick={[Function]}
+    >
+      <div
+        className="header"
+      >
+        <h3
+          className="coming-soon"
+        >
+          Sentences written
+           (coming soon)
+        </h3>
+      </div>
+      <DataTable
+        data={null}
+        headers={
+          Array [
+            "Teacher",
+            "Activities completed",
+          ]
+        }
+        numberOfRows={3}
+      >
+        <table
+          className="table"
+        >
+          <tr
+            className="header-row"
+          >
+            <th
+              key="Teacher"
+            >
+              Teacher
+            </th>
+            <th
+              key="Activities completed"
+            >
+              Activities completed
+            </th>
+          </tr>
+          <tr
+            className="data-row"
+            key="0"
+          >
+            <td>
+              —
+            </td>
+            <td>
+              —
+            </td>
+          </tr>
+          <tr
+            className="data-row"
+            key="1"
+          >
+            <td>
+              —
+            </td>
+            <td>
+              —
+            </td>
+          </tr>
+          <tr
+            className="data-row"
+            key="2"
+          >
+            <td>
+              —
+            </td>
+            <td>
+              —
+            </td>
+          </tr>
+        </table>
+      </DataTable>
+    </div>
+  </section>
+</SnapshotRanking>
+`;
+
+exports[`SnapshotRanking component when there is data  should match snapshot 1`] = `
+<SnapshotRanking
+  adminId={1}
+  comingSoon={false}
+  customTimeframeEnd={null}
+  customTimeframeStart={null}
+  headers={
+    Array [
+      "Teacher",
+      "Activities completed",
+    ]
+  }
+  label="Sentences written"
+  passedData={
+    Array [
+      Object {
+        "count": 3777,
+        "value": "Comma Before Coordinating Conjunctions",
+      },
+      Object {
+        "count": 3339,
+        "value": "Compound Objects",
+      },
+      Object {
+        "count": 2232,
+        "value": "Subordinating Conjunction at the Beginning of a Sentence",
+      },
+      Object {
+        "count": 456,
+        "value": "Gerunds as Subjects",
+      },
+      Object {
+        "count": 789,
+        "value": "Split Infinitives",
+      },
+      Object {
+        "count": 1234,
+        "value": "Parallel Structure",
+      },
+      Object {
+        "count": 5678,
+        "value": "Subject-Verb Agreement",
+      },
+      Object {
+        "count": 9012,
+        "value": "Pronoun-Antecedent Agreement",
+      },
+      Object {
+        "count": 3456,
+        "value": "Appositive Phrases",
+      },
+      Object {
+        "count": 7890,
+        "value": "Dangling Modifiers",
+      },
+    ]
+  }
+  queryKey="sentences-written"
+  searchCount={1}
+  selectedGrades={
+    Array [
+      "Kindergarten",
+      "1",
+      "2",
+      "3",
+      "4",
+      "5",
+      "6",
+      "7",
+      "8",
+      "9",
+      "10",
+      "11",
+      "12",
+      "University",
+      "Other",
+    ]
+  }
+  selectedSchoolIds={
+    Array [
+      58452,
+    ]
+  }
+  selectedTimeframe="last-30-days"
+>
+  <section
+    className="snapshot-item snapshot-ranking has-data"
+  >
+    <div
+      onClick={[Function]}
+    >
+      <div
+        className="header"
+      >
+        <h3>
+          Sentences written
+        </h3>
+        <button
+          aria-label="Open modal with additional seven lines of table data"
+          className="interactive-wrapper focus-on-light"
+          onClick={[Function]}
+          type="button"
+        >
+          <img
+            alt=""
+            src="undefined/images/pages/administrator/expand.svg"
+          />
+        </button>
+      </div>
+      <DataTable
+        data={
+          Array [
+            Object {
+              "count": 3777,
+              "value": "Comma Before Coordinating Conjunctions",
+            },
+            Object {
+              "count": 3339,
+              "value": "Compound Objects",
+            },
+            Object {
+              "count": 2232,
+              "value": "Subordinating Conjunction at the Beginning of a Sentence",
+            },
+            Object {
+              "count": 456,
+              "value": "Gerunds as Subjects",
+            },
+            Object {
+              "count": 789,
+              "value": "Split Infinitives",
+            },
+            Object {
+              "count": 1234,
+              "value": "Parallel Structure",
+            },
+            Object {
+              "count": 5678,
+              "value": "Subject-Verb Agreement",
+            },
+            Object {
+              "count": 9012,
+              "value": "Pronoun-Antecedent Agreement",
+            },
+            Object {
+              "count": 3456,
+              "value": "Appositive Phrases",
+            },
+            Object {
+              "count": 7890,
+              "value": "Dangling Modifiers",
+            },
+          ]
+        }
+        headers={
+          Array [
+            "Teacher",
+            "Activities completed",
+          ]
+        }
+        numberOfRows={3}
+      >
+        <table
+          className="table"
+        >
+          <tr
+            className="header-row"
+          >
+            <th
+              key="Teacher"
+            >
+              Teacher
+            </th>
+            <th
+              key="Activities completed"
+            >
+              Activities completed
+            </th>
+          </tr>
+          <tr
+            className="data-row"
+            key="0"
+          >
+            <td>
+              Comma Before Coordinating Conjunctions
+            </td>
+            <td>
+              3777
+            </td>
+          </tr>
+          <tr
+            className="data-row"
+            key="1"
+          >
+            <td>
+              Compound Objects
+            </td>
+            <td>
+              3339
+            </td>
+          </tr>
+          <tr
+            className="data-row"
+            key="2"
+          >
+            <td>
+              Subordinating Conjunction at the Beginning of a Sentence
+            </td>
+            <td>
+              2232
+            </td>
+          </tr>
+        </table>
+      </DataTable>
+    </div>
+  </section>
+</SnapshotRanking>
+`;
+
+exports[`SnapshotRanking component when there is no data  should match snapshot 1`] = `
+<SnapshotRanking
+  adminId={1}
+  comingSoon={false}
+  customTimeframeEnd={null}
+  customTimeframeStart={null}
+  headers={
+    Array [
+      "Teacher",
+      "Activities completed",
+    ]
+  }
+  label="Sentences written"
+  queryKey="sentences-written"
+  searchCount={1}
+  selectedGrades={
+    Array [
+      "Kindergarten",
+      "1",
+      "2",
+      "3",
+      "4",
+      "5",
+      "6",
+      "7",
+      "8",
+      "9",
+      "10",
+      "11",
+      "12",
+      "University",
+      "Other",
+    ]
+  }
+  selectedSchoolIds={
+    Array [
+      58452,
+    ]
+  }
+  selectedTimeframe="last-30-days"
+>
+  <section
+    className="snapshot-item snapshot-ranking no-data"
+  >
+    <div
+      onClick={[Function]}
+    >
+      <div
+        className="header"
+      >
+        <h3>
+          Sentences written
+        </h3>
+      </div>
+      <DataTable
+        data={null}
+        headers={
+          Array [
+            "Teacher",
+            "Activities completed",
+          ]
+        }
+        numberOfRows={3}
+      >
+        <table
+          className="table"
+        >
+          <tr
+            className="header-row"
+          >
+            <th
+              key="Teacher"
+            >
+              Teacher
+            </th>
+            <th
+              key="Activities completed"
+            >
+              Activities completed
+            </th>
+          </tr>
+          <tr
+            className="data-row"
+            key="0"
+          >
+            <td>
+              —
+            </td>
+            <td>
+              —
+            </td>
+          </tr>
+          <tr
+            className="data-row"
+            key="1"
+          >
+            <td>
+              —
+            </td>
+            <td>
+              —
+            </td>
+          </tr>
+          <tr
+            className="data-row"
+            key="2"
+          >
+            <td>
+              —
+            </td>
+            <td>
+              —
+            </td>
+          </tr>
+        </table>
+      </DataTable>
+    </div>
+  </section>
+</SnapshotRanking>
+`;

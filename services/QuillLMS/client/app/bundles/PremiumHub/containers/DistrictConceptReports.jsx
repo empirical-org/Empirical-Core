@@ -19,14 +19,19 @@ class DistrictConceptReports extends React.Component {
   render() {
     const { loading, accessType, } = this.props;
 
+    let content = <ConceptReports {...this.props} />
+
     if (accessType !== FULL) {
-      return restrictedPage
+      content = restrictedPage
+    } else if (loading) {
+      content = <LoadingSpinner />
     }
 
-    if (loading) {
-      return <LoadingSpinner />;
-    }
-    return (<ConceptReports {...this.props} />);
+    return (
+      <div className="container gray-background-accommodate-footer">
+        {content}
+      </div>
+    );
   }
 }
 

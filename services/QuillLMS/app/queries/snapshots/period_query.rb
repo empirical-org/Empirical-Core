@@ -1,41 +1,16 @@
 # frozen_string_literal: true
 
 module Snapshots
-  class PeriodQuery < ApplicationService
+  class PeriodQuery < ::QuillBigQuery::Query
     attr_accessor :timeframe_start, :timeframe_end, :school_ids, :grades
 
-    def self.run(*args)
-      new(*args).run
-    end
-
-    def initialize(timeframe_start, timeframe_end, school_ids, grades = nil)
+    def initialize(timeframe_start, timeframe_end, school_ids, grades = nil, options = {})
       @timeframe_start = timeframe_start
       @timeframe_end = timeframe_end
       @school_ids = school_ids
       @grades = grades
-    end
 
-    def run
-      raise NotImplementedError
-    end
-
-    def run_query
-      QuillBigQuery::Runner.execute(query)
-    end
-
-    def query
-      <<-SQL
-        #{select_clause}
-          #{from_and_join_clauses}
-          #{where_clause}
-          #{group_by_clause}
-          #{order_by_clause}
-          #{limit_clause}
-      SQL
-    end
-
-    def select_clause
-      raise NotImplementedError
+      super(options)
     end
 
     def from_and_join_clauses
@@ -60,7 +35,7 @@ module Snapshots
     end
 
     def timeframe_where_clause
-      "#{relevant_date_column} BETWEEN '#{timeframe_start}' AND '#{timeframe_end}'"
+      "#{relevant_date_column} BETWEEN '#{timeframe_start.to_date.to_s(:db)}' AND '#{timeframe_end.to_date.to_s(:db)}'"
     end
 
     def school_ids_where_clause
@@ -68,21 +43,9 @@ module Snapshots
     end
 
     def grade_where_clause
-      return "" unless grades
+      return "" if grades.nil? || grades.empty?
 
       "AND classrooms.grade IN (#{grades.map { |g| "'#{g}'" }.join(',')})"
-    end
-
-    def group_by_clause
-      ""
-    end
-
-    def order_by_clause
-      ""
-    end
-
-    def limit_clause
-      ""
     end
   end
 end

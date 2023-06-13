@@ -23,7 +23,7 @@ class UserMailer < ActionMailer::Base
 
   COTEACHER_SUPPORT_ARTICLE = 'http://support.quill.org/getting-started-for-teachers/manage-classes/how-do-i-share-a-class-with-my-co-teacher'
   FEEDBACK_SESSIONS_CSV_DOWNLOAD = "Feedback Sessions CSV Download"
-  FEEDBACK_SESSIONS_CSV_FILENAME = "feedback_sessions.csv"
+  FEEDBACK_SESSIONS_CSV_FILENAME = "feedback_sessions.csv.zip"
 
   def invitation_to_non_existing_user invitation_email_hash
     @email_hash = invitation_email_hash.merge(support_article_link: COTEACHER_SUPPORT_ARTICLE, join_link: new_account_url).stringify_keys
@@ -165,7 +165,7 @@ class UserMailer < ActionMailer::Base
   end
 
   def feedback_history_session_csv_download(email, csv_file_path)
-    attachments[FEEDBACK_SESSIONS_CSV_FILENAME] = File.read(csv_file_path)
+    attachments[FEEDBACK_SESSIONS_CSV_FILENAME] = ActiveSupport::Gzip.compress(File.read(csv_file_path))
     mail from: "The Quill Team <hello@quill.org>", to: email, subject: FEEDBACK_SESSIONS_CSV_DOWNLOAD
 
     File.delete(csv_file_path) if File.exist?(csv_file_path)

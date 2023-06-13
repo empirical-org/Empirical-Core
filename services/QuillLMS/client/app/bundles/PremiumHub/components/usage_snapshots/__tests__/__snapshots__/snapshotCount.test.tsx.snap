@@ -1,0 +1,549 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`SnapshotCount component size medium should match snapshot 1`] = `
+<SnapshotCount
+  adminId={1}
+  comingSoon={true}
+  customTimeframeEnd={null}
+  customTimeframeStart={null}
+  label="Sentences written"
+  queryKey="sentences-written"
+  searchCount={1}
+  selectedGrades={
+    Array [
+      "Kindergarten",
+      "1",
+      "2",
+      "3",
+      "4",
+      "5",
+      "6",
+      "7",
+      "8",
+      "9",
+      "10",
+      "11",
+      "12",
+      "University",
+      "Other",
+    ]
+  }
+  selectedSchoolIds={
+    Array [
+      58452,
+    ]
+  }
+  selectedTimeframe="last-30-days"
+  size="medium"
+>
+  <section
+    className="snapshot-item snapshot-count medium "
+  >
+    <div
+      className="count-and-label"
+    >
+      <span
+        className="coming-soon"
+      >
+        Coming soon
+      </span>
+      <span
+        className="snapshot-label"
+      >
+        Sentences written
+      </span>
+    </div>
+    <div
+      className="change"
+    >
+      <span>
+        0
+        %
+      </span>
+    </div>
+  </section>
+</SnapshotCount>
+`;
+
+exports[`SnapshotCount component size medium when there is data with a negative trend should match snapshot 1`] = `
+<SnapshotCount
+  adminId={1}
+  comingSoon={false}
+  customTimeframeEnd={null}
+  customTimeframeStart={null}
+  label="Sentences written"
+  passedChange={50}
+  passedChangeDirection="negative"
+  passedCount={1000}
+  queryKey="sentences-written"
+  searchCount={1}
+  selectedGrades={
+    Array [
+      "Kindergarten",
+      "1",
+      "2",
+      "3",
+      "4",
+      "5",
+      "6",
+      "7",
+      "8",
+      "9",
+      "10",
+      "11",
+      "12",
+      "University",
+      "Other",
+    ]
+  }
+  selectedSchoolIds={
+    Array [
+      58452,
+    ]
+  }
+  selectedTimeframe="last-30-days"
+  size="medium"
+>
+  <section
+    className="snapshot-item snapshot-count medium negative"
+  >
+    <div
+      className="count-and-label"
+    >
+      <span
+        className="count"
+      >
+        1,000
+      </span>
+      <span
+        className="snapshot-label"
+      >
+        Sentences written
+      </span>
+    </div>
+    <div
+      className="change"
+    >
+      <img
+        alt="Arrow pointing down"
+        src="undefined/images/pages/administrator/medium_arrow_down_icon.svg"
+      />
+      <span>
+        50
+        %
+      </span>
+    </div>
+  </section>
+</SnapshotCount>
+`;
+
+exports[`SnapshotCount component size medium when there is data with a positive trend should match snapshot 1`] = `
+<SnapshotCount
+  adminId={1}
+  comingSoon={false}
+  customTimeframeEnd={null}
+  customTimeframeStart={null}
+  label="Sentences written"
+  passedChange={50}
+  passedChangeDirection="positive"
+  passedCount={1000}
+  queryKey="sentences-written"
+  searchCount={1}
+  selectedGrades={
+    Array [
+      "Kindergarten",
+      "1",
+      "2",
+      "3",
+      "4",
+      "5",
+      "6",
+      "7",
+      "8",
+      "9",
+      "10",
+      "11",
+      "12",
+      "University",
+      "Other",
+    ]
+  }
+  selectedSchoolIds={
+    Array [
+      58452,
+    ]
+  }
+  selectedTimeframe="last-30-days"
+  size="medium"
+>
+  <section
+    className="snapshot-item snapshot-count medium positive"
+  >
+    <div
+      className="count-and-label"
+    >
+      <span
+        className="count"
+      >
+        1,000
+      </span>
+      <span
+        className="snapshot-label"
+      >
+        Sentences written
+      </span>
+    </div>
+    <div
+      className="change"
+    >
+      <img
+        alt="Arrow pointing up"
+        src="undefined/images/pages/administrator/medium_arrow_up_icon.svg"
+      />
+      <span>
+        50
+        %
+      </span>
+    </div>
+  </section>
+</SnapshotCount>
+`;
+
+exports[`SnapshotCount component size medium when there is no data  should match snapshot 1`] = `
+<SnapshotCount
+  adminId={1}
+  comingSoon={false}
+  customTimeframeEnd={null}
+  customTimeframeStart={null}
+  label="Sentences written"
+  queryKey="sentences-written"
+  searchCount={1}
+  selectedGrades={
+    Array [
+      "Kindergarten",
+      "1",
+      "2",
+      "3",
+      "4",
+      "5",
+      "6",
+      "7",
+      "8",
+      "9",
+      "10",
+      "11",
+      "12",
+      "University",
+      "Other",
+    ]
+  }
+  selectedSchoolIds={
+    Array [
+      58452,
+    ]
+  }
+  selectedTimeframe="last-30-days"
+  size="medium"
+>
+  <section
+    className="snapshot-item snapshot-count medium "
+  >
+    <div
+      className="count-and-label"
+    >
+      <span
+        className="count"
+      >
+        —
+      </span>
+      <span
+        className="snapshot-label"
+      >
+        Sentences written
+      </span>
+    </div>
+    <div
+      className="change"
+    >
+      <span>
+        0
+        %
+      </span>
+    </div>
+  </section>
+</SnapshotCount>
+`;
+
+exports[`SnapshotCount component size small when it is coming soon should match snapshot 1`] = `
+<SnapshotCount
+  adminId={1}
+  comingSoon={true}
+  customTimeframeEnd={null}
+  customTimeframeStart={null}
+  label="Sentences written"
+  queryKey="sentences-written"
+  searchCount={1}
+  selectedGrades={
+    Array [
+      "Kindergarten",
+      "1",
+      "2",
+      "3",
+      "4",
+      "5",
+      "6",
+      "7",
+      "8",
+      "9",
+      "10",
+      "11",
+      "12",
+      "University",
+      "Other",
+    ]
+  }
+  selectedSchoolIds={
+    Array [
+      58452,
+    ]
+  }
+  selectedTimeframe="last-30-days"
+  size="small"
+>
+  <section
+    className="snapshot-item snapshot-count small "
+  >
+    <div
+      className="count-and-label"
+    >
+      <span
+        className="coming-soon"
+      >
+        Coming soon
+      </span>
+      <span
+        className="snapshot-label"
+      >
+        Sentences written
+      </span>
+    </div>
+    <div
+      className="change"
+    >
+      <span>
+        0
+        %
+      </span>
+    </div>
+  </section>
+</SnapshotCount>
+`;
+
+exports[`SnapshotCount component size small when there is data with a negative trend should match snapshot 1`] = `
+<SnapshotCount
+  adminId={1}
+  comingSoon={false}
+  customTimeframeEnd={null}
+  customTimeframeStart={null}
+  label="Sentences written"
+  passedChange={50}
+  passedChangeDirection="negative"
+  passedCount={1000}
+  queryKey="sentences-written"
+  searchCount={1}
+  selectedGrades={
+    Array [
+      "Kindergarten",
+      "1",
+      "2",
+      "3",
+      "4",
+      "5",
+      "6",
+      "7",
+      "8",
+      "9",
+      "10",
+      "11",
+      "12",
+      "University",
+      "Other",
+    ]
+  }
+  selectedSchoolIds={
+    Array [
+      58452,
+    ]
+  }
+  selectedTimeframe="last-30-days"
+  size="small"
+>
+  <section
+    className="snapshot-item snapshot-count small negative"
+  >
+    <div
+      className="count-and-label"
+    >
+      <span
+        className="count"
+      >
+        1,000
+      </span>
+      <span
+        className="snapshot-label"
+      >
+        Sentences written
+      </span>
+    </div>
+    <div
+      className="change"
+    >
+      <img
+        alt="Arrow pointing down"
+        src="undefined/images/pages/administrator/small_arrow_down_icon.svg"
+      />
+      <span>
+        50
+        %
+      </span>
+    </div>
+  </section>
+</SnapshotCount>
+`;
+
+exports[`SnapshotCount component size small when there is data with a positive trend should match snapshot 1`] = `
+<SnapshotCount
+  adminId={1}
+  comingSoon={false}
+  customTimeframeEnd={null}
+  customTimeframeStart={null}
+  label="Sentences written"
+  passedChange={50}
+  passedChangeDirection="positive"
+  passedCount={1000}
+  queryKey="sentences-written"
+  searchCount={1}
+  selectedGrades={
+    Array [
+      "Kindergarten",
+      "1",
+      "2",
+      "3",
+      "4",
+      "5",
+      "6",
+      "7",
+      "8",
+      "9",
+      "10",
+      "11",
+      "12",
+      "University",
+      "Other",
+    ]
+  }
+  selectedSchoolIds={
+    Array [
+      58452,
+    ]
+  }
+  selectedTimeframe="last-30-days"
+  size="small"
+>
+  <section
+    className="snapshot-item snapshot-count small positive"
+  >
+    <div
+      className="count-and-label"
+    >
+      <span
+        className="count"
+      >
+        1,000
+      </span>
+      <span
+        className="snapshot-label"
+      >
+        Sentences written
+      </span>
+    </div>
+    <div
+      className="change"
+    >
+      <img
+        alt="Arrow pointing up"
+        src="undefined/images/pages/administrator/small_arrow_up_icon.svg"
+      />
+      <span>
+        50
+        %
+      </span>
+    </div>
+  </section>
+</SnapshotCount>
+`;
+
+exports[`SnapshotCount component size small when there is no data  should match snapshot 1`] = `
+<SnapshotCount
+  adminId={1}
+  comingSoon={false}
+  customTimeframeEnd={null}
+  customTimeframeStart={null}
+  label="Sentences written"
+  queryKey="sentences-written"
+  searchCount={1}
+  selectedGrades={
+    Array [
+      "Kindergarten",
+      "1",
+      "2",
+      "3",
+      "4",
+      "5",
+      "6",
+      "7",
+      "8",
+      "9",
+      "10",
+      "11",
+      "12",
+      "University",
+      "Other",
+    ]
+  }
+  selectedSchoolIds={
+    Array [
+      58452,
+    ]
+  }
+  selectedTimeframe="last-30-days"
+  size="small"
+>
+  <section
+    className="snapshot-item snapshot-count small "
+  >
+    <div
+      className="count-and-label"
+    >
+      <span
+        className="count"
+      >
+        —
+      </span>
+      <span
+        className="snapshot-label"
+      >
+        Sentences written
+      </span>
+    </div>
+    <div
+      className="change"
+    >
+      <span>
+        0
+        %
+      </span>
+    </div>
+  </section>
+</SnapshotCount>
+`;

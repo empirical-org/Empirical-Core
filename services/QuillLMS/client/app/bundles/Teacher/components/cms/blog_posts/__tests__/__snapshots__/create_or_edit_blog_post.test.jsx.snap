@@ -205,6 +205,7 @@ exports[`CreateOrEditBlogPost component renders for a new blog post 1`] = `
                   className="dropdown-container input-container inactive has-text not-editable blog-dropdown  "
                   onClick={[Function]}
                   onKeyDown={[Function]}
+                  onTouchStart={[Function]}
                   role="button"
                   tabIndex={0}
                 >
@@ -4787,6 +4788,7 @@ exports[`CreateOrEditBlogPost component renders for a new blog post 1`] = `
                   className="dropdown-container input-container inactive has-text not-editable blog-dropdown  "
                   onClick={[Function]}
                   onKeyDown={[Function]}
+                  onTouchStart={[Function]}
                   role="button"
                   tabIndex={0}
                 >
@@ -10835,6 +10837,7 @@ exports[`CreateOrEditBlogPost component renders for a new blog post 1`] = `
                   className="dropdown-container input-container inactive has-text not-editable blog-dropdown  "
                   onClick={[Function]}
                   onKeyDown={[Function]}
+                  onTouchStart={[Function]}
                   role="button"
                   tabIndex={0}
                 >
@@ -17035,6 +17038,7 @@ exports[`CreateOrEditBlogPost component renders for an existing blog post 1`] = 
                   className="dropdown-container input-container inactive has-text not-editable blog-dropdown  "
                   onClick={[Function]}
                   onKeyDown={[Function]}
+                  onTouchStart={[Function]}
                   role="button"
                   tabIndex={0}
                 >
@@ -21630,6 +21634,7 @@ exports[`CreateOrEditBlogPost component renders for an existing blog post 1`] = 
                   className="dropdown-container input-container inactive has-text not-editable blog-dropdown  "
                   onClick={[Function]}
                   onKeyDown={[Function]}
+                  onTouchStart={[Function]}
                   role="button"
                   tabIndex={0}
                 >
@@ -27678,6 +27683,7 @@ exports[`CreateOrEditBlogPost component renders for an existing blog post 1`] = 
                   className="dropdown-container input-container inactive has-text not-editable blog-dropdown  "
                   onClick={[Function]}
                   onKeyDown={[Function]}
+                  onTouchStart={[Function]}
                   role="button"
                   tabIndex={0}
                 >

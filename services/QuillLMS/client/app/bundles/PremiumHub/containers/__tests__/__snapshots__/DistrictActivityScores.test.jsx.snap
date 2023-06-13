@@ -72,12 +72,16 @@ exports[`DistrictActivityScores when the access type is limited renders 1`] = `
     }
   >
     <div
-      className="restricted-page"
+      className="container gray-background-accommodate-footer"
     >
-      <img
-        alt="Gray lock"
-        src="undefined/images/pages/administrator/premium_lock.svg"
-      />
+      <div
+        className="restricted-page"
+      >
+        <img
+          alt="Gray lock"
+          src="undefined/images/pages/administrator/premium_lock.svg"
+        />
+      </div>
     </div>
   </DistrictActivityScores>
 </Connect(DistrictActivityScores)>
@@ -155,12 +159,16 @@ exports[`DistrictActivityScores when the access type is restricted renders 1`] =
     }
   >
     <div
-      className="restricted-page"
+      className="container gray-background-accommodate-footer"
     >
-      <img
-        alt="Gray lock"
-        src="undefined/images/pages/administrator/premium_lock.svg"
-      />
+      <div
+        className="restricted-page"
+      >
+        <img
+          alt="Gray lock"
+          src="undefined/images/pages/administrator/premium_lock.svg"
+        />
+      </div>
     </div>
   </DistrictActivityScores>
 </Connect(DistrictActivityScores)>

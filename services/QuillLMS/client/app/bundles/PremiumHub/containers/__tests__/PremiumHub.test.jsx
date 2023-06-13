@@ -10,8 +10,6 @@ const sharedProps = {
 }
 
 describe('PremiumHub container', () => {
-  process.env.PUSHER_KEY = 'pusher';
-
   it('should render with a full access type', () => {
     const wrapper = mount(<PremiumHub {...sharedProps} accessType={FULL} />);
     expect(wrapper).toMatchSnapshot()

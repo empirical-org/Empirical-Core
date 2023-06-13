@@ -12,7 +12,7 @@ module Snapshots
     let(:timeframe_name) { 'last-30-days' }
     let(:school_ids) { [1,2,3] }
     let(:grades) { ['Kindergarten',1,2,3,4] }
-    let(:query_double) { double }
+    let(:query_double) { double(run: {}) }
 
     context '#perform' do
       let(:timeframe_end) { DateTime.now }
@@ -20,10 +20,10 @@ module Snapshots
       let(:previous_timeframe_start) { current_timeframe_start - 30.days }
       let(:timeframe) {
         {
-          name: timeframe_name,
-          previous_start: previous_timeframe_start,
-          current_start: current_timeframe_start,
-          current_end: timeframe_end
+          'name' => timeframe_name,
+          'previous_start' => previous_timeframe_start,
+          'current_start' => current_timeframe_start,
+          'current_end' => timeframe_end
         }
       }
 
@@ -31,41 +31,42 @@ module Snapshots
         stub_const("Snapshots::CacheSnapshotCountWorker::QUERIES", {
           query => query_double
         })
-
-        # Intercept theses calls to isolate them in separate cases
-        allow(query_double).to receive(:run).and_return({})
-        allow(Rails.cache).to receive(:write)
-        allow(PusherTrigger).to receive(:run)
       end
 
       it 'should execute queries for both the current and previous timeframes' do
         expect(query_double).to receive(:run).with(current_timeframe_start, timeframe_end, school_ids, grades)
         expect(query_double).to receive(:run).with(previous_timeframe_start, current_timeframe_start, school_ids, grades)
+        expect(Rails.cache).to receive(:write)
+        expect(PusherTrigger).to receive(:run)
 
         subject.perform(cache_key, query, user_id, timeframe, school_ids, grades)
       end
 
       it 'should only execute a query for current timeframe if the previous_timeframe_start is nil' do
         expect(query_double).to receive(:run).and_return({}).once
-        timeframe[:previous_start] = nil
+        expect(Rails.cache).to receive(:write)
+        expect(PusherTrigger).to receive(:run)
+        timeframe['previous_start'] = nil
 
         subject.perform(cache_key, query, user_id, timeframe, school_ids, grades)
       end
 
       it 'should write a payload to cache' do
         previous_count = 100
-        previous_timeframe_query_result = {'count' => previous_count}
+        previous_timeframe_query_result = { count: previous_count}
         current_count = 50
-        current_timeframe_query_result = {'count' => current_count}
+        current_timeframe_query_result = { count: current_count}
         payload = { current: current_count, previous: previous_count }
 
         expect(query_double).to receive(:run).and_return(current_timeframe_query_result, previous_timeframe_query_result)
-        expect(Rails.cache).to receive(:write).with(cache_key, payload, expires_in: timeframe_end + 1.day)
+        expect(Rails.cache).to receive(:write).with(cache_key, payload, expires_in: DateTime.current.end_of_day)
+        expect(PusherTrigger).to receive(:run)
 
         subject.perform(cache_key, query, user_id, timeframe, school_ids, grades)
       end
 
       it 'should send a Pusher notification' do
+        expect(Rails.cache).to receive(:write)
         expect(PusherTrigger).to receive(:run).with(user_id, described_class::PUSHER_EVENT, {
           query: query,
           timeframe: timeframe_name,
