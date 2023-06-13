@@ -1,1 +1,58 @@
-<%= link_to @link_text, @link_url, target: '_blank' %>
+<style>
+  .navbar { background-color: #06806B }
+
+  .logo-only {
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
+
+  .text-center { text-align: center }
+
+  .account-form {
+    padding: 40px 40px;
+    background-color: #f7f5f5;
+  }
+
+  .account-form .account-container {
+    max-width: 444px;
+    width: 100%;
+    border-radius: 6px;
+    border: solid 1px #e0e0e0;
+    background-color: #ffffff;
+    margin: auto;
+    padding: 40px 32px;
+  }
+
+  .button-link {
+    display: inline-block;
+    color: #000000;
+    padding: 10px 20px;
+    text-align: center;
+    text-decoration: none;
+    background-color: #f7f5f5;
+    border: solid 1px #e0e0e0;
+    border-radius: 5px;
+  }
+</style>
+
+<div class='navbar'>
+  <div class='logo-only'>
+    <a aria-label='Quill' href='https://www.quill.org/'>
+      <img src='https://assets.quill.org/images/logos/quill-logo-white-2022.svg' alt='Quill.org logo'>
+    </a>
+    <br/>
+    <br/>
+  </div>
+</div>
+
+<div class='account-form'>
+  <div class='account-container text-center'>
+    <div class='text-center auth-section'>
+      <p class='sign-up-link'>
+        <%= link_to @link_text, @link_url, class: 'button-link', target: '_blank' %>
+      </p>
+    </div>
+  </div>
+</div>

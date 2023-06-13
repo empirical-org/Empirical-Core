@@ -1,7 +1,6 @@
 <% current_path = request.env['PATH_INFO'] %>
-<% on_sign_up_or_log_in = ['account/new', '/session', 'password_reset', 'sign-up', 'finish_set_up'].any? { |str| current_path.include?(str)} %>
-<% desktop_navbar_class_name = on_sign_up_or_log_in ? "non-standard-navbar navbar desktop-navbar" : "navbar desktop-navbar" %>
-<% mobile_navbar_class_name = on_sign_up_or_log_in ? "non-standard-navbar navbar mobile-navbar" : "navbar mobile-navbar" %>
+<% desktop_navbar_class_name = on_sign_up_or_log_in? ? "non-standard-navbar navbar desktop-navbar" : "navbar desktop-navbar" %>
+<% mobile_navbar_class_name = on_sign_up_or_log_in? ? "non-standard-navbar navbar mobile-navbar" : "navbar mobile-navbar" %>
 
 
 <% if show_site_navigation? %>

@@ -5,14 +5,14 @@ module CanvasIntegration
     # launch is loaded within Canvas in an iframe muddling the CSRF token
     skip_before_action :verify_authenticity_token, only: [:launch]
 
-    layout 'canvas_integration/lti'
-
     LAUNCH_TEXT = 'Log in to Quill.org with your Canvas credentials'
     SSO_BUTTON_TEXT = 'Click here if you are not redirected automatically.'
 
     def launch
       @link_text = LAUNCH_TEXT
       @link_url = canvas_integration_lti_sso_path(canvas_instance_url: params[:custom_canvas_api_baseurl])
+
+      render layout: false   # canvas doesn't allow script tags in iframes
     end
 
     def launch_config
