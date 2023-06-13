@@ -45,7 +45,7 @@ const PremiumHub = ({ adminId, accessType, passedModel, }) => {
     }
   };
 
-  initializePusher = (skipLoading) => {
+  function initializePusher(skipLoading) {
     if (process.env.RAILS_ENV === 'development') {
       Pusher.logToConsole = true;
     }
