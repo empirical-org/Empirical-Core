@@ -1,4 +1,4 @@
-import moment from 'moment';
+import * as moment from 'moment';
 import Pusher from 'pusher-js';
 import * as React from 'react';
 

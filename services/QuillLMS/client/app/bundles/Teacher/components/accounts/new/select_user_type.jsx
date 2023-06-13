@@ -7,6 +7,7 @@ import AssignActivityPackBanner from '../assignActivityPackBanner'
 const studentPencilImg = `${process.env.CDN_URL}/images/onboarding/student-pencil-colored.svg`
 const teacherChalkboardImg = `${process.env.CDN_URL}/images/onboarding/teacher-chalkboard-colored.svg`
 const homeSchoolImg = `${process.env.CDN_URL}/images/onboarding/home-building-colored.svg`
+const schoolBuildingImg = `${process.env.CDN_URL}/images/onboarding/school-building-colored.svg`
 
 export class SelectUserType extends React.Component {
   setRoleOnSession = (role) => {
