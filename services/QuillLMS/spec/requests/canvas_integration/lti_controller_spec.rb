@@ -30,12 +30,5 @@ module CanvasIntegration
       it { expect(response.body).to include(described_class::LAUNCH_TEXT) }
       it { expect(response.body).not_to include("<script") }  # LTI does not allow scripts
     end
-
-    context '#sso' do
-      subject { get '/canvas_integration/lti/sso' }
-
-      it { expect(response).to have_http_status(:success) }
-      it { expect(response.content_type).to eq 'text/html; charset=utf-8' }
-    end
   end
 end

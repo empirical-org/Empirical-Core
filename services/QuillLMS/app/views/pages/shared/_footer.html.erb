@@ -12,6 +12,12 @@
         </div>
       </div>
     </footer>
+  <% elsif footer_base_only? %>
+    <footer class="<%=footer_class%>" style='padding-top: 26px'>
+      <div class="privacy-and-social flex-row space-between vertically-centered">
+        <%= render 'application/footer/base' %>
+      </div>
+    </footer>
   <% else %>
     <%= render partial: 'application/premium_footer' unless request.path.include?('premium_hub') %>
     <footer class="<%=footer_class%>">
@@ -37,25 +43,8 @@
         </a>
       </div>
       <div class="privacy-and-social flex-row space-between vertically-centered">
-        <div class="pas-left flex-row">
-          <p>© <%= Time.new.year %> Quill</p>
-          <p>Quill is 501(c)(3) nonprofit organization</p>
-          <a href="/tos">Terms</a>
-          <a href="/privacy">Privacy</a>
-          <a>hello@quill.org</a>
-          <a href="tel:510-671-0222">510-671-0222</a>
-        </div>
-        <div class="pas-right flex-row">
-          <a rel="noopener noreferrer" target="_blank" href="http://twitter.com/Quill_org">
-            <img class="lazyload" loading="lazy" src="https://assets.quill.org/images/logos/twitter-logo-<%=logo_class%>.svg" alt='Twitter Logo'/>
-          </a>
-          <a rel="noopener noreferrer" target="_blank" href="https://facebook.com/quill.org">
-            <img class="lazyload" loading="lazy" src="https://assets.quill.org/images/logos/facebook-logo-<%=logo_class%>.svg" alt='Facebook Logo'/>
-          </a>
-          <a rel="noopener noreferrer" target="_blank" href="http://instagram.com/quill_org/">
-            <img class="lazyload" loading="lazy" src="https://assets.quill.org/images/logos/instagram-logo-<%=logo_class%>.svg" alt='Instagram Logo'/>
-          </a>
-        </div>
+        <%= render 'application/footer/base' %>
+        <%= render 'application/footer/social', logo_class: logo_class %>
         <p class="cb-disclaimer">College Board, AP, Pre-AP, and the acorn logo are registered trademarks of College Board.<p>
       </div>
     </footer>

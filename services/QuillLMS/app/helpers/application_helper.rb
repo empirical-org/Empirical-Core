@@ -1,7 +1,6 @@
 # frozen_string_literal: true
 
 module ApplicationHelper
-
   def next_page
     next_action = pages[pages.index(params[:action]) + 1] || 'home'
     url_for(controller: 'pages', action: next_action)
@@ -65,6 +64,11 @@ module ApplicationHelper
     current_path.include?('sign-up')
   end
 
+  def on_sign_up_or_log_in?
+    %w[account/new /session password_reset sign-up finish_set_up /canvas_integration/lti/sso]
+      .any? { |str| request.path.include?(str) }
+  end
+
   def user_is_trackable_teacher?
     current_user&.teacher? && !staff_member? && !demo_account? && !on_sign_up?
   end
@@ -82,5 +86,9 @@ module ApplicationHelper
 
   def device
     request.user_agent =~ /Mobile/ ? 'mobile' : 'desktop'
+  end
+
+  def footer_base_only?
+    @footer_base_only
   end
 end
