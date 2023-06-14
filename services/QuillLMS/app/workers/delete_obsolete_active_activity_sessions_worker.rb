@@ -4,7 +4,7 @@ class DeleteObsoleteActiveActivitySessionsWorker
   include Sidekiq::Worker
   sidekiq_options queue: SidekiqQueue::LOW
 
-  BATCH_SIZE = 100
+  BATCH_SIZE = 1_000
 
   def perform
     while obsolete_query.delete_all > 0
