@@ -24,11 +24,12 @@ import LoadingSpinner from '../../../shared/loading_indicator.jsx';
 const timeRewindIllustration = <img alt="Illustration of a clock with an arrow pointing backwards" src={`${baseDiagnosticImageSrc}/time-rewind.svg`} />
 
 const SkillGroupSummaryCard = ({ skillGroupSummary, completedStudentCount }) => {
-  const { name, description, not_yet_proficient_student_names, } = skillGroupSummary
+  const { name, description, not_yet_proficient_student_names, proficiency_scores_by_student } = skillGroupSummary
   let cardContent = noDataYet
   if (completedStudentCount) {
     const numberOfStudentsNeedingPractice = not_yet_proficient_student_names.length
-    const percentage = (numberOfStudentsNeedingPractice/completedStudentCount) * 100
+    const proficiencyScoresSum = Object.values(proficiency_scores_by_student).reduce((a: number, b: number) => a + b, 0)
+    const percentage = (proficiencyScoresSum/completedStudentCount) * 100
     let needPracticeElement = <span className="need-practice-element no-practice-needed">No practice needed</span>
 
     if (numberOfStudentsNeedingPractice) {
