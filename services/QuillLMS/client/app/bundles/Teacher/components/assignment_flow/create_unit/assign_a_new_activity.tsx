@@ -8,16 +8,6 @@ import { ASSIGN_ACTIVITIES_FEATURED_BLOG_ID } from '../../../constants/featuredB
 import ArticleSpotlight from '../../shared/articleSpotlight'
 import { CLICKED_ACTIVITY_PACK_ID } from '../assignmentFlowConstants'
 
-interface ActivityToSuggest {
-  name: string;
-  classification: string,
-  topics: [],
-  link: string,
-  date_released: string,
-  preview_link: string,
-  activity_id: number
-}
-
 const diagnosticWaveSrc = `${process.env.CDN_URL}/images/illustrations/diagnostic-wave.svg`
 const activityLibrarySrc = `${process.env.CDN_URL}/images/icons/icons-activity-library.svg`
 const activityPacksSrc = `${process.env.CDN_URL}/images/icons/icons-activity-packs.svg`

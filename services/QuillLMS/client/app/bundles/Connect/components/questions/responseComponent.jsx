@@ -9,7 +9,7 @@ import {
   ResponseToggleFields,
   hashToCollection
 } from '../../../Shared/index';
-import filterActions from '../../actions/filters';
+import * as filterActions from '../../actions/filters';
 import massEdit from '../../actions/massEdit';
 import questionActions from '../../actions/questions';
 import { submitResponseEdit } from '../../actions/responses';

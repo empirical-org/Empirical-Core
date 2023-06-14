@@ -1,10 +1,9 @@
 declare function require(name:string);
 
 import * as React from 'react';
-const { EditorState, ContentState, convertToRaw } = require('draft-js')
-const Editor = require('@draft-js-plugins/editor').default
-const {convertFromHTML, convertToHTML} = require('draft-convert')
-const DraftPasteProcessor = require('draft-js/lib/DraftPasteProcessor').default
+import { EditorState, ContentState, convertToRaw } from 'draft-js'
+import Editor from '@draft-js-plugins/editor'
+import {convertFromHTML, convertToHTML} from 'draft-convert'
 
 import { richButtonsPlugin, } from '../../../../Shared/index';
 

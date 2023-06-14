@@ -8,7 +8,6 @@ import { TextEditor } from '../../../Shared/index';
 import { clearDisplayMessageAndError } from '../../actions/display';
 import massEdit from '../../actions/massEdit';
 import {
-  massEditDeleteResponses,
   submitMassEditConceptResults,
   submitMassEditFeedback
 } from '../../actions/responses';

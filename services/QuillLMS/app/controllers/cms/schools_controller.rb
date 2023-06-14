@@ -101,7 +101,7 @@ class Cms::SchoolsController < Cms::CmsController
   def new_admin
     id = params[:id]
     @js_file = 'staff'
-    @style_file = 'staff'
+    @style_file = "#{ApplicationController::STAFF}.scss"
     @cms_school_path = cms_school_path(id)
   end
 
