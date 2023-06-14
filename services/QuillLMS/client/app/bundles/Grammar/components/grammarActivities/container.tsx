@@ -10,27 +10,27 @@ import TurkCodePage from './turkCodePage';
 
 import { requestPost, requestPut, } from '../../../../modules/request/index';
 import {
-  CLICK,
-  KEYDOWN,
-  KEYPRESS,
-  MOUSEDOWN,
-  MOUSEMOVE,
-  SCROLL,
-  VISIBILITYCHANGE,
-  roundValuesToSeconds,
+    CLICK,
+    KEYDOWN,
+    KEYPRESS,
+    MOUSEDOWN,
+    MOUSEMOVE,
+    SCROLL,
+    VISIBILITYCHANGE,
+    roundValuesToSeconds,
 } from '../../../Shared/index';
 import { startListeningToConcepts } from '../../actions/concepts';
 import { startListeningToConceptsFeedback } from '../../actions/conceptsFeedback';
 import { getActivity } from "../../actions/grammarActivities";
 import { startListeningToQuestions } from '../../actions/questions';
 import {
-  checkAnswer,
-  getQuestions,
-  getQuestionsForConcepts,
-  goToNextQuestion,
-  startListeningToFollowUpQuestionsForProofreaderSession,
-  startNewSession,
-  updateSession,
+    checkAnswer,
+    getQuestions,
+    getQuestionsForConcepts,
+    goToNextQuestion,
+    startListeningToFollowUpQuestionsForProofreaderSession,
+    startNewSession,
+    updateSession,
 } from "../../actions/session";
 import { calculateScoreForLesson, getConceptResultsForAllQuestions } from '../../helpers/conceptResultsGenerator';
 import getParameterByName from '../../helpers/getParameterByName';

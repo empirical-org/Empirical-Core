@@ -4,19 +4,19 @@ import { connect } from 'react-redux';
 import _ from 'underscore';
 import { requestGet, } from '../../../../modules/request/index';
 import {
-  QuestionBar,
-  ResponseSortFields,
-  ResponseToggleFields,
-  hashToCollection
+    QuestionBar,
+    ResponseSortFields,
+    ResponseToggleFields,
+    hashToCollection
 } from '../../../Shared/index';
-import filterActions from '../../actions/filters';
+import * as filterActions from '../../actions/filters';
 import massEdit from '../../actions/massEdit';
 import questionActions from '../../actions/questions';
 import { submitResponseEdit } from '../../actions/responses';
 import sentenceFragmentActions from '../../actions/sentenceFragments';
 import {
-  rematchAll,
-  rematchOne
+    rematchAll,
+    rematchOne
 } from '../../libs/grading/rematching.ts';
 import { getPartsOfSpeechTags } from '../../libs/partsOfSpeechTagging.js';
 import QuestionMatcher from '../../libs/question';
@@ -118,7 +118,7 @@ class ResponseComponent extends React.Component {
 
   getGradeBreakdown = () => {
     requestGet(
-      `${process.env.QUILL_CMS}/questions/${this.props.questionID}/grade_breakdown`,
+      `${process.env.CMS_URL}/questions/${this.props.questionID}/grade_breakdown`,
       (body) => {
         this.setState({
           gradeBreakdown: body,
@@ -129,7 +129,7 @@ class ResponseComponent extends React.Component {
 
   getHealth = () => {
     requestGet(
-      `${process.env.QUILL_CMS}/questions/${this.props.questionID}/health`,
+      `${process.env.CMS_URL}/questions/${this.props.questionID}/health`,
       (body) => {
         this.setState({
           health: body,

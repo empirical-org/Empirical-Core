@@ -3,16 +3,16 @@ import { connect } from 'react-redux';
 import { withRouter } from 'react-router-dom';
 import { requestPost, requestPut, } from '../../../../modules/request/index';
 import {
-  CarouselAnimation,
-  PlayTitleCard,
-  ProgressBar,
-  SmartSpinner
+    CarouselAnimation,
+    PlayTitleCard,
+    ProgressBar,
+    SmartSpinner
 } from '../../../Shared/index';
 import { clearData, loadData, nextQuestion, submitResponse, updateCurrentQuestion } from '../../actions/diagnostics.js';
 import {
-  answeredQuestionCount,
-  getProgressPercent,
-  questionCount
+    answeredQuestionCount,
+    getProgressPercent,
+    questionCount
 } from '../../libs/calculateProgress';
 import { getConceptResultsForAllQuestions } from '../../libs/conceptResults/diagnostic';
 import { getParameterByName } from '../../libs/getParameterByName';

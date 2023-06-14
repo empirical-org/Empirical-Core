@@ -1,13 +1,13 @@
 import React from 'react';
 import { Route, Switch } from 'react-router-dom';
 
-import PremiumHub from './PremiumHub';
+import DataExport from './DataExportContainer';
 import DistrictActivityScoresProgressReport from './DistrictActivityScores';
 import DistrictConceptReportsProgressReport from './DistrictConceptReports';
 import DistrictStandardsReportsProgressReport from './DistrictStandardsReports';
-import DataExport from './DataExportContainer';
-import SchoolSubscriptionsContainer from './SchoolSubscriptionsContainer';
 import IntegrationsContainer from './IntegrationsContainer';
+import PremiumHub from './PremiumHub';
+import SchoolSubscriptionsContainer from './SchoolSubscriptionsContainer';
 import UsageSnapshotsContainer from './UsageSnapshotsContainer';
 
 import { requestGet, } from '../../../modules/request/index';

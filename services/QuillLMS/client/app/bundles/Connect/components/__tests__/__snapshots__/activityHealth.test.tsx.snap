@@ -4,7 +4,6 @@ exports[`ActivityHealth component should render ActivityHealth 1`] = `
 <ContextProvider
   value={
     Object {
-      "getServerState": undefined,
       "store": Object {
         "dispatch": [Function],
         "getState": [Function],

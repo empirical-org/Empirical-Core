@@ -28,6 +28,8 @@ class ApplicationController < ActionController::Base
   DIAGNOSTIC = 'diagnostic'
   LESSONS = 'lessons'
 
+  STAFF = 'staff'
+
   helper SegmentioHelper
 
   before_action :set_sentry_context

@@ -10,6 +10,7 @@ import PasswordInfo from './password_info.jsx';
 const smallWhiteCheckSrc = `${process.env.CDN_URL}/images/shared/check-small-white.svg`
 
 class LoginFormApp extends React.Component {
+
   constructor(props) {
     super(props);
 

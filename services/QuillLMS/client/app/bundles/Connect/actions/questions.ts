@@ -14,10 +14,10 @@ import lessonActions from '../actions/lessons';
 import { Question } from '../interfaces/questions';
 import { LessonApi, TYPE_CONNECT_LESSON } from '../libs/lessons_api';
 import {
-  FocusPointApi,
-  IncorrectSequenceApi,
-  QuestionApi,
-  SENTENCE_COMBINING_TYPE
+    FocusPointApi,
+    IncorrectSequenceApi,
+    QuestionApi,
+    SENTENCE_COMBINING_TYPE
 } from '../libs/questions_api';
 import { submitResponse } from './responses';
 
@@ -229,7 +229,7 @@ function searchResponses(qid) {
     const requestNumber = getState().filters.requestCount
     // check for request number in state, save as const
     requestPost(
-      `${process.env.QUILL_CMS}/questions/${qid}/responses/search`,
+      `${process.env.CMS_URL}/questions/${qid}/responses/search`,
       { search: getFormattedSearchData(getState()), },
       (data) => {
         // check again for number in state
