@@ -81,8 +81,6 @@
     width: 100%;
     padding: 16px;
     background-color: #005341;
-    position: fixed;
-    bottom: 0;
     button {
       margin-left: 96px;
     }
@@ -103,11 +101,6 @@
         }
       }
     }
-  }
-  #button-container {
-    justify-content: space-between;
-    position: fixed;
-    bottom: 0;
   }
 }
 
@@ -163,6 +156,11 @@
         margin-top: 40px;
         padding-bottom: 16px;
       }
+    }
+    #button-container {
+      justify-content: space-between;
+      position: sticky;
+      bottom: 0;
     }
   }
 }
