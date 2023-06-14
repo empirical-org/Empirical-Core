@@ -1,7 +1,6 @@
-import _l from 'lodash'
+import _ from 'lodash'
 import React from 'react'
 import { CSVLink } from 'react-csv'
-import _ from 'underscore'
 import userIsPremium from '../modules/user_is_premium'
 
 function formatData(data) {
@@ -34,7 +33,7 @@ export class CSVDownloadForProgressReport extends React.Component {
   getRidOfCamelCase(row){
     const keys = Object.keys(row)
     keys.forEach(oldKey=>{
-      const newKey = _l.startCase(oldKey)
+      const newKey = _.startCase(oldKey)
       row[newKey] = row[oldKey];
       delete row[oldKey];
     })

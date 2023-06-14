@@ -1,12 +1,7 @@
-import * as React from 'react';
-import moment from 'moment';
 import { render, screen } from "@testing-library/react";
+import * as React from 'react';
 
 import ScorebookTooltip from '../scorebook_tooltip';
-
-jest.mock('moment', () => ({
-  default: jest.requireActual('moment')
-}))
 
 describe('ScorebookTooltip component', () => {
   const mockProps = {

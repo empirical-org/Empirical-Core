@@ -1,5 +1,5 @@
 import React from 'react';
-import { useParams, useNavigate, } from "react-router-dom-v5-compat";
+import { useNavigate, useParams, } from "react-router-dom-v5-compat";
 
 import getParameterByName from '../modules/get_parameter_by_name';
 import LessonsSlides from './LessonsSlides';

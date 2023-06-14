@@ -1,4 +1,4 @@
-import * as expect from 'expect';
+import expect from 'expect';
 import * as React from 'react';
 
 import { Feedback } from '../../../Shared/index';

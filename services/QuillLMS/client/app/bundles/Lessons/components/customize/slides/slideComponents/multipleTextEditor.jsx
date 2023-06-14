@@ -1,7 +1,7 @@
 import Editor from '@draft-js-plugins/editor';
 import { EditorState } from 'draft-js';
 import React from 'react';
-const {convertFromHTML, convertToHTML} = require('draft-convert')
+import { convertFromHTML, convertToHTML } from 'draft-convert';
 
 import { richButtonsPlugin, } from '../../../../../Shared/index';
 
