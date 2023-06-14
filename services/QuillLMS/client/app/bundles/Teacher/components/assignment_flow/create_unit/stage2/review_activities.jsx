@@ -3,18 +3,18 @@ import React from 'react';
 
 import { requestGet } from '../../../../../../modules/request';
 import {
-  DataTable,
-  Snackbar,
-  Tooltip,
-  defaultSnackbarTimeout,
-  getIconForActivityClassification,
+    DataTable,
+    Snackbar,
+    Tooltip,
+    defaultSnackbarTimeout,
+    getIconForActivityClassification,
 } from '../../../../../Shared/index';
 import {
-  DUE_DATE_DEFAULT_TEXT,
-  DatePickerContainer,
-  INVALID_DATES_SNACKBAR_COPY,
-  PUBLISH_DATE_DEFAULT_TEXT,
-  formatDateTimeForDisplay,
+    DUE_DATE_DEFAULT_TEXT,
+    DatePickerContainer,
+    INVALID_DATES_SNACKBAR_COPY,
+    PUBLISH_DATE_DEFAULT_TEXT,
+    formatDateTimeForDisplay,
 } from '../../../../helpers/unitActivityDates';
 import PreviouslyAssignedTooltip from '../../previouslyAssignedTooltip';
 

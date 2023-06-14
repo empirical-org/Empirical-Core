@@ -2,11 +2,11 @@ import moment from 'moment';
 import * as React from 'react';
 
 import {
-  DataTable,
-  Tooltip,
-  closedLockIcon,
-  onMobile,
-  openLockIcon,
+    DataTable,
+    Tooltip,
+    closedLockIcon,
+    onMobile,
+    openLockIcon,
 } from '../../../Shared/index';
 import { formatDateTimeForDisplay, } from '../../helpers/unitActivityDates';
 import activityLaunchLink from '../modules/generate_activity_launch_link.js';

@@ -4,7 +4,6 @@ exports[`Container component should render 1`] = `
 <ContextProvider
   value={
     Object {
-      "getServerState": undefined,
       "store": Object {
         "dispatch": [Function],
         "getAction": [Function],

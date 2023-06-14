@@ -114,8 +114,7 @@ a.q-button {
     }
   }
   &.cta-button {
-    // padding-left: 33px;
-    // padding-right: 33px;
+
     border: none;
     font-size: 20px;
     font-weight: bold;
@@ -279,7 +278,7 @@ $background-images-list: (diagnostic-pattern-magnifier connect-pattern-bullseye 
 
 @each $background-image in $background-images-list {
   .bg-image-#{$background-image} {
-    background-image: url("../../../../public/images/background_images/#{$background-image}.png");
+    background-image: url("https://assets.quill.org/images/background_images/#{$background-image}.png");
     background-repeat: repeat;
     background-position-y: -10px;
   }

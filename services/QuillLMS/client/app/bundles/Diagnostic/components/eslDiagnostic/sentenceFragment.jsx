@@ -4,7 +4,7 @@ import { connect } from 'react-redux';
 
 import { Feedback, getDisplayedText, getLatestAttempt, hashToCollection, renderPreviewFeedback } from '../../../Shared/index';
 import {
-  getGradedResponsesWithCallback
+    getGradedResponsesWithCallback
 } from '../../actions/responses.js';
 import POSMatcher from '../../libs/sentenceFragment.js';
 import TextEditor from '../renderForQuestions/renderTextEditor.jsx';

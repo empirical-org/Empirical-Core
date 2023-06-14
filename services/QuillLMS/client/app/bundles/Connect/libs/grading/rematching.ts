@@ -61,7 +61,7 @@ export function rematchAll(mode: string, questionID: string, callback:Function) 
     type = 'fillInBlankQuestions';
   }
 
-  const rematchAllUrl = `${process.env.QUILL_CMS}/responses/rematch_all`;
+  const rematchAllUrl = `${process.env.CMS_URL}/responses/rematch_all`;
   fetch(rematchAllUrl, {
     method: 'POST',
     body: JSON.stringify({type, uid: questionID}),
@@ -96,7 +96,7 @@ export function rematchOne(response: string, mode: string, question: Question, q
 
 export function paginatedNonHumanResponses(matcher, matcherFields, qid, page, callback) {
   requestPost(
-    `${process.env.QUILL_CMS}/questions/${qid}/responses/search`,
+    `${process.env.CMS_URL}/questions/${qid}/responses/search`,
     getResponseBody(page),
     (data) => {
       const parsedResponses = _.indexBy(data.results, 'id');
@@ -175,7 +175,7 @@ function deleteRematchedResponse(response) {
 function updateResponse(rid, content) {
   const rubyConvertedResponse = objectWithSnakeKeysFromCamel(content, false);
   return requestPut(
-    `${process.env.QUILL_CMS}/responses/${rid}`,
+    `${process.env.CMS_URL}/responses/${rid}`,
     { response: rubyConvertedResponse, }
   )
 }
@@ -260,7 +260,7 @@ function getResponseBody(pageNumber) {
 }
 
 function getGradedResponses(questionID) {
-  return requestGet(`${process.env.QUILL_CMS}/questions/${questionID}/responses`);
+  return requestGet(`${process.env.CMS_URL}/questions/${questionID}/responses`);
 }
 
 function formatGradedResponses(jsonString):{[key:string]: Response} {

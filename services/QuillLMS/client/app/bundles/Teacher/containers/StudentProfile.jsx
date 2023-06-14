@@ -4,10 +4,10 @@ import React from 'react';
 import { connect } from 'react-redux';
 
 import {
-  fetchStudentProfile,
-  fetchStudentsClassrooms,
-  handleClassroomClick,
-  updateActiveClassworkTab
+    fetchStudentProfile,
+    fetchStudentsClassrooms,
+    handleClassroomClick,
+    updateActiveClassworkTab
 } from '../../../actions/student_profile';
 import { TO_DO_ACTIVITIES } from '../../../constants/student_profile';
 import SelectAClassroom from '../../Student/components/selectAClassroom';

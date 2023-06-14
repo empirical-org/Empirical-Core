@@ -73,8 +73,9 @@ function requestDelete(url: string, payload?: any, success?: Function, error?: F
 }
 
 export {
-  requestGet,
-  requestPost,
-  requestPut,
-  requestDelete
+    requestGet,
+    requestPost,
+    requestPut,
+    requestDelete
 };
+

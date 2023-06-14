@@ -5,33 +5,33 @@ import * as React from 'react';
 import { withRouter } from 'react-router-dom';
 
 import {
-  LessonRecommendation,
-  Recommendation,
-  Student,
+    LessonRecommendation,
+    Recommendation,
+    Student,
 } from './interfaces';
 import RecommendationsTable from './recommendationsTable';
 import ReleaseMethodModal from './releaseMethodModal';
 import {
-  IMMEDIATE,
-  baseDiagnosticImageSrc,
-  correctImage,
-  expandIcon,
-  fileDocumentIcon,
-  informationIcon,
-  recommendedGlyph,
-  releaseMethodToDisplayName,
+    IMMEDIATE,
+    baseDiagnosticImageSrc,
+    correctImage,
+    expandIcon,
+    fileDocumentIcon,
+    informationIcon,
+    recommendedGlyph,
+    releaseMethodToDisplayName,
 } from './shared';
 
 import { requestGet, requestPost, } from '../../../../../../modules/request/index';
 import useSnackbarMonitor from '../../../../../Shared/hooks/useSnackbarMonitor';
 import {
-  LESSONS,
-  Snackbar,
-  Tooltip,
-  defaultSnackbarTimeout,
-  helpIcon,
-  previewIcon,
-  smallWhiteCheckIcon,
+    LESSONS,
+    Snackbar,
+    Tooltip,
+    defaultSnackbarTimeout,
+    helpIcon,
+    previewIcon,
+    smallWhiteCheckIcon,
 } from '../../../../../Shared/index';
 import ActivityDisclaimerBanner from '../../../shared/activityDisclaimerBanner';
 import DemoOnboardingTour, { DEMO_ONBOARDING_DIAGNOSTIC_RECOMMENDATIONS, } from '../../../shared/demo_onboarding_tour';

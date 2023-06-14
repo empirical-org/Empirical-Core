@@ -10,10 +10,10 @@ import { populateQuestions, setSessionReducerToSavedSession } from './session.ts
 
 import { requestGet, requestPost, } from '../../../modules/request/index';
 import {
-  FocusPointApi,
-  GRAMMAR_QUESTION_TYPE,
-  IncorrectSequenceApi,
-  QuestionApi
+    FocusPointApi,
+    GRAMMAR_QUESTION_TYPE,
+    IncorrectSequenceApi,
+    QuestionApi
 } from '../libs/questions_api';
 
 export const startListeningToQuestions = (sessionID) => {
@@ -41,7 +41,7 @@ export const getQuestion = (questionID: string) => {
 }
 
 export const getGradedResponsesWithCallback = (questionID: string, callback: Function) => {
-  requestGet(`${process.env.QUILL_CMS}/questions/${questionID}/responses`, (body) => {
+  requestGet(`${process.env.CMS_URL}/questions/${questionID}/responses`, (body) => {
     const bodyToObj: {[key: string]: Response} = {};
     body.forEach((resp: Response) => {
       bodyToObj[resp.id] = resp;
@@ -84,7 +84,7 @@ export const searchResponses = (qid: string) => {
     const requestNumber = getState().filters.requestCount
     // check for request number in state, save as const
     requestPost(
-      `${process.env.QUILL_CMS}/questions/${qid}/responses/search`,
+      `${process.env.CMS_URL}/questions/${qid}/responses/search`,
       { search: getFormattedSearchData(getState()), },
       (data) => {
         // check again for number in state

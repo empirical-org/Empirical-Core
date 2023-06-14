@@ -59,7 +59,7 @@ export const AppLegend = () => {
   )
 
   const evidence = (
-    <a className="icon focus-on-light" href={`${process.env.DEFAULT_URL}/tools/evidence`} rel="noopener noreferrer" target="_blank">
+    <a className="icon focus-on-light" href={`${process.env.DEFAULT_URL}/tools/grammar`} rel="noopener noreferrer" target="_blank">
       <img alt="Book representing Quill Reading for Evidence" className="icon-wrapper evidence-icon" src={EVIDENCE_ICON_SRC} />
       <div className="icon-wrapper icon-evidence-lightgray" />
       <div className="icons-description-wrapper">

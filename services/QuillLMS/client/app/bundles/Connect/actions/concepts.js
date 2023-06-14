@@ -6,6 +6,7 @@ const C = require('../constants').default;
 
 const conceptsEndpoint = `${process.env.DEFAULT_URL}/api/v1/concepts.json`;
 
+
 function splitInLevels(concepts) {
   return _.groupBy(concepts, 'level');
 }

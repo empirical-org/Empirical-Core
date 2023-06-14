@@ -202,6 +202,7 @@ GEM
     dotenv-rails (2.7.6)
       dotenv (= 2.7.6)
       railties (>= 3.2)
+    dry-cli (1.0.0)
     erubi (1.10.0)
     es5-shim-rails (4.0.1)
       actionpack (>= 3.1)
@@ -600,7 +601,7 @@ GEM
       method_source
       rake (>= 12.2)
       thor (~> 1.0)
-    rainbow (3.0.0)
+    rainbow (3.1.1)
     rake (13.0.6)
     ranked-model (0.4.3)
       activerecord (>= 4.1.16)
@@ -608,11 +609,11 @@ GEM
     rb-inotify (0.10.1)
       ffi (~> 1.0)
     rb-readline (0.5.5)
-    react_on_rails (11.3.0)
+    react_on_rails (13.3.3)
       addressable
       connection_pool
       execjs (~> 2.5)
-      rails (>= 3.2)
+      rails (>= 5.2)
       rainbow (~> 3.0)
     redcarpet (3.5.1)
     redis (4.5.1)
@@ -764,6 +765,13 @@ GEM
     validates_email_format_of (1.6.3)
       i18n
     vcr (4.0.0)
+    vite_rails (3.0.14)
+      railties (>= 5.1, < 8)
+      vite_ruby (~> 3.0, >= 3.2.2)
+    vite_ruby (3.2.14)
+      dry-cli (>= 0.7, < 2)
+      rack-proxy (~> 0.6, >= 0.6.1)
+      zeitwerk (~> 2.2)
     webmock (3.5.1)
       addressable (>= 2.3.6)
       crack (>= 0.3.2)
@@ -883,7 +891,7 @@ DEPENDENCIES
   rails_admin (~> 2.2)
   ranked-model (~> 0.4.3)
   rb-readline
-  react_on_rails (= 11.3.0)
+  react_on_rails (= 13.3.3)
   redcarpet (~> 3.5.1)
   redis (~> 4.5)
   redis-namespace (~> 1.8)
@@ -920,6 +928,7 @@ DEPENDENCIES
   uglifier
   validates_email_format_of
   vcr
+  vite_rails (~> 3.0.14)
   webmock
   webpacker (~> 3.0.0)
   websocket-driver (= 0.6.5)

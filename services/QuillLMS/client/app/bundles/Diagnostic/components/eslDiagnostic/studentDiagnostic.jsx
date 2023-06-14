@@ -12,36 +12,36 @@ import PlayTitleCard from './titleCard.tsx';
 
 import { requestPost, requestPut, } from '../../../../modules/request/index';
 import {
-  CLICK,
-  CarouselAnimation,
-  KEYDOWN,
-  KEYPRESS,
-  MOUSEDOWN,
-  MOUSEMOVE,
-  ProgressBar,
-  SCROLL,
-  TeacherPreviewMenuButton,
-  VISIBILITYCHANGE,
-  roundValuesToSeconds,
+    CLICK,
+    CarouselAnimation,
+    KEYDOWN,
+    KEYPRESS,
+    MOUSEDOWN,
+    MOUSEMOVE,
+    ProgressBar,
+    SCROLL,
+    TeacherPreviewMenuButton,
+    VISIBILITYCHANGE,
+    roundValuesToSeconds,
 } from '../../../Shared/index';
 import {
-  clearData,
-  loadData,
-  nextQuestion,
-  openLanguageMenu,
-  resumePreviousDiagnosticSession,
-  setCurrentQuestion,
-  setDiagnosticID,
-  submitResponse,
-  updateCurrentQuestion,
-  updateLanguage
+    clearData,
+    loadData,
+    nextQuestion,
+    openLanguageMenu,
+    resumePreviousDiagnosticSession,
+    setCurrentQuestion,
+    setDiagnosticID,
+    submitResponse,
+    updateCurrentQuestion,
+    updateLanguage
 } from '../../actions/diagnostics.js';
 import SessionActions from '../../actions/sessions.js';
 import i18n from '../../i18n';
 import {
-  answeredQuestionCount,
-  getProgressPercent,
-  questionCount
+    answeredQuestionCount,
+    getProgressPercent,
+    questionCount
 } from '../../libs/calculateProgress';
 import { getConceptResultsForAllQuestions } from '../../libs/conceptResults/diagnostic';
 import { getParameterByName } from '../../libs/getParameterByName';

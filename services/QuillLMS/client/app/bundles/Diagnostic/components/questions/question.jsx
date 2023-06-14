@@ -5,8 +5,8 @@ import _ from 'underscore';
 import { Modal, UploadOptimalResponses } from '../../../Shared/index';
 import questionActions from '../../actions/questions';
 import {
-  submitOptimalResponses,
-  submitResponse
+    submitOptimalResponses,
+    submitResponse
 } from '../../actions/responses';
 import C from '../../constants';
 import EditFocusPointsContainer from '../focusPoints/editFocusPointsContainer.jsx';

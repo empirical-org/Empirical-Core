@@ -11,10 +11,10 @@ import { push } from 'react-router-redux';
 import _ from 'underscore';
 import { requestPost, } from '../../../modules/request/index';
 import {
-  FocusPointApi,
-  IncorrectSequenceApi,
-  QuestionApi,
-  SENTENCE_COMBINING_TYPE
+    FocusPointApi,
+    IncorrectSequenceApi,
+    QuestionApi,
+    SENTENCE_COMBINING_TYPE
 } from '../libs/questions_api';
 import { submitResponse } from './responses';
 import sessionActions from './sessions';
@@ -222,7 +222,7 @@ function searchResponses(qid) {
     const requestNumber = getState().filters.requestCount
     // check for request number in state, save as const
     requestPost(
-      `${process.env.QUILL_CMS}/questions/${qid}/responses/search`,
+      `${process.env.CMS_URL}/questions/${qid}/responses/search`,
       { search: getFormattedSearchData(getState()), },
       (body) => {
         // check again for number in state

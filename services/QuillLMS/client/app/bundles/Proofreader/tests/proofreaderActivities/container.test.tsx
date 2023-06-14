@@ -4,7 +4,7 @@ import { PlayProofreaderContainer } from "../../components/proofreaderActivities
 import { ProofreaderActivityReducer } from './data';
 
 process.env.DEFAULT_URL = 'https://staging.quill.org'
-process.env.QUILL_CMS = 'https://cms.quill.org'
+process.env.CMS_URL = 'https://cms.quill.org'
 
 describe("<PlayProofreaderContainer />", () => {
   const wrapper = mount(<PlayProofreaderContainer
