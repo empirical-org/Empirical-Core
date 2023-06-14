@@ -66,7 +66,7 @@ class showScriptItem extends Component<any, any> {
       const slideLink = `${window.location.origin}/lessons/#/admin/classroom-lessons/${classroomLessonID}/editions/${editionID}/slide/${slideID}`
       return (
         <div className="admin-classroom-lessons-container">
-          <h4 className="title is-4">Edition: <a href={editionLink}>{this.edition().name}</a></h4>
+          <h4 className="title is-4">Edition: <a href={editionLink}>{this.edition()?.name}</a></h4>
           <h5 className="title is-5">Slide: <a href={slideLink}>{this.currentSlide().data.teach.title}</a></h5>
           <h5 className="title is-5">Script Item #{Number(scriptItemID) + 1}</h5>
           <EditScriptItem delete={this.delete} save={this.save} scriptItem={this.getCurrentScriptItem()} />

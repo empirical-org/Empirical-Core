@@ -94,12 +94,12 @@ class IncorrectSequenceApi {
 }
 
 export {
-  QuestionApi,
+  FILL_IN_BLANKS_TYPE,
   FocusPointApi,
   IncorrectSequenceApi,
+  QuestionApi,
   SENTENCE_COMBINING_TYPE,
   SENTENCE_FRAGMENTS_TYPE,
-  FILL_IN_BLANKS_TYPE,
   questionApiBaseUrl
 };
 

@@ -11,6 +11,7 @@ const smallWhiteCheckSrc = `${process.env.CDN_URL}/images/shared/check-small-whi
 const informationSrc = `${process.env.CDN_URL}/images/icons/description-information.svg`
 
 class LoginFormApp extends React.Component {
+
   constructor(props) {
     super(props);
 

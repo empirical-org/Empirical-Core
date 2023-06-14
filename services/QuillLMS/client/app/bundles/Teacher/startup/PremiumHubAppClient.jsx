@@ -3,10 +3,10 @@ import { combineReducers, createStore, applyMiddleware, compose } from 'redux';
 import thunk from 'redux-thunk';
 import { Provider } from 'react-redux';
 
-import PremiumHubRouter from 'bundles/PremiumHub/containers/PremiumHubRouter';
-import districtActivityScores from 'reducers/district_activity_scores';
-import districtConceptReports from 'reducers/district_concept_reports';
-import districtStandardsReports from 'reducers/district_standards_reports';
+import PremiumHubRouter from '../../PremiumHub/containers/PremiumHubRouter';
+import districtActivityScores from '../../../reducers/district_activity_scores';
+import districtConceptReports from '../../../reducers/district_concept_reports';
+import districtStandardsReports from '../../../reducers/district_standards_reports';
 
 
 const bigApp = combineReducers({
