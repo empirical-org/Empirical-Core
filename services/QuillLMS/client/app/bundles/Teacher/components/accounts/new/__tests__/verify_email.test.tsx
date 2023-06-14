@@ -3,11 +3,11 @@ import * as React from 'react';
 
 import VerifyEmail from '../verify_email';
 
-jest.mock('qs', () => ({
-  default: {
-    parse: jest.fn(() => ({}))
-  }
-}))
+// jest.mock('qs', () => ({
+//   default: {
+//     parse: jest.fn(() => ({}))
+//   }
+// }))
 
 const user = {
   name: 'User Name',

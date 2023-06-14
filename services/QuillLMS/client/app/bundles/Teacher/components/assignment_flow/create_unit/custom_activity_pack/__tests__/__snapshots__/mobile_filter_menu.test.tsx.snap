@@ -16867,7 +16867,7 @@ Combine simple sentences to create 5 new compound or complex sentences that incl
             >
               <Tooltip
                 isTabbable={false}
-                tooltipText="The grade level range helps you see which activities are accessible to your students, considering things like readability and the topic of the activity. Students never see the grade level range of the activities they’re assigned.<br/><br/>We recommend filtering by the grade you teach, and then using the readability and the concepts filters to narrow down which activities are right for your students. Grades are always presented as a range, rather than as a level, because students in later grades can also benefit from more basic activities.<br/><br/>Click the “?” icon to learn more about how we determine grade ranges and for helpful filtering tips."
+                tooltipText="The grade level range helps you see which activities are accessible to your students, considering things like readability and the topic of the activity. Students never see the grade level range of the activities they’re assigned.<br/><br/>We recommend filtering by the grade you teach, and then using the readability and the concepts filters to narrow down which activities are right for your students. Grades are always presented as a range, rather than as a level, because students in later grades can also benefit from more basic activities.<br/><br/>Click the “?” icon to learn more about how we determine grade ranges and for helpful filtering tips."
                 tooltipTriggerText={
                   <div
                     className="tooltip-trigger-filter-section-content"

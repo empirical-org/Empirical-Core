@@ -1,4 +1,4 @@
-import * as moment from 'moment';
+import moment from 'moment';
 import * as React from 'react';
 
 import { requestPost, } from '../../../modules/request';
@@ -198,7 +198,7 @@ export const DataExportTableAndFields = ({ queryKey, searchCount, selectedGrades
 
     requestPost('/snapshots/create_csv_report_download', requestParams, (body) => {
       setShowSnackbar(true)
-      setTimeout(() => {setDownloadButtonBusy(false)}, buttonDisableTime);
+      setTimeout(() => { setDownloadButtonBusy(false) }, buttonDisableTime);
     })
   }
 
@@ -241,10 +241,10 @@ export const DataExportTableAndFields = ({ queryKey, searchCount, selectedGrades
   }
 
   function formatData(data) {
-    if(!data) { return null }
+    if (!data) { return null }
 
     return data.map((entry, index) => {
-      const formattedEntry = {...entry}
+      const formattedEntry = { ...entry }
       const { score, tool } = entry
       let percentage
 
@@ -305,7 +305,7 @@ export const DataExportTableAndFields = ({ queryKey, searchCount, selectedGrades
     })
   }
 
-  return(
+  return (
     <React.Fragment>
       <div className="header">
         <Snackbar text="You will receive an email with a download link shortly." visible={showSnackbar} />

@@ -259,8 +259,17 @@ exports[`UnitTemplate component should match snapshot 1`] = `
     <label>
       Click the square below or drag a file into it to upload a file:
     </label>
-    <Component
+    <t
+      disableClick={false}
+      disablePreview={false}
+      disabled={false}
+      getDataTransferItems={[Function]}
+      inputProps={Object {}}
+      maxSize={Infinity}
+      minSize={0}
+      multiple={true}
       onDrop={[Function]}
+      preventDropOnDocument={true}
     />
     <p>
       Here is the link to your uploaded file:

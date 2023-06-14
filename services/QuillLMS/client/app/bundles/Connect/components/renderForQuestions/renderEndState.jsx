@@ -1,8 +1,8 @@
+import * as jsDiff from 'diff';
 import React from 'react';
 import { connect } from 'react-redux';
 import _ from 'underscore';
 import { Feedback } from '../../../Shared/index';
-const jsDiff = require('diff');
 
 import { hashToCollection, } from '../../../Shared/index';
 

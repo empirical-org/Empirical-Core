@@ -24,7 +24,7 @@ import POSMatcher from '../../libs/sentenceFragment.js';
 import POSForResponsesList from './POSForResponsesList.jsx';
 import ResponseList from './responseList.jsx';
 
-const C = require('../../constants').default;
+import C from '../../constants';
 
 const labels = C.ERROR_AUTHORS;
 const qualityLabels = ['Human Optimal', 'Human Sub-Optimal', 'Algorithm Optimal', 'Algorithm Sub-Optimal', 'Unmatched'];
