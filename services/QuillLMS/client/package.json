@@ -11,6 +11,7 @@
     "node": "14.x",
     "npm": "8.x"
   },
+  "type": "module",
   "main": "js/app.js",
   "dependencies": {
     "@babel/core": "^7.4.5",
@@ -54,7 +55,7 @@
     "file-loader": "^6.1.0",
     "font-awesome": "^4.7.0",
     "fuse.js": "^3.2.1",
-    "fuzzyset.js": "0.0.7",
+    "fuzzyset.js": "1.0.7",
     "graphql": "^15.5.3",
     "graphql-tag": "^2.9.2",
     "history": "^2.0.1",
@@ -104,7 +105,7 @@
     "react-i18next": "^11.11.4",
     "react-joyride": "^2.5.0",
     "react-markdown": "^2.5.1",
-    "react-on-rails": "11.3.0",
+    "react-on-rails": "13.3.3",
     "react-query": "^3.39.3",
     "react-range": "^1.8.14",
     "react-redux": "^8.0.5",
@@ -168,7 +169,6 @@
     "redux-test-utils": "^1.0.2",
     "resolve-url-loader": "^5.0.0",
     "ts-jest": "^27.0.5",
-    "webpack-dev-server": "^4.10.1",
     "whatwg-fetch": "^2.0.4"
   },
   "browser": {
@@ -180,21 +180,12 @@
     "jscs": "jscs --verbose .",
     "jscs:fix": "jscs --verbose -x . --silent",
     "test": "npm run build:test && rspec",
-    "build:test": "RAILS_ENV=test webpack --config webpack.client.dev.rails.build.config.js && npm run build:server",
-    "build:production:client": "NODE_ENV=production node --max-old-space-size=8192 node_modules/webpack/bin/webpack.js --config webpack.client.rails.build.config.js",
-    "build:production:server": "NODE_ENV=production webpack --config webpack.server.rails.build.config.js",
-    "build:client": "webpack --config webpack.client.rails.build.config.js",
-    "build:dev:client:prod-cms": "RAILS_ENV=development QUILL_CMS=https://cms.quill.org node --max-old-space-size=8192 node_modules/webpack/bin/webpack.js -w --config webpack.client.dev.rails.build.config.js",
-    "build:dev:client": "RAILS_ENV=development  node --max-old-space-size=8192 node_modules/webpack/bin/webpack.js -w --config webpack.client.dev.rails.build.config.js ",
-    "build:dev:server": "webpack -w --config webpack.server.rails.build.config.js",
-    "build:server": "webpack --config webpack.server.rails.build.config.js",
     "hot-assets": "NODE_ENV=development babel-node server-rails-hot.js",
     "install-react-on-rails": "npm install 'react-on-rails'",
     "jest": "node --expose-gc ./node_modules/.bin/jest --maxWorkers=1 --logHeapUsage",
     "jest:watch": "jest --watch",
     "jest:coverage": "jest --coverage",
-    "jest:silent": "jest --silent",
-    "webpack-dev-server": "webpack-dev-server --config webpack.client.rails.hot.config.js"
+    "jest:silent": "jest --silent"
   },
   "jest": {
     "roots": [
@@ -221,7 +212,7 @@
     ],
     "globals": {
       "window": {},
-      "process.env.CDN_URL": "http://cdn.quill.org",
+      "import.meta.env.VITE_PROCESS_ENV_CDN_URL": "http://cdn.quill.org",
       "ts-jest": {
         "diagnostics": false
       }

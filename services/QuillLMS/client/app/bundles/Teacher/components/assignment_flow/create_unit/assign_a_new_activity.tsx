@@ -1,14 +1,14 @@
-import * as React from 'react'
+import * as moment from 'moment';
+import * as React from 'react';
 import { renderToString } from 'react-dom/server';
-import * as moment from 'moment'
 
-import AssignmentCard from './assignment_card'
+import AssignmentCard from './assignment_card';
 
-import { requestGet, requestPost, } from '../../../../../modules/request'
-import { evidenceToolIcon, Tooltip, DataTable, } from "../../../../Shared"
-import { ASSIGN_ACTIVITIES_FEATURED_BLOG_ID } from '../../../constants/featuredBlogPost'
-import ArticleSpotlight from '../../shared/articleSpotlight'
-import { CLICKED_ACTIVITY_PACK_ID } from '../assignmentFlowConstants'
+import { requestGet, requestPost, } from '../../../../../modules/request';
+import { DataTable, Tooltip, evidenceToolIcon, } from "../../../../Shared";
+import { ASSIGN_ACTIVITIES_FEATURED_BLOG_ID } from '../../../constants/featuredBlogPost';
+import ArticleSpotlight from '../../shared/articleSpotlight';
+import { CLICKED_ACTIVITY_PACK_ID } from '../assignmentFlowConstants';
 
 const TOPIC_WIDTH = '319px'
 

@@ -21,10 +21,10 @@ import ExpandableUnitSection from './ExpandableUnitClient';
 import ForgotPasswordApp from './ForgotPasswordAppClient';
 import LessonPlannerApp from './LessonPlannerAppClient';
 import PreApApp from './PreApAppClient';
+import PremiumHubApp from './PremiumHubAppClient';
 import PremiumPricingGuideApp from './PremiumPricingGuideAppClient';
 import PressApp from './PressAppClient';
 import ProgressReportApp from './ProgressReportAppClient';
-import PremiumHubApp from './PremiumHubAppClient';
 import PublicActivityPacksApp from './PublicActivityPacksAppClient.jsx';
 import PublicUnitTemplatesApp from './PublicUnitTemplatesAppClient.jsx';
 import QuestionsAndAnswersSection from './QuestionsAndAnswersClient';
@@ -48,7 +48,7 @@ import StudentNavbarItems from '../../Student/startup/StudentNavbarItemsAppClien
 
 import '../styles/styles.scss';
 
-require('../../../assets/styles/home.scss');
+import '../../../assets/styles/home.scss';
 
 // This is how react_on_rails can see the TeacherApp in the browser.
 

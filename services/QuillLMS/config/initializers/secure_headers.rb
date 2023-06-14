@@ -128,7 +128,10 @@ SecureHeaders::Configuration.default do |config|
       "http://localhost:8080/",
       "http://localhost:3200",
       "http://localhost:3100",
+      "wss://localhost:3200",
       "ws://localhost:3200",
+      "wss://localhost:3036",
+      "ws://localhost:3036",
       "https://checkout.stripe.com",
       "https://capture-api.ap3prod.com",
       "https://pagead2.googlesyndication.com/"
