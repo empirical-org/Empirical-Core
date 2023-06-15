@@ -25,11 +25,7 @@ class CanvasAccount < ApplicationRecord
   belongs_to :canvas_instance
   belongs_to :user
 
-  def self.canvas_id(canvas_instance_id, canvas_user_external_id)
-    [canvas_instance_id, canvas_user_external_id].join(':')
-  end
-
   def canvas_id
-    self.class.canvas_id(canvas_instance_id, external_id)
+    [canvas_instance_id, external_id].join(':')
   end
 end
