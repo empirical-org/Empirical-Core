@@ -1,0 +1,46 @@
+#!/usr/bin/env ruby
+# frozen_string_literal: true
+
+COMMANDS = %w(ssh tunnel)
+INSTANCES = {
+  'airbyte2' => {
+    port: 8001,
+    tables: "concept_results"
+  },
+  'airbyte-pink' => {
+    port: 8002,
+    tables: "classrooms classroom_units provider_classroom_users  students_classrooms unit_activities"
+  },
+  'airbyte-0-43-0' => {
+    port: 8003,
+    tables: "all_other_tables"
+  }
+}
+
+def usage
+  puts "Usage: airbyte ssh|tunnel INSTANCE \n\n"
+  puts "INSTANCE\t | PORT | HOSTED TABLES"
+  INSTANCES.each do |name, instance|
+    puts "#{name}\t | #{instance[:port]} | #{instance[:tables]}"
+  end
+
+  puts "\nMore info, including the web servers' basic auth password, here: \nhttps://www.notion.so/quill/Airbyte-devops-cheat-sheet-07720c320c664681ae55c593d0b8dc7c"
+end
+
+command   = ARGV[0]
+instance  = ARGV[1]
+
+if !INSTANCES.keys.include?(instance)
+  usage
+  exit 0
+end
+
+port = INSTANCES[instance][:port]
+
+if command == 'ssh'
+  system "gcloud --project=analytics-data-stores beta compute ssh #{instance}"
+elsif command == 'tunnel'
+  system "gcloud --project=analytics-data-stores beta compute ssh #{instance} -- -L #{port}:localhost:8000 -N -f"
+else
+  usage
+end
