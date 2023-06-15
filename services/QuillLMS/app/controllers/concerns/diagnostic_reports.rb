@@ -28,6 +28,13 @@ module DiagnosticReports
     }
   end
 
+  def calculate_proficiency_score(number_correct, number_incorrect)
+    return NOT_PRESENT if number_correct == 0 && number_incorrect == 0
+
+    total = number_correct + number_incorrect
+    number_correct / total.to_f
+  end
+
   def summarize_correct_skills(number_correct, number_incorrect)
     if number_correct == 0 && number_incorrect == 0
       NOT_PRESENT
@@ -104,12 +111,5 @@ module DiagnosticReports
     else
       PARTIAL_PROFICIENCY
     end
-  end
-
-  private def calculate_proficiency_score(number_correct, number_incorrect)
-    return NOT_PRESENT if number_correct == 0 && number_incorrect == 0
-
-    total = number_correct + number_incorrect
-    number_correct / total.to_f
   end
 end

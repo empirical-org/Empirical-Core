@@ -37,8 +37,6 @@ module GrowthResultsSummary
         total_possible_skills_count = skill_groups.map { |sg| sg[:skill_ids] }.flatten.uniq.count
         total_correct_skills_count = skill_groups.map { |sg| sg[:post_correct_skill_ids] }.flatten.uniq.count
         total_pre_correct_skills_count = skill_groups.map { |sg| sg[:pre_correct_skill_ids] }.flatten.uniq.count
-        total_pre_proficiency_score = skill_groups.reduce(0) { |sum, sg| sum += sg[:pre_test_proficiency_score]} / skill_groups.count.to_f
-        total_post_proficiency_score = skill_groups.reduce(0) { |sum, sg| sum += sg[:post_test_proficiency_score]} / skill_groups.count.to_f
         {
           name: assigned_student.name,
           id: assigned_student.id,
@@ -47,8 +45,6 @@ module GrowthResultsSummary
           total_correct_skills_count: total_correct_skills_count,
           total_pre_correct_skills_count: total_pre_correct_skills_count,
           total_possible_skills_count: total_possible_skills_count,
-          total_pre_proficiency_score: total_pre_proficiency_score,
-          total_post_proficiency_score: total_post_proficiency_score,
           correct_skill_text: "#{total_correct_skills_count} of #{total_possible_skills_count} skills correct"
         }
       else
