@@ -109,14 +109,14 @@ module PagesHelper
             img: 'team-shannon-browne.webp'
           },
           {
+            name: 'Rachel Calabrese',
+            title: 'Senior Curriculum Developer',
+            img: 'team-rachel-calabrese.webp'
+          },
+          {
             name: 'Nattalie Dai',
             title: 'Partnerships Specialist I',
             img: 'team-nattalie-dai.webp'
-          },
-          {
-            name: 'Rachel Dantzler',
-            title: 'Senior Curriculum Developer',
-            img: 'team-rachel-dantzler.webp'
           },
           {
             name: 'Ellie Dean',
