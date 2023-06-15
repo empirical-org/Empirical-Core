@@ -27,6 +27,8 @@
 class AuthCredential < ApplicationRecord
   belongs_to :user
 
+  CANVAS_PROVIDER = 'canvas'
+
   GOOGLE_PROVIDER = 'google'
   GOOGLE_EXPIRATION_DURATION = 6.months
 

@@ -2,10 +2,19 @@
 
 module Auth
   class CanvasController < ApplicationController
-    skip_before_action :verify_authenticity_token, only: :lti_landing_page
+    around_action :force_writer_db_role, only: :canvas
 
     def canvas
-      redirect_to root_path
+      sign_in(user)
+      redirect_to profile_path
+    end
+
+    private def auth_hash
+      request.env['omniauth.auth']
+    end
+
+    private def user
+      CanvasIntegration::UserImporter.run(auth_hash, session.delete(:role))
     end
   end
 end

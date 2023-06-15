@@ -401,7 +401,7 @@ class User < ApplicationRecord
     false
   end
 
-  def safe_role_assignment role
+  def safe_role_assignment(role)
     sanitized_role = SAFE_ROLES.find{ |r| r == role.strip }
     self.role = sanitized_role || 'user'
   end
@@ -869,8 +869,7 @@ class User < ApplicationRecord
   end
 
   private def requires_password?
-    return false if clever_id
-    return false if signed_up_with_google
+    return false if clever_id || google_id || canvas_accounts.present?
 
     permanent? && new_record?
   end
