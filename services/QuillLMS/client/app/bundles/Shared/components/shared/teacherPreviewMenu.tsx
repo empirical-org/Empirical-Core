@@ -1,12 +1,21 @@
 import * as React from "react";
 import { connect } from "react-redux";
 import * as Redux from "redux";
-import { stripHtml } from "string-strip-html";
 
 import * as connectActions from '../../../Connect/actions';
 import * as diagnosticActions from '../../../Diagnostic/actions/diagnostics.js';
 import * as grammarActions from '../../../Grammar/actions/session';
+import * as evidenceActions from '../../../Evidence/actions/session';
 import { Question } from '../../../Grammar/interfaces/questions';
+import {
+  returnActivity,
+  returnActivityData,
+  returnLessonData,
+  renderTitleSection,
+  renderIntroductionSection,
+  renderQuestions,
+  renderEvidenceActivityContent
+} from "../../libs";
 
 interface Activity {
   title?: string;
@@ -24,177 +33,16 @@ interface Activity {
 const isConnectActivity = window.location.href.includes('connect');
 const isDiagnosticActivity = window.location.href.includes('diagnostic');
 const isGrammarActivity = window.location.href.includes('grammar');
-
-const returnActivity = (state: any) => {
-  const { grammarActivities, lessons, playDiagnostic } = state;
-  if(isGrammarActivity) {
-    return grammarActivities.currentActivity;
-  } else if(isDiagnosticActivity && playDiagnostic && playDiagnostic.diagnosticID && lessons && lessons.data) {
-    const { data } = lessons;
-    const { diagnosticID } = playDiagnostic;
-    return data[diagnosticID]
-  } else if(isConnectActivity && lessons && lessons.data) {
-    const { data } = lessons;
-    const uid = Object.keys(lessons.data)[0];
-    return data[uid]
-  }
-  return null;
-}
-
-const returnActivityData = (activityData: { data: object }) => {
-  const { data } = activityData;
-  if(data && Object.keys(data).length === 0) {
-    return null;
-  }
-  return data;
-}
-
-const returnLessonData = (playDiagnostic: any, playLesson: any) => {
-  if(isConnectActivity) {
-    return playLesson;
-  } else if(isDiagnosticActivity) {
-    return playDiagnostic;
-  } else {
-    return null;
-  }
-}
-
-const renderTitleSection = (activity: Activity) => {
-  if (!activity) { return }
-  return(
-    <section>
-      <h2>Activity</h2>
-      <p>{activity.title || activity.name}</p>
-    </section>
-  );
-}
-
-const renderIntroductionSection = (activity: Activity, lesson: any, session: any) => {
-  if(!activity) { return }
-  const isEmptyIntroduction = activity.landingPageHtml && !stripHtml(activity.landingPageHtml).result;
-  if(activity && (!activity.landingPageHtml || isEmptyIntroduction)) { return }
-
-  const introductionHTML = new DOMParser().parseFromString(activity.landingPageHtml, 'text/html');
-  // we strip HTML because some activites have h3 introduction text wrapped in <strong> tags
-  const htmlElement = introductionHTML.getElementsByTagName('h3')[0];
-  const introductionText = htmlElement && htmlElement.innerHTML ? stripHtml(htmlElement.innerHTML).result : null;
-  // in some cases, landing pages do not have h3 headers so we early return to prevent the page from crashing
-  if(!introductionText) {
-    return;
-  }
-  // highlight introduction session if activity not started, we use session for Grammar and playLesson for Connect
-  const style = ((session && !session.currentQuestion) || (lesson && !lesson.currentQuestion)) ? 'highlighted' : '';
-  return(
-    <section>
-      <h2>Introduction</h2>
-      <p className={`introduction-text ${style}`}>{introductionText}</p>
-    </section>
-  );
-}
-
-const getStyling = ({ questionToPreview, uidOrKey, i, session, lesson }) => {
-  // some ELL SC questions get an -esp appended to the key
-  const slicedUidOrKey = uidOrKey.slice(0, -4);
-  let key: string;
-  if(isDiagnosticActivity && lesson && lesson.currentQuestion) {
-    const { data } = lesson.currentQuestion;
-    key = data.key;
-  } else if(questionToPreview) {
-    key = questionToPreview.key ? questionToPreview.key : questionToPreview.uid;
-  }
-  // don't apply highlight if activity has not started
-  if((session && !session.currentQuestion) || (lesson && !lesson.currentQuestion)) {
-    return '';
-  }
-  // if first question has no key from initial render, apply highlight
-  return key === uidOrKey || key === slicedUidOrKey || (i === 0 && !key) ? 'highlighted' : '';
-}
-
-const getIndentation = (i: number) => {
-  return i < 9 ? 'indented' : '';
-}
-
-const getQuestionObject = ({ questions, titleCards, sentenceFragments, fillInBlank, key }) => {
-  let questionObject;
-  if(questions && questions[key] && questions[key].prompt) {
-    questionObject = questions[key];
-    questionObject.type = 'SC';
-  } else if(titleCards && titleCards[key]) {
-    questionObject = titleCards[key];
-    questionObject.type = 'TL';
-  } else if(sentenceFragments && sentenceFragments[key]) {
-    questionObject = sentenceFragments[key];
-    questionObject.type = 'SF';
-  } else if(fillInBlank && fillInBlank[key]) {
-    questionObject = fillInBlank[key];
-    questionObject.type = 'FB';
-  } else {
-    return {
-      prompt: '',
-      title: ''
-    }
-  }
-  return questionObject;
-}
-
-const renderQuestions = ({
-  activity,
-  fillInBlank,
-  handleQuestionUpdate,
-  lesson,
-  questions,
-  questionToPreview,
-  sentenceFragments,
-  session,
-  titleCards
-}) => {
-  if(!activity && !session) {
-    return null;
-  // some Grammar activities return an empty array for the questions property so we check it's length
-  } else if(activity && activity.questions && activity.questions.length) {
-    const questionsWithoutTitleCards = activity.questions.filter(question => question.questionType !== 'titleCards');
-    return activity.questions.map((question: any, i: number) => {
-      const { key } = question;
-      const index = questionsWithoutTitleCards.indexOf(question);
-      const questionNumber = index !== -1 ? `${index + 1}.  ` : '';
-      const questionObject = getQuestionObject({ questions, titleCards, sentenceFragments, fillInBlank, key });
-      const questionText = questionObject.prompt || questionObject.title
-      const highlightedStyle = getStyling({ questionToPreview, uidOrKey: key, i, session, lesson });
-      const indentationStyle = getIndentation(i);
-      const titleCardStyle = !questionNumber ? 'inverted-indent' :'';
-      if(!questionObject) {
-        return null;
-      }
-      return(
-        <button className={`question-container ${highlightedStyle} ${titleCardStyle} focus-on-light`} id={key} key={key} onClick={handleQuestionUpdate} type="button">
-          {questionNumber && <p className={`question-number ${indentationStyle}`}>{questionNumber}</p>}
-          <p className="question-text">{stripHtml(questionText).result}</p>
-        </button>
-      );
-    })
-  } else if(session && session.questionSet) {
-    return session.questionSet.map((question: any, i: number) => {
-      const { uid } = question;
-      const highlightedStyle = getStyling({ questionToPreview, uidOrKey: uid, i, session, lesson });
-      const indentationStyle = getIndentation(i);
-      return(
-        <button className={`question-container ${highlightedStyle} focus-on-light`} id={uid} key={uid} onClick={handleQuestionUpdate} type="button">
-          <p className={`question-number ${indentationStyle}`}>{`${i + 1}.  `}</p>
-          <p className="question-text">{stripHtml(question.prompt).result}</p>
-        </button>
-      );
-    });
-  }
-}
+const isEvidenceActivity = window.location.href.includes('evidence');
 
 interface TeacherPreviewMenuProps {
   activity: Activity;
   dispatch: Function;
   fillInBlank: any[];
   isOnMobile: boolean;
-  onHandleSkipToQuestionFromIntro: () => void;
+  onHandleSkipToQuestionFromIntro?: () => void;
   onTogglePreview?: () => void;
-  onToggleQuestion?: (question: Question) => void;
+  onToggleQuestion?: (question: Question | string) => void;
   lesson: any;
   questions: Question[];
   questionToPreview?: {
@@ -224,6 +72,17 @@ const TeacherPreviewMenuComponent = ({
   titleCards
 }: TeacherPreviewMenuProps) => {
 
+  const [textIsExpanded, setTextIsExpanded] = React.useState<boolean>(false);
+
+  React.useEffect(() => {
+    if(session && session.previewSessionStep) {
+      onToggleQuestion(session.previewSessionStep);
+    }
+  }, [session])
+
+  function toggleExpandedText() {
+    setTextIsExpanded(!textIsExpanded)
+  }
   const handleToggleMenu = () => {
     onTogglePreview();
   }
@@ -250,12 +109,18 @@ const TeacherPreviewMenuComponent = ({
     onToggleQuestion(question);
   }
 
+  const handleEvidenceStepUpdate = (e: React.SyntheticEvent) => {
+    const evidenceStep = e.currentTarget.id;
+    dispatch(evidenceActions.setPreviewSessionStep(evidenceStep))
+    onToggleQuestion(evidenceStep);
+  }
+
   const hiddenStyle = !showPreview ? 'hidden' : '';
 
   return (
     <aside className={`teacher-preview-menu-container ${hiddenStyle}`}>
       <section className="header-container">
-        <h1>Menu</h1>
+        <h1>Preview Menu</h1>
         <button className="close-preview-button focus-on-light" onClick={handleToggleMenu} type="button">
           <img alt="close-preview-button" src={`${process.env.CDN_URL}/images/icons/close.svg`} />
           {isOnMobile && <p className="close-text">Close</p>}
@@ -267,7 +132,7 @@ const TeacherPreviewMenuComponent = ({
       </section>
       {renderTitleSection(activity)}
       {renderIntroductionSection(activity, lesson, session)}
-      <section>
+      {!isEvidenceActivity && <section>
         <h2>Questions</h2>
         <ul>
           {renderQuestions({
@@ -279,10 +144,18 @@ const TeacherPreviewMenuComponent = ({
             questionToPreview,
             sentenceFragments,
             session,
-            titleCards
+            titleCards,
+            isDiagnosticActivity
           })}
         </ul>
-      </section>
+      </section>}
+      {isEvidenceActivity && renderEvidenceActivityContent({
+        activity,
+        handleEvidenceStepUpdate,
+        toggleExpandedText,
+        textIsExpanded,
+        questionToPreview
+      })}
     </aside>
   );
 }
@@ -290,9 +163,9 @@ const TeacherPreviewMenuComponent = ({
 const mapStateToProps = (state: any) => {
   const { questions, session, titleCards, sentenceFragments, fillInBlank, playLesson, playDiagnostic } = state;
   return {
-    activity: returnActivity(state),
+    activity: returnActivity({ state, isGrammarActivity, isDiagnosticActivity, isConnectActivity, isEvidenceActivity }),
     fillInBlank: fillInBlank ? returnActivityData(fillInBlank) : null,
-    lesson: returnLessonData(playDiagnostic, playLesson),
+    lesson: returnLessonData({ playDiagnostic, playLesson, isConnectActivity, isDiagnosticActivity }),
     questions: questions ? returnActivityData(questions) : null,
     sentenceFragments: sentenceFragments ? returnActivityData(sentenceFragments) : null,
     session: session,

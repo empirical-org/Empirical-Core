@@ -31,7 +31,10 @@ describe('TeacherPreviewMenu component', () => {
       },
     },
     showPreview: true,
-    isOnMobile: false
+    isOnMobile: false,
+    session: {
+      previewSessionStep: 'introduction'
+    }
   }
   const component = mount(
     <Provider store={store}>

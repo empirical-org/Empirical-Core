@@ -15,6 +15,7 @@
 @import './stepOverview.scss';
 @import './activityFollowUp.scss';
 @import './shared.scss';
+@import '../../../../../app/assets/stylesheets/shared/teacher-preview-menu.scss';
 @import "~bulma/bulma.sass";
 
 html {
@@ -35,6 +36,35 @@ body, button, input, select, textarea {
 
 #app, .app-container {
   height: 100%;
+}
+
+.app-container {
+  .activity-container {
+    display: flex;
+    flex-direction: row;
+    #main-content {
+      width: 100%;
+      overflow-y: scroll;
+    }
+    .evidence-preview-mode {
+      .post-activity-slide-container {
+        .responses-exemplars-container {
+          .response-exemplars-section {
+            .response-section {
+              .response-box {
+                max-width: 360px;
+              }
+            }
+            .exemplars-section {
+              .exemplar-box {
+                max-width: 360px;
+              }
+            }
+          }
+        }
+      }
+    }
+  }
 }
 
 button {

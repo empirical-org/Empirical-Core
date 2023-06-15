@@ -73,6 +73,12 @@ export const setActiveStepForSession = (activeStep: number) => {
   }
 }
 
+export const setPreviewSessionStep = (previewSessionStep: string) => {
+  return (dispatch: Function) => {
+    dispatch({ type: ActionTypes.SET_PREVIEW_SESSION_STEP, previewSessionStep })
+  }
+}
+
 export const setExplanationSlidesCompletedForSession = (explanationSlidesCompleted: boolean) => {
   return (dispatch: Function) => {
     dispatch({ type: ActionTypes.SET_EXPLANATIONS_SLIDES_COMPLETED, explanationSlidesCompleted })
