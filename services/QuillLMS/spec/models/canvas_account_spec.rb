@@ -13,8 +13,8 @@
 #
 # Indexes
 #
-#  index_canvas_accounts_on_canvas_instance_id  (canvas_instance_id)
-#  index_canvas_accounts_on_user_id             (user_id)
+#  index_canvas_accounts_on_canvas_instance_id_and_external_id  (canvas_instance_id,external_id) UNIQUE
+#  index_canvas_accounts_on_user_id                             (user_id)
 #
 # Foreign Keys
 #
@@ -30,4 +30,19 @@ RSpec.describe CanvasAccount, type: :model do
 
   it { should belong_to(:canvas_instance) }
   it { should belong_to(:user) }
+
+  describe '.canvas_id' do
+    subject { described_class.canvas_id(canvas_instance_id, canvas_user_external_id) }
+
+    let(:canvas_instance_id) { 1 }
+    let(:canvas_user_external_id) { 2 }
+
+    it { expect(subject).to eq '1:2' }
+  end
+
+  describe '#canvas_id' do
+    subject { canvas_account.canvas_id }
+
+    it { expect(subject).to eq "#{canvas_account.canvas_instance_id}:#{canvas_account.external_id}" }
+  end
 end
