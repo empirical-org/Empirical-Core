@@ -28,8 +28,8 @@ const SkillGroupSummaryCard = ({ skillGroupSummary, completedStudentCount }) => 
   let cardContent = noDataYet
   if (completedStudentCount) {
     const numberOfStudentsNeedingPractice = not_yet_proficient_student_names.length
-    const proficiencyScoresSum = Object.values(proficiency_scores_by_student).reduce((a: number, b: number) => a + b, 0)
-    const percentage = (proficiencyScoresSum/completedStudentCount) * 100
+    const proficiencyScoresSum: any = Object.values(proficiency_scores_by_student).reduce((a: number, b: number) => a + b, 0)
+    const percentage = Math.round((proficiencyScoresSum/completedStudentCount) * 100)
     let needPracticeElement = <span className="need-practice-element no-practice-needed">No practice needed</span>
 
     if (numberOfStudentsNeedingPractice) {
@@ -41,7 +41,6 @@ const SkillGroupSummaryCard = ({ skillGroupSummary, completedStudentCount }) => 
         tooltipTriggerTextClass="need-practice-element"
       />)
     }
-
     cardContent = (<React.Fragment>
       <span className="percentage-circle-label">Proficient</span>
       <PercentageCircle
@@ -49,7 +48,7 @@ const SkillGroupSummaryCard = ({ skillGroupSummary, completedStudentCount }) => 
         borderWidth={8}
         color="#4ea500"
         innerColor="#ffffff"
-        percent={100 - Math.round(percentage)}
+        percent={percentage}
         radius={52}
       />
       {needPracticeElement}
