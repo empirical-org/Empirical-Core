@@ -15,8 +15,8 @@ module GrowthResultsSummary
       {
         name: skill_group.name,
         description: skill_group.description,
-        not_yet_proficient_in_pre_test_student_names: [],
-        not_yet_proficient_in_post_test_student_names: []
+        not_yet_proficient_in_post_test_student_names: [],
+        proficiency_scores_by_student: {}
       }
     end
 
@@ -37,6 +37,8 @@ module GrowthResultsSummary
         total_possible_skills_count = skill_groups.map { |sg| sg[:skill_ids] }.flatten.uniq.count
         total_correct_skills_count = skill_groups.map { |sg| sg[:post_correct_skill_ids] }.flatten.uniq.count
         total_pre_correct_skills_count = skill_groups.map { |sg| sg[:pre_correct_skill_ids] }.flatten.uniq.count
+        total_pre_proficiency_score = skill_groups.reduce(0) { |sum, sg| sum += sg[:pre_test_proficiency_score]} / skill_groups.count.to_f
+        total_post_proficiency_score = skill_groups.reduce(0) { |sum, sg| sum += sg[:post_test_proficiency_score]} / skill_groups.count.to_f
         {
           name: assigned_student.name,
           id: assigned_student.id,
@@ -45,6 +47,8 @@ module GrowthResultsSummary
           total_correct_skills_count: total_correct_skills_count,
           total_pre_correct_skills_count: total_pre_correct_skills_count,
           total_possible_skills_count: total_possible_skills_count,
+          total_pre_proficiency_score: total_pre_proficiency_score,
+          total_post_proficiency_score: total_post_proficiency_score,
           correct_skill_text: "#{total_correct_skills_count} of #{total_possible_skills_count} skills correct"
         }
       else
@@ -63,6 +67,8 @@ module GrowthResultsSummary
       end
       pre_correct_skills = skills.select { |skill| skill[:pre][:summary] == FULLY_CORRECT }
       post_correct_skills = skills.select { |skill| skill[:post][:summary] == FULLY_CORRECT }
+      pre_test_proficiency_score = skills.reduce(0) {|sum, skill| sum += skill[:pre][:proficiency_score]} / skills.length.to_f
+      post_test_proficiency_score = skills.reduce(0) {|sum, skill| sum += skill[:post][:proficiency_score]} / skills.length.to_f
       pre_correct_skill_ids = pre_correct_skills.map { |s| s[:pre][:id] }
       post_correct_skill_ids = post_correct_skills.map { |s| s[:post][:id] }
       pre_correct_skill_number = pre_correct_skills.count
@@ -73,10 +79,11 @@ module GrowthResultsSummary
       post_test_proficiency = summarize_student_proficiency_for_skill_per_activity(present_skill_number, correct_skill_number)
       pre_test_proficiency = summarize_student_proficiency_for_skill_per_activity(pre_present_skill_number, pre_correct_skill_number)
       skill_group_summary_index = @skill_group_summaries.find_index { |sg| sg[:name] == skill_group.name }
+      @skill_group_summaries[skill_group_summary_index][:proficiency_scores_by_student][student_name] = { pre: nil, post: nil }
       @skill_group_summaries[skill_group_summary_index][:not_yet_proficient_in_post_test_student_names].push(student_name) unless post_test_proficiency == PROFICIENCY
       @skill_group_summaries[skill_group_summary_index][:not_yet_proficient_in_post_test_student_names] =   @skill_group_summaries[skill_group_summary_index][:not_yet_proficient_in_post_test_student_names].uniq
-      @skill_group_summaries[skill_group_summary_index][:not_yet_proficient_in_pre_test_student_names].push(student_name) unless pre_test_proficiency == PROFICIENCY
-      @skill_group_summaries[skill_group_summary_index][:not_yet_proficient_in_pre_test_student_names] = @skill_group_summaries[skill_group_summary_index][:not_yet_proficient_in_pre_test_student_names].uniq
+      @skill_group_summaries[skill_group_summary_index][:proficiency_scores_by_student][student_name][:post] = post_test_proficiency_score
+      @skill_group_summaries[skill_group_summary_index][:proficiency_scores_by_student][student_name][:pre] = pre_test_proficiency_score
       {
         skill_group: skill_group.name,
         description: skill_group.description,
@@ -84,7 +91,9 @@ module GrowthResultsSummary
         number_of_correct_skills_text: "#{correct_skill_number} of #{present_skill_number} skills correct",
         proficiency_text: proficiency_text,
         pre_test_proficiency: pre_test_proficiency,
+        pre_test_proficiency_score: pre_test_proficiency_score,
         post_test_proficiency: post_test_proficiency,
+        post_test_proficiency_score: post_test_proficiency_score,
         id: skill_group.id,
         post_correct_skill_ids: post_correct_skill_ids,
         pre_correct_skill_ids: pre_correct_skill_ids,

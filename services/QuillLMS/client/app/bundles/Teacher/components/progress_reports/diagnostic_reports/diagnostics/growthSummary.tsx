@@ -21,17 +21,22 @@ import DemoOnboardingTour, { DEMO_ONBOARDING_DIAGNOSTIC_GROWTH_SUMMARY, } from '
 import LoadingSpinner from '../../../shared/loading_indicator.jsx';
 
 const SkillGroupSummaryCard = ({ skillGroupSummary, completedStudentCount }: { skillGroupSummary: SkillGroupSummary, completedStudentCount: number }) => {
-  const { name, description, not_yet_proficient_in_post_test_student_names, not_yet_proficient_in_pre_test_student_names, } = skillGroupSummary
+  const { name, description, not_yet_proficient_in_post_test_student_names, proficiency_scores_by_student } = skillGroupSummary
   let cardContent = noDataYet
 
   if (completedStudentCount) {
     const numberOfStudentsNeedingPracticeInPost = not_yet_proficient_in_post_test_student_names.length
-    const postPercentageNotProficient = (numberOfStudentsNeedingPracticeInPost/completedStudentCount) * 100
-    const postPercentageProficient = 100 - Math.round(postPercentageNotProficient)
-    const numberOfStudentsNeedingPracticeInPre = not_yet_proficient_in_pre_test_student_names.length
-    const prePercentageNotProficient = (numberOfStudentsNeedingPracticeInPre/completedStudentCount) * 100
-    const prePercentageProficient = 100 - Math.round(prePercentageNotProficient)
-    const delta = prePercentageProficient ? postPercentageProficient - prePercentageProficient : postPercentageProficient
+    let preProficiencyScoreTotalSum = 0
+    Object.keys(proficiency_scores_by_student).forEach(student => {
+      preProficiencyScoreTotalSum += proficiency_scores_by_student[student].pre
+    })
+    let postProficiencyScoreTotalSum = 0
+    Object.keys(proficiency_scores_by_student).forEach(student => {
+      postProficiencyScoreTotalSum += proficiency_scores_by_student[student].post
+    })
+    const preProficiencyClassPercentage = Math.round((preProficiencyScoreTotalSum / completedStudentCount) * 100)
+    const postProficiencyClassPercentage = Math.round((postProficiencyScoreTotalSum / completedStudentCount) * 100)
+    const delta = postProficiencyClassPercentage - preProficiencyClassPercentage
 
     let needPracticeElement = <span className="need-practice-element no-practice-needed">No practice needed</span>
     let growthElement = delta > 0 ? <span className="growth-element">{triangleUpIcon}<span>{Math.round(delta)}% growth</span></span> : <span className="growth-element no-growth">No growth</span>
@@ -55,7 +60,7 @@ const SkillGroupSummaryCard = ({ skillGroupSummary, completedStudentCount }: { s
             borderWidth={8}
             color="#9e9e9e"
             innerColor="#ffffff"
-            percent={prePercentageProficient}
+            percent={preProficiencyClassPercentage}
             radius={52}
           />
         </div>
@@ -66,7 +71,7 @@ const SkillGroupSummaryCard = ({ skillGroupSummary, completedStudentCount }: { s
             borderWidth={8}
             color="#4ea500"
             innerColor="#ffffff"
-            percent={postPercentageProficient}
+            percent={postProficiencyClassPercentage}
             radius={52}
           />
         </div>

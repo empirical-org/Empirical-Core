@@ -23,6 +23,7 @@ module DiagnosticReports
       skill: skill.name,
       number_correct: number_correct,
       number_incorrect: number_incorrect,
+      proficiency_score: calculate_proficiency_score(number_correct, number_incorrect),
       summary: summarize_correct_skills(number_correct, number_incorrect)
     }
   end
@@ -105,4 +106,10 @@ module DiagnosticReports
     end
   end
 
+  private def calculate_proficiency_score(number_correct, number_incorrect)
+    return NOT_PRESENT if number_correct == 0 && number_incorrect == 0
+
+    total = number_correct + number_incorrect
+    number_correct / total.to_f
+  end
 end

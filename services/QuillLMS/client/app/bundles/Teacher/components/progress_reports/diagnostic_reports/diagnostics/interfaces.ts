@@ -77,7 +77,12 @@ export interface SkillGroupSummary {
   name: string;
   description?: string;
   not_yet_proficient_in_post_test_student_names?: string[];
-  not_yet_proficient_in_pre_test_student_names?: string[];
+  proficiency_scores_by_student: {
+    [name: string]: {
+      pre: number,
+      post: number
+    }
+  }
 }
 
 export interface StudentResult {
