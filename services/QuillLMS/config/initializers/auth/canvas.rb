@@ -2,51 +2,59 @@
 
 module Auth
   module Canvas
-    ACCESS_PATH = '/auth/canvas'
-    ACCESS_CALLBACK_PATH = "#{ACCESS_PATH}/callback"
+    OMNIAUTH_REQUEST_PATH = '/auth/canvas'
+    OMNIAUTH_CALLBACK_PATH = '/auth/canvas/callback'
 
     class Setup
-      attr_reader :env, :session
+      attr_reader :env, :request, :session, :strategy
+
+      OMNIAUTH_STRATEGY_ASSIGNED = 'OmniAuth strategy assigned'
 
       def self.call(env)
-        new(env).setup
+        new(env).run
       end
 
-      def initialize(env)
+      def initialize(env, strategy: nil)
         @env = env
-        @session = Rack::Request.new(env).session
+        @request = Rack::Request.new(env)
+        @session = request.session
+        @strategy = strategy || env['omniauth.strategy']
       end
 
-      def setup
-        add_session_canvas_instance_id if request_phase?
+      def run
+        setup if request_phase?
         set_omniauth_strategy
-        delete_session_canvas_instance_id if callback_phase?
+        teardown if callback_phase?
+        [200, {}, OMNIAUTH_STRATEGY_ASSIGNED]
       end
 
-      private def add_session_canvas_instance_id
-        session[:canvas_instance_id] = env['rack.request.form_hash']['canvas_instance_id']
+      private def setup
+        session[:canvas_instance_id] = env['rack.request.form_hash']['canvas_instance_id'].to_i
+        session[:role] = env['rack.request.form_hash']['role']
       end
 
       private def callback_phase?
-        env['REQUEST_PATH'] == ACCESS_CALLBACK_PATH
+        request.path == OMNIAUTH_CALLBACK_PATH
       end
 
       private def canvas_instance
         @canvas_instance ||= CanvasInstance.find(session[:canvas_instance_id])
       end
 
-      private def delete_session_canvas_instance_id
+      private def request_phase?
+        request.path == OMNIAUTH_REQUEST_PATH
+      end
+
+      private def teardown
         session.delete(:canvas_instance_id)
       end
 
-      private def request_phase?
-        env['REQUEST_PATH'] == ACCESS_PATH
-      end
-
       private def set_omniauth_strategy
-        env['omniauth.strategy'].options[:client_options].site = canvas_instance.url
-        env['omniauth.strategy'].options[:client_id] = canvas_instance.client_id
-        env['omniauth.strategy'].options[:client_secret] = canvas_instance&.client_secret
+        return unless canvas_instance
+
+        strategy.options[:client_options].site = canvas_instance.url
+        strategy.options[:client_id] = canvas_instance.client_id
+        strategy.options[:client_secret] = canvas_instance&.client_secret
       end
     end
   end

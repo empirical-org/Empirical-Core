@@ -7,7 +7,7 @@
       <h4>You be will redirected to Canvas to verify credentials...please wait.</h4>
       <div class='text-center auth-section'>
         <p class='sign-up-link'>
-          <%= button_to @button_text, @button_url, id: button_id, params: { canvas_instance_id: @canvas_instance_id } %>
+          <%= button_to @button_text, @button_url, id: button_id, params: @button_params %>
         </p>
       </div>
     </div>

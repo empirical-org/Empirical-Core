@@ -589,7 +589,7 @@ EmpiricalGrammar::Application.routes.draw do
 
   get Auth::Google::OFFLINE_ACCESS_CALLBACK_PATH => 'auth/google#offline_access_callback'
   get Auth::Google::ONLINE_ACCESS_CALLBACK_PATH => 'auth/google#online_access_callback'
-  get Auth::Canvas::ACCESS_CALLBACK_PATH => 'auth/canvas#canvas'
+  get Auth::Canvas::OMNIAUTH_CALLBACK_PATH => 'auth/canvas#canvas'
 
   namespace :auth do
     get '/clever/callback', to: 'clever#clever'

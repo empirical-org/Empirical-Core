@@ -10,7 +10,7 @@ module CanvasIntegration
 
     def launch
       @link_text = LAUNCH_TEXT
-      @link_url = canvas_integration_lti_sso_path(canvas_instance_url: params[:custom_canvas_api_baseurl])
+      @link_url = canvas_integration_lti_sso_path(canvas_instance_url: custom_canvas_api_baseurl, role: role)
 
       render layout: false   # canvas doesn't allow script tags in iframes
     end
@@ -22,7 +22,16 @@ module CanvasIntegration
     def sso
       @canvas_instance_id = CanvasInstance.find_by(url: params[:canvas_instance_url])&.id
       @button_text = SSO_BUTTON_TEXT
-      @button_url = Auth::Canvas::ACCESS_PATH
+      @button_params = { canvas_instance_id: @canvas_instance_id, role: params[:role] }
+      @button_url = Auth::Canvas::OAUTH_REQUEST_PATH
+    end
+
+    private def custom_canvas_api_baseurl
+      params[:custom_canvas_api_baseurl]
+    end
+
+    private def role
+      RoleExtractor.run(params[:ext_roles])
     end
   end
 end
