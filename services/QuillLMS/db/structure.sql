@@ -7644,10 +7644,10 @@ CREATE INDEX index_blog_posts_on_topic ON public.blog_posts USING btree (topic);
 
 
 --
--- Name: index_canvas_accounts_on_canvas_instance_id; Type: INDEX; Schema: public; Owner: -
+-- Name: index_canvas_accounts_on_canvas_instance_id_and_external_id; Type: INDEX; Schema: public; Owner: -
 --
 
-CREATE INDEX index_canvas_accounts_on_canvas_instance_id ON public.canvas_accounts USING btree (canvas_instance_id);
+CREATE UNIQUE INDEX index_canvas_accounts_on_canvas_instance_id_and_external_id ON public.canvas_accounts USING btree (canvas_instance_id, external_id);
 
 
 --
@@ -10195,6 +10195,7 @@ INSERT INTO "schema_migrations" (version) VALUES
 ('20230523192828'),
 ('20230524142914'),
 ('20230524143000'),
-('20230601210338');
+('20230601210338'),
+('20230613164607');
 
 
