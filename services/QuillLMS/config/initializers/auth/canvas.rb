@@ -30,7 +30,6 @@ module Auth
 
       private def setup
         session[:canvas_instance_id] = env['rack.request.form_hash']['canvas_instance_id'].to_i
-        session[:role] = env['rack.request.form_hash']['role']
       end
 
       private def callback_phase?
