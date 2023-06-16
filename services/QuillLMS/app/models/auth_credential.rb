@@ -63,4 +63,8 @@ class AuthCredential < ApplicationRecord
 
     expires_at + GOOGLE_EXPIRATION_DURATION
   end
+
+  def token
+    access_token
+  end
 end

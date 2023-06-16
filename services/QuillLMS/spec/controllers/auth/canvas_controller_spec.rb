@@ -19,7 +19,7 @@ module Auth
       before { set_session_canvas_instance_id }
 
       it do
-        expect(CanvasIntegration::UserFinder).to receive(:run).with(auth_hash).and_return(user)
+        expect(CanvasIntegration::UserAuthCredentialSaver).to receive(:run).with(auth_hash).and_return(user)
         subject
       end
 
