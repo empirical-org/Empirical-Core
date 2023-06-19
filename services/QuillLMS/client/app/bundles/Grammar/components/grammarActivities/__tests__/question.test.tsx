@@ -28,7 +28,7 @@ Object.defineProperty(window, 'matchMedia', {
 });
 
 process.env.DEFAULT_URL = 'https://staging.quill.org'
-process.env.CMS_URL = 'https://cms.quill.org'
+process.env.QUILL_CMS = 'https://cms.quill.org'
 
 const componentDidMount = QuestionComponent.prototype.componentDidMount = jest.fn();
 

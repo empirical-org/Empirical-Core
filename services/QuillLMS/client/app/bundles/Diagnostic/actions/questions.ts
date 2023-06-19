@@ -222,7 +222,7 @@ function searchResponses(qid) {
     const requestNumber = getState().filters.requestCount
     // check for request number in state, save as const
     requestPost(
-      `${process.env.CMS_URL}/questions/${qid}/responses/search`,
+      `${process.env.QUILL_CMS}/questions/${qid}/responses/search`,
       { search: getFormattedSearchData(getState()), },
       (body) => {
         // check again for number in state

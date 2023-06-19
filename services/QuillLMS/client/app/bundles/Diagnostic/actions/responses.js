@@ -45,7 +45,7 @@ export function submitResponse(content, prid, isFirstAttempt) {
   rubyConvertedResponse.is_first_attempt = isFirstAttempt;
   return (dispatch) => {
     requestPost(
-      `${process.env.CMS_URL}/responses/create_or_increment`,
+      `${process.env.QUILL_CMS}/responses/create_or_increment`,
       { response: rubyConvertedResponse, },
       (body) => {
         dispatch({ type: C.DISPLAY_MESSAGE, message: 'Submission successfully saved!', });
@@ -61,7 +61,7 @@ export function uploadOptimalResponse(content, prid, isFirstAttempt) {
   const rubyConvertedResponse = objectWithSnakeKeysFromCamel(content);
   return (dispatch) => {
     requestPost(
-      `${process.env.CMS_URL}/responses/create_or_update`,
+      `${process.env.QUILL_CMS}/responses/create_or_update`,
       { response: rubyConvertedResponse, },
       (body) => {
         dispatch({ type: C.DISPLAY_MESSAGE, message: 'Submission successfully saved!', });
@@ -77,7 +77,7 @@ export function submitMassEditFeedback(ids, properties, qid) {
   return (dispatch) => {
     const updated_attribute = properties;
     requestPut(
-      `${process.env.CMS_URL}/responses/mass_edit/edit_many`,
+      `${process.env.QUILL_CMS}/responses/mass_edit/edit_many`,
       { ids, updated_attribute, },
       (body) => {
         dispatch({ type: C.DISPLAY_MESSAGE, message: 'Submission successfully saved!', });
@@ -96,7 +96,7 @@ export function submitMassEditConceptResults(ids, conceptResults, qid) {
       concept_results: conceptResults,
     };
     requestPut(
-      `${process.env.CMS_URL}/responses/mass_edit/edit_many`,
+      `${process.env.QUILL_CMS}/responses/mass_edit/edit_many`,
       { ids, updated_attribute, },
       (body) => {
         dispatch({ type: C.DISPLAY_MESSAGE, message: 'Submission successfully saved!', });
@@ -112,7 +112,7 @@ export function submitMassEditConceptResults(ids, conceptResults, qid) {
 export function massEditDeleteResponses(ids, qid) {
   return (dispatch) => {
     requestPost(
-      `${process.env.CMS_URL}/responses/mass_edit/delete_many`,
+      `${process.env.QUILL_CMS}/responses/mass_edit/delete_many`,
       { ids, },
       (body) => {
         dispatch({ type: C.DISPLAY_MESSAGE, message: 'Submission successfully saved!', });
@@ -129,7 +129,7 @@ export function submitResponseEdit(rid, content, qid) {
   const rubyConvertedResponse = objectWithSnakeKeysFromCamel(content, false);
   return (dispatch) => {
     requestPut(
-      `${process.env.CMS_URL}/responses/${rid}`,
+      `${process.env.QUILL_CMS}/responses/${rid}`,
       { response: rubyConvertedResponse, },
       (body) => {
         dispatch({ type: C.DISPLAY_MESSAGE, message: 'Submission successfully saved!', });
@@ -146,7 +146,7 @@ export function updateConceptResults(rid, content, qid) {
   const rubyConvertedResponse = objectWithSnakeKeysFromCamel(content, false);
   return (dispatch) => {
     requestPut(
-      `${process.env.CMS_URL}/responses/${rid}`,
+      `${process.env.QUILL_CMS}/responses/${rid}`,
       { response: rubyConvertedResponse, },
       (body) => {
         dispatch({ type: C.DISPLAY_MESSAGE, message: 'Submission successfully saved!', });
@@ -164,7 +164,7 @@ export function deleteConceptResult(rid, content, qid) {
   const updatedResponse = objectWithSnakeKeysFromCamel(content, false);
   return (dispatch) => {
     requestPut(
-      `${process.env.CMS_URL}/responses/${rid}`,
+      `${process.env.QUILL_CMS}/responses/${rid}`,
       { response: updatedResponse, },
       (body) => {
         dispatch({ type: C.DISPLAY_MESSAGE, message: 'Submission successfully saved!', });
@@ -181,7 +181,7 @@ export function deleteConceptResult(rid, content, qid) {
 export function deleteResponse(qid, rid) {
   return (dispatch) => {
     requestDelete(
-      `${process.env.CMS_URL}/responses/${rid}`,
+      `${process.env.QUILL_CMS}/responses/${rid}`,
       null,
       (body) => {
         dispatch({ type: C.DISPLAY_MESSAGE, message: 'Submission successfully saved!', });
@@ -225,7 +225,7 @@ export function listenToResponsesWithCallback(questionID, callback) {
 }
 
 export function getGradedResponsesWithCallback(questionID, callback) {
-  requestGet(`${process.env.CMS_URL}/questions/${questionID}/responses`)
+  requestGet(`${process.env.QUILL_CMS}/questions/${questionID}/responses`)
     .then((body) => {
       const bodyToObj = {};
       body.forEach((resp) => {

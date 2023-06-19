@@ -123,7 +123,7 @@ class ResponseComponent extends React.Component {
 
   getHealth() {
     requestGet(
-      `${process.env.CMS_URL}/questions/${this.props.questionID}/health`,
+      `${process.env.QUILL_CMS}/questions/${this.props.questionID}/health`,
       (body) => {
         this.setState({
           health: body,
@@ -134,7 +134,7 @@ class ResponseComponent extends React.Component {
 
   getGradeBreakdown() {
     requestGet(
-      `${process.env.CMS_URL}/questions/${this.props.questionID}/grade_breakdown`,
+      `${process.env.QUILL_CMS}/questions/${this.props.questionID}/grade_breakdown`,
       (body) => {
         this.setState({
           gradeBreakdown: body,
