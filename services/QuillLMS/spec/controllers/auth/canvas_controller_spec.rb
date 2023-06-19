@@ -15,11 +15,12 @@ module Auth
       subject { get Auth::Canvas::OMNIAUTH_CALLBACK_PATH }
 
       let(:user) { create(:user) }
+      let(:auth_credential) { create(:auth_credential, user: user) }
 
       before { set_session_canvas_instance_id }
 
       it do
-        expect(CanvasIntegration::UserAuthCredentialSaver).to receive(:run).with(auth_hash).and_return(user)
+        expect(CanvasIntegration::AuthCredentialSaver).to receive(:run).with(auth_hash).and_return(auth_credential)
         subject
       end
 

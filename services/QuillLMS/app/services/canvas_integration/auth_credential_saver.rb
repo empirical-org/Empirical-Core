@@ -1,7 +1,7 @@
 # frozen_string_literal: true
 
 module CanvasIntegration
-  class UserAuthCredentialSaver < ApplicationService
+  class AuthCredentialSaver < ApplicationService
     class CanvasInstanceNotFoundError < StandardError; end
     class CanvasAccountNotFoundError < StandardError; end
 
@@ -19,15 +19,14 @@ module CanvasIntegration
       raise CanvasInstanceNotFoundError unless canvas_instance
       raise CanvasAccountNotFoundError unless canvas_account
 
-      create_auth_credential
-      user
+      auth_credential
     end
 
     private def access_token
       credentials[:token]
     end
 
-    private def create_auth_credential
+    private def auth_credential
       AuthCredential.create!(
         access_token: access_token,
         expires_at: expires_at,

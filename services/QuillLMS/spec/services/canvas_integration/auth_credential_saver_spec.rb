@@ -2,7 +2,7 @@
 
 require 'rails_helper'
 
-describe CanvasIntegration::UserAuthCredentialSaver do
+describe CanvasIntegration::AuthCredentialSaver do
   subject { described_class.run(auth_hash) }
 
   let(:auth_hash) { create(:canvas_auth_hash, url: url) }
@@ -16,7 +16,7 @@ describe CanvasIntegration::UserAuthCredentialSaver do
 
     before { canvas_account }
 
-    it { expect(subject).to eq user }
+    it { expect(subject).to eq user.auth_credential }
     it { expect { subject }.to change(AuthCredential, :count).by(1) }
   end
 
