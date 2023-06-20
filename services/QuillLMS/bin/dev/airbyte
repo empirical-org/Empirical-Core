@@ -38,9 +38,14 @@ end
 port = INSTANCES[instance][:port]
 
 if command == 'ssh'
+  cmd = "gcloud --project=analytics-data-stores beta compute ssh #{instance}"
+  puts "Running: #{cmd}...\n"
   system "gcloud --project=analytics-data-stores beta compute ssh #{instance}"
 elsif command == 'tunnel'
+  cmd = "gcloud --project=analytics-data-stores beta compute ssh #{instance} -- -L #{port}:localhost:8000 -N -f"
+  puts "Running: #{cmd}...\n"
   system "gcloud --project=analytics-data-stores beta compute ssh #{instance} -- -L #{port}:localhost:8000 -N -f"
+  system "open http://localhost:#{port}"
 else
   usage
 end
