@@ -1,4 +1,24 @@
 .results-summary-container.growth-results-summary-container {
+  header {
+    display: flex;
+    flex-direction: column;
+    max-width: 1014px;
+    .upper-header-section {
+      display: flex;
+      padding-bottom: 24px;
+    }
+    .lower-header-section {
+      display: flex;
+      align-items: center;
+      border: 1px solid #E0E0E0;
+      padding: 16px;
+      border-radius: 8px;
+      .activity-name {
+        font-weight: 700;
+        margin-right: 8px;
+      }
+    }
+  }
   .skill-group-summary-card {
     .percentage-circles {
       display: flex;
@@ -8,28 +28,33 @@
         margin-bottom: 24px;
       }
     }
+    .card-header {
+      .skill-group-name {
+        font-weight: 700;
+      }
+    }
     .card-footer {
       display: flex;
       justify-content: space-between;
       align-items: center;
-      .growth-element {
-        padding: 8px;
-        border-radius: 8px;
-        font-size: 12px;
-        font-weight: 600;
-        line-height: 1;
-        img {
-          margin-right: 4px;
-        }
-        &.no-growth {
-          color: #5c5c5c;
-          background-color: #ebebeb;
-        }
-        &:not(.no-growth) {
-          color: #2a5900;
-          background-color: #b8db99;
-        }
-      }
+    }
+  }
+  .growth-element {
+    padding: 8px;
+    border-radius: 8px;
+    font-size: 12px;
+    font-weight: 600;
+    line-height: 1;
+    img {
+      margin-right: 4px;
+    }
+    &.no-growth {
+      color: #5c5c5c;
+      background-color: #ebebeb;
+    }
+    &:not(.no-growth) {
+      color: #2a5900;
+      background-color: #b8db99;
     }
   }
 

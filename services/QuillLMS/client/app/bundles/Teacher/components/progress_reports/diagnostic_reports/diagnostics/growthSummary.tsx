@@ -29,6 +29,10 @@ function sumScores(proficiencyScoresByStudent, type) {
   }, 0)
 }
 
+function renderGrowthElement(delta, text) {
+  return delta > 0 ? <span className="growth-element">{triangleUpIcon}<span>{Math.round(delta)}{`% ${text}`}</span></span> : <span className="growth-element no-growth">No growth</span>
+}
+
 const SkillGroupSummaryCard = ({ skillGroupSummary, completedStudentCount }: { skillGroupSummary: SkillGroupSummary, completedStudentCount: number }) => {
   const { name, description, not_yet_proficient_in_post_test_student_names, proficiency_scores_by_student } = skillGroupSummary
   let cardContent = noDataYet
@@ -42,7 +46,7 @@ const SkillGroupSummaryCard = ({ skillGroupSummary, completedStudentCount }: { s
     const delta = postProficiencyClassPercentage - preProficiencyClassPercentage
 
     let needPracticeElement = <span className="need-practice-element no-practice-needed">No practice needed</span>
-    let growthElement = delta > 0 ? <span className="growth-element">{triangleUpIcon}<span>{Math.round(delta)}% growth</span></span> : <span className="growth-element no-growth">No growth</span>
+    const growthElement = renderGrowthElement(delta, 'growth')
 
     if (numberOfStudentsNeedingPracticeInPost) {
       const tooltipText = `<p>${not_yet_proficient_in_post_test_student_names.join('<br>')}</p>`
@@ -97,7 +101,7 @@ const SkillGroupSummaryCard = ({ skillGroupSummary, completedStudentCount }: { s
   )
 }
 
-export const GrowthResults = ({ passedStudentResults, passedSkillGroupSummaries, match, mobileNavigation, }) => {
+export const GrowthResults = ({ activityName, passedStudentResults, passedSkillGroupSummaries, match, mobileNavigation, }) => {
   const [loading, setLoading] = React.useState<boolean>(!passedStudentResults);
   const [studentResults, setStudentResults] = React.useState<StudentResult[]>(passedStudentResults || []);
   const [skillGroupSummaries, setSkillGroupSummaries] = React.useState<SkillGroupSummary[]>(passedSkillGroupSummaries || []);
@@ -149,6 +153,19 @@ export const GrowthResults = ({ passedStudentResults, passedSkillGroupSummaries,
     )
   }
 
+  function renderClasswideGrowthAverage() {
+    if(classwideGrowthAverage === null) { return }
+
+    const classwideGrowthDisplayedAverage = classwideGrowthAverage > 0 ? classwideGrowthAverage: 0;
+
+    return(
+      <section className="lower-header-section">
+        <span className="activity-name">{`${activityName}:`}</span>
+        {renderGrowthElement(classwideGrowthDisplayedAverage, 'Class-wide skill growth')}
+      </section>
+    )
+  }
+
   if (loading) { return <LoadingSpinner /> }
 
 
@@ -158,8 +175,11 @@ export const GrowthResults = ({ passedStudentResults, passedSkillGroupSummaries,
     <main className="results-summary-container growth-results-summary-container">
       <DemoOnboardingTour pageKey={DEMO_ONBOARDING_DIAGNOSTIC_GROWTH_SUMMARY} />
       <header>
-        <h1>Class summary</h1>
-        <a className="focus-on-light" href="https://support.quill.org/en/articles/5698227-how-do-i-read-the-growth-results-summary-report" rel="noopener noreferrer" target="_blank">{fileDocumentIcon}<span>Guide</span></a>
+        <section className="upper-header-section">
+          <h1>Class summary</h1>
+          <a className="focus-on-light" href="https://support.quill.org/en/articles/5698227-how-do-i-read-the-growth-results-summary-report" rel="noopener noreferrer" target="_blank">{fileDocumentIcon}<span>Guide</span></a>
+        </section>
+        {renderClasswideGrowthAverage()}
       </header>
       {mobileNavigation}
       <section className="skill-group-summary-cards">{skillGroupSummaryCards}</section>
