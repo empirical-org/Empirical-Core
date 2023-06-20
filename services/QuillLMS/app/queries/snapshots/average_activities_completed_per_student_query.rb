@@ -11,6 +11,13 @@ module Snapshots
       super
     end
 
+    # Adding a no-op overwrite of query to avoid confusion in debugging where this class
+    # might assemble a query even though it never intends to run one because it pulls data
+    # from other queries instead
+    def query
+      ''
+    end
+
     def run
       # This query, and both of the queries below, inherit their `initialize` method from
       # PeriodQuery.  This means that they should all have identical method signatures.
