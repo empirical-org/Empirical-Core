@@ -5,7 +5,7 @@ require 'rails_helper'
 module Snapshots
   describe AverageActivitiesCompletedPerStudentQuery do
     context 'external_api', :big_query_snapshot do
-      include_context 'Snapshots Count CTE'
+      include_context 'Snapshots Activity Session Count CTE'
 
       let(:average_activities_completed_per_student) { activity_sessions.count / activity_sessions.map(&:user_id).uniq.count.to_f }
 

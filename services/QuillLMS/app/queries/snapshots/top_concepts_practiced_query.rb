@@ -10,8 +10,10 @@ module Snapshots
           ON classroom_units.id = activity_sessions.classroom_unit_id
         JOIN lms.activities
           ON activity_sessions.activity_id = activities.id
-        JOIN lms.concepts
-          ON STRING(PARSE_JSON(activities.data).modelConceptUID) = concepts.uid
+        JOIN lms.activity_category_activities
+          ON activities.id = activity_category_activities.activity_id
+        JOIN lms.activity_categories
+          ON activity_category_activities.activity_category_id = activity_categories.id
       SQL
     end
 
@@ -24,7 +26,7 @@ module Snapshots
     end
 
     def relevant_group_column
-      "concepts.name"
+      "activity_categories.name"
     end
   end
 end
