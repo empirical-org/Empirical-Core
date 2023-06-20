@@ -55,8 +55,8 @@ describe DiagnosticReports do
       expect(calculate_proficiency_score(1, 0)).to eq(1)
     end
 
-    it 'should return 0.5 if neither number_correct nor number_incorrect is 0' do
-      expect(calculate_proficiency_score(1, 1)).to eq(0.5)
+    it 'should return 0 if neither number_correct nor number_incorrect is 0' do
+      expect(calculate_proficiency_score(1, 1)).to eq(0)
     end
   end
 

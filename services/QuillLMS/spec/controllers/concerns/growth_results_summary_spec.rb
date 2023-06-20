@@ -38,7 +38,7 @@ describe GrowthResultsSummary do
             not_yet_proficient_in_post_test_student_names: [],
             proficiency_scores_by_student: {
               student1.name => {
-                pre: 0.5,
+                pre: 0,
                 post: 1.0
               }
             }
@@ -59,7 +59,7 @@ describe GrowthResultsSummary do
                       skill: skill.name,
                       number_correct: 1,
                       number_incorrect: 1,
-                      proficiency_score: 0.5,
+                      proficiency_score: 0,
                       summary: GrowthResultsSummary::PARTIALLY_CORRECT,
                     },
                     post: {
@@ -75,7 +75,7 @@ describe GrowthResultsSummary do
                 number_of_correct_skills_text: "1 of 1 skills correct",
                 proficiency_text: GrowthResultsSummary::GAINED_PROFICIENCY,
                 pre_test_proficiency: GrowthResultsSummary::NO_PROFICIENCY,
-                pre_test_proficiency_score: 0.5,
+                pre_test_proficiency_score: 0,
                 post_test_proficiency: GrowthResultsSummary::PROFICIENCY,
                 post_test_proficiency_score: 1.0,
                 id: pre_test_skill_group_activity.skill_group.id,
@@ -130,7 +130,7 @@ describe GrowthResultsSummary do
                       skill: skill.name,
                       number_correct: 1,
                       number_incorrect: 1,
-                      proficiency_score: 0.5,
+                      proficiency_score: 0,
                       summary: GrowthResultsSummary::PARTIALLY_CORRECT,
                     },
                     post: {
@@ -146,7 +146,7 @@ describe GrowthResultsSummary do
                 number_of_correct_skills_text: "1 of 1 skills correct",
                 proficiency_text: GrowthResultsSummary::GAINED_PROFICIENCY,
                 pre_test_proficiency: GrowthResultsSummary::NO_PROFICIENCY,
-                pre_test_proficiency_score: 0.5,
+                pre_test_proficiency_score: 0,
                 post_test_proficiency: GrowthResultsSummary::PROFICIENCY,
                 post_test_proficiency_score: 1.0,
                 id: pre_test_skill_group_activity.skill_group.id,
@@ -215,7 +215,7 @@ describe GrowthResultsSummary do
                 skill: skill.name,
                 number_correct: 1,
                 number_incorrect: 1,
-                proficiency_score: 0.5,
+                proficiency_score: 0,
                 summary: GrowthResultsSummary::PARTIALLY_CORRECT,
               },
               post: {
@@ -231,7 +231,7 @@ describe GrowthResultsSummary do
           number_of_correct_skills_text: "1 of 1 skills correct",
           proficiency_text: GrowthResultsSummary::GAINED_PROFICIENCY,
           pre_test_proficiency: GrowthResultsSummary::NO_PROFICIENCY,
-          pre_test_proficiency_score: 0.5,
+          pre_test_proficiency_score: 0,
           post_test_proficiency: GrowthResultsSummary::PROFICIENCY,
           post_test_proficiency_score: 1.0,
           id: pre_test_skill_group_activity.skill_group.id,
