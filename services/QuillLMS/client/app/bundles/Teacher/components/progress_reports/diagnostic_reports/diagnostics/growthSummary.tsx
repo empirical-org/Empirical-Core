@@ -20,14 +20,23 @@ import {
 import DemoOnboardingTour, { DEMO_ONBOARDING_DIAGNOSTIC_GROWTH_SUMMARY, } from '../../../shared/demo_onboarding_tour';
 import LoadingSpinner from '../../../shared/loading_indicator.jsx';
 
+const PRE = 'pre'
+const POST = 'post'
+
+function sumScores(proficiencyScoresByStudent, type) {
+  return Object.values(proficiencyScoresByStudent).reduce((total, student_score) => {
+    return total += student_score[type]
+  }, 0)
+}
+
 const SkillGroupSummaryCard = ({ skillGroupSummary, completedStudentCount }: { skillGroupSummary: SkillGroupSummary, completedStudentCount: number }) => {
   const { name, description, not_yet_proficient_in_post_test_student_names, proficiency_scores_by_student } = skillGroupSummary
   let cardContent = noDataYet
 
   if (completedStudentCount) {
     const numberOfStudentsNeedingPracticeInPost = not_yet_proficient_in_post_test_student_names.length
-    const preProficiencyScoreTotalSum = Object.values(proficiency_scores_by_student).reduce((total, student_score) => { return total += student_score.pre }, 0)
-    const postProficiencyScoreTotalSum = Object.values(proficiency_scores_by_student).reduce((total, student_score) => { return total += student_score.post }, 0)
+    const preProficiencyScoreTotalSum = sumScores(proficiency_scores_by_student, PRE)
+    const postProficiencyScoreTotalSum = sumScores(proficiency_scores_by_student, POST)
     const preProficiencyClassPercentage = Math.round((preProficiencyScoreTotalSum / completedStudentCount) * 100)
     const postProficiencyClassPercentage = Math.round((postProficiencyScoreTotalSum / completedStudentCount) * 100)
     const delta = postProficiencyClassPercentage - preProficiencyClassPercentage
@@ -92,8 +101,10 @@ export const GrowthResults = ({ passedStudentResults, passedSkillGroupSummaries,
   const [loading, setLoading] = React.useState<boolean>(!passedStudentResults);
   const [studentResults, setStudentResults] = React.useState<StudentResult[]>(passedStudentResults || []);
   const [skillGroupSummaries, setSkillGroupSummaries] = React.useState<SkillGroupSummary[]>(passedSkillGroupSummaries || []);
+  const [classwideGrowthAverage, setClasswideGrowthAverage] = React.useState<number>(null);
 
   const { activityId, classroomId, } = match.params
+  const completedStudentCount = studentResults.filter(sr => sr.skill_groups).length
 
   React.useEffect(() => {
     getResults()
@@ -103,6 +114,30 @@ export const GrowthResults = ({ passedStudentResults, passedSkillGroupSummaries,
     setLoading(true)
     getResults()
   }, [activityId, classroomId])
+
+  React.useEffect(() => {
+    // classwideGrowthAverage result may be 0 in some instances so we check for initial null value
+    if (skillGroupSummaries.length && completedStudentCount && classwideGrowthAverage === null) {
+      calculateClassGrowthPercentage()
+    }
+  }, [skillGroupSummaries])
+
+  function calculateClassGrowthPercentage() {
+    let preTestTotal = 0
+    let postTestTotal = 0
+    const summariesCount = skillGroupSummaries.length
+    skillGroupSummaries.forEach(summary => {
+      const { proficiency_scores_by_student } = summary
+      const preScoresSum = sumScores(proficiency_scores_by_student, PRE)
+      const postScoresSum = sumScores(proficiency_scores_by_student, POST)
+      preTestTotal += (preScoresSum / completedStudentCount)
+      postTestTotal += (postScoresSum / completedStudentCount)
+    })
+    preTestTotal = preTestTotal / summariesCount
+    postTestTotal = postTestTotal / summariesCount
+    const classAverage = Math.round((postTestTotal - preTestTotal) * 100)
+    setClasswideGrowthAverage(classAverage)
+  }
 
   function getResults() {
     requestGet(`/teachers/progress_reports/diagnostic_growth_results_summary?activity_id=${activityId}&classroom_id=${classroomId}`,
@@ -116,7 +151,6 @@ export const GrowthResults = ({ passedStudentResults, passedSkillGroupSummaries,
 
   if (loading) { return <LoadingSpinner /> }
 
-  const completedStudentCount = studentResults.filter(sr => sr.skill_groups).length
 
   const skillGroupSummaryCards = skillGroupSummaries.map(skillGroupSummary => <SkillGroupSummaryCard completedStudentCount={completedStudentCount} key={skillGroupSummary.name} skillGroupSummary={skillGroupSummary} />)
 
