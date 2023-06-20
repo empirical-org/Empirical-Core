@@ -102,7 +102,7 @@ module Evidence
         end
 
         it 'should return correct spelling feedback when endpoint returns 200' do
-          stub_request(:get, "https://api.cognitive.microsoft.com/bing/v7.0/SpellCheck?mode=proof&text=#{ERB::Util.url_encode(entry_with_error)}").to_return(:status => 200, :body => { :flaggedTokens => ([{ :token => "spelin" }]) }.to_json, :headers => ({}))
+          stub_request(:get, "https://api.bing.microsoft.com/v7.0/spellcheck?mode=proof&text=#{ERB::Util.url_encode(entry_with_error)}").to_return(:status => 200, :body => { :flaggedTokens => ([{ :token => "spelin" }]) }.to_json, :headers => ({}))
           post :create, params: { entry: entry_with_error, :prompt_id => prompt.id, :session_id => 1 }, as: :json
 
           parsed_response = JSON.parse(response.body)
@@ -114,7 +114,7 @@ module Evidence
           expect(Evidence.error_notifier).to receive(:report).with(Evidence::Check::Spelling::BingException, error_context).once
           expect(Evidence.error_notifier).to receive(:report).with(NoMethodError).once
 
-          stub_request(:get, "https://api.cognitive.microsoft.com/bing/v7.0/SpellCheck?mode=proof&text=#{ERB::Util.url_encode(entry)}").to_return(:status => 200, :body => { :error => { :message => "There's a problem here" } }.to_json, :headers => ({}))
+          stub_request(:get, "https://api.bing.microsoft.com/v7.0/spellcheck?mode=proof&text=#{ERB::Util.url_encode(entry)}").to_return(:status => 200, :body => { :error => { :message => "There's a problem here" } }.to_json, :headers => ({}))
           post :create, params: { entry: entry, :prompt_id => prompt.id, :session_id => 1 }, as: :json
 
           parsed_response = JSON.parse(response.body)
@@ -688,7 +688,7 @@ module Evidence
       end
 
       it 'should return correct spelling feedback when endpoint returns 200' do
-        stub_request(:get, "https://api.cognitive.microsoft.com/bing/v7.0/SpellCheck?mode=proof&text=test%20spelin%20error").to_return(:status => 200, :body => { :flaggedTokens => ([{ :token => "spelin" }]) }.to_json, :headers => ({}))
+        stub_request(:get, "https://api.bing.microsoft.com/v7.0/spellcheck?mode=proof&text=test%20spelin%20error").to_return(:status => 200, :body => { :flaggedTokens => ([{ :token => "spelin" }]) }.to_json, :headers => ({}))
         post :create, :params => ({ :entry => "test spelin error", :prompt_id => prompt.id, :session_id => 1, :previous_feedback => ([]) }), :as => :json
         parsed_response = JSON.parse(response.body)
         expect(response.status).to(eq(200))
@@ -696,7 +696,7 @@ module Evidence
       end
 
       it 'should return 200 with fallback feedback if there is an error on the bing API' do
-        stub_request(:get, "https://api.cognitive.microsoft.com/bing/v7.0/SpellCheck?mode=proof&text=there%20is%20no%20spelling%20error%20here").to_return(:status => 200, :body => { :error => ({ :message => "There's a problem here" }) }.to_json, :headers => ({}))
+        stub_request(:get, "https://api.bing.microsoft.com/v7.0/spellcheck?mode=proof&text=there%20is%20no%20spelling%20error%20here").to_return(:status => 200, :body => { :error => ({ :message => "There's a problem here" }) }.to_json, :headers => ({}))
         post :create, :params => ({ :entry => "there is no spelling error here", :prompt_id => prompt.id, :session_id => 1, :previous_feedback => ([]) }), :as => :json
         parsed_response = JSON.parse(response.body)
         expect(response.status).to(eq(200))

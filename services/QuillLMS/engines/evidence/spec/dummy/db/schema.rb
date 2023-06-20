@@ -248,15 +248,6 @@ ActiveRecord::Schema.define(version: 2023_03_06_215624) do
     t.datetime "updated_at", precision: 6, null: false
   end
 
-  create_table "evidence_rule_hints", force: :cascade do |t|
-    t.bigint "rule_id", null: false
-    t.bigint "hint_id", null: false
-    t.datetime "created_at", precision: 6, null: false
-    t.datetime "updated_at", precision: 6, null: false
-    t.index ["hint_id"], name: "index_evidence_rule_hints_on_hint_id"
-    t.index ["rule_id"], name: "index_evidence_rule_hints_on_rule_id"
-  end
-
   create_table "evidence_text_generations", force: :cascade do |t|
     t.string "type", null: false
     t.jsonb "config"
@@ -274,6 +265,4 @@ ActiveRecord::Schema.define(version: 2023_03_06_215624) do
   add_foreign_key "comprehension_plagiarism_texts", "comprehension_rules", column: "rule_id", on_delete: :cascade
   add_foreign_key "comprehension_regex_rules", "comprehension_rules", column: "rule_id", on_delete: :cascade
   add_foreign_key "evidence_prompt_healths", "evidence_activity_healths", on_delete: :cascade
-  add_foreign_key "evidence_rule_hints", "comprehension_rules", column: "rule_id", on_delete: :cascade
-  add_foreign_key "evidence_rule_hints", "evidence_hints", column: "hint_id", on_delete: :cascade
 end
