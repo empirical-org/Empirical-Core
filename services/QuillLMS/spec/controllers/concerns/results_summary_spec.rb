@@ -34,7 +34,7 @@ describe ResultsSummary do
             description: skill_group_activity.skill_group.description,
             not_yet_proficient_student_names: [student1.name],
             proficiency_scores_by_student: {
-              student1.name => 0.0,
+              student1.name => 0.5,
               student3.name => 1.0
             }
           }

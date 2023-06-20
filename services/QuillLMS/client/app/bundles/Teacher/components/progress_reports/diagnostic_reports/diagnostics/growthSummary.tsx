@@ -26,14 +26,8 @@ const SkillGroupSummaryCard = ({ skillGroupSummary, completedStudentCount }: { s
 
   if (completedStudentCount) {
     const numberOfStudentsNeedingPracticeInPost = not_yet_proficient_in_post_test_student_names.length
-    let preProficiencyScoreTotalSum = 0
-    Object.keys(proficiency_scores_by_student).forEach(student => {
-      preProficiencyScoreTotalSum += proficiency_scores_by_student[student].pre
-    })
-    let postProficiencyScoreTotalSum = 0
-    Object.keys(proficiency_scores_by_student).forEach(student => {
-      postProficiencyScoreTotalSum += proficiency_scores_by_student[student].post
-    })
+    const preProficiencyScoreTotalSum = Object.values(proficiency_scores_by_student).reduce((total, student_score) => { return total += student_score.pre }, 0)
+    const postProficiencyScoreTotalSum = Object.values(proficiency_scores_by_student).reduce((total, student_score) => { return total += student_score.post }, 0)
     const preProficiencyClassPercentage = Math.round((preProficiencyScoreTotalSum / completedStudentCount) * 100)
     const postProficiencyClassPercentage = Math.round((postProficiencyScoreTotalSum / completedStudentCount) * 100)
     const delta = postProficiencyClassPercentage - preProficiencyClassPercentage
