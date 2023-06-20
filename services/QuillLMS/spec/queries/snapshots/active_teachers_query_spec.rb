@@ -7,7 +7,6 @@ module Snapshots
     context 'big_query_snapshot', :big_query_snapshot do
       include_context 'Snapshots Period CTE'
 
-
       let(:runner_context) do
         [
           classrooms,

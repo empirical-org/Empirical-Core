@@ -1,6 +1,6 @@
 # frozen_string_literal: true
 
-RSpec.shared_context 'Snapshots Count CTE' do
+RSpec.shared_context 'Snapshots Activity Session Count CTE' do
   include_context 'Snapshots Period CTE'
 
   let(:classroom_units) { classrooms.map { |classroom| create(:classroom_unit, classroom: classroom) } }

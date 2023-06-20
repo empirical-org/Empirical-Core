@@ -11,8 +11,9 @@ module Snapshots
       let(:max_activity_session_count) { 11 }
       let(:num_concepts) { 11 }
 
-      let(:concepts) { create_list(:concept, num_concepts) }
-      let(:activities) { concepts.map { |concept| create(:activity, data: {modelConceptUID: concept.uid}) } }
+      let(:activity_category_activities) { create_list(:activity_category_activity, num_concepts) }
+      let(:activity_categories) { activity_category_activities.map { |aca| aca.activity_category } }
+      let(:activities) { activity_category_activities.map { |aca| aca.activity } }
       let(:classroom_units) { classrooms.map { |classroom| create(:classroom_unit, classroom: classroom) } }
 
       # We have one activity connected to each concept.
@@ -30,15 +31,16 @@ module Snapshots
           classrooms_teachers,
           schools,
           schools_users,
-          concepts,
           activities,
+          activity_categories,
+          activity_category_activities,
           classroom_units
         ]
       }
 
       context 'all activity_sessions' do
         let(:expected_result) do
-          (0..9).map { |i| {"count"=>activity_session_bundles[i].length, "value"=>concepts[i].name} }
+          (0..9).map { |i| {"count"=>activity_session_bundles[i].length, "value"=>activity_categories[i].name} }
         end
         let(:cte_records) { [runner_context, activity_session_bundles] }
 

@@ -1,7 +1,7 @@
 # frozen_string_literal: true
 
 module Snapshots
-  class SentencesWrittenQuery < CountQuery
+  class SentencesWrittenQuery < ActivitySessionCountQuery
     def query
       <<-SQL
         SELECT COUNT(*) AS count

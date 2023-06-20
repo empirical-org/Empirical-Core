@@ -5,7 +5,7 @@ require 'rails_helper'
 module Snapshots
   describe StudentLearningHoursQuery do
     context 'external_api', :big_query_snapshot do
-      include_context 'Snapshots Count CTE'
+      include_context 'Snapshots Activity Session Count CTE'
 
       let(:total_timespent) { activity_sessions.sum(&:timespent) / 3600.0 }
 
