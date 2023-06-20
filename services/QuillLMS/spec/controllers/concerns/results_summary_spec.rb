@@ -34,8 +34,8 @@ describe ResultsSummary do
             description: skill_group_activity.skill_group.description,
             not_yet_proficient_student_names: [student1.name],
             proficiency_scores_by_student: {
-              student1.name => 0,
-              student3.name => 1
+              student1.name => 0.0,
+              student3.name => 1.0
             }
           }
         ],
@@ -53,6 +53,7 @@ describe ResultsSummary do
                     skill: skill.name,
                     number_correct: 1,
                     number_incorrect: 1,
+                    proficiency_score: 0.5,
                     summary: ResultsSummary::PARTIALLY_CORRECT,
                   }
                 ],
@@ -83,6 +84,7 @@ describe ResultsSummary do
                     skill: skill.name,
                     number_correct: 1,
                     number_incorrect: 0,
+                    proficiency_score: 1.0,
                     summary: ResultsSummary::FULLY_CORRECT,
                   }
                 ],
@@ -130,6 +132,7 @@ describe ResultsSummary do
                     skill: skill.name,
                     number_correct: 1,
                     number_incorrect: 1,
+                    proficiency_score: 0.5,
                     summary: ResultsSummary::PARTIALLY_CORRECT,
                   }
                 ],
@@ -172,6 +175,7 @@ describe ResultsSummary do
               skill: skill.name,
               number_correct: 1,
               number_incorrect: 1,
+              proficiency_score: 0.5,
               summary: ResultsSummary::PARTIALLY_CORRECT,
             }
           ],
