@@ -30,6 +30,7 @@ module CanvasIntegration
     end
 
     private def new_canvas_account_user
+      # build rather than create is used to satisfy requires_password validation on User
       user
         .canvas_accounts
         .build(canvas_instance: canvas_instance, external_id: external_id)
