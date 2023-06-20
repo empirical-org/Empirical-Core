@@ -55,8 +55,9 @@ module ResultsSummary
       correct_skill_ids = correct_skills.map { |s| s[:id] }
       correct_skill_number = correct_skills.count
       proficiency_text = summarize_student_proficiency_for_skill_per_activity(present_skill_number, correct_skill_number)
+      average_proficiency_score = skills.reduce(0) { |sum, skill| sum += skill[:proficiency_score] }.to_f / skills.length.to_f
       skill_group_summary_index = @skill_group_summaries.find_index { |sg| sg[:name] == skill_group.name }
-      @skill_group_summaries[skill_group_summary_index][:proficiency_scores_by_student][student_name] = correct_skill_number / present_skill_number.to_f
+      @skill_group_summaries[skill_group_summary_index][:proficiency_scores_by_student][student_name] = average_proficiency_score
       unless proficiency_text == PROFICIENCY
         @skill_group_summaries[skill_group_summary_index][:not_yet_proficient_student_names].push(student_name)
         @skill_group_summaries[skill_group_summary_index][:not_yet_proficient_student_names] = @skill_group_summaries[skill_group_summary_index][:not_yet_proficient_student_names].uniq
