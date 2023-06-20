@@ -18,7 +18,7 @@ describe DiagnosticReports do
         skill: skill_concept.skill.name,
         number_correct: 1,
         number_incorrect: 1,
-        proficiency_score: 0.5,
+        proficiency_score: 0,
         summary: DiagnosticReports::PARTIALLY_CORRECT
       })
     end
