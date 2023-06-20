@@ -5,7 +5,7 @@ require 'rails_helper'
 module Snapshots
   describe ActiveStudentsQuery do
     context 'external_api', :big_query_snapshot do
-      include_context 'Snapshots Count CTE'
+      include_context 'Snapshots Activity Session Count CTE'
 
       let(:num_active_students) { activity_sessions.map(&:user_id).uniq.count }
 

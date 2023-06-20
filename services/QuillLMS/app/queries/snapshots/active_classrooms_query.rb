@@ -1,7 +1,7 @@
 # frozen_string_literal: true
 
 module Snapshots
-  class ActiveClassroomsQuery < CountQuery
+  class ActiveClassroomsQuery < ActivitySessionCountQuery
     def select_clause
       "SELECT COUNT(DISTINCT classrooms.id) AS count"
     end

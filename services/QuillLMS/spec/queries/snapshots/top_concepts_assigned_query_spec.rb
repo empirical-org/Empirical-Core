@@ -10,8 +10,10 @@ module Snapshots
       let(:num_classrooms) { 1 }
       let(:num_concepts) { 11 }
 
-      let(:concepts) { create_list(:concept, num_concepts) }
-      let(:activities) { concepts.map { |concept| create(:activity, data: {modelConceptUID: concept.uid}) } }
+      let(:activity_category_activities) { create_list(:activity_category_activity, num_concepts) }
+      let(:activity_categories) { activity_category_activities.map { |aca| aca.activity_category } }
+      let(:activities) { activity_category_activities.map { |aca| aca.activity } }
+
       # Note that we're setting assigned_student_ids to an arbitrary one-length array because we don't actually need to reference the students in question, so any number "works" here.
       let(:classroom_units) { classrooms.map { |classroom| create_list(:classroom_unit, num_concepts, classroom: classroom, assigned_student_ids: [1]) }.flatten }
 
@@ -34,8 +36,9 @@ module Snapshots
           schools,
           schools_users,
           classroom_units,
-          concepts,
+          activity_categories,
           activities,
+          activity_category_activities,
           classroom_units
         ]
       }
@@ -44,7 +47,7 @@ module Snapshots
 
       context 'query LIMITs and shape' do
         let(:expected_result) do
-          (0..9).map { |i| {"count"=>unit_activity_bundles[i].length, "value"=>concepts[i].name} }
+          (0..9).map { |i| {"count"=>unit_activity_bundles[i].length, "value"=>activity_categories[i].name} }
         end
 
         it { expect(results).to eq(expected_result) }
