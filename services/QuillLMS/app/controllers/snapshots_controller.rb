@@ -37,10 +37,16 @@ class SnapshotsController < ApplicationController
   end
 
   def options
+    school_ids = option_params[:school_ids]
+    grades = option_params[:grades]
+    teacher_ids = option_params[:teacher_ids]
+
     render json: {
       timeframes: Snapshots::Timeframes.frontend_options,
       schools: Snapshots::SchoolsOptionsQuery.run(current_user.id),
-      grades: GRADE_OPTIONS
+      grades: GRADE_OPTIONS,
+      teachers: Snapshots::TeachersOptionsQuery.run(current_user.id, school_ids, grades),
+      classrooms: Snapshots::ClassroomsOptionsQuery.run(current_user.id, school_ids, grades, teacher_ids)
     }
   end
 
@@ -114,5 +120,11 @@ class SnapshotsController < ApplicationController
       :timeframe_custom_end,
       school_ids: [],
       grades: [])
+  end
+
+  private def option_params
+    params.permit(school_ids: [],
+      grades: [],
+      teacher_ids: [])
   end
 end

@@ -4,7 +4,7 @@ module Snapshots
   class OptionsQuery < ::QuillBigQuery::Query
     attr_accessor :admin_id, :school_ids, :grades, :teacher_ids
 
-    def initialize(admin_id, school_ids = [], grades = [], teacher_ids = [], options: {})
+    def initialize(admin_id, school_ids = nil, grades = nil, teacher_ids = nil, options: {})
       @admin_id = admin_id
       @school_ids = school_ids
       @grades = grades
@@ -52,19 +52,19 @@ module Snapshots
     end
 
     private def school_ids_where_clause
-      return "" if school_ids.empty?
+      return "" if school_ids.nil? || school_ids.empty?
 
       "AND schools_users.school_id IN (#{school_ids.join(',')})"
     end
 
     private def grades_where_clause
-      return "" if grades.empty?
+      return "" if grades.nil? || grades.empty?
 
       "AND classrooms.grade IN (#{grades.map { |g| "'#{g}'" }.join(',')})"
     end
 
     private def teacher_ids_where_clause
-      return "" if teacher_ids.empty?
+      return "" if teacher_ids.nil? || teacher_ids.empty?
 
       "AND classrooms_teachers.user_id IN (#{teacher_ids.join(',')})"
     end

@@ -223,8 +223,24 @@ describe SnapshotsController, type: :controller do
       ]
     }
 
+    let(:teachers_options) {
+      [
+        {"id" => 1, "name" => "Teacher 1"},
+        {"id" => 2, "name" => " 2"}
+      ]
+    }
+
+    let(:classrooms_options) {
+      [
+        {"id" => 1, "name" => "Classroom 1"},
+        {"id" => 2, "name" => "Classroom 2"}
+      ]
+    }
+
     before do
       allow(Snapshots::SchoolsOptionsQuery).to receive(:run).and_return(schools_options)
+      allow(Snapshots::TeachersOptionsQuery).to receive(:run).and_return(teachers_options)
+      allow(Snapshots::ClassroomsOptionsQuery).to receive(:run).and_return(classrooms_options)
     end
 
     it 'should return all valid timeframe options with names' do
@@ -249,6 +265,48 @@ describe SnapshotsController, type: :controller do
       json_response = JSON.parse(response.body)
 
       expect(json_response['grades']).to eq(controller.class::GRADE_OPTIONS.map(&:stringify_keys))
+    end
+
+    it 'should return a list of all teachers and their ids tied to the current_user' do
+      get :options
+
+      json_response = JSON.parse(response.body)
+
+      expect(json_response['teachers']).to eq(teachers_options)
+    end
+
+    it 'should return a list of all classrooms and their ids tied to the current_user' do
+      get :options
+
+      json_response = JSON.parse(response.body)
+
+      expect(json_response['classrooms']).to eq(classrooms_options)
+    end
+
+    context 'params' do
+      it 'should pass school_ids param through to filters' do
+        school_ids = ['1','2']
+
+        expect(Snapshots::ClassroomsOptionsQuery).to receive(:run).with(user.id, school_ids, nil, nil)
+
+        get :options, params: { school_ids: school_ids }
+      end
+
+      it 'should pass grades param through to filters' do
+        grades = ['1','2']
+
+        expect(Snapshots::ClassroomsOptionsQuery).to receive(:run).with(user.id, nil, grades, nil)
+
+        get :options, params: { grades: grades }
+      end
+
+      it 'should pass teacher_ids param through to filters' do
+        teacher_ids = ['1','2']
+
+        expect(Snapshots::ClassroomsOptionsQuery).to receive(:run).with(user.id, nil, nil, teacher_ids)
+
+        get :options, params: { teacher_ids: teacher_ids }
+      end
     end
   end
 end
