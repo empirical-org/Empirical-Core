@@ -26,6 +26,7 @@
 #
 class AuthCredential < ApplicationRecord
   belongs_to :user
+  has_one :canvas_instance_auth_credential, dependent: :destroy
 
   CANVAS_PROVIDER = 'canvas'
 

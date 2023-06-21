@@ -32,6 +32,10 @@ FactoryBot.define do
     expires_at 1.day.from_now
     user
 
+    factory :canvas_auth_credential do
+      provider AuthCredential::CANVAS_PROVIDER
+    end
+
     factory :google_auth_credential do
       provider AuthCredential::GOOGLE_PROVIDER
       expires_at AuthCredential::GOOGLE_EXPIRATION_DURATION.from_now
