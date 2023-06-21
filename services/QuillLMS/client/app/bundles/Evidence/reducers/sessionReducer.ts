@@ -10,6 +10,7 @@ export interface SessionReducerState {
   sessionID: string
   submittedResponses: { [key: string]: FeedbackObject[] }|{}
   activeStep: number,
+  previewSessionStep: string,
   explanationSlidesCompleted: boolean,
   activityIsComplete: boolean
 }
@@ -20,6 +21,7 @@ type SessionAction = Action & {
   sessionID: string,
   submittedResponses: SessionReducerState["submittedResponses"]
   activeStep: number,
+  previewSessionStep: string,
   explanationSlidesCompleted: boolean,
   activityIsComplete: boolean
 }
@@ -36,7 +38,8 @@ export default (
     submittedResponses: {},
     activeStep: shouldSkipToPrompts ? parseInt(getParameterByName('skipToStep', window.location.href)) || READ_PASSAGE_STEP_NUMBER + 1 : READ_PASSAGE_STEP_NUMBER,
     explanationSlidesCompleted: shouldSkipToPrompts || (activityCompletionCount > ACTIVITY_COMPLETION_MAXIMUM_FOR_ONBOARDING),
-    activityIsComplete: false
+    activityIsComplete: false,
+    previewSessionStep: null
   },
   action: SessionAction
 ) => {
@@ -58,6 +61,9 @@ export default (
     case ActionTypes.SET_ACTIVE_STEP:
       const { activeStep } = action
       return Object.assign({}, currentState, { activeStep });
+    case ActionTypes.SET_PREVIEW_SESSION_STEP:
+      const { previewSessionStep } = action
+      return Object.assign({}, currentState, { previewSessionStep });
     case ActionTypes.SET_EXPLANATIONS_SLIDES_COMPLETED:
       const { explanationSlidesCompleted } = action
       return Object.assign({}, currentState, { explanationSlidesCompleted });

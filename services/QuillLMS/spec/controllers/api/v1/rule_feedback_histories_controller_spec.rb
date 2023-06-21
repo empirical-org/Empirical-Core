@@ -62,7 +62,7 @@ describe Api::V1::RuleFeedbackHistoriesController, type: :controller do
       it 'should return successfully' do
         main_activity = create(:activity)
 
-        prompt = Evidence::Prompt.create!(
+        prompt = create(:evidence_prompt,
           text: 'foobarbazbat',
           conjunction: 'so',
           activity: main_activity,
@@ -94,7 +94,7 @@ describe Api::V1::RuleFeedbackHistoriesController, type: :controller do
       it 'should return successfully' do
         main_activity = create(:activity)
 
-        prompt = Evidence::Prompt.create!(
+        prompt = create(:evidence_prompt,
           text: 'foobarbazbat',
           conjunction: 'so',
           activity: main_activity,

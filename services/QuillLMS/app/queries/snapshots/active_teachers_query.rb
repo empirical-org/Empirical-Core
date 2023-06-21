@@ -1,16 +1,7 @@
 # frozen_string_literal: true
 
 module Snapshots
-  class ActiveTeachersQuery < PeriodQuery
-    # This is thee same run clause from CountQuery, but we don't
-    # want the additional JOINs in that sub-class, so this class
-    # inherits directly from PeriodQuery and copies CountQuery.run
-    def run
-      {
-        'count': run_query.first['count']
-      }
-    end
-
+  class ActiveTeachersQuery < CountQuery
     def select_clause
       "SELECT COUNT(DISTINCT users.id) AS count"
     end

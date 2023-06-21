@@ -5,7 +5,7 @@ import { TrackAnalyticsEvent } from '../actions/analytics';
 import { Events } from '../modules/analytics';
 import '../styles/headerStyling.scss';
 
-import { BECAUSE_PASSAGE_STEP_NUMBER, BUT_PASSAGE_STEP_NUMBER, READ_PASSAGE_STEP_NUMBER, SO_PASSAGE_STEP_NUMBER, Tooltip, whiteCheckGreenBackgroundIcon } from '../../Shared/index';
+import { BECAUSE_PASSAGE_STEP_NUMBER, BUT_PASSAGE_STEP_NUMBER, READ_PASSAGE_STEP_NUMBER, SO_PASSAGE_STEP_NUMBER, Tooltip, whiteCheckGreenBackgroundIcon, TeacherPreviewMenuButton } from '../../Shared/index';
 import { onMobile } from '../helpers/containerActionHelpers';
 import getParameterByName from '../helpers/getParameterByName';
 
@@ -28,13 +28,16 @@ export class Header extends React.Component<any, any> {
   }
 
   trackSaveAndExitEvent = () => {
-    const { dispatch } = this.props
+    const { dispatch, previewShowing } = this.props
     const { sessionID, } = this.state
-    const activityID = getParameterByName('uid', window.location.href)
-    dispatch(TrackAnalyticsEvent(Events.EVIDENCE_ACTIVITY_SAVED, {
-      activityID: activityID,
-      sessionID
-    }))
+
+    if(!previewShowing) {
+      const activityID = getParameterByName('uid', window.location.href)
+      dispatch(TrackAnalyticsEvent(Events.EVIDENCE_ACTIVITY_SAVED, {
+        activityID: activityID,
+        sessionID
+      }))
+    }
   }
 
   saveAndExit = () => {
@@ -48,6 +51,11 @@ export class Header extends React.Component<any, any> {
 
   handleOnClick = () => {
     this.saveAndExit()
+  }
+
+  handleTogglePreview = () => {
+    const { onTogglePreview } = this.props;
+    onTogglePreview();
   }
 
   renderNumberOrIcon = (step: number) => {
@@ -75,12 +83,15 @@ export class Header extends React.Component<any, any> {
   }
 
   render() {
-    const { session } = this.props;
+    const { session, isTeacher, previewShowing } = this.props;
     const { explanationSlidesCompleted, activityIsComplete } = session;
     const showStepsCounter = explanationSlidesCompleted && !activityIsComplete
     const isNotTurk = !window.location.href.includes('turk')
     const tooltipTrigger = <div><img alt="Question mark icon" src={helpIcon} /><span>Beta: <span>in development</span></span></div>
-    const mobileStyle = onMobile() || !showStepsCounter ? 'mobile' : '';
+    // we check previewShowing is false because it may initially be returned as null
+    const showTeacherPreviewMenuButton = isTeacher && previewShowing === false;
+    const mobileStyle = onMobile() || (!showStepsCounter && !showTeacherPreviewMenuButton) ? 'mobile' : '';
+
     return (
       <div className="header">
         <div className={`inner-header ${mobileStyle}`}>
@@ -97,6 +108,7 @@ export class Header extends React.Component<any, any> {
               />
               <span className="hide-on-desktop beta-tag">Beta</span>
             </div>
+            {showTeacherPreviewMenuButton && <TeacherPreviewMenuButton handleTogglePreview={this.handleTogglePreview} />}
           </div>
           <div className={`right-side-container ${mobileStyle}`}>
             {showStepsCounter && !onMobile() && this.renderStepCounter()}

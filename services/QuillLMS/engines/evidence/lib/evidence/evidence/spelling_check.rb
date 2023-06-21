@@ -31,7 +31,8 @@ module Evidence
       'worldwatch',
       'wilmut',
       'quokkaselfie',
-      'quokkaselfies'
+      'quokkaselfies',
+      'mestres'
     ]
 
     attr_reader :entry

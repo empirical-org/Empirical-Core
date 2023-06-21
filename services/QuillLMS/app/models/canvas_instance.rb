@@ -29,6 +29,18 @@ class CanvasInstance < ApplicationRecord
     uniqueness: true,
     url: true
 
+  def canvas_config
+    canvas_configs.last
+  end
+
+  def client_id
+    canvas_config&.client_id
+  end
+
+  def client_secret
+    canvas_config&.client_secret
+  end
+
   private def downcase_url
     self.url = url.downcase if url.present?
   end
