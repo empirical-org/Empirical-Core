@@ -1,51 +1,80 @@
 #!/usr/bin/env ruby
 # frozen_string_literal: true
 
-COMMANDS = %w(ssh tunnel)
 INSTANCES = {
-  'airbyte2' => {
+  1 => {
+    name: 'airbyte2',
     port: 8001,
-    tables: "concept_results"
+    tables: "concept_results",
   },
-  'airbyte-pink' => {
+  2 => {
+    name: 'airbyte-pink',
     port: 8002,
     tables: "classrooms classroom_units provider_classroom_users  students_classrooms unit_activities"
   },
-  'airbyte-0-43-0' => {
+  3 => {
+    name: 'airbyte-0-43-0',
     port: 8003,
     tables: "all_other_tables"
   }
 }
 
-def usage
-  puts "Usage: airbyte ssh|tunnel INSTANCE \n\n"
-  puts "INSTANCE\t | PORT | HOSTED TABLES"
-  INSTANCES.each do |name, instance|
-    puts "#{name}\t | #{instance[:port]} | #{instance[:tables]}"
+prompt_0 = <<~EOS
+What would you like to do?
+  1. Open the Airbyte UI
+  2. ssh into a Airbyte server\n
+Enter a number:
+EOS
+
+prompt_1 = "Which group of tables would you like to access?\n" \
+  + INSTANCES.map{|idx, instance| "#{idx}. #{instance[:tables]}\n" }.join \
+  + "\nEnter a number:"
+
+Step = Struct.new(:prompt, :valid?, :current_value)
+
+MACHINE = {
+  0 => Step.new(prompt_0, ->(input){ [1,2].include?(input.to_i)}, nil),
+  1 => Step.new(prompt_1, ->(input){ [1,2,3].include?(input.to_i)}, nil)
+}
+
+SSH_SUBCOMMAND = '2'
+FINAL_STATE = 1
+current_state = 0
+
+def final_state?(state)
+  state > 1
+end
+
+def run_command
+  subcommand = MACHINE[0].current_value
+  instance = INSTANCES[MACHINE[1].current_value.to_i]
+  if subcommand == SSH_SUBCOMMAND
+    cmd = "gcloud --project=analytics-data-stores beta compute ssh #{instance[:name]}"
+    puts "Running: #{cmd}...\n"
+    system "gcloud --project=analytics-data-stores beta compute ssh #{instance[:name]}"
+  else
+    cmd = "gcloud --project=analytics-data-stores beta compute ssh #{instance[:name]} -- -L #{instance[:port]}:localhost:8000 -N -f"
+    puts "Running: #{cmd}...\n"
+    system "gcloud --project=analytics-data-stores beta compute ssh #{instance[:name]} -- -L #{instance[:port]}:localhost:8000 -N -f"
+    system "open http://localhost:#{instance[:port]}"
   end
 
-  puts "\nMore info, including the web servers' basic auth password, here: \nhttps://www.notion.so/quill/Airbyte-devops-cheat-sheet-07720c320c664681ae55c593d0b8dc7c"
+  puts "\nMore info, including the web servers' basic auth password, here: \nhttps://www.notion.so/quill/Airbyte-devops-cheat-shee
+  t-07720c320c664681ae55c593d0b8dc7c \n\n Exiting..."
 end
 
-command   = ARGV[0]
-instance  = ARGV[1]
-
-if !INSTANCES.keys.include?(instance)
-  usage
-  exit 0
-end
-
-port = INSTANCES[instance][:port]
-
-if command == 'ssh'
-  cmd = "gcloud --project=analytics-data-stores beta compute ssh #{instance}"
-  puts "Running: #{cmd}...\n"
-  system "gcloud --project=analytics-data-stores beta compute ssh #{instance}"
-elsif command == 'tunnel'
-  cmd = "gcloud --project=analytics-data-stores beta compute ssh #{instance} -- -L #{port}:localhost:8000 -N -f"
-  puts "Running: #{cmd}...\n"
-  system "gcloud --project=analytics-data-stores beta compute ssh #{instance} -- -L #{port}:localhost:8000 -N -f"
-  system "open http://localhost:#{port}"
-else
-  usage
+loop do
+  step = MACHINE[current_state]
+  puts step.prompt
+  input = $stdin.gets.chomp
+  if step.valid?.call(input)
+    step.current_value = input
+    current_state += 1
+    if final_state?(current_state)
+      run_command
+      exit 0
+    end
+  else
+    puts "\nInvalid input. Please try again.\n"
+  end
 end
