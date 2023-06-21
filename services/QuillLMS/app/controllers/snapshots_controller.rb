@@ -80,7 +80,7 @@ class SnapshotsController < ApplicationController
     cache_key = cache_key_for_timeframe(previous_start, current_start, current_end)
     response = Rails.cache.read(cache_key)
 
-    return response if response
+    return { results: response } if response
 
     worker.perform_async(cache_key,
       @query,
