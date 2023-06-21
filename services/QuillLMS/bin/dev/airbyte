@@ -19,22 +19,27 @@ INSTANCES = {
   }
 }
 
-prompt_0 = <<~EOS
-What would you like to do?
-  1. Open the Airbyte UI
-  2. ssh into a Airbyte server\n
-Enter a number:
-EOS
+# To avoid nested string interpolation farther down
+INSTANCES_PRINTOUT = INSTANCES.map{|idx, instance| "#{idx}. #{instance[:tables]}\n" }.join
 
-prompt_1 = "Which group of tables would you like to access?\n" \
-  + INSTANCES.map{|idx, instance| "#{idx}. #{instance[:tables]}\n" }.join \
-  + "\nEnter a number:"
+prompt0 = <<~STR
+  What would you like to do?
+    1. Open the Airbyte UI
+    2. ssh into a Airbyte server\n
+  Enter a number:
+STR
+
+prompt1 = <<~STR
+  Which group of tables would you like to access?\n
+  #{INSTANCES_PRINTOUT}
+  Enter a number:
+STR
 
 Step = Struct.new(:prompt, :valid?, :current_value)
 
 MACHINE = {
-  0 => Step.new(prompt_0, ->(input){ [1,2].include?(input.to_i)}, nil),
-  1 => Step.new(prompt_1, ->(input){ [1,2,3].include?(input.to_i)}, nil)
+  0 => Step.new(prompt0, ->(input){ [1,2].include?(input.to_i)}, nil),
+  1 => Step.new(prompt1, ->(input){ [1,2,3].include?(input.to_i)}, nil)
 }
 
 SSH_SUBCOMMAND = '2'
