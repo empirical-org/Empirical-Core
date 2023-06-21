@@ -101,7 +101,7 @@ const SnapshotRanking = ({ label, queryKey, headers, comingSoon, searchCount, se
     const requestUrl = queryString.stringifyUrl({ url: '/snapshots/top_x', query: searchParams }, { arrayFormat: 'bracket' })
 
     requestGet(`${requestUrl}`, (body) => {
-      if (body.hasOwnProperty('message')) {
+      if (!body.hasOwnProperty('results')) {
         setLoading(true)
       } else {
         const { results, } = body
