@@ -12,5 +12,9 @@ module Snapshots
           ON schools_users.school_id = schools.id
       SQL
     end
+
+    private def order_by_column
+      "schools.name"
+    end
   end
 end
