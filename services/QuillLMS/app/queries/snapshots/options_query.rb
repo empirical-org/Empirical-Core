@@ -2,10 +2,13 @@
 
 module Snapshots
   class OptionsQuery < ::QuillBigQuery::Query
-    attr_accessor :admin_id
+    attr_accessor :admin_id, :school_ids, :grades, :teacher_ids
 
-    def initialize(admin_id, options = {})
+    def initialize(admin_id, school_ids = [], grades = [], teacher_ids = [], options: {})
       @admin_id = admin_id
+      @school_ids = school_ids
+      @grades = grades
+      @teacher_ids = teacher_ids
       super(options)
     end
 
@@ -32,7 +35,38 @@ module Snapshots
     end
 
     def where_clause
-      "WHERE admins.id = #{admin_id}"
+      <<-SQL
+        WHERE admins.id = #{admin_id}
+        #{school_ids_where_clause}
+        #{grades_where_clause}
+        #{teacher_ids_where_clause}
+      SQL
+    end
+
+    def order_by_clause
+      "ORDER BY #{order_by_column}"
+    end
+
+    private def order_by_column
+      raise NotImplementedError
+    end
+
+    private def school_ids_where_clause
+      return "" if school_ids.empty?
+
+      "AND schools_users.school_id IN (#{school_ids.join(',')})"
+    end
+
+    private def grades_where_clause
+      return "" if grades.empty?
+
+      "AND classrooms.grade IN (#{grades.map { |g| "'#{g}'" }.join(',')})"
+    end
+
+    private def teacher_ids_where_clause
+      return "" if teacher_ids.empty?
+
+      "AND classrooms_teachers.user_id IN (#{teacher_ids.join(',')})"
     end
   end
 end
