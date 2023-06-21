@@ -10,7 +10,7 @@
 #
 # Indexes
 #
-#  index_canvas_instance_auth_credentials_on_auth_credential_id  (auth_credential_id)
+#  index_canvas_instance_auth_credentials_on_auth_credential_id  (auth_credential_id) UNIQUE
 #  index_canvas_instance_auth_credentials_on_canvas_instance_id  (canvas_instance_id)
 #
 # Foreign Keys
@@ -27,5 +27,13 @@ describe CanvasInstanceAuthCredential, type: :model do
 
   it { should belong_to(:canvas_instance) }
   it { should belong_to(:auth_credential) }
+
+  it { should validate_uniqueness_of(:auth_credential_id) }
+
+  it 'validates database uniqueness constraint of auth_credential_id' do
+    expect {
+      build(:canvas_instance_auth_credential, auth_credential: subject.auth_credential).save(validate: false)
+    }.to raise_error(ActiveRecord::RecordNotUnique)
+  end
 end
 

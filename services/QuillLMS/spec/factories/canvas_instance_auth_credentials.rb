@@ -10,7 +10,7 @@
 #
 # Indexes
 #
-#  index_canvas_instance_auth_credentials_on_auth_credential_id  (auth_credential_id)
+#  index_canvas_instance_auth_credentials_on_auth_credential_id  (auth_credential_id) UNIQUE
 #  index_canvas_instance_auth_credentials_on_canvas_instance_id  (canvas_instance_id)
 #
 # Foreign Keys
@@ -21,6 +21,6 @@
 FactoryBot.define do
   factory :canvas_instance_auth_credential do
     canvas_instance
-    canvas_auth_credential
+    association :auth_credential, factory: :canvas_auth_credential
   end
 end

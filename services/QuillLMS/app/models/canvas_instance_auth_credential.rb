@@ -10,7 +10,7 @@
 #
 # Indexes
 #
-#  index_canvas_instance_auth_credentials_on_auth_credential_id  (auth_credential_id)
+#  index_canvas_instance_auth_credentials_on_auth_credential_id  (auth_credential_id) UNIQUE
 #  index_canvas_instance_auth_credentials_on_canvas_instance_id  (canvas_instance_id)
 #
 # Foreign Keys
@@ -21,4 +21,6 @@
 class CanvasInstanceAuthCredential < ApplicationRecord
   belongs_to :canvas_instance
   belongs_to :auth_credential
+
+  validates :auth_credential_id, uniqueness: true
 end

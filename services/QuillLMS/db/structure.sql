@@ -7713,7 +7713,7 @@ CREATE INDEX index_canvas_configs_on_canvas_instance_id ON public.canvas_configs
 -- Name: index_canvas_instance_auth_credentials_on_auth_credential_id; Type: INDEX; Schema: public; Owner: -
 --
 
-CREATE INDEX index_canvas_instance_auth_credentials_on_auth_credential_id ON public.canvas_instance_auth_credentials USING btree (auth_credential_id);
+CREATE UNIQUE INDEX index_canvas_instance_auth_credentials_on_auth_credential_id ON public.canvas_instance_auth_credentials USING btree (auth_credential_id);
 
 
 --
