@@ -1,7 +1,7 @@
 # frozen_string_literal: true
 
-module CleverIntegration
+module CanvasIntegration
   class TeacherClassroomsCache < ::TeacherClassroomsCache
-    CACHE_NAMESPACE = 'SERIALIZED_CLEVER_CLASSROOMS'
+    CACHE_NAMESPACE = 'SERIALIZED_CANVAS_CLASSROOMS'
   end
 end
