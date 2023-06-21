@@ -303,7 +303,7 @@ const renderPassageAndPrompts = ({ passage, prompts, textIsExpanded, toggleExpan
       <section className="text-preview-section">
         <h2>Text</h2>
         {ReactHtmlParser(clippedHtml, {transform: transformNode})}
-        <button className="interactive-wrapper toggle-text-button" onClick={toggleExpandedText}>{buttonLabel}</button>
+        <button className="interactive-wrapper toggle-text-button focus-on-light" onClick={toggleExpandedText}>{buttonLabel}</button>
       </section>
       <div className="divider" />
       <section className="lower-prompts-preview-section">
