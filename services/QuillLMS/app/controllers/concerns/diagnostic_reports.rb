@@ -31,11 +31,7 @@ module DiagnosticReports
   def calculate_proficiency_score(number_correct, number_incorrect)
     return NOT_PRESENT if number_correct == 0 && number_incorrect == 0
 
-    if number_incorrect == 0
-      1
-    else
-      0
-    end
+    number_incorrect.zero? ? 1 : 0
   end
 
   def summarize_correct_skills(number_correct, number_incorrect)
