@@ -105,7 +105,9 @@ const SnapshotRanking = ({ label, queryKey, headers, comingSoon, searchCount, se
         setLoading(true)
       } else {
         const { results, } = body
-        setData(results)
+        // We consider `null` to be a lack of data, so if the result is `[]` we need to explicitly `setData(null)`
+        const data = results.length > 0 ? results : null
+        setData(data)
         setLoading(false)
       }
     })
