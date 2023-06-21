@@ -42,10 +42,13 @@ module Snapshots
       end
 
       it 'should write a payload to cache' do
+        cache_ttl = 1
         payload = [{ value: 'Some Thing', count: 10 }]
 
+        expect(subject).to receive(:cache_expiry).and_return(cache_ttl)
+
         expect(query_double).to receive(:run).and_return(payload)
-        expect(Rails.cache).to receive(:write).with(cache_key, payload, expires_in: DateTime.current.end_of_day)
+        expect(Rails.cache).to receive(:write).with(cache_key, payload, expires_in: cache_ttl)
         expect(PusherTrigger).to receive(:run)
 
         subject.perform(cache_key, query, user_id, timeframe, school_ids, grades)
