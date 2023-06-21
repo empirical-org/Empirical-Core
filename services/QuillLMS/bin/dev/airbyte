@@ -51,11 +51,11 @@ def run_command
   if subcommand == SSH_SUBCOMMAND
     cmd = "gcloud --project=analytics-data-stores beta compute ssh #{instance[:name]}"
     puts "Running: #{cmd}...\n"
-    system "gcloud --project=analytics-data-stores beta compute ssh #{instance[:name]}"
+    system cmd
   else
     cmd = "gcloud --project=analytics-data-stores beta compute ssh #{instance[:name]} -- -L #{instance[:port]}:localhost:8000 -N -f"
     puts "Running: #{cmd}...\n"
-    system "gcloud --project=analytics-data-stores beta compute ssh #{instance[:name]} -- -L #{instance[:port]}:localhost:8000 -N -f"
+    system cmd
     system "open http://localhost:#{instance[:port]}"
   end
 
