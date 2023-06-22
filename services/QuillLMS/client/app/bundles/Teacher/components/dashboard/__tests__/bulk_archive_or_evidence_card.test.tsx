@@ -111,7 +111,7 @@ describe('BulkArchiveOrEvidenceCard container', () => {
 
         const wrapper = mount(
           <BulkArchiveOrEvidenceCard
-            passedCardClosedForRelevantYearInLocalStorage={true}
+            passedCardClosedForRelevantYear={true}
             {...sharedProps}
           />
         );
@@ -127,7 +127,7 @@ describe('BulkArchiveOrEvidenceCard container', () => {
 
         const wrapper = mount(
           <BulkArchiveOrEvidenceCard
-            passedCardClosedForRelevantYearInLocalStorage={false}
+            passedCardClosedForRelevantYear={false}
             {...sharedProps}
           />
         );
@@ -145,7 +145,7 @@ describe('BulkArchiveOrEvidenceCard container', () => {
 
         const wrapper = mount(
           <BulkArchiveOrEvidenceCard
-            passedCardClosedForRelevantYearInLocalStorage={false}
+            passedCardClosedForRelevantYear={false}
             {...sharedProps}
           />
         );
@@ -165,7 +165,7 @@ describe('BulkArchiveOrEvidenceCard container', () => {
 
         const wrapper = mount(
           <BulkArchiveOrEvidenceCard
-            passedCardClosedForRelevantYearInLocalStorage={true}
+            passedCardClosedForRelevantYear={true}
             {...sharedProps}
           />
         );
@@ -181,7 +181,7 @@ describe('BulkArchiveOrEvidenceCard container', () => {
 
         const wrapper = mount(
           <BulkArchiveOrEvidenceCard
-            passedCardClosedForRelevantYearInLocalStorage={false}
+            passedCardClosedForRelevantYear={false}
             {...sharedProps}
           />
         );
@@ -197,7 +197,7 @@ describe('BulkArchiveOrEvidenceCard container', () => {
 
         const wrapper = mount(
           <BulkArchiveOrEvidenceCard
-            passedCardClosedForRelevantYearInLocalStorage={false}
+            passedCardClosedForRelevantYear={false}
             {...sharedProps}
           />
         );

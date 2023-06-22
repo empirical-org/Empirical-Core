@@ -6,7 +6,7 @@ import BulkArchiveClassesModal from '../shared/bulk_archive_classes_modal'
 const closeIconSrc = `${process.env.CDN_URL}/images/pages/dashboard/bulk_archive_close_icon.svg`
 const illustrationSrc = `${process.env.CDN_URL}/images/pages/dashboard/bulk_archive_illustration.svg`
 
-const BulkArchiveClassesCard = ({ classrooms, localStorageKey, onSuccess, }) => {
+const BulkArchiveClassesCard = ({ classrooms, onSuccess, handleCloseCard, }) => {
   const [modalIsOpen, setModalIsOpen] = React.useState(false)
 
   const handleOpenModal = () => {
@@ -15,10 +15,6 @@ const BulkArchiveClassesCard = ({ classrooms, localStorageKey, onSuccess, }) => 
 
   const handleCloseModal = () => {
     setModalIsOpen(false)
-  }
-
-  const handleCloseCard = () => {
-    window.localStorage.setItem(localStorageKey, 'true')
   }
 
   function handleSuccess(snackbarCopy) {
