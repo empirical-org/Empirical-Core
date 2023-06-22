@@ -27,8 +27,8 @@
 #
 require 'rails_helper'
 
-describe CleverDistrictAuthCredential, type: :model do
-  subject { create(:clever_district_auth_credential) }
+describe CleverLibraryAuthCredential, type: :model do
+  subject { create(:clever_library_auth_credential) }
 
   it { should belong_to(:user) }
 

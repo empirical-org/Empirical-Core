@@ -43,5 +43,10 @@ FactoryBot.define do
       association :user, factory: [:teacher, :signed_up_with_clever]
     end
 
+    factory :clever_library_auth_credential, parent: :auth_credential, class: :CleverLibraryAuthCredential do
+      provider CleverLibraryAuthCredential::PROVIDER
+      expires_at CleverLibraryAuthCredential::EXPIRATION_DURATION.from_now
+      association :user, factory: [:teacher, :signed_up_with_clever]
+    end
   end
 end
