@@ -30,79 +30,8 @@ require 'rails_helper'
 describe AuthCredential, type: :model do
   it { should belong_to(:user) }
 
-  it { should have_one(:canvas_instance_auth_credential).dependent(:destroy) }
-
-  let(:auth_credential) { create(factory) }
-
-  context described_class::GOOGLE_PROVIDER do
-    let(:factory) { :google_auth_credential }
-
-    describe '#google_authorized?' do
-      context 'nil expires_at' do
-        before { auth_credential.update(expires_at: nil) }
-
-        it { should_not_be_clever_authorized}
-        it { should_not_be_google_authorized }
-      end
-
-      context 'nil refresh token' do
-        before { auth_credential.update(refresh_token: nil) }
-
-        it { should_not_be_clever_authorized}
-        it { should_not_be_google_authorized }
-      end
-
-      context 'expired refresh token' do
-        let(:expires_at) { Time.current - AuthCredential::GOOGLE_EXPIRATION_DURATION - 1.month }
-
-        before { auth_credential.update(expires_at: expires_at) }
-
-        it { should_not_be_clever_authorized}
-        it { should_not_be_google_authorized }
-      end
-    end
-
-    describe '#refresh_token_expires_at' do
-      it { expect(auth_credential.refresh_token_expires_at).not_to be_nil }
-
-      context 'nil expires_at' do
-        before { auth_credential.update(expires_at: nil) }
-
-        it { expect(auth_credential.refresh_token_expires_at).to be_nil }
-      end
-    end
-  end
-
-  context described_class::CLEVER_DISTRICT_PROVIDER do
-    let(:factory) { :clever_district_auth_credential }
-
-    it { expect(auth_credential.refresh_token_expires_at).to eq nil }
-    it { expect(auth_credential.refresh_token_valid?).to eq false }
-
-    it { should_be_clever_authorized}
-    it { should_not_be_google_authorized }
-  end
-
-  context described_class::CLEVER_LIBRARY_PROVIDER do
-    let(:factory) { :clever_library_auth_credential }
-
-    it { expect(auth_credential.refresh_token_expires_at).to eq nil }
-    it { expect(auth_credential.refresh_token_valid?).to eq false }
-
-    it { should_be_clever_authorized}
-    it { should_not_be_google_authorized }
-  end
-
-  def should_not_be_google_authorized
-    expect(auth_credential.google_authorized?).to be false
-  end
-
-  def should_be_clever_authorized
-    expect(auth_credential.clever_authorized?).to be true
-  end
-
-  def should_not_be_clever_authorized
-    expect(auth_credential.clever_authorized?).to be false
-  end
+  it { is_expected.not_to be_canvas_authorized }
+  it { is_expected.not_to be_clever_authorized }
+  it { is_expected.not_to be_google_authorized }
 end
 

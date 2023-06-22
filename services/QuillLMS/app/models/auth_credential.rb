@@ -29,46 +29,20 @@ class AuthCredential < ApplicationRecord
   self.inheritance_column = :_type_disabled
 
   belongs_to :user
-  has_one :canvas_instance_auth_credential, dependent: :destroy
 
-  CANVAS_PROVIDER = 'canvas'
-
-  GOOGLE_PROVIDER = 'google'
-  GOOGLE_EXPIRATION_DURATION = 6.months
-
-  CLEVER_DISTRICT_PROVIDER = 'clever_district'
-  CLEVER_LIBRARY_PROVIDER = 'clever_library'
-  CLEVER_EXPIRATION_DURATION = 23.hours
-
-  def google_access_expired?
-    google_provider? && !refresh_token_valid?
-  end
-
-  def google_authorized?
-    google_provider? && refresh_token_valid?
-  end
-
-  def google_provider?
-    provider == GOOGLE_PROVIDER
+  def canvas_authorized?
+    false
   end
 
   def clever_authorized?
-    [CLEVER_DISTRICT_PROVIDER, CLEVER_LIBRARY_PROVIDER].include?(provider)
+    false
   end
 
-  def refresh_token_valid?
-    return false if !google_provider? || expires_at.nil? || refresh_token.nil?
-
-    Time.current < refresh_token_expires_at
+  def google_access_expired?
+    false
   end
 
-  def refresh_token_expires_at
-    return nil if !google_provider? || expires_at.nil?
-
-    expires_at + GOOGLE_EXPIRATION_DURATION
-  end
-
-  def token
-    access_token
+  def google_authorized?
+    false
   end
 end
