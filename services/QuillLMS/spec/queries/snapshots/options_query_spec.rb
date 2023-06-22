@@ -21,7 +21,7 @@ module Snapshots
       let(:results) {TestOptionsQuery.run(*query_args, options: {runner: runner}) }
       # We want to ensure that a single admin is connected to all schools
       # `admin` is already the user associated with the first school, but not the others
-      let(:additional_schools_admins) { schools[1..].map { |s| SchoolsAdmins.create(school: s, user: admin) } }
+      let(:additional_schools_admins) { schools[1..-1].map { |s| SchoolsAdmins.create(school: s, user: admin) } }
 
       let(:cte_records) {
         [
@@ -48,7 +48,7 @@ module Snapshots
       context 'with grade filter' do
         before do
           classrooms.first.update(grade: "1")
-          classrooms[1..].each { |c| c.update(grade: "2") }
+          classrooms[1..-1].each { |c| c.update(grade: "2") }
         end
 
         let(:query_args) { [admin.id, [], [classrooms.first.grade]] }
