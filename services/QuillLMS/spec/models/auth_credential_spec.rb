@@ -29,6 +29,8 @@ require 'rails_helper'
 describe AuthCredential, type: :model do
   it { should belong_to(:user) }
 
+  it { should have_one(:canvas_instance_auth_credential).dependent(:destroy) }
+
   let(:auth_credential) { create(factory) }
 
   context described_class::GOOGLE_PROVIDER do

@@ -28,6 +28,8 @@ RSpec.describe CanvasInstance, type: :model do
 
   it { should have_many(:canvas_configs).dependent(:destroy)}
 
+  it { should have_many(:canvas_instance_auth_credentials).dependent(:destroy) }
+
   context 'callbacks' do
     context 'before_validation' do
       it 'converts the url to lower case' do
