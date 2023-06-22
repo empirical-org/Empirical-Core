@@ -2,12 +2,12 @@
 
 module CleverIntegration
   class AuthCredentialSaver < ApplicationService
-    attr_reader :user, :access_token, :provider
+    attr_reader :access_token, :auth_credential_class, :user
 
-    def initialize(user, access_token, provider)
-      @user = user
+    def initialize(access_token:, auth_credential_class:, user:)
       @access_token = access_token
-      @provider = provider
+      @auth_credential_class = auth_credential_class
+      @user = user
     end
 
     def run
@@ -25,7 +25,7 @@ module CleverIntegration
     end
 
     private def expires_at
-      @expires_at ||= AuthCredential::CLEVER_EXPIRATION_DURATION.from_now
+      @expires_at ||= auth_credential_class::EXPIRATION_DURATION.from_now
     end
 
     private def initiate_expiration_worker
@@ -33,10 +33,10 @@ module CleverIntegration
     end
 
     private def new_auth_credential
-      @new_auth_credential ||= AuthCredential.create!(
+      @new_auth_credential ||= auth_credential_class.create!(
         access_token: access_token,
         expires_at: expires_at,
-        provider: provider,
+        provider: auth_credential_class::PROVIDER,
         user: user
       )
     end

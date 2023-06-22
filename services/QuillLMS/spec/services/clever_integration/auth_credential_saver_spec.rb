@@ -5,12 +5,18 @@ require 'rails_helper'
 RSpec.describe CleverIntegration::AuthCredentialSaver do
   let(:teacher) { create(:teacher, :signed_up_with_clever) }
   let(:access_token) { 'asfUI213bda2j'}
-  let(:expires_at) { AuthCredential::CLEVER_EXPIRATION_DURATION.from_now }
 
-  subject { described_class.run(teacher, access_token, provider) }
+  subject do
+    described_class.run(
+      access_token: access_token,
+      auth_credential_class: auth_credential_class,
+      user: teacher
+    )
+  end
 
   context 'Clever Library' do
-    let(:provider) { AuthCredential::CLEVER_LIBRARY_PROVIDER }
+    let(:auth_credential_class) { CleverLibraryAuthCredential }
+    let(:expires_at) { auth_credential_class::EXPIRATION_DURATION.from_now }
 
     it { expects_new_credentials_are_saved }
     it { purges_expired_auth_credentials }
@@ -24,7 +30,8 @@ RSpec.describe CleverIntegration::AuthCredentialSaver do
   end
 
   context 'Clever District' do
-    let(:provider) { AuthCredential::CLEVER_DISTRICT_PROVIDER }
+    let(:auth_credential_class) { CleverDistrictAuthCredential }
+    let(:expires_at) { auth_credential_class::EXPIRATION_DURATION.from_now }
 
     it { expects_new_credentials_are_saved }
     it { purges_expired_auth_credentials }
@@ -39,7 +46,8 @@ RSpec.describe CleverIntegration::AuthCredentialSaver do
 
   def expects_new_credentials_are_saved
     subject
-    expect(teacher.auth_credential.provider).to eq provider
+    expect(teacher.auth_credential).to be_a auth_credential_class
+    expect(teacher.auth_credential.provider).to eq auth_credential_class::PROVIDER
     expect(teacher.auth_credential.access_token).to eq access_token
     expect(teacher.auth_credential.expires_at).to be_within(1.minute).of(expires_at)
   end
