@@ -36,8 +36,15 @@ export function calculateClassGrowthPercentage({ skillGroupSummaries, completedS
     const { proficiency_scores_by_student } = summary
     const preScoresSum = sumProficiencyScores(proficiency_scores_by_student, PRE)
     const postScoresSum = sumProficiencyScores(proficiency_scores_by_student, POST)
-    preTestTotal += (preScoresSum / completedStudentCount)
-    postTestTotal += (postScoresSum / completedStudentCount)
+    // we don't want to account for no growth instances so we add the pre test average for both totals
+    if(preScoresSum > postScoresSum) {
+      const sum = preScoresSum / completedStudentCount
+      preTestTotal += sum
+      postTestTotal += sum
+    } else {
+      preTestTotal += (preScoresSum / completedStudentCount)
+      postTestTotal += (postScoresSum / completedStudentCount)
+    }
   })
   preTestTotal = preTestTotal / summariesCount
   postTestTotal = postTestTotal / summariesCount
