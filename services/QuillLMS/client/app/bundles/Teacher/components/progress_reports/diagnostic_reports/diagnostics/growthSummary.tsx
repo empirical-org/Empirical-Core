@@ -135,10 +135,10 @@ export const GrowthResults = ({ activityName, passedStudentResults, passedSkillG
     if(classwideGrowthAverage === null) { return }
 
     const classwideGrowthDisplayedAverage = classwideGrowthAverage > 0 ? classwideGrowthAverage: 0;
-
+    const activityDisplayedName = activityName.replace('(Post)', '').trim();
     return(
       <section className="lower-header-section">
-        <span className="activity-name">{`${activityName}:`}</span>
+        <span className="activity-name">{`${activityDisplayedName}:`}</span>
         {renderGrowthElement(classwideGrowthDisplayedAverage, 'Class-wide skill growth')}
       </section>
     )
