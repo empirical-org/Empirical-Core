@@ -5,20 +5,22 @@ require 'rails_helper'
 module Snapshots
   describe OptionsQuery do
     # This is basically ClassroomOptionsQuery
-    class TestOptionsQuery < OptionsQuery
-      def select_clause
-        "SELECT DISTINCT classrooms.id, classrooms.name"
-      end
+    let(:test_options_query) do
+      Class.new(described_class) do
+        def select_clause
+          "SELECT DISTINCT classrooms.id, classrooms.name"
+        end
 
-      private def order_by_column
-        "classrooms.name"
+        private def order_by_column
+          "classrooms.name"
+        end
       end
     end
 
     context 'external_api', :big_query_snapshot do
       include_context 'Snapshots Option CTE'
 
-      let(:results) {TestOptionsQuery.run(*query_args, options: {runner: runner}) }
+      let(:results) {test_options_query.run(*query_args, options: {runner: runner}) }
       # We want to ensure that a single admin is connected to all schools
       # `admin` is already the user associated with the first school, but not the others
       let(:additional_schools_admins) { schools[1..-1].map { |s| SchoolsAdmins.create(school: s, user: admin) } }
@@ -37,7 +39,7 @@ module Snapshots
 
       let(:sorted_classrooms) { classrooms.sort_by(&:name) }
 
-      it { expect(results).to eq sorted_classrooms.map { |c| { "id" => c.id, "name" => c.name } } }
+      it { expect(results).to eq(sorted_classrooms.map { |c| { "id" => c.id, "name" => c.name } }) }
 
       context 'with school_id filter' do
         let(:query_args) { [admin.id, [schools.first.id]] }
@@ -52,13 +54,13 @@ module Snapshots
         end
 
         let(:query_args) { [admin.id, [], [classrooms.first.grade]] }
-      
+
         it { expect(results).to eq([{ "id" => classrooms.first.id, "name" => classrooms.first.name }]) }
       end
 
       context 'with teacher_id filter' do
         let(:query_args) { [admin.id, [], [], [teachers.first.id]] }
-      
+
         it { expect(results).to eq([{ "id" => classrooms.first.id, "name" => classrooms.first.name }]) }
       end
     end
