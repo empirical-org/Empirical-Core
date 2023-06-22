@@ -38,11 +38,11 @@ class CanvasAuthCredential < AuthCredential
     refresh_token_valid?
   end
 
-  def token
-    access_token
+  def refresh_token_valid?
+    expires_at.present? && refresh_token.present?
   end
 
-  private def refresh_token_valid?
-    expires_at.present? && refresh_token.present?
+  def token
+    access_token
   end
 end
