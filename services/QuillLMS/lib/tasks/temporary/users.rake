@@ -26,4 +26,12 @@ namespace :users do
       DualGoogleIdAndCleverIdResolver.run(user)
     end
   end
+
+  task update_auth_credential_types: :environment do
+    ['canvas', 'google', 'clever_district', 'clever_library'].each do |provider|
+      AuthCredential.where(provider: provider).find_each do |auth_credential|
+        auth_credential.update(type: type)
+      end
+    end
+  end
 end
