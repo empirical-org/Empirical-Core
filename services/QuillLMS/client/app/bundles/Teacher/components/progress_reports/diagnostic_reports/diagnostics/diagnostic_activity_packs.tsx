@@ -99,7 +99,9 @@ const Diagnostic = ({ diagnostic, }) => {
   const completedStudentCount = studentResults.filter(sr => sr.skill_groups).length
 
   React.useEffect(() => {
-    getResults()
+    if(post && post.activity_id) {
+      getResults()
+    }
   }, [])
 
   React.useEffect(() => {

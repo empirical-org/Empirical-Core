@@ -97,7 +97,7 @@ exports[`GrowthSummarySection component should render showGrowthSummarySection i
               alt="Triangle up icon"
               src="undefined/images/pages/diagnostic_reports/icons-triangle-up-green.svg"
             />
-            18
+            18%
           </span>
         </span>
       </p>
