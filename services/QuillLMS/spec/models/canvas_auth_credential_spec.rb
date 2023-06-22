@@ -7,7 +7,7 @@
 #  id            :integer          not null, primary key
 #  access_token  :string           not null
 #  expires_at    :datetime
-#  provider      :string
+#  provider      :string           not null
 #  refresh_token :string
 #  timestamp     :datetime
 #  type          :string
@@ -27,12 +27,30 @@
 #
 require 'rails_helper'
 
-describe AuthCredential, type: :model do
+describe CanvasAuthCredential, type: :model do
   it { should belong_to(:user) }
+  it { should have_one(:canvas_instance_auth_credential).dependent(:destroy) }
+  it { should have_one(:canvas_instance).through(:canvas_instance_auth_credential)}
 
-  it { is_expected.not_to be_canvas_authorized }
+  subject { create(:canvas_auth_credential) }
+
   it { is_expected.not_to be_clever_authorized }
-  it { is_expected.not_to be_google_access_expired }
   it { is_expected.not_to be_google_authorized }
+
+  describe '#canvas_authorized?' do
+    it { is_expected.to be_canvas_authorized}
+
+    context 'nil expires_at' do
+      before { subject.update(expires_at: nil) }
+
+      it { is_expected.not_to be_canvas_authorized }
+    end
+
+    context 'nil refresh token' do
+      before { subject.update(refresh_token: nil) }
+
+      it { is_expected.not_to be_canvas_authorized }
+    end
+  end
 end
 
