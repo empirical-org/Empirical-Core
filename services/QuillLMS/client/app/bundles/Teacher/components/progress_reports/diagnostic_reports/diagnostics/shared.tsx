@@ -24,10 +24,34 @@ export function goToAssign(unitTemplateId, name, activityId) {
   window.location.href = `/assign/select-classes?diagnostic_unit_template_id=${unitTemplateIdString}`
 }
 
+export function sumProficiencyScores(proficiencyScoresByStudent: { [name: string]: { pre: number, post: number } }, type: string) {
+  return Object.values(proficiencyScoresByStudent).reduce((total, student_score) => total += student_score[type], 0)
+}
+
+export function calculateClassGrowthPercentage({ skillGroupSummaries, completedStudentCount, setClasswideGrowthAverage }) {
+  let preTestTotal = 0
+  let postTestTotal = 0
+  const summariesCount = skillGroupSummaries.length
+  skillGroupSummaries.forEach(summary => {
+    const { proficiency_scores_by_student } = summary
+    const preScoresSum = sumProficiencyScores(proficiency_scores_by_student, PRE)
+    const postScoresSum = sumProficiencyScores(proficiency_scores_by_student, POST)
+    preTestTotal += (preScoresSum / completedStudentCount)
+    postTestTotal += (postScoresSum / completedStudentCount)
+  })
+  preTestTotal = preTestTotal / summariesCount
+  postTestTotal = postTestTotal / summariesCount
+  const classAverage = Math.round((postTestTotal - preTestTotal) * 100)
+  setClasswideGrowthAverage(classAverage)
+}
+
 export const noDataYet = (<div className="no-data-yet">
   <h5>No data yet</h5>
   <p>Data will appear in this report shortly after your students complete the diagnostic.</p>
 </div>)
+
+export const PRE = 'pre'
+export const POST = 'post'
 
 const PROFICIENCY = 'Proficiency'
 const PARTIAL_PROFICIENCY = 'Partial proficiency'

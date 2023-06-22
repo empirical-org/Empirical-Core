@@ -10,6 +10,10 @@ import {
   fileDocumentIcon,
   noDataYet,
   triangleUpIcon,
+  PRE,
+  POST,
+  sumProficiencyScores,
+  calculateClassGrowthPercentage
 } from './shared';
 import SkillGroupTooltip from './skillGroupTooltip';
 
@@ -20,16 +24,7 @@ import {
 import DemoOnboardingTour, { DEMO_ONBOARDING_DIAGNOSTIC_GROWTH_SUMMARY, } from '../../../shared/demo_onboarding_tour';
 import LoadingSpinner from '../../../shared/loading_indicator.jsx';
 
-const PRE = 'pre'
-const POST = 'post'
-
-function sumScores(proficiencyScoresByStudent, type) {
-  return Object.values(proficiencyScoresByStudent).reduce((total, student_score) => {
-    return total += student_score[type]
-  }, 0)
-}
-
-function renderGrowthElement(delta, text) {
+function renderGrowthElement(delta: number, text: string) {
   return delta > 0 ? <span className="growth-element">{triangleUpIcon}<span>{Math.round(delta)}{`% ${text}`}</span></span> : <span className="growth-element no-growth">No growth</span>
 }
 
@@ -39,8 +34,8 @@ const SkillGroupSummaryCard = ({ skillGroupSummary, completedStudentCount }: { s
 
   if (completedStudentCount) {
     const numberOfStudentsNeedingPracticeInPost = not_yet_proficient_in_post_test_student_names.length
-    const preProficiencyScoreTotalSum = sumScores(proficiency_scores_by_student, PRE)
-    const postProficiencyScoreTotalSum = sumScores(proficiency_scores_by_student, POST)
+    const preProficiencyScoreTotalSum = sumProficiencyScores(proficiency_scores_by_student, PRE)
+    const postProficiencyScoreTotalSum = sumProficiencyScores(proficiency_scores_by_student, POST)
     const preProficiencyClassPercentage = Math.round((preProficiencyScoreTotalSum / completedStudentCount) * 100)
     const postProficiencyClassPercentage = Math.round((postProficiencyScoreTotalSum / completedStudentCount) * 100)
     const delta = postProficiencyClassPercentage - preProficiencyClassPercentage
@@ -122,26 +117,9 @@ export const GrowthResults = ({ activityName, passedStudentResults, passedSkillG
   React.useEffect(() => {
     // classwideGrowthAverage result may be 0 in some instances so we check for initial null value
     if (skillGroupSummaries.length && completedStudentCount && classwideGrowthAverage === null) {
-      calculateClassGrowthPercentage()
+      calculateClassGrowthPercentage({ skillGroupSummaries, completedStudentCount, setClasswideGrowthAverage })
     }
   }, [skillGroupSummaries])
-
-  function calculateClassGrowthPercentage() {
-    let preTestTotal = 0
-    let postTestTotal = 0
-    const summariesCount = skillGroupSummaries.length
-    skillGroupSummaries.forEach(summary => {
-      const { proficiency_scores_by_student } = summary
-      const preScoresSum = sumScores(proficiency_scores_by_student, PRE)
-      const postScoresSum = sumScores(proficiency_scores_by_student, POST)
-      preTestTotal += (preScoresSum / completedStudentCount)
-      postTestTotal += (postScoresSum / completedStudentCount)
-    })
-    preTestTotal = preTestTotal / summariesCount
-    postTestTotal = postTestTotal / summariesCount
-    const classAverage = Math.round((postTestTotal - preTestTotal) * 100)
-    setClasswideGrowthAverage(classAverage)
-  }
 
   function getResults() {
     requestGet(`/teachers/progress_reports/diagnostic_growth_results_summary?activity_id=${activityId}&classroom_id=${classroomId}`,
