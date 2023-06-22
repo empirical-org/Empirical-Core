@@ -22,6 +22,8 @@ class CanvasInstance < ApplicationRecord
 
   has_many :canvas_configs, dependent: :destroy
 
+  has_many :canvas_instance_auth_credentials, dependent: :destroy
+
   before_validation :downcase_url
 
   validates :url,

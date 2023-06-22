@@ -19,6 +19,7 @@ module CanvasIntegration
       raise CanvasInstanceNotFoundError unless canvas_instance
       raise CanvasAccountNotFoundError unless canvas_account
 
+      create_canvas_instance_auth_credential
       auth_credential
     end
 
@@ -27,17 +28,22 @@ module CanvasIntegration
     end
 
     private def auth_credential
-      AuthCredential.create!(
-        access_token: access_token,
-        expires_at: expires_at,
-        provider: PROVIDER,
-        refresh_token: refresh_token,
-        user: user
-      )
+      @auth_credential ||=
+        AuthCredential.create!(
+          access_token: access_token,
+          expires_at: expires_at,
+          provider: PROVIDER,
+          refresh_token: refresh_token,
+          user: user
+        )
     end
 
     private def canvas_account
       @canvas_account ||= CanvasAccount.find_by(external_id: external_id, canvas_instance: canvas_instance)
+    end
+
+    private def create_canvas_instance_auth_credential
+      auth_credential.create_canvas_instance_auth_credential!(canvas_instance: canvas_instance)
     end
 
     private def canvas_instance
