@@ -43,10 +43,11 @@ class GoogleIntegration::User
 
   private def auth_credential_attributes(user)
     {
-      provider:      'google',
-      refresh_token: profile.refresh_token || user&.auth_credential&.refresh_token,
-      expires_at:    profile.expires_at,
       access_token:  profile.access_token,
+      expires_at:    profile.expires_at,
+      refresh_token: profile.refresh_token || user&.auth_credential&.refresh_token,
+      provider: GoogleAuthCredential::PROVIDER,
+      type: GoogleAuthCredential.name
     }
   end
 end
