@@ -50,7 +50,7 @@ const Filters = ({ allTimeframes, allSchools, allGrades, applyFilters, clearFilt
   ))
 
   function renderFilterButtons() {
-    if (!hasAdjustedFiltersFromDefault) { return null }
+    if (!hasAdjustedFiltersFromDefault && !hasAdjustedFiltersSinceLastSubmission) { return null }
 
     let applyClassName = "quill-button small contained primary focus-on-light"
 
