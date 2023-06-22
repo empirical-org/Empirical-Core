@@ -32,5 +32,9 @@ FactoryBot.define do
     provider 'hooli'
     expires_at 1.day.from_now
     user
+
+    factory :canvas_auth_credential, parent: :auth_credential, class: :CanvasAuthCredential do
+      provider CanvasAuthCredential::PROVIDER
+    end
   end
 end
