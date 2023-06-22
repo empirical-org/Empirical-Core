@@ -14,7 +14,8 @@ module Snapshots
       'activities-completed' => Snapshots::ActivitiesCompletedQuery,
       'average-activities-completed-per-student' => Snapshots::AverageActivitiesCompletedPerStudentQuery,
       'sentences-written' => Snapshots::SentencesWrittenQuery,
-      'student-learning-hours' => Snapshots::StudentLearningHoursQuery
+      'student-learning-hours' => Snapshots::StudentLearningHoursQuery,
+      'teacher-accounts-created' => Snapshots::TeacherAccountsCreated
     }
 
     def perform(cache_key, query, user_id, timeframe, school_ids, grades)
