@@ -20,7 +20,7 @@ namespace :vitally do
     CSV.parse(pipe_data, headers: true).each_slice(33) do |batch|
       batch_payload = batch.map do |row|
         user = User.includes(:schools_users).find(row['externalId'])
-        quill_school_id = user.schools_users.school_id
+        quill_school_id = user.schools_users&.school_id
         vitally_school_ids = [
           row['accountExternalId1'],
           row['accountExternalId2'],
