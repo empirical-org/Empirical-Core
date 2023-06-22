@@ -25,16 +25,11 @@
 #
 #  fk_rails_...  (user_id => users.id)
 #
-require 'rails_helper'
+class CleverLibraryAuthCredential < AuthCredential
+  EXPIRATION_DURATION = 23.hours
+  PROVIDER = 'clever_library'
 
-describe CleverDistrictAuthCredential, type: :model do
-  subject { create(:clever_district_auth_credential) }
-
-  it { should belong_to(:user) }
-
-  it { is_expected.to be_clever_authorized }
-
-  it { is_expected.not_to be_canvas_authorized }
-  it { is_expected.not_to be_google_authorized }
+  def clever_authorized?
+    true
+  end
 end
-
