@@ -26,9 +26,8 @@
 #  fk_rails_...  (user_id => users.id)
 #
 class GoogleAuthCredential < AuthCredential
-  GOOGLE_EXPIRATION_DURATION = 1.hour
-  PROVIDER = 'google'
   EXPIRATION_DURATION = 6.months
+  PROVIDER = 'google'
 
   def google_access_expired?
     !refresh_token_valid?
@@ -38,19 +37,15 @@ class GoogleAuthCredential < AuthCredential
     refresh_token_valid?
   end
 
+  def refresh_token_expires_at
+    return nil if expires_at.nil?
+
+    expires_at + EXPIRATION_DURATION
+  end
+
   def refresh_token_valid?
     return false if expires_at.nil? || refresh_token.nil?
 
     Time.current < refresh_token_expires_at
-  end
-
-  def refresh_token_expires_at
-    return nil if expires_at.nil?
-
-    expires_at + GOOGLE_EXPIRATION_DURATION
-  end
-
-  def token
-    access_token
   end
 end
