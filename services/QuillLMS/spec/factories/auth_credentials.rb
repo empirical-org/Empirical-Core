@@ -48,5 +48,13 @@ FactoryBot.define do
       expires_at CleverLibraryAuthCredential::EXPIRATION_DURATION.from_now
       association :user, factory: [:teacher, :signed_up_with_clever]
     end
+
+    factory :google_auth_credential, parent: :auth_credential, class: :GoogleAuthCredential do
+      provider GoogleAuthCredential::PROVIDER
+      expires_at GoogleAuthCredential::EXPIRATION_DURATION.from_now
+      association :user, factory: [:teacher, :signed_up_with_google]
+
+      trait(:expired) { expires_at GoogleAuthCredential::EXPIRATION_DURATION.ago }
+    end
   end
 end
