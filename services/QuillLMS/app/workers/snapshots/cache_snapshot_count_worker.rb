@@ -13,6 +13,7 @@ module Snapshots
       'activities-assigned' => Snapshots::ActivitiesAssignedQuery,
       'activities-completed' => Snapshots::ActivitiesCompletedQuery,
       'activity-packs-assigned' => Snapshots::ActivityPacksAssignedQuery,
+      'activity-packs-completed' => Snapshots::ActivityPacksCompletedQuery,
       'average-activities-completed-per-student' => Snapshots::AverageActivitiesCompletedPerStudentQuery,
       'classrooms-created' => Snapshots::ClassroomsCreatedQuery,
       'sentences-written' => Snapshots::SentencesWrittenQuery,
