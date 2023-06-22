@@ -36,5 +36,12 @@ FactoryBot.define do
     factory :canvas_auth_credential, parent: :auth_credential, class: :CanvasAuthCredential do
       provider CanvasAuthCredential::PROVIDER
     end
+
+    factory :clever_district_auth_credential, parent: :auth_credential, class: :CleverDistrictAuthCredential do
+      provider CleverDistrictAuthCredential::PROVIDER
+      expires_at CleverDistrictAuthCredential::EXPIRATION_DURATION.from_now
+      association :user, factory: [:teacher, :signed_up_with_clever]
+    end
+
   end
 end
