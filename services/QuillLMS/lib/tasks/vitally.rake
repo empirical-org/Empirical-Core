@@ -19,8 +19,7 @@ namespace :vitally do
     # has a batch limit of 100.
     CSV.parse(pipe_data, headers: true).each_slice(33) do |batch|
       batch_payload = batch.map do |row|
-        # TIL `includes` makes a separate query to the db, and `joins` doesn't store the joined value in ActiveRecord, so if you want a single query to pull multiple models you need to use both?
-        user = User.joins(:schools_users).includes(:schools_users).find_by(id: row['externalId'])
+        user = User.eager_load(:schools_users).find_by(id: row['externalId'])
 
         # Some of the data provided by Vitally is bad, so we need to account for that
         next unless user
