@@ -2,13 +2,15 @@
 
 module Snapshots
   class PeriodQuery < ::QuillBigQuery::Query
-    attr_accessor :timeframe_start, :timeframe_end, :school_ids, :grades
+    attr_accessor :timeframe_start, :timeframe_end, :school_ids, :grades, :teacher_ids, :classroom_ids
 
-    def initialize(timeframe_start:, timeframe_end:, school_ids:, grades: nil, options: {})
+    def initialize(timeframe_start:, timeframe_end:, school_ids:, grades: nil, teacher_ids: nil, classroom_ids: nil, options: {})
       @timeframe_start = timeframe_start
       @timeframe_end = timeframe_end
       @school_ids = school_ids
       @grades = grades
+      @teacher_ids = teacher_ids
+      @classroom_ids = classroom_ids
 
       super(options)
     end
@@ -30,7 +32,9 @@ module Snapshots
         WHERE
           #{timeframe_where_clause}
           #{school_ids_where_clause}
-          #{grade_where_clause}
+          #{grades_where_clause}
+          #{teacher_ids_where_clause}
+          #{classroom_ids_where_clause}
       SQL
     end
 
@@ -42,10 +46,22 @@ module Snapshots
       "AND schools.id IN (#{school_ids.join(',')})"
     end
 
-    def grade_where_clause
+    def grades_where_clause
       return "" if grades.nil? || grades.empty?
 
       "AND classrooms.grade IN (#{grades.map { |g| "'#{g}'" }.join(',')})"
+    end
+
+    def teacher_ids_where_clause
+      return "" if teacher_ids.nil? || teacher_ids.empty?
+
+      "AND schools_users.user_id IN (#{teacher_ids.join(',')})"
+    end
+
+    def classroom_ids_where_clause
+      return "" if classroom_ids.nil? || classroom_ids.empty?
+ 
+      "AND classrooms.id IN (#{classroom_ids.join(',')})"
     end
   end
 end

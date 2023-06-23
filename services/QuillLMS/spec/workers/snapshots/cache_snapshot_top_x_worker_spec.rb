@@ -12,6 +12,16 @@ module Snapshots
     let(:timeframe_name) { 'last-30-days' }
     let(:school_ids) { [1,2,3] }
     let(:grades) { ['Kindergarten',1,2,3,4] }
+    let(:teacher_ids) { [3,4,5] }
+    let(:classroom_ids) { [6,7] }
+    let(:filters) do
+      {
+        school_ids: school_ids,
+        grades: grades,
+        teacher_ids: teacher_ids,
+        classroom_ids: classroom_ids
+      }
+    end
     let(:query_double) { double(run: {}) }
 
     context '#perform' do
@@ -34,11 +44,17 @@ module Snapshots
       end
 
       it 'should execute a query for the timeframe' do
-        expect(query_double).to receive(:run).with(current_timeframe_start, timeframe_end, school_ids, grades)
+        expect(query_double).to receive(:run).with(
+          timeframe_start: current_timeframe_start,
+          timeframe_end: timeframe_end,
+          school_ids: school_ids,
+          grades: grades,
+          teacher_ids: teacher_ids,
+          classroom_ids: classroom_ids)
         expect(Rails.cache).to receive(:write)
         expect(PusherTrigger).to receive(:run)
 
-        subject.perform(cache_key, query, user_id, timeframe, school_ids, grades)
+        subject.perform(cache_key, query, user_id, timeframe, filters)
       end
 
       it 'should write a payload to cache' do
@@ -51,19 +67,17 @@ module Snapshots
         expect(Rails.cache).to receive(:write).with(cache_key, payload, expires_in: cache_ttl)
         expect(PusherTrigger).to receive(:run)
 
-        subject.perform(cache_key, query, user_id, timeframe, school_ids, grades)
+        subject.perform(cache_key, query, user_id, timeframe, filters)
       end
 
       it 'should send a Pusher notification' do
         expect(Rails.cache).to receive(:write)
         expect(PusherTrigger).to receive(:run).with(user_id, described_class::PUSHER_EVENT, {
           query: query,
-          timeframe: timeframe_name,
-          school_ids: school_ids,
-          grades: grades
-        })
+          timeframe: timeframe_name
+        }.merge(filters))
 
-        subject.perform(cache_key, query, user_id, timeframe, school_ids, grades)
+        subject.perform(cache_key, query, user_id, timeframe, filters)
       end
     end
   end

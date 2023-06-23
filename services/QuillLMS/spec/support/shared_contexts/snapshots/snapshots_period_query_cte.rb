@@ -8,7 +8,9 @@ RSpec.shared_context 'Snapshots Period CTE' do
       timeframe_start: timeframe_start,
       timeframe_end: timeframe_end,
       school_ids: school_ids,
-      grades: grades
+      grades: grades,
+      teacher_ids: teacher_ids,
+      classroom_ids: classroom_ids
     }
   end
 
@@ -23,6 +25,8 @@ RSpec.shared_context 'Snapshots Period CTE' do
   let(:schools_users) { teachers.map { |teacher| create(:schools_users, user: teacher)} }
   let(:schools) { schools_users.map(&:school).flatten.uniq }
   let(:school_ids) { schools.pluck(:id) }
+  let(:teacher_ids) { teachers.pluck(:id) }
+  let(:classroom_ids) { classrooms.pluck(:id) }
 
   let(:period_query_cte_records) { [classrooms, classrooms_teachers, schools_users, schools] }
 end

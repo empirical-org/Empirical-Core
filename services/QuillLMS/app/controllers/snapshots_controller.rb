@@ -126,9 +126,12 @@ class SnapshotsController < ApplicationController
         previous_start: previous_start,
         current_start: current_start,
         current_end: current_end
-      },
-      snapshot_params[:school_ids],
-      snapshot_params[:grades])
+      }, {
+        school_ids: snapshot_params[:school_ids],
+        grades: snapshot_params[:grades],
+        teacher_ids: snapshot_params[:teacher_ids],
+        classroom_ids: snapshot_params[:classroom_ids]
+      })
 
     { message: 'Generating snapshot' }
   end
@@ -149,7 +152,9 @@ class SnapshotsController < ApplicationController
       :timeframe_custom_start,
       :timeframe_custom_end,
       school_ids: [],
-      grades: [])
+      grades: [],
+      teacher_ids: [],
+      classroom_ids: [])
   end
 
   private def option_params
