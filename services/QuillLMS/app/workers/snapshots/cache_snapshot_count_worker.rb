@@ -15,13 +15,13 @@ module Snapshots
       'activity-packs-assigned' => Snapshots::ActivityPacksAssignedQuery,
       'activity-packs-completed' => Snapshots::ActivityPacksCompletedQuery,
       'average-activities-completed-per-student' => Snapshots::AverageActivitiesCompletedPerStudentQuery,
-      'baseline-diagnostics-assigned' => Snapshots::BaselineDiagnosticsAssigned,
+      'baseline-diagnostics-assigned' => Snapshots::BaselineDiagnosticsAssignedQuery,
       'baseline-diagnostics-completed' => Snapshots::BaselineDiagnosticsCompletedQuery,
       'classrooms-created' => Snapshots::ClassroomsCreatedQuery,
       'sentences-written' => Snapshots::SentencesWrittenQuery,
-      'student-accounts-created' => Snapshots::StudentAccountsCreated,
+      'student-accounts-created' => Snapshots::StudentAccountsCreatedQuery,
       'student-learning-hours' => Snapshots::StudentLearningHoursQuery,
-      'teacher-accounts-created' => Snapshots::TeacherAccountsCreated
+      'teacher-accounts-created' => Snapshots::TeacherAccountsCreatedQuery
     }
 
     def perform(cache_key, query, user_id, timeframe, school_ids, grades)
