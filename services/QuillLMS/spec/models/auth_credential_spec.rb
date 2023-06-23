@@ -34,5 +34,7 @@ describe AuthCredential, type: :model do
   it { is_expected.not_to be_clever_authorized }
   it { is_expected.not_to be_google_access_expired }
   it { is_expected.not_to be_google_authorized }
+
+  it { should validate_inclusion_of(:type).in_array(AuthCredential::TYPES) }
 end
 

@@ -28,6 +28,15 @@
 class AuthCredential < ApplicationRecord
   belongs_to :user
 
+  TYPES = %w[
+    CanvasAuthCredential
+    CleverDistrictAuthCredential
+    CleverLibraryAuthCredential
+    GoogleAuthCredential
+  ].freeze
+
+  validates :type, inclusion: { in: TYPES }
+
   def canvas_authorized?
     false
   end
