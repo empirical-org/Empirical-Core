@@ -12,6 +12,7 @@ module DiagnosticReports
   PARTIAL_PROFICIENCY = 'Partial proficiency'
   PROFICIENCY = 'Proficiency'
   GAINED_PROFICIENCY = 'Gained proficiency'
+  GAINED_SOME_PROFICIENCY = 'Gained some proficiency'
   MAINTAINED_PROFICIENCY = 'Maintained proficiency'
 
   def data_for_skill_by_activity_session(all_concept_results, skill)

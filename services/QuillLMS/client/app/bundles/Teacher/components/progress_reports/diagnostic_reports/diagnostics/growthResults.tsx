@@ -12,6 +12,7 @@ import {
   maintainedProficiencyTag,
   noProficiencyTag,
   partialProficiencyTag,
+  gainedSomeProficiencyTag
 } from './shared';
 import StudentResultsTable from './studentResultsTable';
 
@@ -86,12 +87,16 @@ export const GrowthResults = ({ passedStudentResults, passedSkillGroupSummaries,
           <p>The student’s response contained some correct responses, but not all of the responses were marked correct.</p>
         </div>
         <div className="proficiency-key">
-          {maintainedProficiencyTag}
-          <p>The student used all skills correctly 100% of the time on both the baseline diagnostic and the growth diagnostic.</p>
+          {gainedSomeProficiencyTag}
+          <p>The student used one or more skills incorrectly on the baseline diagnostic but then used some of the skills correctly on the growth diagnostic.</p>
         </div>
         <div className="proficiency-key">
           {gainedProficiencyTag}
           <p>The student used one or more skills incorrectly on the baseline diagnostic but used all skills correctly on the growth diagnostic.</p>
+        </div>
+        <div className="proficiency-key">
+          {maintainedProficiencyTag}
+          <p>The student used all skills correctly 100% of the time on both the baseline diagnostic and the growth diagnostic.</p>
         </div>
       </section>
       <section className="student-results">

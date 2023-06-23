@@ -71,7 +71,8 @@ module GrowthResultsSummary
       pre_present_skill_number = skills.reduce(0) { |sum, skill| sum += skill[:pre][:summary] == NOT_PRESENT ? 0 : 1 }
       present_skill_number = skills.reduce(0) { |sum, skill| sum += skill[:post][:summary] == NOT_PRESENT ? 0 : 1 }
       correct_skill_number = post_correct_skills.count
-      proficiency_text = summarize_student_proficiency_for_skill_overall(present_skill_number, correct_skill_number, pre_correct_skill_number)
+      acquired_skills = (post_correct_skill_ids - pre_correct_skill_ids).length > 0
+      proficiency_text = summarize_student_proficiency_for_skill_overall(present_skill_number, correct_skill_number, pre_correct_skill_number, acquired_skills)
       post_test_proficiency = summarize_student_proficiency_for_skill_per_activity(present_skill_number, correct_skill_number)
       pre_test_proficiency = summarize_student_proficiency_for_skill_per_activity(pre_present_skill_number, pre_correct_skill_number)
       skill_group_summary_index = @skill_group_summaries.find_index { |sg| sg[:name] == skill_group.name }
@@ -100,14 +101,14 @@ module GrowthResultsSummary
   end
   # rubocop:enable Metrics/CyclomaticComplexity
 
-  private def summarize_student_proficiency_for_skill_overall(present_skill_number, correct_skill_number, pre_correct_skill_number)
+  private def summarize_student_proficiency_for_skill_overall(present_skill_number, correct_skill_number, pre_correct_skill_number, acquired_skills)
     case correct_skill_number
     when 0
       NO_PROFICIENCY
     when present_skill_number
       correct_skill_number > pre_correct_skill_number ? GAINED_PROFICIENCY : MAINTAINED_PROFICIENCY
     else
-      PARTIAL_PROFICIENCY
+      acquired_skills ? GAINED_SOME_PROFICIENCY : PARTIAL_PROFICIENCY
     end
   end
 

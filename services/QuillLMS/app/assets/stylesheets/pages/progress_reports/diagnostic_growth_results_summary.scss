@@ -1,5 +1,5 @@
 .results-summary-container.growth-results-summary-container {
-  header {
+  header:not(.results-header) {
     display: flex;
     flex-direction: column;
     max-width: 1014px;
