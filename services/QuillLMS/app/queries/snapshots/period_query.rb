@@ -60,7 +60,7 @@ module Snapshots
 
     def classroom_ids_where_clause
       return "" if classroom_ids.nil? || classroom_ids.empty?
- 
+
       "AND classrooms.id IN (#{classroom_ids.join(',')})"
     end
   end

@@ -52,7 +52,7 @@ module Snapshots
 
         context 'filter for one school' do
           let!(:school_ids) { [schools[0].id] }
- 
+
           it { expect(results).to match_array(classroom_ids[0]) }
         end
 
@@ -62,21 +62,21 @@ module Snapshots
               create(:classroom, grade: '1'),
               create(:classroom, grade: '2')
             ]
-          end 
+          end
           let(:filters) { { grades: [classrooms[0].grade] } }
- 
+
           it { expect(results).to match_array(classroom_ids[0]) }
         end
 
         context 'filter for one teacher' do
           let(:filters) { { teacher_ids: [teachers[0].id] } }
- 
+
           it { expect(results).to match_array(classroom_ids[0]) }
         end
 
         context 'filter for one classroom' do
           let(:filters) { { classroom_ids: [classrooms[0].id] } }
- 
+
           it { expect(results).to match_array(classroom_ids[0]) }
         end
       end
