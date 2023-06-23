@@ -849,7 +849,8 @@ CREATE TABLE public.auth_credentials (
     access_token character varying NOT NULL,
     provider character varying NOT NULL,
     created_at timestamp without time zone,
-    updated_at timestamp without time zone
+    updated_at timestamp without time zone,
+    type character varying
 );
 
 
@@ -10272,6 +10273,7 @@ INSERT INTO "schema_migrations" (version) VALUES
 ('20230524143000'),
 ('20230601210338'),
 ('20230613164607'),
-('20230621161210');
+('20230621161210'),
+('20230622125712');
 
 
