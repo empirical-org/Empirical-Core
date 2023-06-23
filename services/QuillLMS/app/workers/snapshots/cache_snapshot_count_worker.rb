@@ -15,6 +15,7 @@ module Snapshots
       'activity-packs-assigned' => Snapshots::ActivityPacksAssignedQuery,
       'activity-packs-completed' => Snapshots::ActivityPacksCompletedQuery,
       'average-activities-completed-per-student' => Snapshots::AverageActivitiesCompletedPerStudentQuery,
+      'baseline-diagnostics-assigned' => Snapshots::BaselineDiagnosticsAssigned,
       'classrooms-created' => Snapshots::ClassroomsCreatedQuery,
       'sentences-written' => Snapshots::SentencesWrittenQuery,
       'student-accounts-created' => Snapshots::StudentAccountsCreated,
