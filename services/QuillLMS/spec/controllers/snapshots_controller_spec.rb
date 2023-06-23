@@ -133,9 +133,12 @@ describe SnapshotsController, type: :controller do
             previous_start: previous_timeframe,
             current_start: current_timeframe,
             current_end: timeframe_end
-          },
-          school_ids,
-          nil)
+          }, {
+            school_ids: school_ids,
+            grades: nil,
+            teacher_ids: nil,
+            classroom_ids: nil
+          })
 
         get :count, params: { query: query_name, timeframe: timeframe_name, school_ids: school_ids }
 
@@ -157,9 +160,12 @@ describe SnapshotsController, type: :controller do
             previous_start: previous_timeframe,
             current_start: current_timeframe,
             current_end: timeframe_end
-          },
-          school_ids,
-          nil)
+          }, {
+            school_ids: school_ids,
+            grades: nil,
+            teacher_ids: nil,
+            classroom_ids: nil
+          })
 
         get :top_x, params: { query: query_name, timeframe: timeframe_name, school_ids: school_ids }
 
@@ -171,6 +177,8 @@ describe SnapshotsController, type: :controller do
       it 'should include school_ids and grades in the call to the cache worker if they are in params' do
         query_name = 'active-classrooms'
         grades = ["Kindergarten", "1", "2"]
+        teacher_ids = ['3', '4']
+        classroom_ids = ['5', '6', '7']
 
         allow(Snapshots::Timeframes).to receive(:calculate_timeframes).and_return([previous_timeframe, current_timeframe, timeframe_end])
         expect(Rails.cache).to receive(:read).with(cache_key).and_return(nil)
@@ -182,11 +190,14 @@ describe SnapshotsController, type: :controller do
             previous_start: previous_timeframe,
             current_start: current_timeframe,
             current_end: timeframe_end
-          },
-          school_ids,
-          grades)
+          }, {
+            school_ids: school_ids,
+            grades: grades,
+            teacher_ids: teacher_ids,
+            classroom_ids: classroom_ids
+          })
 
-        get :count, params: { query: query_name, timeframe: timeframe_name, school_ids: school_ids, grades: grades }
+        get :count, params: { query: query_name, timeframe: timeframe_name, school_ids: school_ids, grades: grades, teacher_ids: teacher_ids, classroom_ids: classroom_ids }
       end
 
       it 'should properly calculate custom timeframes' do
@@ -205,9 +216,12 @@ describe SnapshotsController, type: :controller do
             previous_start: current_start - timeframe_length,
             current_start: current_start,
             current_end: current_end
-          },
-          school_ids,
-          nil)
+          }, {
+            school_ids: school_ids,
+            grades: nil,
+            teacher_ids: nil,
+            classroom_ids: nil
+          })
 
         get :count, params: { query: query_name, timeframe: timeframe_name, timeframe_custom_start: current_start.to_s, timeframe_custom_end: current_end.to_s, school_ids: school_ids }
       end
