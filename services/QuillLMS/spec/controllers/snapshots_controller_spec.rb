@@ -3,7 +3,8 @@
 require 'rails_helper'
 
 describe SnapshotsController, type: :controller do
-  let(:user) { create(:user) }
+  let(:school) { create(:school) }
+  let(:user) { create(:user, administered_schools: [school]) }
 
   before do
     allow(controller).to receive(:current_user).and_return(user)
@@ -15,8 +16,6 @@ describe SnapshotsController, type: :controller do
     let(:now) { DateTime.current }
     let(:current_snapshot_stub) { 'CURRENT' }
     let(:previous_snapshot_stub) { 'PREVIOUS' }
-    let(:school) { create(:school) }
-    let(:user) { create(:user, administered_schools: [school]) }
     let(:school_ids) { [school.id.to_s] }
     let(:controller_actions) {
       [
@@ -216,32 +215,10 @@ describe SnapshotsController, type: :controller do
   end
 
   context "#options" do
-    let(:schools_options) {
-      [
-        {"id" => 1, "name" => "School 1"},
-        {"id" => 2, "name" => "School 2"}
-      ]
-    }
-
-    let(:teachers_options) {
-      [
-        {"id" => 1, "name" => "Teacher 1"},
-        {"id" => 2, "name" => " 2"}
-      ]
-    }
-
-    let(:classrooms_options) {
-      [
-        {"id" => 1, "name" => "Classroom 1"},
-        {"id" => 2, "name" => "Classroom 2"}
-      ]
-    }
-
-    before do
-      allow(Snapshots::SchoolsOptionsQuery).to receive(:run).and_return(schools_options)
-      allow(Snapshots::TeachersOptionsQuery).to receive(:run).and_return(teachers_options)
-      allow(Snapshots::ClassroomsOptionsQuery).to receive(:run).and_return(classrooms_options)
-    end
+    let(:target_grade) { '1' }
+    let(:teacher) { create(:teacher, school: school) }
+    let(:classroom) { create(:classroom, grade: target_grade) }
+    let!(:classrooms_teacher) { create(:classrooms_teacher, user: teacher, classroom: classroom, role: 'owner') }
 
     it 'should return all valid timeframe options with names' do
       get :options
@@ -256,7 +233,7 @@ describe SnapshotsController, type: :controller do
 
       json_response = JSON.parse(response.body)
 
-      expect(json_response['schools']).to eq(schools_options)
+      expect(json_response['schools']).to eq([{"id" => school.id, "name" => school.name}])
     end
 
     it 'should return a static list of grade options' do
@@ -272,7 +249,7 @@ describe SnapshotsController, type: :controller do
 
       json_response = JSON.parse(response.body)
 
-      expect(json_response['teachers']).to eq(teachers_options)
+      expect(json_response['teachers']).to eq([{"id" => teacher.id, "name" => teacher.name}])
     end
 
     it 'should return a list of all classrooms and their ids tied to the current_user' do
@@ -280,32 +257,38 @@ describe SnapshotsController, type: :controller do
 
       json_response = JSON.parse(response.body)
 
-      expect(json_response['classrooms']).to eq(classrooms_options)
+      expect(json_response['classrooms']).to eq([{"id" => classroom.id, "name" => classroom.name}])
     end
 
     context 'params' do
-      it 'should pass school_ids param through to filters' do
-        school_ids = ['1','2']
+      let(:excluded_school_id) { school.id + 1 }
+      let(:excluded_grade) { '2' }
+      let(:excluded_teacher_id) { teacher.id + 1 }
 
-        expect(Snapshots::ClassroomsOptionsQuery).to receive(:run).with(user.id, school_ids, nil, nil)
+      it 'exclude teachers and classrooms from other schools' do
+        get :options, params: { school_ids: [excluded_school_id] }
 
-        get :options, params: { school_ids: school_ids }
+        json_response = JSON.parse(response.body)
+
+        expect(json_response['teachers']).to eq([])
+        expect(json_response['classrooms']).to eq([])
       end
 
       it 'should pass grades param through to filters' do
-        grades = ['1','2']
+        get :options, params: { grades: [excluded_grade] }
 
-        expect(Snapshots::ClassroomsOptionsQuery).to receive(:run).with(user.id, nil, grades, nil)
+        json_response = JSON.parse(response.body)
 
-        get :options, params: { grades: grades }
+        expect(json_response['teachers']).to eq([])
+        expect(json_response['classrooms']).to eq([])
       end
 
       it 'should pass teacher_ids param through to filters' do
-        teacher_ids = ['1','2']
+        get :options, params: { teacher_ids: [excluded_teacher_id] }
 
-        expect(Snapshots::ClassroomsOptionsQuery).to receive(:run).with(user.id, nil, nil, teacher_ids)
+        json_response = JSON.parse(response.body)
 
-        get :options, params: { teacher_ids: teacher_ids }
+        expect(json_response['classrooms']).to eq([])
       end
     end
   end

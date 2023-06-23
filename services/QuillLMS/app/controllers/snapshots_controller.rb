@@ -4,7 +4,6 @@ class SnapshotsController < ApplicationController
   GRADE_OPTIONS = [
     {value: "Kindergarten", name: "Kindergarten"},
     {value: "1", name: "1st"},
-    {value: "2", name: "2nd"},
     {value: "3", name: "3rd"},
     {value: "4", name: "4th"},
     {value: "5", name: "5th"},
@@ -37,26 +36,48 @@ class SnapshotsController < ApplicationController
   end
 
   def options
-    school_ids = option_params[:school_ids]
-    grades = option_params[:grades]
-    teacher_ids = option_params[:teacher_ids]
-
-    schools = School.joins(:schools_admins)
-      .where(schools_admins: {user_id: current_user.id})
-    filtered_schools = schools.where(id: school_ids)
-    teachers = User.joins(:schools_users)
-      .where(schools_users: {school_id: filtered_schools.pluck(:id)})
-    filtered_teachers = teachers.where(id: teacher_ids)
-    classrooms = Classroom.joins(:classrooms_teachers)
-      .where(classrooms_teachers: {user_id: filtered_teachers.pluck(:id)})
-
     render json: {
       timeframes: Snapshots::Timeframes.frontend_options,
-      schools: schools,
+      schools: format_option_list(school_options),
       grades: GRADE_OPTIONS,
-      teachers: teachers,
-      classrooms: classrooms
+      teachers: format_option_list(teacher_options),
+      classrooms: format_option_list(classroom_options)
     }
+  end
+
+  private def format_option_list(models)
+    models.pluck(:id, :name).map { |id, name| {id: id, name: name} }
+  end
+
+  private def school_options
+    School.joins(:schools_admins)
+      .where(schools_admins: {user_id: current_user.id})
+  end
+
+  private def teacher_options
+    school_ids = option_params[:school_ids]
+    grades = option_params[:grades]
+
+    filtered_schools = school_options
+    filtered_schools = filtered_schools.where(id: school_ids) unless school_ids.nil?
+
+    teachers = User.joins(:schools_users)
+      .joins(:classrooms_i_teach)
+      .where(schools_users: {school_id: filtered_schools.pluck(:id)})
+
+    teachers = teachers.where(classrooms: {grade: grades}) unless grades.nil?
+
+    teachers
+  end
+
+  private def classroom_options
+    teacher_ids = option_params[:teacher_ids]
+
+    filtered_teachers = teacher_options
+    filtered_teachers = filtered_teachers.where(id: teacher_ids) unless teacher_ids.nil?
+
+    Classroom.joins(:classrooms_teachers)
+      .where(classrooms_teachers: {user_id: filtered_teachers.pluck(:id)})
   end
 
   private def set_query
