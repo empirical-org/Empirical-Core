@@ -34,7 +34,7 @@ export function calculateClassGrowthPercentage({ skillGroupSummaries, completedS
   const summariesCount = skillGroupSummaries.length
   skillGroupSummaries.forEach(summary => {
     const { proficiency_scores_by_student } = summary
-   /*
+    /*
       example payload for average proficiency score per student across a skill group, i.e. "Adjectives and Adverbs"
       "proficiency_scores_by_student": {
         "Ken Liu": {
@@ -54,7 +54,7 @@ export function calculateClassGrowthPercentage({ skillGroupSummaries, completedS
           "post": 0.6666666666666666
         }
       }
-   */
+    */
     const preScoresSum = sumProficiencyScores(proficiency_scores_by_student, PRE)
     const postScoresSum = sumProficiencyScores(proficiency_scores_by_student, POST)
     // we don't want to account for no growth instances so we add the pre test average for both totals
