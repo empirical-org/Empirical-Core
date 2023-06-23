@@ -2185,7 +2185,6 @@ exports[`SnapshotSection component when the section is Users should match snapsh
         "className": "rankings",
         "items": Array [
           Object {
-            "comingSoon": true,
             "headers": Array [
               "Teacher",
               "Activities completed",
@@ -2498,7 +2497,6 @@ exports[`SnapshotSection component when the section is Users should match snapsh
       >
         <SnapshotRanking
           adminId={1}
-          comingSoon={true}
           customTimeframeEnd={null}
           customTimeframeStart={null}
           headers={
@@ -2546,11 +2544,8 @@ exports[`SnapshotSection component when the section is Users should match snapsh
               <div
                 className="header"
               >
-                <h3
-                  className="coming-soon"
-                >
+                <h3>
                   Most active teachers
-                   (coming soon)
                 </h3>
               </div>
               <DataTable

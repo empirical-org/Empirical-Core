@@ -115,8 +115,7 @@ export const snapshotSections = [
             label: 'Most active teachers',
             type: RANKING,
             queryKey: 'most-active-teachers',
-            headers: ['Teacher', 'Activities completed'],
-            comingSoon: true
+            headers: ['Teacher', 'Activities completed']
           },
         ]
       }
