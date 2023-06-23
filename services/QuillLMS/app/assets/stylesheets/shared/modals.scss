@@ -1007,6 +1007,12 @@
   max-width: 100vw;
   position: fixed !important;
   overflow: hidden;
+  max-height: 100vh;
+  height: min-content;
+  .modal-body {
+    height: min-content;
+    max-height: 60vh;
+  }
   .import-clever-classrooms-modal-footer,
   .import-google-classrooms-modal-footer,
   .bulk-archive-classes-modal-footer {
@@ -1254,6 +1260,10 @@
   display: flex;
   flex-direction: column;
   padding: 0px;
+  margin-bottom: 0px;
+  overflow: scroll;
+  max-height: 90vh;
+  height: min-content;
   margin-bottom: 0px;
   .top-section {
     padding: 32px 32px 0px;
