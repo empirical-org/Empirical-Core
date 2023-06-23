@@ -7,12 +7,15 @@ class RemoveProviderFromAuthCredential < ActiveRecord::Migration[6.1]
   end
 
   def down
-    add_column :auth_credentials, :provider, :string, null: false, index: true
+    add_column :auth_credentials, :provider, :string
+    add_index :auth_credentials, :provider
 
     AuthCredential.reset_column_information
 
     AuthCredential::TYPES.map(&:constantize).each do |klass|
       klass.update_all(provider: klass::PROVIDER)
     end
+
+    change_column_null :auth_credentials, :provider, false
   end
 end
