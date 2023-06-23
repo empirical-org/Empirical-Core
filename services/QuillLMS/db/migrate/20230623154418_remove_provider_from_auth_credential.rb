@@ -12,8 +12,13 @@ class RemoveProviderFromAuthCredential < ActiveRecord::Migration[6.1]
 
     AuthCredential.reset_column_information
 
-    AuthCredential::TYPES.map(&:constantize).each do |klass|
-      klass.in_batches.update_all(provider: klass::PROVIDER)
+    {
+      canvas: CanvasAuthCredential,
+      google: GoogleAuthCredential,
+      clever_district: CleverDistrictAuthCredential,
+      clever_library: CleverLibraryAuthCredential
+    }.each_pair do |provider, klass|
+      klass.in_batches.update_all(provider: provider)
     end
   end
 end
