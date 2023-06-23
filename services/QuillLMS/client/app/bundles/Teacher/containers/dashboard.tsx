@@ -23,8 +23,6 @@ import { GRAY_ARTICLE_FOOTER_BACKGROUND_COLOR, TEACHER_DASHBOARD_FEATURED_BLOG_P
 
 const MAX_VIEW_WIDTH_FOR_MOBILE = 1103
 
-const MAY = 4
-
 const Dashboard = ({ onboardingChecklist, firstName, mustSeeWelcomeModal, mustSeeTeacherInfoModal, linkedToClever, featuredBlogPosts, showEvidencePromotionCard, subjectAreas, userId, classrooms, }) => {
   const size = useWindowSize();
   const className = "dashboard white-background-accommodate-footer"
