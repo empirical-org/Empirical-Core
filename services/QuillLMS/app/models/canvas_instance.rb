@@ -22,12 +22,26 @@ class CanvasInstance < ApplicationRecord
 
   has_many :canvas_configs, dependent: :destroy
 
+  has_many :canvas_instance_auth_credentials, dependent: :destroy
+
   before_validation :downcase_url
 
   validates :url,
     presence: true,
     uniqueness: true,
     url: true
+
+  def canvas_config
+    canvas_configs.last
+  end
+
+  def client_id
+    canvas_config&.client_id
+  end
+
+  def client_secret
+    canvas_config&.client_secret
+  end
 
   private def downcase_url
     self.url = url.downcase if url.present?

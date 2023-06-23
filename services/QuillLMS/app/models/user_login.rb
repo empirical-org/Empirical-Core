@@ -20,6 +20,8 @@ class UserLogin < ApplicationRecord
   belongs_to :user
 
   def readonly?
+    return false if destroyed_by_association
+
     !new_record?
   end
 end

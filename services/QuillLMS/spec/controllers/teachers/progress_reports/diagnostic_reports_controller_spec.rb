@@ -420,7 +420,7 @@ describe Teachers::ProgressReports::DiagnosticReportsController, type: :controll
 
       expect(response).to be_successful
       json = JSON.parse(response.body)
-      expect(json['student_ids']).to eq [student1.id, student2.id]
+      expect(json['student_ids']).to match_array([student1.id, student2.id])
     end
   end
 
@@ -456,7 +456,7 @@ describe Teachers::ProgressReports::DiagnosticReportsController, type: :controll
 
       expect(response).to be_successful
 
-      expect(classroom_unit.reload.assigned_student_ids).to eq([student1.id, student2.id])
+      expect(classroom_unit.reload.assigned_student_ids).to match_array([student1.id, student2.id])
     end
   end
 end

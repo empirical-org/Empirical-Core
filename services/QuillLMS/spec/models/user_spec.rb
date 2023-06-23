@@ -89,6 +89,8 @@ describe User, type: :model do
   it { should have_one(:learn_worlds_account) }
   it { should have_many(:canvas_accounts).dependent(:destroy) }
   it { should have_many(:canvas_instances).through(:canvas_accounts) }
+  it { should have_one(:auth_credential).dependent(:destroy) }
+  it { should have_one(:canvas_instance_auth_credential).through(:auth_credential) }
 
   it { should delegate_method(:name).to(:school).with_prefix(:school) }
   it { should delegate_method(:mail_city).to(:school).with_prefix(:school) }
@@ -805,11 +807,52 @@ describe User, type: :model do
   end
 
   describe '#requires_password?' do
+    subject { user.send(:requires_password?) }
+
     let(:user) { build(:user) }
 
-    it 'returns true for all roles but temporary' do
-      user.safe_role_assignment 'user'
-      expect(user.send(:requires_password?)).to eq(true)
+    context 'all roles except temporary' do
+      before { user.safe_role_assignment('user') }
+
+      it { is_expected.to be true }
+    end
+
+    context 'user has clever_id' do
+      before { user.clever_id = '1234' }
+
+      it { is_expected.to be false }
+    end
+
+    context 'user has google_id' do
+      before { user.google_id = '1234' }
+
+      it { is_expected.to be false }
+    end
+
+    context 'user has canvas_accounts' do
+      let(:canvas_instance) { build(:canvas_instance) }
+      let(:canvas_user_external_id) { 1234 }
+
+      context 'when user has canvas accounts initialized' do
+        before do
+          user
+            .canvas_accounts
+            .build(canvas_instance: canvas_instance, external_id: canvas_user_external_id)
+        end
+
+        it { is_expected.to be false }
+      end
+
+      context 'when user has canvas accounts persisted' do
+        before do
+          user
+            .tap(&:save)
+            .canvas_accounts
+            .create(canvas_instance: canvas_instance, external_id: canvas_user_external_id)
+        end
+
+        it { is_expected.to be false }
+      end
     end
   end
 

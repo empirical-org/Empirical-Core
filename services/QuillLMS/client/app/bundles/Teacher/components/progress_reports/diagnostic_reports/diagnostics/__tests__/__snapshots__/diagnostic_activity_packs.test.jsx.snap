@@ -180,6 +180,7 @@ exports[`DiagnosticActivityPacks component should render when there are classroo
           className="dropdown-container input-container inactive has-text not-editable undefined  "
           onClick={[Function]}
           onKeyDown={[Function]}
+          onTouchStart={[Function]}
           role="button"
           tabIndex={0}
         >

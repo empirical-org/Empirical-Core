@@ -13,7 +13,7 @@ describe PublicProgressReports, type: :model do
   end
 
   describe '#results_by_question' do
-    let!(:activity) { create(:evidence_activity) }
+    let!(:activity) { create(:evidence_lms_activity) }
 
     it 'should return an empty array when questions array is empty' do
       report = FakeReports.new
@@ -24,7 +24,7 @@ describe PublicProgressReports, type: :model do
 
   describe '#results_for_classroom' do
     let!(:classroom) { create(:classroom) }
-    let!(:activity) { create(:evidence_activity) }
+    let!(:activity) { create(:evidence_lms_activity) }
     let!(:classroom_unit) { create(:classroom_unit, classroom: classroom, assign_on_join: true) }
     let!(:students_classrooms1) { create(:students_classrooms, classroom: classroom)}
     let!(:students_classrooms2) { create(:students_classrooms, classroom: classroom)}
@@ -62,9 +62,9 @@ describe PublicProgressReports, type: :model do
 
     it 'populates feedback for an evidence activity' do
       activity_session_two = create(:activity_session_without_concept_results, classroom_unit_id: classroom_unit.id, activity_id: activity.id, user: students_classrooms1.student)
-      prompt = Evidence::Prompt.create(text: "prompt text", conjunction: "but")
+      prompt = create(:evidence_prompt, text: "prompt text", conjunction: "but")
       feedback = "This is the current feedback the student is receiving."
-      evidence_child_activity = Evidence::Activity.create(parent_activity_id: activity.id, prompts: [prompt], target_level: 1, title: "test activity", notes: "note")
+      evidence_child_activity = create(:evidence_activity, parent_activity_id: activity.id, prompts: [prompt], target_level: 1, title: "test activity", notes: "note")
       feedback_history = create(:feedback_history, feedback_session_uid: activity_session_two.uid, attempt: 2, prompt: prompt, feedback_text: feedback)
 
       last_feedback = "This is the last feedback the student received."

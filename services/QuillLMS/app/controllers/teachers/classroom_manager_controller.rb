@@ -161,6 +161,7 @@ class Teachers::ClassroomManagerController < ApplicationController
     session[GOOGLE_REDIRECT] = request.env['PATH_INFO']
     session[:clever_redirect] = request.env['PATH_INFO']
     @google_or_clever_just_set = session[ApplicationController::GOOGLE_OR_CLEVER_JUST_SET]
+    @clever_link = clever_link
     session[ApplicationController::GOOGLE_OR_CLEVER_JUST_SET] = nil
     @account_info = current_user.generate_teacher_account_info
     @show_dismiss_school_selection_reminder_checkbox = show_school_selection_reminders

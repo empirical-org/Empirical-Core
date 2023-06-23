@@ -99,7 +99,7 @@ describe DiagnosticReports do
       let!(:unit_activity2) { create(:unit_activity, unit: unit2, activity: unit_activity1.activity) }
       let!(:activity_session1) { create(:activity_session, :finished, user: student1, classroom_unit: classroom_unit1, activity: unit_activity1.activity) }
       let!(:activity_session2) { create(:activity_session, :finished, user: student2, classroom_unit: classroom_unit1, activity: unit_activity1.activity) }
-      let!(:activity_session3) { create(:activity_session, :finished, user: student2, classroom_unit: classroom_unit2, activity: unit_activity1.activity) }
+      let!(:activity_session3) { create(:activity_session, :finished, completed_at: activity_session2.completed_at.since(1.minute), user: student2, classroom_unit: classroom_unit2, activity: unit_activity1.activity) }
 
       it 'should set the variables for all the final score activity sessions for that activity, classroom, and unit, with only one per student' do
         set_activity_sessions_and_assigned_students_for_activity_classroom_and_unit(unit_activity1.activity_id, classroom.id, nil)

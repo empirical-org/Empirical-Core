@@ -41,3 +41,16 @@ export interface QuestionObject {
   question?: Question,
   data?: Question
 }
+
+export interface Activity {
+  title?: string;
+  name?: string;
+  questions?: {
+    key: string;
+  }[];
+  description?: string;
+  landingPageHtml?: string;
+  questionType?: string;
+  flag?: string;
+  modelConceptUID?: string;
+}

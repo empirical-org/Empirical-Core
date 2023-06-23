@@ -18,7 +18,7 @@ module Auth
         raise NilUserError if user.nil?
         raise NilEmailError if email.nil?
 
-        response = HTTParty.post(SSO_ENDPOINT, body: body, headers: headers)
+        HTTParty.post(SSO_ENDPOINT, body: body, headers: headers)
       end
 
       private def body
@@ -40,7 +40,7 @@ module Auth
         {
           email: email,
           redirectURL: COURSES_ENDPOINT,
-          username: username || email
+          username: username.presence || email
         }
       end
 

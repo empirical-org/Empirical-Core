@@ -75,6 +75,7 @@ exports[`GradeLevelSection component should render 1`] = `
         className="dropdown-container input-container inactive  not-editable undefined  "
         onClick={[Function]}
         onKeyDown={[Function]}
+        onTouchStart={[Function]}
         role="button"
         tabIndex={0}
       >
@@ -5138,6 +5139,7 @@ exports[`GradeLevelSection component should render 1`] = `
         className="dropdown-container input-container inactive  not-editable undefined  "
         onClick={[Function]}
         onKeyDown={[Function]}
+        onTouchStart={[Function]}
         role="button"
         tabIndex={0}
       >

@@ -10,13 +10,9 @@ module CleverAuthable
   def clever_link_query_params
     {
       response_type: 'code',
-      redirect_uri: clever_link_redirect_uri,
-      client_id: Clever::CLIENT_ID,
-      scope: QuillClever.scope
+      redirect_uri: Auth::Clever::REDIRECT_URL,
+      client_id: Auth::Clever::CLIENT_ID,
+      scope: Auth::Clever::SCOPE
     }.to_param
-  end
-
-  def clever_link_redirect_uri
-    Clever::REDIRECT_URL
   end
 end

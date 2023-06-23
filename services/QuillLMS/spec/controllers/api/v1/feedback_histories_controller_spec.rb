@@ -93,8 +93,8 @@ describe Api::V1::FeedbackHistoriesController, type: :controller do
     end
 
     it "should set prompt_type to Evidence::Prompt if prompt_id is provided" do
-      activity = Evidence::Activity.create(target_level: 1, title: 'Test Activity Title')
-      prompt = Evidence::Prompt.create(activity: activity, text: 'Test prompt text', conjunction: 'but')
+      activity = create(:evidence_activity, target_level: 1, title: 'Test Activity Title')
+      prompt = create(:evidence_prompt, activity: activity, text: 'Test prompt text', conjunction: 'but')
       post :create,
         params: {
           feedback_history: {
@@ -151,8 +151,8 @@ describe Api::V1::FeedbackHistoriesController, type: :controller do
     end
 
     it "should attach include prompt model if attached" do
-      activity = Evidence::Activity.create(target_level: 1, title: 'Test Activity Title')
-      prompt = Evidence::Prompt.create(activity: activity, text: 'Test prompt text', conjunction: 'but')
+      activity = create(:evidence_activity, target_level: 1, title: 'Test Activity Title')
+      prompt = create(:evidence_prompt, activity: activity, text: 'Test prompt text', conjunction: 'but')
       feedback_history = build(:feedback_history)
       feedback_history.prompt = prompt
       feedback_history.save

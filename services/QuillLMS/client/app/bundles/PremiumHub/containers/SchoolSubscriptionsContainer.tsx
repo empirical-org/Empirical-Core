@@ -133,38 +133,40 @@ const SchoolSubscriptionsContainer = ({ location, accessType, }) => {
   const selectedSchoolOption = schoolsAsOptions.find(o => o.value === selectedSchoolId)
 
   return (
-    <section className="subscriptions school-subscriptions-container">
-      <DropdownInput
-        className="school-dropdown-container"
-        handleChange={onSelectedSchoolChange}
-        label="School"
-        options={schoolsAsOptions}
-        value={selectedSchoolOption}
-      />
-      <SubscriptionStatus
-        customerEmail={currentUserEmail}
-        subscriptionStatus={subscription_status}
-        subscriptionType={subscriptionType(subscription_status)}
-        userIsContact={true}
-      />
-      <CurrentSubscription
-        authorityLevel="purchaser"
-        purchaserNameOrEmail={purchaserNameOrEmail(subscription_status)}
-        subscriptionStatus={subscription_status}
-        subscriptionType={subscriptionType(subscription_status)}
-        updateSubscription={updateSubscription}
-        userIsContact={true}
-      />
-      <SubscriptionHistory
-        authorityLevel="purchaser"
-        subscriptions={subscriptions}
-      />
-      <PremiumConfirmationModal
-        hideModal={hidePremiumConfirmationModal}
-        show={showPremiumConfirmationModal}
-        subscription={subscription_status}
-      />
-    </section>
+    <div className="container gray-background-accommodate-footer">
+      <section className="subscriptions school-subscriptions-container">
+        <DropdownInput
+          className="school-dropdown-container"
+          handleChange={onSelectedSchoolChange}
+          label="School"
+          options={schoolsAsOptions}
+          value={selectedSchoolOption}
+        />
+        <SubscriptionStatus
+          customerEmail={currentUserEmail}
+          subscriptionStatus={subscription_status}
+          subscriptionType={subscriptionType(subscription_status)}
+          userIsContact={true}
+        />
+        <CurrentSubscription
+          authorityLevel="purchaser"
+          purchaserNameOrEmail={purchaserNameOrEmail(subscription_status)}
+          subscriptionStatus={subscription_status}
+          subscriptionType={subscriptionType(subscription_status)}
+          updateSubscription={updateSubscription}
+          userIsContact={true}
+        />
+        <SubscriptionHistory
+          authorityLevel="purchaser"
+          subscriptions={subscriptions}
+        />
+        <PremiumConfirmationModal
+          hideModal={hidePremiumConfirmationModal}
+          show={showPremiumConfirmationModal}
+          subscription={subscription_status}
+        />
+      </section>
+    </div>
   )
 }
 

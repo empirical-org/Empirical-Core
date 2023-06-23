@@ -26,6 +26,9 @@
 #
 class AuthCredential < ApplicationRecord
   belongs_to :user
+  has_one :canvas_instance_auth_credential, dependent: :destroy
+
+  CANVAS_PROVIDER = 'canvas'
 
   GOOGLE_PROVIDER = 'google'
   GOOGLE_EXPIRATION_DURATION = 6.months
@@ -60,5 +63,9 @@ class AuthCredential < ApplicationRecord
     return nil if !google_provider? || expires_at.nil?
 
     expires_at + GOOGLE_EXPIRATION_DURATION
+  end
+
+  def token
+    access_token
   end
 end

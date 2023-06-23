@@ -1,0 +1,2643 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`SnapshotSection component when the section is Classrooms should match snapshot 1`] = `
+<SnapshotSection
+  adminId={1}
+  className="classrooms"
+  customTimeframeEnd={null}
+  customTimeframeStart={null}
+  itemGroupings={
+    Array [
+      Object {
+        "className": "counts",
+        "items": Array [
+          Object {
+            "label": "Active classrooms",
+            "queryKey": "active-classrooms",
+            "singularLabel": "Active classroom",
+            "size": "small",
+            "type": "count",
+          },
+          Object {
+            "comingSoon": true,
+            "label": "Average active classrooms per teacher",
+            "queryKey": "average-active-classrooms-per-teacher",
+            "size": "small",
+            "type": "count",
+          },
+          Object {
+            "comingSoon": true,
+            "label": "Classrooms created",
+            "queryKey": "classrooms-created",
+            "singularLabel": "Classroom created",
+            "size": "small",
+            "type": "count",
+          },
+          Object {
+            "comingSoon": true,
+            "label": "Average active students per classroom",
+            "queryKey": "average-active-students-per-classroom",
+            "size": "small",
+            "type": "count",
+          },
+        ],
+      },
+      Object {
+        "className": "rankings",
+        "items": Array [
+          Object {
+            "comingSoon": true,
+            "headers": Array [
+              "Grade",
+              "Activities completed",
+            ],
+            "label": "Most active grades",
+            "queryKey": "most-active-grades",
+            "type": "ranking",
+          },
+        ],
+      },
+    ]
+  }
+  name="Classrooms"
+  searchCount={1}
+  selectedGrades={
+    Array [
+      "Kindergarten",
+      "1",
+      "2",
+      "3",
+      "4",
+      "5",
+      "6",
+      "7",
+      "8",
+      "9",
+      "10",
+      "11",
+      "12",
+      "University",
+      "Other",
+    ]
+  }
+  selectedSchoolIds={
+    Array [
+      58452,
+    ]
+  }
+  selectedTimeframe="last-30-days"
+>
+  <section
+    className="snapshot-section classrooms"
+  >
+    <h2>
+      Classrooms
+    </h2>
+    <div
+      className="snapshot-section-content"
+    >
+      <div
+        className="counts"
+        key="counts"
+      >
+        <SnapshotCount
+          adminId={1}
+          customTimeframeEnd={null}
+          customTimeframeStart={null}
+          key="active-classrooms"
+          label="Active classrooms"
+          queryKey="active-classrooms"
+          searchCount={1}
+          selectedGrades={
+            Array [
+              "Kindergarten",
+              "1",
+              "2",
+              "3",
+              "4",
+              "5",
+              "6",
+              "7",
+              "8",
+              "9",
+              "10",
+              "11",
+              "12",
+              "University",
+              "Other",
+            ]
+          }
+          selectedSchoolIds={
+            Array [
+              58452,
+            ]
+          }
+          selectedTimeframe="last-30-days"
+          singularLabel="Active classroom"
+          size="small"
+        >
+          <section
+            className="snapshot-item snapshot-count small "
+          >
+            <div
+              className="count-and-label"
+            >
+              <span
+                className="count"
+              >
+                —
+              </span>
+              <span
+                className="snapshot-label"
+              >
+                Active classrooms
+              </span>
+            </div>
+            <div
+              className="change"
+            >
+              <span>
+                0
+                %
+              </span>
+            </div>
+          </section>
+        </SnapshotCount>
+        <SnapshotCount
+          adminId={1}
+          comingSoon={true}
+          customTimeframeEnd={null}
+          customTimeframeStart={null}
+          key="average-active-classrooms-per-teacher"
+          label="Average active classrooms per teacher"
+          queryKey="average-active-classrooms-per-teacher"
+          searchCount={1}
+          selectedGrades={
+            Array [
+              "Kindergarten",
+              "1",
+              "2",
+              "3",
+              "4",
+              "5",
+              "6",
+              "7",
+              "8",
+              "9",
+              "10",
+              "11",
+              "12",
+              "University",
+              "Other",
+            ]
+          }
+          selectedSchoolIds={
+            Array [
+              58452,
+            ]
+          }
+          selectedTimeframe="last-30-days"
+          size="small"
+        >
+          <section
+            className="snapshot-item snapshot-count small "
+          >
+            <div
+              className="count-and-label"
+            >
+              <span
+                className="coming-soon"
+              >
+                Coming soon
+              </span>
+              <span
+                className="snapshot-label"
+              >
+                Average active classrooms per teacher
+              </span>
+            </div>
+            <div
+              className="change"
+            >
+              <span>
+                0
+                %
+              </span>
+            </div>
+          </section>
+        </SnapshotCount>
+        <SnapshotCount
+          adminId={1}
+          comingSoon={true}
+          customTimeframeEnd={null}
+          customTimeframeStart={null}
+          key="classrooms-created"
+          label="Classrooms created"
+          queryKey="classrooms-created"
+          searchCount={1}
+          selectedGrades={
+            Array [
+              "Kindergarten",
+              "1",
+              "2",
+              "3",
+              "4",
+              "5",
+              "6",
+              "7",
+              "8",
+              "9",
+              "10",
+              "11",
+              "12",
+              "University",
+              "Other",
+            ]
+          }
+          selectedSchoolIds={
+            Array [
+              58452,
+            ]
+          }
+          selectedTimeframe="last-30-days"
+          singularLabel="Classroom created"
+          size="small"
+        >
+          <section
+            className="snapshot-item snapshot-count small "
+          >
+            <div
+              className="count-and-label"
+            >
+              <span
+                className="coming-soon"
+              >
+                Coming soon
+              </span>
+              <span
+                className="snapshot-label"
+              >
+                Classrooms created
+              </span>
+            </div>
+            <div
+              className="change"
+            >
+              <span>
+                0
+                %
+              </span>
+            </div>
+          </section>
+        </SnapshotCount>
+        <SnapshotCount
+          adminId={1}
+          comingSoon={true}
+          customTimeframeEnd={null}
+          customTimeframeStart={null}
+          key="average-active-students-per-classroom"
+          label="Average active students per classroom"
+          queryKey="average-active-students-per-classroom"
+          searchCount={1}
+          selectedGrades={
+            Array [
+              "Kindergarten",
+              "1",
+              "2",
+              "3",
+              "4",
+              "5",
+              "6",
+              "7",
+              "8",
+              "9",
+              "10",
+              "11",
+              "12",
+              "University",
+              "Other",
+            ]
+          }
+          selectedSchoolIds={
+            Array [
+              58452,
+            ]
+          }
+          selectedTimeframe="last-30-days"
+          size="small"
+        >
+          <section
+            className="snapshot-item snapshot-count small "
+          >
+            <div
+              className="count-and-label"
+            >
+              <span
+                className="coming-soon"
+              >
+                Coming soon
+              </span>
+              <span
+                className="snapshot-label"
+              >
+                Average active students per classroom
+              </span>
+            </div>
+            <div
+              className="change"
+            >
+              <span>
+                0
+                %
+              </span>
+            </div>
+          </section>
+        </SnapshotCount>
+      </div>
+      <div
+        className="rankings"
+        key="rankings"
+      >
+        <SnapshotRanking
+          adminId={1}
+          comingSoon={true}
+          customTimeframeEnd={null}
+          customTimeframeStart={null}
+          headers={
+            Array [
+              "Grade",
+              "Activities completed",
+            ]
+          }
+          key="most-active-grades"
+          label="Most active grades"
+          queryKey="most-active-grades"
+          searchCount={1}
+          selectedGrades={
+            Array [
+              "Kindergarten",
+              "1",
+              "2",
+              "3",
+              "4",
+              "5",
+              "6",
+              "7",
+              "8",
+              "9",
+              "10",
+              "11",
+              "12",
+              "University",
+              "Other",
+            ]
+          }
+          selectedSchoolIds={
+            Array [
+              58452,
+            ]
+          }
+          selectedTimeframe="last-30-days"
+        >
+          <section
+            className="snapshot-item snapshot-ranking no-data"
+          >
+            <div
+              onClick={[Function]}
+            >
+              <div
+                className="header"
+              >
+                <h3
+                  className="coming-soon"
+                >
+                  Most active grades
+                   (coming soon)
+                </h3>
+              </div>
+              <DataTable
+                data={null}
+                headers={
+                  Array [
+                    "Grade",
+                    "Activities completed",
+                  ]
+                }
+                numberOfRows={3}
+              >
+                <table
+                  className="table"
+                >
+                  <tr
+                    className="header-row"
+                  >
+                    <th
+                      key="Grade"
+                    >
+                      Grade
+                    </th>
+                    <th
+                      key="Activities completed"
+                    >
+                      Activities completed
+                    </th>
+                  </tr>
+                  <tr
+                    className="data-row"
+                    key="0"
+                  >
+                    <td>
+                      —
+                    </td>
+                    <td>
+                      —
+                    </td>
+                  </tr>
+                  <tr
+                    className="data-row"
+                    key="1"
+                  >
+                    <td>
+                      —
+                    </td>
+                    <td>
+                      —
+                    </td>
+                  </tr>
+                  <tr
+                    className="data-row"
+                    key="2"
+                  >
+                    <td>
+                      —
+                    </td>
+                    <td>
+                      —
+                    </td>
+                  </tr>
+                </table>
+              </DataTable>
+            </div>
+          </section>
+        </SnapshotRanking>
+      </div>
+    </div>
+  </section>
+</SnapshotSection>
+`;
+
+exports[`SnapshotSection component when the section is Highlights should match snapshot 1`] = `
+<SnapshotSection
+  adminId={1}
+  className="highlights"
+  customTimeframeEnd={null}
+  customTimeframeStart={null}
+  itemGroupings={
+    Array [
+      Object {
+        "className": "counts",
+        "items": Array [
+          Object {
+            "label": "Sentences written",
+            "queryKey": "sentences-written",
+            "singularLabel": "Sentence written",
+            "size": "medium",
+            "type": "count",
+          },
+          Object {
+            "label": "Student learning hours",
+            "queryKey": "student-learning-hours",
+            "singularLabel": "Student learning hour",
+            "size": "medium",
+            "type": "count",
+          },
+        ],
+      },
+    ]
+  }
+  name="Highlights"
+  searchCount={1}
+  selectedGrades={
+    Array [
+      "Kindergarten",
+      "1",
+      "2",
+      "3",
+      "4",
+      "5",
+      "6",
+      "7",
+      "8",
+      "9",
+      "10",
+      "11",
+      "12",
+      "University",
+      "Other",
+    ]
+  }
+  selectedSchoolIds={
+    Array [
+      58452,
+    ]
+  }
+  selectedTimeframe="last-30-days"
+>
+  <section
+    className="snapshot-section highlights"
+  >
+    <h2>
+      Highlights
+    </h2>
+    <div
+      className="snapshot-section-content"
+    >
+      <div
+        className="counts"
+        key="counts"
+      >
+        <SnapshotCount
+          adminId={1}
+          customTimeframeEnd={null}
+          customTimeframeStart={null}
+          key="sentences-written"
+          label="Sentences written"
+          queryKey="sentences-written"
+          searchCount={1}
+          selectedGrades={
+            Array [
+              "Kindergarten",
+              "1",
+              "2",
+              "3",
+              "4",
+              "5",
+              "6",
+              "7",
+              "8",
+              "9",
+              "10",
+              "11",
+              "12",
+              "University",
+              "Other",
+            ]
+          }
+          selectedSchoolIds={
+            Array [
+              58452,
+            ]
+          }
+          selectedTimeframe="last-30-days"
+          singularLabel="Sentence written"
+          size="medium"
+        >
+          <section
+            className="snapshot-item snapshot-count medium "
+          >
+            <div
+              className="count-and-label"
+            >
+              <span
+                className="count"
+              >
+                —
+              </span>
+              <span
+                className="snapshot-label"
+              >
+                Sentences written
+              </span>
+            </div>
+            <div
+              className="change"
+            >
+              <span>
+                0
+                %
+              </span>
+            </div>
+          </section>
+        </SnapshotCount>
+        <SnapshotCount
+          adminId={1}
+          customTimeframeEnd={null}
+          customTimeframeStart={null}
+          key="student-learning-hours"
+          label="Student learning hours"
+          queryKey="student-learning-hours"
+          searchCount={1}
+          selectedGrades={
+            Array [
+              "Kindergarten",
+              "1",
+              "2",
+              "3",
+              "4",
+              "5",
+              "6",
+              "7",
+              "8",
+              "9",
+              "10",
+              "11",
+              "12",
+              "University",
+              "Other",
+            ]
+          }
+          selectedSchoolIds={
+            Array [
+              58452,
+            ]
+          }
+          selectedTimeframe="last-30-days"
+          singularLabel="Student learning hour"
+          size="medium"
+        >
+          <section
+            className="snapshot-item snapshot-count medium "
+          >
+            <div
+              className="count-and-label"
+            >
+              <span
+                className="count"
+              >
+                —
+              </span>
+              <span
+                className="snapshot-label"
+              >
+                Student learning hours
+              </span>
+            </div>
+            <div
+              className="change"
+            >
+              <span>
+                0
+                %
+              </span>
+            </div>
+          </section>
+        </SnapshotCount>
+      </div>
+    </div>
+  </section>
+</SnapshotSection>
+`;
+
+exports[`SnapshotSection component when the section is Practice should match snapshot 1`] = `
+<SnapshotSection
+  adminId={1}
+  className="practice"
+  customTimeframeEnd={null}
+  customTimeframeStart={null}
+  itemGroupings={
+    Array [
+      Object {
+        "className": "first-row",
+        "items": Array [
+          Object {
+            "label": "Activities assigned",
+            "queryKey": "activities-assigned",
+            "singularLabel": "Activity assigned",
+            "size": "small",
+            "type": "count",
+          },
+          Object {
+            "label": "Activities completed",
+            "queryKey": "activities-completed",
+            "singularLabel": "Activity completed",
+            "size": "small",
+            "type": "count",
+          },
+          Object {
+            "comingSoon": true,
+            "label": "Activity packs assigned",
+            "queryKey": "activity-packs-assigned",
+            "singularLabel": "Activity pack assigned",
+            "size": "small",
+            "type": "count",
+          },
+          Object {
+            "comingSoon": true,
+            "label": "Activity packs completed",
+            "queryKey": "activity-packs-completed",
+            "singularLabel": "Activity pack completed",
+            "size": "small",
+            "type": "count",
+          },
+        ],
+      },
+      Object {
+        "className": "second-row",
+        "items": Array [
+          Object {
+            "headers": Array [
+              "Concept",
+              "Activities assigned",
+            ],
+            "label": "Top concepts assigned",
+            "queryKey": "top-concepts-assigned",
+            "type": "ranking",
+          },
+          Object {
+            "headers": Array [
+              "Concept",
+              "Activities completed",
+            ],
+            "label": "Top concepts practiced",
+            "queryKey": "top-concepts-practiced",
+            "type": "ranking",
+          },
+        ],
+      },
+      Object {
+        "className": "third-and-fourth-row",
+        "items": Array [
+          Object {
+            "comingSoon": true,
+            "label": "Baseline diagnostics assigned",
+            "queryKey": "baseline-diagnostics-assigned",
+            "singularLabel": "Baseline diagnostic assigned",
+            "size": "small",
+            "type": "count",
+          },
+          Object {
+            "comingSoon": true,
+            "label": "Baseline diagnostics completed",
+            "queryKey": "baseline-diagnostics-completed",
+            "singularLabel": "Baseline diagnostic completed",
+            "size": "small",
+            "type": "count",
+          },
+          Object {
+            "comingSoon": true,
+            "label": "Growth diagnostics assigned",
+            "queryKey": "growth-diagnostics-assigned",
+            "singularLabel": "Growth diagnostic assigned",
+            "size": "small",
+            "type": "count",
+          },
+          Object {
+            "comingSoon": true,
+            "label": "Growth diagnostics completed",
+            "queryKey": "growth-diagnostics-completed",
+            "singularLabel": "Growth diagnostic completed",
+            "size": "small",
+            "type": "count",
+          },
+          Object {
+            "label": "Average activities completed per student",
+            "queryKey": "average-activities-completed-per-student",
+            "size": "small",
+            "type": "count",
+          },
+          Object {
+            "type": "feedback",
+          },
+        ],
+      },
+      Object {
+        "className": "fifth-row",
+        "items": Array [
+          Object {
+            "comingSoon": true,
+            "headers": Array [
+              "Activity",
+              "Activities completed",
+            ],
+            "label": "Most assigned activities",
+            "queryKey": "most-assigned-activities",
+            "type": "ranking",
+          },
+          Object {
+            "comingSoon": true,
+            "headers": Array [
+              "Activity",
+              "Activities completed",
+            ],
+            "label": "Most completed activities",
+            "queryKey": "most-completed-activities",
+            "type": "ranking",
+          },
+        ],
+      },
+    ]
+  }
+  name="Practice"
+  searchCount={1}
+  selectedGrades={
+    Array [
+      "Kindergarten",
+      "1",
+      "2",
+      "3",
+      "4",
+      "5",
+      "6",
+      "7",
+      "8",
+      "9",
+      "10",
+      "11",
+      "12",
+      "University",
+      "Other",
+    ]
+  }
+  selectedSchoolIds={
+    Array [
+      58452,
+    ]
+  }
+  selectedTimeframe="last-30-days"
+>
+  <section
+    className="snapshot-section practice"
+  >
+    <h2>
+      Practice
+    </h2>
+    <div
+      className="snapshot-section-content"
+    >
+      <div
+        className="first-row"
+        key="first-row"
+      >
+        <SnapshotCount
+          adminId={1}
+          customTimeframeEnd={null}
+          customTimeframeStart={null}
+          key="activities-assigned"
+          label="Activities assigned"
+          queryKey="activities-assigned"
+          searchCount={1}
+          selectedGrades={
+            Array [
+              "Kindergarten",
+              "1",
+              "2",
+              "3",
+              "4",
+              "5",
+              "6",
+              "7",
+              "8",
+              "9",
+              "10",
+              "11",
+              "12",
+              "University",
+              "Other",
+            ]
+          }
+          selectedSchoolIds={
+            Array [
+              58452,
+            ]
+          }
+          selectedTimeframe="last-30-days"
+          singularLabel="Activity assigned"
+          size="small"
+        >
+          <section
+            className="snapshot-item snapshot-count small "
+          >
+            <div
+              className="count-and-label"
+            >
+              <span
+                className="count"
+              >
+                —
+              </span>
+              <span
+                className="snapshot-label"
+              >
+                Activities assigned
+              </span>
+            </div>
+            <div
+              className="change"
+            >
+              <span>
+                0
+                %
+              </span>
+            </div>
+          </section>
+        </SnapshotCount>
+        <SnapshotCount
+          adminId={1}
+          customTimeframeEnd={null}
+          customTimeframeStart={null}
+          key="activities-completed"
+          label="Activities completed"
+          queryKey="activities-completed"
+          searchCount={1}
+          selectedGrades={
+            Array [
+              "Kindergarten",
+              "1",
+              "2",
+              "3",
+              "4",
+              "5",
+              "6",
+              "7",
+              "8",
+              "9",
+              "10",
+              "11",
+              "12",
+              "University",
+              "Other",
+            ]
+          }
+          selectedSchoolIds={
+            Array [
+              58452,
+            ]
+          }
+          selectedTimeframe="last-30-days"
+          singularLabel="Activity completed"
+          size="small"
+        >
+          <section
+            className="snapshot-item snapshot-count small "
+          >
+            <div
+              className="count-and-label"
+            >
+              <span
+                className="count"
+              >
+                —
+              </span>
+              <span
+                className="snapshot-label"
+              >
+                Activities completed
+              </span>
+            </div>
+            <div
+              className="change"
+            >
+              <span>
+                0
+                %
+              </span>
+            </div>
+          </section>
+        </SnapshotCount>
+        <SnapshotCount
+          adminId={1}
+          comingSoon={true}
+          customTimeframeEnd={null}
+          customTimeframeStart={null}
+          key="activity-packs-assigned"
+          label="Activity packs assigned"
+          queryKey="activity-packs-assigned"
+          searchCount={1}
+          selectedGrades={
+            Array [
+              "Kindergarten",
+              "1",
+              "2",
+              "3",
+              "4",
+              "5",
+              "6",
+              "7",
+              "8",
+              "9",
+              "10",
+              "11",
+              "12",
+              "University",
+              "Other",
+            ]
+          }
+          selectedSchoolIds={
+            Array [
+              58452,
+            ]
+          }
+          selectedTimeframe="last-30-days"
+          singularLabel="Activity pack assigned"
+          size="small"
+        >
+          <section
+            className="snapshot-item snapshot-count small "
+          >
+            <div
+              className="count-and-label"
+            >
+              <span
+                className="coming-soon"
+              >
+                Coming soon
+              </span>
+              <span
+                className="snapshot-label"
+              >
+                Activity packs assigned
+              </span>
+            </div>
+            <div
+              className="change"
+            >
+              <span>
+                0
+                %
+              </span>
+            </div>
+          </section>
+        </SnapshotCount>
+        <SnapshotCount
+          adminId={1}
+          comingSoon={true}
+          customTimeframeEnd={null}
+          customTimeframeStart={null}
+          key="activity-packs-completed"
+          label="Activity packs completed"
+          queryKey="activity-packs-completed"
+          searchCount={1}
+          selectedGrades={
+            Array [
+              "Kindergarten",
+              "1",
+              "2",
+              "3",
+              "4",
+              "5",
+              "6",
+              "7",
+              "8",
+              "9",
+              "10",
+              "11",
+              "12",
+              "University",
+              "Other",
+            ]
+          }
+          selectedSchoolIds={
+            Array [
+              58452,
+            ]
+          }
+          selectedTimeframe="last-30-days"
+          singularLabel="Activity pack completed"
+          size="small"
+        >
+          <section
+            className="snapshot-item snapshot-count small "
+          >
+            <div
+              className="count-and-label"
+            >
+              <span
+                className="coming-soon"
+              >
+                Coming soon
+              </span>
+              <span
+                className="snapshot-label"
+              >
+                Activity packs completed
+              </span>
+            </div>
+            <div
+              className="change"
+            >
+              <span>
+                0
+                %
+              </span>
+            </div>
+          </section>
+        </SnapshotCount>
+      </div>
+      <div
+        className="second-row"
+        key="second-row"
+      >
+        <SnapshotRanking
+          adminId={1}
+          customTimeframeEnd={null}
+          customTimeframeStart={null}
+          headers={
+            Array [
+              "Concept",
+              "Activities assigned",
+            ]
+          }
+          key="top-concepts-assigned"
+          label="Top concepts assigned"
+          queryKey="top-concepts-assigned"
+          searchCount={1}
+          selectedGrades={
+            Array [
+              "Kindergarten",
+              "1",
+              "2",
+              "3",
+              "4",
+              "5",
+              "6",
+              "7",
+              "8",
+              "9",
+              "10",
+              "11",
+              "12",
+              "University",
+              "Other",
+            ]
+          }
+          selectedSchoolIds={
+            Array [
+              58452,
+            ]
+          }
+          selectedTimeframe="last-30-days"
+        >
+          <section
+            className="snapshot-item snapshot-ranking no-data"
+          >
+            <div
+              onClick={[Function]}
+            >
+              <div
+                className="header"
+              >
+                <h3>
+                  Top concepts assigned
+                </h3>
+              </div>
+              <DataTable
+                data={null}
+                headers={
+                  Array [
+                    "Concept",
+                    "Activities assigned",
+                  ]
+                }
+                numberOfRows={3}
+              >
+                <table
+                  className="table"
+                >
+                  <tr
+                    className="header-row"
+                  >
+                    <th
+                      key="Concept"
+                    >
+                      Concept
+                    </th>
+                    <th
+                      key="Activities assigned"
+                    >
+                      Activities assigned
+                    </th>
+                  </tr>
+                  <tr
+                    className="data-row"
+                    key="0"
+                  >
+                    <td>
+                      —
+                    </td>
+                    <td>
+                      —
+                    </td>
+                  </tr>
+                  <tr
+                    className="data-row"
+                    key="1"
+                  >
+                    <td>
+                      —
+                    </td>
+                    <td>
+                      —
+                    </td>
+                  </tr>
+                  <tr
+                    className="data-row"
+                    key="2"
+                  >
+                    <td>
+                      —
+                    </td>
+                    <td>
+                      —
+                    </td>
+                  </tr>
+                </table>
+              </DataTable>
+            </div>
+          </section>
+        </SnapshotRanking>
+        <SnapshotRanking
+          adminId={1}
+          customTimeframeEnd={null}
+          customTimeframeStart={null}
+          headers={
+            Array [
+              "Concept",
+              "Activities completed",
+            ]
+          }
+          key="top-concepts-practiced"
+          label="Top concepts practiced"
+          queryKey="top-concepts-practiced"
+          searchCount={1}
+          selectedGrades={
+            Array [
+              "Kindergarten",
+              "1",
+              "2",
+              "3",
+              "4",
+              "5",
+              "6",
+              "7",
+              "8",
+              "9",
+              "10",
+              "11",
+              "12",
+              "University",
+              "Other",
+            ]
+          }
+          selectedSchoolIds={
+            Array [
+              58452,
+            ]
+          }
+          selectedTimeframe="last-30-days"
+        >
+          <section
+            className="snapshot-item snapshot-ranking no-data"
+          >
+            <div
+              onClick={[Function]}
+            >
+              <div
+                className="header"
+              >
+                <h3>
+                  Top concepts practiced
+                </h3>
+              </div>
+              <DataTable
+                data={null}
+                headers={
+                  Array [
+                    "Concept",
+                    "Activities completed",
+                  ]
+                }
+                numberOfRows={3}
+              >
+                <table
+                  className="table"
+                >
+                  <tr
+                    className="header-row"
+                  >
+                    <th
+                      key="Concept"
+                    >
+                      Concept
+                    </th>
+                    <th
+                      key="Activities completed"
+                    >
+                      Activities completed
+                    </th>
+                  </tr>
+                  <tr
+                    className="data-row"
+                    key="0"
+                  >
+                    <td>
+                      —
+                    </td>
+                    <td>
+                      —
+                    </td>
+                  </tr>
+                  <tr
+                    className="data-row"
+                    key="1"
+                  >
+                    <td>
+                      —
+                    </td>
+                    <td>
+                      —
+                    </td>
+                  </tr>
+                  <tr
+                    className="data-row"
+                    key="2"
+                  >
+                    <td>
+                      —
+                    </td>
+                    <td>
+                      —
+                    </td>
+                  </tr>
+                </table>
+              </DataTable>
+            </div>
+          </section>
+        </SnapshotRanking>
+      </div>
+      <div
+        className="third-and-fourth-row"
+        key="third-and-fourth-row"
+      >
+        <SnapshotCount
+          adminId={1}
+          comingSoon={true}
+          customTimeframeEnd={null}
+          customTimeframeStart={null}
+          key="baseline-diagnostics-assigned"
+          label="Baseline diagnostics assigned"
+          queryKey="baseline-diagnostics-assigned"
+          searchCount={1}
+          selectedGrades={
+            Array [
+              "Kindergarten",
+              "1",
+              "2",
+              "3",
+              "4",
+              "5",
+              "6",
+              "7",
+              "8",
+              "9",
+              "10",
+              "11",
+              "12",
+              "University",
+              "Other",
+            ]
+          }
+          selectedSchoolIds={
+            Array [
+              58452,
+            ]
+          }
+          selectedTimeframe="last-30-days"
+          singularLabel="Baseline diagnostic assigned"
+          size="small"
+        >
+          <section
+            className="snapshot-item snapshot-count small "
+          >
+            <div
+              className="count-and-label"
+            >
+              <span
+                className="coming-soon"
+              >
+                Coming soon
+              </span>
+              <span
+                className="snapshot-label"
+              >
+                Baseline diagnostics assigned
+              </span>
+            </div>
+            <div
+              className="change"
+            >
+              <span>
+                0
+                %
+              </span>
+            </div>
+          </section>
+        </SnapshotCount>
+        <SnapshotCount
+          adminId={1}
+          comingSoon={true}
+          customTimeframeEnd={null}
+          customTimeframeStart={null}
+          key="baseline-diagnostics-completed"
+          label="Baseline diagnostics completed"
+          queryKey="baseline-diagnostics-completed"
+          searchCount={1}
+          selectedGrades={
+            Array [
+              "Kindergarten",
+              "1",
+              "2",
+              "3",
+              "4",
+              "5",
+              "6",
+              "7",
+              "8",
+              "9",
+              "10",
+              "11",
+              "12",
+              "University",
+              "Other",
+            ]
+          }
+          selectedSchoolIds={
+            Array [
+              58452,
+            ]
+          }
+          selectedTimeframe="last-30-days"
+          singularLabel="Baseline diagnostic completed"
+          size="small"
+        >
+          <section
+            className="snapshot-item snapshot-count small "
+          >
+            <div
+              className="count-and-label"
+            >
+              <span
+                className="coming-soon"
+              >
+                Coming soon
+              </span>
+              <span
+                className="snapshot-label"
+              >
+                Baseline diagnostics completed
+              </span>
+            </div>
+            <div
+              className="change"
+            >
+              <span>
+                0
+                %
+              </span>
+            </div>
+          </section>
+        </SnapshotCount>
+        <SnapshotCount
+          adminId={1}
+          comingSoon={true}
+          customTimeframeEnd={null}
+          customTimeframeStart={null}
+          key="growth-diagnostics-assigned"
+          label="Growth diagnostics assigned"
+          queryKey="growth-diagnostics-assigned"
+          searchCount={1}
+          selectedGrades={
+            Array [
+              "Kindergarten",
+              "1",
+              "2",
+              "3",
+              "4",
+              "5",
+              "6",
+              "7",
+              "8",
+              "9",
+              "10",
+              "11",
+              "12",
+              "University",
+              "Other",
+            ]
+          }
+          selectedSchoolIds={
+            Array [
+              58452,
+            ]
+          }
+          selectedTimeframe="last-30-days"
+          singularLabel="Growth diagnostic assigned"
+          size="small"
+        >
+          <section
+            className="snapshot-item snapshot-count small "
+          >
+            <div
+              className="count-and-label"
+            >
+              <span
+                className="coming-soon"
+              >
+                Coming soon
+              </span>
+              <span
+                className="snapshot-label"
+              >
+                Growth diagnostics assigned
+              </span>
+            </div>
+            <div
+              className="change"
+            >
+              <span>
+                0
+                %
+              </span>
+            </div>
+          </section>
+        </SnapshotCount>
+        <SnapshotCount
+          adminId={1}
+          comingSoon={true}
+          customTimeframeEnd={null}
+          customTimeframeStart={null}
+          key="growth-diagnostics-completed"
+          label="Growth diagnostics completed"
+          queryKey="growth-diagnostics-completed"
+          searchCount={1}
+          selectedGrades={
+            Array [
+              "Kindergarten",
+              "1",
+              "2",
+              "3",
+              "4",
+              "5",
+              "6",
+              "7",
+              "8",
+              "9",
+              "10",
+              "11",
+              "12",
+              "University",
+              "Other",
+            ]
+          }
+          selectedSchoolIds={
+            Array [
+              58452,
+            ]
+          }
+          selectedTimeframe="last-30-days"
+          singularLabel="Growth diagnostic completed"
+          size="small"
+        >
+          <section
+            className="snapshot-item snapshot-count small "
+          >
+            <div
+              className="count-and-label"
+            >
+              <span
+                className="coming-soon"
+              >
+                Coming soon
+              </span>
+              <span
+                className="snapshot-label"
+              >
+                Growth diagnostics completed
+              </span>
+            </div>
+            <div
+              className="change"
+            >
+              <span>
+                0
+                %
+              </span>
+            </div>
+          </section>
+        </SnapshotCount>
+        <SnapshotCount
+          adminId={1}
+          customTimeframeEnd={null}
+          customTimeframeStart={null}
+          key="average-activities-completed-per-student"
+          label="Average activities completed per student"
+          queryKey="average-activities-completed-per-student"
+          searchCount={1}
+          selectedGrades={
+            Array [
+              "Kindergarten",
+              "1",
+              "2",
+              "3",
+              "4",
+              "5",
+              "6",
+              "7",
+              "8",
+              "9",
+              "10",
+              "11",
+              "12",
+              "University",
+              "Other",
+            ]
+          }
+          selectedSchoolIds={
+            Array [
+              58452,
+            ]
+          }
+          selectedTimeframe="last-30-days"
+          size="small"
+        >
+          <section
+            className="snapshot-item snapshot-count small "
+          >
+            <div
+              className="count-and-label"
+            >
+              <span
+                className="count"
+              >
+                —
+              </span>
+              <span
+                className="snapshot-label"
+              >
+                Average activities completed per student
+              </span>
+            </div>
+            <div
+              className="change"
+            >
+              <span>
+                0
+                %
+              </span>
+            </div>
+          </section>
+        </SnapshotCount>
+        <SnapshotFeedback>
+          <a
+            aria-label="Open link to feedback forum in new tab"
+            className="focus-on-light snapshot-item snapshot-feedback"
+            href="https://quillorg.canny.io/admin-feedback"
+            rel="noopener noreferrer"
+            target="_blank"
+          >
+            <div
+              className="header"
+            >
+              <h3>
+                We’d love your feedback
+              </h3>
+              <img
+                alt=""
+                src="undefined/images/pages/administrator/new_tab.svg"
+              />
+            </div>
+            <p>
+              Looking for a specific metric? Visit our feedback forum to make a request and vote on ideas.
+            </p>
+          </a>
+        </SnapshotFeedback>
+      </div>
+      <div
+        className="fifth-row"
+        key="fifth-row"
+      >
+        <SnapshotRanking
+          adminId={1}
+          comingSoon={true}
+          customTimeframeEnd={null}
+          customTimeframeStart={null}
+          headers={
+            Array [
+              "Activity",
+              "Activities completed",
+            ]
+          }
+          key="most-assigned-activities"
+          label="Most assigned activities"
+          queryKey="most-assigned-activities"
+          searchCount={1}
+          selectedGrades={
+            Array [
+              "Kindergarten",
+              "1",
+              "2",
+              "3",
+              "4",
+              "5",
+              "6",
+              "7",
+              "8",
+              "9",
+              "10",
+              "11",
+              "12",
+              "University",
+              "Other",
+            ]
+          }
+          selectedSchoolIds={
+            Array [
+              58452,
+            ]
+          }
+          selectedTimeframe="last-30-days"
+        >
+          <section
+            className="snapshot-item snapshot-ranking no-data"
+          >
+            <div
+              onClick={[Function]}
+            >
+              <div
+                className="header"
+              >
+                <h3
+                  className="coming-soon"
+                >
+                  Most assigned activities
+                   (coming soon)
+                </h3>
+              </div>
+              <DataTable
+                data={null}
+                headers={
+                  Array [
+                    "Activity",
+                    "Activities completed",
+                  ]
+                }
+                numberOfRows={3}
+              >
+                <table
+                  className="table"
+                >
+                  <tr
+                    className="header-row"
+                  >
+                    <th
+                      key="Activity"
+                    >
+                      Activity
+                    </th>
+                    <th
+                      key="Activities completed"
+                    >
+                      Activities completed
+                    </th>
+                  </tr>
+                  <tr
+                    className="data-row"
+                    key="0"
+                  >
+                    <td>
+                      —
+                    </td>
+                    <td>
+                      —
+                    </td>
+                  </tr>
+                  <tr
+                    className="data-row"
+                    key="1"
+                  >
+                    <td>
+                      —
+                    </td>
+                    <td>
+                      —
+                    </td>
+                  </tr>
+                  <tr
+                    className="data-row"
+                    key="2"
+                  >
+                    <td>
+                      —
+                    </td>
+                    <td>
+                      —
+                    </td>
+                  </tr>
+                </table>
+              </DataTable>
+            </div>
+          </section>
+        </SnapshotRanking>
+        <SnapshotRanking
+          adminId={1}
+          comingSoon={true}
+          customTimeframeEnd={null}
+          customTimeframeStart={null}
+          headers={
+            Array [
+              "Activity",
+              "Activities completed",
+            ]
+          }
+          key="most-completed-activities"
+          label="Most completed activities"
+          queryKey="most-completed-activities"
+          searchCount={1}
+          selectedGrades={
+            Array [
+              "Kindergarten",
+              "1",
+              "2",
+              "3",
+              "4",
+              "5",
+              "6",
+              "7",
+              "8",
+              "9",
+              "10",
+              "11",
+              "12",
+              "University",
+              "Other",
+            ]
+          }
+          selectedSchoolIds={
+            Array [
+              58452,
+            ]
+          }
+          selectedTimeframe="last-30-days"
+        >
+          <section
+            className="snapshot-item snapshot-ranking no-data"
+          >
+            <div
+              onClick={[Function]}
+            >
+              <div
+                className="header"
+              >
+                <h3
+                  className="coming-soon"
+                >
+                  Most completed activities
+                   (coming soon)
+                </h3>
+              </div>
+              <DataTable
+                data={null}
+                headers={
+                  Array [
+                    "Activity",
+                    "Activities completed",
+                  ]
+                }
+                numberOfRows={3}
+              >
+                <table
+                  className="table"
+                >
+                  <tr
+                    className="header-row"
+                  >
+                    <th
+                      key="Activity"
+                    >
+                      Activity
+                    </th>
+                    <th
+                      key="Activities completed"
+                    >
+                      Activities completed
+                    </th>
+                  </tr>
+                  <tr
+                    className="data-row"
+                    key="0"
+                  >
+                    <td>
+                      —
+                    </td>
+                    <td>
+                      —
+                    </td>
+                  </tr>
+                  <tr
+                    className="data-row"
+                    key="1"
+                  >
+                    <td>
+                      —
+                    </td>
+                    <td>
+                      —
+                    </td>
+                  </tr>
+                  <tr
+                    className="data-row"
+                    key="2"
+                  >
+                    <td>
+                      —
+                    </td>
+                    <td>
+                      —
+                    </td>
+                  </tr>
+                </table>
+              </DataTable>
+            </div>
+          </section>
+        </SnapshotRanking>
+      </div>
+    </div>
+  </section>
+</SnapshotSection>
+`;
+
+exports[`SnapshotSection component when the section is Schools should match snapshot 1`] = `
+<SnapshotSection
+  adminId={1}
+  className="schools"
+  customTimeframeEnd={null}
+  customTimeframeStart={null}
+  itemGroupings={
+    Array [
+      Object {
+        "className": "ranking",
+        "items": Array [
+          Object {
+            "headers": Array [
+              "School",
+              "Activities completed",
+            ],
+            "label": "Most active schools",
+            "queryKey": "most-active-schools",
+            "type": "ranking",
+          },
+        ],
+      },
+    ]
+  }
+  name="Schools"
+  searchCount={1}
+  selectedGrades={
+    Array [
+      "Kindergarten",
+      "1",
+      "2",
+      "3",
+      "4",
+      "5",
+      "6",
+      "7",
+      "8",
+      "9",
+      "10",
+      "11",
+      "12",
+      "University",
+      "Other",
+    ]
+  }
+  selectedSchoolIds={
+    Array [
+      58452,
+    ]
+  }
+  selectedTimeframe="last-30-days"
+>
+  <section
+    className="snapshot-section schools"
+  >
+    <h2>
+      Schools
+    </h2>
+    <div
+      className="snapshot-section-content"
+    >
+      <div
+        className="ranking"
+        key="ranking"
+      >
+        <SnapshotRanking
+          adminId={1}
+          customTimeframeEnd={null}
+          customTimeframeStart={null}
+          headers={
+            Array [
+              "School",
+              "Activities completed",
+            ]
+          }
+          key="most-active-schools"
+          label="Most active schools"
+          queryKey="most-active-schools"
+          searchCount={1}
+          selectedGrades={
+            Array [
+              "Kindergarten",
+              "1",
+              "2",
+              "3",
+              "4",
+              "5",
+              "6",
+              "7",
+              "8",
+              "9",
+              "10",
+              "11",
+              "12",
+              "University",
+              "Other",
+            ]
+          }
+          selectedSchoolIds={
+            Array [
+              58452,
+            ]
+          }
+          selectedTimeframe="last-30-days"
+        >
+          <section
+            className="snapshot-item snapshot-ranking no-data"
+          >
+            <div
+              onClick={[Function]}
+            >
+              <div
+                className="header"
+              >
+                <h3>
+                  Most active schools
+                </h3>
+              </div>
+              <DataTable
+                data={null}
+                headers={
+                  Array [
+                    "School",
+                    "Activities completed",
+                  ]
+                }
+                numberOfRows={3}
+              >
+                <table
+                  className="table"
+                >
+                  <tr
+                    className="header-row"
+                  >
+                    <th
+                      key="School"
+                    >
+                      School
+                    </th>
+                    <th
+                      key="Activities completed"
+                    >
+                      Activities completed
+                    </th>
+                  </tr>
+                  <tr
+                    className="data-row"
+                    key="0"
+                  >
+                    <td>
+                      —
+                    </td>
+                    <td>
+                      —
+                    </td>
+                  </tr>
+                  <tr
+                    className="data-row"
+                    key="1"
+                  >
+                    <td>
+                      —
+                    </td>
+                    <td>
+                      —
+                    </td>
+                  </tr>
+                  <tr
+                    className="data-row"
+                    key="2"
+                  >
+                    <td>
+                      —
+                    </td>
+                    <td>
+                      —
+                    </td>
+                  </tr>
+                </table>
+              </DataTable>
+            </div>
+          </section>
+        </SnapshotRanking>
+      </div>
+    </div>
+  </section>
+</SnapshotSection>
+`;
+
+exports[`SnapshotSection component when the section is Users should match snapshot 1`] = `
+<SnapshotSection
+  adminId={1}
+  className="users"
+  customTimeframeEnd={null}
+  customTimeframeStart={null}
+  itemGroupings={
+    Array [
+      Object {
+        "className": "counts",
+        "items": Array [
+          Object {
+            "label": "Active teachers",
+            "queryKey": "active-teachers",
+            "singularLabel": "Active teacher",
+            "size": "small",
+            "type": "count",
+          },
+          Object {
+            "label": "Active students",
+            "queryKey": "active-students",
+            "singularLabel": "Active student",
+            "size": "small",
+            "type": "count",
+          },
+          Object {
+            "comingSoon": true,
+            "label": "Teacher accounts created",
+            "queryKey": "teacher-accounts-created",
+            "singularLabel": "Teacher account created",
+            "size": "small",
+            "type": "count",
+          },
+          Object {
+            "comingSoon": true,
+            "label": "Student accounts created",
+            "queryKey": "student-accounts-created",
+            "singularLabel": "Student account created",
+            "size": "small",
+            "type": "count",
+          },
+        ],
+      },
+      Object {
+        "className": "rankings",
+        "items": Array [
+          Object {
+            "comingSoon": true,
+            "headers": Array [
+              "Teacher",
+              "Activities completed",
+            ],
+            "label": "Most active teachers",
+            "queryKey": "most-active-teachers",
+            "type": "ranking",
+          },
+        ],
+      },
+    ]
+  }
+  name="Users"
+  searchCount={1}
+  selectedGrades={
+    Array [
+      "Kindergarten",
+      "1",
+      "2",
+      "3",
+      "4",
+      "5",
+      "6",
+      "7",
+      "8",
+      "9",
+      "10",
+      "11",
+      "12",
+      "University",
+      "Other",
+    ]
+  }
+  selectedSchoolIds={
+    Array [
+      58452,
+    ]
+  }
+  selectedTimeframe="last-30-days"
+>
+  <section
+    className="snapshot-section users"
+  >
+    <h2>
+      Users
+    </h2>
+    <div
+      className="snapshot-section-content"
+    >
+      <div
+        className="counts"
+        key="counts"
+      >
+        <SnapshotCount
+          adminId={1}
+          customTimeframeEnd={null}
+          customTimeframeStart={null}
+          key="active-teachers"
+          label="Active teachers"
+          queryKey="active-teachers"
+          searchCount={1}
+          selectedGrades={
+            Array [
+              "Kindergarten",
+              "1",
+              "2",
+              "3",
+              "4",
+              "5",
+              "6",
+              "7",
+              "8",
+              "9",
+              "10",
+              "11",
+              "12",
+              "University",
+              "Other",
+            ]
+          }
+          selectedSchoolIds={
+            Array [
+              58452,
+            ]
+          }
+          selectedTimeframe="last-30-days"
+          singularLabel="Active teacher"
+          size="small"
+        >
+          <section
+            className="snapshot-item snapshot-count small "
+          >
+            <div
+              className="count-and-label"
+            >
+              <span
+                className="count"
+              >
+                —
+              </span>
+              <span
+                className="snapshot-label"
+              >
+                Active teachers
+              </span>
+            </div>
+            <div
+              className="change"
+            >
+              <span>
+                0
+                %
+              </span>
+            </div>
+          </section>
+        </SnapshotCount>
+        <SnapshotCount
+          adminId={1}
+          customTimeframeEnd={null}
+          customTimeframeStart={null}
+          key="active-students"
+          label="Active students"
+          queryKey="active-students"
+          searchCount={1}
+          selectedGrades={
+            Array [
+              "Kindergarten",
+              "1",
+              "2",
+              "3",
+              "4",
+              "5",
+              "6",
+              "7",
+              "8",
+              "9",
+              "10",
+              "11",
+              "12",
+              "University",
+              "Other",
+            ]
+          }
+          selectedSchoolIds={
+            Array [
+              58452,
+            ]
+          }
+          selectedTimeframe="last-30-days"
+          singularLabel="Active student"
+          size="small"
+        >
+          <section
+            className="snapshot-item snapshot-count small "
+          >
+            <div
+              className="count-and-label"
+            >
+              <span
+                className="count"
+              >
+                —
+              </span>
+              <span
+                className="snapshot-label"
+              >
+                Active students
+              </span>
+            </div>
+            <div
+              className="change"
+            >
+              <span>
+                0
+                %
+              </span>
+            </div>
+          </section>
+        </SnapshotCount>
+        <SnapshotCount
+          adminId={1}
+          comingSoon={true}
+          customTimeframeEnd={null}
+          customTimeframeStart={null}
+          key="teacher-accounts-created"
+          label="Teacher accounts created"
+          queryKey="teacher-accounts-created"
+          searchCount={1}
+          selectedGrades={
+            Array [
+              "Kindergarten",
+              "1",
+              "2",
+              "3",
+              "4",
+              "5",
+              "6",
+              "7",
+              "8",
+              "9",
+              "10",
+              "11",
+              "12",
+              "University",
+              "Other",
+            ]
+          }
+          selectedSchoolIds={
+            Array [
+              58452,
+            ]
+          }
+          selectedTimeframe="last-30-days"
+          singularLabel="Teacher account created"
+          size="small"
+        >
+          <section
+            className="snapshot-item snapshot-count small "
+          >
+            <div
+              className="count-and-label"
+            >
+              <span
+                className="coming-soon"
+              >
+                Coming soon
+              </span>
+              <span
+                className="snapshot-label"
+              >
+                Teacher accounts created
+              </span>
+            </div>
+            <div
+              className="change"
+            >
+              <span>
+                0
+                %
+              </span>
+            </div>
+          </section>
+        </SnapshotCount>
+        <SnapshotCount
+          adminId={1}
+          comingSoon={true}
+          customTimeframeEnd={null}
+          customTimeframeStart={null}
+          key="student-accounts-created"
+          label="Student accounts created"
+          queryKey="student-accounts-created"
+          searchCount={1}
+          selectedGrades={
+            Array [
+              "Kindergarten",
+              "1",
+              "2",
+              "3",
+              "4",
+              "5",
+              "6",
+              "7",
+              "8",
+              "9",
+              "10",
+              "11",
+              "12",
+              "University",
+              "Other",
+            ]
+          }
+          selectedSchoolIds={
+            Array [
+              58452,
+            ]
+          }
+          selectedTimeframe="last-30-days"
+          singularLabel="Student account created"
+          size="small"
+        >
+          <section
+            className="snapshot-item snapshot-count small "
+          >
+            <div
+              className="count-and-label"
+            >
+              <span
+                className="coming-soon"
+              >
+                Coming soon
+              </span>
+              <span
+                className="snapshot-label"
+              >
+                Student accounts created
+              </span>
+            </div>
+            <div
+              className="change"
+            >
+              <span>
+                0
+                %
+              </span>
+            </div>
+          </section>
+        </SnapshotCount>
+      </div>
+      <div
+        className="rankings"
+        key="rankings"
+      >
+        <SnapshotRanking
+          adminId={1}
+          comingSoon={true}
+          customTimeframeEnd={null}
+          customTimeframeStart={null}
+          headers={
+            Array [
+              "Teacher",
+              "Activities completed",
+            ]
+          }
+          key="most-active-teachers"
+          label="Most active teachers"
+          queryKey="most-active-teachers"
+          searchCount={1}
+          selectedGrades={
+            Array [
+              "Kindergarten",
+              "1",
+              "2",
+              "3",
+              "4",
+              "5",
+              "6",
+              "7",
+              "8",
+              "9",
+              "10",
+              "11",
+              "12",
+              "University",
+              "Other",
+            ]
+          }
+          selectedSchoolIds={
+            Array [
+              58452,
+            ]
+          }
+          selectedTimeframe="last-30-days"
+        >
+          <section
+            className="snapshot-item snapshot-ranking no-data"
+          >
+            <div
+              onClick={[Function]}
+            >
+              <div
+                className="header"
+              >
+                <h3
+                  className="coming-soon"
+                >
+                  Most active teachers
+                   (coming soon)
+                </h3>
+              </div>
+              <DataTable
+                data={null}
+                headers={
+                  Array [
+                    "Teacher",
+                    "Activities completed",
+                  ]
+                }
+                numberOfRows={3}
+              >
+                <table
+                  className="table"
+                >
+                  <tr
+                    className="header-row"
+                  >
+                    <th
+                      key="Teacher"
+                    >
+                      Teacher
+                    </th>
+                    <th
+                      key="Activities completed"
+                    >
+                      Activities completed
+                    </th>
+                  </tr>
+                  <tr
+                    className="data-row"
+                    key="0"
+                  >
+                    <td>
+                      —
+                    </td>
+                    <td>
+                      —
+                    </td>
+                  </tr>
+                  <tr
+                    className="data-row"
+                    key="1"
+                  >
+                    <td>
+                      —
+                    </td>
+                    <td>
+                      —
+                    </td>
+                  </tr>
+                  <tr
+                    className="data-row"
+                    key="2"
+                  >
+                    <td>
+                      —
+                    </td>
+                    <td>
+                      —
+                    </td>
+                  </tr>
+                </table>
+              </DataTable>
+            </div>
+          </section>
+        </SnapshotRanking>
+      </div>
+    </div>
+  </section>
+</SnapshotSection>
+`;

@@ -63,6 +63,17 @@ RSpec.describe Auth::LearnWorlds::SSORequest do
           subject
         end
       end
+
+      context 'username is empty' do
+        let(:username) { user.email }
+
+        before { user.update(username: '') }
+
+        it do
+          expect(URI).to receive(:encode_www_form).with(data)
+          subject
+        end
+      end
     end
 
     context 'learn_worlds_account exists' do

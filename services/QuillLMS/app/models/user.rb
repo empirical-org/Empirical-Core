@@ -114,6 +114,7 @@ class User < ApplicationRecord
   has_secure_password validations: false
   has_one :admin_info, dependent: :destroy
   has_one :auth_credential, dependent: :destroy
+  has_one :canvas_instance_auth_credential, through: :auth_credential
   has_one :teacher_info, dependent: :destroy
   has_many :teacher_info_subject_areas, through: :teacher_info
   has_many :teacher_notifications, dependent: :destroy
@@ -869,8 +870,7 @@ class User < ApplicationRecord
   end
 
   private def requires_password?
-    return false if clever_id
-    return false if signed_up_with_google
+    return false if clever_id || google_id || canvas_accounts.present?
 
     permanent? && new_record?
   end
