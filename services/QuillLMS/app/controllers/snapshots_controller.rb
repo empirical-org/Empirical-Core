@@ -143,7 +143,9 @@ class SnapshotsController < ApplicationController
       current_start,
       current_end,
       snapshot_params.fetch(:school_ids, []),
-      snapshot_params.fetch(:grades, []))
+      snapshot_params.fetch(:grades, []),
+      snapshot_params.fetch(:teacher_ids, []),
+      snapshot_params.fetch(:classroom_ids, []))
   end
 
   private def snapshot_params
