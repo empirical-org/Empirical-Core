@@ -8,9 +8,6 @@ import { createLogger, defineConfig, loadEnv } from 'vite';
 import requireTransform from 'vite-plugin-require-transform';
 import RubyPlugin from 'vite-plugin-ruby';
 
-// Environmental Variables can be obtained from import.meta.env as usual.
-// - https://vitejs.dev/config/
-
 const logger = createLogger();
 const originalWarning = logger.warn;
 logger.warn = (msg, options) => {
@@ -23,9 +20,6 @@ export default defineConfig(({command, mode}) => {
   // Load env file based on `mode` in the current working directory.
   // Set the third parameter to '' to load all env regardless of the `VITE_` prefix.
   const env = loadEnv(mode, process.cwd(), '')
-  //console.log("vite config: env: ", env)
-  // console.log("local import meta: ", import.meta.env) not available here
-  //process.env = Object.assign(process.env, loadEnv(mode, process.cwd(), ''));
 
   return {
     customLogger: logger, // ready to activate later, if we want.
@@ -38,19 +32,6 @@ export default defineConfig(({command, mode}) => {
     },
 
     define: {
-      // global: {}
-      //process: { env: {}}
-
-      // Note: declare node-accessible variable (i.e. CDN_URL) in .env.<mode>, not here
-      // 'process': {
-      //   env: {
-      //     DEFAULT_URL: 1//import.meta.env.DEFAULT_URL
-      //   }
-      // },
-      //'FOOBAR': env.LOCAL_TEST_ENV_VALUE, // not visible from js code,
-      //'process.env.LOCAL_TEST_ENV_VALUE': `"${env.LOCAL_TEST_ENV_VALUE}"` // not visible
-
-
     },
     plugins: [
       replace({
@@ -68,12 +49,6 @@ export default defineConfig(({command, mode}) => {
       // })
     ],
     esbuild: {
-      // define: {
-      //   global: "window"
-      // },
-      // loader: "jsx",
-      //include: /src\/.*\.jsx?$/,
-
     },
     optimizeDeps: {
       esbuildOptions: {
