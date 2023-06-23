@@ -12,7 +12,7 @@ module Snapshots
         "school-ids-#{(school_ids || []).sort.join('-')}",
         "grades-#{(grades || []).map(&:to_s).sort.join('-')}",
         "teacher-ids-#{(teacher_ids || []).sort.join('-')}",
-        "classrom-ids-#{(classroom_ids || []).sort.join('-')}",
+        "classroom-ids-#{(classroom_ids || []).sort.join('-')}",
       ]
     end
   end
