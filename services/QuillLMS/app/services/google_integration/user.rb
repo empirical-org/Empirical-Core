@@ -46,7 +46,6 @@ class GoogleIntegration::User
       access_token:  profile.access_token,
       expires_at:    profile.expires_at,
       refresh_token: profile.refresh_token,
-      provider: GoogleAuthCredential::PROVIDER,
       type: GoogleAuthCredential.name
     }
   end

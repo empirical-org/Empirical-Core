@@ -30,7 +30,6 @@ module CanvasIntegration
         CanvasAuthCredential.create!(
           access_token: access_token,
           expires_at: expires_at,
-          provider: CanvasAuthCredential::PROVIDER,
           refresh_token: refresh_token,
           user: user
         )
