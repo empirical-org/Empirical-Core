@@ -41,11 +41,14 @@ class SnapshotsController < ApplicationController
     grades = option_params[:grades]
     teacher_ids = option_params[:teacher_ids]
 
-    schools = Schools.where(admins: admin)
-    filtered_schools = schools.where(ids: school_ids)
-    teachers = filtered_schools.map(&:users).flatten
+    schools = School.joins(:schools_admins)
+      .where(schools_admins: {user_id: current_user.id})
+    filtered_schools = schools.where(id: school_ids)
+    teachers = User.joins(:schools_users)
+      .where(schools_users: {school_id: filtered_schools.pluck(:id)})
     filtered_teachers = teachers.where(id: teacher_ids)
-    classrooms = filtered_teachers.map(&:classrooms_i_teach).flatten
+    classrooms = Classroom.joins(:classrooms_teachers)
+      .where(classrooms_teachers: {user_id: filtered_teachers.pluck(:id)})
 
     render json: {
       timeframes: Snapshots::Timeframes.frontend_options,
