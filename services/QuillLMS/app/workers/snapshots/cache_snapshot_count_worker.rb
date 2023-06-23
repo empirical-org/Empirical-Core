@@ -18,6 +18,7 @@ module Snapshots
       'baseline-diagnostics-assigned' => Snapshots::BaselineDiagnosticsAssignedQuery,
       'baseline-diagnostics-completed' => Snapshots::BaselineDiagnosticsCompletedQuery,
       'classrooms-created' => Snapshots::ClassroomsCreatedQuery,
+      'growth-diagnostics-assigned' => Snapshots::GrowthDiagnosticsAssignedQuery,
       'sentences-written' => Snapshots::SentencesWrittenQuery,
       'student-accounts-created' => Snapshots::StudentAccountsCreatedQuery,
       'student-learning-hours' => Snapshots::StudentLearningHoursQuery,
