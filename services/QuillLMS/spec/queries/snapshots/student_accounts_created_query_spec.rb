@@ -29,7 +29,6 @@ module Snapshots
           students.each { |student| student.update(created_at: timeframe_start - 1.day) }
         end
 
-  
         it { expect(results).to eq(count: 0) }
       end
     end
