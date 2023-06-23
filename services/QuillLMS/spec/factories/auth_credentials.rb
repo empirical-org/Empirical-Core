@@ -10,7 +10,7 @@
 #  provider      :string
 #  refresh_token :string
 #  timestamp     :datetime
-#  type          :string
+#  type          :string           not null
 #  created_at    :datetime
 #  updated_at    :datetime
 #  user_id       :integer          not null
