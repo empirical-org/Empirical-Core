@@ -280,10 +280,7 @@ class Teachers::ClassroomManagerController < ApplicationController
     classrooms = current_user.classrooms_i_teach
 
     classrooms.map do |classroom|
-      classroom_obj = classroom.attributes
-      classroom_obj[:students] = classroom.students
-      classroom_obj[:student_count] = classroom.students.length
-      classroom_obj
+      classroom.attributes.merge({ students: classroom.students, student_count: classroom.students.length })
     end
   end
 

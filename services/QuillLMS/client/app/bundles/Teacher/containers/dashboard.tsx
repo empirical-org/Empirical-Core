@@ -25,7 +25,7 @@ const MAX_VIEW_WIDTH_FOR_MOBILE = 1103
 
 const MAY = 4
 
-const Dashboard = ({ onboardingChecklist, firstName, mustSeeWelcomeModal, mustSeeTeacherInfoModal, linkedToClever, featuredBlogPosts, showEvidencePromotionCard, subjectAreas, userId, classrooms, inTestEnv, }) => {
+const Dashboard = ({ onboardingChecklist, firstName, mustSeeWelcomeModal, mustSeeTeacherInfoModal, linkedToClever, featuredBlogPosts, showEvidencePromotionCard, subjectAreas, userId, classrooms, }) => {
   const size = useWindowSize();
   const className = "dashboard white-background-accommodate-footer"
   const onMobile = () => size.width <= MAX_VIEW_WIDTH_FOR_MOBILE
@@ -56,7 +56,7 @@ const Dashboard = ({ onboardingChecklist, firstName, mustSeeWelcomeModal, mustSe
   const [diagnostics, setDiagnostics] = React.useState(null);
   const [lessons, setLessons] = React.useState(null);
   const [activityFeed, setActivityFeed] = React.useState(null)
-  const [loading, setLoading] = React.useState(inTestEnv ? false : true);
+  const [loading, setLoading] = React.useState(true);
 
   React.useEffect(() => {
     getMetrics();
