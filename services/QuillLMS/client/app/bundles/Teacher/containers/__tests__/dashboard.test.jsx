@@ -5,7 +5,7 @@ import * as React from 'react';
 import Dashboard from '../dashboard';
 
 jest.spyOn(global.Date, 'now').mockImplementation(() =>
-  new Date('2020-04-08T11:01:58.135Z').valueOf()
+  new Date('2023-05-08T11:01:58.135Z').valueOf()
 );
 
 const featuredBlogPosts = [
@@ -55,19 +55,105 @@ const onboardingChecklistAllUnchecked = [
   }
 ]
 
+const classrooms = [
+  {
+    name: "Quill Classroom Extremely Long So Long SUper Duper",
+    id: "484134",
+    code: "demo-6553451",
+    student_count: "5",
+    google_classroom_id: null,
+    clever_id: null,
+    created_at: "2022-08-17 14:26:06.140275",
+    grade: "9",
+    activity_count: 0,
+    has_coteacher: false,
+    teacher_role: "owner"
+  },
+  {
+    name: "A New Class",
+    id: "484135",
+    code: "van-guitar",
+    student_count: "0",
+    google_classroom_id: null,
+    clever_id: null,
+    created_at: "2022-04-26 15:26:05.306719",
+    grade: "6",
+    activity_count: 0,
+    has_coteacher: false,
+    teacher_role: "owner"
+  },
+  {
+    name: "2",
+    id: "484137",
+    code: "writer-menu",
+    student_count: "0",
+    google_classroom_id: null,
+    clever_id: null,
+    created_at: "2022-08-26 19:16:43.07067",
+    grade: "Other",
+    activity_count: 0,
+    has_coteacher: false,
+    teacher_role: "owner"
+  },
+  {
+    name: "4",
+    id: "484139",
+    code: "cheese-ideal",
+    student_count: "0",
+    google_classroom_id: null,
+    clever_id: null,
+    created_at: "2022-08-26 19:16:54.839985",
+    grade: "Other",
+    activity_count: 0,
+    has_coteacher: false,
+    teacher_role: "owner"
+  },
+  {
+    name: "13",
+    id: "484148",
+    code: "poetry-stitch",
+    student_count: "0",
+    google_classroom_id: null,
+    clever_id: null,
+    created_at: "2022-08-26 19:45:54.813954",
+    grade: "5",
+    activity_count: 0,
+    has_coteacher: false,
+    teacher_role: "owner"
+  },
+  {
+    name: "15",
+    id: "484150",
+    code: "dogs-fruit",
+    student_count: "0",
+    google_classroom_id: null,
+    clever_id: null,
+    created_at: "2022-08-26 19:46:05.060615",
+    grade: "5",
+    activity_count: 0,
+    has_coteacher: false,
+    teacher_role: "owner"
+  }
+]
+
 const onboardingChecklistAllChecked = onboardingChecklistAllUnchecked.map(item => {
   item.checked = true
   return item
 })
+
+const sharedProps = {
+  classrooms,
+  featuredBlogPosts,
+  userId: 1
+}
 
 describe('Dashboard container', () => {
   describe('when none of the onboarding items have been checked', () => {
     it('should render', () => {
       const wrapper = mount(
         <Dashboard
-          featuredBlogPosts={featuredBlogPosts}
+          {...sharedProps}
           onboardingChecklist={onboardingChecklistAllUnchecked}
-          user={'{"name":"George Costanza","flag":"bosco"}'}
         />
       );
       expect(wrapper).toMatchSnapshot()
@@ -78,9 +164,8 @@ describe('Dashboard container', () => {
     it('should render', () => {
       const wrapper = mount(
         <Dashboard
-          featuredBlogPosts={featuredBlogPosts}
+          {...sharedProps}
           onboardingChecklist={onboardingChecklistAllChecked}
-          user={'{"name":"George Costanza","flag":"bosco"}'}
         />
       );
       expect(wrapper).toMatchSnapshot()

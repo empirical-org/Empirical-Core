@@ -2,6 +2,88 @@
 
 exports[`Dashboard container when all the onboarding items have been checked should render 1`] = `
 <Dashboard
+  classrooms={
+    Array [
+      Object {
+        "activity_count": 0,
+        "clever_id": null,
+        "code": "demo-6553451",
+        "created_at": "2022-08-17 14:26:06.140275",
+        "google_classroom_id": null,
+        "grade": "9",
+        "has_coteacher": false,
+        "id": "484134",
+        "name": "Quill Classroom Extremely Long So Long SUper Duper",
+        "student_count": "5",
+        "teacher_role": "owner",
+      },
+      Object {
+        "activity_count": 0,
+        "clever_id": null,
+        "code": "van-guitar",
+        "created_at": "2022-04-26 15:26:05.306719",
+        "google_classroom_id": null,
+        "grade": "6",
+        "has_coteacher": false,
+        "id": "484135",
+        "name": "A New Class",
+        "student_count": "0",
+        "teacher_role": "owner",
+      },
+      Object {
+        "activity_count": 0,
+        "clever_id": null,
+        "code": "writer-menu",
+        "created_at": "2022-08-26 19:16:43.07067",
+        "google_classroom_id": null,
+        "grade": "Other",
+        "has_coteacher": false,
+        "id": "484137",
+        "name": "2",
+        "student_count": "0",
+        "teacher_role": "owner",
+      },
+      Object {
+        "activity_count": 0,
+        "clever_id": null,
+        "code": "cheese-ideal",
+        "created_at": "2022-08-26 19:16:54.839985",
+        "google_classroom_id": null,
+        "grade": "Other",
+        "has_coteacher": false,
+        "id": "484139",
+        "name": "4",
+        "student_count": "0",
+        "teacher_role": "owner",
+      },
+      Object {
+        "activity_count": 0,
+        "clever_id": null,
+        "code": "poetry-stitch",
+        "created_at": "2022-08-26 19:45:54.813954",
+        "google_classroom_id": null,
+        "grade": "5",
+        "has_coteacher": false,
+        "id": "484148",
+        "name": "13",
+        "student_count": "0",
+        "teacher_role": "owner",
+      },
+      Object {
+        "activity_count": 0,
+        "clever_id": null,
+        "code": "dogs-fruit",
+        "created_at": "2022-08-26 19:46:05.060615",
+        "google_classroom_id": null,
+        "grade": "5",
+        "has_coteacher": false,
+        "id": "484150",
+        "name": "15",
+        "student_count": "0",
+        "teacher_role": "owner",
+      },
+    ]
+  }
   featuredBlogPosts={
     Array [
       Object {
@@ -51,7 +133,7 @@ exports[`Dashboard container when all the onboarding items have been checked sho
       },
     ]
   }
-  user="{\\"name\\":\\"George Costanza\\",\\"flag\\":\\"bosco\\"}"
+  userId={1}
 >
   <div
     className="dashboard white-background-accommodate-footer"
@@ -81,6 +163,88 @@ exports[`Dashboard container when all the onboarding items have been checked sho
 
 exports[`Dashboard container when none of the onboarding items have been checked should render 1`] = `
 <Dashboard
+  classrooms={
+    Array [
+      Object {
+        "activity_count": 0,
+        "clever_id": null,
+        "code": "demo-6553451",
+        "created_at": "2022-08-17 14:26:06.140275",
+        "google_classroom_id": null,
+        "grade": "9",
+        "has_coteacher": false,
+        "id": "484134",
+        "name": "Quill Classroom Extremely Long So Long SUper Duper",
+        "student_count": "5",
+        "teacher_role": "owner",
+      },
+      Object {
+        "activity_count": 0,
+        "clever_id": null,
+        "code": "van-guitar",
+        "created_at": "2022-04-26 15:26:05.306719",
+        "google_classroom_id": null,
+        "grade": "6",
+        "has_coteacher": false,
+        "id": "484135",
+        "name": "A New Class",
+        "student_count": "0",
+        "teacher_role": "owner",
+      },
+      Object {
+        "activity_count": 0,
+        "clever_id": null,
+        "code": "writer-menu",
+        "created_at": "2022-08-26 19:16:43.07067",
+        "google_classroom_id": null,
+        "grade": "Other",
+        "has_coteacher": false,
+        "id": "484137",
+        "name": "2",
+        "student_count": "0",
+        "teacher_role": "owner",
+      },
+      Object {
+        "activity_count": 0,
+        "clever_id": null,
+        "code": "cheese-ideal",
+        "created_at": "2022-08-26 19:16:54.839985",
+        "google_classroom_id": null,
+        "grade": "Other",
+        "has_coteacher": false,
+        "id": "484139",
+        "name": "4",
+        "student_count": "0",
+        "teacher_role": "owner",
+      },
+      Object {
+        "activity_count": 0,
+        "clever_id": null,
+        "code": "poetry-stitch",
+        "created_at": "2022-08-26 19:45:54.813954",
+        "google_classroom_id": null,
+        "grade": "5",
+        "has_coteacher": false,
+        "id": "484148",
+        "name": "13",
+        "student_count": "0",
+        "teacher_role": "owner",
+      },
+      Object {
+        "activity_count": 0,
+        "clever_id": null,
+        "code": "dogs-fruit",
+        "created_at": "2022-08-26 19:46:05.060615",
+        "google_classroom_id": null,
+        "grade": "5",
+        "has_coteacher": false,
+        "id": "484150",
+        "name": "15",
+        "student_count": "0",
+        "teacher_role": "owner",
+      },
+    ]
+  }
   featuredBlogPosts={
     Array [
       Object {
@@ -130,7 +294,7 @@ exports[`Dashboard container when none of the onboarding items have been checked
       },
     ]
   }
-  user="{\\"name\\":\\"George Costanza\\",\\"flag\\":\\"bosco\\"}"
+  userId={1}
 >
   <div
     className="dashboard white-background-accommodate-footer"

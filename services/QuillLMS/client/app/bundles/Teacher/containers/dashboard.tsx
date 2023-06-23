@@ -2,13 +2,14 @@ import * as React from 'react';
 
 import { requestGet } from '../../../modules/request';
 import useWindowSize from '../../Shared/hooks/useWindowSize';
-import { Spinner, } from '../../Shared/index';
+import useSnackbarMonitor from '../../Shared/hooks/useSnackbarMonitor';
+import { Spinner, Snackbar, defaultSnackbarTimeout, } from '../../Shared/index';
 import ActivityFeed from '../components/dashboard/activity_feed';
 import CollegeBoard from '../components/dashboard/college_board';
 import DailyTinyTip from '../components/dashboard/daily_tiny_tip';
 import DemoModal from '../components/dashboard/demo_modal';
 import DiagnosticMini from '../components/dashboard/diagnostic_mini';
-import EvidencePromotionCard from '../components/dashboard/evidence_promotion_card';
+import BulkArchiveOrEvidenceCard from '../components/dashboard/bulk_archive_or_evidence_card';
 import HandyActions from '../components/dashboard/handy_actions';
 import KeyMetrics from '../components/dashboard/key_metrics';
 import LessonsMini from '../components/dashboard/lessons_mini';
@@ -22,7 +23,9 @@ import { GRAY_ARTICLE_FOOTER_BACKGROUND_COLOR, TEACHER_DASHBOARD_FEATURED_BLOG_P
 
 const MAX_VIEW_WIDTH_FOR_MOBILE = 1103
 
-const Dashboard = ({ onboardingChecklist, firstName, mustSeeWelcomeModal, mustSeeTeacherInfoModal, linkedToClever, featuredBlogPosts, showEvidencePromotionCard, subjectAreas, }) => {
+const MAY = 4
+
+const Dashboard = ({ onboardingChecklist, firstName, mustSeeWelcomeModal, mustSeeTeacherInfoModal, linkedToClever, featuredBlogPosts, showEvidencePromotionCard, subjectAreas, userId, classrooms, }) => {
   const size = useWindowSize();
   const className = "dashboard white-background-accommodate-footer"
   const onMobile = () => size.width <= MAX_VIEW_WIDTH_FOR_MOBILE
@@ -30,6 +33,10 @@ const Dashboard = ({ onboardingChecklist, firstName, mustSeeWelcomeModal, mustSe
   const [showWelcomeModal, setShowWelcomeModal] = React.useState(mustSeeWelcomeModal)
   const [showTeacherInfoModal, setShowTeacherInfoModal] = React.useState(mustSeeTeacherInfoModal)
   const [showDemoModal, setShowDemoModal] = React.useState(false)
+  const [showSnackbar, setShowSnackbar] = React.useState(false);
+  const [snackbarText, setSnackbarText] = React.useState('');
+
+  useSnackbarMonitor(showSnackbar, setShowSnackbar, defaultSnackbarTimeout)
 
   function closeWelcomeModal() { setShowWelcomeModal(false) }
   function closeDemoModal() { setShowDemoModal(false) }
@@ -96,6 +103,11 @@ const Dashboard = ({ onboardingChecklist, firstName, mustSeeWelcomeModal, mustSe
     )
   }
 
+  function handleBulkArchiveSuccess(snackbarCopy) {
+    setSnackbarText(snackbarCopy)
+    setShowSnackbar(true)
+  }
+
   if (loading) {
     return (
       <div className={className}>
@@ -108,6 +120,7 @@ const Dashboard = ({ onboardingChecklist, firstName, mustSeeWelcomeModal, mustSe
 
   return (
     <React.Fragment>
+      <Snackbar text={snackbarText} visible={showSnackbar} />
       <div className={className}>
         <div className="post-checklist-container">
           <DemoOnboardingTour
@@ -116,7 +129,12 @@ const Dashboard = ({ onboardingChecklist, firstName, mustSeeWelcomeModal, mustSe
           {showDemoModal && <DemoModal close={closeDemoModal} size={size} />}
           {showTeacherInfoModal && <TeacherInfoModal close={closeTeacherInfoModal} subjectAreas={subjectAreas} />}
           <main>
-            {showEvidencePromotionCard && <EvidencePromotionCard />}
+            <BulkArchiveOrEvidenceCard
+              classrooms={classrooms}
+              handleBulkArchiveSuccess={handleBulkArchiveSuccess}
+              showEvidencePromotionCard={showEvidencePromotionCard}
+              userId={userId}
+            />
             <KeyMetrics firstName={firstName} metrics={metrics} />
             <DiagnosticMini diagnostics={diagnostics} onMobile={onMobile()} />
             <LessonsMini lessons={lessons} onMobile={onMobile()} />
