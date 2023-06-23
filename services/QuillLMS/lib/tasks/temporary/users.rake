@@ -28,7 +28,12 @@ namespace :users do
   end
 
   task update_auth_credential_types: :environment do
-    ['canvas', 'google', 'clever_district', 'clever_library'].each do |provider|
+    {
+      canvas: 'CanvasAuthCredential',
+      google: 'GoogleAuthCredential',
+      clever_district: 'CleverDistrictAuthCredential',
+      clever_library: 'CleverLibraryAuthCredential'
+    }.each_pair do |provider, type|
       AuthCredential.where(provider: provider).find_each do |auth_credential|
         auth_credential.update(type: type)
       end
