@@ -34,7 +34,10 @@ namespace :users do
       clever_district: 'CleverDistrictAuthCredential',
       clever_library: 'CleverLibraryAuthCredential'
     }.each_pair do |provider, type|
-      AuthCredential.where(provider: provider, type: nil).update_all(type: type)
+      AuthCredential
+        .where(provider: provider, type: nil)
+        .in_batches
+        .update_all(type: type)
     end
   end
 end
