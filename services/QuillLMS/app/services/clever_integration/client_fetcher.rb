@@ -34,7 +34,7 @@ module CleverIntegration
       case auth_credential
       when CleverDistrictAuthCredential then district_client
       when CleverLibraryAuthCredential then library_client
-      else raise UnsupportedProviderError, auth_credential.provider
+      else raise UnsupportedProviderError, auth_credential.name
       end
     end
 
