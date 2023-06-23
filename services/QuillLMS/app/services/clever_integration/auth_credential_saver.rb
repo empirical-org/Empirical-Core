@@ -36,7 +36,6 @@ module CleverIntegration
       @new_auth_credential ||= auth_credential_class.create!(
         access_token: access_token,
         expires_at: expires_at,
-        provider: auth_credential_class::PROVIDER,
         user: user
       )
     end

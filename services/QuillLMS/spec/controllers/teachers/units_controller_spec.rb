@@ -47,7 +47,7 @@ describe Teachers::UnitsController, type: :controller do
 
   describe '#create' do
     it 'kicks off a background job' do
-      create(:auth_credential, user: teacher)
+      create(:google_auth_credential, user: teacher)
 
       expect {
         post :create,

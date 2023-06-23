@@ -15,10 +15,10 @@ RSpec.describe CleverIntegration::ClientFetcher do
   context 'non-clever auth_credential' do
     let!(:auth_credential) { create(:google_auth_credential, user: user) }
 
-    it { expect { subject }.to raise_error CleverIntegration::ClientFetcher::UnsupportedProviderError }
+    it { expect { subject }.to raise_error CleverIntegration::ClientFetcher::UnsupportedAuthCredentialError }
   end
 
-  context CleverDistrictAuthCredential::PROVIDER do
+  context CleverDistrictAuthCredential.name do
     let!(:auth_credential) { create(:clever_district_auth_credential, user: user) }
 
     it do
@@ -27,7 +27,7 @@ RSpec.describe CleverIntegration::ClientFetcher do
     end
   end
 
-  context CleverLibraryAuthCredential::PROVIDER do
+  context CleverLibraryAuthCredential.name do
     let!(:auth_credential) { create(:clever_library_auth_credential, user: user) }
 
     it do
