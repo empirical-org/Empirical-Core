@@ -20,7 +20,7 @@ module Snapshots
     context 'external_api', :big_query_snapshot do
       include_context 'Snapshots Option CTE'
 
-      let(:results) {test_options_query.run(*query_args, options: {runner: runner}) }
+      let(:results) {test_options_query.run(**query_args, options: {runner: runner}) }
       # We want to ensure that a single admin is connected to all schools
       # `admin` is already the user associated with the first school, but not the others
       let(:additional_schools_admins) { schools[1..-1].map { |s| SchoolsAdmins.create(school: s, user: admin) } }
@@ -42,7 +42,7 @@ module Snapshots
       it { expect(results).to eq(sorted_classrooms.map { |c| { "id" => c.id, "name" => c.name } }) }
 
       context 'with school_id filter' do
-        let(:query_args) { [admin.id, [schools.first.id]] }
+        let(:query_args) { {admin_id: admin.id, school_ids: [schools.first.id]} }
 
         it { expect(results).to eq([{ "id" => classrooms.first.id, "name" => classrooms.first.name }]) }
       end
@@ -53,13 +53,13 @@ module Snapshots
           classrooms[1..-1].each { |c| c.update(grade: "2") }
         end
 
-        let(:query_args) { [admin.id, [], [classrooms.first.grade]] }
+        let(:query_args) { {admin_id: admin.id, grades: [classrooms.first.grade]} }
 
         it { expect(results).to eq([{ "id" => classrooms.first.id, "name" => classrooms.first.name }]) }
       end
 
       context 'with teacher_id filter' do
-        let(:query_args) { [admin.id, [], [], [teachers.first.id]] }
+        let(:query_args) { {admin_id: admin.id, teacher_ids: [teachers.first.id]} }
 
         it { expect(results).to eq([{ "id" => classrooms.first.id, "name" => classrooms.first.name }]) }
       end

@@ -45,16 +45,18 @@ module Snapshots
       current_timeframe_start = timeframe['current_start']
       timeframe_end = timeframe['current_end']
 
-      current_snapshot = QUERIES[query].run(current_timeframe_start,
-        timeframe_end,
-        school_ids,
-        grades)
+      current_snapshot = QUERIES[query].run(
+        timeframe_start: current_timeframe_start,
+        timeframe_end: timeframe_end,
+        school_ids: school_ids,
+        grades: grades)
 
       if previous_timeframe_start
-        previous_snapshot = QUERIES[query].run(previous_timeframe_start,
-          current_timeframe_start,
-          school_ids,
-          grades)
+        previous_snapshot = QUERIES[query].run(
+          timeframe_start: previous_timeframe_start,
+          timeframe_end: current_timeframe_start,
+          school_ids: school_ids,
+          grades: grades)
       else
         previous_snapshot = nil
       end

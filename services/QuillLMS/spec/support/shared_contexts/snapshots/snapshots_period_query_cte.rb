@@ -3,7 +3,14 @@
 RSpec.shared_context 'Snapshots Period CTE' do
   include_context 'QuillBigQuery TestRunner Setup'
 
-  let(:query_args) { [timeframe_start, timeframe_end, school_ids, grades] }
+  let(:query_args) do
+    {
+      timeframe_start: timeframe_start,
+      timeframe_end: timeframe_end,
+      school_ids: school_ids,
+      grades: grades
+    }
+  end
 
   let(:timeframe_start) { 1.week.ago.to_date }
   let(:timeframe_end) { 1.week.from_now.to_date }

@@ -4,7 +4,7 @@ module Snapshots
   class OptionsQuery < ::QuillBigQuery::Query
     attr_accessor :admin_id, :school_ids, :grades, :teacher_ids
 
-    def initialize(admin_id, school_ids = nil, grades = nil, teacher_ids = nil, options: {})
+    def initialize(admin_id:, school_ids: nil, grades: nil, teacher_ids: nil, options: {})
       @admin_id = admin_id
       @school_ids = school_ids
       @grades = grades

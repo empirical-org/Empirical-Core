@@ -3,7 +3,7 @@
 RSpec.shared_context 'Snapshots Option CTE' do
   include_context 'QuillBigQuery TestRunner Setup'
 
-  let(:query_args) { [admin.id] }
+  let(:query_args) { {admin_id: admin.id} }
 
   let(:num_classrooms) { 2 }
   let(:classrooms) { create_list(:classroom, num_classrooms) }
