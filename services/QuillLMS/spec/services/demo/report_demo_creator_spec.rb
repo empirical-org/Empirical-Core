@@ -217,7 +217,7 @@ RSpec.describe Demo::ReportDemoCreator do
 
       context "teacher account has added data" do
         let(:teacher) {create(:teacher, google_id: 1234, clever_id: 5678)}
-        let!(:auth_credential) {create(:auth_credential, user: teacher) }
+        let!(:auth_credential) {create(:google_auth_credential, user: teacher) }
         let(:classroom) {create(:classroom)}
         let!(:classrooms_teacher) {create(:classrooms_teacher, classroom: classroom, user: teacher)}
 
