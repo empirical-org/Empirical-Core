@@ -13,7 +13,7 @@ class RemoveProviderFromAuthCredential < ActiveRecord::Migration[6.1]
     AuthCredential.reset_column_information
 
     AuthCredential::TYPES.map(&:constantize).each do |klass|
-      klass.update_all(provider: klass::PROVIDER)
+      klass.in_batches.update_all(provider: klass::PROVIDER)
     end
   end
 end
