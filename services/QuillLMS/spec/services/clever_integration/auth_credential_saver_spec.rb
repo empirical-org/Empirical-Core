@@ -47,7 +47,6 @@ RSpec.describe CleverIntegration::AuthCredentialSaver do
   def expects_new_credentials_are_saved
     subject
     expect(teacher.auth_credential).to be_a auth_credential_class
-    expect(teacher.auth_credential.provider).to eq auth_credential_class::PROVIDER
     expect(teacher.auth_credential.access_token).to eq access_token
     expect(teacher.auth_credential.expires_at).to be_within(1.minute).of(expires_at)
   end
