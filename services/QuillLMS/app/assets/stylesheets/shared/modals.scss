@@ -1012,6 +1012,7 @@
   .modal-body {
     height: min-content;
     max-height: 60vh;
+    overflow: scroll;
   }
   .import-clever-classrooms-modal-footer,
   .import-google-classrooms-modal-footer,
@@ -1024,7 +1025,7 @@
   .data-table {
     height: 100%;
     overflow: scroll;
-    padding-bottom: 400px;
+    padding-bottom: 100px;
     .data-table-headers {
       z-index: 7;
     }
