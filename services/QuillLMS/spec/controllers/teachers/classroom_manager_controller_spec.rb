@@ -365,7 +365,7 @@ describe Teachers::ClassroomManagerController, type: :controller do
   end
 
   describe '#dashboard' do
-    let(:teacher) { create(:teacher) }
+    let(:teacher) { create(:teacher_with_one_classroom) }
     let(:blog_post1) { create(:blog_post, featured_order_number: 0)}
     let(:blog_post2) { create(:blog_post, featured_order_number: 1)}
     let(:blog_post3) { create(:blog_post, featured_order_number: 2)}
@@ -378,7 +378,6 @@ describe Teachers::ClassroomManagerController, type: :controller do
 
     before do
       allow(controller).to receive(:current_user) { teacher }
-      allow(teacher).to receive(:classrooms_i_teach) { [] }
       allow(teacher).to receive(:archived_classrooms) { [] }
       allow(teacher).to receive(:has_outstanding_coteacher_invitation?) { true }
     end
@@ -386,6 +385,18 @@ describe Teachers::ClassroomManagerController, type: :controller do
     it 'should set the featured_blog_posts variable to the array of featured blog posts' do
       get :dashboard
       expect(assigns(:featured_blog_posts)).to eq [blog_post1, blog_post2, blog_post3]
+    end
+
+    it 'should set the classrooms variable to an array of classrooms with a students and student_count key' do
+      classrooms = teacher.classrooms_i_teach.map do |classroom|
+        classroom_obj = classroom.attributes
+        classroom_obj[:students] = classroom.students
+        classroom_obj[:student_count] = classroom.students.length
+        classroom_obj
+      end
+
+      get :dashboard
+      expect(assigns(:classrooms)).to eq(classrooms)
     end
 
     describe 'teacher info milestone' do

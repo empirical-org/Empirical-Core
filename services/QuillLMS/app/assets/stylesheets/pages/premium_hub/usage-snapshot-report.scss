@@ -373,6 +373,8 @@
       border: 1px solid #E0E0E0;
       border-radius: 8px;
       height: min-content;
+      max-height: 100vh;
+      overflow: scroll;
 
       h2 {
         font-weight: 700;
@@ -398,6 +400,8 @@
     border: 1px solid #E0E0E0;
     border-radius: 8px;
     height: min-content;
+    max-height: 100vh;
+    overflow: scroll;
     h2 {
       font-size: 24px;
       line-height: 29px;
@@ -558,13 +562,6 @@
       left: 39% !important;
       -webkit-transform: translateX(-50%);
       transform: translateX(-50%)
-    }
-  }
-
-  @media (max-height: 800px) {
-    .ranking-modal {
-      top: 0px;
-      bottom: 0px;
     }
   }
 
