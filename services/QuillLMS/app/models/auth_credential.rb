@@ -26,6 +26,8 @@
 #  fk_rails_...  (user_id => users.id)
 #
 class AuthCredential < ApplicationRecord
+  self.inheritance_column = :_type_disabled
+
   belongs_to :user
   has_one :canvas_instance_auth_credential, dependent: :destroy
 
