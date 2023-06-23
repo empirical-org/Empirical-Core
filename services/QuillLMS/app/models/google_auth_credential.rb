@@ -17,7 +17,6 @@
 #
 # Indexes
 #
-#  index_auth_credentials_on_provider       (provider)
 #  index_auth_credentials_on_refresh_token  (refresh_token)
 #  index_auth_credentials_on_user_id        (user_id)
 #

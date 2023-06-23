@@ -7634,13 +7634,6 @@ CREATE UNIQUE INDEX index_app_settings_on_name ON public.app_settings USING btre
 
 
 --
--- Name: index_auth_credentials_on_provider; Type: INDEX; Schema: public; Owner: -
---
-
-CREATE INDEX index_auth_credentials_on_provider ON public.auth_credentials USING btree (provider);
-
-
---
 -- Name: index_auth_credentials_on_refresh_token; Type: INDEX; Schema: public; Owner: -
 --
 
