@@ -11,6 +11,13 @@ module Snapshots
     let(:grades) { ['Kindergarten',1,2,3,4] }
     let(:teacher_ids) { [4,5,6] }
     let(:classroom_ids) { [7,8,9] }
+    let(:additional_filters) do
+      {
+        grades: grades,
+        teacher_ids: teacher_ids,
+        classroom_ids: classroom_ids
+      }
+    end
 
     context '#generate_key' do
       it 'should compile a valid cache key' do
@@ -19,9 +26,7 @@ module Snapshots
           current_timeframe_start,
           timeframe_end,
           school_ids,
-          grades,
-          teacher_ids,
-          classroom_ids)
+          additional_filters: additional_filters)
         ).to eq([
           "admin-snapshot",
           query,
@@ -45,9 +50,7 @@ module Snapshots
           custom_start,
           custom_end,
           school_ids,
-          grades,
-          teacher_ids,
-          classroom_ids)
+          additional_filters: additional_filters)
         ).to eq([
           "admin-snapshot",
           query,
@@ -67,17 +70,17 @@ module Snapshots
           current_timeframe_start,
           timeframe_end,
           school_ids,
-          grades,
-          teacher_ids,
-          classroom_ids)
+          additional_filters: additional_filters)
         ).to eq(Snapshots::CacheKeys.generate_key(query,
           previous_timeframe_start,
           current_timeframe_start,
           timeframe_end,
           school_ids.reverse,
-          grades.reverse,
-          teacher_ids.reverse,
-          classroom_ids.reverse))
+          additional_filters: {
+            grades: grades.reverse,
+            teacher_ids: teacher_ids.reverse,
+            classroom_ids: classroom_ids.reverse
+          }))
       end
     end
   end

@@ -49,9 +49,11 @@ describe SnapshotsController, type: :controller do
           current_start,
           current_end,
           school_ids,
-          grades,
-          teacher_ids,
-          classroom_ids)
+          additional_filters: {
+            grades: grades,
+            teacher_ids: teacher_ids,
+            classroom_ids: classroom_ids
+          })
 
         get :top_x, params: { query: query, timeframe: timeframe_name, school_ids: school_ids, grades: grades, teacher_ids: teacher_ids, classroom_ids: classroom_ids }
       end
