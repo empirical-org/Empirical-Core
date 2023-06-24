@@ -25,6 +25,23 @@ module Snapshots
           previous_timeframe_start,
           current_timeframe_start,
           timeframe_end,
+          school_ids)
+        ).to eq([
+          "admin-snapshot",
+          query,
+          previous_timeframe_start,
+          current_timeframe_start,
+          timeframe_end,
+          "school-ids-#{school_ids.sort.join('-')}"
+        ])
+
+      end
+
+      it 'should compile a valid cache key with additional filters' do
+        expect(Snapshots::CacheKeys.generate_key(query,
+          previous_timeframe_start,
+          current_timeframe_start,
+          timeframe_end,
           school_ids,
           additional_filters: additional_filters)
         ).to eq([

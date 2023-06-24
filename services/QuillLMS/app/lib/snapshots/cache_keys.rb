@@ -4,9 +4,9 @@ module Snapshots
   class CacheKeys
     def self.generate_key(query, previous_start, current_start, current_end, school_ids, additional_filters: {})
       root_key(query, previous_start, current_start, current_end, school_ids)
-        .append(grades_segment(additional_filters.dig(:grades)))
-        .append(teacher_ids_segment(additional_filters.dig(:teacher_ids)))
-        .append(classroom_ids_segment(additional_filters.dig(:classroom_ids)))
+        .append(grades_segment(additional_filters[:grades]))
+        .append(teacher_ids_segment(additional_filters[:teacher_ids]))
+        .append(classroom_ids_segment(additional_filters[:classroom_ids]))
         .compact
     end
 
@@ -28,7 +28,7 @@ module Snapshots
     end
 
     def self.teacher_ids_segment(teacher_ids)
-      return if teacher_ids.nil? || teacher_ids.empty? 
+      return if teacher_ids.nil? || teacher_ids.empty?
 
       "teacher-ids-#{(teacher_ids || []).sort.join('-')}"
     end
