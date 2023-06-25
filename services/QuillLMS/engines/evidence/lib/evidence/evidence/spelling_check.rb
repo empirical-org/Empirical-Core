@@ -7,7 +7,7 @@ module Evidence
     FALLBACK_INCORRECT_FEEDBACK = '<p>Update the spelling of the bolded word(s).</p>'
     FEEDBACK_TYPE = Rule::TYPE_SPELLING
     RESPONSE_TYPE = 'response'
-    BING_API_URL = 'https://api.cognitive.microsoft.com/bing/v7.0/SpellCheck'
+    BING_API_URL = 'https://api.bing.microsoft.com/v7.0/spellcheck'
     SPELLING_CONCEPT_UID = 'H-2lrblngQAQ8_s-ctye4g'
 
     class BingRateLimitException < StandardError; end
