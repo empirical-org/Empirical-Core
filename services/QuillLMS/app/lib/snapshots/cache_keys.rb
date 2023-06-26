@@ -10,7 +10,7 @@ module Snapshots
         .compact
     end
 
-    def self.root_key(query, previous_start, current_start, current_end, school_ids)
+    def self.root_key(query, timeframe_name, current_start, current_end, school_ids)
       [
         "admin-snapshot",
         query,

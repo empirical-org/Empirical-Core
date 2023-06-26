@@ -23,7 +23,7 @@ module Snapshots
         value: 'this-month',
         name: 'This month',
         previous_start: proc { |reference_time| reference_time.beginning_of_month - 1.month },
-        previous_start: proc { |reference_time| reference_time - 1.month ) },
+        previous_end: proc { |reference_time| reference_time - 1.month },
         current_start: proc { |reference_time| reference_time.beginning_of_month },
         current_end: proc { |reference_time| reference_time },
       }, {
@@ -69,14 +69,14 @@ module Snapshots
       TIMEFRAMES.find { |timeframe| timeframe[:value] == timeframe_value }
     end
 
-    def self.calculate_timeframes(timeframe_value, custom_start, custom_end)
+    def self.calculate_timeframes(timeframe_value, custom_start: nil, custom_end: nil)
       timeframe = find_timeframe(timeframe_value)
 
       end_of_yesterday = DateTime.current.end_of_day - 1.day
 
       [:previous_start, :previous_end, :current_start, :current_end].map do |value|
         timeframe[value].call(end_of_yesterday, custom_start, custom_end)
-      ]
+      end
     end
 
     def self.frontend_options
