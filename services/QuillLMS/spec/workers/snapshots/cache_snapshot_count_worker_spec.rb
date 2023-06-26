@@ -14,6 +14,8 @@ module Snapshots
     let(:grades) { ['Kindergarten',1,2,3,4] }
     let(:query_double) { double(run: {}) }
 
+    it { expect { described_class::QUERIES.values }.not_to raise_error }
+
     context '#perform' do
       let(:timeframe_end) { DateTime.now }
       let(:current_timeframe_start) { timeframe_end - 30.days }
