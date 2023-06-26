@@ -5,7 +5,7 @@ module VitallySchoolStats
 
   private def active_students_query(school)
     # use raw SQL to bypass scope limits (visible: true) on classrooms
-    ActivitySession.select(:user_id)
+    ActivitySession.unscoped.select(:user_id)
       .distinct
       .joins("JOIN classroom_units on classroom_units.id=activity_sessions.classroom_unit_id")
       .joins("JOIN classrooms ON classrooms.id=classroom_units.classroom_id")

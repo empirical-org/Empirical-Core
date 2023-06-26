@@ -191,54 +191,73 @@ describe 'SerializeVitallySalesAccount' do
     )
   end
 
-  it 'generates student data' do
-    active_student = create(:user, role: 'student', last_sign_in: Date.current)
-    active_old_student = create(:user, role: 'student', last_sign_in: 2.years.ago)
-    inactive_student = create(:user, role: 'student', last_sign_in: 2.years.ago)
-    teacher = create(:user, role: 'teacher')
-    teacher2 = create(:user, role: 'teacher')
-    classroom = create(:classroom)
-    classroom_unit = create(:classroom_unit, classroom: classroom)
-    old_classroom_unit = create(:classroom_unit, classroom: classroom)
-    create(:classrooms_teacher, user: teacher, classroom: classroom)
-    create(:classrooms_teacher, user: teacher2, classroom: classroom, role: 'coteacher')
-    create(:students_classrooms, student: active_student, classroom: classroom)
-    create(:students_classrooms, student: inactive_student, classroom: classroom)
-    create(:students_classrooms, student: active_old_student, classroom: classroom)
-    create(:activity_session,
-      user: active_student,
-      classroom_unit: classroom_unit,
-      state: 'finished'
-    )
-    create(:activity_session,
-      user: active_old_student,
-      classroom_unit: old_classroom_unit,
-      state: 'finished',
-      updated_at: 2.year.ago
-    )
-    last_activity_session = create(:activity_session,
-      user: active_student,
-      classroom_unit: classroom_unit,
-      state: 'finished'
-    )
-    school.users << active_student
-    school.users << inactive_student
-    school.users << teacher
-    school.users << teacher2
-    school.users << create(:user, role: 'student')
+  context 'student data' do
+    let!(:active_student) { create(:user, role: 'student', last_sign_in: Date.current) }
+    let!(:active_old_student) { create(:user, role: 'student', last_sign_in: 2.years.ago) }
+    let!(:inactive_student) { create(:user, role: 'student', last_sign_in: 2.years.ago) }
+    let!(:teacher) { create(:user, role: 'teacher') }
+    let!(:teacher2) { create(:user, role: 'teacher') }
+    let!(:schools_users1) { create(:schools_users, school: school, user: teacher) }
+    let!(:schools_users2) { create(:schools_users, school: school, user: teacher2) }
+    let!(:classroom) { create(:classroom) }
+    let!(:classroom_unit) { create(:classroom_unit, classroom: classroom) }
+    let!(:old_classroom_unit) { create(:classroom_unit, classroom: classroom) }
+    let!(:classroom_teachers) do
+      [
+        create(:classrooms_teacher, user: teacher, classroom: classroom),
+        create(:classrooms_teacher, user: teacher2, classroom: classroom, role: 'coteacher')
+      ]
+    end
+    let!(:student_classrooms) do
+      [
+        create(:students_classrooms, student: active_student, classroom: classroom),
+        create(:students_classrooms, student: inactive_student, classroom: classroom),
+        create(:students_classrooms, student: active_old_student, classroom: classroom)
+      ]
+    end
+    let!(:recent_activity_session) do
+      create(:activity_session,
+        user: active_student,
+        classroom_unit: classroom_unit,
+        state: 'finished')
+    end
+    let!(:old_activity_session) do
+      create(:activity_session,
+        user: active_old_student,
+        classroom_unit: old_classroom_unit,
+        state: 'finished',
+        updated_at: 2.year.ago)
+    end
+    let!(:last_activity_session) do
+      create(:activity_session,
+        user: active_student,
+        classroom_unit: classroom_unit,
+        state: 'finished')
+    end
 
-    school_data = SerializeVitallySalesAccount.new(school).data
+    let(:results) { SerializeVitallySalesAccount.new(school).data }
 
-    expect(school_data[:traits]).to include(
-      active_students: 2,
-      active_students_this_year: 1,
-      total_students: 3,
-      total_students_this_year: 1,
-      activities_finished: 3,
-      activities_finished_this_year: 2,
-      activities_per_student: 1.5,
-      activities_per_student_this_year: 2.0
-    )
-    expect(school_data[:traits][:last_active]).to be_within(0.000001.second).of(last_activity_session.completed_at)
+    it do
+      expect(results[:traits]).to include(
+        active_students: 2,
+        active_students_this_year: 1,
+        total_students: 3,
+        total_students_this_year: 1,
+        activities_finished: 3,
+        activities_finished_this_year: 2,
+        activities_per_student: 1.5,
+        activities_per_student_this_year: 2.0
+      )
+    end
+
+    it { expect(results[:traits][:last_active]).to be_within(0.000001.second).of(last_activity_session.completed_at) }
+
+    context 'archived activity_sessions' do
+      before do
+        ActivitySession.update_all(visible: false)
+      end
+
+      it { expect(results[:traits][:active_students]).to eq(2) }
+    end
   end
 end
