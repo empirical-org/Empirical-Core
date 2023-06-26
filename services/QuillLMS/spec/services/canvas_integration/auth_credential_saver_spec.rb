@@ -17,7 +17,7 @@ describe CanvasIntegration::AuthCredentialSaver do
     before { canvas_account }
 
     it { expect(subject).to eq user.auth_credential }
-    it { expect { subject }.to change(AuthCredential, :count).by(1) }
+    it { expect { subject }.to change(CanvasAuthCredential, :count).by(1) }
     it { expect { subject }.to change(CanvasInstanceAuthCredential, :count).by(1) }
   end
 

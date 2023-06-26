@@ -6,9 +6,9 @@ describe PurgeExpiredAuthCredentialWorker do
   subject { described_class.new.perform(auth_credential_id) }
 
   context 'auth_credential exists' do
-    let!(:auth_credential_id) { create(:auth_credential).id }
+    let!(:auth_credential_id) { create(:google_auth_credential).id }
 
-    it { expect { subject }.to change(AuthCredential, :count).from(1).to(0) }
+    it { expect { subject }.to change(GoogleAuthCredential, :count).from(1).to(0) }
   end
 
   context 'auth_credential does not exist' do

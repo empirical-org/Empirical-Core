@@ -23,16 +23,27 @@
 #
 #  fk_rails_...  (user_id => users.id)
 #
-require 'rails_helper'
+class GoogleAuthCredential < AuthCredential
+  EXPIRATION_DURATION = 6.months
+  PROVIDER = 'google'
 
-describe AuthCredential, type: :model do
-  it { should belong_to(:user) }
+  def google_access_expired?
+    !refresh_token_valid?
+  end
 
-  it { is_expected.not_to be_canvas_authorized }
-  it { is_expected.not_to be_clever_authorized }
-  it { is_expected.not_to be_google_access_expired }
-  it { is_expected.not_to be_google_authorized }
+  def google_authorized?
+    refresh_token_valid?
+  end
 
-  it { should validate_inclusion_of(:type).in_array(AuthCredential::TYPES) }
+  def refresh_token_expires_at
+    return nil if expires_at.nil?
+
+    expires_at + EXPIRATION_DURATION
+  end
+
+  def refresh_token_valid?
+    return false if expires_at.nil? || refresh_token.nil?
+
+    Time.current < refresh_token_expires_at
+  end
 end
-

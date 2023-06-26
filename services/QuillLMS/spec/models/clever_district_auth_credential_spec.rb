@@ -25,14 +25,14 @@
 #
 require 'rails_helper'
 
-describe AuthCredential, type: :model do
+describe CleverDistrictAuthCredential, type: :model do
+  subject { create(:clever_district_auth_credential) }
+
   it { should belong_to(:user) }
 
-  it { is_expected.not_to be_canvas_authorized }
-  it { is_expected.not_to be_clever_authorized }
-  it { is_expected.not_to be_google_access_expired }
-  it { is_expected.not_to be_google_authorized }
+  it { is_expected.to be_clever_authorized }
 
-  it { should validate_inclusion_of(:type).in_array(AuthCredential::TYPES) }
+  it { is_expected.not_to be_canvas_authorized }
+  it { is_expected.not_to be_google_authorized }
 end
 
