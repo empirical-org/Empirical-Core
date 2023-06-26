@@ -21,22 +21,22 @@ module Snapshots
       ]
     end
 
-    def self.grades_segment(grades)
-      return if grades.nil? || grades.empty?
+    def self.array_segment(name, values)
+      return if values.blank?
 
-      "grades-#{(grades || []).map(&:to_s).sort.join('-')}"
+      "#{name}-#{values.map(&:to_s).sort.join('-')}"
+    end
+
+    def self.grades_segment(grades)
+      array_segment('grades', grades)
     end
 
     def self.teacher_ids_segment(teacher_ids)
-      return if teacher_ids.nil? || teacher_ids.empty?
-
-      "teacher-ids-#{(teacher_ids || []).sort.join('-')}"
+      array_segment('teacher-ids', teacher_ids)
     end
 
     def self.classroom_ids_segment(classroom_ids)
-      return if classroom_ids.nil? || classroom_ids.empty?
-
-      "classroom-ids-#{(classroom_ids || []).sort.join('-')}"
+      array_segment('classroom-ids', classroom_ids)
     end
   end
 end
