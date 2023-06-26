@@ -7,9 +7,10 @@
 #  id            :integer          not null, primary key
 #  access_token  :string           not null
 #  expires_at    :datetime
-#  provider      :string           not null
+#  provider      :string
 #  refresh_token :string
 #  timestamp     :datetime
+#  type          :string
 #  created_at    :datetime
 #  updated_at    :datetime
 #  user_id       :integer          not null
@@ -25,6 +26,8 @@
 #  fk_rails_...  (user_id => users.id)
 #
 class AuthCredential < ApplicationRecord
+  self.inheritance_column = :_type_disabled
+
   belongs_to :user
   has_one :canvas_instance_auth_credential, dependent: :destroy
 
