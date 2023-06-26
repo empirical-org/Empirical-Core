@@ -168,8 +168,9 @@ describe SnapshotsController, type: :controller do
               previous_start: previous_timeframe,
               current_start: current_timeframe,
               current_end: timeframe_end
-            }, {
-              school_ids: school_ids,
+            },
+            school_ids,
+            {
               grades: nil,
               teacher_ids: nil,
               classroom_ids: nil
@@ -195,8 +196,9 @@ describe SnapshotsController, type: :controller do
               previous_start: previous_timeframe,
               current_start: current_timeframe,
               current_end: timeframe_end
-            }, {
-              school_ids: school_ids,
+            },
+            school_ids,
+            {
               grades: nil,
               teacher_ids: nil,
               classroom_ids: nil
@@ -225,8 +227,9 @@ describe SnapshotsController, type: :controller do
               previous_start: previous_timeframe,
               current_start: current_timeframe,
               current_end: timeframe_end
-            }, {
-              school_ids: school_ids,
+            },
+            school_ids,
+            {
               grades: grades,
               teacher_ids: teacher_ids,
               classroom_ids: classroom_ids
@@ -251,8 +254,9 @@ describe SnapshotsController, type: :controller do
               previous_start: current_start - timeframe_length,
               current_start: current_start,
               current_end: current_end
-            }, {
-              school_ids: school_ids,
+            },
+            school_ids,
+            {
               grades: nil,
               teacher_ids: nil,
               classroom_ids: nil

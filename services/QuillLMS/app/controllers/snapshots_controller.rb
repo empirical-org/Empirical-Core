@@ -127,8 +127,9 @@ class SnapshotsController < ApplicationController
         previous_start: previous_start,
         current_start: current_start,
         current_end: current_end
-      }, {
-        school_ids: snapshot_params[:school_ids],
+      },
+      snapshot_params[:school_ids],
+      {
         grades: snapshot_params[:grades],
         teacher_ids: snapshot_params[:teacher_ids],
         classroom_ids: snapshot_params[:classroom_ids]

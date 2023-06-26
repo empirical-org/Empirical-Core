@@ -16,7 +16,6 @@ module Snapshots
     let(:classroom_ids) { [6,7] }
     let(:filters) do
       {
-        school_ids: school_ids,
         grades: grades,
         teacher_ids: teacher_ids,
         classroom_ids: classroom_ids
@@ -54,7 +53,7 @@ module Snapshots
         expect(Rails.cache).to receive(:write)
         expect(PusherTrigger).to receive(:run)
 
-        subject.perform(cache_key, query, user_id, timeframe, filters)
+        subject.perform(cache_key, query, user_id, timeframe, school_ids, filters)
       end
 
       it 'should write a payload to cache' do
@@ -67,17 +66,18 @@ module Snapshots
         expect(Rails.cache).to receive(:write).with(cache_key, payload, expires_in: cache_ttl)
         expect(PusherTrigger).to receive(:run)
 
-        subject.perform(cache_key, query, user_id, timeframe, filters)
+        subject.perform(cache_key, query, user_id, timeframe, school_ids, filters)
       end
 
       it 'should send a Pusher notification' do
         expect(Rails.cache).to receive(:write)
         expect(PusherTrigger).to receive(:run).with(user_id, described_class::PUSHER_EVENT, {
           query: query,
-          timeframe: timeframe_name
+          timeframe: timeframe_name,
+          school_ids: school_ids
         }.merge(filters))
 
-        subject.perform(cache_key, query, user_id, timeframe, filters)
+        subject.perform(cache_key, query, user_id, timeframe, school_ids, filters)
       end
     end
   end
