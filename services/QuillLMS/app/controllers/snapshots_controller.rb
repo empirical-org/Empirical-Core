@@ -55,28 +55,35 @@ class SnapshotsController < ApplicationController
       .where(schools_admins: {user_id: current_user.id})
   end
 
-  private def teacher_options
+  private def filtered_schools
     school_ids = option_params[:school_ids]
-    grades = option_params[:grades]
 
-    filtered_schools = school_options
-    filtered_schools = filtered_schools.where(id: school_ids) unless school_ids.nil?
+    return school_options.where(id: school_ids) if school_ids.present?
+
+    school_options
+  end
+
+  private def teacher_options
+    grades = option_params[:grades]
 
     teachers = User.joins(:schools_users)
       .joins(:classrooms_i_teach)
       .where(schools_users: {school_id: filtered_schools.pluck(:id)})
 
-    teachers = teachers.where(classrooms: {grade: grades}) unless grades.nil?
+    return teachers.where(classrooms: {grade: grades}) if grades.present?
 
     teachers
   end
 
-  private def classroom_options
+  private def filtered_teachers
     teacher_ids = option_params[:teacher_ids]
 
-    filtered_teachers = teacher_options
-    filtered_teachers = filtered_teachers.where(id: teacher_ids) unless teacher_ids.nil?
+    return teacher_options.where(id: teacher_ids) if teacher_ids.present?
 
+    teacher_options
+  end
+
+  private def classroom_options
     Classroom.joins(:classrooms_teachers)
       .where(classrooms_teachers: {user_id: filtered_teachers.pluck(:id)})
   end
