@@ -4,13 +4,13 @@ module Snapshots
   class ActivityPacksCompletedQuery < ActivitySessionCountQuery
     def query
       <<-SQL
-        SELECT COUNTIF(activities_complete = activities_in_pack) AS count
+        SELECT COUNTIF(activities_completed = activities_in_pack) AS count
           FROM (#{super})
       SQL
     end
 
     def select_clause
-      "SELECT classroom_units.id, activity_sessions.user_id, COUNT(DISTINCT activity_sessions.activity_id) AS activities_complete, COUNT(DISTINCT unit_activities.activity_id) AS activities_in_pack"
+      "SELECT classroom_units.id, activity_sessions.user_id, COUNT(DISTINCT activity_sessions.activity_id) AS activities_completed, COUNT(DISTINCT unit_activities.activity_id) AS activities_in_pack"
     end
 
     def from_and_join_clauses
