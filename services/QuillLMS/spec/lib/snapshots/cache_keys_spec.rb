@@ -9,6 +9,15 @@ module Snapshots
     let(:timeframe_end) { DateTime.current.end_of_day - 1.day }
     let(:school_ids) { [1,2,3] }
     let(:grades) { ['Kindergarten',1,2,3,4] }
+    let(:teacher_ids) { [4,5,6] }
+    let(:classroom_ids) { [7,8,9] }
+    let(:additional_filters) do
+      {
+        grades: grades,
+        teacher_ids: teacher_ids,
+        classroom_ids: classroom_ids
+      }
+    end
 
     context '#generate_key' do
       it 'should compile a valid cache key' do
@@ -16,8 +25,25 @@ module Snapshots
           previous_timeframe_start,
           current_timeframe_start,
           timeframe_end,
+          school_ids)
+        ).to eq([
+          "admin-snapshot",
+          query,
+          previous_timeframe_start,
+          current_timeframe_start,
+          timeframe_end,
+          "school-ids-#{school_ids.sort.join('-')}"
+        ])
+
+      end
+
+      it 'should compile a valid cache key with additional filters' do
+        expect(Snapshots::CacheKeys.generate_key(query,
+          previous_timeframe_start,
+          current_timeframe_start,
+          timeframe_end,
           school_ids,
-          grades)
+          additional_filters: additional_filters)
         ).to eq([
           "admin-snapshot",
           query,
@@ -25,7 +51,9 @@ module Snapshots
           current_timeframe_start,
           timeframe_end,
           "school-ids-#{school_ids.sort.join('-')}",
-          "grades-#{grades.map(&:to_s).sort.join('-')}"
+          "grades-#{grades.map(&:to_s).sort.join('-')}",
+          "teacher-ids-#{teacher_ids.sort.join('-')}",
+          "classroom-ids-#{classroom_ids.sort.join('-')}"
         ])
       end
 
@@ -39,7 +67,7 @@ module Snapshots
           custom_start,
           custom_end,
           school_ids,
-          grades)
+          additional_filters: additional_filters)
         ).to eq([
           "admin-snapshot",
           query,
@@ -47,7 +75,9 @@ module Snapshots
           custom_start,
           custom_end,
           "school-ids-#{school_ids.sort.join('-')}",
-          "grades-#{grades.map(&:to_s).sort.join('-')}"
+          "grades-#{grades.map(&:to_s).sort.join('-')}",
+          "teacher-ids-#{teacher_ids.sort.join('-')}",
+          "classroom-ids-#{classroom_ids.sort.join('-')}"
         ])
       end
 
@@ -57,13 +87,17 @@ module Snapshots
           current_timeframe_start,
           timeframe_end,
           school_ids,
-          grades)
+          additional_filters: additional_filters)
         ).to eq(Snapshots::CacheKeys.generate_key(query,
           previous_timeframe_start,
           current_timeframe_start,
           timeframe_end,
           school_ids.reverse,
-          grades.reverse))
+          additional_filters: {
+            grades: grades.reverse,
+            teacher_ids: teacher_ids.reverse,
+            classroom_ids: classroom_ids.reverse
+          }))
       end
     end
   end
