@@ -12,8 +12,8 @@ module Snapshots
       'most-active-schools' => Snapshots::MostActiveSchoolsQuery,
     }
 
-    def perform(cache_key, query, user_id, timeframe, school_ids, grades)
-      payload = generate_payload(query, timeframe, school_ids, grades)
+    def perform(cache_key, query, user_id, timeframe, school_ids, filters)
+      payload = generate_payload(query, timeframe, school_ids, filters)
 
       Rails.cache.write(cache_key, payload, expires_in: cache_expiry)
 
@@ -21,9 +21,8 @@ module Snapshots
         {
           query: query,
           timeframe: timeframe['name'],
-          school_ids: school_ids,
-          grades: grades
-        }
+          school_ids: school_ids
+        }.merge(filters)
       )
     end
 
@@ -35,11 +34,12 @@ module Snapshots
       now.end_of_day.to_i - now.to_i
     end
 
-    private def generate_payload(query, timeframe, school_ids, grades)
-      QUERIES[query].run(timeframe['current_start'],
-        timeframe['current_end'],
-        school_ids,
-        grades)
+    private def generate_payload(query, timeframe, school_ids, filters)
+      QUERIES[query].run(**{
+        timeframe_start: timeframe['current_start'],
+        timeframe_end: timeframe['current_end'],
+        school_ids: school_ids
+      }.merge(filters))
     end
   end
 end

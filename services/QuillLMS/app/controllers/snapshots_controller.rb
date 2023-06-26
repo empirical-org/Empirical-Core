@@ -39,9 +39,53 @@ class SnapshotsController < ApplicationController
   def options
     render json: {
       timeframes: Snapshots::Timeframes.frontend_options,
-      schools: Snapshots::SchoolsOptionsQuery.run(current_user.id),
-      grades: GRADE_OPTIONS
+      schools: format_option_list(school_options),
+      grades: GRADE_OPTIONS,
+      teachers: format_option_list(teacher_options),
+      classrooms: format_option_list(classroom_options)
     }
+  end
+
+  private def format_option_list(models)
+    models.pluck(:id, :name).map { |id, name| {id: id, name: name} }
+  end
+
+  private def school_options
+    School.joins(:schools_admins)
+      .where(schools_admins: {user_id: current_user.id})
+  end
+
+  private def filtered_schools
+    school_ids = option_params[:school_ids]
+
+    return school_options.where(id: school_ids) if school_ids.present?
+
+    school_options
+  end
+
+  private def teacher_options
+    grades = option_params[:grades]
+
+    teachers = User.joins(:schools_users)
+      .joins(:classrooms_i_teach)
+      .where(schools_users: {school_id: filtered_schools.pluck(:id)})
+
+    return teachers.where(classrooms: {grade: grades}) if grades.present?
+
+    teachers
+  end
+
+  private def filtered_teachers
+    teacher_ids = option_params[:teacher_ids]
+
+    return teacher_options.where(id: teacher_ids) if teacher_ids.present?
+
+    teacher_options
+  end
+
+  private def classroom_options
+    Classroom.joins(:classrooms_teachers)
+      .where(classrooms_teachers: {user_id: filtered_teachers.pluck(:id)})
   end
 
   private def set_query
@@ -92,7 +136,11 @@ class SnapshotsController < ApplicationController
         current_end: current_end
       },
       snapshot_params[:school_ids],
-      snapshot_params[:grades])
+      {
+        grades: snapshot_params[:grades],
+        teacher_ids: snapshot_params[:teacher_ids],
+        classroom_ids: snapshot_params[:classroom_ids]
+      })
 
     { message: 'Generating snapshot' }
   end
@@ -104,7 +152,11 @@ class SnapshotsController < ApplicationController
       current_start,
       current_end,
       snapshot_params.fetch(:school_ids, []),
-      snapshot_params.fetch(:grades, []))
+      additional_filters: {
+        grades: snapshot_params.fetch(:grades, []),
+        teacher_ids: snapshot_params.fetch(:teacher_ids, []),
+        classroom_ids: snapshot_params.fetch(:classroom_ids, [])
+      })
   end
 
   private def snapshot_params
@@ -113,6 +165,14 @@ class SnapshotsController < ApplicationController
       :timeframe_custom_start,
       :timeframe_custom_end,
       school_ids: [],
-      grades: [])
+      grades: [],
+      teacher_ids: [],
+      classroom_ids: [])
+  end
+
+  private def option_params
+    params.permit(school_ids: [],
+      grades: [],
+      teacher_ids: [])
   end
 end
