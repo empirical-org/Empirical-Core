@@ -45,6 +45,7 @@ module QuillBigQuery
       record
         .attributes
         .except('order')
+        .sort
         .map { |attr, value| "#{convert_type(record, attr, value)} AS #{attr}" }
         .join(', ')
     end

@@ -12,9 +12,18 @@ module Snapshots
       'active-teachers' => Snapshots::ActiveTeachersQuery,
       'activities-assigned' => Snapshots::ActivitiesAssignedQuery,
       'activities-completed' => Snapshots::ActivitiesCompletedQuery,
+      'activity-packs-assigned' => Snapshots::ActivityPacksAssignedQuery,
+      'activity-packs-completed' => Snapshots::ActivityPacksCompletedQuery,
       'average-activities-completed-per-student' => Snapshots::AverageActivitiesCompletedPerStudentQuery,
+      'baseline-diagnostics-assigned' => Snapshots::BaselineDiagnosticsAssignedQuery,
+      'baseline-diagnostics-completed' => Snapshots::BaselineDiagnosticsCompletedQuery,
+      'classrooms-created' => Snapshots::ClassroomsCreatedQuery,
+      'growth-diagnostics-assigned' => Snapshots::GrowthDiagnosticsAssignedQuery,
+      'growth-diagnostics-completed' => Snapshots::GrowthDiagnosticsCompletedQuery,
       'sentences-written' => Snapshots::SentencesWrittenQuery,
-      'student-learning-hours' => Snapshots::StudentLearningHoursQuery
+      'student-accounts-created' => Snapshots::StudentAccountsCreatedQuery,
+      'student-learning-hours' => Snapshots::StudentLearningHoursQuery,
+      'teacher-accounts-created' => Snapshots::TeacherAccountsCreatedQuery
     }
 
     def perform(cache_key, query, user_id, timeframe, school_ids, grades)
