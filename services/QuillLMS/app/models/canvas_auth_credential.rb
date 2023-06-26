@@ -23,16 +23,24 @@
 #
 #  fk_rails_...  (user_id => users.id)
 #
-require 'rails_helper'
+class CanvasAuthCredential < AuthCredential
+  has_one :canvas_instance_auth_credential,
+    foreign_key: 'auth_credential_id',
+    dependent: :destroy
 
-describe AuthCredential, type: :model do
-  it { should belong_to(:user) }
+  has_one :canvas_instance, through: :canvas_instance_auth_credential
 
-  it { is_expected.not_to be_canvas_authorized }
-  it { is_expected.not_to be_clever_authorized }
-  it { is_expected.not_to be_google_access_expired }
-  it { is_expected.not_to be_google_authorized }
+  PROVIDER = 'canvas'
 
-  it { should validate_inclusion_of(:type).in_array(AuthCredential::TYPES) }
+  def canvas_authorized?
+    refresh_token_valid?
+  end
+
+  def refresh_token_valid?
+    expires_at.present? && refresh_token.present?
+  end
+
+  def token
+    access_token
+  end
 end
-

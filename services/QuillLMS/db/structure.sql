@@ -849,8 +849,7 @@ CREATE TABLE public.auth_credentials (
     access_token character varying NOT NULL,
     created_at timestamp without time zone,
     updated_at timestamp without time zone,
-    type character varying,
-    provider character varying
+    type character varying NOT NULL
 );
 
 
@@ -7634,13 +7633,6 @@ CREATE UNIQUE INDEX index_app_settings_on_name ON public.app_settings USING btre
 
 
 --
--- Name: index_auth_credentials_on_provider; Type: INDEX; Schema: public; Owner: -
---
-
-CREATE INDEX index_auth_credentials_on_provider ON public.auth_credentials USING btree (provider);
-
-
---
 -- Name: index_auth_credentials_on_refresh_token; Type: INDEX; Schema: public; Owner: -
 --
 
@@ -10275,6 +10267,8 @@ INSERT INTO "schema_migrations" (version) VALUES
 ('20230613164607'),
 ('20230621161210'),
 ('20230622125712'),
-('20230622525712');
+('20230622525712'),
+('20230623154333'),
+('20230623154418');
 
 

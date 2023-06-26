@@ -90,7 +90,6 @@ describe User, type: :model do
   it { should have_many(:canvas_accounts).dependent(:destroy) }
   it { should have_many(:canvas_instances).through(:canvas_accounts) }
   it { should have_one(:auth_credential).dependent(:destroy) }
-  it { should have_one(:canvas_instance_auth_credential).through(:auth_credential) }
 
   it { should delegate_method(:name).to(:school).with_prefix(:school) }
   it { should delegate_method(:mail_city).to(:school).with_prefix(:school) }

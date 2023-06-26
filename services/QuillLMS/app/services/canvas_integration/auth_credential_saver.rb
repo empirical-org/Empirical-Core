@@ -7,8 +7,6 @@ module CanvasIntegration
 
     attr_reader :credentials, :external_id, :info
 
-    PROVIDER = AuthCredential::CANVAS_PROVIDER
-
     def initialize(auth_hash)
       @credentials = auth_hash[:credentials]
       @external_id = auth_hash[:uid]
@@ -29,10 +27,9 @@ module CanvasIntegration
 
     private def auth_credential
       @auth_credential ||=
-        AuthCredential.create!(
+        CanvasAuthCredential.create!(
           access_token: access_token,
           expires_at: expires_at,
-          provider: PROVIDER,
           refresh_token: refresh_token,
           user: user
         )

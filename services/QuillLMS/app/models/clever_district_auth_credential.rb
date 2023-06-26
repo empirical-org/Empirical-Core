@@ -23,16 +23,11 @@
 #
 #  fk_rails_...  (user_id => users.id)
 #
-require 'rails_helper'
+class CleverDistrictAuthCredential < AuthCredential
+  EXPIRATION_DURATION = 23.hours
+  PROVIDER = 'clever_district'
 
-describe AuthCredential, type: :model do
-  it { should belong_to(:user) }
-
-  it { is_expected.not_to be_canvas_authorized }
-  it { is_expected.not_to be_clever_authorized }
-  it { is_expected.not_to be_google_access_expired }
-  it { is_expected.not_to be_google_authorized }
-
-  it { should validate_inclusion_of(:type).in_array(AuthCredential::TYPES) }
+  def clever_authorized?
+    true
+  end
 end
-
