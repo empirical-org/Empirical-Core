@@ -47,19 +47,19 @@ module Snapshots
     end
 
     def grades_where_clause
-      return "" if grades.nil? || grades.empty?
+      return "" if grades.blank?
 
       "AND classrooms.grade IN (#{grades.map { |g| "'#{g}'" }.join(',')})"
     end
 
     def teacher_ids_where_clause
-      return "" if teacher_ids.nil? || teacher_ids.empty?
+      return "" if teacher_ids.blank?
 
       "AND schools_users.user_id IN (#{teacher_ids.join(',')})"
     end
 
     def classroom_ids_where_clause
-      return "" if classroom_ids.nil? || classroom_ids.empty?
+      return "" if classroom_ids.blank?
 
       "AND classrooms.id IN (#{classroom_ids.join(',')})"
     end
