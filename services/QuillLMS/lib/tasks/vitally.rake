@@ -42,7 +42,7 @@ namespace :vitally do
             messageId: SecureRandom.uuid
           }
         end
-      end.flatten
+      end.flatten.compact
       batch_payload.each do |api_call_payload|
         puts "Unlinking user #{api_call_payload[:userId]} from account #{api_call_payload[:accountId]}"
       end
