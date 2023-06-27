@@ -25,7 +25,7 @@ module GoogleIntegration
     end
 
     private def cache_classrooms_data
-      TeacherClassroomsCache.write(user_id, data.to_json)
+      GoogleIntegration::TeacherClassroomsCache.write(user_id, data.to_json)
     end
 
     private def data
