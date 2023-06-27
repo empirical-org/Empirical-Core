@@ -32,13 +32,15 @@ module ResultsSummary
         skill_groups = skill_groups_for_session(@skill_groups, activity_session, assigned_student.name)
         total_possible_skills_count = skill_groups.map { |sg| sg[:skill_ids] }.flatten.uniq.count
         total_correct_skills_count = skill_groups.map { |sg| sg[:correct_skill_ids] }.flatten.uniq.count
+        total_correct_skill_groups_count = skill_groups.select { |sg| sg[:correct_skill_ids].length == sg[:skill_ids].length }.flatten.uniq.count
         {
           name: assigned_student.name,
           id: assigned_student.id,
           skill_groups: skill_groups,
           total_correct_skills_count: total_correct_skills_count,
           total_possible_skills_count: total_possible_skills_count,
-          correct_skill_text: "#{total_correct_skills_count} of #{total_possible_skills_count} skills correct"
+          correct_skill_text: "#{total_correct_skills_count} of #{total_possible_skills_count} skills correct",
+          correct_skill_groups_text: "#{total_correct_skill_groups_count} of #{skill_groups.count} skill groups correct"
         }
       else
         { name: assigned_student.name }
