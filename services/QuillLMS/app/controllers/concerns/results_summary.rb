@@ -39,8 +39,8 @@ module ResultsSummary
           skill_groups: skill_groups,
           total_correct_skills_count: total_correct_skills_count,
           total_possible_skills_count: total_possible_skills_count,
-          correct_skill_text: "#{total_correct_skills_count} of #{total_possible_skills_count} skills correct",
-          correct_skill_groups_text: "#{total_correct_skill_groups_count} of #{skill_groups.count} skill groups correct"
+          correct_skill_text: "#{total_correct_skills_count} of #{total_possible_skills_count} skills",
+          correct_skill_groups_text: "#{total_correct_skill_groups_count} of #{skill_groups.count} skill groups"
         }
       else
         { name: assigned_student.name }

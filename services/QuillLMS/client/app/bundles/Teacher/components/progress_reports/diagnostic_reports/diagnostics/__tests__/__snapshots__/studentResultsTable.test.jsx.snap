@@ -1601,7 +1601,7 @@ exports[`StudentResultsTable component should render when there is student data 
                of 
               1
                student
-               proficient
+               with proficiency
             </span>
           </th>
           <th
@@ -1670,7 +1670,7 @@ exports[`StudentResultsTable component should render when there is student data 
               1
                student
               s
-               proficient
+               with proficiency
             </span>
           </th>
           <th
@@ -1739,7 +1739,7 @@ exports[`StudentResultsTable component should render when there is student data 
               1
                student
               s
-               proficient
+               with proficiency
             </span>
           </th>
           <th
@@ -1808,7 +1808,7 @@ exports[`StudentResultsTable component should render when there is student data 
               1
                student
               s
-               proficient
+               with proficiency
             </span>
           </th>
           <th
@@ -1876,7 +1876,7 @@ exports[`StudentResultsTable component should render when there is student data 
                of 
               1
                student
-               proficient
+               with proficiency
             </span>
           </th>
           <th
@@ -1944,7 +1944,7 @@ exports[`StudentResultsTable component should render when there is student data 
                of 
               1
                student
-               proficient
+               with proficiency
             </span>
           </th>
         </tr>

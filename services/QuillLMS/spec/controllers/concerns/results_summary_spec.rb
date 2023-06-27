@@ -66,7 +66,8 @@ describe ResultsSummary do
             ],
             total_correct_skills_count: 0,
             total_possible_skills_count: 1,
-            correct_skill_text: "0 of 1 skills correct"
+            correct_skill_text: "0 of 1 skills",
+            correct_skill_groups_text: "0 of 1 skill groups",
           },
           {
             name: student2.name
@@ -97,7 +98,8 @@ describe ResultsSummary do
             ],
             total_correct_skills_count: 1,
             total_possible_skills_count: 1,
-            correct_skill_text: "1 of 1 skills correct"
+            correct_skill_text: "1 of 1 skills",
+            correct_skill_groups_text: "1 of 1 skill groups",
           }
         ]
       })
@@ -145,7 +147,8 @@ describe ResultsSummary do
             ],
             total_correct_skills_count: 0,
             total_possible_skills_count: 1,
-            correct_skill_text: "0 of 1 skills correct"
+            correct_skill_text: "0 of 1 skills",
+            correct_skill_groups_text: "0 of 1 skill groups",
           },
           {
             name: student2.name
