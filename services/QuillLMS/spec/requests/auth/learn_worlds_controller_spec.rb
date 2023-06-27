@@ -59,7 +59,13 @@ RSpec.describe Auth::LearnWorldsController do
         end
 
         context 'user has existing learn_worlds_account' do
-          before { create(:learn_worlds_account, user: user, external_id: learn_worlds_account_external_id) }
+          before do
+            create(:learn_worlds_account,
+              external_id: learn_worlds_account_external_id,
+              last_login: 1.day.ago.to_datetime,
+              user: user
+            )
+          end
 
           it { expect { subject }.not_to change(user, :learn_worlds_account) }
           it { expect { subject }.to change { user.learn_worlds_account.last_login } }
