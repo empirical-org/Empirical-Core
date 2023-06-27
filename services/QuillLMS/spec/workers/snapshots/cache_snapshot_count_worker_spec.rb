@@ -21,6 +21,14 @@ module Snapshots
         classroom_ids: classroom_ids
       }
     end
+    let(:filters_with_string_keys) do
+      {
+        "grades" => grades,
+        "teacher_ids" => teacher_ids,
+        "classroom_ids" => classroom_ids
+      }
+    end
+
     let(:query_double) { double(run: {}) }
 
     it { expect { described_class::QUERIES.values }.not_to raise_error }
@@ -63,6 +71,29 @@ module Snapshots
         expect(PusherTrigger).to receive(:run)
 
         subject.perform(cache_key, query, user_id, timeframe, school_ids, filters)
+      end
+
+      context "params with string keys" do
+        it 'should execute queries for both the current and previous timeframes' do
+          expect(query_double).to receive(:run).with(
+            timeframe_start: current_timeframe_start,
+            timeframe_end: timeframe_end,
+            school_ids: school_ids,
+            grades: grades,
+            teacher_ids: teacher_ids,
+            classroom_ids: classroom_ids)
+          expect(query_double).to receive(:run).with(
+            timeframe_start: previous_timeframe_start,
+            timeframe_end: current_timeframe_start,
+            school_ids: school_ids,
+            grades: grades,
+            teacher_ids: teacher_ids,
+            classroom_ids: classroom_ids)
+          expect(Rails.cache).to receive(:write)
+          expect(PusherTrigger).to receive(:run)
+
+          subject.perform(cache_key, query, user_id, timeframe, school_ids, filters_with_string_keys)
+        end
       end
 
       it 'should only execute a query for current timeframe if the previous_timeframe_start is nil' do

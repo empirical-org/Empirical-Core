@@ -52,19 +52,20 @@ module Snapshots
       previous_timeframe_start = timeframe['previous_start']
       current_timeframe_start = timeframe['current_start']
       timeframe_end = timeframe['current_end']
+      filters_symbolized = filters.symbolize_keys
 
       current_snapshot = QUERIES[query].run(**{
         timeframe_start: current_timeframe_start,
         timeframe_end: timeframe_end,
         school_ids: school_ids
-      }.merge(filters))
+      }.merge(filters_symbolized))
 
       if previous_timeframe_start
         previous_snapshot = QUERIES[query].run(**{
           timeframe_start: previous_timeframe_start,
           timeframe_end: current_timeframe_start,
           school_ids: school_ids
-        }.merge(filters))
+        }.merge(filters_symbolized))
       else
         previous_snapshot = nil
       end
