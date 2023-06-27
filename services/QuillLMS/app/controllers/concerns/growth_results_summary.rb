@@ -73,7 +73,7 @@ module GrowthResultsSummary
       pre_present_skill_number = skills.reduce(0) { |sum, skill| sum += skill[:pre][:summary] == NOT_PRESENT ? 0 : 1 }
       present_skill_number = skills.reduce(0) { |sum, skill| sum += skill[:post][:summary] == NOT_PRESENT ? 0 : 1 }
       correct_skill_number = post_correct_skills.count
-      acquired_skills = (post_correct_skill_ids - pre_correct_skill_ids).length > 0
+      acquired_skills = !(post_correct_skill_ids - pre_correct_skill_ids).empty?
       proficiency_text = summarize_student_proficiency_for_skill_overall(present_skill_number, correct_skill_number, pre_correct_skill_number, acquired_skills)
       post_test_proficiency = summarize_student_proficiency_for_skill_per_activity(present_skill_number, correct_skill_number)
       pre_test_proficiency = summarize_student_proficiency_for_skill_per_activity(pre_present_skill_number, pre_correct_skill_number)
