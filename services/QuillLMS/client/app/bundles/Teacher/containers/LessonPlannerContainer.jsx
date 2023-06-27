@@ -1,7 +1,7 @@
 import React from 'react';
 import { Route, Switch } from 'react-router-dom';
 
-import ClassroomsWithStudentsContainer from './ClassroomsWithStudentsContainer.jsx';
+import UpdateAssignedStudents from './UpdateAssignedStudents.jsx';
 import EditUnitActivitiesContainer from './EditUnitActivitiesContainer.jsx';
 
 import ChooseClassroomLesson from '../components/assignment_flow/choose_classroom_lesson';
@@ -27,7 +27,7 @@ export default class LessonPlannerContainer extends React.Component {
           <Route component={ClassroomLessonsPlanner} path="/teachers/classrooms/activity_planner/lessons" />
           <Route component={ClassroomLessonsPlanner} path="/teachers/classrooms/activity_planner/lessons/:classroomId" />
           <Route component={ChooseClassroomLesson} path="/teachers/classrooms/activity_planner/lessons_for_activity/:activityId" />
-          <Route path="/teachers/classrooms/activity_planner/units/:unitId/students/edit" render={routerProps => <ClassroomsWithStudentsContainer user={user} {...routerProps} />} />
+          <Route path="/teachers/classrooms/activity_planner/units/:unitId/students/edit" render={routerProps => <UpdateAssignedStudents user={user} {...routerProps} />} />
           <Route component={EditUnitActivitiesContainer} path="/teachers/classrooms/activity_planner/units/:unitId/activities/edit" />
           <Route path="/teachers/classrooms/activity_planner/closed" render={routerProps => <ManageUnits open={false} {...routerProps} />} />
           <Route exact path="/teachers/classrooms/activity_planner" render={(routerProps) => <ManageUnits open={true} {...routerProps} />} />

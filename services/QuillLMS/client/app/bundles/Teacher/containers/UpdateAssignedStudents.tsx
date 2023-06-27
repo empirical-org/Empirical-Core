@@ -48,7 +48,7 @@ const Student = ({ assignment, classroomUnit, student, toggleStudentSelection })
 
 }
 
-const ClassroomsWithStudentsContainer = ({ match, user, }) => {
+const UpdateAssignedStudents = ({ match, user, }) => {
   const [loading, setLoading] = React.useState(true)
   const [originalClassrooms, setOriginalClassrooms] = React.useState(null)
   const [assignmentData, setAssignmentData] = React.useState(null)
@@ -163,4 +163,4 @@ const ClassroomsWithStudentsContainer = ({ match, user, }) => {
   )
 }
 
-export default ClassroomsWithStudentsContainer
+export default UpdateAssignedStudents
