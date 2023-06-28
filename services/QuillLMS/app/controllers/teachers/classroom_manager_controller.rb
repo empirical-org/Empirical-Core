@@ -21,6 +21,8 @@ class Teachers::ClassroomManagerController < ApplicationController
 
   def lesson_planner
     set_classroom_variables
+    unassign_warning_milestone = Milestone.find_by_name(Milestone::TYPES[:dismiss_unassign_warning_modal])
+    @unassign_warning_hidden = UserMilestone.find_by(milestone_id: unassign_warning_milestone&.id, user_id: current_user&.id)
   end
 
   def assign

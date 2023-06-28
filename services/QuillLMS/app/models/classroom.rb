@@ -168,7 +168,7 @@ class Classroom < ApplicationRecord
   end
 
   def with_students
-    attributes.merge({students: students})
+    attributes.merge({students: students.sort_by { |s| s.last_name }})
   end
 
   def with_students_ids

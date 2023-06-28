@@ -79,6 +79,16 @@ describe MilestonesController do
     end
   end
 
+  describe '#complete_dismiss_unassign_warning_modal' do
+    let!(:milestone) { create(:dismiss_unassign_warning_modal) }
+
+    it 'should push the milestone into users milestones' do
+      expect(user.milestones).to_not include milestone
+      post :complete_dismiss_unassign_warning_modal
+      expect(user.milestones).to include milestone
+    end
+  end
+
   describe '#create_or_touch_dismiss_teacher_info_modal' do
     let!(:milestone) { create(:dismiss_teacher_info_modal) }
 

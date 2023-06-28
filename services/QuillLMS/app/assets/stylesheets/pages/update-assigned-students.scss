@@ -1,0 +1,84 @@
+.update-assigned-students-container {
+  padding: 32px 0px 0px;
+  section {
+    padding: 0px;
+  }
+  .header {
+    display: flex;
+    justify-content: space-between;
+    margin-bottom: 32px;
+    h1 {
+      font-weight: 400;
+      font-size: 16px;
+      line-height: 32px;
+    }
+    h2 {
+      font-weight: 700;
+      font-size: 24px;
+      line-height: 32px;
+    }
+  }
+  .buttons {
+    display: flex;
+    .quill-button {
+      margin-left: 16px;
+    }
+  }
+  .classroom-section {
+    border: 1px solid #CFCFCF;
+    border-radius: 8px;
+    margin-bottom: 64px;
+    .classroom-header {
+      display: flex;
+      background-color: #EBEBEB;
+      padding: 12px 24px;
+      justify-content: space-between;
+      align-items: center;
+      border-bottom: 1px solid #CFCFCF;
+      div {
+        display: flex;
+        align-items: center;
+      }
+      h3 {
+        font-weight: 600;
+        font-size: 14px;
+        margin-right: 9px;
+      }
+    }
+  }
+  .students {
+    padding: 16px 24px;
+    column-count: 3;
+    gap: 8px;
+    .student {
+      display: flex;
+      border: 1px solid #E0E0E0;
+      justify-content: space-between;
+      border-radius: 8px;
+      padding: 8px;
+      margin-bottom: 8px;
+      div {
+        display: flex;
+        align-items: center;
+      }
+      em {
+        font-weight: 700;
+        text-decoration: underline;
+        font-style: normal;
+      }
+      .quill-checkbox {
+        margin-right: 8px;
+      }
+      &.already-assigned {
+        background-color: #F7F5F5;
+      }
+      &.will-be-removed {
+        background-color: #FFEDEC;
+        border: 1px solid #EB4F47;
+        span {
+          color: #EB4F47;
+        }
+      }
+    }
+  }
+}
