@@ -97,20 +97,22 @@ const StudentResultCell = ({ skillGroup, studentResult, setOpenPopover, openPopo
 }
 
 const StudentRow = ({ studentResult, skillGroupSummaries, openPopover, setOpenPopover, responsesLink, }) => {
-  const { name, skill_groups, id, total_acquired_skills_count, correct_skill_text, correct_skill_groups_text } = studentResult
+  const { name, skill_groups, id, total_acquired_skills_count, total_acquired_skill_groups_count, correct_skill_text, correct_skill_groups_text } = studentResult
   const diagnosticNotCompletedMessage = <span className="name-section-subheader">Diagnostic not completed</span>
   const tooltipText = "<b>Skill Groups:</b> The student either gained some or full proficiency in this group of skills, or the student maintained full proficiency from the pre to the post.<br/><br/><b>Skills:</b> The student demonstrated these skills correctly on every prompt.The arrow indicates the increase in skills demonstrated correctly from the pre - diagnostic."
+  const totalAcquiredSkillsCount = total_acquired_skills_count > 0 ? total_acquired_skills_count : 0;
+  const totalAcquiredSkillGroupsCount = total_acquired_skill_groups_count > 0 ? total_acquired_skill_groups_count : 0;
   const skillsDelta = (<div className="skills-delta">
-    {total_acquired_skills_count ? lightGreenTriangleUpIcon : null}
-    <span className="skill-count">{total_acquired_skills_count ? total_acquired_skills_count : null }</span>
+    {totalAcquiredSkillsCount ? lightGreenTriangleUpIcon : null}
+    <span className="skill-count">{totalAcquiredSkillsCount ? totalAcquiredSkillsCount : null }</span>
     <Tooltip
       tooltipText={tooltipText}
       tooltipTriggerText={<img alt={helpIcon.alt} src={helpIcon.src} />}
     />
   </div>)
   const skillGroupsDelta = (<div className="skills-delta">
-    {total_acquired_skills_count ? lightGreenTriangleUpIcon : null}
-    <span className="skill-count">{total_acquired_skills_count ? total_acquired_skills_count : null }</span>
+    {totalAcquiredSkillGroupsCount ? lightGreenTriangleUpIcon : null}
+    <span className="skill-count">{totalAcquiredSkillGroupsCount ? totalAcquiredSkillGroupsCount : null }</span>
   </div>)
   const skillsSubHeader = correct_skill_text ? <div className="name-section-subheader"><span className="correct-skill-text">{correct_skill_text}</span>{skillsDelta}</div> : diagnosticNotCompletedMessage
   const skillGroupsSubHeader = correct_skill_groups_text ? <div className="name-section-subheader"><span className="correct-skill-text">{correct_skill_groups_text}</span>{skillGroupsDelta}</div> : null

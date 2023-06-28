@@ -35,7 +35,8 @@ module GrowthResultsSummary
         skill_groups = skill_groups_for_session(@skill_groups, post_test_activity_session, pre_test_activity_session, assigned_student.name)
         total_acquired_skills_count = skill_groups.map { |sg| sg[:acquired_skill_ids] }.flatten.uniq.count
         total_possible_skills_count = skill_groups.map { |sg| sg[:skill_ids] }.flatten.uniq.count
-        total_correct_skill_groups_count = skill_groups.select { |sg| sg[:post_correct_skill_ids].length == sg[:skill_ids].length }.flatten.uniq.count
+        total_pre_correct_skill_groups_count = skill_groups.select { |sg| sg[:pre_test_proficiency] == PROFICIENCY }.flatten.uniq.count
+        total_correct_skill_groups_count = skill_groups.select { |sg| GROWTH_PROFICIENCY_TEXTS.include?(sg[:proficiency_text]) }.flatten.uniq.count
         total_correct_skills_count = skill_groups.map { |sg| sg[:post_correct_skill_ids] }.flatten.uniq.count
         total_pre_correct_skills_count = skill_groups.map { |sg| sg[:pre_correct_skill_ids] }.flatten.uniq.count
         {
@@ -44,6 +45,7 @@ module GrowthResultsSummary
           skill_groups: skill_groups,
           total_acquired_skills_count: total_acquired_skills_count,
           total_correct_skills_count: total_correct_skills_count,
+          total_acquired_skill_groups_count: total_correct_skill_groups_count - total_pre_correct_skill_groups_count,
           total_pre_correct_skills_count: total_pre_correct_skills_count,
           total_possible_skills_count: total_possible_skills_count,
           correct_skill_text: "#{total_correct_skills_count} of #{total_possible_skills_count} skills",
@@ -79,7 +81,7 @@ module GrowthResultsSummary
       pre_test_proficiency = summarize_student_proficiency_for_skill_per_activity(pre_present_skill_number, pre_correct_skill_number)
       skill_group_summary_index = @skill_group_summaries.find_index { |sg| sg[:name] == skill_group.name }
       @skill_group_summaries[skill_group_summary_index][:proficiency_scores_by_student][student_name] = { pre: nil, post: nil }
-      @skill_group_summaries[skill_group_summary_index][:not_yet_proficient_in_post_test_student_names].push(student_name) unless post_test_proficiency == PROFICIENCY
+      @skill_group_summaries[skill_group_summary_index][:not_yet_proficient_in_post_test_student_names].push(student_name) unless GROWTH_PROFICIENCY_TEXTS.include?(proficiency_text)
       @skill_group_summaries[skill_group_summary_index][:not_yet_proficient_in_post_test_student_names] =   @skill_group_summaries[skill_group_summary_index][:not_yet_proficient_in_post_test_student_names].uniq
       @skill_group_summaries[skill_group_summary_index][:proficiency_scores_by_student][student_name][:post] = post_test_proficiency_score
       @skill_group_summaries[skill_group_summary_index][:proficiency_scores_by_student][student_name][:pre] = pre_test_proficiency_score

@@ -14,6 +14,7 @@ module DiagnosticReports
   GAINED_PROFICIENCY = 'Gained proficiency'
   GAINED_SOME_PROFICIENCY = 'Gained some proficiency'
   MAINTAINED_PROFICIENCY = 'Maintained proficiency'
+  GROWTH_PROFICIENCY_TEXTS = [GAINED_PROFICIENCY, GAINED_SOME_PROFICIENCY, MAINTAINED_PROFICIENCY]
 
   def data_for_skill_by_activity_session(all_concept_results, skill)
     concept_results = all_concept_results.select {|cr| cr.concept_id.in?(skill.concept_ids)}
