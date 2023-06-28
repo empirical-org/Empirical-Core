@@ -35,6 +35,8 @@ describe CanvasAuthCredential, type: :model do
   it { is_expected.not_to be_clever_authorized }
   it { is_expected.not_to be_google_authorized }
 
+  it { expect { subject.update(token: 'foo') }.to change(subject, :access_token ).to('foo') }
+
   describe '#canvas_authorized?' do
     it { is_expected.to be_canvas_authorized}
 
