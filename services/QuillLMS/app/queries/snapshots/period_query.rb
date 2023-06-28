@@ -52,7 +52,7 @@ module Snapshots
       <<-SQL
         AND (
           classrooms.grade IN (#{grades.map { |g| "'#{g}'" }.join(',')})
-          #{"OR classrooms.grade IS NULL" if grades.include?("null")}
+          #{'OR classrooms.grade IS NULL' if grades.include?('null')}
         )
       SQL
     end
