@@ -12,7 +12,7 @@ RSpec.describe CanvasIntegration::ClientFetcher do
   end
 
   context 'with canvas_auth_credential, but no canvas_instance_auth_credential' do
-    before { create(:canvas_auth_credential, user: user) }
+    before { create(:canvas_auth_credential_without_canvas_instance_auth_credential, user: user) }
 
     it { expect { subject }.to raise_error CanvasIntegration::ClientFetcher::NilCanvasInstanceError }
   end
