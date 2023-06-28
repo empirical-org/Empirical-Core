@@ -30,13 +30,13 @@ module CanvasIntegration
     private def classrooms
       courses_data.map do |course_data|
         sections_data(course_data[:id]).map do |section_data|
-          ClassroomDataAdapater.run(course_data, section_data)
+          ClassroomDataAdapter.run(course_data, section_data)
         end
       end.flatten
     end
 
     private def courses_data
-      get_data(COURSES_PATH)
+      @courses_data ||= get_data(COURSES_PATH)
     end
 
     private def get_data(path)
