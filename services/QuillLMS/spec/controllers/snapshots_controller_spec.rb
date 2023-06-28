@@ -324,7 +324,7 @@ describe SnapshotsController, type: :controller do
         json_response = JSON.parse(response.body)
 
         expect(json_response['teachers'].length).to eq(1)
-      end      
+      end
     end
 
     context 'classrooms with multiple teachers' do
