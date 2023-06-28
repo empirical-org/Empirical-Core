@@ -5,6 +5,7 @@ module Auth
     around_action :force_writer_db_role, only: :canvas
 
     def canvas
+      run_background_jobs
       sign_in(user)
 
       redirect_to profile_path
@@ -18,8 +19,18 @@ module Auth
       request.env['omniauth.auth']
     end
 
+    private def hydrate_teacher_classrooms_cache
+      CanvasIntegration::TeacherClassroomsCacheHydrator.run(user)
+    end
+
+    private def run_background_jobs
+      return unless user.teacher?
+
+      hydrate_teacher_classrooms_cache
+    end
+
     private def user
-      auth_credential.user
+      @user ||= auth_credential.user
     end
   end
 end
