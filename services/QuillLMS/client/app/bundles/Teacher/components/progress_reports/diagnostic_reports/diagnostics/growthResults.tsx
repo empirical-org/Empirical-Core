@@ -84,7 +84,7 @@ export const GrowthResults = ({ passedStudentResults, passedSkillGroupSummaries,
         </div>
         <div className="proficiency-key">
           {partialProficiencyTag}
-          <p>The student’s response contained some correct responses, but not all of the responses were marked correct.</p>
+          <p>The student&apos;s response contained some correct responses, but not all of the responses were marked correct.</p>
         </div>
         <div className="proficiency-key">
           {gainedSomeProficiencyTag}
