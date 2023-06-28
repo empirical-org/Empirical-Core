@@ -2,6 +2,7 @@
 
 class SnapshotsController < ApplicationController
   GRADE_OPTIONS = [
+    {value: "null", name: "No grade set"},
     {value: "Kindergarten", name: "Kindergarten"},
     {value: "1", name: "1st"},
     {value: "2", name: "2nd"},

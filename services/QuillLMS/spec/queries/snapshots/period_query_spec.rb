@@ -68,6 +68,16 @@ module Snapshots
           it { expect(results).to match_array(classroom_ids[0]) }
         end
 
+        context 'filter for null grade' do
+          let(:classroom_with_grade) { create(:classroom, grade: 1) }
+          let(:classroom_without_grade) { create(:classroom, grade: nil) }
+          let(:classrooms) { [classroom_with_grade, classroom_without_grade] }
+
+          let(:filters) { { grades: ['null'] } }
+
+          it { expect(results).to eq([classroom_without_grade.id]) }
+        end
+
         context 'filter for one teacher' do
           let(:filters) { { teacher_ids: [teachers[0].id] } }
 

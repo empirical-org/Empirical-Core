@@ -49,7 +49,12 @@ module Snapshots
     def grades_where_clause
       return "" if grades.blank?
 
-      "AND classrooms.grade IN (#{grades.map { |g| "'#{g}'" }.join(',')})"
+      <<-SQL
+        AND (
+          classrooms.grade IN (#{grades.map { |g| "'#{g}'" }.join(',')})
+          #{"OR classrooms.grade IS NULL" if grades.include?("null")}
+        )
+      SQL
     end
 
     def teacher_ids_where_clause
