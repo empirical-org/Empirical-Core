@@ -3,9 +3,9 @@
 require 'rails_helper'
 
 describe GoogleIntegration::TeacherClassroomsRetriever do
-  let(:user) { create(:user) }
+  subject { described_class.run(user.id) }
 
-  subject { described_class.new(user.id) }
+  let(:user) { create(:user) }
 
   it 'should trigger a pusher notification when now errors are raised' do
     expect(GoogleIntegration::Classroom::Main)
@@ -14,7 +14,7 @@ describe GoogleIntegration::TeacherClassroomsRetriever do
       .and_return({})
 
     expect(PusherTrigger).to receive(:run)
-    subject.run
+    subject
   end
 
   it 'should rescue GoogleIntegration::RefreshAccessToken::RefreshAccessTokenError in the Google integration' do
@@ -23,7 +23,7 @@ describe GoogleIntegration::TeacherClassroomsRetriever do
       .with(user)
       .and_raise(GoogleIntegration::RefreshAccessToken::RefreshAccessTokenError)
 
-    subject.run
+    subject
   end
 
   it 'should rescue GoogleIntegration::Client::AccessTokenError in the Google integration' do
@@ -32,6 +32,6 @@ describe GoogleIntegration::TeacherClassroomsRetriever do
       .with(user)
       .and_raise(GoogleIntegration::Client::AccessTokenError)
 
-    subject.run
+    subject
   end
 end
