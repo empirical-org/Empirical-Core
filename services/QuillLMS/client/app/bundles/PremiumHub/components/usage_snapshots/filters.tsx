@@ -4,8 +4,6 @@ import { DropdownInput } from '../../../Shared/index'
 import useWindowSize from '../../../Shared/hooks/useWindowSize';
 import { unorderedArraysAreEqual, } from '../../../../modules/unorderedArraysAreEqual'
 
-const MAX_VIEW_WIDTH_FOR_MOBILE = 1134
-
 const removeSearchTokenSrc = `${process.env.CDN_URL}/images/pages/administrator/remove_search_token.svg`
 const closeIconSrc = `${process.env.CDN_URL}/images/icons/close.svg`
 
@@ -20,12 +18,22 @@ const SearchToken = ({ searchItem, onRemoveSearchItem, }) => {
   )
 }
 
-const Filters = ({ allTimeframes, allSchools, allGrades, applyFilters, clearFilters, selectedGrades, setSelectedGrades, hasAdjustedFiltersFromDefault, handleSetSelectedTimeframe, selectedTimeframe, selectedSchools, setSelectedSchools, closeMobileFilterMenu, showMobileFilterMenu, hasAdjustedFiltersSinceLastSubmission, customStartDate, customEndDate, }) => {
+const Filters = ({ allTimeframes, allSchools, allGrades, allTeachers, allClassrooms, applyFilters, clearFilters, selectedGrades, setSelectedGrades, hasAdjustedFiltersFromDefault, handleSetSelectedTimeframe, selectedTimeframe, selectedSchools, setSelectedSchools, selectedTeachers, setSelectedTeachers, selectedClassrooms, setSelectedClassrooms, closeMobileFilterMenu, showMobileFilterMenu, hasAdjustedFiltersSinceLastSubmission, customStartDate, customEndDate, }) => {
   const size = useWindowSize();
 
   function handleRemoveSchool(school) {
     const newSchools = selectedSchools.filter(s => s.id !== school.id)
     setSelectedSchools(newSchools)
+  }
+
+  function handleRemoveTeacher(teacher) {
+    const newTeachers = selectedTeachers.filter(s => s.id !== teacher.id)
+    setSelectedTeachers(newTeachers)
+  }
+
+  function handleRemoveClassroom(classroom) {
+    const newClassrooms = selectedClassrooms.filter(s => s.id !== classroom.id)
+    setSelectedClassrooms(newClassrooms)
   }
 
   function handleRemoveGrade(grade) {
@@ -38,6 +46,22 @@ const Filters = ({ allTimeframes, allSchools, allGrades, applyFilters, clearFilt
       key={s.id}
       onRemoveSearchItem={handleRemoveSchool}
       searchItem={s}
+    />
+  ))
+
+  const teacherSearchTokens = !unorderedArraysAreEqual(selectedTeachers, allTeachers) && selectedTeachers.map(t => (
+    <SearchToken
+      key={t.id}
+      onRemoveSearchItem={handleRemoveTeacher}
+      searchItem={t}
+    />
+  ))
+
+  const classroomSearchTokens = !unorderedArraysAreEqual(selectedClassrooms, allClassrooms) && selectedClassrooms.map(c => (
+    <SearchToken
+      key={c.id}
+      onRemoveSearchItem={handleRemoveClassroom}
+      searchItem={c}
     />
   ))
 
@@ -109,6 +133,30 @@ const Filters = ({ allTimeframes, allSchools, allGrades, applyFilters, clearFilt
           value={selectedGrades}
         />
         <div className="search-tokens">{gradeSearchTokens}</div>
+        <label className="filter-label" htmlFor="teacher-filter">Teacher</label>
+        <DropdownInput
+          handleChange={setSelectedTeachers}
+          id="teacher-filter"
+          isMulti={true}
+          isSearchable={true}
+          label=""
+          options={allTeachers}
+          optionType='teacher'
+          value={selectedTeachers}
+        />
+        <div className="search-tokens">{teacherSearchTokens}</div>
+        <label className="filter-label" htmlFor="classroom-filter">Classroom</label>
+        <DropdownInput
+          handleChange={setSelectedClassrooms}
+          id="classroom-filter"
+          isMulti={true}
+          isSearchable={true}
+          label=""
+          options={allClassrooms}
+          optionType='classroom'
+          value={selectedClassrooms}
+        />
+        <div className="search-tokens">{classroomSearchTokens}</div>
       </div>
       {renderFilterButtons()}
     </section>

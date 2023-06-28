@@ -1,7 +1,7 @@
 import { mount } from 'enzyme';
 import * as React from 'react';
 
-import { timeframes, grades, schools, } from './data'
+import { timeframes, grades, schools, teachers, classrooms,} from './data'
 
 import Filters from '../filters';
 
@@ -10,6 +10,8 @@ describe('Filters component', () => {
     allTimeframes: timeframes,
     allSchools: schools,
     allGrades: grades,
+    allTeachers: teachers,
+    allClassrooms: classrooms,
     applyFilters: jest.fn(),
     clearFilters: jest.fn(),
     selectedGrades: grades,
@@ -18,6 +20,10 @@ describe('Filters component', () => {
     handleSetSelectedTimeframe: jest.fn(),
     selectedTimeframe: timeframes[0],
     selectedSchools: schools,
+    selectedTeachers: teachers,
+    selectedClassrooms: classrooms,
+    setSelectedTeachers: jest.fn(),
+    setSelectedClassrooms: jest.fn(),
     setSelectedSchools: jest.fn(),
     closeMobileFilterMenu: jest.fn(),
     showMobileFilterMenu: jest.fn()

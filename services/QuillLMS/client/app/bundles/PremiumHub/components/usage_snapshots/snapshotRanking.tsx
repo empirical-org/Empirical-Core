@@ -17,6 +17,8 @@ interface SnapshotRankingProps {
   searchCount: number;
   selectedGrades: Array<string>;
   selectedSchoolIds: Array<number>;
+  selectedTeacherIds: Array<number>;
+  selectedClassroomIds: Array<number>;
   selectedTimeframe: string;
   adminId: number;
   customTimeframeStart?: any;
@@ -69,7 +71,7 @@ const DataTable = ({ headers, data, numberOfRows, }) => {
   )
 }
 
-const SnapshotRanking = ({ label, queryKey, headers, comingSoon, searchCount, selectedGrades, selectedSchoolIds, selectedTimeframe, customTimeframeStart, customTimeframeEnd, adminId, passedData, }: SnapshotRankingProps) => {
+const SnapshotRanking = ({ label, queryKey, headers, comingSoon, searchCount, selectedGrades, selectedSchoolIds, selectedTeacherIds, selectedClassroomIds, selectedTimeframe, customTimeframeStart, customTimeframeEnd, adminId, passedData, }: SnapshotRankingProps) => {
   const [data, setData] = React.useState(null)
   const [loading, setLoading] = React.useState(false)
   const [showModal, setShowModal] = React.useState(false)
@@ -95,6 +97,8 @@ const SnapshotRanking = ({ label, queryKey, headers, comingSoon, searchCount, se
       timeframe_custom_start: customTimeframeStart,
       timeframe_custom_end: customTimeframeEnd,
       school_ids: selectedSchoolIds,
+      teacher_ids: selectedTeacherIds,
+      classroom_ids: selectedClassroomIds,
       grades: selectedGrades
     }
 
@@ -122,9 +126,11 @@ const SnapshotRanking = ({ label, queryKey, headers, comingSoon, searchCount, se
       const queryKeysAreEqual = message.query === queryKey
       const timeframesAreEqual = message.timeframe === selectedTimeframe
       const schoolIdsAreEqual = unorderedArraysAreEqual(message.school_ids, selectedSchoolIds.map(id => String(id)))
+      const teacherIdsAreEqual = unorderedArraysAreEqual(message.teacher_ids, selectedTeacherIds.map(id => String(id)))
+      const classroomIdsAreEqual = unorderedArraysAreEqual(message.classroom_ids, selectedClassroomIds.map(id => String(id)))
       const gradesAreEqual =  unorderedArraysAreEqual(message.grades, selectedGrades.map(grade => String(grade))) || (!message.grades && !selectedGrades.length)
 
-      if (queryKeysAreEqual && timeframesAreEqual && schoolIdsAreEqual && gradesAreEqual) {
+      if (queryKeysAreEqual && timeframesAreEqual && schoolIdsAreEqual && gradesAreEqual && teacherIdsAreEqual && classroomIdsAreEqual) {
         getData()
       }
     });

@@ -31,11 +31,17 @@ const UsageSnapshotsContainer = ({ adminInfo, accessType, }) => {
   const [allTimeframes, setAllTimeframes] = React.useState(null)
   const [allSchools, setAllSchools] = React.useState(null)
   const [allGrades, setAllGrades] = React.useState(null)
+  const [allTeachers, setAllTeachers] = React.useState(null)
+  const [allClassrooms, setAllClassrooms] = React.useState(null)
   const [selectedSchools, setSelectedSchools] = React.useState(null)
   const [selectedGrades, setSelectedGrades] = React.useState(null)
+  const [selectedTeachers, setSelectedTeachers] = React.useState(null)
+  const [selectedClassrooms, setSelectedClassrooms] = React.useState(null)
   const [selectedTimeframe, setSelectedTimeframe] = React.useState(null)
   const [lastSubmittedSchools, setLastSubmittedSchools] = React.useState(null)
   const [lastSubmittedGrades, setLastSubmittedGrades] = React.useState(null)
+  const [lastSubmittedTeachers, setLastSubmittedTeachers] = React.useState(null)
+  const [lastSubmittedClassrooms, setLastSubmittedClassrooms] = React.useState(null)
   const [lastSubmittedTimeframe, setLastSubmittedTimeframe] = React.useState(null)
   const [lastSubmittedCustomStartDate, setLastSubmittedCustomStartDate] = React.useState(null)
   const [lastSubmittedCustomEndDate, setLastSubmittedCustomEndDate] = React.useState(null)
@@ -58,18 +64,30 @@ const UsageSnapshotsContainer = ({ adminInfo, accessType, }) => {
   React.useEffect(() => {
     if (loadingFilters) { return }
 
-    const newValueForHasAdjustedFiltersFromDefault = !unorderedArraysAreEqual(selectedSchools, allSchools) || !unorderedArraysAreEqual(selectedGrades, allGrades) || !_.isEqual(selectedTimeframe, defaultTimeframe(allTimeframes))
+    const newValueForHasAdjustedFiltersFromDefault = (
+      !unorderedArraysAreEqual(selectedSchools, allSchools)
+      || !unorderedArraysAreEqual(selectedGrades, allGrades)
+      || !unorderedArraysAreEqual(selectedTeachers, allTeachers)
+      || !unorderedArraysAreEqual(selectedClassrooms, allClassrooms)
+      || !_.isEqual(selectedTimeframe, defaultTimeframe(allTimeframes))
+    )
 
     setHasAdjustedFiltersFromDefault(newValueForHasAdjustedFiltersFromDefault)
 
-    const arraysUnequal = !unorderedArraysAreEqual(selectedSchools, lastSubmittedSchools) || !unorderedArraysAreEqual(selectedGrades, lastSubmittedGrades)
+    const arraysUnequal = (
+      !unorderedArraysAreEqual(selectedSchools, lastSubmittedSchools)
+      || !unorderedArraysAreEqual(selectedGrades, lastSubmittedGrades)
+      || !unorderedArraysAreEqual(selectedTeachers, lastSubmittedTeachers)
+      || !unorderedArraysAreEqual(selectedClassrooms, lastSubmittedClassrooms)
+    )
 
     const datesDoNotMatch = !_.isEqual(selectedTimeframe, lastSubmittedTimeframe) || customStartDate !== lastSubmittedCustomStartDate || customEndDate !== lastSubmittedCustomEndDate
 
     const newValueForHasAdjustedFiltersSinceLastSubmission = arraysUnequal || datesDoNotMatch
 
     setHasAdjustedFiltersSinceLastSubmission(newValueForHasAdjustedFiltersSinceLastSubmission)
-  }, [selectedSchools, selectedGrades, selectedTimeframe, customStartDate, customEndDate])
+
+  }, [selectedSchools, selectedGrades, selectedTeachers, selectedClassrooms, selectedTimeframe, customStartDate, customEndDate])
 
   React.useEffect(() => {
     if (showCustomDateModal || (customStartDate && customEndDate) || !lastUsedTimeframe) { return }
@@ -103,13 +121,23 @@ const UsageSnapshotsContainer = ({ adminInfo, accessType, }) => {
       const gradeOptions = filterData.grades.map(grade => ({ ...grade, label: grade.name }))
       const schoolOptions = filterData.schools.map(school => ({ ...school, label: school.name, value: school.id }))
 
+      // TODO: remove the deduplication here once the backend is returning deduplicated data
+      const teacherOptionsWithDuplicates = filterData.teachers.map(teacher => ({ ...teacher, label: teacher.name, value: teacher.id }))
+      const teacherOptions = _.uniqBy(teacherOptionsWithDuplicates, opt => opt.id)
+
+      const classroomOptions = filterData.classrooms.map(classroom => ({ ...classroom, label: classroom.name, value: classroom.id }))
+
       const timeframe = defaultTimeframe(timeframeOptions)
 
       setAllGrades(gradeOptions)
       setAllTimeframes(timeframeOptions)
       setAllSchools(schoolOptions)
+      setAllTeachers(teacherOptions)
+      setAllClassrooms(classroomOptions)
       setSelectedGrades(gradeOptions)
       setSelectedSchools(schoolOptions)
+      setSelectedTeachers(teacherOptions)
+      setSelectedClassrooms(classroomOptions)
       setLastUsedTimeframe(timeframe)
       setSelectedTimeframe(timeframe)
       setLoadingFilters(false)
@@ -119,15 +147,28 @@ const UsageSnapshotsContainer = ({ adminInfo, accessType, }) => {
   function clearFilters() {
     setSelectedGrades(allGrades)
     setSelectedSchools(allSchools)
+    setSelectedTeachers(allTeachers)
+    setSelectedClassrooms(allClassrooms)
     setSelectedTimeframe(defaultTimeframe(allTimeframes))
-    applyFilters()
-    setHasAdjustedFiltersFromDefault(false)
+
+    // what follows is basically duplicating the logic in applyFilters, but avoids a race condition where the "lastSubmitted" values get set before the new selected values are set
+    setSearchCount(searchCount + 1)
+    setLastSubmittedGrades(allGrades)
+    setLastSubmittedSchools(allSchools)
+    setLastSubmittedTeachers(allTeachers)
+    setLastSubmittedClassrooms(allClassrooms)
+    setLastSubmittedTimeframe(defaultTimeframe(allTimeframes))
+    setLastSubmittedCustomStartDate(null)
+    setLastSubmittedCustomEndDate(null)
+    setHasAdjustedFiltersSinceLastSubmission(false)
   }
 
   function applyFilters() {
     setSearchCount(searchCount + 1)
     setLastSubmittedGrades(selectedGrades)
     setLastSubmittedSchools(selectedSchools)
+    setLastSubmittedTeachers(selectedTeachers)
+    setLastSubmittedClassrooms(selectedClassrooms)
     setLastSubmittedTimeframe(selectedTimeframe)
     setLastSubmittedCustomStartDate(customStartDate)
     setLastSubmittedCustomEndDate(customEndDate)
@@ -187,8 +228,10 @@ const UsageSnapshotsContainer = ({ adminInfo, accessType, }) => {
       key={section.name}
       name={section.name}
       searchCount={searchCount}
+      selectedClassroomIds={selectedClassrooms.map(c => c.id)}
       selectedGrades={selectedGradesToPass}
       selectedSchoolIds={selectedSchools.map(s => s.id)}
+      selectedTeacherIds={selectedTeachers.map(t => t.id)}
       selectedTimeframe={selectedTimeframe.value}
     />
   ))
@@ -197,6 +240,8 @@ const UsageSnapshotsContainer = ({ adminInfo, accessType, }) => {
     allTimeframes,
     allSchools,
     allGrades,
+    allTeachers,
+    allClassrooms,
     applyFilters,
     clearFilters,
     selectedGrades,
@@ -206,6 +251,10 @@ const UsageSnapshotsContainer = ({ adminInfo, accessType, }) => {
     selectedTimeframe,
     selectedSchools,
     setSelectedSchools,
+    selectedClassrooms,
+    setSelectedClassrooms,
+    selectedTeachers,
+    setSelectedTeachers,
     closeMobileFilterMenu,
     showMobileFilterMenu,
     hasAdjustedFiltersSinceLastSubmission,
