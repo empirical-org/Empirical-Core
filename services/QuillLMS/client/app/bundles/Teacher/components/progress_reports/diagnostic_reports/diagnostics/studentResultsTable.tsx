@@ -36,6 +36,7 @@ interface StudentResultsTableProps {
   openPopover: OpenPopover;
   setOpenPopover: (popover: OpenPopover) => void;
   responsesLink: (id: number) => string;
+  isPreTest?: boolean;
 }
 
 interface PopoverProps {
@@ -141,7 +142,7 @@ const StudentRow = ({ studentResult, skillGroupSummaries, openPopover, setOpenPo
   return <tr id={id} key={name}>{firstCell}{skillGroupCells}</tr>
 }
 
-const StudentResultsTable = ({ skillGroupSummaries, studentResults, openPopover, setOpenPopover, responsesLink, }: StudentResultsTableProps) => {
+const StudentResultsTable = ({ isPreTest, skillGroupSummaries, studentResults, openPopover, setOpenPopover, responsesLink, isPostTest }: StudentResultsTableProps) => {
   const size = useWindowSize();
   const [isSticky, setIsSticky] = React.useState(false);
   const tableRef = React.useRef(null);
@@ -208,13 +209,14 @@ const StudentResultsTable = ({ skillGroupSummaries, studentResults, openPopover,
     const { name, description, not_yet_proficient_student_names, not_yet_proficient_in_post_test_student_names, } = skillGroupSummary
     const notYetProficientStudentCount = (not_yet_proficient_student_names || not_yet_proficient_in_post_test_student_names).length
     const proficientStudentCount = completedStudentCount - notYetProficientStudentCount
+    const label = isPreTest ? ' proficient' : ''
     return (
       <th className="skill-group-header" key={name}>
         <div className="name-and-tooltip">
           <span>{name}</span>
           <SkillGroupTooltip description={description} key={name} name={name} />
         </div>
-        {completedStudentCount && <span className="label">{proficientStudentCount} of {completedStudentCount} student{proficientStudentCount === 1 ? '' : 's'} proficient</span>}
+        {completedStudentCount && <span className="label">{proficientStudentCount} of {completedStudentCount} student{proficientStudentCount === 1 ? '' : 's'}{label}</span>}
       </th>
     )
   })
