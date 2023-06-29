@@ -15,11 +15,11 @@ module CanvasIntegration
       raise NilCanvasAuthCredentialError if canvas_auth_credential.nil?
       raise NilCanvasInstanceError if canvas_instance.nil?
 
-      RestClient.new(canvas_auth_credential, canvas_instance)
+      RestClient.new(canvas_auth_credential)
     end
 
     private def canvas_auth_credential
-      canvas_auth_credential ||= CanvasAuthCredential.find_by(user: user)
+      @canvas_auth_credential ||= CanvasAuthCredential.find_by(user: user)
     end
 
     private def canvas_instance

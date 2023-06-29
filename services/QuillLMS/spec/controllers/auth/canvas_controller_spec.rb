@@ -4,11 +4,11 @@ require 'rails_helper'
 
 module Auth
   describe CanvasController, type: :request do
-    let(:canvas_account) { create(:canvas_account) }
+    let(:user) { create(:teacher) }
+    let(:canvas_account) { create(:canvas_account, user: user) }
     let(:canvas_instance) { canvas_account.canvas_instance }
     let(:uid) { canvas_account.external_id }
     let(:url) { canvas_instance.url }
-    let(:user) { canvas_account.user }
 
     let(:auth_hash) { create(:canvas_auth_hash, uid: uid, url: url ) }
 

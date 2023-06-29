@@ -10,14 +10,14 @@ describe CanvasIntegration::TeacherClassroomsCacheHydrator do
 
   context 'teacher has canvas_auth_credential' do
     let(:user) { create(:teacher, :with_canvas_account) }
-    let(:canvas_instance) { user.canvas_instances.first }
     let(:canvas_auth_credential) { create(:canvas_auth_credential, user: user) }
+    let(:canvas_instance) { canvas_auth_credential.canvas_instance }
     let(:client) { double(:canvas_client, teacher_classrooms: data) }
 
     it do
       expect(CanvasIntegration::RestClient)
         .to receive(:new)
-        .with(canvas_auth_credential, canvas_instance)
+        .with(canvas_auth_credential)
         .and_return(client)
 
       expect(CanvasIntegration::TeacherClassroomsCache)

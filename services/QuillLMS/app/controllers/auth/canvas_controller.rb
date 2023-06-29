@@ -5,7 +5,7 @@ module Auth
     around_action :force_writer_db_role, only: :canvas
 
     def canvas
-      run_background_jobs
+      hydrate_teacher_classrooms_cache if user.teacher?
       sign_in(user)
 
       redirect_to profile_path
@@ -21,12 +21,6 @@ module Auth
 
     private def hydrate_teacher_classrooms_cache
       CanvasIntegration::TeacherClassroomsCacheHydrator.run(user)
-    end
-
-    private def run_background_jobs
-      return unless user.teacher?
-
-      hydrate_teacher_classrooms_cache
     end
 
     private def user
