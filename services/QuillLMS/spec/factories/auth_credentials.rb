@@ -33,14 +33,16 @@ FactoryBot.define do
     factory :canvas_auth_credential, parent: :auth_credential, class: :CanvasAuthCredential do
       association :user, factory: [:teacher, :with_canvas_account]
 
-      trait(:with_canvas_instance_auth_credential) do
-        after(:create) do |auth_credential|
-          create(:canvas_instance_auth_credential,
-            auth_credential: auth_credential,
-            canvas_instance: auth_credential.user.canvas_instances.first
-          )
-        end
+      after(:create) do |auth_credential|
+        create(:canvas_instance_auth_credential,
+          auth_credential: auth_credential,
+          canvas_instance: auth_credential.user.canvas_instances.first
+        )
       end
+    end
+
+    factory :canvas_auth_credential_without_canvas_instance_auth_credential, parent: :auth_credential, class: :CanvasAuthCredential do
+      association :user, factory: [:teacher, :with_canvas_account]
     end
 
     factory :clever_district_auth_credential, parent: :auth_credential, class: :CleverDistrictAuthCredential do
