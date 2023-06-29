@@ -8,6 +8,8 @@
   onboardingChecklist: @objective_checklist,
   firstName: @first_name,
   showEvidencePromotionCard: current_user.teaches_eighth_through_twelfth?,
+  classrooms: @classrooms,
+  userId: current_user.id,
   subjectAreas: SubjectArea.all
 }) %>
 

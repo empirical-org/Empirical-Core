@@ -89,6 +89,7 @@ class Teachers::ClassroomManagerController < ApplicationController
     @featured_blog_posts = BlogPost.where.not(featured_order_number: nil).order(:featured_order_number)
     @objective_checklist = generate_onboarding_checklist
     @first_name = current_user.first_name
+    @classrooms = format_classrooms_for_dashboard
   end
   # rubocop:enable Metrics/CyclomaticComplexity
 
@@ -274,6 +275,14 @@ class Teachers::ClassroomManagerController < ApplicationController
 
   def activity_feed
     render json: { data: TeacherActivityFeed.get(current_user.id) }
+  end
+
+  private def format_classrooms_for_dashboard
+    classrooms = current_user.classrooms_i_teach
+
+    classrooms.map do |classroom|
+      classroom.attributes.merge({ students: classroom.students, student_count: classroom.students.length })
+    end
   end
 
   # rubocop:disable Metrics/CyclomaticComplexity

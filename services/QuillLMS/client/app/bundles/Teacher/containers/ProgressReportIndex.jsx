@@ -54,10 +54,12 @@ export default class ProgressReportIndex extends React.Component {
     const containerStyle = component ? 'gray-background-accommodate-footer container' : ''
 
     return (
-      <div className={containerStyle}>
+      <React.Fragment>
         {shouldHaveBanner && <PremiumBannerBuilder originPage="report" />}
-        {component}
-      </div>
+        <div className={containerStyle}>
+          {component}
+        </div>
+      </React.Fragment>
     )
   };
 

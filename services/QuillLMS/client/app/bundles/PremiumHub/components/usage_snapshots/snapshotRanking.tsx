@@ -101,10 +101,13 @@ const SnapshotRanking = ({ label, queryKey, headers, comingSoon, searchCount, se
     const requestUrl = queryString.stringifyUrl({ url: '/snapshots/top_x', query: searchParams }, { arrayFormat: 'bracket' })
 
     requestGet(`${requestUrl}`, (body) => {
-      if (body.hasOwnProperty('message')) {
+      if (!body.hasOwnProperty('results')) {
         setLoading(true)
       } else {
-        setData(body)
+        const { results, } = body
+        // We consider `null` to be a lack of data, so if the result is `[]` we need to explicitly `setData(null)`
+        const data = results.length > 0 ? results : null
+        setData(data)
         setLoading(false)
       }
     })

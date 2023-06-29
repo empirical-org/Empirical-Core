@@ -7,7 +7,7 @@ FactoryBot.define do
     factory :canvas_auth_hash do
       initialize_with do
         OmniAuth::AuthHash.new(
-          provider: AuthCredential::CANVAS_PROVIDER,
+          provider: 'canvas',
           uid: uid,
           info:  {
             name: name,

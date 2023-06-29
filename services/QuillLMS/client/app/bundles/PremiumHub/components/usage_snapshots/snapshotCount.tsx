@@ -66,10 +66,11 @@ const SnapshotCount = ({ label, size, queryKey, comingSoon, searchCount, selecte
     const requestUrl = queryString.stringifyUrl({ url: '/snapshots/count', query: searchParams }, { arrayFormat: 'bracket' })
 
     requestGet(`${requestUrl}`, (body) => {
-      if (!body.hasOwnProperty('current')) {
+      if (!body.hasOwnProperty('results')) {
         setLoading(true)
       } else {
-        const { previous, current, } = body
+        const { results, } = body
+        const { previous, current, } = results
 
         const roundedCurrent = Math.round(current || 0)
 

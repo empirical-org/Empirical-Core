@@ -27,7 +27,7 @@ const tableHeaders = [{
 {
   name: 'Username',
   attribute: 'username',
-  width: '267px'
+  width: '260px'
 },
 {
   name: 'Password',
