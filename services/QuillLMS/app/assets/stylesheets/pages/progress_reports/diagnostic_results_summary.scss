@@ -97,7 +97,7 @@
     }
     span {
       font-size: 12px;
-      font-weight: 600;
+      font-weight: 700;
       font-stretch: normal;
       font-style: normal;
       line-height: 1;
@@ -111,12 +111,14 @@
     }
     &.gained-some-proficiency {
       background-color: #e9f4e0;
+      border: 1px solid #2A5900;
       span {
         color: #367300;
       }
     }
     &.no-proficiency, &.partial-proficiency {
       background-color: #fff3e0;
+      border: 1px solid #E3BB7A;
       span {
         color: #995f00;
       }

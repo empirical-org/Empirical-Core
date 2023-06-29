@@ -214,7 +214,7 @@ const StudentResultsTable = ({ skillGroupSummaries, studentResults, openPopover,
           <span>{name}</span>
           <SkillGroupTooltip description={description} key={name} name={name} />
         </div>
-        {completedStudentCount && <span className="label">{proficientStudentCount} of {completedStudentCount} student{proficientStudentCount === 1 ? '' : 's'} with proficiency</span>}
+        {completedStudentCount && <span className="label">{proficientStudentCount} of {completedStudentCount} student{proficientStudentCount === 1 ? '' : 's'} proficient</span>}
       </th>
     )
   })

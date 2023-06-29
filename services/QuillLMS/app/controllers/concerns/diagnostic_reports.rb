@@ -8,12 +8,12 @@ module DiagnosticReports
   FULLY_CORRECT = 'Fully correct'
   PARTIALLY_CORRECT = 'Partially correct'
 
-  NO_PROFICIENCY = 'No proficiency'
-  PARTIAL_PROFICIENCY = 'Partial proficiency'
-  PROFICIENCY = 'Proficiency'
-  GAINED_PROFICIENCY = 'Gained proficiency'
-  GAINED_SOME_PROFICIENCY = 'Gained some proficiency'
-  MAINTAINED_PROFICIENCY = 'Maintained proficiency'
+  NO_PROFICIENCY = 'No Proficiency'
+  PARTIAL_PROFICIENCY = 'Partial Proficiency'
+  PROFICIENCY = 'Full Proficiency'
+  GAINED_PROFICIENCY = 'Gained Full Proficiency'
+  GAINED_SOME_PROFICIENCY = 'Gained Some Proficiency'
+  MAINTAINED_PROFICIENCY = 'Maintained Proficiency'
   GROWTH_PROFICIENCY_TEXTS = [GAINED_PROFICIENCY, GAINED_SOME_PROFICIENCY, MAINTAINED_PROFICIENCY]
 
   def data_for_skill_by_activity_session(all_concept_results, skill)
