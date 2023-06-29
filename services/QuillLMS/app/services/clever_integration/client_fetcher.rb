@@ -4,12 +4,12 @@ module CleverIntegration
   class ClientFetcher < ApplicationService
     attr_reader :user
 
-    class UnsupportedProviderError < StandardError; end
+    class UnsupportedAuthCredentialError < StandardError; end
     class NilAuthCredentialError < StandardError; end
 
     ERRORS = [
       ClientFetcher::NilAuthCredentialError,
-      ClientFetcher::UnsupportedProviderError
+      ClientFetcher::UnsupportedAuthCredentialError
     ].freeze
 
     def initialize(user)
@@ -31,10 +31,10 @@ module CleverIntegration
     private def client
       raise NilAuthCredentialError if auth_credential.nil?
 
-      case provider
-      when AuthCredential::CLEVER_DISTRICT_PROVIDER then district_client
-      when AuthCredential::CLEVER_LIBRARY_PROVIDER then library_client
-      else raise UnsupportedProviderError, provider
+      case auth_credential
+      when CleverDistrictAuthCredential then district_client
+      when CleverLibraryAuthCredential then library_client
+      else raise UnsupportedAuthCredentialError, auth_credential
       end
     end
 

@@ -847,9 +847,9 @@ CREATE TABLE public.auth_credentials (
     expires_at timestamp without time zone,
     "timestamp" timestamp without time zone,
     access_token character varying NOT NULL,
-    provider character varying NOT NULL,
     created_at timestamp without time zone,
-    updated_at timestamp without time zone
+    updated_at timestamp without time zone,
+    type character varying NOT NULL
 );
 
 
@@ -1052,6 +1052,36 @@ CREATE SEQUENCE public.canvas_configs_id_seq
 --
 
 ALTER SEQUENCE public.canvas_configs_id_seq OWNED BY public.canvas_configs.id;
+
+
+--
+-- Name: canvas_instance_auth_credentials; Type: TABLE; Schema: public; Owner: -
+--
+
+CREATE TABLE public.canvas_instance_auth_credentials (
+    id bigint NOT NULL,
+    canvas_instance_id bigint NOT NULL,
+    auth_credential_id bigint NOT NULL
+);
+
+
+--
+-- Name: canvas_instance_auth_credentials_id_seq; Type: SEQUENCE; Schema: public; Owner: -
+--
+
+CREATE SEQUENCE public.canvas_instance_auth_credentials_id_seq
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+
+--
+-- Name: canvas_instance_auth_credentials_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: -
+--
+
+ALTER SEQUENCE public.canvas_instance_auth_credentials_id_seq OWNED BY public.canvas_instance_auth_credentials.id;
 
 
 --
@@ -5387,6 +5417,13 @@ ALTER TABLE ONLY public.canvas_configs ALTER COLUMN id SET DEFAULT nextval('publ
 
 
 --
+-- Name: canvas_instance_auth_credentials id; Type: DEFAULT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY public.canvas_instance_auth_credentials ALTER COLUMN id SET DEFAULT nextval('public.canvas_instance_auth_credentials_id_seq'::regclass);
+
+
+--
 -- Name: canvas_instance_schools id; Type: DEFAULT; Schema: public; Owner: -
 --
 
@@ -6402,6 +6439,14 @@ ALTER TABLE ONLY public.canvas_accounts
 
 ALTER TABLE ONLY public.canvas_configs
     ADD CONSTRAINT canvas_configs_pkey PRIMARY KEY (id);
+
+
+--
+-- Name: canvas_instance_auth_credentials canvas_instance_auth_credentials_pkey; Type: CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY public.canvas_instance_auth_credentials
+    ADD CONSTRAINT canvas_instance_auth_credentials_pkey PRIMARY KEY (id);
 
 
 --
@@ -7588,13 +7633,6 @@ CREATE UNIQUE INDEX index_app_settings_on_name ON public.app_settings USING btre
 
 
 --
--- Name: index_auth_credentials_on_provider; Type: INDEX; Schema: public; Owner: -
---
-
-CREATE INDEX index_auth_credentials_on_provider ON public.auth_credentials USING btree (provider);
-
-
---
 -- Name: index_auth_credentials_on_refresh_token; Type: INDEX; Schema: public; Owner: -
 --
 
@@ -7662,6 +7700,20 @@ CREATE INDEX index_canvas_accounts_on_user_id ON public.canvas_accounts USING bt
 --
 
 CREATE INDEX index_canvas_configs_on_canvas_instance_id ON public.canvas_configs USING btree (canvas_instance_id);
+
+
+--
+-- Name: index_canvas_instance_auth_credentials_on_auth_credential_id; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE UNIQUE INDEX index_canvas_instance_auth_credentials_on_auth_credential_id ON public.canvas_instance_auth_credentials USING btree (auth_credential_id);
+
+
+--
+-- Name: index_canvas_instance_auth_credentials_on_canvas_instance_id; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX index_canvas_instance_auth_credentials_on_canvas_instance_id ON public.canvas_instance_auth_credentials USING btree (canvas_instance_id);
 
 
 --
@@ -9157,6 +9209,14 @@ ALTER TABLE ONLY public.evidence_prompt_healths
 
 
 --
+-- Name: canvas_instance_auth_credentials fk_rails_26ff7f2393; Type: FK CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY public.canvas_instance_auth_credentials
+    ADD CONSTRAINT fk_rails_26ff7f2393 FOREIGN KEY (auth_credential_id) REFERENCES public.auth_credentials(id);
+
+
+--
 -- Name: teacher_notification_settings fk_rails_3291865e04; Type: FK CONSTRAINT; Schema: public; Owner: -
 --
 
@@ -9410,6 +9470,14 @@ ALTER TABLE ONLY public.learn_worlds_accounts
 
 ALTER TABLE ONLY public.comprehension_highlights
     ADD CONSTRAINT fk_rails_9d58aa0a3c FOREIGN KEY (feedback_id) REFERENCES public.comprehension_feedbacks(id) ON DELETE CASCADE;
+
+
+--
+-- Name: canvas_instance_auth_credentials fk_rails_a0ef1de1af; Type: FK CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY public.canvas_instance_auth_credentials
+    ADD CONSTRAINT fk_rails_a0ef1de1af FOREIGN KEY (canvas_instance_id) REFERENCES public.canvas_instances(id);
 
 
 --
@@ -10196,6 +10264,11 @@ INSERT INTO "schema_migrations" (version) VALUES
 ('20230524142914'),
 ('20230524143000'),
 ('20230601210338'),
-('20230613164607');
+('20230613164607'),
+('20230621161210'),
+('20230622125712'),
+('20230622525712'),
+('20230623154333'),
+('20230623154418');
 
 

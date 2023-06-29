@@ -87,6 +87,9 @@ const UsageSnapshotsContainer = ({ adminInfo, accessType, }) => {
 
     if (timeframe.value === CUSTOM) {
       setShowCustomDateModal(true)
+    } else {
+      setCustomStartDate(null)
+      setCustomEndDate(null)
     }
   }
 
