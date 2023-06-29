@@ -14,8 +14,8 @@ module Auth
     describe '/auth/canvas/callback' do
       subject { get Auth::Canvas::OMNIAUTH_CALLBACK_PATH }
 
-      let(:user) { create(:user) }
-      let(:auth_credential) { create(:canvas_auth_credential, user: user) }
+      let(:auth_credential) { create(:canvas_auth_credential) }
+      let(:user) { auth_credential.user }
 
       before { set_session_canvas_instance_id }
 
