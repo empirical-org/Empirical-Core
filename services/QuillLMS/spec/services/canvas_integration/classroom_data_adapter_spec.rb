@@ -12,6 +12,14 @@ RSpec.describe CanvasIntegration::ClassroomDataAdapter do
 
   let(:classroom_name) { [course_data[:name], section_data[:name]].join(' - ') }
 
+  let(:classroom_data) do
+    {
+      name: classroom_name,
+      external_classroom_id: section_data[:id],
+      students: students
+    }
+  end
+
   context 'section and course have same id' do
     let(:students) { [] }
 
@@ -41,14 +49,6 @@ RSpec.describe CanvasIntegration::ClassroomDataAdapter do
     before { section_data[:students] = [student_data1, student_data2] }
 
     it { expect(subject).to eq classroom_data }
-  end
-
-  def classroom_data
-    {
-      name: classroom_name,
-      external_classroom_id: section_data[:id],
-      students: students
-    }
   end
 end
 
