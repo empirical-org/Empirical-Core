@@ -1601,7 +1601,7 @@ exports[`StudentResultsTable component should render when there is student data 
                of 
               1
                student
-               with proficiency
+               proficient
             </span>
           </th>
           <th
@@ -1670,7 +1670,7 @@ exports[`StudentResultsTable component should render when there is student data 
               1
                student
               s
-               with proficiency
+               proficient
             </span>
           </th>
           <th
@@ -1739,7 +1739,7 @@ exports[`StudentResultsTable component should render when there is student data 
               1
                student
               s
-               with proficiency
+               proficient
             </span>
           </th>
           <th
@@ -1808,7 +1808,7 @@ exports[`StudentResultsTable component should render when there is student data 
               1
                student
               s
-               with proficiency
+               proficient
             </span>
           </th>
           <th
@@ -1876,7 +1876,7 @@ exports[`StudentResultsTable component should render when there is student data 
                of 
               1
                student
-               with proficiency
+               proficient
             </span>
           </th>
           <th
@@ -1944,7 +1944,7 @@ exports[`StudentResultsTable component should render when there is student data 
                of 
               1
                student
-               with proficiency
+               proficient
             </span>
           </th>
         </tr>
@@ -3130,17 +3130,6 @@ exports[`StudentResultsTable component should render when there is student data 
                   type="button"
                 >
                   <div
-                    className="proficiency-tag proficiency"
-                  >
-                    <img
-                      alt="Filled in circle"
-                      src="undefined/images/pages/diagnostic_reports/components-proficiency-circle-color-proficiency.svg"
-                    />
-                    <span>
-                      Gained proficiency
-                    </span>
-                  </div>
-                  <div
                     className="correct-skills-and-delta-wrapper"
                   >
                     <span
@@ -3552,17 +3541,6 @@ exports[`StudentResultsTable component should render when there is student data 
                   onClick={[Function]}
                   type="button"
                 >
-                  <div
-                    className="proficiency-tag no-proficiency"
-                  >
-                    <img
-                      alt="Outlined circle"
-                      src="undefined/images/pages/diagnostic_reports/components-proficiency-circle-color-no-proficient.svg"
-                    />
-                    <span>
-                      No proficiency
-                    </span>
-                  </div>
                   <div
                     className="correct-skills-and-delta-wrapper"
                   >
@@ -4048,17 +4026,6 @@ exports[`StudentResultsTable component should render when there is student data 
                   type="button"
                 >
                   <div
-                    className="proficiency-tag partial-proficiency"
-                  >
-                    <img
-                      alt="Half filled in circle"
-                      src="undefined/images/pages/diagnostic_reports/components-proficiency-circle-color-partial-proficiency.svg"
-                    />
-                    <span>
-                      Partial proficiency
-                    </span>
-                  </div>
-                  <div
                     className="correct-skills-and-delta-wrapper"
                   >
                     <span
@@ -4504,17 +4471,6 @@ exports[`StudentResultsTable component should render when there is student data 
                   onClick={[Function]}
                   type="button"
                 >
-                  <div
-                    className="proficiency-tag partial-proficiency"
-                  >
-                    <img
-                      alt="Half filled in circle"
-                      src="undefined/images/pages/diagnostic_reports/components-proficiency-circle-color-partial-proficiency.svg"
-                    />
-                    <span>
-                      Partial proficiency
-                    </span>
-                  </div>
                   <div
                     className="correct-skills-and-delta-wrapper"
                   >
@@ -4978,17 +4934,6 @@ exports[`StudentResultsTable component should render when there is student data 
                   type="button"
                 >
                   <div
-                    className="proficiency-tag proficiency"
-                  >
-                    <img
-                      alt="Filled in circle"
-                      src="undefined/images/pages/diagnostic_reports/components-proficiency-circle-color-proficiency.svg"
-                    />
-                    <span>
-                      Gained proficiency
-                    </span>
-                  </div>
-                  <div
                     className="correct-skills-and-delta-wrapper"
                   >
                     <span
@@ -5402,17 +5347,6 @@ exports[`StudentResultsTable component should render when there is student data 
                   onClick={[Function]}
                   type="button"
                 >
-                  <div
-                    className="proficiency-tag proficiency"
-                  >
-                    <img
-                      alt="Filled in circle"
-                      src="undefined/images/pages/diagnostic_reports/components-proficiency-circle-color-proficiency.svg"
-                    />
-                    <span>
-                      Gained proficiency
-                    </span>
-                  </div>
                   <div
                     className="correct-skills-and-delta-wrapper"
                   >
