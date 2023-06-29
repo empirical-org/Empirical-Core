@@ -3,10 +3,10 @@
 require 'rails_helper'
 
 describe CanvasIntegration::RestClient do
-  subject { described_class.new(canvas_auth_credential, canvas_instance) }
+  subject { described_class.new(canvas_auth_credential) }
 
-  let(:canvas_auth_credential) { create(:canvas_auth_credential) }
-  let(:canvas_instance) { create(:canvas_instance) }
+  let(:canvas_auth_credential) { create(:canvas_auth_credential, :with_canvas_instance_auth_credential) }
+  let(:canvas_instance) { canvas_auth_credential.canvas_instance }
   let(:canvas_api) { double(::LMS::Canvas) }
   let(:courses_response) { double(HTTParty::Response, body: courses_data.to_json) }
 

@@ -4,11 +4,10 @@ module CanvasIntegration
   class RestClient
     COURSES_PATH = 'courses'
 
-    attr_reader :canvas_auth_credential, :canvas_instance
+    attr_reader :canvas_auth_credential
 
-    def initialize(canvas_auth_credential, canvas_instance)
+    def initialize(canvas_auth_credential)
       @canvas_auth_credential = canvas_auth_credential
-      @canvas_instance = canvas_instance
     end
 
     def teacher_classrooms
@@ -25,6 +24,10 @@ module CanvasIntegration
           refresh_token: canvas_auth_credential.refresh_token,
           redirect_uri: Auth::Canvas::OMNIAUTH_CALLBACK_PATH
         )
+    end
+
+    private def canvas_instance
+      @canvas_instance ||= canvas_auth_credential.canvas_instance
     end
 
     private def classrooms
