@@ -1,4 +1,5 @@
 import React from 'react'
+import queryString from 'query-string';
 import * as _ from 'lodash'
 
 import { FULL, restrictedPage, } from '../shared';
@@ -59,7 +60,7 @@ const UsageSnapshotsContainer = ({ adminInfo, accessType, }) => {
 
   React.useEffect(() => {
     getFilters()
-  }, [])
+  }, [selectedSchools, selectedTeachers, selectedClassrooms])
 
   React.useEffect(() => {
     if (loadingFilters) { return }
@@ -95,6 +96,10 @@ const UsageSnapshotsContainer = ({ adminInfo, accessType, }) => {
     setSelectedTimeframe(lastUsedTimeframe)
   }, [showCustomDateModal])
 
+  React.useEffect(() => {
+    getFilters()
+  }, [selectedSchools, selectedTeachers, selectedClassrooms])
+
   function openMobileFilterMenu() { setShowMobileFilterMenu(true) }
 
   function closeMobileFilterMenu() { setShowMobileFilterMenu(false) }
@@ -116,7 +121,15 @@ const UsageSnapshotsContainer = ({ adminInfo, accessType, }) => {
   }
 
   function getFilters() {
-    requestGet('/snapshots/options', (filterData) => {
+    const searchParams = {
+      school_ids: selectedSchools?.map(s => s.id) || null,
+      teacher_ids: selectedTeachers?.map(t => t.id) || null,
+      classroom_ids: selectedClassrooms?.map(c => c.id) || null
+    }
+
+    const requestUrl = queryString.stringifyUrl({ url: '/snapshots/options', query: searchParams }, { arrayFormat: 'bracket' })
+
+    requestGet(requestUrl, (filterData) => {
       const timeframeOptions = filterData.timeframes.map(tf => ({ ...tf, label: tf.name }))
       const gradeOptions = filterData.grades.map(grade => ({ ...grade, label: grade.name }))
       const schoolOptions = filterData.schools.map(school => ({ ...school, label: school.name, value: school.id }))
@@ -129,18 +142,25 @@ const UsageSnapshotsContainer = ({ adminInfo, accessType, }) => {
 
       const timeframe = defaultTimeframe(timeframeOptions)
 
-      setAllGrades(gradeOptions)
-      setAllTimeframes(timeframeOptions)
-      setAllSchools(schoolOptions)
-      setAllTeachers(teacherOptions)
-      setAllClassrooms(classroomOptions)
-      setSelectedGrades(gradeOptions)
-      setSelectedSchools(schoolOptions)
-      setSelectedTeachers(teacherOptions)
-      setSelectedClassrooms(classroomOptions)
-      setLastUsedTimeframe(timeframe)
-      setSelectedTimeframe(timeframe)
-      setLoadingFilters(false)
+      if (allGrades?.length !== gradeOptions.length) { setAllGrades(gradeOptions) }
+      if (allTimeframes?.length !== timeframeOptions.length) { setAllTimeframes(timeframeOptions)}
+      if (allSchools?.length !== schoolOptions.length) { setAllSchools(schoolOptions) }
+      if (allTeachers?.length !== teacherOptions.length) { setAllTeachers(teacherOptions) }
+      if (allClassrooms?.length !== classroomOptions.length) { setAllClassrooms(classroomOptions) }
+
+      if (loadingFilters) {
+        setSelectedGrades(gradeOptions)
+        setSelectedSchools(schoolOptions)
+        setSelectedTeachers(teacherOptions)
+        setSelectedClassrooms(classroomOptions)
+        setLastUsedTimeframe(timeframe)
+        setSelectedTimeframe(timeframe)
+        setLoadingFilters(false)
+      } else {
+        // if (selectedSchools.length > schoolOptions.length) { setSelectedSchools(schoolOptions) }
+        // if (selectedTeachers.length > teacherOptions.length) { setSelectedTeachers(teacherOptions) }
+        // if (selectedClassrooms.length > classroomOptions.length) { setSelectedClassrooms(classroomOptions) }
+      }
     })
   }
 

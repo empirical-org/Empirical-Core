@@ -21,6 +21,18 @@ const SearchToken = ({ searchItem, onRemoveSearchItem, }) => {
 const Filters = ({ allTimeframes, allSchools, allGrades, allTeachers, allClassrooms, applyFilters, clearFilters, selectedGrades, setSelectedGrades, hasAdjustedFiltersFromDefault, handleSetSelectedTimeframe, selectedTimeframe, selectedSchools, setSelectedSchools, selectedTeachers, setSelectedTeachers, selectedClassrooms, setSelectedClassrooms, closeMobileFilterMenu, showMobileFilterMenu, hasAdjustedFiltersSinceLastSubmission, customStartDate, customEndDate, }) => {
   const size = useWindowSize();
 
+  function effectiveSelectedSchools() {
+    return selectedSchools.filter(s => allSchools.find(as => as.id === s.id))
+  }
+
+  function effectiveSelectedTeachers() {
+    return selectedTeachers.filter(t => allTeachers.find(at => at.id === t.id))
+  }
+
+  function effectiveSelectedClassrooms() {
+    return selectedClassrooms.filter(c => allClassrooms.find(ac => ac.id === c.id))
+  }
+
   function handleRemoveSchool(school) {
     const newSchools = selectedSchools.filter(s => s.id !== school.id)
     setSelectedSchools(newSchools)
@@ -41,7 +53,7 @@ const Filters = ({ allTimeframes, allSchools, allGrades, allTeachers, allClassro
     setSelectedGrades(newGrades)
   }
 
-  const schoolSearchTokens = !unorderedArraysAreEqual(selectedSchools, allSchools) && selectedSchools.map(s => (
+  const schoolSearchTokens = !unorderedArraysAreEqual(effectiveSelectedSchools(), allSchools) && effectiveSelectedSchools().map(s => (
     <SearchToken
       key={s.id}
       onRemoveSearchItem={handleRemoveSchool}
@@ -49,7 +61,7 @@ const Filters = ({ allTimeframes, allSchools, allGrades, allTeachers, allClassro
     />
   ))
 
-  const teacherSearchTokens = !unorderedArraysAreEqual(selectedTeachers, allTeachers) && selectedTeachers.map(t => (
+  const teacherSearchTokens = !unorderedArraysAreEqual(effectiveSelectedTeachers(), allTeachers) && effectiveSelectedTeachers().map(t => (
     <SearchToken
       key={t.id}
       onRemoveSearchItem={handleRemoveTeacher}
@@ -57,7 +69,7 @@ const Filters = ({ allTimeframes, allSchools, allGrades, allTeachers, allClassro
     />
   ))
 
-  const classroomSearchTokens = !unorderedArraysAreEqual(selectedClassrooms, allClassrooms) && selectedClassrooms.map(c => (
+  const classroomSearchTokens = !unorderedArraysAreEqual(effectiveSelectedClassrooms(), allClassrooms) && effectiveSelectedClassrooms().map(c => (
     <SearchToken
       key={c.id}
       onRemoveSearchItem={handleRemoveClassroom}
@@ -118,7 +130,7 @@ const Filters = ({ allTimeframes, allSchools, allGrades, allTeachers, allClassro
           label=""
           options={allSchools}
           optionType='school'
-          value={selectedSchools}
+          value={effectiveSelectedSchools()}
         />
         <div className="search-tokens">{schoolSearchTokens}</div>
         <label className="filter-label" htmlFor="grade-filter">Grade</label>
@@ -142,7 +154,7 @@ const Filters = ({ allTimeframes, allSchools, allGrades, allTeachers, allClassro
           label=""
           options={allTeachers}
           optionType='teacher'
-          value={selectedTeachers}
+          value={effectiveSelectedTeachers()}
         />
         <div className="search-tokens">{teacherSearchTokens}</div>
         <label className="filter-label" htmlFor="classroom-filter">Classroom</label>
@@ -154,7 +166,7 @@ const Filters = ({ allTimeframes, allSchools, allGrades, allTeachers, allClassro
           label=""
           options={allClassrooms}
           optionType='classroom'
-          value={selectedClassrooms}
+          value={effectiveSelectedClassrooms()}
         />
         <div className="search-tokens">{classroomSearchTokens}</div>
       </div>
