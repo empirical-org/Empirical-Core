@@ -69,7 +69,7 @@ const UsageSnapshotsContainer = ({ adminInfo, accessType, }) => {
 
   React.useEffect(() => {
     getFilters()
-  }, [selectedSchools, selectedTeachers, selectedClassrooms])
+  }, [selectedSchools, selectedTeachers, selectedClassrooms, selectedGrades])
 
   React.useEffect(() => {
     if (loadingFilters) { return }
@@ -139,7 +139,8 @@ const UsageSnapshotsContainer = ({ adminInfo, accessType, }) => {
     const searchParams = {
       school_ids: selectedSchools?.map(s => s.id) || null,
       teacher_ids: selectedTeachers?.map(t => t.id) || null,
-      classroom_ids: selectedClassrooms?.map(c => c.id) || null
+      classroom_ids: selectedClassrooms?.map(c => c.id) || null,
+      grades: selectedGradesToPass()
     }
 
     const requestUrl = queryString.stringifyUrl({ url: '/snapshots/options', query: searchParams }, { arrayFormat: 'bracket' })
@@ -153,7 +154,8 @@ const UsageSnapshotsContainer = ({ adminInfo, accessType, }) => {
       const teacherOptionsWithDuplicates = filterData.teachers.map(teacher => ({ ...teacher, label: teacher.name, value: teacher.id }))
       const teacherOptions = _.uniqBy(teacherOptionsWithDuplicates, opt => opt.id)
 
-      const classroomOptions = filterData.classrooms.map(classroom => ({ ...classroom, label: classroom.name, value: classroom.id }))
+      const classroomOptionsWithDuplicates = filterData.classrooms.map(classroom => ({ ...classroom, label: classroom.name, value: classroom.id }))
+      const classroomOptions = _.uniqBy(classroomOptionsWithDuplicates, opt => opt.id)
 
       const timeframe = defaultTimeframe(timeframeOptions)
 
@@ -229,6 +231,15 @@ const UsageSnapshotsContainer = ({ adminInfo, accessType, }) => {
 
   function handleSetSelectedTabFromDropdown(option) { setSelectedTab(option.value) }
 
+  function selectedGradesToPass() {
+    // we need to pass the backend an empty array when all grades are selected so we include data from classrooms that do not have a grade
+    if (!selectedGrades) { return [] }
+
+    // we need to pass the backend an empty array when all grades are selected so we include data from classrooms that do not have a grade
+    return selectedGrades.length === allGrades.length ? [] : selectedGrades.map(g => g.value)
+
+  }
+
   if (loadingFilters) {
     return <Spinner />
   }
@@ -257,9 +268,6 @@ const UsageSnapshotsContainer = ({ adminInfo, accessType, }) => {
     />
   )
 
-  // we need to pass the backend an empty array when all grades are selected so we include data from classrooms that do not have a grade
-  const selectedGradesToPass = selectedGrades.length === allGrades.length ? [] : selectedGrades.map(g => g.value)
-
   const sectionsToShow = selectedTab === ALL ? snapshotSections : snapshotSections.filter(s => s.name === selectedTab)
   const snapshotSectionComponents = sectionsToShow.map(section => (
     <SnapshotSection
@@ -272,7 +280,7 @@ const UsageSnapshotsContainer = ({ adminInfo, accessType, }) => {
       name={section.name}
       searchCount={searchCount}
       selectedClassroomIds={selectedClassrooms.map(c => c.id)}
-      selectedGrades={selectedGradesToPass}
+      selectedGrades={selectedGradesToPass()}
       selectedSchoolIds={selectedSchools.map(s => s.id)}
       selectedTeacherIds={selectedTeachers.map(t => t.id)}
       selectedTimeframe={selectedTimeframe.value}
