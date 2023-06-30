@@ -195,7 +195,7 @@ class Teachers::ClassroomsController < ApplicationController
 
     classrooms.compact.map do |classroom|
       classroom_obj = classroom.attributes
-      classroom_obj[:providerClassroom] = classroom.provider_classroom if classroom.provider_classroom?
+      classroom_obj[:classroomProvider] = classroom.classroom_provider if classroom.classroom_provider?
       classroom_obj[:students] = format_students_for_classroom(classroom)
       classroom_teachers = format_teachers_for_classroom(classroom)
       pending_coteachers = format_pending_coteachers_for_classroom(classroom)
@@ -212,9 +212,9 @@ class Teachers::ClassroomsController < ApplicationController
       student.attributes.merge(number_of_completed_activities: ActivitySession.where(state: ActivitySession::STATE_FINISHED, user_id: student.id, classroom_unit_id: classroom_unit_ids).count || 0)
     end
 
-    return students unless classroom.provider_classroom?
+    return students unless classroom.classroom_provider?
 
-    provider_classroom = ProviderClassroom.new(classroom)
+    provider_classroom = ProviderClassroomDelegator.new(classroom)
     students.map { |student| student.merge(synced: provider_classroom.synced_status(student)) }
   end
 
