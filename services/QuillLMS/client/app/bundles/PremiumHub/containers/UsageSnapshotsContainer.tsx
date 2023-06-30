@@ -150,9 +150,11 @@ const UsageSnapshotsContainer = ({ adminInfo, accessType, }) => {
       const gradeOptions = filterData.grades.map(grade => ({ ...grade, label: grade.name }))
       const schoolOptions = filterData.schools.map(school => ({ ...school, label: school.name, value: school.id }))
 
-      const teacherOptions = filterData.teachers.map(teacher => ({ ...teacher, label: teacher.name, value: teacher.id }))
+      const teacherOptionsWithDuplicates = filterData.teachers.map(teacher => ({ ...teacher, label: teacher.name, value: teacher.id }))
+      const teacherOptions = _.uniqBy(teacherOptionsWithDuplicates, opt => opt.id)
 
-      const classroomOptions = filterData.classrooms.map(classroom => ({ ...classroom, label: classroom.name, value: classroom.id }))
+      const classroomOptionsWithDuplicates = filterData.classrooms.map(classroom => ({ ...classroom, label: classroom.name, value: classroom.id }))
+      const classroomOptions = _.uniqBy(classroomOptionsWithDuplicates, opt => opt.id)
 
       const timeframe = defaultTimeframe(timeframeOptions)
 
