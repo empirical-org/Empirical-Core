@@ -69,6 +69,12 @@ const UsageSnapshotsContainer = ({ adminInfo, accessType, }) => {
 
   React.useEffect(() => {
     getFilters()
+  }, [])
+
+  React.useEffect(() => {
+    if (loadingFilters) { return }
+
+    getFilters()
   }, [selectedSchools, selectedTeachers, selectedClassrooms, selectedGrades])
 
   React.useEffect(() => {
@@ -104,16 +110,6 @@ const UsageSnapshotsContainer = ({ adminInfo, accessType, }) => {
 
     setSelectedTimeframe(lastUsedTimeframe)
   }, [showCustomDateModal])
-
-  React.useEffect(() => {
-    getFilters()
-  }, [])
-
-  React.useEffect(() => {
-    if (loadingFilters) { return }
-
-    getFilters()
-  }, [selectedSchools, selectedTeachers, selectedClassrooms])
 
   function openMobileFilterMenu() { setShowMobileFilterMenu(true) }
 
