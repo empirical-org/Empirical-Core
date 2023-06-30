@@ -30,7 +30,7 @@ namespace :vitally do
           row['accountExternalId2'],
           row['accountExternalId3'],
           row['accountExternalId4']
-        ].reject { |id| id.nil? || id.empty? }.map(&:to_i)
+        ].reject { |id| id.nil? || id.empty? }
 
         ids_to_unlink = vitally_school_ids.reject { |id| id == quill_school_id }
 
