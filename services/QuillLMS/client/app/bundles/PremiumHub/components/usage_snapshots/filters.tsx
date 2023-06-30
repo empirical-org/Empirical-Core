@@ -35,22 +35,42 @@ const Filters = ({ allTimeframes, allSchools, allGrades, allTeachers, allClassro
 
   function handleRemoveSchool(school) {
     const newSchools = selectedSchools.filter(s => s.id !== school.id)
-    setSelectedSchools(newSchools)
+
+    if (newSchools.length) {
+      setSelectedSchools(newSchools)
+    } else {
+      setSelectedSchools(allSchools)
+    }
   }
 
   function handleRemoveTeacher(teacher) {
     const newTeachers = selectedTeachers.filter(s => s.id !== teacher.id)
-    setSelectedTeachers(newTeachers)
+
+    if (newTeachers.length) {
+      setSelectedTeachers(newTeachers)
+    } else {
+      setSelectedTeachers(allTeachers)
+    }
   }
 
   function handleRemoveClassroom(classroom) {
     const newClassrooms = selectedClassrooms.filter(s => s.id !== classroom.id)
-    setSelectedClassrooms(newClassrooms)
+
+    if (newClassrooms.length) {
+      setSelectedClassrooms(newClassrooms)
+    } else {
+      setSelectedClassrooms(allClassrooms)
+    }
   }
 
   function handleRemoveGrade(grade) {
     const newGrades = selectedGrades.filter(g => g.value !== grade.value)
-    setSelectedGrades(newGrades)
+
+    if (newGrades.length) {
+      setSelectedGrades(newGrades)
+    } else {
+      setSelectedGrades(allGrades)
+    }
   }
 
   const schoolSearchTokens = !unorderedArraysAreEqual(effectiveSelectedSchools(), allSchools) && effectiveSelectedSchools().map(s => (
