@@ -51,4 +51,3 @@ RSpec.describe CanvasIntegration::ClassroomDataAdapter do
     it { expect(subject).to eq classroom_data }
   end
 end
-

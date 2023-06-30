@@ -15,7 +15,7 @@ module CanvasIntegration
     end
 
     private def cache_classrooms_data
-      TeacherClassroomsCache.write(user.id, serialized_teacher_classrooms)
+      CanvasIntegration::TeacherClassroomsCache.write(user.id, serialized_teacher_classrooms)
     end
 
     private def client

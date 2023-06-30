@@ -23,7 +23,7 @@ module CleverIntegration
     end
 
     private def cache_classrooms_data
-      TeacherClassroomsCache.write(teacher_id, data.to_json)
+      CleverIntegration::TeacherClassroomsCache.write(teacher_id, data.to_json)
     end
 
     private def client
