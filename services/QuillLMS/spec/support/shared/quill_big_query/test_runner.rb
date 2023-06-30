@@ -54,7 +54,7 @@ module QuillBigQuery
       attr_type = record.class.column_for_attribute(attr).type
 
       if value.nil?
-        "''"
+        "NULL"
       elsif value.is_a?(Array)
         value.map { |v| attr_type_value(attr_type, v) }
       else

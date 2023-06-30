@@ -246,5 +246,12 @@ FactoryBot.define do
         end
       end
     end
+
+    trait(:with_canvas_account) do
+      after(:create) do |user|
+        create(:canvas_account, user: user)
+        user.reload
+      end
+    end
   end
 end

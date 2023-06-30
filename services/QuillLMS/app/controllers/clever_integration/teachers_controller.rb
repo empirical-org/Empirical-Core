@@ -36,7 +36,7 @@ module CleverIntegration
     end
 
     private def delete_teacher_classrooms_cache
-      TeacherClassroomsCache.delete(current_user.id)
+      CleverIntegration::TeacherClassroomsCache.delete(current_user.id)
     end
 
     private def existing_clever_ids
@@ -68,7 +68,7 @@ module CleverIntegration
     end
 
     private def serialized_classrooms_data
-      TeacherClassroomsCache.read(current_user.id)
+      CleverIntegration::TeacherClassroomsCache.read(current_user.id)
     end
 
     private def serialized_selected_classrooms_data

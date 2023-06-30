@@ -55,6 +55,7 @@ gem 'maxminddb'
 
 # OTHERS
 gem 'global'
+gem 'lms-api'
 gem 'google-api-client', '0.8.6'
 gem 'faraday_middleware'
 gem 'newrelic_rpm', '~> 7.2'
