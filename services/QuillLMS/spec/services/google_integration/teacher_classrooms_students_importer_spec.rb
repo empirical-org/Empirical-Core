@@ -45,8 +45,8 @@ RSpec.describe GoogleIntegration::TeacherClassroomsStudentsImporter do
       expect(User.student.count).to eq 0
       subject
       expect(GoogleClassroomUser.count).to eq 2
-      expect(GoogleClassroomUser.where(provider_classroom_id: google_classroom_id1).count).to eq 1
-      expect(GoogleClassroomUser.where(provider_classroom_id: google_classroom_id2).count).to eq 1
+      expect(GoogleClassroomUser.where(classroom_external_id: google_classroom_id1).count).to eq 1
+      expect(GoogleClassroomUser.where(classroom_external_id: google_classroom_id2).count).to eq 1
       expect(User.student.count).to eq 2
     end
   end
@@ -59,8 +59,8 @@ RSpec.describe GoogleIntegration::TeacherClassroomsStudentsImporter do
       expect(User.student.count).to eq 0
       subject
       expect(GoogleClassroomUser.count).to eq 1
-      expect(GoogleClassroomUser.where(provider_classroom_id: google_classroom_id1).count).to eq 0
-      expect(GoogleClassroomUser.where(provider_classroom_id: google_classroom_id2).count).to eq 1
+      expect(GoogleClassroomUser.where(classroom_external_id: google_classroom_id1).count).to eq 0
+      expect(GoogleClassroomUser.where(classroom_external_id: google_classroom_id2).count).to eq 1
       expect(User.student.count).to eq 1
     end
   end

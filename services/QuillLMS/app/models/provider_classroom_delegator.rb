@@ -2,8 +2,8 @@
 
 class ProviderClassroomDelegator < SimpleDelegator
   def synced_status(student_attrs)
-    return true if provider_active_user_ids.include?(provider_user_id(student_attrs))
-    return false if provider_deleted_user_ids.include?(provider_user_id(student_attrs))
+    return true if provider_active_user_ids.include?(user_external_id(student_attrs))
+    return false if provider_deleted_user_ids.include?(user_external_id(student_attrs))
 
     return nil
   end
@@ -16,19 +16,19 @@ class ProviderClassroomDelegator < SimpleDelegator
     @provider_active_user_ids ||=
       provider_classroom_user_class
         .active
-        .where(provider_classroom_id: provider_classroom_id)
-        .pluck(:provider_user_id)
+        .where(classroom_external_id: classroom_external_id)
+        .pluck(:user_external_id)
   end
 
   private def provider_deleted_user_ids
     @provider_deleted_user_ids ||=
       provider_classroom_user_class
         .deleted
-        .where(provider_classroom_id: provider_classroom_id)
-        .pluck(:provider_user_id)
+        .where(classroom_external_id: classroom_external_id)
+        .pluck(:user_external_id)
   end
 
-  private def provider_classroom_id
+  private def classroom_external_id
     return google_classroom_id if google_classroom?
     return clever_id if clever_classroom?
   end
@@ -38,7 +38,7 @@ class ProviderClassroomDelegator < SimpleDelegator
     return CleverClassroomUser if clever_classroom?
   end
 
-  private def provider_user_id(student_attrs)
+  private def user_external_id(student_attrs)
     return student_attrs['google_id'] if google_classroom?
     return student_attrs['clever_id'] if clever_classroom?
   end
