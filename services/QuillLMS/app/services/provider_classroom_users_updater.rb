@@ -1,12 +1,13 @@
 # frozen_string_literal: true
 
 class ProviderClassroomUsersUpdater < ApplicationService
-  attr_reader :provider_classroom_id, :provider_user_ids, :provider_classroom_user_class
+  attr_reader :classroom_external_id, :user_external_ids, :provider_classroom_user_class, :canvas_instance_id
 
-  def initialize(provider_classroom_id, provider_user_ids, provider_classroom_user_class)
-    @provider_classroom_id = provider_classroom_id
-    @provider_user_ids = provider_user_ids
+  def initialize(classroom_external_id, user_external_ids, provider_classroom_user_class, canvas_instance_id = nil)
+    @classroom_external_id = classroom_external_id
+    @user_external_ids = user_external_ids
     @provider_classroom_user_class = provider_classroom_user_class
+    @canvas_instance_id = canvas_instance_id
   end
 
   def run
@@ -18,30 +19,31 @@ class ProviderClassroomUsersUpdater < ApplicationService
   private def update_deleted_to_active
     provider_classroom_user_class
       .deleted
-      .where(provider_classroom_id: provider_classroom_id)
-      .where(provider_user_id: provider_user_ids)
+      .where(classroom_external_id: classroom_external_id)
+      .where(canvas_instance_id: canvas_instance_id)
+      .where(user_external_id: user_external_ids)
       .update_all(deleted_at: nil)
   end
 
   private def update_active_to_deleted
     provider_classroom_user_class
       .active
-      .where(provider_classroom_id: provider_classroom_id)
-      .where.not(provider_user_id: provider_user_ids)
+      .where(classroom_external_id: classroom_external_id)
+      .where.not(user_external_id: user_external_ids)
       .update_all(deleted_at: Time.current)
   end
 
   private def create_new_active
-    provider_classroom_user_class.create_list(provider_classroom_id, new_provider_user_ids)
+    provider_classroom_user_class.create_list(classroom_external_id, new_user_external_ids)
   end
 
-  private def existing_provider_user_ids
+  private def existing_user_external_ids
     provider_classroom_user_class
-      .where(provider_classroom_id: provider_classroom_id)
-      .pluck(:provider_user_id)
+      .where(classroom_external_id: classroom_external_id)
+      .pluck(:user_external_id)
   end
 
-  private def new_provider_user_ids
-    provider_user_ids - existing_provider_user_ids
+  private def new_user_external_ids
+    user_external_ids - existing_user_external_ids
   end
 end

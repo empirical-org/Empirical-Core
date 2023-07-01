@@ -24,7 +24,7 @@ RSpec.describe GoogleIntegration::ClassroomStudentsImporter do
     let(:google_id) { student.google_id }
     let(:google_classroom_id) { classroom.google_classroom_id }
 
-    before { create(:google_classroom_user, provider_classroom_id: google_classroom_id, provider_user_id: google_id) }
+    before { create(:google_classroom_user, classroom_external_id: google_classroom_id, user_external_id: google_id) }
 
     let(:students_data) do
       [

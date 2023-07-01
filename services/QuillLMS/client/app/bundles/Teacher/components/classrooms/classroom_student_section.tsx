@@ -15,7 +15,7 @@ const questionMarkSrc = `${process.env.CDN_URL}/images/pages/classrooms/question
 const cleverSetupInstructionsPdf = `${process.env.CDN_URL}/documents/setup_instructions_pdfs/clever_setup_instructions.pdf`
 const googleSetupInstructionsPdf = `${process.env.CDN_URL}/documents/setup_instructions_pdfs/google_setup_instructions.pdf`
 
-function activeHeaders(hasProviderClassroom: boolean) {
+function activeHeaders(hasClassroomProvider: boolean) {
   const name = {
     width: '220px',
     name: 'Name',
@@ -23,7 +23,7 @@ function activeHeaders(hasProviderClassroom: boolean) {
   }
 
   const usernameOrEmail = {
-    width: hasProviderClassroom ? '280px' : '330px',
+    width: hasClassroomProvider ? '280px' : '330px',
     name: 'Username/Email',
     attribute: 'usernameOrEmail'
   }
@@ -62,10 +62,10 @@ function activeHeaders(hasProviderClassroom: boolean) {
     isActions: true
   }
 
-  return hasProviderClassroom ? [name, usernameOrEmail, logInMethod, lastActive, activities, synced, actions] : [name, usernameOrEmail, logInMethod, lastActive, activities, actions]
+  return hasClassroomProvider ? [name, usernameOrEmail, logInMethod, lastActive, activities, synced, actions] : [name, usernameOrEmail, logInMethod, lastActive, activities, actions]
 }
 
-function archivedHeaders(hasProviderClassroom: boolean) {
+function archivedHeaders(hasClassroomProvider: boolean) {
   const name = {
     width: '235px',
     name: 'Name',
@@ -73,7 +73,7 @@ function archivedHeaders(hasProviderClassroom: boolean) {
   }
 
   const usernameOrEmail = {
-    width: hasProviderClassroom ? '407px' : '531px',
+    width: hasClassroomProvider ? '407px' : '531px',
     name: 'Username/Email',
     attribute: 'usernameOrEmail'
   }
@@ -86,7 +86,7 @@ function archivedHeaders(hasProviderClassroom: boolean) {
     rowSectionClassName: 'show-overflow'
   }
 
-  return hasProviderClassroom ? [name, usernameOrEmail, synced] : [name, usernameOrEmail]
+  return hasClassroomProvider ? [name, usernameOrEmail, synced] : [name, usernameOrEmail]
 }
 
 enum modalNames {
@@ -488,7 +488,7 @@ export default class ClassroomStudentSection
     )
   }
 
-  syncedStatus(student: any, providerClassroom: string) {
+  syncedStatus(student: any, classroomProvider: string) {
     const { synced } = student
 
     if (synced === undefined || synced === null) { return '' }
@@ -496,7 +496,7 @@ export default class ClassroomStudentSection
 
     return (
       <Tooltip
-        tooltipText={`This student is no longer in this class in ${providerClassroom}`}
+        tooltipText={`This student is no longer in this class in ${classroomProvider}`}
 
         tooltipTriggerText={
           <div className="text-and-icon-wrapper">
@@ -514,13 +514,13 @@ export default class ClassroomStudentSection
   renderStudentDataTable() {
     const { classroom, } = this.props
     const { selectedStudentIds, } = this.state
-    const { providerClassroom } = classroom
-    const hasProviderClassroom = providerClassroom !== undefined
+    const { classroomProvider } = classroom
+    const hasClassroomProvider = classroomProvider !== undefined
 
     const rows = classroom.students.map(student => {
       const { name, username, email, id, google_id, clever_id, last_active, number_of_completed_activities, } = student
       const checked = !!selectedStudentIds.includes(id)
-      const synced = this.syncedStatus(student, providerClassroom)
+      const synced = this.syncedStatus(student, classroomProvider)
       let logInMethod = 'Username'
 
       if (clever_id) {
@@ -547,7 +547,7 @@ export default class ClassroomStudentSection
         checkAllRows={this.checkAllRows}
         checkRow={this.checkRow}
         className='show-overflow'
-        headers={classroom.visible ? activeHeaders(hasProviderClassroom) : archivedHeaders(hasProviderClassroom)}
+        headers={classroom.visible ? activeHeaders(hasClassroomProvider) : archivedHeaders(hasClassroomProvider)}
         rows={rows}
         showActions={classroom.visible}
         showCheckboxes={classroom.visible}

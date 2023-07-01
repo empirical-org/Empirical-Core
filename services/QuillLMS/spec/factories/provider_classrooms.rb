@@ -22,10 +22,13 @@
 #  fk_rails_...  (canvas_instance_id => canvas_instances.id)
 #  fk_rails_...  (classroom_id => classrooms.id)
 #
-require 'rails_helper'
+FactoryBot.define do
+  factory :provider_classroom do
+    external_id { Faker::Number.number(digits: 3) }
+    classroom
 
-RSpec.describe ProviderClassroom, type: :model do
-  it { should belong_to(:classroom) }
-
-  it { should validate_inclusion_of(:type).in_array(described_class::TYPES) }
+    factory :canvas_classsroom, parent: :provider_classroom, class: 'CanvasClassroom' do
+      canvas_instance
+    end
+  end
 end
