@@ -26,7 +26,7 @@ module CleverIntegration
       ProviderClassroomUsersUpdater.run(classroom.clever_id, students.map(&:clever_id), CleverClassroomUser)
     end
 
-    def import_students
+    private def import_students
       students
     end
 

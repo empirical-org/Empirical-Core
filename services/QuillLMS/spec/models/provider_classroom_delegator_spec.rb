@@ -2,7 +2,7 @@
 
 require 'rails_helper'
 
-RSpec.describe ProviderClassroom do
+RSpec.describe ProviderClassroomDelegator do
   subject { described_class.new(classroom) }
 
   context 'google classroom' do
