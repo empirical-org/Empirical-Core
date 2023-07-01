@@ -14,16 +14,16 @@ RSpec.describe ProviderClassroomDelegator do
     let!(:synced_student) do
       create(:google_classroom_user,
         :active,
-        provider_classroom_id: classroom.google_classroom_id,
-        provider_user_id: student1.google_id
+        classroom_external_id: classroom.google_classroom_id,
+        user_external_id: student1.google_id
       )
     end
 
     let!(:unsynced_student) do
       create(:google_classroom_user,
         :deleted,
-        provider_classroom_id: classroom.google_classroom_id,
-        provider_user_id: student2.google_id
+        classroom_external_id: classroom.google_classroom_id,
+        user_external_id: student2.google_id
       )
     end
 
@@ -47,16 +47,16 @@ RSpec.describe ProviderClassroomDelegator do
     let!(:unsynced_student) do
       create(:clever_classroom_user,
         :deleted,
-        provider_classroom_id: classroom.clever_id,
-        provider_user_id: student1.clever_id
+        classroom_external_id: classroom.clever_id,
+        user_external_id: student1.clever_id
       )
     end
 
     let!(:synced_student) do
       create(:clever_classroom_user,
         :active,
-        provider_classroom_id: classroom.clever_id,
-        provider_user_id: student2.clever_id
+        classroom_external_id: classroom.clever_id,
+        user_external_id: student2.clever_id
       )
     end
 

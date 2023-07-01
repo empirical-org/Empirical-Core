@@ -13,16 +13,16 @@ describe ProviderClassroomWithUnsyncedStudentsSerializer, type: :serializer do
   let!(:synced_student) do
     create(:google_classroom_user,
       :active,
-      provider_classroom_id: classroom.google_classroom_id,
-      provider_user_id: student1.google_id
+      classroom_external_id: classroom.google_classroom_id,
+      user_external_id: student1.google_id
     )
   end
 
   let!(:unsynced_student) do
     create(:google_classroom_user,
       :deleted,
-      provider_classroom_id: classroom.google_classroom_id,
-      provider_user_id: student2.google_id
+      classroom_external_id: classroom.google_classroom_id,
+      user_external_id: student2.google_id
     )
   end
 

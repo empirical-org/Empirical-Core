@@ -9,12 +9,18 @@
 #  type                  :string           not null
 #  created_at            :datetime         not null
 #  updated_at            :datetime         not null
-#  provider_classroom_id :string           not null
-#  provider_user_id      :string           not null
+#  canvas_instance_id    :bigint
+#  classroom_external_id :string           not null
+#  user_external_id      :string           not null
 #
 # Indexes
 #
-#  index_provider_type_and_classroom_id_and_user_id  (type,provider_classroom_id,provider_user_id) UNIQUE
+#  index_provider_classroom_users_on_canvas_instance_id  (canvas_instance_id)
+#  index_provider_type_and_classroom_id_and_user_id      (type,classroom_external_id,user_external_id) UNIQUE
+#
+# Foreign Keys
+#
+#  fk_rails_...  (canvas_instance_id => canvas_instances.id)
 #
 require 'rails_helper'
 
@@ -26,8 +32,8 @@ RSpec.describe ProviderClassroomUser, type: :model do
   context 'attributes' do
     subject { create(factory) }
 
-    it { expect(subject.provider_classroom_id).to_not be_nil }
-    it { expect(subject.provider_user_id).to_not be_nil }
+    it { expect(subject.classroom_external_id).to_not be_nil }
+    it { expect(subject.user_external_id).to_not be_nil }
     it { expect(subject.type).to eq type }
   end
 
@@ -38,27 +44,27 @@ RSpec.describe ProviderClassroomUser, type: :model do
       it { expect { provider_classroom_user }.to raise_error ActiveRecord::RecordInvalid }
     end
 
-    describe 'provider_classroom_id length' do
+    describe 'classroom_external_id length' do
       let(:too_long_id) { 'a' * 26 }
-      let(:provider_classroom_user) { create(factory, provider_classroom_id: too_long_id) }
+      let(:provider_classroom_user) { create(factory, classroom_external_id: too_long_id) }
 
       it { expect { provider_classroom_user }.to raise_error ActiveRecord::RecordInvalid }
     end
 
-    describe 'provider_user_id length' do
+    describe 'user_external_id length' do
       let(:too_long_id) { 'a' * 26 }
-      let(:provider_classroom_user) { create(factory, provider_user_id: too_long_id) }
+      let(:provider_classroom_user) { create(factory, user_external_id: too_long_id) }
 
       it { expect { provider_classroom_user }.to raise_error ActiveRecord::RecordInvalid }
     end
   end
 
   context 'uniqueness' do
-    let(:provider_classroom_id) { '987' }
-    let(:provider_user_id) { '123' }
+    let(:classroom_external_id) { '987' }
+    let(:user_external_id) { '123' }
 
     let!(:provider_classroom_user) do
-      create(factory, provider_classroom_id: provider_classroom_id, provider_user_id: provider_user_id)
+      create(factory, classroom_external_id: classroom_external_id, user_external_id: user_external_id)
     end
 
     it { expect { provider_classroom_user.dup.save!}.to raise_error ActiveRecord::RecordNotUnique }
@@ -78,24 +84,24 @@ RSpec.describe ProviderClassroomUser, type: :model do
   end
 
   context '.create_list' do
-    subject { klass.create_list(provider_classroom_id, provider_user_ids) }
+    subject { klass.create_list(classroom_external_id, user_external_ids) }
 
-    let(:provider_classroom_id) { 'provider-classroom-id' }
+    let(:classroom_external_id) { 'provider-classroom-id' }
 
-    context 'zero provider_user_ids' do
-      let(:provider_user_ids) { [] }
+    context 'zero user_external_ids' do
+      let(:user_external_ids) { [] }
 
       it { expect { subject }.not_to change(klass, :count) }
     end
 
-    context 'one provider_user_id' do
-      let(:provider_user_ids) { ['a-provider-user-id'] }
+    context 'one user_external_id' do
+      let(:user_external_ids) { ['a-provider-user-id'] }
 
       it { expect { subject }.to change(klass, :count).from(0).to(1) }
     end
 
-    context 'two provider_user_ids' do
-      let(:provider_user_ids) { ['a-provider-user-id', 'the-provider-user-id'] }
+    context 'two user_external_ids' do
+      let(:user_external_ids) { ['a-provider-user-id', 'the-provider-user-id'] }
 
       it { expect { subject }.to change(klass, :count).from(0).to(2) }
     end
