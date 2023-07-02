@@ -203,18 +203,6 @@ class Teachers::ClassroomManagerController < ApplicationController
     render json: {}
   end
 
-  def update_google_classrooms
-    serialized_classrooms_data = { classrooms: params[:selected_classrooms] }.to_json
-
-    GoogleIntegration::TeacherClassroomsData
-      .new(current_user, serialized_classrooms_data)
-      .each { |classroom_data| GoogleIntegration::ClassroomImporter.run(classroom_data) }
-
-    GoogleIntegration::TeacherClassroomsCache.delete(current_user.id)
-    GoogleIntegration::HydrateTeacherClassroomsCacheWorker.perform_async(current_user.id)
-    render json: { classrooms: current_user.google_classrooms }.to_json
-  end
-
   def view_demo
     demo = User.find_by_email(Demo::ReportDemoCreator::EMAIL)
     return render json: {errors: "Demo Account does not exist"}, status: 422 if demo.nil?
