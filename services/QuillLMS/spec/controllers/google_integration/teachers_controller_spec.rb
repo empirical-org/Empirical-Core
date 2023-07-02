@@ -10,35 +10,28 @@ RSpec.describe GoogleIntegration::TeachersController do
   let(:response_body) { JSON.parse(response.body).deep_symbolize_keys }
   let(:teacher) { create(:teacher, :signed_up_with_google) }
 
-  describe '#retreive_clasrooms' do
-    subject { get :retrieve_classrooms, as: :json }
+  context '#import_classrooms' do
+    subject { post :import_classrooms, params: params, as: :json }
 
-    before { allow(GoogleIntegration::Classroom::Main).to receive(:pull_data) { 'google response' } }
+    let(:google_classroom_id1) { 123 }
+    let(:google_classroom_id2) { 456 }
+    let(:selected_classrooms) { [{ id: google_classroom_id1 }, { id: google_classroom_id2 }] }
+    let(:params) { { selected_classrooms: selected_classrooms } }
+
+    it { expect { subject }.to change(teacher.google_classrooms, :count).from(0).to(2) }
 
     it do
+      expect(GoogleIntegration::ImportClassroomStudentsWorker).to receive(:perform_async)
+      expect(GoogleIntegration::TeacherClassroomsCache).to receive(:delete).with(teacher.id)
+      expect(GoogleIntegration::HydrateTeacherClassroomsCacheWorker).to receive(:perform_async).with(teacher.id)
       subject
-      expect(response_body).to eq(user_id: teacher.id, reauthorization_required: true)
     end
 
-    context 'user is google authorized' do
-      before { allow(teacher).to receive(:google_authorized?).and_return(true) }
+    it 'should return an array with two classrooms' do
+      subject
 
-      it  do
-        subject
-        expect(response_body).to eq({ user_id: teacher.id, quill_retrieval_processing: true })
-      end
-
-      context 'teacher classrooms cache has data' do
-        let(:data) { { classrooms: [] } }
-
-        before { allow(GoogleIntegration::TeacherClassroomsCache).to receive(:read).and_return(data.to_json) }
-
-        it do
-          subject
-          expect(response_body).to eq data
-        end
-      end
-
+      expect(response_body[:classrooms].pluck(:google_classroom_id))
+        .to match_array [google_classroom_id1, google_classroom_id2]
     end
   end
 
@@ -82,4 +75,37 @@ RSpec.describe GoogleIntegration::TeachersController do
       end
     end
   end
+
+  describe '#retreive_clasrooms' do
+    subject { get :retrieve_classrooms, as: :json }
+
+    before { allow(GoogleIntegration::Classroom::Main).to receive(:pull_data) { 'google response' } }
+
+    it do
+      subject
+      expect(response_body).to eq(user_id: teacher.id, reauthorization_required: true)
+    end
+
+    context 'user is google authorized' do
+      before { allow(teacher).to receive(:google_authorized?).and_return(true) }
+
+      it  do
+        subject
+        expect(response_body).to eq({ user_id: teacher.id, quill_retrieval_processing: true })
+      end
+
+      context 'teacher classrooms cache has data' do
+        let(:data) { { classrooms: [] } }
+
+        before { allow(GoogleIntegration::TeacherClassroomsCache).to receive(:read).and_return(data.to_json) }
+
+        it do
+          subject
+          expect(response_body).to eq data
+        end
+      end
+
+    end
+  end
+
 end

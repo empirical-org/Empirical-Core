@@ -669,25 +669,6 @@ describe Teachers::ClassroomManagerController, type: :controller do
     end
   end
 
-  describe '#update_google_classrooms' do
-    let(:teacher) { create(:teacher) }
-    let(:google_classroom_id1) { 123 }
-    let(:google_classroom_id2) { 456 }
-
-    let(:selected_classrooms) { [{ id: google_classroom_id1 }, { id: google_classroom_id2 }] }
-
-    before { allow(controller).to receive(:current_user) { teacher } }
-
-    it 'should return an array with two classrooms' do
-     post :update_google_classrooms, params: { selected_classrooms: selected_classrooms }, as: :json
-
-     classrooms = JSON.parse(response.body).deep_symbolize_keys.fetch(:classrooms)
-
-     google_classroom_ids = classrooms.map { |classroom| classroom[:google_classroom_id] }.sort
-     expect(google_classroom_ids).to eq [google_classroom_id1, google_classroom_id2]
-   end
-  end
-
   describe '#view_demo' do
     let!(:teacher) { create(:teacher) }
     let!(:demo_teacher) { create(:teacher, email: Demo::ReportDemoCreator::EMAIL)}
