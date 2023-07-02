@@ -363,8 +363,6 @@ EmpiricalGrammar::Application.routes.draw do
       post :create_students
       post :remove_students
 
-      put :import_google_students, controller: 'classroom_manager', action: 'import_google_students'
-
       collection do
         get :archived, action: 'index', as: :archived
         get :classrooms_i_teach
@@ -611,6 +609,7 @@ EmpiricalGrammar::Application.routes.draw do
 
   namespace :google_integration do
     get '/teachers/retrieve_classrooms', to: 'teachers#retrieve_classrooms'
+    put '/teachers/import_students', to: 'teachers#import_students'
   end
 
   resources :canvas_instances, only: [:create]

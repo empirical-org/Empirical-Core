@@ -524,7 +524,6 @@ describe Teachers::ClassroomManagerController, type: :controller do
     end
   end
 
-
   describe '#teacher_dashboard_metrics' do
     let!(:teacher) { create(:teacher) }
 
@@ -654,24 +653,6 @@ describe Teachers::ClassroomManagerController, type: :controller do
         scores: [1, 2, 3],
         is_last_page: true
       }.to_json)
-    end
-  end
-
-  describe '#import_google_students' do
-    let(:teacher) { create(:teacher) }
-    let(:selected_classroom_ids) { create_list(:classroom, 2).map(&:id) }
-
-    before do
-      allow(controller).to receive(:current_user) { teacher }
-      allow(GoogleIntegration::Classroom::Main).to receive(:pull_data) { "google response" }
-    end
-
-    it 'should kick off the importer' do
-      expect(GoogleIntegration::ImportClassroomStudentsWorker)
-        .to receive(:perform_async)
-        .with(teacher.id, selected_classroom_ids)
-
-      put :import_google_students, params: { selected_classroom_ids: selected_classroom_ids }, as: :json
     end
   end
 
