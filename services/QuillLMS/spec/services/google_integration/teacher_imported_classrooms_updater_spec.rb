@@ -21,9 +21,12 @@ RSpec.describe GoogleIntegration::TeacherImportedClassroomsUpdater do
     }.to_json
   end
 
-
   it 'updates only previously imported classrooms that have google_classroom_id' do
     expect(GoogleIntegration::TeacherClassroomsCache).to receive(:read).with(user.id).and_return(data)
+
+    expect(GoogleIntegration::ImportClassroomStudentsWorker)
+      .to receive(:perform_async)
+      .with(user.id, [imported_classroom.id])
 
     subject
 

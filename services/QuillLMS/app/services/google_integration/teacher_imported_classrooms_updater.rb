@@ -10,6 +10,7 @@ module GoogleIntegration
 
     def run
       update_classrooms
+      update_classrooms_students
     end
 
     private def classroom_data(classroom)
@@ -25,7 +26,7 @@ module GoogleIntegration
     end
 
     private def imported_classrooms
-      user.google_classrooms.where(google_classroom_id: google_classroom_ids, visible: true)
+      @imported_classrooms ||= user.google_classrooms.where(google_classroom_id: google_classroom_ids, visible: true)
     end
 
     private def serialized_classrooms_data
@@ -34,6 +35,10 @@ module GoogleIntegration
 
     private def update_classrooms
       imported_classrooms.each { |classroom| ClassroomUpdater.run(classroom, classroom_data(classroom)) }
+    end
+
+    private def update_classrooms_students
+      ImportClassroomStudentsWorker.perform_async(teacher_id, imported_classrooms.map(&:id))
     end
   end
 end
