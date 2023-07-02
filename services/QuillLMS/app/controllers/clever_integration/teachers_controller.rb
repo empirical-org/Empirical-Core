@@ -23,10 +23,7 @@ module CleverIntegration
       if !current_user.clever_authorized?
         render json: { user_id: current_user.id, reauthorization_required: true }
       elsif serialized_classrooms_data
-        render json: {
-          classrooms_data: JSON.parse(serialized_classrooms_data),
-          existing_clever_ids: existing_clever_ids
-        }
+        render json: JSON.parse(serialized_classrooms_data)
       else
         hydrate_teacher_classrooms_cache
         render json: { user_id: current_user.id, quill_retrieval_processing: true }
@@ -39,16 +36,8 @@ module CleverIntegration
       classroom_teacher!(params[:classroom_id])
     end
 
-    private def classrooms_data
-      TeacherClassroomsData.new(current_user, serialized_classrooms_data)
-    end
-
     private def delete_teacher_classrooms_cache
       TeacherClassroomsCache.delete(current_user.id)
-    end
-
-    private def existing_clever_ids
-      ::Classroom.unscoped.where(clever_id: classrooms_data.clever_ids).pluck(:clever_id)
     end
 
     private def hydrate_teacher_classrooms_cache

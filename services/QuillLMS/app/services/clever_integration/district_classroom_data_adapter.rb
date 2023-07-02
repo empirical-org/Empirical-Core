@@ -4,17 +4,28 @@ module CleverIntegration
   class DistrictClassroomDataAdapter < ApplicationService
     attr_reader :classroom_data
 
+    delegate :grade, :name, :students, to: :data
+
     def initialize(classroom_data)
       @classroom_data = classroom_data
     end
 
     def run
       {
-        clever_id: data.id,
-        grade: data.grade,
-        name: data.name,
-        students: data.students
+        alreadyImported: already_imported?,
+        clever_id: clever_id,
+        grade: grade,
+        name: name,
+        students: students
       }
+    end
+
+    private def already_imported?
+      ::Classroom.unscoped.exists?(clever_id: clever_id)
+    end
+
+    private def clever_id
+      data.id
     end
 
     private def data

@@ -11,6 +11,14 @@ RSpec.describe CleverIntegration::DistrictClassroomDataAdapter do
     let(:classroom_data) { classroom1_data }
 
     it { expect(subject).to eq classroom1_attrs }
+
+    context 'classroom already imported' do
+      let(:classroom1_already_imported) { true }
+
+      before { create(:classroom, clever_id: classroom1_clever_id) }
+
+      it { expect(subject).to eq classroom1_attrs }
+    end
   end
 
   context 'classroom_data2' do

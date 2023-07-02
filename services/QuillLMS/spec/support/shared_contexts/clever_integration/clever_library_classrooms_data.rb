@@ -5,6 +5,7 @@ RSpec.shared_context "Clever Library Classrooms Data" do
 
   let(:teacher_clever_id) { "5b2c69d17306d1054bc49f38" }
 
+  let(:classroom1_already_imported) { false }
   let(:classroom1_grade) { "2" }
   let(:classroom1_clever_id) { "5b2c569c7a68e009745801ab" }
   let(:classroom1_name) { "Second grade - Price - " }
@@ -26,6 +27,7 @@ RSpec.shared_context "Clever Library Classrooms Data" do
 
   let(:classroom1_attrs) do
     {
+      alreadyImported: classroom1_already_imported,
       clever_id: classroom1_clever_id,
       grade: classroom1_grade,
       name: classroom1_name,
@@ -33,6 +35,7 @@ RSpec.shared_context "Clever Library Classrooms Data" do
     }
   end
 
+  let(:classroom2_already_imported) { false }
   let(:classroom2_grade) { "4" }
   let(:classroom2_clever_id) { "5b2c569c7a68e009745801ac" }
   let(:classroom2_name) { "Fourth grade - Price - "}
@@ -55,6 +58,7 @@ RSpec.shared_context "Clever Library Classrooms Data" do
 
   let(:classroom2_attrs) do
     {
+      alreadyImported: classroom2_already_imported,
       clever_id: classroom2_clever_id,
       grade: classroom2_grade,
       name: classroom2_name,
