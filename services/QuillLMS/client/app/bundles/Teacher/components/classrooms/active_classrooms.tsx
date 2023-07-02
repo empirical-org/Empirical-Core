@@ -165,7 +165,7 @@ export default class ActiveClassrooms extends React.Component<ActiveClassroomsPr
 
     if (!clever_id && google_id) {
       this.setState({ googleClassroomsLoading: true}, () => {
-        requestGet('/teachers/classrooms/retrieve_google_classrooms', (body) => {
+        requestGet('/google_integration/teachers/retrieve_classrooms', (body) => {
           if (body.quill_retrieval_processing) {
             this.initializePusherForGoogleClassrooms(body.user_id)
           } else {

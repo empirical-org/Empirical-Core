@@ -383,7 +383,6 @@ EmpiricalGrammar::Application.routes.draw do
         get :invite_students, controller: 'classroom_manager', action: 'invite_students'
         get :google_sync, controller: 'classroom_manager', action: 'google_sync'
         post :update_google_classrooms, controller: 'classroom_manager', action: 'update_google_classrooms'
-        put :import_google_students, controller: 'classroom_manager', action: 'import_google_students'
 
         ##DASHBOARD ROUTES
         get :classroom_mini, controller: 'classroom_manager', action: 'classroom_mini'
