@@ -228,11 +228,7 @@ class Teachers::ClassroomManagerController < ApplicationController
   def import_google_students
     selected_classroom_ids = Classroom.where(id: params[:classroom_id] || params[:selected_classroom_ids]).ids
     GoogleIntegration::TeacherClassroomsCache.delete(current_user.id)
-    GoogleStudentImporterWorker.perform_async(
-      current_user.id,
-      'Teachers::ClassroomManagerController',
-      selected_classroom_ids
-    )
+    GoogleIntegration::ImportClassroomStudentsWorker.perform_async(current_user.id, selected_classroom_ids)
     render json: { id: current_user.id }
   end
 

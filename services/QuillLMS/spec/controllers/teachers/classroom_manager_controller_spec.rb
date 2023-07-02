@@ -673,6 +673,7 @@ describe Teachers::ClassroomManagerController, type: :controller do
 
   describe '#import_google_students' do
     let(:teacher) { create(:teacher) }
+    let(:selected_classroom_ids) { create_list(:classroom, 2).map(&:id) }
 
     before do
       allow(controller).to receive(:current_user) { teacher }
@@ -680,10 +681,11 @@ describe Teachers::ClassroomManagerController, type: :controller do
     end
 
     it 'should kick off the importer' do
-      create(:google_auth_credential, user: teacher)
+      expect(GoogleIntegration::ImportClassroomStudentsWorker)
+        .to receive(:perform_async)
+        .with(teacher.id, selected_classroom_ids)
 
-      expect(GoogleStudentImporterWorker).to receive(:perform_async)
-      put :import_google_students, params: { selected_classroom_ids: [1,2], as: :json }
+      put :import_google_students, params: { selected_classroom_ids: selected_classroom_ids }, as: :json
     end
   end
 
