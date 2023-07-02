@@ -39,4 +39,45 @@ RSpec.describe GoogleIntegration::TeachersController do
 
     end
   end
+
+  describe '#import_students'  do
+    subject { put :import_students, params: params, as: :json }
+
+    let(:classroom) { create(:classroom, :from_google, :with_no_teacher) }
+
+    before { create(:classrooms_teacher, user: teacher, classroom: classroom) }
+
+    context 'import google classroom student flow' do
+      let(:params) { { classroom_id: classroom.id } }
+
+      it 'should kick off background job that imports students' do
+        expect(GoogleIntegration::TeacherClassroomsCache)
+          .to receive(:delete)
+          .with(teacher.id)
+
+        expect(GoogleIntegration::ImportClassroomStudentsWorker)
+          .to receive(:perform_async)
+          .with(teacher.id, [classroom.id])
+
+        subject
+      end
+    end
+
+    context 'import classes flow' do
+      let(:selected_classroom_ids) { create_list(:classroom, 2).map(&:id) }
+      let(:params) { { selected_classroom_ids: selected_classroom_ids} }
+
+      it 'should kick off background job that imports students' do
+        expect(GoogleIntegration::TeacherClassroomsCache)
+          .to receive(:delete)
+          .with(teacher.id)
+
+        expect(GoogleIntegration::ImportClassroomStudentsWorker)
+          .to receive(:perform_async)
+          .with(teacher.id, selected_classroom_ids)
+
+        subject
+      end
+    end
+  end
 end
