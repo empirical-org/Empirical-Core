@@ -384,7 +384,6 @@ EmpiricalGrammar::Application.routes.draw do
         get 'classrooms_and_classroom_units_for_activity_share/:unit_id' => 'classroom_manager#classrooms_and_classroom_units_for_activity_share'
         get :invite_students, controller: 'classroom_manager', action: 'invite_students'
         get :google_sync, controller: 'classroom_manager', action: 'google_sync'
-        get :retrieve_google_classrooms, controller: 'classroom_manager', action: 'retrieve_google_classrooms'
         post :update_google_classrooms, controller: 'classroom_manager', action: 'update_google_classrooms'
         put :import_google_students, controller: 'classroom_manager', action: 'import_google_students'
 
@@ -608,6 +607,10 @@ EmpiricalGrammar::Application.routes.draw do
     get '/teachers/retrieve_classrooms', to: 'teachers#retrieve_classrooms'
     post '/teachers/import_classrooms', to: 'teachers#import_classrooms'
     put '/teachers/import_students', to: 'teachers#import_students'
+  end
+
+  namespace :google_integration do
+    get '/teachers/retrieve_classrooms', to: 'teachers#retrieve_classrooms'
   end
 
   resources :canvas_instances, only: [:create]

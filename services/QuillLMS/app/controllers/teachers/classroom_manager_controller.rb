@@ -203,16 +203,6 @@ class Teachers::ClassroomManagerController < ApplicationController
     render json: {}
   end
 
-  def retrieve_google_classrooms
-    serialized_google_classrooms = GoogleIntegration::TeacherClassroomsCache.read(current_user.id)
-    if serialized_google_classrooms
-      render json: JSON.parse(serialized_google_classrooms)
-    else
-      GoogleIntegration::HydrateTeacherClassroomsCacheWorker.perform_async(current_user.id)
-      render json: { id: current_user.id, quill_retrieval_processing: true }
-    end
-  end
-
   def update_google_classrooms
     serialized_classrooms_data = { classrooms: params[:selected_classrooms] }.to_json
 
