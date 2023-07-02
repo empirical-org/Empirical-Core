@@ -3,11 +3,11 @@
 require 'rails_helper'
 
 describe GoogleIntegration::ImportClassroomStudentsWorker do
+  subject { described_class.new }
+
   let(:teacher) { create(:teacher, :signed_up_with_google) }
   let(:selected_classroom_ids) { [123, 456] }
   let(:importer_class) { GoogleIntegration::TeacherClassroomsStudentsImporter }
-
-  subject { described_class.new }
 
   it 'should report an error with nil teacher_id' do
     expect(ErrorNotifier).to receive(:report).with(ActiveRecord::RecordNotFound)
