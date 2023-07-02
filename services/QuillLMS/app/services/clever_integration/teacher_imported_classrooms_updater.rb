@@ -2,13 +2,13 @@
 
 module CleverIntegration
   class TeacherImportedClassroomsUpdater < ApplicationService
-    attr_reader :teacher_id
-
     COTEACHER = ClassroomsTeacher::ROLE_TYPES[:coteacher]
     OWNER = ClassroomsTeacher::ROLE_TYPES[:owner]
 
-    def initialize(teacher_id)
-      @teacher_id = teacher_id
+    attr_reader :user
+
+    def initialize(user)
+      @user = user
     end
 
     def run
@@ -26,7 +26,7 @@ module CleverIntegration
     end
 
     private def classrooms_data
-      @classrooms_data ||= TeacherClassroomsData.new(teacher, serialized_classrooms_data)
+      @classrooms_data ||= TeacherClassroomsData.new(user, serialized_classrooms_data)
     end
 
     private def existing_classrooms_where_teacher_was_added_in_clever
@@ -34,15 +34,11 @@ module CleverIntegration
     end
 
     private def imported_classrooms
-      teacher.clever_classrooms.where(clever_id: classroom_clever_ids)
+      @imported_classrooms ||= user.clever_classrooms.where(clever_id: classroom_clever_ids)
     end
 
     private def serialized_classrooms_data
-      CleverIntegration::TeacherClassroomsCache.read(teacher_id)
-    end
-
-    private def teacher
-      ::User.find(teacher_id)
+      CleverIntegration::TeacherClassroomsCache.read(user.id)
     end
 
     private def update_classrooms
@@ -50,12 +46,12 @@ module CleverIntegration
     end
 
     private def update_classrooms_students
-      ImportClassroomStudentsWorker.perform_async(teacher_id, imported_classrooms.map(&:id))
+      ImportClassroomStudentsWorker.perform_async(user.id, imported_classrooms.map(&:id))
     end
 
     private def update_classrooms_teachers
       existing_classrooms_where_teacher_was_added_in_clever.each do |classroom|
-        teacher.classrooms_teachers.find_or_create_by!(
+        user.classrooms_teachers.find_or_create_by!(
           classroom: classroom,
           role: classroom.classrooms_teachers.exists?(role: OWNER) ? COTEACHER : OWNER
         )

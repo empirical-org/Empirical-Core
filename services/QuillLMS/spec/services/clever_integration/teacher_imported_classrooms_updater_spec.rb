@@ -3,17 +3,16 @@
 require 'rails_helper'
 
 RSpec.describe CleverIntegration::TeacherImportedClassroomsUpdater do
-  let(:teacher) { create(:teacher, :signed_up_with_clever) }
-  let(:teacher_id) { teacher.id }
+  let(:user) { create(:teacher, :signed_up_with_clever) }
   let(:data) { { classrooms: classrooms }.to_json }
   let(:owner) { described_class::OWNER }
   let(:coteacher) { described_class::COTEACHER }
 
-  subject { described_class.run(teacher_id) }
+  subject { described_class.run(user) }
 
   before do
-    allow(CleverIntegration::TeacherClassroomsCache).to receive(:read).with(teacher_id).and_return(data)
-    allow(CleverIntegration::ImportClassroomStudentsWorker).to receive(:perform_async).with(teacher_id, classroom_ids)
+    allow(CleverIntegration::TeacherClassroomsCache).to receive(:read).with(user).and_return(data)
+    allow(CleverIntegration::ImportClassroomStudentsWorker).to receive(:perform_async).with(user.id, classroom_ids)
   end
 
   context 'data has one new classroom' do
