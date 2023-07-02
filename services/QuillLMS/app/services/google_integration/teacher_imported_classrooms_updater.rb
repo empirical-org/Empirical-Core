@@ -38,7 +38,7 @@ module GoogleIntegration
     end
 
     private def update_classrooms_students
-      ImportClassroomStudentsWorker.perform_async(teacher_id, imported_classrooms.map(&:id))
+      ImportClassroomStudentsWorker.perform_async(user.id, imported_classrooms.map(&:id))
     end
   end
 end
