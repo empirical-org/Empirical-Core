@@ -17,7 +17,7 @@ describe GoogleIntegration::HydrateTeacherClassroomsCacheWorker do
     it { should_not_run_hydrator }
   end
 
-  context 'user is not a teacher' do
+  context 'user exists' do
     let(:user_id) { create(:student).id }
 
     it { should_not_run_hydrator }
