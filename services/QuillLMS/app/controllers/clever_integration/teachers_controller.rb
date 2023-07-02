@@ -2,17 +2,19 @@
 
 module CleverIntegration
   class TeachersController < ApplicationController
+    before_action :authorize_owner!
+
     def import_classrooms
-      run_classroom_and_student_importer
+      run_student_importer(imported_classroom_ids)
       delete_teacher_classrooms_cache
       hydrate_teacher_classrooms_cache
 
-      render json: { user_id: current_user.id }
+      render json: { classrooms: current_user.clever_classrooms }.to_json
     end
 
     def import_students
       delete_teacher_classrooms_cache
-      run_student_importer
+      run_student_importer(selected_classroom_ids)
 
       render json: { user_id: current_user.id }
     end
@@ -31,12 +33,18 @@ module CleverIntegration
       end
     end
 
+    private def authorize_owner!
+      return unless params[:classroom_id]
+
+      classroom_teacher!(params[:classroom_id])
+    end
+
     private def classrooms_data
       TeacherClassroomsData.new(current_user, serialized_classrooms_data)
     end
 
     private def delete_teacher_classrooms_cache
-      CleverIntegration::TeacherClassroomsCache.delete(current_user.id)
+      TeacherClassroomsCache.delete(current_user.id)
     end
 
     private def existing_clever_ids
@@ -47,20 +55,16 @@ module CleverIntegration
       HydrateTeacherClassroomsCacheWorker.perform_async(current_user.id)
     end
 
-    private def imported_classrooms
-      selected_classrooms_data.map { |data| ClassroomImporter.run(data) }
+    private def imported_classroom_ids
+      selected_classrooms_data.map { |data| ClassroomImporter.run(data) }.map(&:id)
     end
 
-    private def run_classroom_and_student_importer
-      ImportClassroomStudentsWorker.perform_async(current_user.id, imported_classrooms.map(&:id))
-    end
-
-    private def run_student_importer
-      ImportClassroomStudentsWorker.perform_async(current_user.id, selected_classroom_ids)
+    private def run_student_importer(classroom_ids)
+      ImportClassroomStudentsWorker.perform_async(current_user.id, classroom_ids)
     end
 
     private def selected_classroom_ids
-      ::Classroom.where(id: params[:selected_classroom_ids]).ids
+      ::Classroom.where(id: params[:classroom_id] || params[:selected_classroom_ids]).ids
     end
 
     private def selected_classrooms_data
@@ -68,7 +72,7 @@ module CleverIntegration
     end
 
     private def serialized_classrooms_data
-      CleverIntegration::TeacherClassroomsCache.read(current_user.id)
+      TeacherClassroomsCache.read(current_user.id)
     end
 
     private def serialized_selected_classrooms_data
