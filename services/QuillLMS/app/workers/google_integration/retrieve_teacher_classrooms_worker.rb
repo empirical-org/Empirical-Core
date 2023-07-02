@@ -8,7 +8,7 @@ module GoogleIntegration
     def perform(teacher_id)
       return unless google_id?(teacher_id)
 
-      TeacherClassroomsRetriever.run(teacher_id)
+      TeacherClassroomsCacheHydrator.run(teacher_id)
     end
 
     private def google_id?(teacher_id)

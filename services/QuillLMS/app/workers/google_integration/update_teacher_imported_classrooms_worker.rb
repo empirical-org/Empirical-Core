@@ -8,7 +8,7 @@ module GoogleIntegration
     def perform(user_id)
       return unless google_authorized?(user_id)
 
-      TeacherClassroomsRetriever.run(user_id)
+      TeacherClassroomsCacheHydrator.run(user_id)
       TeacherImportedClassroomsUpdater.run(user_id)
     end
 

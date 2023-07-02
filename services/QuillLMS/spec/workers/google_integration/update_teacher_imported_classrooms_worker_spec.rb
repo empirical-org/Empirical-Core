@@ -35,13 +35,13 @@ describe GoogleIntegration::UpdateTeacherImportedClassroomsWorker do
   end
 
   def should_not_run_service_objects
-    expect(GoogleIntegration::TeacherClassroomsRetriever).to_not receive(:run)
+    expect(GoogleIntegration::TeacherClassroomsCacheHydrator).to_not receive(:run)
     expect(GoogleIntegration::TeacherImportedClassroomsUpdater).to_not receive(:run)
     subject
   end
 
   def should_run_service_objects
-    expect(GoogleIntegration::TeacherClassroomsRetriever).to receive(:run).with(user_id)
+    expect(GoogleIntegration::TeacherClassroomsHydrator).to receive(:run).with(user_id)
     expect(GoogleIntegration::TeacherImportedClassroomsUpdater).to receive(:run).with(user_id)
     subject
   end
