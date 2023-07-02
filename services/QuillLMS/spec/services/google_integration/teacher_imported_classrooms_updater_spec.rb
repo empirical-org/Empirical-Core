@@ -3,8 +3,10 @@
 require 'rails_helper'
 
 RSpec.describe GoogleIntegration::TeacherImportedClassroomsUpdater do
-  let!(:imported_classroom) { create(:classroom, :from_google) }
-  let(:teacher_id) { imported_classroom.owner.id }
+  subject { described_class.run(user) }
+
+  let(:imported_classroom) { create(:classroom, :from_google) }
+  let(:user) { imported_classroom.owner }
 
   let(:new_google_classroom_id) { 345 }
 
@@ -19,10 +21,9 @@ RSpec.describe GoogleIntegration::TeacherImportedClassroomsUpdater do
     }.to_json
   end
 
-  subject { described_class.run(teacher_id) }
 
   it 'updates only previously imported classrooms that have google_classroom_id' do
-    expect(GoogleIntegration::TeacherClassroomsCache).to receive(:read).with(teacher_id).and_return(data)
+    expect(GoogleIntegration::TeacherClassroomsCache).to receive(:read).with(user.id).and_return(data)
 
     subject
 

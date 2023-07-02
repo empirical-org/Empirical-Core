@@ -2,10 +2,10 @@
 
 module GoogleIntegration
   class TeacherImportedClassroomsUpdater < ApplicationService
-    attr_reader :teacher_id
+    attr_reader :user
 
-    def initialize(teacher_id)
-      @teacher_id = teacher_id
+    def initialize(user)
+      @user = user
     end
 
     def run
@@ -17,7 +17,7 @@ module GoogleIntegration
     end
 
     private def classrooms_data
-      @classrooms_data ||= TeacherClassroomsData.new(teacher, serialized_classrooms_data)
+      @classrooms_data ||= TeacherClassroomsData.new(user, serialized_classrooms_data)
     end
 
     private def google_classroom_ids
@@ -25,19 +25,15 @@ module GoogleIntegration
     end
 
     private def imported_classrooms
-      teacher.google_classrooms.where(google_classroom_id: google_classroom_ids, visible: true)
+      user.google_classrooms.where(google_classroom_id: google_classroom_ids, visible: true)
     end
 
     private def serialized_classrooms_data
-      GoogleIntegration::TeacherClassroomsCache.read(teacher_id)
+      GoogleIntegration::TeacherClassroomsCache.read(user.id)
     end
 
     private def update_classrooms
       imported_classrooms.each { |classroom| ClassroomUpdater.run(classroom, classroom_data(classroom)) }
-    end
-
-    private def teacher
-      ::User.find(teacher_id)
     end
   end
 end
