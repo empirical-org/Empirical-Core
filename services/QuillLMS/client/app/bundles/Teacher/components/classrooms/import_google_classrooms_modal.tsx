@@ -130,8 +130,8 @@ export default class ImportGoogleClassroomsModal extends React.Component<ImportG
     requestPost('/teachers/classrooms/update_google_classrooms', { selected_classrooms: selectedClassrooms, }, (body) => {
       const newClassrooms = body.classrooms.filter(classroom => selectedClassrooms.find(sc => sc.id === classroom.google_classroom_id))
       const selectedClassroomIds = newClassrooms.map(classroom => classroom.id)
-      requestPut('/teachers/classrooms/import_google_students', { selected_classroom_ids: selectedClassroomIds }, (body) => {
-        this.initializePusherForGoogleStudentImport(body.id)
+      requestPut('/google_integration/teachers/import_students', { selected_classroom_ids: selectedClassroomIds }, (body) => {
+        this.initializePusherForGoogleStudentImport(body.user_id)
       })
     })
   }

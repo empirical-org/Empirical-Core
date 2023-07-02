@@ -2,10 +2,12 @@
 
 module GoogleIntegration
   class TeachersController < ApplicationController
+    before_action :authorize_owner!
+
     def import_students
       delete_teacher_classrooms_cache
       run_student_importer
-      render json: { id: current_user.id }
+      render json: { user_id: current_user.id }
     end
 
     def retrieve_classrooms
@@ -17,6 +19,12 @@ module GoogleIntegration
         hydrate_teacher_classrooms_cache
         render json: { user_id: current_user.id, quill_retrieval_processing: true }
       end
+    end
+
+    private def authorize_owner!
+      return unless params[:classroom_id]
+
+      classroom_teacher!(params[:classroom_id])
     end
 
     private def delete_teacher_classrooms_cache
@@ -32,7 +40,7 @@ module GoogleIntegration
     end
 
     private def selected_classroom_ids
-      Classroom.where(id: params[:classroom_id] || params[:selected_classroom_ids]).ids
+      ::Classroom.where(id: params[:classroom_id] || params[:selected_classroom_ids]).ids
     end
 
     private def serialized_classrooms_data
