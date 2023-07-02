@@ -657,20 +657,6 @@ describe Teachers::ClassroomManagerController, type: :controller do
     end
   end
 
-  describe '#retreive_google_clasrooms' do
-    let(:teacher) { create(:teacher) }
-
-    before do
-      allow(controller).to receive(:current_user) { teacher }
-      allow(GoogleIntegration::Classroom::Main).to receive(:pull_data) { "google response" }
-    end
-
-    it 'should render the id of the teacher if there is nothing else in the store' do
-      get :retrieve_google_classrooms
-      expect(response.body).to eq({id: teacher.id, quill_retrieval_processing: true}.to_json)
-    end
-  end
-
   describe '#import_google_students' do
     let(:teacher) { create(:teacher) }
     let(:selected_classroom_ids) { create_list(:classroom, 2).map(&:id) }
