@@ -75,7 +75,7 @@ RSpec.describe CleverIntegration::TeachersController do
 
         it  do
           subject
-          expect(response_body).to eq({ classrooms_data: data, existing_clever_ids: [] })
+          expect(response_body).to eq data
         end
       end
     end

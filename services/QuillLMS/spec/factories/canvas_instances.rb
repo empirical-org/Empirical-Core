@@ -15,7 +15,7 @@
 #
 FactoryBot.define do
   factory :canvas_instance do
-    url { "https://#{Faker::Internet.domain_word}.instructure.com" }
+    url { "https://#{SecureRandom.hex}}.instructure.com" }
 
     trait :with_canvas_config do
       after(:create) { |canvas_instance| create(:canvas_config, canvas_instance: canvas_instance) }

@@ -11,7 +11,7 @@ RSpec.describe CleverIntegration::TeacherImportedClassroomsUpdater do
   subject { described_class.run(user) }
 
   before do
-    allow(CleverIntegration::TeacherClassroomsCache).to receive(:read).with(user).and_return(data)
+    allow(CleverIntegration::TeacherClassroomsCache).to receive(:read).with(user.id).and_return(data)
     allow(CleverIntegration::ImportClassroomStudentsWorker).to receive(:perform_async).with(user.id, classroom_ids)
   end
 
@@ -28,9 +28,9 @@ RSpec.describe CleverIntegration::TeacherImportedClassroomsUpdater do
     let(:classrooms) { [{ clever_id: classroom.clever_id, name: updated_name}] }
     let(:classroom_ids) { [classroom.id] }
 
-    before { create(:classrooms_teacher, user: teacher, classroom: classroom, role: coteacher) }
+    before { create(:classrooms_teacher, user: user, classroom: classroom, role: coteacher) }
 
-    it { expect { subject }.not_to change(teacher.classrooms_teachers, :count) }
+    it { expect { subject }.not_to change(user.classrooms_teachers, :count) }
     it { should_update_the_classroom_synced_name }
   end
 
@@ -40,9 +40,9 @@ RSpec.describe CleverIntegration::TeacherImportedClassroomsUpdater do
     let(:classrooms) { [{ clever_id: classroom.clever_id, name: updated_name}] }
     let(:classroom_ids) { [classroom.id] }
 
-    before { create(:classrooms_teacher, user: teacher, classroom: classroom, role: owner) }
+    before { create(:classrooms_teacher, user: user, classroom: classroom, role: owner) }
 
-    it { expect { subject }.not_to change(teacher.classrooms_teachers, :count) }
+    it { expect { subject }.not_to change(user.classrooms_teachers, :count) }
     it { should_update_the_classroom_synced_name }
   end
 
@@ -52,7 +52,7 @@ RSpec.describe CleverIntegration::TeacherImportedClassroomsUpdater do
     let(:classrooms) { [{ clever_id: classroom.clever_id, name: updated_name}] }
     let(:classroom_ids) { [classroom.id] }
 
-    it { expect { subject }.to change(teacher.classrooms_teachers, :count).by(1) }
+    it { expect { subject }.to change(user.classrooms_teachers, :count).by(1) }
     it { should_update_the_classroom_synced_name }
 
     context 'the classroom has a corresponding ClassroomsTeacher object with coteacher role' do
@@ -60,7 +60,7 @@ RSpec.describe CleverIntegration::TeacherImportedClassroomsUpdater do
 
       it 'assigns owner role to the teacher' do
         subject
-        expect(teacher.classrooms_teachers.find_by(classroom: classroom).role).to eq owner
+        expect(user.classrooms_teachers.find_by(classroom: classroom).role).to eq owner
       end
     end
 
@@ -69,7 +69,7 @@ RSpec.describe CleverIntegration::TeacherImportedClassroomsUpdater do
 
       it 'assigns coteacher role to the teacher' do
         subject
-        expect(teacher.classrooms_teachers.find_by(classroom: classroom).role).to eq coteacher
+        expect(user.classrooms_teachers.find_by(classroom: classroom).role).to eq coteacher
       end
     end
   end
