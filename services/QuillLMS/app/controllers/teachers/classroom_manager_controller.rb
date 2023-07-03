@@ -23,6 +23,7 @@ class Teachers::ClassroomManagerController < ApplicationController
   def lesson_planner
     set_classroom_variables
     @unassign_warning_hidden = UserMilestone.exists?(milestone_id: UNASSIGN_WARNING_MILESTONE&.id, user_id: current_user&.id)
+    @google_link = Auth::Google::REAUTHORIZATION_PATH
   end
 
   def assign
