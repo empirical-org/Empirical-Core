@@ -69,7 +69,7 @@ RSpec.describe GoogleIntegration::TeachersController do
 
         expect(GoogleIntegration::ImportClassroomStudentsWorker)
           .to receive(:perform_async)
-          .with(teacher.id, selected_classroom_ids)
+          .with(teacher.id, match_array(selected_classroom_ids))
 
         subject
       end

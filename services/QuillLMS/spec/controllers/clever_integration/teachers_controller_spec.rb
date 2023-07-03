@@ -31,20 +31,43 @@ RSpec.describe CleverIntegration::TeachersController do
     subject { put :import_students, params: params, as: :json }
 
     let(:classroom) { create(:classroom, :from_clever, :with_no_teacher) }
-    let(:selected_classroom_ids) { [classroom.id] }
-    let(:params) { { selected_classroom_ids: selected_classroom_ids} }
 
     before { create(:classrooms_teacher, user: teacher, classroom: classroom) }
 
-    it 'should kick off background job that imports students' do
-      expect(CleverIntegration::TeacherClassroomsCache).to receive(:delete).with(teacher.id)
-      expect(CleverIntegration::ImportClassroomStudentsWorker)
-        .to receive(:perform_async)
-        .with(teacher.id, selected_classroom_ids)
+    context 'import clever classroom student flow' do
+      let(:params) { { classroom_id: classroom.id } }
 
-      subject
+      it 'should kick off background job that imports students' do
+        expect(CleverIntegration::TeacherClassroomsCache)
+          .to receive(:delete)
+          .with(teacher.id)
+
+        expect(CleverIntegration::ImportClassroomStudentsWorker)
+          .to receive(:perform_async)
+          .with(teacher.id, [classroom.id])
+
+        subject
+      end
+    end
+
+    context 'import classes flow' do
+      let(:selected_classroom_ids) { create_list(:classroom, 2).map(&:id) }
+      let(:params) { { selected_classroom_ids: selected_classroom_ids} }
+
+      it 'should kick off background job that imports students' do
+        expect(CleverIntegration::TeacherClassroomsCache)
+          .to receive(:delete)
+          .with(teacher.id)
+
+        expect(CleverIntegration::ImportClassroomStudentsWorker)
+          .to receive(:perform_async)
+          .with(teacher.id, match_array(selected_classroom_ids))
+
+        subject
+      end
     end
   end
+
 
   describe '#retrieve_classrooms' do
     subject { get :retrieve_classrooms, as: :json }
