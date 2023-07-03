@@ -23,6 +23,7 @@ class Teachers::ClassroomsController < ApplicationController
     @coteacher_invitations = format_coteacher_invitations_for_index
     @classrooms = format_classrooms_for_index
     @clever_link = clever_link
+    @google_link = Auth::Google::REAUTHORIZATION_PATH
 
     respond_to do |format|
       format.html
