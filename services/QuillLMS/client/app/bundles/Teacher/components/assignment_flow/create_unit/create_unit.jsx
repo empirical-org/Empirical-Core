@@ -384,7 +384,7 @@ export default class CreateUnit extends React.Component {
 
   stage2SpecificComponents = () => {
     const { model, } = this.state
-    const { cleverLink, user, showGradeLevelWarning, } = this.props
+    const { cleverLink, googleLink, user, showGradeLevelWarning, } = this.props
 
     const restrictedActivity = this.restrictedActivityBeingAssigned()
 
@@ -400,6 +400,7 @@ export default class CreateUnit extends React.Component {
         errorMessage={this.determineStage2ErrorMessage()}
         fetchClassrooms={this.fetchClassrooms}
         finish={this.finish}
+        googleLink={googleLink}
         isFromDiagnosticPath={!!parsedQueryParams().diagnostic_unit_template_id}
         lockedClassroomIds={this.lockedClassroomIds()}
         notYetCompletedPreTestStudentNames={this.notYetCompletedPreTestStudentNames()}
