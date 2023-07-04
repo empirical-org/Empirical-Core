@@ -1,0 +1,25 @@
+.email-body {
+  margin: 0px;
+}
+
+.header {
+  background-color: #06806b;
+  padding-top: 35px;
+  padding-bottom: 35px;
+  margin: 0 auto;
+  text-align: center;
+}
+
+.content-section {
+  width: 60%;
+  margin: 0 auto;
+}
+
+.footer {
+  text-align: center;
+}
+
+hr {
+  width: 60%;
+  margin: 0 auto;
+}

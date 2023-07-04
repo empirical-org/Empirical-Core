@@ -1,7 +1,8 @@
 <h3>Student completed diagnostic</h3>
-<p><b><a href="https://www.quill.org/teachers/progress_reports/diagnostic_reports/?utm_source=notifications&utm_medium=email&utm_campaign=roundup#/diagnostics">View results and recommendations</a></b></p>
 
 <% notifications.first(TeacherNotifications::RollupMailer::TRUNCATE_STUDENT_NAMES_AFTER).each do |notification| %>
   <p>- <%= notification.student_name %>: <%= notification.diagnostic_name %></p>
 <% end %>
 <%= render 'truncate_student_names', notifications: notifications %>
+
+<p><b><a href="https://www.quill.org/teachers/progress_reports/diagnostic_reports/?utm_source=notifications&utm_medium=email&utm_campaign=roundup#/diagnostics">View results and recommendations</a></b></p>

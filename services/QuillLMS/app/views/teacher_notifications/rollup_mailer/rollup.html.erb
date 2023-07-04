@@ -1,16 +1,36 @@
-<p>Hi <%= @user.first_name %>,</p>
-
-<p>Here’s what happened in the last <%= @frequency %> on Quill:</p>
-
-<% @teacher_notifications.each do |classroom_name, notifications_by_type| %>
-  <h2><%= classroom_name %></h2>
-  <% TeacherNotifications::RollupMailer::NOTIFICATION_TYPE_SORT_ORDER.map(&:to_s).each do |notification_type| %>
-    <% next unless notifications_by_type[notification_type] %>
-    <%= render TeacherNotifications::RollupMailer::NOTIFICATION_TYPE_PARTIAL_LOOKUP[notification_type],
-        notifications: notifications_by_type[notification_type] %>
-  <% end %>
-<% end %>
-<hr>
-<p><a href="https://www.quill.org/teachers/my_account">Manage email preferences</a></p>
-<p>Quill.org</p>
-<p>41 E 11th St, New York, NY 10003, USA</p>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <%= stylesheet_link_tag 'rollup_email' %>
+  </head>
+  <body class="email-body">
+    <div class='header'>
+      <div class='main-width'>
+        <img src="/images/quill_header_logo.svg" alt="Quill logo" />
+      </div>
+    </div>
+    <div class='content-section top-content'>
+      <h2>Hi <%= @user.first_name %>,</h2>
+      <p>Here’s what happened in the last <%= @frequency %> on Quill:</p>
+    </div>
+    <hr>
+    <div class='content-section'>
+      <% @teacher_notifications.each do |classroom_name, notifications_by_type| %>
+      <h2><%= classroom_name %></h2>
+      <% TeacherNotifications::RollupMailer::NOTIFICATION_TYPE_SORT_ORDER.map(&:to_s).each do |notification_type| %>
+        <% next unless notifications_by_type[notification_type] %>
+        <%= render TeacherNotifications::RollupMailer::NOTIFICATION_TYPE_PARTIAL_LOOKUP[notification_type],
+          notifications: notifications_by_type[notification_type] %>
+        <% end %>
+      <% end %>
+    </div>
+    <hr>
+    <div class='content-section footer'>
+      <strong>Quill.org</strong>
+      <p>41 E 11th St, New York, NY 10003, USA</p>
+      <p><a href="https://www.quill.org/teachers/my_account">Manage email preferences</a></p>
+    </div>
+  </body>
+</html>
