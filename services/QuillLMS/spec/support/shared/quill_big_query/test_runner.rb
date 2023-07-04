@@ -9,6 +9,7 @@ module QuillBigQuery
     end
 
     def execute(query)
+      binding.pry
       QuillBigQuery::Runner.execute(translate_to_big_query_with_cte(query))
     end
 
