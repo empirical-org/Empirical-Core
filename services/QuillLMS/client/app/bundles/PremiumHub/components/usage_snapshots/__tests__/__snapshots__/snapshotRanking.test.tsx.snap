@@ -15,6 +15,13 @@ exports[`SnapshotRanking component when it is coming soon should match snapshot 
   label="Sentences written"
   queryKey="sentences-written"
   searchCount={1}
+  selectedClassroomIds={
+    Array [
+      170171,
+      1203848,
+      1203849,
+    ]
+  }
   selectedGrades={
     Array [
       "Kindergarten",
@@ -37,6 +44,13 @@ exports[`SnapshotRanking component when it is coming soon should match snapshot 
   selectedSchoolIds={
     Array [
       58452,
+    ]
+  }
+  selectedTeacherIds={
+    Array [
+      1500140,
+      1500832,
+      3570928,
     ]
   }
   selectedTimeframe="last-30-days"
@@ -183,6 +197,13 @@ exports[`SnapshotRanking component when there is data  should match snapshot 1`]
   }
   queryKey="sentences-written"
   searchCount={1}
+  selectedClassroomIds={
+    Array [
+      170171,
+      1203848,
+      1203849,
+    ]
+  }
   selectedGrades={
     Array [
       "Kindergarten",
@@ -205,6 +226,13 @@ exports[`SnapshotRanking component when there is data  should match snapshot 1`]
   selectedSchoolIds={
     Array [
       58452,
+    ]
+  }
+  selectedTeacherIds={
+    Array [
+      1500140,
+      1500832,
+      3570928,
     ]
   }
   selectedTimeframe="last-30-days"
@@ -358,6 +386,13 @@ exports[`SnapshotRanking component when there is no data  should match snapshot 
   label="Sentences written"
   queryKey="sentences-written"
   searchCount={1}
+  selectedClassroomIds={
+    Array [
+      170171,
+      1203848,
+      1203849,
+    ]
+  }
   selectedGrades={
     Array [
       "Kindergarten",
@@ -380,6 +415,13 @@ exports[`SnapshotRanking component when there is no data  should match snapshot 
   selectedSchoolIds={
     Array [
       58452,
+    ]
+  }
+  selectedTeacherIds={
+    Array [
+      1500140,
+      1500832,
+      3570928,
     ]
   }
   selectedTimeframe="last-30-days"

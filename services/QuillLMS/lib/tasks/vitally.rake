@@ -30,7 +30,7 @@ namespace :vitally do
           row['accountExternalId2'],
           row['accountExternalId3'],
           row['accountExternalId4']
-        ].reject { |id| id.nil? || id.empty? }.map(&:to_i)
+        ].reject { |id| id.nil? || id.empty? }
 
         ids_to_unlink = vitally_school_ids.reject { |id| id == quill_school_id }
 
@@ -42,7 +42,7 @@ namespace :vitally do
             messageId: SecureRandom.uuid
           }
         end
-      end.flatten
+      end.flatten.compact
       batch_payload.each do |api_call_payload|
         puts "Unlinking user #{api_call_payload[:userId]} from account #{api_call_payload[:accountId]}"
       end

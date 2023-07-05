@@ -21,6 +21,6 @@
 FactoryBot.define do
   factory :canvas_instance_auth_credential do
     canvas_instance
-    association :auth_credential, factory: :canvas_auth_credential
+    association :auth_credential, factory: :canvas_auth_credential_without_canvas_instance_auth_credential
   end
 end

@@ -12,13 +12,22 @@ module Snapshots
       'active-teachers' => Snapshots::ActiveTeachersQuery,
       'activities-assigned' => Snapshots::ActivitiesAssignedQuery,
       'activities-completed' => Snapshots::ActivitiesCompletedQuery,
+      'activity-packs-assigned' => Snapshots::ActivityPacksAssignedQuery,
+      'activity-packs-completed' => Snapshots::ActivityPacksCompletedQuery,
       'average-activities-completed-per-student' => Snapshots::AverageActivitiesCompletedPerStudentQuery,
+      'baseline-diagnostics-assigned' => Snapshots::BaselineDiagnosticsAssignedQuery,
+      'baseline-diagnostics-completed' => Snapshots::BaselineDiagnosticsCompletedQuery,
+      'classrooms-created' => Snapshots::ClassroomsCreatedQuery,
+      'growth-diagnostics-assigned' => Snapshots::GrowthDiagnosticsAssignedQuery,
+      'growth-diagnostics-completed' => Snapshots::GrowthDiagnosticsCompletedQuery,
       'sentences-written' => Snapshots::SentencesWrittenQuery,
-      'student-learning-hours' => Snapshots::StudentLearningHoursQuery
+      'student-accounts-created' => Snapshots::StudentAccountsCreatedQuery,
+      'student-learning-hours' => Snapshots::StudentLearningHoursQuery,
+      'teacher-accounts-created' => Snapshots::TeacherAccountsCreatedQuery
     }
 
-    def perform(cache_key, query, user_id, timeframe, school_ids, grades)
-      payload = generate_payload(query, timeframe, school_ids, grades)
+    def perform(cache_key, query, user_id, timeframe, school_ids, filters)
+      payload = generate_payload(query, timeframe, school_ids, filters)
 
       Rails.cache.write(cache_key, payload, expires_in: cache_expiry)
 
@@ -26,9 +35,8 @@ module Snapshots
         {
           query: query,
           timeframe: timeframe['name'],
-          school_ids: school_ids,
-          grades: grades
-        }
+          school_ids: school_ids
+        }.merge(filters)
       )
     end
 
@@ -40,21 +48,24 @@ module Snapshots
       now.end_of_day.to_i - now.to_i
     end
 
-    private def generate_payload(query, timeframe, school_ids, grades)
+    private def generate_payload(query, timeframe, school_ids, filters)
       previous_timeframe_start = timeframe['previous_start']
       current_timeframe_start = timeframe['current_start']
       timeframe_end = timeframe['current_end']
+      filters_symbolized = filters.symbolize_keys
 
-      current_snapshot = QUERIES[query].run(current_timeframe_start,
-        timeframe_end,
-        school_ids,
-        grades)
+      current_snapshot = QUERIES[query].run(**{
+        timeframe_start: current_timeframe_start,
+        timeframe_end: timeframe_end,
+        school_ids: school_ids
+      }.merge(filters_symbolized))
 
       if previous_timeframe_start
-        previous_snapshot = QUERIES[query].run(previous_timeframe_start,
-          current_timeframe_start,
-          school_ids,
-          grades)
+        previous_snapshot = QUERIES[query].run(**{
+          timeframe_start: previous_timeframe_start,
+          timeframe_end: current_timeframe_start,
+          school_ids: school_ids
+        }.merge(filters_symbolized))
       else
         previous_snapshot = nil
       end

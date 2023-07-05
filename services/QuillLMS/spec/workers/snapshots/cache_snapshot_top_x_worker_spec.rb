@@ -12,7 +12,25 @@ module Snapshots
     let(:timeframe_name) { 'last-30-days' }
     let(:school_ids) { [1,2,3] }
     let(:grades) { ['Kindergarten',1,2,3,4] }
+    let(:teacher_ids) { [3,4,5] }
+    let(:classroom_ids) { [6,7] }
+    let(:filters) do
+      {
+        grades: grades,
+        teacher_ids: teacher_ids,
+        classroom_ids: classroom_ids
+      }
+    end
+    let(:filters_with_string_keys) do
+      {
+        "grades" => grades,
+        "teacher_ids" => teacher_ids,
+        "classroom_ids" => classroom_ids
+      }
+    end
     let(:query_double) { double(run: {}) }
+
+    it { expect { described_class::QUERIES.values }.not_to raise_error }
 
     context '#perform' do
       let(:timeframe_end) { DateTime.now }
@@ -34,11 +52,33 @@ module Snapshots
       end
 
       it 'should execute a query for the timeframe' do
-        expect(query_double).to receive(:run).with(current_timeframe_start, timeframe_end, school_ids, grades)
+        expect(query_double).to receive(:run).with(
+          timeframe_start: current_timeframe_start,
+          timeframe_end: timeframe_end,
+          school_ids: school_ids,
+          grades: grades,
+          teacher_ids: teacher_ids,
+          classroom_ids: classroom_ids)
         expect(Rails.cache).to receive(:write)
         expect(PusherTrigger).to receive(:run)
 
-        subject.perform(cache_key, query, user_id, timeframe, school_ids, grades)
+        subject.perform(cache_key, query, user_id, timeframe, school_ids, filters)
+      end
+
+      context "params with string keys" do
+        it 'should execute a query for the timeframe' do
+          expect(query_double).to receive(:run).with(
+            timeframe_start: current_timeframe_start,
+            timeframe_end: timeframe_end,
+            school_ids: school_ids,
+            grades: grades,
+            teacher_ids: teacher_ids,
+            classroom_ids: classroom_ids)
+          expect(Rails.cache).to receive(:write)
+          expect(PusherTrigger).to receive(:run)
+
+          subject.perform(cache_key, query, user_id, timeframe, school_ids, filters_with_string_keys)
+        end
       end
 
       it 'should write a payload to cache' do
@@ -51,7 +91,7 @@ module Snapshots
         expect(Rails.cache).to receive(:write).with(cache_key, payload, expires_in: cache_ttl)
         expect(PusherTrigger).to receive(:run)
 
-        subject.perform(cache_key, query, user_id, timeframe, school_ids, grades)
+        subject.perform(cache_key, query, user_id, timeframe, school_ids, filters)
       end
 
       it 'should send a Pusher notification' do
@@ -59,11 +99,10 @@ module Snapshots
         expect(PusherTrigger).to receive(:run).with(user_id, described_class::PUSHER_EVENT, {
           query: query,
           timeframe: timeframe_name,
-          school_ids: school_ids,
-          grades: grades
-        })
+          school_ids: school_ids
+        }.merge(filters))
 
-        subject.perform(cache_key, query, user_id, timeframe, school_ids, grades)
+        subject.perform(cache_key, query, user_id, timeframe, school_ids, filters)
       end
     end
   end

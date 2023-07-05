@@ -17,8 +17,8 @@ class ProviderClassroomsWithUnsyncedStudentsFinder < ApplicationService
 
   private def provider_classrooms
     classrooms_i_own
-      .select(&:provider_classroom?)
-      .map { |classroom| ProviderClassroom.new(classroom) }
+      .select(&:classroom_provider?)
+      .map { |classroom| ProviderClassroomDelegator.new(classroom) }
   end
 
   private def provider_classrooms_with_unsynced_students

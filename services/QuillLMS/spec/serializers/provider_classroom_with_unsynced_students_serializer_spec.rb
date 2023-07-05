@@ -3,28 +3,28 @@
 require 'rails_helper'
 
 describe ProviderClassroomWithUnsyncedStudentsSerializer, type: :serializer do
+  subject { described_class.new(provider_classroom) }
+
   let(:classroom) { create(:classroom, :from_google, students: [student1, student2]) }
-  let(:provider_classroom) { ProviderClassroom.new(classroom) }
+  let(:provider_classroom) { ProviderClassroomDelegator.new(classroom) }
   let(:student1) { create(:student, :signed_up_with_google) }
   let(:student2) { create(:student, :signed_up_with_google) }
 
   let!(:synced_student) do
     create(:google_classroom_user,
       :active,
-      provider_classroom_id: classroom.google_classroom_id,
-      provider_user_id: student1.google_id
+      classroom_external_id: classroom.google_classroom_id,
+      user_external_id: student1.google_id
     )
   end
 
   let!(:unsynced_student) do
     create(:google_classroom_user,
       :deleted,
-      provider_classroom_id: classroom.google_classroom_id,
-      provider_user_id: student2.google_id
+      classroom_external_id: classroom.google_classroom_id,
+      user_external_id: student2.google_id
     )
   end
-
-  subject { described_class.new(provider_classroom) }
 
   let(:results) { subject.as_json }
 

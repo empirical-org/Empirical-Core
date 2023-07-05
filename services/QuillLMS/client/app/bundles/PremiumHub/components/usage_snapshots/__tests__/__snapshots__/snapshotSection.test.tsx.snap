@@ -26,7 +26,6 @@ exports[`SnapshotSection component when the section is Classrooms should match s
             "type": "count",
           },
           Object {
-            "comingSoon": true,
             "label": "Classrooms created",
             "queryKey": "classrooms-created",
             "singularLabel": "Classroom created",
@@ -61,6 +60,13 @@ exports[`SnapshotSection component when the section is Classrooms should match s
   }
   name="Classrooms"
   searchCount={1}
+  selectedClassroomIds={
+    Array [
+      170171,
+      1203848,
+      1203849,
+    ]
+  }
   selectedGrades={
     Array [
       "Kindergarten",
@@ -83,6 +89,13 @@ exports[`SnapshotSection component when the section is Classrooms should match s
   selectedSchoolIds={
     Array [
       58452,
+    ]
+  }
+  selectedTeacherIds={
+    Array [
+      1500140,
+      1500832,
+      3570928,
     ]
   }
   selectedTimeframe="last-30-days"
@@ -108,6 +121,13 @@ exports[`SnapshotSection component when the section is Classrooms should match s
           label="Active classrooms"
           queryKey="active-classrooms"
           searchCount={1}
+          selectedClassroomIds={
+            Array [
+              170171,
+              1203848,
+              1203849,
+            ]
+          }
           selectedGrades={
             Array [
               "Kindergarten",
@@ -130,6 +150,13 @@ exports[`SnapshotSection component when the section is Classrooms should match s
           selectedSchoolIds={
             Array [
               58452,
+            ]
+          }
+          selectedTeacherIds={
+            Array [
+              1500140,
+              1500832,
+              3570928,
             ]
           }
           selectedTimeframe="last-30-days"
@@ -172,6 +199,13 @@ exports[`SnapshotSection component when the section is Classrooms should match s
           label="Average active classrooms per teacher"
           queryKey="average-active-classrooms-per-teacher"
           searchCount={1}
+          selectedClassroomIds={
+            Array [
+              170171,
+              1203848,
+              1203849,
+            ]
+          }
           selectedGrades={
             Array [
               "Kindergarten",
@@ -194,6 +228,13 @@ exports[`SnapshotSection component when the section is Classrooms should match s
           selectedSchoolIds={
             Array [
               58452,
+            ]
+          }
+          selectedTeacherIds={
+            Array [
+              1500140,
+              1500832,
+              3570928,
             ]
           }
           selectedTimeframe="last-30-days"
@@ -228,13 +269,19 @@ exports[`SnapshotSection component when the section is Classrooms should match s
         </SnapshotCount>
         <SnapshotCount
           adminId={1}
-          comingSoon={true}
           customTimeframeEnd={null}
           customTimeframeStart={null}
           key="classrooms-created"
           label="Classrooms created"
           queryKey="classrooms-created"
           searchCount={1}
+          selectedClassroomIds={
+            Array [
+              170171,
+              1203848,
+              1203849,
+            ]
+          }
           selectedGrades={
             Array [
               "Kindergarten",
@@ -259,6 +306,13 @@ exports[`SnapshotSection component when the section is Classrooms should match s
               58452,
             ]
           }
+          selectedTeacherIds={
+            Array [
+              1500140,
+              1500832,
+              3570928,
+            ]
+          }
           selectedTimeframe="last-30-days"
           singularLabel="Classroom created"
           size="small"
@@ -270,9 +324,9 @@ exports[`SnapshotSection component when the section is Classrooms should match s
               className="count-and-label"
             >
               <span
-                className="coming-soon"
+                className="count"
               >
-                Coming soon
+                —
               </span>
               <span
                 className="snapshot-label"
@@ -299,6 +353,13 @@ exports[`SnapshotSection component when the section is Classrooms should match s
           label="Average active students per classroom"
           queryKey="average-active-students-per-classroom"
           searchCount={1}
+          selectedClassroomIds={
+            Array [
+              170171,
+              1203848,
+              1203849,
+            ]
+          }
           selectedGrades={
             Array [
               "Kindergarten",
@@ -321,6 +382,13 @@ exports[`SnapshotSection component when the section is Classrooms should match s
           selectedSchoolIds={
             Array [
               58452,
+            ]
+          }
+          selectedTeacherIds={
+            Array [
+              1500140,
+              1500832,
+              3570928,
             ]
           }
           selectedTimeframe="last-30-days"
@@ -373,6 +441,13 @@ exports[`SnapshotSection component when the section is Classrooms should match s
           label="Most active grades"
           queryKey="most-active-grades"
           searchCount={1}
+          selectedClassroomIds={
+            Array [
+              170171,
+              1203848,
+              1203849,
+            ]
+          }
           selectedGrades={
             Array [
               "Kindergarten",
@@ -395,6 +470,13 @@ exports[`SnapshotSection component when the section is Classrooms should match s
           selectedSchoolIds={
             Array [
               58452,
+            ]
+          }
+          selectedTeacherIds={
+            Array [
+              1500140,
+              1500832,
+              3570928,
             ]
           }
           selectedTimeframe="last-30-days"
@@ -517,6 +599,13 @@ exports[`SnapshotSection component when the section is Highlights should match s
   }
   name="Highlights"
   searchCount={1}
+  selectedClassroomIds={
+    Array [
+      170171,
+      1203848,
+      1203849,
+    ]
+  }
   selectedGrades={
     Array [
       "Kindergarten",
@@ -539,6 +628,13 @@ exports[`SnapshotSection component when the section is Highlights should match s
   selectedSchoolIds={
     Array [
       58452,
+    ]
+  }
+  selectedTeacherIds={
+    Array [
+      1500140,
+      1500832,
+      3570928,
     ]
   }
   selectedTimeframe="last-30-days"
@@ -564,6 +660,13 @@ exports[`SnapshotSection component when the section is Highlights should match s
           label="Sentences written"
           queryKey="sentences-written"
           searchCount={1}
+          selectedClassroomIds={
+            Array [
+              170171,
+              1203848,
+              1203849,
+            ]
+          }
           selectedGrades={
             Array [
               "Kindergarten",
@@ -586,6 +689,13 @@ exports[`SnapshotSection component when the section is Highlights should match s
           selectedSchoolIds={
             Array [
               58452,
+            ]
+          }
+          selectedTeacherIds={
+            Array [
+              1500140,
+              1500832,
+              3570928,
             ]
           }
           selectedTimeframe="last-30-days"
@@ -627,6 +737,13 @@ exports[`SnapshotSection component when the section is Highlights should match s
           label="Student learning hours"
           queryKey="student-learning-hours"
           searchCount={1}
+          selectedClassroomIds={
+            Array [
+              170171,
+              1203848,
+              1203849,
+            ]
+          }
           selectedGrades={
             Array [
               "Kindergarten",
@@ -649,6 +766,13 @@ exports[`SnapshotSection component when the section is Highlights should match s
           selectedSchoolIds={
             Array [
               58452,
+            ]
+          }
+          selectedTeacherIds={
+            Array [
+              1500140,
+              1500832,
+              3570928,
             ]
           }
           selectedTimeframe="last-30-days"
@@ -714,7 +838,6 @@ exports[`SnapshotSection component when the section is Practice should match sna
             "type": "count",
           },
           Object {
-            "comingSoon": true,
             "label": "Activity packs assigned",
             "queryKey": "activity-packs-assigned",
             "singularLabel": "Activity pack assigned",
@@ -722,7 +845,6 @@ exports[`SnapshotSection component when the section is Practice should match sna
             "type": "count",
           },
           Object {
-            "comingSoon": true,
             "label": "Activity packs completed",
             "queryKey": "activity-packs-completed",
             "singularLabel": "Activity pack completed",
@@ -758,7 +880,6 @@ exports[`SnapshotSection component when the section is Practice should match sna
         "className": "third-and-fourth-row",
         "items": Array [
           Object {
-            "comingSoon": true,
             "label": "Baseline diagnostics assigned",
             "queryKey": "baseline-diagnostics-assigned",
             "singularLabel": "Baseline diagnostic assigned",
@@ -766,7 +887,6 @@ exports[`SnapshotSection component when the section is Practice should match sna
             "type": "count",
           },
           Object {
-            "comingSoon": true,
             "label": "Baseline diagnostics completed",
             "queryKey": "baseline-diagnostics-completed",
             "singularLabel": "Baseline diagnostic completed",
@@ -774,7 +894,6 @@ exports[`SnapshotSection component when the section is Practice should match sna
             "type": "count",
           },
           Object {
-            "comingSoon": true,
             "label": "Growth diagnostics assigned",
             "queryKey": "growth-diagnostics-assigned",
             "singularLabel": "Growth diagnostic assigned",
@@ -782,7 +901,6 @@ exports[`SnapshotSection component when the section is Practice should match sna
             "type": "count",
           },
           Object {
-            "comingSoon": true,
             "label": "Growth diagnostics completed",
             "queryKey": "growth-diagnostics-completed",
             "singularLabel": "Growth diagnostic completed",
@@ -829,6 +947,13 @@ exports[`SnapshotSection component when the section is Practice should match sna
   }
   name="Practice"
   searchCount={1}
+  selectedClassroomIds={
+    Array [
+      170171,
+      1203848,
+      1203849,
+    ]
+  }
   selectedGrades={
     Array [
       "Kindergarten",
@@ -851,6 +976,13 @@ exports[`SnapshotSection component when the section is Practice should match sna
   selectedSchoolIds={
     Array [
       58452,
+    ]
+  }
+  selectedTeacherIds={
+    Array [
+      1500140,
+      1500832,
+      3570928,
     ]
   }
   selectedTimeframe="last-30-days"
@@ -876,6 +1008,13 @@ exports[`SnapshotSection component when the section is Practice should match sna
           label="Activities assigned"
           queryKey="activities-assigned"
           searchCount={1}
+          selectedClassroomIds={
+            Array [
+              170171,
+              1203848,
+              1203849,
+            ]
+          }
           selectedGrades={
             Array [
               "Kindergarten",
@@ -898,6 +1037,13 @@ exports[`SnapshotSection component when the section is Practice should match sna
           selectedSchoolIds={
             Array [
               58452,
+            ]
+          }
+          selectedTeacherIds={
+            Array [
+              1500140,
+              1500832,
+              3570928,
             ]
           }
           selectedTimeframe="last-30-days"
@@ -939,6 +1085,13 @@ exports[`SnapshotSection component when the section is Practice should match sna
           label="Activities completed"
           queryKey="activities-completed"
           searchCount={1}
+          selectedClassroomIds={
+            Array [
+              170171,
+              1203848,
+              1203849,
+            ]
+          }
           selectedGrades={
             Array [
               "Kindergarten",
@@ -961,6 +1114,13 @@ exports[`SnapshotSection component when the section is Practice should match sna
           selectedSchoolIds={
             Array [
               58452,
+            ]
+          }
+          selectedTeacherIds={
+            Array [
+              1500140,
+              1500832,
+              3570928,
             ]
           }
           selectedTimeframe="last-30-days"
@@ -996,13 +1156,19 @@ exports[`SnapshotSection component when the section is Practice should match sna
         </SnapshotCount>
         <SnapshotCount
           adminId={1}
-          comingSoon={true}
           customTimeframeEnd={null}
           customTimeframeStart={null}
           key="activity-packs-assigned"
           label="Activity packs assigned"
           queryKey="activity-packs-assigned"
           searchCount={1}
+          selectedClassroomIds={
+            Array [
+              170171,
+              1203848,
+              1203849,
+            ]
+          }
           selectedGrades={
             Array [
               "Kindergarten",
@@ -1027,6 +1193,13 @@ exports[`SnapshotSection component when the section is Practice should match sna
               58452,
             ]
           }
+          selectedTeacherIds={
+            Array [
+              1500140,
+              1500832,
+              3570928,
+            ]
+          }
           selectedTimeframe="last-30-days"
           singularLabel="Activity pack assigned"
           size="small"
@@ -1038,9 +1211,9 @@ exports[`SnapshotSection component when the section is Practice should match sna
               className="count-and-label"
             >
               <span
-                className="coming-soon"
+                className="count"
               >
-                Coming soon
+                —
               </span>
               <span
                 className="snapshot-label"
@@ -1060,13 +1233,19 @@ exports[`SnapshotSection component when the section is Practice should match sna
         </SnapshotCount>
         <SnapshotCount
           adminId={1}
-          comingSoon={true}
           customTimeframeEnd={null}
           customTimeframeStart={null}
           key="activity-packs-completed"
           label="Activity packs completed"
           queryKey="activity-packs-completed"
           searchCount={1}
+          selectedClassroomIds={
+            Array [
+              170171,
+              1203848,
+              1203849,
+            ]
+          }
           selectedGrades={
             Array [
               "Kindergarten",
@@ -1091,6 +1270,13 @@ exports[`SnapshotSection component when the section is Practice should match sna
               58452,
             ]
           }
+          selectedTeacherIds={
+            Array [
+              1500140,
+              1500832,
+              3570928,
+            ]
+          }
           selectedTimeframe="last-30-days"
           singularLabel="Activity pack completed"
           size="small"
@@ -1102,9 +1288,9 @@ exports[`SnapshotSection component when the section is Practice should match sna
               className="count-and-label"
             >
               <span
-                className="coming-soon"
+                className="count"
               >
-                Coming soon
+                —
               </span>
               <span
                 className="snapshot-label"
@@ -1141,6 +1327,13 @@ exports[`SnapshotSection component when the section is Practice should match sna
           label="Top concepts assigned"
           queryKey="top-concepts-assigned"
           searchCount={1}
+          selectedClassroomIds={
+            Array [
+              170171,
+              1203848,
+              1203849,
+            ]
+          }
           selectedGrades={
             Array [
               "Kindergarten",
@@ -1163,6 +1356,13 @@ exports[`SnapshotSection component when the section is Practice should match sna
           selectedSchoolIds={
             Array [
               58452,
+            ]
+          }
+          selectedTeacherIds={
+            Array [
+              1500140,
+              1500832,
+              3570928,
             ]
           }
           selectedTimeframe="last-30-days"
@@ -1259,6 +1459,13 @@ exports[`SnapshotSection component when the section is Practice should match sna
           label="Top concepts practiced"
           queryKey="top-concepts-practiced"
           searchCount={1}
+          selectedClassroomIds={
+            Array [
+              170171,
+              1203848,
+              1203849,
+            ]
+          }
           selectedGrades={
             Array [
               "Kindergarten",
@@ -1281,6 +1488,13 @@ exports[`SnapshotSection component when the section is Practice should match sna
           selectedSchoolIds={
             Array [
               58452,
+            ]
+          }
+          selectedTeacherIds={
+            Array [
+              1500140,
+              1500832,
+              3570928,
             ]
           }
           selectedTimeframe="last-30-days"
@@ -1370,13 +1584,19 @@ exports[`SnapshotSection component when the section is Practice should match sna
       >
         <SnapshotCount
           adminId={1}
-          comingSoon={true}
           customTimeframeEnd={null}
           customTimeframeStart={null}
           key="baseline-diagnostics-assigned"
           label="Baseline diagnostics assigned"
           queryKey="baseline-diagnostics-assigned"
           searchCount={1}
+          selectedClassroomIds={
+            Array [
+              170171,
+              1203848,
+              1203849,
+            ]
+          }
           selectedGrades={
             Array [
               "Kindergarten",
@@ -1401,6 +1621,13 @@ exports[`SnapshotSection component when the section is Practice should match sna
               58452,
             ]
           }
+          selectedTeacherIds={
+            Array [
+              1500140,
+              1500832,
+              3570928,
+            ]
+          }
           selectedTimeframe="last-30-days"
           singularLabel="Baseline diagnostic assigned"
           size="small"
@@ -1412,9 +1639,9 @@ exports[`SnapshotSection component when the section is Practice should match sna
               className="count-and-label"
             >
               <span
-                className="coming-soon"
+                className="count"
               >
-                Coming soon
+                —
               </span>
               <span
                 className="snapshot-label"
@@ -1434,13 +1661,19 @@ exports[`SnapshotSection component when the section is Practice should match sna
         </SnapshotCount>
         <SnapshotCount
           adminId={1}
-          comingSoon={true}
           customTimeframeEnd={null}
           customTimeframeStart={null}
           key="baseline-diagnostics-completed"
           label="Baseline diagnostics completed"
           queryKey="baseline-diagnostics-completed"
           searchCount={1}
+          selectedClassroomIds={
+            Array [
+              170171,
+              1203848,
+              1203849,
+            ]
+          }
           selectedGrades={
             Array [
               "Kindergarten",
@@ -1465,6 +1698,13 @@ exports[`SnapshotSection component when the section is Practice should match sna
               58452,
             ]
           }
+          selectedTeacherIds={
+            Array [
+              1500140,
+              1500832,
+              3570928,
+            ]
+          }
           selectedTimeframe="last-30-days"
           singularLabel="Baseline diagnostic completed"
           size="small"
@@ -1476,9 +1716,9 @@ exports[`SnapshotSection component when the section is Practice should match sna
               className="count-and-label"
             >
               <span
-                className="coming-soon"
+                className="count"
               >
-                Coming soon
+                —
               </span>
               <span
                 className="snapshot-label"
@@ -1498,13 +1738,19 @@ exports[`SnapshotSection component when the section is Practice should match sna
         </SnapshotCount>
         <SnapshotCount
           adminId={1}
-          comingSoon={true}
           customTimeframeEnd={null}
           customTimeframeStart={null}
           key="growth-diagnostics-assigned"
           label="Growth diagnostics assigned"
           queryKey="growth-diagnostics-assigned"
           searchCount={1}
+          selectedClassroomIds={
+            Array [
+              170171,
+              1203848,
+              1203849,
+            ]
+          }
           selectedGrades={
             Array [
               "Kindergarten",
@@ -1529,6 +1775,13 @@ exports[`SnapshotSection component when the section is Practice should match sna
               58452,
             ]
           }
+          selectedTeacherIds={
+            Array [
+              1500140,
+              1500832,
+              3570928,
+            ]
+          }
           selectedTimeframe="last-30-days"
           singularLabel="Growth diagnostic assigned"
           size="small"
@@ -1540,9 +1793,9 @@ exports[`SnapshotSection component when the section is Practice should match sna
               className="count-and-label"
             >
               <span
-                className="coming-soon"
+                className="count"
               >
-                Coming soon
+                —
               </span>
               <span
                 className="snapshot-label"
@@ -1562,13 +1815,19 @@ exports[`SnapshotSection component when the section is Practice should match sna
         </SnapshotCount>
         <SnapshotCount
           adminId={1}
-          comingSoon={true}
           customTimeframeEnd={null}
           customTimeframeStart={null}
           key="growth-diagnostics-completed"
           label="Growth diagnostics completed"
           queryKey="growth-diagnostics-completed"
           searchCount={1}
+          selectedClassroomIds={
+            Array [
+              170171,
+              1203848,
+              1203849,
+            ]
+          }
           selectedGrades={
             Array [
               "Kindergarten",
@@ -1593,6 +1852,13 @@ exports[`SnapshotSection component when the section is Practice should match sna
               58452,
             ]
           }
+          selectedTeacherIds={
+            Array [
+              1500140,
+              1500832,
+              3570928,
+            ]
+          }
           selectedTimeframe="last-30-days"
           singularLabel="Growth diagnostic completed"
           size="small"
@@ -1604,9 +1870,9 @@ exports[`SnapshotSection component when the section is Practice should match sna
               className="count-and-label"
             >
               <span
-                className="coming-soon"
+                className="count"
               >
-                Coming soon
+                —
               </span>
               <span
                 className="snapshot-label"
@@ -1632,6 +1898,13 @@ exports[`SnapshotSection component when the section is Practice should match sna
           label="Average activities completed per student"
           queryKey="average-activities-completed-per-student"
           searchCount={1}
+          selectedClassroomIds={
+            Array [
+              170171,
+              1203848,
+              1203849,
+            ]
+          }
           selectedGrades={
             Array [
               "Kindergarten",
@@ -1654,6 +1927,13 @@ exports[`SnapshotSection component when the section is Practice should match sna
           selectedSchoolIds={
             Array [
               58452,
+            ]
+          }
+          selectedTeacherIds={
+            Array [
+              1500140,
+              1500832,
+              3570928,
             ]
           }
           selectedTimeframe="last-30-days"
@@ -1730,6 +2010,13 @@ exports[`SnapshotSection component when the section is Practice should match sna
           label="Most assigned activities"
           queryKey="most-assigned-activities"
           searchCount={1}
+          selectedClassroomIds={
+            Array [
+              170171,
+              1203848,
+              1203849,
+            ]
+          }
           selectedGrades={
             Array [
               "Kindergarten",
@@ -1752,6 +2039,13 @@ exports[`SnapshotSection component when the section is Practice should match sna
           selectedSchoolIds={
             Array [
               58452,
+            ]
+          }
+          selectedTeacherIds={
+            Array [
+              1500140,
+              1500832,
+              3570928,
             ]
           }
           selectedTimeframe="last-30-days"
@@ -1852,6 +2146,13 @@ exports[`SnapshotSection component when the section is Practice should match sna
           label="Most completed activities"
           queryKey="most-completed-activities"
           searchCount={1}
+          selectedClassroomIds={
+            Array [
+              170171,
+              1203848,
+              1203849,
+            ]
+          }
           selectedGrades={
             Array [
               "Kindergarten",
@@ -1874,6 +2175,13 @@ exports[`SnapshotSection component when the section is Practice should match sna
           selectedSchoolIds={
             Array [
               58452,
+            ]
+          }
+          selectedTeacherIds={
+            Array [
+              1500140,
+              1500832,
+              3570928,
             ]
           }
           selectedTimeframe="last-30-days"
@@ -1991,6 +2299,13 @@ exports[`SnapshotSection component when the section is Schools should match snap
   }
   name="Schools"
   searchCount={1}
+  selectedClassroomIds={
+    Array [
+      170171,
+      1203848,
+      1203849,
+    ]
+  }
   selectedGrades={
     Array [
       "Kindergarten",
@@ -2013,6 +2328,13 @@ exports[`SnapshotSection component when the section is Schools should match snap
   selectedSchoolIds={
     Array [
       58452,
+    ]
+  }
+  selectedTeacherIds={
+    Array [
+      1500140,
+      1500832,
+      3570928,
     ]
   }
   selectedTimeframe="last-30-days"
@@ -2044,6 +2366,13 @@ exports[`SnapshotSection component when the section is Schools should match snap
           label="Most active schools"
           queryKey="most-active-schools"
           searchCount={1}
+          selectedClassroomIds={
+            Array [
+              170171,
+              1203848,
+              1203849,
+            ]
+          }
           selectedGrades={
             Array [
               "Kindergarten",
@@ -2066,6 +2395,13 @@ exports[`SnapshotSection component when the section is Schools should match snap
           selectedSchoolIds={
             Array [
               58452,
+            ]
+          }
+          selectedTeacherIds={
+            Array [
+              1500140,
+              1500832,
+              3570928,
             ]
           }
           selectedTimeframe="last-30-days"
@@ -2180,7 +2516,6 @@ exports[`SnapshotSection component when the section is Users should match snapsh
             "type": "count",
           },
           Object {
-            "comingSoon": true,
             "label": "Teacher accounts created",
             "queryKey": "teacher-accounts-created",
             "singularLabel": "Teacher account created",
@@ -2188,7 +2523,6 @@ exports[`SnapshotSection component when the section is Users should match snapsh
             "type": "count",
           },
           Object {
-            "comingSoon": true,
             "label": "Student accounts created",
             "queryKey": "student-accounts-created",
             "singularLabel": "Student account created",
@@ -2216,6 +2550,13 @@ exports[`SnapshotSection component when the section is Users should match snapsh
   }
   name="Users"
   searchCount={1}
+  selectedClassroomIds={
+    Array [
+      170171,
+      1203848,
+      1203849,
+    ]
+  }
   selectedGrades={
     Array [
       "Kindergarten",
@@ -2238,6 +2579,13 @@ exports[`SnapshotSection component when the section is Users should match snapsh
   selectedSchoolIds={
     Array [
       58452,
+    ]
+  }
+  selectedTeacherIds={
+    Array [
+      1500140,
+      1500832,
+      3570928,
     ]
   }
   selectedTimeframe="last-30-days"
@@ -2263,6 +2611,13 @@ exports[`SnapshotSection component when the section is Users should match snapsh
           label="Active teachers"
           queryKey="active-teachers"
           searchCount={1}
+          selectedClassroomIds={
+            Array [
+              170171,
+              1203848,
+              1203849,
+            ]
+          }
           selectedGrades={
             Array [
               "Kindergarten",
@@ -2285,6 +2640,13 @@ exports[`SnapshotSection component when the section is Users should match snapsh
           selectedSchoolIds={
             Array [
               58452,
+            ]
+          }
+          selectedTeacherIds={
+            Array [
+              1500140,
+              1500832,
+              3570928,
             ]
           }
           selectedTimeframe="last-30-days"
@@ -2326,6 +2688,13 @@ exports[`SnapshotSection component when the section is Users should match snapsh
           label="Active students"
           queryKey="active-students"
           searchCount={1}
+          selectedClassroomIds={
+            Array [
+              170171,
+              1203848,
+              1203849,
+            ]
+          }
           selectedGrades={
             Array [
               "Kindergarten",
@@ -2348,6 +2717,13 @@ exports[`SnapshotSection component when the section is Users should match snapsh
           selectedSchoolIds={
             Array [
               58452,
+            ]
+          }
+          selectedTeacherIds={
+            Array [
+              1500140,
+              1500832,
+              3570928,
             ]
           }
           selectedTimeframe="last-30-days"
@@ -2383,13 +2759,19 @@ exports[`SnapshotSection component when the section is Users should match snapsh
         </SnapshotCount>
         <SnapshotCount
           adminId={1}
-          comingSoon={true}
           customTimeframeEnd={null}
           customTimeframeStart={null}
           key="teacher-accounts-created"
           label="Teacher accounts created"
           queryKey="teacher-accounts-created"
           searchCount={1}
+          selectedClassroomIds={
+            Array [
+              170171,
+              1203848,
+              1203849,
+            ]
+          }
           selectedGrades={
             Array [
               "Kindergarten",
@@ -2414,6 +2796,13 @@ exports[`SnapshotSection component when the section is Users should match snapsh
               58452,
             ]
           }
+          selectedTeacherIds={
+            Array [
+              1500140,
+              1500832,
+              3570928,
+            ]
+          }
           selectedTimeframe="last-30-days"
           singularLabel="Teacher account created"
           size="small"
@@ -2425,9 +2814,9 @@ exports[`SnapshotSection component when the section is Users should match snapsh
               className="count-and-label"
             >
               <span
-                className="coming-soon"
+                className="count"
               >
-                Coming soon
+                —
               </span>
               <span
                 className="snapshot-label"
@@ -2447,13 +2836,19 @@ exports[`SnapshotSection component when the section is Users should match snapsh
         </SnapshotCount>
         <SnapshotCount
           adminId={1}
-          comingSoon={true}
           customTimeframeEnd={null}
           customTimeframeStart={null}
           key="student-accounts-created"
           label="Student accounts created"
           queryKey="student-accounts-created"
           searchCount={1}
+          selectedClassroomIds={
+            Array [
+              170171,
+              1203848,
+              1203849,
+            ]
+          }
           selectedGrades={
             Array [
               "Kindergarten",
@@ -2478,6 +2873,13 @@ exports[`SnapshotSection component when the section is Users should match snapsh
               58452,
             ]
           }
+          selectedTeacherIds={
+            Array [
+              1500140,
+              1500832,
+              3570928,
+            ]
+          }
           selectedTimeframe="last-30-days"
           singularLabel="Student account created"
           size="small"
@@ -2489,9 +2891,9 @@ exports[`SnapshotSection component when the section is Users should match snapsh
               className="count-and-label"
             >
               <span
-                className="coming-soon"
+                className="count"
               >
-                Coming soon
+                —
               </span>
               <span
                 className="snapshot-label"
@@ -2529,6 +2931,13 @@ exports[`SnapshotSection component when the section is Users should match snapsh
           label="Most active teachers"
           queryKey="most-active-teachers"
           searchCount={1}
+          selectedClassroomIds={
+            Array [
+              170171,
+              1203848,
+              1203849,
+            ]
+          }
           selectedGrades={
             Array [
               "Kindergarten",
@@ -2551,6 +2960,13 @@ exports[`SnapshotSection component when the section is Users should match snapsh
           selectedSchoolIds={
             Array [
               58452,
+            ]
+          }
+          selectedTeacherIds={
+            Array [
+              1500140,
+              1500832,
+              3570928,
             ]
           }
           selectedTimeframe="last-30-days"

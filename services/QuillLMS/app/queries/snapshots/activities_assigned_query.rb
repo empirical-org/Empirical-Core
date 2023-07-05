@@ -4,32 +4,21 @@ module Snapshots
   class ActivitiesAssignedQuery < CountQuery
     def query
       <<-SQL
-        SELECT SUM(sub_query.activities_assigned) AS count
-          FROM (
-            SELECT (sub_sub_query.students_assigned_count * COUNT(unit_activities.unit_id)) AS activities_assigned
-            FROM (#{super}) AS sub_sub_query
-            JOIN lms.unit_activities
-              ON sub_sub_query.unit_id = unit_activities.unit_id
-            GROUP BY sub_sub_query.id,
-              sub_sub_query.students_assigned_count,
-              unit_activities.unit_id
-          ) AS sub_query
+        SELECT IFNULL(SUM(assigned_count), 0) AS count
+          FROM (#{super})
       SQL
     end
 
     def select_clause
-      <<-SQL
-        SELECT
-          DISTINCT classroom_units.id,
-          classroom_units.unit_id,
-          array_length(classroom_units.assigned_student_ids) AS students_assigned_count
-      SQL
+      "SELECT DISTINCT unit_activities.id, ARRAY_LENGTH(classroom_units.assigned_student_ids) AS assigned_count"
     end
 
     def from_and_join_clauses
       super + <<-SQL
         JOIN lms.classroom_units
           ON classrooms.id = classroom_units.classroom_id
+        JOIN lms.unit_activities
+          ON classroom_units.unit_id = unit_activities.unit_id
       SQL
     end
 
