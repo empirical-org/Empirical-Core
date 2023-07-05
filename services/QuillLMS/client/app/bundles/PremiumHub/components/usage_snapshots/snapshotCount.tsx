@@ -20,6 +20,8 @@ interface SnapshotCountProps {
   searchCount: number;
   selectedGrades: Array<string>;
   selectedSchoolIds: Array<number>;
+  selectedClassroomIds: Array<number>;
+  selectedTeacherIds: Array<number>;
   selectedTimeframe: string;
   adminId: number;
   customTimeframeStart?: any;
@@ -31,7 +33,7 @@ interface SnapshotCountProps {
   singularLabel?: string;
 }
 
-const SnapshotCount = ({ label, size, queryKey, comingSoon, searchCount, selectedGrades, selectedSchoolIds, selectedTimeframe, customTimeframeStart, customTimeframeEnd, adminId, passedCount, passedChange, passedChangeDirection, singularLabel, }: SnapshotCountProps) => {
+const SnapshotCount = ({ label, size, queryKey, comingSoon, searchCount, selectedGrades, selectedSchoolIds, selectedTeacherIds, selectedClassroomIds, selectedTimeframe, customTimeframeStart, customTimeframeEnd, adminId, passedCount, passedChange, passedChangeDirection, singularLabel, }: SnapshotCountProps) => {
   const [count, setCount] = React.useState(passedCount || null)
   const [change, setChange] = React.useState(passedChange || 0)
   const [changeDirection, setChangeDirection] = React.useState(passedChangeDirection || null)
@@ -60,6 +62,8 @@ const SnapshotCount = ({ label, size, queryKey, comingSoon, searchCount, selecte
       timeframe_custom_start: customTimeframeStart,
       timeframe_custom_end: customTimeframeEnd,
       school_ids: selectedSchoolIds,
+      teacher_ids: selectedTeacherIds,
+      classroom_ids: selectedClassroomIds,
       grades: selectedGrades
     }
 
@@ -101,9 +105,11 @@ const SnapshotCount = ({ label, size, queryKey, comingSoon, searchCount, selecte
       const queryKeysAreEqual = message.query === queryKey
       const timeframesAreEqual = message.timeframe === selectedTimeframe
       const schoolIdsAreEqual = unorderedArraysAreEqual(message.school_ids, selectedSchoolIds.map(id => String(id)))
+      const teacherIdsAreEqual = unorderedArraysAreEqual(message.teacher_ids, selectedTeacherIds.map(id => String(id)))
+      const classroomIdsAreEqual = unorderedArraysAreEqual(message.classroom_ids, selectedClassroomIds.map(id => String(id)))
       const gradesAreEqual =  unorderedArraysAreEqual(message.grades, selectedGrades.map(grade => String(grade))) || (!message.grades && !selectedGrades.length)
 
-      if (queryKeysAreEqual && timeframesAreEqual && schoolIdsAreEqual && gradesAreEqual) {
+      if (queryKeysAreEqual && timeframesAreEqual && schoolIdsAreEqual && gradesAreEqual && teacherIdsAreEqual && classroomIdsAreEqual) {
         getData()
       }
     });
