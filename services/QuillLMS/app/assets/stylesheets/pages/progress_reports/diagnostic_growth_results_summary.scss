@@ -1,8 +1,8 @@
 .results-summary-container.growth-results-summary-container {
-  header {
+  header:not(.results-header) {
     display: flex;
     flex-direction: column;
-    max-width: 1014px;
+    width: 1014px;
     .upper-header-section {
       display: flex;
       padding-bottom: 24px;
@@ -135,6 +135,49 @@
       .percentage-circles {
         padding: 0px;
       }
+    }
+  }
+}
+
+@media (max-width: 930px) {
+  .results-summary-container.growth-results-summary-container {
+    header:not(.results-header) {
+      width: 100% !important;
+      .lower-header-section {
+        width: 100% !important;
+      }
+    }
+  }
+}
+
+@media (min-width: 930px) and (max-width: 973px) {
+  .results-summary-container.growth-results-summary-container {
+    header:not(.results-header) {
+      width: 370px !important;
+    }
+  }
+}
+
+@media (max-width: 1296px) {
+  .results-summary-container.growth-results-summary-container {
+    header:not(.results-header) {
+      width: 692px;
+    }
+  }
+}
+
+@media (min-width: 1619px) {
+  .results-summary-container.growth-results-summary-container {
+    header:not(.results-header) {
+      width: 1336px;
+    }
+  }
+}
+
+@media (min-width: 1941px) {
+  .results-summary-container.growth-results-summary-container {
+    header:not(.results-header) {
+      width: 1658px;
     }
   }
 }

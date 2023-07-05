@@ -82,16 +82,17 @@ export const noDataYet = (<div className="no-data-yet">
 export const PRE = 'pre'
 export const POST = 'post'
 
-const PROFICIENCY = 'Proficiency'
-const PARTIAL_PROFICIENCY = 'Partial proficiency'
-const NO_PROFICIENCY = 'No proficiency'
-const MAINTAINED_PROFICIENCY = 'Maintained proficiency'
-const GAINED_PROFICIENCY = 'Gained proficiency'
+const PROFICIENCY = 'Full Proficiency'
+const PARTIAL_PROFICIENCY = 'Partial Proficiency'
+const NO_PROFICIENCY = 'No Proficiency'
+const MAINTAINED_PROFICIENCY = 'Maintained Proficiency'
+const GAINED_SOME_PROFICIENCY = 'Gained Some Proficiency'
+const GAINED_PROFICIENCY = 'Gained Full Proficiency'
 
 export const FULLY_CORRECT = 'Fully correct'
 
 const proficiencyIcon = <img alt="Filled in circle" src={`${baseDiagnosticImageSrc}/components-proficiency-circle-color-proficiency.svg`} />
-const maintainedProficiencyIcon = <img alt="Filled in circle" src={`${baseDiagnosticImageSrc}/components-proficiency-circle-color-maintained-proficiency.svg`} />
+const gainedSomeProficiencyIcon = <img alt="Filled in circle" src={`${baseDiagnosticImageSrc}/components-proficiency-circle-color-gained-some-proficiency.svg`} />
 const partialProficiencyIcon = <img alt="Half filled in circle" src={`${baseDiagnosticImageSrc}/components-proficiency-circle-color-partial-proficiency.svg`} />
 const noProficiencyIcon = <img alt="Outlined circle" src={`${baseDiagnosticImageSrc}/components-proficiency-circle-color-no-proficient.svg`} />
 const grayProficiencyIcon = <img alt="Filled in circle" src={`${baseDiagnosticImageSrc}/components-proficiency-circle-gray-proficiency.svg`} />
@@ -101,7 +102,8 @@ const grayNoProficiencyIcon = <img alt="Outlined circle" src={`${baseDiagnosticI
 export const proficiencyTag = <div className="proficiency-tag proficiency">{proficiencyIcon}<span>{PROFICIENCY}</span></div>
 export const partialProficiencyTag = <div className="proficiency-tag partial-proficiency">{partialProficiencyIcon}<span>{PARTIAL_PROFICIENCY}</span></div>
 export const noProficiencyTag = <div className="proficiency-tag no-proficiency">{noProficiencyIcon}<span>{NO_PROFICIENCY}</span></div>
-export const maintainedProficiencyTag = <div className="proficiency-tag maintained-proficiency">{maintainedProficiencyIcon}<span>{MAINTAINED_PROFICIENCY}</span></div>
+export const maintainedProficiencyTag = <div className="proficiency-tag maintained-proficiency">{proficiencyIcon}<span>{MAINTAINED_PROFICIENCY}</span></div>
+export const gainedSomeProficiencyTag = <div className="proficiency-tag gained-some-proficiency">{gainedSomeProficiencyIcon}<span>{GAINED_SOME_PROFICIENCY}</span></div>
 export const gainedProficiencyTag = <div className="proficiency-tag proficiency">{proficiencyIcon}<span>{GAINED_PROFICIENCY}</span></div>
 
 export const proficiencyTextToTag = {
@@ -109,6 +111,7 @@ export const proficiencyTextToTag = {
   [PARTIAL_PROFICIENCY]: partialProficiencyTag,
   [NO_PROFICIENCY]: noProficiencyTag,
   [MAINTAINED_PROFICIENCY]: maintainedProficiencyTag,
+  [GAINED_SOME_PROFICIENCY]: gainedSomeProficiencyTag,
   [GAINED_PROFICIENCY]: gainedProficiencyTag
 }
 
