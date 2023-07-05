@@ -54,12 +54,27 @@ class Teachers::UnitsController < ApplicationController
     activities_data = UnitActivity.where(unit_id: params[:id]).order(:order_number).pluck(:activity_id).map { |id| { id: id } }
 
     if activities_data.any?
-      classroom_data = JSON.parse(params[:unit][:classrooms], symbolize_names: true)
+      classroom_data = params[:unit][:classrooms].as_json.map(&:symbolize_keys)
       Units::Updater.run(params[:id], activities_data, classroom_data, current_user.id)
       render json: {}
     else
       render json: {errors: 'Unit can not be found'}, status: 422
     end
+  end
+
+  def restore_classroom_unit_assignment_for_one_student
+    classroom_unit = ClassroomUnit.find_by_id(params[:classroom_unit_id])
+
+    new_assigned_student_ids = classroom_unit
+      .assigned_student_ids
+      .union([params[:student_id]])
+      .sort
+
+    classroom_unit.update(assigned_student_ids: new_assigned_student_ids)
+
+    ActivitySession.unscoped.where(user_id: params[:student_id], classroom_unit_id: params[:classroom_unit_id]).update(visible: true)
+
+    render json: {}
   end
 
   def update_activities

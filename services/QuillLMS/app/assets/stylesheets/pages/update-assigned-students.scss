@@ -81,4 +81,63 @@
       }
     }
   }
+  .unassign-warning-modal {
+    margin-bottom: 0px;
+    h2 {
+      font-size: 24px;
+      font-weight: 700;
+      line-height: 32px;
+      display: flex;
+      align-items: center;
+      img {
+        height: 22px;
+        margin-right: 12px;
+      }
+    }
+    p {
+      color: #646464;
+      font-size: 14px;
+      line-height: 22px;
+      margin-top: 16px;
+    }
+    .unassign-warning-modal-footer {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-top: 32px;
+    }
+    .checkbox-wrapper {
+      display: flex;
+      align-items: center;
+      span {
+        margin-left: 8px;
+      }
+    }
+  }
+  .pack-removed-wrapper {
+    img {
+      margin-left: 4px;
+    }
+  }
+
+  @media (max-width: 1000px) {
+    .students {
+      column-count: 2;
+    }
+  }
+
+  @media (max-width: 800px) {
+    .students {
+      column-count: 1;
+    }
+    .header, .classroom-header {
+      flex-direction: column;
+      .buttons {
+        margin-top: 16px;
+        .quill-button:first-of-type {
+          margin-left: 0px;
+        }
+      }
+    }
+  }
 }

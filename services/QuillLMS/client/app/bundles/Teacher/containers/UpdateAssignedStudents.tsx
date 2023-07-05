@@ -1,26 +1,25 @@
 import React from 'react';
 
-import { requestGet, requestPut, } from '../../../modules/request';
+import { requestGet, requestPut, requestPost, } from '../../../modules/request';
 import { unorderedArraysAreEqual, } from '../../../modules/unorderedArraysAreEqual'
-import { Spinner, warningIcon, } from '../../Shared/index';
+import { Spinner, } from '../../Shared/index';
 import Student from '../components/update_assigned_students/student'
 import UnassignWarningModal from '../components/update_assigned_students/unassign_warning_modal'
-
-const smallWhiteCheckSrc = `${process.env.CDN_URL}/images/shared/check-small-white.svg`
 
 const UpdateAssignedStudents = ({ match, user, unassignWarningHidden, }) => {
   const [loading, setLoading] = React.useState(true)
   const [originalClassrooms, setOriginalClassrooms] = React.useState(null)
+  const [classroomsForComparison, setClassroomsForComparison] = React.useState(null)
   const [assignmentData, setAssignmentData] = React.useState(null)
   const [unitName, setUnitName] = React.useState(null)
   const [showUnassignWarningModal, setShowUnassignWarningModal] = React.useState(false)
   const [hideWarningModalInFuture, setHideWarningModalInFuture] = React.useState(false)
 
   React.useEffect(() => {
-    getClassroomsAndStudentsData()
+    getClassroomsAndStudentsData(true)
   }, [])
 
-  function getClassroomsAndStudentsData() {
+  function getClassroomsAndStudentsData(firstTime=false) {
     requestGet(`/teachers/units/${match.params.unitId}/classrooms_with_students_and_classroom_units`, (body) => {
       const newAssignmentData = body.classrooms.map(c => ({
         id: c.id,
@@ -28,8 +27,12 @@ const UpdateAssignedStudents = ({ match, user, unassignWarningHidden, }) => {
         assign_on_join: c.classroom_unit?.assign_on_join || false
       }))
 
+      if (firstTime) {
+        setOriginalClassrooms(body.classrooms)
+      }
+
       setAssignmentData(newAssignmentData)
-      setOriginalClassrooms(body.classrooms)
+      setClassroomsForComparison(body.classrooms)
       setUnitName(body.unit_name)
       setLoading(false)
     })
@@ -39,7 +42,7 @@ const UpdateAssignedStudents = ({ match, user, unassignWarningHidden, }) => {
     const ids = []
 
     assignmentData.forEach(assignment => {
-      const classroom = originalClassrooms.find(c => c.id === assignment.id)
+      const classroom = classroomsForComparison.find(c => c.id === assignment.id)
       if (!classroom.classroom_unit) { return }
 
       ids.push(classroom.classroom_unit.assigned_student_ids.filter(id => !assignment.student_ids.includes(id)))
@@ -58,26 +61,36 @@ const UpdateAssignedStudents = ({ match, user, unassignWarningHidden, }) => {
 
   function updateAssignedStudents() {
     const filteredAssignmentData = assignmentData.filter(assignment => {
-      const existingClassroom = originalClassrooms.find(c => c.id === assignment.id)
+      const existingClassroom = classroomsForComparison.find(c => c.id === assignment.id)
       return existingClassroom.classroom_unit || assignment.student_ids.length
     })
-    requestPut(`/teachers/units/${match.params.unitId}/update_classroom_unit_assigned_students`, { classrooms: filteredAssignmentData }, (body) => {
-      window.location = '/teachers/classrooms/lesson_planner';
+    setLoading(true)
+    requestPut(`/teachers/units/${match.params.unitId}/update_classroom_unit_assigned_students`, { unit: { classrooms: filteredAssignmentData }}, (body) => {
+      getClassroomsAndStudentsData()
     })
   }
 
   function assignedStudentsHaveChanged() {
     return assignmentData.some(assignment => {
-      const classroom = originalClassrooms.find(c => c.id === assignment.id)
-      return !unorderedArraysAreEqual(classroom.classroom_unit?.assigned_student_ids || [], assignment.student_ids)
+      const classroom = classroomsForComparison.find(c => c.id === assignment.id)
+      return assignment.student_ids.sort() !== (classroom.classroom_unit?.assigned_student_ids?.sort() || [])
     })
   }
 
   function toggleStudentSelection(studentId, classroomId) {
     const newAssignmentData = [...assignmentData]
     const newAssignment = newAssignmentData.find(a => a.id === classroomId)
+    const classroom = classroomsForComparison.find(c => c.id === classroomId)
     newAssignment.student_ids = newAssignment.student_ids.includes(studentId) ? newAssignment.student_ids.filter(id => id !== studentId) : [...newAssignment.student_ids, studentId]
+    newAssignment.assign_on_join = newAssignment.student_ids.length === classroom.students.length
+
     setAssignmentData(newAssignmentData)
+  }
+
+  function revertUnassignment(studentId, classroomUnitId) {
+    requestPut(`/teachers/units/${match.params.unitId}/restore_classroom_unit_assignment_for_one_student`, { classroom_unit_id: classroomUnitId, student_id: studentId }, (body) => {
+      getClassroomsAndStudentsData()
+    })
   }
 
   function closeWarningModal() {
@@ -97,7 +110,7 @@ const UpdateAssignedStudents = ({ match, user, unassignWarningHidden, }) => {
       sendRequestToHideWarningModalInFuture()
     }
     updateAssignedStudents()
-    closeModal()
+    closeWarningModal()
   }
 
   function toggleHideWarningModalInFuture() {
@@ -108,7 +121,8 @@ const UpdateAssignedStudents = ({ match, user, unassignWarningHidden, }) => {
     return <Spinner />
   }
 
-  const classrooms = originalClassrooms.map(classroom => {
+  const classrooms = classroomsForComparison.map(classroom => {
+    const originalClassroom = originalClassrooms.find(c => c.id === classroom.id)
     const assignment = assignmentData.find(a => a.id === classroom.id)
     const numberOfStudentsToAssign = assignment.student_ids.length
 
@@ -116,6 +130,7 @@ const UpdateAssignedStudents = ({ match, user, unassignWarningHidden, }) => {
       const newAssignmentData = [...assignmentData]
       const newAssignment = newAssignmentData.find(a => a.id === classroom.id)
       newAssignment.student_ids = []
+      newAssignment.assign_on_join = false
       setAssignmentData(newAssignmentData)
     }
 
@@ -123,6 +138,7 @@ const UpdateAssignedStudents = ({ match, user, unassignWarningHidden, }) => {
       const newAssignmentData = [...assignmentData]
       const newAssignment = newAssignmentData.find(a => a.id === classroom.id)
       newAssignment.student_ids = classroom.students.map(s => s.id)
+      newAssignment.assign_on_join = true
       setAssignmentData(newAssignmentData)
     }
 
@@ -131,6 +147,8 @@ const UpdateAssignedStudents = ({ match, user, unassignWarningHidden, }) => {
         assignment={assignment}
         classroomUnit={classroom.classroom_unit}
         key={s.id}
+        originalClassroomUnit={originalClassroom.classroom_unit}
+        revertUnassignment={revertUnassignment}
         student={s}
         toggleStudentSelection={toggleStudentSelection}
       />
@@ -157,27 +175,29 @@ const UpdateAssignedStudents = ({ match, user, unassignWarningHidden, }) => {
 
   return (
     <section className="update-assigned-students-container white-background-accommodate-footer">
-      {showUnassignWarningModal && (
-        <UnassignWarningModal
-          closeModal={closeWarningModal}
-          handleClickUpdate={onClickWarningModalUpdate}
-          hideWarningModalInFuture={hideWarningModalInFuture}
-          removedStudentCount={removedStudentIds().length}
-          toggleCheckbox={toggleHideWarningModalInFuture}
-        />
-      )}
       <div className="container">
-        <section className="header">
-          <div>
-            <h1>Update students assigned to activity pack</h1>
-            <h2>{unitName}</h2>
-          </div>
-          <div className="buttons">
-            <button className={`quill-button outlined secondary medium focus-on-light ${assignedStudentsHaveChanged() ? '' : 'disabled'}`} type="button">Cancel</button>
-            <button className={`quill-button contained primary medium focus-on-light ${assignedStudentsHaveChanged() ? '' : 'disabled'}`} disabled={!assignedStudentsHaveChanged()} onClick={handleClickUpdate} type="button">{assignedStudentsHaveChanged() ? 'Update students assigned to pack' : 'Edit students before saving'}</button>
-          </div>
-        </section>
-        {classrooms}
+        {showUnassignWarningModal && (
+          <UnassignWarningModal
+            closeModal={closeWarningModal}
+            handleClickUpdate={onClickWarningModalUpdate}
+            hideWarningModalInFuture={hideWarningModalInFuture}
+            removedStudentCount={removedStudentIds().length}
+            toggleCheckbox={toggleHideWarningModalInFuture}
+          />
+        )}
+        <div className="container">
+          <section className="header">
+            <div>
+              <h1>Update students assigned to activity pack</h1>
+              <h2>{unitName}</h2>
+            </div>
+            <div className="buttons">
+              <button className={`quill-button outlined secondary medium focus-on-light ${assignedStudentsHaveChanged() ? '' : 'disabled'}`} type="button">Cancel</button>
+              <button className={`quill-button contained primary medium focus-on-light ${assignedStudentsHaveChanged() ? '' : 'disabled'}`} disabled={!assignedStudentsHaveChanged()} onClick={handleClickUpdate} type="button">{assignedStudentsHaveChanged() ? 'Update students assigned to pack' : 'Edit students before saving'}</button>
+            </div>
+          </section>
+          {classrooms}
+        </div>
       </div>
     </section>
   )
