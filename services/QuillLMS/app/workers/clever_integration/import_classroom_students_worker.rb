@@ -8,10 +8,8 @@ module CleverIntegration
     PUSHER_EVENT = 'clever-classroom-students-imported'
     PUSHER_FAILED_EVENT = 'clever-account-reauthorization-required'
 
-    attr_reader :teacher_id
-
     def perform(teacher_id, selected_classroom_ids = nil)
-      @teacher_id = teacher_id
+      teacher = ::User.find(teacher_id)
 
       if teacher.clever_authorized?
         TeacherClassroomsStudentsImporter.run(teacher, selected_classroom_ids)
@@ -21,10 +19,6 @@ module CleverIntegration
       end
     rescue => e
       ErrorNotifier.report(e)
-    end
-
-    private def teacher
-      @teacher ||= ::User.find(teacher_id)
     end
   end
 end
