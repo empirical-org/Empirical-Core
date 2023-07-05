@@ -136,7 +136,7 @@ const UsageSnapshotsContainer = ({ adminInfo, accessType, }) => {
       school_ids: selectedSchools?.map(s => s.id) || null,
       teacher_ids: selectedTeachers?.map(t => t.id) || null,
       classroom_ids: selectedClassrooms?.map(c => c.id) || null,
-      grades: selectedGradesToPass()
+      grades: selectedGrades?.map(g => g.value)
     }
 
     const requestUrl = queryString.stringifyUrl({ url: '/snapshots/options', query: searchParams }, { arrayFormat: 'bracket' })
@@ -224,15 +224,6 @@ const UsageSnapshotsContainer = ({ adminInfo, accessType, }) => {
 
   function handleSetSelectedTabFromDropdown(option) { setSelectedTab(option.value) }
 
-  function selectedGradesToPass() {
-    // we need to pass the backend an empty array when all grades are selected so we include data from classrooms that do not have a grade
-    if (!selectedGrades) { return [] }
-
-    // we need to pass the backend an empty array when all grades are selected so we include data from classrooms that do not have a grade
-    return selectedGrades.length === allGrades.length ? [] : selectedGrades.map(g => g.value)
-
-  }
-
   if (loadingFilters) {
     return <Spinner />
   }
@@ -273,7 +264,7 @@ const UsageSnapshotsContainer = ({ adminInfo, accessType, }) => {
       name={section.name}
       searchCount={searchCount}
       selectedClassroomIds={selectedClassrooms.map(c => c.id)}
-      selectedGrades={selectedGradesToPass()}
+      selectedGrades={selectedGrades.map(g => g.value)}
       selectedSchoolIds={selectedSchools.map(s => s.id)}
       selectedTeacherIds={selectedTeachers.map(t => t.id)}
       selectedTimeframe={selectedTimeframe.value}
