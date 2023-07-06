@@ -2,7 +2,6 @@
 
 class SnapshotsController < ApplicationController
   GRADE_OPTIONS = [
-    {value: "null", name: "No grade set"},
     {value: "Kindergarten", name: "Kindergarten"},
     {value: "1", name: "1st"},
     {value: "2", name: "2nd"},
@@ -17,7 +16,8 @@ class SnapshotsController < ApplicationController
     {value: "11", name: "11th"},
     {value: "12", name: "12th"},
     {value: "University", name: "University"},
-    {value: "Other", name: "Other"}
+    {value: "Other", name: "Other"},
+    {value: "null", name: "No grade set"}
   ]
 
   WORKERS_FOR_ACTIONS = {
