@@ -1087,7 +1087,9 @@
   position: fixed !important;
   text-align: left;
   overflow: hidden;
+  max-height: 100vh;
   .create-a-class-modal-content {
+    max-height: 100vh;
     height: 100%;
     overflow-y: scroll;
     padding-bottom: 120px;
