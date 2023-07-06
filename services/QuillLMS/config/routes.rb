@@ -237,6 +237,7 @@ EmpiricalGrammar::Application.routes.draw do
     resources :units, as: 'units_path' do
       get :classrooms_with_students_and_classroom_units, on: :member
       put :update_classroom_unit_assigned_students, on: :member
+      put :restore_classroom_unit_assignment_for_one_student, on: :member
       put :update_activities, on: :member
       # moved from within classroom, since units are now cross-classroom
     end
