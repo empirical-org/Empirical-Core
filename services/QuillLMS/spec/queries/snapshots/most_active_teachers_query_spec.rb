@@ -35,7 +35,7 @@ module Snapshots
         end
         let(:cte_records) { [runner_context, activity_sessions] }
 
-        it { puts runner.send(:cte);expect(results).to eq(expected_result) }
+        it { expect(results).to eq(expected_result) }
       end
 
       context 'limited activity_sessions' do
@@ -44,7 +44,7 @@ module Snapshots
         it { expect(results).to eq([{"value"=>teachers[0].name, "count"=>activity_sessions[0].length }]) }
       end
 
-      context 'activity_sessions completed outsidee of timeframe' do
+      context 'activity_sessions completed outside of timeframe' do
         let(:too_old_session) { create(:activity_session, classroom_unit: classroom_units[0], completed_at: timeframe_start - 1.day) }
         let(:too_new_session) { create(:activity_session, classroom_unit: classroom_units[0], completed_at: timeframe_end + 1.day) }
 
@@ -57,8 +57,10 @@ module Snapshots
         # percentage has to be set for CTE to UNION these with items that have percentages set
         let(:unstarted_session) { create(:activity_session, :unstarted, classroom_unit: classroom_units[0], percentage: 0.0) }
         let(:started_session) { create(:activity_session, :started, classroom_unit: classroom_units[0], percentage: 0.0) }
+        # We need at least one session with a non-null `completed_at` value in the CTE for BigQuery to understand the TYPE of that column, so we insert this unrelated session into the CTE
+        let(:reference_session) { create(:activity_session) }
 
-        let(:cte_records) { [runner_context, unstarted_session, started_session] }
+        let(:cte_records) { [runner_context, unstarted_session, started_session, reference_session] }
 
         it { expect(results).to eq([]) }
       end

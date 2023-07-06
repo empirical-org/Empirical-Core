@@ -4,12 +4,12 @@ module Snapshots
   class MostActiveTeachersQuery < TopXQuery
     def from_and_join_clauses
       super + <<-SQL
-        JOIN lms.schools_users
-          ON schools.id = schools_users.school_id
-        JOIN lms.classrooms_units
-          ON classrooms.id = classrooms_units.classroom_id
+        JOIN lms.classroom_units
+          ON classrooms.id = classroom_units.classroom_id
         JOIN lms.activity_sessions
           ON classroom_units.id = activity_sessions.classroom_unit_id
+        JOIN lms.users
+          ON schools_users.user_id = users.id
       SQL
     end
 
@@ -18,11 +18,11 @@ module Snapshots
     end
 
     def relevant_date_column
-      "activity_session.completed_at"
+      "activity_sessions.completed_at"
     end
 
     def relevant_group_column
-      "schools_users.user_id"
+      "users.name"
     end
   end
 end
