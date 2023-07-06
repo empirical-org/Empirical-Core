@@ -513,6 +513,7 @@ EmpiricalGrammar::Application.routes.draw do
       get 'progress_reports/district_activity_scores' => 'progress_reports#district_activity_scores'
       get 'progress_reports/district_concept_reports' => 'progress_reports#district_concept_reports'
       get 'progress_reports/district_standards_reports' => 'progress_reports#district_standards_reports'
+      get 'progress_reports/data_export' => 'progress_reports#data_export'
       get 'progress_reports/student_overview_data/:student_id/:classroom_id' => 'progress_reports#student_overview_data'
       resources :lessons do
         member do

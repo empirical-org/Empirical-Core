@@ -1,5 +1,5 @@
 import * as React from 'react';
-import { whiteDiamondIcon, redDiamondIcon, renderNavList } from '../../Shared';
+import { renderNavList } from '../../Shared';
 
 const OVERVIEW = 'Overview';
 const SCHOOL_SUBSCRIPTIONS = 'School Subscriptions';
@@ -7,6 +7,7 @@ const ACTIVITY_SCORES = 'Activity Scores';
 const CONCEPT_REPORTS = 'Concept Reports';
 const STANDARDS_REPORTS = 'Standards Reports';
 const USAGE_SNAPSHOT_REPORT = 'Usage Snapshot Report'
+const DATA_EXPORT = 'Data Export'
 
 const tabsWithoutUsageSnapshotReport = {
   [OVERVIEW]: {
@@ -29,10 +30,10 @@ const tabsWithoutUsageSnapshotReport = {
     label: STANDARDS_REPORTS,
     url: '/teachers/premium_hub/district_standards_reports'
   },
-  [STANDARDS_REPORTS]: {
-    label: STANDARDS_REPORTS,
-    url: '/teachers/premium_hub/district_standards_reports'
-  },
+  [DATA_EXPORT]: {
+    label: DATA_EXPORT,
+    url: '/teachers/premium_hub/data_export'
+  }
 }
 
 const tabs = {
@@ -55,7 +56,7 @@ export default class AdminSubnav extends React.Component<any, any> {
   }
 
   getStateFromProps(props) {
-    const state = {activityScores: '', conceptReports: '', standardsReports: '', overview: '', schoolSubscriptions: '', activeTab: '', usageSnapshotReport: ''}
+    const state = {activityScores: '', conceptReports: '', standardsReports: '', overview: '', schoolSubscriptions: '', activeTab: '', usageSnapshotReport: '', dataExport: ''}
     if (props.path.pathname.includes('/district_activity_scores')) {
       state.activityScores = 'active'
       state.activeTab = ACTIVITY_SCORES
@@ -71,18 +72,14 @@ export default class AdminSubnav extends React.Component<any, any> {
     } else if (props.path.pathname.includes('usage_snapshot_report')) {
       state.usageSnapshotReport = 'active'
       state.activeTab = USAGE_SNAPSHOT_REPORT
+    } else if (props.path.pathname.includes('data_export')) {
+      state.dataExport = 'active'
+      state.activeTab = DATA_EXPORT
     } else if (props.path.pathname.includes('premium_hub')) {
       state.overview = 'active'
       state.activeTab = OVERVIEW
     }
     return state
-  }
-
-  getIcon(activeTab) {
-    if(activeTab) {
-      return <img alt={redDiamondIcon.alt} src={redDiamondIcon.src} />
-    }
-    return <img alt={whiteDiamondIcon.alt} src={whiteDiamondIcon.src} />
   }
 
   handleDropdownClick = () => {
@@ -95,8 +92,8 @@ export default class AdminSubnav extends React.Component<any, any> {
   }
 
   render() {
-    const { overview, schoolSubscriptions, activityScores, conceptReports, standardsReports, dropdownOpen, usageSnapshotReport, activeTab } = this.state
-    const activeStates = [overview, schoolSubscriptions, activityScores, conceptReports, standardsReports, usageSnapshotReport]
+    const { overview, schoolSubscriptions, activityScores, conceptReports, standardsReports, dropdownOpen, usageSnapshotReport, dataExport, activeTab } = this.state
+    const activeStates = [overview, schoolSubscriptions, activityScores, conceptReports, standardsReports, dataExport, usageSnapshotReport]
     const dropdownClass = dropdownOpen ? 'open' : '';
 
     const tabsToShow = window.location.href.includes('usage_snapshot') ? tabs : tabsWithoutUsageSnapshotReport
