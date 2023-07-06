@@ -1374,7 +1374,6 @@ CREATE TABLE public.classrooms (
     id integer NOT NULL,
     name character varying,
     code character varying,
-    teacher_id integer,
     created_at timestamp without time zone,
     updated_at timestamp without time zone,
     clever_id character varying,
@@ -7921,13 +7920,6 @@ CREATE INDEX index_classrooms_on_grade_level ON public.classrooms USING btree (g
 
 
 --
--- Name: index_classrooms_on_teacher_id; Type: INDEX; Schema: public; Owner: -
---
-
-CREATE INDEX index_classrooms_on_teacher_id ON public.classrooms USING btree (teacher_id);
-
-
---
 -- Name: index_classrooms_teachers_on_classroom_id; Type: INDEX; Schema: public; Owner: -
 --
 
@@ -10367,6 +10359,7 @@ INSERT INTO "schema_migrations" (version) VALUES
 ('20230623154418'),
 ('20230630172652'),
 ('20230630173229'),
-('20230630184901');
+('20230630184901'),
+('20230706155155');
 
 
