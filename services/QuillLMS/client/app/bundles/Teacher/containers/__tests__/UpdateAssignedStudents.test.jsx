@@ -11,7 +11,7 @@ import { classrooms, } from './test_data';
 const props = {
   match: { params: { unitId: 912 }, },
   unassignWarningHidden: false,
-  passedLoading: false,
+  skipLoading: true,
   passedOriginalClassrooms: classrooms,
   passedClassroomsForComparison: classrooms,
   passedAssignmentData: [

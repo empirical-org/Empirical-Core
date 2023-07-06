@@ -5,8 +5,8 @@ import { Spinner, } from '../../Shared/index';
 import Student from '../components/update_assigned_students/student'
 import UnassignWarningModal from '../components/update_assigned_students/unassign_warning_modal'
 
-const UpdateAssignedStudents = ({ match, unassignWarningHidden, passedLoading, passedOriginalClassrooms, passedClassroomsForComparison, passedAssignmentData, passedUnitName, }) => {
-  const [loading, setLoading] = React.useState(true || passedLoading)
+const UpdateAssignedStudents = ({ match, unassignWarningHidden, skipLoading, passedOriginalClassrooms, passedClassroomsForComparison, passedAssignmentData, passedUnitName, }) => {
+  const [loading, setLoading] = React.useState(skipLoading ? false : true)
   const [originalClassrooms, setOriginalClassrooms] = React.useState(null || passedOriginalClassrooms)
   const [classroomsForComparison, setClassroomsForComparison] = React.useState(null || passedClassroomsForComparison)
   const [assignmentData, setAssignmentData] = React.useState(null || passedAssignmentData)
@@ -191,7 +191,7 @@ const UpdateAssignedStudents = ({ match, unassignWarningHidden, passedLoading, p
               <h2>{unitName}</h2>
             </div>
             <div className="buttons">
-              <button className={`quill-button outlined secondary medium focus-on-light ${assignedStudentsHaveChanged() ? '' : 'disabled'}`} type="button">Cancel</button>
+              <a className={`quill-button outlined secondary medium focus-on-light ${assignedStudentsHaveChanged() ? '' : 'disabled'}`} href="/teachers/classrooms/activity_planner">Cancel</a>
               <button className={`quill-button contained primary medium focus-on-light ${assignedStudentsHaveChanged() ? '' : 'disabled'}`} disabled={!assignedStudentsHaveChanged()} onClick={handleClickUpdate} type="button">{assignedStudentsHaveChanged() ? 'Update students assigned to pack' : 'Edit students before saving'}</button>
             </div>
           </section>
