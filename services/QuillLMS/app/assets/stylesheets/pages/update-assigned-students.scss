@@ -48,7 +48,8 @@
   }
   .students {
     padding: 16px 24px;
-    column-count: 3;
+    grid-template-columns: 1fr 1fr 1fr;
+    display: grid;
     gap: 8px;
     .student {
       display: flex;
@@ -71,6 +72,13 @@
       }
       &.already-assigned {
         background-color: #F7F5F5;
+      }
+      &.will-be-assigned {
+        background-color: #D6EFEC;
+        border: 1px solid #06806B;
+        span {
+          color: #06806B;
+        }
       }
       &.will-be-removed {
         background-color: #FFEDEC;
@@ -122,13 +130,13 @@
 
   @media (max-width: 1000px) {
     .students {
-      column-count: 2;
+      grid-template-columns: 1fr 1fr;
     }
   }
 
   @media (max-width: 800px) {
     .students {
-      column-count: 1;
+      grid-template-columns: 1fr;
     }
     .header, .classroom-header {
       flex-direction: column;

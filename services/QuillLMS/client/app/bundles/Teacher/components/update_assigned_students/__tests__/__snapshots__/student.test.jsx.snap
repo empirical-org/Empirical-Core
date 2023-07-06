@@ -1,0 +1,394 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Student should render when the student has already been assigned 1`] = `
+<Student
+  assignment={
+    Object {
+      "assign_on_join": false,
+      "id": 173,
+      "student_ids": Array [
+        1032,
+        1036,
+      ],
+    }
+  }
+  classroomUnit={
+    Object {
+      "assign_on_join": false,
+      "assigned_student_ids": Array [
+        1032,
+        1034,
+      ],
+      "id": 1067,
+    }
+  }
+  originalClassroomUnit={
+    Object {
+      "assign_on_join": false,
+      "assigned_student_ids": Array [
+        1032,
+        1034,
+        1035,
+      ],
+      "id": 1067,
+    }
+  }
+  revertUnassignment={[MockFunction]}
+  student={
+    Object {
+      "id": 1032,
+      "name": "Ken Liu",
+    }
+  }
+  toggleStudentSelection={[MockFunction]}
+>
+  <div
+    className="student already-assigned"
+  >
+    <div>
+      <button
+        aria-label="Checked checkbox"
+        className="quill-checkbox selected"
+        onClick={[Function]}
+        type="button"
+      >
+        <img
+          alt="Checked checkbox"
+          src="undefined/images/shared/check-small-white.svg"
+        />
+      </button>
+      <span>
+        Ken Liu
+      </span>
+    </div>
+    <span>
+      Pack 
+      <em>
+        assigned
+      </em>
+    </span>
+  </div>
+</Student>
+`;
+
+exports[`Student should render when the student has been removed 1`] = `
+<Student
+  assignment={
+    Object {
+      "assign_on_join": false,
+      "id": 173,
+      "student_ids": Array [
+        1032,
+        1036,
+      ],
+    }
+  }
+  classroomUnit={
+    Object {
+      "assign_on_join": false,
+      "assigned_student_ids": Array [
+        1032,
+        1034,
+      ],
+      "id": 1067,
+    }
+  }
+  originalClassroomUnit={
+    Object {
+      "assign_on_join": false,
+      "assigned_student_ids": Array [
+        1032,
+        1034,
+        1035,
+      ],
+      "id": 1067,
+    }
+  }
+  revertUnassignment={[MockFunction]}
+  student={
+    Object {
+      "id": 1035,
+      "name": "Tahereh Mafi",
+    }
+  }
+  toggleStudentSelection={[MockFunction]}
+>
+  <div
+    className="student "
+  >
+    <div>
+      <button
+        aria-label="Unchecked checkbox"
+        className="quill-checkbox unselected"
+        onClick={[Function]}
+        type="button"
+      />
+      <span>
+        Tahereh Mafi
+      </span>
+    </div>
+    <div
+      className="pack-removed-wrapper"
+    >
+      <span>
+        Pack 
+        <em>
+          removed
+        </em>
+      </span>
+      <Tooltip
+        isTabbable={true}
+        tooltipText="<p><b>Restore Assigned Pack</b><br/> Student will see assigned and previously completed activities for this pack.</p>"
+        tooltipTriggerText={
+          <button
+            aria-label="Restore assigned pack"
+            className="interactive-wrapper focus-on-light"
+            onClick={[Function]}
+            type="button"
+          >
+            <img
+              alt=""
+              src="undefined/images/pages/my_activities/revert_unassignment_icon.svg"
+            />
+          </button>
+        }
+      >
+        <span
+          aria-hidden={false}
+          className="quill-tooltip-trigger "
+          role="tooltip"
+        >
+          <span
+            className="undefined"
+            onBlur={[Function]}
+            onClick={[Function]}
+            onFocus={[Function]}
+            onKeyDown={[Function]}
+            onMouseEnter={[Function]}
+            onMouseLeave={[Function]}
+            role="button"
+            tabIndex={0}
+          >
+            <button
+              aria-label="Restore assigned pack"
+              className="interactive-wrapper focus-on-light"
+              onClick={[Function]}
+              type="button"
+            >
+              <img
+                alt=""
+                src="undefined/images/pages/my_activities/revert_unassignment_icon.svg"
+              />
+            </button>
+          </span>
+          <span
+            className="quill-tooltip-wrapper"
+          >
+            <span
+              aria-live="polite"
+              className="quill-tooltip"
+            />
+          </span>
+        </span>
+      </Tooltip>
+    </div>
+  </div>
+</Student>
+`;
+
+exports[`Student should render when the student has not been assigned and has no status change 1`] = `
+<Student
+  assignment={
+    Object {
+      "assign_on_join": false,
+      "id": 173,
+      "student_ids": Array [
+        1032,
+        1036,
+      ],
+    }
+  }
+  classroomUnit={
+    Object {
+      "assign_on_join": false,
+      "assigned_student_ids": Array [
+        1032,
+        1034,
+      ],
+      "id": 1067,
+    }
+  }
+  originalClassroomUnit={
+    Object {
+      "assign_on_join": false,
+      "assigned_student_ids": Array [
+        1032,
+        1034,
+        1035,
+      ],
+      "id": 1067,
+    }
+  }
+  revertUnassignment={[MockFunction]}
+  student={
+    Object {
+      "id": 1033,
+      "name": "Jason Reynolds",
+    }
+  }
+  toggleStudentSelection={[MockFunction]}
+>
+  <div
+    className="student "
+  >
+    <div>
+      <button
+        aria-label="Unchecked checkbox"
+        className="quill-checkbox unselected"
+        onClick={[Function]}
+        type="button"
+      />
+      <span>
+        Jason Reynolds
+      </span>
+    </div>
+  </div>
+</Student>
+`;
+
+exports[`Student should render when the student will be assigned 1`] = `
+<Student
+  assignment={
+    Object {
+      "assign_on_join": false,
+      "id": 173,
+      "student_ids": Array [
+        1032,
+        1036,
+      ],
+    }
+  }
+  classroomUnit={
+    Object {
+      "assign_on_join": false,
+      "assigned_student_ids": Array [
+        1032,
+        1034,
+      ],
+      "id": 1067,
+    }
+  }
+  originalClassroomUnit={
+    Object {
+      "assign_on_join": false,
+      "assigned_student_ids": Array [
+        1032,
+        1034,
+        1035,
+      ],
+      "id": 1067,
+    }
+  }
+  revertUnassignment={[MockFunction]}
+  student={
+    Object {
+      "id": 1036,
+      "name": "Angie Thomas",
+    }
+  }
+  toggleStudentSelection={[MockFunction]}
+>
+  <div
+    className="student will-be-assigned"
+  >
+    <div>
+      <button
+        aria-label="Checked checkbox"
+        className="quill-checkbox selected"
+        onClick={[Function]}
+        type="button"
+      >
+        <img
+          alt="Checked checkbox"
+          src="undefined/images/shared/check-small-white.svg"
+        />
+      </button>
+      <span>
+        Angie Thomas
+      </span>
+    </div>
+    <span>
+      Pack will be 
+      <em>
+        assigned
+      </em>
+    </span>
+  </div>
+</Student>
+`;
+
+exports[`Student should render when the student will be removed 1`] = `
+<Student
+  assignment={
+    Object {
+      "assign_on_join": false,
+      "id": 173,
+      "student_ids": Array [
+        1032,
+        1036,
+      ],
+    }
+  }
+  classroomUnit={
+    Object {
+      "assign_on_join": false,
+      "assigned_student_ids": Array [
+        1032,
+        1034,
+      ],
+      "id": 1067,
+    }
+  }
+  originalClassroomUnit={
+    Object {
+      "assign_on_join": false,
+      "assigned_student_ids": Array [
+        1032,
+        1034,
+        1035,
+      ],
+      "id": 1067,
+    }
+  }
+  revertUnassignment={[MockFunction]}
+  student={
+    Object {
+      "id": 1034,
+      "name": "Nic Stone",
+    }
+  }
+  toggleStudentSelection={[MockFunction]}
+>
+  <div
+    className="student will-be-removed"
+  >
+    <div>
+      <button
+        aria-label="Unchecked checkbox"
+        className="quill-checkbox unselected"
+        onClick={[Function]}
+        type="button"
+      />
+      <span>
+        Nic Stone
+      </span>
+    </div>
+    <span>
+      Pack will be 
+      <em>
+        removed
+      </em>
+    </span>
+  </div>
+</Student>
+`;

@@ -1,17 +1,16 @@
-import React from 'react';
+import * as React from 'react';
 
 import { requestGet, requestPut, requestPost, } from '../../../modules/request';
-import { unorderedArraysAreEqual, } from '../../../modules/unorderedArraysAreEqual'
 import { Spinner, } from '../../Shared/index';
 import Student from '../components/update_assigned_students/student'
 import UnassignWarningModal from '../components/update_assigned_students/unassign_warning_modal'
 
-const UpdateAssignedStudents = ({ match, user, unassignWarningHidden, }) => {
-  const [loading, setLoading] = React.useState(true)
-  const [originalClassrooms, setOriginalClassrooms] = React.useState(null)
-  const [classroomsForComparison, setClassroomsForComparison] = React.useState(null)
-  const [assignmentData, setAssignmentData] = React.useState(null)
-  const [unitName, setUnitName] = React.useState(null)
+const UpdateAssignedStudents = ({ match, unassignWarningHidden, passedLoading, passedOriginalClassrooms, passedClassroomsForComparison, passedAssignmentData, passedUnitName, }) => {
+  const [loading, setLoading] = React.useState(true || passedLoading)
+  const [originalClassrooms, setOriginalClassrooms] = React.useState(null || passedOriginalClassrooms)
+  const [classroomsForComparison, setClassroomsForComparison] = React.useState(null || passedClassroomsForComparison)
+  const [assignmentData, setAssignmentData] = React.useState(null || passedAssignmentData)
+  const [unitName, setUnitName] = React.useState(null || passedUnitName)
   const [showUnassignWarningModal, setShowUnassignWarningModal] = React.useState(false)
   const [hideWarningModalInFuture, setHideWarningModalInFuture] = React.useState(false)
 
