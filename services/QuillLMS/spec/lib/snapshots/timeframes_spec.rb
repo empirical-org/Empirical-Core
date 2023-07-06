@@ -17,7 +17,7 @@ module Snapshots
       end
     end
 
-    context 'timeframe calculations'
+    context 'timeframe calculations' do
       # Replacing usec with 0 lets us avoid in-memory vs database timestamp comparisons which have different precisions
       let(:now) { DateTime.current.change(usec: 0) }
       let(:end_of_yesterday) { now.end_of_day - 1.day }
@@ -59,7 +59,7 @@ module Snapshots
 
       context 'custom timeframe previous start and end calculations' do
         let(:custom_start) { now - 10.hours }
-        let(:custom_end) { now - 30.minute }
+        let(:custom_end) { now - 30.minutes }
 
         it do
           expect(described_class.calculate_timeframes('custom', custom_start: custom_start.to_s, custom_end: custom_end.to_s)).to eq([

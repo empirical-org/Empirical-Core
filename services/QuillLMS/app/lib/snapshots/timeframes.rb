@@ -30,7 +30,7 @@ module Snapshots
         value: 'last-month',
         name: 'Last month',
         previous_start: proc { |reference_time| reference_time.beginning_of_month - 2.months },
-        previous_end: proc { |reference_time| reference_time.beginning_of_month - 1.months },
+        previous_end: proc { |reference_time| reference_time.beginning_of_month - 1.month },
         current_start: proc { |reference_time| reference_time.beginning_of_month - 1.month },
         current_end: proc { |reference_time| reference_time.beginning_of_month },
       }, {
@@ -44,7 +44,7 @@ module Snapshots
         value: 'last-year',
         name: 'Last year',
         previous_start: proc { |reference_time| reference_time.beginning_of_year - 2.years },
-        previous_end: proc { |reference_time| reference_time.beginning_of_year - 1.years },
+        previous_end: proc { |reference_time| reference_time.beginning_of_year - 1.year },
         current_start: proc { |reference_time| reference_time.beginning_of_year - 1.year },
         current_end: proc { |reference_time| reference_time.beginning_of_year },
       }, {
@@ -52,7 +52,7 @@ module Snapshots
         name: 'All time',
         # A nil previous start passed to the worker results in the previous-period query being skipped
         previous_start: proc { },
-        previous_end: proc { }, 
+        previous_end: proc { },
         current_start: proc { DateTime.new(2010,1,1) }, # This is well before any data exists in our system, so works for "all time"
         current_end: proc { |reference_time| reference_time },
       }, {
