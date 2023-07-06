@@ -67,7 +67,7 @@ class Teachers::UnitsController < ApplicationController
 
     new_assigned_student_ids = classroom_unit
       .assigned_student_ids
-      .union([params[:student_id]])
+      .union([params[:student_id].to_i])
       .sort
 
     classroom_unit.update(assigned_student_ids: new_assigned_student_ids)
