@@ -9,7 +9,8 @@ module QuillBigQuery
 
       let(:activity_sessions) { create_list(:activity_session, 20, state: 'finished') }
       let(:unfinished_activity_sessions) { create_list(:activity_session, 10, state: 'started') }
-      let(:query_args) { }
+      let(:query_args) { [] }
+
       let(:cte_records) {
         [
           activity_sessions,

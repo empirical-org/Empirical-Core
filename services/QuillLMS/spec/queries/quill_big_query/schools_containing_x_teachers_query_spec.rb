@@ -8,27 +8,27 @@ module QuillBigQuery
       include_context 'QuillBigQuery TestRunner Setup'
 
       let(:schools) { create_list(:school, 10) }
-      let(:chosen_school_1) { create(:school) }
-      let(:chosen_school_2) { create(:school) }
+      let(:chosen_school_one) { create(:school) }
+      let(:chosen_school_two) { create(:school) }
       let(:teacher) { create(:teacher) }
-      let(:schools_user) { create(:schools_users, user: teacher, school: chosen_school_1) }
+      let(:schools_user) { create(:schools_users, user: teacher, school: chosen_school_one) }
       let(:second_teacher) { create(:teacher) }
-      let(:schools_user_2) { create(:schools_users, user: second_teacher, school: chosen_school_2) }
+      let(:schools_user_two) { create(:schools_users, user: second_teacher, school: chosen_school_two) }
 
       let(:query_args) { [{teacher_ids: [teacher.id, second_teacher.id]}] }
       let(:cte_records) {
         [
           schools,
-          chosen_school_1,
-          chosen_school_2,
+          chosen_school_one,
+          chosen_school_two,
           teacher,
           second_teacher,
           schools_user,
-          schools_user_2
+          schools_user_two
         ]
       }
 
-      it { expect(results).to match_array([chosen_school_1, chosen_school_2].map{ |s| {"free_lunches" => s.free_lunches, "id" => s.id}}) }
+      it { expect(results).to match_array([chosen_school_one, chosen_school_two].map{ |s| {"free_lunches" => s.free_lunches, "id" => s.id}}) }
     end
   end
 end

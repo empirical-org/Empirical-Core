@@ -34,12 +34,12 @@ describe SetImpactMetricsWorker do
 
     it 'should set the NUMBER_OF_SENTENCES redis value' do
       subject.perform
-      expect($redis.get(PagesController::NUMBER_OF_SENTENCES)).to eq("#{example_json1.size.floor(-5) * 10}")
+      expect($redis.get(PagesController::NUMBER_OF_SENTENCES)).to eq((example_json1.size.floor(-5) * 10).to_s)
     end
 
     it 'should set the NUMBER_OF_STUDENTS redis value' do
       subject.perform
-      expect($redis.get(PagesController::NUMBER_OF_STUDENTS)).to eq("#{example_json1.count("DISTINCT(user_id)").floor(-5)}")
+      expect($redis.get(PagesController::NUMBER_OF_STUDENTS)).to eq((example_json1.count('DISTINCT(user_id)').floor(-5)).to_s)
     end
 
     it 'should set the NUMBER_OF_TEACHERS redis value' do

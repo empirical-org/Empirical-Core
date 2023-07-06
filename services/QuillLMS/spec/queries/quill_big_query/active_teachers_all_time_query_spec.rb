@@ -7,7 +7,7 @@ module QuillBigQuery
     context 'for active teachers all time', :big_query_snapshot do
       include_context 'Snapshots Activity Session Count CTE'
 
-      let(:query_args) { }
+      let(:query_args) { [] }
 
       it { expect(results).to match_array([]) }
     end

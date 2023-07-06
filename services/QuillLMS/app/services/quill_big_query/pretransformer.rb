@@ -3,16 +3,16 @@
 module QuillBigQuery
   class Pretransformer
 
-    def initialize(query, *arrayParams)
+    def initialize(query, *array_params)
       @query = query
-      @transformed_array_params = self.class.build_array_query_params(*arrayParams)
+      @transformed_array_params = self.class.build_array_query_params(*array_params)
     end
 
-    def self.build_array_query_params(*arrayParams)
-      arrayParams.map do |arrayParam|
-        name = arrayParam.keys.first
-        array = arrayParam.values.first
-        type = type_lookup(arrayParam.values.first.first)
+    def self.build_array_query_params(*array_params)
+      array_params.map do |array_param|
+        name = array_param.keys.first
+        array = array_param.values.first
+        type = type_lookup(array_param.values.first.first)
         {
           'name' => name,
           'parameterType' => {
@@ -31,11 +31,9 @@ module QuillBigQuery
     end
 
     def self.type_lookup(object)
-      if object.is_a? String
-        return 'STRING'
-      elsif object.is_a? Integer
-        return 'INTEGER'
-      end
+      return 'STRING' if object.is_a? String
+
+      return 'INTEGER'
     end
 
     def transformed_query
