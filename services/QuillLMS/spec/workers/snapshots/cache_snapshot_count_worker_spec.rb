@@ -29,10 +29,12 @@ module Snapshots
       let(:timeframe_end) { DateTime.now }
       let(:current_timeframe_start) { timeframe_end - 30.days }
       let(:previous_timeframe_start) { current_timeframe_start - 30.days }
+      let(:previous_timeframe_end) { current_timeframe_start }
       let(:timeframe) {
         {
           'name' => timeframe_name,
           'previous_start' => previous_timeframe_start,
+          'previous_end' => previous_timeframe_end,
           'current_start' => current_timeframe_start,
           'current_end' => timeframe_end
         }
@@ -54,7 +56,7 @@ module Snapshots
           classroom_ids: classroom_ids)
         expect(query_double).to receive(:run).with(
           timeframe_start: previous_timeframe_start,
-          timeframe_end: current_timeframe_start,
+          timeframe_end: previous_timeframe_end,
           school_ids: school_ids,
           grades: grades,
           teacher_ids: teacher_ids,

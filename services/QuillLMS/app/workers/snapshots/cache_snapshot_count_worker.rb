@@ -50,6 +50,7 @@ module Snapshots
 
     private def generate_payload(query, timeframe, school_ids, filters)
       previous_timeframe_start = timeframe['previous_start']
+      previous_timeframe_end = timeframe['previous_end']
       current_timeframe_start = timeframe['current_start']
       timeframe_end = timeframe['current_end']
 
@@ -62,7 +63,7 @@ module Snapshots
       if previous_timeframe_start
         previous_snapshot = QUERIES[query].run(**{
           timeframe_start: previous_timeframe_start,
-          timeframe_end: current_timeframe_start,
+          timeframe_end: previous_timeframe_end,
           school_ids: school_ids
         }.merge(filters))
       else
