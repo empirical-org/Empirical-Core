@@ -13,8 +13,7 @@ RSpec.describe GoogleIntegration::ClassroomUpdater do
       google_classroom_id: google_classroom_id,
       grade: grade,
       name: name,
-      synced_name: synced_name,
-      teacher_id: teacher_id
+      synced_name: synced_name
     )
   end
 
