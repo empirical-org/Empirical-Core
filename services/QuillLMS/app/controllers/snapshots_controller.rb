@@ -16,7 +16,8 @@ class SnapshotsController < ApplicationController
     {value: "11", name: "11th"},
     {value: "12", name: "12th"},
     {value: "University", name: "University"},
-    {value: "Other", name: "Other"}
+    {value: "Other", name: "Other"},
+    {value: "null", name: "No grade set"}
   ]
 
   WORKERS_FOR_ACTIONS = {
@@ -41,7 +42,7 @@ class SnapshotsController < ApplicationController
       timeframes: Snapshots::Timeframes.frontend_options,
       schools: format_option_list(school_options),
       grades: GRADE_OPTIONS,
-      teachers: format_option_list(teacher_options),
+      teachers: format_option_list(sorted_teacher_options),
       classrooms: format_option_list(classroom_options)
     }
   end
@@ -66,13 +67,19 @@ class SnapshotsController < ApplicationController
   private def teacher_options
     grades = option_params[:grades]
 
-    teachers = User.joins(:schools_users)
+    teachers = User.distinct
+      .joins(:schools_users)
       .joins(:classrooms_i_teach)
       .where(schools_users: {school_id: filtered_schools.pluck(:id)})
 
     return teachers.where(classrooms: {grade: grades}) if grades.present?
 
     teachers
+  end
+
+  private def sorted_teacher_options
+    # We sort these in Ruby because we want to sort by last name which is a value derived from the database rather than stored in it
+    teacher_options.sort_by(&:last_name)
   end
 
   private def filtered_teachers
@@ -84,8 +91,10 @@ class SnapshotsController < ApplicationController
   end
 
   private def classroom_options
-    Classroom.joins(:classrooms_teachers)
+    Classroom.distinct
+      .joins(:classrooms_teachers)
       .where(classrooms_teachers: {user_id: filtered_teachers.pluck(:id)})
+      .order(:name)
   end
 
   private def set_query

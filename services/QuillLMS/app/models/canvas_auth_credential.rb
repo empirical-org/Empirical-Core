@@ -43,4 +43,9 @@ class CanvasAuthCredential < AuthCredential
   def token
     access_token
   end
+
+  # token is used by the lms-api gem
+  def token=(value)
+    self.access_token = value
+  end
 end

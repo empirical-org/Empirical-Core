@@ -9,17 +9,23 @@
 #  type                  :string           not null
 #  created_at            :datetime         not null
 #  updated_at            :datetime         not null
-#  provider_classroom_id :string           not null
-#  provider_user_id      :string           not null
+#  canvas_instance_id    :bigint
+#  classroom_external_id :string           not null
+#  user_external_id      :string           not null
 #
 # Indexes
 #
-#  index_provider_type_and_classroom_id_and_user_id  (type,provider_classroom_id,provider_user_id) UNIQUE
+#  index_provider_classroom_users_on_canvas_instance_id  (canvas_instance_id)
+#  index_provider_type_and_classroom_id_and_user_id      (type,classroom_external_id,user_external_id) UNIQUE
+#
+# Foreign Keys
+#
+#  fk_rails_...  (canvas_instance_id => canvas_instances.id)
 #
 FactoryBot.define do
   factory :provider_classroom_user, class: 'ProviderClassroomUser' do
-    provider_classroom_id { (1..10).map { (1..9).to_a.sample }.join }
-    provider_user_id { (1..21).map{(1..9).to_a.sample}.join }
+    classroom_external_id { (1..10).map { (1..9).to_a.sample }.join }
+    user_external_id { (1..21).map{(1..9).to_a.sample}.join }
 
     trait(:active) { deleted_at { nil } }
     trait(:deleted) { deleted_at { Time.current } }

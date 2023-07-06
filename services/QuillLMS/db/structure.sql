@@ -3571,11 +3571,12 @@ ALTER SEQUENCE public.prompt_healths_id_seq OWNED BY public.prompt_healths.id;
 CREATE TABLE public.provider_classroom_users (
     id bigint NOT NULL,
     type character varying NOT NULL,
-    provider_classroom_id character varying NOT NULL,
-    provider_user_id character varying NOT NULL,
+    classroom_external_id character varying NOT NULL,
+    user_external_id character varying NOT NULL,
     deleted_at timestamp without time zone,
     created_at timestamp without time zone NOT NULL,
-    updated_at timestamp without time zone NOT NULL
+    updated_at timestamp without time zone NOT NULL,
+    canvas_instance_id bigint
 );
 
 
@@ -3596,6 +3597,40 @@ CREATE SEQUENCE public.provider_classroom_users_id_seq
 --
 
 ALTER SEQUENCE public.provider_classroom_users_id_seq OWNED BY public.provider_classroom_users.id;
+
+
+--
+-- Name: provider_classrooms; Type: TABLE; Schema: public; Owner: -
+--
+
+CREATE TABLE public.provider_classrooms (
+    id bigint NOT NULL,
+    type character varying NOT NULL,
+    external_id character varying NOT NULL,
+    classroom_id bigint NOT NULL,
+    canvas_instance_id bigint,
+    created_at timestamp(6) without time zone NOT NULL,
+    updated_at timestamp(6) without time zone NOT NULL
+);
+
+
+--
+-- Name: provider_classrooms_id_seq; Type: SEQUENCE; Schema: public; Owner: -
+--
+
+CREATE SEQUENCE public.provider_classrooms_id_seq
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+
+--
+-- Name: provider_classrooms_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: -
+--
+
+ALTER SEQUENCE public.provider_classrooms_id_seq OWNED BY public.provider_classrooms.id;
 
 
 --
@@ -5921,6 +5956,13 @@ ALTER TABLE ONLY public.provider_classroom_users ALTER COLUMN id SET DEFAULT nex
 
 
 --
+-- Name: provider_classrooms id; Type: DEFAULT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY public.provider_classrooms ALTER COLUMN id SET DEFAULT nextval('public.provider_classrooms_id_seq'::regclass);
+
+
+--
 -- Name: questions id; Type: DEFAULT; Schema: public; Owner: -
 --
 
@@ -7015,6 +7057,14 @@ ALTER TABLE ONLY public.prompt_healths
 
 ALTER TABLE ONLY public.provider_classroom_users
     ADD CONSTRAINT provider_classroom_users_pkey PRIMARY KEY (id);
+
+
+--
+-- Name: provider_classrooms provider_classrooms_pkey; Type: CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY public.provider_classrooms
+    ADD CONSTRAINT provider_classrooms_pkey PRIMARY KEY (id);
 
 
 --
@@ -8368,10 +8418,31 @@ CREATE UNIQUE INDEX index_plans_on_name ON public.plans USING btree (name);
 
 
 --
+-- Name: index_provider_classroom_users_on_canvas_instance_id; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX index_provider_classroom_users_on_canvas_instance_id ON public.provider_classroom_users USING btree (canvas_instance_id);
+
+
+--
+-- Name: index_provider_classrooms_on_canvas_instance_id; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX index_provider_classrooms_on_canvas_instance_id ON public.provider_classrooms USING btree (canvas_instance_id);
+
+
+--
+-- Name: index_provider_classrooms_on_classroom_id; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX index_provider_classrooms_on_classroom_id ON public.provider_classrooms USING btree (classroom_id);
+
+
+--
 -- Name: index_provider_type_and_classroom_id_and_user_id; Type: INDEX; Schema: public; Owner: -
 --
 
-CREATE UNIQUE INDEX index_provider_type_and_classroom_id_and_user_id ON public.provider_classroom_users USING btree (type, provider_classroom_id, provider_user_id);
+CREATE UNIQUE INDEX index_provider_type_and_classroom_id_and_user_id ON public.provider_classroom_users USING btree (type, classroom_external_id, user_external_id);
 
 
 --
@@ -9401,11 +9472,27 @@ ALTER TABLE ONLY public.pack_sequence_items
 
 
 --
+-- Name: provider_classrooms fk_rails_78d7d3d31c; Type: FK CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY public.provider_classrooms
+    ADD CONSTRAINT fk_rails_78d7d3d31c FOREIGN KEY (classroom_id) REFERENCES public.classrooms(id);
+
+
+--
 -- Name: pack_sequences fk_rails_79fa628e65; Type: FK CONSTRAINT; Schema: public; Owner: -
 --
 
 ALTER TABLE ONLY public.pack_sequences
     ADD CONSTRAINT fk_rails_79fa628e65 FOREIGN KEY (diagnostic_activity_id) REFERENCES public.activities(id);
+
+
+--
+-- Name: provider_classroom_users fk_rails_7ad4319bc6; Type: FK CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY public.provider_classroom_users
+    ADD CONSTRAINT fk_rails_7ad4319bc6 FOREIGN KEY (canvas_instance_id) REFERENCES public.canvas_instances(id);
 
 
 --
@@ -9462,6 +9549,14 @@ ALTER TABLE ONLY public.activity_topics
 
 ALTER TABLE ONLY public.learn_worlds_accounts
     ADD CONSTRAINT fk_rails_96f37b8ce0 FOREIGN KEY (user_id) REFERENCES public.users(id);
+
+
+--
+-- Name: provider_classrooms fk_rails_9c61f34d66; Type: FK CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY public.provider_classrooms
+    ADD CONSTRAINT fk_rails_9c61f34d66 FOREIGN KEY (canvas_instance_id) REFERENCES public.canvas_instances(id);
 
 
 --
@@ -10269,6 +10364,9 @@ INSERT INTO "schema_migrations" (version) VALUES
 ('20230622125712'),
 ('20230622525712'),
 ('20230623154333'),
-('20230623154418');
+('20230623154418'),
+('20230630172652'),
+('20230630173229'),
+('20230630184901');
 
 

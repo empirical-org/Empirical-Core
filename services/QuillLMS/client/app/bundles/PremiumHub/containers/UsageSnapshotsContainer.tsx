@@ -1,4 +1,5 @@
 import React from 'react'
+import queryString from 'query-string';
 import * as _ from 'lodash'
 
 import { FULL, restrictedPage, } from '../shared';
@@ -28,19 +29,34 @@ const Tab = ({ section, setSelectedTab, selectedTab }) => {
 
 const UsageSnapshotsContainer = ({ adminInfo, accessType, }) => {
   const [loadingFilters, setLoadingFilters] = React.useState(true)
+
   const [allTimeframes, setAllTimeframes] = React.useState(null)
   const [allSchools, setAllSchools] = React.useState(null)
   const [allGrades, setAllGrades] = React.useState(null)
+  const [allTeachers, setAllTeachers] = React.useState(null)
+  const [allClassrooms, setAllClassrooms] = React.useState(null)
+
+  const [originalAllSchools, setOriginalAllSchools] = React.useState(null)
+  const [originalAllTeachers, setOriginalAllTeachers] = React.useState(null)
+  const [originalAllClassrooms, setOriginalAllClassrooms] = React.useState(null)
+
   const [selectedSchools, setSelectedSchools] = React.useState(null)
   const [selectedGrades, setSelectedGrades] = React.useState(null)
+  const [selectedTeachers, setSelectedTeachers] = React.useState(null)
+  const [selectedClassrooms, setSelectedClassrooms] = React.useState(null)
   const [selectedTimeframe, setSelectedTimeframe] = React.useState(null)
+
   const [lastSubmittedSchools, setLastSubmittedSchools] = React.useState(null)
   const [lastSubmittedGrades, setLastSubmittedGrades] = React.useState(null)
+  const [lastSubmittedTeachers, setLastSubmittedTeachers] = React.useState(null)
+  const [lastSubmittedClassrooms, setLastSubmittedClassrooms] = React.useState(null)
   const [lastSubmittedTimeframe, setLastSubmittedTimeframe] = React.useState(null)
   const [lastSubmittedCustomStartDate, setLastSubmittedCustomStartDate] = React.useState(null)
   const [lastSubmittedCustomEndDate, setLastSubmittedCustomEndDate] = React.useState(null)
+
   const [hasAdjustedFiltersFromDefault, setHasAdjustedFiltersFromDefault] = React.useState(null)
   const [hasAdjustedFiltersSinceLastSubmission, setHasAdjustedFiltersSinceLastSubmission] = React.useState(null)
+
   const [customStartDate, setCustomStartDate] = React.useState(null)
   const [customEndDate, setCustomEndDate] = React.useState(null)
   const [searchCount, setSearchCount] = React.useState(0)
@@ -58,18 +74,36 @@ const UsageSnapshotsContainer = ({ adminInfo, accessType, }) => {
   React.useEffect(() => {
     if (loadingFilters) { return }
 
-    const newValueForHasAdjustedFiltersFromDefault = !unorderedArraysAreEqual(selectedSchools, allSchools) || !unorderedArraysAreEqual(selectedGrades, allGrades) || !_.isEqual(selectedTimeframe, defaultTimeframe(allTimeframes))
+    getFilters()
+  }, [selectedSchools, selectedTeachers, selectedClassrooms, selectedGrades])
+
+  React.useEffect(() => {
+    if (loadingFilters) { return }
+
+    const newValueForHasAdjustedFiltersFromDefault = (
+      !unorderedArraysAreEqual(selectedSchools, originalAllSchools)
+      || !unorderedArraysAreEqual(selectedGrades, allGrades)
+      || !unorderedArraysAreEqual(selectedTeachers, originalAllTeachers)
+      || !unorderedArraysAreEqual(selectedClassrooms, originalAllClassrooms)
+      || !_.isEqual(selectedTimeframe, defaultTimeframe(allTimeframes))
+    )
 
     setHasAdjustedFiltersFromDefault(newValueForHasAdjustedFiltersFromDefault)
 
-    const arraysUnequal = !unorderedArraysAreEqual(selectedSchools, lastSubmittedSchools) || !unorderedArraysAreEqual(selectedGrades, lastSubmittedGrades)
+    const arraysUnequal = (
+      !unorderedArraysAreEqual(selectedSchools, lastSubmittedSchools)
+      || !unorderedArraysAreEqual(selectedGrades, lastSubmittedGrades)
+      || !unorderedArraysAreEqual(selectedTeachers, lastSubmittedTeachers)
+      || !unorderedArraysAreEqual(selectedClassrooms, lastSubmittedClassrooms)
+    )
 
     const datesDoNotMatch = !_.isEqual(selectedTimeframe, lastSubmittedTimeframe) || customStartDate !== lastSubmittedCustomStartDate || customEndDate !== lastSubmittedCustomEndDate
 
     const newValueForHasAdjustedFiltersSinceLastSubmission = arraysUnequal || datesDoNotMatch
 
     setHasAdjustedFiltersSinceLastSubmission(newValueForHasAdjustedFiltersSinceLastSubmission)
-  }, [selectedSchools, selectedGrades, selectedTimeframe, customStartDate, customEndDate])
+
+  }, [selectedSchools, selectedGrades, selectedTeachers, selectedClassrooms, selectedTimeframe, customStartDate, customEndDate])
 
   React.useEffect(() => {
     if (showCustomDateModal || (customStartDate && customEndDate) || !lastUsedTimeframe) { return }
@@ -98,36 +132,81 @@ const UsageSnapshotsContainer = ({ adminInfo, accessType, }) => {
   }
 
   function getFilters() {
-    requestGet('/snapshots/options', (filterData) => {
+    const searchParams = {
+      school_ids: selectedSchools?.map(s => s.id) || null,
+      teacher_ids: selectedTeachers?.map(t => t.id) || null,
+      classroom_ids: selectedClassrooms?.map(c => c.id) || null,
+      grades: selectedGrades?.map(g => g.value)
+    }
+
+    const requestUrl = queryString.stringifyUrl({ url: '/snapshots/options', query: searchParams }, { arrayFormat: 'bracket' })
+
+    requestGet(requestUrl, (filterData) => {
       const timeframeOptions = filterData.timeframes.map(tf => ({ ...tf, label: tf.name }))
       const gradeOptions = filterData.grades.map(grade => ({ ...grade, label: grade.name }))
       const schoolOptions = filterData.schools.map(school => ({ ...school, label: school.name, value: school.id }))
 
+      const teacherOptions = filterData.teachers.map(teacher => ({ ...teacher, label: teacher.name, value: teacher.id }))
+
+      const classroomOptions = filterData.classrooms.map(classroom => ({ ...classroom, label: classroom.name, value: classroom.id }))
+
       const timeframe = defaultTimeframe(timeframeOptions)
 
-      setAllGrades(gradeOptions)
-      setAllTimeframes(timeframeOptions)
-      setAllSchools(schoolOptions)
-      setSelectedGrades(gradeOptions)
-      setSelectedSchools(schoolOptions)
-      setLastUsedTimeframe(timeframe)
-      setSelectedTimeframe(timeframe)
-      setLoadingFilters(false)
+      if (allGrades?.length !== gradeOptions.length) { setAllGrades(gradeOptions) }
+      if (allTimeframes?.length !== timeframeOptions.length) { setAllTimeframes(timeframeOptions)}
+      if (allSchools?.length !== schoolOptions.length) { setAllSchools(schoolOptions) }
+      if (allTeachers?.length !== teacherOptions.length) { setAllTeachers(teacherOptions) }
+      if (allClassrooms?.length !== classroomOptions.length) { setAllClassrooms(classroomOptions) }
+
+      if (loadingFilters) {
+        setSelectedGrades(gradeOptions)
+        setSelectedSchools(schoolOptions)
+        setSelectedTeachers(teacherOptions)
+        setSelectedClassrooms(classroomOptions)
+        setSelectedTimeframe(timeframe)
+
+        setLastSubmittedGrades(gradeOptions)
+        setLastSubmittedSchools(schoolOptions)
+        setLastSubmittedTeachers(teacherOptions)
+        setLastSubmittedClassrooms(classroomOptions)
+        setLastSubmittedTimeframe(timeframe)
+
+        setLastUsedTimeframe(timeframe)
+
+        setOriginalAllClassrooms(classroomOptions)
+        setOriginalAllSchools(schoolOptions)
+        setOriginalAllTeachers(teacherOptions)
+
+        setLoadingFilters(false)
+      }
     })
   }
 
   function clearFilters() {
     setSelectedGrades(allGrades)
-    setSelectedSchools(allSchools)
+    setSelectedSchools(originalAllSchools)
+    setSelectedTeachers(originalAllTeachers)
+    setSelectedClassrooms(originalAllClassrooms)
     setSelectedTimeframe(defaultTimeframe(allTimeframes))
-    applyFilters()
-    setHasAdjustedFiltersFromDefault(false)
+
+    // what follows is basically duplicating the logic in applyFilters, but avoids a race condition where the "lastSubmitted" values get set before the new selected values are set
+    setSearchCount(searchCount + 1)
+    setLastSubmittedGrades(allGrades)
+    setLastSubmittedSchools(originalAllSchools)
+    setLastSubmittedTeachers(originalAllTeachers)
+    setLastSubmittedClassrooms(originalAllClassrooms)
+    setLastSubmittedTimeframe(defaultTimeframe(allTimeframes))
+    setLastSubmittedCustomStartDate(null)
+    setLastSubmittedCustomEndDate(null)
+    setHasAdjustedFiltersSinceLastSubmission(false)
   }
 
   function applyFilters() {
     setSearchCount(searchCount + 1)
     setLastSubmittedGrades(selectedGrades)
     setLastSubmittedSchools(selectedSchools)
+    setLastSubmittedTeachers(selectedTeachers)
+    setLastSubmittedClassrooms(selectedClassrooms)
     setLastSubmittedTimeframe(selectedTimeframe)
     setLastSubmittedCustomStartDate(customStartDate)
     setLastSubmittedCustomEndDate(customEndDate)
@@ -173,9 +252,6 @@ const UsageSnapshotsContainer = ({ adminInfo, accessType, }) => {
     />
   )
 
-  // we need to pass the backend an empty array when all grades are selected so we include data from classrooms that do not have a grade
-  const selectedGradesToPass = selectedGrades.length === allGrades.length ? [] : selectedGrades.map(g => g.value)
-
   const sectionsToShow = selectedTab === ALL ? snapshotSections : snapshotSections.filter(s => s.name === selectedTab)
   const snapshotSectionComponents = sectionsToShow.map(section => (
     <SnapshotSection
@@ -187,8 +263,10 @@ const UsageSnapshotsContainer = ({ adminInfo, accessType, }) => {
       key={section.name}
       name={section.name}
       searchCount={searchCount}
-      selectedGrades={selectedGradesToPass}
+      selectedClassroomIds={selectedClassrooms.map(c => c.id)}
+      selectedGrades={selectedGrades.map(g => g.value)}
       selectedSchoolIds={selectedSchools.map(s => s.id)}
+      selectedTeacherIds={selectedTeachers.map(t => t.id)}
       selectedTimeframe={selectedTimeframe.value}
     />
   ))
@@ -197,6 +275,8 @@ const UsageSnapshotsContainer = ({ adminInfo, accessType, }) => {
     allTimeframes,
     allSchools,
     allGrades,
+    allTeachers,
+    allClassrooms,
     applyFilters,
     clearFilters,
     selectedGrades,
@@ -206,6 +286,10 @@ const UsageSnapshotsContainer = ({ adminInfo, accessType, }) => {
     selectedTimeframe,
     selectedSchools,
     setSelectedSchools,
+    selectedClassrooms,
+    setSelectedClassrooms,
+    selectedTeachers,
+    setSelectedTeachers,
     closeMobileFilterMenu,
     showMobileFilterMenu,
     hasAdjustedFiltersSinceLastSubmission,

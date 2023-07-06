@@ -320,6 +320,49 @@ describe SnapshotsController, type: :controller do
       expect(json_response['classrooms']).to eq([{"id" => classroom.id, "name" => classroom.name}])
     end
 
+    context 'teachers in multiple classrooms' do
+      let(:classroom2) { create(:classroom, grade: target_grade) }
+      let!(:classrooms_teacher2) { create(:classrooms_teacher, user: teacher, classroom: classroom2, role: 'owner') }
+
+      it 'should only list a teacher once even if they have multiple classrooms' do
+        get :options
+
+        json_response = JSON.parse(response.body)
+
+        expect(json_response['teachers'].length).to eq(1)
+      end
+    end
+
+    context 'classrooms with multiple teachers' do
+      let(:co_teacher) { create(:teacher, school: school) }
+      let!(:classrooms_teacher2) { create(:classrooms_teacher, user: co_teacher, classroom: classroom, role: 'coteacher') }
+
+      it 'should only list each classroom once' do
+        get :options
+
+        json_response = JSON.parse(response.body)
+
+        expect(json_response['classrooms'].length).to eq(1)
+      end
+    end
+
+    context 'teacher sorting' do
+      let(:teacher_names) { ['Alice', 'Carol', 'Bob'] }
+      let(:new_school) { create(:school) }
+      let(:user) { create(:user, administered_schools: [new_school]) }
+      let(:teachers) { teacher_names.map { |name| create(:teacher, name: name, school: new_school) } }
+      let(:classrooms) { create_list(:classroom, teachers.length, grade: target_grade) }
+      let!(:classrooms_teachers) { teachers.map.with_index { |teacher, i| create(:classrooms_teacher, user: teacher, classroom: classrooms[i], role: 'owner') } }
+
+      it 'should sort teachers by name' do
+        get :options
+
+        json_response = JSON.parse(response.body)
+
+        expect(json_response['teachers'].map{ |t| t['name'] }).to eq(teacher_names.sort)
+      end
+    end
+
     context 'params' do
       let(:excluded_school_id) { school.id + 1 }
       let(:excluded_grade) { '2' }

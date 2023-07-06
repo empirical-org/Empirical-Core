@@ -57,10 +57,11 @@ module Snapshots
         # percentage has to be set for CTE to UNION these with items that have percentages set
         let(:unstarted_session) { create(:activity_session, :unstarted, classroom_unit: classroom_units[0], percentage: 0.0) }
         let(:started_session) { create(:activity_session, :started, classroom_unit: classroom_units[0], percentage: 0.0) }
+        let(:completed_session) { create(:activity_session, classroom_unit: classroom_units[0]) }
 
-        let(:cte_records) { [runner_context, unstarted_session, started_session] }
+        let(:cte_records) { [runner_context, unstarted_session, started_session, completed_session] }
 
-        it { expect(results).to eq([]) }
+        it { expect(results.first['count']).to eq(1) }
       end
     end
   end

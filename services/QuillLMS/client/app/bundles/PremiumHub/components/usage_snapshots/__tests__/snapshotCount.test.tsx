@@ -1,7 +1,7 @@
 import { mount } from 'enzyme';
 import * as React from 'react';
 
-import { timeframes, grades, schools, } from './data'
+import { timeframes, grades, schools, teachers, classrooms, } from './data'
 
 import { SMALL, NEGATIVE, POSITIVE, MEDIUM, } from '../shared'
 import SnapshotCount from '../snapshotCount';
@@ -13,6 +13,8 @@ describe('SnapshotCount component', () => {
     searchCount: 1,
     selectedGrades: grades.map(g => g.value),
     selectedSchoolIds: schools.map(s => s.id),
+    selectedTeacherIds: teachers.map(s => s.id),
+    selectedClassroomIds: classrooms.map(s => s.id),
     selectedTimeframe: timeframes[0].value,
     adminId: 1,
     customTimeframeStart: null,
