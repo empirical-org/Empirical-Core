@@ -11,6 +11,7 @@ module Snapshots
       'top-concepts-practiced' => Snapshots::TopConceptsPracticedQuery,
       'most-active-teachers' => Snapshots::MostActiveTeachersQuery,
       'most-active-schools' => Snapshots::MostActiveSchoolsQuery,
+      'most-assigned-activities' => Snapshots::MostAssignedActivitiesQuery
     }
 
     def perform(cache_key, query, user_id, timeframe, school_ids, filters)
