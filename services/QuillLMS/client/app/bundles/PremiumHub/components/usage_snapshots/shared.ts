@@ -230,8 +230,7 @@ export const snapshotSections = [
             label: 'Most completed activities',
             type: RANKING,
             queryKey: 'most-completed-activities',
-            headers: ['Activity', 'Activities completed'],
-            comingSoon: true
+            headers: ['Activity', 'Activities completed']
           }
         ]
       },
