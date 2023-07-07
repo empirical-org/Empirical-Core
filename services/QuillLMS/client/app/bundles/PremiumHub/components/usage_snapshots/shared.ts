@@ -280,8 +280,7 @@ export const snapshotSections = [
             label: 'Most active grades',
             type: RANKING,
             queryKey: 'most-active-grades',
-            headers: ['Grade', 'Activities completed'],
-            comingSoon: true
+            headers: ['Grade', 'Activities completed']
           },
         ]
       }
