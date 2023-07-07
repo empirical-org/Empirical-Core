@@ -64,11 +64,8 @@ exports[`SnapshotRanking component when it is coming soon should match snapshot 
       <div
         className="header"
       >
-        <h3
-          className="coming-soon"
-        >
+        <h3>
           Sentences written
-           (coming soon)
         </h3>
       </div>
       <DataTable

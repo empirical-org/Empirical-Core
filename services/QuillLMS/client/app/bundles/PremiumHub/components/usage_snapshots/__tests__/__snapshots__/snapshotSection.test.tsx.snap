@@ -192,7 +192,6 @@ exports[`SnapshotSection component when the section is Classrooms should match s
         </SnapshotCount>
         <SnapshotCount
           adminId={1}
-          comingSoon={true}
           customTimeframeEnd={null}
           customTimeframeStart={null}
           key="average-active-classrooms-per-teacher"
@@ -247,9 +246,9 @@ exports[`SnapshotSection component when the section is Classrooms should match s
               className="count-and-label"
             >
               <span
-                className="coming-soon"
+                className="count"
               >
-                Coming soon
+                —
               </span>
               <span
                 className="snapshot-label"
@@ -346,7 +345,6 @@ exports[`SnapshotSection component when the section is Classrooms should match s
         </SnapshotCount>
         <SnapshotCount
           adminId={1}
-          comingSoon={true}
           customTimeframeEnd={null}
           customTimeframeStart={null}
           key="average-active-students-per-classroom"
@@ -401,9 +399,9 @@ exports[`SnapshotSection component when the section is Classrooms should match s
               className="count-and-label"
             >
               <span
-                className="coming-soon"
+                className="count"
               >
-                Coming soon
+                —
               </span>
               <span
                 className="snapshot-label"
@@ -428,7 +426,6 @@ exports[`SnapshotSection component when the section is Classrooms should match s
       >
         <SnapshotRanking
           adminId={1}
-          comingSoon={true}
           customTimeframeEnd={null}
           customTimeframeStart={null}
           headers={
@@ -490,11 +487,8 @@ exports[`SnapshotSection component when the section is Classrooms should match s
               <div
                 className="header"
               >
-                <h3
-                  className="coming-soon"
-                >
+                <h3>
                   Most active grades
-                   (coming soon)
                 </h3>
               </div>
               <DataTable
@@ -1997,7 +1991,6 @@ exports[`SnapshotSection component when the section is Practice should match sna
       >
         <SnapshotRanking
           adminId={1}
-          comingSoon={true}
           customTimeframeEnd={null}
           customTimeframeStart={null}
           headers={
@@ -2059,11 +2052,8 @@ exports[`SnapshotSection component when the section is Practice should match sna
               <div
                 className="header"
               >
-                <h3
-                  className="coming-soon"
-                >
+                <h3>
                   Most assigned activities
-                   (coming soon)
                 </h3>
               </div>
               <DataTable
@@ -2133,7 +2123,6 @@ exports[`SnapshotSection component when the section is Practice should match sna
         </SnapshotRanking>
         <SnapshotRanking
           adminId={1}
-          comingSoon={true}
           customTimeframeEnd={null}
           customTimeframeStart={null}
           headers={
@@ -2195,11 +2184,8 @@ exports[`SnapshotSection component when the section is Practice should match sna
               <div
                 className="header"
               >
-                <h3
-                  className="coming-soon"
-                >
+                <h3>
                   Most completed activities
-                   (coming soon)
                 </h3>
               </div>
               <DataTable
@@ -2918,7 +2904,6 @@ exports[`SnapshotSection component when the section is Users should match snapsh
       >
         <SnapshotRanking
           adminId={1}
-          comingSoon={true}
           customTimeframeEnd={null}
           customTimeframeStart={null}
           headers={
@@ -2980,11 +2965,8 @@ exports[`SnapshotSection component when the section is Users should match snapsh
               <div
                 className="header"
               >
-                <h3
-                  className="coming-soon"
-                >
+                <h3>
                   Most active teachers
-                   (coming soon)
                 </h3>
               </div>
               <DataTable
