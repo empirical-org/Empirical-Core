@@ -3,6 +3,7 @@ import Buttons from '../components/styleGuide/buttons'
 import Cards from '../components/styleGuide/cards'
 import DataTables from '../components/styleGuide/dataTables'
 import Menus from '../components/styleGuide/menus'
+import DropdownInputsWithSearchTokens from '../components/styleGuide/dropdownInputsWithSearchTokens'
 import Sliders from '../components/styleGuide/sliders'
 import Snackbars from '../components/styleGuide/snackbars'
 import TextFields from '../components/styleGuide/textFields'
@@ -32,8 +33,9 @@ export default class BackpackIndex extends React.Component {
           </p>
           <ul className="menu-list">
             {this.renderLink('#cards', 'Cards')}
-            {this.renderLink('#menus', 'Menus')}
-            {this.renderLink('#textFields', 'Text Fields')}
+            {this.renderLink('#menus', 'Menus (DropdownInputs)')}
+            {this.renderLink('#menus-with-search-tokens', 'Menus (DropdownInputs) with Search Tokens')}
+            {this.renderLink('#textFields', 'Text Fields (Inputs)')}
             {this.renderLink('#snackbars', 'Snackbars')}
             {this.renderLink('#tooltips', 'Tooltips')}
             {this.renderLink('#data-tables', 'Data Tables')}
@@ -47,6 +49,7 @@ export default class BackpackIndex extends React.Component {
           <Buttons />
           <Cards />
           <Menus />
+          <DropdownInputsWithSearchTokens />
           <TextFields />
           <Snackbars />
           <Tooltips />
