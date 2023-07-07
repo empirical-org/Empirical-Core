@@ -54,7 +54,7 @@ class Teachers::UnitsController < ApplicationController
     activities_data = UnitActivity.where(unit_id: params[:id]).order(:order_number).pluck(:activity_id).map { |id| { id: id } }
 
     if activities_data.any?
-      classroom_data = params[:unit][:classrooms].as_json.deep_symbolize_keys
+      classroom_data = params[:unit][:classrooms].as_json.map(&:deep_symbolize_keys)
       Units::Updater.run(params[:id], activities_data, classroom_data, current_user.id)
       render json: {}
     else
