@@ -15,7 +15,7 @@ module QuillBigQuery
       let(:second_teacher) { create(:teacher) }
       let(:schools_user_two) { create(:schools_users, user: second_teacher, school: chosen_school_two) }
 
-      let(:query_args) { [{teacher_ids: [teacher.id, second_teacher.id]}] }
+      let(:query_args) { [[teacher.id, second_teacher.id]] }
       let(:cte_records) {
         [
           schools,

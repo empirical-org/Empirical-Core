@@ -15,7 +15,7 @@ class SetImpactMetricsWorker
     teachers_query = QuillBigQuery::ActiveTeachersAllTimeQuery.run
     teacher_ids = teachers_query.to_a.map {|teacher| teacher["id"]}
 
-    schools_query = QuillBigQuery::SchoolsContainingCertainTeachersQuery.run({teacher_ids: teacher_ids})
+    schools_query = QuillBigQuery::SchoolsContainingCertainTeachersQuery.run(teacher_ids)
     low_income_schools_query = schools_query.select { |school| school["free_lunches"].present? && school["free_lunches"] > FREE_LUNCH_MINIMUM}
 
     number_of_sentences = finished_activity_sessions_query.count.floor(-5) * 10

@@ -29,7 +29,7 @@ describe SetImpactMetricsWorker do
     before do
       allow(QuillBigQuery::ActivitiesAllTimeQuery).to receive(:run).and_return(example_json1)
       allow(QuillBigQuery::ActiveTeachersAllTimeQuery).to receive(:run).and_return(example_json2)
-      allow(QuillBigQuery::SchoolsContainingCertainTeachersQuery).to receive(:run).with({teacher_ids: teachers.map(&:id)}).and_return(example_json3)
+      allow(QuillBigQuery::SchoolsContainingCertainTeachersQuery).to receive(:run).with(teachers.map(&:id)).and_return(example_json3)
     end
 
     it 'should set the NUMBER_OF_SENTENCES redis value' do

@@ -10,7 +10,7 @@ module QuillBigQuery
     end
 
     def run
-      runner.execute(query, @teacher_ids)
+      runner.execute(query, {teacher_ids: @teacher_ids})
     end
 
     def select_clause
