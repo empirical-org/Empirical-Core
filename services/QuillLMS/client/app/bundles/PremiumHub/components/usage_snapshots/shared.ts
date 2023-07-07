@@ -267,8 +267,7 @@ export const snapshotSections = [
             label: 'Average active students per classroom',
             size: SMALL,
             type: COUNT,
-            queryKey: 'average-active-students-per-classroom',
-            comingSoon: true
+            queryKey: 'average-active-students-per-classroom'
           },
         ]
       },

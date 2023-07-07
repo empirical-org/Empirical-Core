@@ -16,6 +16,7 @@ module Snapshots
       'activity-packs-completed' => Snapshots::ActivityPacksCompletedQuery,
       'average-active-classrooms-per-teacher' => Snapshots::AverageActiveClassroomsPerTeacherQuery,
       'average-activities-completed-per-student' => Snapshots::AverageActivitiesCompletedPerStudentQuery,
+      'average-active-students-per-classroom' => Snapshots::AverageActiveStudentsPerClassroomQuery,
       'baseline-diagnostics-assigned' => Snapshots::BaselineDiagnosticsAssignedQuery,
       'baseline-diagnostics-completed' => Snapshots::BaselineDiagnosticsCompletedQuery,
       'classrooms-created' => Snapshots::ClassroomsCreatedQuery,

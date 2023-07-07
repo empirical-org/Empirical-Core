@@ -7,9 +7,9 @@ module Snapshots
     context 'external_api', :big_query_snapshot do
       include_context 'Snapshots Activity Session Count CTE'
 
-      let(:average_active_classrooms_per_teacher) { activity_sessions.map(&:user_id).uniq.count / classrooms.count.to_f }
+      let(:average_active_students_per_classroom) { activity_sessions.map(&:user_id).uniq.count / classrooms.count.to_f }
 
-      it { expect(results).to eq(count: average_active_classrooms_per_teacher) }
+      it { expect(results).to eq(count: average_active_students_per_classroom) }
     end
   end
 end
