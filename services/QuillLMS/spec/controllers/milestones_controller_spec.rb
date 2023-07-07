@@ -83,9 +83,9 @@ describe MilestonesController do
     let!(:milestone) { create(:dismiss_unassign_warning_modal) }
 
     it 'should push the milestone into users milestones' do
-      expect(user.milestones).to_not include milestone
-      post :complete_dismiss_unassign_warning_modal
-      expect(user.milestones).to include milestone
+      expect {
+        post :complete_dismiss_unassign_warning_modal
+      }.to change(user.milestones).from([]).to([milestone])
     end
   end
 

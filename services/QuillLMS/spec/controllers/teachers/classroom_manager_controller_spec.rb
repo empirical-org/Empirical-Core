@@ -21,7 +21,7 @@ describe Teachers::ClassroomManagerController, type: :controller do
       expect(assigns(:tab)).to eq "test tab"
       expect(assigns(:grade)).to eq "test grade"
       expect(assigns(:students)).to eq user.students.any?
-      expect(assigns(:unassign_warning_hidden)).to eq UserMilestone.find_by(milestone_id: milestone.id, user_id: user.id)
+      expect(assigns(:unassign_warning_hidden)).to eq UserMilestone.exists?(milestone_id: milestone.id, user_id: user.id)
       expect(assigns(:last_classroom_id)).to eq user.classrooms_i_teach.last.id
       expect(assigns(:last_classroom_name)).to eq user.classrooms_i_teach.last.name
     end

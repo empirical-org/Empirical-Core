@@ -353,7 +353,7 @@
     }
   }
 
-  section:not(.activity-row):not(.selected-activity-row):not(.filter-and-sort):not(.classroom-section) {
+  section:not(.activity-row, .selected-activity-row, .filter-and-sort, .classroom-section) {
     border-bottom: none;
     &.name-the-unit {
       border-bottom: solid 1px #c0c0c0;

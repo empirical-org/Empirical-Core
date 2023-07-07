@@ -54,7 +54,7 @@ class Teachers::UnitsController < ApplicationController
     activities_data = UnitActivity.where(unit_id: params[:id]).order(:order_number).pluck(:activity_id).map { |id| { id: id } }
 
     if activities_data.any?
-      classroom_data = params[:unit][:classrooms].as_json.map(&:symbolize_keys)
+      classroom_data = params[:unit][:classrooms].as_json.deep_symbolize_keys
       Units::Updater.run(params[:id], activities_data, classroom_data, current_user.id)
       render json: {}
     else
@@ -67,12 +67,15 @@ class Teachers::UnitsController < ApplicationController
 
     new_assigned_student_ids = classroom_unit
       .assigned_student_ids
-      .union([params[:student_id].to_i])
+      .push(params[:student_id].to_i)
       .sort
 
     classroom_unit.update(assigned_student_ids: new_assigned_student_ids)
 
-    ActivitySession.unscoped.where(user_id: params[:student_id], classroom_unit_id: params[:classroom_unit_id]).update(visible: true)
+    ActivitySession
+      .unscoped
+      .where(user_id: params[:student_id], classroom_unit_id: params[:classroom_unit_id])
+      .update(visible: true)
 
     render json: {}
   end
