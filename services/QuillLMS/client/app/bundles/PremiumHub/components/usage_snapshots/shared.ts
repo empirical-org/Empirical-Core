@@ -254,8 +254,7 @@ export const snapshotSections = [
             label: 'Average active classrooms per teacher',
             size: SMALL,
             type: COUNT,
-            queryKey: 'average-active-classrooms-per-teacher',
-            comingSoon: true
+            queryKey: 'average-active-classrooms-per-teacher'
           },
           {
             label: 'Classrooms created',
