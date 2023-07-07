@@ -23,7 +23,6 @@ interface SnapshotRankingProps {
   adminId: number;
   customTimeframeStart?: any;
   customTimeframeEnd?: any;
-  comingSoon?: boolean;
 }
 
 const RankingModal = ({ label, closeModal, headers, data, }) => {
@@ -71,14 +70,12 @@ const DataTable = ({ headers, data, numberOfRows, }) => {
   )
 }
 
-const SnapshotRanking = ({ label, queryKey, headers, comingSoon, searchCount, selectedGrades, selectedSchoolIds, selectedTeacherIds, selectedClassroomIds, selectedTimeframe, customTimeframeStart, customTimeframeEnd, adminId, passedData, }: SnapshotRankingProps) => {
+const SnapshotRanking = ({ label, queryKey, headers, searchCount, selectedGrades, selectedSchoolIds, selectedTeacherIds, selectedClassroomIds, selectedTimeframe, customTimeframeStart, customTimeframeEnd, adminId, passedData, }: SnapshotRankingProps) => {
   const [data, setData] = React.useState(null)
   const [loading, setLoading] = React.useState(false)
   const [showModal, setShowModal] = React.useState(false)
 
   React.useEffect(() => {
-    if (comingSoon) { return }
-
     resetToDefault()
 
     getData()
@@ -160,7 +157,7 @@ const SnapshotRanking = ({ label, queryKey, headers, comingSoon, searchCount, se
       )}
       <div onClick={openModal}>
         <div className="header">
-          {comingSoon ? <h3 className="coming-soon">{label} (coming soon)</h3> : <h3>{label}</h3>}
+          <h3>{label}</h3>
           {loading && <div className="loading-spinner-wrapper"><ButtonLoadingSpinner /></div>}
           {data && <button aria-label="Open modal with additional seven lines of table data" className="interactive-wrapper focus-on-light" onClick={openModal} type="button">{expandImg}</button>}
         </div>

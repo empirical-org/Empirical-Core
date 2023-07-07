@@ -26,22 +26,19 @@ interface SnapshotCountProps {
   adminId: number;
   customTimeframeStart?: any;
   customTimeframeEnd?: any;
-  comingSoon?: boolean;
   passedCount?: number;
   passedChange?: number;
   passedChangeDirection?: 'negative'|'positive';
   singularLabel?: string;
 }
 
-const SnapshotCount = ({ label, size, queryKey, comingSoon, searchCount, selectedGrades, selectedSchoolIds, selectedTeacherIds, selectedClassroomIds, selectedTimeframe, customTimeframeStart, customTimeframeEnd, adminId, passedCount, passedChange, passedChangeDirection, singularLabel, }: SnapshotCountProps) => {
+const SnapshotCount = ({ label, size, queryKey, searchCount, selectedGrades, selectedSchoolIds, selectedTeacherIds, selectedClassroomIds, selectedTimeframe, customTimeframeStart, customTimeframeEnd, adminId, passedCount, passedChange, passedChangeDirection, singularLabel, }: SnapshotCountProps) => {
   const [count, setCount] = React.useState(passedCount || null)
   const [change, setChange] = React.useState(passedChange || 0)
   const [changeDirection, setChangeDirection] = React.useState(passedChangeDirection || null)
   const [loading, setLoading] = React.useState(false)
 
   React.useEffect(() => {
-    if (comingSoon) { return }
-
     resetToDefault()
 
     getData()
@@ -129,7 +126,7 @@ const SnapshotCount = ({ label, size, queryKey, comingSoon, searchCount, selecte
     <section className={className}>
       {loading && <div className="loading-spinner-wrapper"><ButtonLoadingSpinner /></div>}
       <div className="count-and-label">
-        {comingSoon ? <span className="coming-soon">Coming soon</span> : <span className="count">{count?.toLocaleString() || '—'}</span>}
+        <span className="count">{count?.toLocaleString() || '—'}</span>
         <span className="snapshot-label">{count === 1 && singularLabel ? singularLabel : label}</span>
       </div>
       <div className="change">
