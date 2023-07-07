@@ -50,7 +50,7 @@ module Snapshots
           before do
             classrooms.each { |classroom| classroom.update(grade: nil) }
           end
-  
+
           it { expect(results).to eq([{'value' => described_class::NULL_GRADE_LABEL, 'count' => activity_session_bundles.flatten.length}]) }
         end
       end

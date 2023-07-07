@@ -31,12 +31,10 @@ module Snapshots
 
     def numerator_query
       raise NotImplementedError
-      ActivitiesCompletedQuery
     end
 
     def denominator_query
       raise NotImplementedError
-      ActiveStudentsQuery
     end
   end
 end
