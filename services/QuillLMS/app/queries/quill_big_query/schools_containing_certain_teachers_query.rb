@@ -1,7 +1,7 @@
 # frozen_string_literal: true
 
 module QuillBigQuery
-  class SchoolsContainingXTeachersQuery < ::QuillBigQuery::Query
+  class SchoolsContainingCertainTeachersQuery < ::QuillBigQuery::Query
 
     def initialize(teacher_ids, options = {})
       @teacher_ids = teacher_ids

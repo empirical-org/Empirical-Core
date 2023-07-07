@@ -27,7 +27,7 @@ module QuillBigQuery
       fields = raw_fields.pluck("name")
       values = json_body['rows'].pluck('f').map { |val_hash| val_hash.pluck('v') }
       hash_results = values.map {|v| fields.zip(v).to_h}
-      QuillBigQuery::Transformer.new(raw_fields, hash_results).transform
+      QuillBigQuery::PostTransformer.new(raw_fields, hash_results).transform
     end
 
     def self.get_response(query, *array_params)
@@ -35,7 +35,7 @@ module QuillBigQuery
       # API discovery https://github.com/googleapis/google-api-ruby-client/tree/v0.8.6#api-discovery
       bigquery = client.discovered_api('bigquery', 'v2')
 
-      body_object = QuillBigQuery::Pretransformer.new(query, *array_params).transformed_query
+      body_object = QuillBigQuery::PreTransformer.new(query, *array_params).transformed_query
 
       # API reference: https://cloud.google.com/bigquery/docs/reference/rest/v2/jobs/query?apix_params=%7B%22projectId%22%3A%22analytics-data-stores%22%2C%22resource%22%3A%7B%22query%22%3A%22SELECT%20email%20from%20lms.users%20LIMIT%201%22%7D%7D
       begin
@@ -51,6 +51,11 @@ module QuillBigQuery
       body = JSON.parse(result.response.body)
     end
 
+    # NOTE: array_params must be an array of integers or strings, e.g.
+    # {teacher_ids: [1,2,3,4,5]}
+    # because limitations on query length in BigQuery require us to specially format array params.
+
+    # other types of params should be written directly inside the query string, not passed in as array_params
     def self.execute(query, *array_params)
       response = get_response(query, *array_params)
       transform_response(response)

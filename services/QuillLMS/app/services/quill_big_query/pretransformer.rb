@@ -1,7 +1,7 @@
 # frozen_string_literal: true
 
 module QuillBigQuery
-  class Pretransformer
+  class PreTransformer
 
     def initialize(query, *array_params)
       @query = query
