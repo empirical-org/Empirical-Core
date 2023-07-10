@@ -18,9 +18,11 @@ class Teachers::ClassroomManagerController < ApplicationController
 
   MY_ACCOUNT = 'my_account'
   ASSIGN = 'assign'
+  UNASSIGN_WARNING_MILESTONE = Milestone.find_by_name(Milestone::TYPES[:dismiss_unassign_warning_modal])
 
   def lesson_planner
     set_classroom_variables
+    @unassign_warning_hidden = UserMilestone.exists?(milestone_id: UNASSIGN_WARNING_MILESTONE&.id, user_id: current_user&.id)
   end
 
   def assign

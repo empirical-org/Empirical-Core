@@ -235,6 +235,18 @@ describe Teachers::ClassroomsController, type: :controller do
               expect(assigns(:classrooms)[i][:students][0][:number_of_completed_activities]).to eq 1
             end
           end
+
+          it 'should assign students but not number_of_completed_activities if the classroom is archived' do
+            classroom.update(visible: false)
+
+            get :index
+
+            classrooms.count.times do |i|
+              next unless assigns(:classrooms)[i]['id'] == classroom.id
+
+              expect(assigns(:classrooms)[i][:students][0][:number_of_completed_activities]).not_to be
+            end
+          end
         end
 
         context "with order property" do
