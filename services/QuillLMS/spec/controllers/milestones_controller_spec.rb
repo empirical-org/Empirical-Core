@@ -85,7 +85,7 @@ describe MilestonesController do
     it 'should push the milestone into users milestones' do
       expect {
         post :complete_dismiss_unassign_warning_modal
-      }.to change(user.milestones).from([]).to([milestone])
+      }.to change(user, :milestones).from([]).to([milestone])
     end
   end
 
