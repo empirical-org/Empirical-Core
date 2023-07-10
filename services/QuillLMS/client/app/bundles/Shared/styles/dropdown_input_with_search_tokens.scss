@@ -1,0 +1,35 @@
+.dropdown-input-with-search-tokens-container {
+  .dropdown-container {
+    min-height: 46px;
+    justify-content: flex-start;
+  }
+  .dropdown-input-label {
+    font-size: 16px;
+    line-height: 22px;
+    margin-bottom: 16px;
+  }
+  .input-container.checkbox-dropdown .dropdown__control {
+    width: 100%;
+  }
+  .search-token {
+    padding: 5px 8px 5px 16px;
+    background: #06806B;
+    border-radius: 16px;
+    color: white;
+    width: fit-content;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    max-width: 100%;
+    display: flex;
+    align-items: flex-start;
+    span {
+      margin-right: 10px;
+    }
+    .interactive-wrapper {
+      padding-top: 2px;
+    }
+    &:not(:last-of-type) {
+      margin-bottom: 16px;
+    }
+  }
+}
