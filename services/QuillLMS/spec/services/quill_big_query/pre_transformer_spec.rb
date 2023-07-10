@@ -73,7 +73,7 @@ describe QuillBigQuery::PreTransformer do
   end
 
   describe '#transformed_query' do
-    it 'returns the properly formatted payload for the complete transformed query' do
+    it 'returns the properly formatted payload for the complete transformed query if there are array parameters' do
       parameters = {words: ['alpha', 'beta', 'charlie', 'delta']}
       query = 'this is a query'
       example_payload = {
@@ -100,6 +100,17 @@ describe QuillBigQuery::PreTransformer do
         ]
       }
       expect(QuillBigQuery::PreTransformer.new(query, parameters).transformed_query).to eq(example_payload)
+    end
+
+    it 'returns the properly formatted payload for the complete transformed query if there are no array parameters' do
+      query = 'this is a query'
+      example_payload = {
+        'query' => query,
+        'useLegacySql' => false,
+        'queryParameters' => [
+        ]
+      }
+      expect(QuillBigQuery::PreTransformer.new(query).transformed_query).to eq(example_payload)
     end
   end
 
