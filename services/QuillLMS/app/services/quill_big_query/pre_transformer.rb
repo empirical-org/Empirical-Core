@@ -39,9 +39,10 @@ module QuillBigQuery
     end
 
     def self.type_lookup(object)
-      raise UnsupportedArrayParameterTypeError unless (object.is_a?(String) || object.is_a?(Integer))
+      raise UnsupportedArrayParameterTypeError unless object.is_a?(String) || object.is_a?(Integer)
 
       return STRING_TYPE if object.is_a? String
+
       return INT_TYPE
     end
 
