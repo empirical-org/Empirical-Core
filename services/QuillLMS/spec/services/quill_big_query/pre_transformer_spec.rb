@@ -107,8 +107,7 @@ describe QuillBigQuery::PreTransformer do
       example_payload = {
         'query' => query,
         'useLegacySql' => false,
-        'queryParameters' => [
-        ]
+        'queryParameters' => []
       }
       expect(QuillBigQuery::PreTransformer.new(query).transformed_query).to eq(example_payload)
     end
