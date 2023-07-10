@@ -30,17 +30,17 @@ const Student = ({ assignment, classroomUnit, student, toggleStudentSelection, o
 
   if (previouslyAssigned && toBeAssigned) {
     className += 'already-assigned'
-    description = <span>Pack <em>assigned</em></span>
+    description = <span className="description">Pack <em>assigned</em></span>
   } else if (previouslyAssigned && !toBeAssigned) {
     className += 'will-be-removed'
-    description = <span>Pack will be <em>removed</em></span>
+    description = <span className="description">Pack will be <em>removed</em></span>
   } else if (!previouslyAssigned && toBeAssigned) {
     className += 'will-be-assigned'
-    description = <span>Pack will be <em>assigned</em></span>
+    description = <span className="description">Pack will be <em>assigned</em></span>
   } else if (!previouslyAssigned && originallyAssigned) {
     description = (
       <div className="pack-removed-wrapper">
-        <span>Pack <em>removed</em></span>
+        <span className="description">Pack <em>removed</em></span>
         <Tooltip
           tooltipText="<p><b>Restore Assigned Pack</b><br/> Student will see assigned and previously completed activities for this pack.</p>"
           tooltipTriggerText={<button aria-label="Restore assigned pack" className="interactive-wrapper focus-on-light" onClick={handleClickRestoreAssignment} type="button"><img alt="" src={revertUnassignmentIconSrc} /></button>}

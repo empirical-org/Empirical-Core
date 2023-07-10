@@ -4,6 +4,7 @@ import { requestGet, requestPut, requestPost, } from '../../../modules/request';
 import { Spinner, } from '../../Shared/index';
 import Student from '../components/update_assigned_students/student'
 import UnassignWarningModal from '../components/update_assigned_students/unassign_warning_modal'
+import { unorderedArraysAreEqual, } from '../../../modules/unorderedArraysAreEqual'
 
 const UpdateAssignedStudents = ({ match, unassignWarningHidden, skipLoading, passedOriginalClassrooms, passedClassroomsForComparison, passedAssignmentData, passedUnitName, }) => {
   const [loading, setLoading] = React.useState(skipLoading ? false : true)
@@ -72,7 +73,7 @@ const UpdateAssignedStudents = ({ match, unassignWarningHidden, skipLoading, pas
   function assignedStudentsHaveChanged() {
     return assignmentData.some(assignment => {
       const classroom = classroomsForComparison.find(c => c.id === assignment.id)
-      return assignment.student_ids.sort() !== (classroom.classroom_unit?.assigned_student_ids?.sort() || [])
+      return !unorderedArraysAreEqual(assignment.student_ids, (classroom.classroom_unit?.assigned_student_ids || []))
     })
   }
 

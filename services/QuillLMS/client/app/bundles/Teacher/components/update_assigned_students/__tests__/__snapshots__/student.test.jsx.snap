@@ -61,7 +61,9 @@ exports[`Student should render when the student has already been assigned 1`] = 
         Ken Liu
       </span>
     </div>
-    <span>
+    <span
+      className="description"
+    >
       Pack 
       <em>
         assigned
@@ -130,7 +132,9 @@ exports[`Student should render when the student has been removed 1`] = `
     <div
       className="pack-removed-wrapper"
     >
-      <span>
+      <span
+        className="description"
+      >
         Pack 
         <em>
           removed
@@ -317,7 +321,9 @@ exports[`Student should render when the student will be assigned 1`] = `
         Angie Thomas
       </span>
     </div>
-    <span>
+    <span
+      className="description"
+    >
       Pack will be 
       <em>
         assigned
@@ -383,7 +389,9 @@ exports[`Student should render when the student will be removed 1`] = `
         Nic Stone
       </span>
     </div>
-    <span>
+    <span
+      className="description"
+    >
       Pack will be 
       <em>
         removed

@@ -76,14 +76,14 @@
       &.will-be-assigned {
         background-color: #D6EFEC;
         border: 1px solid #06806B;
-        span {
+        .description {
           color: #06806B;
         }
       }
       &.will-be-removed {
         background-color: #FFEDEC;
         border: 1px solid #EB4F47;
-        span {
+        .description {
           color: #EB4F47;
         }
       }

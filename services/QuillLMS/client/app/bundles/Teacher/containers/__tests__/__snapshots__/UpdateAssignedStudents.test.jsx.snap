@@ -504,7 +504,9 @@ exports[`UpdateAssignedStudents will render  1`] = `
                     Ken Liu
                   </span>
                 </div>
-                <span>
+                <span
+                  className="description"
+                >
                   Pack 
                   <em>
                     assigned
@@ -747,7 +749,9 @@ exports[`UpdateAssignedStudents will render  1`] = `
                     Nic Stone
                   </span>
                 </div>
-                <span>
+                <span
+                  className="description"
+                >
                   Pack will be 
                   <em>
                     removed
@@ -837,7 +841,9 @@ exports[`UpdateAssignedStudents will render  1`] = `
                     Angie Thomas
                   </span>
                 </div>
-                <span>
+                <span
+                  className="description"
+                >
                   Pack will be 
                   <em>
                     assigned
