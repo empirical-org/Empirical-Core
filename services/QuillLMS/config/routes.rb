@@ -178,6 +178,7 @@ EmpiricalGrammar::Application.routes.draw do
     post :complete_acknowledge_growth_diagnostic_promotion_card, on: :collection
     post :complete_dismiss_grade_level_warning, on: :collection
     post :complete_dismiss_school_selection_reminder, on: :collection
+    post :complete_dismiss_unassign_warning_modal, on: :collection
     post :create_or_touch_dismiss_teacher_info_modal, on: :collection
   end
 
@@ -236,6 +237,7 @@ EmpiricalGrammar::Application.routes.draw do
     resources :units, as: 'units_path' do
       get :classrooms_with_students_and_classroom_units, on: :member
       put :update_classroom_unit_assigned_students, on: :member
+      put :restore_classroom_unit_assignment_for_one_student, on: :member
       put :update_activities, on: :member
       # moved from within classroom, since units are now cross-classroom
     end

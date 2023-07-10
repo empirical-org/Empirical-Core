@@ -1,0 +1,860 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`UpdateAssignedStudents will render  1`] = `
+<UpdateAssignedStudents
+  match={
+    Object {
+      "params": Object {
+        "unitId": 912,
+      },
+    }
+  }
+  passedAssignmentData={
+    Array [
+      Object {
+        "assign_on_join": false,
+        "id": 173,
+        "student_ids": Array [
+          1032,
+          1036,
+        ],
+      },
+    ]
+  }
+  passedClassroomsForComparison={
+    Array [
+      Object {
+        "classroom_unit": Object {
+          "assign_on_join": false,
+          "assigned_student_ids": Array [
+            1032,
+            1034,
+          ],
+          "id": 1067,
+        },
+        "clever_id": null,
+        "code": "demo-37",
+        "created_at": "2023-04-25T15:53:50.233Z",
+        "google_classroom_id": null,
+        "grade": "9",
+        "grade_level": null,
+        "id": 173,
+        "name": "Quill Classroom",
+        "students": Array [
+          Object {
+            "account_type": "unknown",
+            "active": false,
+            "classcode": null,
+            "clever_id": null,
+            "created_at": "2023-04-25T15:53:52.582Z",
+            "email": null,
+            "flags": Array [],
+            "flagset": "production",
+            "google_id": null,
+            "id": 1032,
+            "ip_address": null,
+            "last_active": null,
+            "last_sign_in": null,
+            "name": "Ken Liu",
+            "password_digest": "$2a$10$8Z36DFcncF.9BmXT78QZROl1lWtr.5aogEmzMUDrhLHzWrD1NeIxG",
+            "role": "student",
+            "send_newsletter": false,
+            "signed_up_with_google": false,
+            "stripe_customer_id": null,
+            "time_zone": null,
+            "title": null,
+            "token": null,
+            "updated_at": "2023-04-25T15:53:52.582Z",
+            "username": "ken.liu.173@demo-teacher",
+          },
+          Object {
+            "account_type": "unknown",
+            "active": false,
+            "classcode": null,
+            "clever_id": null,
+            "created_at": "2023-04-25T15:53:53.083Z",
+            "email": null,
+            "flags": Array [],
+            "flagset": "production",
+            "google_id": null,
+            "id": 1035,
+            "ip_address": null,
+            "last_active": null,
+            "last_sign_in": null,
+            "name": "Tahereh Mafi",
+            "password_digest": "$2a$10$ti487x9/9Tn88SklNjQ5zuhvCuf5aV3QTfe55vAoCkQ9sYUp6Nz.C",
+            "role": "student",
+            "send_newsletter": false,
+            "signed_up_with_google": false,
+            "stripe_customer_id": null,
+            "time_zone": null,
+            "title": null,
+            "token": null,
+            "updated_at": "2023-04-25T15:53:53.083Z",
+            "username": "tahereh.mafi.173@demo-teacher",
+          },
+          Object {
+            "account_type": "unknown",
+            "active": false,
+            "classcode": null,
+            "clever_id": null,
+            "created_at": "2023-04-25T15:53:52.907Z",
+            "email": null,
+            "flags": Array [],
+            "flagset": "production",
+            "google_id": null,
+            "id": 1033,
+            "ip_address": null,
+            "last_active": null,
+            "last_sign_in": null,
+            "name": "Jason Reynolds",
+            "password_digest": "$2a$10$98a7KLY.t7c6FpRA1RUsiOEpuuXCDKS4PXSaTN1fPesxIbQuU6iZK",
+            "role": "student",
+            "send_newsletter": false,
+            "signed_up_with_google": false,
+            "stripe_customer_id": null,
+            "time_zone": null,
+            "title": null,
+            "token": null,
+            "updated_at": "2023-04-25T15:53:52.907Z",
+            "username": "jason.reynolds.173@demo-teacher",
+          },
+          Object {
+            "account_type": "unknown",
+            "active": false,
+            "classcode": null,
+            "clever_id": null,
+            "created_at": "2023-04-25T15:53:52.992Z",
+            "email": null,
+            "flags": Array [],
+            "flagset": "production",
+            "google_id": null,
+            "id": 1034,
+            "ip_address": null,
+            "last_active": null,
+            "last_sign_in": null,
+            "name": "Nic Stone",
+            "password_digest": "$2a$10$y0pCHpdp4W6CszSUGD/MBeoUxPcj6wrzgL7nce/n3gi65cpszyoG6",
+            "role": "student",
+            "send_newsletter": false,
+            "signed_up_with_google": false,
+            "stripe_customer_id": null,
+            "time_zone": null,
+            "title": null,
+            "token": null,
+            "updated_at": "2023-04-25T15:53:52.992Z",
+            "username": "nic.stone.173@demo-teacher",
+          },
+          Object {
+            "account_type": "unknown",
+            "active": false,
+            "classcode": null,
+            "clever_id": null,
+            "created_at": "2023-04-25T15:53:53.181Z",
+            "email": "angie_thomas_demo@quill.org",
+            "flags": Array [],
+            "flagset": "production",
+            "google_id": null,
+            "id": 1036,
+            "ip_address": "127.0.0.1",
+            "last_active": "2023-05-01T13:39:37.000Z",
+            "last_sign_in": "2023-05-01T13:36:42.845Z",
+            "name": "Angie Thomas",
+            "password_digest": "$2a$10$elzHkfkS1qXiq40ohtYUTezooxkdS9PxqmFrKon7vU87P1A3KWNXC",
+            "role": "student",
+            "send_newsletter": false,
+            "signed_up_with_google": false,
+            "stripe_customer_id": null,
+            "time_zone": null,
+            "title": null,
+            "token": null,
+            "updated_at": "2023-05-01T13:39:38.357Z",
+            "username": "angie.thomas.173@demo-teacher",
+          },
+        ],
+        "synced_name": null,
+        "teacher_id": null,
+        "updated_at": "2023-07-06T18:38:38.205Z",
+        "visible": true,
+      },
+    ]
+  }
+  passedOriginalClassrooms={
+    Array [
+      Object {
+        "classroom_unit": Object {
+          "assign_on_join": false,
+          "assigned_student_ids": Array [
+            1032,
+            1034,
+          ],
+          "id": 1067,
+        },
+        "clever_id": null,
+        "code": "demo-37",
+        "created_at": "2023-04-25T15:53:50.233Z",
+        "google_classroom_id": null,
+        "grade": "9",
+        "grade_level": null,
+        "id": 173,
+        "name": "Quill Classroom",
+        "students": Array [
+          Object {
+            "account_type": "unknown",
+            "active": false,
+            "classcode": null,
+            "clever_id": null,
+            "created_at": "2023-04-25T15:53:52.582Z",
+            "email": null,
+            "flags": Array [],
+            "flagset": "production",
+            "google_id": null,
+            "id": 1032,
+            "ip_address": null,
+            "last_active": null,
+            "last_sign_in": null,
+            "name": "Ken Liu",
+            "password_digest": "$2a$10$8Z36DFcncF.9BmXT78QZROl1lWtr.5aogEmzMUDrhLHzWrD1NeIxG",
+            "role": "student",
+            "send_newsletter": false,
+            "signed_up_with_google": false,
+            "stripe_customer_id": null,
+            "time_zone": null,
+            "title": null,
+            "token": null,
+            "updated_at": "2023-04-25T15:53:52.582Z",
+            "username": "ken.liu.173@demo-teacher",
+          },
+          Object {
+            "account_type": "unknown",
+            "active": false,
+            "classcode": null,
+            "clever_id": null,
+            "created_at": "2023-04-25T15:53:53.083Z",
+            "email": null,
+            "flags": Array [],
+            "flagset": "production",
+            "google_id": null,
+            "id": 1035,
+            "ip_address": null,
+            "last_active": null,
+            "last_sign_in": null,
+            "name": "Tahereh Mafi",
+            "password_digest": "$2a$10$ti487x9/9Tn88SklNjQ5zuhvCuf5aV3QTfe55vAoCkQ9sYUp6Nz.C",
+            "role": "student",
+            "send_newsletter": false,
+            "signed_up_with_google": false,
+            "stripe_customer_id": null,
+            "time_zone": null,
+            "title": null,
+            "token": null,
+            "updated_at": "2023-04-25T15:53:53.083Z",
+            "username": "tahereh.mafi.173@demo-teacher",
+          },
+          Object {
+            "account_type": "unknown",
+            "active": false,
+            "classcode": null,
+            "clever_id": null,
+            "created_at": "2023-04-25T15:53:52.907Z",
+            "email": null,
+            "flags": Array [],
+            "flagset": "production",
+            "google_id": null,
+            "id": 1033,
+            "ip_address": null,
+            "last_active": null,
+            "last_sign_in": null,
+            "name": "Jason Reynolds",
+            "password_digest": "$2a$10$98a7KLY.t7c6FpRA1RUsiOEpuuXCDKS4PXSaTN1fPesxIbQuU6iZK",
+            "role": "student",
+            "send_newsletter": false,
+            "signed_up_with_google": false,
+            "stripe_customer_id": null,
+            "time_zone": null,
+            "title": null,
+            "token": null,
+            "updated_at": "2023-04-25T15:53:52.907Z",
+            "username": "jason.reynolds.173@demo-teacher",
+          },
+          Object {
+            "account_type": "unknown",
+            "active": false,
+            "classcode": null,
+            "clever_id": null,
+            "created_at": "2023-04-25T15:53:52.992Z",
+            "email": null,
+            "flags": Array [],
+            "flagset": "production",
+            "google_id": null,
+            "id": 1034,
+            "ip_address": null,
+            "last_active": null,
+            "last_sign_in": null,
+            "name": "Nic Stone",
+            "password_digest": "$2a$10$y0pCHpdp4W6CszSUGD/MBeoUxPcj6wrzgL7nce/n3gi65cpszyoG6",
+            "role": "student",
+            "send_newsletter": false,
+            "signed_up_with_google": false,
+            "stripe_customer_id": null,
+            "time_zone": null,
+            "title": null,
+            "token": null,
+            "updated_at": "2023-04-25T15:53:52.992Z",
+            "username": "nic.stone.173@demo-teacher",
+          },
+          Object {
+            "account_type": "unknown",
+            "active": false,
+            "classcode": null,
+            "clever_id": null,
+            "created_at": "2023-04-25T15:53:53.181Z",
+            "email": "angie_thomas_demo@quill.org",
+            "flags": Array [],
+            "flagset": "production",
+            "google_id": null,
+            "id": 1036,
+            "ip_address": "127.0.0.1",
+            "last_active": "2023-05-01T13:39:37.000Z",
+            "last_sign_in": "2023-05-01T13:36:42.845Z",
+            "name": "Angie Thomas",
+            "password_digest": "$2a$10$elzHkfkS1qXiq40ohtYUTezooxkdS9PxqmFrKon7vU87P1A3KWNXC",
+            "role": "student",
+            "send_newsletter": false,
+            "signed_up_with_google": false,
+            "stripe_customer_id": null,
+            "time_zone": null,
+            "title": null,
+            "token": null,
+            "updated_at": "2023-05-01T13:39:38.357Z",
+            "username": "angie.thomas.173@demo-teacher",
+          },
+        ],
+        "synced_name": null,
+        "teacher_id": null,
+        "updated_at": "2023-07-06T18:38:38.205Z",
+        "visible": true,
+      },
+    ]
+  }
+  passedUnitName="Quill Activity Pack"
+  skipLoading={true}
+  unassignWarningHidden={false}
+>
+  <section
+    className="update-assigned-students-container white-background-accommodate-footer"
+  >
+    <div
+      className="container"
+    >
+      <div
+        className="container"
+      >
+        <section
+          className="header"
+        >
+          <div>
+            <h1>
+              Update students assigned to activity pack
+            </h1>
+            <h2>
+              Quill Activity Pack
+            </h2>
+          </div>
+          <div
+            className="buttons"
+          >
+            <a
+              className="quill-button outlined secondary medium focus-on-light "
+              href="/teachers/classrooms/activity_planner"
+            >
+              Cancel
+            </a>
+            <button
+              className="quill-button contained primary medium focus-on-light "
+              disabled={false}
+              onClick={[Function]}
+              type="button"
+            >
+              Update students assigned to pack
+            </button>
+          </div>
+        </section>
+        <section
+          className="classroom-section"
+          key="173"
+        >
+          <div
+            className="classroom-header"
+          >
+            <div>
+              <h3>
+                Quill Classroom
+              </h3>
+              <span>
+                2
+                /
+                5
+                 student
+                s
+                 will be assigned
+              </span>
+            </div>
+            <div
+              className="buttons"
+            >
+              <button
+                className="quill-button secondary outlined fun focus-on-dark"
+                onClick={[Function]}
+                type="button"
+              >
+                Unselect all
+              </button>
+              <button
+                className="quill-button contained primary fun focus-on-dark"
+                onClick={[Function]}
+                type="button"
+              >
+                Select all
+              </button>
+            </div>
+          </div>
+          <div
+            className="students"
+          >
+            <Student
+              assignment={
+                Object {
+                  "assign_on_join": false,
+                  "id": 173,
+                  "student_ids": Array [
+                    1032,
+                    1036,
+                  ],
+                }
+              }
+              classroomUnit={
+                Object {
+                  "assign_on_join": false,
+                  "assigned_student_ids": Array [
+                    1032,
+                    1034,
+                  ],
+                  "id": 1067,
+                }
+              }
+              key="1032"
+              originalClassroomUnit={
+                Object {
+                  "assign_on_join": false,
+                  "assigned_student_ids": Array [
+                    1032,
+                    1034,
+                  ],
+                  "id": 1067,
+                }
+              }
+              revertUnassignment={[Function]}
+              student={
+                Object {
+                  "account_type": "unknown",
+                  "active": false,
+                  "classcode": null,
+                  "clever_id": null,
+                  "created_at": "2023-04-25T15:53:52.582Z",
+                  "email": null,
+                  "flags": Array [],
+                  "flagset": "production",
+                  "google_id": null,
+                  "id": 1032,
+                  "ip_address": null,
+                  "last_active": null,
+                  "last_sign_in": null,
+                  "name": "Ken Liu",
+                  "password_digest": "$2a$10$8Z36DFcncF.9BmXT78QZROl1lWtr.5aogEmzMUDrhLHzWrD1NeIxG",
+                  "role": "student",
+                  "send_newsletter": false,
+                  "signed_up_with_google": false,
+                  "stripe_customer_id": null,
+                  "time_zone": null,
+                  "title": null,
+                  "token": null,
+                  "updated_at": "2023-04-25T15:53:52.582Z",
+                  "username": "ken.liu.173@demo-teacher",
+                }
+              }
+              toggleStudentSelection={[Function]}
+            >
+              <div
+                className="student already-assigned"
+              >
+                <div>
+                  <button
+                    aria-label="Checked checkbox"
+                    className="quill-checkbox selected"
+                    onClick={[Function]}
+                    type="button"
+                  >
+                    <img
+                      alt="Checked checkbox"
+                      src="undefined/images/shared/check-small-white.svg"
+                    />
+                  </button>
+                  <span>
+                    Ken Liu
+                  </span>
+                </div>
+                <span
+                  className="description"
+                >
+                  Pack 
+                  <em>
+                    assigned
+                  </em>
+                </span>
+              </div>
+            </Student>
+            <Student
+              assignment={
+                Object {
+                  "assign_on_join": false,
+                  "id": 173,
+                  "student_ids": Array [
+                    1032,
+                    1036,
+                  ],
+                }
+              }
+              classroomUnit={
+                Object {
+                  "assign_on_join": false,
+                  "assigned_student_ids": Array [
+                    1032,
+                    1034,
+                  ],
+                  "id": 1067,
+                }
+              }
+              key="1035"
+              originalClassroomUnit={
+                Object {
+                  "assign_on_join": false,
+                  "assigned_student_ids": Array [
+                    1032,
+                    1034,
+                  ],
+                  "id": 1067,
+                }
+              }
+              revertUnassignment={[Function]}
+              student={
+                Object {
+                  "account_type": "unknown",
+                  "active": false,
+                  "classcode": null,
+                  "clever_id": null,
+                  "created_at": "2023-04-25T15:53:53.083Z",
+                  "email": null,
+                  "flags": Array [],
+                  "flagset": "production",
+                  "google_id": null,
+                  "id": 1035,
+                  "ip_address": null,
+                  "last_active": null,
+                  "last_sign_in": null,
+                  "name": "Tahereh Mafi",
+                  "password_digest": "$2a$10$ti487x9/9Tn88SklNjQ5zuhvCuf5aV3QTfe55vAoCkQ9sYUp6Nz.C",
+                  "role": "student",
+                  "send_newsletter": false,
+                  "signed_up_with_google": false,
+                  "stripe_customer_id": null,
+                  "time_zone": null,
+                  "title": null,
+                  "token": null,
+                  "updated_at": "2023-04-25T15:53:53.083Z",
+                  "username": "tahereh.mafi.173@demo-teacher",
+                }
+              }
+              toggleStudentSelection={[Function]}
+            >
+              <div
+                className="student "
+              >
+                <div>
+                  <button
+                    aria-label="Unchecked checkbox"
+                    className="quill-checkbox unselected"
+                    onClick={[Function]}
+                    type="button"
+                  />
+                  <span>
+                    Tahereh Mafi
+                  </span>
+                </div>
+              </div>
+            </Student>
+            <Student
+              assignment={
+                Object {
+                  "assign_on_join": false,
+                  "id": 173,
+                  "student_ids": Array [
+                    1032,
+                    1036,
+                  ],
+                }
+              }
+              classroomUnit={
+                Object {
+                  "assign_on_join": false,
+                  "assigned_student_ids": Array [
+                    1032,
+                    1034,
+                  ],
+                  "id": 1067,
+                }
+              }
+              key="1033"
+              originalClassroomUnit={
+                Object {
+                  "assign_on_join": false,
+                  "assigned_student_ids": Array [
+                    1032,
+                    1034,
+                  ],
+                  "id": 1067,
+                }
+              }
+              revertUnassignment={[Function]}
+              student={
+                Object {
+                  "account_type": "unknown",
+                  "active": false,
+                  "classcode": null,
+                  "clever_id": null,
+                  "created_at": "2023-04-25T15:53:52.907Z",
+                  "email": null,
+                  "flags": Array [],
+                  "flagset": "production",
+                  "google_id": null,
+                  "id": 1033,
+                  "ip_address": null,
+                  "last_active": null,
+                  "last_sign_in": null,
+                  "name": "Jason Reynolds",
+                  "password_digest": "$2a$10$98a7KLY.t7c6FpRA1RUsiOEpuuXCDKS4PXSaTN1fPesxIbQuU6iZK",
+                  "role": "student",
+                  "send_newsletter": false,
+                  "signed_up_with_google": false,
+                  "stripe_customer_id": null,
+                  "time_zone": null,
+                  "title": null,
+                  "token": null,
+                  "updated_at": "2023-04-25T15:53:52.907Z",
+                  "username": "jason.reynolds.173@demo-teacher",
+                }
+              }
+              toggleStudentSelection={[Function]}
+            >
+              <div
+                className="student "
+              >
+                <div>
+                  <button
+                    aria-label="Unchecked checkbox"
+                    className="quill-checkbox unselected"
+                    onClick={[Function]}
+                    type="button"
+                  />
+                  <span>
+                    Jason Reynolds
+                  </span>
+                </div>
+              </div>
+            </Student>
+            <Student
+              assignment={
+                Object {
+                  "assign_on_join": false,
+                  "id": 173,
+                  "student_ids": Array [
+                    1032,
+                    1036,
+                  ],
+                }
+              }
+              classroomUnit={
+                Object {
+                  "assign_on_join": false,
+                  "assigned_student_ids": Array [
+                    1032,
+                    1034,
+                  ],
+                  "id": 1067,
+                }
+              }
+              key="1034"
+              originalClassroomUnit={
+                Object {
+                  "assign_on_join": false,
+                  "assigned_student_ids": Array [
+                    1032,
+                    1034,
+                  ],
+                  "id": 1067,
+                }
+              }
+              revertUnassignment={[Function]}
+              student={
+                Object {
+                  "account_type": "unknown",
+                  "active": false,
+                  "classcode": null,
+                  "clever_id": null,
+                  "created_at": "2023-04-25T15:53:52.992Z",
+                  "email": null,
+                  "flags": Array [],
+                  "flagset": "production",
+                  "google_id": null,
+                  "id": 1034,
+                  "ip_address": null,
+                  "last_active": null,
+                  "last_sign_in": null,
+                  "name": "Nic Stone",
+                  "password_digest": "$2a$10$y0pCHpdp4W6CszSUGD/MBeoUxPcj6wrzgL7nce/n3gi65cpszyoG6",
+                  "role": "student",
+                  "send_newsletter": false,
+                  "signed_up_with_google": false,
+                  "stripe_customer_id": null,
+                  "time_zone": null,
+                  "title": null,
+                  "token": null,
+                  "updated_at": "2023-04-25T15:53:52.992Z",
+                  "username": "nic.stone.173@demo-teacher",
+                }
+              }
+              toggleStudentSelection={[Function]}
+            >
+              <div
+                className="student will-be-removed"
+              >
+                <div>
+                  <button
+                    aria-label="Unchecked checkbox"
+                    className="quill-checkbox unselected"
+                    onClick={[Function]}
+                    type="button"
+                  />
+                  <span>
+                    Nic Stone
+                  </span>
+                </div>
+                <span
+                  className="description"
+                >
+                  Pack will be 
+                  <em>
+                    removed
+                  </em>
+                </span>
+              </div>
+            </Student>
+            <Student
+              assignment={
+                Object {
+                  "assign_on_join": false,
+                  "id": 173,
+                  "student_ids": Array [
+                    1032,
+                    1036,
+                  ],
+                }
+              }
+              classroomUnit={
+                Object {
+                  "assign_on_join": false,
+                  "assigned_student_ids": Array [
+                    1032,
+                    1034,
+                  ],
+                  "id": 1067,
+                }
+              }
+              key="1036"
+              originalClassroomUnit={
+                Object {
+                  "assign_on_join": false,
+                  "assigned_student_ids": Array [
+                    1032,
+                    1034,
+                  ],
+                  "id": 1067,
+                }
+              }
+              revertUnassignment={[Function]}
+              student={
+                Object {
+                  "account_type": "unknown",
+                  "active": false,
+                  "classcode": null,
+                  "clever_id": null,
+                  "created_at": "2023-04-25T15:53:53.181Z",
+                  "email": "angie_thomas_demo@quill.org",
+                  "flags": Array [],
+                  "flagset": "production",
+                  "google_id": null,
+                  "id": 1036,
+                  "ip_address": "127.0.0.1",
+                  "last_active": "2023-05-01T13:39:37.000Z",
+                  "last_sign_in": "2023-05-01T13:36:42.845Z",
+                  "name": "Angie Thomas",
+                  "password_digest": "$2a$10$elzHkfkS1qXiq40ohtYUTezooxkdS9PxqmFrKon7vU87P1A3KWNXC",
+                  "role": "student",
+                  "send_newsletter": false,
+                  "signed_up_with_google": false,
+                  "stripe_customer_id": null,
+                  "time_zone": null,
+                  "title": null,
+                  "token": null,
+                  "updated_at": "2023-05-01T13:39:38.357Z",
+                  "username": "angie.thomas.173@demo-teacher",
+                }
+              }
+              toggleStudentSelection={[Function]}
+            >
+              <div
+                className="student will-be-assigned"
+              >
+                <div>
+                  <button
+                    aria-label="Checked checkbox"
+                    className="quill-checkbox selected"
+                    onClick={[Function]}
+                    type="button"
+                  >
+                    <img
+                      alt="Checked checkbox"
+                      src="undefined/images/shared/check-small-white.svg"
+                    />
+                  </button>
+                  <span>
+                    Angie Thomas
+                  </span>
+                </div>
+                <span
+                  className="description"
+                >
+                  Pack will be 
+                  <em>
+                    assigned
+                  </em>
+                </span>
+              </div>
+            </Student>
+          </div>
+        </section>
+      </div>
+    </div>
+  </section>
+</UpdateAssignedStudents>
+`;

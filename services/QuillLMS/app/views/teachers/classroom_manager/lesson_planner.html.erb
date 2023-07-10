@@ -15,7 +15,8 @@
       students: @students.to_s,
       flag: current_user&.testing_flag,
 			referralCode: current_user&.referral_code,
-      user: current_user
+      user: current_user,
+      unassignWarningHidden: @unassign_warning_hidden
     })%>
 	<!-- ==========================================================================
 		 Progress tracker

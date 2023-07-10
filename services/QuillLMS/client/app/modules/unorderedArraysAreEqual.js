@@ -1,3 +1,5 @@
+const OBJECT = 'object'
+
 export function unorderedArraysAreEqual(arr1, arr2) {
   if (arr1?.length !== arr2?.length) {
     return false;
@@ -22,6 +24,10 @@ export function unorderedArraysAreEqual(arr1, arr2) {
 }
 
 function objectsAreEqual(obj1, obj2) {
+  if (typeof obj1 !== OBJECT || typeof obj2 !== OBJECT) {
+    return obj1 === obj2
+  }
+
   const obj1Keys = Object.keys(obj1);
   const obj2Keys = Object.keys(obj2);
 
