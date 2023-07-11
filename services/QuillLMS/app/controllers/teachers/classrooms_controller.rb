@@ -211,7 +211,7 @@ class Teachers::ClassroomsController < ApplicationController
       classroom_unit_ids = ClassroomUnit.where(classroom: classroom).ids
 
       students = students.map do |student|
-        student.merge(number_of_completed_activities: ActivitySession.where(state: ActivitySession::STATE_FINISHED, user_id: student.id, classroom_unit_id: classroom_unit_ids).count || 0)
+        student.merge(number_of_completed_activities: ActivitySession.where(state: ActivitySession::STATE_FINISHED, user_id: student['id'], classroom_unit_id: classroom_unit_ids).count || 0)
       end
     end
 
