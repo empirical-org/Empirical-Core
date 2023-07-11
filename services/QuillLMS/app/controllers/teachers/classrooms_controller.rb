@@ -204,6 +204,7 @@ class Teachers::ClassroomsController < ApplicationController
     end.compact
   end
 
+  # rubocop:disable Metrics/CyclomaticComplexity
   private def format_students_for_classroom(classroom)
     students = classroom.students.sort_by(&:last_name).map(&:attributes)
 
@@ -220,6 +221,7 @@ class Teachers::ClassroomsController < ApplicationController
     provider_classroom = ProviderClassroomDelegator.new(classroom)
     students.map { |student| student.merge(synced: provider_classroom.synced_status(student)) }
   end
+  # rubocop:enable Metrics/CyclomaticComplexity
 
   private def format_pending_coteachers_for_classroom(classroom)
     classroom.coteacher_classroom_invitations.map do |cci|
