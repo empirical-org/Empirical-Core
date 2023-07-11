@@ -205,14 +205,16 @@ class Teachers::ClassroomsController < ApplicationController
   end
 
   private def format_students_for_classroom(classroom)
-    students = classroom.students.sort_by(&:last_name)
+    sorted_students = classroom.students.sort_by(&:last_name)
 
     if classroom.visible
       classroom_unit_ids = ClassroomUnit.where(classroom: classroom).ids
 
-      students = students.map do |student|
+      students = sorted_students.map do |student|
         student.attributes.merge(number_of_completed_activities: ActivitySession.where(state: ActivitySession::STATE_FINISHED, user_id: student.id, classroom_unit_id: classroom_unit_ids).count || 0)
       end
+    else
+      students = sorted_students.map(&:attributes)
     end
 
     return students unless classroom.classroom_provider?
