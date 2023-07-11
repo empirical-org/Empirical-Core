@@ -204,14 +204,15 @@ class Teachers::ClassroomsController < ApplicationController
     end.compact
   end
 
+  # rubocop:disable Metrics/CyclomaticComplexity
   private def format_students_for_classroom(classroom)
-    students = classroom.students.sort_by(&:last_name)
+    students = classroom.students.sort_by(&:last_name).map(&:attributes)
 
     if classroom.visible
       classroom_unit_ids = ClassroomUnit.where(classroom: classroom).ids
 
       students = students.map do |student|
-        student.attributes.merge(number_of_completed_activities: ActivitySession.where(state: ActivitySession::STATE_FINISHED, user_id: student.id, classroom_unit_id: classroom_unit_ids).count || 0)
+        student.merge(number_of_completed_activities: ActivitySession.where(state: ActivitySession::STATE_FINISHED, user_id: student['id'], classroom_unit_id: classroom_unit_ids).count || 0)
       end
     end
 
@@ -220,6 +221,7 @@ class Teachers::ClassroomsController < ApplicationController
     provider_classroom = ProviderClassroomDelegator.new(classroom)
     students.map { |student| student.merge(synced: provider_classroom.synced_status(student)) }
   end
+  # rubocop:enable Metrics/CyclomaticComplexity
 
   private def format_pending_coteachers_for_classroom(classroom)
     classroom.coteacher_classroom_invitations.map do |cci|
