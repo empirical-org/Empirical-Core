@@ -37,7 +37,7 @@ module GoogleIntegration
     end
 
     private def delete_teacher_classrooms_cache
-      TeacherClassroomsCache.delete(current_user.id)
+      GoogleIntegration::TeacherClassroomsCache.delete(current_user.id)
     end
 
     private def hydrate_teacher_classrooms_cache
