@@ -208,6 +208,12 @@ class Classroom < ApplicationRecord
     return 'Clever' if clever_classroom?
   end
 
+  def classroom_external_id
+    return google_classroom_id if google_classroom?
+
+    return clever_id if clever_classroom?
+  end
+
   def save_user_pack_sequence_items
     students.each { |student| SaveUserPackSequenceItemsWorker.perform_async(id, student.id) }
   end
