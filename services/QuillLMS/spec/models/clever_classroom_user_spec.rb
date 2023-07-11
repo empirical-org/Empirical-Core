@@ -9,12 +9,18 @@
 #  type                  :string           not null
 #  created_at            :datetime         not null
 #  updated_at            :datetime         not null
+#  canvas_instance_id    :bigint
 #  classroom_external_id :string           not null
 #  user_external_id      :string           not null
 #
 # Indexes
 #
-#  index_provider_type_and_classroom_id_and_user_id  (type,classroom_external_id,user_external_id) UNIQUE
+#  index_provider_classroom_users_on_canvas_instance_id  (canvas_instance_id)
+#  index_provider_type_and_classroom_id_and_user_id      (type,classroom_external_id,user_external_id) UNIQUE
+#
+# Foreign Keys
+#
+#  fk_rails_...  (canvas_instance_id => canvas_instances.id)
 #
 require 'rails_helper'
 
