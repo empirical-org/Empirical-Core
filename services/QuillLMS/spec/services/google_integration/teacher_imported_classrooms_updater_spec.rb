@@ -7,24 +7,25 @@ RSpec.describe GoogleIntegration::TeacherImportedClassroomsUpdater do
 
   let(:imported_classroom) { create(:classroom, :from_google) }
   let(:user) { imported_classroom.owner }
-
-  let(:new_google_classroom_id) { 345 }
-
+  let(:new_classroom_external_id) { 345 }
   let(:updated_name) { "new_#{imported_classroom.name}"}
 
   let(:data) do
     {
       classrooms: [
-        { id: imported_classroom.google_classroom_id, name: updated_name },
-        { id: new_google_classroom_id }
+        { classroom_external_id: imported_classroom.classroom_external_id, name: updated_name },
+        { classroom_external_id: new_classroom_external_id }
       ]
     }.to_json
   end
 
-  it 'updates only previously imported classrooms that have google_classroom_id' do
-    expect(GoogleIntegration::TeacherClassroomsCache).to receive(:read).with(user.id).and_return(data)
+  it 'updates only previously imported classrooms that have classroom_external_id' do
+    expect(GoogleIntegration::TeacherClassroomsCache)
+      .to receive(:read)
+      .with(user.id)
+      .and_return(data)
 
-    expect(GoogleIntegration::ImportClassroomStudentsWorker)
+    expect(GoogleIntegration::ImportTeacherClassroomsStudentsWorker)
       .to receive(:perform_async)
       .with(user.id, [imported_classroom.id])
 

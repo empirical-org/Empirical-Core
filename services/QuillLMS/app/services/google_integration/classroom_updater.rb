@@ -5,8 +5,8 @@ module GoogleIntegration
     attr_reader :classroom, :data, :teacher_id
 
     def initialize(classroom, data)
-      @data = data
       @classroom = classroom
+      @data = data
       @teacher_id = data[:teacher_id]
     end
 
@@ -28,7 +28,7 @@ module GoogleIntegration
     end
 
     private def other_owned_classroom_names
-      @other_owned_classroom_names ||= teacher.classrooms_i_own.reject { |c| c.id == classroom.id }.pluck(:name)
+      teacher.classrooms_i_own.reject { |c| c.id == classroom.id }.pluck(:name)
     end
 
     private def synced_name
@@ -44,16 +44,12 @@ module GoogleIntegration
         name: name,
         synced_name: synced_name,
         grade: grade,
-        visible: visible
+        visible: true
       )
     end
 
     private def valid_name
       ::DuplicateNameResolver.run(data[:name], other_owned_classroom_names)
-    end
-
-    private def visible
-      true
     end
   end
 end
