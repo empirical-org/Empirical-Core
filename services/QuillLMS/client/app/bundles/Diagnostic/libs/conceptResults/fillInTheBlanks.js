@@ -29,7 +29,7 @@ export function getConceptResultsForFillInTheBlanks(question) {
       directions,
       prompt,
       answer,
-      question_uid: question.uid,
+      question_uid: question.key,
       question_concept_uid: question.conceptID,
     },
   }));

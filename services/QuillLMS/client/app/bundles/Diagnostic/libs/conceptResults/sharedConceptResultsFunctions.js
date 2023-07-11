@@ -43,7 +43,7 @@ export function getConceptResultsForAttempt(question, attemptIndex, question_typ
       prompt,
       attemptNumber,
       answer,
-      question_uid: question.uid,
+      question_uid: question.key,
       question_concept_uid: question.conceptID
     } :
       {
@@ -52,7 +52,7 @@ export function getConceptResultsForAttempt(question, attemptIndex, question_typ
         prompt,
         attemptNumber,
         answer,
-        question_uid: question.uid,
+        question_uid: question.key,
         question_concept_uid: question.conceptID
       },
   }));

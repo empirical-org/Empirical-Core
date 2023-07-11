@@ -30,7 +30,7 @@ export function getConceptResultsForSentenceCombining(question) {
       prompt,
       answer,
       attemptNumber: i + 1,
-      question_uid: question.uid,
+      question_uid: question.key,
       question_concept_uid: question.conceptID
     },
   }));
