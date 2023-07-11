@@ -6,20 +6,58 @@
   background-color: #06806b;
   padding-top: 35px;
   padding-bottom: 35px;
-  margin: 0 auto;
+  margin: 0 auto !important;
   text-align: center;
+  margin-bottom: 70px;
+}
+
+.header img {
+  width: 149px;
+  height: 52px;
 }
 
 .content-section {
   width: 60%;
   margin: 0 auto;
+  font-family: "adelle-sans", "Arial", sans-serif;
+  font-weight: 400;
+  text-align: left;
+  margin-bottom: 50px;
+  margin-top: 50px;
+}
+
+h2 {
+  font-weight: 400;
+  font-size: 32px;
+}
+
+h3 {
+  font-weight: 700;
+  font-size: 24px;
+}
+
+h4 {
+  font-weight: 700;
+  font-size: 21px;
+}
+
+.view-results a {
+  color: #06806B;
+  font-weight: 700;
+  font-size: 14px;
 }
 
 .footer {
+  margin-top: 60px;
   text-align: center;
+  padding-bottom: 150px;
+}
+
+.footer p {
+  margin: 7px;
 }
 
 hr {
-  width: 60%;
-  margin: 0 auto;
+  background: #CFCFCF;
+  width: 600px;
 }
