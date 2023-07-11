@@ -316,7 +316,7 @@ describe Teachers::ClassroomsController, type: :controller do
 
         it 'reports which students are no longer in provider classroom in archived classroom' do
           classroom.update(visible: false)
-          
+
           get :index, as: :json
           parsed_response = JSON.parse(response.body)
           expect(parsed_response["classrooms"][0]["students"][0]["synced"]).to eq true
