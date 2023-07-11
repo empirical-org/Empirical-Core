@@ -13,15 +13,17 @@ RSpec.describe GoogleIntegration::TeachersController do
   context '#import_classrooms' do
     subject { post :import_classrooms, params: params, as: :json }
 
-    let(:google_classroom_id1) { 123 }
-    let(:google_classroom_id2) { 456 }
-    let(:selected_classrooms) { [{ id: google_classroom_id1 }, { id: google_classroom_id2 }] }
-    let(:params) { { selected_classrooms: selected_classrooms } }
+    let(:classroom_external_id1) { 123 }
+    let(:classroom_external_id2) { 456 }
+    let(:classroom1) { { classroom_external_id: classroom_external_id1 } }
+    let(:classroom2) { { classroom_external_id: classroom_external_id2 } }
+
+    let(:params) { { selected_classrooms: [classroom1, classroom2] } }
 
     it { expect { subject }.to change(teacher.google_classrooms, :count).from(0).to(2) }
 
     it do
-      expect(GoogleIntegration::ImportClassroomStudentsWorker).to receive(:perform_async)
+      expect(GoogleIntegration::ImportTeacherClassroomsStudentsWorker).to receive(:perform_async)
       expect(GoogleIntegration::TeacherClassroomsCache).to receive(:delete).with(teacher.id)
       expect(GoogleIntegration::HydrateTeacherClassroomsCacheWorker).to receive(:perform_async).with(teacher.id)
       subject
@@ -31,7 +33,7 @@ RSpec.describe GoogleIntegration::TeachersController do
       subject
 
       expect(response_body[:classrooms].pluck(:google_classroom_id))
-        .to match_array [google_classroom_id1, google_classroom_id2]
+        .to match_array [classroom_external_id1, classroom_external_id2]
     end
   end
 
@@ -50,7 +52,7 @@ RSpec.describe GoogleIntegration::TeachersController do
           .to receive(:delete)
           .with(teacher.id)
 
-        expect(GoogleIntegration::ImportClassroomStudentsWorker)
+        expect(GoogleIntegration::ImportTeacherClassroomsStudentsWorker)
           .to receive(:perform_async)
           .with(teacher.id, [classroom.id])
 
@@ -67,7 +69,7 @@ RSpec.describe GoogleIntegration::TeachersController do
           .to receive(:delete)
           .with(teacher.id)
 
-        expect(GoogleIntegration::ImportClassroomStudentsWorker)
+        expect(GoogleIntegration::ImportTeacherClassroomsStudentsWorker)
           .to receive(:perform_async)
           .with(teacher.id, match_array(selected_classroom_ids))
 

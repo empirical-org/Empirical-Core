@@ -21,15 +21,15 @@ RSpec.describe GoogleIntegration::ClassroomStudentsImporter do
 
   context "existing student and one new student" do
     let(:student) { create(:student, :signed_up_with_google) }
-    let(:google_id) { student.google_id }
-    let(:google_classroom_id) { classroom.google_classroom_id }
+    let(:user_external_id) { student.google_id }
+    let(:classroom_external_id) { classroom.classroom_external_id }
 
-    before { create(:google_classroom_user, classroom_external_id: google_classroom_id, user_external_id: google_id) }
+    before { create(:google_classroom_user, classroom_external_id: classroom_external_id, user_external_id: user_external_id) }
 
     let(:students_data) do
       [
-        { name: 'Test1_s1 S1', email: 'test1_s1@gmail.com', google_id: '123' },
-        { name: student.name, email: student.email, google_id: google_id }
+        { name: 'Test1_s1 S1', email: 'test1_s1@gmail.com', user_external_id: '123' },
+        { name: student.name, email: student.email, user_external_id: user_external_id }
       ]
     end
 
@@ -40,8 +40,8 @@ RSpec.describe GoogleIntegration::ClassroomStudentsImporter do
   context "two new students" do
     let(:students_data) do
       [
-        { name: 'Test1_s1 S1', email: 'test1_s1@gmail.com', google_id: '123' },
-        { name: 'Test1_s2 S2', email: 'test1_s2@gmail.com', google_id: '456' }
+        { name: 'Test1_s1 S1', email: 'test1_s1@gmail.com', user_external_id: '123' },
+        { name: 'Test1_s2 S2', email: 'test1_s2@gmail.com', user_external_id: '456' }
       ]
     end
 
