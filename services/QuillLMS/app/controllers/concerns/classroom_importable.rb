@@ -12,7 +12,7 @@ module ClassroomImportable
     delete_teacher_classrooms_cache
     hydrate_teacher_classrooms_cache
 
-    render json: { classrooms: current_user_classrooms }.to_json
+    render json: { classrooms: current_user_classrooms }
   end
 
   private def delete_teacher_classrooms_cache
