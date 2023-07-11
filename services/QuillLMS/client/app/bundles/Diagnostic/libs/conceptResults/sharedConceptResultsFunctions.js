@@ -43,6 +43,8 @@ export function getConceptResultsForAttempt(question, attemptIndex, question_typ
       prompt,
       attemptNumber,
       answer,
+      question_uid: question.uid,
+      question_concept_uid: question.conceptID
     } :
       {
         correct: conceptResult.correct ? 1 : 0,
@@ -50,6 +52,8 @@ export function getConceptResultsForAttempt(question, attemptIndex, question_typ
         prompt,
         attemptNumber,
         answer,
+        question_uid: question.uid,
+        question_concept_uid: question.conceptID
       },
   }));
 }

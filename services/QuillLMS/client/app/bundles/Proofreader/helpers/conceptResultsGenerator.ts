@@ -32,7 +32,8 @@ export function getConceptResultsForQuestion(question: Question): FormattedConce
           directions,
           prompt,
           answer,
-          question_uid:  question.uid
+          question_uid:  question.uid,
+          question_concept_uid: question.concept_uid
         },
       }});
   } else {

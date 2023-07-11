@@ -62,14 +62,16 @@ function getConceptResultsForAttempt(attempt: ResponseAttempt, question: Questio
         prompt,
         answer,
         attemptNumber,
-        question_uid:  question.uid
+        question_uid:  question.uid,
+        question_concept_uid: question.concept_uid
       } : {
         correct: conceptResult.correct ? 1 : 0,
         directions,
         prompt,
         answer,
         attemptNumber,
-        question_uid:  question.uid
+        question_uid:  question.uid,
+        question_concept_uid: question.concept_uid
       },
     }});
 }

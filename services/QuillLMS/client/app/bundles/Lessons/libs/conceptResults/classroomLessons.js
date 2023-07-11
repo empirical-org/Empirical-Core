@@ -18,6 +18,7 @@ export function generateConceptResult(questionData, studentSubmission) {
       prompt: questionData.prompt,
       answer: studentSubmission.data,
       attemptNumber: 1,
+      question_concept_uid: 'X37oyfiNxSphA34npOb-Ig'
     },
   };
 }
