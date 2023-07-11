@@ -330,18 +330,26 @@ describe User, type: :model do
   end
 
   describe '#capitalize_name' do
-    let(:user) { create(:user) }
+    subject { user.capitalize_name }
 
-    it 'should set the name as a capitalized name if name is single' do
-      user.name = "test"
-      expect(user.capitalize_name).to eq("Test")
-      expect(user.name).to eq("Test")
+    let(:user) { build(:user, name: name) }
+
+    context 'single name' do
+      let(:name) { 'test' }
+
+      it { expect { subject }.to change(user, :name).from(name).to('Test') }
     end
 
-    it 'should capitalize both first name and last name if exists' do
-      user.name = "test test"
-      expect(user.capitalize_name).to eq("Test Test")
-      expect(user.name).to eq("Test Test")
+    context 'two names' do
+      let(:name) { 'test test' }
+
+      it { expect { subject }.to change(user, :name).from(name).to('Test Test') }
+    end
+
+    context 'patronymic prefix' do
+      let(:name) { 'test mctest'}
+
+      it { expect { subject }.to change(user, :name).from(name).to('Test McTest') }
     end
   end
 
