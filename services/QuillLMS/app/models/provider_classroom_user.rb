@@ -58,8 +58,24 @@ class ProviderClassroomUser < ApplicationRecord
     deleted_at.nil?
   end
 
+  def clever_classroom_id
+    raise NotImplementedError
+  end
+
+  def clever_user_id
+    raise NotImplementedError
+  end
+
   def deleted?
     !active?
+  end
+
+  def google_classroom_id
+    raise NotImplementedError
+  end
+
+  def google_id
+    raise NotImplementedError
   end
 
   def status
