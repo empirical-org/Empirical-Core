@@ -5,31 +5,28 @@ module CleverIntegration
     ACCOUNT_TYPE = ::User::CLEVER_ACCOUNT
     ROLE = ::User::STUDENT
 
-    attr_reader :data, :name, :username
+    attr_reader :email, :name, :temp_username, :user_external_id
 
     def initialize(data)
-      @data = data
+      @email = data[:email]
       @name = data[:name]
-      @username = data[:username]
+      @temp_username = data[:username]
+      @user_external_id = data[:user_external_id]
     end
 
     def run
-      fix_username_conflict
-      student
+      ::User.create!(
+        account_type: ACCOUNT_TYPE,
+        clever_id: user_external_id,
+        email: email,
+        name: name,
+        role: ROLE,
+        username: username
+      )
     end
 
-    private def student
-      ::User.create!(student_attrs)
-    end
-
-    private def student_attrs
-      data.merge(role: ROLE, account_type: ACCOUNT_TYPE)
-    end
-
-    private def fix_username_conflict
-      return unless username.present? && ::User.exists?(username: username)
-
-      data[:username] = UsernameGenerator.new(name).run
+    private def username
+      temp_username.present? && ::User.exists?(username: temp_username) ? UsernameGenerator.run(name) : temp_username
     end
   end
 end

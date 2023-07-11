@@ -11,7 +11,7 @@ module CleverIntegration
     def run
       {
         alreadyImported: already_imported?,
-        clever_id: data[:id],
+        classroom_external_id: clasroom_external_id,
         grade: data[:grade],
         name: data[:name],
         students: data[:students]
@@ -19,7 +19,11 @@ module CleverIntegration
     end
 
     private def already_imported?
-      ::Classroom.unscoped.exists?(clever_id: data[:id])
+      ::Classroom.unscoped.exists?(clever_id: clasroom_external_id)
+    end
+
+    private def clasroom_external_id
+      data[:id]
     end
 
     private def data

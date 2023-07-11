@@ -3,43 +3,46 @@
 require 'rails_helper'
 
 describe CleverIntegration::HydrateTeacherClassroomsCacheWorker do
-  subject { described_class.new.perform(teacher_id) }
-
-  let(:hydrator_class) { CleverIntegration::TeacherClassroomsCacheHydrator }
+  subject { described_class.new.perform(user_id) }
 
   context 'nil user_id' do
-    let(:teacher_id) { nil }
+    let(:user_id) { nil }
 
-    it { should_not_hydrate_cache }
+    it { should_not_run_hydrator }
   end
 
   context 'user does not exist' do
-    let(:teacher_id) { 0 }
+    let(:user_id) { 0 }
 
-    it { should_not_hydrate_cache }
+    it { should_not_run_hydrator }
   end
 
   context 'user exists' do
-    context 'that does not have clever_id' do
-      let(:teacher_id) { create(:teacher).id }
+    let(:user_id) { create(:student).id }
 
-      it { should_not_hydrate_cache }
-    end
-
-    context 'that has clever_id' do
-      let(:teacher_id) { create(:teacher, :signed_up_with_clever).id }
-
-      it { should_hydrate_cache }
-    end
+    it { should_not_run_hydrator }
   end
 
-  def should_not_hydrate_cache
-    expect(hydrator_class).to_not receive(:run)
+  context 'user is not clever authorized' do
+    let(:user_id) { create(:teacher, :signed_up_with_clever).id }
+
+    it { should_not_run_hydrator }
+  end
+
+  context 'user is clever authorized' do
+    let(:user) { create(:clever_library_auth_credential).user }
+    let(:user_id) { user.id }
+
+    it { should_run_hydrator }
+  end
+
+  def should_run_hydrator
+    expect(CleverIntegration::TeacherClassroomsCacheHydrator).to receive(:run).with(user)
     subject
   end
 
-  def should_hydrate_cache
-    expect(hydrator_class).to receive(:run).with(teacher_id)
+  def should_not_run_hydrator
+    expect(CleverIntegration::TeacherClassroomsCacheHydrator).not_to receive(:run)
     subject
   end
 end

@@ -5,14 +5,13 @@ module CleverIntegration
     include Sidekiq::Worker
     sidekiq_options queue: SidekiqQueue::CRITICAL_EXTERNAL
 
-    def perform(teacher_id)
-      return unless clever_id?(teacher_id)
+    def perform(user_id)
+      user = ::User.find_by(id: user_id)
 
-      TeacherClassroomsCacheHydrator.run(teacher_id)
-    end
+      return if user.nil?
+      return unless user.teacher? && user.clever_authorized?
 
-    private def clever_id?(teacher_id)
-      teacher_id && ::User.find_by(id: teacher_id)&.clever_id&.present?
+      TeacherClassroomsCacheHydrator.run(user)
     end
   end
 end

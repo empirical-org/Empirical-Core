@@ -2,7 +2,7 @@
 
 require 'rails_helper'
 
-RSpec.describe CleverIntegration::ImportClassroomStudentsWorker do
+RSpec.describe CleverIntegration::ImportTeacherClassroomsStudentsWorker do
   subject { described_class.new }
 
   let(:teacher) { create(:teacher, :signed_up_with_clever) }

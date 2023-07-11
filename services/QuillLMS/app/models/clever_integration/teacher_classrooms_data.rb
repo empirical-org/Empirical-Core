@@ -15,19 +15,12 @@ module CleverIntegration
       classrooms_data.each(&block)
     end
 
-    def clever_ids
-      classrooms_data.map { |classroom_data| classroom_data[:clever_id] }
-    end
-
     private def classrooms_data
-      deserialized_classrooms_data.map { |data| data.merge(teacher_id: user.id) }
-    end
-
-    private def deserialized_classrooms_data
       JSON
         .parse(serialized_classrooms_data)
         .deep_symbolize_keys
         .fetch(:classrooms)
+        .map { |classroom_data| classroom_data.merge(teacher_id: user.id) }
     end
   end
 end

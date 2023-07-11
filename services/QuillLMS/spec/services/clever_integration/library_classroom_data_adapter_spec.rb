@@ -3,7 +3,7 @@
 require 'rails_helper'
 
 RSpec.describe CleverIntegration::LibraryClassroomDataAdapter do
-  include_context "Clever Library Classrooms Data"
+  include_context 'Clever Library Classrooms Data'
 
   subject { described_class.run(classroom_data) }
 

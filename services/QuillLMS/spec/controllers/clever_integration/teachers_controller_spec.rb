@@ -15,12 +15,13 @@ RSpec.describe CleverIntegration::TeachersController do
   describe '#import_classrooms' do
     subject { post :import_classrooms, params: params, as: :json }
 
-    let(:params) { { selected_classrooms: [classroom1_attrs, classroom2_attrs] } }
+    let(:selected_classrooms) { [classroom1_attrs, classroom2_attrs] }
+    let(:params) { { selected_classrooms: selected_classrooms } }
 
-    it { expect { subject }.to change(teacher.clever_classrooms, :count).from(0).to(2) }
+    it { expect { subject }.to change(teacher.reload.clever_classrooms, :count).from(0).to(2) }
 
     it 'should return an array with two classrooms' do
-      expect(CleverIntegration::ImportClassroomStudentsWorker).to receive(:perform_async)
+      expect(CleverIntegration::ImportTeacherClassroomsStudentsWorker).to receive(:perform_async)
       expect(CleverIntegration::TeacherClassroomsCache).to receive(:delete).with(teacher.id)
       expect(CleverIntegration::HydrateTeacherClassroomsCacheWorker).to receive(:perform_async).with(teacher.id)
       subject
@@ -42,7 +43,7 @@ RSpec.describe CleverIntegration::TeachersController do
           .to receive(:delete)
           .with(teacher.id)
 
-        expect(CleverIntegration::ImportClassroomStudentsWorker)
+        expect(CleverIntegration::ImportTeacherClassroomsStudentsWorker)
           .to receive(:perform_async)
           .with(teacher.id, [classroom.id])
 
@@ -59,7 +60,7 @@ RSpec.describe CleverIntegration::TeachersController do
           .to receive(:delete)
           .with(teacher.id)
 
-        expect(CleverIntegration::ImportClassroomStudentsWorker)
+        expect(CleverIntegration::ImportTeacherClassroomsStudentsWorker)
           .to receive(:perform_async)
           .with(teacher.id, match_array(selected_classroom_ids))
 
@@ -67,7 +68,6 @@ RSpec.describe CleverIntegration::TeachersController do
       end
     end
   end
-
 
   describe '#retrieve_classrooms' do
     subject { get :retrieve_classrooms, as: :json }
