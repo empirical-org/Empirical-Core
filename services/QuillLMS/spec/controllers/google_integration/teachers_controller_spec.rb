@@ -6,6 +6,7 @@ RSpec.describe GoogleIntegration::TeachersController do
   before { allow(controller).to receive(:current_user) { teacher } }
 
   it { should use_before_action :authorize_owner! }
+  it { should use_before_action :teacher!}
 
   let(:response_body) { JSON.parse(response.body).deep_symbolize_keys }
   let(:teacher) { create(:teacher, :signed_up_with_google) }
