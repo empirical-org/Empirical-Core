@@ -14,7 +14,9 @@ module Snapshots
       'activities-completed' => Snapshots::ActivitiesCompletedQuery,
       'activity-packs-assigned' => Snapshots::ActivityPacksAssignedQuery,
       'activity-packs-completed' => Snapshots::ActivityPacksCompletedQuery,
+      'average-active-classrooms-per-teacher' => Snapshots::AverageActiveClassroomsPerTeacherQuery,
       'average-activities-completed-per-student' => Snapshots::AverageActivitiesCompletedPerStudentQuery,
+      'average-active-students-per-classroom' => Snapshots::AverageActiveStudentsPerClassroomQuery,
       'baseline-diagnostics-assigned' => Snapshots::BaselineDiagnosticsAssignedQuery,
       'baseline-diagnostics-completed' => Snapshots::BaselineDiagnosticsCompletedQuery,
       'classrooms-created' => Snapshots::ClassroomsCreatedQuery,
@@ -50,6 +52,7 @@ module Snapshots
 
     private def generate_payload(query, timeframe, school_ids, filters)
       previous_timeframe_start = timeframe['previous_start']
+      previous_timeframe_end = timeframe['previous_end']
       current_timeframe_start = timeframe['current_start']
       timeframe_end = timeframe['current_end']
       filters_symbolized = filters.symbolize_keys
@@ -63,7 +66,7 @@ module Snapshots
       if previous_timeframe_start
         previous_snapshot = QUERIES[query].run(**{
           timeframe_start: previous_timeframe_start,
-          timeframe_end: current_timeframe_start,
+          timeframe_end: previous_timeframe_end,
           school_ids: school_ids
         }.merge(filters_symbolized))
       else

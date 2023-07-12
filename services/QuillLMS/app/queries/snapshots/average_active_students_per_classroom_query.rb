@@ -1,13 +1,13 @@
 # frozen_string_literal: true
 
 module Snapshots
-  class AverageActivitiesCompletedPerStudentQuery < AverageQuery
+  class AverageActiveStudentsPerClassroomQuery < AverageQuery
     def numerator_query
-      ActivitiesCompletedQuery
+      ActiveStudentsQuery
     end
 
     def denominator_query
-      ActiveStudentsQuery
+      ActiveClassroomsQuery
     end
   end
 end

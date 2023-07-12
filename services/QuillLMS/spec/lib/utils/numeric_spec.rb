@@ -89,4 +89,26 @@ RSpec.describe Utils::Numeric do
     end
   end
 
+  describe '#safe_division' do
+    subject { Utils::Numeric.safe_division(numerator, denominator) }
+
+    let(:numerator) { 5 }
+    let(:denominator) { 2 }
+
+    it { expect(subject).to eq(numerator.to_f / denominator) }
+
+    context '0 denominator' do
+      let(:denominator) { 0 }
+
+      it { expect(subject).to eq(0) }
+    end
+
+    context 'passing custom fallback value' do
+      subject { Utils::Numeric.safe_division(1, 0, fallback) }
+
+      let(:fallback) { 1 }
+
+      it { expect(subject).to eq(fallback) }
+    end
+  end
 end

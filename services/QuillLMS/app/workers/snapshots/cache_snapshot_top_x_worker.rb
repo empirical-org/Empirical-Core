@@ -9,7 +9,11 @@ module Snapshots
     QUERIES = {
       'top-concepts-assigned' => Snapshots::TopConceptsAssignedQuery,
       'top-concepts-practiced' => Snapshots::TopConceptsPracticedQuery,
+      'most-active-grades' => Snapshots::MostActiveGradesQuery,
       'most-active-schools' => Snapshots::MostActiveSchoolsQuery,
+      'most-active-teachers' => Snapshots::MostActiveTeachersQuery,
+      'most-assigned-activities' => Snapshots::MostAssignedActivitiesQuery,
+      'most-completed-activities' => Snapshots::MostCompletedActivitiesQuery
     }
 
     def perform(cache_key, query, user_id, timeframe, school_ids, filters)
