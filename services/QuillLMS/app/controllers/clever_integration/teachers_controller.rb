@@ -9,7 +9,7 @@ module CleverIntegration
       delete_teacher_classrooms_cache
       hydrate_teacher_classrooms_cache
 
-      render json: { classrooms: current_user.clever_classrooms }.to_json
+      render json: { classrooms: current_user.clever_classrooms }
     end
 
     def import_students
