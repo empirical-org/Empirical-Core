@@ -57,6 +57,8 @@
 #
 
 # rubocop:disable Metrics/ClassLength
+require 'capitalize_names'
+
 class User < ApplicationRecord
   include Student
   include Teacher
@@ -430,16 +432,7 @@ class User < ApplicationRecord
   end
 
   def capitalize_name
-    result = name
-    if name.present?
-      f,l = name.split(/\s+/, 2)
-      if f.present? and l.present?
-        result = "#{f.capitalize} #{l.gsub(/\S+/, &:capitalize)}"
-      else
-        result = name.capitalize
-      end
-    end
-    self.name = result
+    self.name = ::CapitalizeNames.capitalize(name)
   end
 
   def admin?
