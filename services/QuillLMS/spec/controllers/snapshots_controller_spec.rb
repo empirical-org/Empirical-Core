@@ -34,9 +34,10 @@ describe SnapshotsController, type: :controller do
       let(:teacher_ids) { ['4', '5'] }
       let(:classroom_ids) { ['7', '8'] }
       let(:previous_start) { now - 1.day }
+      let(:previous_end) { current_start }
       let(:current_start) { now }
       let(:current_end) { now + 1.day }
-      let(:timeframes) { [previous_start, current_start, current_end] }
+      let(:timeframes) { [previous_start, previous_end, current_start, current_end] }
 
       before do
         allow(Snapshots::Timeframes).to receive(:calculate_timeframes).and_return(timeframes)
@@ -45,7 +46,7 @@ describe SnapshotsController, type: :controller do
       it do
         expect(Snapshots::CacheKeys).to receive(:generate_key).with(
           query,
-          previous_start,
+          timeframe_name,
           current_start,
           current_end,
           school_ids,
@@ -152,13 +153,14 @@ describe SnapshotsController, type: :controller do
 
       context 'param variation' do
         let(:previous_timeframe) { 'PREVIOUS_TIMEFRAME' }
+        let(:previous_end) { 'PREVIOUS_END' }
         let(:current_timeframe) { 'CURRENT_TIMEFRAME' }
         let(:timeframe_end) { 'TIMEFRAME_END' }
 
         it 'should trigger a job to cache data if the cache is empty for counts' do
           query_name = 'active-classrooms'
 
-          allow(Snapshots::Timeframes).to receive(:calculate_timeframes).and_return([previous_timeframe, current_timeframe, timeframe_end])
+          allow(Snapshots::Timeframes).to receive(:calculate_timeframes).and_return([previous_timeframe, previous_end, current_timeframe, timeframe_end])
           expect(Rails.cache).to receive(:read).with(cache_key).and_return(nil)
           expect(Snapshots::CacheSnapshotCountWorker).to receive(:perform_async).with(cache_key,
             query_name,
@@ -166,6 +168,7 @@ describe SnapshotsController, type: :controller do
             {
               name: timeframe_name,
               previous_start: previous_timeframe,
+              previous_end: previous_end,
               current_start: current_timeframe,
               current_end: timeframe_end
             },
@@ -186,7 +189,7 @@ describe SnapshotsController, type: :controller do
         it 'should trigger a job to cache data if the cache is empty for top_x' do
           query_name = 'most-active-schools'
 
-          allow(Snapshots::Timeframes).to receive(:calculate_timeframes).and_return([previous_timeframe, current_timeframe, timeframe_end])
+          allow(Snapshots::Timeframes).to receive(:calculate_timeframes).and_return([previous_timeframe, previous_end, current_timeframe, timeframe_end])
           expect(Rails.cache).to receive(:read).with(cache_key).and_return(nil)
           expect(Snapshots::CacheSnapshotTopXWorker).to receive(:perform_async).with(cache_key,
             query_name,
@@ -194,6 +197,7 @@ describe SnapshotsController, type: :controller do
             {
               name: timeframe_name,
               previous_start: previous_timeframe,
+              previous_end: previous_end,
               current_start: current_timeframe,
               current_end: timeframe_end
             },
@@ -217,7 +221,7 @@ describe SnapshotsController, type: :controller do
           teacher_ids = ['3', '4']
           classroom_ids = ['5', '6', '7']
 
-          allow(Snapshots::Timeframes).to receive(:calculate_timeframes).and_return([previous_timeframe, current_timeframe, timeframe_end])
+          allow(Snapshots::Timeframes).to receive(:calculate_timeframes).and_return([previous_timeframe, previous_end, current_timeframe, timeframe_end])
           expect(Rails.cache).to receive(:read).with(cache_key).and_return(nil)
           expect(Snapshots::CacheSnapshotCountWorker).to receive(:perform_async).with(cache_key,
             query_name,
@@ -225,6 +229,7 @@ describe SnapshotsController, type: :controller do
             {
               name: timeframe_name,
               previous_start: previous_timeframe,
+              previous_end: previous_end,
               current_start: current_timeframe,
               current_end: timeframe_end
             },
@@ -241,7 +246,7 @@ describe SnapshotsController, type: :controller do
         it 'should properly calculate custom timeframes' do
           query_name = 'active-classrooms'
           timeframe_name = 'custom'
-          current_end = DateTime.now
+          current_end = DateTime.now.change(usec: 0)
           timeframe_length = 3.days
           current_start = current_end - timeframe_length
 
@@ -252,6 +257,7 @@ describe SnapshotsController, type: :controller do
             {
               name: timeframe_name,
               previous_start: current_start - timeframe_length,
+              previous_end: current_start,
               current_start: current_start,
               current_end: current_end
             },
