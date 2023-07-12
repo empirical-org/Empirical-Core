@@ -57,9 +57,9 @@ exports[`SnapshotCount component size medium should match snapshot 1`] = `
       className="count-and-label"
     >
       <span
-        className="coming-soon"
+        className="count"
       >
-        Coming soon
+        —
       </span>
       <span
         className="snapshot-label"
@@ -387,9 +387,9 @@ exports[`SnapshotCount component size small when it is coming soon should match 
       className="count-and-label"
     >
       <span
-        className="coming-soon"
+        className="count"
       >
-        Coming soon
+        —
       </span>
       <span
         className="snapshot-label"
