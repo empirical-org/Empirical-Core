@@ -6,12 +6,8 @@ module CleverIntegration
     include ClassroomRetrievable
     include StudentImportable
 
-    def import_classrooms
-      run_student_importer(imported_classroom_ids)
-      delete_teacher_classrooms_cache
-      hydrate_teacher_classrooms_cache
-
-      render json: { classrooms: current_user.clever_classrooms }
+    private def current_user_classrooms
+      current_user.clever_classrooms
     end
 
     private def reauthorization_required?

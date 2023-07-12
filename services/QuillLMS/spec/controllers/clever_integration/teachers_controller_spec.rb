@@ -11,6 +11,7 @@ RSpec.describe CleverIntegration::TeachersController do
   before { allow(controller).to receive(:current_user) { teacher } }
 
   it { should use_before_action :authorize_owner! }
+  it { should use_before_action :teacher! }
 
   describe '#import_classrooms' do
     subject { post :import_classrooms, params: params, as: :json }
@@ -20,7 +21,7 @@ RSpec.describe CleverIntegration::TeachersController do
 
     it { expect { subject }.to change(teacher.reload.clever_classrooms, :count).from(0).to(2) }
 
-    it 'should return an array with two classrooms' do
+    it 'should call call a couple workers and cache teacher classrooms' do
       expect(CleverIntegration::ImportTeacherClassroomsStudentsWorker).to receive(:perform_async)
       expect(CleverIntegration::TeacherClassroomsCache).to receive(:delete).with(teacher.id)
       expect(CleverIntegration::HydrateTeacherClassroomsCacheWorker).to receive(:perform_async).with(teacher.id)

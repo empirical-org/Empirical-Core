@@ -5,6 +5,8 @@ module ClassroomRetrievable
 
   include HasProviderNamespace
 
+  included { before_action :teacher! }
+
   def retrieve_classrooms
     return render json: { user_id: current_user.id, reauthorization_required: true } if reauthorization_required?
     return render json: serialized_classrooms_data if serialized_classrooms_data

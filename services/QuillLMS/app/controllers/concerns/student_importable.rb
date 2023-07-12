@@ -5,7 +5,10 @@ module StudentImportable
 
   include HasProviderNamespace
 
-  included { before_action :authorize_owner! }
+  included do
+    before_action :authorize_owner!
+    before_action :teacher!
+  end
 
   def import_students
     run_student_importer

@@ -5,6 +5,8 @@ module ClassroomImportable
 
   include HasProviderNamespace
 
+  included { before_action :teacher! }
+
   def import_classrooms
     run_classroom_and_student_importer
     delete_teacher_classrooms_cache

@@ -9,7 +9,6 @@ module CleverIntegration
       user = ::User.find_by(id: user_id)
 
       return if user.nil?
-      return unless user.teacher? && user.clever_authorized?
 
       TeacherClassroomsCacheHydrator.run(user)
     end
