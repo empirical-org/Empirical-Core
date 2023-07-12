@@ -18,12 +18,13 @@
 #
 require 'rails_helper'
 
-RSpec.describe ProviderClassroomUser, type: :model do
-  context 'validations' do
-    context 'invalid type' do
-      subject { create(:provider_classroom_user, type: 'NotApprovedType') }
+RSpec.describe CanvasClassroomUser, type: :model do
+  subject { create(:canvas_classroom_user)}
 
-      it { expect { subject }.to raise_error ActiveRecord::RecordInvalid }
-    end
-  end
+  it_behaves_like 'a provider classroom user'
+
+  it { expect { subject.clever_classroom_id }.to raise_error NotImplementedError }
+  it { expect { subject.clever_user_id }.to raise_error NotImplementedError }
+  it { expect { subject.google_classroom_id }.to raise_error NotImplementedError }
+  it { expect { subject.google_id }.to raise_error NotImplementedError }
 end

@@ -16,14 +16,12 @@
 #
 #  index_provider_type_and_classroom_id_and_user_id  (type,classroom_external_id,user_external_id) UNIQUE
 #
-require 'rails_helper'
+class CanvasClassroomUser < ProviderClassroomUser
+  def canvas_classroom_id
+    classroom_external_id
+  end
 
-RSpec.describe ProviderClassroomUser, type: :model do
-  context 'validations' do
-    context 'invalid type' do
-      subject { create(:provider_classroom_user, type: 'NotApprovedType') }
-
-      it { expect { subject }.to raise_error ActiveRecord::RecordInvalid }
-    end
+  def canvas_user_id
+    user_external_id
   end
 end

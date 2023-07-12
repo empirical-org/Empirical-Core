@@ -37,27 +37,27 @@ RSpec.describe ProviderClassroomsWithUnsyncedStudentsFinder do
       create(
         :google_classroom_user,
         user_external_id: synced_student1.google_id,
-        classroom_external_id: classroom_i_own.google_classroom_id
+        classroom_external_id: classroom_i_own.classroom_external_id
       )
 
       create(
         :google_classroom_user,
         :deleted,
         user_external_id: unsynced_student1.google_id,
-        classroom_external_id: classroom_i_own.google_classroom_id
+        classroom_external_id: classroom_i_own.classroom_external_id
       )
 
       create(
         :google_classroom_user,
         :deleted,
         user_external_id: unsynced_student2.google_id,
-        classroom_external_id: classroom_i_coteach.google_classroom_id
+        classroom_external_id: classroom_i_coteach.classroom_external_id
       )
 
       create(
         :google_classroom_user,
         user_external_id: synced_student2.google_id,
-        classroom_external_id: another_classroom_i_own.google_classroom_id
+        classroom_external_id: another_classroom_i_own.classroom_external_id
       )
     end
 
@@ -84,27 +84,27 @@ RSpec.describe ProviderClassroomsWithUnsyncedStudentsFinder do
       create(
         :clever_classroom_user,
         :deleted,
-        user_external_id: unsynced_student1.clever_id,
-        classroom_external_id: classroom_i_own.clever_id
+        classroom_external_id: classroom_i_own.classroom_external_id,
+        user_external_id: unsynced_student1.clever_id
       )
 
       create(
         :clever_classroom_user,
-        user_external_id: synced_student1.clever_id,
-        classroom_external_id: classroom_i_own.clever_id
+        classroom_external_id: classroom_i_own.classroom_external_id,
+        user_external_id: synced_student1.clever_id
       )
 
       create(
         :clever_classroom_user,
         :deleted,
-        user_external_id: unsynced_student2.clever_id,
-        classroom_external_id: classroom_i_coteach.clever_id
+        classroom_external_id: classroom_i_coteach.classroom_external_id,
+        user_external_id: synced_student2.clever_id
       )
 
       create(
         :clever_classroom_user,
-        user_external_id: synced_student2.clever_id,
-        classroom_external_id: another_classroom_i_own.clever_id
+        classroom_external_id: another_classroom_i_own.classroom_external_id,
+        user_external_id: synced_student2.clever_id
       )
     end
 

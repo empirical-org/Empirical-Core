@@ -1330,29 +1330,86 @@ describe User, type: :model do
     it { expect(User.valid_email?('a@b.com')).to be true }
   end
 
-  describe '#google_authorized?' do
-    context 'user without auth_credentials is unauthorized' do
-      it { expect(user.google_authorized?).to be_falsey }
+  describe '#canvas_authorized?' do
+    subject { user }
+
+    before { allow(user).to receive(:auth_credential).and_return(auth_credential) }
+
+    context 'no auth credential' do
+      let(:auth_credential) { nil }
+
+      it { is_expected.not_to be_canvas_authorized }
     end
 
-    context 'user with auth credentials has valid authorization' do
-      let(:google_user) { create(:google_auth_credential).user }
+    context 'auth credential is not canvas_authorized' do
+      let(:auth_credential) { double(:auth_credential, canvas_authorized?: false) }
 
-      it { expect(google_user.google_authorized?).to be true }
+      it { is_expected.not_to be_canvas_authorized }
+    end
+
+    context 'auth credential is canvas_authorized' do
+      let(:auth_credential) { double(:auth_credential, canvas_authorized?: true) }
+
+      it { is_expected.to be_canvas_authorized }
     end
   end
 
   describe '#clever_authorized?' do
-    context 'user without auth_credentials is unauthorized' do
-      it { expect(user.clever_authorized?).to be_falsey }
-    end
+    subject { user }
 
-    context 'user with auth credentials has valid authorization' do
-      let(:clever_user) { create(:clever_library_auth_credential).user }
+    let(:auth_credential) { nil }
 
-      it { expect(clever_user.clever_authorized?).to be true }
+    before { allow(user).to receive(:auth_credential).and_return(auth_credential) }
+
+    it { is_expected.not_to be_clever_authorized }
+
+    context 'user with clever_id is unauthorized' do
+      before { user.update(clever_id: '1234') }
+
+      it { is_expected.not_to be_clever_authorized }
+
+      context 'with auth credentials that is not clever_authorized' do
+        let(:auth_credential) { double(:auth_credential, clever_authorized?: false) }
+
+        it { is_expected.not_to be_clever_authorized}
+      end
+
+      context 'with auth credentials that is clever_authorized' do
+        let(:auth_credential) { double(:auth_credential, clever_authorized?: true) }
+
+        it { is_expected.to be_clever_authorized }
+      end
     end
   end
+
+  describe '#google_authorized?' do
+    subject { user }
+
+    let(:auth_credential) { nil }
+
+    before { allow(user).to receive(:auth_credential).and_return(auth_credential) }
+
+    it { is_expected.not_to be_google_authorized }
+
+    context 'user with google_id is unauthorized' do
+      before { user.update(google_id: '1234') }
+
+      it { is_expected.not_to be_google_authorized }
+
+      context 'with auth credentials that is not google_authorized' do
+        let(:auth_credential) { double(:auth_credential, google_authorized?: false) }
+
+        it { is_expected.not_to be_google_authorized}
+      end
+
+      context 'with auth credentials that is google_authorized' do
+        let(:auth_credential) { double(:auth_credential, google_authorized?: true) }
+
+        it { is_expected.to be_google_authorized }
+      end
+    end
+  end
+
 
   describe '#staff_session_duration_exceeded' do
     let(:user) { create(:user, role: role) }

@@ -106,8 +106,9 @@ class User < ApplicationRecord
   PERMISSIONS_FLAGS = %w(auditor purchaser school_point_of_contact)
   VALID_FLAGS = TESTING_FLAGS.dup.concat(PERMISSIONS_FLAGS)
 
-  GOOGLE_CLASSROOM_ACCOUNT = 'Google Classroom'
+  CANVAS_ACCOUNT = 'Canvas'
   CLEVER_ACCOUNT = 'Clever'
+  GOOGLE_CLASSROOM_ACCOUNT = 'Google Classroom'
 
   SCHOOL_CHANGELOG_ATTRIBUTE = 'school_id'
 
@@ -175,7 +176,7 @@ class User < ApplicationRecord
   has_many :canvas_accounts, dependent: :destroy
   has_many :canvas_instances, through: :canvas_accounts
 
-  accepts_nested_attributes_for :auth_credential
+  accepts_nested_attributes_for :auth_credential, :canvas_accounts
 
   delegate :name, :mail_city, :mail_state,
     to: :school,
@@ -295,7 +296,7 @@ class User < ApplicationRecord
   end
 
   def testing_flag
-    role == STAFF ? ARCHIVED : flags.detect{|f| TESTING_FLAGS.include?(f)}
+    role == STAFF ? ARCHIVED : flags.find { |f| TESTING_FLAGS.include?(f) }
   end
 
   def auditor?
@@ -672,6 +673,10 @@ class User < ApplicationRecord
 
   def generate_username(classroom_id=nil)
     self.username = GenerateUsername.run(first_name, last_name, get_class_code(classroom_id))
+  end
+
+  def canvas_authorized?
+    auth_credential&.canvas_authorized?
   end
 
   def clever_authorized?

@@ -41,6 +41,10 @@ FactoryBot.define do
       clever_id { (1..24).map { (('a'..'f').to_a + (1..9).to_a).sample }.join } # mock a clever id
     end
 
+    trait :from_canvas do
+      after(:create) { |classroom| create(:canvas_classroom, classroom: classroom).reload }
+    end
+
     factory :classroom_with_a_couple_students do
       students { create_pair(:student) }
     end
