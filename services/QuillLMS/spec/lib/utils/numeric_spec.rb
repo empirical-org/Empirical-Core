@@ -105,6 +105,7 @@ RSpec.describe Utils::Numeric do
 
     context 'passing custom fallback value' do
       subject { Utils::Numeric.safe_division(1, 0, fallback) }
+
       let(:fallback) { 1 }
 
       it { expect(subject).to eq(fallback) }
