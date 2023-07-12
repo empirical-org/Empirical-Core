@@ -60,6 +60,10 @@ module GoogleIntegration
       TeacherClassroomsData.new(current_user, serialized_selected_classrooms_data)
     end
 
+    private def serialized_classrooms_data
+      GoogleIntegration::TeacherClassroomsCache.read(current_user.id)
+    end
+
     private def serialized_selected_classrooms_data
       { classrooms: params[:selected_classrooms] }.to_json
     end
