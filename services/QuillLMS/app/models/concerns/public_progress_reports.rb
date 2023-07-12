@@ -258,7 +258,7 @@ module PublicProgressReports
       name: 'Conventions of Language',
       correct: get_score_for_question(concept_results) > 0
     }
-    
+
     return default unless concept_results.first.extra_metadata
 
     question_concept_uid = concept_results.first.extra_metadata['question_concept_uid']
@@ -266,7 +266,7 @@ module PublicProgressReports
 
     return default unless question_concept
 
-    concept_is_present_and_correct = concept_results.any? { |cr| cr.concept_id === question_concept.id && cr.correct }
+    concept_is_present_and_correct = concept_results.any? { |cr| cr.concept_id == question_concept.id && cr.correct }
     key_target_skill_concept = question_concept.parent
 
     {

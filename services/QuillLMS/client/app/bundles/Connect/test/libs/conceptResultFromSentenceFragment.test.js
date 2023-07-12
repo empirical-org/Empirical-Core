@@ -41,38 +41,41 @@ describe('Getting concept results from an answered sf object', () => {
     const expected = [
       {
         concept_uid: 'j89kdRGDVjG8j37A12p37Q',
+        question_type: 'sentence-fragment-identification',
         metadata: {
-          answer: 'Fragment',
-          attemptNumber: 1,
           correct: 1,
           directions: 'Is this a sentence or a fragment?',
           prompt: 'Listening to music on the ride home.',
-        },
-        question_type: 'sentence-fragment-identification',
-      }, {
+          answer: 'Fragment',
+          attemptNumber: 1
+        }
+      },
+      {
         concept_uid: 'KfA8-dg8FvlJz4eY0PkekA',
+        question_type: 'sentence-fragment-expansion',
         metadata: {
-          answer: 'I am listening to music on the ride home.',
-          attemptNumber: 1,
           correct: 1,
           directions: 'Add/change as few words as you can to change this fragment into a sentence.',
           prompt: 'Listening to music on the ride home.',
-        },
-        question_type: 'sentence-fragment-expansion',
+          answer: 'I am listening to music on the ride home.',
+          attemptNumber: 1
+        }
       },
-      // conceptResults.rideHome,
       {
-		    concept_uid: 'iUE6tekeyep8U385dtmVfQ',
-		    metadata: {
-		      answer: 'I am listening to music on the ride home.',
+        concept_uid: 'iUE6tekeyep8U385dtmVfQ',
+        question_type: 'sentence-fragment-expansion',
+        metadata: {
+          correct: 1,
+          directions: 'Add/change as few words as you can to change this fragment into a sentence.',
+          prompt: 'Listening to music on the ride home.',
           attemptNumber: 1,
-		      correct: 1,
-		      directions: 'Add/change as few words as you can to change this fragment into a sentence.',
-		      prompt: 'Listening to music on the ride home.',
-		    },
-		    question_type: 'sentence-fragment-expansion',
-		  }
-    ];
+          answer: 'I am listening to music on the ride home.',
+          question_uid: '-KOqKBMgXHF2dNMM8jhg',
+          question_concept_uid: undefined
+        }
+      }
+    ]
+
     const generated = getAllSentenceFragmentConceptResults(question);
     expect(generated).toEqual(expected);
   });
@@ -81,27 +84,30 @@ describe('Getting concept results from an answered sf object', () => {
     const expected = [
       {
         concept_uid: 'KfA8-dg8FvlJz4eY0PkekA',
+        question_type: 'sentence-fragment-expansion',
         metadata: {
-          answer: 'I am listening to music on the ride home.',
-          attemptNumber: 1,
           correct: 1,
           directions: 'Add/change as few words as you can to change this fragment into a sentence.',
           prompt: 'Listening to music on the ride home.',
-        },
-        question_type: 'sentence-fragment-expansion',
+          answer: 'I am listening to music on the ride home.',
+          attemptNumber: 1
+        }
       },
       {
-		    concept_uid: 'iUE6tekeyep8U385dtmVfQ',
+        concept_uid: 'iUE6tekeyep8U385dtmVfQ',
+        question_type: 'sentence-fragment-expansion',
         metadata: {
-          answer: 'I am listening to music on the ride home.',
-          attemptNumber: 1,
           correct: 1,
           directions: 'Add/change as few words as you can to change this fragment into a sentence.',
           prompt: 'Listening to music on the ride home.',
-        },
-        question_type: 'sentence-fragment-expansion',
-		  }
-    ];
+          attemptNumber: 1,
+          answer: 'I am listening to music on the ride home.',
+          question_uid: '-KOqKBMgXHF2dNMM8jhg',
+          question_concept_uid: undefined
+        }
+      }
+    ]
+
     const newQuestion = JSON.parse(JSON.stringify(question));
     newQuestion.needsIdentification = false;
     const generated = getAllSentenceFragmentConceptResults(newQuestion);
@@ -139,39 +145,44 @@ describe('Getting concept results from an answered sf object', () => {
       prompt: 'Listening to music on the ride home.',
       questionText: 'Go away.',
     };
+
     const expected = [
       {
         concept_uid: 'LH3szu784pXA5k2N9lxgdA',
+        question_type: 'sentence-fragment-identification',
         metadata: {
-          answer: 'Sentence',
-          attemptNumber: 1,
           correct: 1,
           directions: 'Is this a sentence or a fragment?',
           prompt: 'Listening to music on the ride home.',
-        },
-        question_type: 'sentence-fragment-identification',
-      }, {
+          answer: 'Sentence',
+          attemptNumber: 1
+        }
+      },
+      {
         concept_uid: 'KfA8-dg8FvlJz4eY0PkekA',
+        question_type: 'sentence-fragment-expansion',
         metadata: {
-          answer: 'I am listening to music on the ride home.',
-          attemptNumber: 1,
           correct: 1,
           directions: 'Add/change as few words as you can to change this fragment into a sentence.',
           prompt: 'Listening to music on the ride home.',
-        },
-        question_type: 'sentence-fragment-expansion',
-      }, {
+          answer: 'I am listening to music on the ride home.',
+          attemptNumber: 1
+        }
+      },
+      {
         concept_uid: 'iUE6tekeyep8U385dtmVfQ',
+        question_type: 'sentence-fragment-expansion',
         metadata: {
-          answer: 'I am listening to music on the ride home.',
-          attemptNumber: 1,
           correct: 1,
           directions: 'Add/change as few words as you can to change this fragment into a sentence.',
           prompt: 'Listening to music on the ride home.',
-        },
-        question_type: 'sentence-fragment-expansion',
+          attemptNumber: 1,
+          answer: 'I am listening to music on the ride home.',
+          question_uid: undefined,
+          question_concept_uid: undefined
+        }
       }
-    ];
+    ]
 
     const generated = getAllSentenceFragmentConceptResults(given);
     expect(generated).toEqual(expected);
