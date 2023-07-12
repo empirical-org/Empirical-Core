@@ -3,6 +3,8 @@
 module StudentImportable
   extend ActiveSupport::Concern
 
+  include HasProviderNamespace
+
   included { before_action :authorize_owner! }
 
   def import_students
@@ -18,10 +20,6 @@ module StudentImportable
 
   private def delete_teacher_classrooms_cache
     provider_namespace::TeacherClassroomsCache.delete(current_user.id)
-  end
-
-  private def provider_namespace
-    self.class.module_parent
   end
 
   private def run_student_importer

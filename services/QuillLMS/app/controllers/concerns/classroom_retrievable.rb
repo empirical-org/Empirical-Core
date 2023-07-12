@@ -3,6 +3,8 @@
 module ClassroomRetrievable
   extend ActiveSupport::Concern
 
+  include HasProviderNamespace
+
   def retrieve_classrooms
     return render json: { user_id: current_user.id, reauthorization_required: true } if reauthorization_required?
     return render json: serialized_classrooms_data if serialized_classrooms_data
@@ -13,10 +15,6 @@ module ClassroomRetrievable
 
   private def hydrate_teacher_classrooms_cache
     provider_namespace::HydrateTeacherClassroomsCacheWorker.perform_async(current_user.id)
-  end
-
-  private def provider_namespace
-    self.class.module_parent
   end
 
   private def serialized_classrooms_data

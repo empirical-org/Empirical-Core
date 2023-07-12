@@ -3,16 +3,14 @@
 module ClassroomImportable
   extend ActiveSupport::Concern
 
+  include HasProviderNamespace
+
   def import_classrooms
     run_classroom_and_student_importer
     delete_teacher_classrooms_cache
     hydrate_teacher_classrooms_cache
 
     render json: { classrooms: current_user_classrooms }.to_json
-  end
-
-  private def provider_namespace
-    self.class.module_parent
   end
 
   private def delete_teacher_classrooms_cache
