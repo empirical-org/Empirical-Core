@@ -5,7 +5,7 @@ module CleverIntegration
     ACCOUNT_TYPE = ::User::CLEVER_ACCOUNT
     ROLE = ::User::STUDENT
 
-    attr_reader :data, :student, :temp_username, :user_external_id
+    attr_reader :data, :student, :temp_username, :user_external_id, :username
 
     def initialize(student, data)
       @student = student
@@ -15,22 +15,26 @@ module CleverIntegration
     end
 
     def run
-      fix_disjointed_user_external_id
+      fix_user_external_id_conflict
+      fix_username_conflict
       update_student
       student
     end
 
-    private def user_external_id_disjointed?
-      user_external_id.present? && student.clever_id != user_external_id && ::User.exists?(clever_id: user_external_id)
-    end
+    private def fix_user_external_id_conflict
+      return unless user_external_id_conflict?
 
-    private def fix_disjointed_user_external_id
-      return unless user_external_id_disjointed?
-
-      teacher_id = data[:classroom]&.owner&.id
       clever_student = ::User.find_by(clever_id: user_external_id)
       student.merge_student_account(clever_student, teacher_id)
       clever_student.update!(clever_id: nil, account_type: 'unknown')
+    end
+
+    private def fix_username_conflict
+      if data[:username].blank? || username_conflict?
+        @username = student.username
+      else
+        @username = data[:username]
+      end
     end
 
     private def teacher_id
@@ -50,10 +54,8 @@ module CleverIntegration
       )
     end
 
-    private def username
-      return student.username if temp_username.blank? || username_conflict?
-
-      temp_username
+    private def user_external_id_conflict?
+      user_external_id.present? && student.clever_id != user_external_id && ::User.exists?(clever_id: user_external_id)
     end
 
     private def username_conflict?
