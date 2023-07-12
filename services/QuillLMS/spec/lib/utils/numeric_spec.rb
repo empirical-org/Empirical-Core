@@ -90,7 +90,8 @@ RSpec.describe Utils::Numeric do
   end
 
   describe '#safe_division' do
-    let(:subject) { Utils::Numeric.safe_division(numerator, denominator) }
+    subject { Utils::Numeric.safe_division(numerator, denominator) }
+
     let(:numerator) { 5 }
     let(:denominator) { 2 }
 
