@@ -221,7 +221,6 @@ module PublicProgressReports
         answer: cr.first.answer,
         score: get_score_for_question(cr),
         key_target_skill_concept: get_key_target_skill_concept_for_question(cr),
-        extra_metadata: cr.first.extra_metadata,
         concepts: cr.map { |crs|
           attempt_number = crs.attempt_number
           direct = crs.concept_result_directions&.text || crs.concept_result_instructions&.text || ""
@@ -233,8 +232,7 @@ module PublicProgressReports
             lastFeedback: crs.concept_result_previous_feedback&.text,
             attempt: attempt_number || 1,
             answer: crs.answer,
-            directions: direct.gsub(/(<([^>]+)>)/i, "").gsub("()", "").gsub("&nbsp;", ""),
-            extraMetadata: crs.extra_metadata
+            directions: direct.gsub(/(<([^>]+)>)/i, "").gsub("()", "").gsub("&nbsp;", "")
           }
         },
         question_number: cr.first.question_number
@@ -256,12 +254,17 @@ module PublicProgressReports
   end
 
   def get_key_target_skill_concept_for_question(concept_results)
-    return unless concept_results.first.extra_metadata
+    default = {
+      name: 'Conventions of Language',
+      correct: get_score_for_question(concept_results) > 0
+    }
+    
+    return default unless concept_results.first.extra_metadata
 
     question_concept_uid = concept_results.first.extra_metadata['question_concept_uid']
     question_concept = Concept.find_by_uid(question_concept_uid)
 
-    return unless question_concept
+    return default unless question_concept
 
     concept_is_present_and_correct = concept_results.any? { |cr| cr.concept_id === question_concept.id && cr.correct }
     key_target_skill_concept = question_concept.parent

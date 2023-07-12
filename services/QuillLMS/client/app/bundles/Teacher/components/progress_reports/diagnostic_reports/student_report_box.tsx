@@ -2,7 +2,8 @@ import * as React from 'react';
 
 import { formatString, formatStringAndAddSpacesAfterPeriods, } from './formatString';
 
-import Concept from '../../../../interfaces/concept.ts';
+import { KeyTargetSkillConcept } from '../../../../interfaces/key_target_skill_concept';
+import { Concept } from '../../../../interfaces/concept';
 import QuestionData from '../../../../interfaces/questionData.ts';
 import ScoreColor from '../../modules/score_color.js';
 import ConceptResultTableRow from './concept_result_table_row.tsx';
@@ -40,9 +41,19 @@ export class StudentReportBox extends React.Component<StudentReportBoxProps> {
     );
   }
 
+  renderKeyTargetSkillConcept = (keyTargetSkillConcept: KeyTargetSkillConcept) => {
+    return (
+      <tr className={keyTargetSkillConcept.correct ? 'green-score-color' : ''}>
+        <td>Key Target Skill</td>
+        <td />
+        <td>{keyTargetSkillConcept.name}</td>
+      </tr>
+    );
+  }
+
   render() {
     const { boxNumber, questionData } = this.props;
-    const { answer, concepts, directions, prompt, score } = questionData;
+    const { answer, concepts, directions, prompt, score, key_target_skill_concept, } = questionData;
     const formattedAnswer = answer ? formatString(answer) : ''
     return(
       <div className='individual-activity-report'>
@@ -53,6 +64,7 @@ export class StudentReportBox extends React.Component<StudentReportBoxProps> {
               <tbody>
                 {directions && this.renderDirections(directions)}
                 {prompt && this.renderPrompt(prompt)}
+                {key_target_skill_concept && this.renderKeyTargetSkillConcept(key_target_skill_concept)}
                 <tr className={(score || score === 0) && ScoreColor(score)}>
                   <td>Submission</td>
                   <td />
