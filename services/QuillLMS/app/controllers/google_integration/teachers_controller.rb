@@ -9,7 +9,7 @@ module GoogleIntegration
       delete_teacher_classrooms_cache
       hydrate_teacher_classrooms_cache
 
-      render json: { classrooms: current_user.google_classrooms }.to_json
+      render json: { classrooms: current_user.google_classrooms }
     end
 
     def import_students
@@ -58,10 +58,6 @@ module GoogleIntegration
 
     private def selected_classrooms_data
       TeacherClassroomsData.new(current_user, serialized_selected_classrooms_data)
-    end
-
-    private def serialized_classrooms_data
-      TeacherClassroomsCache.read(current_user.id)
     end
 
     private def serialized_selected_classrooms_data
