@@ -827,6 +827,18 @@ class User < ApplicationRecord
     user_logins.create
   end
 
+  def user_external_id(canvas_instance: nil)
+    return google_id if google_id.present?
+
+    return clever_id if clever_id.present?
+
+    return nil unless canvas_instance.is_a?(CanvasInstance)
+
+    canvas_accounts
+      .find_by(canvas_instance: canvas_instance)
+      &.user_external_id
+  end
+
   private def validate_flags
     invalid_flags = flags - VALID_FLAGS
 
