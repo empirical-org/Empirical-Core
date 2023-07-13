@@ -9,7 +9,6 @@ module CanvasIntegration
       user = ::User.find_by(id: user_id)
 
       return if user.nil?
-      return unless user.teacher? && user.canvas_authorized?
 
       TeacherClassroomsCacheHydrator.run(user)
     end
