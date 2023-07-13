@@ -9,15 +9,14 @@
     <div class='header-container'>
       <div class='header'>
         <div class='main-width'>
-          <img src="/images/quill_header_logo.svg" alt="Quill logo" />
+          <img src="https://www.quill.org/images/quill_header_logo.svg/" alt="Quill logo" />
         </div>
       </div>
     </div>
     <div class='content-section top-content'>
       <h2>Hi <%= @user.first_name %>,</h2>
-      <p>Here’s what happened in the last <%= @frequency %> on Quill:</p>
+      <p class='what-happened'>Here’s what happened in the last <%= @frequency %> on Quill:</p>
     </div>
-    <hr>
     <div class='content-section'>
       <% @teacher_notifications.each do |classroom_name, notifications_by_type| %>
       <h3><%= classroom_name %></h3>
@@ -28,7 +27,6 @@
         <% end %>
       <% end %>
     </div>
-    <hr>
     <div class='content-section footer'>
       <b>Quill.org</b>
       <p>41 E 11th St, New York, NY 10003, USA</p>
