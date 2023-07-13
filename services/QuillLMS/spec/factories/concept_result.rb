@@ -13,5 +13,6 @@ FactoryBot.define do
     concept_result_question_type
     correct { true }
     question_number { 1 }
+    extra_metadata { nil }
   end
 end

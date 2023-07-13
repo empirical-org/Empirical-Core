@@ -352,10 +352,12 @@ describe PublicProgressReports, type: :model do
   end
 
   describe '#get_key_target_skill_concept_for_question' do
-    let!(:default ) { {
-      name: 'Conventions of Language',
-      correct: get_score_for_question(concept_results) > 0
-    }}
+    let!(:default ) {
+      {
+        name: 'Conventions of Language',
+        correct: get_score_for_question(concept_results) > 0
+      }
+    }
 
     it 'should return a default key target skill concept if the first concept result has no extra metadata' do
       concept_result =  create(:concept_result)
