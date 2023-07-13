@@ -11,14 +11,6 @@ export default class ReauthorizeGoogleModal extends React.Component<ReauthorizeG
     window.location.href = googleLink
   }
 
-  renderReauthorizeButton() {
-    return (
-      <button className='quill-button contained primary medium' onClick={this.handleReauthorizeClick} type="button">
-        <span>Reauthorize</span>
-      </button>
-    )
-  }
-
   render() {
     const { close } = this.props
 
@@ -40,7 +32,9 @@ export default class ReauthorizeGoogleModal extends React.Component<ReauthorizeG
             <button className="quill-button outlined secondary medium" onClick={close} type="button">
               Cancel
             </button>
-            {this.renderReauthorizeButton()}
+            <button className='quill-button contained primary medium' onClick={this.handleReauthorizeClick} type="button">
+              <span>Reauthorize</span>
+            </button>
           </div>
         </div>
       </div>
