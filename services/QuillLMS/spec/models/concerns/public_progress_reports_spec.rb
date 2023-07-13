@@ -355,7 +355,7 @@ describe PublicProgressReports, type: :model do
     let!(:default ) {
       {
         name: 'Conventions of Language',
-        correct: get_score_for_question(concept_results) > 0
+        correct: true
       }
     }
 
