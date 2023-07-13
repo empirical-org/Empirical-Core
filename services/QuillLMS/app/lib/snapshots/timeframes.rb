@@ -2,7 +2,7 @@
 
 module Snapshots
   class Timeframes
-    DEFAULT_TIMEFRAME = 'last-30-days'
+    DEFAULT_TIMEFRAME = 'this-school-year'
 
     TIMEFRAMES = [
       {
