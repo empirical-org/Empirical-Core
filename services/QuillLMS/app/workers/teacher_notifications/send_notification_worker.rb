@@ -9,6 +9,7 @@ module TeacherNotifications
     def perform(activity_session_id)
       @activity_session = find_activity_session(activity_session_id)
       return unless @activity_session
+      return unless @activity_session.classroom
       return unless should_send_notification?
 
       send_notification(notification_type, message_attrs)
