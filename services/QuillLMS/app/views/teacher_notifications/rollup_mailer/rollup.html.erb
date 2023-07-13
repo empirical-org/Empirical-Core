@@ -9,12 +9,12 @@
     <div class='header-container'>
       <div class='header'>
         <div class='main-width'>
-          <img src="https://quill-cdn.s3.amazonaws.com/images/logos/quill-logo-white.png" alt="Quill logo" />
+          <img src="https://quill-cdn.s3.amazonaws.com/images/logos/quill-logo-white-2x.png" alt="Quill logo" />
         </div>
       </div>
     </div>
     <div class='content-section top-content'>
-      <h2>Hi <%= @user.first_name %>,</h2>
+      <h2 class="hi-header">Hi <%= @user.first_name %>,</h2>
       <p class='what-happened'>Here’s what happened in the last <%= @frequency %> on Quill:</p>
     </div>
     <% @teacher_notifications.each do |classroom_name, notifications_by_type| %>
