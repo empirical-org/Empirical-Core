@@ -1,6 +1,7 @@
 .email-body {
   margin: 0px;
   width: 1030px;
+  color: black;
 }
 
 .header-container {
@@ -24,6 +25,7 @@
 }
 
 .content-section {
+  color: black;
   width: 600px;
   margin: 0 auto;
   font-family: "adelle-sans", "Arial", sans-serif;
@@ -51,6 +53,10 @@ h3 {
 
 ul {
   margin-top: -10px;
+}
+
+li {
+  font-size: 16px;
 }
 
 h4 {
