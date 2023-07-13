@@ -9,8 +9,8 @@ module Snapshots
           {default: false, name: "Last 90 days", value: "last-90-days"},
           {default: false, name: "This month", value: "this-month"},
           {default: false, name: "Last month", value: "last-month"},
-          {default: false, name: "This year", value: "this-year"},
-          {default: false, name: "Last year", value: "last-year"},
+          {default: false, name: "This school year", value: "this-school-year"},
+          {default: false, name: "Last school year", value: "last-school-year"},
           {default: false, name: "All time", value: "all-time"},
           {default: false, name: "Custom", value: "custom"}
         ])
@@ -35,7 +35,7 @@ module Snapshots
         ])
       end
 
-      context 'previous timeframe calculations for "this month" and "this year"' do
+      context 'previous timeframe calculations for "this month" and "this school year"' do
         let(:now) { DateTime.parse('2023-01-10') }
 
         it do
@@ -48,10 +48,10 @@ module Snapshots
         end
 
         it do
-          expect(described_class.calculate_timeframes('this-year')).to eq([
-            end_of_yesterday.beginning_of_year - 1.year,
+          expect(described_class.calculate_timeframes('this-school-year')).to eq([
+            School.school_year_start(end_of_yesterday) - 1.year,
             end_of_yesterday - 1.year,
-            end_of_yesterday.beginning_of_year,
+            School.school_year_start(end_of_yesterday),
             end_of_yesterday
           ])
         end
