@@ -350,4 +350,59 @@ describe PublicProgressReports, type: :model do
       )
     end
   end
+
+  describe '#get_key_target_skill_concept_for_question' do
+    let!(:default ) { {
+      name: 'Conventions of Language',
+      correct: get_score_for_question(concept_results) > 0
+    }}
+
+    it 'should return a default key target skill concept if the first concept result has no extra metadata' do
+      concept_result =  create(:concept_result)
+
+      expect(get_key_target_skill_concept_for_question([concept_result])).to eq(default)
+    end
+
+    it 'should return a default key target skill concept if the first concept result does not have a question_concept_uid' do
+      concept_result =  create(:concept_result, extra_metadata: { question_uid: 'blah' })
+
+      expect(get_key_target_skill_concept_for_question([concept_result])).to eq(default)
+    end
+
+    it 'should return a default key target skill concept if the first concept result has a question_concept_uid that is not in the database' do
+      concept_result =  create(:concept_result, extra_metadata: { question_concept_uid: 'blah' })
+
+      expect(get_key_target_skill_concept_for_question([concept_result])).to eq(default)
+    end
+
+    it 'should return a key target skill concept with the parent of the question\'s concept that is correct if any of the concept results have a correct value for that question\'s concept' do
+      concept =  create(:concept_with_grandparent)
+      incorrect_concept_result =  create(:concept_result, correct: false, extra_metadata: { question_concept_uid: concept.id })
+      correct_concept_result =  create(:concept_result, correct: true, extra_metadata: { question_concept_uid: concept.id })
+
+      expected = {
+        id: concept.parent.id,
+        uid: concept.parent.uid,
+        correct: true,
+        name: concept.parent.name
+      }
+
+      expect(get_key_target_skill_concept_for_question([incorrect_concept_result, correct_concept_result])).to eq(expected)
+    end
+
+    it 'should return a key target skill concept with the parent of the question\'s concept that is incorrect if none of the concept results have a correct value for that question\'s concept' do
+      concept =  create(:concept_with_grandparent)
+      incorrect_concept_result =  create(:concept_result, correct: false, extra_metadata: { question_concept_uid: concept.id })
+
+      expected = {
+        id: concept.parent.id,
+        uid: concept.parent.uid,
+        correct: false,
+        name: concept.parent.name
+      }
+
+      expect(get_key_target_skill_concept_for_question([incorrect_concept_result])).to eq(expected)
+    end
+
+  end
 end
