@@ -5,11 +5,11 @@ module Snapshots
     context '#frontend_options' do
       it do
         expect(described_class.frontend_options).to eq([
-          {default: true, name: "Last 30 days", value: "last-30-days"},
+          {default: false, name: "Last 30 days", value: "last-30-days"},
           {default: false, name: "Last 90 days", value: "last-90-days"},
           {default: false, name: "This month", value: "this-month"},
           {default: false, name: "Last month", value: "last-month"},
-          {default: false, name: "This school year", value: "this-school-year"},
+          {default: true, name: "This school year", value: "this-school-year"},
           {default: false, name: "Last school year", value: "last-school-year"},
           {default: false, name: "All time", value: "all-time"},
           {default: false, name: "Custom", value: "custom"}
