@@ -9,12 +9,23 @@
       padding: 0;
     }
     .fields-section {
+      margin-top: 32px;
       .fields-container {
         display: flex;
         flex-wrap: wrap;
+        margin: 16px 0px 32px 0px;
         .checkbox-container {
           display: flex;
           flex: 1 0 16%;
+          max-width: 165px;
+          width: 165px;
+          padding: 8px;
+          align-items: center;
+          gap: 8px;
+          border-radius: 8px;
+          border: 1px solid #E0E0E0;
+          background: #F8F8F8;
+          margin: 0px 8px 8px 0px;
         }
       }
     }

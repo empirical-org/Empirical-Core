@@ -285,7 +285,17 @@ const DataExportContainer = ({ adminInfo, accessType, }) => {
             Filters
           </button>
         </div>
-        <DataExportTableAndFields />
+        <DataExportTableAndFields
+          queryKey="data-export"
+          selectedGrades={selectedGrades}
+          selectedSchoolIds={selectedSchools.map(school => school.id)}
+          selectedTeacherIds={selectedTeachers.map(teacher => teacher.id)}
+          selectedClassroomIds={selectedClassrooms.map(classroom => classroom.id)}
+          selectedTimeframe={selectedTimeframe.value}
+          customTimeframeStart={customStartDate?.toDate()}
+          customTimeframeEnd={customEndDate?.toDate()}
+          adminId={adminInfo.id}
+        />
       </main>
     </div>
   )

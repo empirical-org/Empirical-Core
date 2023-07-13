@@ -22,18 +22,23 @@ class SnapshotsController < ApplicationController
 
   WORKERS_FOR_ACTIONS = {
     "count" => Snapshots::CacheSnapshotCountWorker,
-    "top_x" => Snapshots::CacheSnapshotTopXWorker
+    "top_x" => Snapshots::CacheSnapshotTopXWorker,
+    "data_export" => Snapshots::CachePremiumReportsWorker
   }
 
-  before_action :set_query, only: [:count, :top_x]
-  before_action :validate_request, only: [:count, :top_x]
-  before_action :authorize_request, only: [:count, :top_x]
+  before_action :set_query, only: [:count, :top_x, :data_export]
+  before_action :validate_request, only: [:count, :top_x, :data_export]
+  before_action :authorize_request, only: [:count, :top_x, :data_export]
 
   def count
     render json: retrieve_cache_or_enqueue_worker(WORKERS_FOR_ACTIONS[action_name])
   end
 
   def top_x
+    render json: retrieve_cache_or_enqueue_worker(WORKERS_FOR_ACTIONS[action_name])
+  end
+
+  def data_export
     render json: retrieve_cache_or_enqueue_worker(WORKERS_FOR_ACTIONS[action_name])
   end
 
