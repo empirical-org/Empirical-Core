@@ -47,10 +47,27 @@ class CanvasAccount < ApplicationRecord
     find_by(canvas_instance_id: canvas_instance_id, external_id: external_id)
   end
 
+  def self.custom_find_by_user_external_ids(user_external_ids)
+    return none if user_external_ids.blank?
+
+    unpack_user_external_ids!(user_external_ids)
+      .map { |canvas_instance_id, external_ids| where(canvas_instance_id: canvas_instance_id, external_id: external_ids) }
+      .flatten
+  end
+
   def self.unpack_user_external_id!(user_external_id)
     raise InvalidUserExternalIdFormatError unless valid_user_external_id_format?(user_external_id)
 
     user_external_id.split(':')
+  end
+
+  def self.unpack_user_external_ids!(user_external_ids)
+    raise InvalidUserExternalIdFormatError if user_external_ids.nil?
+
+    user_external_ids
+      .map { |user_external_id| unpack_user_external_id!(user_external_id) }
+      .group_by(&:first)
+      .transform_values { |v| v.map(&:second) }
   end
 
   def self.valid_user_external_id_format?(user_external_id)

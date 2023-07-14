@@ -250,6 +250,10 @@ class User < ApplicationRecord
     end
   end
 
+  def self.find_by_canvas_user_external_ids(user_external_ids)
+    where(id: CanvasAccount.custom_find_by_user_external_ids(user_external_ids).pluck(:user_id))
+  end
+
   def self.valid_email?(email)
     ValidatesEmailFormatOf.validate_email_format(email).nil?
   end

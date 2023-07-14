@@ -2095,5 +2095,38 @@ describe User, type: :model do
       end
     end
   end
+
+  describe '.find_by_canvas_user_external_ids' do
+    subject { described_class.find_by_canvas_user_external_ids(user_external_ids) }
+
+    context 'user_external_ids is nil' do
+      let(:user_external_ids) { nil }
+
+      it { is_expected.to be_empty }
+    end
+
+    context 'user_external_ids is empty' do
+      let(:user_external_ids) { [] }
+
+      it { is_expected.to be_empty }
+    end
+
+    context 'user_external_ids is not empty' do
+      context 'canvas_accounts do not exist' do
+        let(:user_external_ids) { [CanvasAccount.build_user_external_id(0, 0)] }
+
+        it { is_expected.to be_empty }
+      end
+
+      context 'canvas_accounts exist' do
+        let(:canvas_account1) { create(:canvas_account) }
+        let(:canvas_account2) { create(:canvas_account) }
+        let(:user_external_ids) { [canvas_account1.user_external_id, canvas_account2.user_external_id] }
+
+        it { is_expected.to match_array [canvas_account1.user, canvas_account2.user] }
+      end
+
+    end
+  end
 end
 # rubocop:enable Metrics/BlockLength

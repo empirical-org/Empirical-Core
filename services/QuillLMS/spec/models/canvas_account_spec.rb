@@ -113,6 +113,83 @@ RSpec.describe CanvasAccount, type: :model do
     end
   end
 
+  describe '.custom_find_by_user_external_ids' do
+    subject { described_class.custom_find_by_user_external_ids(user_external_ids) }
+
+    context 'user_external_ids is nil' do
+      let(:user_external_ids) { nil }
+
+      it { is_expected.to be_empty }
+    end
+
+    context 'user_external_ids is empty' do
+      let(:user_external_ids) { [] }
+
+      it { is_expected.to be_empty }
+    end
+
+    context 'invalid user_external_id format' do
+      let(:user_external_ids) { ['invalid'] }
+
+      it { expect { subject }.to raise_error(described_class::InvalidUserExternalIdFormatError) }
+    end
+
+    context 'user_external_ids is non-empty' do
+      context 'canvas account does not exist' do
+        let(:user_external_ids) { [described_class.build_user_external_id(0, 0)] }
+
+        it { is_expected.to be_empty }
+      end
+
+      context 'canvas accounts exist' do
+        let(:canvas_instance1) { create(:canvas_instance) }
+        let(:canvas_instance2) { create(:canvas_instance) }
+        let(:canvas_account1) { create(:canvas_account, canvas_instance: canvas_instance1) }
+        let(:canvas_account2) { create(:canvas_account, canvas_instance: canvas_instance2) }
+        let(:canvas_account3) { create(:canvas_account, canvas_instance: canvas_instance1) }
+
+        let(:user_external_ids) { [canvas_account1, canvas_account2, canvas_account3].map(&:user_external_id) }
+
+        it { is_expected.to match_array [canvas_account1, canvas_account2, canvas_account3] }
+      end
+    end
+  end
+
+  describe '.unpack_user_external_ids!' do
+    subject { described_class.unpack_user_external_ids!(user_external_ids) }
+
+    context 'user_external_ids is nil' do
+      let(:user_external_ids) { nil }
+
+      it { expect { subject }.to raise_error(described_class::InvalidUserExternalIdFormatError) }
+    end
+
+    context 'user_external_ids is empty' do
+      let(:user_external_ids) { [] }
+
+      it { is_expected.to eq({}) }
+    end
+
+    context 'user_external_ids is non-empty' do
+      let(:canvas_instance1) { create(:canvas_instance) }
+      let(:canvas_instance2) { create(:canvas_instance) }
+      let(:canvas_account1) { create(:canvas_account, canvas_instance: canvas_instance1) }
+      let(:canvas_account2) { create(:canvas_account, canvas_instance: canvas_instance2) }
+      let(:canvas_account3) { create(:canvas_account, canvas_instance: canvas_instance1) }
+
+      let(:user_external_ids) { [canvas_account1, canvas_account2, canvas_account3].map(&:user_external_id) }
+
+      it do
+        expect(subject).to eq(
+          {
+            canvas_instance1.id => [canvas_account1.external_id, canvas_account3.external_id],
+            canvas_instance2.id => [canvas_account2.external_id]
+          }.stringify_keys
+        )
+      end
+    end
+  end
+
   describe '.unpack_user_external_id!' do
     subject { described_class.unpack_user_external_id!(user_external_id) }
 
