@@ -42,7 +42,7 @@ FactoryBot.define do
     end
 
     trait :from_canvas do
-      transient { canvas_instance { create(:canvas_instance) } }
+      transient { canvas_instance { FactoryBot.create(:canvas_instance) } }
 
       after(:create) do |classroom, context|
         create(:canvas_classroom, classroom: classroom, canvas_instance: context.canvas_instance)
