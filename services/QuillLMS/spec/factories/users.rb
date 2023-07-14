@@ -246,7 +246,7 @@ FactoryBot.define do
     end
 
     trait :with_canvas_account do
-      transient { canvas_instance { FactoryBot.create(:canvas_instance) } }
+      transient { canvas_instance { create(:canvas_instance) } }
 
       after(:create) do |user, evaluator|
         create(:canvas_account, canvas_instance: evaluator.canvas_instance, user: user)
