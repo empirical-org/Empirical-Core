@@ -18,7 +18,7 @@ module ImpactMetrics
         ]
       }
 
-      it { expect(results).to match_array(activity_sessions.map { |as| {"id" => as.id }}) }
+      it { expect(results).to eq([{"count" => 20}]) }
     end
   end
 end

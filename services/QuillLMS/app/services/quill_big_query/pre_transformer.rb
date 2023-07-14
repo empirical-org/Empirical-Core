@@ -9,20 +9,18 @@ module QuillBigQuery
     class UnsupportedArrayParameterTypeError < StandardError; end
     class EmptyArrayParameterError < StandardError; end
 
-    def initialize(query, *array_params)
+    def initialize(query, **array_params)
       @query = query
-      @transformed_array_params = self.class.build_array_query_params(*array_params)
+      @transformed_array_params = self.class.build_array_query_params(**array_params)
     end
 
     # according to Google Cloud BigQuery API as documented here:
     # https://cloud.google.com/bigquery/docs/reference/rest/v2/QueryParameter
-    def self.build_array_query_params(*array_params)
-      array_params.map do |array_param|
-        raise EmptyArrayParameterError if array_param.values.first.first.blank?
+    def self.build_array_query_params(**array_params)
+      array_params.map do |name, values|
+        raise EmptyArrayParameterError if values.first.blank?
 
-        name = array_param.keys.first
-        array = array_param.values.first
-        type = type_lookup(array_param.values.first.first)
+        type = type_lookup(values.first)
         {
           'name' => name.to_s,
           'parameterType' => {
@@ -32,7 +30,7 @@ module QuillBigQuery
             }
           },
           'parameterValue' => {
-            'arrayValues' => array.map { |v| { 'value' => v.to_s }}
+            'arrayValues' => values.map { |v| { 'value' => v.to_s }}
           }
         }
       end

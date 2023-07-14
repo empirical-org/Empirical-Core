@@ -1,7 +1,7 @@
 # frozen_string_literal: true
 
 module ImpactMetrics
-  class ActivitiesAllTimeQuery < ::QuillBigQuery::Query
+  class ActiveStudentsAllTimeQuery < ::QuillBigQuery::Query
 
     def run
       run_query
@@ -9,7 +9,7 @@ module ImpactMetrics
 
     def select_clause
       <<-SQL
-        SELECT COUNT(activity_sessions.id) AS count
+        SELECT COUNT(DISTINCT(activity_sessions.user_id)) AS count
       SQL
     end
 

@@ -9,8 +9,10 @@ describe SetImpactMetricsWorker do
     let(:activity_sessions) { create_list(:activity_session, 100)}
 
     let(:activity_sessions_payload) {
-      activity_sessions.map {|as| {"id" => as.id}}
+      [{"count" => activity_sessions.length}]
     }
+
+    let(:active_students_payload) { [{"count" => activity_sessions.length}]}
 
     let(:teachers) { create_list(:teacher, 150)}
 
@@ -28,6 +30,7 @@ describe SetImpactMetricsWorker do
 
     before do
       allow(ImpactMetrics::ActivitiesAllTimeQuery).to receive(:run).and_return(activity_sessions_payload)
+      allow(ImpactMetrics::ActiveStudentsAllTimeQuery).to receive(:run).and_return(active_students_payload)
       allow(ImpactMetrics::ActiveTeachersAllTimeQuery).to receive(:run).and_return(teachers_payload)
       allow(ImpactMetrics::SchoolsContainingCertainTeachersQuery).to receive(:run).with(teachers.pluck(:id)).and_return(schools_payload)
     end

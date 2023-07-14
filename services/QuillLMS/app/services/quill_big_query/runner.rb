@@ -30,7 +30,7 @@ module QuillBigQuery
       QuillBigQuery::PostTransformer.new(raw_fields, hash_results).transform
     end
 
-    def self.get_response(query, *array_params)
+    def self.get_response(query, **array_params)
       client = ClientFetcher.run
       # API discovery https://github.com/googleapis/google-api-ruby-client/tree/v0.8.6#api-discovery
       bigquery = client.discovered_api('bigquery', 'v2')
@@ -40,7 +40,7 @@ module QuillBigQuery
         result = client.execute(
           api_method: bigquery.jobs.query,
           parameters: {'projectId' => PROJECT_ID},
-          body_object: QuillBigQuery::PreTransformer.new(query, *array_params).transform
+          body_object: QuillBigQuery::PreTransformer.new(query, **array_params).transform
         )
       rescue => e
         raise ClientExecutionError, "Query: #{query}, wrapped error: #{e}"
@@ -54,8 +54,8 @@ module QuillBigQuery
     # because limitations on query length in BigQuery require us to specially format array params.
 
     # other types of params should be written directly inside the query string, not passed in as array_params
-    def self.execute(query, *array_params)
-      response = get_response(query, *array_params)
+    def self.execute(query, **array_params)
+      response = get_response(query, **array_params)
       transform_response(response)
     end
   end
