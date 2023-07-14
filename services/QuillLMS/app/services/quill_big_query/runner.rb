@@ -35,14 +35,12 @@ module QuillBigQuery
       # API discovery https://github.com/googleapis/google-api-ruby-client/tree/v0.8.6#api-discovery
       bigquery = client.discovered_api('bigquery', 'v2')
 
-      body_object = QuillBigQuery::PreTransformer.new(query, *array_params).transformed_query
-
       # API reference: https://cloud.google.com/bigquery/docs/reference/rest/v2/jobs/query?apix_params=%7B%22projectId%22%3A%22analytics-data-stores%22%2C%22resource%22%3A%7B%22query%22%3A%22SELECT%20email%20from%20lms.users%20LIMIT%201%22%7D%7D
       begin
         result = client.execute(
           api_method: bigquery.jobs.query,
           parameters: {'projectId' => PROJECT_ID},
-          body_object: body_object
+          body_object: QuillBigQuery::PreTransformer.new(query, *array_params).transform
         )
       rescue => e
         raise ClientExecutionError, "Query: #{query}, wrapped error: #{e}"

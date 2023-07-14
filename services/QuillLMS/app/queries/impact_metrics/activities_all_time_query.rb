@@ -1,6 +1,6 @@
 # frozen_string_literal: true
 
-module QuillBigQuery
+module ImpactMetrics
   class ActivitiesAllTimeQuery < ::QuillBigQuery::Query
 
     def run

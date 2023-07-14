@@ -1,6 +1,6 @@
 # frozen_string_literal: true
 
-module QuillBigQuery
+module ImpactMetrics
   class SchoolsContainingCertainTeachersQuery < ::QuillBigQuery::Query
 
     def initialize(teacher_ids, options = {})

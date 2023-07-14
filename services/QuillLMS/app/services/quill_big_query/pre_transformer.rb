@@ -46,8 +46,8 @@ module QuillBigQuery
       return INT_TYPE
     end
 
-    def transformed_query
-      body_object = {
+    def transform
+      {
         'query' => @query,
         'useLegacySql' => false,
         'queryParameters'=> @transformed_array_params

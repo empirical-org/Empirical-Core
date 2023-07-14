@@ -2,12 +2,12 @@
 
 require 'rails_helper'
 
-module QuillBigQuery
+module ImpactMetrics
   describe ActivitiesAllTimeQuery do
     context 'for activities finished all time', :big_query_snapshot do
       include_context 'QuillBigQuery TestRunner Setup'
 
-      let(:activity_sessions) { create_list(:activity_session, 20, state: 'finished') }
+      let(:activity_sessions) { create_list(:activity_session, 20, :finished) }
       let(:unfinished_activity_sessions) { create_list(:activity_session, 10, state: 'started') }
       let(:query_args) { [] }
 

@@ -8,17 +8,17 @@ describe SetImpactMetricsWorker do
   context '#perform' do
     let(:activity_sessions) { create_list(:activity_session, 100)}
 
-    let(:example_json1) {
+    let(:activity_sessions_payload) {
       activity_sessions.map {|as| {"id" => as.id}}
     }
 
     let(:teachers) { create_list(:teacher, 150)}
 
-    let(:example_json2) {
+    let(:teachers_payload) {
       teachers.map {|t| {"id" => t.id}}
     }
 
-    let(:example_json3) {
+    let(:schools_payload) {
       [
         {"id" => 333, "free_lunches" => 30},
         {"id" => 334, "free_lunches" => 0},
@@ -27,34 +27,34 @@ describe SetImpactMetricsWorker do
     }
 
     before do
-      allow(QuillBigQuery::ActivitiesAllTimeQuery).to receive(:run).and_return(example_json1)
-      allow(QuillBigQuery::ActiveTeachersAllTimeQuery).to receive(:run).and_return(example_json2)
-      allow(QuillBigQuery::SchoolsContainingCertainTeachersQuery).to receive(:run).with(teachers.map(&:id)).and_return(example_json3)
+      allow(ImpactMetrics::ActivitiesAllTimeQuery).to receive(:run).and_return(activity_sessions_payload)
+      allow(ImpactMetrics::ActiveTeachersAllTimeQuery).to receive(:run).and_return(teachers_payload)
+      allow(ImpactMetrics::SchoolsContainingCertainTeachersQuery).to receive(:run).with(teachers.pluck(:id)).and_return(schools_payload)
     end
 
     it 'should set the NUMBER_OF_SENTENCES redis value' do
       subject.perform
-      expect($redis.get(PagesController::NUMBER_OF_SENTENCES)).to eq((example_json1.size.floor(-5) * 10).to_s)
+      expect($redis.get(PagesController::NUMBER_OF_SENTENCES)).to eq((SetImpactMetricsWorker.round_to_ten_thousands(activity_sessions_payload.size) * SetImpactMetricsWorker::SENTENCES_PER_ACTIVITY_SESSION).to_s)
     end
 
     it 'should set the NUMBER_OF_STUDENTS redis value' do
       subject.perform
-      expect($redis.get(PagesController::NUMBER_OF_STUDENTS)).to eq((example_json1.count('DISTINCT(user_id)').floor(-5)).to_s)
+      expect($redis.get(PagesController::NUMBER_OF_STUDENTS)).to eq((SetImpactMetricsWorker.round_to_ten_thousands(activity_sessions_payload.count('DISTINCT(user_id)'))).to_s)
     end
 
     it 'should set the NUMBER_OF_TEACHERS redis value' do
       subject.perform
-      expect($redis.get(PagesController::NUMBER_OF_TEACHERS)).to eq("100")
+      expect($redis.get(PagesController::NUMBER_OF_TEACHERS)).to eq(SetImpactMetricsWorker.round_to_hundreds(teachers.length).to_s)
     end
 
     it 'should set the NUMBER_OF_SCHOOLS redis value' do
       subject.perform
-      expect($redis.get(PagesController::NUMBER_OF_SCHOOLS)).to eq("3")
+      expect($redis.get(PagesController::NUMBER_OF_SCHOOLS)).to eq(schools_payload.length.to_s)
     end
 
     it 'should set the NUMBER_OF_LOW_INCOME_SCHOOLS redis value' do
       subject.perform
-      expect($redis.get(PagesController::NUMBER_OF_LOW_INCOME_SCHOOLS)).to eq("1")
+      expect($redis.get(PagesController::NUMBER_OF_LOW_INCOME_SCHOOLS)).to eq(schools_payload.filter { |s| s["free_lunches"] > SetImpactMetricsWorker::FREE_LUNCH_MINIMUM}.length.to_s)
     end
   end
 end

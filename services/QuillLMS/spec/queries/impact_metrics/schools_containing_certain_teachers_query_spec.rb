@@ -2,7 +2,7 @@
 
 require 'rails_helper'
 
-module QuillBigQuery
+module ImpactMetrics
   describe SchoolsContainingCertainTeachersQuery do
     context 'for schools all time', :big_query_snapshot do
       include_context 'QuillBigQuery TestRunner Setup'
@@ -14,6 +14,7 @@ module QuillBigQuery
       let(:schools_user) { create(:schools_users, user: teacher, school: chosen_school_one) }
       let(:second_teacher) { create(:teacher) }
       let(:schools_user_two) { create(:schools_users, user: second_teacher, school: chosen_school_two) }
+      let(:excluded_school) { create(:school) }
 
       let(:query_args) { [[teacher.id, second_teacher.id]] }
       let(:cte_records) {
@@ -24,7 +25,8 @@ module QuillBigQuery
           teacher,
           second_teacher,
           schools_user,
-          schools_user_two
+          schools_user_two,
+          excluded_school
         ]
       }
 

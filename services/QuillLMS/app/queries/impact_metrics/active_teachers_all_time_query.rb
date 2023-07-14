@@ -1,6 +1,6 @@
 # frozen_string_literal: true
 
-module QuillBigQuery
+module ImpactMetrics
   class ActiveTeachersAllTimeQuery < ::QuillBigQuery::Query
     ACTIVITY_SESSION_MINIMUM = 9
 
