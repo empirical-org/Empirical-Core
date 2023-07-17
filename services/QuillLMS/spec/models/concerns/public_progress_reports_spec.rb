@@ -362,19 +362,19 @@ describe PublicProgressReports, type: :model do
     it 'should return a default key target skill concept if the first concept result has no extra metadata' do
       concept_result =  create(:concept_result)
 
-      expect(get_key_target_skill_concept_for_question([concept_result])).to eq(default)
+      expect(FakeReports.new.get_key_target_skill_concept_for_question([concept_result])).to eq(default)
     end
 
     it 'should return a default key target skill concept if the first concept result does not have a question_concept_uid' do
       concept_result =  create(:concept_result, extra_metadata: { question_uid: 'blah' })
 
-      expect(get_key_target_skill_concept_for_question([concept_result])).to eq(default)
+      expect(FakeReports.new.get_key_target_skill_concept_for_question([concept_result])).to eq(default)
     end
 
     it 'should return a default key target skill concept if the first concept result has a question_concept_uid that is not in the database' do
       concept_result =  create(:concept_result, extra_metadata: { question_concept_uid: 'blah' })
 
-      expect(get_key_target_skill_concept_for_question([concept_result])).to eq(default)
+      expect(FakeReports.new.get_key_target_skill_concept_for_question([concept_result])).to eq(default)
     end
 
     it 'should return a key target skill concept with the parent of the question\'s concept that is correct if any of the concept results have a correct value for that question\'s concept' do
@@ -389,7 +389,7 @@ describe PublicProgressReports, type: :model do
         name: concept.parent.name
       }
 
-      expect(get_key_target_skill_concept_for_question([incorrect_concept_result, correct_concept_result])).to eq(expected)
+      expect(FakeReports.new.get_key_target_skill_concept_for_question([incorrect_concept_result, correct_concept_result])).to eq(expected)
     end
 
     it 'should return a key target skill concept with the parent of the question\'s concept that is incorrect if none of the concept results have a correct value for that question\'s concept' do
@@ -403,7 +403,7 @@ describe PublicProgressReports, type: :model do
         name: concept.parent.name
       }
 
-      expect(get_key_target_skill_concept_for_question([incorrect_concept_result])).to eq(expected)
+      expect(FakeReports.new.get_key_target_skill_concept_for_question([incorrect_concept_result])).to eq(expected)
     end
 
   end
