@@ -266,14 +266,13 @@ module PublicProgressReports
 
     return default unless question_concept
 
-    concept_is_present_and_correct = concept_results.any? { |cr| cr.concept_id == question_concept.id && cr.correct }
     key_target_skill_concept = question_concept.parent
 
     {
       id: key_target_skill_concept.id,
       uid: key_target_skill_concept.uid,
       name: key_target_skill_concept.name,
-      correct: concept_is_present_and_correct
+      correct: get_score_for_question(concept_results) > 0
     }
   end
 

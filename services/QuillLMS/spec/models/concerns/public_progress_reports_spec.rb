@@ -377,10 +377,10 @@ describe PublicProgressReports, type: :model do
       expect(FakeReports.new.get_key_target_skill_concept_for_question([concept_result])).to eq(default)
     end
 
-    it 'should return a key target skill concept with the parent of the question\'s concept that is correct if any of the concept results have a correct value for that question\'s concept' do
+    it 'should return a key target skill concept with the parent of the question\'s concept that is correct if the student reached an optimal response' do
       concept =  create(:concept_with_grandparent)
-      incorrect_concept_result =  create(:concept_result, correct: false, concept_id: concept.id, extra_metadata: { question_concept_uid: concept.uid })
-      correct_concept_result =  create(:concept_result, correct: true, concept_id: concept.id, extra_metadata: { question_concept_uid: concept.uid })
+      incorrect_concept_result =  create(:concept_result, correct: false, concept_id: concept.id, question_score: 1, extra_metadata: { question_concept_uid: concept.uid })
+      correct_concept_result =  create(:concept_result, correct: true, concept_id: concept.id, question_score: 1, extra_metadata: { question_concept_uid: concept.uid })
 
       expected = {
         id: concept.parent.id,
@@ -392,7 +392,7 @@ describe PublicProgressReports, type: :model do
       expect(FakeReports.new.get_key_target_skill_concept_for_question([incorrect_concept_result, correct_concept_result])).to eq(expected)
     end
 
-    it 'should return a key target skill concept with the parent of the question\'s concept that is incorrect if none of the concept results have a correct value for that question\'s concept' do
+    it 'should return a key target skill concept with the parent of the question\'s concept that is incorrect if the student did not reach an optimal response' do
       concept =  create(:concept_with_grandparent)
       incorrect_concept_result =  create(:concept_result, correct: false, concept_id: concept.id, extra_metadata: { question_concept_uid: concept.uid })
 
