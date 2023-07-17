@@ -64,7 +64,7 @@ module PagesHelper
         members: [
           {
             name: 'Christina Collins-Berry',
-            title: 'Managing Director of Partnerships',
+            title: 'VP of Partnerships & Professional Services',
             img: 'team-christina-collins.webp'
           },
           {
@@ -84,7 +84,7 @@ module PagesHelper
           },
           {
             name: 'Hannah Monk',
-            title: 'Managing Director of Curriculum',
+            title: 'VP of Curriculum',
             img: 'team-hannah-monk.webp'
           }
         ]
@@ -95,7 +95,7 @@ module PagesHelper
         members: [
           {
             name: 'Eric Adams',
-            title: 'Software Engineer II',
+            title: 'Senior Software Engineer I',
             img: 'team-eric-adams.webp'
           },
           {
@@ -110,22 +110,22 @@ module PagesHelper
           },
           {
             name: 'Rachel Calabrese',
-            title: 'Senior Curriculum Developer',
+            title: 'Lead Curriculum Developer',
             img: 'team-rachel-calabrese.webp'
           },
           {
             name: 'Nattalie Dai',
-            title: 'Partnerships Specialist I',
+            title: 'Partnerships Specialist II',
             img: 'team-nattalie-dai.webp'
           },
           {
             name: 'Ellie Dean',
-            title: 'Finance & Operations Specialist II',
+            title: 'Finance & Operations Manager I',
             img: 'team-ellie-dean.webp'
           },
           {
             name: 'Emilia Friedberg',
-            title: 'Senior Software Engineer I',
+            title: 'Senior Software Engineer II',
             img: 'team-emilia-friedberg.webp'
           },
           {
@@ -145,17 +145,17 @@ module PagesHelper
           },
           {
             name: 'Stephanee McCadney',
-            title: 'Curriculum Developer II',
+            title: 'Senior Curriculum Developer',
             img: 'team-stephanee-mccadney.webp'
           },
           {
             name: 'Scarlet Melo',
-            title: 'Partnerships Specialist II',
+            title: 'Instructional Coach',
             img: 'team-scarlet-melo.webp'
           },
           {
             name: 'Katie Moylan',
-            title: 'Curriculum Developer II',
+            title: 'Lead Social Studies Curriculum Developer',
             img: 'team-katie-moylan.webp'
           },
           {
@@ -190,7 +190,7 @@ module PagesHelper
           },
           {
             name: 'Anna Waterman',
-            title: 'Curriculum Developer II',
+            title: 'Senior Curriculum Developer',
             img: 'team-anna-waterman.webp'
           },
           {
