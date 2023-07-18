@@ -4,7 +4,7 @@ import * as Pusher from 'pusher-js';
 
 import { SMALL, POSITIVE, NEGATIVE, } from './shared'
 
-import { requestGet, } from './../../../../modules/request'
+import { requestPost, } from './../../../../modules/request'
 import { ButtonLoadingSpinner, } from '../../../Shared/index'
 import { unorderedArraysAreEqual, } from '../../../../modules/unorderedArraysAreEqual'
 
@@ -64,9 +64,7 @@ const SnapshotCount = ({ label, size, queryKey, searchCount, selectedGrades, sel
       grades: selectedGrades
     }
 
-    const requestUrl = queryString.stringifyUrl({ url: '/snapshots/count', query: searchParams }, { arrayFormat: 'bracket' })
-
-    requestGet(`${requestUrl}`, (body) => {
+    requestPost(`/snapshots/count`, searchParams, (body) => {
       if (!body.hasOwnProperty('results')) {
         setLoading(true)
       } else {
