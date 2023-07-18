@@ -123,6 +123,17 @@ const ConnectStudentReportBox = ({ questionData, boxNumber, showScore, showDiff,
     }
   }
 
+  function keyTargetSkill() {
+    const { key_target_skill_concept, } = questionData
+    return (
+      <tr className={key_target_skill_concept.correct ? 'green-score-color' : ''}>
+        <td>Key Target Skill</td>
+        <td />
+        <td>{key_target_skill_concept.name}</td>
+      </tr>
+    );
+  }
+
   return (
     <div className='individual-activity-report'>
       <div className="student-report-box">
@@ -137,6 +148,7 @@ const ConnectStudentReportBox = ({ questionData, boxNumber, showScore, showDiff,
                 <td>{formatStringAndAddSpacesAfterPeriods(questionData.prompt)}</td>
               </tr>
               {questionScore()}
+              {keyTargetSkill()}
               {emptyRow()}
               {conceptsByAttempt()}
             </tbody>
