@@ -217,7 +217,7 @@ describe('Getting concept results from an answered SC object', () => {
             question_uid: '-KQS0lZJ8RqWddG8qTeN',
             question_concept_uid: 'Ghym4auhaaukmnddY9mwfQ',
             questionNumber: 1,
-            questionScore: 0.6
+            questionScore: 1
           }
         },
         {
@@ -233,7 +233,7 @@ describe('Getting concept results from an answered SC object', () => {
             question_uid: '-KQS0lZJ8RqWddG8qTeN',
             question_concept_uid: 'Ghym4auhaaukmnddY9mwfQ',
             questionNumber: 1,
-            questionScore: 0.6
+            questionScore: 1
           }
         },
         {
@@ -249,7 +249,7 @@ describe('Getting concept results from an answered SC object', () => {
             question_uid: '-KQS0lZJ8RqWddG8qTeN',
             question_concept_uid: 'Ghym4auhaaukmnddY9mwfQ',
             questionNumber: 1,
-            questionScore: 0.6
+            questionScore: 1
           }
         },
         {
@@ -265,7 +265,7 @@ describe('Getting concept results from an answered SC object', () => {
             question_uid: '-KQS0lZJ8RqWddG8qTeN',
             question_concept_uid: 'Ghym4auhaaukmnddY9mwfQ',
             questionNumber: 1,
-            questionScore: 0.6
+            questionScore: 1
           }
         },
         {
@@ -281,7 +281,7 @@ describe('Getting concept results from an answered SC object', () => {
             question_uid: '-KQS0lZJ8RqWddG8qTeN',
             question_concept_uid: 'Ghym4auhaaukmnddY9mwfQ',
             questionNumber: 1,
-            questionScore: 0.6
+            questionScore: 1
           }
         }
       ],
@@ -432,7 +432,7 @@ describe('Getting concept results from an answered SC object', () => {
           question_uid: '-KQS0lZJ8RqWddG8qTeN',
           question_concept_uid: 'Ghym4auhaaukmnddY9mwfQ',
           questionNumber: 1,
-          questionScore: 0.6
+          questionScore: 1
         }
       },
       {
@@ -448,7 +448,7 @@ describe('Getting concept results from an answered SC object', () => {
           question_uid: '-KQS0lZJ8RqWddG8qTeN',
           question_concept_uid: 'Ghym4auhaaukmnddY9mwfQ',
           questionNumber: 1,
-          questionScore: 0.6
+          questionScore: 1
         }
       },
       {
@@ -464,7 +464,7 @@ describe('Getting concept results from an answered SC object', () => {
           question_uid: '-KQS0lZJ8RqWddG8qTeN',
           question_concept_uid: 'Ghym4auhaaukmnddY9mwfQ',
           questionNumber: 1,
-          questionScore: 0.6
+          questionScore: 1
         }
       },
       {
@@ -480,7 +480,7 @@ describe('Getting concept results from an answered SC object', () => {
           question_uid: '-KQS0lZJ8RqWddG8qTeN',
           question_concept_uid: 'Ghym4auhaaukmnddY9mwfQ',
           questionNumber: 1,
-          questionScore: 0.6
+          questionScore: 1
         }
       },
       {
@@ -496,7 +496,7 @@ describe('Getting concept results from an answered SC object', () => {
           question_uid: '-KQS0lZJ8RqWddG8qTeN',
           question_concept_uid: 'Ghym4auhaaukmnddY9mwfQ',
           questionNumber: 1,
-          questionScore: 0.6
+          questionScore: 1
         }
       },
       {
@@ -630,7 +630,7 @@ describe('Getting concept results from an answered SC object', () => {
   });
 
   it('can calculate the average score', () => {
-    const expected = 0.53;
+    const expected = 0.67;
     const generated = calculateScoreForLesson(data);
     expect(generated).toEqual(expected);
   });
