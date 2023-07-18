@@ -89,6 +89,20 @@ module Snapshots
 
           it { expect(results).to match_array(classroom_ids[0]) }
         end
+
+        context 'timeframe filters' do
+          let(:classrooms) { create_list(:classroom, num_classrooms, created_at: DateTime.current - 1.day) }
+          let(:timeframe) { Snapshots::Timeframes.calculate_timeframes(Snapshots::Timeframes::DEFAULT_TIMEFRAME) }
+          let(:query_args) do
+            {
+              timeframe_start: timeframe[2],
+              timeframe_end: timeframe[3],
+              school_ids: school_ids
+            }
+          end
+
+          it { expect(results).to match_array(classroom_ids) }
+        end
       end
     end
   end

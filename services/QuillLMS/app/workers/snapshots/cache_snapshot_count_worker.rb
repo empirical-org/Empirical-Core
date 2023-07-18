@@ -51,10 +51,10 @@ module Snapshots
     end
 
     private def generate_payload(query, timeframe, school_ids, filters)
-      previous_timeframe_start = timeframe['previous_start']
-      previous_timeframe_end = timeframe['previous_end']
-      current_timeframe_start = timeframe['current_start']
-      timeframe_end = timeframe['current_end']
+      previous_timeframe_start = parse_datetime_string(timeframe['previous_start'])
+      previous_timeframe_end = parse_datetime_string(timeframe['previous_end'])
+      current_timeframe_start = parse_datetime_string(timeframe['current_start'])
+      timeframe_end = parse_datetime_string(timeframe['current_end'])
       filters_symbolized = filters.symbolize_keys
 
       current_snapshot = QUERIES[query].run(**{
@@ -74,6 +74,12 @@ module Snapshots
       end
 
       { current: current_snapshot&.fetch(:count, nil), previous: previous_snapshot&.fetch(:count, nil) }
+    end
+
+    private def parse_datetime_string(value)
+      return nil if value.nil?
+
+      DateTime.parse(value)
     end
   end
 end
