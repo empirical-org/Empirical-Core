@@ -4,7 +4,7 @@ import * as Pusher from 'pusher-js';
 
 import { Grade, School, Timeframe, } from './shared'
 
-import { requestGet, } from './../../../../modules/request'
+import { requestPost, } from './../../../../modules/request'
 import { ButtonLoadingSpinner, } from '../../../Shared/index'
 import { unorderedArraysAreEqual, } from '../../../../modules/unorderedArraysAreEqual'
 
@@ -99,9 +99,7 @@ const SnapshotRanking = ({ label, queryKey, headers, searchCount, selectedGrades
       grades: selectedGrades
     }
 
-    const requestUrl = queryString.stringifyUrl({ url: '/snapshots/top_x', query: searchParams }, { arrayFormat: 'bracket' })
-
-    requestGet(`${requestUrl}`, (body) => {
+    requestPost(`/snapshots/top_x`, searchParams, (body) => {
       if (!body.hasOwnProperty('results')) {
         setLoading(true)
       } else {

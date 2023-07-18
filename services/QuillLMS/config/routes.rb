@@ -732,9 +732,9 @@ EmpiricalGrammar::Application.routes.draw do
 
   resources :snapshots, only: [] do
     collection do
-      get :count
+      post :count
       get :options
-      get :top_x
+      post :top_x
     end
   end
 
