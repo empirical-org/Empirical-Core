@@ -6,7 +6,7 @@ describe SetImpactMetricsWorker do
   subject { described_class.new }
 
   context '#perform' do
-    let(:activity_sessions) { create_list(:activity_session, 100)}
+    let(:activity_sessions) { create_list(:activity_session, 10)}
 
     let(:activity_sessions_payload) {
       [{"count" => activity_sessions.length}]
@@ -14,7 +14,7 @@ describe SetImpactMetricsWorker do
 
     let(:active_students_payload) { [{"count" => activity_sessions.length}]}
 
-    let(:teachers) { create_list(:teacher, 150)}
+    let(:teachers) { create_list(:teacher, 15)}
 
     let(:teachers_payload) {
       teachers.map {|t| {"id" => t.id}}
