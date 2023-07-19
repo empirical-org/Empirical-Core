@@ -1,13 +1,13 @@
 .email-body {
   margin: 0px;
-  width: 1030px;
+  max-width: 1030px;
   color: black;
 }
 
 .header-container {
   height: 95px;
   background-color: #06806b;
-  width: 1030px;
+  width: 100%;
 }
 
 .header {
@@ -15,7 +15,7 @@
   text-align: center;
   background-position: 45% 15%;
   height: 130px;
-  width: 1030px;
+  width: 100%;
 }
 
 .header img {
@@ -26,7 +26,8 @@
 
 .content-section {
   color: black;
-  width: 600px;
+  max-width: 600px;
+  width: 80%;
   margin: 0 auto;
   font-family: "adelle-sans", "Arial", sans-serif;
   font-weight: 400;
@@ -58,6 +59,7 @@ h3 {
 ul {
   padding-inline-start: 10px;
   margin-top: -10px;
+  margin-left: 10px;
 }
 
 li {
