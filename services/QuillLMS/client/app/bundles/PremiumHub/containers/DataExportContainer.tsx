@@ -6,26 +6,13 @@ import { FULL, restrictedPage, } from '../shared';
 import CustomDateModal from '../components/usage_snapshots/customDateModal'
 import Filters from '../components/usage_snapshots/filters'
 import { CUSTOM, ALL } from '../components/usage_snapshots/shared'
-import { Spinner, DropdownInput, } from '../../Shared/index'
+import { Spinner } from '../../Shared/index'
 import useWindowSize from '../../Shared/hooks/useWindowSize';
 import { requestGet, } from '../../../modules/request'
 import { unorderedArraysAreEqual, } from '../../../modules/unorderedArraysAreEqual'
 import DataExportTableAndFields from '../components/dataExportTableAndFields';
 
-const MAX_VIEW_WIDTH_FOR_MOBILE = 850
-
 const filterIconSrc = `${process.env.CDN_URL}/images/icons/icons-filter.svg`
-
-const Tab = ({ section, setSelectedTab, selectedTab }) => {
-  function handleSetSelectedTab() { setSelectedTab(section) }
-
-  let className = 'tab'
-  if (section === selectedTab) {
-    className += ' selected-tab'
-  }
-
-  return <button className={className} onClick={handleSetSelectedTab} type="button">{section}</button>
-}
 
 const DataExportContainer = ({ adminInfo, accessType, }) => {
   const [loadingFilters, setLoadingFilters] = React.useState(true)
@@ -276,9 +263,6 @@ const DataExportContainer = ({ adminInfo, accessType, }) => {
           <h1>Data Export</h1>
           <button className="quill-button contained primary medium focus-on-light" onClick={handleClickDownloadReport} type="button">Download Report</button>
         </div>
-        {/* <div aria-hidden={true} className="tabs">
-          {size.width >= MAX_VIEW_WIDTH_FOR_MOBILE ? tabs : tabDropdown}
-        </div> */}
         <div className="filter-button-container">
           <button className="interactive-wrapper focus-on-light" onClick={openMobileFilterMenu} type="button">
             <img alt="Filter icon" src={filterIconSrc} />
@@ -287,7 +271,7 @@ const DataExportContainer = ({ adminInfo, accessType, }) => {
         </div>
         <DataExportTableAndFields
           queryKey="data-export"
-          selectedGrades={selectedGrades}
+          selectedGrades={selectedGrades.map(grade => grade.value)}
           selectedSchoolIds={selectedSchools.map(school => school.id)}
           selectedTeacherIds={selectedTeachers.map(teacher => teacher.id)}
           selectedClassroomIds={selectedClassrooms.map(classroom => classroom.id)}

@@ -29,6 +29,8 @@ export function getConceptResultsForSentenceCombining(question) {
       directions,
       prompt,
       answer,
+      question_uid: question.key,
+      question_concept_uid: question.conceptID
     },
   }));
 }

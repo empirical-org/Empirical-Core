@@ -11,7 +11,9 @@ describe("Getting concept results from an answered SC object", () => {
     correct: 1,
     directions: "Combine the sentences. (After, Even though, Since)",
     prompt: "It was snowing. Marcella wore a sweater.",
-    answer: "Marcella wore a sweater since it was snowing."
+    answer: "Marcella wore a sweater since it was snowing.",
+    question_uid: question.key,
+    question_concept_uid: question.conceptID
   }
 
   it("should have the correct score and concept uids", () => {

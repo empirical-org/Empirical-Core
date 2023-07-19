@@ -326,7 +326,7 @@
       }
     }
   }
-  .automatic-assign-note, .unselecting-students-note {
+  .automatic-assign-note {
     margin-top: 15px;
     padding: 15;
     display: flex;
@@ -353,15 +353,7 @@
     }
   }
 
-  .unselecting-students-note {
-    background-color: #ffefef;
-    border: solid 1px rgba(255, 115, 112, 0.72);
-    i, svg {
-      color: #ff4542;
-    }
-  }
-
-  section:not(.activity-row):not(.selected-activity-row):not(.filter-and-sort) {
+  section:not(.activity-row, .selected-activity-row, .filter-and-sort, .classroom-section) {
     border-bottom: none;
     &.name-the-unit {
       border-bottom: solid 1px #c0c0c0;
@@ -606,12 +598,6 @@
 }
 #unit_name {
   margin-top: 20px;
-}
-
-@media all and (-ms-high-contrast: none), (-ms-high-contrast: active) {
-  .select-by-student-button {
-    background-color: #e6e6e6;
-  }
 }
 
 .unit-assignment-followup {

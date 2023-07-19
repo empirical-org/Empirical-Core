@@ -20,9 +20,13 @@ module Snapshots
           standards.name AS standard,
           activity_sessions.user_id AS student_id,
           activities.name AS activity_name,
+          units.name AS activity_pack,
           users.name AS student_name,
-          SQL
-        end
+          users.email AS student_email,
+          schools.name AS school_name,
+          classrooms.name AS classroom_name
+      SQL
+    end
         # substring(users.name from (position(' ' in users.name) + 1) for (char_length(users.name))) || substring(users.name from (1) for (position(' ' in users.name))) AS sorting_name
 
     def from_and_join_clauses

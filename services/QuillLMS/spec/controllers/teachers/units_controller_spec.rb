@@ -388,16 +388,34 @@ describe Teachers::UnitsController, type: :controller do
 
     it "sends a 200 status code when it is passed valid data" do
       put :update_classroom_unit_assigned_students, params: { id: unit.id, unit: {
-            classrooms: "[{\"id\":#{classroom.id},\"student_ids\":[]}]"
+            classrooms: [{ id: classroom.id, student_ids: [student.id] }]
           } }
       expect(response.status).to eq(200)
     end
 
     it "sends a 422 status code when it is passed invalid data" do
       put :update_classroom_unit_assigned_students, params: { id: unit.id + 500, unit: {
-            classrooms: "[{\"id\":#{classroom.id},\"student_ids\":[]}]"
+            classrooms: [{ id: classroom.id, student_ids: [] }]
           } }
       expect(response.status).to eq(422)
+    end
+
+  end
+
+  describe '#restore_classroom_unit_assignment_for_one_student' do
+
+    before do
+      ClassroomUnit.update(assigned_student_ids: [])
+      completed_activity_session.update(visible: false)
+    end
+
+    it "adds the student back to the assigned_student_ids array and unarchives any hidden activity sessions" do
+      put :restore_classroom_unit_assignment_for_one_student, params: { id: unit.id, classroom_unit_id: classroom_unit.id, student_id: student.id }
+
+      expect(classroom_unit.reload.assigned_student_ids).to eq([student.id])
+      expect(completed_activity_session.reload.visible).to eq(true)
+
+      expect(response.status).to eq(200)
     end
 
   end

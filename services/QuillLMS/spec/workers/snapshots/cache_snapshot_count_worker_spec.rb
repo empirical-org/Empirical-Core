@@ -37,12 +37,25 @@ module Snapshots
       let(:timeframe_end) { DateTime.now }
       let(:current_timeframe_start) { timeframe_end - 30.days }
       let(:previous_timeframe_start) { current_timeframe_start - 30.days }
+      let(:previous_timeframe_end) { current_timeframe_start }
       let(:timeframe) {
         {
           'name' => timeframe_name,
-          'previous_start' => previous_timeframe_start,
-          'current_start' => current_timeframe_start,
-          'current_end' => timeframe_end
+          'previous_start' => previous_timeframe_start.to_s,
+          'previous_end' => previous_timeframe_end.to_s,
+          'current_start' => current_timeframe_start.to_s,
+          'current_end' => timeframe_end.to_s
+        }
+      }
+
+      let(:expected_query_args) {
+        {
+          timeframe_start: current_timeframe_start,
+          timeframe_end: timeframe_end,
+          school_ids: school_ids,
+          grades: grades,
+          teacher_ids: teacher_ids,
+          classroom_ids: classroom_ids
         }
       }
 
@@ -53,16 +66,10 @@ module Snapshots
       end
 
       it 'should execute queries for both the current and previous timeframes' do
-        expect(query_double).to receive(:run).with(
-          timeframe_start: current_timeframe_start,
-          timeframe_end: timeframe_end,
-          school_ids: school_ids,
-          grades: grades,
-          teacher_ids: teacher_ids,
-          classroom_ids: classroom_ids)
+        expect(query_double).to receive(:run).with(expected_query_args)
         expect(query_double).to receive(:run).with(
           timeframe_start: previous_timeframe_start,
-          timeframe_end: current_timeframe_start,
+          timeframe_end: previous_timeframe_end,
           school_ids: school_ids,
           grades: grades,
           teacher_ids: teacher_ids,
@@ -73,15 +80,20 @@ module Snapshots
         subject.perform(cache_key, query, user_id, timeframe, school_ids, filters)
       end
 
+      context 'serialization/deserialization' do
+        it 'should desieralize timeframes back into DateTimes' do
+          allow(PusherTrigger).to receive(:run)
+          Sidekiq::Testing.inline! do
+            expect(query_double).to receive(:run).with(expected_query_args)
+
+            described_class.perform_async(cache_key, query, user_id, timeframe, school_ids, filters)
+          end
+        end
+      end
+
       context "params with string keys" do
         it 'should execute queries for both the current and previous timeframes' do
-          expect(query_double).to receive(:run).with(
-            timeframe_start: current_timeframe_start,
-            timeframe_end: timeframe_end,
-            school_ids: school_ids,
-            grades: grades,
-            teacher_ids: teacher_ids,
-            classroom_ids: classroom_ids)
+          expect(query_double).to receive(:run).with(expected_query_args)
           expect(query_double).to receive(:run).with(
             timeframe_start: previous_timeframe_start,
             timeframe_end: current_timeframe_start,

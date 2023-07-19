@@ -159,6 +159,8 @@ gem 'awesome_print'
 # TODO: Remove this after migrating to Rails 7 encrypted attributes
 gem 'lockbox'
 
+gem 'capitalize-names'
+
 group :production, :staging do
   gem 'rails-autoscale-web'
   gem 'rails-autoscale-sidekiq'

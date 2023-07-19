@@ -350,4 +350,61 @@ describe PublicProgressReports, type: :model do
       )
     end
   end
+
+  describe '#get_key_target_skill_concept_for_question' do
+    let!(:default ) {
+      {
+        name: 'Conventions of Language',
+        correct: true
+      }
+    }
+
+    it 'should return a default key target skill concept if the first concept result has no extra metadata' do
+      concept_result =  create(:concept_result)
+
+      expect(FakeReports.new.get_key_target_skill_concept_for_question([concept_result])).to eq(default)
+    end
+
+    it 'should return a default key target skill concept if the first concept result does not have a question_concept_uid' do
+      concept_result =  create(:concept_result, extra_metadata: { question_uid: 'blah' })
+
+      expect(FakeReports.new.get_key_target_skill_concept_for_question([concept_result])).to eq(default)
+    end
+
+    it 'should return a default key target skill concept if the first concept result has a question_concept_uid that is not in the database' do
+      concept_result =  create(:concept_result, extra_metadata: { question_concept_uid: 'blah' })
+
+      expect(FakeReports.new.get_key_target_skill_concept_for_question([concept_result])).to eq(default)
+    end
+
+    it 'should return a key target skill concept with the parent of the question\'s concept that is correct if the student reached an optimal response' do
+      concept =  create(:concept_with_grandparent)
+      incorrect_concept_result =  create(:concept_result, correct: false, concept_id: concept.id, question_score: 1, extra_metadata: { question_concept_uid: concept.uid })
+      correct_concept_result =  create(:concept_result, correct: true, concept_id: concept.id, question_score: 1, extra_metadata: { question_concept_uid: concept.uid })
+
+      expected = {
+        id: concept.parent.id,
+        uid: concept.parent.uid,
+        correct: true,
+        name: concept.parent.name
+      }
+
+      expect(FakeReports.new.get_key_target_skill_concept_for_question([incorrect_concept_result, correct_concept_result])).to eq(expected)
+    end
+
+    it 'should return a key target skill concept with the parent of the question\'s concept that is incorrect if the student did not reach an optimal response' do
+      concept =  create(:concept_with_grandparent)
+      incorrect_concept_result =  create(:concept_result, correct: false, concept_id: concept.id, extra_metadata: { question_concept_uid: concept.uid })
+
+      expected = {
+        id: concept.parent.id,
+        uid: concept.parent.uid,
+        correct: false,
+        name: concept.parent.name
+      }
+
+      expect(FakeReports.new.get_key_target_skill_concept_for_question([incorrect_concept_result])).to eq(expected)
+    end
+
+  end
 end

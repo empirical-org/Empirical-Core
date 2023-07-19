@@ -34,10 +34,9 @@ module Snapshots
     private def generate_payload(query, timeframe, school_ids, filters)
       filters_symbolized = filters.symbolize_keys
 
-      # Snapshots::DataExportQuery.run(**{
       QUERIES[query].run(**{
-        timeframe_start: timeframe['current_start'],
-        timeframe_end: timeframe['current_end'],
+        timeframe_start: DateTime.parse(timeframe['current_start']),
+        timeframe_end: DateTime.parse(timeframe['current_end']),
         school_ids: school_ids
       }.merge(filters_symbolized))
     end

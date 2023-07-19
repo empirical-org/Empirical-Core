@@ -1,22 +1,9 @@
 import * as React from 'react'
 
-import { DropdownInput } from '../../../Shared/index'
+import { DropdownInput, DropdownInputWithSearchTokens, } from '../../../Shared/index'
 import useWindowSize from '../../../Shared/hooks/useWindowSize';
-import { unorderedArraysAreEqual, } from '../../../../modules/unorderedArraysAreEqual'
 
-const removeSearchTokenSrc = `${process.env.CDN_URL}/images/pages/administrator/remove_search_token.svg`
 const closeIconSrc = `${process.env.CDN_URL}/images/icons/close.svg`
-
-const SearchToken = ({ searchItem, onRemoveSearchItem, }) => {
-  function handleRemoveSearchItem() { onRemoveSearchItem(searchItem)}
-
-  return (
-    <div className="search-token">
-      <span>{searchItem.label}</span>
-      <button aria-label={`Remove ${searchItem.label} from filtered list`} className="interactive-wrapper focus-on-light" onClick={handleRemoveSearchItem} type="button"><img alt="" src={removeSearchTokenSrc} /></button>
-    </div>
-  )
-}
 
 const Filters = ({ allTimeframes, allSchools, allGrades, allTeachers, allClassrooms, applyFilters, clearFilters, selectedGrades, setSelectedGrades, hasAdjustedFiltersFromDefault, handleSetSelectedTimeframe, selectedTimeframe, selectedSchools, setSelectedSchools, selectedTeachers, setSelectedTeachers, selectedClassrooms, setSelectedClassrooms, closeMobileFilterMenu, showMobileFilterMenu, hasAdjustedFiltersSinceLastSubmission, customStartDate, customEndDate, }) => {
   const size = useWindowSize();
@@ -32,78 +19,6 @@ const Filters = ({ allTimeframes, allSchools, allGrades, allTeachers, allClassro
   function effectiveSelectedClassrooms() {
     return selectedClassrooms.filter(c => allClassrooms.find(ac => ac.id === c.id))
   }
-
-  function handleRemoveSchool(school) {
-    const newSchools = selectedSchools.filter(s => s.id !== school.id)
-
-    if (newSchools.length) {
-      setSelectedSchools(newSchools)
-    } else {
-      setSelectedSchools(allSchools)
-    }
-  }
-
-  function handleRemoveTeacher(teacher) {
-    const newTeachers = selectedTeachers.filter(s => s.id !== teacher.id)
-
-    if (newTeachers.length) {
-      setSelectedTeachers(newTeachers)
-    } else {
-      setSelectedTeachers(allTeachers)
-    }
-  }
-
-  function handleRemoveClassroom(classroom) {
-    const newClassrooms = selectedClassrooms.filter(s => s.id !== classroom.id)
-
-    if (newClassrooms.length) {
-      setSelectedClassrooms(newClassrooms)
-    } else {
-      setSelectedClassrooms(allClassrooms)
-    }
-  }
-
-  function handleRemoveGrade(grade) {
-    const newGrades = selectedGrades.filter(g => g.value !== grade.value)
-
-    if (newGrades.length) {
-      setSelectedGrades(newGrades)
-    } else {
-      setSelectedGrades(allGrades)
-    }
-  }
-
-  const schoolSearchTokens = !unorderedArraysAreEqual(effectiveSelectedSchools(), allSchools) && effectiveSelectedSchools().map(s => (
-    <SearchToken
-      key={s.id}
-      onRemoveSearchItem={handleRemoveSchool}
-      searchItem={s}
-    />
-  ))
-
-  const teacherSearchTokens = !unorderedArraysAreEqual(effectiveSelectedTeachers(), allTeachers) && effectiveSelectedTeachers().map(t => (
-    <SearchToken
-      key={t.id}
-      onRemoveSearchItem={handleRemoveTeacher}
-      searchItem={t}
-    />
-  ))
-
-  const classroomSearchTokens = !unorderedArraysAreEqual(effectiveSelectedClassrooms(), allClassrooms) && effectiveSelectedClassrooms().map(c => (
-    <SearchToken
-      key={c.id}
-      onRemoveSearchItem={handleRemoveClassroom}
-      searchItem={c}
-    />
-  ))
-
-  const gradeSearchTokens = !unorderedArraysAreEqual(selectedGrades, allGrades) && selectedGrades.map(grade => (
-    <SearchToken
-      key={grade.value}
-      onRemoveSearchItem={handleRemoveGrade}
-      searchItem={grade}
-    />
-  ))
 
   function renderFilterButtons() {
     if (!hasAdjustedFiltersFromDefault && !hasAdjustedFiltersSinceLastSubmission) { return null }
@@ -141,54 +56,46 @@ const Filters = ({ allTimeframes, allSchools, allGrades, allTeachers, allClassro
           options={allTimeframes}
           value={selectedTimeframe}
         />
-        <label className="filter-label" htmlFor="school-filter">School</label>
-        <DropdownInput
-          handleChange={setSelectedSchools}
+        <DropdownInputWithSearchTokens
           id="school-filter"
-          isMulti={true}
-          isSearchable={true}
-          label=""
+          identifier="id"
+          label="School"
+          onChange={setSelectedSchools}
           options={allSchools}
-          optionType='school'
-          value={effectiveSelectedSchools()}
+          optionType="school"
+          value={selectedSchools}
+          valueToDisplay={effectiveSelectedSchools()}
         />
-        <div className="search-tokens">{schoolSearchTokens}</div>
-        <label className="filter-label" htmlFor="grade-filter">Grade</label>
-        <DropdownInput
-          handleChange={setSelectedGrades}
+        <DropdownInputWithSearchTokens
           id="grade-filter"
-          isMulti={true}
-          isSearchable={true}
-          label=""
+          identifier="value"
+          label="Grade"
+          onChange={setSelectedGrades}
           options={allGrades}
-          optionType='grade'
+          optionType="grade"
           value={selectedGrades}
+          valueToDisplay={selectedGrades}
         />
-        <div className="search-tokens">{gradeSearchTokens}</div>
-        <label className="filter-label" htmlFor="teacher-filter">Teacher</label>
-        <DropdownInput
-          handleChange={setSelectedTeachers}
+        <DropdownInputWithSearchTokens
           id="teacher-filter"
-          isMulti={true}
-          isSearchable={true}
-          label=""
+          identifier="id"
+          label="Teacher"
+          onChange={setSelectedTeachers}
           options={allTeachers}
-          optionType='teacher'
-          value={effectiveSelectedTeachers()}
+          optionType="teacher"
+          value={selectedTeachers}
+          valueToDisplay={effectiveSelectedTeachers()}
         />
-        <div className="search-tokens">{teacherSearchTokens}</div>
-        <label className="filter-label" htmlFor="classroom-filter">Classroom</label>
-        <DropdownInput
-          handleChange={setSelectedClassrooms}
+        <DropdownInputWithSearchTokens
           id="classroom-filter"
-          isMulti={true}
-          isSearchable={true}
-          label=""
+          identifier="id"
+          label="Classroom"
+          onChange={setSelectedClassrooms}
           options={allClassrooms}
-          optionType='classroom'
-          value={effectiveSelectedClassrooms()}
+          optionType="classroom"
+          value={selectedClassrooms}
+          valueToDisplay={effectiveSelectedClassrooms()}
         />
-        <div className="search-tokens">{classroomSearchTokens}</div>
       </div>
       {renderFilterButtons()}
     </section>

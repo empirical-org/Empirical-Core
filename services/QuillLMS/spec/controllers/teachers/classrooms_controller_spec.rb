@@ -235,6 +235,18 @@ describe Teachers::ClassroomsController, type: :controller do
               expect(assigns(:classrooms)[i][:students][0][:number_of_completed_activities]).to eq 1
             end
           end
+
+          it 'should assign students but not number_of_completed_activities if the classroom is archived' do
+            classroom.update(visible: false)
+
+            get :index
+
+            classrooms.count.times do |i|
+              next unless assigns(:classrooms)[i]['id'] == classroom.id
+
+              expect(assigns(:classrooms)[i][:students][0][:number_of_completed_activities]).not_to be
+            end
+          end
         end
 
         context "with order property" do
@@ -295,12 +307,22 @@ describe Teachers::ClassroomsController, type: :controller do
           )
         end
 
-        it 'reports which students are no longer in provider classroom' do
+        it 'reports which students are no longer in provider classroom in visible classroom' do
           get :index, as: :json
           parsed_response = JSON.parse(response.body)
           expect(parsed_response["classrooms"][0]["students"][0]["synced"]).to eq true
           expect(parsed_response["classrooms"][0]["students"][1]["synced"]).to eq false
         end
+
+        it 'reports which students are no longer in provider classroom in archived classroom' do
+          classroom.update(visible: false)
+
+          get :index, as: :json
+          parsed_response = JSON.parse(response.body)
+          expect(parsed_response["classrooms"][0]["students"][0]["synced"]).to eq true
+          expect(parsed_response["classrooms"][0]["students"][1]["synced"]).to eq false
+        end
+
       end
     end
   end

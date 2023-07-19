@@ -14,7 +14,9 @@ module Snapshots
       'activities-completed' => Snapshots::ActivitiesCompletedQuery,
       'activity-packs-assigned' => Snapshots::ActivityPacksAssignedQuery,
       'activity-packs-completed' => Snapshots::ActivityPacksCompletedQuery,
+      'average-active-classrooms-per-teacher' => Snapshots::AverageActiveClassroomsPerTeacherQuery,
       'average-activities-completed-per-student' => Snapshots::AverageActivitiesCompletedPerStudentQuery,
+      'average-active-students-per-classroom' => Snapshots::AverageActiveStudentsPerClassroomQuery,
       'baseline-diagnostics-assigned' => Snapshots::BaselineDiagnosticsAssignedQuery,
       'baseline-diagnostics-completed' => Snapshots::BaselineDiagnosticsCompletedQuery,
       'classrooms-created' => Snapshots::ClassroomsCreatedQuery,
@@ -49,9 +51,10 @@ module Snapshots
     end
 
     private def generate_payload(query, timeframe, school_ids, filters)
-      previous_timeframe_start = timeframe['previous_start']
-      current_timeframe_start = timeframe['current_start']
-      timeframe_end = timeframe['current_end']
+      previous_timeframe_start = parse_datetime_string(timeframe['previous_start'])
+      previous_timeframe_end = parse_datetime_string(timeframe['previous_end'])
+      current_timeframe_start = parse_datetime_string(timeframe['current_start'])
+      timeframe_end = parse_datetime_string(timeframe['current_end'])
       filters_symbolized = filters.symbolize_keys
 
       current_snapshot = QUERIES[query].run(**{
@@ -63,7 +66,7 @@ module Snapshots
       if previous_timeframe_start
         previous_snapshot = QUERIES[query].run(**{
           timeframe_start: previous_timeframe_start,
-          timeframe_end: current_timeframe_start,
+          timeframe_end: previous_timeframe_end,
           school_ids: school_ids
         }.merge(filters_symbolized))
       else
@@ -71,6 +74,12 @@ module Snapshots
       end
 
       { current: current_snapshot&.fetch(:count, nil), previous: previous_snapshot&.fetch(:count, nil) }
+    end
+
+    private def parse_datetime_string(value)
+      return nil if value.nil?
+
+      DateTime.parse(value)
     end
   end
 end

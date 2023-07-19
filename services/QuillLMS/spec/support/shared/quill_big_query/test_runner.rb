@@ -68,7 +68,7 @@ module QuillBigQuery
       when :inet then "'#{value}'"
       when :jsonb then "'#{value.to_json}'"
       when :string, :text then "\"#{value}\""
-      when :datetime then "'#{value&.iso8601}'"
+      when :datetime then "'#{value&.to_s(:db)}'"
       else
         raise "Error: value:'#{value}' type #{attr_type} not found"
       end

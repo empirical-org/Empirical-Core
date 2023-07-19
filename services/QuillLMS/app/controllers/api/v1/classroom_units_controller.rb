@@ -146,6 +146,8 @@ class Api::V1::ClassroomUnitsController < Api::ApiController
         :question_type,
         metadata: [
           :activity_session_uid,
+          :question_uid,
+          :question_concept_uid,
           :answer,
           :attemptNumber,
           :correct,

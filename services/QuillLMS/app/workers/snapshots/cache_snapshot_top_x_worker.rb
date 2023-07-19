@@ -9,7 +9,11 @@ module Snapshots
     QUERIES = {
       'top-concepts-assigned' => Snapshots::TopConceptsAssignedQuery,
       'top-concepts-practiced' => Snapshots::TopConceptsPracticedQuery,
+      'most-active-grades' => Snapshots::MostActiveGradesQuery,
       'most-active-schools' => Snapshots::MostActiveSchoolsQuery,
+      'most-active-teachers' => Snapshots::MostActiveTeachersQuery,
+      'most-assigned-activities' => Snapshots::MostAssignedActivitiesQuery,
+      'most-completed-activities' => Snapshots::MostCompletedActivitiesQuery
     }
 
     def perform(cache_key, query, user_id, timeframe, school_ids, filters)
@@ -38,8 +42,8 @@ module Snapshots
       filters_symbolized = filters.symbolize_keys
 
       QUERIES[query].run(**{
-        timeframe_start: timeframe['current_start'],
-        timeframe_end: timeframe['current_end'],
+        timeframe_start: DateTime.parse(timeframe['current_start']),
+        timeframe_end: DateTime.parse(timeframe['current_end']),
         school_ids: school_ids
       }.merge(filters_symbolized))
     end

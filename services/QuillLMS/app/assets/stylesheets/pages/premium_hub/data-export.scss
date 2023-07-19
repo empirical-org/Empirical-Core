@@ -47,3 +47,17 @@
     }
   }
 }
+
+@media (max-width: 600px) {
+  .data-export-page-container {
+    .data-export-container {
+      .fields-section {
+        .fields-container {
+          .checkbox-container {
+            flex: 1 0 35%;
+          }
+        }
+      }
+    }
+  }
+}

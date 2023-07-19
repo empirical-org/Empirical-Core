@@ -146,22 +146,6 @@ export class PlayGrammarContainer extends React.Component<PlayGrammarContainerPr
       this.saveToLMS(session)
     }
 
-    if (hasreceiveddata && grammarActivities.currentActivity && !session.hasreceiveddata && !session.pending && !session.error) {
-      const { questions, concepts, flag } = grammarActivities.currentActivity
-      if (questions && questions.length) {
-        dispatch(getQuestions(questions, flag))
-      } else {
-        dispatch(getQuestionsForConcepts(concepts, flag))
-      }
-    }
-
-    if (session.hasreceiveddata && !session.currentQuestion && session.unansweredQuestions.length === 0 && session.answeredQuestions.length > 0) {
-      this.saveToLMS(session)
-      // handles case where proofreader has no follow-up questions
-    } else if (session.hasreceiveddata && !session.currentQuestion && session.unansweredQuestions.length === 0 && session.proofreaderSession) {
-      this.saveToLMS(session)
-    }
-
     const sessionID = getParameterByName('student', window.location.href)
     const proofreaderSessionId = getParameterByName('proofreaderSessionId', window.location.href)
     const sessionIdentifier = sessionID || proofreaderSessionId

@@ -438,6 +438,7 @@
   left: 50%;
   transform: translate(-50%, -50%);
   display: block;
+  max-height: 100vh;
   .checkbox-row {
     display: flex;
     align-items: center;
@@ -961,6 +962,10 @@
       padding-bottom: 400px;
     }
   }
+  .invite-coteachers-modal-content {
+    max-height: 100vh;
+    overflow: scroll;
+  }
   .invite-coteachers-modal-footer {
     justify-content: flex-end;
   }
@@ -1087,7 +1092,9 @@
   position: fixed !important;
   text-align: left;
   overflow: hidden;
+  max-height: 100vh;
   .create-a-class-modal-content {
+    max-height: 100vh;
     height: 100%;
     overflow-y: scroll;
     padding-bottom: 120px;

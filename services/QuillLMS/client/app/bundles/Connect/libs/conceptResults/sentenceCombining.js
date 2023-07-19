@@ -29,7 +29,9 @@ export function getConceptResultsForSentenceCombining(question) {
       directions,
       prompt,
       answer,
-      attemptNumber: i + 1
+      attemptNumber: i + 1,
+      question_uid: question.key,
+      question_concept_uid: question.conceptID
     },
   }));
 }

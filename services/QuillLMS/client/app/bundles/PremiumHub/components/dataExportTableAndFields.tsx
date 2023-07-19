@@ -119,7 +119,6 @@ export const DataExportTableAndFields = ({ queryKey, selectedGrades, selectedSch
 
   React.useEffect(() => {
     if (queryKey && selectedTimeframe && selectedSchoolIds) {
-      console.log('in here!')
       getData()
     }
   }, [queryKey, selectedTimeframe, selectedSchoolIds])
@@ -137,6 +136,7 @@ export const DataExportTableAndFields = ({ queryKey, selectedGrades, selectedSch
       classroom_ids: selectedClassroomIds,
       grades: selectedGrades
     }
+    console.log("🚀 ~ file: dataExportTableAndFields.tsx:139 ~ getData ~ searchParams.selectedGrades:", selectedGrades)
 
     const requestUrl = queryString.stringifyUrl({ url: '/snapshots/data_export', query: searchParams }, { arrayFormat: 'bracket' })
 

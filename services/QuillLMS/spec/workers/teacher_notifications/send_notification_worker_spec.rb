@@ -14,8 +14,17 @@ module TeacherNotifications
       old_activity_session_id = activity_session.id
       activity_session.destroy
 
+      expect(subject).not_to receive(:should_send_notification?)
 
       subject.perform(old_activity_session_id)
+    end
+
+    it 'should return early if the provided ActivitySession does not link to a classroom' do
+      activity_session.update(classroom_unit_id: nil)
+
+      expect(subject).not_to receive(:should_send_notification?)
+
+      subject.perform(activity_session.id)
     end
 
     it 'should return early if the provided ActivitySession is not complete' do

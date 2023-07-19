@@ -15,7 +15,6 @@
 #  updated_at          :datetime
 #  clever_id           :string
 #  google_classroom_id :bigint
-#  teacher_id          :integer
 #
 # Indexes
 #
@@ -24,7 +23,6 @@
 #  index_classrooms_on_google_classroom_id  (google_classroom_id)
 #  index_classrooms_on_grade                (grade)
 #  index_classrooms_on_grade_level          (grade_level)
-#  index_classrooms_on_teacher_id           (teacher_id)
 #
 class Classroom < ApplicationRecord
   include CheckboxCallback
@@ -168,7 +166,7 @@ class Classroom < ApplicationRecord
   end
 
   def with_students
-    attributes.merge({students: students})
+    attributes.merge(students: students.sort_by(&:last_name))
   end
 
   def with_students_ids
