@@ -1,7 +1,7 @@
 # frozen_string_literal: true
 
 module QuillBigQuery
-  class Transformer
+  class PostTransformer
     attr_reader :field_to_lambda, :array_of_hashes
 
     class UnsupportedBigQueryType < StandardError; end
