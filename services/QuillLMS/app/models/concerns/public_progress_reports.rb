@@ -120,7 +120,7 @@ module PublicProgressReports
       unit_id: unit_id
     )
     activity = Activity.find_by_id_or_uid(activity_id)
-    classification_key = activity.classification.key
+    classification = activity.classification
     unit_activity = UnitActivity.find_by(unit_id: unit_id, activity: activity)
     state = ClassroomUnitActivityState.find_by(
       unit_activity: unit_activity,
@@ -157,7 +157,7 @@ module PublicProgressReports
 
       finished_session = final_sessions_by_user[student.id]&.first
       if finished_session.present?
-        score_obj = formatted_score_obj(finished_session, classification_key, student, average_scores[student.id])
+        score_obj = formatted_score_obj(finished_session, classification, student, average_scores[student.id])
         scores[:students].push(score_obj)
         next
       end
@@ -177,20 +177,22 @@ module PublicProgressReports
     :not_completed_names
   end
 
-  def formatted_score_obj(final_activity_session, classification_key, student, average_score_on_quill)
+  def formatted_score_obj(final_activity_session, classification, student, average_score_on_quill)
     formatted_concept_results = format_concept_results(final_activity_session, final_activity_session.concept_results)
-    if [ActivityClassification::LESSONS_KEY, ActivityClassification::DIAGNOSTIC_KEY].include?(classification_key)
+    if [ActivityClassification::LESSONS_KEY, ActivityClassification::DIAGNOSTIC_KEY].include?(classification.key)
       score = get_average_score(formatted_concept_results)
-    elsif [ActivityClassification::EVIDENCE_KEY].include?(classification_key)
+    elsif [ActivityClassification::EVIDENCE_KEY].include?(classification.key)
       score = nil
     else
       score = (final_activity_session.percentage * 100).round
     end
     {
-      activity_classification: classification_key,
+      activity_classification: classification.key,
+      activity_classification_name: classification.name,
       id: student.id,
       name: student.name,
       time: final_activity_session.timespent,
+      number_of_correct_questions: formatted_concept_results.filter { |q| q[:key_target_skill_concept][:correct] }.length,
       number_of_questions: formatted_concept_results.length,
       concept_results: formatted_concept_results,
       score: score,

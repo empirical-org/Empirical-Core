@@ -1,13 +1,36 @@
 import React from 'react';
-const Diff = require('diff');
 
-import ConceptResultTableRow from './concept_result_table_row.tsx';
 import { formatString, formatStringAndAddSpacesAfterPeriods, } from './formatString';
 
 import NumberSuffix from '../../modules/numberSuffixBuilder.js';
 import ScoreColor from '../../modules/score_color.js';
 
-const ConnectStudentReportBox = ({ questionData, boxNumber, showScore, showDiff, }) => {
+const Diff = require('diff');
+
+const reviseIcon = <img alt="" src={`${process.env.CDN_URL}/images/pages/activity_analysis/revise.svg`} />
+const checkmarkIcon = <img alt="" src={`${process.env.CDN_URL}/images/pages/activity_analysis/checkmark.svg`} />
+
+const ConceptResult = ({ concept, }) => {
+  const { correct, name, } = concept
+
+  if (correct) {
+    return (
+      <div className="concept-result correct">
+        {checkmarkIcon}
+        <span>{name}</span>
+      </div>
+    )
+  }
+
+  return (
+    <div className="concept-result incorrect">
+      {reviseIcon}
+      <span>{name}</span>
+    </div>
+  )
+}
+
+const StudentReportBox = ({ questionData, boxNumber, showScore, showDiff, }) => {
   function groupByAttempt() {
     return _.groupBy(questionData.concepts,
       (conc)=>conc.attempt
@@ -54,13 +77,23 @@ const ConnectStudentReportBox = ({ questionData, boxNumber, showScore, showDiff,
         feedback = feedbackOrDirections(feedback, 'Feedback')
       }
       let score = 0;
-      let concepts = currAttempt.map((concept)=>{
+
+      const conceptElements = currAttempt.map((concept, i)=>{
         concept.correct ? score += 1 : null;
-        return [<ConceptResultTableRow concept={concept} key={concept.id + attemptNum} />]
+        const conceptResult =  <ConceptResult concept={concept} key={concept.id + attemptNum} />
+
+        if (i > 0) {
+          return [<div className="concept-result-separator" key={i} />, conceptResult]
+        }
+
+        return conceptResult
       });
+
+      const concepts = <tr><td /><td /><td className="concept-results-cell">{conceptElements}</td></tr>
+
       let averageScore = (score/currAttempt.length * 100) || 0;
       const previousAttempt = attemptNum > 1 && conceptsByAttempt[attemptNum - 1][0].answer
-      const answerRow = scoreRow(conceptsByAttempt[attemptNum][0].answer, attemptNum, averageScore, previousAttempt)
+      const answerRow = scoreRow(conceptsByAttempt[attemptNum][0].answer, attemptNum, previousAttempt)
       feedback ? results.push(answerRow, feedback, concepts) : results.push(answerRow, concepts)
       if (conceptsByAttempt[attemptNum + 1]) {
         results.push(emptyRow(attemptNum + averageScore))
@@ -81,7 +114,7 @@ const ConnectStudentReportBox = ({ questionData, boxNumber, showScore, showDiff,
     )
   }
 
-  function scoreRow(answer, attemptNum, averageScore, previousAnswer) {
+  function scoreRow(answer, attemptNum, previousAnswer) {
     let answerString = answer
     if (previousAnswer && showDiff) {
       const diff = Diff.diffWords(previousAnswer, answer)
@@ -91,8 +124,8 @@ const ConnectStudentReportBox = ({ questionData, boxNumber, showScore, showDiff,
       })
     }
     return (
-      <tr className={ScoreColor(averageScore)} key={attemptNum + answer}>
-        <td>{`${NumberSuffix(attemptNum)} Submission`}</td>
+      <tr className="submission" key={attemptNum + answer}>
+        <td>{`${NumberSuffix(attemptNum)} submission`}</td>
         <td />
         <td><span style={{ whiteSpace: 'pre-wrap' }}>{answerString}</span></td>
       </tr>
@@ -126,10 +159,10 @@ const ConnectStudentReportBox = ({ questionData, boxNumber, showScore, showDiff,
   function keyTargetSkill() {
     const { key_target_skill_concept, } = questionData
     return (
-      <tr className={key_target_skill_concept.correct ? 'green-score-color' : ''}>
-        <td>Key Target Skill</td>
+      <tr className={key_target_skill_concept.correct ? 'correct-target-skill-background' : 'incorrect-target-skill-background'}>
+        <td>Target Skill</td>
         <td />
-        <td>{key_target_skill_concept.name}</td>
+        <td><ConceptResult concept={key_target_skill_concept} /></td>
       </tr>
     );
   }
@@ -157,8 +190,6 @@ const ConnectStudentReportBox = ({ questionData, boxNumber, showScore, showDiff,
       </div>
     </div>
   )
-
-
 }
 
-export default ConnectStudentReportBox
+export default StudentReportBox
