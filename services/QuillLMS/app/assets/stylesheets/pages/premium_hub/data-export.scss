@@ -43,7 +43,37 @@
       }
     }
     .data-export-table {
-
+      border: 1px solid #E0E0E0;
+      overflow: auto;
+      .data-table-headers {
+        background-color: #F8F8F8;
+        min-height: 52px;
+        th {
+          color: #373737;
+          font-weight: 700;
+          align-items: center;
+          min-height: 52px;
+          max-width: 152px;
+          &:not(:last-child) {
+            border-right: 1px solid #E0E0E0;
+          }
+        }
+      }
+      .data-table-body {
+        .data-table-row {
+          td {
+            display: flex;
+            align-items: center;
+            min-height: 52px;
+            max-width: 152px;
+            white-space: break-spaces;
+            padding-right: 24px;
+            &:not(:last-child) {
+              border-right: 1px solid #E0E0E0;
+            }
+          }
+        }
+      }
     }
   }
 }

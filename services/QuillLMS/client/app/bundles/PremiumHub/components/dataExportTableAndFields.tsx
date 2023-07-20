@@ -48,70 +48,69 @@ export const DataExportTableAndFields = ({ queryKey, selectedGrades, selectedSch
   const [showTimeSpent, setShowTimeSpent] = React.useState<boolean>(true);
   const [loading, setLoading] = React.useState<boolean>(true);
   const [data, setData] = React.useState<any>(null);
-  console.log("🚀 ~ file: dataExportTableAndFields.tsx:39 ~ DataExportTableAndFields ~ data:", data)
 
   const fields = {
     [STUDENT_NAME]: {
-      dataTableField: { name: STUDENT_NAME, attribute: "name", width: STANDARD_WIDTH },
+      dataTableField: { name: STUDENT_NAME, attribute: "name", width: STANDARD_WIDTH, noTooltip: true },
       checked: true
     },
     [STUDENT_EMAIL]: {
-      dataTableField: { name: STUDENT_EMAIL, attribute: "email", width: STANDARD_WIDTH },
+      dataTableField: { name: STUDENT_EMAIL, attribute: "email", width: STANDARD_WIDTH, noTooltip: true },
       setterFunction: setShowStudentEmail,
       checked: showStudentEmail
     },
     [SCHOOL]: {
-      dataTableField: { name: SCHOOL, attribute: "school", width: STANDARD_WIDTH },
+      dataTableField: { name: SCHOOL, attribute: "school", width: STANDARD_WIDTH, noTooltip: true },
       setterFunction: setShowSchool,
       checked: showSchool
     },
     [GRADE]: {
-      dataTableField: { name: GRADE, attribute: "grade", width: STANDARD_WIDTH },
+      dataTableField: { name: GRADE, attribute: "grade", width: STANDARD_WIDTH, noTooltip: true },
       setterFunction: setShowGrade,
       checked: showGrade
     },
     [TEACHER]: {
-      dataTableField: { name: TEACHER, attribute: "teacher", width: STANDARD_WIDTH },
+      dataTableField: { name: TEACHER, attribute: "teacher", width: STANDARD_WIDTH, noTooltip: true },
       setterFunction: setShowTeacher,
       checked: showTeacher
     },
     [CLASS]: {
-      dataTableField: { name: CLASS, attribute: "class", width: STANDARD_WIDTH },
+      dataTableField: { name: CLASS, attribute: "class", width: STANDARD_WIDTH, noTooltip: true },
       setterFunction: setShowClass,
       checked: showClass
     },
     [COMPLETED_DATE]: {
-      dataTableField: { name: COMPLETED_DATE, attribute: "completed_date", width: STANDARD_WIDTH },
+      dataTableField: { name: COMPLETED_DATE, attribute: "completed_date", width: STANDARD_WIDTH, noTooltip: true },
       setterFunction: setShowCompletedDate,
       checked: showCompletedDate
     },
     [ACTIVITY_PACK]: {
-      dataTableField: { name: ACTIVITY_PACK, attribute: "activity_pack", width: STANDARD_WIDTH },
+      dataTableField: { name: ACTIVITY_PACK, attribute: "activity_pack", width: STANDARD_WIDTH, noTooltip: true },
       setterFunction: setShowActivityPack,
       checked: showActivityPack
     },
     [ACTIVITY]: {
-      dataTableField: { name: ACTIVITY, attribute: "activity", width: STANDARD_WIDTH },
+      dataTableField: { name: ACTIVITY, attribute: "activity", width: STANDARD_WIDTH, noTooltip: true },
       setterFunction: setShowActivity,
       checked: showActivity
     },
     [TOOL]: {
-      dataTableField: { name: TOOL, attribute: "tool", width: STANDARD_WIDTH },
+      dataTableField: { name: TOOL, attribute: "tool", width: STANDARD_WIDTH, noTooltip: true },
       setterFunction: setShowTool,
       checked: showTool
     },
     [SCORE]: {
-      dataTableField: { name: SCORE, attribute: "score", width: STANDARD_WIDTH },
+      dataTableField: { name: SCORE, attribute: "score", width: STANDARD_WIDTH, noTooltip: true },
       setterFunction: setShowScore,
       checked: showScore
     },
     [STANDARD]: {
-      dataTableField: { name: STANDARD, attribute: "standard", width: STANDARD_WIDTH },
+      dataTableField: { name: STANDARD, attribute: "standard", width: STANDARD_WIDTH, noTooltip: true },
       setterFunction: setShowStandard,
       checked: showStandard
     },
     [TIME_SPENT]: {
-      dataTableField: { name: TIME_SPENT, attribute: "time_spent", width: STANDARD_WIDTH },
+      dataTableField: { name: TIME_SPENT, attribute: "time_spent", width: STANDARD_WIDTH, noTooltip: true },
       setterFunction: setShowTimeSpent,
       checked: showTimeSpent
     },
@@ -136,7 +135,6 @@ export const DataExportTableAndFields = ({ queryKey, selectedGrades, selectedSch
       classroom_ids: selectedClassroomIds,
       grades: selectedGrades
     }
-    console.log("🚀 ~ file: dataExportTableAndFields.tsx:139 ~ getData ~ searchParams.selectedGrades:", selectedGrades)
 
     const requestUrl = queryString.stringifyUrl({ url: '/snapshots/data_export', query: searchParams }, { arrayFormat: 'bracket' })
 
