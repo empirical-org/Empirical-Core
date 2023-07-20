@@ -1,6 +1,7 @@
 # frozen_string_literal: true
 
 class GradesController < ApplicationController
+  include PublicProgressReports
 
   before_action :authorize!, only: [:tooltip]
 
@@ -9,11 +10,55 @@ class GradesController < ApplicationController
   end
 
   def tooltip
-    render json: {concept_results: tooltip_query, scores: tooltip_scores_query}.to_json
+    render json: { sessions: key_target_skills_query }.to_json
   end
 
   private def tooltip_params
     params.permit(:classroom_unit_id, :user_id, :completed, :activity_id)
+  end
+
+  private def key_target_skills_query
+    activity_sessions = ActivitySession
+      .includes(:concept_results, :activity, :unit)
+      .where(
+        classroom_unit_id: tooltip_params[:classroom_unit_id].to_i,
+        user_id: tooltip_params[:user_id].to_i,
+        activity_id: tooltip_params[:activity_id].to_i,
+        visible: true,
+        state: 'finished'
+      )
+      .order(:completed_at)
+
+      activity_sessions.map do |activity_session|
+
+        unit_activity = UnitActivity.find_by(unit: activity_session.unit, activity: activity_session.activity)
+
+        questions = activity_session.concept_results.group_by { |cr| cr.question_number }
+
+        key_target_skill_concepts = questions.map { |key, question| get_key_target_skill_concept_for_question(question) }
+
+        correct_key_target_skill_concepts = key_target_skill_concepts.filter { |ktsc| ktsc[:correct] }
+
+        grouped_key_target_skill_concepts = key_target_skill_concepts
+          .group_by { |ktsc| ktsc[:name] }
+          .map do |key, key_target_skill_group|
+            {
+              name: key_target_skill_group.first[:name],
+              correct: key_target_skill_group.filter { |ktsc| ktsc[:correct] }.length,
+              incorrect: key_target_skill_group.filter { |ktsc| ktsc[:correct] == false }.length,
+            }
+          end
+
+        {
+          percentage: activity_session.percentage,
+          description: activity_session.activity.description,
+          due_date: unit_activity.due_date,
+          completed_at: activity_session.completed_at + current_user.utc_offset,
+          grouped_key_target_skill_concepts: grouped_key_target_skill_concepts,
+          number_of_questions: questions.length,
+          number_of_correct_questions: correct_key_target_skill_concepts.length
+        }
+      end
   end
 
   private def tooltip_query

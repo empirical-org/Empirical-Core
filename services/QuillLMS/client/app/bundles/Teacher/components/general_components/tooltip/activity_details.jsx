@@ -14,20 +14,19 @@ export const ActivityDetails = ({ data }) => {
   }
 
   function detailOrNot() {
-    const { concept_results, started_at, updated, scores, activity_description, dueDate, publishDate, scheduled, unitActivityCreatedAt, } = data
+    const { concept_results, started_at, updated, scores, activity_description, dueDate, publishDate, scheduled, unitActivityCreatedAt, sessions, } = data
     let dateTitle, dateBody, completedTitle, completedBody
 
-    if (!concept_results || !concept_results.length) {
+    if (!sessions || !sessions.length) {
       if (started_at) {
         dateTitle = 'Started'
         dateBody = started_at
       }
     } else {
-      const scoresExist = scores && scores.length
-      const firstCr = concept_results[0]
+      const scoresExist = sessions && sessions.length
 
       if (scoresExist) {
-        const completedAt = scores[0].completed_at
+        const completedAt = sessions[0].completed_at
 
         if (completedAt) {
           completedTitle = 'Completed'

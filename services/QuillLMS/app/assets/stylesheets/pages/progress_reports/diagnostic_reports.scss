@@ -197,10 +197,8 @@ $lightgray: #cecece;
 
       img, span {
         margin-right: 8px;
-      }
-
-      span {
-        width: 44px;
+        min-width: 24px;
+        display: block;
       }
 
       .body {

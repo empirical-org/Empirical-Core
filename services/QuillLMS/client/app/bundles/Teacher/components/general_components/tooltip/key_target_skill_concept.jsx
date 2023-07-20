@@ -1,6 +1,6 @@
 import React from 'react';
 
-const ConceptResultStat = (
+const KeyTargetSkillConcept = (
   {
     name,
     correct,
@@ -16,4 +16,4 @@ const ConceptResultStat = (
   );
 };
 
-export default ConceptResultStat;
+export default KeyTargetSkillConcept;

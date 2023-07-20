@@ -10,7 +10,7 @@ import { requestGet } from '../../../../../modules/request/index';
 import { DropdownInput, expandIcon } from '../../../../Shared/index';
 import { getTimeSpent } from '../../../helpers/studentReports';
 import LoadingSpinner from '../../shared/loading_indicator.jsx';
-import { CONNECT_KEY, EVIDENCE_KEY, GRAMMAR_KEY, LESSONS_KEY, } from '../constants';
+import { CONNECT_KEY, EVIDENCE_KEY, GRAMMAR_KEY, LESSONS_KEY, PROOFREADER_KEY, } from '../constants';
 
 const lightbulbIcon = <img alt="" src={`${process.env.CDN_URL}/images/pages/activity_analysis/lightbulb.svg`} />
 
@@ -126,7 +126,7 @@ const StudentReport = ({ params, studentDropdownCallback, passedStudents, }) => 
       )
     }
 
-    if ([CONNECT_KEY, GRAMMAR_KEY].includes(student.activity_classification)) {
+    if ([CONNECT_KEY, GRAMMAR_KEY, PROOFREADER_KEY].includes(student.activity_classification)) {
       return (
         <button className="toggle-student-report-explanation scoring-explanation is-closed" onClick={handleToggleScoringExplanation} type="button">
           <img alt={expandIcon.alt} src={expandIcon.src} />
