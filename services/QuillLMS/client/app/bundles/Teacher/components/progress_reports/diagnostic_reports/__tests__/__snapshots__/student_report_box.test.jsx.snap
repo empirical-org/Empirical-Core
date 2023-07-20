@@ -1,0 +1,311 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`StudentReportBox should render 1`] = `
+<StudentReportBox
+  boxNumber={6}
+  questionData={
+    Object {
+      "answer": "Tornadoes begin as light grey clouds, bu the clouds eventually turn black.",
+      "concepts": Array [
+        Object {
+          "answer": "Tornadoes begin as light grey clouds, bu the clouds eventually turn black.",
+          "attempt": 1,
+          "correct": false,
+          "directions": "Combine the sentences. (But, So)",
+          "feedback": "",
+          "id": 544,
+          "lastFeedback": null,
+          "name": "Including Details From Prompt",
+        },
+        Object {
+          "answer": "Tornadoes begin as light grey clouds, but the clouds eventually turn black.",
+          "attempt": 2,
+          "correct": true,
+          "directions": "Combine the sentences. (But, So)",
+          "feedback": "",
+          "id": 424,
+          "lastFeedback": "<p>Revise your work. Use one of the joining words from the instructions.</p>",
+          "name": "Comma Before Coordinating Conjunctions",
+        },
+        Object {
+          "answer": "Tornadoes begin as light grey clouds, but the clouds eventually turn black.",
+          "attempt": 2,
+          "correct": true,
+          "directions": "Combine the sentences. (But, So)",
+          "feedback": "",
+          "id": 88,
+          "lastFeedback": "<p>Revise your work. Use one of the joining words from the instructions.</p>",
+          "name": "But",
+        },
+      ],
+      "directions": "Combine the sentences. (But, So)",
+      "key_target_skill_concept": Object {
+        "correct": true,
+        "id": 85,
+        "name": "Coordinating Conjunctions",
+        "uid": "k5C7YEgsuWEcLNTw-oRDpA",
+      },
+      "prompt": "Tornadoes begin as light grey clouds.  The clouds eventually turn black.",
+      "questionScore": 1,
+      "question_number": 6,
+      "score": 100,
+    }
+  }
+  showDiff={true}
+  showScore={true}
+>
+  <div
+    className="individual-activity-report"
+  >
+    <div
+      className="student-report-box"
+    >
+      <div
+        className="student-report-table-and-index"
+      >
+        <div
+          className="question-index"
+        >
+          6
+        </div>
+        <table>
+          <tbody>
+            <tr
+              className="Directions"
+            >
+              <td>
+                Directions
+              </td>
+              <td />
+              <td>
+                Combine the sentences. (But, So)
+              </td>
+            </tr>
+            <tr>
+              <td>
+                Prompt
+              </td>
+              <td />
+              <td>
+                Tornadoes begin as light grey clouds.  The clouds eventually turn black.
+              </td>
+            </tr>
+            <tr>
+              <td>
+                Score
+              </td>
+              <td />
+              <td>
+                100
+                %
+              </td>
+            </tr>
+            <tr
+              className="correct-target-skill-background"
+            >
+              <td>
+                Target Skill
+              </td>
+              <td />
+              <td>
+                <ConceptResult
+                  concept={
+                    Object {
+                      "correct": true,
+                      "id": 85,
+                      "name": "Coordinating Conjunctions",
+                      "uid": "k5C7YEgsuWEcLNTw-oRDpA",
+                    }
+                  }
+                >
+                  <div
+                    className="concept-result correct"
+                  >
+                    <img
+                      alt=""
+                      src="undefined/images/pages/activity_analysis/checkmark.svg"
+                    />
+                    <span>
+                      Coordinating Conjunctions
+                    </span>
+                  </div>
+                </ConceptResult>
+              </td>
+            </tr>
+            <tr
+              key="empty-rowundefined"
+            >
+              <td />
+              <td />
+              <td />
+            </tr>
+            <tr
+              className="submission"
+              key="1Tornadoes begin as light grey clouds, bu the clouds eventually turn black."
+            >
+              <td>
+                1st submission
+              </td>
+              <td />
+              <td>
+                <span
+                  style={
+                    Object {
+                      "whiteSpace": "pre-wrap",
+                    }
+                  }
+                >
+                  Tornadoes begin as light grey clouds, bu the clouds eventually turn black.
+                </span>
+              </td>
+            </tr>
+            <tr
+              className="Feedback"
+            >
+              <td>
+                Feedback
+              </td>
+              <td />
+              <td>
+                Revise your work. Use one of the joining words from the instructions.
+              </td>
+            </tr>
+            <tr>
+              <td />
+              <td />
+              <td
+                className="concept-results-cell"
+              >
+                <ConceptResult
+                  concept={
+                    Object {
+                      "answer": "Tornadoes begin as light grey clouds, bu the clouds eventually turn black.",
+                      "attempt": 1,
+                      "correct": false,
+                      "directions": "Combine the sentences. (But, So)",
+                      "feedback": "",
+                      "id": 544,
+                      "lastFeedback": null,
+                      "name": "Including Details From Prompt",
+                    }
+                  }
+                  key="545"
+                >
+                  <div
+                    className="concept-result incorrect"
+                  >
+                    <img
+                      alt=""
+                      src="undefined/images/pages/activity_analysis/revise.svg"
+                    />
+                    <span>
+                      Including Details From Prompt
+                    </span>
+                  </div>
+                </ConceptResult>
+              </td>
+            </tr>
+            <tr
+              key="empty-row1"
+            >
+              <td />
+              <td />
+              <td />
+            </tr>
+            <tr
+              className="submission"
+              key="2Tornadoes begin as light grey clouds, but the clouds eventually turn black."
+            >
+              <td>
+                2nd submission
+              </td>
+              <td />
+              <td>
+                <span
+                  style={
+                    Object {
+                      "whiteSpace": "pre-wrap",
+                    }
+                  }
+                >
+                  Tornadoes begin as light grey clouds, 
+                  <b>
+                    but
+                  </b>
+                   the clouds eventually turn black.
+                </span>
+              </td>
+            </tr>
+            <tr>
+              <td />
+              <td />
+              <td
+                className="concept-results-cell"
+              >
+                <ConceptResult
+                  concept={
+                    Object {
+                      "answer": "Tornadoes begin as light grey clouds, but the clouds eventually turn black.",
+                      "attempt": 2,
+                      "correct": true,
+                      "directions": "Combine the sentences. (But, So)",
+                      "feedback": "",
+                      "id": 424,
+                      "lastFeedback": "<p>Revise your work. Use one of the joining words from the instructions.</p>",
+                      "name": "Comma Before Coordinating Conjunctions",
+                    }
+                  }
+                  key="426"
+                >
+                  <div
+                    className="concept-result correct"
+                  >
+                    <img
+                      alt=""
+                      src="undefined/images/pages/activity_analysis/checkmark.svg"
+                    />
+                    <span>
+                      Comma Before Coordinating Conjunctions
+                    </span>
+                  </div>
+                </ConceptResult>
+                <div
+                  className="concept-result-separator"
+                  key="1"
+                />
+                <ConceptResult
+                  concept={
+                    Object {
+                      "answer": "Tornadoes begin as light grey clouds, but the clouds eventually turn black.",
+                      "attempt": 2,
+                      "correct": true,
+                      "directions": "Combine the sentences. (But, So)",
+                      "feedback": "",
+                      "id": 88,
+                      "lastFeedback": "<p>Revise your work. Use one of the joining words from the instructions.</p>",
+                      "name": "But",
+                    }
+                  }
+                  key="90"
+                >
+                  <div
+                    className="concept-result correct"
+                  >
+                    <img
+                      alt=""
+                      src="undefined/images/pages/activity_analysis/checkmark.svg"
+                    />
+                    <span>
+                      But
+                    </span>
+                  </div>
+                </ConceptResult>
+              </td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </div>
+</StudentReportBox>
+`;

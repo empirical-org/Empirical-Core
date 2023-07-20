@@ -178,6 +178,11 @@ $lightgray: #cecece;
       padding: 16px 0px 0px;
       width: 100%;
       text-align: left;
+      &.is-open {
+        img {
+          transform: rotate(180deg);
+        }
+      }
       &.scoring-explanation {
         border-bottom: 1px solid #D9D9D9;
         padding-bottom: 16px;
@@ -201,7 +206,7 @@ $lightgray: #cecece;
       .body {
         margin-top: 16px;
         color: #373737;
-        font-size: 12px;
+        font-size: 13px;
         font-style: normal;
         font-weight: 400;
         line-height: 22px;
@@ -290,6 +295,7 @@ $lightgray: #cecece;
       background-color: white;
       border-radius: 8px;
       border: 1px solid #D9D9D9;
+      padding: 16px 0px;
     }
     .question-index {
       font-weight: 700;

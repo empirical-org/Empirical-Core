@@ -28,76 +28,70 @@ interface StudentReportProps extends RouteComponentProps {
     studentId: string,
     unitId: string
   },
-  studentDropdownCallback: () => void
+  studentDropdownCallback: () => void,
+  passedStudents?: Student[]
 }
 
-export class StudentReport extends React.Component<StudentReportProps, StudentReportState> {
+const StudentReport = ({ params, studentDropdownCallback, passedStudents, }) => {
+  const [boldingExplanationIsOpen, setBoldingExplanationIsOpen] = React.useState(false)
+  const [scoringExplanationIsOpen, setScoringExplanationIsOpen] = React.useState(false)
+  const [loading, setLoading] = React.useState(!passedStudents)
+  const [students, setStudents] = React.useState(passedStudents || null)
 
-  state = {
-    boldingExplanationIsOpen: false,
-    scoringExplanationIsOpen: false,
-    loading: true,
-    students: null
-  };
+  const isInitialMount = React.useRef(true);
 
-  componentDidMount() {
-    const { params } = this.props;
-    this.getStudentData(params);
-  }
-
-  componentDidUpdate(prevProps) {
-    const { params } = this.props;
-
-    if (!_.isEqual(params, prevProps.params)) {
-      this.setState({ loading: true });
-      this.getStudentData(params);
+  React.useEffect(() => {
+    if (isInitialMount.current) {
+      isInitialMount.current = false
+      getStudentData()
+    } else {
+      setLoading(true)
+      getStudentData()
     }
-  }
+  }, [params])
 
-  selectedStudent = (students: Student[]) => {
-    const { params } = this.props;
+  function selectedStudent(students: Student[]) {
     const { studentId } = params;
     return studentId ? students.find((student: Student) => student.id === parseInt(studentId)) : students[0];
   }
 
-  getStudentData = (params: StudentReportProps['params']) => {
+  function getStudentData() {
     requestGet(`/teachers/progress_reports/students_by_classroom/u/${params.unitId}/a/${params.activityId}/c/${params.classroomId}`, (data: { students: Student[] }) => {
       const { students } = data;
-      this.setState({ students, loading: false });
+      setStudents(students)
+      setLoading(false)
     });
   }
 
-  handleToggleBoldingExplanation = () => {
-    this.setState(prevState => ({ boldingExplanationIsOpen: !prevState.boldingExplanationIsOpen, }))
+  function handleToggleBoldingExplanation() {
+    setBoldingExplanationIsOpen(!boldingExplanationIsOpen)
   }
 
-  handleToggleScoringExplanation = () => {
-    this.setState(prevState => ({ scoringExplanationIsOpen: !prevState.scoringExplanationIsOpen, }))
+  function handleToggleScoringExplanation() {
+    setScoringExplanationIsOpen(!scoringExplanationIsOpen)
   }
 
-  studentBoxes = (studentData: Student) => {
+  function studentBoxes(studentData: Student) {
     const concept_results = _.sortBy(studentData.concept_results, 'question_number')
     return concept_results.map((question: QuestionData, index: number) => {
       return <StudentReportBox boxNumber={index + 1} key={index} questionData={question} showDiff={true} showScore={studentData.activity_classification !== EVIDENCE_KEY} />
     })
   }
 
-  renderHelpfulTips(student) {
+  function renderHelpfulTips(student) {
     return (
       <div className="helpful-tips">
         <div className="helpful-tips-header">
           {lightbulbIcon}
           <h3>Helpful Tips for Teachers <span>(Expand to show more information)</span></h3>
         </div>
-        {this.renderScoringExplanation(student)}
-        {this.renderBoldingExplanation()}
+        {renderScoringExplanation(student)}
+        {renderBoldingExplanation()}
       </div>
     )
   }
 
-  renderScoringExplanation(student) {
-    const { scoringExplanationIsOpen, } = this.state
-
+  function renderScoringExplanation(student) {
     let headerText = `The score for ${student.activity_classification_name} activities is based on reaching a correct response by the final attempt.`
 
     if (student.activity_classification === EVIDENCE_KEY) {
@@ -110,7 +104,7 @@ export class StudentReport extends React.Component<StudentReportProps, StudentRe
 
     if (scoringExplanationIsOpen) {
       return (
-        <button className="toggle-student-report-explanation scoring-explanation is-open" onClick={this.handleToggleScoringExplanation} type="button">
+        <button className="toggle-student-report-explanation scoring-explanation is-open" onClick={handleToggleScoringExplanation} type="button">
           <img alt={expandIcon.alt} src={expandIcon.src} />
           <div>
             <h4>{headerText}</h4>
@@ -134,7 +128,7 @@ export class StudentReport extends React.Component<StudentReportProps, StudentRe
 
     if ([CONNECT_KEY, GRAMMAR_KEY].includes(student.activity_classification)) {
       return (
-        <button className="toggle-student-report-explanation scoring-explanation is-closed" onClick={this.handleToggleScoringExplanation} type="button">
+        <button className="toggle-student-report-explanation scoring-explanation is-closed" onClick={handleToggleScoringExplanation} type="button">
           <img alt={expandIcon.alt} src={expandIcon.src} />
           <h4>{headerText}</h4>
         </button>
@@ -149,12 +143,10 @@ export class StudentReport extends React.Component<StudentReportProps, StudentRe
     )
   }
 
-  renderBoldingExplanation() {
-    const { boldingExplanationIsOpen, } = this.state
-
+  function renderBoldingExplanation() {
     if (boldingExplanationIsOpen) {
       return (
-        <button className="toggle-student-report-explanation is-open" onClick={this.handleToggleBoldingExplanation} type="button">
+        <button className="toggle-student-report-explanation is-open" onClick={handleToggleBoldingExplanation} type="button">
           <img alt={expandIcon.alt} src={expandIcon.src} />
           <div>
             <h4>The bolded text helps you see the edits. It is not what the student sees.</h4>
@@ -169,50 +161,50 @@ export class StudentReport extends React.Component<StudentReportProps, StudentRe
     }
 
     return (
-      <button className="toggle-student-report-explanation is-closed" onClick={this.handleToggleBoldingExplanation} type="button">
+      <button className="toggle-student-report-explanation is-closed" onClick={handleToggleBoldingExplanation} type="button">
         <img alt={expandIcon.alt} src={expandIcon.src} />
         <h4>The bolded text helps you see the edits. It is not what the student sees.</h4>
       </button>
     )
   }
 
-  render() {
-    const { studentDropdownCallback, } = this.props
-    const { loading, students, } = this.state;
-    if (loading) { return <LoadingSpinner /> }
-    const student = this.selectedStudent(students);
-    const { name, score, id, time, number_of_questions, number_of_correct_questions, } = student;
-    const displaySkills = number_of_questions ? `${number_of_correct_questions} of ${number_of_questions} ` : ''
-    const displayScore = score ? `(${score}%)` : ''
-    const displayTimeSpent = getTimeSpent(time)
-    const options = students.map(s => ({ value: s.id, label: s.name, }))
-    const value = options.find(s => id === s.value)
-    return (
-      <div className='individual-student-activity-view white-background-accommodate-footer'>
-        <div className="container">
-          <header className="activity-view-header-container">
-            <div className="left-side-container">
-              <span>Student:</span>
-              <h3 className='activity-view-header'>{name}</h3>
-            </div>
-            <DropdownInput handleChange={studentDropdownCallback} options={options} value={value} />
-          </header>
-          <div className="time-spent-and-target-skills-count">
-            <div>
-              <span>Time spent:</span>
-              <p>{displayTimeSpent}</p>
-            </div>
-            <div>
-              <span>Target skills demonstrated correctly in prompts:</span>
-              <p>{displaySkills}{displayScore}</p>
-            </div>
+  if (loading) { return <LoadingSpinner /> }
+
+  const student = selectedStudent(students);
+
+  const { name, score, id, time, number_of_questions, number_of_correct_questions, } = student;
+  const displaySkills = number_of_questions ? `${number_of_correct_questions} of ${number_of_questions} ` : ''
+  const displayScore = score ? `(${score}%)` : ''
+  const displayTimeSpent = getTimeSpent(time)
+  const options = students.map(s => ({ value: s.id, label: s.name, }))
+  const value = options.find(s => id === s.value)
+
+  return (
+    <div className='individual-student-activity-view white-background-accommodate-footer'>
+      <div className="container">
+        <header className="activity-view-header-container">
+          <div className="left-side-container">
+            <span>Student:</span>
+            <h3 className='activity-view-header'>{name}</h3>
           </div>
-          {this.renderHelpfulTips(student)}
-          {this.studentBoxes(student)}
+          <DropdownInput handleChange={studentDropdownCallback} options={options} value={value} />
+        </header>
+        <div className="time-spent-and-target-skills-count">
+          <div>
+            <span>Time spent:</span>
+            <p>{displayTimeSpent}</p>
+          </div>
+          <div>
+            <span>Target skills demonstrated correctly in prompts:</span>
+            <p>{displaySkills}{displayScore}</p>
+          </div>
         </div>
+        {renderHelpfulTips(student)}
+        {studentBoxes(student)}
       </div>
-    );
-  }
+    </div>
+  );
+
 }
 
 export default StudentReport;

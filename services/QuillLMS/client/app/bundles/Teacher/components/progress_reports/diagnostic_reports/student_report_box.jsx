@@ -1,4 +1,5 @@
 import React from 'react';
+import _ from 'underscore';
 
 import { formatString, formatStringAndAddSpacesAfterPeriods, } from './formatString';
 
