@@ -6,15 +6,15 @@ export const ActivityDetails = ({ data }) => {
   if (!Object.keys(data).length) { return <span /> }
 
   function getClassName() {
-    const { concept_results, } = data
-    if (concept_results && concept_results.length) {
+    const { sessions, } = data
+    if (sessions && sessions.length) {
       return 'activity-details'
     }
     return 'activity-details no-concept-results'
   }
 
   function detailOrNot() {
-    const { concept_results, started_at, updated, scores, activity_description, dueDate, publishDate, scheduled, unitActivityCreatedAt, sessions, } = data
+    const { sessions, started_at, updated, activity_description, dueDate, publishDate, scheduled, unitActivityCreatedAt, } = data
     let dateTitle, dateBody, completedTitle, completedBody
 
     if (!sessions || !sessions.length) {

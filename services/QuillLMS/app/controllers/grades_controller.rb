@@ -50,6 +50,7 @@ class GradesController < ApplicationController
           end
 
         {
+          id: activity_session.id,
           percentage: activity_session.percentage,
           description: activity_session.activity.description,
           due_date: unit_activity.due_date,
