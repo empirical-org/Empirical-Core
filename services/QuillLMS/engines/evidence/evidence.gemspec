@@ -8,7 +8,7 @@ require 'evidence/version'
 # Describe your gem and declare its dependencies:
 Gem::Specification.new do |s|
   s.name        = 'evidence'
-  s.version     = Evidence::VERSION
+  s.version     = Evidence::Version::VERSION
   s.authors     = ['Quill.org']
   s.email       = ['devtools@quill.org']
   s.homepage    = 'https://www.quill.org'
