@@ -25,7 +25,7 @@ class GradesController < ApplicationController
         user_id: tooltip_params[:user_id].to_i,
         activity_id: tooltip_params[:activity_id].to_i,
         visible: true,
-        state: 'finished'
+        state: ActivitySession::STATE_FINISHED
       )
       .order(:completed_at)
 
