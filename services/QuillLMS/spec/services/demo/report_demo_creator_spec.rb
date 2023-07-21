@@ -34,7 +34,7 @@ RSpec.describe Demo::ReportDemoCreator do
       let(:demo_teacher) { User.find_by(email: "hello+demoteacher@quill.org") }
 
       it 'should create teacher and classroom with activity' do
-        expect(SaveActivitySessionConceptResultsWorker).to receive(:perform_async).exactly(2161).times
+        expect(SaveActivitySessionConceptResultsWorker).to receive(:perform_async).exactly(2191).times
 
         described_class.create_demo
 
@@ -42,7 +42,7 @@ RSpec.describe Demo::ReportDemoCreator do
         classroom = demo_teacher.classrooms_i_teach.first
 
         expect(classroom.students.count).to eq(5)
-        expect(classroom.activity_sessions.count).to eq(140)
+        expect(classroom.activity_sessions.count).to eq(141)
       end
     end
   end
