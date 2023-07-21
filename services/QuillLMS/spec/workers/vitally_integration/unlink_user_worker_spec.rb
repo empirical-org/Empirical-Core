@@ -17,7 +17,7 @@ RSpec.describe VitallyIntegration::UnlinkUserWorker do
 
       it 'should unlink the user from vitally' do
         api = double(:vitally_api)
-        expect(VitallyApi).to receive(:new).and_return(api)
+        expect(VitallyIntegration::Api).to receive(:new).and_return(api)
         expect(api).to receive(:unlink).with(payload)
         subject
       end
@@ -47,7 +47,7 @@ RSpec.describe VitallyIntegration::UnlinkUserWorker do
   end
 
   def should_not_unlink_user
-    expect(VitallyApi).not_to receive(:new)
+    expect(VitallyIntegration::Api).not_to receive(:new)
     subject
   end
 end

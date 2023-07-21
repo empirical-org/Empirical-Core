@@ -6,7 +6,7 @@ class CalculateAndCacheVitallyAccountWorker
 
   def perform(school_id, year)
     school = School.find(school_id)
-    data = PreviousYearSchoolDatum.new(school, year).calculate_data
-    CacheVitallySchoolData.set(school_id, year, data.to_json)
+    data = VitallyIntegration::PreviousYearSchoolDatum.new(school, year).calculate_data
+    VitallyIntegration::CacheVitallySchoolData.set(school_id, year, data.to_json)
   end
 end

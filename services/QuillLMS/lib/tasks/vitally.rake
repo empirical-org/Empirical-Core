@@ -13,9 +13,9 @@ namespace :vitally do
       exit 1
     end
 
-    vitally_api = VitallyApi.new
+    vitally_api = VitallyIntegration::Api.new
 
-    # Batching in 33s because each user could have up to 3 schools to unlink, and VitallyApi
+    # Batching in 33s because each user could have up to 3 schools to unlink, and VitallyIntegration::Api
     # has a batch limit of 100.
     CSV.parse(pipe_data, headers: true).each_slice(33) do |batch|
       batch_payload = batch.map do |row|

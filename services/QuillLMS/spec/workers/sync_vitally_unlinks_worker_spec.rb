@@ -11,7 +11,7 @@ describe SyncVitallyUnlinksWorker do
   let(:now) { DateTime.current }
 
   before do
-    allow(VitallyApi).to receive(:new).and_return(vitally_api_double)
+    allow(VitallyIntegration::Api).to receive(:new).and_return(vitally_api_double)
     allow(DateTime).to receive(:current).and_return(now)
   end
 
