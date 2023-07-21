@@ -41,7 +41,20 @@ class GradesController < ApplicationController
 
     correct_key_target_skill_concepts = key_target_skill_concepts.filter { |ktsc| ktsc[:correct] }
 
-    grouped_key_target_skill_concepts = key_target_skill_concepts
+    {
+      id: activity_session.id,
+      percentage: activity_session.percentage,
+      description: activity_session.activity.description,
+      due_date: unit_activity.due_date,
+      completed_at: activity_session.completed_at.to_i + current_user.utc_offset.seconds,
+      grouped_key_target_skill_concepts: format_grouped_key_target_skill_concepts(key_target_skill_concepts),
+      number_of_questions: questions.length,
+      number_of_correct_questions: correct_key_target_skill_concepts.length
+    }
+  end
+
+  private def format_grouped_key_target_skill_concepts(key_target_skill_concepts)
+    key_target_skill_concepts
       .group_by { |ktsc| ktsc[:name] }
       .map do |key, key_target_skill_group|
         {
@@ -50,17 +63,6 @@ class GradesController < ApplicationController
           incorrect: key_target_skill_group.filter { |ktsc| ktsc[:correct] == false }.length,
         }
       end
-
-    {
-      id: activity_session.id,
-      percentage: activity_session.percentage,
-      description: activity_session.activity.description,
-      due_date: unit_activity.due_date,
-      completed_at: activity_session.completed_at.to_i + current_user.utc_offset.seconds,
-      grouped_key_target_skill_concepts: grouped_key_target_skill_concepts,
-      number_of_questions: questions.length,
-      number_of_correct_questions: correct_key_target_skill_concepts.length
-    }
   end
 
   private def authorize!
