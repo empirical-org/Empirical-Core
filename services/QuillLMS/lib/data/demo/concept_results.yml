@@ -94429,3 +94429,1604 @@
     value_before_type_cast: 2022-07-15 22:57:51.733759000 Z
   new_record: false
   active_record_yaml_version: 2
+- !ruby/object:ConceptResult
+  concise_attributes:
+  - !ruby/object:ActiveModel::Attribute::FromDatabase
+    name: id
+    value_before_type_cast: 2768449197
+  - !ruby/object:ActiveModel::Attribute::FromDatabase
+    name: activity_session_id
+    value_before_type_cast: 193666915
+  - !ruby/object:ActiveModel::Attribute::FromDatabase
+    name: answer
+    value_before_type_cast: '"Since Sully is considered an American hero, he got to
+      meet President Barack Obama and throw the first pitch at a Major League baseball
+      game."'
+  - !ruby/object:ActiveModel::Attribute::FromDatabase
+    name: attempt_number
+    value_before_type_cast: 4
+  - !ruby/object:ActiveModel::Attribute::FromDatabase
+    name: concept_id
+    value_before_type_cast: 483
+  - !ruby/object:ActiveModel::Attribute::FromDatabase
+    name: correct
+    value_before_type_cast: true
+  - !ruby/object:ActiveModel::Attribute::FromDatabase
+    name: extra_metadata
+    value_before_type_cast: '{"question_uid": "-LiJvf9JAkv3Jb4HRDXo", "question_concept_uid":
+      "7H2IMZvq0VJ4Uvftyrw7Eg"}'
+  - !ruby/object:ActiveModel::Attribute::FromDatabase
+    name: question_number
+    value_before_type_cast: 6
+  - !ruby/object:ActiveModel::Attribute::FromDatabase
+    name: question_score
+    value_before_type_cast: 1.0
+  - !ruby/object:ActiveModel::Attribute::FromDatabase
+    name: concept_result_directions_id
+    value_before_type_cast: 14991
+  - !ruby/object:ActiveModel::Attribute::FromDatabase
+    name: concept_result_instructions_id
+  - !ruby/object:ActiveModel::Attribute::FromDatabase
+    name: concept_result_previous_feedback_id
+    value_before_type_cast: 61912
+  - !ruby/object:ActiveModel::Attribute::FromDatabase
+    name: concept_result_prompt_id
+    value_before_type_cast: 114026
+  - !ruby/object:ActiveModel::Attribute::FromDatabase
+    name: concept_result_question_type_id
+    value_before_type_cast: 3149
+  - !ruby/object:ActiveModel::Attribute::FromDatabase
+    name: created_at
+    value_before_type_cast: 2023-07-21 17:49:46.938425000 Z
+  new_record: false
+  active_record_yaml_version: 2
+- !ruby/object:ConceptResult
+  concise_attributes:
+  - !ruby/object:ActiveModel::Attribute::FromDatabase
+    name: id
+    value_before_type_cast: 2768449196
+  - !ruby/object:ActiveModel::Attribute::FromDatabase
+    name: activity_session_id
+    value_before_type_cast: 193666915
+  - !ruby/object:ActiveModel::Attribute::FromDatabase
+    name: answer
+    value_before_type_cast: '"Since Sully is considered an American hero, he got to
+      meet President Barack Obama and throw the first pitch at a Major League baseball
+      game."'
+  - !ruby/object:ActiveModel::Attribute::FromDatabase
+    name: attempt_number
+    value_before_type_cast: 4
+  - !ruby/object:ActiveModel::Attribute::FromDatabase
+    name: concept_id
+    value_before_type_cast: 396
+  - !ruby/object:ActiveModel::Attribute::FromDatabase
+    name: correct
+    value_before_type_cast: true
+  - !ruby/object:ActiveModel::Attribute::FromDatabase
+    name: extra_metadata
+    value_before_type_cast: '{"question_uid": "-LiJvf9JAkv3Jb4HRDXo", "question_concept_uid":
+      "7H2IMZvq0VJ4Uvftyrw7Eg"}'
+  - !ruby/object:ActiveModel::Attribute::FromDatabase
+    name: question_number
+    value_before_type_cast: 6
+  - !ruby/object:ActiveModel::Attribute::FromDatabase
+    name: question_score
+    value_before_type_cast: 1.0
+  - !ruby/object:ActiveModel::Attribute::FromDatabase
+    name: concept_result_directions_id
+    value_before_type_cast: 14991
+  - !ruby/object:ActiveModel::Attribute::FromDatabase
+    name: concept_result_instructions_id
+  - !ruby/object:ActiveModel::Attribute::FromDatabase
+    name: concept_result_previous_feedback_id
+    value_before_type_cast: 61912
+  - !ruby/object:ActiveModel::Attribute::FromDatabase
+    name: concept_result_prompt_id
+    value_before_type_cast: 114026
+  - !ruby/object:ActiveModel::Attribute::FromDatabase
+    name: concept_result_question_type_id
+    value_before_type_cast: 3149
+  - !ruby/object:ActiveModel::Attribute::FromDatabase
+    name: created_at
+    value_before_type_cast: 2023-07-21 17:49:46.929777000 Z
+  new_record: false
+  active_record_yaml_version: 2
+- !ruby/object:ConceptResult
+  concise_attributes:
+  - !ruby/object:ActiveModel::Attribute::FromDatabase
+    name: id
+    value_before_type_cast: 2768449195
+  - !ruby/object:ActiveModel::Attribute::FromDatabase
+    name: activity_session_id
+    value_before_type_cast: 193666915
+  - !ruby/object:ActiveModel::Attribute::FromDatabase
+    name: answer
+    value_before_type_cast: '"Since Sully is considered an American hero, he got to
+      meet President Barack Obama and throw the first pitch at an Major League baseball
+      game."'
+  - !ruby/object:ActiveModel::Attribute::FromDatabase
+    name: attempt_number
+    value_before_type_cast: 3
+  - !ruby/object:ActiveModel::Attribute::FromDatabase
+    name: concept_id
+    value_before_type_cast: 544
+  - !ruby/object:ActiveModel::Attribute::FromDatabase
+    name: correct
+    value_before_type_cast: false
+  - !ruby/object:ActiveModel::Attribute::FromDatabase
+    name: extra_metadata
+    value_before_type_cast: '{"question_uid": "-LiJvf9JAkv3Jb4HRDXo", "question_concept_uid":
+      "7H2IMZvq0VJ4Uvftyrw7Eg"}'
+  - !ruby/object:ActiveModel::Attribute::FromDatabase
+    name: question_number
+    value_before_type_cast: 6
+  - !ruby/object:ActiveModel::Attribute::FromDatabase
+    name: question_score
+    value_before_type_cast: 1.0
+  - !ruby/object:ActiveModel::Attribute::FromDatabase
+    name: concept_result_directions_id
+    value_before_type_cast: 14991
+  - !ruby/object:ActiveModel::Attribute::FromDatabase
+    name: concept_result_instructions_id
+  - !ruby/object:ActiveModel::Attribute::FromDatabase
+    name: concept_result_previous_feedback_id
+    value_before_type_cast: 97541
+  - !ruby/object:ActiveModel::Attribute::FromDatabase
+    name: concept_result_prompt_id
+    value_before_type_cast: 114026
+  - !ruby/object:ActiveModel::Attribute::FromDatabase
+    name: concept_result_question_type_id
+    value_before_type_cast: 3149
+  - !ruby/object:ActiveModel::Attribute::FromDatabase
+    name: created_at
+    value_before_type_cast: 2023-07-21 17:49:46.922564000 Z
+  new_record: false
+  active_record_yaml_version: 2
+- !ruby/object:ConceptResult
+  concise_attributes:
+  - !ruby/object:ActiveModel::Attribute::FromDatabase
+    name: id
+    value_before_type_cast: 2768449194
+  - !ruby/object:ActiveModel::Attribute::FromDatabase
+    name: activity_session_id
+    value_before_type_cast: 193666915
+  - !ruby/object:ActiveModel::Attribute::FromDatabase
+    name: answer
+    value_before_type_cast: '"Since Sully is considered an American hero, he got to
+      meet President Barack Obama and throw the first pitch at an MLB game."'
+  - !ruby/object:ActiveModel::Attribute::FromDatabase
+    name: attempt_number
+    value_before_type_cast: 2
+  - !ruby/object:ActiveModel::Attribute::FromDatabase
+    name: concept_id
+    value_before_type_cast: 544
+  - !ruby/object:ActiveModel::Attribute::FromDatabase
+    name: correct
+    value_before_type_cast: false
+  - !ruby/object:ActiveModel::Attribute::FromDatabase
+    name: extra_metadata
+    value_before_type_cast: '{"question_uid": "-LiJvf9JAkv3Jb4HRDXo", "question_concept_uid":
+      "7H2IMZvq0VJ4Uvftyrw7Eg"}'
+  - !ruby/object:ActiveModel::Attribute::FromDatabase
+    name: question_number
+    value_before_type_cast: 6
+  - !ruby/object:ActiveModel::Attribute::FromDatabase
+    name: question_score
+    value_before_type_cast: 1.0
+  - !ruby/object:ActiveModel::Attribute::FromDatabase
+    name: concept_result_directions_id
+    value_before_type_cast: 14991
+  - !ruby/object:ActiveModel::Attribute::FromDatabase
+    name: concept_result_instructions_id
+  - !ruby/object:ActiveModel::Attribute::FromDatabase
+    name: concept_result_previous_feedback_id
+    value_before_type_cast: 64221
+  - !ruby/object:ActiveModel::Attribute::FromDatabase
+    name: concept_result_prompt_id
+    value_before_type_cast: 114026
+  - !ruby/object:ActiveModel::Attribute::FromDatabase
+    name: concept_result_question_type_id
+    value_before_type_cast: 3149
+  - !ruby/object:ActiveModel::Attribute::FromDatabase
+    name: created_at
+    value_before_type_cast: 2023-07-21 17:49:46.916744000 Z
+  new_record: false
+  active_record_yaml_version: 2
+- !ruby/object:ConceptResult
+  concise_attributes:
+  - !ruby/object:ActiveModel::Attribute::FromDatabase
+    name: id
+    value_before_type_cast: 2768449193
+  - !ruby/object:ActiveModel::Attribute::FromDatabase
+    name: activity_session_id
+    value_before_type_cast: 193666915
+  - !ruby/object:ActiveModel::Attribute::FromDatabase
+    name: answer
+    value_before_type_cast: '"Sully is considered an American hero since he got to
+      meet President Barack Obama and throw the first pitch at an MLB game."'
+  - !ruby/object:ActiveModel::Attribute::FromDatabase
+    name: attempt_number
+    value_before_type_cast: 1
+  - !ruby/object:ActiveModel::Attribute::FromDatabase
+    name: concept_id
+    value_before_type_cast: 396
+  - !ruby/object:ActiveModel::Attribute::FromDatabase
+    name: correct
+    value_before_type_cast: false
+  - !ruby/object:ActiveModel::Attribute::FromDatabase
+    name: extra_metadata
+    value_before_type_cast: '{"question_uid": "-LiJvf9JAkv3Jb4HRDXo", "question_concept_uid":
+      "7H2IMZvq0VJ4Uvftyrw7Eg"}'
+  - !ruby/object:ActiveModel::Attribute::FromDatabase
+    name: question_number
+    value_before_type_cast: 6
+  - !ruby/object:ActiveModel::Attribute::FromDatabase
+    name: question_score
+    value_before_type_cast: 1.0
+  - !ruby/object:ActiveModel::Attribute::FromDatabase
+    name: concept_result_directions_id
+    value_before_type_cast: 14991
+  - !ruby/object:ActiveModel::Attribute::FromDatabase
+    name: concept_result_instructions_id
+  - !ruby/object:ActiveModel::Attribute::FromDatabase
+    name: concept_result_previous_feedback_id
+  - !ruby/object:ActiveModel::Attribute::FromDatabase
+    name: concept_result_prompt_id
+    value_before_type_cast: 114026
+  - !ruby/object:ActiveModel::Attribute::FromDatabase
+    name: concept_result_question_type_id
+    value_before_type_cast: 3149
+  - !ruby/object:ActiveModel::Attribute::FromDatabase
+    name: created_at
+    value_before_type_cast: 2023-07-21 17:49:46.914127000 Z
+  new_record: false
+  active_record_yaml_version: 2
+- !ruby/object:ConceptResult
+  concise_attributes:
+  - !ruby/object:ActiveModel::Attribute::FromDatabase
+    name: id
+    value_before_type_cast: 2768449192
+  - !ruby/object:ActiveModel::Attribute::FromDatabase
+    name: activity_session_id
+    value_before_type_cast: 193666915
+  - !ruby/object:ActiveModel::Attribute::FromDatabase
+    name: answer
+    value_before_type_cast: '"Sully responded swiftly to the emergency since he had
+      to save 155 people''s lives."'
+  - !ruby/object:ActiveModel::Attribute::FromDatabase
+    name: attempt_number
+    value_before_type_cast: 3
+  - !ruby/object:ActiveModel::Attribute::FromDatabase
+    name: concept_id
+    value_before_type_cast: 482
+  - !ruby/object:ActiveModel::Attribute::FromDatabase
+    name: correct
+    value_before_type_cast: false
+  - !ruby/object:ActiveModel::Attribute::FromDatabase
+    name: extra_metadata
+    value_before_type_cast: '{"question_uid": "-LiJwDcMFyNf3omljXv-", "question_concept_uid":
+      "7H2IMZvq0VJ4Uvftyrw7Eg"}'
+  - !ruby/object:ActiveModel::Attribute::FromDatabase
+    name: question_number
+    value_before_type_cast: 5
+  - !ruby/object:ActiveModel::Attribute::FromDatabase
+    name: question_score
+    value_before_type_cast: 0.0
+  - !ruby/object:ActiveModel::Attribute::FromDatabase
+    name: concept_result_directions_id
+    value_before_type_cast: 14991
+  - !ruby/object:ActiveModel::Attribute::FromDatabase
+    name: concept_result_instructions_id
+  - !ruby/object:ActiveModel::Attribute::FromDatabase
+    name: concept_result_previous_feedback_id
+  - !ruby/object:ActiveModel::Attribute::FromDatabase
+    name: concept_result_prompt_id
+    value_before_type_cast: 132721
+  - !ruby/object:ActiveModel::Attribute::FromDatabase
+    name: concept_result_question_type_id
+    value_before_type_cast: 3149
+  - !ruby/object:ActiveModel::Attribute::FromDatabase
+    name: created_at
+    value_before_type_cast: 2023-07-21 17:49:46.899354000 Z
+  new_record: false
+  active_record_yaml_version: 2
+- !ruby/object:ConceptResult
+  concise_attributes:
+  - !ruby/object:ActiveModel::Attribute::FromDatabase
+    name: id
+    value_before_type_cast: 2768449191
+  - !ruby/object:ActiveModel::Attribute::FromDatabase
+    name: activity_session_id
+    value_before_type_cast: 193666915
+  - !ruby/object:ActiveModel::Attribute::FromDatabase
+    name: answer
+    value_before_type_cast: '"Sully responded swiftly to the emergency, since he had
+      to save 155 people''s lives."'
+  - !ruby/object:ActiveModel::Attribute::FromDatabase
+    name: attempt_number
+    value_before_type_cast: 4
+  - !ruby/object:ActiveModel::Attribute::FromDatabase
+    name: concept_id
+    value_before_type_cast: 482
+  - !ruby/object:ActiveModel::Attribute::FromDatabase
+    name: correct
+    value_before_type_cast: false
+  - !ruby/object:ActiveModel::Attribute::FromDatabase
+    name: extra_metadata
+    value_before_type_cast: '{"question_uid": "-LiJwDcMFyNf3omljXv-", "question_concept_uid":
+      "7H2IMZvq0VJ4Uvftyrw7Eg"}'
+  - !ruby/object:ActiveModel::Attribute::FromDatabase
+    name: question_number
+    value_before_type_cast: 5
+  - !ruby/object:ActiveModel::Attribute::FromDatabase
+    name: question_score
+    value_before_type_cast: 0.0
+  - !ruby/object:ActiveModel::Attribute::FromDatabase
+    name: concept_result_directions_id
+    value_before_type_cast: 14991
+  - !ruby/object:ActiveModel::Attribute::FromDatabase
+    name: concept_result_instructions_id
+  - !ruby/object:ActiveModel::Attribute::FromDatabase
+    name: concept_result_previous_feedback_id
+  - !ruby/object:ActiveModel::Attribute::FromDatabase
+    name: concept_result_prompt_id
+    value_before_type_cast: 132721
+  - !ruby/object:ActiveModel::Attribute::FromDatabase
+    name: concept_result_question_type_id
+    value_before_type_cast: 3149
+  - !ruby/object:ActiveModel::Attribute::FromDatabase
+    name: created_at
+    value_before_type_cast: 2023-07-21 17:49:46.898011000 Z
+  new_record: false
+  active_record_yaml_version: 2
+- !ruby/object:ConceptResult
+  concise_attributes:
+  - !ruby/object:ActiveModel::Attribute::FromDatabase
+    name: id
+    value_before_type_cast: 2768449190
+  - !ruby/object:ActiveModel::Attribute::FromDatabase
+    name: activity_session_id
+    value_before_type_cast: 193666915
+  - !ruby/object:ActiveModel::Attribute::FromDatabase
+    name: answer
+    value_before_type_cast: '"Since Sully responded swiftly to the emergency he had
+      to save 155 people''s lives."'
+  - !ruby/object:ActiveModel::Attribute::FromDatabase
+    name: attempt_number
+    value_before_type_cast: 2
+  - !ruby/object:ActiveModel::Attribute::FromDatabase
+    name: concept_id
+    value_before_type_cast: 482
+  - !ruby/object:ActiveModel::Attribute::FromDatabase
+    name: correct
+    value_before_type_cast: false
+  - !ruby/object:ActiveModel::Attribute::FromDatabase
+    name: extra_metadata
+    value_before_type_cast: '{"question_uid": "-LiJwDcMFyNf3omljXv-", "question_concept_uid":
+      "7H2IMZvq0VJ4Uvftyrw7Eg"}'
+  - !ruby/object:ActiveModel::Attribute::FromDatabase
+    name: question_number
+    value_before_type_cast: 5
+  - !ruby/object:ActiveModel::Attribute::FromDatabase
+    name: question_score
+    value_before_type_cast: 0.0
+  - !ruby/object:ActiveModel::Attribute::FromDatabase
+    name: concept_result_directions_id
+    value_before_type_cast: 14991
+  - !ruby/object:ActiveModel::Attribute::FromDatabase
+    name: concept_result_instructions_id
+  - !ruby/object:ActiveModel::Attribute::FromDatabase
+    name: concept_result_previous_feedback_id
+  - !ruby/object:ActiveModel::Attribute::FromDatabase
+    name: concept_result_prompt_id
+    value_before_type_cast: 132721
+  - !ruby/object:ActiveModel::Attribute::FromDatabase
+    name: concept_result_question_type_id
+    value_before_type_cast: 3149
+  - !ruby/object:ActiveModel::Attribute::FromDatabase
+    name: created_at
+    value_before_type_cast: 2023-07-21 17:49:46.889152000 Z
+  new_record: false
+  active_record_yaml_version: 2
+- !ruby/object:ConceptResult
+  concise_attributes:
+  - !ruby/object:ActiveModel::Attribute::FromDatabase
+    name: id
+    value_before_type_cast: 2768449189
+  - !ruby/object:ActiveModel::Attribute::FromDatabase
+    name: activity_session_id
+    value_before_type_cast: 193666915
+  - !ruby/object:ActiveModel::Attribute::FromDatabase
+    name: answer
+    value_before_type_cast: '"Sully responded swiftly to the emergency since he had
+      to save 155 people''s lives."'
+  - !ruby/object:ActiveModel::Attribute::FromDatabase
+    name: attempt_number
+    value_before_type_cast: 1
+  - !ruby/object:ActiveModel::Attribute::FromDatabase
+    name: concept_id
+    value_before_type_cast: 482
+  - !ruby/object:ActiveModel::Attribute::FromDatabase
+    name: correct
+    value_before_type_cast: false
+  - !ruby/object:ActiveModel::Attribute::FromDatabase
+    name: extra_metadata
+    value_before_type_cast: '{"question_uid": "-LiJwDcMFyNf3omljXv-", "question_concept_uid":
+      "7H2IMZvq0VJ4Uvftyrw7Eg"}'
+  - !ruby/object:ActiveModel::Attribute::FromDatabase
+    name: question_number
+    value_before_type_cast: 5
+  - !ruby/object:ActiveModel::Attribute::FromDatabase
+    name: question_score
+    value_before_type_cast: 0.0
+  - !ruby/object:ActiveModel::Attribute::FromDatabase
+    name: concept_result_directions_id
+    value_before_type_cast: 14991
+  - !ruby/object:ActiveModel::Attribute::FromDatabase
+    name: concept_result_instructions_id
+  - !ruby/object:ActiveModel::Attribute::FromDatabase
+    name: concept_result_previous_feedback_id
+  - !ruby/object:ActiveModel::Attribute::FromDatabase
+    name: concept_result_prompt_id
+    value_before_type_cast: 132721
+  - !ruby/object:ActiveModel::Attribute::FromDatabase
+    name: concept_result_question_type_id
+    value_before_type_cast: 3149
+  - !ruby/object:ActiveModel::Attribute::FromDatabase
+    name: created_at
+    value_before_type_cast: 2023-07-21 17:49:46.887450000 Z
+  new_record: false
+  active_record_yaml_version: 2
+- !ruby/object:ConceptResult
+  concise_attributes:
+  - !ruby/object:ActiveModel::Attribute::FromDatabase
+    name: id
+    value_before_type_cast: 2768449188
+  - !ruby/object:ActiveModel::Attribute::FromDatabase
+    name: activity_session_id
+    value_before_type_cast: 193666915
+  - !ruby/object:ActiveModel::Attribute::FromDatabase
+    name: answer
+    value_before_type_cast: '"Sully responded swiftly to the emergency, since he had
+      to save 155 people''s lives"'
+  - !ruby/object:ActiveModel::Attribute::FromDatabase
+    name: attempt_number
+    value_before_type_cast: 5
+  - !ruby/object:ActiveModel::Attribute::FromDatabase
+    name: concept_id
+    value_before_type_cast: 482
+  - !ruby/object:ActiveModel::Attribute::FromDatabase
+    name: correct
+    value_before_type_cast: false
+  - !ruby/object:ActiveModel::Attribute::FromDatabase
+    name: extra_metadata
+    value_before_type_cast: '{"question_uid": "-LiJwDcMFyNf3omljXv-", "question_concept_uid":
+      "7H2IMZvq0VJ4Uvftyrw7Eg"}'
+  - !ruby/object:ActiveModel::Attribute::FromDatabase
+    name: question_number
+    value_before_type_cast: 5
+  - !ruby/object:ActiveModel::Attribute::FromDatabase
+    name: question_score
+    value_before_type_cast: 0.0
+  - !ruby/object:ActiveModel::Attribute::FromDatabase
+    name: concept_result_directions_id
+    value_before_type_cast: 14991
+  - !ruby/object:ActiveModel::Attribute::FromDatabase
+    name: concept_result_instructions_id
+  - !ruby/object:ActiveModel::Attribute::FromDatabase
+    name: concept_result_previous_feedback_id
+    value_before_type_cast: 62019
+  - !ruby/object:ActiveModel::Attribute::FromDatabase
+    name: concept_result_prompt_id
+    value_before_type_cast: 132721
+  - !ruby/object:ActiveModel::Attribute::FromDatabase
+    name: concept_result_question_type_id
+    value_before_type_cast: 3149
+  - !ruby/object:ActiveModel::Attribute::FromDatabase
+    name: created_at
+    value_before_type_cast: 2023-07-21 17:49:46.884112000 Z
+  new_record: false
+  active_record_yaml_version: 2
+- !ruby/object:ConceptResult
+  concise_attributes:
+  - !ruby/object:ActiveModel::Attribute::FromDatabase
+    name: id
+    value_before_type_cast: 2768449187
+  - !ruby/object:ActiveModel::Attribute::FromDatabase
+    name: activity_session_id
+    value_before_type_cast: 193666915
+  - !ruby/object:ActiveModel::Attribute::FromDatabase
+    name: answer
+    value_before_type_cast: '"Sully the pilot had to land in the Hudson River because
+      the airport was too far away from the plane."'
+  - !ruby/object:ActiveModel::Attribute::FromDatabase
+    name: attempt_number
+    value_before_type_cast: 5
+  - !ruby/object:ActiveModel::Attribute::FromDatabase
+    name: concept_id
+    value_before_type_cast: 575
+  - !ruby/object:ActiveModel::Attribute::FromDatabase
+    name: correct
+    value_before_type_cast: false
+  - !ruby/object:ActiveModel::Attribute::FromDatabase
+    name: extra_metadata
+    value_before_type_cast: '{"question_uid": "-LiJtteCVmRsoJIGsIp_", "question_concept_uid":
+      "6gQZPREURQQAaSzpIt_EEw"}'
+  - !ruby/object:ActiveModel::Attribute::FromDatabase
+    name: question_number
+    value_before_type_cast: 4
+  - !ruby/object:ActiveModel::Attribute::FromDatabase
+    name: question_score
+    value_before_type_cast: 0.0
+  - !ruby/object:ActiveModel::Attribute::FromDatabase
+    name: concept_result_directions_id
+    value_before_type_cast: 14994
+  - !ruby/object:ActiveModel::Attribute::FromDatabase
+    name: concept_result_instructions_id
+  - !ruby/object:ActiveModel::Attribute::FromDatabase
+    name: concept_result_previous_feedback_id
+    value_before_type_cast: 101102
+  - !ruby/object:ActiveModel::Attribute::FromDatabase
+    name: concept_result_prompt_id
+    value_before_type_cast: 132720
+  - !ruby/object:ActiveModel::Attribute::FromDatabase
+    name: concept_result_question_type_id
+    value_before_type_cast: 3149
+  - !ruby/object:ActiveModel::Attribute::FromDatabase
+    name: created_at
+    value_before_type_cast: 2023-07-21 17:49:46.870639000 Z
+  new_record: false
+  active_record_yaml_version: 2
+- !ruby/object:ConceptResult
+  concise_attributes:
+  - !ruby/object:ActiveModel::Attribute::FromDatabase
+    name: id
+    value_before_type_cast: 2768449186
+  - !ruby/object:ActiveModel::Attribute::FromDatabase
+    name: activity_session_id
+    value_before_type_cast: 193666915
+  - !ruby/object:ActiveModel::Attribute::FromDatabase
+    name: answer
+    value_before_type_cast: '"Sully the pilot had to land in the Hudson River because
+      the airport was too far away."'
+  - !ruby/object:ActiveModel::Attribute::FromDatabase
+    name: attempt_number
+    value_before_type_cast: 4
+  - !ruby/object:ActiveModel::Attribute::FromDatabase
+    name: concept_id
+    value_before_type_cast: 544
+  - !ruby/object:ActiveModel::Attribute::FromDatabase
+    name: correct
+    value_before_type_cast: false
+  - !ruby/object:ActiveModel::Attribute::FromDatabase
+    name: extra_metadata
+    value_before_type_cast: '{"question_uid": "-LiJtteCVmRsoJIGsIp_", "question_concept_uid":
+      "6gQZPREURQQAaSzpIt_EEw"}'
+  - !ruby/object:ActiveModel::Attribute::FromDatabase
+    name: question_number
+    value_before_type_cast: 4
+  - !ruby/object:ActiveModel::Attribute::FromDatabase
+    name: question_score
+    value_before_type_cast: 0.0
+  - !ruby/object:ActiveModel::Attribute::FromDatabase
+    name: concept_result_directions_id
+    value_before_type_cast: 14994
+  - !ruby/object:ActiveModel::Attribute::FromDatabase
+    name: concept_result_instructions_id
+  - !ruby/object:ActiveModel::Attribute::FromDatabase
+    name: concept_result_previous_feedback_id
+    value_before_type_cast: 264977
+  - !ruby/object:ActiveModel::Attribute::FromDatabase
+    name: concept_result_prompt_id
+    value_before_type_cast: 132720
+  - !ruby/object:ActiveModel::Attribute::FromDatabase
+    name: concept_result_question_type_id
+    value_before_type_cast: 3149
+  - !ruby/object:ActiveModel::Attribute::FromDatabase
+    name: created_at
+    value_before_type_cast: 2023-07-21 17:49:46.847822000 Z
+  new_record: false
+  active_record_yaml_version: 2
+- !ruby/object:ConceptResult
+  concise_attributes:
+  - !ruby/object:ActiveModel::Attribute::FromDatabase
+    name: id
+    value_before_type_cast: 2768449185
+  - !ruby/object:ActiveModel::Attribute::FromDatabase
+    name: activity_session_id
+    value_before_type_cast: 193666915
+  - !ruby/object:ActiveModel::Attribute::FromDatabase
+    name: answer
+    value_before_type_cast: '"The pilot had to land in the Hudson River because the
+      plane was too far away."'
+  - !ruby/object:ActiveModel::Attribute::FromDatabase
+    name: attempt_number
+    value_before_type_cast: 1
+  - !ruby/object:ActiveModel::Attribute::FromDatabase
+    name: concept_id
+    value_before_type_cast: 544
+  - !ruby/object:ActiveModel::Attribute::FromDatabase
+    name: correct
+    value_before_type_cast: false
+  - !ruby/object:ActiveModel::Attribute::FromDatabase
+    name: extra_metadata
+    value_before_type_cast: '{"question_uid": "-LiJtteCVmRsoJIGsIp_", "question_concept_uid":
+      "6gQZPREURQQAaSzpIt_EEw"}'
+  - !ruby/object:ActiveModel::Attribute::FromDatabase
+    name: question_number
+    value_before_type_cast: 4
+  - !ruby/object:ActiveModel::Attribute::FromDatabase
+    name: question_score
+    value_before_type_cast: 0.0
+  - !ruby/object:ActiveModel::Attribute::FromDatabase
+    name: concept_result_directions_id
+    value_before_type_cast: 14994
+  - !ruby/object:ActiveModel::Attribute::FromDatabase
+    name: concept_result_instructions_id
+  - !ruby/object:ActiveModel::Attribute::FromDatabase
+    name: concept_result_previous_feedback_id
+  - !ruby/object:ActiveModel::Attribute::FromDatabase
+    name: concept_result_prompt_id
+    value_before_type_cast: 132720
+  - !ruby/object:ActiveModel::Attribute::FromDatabase
+    name: concept_result_question_type_id
+    value_before_type_cast: 3149
+  - !ruby/object:ActiveModel::Attribute::FromDatabase
+    name: created_at
+    value_before_type_cast: 2023-07-21 17:49:46.846934000 Z
+  new_record: false
+  active_record_yaml_version: 2
+- !ruby/object:ConceptResult
+  concise_attributes:
+  - !ruby/object:ActiveModel::Attribute::FromDatabase
+    name: id
+    value_before_type_cast: 2768449184
+  - !ruby/object:ActiveModel::Attribute::FromDatabase
+    name: activity_session_id
+    value_before_type_cast: 193666915
+  - !ruby/object:ActiveModel::Attribute::FromDatabase
+    name: answer
+    value_before_type_cast: '"Sully had to land in the Hudson River because the airport
+      was too far away."'
+  - !ruby/object:ActiveModel::Attribute::FromDatabase
+    name: attempt_number
+    value_before_type_cast: 3
+  - !ruby/object:ActiveModel::Attribute::FromDatabase
+    name: concept_id
+    value_before_type_cast: 544
+  - !ruby/object:ActiveModel::Attribute::FromDatabase
+    name: correct
+    value_before_type_cast: false
+  - !ruby/object:ActiveModel::Attribute::FromDatabase
+    name: extra_metadata
+    value_before_type_cast: '{"question_uid": "-LiJtteCVmRsoJIGsIp_", "question_concept_uid":
+      "6gQZPREURQQAaSzpIt_EEw"}'
+  - !ruby/object:ActiveModel::Attribute::FromDatabase
+    name: question_number
+    value_before_type_cast: 4
+  - !ruby/object:ActiveModel::Attribute::FromDatabase
+    name: question_score
+    value_before_type_cast: 0.0
+  - !ruby/object:ActiveModel::Attribute::FromDatabase
+    name: concept_result_directions_id
+    value_before_type_cast: 14994
+  - !ruby/object:ActiveModel::Attribute::FromDatabase
+    name: concept_result_instructions_id
+  - !ruby/object:ActiveModel::Attribute::FromDatabase
+    name: concept_result_previous_feedback_id
+    value_before_type_cast: 270197
+  - !ruby/object:ActiveModel::Attribute::FromDatabase
+    name: concept_result_prompt_id
+    value_before_type_cast: 132720
+  - !ruby/object:ActiveModel::Attribute::FromDatabase
+    name: concept_result_question_type_id
+    value_before_type_cast: 3149
+  - !ruby/object:ActiveModel::Attribute::FromDatabase
+    name: created_at
+    value_before_type_cast: 2023-07-21 17:49:46.845954000 Z
+  new_record: false
+  active_record_yaml_version: 2
+- !ruby/object:ConceptResult
+  concise_attributes:
+  - !ruby/object:ActiveModel::Attribute::FromDatabase
+    name: id
+    value_before_type_cast: 2768449183
+  - !ruby/object:ActiveModel::Attribute::FromDatabase
+    name: activity_session_id
+    value_before_type_cast: 193666915
+  - !ruby/object:ActiveModel::Attribute::FromDatabase
+    name: answer
+    value_before_type_cast: '"The pilot had to land in the Hudson River because the
+      airport was too far away."'
+  - !ruby/object:ActiveModel::Attribute::FromDatabase
+    name: attempt_number
+    value_before_type_cast: 2
+  - !ruby/object:ActiveModel::Attribute::FromDatabase
+    name: concept_id
+    value_before_type_cast: 544
+  - !ruby/object:ActiveModel::Attribute::FromDatabase
+    name: correct
+    value_before_type_cast: false
+  - !ruby/object:ActiveModel::Attribute::FromDatabase
+    name: extra_metadata
+    value_before_type_cast: '{"question_uid": "-LiJtteCVmRsoJIGsIp_", "question_concept_uid":
+      "6gQZPREURQQAaSzpIt_EEw"}'
+  - !ruby/object:ActiveModel::Attribute::FromDatabase
+    name: question_number
+    value_before_type_cast: 4
+  - !ruby/object:ActiveModel::Attribute::FromDatabase
+    name: question_score
+    value_before_type_cast: 0.0
+  - !ruby/object:ActiveModel::Attribute::FromDatabase
+    name: concept_result_directions_id
+    value_before_type_cast: 14994
+  - !ruby/object:ActiveModel::Attribute::FromDatabase
+    name: concept_result_instructions_id
+  - !ruby/object:ActiveModel::Attribute::FromDatabase
+    name: concept_result_previous_feedback_id
+    value_before_type_cast: 270651
+  - !ruby/object:ActiveModel::Attribute::FromDatabase
+    name: concept_result_prompt_id
+    value_before_type_cast: 132720
+  - !ruby/object:ActiveModel::Attribute::FromDatabase
+    name: concept_result_question_type_id
+    value_before_type_cast: 3149
+  - !ruby/object:ActiveModel::Attribute::FromDatabase
+    name: created_at
+    value_before_type_cast: 2023-07-21 17:49:46.847289000 Z
+  new_record: false
+  active_record_yaml_version: 2
+- !ruby/object:ConceptResult
+  concise_attributes:
+  - !ruby/object:ActiveModel::Attribute::FromDatabase
+    name: id
+    value_before_type_cast: 2768449182
+  - !ruby/object:ActiveModel::Attribute::FromDatabase
+    name: activity_session_id
+    value_before_type_cast: 193666915
+  - !ruby/object:ActiveModel::Attribute::FromDatabase
+    name: answer
+    value_before_type_cast: '"the plane needed to make an emergency landing since
+      the engines would not restart."'
+  - !ruby/object:ActiveModel::Attribute::FromDatabase
+    name: attempt_number
+    value_before_type_cast: 5
+  - !ruby/object:ActiveModel::Attribute::FromDatabase
+    name: concept_id
+    value_before_type_cast: 524
+  - !ruby/object:ActiveModel::Attribute::FromDatabase
+    name: correct
+    value_before_type_cast: false
+  - !ruby/object:ActiveModel::Attribute::FromDatabase
+    name: extra_metadata
+    value_before_type_cast: '{"question_uid": "4638e958-a1fe-4001-a912-881cdd91eebf",
+      "question_concept_uid": "7H2IMZvq0VJ4Uvftyrw7Eg"}'
+  - !ruby/object:ActiveModel::Attribute::FromDatabase
+    name: question_number
+    value_before_type_cast: 3
+  - !ruby/object:ActiveModel::Attribute::FromDatabase
+    name: question_score
+    value_before_type_cast: 0.0
+  - !ruby/object:ActiveModel::Attribute::FromDatabase
+    name: concept_result_directions_id
+    value_before_type_cast: 14991
+  - !ruby/object:ActiveModel::Attribute::FromDatabase
+    name: concept_result_instructions_id
+  - !ruby/object:ActiveModel::Attribute::FromDatabase
+    name: concept_result_previous_feedback_id
+    value_before_type_cast: 62019
+  - !ruby/object:ActiveModel::Attribute::FromDatabase
+    name: concept_result_prompt_id
+    value_before_type_cast: 132719
+  - !ruby/object:ActiveModel::Attribute::FromDatabase
+    name: concept_result_question_type_id
+    value_before_type_cast: 3149
+  - !ruby/object:ActiveModel::Attribute::FromDatabase
+    name: created_at
+    value_before_type_cast: 2023-07-21 17:49:46.844123000 Z
+  new_record: false
+  active_record_yaml_version: 2
+- !ruby/object:ConceptResult
+  concise_attributes:
+  - !ruby/object:ActiveModel::Attribute::FromDatabase
+    name: id
+    value_before_type_cast: 2768449181
+  - !ruby/object:ActiveModel::Attribute::FromDatabase
+    name: activity_session_id
+    value_before_type_cast: 193666915
+  - !ruby/object:ActiveModel::Attribute::FromDatabase
+    name: answer
+    value_before_type_cast: '"us airways flight 1549 is known as the miracle on the
+      hudson, and all of the plane''s passengers survived an emergency landing in
+      the hudson river."'
+  - !ruby/object:ActiveModel::Attribute::FromDatabase
+    name: attempt_number
+    value_before_type_cast: 1
+  - !ruby/object:ActiveModel::Attribute::FromDatabase
+    name: concept_id
+    value_before_type_cast: 544
+  - !ruby/object:ActiveModel::Attribute::FromDatabase
+    name: correct
+    value_before_type_cast: false
+  - !ruby/object:ActiveModel::Attribute::FromDatabase
+    name: extra_metadata
+    value_before_type_cast: '{"question_uid": "-LiJsX9US7PtcW2CME3s", "question_concept_uid":
+      "6gQZPREURQQAaSzpIt_EEw"}'
+  - !ruby/object:ActiveModel::Attribute::FromDatabase
+    name: question_number
+    value_before_type_cast: 1
+  - !ruby/object:ActiveModel::Attribute::FromDatabase
+    name: question_score
+    value_before_type_cast: 0.0
+  - !ruby/object:ActiveModel::Attribute::FromDatabase
+    name: concept_result_directions_id
+    value_before_type_cast: 14994
+  - !ruby/object:ActiveModel::Attribute::FromDatabase
+    name: concept_result_instructions_id
+  - !ruby/object:ActiveModel::Attribute::FromDatabase
+    name: concept_result_previous_feedback_id
+  - !ruby/object:ActiveModel::Attribute::FromDatabase
+    name: concept_result_prompt_id
+    value_before_type_cast: 132717
+  - !ruby/object:ActiveModel::Attribute::FromDatabase
+    name: concept_result_question_type_id
+    value_before_type_cast: 3149
+  - !ruby/object:ActiveModel::Attribute::FromDatabase
+    name: created_at
+    value_before_type_cast: 2023-07-21 17:49:46.838250000 Z
+  new_record: false
+  active_record_yaml_version: 2
+- !ruby/object:ConceptResult
+  concise_attributes:
+  - !ruby/object:ActiveModel::Attribute::FromDatabase
+    name: id
+    value_before_type_cast: 2768449180
+  - !ruby/object:ActiveModel::Attribute::FromDatabase
+    name: activity_session_id
+    value_before_type_cast: 193666915
+  - !ruby/object:ActiveModel::Attribute::FromDatabase
+    name: answer
+    value_before_type_cast: '"the plane needed to make an emergency landing, since
+      the engines would not restart."'
+  - !ruby/object:ActiveModel::Attribute::FromDatabase
+    name: attempt_number
+    value_before_type_cast: 4
+  - !ruby/object:ActiveModel::Attribute::FromDatabase
+    name: concept_id
+    value_before_type_cast: 482
+  - !ruby/object:ActiveModel::Attribute::FromDatabase
+    name: correct
+    value_before_type_cast: false
+  - !ruby/object:ActiveModel::Attribute::FromDatabase
+    name: extra_metadata
+    value_before_type_cast: '{"question_uid": "4638e958-a1fe-4001-a912-881cdd91eebf",
+      "question_concept_uid": "7H2IMZvq0VJ4Uvftyrw7Eg"}'
+  - !ruby/object:ActiveModel::Attribute::FromDatabase
+    name: question_number
+    value_before_type_cast: 3
+  - !ruby/object:ActiveModel::Attribute::FromDatabase
+    name: question_score
+    value_before_type_cast: 0.0
+  - !ruby/object:ActiveModel::Attribute::FromDatabase
+    name: concept_result_directions_id
+    value_before_type_cast: 14991
+  - !ruby/object:ActiveModel::Attribute::FromDatabase
+    name: concept_result_instructions_id
+  - !ruby/object:ActiveModel::Attribute::FromDatabase
+    name: concept_result_previous_feedback_id
+    value_before_type_cast: 63920
+  - !ruby/object:ActiveModel::Attribute::FromDatabase
+    name: concept_result_prompt_id
+    value_before_type_cast: 132719
+  - !ruby/object:ActiveModel::Attribute::FromDatabase
+    name: concept_result_question_type_id
+    value_before_type_cast: 3149
+  - !ruby/object:ActiveModel::Attribute::FromDatabase
+    name: created_at
+    value_before_type_cast: 2023-07-21 17:49:46.836846000 Z
+  new_record: false
+  active_record_yaml_version: 2
+- !ruby/object:ConceptResult
+  concise_attributes:
+  - !ruby/object:ActiveModel::Attribute::FromDatabase
+    name: id
+    value_before_type_cast: 2768449179
+  - !ruby/object:ActiveModel::Attribute::FromDatabase
+    name: activity_session_id
+    value_before_type_cast: 193666915
+  - !ruby/object:ActiveModel::Attribute::FromDatabase
+    name: answer
+    value_before_type_cast: '"When a flock of canda geese flwe at the plane nd struck
+      the engines, both of the airplane''s engines suddenly stopped working."'
+  - !ruby/object:ActiveModel::Attribute::FromDatabase
+    name: attempt_number
+    value_before_type_cast: 1
+  - !ruby/object:ActiveModel::Attribute::FromDatabase
+    name: concept_id
+    value_before_type_cast: 544
+  - !ruby/object:ActiveModel::Attribute::FromDatabase
+    name: correct
+    value_before_type_cast: false
+  - !ruby/object:ActiveModel::Attribute::FromDatabase
+    name: extra_metadata
+    value_before_type_cast: '{"question_uid": "-LiJt9R2vffc5tdKiRkC", "question_concept_uid":
+      "6gQZPREURQQAaSzpIt_EEw"}'
+  - !ruby/object:ActiveModel::Attribute::FromDatabase
+    name: question_number
+    value_before_type_cast: 2
+  - !ruby/object:ActiveModel::Attribute::FromDatabase
+    name: question_score
+    value_before_type_cast: 1.0
+  - !ruby/object:ActiveModel::Attribute::FromDatabase
+    name: concept_result_directions_id
+    value_before_type_cast: 14994
+  - !ruby/object:ActiveModel::Attribute::FromDatabase
+    name: concept_result_instructions_id
+  - !ruby/object:ActiveModel::Attribute::FromDatabase
+    name: concept_result_previous_feedback_id
+  - !ruby/object:ActiveModel::Attribute::FromDatabase
+    name: concept_result_prompt_id
+    value_before_type_cast: 132718
+  - !ruby/object:ActiveModel::Attribute::FromDatabase
+    name: concept_result_question_type_id
+    value_before_type_cast: 3149
+  - !ruby/object:ActiveModel::Attribute::FromDatabase
+    name: created_at
+    value_before_type_cast: 2023-07-21 17:49:46.835620000 Z
+  new_record: false
+  active_record_yaml_version: 2
+- !ruby/object:ConceptResult
+  concise_attributes:
+  - !ruby/object:ActiveModel::Attribute::FromDatabase
+    name: id
+    value_before_type_cast: 2768449178
+  - !ruby/object:ActiveModel::Attribute::FromDatabase
+    name: activity_session_id
+    value_before_type_cast: 193666915
+  - !ruby/object:ActiveModel::Attribute::FromDatabase
+    name: answer
+    value_before_type_cast: '"Because the engines would not restart, the plane needed
+      to make an emergency landing."'
+  - !ruby/object:ActiveModel::Attribute::FromDatabase
+    name: attempt_number
+    value_before_type_cast: 1
+  - !ruby/object:ActiveModel::Attribute::FromDatabase
+    name: concept_id
+    value_before_type_cast: 544
+  - !ruby/object:ActiveModel::Attribute::FromDatabase
+    name: correct
+    value_before_type_cast: false
+  - !ruby/object:ActiveModel::Attribute::FromDatabase
+    name: extra_metadata
+    value_before_type_cast: '{"question_uid": "4638e958-a1fe-4001-a912-881cdd91eebf",
+      "question_concept_uid": "7H2IMZvq0VJ4Uvftyrw7Eg"}'
+  - !ruby/object:ActiveModel::Attribute::FromDatabase
+    name: question_number
+    value_before_type_cast: 3
+  - !ruby/object:ActiveModel::Attribute::FromDatabase
+    name: question_score
+    value_before_type_cast: 0.0
+  - !ruby/object:ActiveModel::Attribute::FromDatabase
+    name: concept_result_directions_id
+    value_before_type_cast: 14991
+  - !ruby/object:ActiveModel::Attribute::FromDatabase
+    name: concept_result_instructions_id
+  - !ruby/object:ActiveModel::Attribute::FromDatabase
+    name: concept_result_previous_feedback_id
+  - !ruby/object:ActiveModel::Attribute::FromDatabase
+    name: concept_result_prompt_id
+    value_before_type_cast: 132719
+  - !ruby/object:ActiveModel::Attribute::FromDatabase
+    name: concept_result_question_type_id
+    value_before_type_cast: 3149
+  - !ruby/object:ActiveModel::Attribute::FromDatabase
+    name: created_at
+    value_before_type_cast: 2023-07-21 17:49:46.815894000 Z
+  new_record: false
+  active_record_yaml_version: 2
+- !ruby/object:ConceptResult
+  concise_attributes:
+  - !ruby/object:ActiveModel::Attribute::FromDatabase
+    name: id
+    value_before_type_cast: 2768449177
+  - !ruby/object:ActiveModel::Attribute::FromDatabase
+    name: activity_session_id
+    value_before_type_cast: 193666915
+  - !ruby/object:ActiveModel::Attribute::FromDatabase
+    name: answer
+    value_before_type_cast: '"Since the plane needed to make an emergency landing,
+      the engines would not restart."'
+  - !ruby/object:ActiveModel::Attribute::FromDatabase
+    name: attempt_number
+    value_before_type_cast: 3
+  - !ruby/object:ActiveModel::Attribute::FromDatabase
+    name: concept_id
+    value_before_type_cast: 396
+  - !ruby/object:ActiveModel::Attribute::FromDatabase
+    name: correct
+    value_before_type_cast: false
+  - !ruby/object:ActiveModel::Attribute::FromDatabase
+    name: extra_metadata
+    value_before_type_cast: '{"question_uid": "4638e958-a1fe-4001-a912-881cdd91eebf",
+      "question_concept_uid": "7H2IMZvq0VJ4Uvftyrw7Eg"}'
+  - !ruby/object:ActiveModel::Attribute::FromDatabase
+    name: question_number
+    value_before_type_cast: 3
+  - !ruby/object:ActiveModel::Attribute::FromDatabase
+    name: question_score
+    value_before_type_cast: 0.0
+  - !ruby/object:ActiveModel::Attribute::FromDatabase
+    name: concept_result_directions_id
+    value_before_type_cast: 14991
+  - !ruby/object:ActiveModel::Attribute::FromDatabase
+    name: concept_result_instructions_id
+  - !ruby/object:ActiveModel::Attribute::FromDatabase
+    name: concept_result_previous_feedback_id
+    value_before_type_cast: 63920
+  - !ruby/object:ActiveModel::Attribute::FromDatabase
+    name: concept_result_prompt_id
+    value_before_type_cast: 132719
+  - !ruby/object:ActiveModel::Attribute::FromDatabase
+    name: concept_result_question_type_id
+    value_before_type_cast: 3149
+  - !ruby/object:ActiveModel::Attribute::FromDatabase
+    name: created_at
+    value_before_type_cast: 2023-07-21 17:49:46.811793000 Z
+  new_record: false
+  active_record_yaml_version: 2
+- !ruby/object:ConceptResult
+  concise_attributes:
+  - !ruby/object:ActiveModel::Attribute::FromDatabase
+    name: id
+    value_before_type_cast: 2768449176
+  - !ruby/object:ActiveModel::Attribute::FromDatabase
+    name: activity_session_id
+    value_before_type_cast: 193666915
+  - !ruby/object:ActiveModel::Attribute::FromDatabase
+    name: answer
+    value_before_type_cast: '"because us airways flight 1549 is known as the miracle
+      on the hudson, and all of the plane''s passengers survived an emergency landing
+      in the hudson river."'
+  - !ruby/object:ActiveModel::Attribute::FromDatabase
+    name: attempt_number
+    value_before_type_cast: 2
+  - !ruby/object:ActiveModel::Attribute::FromDatabase
+    name: concept_id
+    value_before_type_cast: 301
+  - !ruby/object:ActiveModel::Attribute::FromDatabase
+    name: correct
+    value_before_type_cast: false
+  - !ruby/object:ActiveModel::Attribute::FromDatabase
+    name: extra_metadata
+    value_before_type_cast: '{"question_uid": "-LiJsX9US7PtcW2CME3s", "question_concept_uid":
+      "6gQZPREURQQAaSzpIt_EEw"}'
+  - !ruby/object:ActiveModel::Attribute::FromDatabase
+    name: question_number
+    value_before_type_cast: 1
+  - !ruby/object:ActiveModel::Attribute::FromDatabase
+    name: question_score
+    value_before_type_cast: 0.0
+  - !ruby/object:ActiveModel::Attribute::FromDatabase
+    name: concept_result_directions_id
+    value_before_type_cast: 14994
+  - !ruby/object:ActiveModel::Attribute::FromDatabase
+    name: concept_result_instructions_id
+  - !ruby/object:ActiveModel::Attribute::FromDatabase
+    name: concept_result_previous_feedback_id
+    value_before_type_cast: 61960
+  - !ruby/object:ActiveModel::Attribute::FromDatabase
+    name: concept_result_prompt_id
+    value_before_type_cast: 132717
+  - !ruby/object:ActiveModel::Attribute::FromDatabase
+    name: concept_result_question_type_id
+    value_before_type_cast: 3149
+  - !ruby/object:ActiveModel::Attribute::FromDatabase
+    name: created_at
+    value_before_type_cast: 2023-07-21 17:49:46.808019000 Z
+  new_record: false
+  active_record_yaml_version: 2
+- !ruby/object:ConceptResult
+  concise_attributes:
+  - !ruby/object:ActiveModel::Attribute::FromDatabase
+    name: id
+    value_before_type_cast: 2768449175
+  - !ruby/object:ActiveModel::Attribute::FromDatabase
+    name: activity_session_id
+    value_before_type_cast: 193666915
+  - !ruby/object:ActiveModel::Attribute::FromDatabase
+    name: answer
+    value_before_type_cast: '"Because a flock of Canada geese flew at the plane and
+      struck the engines, both of the airplane''s engines suddenly stopped working."'
+  - !ruby/object:ActiveModel::Attribute::FromDatabase
+    name: attempt_number
+    value_before_type_cast: 4
+  - !ruby/object:ActiveModel::Attribute::FromDatabase
+    name: concept_id
+    value_before_type_cast: 483
+  - !ruby/object:ActiveModel::Attribute::FromDatabase
+    name: correct
+    value_before_type_cast: true
+  - !ruby/object:ActiveModel::Attribute::FromDatabase
+    name: extra_metadata
+    value_before_type_cast: '{"question_uid": "-LiJt9R2vffc5tdKiRkC", "question_concept_uid":
+      "6gQZPREURQQAaSzpIt_EEw"}'
+  - !ruby/object:ActiveModel::Attribute::FromDatabase
+    name: question_number
+    value_before_type_cast: 2
+  - !ruby/object:ActiveModel::Attribute::FromDatabase
+    name: question_score
+    value_before_type_cast: 1.0
+  - !ruby/object:ActiveModel::Attribute::FromDatabase
+    name: concept_result_directions_id
+    value_before_type_cast: 14994
+  - !ruby/object:ActiveModel::Attribute::FromDatabase
+    name: concept_result_instructions_id
+  - !ruby/object:ActiveModel::Attribute::FromDatabase
+    name: concept_result_previous_feedback_id
+    value_before_type_cast: 60320
+  - !ruby/object:ActiveModel::Attribute::FromDatabase
+    name: concept_result_prompt_id
+    value_before_type_cast: 132718
+  - !ruby/object:ActiveModel::Attribute::FromDatabase
+    name: concept_result_question_type_id
+    value_before_type_cast: 3149
+  - !ruby/object:ActiveModel::Attribute::FromDatabase
+    name: created_at
+    value_before_type_cast: 2023-07-21 17:49:46.807698000 Z
+  new_record: false
+  active_record_yaml_version: 2
+- !ruby/object:ConceptResult
+  concise_attributes:
+  - !ruby/object:ActiveModel::Attribute::FromDatabase
+    name: id
+    value_before_type_cast: 2768449174
+  - !ruby/object:ActiveModel::Attribute::FromDatabase
+    name: activity_session_id
+    value_before_type_cast: 193666915
+  - !ruby/object:ActiveModel::Attribute::FromDatabase
+    name: answer
+    value_before_type_cast: '"Because the engines would not restart, since the plane
+      needed to make an emergency landing."'
+  - !ruby/object:ActiveModel::Attribute::FromDatabase
+    name: attempt_number
+    value_before_type_cast: 2
+  - !ruby/object:ActiveModel::Attribute::FromDatabase
+    name: concept_id
+    value_before_type_cast: 396
+  - !ruby/object:ActiveModel::Attribute::FromDatabase
+    name: correct
+    value_before_type_cast: false
+  - !ruby/object:ActiveModel::Attribute::FromDatabase
+    name: extra_metadata
+    value_before_type_cast: '{"question_uid": "4638e958-a1fe-4001-a912-881cdd91eebf",
+      "question_concept_uid": "7H2IMZvq0VJ4Uvftyrw7Eg"}'
+  - !ruby/object:ActiveModel::Attribute::FromDatabase
+    name: question_number
+    value_before_type_cast: 3
+  - !ruby/object:ActiveModel::Attribute::FromDatabase
+    name: question_score
+    value_before_type_cast: 0.0
+  - !ruby/object:ActiveModel::Attribute::FromDatabase
+    name: concept_result_directions_id
+    value_before_type_cast: 14991
+  - !ruby/object:ActiveModel::Attribute::FromDatabase
+    name: concept_result_instructions_id
+  - !ruby/object:ActiveModel::Attribute::FromDatabase
+    name: concept_result_previous_feedback_id
+    value_before_type_cast: 61960
+  - !ruby/object:ActiveModel::Attribute::FromDatabase
+    name: concept_result_prompt_id
+    value_before_type_cast: 132719
+  - !ruby/object:ActiveModel::Attribute::FromDatabase
+    name: concept_result_question_type_id
+    value_before_type_cast: 3149
+  - !ruby/object:ActiveModel::Attribute::FromDatabase
+    name: created_at
+    value_before_type_cast: 2023-07-21 17:49:46.804509000 Z
+  new_record: false
+  active_record_yaml_version: 2
+- !ruby/object:ConceptResult
+  concise_attributes:
+  - !ruby/object:ActiveModel::Attribute::FromDatabase
+    name: id
+    value_before_type_cast: 2768449173
+  - !ruby/object:ActiveModel::Attribute::FromDatabase
+    name: activity_session_id
+    value_before_type_cast: 193666915
+  - !ruby/object:ActiveModel::Attribute::FromDatabase
+    name: answer
+    value_before_type_cast: '"Because a flock of Canada geese flew at the plane and
+      struck the engines, both of the airplane''s engines suddely stopped working."'
+  - !ruby/object:ActiveModel::Attribute::FromDatabase
+    name: attempt_number
+    value_before_type_cast: 3
+  - !ruby/object:ActiveModel::Attribute::FromDatabase
+    name: concept_id
+    value_before_type_cast: 529
+  - !ruby/object:ActiveModel::Attribute::FromDatabase
+    name: correct
+    value_before_type_cast: false
+  - !ruby/object:ActiveModel::Attribute::FromDatabase
+    name: extra_metadata
+    value_before_type_cast: '{"question_uid": "-LiJt9R2vffc5tdKiRkC", "question_concept_uid":
+      "6gQZPREURQQAaSzpIt_EEw"}'
+  - !ruby/object:ActiveModel::Attribute::FromDatabase
+    name: question_number
+    value_before_type_cast: 2
+  - !ruby/object:ActiveModel::Attribute::FromDatabase
+    name: question_score
+    value_before_type_cast: 1.0
+  - !ruby/object:ActiveModel::Attribute::FromDatabase
+    name: concept_result_directions_id
+    value_before_type_cast: 14994
+  - !ruby/object:ActiveModel::Attribute::FromDatabase
+    name: concept_result_instructions_id
+  - !ruby/object:ActiveModel::Attribute::FromDatabase
+    name: concept_result_previous_feedback_id
+    value_before_type_cast: 260658
+  - !ruby/object:ActiveModel::Attribute::FromDatabase
+    name: concept_result_prompt_id
+    value_before_type_cast: 132718
+  - !ruby/object:ActiveModel::Attribute::FromDatabase
+    name: concept_result_question_type_id
+    value_before_type_cast: 3149
+  - !ruby/object:ActiveModel::Attribute::FromDatabase
+    name: created_at
+    value_before_type_cast: 2023-07-21 17:49:46.802953000 Z
+  new_record: false
+  active_record_yaml_version: 2
+- !ruby/object:ConceptResult
+  concise_attributes:
+  - !ruby/object:ActiveModel::Attribute::FromDatabase
+    name: id
+    value_before_type_cast: 2768449172
+  - !ruby/object:ActiveModel::Attribute::FromDatabase
+    name: activity_session_id
+    value_before_type_cast: 193666915
+  - !ruby/object:ActiveModel::Attribute::FromDatabase
+    name: answer
+    value_before_type_cast: '"Because a flock of Canada geese flew at the plane and
+      struck the engines, both of the airplane''s engines suddenly stopped working."'
+  - !ruby/object:ActiveModel::Attribute::FromDatabase
+    name: attempt_number
+    value_before_type_cast: 4
+  - !ruby/object:ActiveModel::Attribute::FromDatabase
+    name: concept_id
+    value_before_type_cast: 301
+  - !ruby/object:ActiveModel::Attribute::FromDatabase
+    name: correct
+    value_before_type_cast: true
+  - !ruby/object:ActiveModel::Attribute::FromDatabase
+    name: extra_metadata
+    value_before_type_cast: '{"question_uid": "-LiJt9R2vffc5tdKiRkC", "question_concept_uid":
+      "6gQZPREURQQAaSzpIt_EEw"}'
+  - !ruby/object:ActiveModel::Attribute::FromDatabase
+    name: question_number
+    value_before_type_cast: 2
+  - !ruby/object:ActiveModel::Attribute::FromDatabase
+    name: question_score
+    value_before_type_cast: 1.0
+  - !ruby/object:ActiveModel::Attribute::FromDatabase
+    name: concept_result_directions_id
+    value_before_type_cast: 14994
+  - !ruby/object:ActiveModel::Attribute::FromDatabase
+    name: concept_result_instructions_id
+  - !ruby/object:ActiveModel::Attribute::FromDatabase
+    name: concept_result_previous_feedback_id
+    value_before_type_cast: 60320
+  - !ruby/object:ActiveModel::Attribute::FromDatabase
+    name: concept_result_prompt_id
+    value_before_type_cast: 132718
+  - !ruby/object:ActiveModel::Attribute::FromDatabase
+    name: concept_result_question_type_id
+    value_before_type_cast: 3149
+  - !ruby/object:ActiveModel::Attribute::FromDatabase
+    name: created_at
+    value_before_type_cast: 2023-07-21 17:49:46.799409000 Z
+  new_record: false
+  active_record_yaml_version: 2
+- !ruby/object:ConceptResult
+  concise_attributes:
+  - !ruby/object:ActiveModel::Attribute::FromDatabase
+    name: id
+    value_before_type_cast: 2768449171
+  - !ruby/object:ActiveModel::Attribute::FromDatabase
+    name: activity_session_id
+    value_before_type_cast: 193666915
+  - !ruby/object:ActiveModel::Attribute::FromDatabase
+    name: answer
+    value_before_type_cast: '"A flock of canda geese flwe at the plane nd struck the
+      engines, because both of the airplane''s engines suddenly stopped working."'
+  - !ruby/object:ActiveModel::Attribute::FromDatabase
+    name: attempt_number
+    value_before_type_cast: 2
+  - !ruby/object:ActiveModel::Attribute::FromDatabase
+    name: concept_id
+    value_before_type_cast: 301
+  - !ruby/object:ActiveModel::Attribute::FromDatabase
+    name: correct
+    value_before_type_cast: false
+  - !ruby/object:ActiveModel::Attribute::FromDatabase
+    name: extra_metadata
+    value_before_type_cast: '{"question_uid": "-LiJt9R2vffc5tdKiRkC", "question_concept_uid":
+      "6gQZPREURQQAaSzpIt_EEw"}'
+  - !ruby/object:ActiveModel::Attribute::FromDatabase
+    name: question_number
+    value_before_type_cast: 2
+  - !ruby/object:ActiveModel::Attribute::FromDatabase
+    name: question_score
+    value_before_type_cast: 1.0
+  - !ruby/object:ActiveModel::Attribute::FromDatabase
+    name: concept_result_directions_id
+    value_before_type_cast: 14994
+  - !ruby/object:ActiveModel::Attribute::FromDatabase
+    name: concept_result_instructions_id
+  - !ruby/object:ActiveModel::Attribute::FromDatabase
+    name: concept_result_previous_feedback_id
+    value_before_type_cast: 61960
+  - !ruby/object:ActiveModel::Attribute::FromDatabase
+    name: concept_result_prompt_id
+    value_before_type_cast: 132718
+  - !ruby/object:ActiveModel::Attribute::FromDatabase
+    name: concept_result_question_type_id
+    value_before_type_cast: 3149
+  - !ruby/object:ActiveModel::Attribute::FromDatabase
+    name: created_at
+    value_before_type_cast: 2023-07-21 17:49:46.770678000 Z
+  new_record: false
+  active_record_yaml_version: 2
+- !ruby/object:ConceptResult
+  concise_attributes:
+  - !ruby/object:ActiveModel::Attribute::FromDatabase
+    name: id
+    value_before_type_cast: 2768449170
+  - !ruby/object:ActiveModel::Attribute::FromDatabase
+    name: activity_session_id
+    value_before_type_cast: 193666915
+  - !ruby/object:ActiveModel::Attribute::FromDatabase
+    name: answer
+    value_before_type_cast: '"Because all of the plane''s passengers survived an emergency
+      landing in the Hudson River, US Airways Flight 1549 is known as the Miracle
+      on the Hudson."'
+  - !ruby/object:ActiveModel::Attribute::FromDatabase
+    name: attempt_number
+    value_before_type_cast: 5
+  - !ruby/object:ActiveModel::Attribute::FromDatabase
+    name: concept_id
+    value_before_type_cast: 540
+  - !ruby/object:ActiveModel::Attribute::FromDatabase
+    name: correct
+    value_before_type_cast: false
+  - !ruby/object:ActiveModel::Attribute::FromDatabase
+    name: extra_metadata
+    value_before_type_cast: '{"question_uid": "-LiJsX9US7PtcW2CME3s", "question_concept_uid":
+      "6gQZPREURQQAaSzpIt_EEw"}'
+  - !ruby/object:ActiveModel::Attribute::FromDatabase
+    name: question_number
+    value_before_type_cast: 1
+  - !ruby/object:ActiveModel::Attribute::FromDatabase
+    name: question_score
+    value_before_type_cast: 0.0
+  - !ruby/object:ActiveModel::Attribute::FromDatabase
+    name: concept_result_directions_id
+    value_before_type_cast: 14994
+  - !ruby/object:ActiveModel::Attribute::FromDatabase
+    name: concept_result_instructions_id
+  - !ruby/object:ActiveModel::Attribute::FromDatabase
+    name: concept_result_previous_feedback_id
+    value_before_type_cast: 62198
+  - !ruby/object:ActiveModel::Attribute::FromDatabase
+    name: concept_result_prompt_id
+    value_before_type_cast: 132717
+  - !ruby/object:ActiveModel::Attribute::FromDatabase
+    name: concept_result_question_type_id
+    value_before_type_cast: 3149
+  - !ruby/object:ActiveModel::Attribute::FromDatabase
+    name: created_at
+    value_before_type_cast: 2023-07-21 17:49:46.769649000 Z
+  new_record: false
+  active_record_yaml_version: 2
+- !ruby/object:ConceptResult
+  concise_attributes:
+  - !ruby/object:ActiveModel::Attribute::FromDatabase
+    name: id
+    value_before_type_cast: 2768449169
+  - !ruby/object:ActiveModel::Attribute::FromDatabase
+    name: activity_session_id
+    value_before_type_cast: 193666915
+  - !ruby/object:ActiveModel::Attribute::FromDatabase
+    name: answer
+    value_before_type_cast: '"because all of the plane''s passengers survived an emergency
+      landing in the hudson river, us airways flight 1549 is known as the miracle
+      on the hudson."'
+  - !ruby/object:ActiveModel::Attribute::FromDatabase
+    name: attempt_number
+    value_before_type_cast: 3
+  - !ruby/object:ActiveModel::Attribute::FromDatabase
+    name: concept_id
+    value_before_type_cast: 540
+  - !ruby/object:ActiveModel::Attribute::FromDatabase
+    name: correct
+    value_before_type_cast: false
+  - !ruby/object:ActiveModel::Attribute::FromDatabase
+    name: extra_metadata
+    value_before_type_cast: '{"question_uid": "-LiJsX9US7PtcW2CME3s", "question_concept_uid":
+      "6gQZPREURQQAaSzpIt_EEw"}'
+  - !ruby/object:ActiveModel::Attribute::FromDatabase
+    name: question_number
+    value_before_type_cast: 1
+  - !ruby/object:ActiveModel::Attribute::FromDatabase
+    name: question_score
+    value_before_type_cast: 0.0
+  - !ruby/object:ActiveModel::Attribute::FromDatabase
+    name: concept_result_directions_id
+    value_before_type_cast: 14994
+  - !ruby/object:ActiveModel::Attribute::FromDatabase
+    name: concept_result_instructions_id
+  - !ruby/object:ActiveModel::Attribute::FromDatabase
+    name: concept_result_previous_feedback_id
+    value_before_type_cast: 210751
+  - !ruby/object:ActiveModel::Attribute::FromDatabase
+    name: concept_result_prompt_id
+    value_before_type_cast: 132717
+  - !ruby/object:ActiveModel::Attribute::FromDatabase
+    name: concept_result_question_type_id
+    value_before_type_cast: 3149
+  - !ruby/object:ActiveModel::Attribute::FromDatabase
+    name: created_at
+    value_before_type_cast: 2023-07-21 17:49:46.766795000 Z
+  new_record: false
+  active_record_yaml_version: 2
+- !ruby/object:ConceptResult
+  concise_attributes:
+  - !ruby/object:ActiveModel::Attribute::FromDatabase
+    name: id
+    value_before_type_cast: 2768449168
+  - !ruby/object:ActiveModel::Attribute::FromDatabase
+    name: activity_session_id
+    value_before_type_cast: 193666915
+  - !ruby/object:ActiveModel::Attribute::FromDatabase
+    name: answer
+    value_before_type_cast: '"because all of the plane''s passengers survived an emergency
+      landing in the hudson river, US Airways Flight 1549 is known as the miracle
+      on the hudson."'
+  - !ruby/object:ActiveModel::Attribute::FromDatabase
+    name: attempt_number
+    value_before_type_cast: 4
+  - !ruby/object:ActiveModel::Attribute::FromDatabase
+    name: concept_id
+    value_before_type_cast: 524
+  - !ruby/object:ActiveModel::Attribute::FromDatabase
+    name: correct
+    value_before_type_cast: false
+  - !ruby/object:ActiveModel::Attribute::FromDatabase
+    name: extra_metadata
+    value_before_type_cast: '{"question_uid": "-LiJsX9US7PtcW2CME3s", "question_concept_uid":
+      "6gQZPREURQQAaSzpIt_EEw"}'
+  - !ruby/object:ActiveModel::Attribute::FromDatabase
+    name: question_number
+    value_before_type_cast: 1
+  - !ruby/object:ActiveModel::Attribute::FromDatabase
+    name: question_score
+    value_before_type_cast: 0.0
+  - !ruby/object:ActiveModel::Attribute::FromDatabase
+    name: concept_result_directions_id
+    value_before_type_cast: 14994
+  - !ruby/object:ActiveModel::Attribute::FromDatabase
+    name: concept_result_instructions_id
+  - !ruby/object:ActiveModel::Attribute::FromDatabase
+    name: concept_result_previous_feedback_id
+    value_before_type_cast: 62198
+  - !ruby/object:ActiveModel::Attribute::FromDatabase
+    name: concept_result_prompt_id
+    value_before_type_cast: 132717
+  - !ruby/object:ActiveModel::Attribute::FromDatabase
+    name: concept_result_question_type_id
+    value_before_type_cast: 3149
+  - !ruby/object:ActiveModel::Attribute::FromDatabase
+    name: created_at
+    value_before_type_cast: 2023-07-21 17:49:46.763689000 Z
+  new_record: false
+  active_record_yaml_version: 2
+- !ruby/object:ConceptResult
+  concise_attributes:
+  - !ruby/object:ActiveModel::Attribute::FromDatabase
+    name: id
+    value_before_type_cast: 2768449167
+  - !ruby/object:ActiveModel::Attribute::FromDatabase
+    name: activity_session_id
+    value_before_type_cast: 193666915
+  - !ruby/object:ActiveModel::Attribute::FromDatabase
+    name: answer
+    value_before_type_cast: '"because all of the plane''s passengers survived an emergency
+      landing in the hudson river, US Airways Flight 1549 is known as the miracle
+      on the hudson."'
+  - !ruby/object:ActiveModel::Attribute::FromDatabase
+    name: attempt_number
+    value_before_type_cast: 4
+  - !ruby/object:ActiveModel::Attribute::FromDatabase
+    name: concept_id
+    value_before_type_cast: 540
+  - !ruby/object:ActiveModel::Attribute::FromDatabase
+    name: correct
+    value_before_type_cast: false
+  - !ruby/object:ActiveModel::Attribute::FromDatabase
+    name: extra_metadata
+    value_before_type_cast: '{"question_uid": "-LiJsX9US7PtcW2CME3s", "question_concept_uid":
+      "6gQZPREURQQAaSzpIt_EEw"}'
+  - !ruby/object:ActiveModel::Attribute::FromDatabase
+    name: question_number
+    value_before_type_cast: 1
+  - !ruby/object:ActiveModel::Attribute::FromDatabase
+    name: question_score
+    value_before_type_cast: 0.0
+  - !ruby/object:ActiveModel::Attribute::FromDatabase
+    name: concept_result_directions_id
+    value_before_type_cast: 14994
+  - !ruby/object:ActiveModel::Attribute::FromDatabase
+    name: concept_result_instructions_id
+  - !ruby/object:ActiveModel::Attribute::FromDatabase
+    name: concept_result_previous_feedback_id
+    value_before_type_cast: 62198
+  - !ruby/object:ActiveModel::Attribute::FromDatabase
+    name: concept_result_prompt_id
+    value_before_type_cast: 132717
+  - !ruby/object:ActiveModel::Attribute::FromDatabase
+    name: concept_result_question_type_id
+    value_before_type_cast: 3149
+  - !ruby/object:ActiveModel::Attribute::FromDatabase
+    name: created_at
+    value_before_type_cast: 2023-07-21 17:49:46.762808000 Z
+  new_record: false
+  active_record_yaml_version: 2
+- !ruby/object:ConceptResult
+  concise_attributes:
+  - !ruby/object:ActiveModel::Attribute::FromDatabase
+    name: id
+    value_before_type_cast: 2768449166
+  - !ruby/object:ActiveModel::Attribute::FromDatabase
+    name: activity_session_id
+    value_before_type_cast: 193666915
+  - !ruby/object:ActiveModel::Attribute::FromDatabase
+    name: answer
+    value_before_type_cast: '"because all of the plane''s passengers survived an emergency
+      landing in the hudson river, us airways flight 1549 is known as the miracle
+      on the hudson."'
+  - !ruby/object:ActiveModel::Attribute::FromDatabase
+    name: attempt_number
+    value_before_type_cast: 3
+  - !ruby/object:ActiveModel::Attribute::FromDatabase
+    name: concept_id
+    value_before_type_cast: 524
+  - !ruby/object:ActiveModel::Attribute::FromDatabase
+    name: correct
+    value_before_type_cast: false
+  - !ruby/object:ActiveModel::Attribute::FromDatabase
+    name: extra_metadata
+    value_before_type_cast: '{"question_uid": "-LiJsX9US7PtcW2CME3s", "question_concept_uid":
+      "6gQZPREURQQAaSzpIt_EEw"}'
+  - !ruby/object:ActiveModel::Attribute::FromDatabase
+    name: question_number
+    value_before_type_cast: 1
+  - !ruby/object:ActiveModel::Attribute::FromDatabase
+    name: question_score
+    value_before_type_cast: 0.0
+  - !ruby/object:ActiveModel::Attribute::FromDatabase
+    name: concept_result_directions_id
+    value_before_type_cast: 14994
+  - !ruby/object:ActiveModel::Attribute::FromDatabase
+    name: concept_result_instructions_id
+  - !ruby/object:ActiveModel::Attribute::FromDatabase
+    name: concept_result_previous_feedback_id
+    value_before_type_cast: 210751
+  - !ruby/object:ActiveModel::Attribute::FromDatabase
+    name: concept_result_prompt_id
+    value_before_type_cast: 132717
+  - !ruby/object:ActiveModel::Attribute::FromDatabase
+    name: concept_result_question_type_id
+    value_before_type_cast: 3149
+  - !ruby/object:ActiveModel::Attribute::FromDatabase
+    name: created_at
+    value_before_type_cast: 2023-07-21 17:49:46.761838000 Z
+  new_record: false
+  active_record_yaml_version: 2
