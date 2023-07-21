@@ -2,7 +2,7 @@ import * as React from 'react';
 import { RouteComponentProps } from 'react-router-dom';
 import _ from 'underscore';
 
-import StudentReportBox from './student_report_box.jsx';
+import StudentReportBox from './student_report_box';
 
 import { QuestionData } from '../../../../../interfaces/questionData';
 import { Student } from '../../../../../interfaces/student';
