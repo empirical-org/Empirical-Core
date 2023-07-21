@@ -14,7 +14,7 @@ class PremiumHub::TeacherLinkSchoolEmailWorker
 
     SegmentAnalytics.new.track_school_admin_user(
       user,
-      SegmentIo::BackgroundEvents::ADMIN_SENT_LINK_REQUEST,
+      Analytics::SegmentIo::BackgroundEvents::ADMIN_SENT_LINK_REQUEST,
       school.name,
       admin_name
     )

@@ -15,9 +15,9 @@ class PremiumHub::MadeSchoolAdminChangeSchoolEmailWorker
       user.mailer_user.send_premium_hub_made_school_admin_change_school_email(admin_name, new_school, existing_school)
     end
 
-    SegmentAnalytics.new.track_school_admin_user(
+    Analytics::SegmentAnalytics.new.track_school_admin_user(
       user,
-      SegmentIo::BackgroundEvents::ADMIN_MADE_EXISTING_USER_SCHOOL_ADMIN,
+      Analytics::SegmentIo::BackgroundEvents::ADMIN_MADE_EXISTING_USER_SCHOOL_ADMIN,
       new_school.name,
       admin_name
     )

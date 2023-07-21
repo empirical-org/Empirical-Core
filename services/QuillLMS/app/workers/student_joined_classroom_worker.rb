@@ -8,6 +8,6 @@ class StudentJoinedClassroomWorker
 
     # do in following order so we identify the teacher last
     analytics = Analyzer.new
-    analytics.track(teacher, SegmentIo::BackgroundEvents::TEACHERS_STUDENT_ACCOUNT_CREATION) if teacher
+    analytics.track(teacher, Analytics::SegmentIo::BackgroundEvents::TEACHERS_STUDENT_ACCOUNT_CREATION) if teacher
   end
 end

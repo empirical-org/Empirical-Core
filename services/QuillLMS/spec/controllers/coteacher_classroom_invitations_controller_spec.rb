@@ -47,7 +47,7 @@ describe CoteacherClassroomInvitationsController, type: :controller do
         end
 
         it 'should track event' do
-          expect(analyzer).to receive(:track).with(invited_teacher, SegmentIo::BackgroundEvents::COTEACHER_ACCEPTANCE)
+          expect(analyzer).to receive(:track).with(invited_teacher, Analytics::SegmentIo::BackgroundEvents::COTEACHER_ACCEPTANCE)
           get :accept_pending_coteacher_invitations, params: { coteacher_invitation_ids: [invite_one.id, invite_two.id] }
         end
       end

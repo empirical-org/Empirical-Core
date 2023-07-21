@@ -7,7 +7,7 @@ class TeacherDeniedToBecomeAdminAnalyticsWorker
     analyzer = Analyzer.new
     user = User.find_by_id(user_id)
 
-    event = new_user ? SegmentIo::BackgroundEvents::NEW_USER_DENIED_TO_BECOME_ADMIN : SegmentIo::BackgroundEvents::TEACHER_DENIED_TO_BECOME_ADMIN
+    event = new_user ? Analytics::SegmentIo::BackgroundEvents::NEW_USER_DENIED_TO_BECOME_ADMIN : Analytics::SegmentIo::BackgroundEvents::TEACHER_DENIED_TO_BECOME_ADMIN
     analyzer.track(user, event)
   end
 end

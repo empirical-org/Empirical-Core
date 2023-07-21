@@ -10,7 +10,7 @@ describe CalculateAndCacheSchoolDataForSegmentWorker do
 
     it 'should call calculate_and_set_cache on the CacheSegmentSchoolData instance' do
       cache = double(calculate_and_set_cache: nil)
-      expect(CacheSegmentSchoolData).to receive(:new).with(school).and_return(cache)
+      expect(Analytics::CacheSegmentSchoolData).to receive(:new).with(school).and_return(cache)
       expect(cache).to receive(:calculate_and_set_cache)
       subject.perform(school.id)
     end

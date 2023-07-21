@@ -14,21 +14,21 @@ describe PremiumAnalyticsWorker do
 
     context 'when account type is a teacher premium type' do
       it 'should track teacher began premium' do
-        expect(analyzer).to receive(:track_with_attributes).with(user, SegmentIo::BackgroundEvents::TEACHER_BEGAN_PREMIUM, properties: user.segment_user.premium_params)
+        expect(analyzer).to receive(:track_with_attributes).with(user, Analytics::SegmentIo::BackgroundEvents::TEACHER_BEGAN_PREMIUM, properties: user.segment_user.premium_params)
         subject.perform(user.id, Subscription::OFFICIAL_TEACHER_TYPES[0])
       end
     end
 
     context 'when account type is a school premium type' do
       it 'should track teacher began premium' do
-        expect(analyzer).to receive(:track_with_attributes).with(user, SegmentIo::BackgroundEvents::TEACHER_BEGAN_PREMIUM, properties: user.segment_user.premium_params)
+        expect(analyzer).to receive(:track_with_attributes).with(user, Analytics::SegmentIo::BackgroundEvents::TEACHER_BEGAN_PREMIUM, properties: user.segment_user.premium_params)
         subject.perform(user.id, Subscription::OFFICIAL_SCHOOL_TYPES[0])
       end
     end
 
     context 'when account type is a trial premium type' do
       it 'should track teacher began premium' do
-        expect(analyzer).to receive(:track_with_attributes).with(user, SegmentIo::BackgroundEvents::TEACHER_BEGAN_PREMIUM, properties: user.segment_user.premium_params)
+        expect(analyzer).to receive(:track_with_attributes).with(user, Analytics::SegmentIo::BackgroundEvents::TEACHER_BEGAN_PREMIUM, properties: user.segment_user.premium_params)
         subject.perform(user.id, Subscription::OFFICIAL_FREE_TYPES[0])
       end
     end

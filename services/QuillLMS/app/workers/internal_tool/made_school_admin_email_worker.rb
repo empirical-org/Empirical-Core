@@ -13,11 +13,11 @@ class InternalTool::MadeSchoolAdminEmailWorker
       user.mailer_user.send_internal_tool_made_school_admin_email(school_name)
     end
 
-    SegmentAnalytics.new.track_school_admin_user(
+    Analytics::SegmentAnalytics.new.track_school_admin_user(
       user,
-      SegmentIo::BackgroundEvents::STAFF_MADE_EXISTING_USER_SCHOOL_ADMIN,
+      Analytics::SegmentIo::BackgroundEvents::STAFF_MADE_EXISTING_USER_SCHOOL_ADMIN,
       school_name,
-      SegmentIo::Properties::STAFF_USER
+      Analytics::SegmentIo::Properties::STAFF_USER
     )
   end
 end

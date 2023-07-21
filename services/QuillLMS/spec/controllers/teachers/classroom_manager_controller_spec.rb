@@ -754,7 +754,7 @@ describe Teachers::ClassroomManagerController, type: :controller do
 
     it 'will track event' do
       expect(Demo::ResetAccountWorker).to receive(:perform_async).with(demo_teacher.id)
-      expect(analyzer).to receive(:track).with(teacher, SegmentIo::BackgroundEvents::VIEWED_DEMO)
+      expect(analyzer).to receive(:track).with(teacher, Analytics::SegmentIo::BackgroundEvents::VIEWED_DEMO)
 
       get :view_demo
     end
@@ -840,7 +840,7 @@ describe Teachers::ClassroomManagerController, type: :controller do
     end
 
     it 'will track event' do
-      expect(analyzer).to receive(:track).with(teacher, SegmentIo::BackgroundEvents::VIEWED_AS_STUDENT)
+      expect(analyzer).to receive(:track).with(teacher, Analytics::SegmentIo::BackgroundEvents::VIEWED_AS_STUDENT)
       get :preview_as_student, params: { student_id: student1.id }
     end
   end

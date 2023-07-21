@@ -13,7 +13,7 @@ class UserLoginWorker
       TeacherActivityFeedRefillWorker.perform_async(@user.id)
       analytics.track_with_attributes(
         @user,
-        SegmentIo::BackgroundEvents::TEACHER_SIGNIN,
+        Analytics::SegmentIo::BackgroundEvents::TEACHER_SIGNIN,
         properties: @user&.segment_user&.common_params
       )
       record_user_login
@@ -23,7 +23,7 @@ class UserLoginWorker
       if teacher.present?
         analytics.track_with_attributes(
           teacher,
-          SegmentIo::BackgroundEvents::TEACHERS_STUDENT_SIGNIN,
+          Analytics::SegmentIo::BackgroundEvents::TEACHERS_STUDENT_SIGNIN,
           properties: {
             student_id: @user.id
           }

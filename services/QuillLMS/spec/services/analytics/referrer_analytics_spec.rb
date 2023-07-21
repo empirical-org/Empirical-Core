@@ -2,9 +2,9 @@
 
 require 'rails_helper'
 
-describe 'ReferrerAnalytics' do
-  let(:analytics) { ReferrerAnalytics.new }
-  let(:segment_analytics) { SegmentAnalytics.new }
+describe Analytics::ReferrerAnalytics do
+  let(:analytics) { described_class.new }
+  let(:segment_analytics) { Analytics::SegmentAnalytics.new }
   let(:track_calls) { segment_analytics.backend.track_calls }
   let(:identify_calls) { segment_analytics.backend.identify_calls }
   let(:referrer) { create(:teacher) }
@@ -21,7 +21,7 @@ describe 'ReferrerAnalytics' do
     end
 
     it 'sends the event' do
-      expect(track_calls[0][:event]).to be(SegmentIo::BackgroundEvents::REFERRAL_INVITED)
+      expect(track_calls[0][:event]).to be(Analytics::SegmentIo::BackgroundEvents::REFERRAL_INVITED)
       expect(track_calls[0][:user_id]).to be(referrer.id)
       expect(track_calls[0][:properties][:referral_id]).to be(referral.id)
     end
@@ -38,7 +38,7 @@ describe 'ReferrerAnalytics' do
     end
 
     it 'sends the event' do
-      expect(track_calls[0][:event]).to be(SegmentIo::BackgroundEvents::REFERRAL_ACTIVATED)
+      expect(track_calls[0][:event]).to be(Analytics::SegmentIo::BackgroundEvents::REFERRAL_ACTIVATED)
       expect(track_calls[0][:user_id]).to be(referrer.id)
       expect(track_calls[0][:properties][:referral_id]).to be(referral.id)
     end

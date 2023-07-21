@@ -8,6 +8,6 @@ class AccessProgressReportWorker
 
     # tell segment.io
     analytics = Analyzer.new
-    analytics.track(@user, SegmentIo::BackgroundEvents::ACCESS_PROGRESS_REPORT)
+    analytics.track(@user, Analytics::SegmentIo::BackgroundEvents::ACCESS_PROGRESS_REPORT)
   end
 end

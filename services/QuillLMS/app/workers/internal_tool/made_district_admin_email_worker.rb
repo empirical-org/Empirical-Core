@@ -11,11 +11,11 @@ class InternalTool::MadeDistrictAdminEmailWorker
 
     user.mailer_user.send_internal_tool_made_district_admin_email(district_name)
 
-    SegmentAnalytics.new.track_district_admin_user(
+    Analytics::SegmentAnalytics.new.track_district_admin_user(
       user,
-      SegmentIo::BackgroundEvents::STAFF_MADE_EXISTING_USER_DISTRICT_ADMIN,
+      Analytics::SegmentIo::BackgroundEvents::STAFF_MADE_EXISTING_USER_DISTRICT_ADMIN,
       district_name,
-      SegmentIo::Properties::STAFF_USER
+      Analytics::SegmentIo::Properties::STAFF_USER
     )
   end
 end

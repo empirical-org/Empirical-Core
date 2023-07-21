@@ -11,7 +11,7 @@ class PremiumAnalyticsWorker
     analytics = Analyzer.new
     analytics.track_with_attributes(
       @user,
-      SegmentIo::BackgroundEvents::TEACHER_BEGAN_PREMIUM,
+      Analytics::SegmentIo::BackgroundEvents::TEACHER_BEGAN_PREMIUM,
       properties: @user.segment_user.premium_params
     )
   end

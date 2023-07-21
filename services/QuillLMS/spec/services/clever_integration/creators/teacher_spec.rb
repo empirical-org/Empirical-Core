@@ -48,7 +48,7 @@ describe CleverIntegration::Creators::Teacher do
 
 
 
-    before { allow(SegmentAnalytics).to receive(:new) { analyzer } }
+    before { allow(Analytics::SegmentAnalytics).to receive(:new) { analyzer } }
 
     context 'with no google_id' do
       let(:google_id) { nil }

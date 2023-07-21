@@ -13,12 +13,12 @@ describe StudentJoinedClassroomWorker, type: :worker do
   end
 
   it 'results in the sending of 1 segment.io events' do
-    expect(analyzer).to receive(:track).with(teacher, SegmentIo::BackgroundEvents::TEACHERS_STUDENT_ACCOUNT_CREATION)
+    expect(analyzer).to receive(:track).with(teacher, Analytics::SegmentIo::BackgroundEvents::TEACHERS_STUDENT_ACCOUNT_CREATION)
     worker.perform(teacher.id, student.id)
   end
 
   it 'in cases where no teacher is sent, it does not track teacher' do
-    expect(analyzer).not_to receive(:track).with(teacher, SegmentIo::BackgroundEvents::TEACHERS_STUDENT_ACCOUNT_CREATION)
+    expect(analyzer).not_to receive(:track).with(teacher, Analytics::SegmentIo::BackgroundEvents::TEACHERS_STUDENT_ACCOUNT_CREATION)
     worker.perform(nil, student.id)
   end
 end
