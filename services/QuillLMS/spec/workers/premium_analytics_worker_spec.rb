@@ -7,7 +7,7 @@ describe PremiumAnalyticsWorker do
 
   let(:analyzer) { double(:analyzer, track: true) }
 
-  before { allow(Analyzer).to receive(:new) { analyzer } }
+  before { allow(Analytics::Analyzer).to receive(:new) { analyzer } }
 
   describe '#perform' do
     let!(:user) { create(:user) }

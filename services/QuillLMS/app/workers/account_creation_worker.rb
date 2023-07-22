@@ -7,7 +7,7 @@ class AccountCreationWorker
     @user = User.find(id)
 
     # tell segment.io
-    analytics = Analyzer.new
+    analytics = Analytics::Analyzer.new
     return unless @user.teacher?
 
     events = [Analytics::SegmentIo::BackgroundEvents::TEACHER_ACCOUNT_CREATION]

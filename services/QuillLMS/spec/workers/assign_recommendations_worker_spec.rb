@@ -32,7 +32,7 @@ describe AssignRecommendationsWorker do
   end
 
   before do
-    allow(Analyzer).to receive(:new) { analyzer }
+    allow(Analytics::Analyzer).to receive(:new) { analyzer }
     allow(PusherRecommendationCompleted).to receive(:run)
   end
 

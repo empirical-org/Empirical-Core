@@ -54,7 +54,7 @@ class AssignRecommendationsWorker
   end
 
   def track_assign_all_recommendations(teacher)
-    analytics = Analyzer.new
+    analytics = Analytics::Analyzer.new
     analytics.track(teacher, Analytics::SegmentIo::BackgroundEvents::ASSIGN_ALL_RECOMMENDATIONS)
   end
 

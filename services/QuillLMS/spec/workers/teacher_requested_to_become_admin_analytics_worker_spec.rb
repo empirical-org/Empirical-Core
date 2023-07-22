@@ -9,7 +9,7 @@ describe TeacherRequestedToBecomeAdminAnalyticsWorker do
     let!(:teacher) { create(:teacher) }
     let(:analyzer) { double(:analyzer) }
 
-    before { allow(Analyzer).to receive(:new) { analyzer } }
+    before { allow(Analytics::Analyzer).to receive(:new) { analyzer } }
 
     it 'should track the new user event if new user is true' do
       expect(analyzer).to receive(:track).with(teacher, Analytics::SegmentIo::BackgroundEvents::NEW_USER_REQUESTED_TO_BECOME_ADMIN)

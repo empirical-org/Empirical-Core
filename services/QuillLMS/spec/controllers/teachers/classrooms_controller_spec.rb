@@ -168,7 +168,7 @@ describe Teachers::ClassroomsController, type: :controller do
       let(:analyzer) { double(:analyzer, track_with_attributes: true) }
 
       before do
-        allow(Analyzer).to receive(:new) { analyzer }
+        allow(Analytics::Analyzer).to receive(:new) { analyzer }
       end
 
       it 'should track the ownership transfer' do

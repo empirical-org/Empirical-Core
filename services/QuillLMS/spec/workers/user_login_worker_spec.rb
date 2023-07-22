@@ -9,7 +9,7 @@ describe UserLoginWorker, type: :worker do
   let(:teacher) { classroom.owner }
   let(:student) { create(:student, classrooms: [classroom]) }
 
-  before { allow(Analyzer).to receive(:new) { analyzer } }
+  before { allow(Analytics::Analyzer).to receive(:new) { analyzer } }
 
   context 'when a teacher logs in' do
     it 'track teacher sign in' do

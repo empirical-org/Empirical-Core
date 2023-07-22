@@ -7,7 +7,7 @@ class UserLoginWorker
     @user = User.find_by(id: id)
     return unless @user
 
-    analytics = Analyzer.new
+    analytics = Analytics::Analyzer.new
     case @user.role
     when User::TEACHER, User::ADMIN
       TeacherActivityFeedRefillWorker.perform_async(@user.id)

@@ -33,7 +33,7 @@ describe CoteacherClassroomInvitationsController, type: :controller do
 
       context 'post' do
         before do
-          allow(Analyzer).to receive(:new) { analyzer }
+          allow(Analytics::Analyzer).to receive(:new) { analyzer }
         end
 
         it 'should accept one invitation' do

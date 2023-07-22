@@ -726,7 +726,7 @@ describe Teachers::ClassroomManagerController, type: :controller do
 
     before do
       allow(controller).to receive(:current_user) { teacher }
-      allow(Analyzer).to receive(:new) { analyzer }
+      allow(Analytics::Analyzer).to receive(:new) { analyzer }
     end
 
     it 'will call current_user_demo_id= if the demo account exists' do
@@ -816,7 +816,7 @@ describe Teachers::ClassroomManagerController, type: :controller do
 
     before do
       allow(controller).to receive(:current_user) { teacher }
-      allow(Analyzer).to receive(:new) { analyzer }
+      allow(Analytics::Analyzer).to receive(:new) { analyzer }
     end
 
     it 'will call preview_student_id= if the student exists and is in one of the teachers classrooms' do

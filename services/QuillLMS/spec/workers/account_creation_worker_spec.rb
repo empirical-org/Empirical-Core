@@ -7,7 +7,7 @@ describe AccountCreationWorker do
 
   subject { described_class.new }
 
-  before { allow(Analyzer).to receive(:new) { analyzer } }
+  before { allow(Analytics::Analyzer).to receive(:new) { analyzer } }
 
   describe '#perform' do
     context 'when user is a teacher' do

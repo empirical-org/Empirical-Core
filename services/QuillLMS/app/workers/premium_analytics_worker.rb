@@ -8,7 +8,7 @@ class PremiumAnalyticsWorker
     @user = User.find_by_id(id)
     return unless @user
 
-    analytics = Analyzer.new
+    analytics = Analytics::Analyzer.new
     analytics.track_with_attributes(
       @user,
       Analytics::SegmentIo::BackgroundEvents::TEACHER_BEGAN_PREMIUM,
