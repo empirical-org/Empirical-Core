@@ -7,9 +7,7 @@ describe AccessProgressReportWorker, type: :worker do
   let!(:teacher) { create(:teacher) }
   let(:analyzer) { double(:analyzer, track: true) }
 
-  before do
-    allow(Analyzer).to receive(:new) { analyzer }
-  end
+  before { allow(Analytics::Analyzer).to receive(:new) { analyzer } }
 
   it 'sends a segment.io event' do
     expect(analyzer).to receive(:track).with(teacher, Analytics::SegmentIo::BackgroundEvents::ACCESS_PROGRESS_REPORT)

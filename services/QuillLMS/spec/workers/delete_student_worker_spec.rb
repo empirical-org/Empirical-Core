@@ -7,9 +7,7 @@ describe DeleteStudentWorker do
 
   let(:analyzer) { double(:analyzer, track: true) }
 
-  before do
-    allow(Analyzer).to receive(:new) { analyzer }
-  end
+  before { allow(Analytics::Analyzer).to receive(:new) { analyzer } }
 
   describe '#perform' do
     let!(:teacher) { create(:teacher) }

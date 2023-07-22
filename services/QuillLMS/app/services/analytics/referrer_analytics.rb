@@ -10,20 +10,20 @@ module Analytics
 
     def track_referral_invited(referrer, referral_id)
       analytics.identify(referrer)
-      analytics.track({
-                        user_id: referrer.id,
-                        event: Analytics::SegmentIo::BackgroundEvents::REFERRAL_INVITED,
-                        properties: { referral_id: referral_id }
-      })
+      analytics.track(
+        event: Analytics::SegmentIo::BackgroundEvents::REFERRAL_INVITED,
+        properties: { referral_id: referral_id },
+        user_id: referrer.id
+      )
     end
 
     def track_referral_activated(referrer, referral_id)
       analytics.identify(referrer)
-      analytics.track({
-                        user_id: referrer.id,
-                        event: Analytics::SegmentIo::BackgroundEvents::REFERRAL_ACTIVATED,
-                        properties: { referral_id: referral_id }
-      })
+      analytics.track(
+        event: Analytics::SegmentIo::BackgroundEvents::REFERRAL_ACTIVATED,
+        properties: { referral_id: referral_id },
+        user_id: referrer.id
+      )
     end
   end
 end

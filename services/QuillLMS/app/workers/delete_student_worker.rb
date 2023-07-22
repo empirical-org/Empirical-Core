@@ -5,7 +5,7 @@ class DeleteStudentWorker
 
   def perform(teacher_id, referred_from_class_path)
     teacher = User.find(teacher_id)
-    analytics = Analyzer.new
+    analytics = Analytics::Analyzer.new
     if referred_from_class_path
       event = Analytics::SegmentIo::BackgroundEvents::TEACHER_DELETED_STUDENT_ACCOUNT
     else
