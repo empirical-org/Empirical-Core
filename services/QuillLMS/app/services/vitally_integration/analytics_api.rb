@@ -1,7 +1,7 @@
 # frozen_string_literal: true
 
 module VitallyIntegration
-  class Api
+  class AnalyticsApi
     BASE_URL = 'https://api.vitally.io/analytics/v1'
     RATE_LIMIT_CODE = 429
     ENDPOINT_BATCH = 'batch'

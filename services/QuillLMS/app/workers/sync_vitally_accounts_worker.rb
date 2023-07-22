@@ -6,7 +6,7 @@ class SyncVitallyAccountsWorker
   def perform(school_ids)
     schools = School.where(id: school_ids)
     payload = schools.map { |school| VitallyIntegration::SerializeVitallySalesAccount.new(school).data }
-    api = VitallyIntegration::Api.new
+    api = VitallyIntegration::AnalyticsApi.new
     api.batch(payload)
   end
 end

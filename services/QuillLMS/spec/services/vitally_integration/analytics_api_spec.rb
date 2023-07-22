@@ -2,14 +2,14 @@
 
 require 'rails_helper'
 
-describe VitallyIntegration::Api do
+describe VitallyIntegration::AnalyticsApi do
   let(:api)  { described_class.new }
 
   let(:sample_response) { {body: '{}', headers: {content_type: 'application/json'}} }
   let(:mock_payload) { {} }
 
   before do
-    stub_const('VitallyIntegration::Api::API_KEY', 'test api key')
+    stub_const('VitallyIntegration::AnalyticsApi::API_KEY', 'test api key')
     stub_request(:post, endpoint).to_return(response)
   end
 

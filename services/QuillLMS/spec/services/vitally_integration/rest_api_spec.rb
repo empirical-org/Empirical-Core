@@ -9,7 +9,6 @@ describe VitallyIntegration::RestApi do
   let(:type) { 'type' }
   let(:payload) { 'test payload' }
 
-
   before { stub_const('VitallyIntegration::RestApi::API_KEY', api_key) }
 
   describe '#create' do

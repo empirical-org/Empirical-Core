@@ -7,7 +7,7 @@ module VitallyIntegration
     def perform(user_id, school_id)
       return if user_id.nil? || school_id.nil?
 
-      Api.new.unlink(
+      AnalyticsApi.new.unlink(
         userId: user_id,
         accountId: school_id,
         messageId: SecureRandom.uuid
