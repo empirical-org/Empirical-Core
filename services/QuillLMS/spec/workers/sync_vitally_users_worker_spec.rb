@@ -19,7 +19,7 @@ describe SyncVitallyUsersWorker do
       vitally_api_double = double
       serializer_double = double('serializer', data: VitallyIntegration::SerializeVitallySalesUser.new(user).data)
       expect(VitallyIntegration::SerializeVitallySalesUser).to receive(:new).and_return(serializer_double)
-      expect(VitallyIntegration::Api).to receive(:new).and_return(vitally_api_double)
+      expect(VitallyIntegration::AnalyticsApi).to receive(:new).and_return(vitally_api_double)
       expect(vitally_api_double).to receive(:batch).with([serializer_double.data])
       subject.perform([user.id])
     end
