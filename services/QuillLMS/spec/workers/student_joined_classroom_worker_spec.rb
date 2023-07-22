@@ -8,9 +8,7 @@ describe StudentJoinedClassroomWorker, type: :worker do
   let!(:student) { create(:student) }
   let!(:teacher) { create(:teacher) }
 
-  before do
-    allow(Analyzer).to receive(:new) { analyzer }
-  end
+  before { allow(Analytics::Analyzer).to receive(:new) { analyzer } }
 
   it 'results in the sending of 1 segment.io events' do
     expect(analyzer).to receive(:track).with(teacher, Analytics::SegmentIo::BackgroundEvents::TEACHERS_STUDENT_ACCOUNT_CREATION)

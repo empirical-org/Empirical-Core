@@ -12,7 +12,7 @@ class PremiumHub::TeacherLinkSchoolEmailWorker
 
     user.mailer_user.send_premium_hub_teacher_link_school_email(admin_name, school)
 
-    SegmentAnalytics.new.track_school_admin_user(
+    Analytics::SegmentAnalytics.new.track_school_admin_user(
       user,
       Analytics::SegmentIo::BackgroundEvents::ADMIN_SENT_LINK_REQUEST,
       school.name,

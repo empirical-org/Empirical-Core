@@ -46,7 +46,7 @@ class AssignRecommendationsWorker
   end
 
   def track_recommendation_assignment(teacher, release_method)
-    Analyzer.new.track_with_attributes(
+    Analytics::Analyzer.new.track_with_attributes(
       teacher,
       Analytics::SegmentIo::BackgroundEvents::ASSIGN_RECOMMENDATIONS,
       properties: { release_method: release_method }
