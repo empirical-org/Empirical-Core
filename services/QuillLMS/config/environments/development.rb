@@ -1,81 +1,67 @@
-# frozen_string_literal: true
+require "active_support/core_ext/integer/time"
 
-EmpiricalGrammar::Application.configure do
+Rails.application.configure do
   # Settings specified here will take precedence over those in config/application.rb.
 
-  # In the development environment your application's code is reloaded on
-  # every request. This slows down response time but is perfect for development
+  # In the development environment your application's code is reloaded any time
+  # it changes. This slows down response time but is perfect for development
   # since you don't have to restart the web server when you make code changes.
   config.cache_classes = false
 
   # Do not eager load code on boot.
   config.eager_load = false
 
-  # Show full error reports and disable caching.
-  config.consider_all_requests_local       = true
+  # Show full error reports.
+  config.consider_all_requests_local = true
 
-  config.action_dispatch.show_detailed_exceptions = false
-  config.action_controller.perform_caching = false
+  # Enable server timing
+  config.server_timing = true
 
-  config.action_controller.asset_host
+  # Enable/disable caching. By default caching is disabled.
+  # Run rails dev:cache to toggle caching.
+  if Rails.root.join("tmp/caching-dev.txt").exist?
+    config.action_controller.perform_caching = true
+    config.action_controller.enable_fragment_cache_logging = true
 
-  # Raise an error in development when an invalid parameter is passed.
-  # config.action_controller.action_on_unpermitted_parameters = :raise
+    config.cache_store = :memory_store
+    config.public_file_server.headers = {
+      "Cache-Control" => "public, max-age=#{2.days.to_i}"
+    }
+  else
+    config.action_controller.perform_caching = false
 
-  config.action_mailer.raise_delivery_errors = true
-  config.action_mailer.delivery_method = :smtp
-  config.action_mailer.smtp_settings = {
-    user_name:      ENV['SENDGRID_USERNAME'],
-    password:       ENV['SENDGRID_PASSWORD'],
-    address:        'smtp.sendgrid.net',
-    port:           '587',
-    authentication: :plain,
-    enable_starttls_auto: true
-  }
+    config.cache_store = :null_store
+  end
 
-  config.assets.precompile += %w(sign_up_email.css)
+  # Don't care if the mailer can't send.
+  config.action_mailer.raise_delivery_errors = false
+
+  config.action_mailer.perform_caching = false
 
   # Print deprecation notices to the Rails logger.
   config.active_support.deprecation = :log
-  config.log_level = :debug
 
-  # Raise an error on page load if there are pending migrations
+  # Raise exceptions for disallowed deprecations.
+  config.active_support.disallowed_deprecation = :raise
+
+  # Tell Active Support which deprecation messages to disallow.
+  config.active_support.disallowed_deprecation_warnings = []
+
+  # Raise an error on page load if there are pending migrations.
   config.active_record.migration_error = :page_load
 
-  # Debug mode disables concatenation and preprocessing of assets.
-  # This option may cause significant delays in view rendering with a large
-  # number of complex assets.
-  config.assets.debug = true
+  # Highlight code that triggered database queries in logs.
+  config.active_record.verbose_query_logs = true
 
-  config.sass.line_comments = true
-  config.sass.line_numbers = true
-  config.sass.debug_info = true
-  config.action_mailer.default_url_options = { host: 'localhost:3000' }
-  Rails.application.routes.default_url_options[:host] =  'localhost:3000'
+  # Suppress logger output for asset requests.
+  config.assets.quiet = true
 
-  # Image Uploads (see paperclip gem)
-  Paperclip.options[:command_path] = "/usr/local/bin/"
+  # Raises error for missing translations.
+  # config.i18n.raise_on_missing_translations = true
 
+  # Annotate rendered view with file names.
+  # config.action_view.annotate_rendered_view_with_filenames = true
 
-  config.after_initialize do
-    Bullet.enable = true
-    Bullet.console = true
-    Bullet.rails_logger = true
-    Bullet.add_footer = true
-  end
-
-  if ENV['REDISCLOUD_URL']
-    config.action_controller.perform_caching = true
-    config.cache_store = :redis_store, ENV["REDISCLOUD_URL"]
-  else
-    config.action_controller.perform_caching = false
-  end
-
-  config.reload_plugins = true if Rails.env.development?
-
-  config.active_record.database_selector = { delay: 0.seconds }
-  config.active_record.database_resolver = ActiveRecord::Middleware::DatabaseSelector::Resolver
-  config.active_record.database_resolver_context = ActiveRecord::Middleware::DatabaseSelector::Resolver::Session
-
-  config.hosts << ENV.fetch("NGROK_HOST") if ENV.fetch("NGROK_HOST", false)
+  # Uncomment if you wish to allow Action Cable access from any origin.
+  # config.action_cable.disable_request_forgery_protection = true
 end
