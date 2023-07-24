@@ -1,3 +1,3 @@
 # frozen_string_literal: true
 
-ApplicationRecord.include(Owner)
+Rails.application.config.to_prepare { ApplicationRecord.include(Owner) }
