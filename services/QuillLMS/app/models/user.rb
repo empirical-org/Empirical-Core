@@ -676,19 +676,19 @@ class User < ApplicationRecord
   end
 
   def canvas_authorized?
-    auth_credential&.canvas_authorized?
+    auth_credential.present? && auth_credential.canvas_authorized?
   end
 
   def clever_authorized?
-    clever_id && auth_credential&.clever_authorized?
+    clever_id.present? && auth_credential.present? && auth_credential.clever_authorized?
   end
 
   def google_authorized?
-    google_id && auth_credential&.google_authorized?
+    google_id.present? && auth_credential.present? && auth_credential.google_authorized?
   end
 
   def google_access_expired?
-    google_id && auth_credential&.google_access_expired?
+    google_id.present? && auth_credential.present? && auth_credential.google_access_expired?
   end
 
   # Note this is an incremented count, so could be off.
