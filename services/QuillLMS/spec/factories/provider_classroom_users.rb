@@ -20,7 +20,10 @@ FactoryBot.define do
   factory :provider_classroom_user, class: 'ProviderClassroomUser' do
 
     trait(:active) { deleted_at { nil } }
+    trait(:synced) { active }
+
     trait(:deleted) { deleted_at { Time.current } }
+    trait(:unsynced) { deleted }
 
     factory :canvas_classroom_user, parent: :provider_classroom_user, class: 'CanvasClassroomUser' do
       classroom_external_id { [Faker::Number.number, Faker::Number.number].join(':') }

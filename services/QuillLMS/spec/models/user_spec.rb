@@ -112,7 +112,6 @@ describe User, type: :model do
   let!(:user_with_original_email) { build(:user, email: 'fake@example.com') }
 
   describe 'flags' do
-
     describe 'validations' do
       it 'does not raise an error when the flags are in the VALID_FLAGS array' do
         User::VALID_FLAGS.each do |flag|
@@ -1410,7 +1409,6 @@ describe User, type: :model do
     end
   end
 
-
   describe '#staff_session_duration_exceeded' do
     let(:user) { create(:user, role: role) }
 
@@ -2029,7 +2027,7 @@ describe User, type: :model do
     end
   end
 
-  context 'save_user_pack_sequence_items' do
+  describe '#save_user_pack_sequence_items' do
     subject { user.save_user_pack_sequence_items}
 
     context 'user has no classrooms' do
@@ -2042,6 +2040,92 @@ describe User, type: :model do
       before { allow(user).to receive(:classrooms).and_return([classroom]) }
 
       it { expect { subject }.to change { SaveUserPackSequenceItemsWorker.jobs.size }.by(1) }
+    end
+  end
+
+  describe '#user_external_id' do
+    subject { user.user_external_id }
+
+    it { is_expected.to be_nil }
+
+    context 'user has google_id' do
+      let(:google_id) { Faker::Number.number }
+
+      before { allow(user).to receive(:google_id).and_return(google_id)}
+
+      it { is_expected.to eq google_id }
+    end
+
+    context 'user has clever_id' do
+      let(:clever_id) { SecureRandom.hex(12) }
+
+      before { allow(user).to receive(:clever_id).and_return(clever_id) }
+
+      it { is_expected.to eq clever_id }
+    end
+
+    context 'user has canvas_account' do
+      let(:canvas_classroom) { create(:canvas_classroom) }
+      let(:canvas_account) { create(:canvas_account, canvas_instance: canvas_instance, user: user) }
+      let(:canvas_accounts) { CanvasAccount.where(id: canvas_account.id) }
+      let(:canvas_instance) { canvas_classroom.canvas_instance }
+
+      before { allow(user).to receive(:canvas_accounts).and_return(canvas_accounts) }
+
+      context 'no canvas_instance argument given' do
+        subject { user.user_external_id }
+
+        let(:canvas_instance) { create(:canvas_instance) }
+
+        it { is_expected.to be_nil }
+      end
+
+      context 'canvas_account and canvas_classroom have the same canvas_instance' do
+        subject { user.user_external_id(canvas_instance: canvas_instance) }
+
+        it { is_expected.to eq canvas_account.user_external_id }
+      end
+
+      context 'canvas_account and canvas_classroom have different canvas_instance' do
+        subject { user.user_external_id(canvas_instance: another_canvas_instance) }
+
+        let(:another_canvas_instance) { create(:canvas_instance) }
+
+        it { is_expected.to be_nil }
+      end
+    end
+  end
+
+  describe '.find_by_canvas_user_external_ids' do
+    subject { described_class.find_by_canvas_user_external_ids(user_external_ids) }
+
+    context 'user_external_ids is nil' do
+      let(:user_external_ids) { nil }
+
+      it { is_expected.to be_empty }
+    end
+
+    context 'user_external_ids is empty' do
+      let(:user_external_ids) { [] }
+
+      it { is_expected.to be_empty }
+    end
+
+    context 'user_external_ids is not empty' do
+      context 'canvas_accounts do not exist' do
+        let(:user_external_ids) { [CanvasAccount.build_user_external_id(0, 0)] }
+
+        it { is_expected.to be_empty }
+      end
+
+      context 'canvas_accounts exist' do
+        let(:canvas_account1) { create(:canvas_account) }
+        let(:canvas_account2) { create(:canvas_account) }
+        let(:user_external_ids) { [canvas_account1.user_external_id, canvas_account2.user_external_id] }
+
+        it { is_expected.to match_array [canvas_account1.user, canvas_account2.user] }
+      end
+
     end
   end
 end

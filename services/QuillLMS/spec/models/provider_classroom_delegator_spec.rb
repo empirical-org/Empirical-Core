@@ -70,4 +70,40 @@ RSpec.describe ProviderClassroomDelegator do
       it { expect(subject.synced_status(student3.attributes)).to eq nil }
     end
   end
+
+  context 'canvas classroom' do
+    let(:canvas_instance) { create(:canvas_instance) }
+    let(:classroom) { create(:classroom, :from_canvas, canvas_instance: canvas_instance, students: students) }
+
+    let(:student1) { create(:user, :with_canvas_account, canvas_instance: canvas_instance) }
+    let(:student2) { create(:user, :with_canvas_account, canvas_instance: canvas_instance) }
+    let(:student3) { create(:user) }
+    let(:students) { [student1, student2, student3] }
+
+    before do
+      create(
+        :canvas_classroom_user,
+        :synced,
+        classroom_external_id: classroom.classroom_external_id,
+        user_external_id: student1.user_external_id(canvas_instance: canvas_instance)
+      )
+
+      create(
+        :canvas_classroom_user,
+        :unsynced,
+        classroom_external_id: classroom.classroom_external_id,
+        user_external_id: student2.user_external_id(canvas_instance: canvas_instance)
+      )
+    end
+
+    describe '#unsynced_students' do
+      it { expect(subject.unsynced_students).to match_array [student2] }
+    end
+
+    describe '#synced_status' do
+      it { expect(subject.synced_status(student1.attributes)).to eq true }
+      it { expect(subject.synced_status(student2.attributes)).to eq false }
+      it { expect(subject.synced_status(student3.attributes)).to eq nil }
+    end
+  end
 end

@@ -52,11 +52,11 @@ FactoryBot.define do
         expires_at { 1.hour.from_now.to_i }
         lti_user_id { SecureRandom.uuid }
         login_id { Faker::Internet.username }
-        name { Faker::Name.name }
+        name { Faker::Name.custom_name }
         nickname { Faker::Name.first_name }
         primary_email { email }
         short_name { Faker::Name.first_name }
-        sortable_name { Faker::Name.name }
+        sortable_name { Faker::Name.custom_name }
         time_zone { 'America/New_York' }
         token { [rand(1..99999), SecureRandom.alphanumeric(64)].join('~') }
         refresh_token { [rand(1..99999), SecureRandom.alphanumeric(64)].join('~') }

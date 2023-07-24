@@ -42,7 +42,12 @@ FactoryBot.define do
     end
 
     trait :from_canvas do
-      after(:create) { |classroom| create(:canvas_classroom, classroom: classroom).reload }
+      transient { canvas_instance { FactoryBot.create(:canvas_instance) } }
+
+      after(:create) do |classroom, context|
+        create(:canvas_classroom, classroom: classroom, canvas_instance: context.canvas_instance)
+        classroom.reload
+      end
     end
 
     factory :classroom_with_a_couple_students do

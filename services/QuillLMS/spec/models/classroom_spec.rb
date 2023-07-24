@@ -371,4 +371,32 @@ describe Classroom, type: :model do
       end
     end
   end
+
+  describe '#classroom_external_id' do
+    subject { classroom.classroom_external_id }
+
+    context 'when classroom has no provider' do
+      let(:classroom) { create(:classroom) }
+
+      it { is_expected.to be_nil }
+    end
+
+    context 'when google_classroom_id is present' do
+      let(:classroom) { create(:classroom, :from_google) }
+
+      it { is_expected.to eq classroom.google_classroom_id }
+    end
+
+    context 'when clever_id is present' do
+      let(:classroom) { create(:classroom, :from_clever) }
+
+      it { is_expected.to eq classroom.clever_id }
+    end
+
+    context 'when canvas_classroom is present' do
+      let(:classroom) { create(:classroom, :from_canvas) }
+
+      it { is_expected.to eq classroom.canvas_classroom.classroom_external_id }
+    end
+  end
 end

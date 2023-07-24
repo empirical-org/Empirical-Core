@@ -36,28 +36,28 @@ RSpec.describe ProviderClassroomsWithUnsyncedStudentsFinder do
 
       create(
         :google_classroom_user,
-        user_external_id: synced_student1.google_id,
-        classroom_external_id: classroom_i_own.classroom_external_id
+        classroom_external_id: classroom_i_own.classroom_external_id,
+        user_external_id: synced_student1.user_external_id
       )
 
       create(
         :google_classroom_user,
         :deleted,
-        user_external_id: unsynced_student1.google_id,
-        classroom_external_id: classroom_i_own.classroom_external_id
+        classroom_external_id: classroom_i_own.classroom_external_id,
+        user_external_id: unsynced_student1.user_external_id
+      )
+
+      create(
+        :google_classroom_user,
+        classroom_external_id: another_classroom_i_own.classroom_external_id,
+        user_external_id: synced_student2.user_external_id
       )
 
       create(
         :google_classroom_user,
         :deleted,
-        user_external_id: unsynced_student2.google_id,
-        classroom_external_id: classroom_i_coteach.classroom_external_id
-      )
-
-      create(
-        :google_classroom_user,
-        user_external_id: synced_student2.google_id,
-        classroom_external_id: another_classroom_i_own.classroom_external_id
+        classroom_external_id: classroom_i_coteach.classroom_external_id,
+        user_external_id: unsynced_student2.user_external_id
       )
     end
 
@@ -83,28 +83,103 @@ RSpec.describe ProviderClassroomsWithUnsyncedStudentsFinder do
 
       create(
         :clever_classroom_user,
-        :deleted,
         classroom_external_id: classroom_i_own.classroom_external_id,
-        user_external_id: unsynced_student1.clever_id
+        user_external_id: synced_student1.user_external_id
       )
 
       create(
         :clever_classroom_user,
+        :deleted,
         classroom_external_id: classroom_i_own.classroom_external_id,
-        user_external_id: synced_student1.clever_id
+        user_external_id: unsynced_student1.user_external_id
+      )
+
+      create(
+        :clever_classroom_user,
+        classroom_external_id: another_classroom_i_own.classroom_external_id,
+        user_external_id: synced_student2.user_external_id
       )
 
       create(
         :clever_classroom_user,
         :deleted,
         classroom_external_id: classroom_i_coteach.classroom_external_id,
-        user_external_id: synced_student2.clever_id
+        user_external_id: unsynced_student2.user_external_id
+      )
+    end
+
+    it 'returns only owned provider classrooms that have unsynced students' do
+      expect(subject).to eq [classroom_i_own]
+    end
+  end
+
+  context 'teacher has canvas classrooms' do
+    let(:canvas_instance) { create(:canvas_instance) }
+    let(:teacher) { create(:teacher, :with_canvas_account, canvas_instance: canvas_instance) }
+    let(:classroom_i_own) do
+      create(
+        :classroom,
+        :from_canvas,
+        :with_no_teacher,
+        canvas_instance: canvas_instance,
+        students: [unsynced_student1, synced_student1]
+      )
+    end
+
+    let(:another_classroom_i_own) do
+      create(
+        :classroom,
+        :from_canvas,
+        :with_no_teacher,
+        canvas_instance: canvas_instance,
+        students: [synced_student2]
+      )
+    end
+
+    let(:classroom_i_coteach) do
+      create(
+       :classroom,
+       :from_canvas,
+       canvas_instance: canvas_instance,
+       students: [unsynced_student2, another_student]
+      )
+    end
+
+    let(:unsynced_student1) { create(:student, :with_canvas_account, canvas_instance: canvas_instance) }
+    let(:unsynced_student2) { create(:student, :with_canvas_account, canvas_instance: canvas_instance) }
+    let(:synced_student1) { create(:student, :with_canvas_account, canvas_instance: canvas_instance) }
+    let(:synced_student2) { create(:student, :with_canvas_account, canvas_instance: canvas_instance) }
+    let(:another_student) { create(:student, :with_canvas_account, canvas_instance: canvas_instance) }
+
+    before do
+      create(:classrooms_teacher, user: teacher, classroom: classroom_i_own)
+      create(:classrooms_teacher, user: teacher, classroom: another_classroom_i_own)
+      create(:coteacher_classrooms_teacher, user: teacher, classroom: classroom_i_coteach)
+
+      create(
+        :canvas_classroom_user,
+        :deleted,
+        classroom_external_id: classroom_i_own.classroom_external_id,
+        user_external_id: unsynced_student1.user_external_id(canvas_instance: canvas_instance)
       )
 
       create(
-        :clever_classroom_user,
+        :canvas_classroom_user,
+        classroom_external_id: classroom_i_own.classroom_external_id,
+        user_external_id: synced_student1.user_external_id(canvas_instance: canvas_instance)
+      )
+
+      create(
+        :canvas_classroom_user,
         classroom_external_id: another_classroom_i_own.classroom_external_id,
-        user_external_id: synced_student2.clever_id
+        user_external_id: unsynced_student2.user_external_id(canvas_instance: canvas_instance)
+      )
+
+      create(
+        :canvas_classroom_user,
+        :deleted,
+        classroom_external_id: classroom_i_coteach.classroom_external_id,
+        user_external_id: synced_student2.user_external_id(canvas_instance: canvas_instance)
       )
     end
 

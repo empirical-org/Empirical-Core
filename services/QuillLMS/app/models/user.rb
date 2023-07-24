@@ -250,6 +250,10 @@ class User < ApplicationRecord
     end
   end
 
+  def self.find_by_canvas_user_external_ids(user_external_ids)
+    where(id: CanvasAccount.custom_find_by_user_external_ids(user_external_ids).pluck(:user_id))
+  end
+
   def self.valid_email?(email)
     ValidatesEmailFormatOf.validate_email_format(email).nil?
   end
@@ -825,6 +829,18 @@ class User < ApplicationRecord
 
   def record_login
     user_logins.create
+  end
+
+  def user_external_id(canvas_instance: nil)
+    return google_id if google_id.present?
+
+    return clever_id if clever_id.present?
+
+    return nil unless canvas_instance.is_a?(CanvasInstance)
+
+    canvas_accounts
+      .find_by(canvas_instance: canvas_instance)
+      &.user_external_id
   end
 
   private def validate_flags
