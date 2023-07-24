@@ -597,6 +597,10 @@ EmpiricalGrammar::Application.routes.draw do
     get '/lti/launch_config.xml' => 'lti#launch_config'
     post '/lti/launch' => 'lti#launch'
     get '/lti/sso', to: 'lti#sso'
+
+    get '/teachers/retrieve_classrooms', to: 'teachers#retrieve_classrooms'
+    post '/teachers/import_classrooms', to: 'teachers#import_classrooms'
+    put '/teachers/import_students', to: 'teachers#import_students'
   end
 
   namespace :clever_integration do

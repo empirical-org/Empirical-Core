@@ -2,11 +2,11 @@
 
 module CleverIntegration
   class ClassroomImporter < ApplicationService
-    attr_reader :data, :clever_id
+    attr_reader :data, :classroom_external_id
 
     def initialize(data)
       @data = data
-      @clever_id = data[:clever_id]
+      @classroom_external_id = data[:classroom_external_id]
     end
 
     def run
@@ -14,7 +14,7 @@ module CleverIntegration
     end
 
     private def classroom
-      @classroom ||= ::Classroom.unscoped.find_by(clever_id: clever_id)
+      @classroom ||= ::Classroom.unscoped.find_by(clever_id: classroom_external_id)
     end
   end
 end

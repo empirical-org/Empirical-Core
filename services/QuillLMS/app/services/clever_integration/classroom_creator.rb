@@ -4,21 +4,32 @@ module CleverIntegration
   class ClassroomCreator < ApplicationService
     OWNER = ClassroomsTeacher::ROLE_TYPES[:owner].freeze
 
-    attr_reader :clever_id, :data, :grade, :teacher_id
+    attr_reader :classroom_external_id, :data, :grade, :teacher_id
 
     def initialize(data)
       @data = data
-      @clever_id = data[:clever_id]
+      @classroom_external_id = data[:classroom_external_id]
       @grade = data[:grade]
       @teacher_id = data[:teacher_id]
     end
 
     def run
-      Classroom.create!(teacher_attrs)
+      ::Classroom.create!(
+        clever_id: classroom_external_id,
+        grade: grade,
+        name: name,
+        synced_name: synced_name,
+        classrooms_teachers_attributes: [
+          {
+            role: role,
+            user_id: teacher_id
+          }
+        ]
+      )
     end
 
     private def name
-      data[:name].present? ? valid_name : "Classroom #{clever_id}"
+      data[:name].present? ? valid_name : "Classroom #{classroom_external_id}"
     end
 
     private def other_owned_classroom_names
@@ -35,21 +46,6 @@ module CleverIntegration
 
     private def teacher
       ::User.find(teacher_id)
-    end
-
-    private def teacher_attrs
-      {
-        clever_id: clever_id,
-        grade: grade,
-        name: name,
-        synced_name: synced_name,
-        classrooms_teachers_attributes: [
-          {
-            user_id: teacher_id,
-            role: role
-          }
-        ]
-      }
     end
 
     private def valid_name

@@ -2,22 +2,19 @@
 
 module GoogleIntegration
   class ClassroomImporter < ApplicationService
-    attr_reader :data
+    attr_reader :data, :classroom_external_id
 
     def initialize(data)
       @data = data
+      @classroom_external_id = data[:classroom_external_id]
     end
 
     def run
-      classroom.present? ? ClassroomUpdater.run(classroom, data) : ClassroomCreator.run(data)
+      classroom ? ClassroomUpdater.run(classroom, data) : ClassroomCreator.run(data)
     end
 
     private def classroom
-      ::Classroom.unscoped.find_by(google_classroom_id: google_classroom_id)
-    end
-
-    private def google_classroom_id
-      data[:google_classroom_id]
+      @classroom ||= ::Classroom.unscoped.find_by(google_classroom_id: classroom_external_id)
     end
   end
 end

@@ -103,7 +103,7 @@ export default class ImportGoogleClassroomsModal extends React.Component<ImportG
     const channelName = String(id)
     const channel = pusher.subscribe(channelName);
     const that = this;
-    channel.bind('google-classroom-students-imported', () => {
+    channel.bind('google-teacher-classrooms-students-imported', () => {
       that.props.onSuccess('Classes imported')
       pusher.unsubscribe(channelName)
     });
