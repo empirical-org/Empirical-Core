@@ -29,15 +29,15 @@ module CleverIntegration
     end
 
     private def student_with_email
-      ::User.find_by(email: email) if email.present?
+      @student_with_email ||= ::User.find_by(email: email) if email.present?
     end
 
     private def student_with_user_external_id
-      ::User.find_by(clever_id: user_external_id) if user_external_id.present?
+      @student_with_user_external_id ||= ::User.find_by(clever_id: user_external_id) if user_external_id.present?
     end
 
     private def student_with_username
-      ::User.find_by(username: username) if username.present?
+      @student_with_username ||= ::User.find_by(username: username) if username.present?
     end
   end
 end
