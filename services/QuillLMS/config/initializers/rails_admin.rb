@@ -2,9 +2,6 @@
 
 Rails.application.config.to_prepare do
   RailsAdmin.config do |config|
-    config.asset_source = :webpacker
-    config.parent_controller = '::ApplicationController'
-
     ### Popular gems integration
 
     # # == Devise ==
