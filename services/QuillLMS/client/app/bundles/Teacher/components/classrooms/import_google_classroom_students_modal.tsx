@@ -38,7 +38,7 @@ export default class ImportGoogleClassroomStudentsModal extends React.Component<
     const channel = pusher.subscribe(channelName);
     const { onSuccess } = this.props
 
-    channel.bind('google-classroom-students-imported', () => {
+    channel.bind('google-teacher-classrooms-students-imported', () => {
       onSuccess('Class re-synced')
       pusher.unsubscribe(channelName)
     });
