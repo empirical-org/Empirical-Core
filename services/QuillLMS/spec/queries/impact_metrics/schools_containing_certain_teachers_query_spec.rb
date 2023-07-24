@@ -16,7 +16,12 @@ module ImpactMetrics
       let(:schools_user_two) { create(:schools_users, user: second_teacher, school: chosen_school_two) }
       let(:excluded_school) { create(:school) }
 
-      let(:query_args) { [[teacher.id, second_teacher.id]] }
+      let(:query_args) do
+        {
+          teacher_ids: [teacher.id, second_teacher.id]
+        }
+      end
+
       let(:cte_records) {
         [
           schools,
