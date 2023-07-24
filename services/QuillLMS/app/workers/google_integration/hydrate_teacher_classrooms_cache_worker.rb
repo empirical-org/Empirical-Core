@@ -9,7 +9,6 @@ module GoogleIntegration
       user = ::User.find_by(id: user_id)
 
       return if user.nil?
-      return unless user.teacher? && user.google_authorized?
 
       TeacherClassroomsCacheHydrator.run(user)
     end

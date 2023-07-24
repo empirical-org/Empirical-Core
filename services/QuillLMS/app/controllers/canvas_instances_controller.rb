@@ -11,7 +11,7 @@ class CanvasInstancesController < ApplicationController
 
   # No find_or_create_by since find requires searching of encrypted values
   private def canvas_config
-    canvas_instance.canvas_configs.create!(canvas_config_params)
+    canvas_instance.create_canvas_config!(canvas_config_params)
   end
 
   private def canvas_config_params

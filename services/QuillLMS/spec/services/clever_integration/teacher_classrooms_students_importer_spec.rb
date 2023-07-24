@@ -3,6 +3,8 @@
 require 'rails_helper'
 
 RSpec.describe CleverIntegration::TeacherClassroomsStudentsImporter do
+  subject { described_class.run(teacher, classroom_ids) }
+
   let(:clever_classroom) { create(:classroom, :from_clever) }
   let(:teacher) { clever_classroom.owner }
 
@@ -12,15 +14,26 @@ RSpec.describe CleverIntegration::TeacherClassroomsStudentsImporter do
 
   let(:classroom_ids) { [clever_classroom.id, non_clever_classroom.id] }
 
-  subject { described_class.run(teacher, classroom_ids) }
-
   let(:client) { double(:clever_client) }
-  let(:students_data) { double(:students_data) }
+  let(:classroom_students_data) { double(:classroom_students_data) }
+
+  before do
+    allow(CleverIntegration::ClassroomStudentsData)
+      .to receive(:new)
+      .with(clever_classroom, client)
+      .and_return(classroom_students_data)
+  end
 
   it 'runs the importer only on clever classrooms' do
-    expect(CleverIntegration::ClientFetcher).to receive(:run).with(teacher).and_return(client)
-    expect(client).to receive(:get_classroom_students).with(clever_classroom.clever_id).and_return(students_data)
-    expect(CleverIntegration::ClassroomStudentsImporter).to receive(:run).with(clever_classroom, students_data, teacher.id)
+    expect(CleverIntegration::ClientFetcher)
+      .to receive(:run)
+      .with(teacher)
+      .and_return(client)
+
+    expect(CleverIntegration::ClassroomStudentsImporter)
+      .to receive(:run)
+      .with(classroom_students_data)
+
     subject
   end
 end

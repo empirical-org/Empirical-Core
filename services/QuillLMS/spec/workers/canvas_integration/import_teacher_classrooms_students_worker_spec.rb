@@ -2,12 +2,12 @@
 
 require 'rails_helper'
 
-RSpec.describe CleverIntegration::ImportClassroomStudentsWorker do
+RSpec.describe CanvasIntegration::ImportTeacherClassroomsStudentsWorker do
   subject { described_class.new }
 
-  let(:teacher) { create(:teacher, :signed_up_with_clever) }
+  let(:teacher) { create(:teacher, :with_canvas_account) }
   let(:selected_classroom_ids) { [123, 456] }
-  let(:importer_class) { CleverIntegration::TeacherClassroomsStudentsImporter }
+  let(:importer_class) { CanvasIntegration::TeacherClassroomsStudentsImporter }
 
   it 'should report an error with nil teacher_id' do
     expect(ErrorNotifier).to receive(:report).with(ActiveRecord::RecordNotFound)
@@ -24,8 +24,8 @@ RSpec.describe CleverIntegration::ImportClassroomStudentsWorker do
     subject.perform(teacher.id)
   end
 
-  context 'teacher is clever authorized' do
-    before { create(:clever_library_auth_credential, user: teacher) }
+  context 'teacher is canvas authorized' do
+    before { create(:canvas_auth_credential, user: teacher) }
 
     it 'should run importing with valid teacher id and no selected_classroom_ids' do
       expect(importer_class).to receive(:run).with(teacher, nil)

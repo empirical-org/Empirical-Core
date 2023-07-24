@@ -10,16 +10,13 @@ module CleverIntegration
 
     def run
       {
-        clever_id: clever_id,
         email: email,
         name: name,
+        user_external_id: user_external_id,
         username: username
       }
     end
 
-    private def clever_id
-      data[:id]
-    end
 
     private def data
       @data ||= student_data['data'].deep_symbolize_keys
@@ -31,6 +28,10 @@ module CleverIntegration
 
     private def name
       ::NameBuilder.run(data.dig(:name, :first), data.dig(:name, :last))
+    end
+
+    private def user_external_id
+      data[:id]
     end
 
     private def username

@@ -2,7 +2,7 @@
 
 require 'rails_helper'
 
-describe GoogleIntegration::ImportClassroomStudentsWorker do
+describe GoogleIntegration::ImportTeacherClassroomsStudentsWorker do
   subject { described_class.new }
 
   let(:teacher) { create(:teacher, :signed_up_with_google) }
