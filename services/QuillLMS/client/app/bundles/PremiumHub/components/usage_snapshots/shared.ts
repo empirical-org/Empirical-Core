@@ -26,6 +26,7 @@ export const MEDIUM = 'medium'
 // change directions
 export const POSITIVE = 'positive'
 export const NEGATIVE = 'negative'
+export const NONE = 'none'
 
 // snapshot item types
 export const COUNT = 'count'

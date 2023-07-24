@@ -5,7 +5,7 @@ import SnapshotRanking from './snapshotRanking'
 import SnapshotFeedback from './snapshotFeedback'
 import { COUNT, RANKING, FEEDBACK, } from './shared'
 
-const SnapshotSection = ({ name, className, itemGroupings, searchCount, selectedGrades, selectedSchoolIds, selectedClassroomIds, selectedTeacherIds, selectedTimeframe, customTimeframeStart, customTimeframeEnd, adminId, }) => {
+const SnapshotSection = ({ name, className, itemGroupings, searchCount, selectedGrades, selectedSchoolIds, selectedClassroomIds, selectedTeacherIds, selectedTimeframe, customTimeframeStart, customTimeframeEnd, pusherChannel, }) => {
   const snapshotItemGroupings = itemGroupings.map(grouping => {
     const snapshotItems = grouping.items.map(item => {
       const { label, size, type, queryKey, headers, singularLabel, } = item
@@ -21,7 +21,7 @@ const SnapshotSection = ({ name, className, itemGroupings, searchCount, selected
         selectedTimeframe,
         customTimeframeEnd,
         customTimeframeStart,
-        adminId,
+        pusherChannel,
       }
 
       if (type === COUNT) {

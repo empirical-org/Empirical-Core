@@ -44,12 +44,14 @@
       justify-content: space-between;
       background-color: #E3F0EE;
       bottom: 0;
-      width: 317px;
+      width: 301px;
+      border-radius: 8px;
+      margin: 0px 8px 8px;
       &.fixed {
         position: fixed;
       }
       .quill-button {
-        width: 130px;
+        width: 122px;
       }
     }
     .dropdown-input-with-search-tokens-container {
@@ -201,12 +203,14 @@
             line-height: 21px;
           }
         }
-        &.positive {
-          background: #F1FAF6;
-          border: 1px solid #B4E6D1;
+        &.positive, &.negative, &.none {
           .count {
             color: #373737;
           }
+        }
+        &.positive {
+          background: #F1FAF6;
+          border: 1px solid #B4E6D1;
           .change {
             color: #129E6C;
           }
@@ -214,9 +218,6 @@
         &.negative {
           background: #FFEFEC;
           border: 1px solid #FFC0B3;
-          .count {
-            color: #373737;
-          }
           .change {
             color: #F65C3A;
           }

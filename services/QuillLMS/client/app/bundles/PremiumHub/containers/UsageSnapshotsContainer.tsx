@@ -1,6 +1,7 @@
 import React from 'react'
 import queryString from 'query-string';
 import * as _ from 'lodash'
+import * as Pusher from 'pusher-js';
 
 import { FULL, restrictedPage, } from '../shared';
 import CustomDateModal from '../components/usage_snapshots/customDateModal'
@@ -65,9 +66,15 @@ const UsageSnapshotsContainer = ({ adminInfo, accessType, }) => {
   const [lastUsedTimeframe, setLastUsedTimeframe] = React.useState(null)
   const [showMobileFilterMenu, setShowMobileFilterMenu] = React.useState(false)
 
+  const [pusherChannel, setPusherChannel] = React.useState(null)
+
   const size = useWindowSize()
 
   React.useEffect(() => {
+    const pusher = new Pusher(process.env.PUSHER_KEY, { encrypted: true, });
+    const channel = pusher.subscribe(String(adminInfo.id));
+    setPusherChannel(channel)
+
     getFilters()
   }, [])
 
@@ -98,12 +105,13 @@ const UsageSnapshotsContainer = ({ adminInfo, accessType, }) => {
     )
 
     const datesDoNotMatch = !_.isEqual(selectedTimeframe, lastSubmittedTimeframe) || customStartDate !== lastSubmittedCustomStartDate || customEndDate !== lastSubmittedCustomEndDate
+    debugger;
 
     const newValueForHasAdjustedFiltersSinceLastSubmission = arraysUnequal || datesDoNotMatch
 
     setHasAdjustedFiltersSinceLastSubmission(newValueForHasAdjustedFiltersSinceLastSubmission)
 
-  }, [selectedSchools, selectedGrades, selectedTeachers, selectedClassrooms, selectedTimeframe, customStartDate, customEndDate])
+  }, [selectedSchools, selectedGrades, selectedTeachers, selectedClassrooms, selectedTimeframe])
 
   React.useEffect(() => {
     if (showCustomDateModal || (customStartDate && customEndDate) || !lastUsedTimeframe) { return }
@@ -255,13 +263,13 @@ const UsageSnapshotsContainer = ({ adminInfo, accessType, }) => {
   const sectionsToShow = selectedTab === ALL ? snapshotSections : snapshotSections.filter(s => s.name === selectedTab)
   const snapshotSectionComponents = sectionsToShow.map(section => (
     <SnapshotSection
-      adminId={adminInfo.id}
       className={section.className}
       customTimeframeEnd={customEndDate?.toDate()}
       customTimeframeStart={customStartDate?.toDate()}
       itemGroupings={section.itemGroupings}
       key={section.name}
       name={section.name}
+      pusherChannel={pusherChannel}
       searchCount={searchCount}
       selectedClassroomIds={selectedClassrooms.map(c => c.id)}
       selectedGrades={selectedGrades.map(g => g.value)}

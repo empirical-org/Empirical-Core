@@ -1,8 +1,4 @@
 import * as React from 'react'
-import queryString from 'query-string';
-import * as Pusher from 'pusher-js';
-
-import { Grade, School, Timeframe, } from './shared'
 
 import { requestPost, } from './../../../../modules/request'
 import { ButtonLoadingSpinner, } from '../../../Shared/index'
@@ -20,9 +16,9 @@ interface SnapshotRankingProps {
   selectedTeacherIds: Array<number>;
   selectedClassroomIds: Array<number>;
   selectedTimeframe: string;
-  adminId: number;
   customTimeframeStart?: any;
   customTimeframeEnd?: any;
+  pusherChannel?: any;
 }
 
 const RankingModal = ({ label, closeModal, headers, data, }) => {
@@ -55,7 +51,7 @@ const DataTable = ({ headers, data, numberOfRows, }) => {
     return (
       <tr className="data-row" key={i}>
         <td>{value || '—'}</td>
-        <td>{value ? count : '—'}</td>
+        <td>{value ? count?.toLocaleString() : '—'}</td>
       </tr>
     )
   })
@@ -70,10 +66,14 @@ const DataTable = ({ headers, data, numberOfRows, }) => {
   )
 }
 
-const SnapshotRanking = ({ label, queryKey, headers, searchCount, selectedGrades, selectedSchoolIds, selectedTeacherIds, selectedClassroomIds, selectedTimeframe, customTimeframeStart, customTimeframeEnd, adminId, passedData, }: SnapshotRankingProps) => {
+const SnapshotRanking = ({ label, queryKey, headers, searchCount, selectedGrades, selectedSchoolIds, selectedTeacherIds, selectedClassroomIds, selectedTimeframe, customTimeframeStart, customTimeframeEnd, passedData, pusherChannel, }: SnapshotRankingProps) => {
   const [data, setData] = React.useState(null)
   const [loading, setLoading] = React.useState(false)
   const [showModal, setShowModal] = React.useState(false)
+
+  React.useEffect(() => {
+    initializePusher()
+  }, [pusherChannel])
 
   React.useEffect(() => {
     resetToDefault()
@@ -86,8 +86,6 @@ const SnapshotRanking = ({ label, queryKey, headers, searchCount, selectedGrades
   }
 
   function getData() {
-    initializePusher()
-
     const searchParams = {
       query: queryKey,
       timeframe: selectedTimeframe,
@@ -113,16 +111,15 @@ const SnapshotRanking = ({ label, queryKey, headers, searchCount, selectedGrades
   }
 
   function initializePusher() {
-    const pusher = new Pusher(process.env.PUSHER_KEY, { encrypted: true, });
-    const channel = pusher.subscribe(String(adminId));
-    channel.bind('admin-snapshot-top-x-cached', (body) => {
+    pusherChannel?.bind('admin-snapshot-top-x-cached', (body) => {
       const { message, } = body
 
       const queryKeysAreEqual = message.query === queryKey
+
       const timeframesAreEqual = message.timeframe === selectedTimeframe
-      const schoolIdsAreEqual = unorderedArraysAreEqual(message.school_ids, selectedSchoolIds.map(id => String(id)))
-      const teacherIdsAreEqual = unorderedArraysAreEqual(message.teacher_ids, selectedTeacherIds.map(id => String(id)))
-      const classroomIdsAreEqual = unorderedArraysAreEqual(message.classroom_ids, selectedClassroomIds.map(id => String(id)))
+      const schoolIdsAreEqual = unorderedArraysAreEqual(message.school_ids, selectedSchoolIds)
+      const teacherIdsAreEqual = unorderedArraysAreEqual(message.teacher_ids, selectedTeacherIds)
+      const classroomIdsAreEqual = unorderedArraysAreEqual(message.classroom_ids, selectedClassroomIds)
       const gradesAreEqual =  unorderedArraysAreEqual(message.grades, selectedGrades.map(grade => String(grade))) || (!message.grades && !selectedGrades.length)
 
       if (queryKeysAreEqual && timeframesAreEqual && schoolIdsAreEqual && gradesAreEqual && teacherIdsAreEqual && classroomIdsAreEqual) {
