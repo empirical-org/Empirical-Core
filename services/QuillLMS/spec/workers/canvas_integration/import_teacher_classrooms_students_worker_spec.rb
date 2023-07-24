@@ -2,12 +2,12 @@
 
 require 'rails_helper'
 
-describe GoogleIntegration::ImportClassroomStudentsWorker do
+RSpec.describe CanvasIntegration::ImportTeacherClassroomsStudentsWorker do
   subject { described_class.new }
 
-  let(:teacher) { create(:teacher, :signed_up_with_google) }
+  let(:teacher) { create(:teacher, :with_canvas_account) }
   let(:selected_classroom_ids) { [123, 456] }
-  let(:importer_class) { GoogleIntegration::TeacherClassroomsStudentsImporter }
+  let(:importer_class) { CanvasIntegration::TeacherClassroomsStudentsImporter }
 
   it 'should report an error with nil teacher_id' do
     expect(ErrorNotifier).to receive(:report).with(ActiveRecord::RecordNotFound)
@@ -24,8 +24,8 @@ describe GoogleIntegration::ImportClassroomStudentsWorker do
     subject.perform(teacher.id)
   end
 
-  context 'teacher is google authorized' do
-    before { create(:google_auth_credential, user: teacher) }
+  context 'teacher is canvas authorized' do
+    before { create(:canvas_auth_credential, user: teacher) }
 
     it 'should run importing with valid teacher id and no selected_classroom_ids' do
       expect(importer_class).to receive(:run).with(teacher, nil)

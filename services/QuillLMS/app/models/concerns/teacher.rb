@@ -346,6 +346,13 @@ module Teacher
       .where.not(clever_id: nil)
   end
 
+  def canvas_classrooms
+    Classroom
+      .joins(:classrooms_teachers)
+      .joins(:canvas_classroom)
+      .where(classrooms_teachers: { user_id: id })
+  end
+
   def classroom_units(includes_value = nil)
     classroom_ids = classrooms_i_teach.map(&:id)
     if includes_value

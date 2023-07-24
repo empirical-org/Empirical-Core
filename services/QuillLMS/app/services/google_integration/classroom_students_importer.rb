@@ -4,7 +4,7 @@ module GoogleIntegration
   class ClassroomStudentsImporter < ApplicationService
     attr_reader :classroom_students_data
 
-    delegate :google_classroom_id, :google_ids, to: :classroom_students_data
+    delegate :classroom_external_id, to: :classroom_students_data
 
     def initialize(classroom_students_data)
       @classroom_students_data = classroom_students_data
@@ -20,7 +20,11 @@ module GoogleIntegration
     end
 
     private def update_provider_classroom_users
-      ProviderClassroomUsersUpdater.run(google_classroom_id, google_ids, GoogleClassroomUser)
+      ::ProviderClassroomUsersUpdater.run(classroom_external_id, user_external_ids, GoogleClassroomUser)
+    end
+
+    private def user_external_ids
+      classroom_students_data.pluck(:user_external_id)
     end
   end
 end
