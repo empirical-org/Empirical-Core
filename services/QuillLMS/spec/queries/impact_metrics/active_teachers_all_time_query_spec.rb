@@ -14,7 +14,7 @@ module ImpactMetrics
       let(:activity_sessions) { classroom_units.map { |classroom_unit| create_list(:activity_session, 10, classroom_unit: classroom_unit) } }
 
       let(:cte_records) { [users, units, classroom_units, activity_sessions] }
-      let(:query_args) { [] }
+      let(:query_args) { {} }
 
       it { expect(results).to match_array(users.map { |u| {"id" => u.id}}) }
 
