@@ -20,7 +20,7 @@ class CanvasInstance < ApplicationRecord
   has_many :canvas_accounts, dependent: :destroy
   has_many :users, through: :canvas_accounts
 
-  has_many :canvas_configs, dependent: :destroy
+  has_one :canvas_config, dependent: :destroy
 
   has_many :canvas_instance_auth_credentials, dependent: :destroy
 
@@ -30,10 +30,6 @@ class CanvasInstance < ApplicationRecord
     presence: true,
     uniqueness: true,
     url: true
-
-  def canvas_config
-    canvas_configs.last
-  end
 
   def client_id
     canvas_config&.client_id

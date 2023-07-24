@@ -33,7 +33,7 @@ class CanvasAuthCredential < AuthCredential
   PROVIDER = 'canvas'
 
   def canvas_authorized?
-    refresh_token_valid?
+    canvas_instance && refresh_token_valid?
   end
 
   def refresh_token_valid?
