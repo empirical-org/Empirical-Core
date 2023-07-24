@@ -3,10 +3,10 @@
 require 'rails_helper'
 
 describe PublicProgressReports, type: :model do
-
   before do
     class FakeReports
       attr_accessor :session
+      attr_reader :current_user
 
       include PublicProgressReports
     end
@@ -160,12 +160,14 @@ describe PublicProgressReports, type: :model do
 
     context "no students have completed the activity" do
       describe "it is a diagnostic activity" do
+        let(:instance) { FakeReports.new }
         let!(:diagnostic) { create(:diagnostic) }
         let!(:diagnostic_activity) { create(:diagnostic_activity) }
         let!(:unit_activity) { create(:unit_activity, activity: diagnostic_activity, unit: unit)}
 
+        before { allow(instance).to receive(:current_user).and_return(teacher) }
+
         it "should return an array of classrooms that have been assigned the activity" do
-          instance = FakeReports.new
           instance.session = { user_id: teacher.id }
           classrooms = instance.classrooms_with_students_for_report(unit.id, diagnostic_activity.id)
 
@@ -178,8 +180,6 @@ describe PublicProgressReports, type: :model do
 
           expect(classrooms[c1_index][:classroom_unit_id]).to eq(classroom_unit1.id)
           expect(classrooms[c2_index][:classroom_unit_id]).to eq(classroom_unit2.id)
-
-
         end
       end
     end

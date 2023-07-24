@@ -1,7 +1,7 @@
 # frozen_string_literal: true
 
 module NavigationHelper
-  routes = Rails.application.routes.url_helpers
+  include Rails.application.routes.url_helpers
 
   # premium tiers
   PAID = 'paid'
@@ -48,40 +48,22 @@ module NavigationHelper
   ABOUT_US_TAB = { name: ABOUT_US, url: '/about' }
   ASSIGN_ACTIVITIES_TAB = { name: ASSIGN_ACTIVITIES, url: '/assign' }
   EXPLORE_CURRICULUM_TAB = { name: EXPLORE_CURRICULUM, url: '/activities/packs' }
-  HOME_TAB = { name: HOME, url: routes.root_path }
   LEARNING_TOOLS_TAB = { name: LEARNING_TOOLS, url: '/tools/connect', id: 'learning-tools' }
   LOGIN_TAB = { name: LOG_IN, url: '/session/new' }
   LOGOUT_TAB = { name: LOG_OUT, url: '/session', id: 'logout-tab' }
-  MY_ACCOUNT_TAB = { name: MY_ACCOUNT, url: routes.teachers_my_account_path, id: 'my-account-tab' }
-  MY_ACTIVITIES_TAB = { name: MY_ACTIVITIES, url: routes.lesson_planner_teachers_classrooms_path }
-  MY_CLASSES_TAB = { name: MY_CLASSES, url: routes.teachers_classrooms_path }
-  MY_REPORTS_TAB = { name: MY_REPORTS, url: routes.teachers_progress_reports_landing_page_path }
-  OVERVIEW_TAB = { name: OVERVIEW, url: routes.dashboard_teachers_classrooms_path }
-  PREMIUM_TAB = { name: PREMIUM, url: routes.premium_path, id: 'premium-tab' }
-  PREMIUM_HUB_TAB = { name: PREMIUM_HUB, url: routes.teachers_premium_hub_path, id: 'admin-tab' }
-  QUILL_ACADEMY_TAB = { name: QUILL_ACADEMY, url: routes.quill_academy_path, id: 'quill-academy-tab' }
   QUILL_SUPPORT_TAB = { name: QUILL_SUPPORT, url: 'https://support.quill.org/', id: 'quill-support-tab' }
   SIGN_UP_TAB = { name: SIGN_UP, url: '/account/new' }
   STUDENT_CENTER_TAB = { name: STUDENT_CENTER, url: '/student-center' }
   TEACHER_CENTER_TAB = { name: TEACHER_CENTER, url: '/teacher-center' }
-  TEACHER_PREMIUM_TAB = { name: TEACHER_PREMIUM, url: routes.teacher_premium_path, id: 'premium-tab' }
 
   # tertiary navigation tabs
-  ACTIVE_CLASSES_TAB = { name: ACTIVE_CLASSES, url: routes.teachers_classrooms_path }
   ACTIVITY_ANALYSIS_TAB = { name: ACTIVITY_ANALYSIS, url: '/teachers/progress_reports/diagnostic_reports/#/activity_packs', id: 'mobile-activity-analysis-tab' }
-  ACTIVITY_SCORES_TAB = { name: ACTIVITY_SCORES, url: routes.teachers_progress_reports_activities_scores_by_classroom_path }
-  ACTIVITY_SUMMARY_TAB = { name: ACTIVITY_SUMMARY, url: routes.scorebook_teachers_classrooms_path }
+
   ADMIN_ACCESS_TAB = { name: ADMIN_ACCESS, url: '/admin_access' }
-  ARCHIVED_CLASSES_TAB = { name: ARCHIVED_CLASSES, url: routes.archived_teachers_classrooms_path }
-  CONCEPTS_TAB = { name: CONCEPTS, url: routes.teachers_progress_reports_concepts_students_path }
-  DATA_EXPORT_TAB = { name: DATA_EXPORT, url: routes.teachers_progress_reports_activity_sessions_path }
   DIAGNOSTICS_TAB = { name: DIAGNOSTICS, url: '/teachers/progress_reports/diagnostic_reports/#/diagnostics', id: 'mobile-diagnostics-tab' }
-  MY_SUBSCRIPTIONS_TAB = { name: MY_SUBSCRIPTIONS, url: routes.subscriptions_path }
-  STANDARDS_TAB = { name: STANDARDS, url: routes.teachers_progress_reports_standards_classrooms_path }
 
   UNAUTHED_USER_TABS = [LEARNING_TOOLS_TAB, EXPLORE_CURRICULUM_TAB, TEACHER_CENTER_TAB, ABOUT_US_TAB, LOGIN_TAB, SIGN_UP_TAB]
   STUDENT_TABS = [LEARNING_TOOLS_TAB, STUDENT_CENTER_TAB, QUILL_SUPPORT_TAB, LOGOUT_TAB]
-  COMMON_AUTHED_USER_TABS = [LEARNING_TOOLS_TAB, TEACHER_CENTER_TAB, QUILL_SUPPORT_TAB, MY_ACCOUNT_TAB, LOGOUT_TAB]
 
   ACTIVE_TAB_PATHS = {
     LEARNING_TOOLS => ['tools'],
@@ -120,8 +102,87 @@ module NavigationHelper
     DATA_EXPORT => ['teachers/progress_reports/activity_sessions']
   }
 
+  def active_classes_tab
+    @active_classes_tab ||= { name: ACTIVE_CLASSES, url: teachers_classrooms_path }
+  end
+
+  def activity_scores_tab
+    @activity_scores_tab ||= { name: ACTIVITY_SCORES, url: teachers_progress_reports_activities_scores_by_classroom_path }
+  end
+
+  def activity_summary_tab
+    @activity_summary_tab ||= { name: ACTIVITY_SUMMARY, url: scorebook_teachers_classrooms_path }
+  end
+
+  def archived_classes_tab
+    @archived_classes_tab ||= { name: ARCHIVED_CLASSES, url: archived_teachers_classrooms_path }
+  end
+
+  def concepts_tab
+    @concepts_tab ||= { name: CONCEPTS, url: teachers_progress_reports_concepts_students_path }
+  end
+
+  def data_export_tab
+    @data_export_tab ||= { name: DATA_EXPORT, url: teachers_progress_reports_activity_sessions_path }
+  end
+
+  def home_tab
+    @home_tab ||= { name: HOME, url: root_path }
+  end
+
+  def my_account_tab
+    @my_account_tab ||= { name: MY_ACCOUNT, url: teachers_my_account_path, id: 'my-account-tab' }
+  end
+
+  def my_activities_tab
+    @my_activities_tab ||= { name: MY_ACTIVITIES, url: lesson_planner_teachers_classrooms_path }
+  end
+
+  def my_classes_tab
+    @my_classes_tab ||= { name: MY_CLASSES, url: teachers_classrooms_path }
+  end
+
+  def my_reports_tab
+    @my_reports_tab ||= { name: MY_REPORTS, url: teachers_progress_reports_landing_page_path }
+  end
+
+  def my_subscriptions_tab
+    @my_subscriptions_tab ||= { name: MY_SUBSCRIPTIONS, url: subscriptions_path }
+  end
+
+  def overview_tab
+    @overview_tab ||= { name: OVERVIEW, url: dashboard_teachers_classrooms_path }
+  end
+
+  def premium_hub_tab
+    @premium_hub_tab ||= { name: PREMIUM_HUB, url: teachers_premium_hub_path, id: 'admin-tab' }
+  end
+
+  def premium_tab
+    @premium_tab ||= { name: PREMIUM, url: premium_path, id: 'premium-tab' }
+  end
+
+  def quill_academy_tab
+    @quill_academy_tab ||= { name: QUILL_ACADEMY, url: quill_academy_path, id: 'quill-academy-tab' }
+  end
+
+  def standards_tab
+    @standards_tab ||= { name: STANDARDS, url: teachers_progress_reports_standards_classrooms_path }
+  end
+
+  def teacher_premium_tab
+    @teacher_premium_tab ||= { name: TEACHER_PREMIUM, url: teacher_premium_path, id: 'premium-tab' }
+  end
+
+  def common_authed_user_tabs
+    @common_authed_user_tabs ||= [LEARNING_TOOLS_TAB, TEACHER_CENTER_TAB, QUILL_SUPPORT_TAB, my_account_tab, LOGOUT_TAB]
+  end
+
   def home_page_active?
-    ['dashboard', 'my_account', 'teacher_guide', 'google_sync'].include?(action_name) || (controller_name == 'subscriptions' && action_name == 'index') || controller_name == 'referrals' || controller_name == 'admin_access'
+    ['dashboard', 'my_account', 'teacher_guide', 'google_sync'].include?(action_name) ||
+      (controller_name == 'subscriptions' && action_name == 'index') ||
+      controller_name == 'referrals' ||
+      controller_name == 'admin_access'
   end
 
   def classes_page_active?
@@ -163,7 +224,7 @@ module NavigationHelper
     action_name == 'teacher_premium'
   end
 
-  def premium_tab_copy
+  def premium_tab_copy(current_user)
     middle_diamond_img = "<div class='large-diamond-icon is-in-middle'></div>"
     end_diamond_img = "<div class='large-diamond-icon'></div>"
     case current_user.premium_state
@@ -176,7 +237,7 @@ module NavigationHelper
     end
   end
 
-  def determine_premium_badge
+  def determine_premium_badge(current_user)
     return unless current_user
 
     premium_state = current_user.premium_state
@@ -217,7 +278,7 @@ module NavigationHelper
     home_page_active? || classes_page_active? || student_reports_page_active?
   end
 
-  def should_show_admin_access_tab?
+  def admin_tab_access?(current_user)
     !!(current_user.teacher? && !current_user.admin? && current_user.school && School::ALTERNATIVE_SCHOOL_NAMES.exclude?(current_user.school.name))
   end
 
@@ -254,33 +315,41 @@ module NavigationHelper
     end
   end
 
-  def determine_mobile_navbar_tabs
+  def determine_mobile_navbar_tabs(current_user)
     return UNAUTHED_USER_TABS if !current_user
 
-    return STUDENT_TABS if current_user&.role == 'student'
+    return STUDENT_TABS if current_user.student?
 
-    authed_user_tabs
+    authed_user_tabs(current_user)
   end
 
-  def mobile_subnav_tabs
+  def mobile_subnav_tabs(current_user)
     if home_page_active?
-      home_page_subnav_tabs
+      home_page_subnav_tabs(current_user)
     elsif classes_page_active?
-      [ACTIVE_CLASSES_TAB, ARCHIVED_CLASSES_TAB]
+      [active_classes_tab, archived_classes_tab]
     elsif student_reports_page_active?
-      [ACTIVITY_SUMMARY_TAB, ACTIVITY_ANALYSIS_TAB, DIAGNOSTICS_TAB, ACTIVITY_SCORES_TAB, CONCEPTS_TAB, STANDARDS_TAB, DATA_EXPORT_TAB]
+      [
+        activity_summary_tab,
+        ACTIVITY_ANALYSIS_TAB,
+        DIAGNOSTICS_TAB,
+        activity_scores_tab,
+        concepts_tab,
+        standards_tab,
+        data_export_tab
+      ]
     end
   end
 
-  private def should_render_overview_tab?
+  private def overview_tab_access?
     current_user.has_classrooms? || current_user.archived_classrooms.any? || current_user.coteacher_invitations.any?
   end
 
-  private def home_page_subnav_tabs
-    tabs = [MY_ACCOUNT_TAB, MY_SUBSCRIPTIONS_TAB]
+  private def home_page_subnav_tabs(current_user)
+    tabs = [my_account_tab, my_subscriptions_tab]
 
-    tabs.unshift(OVERVIEW_TAB) if should_render_overview_tab?
-    tabs.push(ADMIN_ACCESS_TAB) if should_show_admin_access_tab?
+    tabs.unshift(overview_tab) if overview_tab_access?
+    tabs.push(ADMIN_ACCESS_TAB) if admin_tab_access?(current_user)
     tabs
   end
 
@@ -292,13 +361,20 @@ module NavigationHelper
     HOME
   end
 
-  private def authed_user_tabs
-    tabs = [HOME_TAB, OVERVIEW_TAB, MY_CLASSES_TAB, ASSIGN_ACTIVITIES_TAB, MY_ACTIVITIES_TAB, MY_REPORTS_TAB]
+  private def authed_user_tabs(current_user)
+    tabs = [
+      home_tab,
+      overview_tab,
+      my_classes_tab,
+      ASSIGN_ACTIVITIES_TAB,
+      my_activities_tab,
+      my_reports_tab
+    ]
 
-    tabs.push(PREMIUM_TAB) unless current_user.premium_state == 'paid' || current_user.should_render_teacher_premium?
-    tabs.push(TEACHER_PREMIUM_TAB) if current_user.should_render_teacher_premium?
-    tabs.push(PREMIUM_HUB_TAB) if current_user.admin? && !admin_impersonating_user?(current_user)
-    tabs.push(QUILL_ACADEMY_TAB)
-    tabs.concat(COMMON_AUTHED_USER_TABS)
+    tabs.push(premium_tab) unless current_user.premium_state == 'paid' || current_user.should_render_teacher_premium?
+    tabs.push(teacher_premium_tab) if current_user.should_render_teacher_premium?
+    tabs.push(premium_hub_tab) if current_user.admin? && !admin_impersonating_user?(current_user)
+    tabs.push(quill_academy_tab)
+    tabs.concat(common_authed_user_tabs)
   end
 end
