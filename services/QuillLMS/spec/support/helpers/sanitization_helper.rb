@@ -1,7 +1,5 @@
 # frozen_string_literal: true
 
-require 'fileutils'
-
 module SanitizationHelper
   # This method can be called in any of our tests to convert a hash into a format
   # that allows it to be compared to a hash we generate from SQL. For example,

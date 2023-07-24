@@ -1,7 +1,5 @@
 # frozen_string_literal: true
 
-require 'lms_api'
-
 LMS::Canvas.auth_state_model = AuthCredential
 
 module Auth

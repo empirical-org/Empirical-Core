@@ -13,7 +13,6 @@
 #  updated_at  :datetime
 #  teacher_id  :integer
 #
-require 'csv'
 
 class CsvExport < ApplicationRecord
   EXPORT_TYPE_OPTIONS = %w(activity_sessions

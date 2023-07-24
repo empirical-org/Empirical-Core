@@ -1,8 +1,6 @@
 # frozen_string_literal: true
 
 class Teachers::ProgressReports::CsvExportsController < Teachers::ProgressReportsController
-  require 'pusher'
-
   def create
     csv_export = CsvExport.new(export_params)
     csv_export.teacher_id = current_user.id

@@ -1,6 +1,5 @@
 # frozen_string_literal: true
 
-# require_relative '../quill_scaffold_controller'
 begin
   require 'factory_bot_rails'
 rescue LoadError
