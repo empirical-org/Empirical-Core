@@ -13,9 +13,7 @@ describe OnboardingChecklistAnalyticsWorker do
     let!(:explore_our_diagnostics) { create(:explore_our_diagnostics)}
     let(:analyzer) { double(:analyzer) }
 
-    before do
-      allow(SegmentAnalytics).to receive(:new) { analyzer }
-    end
+    before { allow(Analytics::SegmentAnalytics).to receive(:new) { analyzer } }
 
     it 'should track the event if there is a checkbox for that user and each of the onboarding objectives' do
       Checkbox.create(user: user, objective: create_a_classroom)

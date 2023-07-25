@@ -168,13 +168,13 @@ describe Teachers::ClassroomsController, type: :controller do
       let(:analyzer) { double(:analyzer, track_with_attributes: true) }
 
       before do
-        allow(Analyzer).to receive(:new) { analyzer }
+        allow(Analytics::Analyzer).to receive(:new) { analyzer }
       end
 
       it 'should track the ownership transfer' do
         expect(analyzer).to receive(:track_with_attributes).with(
           current_owner,
-          SegmentIo::BackgroundEvents::TRANSFER_OWNERSHIP,
+          Analytics::SegmentIo::BackgroundEvents::TRANSFER_OWNERSHIP,
           { properties: { new_owner_id: subsequent_owner.id.to_s } }
         )
         session[:user_id] = current_owner.id

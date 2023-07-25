@@ -7,7 +7,7 @@ class CalculateAndCacheSchoolDataForSegmentWorker
   def perform(school_id)
     school = School.includes(:users).find(school_id)
 
-    cache = CacheSegmentSchoolData.new(school)
+    cache = Analytics::CacheSegmentSchoolData.new(school)
     cache.calculate_and_set_cache
   end
 end

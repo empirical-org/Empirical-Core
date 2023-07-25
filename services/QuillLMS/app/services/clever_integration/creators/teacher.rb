@@ -21,6 +21,6 @@ module CleverIntegration::Creators::Teacher
 
     teacher.update(google_id: nil)
 
-    SegmentAnalytics.new.track_event_from_string('TEACHER_GOOGLE_AND_CLEVER', teacher.id)
+    Analytics::SegmentAnalytics.new.track_event_from_string('TEACHER_GOOGLE_AND_CLEVER', teacher.id)
   end
 end

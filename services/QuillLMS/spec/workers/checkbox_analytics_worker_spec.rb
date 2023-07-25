@@ -10,7 +10,7 @@ describe CheckboxAnalyticsWorker do
     let!(:activity) { create(:activity) }
     let(:analyzer) { double(:analyzer) }
 
-    before { allow(SegmentAnalytics).to receive(:new) { analyzer } }
+    before { allow(Analytics::SegmentAnalytics).to receive(:new) { analyzer } }
 
     it 'should track the event' do
       expect(analyzer).to receive(:track_activity_assignment).with(user.id, activity.id)

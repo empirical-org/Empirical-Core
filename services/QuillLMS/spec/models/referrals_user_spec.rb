@@ -45,7 +45,7 @@ RSpec.describe ReferralsUser, type: :model do
   end
 
   context 'callbacks' do
-    let(:segment_analytics) { SegmentAnalytics.new }
+    let(:segment_analytics) { Analytics::SegmentAnalytics.new }
     let(:track_calls) { segment_analytics.backend.track_calls }
     let(:identify_calls) { segment_analytics.backend.identify_calls }
 
@@ -55,7 +55,7 @@ RSpec.describe ReferralsUser, type: :model do
       it 'triggers an invited event' do
         expect(identify_calls.size).to eq(1)
         expect(identify_calls[0][:user_id]).to be(referrals_user.referrer.id)
-        expect(track_calls[0][:event]).to be(SegmentIo::BackgroundEvents::REFERRAL_INVITED)
+        expect(track_calls[0][:event]).to be(Analytics::SegmentIo::BackgroundEvents::REFERRAL_INVITED)
         expect(track_calls[0][:user_id]).to be(referrals_user.referrer.id)
         expect(track_calls[0][:properties][:referral_id]).to be(referrals_user.referral.id)
       end
@@ -68,7 +68,7 @@ RSpec.describe ReferralsUser, type: :model do
         referrals_user.update(activated: true)
         expect(identify_calls.size).to eq(2)
         expect(identify_calls[1][:user_id]).to be(referrals_user.referrer.id)
-        expect(track_calls[1][:event]).to be(SegmentIo::BackgroundEvents::REFERRAL_ACTIVATED)
+        expect(track_calls[1][:event]).to be(Analytics::SegmentIo::BackgroundEvents::REFERRAL_ACTIVATED)
         expect(track_calls[1][:user_id]).to be(referrals_user.referrer.id)
         expect(track_calls[1][:properties][:referral_id]).to be(referrals_user.referral.id)
       end

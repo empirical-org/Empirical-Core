@@ -2,7 +2,7 @@
 
 require 'rails_helper'
 
-describe ErrorAnalytics do
+describe Analytics::ErrorAnalytics do
   let(:analyzer) { double(:analyzer, track: true) }
 
   subject { described_class.new(analyzer) }
@@ -13,7 +13,7 @@ describe ErrorAnalytics do
 
   describe '#track500' do
     it 'should track the error 500 event' do
-      expect(analyzer).to receive(:track).with({ event: SegmentIo::BackgroundEvents::ERROR_500, anonymous_id: "secure_random" })
+      expect(analyzer).to receive(:track).with({ event: Analytics::SegmentIo::BackgroundEvents::ERROR_500, anonymous_id: "secure_random" })
       subject.track500
     end
   end

@@ -150,10 +150,11 @@ class Teachers::ClassroomsController < ApplicationController
         ClassroomsTeacher.find_by(user_id: current_user.id, classroom_id: @classroom.id, role: owner_role).update(role: coteacher_role)
         ClassroomsTeacher.find_by(user_id: requested_new_owner_id, classroom_id: @classroom.id, role: coteacher_role).update(role: owner_role)
       end
-      Analyzer.new.track_with_attributes(
-          current_user,
-          SegmentIo::BackgroundEvents::TRANSFER_OWNERSHIP,
-{ properties: { new_owner_id: requested_new_owner_id } }
+
+      Analytics::Analyzer.new.track_with_attributes(
+        current_user,
+        Analytics::SegmentIo::BackgroundEvents::TRANSFER_OWNERSHIP,
+        properties: { new_owner_id: requested_new_owner_id }
       )
     rescue => e
       return render json: { error: "Please ensure this teacher is a co-teacher before transferring ownership. #{e}" }, status: 401
