@@ -29,8 +29,6 @@ describe GradesController do
 
       json_response = JSON.parse(response.body).deep_symbolize_keys
 
-      # Due to time-precision rounding on strings, we have to do this comparison
-      # in a convoluted way
       expect(json_response[:sessions].first).to include(
         percentage: activity_session.percentage,
         id: activity_session.id,
@@ -40,8 +38,11 @@ describe GradesController do
         number_of_questions: 2,
         number_of_correct_questions: 1
       )
-      expect(json_response[:sessions].first[:completed_at])
-        .to eq((activity_session.reload.completed_at + teacher.utc_offset.seconds).to_s)
+
+      # Due to time-precision rounding on strings, we have to do this comparison
+      # in a convoluted way
+      expect(json_response[:sessions].first[:completed_at].to_datetime.to_i)
+        .to eq((activity_session.reload.completed_at + teacher.utc_offset.seconds).to_datetime.to_i)
 
     end
   end
