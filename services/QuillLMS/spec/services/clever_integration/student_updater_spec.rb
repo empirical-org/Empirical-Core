@@ -3,112 +3,61 @@
 require 'rails_helper'
 
 describe CleverIntegration::StudentUpdater do
+  subject { described_class.run(student, data) }
+
+  let(:classroom) { create(:classroom, :from_clever) }
+  let(:student) { create(:student, :signed_up_with_clever) }
+
+  let(:email) { student.email }
+  let(:name) { student.name }
+  let(:user_external_id) { student.clever_id }
+  let(:username) { student.username }
+
   let(:data) do
     {
-      clever_id: clever_id,
+      classroom: classroom,
       email: email,
       name: name,
+      user_external_id: user_external_id,
       username: username
     }
   end
 
-  let(:clever_id) { '1' }
-  let(:email) { 'student@gmail.com' }
-  let(:name) { 'Student Name' }
-  let(:username) { 'student.username' }
-  let(:teacher_id) { create(:teacher).id }
+  it { expect { subject }.not_to change(student, :clever_id) }
+  it { expect { subject }.not_to change(student, :email) }
+  it { expect { subject }.not_to change(student, :google_id) }
+  it { expect { subject }.not_to change(student, :name) }
+  it { expect { subject }.not_to change(student, :username) }
 
-  subject { described_class.run(student, data, teacher_id) }
+  context 'a different student with username exists' do
+    let(:another_student) { create(:student) }
+    let(:username) { another_student.username }
 
-  context 'student with email exists' do
-    let!(:student) { create(:student, email: email) }
+    it { expect { subject }.not_to change(student, :username) }
 
-    it { updates_student_with_data }
+    context 'nil username provided' do
+      let(:username) { nil }
 
-    context 'student has same clever_id' do
-      before { student.update(clever_id: clever_id) }
-
-      it { updates_student_with_data }
-    end
-
-    context 'another student exists with clever_id' do
-      let!(:existing_student_with_clever_id) { create(:student, clever_id: clever_id) }
-
-      it 'transfers clever_id to existing student' do
-        subject
-
-        existing_student_with_clever_id.reload
-        expect(existing_student_with_clever_id.clever_id).to eq nil
-        expect(existing_student_with_clever_id.account_type).to eq 'unknown'
-      end
-
-      it { updates_student_with_data }
-    end
-
-    context 'a different student with username exists' do
-      let!(:existing_student_with_username) { create(:student, username: username) }
-
-      it { updates_student_with_data_except_username }
-
-      context 'nil username provided' do
-        let(:username) { nil }
-
-        it { updates_student_with_data_except_username }
-      end
+      it { expect { subject }.not_to change(student, :username) }
     end
   end
 
-  context 'student with clever_id exists' do
-    let!(:student) { create(:student, clever_id: clever_id) }
+  context 'student has different role' do
+    before { student.update(role: User::TEACHER) }
 
-    context 'nil email provided' do
-      let(:email) { nil }
-
-      it { updates_student_with_data }
-    end
-
-    context 'student with email does not exist' do
-      it { updates_student_with_data }
-    end
-
-    context 'a different student with username exists' do
-      let!(:existing_student_with_username) { create(:student, username: username) }
-
-      it { updates_student_with_data_except_username }
-
-      context 'nil username provided' do
-        let(:username) { nil }
-
-        it { updates_student_with_data_except_username }
-      end
-    end
-
-    context 'student also has a google_id' do
-      before { student.update(google_id: '12345678') }
-
-      it { updates_student_with_data }
-    end
+    it { expect { subject }.to change(student, :role).to(User::STUDENT) }
   end
 
-  def updates_student_with_data
-    subject
+  context 'student has different account_type' do
+    before { student.update(account_type: nil) }
 
-    student.reload
-    expect(student.clever_id).to eq clever_id
-    expect(student.email).to eq email
-    expect(student.name).to eq name
-    expect(student.username).to eq username
-    expect(student.google_id).to eq nil
+    it { expect { subject }.to change(student, :account_type).to(User::CLEVER_ACCOUNT) }
   end
 
-  def updates_student_with_data_except_username
-    subject
+  context 'student also has a google_id' do
+    before { student.update(google_id: '12345678') }
 
-    student.reload
-    expect(student.clever_id).to eq clever_id
-    expect(student.email).to eq email
-    expect(student.name).to eq name
-    expect(student.username).not_to eq username
-    expect(student.google_id).to eq nil
+    it { expect { subject }.to change { student.reload.google_id }.to(nil) }
+    it { expect { subject }.not_to change { student.reload.clever_id } }
   end
 end

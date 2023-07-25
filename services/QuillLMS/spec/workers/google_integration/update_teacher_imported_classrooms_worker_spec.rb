@@ -3,9 +3,7 @@
 require 'rails_helper'
 
 describe GoogleIntegration::UpdateTeacherImportedClassroomsWorker do
-  let(:worker) { described_class.new }
-
-  subject { worker.perform(user_id) }
+  subject { described_class.new.perform(user_id) }
 
   context 'nil user_id' do
     let(:user_id) { nil }
@@ -20,7 +18,7 @@ describe GoogleIntegration::UpdateTeacherImportedClassroomsWorker do
   end
 
   context 'user exists' do
-    let!(:user) { create(:teacher, :signed_up_with_google) }
+    let(:user) { create(:teacher, :signed_up_with_google) }
     let(:user_id) { user.id }
 
     context 'with no auth_credential' do
@@ -35,14 +33,14 @@ describe GoogleIntegration::UpdateTeacherImportedClassroomsWorker do
   end
 
   def should_not_run_service_objects
-    expect(GoogleIntegration::TeacherClassroomsRetriever).to_not receive(:run)
+    expect(GoogleIntegration::TeacherClassroomsCacheHydrator).to_not receive(:run)
     expect(GoogleIntegration::TeacherImportedClassroomsUpdater).to_not receive(:run)
     subject
   end
 
   def should_run_service_objects
-    expect(GoogleIntegration::TeacherClassroomsRetriever).to receive(:run).with(user_id)
-    expect(GoogleIntegration::TeacherImportedClassroomsUpdater).to receive(:run).with(user_id)
+    expect(GoogleIntegration::TeacherClassroomsCacheHydrator).to receive(:run).with(user)
+    expect(GoogleIntegration::TeacherImportedClassroomsUpdater).to receive(:run).with(user)
     subject
   end
 end

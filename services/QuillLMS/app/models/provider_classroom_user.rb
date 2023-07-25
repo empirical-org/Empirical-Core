@@ -9,24 +9,18 @@
 #  type                  :string           not null
 #  created_at            :datetime         not null
 #  updated_at            :datetime         not null
-#  canvas_instance_id    :bigint
 #  classroom_external_id :string           not null
 #  user_external_id      :string           not null
 #
 # Indexes
 #
-#  index_provider_classroom_users_on_canvas_instance_id  (canvas_instance_id)
-#  index_provider_type_and_classroom_id_and_user_id      (type,classroom_external_id,user_external_id) UNIQUE
-#
-# Foreign Keys
-#
-#  fk_rails_...  (canvas_instance_id => canvas_instances.id)
+#  index_provider_type_and_classroom_id_and_user_id  (type,classroom_external_id,user_external_id) UNIQUE
 #
 class ProviderClassroomUser < ApplicationRecord
   ACTIVE = :active
   DELETED = :deleted
 
-  TYPES = %w[CleverClassroomUser GoogleClassroomUser].freeze
+  TYPES = %w[CanvasClassroomUser CleverClassroomUser GoogleClassroomUser].freeze
 
   belongs_to :canvas_instance, optional: true
 
@@ -41,13 +35,12 @@ class ProviderClassroomUser < ApplicationRecord
   # max_lengths: { clever_id: 24, google_id: 21 }
   validates :user_external_id, length: { maximum: 25 }
 
-  def self.create_list(classroom_external_id, user_external_ids, canvas_instance_id = nil)
+  def self.create_list(classroom_external_id, user_external_ids)
     create!(
       user_external_ids.map do |user_external_id|
         {
           classroom_external_id: classroom_external_id,
           user_external_id: user_external_id,
-          canvas_instance_id: canvas_instance_id,
           type: name
         }
       end
@@ -58,8 +51,24 @@ class ProviderClassroomUser < ApplicationRecord
     deleted_at.nil?
   end
 
+  def clever_classroom_id
+    raise NotImplementedError
+  end
+
+  def clever_user_id
+    raise NotImplementedError
+  end
+
   def deleted?
     !active?
+  end
+
+  def google_classroom_id
+    raise NotImplementedError
+  end
+
+  def google_id
+    raise NotImplementedError
   end
 
   def status

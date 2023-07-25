@@ -3,51 +3,63 @@
 require 'rails_helper'
 
 RSpec.describe CanvasIntegration::ClassroomDataAdapter do
-  subject { described_class.run(course_data, section_data) }
+  subject { described_class.run(canvas_instance_id, course_payload, section_payload) }
 
-  let(:course_data) { create(:canvas_course_data).deep_symbolize_keys }
-  let(:section_data) { create(:canvas_section_data).deep_symbolize_keys }
-  let(:student_data1) { create(:canvas_student_data).deep_symbolize_keys }
-  let(:student_data2) { create(:canvas_student_data).deep_symbolize_keys }
+  let(:canvas_instance_id) { create(:canvas_instance).id }
+  let(:course_payload) { create(:canvas_course_payload).deep_symbolize_keys }
+  let(:section_payload) { create(:canvas_section_payload).deep_symbolize_keys }
+  let(:student1_payload) { create(:canvas_student_payload).deep_symbolize_keys }
+  let(:student2_payload) { create(:canvas_student_payload).deep_symbolize_keys }
 
-  let(:classroom_name) { [course_data[:name], section_data[:name]].join(' - ') }
+  let(:already_imported) { false }
+  let(:classroom_external_id) { CanvasClassroom.build_classroom_external_id(canvas_instance_id, section_payload[:id]) }
+  let(:classroom_name) { [course_payload[:name], section_payload[:name]].join(' - ') }
+  let(:students) { [] }
 
   let(:classroom_data) do
     {
+      alreadyImported: already_imported,
+      classroom_external_id: classroom_external_id,
       name: classroom_name,
-      external_classroom_id: section_data[:id],
       students: students
     }
   end
 
-  context 'section and course have same id' do
-    let(:students) { [] }
+  context 'classroom already imported' do
+    before { create(:canvas_classroom, canvas_instance_id: canvas_instance_id, external_id: classroom_external_id) }
 
-    before { section_data[:id] = course_data[:id] }
+    it { is_expected.to eq classroom_data }
+  end
+
+  context 'section and course have same id' do
+    before { section_payload[:id] = course_payload[:id] }
 
     context 'section and course have different names' do
-      it { expect(subject).to eq classroom_data }
+      it { is_expected.to eq classroom_data }
     end
 
     context 'section and course have the same name' do
-      let(:classroom_name) { course_data[:name] }
+      let(:classroom_name) { course_payload[:name] }
 
-      before { section_data[:name] = course_data[:name] }
+      before { section_payload[:name] = course_payload[:name] }
 
-      it { expect(subject).to eq classroom_data }
+      it { is_expected.to eq classroom_data }
     end
   end
 
   context 'multiple students' do
+    let(:user_external_id1) { CanvasAccount.build_user_external_id(canvas_instance_id, student1_payload[:id]) }
+    let(:user_external_id2) { CanvasAccount.build_user_external_id(canvas_instance_id, student2_payload[:id]) }
+
     let(:students) do
       [
-        { external_user_id: student_data1[:id], name: student_data1[:name] },
-        { external_user_id: student_data2[:id], name: student_data2[:name] }
+        { user_external_id: user_external_id1, name: student1_payload[:name] },
+        { user_external_id: user_external_id2, name: student2_payload[:name] }
       ]
     end
 
-    before { section_data[:students] = [student_data1, student_data2] }
+    before { section_payload[:students] = [student1_payload, student2_payload] }
 
-    it { expect(subject).to eq classroom_data }
+    it { is_expected.to eq classroom_data }
   end
 end
