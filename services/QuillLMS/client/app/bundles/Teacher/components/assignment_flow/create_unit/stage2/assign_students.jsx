@@ -13,6 +13,7 @@ import ImportGoogleClassroomsModal from '../../../classrooms/import_google_class
 import LinkCleverAccountModal from '../../../classrooms/link_clever_account_modal.tsx';
 import LinkGoogleAccountModal from '../../../classrooms/link_google_account_modal.tsx';
 import ReauthorizeCleverModal from '../../../classrooms/reauthorize_clever_modal';
+import ReauthorizeGoogleModal from '../../../classrooms/reauthorize_google_modal';
 import ButtonLoadingIndicator from '../../../shared/button_loading_indicator';
 
 const cleverIconSrc = `${process.env.CDN_URL}/images/icons/clever.svg`
@@ -27,6 +28,7 @@ export const importGoogleClassroomsModal = 'importGoogleClassroomsModal'
 export const linkCleverAccountModal = 'linkCleverAccountModal'
 export const linkGoogleAccountModal = 'linkGoogleAccountModal'
 export const reauthorizeCleverModal = 'reauthorizeCleverModal'
+export const reauthorizeGoogleModal = 'reauthorizeGoogleModal'
 export const cleverClassroomsEmptyModal = 'cleverClassroomsEmptyModal'
 export const googleClassroomsEmptyModal = 'googleClassroomsEmptyModal'
 
@@ -110,7 +112,10 @@ export default class AssignStudents extends React.Component {
     if (user && google_id) {
       this.setState({ googleClassroomsLoading: true}, () => {
         requestGet('/google_integration/teachers/retrieve_classrooms', (body) => {
-          if (body.quill_retrieval_processing) {
+          if (body.reauthorization_required) {
+            this.openFormOrModal(reauthorizeGoogleModal)
+          }
+          else if (body.quill_retrieval_processing) {
             this.initializePusherForGoogleClassrooms(body.user_id)
           } else {
             const googleClassrooms = body.classrooms.filter(classroom => !classroom.alreadyImported)
@@ -413,6 +418,19 @@ export default class AssignStudents extends React.Component {
     }
   }
 
+  renderReauthorizeGoogleModal() {
+    const { googleLink } = this.props
+    const { showFormOrModal } = this.state
+
+    if (showFormOrModal === reauthorizeGoogleModal) {
+      return (
+        <ReauthorizeGoogleModal
+          close={this.closeFormOrModal}
+          googleLink={googleLink}
+        />
+      )
+    }
+  }
   renderSnackbar() {
     const { showSnackbar, snackbarCopy, } = this.state
     return <Snackbar text={snackbarCopy} visible={showSnackbar} />
@@ -424,6 +442,7 @@ export default class AssignStudents extends React.Component {
         {this.renderImportCleverClassroomsModal()}
         {this.renderImportGoogleClassroomsModal()}
         {this.renderReauthorizeCleverModal()}
+        {this.renderReauthorizeGoogleModal()}
         {this.renderLinkCleverAccountModal()}
         {this.renderLinkGoogleAccountModal()}
         {this.renderCleverClassroomsEmptyModal()}

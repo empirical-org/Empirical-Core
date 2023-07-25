@@ -23,6 +23,7 @@ class Teachers::ClassroomManagerController < ApplicationController
   def lesson_planner
     set_classroom_variables
     @unassign_warning_hidden = UserMilestone.exists?(milestone_id: UNASSIGN_WARNING_MILESTONE&.id, user_id: current_user&.id)
+    @google_link = Auth::Google::REAUTHORIZATION_PATH
   end
 
   def assign
@@ -32,6 +33,7 @@ class Teachers::ClassroomManagerController < ApplicationController
     set_banner_variables
     set_diagnostic_variables
     @clever_link = clever_link
+    @google_link = Auth::Google::REAUTHORIZATION_PATH
     @number_of_activities_assigned = current_user.units.map(&:unit_activities).flatten.map(&:activity_id).uniq.size
     find_or_create_checkbox(Objective::EXPLORE_OUR_LIBRARY, current_user)
     return unless params[:tab] == 'diagnostic'

@@ -1,28 +1,28 @@
 import * as React from 'react';
 
-interface ReauthorizeCleverModalProps {
-  cleverLink: string;
+interface ReauthorizeGoogleModalProps {
+  googleLink: string;
   close: () => void;
 }
 
-const ReauthorizeCleverModal = ({ cleverLink, close }: ReauthorizeCleverModalProps) => {
+const ReauthorizeGoogleModal = ({ googleLink, close }: ReauthorizeGoogleModalProps) => {
   function handleReauthorizeClick() {
-    window.location.href = cleverLink
+    window.location.href = googleLink
   }
 
   return (
-    <div className="modal-container reauthorize-clever-modal-container">
+    <div className="modal-container reauthorize-google-modal-container">
       <div className="modal-background" />
-      <div className="reauthorize-clever-modal quill-modal modal-body">
+      <div className="reauthorize-google-modal quill-modal modal-body">
         <div>
           <h3 className="title">
-            Reauthorize Clever
+            Reauthorize Google
           </h3>
         </div>
         <p>
-          To import a new Clever classroom, you need to reauthorize Clever access.
+          To import a new Google classroom, you need to reauthorize Google access.
           <br />
-          Clicking reauthorize will re-direct you to Clever.
+          Clicking reauthorize will re-direct you to Google.
         </p>
         <div className="form-buttons">
           <button className="quill-button focus-on-light outlined secondary medium" onClick={close} type="button">
@@ -37,4 +37,4 @@ const ReauthorizeCleverModal = ({ cleverLink, close }: ReauthorizeCleverModalPro
   )
 }
 
-export default ReauthorizeCleverModal
+export default ReauthorizeGoogleModal
