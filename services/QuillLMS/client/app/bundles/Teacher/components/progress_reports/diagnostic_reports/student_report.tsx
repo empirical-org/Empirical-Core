@@ -113,9 +113,9 @@ const StudentReport = ({ params, studentDropdownCallback, passedStudents, }) => 
               <br />
               <p>Students earn:</p>
               <ul>
-                <li>Proficient (‘green’) for scoring between 80-100%.</li>
-                <li>Nearly Proficient (‘yellow’) for scoring between 60%-79%.</li>
-                <li>Not Proficient (‘red’) for scoring between 0%-59%.</li>
+                <li>Proficient (‘green’) for scoring between 83-100%.</li>
+                <li>Nearly Proficient (‘yellow’) for scoring between 32%-82%.</li>
+                <li>Not Proficient (‘red’) for scoring between 0%-31%.</li>
                 <li>Completed (’blue’) for activities that are not graded, such as a <a href="https://support.quill.org/en/articles/2554430-what-assessments-diagnostics-and-skills-surveys-are-available-on-quill-and-who-are-they-for" rel="noopener noreferrer" target="_blank">Diagnostic</a> or <a href="https://support.quill.org/en/articles/1173157-quill-lessons-getting-started-guide" rel="noopener noreferrer" target="_blank">Quill Lesson</a>.</li>
               </ul>
               <br />
