@@ -32,7 +32,7 @@ describe AssignRecommendationsWorker do
   end
 
   before do
-    allow(Analyzer).to receive(:new) { analyzer }
+    allow(Analytics::Analyzer).to receive(:new) { analyzer }
     allow(PusherRecommendationCompleted).to receive(:run)
   end
 
@@ -124,14 +124,14 @@ describe AssignRecommendationsWorker do
   def should_track_that_all_recommendations_are_being_assigned
     expect(analyzer)
       .to receive(:track_with_attributes)
-      .with(teacher, SegmentIo::BackgroundEvents::ASSIGN_RECOMMENDATIONS, properties)
+      .with(teacher, Analytics::SegmentIo::BackgroundEvents::ASSIGN_RECOMMENDATIONS, properties)
 
     subject
   end
 
 
   def should_not_track_that_all_recommendations_are_being_assigned
-    expect(analyzer).not_to receive(:track).with(teacher, SegmentIo::BackgroundEvents::ASSIGN_ALL_RECOMMENDATIONS)
+    expect(analyzer).not_to receive(:track).with(teacher, Analytics::SegmentIo::BackgroundEvents::ASSIGN_ALL_RECOMMENDATIONS)
     subject
   end
 

@@ -726,7 +726,7 @@ describe Teachers::ClassroomManagerController, type: :controller do
 
     before do
       allow(controller).to receive(:current_user) { teacher }
-      allow(Analyzer).to receive(:new) { analyzer }
+      allow(Analytics::Analyzer).to receive(:new) { analyzer }
     end
 
     it 'will call current_user_demo_id= if the demo account exists' do
@@ -754,7 +754,7 @@ describe Teachers::ClassroomManagerController, type: :controller do
 
     it 'will track event' do
       expect(Demo::ResetAccountWorker).to receive(:perform_async).with(demo_teacher.id)
-      expect(analyzer).to receive(:track).with(teacher, SegmentIo::BackgroundEvents::VIEWED_DEMO)
+      expect(analyzer).to receive(:track).with(teacher, Analytics::SegmentIo::BackgroundEvents::VIEWED_DEMO)
 
       get :view_demo
     end
@@ -816,7 +816,7 @@ describe Teachers::ClassroomManagerController, type: :controller do
 
     before do
       allow(controller).to receive(:current_user) { teacher }
-      allow(Analyzer).to receive(:new) { analyzer }
+      allow(Analytics::Analyzer).to receive(:new) { analyzer }
     end
 
     it 'will call preview_student_id= if the student exists and is in one of the teachers classrooms' do
@@ -840,7 +840,7 @@ describe Teachers::ClassroomManagerController, type: :controller do
     end
 
     it 'will track event' do
-      expect(analyzer).to receive(:track).with(teacher, SegmentIo::BackgroundEvents::VIEWED_AS_STUDENT)
+      expect(analyzer).to receive(:track).with(teacher, Analytics::SegmentIo::BackgroundEvents::VIEWED_AS_STUDENT)
       get :preview_as_student, params: { student_id: student1.id }
     end
   end

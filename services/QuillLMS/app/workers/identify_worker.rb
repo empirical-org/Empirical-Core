@@ -7,7 +7,7 @@ class IdentifyWorker
     user = User.find_by_id(id)
     return unless user
 
-    analytics = SegmentAnalytics.new
+    analytics = Analytics::SegmentAnalytics.new
     analytics.identify(user)
   end
 end

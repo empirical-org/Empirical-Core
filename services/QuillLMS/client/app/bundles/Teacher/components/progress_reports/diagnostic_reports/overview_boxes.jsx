@@ -22,13 +22,13 @@ export default class OverviewBoxes extends React.Component {
     let range,
       proficiency
     if (group === 'red-score-color') {
-      range = '0 - 59%';
+      range = '0 - 31%';
       proficiency = 'Not yet proficient'
     } else if (group === 'yellow-score-color') {
-      range = '60 - 79%';
+      range = '32 - 82%';
       proficiency = 'Nearly proficient'
     } else {
-      range = '80 - 100%';
+      range = '83 - 100%';
       proficiency = 'Proficient'
     }
     return (

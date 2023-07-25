@@ -46,16 +46,16 @@ class AssignRecommendationsWorker
   end
 
   def track_recommendation_assignment(teacher, release_method)
-    Analyzer.new.track_with_attributes(
+    Analytics::Analyzer.new.track_with_attributes(
       teacher,
-      SegmentIo::BackgroundEvents::ASSIGN_RECOMMENDATIONS,
+      Analytics::SegmentIo::BackgroundEvents::ASSIGN_RECOMMENDATIONS,
       properties: { release_method: release_method }
     )
   end
 
   def track_assign_all_recommendations(teacher)
-    analytics = Analyzer.new
-    analytics.track(teacher, SegmentIo::BackgroundEvents::ASSIGN_ALL_RECOMMENDATIONS)
+    analytics = Analytics::Analyzer.new
+    analytics.track(teacher, Analytics::SegmentIo::BackgroundEvents::ASSIGN_ALL_RECOMMENDATIONS)
   end
 
   def handle_error_tracking_for_diagnostic_recommendation_assignment_time(teacher_id, lesson)

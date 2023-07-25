@@ -19,7 +19,7 @@ namespace :reports do
       join classrooms_teachers
       on schools_users.user_id = classrooms_teachers.user_id
       join classrooms
-      on classrooms.teacher_id = schools_users.user_id or classrooms.id=classrooms_teachers.classroom_id
+      on classrooms.id=classrooms_teachers.classroom_id
       join classroom_units
       on classroom_units.classroom_id = classrooms.id
       join units

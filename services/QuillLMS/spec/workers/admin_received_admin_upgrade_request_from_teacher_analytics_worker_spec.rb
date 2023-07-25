@@ -11,7 +11,7 @@ describe AdminReceivedAdminUpgradeRequestFromTeacherAnalyticsWorker do
     let(:analyzer) { double(:analyzer) }
     let(:reason) { 'Please' }
 
-    before { allow(SegmentAnalytics).to receive(:new) { analyzer } }
+    before { allow(Analytics::SegmentAnalytics).to receive(:new) { analyzer } }
 
     it 'should track the event' do
       [true, false].each do |new_user|
