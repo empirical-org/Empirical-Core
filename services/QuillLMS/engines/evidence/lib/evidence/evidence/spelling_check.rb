@@ -32,7 +32,8 @@ module Evidence
       'wilmut',
       'quokkaselfie',
       'quokkaselfies',
-      'mestres'
+      'mestres',
+      'villages'
     ]
 
     attr_reader :entry
