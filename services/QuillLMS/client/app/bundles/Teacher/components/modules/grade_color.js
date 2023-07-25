@@ -1,9 +1,9 @@
 export default (grade) => {
   if (grade == null) {
     return 'gray';
-  } else if (grade < 0.6) {
+  } else if (grade < 0.32) {
     return 'red';
-  } else if (grade < 0.8) {
+  } else if (grade < 0.83) {
     return 'orange';
   } else if (grade <= 1.0) {
     return 'green';

@@ -4,6 +4,10 @@ require 'rails_helper'
 
 module TeacherNotifications
   describe RollupMailer, type: :mailer do
+    before do
+      allow_any_instance_of(ActionView::Helpers::AssetTagHelper).to receive(:stylesheet_link_tag)
+    end
+
     let(:user) { create(:teacher) }
     let(:notifications) {
       [

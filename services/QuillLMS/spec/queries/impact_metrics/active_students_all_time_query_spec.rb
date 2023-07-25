@@ -11,7 +11,7 @@ module ImpactMetrics
       let(:inactive_students) { create_list(:student, 10)}
       let(:activity_sessions) { students.map { |s| create(:activity_session, :finished, user: s) }}
       let(:unfinished_activity_sessions) { inactive_students.map { |s| create(:activity_session, state: "started", user: s) }}
-      let(:query_args) { [] }
+      let(:query_args) { {} }
 
       let(:cte_records) {
         [

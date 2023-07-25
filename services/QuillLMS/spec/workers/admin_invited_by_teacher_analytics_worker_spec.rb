@@ -12,7 +12,7 @@ describe AdminInvitedByTeacherAnalyticsWorker do
     let(:admin_email) { 'admin@email.com' }
     let(:note) { 'Please' }
 
-    before { allow(SegmentAnalytics).to receive(:new) { analyzer } }
+    before { allow(Analytics::SegmentAnalytics).to receive(:new) { analyzer } }
 
     it 'should track the event' do
       expect(analyzer).to receive(:track_admin_invited_by_teacher).with(admin_name, admin_email, teacher, note)

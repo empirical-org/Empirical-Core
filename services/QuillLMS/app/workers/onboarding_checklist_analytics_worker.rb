@@ -11,7 +11,7 @@ class OnboardingChecklistAnalyticsWorker
 
     return unless all_objectives_met
 
-    analytics = SegmentAnalytics.new
+    analytics = Analytics::SegmentAnalytics.new
     analytics.track_event_from_string("TEACHER_COMPLETED_ONBOARDING_CHECKLIST", user_id)
   end
 end

@@ -5,7 +5,7 @@ class TrackUnlistedSchoolInformationWorker
   sidekiq_options queue: SidekiqQueue::LOW
 
   def perform(user_id, school_name, school_zipcode)
-    analytics = SegmentAnalytics.new
+    analytics = Analytics::SegmentAnalytics.new
     user = User.find_by_id(user_id)
 
     return if user.nil? || school_name.nil?

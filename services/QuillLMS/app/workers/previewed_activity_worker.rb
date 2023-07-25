@@ -6,7 +6,7 @@ class PreviewedActivityWorker
   def perform(user_id, activity_id)
     return unless user_id
 
-    analytics = SegmentAnalytics.new
+    analytics = Analytics::SegmentAnalytics.new
     analytics.track_previewed_activity(user_id, activity_id)
   end
 end

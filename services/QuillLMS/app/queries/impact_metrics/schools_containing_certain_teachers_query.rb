@@ -3,7 +3,7 @@
 module ImpactMetrics
   class SchoolsContainingCertainTeachersQuery < ::QuillBigQuery::Query
 
-    def initialize(teacher_ids, options = {})
+    def initialize(teacher_ids:, options: {})
       @teacher_ids = teacher_ids
 
       super(options)
