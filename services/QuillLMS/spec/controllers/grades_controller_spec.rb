@@ -19,9 +19,9 @@ describe GradesController do
   describe '#tooltip' do
     let(:student_user) { create(:user) }
     let(:activity_session) { create(:activity_session_without_concept_results, user: student_user) }
-    let(:concept) { create(:concept) }
-    let!(:concept_result) { create(:concept_result, activity_session: activity_session, concept: concept) }
-    let(:due_date) { Time.current }
+    let(:concept) { create(:concept_with_grandparent) }
+    let!(:incorrect_concept_result) { create(:concept_result, activity_session: activity_session, correct: false, concept_id: concept.id, question_score: 0, question_number: 1, extra_metadata: { question_concept_uid: concept.uid }) }
+    let!(:correct_concept_result) { create(:concept_result, activity_session: activity_session, correct: true, concept_id: concept.id, question_score: 1, question_number: 2, extra_metadata: { question_concept_uid: concept.uid }) }
     let!(:classrooms_teacher) { create(:classrooms_teacher, user: teacher, classroom: activity_session.classroom_unit.classroom) }
 
     it 'should render the correct json' do
@@ -31,20 +31,18 @@ describe GradesController do
 
       # Due to time-precision rounding on strings, we have to do this comparison
       # in a convoluted way
-      expect(json_response[:scores].first).to include(
-        percentage: activity_session.percentage
+      expect(json_response[:sessions].first).to include(
+        percentage: activity_session.percentage,
+        id: activity_session.id,
+        description: activity_session.activity.description,
+        due_date: activity_session.classroom_unit.unit_activities.first.due_date,
+        grouped_key_target_skill_concepts: [{ name: concept.parent.name, correct: 1, incorrect: 1 }],
+        number_of_questions: 2,
+        number_of_correct_questions: 1
       )
-      expect(json_response[:scores].first[:completed_at].to_datetime.to_i)
+      expect(json_response[:sessions].first[:completed_at])
         .to eq(activity_session.reload.completed_at.to_i + teacher.utc_offset.seconds)
 
-      expect(json_response[:concept_results].first).to include(
-        correct: concept_result.correct,
-        description: activity_session.activity.description,
-        name: concept.name,
-        due_date: activity_session.classroom_unit.unit_activities.first.due_date
-      )
-      expect(json_response[:concept_results].first[:completed_at].to_datetime.to_i)
-        .to eq(activity_session.reload.completed_at.to_i + teacher.utc_offset.seconds)
     end
   end
 end
