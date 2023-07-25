@@ -67,7 +67,7 @@ module CanvasIntegration
       let(:url) { canvas_instance.url }
       let(:email)  { Faker::Internet.email }
       let(:external_id) { Faker::Number.number }
-      let(:name) { Faker::Name.name }
+      let(:name) { Faker::Name.custom_name }
       let(:ext_roles) { CanvasIntegration::RoleExtractor::INSTRUCTOR_ROLE }
 
       context 'existing user' do

@@ -3575,8 +3575,7 @@ CREATE TABLE public.provider_classroom_users (
     user_external_id character varying NOT NULL,
     deleted_at timestamp without time zone,
     created_at timestamp without time zone NOT NULL,
-    updated_at timestamp without time zone NOT NULL,
-    canvas_instance_id bigint
+    updated_at timestamp without time zone NOT NULL
 );
 
 
@@ -8411,13 +8410,6 @@ CREATE UNIQUE INDEX index_plans_on_name ON public.plans USING btree (name);
 
 
 --
--- Name: index_provider_classroom_users_on_canvas_instance_id; Type: INDEX; Schema: public; Owner: -
---
-
-CREATE INDEX index_provider_classroom_users_on_canvas_instance_id ON public.provider_classroom_users USING btree (canvas_instance_id);
-
-
---
 -- Name: index_provider_classrooms_on_canvas_instance_id; Type: INDEX; Schema: public; Owner: -
 --
 
@@ -9481,14 +9473,6 @@ ALTER TABLE ONLY public.pack_sequences
 
 
 --
--- Name: provider_classroom_users fk_rails_7ad4319bc6; Type: FK CONSTRAINT; Schema: public; Owner: -
---
-
-ALTER TABLE ONLY public.provider_classroom_users
-    ADD CONSTRAINT fk_rails_7ad4319bc6 FOREIGN KEY (canvas_instance_id) REFERENCES public.canvas_instances(id);
-
-
---
 -- Name: standards fk_rails_7c2e427970; Type: FK CONSTRAINT; Schema: public; Owner: -
 --
 
@@ -10362,6 +10346,7 @@ INSERT INTO "schema_migrations" (version) VALUES
 ('20230630173229'),
 ('20230630184901'),
 ('20230706155155'),
+('20230710144829'),
 ('20230725175024');
 
 

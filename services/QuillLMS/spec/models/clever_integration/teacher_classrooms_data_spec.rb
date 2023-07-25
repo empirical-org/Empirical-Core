@@ -16,27 +16,25 @@ RSpec.describe CleverIntegration::TeacherClassroomsData do
   end
 
   context 'two classrooms' do
-    let(:classroom_clever_id1) { 'abcdef' }
-    let(:classroom_clever_id2) { 'ghijkl' }
+    let(:classroom_external_id1) { 'abcdef' }
+    let(:classroom_external_id2) { 'ghijkl' }
 
     let(:serialized_classrooms_data) do
       {
         classrooms: [
-          { clever_id: classroom_clever_id1 },
-          { clever_id: classroom_clever_id2 }
+          { classroom_external_id: classroom_external_id1 },
+          { classroom_external_id: classroom_external_id2 }
         ]
       }.to_json
     end
 
     let(:expected_classrooms_data) do
       [
-        { clever_id: classroom_clever_id1, teacher_id: teacher.id },
-        { clever_id: classroom_clever_id2, teacher_id: teacher.id }
+        { classroom_external_id: classroom_external_id1, teacher_id: teacher.id },
+        { classroom_external_id: classroom_external_id2, teacher_id: teacher.id }
       ]
     end
 
-    it 'has two elements' do
-      subject.each_with_index { |classroom_data, index| expect(classroom_data).to eq expected_classrooms_data[index] }
-    end
+    it { expect(subject).to match_array expected_classrooms_data }
   end
 end

@@ -2,15 +2,16 @@
 
 require 'rails_helper'
 
-RSpec.describe GoogleIntegration::ClassroomStudentUpdater do
-  let(:email) { 'first_user@gmail.com' }
+RSpec.describe GoogleIntegration::StudentUpdater do
+  subject { described_class.run(student, data) }
 
-  let(:google_id) { '123' }
-  let(:data) { { email: email, google_id: google_id } }
   let(:account_type) { described_class::ACCOUNT_TYPE }
   let(:role) { described_class::ROLE }
 
-  subject { described_class.run(student, data) }
+  let(:email) { Faker::Internet.email }
+  let(:user_external_id) { Faker::Number.number }
+
+  let(:data) { { email: email, user_external_id: user_external_id } }
 
   context 'student has role student' do
     let(:student) { create(:student, email: email )}
@@ -39,7 +40,7 @@ RSpec.describe GoogleIntegration::ClassroomStudentUpdater do
     expect(student.email).to eq email
     expect(student.role).to eq role
     expect(student.account_type).to eq account_type
-    expect(student.google_id).to eq google_id
+    expect(student.google_id).to eq user_external_id
     expect(student.clever_id).to eq nil
   end
 end

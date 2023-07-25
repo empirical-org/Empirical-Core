@@ -234,10 +234,8 @@ FactoryBot.define do
 
       factory :student_in_two_classrooms_with_many_activities do
         after(:create) do |student|
-          classrooms = create_pair(:classroom, students: [student])
-          classrooms.each do |classroom|
-            units = create_pair(:unit, user: classroom.owner)
-            units.each do |unit|
+          create_pair(:classroom, students: [student]).each do |classroom|
+            create_pair(:unit, user: classroom.owner).each do |unit|
               unit_activity = create(:unit_activity, unit: unit)
               classroom_unit = create(:classroom_unit, unit: unit, classroom: classroom, assigned_student_ids: [student.id])
               create(:activity_session, classroom_unit: classroom_unit, user: student, activity: unit_activity.activity)
@@ -247,9 +245,11 @@ FactoryBot.define do
       end
     end
 
-    trait(:with_canvas_account) do
-      after(:create) do |user|
-        create(:canvas_account, user: user)
+    trait :with_canvas_account do
+      transient { canvas_instance { FactoryBot.create(:canvas_instance) } }
+
+      after(:create) do |user, evaluator|
+        create(:canvas_account, canvas_instance: evaluator.canvas_instance, user: user)
         user.reload
       end
     end

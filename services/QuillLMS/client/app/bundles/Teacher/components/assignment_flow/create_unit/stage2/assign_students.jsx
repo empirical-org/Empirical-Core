@@ -61,9 +61,9 @@ export default class AssignStudents extends React.Component {
       else if (body.quill_retrieval_processing) {
         this.initializePusherForCleverClassrooms(body.user_id)
       } else {
-        const { classrooms_data, existing_clever_ids } = body
+        const { classrooms_data } = body
         const { classrooms } = classrooms_data
-        const cleverClassrooms = classrooms.filter(classroom => !existing_clever_ids.includes(classroom.clever_id))
+        const cleverClassrooms = classrooms.filter(classroom => !classroom.alreadyImported)
 
         this.setState({cleverClassrooms, attemptedImportCleverClassrooms: false})
 
@@ -109,9 +109,9 @@ export default class AssignStudents extends React.Component {
 
     if (user && google_id) {
       this.setState({ googleClassroomsLoading: true}, () => {
-        requestGet('/teachers/classrooms/retrieve_google_classrooms', (body) => {
+        requestGet('/google_integration/teachers/retrieve_classrooms', (body) => {
           if (body.quill_retrieval_processing) {
-            this.initializePusherForGoogleClassrooms(body.id)
+            this.initializePusherForGoogleClassrooms(body.user_id)
           } else {
             const googleClassrooms = body.classrooms.filter(classroom => !classroom.alreadyImported)
             const newStateObj = { googleClassrooms, googleClassroomsLoading: false, }

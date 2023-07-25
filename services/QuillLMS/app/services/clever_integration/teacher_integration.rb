@@ -17,7 +17,6 @@ module CleverIntegration
     def run
       import_teacher
       run_teacher_integration
-      hydrate_teacher_classrooms_cache
       update_existing_teacher_classrooms
       { type: 'user_success', data: teacher }
     rescue => e
@@ -54,7 +53,7 @@ module CleverIntegration
     end
 
     private def update_existing_teacher_classrooms
-      TeacherImportedClassroomsUpdater.run(teacher.id)
+      UpdateTeacherImportedClassroomsWorker.perform_async(teacher.id)
     end
   end
 end

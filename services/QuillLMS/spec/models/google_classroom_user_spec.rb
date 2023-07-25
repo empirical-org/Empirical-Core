@@ -9,33 +9,25 @@
 #  type                  :string           not null
 #  created_at            :datetime         not null
 #  updated_at            :datetime         not null
-#  canvas_instance_id    :bigint
 #  classroom_external_id :string           not null
 #  user_external_id      :string           not null
 #
 # Indexes
 #
-#  index_provider_classroom_users_on_canvas_instance_id  (canvas_instance_id)
-#  index_provider_type_and_classroom_id_and_user_id      (type,classroom_external_id,user_external_id) UNIQUE
-#
-# Foreign Keys
-#
-#  fk_rails_...  (canvas_instance_id => canvas_instances.id)
+#  index_provider_type_and_classroom_id_and_user_id  (type,classroom_external_id,user_external_id) UNIQUE
 #
 require 'rails_helper'
 
 RSpec.describe GoogleClassroomUser, type: :model do
-  let(:google_id) { '12345' }
-  let(:google_classroom_id) { '67890' }
+  subject { create(:google_classroom_user)}
 
-  subject do
-    create(:google_classroom_user,
-      user_external_id: google_id,
-      classroom_external_id: google_classroom_id
-    )
-  end
+  it_behaves_like 'a provider classroom user'
 
-  it { expect(subject.google_classroom_id).to eq google_classroom_id }
-  it { expect(subject.google_id).to eq google_id }
-  it { expect(subject.type).to eq described_class.to_s }
+  it { expect(subject.canvas_instance).to be nil }
+
+  it { expect { subject.clever_classroom_id }.to raise_error NotImplementedError }
+  it { expect { subject.clever_user_id }.to raise_error NotImplementedError }
+
+  it { expect(subject.google_classroom_id).to eq subject.classroom_external_id }
+  it { expect(subject.google_id).to eq subject.user_external_id }
 end
