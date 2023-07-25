@@ -6,8 +6,15 @@
 
 .header-container {
   height: 95px;
-  background-color: #06806b;
   width: 100%;
+}
+
+.header-container img {
+  height: 135px;
+  object-fit: cover;
+  object-position: center;
+  width: 100%;
+  height: 135px;
 }
 
 .header {
