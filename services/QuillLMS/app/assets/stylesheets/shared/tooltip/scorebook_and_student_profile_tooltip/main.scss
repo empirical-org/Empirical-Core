@@ -14,23 +14,26 @@
   }
 
   .main {
+    color: #262626;
+    font-size: 12px;
+    line-height: 16px;
     padding: 0px 15px;
      p {
        padding-top: 6px;
      }
-    .concept-stats {
+    .key-target-skill-concepts {
       width: 280px;
       font-size: 13px;
       padding: 0px;
       margin: 0px;
       color: #000000;
+      border-bottom: 1px solid #CFCFCF;
+      padding-bottom: 6px;
+      margin-bottom: 16px;
       .row, .tooltip-message {
         margin: 0px;
 
         padding: 4px 0px;
-        &:not(:nth-last-child(2)) {
-          border-bottom: 1px solid $lightgray;
-        }
       }
 
       .tooltip-message {
@@ -50,10 +53,10 @@
         }
 
         .correct-answer {
-          color: $darkgreen2;
+          color: #79C933;
         }
         .incorrect-answer {
-          color: $darkred;
+          color: #C97C00;
         }
       }
     }
@@ -67,7 +70,6 @@
 
     .tooltip-score-time-data {
       font-size: 13px;
-      color: #3b3b3b
     }
 
     .activity-details {

@@ -81,7 +81,7 @@
     name: pairing_id
   - !ruby/object:ActiveModel::Attribute::FromDatabase
     name: percentage
-    value_before_type_cast: 0.81
+    value_before_type_cast: 1.0
   - !ruby/object:ActiveModel::Attribute::FromDatabase
     name: state
     value_before_type_cast: finished
@@ -102,7 +102,7 @@
     value_before_type_cast: 2017-01-11 14:21:59.147001000 Z
   - !ruby/object:ActiveModel::Attribute::FromDatabase
     name: updated_at
-    value_before_type_cast: 2017-02-23 13:56:39.338569000 Z
+    value_before_type_cast: 2023-07-21 15:43:40.973938000 Z
   - !ruby/object:ActiveModel::Attribute::FromDatabase
     name: started_at
     value_before_type_cast: 2017-01-11 15:13:54.857806000 Z
@@ -140,7 +140,7 @@
     name: pairing_id
   - !ruby/object:ActiveModel::Attribute::FromDatabase
     name: percentage
-    value_before_type_cast: 0.61
+    value_before_type_cast: 0.86
   - !ruby/object:ActiveModel::Attribute::FromDatabase
     name: state
     value_before_type_cast: finished
@@ -161,7 +161,7 @@
     value_before_type_cast: 2017-01-11 14:21:59.543411000 Z
   - !ruby/object:ActiveModel::Attribute::FromDatabase
     name: updated_at
-    value_before_type_cast: 2017-02-23 13:56:37.315773000 Z
+    value_before_type_cast: 2023-07-21 15:43:43.432554000 Z
   - !ruby/object:ActiveModel::Attribute::FromDatabase
     name: started_at
     value_before_type_cast: 2017-01-11 15:12:47.346345000 Z
@@ -199,7 +199,7 @@
     name: pairing_id
   - !ruby/object:ActiveModel::Attribute::FromDatabase
     name: percentage
-    value_before_type_cast: 0.7272727272727273
+    value_before_type_cast: 0.73
   - !ruby/object:ActiveModel::Attribute::FromDatabase
     name: state
     value_before_type_cast: finished
@@ -220,7 +220,7 @@
     value_before_type_cast: 2016-12-12 01:05:47.337349000 Z
   - !ruby/object:ActiveModel::Attribute::FromDatabase
     name: updated_at
-    value_before_type_cast: 2017-03-16 20:29:29.399093000 Z
+    value_before_type_cast: 2023-07-21 15:43:45.337413000 Z
   - !ruby/object:ActiveModel::Attribute::FromDatabase
     name: started_at
     value_before_type_cast: 2016-12-15 17:23:44.557594000 Z
@@ -258,7 +258,7 @@
     name: pairing_id
   - !ruby/object:ActiveModel::Attribute::FromDatabase
     name: percentage
-    value_before_type_cast: 0.5333333333333333
+    value_before_type_cast: 0.53
   - !ruby/object:ActiveModel::Attribute::FromDatabase
     name: state
     value_before_type_cast: finished
@@ -279,7 +279,7 @@
     value_before_type_cast: 2016-11-21 21:38:20.573482000 Z
   - !ruby/object:ActiveModel::Attribute::FromDatabase
     name: updated_at
-    value_before_type_cast: 2016-11-23 14:08:15.994095000 Z
+    value_before_type_cast: 2023-07-21 15:43:46.390324000 Z
   - !ruby/object:ActiveModel::Attribute::FromDatabase
     name: started_at
     value_before_type_cast: 2016-11-23 13:50:45.488517000 Z
@@ -317,7 +317,7 @@
     name: pairing_id
   - !ruby/object:ActiveModel::Attribute::FromDatabase
     name: percentage
-    value_before_type_cast: 0.375
+    value_before_type_cast: 0.38
   - !ruby/object:ActiveModel::Attribute::FromDatabase
     name: state
     value_before_type_cast: finished
@@ -338,7 +338,7 @@
     value_before_type_cast: 2016-09-30 19:49:31.226723000 Z
   - !ruby/object:ActiveModel::Attribute::FromDatabase
     name: updated_at
-    value_before_type_cast: 2016-12-07 19:22:56.377603000 Z
+    value_before_type_cast: 2023-07-21 15:43:47.514911000 Z
   - !ruby/object:ActiveModel::Attribute::FromDatabase
     name: started_at
     value_before_type_cast: 2016-10-30 23:43:30.843137000 Z
@@ -376,7 +376,7 @@
     name: pairing_id
   - !ruby/object:ActiveModel::Attribute::FromDatabase
     name: percentage
-    value_before_type_cast: 0.5555555555555556
+    value_before_type_cast: 0.56
   - !ruby/object:ActiveModel::Attribute::FromDatabase
     name: state
     value_before_type_cast: finished
@@ -397,7 +397,7 @@
     value_before_type_cast: 2016-11-07 23:32:52.122070000 Z
   - !ruby/object:ActiveModel::Attribute::FromDatabase
     name: updated_at
-    value_before_type_cast: 2016-11-17 14:54:35.477370000 Z
+    value_before_type_cast: 2023-07-21 15:43:48.448954000 Z
   - !ruby/object:ActiveModel::Attribute::FromDatabase
     name: started_at
     value_before_type_cast: 2016-11-17 14:19:45.115129000 Z
@@ -435,7 +435,7 @@
     name: pairing_id
   - !ruby/object:ActiveModel::Attribute::FromDatabase
     name: percentage
-    value_before_type_cast: 0.4444444444444444
+    value_before_type_cast: 0.44
   - !ruby/object:ActiveModel::Attribute::FromDatabase
     name: state
     value_before_type_cast: finished
@@ -456,7 +456,7 @@
     value_before_type_cast: 2016-11-07 23:32:50.954312000 Z
   - !ruby/object:ActiveModel::Attribute::FromDatabase
     name: updated_at
-    value_before_type_cast: 2016-11-10 14:00:41.260324000 Z
+    value_before_type_cast: 2023-07-21 15:43:49.168233000 Z
   - !ruby/object:ActiveModel::Attribute::FromDatabase
     name: started_at
     value_before_type_cast: 2016-11-10 13:43:48.188214000 Z
@@ -494,7 +494,7 @@
     name: pairing_id
   - !ruby/object:ActiveModel::Attribute::FromDatabase
     name: percentage
-    value_before_type_cast: 0.75
+    value_before_type_cast: 1.0
   - !ruby/object:ActiveModel::Attribute::FromDatabase
     name: state
     value_before_type_cast: finished
@@ -515,7 +515,7 @@
     value_before_type_cast: 2018-02-12 19:16:53.329935000 Z
   - !ruby/object:ActiveModel::Attribute::FromDatabase
     name: updated_at
-    value_before_type_cast: 2018-02-12 19:19:09.971437000 Z
+    value_before_type_cast: 2023-07-21 15:44:32.773511000 Z
   - !ruby/object:ActiveModel::Attribute::FromDatabase
     name: started_at
     value_before_type_cast: 2018-02-12 19:16:53.316196000 Z
@@ -533,6 +533,66 @@
     value_before_type_cast: 2157339
   - !ruby/object:ActiveModel::Attribute::FromDatabase
     name: timespent
+  new_record: false
+  active_record_yaml_version: 2
+- !ruby/object:ActivitySession
+  concise_attributes:
+  - !ruby/object:ActiveModel::Attribute::FromDatabase
+    name: id
+    value_before_type_cast: 193666915
+  - !ruby/object:ActiveModel::Attribute::FromDatabase
+    name: classroom_activity_id
+  - !ruby/object:ActiveModel::Attribute::FromDatabase
+    name: activity_id
+    value_before_type_cast: 995
+  - !ruby/object:ActiveModel::Attribute::FromDatabase
+    name: user_id
+    value_before_type_cast: 14814066
+  - !ruby/object:ActiveModel::Attribute::FromDatabase
+    name: pairing_id
+  - !ruby/object:ActiveModel::Attribute::FromDatabase
+    name: percentage
+    value_before_type_cast: 0.33
+  - !ruby/object:ActiveModel::Attribute::FromDatabase
+    name: state
+    value_before_type_cast: finished
+  - !ruby/object:ActiveModel::Attribute::FromDatabase
+    name: completed_at
+    value_before_type_cast: 2023-07-21 17:49:46.673172000 Z
+  - !ruby/object:ActiveModel::Attribute::FromDatabase
+    name: uid
+    value_before_type_cast: bpcYc_MCeoQZz4gzftTc0A
+  - !ruby/object:ActiveModel::Attribute::FromDatabase
+    name: temporary
+    value_before_type_cast: false
+  - !ruby/object:ActiveModel::Attribute::FromDatabase
+    name: data
+    value_before_type_cast: '{"time_tracking": {"landing": 3, "prompt_1": 83, "prompt_2":
+      77, "prompt_3": 52, "prompt_4": 44, "prompt_5": 56, "prompt_6": 41}}'
+  - !ruby/object:ActiveModel::Attribute::FromDatabase
+    name: created_at
+    value_before_type_cast: 2023-07-21 17:43:49.767044000 Z
+  - !ruby/object:ActiveModel::Attribute::FromDatabase
+    name: updated_at
+    value_before_type_cast: 2023-07-21 17:49:46.673287000 Z
+  - !ruby/object:ActiveModel::Attribute::FromDatabase
+    name: started_at
+    value_before_type_cast: 2023-07-21 17:43:49.762702000 Z
+  - !ruby/object:ActiveModel::Attribute::FromDatabase
+    name: is_retry
+    value_before_type_cast: false
+  - !ruby/object:ActiveModel::Attribute::FromDatabase
+    name: is_final_score
+    value_before_type_cast: true
+  - !ruby/object:ActiveModel::Attribute::FromDatabase
+    name: visible
+    value_before_type_cast: true
+  - !ruby/object:ActiveModel::Attribute::FromDatabase
+    name: classroom_unit_id
+    value_before_type_cast: 7213199
+  - !ruby/object:ActiveModel::Attribute::FromDatabase
+    name: timespent
+    value_before_type_cast: 356
   new_record: false
   active_record_yaml_version: 2
 - !ruby/object:ActivitySession
@@ -617,7 +677,7 @@
     name: pairing_id
   - !ruby/object:ActiveModel::Attribute::FromDatabase
     name: percentage
-    value_before_type_cast: 0.92
+    value_before_type_cast: 1.0
   - !ruby/object:ActiveModel::Attribute::FromDatabase
     name: state
     value_before_type_cast: finished
@@ -638,7 +698,7 @@
     value_before_type_cast: 2017-01-11 14:21:58.919042000 Z
   - !ruby/object:ActiveModel::Attribute::FromDatabase
     name: updated_at
-    value_before_type_cast: 2017-02-23 13:56:39.769964000 Z
+    value_before_type_cast: 2023-07-21 15:43:54.288133000 Z
   - !ruby/object:ActiveModel::Attribute::FromDatabase
     name: started_at
     value_before_type_cast: 2017-01-11 15:03:58.857829000 Z
@@ -676,7 +736,7 @@
     name: pairing_id
   - !ruby/object:ActiveModel::Attribute::FromDatabase
     name: percentage
-    value_before_type_cast: 0.79
+    value_before_type_cast: 0.86
   - !ruby/object:ActiveModel::Attribute::FromDatabase
     name: state
     value_before_type_cast: finished
@@ -697,7 +757,7 @@
     value_before_type_cast: 2017-01-11 14:21:59.501025000 Z
   - !ruby/object:ActiveModel::Attribute::FromDatabase
     name: updated_at
-    value_before_type_cast: 2017-02-23 13:56:37.763629000 Z
+    value_before_type_cast: 2023-07-21 15:43:55.674768000 Z
   - !ruby/object:ActiveModel::Attribute::FromDatabase
     name: started_at
     value_before_type_cast: 2017-01-11 15:06:07.290984000 Z
@@ -735,7 +795,7 @@
     name: pairing_id
   - !ruby/object:ActiveModel::Attribute::FromDatabase
     name: percentage
-    value_before_type_cast: 0.7894736842105263
+    value_before_type_cast: 0.79
   - !ruby/object:ActiveModel::Attribute::FromDatabase
     name: state
     value_before_type_cast: finished
@@ -756,7 +816,7 @@
     value_before_type_cast: 2016-12-12 01:05:47.377914000 Z
   - !ruby/object:ActiveModel::Attribute::FromDatabase
     name: updated_at
-    value_before_type_cast: 2017-03-16 20:29:29.438215000 Z
+    value_before_type_cast: 2023-07-21 15:43:57.301162000 Z
   - !ruby/object:ActiveModel::Attribute::FromDatabase
     name: started_at
     value_before_type_cast: 2016-12-16 16:35:24.433655000 Z
@@ -853,7 +913,7 @@
     name: pairing_id
   - !ruby/object:ActiveModel::Attribute::FromDatabase
     name: percentage
-    value_before_type_cast: 0.5185185185185185
+    value_before_type_cast: 0.52
   - !ruby/object:ActiveModel::Attribute::FromDatabase
     name: state
     value_before_type_cast: finished
@@ -874,7 +934,7 @@
     value_before_type_cast: 2016-09-30 19:49:31.064078000 Z
   - !ruby/object:ActiveModel::Attribute::FromDatabase
     name: updated_at
-    value_before_type_cast: 2016-11-03 20:20:50.079396000 Z
+    value_before_type_cast: 2023-07-21 15:43:59.875800000 Z
   - !ruby/object:ActiveModel::Attribute::FromDatabase
     name: started_at
     value_before_type_cast: 2016-10-17 20:28:39.091443000 Z
@@ -912,7 +972,7 @@
     name: pairing_id
   - !ruby/object:ActiveModel::Attribute::FromDatabase
     name: percentage
-    value_before_type_cast: 0.8888888888888888
+    value_before_type_cast: 0.89
   - !ruby/object:ActiveModel::Attribute::FromDatabase
     name: state
     value_before_type_cast: finished
@@ -933,7 +993,7 @@
     value_before_type_cast: 2016-12-08 20:44:31.322904000 Z
   - !ruby/object:ActiveModel::Attribute::FromDatabase
     name: updated_at
-    value_before_type_cast: 2016-12-08 20:48:48.497581000 Z
+    value_before_type_cast: 2023-07-21 15:44:01.017229000 Z
   - !ruby/object:ActiveModel::Attribute::FromDatabase
     name: started_at
     value_before_type_cast: 2016-12-08 20:44:31.407837000 Z
@@ -971,7 +1031,7 @@
     name: pairing_id
   - !ruby/object:ActiveModel::Attribute::FromDatabase
     name: percentage
-    value_before_type_cast: 0.7777777777777778
+    value_before_type_cast: 0.78
   - !ruby/object:ActiveModel::Attribute::FromDatabase
     name: state
     value_before_type_cast: finished
@@ -992,7 +1052,7 @@
     value_before_type_cast: 2016-11-07 23:32:51.055754000 Z
   - !ruby/object:ActiveModel::Attribute::FromDatabase
     name: updated_at
-    value_before_type_cast: 2016-12-08 20:55:13.585698000 Z
+    value_before_type_cast: 2023-07-21 15:44:02.410125000 Z
   - !ruby/object:ActiveModel::Attribute::FromDatabase
     name: started_at
     value_before_type_cast: 2016-12-08 20:47:24.738099000 Z
@@ -1030,7 +1090,7 @@
     name: pairing_id
   - !ruby/object:ActiveModel::Attribute::FromDatabase
     name: percentage
-    value_before_type_cast: 0.75
+    value_before_type_cast: 1.0
   - !ruby/object:ActiveModel::Attribute::FromDatabase
     name: state
     value_before_type_cast: finished
@@ -1051,7 +1111,7 @@
     value_before_type_cast: 2018-02-12 19:16:53.329935000 Z
   - !ruby/object:ActiveModel::Attribute::FromDatabase
     name: updated_at
-    value_before_type_cast: 2018-02-12 19:19:09.971437000 Z
+    value_before_type_cast: 2023-07-21 15:44:32.773511000 Z
   - !ruby/object:ActiveModel::Attribute::FromDatabase
     name: started_at
     value_before_type_cast: 2018-02-12 19:16:53.316196000 Z
@@ -1075,7 +1135,7 @@
   concise_attributes:
   - !ruby/object:ActiveModel::Attribute::FromDatabase
     name: id
-    value_before_type_cast: 101856708
+    value_before_type_cast: 101874605
   - !ruby/object:ActiveModel::Attribute::FromDatabase
     name: classroom_activity_id
   - !ruby/object:ActiveModel::Attribute::FromDatabase
@@ -1094,30 +1154,30 @@
     value_before_type_cast: finished
   - !ruby/object:ActiveModel::Attribute::FromDatabase
     name: completed_at
-    value_before_type_cast: 2021-07-29 16:23:45.912975000 Z
+    value_before_type_cast: 2021-08-03 16:15:42.930126000 Z
   - !ruby/object:ActiveModel::Attribute::FromDatabase
     name: uid
-    value_before_type_cast: 8CMGjEhYPdZCD5gd97haPQ
+    value_before_type_cast: J4ZaxGTluLiQALTa0oN3LA
   - !ruby/object:ActiveModel::Attribute::FromDatabase
     name: temporary
     value_before_type_cast: false
   - !ruby/object:ActiveModel::Attribute::FromDatabase
     name: data
-    value_before_type_cast: '{"time_tracking": {"landing": 1, "prompt_1": 4, "prompt_2":
-      28, "prompt_3": 2, "prompt_4": 6, "prompt_5": 5, "prompt_6": 4, "prompt_7":
-      4, "prompt_8": 11, "prompt_9": 13, "prompt_10": 9, "prompt_11": 7, "prompt_12":
-      7, "prompt_13": 7, "prompt_14": 17, "prompt_15": 14, "prompt_16": 13, "prompt_17":
-      10, "prompt_18": 13, "prompt_19": 11, "prompt_20": 6, "prompt_21": 10, "title_card_1":
-      1, "title_card_2": 1}}'
+    value_before_type_cast: '{"time_tracking": {"landing": 1, "prompt_1": 7, "prompt_2":
+      9, "prompt_3": 2, "prompt_4": 9, "prompt_5": 4, "prompt_6": 11, "prompt_7":
+      5, "prompt_8": 11, "prompt_9": 13, "prompt_10": 7, "prompt_11": 6, "prompt_12":
+      15, "prompt_13": 13, "prompt_14": 10, "prompt_15": 11, "prompt_16": 16, "prompt_17":
+      9, "prompt_18": 12, "prompt_19": 10, "prompt_20": 6, "prompt_21": 19, "title_card_1":
+      2, "title_card_2": 2}}'
   - !ruby/object:ActiveModel::Attribute::FromDatabase
     name: created_at
-    value_before_type_cast: 2021-07-29 16:20:18.236869000 Z
+    value_before_type_cast: 2021-08-03 16:07:00.712152000 Z
   - !ruby/object:ActiveModel::Attribute::FromDatabase
     name: updated_at
-    value_before_type_cast: 2021-08-03 14:14:38.493771000 Z
+    value_before_type_cast: 2021-08-03 16:15:42.930348000 Z
   - !ruby/object:ActiveModel::Attribute::FromDatabase
     name: started_at
-    value_before_type_cast: 2021-07-29 16:20:18.229830000 Z
+    value_before_type_cast: 2021-08-03 16:07:00.691193000 Z
   - !ruby/object:ActiveModel::Attribute::FromDatabase
     name: is_retry
     value_before_type_cast: false
@@ -1126,13 +1186,13 @@
     value_before_type_cast: true
   - !ruby/object:ActiveModel::Attribute::FromDatabase
     name: visible
-    value_before_type_cast: false
+    value_before_type_cast: true
   - !ruby/object:ActiveModel::Attribute::FromDatabase
     name: classroom_unit_id
     value_before_type_cast: 4546749
   - !ruby/object:ActiveModel::Attribute::FromDatabase
     name: timespent
-    value_before_type_cast: 204
+    value_before_type_cast: 210
   new_record: false
   active_record_yaml_version: 2
 - !ruby/object:ActivitySession
@@ -1153,7 +1213,7 @@
     name: pairing_id
   - !ruby/object:ActiveModel::Attribute::FromDatabase
     name: percentage
-    value_before_type_cast: 0.89
+    value_before_type_cast: 1.0
   - !ruby/object:ActiveModel::Attribute::FromDatabase
     name: state
     value_before_type_cast: finished
@@ -1174,7 +1234,7 @@
     value_before_type_cast: 2017-01-11 14:21:59.056046000 Z
   - !ruby/object:ActiveModel::Attribute::FromDatabase
     name: updated_at
-    value_before_type_cast: 2017-02-23 13:56:39.217982000 Z
+    value_before_type_cast: 2023-07-21 15:44:04.406291000 Z
   - !ruby/object:ActiveModel::Attribute::FromDatabase
     name: started_at
     value_before_type_cast: 2017-01-11 15:20:01.252290000 Z
@@ -1212,7 +1272,7 @@
     name: pairing_id
   - !ruby/object:ActiveModel::Attribute::FromDatabase
     name: percentage
-    value_before_type_cast: 0.93
+    value_before_type_cast: 1.0
   - !ruby/object:ActiveModel::Attribute::FromDatabase
     name: state
     value_before_type_cast: finished
@@ -1233,7 +1293,7 @@
     value_before_type_cast: 2017-01-11 14:21:59.604906000 Z
   - !ruby/object:ActiveModel::Attribute::FromDatabase
     name: updated_at
-    value_before_type_cast: 2017-02-23 13:56:37.835078000 Z
+    value_before_type_cast: 2023-07-21 15:46:20.702818000 Z
   - !ruby/object:ActiveModel::Attribute::FromDatabase
     name: started_at
     value_before_type_cast: 2017-01-11 15:06:07.175873000 Z
@@ -1271,7 +1331,7 @@
     name: pairing_id
   - !ruby/object:ActiveModel::Attribute::FromDatabase
     name: percentage
-    value_before_type_cast: 0.45454545454545453
+    value_before_type_cast: 0.45
   - !ruby/object:ActiveModel::Attribute::FromDatabase
     name: state
     value_before_type_cast: finished
@@ -1292,7 +1352,7 @@
     value_before_type_cast: 2016-12-12 01:05:47.480625000 Z
   - !ruby/object:ActiveModel::Attribute::FromDatabase
     name: updated_at
-    value_before_type_cast: 2017-03-16 20:29:29.542125000 Z
+    value_before_type_cast: 2023-07-21 15:44:07.261724000 Z
   - !ruby/object:ActiveModel::Attribute::FromDatabase
     name: started_at
     value_before_type_cast: 2016-12-16 16:20:43.583701000 Z
@@ -1330,7 +1390,7 @@
     name: pairing_id
   - !ruby/object:ActiveModel::Attribute::FromDatabase
     name: percentage
-    value_before_type_cast: 0.6666666666666666
+    value_before_type_cast: 0.67
   - !ruby/object:ActiveModel::Attribute::FromDatabase
     name: state
     value_before_type_cast: finished
@@ -1351,7 +1411,7 @@
     value_before_type_cast: 2016-11-21 21:38:20.531187000 Z
   - !ruby/object:ActiveModel::Attribute::FromDatabase
     name: updated_at
-    value_before_type_cast: 2016-11-23 14:12:27.009209000 Z
+    value_before_type_cast: 2023-07-21 15:44:08.419539000 Z
   - !ruby/object:ActiveModel::Attribute::FromDatabase
     name: started_at
     value_before_type_cast: 2016-11-23 13:52:08.465000000 Z
@@ -1389,7 +1449,7 @@
     name: pairing_id
   - !ruby/object:ActiveModel::Attribute::FromDatabase
     name: percentage
-    value_before_type_cast: 0.7619047619047619
+    value_before_type_cast: 0.76
   - !ruby/object:ActiveModel::Attribute::FromDatabase
     name: state
     value_before_type_cast: finished
@@ -1410,7 +1470,7 @@
     value_before_type_cast: 2016-11-04 20:52:23.289890000 Z
   - !ruby/object:ActiveModel::Attribute::FromDatabase
     name: updated_at
-    value_before_type_cast: 2016-11-04 21:07:23.171103000 Z
+    value_before_type_cast: 2023-07-21 15:44:10.282139000 Z
   - !ruby/object:ActiveModel::Attribute::FromDatabase
     name: started_at
     value_before_type_cast: 2016-11-04 20:52:23.447960000 Z
@@ -1448,7 +1508,7 @@
     name: pairing_id
   - !ruby/object:ActiveModel::Attribute::FromDatabase
     name: percentage
-    value_before_type_cast: 0.5555555555555556
+    value_before_type_cast: 0.56
   - !ruby/object:ActiveModel::Attribute::FromDatabase
     name: state
     value_before_type_cast: finished
@@ -1469,7 +1529,7 @@
     value_before_type_cast: 2016-11-07 23:32:52.290248000 Z
   - !ruby/object:ActiveModel::Attribute::FromDatabase
     name: updated_at
-    value_before_type_cast: 2016-11-30 19:14:38.493176000 Z
+    value_before_type_cast: 2023-07-21 15:44:11.075448000 Z
   - !ruby/object:ActiveModel::Attribute::FromDatabase
     name: started_at
     value_before_type_cast: 2016-11-30 19:07:52.100534000 Z
@@ -1507,7 +1567,7 @@
     name: pairing_id
   - !ruby/object:ActiveModel::Attribute::FromDatabase
     name: percentage
-    value_before_type_cast: 0.6666666666666666
+    value_before_type_cast: 0.67
   - !ruby/object:ActiveModel::Attribute::FromDatabase
     name: state
     value_before_type_cast: finished
@@ -1528,7 +1588,7 @@
     value_before_type_cast: 2016-11-07 23:32:50.893966000 Z
   - !ruby/object:ActiveModel::Attribute::FromDatabase
     name: updated_at
-    value_before_type_cast: 2016-11-10 14:17:27.399277000 Z
+    value_before_type_cast: 2023-07-21 15:44:12.103692000 Z
   - !ruby/object:ActiveModel::Attribute::FromDatabase
     name: started_at
     value_before_type_cast: 2016-11-10 14:01:23.831268000 Z
@@ -1566,7 +1626,7 @@
     name: pairing_id
   - !ruby/object:ActiveModel::Attribute::FromDatabase
     name: percentage
-    value_before_type_cast: 0.75
+    value_before_type_cast: 1.0
   - !ruby/object:ActiveModel::Attribute::FromDatabase
     name: state
     value_before_type_cast: finished
@@ -1587,7 +1647,7 @@
     value_before_type_cast: 2018-02-12 19:16:53.329935000 Z
   - !ruby/object:ActiveModel::Attribute::FromDatabase
     name: updated_at
-    value_before_type_cast: 2018-02-12 19:19:09.971437000 Z
+    value_before_type_cast: 2023-07-21 15:44:32.773511000 Z
   - !ruby/object:ActiveModel::Attribute::FromDatabase
     name: started_at
     value_before_type_cast: 2018-02-12 19:16:53.316196000 Z
@@ -1611,7 +1671,7 @@
   concise_attributes:
   - !ruby/object:ActiveModel::Attribute::FromDatabase
     name: id
-    value_before_type_cast: 101856907
+    value_before_type_cast: 101857103
   - !ruby/object:ActiveModel::Attribute::FromDatabase
     name: classroom_activity_id
   - !ruby/object:ActiveModel::Attribute::FromDatabase
@@ -1630,30 +1690,30 @@
     value_before_type_cast: finished
   - !ruby/object:ActiveModel::Attribute::FromDatabase
     name: completed_at
-    value_before_type_cast: 2021-07-29 16:43:56.534916000 Z
+    value_before_type_cast: 2021-07-29 17:00:40.174385000 Z
   - !ruby/object:ActiveModel::Attribute::FromDatabase
     name: uid
-    value_before_type_cast: DRdtaAYs6KzqzKkAQYLYHQ
+    value_before_type_cast: jeGcqG9JyF21qxutYHg1oA
   - !ruby/object:ActiveModel::Attribute::FromDatabase
     name: temporary
     value_before_type_cast: false
   - !ruby/object:ActiveModel::Attribute::FromDatabase
     name: data
-    value_before_type_cast: '{"time_tracking": {"landing": 1, "prompt_1": 17, "prompt_2":
-      4, "prompt_3": 2, "prompt_4": 9, "prompt_5": 4, "prompt_6": 4, "prompt_7": 4,
-      "prompt_8": 14, "prompt_9": 11, "prompt_10": 13, "prompt_11": 9, "prompt_12":
-      11, "prompt_13": 10, "prompt_14": 14, "prompt_15": 17, "prompt_16": 24, "prompt_17":
-      8, "prompt_18": 8, "prompt_19": 10, "prompt_20": 27, "prompt_21": 16, "title_card_1":
-      3, "title_card_2": 3}}'
+    value_before_type_cast: '{"time_tracking": {"landing": 1, "prompt_1": 5, "prompt_2":
+      4, "prompt_3": 2, "prompt_4": 5, "prompt_5": 9, "prompt_6": 5, "prompt_7": 4,
+      "prompt_8": 10, "prompt_9": 17, "prompt_10": 15, "prompt_11": 6, "prompt_12":
+      12, "prompt_13": 9, "prompt_14": 12, "prompt_15": 15, "prompt_16": 11, "prompt_17":
+      11, "prompt_18": 7, "prompt_19": 21, "prompt_20": 7, "prompt_21": 13, "title_card_1":
+      2, "title_card_2": 1}}'
   - !ruby/object:ActiveModel::Attribute::FromDatabase
     name: created_at
-    value_before_type_cast: 2021-07-29 16:39:51.358814000 Z
+    value_before_type_cast: 2021-07-29 16:57:14.460675000 Z
   - !ruby/object:ActiveModel::Attribute::FromDatabase
     name: updated_at
-    value_before_type_cast: 2021-07-29 16:45:42.819449000 Z
+    value_before_type_cast: 2021-07-29 17:00:40.174712000 Z
   - !ruby/object:ActiveModel::Attribute::FromDatabase
     name: started_at
-    value_before_type_cast: 2021-07-29 16:39:51.348347000 Z
+    value_before_type_cast: 2021-07-29 16:57:14.451929000 Z
   - !ruby/object:ActiveModel::Attribute::FromDatabase
     name: is_retry
     value_before_type_cast: false
@@ -1662,13 +1722,13 @@
     value_before_type_cast: true
   - !ruby/object:ActiveModel::Attribute::FromDatabase
     name: visible
-    value_before_type_cast: false
+    value_before_type_cast: true
   - !ruby/object:ActiveModel::Attribute::FromDatabase
     name: classroom_unit_id
     value_before_type_cast: 4546749
   - !ruby/object:ActiveModel::Attribute::FromDatabase
     name: timespent
-    value_before_type_cast: 243
+    value_before_type_cast: 204
   new_record: false
   active_record_yaml_version: 2
 - !ruby/object:ActivitySession
@@ -1689,7 +1749,7 @@
     name: pairing_id
   - !ruby/object:ActiveModel::Attribute::FromDatabase
     name: percentage
-    value_before_type_cast: 0.94
+    value_before_type_cast: 1.0
   - !ruby/object:ActiveModel::Attribute::FromDatabase
     name: state
     value_before_type_cast: finished
@@ -1710,7 +1770,7 @@
     value_before_type_cast: 2017-01-11 14:21:59.129692000 Z
   - !ruby/object:ActiveModel::Attribute::FromDatabase
     name: updated_at
-    value_before_type_cast: 2017-02-23 13:56:39.412092000 Z
+    value_before_type_cast: 2023-07-21 15:44:14.090232000 Z
   - !ruby/object:ActiveModel::Attribute::FromDatabase
     name: started_at
     value_before_type_cast: 2017-01-11 15:09:52.443246000 Z
@@ -1748,7 +1808,7 @@
     name: pairing_id
   - !ruby/object:ActiveModel::Attribute::FromDatabase
     name: percentage
-    value_before_type_cast: 0.75
+    value_before_type_cast: 1.0
   - !ruby/object:ActiveModel::Attribute::FromDatabase
     name: state
     value_before_type_cast: finished
@@ -1769,7 +1829,7 @@
     value_before_type_cast: 2017-01-11 14:21:59.619892000 Z
   - !ruby/object:ActiveModel::Attribute::FromDatabase
     name: updated_at
-    value_before_type_cast: 2017-02-23 13:56:37.713745000 Z
+    value_before_type_cast: 2023-07-21 15:44:16.435910000 Z
   - !ruby/object:ActiveModel::Attribute::FromDatabase
     name: started_at
     value_before_type_cast: 2017-01-11 15:06:01.943144000 Z
@@ -1807,7 +1867,7 @@
     name: pairing_id
   - !ruby/object:ActiveModel::Attribute::FromDatabase
     name: percentage
-    value_before_type_cast: 0.9230769230769231
+    value_before_type_cast: 0.92
   - !ruby/object:ActiveModel::Attribute::FromDatabase
     name: state
     value_before_type_cast: finished
@@ -1828,7 +1888,7 @@
     value_before_type_cast: 2016-12-12 01:05:47.350856000 Z
   - !ruby/object:ActiveModel::Attribute::FromDatabase
     name: updated_at
-    value_before_type_cast: 2017-03-16 20:29:29.371662000 Z
+    value_before_type_cast: 2023-07-21 15:44:18.027730000 Z
   - !ruby/object:ActiveModel::Attribute::FromDatabase
     name: started_at
     value_before_type_cast: 2016-12-14 16:44:48.885328000 Z
@@ -2043,7 +2103,7 @@
     name: pairing_id
   - !ruby/object:ActiveModel::Attribute::FromDatabase
     name: percentage
-    value_before_type_cast: 0.6666666666666666
+    value_before_type_cast: 0.67
   - !ruby/object:ActiveModel::Attribute::FromDatabase
     name: state
     value_before_type_cast: finished
@@ -2064,7 +2124,7 @@
     value_before_type_cast: 2016-11-07 23:32:50.918516000 Z
   - !ruby/object:ActiveModel::Attribute::FromDatabase
     name: updated_at
-    value_before_type_cast: 2016-11-17 14:28:53.541700000 Z
+    value_before_type_cast: 2023-07-21 15:44:22.336272000 Z
   - !ruby/object:ActiveModel::Attribute::FromDatabase
     name: started_at
     value_before_type_cast: 2016-11-17 14:20:08.377120000 Z
@@ -2102,7 +2162,7 @@
     name: pairing_id
   - !ruby/object:ActiveModel::Attribute::FromDatabase
     name: percentage
-    value_before_type_cast: 0.75
+    value_before_type_cast: 1.0
   - !ruby/object:ActiveModel::Attribute::FromDatabase
     name: state
     value_before_type_cast: finished
@@ -2123,7 +2183,7 @@
     value_before_type_cast: 2018-02-12 19:16:53.329935000 Z
   - !ruby/object:ActiveModel::Attribute::FromDatabase
     name: updated_at
-    value_before_type_cast: 2018-02-12 19:19:09.971437000 Z
+    value_before_type_cast: 2023-07-21 15:44:32.773511000 Z
   - !ruby/object:ActiveModel::Attribute::FromDatabase
     name: started_at
     value_before_type_cast: 2018-02-12 19:16:53.316196000 Z
@@ -2225,7 +2285,7 @@
     name: pairing_id
   - !ruby/object:ActiveModel::Attribute::FromDatabase
     name: percentage
-    value_before_type_cast: 0.97
+    value_before_type_cast: 1.0
   - !ruby/object:ActiveModel::Attribute::FromDatabase
     name: state
     value_before_type_cast: finished
@@ -2246,7 +2306,7 @@
     value_before_type_cast: 2017-01-11 14:21:58.931496000 Z
   - !ruby/object:ActiveModel::Attribute::FromDatabase
     name: updated_at
-    value_before_type_cast: 2017-02-23 13:56:39.288346000 Z
+    value_before_type_cast: 2023-07-21 15:44:24.384598000 Z
   - !ruby/object:ActiveModel::Attribute::FromDatabase
     name: started_at
     value_before_type_cast: 2017-01-11 15:18:55.488321000 Z
@@ -2284,7 +2344,7 @@
     name: pairing_id
   - !ruby/object:ActiveModel::Attribute::FromDatabase
     name: percentage
-    value_before_type_cast: 0.75
+    value_before_type_cast: 1.0
   - !ruby/object:ActiveModel::Attribute::FromDatabase
     name: state
     value_before_type_cast: finished
@@ -2305,7 +2365,7 @@
     value_before_type_cast: 2017-01-11 14:21:59.442112000 Z
   - !ruby/object:ActiveModel::Attribute::FromDatabase
     name: updated_at
-    value_before_type_cast: 2017-02-23 13:56:37.529547000 Z
+    value_before_type_cast: 2023-07-21 15:44:26.860395000 Z
   - !ruby/object:ActiveModel::Attribute::FromDatabase
     name: started_at
     value_before_type_cast: 2017-01-11 15:09:10.488403000 Z
@@ -2329,7 +2389,7 @@
   concise_attributes:
   - !ruby/object:ActiveModel::Attribute::FromDatabase
     name: id
-    value_before_type_cast: 10193761
+    value_before_type_cast: 10473629
   - !ruby/object:ActiveModel::Attribute::FromDatabase
     name: classroom_activity_id
     value_before_type_cast: 614121
@@ -2343,16 +2403,16 @@
     name: pairing_id
   - !ruby/object:ActiveModel::Attribute::FromDatabase
     name: percentage
-    value_before_type_cast: 0.625
+    value_before_type_cast: 1.0
   - !ruby/object:ActiveModel::Attribute::FromDatabase
     name: state
     value_before_type_cast: finished
   - !ruby/object:ActiveModel::Attribute::FromDatabase
     name: completed_at
-    value_before_type_cast: 2016-12-16 16:27:55.063279000 Z
+    value_before_type_cast: 2016-12-16 16:41:56.498995000 Z
   - !ruby/object:ActiveModel::Attribute::FromDatabase
     name: uid
-    value_before_type_cast: ZQaGEGaJaPGODS0TvUaygw
+    value_before_type_cast: ZWv1HazuaTbnOXI6g-3Jhw
   - !ruby/object:ActiveModel::Attribute::FromDatabase
     name: temporary
     value_before_type_cast: false
@@ -2361,16 +2421,16 @@
     value_before_type_cast: "{}"
   - !ruby/object:ActiveModel::Attribute::FromDatabase
     name: created_at
-    value_before_type_cast: 2016-12-12 01:05:47.505801000 Z
+    value_before_type_cast: 2016-12-16 16:39:43.190412000 Z
   - !ruby/object:ActiveModel::Attribute::FromDatabase
     name: updated_at
-    value_before_type_cast: 2017-03-16 20:29:29.618610000 Z
+    value_before_type_cast: 2017-03-16 20:29:29.523928000 Z
   - !ruby/object:ActiveModel::Attribute::FromDatabase
     name: started_at
-    value_before_type_cast: 2016-12-16 16:19:56.016519000 Z
+    value_before_type_cast: 2016-12-16 16:39:43.305334000 Z
   - !ruby/object:ActiveModel::Attribute::FromDatabase
     name: is_retry
-    value_before_type_cast: false
+    value_before_type_cast: true
   - !ruby/object:ActiveModel::Attribute::FromDatabase
     name: is_final_score
     value_before_type_cast: true
@@ -2520,7 +2580,7 @@
     name: pairing_id
   - !ruby/object:ActiveModel::Attribute::FromDatabase
     name: percentage
-    value_before_type_cast: 0.6666666666666666
+    value_before_type_cast: 0.67
   - !ruby/object:ActiveModel::Attribute::FromDatabase
     name: state
     value_before_type_cast: finished
@@ -2541,7 +2601,7 @@
     value_before_type_cast: 2016-11-07 23:32:52.270131000 Z
   - !ruby/object:ActiveModel::Attribute::FromDatabase
     name: updated_at
-    value_before_type_cast: 2016-11-17 16:03:35.746457000 Z
+    value_before_type_cast: 2023-07-21 15:44:31.328557000 Z
   - !ruby/object:ActiveModel::Attribute::FromDatabase
     name: started_at
     value_before_type_cast: 2016-11-17 15:49:12.696147000 Z
@@ -2579,7 +2639,7 @@
     name: pairing_id
   - !ruby/object:ActiveModel::Attribute::FromDatabase
     name: percentage
-    value_before_type_cast: 0.7777777777777778
+    value_before_type_cast: 0.78
   - !ruby/object:ActiveModel::Attribute::FromDatabase
     name: state
     value_before_type_cast: finished
@@ -2600,7 +2660,7 @@
     value_before_type_cast: 2016-11-07 23:32:51.028144000 Z
   - !ruby/object:ActiveModel::Attribute::FromDatabase
     name: updated_at
-    value_before_type_cast: 2016-11-23 16:58:18.109472000 Z
+    value_before_type_cast: 2023-07-21 15:44:32.407833000 Z
   - !ruby/object:ActiveModel::Attribute::FromDatabase
     name: started_at
     value_before_type_cast: 2016-11-23 16:48:38.237176000 Z
@@ -2638,7 +2698,7 @@
     name: pairing_id
   - !ruby/object:ActiveModel::Attribute::FromDatabase
     name: percentage
-    value_before_type_cast: 0.75
+    value_before_type_cast: 1.0
   - !ruby/object:ActiveModel::Attribute::FromDatabase
     name: state
     value_before_type_cast: finished
@@ -2659,7 +2719,7 @@
     value_before_type_cast: 2018-02-12 19:16:53.329935000 Z
   - !ruby/object:ActiveModel::Attribute::FromDatabase
     name: updated_at
-    value_before_type_cast: 2018-02-12 19:19:09.971437000 Z
+    value_before_type_cast: 2023-07-21 15:44:32.773511000 Z
   - !ruby/object:ActiveModel::Attribute::FromDatabase
     name: started_at
     value_before_type_cast: 2018-02-12 19:16:53.316196000 Z
@@ -2696,7 +2756,7 @@
     name: pairing_id
   - !ruby/object:ActiveModel::Attribute::FromDatabase
     name: percentage
-    value_before_type_cast: 0.9
+    value_before_type_cast: 0.83
   - !ruby/object:ActiveModel::Attribute::FromDatabase
     name: state
     value_before_type_cast: finished
@@ -2718,7 +2778,7 @@
     value_before_type_cast: 2021-08-18 16:31:35.669058000 Z
   - !ruby/object:ActiveModel::Attribute::FromDatabase
     name: updated_at
-    value_before_type_cast: 2021-08-18 16:33:47.235625000 Z
+    value_before_type_cast: 2023-07-21 15:44:33.789515000 Z
   - !ruby/object:ActiveModel::Attribute::FromDatabase
     name: started_at
     value_before_type_cast: 2021-08-18 16:31:35.661440000 Z
@@ -2756,7 +2816,7 @@
     name: pairing_id
   - !ruby/object:ActiveModel::Attribute::FromDatabase
     name: percentage
-    value_before_type_cast: 0.67
+    value_before_type_cast: 1.0
   - !ruby/object:ActiveModel::Attribute::FromDatabase
     name: state
     value_before_type_cast: finished
@@ -2778,7 +2838,7 @@
     value_before_type_cast: 2021-08-09 19:48:54.832214000 Z
   - !ruby/object:ActiveModel::Attribute::FromDatabase
     name: updated_at
-    value_before_type_cast: 2021-08-09 19:50:56.516500000 Z
+    value_before_type_cast: 2023-07-21 15:44:35.833706000 Z
   - !ruby/object:ActiveModel::Attribute::FromDatabase
     name: started_at
     value_before_type_cast: 2021-08-09 19:48:54.814031000 Z
@@ -2816,7 +2876,7 @@
     name: pairing_id
   - !ruby/object:ActiveModel::Attribute::FromDatabase
     name: percentage
-    value_before_type_cast: 0.67
+    value_before_type_cast: 1.0
   - !ruby/object:ActiveModel::Attribute::FromDatabase
     name: state
     value_before_type_cast: finished
@@ -2838,7 +2898,7 @@
     value_before_type_cast: 2021-08-09 19:51:04.869700000 Z
   - !ruby/object:ActiveModel::Attribute::FromDatabase
     name: updated_at
-    value_before_type_cast: 2021-08-09 19:53:13.491650000 Z
+    value_before_type_cast: 2023-07-21 15:44:38.010903000 Z
   - !ruby/object:ActiveModel::Attribute::FromDatabase
     name: started_at
     value_before_type_cast: 2021-08-09 19:51:04.862138000 Z
@@ -2876,7 +2936,7 @@
     name: pairing_id
   - !ruby/object:ActiveModel::Attribute::FromDatabase
     name: percentage
-    value_before_type_cast: 0.72
+    value_before_type_cast: 0.0
   - !ruby/object:ActiveModel::Attribute::FromDatabase
     name: state
     value_before_type_cast: finished
@@ -2898,7 +2958,7 @@
     value_before_type_cast: 2021-08-09 19:53:20.760226000 Z
   - !ruby/object:ActiveModel::Attribute::FromDatabase
     name: updated_at
-    value_before_type_cast: 2021-08-09 19:54:29.366981000 Z
+    value_before_type_cast: 2023-07-21 15:44:38.394819000 Z
   - !ruby/object:ActiveModel::Attribute::FromDatabase
     name: started_at
     value_before_type_cast: 2021-08-09 19:53:20.751520000 Z
@@ -2936,7 +2996,7 @@
     name: pairing_id
   - !ruby/object:ActiveModel::Attribute::FromDatabase
     name: percentage
-    value_before_type_cast: 0.84
+    value_before_type_cast: 0.2
   - !ruby/object:ActiveModel::Attribute::FromDatabase
     name: state
     value_before_type_cast: finished
@@ -2958,7 +3018,7 @@
     value_before_type_cast: 2021-08-09 19:54:32.644649000 Z
   - !ruby/object:ActiveModel::Attribute::FromDatabase
     name: updated_at
-    value_before_type_cast: 2021-08-09 19:55:35.287489000 Z
+    value_before_type_cast: 2023-07-21 15:44:38.952772000 Z
   - !ruby/object:ActiveModel::Attribute::FromDatabase
     name: started_at
     value_before_type_cast: 2021-08-09 19:54:32.633875000 Z
@@ -2996,7 +3056,7 @@
     name: pairing_id
   - !ruby/object:ActiveModel::Attribute::FromDatabase
     name: percentage
-    value_before_type_cast: 0.68
+    value_before_type_cast: 0.13
   - !ruby/object:ActiveModel::Attribute::FromDatabase
     name: state
     value_before_type_cast: finished
@@ -3019,7 +3079,7 @@
     value_before_type_cast: 2021-08-09 19:55:43.146939000 Z
   - !ruby/object:ActiveModel::Attribute::FromDatabase
     name: updated_at
-    value_before_type_cast: 2021-08-09 19:57:43.282076000 Z
+    value_before_type_cast: 2023-07-21 15:44:39.416490000 Z
   - !ruby/object:ActiveModel::Attribute::FromDatabase
     name: started_at
     value_before_type_cast: 2021-08-09 19:55:43.134216000 Z
@@ -3057,7 +3117,7 @@
     name: pairing_id
   - !ruby/object:ActiveModel::Attribute::FromDatabase
     name: percentage
-    value_before_type_cast: 0.6
+    value_before_type_cast: 1.0
   - !ruby/object:ActiveModel::Attribute::FromDatabase
     name: state
     value_before_type_cast: finished
@@ -3079,7 +3139,7 @@
     value_before_type_cast: 2021-08-09 14:31:52.123670000 Z
   - !ruby/object:ActiveModel::Attribute::FromDatabase
     name: updated_at
-    value_before_type_cast: 2021-08-09 14:34:40.549855000 Z
+    value_before_type_cast: 2023-07-21 15:44:41.336758000 Z
   - !ruby/object:ActiveModel::Attribute::FromDatabase
     name: started_at
     value_before_type_cast: 2021-08-09 14:31:52.112943000 Z
@@ -3117,7 +3177,7 @@
     name: pairing_id
   - !ruby/object:ActiveModel::Attribute::FromDatabase
     name: percentage
-    value_before_type_cast: 0.67
+    value_before_type_cast: 1.0
   - !ruby/object:ActiveModel::Attribute::FromDatabase
     name: state
     value_before_type_cast: finished
@@ -3139,7 +3199,7 @@
     value_before_type_cast: 2021-08-09 14:35:01.288541000 Z
   - !ruby/object:ActiveModel::Attribute::FromDatabase
     name: updated_at
-    value_before_type_cast: 2021-08-09 14:38:27.392776000 Z
+    value_before_type_cast: 2023-07-21 15:44:43.382588000 Z
   - !ruby/object:ActiveModel::Attribute::FromDatabase
     name: started_at
     value_before_type_cast: 2021-08-09 14:35:01.278973000 Z
@@ -3177,7 +3237,7 @@
     name: pairing_id
   - !ruby/object:ActiveModel::Attribute::FromDatabase
     name: percentage
-    value_before_type_cast: 0.6
+    value_before_type_cast: 1.0
   - !ruby/object:ActiveModel::Attribute::FromDatabase
     name: state
     value_before_type_cast: finished
@@ -3199,7 +3259,7 @@
     value_before_type_cast: 2021-08-09 20:23:59.382265000 Z
   - !ruby/object:ActiveModel::Attribute::FromDatabase
     name: updated_at
-    value_before_type_cast: 2021-08-09 20:25:59.894704000 Z
+    value_before_type_cast: 2023-07-21 15:44:45.806908000 Z
   - !ruby/object:ActiveModel::Attribute::FromDatabase
     name: started_at
     value_before_type_cast: 2021-08-09 20:23:59.374746000 Z
@@ -3237,7 +3297,7 @@
     name: pairing_id
   - !ruby/object:ActiveModel::Attribute::FromDatabase
     name: percentage
-    value_before_type_cast: 0.72
+    value_before_type_cast: 0.4
   - !ruby/object:ActiveModel::Attribute::FromDatabase
     name: state
     value_before_type_cast: finished
@@ -3259,7 +3319,7 @@
     value_before_type_cast: 2021-08-09 14:50:45.699957000 Z
   - !ruby/object:ActiveModel::Attribute::FromDatabase
     name: updated_at
-    value_before_type_cast: 2021-08-09 14:52:30.256849000 Z
+    value_before_type_cast: 2023-07-21 15:44:46.385949000 Z
   - !ruby/object:ActiveModel::Attribute::FromDatabase
     name: started_at
     value_before_type_cast: 2021-08-09 14:50:45.691635000 Z
@@ -3297,7 +3357,7 @@
     name: pairing_id
   - !ruby/object:ActiveModel::Attribute::FromDatabase
     name: percentage
-    value_before_type_cast: 0.64
+    value_before_type_cast: 0.2
   - !ruby/object:ActiveModel::Attribute::FromDatabase
     name: state
     value_before_type_cast: finished
@@ -3319,7 +3379,7 @@
     value_before_type_cast: 2021-08-09 14:52:33.763955000 Z
   - !ruby/object:ActiveModel::Attribute::FromDatabase
     name: updated_at
-    value_before_type_cast: 2021-08-09 14:53:57.722113000 Z
+    value_before_type_cast: 2023-07-21 15:44:46.829626000 Z
   - !ruby/object:ActiveModel::Attribute::FromDatabase
     name: started_at
     value_before_type_cast: 2021-08-09 14:52:33.755333000 Z
@@ -3357,7 +3417,7 @@
     name: pairing_id
   - !ruby/object:ActiveModel::Attribute::FromDatabase
     name: percentage
-    value_before_type_cast: 0.65
+    value_before_type_cast: 0.38
   - !ruby/object:ActiveModel::Attribute::FromDatabase
     name: state
     value_before_type_cast: finished
@@ -3380,7 +3440,7 @@
     value_before_type_cast: 2021-08-09 14:54:02.796834000 Z
   - !ruby/object:ActiveModel::Attribute::FromDatabase
     name: updated_at
-    value_before_type_cast: 2021-08-09 14:56:12.200154000 Z
+    value_before_type_cast: 2023-07-21 15:44:47.443758000 Z
   - !ruby/object:ActiveModel::Attribute::FromDatabase
     name: started_at
     value_before_type_cast: 2021-08-09 14:54:02.790111000 Z
@@ -3418,7 +3478,7 @@
     name: pairing_id
   - !ruby/object:ActiveModel::Attribute::FromDatabase
     name: percentage
-    value_before_type_cast: 0.37
+    value_before_type_cast: 0.5
   - !ruby/object:ActiveModel::Attribute::FromDatabase
     name: state
     value_before_type_cast: finished
@@ -3440,7 +3500,7 @@
     value_before_type_cast: 2021-08-10 17:41:32.804926000 Z
   - !ruby/object:ActiveModel::Attribute::FromDatabase
     name: updated_at
-    value_before_type_cast: 2021-08-10 17:45:40.309469000 Z
+    value_before_type_cast: 2023-07-21 15:44:48.515571000 Z
   - !ruby/object:ActiveModel::Attribute::FromDatabase
     name: started_at
     value_before_type_cast: 2021-08-10 17:41:32.795136000 Z
@@ -3478,7 +3538,7 @@
     name: pairing_id
   - !ruby/object:ActiveModel::Attribute::FromDatabase
     name: percentage
-    value_before_type_cast: 0.77
+    value_before_type_cast: 1.0
   - !ruby/object:ActiveModel::Attribute::FromDatabase
     name: state
     value_before_type_cast: finished
@@ -3500,7 +3560,7 @@
     value_before_type_cast: 2021-08-10 17:46:25.519128000 Z
   - !ruby/object:ActiveModel::Attribute::FromDatabase
     name: updated_at
-    value_before_type_cast: 2021-08-10 17:48:44.862329000 Z
+    value_before_type_cast: 2023-07-21 15:44:50.007028000 Z
   - !ruby/object:ActiveModel::Attribute::FromDatabase
     name: started_at
     value_before_type_cast: 2021-08-10 17:46:25.511610000 Z
@@ -3538,7 +3598,7 @@
     name: pairing_id
   - !ruby/object:ActiveModel::Attribute::FromDatabase
     name: percentage
-    value_before_type_cast: 0.67
+    value_before_type_cast: 1.0
   - !ruby/object:ActiveModel::Attribute::FromDatabase
     name: state
     value_before_type_cast: finished
@@ -3560,7 +3620,7 @@
     value_before_type_cast: 2021-08-10 17:49:47.336765000 Z
   - !ruby/object:ActiveModel::Attribute::FromDatabase
     name: updated_at
-    value_before_type_cast: 2021-08-10 17:52:09.214246000 Z
+    value_before_type_cast: 2023-07-21 15:44:52.152029000 Z
   - !ruby/object:ActiveModel::Attribute::FromDatabase
     name: started_at
     value_before_type_cast: 2021-08-10 17:49:47.330174000 Z
@@ -3598,7 +3658,7 @@
     name: pairing_id
   - !ruby/object:ActiveModel::Attribute::FromDatabase
     name: percentage
-    value_before_type_cast: 0.84
+    value_before_type_cast: 0.4
   - !ruby/object:ActiveModel::Attribute::FromDatabase
     name: state
     value_before_type_cast: finished
@@ -3620,7 +3680,7 @@
     value_before_type_cast: 2021-08-10 17:54:25.088360000 Z
   - !ruby/object:ActiveModel::Attribute::FromDatabase
     name: updated_at
-    value_before_type_cast: 2021-08-10 17:55:43.731981000 Z
+    value_before_type_cast: 2023-07-21 15:44:52.679292000 Z
   - !ruby/object:ActiveModel::Attribute::FromDatabase
     name: started_at
     value_before_type_cast: 2021-08-10 17:54:25.068087000 Z
@@ -3658,7 +3718,7 @@
     name: pairing_id
   - !ruby/object:ActiveModel::Attribute::FromDatabase
     name: percentage
-    value_before_type_cast: 0.72
+    value_before_type_cast: 0.2
   - !ruby/object:ActiveModel::Attribute::FromDatabase
     name: state
     value_before_type_cast: finished
@@ -3680,7 +3740,7 @@
     value_before_type_cast: 2021-08-10 18:00:33.393711000 Z
   - !ruby/object:ActiveModel::Attribute::FromDatabase
     name: updated_at
-    value_before_type_cast: 2021-08-10 18:02:04.903444000 Z
+    value_before_type_cast: 2023-07-21 15:44:53.113674000 Z
   - !ruby/object:ActiveModel::Attribute::FromDatabase
     name: started_at
     value_before_type_cast: 2021-08-10 18:00:33.385989000 Z
@@ -3718,7 +3778,7 @@
     name: pairing_id
   - !ruby/object:ActiveModel::Attribute::FromDatabase
     name: percentage
-    value_before_type_cast: 0.68
+    value_before_type_cast: 0.13
   - !ruby/object:ActiveModel::Attribute::FromDatabase
     name: state
     value_before_type_cast: finished
@@ -3741,7 +3801,7 @@
     value_before_type_cast: 2021-08-10 18:02:25.282547000 Z
   - !ruby/object:ActiveModel::Attribute::FromDatabase
     name: updated_at
-    value_before_type_cast: 2021-08-10 18:05:17.480255000 Z
+    value_before_type_cast: 2023-07-21 15:44:53.576245000 Z
   - !ruby/object:ActiveModel::Attribute::FromDatabase
     name: started_at
     value_before_type_cast: 2021-08-10 18:02:25.273401000 Z
@@ -3839,7 +3899,7 @@
     name: pairing_id
   - !ruby/object:ActiveModel::Attribute::FromDatabase
     name: percentage
-    value_before_type_cast: 0.93
+    value_before_type_cast: 1.0
   - !ruby/object:ActiveModel::Attribute::FromDatabase
     name: state
     value_before_type_cast: finished
@@ -3861,7 +3921,7 @@
     value_before_type_cast: 2021-08-10 19:32:38.354892000 Z
   - !ruby/object:ActiveModel::Attribute::FromDatabase
     name: updated_at
-    value_before_type_cast: 2021-08-10 19:34:15.232489000 Z
+    value_before_type_cast: 2023-07-21 15:44:55.448112000 Z
   - !ruby/object:ActiveModel::Attribute::FromDatabase
     name: started_at
     value_before_type_cast: 2021-08-10 19:32:38.346408000 Z
@@ -3899,7 +3959,7 @@
     name: pairing_id
   - !ruby/object:ActiveModel::Attribute::FromDatabase
     name: percentage
-    value_before_type_cast: 0.83
+    value_before_type_cast: 1.0
   - !ruby/object:ActiveModel::Attribute::FromDatabase
     name: state
     value_before_type_cast: finished
@@ -3921,7 +3981,7 @@
     value_before_type_cast: 2021-08-10 19:34:33.797372000 Z
   - !ruby/object:ActiveModel::Attribute::FromDatabase
     name: updated_at
-    value_before_type_cast: 2021-08-10 19:36:18.512021000 Z
+    value_before_type_cast: 2023-07-21 15:44:56.880607000 Z
   - !ruby/object:ActiveModel::Attribute::FromDatabase
     name: started_at
     value_before_type_cast: 2021-08-10 19:34:33.790182000 Z
@@ -3959,7 +4019,7 @@
     name: pairing_id
   - !ruby/object:ActiveModel::Attribute::FromDatabase
     name: percentage
-    value_before_type_cast: 0.84
+    value_before_type_cast: 0.4
   - !ruby/object:ActiveModel::Attribute::FromDatabase
     name: state
     value_before_type_cast: finished
@@ -3981,7 +4041,7 @@
     value_before_type_cast: 2021-08-10 19:36:29.280893000 Z
   - !ruby/object:ActiveModel::Attribute::FromDatabase
     name: updated_at
-    value_before_type_cast: 2021-08-10 19:37:19.531996000 Z
+    value_before_type_cast: 2023-07-21 15:44:57.665185000 Z
   - !ruby/object:ActiveModel::Attribute::FromDatabase
     name: started_at
     value_before_type_cast: 2021-08-10 19:36:29.271868000 Z
@@ -4019,7 +4079,7 @@
     name: pairing_id
   - !ruby/object:ActiveModel::Attribute::FromDatabase
     name: percentage
-    value_before_type_cast: 0.76
+    value_before_type_cast: 0.2
   - !ruby/object:ActiveModel::Attribute::FromDatabase
     name: state
     value_before_type_cast: finished
@@ -4041,7 +4101,7 @@
     value_before_type_cast: 2021-08-10 19:37:29.515538000 Z
   - !ruby/object:ActiveModel::Attribute::FromDatabase
     name: updated_at
-    value_before_type_cast: 2021-08-10 19:38:34.742173000 Z
+    value_before_type_cast: 2023-07-21 15:44:58.239965000 Z
   - !ruby/object:ActiveModel::Attribute::FromDatabase
     name: started_at
     value_before_type_cast: 2021-08-10 19:37:29.507929000 Z
@@ -4079,7 +4139,7 @@
     name: pairing_id
   - !ruby/object:ActiveModel::Attribute::FromDatabase
     name: percentage
-    value_before_type_cast: 0.77
+    value_before_type_cast: 0.38
   - !ruby/object:ActiveModel::Attribute::FromDatabase
     name: state
     value_before_type_cast: finished
@@ -4102,7 +4162,7 @@
     value_before_type_cast: 2021-08-10 19:39:07.057984000 Z
   - !ruby/object:ActiveModel::Attribute::FromDatabase
     name: updated_at
-    value_before_type_cast: 2021-08-10 19:40:29.160748000 Z
+    value_before_type_cast: 2023-07-21 15:44:58.881010000 Z
   - !ruby/object:ActiveModel::Attribute::FromDatabase
     name: started_at
     value_before_type_cast: 2021-08-10 19:39:07.050410000 Z
@@ -4140,7 +4200,7 @@
     name: pairing_id
   - !ruby/object:ActiveModel::Attribute::FromDatabase
     name: percentage
-    value_before_type_cast: 0.93
+    value_before_type_cast: 1.0
   - !ruby/object:ActiveModel::Attribute::FromDatabase
     name: state
     value_before_type_cast: finished
@@ -4162,7 +4222,7 @@
     value_before_type_cast: 2021-08-09 20:44:20.466053000 Z
   - !ruby/object:ActiveModel::Attribute::FromDatabase
     name: updated_at
-    value_before_type_cast: 2021-08-09 20:48:20.534387000 Z
+    value_before_type_cast: 2023-07-21 15:44:59.933002000 Z
   - !ruby/object:ActiveModel::Attribute::FromDatabase
     name: started_at
     value_before_type_cast: 2021-08-09 20:44:20.456837000 Z
@@ -4200,7 +4260,7 @@
     name: pairing_id
   - !ruby/object:ActiveModel::Attribute::FromDatabase
     name: percentage
-    value_before_type_cast: 0.93
+    value_before_type_cast: 1.0
   - !ruby/object:ActiveModel::Attribute::FromDatabase
     name: state
     value_before_type_cast: finished
@@ -4222,7 +4282,7 @@
     value_before_type_cast: 2021-08-09 20:48:23.518857000 Z
   - !ruby/object:ActiveModel::Attribute::FromDatabase
     name: updated_at
-    value_before_type_cast: 2021-08-09 20:49:52.410327000 Z
+    value_before_type_cast: 2023-07-21 15:45:01.534858000 Z
   - !ruby/object:ActiveModel::Attribute::FromDatabase
     name: started_at
     value_before_type_cast: 2021-08-09 20:48:23.510716000 Z
@@ -4260,7 +4320,7 @@
     name: pairing_id
   - !ruby/object:ActiveModel::Attribute::FromDatabase
     name: percentage
-    value_before_type_cast: 0.93
+    value_before_type_cast: 1.0
   - !ruby/object:ActiveModel::Attribute::FromDatabase
     name: state
     value_before_type_cast: finished
@@ -4282,7 +4342,7 @@
     value_before_type_cast: 2021-08-09 20:49:55.201374000 Z
   - !ruby/object:ActiveModel::Attribute::FromDatabase
     name: updated_at
-    value_before_type_cast: 2021-08-09 20:51:17.306942000 Z
+    value_before_type_cast: 2023-07-21 15:45:03.333584000 Z
   - !ruby/object:ActiveModel::Attribute::FromDatabase
     name: started_at
     value_before_type_cast: 2021-08-09 20:49:55.193973000 Z
@@ -4320,7 +4380,7 @@
     name: pairing_id
   - !ruby/object:ActiveModel::Attribute::FromDatabase
     name: percentage
-    value_before_type_cast: 0.96
+    value_before_type_cast: 0.8
   - !ruby/object:ActiveModel::Attribute::FromDatabase
     name: state
     value_before_type_cast: finished
@@ -4342,7 +4402,7 @@
     value_before_type_cast: 2021-08-09 20:51:21.130168000 Z
   - !ruby/object:ActiveModel::Attribute::FromDatabase
     name: updated_at
-    value_before_type_cast: 2021-08-09 20:52:06.638389000 Z
+    value_before_type_cast: 2023-07-21 15:45:04.054962000 Z
   - !ruby/object:ActiveModel::Attribute::FromDatabase
     name: started_at
     value_before_type_cast: 2021-08-09 20:51:21.106220000 Z
@@ -4380,7 +4440,7 @@
     name: pairing_id
   - !ruby/object:ActiveModel::Attribute::FromDatabase
     name: percentage
-    value_before_type_cast: 0.96
+    value_before_type_cast: 0.8
   - !ruby/object:ActiveModel::Attribute::FromDatabase
     name: state
     value_before_type_cast: finished
@@ -4402,7 +4462,7 @@
     value_before_type_cast: 2021-08-09 20:52:09.600816000 Z
   - !ruby/object:ActiveModel::Attribute::FromDatabase
     name: updated_at
-    value_before_type_cast: 2021-08-09 20:53:29.203686000 Z
+    value_before_type_cast: 2023-07-21 15:45:04.774240000 Z
   - !ruby/object:ActiveModel::Attribute::FromDatabase
     name: started_at
     value_before_type_cast: 2021-08-09 20:52:09.583746000 Z
@@ -4440,7 +4500,7 @@
     name: pairing_id
   - !ruby/object:ActiveModel::Attribute::FromDatabase
     name: percentage
-    value_before_type_cast: 0.95
+    value_before_type_cast: 0.88
   - !ruby/object:ActiveModel::Attribute::FromDatabase
     name: state
     value_before_type_cast: finished
@@ -4463,7 +4523,7 @@
     value_before_type_cast: 2021-08-09 20:53:32.160592000 Z
   - !ruby/object:ActiveModel::Attribute::FromDatabase
     name: updated_at
-    value_before_type_cast: 2021-08-09 20:54:50.137575000 Z
+    value_before_type_cast: 2023-07-21 15:45:05.896502000 Z
   - !ruby/object:ActiveModel::Attribute::FromDatabase
     name: started_at
     value_before_type_cast: 2021-08-09 20:53:32.153144000 Z
@@ -4501,7 +4561,7 @@
     name: pairing_id
   - !ruby/object:ActiveModel::Attribute::FromDatabase
     name: percentage
-    value_before_type_cast: 0.6
+    value_before_type_cast: 0.83
   - !ruby/object:ActiveModel::Attribute::FromDatabase
     name: state
     value_before_type_cast: finished
@@ -4523,7 +4583,7 @@
     value_before_type_cast: 2021-08-09 19:57:50.258391000 Z
   - !ruby/object:ActiveModel::Attribute::FromDatabase
     name: updated_at
-    value_before_type_cast: 2021-08-09 20:00:47.068433000 Z
+    value_before_type_cast: 2023-07-21 15:45:07.668423000 Z
   - !ruby/object:ActiveModel::Attribute::FromDatabase
     name: started_at
     value_before_type_cast: 2021-08-09 19:57:50.250479000 Z
@@ -4561,7 +4621,7 @@
     name: pairing_id
   - !ruby/object:ActiveModel::Attribute::FromDatabase
     name: percentage
-    value_before_type_cast: 0.67
+    value_before_type_cast: 1.0
   - !ruby/object:ActiveModel::Attribute::FromDatabase
     name: state
     value_before_type_cast: finished
@@ -4583,7 +4643,7 @@
     value_before_type_cast: 2021-08-09 20:00:50.423757000 Z
   - !ruby/object:ActiveModel::Attribute::FromDatabase
     name: updated_at
-    value_before_type_cast: 2021-08-09 20:03:40.616076000 Z
+    value_before_type_cast: 2023-07-21 15:45:09.803796000 Z
   - !ruby/object:ActiveModel::Attribute::FromDatabase
     name: started_at
     value_before_type_cast: 2021-08-09 20:00:50.364655000 Z
@@ -4621,7 +4681,7 @@
     name: pairing_id
   - !ruby/object:ActiveModel::Attribute::FromDatabase
     name: percentage
-    value_before_type_cast: 0.73
+    value_before_type_cast: 1.0
   - !ruby/object:ActiveModel::Attribute::FromDatabase
     name: state
     value_before_type_cast: finished
@@ -4643,7 +4703,7 @@
     value_before_type_cast: 2021-08-09 20:03:44.323321000 Z
   - !ruby/object:ActiveModel::Attribute::FromDatabase
     name: updated_at
-    value_before_type_cast: 2021-08-09 20:06:06.433795000 Z
+    value_before_type_cast: 2023-07-21 15:45:11.700136000 Z
   - !ruby/object:ActiveModel::Attribute::FromDatabase
     name: started_at
     value_before_type_cast: 2021-08-09 20:03:44.313086000 Z
@@ -4681,7 +4741,7 @@
     name: pairing_id
   - !ruby/object:ActiveModel::Attribute::FromDatabase
     name: percentage
-    value_before_type_cast: 0.5986666666666667
+    value_before_type_cast: 0.67
   - !ruby/object:ActiveModel::Attribute::FromDatabase
     name: state
     value_before_type_cast: finished
@@ -4704,7 +4764,7 @@
     value_before_type_cast: 2021-08-09 20:06:09.575671000 Z
   - !ruby/object:ActiveModel::Attribute::FromDatabase
     name: updated_at
-    value_before_type_cast: 2021-08-09 20:10:08.227504000 Z
+    value_before_type_cast: 2023-07-21 15:45:13.540106000 Z
   - !ruby/object:ActiveModel::Attribute::FromDatabase
     name: started_at
     value_before_type_cast: 2021-08-09 20:06:09.556986000 Z
@@ -4742,7 +4802,7 @@
     name: pairing_id
   - !ruby/object:ActiveModel::Attribute::FromDatabase
     name: percentage
-    value_before_type_cast: 0.728
+    value_before_type_cast: 0.8
   - !ruby/object:ActiveModel::Attribute::FromDatabase
     name: state
     value_before_type_cast: finished
@@ -4765,7 +4825,7 @@
     value_before_type_cast: 2021-08-09 20:10:22.189274000 Z
   - !ruby/object:ActiveModel::Attribute::FromDatabase
     name: updated_at
-    value_before_type_cast: 2021-08-09 20:15:49.963839000 Z
+    value_before_type_cast: 2023-07-21 15:45:16.053110000 Z
   - !ruby/object:ActiveModel::Attribute::FromDatabase
     name: started_at
     value_before_type_cast: 2021-08-09 20:10:22.181526000 Z
@@ -4803,7 +4863,7 @@
     name: pairing_id
   - !ruby/object:ActiveModel::Attribute::FromDatabase
     name: percentage
-    value_before_type_cast: 0.17
+    value_before_type_cast: 0.33
   - !ruby/object:ActiveModel::Attribute::FromDatabase
     name: state
     value_before_type_cast: finished
@@ -4825,7 +4885,7 @@
     value_before_type_cast: 2021-08-09 14:58:40.326869000 Z
   - !ruby/object:ActiveModel::Attribute::FromDatabase
     name: updated_at
-    value_before_type_cast: 2021-08-09 15:03:22.154832000 Z
+    value_before_type_cast: 2023-07-21 15:45:17.009329000 Z
   - !ruby/object:ActiveModel::Attribute::FromDatabase
     name: started_at
     value_before_type_cast: 2021-08-09 14:58:40.313842000 Z
@@ -4863,7 +4923,7 @@
     name: pairing_id
   - !ruby/object:ActiveModel::Attribute::FromDatabase
     name: percentage
-    value_before_type_cast: 0.5
+    value_before_type_cast: 0.83
   - !ruby/object:ActiveModel::Attribute::FromDatabase
     name: state
     value_before_type_cast: finished
@@ -4885,7 +4945,7 @@
     value_before_type_cast: 2021-08-09 15:03:26.937937000 Z
   - !ruby/object:ActiveModel::Attribute::FromDatabase
     name: updated_at
-    value_before_type_cast: 2021-08-09 15:06:48.342861000 Z
+    value_before_type_cast: 2023-07-21 15:45:19.516580000 Z
   - !ruby/object:ActiveModel::Attribute::FromDatabase
     name: started_at
     value_before_type_cast: 2021-08-09 15:03:26.930170000 Z
@@ -4923,7 +4983,7 @@
     name: pairing_id
   - !ruby/object:ActiveModel::Attribute::FromDatabase
     name: percentage
-    value_before_type_cast: 0.53
+    value_before_type_cast: 0.83
   - !ruby/object:ActiveModel::Attribute::FromDatabase
     name: state
     value_before_type_cast: finished
@@ -4945,7 +5005,7 @@
     value_before_type_cast: 2021-08-09 15:06:51.427276000 Z
   - !ruby/object:ActiveModel::Attribute::FromDatabase
     name: updated_at
-    value_before_type_cast: 2021-08-09 15:10:18.659756000 Z
+    value_before_type_cast: 2023-07-21 15:45:21.302561000 Z
   - !ruby/object:ActiveModel::Attribute::FromDatabase
     name: started_at
     value_before_type_cast: 2021-08-09 15:06:51.416725000 Z
@@ -4983,7 +5043,7 @@
     name: pairing_id
   - !ruby/object:ActiveModel::Attribute::FromDatabase
     name: percentage
-    value_before_type_cast: 0.49466666666666664
+    value_before_type_cast: 0.67
   - !ruby/object:ActiveModel::Attribute::FromDatabase
     name: state
     value_before_type_cast: finished
@@ -5006,7 +5066,7 @@
     value_before_type_cast: 2021-08-09 15:10:21.826205000 Z
   - !ruby/object:ActiveModel::Attribute::FromDatabase
     name: updated_at
-    value_before_type_cast: 2021-08-09 15:13:31.516130000 Z
+    value_before_type_cast: 2023-07-21 15:45:23.921884000 Z
   - !ruby/object:ActiveModel::Attribute::FromDatabase
     name: started_at
     value_before_type_cast: 2021-08-09 15:10:21.819188000 Z
@@ -5044,7 +5104,7 @@
     name: pairing_id
   - !ruby/object:ActiveModel::Attribute::FromDatabase
     name: percentage
-    value_before_type_cast: 0.5904761904761905
+    value_before_type_cast: 0.71
   - !ruby/object:ActiveModel::Attribute::FromDatabase
     name: state
     value_before_type_cast: finished
@@ -5068,7 +5128,7 @@
     value_before_type_cast: 2021-08-09 15:13:34.572724000 Z
   - !ruby/object:ActiveModel::Attribute::FromDatabase
     name: updated_at
-    value_before_type_cast: 2021-08-09 15:19:55.015260000 Z
+    value_before_type_cast: 2023-07-21 15:45:27.009218000 Z
   - !ruby/object:ActiveModel::Attribute::FromDatabase
     name: started_at
     value_before_type_cast: 2021-08-09 15:13:34.564416000 Z
@@ -5106,7 +5166,7 @@
     name: pairing_id
   - !ruby/object:ActiveModel::Attribute::FromDatabase
     name: percentage
-    value_before_type_cast: 0.8
+    value_before_type_cast: 1.0
   - !ruby/object:ActiveModel::Attribute::FromDatabase
     name: state
     value_before_type_cast: finished
@@ -5128,7 +5188,7 @@
     value_before_type_cast: 2021-08-11 18:35:13.354591000 Z
   - !ruby/object:ActiveModel::Attribute::FromDatabase
     name: updated_at
-    value_before_type_cast: 2021-08-11 18:38:07.582641000 Z
+    value_before_type_cast: 2023-07-21 15:45:28.631261000 Z
   - !ruby/object:ActiveModel::Attribute::FromDatabase
     name: started_at
     value_before_type_cast: 2021-08-11 18:35:13.338488000 Z
@@ -5166,7 +5226,7 @@
     name: pairing_id
   - !ruby/object:ActiveModel::Attribute::FromDatabase
     name: percentage
-    value_before_type_cast: 0.1
+    value_before_type_cast: 0.17
   - !ruby/object:ActiveModel::Attribute::FromDatabase
     name: state
     value_before_type_cast: finished
@@ -5188,7 +5248,7 @@
     value_before_type_cast: 2021-08-11 18:38:31.559346000 Z
   - !ruby/object:ActiveModel::Attribute::FromDatabase
     name: updated_at
-    value_before_type_cast: 2021-08-11 18:41:24.030506000 Z
+    value_before_type_cast: 2023-07-21 15:45:29.271114000 Z
   - !ruby/object:ActiveModel::Attribute::FromDatabase
     name: started_at
     value_before_type_cast: 2021-08-11 18:38:31.550681000 Z
@@ -5226,7 +5286,7 @@
     name: pairing_id
   - !ruby/object:ActiveModel::Attribute::FromDatabase
     name: percentage
-    value_before_type_cast: 0.83
+    value_before_type_cast: 1.0
   - !ruby/object:ActiveModel::Attribute::FromDatabase
     name: state
     value_before_type_cast: finished
@@ -5248,7 +5308,7 @@
     value_before_type_cast: 2021-08-13 14:06:45.468021000 Z
   - !ruby/object:ActiveModel::Attribute::FromDatabase
     name: updated_at
-    value_before_type_cast: 2021-08-13 14:10:33.308907000 Z
+    value_before_type_cast: 2023-07-21 15:45:30.892519000 Z
   - !ruby/object:ActiveModel::Attribute::FromDatabase
     name: started_at
     value_before_type_cast: 2021-08-13 14:06:45.459623000 Z
@@ -5286,7 +5346,7 @@
     name: pairing_id
   - !ruby/object:ActiveModel::Attribute::FromDatabase
     name: percentage
-    value_before_type_cast: 0.6546666666666667
+    value_before_type_cast: 0.67
   - !ruby/object:ActiveModel::Attribute::FromDatabase
     name: state
     value_before_type_cast: finished
@@ -5309,7 +5369,7 @@
     value_before_type_cast: 2021-08-13 14:29:20.856633000 Z
   - !ruby/object:ActiveModel::Attribute::FromDatabase
     name: updated_at
-    value_before_type_cast: 2021-08-13 14:35:18.629376000 Z
+    value_before_type_cast: 2023-07-21 15:45:32.257106000 Z
   - !ruby/object:ActiveModel::Attribute::FromDatabase
     name: started_at
     value_before_type_cast: 2021-08-13 14:29:20.848662000 Z
@@ -5347,7 +5407,7 @@
     name: pairing_id
   - !ruby/object:ActiveModel::Attribute::FromDatabase
     name: percentage
-    value_before_type_cast: 0.7635294117647059
+    value_before_type_cast: 0.82
   - !ruby/object:ActiveModel::Attribute::FromDatabase
     name: state
     value_before_type_cast: finished
@@ -5370,7 +5430,7 @@
     value_before_type_cast: 2021-08-13 14:16:19.579345000 Z
   - !ruby/object:ActiveModel::Attribute::FromDatabase
     name: updated_at
-    value_before_type_cast: 2021-08-13 14:23:14.022854000 Z
+    value_before_type_cast: 2023-07-21 15:45:34.305906000 Z
   - !ruby/object:ActiveModel::Attribute::FromDatabase
     name: started_at
     value_before_type_cast: 2021-08-13 14:16:19.568763000 Z
@@ -5408,7 +5468,7 @@
     name: pairing_id
   - !ruby/object:ActiveModel::Attribute::FromDatabase
     name: percentage
-    value_before_type_cast: 0.83
+    value_before_type_cast: 1.0
   - !ruby/object:ActiveModel::Attribute::FromDatabase
     name: state
     value_before_type_cast: finished
@@ -5430,7 +5490,7 @@
     value_before_type_cast: 2021-08-11 18:32:43.957616000 Z
   - !ruby/object:ActiveModel::Attribute::FromDatabase
     name: updated_at
-    value_before_type_cast: 2021-08-13 14:49:45.072387000 Z
+    value_before_type_cast: 2023-07-21 15:45:35.912825000 Z
   - !ruby/object:ActiveModel::Attribute::FromDatabase
     name: started_at
     value_before_type_cast: 2021-08-11 18:32:43.940296000 Z
@@ -5468,7 +5528,7 @@
     name: pairing_id
   - !ruby/object:ActiveModel::Attribute::FromDatabase
     name: percentage
-    value_before_type_cast: 0.77
+    value_before_type_cast: 1.0
   - !ruby/object:ActiveModel::Attribute::FromDatabase
     name: state
     value_before_type_cast: finished
@@ -5490,7 +5550,7 @@
     value_before_type_cast: 2021-08-13 14:50:27.769697000 Z
   - !ruby/object:ActiveModel::Attribute::FromDatabase
     name: updated_at
-    value_before_type_cast: 2021-08-13 14:55:18.758136000 Z
+    value_before_type_cast: 2023-07-21 15:45:37.873731000 Z
   - !ruby/object:ActiveModel::Attribute::FromDatabase
     name: started_at
     value_before_type_cast: 2021-08-13 14:50:27.738519000 Z
@@ -5528,7 +5588,7 @@
     name: pairing_id
   - !ruby/object:ActiveModel::Attribute::FromDatabase
     name: percentage
-    value_before_type_cast: 0.93
+    value_before_type_cast: 1.0
   - !ruby/object:ActiveModel::Attribute::FromDatabase
     name: state
     value_before_type_cast: finished
@@ -5550,7 +5610,7 @@
     value_before_type_cast: 2021-08-13 14:55:33.602913000 Z
   - !ruby/object:ActiveModel::Attribute::FromDatabase
     name: updated_at
-    value_before_type_cast: 2021-08-13 15:03:12.343748000 Z
+    value_before_type_cast: 2023-07-21 15:45:39.327261000 Z
   - !ruby/object:ActiveModel::Attribute::FromDatabase
     name: started_at
     value_before_type_cast: 2021-08-13 14:55:33.595041000 Z
@@ -5588,7 +5648,7 @@
     name: pairing_id
   - !ruby/object:ActiveModel::Attribute::FromDatabase
     name: percentage
-    value_before_type_cast: 0.8333333333333334
+    value_before_type_cast: 0.83
   - !ruby/object:ActiveModel::Attribute::FromDatabase
     name: state
     value_before_type_cast: finished
@@ -5610,7 +5670,7 @@
     value_before_type_cast: 2021-08-13 15:04:49.185927000 Z
   - !ruby/object:ActiveModel::Attribute::FromDatabase
     name: updated_at
-    value_before_type_cast: 2021-08-13 15:08:00.221517000 Z
+    value_before_type_cast: 2023-07-21 15:45:40.585973000 Z
   - !ruby/object:ActiveModel::Attribute::FromDatabase
     name: started_at
     value_before_type_cast: 2021-08-13 15:04:49.178382000 Z
@@ -5648,7 +5708,7 @@
     name: pairing_id
   - !ruby/object:ActiveModel::Attribute::FromDatabase
     name: percentage
-    value_before_type_cast: 0.7843478260869565
+    value_before_type_cast: 0.83
   - !ruby/object:ActiveModel::Attribute::FromDatabase
     name: state
     value_before_type_cast: finished
@@ -5672,7 +5732,7 @@
     value_before_type_cast: 2021-08-13 15:09:15.828944000 Z
   - !ruby/object:ActiveModel::Attribute::FromDatabase
     name: updated_at
-    value_before_type_cast: 2021-08-13 15:14:40.324752000 Z
+    value_before_type_cast: 2023-07-21 15:45:43.131707000 Z
   - !ruby/object:ActiveModel::Attribute::FromDatabase
     name: started_at
     value_before_type_cast: 2021-08-13 15:09:15.816948000 Z
@@ -5710,7 +5770,7 @@
     name: pairing_id
   - !ruby/object:ActiveModel::Attribute::FromDatabase
     name: percentage
-    value_before_type_cast: 0.9
+    value_before_type_cast: 1.0
   - !ruby/object:ActiveModel::Attribute::FromDatabase
     name: state
     value_before_type_cast: finished
@@ -5732,7 +5792,7 @@
     value_before_type_cast: 2021-08-10 17:02:39.703939000 Z
   - !ruby/object:ActiveModel::Attribute::FromDatabase
     name: updated_at
-    value_before_type_cast: 2021-08-10 17:04:27.745751000 Z
+    value_before_type_cast: 2023-07-21 15:45:44.572341000 Z
   - !ruby/object:ActiveModel::Attribute::FromDatabase
     name: started_at
     value_before_type_cast: 2021-08-10 17:02:39.696806000 Z
@@ -5770,7 +5830,7 @@
     name: pairing_id
   - !ruby/object:ActiveModel::Attribute::FromDatabase
     name: percentage
-    value_before_type_cast: 0.97
+    value_before_type_cast: 1.0
   - !ruby/object:ActiveModel::Attribute::FromDatabase
     name: state
     value_before_type_cast: finished
@@ -5792,7 +5852,7 @@
     value_before_type_cast: 2021-08-10 17:04:31.054241000 Z
   - !ruby/object:ActiveModel::Attribute::FromDatabase
     name: updated_at
-    value_before_type_cast: 2021-08-10 17:15:13.195660000 Z
+    value_before_type_cast: 2023-07-21 15:45:46.045089000 Z
   - !ruby/object:ActiveModel::Attribute::FromDatabase
     name: started_at
     value_before_type_cast: 2021-08-10 17:04:31.044323000 Z
@@ -5830,7 +5890,7 @@
     name: pairing_id
   - !ruby/object:ActiveModel::Attribute::FromDatabase
     name: percentage
-    value_before_type_cast: 0.97
+    value_before_type_cast: 1.0
   - !ruby/object:ActiveModel::Attribute::FromDatabase
     name: state
     value_before_type_cast: finished
@@ -5852,7 +5912,7 @@
     value_before_type_cast: 2021-08-10 17:15:18.097912000 Z
   - !ruby/object:ActiveModel::Attribute::FromDatabase
     name: updated_at
-    value_before_type_cast: 2021-08-10 17:16:59.891565000 Z
+    value_before_type_cast: 2023-07-21 15:45:47.306202000 Z
   - !ruby/object:ActiveModel::Attribute::FromDatabase
     name: started_at
     value_before_type_cast: 2021-08-10 17:15:18.091226000 Z
@@ -6010,7 +6070,7 @@
     name: pairing_id
   - !ruby/object:ActiveModel::Attribute::FromDatabase
     name: percentage
-    value_before_type_cast: 0.84
+    value_before_type_cast: 1.0
   - !ruby/object:ActiveModel::Attribute::FromDatabase
     name: state
     value_before_type_cast: finished
@@ -6033,7 +6093,7 @@
     value_before_type_cast: 2021-08-09 20:16:01.130318000 Z
   - !ruby/object:ActiveModel::Attribute::FromDatabase
     name: updated_at
-    value_before_type_cast: 2021-08-09 20:17:35.925067000 Z
+    value_before_type_cast: 2023-07-21 15:45:52.221944000 Z
   - !ruby/object:ActiveModel::Attribute::FromDatabase
     name: started_at
     value_before_type_cast: 2021-08-09 20:16:01.122768000 Z
@@ -6071,7 +6131,7 @@
     name: pairing_id
   - !ruby/object:ActiveModel::Attribute::FromDatabase
     name: percentage
-    value_before_type_cast: 0.78
+    value_before_type_cast: 1.0
   - !ruby/object:ActiveModel::Attribute::FromDatabase
     name: state
     value_before_type_cast: finished
@@ -6094,7 +6154,7 @@
     value_before_type_cast: 2021-08-09 20:17:40.686003000 Z
   - !ruby/object:ActiveModel::Attribute::FromDatabase
     name: updated_at
-    value_before_type_cast: 2021-08-09 20:19:28.649342000 Z
+    value_before_type_cast: 2023-07-21 15:45:54.552675000 Z
   - !ruby/object:ActiveModel::Attribute::FromDatabase
     name: started_at
     value_before_type_cast: 2021-08-09 20:17:40.678054000 Z
@@ -6132,7 +6192,7 @@
     name: pairing_id
   - !ruby/object:ActiveModel::Attribute::FromDatabase
     name: percentage
-    value_before_type_cast: 0.8
+    value_before_type_cast: 1.0
   - !ruby/object:ActiveModel::Attribute::FromDatabase
     name: state
     value_before_type_cast: finished
@@ -6155,7 +6215,7 @@
     value_before_type_cast: 2021-08-09 20:19:31.913265000 Z
   - !ruby/object:ActiveModel::Attribute::FromDatabase
     name: updated_at
-    value_before_type_cast: 2021-08-09 20:23:05.056408000 Z
+    value_before_type_cast: 2023-07-21 15:45:56.744368000 Z
   - !ruby/object:ActiveModel::Attribute::FromDatabase
     name: started_at
     value_before_type_cast: 2021-08-09 20:19:31.897417000 Z
@@ -6193,7 +6253,7 @@
     name: pairing_id
   - !ruby/object:ActiveModel::Attribute::FromDatabase
     name: percentage
-    value_before_type_cast: 0.92
+    value_before_type_cast: 1.0
   - !ruby/object:ActiveModel::Attribute::FromDatabase
     name: state
     value_before_type_cast: finished
@@ -6216,7 +6276,7 @@
     value_before_type_cast: 2021-08-18 16:27:33.301721000 Z
   - !ruby/object:ActiveModel::Attribute::FromDatabase
     name: updated_at
-    value_before_type_cast: 2021-08-18 16:30:09.806647000 Z
+    value_before_type_cast: 2023-07-21 15:45:58.424789000 Z
   - !ruby/object:ActiveModel::Attribute::FromDatabase
     name: started_at
     value_before_type_cast: 2021-08-18 16:27:33.288156000 Z
@@ -6254,7 +6314,7 @@
     name: pairing_id
   - !ruby/object:ActiveModel::Attribute::FromDatabase
     name: percentage
-    value_before_type_cast: 0.7
+    value_before_type_cast: 1.0
   - !ruby/object:ActiveModel::Attribute::FromDatabase
     name: state
     value_before_type_cast: finished
@@ -6277,7 +6337,7 @@
     value_before_type_cast: 2021-08-09 15:54:03.580966000 Z
   - !ruby/object:ActiveModel::Attribute::FromDatabase
     name: updated_at
-    value_before_type_cast: 2021-08-09 15:56:06.150945000 Z
+    value_before_type_cast: 2023-07-21 15:46:00.995957000 Z
   - !ruby/object:ActiveModel::Attribute::FromDatabase
     name: started_at
     value_before_type_cast: 2021-08-09 15:54:03.573814000 Z
@@ -6315,7 +6375,7 @@
     name: pairing_id
   - !ruby/object:ActiveModel::Attribute::FromDatabase
     name: percentage
-    value_before_type_cast: 0.7
+    value_before_type_cast: 1.0
   - !ruby/object:ActiveModel::Attribute::FromDatabase
     name: state
     value_before_type_cast: finished
@@ -6338,7 +6398,7 @@
     value_before_type_cast: 2021-08-09 15:56:09.137393000 Z
   - !ruby/object:ActiveModel::Attribute::FromDatabase
     name: updated_at
-    value_before_type_cast: 2021-08-09 15:58:20.564019000 Z
+    value_before_type_cast: 2023-07-21 15:46:03.870460000 Z
   - !ruby/object:ActiveModel::Attribute::FromDatabase
     name: started_at
     value_before_type_cast: 2021-08-09 15:56:09.130430000 Z
@@ -6376,7 +6436,7 @@
     name: pairing_id
   - !ruby/object:ActiveModel::Attribute::FromDatabase
     name: percentage
-    value_before_type_cast: 0.82
+    value_before_type_cast: 1.0
   - !ruby/object:ActiveModel::Attribute::FromDatabase
     name: state
     value_before_type_cast: finished
@@ -6399,7 +6459,7 @@
     value_before_type_cast: 2021-08-13 15:25:11.943800000 Z
   - !ruby/object:ActiveModel::Attribute::FromDatabase
     name: updated_at
-    value_before_type_cast: 2021-08-13 15:27:05.543615000 Z
+    value_before_type_cast: 2023-07-21 15:46:06.231761000 Z
   - !ruby/object:ActiveModel::Attribute::FromDatabase
     name: started_at
     value_before_type_cast: 2021-08-13 15:25:11.935196000 Z
@@ -6437,7 +6497,7 @@
     name: pairing_id
   - !ruby/object:ActiveModel::Attribute::FromDatabase
     name: percentage
-    value_before_type_cast: 0.34
+    value_before_type_cast: 0.7
   - !ruby/object:ActiveModel::Attribute::FromDatabase
     name: state
     value_before_type_cast: finished
@@ -6460,7 +6520,7 @@
     value_before_type_cast: 2021-08-13 15:30:13.316943000 Z
   - !ruby/object:ActiveModel::Attribute::FromDatabase
     name: updated_at
-    value_before_type_cast: 2021-08-13 15:34:07.838468000 Z
+    value_before_type_cast: 2023-07-21 15:46:08.676169000 Z
   - !ruby/object:ActiveModel::Attribute::FromDatabase
     name: started_at
     value_before_type_cast: 2021-08-13 15:30:13.307432000 Z
@@ -6498,7 +6558,7 @@
     name: pairing_id
   - !ruby/object:ActiveModel::Attribute::FromDatabase
     name: percentage
-    value_before_type_cast: 0.76
+    value_before_type_cast: 1.0
   - !ruby/object:ActiveModel::Attribute::FromDatabase
     name: state
     value_before_type_cast: finished
@@ -6521,7 +6581,7 @@
     value_before_type_cast: 2021-08-13 15:34:27.006275000 Z
   - !ruby/object:ActiveModel::Attribute::FromDatabase
     name: updated_at
-    value_before_type_cast: 2021-08-13 15:37:44.420764000 Z
+    value_before_type_cast: 2023-07-21 15:46:11.127101000 Z
   - !ruby/object:ActiveModel::Attribute::FromDatabase
     name: started_at
     value_before_type_cast: 2021-08-13 15:34:26.997871000 Z
@@ -6559,7 +6619,7 @@
     name: pairing_id
   - !ruby/object:ActiveModel::Attribute::FromDatabase
     name: percentage
-    value_before_type_cast: 0.98
+    value_before_type_cast: 1.0
   - !ruby/object:ActiveModel::Attribute::FromDatabase
     name: state
     value_before_type_cast: finished
@@ -6582,7 +6642,7 @@
     value_before_type_cast: 2021-08-13 15:16:16.322792000 Z
   - !ruby/object:ActiveModel::Attribute::FromDatabase
     name: updated_at
-    value_before_type_cast: 2021-08-13 15:17:55.395278000 Z
+    value_before_type_cast: 2023-07-21 15:46:12.522016000 Z
   - !ruby/object:ActiveModel::Attribute::FromDatabase
     name: started_at
     value_before_type_cast: 2021-08-13 15:16:16.315520000 Z
@@ -6620,7 +6680,7 @@
     name: pairing_id
   - !ruby/object:ActiveModel::Attribute::FromDatabase
     name: percentage
-    value_before_type_cast: 0.94
+    value_before_type_cast: 1.0
   - !ruby/object:ActiveModel::Attribute::FromDatabase
     name: state
     value_before_type_cast: finished
@@ -6643,7 +6703,7 @@
     value_before_type_cast: 2021-08-13 15:18:01.106619000 Z
   - !ruby/object:ActiveModel::Attribute::FromDatabase
     name: updated_at
-    value_before_type_cast: 2021-08-13 15:19:38.152353000 Z
+    value_before_type_cast: 2023-07-21 15:46:14.299998000 Z
   - !ruby/object:ActiveModel::Attribute::FromDatabase
     name: started_at
     value_before_type_cast: 2021-08-13 15:18:01.086501000 Z
@@ -6681,7 +6741,7 @@
     name: pairing_id
   - !ruby/object:ActiveModel::Attribute::FromDatabase
     name: percentage
-    value_before_type_cast: 0.88
+    value_before_type_cast: 1.0
   - !ruby/object:ActiveModel::Attribute::FromDatabase
     name: state
     value_before_type_cast: finished
@@ -6704,7 +6764,7 @@
     value_before_type_cast: 2021-08-13 15:19:50.940559000 Z
   - !ruby/object:ActiveModel::Attribute::FromDatabase
     name: updated_at
-    value_before_type_cast: 2021-08-13 15:23:31.189365000 Z
+    value_before_type_cast: 2023-07-21 15:46:16.024739000 Z
   - !ruby/object:ActiveModel::Attribute::FromDatabase
     name: started_at
     value_before_type_cast: 2021-08-13 15:19:50.899763000 Z
@@ -6742,7 +6802,7 @@
     name: pairing_id
   - !ruby/object:ActiveModel::Attribute::FromDatabase
     name: percentage
-    value_before_type_cast: 0.96
+    value_before_type_cast: 1.0
   - !ruby/object:ActiveModel::Attribute::FromDatabase
     name: state
     value_before_type_cast: finished
@@ -6765,7 +6825,7 @@
     value_before_type_cast: 2021-08-10 17:17:03.538488000 Z
   - !ruby/object:ActiveModel::Attribute::FromDatabase
     name: updated_at
-    value_before_type_cast: 2021-08-10 17:18:21.564105000 Z
+    value_before_type_cast: 2023-07-21 15:46:17.398625000 Z
   - !ruby/object:ActiveModel::Attribute::FromDatabase
     name: started_at
     value_before_type_cast: 2021-08-10 17:17:03.528948000 Z
@@ -6803,7 +6863,7 @@
     name: pairing_id
   - !ruby/object:ActiveModel::Attribute::FromDatabase
     name: percentage
-    value_before_type_cast: 0.98
+    value_before_type_cast: 1.0
   - !ruby/object:ActiveModel::Attribute::FromDatabase
     name: state
     value_before_type_cast: finished
@@ -6826,7 +6886,7 @@
     value_before_type_cast: 2021-08-10 17:18:24.188080000 Z
   - !ruby/object:ActiveModel::Attribute::FromDatabase
     name: updated_at
-    value_before_type_cast: 2021-08-10 17:19:37.424964000 Z
+    value_before_type_cast: 2023-07-21 15:46:18.826582000 Z
   - !ruby/object:ActiveModel::Attribute::FromDatabase
     name: started_at
     value_before_type_cast: 2021-08-10 17:18:24.180584000 Z
@@ -6864,7 +6924,7 @@
     name: pairing_id
   - !ruby/object:ActiveModel::Attribute::FromDatabase
     name: percentage
-    value_before_type_cast: 0.94
+    value_before_type_cast: 1.0
   - !ruby/object:ActiveModel::Attribute::FromDatabase
     name: state
     value_before_type_cast: finished
@@ -6887,7 +6947,7 @@
     value_before_type_cast: 2021-08-10 17:19:40.343822000 Z
   - !ruby/object:ActiveModel::Attribute::FromDatabase
     name: updated_at
-    value_before_type_cast: 2021-08-10 17:21:22.168416000 Z
+    value_before_type_cast: 2023-07-21 15:46:20.334402000 Z
   - !ruby/object:ActiveModel::Attribute::FromDatabase
     name: started_at
     value_before_type_cast: 2021-08-10 17:19:40.334246000 Z
@@ -8444,7 +8504,7 @@
     name: pairing_id
   - !ruby/object:ActiveModel::Attribute::FromDatabase
     name: percentage
-    value_before_type_cast: 0.93
+    value_before_type_cast: 1.0
   - !ruby/object:ActiveModel::Attribute::FromDatabase
     name: state
     value_before_type_cast: finished
@@ -8465,7 +8525,7 @@
     value_before_type_cast: 2017-01-11 14:21:59.604906000 Z
   - !ruby/object:ActiveModel::Attribute::FromDatabase
     name: updated_at
-    value_before_type_cast: 2017-02-23 13:56:37.835078000 Z
+    value_before_type_cast: 2023-07-21 15:46:20.702818000 Z
   - !ruby/object:ActiveModel::Attribute::FromDatabase
     name: started_at
     value_before_type_cast: 2017-01-11 15:06:07.175873000 Z

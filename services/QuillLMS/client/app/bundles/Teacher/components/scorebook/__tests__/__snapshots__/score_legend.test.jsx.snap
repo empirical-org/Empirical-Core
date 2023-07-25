@@ -24,7 +24,7 @@ exports[`ScoreLegend component should render 1`] = `
         <p
           className="explanation"
         >
-          80-100%
+          83-100%
         </p>
       </div>
     </div>
@@ -45,7 +45,7 @@ exports[`ScoreLegend component should render 1`] = `
         <p
           className="explanation"
         >
-          60-79%
+          32-82%
         </p>
       </div>
     </div>
@@ -66,7 +66,7 @@ exports[`ScoreLegend component should render 1`] = `
         <p
           className="explanation"
         >
-          0-59%
+          0-31%
         </p>
       </div>
     </div>
