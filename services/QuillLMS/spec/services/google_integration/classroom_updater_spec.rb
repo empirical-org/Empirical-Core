@@ -3,14 +3,14 @@
 require 'rails_helper'
 
 RSpec.describe GoogleIntegration::ClassroomUpdater do
-  let(:google_classroom_id) { 123456 }
+  let(:classroom_external_id) { 123456 }
   let(:teacher_id) { create(:teacher).id }
   let(:grade) { '1' }
 
   let!(:classroom) do
     create(:classroom,
       :with_no_teacher,
-      google_classroom_id: google_classroom_id,
+      google_classroom_id: classroom_external_id,
       grade: grade,
       name: name,
       synced_name: synced_name
@@ -19,7 +19,7 @@ RSpec.describe GoogleIntegration::ClassroomUpdater do
 
   let(:data) do
     {
-      google_classroom_id: google_classroom_id,
+      classroom_external_id: classroom_external_id,
       name: data_name,
       grade: '100',
       teacher_id: teacher_id

@@ -30,16 +30,15 @@ export default class ImportGoogleClassroomStudentsModal extends React.Component<
     this.handleImportStudents = this.handleImportStudents.bind(this)
   }
 
-  initializePusherForGoogleStudentImport(id) {
-    if (process.env.RAILS_ENV === 'development') {
-      Pusher.logToConsole = true;
-    }
+  initializePusherForGoogleStudentImport(userId) {
+    if (process.env.RAILS_ENV === 'development') { Pusher.logToConsole = true; }
+
     const pusher = new Pusher(process.env.PUSHER_KEY, { encrypted: true, });
-    const channelName = String(id)
+    const channelName = String(userId)
     const channel = pusher.subscribe(channelName);
     const { onSuccess } = this.props
 
-    channel.bind('google-classroom-students-imported', () => {
+    channel.bind('google-teacher-classrooms-students-imported', () => {
       onSuccess('Class re-synced')
       pusher.unsubscribe(channelName)
     });
@@ -53,8 +52,8 @@ export default class ImportGoogleClassroomStudentsModal extends React.Component<
   handleImportStudents() {
     const { classroom, } = this.props
     this.setState({ waiting: true })
-    requestPut(`/teachers/classrooms/${classroom.id}/import_google_students`, {}, (body) => {
-      this.initializePusherForGoogleStudentImport(body.id)
+    requestPut(`/google_integration/teachers/import_students`, { classroom_id: classroom.id }, (body) => {
+      this.initializePusherForGoogleStudentImport(body.user_id)
     })
   }
 

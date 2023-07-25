@@ -1,20 +1,20 @@
 # frozen_string_literal: true
 
 module GoogleIntegration
-  class ClassroomStudentCreator < ApplicationService
+  class StudentCreator < ApplicationService
     ACCOUNT_TYPE = ::User::GOOGLE_CLASSROOM_ACCOUNT
     ROLE = ::User::STUDENT
     SIGNED_UP_WITH_GOOGLE = true
 
-    attr_reader :classroom, :email, :google_id, :first_name, :last_name, :name
+    attr_reader :classroom, :email, :first_name, :last_name, :name, :user_external_id
 
     def initialize(data)
       @classroom = data[:classroom]
       @email = data[:email].downcase
-      @google_id = data[:google_id]
       @name = data[:name]
       @first_name = data[:first_name]
       @last_name = data[:last_name] || ''
+      @user_external_id = data[:user_external_id]
     end
 
     def run
@@ -30,12 +30,12 @@ module GoogleIntegration
     private def student
       ::User.create!(
         account_type: ACCOUNT_TYPE,
-        role: ROLE,
-        signed_up_with_google: SIGNED_UP_WITH_GOOGLE,
         email: email,
-        google_id: google_id,
+        google_id: user_external_id,
         name: name,
         password: password,
+        role: ROLE,
+        signed_up_with_google: SIGNED_UP_WITH_GOOGLE,
         username: username
       )
     end

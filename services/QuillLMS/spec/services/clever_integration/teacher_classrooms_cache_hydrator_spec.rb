@@ -6,16 +6,15 @@ describe CleverIntegration::TeacherClassroomsCacheHydrator do
   let(:raw_data) { ['classroom_data', 'classroom_data'] }
   let(:data) { { classrooms: raw_data }}
 
-  subject { described_class.run(teacher.id) }
+  subject { described_class.run(user) }
 
   context 'teacher has clever auth_credential' do
-    let(:teacher) { create(:teacher, :signed_up_with_clever) }
-    let!(:auth_credential) { create(:clever_library_auth_credential, user: teacher) }
+    let(:user) { create(:clever_library_auth_credential).user }
     let(:client) { double(:clever_client, get_teacher_classrooms: raw_data) }
 
     it do
-      expect(CleverIntegration::ClientFetcher).to receive(:run).with(teacher).and_return(client)
-      expect(CleverIntegration::TeacherClassroomsCache).to receive(:write).with(teacher.id, data.to_json)
+      expect(CleverIntegration::ClientFetcher).to receive(:run).with(user).and_return(client)
+      expect(CleverIntegration::TeacherClassroomsCache).to receive(:write).with(user.id, data.to_json)
       expect(PusherTrigger).to receive(:run)
 
       subject
@@ -23,7 +22,7 @@ describe CleverIntegration::TeacherClassroomsCacheHydrator do
   end
 
   context 'teacher has no auth_credential' do
-    let(:teacher) { create(:teacher) }
+    let(:user) { create(:teacher) }
 
     it 'does not cache any teacher classrooms and it reports an error' do
       expect(CleverIntegration::TeacherClassroomsCache).not_to receive(:write)
@@ -34,7 +33,7 @@ describe CleverIntegration::TeacherClassroomsCacheHydrator do
   end
 
   context 'teacher has google auth_credential' do
-    let(:teacher) { create(:teacher, :signed_up_with_google) }
+    let(:user) { create(:google_auth_credential).user }
 
     it 'does not cache any teacher classrooms and it reports an error' do
       expect(CleverIntegration::TeacherClassroomsCache).not_to receive(:write)

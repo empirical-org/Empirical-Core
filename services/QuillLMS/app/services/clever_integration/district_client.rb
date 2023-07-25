@@ -15,7 +15,7 @@ module CleverIntegration
         .map { |classroom_data| DistrictClassroomDataAdapter.run(classroom_data) }
     end
 
-    def get_classroom_students(classroom_clever_id)
+    def classroom_students(classroom_clever_id)
       data_api
         .get_students_for_section(classroom_clever_id)
         .data

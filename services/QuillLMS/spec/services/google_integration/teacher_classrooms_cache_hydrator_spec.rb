@@ -2,8 +2,8 @@
 
 require 'rails_helper'
 
-describe GoogleIntegration::TeacherClassroomsRetriever do
-  subject { described_class.run(user.id) }
+describe GoogleIntegration::TeacherClassroomsCacheHydrator do
+  subject { described_class.run(user) }
 
   let(:user) { create(:user) }
 

@@ -203,39 +203,6 @@ class Teachers::ClassroomManagerController < ApplicationController
     render json: {}
   end
 
-  def retrieve_google_classrooms
-    serialized_google_classrooms = GoogleIntegration::TeacherClassroomsCache.read(current_user.id)
-    if serialized_google_classrooms
-      render json: JSON.parse(serialized_google_classrooms)
-    else
-      GoogleIntegration::RetrieveTeacherClassroomsWorker.perform_async(current_user.id)
-      render json: { id: current_user.id, quill_retrieval_processing: true }
-    end
-  end
-
-  def update_google_classrooms
-    serialized_classrooms_data = { classrooms: params[:selected_classrooms] }.to_json
-
-    GoogleIntegration::TeacherClassroomsData
-      .new(current_user, serialized_classrooms_data)
-      .each { |classroom_data| GoogleIntegration::ClassroomImporter.run(classroom_data) }
-
-    GoogleIntegration::TeacherClassroomsCache.delete(current_user.id)
-    GoogleIntegration::RetrieveTeacherClassroomsWorker.perform_async(current_user.id)
-    render json: { classrooms: current_user.google_classrooms }.to_json
-  end
-
-  def import_google_students
-    selected_classroom_ids = Classroom.where(id: params[:classroom_id] || params[:selected_classroom_ids]).ids
-    GoogleIntegration::TeacherClassroomsCache.delete(current_user.id)
-    GoogleStudentImporterWorker.perform_async(
-      current_user.id,
-      'Teachers::ClassroomManagerController',
-      selected_classroom_ids
-    )
-    render json: { id: current_user.id }
-  end
-
   def view_demo
     demo = User.find_by_email(Demo::ReportDemoCreator::EMAIL)
     return render json: {errors: "Demo Account does not exist"}, status: 422 if demo.nil?

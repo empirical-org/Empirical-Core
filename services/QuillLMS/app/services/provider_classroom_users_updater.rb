@@ -1,13 +1,12 @@
 # frozen_string_literal: true
 
 class ProviderClassroomUsersUpdater < ApplicationService
-  attr_reader :classroom_external_id, :user_external_ids, :provider_classroom_user_class, :canvas_instance_id
+  attr_reader :classroom_external_id, :user_external_ids, :provider_classroom_user_class
 
-  def initialize(classroom_external_id, user_external_ids, provider_classroom_user_class, canvas_instance_id = nil)
+  def initialize(classroom_external_id, user_external_ids, provider_classroom_user_class)
     @classroom_external_id = classroom_external_id
     @user_external_ids = user_external_ids
     @provider_classroom_user_class = provider_classroom_user_class
-    @canvas_instance_id = canvas_instance_id
   end
 
   def run
@@ -20,7 +19,6 @@ class ProviderClassroomUsersUpdater < ApplicationService
     provider_classroom_user_class
       .deleted
       .where(classroom_external_id: classroom_external_id)
-      .where(canvas_instance_id: canvas_instance_id)
       .where(user_external_id: user_external_ids)
       .update_all(deleted_at: nil)
   end
