@@ -7,13 +7,13 @@ import { FULL, restrictedPage, } from '../shared';
 import CustomDateModal from '../components/usage_snapshots/customDateModal'
 import SnapshotSection from '../components/usage_snapshots/snapshotSection'
 import Filters from '../components/usage_snapshots/filters'
-import { snapshotSections, TAB_NAMES, ALL, CUSTOM, } from '../components/usage_snapshots/shared'
+import { snapshotSections, TAB_NAMES, ALL, CUSTOM, SECTION_NAME_TO_ICON_URL, } from '../components/usage_snapshots/shared'
 import { Spinner, DropdownInput, } from '../../Shared/index'
 import useWindowSize from '../../Shared/hooks/useWindowSize';
 import { requestGet, } from '../../../modules/request'
 import { unorderedArraysAreEqual, } from '../../../modules/unorderedArraysAreEqual'
 
-const MAX_VIEW_WIDTH_FOR_MOBILE = 850
+const MAX_VIEW_WIDTH_FOR_MOBILE = 950
 
 const filterIconSrc = `${process.env.CDN_URL}/images/icons/icons-filter.svg`
 
@@ -25,7 +25,7 @@ const Tab = ({ section, setSelectedTab, selectedTab }) => {
     className += ' selected-tab'
   }
 
-  return <button className={className} onClick={handleSetSelectedTab} type="button">{section}</button>
+  return <button className={className} onClick={handleSetSelectedTab} type="button"><img alt="" src={SECTION_NAME_TO_ICON_URL[section]} /><span>{section}</span></button>
 }
 
 const UsageSnapshotsContainer = ({ adminInfo, accessType, }) => {

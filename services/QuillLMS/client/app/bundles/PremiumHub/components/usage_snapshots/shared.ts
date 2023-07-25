@@ -46,6 +46,17 @@ export const CUSTOM = 'custom'
 
 export const TAB_NAMES = [ALL, HIGHLIGHTS, USERS, PRACTICE, CLASSROOMS, SCHOOLS]
 
+const iconLinkBase = `${process.env.CDN_URL}/images/pages/administrator/usage_snapshot_report`
+
+export const SECTION_NAME_TO_ICON_URL = {
+  [ALL]: `${iconLinkBase}/star.svg`,
+  [HIGHLIGHTS]: `${iconLinkBase}/bulb.svg`,
+  [USERS]: `${iconLinkBase}/students.svg`,
+  [PRACTICE]: `${iconLinkBase}/pencil.svg`,
+  [CLASSROOMS]: `${iconLinkBase}/teacher.svg`,
+  [SCHOOLS]: `${iconLinkBase}/school.svg`
+}
+
 export const snapshotSections = [
   {
     name: HIGHLIGHTS,

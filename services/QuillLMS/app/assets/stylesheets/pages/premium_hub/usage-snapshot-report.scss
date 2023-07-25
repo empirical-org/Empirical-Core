@@ -83,24 +83,29 @@
       display: flex;
       .tab {
         padding: 0px 32px;
-        height: 40px;
+        height: 36px;
         background: #F7F5F5;
         border: 1px solid #D3D3D3;
         display: flex;
         align-items: center;
         border-right: none;
         font-weight: 600;
+        color: #373737;
+        line-height: 13px;
+        img {
+          margin-right: 4px;
+        }
         &.selected-tab {
           background: #06806B;
           color: white;
           border: 1px solid #06806B;
         }
         &:first-of-type {
-          border-radius: 4px 0px 0px 4px;
+          border-radius: 8px 0px 0px 8px;
         }
         &:last-of-type {
           border-right: 1px solid #D3D3D3;
-          border-radius: 0px 4px 4px 0px;
+          border-radius: 0px 8px 8px 0px;
         }
       }
       .dropdown-container {
@@ -127,18 +132,32 @@
         }
       }
     }
-    .snapshot-section {
-      box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.15);
-      border-radius: 8px;
-      margin-top: 24px;
-      padding: 24px;
+
+    .snapshot-section-wrapper {
+      margin-top: 32px;
+      padding: 0px;
       h2 {
         font-weight: 600;
         font-size: 20px;
         line-height: 32px;
         color: #373737;
         margin-bottom: 16px;
+        display: flex;
+        align-items: center;
+        img {
+          height: 24px;
+          margin-right: 8px;
+        }
       }
+      &:first-of-type {
+        margin-top: 36px;
+      }
+    }
+
+    .snapshot-section {
+      box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.15);
+      border-radius: 8px;
+      padding: 24px;
       .snapshot-item {
         background: #F8F8F8;
         border: 1px solid #E0E0E0;
@@ -467,13 +486,13 @@
     }
   }
 
-  @media (min-width: 1135px) {
+  @media (min-width: 1266px) {
     .filter-container .top-section, main .filter-button-container {
       display: none;
     }
   }
 
-  @media (max-width: 1134px) {
+  @media (max-width: 1265px) {
     .filter-container {
       position: fixed;
       top: 0;
