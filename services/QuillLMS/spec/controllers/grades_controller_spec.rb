@@ -41,7 +41,7 @@ describe GradesController do
         number_of_correct_questions: 1
       )
       expect(json_response[:sessions].first[:completed_at])
-        .to eq(Time.at(activity_session.reload.completed_at.to_i + teacher.utc_offset))
+        .to eq(activity_session.reload.completed_at + teacher.utc_offset.seconds)
 
     end
   end

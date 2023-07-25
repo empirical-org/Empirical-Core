@@ -46,7 +46,7 @@ class GradesController < ApplicationController
       percentage: activity_session.percentage,
       description: activity_session.activity.description,
       due_date: unit_activity.due_date,
-      completed_at: Time.at(activity_session.completed_at.to_i + current_user.utc_offset.seconds),
+      completed_at: activity_session.completed_at + current_user.utc_offset.seconds,
       grouped_key_target_skill_concepts: format_grouped_key_target_skill_concepts(key_target_skill_concepts),
       number_of_questions: questions.length,
       number_of_correct_questions: correct_key_target_skill_concepts.length
