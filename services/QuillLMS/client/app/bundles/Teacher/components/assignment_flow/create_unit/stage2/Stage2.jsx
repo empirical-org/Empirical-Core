@@ -151,6 +151,7 @@ export class Stage2 extends React.Component {
       lockedClassroomIds,
       restrictedActivity,
       cleverLink,
+      googleLink,
     } = this.props
 
     return (
@@ -158,6 +159,7 @@ export class Stage2 extends React.Component {
         classrooms={classrooms}
         cleverLink={cleverLink}
         fetchClassrooms={fetchClassrooms}
+        googleLink={googleLink}
         lockedClassroomIds={lockedClassroomIds}
         lockedMessage={restrictedActivity ? postTestClassAssignmentLockedMessages[restrictedActivity.id] : ''}
         toggleClassroomSelection={toggleClassroomSelection}

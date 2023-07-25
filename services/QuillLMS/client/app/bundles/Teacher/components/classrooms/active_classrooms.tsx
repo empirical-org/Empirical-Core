@@ -17,6 +17,7 @@ import InviteStudentsModal from './invite_students_modal';
 import LinkCleverAccountModal from './link_clever_account_modal';
 import LinkGoogleAccountModal from './link_google_account_modal';
 import ReauthorizeCleverModal from './reauthorize_clever_modal';
+import ReauthorizeGoogleModal from './reauthorize_google_modal';
 import RenameClassModal from './rename_classroom_modal';
 
 import { requestGet, requestPut } from '../../../../modules/request/index';
@@ -35,6 +36,7 @@ const reorderSrc = `${process.env.CDN_URL}/images/icons/reorder.svg`
 interface ActiveClassroomsProps {
   classrooms: Array<any>;
   cleverLink: string;
+  googleLink: string;
   coteacherInvitations: Array<any>;
   user: any;
 }
@@ -65,6 +67,7 @@ export const importGoogleClassroomStudentsModal = 'importGoogleClassroomStudents
 export const linkCleverAccountModal = 'linkCleverAccountModal'
 export const linkGoogleAccountModal = 'linkGoogleAccountModal'
 export const reauthorizeCleverModal = 'reauthorizeCleverModal'
+export const reauthorizeGoogleModal = 'reauthorizeGoogleModal'
 export const cleverClassroomsEmptyModal = 'cleverClassroomsEmptyModal'
 export const googleClassroomsEmptyModal = 'googleClassroomsEmptyModal'
 export const viewAsStudentModal = 'viewAsStudentModal'
@@ -166,7 +169,10 @@ export default class ActiveClassrooms extends React.Component<ActiveClassroomsPr
     if (!clever_id && google_id) {
       this.setState({ googleClassroomsLoading: true}, () => {
         requestGet('/google_integration/teachers/retrieve_classrooms', (body) => {
-          if (body.quill_retrieval_processing) {
+          if (body.reauthorization_required) {
+            this.openModal(reauthorizeGoogleModal)
+          }
+          else if (body.quill_retrieval_processing) {
             this.initializePusherForGoogleClassrooms(body.user_id)
           } else {
             const googleClassrooms = body.classrooms.filter(classroom => !classroom.alreadyImported)
@@ -580,6 +586,19 @@ export default class ActiveClassrooms extends React.Component<ActiveClassroomsPr
         <ReauthorizeCleverModal
           cleverLink={cleverLink}
           close={this.closeModal}
+        />
+      )
+    }
+  }
+
+  renderReauthorizeGoogleModal() {
+    const { googleLink } = this.props
+    const { showModal } = this.state
+    if (showModal === reauthorizeGoogleModal) {
+      return (
+        <ReauthorizeGoogleModal
+          close={this.closeModal}
+          googleLink={googleLink}
         />
       )
     }
