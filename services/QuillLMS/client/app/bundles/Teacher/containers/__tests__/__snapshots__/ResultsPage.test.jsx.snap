@@ -47,7 +47,7 @@ exports[`ResultsPage container anonymous should render 1`] = `
             className="icon"
             style={
               Object {
-                "backgroundColor": "#eb9911",
+                "backgroundColor": "#4ea500",
               }
             }
           >
@@ -220,7 +220,7 @@ exports[`ResultsPage container integration should render 1`] = `
             className="icon"
             style={
               Object {
-                "backgroundColor": "#eb9911",
+                "backgroundColor": "#4ea500",
               }
             }
           >
@@ -391,7 +391,7 @@ exports[`ResultsPage container not anonymous should render 1`] = `
             className="icon"
             style={
               Object {
-                "backgroundColor": "#eb9911",
+                "backgroundColor": "#4ea500",
               }
             }
           >
