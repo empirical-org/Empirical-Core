@@ -2,7 +2,7 @@
 
 require 'rails_helper'
 
-describe Analyzer do
+describe Analytics::Analyzer do
   let(:analyzer) { double(:analyzer, track: true, identify: true) }
   let(:user) { double(:user, id: "some_id", ip_address: "some_ip") }
 

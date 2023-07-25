@@ -3,8 +3,7 @@
 require 'rails_helper'
 
 describe ErrorWorker, type: :worker do
-
-  let!(:analytics) { SegmentAnalytics.new }
+  let!(:analytics) { Analytics::SegmentAnalytics.new }
 
   it 'sends a segment.io event' do
     ErrorWorker.new.perform

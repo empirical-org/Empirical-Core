@@ -7,7 +7,7 @@ describe IdentifyWorker do
 
   let(:analyzer) { double(:analyzer, track: true) }
 
-  before { allow(SegmentAnalytics).to receive(:new) { analyzer } }
+  before { allow(Analytics::SegmentAnalytics).to receive(:new) { analyzer } }
 
   describe '#perform' do
     let!(:user) { create(:user) }

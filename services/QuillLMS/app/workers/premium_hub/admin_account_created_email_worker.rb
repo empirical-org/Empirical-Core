@@ -12,9 +12,9 @@ class PremiumHub::AdminAccountCreatedEmailWorker
 
     user.mailer_user.send_premium_hub_admin_account_created_email(admin_name, school_name, is_reminder)
 
-    SegmentAnalytics.new.track_school_admin_user(
+    Analytics::SegmentAnalytics.new.track_school_admin_user(
       user,
-      SegmentIo::BackgroundEvents::ADMIN_CREATED_SCHOOL_ADMIN_ACCOUNT,
+      Analytics::SegmentIo::BackgroundEvents::ADMIN_CREATED_SCHOOL_ADMIN_ACCOUNT,
       school_name,
       admin_name
     )
