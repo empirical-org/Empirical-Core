@@ -181,7 +181,7 @@ describe Api::V1::ActivitySessionsController, type: :controller do
           }
         }
 
-        expect(Raven).to_not receive(:capture_exception)
+        expect(Sentry).to_not receive(:capture_exception)
 
         put :update, params: { id: activity_session.uid, data: data }, as: :json
         activity_session.reload

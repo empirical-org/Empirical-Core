@@ -30,7 +30,7 @@ class ApplicationController < ActionController::Base
 
   helper SegmentioHelper
 
-  before_action :set_raven_context
+  before_action :set_sentry_context
   before_action :check_staff_for_extended_session
   before_action :confirm_valid_session
   before_action :set_default_cache_security_headers
@@ -152,9 +152,9 @@ class ApplicationController < ActionController::Base
     response.headers['Expires'] = 'Fri, 01 Jan 1990 00:00:00 GMT'
   end
 
-  protected def set_raven_context
-    Raven.user_context(id: session[:current_user_id])
-    Raven.extra_context(params: params.to_unsafe_h, url: request.url)
+  protected def set_sentry_context
+    Sentry.set_user(id: session[:current_user_id])
+    Sentry.set_extras(params: params.to_unsafe_h, url: request.url)
   end
 
   protected def confirm_valid_session
