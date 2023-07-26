@@ -1,3 +1,4 @@
+require 'rails/generators'
 require 'rails/generators/rails/resource/resource_generator'
 
 module Generators

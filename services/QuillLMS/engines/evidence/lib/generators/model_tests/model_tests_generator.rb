@@ -1,3 +1,4 @@
+require 'rails/generators'
 require 'rails/generators/test_unit'
 
 module Generators

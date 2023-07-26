@@ -1,6 +1,7 @@
+require 'rails/generators'
+require 'rails/generators/named_base'
 require 'rails/generators/rails/resource/resource_generator'
 require 'rails/generators/resource_helpers'
-require 'rails/generators/named_base'
 
 module Generators
   module QuillModel

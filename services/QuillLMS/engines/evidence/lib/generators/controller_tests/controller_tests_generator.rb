@@ -1,3 +1,5 @@
+require 'rails/generators'
+require 'rails/generators/actions'
 require 'rails/generators/test_unit'
 require 'rails/generators/resource_helpers'
 
