@@ -13,3 +13,5 @@ module CoreExtensions
 end
 
 ActiveRecord::Base.extend CoreExtensions::ActiveRecord::Base
+
+::Array.include CoreExtensions::Array

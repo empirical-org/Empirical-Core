@@ -10,7 +10,7 @@ end
 
 module Evidence
   class Engine < ::Rails::Engine
-    config.eager_load_paths += %W{#{config.root}/lib/evidence}
+    config.eager_load_paths << "#{config.root}/lib"
     isolate_namespace Evidence
 
     config.generators do |g|

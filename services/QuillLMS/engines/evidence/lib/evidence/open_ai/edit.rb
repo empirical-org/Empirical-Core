@@ -3,7 +3,7 @@
 module Evidence
   module OpenAI
     class Edit < Evidence::ApplicationService
-      include Evidence::OpenAI::Concerns::API
+      include Evidence::OpenAI::Concerns::Api
       include Evidence::OpenAI::Concerns::SentenceResults
 
       ENDPOINT = '/edits'

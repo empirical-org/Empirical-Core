@@ -3,7 +3,7 @@
 require 'rails_helper'
 
 module Evidence
-  RSpec.describe(OpenAI::Concerns::API, type: :model) do
+  RSpec.describe(OpenAI::Concerns::Api, type: :model) do
 
     let(:endpoint) {'https://api.openai.com/v1/some_endpoint'}
     let(:sample_response_body) {{"key"=>"value"}}
@@ -13,13 +13,13 @@ module Evidence
 
     let(:class_without_defined_methods) do
       Class.new do
-        include Evidence::OpenAI::Concerns::API
+        include Evidence::OpenAI::Concerns::Api
       end
     end
 
     let(:class_with_methods) do
       Class.new do
-        include Evidence::OpenAI::Concerns::API
+        include Evidence::OpenAI::Concerns::Api
 
         def request_body
           {}
