@@ -1342,7 +1342,8 @@ CREATE TABLE public.classroom_units (
     assigned_student_ids integer[] DEFAULT '{}'::integer[],
     assign_on_join boolean DEFAULT false,
     created_at timestamp without time zone,
-    updated_at timestamp without time zone
+    updated_at timestamp without time zone,
+    source_classroom_unit_id integer
 );
 
 
@@ -10360,6 +10361,7 @@ INSERT INTO "schema_migrations" (version) VALUES
 ('20230630172652'),
 ('20230630173229'),
 ('20230630184901'),
-('20230706155155');
+('20230706155155'),
+('20230725175024');
 
 
