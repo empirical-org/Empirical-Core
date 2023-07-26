@@ -2,19 +2,19 @@
 
 require 'rails_helper'
 
-describe VitallyApi do
-  let(:api)  { VitallyApi.new }
+describe VitallyIntegration::AnalyticsApi do
+  let(:api)  { described_class.new }
 
   let(:sample_response) { {body: '{}', headers: {content_type: 'application/json'}} }
   let(:mock_payload) { {} }
 
   before do
-    stub_const("VitallyApi::API_KEY", 'test api key')
+    stub_const('VitallyIntegration::AnalyticsApi::API_KEY', 'test api key')
     stub_request(:post, endpoint).to_return(response)
   end
 
   describe '#batch' do
-    let(:endpoint) { "#{VitallyApi::BASE_URL}/#{VitallyApi::ENDPOINT_BATCH}"}
+    let(:endpoint) { "#{described_class::BASE_URL}/#{described_class::ENDPOINT_BATCH}"}
     let(:response) {sample_response.merge(status: 200) }
 
     subject {api.batch(mock_payload)}
@@ -26,18 +26,18 @@ describe VitallyApi do
     context 'RateLimit error' do
       let(:response) {sample_response.merge(status: 429) }
 
-      it { expect{subject}.to raise_error(VitallyApi::RateLimitError) }
+      it { expect{subject}.to raise_error(described_class::RateLimitError) }
     end
 
     context 'Other error' do
       let(:response) {sample_response.merge(status: 500) }
 
-      it { expect{subject}.to raise_error(VitallyApi::ApiError) }
+      it { expect{subject}.to raise_error(described_class::ApiError) }
     end
   end
 
   describe '#unlink' do
-    let(:endpoint) { "#{VitallyApi::BASE_URL}/#{VitallyApi::ENDPOINT_UNLINK}" }
+    let(:endpoint) { "#{described_class::BASE_URL}/#{described_class::ENDPOINT_UNLINK}" }
     let(:response) {sample_response.merge(status: 200) }
 
     subject {api.unlink(mock_payload)}
@@ -49,14 +49,14 @@ describe VitallyApi do
     context 'RateLimit error' do
       let(:response) {sample_response.merge(status: 429) }
 
-      it { expect{subject}.to raise_error(VitallyApi::RateLimitError) }
+      it { expect{subject}.to raise_error(described_class::RateLimitError) }
     end
 
     context 'Other error' do
 
       let(:response) {sample_response.merge(status: 500)}
 
-      it { expect{subject}.to raise_error(VitallyApi::ApiError).with_message("500") }
+      it { expect{subject}.to raise_error(described_class::ApiError).with_message("500") }
     end
   end
 end

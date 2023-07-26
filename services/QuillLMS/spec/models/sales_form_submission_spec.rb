@@ -26,9 +26,7 @@ require 'rails_helper'
 RSpec.describe SalesFormSubmission, type: :model do
   let(:api_double) { double }
 
-  before do
-    allow(VitallyRestApi).to receive(:new).and_return(api_double)
-  end
+  before { allow(VitallyIntegration::RestApi).to receive(:new).and_return(api_double) }
 
   context 'validations' do
     let(:sales_form_submission) { build(:sales_form_submission) }
