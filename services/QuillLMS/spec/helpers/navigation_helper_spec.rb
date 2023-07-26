@@ -89,20 +89,40 @@ describe NavigationHelper do
     end
   end
 
-  describe '#Premium_tab_copy' do
-    it 'should return the correct values' do
-      trial_subscription = create(:subscription)
-      premium_subscription = create(:subscription, account_type: 'Not A Trial')
-      allow(helper).to receive(:current_user) { double(:user, premium_state: "trial", trial_days_remaining: 5) }
-      expect(helper.premium_tab_copy).to eq "<span>Premium</span><div class='large-diamond-icon is-in-middle'></div><span>5 Days Left</span>"
-      allow(helper).to receive(:current_user) { double(:user, premium_state: "locked", last_expired_subscription: premium_subscription) }
-      expect(helper.premium_tab_copy).to eq "<span>Premium</span><div class='large-diamond-icon is-in-middle'></div><span>Expired</span>"
-      allow(helper).to receive(:current_user) { double(:user, premium_state: "locked", last_expired_subscription: trial_subscription) }
-      expect(helper.premium_tab_copy).to eq "<span>Premium</span><div class='large-diamond-icon is-in-middle'></div><span>Trial Expired</span>"
-      allow(helper).to receive(:current_user) { double(:user, premium_state: nil) }
-      expect(helper.premium_tab_copy).to eq "<span>Explore Premium</span><div class='large-diamond-icon'></div>"
-      allow(helper).to receive(:current_user) { double(:user, premium_state: "none") }
-      expect(helper.premium_tab_copy).to eq "<span>Explore Premium</span><div class='large-diamond-icon'></div>"
+  describe '#premium_tab_copy' do
+    subject { helper.premium_tab_copy(current_user) }
+
+    let(:trial_subscription) { create(:subscription) }
+    let(:premium_subscription) { create(:subscription, account_type: 'Not A Trial') }
+
+    context 'user has 5 days left in trial' do
+      let(:current_user) { double(:user, premium_state: "trial", trial_days_remaining: 5) }
+
+      it { is_expected.to eq "<span>Premium</span><div class='large-diamond-icon is-in-middle'></div><span>5 Days Left</span>" }
+    end
+
+    context 'user has locked premium subscription' do
+      let(:current_user) { double(:user, premium_state: "locked", last_expired_subscription: premium_subscription) }
+
+      it { is_expected.to eq "<span>Premium</span><div class='large-diamond-icon is-in-middle'></div><span>Expired</span>" }
+    end
+
+    context 'user has locked trial subscription' do
+      let(:current_user) { double(:user, premium_state: "locked", last_expired_subscription: trial_subscription) }
+
+      it { is_expected.to eq "<span>Premium</span><div class='large-diamond-icon is-in-middle'></div><span>Trial Expired</span>" }
+    end
+
+    context 'user has nil premium state' do
+      let(:current_user) { double(:user, premium_state: nil) }
+
+      it { is_expected.to eq "<span>Explore Premium</span><div class='large-diamond-icon'></div>" }
+    end
+
+    context "user has 'none' premium state" do
+      let(:current_user) { double(:user, premium_state: "none") }
+
+      it { is_expected.to eq "<span>Explore Premium</span><div class='large-diamond-icon'></div>" }
     end
   end
 
@@ -120,57 +140,63 @@ describe NavigationHelper do
     end
   end
 
-  describe '#should_show_admin_access_tab?' do
-    it 'should return false if current_user.teacher? is falsy' do
-      student = create(:student)
-      allow(helper).to receive(:current_user) { student }
+  describe '#admin_tab_access?' do
+    subject { helper.admin_tab_access?(current_user) }
 
-      expect(helper.should_show_admin_access_tab?).to eq false
+    context 'when current user is student' do
+      let(:current_user) { create(:student) }
+
+      it { is_expected.to eq false }
     end
 
-    it 'should return false if current_user.admin? is truthy' do
-      admin = create(:admin)
-      allow(helper).to receive(:current_user) { admin }
+    context 'when current user is admin' do
+      let(:current_user) { create(:admin) }
 
-      expect(helper.should_show_admin_access_tab?).to eq false
+      it { is_expected.to eq false }
     end
 
-    it 'should return false if current_user.school is falsy' do
-      teacher = create(:teacher)
-      allow(helper).to receive(:current_user) { teacher }
+    context 'when current user is teacher' do
+      let(:current_user) { create(:teacher) }
 
-      expect(helper.should_show_admin_access_tab?).to eq false
-    end
+      it { is_expected.to eq false }
 
-    it 'should return false if the current user has a school that is one of the alternative schools' do
-      teacher = create(:teacher)
-      school = create(:school, name: School::ALTERNATIVE_SCHOOL_NAMES.sample)
-      create(:schools_users, user: teacher, school: school)
-      allow(helper).to receive(:current_user) { teacher.reload }
+      context 'when current user has an alternative school' do
+        let(:school) { create(:school, name: School::ALTERNATIVE_SCHOOL_NAMES.sample) }
 
-      expect(helper.should_show_admin_access_tab?).to eq false
-    end
+        before { create(:schools_users, user: current_user, school: school).user.reload }
 
-    it 'should return true if none of the above conditions are met' do
-      teacher = create(:teacher)
-      school = create(:school)
-      create(:schools_users, user: teacher, school: school)
-      allow(helper).to receive(:current_user) { teacher.reload }
+        it { is_expected.to eq false }
+      end
 
-      expect(helper.should_show_admin_access_tab?).to eq true
+      context 'when current user has a school that is not an alternative one' do
+        let(:school) { create(:school) }
+
+        before { create(:schools_users, user: current_user, school: school).user.reload }
+
+        it { is_expected.to eq true }
+      end
     end
   end
 
   describe '#determine_mobile_navbar_tabs' do
+    subject { helper.determine_mobile_navbar_tabs(current_user) }
 
-    subject { helper.determine_mobile_navbar_tabs }
+    let(:tabs) do
+      [
+        helper.home_tab,
+        helper.overview_tab,
+        helper.my_classes_tab,
+        NavigationHelper::ASSIGN_ACTIVITIES_TAB,
+        helper.my_activities_tab,
+        helper.my_reports_tab
+      ]
+    end
 
-    let(:tabs) { [NavigationHelper::HOME_TAB, NavigationHelper::OVERVIEW_TAB, NavigationHelper::MY_CLASSES_TAB, NavigationHelper::ASSIGN_ACTIVITIES_TAB, NavigationHelper::MY_ACTIVITIES_TAB, NavigationHelper::MY_REPORTS_TAB]}
     let(:teacher) { create(:teacher) }
     let(:admin) { create(:admin) }
 
     context 'when there is no current_user' do
-      before { allow(helper).to receive(:current_user) { nil } }
+      let(:current_user) { nil }
 
       it 'should return UNAUTHED_USER_TABS array' do
         expect(subject).to eq(NavigationHelper::UNAUTHED_USER_TABS)
@@ -178,9 +204,7 @@ describe NavigationHelper do
     end
 
     context 'when current_user is a student' do
-      before do
-        allow(helper).to receive(:current_user) { create(:student) }
-      end
+      let(:current_user) { create(:student) }
 
       it 'should return STUDENT_CENTER_TABS array' do
         expect(subject).to eq(NavigationHelper::STUDENT_TABS)
@@ -188,60 +212,54 @@ describe NavigationHelper do
     end
 
     context 'when current_user is not a premium user' do
-      before do
-        allow(helper).to receive(:current_user) { teacher }
-        allow(teacher).to receive(:should_render_teacher_premium?).and_return(false)
-      end
+      let(:current_user) { teacher }
+
+      before { allow(teacher).to receive(:should_render_teacher_premium?).and_return(false) }
 
       it 'should return the expected tabs' do
-        expected_tabs = tabs.push(NavigationHelper::PREMIUM_TAB)
-        tabs.push(NavigationHelper::QUILL_ACADEMY_TAB)
-        expected_tabs.concat(NavigationHelper::COMMON_AUTHED_USER_TABS)
+        expected_tabs = tabs.push(helper.premium_tab)
+        tabs.push(helper.quill_academy_tab)
+        expected_tabs.concat(helper.common_authed_user_tabs)
         expect(subject).to eq(expected_tabs)
       end
     end
 
     context 'when current_user is a teacher premium user' do
-      before do
-        allow(helper).to receive(:current_user) { teacher }
-        allow(teacher).to receive(:should_render_teacher_premium?).and_return(true)
-      end
+      let(:current_user) { teacher }
+
+      before { allow(teacher).to receive(:should_render_teacher_premium?).and_return(true) }
 
       it 'should return the expected tabs' do
-        expected_tabs = tabs.push(NavigationHelper::TEACHER_PREMIUM_TAB)
-        tabs.push(NavigationHelper::QUILL_ACADEMY_TAB)
-        expected_tabs.concat(NavigationHelper::COMMON_AUTHED_USER_TABS)
+        expected_tabs = tabs.push(helper.teacher_premium_tab)
+        tabs.push(helper.quill_academy_tab)
+        expected_tabs.concat(helper.common_authed_user_tabs)
         expect(subject).to eq(expected_tabs)
       end
     end
 
     context 'when current_user is a non-premium admin user' do
-      before do
-        allow(helper).to receive(:current_user) { admin }
-        allow(teacher).to receive(:should_render_teacher_premium?).and_return(false)
-        allow(teacher).to receive(:admin?).and_return(true)
-      end
+      let(:current_user) { admin }
+
+      before { allow(admin).to receive(:should_render_teacher_premium?).and_return(false) }
 
       it 'should return the expected tabs' do
-        expected_tabs = tabs.concat([NavigationHelper::PREMIUM_TAB, NavigationHelper::PREMIUM_HUB_TAB, NavigationHelper::QUILL_ACADEMY_TAB])
-        expected_tabs.concat(NavigationHelper::COMMON_AUTHED_USER_TABS)
+        expected_tabs = tabs.concat([helper.premium_tab, helper.premium_hub_tab, helper.quill_academy_tab])
+        expected_tabs.concat(helper.common_authed_user_tabs)
         expect(subject).to eq(expected_tabs)
       end
     end
 
     context 'when current_user is a premium admin user' do
-      before do
-        allow(helper).to receive(:current_user) { admin }
-        allow(admin).to receive(:should_render_teacher_premium?).and_return(false)
-        allow(admin).to receive(:admin?).and_return(true)
-      end
+      let(:current_user) { admin }
+      let(:subscription) { create(:subscription, account_type: Subscription::SCHOOL_PAID) }
+
+      before { allow(admin).to receive(:should_render_teacher_premium?).and_return(false) }
 
       it 'should return the expected tabs' do
-        subscription = create(:subscription, account_type: Subscription::SCHOOL_PAID)
         create(:user_subscription, user: admin, subscription: subscription)
 
-        expected_tabs = tabs.concat([NavigationHelper::PREMIUM_HUB_TAB, NavigationHelper::QUILL_ACADEMY_TAB])
-        expected_tabs.concat(NavigationHelper::COMMON_AUTHED_USER_TABS)
+        expected_tabs = tabs.concat([helper.premium_hub_tab, helper.quill_academy_tab])
+        expected_tabs.concat(helper.common_authed_user_tabs)
         expect(subject).to eq(expected_tabs)
       end
     end
