@@ -22,18 +22,34 @@ const STANDARD = "Standard";
 const TIME_SPENT = "Time Spent";
 
 interface DataExportTableAndFieldsProps {
+  adminId: number;
+  customTimeframeEnd: string;
+  customTimeframeStart: string;
+  downloadStarted: boolean;
+  handleToggleDownloadStarted: () => void;
+  handleSetReportData: (data) => void;
   queryKey: string;
+  selectedClassroomIds: number[];
   selectedGrades: string[];
   selectedSchoolIds: number[];
   selectedTeacherIds: number[];
-  selectedClassroomIds: number[];
   selectedTimeframe: string;
-  customTimeframeStart: string;
-  customTimeframeEnd: string;
-  adminId: number;
 }
 
-export const DataExportTableAndFields = ({ queryKey, selectedGrades, selectedSchoolIds, selectedTeacherIds, selectedClassroomIds, selectedTimeframe, customTimeframeStart, customTimeframeEnd, adminId }: DataExportTableAndFieldsProps) => {
+const testData = [
+  { id: 1, student_name: "Billy Bob", student_email: "test@test.com", school_name: "Elk Neck Elementary", classroom_grade: "Kindergarten", teacher_name: "James Milloway", classroom_name: "English Fourth Period", completed_date: "4/5/2023", activity_pack: "Adjectives and Adverbs Pack", activity: "Using Adjectives with Animals", tool: "Connect", score: 0.75, standard: "1.1g. Conjunctions: And, But, Or, So", timespent: "3 minutes" },
+  { id: 2, student_name: "Billy Bob", student_email: "test@test.com", school_name: "Elk Neck Elementary", classroom_grade: "Kindergarten", teacher_name: "James Milloway", classroom_name: "English Fourth Period", completed_date: "4/5/2023", activity_pack: "Adjectives and Adverbs Pack", activity: "Using Adjectives with Animals", tool: "Connect", score: 0.75, standard: "1.1g. Conjunctions: And, But, Or, So", timespent: "3 minutes" },
+  { id: 3, student_name: "Billy Bob", student_email: "test@test.com", school_name: "Elk Neck Elementary", classroom_grade: "Kindergarten", teacher_name: "James Milloway", classroom_name: "English Fourth Period", completed_date: "4/5/2023", activity_pack: "Adjectives and Adverbs Pack", activity: "Using Adjectives with Animals", tool: "Connect", score: 0.75, standard: "1.1g. Conjunctions: And, But, Or, So", timespent: "3 minutes" },
+  { id: 4, student_name: "Billy Bob", student_email: "test@test.com", school_name: "Elk Neck Elementary", classroom_grade: "Kindergarten", teacher_name: "James Milloway", classroom_name: "English Fourth Period", completed_date: "4/5/2023", activity_pack: "Adjectives and Adverbs Pack", activity: "Using Adjectives with Animals", tool: "Connect", score: 0.75, standard: "1.1g. Conjunctions: And, But, Or, So", timespent: "3 minutes" },
+  { id: 5, student_name: "Billy Bob", student_email: "test@test.com", school_name: "Elk Neck Elementary", classroom_grade: "Kindergarten", teacher_name: "James Milloway", classroom_name: "English Fourth Period", completed_date: "4/5/2023", activity_pack: "Adjectives and Adverbs Pack", activity: "Using Adjectives with Animals", tool: "Connect", score: 0.75, standard: "1.1g. Conjunctions: And, But, Or, So", timespent: "3 minutes" },
+  { id: 6, student_name: "Billy Bob", student_email: "test@test.com", school_name: "Elk Neck Elementary", classroom_grade: "Kindergarten", teacher_name: "James Milloway", classroom_name: "English Fourth Period", completed_date: "4/5/2023", activity_pack: "Adjectives and Adverbs Pack", activity: "Using Adjectives with Animals", tool: "Connect", score: 0.75, standard: "1.1g. Conjunctions: And, But, Or, So", timespent: "3 minutes" },
+  { id: 7, student_name: "Billy Bob", student_email: "test@test.com", school_name: "Elk Neck Elementary", classroom_grade: "Kindergarten", teacher_name: "James Milloway", classroom_name: "English Fourth Period", completed_date: "4/5/2023", activity_pack: "Adjectives and Adverbs Pack", activity: "Using Adjectives with Animals", tool: "Connect", score: 0.75, standard: "1.1g. Conjunctions: And, But, Or, So", timespent: "3 minutes" },
+  { id: 8, student_name: "Billy Bob", student_email: "test@test.com", school_name: "Elk Neck Elementary", classroom_grade: "Kindergarten", teacher_name: "James Milloway", classroom_name: "English Fourth Period", completed_date: "4/5/2023", activity_pack: "Adjectives and Adverbs Pack", activity: "Using Adjectives with Animals", tool: "Connect", score: 0.75, standard: "1.1g. Conjunctions: And, But, Or, So", timespent: "3 minutes" },
+  { id: 9, student_name: "Billy Bob", student_email: "test@test.com", school_name: "Elk Neck Elementary", classroom_grade: "Kindergarten", teacher_name: "James Milloway", classroom_name: "English Fourth Period", completed_date: "4/5/2023", activity_pack: "Adjectives and Adverbs Pack", activity: "Using Adjectives with Animals", tool: "Connect", score: 0.75, standard: "1.1g. Conjunctions: And, But, Or, So", timespent: "3 minutes" },
+  { id: 10, student_name: "Billy Bob", student_email: "test@test.com", school_name: "Elk Neck Elementary", classroom_grade: "Kindergarten", teacher_name: "James Milloway", classroom_name: "English Fourth Period", completed_date: "4/5/2023", activity_pack: "Adjectives and Adverbs Pack", activity: "Using Adjectives with Animals", tool: "Connect", score: 0.75, standard: "1.1g. Conjunctions: And, But, Or, So", timespent: "3 minutes" }
+]
+
+export const DataExportTableAndFields = ({ queryKey, selectedGrades, selectedSchoolIds, selectedTeacherIds, selectedClassroomIds, selectedTimeframe, customTimeframeStart, customTimeframeEnd, adminId, downloadStarted, handleToggleDownloadStarted, handleSetReportData }: DataExportTableAndFieldsProps) => {
   const [showStudentEmail, setShowStudentEmail] = React.useState<boolean>(true);
   const [showSchool, setShowSchool] = React.useState<boolean>(true);
   const [showGrade, setShowGrade] = React.useState<boolean>(true);
@@ -47,35 +63,35 @@ export const DataExportTableAndFields = ({ queryKey, selectedGrades, selectedSch
   const [showStandard, setShowStandard] = React.useState<boolean>(true);
   const [showTimeSpent, setShowTimeSpent] = React.useState<boolean>(true);
   const [loading, setLoading] = React.useState<boolean>(true);
-  const [data, setData] = React.useState<any>(null);
+  const [data, setData] = React.useState<any>(testData);
 
   const fields = {
     [STUDENT_NAME]: {
-      dataTableField: { name: STUDENT_NAME, attribute: "name", width: STANDARD_WIDTH, noTooltip: true },
+      dataTableField: { name: STUDENT_NAME, attribute: "student_name", width: STANDARD_WIDTH, noTooltip: true },
       checked: true
     },
     [STUDENT_EMAIL]: {
-      dataTableField: { name: STUDENT_EMAIL, attribute: "email", width: STANDARD_WIDTH, noTooltip: true },
+      dataTableField: { name: STUDENT_EMAIL, attribute: "student_email", width: STANDARD_WIDTH, noTooltip: true },
       setterFunction: setShowStudentEmail,
       checked: showStudentEmail
     },
     [SCHOOL]: {
-      dataTableField: { name: SCHOOL, attribute: "school", width: STANDARD_WIDTH, noTooltip: true },
+      dataTableField: { name: SCHOOL, attribute: "school_name", width: STANDARD_WIDTH, noTooltip: true },
       setterFunction: setShowSchool,
       checked: showSchool
     },
     [GRADE]: {
-      dataTableField: { name: GRADE, attribute: "grade", width: STANDARD_WIDTH, noTooltip: true },
+      dataTableField: { name: GRADE, attribute: "classroom_grade", width: STANDARD_WIDTH, noTooltip: true },
       setterFunction: setShowGrade,
       checked: showGrade
     },
     [TEACHER]: {
-      dataTableField: { name: TEACHER, attribute: "teacher", width: STANDARD_WIDTH, noTooltip: true },
+      dataTableField: { name: TEACHER, attribute: "teacher_name", width: STANDARD_WIDTH, noTooltip: true },
       setterFunction: setShowTeacher,
       checked: showTeacher
     },
     [CLASS]: {
-      dataTableField: { name: CLASS, attribute: "class", width: STANDARD_WIDTH, noTooltip: true },
+      dataTableField: { name: CLASS, attribute: "classroom_name", width: STANDARD_WIDTH, noTooltip: true },
       setterFunction: setShowClass,
       checked: showClass
     },
@@ -90,7 +106,7 @@ export const DataExportTableAndFields = ({ queryKey, selectedGrades, selectedSch
       checked: showActivityPack
     },
     [ACTIVITY]: {
-      dataTableField: { name: ACTIVITY, attribute: "activity", width: STANDARD_WIDTH, noTooltip: true },
+      dataTableField: { name: ACTIVITY, attribute: "activity_name", width: STANDARD_WIDTH, noTooltip: true },
       setterFunction: setShowActivity,
       checked: showActivity
     },
@@ -110,17 +126,29 @@ export const DataExportTableAndFields = ({ queryKey, selectedGrades, selectedSch
       checked: showStandard
     },
     [TIME_SPENT]: {
-      dataTableField: { name: TIME_SPENT, attribute: "time_spent", width: STANDARD_WIDTH, noTooltip: true },
+      dataTableField: { name: TIME_SPENT, attribute: "timespent", width: STANDARD_WIDTH, noTooltip: true },
       setterFunction: setShowTimeSpent,
       checked: showTimeSpent
     },
   };
 
   React.useEffect(() => {
+    if (downloadStarted) {
+      const formattedData = formatDataForDownload()
+      handleSetReportData(formattedData)
+      handleToggleDownloadStarted()
+    }
+  }, [downloadStarted])
+
+  React.useEffect(() => {
     if (queryKey && selectedTimeframe && selectedSchoolIds) {
       getData()
     }
-  }, [queryKey, selectedTimeframe, selectedSchoolIds])
+  }, [queryKey, selectedGrades, selectedSchoolIds, selectedTeacherIds, selectedClassroomIds, selectedTimeframe, customTimeframeStart, customTimeframeEnd])
+
+  function formatDataForDownload() {
+    return testData
+  }
 
   function getData() {
     initializePusher()
@@ -222,7 +250,7 @@ export const DataExportTableAndFields = ({ queryKey, selectedGrades, selectedSch
         className="data-export-table"
         defaultSortAttribute="name"
         headers={getHeaders()}
-        rows={[]}
+        rows={testData}
       />}
     </div>
   )

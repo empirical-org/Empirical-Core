@@ -5,9 +5,8 @@ import * as _ from 'lodash'
 import { FULL, restrictedPage, } from '../shared';
 import CustomDateModal from '../components/usage_snapshots/customDateModal'
 import Filters from '../components/usage_snapshots/filters'
-import { CUSTOM, ALL } from '../components/usage_snapshots/shared'
+import { CUSTOM } from '../components/usage_snapshots/shared'
 import { Spinner } from '../../Shared/index'
-import useWindowSize from '../../Shared/hooks/useWindowSize';
 import { requestGet, } from '../../../modules/request'
 import { unorderedArraysAreEqual, } from '../../../modules/unorderedArraysAreEqual'
 import DataExportTableAndFields from '../components/dataExportTableAndFields';
@@ -47,12 +46,11 @@ const DataExportContainer = ({ adminInfo, accessType, }) => {
   const [customStartDate, setCustomStartDate] = React.useState(null)
   const [customEndDate, setCustomEndDate] = React.useState(null)
   const [searchCount, setSearchCount] = React.useState(0)
-  const [selectedTab, setSelectedTab] = React.useState(ALL)
   const [showCustomDateModal, setShowCustomDateModal] = React.useState(false)
   const [lastUsedTimeframe, setLastUsedTimeframe] = React.useState(null)
   const [showMobileFilterMenu, setShowMobileFilterMenu] = React.useState(false)
-
-  const size = useWindowSize()
+  const [reportData, setReportData] = React.useState(null)
+  const [downloadStarted, setDownloadStarted] = React.useState(false)
 
   React.useEffect(() => {
     getFilters()
@@ -98,9 +96,28 @@ const DataExportContainer = ({ adminInfo, accessType, }) => {
     setSelectedTimeframe(lastUsedTimeframe)
   }, [showCustomDateModal])
 
+  React.useEffect(() => {
+    if(reportData) {
+      console.log('reportData in DataExportContainer', reportData)
+      setReportData(null)
+    }
+  },[reportData])
+
   function openMobileFilterMenu() { setShowMobileFilterMenu(true) }
 
   function closeMobileFilterMenu() { setShowMobileFilterMenu(false) }
+
+  function handleClickDownloadReport() {
+    setDownloadStarted(true)
+  }
+
+  function toggleDownloadStarted() {
+    setDownloadStarted(!downloadStarted)
+  }
+
+  function handleSetReportData(data) {
+    setReportData(data)
+  }
 
   function handleSetSelectedTimeframe(timeframe) {
     setLastUsedTimeframe(selectedTimeframe)
@@ -213,8 +230,6 @@ const DataExportContainer = ({ adminInfo, accessType, }) => {
     return <Spinner />
   }
 
-  function handleClickDownloadReport() { window.print() }
-
   const filterProps = {
     allTimeframes,
     allSchools,
@@ -270,15 +285,18 @@ const DataExportContainer = ({ adminInfo, accessType, }) => {
           </button>
         </div>
         <DataExportTableAndFields
+          adminId={adminInfo.id}
+          customTimeframeEnd={customEndDate?.toDate()}
+          customTimeframeStart={customStartDate?.toDate()}
+          downloadStarted={downloadStarted}
+          handleSetReportData={handleSetReportData}
+          handleToggleDownloadStarted={toggleDownloadStarted}
           queryKey="data-export"
           selectedGrades={selectedGrades.map(grade => grade.value)}
           selectedSchoolIds={selectedSchools.map(school => school.id)}
           selectedTeacherIds={selectedTeachers.map(teacher => teacher.id)}
           selectedClassroomIds={selectedClassrooms.map(classroom => classroom.id)}
           selectedTimeframe={selectedTimeframe.value}
-          customTimeframeStart={customStartDate?.toDate()}
-          customTimeframeEnd={customEndDate?.toDate()}
-          adminId={adminInfo.id}
         />
       </main>
     </div>
