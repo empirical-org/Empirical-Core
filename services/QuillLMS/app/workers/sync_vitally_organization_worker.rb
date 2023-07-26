@@ -5,14 +5,17 @@ class SyncVitallyOrganizationWorker
 
   def perform(district_id)
     district = District.find(district_id)
-    api = VitallyRestApi.new
+    api = VitallyIntegration::RestApi.new
 
-    response = api.create(VitallyRestApi::ENDPOINT_ORGANIZATIONS, SerializeVitallySalesOrganization.new(district).data)
+    response = api.create(
+      VitallyIntegration::RestApi::ENDPOINT_ORGANIZATIONS,
+      VitallyIntegration::SerializeVitallySalesOrganization.new(district).data
+    )
 
     return if response.success?
 
-    raise VitallyRestApi::RateLimitError if response.code == VitallyRestApi::RATE_LIMIT_CODE
+    raise VitallyIntegration::RestApi::RateLimitError if response.code == VitallyIntegration::RestApi::RATE_LIMIT_CODE
 
-    raise VitallyRestApi::ApiError, response.code.to_s
+    raise VitallyIntegration::RestApi::ApiError, response.code.to_s
   end
 end

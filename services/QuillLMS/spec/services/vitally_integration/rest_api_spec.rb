@@ -2,22 +2,19 @@
 
 require 'rails_helper'
 
-describe VitallyRestApi do
-  let(:api)  { VitallyRestApi.new }
+describe VitallyIntegration::RestApi do
+  let(:api)  { described_class.new }
   let(:api_key) { 'test api key' }
   let(:id) { 1 }
   let(:type) { 'type' }
   let(:payload) { 'test payload' }
 
-
-  before do
-    stub_const('VitallyRestApi::API_KEY', api_key)
-  end
+  before { stub_const('VitallyIntegration::RestApi::API_KEY', api_key) }
 
   describe '#create' do
     it 'should make a POST call to the Vitally API with the specified command and payload' do
       payload = 'test payload'
-      expect(HTTParty).to receive(:post).with("#{VitallyRestApi::BASE_URL}/#{type}",
+      expect(HTTParty).to receive(:post).with("#{described_class::BASE_URL}/#{type}",
         headers: {
           Authorization: "Basic #{api_key}",
           "Content-Type": "application/json"
@@ -31,7 +28,7 @@ describe VitallyRestApi do
   describe '#get' do
     it 'should make a GET call to the Vitally API with the specified type and ID' do
 
-      expect(HTTParty).to receive(:get).with("#{VitallyRestApi::BASE_URL}/#{type}/#{id}",
+      expect(HTTParty).to receive(:get).with("#{described_class::BASE_URL}/#{type}/#{id}",
         headers: {
           Authorization: "Basic #{api_key}",
           "Content-Type": "application/json"
@@ -61,7 +58,7 @@ describe VitallyRestApi do
     it 'should make a GET call to the Vitally API with the specified ID and payload' do
       httparty_double = double
       expect(httparty_double).to receive(:parsed_response).and_return({})
-      expect(HTTParty).to receive(:get).with("#{VitallyRestApi::BASE_URL}/#{type}/#{id}",
+      expect(HTTParty).to receive(:get).with("#{described_class::BASE_URL}/#{type}/#{id}",
         headers: {
           Authorization: "Basic #{api_key}",
           "Content-Type": "application/json"
@@ -89,7 +86,7 @@ describe VitallyRestApi do
 
   describe '#update' do
     it 'should make a PUT call to the Vitally API with the specified type, ID and payload' do
-      expect(HTTParty).to receive(:put).with("#{VitallyRestApi::BASE_URL}/#{type}/#{id}",
+      expect(HTTParty).to receive(:put).with("#{described_class::BASE_URL}/#{type}/#{id}",
         headers: {
           Authorization: "Basic #{api_key}",
           "Content-Type": "application/json"
