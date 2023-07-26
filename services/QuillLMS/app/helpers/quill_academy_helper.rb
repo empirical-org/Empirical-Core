@@ -67,7 +67,7 @@ module QuillAcademyHelper
     }
   }
 
-  def render_quill_academy_button?
+  def render_quill_academy_button?(current_user)
     !!(AppSetting.find_by(name: 'quill_academy', enabled: true)&.enabled_for_user?(current_user))
   end
 end

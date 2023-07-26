@@ -36,9 +36,6 @@
 #  index_activity_sessions_on_uid                    (uid) UNIQUE
 #  index_activity_sessions_on_user_id                (user_id)
 #
-require 'newrelic_rpm'
-require 'new_relic/agent'
-
 class ActivitySession < ApplicationRecord
 
   class ConceptResultSubmittedWithoutActivitySessionError < StandardError; end

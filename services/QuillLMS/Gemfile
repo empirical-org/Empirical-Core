@@ -55,7 +55,7 @@ gem 'maxminddb'
 
 # OTHERS
 gem 'global'
-gem 'lms-api'
+gem 'lms-api', require: 'lms_api'
 gem 'google-api-client', '0.8.6'
 gem 'faraday_middleware'
 gem 'newrelic_rpm', '~> 7.2'
@@ -161,7 +161,7 @@ gem 'awesome_print'
 # TODO: Remove this after migrating to Rails 7 encrypted attributes
 gem 'lockbox'
 
-gem 'capitalize-names'
+gem 'capitalize-names', require: 'capitalize_names'
 
 group :production, :staging do
   gem 'rails-autoscale-web'

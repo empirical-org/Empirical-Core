@@ -4,7 +4,6 @@ class Teachers::ProgressReports::DiagnosticReportsController < Teachers::Progres
   include PublicProgressReports
   include LessonsRecommendations
   include DiagnosticReports
-  require 'pusher'
 
   before_action :authorize_teacher!,
     only: [

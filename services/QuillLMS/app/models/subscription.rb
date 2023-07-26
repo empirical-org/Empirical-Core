@@ -29,8 +29,6 @@
 #  index_subscriptions_on_recurring          (recurring)
 #  index_subscriptions_on_start_date         (start_date)
 #
-require 'newrelic_rpm'
-require 'new_relic/agent'
 
 class Subscription < ApplicationRecord
   class RenewalNilStripeCustomer < StandardError; end

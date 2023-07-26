@@ -9,7 +9,17 @@ module QuillAuthentication
   GOOGLE_OR_CLEVER_JUST_SET = :google_or_clever_just_set
 
   included do
-    helper_method :current_user, :signed_in?, :sign_out?, :admin?, :staff?, :previewing_student_dashboard?, :viewing_demo_account?, :signed_in_outside_demo?
+    helper_method(
+      :admin?,
+      :current_user,
+      :previewing_student_dashboard?,
+      :sign_out?,
+      :signed_in?,
+      :signed_in_outside_demo?,
+      :staff?,
+      :test_method,
+      :viewing_demo_account?
+    )
   end
 
   def require_user

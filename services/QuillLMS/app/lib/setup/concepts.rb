@@ -1,9 +1,5 @@
 # frozen_string_literal: true
 
-require "net/http"
-require "uri"
-require "json"
-
 module Setup
   class Concepts
     class_attribute :concepts

@@ -3,7 +3,7 @@
 <% subheader_class = on_home_or_tools_page ? 'q-navbar-home' : 'q-navbar-home sub-page' %>
 <% on_home_or_tools_page_class = on_home_or_tools_page ? 'on-home-page' : '' %>
 <% active_tab = determine_active_tab(current_path) %>
-<% tabs = determine_mobile_navbar_tabs %>
+<% tabs = determine_mobile_navbar_tabs(current_user) %>
 <% premium_class = determine_premium_class(current_path) %>
 <% premium_tabs = ['Premium', 'Teacher Premium', 'Premium Hub', 'Quill Academy'] %>
 
@@ -25,7 +25,7 @@
       <a aria-label="Quill" class="focus-on-dark" href=<%= root_path %>>
         <div class="mobile-quill-logo"></div>
       </a>
-			<%= determine_premium_badge %>
+			<%= determine_premium_badge(current_user) %>
   	</div>
 
     <% if current_user&.student? && !current_path.include?('tools') %>

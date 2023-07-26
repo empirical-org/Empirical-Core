@@ -1,8 +1,6 @@
 # frozen_string_literal: true
 
-require 'lms_api'
-
-LMS::Canvas.auth_state_model = AuthCredential
+Rails.application.config.to_prepare { LMS::Canvas.auth_state_model = AuthCredential }
 
 module Auth
   module Canvas
