@@ -30,6 +30,8 @@ interface SnapshotCountProps {
   pusherChannel?: any;
 }
 
+const PUSHER_EVENT_KEY = 'admin-snapshot-count-cached'
+
 const SnapshotCount = ({ label, size, queryKey, searchCount, selectedGrades, selectedSchoolIds, selectedTeacherIds, selectedClassroomIds, selectedTimeframe, customTimeframeStart, customTimeframeEnd, passedCount, passedChange, passedChangeDirection, singularLabel, pusherChannel, }: SnapshotCountProps) => {
   const [count, setCount] = React.useState(passedCount || null)
   const [change, setChange] = React.useState(passedChange || 0)
@@ -41,6 +43,8 @@ const SnapshotCount = ({ label, size, queryKey, searchCount, selectedGrades, sel
   }, [pusherChannel])
 
   React.useEffect(() => {
+    initializePusher()
+
     resetToDefault()
 
     getData()
@@ -96,7 +100,7 @@ const SnapshotCount = ({ label, size, queryKey, searchCount, selectedGrades, sel
   }
 
   function initializePusher() {
-    pusherChannel?.bind('admin-snapshot-count-cached', (body) => {
+    pusherChannel?.bind(PUSHER_EVENT_KEY, (body) => {
       const { message, } = body
 
       const queryKeysAreEqual = message.query === queryKey

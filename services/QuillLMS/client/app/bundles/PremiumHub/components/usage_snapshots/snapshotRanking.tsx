@@ -21,6 +21,8 @@ interface SnapshotRankingProps {
   pusherChannel?: any;
 }
 
+const PUSHER_EVENT_KEY = 'admin-snapshot-top-x-cached'
+
 const RankingModal = ({ label, closeModal, headers, data, }) => {
   return (
     <div className="modal-container ranking-modal-container">
@@ -73,7 +75,7 @@ const SnapshotRanking = ({ label, queryKey, headers, searchCount, selectedGrades
 
   React.useEffect(() => {
     initializePusher()
-  }, [pusherChannel])
+  }, [pusherChannel, searchCount])
 
   React.useEffect(() => {
     resetToDefault()
@@ -111,7 +113,7 @@ const SnapshotRanking = ({ label, queryKey, headers, searchCount, selectedGrades
   }
 
   function initializePusher() {
-    pusherChannel?.bind('admin-snapshot-top-x-cached', (body) => {
+    pusherChannel?.bind(PUSHER_EVENT_KEY, (body) => {
       const { message, } = body
 
       const queryKeysAreEqual = message.query === queryKey

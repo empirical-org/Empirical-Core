@@ -105,7 +105,6 @@ const UsageSnapshotsContainer = ({ adminInfo, accessType, }) => {
     )
 
     const datesDoNotMatch = !_.isEqual(selectedTimeframe, lastSubmittedTimeframe) || customStartDate !== lastSubmittedCustomStartDate || customEndDate !== lastSubmittedCustomEndDate
-    debugger;
 
     const newValueForHasAdjustedFiltersSinceLastSubmission = arraysUnequal || datesDoNotMatch
 
