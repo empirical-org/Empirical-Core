@@ -1,7 +1,7 @@
 # frozen_string_literal: true
 
 module Analytics
-  module Analytics::SegmentIo
+  module SegmentIo
     class << self
       attr_accessor :configuration
     end
