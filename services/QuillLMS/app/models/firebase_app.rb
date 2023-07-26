@@ -12,9 +12,6 @@
 #  created_at :datetime
 #  updated_at :datetime
 #
-require 'firebase_token_generator'
-require "jwt"
-
 class FirebaseApp < ApplicationRecord
 
   def token_for(user)

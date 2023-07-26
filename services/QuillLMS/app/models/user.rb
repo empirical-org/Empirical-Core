@@ -57,7 +57,6 @@
 #
 
 # rubocop:disable Metrics/ClassLength
-require 'capitalize_names'
 
 class User < ApplicationRecord
   include Student

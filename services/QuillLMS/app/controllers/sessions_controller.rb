@@ -1,8 +1,5 @@
 # frozen_string_literal: true
 
-require 'newrelic_rpm'
-require 'new_relic/agent'
-
 class SessionsController < ApplicationController
   include CleverAuthable
 

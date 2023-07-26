@@ -4,33 +4,26 @@ require 'rails_helper'
 
 describe PublicPagesHelper do
 
-  describe '#should_render_react_component' do
-    context 'with user' do
-      before { allow(helper).to receive(:current_user) { create(:user) } }
+  describe '#render_react_component?' do
+    subject { helper.render_react_component?(current_user) }
 
-      it 'should return true' do
-        expect(helper.should_render_react_component).to eq(true)
-      end
+    context 'with user' do
+      let(:current_user) { create(:user) }
+
+      it { is_expected.to eq(true) }
     end
 
     context 'with demo user' do
-      let!(:demo_user) { User.where(email: Demo::ReportDemoCreator::EMAIL).first || create(:user, email: Demo::ReportDemoCreator::EMAIL) }
+      let(:current_user) { User.where(email: Demo::ReportDemoCreator::EMAIL).first || create(:user, email: Demo::ReportDemoCreator::EMAIL) }
 
-      before { allow(helper).to receive(:current_user) { demo_user } }
-
-      it 'should return false' do
-        expect(helper.should_render_react_component).to eq(false)
-      end
+      it { is_expected.to eq(false) }
     end
 
     context 'with no user' do
-      before { allow(helper).to receive(:current_user) { nil } }
+      let(:current_user) { nil }
 
-      it 'should return false' do
-        expect(helper.should_render_react_component).to eq(false)
-      end
+      it { is_expected.to eq(false) }
     end
-
   end
 
   describe '#featured_activity_url' do
