@@ -99,6 +99,9 @@
           background: #06806B;
           color: white;
           border: 1px solid #06806B;
+          img {
+            filter: brightness(0) invert(1);
+          }
         }
         &:first-of-type {
           border-radius: 8px 0px 0px 8px;

@@ -49,7 +49,7 @@ export const TAB_NAMES = [ALL, HIGHLIGHTS, USERS, PRACTICE, CLASSROOMS, SCHOOLS]
 const iconLinkBase = `${process.env.CDN_URL}/images/pages/administrator/usage_snapshot_report`
 
 export const SECTION_NAME_TO_ICON_URL = {
-  [ALL]: `${iconLinkBase}/star.svg`,
+  [ALL]: `${iconLinkBase}/outlined_star.svg`,
   [HIGHLIGHTS]: `${iconLinkBase}/bulb.svg`,
   [USERS]: `${iconLinkBase}/students.svg`,
   [PRACTICE]: `${iconLinkBase}/pencil.svg`,

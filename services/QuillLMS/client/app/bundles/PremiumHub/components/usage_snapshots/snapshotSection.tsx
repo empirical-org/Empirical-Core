@@ -5,7 +5,7 @@ import SnapshotRanking from './snapshotRanking'
 import SnapshotFeedback from './snapshotFeedback'
 import { COUNT, RANKING, FEEDBACK, SECTION_NAME_TO_ICON_URL, } from './shared'
 
-const SnapshotSection = ({ name, className, itemGroupings, searchCount, selectedGrades, selectedSchoolIds, selectedClassroomIds, selectedTeacherIds, selectedTimeframe, customTimeframeStart, customTimeframeEnd, pusherChannel, }) => {
+const SnapshotSection = ({ active, name, className, itemGroupings, searchCount, selectedGrades, selectedSchoolIds, selectedClassroomIds, selectedTeacherIds, selectedTimeframe, customTimeframeStart, customTimeframeEnd, pusherChannel, }) => {
   const snapshotItemGroupings = itemGroupings.map(grouping => {
     const snapshotItems = grouping.items.map(item => {
       const { label, size, type, queryKey, headers, singularLabel, } = item
@@ -53,10 +53,10 @@ const SnapshotSection = ({ name, className, itemGroupings, searchCount, selected
 
   return (
     <section className="snapshot-section-wrapper">
-      <h2>
+      {!active && <h2>
         <img alt="" src={SECTION_NAME_TO_ICON_URL[name]} />
         <span>{name}</span>
-      </h2>
+      </h2>}
       <div className={`snapshot-section ${className}`}>
         <div className="snapshot-section-content">
           {snapshotItemGroupings}

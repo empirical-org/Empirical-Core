@@ -262,6 +262,7 @@ const UsageSnapshotsContainer = ({ adminInfo, accessType, }) => {
   const sectionsToShow = selectedTab === ALL ? snapshotSections : snapshotSections.filter(s => s.name === selectedTab)
   const snapshotSectionComponents = sectionsToShow.map(section => (
     <SnapshotSection
+      active={section.name === selectedTab}
       className={section.className}
       customTimeframeEnd={customEndDate?.toDate()}
       customTimeframeStart={customStartDate?.toDate()}
