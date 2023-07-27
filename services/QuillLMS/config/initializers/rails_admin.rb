@@ -2,47 +2,12 @@
 
 Rails.application.config.to_prepare do
   RailsAdmin.config do |config|
-    ### Popular gems integration
-
-    # # == Devise ==
-    # config.authenticate_with do
-    #   warden.authenticate! scope: :user
-    # end
-    # config.current_user_method(&:current_user)
-
-    # == Cancan ==
-    # config.authorize_with :cancan, Ability
-
-    ## == Pundit ==
-    # config.authorize_with :pundit
-
-    ## == PaperTrail ==
-    # config.audit_with :paper_trail, 'User', 'PaperTrail::Version' # PaperTrail >= 3.0.0
-
-    def current_user
-      begin
-        if session[:user_id]
-          @current_user ||= User.find(session[:user_id])
-        elsif doorkeeper_token
-          User.find_by_id(doorkeeper_token.resource_owner_id)
-        else
-          authenticate_with_http_basic do |username, password|
-            return @current_user ||= User.find_by_token!(username) if username.present?
-          end
-        end
-      rescue ActiveRecord::RecordNotFound
-        sign_out
-        nil
-      end
-    end
-
-    config.current_user_method(&:current_user)
+    config.asset_source = :sprockets
 
     config.authorize_with do |controller|
-      redirect_to main_app.root_path unless current_user.try(:staff?)
+      current_user = User.find_by(id: session[:user_id])
+      redirect_to main_app.root_path unless current_user&.staff?
     end
-
-    ### More at https://github.com/sferik/rails_admin/wiki/Base-configuration
 
     config.actions do
       dashboard do
@@ -69,8 +34,6 @@ Rails.application.config.to_prepare do
         filterable false
         searchable false
       end
-
-      # rest of your ParentModel configuration
     end
 
     config.model User do
@@ -101,17 +64,11 @@ Rails.application.config.to_prepare do
         field :zipcode do
           searchable true
         end
-        # field :name do
-        #   searchable true
-        # end
       end
     end
 
     config.model UserSubscription do
-      field :user do
-        # searchable [:email, :username]
-        # filterable false
-      end
+      field :user
       field :subscription do
         searchable [:id, :account_type]
       end

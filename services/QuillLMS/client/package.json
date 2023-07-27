@@ -86,6 +86,7 @@
     "query-string": "^6.13.6",
     "quill-marking-logic": "^0.15.9",
     "quill-string-normalizer": "0.0.9",
+    "rails_admin": "3.1.2",
     "raven-js": "^3.17.0",
     "react": "^18.2.0",
     "react-addons-css-transition-group": "^15.6.2",
@@ -244,5 +245,8 @@
       "<rootDir>/setEnvVars.js",
       "jest-localstorage-mock"
     ]
+  },
+  "resolutions": {
+    "rails_admin/@fortawesome/fontawesome-free": "^5.15.0"
   }
 }

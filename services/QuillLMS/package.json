@@ -50,6 +50,7 @@
     "foreman": "^3.0.1",
     "lazysizes": "^5.2.0-beta1",
     "quill-marking-logic": "0.15.9",
+    "rails_admin": "3.1.2",
     "react-csv": "^1.1.2"
   },
   "devDependencies": {
@@ -101,5 +102,8 @@
     "testPathIgnorePatterns": [
       "test_data.js"
     ]
+  },
+  "resolutions": {
+    "rails_admin/@fortawesome/fontawesome-free": "^5.15.0"
   }
 }
