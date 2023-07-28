@@ -579,7 +579,7 @@ const ClassroomStudentSection = ({
     if (importProviderClassroomStudents) {
       const lastUpdatedDate = moment(classroom.updated_at).format('MMM D, YYYY')
       return (
-        <div className="invite-providerclassroom-students">
+        <div className="invite-provider-classroom-students">
           <button className="quill-button primary outlined small" onClick={importProviderClassroomStudents} type="button">
             Import {classroomProvider} students
           </button>

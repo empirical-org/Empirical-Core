@@ -8,6 +8,7 @@ import CreateAClassInlineForm from './create_a_class_inline_form'
 import { canvasProvider, cleverProvider, googleProvider, providerLookup } from '../../../classrooms/providerHelpers'
 import { requestGet } from '../../../../../../modules/request/index'
 import { Snackbar, defaultSnackbarTimeout } from '../../../../../Shared/index'
+import useSnackbarMonitor from '../../../../../Shared/hooks/useSnackbarMonitor'
 import pusherInitializer from '../../../../../../modules/pusherInitializer'
 import ImportProviderClassroomsModal from '../../../classrooms/import_provider_classrooms_modal'
 import LinkProviderAccountModal from '../../../classrooms/link_provider_account_modal'
@@ -72,13 +73,7 @@ const AssignStudents = ({
     [googleProvider]: googleClassroomIconSrc,
   }
 
-  useEffect(() => {
-    if (isSnackbarVisible) {
-      const timeoutId = setTimeout(() => setIsSnackbarVisible(false), defaultSnackbarTimeout)
-
-      return () => clearTimeout(timeoutId)
-    }
-  }, [isSnackbarVisible])
+  useSnackbarMonitor(isSnackbarVisible, setIsSnackbarVisible, defaultSnackbarTimeout)
 
   useEffect(() => {
     retrieveProviderClassrooms()
@@ -302,17 +297,21 @@ const AssignStudents = ({
     let link = ''
     let linkAccountProvider = ''
 
-    if (visibleModal === linkCanvasAccountModal) {
-      link = canvasLink
-      linkAccountProvider = canvasProvider
-    } else if (visibleModal === linkCleverAccountModal) {
-      link = cleverLink
-      linkAccountProvider = cleverProvider
-    } else if (visibleModal === linkGoogleAccountModal) {
-      // no link assignment since google uses a different component for linking accounts
-      linkAccountProvider = googleProvider
-    } else {
-      return null
+    switch (visibleModal) {
+      case linkCanvasAccountModal:
+        link = canvasLink
+        linkAccountProvider = canvasProvider
+        break;
+      case linkCleverAccountModal:
+        link = cleverLink
+        linkAccountProvider = cleverProvider
+        break
+      case linkGoogleAccountModal:
+        // no link assignment since google uses a different component for linking accounts
+        linkAccountProvider = googleProvider
+        break
+      default:
+        return null
     }
 
     return (

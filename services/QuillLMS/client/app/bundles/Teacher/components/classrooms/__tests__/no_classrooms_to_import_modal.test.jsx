@@ -10,7 +10,7 @@ describe('NoClassroomsToImportModal component', () => {
     <NoClassroomsToImportModal
       classroomProvider='clever'
       close={close}
-      userProvider='clever'
+      provider='clever'
     />
   );
 

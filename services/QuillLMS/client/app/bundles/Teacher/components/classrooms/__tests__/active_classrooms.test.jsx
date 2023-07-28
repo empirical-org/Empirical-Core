@@ -9,14 +9,13 @@ import ActiveClassrooms, {
   changeGradeModal,
   cleverClassroomsEmptyModal,
   createAClassModal,
-  googleClassroomsEmptyModal,
   importCleverClassroomStudentsModal,
   importCleverClassroomsModal,
-  importGoogleClassroomStudentsModal,
   importGoogleClassroomsModal,
   inviteStudentsModal,
-  linkGoogleAccountModal,
-  reauthorizeCleverModal,
+  linkProviderAccountModal,
+  noClassroomsToImportModal,
+  reauthorizeProviderModal,
   renameClassModal
 } from '../active_classrooms.tsx';
 import ArchiveClassModal from '../archive_classroom_modal';
@@ -24,14 +23,12 @@ import ChangeGradeModal from '../change_grade_modal';
 import CleverClassroomsEmptyModal from '../clever_classrooms_empty_modal';
 import CoteacherInvitation from '../coteacher_invitation';
 import CreateAClassModal from '../create_a_class_modal';
-import GoogleClassroomsEmptyModal from '../google_classrooms_empty_modal';
-import ImportCleverClassroomStudentsModal from '../import_clever_classroom_students_modal';
-import ImportCleverClassroomsModal from '../import_clever_classrooms_modal';
-import ImportGoogleClassroomStudentsModal from '../import_google_classroom_students_modal';
-import ImportGoogleClassroomsModal from '../import_google_classrooms_modal';
+import NoClassroomsToImportModal from '../no_classrooms_to_import_modal';
+import ImportProviderClassroomStudentsModal from '../import_provider_classroom_students_modal';
+import ImportProviderClassroomsModal from '../import_provider_classrooms_modal';
 import InviteStudentsModal from '../invite_students_modal';
-import LinkGoogleAccountModal from '../link_google_account_modal';
-import ReauthorizeCleverModal from '../reauthorize_clever_modal';
+import LinkProviderAccountModal from '../link_provider_account_modal';
+import ReauthorizeProviderModal from '../reauthorize_provider_modal';
 import RenameClassModal from '../rename_classroom_modal';
 
 jest.spyOn(global.Date, 'now').mockImplementation(() =>
@@ -96,17 +93,17 @@ describe('ActiveClassrooms component', () => {
       expect(wrapper.find(ArchiveClassModal).exists()).toBe(true)
     })
 
-    it('should render the import google classrooms modal if showModal equals importGoogleClassroomsModal', () => {
-      wrapper.instance().setState({ showModal: importGoogleClassroomsModal, })
-      expect(wrapper.find(ImportGoogleClassroomsModal).exists()).toBe(true)
+    it('should render the import classrooms modal if showModal equals importProviderClassroomsModal', () => {
+      wrapper.instance().setState({ showModal: importProviderClassroomsModal, })
+      expect(wrapper.find(ImportProviderClassroomsModal).exists()).toBe(true)
     })
 
-    it('should render the import google classroom students modal if showModal equals importGoogleClassroomStudentsModal', () => {
-      wrapper.instance().setState({ showModal: importGoogleClassroomStudentsModal, })
-      expect(wrapper.find(ImportGoogleClassroomStudentsModal).exists()).toBe(true)
+    it('should render the import classroom students modal if showModal equals importProviderClassroomStudentsModal', () => {
+      wrapper.instance().setState({ showModal: importProviderClassroomStudentsModal, })
+      expect(wrapper.find(ImportProviderClassroomStudentsModal).exists()).toBe(true)
     })
 
-    it('should render the empty google classrooms modal if showModal equals googleClassroomsEmptyModal', () => {
+    it('should render the no classrooms to import modal if showModal equals googleClassroomsEmptyModal', () => {
       wrapper.instance().setState({ showModal: googleClassroomsEmptyModal, })
       expect(wrapper.find(GoogleClassroomsEmptyModal).exists()).toBe(true)
     })

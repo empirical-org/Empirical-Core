@@ -2,8 +2,8 @@ import * as React from 'react'
 import { useEffect, useState } from 'react'
 import { SortableHandle, } from 'react-sortable-hoc'
 
-import colors from './colors'
 import pusherInitializer from '../../../../modules/pusherInitializer'
+import useSnackbarMonitor from '../../../Shared/hooks/useSnackbarMonitor'
 import { canvasProvider, cleverProvider, googleProvider, providerLookup } from './providerHelpers'
 import ArchiveClassModal from './archive_classroom_modal'
 import ChangeGradeModal from './change_grade_modal'
@@ -95,13 +95,7 @@ const ActiveClassrooms = ({
     [googleProvider]: googleClassroomIconSrc,
   }
 
-  useEffect(() => {
-    if (isSnackbarVisible) {
-      const timeoutId = setTimeout(() => setIsSnackbarVisible(false), defaultSnackbarTimeout)
-
-      return () => clearTimeout(timeoutId)
-    }
-  }, [isSnackbarVisible])
+  useSnackbarMonitor(isSnackbarVisible, setIsSnackbarVisible, defaultSnackbarTimeout)
 
   useEffect(() => {
     setStateBasedOnParams()
@@ -236,14 +230,19 @@ const ActiveClassrooms = ({
 
     setSelectedClassroomId(Number(classroomId) || null)
 
-    if (modal === 'create-a-class') {
-      setVisibleModal(createAClassModal)
-    } else if (modal === 'google-classroom') {
-      importFromGoogle()
-    } else if (modal === 'invite-students') {
-      setVisibleModal(inviteStudentsModal)
-    } else if (modal === 'view-as-student') {
-      setVisibleModal(viewAsStudentModal)
+    switch (modal) {
+      case 'create-a-class':
+        setVisibleModal(createAClassModal)
+        break
+      case 'google-classroom':
+        importFromGoogle()
+        break
+      case 'invite-students':
+        setVisibleModal(inviteStudentsModal)
+        break
+      case 'view-as-student':
+        setVisibleModal(viewAsStudentModal)
+        break
     }
 
     if (visibleModal || selectedClassroomId) {

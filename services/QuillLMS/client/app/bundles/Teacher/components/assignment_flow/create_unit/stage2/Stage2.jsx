@@ -7,10 +7,10 @@ import OverrideWarningModal from './overrideWarningModal';
 import ReviewActivities from './review_activities';
 import SkipRecommendationsWarningModal from './skipRecommendationsWarningModal';
 
-import ButtonLoadingIndicator from '../../../shared/button_loading_indicator.tsx';
+import ButtonLoadingIndicator from '../../../shared/button_loading_indicator';
 import ScrollToTop from '../../../shared/scroll_to_top';
 import { postTestClassAssignmentLockedMessages, } from '../../assignmentFlowConstants';
-import AssignmentFlowNavigation from '../../assignment_flow_navigation.tsx';
+import AssignmentFlowNavigation from '../../assignment_flow_navigation';
 
 export class Stage2 extends React.Component {
   constructor(props) {
