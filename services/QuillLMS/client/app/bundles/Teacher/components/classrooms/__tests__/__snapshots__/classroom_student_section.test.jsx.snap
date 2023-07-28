@@ -233,7 +233,7 @@ exports[`ClassroomStudentSection component with students should render 1`] = `
         Pro Tip - How to manage duplicate accounts
       </h4>
       <p>
-        If a student has multiple accounts that were created manually (with a Quill password), you can merge those accounts together. However, Google or Clever accounts cannot be merged together. Instead, if a student has a duplicate Google or Clever account, go to the “Actions” menu and select the “remove the student” option for the duplicate account.
+        If a student has multiple accounts that were created manually (with a Quill password), you can merge those accounts together. However, Google, Clever or Canvas accounts cannot be merged together. Instead, if a student has a duplicate Google, Clever or Canvas account, go to the “Actions” menu and select the “remove the student” option for the duplicate account.
       </p>
     </div>
   </div>

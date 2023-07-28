@@ -1,6 +1,6 @@
 import React from 'react';
 
-import AssigningIndicator from '../../shared/button_loading_indicator';
+import AssigningIndicator from '../../shared/button_loading_indicator.tsx';
 import AssignmentFlowNavigation from '../assignment_flow_navigation.tsx';
 import CustomActivityPack from './custom_activity_pack/index';
 

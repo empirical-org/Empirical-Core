@@ -23,8 +23,7 @@ interface ClassroomProps {
   archiveClass?: (event) => void;
   unarchiveClass?: (event) => void;
   inviteStudents?: (event) => void;
-  importCleverClassroomStudents?: (event) => void;
-  importGoogleClassroomStudents?: (event) => void;
+  importProviderClassroomStudents?: (event) => void;
   viewAsStudent?: (event) => void;
   onSuccess: (event) => void;
 }
@@ -56,20 +55,12 @@ export default class Classroom extends React.Component<ClassroomProps, Classroom
 
   renderClassCode() {
     const { classroom } = this.props
-    const { code, google_classroom_id, clever_id, } = classroom
-    if (google_classroom_id) {
-      return (
-        <Tooltip
-          tooltipText={`Class code: <b>${code}</b><br/><br/>The easiest way for your students to join your class is through Google Classroom. However, if your students are not syncing, try the class code.`}
-          tooltipTriggerText={<div className="text-and-icon-wrapper"><span>Class code:&nbsp;</span><img alt={helpIcon.alt} src={helpIcon.src} /></div>}
-        />
-      )
-    }
+    const { code, classroomProvider } = classroom
 
-    if (clever_id) {
+    if (classroomProvider) {
       return (
         <Tooltip
-          tooltipText={`Class code: <b>${code}</b><br/><br/>The easiest way for your students to join your class is through Clever. However, if your students are not syncing, try the class code.`}
+          tooltipText={`Class code: <b>${code}</b><br/><br/>The easiest way for your students to join your class is through ${classroomProvider}. However, if your students are not syncing, try the class code.`}
           tooltipTriggerText={<div className="text-and-icon-wrapper"><span>Class code:&nbsp;</span><img alt={helpIcon.alt} src={helpIcon.src} /></div>}
         />
       )
@@ -89,9 +80,9 @@ export default class Classroom extends React.Component<ClassroomProps, Classroom
 
   renderClassType() {
     const { classroom } = this.props
-    const { clever_id, google_classroom_id } = classroom
+    const { classroom_external_id } = classroom
 
-    if (!clever_id && !google_classroom_id) { return null }
+    if (!classroom_external_id) { return null }
 
     return (
       <React.Fragment key={`class-type-item-${classroom.id}`}>
@@ -105,7 +96,7 @@ export default class Classroom extends React.Component<ClassroomProps, Classroom
     const { classroom } = this.props
     const { name, synced_name } = classroom
 
-    const text = classroom.google_classroom_id ? 'Google Classroom' : 'Clever'
+    const text = classroom.classroomProvider
 
     if (synced_name === null || synced_name === name) {  return text }
 
@@ -236,8 +227,7 @@ export default class Classroom extends React.Component<ClassroomProps, Classroom
       inviteStudents,
       classrooms,
       isOwnedByCurrentUser,
-      importCleverClassroomStudents,
-      importGoogleClassroomStudents,
+      importProviderClassroomStudents,
       viewAsStudent,
     } = this.props
     const sharedProps = {
@@ -252,8 +242,7 @@ export default class Classroom extends React.Component<ClassroomProps, Classroom
         {this.renderClassSettings()}
         <ClassroomStudentSection
           {...sharedProps}
-          importCleverClassroomStudents={importCleverClassroomStudents}
-          importGoogleClassroomStudents={importGoogleClassroomStudents}
+          importProviderClassroomStudents={importProviderClassroomStudents}
           inviteStudents={inviteStudents}
           viewAsStudent={viewAsStudent}
         />
