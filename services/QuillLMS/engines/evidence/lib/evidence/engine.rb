@@ -1,6 +1,5 @@
 # frozen_string_literal: true
 
-# require_relative '../quill_scaffold_controller'
 begin
   require 'factory_bot_rails'
 rescue LoadError
@@ -10,7 +9,7 @@ end
 
 module Evidence
   class Engine < ::Rails::Engine
-    config.eager_load_paths += %W{#{config.root}/lib/evidence}
+    config.eager_load_paths << "#{config.root}/lib"
     isolate_namespace Evidence
 
     config.generators do |g|

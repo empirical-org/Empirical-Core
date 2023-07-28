@@ -1,7 +1,5 @@
 # frozen_string_literal: true
 
-require_dependency 'evidence/application_controller'
-
 module Evidence
   class ActivitiesController < ApiController
     before_action :set_activity, only: [:activity_versions, :create, :show, :update, :destroy, :seed_data, :change_logs, :labeled_synthetic_data, :topic_optimal_info]

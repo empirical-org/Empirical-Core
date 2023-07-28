@@ -18,7 +18,7 @@ describe PremiumHub::AdminAccountCreatedEmailWorker, type: :worker do
     allow(School).to receive(:find_by).and_return(school)
     allow(mailer_class).to receive(mailer_method).with(mailer_user, referring_admin.name, school.name, is_reminder).and_return(double(:email, deliver_now!: true))
     allow(teacher).to receive(:mailer_user).and_return(mailer_user)
-    allow(SegmentAnalytics).to receive(:new) { analytics }
+    allow(Analytics::SegmentAnalytics).to receive(:new) { analytics }
   end
 
   describe 'user is nil' do
@@ -52,7 +52,7 @@ describe PremiumHub::AdminAccountCreatedEmailWorker, type: :worker do
     it 'should send a segment.io event' do
       expect(analytics).to receive(:track_school_admin_user).with(
         teacher,
-        SegmentIo::BackgroundEvents::ADMIN_CREATED_SCHOOL_ADMIN_ACCOUNT,
+        Analytics::SegmentIo::BackgroundEvents::ADMIN_CREATED_SCHOOL_ADMIN_ACCOUNT,
         school.name,
         referring_admin.name
       )

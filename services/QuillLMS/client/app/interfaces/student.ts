@@ -6,6 +6,7 @@ export interface Student {
     name: string,
     time: number,
     number_of_questions: number,
+    number_of_correct_questions: number,
     concept_results: Concept[],
     score: number,
     average_score_on_quill: number,

@@ -2,7 +2,7 @@
 
 require 'rails_helper'
 
-RSpec.describe CacheSegmentSchoolData do
+RSpec.describe Analytics::CacheSegmentSchoolData do
   let(:school) { create(:school) }
   let(:teacher1) { create(:teacher, last_sign_in: Time.zone.today - 366.days) }
   let(:teacher2) { create(:teacher, last_sign_in: Time.zone.today) }

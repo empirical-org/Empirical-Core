@@ -7,15 +7,15 @@ describe ErrorNotifier do
     let(:error) { StandardError }
     let(:key_values) { {key: 'value', key2: 'value2'}}
 
-    it 'should notify Sentry (Raven) and New Relic' do
-      expect(Raven).to receive(:capture_exception).with(error, extra: {}).once
+    it 'should notify Sentry and New Relic' do
+      expect(Sentry).to receive(:capture_exception).with(error, extra: {}).once
       expect(NewRelic::Agent).to receive(:notice_error).with(error, {}).once
 
       ErrorNotifier.report(error)
     end
 
-    it 'should notify Sentry (Raven) and New Relic with additional context' do
-      expect(Raven).to receive(:capture_exception).with(error, extra: key_values).once
+    it 'should notify Sentry and New Relic with additional context' do
+      expect(Sentry).to receive(:capture_exception).with(error, extra: key_values).once
       expect(NewRelic::Agent).to receive(:notice_error).with(error, key_values).once
 
       ErrorNotifier.report(error, key_values)

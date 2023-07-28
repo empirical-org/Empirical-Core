@@ -1,0 +1,23 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`KeyTargetSkillConcept component should render 1`] = `
+<div
+  className="row"
+>
+  <div
+    className="col-xs-8 no-pl"
+  >
+    Cool Concept
+  </div>
+  <div
+    className="col-xs-2 correct-answer"
+  >
+    7
+  </div>
+  <div
+    className="col-xs-2 no-pr incorrect-answer"
+  >
+    3
+  </div>
+</div>
+`;

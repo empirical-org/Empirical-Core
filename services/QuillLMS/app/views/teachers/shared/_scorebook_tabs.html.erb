@@ -27,7 +27,7 @@
 
         <% unless current_user.premium_state == 'paid' || current_user.should_render_teacher_premium? %>
           <li class="premium-tab <%= 'active' if premium_page_active? %>">
-            <%= link_to raw("<span class='hide-on-mobile premium-tab-copy'>#{premium_tab_copy}</span><span class='hide-on-desktop premium-tab-small'>Premium <img src='https://assets.quill.org/images/icons/yellow-diamond.svg'></img></span>"), premium_path %>
+            <%= link_to raw("<span class='hide-on-mobile premium-tab-copy'>#{premium_tab_copy(current_user)}</span><span class='hide-on-desktop premium-tab-small'>Premium <img src='https://assets.quill.org/images/icons/yellow-diamond.svg'></img></span>"), premium_path %>
           </li>
         <% end %>
 
@@ -74,7 +74,7 @@
             <% end %>
             <li><%= active_link_to 'My Account', teachers_my_account_path %></li>
             <li><%= active_link_to 'My Subscriptions', subscriptions_path %></li>
-            <% if should_show_admin_access_tab? %>
+            <% if admin_tab_access?(current_user) %>
               <li><%= active_link_to 'Admin Access', admin_access_index_path %></li>
             <% end %>
           <% end %>
@@ -102,7 +102,12 @@
         </ul>
       </div>
     </div>
-    <%= render partial: 'pages/shared/mobile_sub_navbar', locals: { tabs: mobile_subnav_tabs, active_tab: determine_active_tab(current_path), active_subtab: determine_active_subtab(current_path) } %>
+
+    <%= render 'pages/shared/mobile_sub_navbar',
+        tabs: mobile_subnav_tabs(current_user),
+        active_tab: determine_active_tab(current_path),
+        active_subtab: determine_active_subtab(current_path)
+    %>
   <% end %>
 
   <% if student_reports_page_active? %>

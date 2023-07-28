@@ -88,7 +88,7 @@ describe TeacherActivityFeed, type: :model do
     let(:evidence_activity_session) { create(:evidence_activity_session) }
     let(:proficient_activity_session) { create(:connect_activity_session, percentage: 0.90) }
     let(:nearly_proficient_activity_session) { create(:grammar_activity_session, percentage: 0.75) }
-    let(:not_yet_proficient_activity_session) { create(:proofreader_activity_session, percentage: 0.40) }
+    let(:not_yet_proficient_activity_session) { create(:proofreader_activity_session, percentage: 0.30) }
 
     let(:feed) { TeacherActivityFeed.new('fake_id') }
 

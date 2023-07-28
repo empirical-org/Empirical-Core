@@ -16,5 +16,3 @@ describe CreditReferringAccountsWorker, type: :worker do
     expect(referrals_user.user.credit_transactions.length).to eq(1)
   end
 end
-
-

@@ -763,6 +763,10 @@ export default class CreateOrEditBlogPost extends React.Component {
 
             {this.renderPremiumCheckbox()}
 
+            <p className="embedded-youtube-reminder">
+              {`When getting a URL from YouTube, make sure to click the “Embed” option when clicking “Share” from a video to get the right URL. The link should look like this:
+              <iframe width="560" height="315" src="https://www.youtube.com/embed/XXXXXXXXXXX" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen></iframe>. The link should NOT look like this: https://youtu.be/XXXXXXXXXX`}
+            </p>
 
             <div>
               <div className="article-content-header-container">

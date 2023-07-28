@@ -2,7 +2,7 @@
 
 require 'rails_helper'
 
-describe 'SerializeVitallySalesAccount' do
+describe VitallyIntegration::SerializeVitallySalesAccount do
   let!(:district) { create(:district, name: 'Kool District') }
   let(:school) do
     create(:school,
@@ -29,11 +29,11 @@ describe 'SerializeVitallySalesAccount' do
       activities_per_student: 1.0
     }
     year = School.school_year_start(1.year.ago).year
-    CacheVitallySchoolData.set(school.id, year, previous_year_data.to_json)
+    VitallyIntegration::CacheVitallySchoolData.set(school.id, year, previous_year_data.to_json)
   end
 
   it 'includes the accountId' do
-    school_data = SerializeVitallySalesAccount.new(school).data
+    school_data = described_class.new(school).data
 
     expect(school_data).to include(accountId: school.id.to_s)
   end
@@ -41,7 +41,7 @@ describe 'SerializeVitallySalesAccount' do
   it 'includes the organizationId if the school has a subscription' do
     create(:school_subscription, school: school, subscription: subscription)
 
-    school_data = SerializeVitallySalesAccount.new(school).data
+    school_data = described_class.new(school).data
 
     expect(school_data).to include(organizationId: school.district_id.to_s)
   end
@@ -50,13 +50,13 @@ describe 'SerializeVitallySalesAccount' do
     different_school = create(:school, district: district)
     create(:school_subscription, school: different_school, subscription: subscription)
 
-    school_data = SerializeVitallySalesAccount.new(school).data
+    school_data = described_class.new(school).data
 
     expect(school_data).to include(organizationId: school.district_id.to_s)
   end
 
   it 'does not include the organizationId if no schools in the district have a subscription' do
-    school_data = SerializeVitallySalesAccount.new(school).data
+    school_data = described_class.new(school).data
 
     expect(school_data).to include(organizationId: '')
   end
@@ -64,14 +64,14 @@ describe 'SerializeVitallySalesAccount' do
   it 'does not include the organizationId if the school is not part of a district' do
     school.update(district: nil)
 
-    school_data = SerializeVitallySalesAccount.new(school).data
+    school_data = described_class.new(school).data
 
     expect(school_data).to include(organizationId: '')
   end
 
   it 'generates basic school params' do
 
-    school_data = SerializeVitallySalesAccount.new(school).data
+    school_data = described_class.new(school).data
 
     expect(school_data[:traits]).to include(
       name: 'Kool School',
@@ -84,7 +84,7 @@ describe 'SerializeVitallySalesAccount' do
       frl: 0,
       ppin: nil,
       nces_id: '111111111',
-      school_subscription: SerializeVitallySalesAccount::NOT_APPLICABLE,
+      school_subscription: described_class::NOT_APPLICABLE,
       school_type: 'Rural, Fringe',
       employee_count: 0,
       paid_teacher_subscriptions: 0,
@@ -97,11 +97,11 @@ describe 'SerializeVitallySalesAccount' do
       activities_per_student_this_year: 0,
       activities_finished: 0,
       school_link: "https://www.quill.org/cms/schools/#{school.id}",
-      premium_expiry_date: SerializeVitallySalesAccount::NOT_APPLICABLE,
-      premium_start_date: SerializeVitallySalesAccount::NOT_APPLICABLE,
-      annual_revenue_current_contract: SerializeVitallySalesAccount::NOT_APPLICABLE,
-      stripe_invoice_id_current_contract: SerializeVitallySalesAccount::NOT_APPLICABLE,
-      purchase_order_number_current_contract: SerializeVitallySalesAccount::NOT_APPLICABLE
+      premium_expiry_date: described_class::NOT_APPLICABLE,
+      premium_start_date: described_class::NOT_APPLICABLE,
+      annual_revenue_current_contract: described_class::NOT_APPLICABLE,
+      stripe_invoice_id_current_contract: described_class::NOT_APPLICABLE,
+      purchase_order_number_current_contract: described_class::NOT_APPLICABLE
     )
   end
 
@@ -118,7 +118,7 @@ describe 'SerializeVitallySalesAccount' do
       school_id: school.id
     )
 
-    school_data = SerializeVitallySalesAccount.new(school).data
+    school_data = described_class.new(school).data
 
     expect(school_data[:traits]).to include(
       school_subscription: school_subscription.account_type,
@@ -149,7 +149,7 @@ describe 'SerializeVitallySalesAccount' do
       school_id: school.id
     )
 
-    school_data = SerializeVitallySalesAccount.new(school).data
+    school_data = described_class.new(school).data
 
     expect(school_data[:traits]).to include(
       school_subscription: next_school_subscription.account_type
@@ -171,7 +171,7 @@ describe 'SerializeVitallySalesAccount' do
     school.users << teacher_with_subscription
     school.users << create(:user, role: 'teacher')
 
-    school_data = SerializeVitallySalesAccount.new(school).data
+    school_data = described_class.new(school).data
 
     expect(school_data[:traits]).to include(
       employee_count: 2,
@@ -182,7 +182,7 @@ describe 'SerializeVitallySalesAccount' do
   end
 
   it 'generates previous year data' do
-    school_data = SerializeVitallySalesAccount.new(school).data
+    school_data = described_class.new(school).data
     expect(school_data[:traits]).to include(
       total_students_last_year: 2,
       active_students_last_year: 1,
@@ -235,7 +235,7 @@ describe 'SerializeVitallySalesAccount' do
         state: 'finished')
     end
 
-    let(:results) { SerializeVitallySalesAccount.new(school).data }
+    let(:results) { described_class.new(school).data }
 
     it do
       expect(results[:traits]).to include(

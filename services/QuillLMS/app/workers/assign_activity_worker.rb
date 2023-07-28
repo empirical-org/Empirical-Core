@@ -5,7 +5,7 @@ class AssignActivityWorker
   sidekiq_options queue: SidekiqQueue::DEFAULT, retry: false
 
   def perform(teacher_id, unit_id)
-    analytics = SegmentAnalytics.new
+    analytics = Analytics::SegmentAnalytics.new
     analytics.track_activity_pack_assignment(teacher_id, unit_id) if teacher_id
   end
 end
