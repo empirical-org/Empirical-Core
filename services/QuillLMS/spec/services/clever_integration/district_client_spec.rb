@@ -20,8 +20,8 @@ RSpec.describe CleverIntegration::DistrictClient do
     expect(api_client).to receive(:config=)
   end
 
-  context '#get_teacher_classrooms' do
-    subject { district_client.get_teacher_classrooms(teacher_clever_id) }
+  context '#teacher_classrooms' do
+    subject { district_client.teacher_classrooms(teacher_clever_id) }
 
     let(:classrooms_attrs) { [classroom1_attrs, classroom2_attrs]}
     let(:data) { classrooms_data }

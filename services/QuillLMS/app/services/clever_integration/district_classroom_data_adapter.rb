@@ -4,8 +4,6 @@ module CleverIntegration
   class DistrictClassroomDataAdapter < ApplicationService
     attr_reader :classroom_data
 
-    delegate :grade, :name, :students, to: :data
-
     def initialize(classroom_data)
       @classroom_data = classroom_data
     end
@@ -14,9 +12,9 @@ module CleverIntegration
       {
         alreadyImported: already_imported?,
         classroom_external_id: classroom_external_id,
-        grade: grade,
-        name: name,
-        students: students
+        grade: data.grade,
+        name: data.name,
+        studentCount: data.students.count
       }
     end
 

@@ -8,11 +8,9 @@ RSpec.describe CleverIntegration::TeacherClassroomsData do
   subject { described_class.new(teacher, serialized_classrooms_data) }
 
   context 'no classrooms' do
-    let(:serialized_classrooms_data) { { classrooms: [] }.to_json }
+    let(:serialized_classrooms_data) { [].to_json }
 
-    it 'has no elements' do
-      expect(subject.count).to eq 0
-    end
+    it { is_expected.to match_array [] }
   end
 
   context 'two classrooms' do
@@ -20,12 +18,10 @@ RSpec.describe CleverIntegration::TeacherClassroomsData do
     let(:classroom_external_id2) { 'ghijkl' }
 
     let(:serialized_classrooms_data) do
-      {
-        classrooms: [
-          { classroom_external_id: classroom_external_id1 },
-          { classroom_external_id: classroom_external_id2 }
-        ]
-      }.to_json
+      [
+        { classroom_external_id: classroom_external_id1 },
+        { classroom_external_id: classroom_external_id2 }
+      ].to_json
     end
 
     let(:expected_classrooms_data) do
@@ -35,6 +31,6 @@ RSpec.describe CleverIntegration::TeacherClassroomsData do
       ]
     end
 
-    it { expect(subject).to match_array expected_classrooms_data }
+    it { is_expected.to match_array expected_classrooms_data }
   end
 end

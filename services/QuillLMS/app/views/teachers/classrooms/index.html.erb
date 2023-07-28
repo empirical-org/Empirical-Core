@@ -2,11 +2,12 @@
 <%= react_component(
       'TeacherClassroomsApp',
       props: {
-        user: current_user,
+        canvasLink: @canvas_link,
+        coteacherInvitations: @coteacher_invitations,
         classrooms: @classrooms,
         cleverLink: @clever_link,
         googleLink: @google_link,
-        coteacherInvitations: @coteacher_invitations
+        user: @user
       }
     )
 %>

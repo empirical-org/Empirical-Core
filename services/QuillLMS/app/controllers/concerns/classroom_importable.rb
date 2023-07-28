@@ -24,7 +24,7 @@ module ClassroomImportable
   end
 
   private def imported_classroom_ids
-    selected_classrooms_data
+    selected_teacher_classrooms_data
       .map { |data| provider_namespace::ClassroomImporter.run(data) }
       .map(&:id)
   end
@@ -33,12 +33,8 @@ module ClassroomImportable
     provider_namespace::ImportTeacherClassroomsStudentsWorker.perform_async(current_user.id, imported_classroom_ids)
   end
 
-  private def selected_classrooms_data
-    provider_namespace::TeacherClassroomsData.new(current_user, serialized_selected_classrooms_data)
-  end
-
-  private def serialized_selected_classrooms_data
-    { classrooms: params[:selected_classrooms] }.to_json
+  private def selected_teacher_classrooms_data
+    provider_namespace::TeacherClassroomsData.new(current_user, params[:selected_classrooms].to_json)
   end
 end
 

@@ -92,7 +92,7 @@ RSpec.describe CanvasIntegration::TeachersController do
 
     it do
       subject
-      expect(response_body).to eq(user_id: teacher.id, reauthorization_required: true)
+      expect(response_body).to eq(reauthorization_required: true)
     end
 
     context 'user is canvas authorized' do
@@ -100,17 +100,17 @@ RSpec.describe CanvasIntegration::TeachersController do
 
       it  do
         subject
-        expect(response_body).to eq({ user_id: teacher.id, quill_retrieval_processing: true })
+        expect(response_body).to eq(quill_retrieval_processing: true)
       end
 
       context 'teacher classrooms cache has data' do
-        let(:data) { { classrooms: [] } }
+        let(:data) { [] }
 
         before { allow(CanvasIntegration::TeacherClassroomsCache).to receive(:read).and_return(data.to_json) }
 
         it do
           subject
-          expect(response_body).to eq data
+          expect(response_body).to eq(classrooms: data)
         end
       end
     end

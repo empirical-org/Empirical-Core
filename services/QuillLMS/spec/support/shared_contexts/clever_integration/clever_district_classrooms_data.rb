@@ -39,7 +39,7 @@ RSpec.shared_context 'Clever District Classrooms Data' do
       classroom_external_id: classroom1_clever_id,
       grade: classroom1_grade,
       name: classroom1_name,
-      students: classroom1_students
+      studentCount: classroom1_students.count
     }
   end
 
@@ -79,7 +79,7 @@ RSpec.shared_context 'Clever District Classrooms Data' do
       classroom_external_id: classroom2_clever_id,
       grade: classroom2_grade,
       name: classroom2_name,
-      students: classroom2_students
+      studentCount: classroom2_students.count
     }
   end
 

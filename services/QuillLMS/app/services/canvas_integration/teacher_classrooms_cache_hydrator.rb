@@ -2,6 +2,8 @@
 
 module CanvasIntegration
   class TeacherClassroomsCacheHydrator < ApplicationService
+    PUSHER_EVENT = 'canvas-classrooms-retrieved'
+
     attr_reader :user
 
     def initialize(user)
@@ -10,16 +12,25 @@ module CanvasIntegration
 
     def run
       cache_classrooms_data
+      notify_pusher
     rescue => e
       ErrorNotifier.report(e, user_id: user.id)
     end
 
     private def cache_classrooms_data
-      CanvasIntegration::TeacherClassroomsCache.write(user.id, serialized_teacher_classrooms)
+      TeacherClassroomsCache.write(user.id, serialized_teacher_classrooms)
     end
 
     private def client
       ClientFetcher.run(user)
+    end
+
+    private def notify_pusher
+      PusherTrigger.run(user.id, PUSHER_EVENT, pusher_message)
+    end
+
+    private def pusher_message
+      "Canvas classrooms cached for #{user.id}."
     end
 
     private def serialized_teacher_classrooms

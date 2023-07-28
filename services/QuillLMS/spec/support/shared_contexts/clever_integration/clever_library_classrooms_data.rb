@@ -31,7 +31,7 @@ RSpec.shared_context 'Clever Library Classrooms Data' do
       classroom_external_id: classroom1_clever_id,
       grade: classroom1_grade,
       name: classroom1_name,
-      students: classroom1_students
+      studentCount: classroom1_students.count
     }
   end
 
@@ -62,12 +62,11 @@ RSpec.shared_context 'Clever Library Classrooms Data' do
       classroom_external_id: classroom2_clever_id,
       grade: classroom2_grade,
       name: classroom2_name,
-      students: classroom2_students
+      studentCount: classroom2_students.count
     }
   end
 
   let(:classrooms_data) { { 'data'=> [classroom1_data, classroom2_data] } }
-
 
   let(:classroom1_students_data) { { 'data' => [student1_data, student2_data] } }
   let(:classroom2_students_data) { { 'data' => [student3_data] } }

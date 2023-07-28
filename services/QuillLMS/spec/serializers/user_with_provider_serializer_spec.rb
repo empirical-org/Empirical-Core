@@ -2,7 +2,7 @@
 
 require 'rails_helper'
 
-describe UserWithEmailSerializer, type: :serializer do
+describe UserWithProviderSerializer, type: :serializer do
   let(:user) { create(:teacher) }
   let(:serializer) { described_class.new(user) }
 
@@ -15,7 +15,7 @@ describe UserWithEmailSerializer, type: :serializer do
     describe "'user' object" do
       let(:parsed_user) { parsed['user'] }
 
-      it { expect(parsed_user.keys).to include('email') }
+      it { expect(parsed_user.keys).to include('provider') }
     end
   end
 end

@@ -12,11 +12,15 @@ module CanvasIntegration
     end
 
     def classroom_students(section_id)
-      { students: students(section_id) }
+      students_data(section_id).map { |student_data| StudentDataAdapter.run(canvas_instance.id, student_data) }
     end
 
     def teacher_classrooms
-      { classrooms: classrooms }
+      courses_data.map do |course_data|
+        sections_data(course_data[:id]).map do |section_data|
+          ClassroomDataAdapter.run(canvas_instance.id, course_data, section_data)
+        end
+      end.flatten
     end
 
     private def api
@@ -33,14 +37,6 @@ module CanvasIntegration
 
     private def canvas_instance
       @canvas_instance ||= canvas_auth_credential.canvas_instance
-    end
-
-    private def classrooms
-      courses_data.map do |course_data|
-        sections_data(course_data[:id]).map do |section_data|
-          ClassroomDataAdapter.run(canvas_instance.id, course_data, section_data)
-        end
-      end.flatten
     end
 
     private def courses_data
@@ -65,11 +61,6 @@ module CanvasIntegration
 
     private def sections_data(course_id)
       get_collection("#{COURSES_PATH}/#{course_id}/sections?include[]=students") || []
-    end
-
-    private def students(section_id)
-      students_data(section_id)
-        .map { |student_data| StudentDataAdapter.run(canvas_instance.id, student_data) }
     end
 
     private def students_data(section_id)
