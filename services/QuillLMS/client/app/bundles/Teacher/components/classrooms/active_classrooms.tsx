@@ -64,9 +64,6 @@ const ActiveClassrooms = ({
   user,
 }: ActiveClassroomsProps) => {
   const { provider } = user
-  const providerClassName= providerLookup[provider].className
-  const retrieveClassroomsPath = `/${providerClassName}_integration/teachers/retrieve_classrooms`
-  const retrieveClassroomsEventName = `${providerClassName}-classrooms-retrieved`
 
   const isCanvasUser = provider === canvasProvider;
   const isCleverUser = provider === cleverProvider;
@@ -102,6 +99,8 @@ const ActiveClassrooms = ({
   }, [])
 
   useEffect(() => {
+    if (!provider) { return }
+
     retrieveProviderClassrooms()
   }, [])
 
@@ -207,6 +206,10 @@ const ActiveClassrooms = ({
   }
 
   const retrieveProviderClassrooms = () => {
+    const providerClassName= providerLookup[provider].className
+    const retrieveClassroomsPath = `/${providerClassName}_integration/teachers/retrieve_classrooms`
+    const retrieveClassroomsEventName = `${providerClassName}-classrooms-retrieved`
+
     setProviderClassroomsLoading(true)
     pusherInitializer(user.id, retrieveClassroomsEventName, retrieveProviderClassrooms)
 
