@@ -1,6 +1,6 @@
-import React from 'react';
+import * as React from 'react';
 
-import AssignStudents from './assign_students.tsx';
+import AssignStudents from './assign_students';
 import GradeLevelWarningModal from './gradeLevelWarningModal';
 import NameTheUnit from './name_the_unit';
 import OverrideWarningModal from './overrideWarningModal';

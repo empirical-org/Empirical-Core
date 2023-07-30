@@ -2,7 +2,10 @@
 
 exports[`Assign students component should render 1`] = `
 <div>
-  <Snackbar />
+  <Snackbar
+    text=""
+    visible={false}
+  />
   <div
     className="assignment-section"
   >
@@ -27,28 +30,43 @@ exports[`Assign students component should render 1`] = `
         className="import-or-create-classroom-buttons"
       >
         <button
-          className="interactive-wrapper import-from-clever-button"
+          className="interactive-wrapper import-from-provider-button"
+          onClick={[Function]}
+          type="button"
+        >
+          <img
+            alt="Canvas Icon"
+            className="import-from-provider-button-icon"
+            src="undefined/images/icons/canvas.svg"
+          />
+          Import from 
+          Canvas
+        </button>
+        <button
+          className="interactive-wrapper import-from-provider-button"
           onClick={[Function]}
           type="button"
         >
           <img
             alt="Clever Icon"
-            className="import-from-clever-button-icon"
+            className="import-from-provider-button-icon"
             src="undefined/images/icons/clever.svg"
           />
-          Import from Clever
+          Import from 
+          Clever
         </button>
         <button
-          className="interactive-wrapper import-from-google-button"
+          className="interactive-wrapper import-from-provider-button"
           onClick={[Function]}
           type="button"
         >
           <img
             alt="Google Classroom Icon"
-            className="import-from-google-button-icon"
+            className="import-from-provider-button-icon"
             src="undefined/images/icons/google-classroom.svg"
           />
-           Import from Google Classroom
+          Import from 
+          Google Classroom
         </button>
         <button
           className="quill-button medium secondary outlined create-a-class-button"

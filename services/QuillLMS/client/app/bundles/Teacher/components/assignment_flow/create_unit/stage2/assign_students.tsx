@@ -1,4 +1,4 @@
-import React from 'react'
+import * as React from 'react';
 
 import { useEffect, useState } from 'react'
 
@@ -45,9 +45,6 @@ const AssignStudents = ({
   user
 }) => {
   const { provider } = user
-  const providerClassName= providerLookup[provider].className
-  const retrieveClassroomsPath = `/${providerClassName}_integration/teachers/retrieve_classrooms`
-  const retrieveClassroomsEventName = `${providerClassName}-classrooms-retrieved`
 
   const isCanvasUser = provider === canvasProvider;
   const isCleverUser = provider === cleverProvider;
@@ -76,6 +73,8 @@ const AssignStudents = ({
   useSnackbarMonitor(isSnackbarVisible, setIsSnackbarVisible, defaultSnackbarTimeout)
 
   useEffect(() => {
+    if (!provider) { return }
+
     retrieveProviderClassrooms()
   }, [])
 
@@ -138,6 +137,10 @@ const AssignStudents = ({
   }
 
   const retrieveProviderClassrooms = () => {
+    const providerClassName = providerLookup[provider].className
+    const retrieveClassroomsPath = `/${providerClassName}_integration/teachers/retrieve_classrooms`
+    const retrieveClassroomsEventName = `${providerClassName}-classrooms-retrieved`
+
     setProviderClassroomsLoading(true)
     pusherInitializer(user.id, retrieveClassroomsEventName, retrieveProviderClassrooms)
 
