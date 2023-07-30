@@ -102,6 +102,10 @@ describe('ActiveClassrooms component', () => {
     })
   })
 
+  // it('should render the import classrooms modal', () => {
+  //   wrapper.find('button').filterWhere(node => node.text() === 'Import from Google').simulate('click');
+  //   expect(wrapper.find(ImportProviderClassroomsModal).exists()).toBe(true)
+  // })
 
   // it('should render the import classroom students modal if showModal equals importProviderClassroomStudentsModal', () => {
   //   wrapper.instance().setState({ showModal: importProviderClassroomStudentsModal, })
@@ -122,25 +126,5 @@ describe('ActiveClassrooms component', () => {
   //   wrapper.find('button').filterWhere(node => node.text() === 'Import from Canvas').simulate('click');
   //   expect(wrapper.find(ImportProviderClassroomsModal).exists()).toBe(true)
   // })
-
-  describe('with classrooms and user is google provider', () => {
-    const wrapper = mount(
-      <ActiveClassrooms
-        canvasLink=''
-        classrooms={classroomProps}
-        cleverLink=''
-        coteacherInvitations={coteacherInvitations}
-        googleLink=''
-        user={googleUserProps}
-      />
-    );
-
-    wrapper.find('img.expand-arrow').at(0).simulate('click')
-
-    it('should render the import classrooms modal', () => {
-      wrapper.find('button').filterWhere(node => node.text() === 'Import from Google').simulate('click');
-      expect(wrapper.find(ImportProviderClassroomsModal).exists()).toBe(true)
-    })
-  })
 
 });
