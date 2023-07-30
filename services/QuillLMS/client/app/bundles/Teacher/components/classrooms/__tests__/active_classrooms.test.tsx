@@ -1,19 +1,10 @@
-import { mount, shallow } from 'enzyme';
-import React from 'react';
+import { mount } from 'enzyme';
+import * as React from 'react'
 
-import { classroomProps, coteacherInvitations, userProps } from './test_data/test_data';
+import { classroomProps, coteacherInvitations, googleUserProps, userProps } from './test_data/test_data';
 
 import { SortableList } from '../../../../Shared/index';
-import ActiveClassrooms, {
-  archiveClassModal,
-  changeGradeModal,
-  noClassroomsToImportModal,
-  createAClassModal,
-  importProviderClassroomStudentsModal,
-  importProviderClassroomsModal,
-  inviteStudentsModal,
-  renameClassModal
-} from '../active_classrooms.tsx';
+import ActiveClassrooms from '../active_classrooms';
 import ArchiveClassModal from '../archive_classroom_modal';
 import ChangeGradeModal from '../change_grade_modal';
 import CoteacherInvitation from '../coteacher_invitation';
@@ -39,7 +30,14 @@ describe('ActiveClassrooms component', () => {
   describe('with no classrooms or coteacher invitations ', () => {
 
     const wrapper = mount(
-      <ActiveClassrooms classrooms={[]} coteacherInvitations={[]} user={userProps} />
+      <ActiveClassrooms
+        canvasLink=''
+        classrooms={[]}
+        cleverLink=''
+        coteacherInvitations={[]}
+        googleLink=''
+        user={userProps}
+      />
     );
 
     it('should render with no classrooms', () => {
@@ -50,15 +48,18 @@ describe('ActiveClassrooms component', () => {
       expect(wrapper.find('.no-active-classes').exists()).toBe(true);
     })
 
-    // it('should render the no classrooms to import modal', () => {
-    //   wrapper.find('button').filterWhere(node => node.text() === 'Import from Canvas').simulate('click');
-    //   expect(wrapper.find(ImportProviderClassroomsModal).exists()).toBe(true)
-    // })
   })
 
   describe('with classrooms', () => {
     const wrapper = mount(
-      <ActiveClassrooms classrooms={classroomProps} coteacherInvitations={coteacherInvitations} user={userProps} />
+      <ActiveClassrooms
+        canvasLink=''
+        classrooms={classroomProps}
+        cleverLink=''
+        coteacherInvitations={coteacherInvitations}
+        googleLink=''
+        user={userProps}
+      />
     );
 
     wrapper.find('img.expand-arrow').at(0).simulate('click')
@@ -95,29 +96,51 @@ describe('ActiveClassrooms component', () => {
       expect(wrapper.find(ArchiveClassModal).exists()).toBe(true)
     })
 
-    // it('should render the import classrooms modal if showModal equals importProviderClassroomsModal', () => {
-    //   wrapper.find('button').filterWhere(node => node.text() === 'Import from Canvas').simulate('click');
-    //   expect(wrapper.find(ImportProviderClassroomsModal).exists()).toBe(true)
-    // })
-
-    // it('should render the import classroom students modal if showModal equals importProviderClassroomStudentsModal', () => {
-    //   wrapper.instance().setState({ showModal: importProviderClassroomStudentsModal, })
-    //   expect(wrapper.find(ImportProviderClassroomStudentsModal).exists()).toBe(true)
-    // })
-
     it('should render the LinkProviderAccountModal if user clicks Import from [Provider] and does not have account', () => {
       wrapper.find('button').filterWhere(node => node.text() === 'Import from Canvas').simulate('click');
       expect(wrapper.find(LinkProviderAccountModal).exists()).toBe(true)
     })
-
-    // it('should render the reauthorize clever modal if showModal equals reauthorizeProviderModal', () => {
-    //   wrapper.instance().setState({ showModal: reauthorizeProviderModal, })
-    //   expect(wrapper.find(ReauthorizeProviderModal).exists()).toBe(true)
-    // })
-
-    // it('should render the invite students modal if showModal equals inviteStudentsModal', () => {
-    //   wrapper.find('button').filterWhere(node => node.text() === 'Invite students').simulate('click');
-    //   expect(wrapper.find(InviteStudentsModal).exists()).toBe(true)
-    // })
   })
+
+
+  // it('should render the import classroom students modal if showModal equals importProviderClassroomStudentsModal', () => {
+  //   wrapper.instance().setState({ showModal: importProviderClassroomStudentsModal, })
+  //   expect(wrapper.find(ImportProviderClassroomStudentsModal).exists()).toBe(true)
+  // })
+
+  // it('should render the reauthorize clever modal if showModal equals reauthorizeProviderModal', () => {
+  //   wrapper.instance().setState({ showModal: reauthorizeProviderModal, })
+  //   expect(wrapper.find(ReauthorizeProviderModal).exists()).toBe(true)
+  // })
+
+  // it('should render the invite students modal if showModal equals inviteStudentsModal', () => {
+  //   wrapper.find('button').filterWhere(node => node.text() === 'Invite students').simulate('click');
+  //   expect(wrapper.find(InviteStudentsModal).exists()).toBe(true)
+  // })
+
+  // it('should render the no classrooms to import modal', () => {
+  //   wrapper.find('button').filterWhere(node => node.text() === 'Import from Canvas').simulate('click');
+  //   expect(wrapper.find(ImportProviderClassroomsModal).exists()).toBe(true)
+  // })
+
+  describe('with classrooms and user is google provider', () => {
+    const wrapper = mount(
+      <ActiveClassrooms
+        canvasLink=''
+        classrooms={classroomProps}
+        cleverLink=''
+        coteacherInvitations={coteacherInvitations}
+        googleLink=''
+        user={googleUserProps}
+      />
+    );
+
+    wrapper.find('img.expand-arrow').at(0).simulate('click')
+
+    it('should render the import classrooms modal', () => {
+      wrapper.find('button').filterWhere(node => node.text() === 'Import from Google').simulate('click');
+      expect(wrapper.find(ImportProviderClassroomsModal).exists()).toBe(true)
+    })
+  })
+
 });
