@@ -44,11 +44,8 @@ const ImportProviderClassroomsModal = ({classrooms: initialClassrooms, close, on
   const [classrooms, setClassrooms] = useState(initialClassrooms);
   const [timesSubmitted, setTimesSubmitted] = useState(0);
   const [waiting, setWaiting] = useState(false);
+  const providerConfig = providerConfigLookup[provider]
 
-  const providerTitle = providerConfigLookup[provider].title
-  const providerClassName = providerConfigLookup[provider].className
-  const importClassroomsPath = `/${providerClassName}_integration/teachers/import_classrooms`
-  const importClassroomsEventName = `${providerClassName}-classroom-students-imported`
   const gradeOptions = GradeOptions
 
   const footerButtonClass = () => {
@@ -87,6 +84,8 @@ const ImportProviderClassroomsModal = ({classrooms: initialClassrooms, close, on
   }
 
   const handleClickImportClasses = () => {
+    pusherInitializer(user.id, providerConfig.importClassroomsEventName, () => onSuccess('Classes imported'))
+
     const classroomsCheckedWithNoGrade = classrooms.filter(classroom => classroom.checked && !classroom.grade)
 
     if (classroomsCheckedWithNoGrade.length) {
@@ -103,10 +102,10 @@ const ImportProviderClassroomsModal = ({classrooms: initialClassrooms, close, on
     }
 
     setWaiting(true)
+
     const selectedClassrooms = classrooms.filter(classroom => classroom.checked)
 
-    pusherInitializer(user.id, importClassroomsEventName, () => onSuccess('Classes imported'))
-    requestPost(importClassroomsPath, { selected_classrooms: selectedClassrooms })
+    requestPost(providerConfig.importClassroomsPath, { selected_classrooms: selectedClassrooms })
   }
 
   const handleGradeChange = (rowId: string, grade: HTMLInputElement) => {
@@ -195,7 +194,7 @@ const ImportProviderClassroomsModal = ({classrooms: initialClassrooms, close, on
       <div className="import-provider-classrooms-modal quill-modal">
 
         <div className="import-provider-classrooms-modal-header">
-          <h3 className="title">Import classes from {providerTitle}</h3>
+          <h3 className="title">Import classes from {providerConfig.title}</h3>
         </div>
 
         <div className="import-provider-classrooms-modal-body modal-body">

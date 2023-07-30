@@ -199,8 +199,8 @@ const ActiveClassrooms = ({
   const retrieveProviderClassrooms = () => {
     if (!provider) { return }
 
-    setProviderClassroomsLoading(true)
     pusherInitializer(user.id, providerConfig.retrieveClassroomsEventName, retrieveProviderClassrooms)
+    setProviderClassroomsLoading(true)
 
     requestGet(providerConfig.retrieveClassroomsPath, (body) => {
       if (body.reauthorization_required) {
@@ -362,7 +362,6 @@ const ActiveClassrooms = ({
       )
     }
   }
-
 
   const renderChangeGradeModal = () => {
     const selectedClassroom = classrooms.find(c => c.id === selectedClassroomId)

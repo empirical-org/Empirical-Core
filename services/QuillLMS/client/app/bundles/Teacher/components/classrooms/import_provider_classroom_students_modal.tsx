@@ -23,9 +23,8 @@ const ImportProviderClassroomStudentsModal = ({ close, classroom, onSuccess, pro
   const [waiting, setWaiting] = React.useState(false);
 
   const handleImportStudents = () => {
-    setWaiting(true)
-
     pusherInitializer(user.id, providerConfig.importStudentsEventName, () => onSuccess('Class re-synced'))
+    setWaiting(true)
     requestPut(providerConfig.importStudentsPath, { classroom_id: classroom.id })
   }
 

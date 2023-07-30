@@ -4,25 +4,28 @@ export const googleProvider = 'Google';
 
 export const providerConfigLookup = {
   [canvasProvider]: {
-    className: 'canvas',
-    importStudentsPath: '/canvas_integration/teachers/import_students',
+    importClassroomsEventName: `canvas-classroom-students-imported`,
+    importClassroomsPath: `/canvas_integration/teachers/import_classrooms`,
     importStudentsEventName: `canvas-classroom-students-imported`,
+    importStudentsPath: '/canvas_integration/teachers/import_students',
     isCanvas: true,
-    retrieveClassroomsPath: '/canvas_integration/teachers/retrieve_classrooms',
     retrieveClassroomsEventName: `canvas-classrooms-retrieved`,
+    retrieveClassroomsPath: '/canvas_integration/teachers/retrieve_classrooms',
     title: 'Canvas',
   },
   [cleverProvider]: {
-    className: 'clever',
-    importStudentsPath: '/clever_integration/teachers/import_students',
+    importClassroomsEventName: `clever-classroom-students-imported`,
+    importClassroomsPath: `/clever_integration/teachers/import_classrooms`,
     importStudentsEventName: `clever-classroom-students-imported`,
+    importStudentsPath: '/clever_integration/teachers/import_students',
     isClever: true,
-    retrieveClassroomsPath: '/clever_integration/teachers/retrieve_classrooms',
     retrieveClassroomsEventName: `clever-classrooms-retrieved`,
+    retrieveClassroomsPath: '/clever_integration/teachers/retrieve_classrooms',
     title: 'Clever',
   },
   [googleProvider]: {
-    className: 'google',
+    importClassroomsEventName: `google-classroom-students-imported`,
+    importClassroomsPath: `/google_integration/teachers/import_classrooms`,
     importStudentsPath: '/google_integration/teachers/import_students',
     importStudentsEventName: `google-classroom-students-imported`,
     isGoogle: true,
@@ -31,4 +34,3 @@ export const providerConfigLookup = {
     title: 'Google Classroom',
   }
 }
-
