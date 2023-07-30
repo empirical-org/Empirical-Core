@@ -8,9 +8,8 @@ describe('NoClassroomsToImportModal component', () => {
 
   const wrapper = shallow(
     <NoClassroomsToImportModal
-      classroomProvider='clever'
       close={close}
-      provider='clever'
+      provider='Clever'
     />
   );
 
