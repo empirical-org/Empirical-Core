@@ -9,13 +9,12 @@ const pusherInitializer = (id: number, channelEvent: string, callback?: () => vo
 
   channel.bind(channelEvent, () => {
     if (callback && typeof(callback) === 'function') { callback() }
+    debugger
 
     pusher.unsubscribe(channelName)
   })
 
-  return () => {
-    pusher.unsubscribe(channelName)
-  }
+  return null
 }
 
 export default pusherInitializer
