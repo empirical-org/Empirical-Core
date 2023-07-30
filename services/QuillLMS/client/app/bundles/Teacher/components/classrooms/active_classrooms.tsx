@@ -4,7 +4,7 @@ import { SortableHandle, } from 'react-sortable-hoc'
 
 import pusherInitializer from '../../../../modules/pusherInitializer'
 import useSnackbarMonitor from '../../../Shared/hooks/useSnackbarMonitor'
-import { canvasProvider, cleverProvider, googleProvider, providerLookup } from './providerHelpers'
+import { canvasProvider, cleverProvider, googleProvider, providerConfigLookup } from './providerHelpers'
 import ArchiveClassModal from './archive_classroom_modal'
 import ChangeGradeModal from './change_grade_modal'
 import Classroom from './classroom'
@@ -64,10 +64,7 @@ const ActiveClassrooms = ({
   user,
 }: ActiveClassroomsProps) => {
   const { provider } = user
-
-  const isCanvasUser = provider === canvasProvider;
-  const isCleverUser = provider === cleverProvider;
-  const isGoogleUser = provider === googleProvider;
+  const providerConfig = providerConfigLookup[provider]
 
   const reauthorizeLink = {
     [canvasProvider]: canvasLink,
@@ -96,12 +93,6 @@ const ActiveClassrooms = ({
 
   useEffect(() => {
     setStateBasedOnParams()
-  }, [])
-
-  useEffect(() => {
-    if (!provider) { return }
-
-    retrieveProviderClassrooms()
   }, [])
 
   useEffect(() => {
@@ -152,7 +143,7 @@ const ActiveClassrooms = ({
   }
 
   const importFromCanvas = () => {
-    if (isCanvasUser) {
+    if (providerConfig.isCanvas) {
       setPendingImportFromProviderRequest(true)
       retrieveProviderClassrooms()
     } else {
@@ -161,7 +152,7 @@ const ActiveClassrooms = ({
   }
 
   const importFromClever = () => {
-    if (isCleverUser) {
+    if (providerConfig.isClever) {
       setPendingImportFromProviderRequest(true)
       retrieveProviderClassrooms()
     } else {
@@ -170,7 +161,7 @@ const ActiveClassrooms = ({
   }
 
   const importFromGoogle = () => {
-    if (isGoogleUser) {
+    if (providerConfig.isGoogle) {
       setPendingImportFromProviderRequest(true)
       retrieveProviderClassrooms()
     } else {
@@ -185,7 +176,7 @@ const ActiveClassrooms = ({
   }
 
   const importProviderClassroomStudents = () => {
-    requestGet(retrieveClassroomsPath, (body) => {
+    requestGet(providerConfig.retrieveClassroomsPath, (body) => {
       if (body.reauthorization_required) {
         openModal(reauthorizeProviderModal)
       } else {
@@ -206,14 +197,12 @@ const ActiveClassrooms = ({
   }
 
   const retrieveProviderClassrooms = () => {
-    const providerClassName= providerLookup[provider].className
-    const retrieveClassroomsPath = `/${providerClassName}_integration/teachers/retrieve_classrooms`
-    const retrieveClassroomsEventName = `${providerClassName}-classrooms-retrieved`
+    if (!provider) { return }
 
     setProviderClassroomsLoading(true)
-    pusherInitializer(user.id, retrieveClassroomsEventName, retrieveProviderClassrooms)
+    pusherInitializer(user.id, providerConfig.retrieveClassroomsEventName, retrieveProviderClassrooms)
 
-    requestGet(retrieveClassroomsPath, (body) => {
+    requestGet(providerConfig.retrieveClassroomsPath, (body) => {
       if (body.reauthorization_required) {
         openModal(reauthorizeProviderModal)
         return
@@ -420,7 +409,7 @@ const ActiveClassrooms = ({
   const renderImportFromProviderButton = (theProvider: string) => {
     if (provider && provider != theProvider) { return null }
 
-    const theProviderTitle = providerLookup[theProvider].title
+    const theProviderTitle = providerConfigLookup[theProvider].title
 
     let buttonContent = <React.Fragment>Import from {theProviderTitle}</React.Fragment>
     let buttonClassName = "interactive-wrapper import-from-provider-button"

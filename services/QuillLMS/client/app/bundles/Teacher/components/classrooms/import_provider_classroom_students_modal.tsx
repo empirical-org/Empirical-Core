@@ -3,7 +3,7 @@ import * as React from 'react';
 import { requestPut } from '../../../../modules/request/index';
 import pusherInitializer from '../../../../modules/pusherInitializer'
 import ButtonLoadingIndicator from '../shared/button_loading_indicator';
-import { providerLookup } from './providerHelpers'
+import { providerConfigLookup } from './providerHelpers'
 
 const smallWhiteCheckSrc = `${process.env.CDN_URL}/images/shared/check-small-white.svg`
 
@@ -16,10 +16,8 @@ interface ImportProviderClassroomStudentsModalProps {
 }
 
 const ImportProviderClassroomStudentsModal = ({ close, classroom, onSuccess, provider, user }: ImportProviderClassroomStudentsModalProps) => {
-  const providerTitle = providerLookup[provider].title
-  const providerClassName = providerLookup[provider].className
-  const importStudentsPath = `/${providerClassName}_integration/teachers/import_students`
-  const importStudentsEventName = `${providerClassName}-classroom-students-imported`
+
+  const providerConfig = providerConfigLookup[provider]
 
   const [termsAccepted, setTermsAccepted] = React.useState(false);
   const [waiting, setWaiting] = React.useState(false);
@@ -27,8 +25,8 @@ const ImportProviderClassroomStudentsModal = ({ close, classroom, onSuccess, pro
   const handleImportStudents = () => {
     setWaiting(true)
 
-    pusherInitializer(user.id, importStudentsEventName, () => onSuccess('Class re-synced'))
-    requestPut(importStudentsPath, { classroom_id: classroom.id })
+    pusherInitializer(user.id, providerConfig.importStudentsEventName, () => onSuccess('Class re-synced'))
+    requestPut(providerConfig.importStudentsPath, { classroom_id: classroom.id })
   }
 
   const handleToggleCheckbox = () => {
@@ -89,7 +87,7 @@ const ImportProviderClassroomStudentsModal = ({ close, classroom, onSuccess, pro
       <div className="modal-background" />
       <div className="import-provider-classroom-students-modal quill-modal modal-body">
         <div>
-          <h3 className="title">Import students from {providerTitle}</h3>
+          <h3 className="title">Import students from {providerConfig.title}</h3>
         </div>
         <p>You are about to import students from the class {classroom.name}.</p>
         {renderCheckboxes()}

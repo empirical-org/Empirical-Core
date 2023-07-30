@@ -5,7 +5,7 @@ import { useEffect, useState } from 'react'
 import ClassroomCard from './classroom_card'
 import CreateAClassInlineForm from './create_a_class_inline_form'
 
-import { canvasProvider, cleverProvider, googleProvider, providerLookup } from '../../../classrooms/providerHelpers'
+import { canvasProvider, cleverProvider, googleProvider, providerConfigLookup } from '../../../classrooms/providerHelpers'
 import { requestGet } from '../../../../../../modules/request/index'
 import { Snackbar, defaultSnackbarTimeout } from '../../../../../Shared/index'
 import useSnackbarMonitor from '../../../../../Shared/hooks/useSnackbarMonitor'
@@ -45,10 +45,7 @@ const AssignStudents = ({
   user
 }) => {
   const { provider } = user
-
-  const isCanvasUser = provider === canvasProvider;
-  const isCleverUser = provider === cleverProvider;
-  const isGoogleUser = provider === googleProvider;
+  const providerConfig = providerConfigLookup[provider]
 
   const reauthorizeLink = {
     [canvasProvider]: canvasLink,
@@ -93,7 +90,7 @@ const AssignStudents = ({
   }
 
   const importFromCanvas = () => {
-    if (isCanvasUser) {
+    if (providerConfig.isCanvas) {
       setPendingImportFromProviderRequest(true)
       retrieveProviderClassrooms()
     } else {
@@ -102,7 +99,7 @@ const AssignStudents = ({
   }
 
   const importFromClever = () => {
-    if (isCleverUser) {
+    if (providerConfig.isClever) {
       setPendingImportFromProviderRequest(true)
       retrieveProviderClassrooms()
     } else {
@@ -111,7 +108,7 @@ const AssignStudents = ({
   }
 
   const importFromGoogle = () => {
-    if (isGoogleUser) {
+    if (providerConfig.isGoogle) {
       setPendingImportFromProviderRequest(true)
       retrieveProviderClassrooms()
     } else {
@@ -137,14 +134,10 @@ const AssignStudents = ({
   }
 
   const retrieveProviderClassrooms = () => {
-    const providerClassName = providerLookup[provider].className
-    const retrieveClassroomsPath = `/${providerClassName}_integration/teachers/retrieve_classrooms`
-    const retrieveClassroomsEventName = `${providerClassName}-classrooms-retrieved`
-
     setProviderClassroomsLoading(true)
-    pusherInitializer(user.id, retrieveClassroomsEventName, retrieveProviderClassrooms)
+    pusherInitializer(user.id, providerConfig.retrieveClassroomsEventName, retrieveProviderClassrooms)
 
-    requestGet(retrieveClassroomsPath, (body) => {
+    requestGet(providerConfig.retrieveClassroomsPath, (body) => {
       if (body.reauthorization_required) {
         openModal(reauthorizeProviderModal)
         return
@@ -260,7 +253,7 @@ const AssignStudents = ({
   const renderImportFromProviderButton = (theProvider: string) => {
     if (provider && provider != theProvider) { return null }
 
-    const theProviderTitle = providerLookup[theProvider].title
+    const theProviderTitle = providerConfigLookup[theProvider].title
 
     let buttonContent = <React.Fragment>Import from {theProviderTitle}</React.Fragment>
     let buttonClassName = "interactive-wrapper import-from-provider-button"

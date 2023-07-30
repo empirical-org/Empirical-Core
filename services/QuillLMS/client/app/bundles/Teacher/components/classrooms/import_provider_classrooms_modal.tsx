@@ -5,7 +5,7 @@ import { useState } from 'react';
 import pusherInitializer from '../../../../modules/pusherInitializer';
 import GradeOptions from './grade_options';
 
-import { providerLookup } from './providerHelpers'
+import { providerConfigLookup } from './providerHelpers'
 
 import { requestPost } from '../../../../modules/request/index';
 import { DataTable, DropdownInput } from '../../../Shared/index';
@@ -45,8 +45,8 @@ const ImportProviderClassroomsModal = ({classrooms: initialClassrooms, close, on
   const [timesSubmitted, setTimesSubmitted] = useState(0);
   const [waiting, setWaiting] = useState(false);
 
-  const providerTitle = providerLookup[provider].title
-  const providerClassName = providerLookup[provider].className
+  const providerTitle = providerConfigLookup[provider].title
+  const providerClassName = providerConfigLookup[provider].className
   const importClassroomsPath = `/${providerClassName}_integration/teachers/import_classrooms`
   const importClassroomsEventName = `${providerClassName}-classroom-students-imported`
   const gradeOptions = GradeOptions

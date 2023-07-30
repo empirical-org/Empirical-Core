@@ -1,7 +1,7 @@
 import * as React from 'react';
 const emptyClassSrc = `${process.env.CDN_URL}/images/illustrations/empty-class.svg`
 
-import { providerLookup } from './providerHelpers'
+import { providerConfigLookup } from './providerHelpers'
 
 interface NoClassroomsToImportModalProps {
   close: () => void;
@@ -9,7 +9,7 @@ interface NoClassroomsToImportModalProps {
 }
 
 const NoClassroomsToImportModal = ({ close, provider }: NoClassroomsToImportModalProps) => {
-  const providerTitle = providerLookup[provider].title
+  const providerTitle = providerConfigLookup[provider].title
 
   return (
     <div className='modal-container provider-classrooms-empty-modal-container'>
