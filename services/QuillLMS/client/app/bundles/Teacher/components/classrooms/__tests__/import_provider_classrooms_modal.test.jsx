@@ -3,7 +3,7 @@ import { mount } from 'enzyme';
 
 import { googleClassrooms } from './test_data/test_data'
 
-import ImportProviderClassroomsModal from '../import_google_classrooms_modal'
+import ImportProviderClassroomsModal from '../import_provider_classrooms_modal'
 import { DataTable } from '../../../../Shared/index'
 
 describe('ImportProviderClassroomsModal component', () => {
@@ -39,13 +39,13 @@ describe('ImportProviderClassroomsModal component', () => {
       />
     );
 
-    const checkedGoogleClassrooms = [...googleClassrooms]
-    checkedGoogleClassrooms[0].checked = true
-    wrapper.setState({ classrooms: checkedGoogleClassrooms, })
-
     it('should set a classroom that is checked but has no grade to have an error', () => {
-      wrapper.instance().handleClickImportClasses()
-      expect(wrapper.state().classrooms[0].error).toBe("Select a grade for your class")
+      wrapper.find('.quill-checkbox').at(0).simulate('click');
+      wrapper.find('button').filterWhere(n => n.text() === 'Import classes').simulate('click');
+
+      const errorSpan = wrapper.find('span.error-text').at(0);
+      expect(errorSpan.exists()).toBe(true);
+      expect(errorSpan.text()).toBe('Select a grade for your class');
       expect(wrapper).toMatchSnapshot();
     })
   })
