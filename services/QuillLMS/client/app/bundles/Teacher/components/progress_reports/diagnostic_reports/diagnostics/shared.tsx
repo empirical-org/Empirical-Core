@@ -25,7 +25,7 @@ export function goToAssign(unitTemplateId, name, activityId) {
 }
 
 export function sumProficiencyScores(proficiencyScoresByStudent: { [name: string]: { pre: number, post: number } }, type: string) {
-  return Object.values(proficiencyScoresByStudent).reduce((total, student_score) => total += student_score[type], 0)
+  return proficiencyScoresByStudent && Object.values(proficiencyScoresByStudent).reduce((total, student_score) => total += student_score[type], 0)
 }
 
 export function calculateClassGrowthPercentage({ skillGroupSummaries, completedStudentCount, setClasswideGrowthAverage }) {
