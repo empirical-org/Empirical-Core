@@ -6117,20 +6117,15 @@ exports[`ActiveClassrooms component with classrooms should render with classroom
                                   Students
                                 </h3>
                                 <div
-                                  className="invite-provider-classroom-students"
+                                  className="invite-quill-classroom-students"
                                 >
                                   <button
                                     className="quill-button primary outlined small"
                                     onClick={[Function]}
                                     type="button"
                                   >
-                                    Import 
-                                     students
+                                    Invite students
                                   </button>
-                                  <span>
-                                    Last imported 
-                                    Invalid date
-                                  </span>
                                 </div>
                               </div>
                               <div
