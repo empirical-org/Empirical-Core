@@ -287,6 +287,9 @@
       margin-bottom: 71px;
     }
   }
+  .school-container {
+    margin-bottom: 40px;
+  }
   .school-container, .inactive-password-container {
     display: flex;
     align-items: center;
@@ -306,6 +309,9 @@
       display: flex;
       margin-bottom: 5px;
     }
+    .school-name {
+      font-size: 16px;
+    }
     .not-a-password input {
       max-width: 300px;
       width: 100%;
@@ -319,6 +325,9 @@
       cursor: pointer;
       background-color: transparent;
       border: none;
+    }
+    .change-school {
+      margin-top: 27px;
     }
   }
   .school-search-container {
