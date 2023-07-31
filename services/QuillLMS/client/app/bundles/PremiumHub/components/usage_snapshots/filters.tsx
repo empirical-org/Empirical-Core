@@ -52,7 +52,7 @@ const Filters = ({ allTimeframes, allSchools, allGrades, allTeachers, allClassro
             tooltipText="This report is updated nightly."
             tooltipTriggerText={<img alt={helpIcon.alt} src={helpIcon.src} />}
           />
-          </label>
+        </label>
         <DropdownInput
           handleChange={handleSetSelectedTimeframe}
           helperText={timeframeHelperText}
