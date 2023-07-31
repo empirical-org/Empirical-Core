@@ -17,5 +17,4 @@ describe('ReauthorizeProviderModal component', () => {
   it('should render ReauthorizeProviderModal', () => {
     expect(wrapper).toMatchSnapshot()
   })
-
 })

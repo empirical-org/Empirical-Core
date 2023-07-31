@@ -90,7 +90,7 @@ const AssignStudents = ({
   }
 
   const importFromCanvas = () => {
-    if (providerConfig.isCanvas) {
+    if (providerConfig?.isCanvas) {
       setPendingImportFromProviderRequest(true)
       retrieveProviderClassrooms()
     } else {
@@ -99,7 +99,7 @@ const AssignStudents = ({
   }
 
   const importFromClever = () => {
-    if (providerConfig.isClever) {
+    if (providerConfig?.isClever) {
       setPendingImportFromProviderRequest(true)
       retrieveProviderClassrooms()
     } else {
@@ -108,7 +108,7 @@ const AssignStudents = ({
   }
 
   const importFromGoogle = () => {
-    if (providerConfig.isGoogle) {
+    if (providerConfig?.isGoogle) {
       setPendingImportFromProviderRequest(true)
       retrieveProviderClassrooms()
     } else {

@@ -126,5 +126,4 @@ describe('ActiveClassrooms component', () => {
   //   wrapper.find('button').filterWhere(node => node.text() === 'Import from Canvas').simulate('click');
   //   expect(wrapper.find(ImportProviderClassroomsModal).exists()).toBe(true)
   // })
-
 });

@@ -8,7 +8,7 @@ exports[`ReauthorizeProviderModal component should render ReauthorizeProviderMod
     className="modal-background"
   />
   <div
-    className="reauthorize-google-modal quill-modal modal-body"
+    className="reauthorize-provider-modal quill-modal modal-body"
   >
     <div>
       <h3
@@ -39,13 +39,10 @@ exports[`ReauthorizeProviderModal component should render ReauthorizeProviderMod
       >
         Cancel
       </button>
-      <button
-        className="quill-button focus-on-light contained primary medium"
-        onClick={[Function]}
-        type="button"
-      >
-        Reauthorize
-      </button>
+      <AuthGoogleAccessForm
+        buttonClass="quill-button focus-on-light contained primary medium"
+        text="Reauthorize"
+      />
     </div>
   </div>
 </div>
