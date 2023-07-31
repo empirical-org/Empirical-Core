@@ -131,7 +131,7 @@ gem 'webpacker', '~> 3.0.0'
 # ASSET/UI
 gem 'uglifier', require: false
 gem 'kaminari', '~> 1.2.1'
-gem 'sprockets-rails'
+gem 'sprockets-rails', '~> 3.2.2'
 
 # MIDDLEWARE
 gem 'rack-cache', '~> 1.6.1', require: 'rack/cache'

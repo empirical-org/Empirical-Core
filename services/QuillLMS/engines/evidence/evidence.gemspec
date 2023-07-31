@@ -25,7 +25,7 @@ Gem::Specification.new do |s|
   s.add_dependency 'hotwater', '0.1.2'
   s.add_dependency 'pragmatic_segmenter', '~> 0.3.23'
   s.add_dependency 'rails', '7.0.6'
-  s.add_dependency 'sprockets-rails'
+  s.add_dependency 'sprockets-rails', '3.2.2'
 
   # Note, there is a version 3 of this gem, but we'd need to update our google-api-client
   # google-cloud-translate-v3
