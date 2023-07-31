@@ -572,11 +572,11 @@ const ClassroomStudentSection = ({
   }
 
   const renderInviteStudents = () => {
-    const { classroomProvider } = classroom
-
     if (!classroom.visible) { return null }
 
-    if (importProviderClassroomStudents) {
+    const { classroomProvider } = classroom
+
+    if (classroomProvider) {
       const lastUpdatedDate = moment(classroom.updated_at).format('MMM D, YYYY')
       return (
         <div className="invite-provider-classroom-students">
