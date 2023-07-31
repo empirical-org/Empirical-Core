@@ -56,6 +56,8 @@ module EmpiricalGrammar
     # Aug 21, 2018 Max Buck]
     config.active_record.schema_format = :sql
 
+    config.active_record.legacy_connection_handling = false
+
     config.action_controller.always_permitted_parameters = %w(controller action format)
 
     # http://stackoverflow.com/questions/14647731/rails-converts-empty-arrays-into-nils-in-params-of-the-request
