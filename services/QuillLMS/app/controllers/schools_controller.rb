@@ -92,7 +92,7 @@ class SchoolsController < ApplicationController
 
   def select_school
     respond_to do |format|
-      format.html # select_school.html.erb
+      format.html
       format.json {
         @js_file = 'session'
         #if the school does not specifically have a name, we send the type (e.g. not listed, international, etc..)
