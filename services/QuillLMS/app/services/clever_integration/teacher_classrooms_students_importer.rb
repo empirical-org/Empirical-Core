@@ -10,7 +10,7 @@ module CleverIntegration
     end
 
     def run
-      import_classroom_students
+      import_classrooms_students
     end
 
     private def classrooms
@@ -23,11 +23,12 @@ module CleverIntegration
       @client ||= ClientFetcher.run(teacher)
     end
 
-    private def import_classroom_students
-      classrooms.each do |classroom|
-        students_data = client.get_classroom_students(classroom.clever_id)
-        ClassroomStudentsImporter.run(classroom, students_data, teacher.id)
-      end
+    private def classrooms_students_data
+      classrooms.map { |classroom| ClassroomStudentsData.new(classroom, client) }
+    end
+
+    private def import_classrooms_students
+      classrooms_students_data.each { |classroom_students_data| ClassroomStudentsImporter.run(classroom_students_data) }
     end
   end
 end

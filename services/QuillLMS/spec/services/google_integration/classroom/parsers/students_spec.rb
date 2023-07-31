@@ -2,42 +2,56 @@
 
 require 'rails_helper'
 
-describe 'GoogleIntegration::Classroom::Parsers::Students' do
+describe GoogleIntegration::Classroom::Parsers::Students do
+  subject { described_class.run(students) }
 
-  def subject(response)
-    GoogleIntegration::Classroom::Parsers::Students.run(response)
+  context 'nil students' do
+    let(:students) { nil }
+
+    it { expect(subject).to eq [] }
   end
 
-  let!(:body) {
+  context 'empty students' do
+    let(:students) { [] }
 
-    x = {
-             "profile":
-                {"id":"107708392406225674265",
-                 "name":
-                  {"givenName":"test1_s1",
-                   "familyName":"s1",
-                   "fullName":"test1_s1 s1"
-                  },
-                  "emailAddress":"test1_s1@gedu.demo.rockerz.xyz"
-                }
+    it { expect(subject).to eq [] }
+  end
+
+  context 'one student' do
+    let(:email_address) { 'test1_s1@gedu.demo.rockerz.xyz' }
+    let(:id) { '107708392406225674265' }
+    let(:given_name) { 'test1_s1' }
+    let(:family_name) { 's1' }
+    let(:full_name) { 'test1_s1 s1' }
+
+    let(:student) do
+      {
+        profile: {
+          emailAddress: email_address,
+          id: id,
+          name: {
+            givenName: given_name,
+            familyName: family_name,
+            fullName: full_name
+          }
         }
+      }
+    end
 
+    let(:students) { [student].as_json }
 
-    x = JSON.parse(x.to_json)
-  }
+    let(:expected_result) {
+      [
+        {
+          email: email_address,
+          first_name: given_name,
+          last_name: family_name,
+          name: full_name,
+          user_external_id: id
+        }
+      ]
+    }
 
-  let!(:response) {
-    response = Struct.new(:body)
-    response.new(body)
-  }
-
-  let!(:expected_result) {
-    [
-      {name: 'test1_s1 s1', last_name: 's1', first_name: "test1_s1", email: 'test1_s1@gedu.demo.rockerz.xyz', google_id: '107708392406225674265'}
-    ]
-  }
-
-  it 'works' do
-    expect(subject(response)).to eq(expected_result)
+    it { is_expected.to eq expected_result }
   end
 end

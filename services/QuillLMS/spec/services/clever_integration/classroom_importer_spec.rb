@@ -8,7 +8,7 @@ RSpec.describe CleverIntegration::ClassroomImporter do
 
   let(:data) do
     {
-      clever_id: clever_id,
+      classroom_external_id: classroom_external_id,
       name: name,
       grade: '1',
       teacher_id: teacher.id
@@ -17,17 +17,17 @@ RSpec.describe CleverIntegration::ClassroomImporter do
 
   subject { described_class.run(data) }
 
-  context 'classroom exists with clever_id' do
-    let(:clever_id) { '123_abc' }
+  context 'classroom exists with classroom_external_id' do
+    let(:classroom_external_id) { '123_abc' }
     let(:synced_name) { "original #{name}"}
 
-    let!(:classroom) { create(:classroom, synced_name: synced_name, clever_id: clever_id) }
+    let!(:classroom) { create(:classroom, synced_name: synced_name, clever_id: classroom_external_id) }
 
     it { expect { subject }.to(change { classroom.reload.synced_name }.from(synced_name).to(name)) }
   end
 
-  context 'classroom does not exist with clever_id' do
-    let(:clever_id) { 'non_existent_id' }
+  context 'classroom does not exist with classroom_external_id' do
+    let(:classroom_external_id) { 'non_existent_id' }
 
     it { expect { subject }.to change(Classroom, :count).from(0).to(1) }
     it { expect { subject }.to change(ClassroomsTeacher, :count).from(0).to(1) }
