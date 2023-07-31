@@ -1,4 +1,5 @@
 import * as React from 'react';
+import AuthGoogleAccessForm from '../accounts/AuthGoogleAccessForm';
 
 interface ReauthorizeProviderModalProps {
   close: () => void;
@@ -8,15 +9,15 @@ interface ReauthorizeProviderModalProps {
 
 const ReauthorizeModal = ({ close, link, provider }: ReauthorizeProviderModalProps) => {
   function handleReauthorizeClick() {
-    window.location.href = link
+    if (provider !== 'Google') { window.location.href = link; }
   }
 
   return (
-    <div className="modal-container reauthorize-provider-modal-container">
-      <div className="modal-background" />
-      <div className="reauthorize-google-modal quill-modal modal-body">
+    <div className='modal-container reauthorize-provider-modal-container'>
+      <div className='modal-background' />
+      <div className='reauthorize-provider-modal quill-modal modal-body'>
         <div>
-          <h3 className="title">
+          <h3 className='title'>
             Reauthorize {provider}
           </h3>
         </div>
@@ -25,13 +26,23 @@ const ReauthorizeModal = ({ close, link, provider }: ReauthorizeProviderModalPro
           <br />
           Clicking reauthorize will re-direct you to {provider}.
         </p>
-        <div className="form-buttons">
-          <button className="quill-button focus-on-light outlined secondary medium" onClick={close} type="button">
+        <div className='form-buttons'>
+          <button className='quill-button focus-on-light outlined secondary medium' onClick={close} type='button'>
             Cancel
           </button>
-          <button className='quill-button focus-on-light contained primary medium' onClick={handleReauthorizeClick} type="button">
-            Reauthorize
-          </button>
+          {provider === 'Google' ?
+            <AuthGoogleAccessForm
+              buttonClass='quill-button focus-on-light contained primary medium'
+              text='Reauthorize'
+            />
+            :
+            <button
+              className='quill-button focus-on-light contained primary medium'
+              onClick={handleReauthorizeClick}
+              type='button'
+            >
+              Reauthorize
+            </button>}
         </div>
       </div>
     </div>
