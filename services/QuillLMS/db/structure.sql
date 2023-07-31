@@ -8851,13 +8851,6 @@ CREATE UNIQUE INDEX index_unit_activities_on_unit_id_and_activity_id ON public.u
 
 
 --
--- Name: index_unit_templates_on_activity_info; Type: INDEX; Schema: public; Owner: -
---
-
-CREATE INDEX index_unit_templates_on_activity_info ON public.unit_templates USING btree (activity_info);
-
-
---
 -- Name: index_unit_templates_on_author_id; Type: INDEX; Schema: public; Owner: -
 --
 
@@ -10347,6 +10340,5 @@ INSERT INTO "schema_migrations" (version) VALUES
 ('20230630184901'),
 ('20230706155155'),
 ('20230710144829'),
-('20230725175024');
-
-
+('20230725175024'),
+('20230728183700');

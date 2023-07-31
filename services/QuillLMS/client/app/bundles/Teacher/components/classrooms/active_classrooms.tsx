@@ -176,6 +176,8 @@ const ActiveClassrooms = ({
   }
 
   const importProviderClassroomStudents = () => {
+    if (!provider) { return }
+
     requestGet(providerConfig.retrieveClassroomsPath, (body) => {
       if (body.reauthorization_required) {
         openModal(reauthorizeProviderModal)
