@@ -305,9 +305,9 @@ const UsageSnapshotsContainer = ({ adminInfo, accessType, }) => {
     customEndDate,
   }
 
-  // if (accessType !== FULL) {
-  //   return restrictedPage
-  // }
+  if (accessType !== FULL) {
+    return restrictedPage
+  }
 
   return (
     <div className="usage-snapshots-container white-background">
