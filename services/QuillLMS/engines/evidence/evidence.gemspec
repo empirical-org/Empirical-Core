@@ -29,7 +29,7 @@ Gem::Specification.new do |s|
 
   # Note, there is a version 3 of this gem, but we'd need to update our google-api-client
   # google-cloud-translate-v3
-  s.add_dependency 'google-cloud-translate'
+  s.add_dependency 'google-cloud-translate', '2.1.1'
 
   # Gems needed for the test environment
   s.add_development_dependency 'factory_bot_rails'
