@@ -46,8 +46,6 @@ const ImportProviderClassroomsModal = ({classrooms: initialClassrooms, close, on
   const [waiting, setWaiting] = useState(false);
   const providerConfig = providerConfigLookup[provider]
 
-  pusherInitializer(user.id, providerConfig.importClassroomsEventName, () => onSuccess('Classes imported'))
-
   const gradeOptions = GradeOptions
 
   const footerButtonClass = () => {
@@ -86,6 +84,7 @@ const ImportProviderClassroomsModal = ({classrooms: initialClassrooms, close, on
   }
 
   const handleClickImportClasses = () => {
+    pusherInitializer(user.id, providerConfig.importClassroomsEventName, () => onSuccess('Classes imported'))
 
     const classroomsCheckedWithNoGrade = classrooms.filter(classroom => classroom.checked && !classroom.grade)
 
