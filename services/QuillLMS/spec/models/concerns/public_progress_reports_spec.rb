@@ -3,10 +3,10 @@
 require 'rails_helper'
 
 describe PublicProgressReports, type: :model do
-
   before do
     class FakeReports
       attr_accessor :session
+      attr_reader :current_user
 
       include PublicProgressReports
     end
@@ -160,12 +160,14 @@ describe PublicProgressReports, type: :model do
 
     context "no students have completed the activity" do
       describe "it is a diagnostic activity" do
+        let(:instance) { FakeReports.new }
         let!(:diagnostic) { create(:diagnostic) }
         let!(:diagnostic_activity) { create(:diagnostic_activity) }
         let!(:unit_activity) { create(:unit_activity, activity: diagnostic_activity, unit: unit)}
 
+        before { allow(instance).to receive(:current_user).and_return(teacher) }
+
         it "should return an array of classrooms that have been assigned the activity" do
-          instance = FakeReports.new
           instance.session = { user_id: teacher.id }
           classrooms = instance.classrooms_with_students_for_report(unit.id, diagnostic_activity.id)
 
@@ -178,8 +180,6 @@ describe PublicProgressReports, type: :model do
 
           expect(classrooms[c1_index][:classroom_unit_id]).to eq(classroom_unit1.id)
           expect(classrooms[c2_index][:classroom_unit_id]).to eq(classroom_unit2.id)
-
-
         end
       end
     end
@@ -349,5 +349,62 @@ describe PublicProgressReports, type: :model do
         eq(Set[student1.id, student2.id, student3.id])
       )
     end
+  end
+
+  describe '#get_key_target_skill_concept_for_question' do
+    let!(:default ) {
+      {
+        name: 'Conventions of Language',
+        correct: true
+      }
+    }
+
+    it 'should return a default key target skill concept if the first concept result has no extra metadata' do
+      concept_result =  create(:concept_result)
+
+      expect(FakeReports.new.get_key_target_skill_concept_for_question([concept_result])).to eq(default)
+    end
+
+    it 'should return a default key target skill concept if the first concept result does not have a question_concept_uid' do
+      concept_result =  create(:concept_result, extra_metadata: { question_uid: 'blah' })
+
+      expect(FakeReports.new.get_key_target_skill_concept_for_question([concept_result])).to eq(default)
+    end
+
+    it 'should return a default key target skill concept if the first concept result has a question_concept_uid that is not in the database' do
+      concept_result =  create(:concept_result, extra_metadata: { question_concept_uid: 'blah' })
+
+      expect(FakeReports.new.get_key_target_skill_concept_for_question([concept_result])).to eq(default)
+    end
+
+    it 'should return a key target skill concept with the parent of the question\'s concept that is correct if the student reached an optimal response' do
+      concept =  create(:concept_with_grandparent)
+      incorrect_concept_result =  create(:concept_result, correct: false, concept_id: concept.id, question_score: 1, extra_metadata: { question_concept_uid: concept.uid })
+      correct_concept_result =  create(:concept_result, correct: true, concept_id: concept.id, question_score: 1, extra_metadata: { question_concept_uid: concept.uid })
+
+      expected = {
+        id: concept.parent.id,
+        uid: concept.parent.uid,
+        correct: true,
+        name: concept.parent.name
+      }
+
+      expect(FakeReports.new.get_key_target_skill_concept_for_question([incorrect_concept_result, correct_concept_result])).to eq(expected)
+    end
+
+    it 'should return a key target skill concept with the parent of the question\'s concept that is incorrect if the student did not reach an optimal response' do
+      concept =  create(:concept_with_grandparent)
+      incorrect_concept_result =  create(:concept_result, correct: false, concept_id: concept.id, extra_metadata: { question_concept_uid: concept.uid })
+
+      expected = {
+        id: concept.parent.id,
+        uid: concept.parent.uid,
+        correct: false,
+        name: concept.parent.name
+      }
+
+      expect(FakeReports.new.get_key_target_skill_concept_for_question([incorrect_concept_result])).to eq(expected)
+    end
+
   end
 end

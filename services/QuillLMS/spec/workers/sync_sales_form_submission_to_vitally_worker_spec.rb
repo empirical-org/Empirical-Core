@@ -9,7 +9,7 @@ describe SyncSalesFormSubmissionToVitallyWorker do
   let!(:stub_api) { double }
 
   before do
-    allow(VitallyRestApi).to receive(:new).and_return(stub_api)
+    allow(VitallyIntegration::RestApi).to receive(:new).and_return(stub_api)
     allow(stub_api).to receive(:update)
 
     subject.sales_form_submission=(sales_form_submission)
@@ -43,7 +43,13 @@ describe SyncSalesFormSubmissionToVitallyWorker do
       district = create(:district)
       sales_form_submission.update(collection_type: SalesFormSubmission::DISTRICT_COLLECTION_TYPE, district_name: district.name)
 
-      expect(stub_api).to receive(:create_unless_exists).with(SalesFormSubmission::VITALLY_DISTRICTS_TYPE, district.id, SerializeVitallySalesOrganization.new(district).data)
+      expect(stub_api)
+        .to receive(:create_unless_exists)
+        .with(
+          SalesFormSubmission::VITALLY_DISTRICTS_TYPE,
+          district.id,
+          VitallyIntegration::SerializeVitallySalesOrganization.new(district).data
+        )
 
       subject.create_school_or_district_if_none_exist
     end

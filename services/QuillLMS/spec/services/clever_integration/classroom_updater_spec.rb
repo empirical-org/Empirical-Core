@@ -3,14 +3,14 @@
 require 'rails_helper'
 
 RSpec.describe CleverIntegration::ClassroomUpdater do
-  let(:clever_id) { '123456' }
+  let(:classroom_external_id) { '123456' }
   let(:grade) { 'Kindergarten' }
   let(:data_grade) { '1' }
   let(:teacher) { create(:teacher) }
 
   let!(:classroom) do
     create(:classroom,
-      clever_id: clever_id,
+      clever_id: classroom_external_id,
       grade: grade,
       name: name,
       synced_name: synced_name
@@ -19,7 +19,7 @@ RSpec.describe CleverIntegration::ClassroomUpdater do
 
   let(:data) do
     {
-      clever_id: clever_id,
+      classroom_external_id: classroom_external_id,
       grade: data_grade,
       name: data_name,
       teacher_id: teacher.id
@@ -38,7 +38,6 @@ RSpec.describe CleverIntegration::ClassroomUpdater do
       it { expect(subject.name).to eq name }
       it { expect(subject.synced_name).to eq synced_name }
       it { expect(subject.grade).to_not eq grade }
-
     end
 
     context 'name on Clever changed' do

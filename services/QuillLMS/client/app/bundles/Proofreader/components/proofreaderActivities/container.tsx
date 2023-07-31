@@ -362,6 +362,7 @@ export class PlayProofreaderContainer extends React.Component<PlayProofreaderCon
                     prompt,
                     questionNumber: necessaryEditIndex + 1,
                     unchanged: false,
+                    question_concept_uid: conceptUID
                   },
                   concept_uid: conceptUID,
                   question_type: "passage-proofreader"
@@ -376,6 +377,7 @@ export class PlayProofreaderContainer extends React.Component<PlayProofreaderCon
                     prompt,
                     questionNumber: necessaryEditIndex + 1,
                     unchanged: stringNormalizedCurrentText === stringNormalizedOriginalText,
+                    question_concept_uid: conceptUID
                   },
                   concept_uid: conceptUID,
                   question_type: "passage-proofreader"

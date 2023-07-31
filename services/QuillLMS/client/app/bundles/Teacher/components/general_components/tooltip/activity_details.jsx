@@ -6,28 +6,27 @@ export const ActivityDetails = ({ data }) => {
   if (!Object.keys(data).length) { return <span /> }
 
   function getClassName() {
-    const { concept_results, } = data
-    if (concept_results && concept_results.length) {
+    const { sessions, } = data
+    if (sessions && sessions.length) {
       return 'activity-details'
     }
     return 'activity-details no-concept-results'
   }
 
   function detailOrNot() {
-    const { concept_results, started_at, updated, scores, activity_description, dueDate, publishDate, scheduled, unitActivityCreatedAt, } = data
+    const { sessions, started_at, updated, activity_description, dueDate, publishDate, scheduled, unitActivityCreatedAt, } = data
     let dateTitle, dateBody, completedTitle, completedBody
 
-    if (!concept_results || !concept_results.length) {
+    if (!sessions || !sessions.length) {
       if (started_at) {
         dateTitle = 'Started'
         dateBody = started_at
       }
     } else {
-      const scoresExist = scores && scores.length
-      const firstCr = concept_results[0]
+      const scoresExist = sessions && sessions.length
 
       if (scoresExist) {
-        const completedAt = scores[0].completed_at
+        const completedAt = sessions[0].completed_at
 
         if (completedAt) {
           completedTitle = 'Completed'

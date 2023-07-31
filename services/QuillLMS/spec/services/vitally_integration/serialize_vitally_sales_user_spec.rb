@@ -2,7 +2,7 @@
 
 require 'rails_helper'
 
-describe 'SerializeVitallySalesUser' do
+describe VitallyIntegration::SerializeVitallySalesUser do
   before { Timecop.freeze }
 
   after { Timecop.return }
@@ -41,11 +41,11 @@ describe 'SerializeVitallySalesUser' do
       completed_evidence_activities_per_student: 0.5,
     }
     year = School.school_year_start(1.year.ago).year
-    CacheVitallyTeacherData.set(teacher.id, year, previous_year_data.to_json)
+    VitallyIntegration::CacheVitallyTeacherData.set(teacher.id, year, previous_year_data.to_json)
   end
 
   it 'includes the accountId and userId in the data' do
-    teacher_data = SerializeVitallySalesUser.new(teacher).data
+    teacher_data = described_class.new(teacher).data
 
     expect(teacher_data).to include(accountId: teacher.school.id.to_s)
     expect(teacher_data).to include(userId: teacher.id.to_s)
@@ -61,12 +61,12 @@ describe 'SerializeVitallySalesUser' do
     )
     ip_location = create(:ip_location, user: teacher)
 
-    teacher_data = SerializeVitallySalesUser.new(teacher).data
+    teacher_data = described_class.new(teacher).data
 
     expect(teacher_data[:traits]).to include(
       email: 'teach@teaching.edu',
       flagset: 'production',
-      name: 'Pops Mcgee',
+      name: 'Pops McGee',
       school: 'Kool Skool',
       account_uid: school.id.to_s,
       signed_up: teacher.created_at.to_i,
@@ -103,7 +103,7 @@ describe 'SerializeVitallySalesUser' do
     end
 
     it 'presents admin data' do
-      user_data = SerializeVitallySalesUser.new(admin).data
+      user_data = described_class.new(admin).data
 
       expect(user_data[:traits]).to include(
         role: admin.role,
@@ -119,7 +119,7 @@ describe 'SerializeVitallySalesUser' do
   it 'presents sales stage timestamps' do
     notifier = double('notifier', perform_async: nil)
     UpdateSalesContact.new(teacher.id, '1', nil, notifier).call
-    teacher_data = SerializeVitallySalesUser.new(teacher).data
+    teacher_data = described_class.new(teacher).data
 
     expect(teacher_data[:traits][:basic_subscription])
       .to be_within(1.second).of(current_time)
@@ -127,7 +127,7 @@ describe 'SerializeVitallySalesUser' do
 
   it 'does not present account data if not available' do
     CreateSalesContact.new(teacher.id).call
-    account_data = SerializeVitallySalesUser.new(teacher).account_data
+    account_data = described_class.new(teacher).account_data
 
     expect(account_data).to be nil
   end
@@ -135,7 +135,7 @@ describe 'SerializeVitallySalesUser' do
   it 'presents account data if available' do
     notifier = double('notifier', perform_async: nil)
     UpdateSalesContact.new(teacher.id, '1', nil, notifier).call
-    account_data = SerializeVitallySalesUser.new(teacher).account_data
+    account_data = described_class.new(teacher).account_data
 
     expect(account_data).to include(accountId: school.id.to_s,
       type: 'account'
@@ -147,7 +147,7 @@ describe 'SerializeVitallySalesUser' do
   it 'presents admin status' do
     create(:schools_admins, school: school, user: teacher)
 
-    teacher_data = SerializeVitallySalesUser.new(teacher).data
+    teacher_data = described_class.new(teacher).data
 
     expect(teacher_data[:traits]).to include(admin: true)
   end
@@ -156,7 +156,7 @@ describe 'SerializeVitallySalesUser' do
     subscription = create(:subscription, account_type: 'SUPER DUPER SUB')
     create(:user_subscription, subscription: subscription, user: teacher)
 
-    teacher_data = SerializeVitallySalesUser.new(teacher).data
+    teacher_data = described_class.new(teacher).data
 
     expect(teacher_data[:traits]).to include(
       premium_status: 'SUPER DUPER SUB',
@@ -174,7 +174,7 @@ describe 'SerializeVitallySalesUser' do
     create(:user_subscription, subscription: subscription, user: teacher)
     create(:user_subscription, subscription: next_subscription, user: teacher)
 
-    teacher_data = SerializeVitallySalesUser.new(teacher).data
+    teacher_data = described_class.new(teacher).data
 
     expect(teacher_data[:traits]).to include(
       premium_status: 'SUPER DUPER SUB',
@@ -186,7 +186,7 @@ describe 'SerializeVitallySalesUser' do
     subscription = create(:subscription, account_type: 'SUPER DUPER SUB', expiration: Date.yesterday)
     create(:user_subscription, subscription: subscription, user: teacher)
 
-    teacher_data = SerializeVitallySalesUser.new(teacher).data
+    teacher_data = described_class.new(teacher).data
 
     expect(teacher_data[:traits]).to include(
       premium_status: 'NA',
@@ -204,7 +204,7 @@ describe 'SerializeVitallySalesUser' do
     create(:students_classrooms, student: student, classroom: classroom)
     create(:students_classrooms, student: old_student, classroom: old_classroom)
 
-    teacher_data = SerializeVitallySalesUser.new(teacher).data
+    teacher_data = described_class.new(teacher).data
 
     expect(teacher_data[:traits]).to include(
       total_students: 2,
@@ -222,7 +222,7 @@ describe 'SerializeVitallySalesUser' do
     create(:students_classrooms, student: student, classroom: classroom)
     create(:students_classrooms, student: old_student, classroom: old_classroom)
 
-    teacher_data = SerializeVitallySalesUser.new(teacher).data
+    teacher_data = described_class.new(teacher).data
 
     expect(teacher_data[:traits]).to include(
       activities_assigned: 3,
@@ -255,7 +255,7 @@ describe 'SerializeVitallySalesUser' do
       user: student,
       state: 'started'
     )
-    teacher_data = SerializeVitallySalesUser.new(teacher).data
+    teacher_data = described_class.new(teacher).data
 
     expect(teacher_data[:traits]).to include(
       completed_activities: 2,
@@ -293,7 +293,7 @@ describe 'SerializeVitallySalesUser' do
       completed_at: current_time - 1.year
     )
 
-    teacher_data = SerializeVitallySalesUser.new(teacher).data
+    teacher_data = described_class.new(teacher).data
 
     expect(teacher_data[:traits]).to include(
       diagnostics_assigned: 3,
@@ -340,7 +340,7 @@ describe 'SerializeVitallySalesUser' do
       completed_at: middle_of_school_year - 1.year
     )
 
-    teacher_data = SerializeVitallySalesUser.new(teacher).data
+    teacher_data = described_class.new(teacher).data
 
     expect(teacher_data[:traits]).to include(
       evidence_activities_assigned_this_year: 2,
@@ -351,7 +351,7 @@ describe 'SerializeVitallySalesUser' do
   end
 
   it 'presents school lunch data' do
-    teacher_data = SerializeVitallySalesUser.new(teacher).data
+    teacher_data = described_class.new(teacher).data
 
     expect(teacher_data[:traits]).to include(frl: 50)
   end
@@ -359,7 +359,7 @@ describe 'SerializeVitallySalesUser' do
   it 'presents teacher link' do
     expect(teacher.school).not_to be_nil
 
-    teacher_data = SerializeVitallySalesUser.new(teacher).data
+    teacher_data = described_class.new(teacher).data
 
     expect(teacher_data[:traits]).to include(
       teacher_link: "https://www.quill.org/cms/users/#{teacher.id}/sign_in"
@@ -367,7 +367,7 @@ describe 'SerializeVitallySalesUser' do
   end
 
   it 'presents previous year data' do
-    teacher_data = SerializeVitallySalesUser.new(teacher).data
+    teacher_data = described_class.new(teacher).data
     expect(teacher_data[:traits]).to include(
       total_students_last_year: 3,
       active_students_last_year: 2,
@@ -388,7 +388,7 @@ describe 'SerializeVitallySalesUser' do
     let(:teacher) { create(:teacher, :with_classrooms_students_and_activities) }
     let(:classroom_unit) { [teacher.classroom_units[0]] }
     let(:records) { classroom_unit + [nil] }
-    let(:vitally_user) { SerializeVitallySalesUser.new(teacher) }
+    let(:vitally_user) { described_class.new(teacher) }
 
     it 'handles nil record #sum_students' do
       expect(vitally_user.send(:sum_students, records)).to eq 3
@@ -396,7 +396,7 @@ describe 'SerializeVitallySalesUser' do
   end
 
   context 'learnworlds' do
-    subject { SerializeVitallySalesUser.new(teacher).data[:traits] }
+    subject { described_class.new(teacher).data[:traits] }
 
     before { create(:learn_worlds_account, user: teacher) }
 

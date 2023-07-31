@@ -120,7 +120,7 @@ module PublicProgressReports
       unit_id: unit_id
     )
     activity = Activity.find_by_id_or_uid(activity_id)
-    classification_key = activity.classification.key
+    classification = activity.classification
     unit_activity = UnitActivity.find_by(unit_id: unit_id, activity: activity)
     state = ClassroomUnitActivityState.find_by(
       unit_activity: unit_activity,
@@ -157,7 +157,7 @@ module PublicProgressReports
 
       finished_session = final_sessions_by_user[student.id]&.first
       if finished_session.present?
-        score_obj = formatted_score_obj(finished_session, classification_key, student, average_scores[student.id])
+        score_obj = formatted_score_obj(finished_session, classification, student, average_scores[student.id])
         scores[:students].push(score_obj)
         next
       end
@@ -177,20 +177,22 @@ module PublicProgressReports
     :not_completed_names
   end
 
-  def formatted_score_obj(final_activity_session, classification_key, student, average_score_on_quill)
+  def formatted_score_obj(final_activity_session, classification, student, average_score_on_quill)
     formatted_concept_results = format_concept_results(final_activity_session, final_activity_session.concept_results)
-    if [ActivityClassification::LESSONS_KEY, ActivityClassification::DIAGNOSTIC_KEY].include?(classification_key)
+    if [ActivityClassification::LESSONS_KEY, ActivityClassification::DIAGNOSTIC_KEY].include?(classification.key)
       score = get_average_score(formatted_concept_results)
-    elsif [ActivityClassification::EVIDENCE_KEY].include?(classification_key)
+    elsif [ActivityClassification::EVIDENCE_KEY].include?(classification.key)
       score = nil
     else
       score = (final_activity_session.percentage * 100).round
     end
     {
-      activity_classification: classification_key,
+      activity_classification: classification.key,
+      activity_classification_name: classification.name,
       id: student.id,
       name: student.name,
       time: final_activity_session.timespent,
+      number_of_correct_questions: formatted_concept_results.filter { |q| q[:key_target_skill_concept][:correct] }.length,
       number_of_questions: formatted_concept_results.length,
       concept_results: formatted_concept_results,
       score: score,
@@ -209,6 +211,7 @@ module PublicProgressReports
   # rubocop:disable Metrics/CyclomaticComplexity
   def format_concept_results(activity_session, concept_results)
     concept_results.group_by{|cr| cr.question_number}.map { |key, cr|
+
       # if we don't sort them, we can't rely on the first result being the first attemptNum
       # however, it would be more efficient to make them a hash with attempt numbers as keys
       cr.sort!{|x,y| (x.attempt_number || 0) <=> (y.attempt_number || 0)}
@@ -219,6 +222,7 @@ module PublicProgressReports
         prompt: prompt_text,
         answer: cr.first.answer,
         score: get_score_for_question(cr),
+        key_target_skill_concept: get_key_target_skill_concept_for_question(cr),
         concepts: cr.map { |crs|
           attempt_number = crs.attempt_number
           direct = crs.concept_result_directions&.text || crs.concept_result_instructions&.text || ""
@@ -249,6 +253,29 @@ module PublicProgressReports
     else
       concept_results.inject(0) {|sum, crs| sum + (crs.correct ? 1 : 0)} / concept_results.length * 100
     end
+  end
+
+  def get_key_target_skill_concept_for_question(concept_results)
+    default = {
+      name: 'Conventions of Language',
+      correct: get_score_for_question(concept_results) > 0
+    }
+
+    return default unless concept_results.first.extra_metadata
+
+    question_concept_uid = concept_results.first.extra_metadata['question_concept_uid']
+    question_concept = Concept.find_by_uid(question_concept_uid)
+
+    return default unless question_concept
+
+    key_target_skill_concept = question_concept.parent
+
+    {
+      id: key_target_skill_concept.id,
+      uid: key_target_skill_concept.uid,
+      name: key_target_skill_concept.name,
+      correct: get_score_for_question(concept_results) > 0
+    }
   end
 
   def get_average_score(formatted_results)

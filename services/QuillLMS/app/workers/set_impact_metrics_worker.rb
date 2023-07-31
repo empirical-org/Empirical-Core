@@ -3,34 +3,40 @@
 class SetImpactMetricsWorker
   include Sidekiq::Worker
 
-  ACTIVITY_SESSION_MINIMUM = 9
   FREE_LUNCH_MINIMUM = 39
+  SENTENCES_PER_ACTIVITY_SESSION = 10
 
   def perform
     set_impact_metrics
   end
 
   def set_impact_metrics
-    finished_activity_sessions_query = ActivitySession.unscoped.where(state: 'finished')
-    teachers_query = User.select(:id)
-      .joins(:units, classroom_units: :activity_sessions)
-      .where("activity_sessions.state = 'finished'")
-      .group('users.id')
-      .having('count(activity_sessions) > ?', ACTIVITY_SESSION_MINIMUM)
-    teacher_ids = teachers_query.to_a.map(&:id)
-    schools_query = School.joins(:schools_users).where(schools_users: {user_id: teacher_ids}).distinct
-    low_income_schools_query = schools_query.where("free_lunches > ?", FREE_LUNCH_MINIMUM)
+    finished_activity_sessions_count = ImpactMetrics::ActivitiesAllTimeQuery.run[0]["count"]
+    active_students_count = ImpactMetrics::ActiveStudentsAllTimeQuery.run[0]["count"]
 
-    number_of_sentences = finished_activity_sessions_query.count.floor(-5) * 10
+    teachers = ImpactMetrics::ActiveTeachersAllTimeQuery.run
+    teacher_ids = teachers.to_a.map {|teacher| teacher["id"]}
+
+    schools = ImpactMetrics::SchoolsContainingCertainTeachersQuery.run(teacher_ids)
+    low_income_schools = schools.select { |school| (school["free_lunches"] || 0) > FREE_LUNCH_MINIMUM}
+
+    number_of_sentences = self.class.round_to_ten_thousands(finished_activity_sessions_count) * SENTENCES_PER_ACTIVITY_SESSION
     $redis.set(PagesController::NUMBER_OF_SENTENCES, number_of_sentences)
-    number_of_students = finished_activity_sessions_query.count("DISTINCT(user_id)").floor(-5)
+    number_of_students = self.class.round_to_ten_thousands(active_students_count)
     $redis.set(PagesController::NUMBER_OF_STUDENTS, number_of_students)
-    number_of_teachers = teacher_ids.size.floor(-2)
+    number_of_teachers = self.class.round_to_hundreds(teacher_ids.size)
     $redis.set(PagesController::NUMBER_OF_TEACHERS, number_of_teachers)
-    number_of_schools = schools_query.count
+    number_of_schools = schools.length
     $redis.set(PagesController::NUMBER_OF_SCHOOLS, number_of_schools)
-    number_of_low_income_schools = low_income_schools_query.count
+    number_of_low_income_schools = low_income_schools.length
     $redis.set(PagesController::NUMBER_OF_LOW_INCOME_SCHOOLS, number_of_low_income_schools)
   end
 
+  def self.round_to_ten_thousands(number)
+    number.floor(-5)
+  end
+
+  def self.round_to_hundreds(number)
+    number.floor(-2)
+  end
 end

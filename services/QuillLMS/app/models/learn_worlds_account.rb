@@ -25,6 +25,8 @@ class LearnWorldsAccount < ApplicationRecord
 
   validates :external_id, presence: true, uniqueness: true
 
+  has_many :learn_worlds_account_course_events, dependent: :destroy
+
   has_many :learn_worlds_account_enrolled_course_events,
     -> { enrolled },
     class_name: 'LearnWorldsAccountCourseEvent',

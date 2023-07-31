@@ -2,19 +2,19 @@
 
 module Snapshots
   class CacheKeys
-    def self.generate_key(query, previous_start, current_start, current_end, school_ids, additional_filters: {})
-      root_key(query, previous_start, current_start, current_end, school_ids)
+    def self.generate_key(query, timeframe_name, current_start, current_end, school_ids, additional_filters: {})
+      root_key(query, timeframe_name, current_start, current_end, school_ids)
         .append(grades_segment(additional_filters[:grades]))
         .append(teacher_ids_segment(additional_filters[:teacher_ids]))
         .append(classroom_ids_segment(additional_filters[:classroom_ids]))
         .compact
     end
 
-    def self.root_key(query, previous_start, current_start, current_end, school_ids)
+    def self.root_key(query, timeframe_name, current_start, current_end, school_ids)
       [
         "admin-snapshot",
         query,
-        previous_start,
+        timeframe_name,
         current_start,
         current_end,
         "school-ids-#{(school_ids || []).sort.join('-')}"

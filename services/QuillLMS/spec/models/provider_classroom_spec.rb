@@ -1,73 +1,31 @@
 # frozen_string_literal: true
 
+# == Schema Information
+#
+# Table name: provider_classrooms
+#
+#  id                 :bigint           not null, primary key
+#  type               :string           not null
+#  created_at         :datetime         not null
+#  updated_at         :datetime         not null
+#  canvas_instance_id :bigint
+#  classroom_id       :bigint           not null
+#  external_id        :string           not null
+#
+# Indexes
+#
+#  index_provider_classrooms_on_canvas_instance_id  (canvas_instance_id)
+#  index_provider_classrooms_on_classroom_id        (classroom_id)
+#
+# Foreign Keys
+#
+#  fk_rails_...  (canvas_instance_id => canvas_instances.id)
+#  fk_rails_...  (classroom_id => classrooms.id)
+#
 require 'rails_helper'
 
-RSpec.describe ProviderClassroom do
-  subject { described_class.new(classroom) }
+RSpec.describe ProviderClassroom, type: :model do
+  it { should belong_to(:classroom) }
 
-  context 'google classroom' do
-    let(:classroom) { create(:classroom, :from_google, students: [student1, student2, student3]) }
-    let(:student1) { create(:student, :signed_up_with_google) }
-    let(:student2) { create(:student, :signed_up_with_google) }
-    let(:student3) { create(:student) }
-
-    let!(:synced_student) do
-      create(:google_classroom_user,
-        :active,
-        provider_classroom_id: classroom.google_classroom_id,
-        provider_user_id: student1.google_id
-      )
-    end
-
-    let!(:unsynced_student) do
-      create(:google_classroom_user,
-        :deleted,
-        provider_classroom_id: classroom.google_classroom_id,
-        provider_user_id: student2.google_id
-      )
-    end
-
-    describe '#unsynced_students' do
-      it { expect(subject.unsynced_students).to match_array [student2] }
-    end
-
-    describe '#synced_status' do
-      it { expect(subject.synced_status(student1.attributes)).to eq true }
-      it { expect(subject.synced_status(student2.attributes)).to eq false }
-      it { expect(subject.synced_status(student3.attributes)).to eq nil }
-    end
-  end
-
-  context 'clever classroom' do
-    let(:classroom) { create(:classroom, :from_clever, students: [student1, student2, student3]) }
-    let(:student1) { create(:student, :signed_up_with_clever) }
-    let(:student2) { create(:student, :signed_up_with_clever) }
-    let(:student3) { create(:student) }
-
-    let!(:unsynced_student) do
-      create(:clever_classroom_user,
-        :deleted,
-        provider_classroom_id: classroom.clever_id,
-        provider_user_id: student1.clever_id
-      )
-    end
-
-    let!(:synced_student) do
-      create(:clever_classroom_user,
-        :active,
-        provider_classroom_id: classroom.clever_id,
-        provider_user_id: student2.clever_id
-      )
-    end
-
-    describe '#unsynced_students' do
-      it { expect(subject.unsynced_students).to match_array [student1] }
-    end
-
-    describe '#synced_status' do
-      it { expect(subject.synced_status(student1.attributes)).to eq false }
-      it { expect(subject.synced_status(student2.attributes)).to eq true }
-      it { expect(subject.synced_status(student3.attributes)).to eq nil }
-    end
-  end
+  it { should validate_inclusion_of(:type).in_array(described_class::TYPES) }
 end

@@ -56,5 +56,9 @@ FactoryBot.define do
       name { 'Dismiss Teacher Info Modal' }
     end
 
+    factory :dismiss_unassign_warning_modal do
+      name { 'Dismiss Unassign Warning Modal' }
+    end
+
   end
 end

@@ -28,6 +28,7 @@ export {
   DataTable,
   ProgressBar,
   DropdownInput,
+  DropdownInputWithSearchTokens,
   Error,
   ExpandableCard,
   FlagDropdown,

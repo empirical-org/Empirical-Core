@@ -35,7 +35,7 @@ describe QuillBigQuery::Runner do
       let(:no_rows_bigquery_response) { bigquery_response.merge({ 'totalRows' => "0" }) }
 
       it 'should return early' do
-        allow(QuillBigQuery::Transformer).to receive(:new).exactly(0).times
+        allow(QuillBigQuery::PostTransformer).to receive(:new).exactly(0).times
         QuillBigQuery::Runner.transform_response(no_rows_bigquery_response)
       end
     end

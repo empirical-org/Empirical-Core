@@ -93,10 +93,6 @@ describe UnitActivity, type: :model, redis: true do
   end
 
   describe 'gives a checkbox when the teacher' do
-    before do
-      classroom.update(teacher_id: teacher.id)
-    end
-
     it 'assigns a unit activity through a custom activity pack' do
       obj = Objective.create(name: 'Build Your Own Activity Pack')
       new_unit = Unit.create(name: 'There is no way a featured activity pack would have this name', user: teacher)

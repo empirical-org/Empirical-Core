@@ -4,7 +4,7 @@ import * as Pusher from 'pusher-js';
 
 import { Grade, School, Timeframe, } from './shared'
 
-import { requestGet, } from './../../../../modules/request'
+import { requestPost, } from './../../../../modules/request'
 import { ButtonLoadingSpinner, } from '../../../Shared/index'
 import { unorderedArraysAreEqual, } from '../../../../modules/unorderedArraysAreEqual'
 
@@ -17,11 +17,12 @@ interface SnapshotRankingProps {
   searchCount: number;
   selectedGrades: Array<string>;
   selectedSchoolIds: Array<number>;
+  selectedTeacherIds: Array<number>;
+  selectedClassroomIds: Array<number>;
   selectedTimeframe: string;
   adminId: number;
   customTimeframeStart?: any;
   customTimeframeEnd?: any;
-  comingSoon?: boolean;
 }
 
 const RankingModal = ({ label, closeModal, headers, data, }) => {
@@ -69,14 +70,12 @@ const DataTable = ({ headers, data, numberOfRows, }) => {
   )
 }
 
-const SnapshotRanking = ({ label, queryKey, headers, comingSoon, searchCount, selectedGrades, selectedSchoolIds, selectedTimeframe, customTimeframeStart, customTimeframeEnd, adminId, passedData, }: SnapshotRankingProps) => {
+const SnapshotRanking = ({ label, queryKey, headers, searchCount, selectedGrades, selectedSchoolIds, selectedTeacherIds, selectedClassroomIds, selectedTimeframe, customTimeframeStart, customTimeframeEnd, adminId, passedData, }: SnapshotRankingProps) => {
   const [data, setData] = React.useState(null)
   const [loading, setLoading] = React.useState(false)
   const [showModal, setShowModal] = React.useState(false)
 
   React.useEffect(() => {
-    if (comingSoon) { return }
-
     resetToDefault()
 
     getData()
@@ -95,12 +94,12 @@ const SnapshotRanking = ({ label, queryKey, headers, comingSoon, searchCount, se
       timeframe_custom_start: customTimeframeStart,
       timeframe_custom_end: customTimeframeEnd,
       school_ids: selectedSchoolIds,
+      teacher_ids: selectedTeacherIds,
+      classroom_ids: selectedClassroomIds,
       grades: selectedGrades
     }
 
-    const requestUrl = queryString.stringifyUrl({ url: '/snapshots/top_x', query: searchParams }, { arrayFormat: 'bracket' })
-
-    requestGet(`${requestUrl}`, (body) => {
+    requestPost(`/snapshots/top_x`, searchParams, (body) => {
       if (!body.hasOwnProperty('results')) {
         setLoading(true)
       } else {
@@ -122,9 +121,11 @@ const SnapshotRanking = ({ label, queryKey, headers, comingSoon, searchCount, se
       const queryKeysAreEqual = message.query === queryKey
       const timeframesAreEqual = message.timeframe === selectedTimeframe
       const schoolIdsAreEqual = unorderedArraysAreEqual(message.school_ids, selectedSchoolIds.map(id => String(id)))
+      const teacherIdsAreEqual = unorderedArraysAreEqual(message.teacher_ids, selectedTeacherIds.map(id => String(id)))
+      const classroomIdsAreEqual = unorderedArraysAreEqual(message.classroom_ids, selectedClassroomIds.map(id => String(id)))
       const gradesAreEqual =  unorderedArraysAreEqual(message.grades, selectedGrades.map(grade => String(grade))) || (!message.grades && !selectedGrades.length)
 
-      if (queryKeysAreEqual && timeframesAreEqual && schoolIdsAreEqual && gradesAreEqual) {
+      if (queryKeysAreEqual && timeframesAreEqual && schoolIdsAreEqual && gradesAreEqual && teacherIdsAreEqual && classroomIdsAreEqual) {
         getData()
       }
     });
@@ -154,7 +155,7 @@ const SnapshotRanking = ({ label, queryKey, headers, comingSoon, searchCount, se
       )}
       <div onClick={openModal}>
         <div className="header">
-          {comingSoon ? <h3 className="coming-soon">{label} (coming soon)</h3> : <h3>{label}</h3>}
+          <h3>{label}</h3>
           {loading && <div className="loading-spinner-wrapper"><ButtonLoadingSpinner /></div>}
           {data && <button aria-label="Open modal with additional seven lines of table data" className="interactive-wrapper focus-on-light" onClick={openModal} type="button">{expandImg}</button>}
         </div>

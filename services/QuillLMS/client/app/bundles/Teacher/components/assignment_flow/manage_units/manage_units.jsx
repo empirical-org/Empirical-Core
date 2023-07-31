@@ -96,15 +96,15 @@ export default class ManageUnits extends React.Component {
   };
 
   getUnitsForCurrentClassAndOpenState = () => {
-    const { open, } = this.props
     const { selectedClassroomId, classrooms, allUnits, } = this.state
     if (selectedClassroomId && selectedClassroomId !== allClassroomKey) {
       // TODO: Refactor this. It is ridiculous that we need to find a classroom and match on name. Instead, the units should just have a list of classroom_ids that we can match on.
       const selectedClassroom = classrooms.find(c => c.id === Number(selectedClassroomId));
-      const unitsInCurrentClassroom = allUnits.filter(unit => unit.classrooms.find(c => c.name === selectedClassroom.name) && unit.open === open);
+      const unitsInCurrentClassroom = allUnits.filter(unit => unit.classrooms.find(c => c.name === selectedClassroom.name));
       this.setState({ units: unitsInCurrentClassroom, loaded: true, });
     } else {
-      this.setState(prevState => ({ units: prevState.allUnits.filter(unit => unit.open === open), loaded: true, }));
+      this.setState(prevState => ({ units: prevState.allUnits, loaded: true, }));
+
     }
   };
 
@@ -197,10 +197,12 @@ export default class ManageUnits extends React.Component {
   };
 
   stateBasedComponent = () => {
-    const { actions, open, } = this.props
-    const { units, selectedClassroomId, classrooms, } = this.state
+    const { open, } = this.props
+    const { units, selectedClassroomId } = this.state
 
-    if (!units.length && open) {
+    const displayableUnits = units.filter(unit => unit.open === open)
+
+    if (!displayableUnits.length && open) {
       return (
         <div className="my-activities-empty-state container">
           <img alt="Clipboard with notes written on it" src={clipboardSrc} />
@@ -210,7 +212,7 @@ export default class ManageUnits extends React.Component {
       )
     }
 
-    if (!units.length && !open) {
+    if (!displayableUnits.length && !open) {
       return (
         <div className="my-activities-empty-state container">
           <img alt="Clipboard with notes written on it" src={clipboardSrc} />
@@ -220,7 +222,7 @@ export default class ManageUnits extends React.Component {
       )
     }
 
-    const activityPacks = units.map(unit => (
+    const activityPacks = displayableUnits.map(unit => (
       <ActivityPack
         data={unit}
         getUnits={this.getUnits}

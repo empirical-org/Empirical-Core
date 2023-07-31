@@ -1,5 +1,7 @@
 import _ from 'underscore';
 
+const LESSONS_CONCEPT_UID = 'X37oyfiNxSphA34npOb-Ig' // lessons-specific concept that we use for all questions
+
 export function generate(lessonQuestionData, studentSessionData, modifications) {
   const nestedConceptResults = generateConceptResultsForAllQuestions(lessonQuestionData, studentSessionData);
   const completeConceptResults = embedActivitySessionUIDInConceptResult(nestedConceptResults);
@@ -9,8 +11,9 @@ export function generate(lessonQuestionData, studentSessionData, modifications) 
 
 export function generateConceptResult(questionData, studentSubmission) {
   const answer = studentSubmission.data instanceof Object ? Object.values(studentSubmission.data).join('; ') : studentSubmission.data
+
   return {
-    concept_id: 'X37oyfiNxSphA34npOb-Ig',
+    concept_id: LESSONS_CONCEPT_UID,
     question_type: 'lessons-slide',
     metadata: {
       correct: 1,
@@ -18,6 +21,7 @@ export function generateConceptResult(questionData, studentSubmission) {
       prompt: questionData.prompt,
       answer: studentSubmission.data,
       attemptNumber: 1,
+      question_concept_uid: LESSONS_CONCEPT_UID
     },
   };
 }

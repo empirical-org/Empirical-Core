@@ -30,7 +30,20 @@ FactoryBot.define do
     expires_at 1.day.from_now
     user
 
-    factory :canvas_auth_credential, parent: :auth_credential, class: :CanvasAuthCredential
+    factory :canvas_auth_credential, parent: :auth_credential, class: :CanvasAuthCredential do
+      association :user, factory: [:teacher, :with_canvas_account]
+
+      after(:create) do |auth_credential|
+        create(:canvas_instance_auth_credential,
+          auth_credential: auth_credential,
+          canvas_instance: auth_credential.user.canvas_instances.first
+        )
+      end
+    end
+
+    factory :canvas_auth_credential_without_canvas_instance_auth_credential, parent: :auth_credential, class: :CanvasAuthCredential do
+      association :user, factory: [:teacher, :with_canvas_account]
+    end
 
     factory :clever_district_auth_credential, parent: :auth_credential, class: :CleverDistrictAuthCredential do
       expires_at CleverDistrictAuthCredential::EXPIRATION_DURATION.from_now

@@ -30,6 +30,10 @@ class MilestonesController < ApplicationController
     complete_milestone(Milestone::TYPES[:dismiss_school_selection_reminder])
   end
 
+  def complete_dismiss_unassign_warning_modal
+    complete_milestone(Milestone::TYPES[:dismiss_unassign_warning_modal])
+  end
+
   def create_or_touch_dismiss_teacher_info_modal
     milestone =  Milestone.find_by_name(Milestone::TYPES[:dismiss_teacher_info_modal])
 

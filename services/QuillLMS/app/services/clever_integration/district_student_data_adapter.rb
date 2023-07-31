@@ -10,15 +10,11 @@ module CleverIntegration
 
     def run
       {
-        clever_id: clever_id,
         email: email,
         name: name,
+        user_external_id: user_external_id,
         username: username
       }
-    end
-
-    private def clever_id
-      data.id
     end
 
     private def data
@@ -29,6 +25,10 @@ module CleverIntegration
       ::User.valid_email?(data.email) ? data.email.downcase : nil
     end
 
+    private def name
+      NameBuilder.run(data&.name&.first, data&.name&.last)
+    end
+
     private def username
       district_username = data&.credentials&.district_username&.downcase
       return nil if district_username.nil?
@@ -36,8 +36,8 @@ module CleverIntegration
       ::User.valid_email?(district_username) ? district_username.split('@').first : district_username
     end
 
-    private def name
-      NameBuilder.run(data&.name&.first, data&.name&.last)
+    private def user_external_id
+      data.id
     end
   end
 end

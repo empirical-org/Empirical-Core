@@ -438,6 +438,7 @@
   left: 50%;
   transform: translate(-50%, -50%);
   display: block;
+  max-height: 100vh;
   .checkbox-row {
     display: flex;
     align-items: center;
@@ -485,15 +486,12 @@
 .remove-students-modal,
 .remove-coteacher-modal,
 .transfer-ownership-modal,
-.import-clever-classroom-students-modal,
-.import-google-classroom-students-modal,
-.link-clever-account-modal,
-.link-google-account-modal,
+.import-provider-classroom-students-modal,
+.link-provider-account-modal,
 .share-activity-pack-modal,
 .leave-class-modal,
-.clever-classrooms-empty-modal,
-.google-classrooms-empty-modal,
-.reauthorize-clever-modal,
+.provider-classrooms-empty-modal,
+.reauthorize-provider-modal,
 .automatic-renewal-modal,
 .grade-level-warning-modal,
 .school-and-district-premium-modal,
@@ -848,9 +846,8 @@
 .remove-students-modal,
 .remove-coteacher-modal,
 .transfer-ownership-modal,
-.reauthorize-clever-modal,
-.import-clever-classroom-students-modal,
-.import-google-classroom-students-modal {
+.reauthorize-provider-modal,
+.import-provider-classroom-students-modal {
   .input-container {
     margin-bottom: 32px;
     &.inactive {
@@ -883,11 +880,9 @@
 .remove-students-modal,
 .remove-coteacher-modal,
 .transfer-ownership-modal,
-.reauthorize-clever-modal,
-.import-clever-classroom-students-modal,
-.import-google-classroom-students-modal,
-.link-clever-account-modal,
-.link-google-account-modal {
+.reauthorize-provider-modal,
+.import-provider-classroom-students-modal,
+.link-provider-account-modal {
   .checkboxes {
     margin-bottom: 48px;
   }
@@ -904,23 +899,21 @@
   }
 }
 
-.reauthorize-clever-modal {
+.reauthorize-provider-modal {
   height: 256px;
   .title {
     margin-bottom: 24px;
   }
 }
 
-.import-clever-classroom-students-modal,
-.import-google-classroom-students-modal {
+.import-provider-classroom-students-modal {
   height: 306px;
   .title {
     margin-bottom: 24px;
   }
 }
 
-.link-clever-account-modal,
-.link-google-account-modal {
+.link-provider-account-modal {
   height: 328px;
   .title {
     margin-bottom: 24px;
@@ -930,8 +923,7 @@
   }
 }
 
-.clever-classrooms-empty-modal,
-.google-classrooms-empty-modal {
+.provider-classrooms-empty-modal {
   height: 449px;
   text-align: center;
   .title, p {
@@ -961,14 +953,17 @@
       padding-bottom: 400px;
     }
   }
+  .invite-coteachers-modal-content {
+    max-height: 100vh;
+    overflow: scroll;
+  }
   .invite-coteachers-modal-footer {
     justify-content: flex-end;
   }
 
 }
 
-.import-clever-classrooms-modal-header,
-.import-google-classrooms-modal-header,
+.import-provider-classrooms-modal-header,
 .bulk-archive-classes-modal-header,
 .invite-coteachers-modal-header {
   padding: 32px 32px 0px;
@@ -979,8 +974,7 @@
   }
 }
 
-.import-clever-classrooms-modal-footer,
-.import-google-classrooms-modal-footer,
+.import-provider-classrooms-modal-footer,
 .bulk-archive-classes-modal-footer,
 .invite-coteachers-modal-footer {
   position: fixed !important;
@@ -999,8 +993,7 @@
   }
 }
 
-.import-clever-classrooms-modal,
-.import-google-classrooms-modal,
+.import-provider-classrooms-modal,
 .bulk-archive-classes-modal {
   width: 950px;
   max-width: 100vw;
@@ -1013,8 +1006,7 @@
     max-height: 60vh;
     overflow: scroll;
   }
-  .import-clever-classrooms-modal-footer,
-  .import-google-classrooms-modal-footer,
+  .import-provider-classrooms-modal-footer,
   .bulk-archive-classes-modal-footer {
     justify-content: space-between;
     .buttons {
@@ -1087,7 +1079,9 @@
   position: fixed !important;
   text-align: left;
   overflow: hidden;
+  max-height: 100vh;
   .create-a-class-modal-content {
+    max-height: 100vh;
     height: 100%;
     overflow-y: scroll;
     padding-bottom: 120px;

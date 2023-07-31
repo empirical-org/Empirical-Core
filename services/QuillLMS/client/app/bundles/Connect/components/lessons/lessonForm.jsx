@@ -1,7 +1,7 @@
 import { ContentState, EditorState } from 'draft-js';
 import React from 'react';
 import { connect } from 'react-redux';
-import SelectSearch, { fuzzySearch } from 'react-select-search';
+import SelectSearch from 'react-select-search';
 import _ from 'underscore';
 import ChooseModelContainer from './chooseModelContainer.jsx';
 
@@ -116,7 +116,6 @@ class LessonForm extends React.Component {
       }
       return (
         <SelectSearch
-          filterOptions={fuzzySearch}
           key={questionType}
           onChange={this.handleSearchChange}
           options={formatted}

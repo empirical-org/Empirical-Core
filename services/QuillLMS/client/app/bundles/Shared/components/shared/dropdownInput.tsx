@@ -8,8 +8,14 @@ import { HTMLDropdownOption } from './htmlDropdownOption';
 import { HTMLDropdownSingleValue } from './htmlDropdownSingleValue';
 import { StandardDropdownOption } from './standardDropdownOption';
 
+export interface Option {
+  label: string,
+  value: string|number,
+  [key:string]: any
+}
+
 interface DropdownInputProps {
-  options: Array<{label: string, value: string, [key:string]: any}>;
+  options: Array<Option>;
   className?: string;
   disabled?: boolean;
   error?: string;

@@ -9,6 +9,13 @@ exports[`SnapshotCount component size medium should match snapshot 1`] = `
   label="Sentences written"
   queryKey="sentences-written"
   searchCount={1}
+  selectedClassroomIds={
+    Array [
+      170171,
+      1203848,
+      1203849,
+    ]
+  }
   selectedGrades={
     Array [
       "Kindergarten",
@@ -33,6 +40,13 @@ exports[`SnapshotCount component size medium should match snapshot 1`] = `
       58452,
     ]
   }
+  selectedTeacherIds={
+    Array [
+      1500140,
+      1500832,
+      3570928,
+    ]
+  }
   selectedTimeframe="last-30-days"
   size="medium"
 >
@@ -43,9 +57,9 @@ exports[`SnapshotCount component size medium should match snapshot 1`] = `
       className="count-and-label"
     >
       <span
-        className="coming-soon"
+        className="count"
       >
-        Coming soon
+        —
       </span>
       <span
         className="snapshot-label"
@@ -77,6 +91,13 @@ exports[`SnapshotCount component size medium when there is data with a negative 
   passedCount={1000}
   queryKey="sentences-written"
   searchCount={1}
+  selectedClassroomIds={
+    Array [
+      170171,
+      1203848,
+      1203849,
+    ]
+  }
   selectedGrades={
     Array [
       "Kindergarten",
@@ -99,6 +120,13 @@ exports[`SnapshotCount component size medium when there is data with a negative 
   selectedSchoolIds={
     Array [
       58452,
+    ]
+  }
+  selectedTeacherIds={
+    Array [
+      1500140,
+      1500832,
+      3570928,
     ]
   }
   selectedTimeframe="last-30-days"
@@ -149,6 +177,13 @@ exports[`SnapshotCount component size medium when there is data with a positive 
   passedCount={1000}
   queryKey="sentences-written"
   searchCount={1}
+  selectedClassroomIds={
+    Array [
+      170171,
+      1203848,
+      1203849,
+    ]
+  }
   selectedGrades={
     Array [
       "Kindergarten",
@@ -171,6 +206,13 @@ exports[`SnapshotCount component size medium when there is data with a positive 
   selectedSchoolIds={
     Array [
       58452,
+    ]
+  }
+  selectedTeacherIds={
+    Array [
+      1500140,
+      1500832,
+      3570928,
     ]
   }
   selectedTimeframe="last-30-days"
@@ -218,6 +260,13 @@ exports[`SnapshotCount component size medium when there is no data  should match
   label="Sentences written"
   queryKey="sentences-written"
   searchCount={1}
+  selectedClassroomIds={
+    Array [
+      170171,
+      1203848,
+      1203849,
+    ]
+  }
   selectedGrades={
     Array [
       "Kindergarten",
@@ -240,6 +289,13 @@ exports[`SnapshotCount component size medium when there is no data  should match
   selectedSchoolIds={
     Array [
       58452,
+    ]
+  }
+  selectedTeacherIds={
+    Array [
+      1500140,
+      1500832,
+      3570928,
     ]
   }
   selectedTimeframe="last-30-days"
@@ -283,6 +339,13 @@ exports[`SnapshotCount component size small when it is coming soon should match 
   label="Sentences written"
   queryKey="sentences-written"
   searchCount={1}
+  selectedClassroomIds={
+    Array [
+      170171,
+      1203848,
+      1203849,
+    ]
+  }
   selectedGrades={
     Array [
       "Kindergarten",
@@ -307,6 +370,13 @@ exports[`SnapshotCount component size small when it is coming soon should match 
       58452,
     ]
   }
+  selectedTeacherIds={
+    Array [
+      1500140,
+      1500832,
+      3570928,
+    ]
+  }
   selectedTimeframe="last-30-days"
   size="small"
 >
@@ -317,9 +387,9 @@ exports[`SnapshotCount component size small when it is coming soon should match 
       className="count-and-label"
     >
       <span
-        className="coming-soon"
+        className="count"
       >
-        Coming soon
+        —
       </span>
       <span
         className="snapshot-label"
@@ -351,6 +421,13 @@ exports[`SnapshotCount component size small when there is data with a negative t
   passedCount={1000}
   queryKey="sentences-written"
   searchCount={1}
+  selectedClassroomIds={
+    Array [
+      170171,
+      1203848,
+      1203849,
+    ]
+  }
   selectedGrades={
     Array [
       "Kindergarten",
@@ -373,6 +450,13 @@ exports[`SnapshotCount component size small when there is data with a negative t
   selectedSchoolIds={
     Array [
       58452,
+    ]
+  }
+  selectedTeacherIds={
+    Array [
+      1500140,
+      1500832,
+      3570928,
     ]
   }
   selectedTimeframe="last-30-days"
@@ -423,6 +507,13 @@ exports[`SnapshotCount component size small when there is data with a positive t
   passedCount={1000}
   queryKey="sentences-written"
   searchCount={1}
+  selectedClassroomIds={
+    Array [
+      170171,
+      1203848,
+      1203849,
+    ]
+  }
   selectedGrades={
     Array [
       "Kindergarten",
@@ -445,6 +536,13 @@ exports[`SnapshotCount component size small when there is data with a positive t
   selectedSchoolIds={
     Array [
       58452,
+    ]
+  }
+  selectedTeacherIds={
+    Array [
+      1500140,
+      1500832,
+      3570928,
     ]
   }
   selectedTimeframe="last-30-days"
@@ -492,6 +590,13 @@ exports[`SnapshotCount component size small when there is no data  should match 
   label="Sentences written"
   queryKey="sentences-written"
   searchCount={1}
+  selectedClassroomIds={
+    Array [
+      170171,
+      1203848,
+      1203849,
+    ]
+  }
   selectedGrades={
     Array [
       "Kindergarten",
@@ -514,6 +619,13 @@ exports[`SnapshotCount component size small when there is no data  should match 
   selectedSchoolIds={
     Array [
       58452,
+    ]
+  }
+  selectedTeacherIds={
+    Array [
+      1500140,
+      1500832,
+      3570928,
     ]
   }
   selectedTimeframe="last-30-days"

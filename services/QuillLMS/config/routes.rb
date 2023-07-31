@@ -178,6 +178,7 @@ EmpiricalGrammar::Application.routes.draw do
     post :complete_acknowledge_growth_diagnostic_promotion_card, on: :collection
     post :complete_dismiss_grade_level_warning, on: :collection
     post :complete_dismiss_school_selection_reminder, on: :collection
+    post :complete_dismiss_unassign_warning_modal, on: :collection
     post :create_or_touch_dismiss_teacher_info_modal, on: :collection
   end
 
@@ -236,6 +237,7 @@ EmpiricalGrammar::Application.routes.draw do
     resources :units, as: 'units_path' do
       get :classrooms_with_students_and_classroom_units, on: :member
       put :update_classroom_unit_assigned_students, on: :member
+      put :restore_classroom_unit_assignment_for_one_student, on: :member
       put :update_activities, on: :member
       # moved from within classroom, since units are now cross-classroom
     end
@@ -360,8 +362,6 @@ EmpiricalGrammar::Application.routes.draw do
       post :create_students
       post :remove_students
 
-      put :import_google_students, controller: 'classroom_manager', action: 'import_google_students'
-
       collection do
         get :archived, action: 'index', as: :archived
         get :classrooms_i_teach
@@ -381,9 +381,6 @@ EmpiricalGrammar::Application.routes.draw do
         get 'classrooms_and_classroom_units_for_activity_share/:unit_id' => 'classroom_manager#classrooms_and_classroom_units_for_activity_share'
         get :invite_students, controller: 'classroom_manager', action: 'invite_students'
         get :google_sync, controller: 'classroom_manager', action: 'google_sync'
-        get :retrieve_google_classrooms, controller: 'classroom_manager', action: 'retrieve_google_classrooms'
-        post :update_google_classrooms, controller: 'classroom_manager', action: 'update_google_classrooms'
-        put :import_google_students, controller: 'classroom_manager', action: 'import_google_students'
 
         ##DASHBOARD ROUTES
         get :classroom_mini, controller: 'classroom_manager', action: 'classroom_mini'
@@ -599,9 +596,19 @@ EmpiricalGrammar::Application.routes.draw do
     get '/lti/launch_config.xml' => 'lti#launch_config'
     post '/lti/launch' => 'lti#launch'
     get '/lti/sso', to: 'lti#sso'
+
+    get '/teachers/retrieve_classrooms', to: 'teachers#retrieve_classrooms'
+    post '/teachers/import_classrooms', to: 'teachers#import_classrooms'
+    put '/teachers/import_students', to: 'teachers#import_students'
   end
 
   namespace :clever_integration do
+    get '/teachers/retrieve_classrooms', to: 'teachers#retrieve_classrooms'
+    post '/teachers/import_classrooms', to: 'teachers#import_classrooms'
+    put '/teachers/import_students', to: 'teachers#import_students'
+  end
+
+  namespace :google_integration do
     get '/teachers/retrieve_classrooms', to: 'teachers#retrieve_classrooms'
     post '/teachers/import_classrooms', to: 'teachers#import_classrooms'
     put '/teachers/import_students', to: 'teachers#import_students'
@@ -729,9 +736,9 @@ EmpiricalGrammar::Application.routes.draw do
 
   resources :snapshots, only: [] do
     collection do
-      get :count
+      post :count
       get :options
-      get :top_x
+      post :top_x
     end
   end
 

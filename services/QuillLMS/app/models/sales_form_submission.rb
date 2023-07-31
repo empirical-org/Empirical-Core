@@ -103,7 +103,7 @@ class SalesFormSubmission < ApplicationRecord
   end
 
   private def api
-    @api ||= VitallyRestApi.new
+    @api ||= VitallyIntegration::RestApi.new
   end
 
   private def vitally_callbacks

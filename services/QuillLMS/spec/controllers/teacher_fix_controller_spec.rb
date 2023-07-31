@@ -551,15 +551,15 @@ describe TeacherFixController do
 
           create(
             :google_classroom_user,
-            provider_user_id: synced_student.google_id,
-            provider_classroom_id: classroom.google_classroom_id
+            user_external_id: synced_student.google_id,
+            classroom_external_id: classroom.classroom_external_id
           )
 
           create(
             :google_classroom_user,
             :deleted,
-            provider_user_id: unsynced_student.google_id,
-            provider_classroom_id: classroom.google_classroom_id
+            user_external_id: unsynced_student.google_id,
+            classroom_external_id: classroom.classroom_external_id
           )
         end
 

@@ -8,8 +8,8 @@ module QuillBigQuery
       @cte_records = cte_records
     end
 
-    def execute(query)
-      QuillBigQuery::Runner.execute(translate_to_big_query_with_cte(query))
+    def execute(query, **array_params)
+      QuillBigQuery::Runner.execute(translate_to_big_query_with_cte(query), **array_params)
     end
 
     private def translate_to_big_query_with_cte(query)
@@ -68,7 +68,7 @@ module QuillBigQuery
       when :inet then "'#{value}'"
       when :jsonb then "'#{value.to_json}'"
       when :string, :text then "\"#{value}\""
-      when :datetime then "'#{value&.iso8601}'"
+      when :datetime then "'#{value&.to_s(:db)}'"
       else
         raise "Error: value:'#{value}' type #{attr_type} not found"
       end

@@ -15,7 +15,6 @@
 #  updated_at          :datetime
 #  clever_id           :string
 #  google_classroom_id :bigint
-#  teacher_id          :integer
 #
 # Indexes
 #
@@ -24,7 +23,6 @@
 #  index_classrooms_on_google_classroom_id  (google_classroom_id)
 #  index_classrooms_on_grade                (grade)
 #  index_classrooms_on_grade_level          (grade_level)
-#  index_classrooms_on_teacher_id           (teacher_id)
 #
 class Classroom < ApplicationRecord
   include CheckboxCallback
@@ -54,6 +52,9 @@ class Classroom < ApplicationRecord
   has_many :classrooms_teachers, foreign_key: 'classroom_id'
   has_many :teachers, through: :classrooms_teachers, source: :user
 
+  has_one :canvas_classroom, dependent: :destroy
+  has_one :canvas_instance, through: :canvas_classroom
+
   before_validation :set_code, if: proc {|c| c.code.blank?}
 
   after_save :reset_teacher_activity_feed, :save_user_pack_sequence_items, if: :saved_change_to_visible?
@@ -61,7 +62,9 @@ class Classroom < ApplicationRecord
   after_commit :hide_appropriate_classroom_units
   after_commit :trigger_analytics_for_classroom_creation, on: :create
 
-  accepts_nested_attributes_for :classrooms_teachers
+  accepts_nested_attributes_for :canvas_classroom, :classrooms_teachers
+
+  delegate :classroom_external_id, to: :canvas_classroom, allow_nil: true
 
   def destroy
     # ClassroomsTeachers must be called explicitly, because the has_many relationship
@@ -168,7 +171,7 @@ class Classroom < ApplicationRecord
   end
 
   def with_students
-    attributes.merge({students: students})
+    attributes.merge(students: students.sort_by(&:last_name))
   end
 
   def with_students_ids
@@ -180,6 +183,8 @@ class Classroom < ApplicationRecord
       'Google Classroom'
     elsif clever_id
       'Clever'
+    elsif canvas_classroom
+      'Canvas'
     else
       'Manual'
     end
@@ -193,8 +198,12 @@ class Classroom < ApplicationRecord
     -1
   end
 
-  def provider_classroom?
-    google_classroom? || clever_classroom?
+  def provider?
+    google_classroom? || clever_classroom? || canvas_classroom?
+  end
+
+  def canvas_classroom?
+    canvas_classroom.present?
   end
 
   def clever_classroom?
@@ -205,9 +214,18 @@ class Classroom < ApplicationRecord
     google_classroom_id.present?
   end
 
-  def provider_classroom
+  def provider
     return 'Google Classroom' if google_classroom?
     return 'Clever' if clever_classroom?
+    return 'Canvas' if canvas_classroom?
+  end
+
+  def classroom_external_id
+    return google_classroom_id if google_classroom?
+
+    return clever_id if clever_classroom?
+
+    return canvas_classroom&.classroom_external_id
   end
 
   def save_user_pack_sequence_items

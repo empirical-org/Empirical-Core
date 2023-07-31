@@ -31,6 +31,10 @@ export {
 } from './dropdownInput'
 
 export {
+  DropdownInputWithSearchTokens
+} from './dropdownInputWithSearchTokens'
+
+export {
   Error
 } from './error'
 

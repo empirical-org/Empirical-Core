@@ -15,7 +15,6 @@
 #  updated_at          :datetime
 #  clever_id           :string
 #  google_classroom_id :bigint
-#  teacher_id          :integer
 #
 # Indexes
 #
@@ -24,7 +23,6 @@
 #  index_classrooms_on_google_classroom_id  (google_classroom_id)
 #  index_classrooms_on_grade                (grade)
 #  index_classrooms_on_grade_level          (grade_level)
-#  index_classrooms_on_teacher_id           (teacher_id)
 #
 FactoryBot.define do
   factory :simple_classroom, class: Classroom do
@@ -41,6 +39,15 @@ FactoryBot.define do
 
     trait :from_clever do
       clever_id { (1..24).map { (('a'..'f').to_a + (1..9).to_a).sample }.join } # mock a clever id
+    end
+
+    trait :from_canvas do
+      transient { canvas_instance { FactoryBot.create(:canvas_instance) } }
+
+      after(:create) do |classroom, context|
+        create(:canvas_classroom, classroom: classroom, canvas_instance: context.canvas_instance)
+        classroom.reload
+      end
     end
 
     factory :classroom_with_a_couple_students do

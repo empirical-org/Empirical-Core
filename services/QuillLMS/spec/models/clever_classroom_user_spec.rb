@@ -9,24 +9,25 @@
 #  type                  :string           not null
 #  created_at            :datetime         not null
 #  updated_at            :datetime         not null
-#  provider_classroom_id :string           not null
-#  provider_user_id      :string           not null
+#  classroom_external_id :string           not null
+#  user_external_id      :string           not null
 #
 # Indexes
 #
-#  index_provider_type_and_classroom_id_and_user_id  (type,provider_classroom_id,provider_user_id) UNIQUE
+#  index_provider_type_and_classroom_id_and_user_id  (type,classroom_external_id,user_external_id) UNIQUE
 #
 require 'rails_helper'
 
 RSpec.describe CleverClassroomUser, type: :model do
-  let(:clever_classroom_id) { '67890' }
-  let(:clever_user_id) { '12345' }
+  subject { create(:clever_classroom_user)}
 
-  subject do
-    create(:clever_classroom_user, provider_classroom_id: clever_classroom_id, provider_user_id: clever_user_id)
-  end
+  it_behaves_like 'a provider classroom user'
 
-  it { expect(subject.clever_classroom_id).to eq clever_classroom_id }
-  it { expect(subject.clever_user_id).to eq clever_user_id }
-  it { expect(subject.type).to eq described_class.to_s }
+  it { expect(subject.canvas_instance).to be nil}
+
+  it { expect(subject.clever_classroom_id).to eq subject.classroom_external_id }
+  it { expect(subject.clever_user_id).to eq subject.user_external_id }
+
+  it { expect { subject.google_classroom_id }.to raise_error NotImplementedError }
+  it { expect { subject.google_id }.to raise_error NotImplementedError }
 end

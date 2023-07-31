@@ -17,6 +17,8 @@ describe('Getting concept results from an answered SC object', () => {
         correct: 1,
         directions: 'Combine the sentences into one sentence. Use the joining word. (Until)',
         prompt: 'A coconut ripens. \nIt is filled with water.',
+        question_uid: question.key,
+        question_concept_uid: question.conceptID
       },
       question_type: 'sentence-combining',
     },
@@ -28,6 +30,8 @@ describe('Getting concept results from an answered SC object', () => {
         correct: 1,
         directions: 'Combine the sentences into one sentence. Use the joining word. (Until)',
         prompt: 'A coconut ripens. \nIt is filled with water.',
+        question_uid: question.key,
+        question_concept_uid: question.conceptID
       },
       question_type: 'sentence-combining',
     },
@@ -39,6 +43,8 @@ describe('Getting concept results from an answered SC object', () => {
         correct: 1,
         directions: 'Combine the sentences into one sentence. Use the joining word. (Until)',
         prompt: 'A coconut ripens. \nIt is filled with water.',
+        question_uid: question.key,
+        question_concept_uid: question.conceptID
       },
       question_type: 'sentence-combining',
     }];
@@ -58,6 +64,8 @@ describe('Getting concept results from an answered SC object', () => {
         correct: 1,
         directions: 'Combine the sentences into one sentence. Use the joining word. (Until)',
         prompt: 'A coconut ripens. \nIt is filled with water.',
+        question_uid: question.key,
+        question_concept_uid: question.conceptID
       },
       question_type: 'sentence-combining',
     },
@@ -69,6 +77,8 @@ describe('Getting concept results from an answered SC object', () => {
         correct: 1,
         directions: 'Combine the sentences into one sentence. Use the joining word. (Until)',
         prompt: 'A coconut ripens. \nIt is filled with water.',
+        question_uid: question.key,
+        question_concept_uid: question.conceptID
       },
       question_type: 'sentence-combining',
     },
@@ -80,6 +90,8 @@ describe('Getting concept results from an answered SC object', () => {
         correct: 1,
         directions: 'Combine the sentences into one sentence. Use the joining word. (Until)',
         prompt: 'A coconut ripens. \nIt is filled with water.',
+        question_uid: question.key,
+        question_concept_uid: question.conceptID
       },
       question_type: 'sentence-combining',
     }];
@@ -99,6 +111,8 @@ describe('Getting concept results from an answered SC object', () => {
           correct: 0,
           directions: 'Combine the sentences into one sentence. Use the joining word. (As soon as)',
           prompt: 'A coconut is mature.\nIt is brown.',
+          question_uid: question.key,
+          question_concept_uid: question.conceptID
         },
         question_type: 'sentence-combining',
       }, {
@@ -110,6 +124,8 @@ describe('Getting concept results from an answered SC object', () => {
           lastFeedback: 'There may be an error. How could you update the punctuation?',
           directions: 'Combine the sentences into one sentence. Use the joining word. (As soon as)',
           prompt: 'A coconut is mature.\nIt is brown.',
+          question_uid: question.key,
+          question_concept_uid: question.conceptID
         },
         question_type: 'sentence-combining',
       }, {
@@ -121,6 +137,8 @@ describe('Getting concept results from an answered SC object', () => {
           lastFeedback: 'Revise your work. Which joining word helps show the order of events? ',
           directions: 'Combine the sentences into one sentence. Use the joining word. (As soon as)',
           prompt: 'A coconut is mature.\nIt is brown.',
+          question_uid: question.key,
+          question_concept_uid: question.conceptID
         },
         question_type: 'sentence-combining',
       }, {
@@ -132,6 +150,8 @@ describe('Getting concept results from an answered SC object', () => {
           lastFeedback: 'Revise your work. Which joining word helps show the order of events? ',
           directions: 'Combine the sentences into one sentence. Use the joining word. (As soon as)',
           prompt: 'A coconut is mature.\nIt is brown.',
+          question_uid: question.key,
+          question_concept_uid: question.conceptID
         },
         question_type: 'sentence-combining',
       },
@@ -144,6 +164,8 @@ describe('Getting concept results from an answered SC object', () => {
           lastFeedback: 'Revise your work. Which joining word helps show the order of events? ',
           directions: 'Combine the sentences into one sentence. Use the joining word. (As soon as)',
           prompt: 'A coconut is mature.\nIt is brown.',
+          question_uid: question.key,
+          question_concept_uid: question.conceptID
         },
         question_type: 'sentence-combining',
       }
@@ -163,6 +185,8 @@ describe('Getting concept results from an answered SC object', () => {
         correct: 0,
         directions: 'Combine the sentences into one sentence. Use the joining word. (As soon as)',
         prompt: 'The weather is warm.\nCoconut palms grow.',
+        question_uid: question.key,
+        question_concept_uid: question.conceptID
       },
       question_type: 'sentence-combining',
     }, {
@@ -174,6 +198,8 @@ describe('Getting concept results from an answered SC object', () => {
         lastFeedback: 'Revise your work. Which joining word helps show the order of events? ',
         directions: 'Combine the sentences into one sentence. Use the joining word. (As soon as)',
         prompt: 'The weather is warm.\nCoconut palms grow.',
+        question_uid: question.key,
+        question_concept_uid: question.conceptID
       },
       question_type: 'sentence-combining',
     }, {
@@ -185,6 +211,8 @@ describe('Getting concept results from an answered SC object', () => {
         lastFeedback: 'Revise your work. Which joining word helps show the order of events? ',
         directions: 'Combine the sentences into one sentence. Use the joining word. (As soon as)',
         prompt: 'The weather is warm.\nCoconut palms grow.',
+        question_uid: question.key,
+        question_concept_uid: question.conceptID
       },
       question_type: 'sentence-combining',
     }, {
@@ -196,6 +224,8 @@ describe('Getting concept results from an answered SC object', () => {
         lastFeedback: 'Revise your work. Which joining word helps show the order of events? ',
         directions: 'Combine the sentences into one sentence. Use the joining word. (As soon as)',
         prompt: 'The weather is warm.\nCoconut palms grow.',
+        question_uid: question.key,
+        question_concept_uid: question.conceptID
       },
       question_type: 'sentence-combining',
     },
@@ -208,6 +238,8 @@ describe('Getting concept results from an answered SC object', () => {
         lastFeedback: 'Revise your work. Which joining word helps show the order of events? ',
         directions: 'Combine the sentences into one sentence. Use the joining word. (As soon as)',
         prompt: 'The weather is warm.\nCoconut palms grow.',
+        question_uid: question.key,
+        question_concept_uid: question.conceptID
       },
       question_type: 'sentence-combining',
     }];

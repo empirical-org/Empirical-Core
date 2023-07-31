@@ -15,7 +15,6 @@
 #  updated_at          :datetime
 #  clever_id           :string
 #  google_classroom_id :bigint
-#  teacher_id          :integer
 #
 # Indexes
 #
@@ -24,12 +23,10 @@
 #  index_classrooms_on_google_classroom_id  (google_classroom_id)
 #  index_classrooms_on_grade                (grade)
 #  index_classrooms_on_grade_level          (grade_level)
-#  index_classrooms_on_teacher_id           (teacher_id)
 #
 require 'rails_helper'
 
 describe Classroom, type: :model do
-
   it { should validate_uniqueness_of(:code) }
   it { should validate_presence_of(:name) }
 
@@ -38,13 +35,16 @@ describe Classroom, type: :model do
   it { should have_many(:unit_activities).through(:units) }
   it { should have_many(:activities).through(:unit_activities) }
   it { should have_many(:activity_sessions).through(:classroom_units) }
-  #check if the code is correct as assign activities model does not exist
-  #it { should have_many(:standard_levels).through(:assign) }
   it { should have_many(:coteacher_classroom_invitations) }
   it { should have_many(:students_classrooms).with_foreign_key('classroom_id').dependent(:destroy).class_name("StudentsClassrooms") }
   it { should have_many(:students).through(:students_classrooms).source(:student).with_foreign_key('classroom_id').inverse_of(:classrooms).class_name("User") }
   it { should have_many(:classrooms_teachers).with_foreign_key('classroom_id') }
   it { should have_many(:teachers).through(:classrooms_teachers).source(:user) }
+  it { should have_one(:canvas_classroom).dependent(:destroy) }
+  it { should have_one(:canvas_instance).through(:canvas_classroom) }
+  it { should accept_nested_attributes_for(:classrooms_teachers) }
+  it { should accept_nested_attributes_for(:canvas_classroom) }
+  it { should delegate_method(:classroom_external_id).to(:canvas_classroom).allow_nil }
 
   it { is_expected.to callback(:hide_appropriate_classroom_units).after(:commit) }
 
@@ -369,6 +369,34 @@ describe Classroom, type: :model do
           it { expect { subject }.to change { SaveUserPackSequenceItemsWorker.jobs.size }.by(num_students) }
         end
       end
+    end
+  end
+
+  describe '#classroom_external_id' do
+    subject { classroom.classroom_external_id }
+
+    context 'when classroom has no provider' do
+      let(:classroom) { create(:classroom) }
+
+      it { is_expected.to be_nil }
+    end
+
+    context 'when google_classroom_id is present' do
+      let(:classroom) { create(:classroom, :from_google) }
+
+      it { is_expected.to eq classroom.google_classroom_id }
+    end
+
+    context 'when clever_id is present' do
+      let(:classroom) { create(:classroom, :from_clever) }
+
+      it { is_expected.to eq classroom.clever_id }
+    end
+
+    context 'when canvas_classroom is present' do
+      let(:classroom) { create(:classroom, :from_canvas) }
+
+      it { is_expected.to eq classroom.canvas_classroom.classroom_external_id }
     end
   end
 end

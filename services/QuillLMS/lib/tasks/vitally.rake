@@ -13,9 +13,9 @@ namespace :vitally do
       exit 1
     end
 
-    vitally_api = VitallyApi.new
+    vitally_analytics_api = VitallyIntegration::AnalyticsApi.new
 
-    # Batching in 33s because each user could have up to 3 schools to unlink, and VitallyApi
+    # Batching in 33s because each user could have up to 3 schools to unlink, and VitallyIntegration::AnalyticsApi
     # has a batch limit of 100.
     CSV.parse(pipe_data, headers: true).each_slice(33) do |batch|
       batch_payload = batch.map do |row|
@@ -30,7 +30,7 @@ namespace :vitally do
           row['accountExternalId2'],
           row['accountExternalId3'],
           row['accountExternalId4']
-        ].reject { |id| id.nil? || id.empty? }.map(&:to_i)
+        ].reject { |id| id.nil? || id.empty? }
 
         ids_to_unlink = vitally_school_ids.reject { |id| id == quill_school_id }
 
@@ -46,7 +46,7 @@ namespace :vitally do
       batch_payload.each do |api_call_payload|
         puts "Unlinking user #{api_call_payload[:userId]} from account #{api_call_payload[:accountId]}"
       end
-      vitally_api.batch(batch_payload)
+      vitally_analytics_api.batch(batch_payload)
     end
   end
 end

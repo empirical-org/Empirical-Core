@@ -1,7 +1,7 @@
 import { ContentState, EditorState } from 'draft-js';
 import * as React from 'react';
 import { connect } from 'react-redux';
-import SelectSearch, { fuzzySearch } from 'react-select-search';
+import SelectSearch from 'react-select-search';
 
 import { SortableList, TextEditor, hashToCollection, } from '../../../Shared/index';
 import { Concept, Concepts } from '../../interfaces/grammarActivities';
@@ -150,7 +150,6 @@ class LessonForm extends React.Component<LessonFormProps, LessonFormState> {
       formatted = options.map(opt => ({ name: opt.prompt.replace(/(<([^>]+)>)/ig, '').replace(/&nbsp;/ig, ''), value: opt.key, }));
       return (
         <SelectSearch
-          filterOptions={fuzzySearch}
           onChange={this.handleQuestionChange}
           options={formatted}
           placeholder="Search for a question"

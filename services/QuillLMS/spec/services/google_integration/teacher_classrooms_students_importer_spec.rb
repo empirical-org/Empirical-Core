@@ -6,8 +6,8 @@ RSpec.describe GoogleIntegration::TeacherClassroomsStudentsImporter do
   let(:classrooms) { create_list(:classroom, 2, :from_google, :with_no_teacher) }
   let(:classroom1) { classrooms[0] }
   let(:classroom2) { classrooms[1] }
-  let(:google_classroom_id1) { classroom1.google_classroom_id }
-  let(:google_classroom_id2) { classroom2.google_classroom_id }
+  let(:classroom_external_id1) { classroom1.classroom_external_id }
+  let(:classroom_external_id2) { classroom2.classroom_external_id }
 
   let(:teacher) { create(:teacher, :signed_up_with_google) }
 
@@ -16,8 +16,8 @@ RSpec.describe GoogleIntegration::TeacherClassroomsStudentsImporter do
 
   subject { described_class.run(teacher, selected_classroom_ids) }
 
-  let(:raw_students_data1) { [raw_student_data("17674265", "tim", "student", "tim student", "tim_student@gmail.com")] }
-  let(:raw_students_data2) { [raw_student_data("10622567", "ann", "student", "ann student", "ann_student@gmail.com")] }
+  let(:raw_students_data1) { [create(:google_classroom_student_payload)] }
+  let(:raw_students_data2) { [create(:google_classroom_student_payload)] }
 
   let(:initialized_teacher_client) { double('initialized_teacher_client') }
   let(:created_teacher_client) { double('created_teacher_client') }
@@ -33,8 +33,8 @@ RSpec.describe GoogleIntegration::TeacherClassroomsStudentsImporter do
       .with(created_teacher_client)
       .and_return(classroom_students_client)
 
-    allow(classroom_students_client).to receive(:call).with(google_classroom_id1).and_return(raw_students_data1)
-    allow(classroom_students_client).to receive(:call).with(google_classroom_id2).and_return(raw_students_data2)
+    allow(classroom_students_client).to receive(:call).with(classroom_external_id1).and_return(raw_students_data1)
+    allow(classroom_students_client).to receive(:call).with(classroom_external_id2).and_return(raw_students_data2)
   end
 
   context 'selected_classroom_ids nil' do
@@ -45,8 +45,8 @@ RSpec.describe GoogleIntegration::TeacherClassroomsStudentsImporter do
       expect(User.student.count).to eq 0
       subject
       expect(GoogleClassroomUser.count).to eq 2
-      expect(GoogleClassroomUser.where(provider_classroom_id: google_classroom_id1).count).to eq 1
-      expect(GoogleClassroomUser.where(provider_classroom_id: google_classroom_id2).count).to eq 1
+      expect(GoogleClassroomUser.where(classroom_external_id: classroom_external_id1).count).to eq 1
+      expect(GoogleClassroomUser.where(classroom_external_id: classroom_external_id2).count).to eq 1
       expect(User.student.count).to eq 2
     end
   end
@@ -59,23 +59,9 @@ RSpec.describe GoogleIntegration::TeacherClassroomsStudentsImporter do
       expect(User.student.count).to eq 0
       subject
       expect(GoogleClassroomUser.count).to eq 1
-      expect(GoogleClassroomUser.where(provider_classroom_id: google_classroom_id1).count).to eq 0
-      expect(GoogleClassroomUser.where(provider_classroom_id: google_classroom_id2).count).to eq 1
+      expect(GoogleClassroomUser.where(classroom_external_id: classroom_external_id1).count).to eq 0
+      expect(GoogleClassroomUser.where(classroom_external_id: classroom_external_id2).count).to eq 1
       expect(User.student.count).to eq 1
     end
-  end
-
-  def raw_student_data(google_id, first_name, last_name, name, email)
-    {
-      "profile" => {
-        "id" => google_id,
-        "name" => {
-          "givenName" => first_name,
-          "familyName" => last_name,
-          "fullName" => name
-        },
-        "emailAddress" => email
-      }
-    }
   end
 end

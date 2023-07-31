@@ -14,9 +14,9 @@ class PremiumHub::MadeSchoolAdminLinkSchoolEmailWorker
       user.mailer_user.send_premium_hub_made_school_admin_link_school_email(admin_name, school)
     end
 
-    SegmentAnalytics.new.track_school_admin_user(
+    Analytics::SegmentAnalytics.new.track_school_admin_user(
       user,
-      SegmentIo::BackgroundEvents::ADMIN_MADE_EXISTING_USER_SCHOOL_ADMIN,
+      Analytics::SegmentIo::BackgroundEvents::ADMIN_MADE_EXISTING_USER_SCHOOL_ADMIN,
       school.name,
       admin_name
     )

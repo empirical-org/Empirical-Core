@@ -2,7 +2,7 @@
 
 require 'rails_helper'
 
-describe 'SerializeVitallySalesOrganization' do
+describe VitallyIntegration::SerializeVitallySalesOrganization do
 
   context '#data' do
     let!(:district) { create(:district) }
@@ -16,7 +16,7 @@ describe 'SerializeVitallySalesOrganization' do
     let!(:unit) { create(:unit, activities: [diagnostic]) }
 
     it 'should return vitally payload with correct data when no diagnostics have been assigned' do
-      expect(SerializeVitallySalesOrganization.new(district).data).to eq({
+      expect(described_class.new(district).data).to eq({
         externalId: district.id.to_s,
         name: district.name,
         traits: {
@@ -35,12 +35,12 @@ describe 'SerializeVitallySalesOrganization' do
           diagnostics_completed_last_year: 0,
           percent_diagnostics_completed_this_year: 0.0,
           percent_diagnostics_completed_last_year: 0.0,
-          premium_start_date: SerializeVitallySalesOrganization::VITALLY_NOT_APPLICABLE,
-          premium_expiry_date: SerializeVitallySalesOrganization::VITALLY_NOT_APPLICABLE,
-          district_subscription: SerializeVitallySalesOrganization::VITALLY_NOT_APPLICABLE,
-          annual_revenue_current_contract: SerializeVitallySalesOrganization::VITALLY_NOT_APPLICABLE,
-          stripe_invoice_id_current_contract: SerializeVitallySalesOrganization::VITALLY_NOT_APPLICABLE,
-          purchase_order_number_current_contract: SerializeVitallySalesOrganization::VITALLY_NOT_APPLICABLE,
+          premium_start_date: described_class::VITALLY_NOT_APPLICABLE,
+          premium_expiry_date: described_class::VITALLY_NOT_APPLICABLE,
+          district_subscription: described_class::VITALLY_NOT_APPLICABLE,
+          annual_revenue_current_contract: described_class::VITALLY_NOT_APPLICABLE,
+          stripe_invoice_id_current_contract: described_class::VITALLY_NOT_APPLICABLE,
+          purchase_order_number_current_contract: described_class::VITALLY_NOT_APPLICABLE,
           active_students_this_year: 0,
           active_students_last_year: 0,
           active_students_all_time: 0,
@@ -59,7 +59,7 @@ describe 'SerializeVitallySalesOrganization' do
       let!(:classroom_unit) { create(:classroom_unit, classroom: classroom1, unit: unit, assigned_student_ids: [student1.id, student2.id]) }
 
       it 'should roll up diagnostic data when diagnostics are assigned, but not completed' do
-        expect(SerializeVitallySalesOrganization.new(district).data[:traits]).to include(
+        expect(described_class.new(district).data[:traits]).to include(
           diagnostics_assigned_this_year: 2,
           diagnostics_completed_this_year: 0,
           diagnostics_assigned_last_year: 0
@@ -69,7 +69,7 @@ describe 'SerializeVitallySalesOrganization' do
       it 'should roll up diagnostic data when diagnostics are assigned last year' do
         classroom_unit.update(created_at: 1.year.ago)
 
-        expect(SerializeVitallySalesOrganization.new(district).data[:traits]).to include(
+        expect(described_class.new(district).data[:traits]).to include(
           diagnostics_assigned_this_year: 0,
           diagnostics_assigned_last_year: 2
         )
@@ -83,7 +83,7 @@ describe 'SerializeVitallySalesOrganization' do
         student3 = create(:student)
         create(:classroom_unit, classroom: classroom2, unit: unit, assigned_student_ids: [student2.id, student3.id])
 
-        expect(SerializeVitallySalesOrganization.new(district).data[:traits]).to include(
+        expect(described_class.new(district).data[:traits]).to include(
           diagnostics_assigned_this_year: 4
         )
       end
@@ -92,7 +92,7 @@ describe 'SerializeVitallySalesOrganization' do
         classification = create(:connect)
         diagnostic.update(classification: classification)
 
-        expect(SerializeVitallySalesOrganization.new(district).data[:traits]).to include(
+        expect(described_class.new(district).data[:traits]).to include(
           diagnostics_assigned_last_year: 0
         )
       end
@@ -103,7 +103,7 @@ describe 'SerializeVitallySalesOrganization' do
       let!(:activity_session1) { create(:activity_session, activity: diagnostic, classroom_unit: classroom_unit, user: student1, completed_at: Time.current) }
 
       it 'should roll up diagnostic completions this year' do
-        expect(SerializeVitallySalesOrganization.new(district).data[:traits]).to include(
+        expect(described_class.new(district).data[:traits]).to include(
           diagnostics_completed_this_year: 1,
           diagnostics_completed_last_year: 0
         )
@@ -112,7 +112,7 @@ describe 'SerializeVitallySalesOrganization' do
       it 'should roll up diagnostic completions from last year' do
         activity_session1.update(completed_at: 1.year.ago)
 
-        expect(SerializeVitallySalesOrganization.new(district).data[:traits]).to include(
+        expect(described_class.new(district).data[:traits]).to include(
           diagnostics_completed_this_year: 0,
           diagnostics_completed_last_year: 1
         )
@@ -121,7 +121,7 @@ describe 'SerializeVitallySalesOrganization' do
       it 'should not count activity_session records that are not completed' do
         activity_session1.update(completed_at: nil, state: 'started')
 
-        expect(SerializeVitallySalesOrganization.new(district).data[:traits]).to include(
+        expect(described_class.new(district).data[:traits]).to include(
           diagnostics_completed_this_year: 0
         )
       end
@@ -136,7 +136,7 @@ describe 'SerializeVitallySalesOrganization' do
 
         create(:activity_session, activity: diagnostic, classroom_unit: classroom_unit2, user: student2, completed_at: Time.current)
 
-        expect(SerializeVitallySalesOrganization.new(district).data[:traits]).to include(
+        expect(described_class.new(district).data[:traits]).to include(
           diagnostics_completed_this_year: 2
         )
       end
@@ -145,7 +145,7 @@ describe 'SerializeVitallySalesOrganization' do
         classification = create(:connect)
         diagnostic.update(classification: classification)
 
-        expect(SerializeVitallySalesOrganization.new(district).data[:traits]).to include(
+        expect(described_class.new(district).data[:traits]).to include(
           diagnostics_completed_this_year: 0
         )
       end
@@ -158,13 +158,13 @@ describe 'SerializeVitallySalesOrganization' do
         classroom_unit1 = create(:classroom_unit, classroom: classroom1, unit: unit, assigned_student_ids: [student1.id, student2.id])
         create(:activity_session, activity: diagnostic, classroom_unit: classroom_unit1, user: student1, completed_at: Time.current)
 
-        expect(SerializeVitallySalesOrganization.new(district).data[:traits]).to include(
+        expect(described_class.new(district).data[:traits]).to include(
           percent_diagnostics_completed_this_year: 0.5
         )
       end
 
       it 'should set the completion rate to 0.0 if no activities were assigned' do
-        expect(SerializeVitallySalesOrganization.new(district).data[:traits]).to include(
+        expect(described_class.new(district).data[:traits]).to include(
           percent_diagnostics_completed_this_year: 0.0
         )
       end
@@ -181,7 +181,7 @@ describe 'SerializeVitallySalesOrganization' do
       }
 
       it 'pulls current subscription data' do
-        expect(SerializeVitallySalesOrganization.new(district).data[:traits]).to include(
+        expect(described_class.new(district).data[:traits]).to include(
           premium_start_date: subscription.start_date,
           premium_expiry_date: subscription.expiration,
           district_subscription: subscription.account_type,
@@ -195,7 +195,7 @@ describe 'SerializeVitallySalesOrganization' do
         later_subscription = create(:subscription, districts: [district], start_date: subscription.start_date, expiration: subscription.expiration + 1.year)
         earlier_subscription = create(:subscription, districts: [district], start_date: subscription.start_date - 1.year, expiration: subscription.expiration + 10.days)
 
-        expect(SerializeVitallySalesOrganization.new(district).data[:traits][:premium_expiry_date]).to eq(later_subscription.expiration)
+        expect(described_class.new(district).data[:traits][:premium_expiry_date]).to eq(later_subscription.expiration)
       end
     end
 
@@ -218,51 +218,51 @@ describe 'SerializeVitallySalesOrganization' do
         student1.update(last_sign_in: last_active)
         student2.update(last_sign_in: Time.zone.today - 1.year)
 
-        expect(SerializeVitallySalesOrganization.new(district).data[:traits][:last_active_time]).to eq(last_active)
+        expect(described_class.new(district).data[:traits][:last_active_time]).to eq(last_active)
       end
 
       context 'gets the number of activites completed' do
 
         it 'in this school year' do
-          expect(SerializeVitallySalesOrganization.new(district).data[:traits][:activities_completed_this_year]).to eq(2)
+          expect(described_class.new(district).data[:traits][:activities_completed_this_year]).to eq(2)
         end
 
         it 'in the previous school year' do
-          expect(SerializeVitallySalesOrganization.new(district).data[:traits][:activities_completed_last_year]).to eq(3)
+          expect(described_class.new(district).data[:traits][:activities_completed_last_year]).to eq(3)
         end
 
         it 'for all time' do
-          expect(SerializeVitallySalesOrganization.new(district).data[:traits][:activities_completed_all_time]).to eq(5)
+          expect(described_class.new(district).data[:traits][:activities_completed_all_time]).to eq(5)
         end
       end
 
       context 'gets the number of activites completed per student' do
 
         it 'in this school year' do
-          expect(SerializeVitallySalesOrganization.new(district).data[:traits][:activities_completed_per_student_this_year]).to eq(1.0)
+          expect(described_class.new(district).data[:traits][:activities_completed_per_student_this_year]).to eq(1.0)
         end
 
         it 'in the previous school year' do
-          expect(SerializeVitallySalesOrganization.new(district).data[:traits][:activities_completed_per_student_last_year]).to eq(1.5)
+          expect(described_class.new(district).data[:traits][:activities_completed_per_student_last_year]).to eq(1.5)
         end
 
         it 'for all time' do
-          expect(SerializeVitallySalesOrganization.new(district).data[:traits][:activities_completed_per_student_all_time]).to eq(2.5)
+          expect(described_class.new(district).data[:traits][:activities_completed_per_student_all_time]).to eq(2.5)
         end
       end
 
       context 'gets the number of active students' do
 
         it 'in this school year' do
-          expect(SerializeVitallySalesOrganization.new(district).data[:traits][:active_students_this_year]).to eq(2)
+          expect(described_class.new(district).data[:traits][:active_students_this_year]).to eq(2)
         end
 
         it 'in the previous school year' do
-          expect(SerializeVitallySalesOrganization.new(district).data[:traits][:active_students_last_year]).to eq(2)
+          expect(described_class.new(district).data[:traits][:active_students_last_year]).to eq(2)
         end
 
         it 'for all time' do
-          expect(SerializeVitallySalesOrganization.new(district).data[:traits][:active_students_all_time]).to eq(2)
+          expect(described_class.new(district).data[:traits][:active_students_all_time]).to eq(2)
         end
       end
     end
@@ -288,25 +288,25 @@ describe 'SerializeVitallySalesOrganization' do
         end
       end
 
-      runtime = Benchmark.realtime { expect(SerializeVitallySalesOrganization.new(district).active_students).to eq(2000) }
+      runtime = Benchmark.realtime { expect(described_class.new(district).active_students).to eq(2000) }
       puts format('Average runtime for active students all time: %<runtime>.3f seconds', {runtime: runtime })
 
-      runtime = Benchmark.realtime { expect(SerializeVitallySalesOrganization.new(district).active_students(Time.zone.today - 1.year)).to eq(2000) }
+      runtime = Benchmark.realtime { expect(described_class.new(district).active_students(Time.zone.today - 1.year)).to eq(2000) }
       puts format('Average runtime for active students this year: %<runtime>.3f seconds', {runtime: runtime })
 
-      runtime = Benchmark.realtime { expect(SerializeVitallySalesOrganization.new(district).active_students(Time.zone.today - 2.years, Time.zone.today - 1.year)).to eq(0) }
+      runtime = Benchmark.realtime { expect(described_class.new(district).active_students(Time.zone.today - 2.years, Time.zone.today - 1.year)).to eq(0) }
       puts format('Average runtime for active students last year: %<runtime>.3f seconds', {runtime: runtime })
 
-      runtime = Benchmark.realtime { expect(SerializeVitallySalesOrganization.new(district).activities_completed).to eq(10000) }
+      runtime = Benchmark.realtime { expect(described_class.new(district).activities_completed).to eq(10000) }
       puts format('Average runtime for activities completed all time: %<runtime>.3f seconds', {runtime: runtime })
 
-      runtime = Benchmark.realtime { expect(SerializeVitallySalesOrganization.new(district).activities_completed(Time.zone.today - 1.year)).to eq(10000) }
+      runtime = Benchmark.realtime { expect(described_class.new(district).activities_completed(Time.zone.today - 1.year)).to eq(10000) }
       puts format('Average runtime for activities completed this year: %<runtime>.3f seconds', {runtime: runtime })
 
-      runtime = Benchmark.realtime { expect(SerializeVitallySalesOrganization.new(district).activities_completed(Time.zone.today - 2.years, Time.zone.today - 1.year)).to eq(0) }
+      runtime = Benchmark.realtime { expect(described_class.new(district).activities_completed(Time.zone.today - 2.years, Time.zone.today - 1.year)).to eq(0) }
       puts format('Average runtime for activities completed last year: %<runtime>.3f seconds', {runtime: runtime })
 
-      runtime = Benchmark.realtime { expect(SerializeVitallySalesOrganization.new(district).last_active_time).to eq(Time.zone.today) }
+      runtime = Benchmark.realtime { expect(described_class.new(district).last_active_time).to eq(Time.zone.today) }
       puts format('Average runtime for last sign in: %<runtime>.3f seconds', {runtime: runtime })
     end
   end

@@ -15,16 +15,16 @@ gem 'dotenv-rails', '~> 2.6'
 gem 'pg', '1.4.2'
 gem 'ancestry', '~> 3.0.5'
 gem 'ranked-model', '~> 0.4.3'
-gem 'rails_admin', '~> 2.2'
+gem 'rails_admin', '~> 3.1.2'
 gem 'bulk_insert', '~> 1.7'
 gem 'atomic_arrays', '~> 1.1.0'
 
 # USER AUTH, ETC
 gem 'bcrypt', '~> 3.1.12'
 gem "doorkeeper", "5.0.3"
-gem 'omniauth', '~> 1.9'
+gem 'omniauth'
 gem 'omniauth-canvas'
-gem 'omniauth-google-oauth2', '0.6.0'
+gem 'omniauth-google-oauth2'
 gem 'omniauth-clever', git: 'https://github.com/Pioneer-Valley-Books/omniauth-clever'
 gem 'omniauth-rails_csrf_protection'
 gem 'cancancan', '~> 2.3'
@@ -55,6 +55,7 @@ gem 'maxminddb'
 
 # OTHERS
 gem 'global'
+gem 'lms-api', require: 'lms_api'
 gem 'google-api-client', '0.8.6'
 gem 'faraday_middleware'
 gem 'newrelic_rpm', '~> 7.2'
@@ -139,7 +140,9 @@ gem 'rack-host-redirect'
 gem 'rack-affiliates', '= 0.4.0'
 
 # DEPLOYMENT
-gem 'sentry-raven', '>= 0.12.2'
+gem 'sentry-ruby'
+gem 'sentry-rails'
+gem 'sentry-sidekiq'
 gem 'rack-heartbeat'
 
 # INTEGRATIONS
@@ -157,6 +160,8 @@ gem 'awesome_print'
 
 # TODO: Remove this after migrating to Rails 7 encrypted attributes
 gem 'lockbox'
+
+gem 'capitalize-names', require: 'capitalize_names'
 
 group :production, :staging do
   gem 'rails-autoscale-web'

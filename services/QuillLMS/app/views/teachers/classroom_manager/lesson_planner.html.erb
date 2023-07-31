@@ -1,24 +1,28 @@
-
-
 <%= render partial: 'teachers/shared/scorebook_tabs' %>
 
-
-
-
-	<div class="tab-pane" id="activity-planner" data-tab="<%= @tab %>" data-grade="<%= @grade %>" data-students="<%= @students_exist %>" data-classroom-name="<%= @last_classroom_name%>" data-classroom-id="<%= @last_classroom_id%>">
-
-		<%= react_component('LessonPlannerApp', props: {
-      grade: @grade.to_s,
-      tab: @tab.to_s,
-      classroomName: @last_classroom_name,
-      classroomId: @last_classroom_id.to_s,
-      students: @students.to_s,
-      flag: current_user&.testing_flag,
-			referralCode: current_user&.referral_code,
-      user: current_user
-    })%>
-	<!-- ==========================================================================
-		 Progress tracker
-		========================================================================== -->
-
-	</div>
+<div
+  class="tab-pane"
+  id="activity-planner"
+  data-tab="<%= @tab %>"
+  data-grade="<%= @grade %>"
+  data-students="<%= @students_exist %>"
+  data-classroom-name="<%= @last_classroom_name%>"
+  data-classroom-id="<%= @last_classroom_id%>"
+>
+  <%= react_component(
+        'LessonPlannerApp',
+        props: {
+          grade: @grade.to_s,
+          tab: @tab.to_s,
+          classroomName: @last_classroom_name,
+          classroomId: @last_classroom_id.to_s,
+          googleLink: @google_link,
+          students: @students.to_s,
+          flag: current_user&.testing_flag,
+          referralCode: current_user&.referral_code,
+          unassignWarningHidden: @unassign_warning_hidden,
+          user: current_user
+        }
+      )
+  %>
+</div>

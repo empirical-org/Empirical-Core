@@ -2,7 +2,6 @@
 
 class SnapshotsController < ApplicationController
   GRADE_OPTIONS = [
-    {value: "null", name: "No grade set"},
     {value: "Kindergarten", name: "Kindergarten"},
     {value: "1", name: "1st"},
     {value: "2", name: "2nd"},
@@ -17,7 +16,8 @@ class SnapshotsController < ApplicationController
     {value: "11", name: "11th"},
     {value: "12", name: "12th"},
     {value: "University", name: "University"},
-    {value: "Other", name: "Other"}
+    {value: "Other", name: "Other"},
+    {value: "null", name: "No grade set"}
   ]
 
   WORKERS_FOR_ACTIONS = {
@@ -127,10 +127,10 @@ class SnapshotsController < ApplicationController
 
   private def retrieve_cache_or_enqueue_worker(worker)
 
-    previous_start, current_start, current_end = Snapshots::Timeframes.calculate_timeframes(snapshot_params[:timeframe],
-      snapshot_params[:timeframe_custom_start],
-      snapshot_params[:timeframe_custom_end])
-    cache_key = cache_key_for_timeframe(previous_start, current_start, current_end)
+    previous_start, previous_end, current_start, current_end = Snapshots::Timeframes.calculate_timeframes(snapshot_params[:timeframe],
+      custom_start: snapshot_params[:timeframe_custom_start],
+      custom_end: snapshot_params[:timeframe_custom_end])
+    cache_key = cache_key_for_timeframe(snapshot_params[:timeframe], current_start, current_end)
     response = Rails.cache.read(cache_key)
 
     return { results: response } if response
@@ -141,6 +141,7 @@ class SnapshotsController < ApplicationController
       {
         name: snapshot_params[:timeframe],
         previous_start: previous_start,
+        previous_end: previous_end,
         current_start: current_start,
         current_end: current_end
       },
@@ -154,10 +155,10 @@ class SnapshotsController < ApplicationController
     { message: 'Generating snapshot' }
   end
 
-  private def cache_key_for_timeframe(previous_start, current_start, current_end)
+  private def cache_key_for_timeframe(timeframe_name, current_start, current_end)
 
     Snapshots::CacheKeys.generate_key(@query,
-      previous_start,
+      timeframe_name,
       current_start,
       current_end,
       snapshot_params.fetch(:school_ids, []),

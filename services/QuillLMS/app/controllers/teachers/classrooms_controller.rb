@@ -22,7 +22,11 @@ class Teachers::ClassroomsController < ApplicationController
 
     @coteacher_invitations = format_coteacher_invitations_for_index
     @classrooms = format_classrooms_for_index
+
+    @canvas_link = Auth::Canvas::REAUTHORIZATION_PATH
     @clever_link = clever_link
+    @google_link = Auth::Google::REAUTHORIZATION_PATH
+    @user =  UserWithProviderSerializer.new(current_user).as_json(root: false)
 
     respond_to do |format|
       format.html
@@ -150,10 +154,11 @@ class Teachers::ClassroomsController < ApplicationController
         ClassroomsTeacher.find_by(user_id: current_user.id, classroom_id: @classroom.id, role: owner_role).update(role: coteacher_role)
         ClassroomsTeacher.find_by(user_id: requested_new_owner_id, classroom_id: @classroom.id, role: coteacher_role).update(role: owner_role)
       end
-      Analyzer.new.track_with_attributes(
-          current_user,
-          SegmentIo::BackgroundEvents::TRANSFER_OWNERSHIP,
-{ properties: { new_owner_id: requested_new_owner_id } }
+
+      Analytics::Analyzer.new.track_with_attributes(
+        current_user,
+        Analytics::SegmentIo::BackgroundEvents::TRANSFER_OWNERSHIP,
+        properties: { new_owner_id: requested_new_owner_id }
       )
     rescue => e
       return render json: { error: "Please ensure this teacher is a co-teacher before transferring ownership. #{e}" }, status: 401
@@ -195,7 +200,10 @@ class Teachers::ClassroomsController < ApplicationController
 
     classrooms.compact.map do |classroom|
       classroom_obj = classroom.attributes
-      classroom_obj[:providerClassroom] = classroom.provider_classroom if classroom.provider_classroom?
+      if classroom.provider?
+        classroom_obj[:classroomProvider] = classroom.provider
+        classroom_obj[:classroom_external_id] = classroom.classroom_external_id
+      end
       classroom_obj[:students] = format_students_for_classroom(classroom)
       classroom_teachers = format_teachers_for_classroom(classroom)
       pending_coteachers = format_pending_coteachers_for_classroom(classroom)
@@ -204,19 +212,24 @@ class Teachers::ClassroomsController < ApplicationController
     end.compact
   end
 
+  # rubocop:disable Metrics/CyclomaticComplexity
   private def format_students_for_classroom(classroom)
-    sorted_students = classroom.students.sort_by(&:last_name)
-    classroom_unit_ids = ClassroomUnit.where(classroom: classroom).ids
+    students = classroom.students.sort_by(&:last_name).map(&:attributes)
 
-    students = sorted_students.map do |student|
-      student.attributes.merge(number_of_completed_activities: ActivitySession.where(state: ActivitySession::STATE_FINISHED, user_id: student.id, classroom_unit_id: classroom_unit_ids).count || 0)
+    if classroom.visible
+      classroom_unit_ids = ClassroomUnit.where(classroom: classroom).ids
+
+      students = students.map do |student|
+        student.merge(number_of_completed_activities: ActivitySession.where(state: ActivitySession::STATE_FINISHED, user_id: student['id'], classroom_unit_id: classroom_unit_ids).count || 0)
+      end
     end
 
-    return students unless classroom.provider_classroom?
+    return students unless classroom.provider?
 
-    provider_classroom = ProviderClassroom.new(classroom)
-    students.map { |student| student.merge(synced: provider_classroom.synced_status(student)) }
+    provider_classroom_delegator = ProviderClassroomDelegator.new(classroom)
+    students.map { |student| student.merge(synced: provider_classroom_delegator.synced_status(student)) }
   end
+  # rubocop:enable Metrics/CyclomaticComplexity
 
   private def format_pending_coteachers_for_classroom(classroom)
     classroom.coteacher_classroom_invitations.map do |cci|

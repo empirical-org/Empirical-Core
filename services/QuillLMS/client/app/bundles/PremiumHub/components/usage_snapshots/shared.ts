@@ -115,8 +115,7 @@ export const snapshotSections = [
             label: 'Most active teachers',
             type: RANKING,
             queryKey: 'most-active-teachers',
-            headers: ['Teacher', 'Activities completed'],
-            comingSoon: true
+            headers: ['Teacher', 'Activities completed']
           },
         ]
       }
@@ -225,15 +224,13 @@ export const snapshotSections = [
             label: 'Most assigned activities',
             type: RANKING,
             queryKey: 'most-assigned-activities',
-            headers: ['Activity', 'Activities completed'],
-            comingSoon: true
+            headers: ['Activity', 'Activities completed']
           },
           {
             label: 'Most completed activities',
             type: RANKING,
             queryKey: 'most-completed-activities',
-            headers: ['Activity', 'Activities completed'],
-            comingSoon: true
+            headers: ['Activity', 'Activities completed']
           }
         ]
       },
@@ -257,8 +254,7 @@ export const snapshotSections = [
             label: 'Average active classrooms per teacher',
             size: SMALL,
             type: COUNT,
-            queryKey: 'average-active-classrooms-per-teacher',
-            comingSoon: true
+            queryKey: 'average-active-classrooms-per-teacher'
           },
           {
             label: 'Classrooms created',
@@ -271,8 +267,7 @@ export const snapshotSections = [
             label: 'Average active students per classroom',
             size: SMALL,
             type: COUNT,
-            queryKey: 'average-active-students-per-classroom',
-            comingSoon: true
+            queryKey: 'average-active-students-per-classroom'
           },
         ]
       },
@@ -283,8 +278,7 @@ export const snapshotSections = [
             label: 'Most active grades',
             type: RANKING,
             queryKey: 'most-active-grades',
-            headers: ['Grade', 'Activities completed'],
-            comingSoon: true
+            headers: ['Grade', 'Activities completed']
           },
         ]
       }

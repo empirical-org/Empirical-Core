@@ -4,14 +4,15 @@
 #
 # Table name: classroom_units
 #
-#  id                   :integer          not null, primary key
-#  assign_on_join       :boolean          default(FALSE)
-#  assigned_student_ids :integer          default([]), is an Array
-#  visible              :boolean          default(TRUE)
-#  created_at           :datetime
-#  updated_at           :datetime
-#  classroom_id         :integer          not null
-#  unit_id              :integer          not null
+#  id                       :integer          not null, primary key
+#  assign_on_join           :boolean          default(FALSE)
+#  assigned_student_ids     :integer          default([]), is an Array
+#  visible                  :boolean          default(TRUE)
+#  created_at               :datetime
+#  updated_at               :datetime
+#  classroom_id             :integer          not null
+#  source_classroom_unit_id :integer
+#  unit_id                  :integer          not null
 #
 # Indexes
 #
@@ -145,8 +146,7 @@ describe ClassroomUnit, type: :model, redis: true do
 
   describe '#remove_assigned_student' do
     let(:student) { create(:student_in_two_classrooms_with_many_activities) }
-    let(:student_classroom) { StudentsClassrooms.find_by(student_id: student.id) }
-    let(:classroom_unit) { ClassroomUnit.find_by(classroom_id: student_classroom.classroom_id)}
+    let(:classroom_unit) { student.classrooms.first.classroom_units.first }
 
     it "should remove the student's id from assigned_student_ids array from that classroom's classroom units" do
       classroom_unit.remove_assigned_student(student.id)

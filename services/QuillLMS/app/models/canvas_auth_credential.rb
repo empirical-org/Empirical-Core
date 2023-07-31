@@ -33,7 +33,7 @@ class CanvasAuthCredential < AuthCredential
   PROVIDER = 'canvas'
 
   def canvas_authorized?
-    refresh_token_valid?
+    canvas_instance && refresh_token_valid?
   end
 
   def refresh_token_valid?
@@ -42,5 +42,10 @@ class CanvasAuthCredential < AuthCredential
 
   def token
     access_token
+  end
+
+  # token is used by the lms-api gem
+  def token=(value)
+    self.access_token = value
   end
 end

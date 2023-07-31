@@ -22,13 +22,13 @@ RSpec.describe CanvasInstance, type: :model do
 
   it { should have_many(:canvas_instance_schools).dependent(:destroy) }
   it { should have_many(:schools).through(:canvas_instance_schools) }
-
   it { should have_many(:canvas_accounts).dependent(:destroy) }
   it { should have_many(:users).through(:canvas_accounts) }
-
-  it { should have_many(:canvas_configs).dependent(:destroy)}
-
+  it { should have_one(:canvas_config).dependent(:destroy)}
   it { should have_many(:canvas_instance_auth_credentials).dependent(:destroy) }
+
+  it { should validate_uniqueness_of(:url).case_insensitive }
+  it { should validate_presence_of(:url) }
 
   context 'callbacks' do
     context 'before_validation' do

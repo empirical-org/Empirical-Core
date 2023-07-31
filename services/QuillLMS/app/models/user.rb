@@ -57,6 +57,7 @@
 #
 
 # rubocop:disable Metrics/ClassLength
+
 class User < ApplicationRecord
   include Student
   include Teacher
@@ -104,8 +105,13 @@ class User < ApplicationRecord
   PERMISSIONS_FLAGS = %w(auditor purchaser school_point_of_contact)
   VALID_FLAGS = TESTING_FLAGS.dup.concat(PERMISSIONS_FLAGS)
 
-  GOOGLE_CLASSROOM_ACCOUNT = 'Google Classroom'
+  CANVAS_ACCOUNT = 'Canvas'
   CLEVER_ACCOUNT = 'Clever'
+  GOOGLE_CLASSROOM_ACCOUNT = 'Google Classroom'
+
+  CANVAS_PROVIDER = 'Canvas'
+  CLEVER_PROVIDER = 'Clever'
+  GOOGLE_PROVIDER = 'Google'
 
   SCHOOL_CHANGELOG_ATTRIBUTE = 'school_id'
 
@@ -129,7 +135,7 @@ class User < ApplicationRecord
   has_many :subscriptions, through: :user_subscriptions
   has_many :activity_sessions
   has_one :schools_users
-  has_one :sales_contact
+  has_one :sales_contact, dependent: :destroy
   has_one :school, through: :schools_users
   has_many :schools_i_coordinate, class_name: 'School', foreign_key: 'coordinator_id'
   has_many :schools_i_authorize, class_name: 'School', foreign_key: 'authorizer_id'
@@ -173,7 +179,7 @@ class User < ApplicationRecord
   has_many :canvas_accounts, dependent: :destroy
   has_many :canvas_instances, through: :canvas_accounts
 
-  accepts_nested_attributes_for :auth_credential
+  accepts_nested_attributes_for :auth_credential, :canvas_accounts
 
   delegate :name, :mail_city, :mail_state,
     to: :school,
@@ -247,6 +253,10 @@ class User < ApplicationRecord
     end
   end
 
+  def self.find_by_canvas_user_external_ids(user_external_ids)
+    where(id: CanvasAccount.custom_find_by_user_external_ids(user_external_ids).pluck(:user_id))
+  end
+
   def self.valid_email?(email)
     ValidatesEmailFormatOf.validate_email_format(email).nil?
   end
@@ -293,7 +303,7 @@ class User < ApplicationRecord
   end
 
   def testing_flag
-    role == STAFF ? ARCHIVED : flags.detect{|f| TESTING_FLAGS.include?(f)}
+    role == STAFF ? ARCHIVED : flags.find { |f| TESTING_FLAGS.include?(f) }
   end
 
   def auditor?
@@ -430,16 +440,7 @@ class User < ApplicationRecord
   end
 
   def capitalize_name
-    result = name
-    if name.present?
-      f,l = name.split(/\s+/, 2)
-      if f.present? and l.present?
-        result = "#{f.capitalize} #{l.gsub(/\S+/, &:capitalize)}"
-      else
-        result = name.capitalize
-      end
-    end
-    self.name = result
+    self.name = ::CapitalizeNames.capitalize(name)
   end
 
   def admin?
@@ -681,16 +682,20 @@ class User < ApplicationRecord
     self.username = GenerateUsername.run(first_name, last_name, get_class_code(classroom_id))
   end
 
+  def canvas_authorized?
+    auth_credential.present? && auth_credential.canvas_authorized?
+  end
+
   def clever_authorized?
-    clever_id && auth_credential&.clever_authorized?
+    clever_id.present? && auth_credential.present? && auth_credential.clever_authorized?
   end
 
   def google_authorized?
-    google_id && auth_credential&.google_authorized?
+    google_id.present? && auth_credential.present? && auth_credential.google_authorized?
   end
 
   def google_access_expired?
-    google_id && auth_credential&.google_access_expired?
+    google_id.present? && auth_credential.present? && auth_credential.google_access_expired?
   end
 
   # Note this is an incremented count, so could be off.
@@ -827,6 +832,24 @@ class User < ApplicationRecord
 
   def record_login
     user_logins.create
+  end
+
+  def provider
+    return GOOGLE_PROVIDER if google_id.present?
+    return CLEVER_PROVIDER if clever_id.present?
+    return CANVAS_PROVIDER if canvas_accounts.present?
+  end
+
+  def user_external_id(canvas_instance: nil)
+    return google_id if google_id.present?
+
+    return clever_id if clever_id.present?
+
+    return nil unless canvas_instance.is_a?(CanvasInstance)
+
+    canvas_accounts
+      .find_by(canvas_instance: canvas_instance)
+      &.user_external_id
   end
 
   private def validate_flags

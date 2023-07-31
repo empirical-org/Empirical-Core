@@ -1,0 +1,154 @@
+.update-assigned-students-container {
+  padding: 32px 0px 0px;
+  section {
+    padding: 0px;
+  }
+  .header {
+    display: flex;
+    justify-content: space-between;
+    margin-bottom: 32px;
+    h1 {
+      font-weight: 400;
+      font-size: 16px;
+      line-height: 32px;
+    }
+    h2 {
+      font-weight: 700;
+      font-size: 24px;
+      line-height: 32px;
+    }
+  }
+  .buttons {
+    display: flex;
+    .quill-button {
+      margin-left: 16px;
+    }
+  }
+  .classroom-section {
+    border: 1px solid #CFCFCF;
+    border-radius: 8px;
+    margin-bottom: 64px;
+    .classroom-header {
+      display: flex;
+      background-color: #EBEBEB;
+      padding: 12px 24px;
+      justify-content: space-between;
+      align-items: center;
+      border-bottom: 1px solid #CFCFCF;
+      div {
+        display: flex;
+        align-items: center;
+      }
+      h3 {
+        font-weight: 600;
+        font-size: 14px;
+        margin-right: 9px;
+      }
+    }
+  }
+  .students {
+    padding: 16px 24px;
+    grid-template-columns: 1fr 1fr 1fr;
+    display: grid;
+    gap: 8px;
+    .student {
+      display: flex;
+      border: 1px solid #E0E0E0;
+      justify-content: space-between;
+      border-radius: 8px;
+      padding: 8px;
+      margin-bottom: 8px;
+      div {
+        display: flex;
+        align-items: center;
+      }
+      em {
+        font-weight: 700;
+        text-decoration: underline;
+        font-style: normal;
+      }
+      .quill-checkbox {
+        margin-right: 8px;
+      }
+      &.already-assigned {
+        background-color: #F7F5F5;
+      }
+      &.will-be-assigned {
+        background-color: #D6EFEC;
+        border: 1px solid #06806B;
+        .description {
+          color: #06806B;
+        }
+      }
+      &.will-be-removed {
+        background-color: #FFEDEC;
+        border: 1px solid #EB4F47;
+        .description {
+          color: #EB4F47;
+        }
+      }
+    }
+  }
+  .unassign-warning-modal {
+    margin-bottom: 0px;
+    h2 {
+      font-size: 24px;
+      font-weight: 700;
+      line-height: 32px;
+      display: flex;
+      align-items: center;
+      img {
+        height: 22px;
+        margin-right: 12px;
+      }
+    }
+    p {
+      color: #646464;
+      font-size: 14px;
+      line-height: 22px;
+      margin-top: 16px;
+    }
+    .modal-body {
+      margin-bottom: 0px;
+    }
+    .unassign-warning-modal-footer {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-top: 32px;
+    }
+    .checkbox-wrapper {
+      display: flex;
+      align-items: center;
+      span {
+        margin-left: 8px;
+      }
+    }
+  }
+  .pack-removed-wrapper {
+    img {
+      margin-left: 4px;
+    }
+  }
+
+  @media (max-width: 1000px) {
+    .students {
+      grid-template-columns: 1fr 1fr;
+    }
+  }
+
+  @media (max-width: 800px) {
+    .students {
+      grid-template-columns: 1fr;
+    }
+    .header, .classroom-header {
+      flex-direction: column;
+      .buttons {
+        margin-top: 16px;
+        .quill-button:first-of-type {
+          margin-left: 0px;
+        }
+      }
+    }
+  }
+}
