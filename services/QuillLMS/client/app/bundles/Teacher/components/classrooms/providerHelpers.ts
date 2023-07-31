@@ -1,36 +1,44 @@
-export const canvasProvider = 'Canvas';
-export const cleverProvider = 'Clever';
-export const googleProvider = 'Google';
+export const canvasProvider = 'Canvas'
+export const cleverProvider = 'Clever'
+export const googleProvider = 'Google'
+
+const importClassroomsEventName = (provider: string) => `${provider.toLowerCase()}-classroom-students-imported`
+const importClassroomsPath = (provider: string) => `/${provider.toLowerCase()}_integration/teachers/import_classrooms`
+const importStudentsEventName = (provider: string) => `${provider.toLowerCase()}-classroom-students-imported`
+const importStudentsPath = (provider: string) => `/${provider.toLowerCase()}_integration/teachers/import_students`
+const retrieveClassroomsEventName = (provider: string) => `${provider.toLowerCase()}-classrooms-retrieved`
+const retrieveClassroomsPath = (provider: string) => `/${provider.toLowerCase()}_integration/teachers/retrieve_classrooms`
 
 export const providerConfigLookup = {
   [canvasProvider]: {
-    importClassroomsEventName: `canvas-classroom-students-imported`,
-    importClassroomsPath: `/canvas_integration/teachers/import_classrooms`,
-    importStudentsEventName: `canvas-classroom-students-imported`,
-    importStudentsPath: '/canvas_integration/teachers/import_students',
+    importClassroomsEventName: importClassroomsEventName(canvasProvider),
+    importClassroomsPath: importClassroomsPath(canvasProvider),
+    importStudentsEventName: importStudentsEventName(canvasProvider),
+    importStudentsPath: importStudentsPath(canvasProvider),
     isCanvas: true,
-    retrieveClassroomsEventName: `canvas-classrooms-retrieved`,
-    retrieveClassroomsPath: '/canvas_integration/teachers/retrieve_classrooms',
+    retrieveClassroomsEventName: retrieveClassroomsEventName(canvasProvider),
+    retrieveClassroomsPath: retrieveClassroomsPath(canvasProvider),
     title: 'Canvas',
   },
   [cleverProvider]: {
-    importClassroomsEventName: `clever-classroom-students-imported`,
-    importClassroomsPath: `/clever_integration/teachers/import_classrooms`,
-    importStudentsEventName: `clever-classroom-students-imported`,
-    importStudentsPath: '/clever_integration/teachers/import_students',
+    importClassroomsEventName: importClassroomsEventName(cleverProvider),
+    importClassroomsPath: importClassroomsPath(cleverProvider),
+    importStudentsEventName: importStudentsEventName(cleverProvider),
+    importStudentsPath: importStudentsPath(cleverProvider),
     isClever: true,
-    retrieveClassroomsEventName: `clever-classrooms-retrieved`,
-    retrieveClassroomsPath: '/clever_integration/teachers/retrieve_classrooms',
+    retrieveClassroomsEventName: retrieveClassroomsEventName(cleverProvider),
+    retrieveClassroomsPath: retrieveClassroomsPath(cleverProvider),
     title: 'Clever',
   },
   [googleProvider]: {
-    importClassroomsEventName: `google-classroom-students-imported`,
-    importClassroomsPath: `/google_integration/teachers/import_classrooms`,
-    importStudentsPath: '/google_integration/teachers/import_students',
-    importStudentsEventName: `google-classroom-students-imported`,
+    importClassroomsEventName: importClassroomsEventName(googleProvider),
+    importClassroomsPath: importClassroomsPath(googleProvider),
+    importStudentsPath: importStudentsPath(googleProvider),
+    importStudentsEventName: importStudentsEventName(googleProvider),
     isGoogle: true,
-    retrieveClassroomsPath: '/google_integration/teachers/retrieve_classrooms',
-    retrieveClassroomsEventName: `google-classrooms-retrieved`,
+    retrieveClassroomsPath: retrieveClassroomsPath(googleProvider),
+    retrieveClassroomsEventName: retrieveClassroomsEventName(googleProvider),
     title: 'Google Classroom',
   }
 }
+
