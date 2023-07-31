@@ -291,13 +291,20 @@
     display: flex;
     align-items: center;
     justify-content: space-between;
-    .school, .not-a-password {
+    .not-a-password {
       input {
         border-bottom: none;
       }
     }
-    .school input {
-      width: max-content;
+    .school-name-container {
+      width: 80%;
+    }
+    .school-name-label {
+      font-size: 12px;
+      font-weight: 600;
+      color: #7f7f7f;
+      display: flex;
+      margin-bottom: 5px;
     }
     .not-a-password input {
       max-width: 300px;
