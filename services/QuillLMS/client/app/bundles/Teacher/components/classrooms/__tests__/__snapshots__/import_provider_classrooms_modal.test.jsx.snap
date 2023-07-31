@@ -1,0 +1,154 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`ImportProviderClassroomsModal component initial load should render 1`] = `
+<div
+  className="modal-container import-provider-classrooms-modal-container"
+>
+  <div
+    className="modal-background"
+  />
+  <div
+    className="import-provider-classrooms-modal quill-modal"
+  >
+    <div
+      className="import-provider-classrooms-modal-header"
+    >
+      <h3
+        className="title"
+      >
+        Import classes from 
+        Google Classroom
+      </h3>
+    </div>
+    <div
+      className="import-provider-classrooms-modal-body modal-body"
+    >
+      <DataTable
+        averageFontWidth={7}
+        checkAllRows={[Function]}
+        checkRow={[Function]}
+        headers={
+          Array [
+            Object {
+              "attribute": "name",
+              "name": "Class",
+              "width": "510px",
+            },
+            Object {
+              "attribute": "grade",
+              "name": "Grade",
+              "rowSectionClassName": "show-overflow",
+              "width": "110px",
+            },
+            Object {
+              "attribute": "year",
+              "name": "Year",
+              "width": "32px",
+            },
+            Object {
+              "attribute": "students",
+              "name": "Students",
+              "width": "51px",
+            },
+          ]
+        }
+        rows={
+          Array [
+            Object {
+              "checked": undefined,
+              "className": "",
+              "grade": null,
+              "id": undefined,
+              "key": undefined,
+              "name": "Big Class 1",
+              "students": 0,
+              "username": undefined,
+              "year": "2017",
+            },
+            Object {
+              "checked": undefined,
+              "className": "",
+              "grade": null,
+              "id": undefined,
+              "key": undefined,
+              "name": "shared class",
+              "students": 0,
+              "username": undefined,
+              "year": "2017",
+            },
+            Object {
+              "checked": undefined,
+              "className": "",
+              "grade": null,
+              "id": undefined,
+              "key": undefined,
+              "name": "test teacher is not a student",
+              "students": 9,
+              "username": undefined,
+              "year": "2017",
+            },
+            Object {
+              "checked": undefined,
+              "className": "",
+              "grade": null,
+              "id": undefined,
+              "key": undefined,
+              "name": "this won't work either",
+              "students": 0,
+              "username": undefined,
+              "year": "2017",
+            },
+            Object {
+              "checked": undefined,
+              "className": "",
+              "grade": null,
+              "id": undefined,
+              "key": undefined,
+              "name": "this will not work",
+              "students": 2,
+              "username": undefined,
+              "year": "2017",
+            },
+            Object {
+              "checked": undefined,
+              "className": "",
+              "grade": null,
+              "id": undefined,
+              "key": undefined,
+              "name": "test teacher is a student",
+              "students": 1,
+              "username": undefined,
+              "year": "2017",
+            },
+          ]
+        }
+        showCheckboxes={true}
+        uncheckAllRows={[Function]}
+        uncheckRow={[Function]}
+      />
+    </div>
+    <div
+      className="import-provider-classrooms-modal-footer"
+    >
+      <div
+        className="buttons"
+      >
+        <button
+          className="quill-button outlined secondary medium"
+          onClick={[Function]}
+          type="button"
+        >
+          Cancel
+        </button>
+        <button
+          className="quill-button contained primary medium disabled"
+          onClick={[Function]}
+          type="button"
+        >
+          Import classes
+        </button>
+      </div>
+    </div>
+  </div>
+</div>
+`;

@@ -13,7 +13,6 @@
 #  updated_at :datetime
 #
 require 'rails_helper'
-require 'jwt'
 
 describe FirebaseApp, type: :model do
 

@@ -12,42 +12,46 @@ RSpec.describe CleverIntegration::DistrictClient do
   let(:api_client) { double(:api_client, config: config) }
   let(:data_api) { double(:data_api, api_client: api_client) }
 
+  let(:district_client) { described_class.new(district_token) }
+
   before do
     expect(Clever::DataApi).to receive(:new).and_return(data_api)
     expect(data_api).to receive(:api_client).and_return(api_client)
     expect(api_client).to receive(:config=)
   end
 
-  subject { described_class.new(district_token) }
+  context '#teacher_classrooms' do
+    subject { district_client.teacher_classrooms(teacher_clever_id) }
 
-  context '#get_teacher_classrooms' do
     let(:classrooms_attrs) { [classroom1_attrs, classroom2_attrs]}
     let(:data) { classrooms_data }
 
     before { expect(data_api).to receive(:get_sections_for_teacher).with(teacher_clever_id).and_return(data) }
 
-    it { expect(subject.get_teacher_classrooms(teacher_clever_id)).to eq classrooms_attrs }
+    it { is_expected.to eq classrooms_attrs }
   end
 
-  context '#get_classroom_students' do
+  context '#classroom_students' do
+    subject { district_client.classroom_students(classroom_external_id) }
+
     let(:students_attrs) { [student1_attrs, student2_attrs] }
 
-    before { expect(data_api).to receive(:get_students_for_section).with(classroom_clever_id).and_return(data) }
+    before { expect(data_api).to receive(:get_students_for_section).with(classroom_external_id).and_return(data) }
 
     context 'classroom 1' do
       let(:data) { classroom1_students_data }
-      let(:classroom_clever_id) { classroom1_attrs[:clever_id] }
+      let(:classroom_external_id) { classroom1_attrs[:classroom_external_id] }
       let(:students_attrs) { [student1_attrs, student2_attrs] }
 
-      it { expect(subject.get_classroom_students(classroom_clever_id)).to eq students_attrs }
+      it { is_expected.to eq students_attrs}
     end
 
     context 'classroom 2' do
       let(:data) { classroom2_students_data }
-      let(:classroom_clever_id) { classroom2_attrs[:clever_id] }
+      let(:classroom_external_id) { classroom2_attrs[:classroom_external_id] }
       let(:students_attrs) { [student3_attrs] }
 
-      it { expect(subject.get_classroom_students(classroom_clever_id)).to eq students_attrs }
+      it { is_expected.to eq students_attrs}
     end
   end
 end

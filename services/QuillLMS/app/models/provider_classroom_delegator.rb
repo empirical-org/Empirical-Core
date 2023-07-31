@@ -2,8 +2,8 @@
 
 class ProviderClassroomDelegator < SimpleDelegator
   def synced_status(student_attrs)
-    return true if provider_active_user_ids.include?(user_external_id(student_attrs))
-    return false if provider_deleted_user_ids.include?(user_external_id(student_attrs))
+    return true if synced_user_external_ids.include?(user_external_id(student_attrs))
+    return false if unsynced_user_external_ids.include?(user_external_id(student_attrs))
 
     return nil
   end
@@ -12,40 +12,38 @@ class ProviderClassroomDelegator < SimpleDelegator
     students.where(id: unsynced_users.pluck(:id))
   end
 
-  private def provider_active_user_ids
-    @provider_active_user_ids ||=
+  private def synced_user_external_ids
+    @synced_user_external_ids ||=
       provider_classroom_user_class
         .active
         .where(classroom_external_id: classroom_external_id)
         .pluck(:user_external_id)
   end
 
-  private def provider_deleted_user_ids
-    @provider_deleted_user_ids ||=
+  private def unsynced_user_external_ids
+    @unsynced_user_external_ids ||=
       provider_classroom_user_class
         .deleted
         .where(classroom_external_id: classroom_external_id)
         .pluck(:user_external_id)
   end
 
-  private def classroom_external_id
-    return google_classroom_id if google_classroom?
-    return clever_id if clever_classroom?
-  end
-
   private def provider_classroom_user_class
     return GoogleClassroomUser if google_classroom?
     return CleverClassroomUser if clever_classroom?
+    return CanvasClassroomUser if canvas_classroom?
   end
 
   private def user_external_id(student_attrs)
     return student_attrs['google_id'] if google_classroom?
     return student_attrs['clever_id'] if clever_classroom?
+    return User.find(student_attrs['id']).user_external_id(canvas_instance: canvas_instance) if canvas_classroom?
   end
 
   private def unsynced_users
-    return User.where(google_id: provider_deleted_user_ids) if google_classroom?
-    return User.where(clever_id: provider_deleted_user_ids) if clever_classroom?
+    return User.where(google_id: unsynced_user_external_ids) if google_classroom?
+    return User.where(clever_id: unsynced_user_external_ids) if clever_classroom?
+    return User.find_by_canvas_user_external_ids(unsynced_user_external_ids) if canvas_classroom?
 
     User.none
   end

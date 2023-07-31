@@ -17,7 +17,6 @@
 #
 #  index_app_settings_on_name  (name) UNIQUE
 #
-require 'zlib'
 
 class AppSetting < ApplicationRecord
 

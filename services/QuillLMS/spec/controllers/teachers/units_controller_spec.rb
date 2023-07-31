@@ -165,7 +165,7 @@ describe Teachers::UnitsController, type: :controller do
     end
 
     it 'should successfully render both fresh data and cached data' do
-      expect(DiagnosticsOrganizedByClassroomFetcher).to receive(:run).once.with(current_user).and_call_original
+      expect(DiagnosticsOrganizedByClassroomFetcher).to receive(:run).once.with(teacher).and_call_original
 
       2.times do
         get :diagnostic_units
@@ -461,7 +461,7 @@ describe Teachers::UnitsController, type: :controller do
     end
 
     it 'should redirect to the lesson if there is only one lesson' do
-      classroom_unit = create(:classroom_unit, classroom: current_user.classrooms_i_own.first)
+      classroom_unit = create(:classroom_unit, classroom: teacher.classrooms_i_own.first)
       unit_activity = create(:unit_activity, unit: classroom_unit.unit, activity: activity)
       get :select_lesson_with_activity_id, params: { activity_id: activity.id }
       expect(response).to redirect_to("/teachers/classroom_units/#{classroom_unit.id}/launch_lesson/#{activity.uid}")

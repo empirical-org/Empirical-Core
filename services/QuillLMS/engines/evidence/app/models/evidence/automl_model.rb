@@ -14,8 +14,7 @@
 #  updated_at      :datetime         not null
 #  notes           :text             default("")
 #
-require "google/cloud/automl"
-
+require 'google/cloud/automl'
 
 module Evidence
   class AutomlModel < ApplicationRecord

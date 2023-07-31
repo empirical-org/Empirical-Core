@@ -112,7 +112,6 @@ describe User, type: :model do
   let!(:user_with_original_email) { build(:user, email: 'fake@example.com') }
 
   describe 'flags' do
-
     describe 'validations' do
       it 'does not raise an error when the flags are in the VALID_FLAGS array' do
         User::VALID_FLAGS.each do |flag|
@@ -1330,27 +1329,83 @@ describe User, type: :model do
     it { expect(User.valid_email?('a@b.com')).to be true }
   end
 
-  describe '#google_authorized?' do
-    context 'user without auth_credentials is unauthorized' do
-      it { expect(user.google_authorized?).to be_falsey }
+  describe '#canvas_authorized?' do
+    subject { user }
+
+    before { allow(user).to receive(:auth_credential).and_return(auth_credential) }
+
+    context 'no auth credential' do
+      let(:auth_credential) { nil }
+
+      it { is_expected.not_to be_canvas_authorized }
     end
 
-    context 'user with auth credentials has valid authorization' do
-      let(:google_user) { create(:google_auth_credential).user }
+    context 'auth credential is not canvas_authorized' do
+      let(:auth_credential) { double(:auth_credential, canvas_authorized?: false) }
 
-      it { expect(google_user.google_authorized?).to be true }
+      it { is_expected.not_to be_canvas_authorized }
+    end
+
+    context 'auth credential is canvas_authorized' do
+      let(:auth_credential) { double(:auth_credential, canvas_authorized?: true) }
+
+      it { is_expected.to be_canvas_authorized }
     end
   end
 
   describe '#clever_authorized?' do
-    context 'user without auth_credentials is unauthorized' do
-      it { expect(user.clever_authorized?).to be_falsey }
+    subject { user }
+
+    let(:auth_credential) { nil }
+
+    before { allow(user).to receive(:auth_credential).and_return(auth_credential) }
+
+    it { is_expected.not_to be_clever_authorized }
+
+    context 'user with clever_id is unauthorized' do
+      before { user.update(clever_id: '1234') }
+
+      it { is_expected.not_to be_clever_authorized }
+
+      context 'with auth credentials that is not clever_authorized' do
+        let(:auth_credential) { double(:auth_credential, clever_authorized?: false) }
+
+        it { is_expected.not_to be_clever_authorized}
+      end
+
+      context 'with auth credentials that is clever_authorized' do
+        let(:auth_credential) { double(:auth_credential, clever_authorized?: true) }
+
+        it { is_expected.to be_clever_authorized }
+      end
     end
+  end
 
-    context 'user with auth credentials has valid authorization' do
-      let(:clever_user) { create(:clever_library_auth_credential).user }
+  describe '#google_authorized?' do
+    subject { user }
 
-      it { expect(clever_user.clever_authorized?).to be true }
+    let(:auth_credential) { nil }
+
+    before { allow(user).to receive(:auth_credential).and_return(auth_credential) }
+
+    it { is_expected.not_to be_google_authorized }
+
+    context 'user with google_id is unauthorized' do
+      before { user.update(google_id: '1234') }
+
+      it { is_expected.not_to be_google_authorized }
+
+      context 'with auth credentials that is not google_authorized' do
+        let(:auth_credential) { double(:auth_credential, google_authorized?: false) }
+
+        it { is_expected.not_to be_google_authorized}
+      end
+
+      context 'with auth credentials that is google_authorized' do
+        let(:auth_credential) { double(:auth_credential, google_authorized?: true) }
+
+        it { is_expected.to be_google_authorized }
+      end
     end
   end
 
@@ -1972,7 +2027,7 @@ describe User, type: :model do
     end
   end
 
-  context 'save_user_pack_sequence_items' do
+  describe '#save_user_pack_sequence_items' do
     subject { user.save_user_pack_sequence_items}
 
     context 'user has no classrooms' do
@@ -1985,6 +2040,118 @@ describe User, type: :model do
       before { allow(user).to receive(:classrooms).and_return([classroom]) }
 
       it { expect { subject }.to change { SaveUserPackSequenceItemsWorker.jobs.size }.by(1) }
+    end
+  end
+
+  describe '#user_external_id' do
+    subject { user.user_external_id }
+
+    it { is_expected.to be_nil }
+
+    context 'user has google_id' do
+      let(:google_id) { Faker::Number.number }
+
+      before { allow(user).to receive(:google_id).and_return(google_id)}
+
+      it { is_expected.to eq google_id }
+    end
+
+    context 'user has clever_id' do
+      let(:clever_id) { SecureRandom.hex(12) }
+
+      before { allow(user).to receive(:clever_id).and_return(clever_id) }
+
+      it { is_expected.to eq clever_id }
+    end
+
+    context 'user has canvas_account' do
+      let(:canvas_classroom) { create(:canvas_classroom) }
+      let(:canvas_account) { create(:canvas_account, canvas_instance: canvas_instance, user: user) }
+      let(:canvas_accounts) { CanvasAccount.where(id: canvas_account.id) }
+      let(:canvas_instance) { canvas_classroom.canvas_instance }
+
+      before { allow(user).to receive(:canvas_accounts).and_return(canvas_accounts) }
+
+      context 'no canvas_instance argument given' do
+        subject { user.user_external_id }
+
+        let(:canvas_instance) { create(:canvas_instance) }
+
+        it { is_expected.to be_nil }
+      end
+
+      context 'canvas_account and canvas_classroom have the same canvas_instance' do
+        subject { user.user_external_id(canvas_instance: canvas_instance) }
+
+        it { is_expected.to eq canvas_account.user_external_id }
+      end
+
+      context 'canvas_account and canvas_classroom have different canvas_instance' do
+        subject { user.user_external_id(canvas_instance: another_canvas_instance) }
+
+        let(:another_canvas_instance) { create(:canvas_instance) }
+
+        it { is_expected.to be_nil }
+      end
+    end
+  end
+
+  describe '.find_by_canvas_user_external_ids' do
+    subject { described_class.find_by_canvas_user_external_ids(user_external_ids) }
+
+    context 'user_external_ids is nil' do
+      let(:user_external_ids) { nil }
+
+      it { is_expected.to be_empty }
+    end
+
+    context 'user_external_ids is empty' do
+      let(:user_external_ids) { [] }
+
+      it { is_expected.to be_empty }
+    end
+
+    context 'user_external_ids is not empty' do
+      context 'canvas_accounts do not exist' do
+        let(:user_external_ids) { [CanvasAccount.build_user_external_id(0, 0)] }
+
+        it { is_expected.to be_empty }
+      end
+
+      context 'canvas_accounts exist' do
+        let(:canvas_account1) { create(:canvas_account) }
+        let(:canvas_account2) { create(:canvas_account) }
+        let(:user_external_ids) { [canvas_account1.user_external_id, canvas_account2.user_external_id] }
+
+        it { is_expected.to match_array [canvas_account1.user, canvas_account2.user] }
+      end
+
+    end
+  end
+
+  describe '#provider' do
+    subject { user.provider }
+
+    it { is_expected.to be_nil }
+
+    context 'has google_id' do
+      before { user.update(google_id: Faker::Number) }
+
+      it { is_expected.to be described_class::GOOGLE_PROVIDER }
+    end
+
+    context 'has clever_id' do
+      before { user.update(clever_id: SecureRandom.hex(12)) }
+
+      it { is_expected.to be described_class::CLEVER_PROVIDER }
+    end
+
+    context 'has canvas account' do
+      let(:canvas_accounts) { double(:canvas_account) }
+
+      before { allow(user).to receive(:canvas_accounts).and_return(canvas_accounts) }
+
+      it { is_expected.to be described_class::CANVAS_PROVIDER }
     end
   end
 end

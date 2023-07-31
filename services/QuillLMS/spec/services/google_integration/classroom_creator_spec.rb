@@ -7,7 +7,7 @@ RSpec.describe GoogleIntegration::ClassroomCreator do
 
   let(:data) do
     {
-      google_classroom_id: google_classroom_id,
+      classroom_external_id: classroom_external_id,
       name: name,
       teacher_id: teacher_id
     }
@@ -15,14 +15,14 @@ RSpec.describe GoogleIntegration::ClassroomCreator do
 
   subject { described_class.run(data) }
 
-  let(:google_classroom_id) { 123456 }
+  let(:classroom_external_id) { 123456 }
 
   context 'name present' do
     let(:name) { 'google classroom name'}
 
     it 'creates a new classroom object with synced_name attr initially set to name' do
       expect(ClassroomsTeacher.count).to eq 0
-      expect(subject.google_classroom_id).to eq google_classroom_id
+      expect(subject.classroom_external_id).to eq classroom_external_id
       expect(subject.name).to eq name
       expect(subject.synced_name).to eq name
       expect(subject.classrooms_teachers.count).to eq 1
@@ -33,8 +33,8 @@ RSpec.describe GoogleIntegration::ClassroomCreator do
     let(:name) { nil }
 
     it 'creates a new classroom object with synced_name attr initially set to name' do
-      expect(subject.google_classroom_id).to eq google_classroom_id
-      expect(subject.name).to eq "Classroom #{google_classroom_id}"
+      expect(subject.classroom_external_id).to eq classroom_external_id
+      expect(subject.name).to eq "Classroom #{classroom_external_id}"
       expect(subject.synced_name).to eq nil
     end
   end
@@ -45,7 +45,7 @@ RSpec.describe GoogleIntegration::ClassroomCreator do
 
     before { create(:classrooms_teacher, user_id: teacher_id, classroom: classroom1) }
 
-    it { expect(subject.google_classroom_id).to eq google_classroom_id }
+    it { expect(subject.classroom_external_id).to eq classroom_external_id }
     it { expect(subject.name).to eq "#{name}_1" }
     it { expect(subject.synced_name).to eq name }
 

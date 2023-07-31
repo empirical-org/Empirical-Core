@@ -1,7 +1,5 @@
 # frozen_string_literal: true
 
-require_dependency 'evidence/application_controller'
-
 module Evidence
   class PromptHealthsController < ApiController
 
