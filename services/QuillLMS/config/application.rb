@@ -77,7 +77,5 @@ module EmpiricalGrammar
     config.public_file_server.headers = {
       'Access-Control-Allow-Origin' => '*'
     }
-
-    config.autoloader = :zeitwerk
   end
 end
