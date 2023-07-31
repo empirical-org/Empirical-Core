@@ -463,11 +463,11 @@ module Teacher
   end
 
   def subscription_is_expired?
-    subscription && subscription.expiration < Date.current
+    subscription && subscription.expired?
   end
 
   def subscription_is_valid?
-    subscription && subscription.expiration > Date.current
+    subscription && !subscription.expired?
   end
 
   def teachers_activity_sessions_since_trial_start_date
