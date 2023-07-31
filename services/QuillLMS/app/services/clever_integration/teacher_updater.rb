@@ -2,14 +2,16 @@
 
 module CleverIntegration
   class TeacherUpdater < ApplicationService
-    attr_reader :data, :teacher
-
     ACCOUNT_TYPE = ::User::CLEVER_ACCOUNT
     DEFAULT_ROLE = ::User::TEACHER
 
+    attr_reader :email, :name, :teacher, :user_external_id
+
     def initialize(teacher, data)
       @teacher = teacher
-      @data = data
+      @email = data[:email]
+      @name = data[:name]
+      @user_external_id = data[:user_external_id]
     end
 
     def run
@@ -23,12 +25,16 @@ module CleverIntegration
       DEFAULT_ROLE
     end
 
-    private def teacher_attrs
-      data.merge(account_type: ACCOUNT_TYPE, google_id: nil, role: role, signed_up_with_google: false)
-    end
-
-    private def update
-      teacher.update!(teacher_attrs)
+    def update
+      teacher.update!(
+        account_type: ACCOUNT_TYPE,
+        clever_id: user_external_id,
+        google_id: nil,
+        email: email,
+        name: name,
+        role: role,
+        signed_up_with_google: false
+      )
     end
   end
 end

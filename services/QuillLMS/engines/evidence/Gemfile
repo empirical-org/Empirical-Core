@@ -17,7 +17,6 @@ gem 'redis'
 gem 'redis-namespace'
 gem 'redis-rails'
 
-# To use a debugger
 gem 'byebug', group: [:development, :test]
 
 group :test do

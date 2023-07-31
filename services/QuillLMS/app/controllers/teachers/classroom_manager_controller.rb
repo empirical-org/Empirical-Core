@@ -23,6 +23,7 @@ class Teachers::ClassroomManagerController < ApplicationController
   def lesson_planner
     set_classroom_variables
     @unassign_warning_hidden = UserMilestone.exists?(milestone_id: UNASSIGN_WARNING_MILESTONE&.id, user_id: current_user&.id)
+    @google_link = Auth::Google::REAUTHORIZATION_PATH
   end
 
   def assign
@@ -32,7 +33,9 @@ class Teachers::ClassroomManagerController < ApplicationController
     set_banner_variables
     set_diagnostic_variables
     @clever_link = clever_link
+    @google_link = Auth::Google::REAUTHORIZATION_PATH
     @number_of_activities_assigned = current_user.units.map(&:unit_activities).flatten.map(&:activity_id).uniq.size
+    @user =  UserWithProviderSerializer.new(current_user).as_json(root: false)
     find_or_create_checkbox(Objective::EXPLORE_OUR_LIBRARY, current_user)
     return unless params[:tab] == 'diagnostic'
 
@@ -201,39 +204,6 @@ class Teachers::ClassroomManagerController < ApplicationController
     sign_out
     User.find(params[:id]).clear_data
     render json: {}
-  end
-
-  def retrieve_google_classrooms
-    serialized_google_classrooms = GoogleIntegration::TeacherClassroomsCache.read(current_user.id)
-    if serialized_google_classrooms
-      render json: JSON.parse(serialized_google_classrooms)
-    else
-      GoogleIntegration::RetrieveTeacherClassroomsWorker.perform_async(current_user.id)
-      render json: { id: current_user.id, quill_retrieval_processing: true }
-    end
-  end
-
-  def update_google_classrooms
-    serialized_classrooms_data = { classrooms: params[:selected_classrooms] }.to_json
-
-    GoogleIntegration::TeacherClassroomsData
-      .new(current_user, serialized_classrooms_data)
-      .each { |classroom_data| GoogleIntegration::ClassroomImporter.run(classroom_data) }
-
-    GoogleIntegration::TeacherClassroomsCache.delete(current_user.id)
-    GoogleIntegration::RetrieveTeacherClassroomsWorker.perform_async(current_user.id)
-    render json: { classrooms: current_user.google_classrooms }.to_json
-  end
-
-  def import_google_students
-    selected_classroom_ids = Classroom.where(id: params[:classroom_id] || params[:selected_classroom_ids]).ids
-    GoogleIntegration::TeacherClassroomsCache.delete(current_user.id)
-    GoogleStudentImporterWorker.perform_async(
-      current_user.id,
-      'Teachers::ClassroomManagerController',
-      selected_classroom_ids
-    )
-    render json: { id: current_user.id }
   end
 
   def view_demo

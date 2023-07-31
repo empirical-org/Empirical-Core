@@ -1,7 +1,7 @@
 # frozen_string_literal: true
 
-RSpec.shared_context "Clever District Students Data" do
-  let(:student1_clever_id) { "5b2c569c7a68e0097457ff9a" }
+RSpec.shared_context 'Clever District Students Data' do
+  let(:student1_clever_id) { '5b2c569c7a68e0097457ff9a' }
   let(:student1_first_name) { 'Bryce' }
   let(:student1_last_name) { 'Pauling' }
   let(:student1_clever_name) { Clever::Name.new(first: student1_first_name, last: student1_last_name) }
@@ -12,15 +12,15 @@ RSpec.shared_context "Clever District Students Data" do
 
   let(:student1_clever_data) do
     Clever::Student.new(
-      created: "2021-04-29T15:08:15.162Z",
+      created: '2021-04-29T15:08:15.162Z',
       credentials: student1_credentials,
-      district: "5ea76677200018",
+      district: '5ea76677200018',
       email: student1_email,
       id: student1_clever_id,
-      last_modified: "2021-11-19T13:52:56.162Z",
+      last_modified: '2021-11-19T13:52:56.162Z',
       name: student1_clever_name,
-      school: "608ace9c4b913709b8",
-      schools: ["608ace9c4b913709b8"],
+      school: '608ace9c4b913709b8',
+      schools: ['608ace9c4b913709b8'],
       sis_id: student1_email
     )
   end
@@ -29,14 +29,14 @@ RSpec.shared_context "Clever District Students Data" do
 
   let(:student1_attrs) do
     {
-      clever_id: student1_clever_id,
+      user_external_id: student1_clever_id,
       email: student1_email,
       name: student1_name,
       username: student1_username
     }
   end
 
-  let(:student2_clever_id) { "5b2c569c7a68e0097457ff9a" }
+  let(:student2_clever_id) { '5b2c569c7a68e0097457ff9b' }
   let(:student2_first_name) { 'Becca' }
   let(:student2_last_name) { 'Drake' }
   let(:student2_clever_name) { Clever::Name.new(first: student2_first_name, last: student2_last_name) }
@@ -47,15 +47,15 @@ RSpec.shared_context "Clever District Students Data" do
 
   let(:student2_clever_data) do
     Clever::Student.new(
-      created: "2021-04-29T15:08:15.162Z",
+      created: '2021-04-29T15:08:15.162Z',
       credentials: student2_credentials,
-      district: "5ea76677200018",
+      district: '5ea76677200018',
       email: student2_email,
       id: student2_clever_id,
-      last_modified: "2021-11-19T13:52:56.162Z",
+      last_modified: '2021-11-19T13:52:56.162Z',
       name: student2_clever_name,
-      school: "608ace9c4b913709b8",
-      schools: ["608ace9c4b913709b8"],
+      school: '608ace9c4b913709b8',
+      schools: ['608ace9c4b913709b8'],
       sis_id: student2_email
     )
   end
@@ -64,7 +64,7 @@ RSpec.shared_context "Clever District Students Data" do
 
   let(:student2_attrs) do
     {
-      clever_id: student2_clever_id,
+      user_external_id: student2_clever_id,
       email: student2_email,
       name: student2_name,
       username: student2_username
@@ -82,15 +82,15 @@ RSpec.shared_context "Clever District Students Data" do
 
   let(:student3_clever_data) do
     Clever::Student.new(
-      created: "2021-04-29T15:08:15.162Z",
+      created: '2021-04-29T15:08:15.162Z',
       credentials: student3_credentials,
-      district: "5ea76677200018",
+      district: '5ea76677200018',
       email: student3_email,
       id: student3_clever_id,
-      last_modified: "2021-11-19T13:52:56.162Z",
+      last_modified: '2021-11-19T13:52:56.162Z',
       name: student3_clever_name,
-      school: "608ace9c4b913709b8",
-      schools: ["608ace9c4b913709b8"],
+      school: '608ace9c4b913709b8',
+      schools: ['608ace9c4b913709b8'],
       sis_id: student3_email
     )
   end
@@ -99,7 +99,7 @@ RSpec.shared_context "Clever District Students Data" do
 
   let(:student3_attrs) do
     {
-      clever_id: student3_clever_id,
+      user_external_id: student3_clever_id,
       email: nil,
       name: student3_name,
       username: student3_username

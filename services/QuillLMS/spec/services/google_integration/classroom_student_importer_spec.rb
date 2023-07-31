@@ -4,15 +4,15 @@ require 'rails_helper'
 
 RSpec.describe GoogleIntegration::ClassroomStudentImporter do
   let(:name) { 'The Student'}
-  let(:google_id) { '123' }
   let(:classroom) { create(:classroom, :from_google) }
+  let(:user_external_id) { Faker::Number.number }
 
   let(:data) do
     {
       classroom: classroom,
       email: email,
-      google_id: google_id,
-      name: name
+      name: name,
+      user_external_id: user_external_id
     }
   end
 
@@ -62,7 +62,7 @@ RSpec.describe GoogleIntegration::ClassroomStudentImporter do
       context 'student exists with google_id' do
         let(:another_email) { "another_#{email}" }
 
-        before { create(:student, email: another_email, google_id: google_id) }
+        before { create(:student, email: another_email, google_id: user_external_id) }
 
         it 'updates the students email first then calls updater' do
           expect { subject }.to_not change(User.student, :count)

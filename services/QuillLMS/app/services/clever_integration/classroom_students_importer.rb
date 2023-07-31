@@ -2,36 +2,29 @@
 
 module CleverIntegration
   class ClassroomStudentsImporter < ApplicationService
-    attr_reader :classroom, :students_data, :teacher_id
+    attr_reader :classroom_students_data
 
-    def initialize(classroom, students_data, teacher_id)
-      @classroom = classroom
-      @students_data = students_data
-      @teacher_id = teacher_id
+    delegate :classroom_external_id, to: :classroom_students_data
+
+    def initialize(classroom_students_data)
+      @classroom_students_data = classroom_students_data
     end
 
     def run
-      return if students_data.nil? || students_data.empty?
-
-      import_students
-      associate_students_with_classroom
-      associate_students_with_provider_classroom
+      import_classroom_students
+      update_provider_classroom_users
     end
 
-    private def associate_students_with_classroom
-      CleverIntegration::Associators::StudentsToClassroom.run(students, classroom)
+    private def import_classroom_students
+      classroom_students_data.map { |classroom_student_data| ClassroomStudentImporter.run(classroom_student_data) }
     end
 
-    private def associate_students_with_provider_classroom
-      ProviderClassroomUsersUpdater.run(classroom.clever_id, students.map(&:clever_id), CleverClassroomUser)
+    private def update_provider_classroom_users
+      ::ProviderClassroomUsersUpdater.run(classroom_external_id, user_external_ids, CleverClassroomUser)
     end
 
-    private def import_students
-      students
-    end
-
-    private def students
-      @students ||= students_data.map { |student_data| CleverIntegration::StudentImporter.run(student_data, teacher_id) }
+    private def user_external_ids
+      classroom_students_data.pluck(:user_external_id)
     end
   end
 end

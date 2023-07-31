@@ -478,12 +478,8 @@ describe User, type: :model do
 
       before { create(:classrooms_teacher, user: google_classroom_teacher, classroom: archived_google_classroom) }
 
-      it "should return all the teacher's visible google classrooms" do
+      it "should only return the teacher's visible google classrooms" do
         expect(google_classroom_teacher.google_classrooms).to match_array [google_classroom]
-      end
-
-      it 'should return empty if there are no google classrooms' do
-        expect(teacher.google_classrooms).to eq []
       end
     end
 
@@ -497,6 +493,18 @@ describe User, type: :model do
 
       it 'should return empty if there are no clever classrooms' do
         expect(teacher.clever_classrooms).to eq []
+      end
+    end
+
+    describe '#canvas_classrooms' do
+      let!(:canvas_classroom) { create(:classroom, :from_canvas) }
+      let!(:archived_canvas_classroom) { create(:classroom, :from_canvas, :with_no_teacher, :archived) }
+      let(:canvas_classroom_teacher) { canvas_classroom.owner }
+
+      before { create(:classrooms_teacher, user: canvas_classroom_teacher, classroom: archived_canvas_classroom) }
+
+      it "should only return the teacher's visible clever classrooms" do
+        expect(canvas_classroom_teacher.canvas_classrooms).to match_array [canvas_classroom]
       end
     end
 
@@ -651,7 +659,7 @@ describe User, type: :model do
 
         teacher.classroom_units.each do |cu|
           cu.unit.unit_activities.each do |ua|
-            matching_element = assigned_units.detect {|u| u.id == ua.activity_id && u.assigned_student_ids == cu.assigned_student_ids}
+            matching_element = assigned_units.find { |u| u.id == ua.activity_id && u.assigned_student_ids == cu.assigned_student_ids }
             expect(matching_element.assigned_student_ids).to eq(cu.assigned_student_ids)
           end
         end

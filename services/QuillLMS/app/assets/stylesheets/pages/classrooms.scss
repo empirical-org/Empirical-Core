@@ -1,10 +1,8 @@
-.import-from-clever-button.loading,
-.import-from-google-button.loading {
+.import-from-provider-button.loading {
   background-color: #f5f5f5;
 }
 
-.import-from-clever-button-icon,
-.import-from-google-button-icon {
+.import-from-provider-button-icon {
   margin-right: 8px;
   margin-left: 16px;
 }
@@ -149,7 +147,7 @@
     }
   }
 
-  .google-or-clever-note-of-explanation {
+  .provider-note-of-explanation {
     padding: 32px 24px;
     display: flex;
     align-items: flex-start;
@@ -160,7 +158,7 @@
     img {
       margin-right: 18px;
     }
-    .google-or-clever-note-of-explanation-text {
+    .provider-note-of-explanation-text {
       h4 {
         font-weight: 700;
         font-size: 18px;
@@ -358,8 +356,7 @@
       margin-right: 16px;
     }
   }
-  .invite-clever-classroom-students,
-  .invite-google-classroom-students {
+  .invite-provider-classroom-students {
     display: flex;
     flex-direction: column;
     span {
@@ -369,8 +366,7 @@
       font-size: 12px;
     }
   }
-  .invite-clever-classroom-students,
-  .invite-google-classroom-students {
+  .invite-provider-classroom-students {
     align-items: flex-end;
     margin-bottom: 20px;
     span {
