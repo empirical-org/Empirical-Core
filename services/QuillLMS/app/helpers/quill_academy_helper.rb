@@ -66,8 +66,4 @@ module QuillAcademyHelper
       text: "Explore Quill's content created specifically for English Language Learners and learn strategies to utilize these resources to support students' written language acquisition."
     }
   }
-
-  def render_quill_academy_button?(current_user)
-    !!(AppSetting.find_by(name: 'quill_academy', enabled: true)&.enabled_for_user?(current_user))
-  end
 end
