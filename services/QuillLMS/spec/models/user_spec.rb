@@ -2128,5 +2128,31 @@ describe User, type: :model do
 
     end
   end
+
+  describe '#provider' do
+    subject { user.provider }
+
+    it { is_expected.to be_nil }
+
+    context 'has google_id' do
+      before { user.update(google_id: Faker::Number) }
+
+      it { is_expected.to be described_class::GOOGLE_PROVIDER }
+    end
+
+    context 'has clever_id' do
+      before { user.update(clever_id: SecureRandom.hex(12)) }
+
+      it { is_expected.to be described_class::CLEVER_PROVIDER }
+    end
+
+    context 'has canvas account' do
+      let(:canvas_accounts) { double(:canvas_account) }
+
+      before { allow(user).to receive(:canvas_accounts).and_return(canvas_accounts) }
+
+      it { is_expected.to be described_class::CANVAS_PROVIDER }
+    end
+  end
 end
 # rubocop:enable Metrics/BlockLength

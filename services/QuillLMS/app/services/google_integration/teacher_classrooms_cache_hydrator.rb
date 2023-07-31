@@ -2,13 +2,7 @@
 
 module GoogleIntegration
   class TeacherClassroomsCacheHydrator < ApplicationService
-    ACCESS_TOKEN_ERRORS = [
-      RefreshAccessToken::RefreshAccessTokenError,
-      Client::AccessTokenError
-    ].freeze
-
     PUSHER_EVENT = 'google-classrooms-retrieved'
-    UNAUTHENTICATED_RESPONSE = 'UNAUTHENTICATED'
 
     attr_reader :user
 
@@ -19,29 +13,26 @@ module GoogleIntegration
     def run
       cache_classrooms_data
       notify_pusher
-    rescue *ACCESS_TOKEN_ERRORS => e
+    rescue => e
       ErrorNotifier.report(e, user_id: user.id)
-      e.message
     end
 
     private def cache_classrooms_data
-      GoogleIntegration::TeacherClassroomsCache.write(user.id, data.to_json)
-    end
-
-    private def data
-      unauthenticated_response? ? { errors: google_response } : { classrooms: google_response }
-    end
-
-    private def unauthenticated_response?
-      google_response == UNAUTHENTICATED_RESPONSE
-    end
-
-    private def google_response
-      @google_response ||= GoogleIntegration::Classroom::Main.pull_data(user)
+      TeacherClassroomsCache.write(user.id, serialized_teacher_classrooms)
     end
 
     private def notify_pusher
-      PusherTrigger.run(user.id, PUSHER_EVENT, "Google classrooms found for #{user.id}.")
+      PusherTrigger.run(user.id, PUSHER_EVENT, pusher_message)
+    end
+
+    private def pusher_message
+      "Google classrooms cached for #{user.id}."
+    end
+
+    private def serialized_teacher_classrooms
+      GoogleIntegration::Classroom::Main
+        .pull_data(user)
+        .to_json
     end
   end
 end

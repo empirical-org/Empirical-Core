@@ -1,4 +1,4 @@
-import React from 'react';
+import * as React from 'react';
 
 import AssignStudents from './assign_students';
 import GradeLevelWarningModal from './gradeLevelWarningModal';
@@ -10,7 +10,7 @@ import SkipRecommendationsWarningModal from './skipRecommendationsWarningModal';
 import ButtonLoadingIndicator from '../../../shared/button_loading_indicator';
 import ScrollToTop from '../../../shared/scroll_to_top';
 import { postTestClassAssignmentLockedMessages, } from '../../assignmentFlowConstants';
-import AssignmentFlowNavigation from '../../assignment_flow_navigation.tsx';
+import AssignmentFlowNavigation from '../../assignment_flow_navigation';
 
 export class Stage2 extends React.Component {
   constructor(props) {
@@ -51,7 +51,7 @@ export class Stage2 extends React.Component {
 
   handleClickAssign = () => {
     const { timesSubmitted, } = this.state
-    const { errorMessage, finish, alreadyCompletedDiagnosticStudentNames, notYetCompletedPreTestStudentNames, showGradeLevelWarning, classrooms, selectedActivities, } = this.props
+    const { errorMessage, finish, alreadyCompletedDiagnosticStudentNames, notYetCompletedPreTestStudentNames, showGradeLevelWarning, selectedActivities, } = this.props
 
     const selectedClassrooms = this.selectedClassrooms()
     const lowestSelectedClassroomGrade = Math.min(...selectedClassrooms.map(c => Number(c.classroom.grade) || 12))
@@ -202,7 +202,7 @@ export class Stage2 extends React.Component {
   }
 
   render() {
-    const { unitTemplateName, unitTemplateId, selectedActivities, isFromDiagnosticPath, } = this.props
+    const { unitTemplateName, unitTemplateId, isFromDiagnosticPath, } = this.props
     return (
       <div>
         {this.renderGradeLevelWarningModal()}

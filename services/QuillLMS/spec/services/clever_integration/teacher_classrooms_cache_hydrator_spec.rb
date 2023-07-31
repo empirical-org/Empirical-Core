@@ -3,14 +3,13 @@
 require 'rails_helper'
 
 describe CleverIntegration::TeacherClassroomsCacheHydrator do
-  let(:raw_data) { ['classroom_data', 'classroom_data'] }
-  let(:data) { { classrooms: raw_data }}
+  let(:data) { ['classroom_data', 'classroom_data'] }
 
   subject { described_class.run(user) }
 
   context 'teacher has clever auth_credential' do
     let(:user) { create(:clever_library_auth_credential).user }
-    let(:client) { double(:clever_client, get_teacher_classrooms: raw_data) }
+    let(:client) { double(:clever_client, teacher_classrooms: data) }
 
     it do
       expect(CleverIntegration::ClientFetcher).to receive(:run).with(user).and_return(client)

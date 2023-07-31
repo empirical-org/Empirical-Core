@@ -177,7 +177,6 @@ export const classroomWithoutStudents = {
   ]
 }
 
-
 export const classroomProps = [
   classroomWithoutStudents,
   {
@@ -272,6 +271,11 @@ export const userProps = {
   title: null,
   time_zone: null,
   account_type: 'unknown',
+}
+
+export const googleUserProps = {
+  ...userProps,
+  provider: 'Google'
 }
 
 export const googleClassrooms = [

@@ -80,7 +80,7 @@ RSpec.describe CleverIntegration::TeachersController do
     context 'user is not clever authorized' do
       it do
         subject
-        expect(response_body).to eq({ user_id: teacher.id, reauthorization_required: true })
+        expect(response_body).to eq(reauthorization_required: true)
       end
     end
 
@@ -89,17 +89,17 @@ RSpec.describe CleverIntegration::TeachersController do
 
       it  do
         subject
-        expect(response_body).to eq({ user_id: teacher.id, quill_retrieval_processing: true })
+        expect(response_body).to eq(quill_retrieval_processing: true)
       end
 
       context 'teacher classrooms cache has data' do
-        let(:data) { { classrooms: [] } }
+        let(:data) { [] }
 
         before { CleverIntegration::TeacherClassroomsCache.write(teacher.id, data.to_json)}
 
         it  do
           subject
-          expect(response_body).to eq data
+          expect(response_body).to eq(classrooms: data)
         end
       end
     end

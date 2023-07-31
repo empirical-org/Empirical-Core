@@ -29,7 +29,8 @@ module GoogleIntegration::Classroom::Parsers::Courses
           students = student_requester.call(course[:id])
           name = course[:section] ? "#{course[:name]} #{course[:section]}" : course[:name]
           courses << {
-            id: course[:id].to_i, name: name,
+            classroom_external_id: course[:id].to_i,
+            name: name,
             ownerId: course[:ownerId],
             section: course[:section],
             alreadyImported: already_imported,

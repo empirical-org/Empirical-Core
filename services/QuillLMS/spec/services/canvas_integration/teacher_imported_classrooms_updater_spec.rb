@@ -16,12 +16,10 @@ RSpec.describe CanvasIntegration::TeacherImportedClassroomsUpdater do
   let(:updated_name) { "new_#{imported_classroom.name}"}
 
   let(:data) do
-    {
-      classrooms: [
-        { classroom_external_id: canvas_classroom.classroom_external_id, name: updated_name },
-        { classroom_external_id: new_classroom_external_id }
-      ]
-    }.to_json
+    [
+      { classroom_external_id: canvas_classroom.classroom_external_id, name: updated_name },
+      { classroom_external_id: new_classroom_external_id }
+    ].to_json
   end
 
   it 'updates only previously imported classrooms that have canvas_classroom_id' do

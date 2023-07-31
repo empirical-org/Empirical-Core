@@ -23,7 +23,7 @@ describe CanvasIntegration::RestClient do
       let(:courses_data) { [] }
       let(:classrooms) { [] }
 
-      it { is_expected.to eq(classrooms: classrooms) }
+      it { is_expected.to eq classrooms }
     end
 
     context 'one classroom' do
@@ -49,16 +49,18 @@ describe CanvasIntegration::RestClient do
         }
       end
 
+      let(:classrooms) { [classroom] }
+
       before { allow(canvas_api).to receive(:api_get_request).with(sections_path).and_return(sections_response) }
 
-      it { is_expected.to eq(classrooms: [classroom]) }
+      it { is_expected.to eq classrooms }
 
       context 'classroom already imported' do
         let(:already_imported) { true }
 
         before { create(:canvas_classroom, canvas_instance_id: canvas_instance.id, external_id: section_data['id']) }
 
-        it { is_expected.to eq(classrooms: [classroom]) }
+        it { is_expected.to eq classrooms }
       end
     end
   end
@@ -77,7 +79,7 @@ describe CanvasIntegration::RestClient do
       let(:section_data) { {} }
       let(:students) { [] }
 
-      it { is_expected.to eq(students: students) }
+      it { is_expected.to eq students }
     end
 
     context 'one section with students' do
@@ -102,9 +104,11 @@ describe CanvasIntegration::RestClient do
         }
       end
 
+      let(:students) { [student] }
+
       before { allow(canvas_api).to receive(:api_get_request).with(section_path).and_return(section_response) }
 
-      it { is_expected.to eq(students: [student]) }
+      it { is_expected.to eq students }
     end
   end
 end

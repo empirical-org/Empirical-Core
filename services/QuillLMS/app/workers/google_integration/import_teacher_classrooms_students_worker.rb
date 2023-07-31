@@ -5,7 +5,7 @@ module GoogleIntegration
     include Sidekiq::Worker
     sidekiq_options queue: SidekiqQueue::CRITICAL_EXTERNAL
 
-    PUSHER_EVENT = 'google-teacher-classrooms-students-imported'
+    PUSHER_EVENT = 'google-classroom-students-imported'
     PUSHER_FAILED_EVENT = 'google-account-reauthorization-required'
 
     def perform(teacher_id, selected_classroom_ids = nil)

@@ -22,8 +22,11 @@ class Teachers::ClassroomsController < ApplicationController
 
     @coteacher_invitations = format_coteacher_invitations_for_index
     @classrooms = format_classrooms_for_index
+
+    @canvas_link = Auth::Canvas::REAUTHORIZATION_PATH
     @clever_link = clever_link
     @google_link = Auth::Google::REAUTHORIZATION_PATH
+    @user =  UserWithProviderSerializer.new(current_user).as_json(root: false)
 
     respond_to do |format|
       format.html
@@ -197,7 +200,10 @@ class Teachers::ClassroomsController < ApplicationController
 
     classrooms.compact.map do |classroom|
       classroom_obj = classroom.attributes
-      classroom_obj[:classroomProvider] = classroom.classroom_provider if classroom.classroom_provider?
+      if classroom.provider?
+        classroom_obj[:classroomProvider] = classroom.provider
+        classroom_obj[:classroom_external_id] = classroom.classroom_external_id
+      end
       classroom_obj[:students] = format_students_for_classroom(classroom)
       classroom_teachers = format_teachers_for_classroom(classroom)
       pending_coteachers = format_pending_coteachers_for_classroom(classroom)
@@ -218,7 +224,7 @@ class Teachers::ClassroomsController < ApplicationController
       end
     end
 
-    return students unless classroom.classroom_provider?
+    return students unless classroom.provider?
 
     provider_classroom_delegator = ProviderClassroomDelegator.new(classroom)
     students.map { |student| student.merge(synced: provider_classroom_delegator.synced_status(student)) }

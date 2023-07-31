@@ -35,6 +35,7 @@ class Teachers::ClassroomManagerController < ApplicationController
     @clever_link = clever_link
     @google_link = Auth::Google::REAUTHORIZATION_PATH
     @number_of_activities_assigned = current_user.units.map(&:unit_activities).flatten.map(&:activity_id).uniq.size
+    @user =  UserWithProviderSerializer.new(current_user).as_json(root: false)
     find_or_create_checkbox(Objective::EXPLORE_OUR_LIBRARY, current_user)
     return unless params[:tab] == 'diagnostic'
 

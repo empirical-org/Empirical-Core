@@ -109,6 +109,10 @@ class User < ApplicationRecord
   CLEVER_ACCOUNT = 'Clever'
   GOOGLE_CLASSROOM_ACCOUNT = 'Google Classroom'
 
+  CANVAS_PROVIDER = 'Canvas'
+  CLEVER_PROVIDER = 'Clever'
+  GOOGLE_PROVIDER = 'Google'
+
   SCHOOL_CHANGELOG_ATTRIBUTE = 'school_id'
 
   attr_accessor :validate_username, :require_password_confirmation_when_password_present, :newsletter
@@ -828,6 +832,12 @@ class User < ApplicationRecord
 
   def record_login
     user_logins.create
+  end
+
+  def provider
+    return GOOGLE_PROVIDER if google_id.present?
+    return CLEVER_PROVIDER if clever_id.present?
+    return CANVAS_PROVIDER if canvas_accounts.present?
   end
 
   def user_external_id(canvas_instance: nil)

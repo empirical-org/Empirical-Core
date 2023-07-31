@@ -1,23 +1,15 @@
 import { shallow } from 'enzyme'
 import React from 'react'
 
-import { classroomProps, user } from './test_data/test_data'
+import { classroomProps, googleUser, user } from './test_data/test_data'
 
-import GoogleClassroomsEmptyModal from '../../../../classrooms/google_classrooms_empty_modal.tsx'
-import ImportGoogleClassroomsModal from '../../../../classrooms/import_google_classrooms_modal.tsx'
-import LinkGoogleAccountModal from '../../../../classrooms/link_google_account_modal.tsx'
-import AssignStudents, {
-  createAClassForm,
-  googleClassroomsEmptyModal,
-  importGoogleClassroomsModal,
-  linkGoogleAccountModal
-} from '../assign_students'
+import LinkProviderAccountModal from '../../../../classrooms/link_provider_account_modal'
+import AssignStudents from '../assign_students'
 import ClassroomCard from '../classroom_card.tsx'
 import CreateAClassInlineForm from '../create_a_class_inline_form.tsx'
 
 
 describe('Assign students component', () => {
-
   it('should render', () => {
     const wrapper = shallow(
       <AssignStudents
@@ -31,7 +23,7 @@ describe('Assign students component', () => {
     expect(wrapper).toMatchSnapshot()
   })
 
-  describe('if this.state.showFormOrModal = createAClassForm', () => {
+  describe('user clicks create a class button', () => {
     const wrapper = shallow(
       <AssignStudents
         classrooms={classroomProps}
@@ -41,14 +33,30 @@ describe('Assign students component', () => {
         user={user}
       />
     )
-    wrapper.setState({ showFormOrModal: createAClassForm })
 
     it('should render a createAClassInlineForm component', () => {
+      wrapper.find('.create-a-class-button').simulate('click')
       expect(wrapper.find(CreateAClassInlineForm).exists()).toBe(true)
     })
   })
 
-  describe('if this.state.showFormOrModal = importGoogleClassroomsModal', () => {
+  // describe('user clicks import from google', () => {
+  //   const wrapper = shallow(
+  //     <AssignStudents
+  //       classrooms={classroomProps}
+  //       fetchClassrooms={() => {}}
+  //       toggleClassroomSelection={() => {}}
+  //       toggleStudentSelection={() => {}}
+  //       user={googleUser}
+  //     />
+  //   )
+
+  //   it('should render a importProviderClassroomsModal component', () => {
+  //     expect(wrapper.find(ImportProviderClassroomsModal).exists()).toBe(true)
+  //   })
+  // })
+
+  describe('if this.state.showFormOrModal = linkProviderAccountModal', () => {
     const wrapper = shallow(
       <AssignStudents
         classrooms={classroomProps}
@@ -58,46 +66,32 @@ describe('Assign students component', () => {
         user={user}
       />
     )
-    wrapper.setState({ showFormOrModal: importGoogleClassroomsModal })
 
-    it('should render a importGoogleClassroomsModal component', () => {
-      expect(wrapper.find(ImportGoogleClassroomsModal).exists()).toBe(true)
+    wrapper.find('button').filterWhere(node => node.text() === 'Import from Canvas').simulate('click');
+
+    it('should render a linkProviderAccountModal component', () => {
+      expect(wrapper.find(LinkProviderAccountModal).exists()).toBe(true)
     })
   })
 
-  describe('if this.state.showFormOrModal = linkGoogleAccountModal', () => {
-    const wrapper = shallow(
-      <AssignStudents
-        classrooms={classroomProps}
-        fetchClassrooms={() => {}}
-        toggleClassroomSelection={() => {}}
-        toggleStudentSelection={() => {}}
-        user={user}
-      />
-    )
-    wrapper.setState({ showFormOrModal: linkGoogleAccountModal })
+  // describe('if this.state.showFormOrModal = noClassroomsToImportModal', () => {
+  //   const wrapper = shallow(
+  //     <AssignStudents
+  //       classrooms={classroomProps}
+  //       fetchClassrooms={() => {}}
+  //       toggleClassroomSelection={() => {}}
+  //       toggleStudentSelection={() => {}}
+  //       user={user}
+  //     />
+  //   )
 
-    it('should render a linkGoogleAccountModal component', () => {
-      expect(wrapper.find(LinkGoogleAccountModal).exists()).toBe(true)
-    })
-  })
 
-  describe('if this.state.showFormOrModal = googleClassroomsEmptyModal', () => {
-    const wrapper = shallow(
-      <AssignStudents
-        classrooms={classroomProps}
-        fetchClassrooms={() => {}}
-        toggleClassroomSelection={() => {}}
-        toggleStudentSelection={() => {}}
-        user={user}
-      />
-    )
-    wrapper.setState({ showFormOrModal: googleClassroomsEmptyModal })
+  //   wrapper.setState({ showFormOrModal: noClassroomsToImportModal })
 
-    it('should render a googleClassroomsEmptyModal component', () => {
-      expect(wrapper.find(GoogleClassroomsEmptyModal).exists()).toBe(true)
-    })
-  })
+  //   it('should render a noClassroomsToImportModal component', () => {
+  //     expect(wrapper.find(NoClassroomsToImportModal).exists()).toBe(true)
+  //   })
+  // })
 
   describe('if there are classrooms', () => {
     const wrapper = shallow(

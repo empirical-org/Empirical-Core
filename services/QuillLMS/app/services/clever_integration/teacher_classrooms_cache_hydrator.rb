@@ -2,11 +2,7 @@
 
 module CleverIntegration
   class TeacherClassroomsCacheHydrator < ApplicationService
-    class NilTeacherError < ::CleverIntegration::Error
-      MESSAGE = 'Teacher required for clever client access'
-    end
-
-    PUSHER_EVENT = "clever-classrooms-retrieved"
+    PUSHER_EVENT = 'clever-classrooms-retrieved'
 
     attr_reader :user
 
@@ -15,8 +11,6 @@ module CleverIntegration
     end
 
     def run
-      raise NilTeacherError if user.nil?
-
       cache_classrooms_data
       notify_pusher
     rescue => e
@@ -24,15 +18,11 @@ module CleverIntegration
     end
 
     private def cache_classrooms_data
-      CleverIntegration::TeacherClassroomsCache.write(user.id, data.to_json)
+      TeacherClassroomsCache.write(user.id, serialized_teacher_classrooms)
     end
 
     private def client
-      @client ||= ClientFetcher.run(user)
-    end
-
-    private def data
-      { classrooms: client.get_teacher_classrooms(user.clever_id) }
+      ClientFetcher.run(user)
     end
 
     private def notify_pusher
@@ -41,6 +31,12 @@ module CleverIntegration
 
     private def pusher_message
       "Clever classrooms cached for #{user.id}."
+    end
+
+    private def serialized_teacher_classrooms
+      client
+        .teacher_classrooms(user.clever_id)
+        .to_json
     end
   end
 end

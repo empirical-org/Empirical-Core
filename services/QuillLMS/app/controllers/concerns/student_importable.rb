@@ -14,7 +14,7 @@ module StudentImportable
     run_student_importer
     delete_teacher_classrooms_cache
 
-    render json: { user_id: current_user.id }
+    render json: {}
   end
 
   private def authorize_owner!

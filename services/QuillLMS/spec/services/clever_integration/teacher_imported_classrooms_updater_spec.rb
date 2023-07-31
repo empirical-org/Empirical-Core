@@ -6,7 +6,7 @@ RSpec.describe CleverIntegration::TeacherImportedClassroomsUpdater do
   subject { described_class.run(user) }
 
   let(:user) { create(:teacher, :signed_up_with_clever) }
-  let(:data) { { classrooms: classrooms }.to_json }
+  let(:data) { classrooms.to_json }
   let(:owner) { described_class::OWNER }
   let(:coteacher) { described_class::COTEACHER }
 

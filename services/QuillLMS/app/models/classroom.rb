@@ -198,7 +198,7 @@ class Classroom < ApplicationRecord
     -1
   end
 
-  def classroom_provider?
+  def provider?
     google_classroom? || clever_classroom? || canvas_classroom?
   end
 
@@ -214,7 +214,7 @@ class Classroom < ApplicationRecord
     google_classroom_id.present?
   end
 
-  def classroom_provider
+  def provider
     return 'Google Classroom' if google_classroom?
     return 'Clever' if clever_classroom?
     return 'Canvas' if canvas_classroom?

@@ -18,8 +18,7 @@ module CleverIntegration
     private def classrooms_data
       JSON
         .parse(serialized_classrooms_data)
-        .deep_symbolize_keys
-        .fetch(:classrooms)
+        .map(&:deep_symbolize_keys)
         .map { |classroom_data| classroom_data.merge(teacher_id: user.id) }
     end
   end

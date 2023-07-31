@@ -1,21 +1,22 @@
 import { shallow } from 'enzyme';
 import React from 'react';
 
-import ImportGoogleClassroomStudentsModal from '../import_google_classroom_students_modal';
+import ImportProviderClassroomStudentsModal from '../import_provider_classroom_students_modal';
 
 import { classroomWithStudents } from './test_data/test_data';
 
-describe('ImportGoogleClassroomStudentsModal component', () => {
+describe('ImportProviderClassroomStudentsModal component', () => {
 
   const wrapper = shallow(
-    <ImportGoogleClassroomStudentsModal
+    <ImportProviderClassroomStudentsModal
       classroom={classroomWithStudents}
       close={() => {}}
       onSuccess={() => {}}
+      provider='Google'
     />
   );
 
-  it('should render ImportGoogleClassroomStudentsModal', () => {
+  it('should render ImportProviderClassroomStudentsModal', () => {
     expect(wrapper).toMatchSnapshot()
   })
 
