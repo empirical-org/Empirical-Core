@@ -1,306 +1,117 @@
-import Pusher from 'pusher-js';
-import * as React from 'react';
-import { SortableHandle, } from 'react-sortable-hoc';
+import * as React from 'react'
+import { useEffect, useState } from 'react'
+import { SortableHandle, } from 'react-sortable-hoc'
 
-import ArchiveClassModal from './archive_classroom_modal';
-import ChangeGradeModal from './change_grade_modal';
-import Classroom from './classroom';
-import CleverClassroomsEmptyModal from './clever_classrooms_empty_modal';
-import CoteacherInvitation from './coteacher_invitation';
-import CreateAClassModal from './create_a_class_modal';
-import GoogleClassroomsEmptyModal from './google_classrooms_empty_modal';
-import ImportCleverClassroomStudentsModal from './import_clever_classroom_students_modal';
-import ImportCleverClassroomsModal from './import_clever_classrooms_modal';
-import ImportGoogleClassroomStudentsModal from './import_google_classroom_students_modal';
-import ImportGoogleClassroomsModal from './import_google_classrooms_modal';
-import InviteStudentsModal from './invite_students_modal';
-import LinkCleverAccountModal from './link_clever_account_modal';
-import LinkGoogleAccountModal from './link_google_account_modal';
-import ReauthorizeCleverModal from './reauthorize_clever_modal';
-import ReauthorizeGoogleModal from './reauthorize_google_modal';
-import RenameClassModal from './rename_classroom_modal';
+import pusherInitializer from '../../../../modules/pusherInitializer'
+import useSnackbarMonitor from '../../../Shared/hooks/useSnackbarMonitor'
+import { canvasProvider, cleverProvider, googleProvider, providerConfigLookup } from './providerHelpers'
+import ArchiveClassModal from './archive_classroom_modal'
+import ChangeGradeModal from './change_grade_modal'
+import Classroom from './classroom'
+import CoteacherInvitation from './coteacher_invitation'
+import CreateAClassModal from './create_a_class_modal'
+import ImportProviderClassroomStudentsModal from './import_provider_classroom_students_modal'
+import ImportProviderClassroomsModal from './import_provider_classrooms_modal'
+import InviteStudentsModal from './invite_students_modal'
+import LinkProviderAccountModal from './link_provider_account_modal'
+import NoClassroomsToImportModal from './no_classrooms_to_import_modal'
+import ReauthorizeProviderModal from './reauthorize_provider_modal'
+import RenameClassModal from './rename_classroom_modal'
 
-import { requestGet, requestPut } from '../../../../modules/request/index';
-import { Snackbar, SortableList, defaultSnackbarTimeout } from '../../../Shared/index';
-import { MY_CLASSES_FEATURED_BLOG_POST_ID } from '../../constants/featuredBlogPost';
-import ArticleSpotlight from '../shared/articleSpotlight';
-import BulkArchiveClassesBanner from '../shared/bulk_archive_classes_banner';
-import ButtonLoadingIndicator from '../shared/button_loading_indicator';
-import ViewAsStudentModal from '../shared/view_as_student_modal';
-
-const bookEmptySrc = `${process.env.CDN_URL}/images/illustrations/book-empty.svg`
-const cleverIconSrc = `${process.env.CDN_URL}/images/icons/clever.svg`
-const googleClassroomIconSrc = `${process.env.CDN_URL}/images/icons/google-classroom.svg`
-const reorderSrc = `${process.env.CDN_URL}/images/icons/reorder.svg`
-
-interface ActiveClassroomsProps {
-  classrooms: Array<any>;
-  cleverLink: string;
-  googleLink: string;
-  coteacherInvitations: Array<any>;
-  user: any;
-}
-
-interface ActiveClassroomsState {
-  showSnackbar: boolean;
-  classrooms: Array<any>;
-  coteacherInvitations: Array<any>;
-  googleClassrooms: Array<any>;
-  cleverClassrooms: Array<any>;
-  showModal?: string;
-  googleClassroomsLoading?: boolean;
-  attemptedImportCleverClassrooms?: boolean;
-  attemptedImportGoogleClassrooms?: boolean;
-  selectedClassroomId?: number|string;
-  snackbarCopy?: string;
-}
+import { requestGet, requestPut } from '../../../../modules/request/index'
+import { Snackbar, SortableList, defaultSnackbarTimeout } from '../../../Shared/index'
+import { MY_CLASSES_FEATURED_BLOG_POST_ID } from '../../constants/featuredBlogPost'
+import ArticleSpotlight from '../shared/articleSpotlight'
+import BulkArchiveClassesBanner from '../shared/bulk_archive_classes_banner'
+import ButtonLoadingIndicator from '../shared/button_loading_indicator'
+import ViewAsStudentModal from '../shared/view_as_student_modal'
 
 export const createAClassModal = 'createAClassModal'
 export const renameClassModal = 'renameClassModal'
 export const changeGradeModal = 'changeGradeModal'
 export const archiveClassModal = 'archiveClassModal'
 export const inviteStudentsModal = 'inviteStudentsModal'
-export const importGoogleClassroomsModal = 'importGoogleClassroomsModal'
-export const importCleverClassroomsModal = 'importCleverClassroomsModal'
-export const importCleverClassroomStudentsModal = 'importCleverClassroomStudentsModal'
-export const importGoogleClassroomStudentsModal = 'importGoogleClassroomStudentsModal'
+export const importProviderClassroomsModal = 'importProviderClassroomsModal'
+export const importProviderClassroomStudentsModal = 'importProviderClassroomStudentsModal'
+export const linkCanvasAccountModal = 'linkCanvasAccountModal'
 export const linkCleverAccountModal = 'linkCleverAccountModal'
 export const linkGoogleAccountModal = 'linkGoogleAccountModal'
-export const reauthorizeCleverModal = 'reauthorizeCleverModal'
-export const reauthorizeGoogleModal = 'reauthorizeGoogleModal'
-export const cleverClassroomsEmptyModal = 'cleverClassroomsEmptyModal'
-export const googleClassroomsEmptyModal = 'googleClassroomsEmptyModal'
+export const reauthorizeProviderModal = 'reauthorizeProviderModal'
+export const noClassroomsToImportModal = 'noClassroomsToImportModal'
 export const viewAsStudentModal = 'viewAsStudentModal'
 
-export default class ActiveClassrooms extends React.Component<ActiveClassroomsProps, ActiveClassroomsState> {
-  constructor(props) {
-    super(props)
+const bookEmptySrc = `${process.env.CDN_URL}/images/illustrations/book-empty.svg`
+const canvasIconSrc = `${process.env.CDN_URL}/images/icons/canvas.svg`
+const cleverIconSrc = `${process.env.CDN_URL}/images/icons/clever.svg`
+const googleClassroomIconSrc = `${process.env.CDN_URL}/images/icons/google-classroom.svg`
+const reorderSrc = `${process.env.CDN_URL}/images/icons/reorder.svg`
 
-    this.state = {
-      showSnackbar: false,
-      classrooms: props.classrooms.filter(classroom => classroom.visible),
-      coteacherInvitations: props.coteacherInvitations,
-      cleverClassrooms: [],
-      googleClassrooms: []
-    }
+interface ActiveClassroomsProps {
+  canvasLink: string
+  classrooms: Array<any>
+  cleverLink: string
+  googleLink: string
+  coteacherInvitations: Array<any>
+  user: any
+}
+
+const ActiveClassrooms = ({
+  canvasLink,
+  classrooms: initialClassrooms,
+  cleverLink,
+  coteacherInvitations: initialCoteacherInvitations,
+  googleLink,
+  user,
+}: ActiveClassroomsProps) => {
+  const { provider } = user
+  const providerConfig = providerConfigLookup[provider]
+
+  const reauthorizeLink = {
+    [canvasProvider]: canvasLink,
+    [cleverProvider]: cleverLink,
+    [googleProvider]: googleLink,
+  }[provider]
+
+  const [classrooms, setClassrooms] = useState(initialClassrooms)
+  const [coteacherInvitations, setCoteacherInvitations] = useState(initialCoteacherInvitations)
+  const [providerClassrooms, setProviderClassrooms] = useState([])
+  const [providerClassroomsLoading, setProviderClassroomsLoading] = useState(false)
+  const [pendingImportFromProviderRequest, setPendingImportFromProviderRequest] = useState(false)
+
+  const [isSnackbarVisible, setIsSnackbarVisible] = useState(false)
+  const [snackbarCopy, setSnackbarCopy] = useState('')
+  const [visibleModal, setVisibleModal] = useState(null)
+  const [selectedClassroomId, setSelectedClassroomId] = useState(null)
+
+  const providerIconSrc = {
+    [canvasProvider]: canvasIconSrc,
+    [cleverProvider]: cleverIconSrc,
+    [googleProvider]: googleClassroomIconSrc,
   }
 
-  componentDidMount() {
-    this.getGoogleClassrooms()
-    this.setStateBasedOnParams()
+  useSnackbarMonitor(isSnackbarVisible, setIsSnackbarVisible, defaultSnackbarTimeout)
+
+  useEffect(() => {
+    setStateBasedOnParams()
+  }, [])
+
+  useEffect(() => {
+    if (!pendingImportFromProviderRequest) { return }
+    if (providerClassrooms === null) { return }
+
+    setPendingImportFromProviderRequest(false)
+    openModal(providerClassrooms.length ? importProviderClassroomsModal : noClassroomsToImportModal)
+  }, [providerClassrooms])
+
+  const closeModal = (callback = null) => {
+    setVisibleModal(null)
+
+    if (callback && typeof(callback) === 'function') { callback() }
   }
 
-  setStateBasedOnParams = () => {
-    const urlParams = new URLSearchParams(window.location.search);
-    const modal = urlParams.get('modal')
-    const classroom = urlParams.get('classroom')
-
-    let showModal
-    let selectedClassroomId = Number(classroom) || null
-    if (modal === 'create-a-class') {
-      showModal = createAClassModal
-    } else if (modal === 'google-classroom') {
-      this.clickImportGoogleClassrooms()
-    } else if (modal === 'invite-students') {
-      showModal = inviteStudentsModal
-    } else if (modal === 'view-as-student') {
-      showModal = viewAsStudentModal
-    }
-
-    if (showModal || selectedClassroomId) {
-      this.setState({ showModal, selectedClassroomId })
-    }
-  }
-
-  importCleverClassrooms = () => {
-    requestGet('/clever_integration/teachers/retrieve_classrooms', body => {
-      if (body.reauthorization_required) {
-        this.openModal(reauthorizeCleverModal)
-      }
-      else if (body.quill_retrieval_processing) {
-        this.initializePusherForCleverClassrooms(body.user_id)
-      } else {
-        const { classrooms_data } = body
-        const { classrooms } = classrooms_data
-        const cleverClassrooms = classrooms.filter(classroom => !classroom.alreadyImported)
-
-        this.setState({cleverClassrooms, attemptedImportCleverClassrooms: false})
-
-        if (cleverClassrooms.length) {
-          this.openModal(importCleverClassroomsModal)
-        } else {
-          this.openModal(cleverClassroomsEmptyModal)
-        }
-      }
-    })
-  }
-
-  clickImportFromClever = () => {
-    const { user } = this.props
-    const { clever_id } = user
-
-    if (!clever_id) {
-      this.openModal(linkCleverAccountModal)
-    } else {
-      this.setState({ attemptedImportCleverClassrooms: true })
-      this.importCleverClassrooms()
-    }
-  }
-
-  initializePusherForCleverClassrooms(userId: String) {
-    if (process.env.RAILS_ENV === 'development') { Pusher.logToConsole = true }
-
-    const pusher = new Pusher(process.env.PUSHER_KEY, { encrypted: true, });
-    const channelName = String(userId)
-    const channel = pusher.subscribe(channelName);
-    const that = this
-
-    channel.bind('clever-classrooms-retrieved', () => {
-      that.importCleverClassrooms()
-      pusher.unsubscribe(channelName)
-    })
-  }
-
-  getGoogleClassrooms = () => {
-    const { user } = this.props
-    const { clever_id, google_id } = user
-    const { attemptedImportGoogleClassrooms } = this.state
-
-    if (!clever_id && google_id) {
-      this.setState({ googleClassroomsLoading: true}, () => {
-        requestGet('/google_integration/teachers/retrieve_classrooms', (body) => {
-          if (body.reauthorization_required) {
-            this.openModal(reauthorizeGoogleModal)
-          }
-          else if (body.quill_retrieval_processing) {
-            this.initializePusherForGoogleClassrooms(body.user_id)
-          } else {
-            const googleClassrooms = body.classrooms.filter(classroom => !classroom.alreadyImported)
-            const newStateObj: any = { googleClassrooms, googleClassroomsLoading: false }
-            if (attemptedImportGoogleClassrooms) {
-              newStateObj.attemptedImportGoogleClassrooms = false
-              this.setState(newStateObj, this.clickImportGoogleClassrooms)
-            } else {
-              this.setState(newStateObj)
-            }
-          };
-        })
-      })
-    }
-  }
-
-  initializePusherForGoogleClassrooms(id) {
-    if (process.env.RAILS_ENV === 'development') { Pusher.logToConsole = true }
-
-    const pusher = new Pusher(process.env.PUSHER_KEY, { encrypted: true, })
-    const channelName = String(id)
-    const channel = pusher.subscribe(channelName);
-    const that = this
-
-    channel.bind('google-classrooms-retrieved', () => {
-      that.getGoogleClassrooms()
-      pusher.unsubscribe(channelName)
-    })
-  }
-
-  clickImportCleverClassroomStudents = () => {
-    requestGet('/clever_integration/teachers/retrieve_classrooms', body => {
-      if (body.reauthorization_required) {
-        this.openModal(reauthorizeCleverModal)
-      } else {
-        this.openModal(importCleverClassroomStudentsModal)
-      }
-    })
-  }
-
-  getClassroomsAndCoteacherInvitations = () => {
-    requestGet('/teachers/classrooms', (body) => this.setState({
-      classrooms: body.classrooms.filter(classroom => classroom.visible),
-      coteacherInvitations: body.coteacher_invitations
-    }))
-  }
-
-  onSuccess = (snackbarCopy) => {
-    this.getClassroomsAndCoteacherInvitations()
-    this.getGoogleClassrooms()
-    this.showSnackbar(snackbarCopy)
-    this.closeModal()
-  }
-
-  clickClassroomHeader = (classroomId) => {
-    const { selectedClassroomId } = this.state
-
-    if (selectedClassroomId === classroomId) {
-      this.setState({ selectedClassroomId: null})
-    } else {
-      this.setState({ selectedClassroomId: classroomId })
-    }
-  }
-
-  openModal = (modalName: string) => {
-    this.setState({ showModal: modalName })
-  }
-
-  closeModal = (callback=null) => {
-    this.setState({ showModal: null}, () => {
-      if (callback && typeof(callback) === 'function') {
-        callback()
-      }
-    })
-  }
-
-  clickImportGoogleClassrooms = () => {
-    const { user } = this.props
-    const { googleClassrooms, googleClassroomsLoading, } = this.state
-    if (!user.google_id) {
-      this.openModal(linkGoogleAccountModal)
-    } else if (googleClassroomsLoading) {
-      this.setState({ attemptedImportGoogleClassrooms: true })
-    } else if (googleClassrooms.length) {
-      this.openModal(importGoogleClassroomsModal)
-    } else {
-      this.openModal(googleClassroomsEmptyModal)
-    }
-  }
-
-  showSnackbar = (snackbarCopy) => {
-    this.setState({ showSnackbar: true, snackbarCopy }, () => {
-      setTimeout(() => this.setState({ showSnackbar: false, }), defaultSnackbarTimeout)
-    })
-  }
-
-  viewAsStudent = (id=null) => {
-    if (id) {
-      window.location.href = `/teachers/preview_as_student/${id}`
-    } else {
-      this.openModal(viewAsStudentModal)
-    }
-  }
-
-  renderSnackbar() {
-    const { showSnackbar, snackbarCopy, } = this.state
-    return <Snackbar text={snackbarCopy} visible={showSnackbar} />
-  }
-
-  sortClassrooms = (sortedClassroomObjects) => {
-    const newlySortedClassrooms = sortedClassroomObjects.map((classroomObject, i) => {
-      const { props } = classroomObject;
-      const { children } = props;
-      let classroom = children[1].props.classroom
-      classroom.order = i
-      return classroom;
-    });
-    requestPut('/classrooms_teachers/update_order', { updated_classrooms: JSON.stringify(newlySortedClassrooms) }, body => {
-      const { classrooms } = body;
-      if(classrooms) {
-        this.setState({ classrooms: newlySortedClassrooms });
-      }
-    })
-  }
-
-  getClassroomCardsWithHandle(classroomCards) {
+  const getClassroomCardsWithHandle = (classroomCards) => {
     // using a div as the outer element instead of a button here because something about default button behavior overrides the keypress handling by sortablehandle
-    const DragHandle = SortableHandle(() => <div className="focus-on-light" role="button" tabIndex={0}><img alt="Reorder icon" className="reorder-icon" src={reorderSrc} /></div>);
+    const DragHandle = SortableHandle(() => <div className="focus-on-light" role="button" tabIndex={0}><img alt="Reorder icon" className="reorder-icon" src={reorderSrc} /></div>)
     const handle = <span className='reorder-classroom-item'><DragHandle /></span>
 
     return classroomCards.map(card => {
@@ -313,61 +124,372 @@ export default class ActiveClassrooms extends React.Component<ActiveClassroomsPr
     })
   }
 
-  renderClassroomRows(ownActiveClassrooms) {
-    const classroomCards = this.renderClassroomCards(ownActiveClassrooms)
-    const rows = this.getClassroomCardsWithHandle(classroomCards)
-
-    return (
-      <SortableList
-        axis="y"
-        data={rows}
-        helperClass="sortable-classroom"
-        sortCallback={this.sortClassrooms}
-        useDragHandle={true}
-      />
-    )
+  const clickClassroomHeader = (classroomId) => {
+    setSelectedClassroomId(selectedClassroomId === classroomId ? null : classroomId)
   }
 
-  renderClassroomCards(ownActiveClassrooms) {
-    const { user } = this.props
-    const { classrooms, selectedClassroomId } = this.state
-
-    return classrooms.map(classroom => {
-      const isOwnedByCurrentUser = !!ownActiveClassrooms.find(c => c.id === classroom.id)
-
-      return (
-        <Classroom
-          archiveClass={() => this.openModal(archiveClassModal)}
-          changeGrade={() => this.openModal(changeGradeModal)}
-          classroom={classroom}
-          classrooms={ownActiveClassrooms}
-          clickClassroomHeader={this.clickClassroomHeader}
-          importCleverClassroomStudents={this.clickImportCleverClassroomStudents}
-          importGoogleClassroomStudents={() => this.openModal(importGoogleClassroomStudentsModal)}
-          inviteStudents={() => this.openModal(inviteStudentsModal)}
-          isOwnedByCurrentUser={isOwnedByCurrentUser}
-          key={classroom.id}
-          onSuccess={this.onSuccess}
-          renameClass={() => this.openModal(renameClassModal)}
-          selected={classroom.id === selectedClassroomId}
-          user={user}
-          viewAsStudent={this.viewAsStudent}
-        />
-      )
-    });
+  const getClassroomsAndCoteacherInvitations = () => {
+    requestGet('/teachers/classrooms', (body) => {
+      setClassrooms(body.classrooms.filter(classroom => classroom.visible))
+      setCoteacherInvitations(body.coteacher_invitations)
+    })
   }
 
-  getOwnActiveClassrooms(classrooms) {
-    const { user } = this.props
+  const getOwnActiveClassrooms = (classrooms) => {
     return classrooms.filter(c => {
       const classroomOwner = c.teachers.find(teacher => teacher.classroom_relation === 'owner')
       return c.visible && classroomOwner.id === user.id
     })
   }
 
-  renderPageContent() {
-    const { classrooms, coteacherInvitations } = this.state
-    const ownActiveClassrooms = this.getOwnActiveClassrooms(classrooms)
+  const importFromCanvas = () => {
+    if (providerConfig?.isCanvas) {
+      setPendingImportFromProviderRequest(true)
+      retrieveProviderClassrooms()
+    } else {
+      openModal(linkCanvasAccountModal)
+    }
+  }
+
+  const importFromClever = () => {
+    if (providerConfig?.isClever) {
+      setPendingImportFromProviderRequest(true)
+      retrieveProviderClassrooms()
+    } else {
+      openModal(linkCanvasAccountModal)
+    }
+  }
+
+  const importFromGoogle = () => {
+    if (providerConfig?.isGoogle) {
+      setPendingImportFromProviderRequest(true)
+      retrieveProviderClassrooms()
+    } else {
+      openModal(linkGoogleAccountModal)
+    }
+  }
+
+  const importFromProvider = {
+    [canvasProvider]: importFromCanvas,
+    [cleverProvider]: importFromClever,
+    [googleProvider]: importFromGoogle,
+  }
+
+  const importProviderClassroomStudents = () => {
+    requestGet(providerConfig.retrieveClassroomsPath, (body) => {
+      if (body.reauthorization_required) {
+        openModal(reauthorizeProviderModal)
+      } else {
+        openModal(importProviderClassroomStudentsModal)
+      }
+    })
+  }
+
+  const onSuccess = (snackbarCopy: string) => {
+    getClassroomsAndCoteacherInvitations()
+    retrieveProviderClassrooms()
+    showSnackbar(snackbarCopy)
+    closeModal()
+  }
+
+  const openModal = (modalName: string) => {
+    setVisibleModal(modalName)
+  }
+
+  const retrieveProviderClassrooms = () => {
+    if (!provider) { return }
+
+    pusherInitializer(user.id, providerConfig.retrieveClassroomsEventName, retrieveProviderClassrooms)
+    setProviderClassroomsLoading(true)
+
+    requestGet(providerConfig.retrieveClassroomsPath, (body) => {
+      if (body.reauthorization_required) {
+        openModal(reauthorizeProviderModal)
+        return
+      }
+
+      if (body.quill_retrieval_processing) { return }
+
+      setProviderClassrooms(body.classrooms.filter(classroom => !classroom.alreadyImported))
+      setProviderClassroomsLoading(false)
+    })
+  }
+
+  const setStateBasedOnParams = () => {
+    const urlParams = new URLSearchParams(window.location.search)
+    const modal = urlParams.get('modal')
+    const classroomId = urlParams.get('classroom')
+
+    setSelectedClassroomId(Number(classroomId) || null)
+
+    switch (modal) {
+      case 'create-a-class':
+        setVisibleModal(createAClassModal)
+        break
+      case 'google-classroom':
+        importFromGoogle()
+        break
+      case 'invite-students':
+        setVisibleModal(inviteStudentsModal)
+        break
+      case 'view-as-student':
+        setVisibleModal(viewAsStudentModal)
+        break
+    }
+
+    if (visibleModal || selectedClassroomId) {
+      setVisibleModal(visibleModal)
+      setSelectedClassroomId(selectedClassroomId)
+    }
+  }
+
+  const showSnackbar = snackbarCopy => {
+    setSnackbarCopy(snackbarCopy)
+    setIsSnackbarVisible(true)
+  }
+
+  const sortClassrooms = (sortedClassroomObjects) => {
+    const newlySortedClassrooms = sortedClassroomObjects.map((classroomObject, i) => {
+      const { props } = classroomObject
+      const { children } = props
+      let classroom = children[1].props.classroom
+      classroom.order = i
+      return classroom
+    })
+
+    requestPut('/classrooms_teachers/update_order', { updated_classrooms: JSON.stringify(newlySortedClassrooms) }, body => {
+      const { classrooms } = body
+      if(classrooms) { setClassrooms(newlySortedClassrooms) }
+    })
+  }
+
+  const viewAsStudent = (id = null) => {
+    if (id) {
+      window.location.href = `/teachers/preview_as_student/${id}`
+    } else {
+      openModal(viewAsStudentModal)
+    }
+  }
+
+  const renderBulkArchiveClassesBanner = () => {
+    const ownedClassrooms = classrooms.filter(c => {
+      const classroomOwner = c.teachers.find(t => t.classroom_relation === 'owner')
+      return classroomOwner && classroomOwner.id === user.id
+    })
+
+    return (
+      <BulkArchiveClassesBanner
+        classes={ownedClassrooms}
+        onSuccess={onSuccess}
+        userId={user.id}
+      />
+    )
+  }
+
+  const renderClassroomCards = (ownActiveClassrooms) => {
+    return classrooms.map(classroom => {
+      const isOwnedByCurrentUser = !!ownActiveClassrooms.find(c => c.id === classroom.id)
+
+      return (
+        <Classroom
+          archiveClass={() => openModal(archiveClassModal)}
+          changeGrade={() => openModal(changeGradeModal)}
+          classroom={classroom}
+          classrooms={ownActiveClassrooms}
+          clickClassroomHeader={clickClassroomHeader}
+          importProviderClassroomStudents={importProviderClassroomStudents}
+          inviteStudents={() => openModal(inviteStudentsModal)}
+          isOwnedByCurrentUser={isOwnedByCurrentUser}
+          key={classroom.id}
+          onSuccess={onSuccess}
+          renameClass={() => openModal(renameClassModal)}
+          selected={classroom.id === selectedClassroomId}
+          user={user}
+          viewAsStudent={viewAsStudent}
+        />
+      )
+    })
+  }
+
+  const renderClassroomRows = (ownActiveClassrooms) => {
+    const classroomCards = renderClassroomCards(ownActiveClassrooms)
+    const rows = getClassroomCardsWithHandle(classroomCards)
+
+    return (
+      <SortableList
+        axis="y"
+        data={rows}
+        helperClass="sortable-classroom"
+        sortCallback={sortClassrooms}
+        useDragHandle={true}
+      />
+    )
+  }
+
+  const renderCreateAClassButton = () => {
+    return (
+      <button
+        className="quill-button medium primary contained create-a-class-button"
+        onClick={() => openModal(createAClassModal)}
+        type="button"
+      >
+      Create a class
+      </button>
+    )
+  }
+
+  const renderCreateAClassModal = () => {
+    if (visibleModal === createAClassModal) {
+      return (
+        <CreateAClassModal
+          close={() => closeModal(getClassroomsAndCoteacherInvitations)}
+          showSnackbar={showSnackbar}
+        />
+      )
+    }
+  }
+
+  const renderInviteStudentsModal = () => {
+    const selectedClassroom = classrooms.find(c => c.id === selectedClassroomId)
+
+    if (visibleModal === inviteStudentsModal && selectedClassroom) {
+      return (
+        <InviteStudentsModal
+          classroom={selectedClassroom}
+          close={() => closeModal(getClassroomsAndCoteacherInvitations)}
+          showSnackbar={showSnackbar}
+        />
+      )
+    }
+  }
+
+  const renderChangeGradeModal = () => {
+    const selectedClassroom = classrooms.find(c => c.id === selectedClassroomId)
+
+    if (visibleModal === changeGradeModal && selectedClassroom) {
+      return (
+        <ChangeGradeModal
+          classroom={selectedClassroom}
+          close={closeModal}
+          onSuccess={onSuccess}
+        />
+      )
+    }
+  }
+
+  const renderArchiveClassModal = () => {
+    const selectedClassroom = classrooms.find(c => c.id === selectedClassroomId)
+
+    if (visibleModal === archiveClassModal && selectedClassroom) {
+      return (
+        <ArchiveClassModal
+          classroom={selectedClassroom}
+          close={closeModal}
+          onSuccess={onSuccess}
+        />
+      )
+    }
+  }
+
+  const renderHeader = () => {
+    return (
+      <div className="header">
+        <h1>Active Classes</h1>
+        <div className="buttons">
+          {renderImportFromProviderButton(canvasProvider)}
+          {renderImportFromProviderButton(cleverProvider)}
+          {renderImportFromProviderButton(googleProvider)}
+          {renderCreateAClassButton()}
+        </div>
+      </div>
+    )
+  }
+
+  const renderImportFromProviderButton = (theProvider: string) => {
+    if (provider && provider != theProvider) { return null }
+
+    const theProviderTitle = providerConfigLookup[theProvider].title
+
+    let buttonContent = <React.Fragment>Import from {theProviderTitle}</React.Fragment>
+    let buttonClassName = "interactive-wrapper import-from-provider-button"
+
+    if (providerClassroomsLoading && pendingImportFromProviderRequest) {
+      buttonContent = <React.Fragment>Import from {theProviderTitle}<ButtonLoadingIndicator /></React.Fragment>
+      buttonClassName += ' loading'
+    }
+
+    const importFromTheProvider = importFromProvider[theProvider]
+    const alt = `${theProviderTitle} Icon`
+    const src = providerIconSrc[theProvider]
+
+    return (
+      <button className={buttonClassName} onClick={importFromTheProvider} type="button">
+        <img alt={alt} className='import-from-provider-button-icon' src={src} />
+        {buttonContent}
+      </button>
+    )
+  }
+
+  const renderImportProviderClassroomStudentsModal = () => {
+    const selectedClassroom = classrooms.find(c => c.id === selectedClassroomId)
+
+    if (visibleModal === importProviderClassroomStudentsModal && selectedClassroom) {
+      return (
+        <ImportProviderClassroomStudentsModal
+          classroom={selectedClassroom}
+          close={closeModal}
+          onSuccess={onSuccess}
+          provider={provider}
+          user={user}
+        />
+      )
+    }
+  }
+
+  const renderImportProviderClassroomsModal = () => {
+    if (visibleModal !== importProviderClassroomsModal) { return null }
+
+    return (
+      <ImportProviderClassroomsModal
+        classrooms={providerClassrooms}
+        close={() => closeModal(() => setPendingImportFromProviderRequest(false))}
+        onSuccess={onSuccess}
+        provider={provider}
+        user={user}
+      />
+    )
+  }
+
+  const renderLinkProviderAccountModal = () => {
+    let link = ''
+    let linkAccountProvider = ''
+
+    if (visibleModal === linkCanvasAccountModal) {
+      link = canvasLink
+      linkAccountProvider = canvasProvider
+    } else if (visibleModal === linkCleverAccountModal) {
+      link = cleverLink
+      linkAccountProvider = cleverProvider
+    } else if (visibleModal === linkGoogleAccountModal) {
+      // no link assignment since google uses a different component for linking accounts
+      linkAccountProvider = googleProvider
+    } else {
+      return null
+    }
+
+    return (
+      <LinkProviderAccountModal
+        close={closeModal}
+        link={link}
+        provider={linkAccountProvider}
+        user={user}
+      />
+    )
+  }
+
+  const renderPageContent = () => {
+    const ownActiveClassrooms = getOwnActiveClassrooms(classrooms)
+
     if (classrooms.length === 0 && coteacherInvitations.length === 0) {
 
       return (
@@ -382,13 +504,13 @@ export default class ActiveClassrooms extends React.Component<ActiveClassroomsPr
         return (
           <CoteacherInvitation
             coteacherInvitation={coteacherInvitation}
-            getClassroomsAndCoteacherInvitations={this.getClassroomsAndCoteacherInvitations}
+            getClassroomsAndCoteacherInvitations={getClassroomsAndCoteacherInvitations}
             key={coteacherInvitation.id}
-            showSnackbar={this.showSnackbar}
+            showSnackbar={showSnackbar}
           />
         )
       })
-      const classroomCards = this.renderClassroomRows(ownActiveClassrooms);
+      const classroomCards = renderClassroomRows(ownActiveClassrooms)
       return (
         <div className="active-classes">
           {coteacherInvitationCards}
@@ -398,340 +520,71 @@ export default class ActiveClassrooms extends React.Component<ActiveClassroomsPr
     }
   }
 
-  renderCreateAClassModal() {
-    const { showModal } = this.state
-    if (showModal === createAClassModal) {
-      return (
-        <CreateAClassModal
-          close={() => this.closeModal(this.getClassroomsAndCoteacherInvitations)}
-          showSnackbar={this.showSnackbar}
-        />
-      )
+  const renderNoClassroomsToImportModal = () => {
+    if (visibleModal === noClassroomsToImportModal) {
+      return <NoClassroomsToImportModal close={closeModal} provider={provider} />
     }
   }
 
-  renderInviteStudentsModal() {
-    const { showModal, classrooms, selectedClassroomId } = this.state
-    const selectedClassroom = classrooms.find(c => c.id === selectedClassroomId)
-    if (showModal === inviteStudentsModal && selectedClassroom) {
-      return (
-        <InviteStudentsModal
-          classroom={selectedClassroom}
-          close={() => this.closeModal(this.getClassroomsAndCoteacherInvitations)}
-          showSnackbar={this.showSnackbar}
-        />
-      )
-    }
+  const renderReauthorizeProviderModal = () => {
+    return visibleModal === reauthorizeProviderModal
+      ? <ReauthorizeProviderModal close={closeModal} link={reauthorizeLink} provider={provider} />
+      : null
   }
 
-  renderRenameClassModal() {
-    const { showModal, classrooms, selectedClassroomId } = this.state
+  const renderRenameClassModal = () => {
     const selectedClassroom = classrooms.find(c => c.id === selectedClassroomId)
-    if (showModal === renameClassModal && selectedClassroom) {
+
+    if (visibleModal === renameClassModal && selectedClassroom) {
       return (
         <RenameClassModal
           classroom={selectedClassroom}
-          close={this.closeModal}
-          onSuccess={this.onSuccess}
+          close={closeModal}
+          onSuccess={onSuccess}
         />
       )
     }
   }
 
-  renderChangeGradeModal() {
-    const { showModal, classrooms, selectedClassroomId } = this.state
-    const selectedClassroom = classrooms.find(c => c.id === selectedClassroomId)
-    if (showModal === changeGradeModal && selectedClassroom) {
-      return (
-        <ChangeGradeModal
-          classroom={selectedClassroom}
-          close={this.closeModal}
-          onSuccess={this.onSuccess}
-        />
-      )
-    }
+  const renderSnackbar = () => {
+    return <Snackbar text={snackbarCopy} visible={isSnackbarVisible} />
   }
 
-  renderArchiveClassModal() {
-    const { showModal, classrooms, selectedClassroomId } = this.state
-    const selectedClassroom = classrooms.find(c => c.id === selectedClassroomId)
-    if (showModal === archiveClassModal && selectedClassroom) {
-      return (
-        <ArchiveClassModal
-          classroom={selectedClassroom}
-          close={this.closeModal}
-          onSuccess={this.onSuccess}
-        />
-      )
-    }
-  }
-
-  renderImportCleverClassroomStudentsModal() {
-    const { showModal, classrooms, selectedClassroomId } = this.state
-    const selectedClassroom = classrooms.find(c => c.id === selectedClassroomId)
-
-    if (showModal === importCleverClassroomStudentsModal && selectedClassroom) {
-      return (
-        <ImportCleverClassroomStudentsModal
-          classroom={selectedClassroom}
-          close={this.closeModal}
-          onSuccess={this.onSuccess}
-        />
-      )
-    }
-  }
-
-  renderImportGoogleClassroomStudentsModal() {
-    const { showModal, classrooms, selectedClassroomId } = this.state
-    const selectedClassroom = classrooms.find(c => c.id === selectedClassroomId)
-    if (showModal === importGoogleClassroomStudentsModal && selectedClassroom) {
-      return (
-        <ImportGoogleClassroomStudentsModal
-          classroom={selectedClassroom}
-          close={this.closeModal}
-          onSuccess={this.onSuccess}
-        />
-      )
-    }
-  }
-
-  renderImportCleverClassroomsModal() {
-    const { user } = this.props
-    const { cleverClassrooms, showModal } = this.state
-
-    if (showModal === importCleverClassroomsModal) {
-      return (
-        <ImportCleverClassroomsModal
-          classrooms={cleverClassrooms}
-          close={this.closeImportCleverClassroomsModal}
-          onSuccess={this.onSuccess}
-          user={user}
-        />
-      )
-    }
-  }
-
-  closeImportCleverClassroomsModal = () => { this.closeModal(this.resetAttemptedImportCleverClassrooms) }
-  resetAttemptedImportCleverClassrooms = () => { this.setState({attemptedImportCleverClassrooms: false}) }
-
-  renderImportGoogleClassroomsModal() {
-    const { user } = this.props
-    const { googleClassrooms, showModal } = this.state
-    if (showModal === importGoogleClassroomsModal) {
-      return (
-        <ImportGoogleClassroomsModal
-          classrooms={googleClassrooms}
-          close={this.closeModal}
-          onSuccess={this.onSuccess}
-          user={user}
-        />
-      )
-    }
-  }
-
-  renderLinkCleverAccountModal() {
-    const { cleverLink, user } = this.props
-    const { showModal } = this.state
-    if (showModal === linkCleverAccountModal) {
-      return (
-        <LinkCleverAccountModal
-          cleverLink={cleverLink}
-          close={this.closeModal}
-          user={user}
-        />
-      )
-    }
-  }
-
-  renderLinkGoogleAccountModal() {
-    const { user } = this.props
-    const { showModal } = this.state
-    if (showModal === linkGoogleAccountModal) {
-      return (
-        <LinkGoogleAccountModal
-          close={this.closeModal}
-          user={user}
-        />
-      )
-    }
-  }
-
-  renderCleverClassroomsEmptyModal() {
-    const { showModal } = this.state
-    if (showModal === cleverClassroomsEmptyModal) {
-      return (
-        <CleverClassroomsEmptyModal
-          close={this.closeModal}
-        />
-      )
-    }
-  }
-
-  renderGoogleClassroomsEmptyModal() {
-    const { showModal } = this.state
-    if (showModal === googleClassroomsEmptyModal) {
-      return (
-        <GoogleClassroomsEmptyModal
-          close={this.closeModal}
-        />
-      )
-    }
-  }
-
-  renderReauthorizeCleverModal() {
-    const { cleverLink } = this.props
-    const { showModal } = this.state
-    if (showModal === reauthorizeCleverModal) {
-      return (
-        <ReauthorizeCleverModal
-          cleverLink={cleverLink}
-          close={this.closeModal}
-        />
-      )
-    }
-  }
-
-  renderReauthorizeGoogleModal() {
-    const { googleLink } = this.props
-    const { showModal } = this.state
-    if (showModal === reauthorizeGoogleModal) {
-      return (
-        <ReauthorizeGoogleModal
-          close={this.closeModal}
-          googleLink={googleLink}
-        />
-      )
-    }
-  }
-
-  renderCreateAClassButton() {
-    return (
-      <button
-        className="quill-button medium primary contained create-a-class-button"
-        onClick={() => this.openModal(createAClassModal)}
-        type="button"
-      >
-        Create a class
-      </button>
-    )
-  }
-
-  renderImportFromCleverButton() {
-    const { user } = this.props
-    const { clever_id, google_id } = user
-    const { attemptedImportCleverClassrooms } = this.state
-    let buttonContent: string|JSX.Element = 'Import from Clever'
-    let buttonClassName = "interactive-wrapper import-from-clever-button"
-
-    if (!clever_id && google_id) { return null }
-
-    if (attemptedImportCleverClassrooms) {
-      buttonContent = <React.Fragment>Import from Clever<ButtonLoadingIndicator /></React.Fragment>
-      buttonClassName += ' loading'
-    }
-
-    return (
-      <button className={buttonClassName} onClick={this.clickImportFromClever} type="button">
-        <img alt="Clever Icon" className='import-from-clever-button-icon' src={cleverIconSrc} />
-        {buttonContent}
-      </button>
-    )
-  }
-
-  renderImportFromGoogleClassroomButton() {
-    const { user } = this.props
-    const { clever_id, google_id } = user
-
-    const { googleClassroomsLoading, attemptedImportGoogleClassrooms } = this.state
-    let buttonContent: string|JSX.Element = ' Import from Google Classroom'
-    let buttonClassName = "interactive-wrapper import-from-google-button"
-
-    if (!google_id && clever_id) { return null }
-
-    if (googleClassroomsLoading && attemptedImportGoogleClassrooms) {
-      buttonContent = <React.Fragment>Import from Google Classroom<ButtonLoadingIndicator /></React.Fragment>
-      buttonClassName += ' loading'
-    }
-
-    return (
-      <button className={buttonClassName} onClick={this.clickImportGoogleClassrooms} type="button">
-        <img alt="Google Classroom Icon" className='import-from-google-button-icon' src={googleClassroomIconSrc} />
-        {buttonContent}
-      </button>
-    )
-  }
-
-  renderViewAsStudentModal = () => {
-    const { selectedClassroomId, classrooms, } = this.state
-    const { showModal, } = this.state
-    if (showModal === viewAsStudentModal) {
+  const renderViewAsStudentModal = () => {
+    if (visibleModal === viewAsStudentModal) {
       return (
         <ViewAsStudentModal
           classrooms={classrooms}
-          close={this.closeModal}
+          close={closeModal}
           defaultClassroomId={selectedClassroomId}
-          handleViewClick={this.viewAsStudent}
+          handleViewClick={viewAsStudent}
         />
       )
     }
   }
 
-  renderHeader() {
-    return (
-      <div className="header">
-        <h1>Active Classes</h1>
-        <div className="buttons">
-          {this.renderImportFromCleverButton()}
-          {this.renderImportFromGoogleClassroomButton()}
-          {this.renderCreateAClassButton()}
-        </div>
+  return (
+    <React.Fragment>
+      <div className="container gray-background-accommodate-footer active-classrooms classrooms-page">
+        {renderCreateAClassModal()}
+        {renderRenameClassModal()}
+        {renderChangeGradeModal()}
+        {renderArchiveClassModal()}
+        {renderInviteStudentsModal()}
+        {renderImportProviderClassroomsModal()}
+        {renderImportProviderClassroomStudentsModal()}
+        {renderReauthorizeProviderModal()}
+        {renderLinkProviderAccountModal()}
+        {renderNoClassroomsToImportModal()}
+        {renderViewAsStudentModal()}
+        {renderSnackbar()}
+        {renderBulkArchiveClassesBanner()}
+        {renderHeader()}
+        {renderPageContent()}
       </div>
-    )
-  }
-
-  renderBulkArchiveClassesBanner() {
-    const { user, } = this.props
-    const { classrooms, } = this.state
-    const ownedClassrooms = classrooms.filter(c => {
-      const classroomOwner = c.teachers.find(t => t.classroom_relation === 'owner')
-      return classroomOwner && classroomOwner.id === user.id
-    })
-
-    return (
-      <BulkArchiveClassesBanner
-        classes={ownedClassrooms}
-        onSuccess={this.onSuccess}
-        userId={user.id}
-      />
-    )
-  }
-
-  render() {
-    return (
-      <React.Fragment>
-        <div className="container gray-background-accommodate-footer active-classrooms classrooms-page">
-          {this.renderCreateAClassModal()}
-          {this.renderRenameClassModal()}
-          {this.renderChangeGradeModal()}
-          {this.renderArchiveClassModal()}
-          {this.renderInviteStudentsModal()}
-          {this.renderImportCleverClassroomsModal()}
-          {this.renderImportGoogleClassroomsModal()}
-          {this.renderImportCleverClassroomStudentsModal()}
-          {this.renderImportGoogleClassroomStudentsModal()}
-          {this.renderReauthorizeCleverModal()}
-          {this.renderLinkCleverAccountModal()}
-          {this.renderLinkGoogleAccountModal()}
-          {this.renderCleverClassroomsEmptyModal()}
-          {this.renderGoogleClassroomsEmptyModal()}
-          {this.renderViewAsStudentModal()}
-          {this.renderSnackbar()}
-          {this.renderBulkArchiveClassesBanner()}
-          {this.renderHeader()}
-          {this.renderPageContent()}
-        </div>
-        <ArticleSpotlight blogPostId={MY_CLASSES_FEATURED_BLOG_POST_ID} />
-      </React.Fragment>
-    )
-  }
+      <ArticleSpotlight blogPostId={MY_CLASSES_FEATURED_BLOG_POST_ID} />
+    </React.Fragment>
+  )
 }
+
+export default ActiveClassrooms
