@@ -11,15 +11,19 @@ describe ResultsSummary do
   let!(:students_classroom1) { create(:students_classrooms, classroom: classroom, student: student1)}
   let!(:student2) { create(:student, name: 'Alphabetical B')}
   let!(:students_classroom2) { create(:students_classrooms, classroom: classroom, student: student2)}
-  let!(:classroom_unit) { create(:classroom_unit, unit: unit, classroom: classroom, assigned_student_ids: [student1.id, student2.id]) }
+  let!(:student3) { create(:student, name: 'Alphabetical C')}
+  let!(:students_classroom3) { create(:students_classrooms, classroom: classroom, student: student3)}
+  let!(:classroom_unit) { create(:classroom_unit, unit: unit, classroom: classroom, assigned_student_ids: [student1.id, student2.id, student3.id]) }
   let!(:unit_activity) { create(:unit_activity, unit: unit) }
   let!(:skill_group_activity) { create(:skill_group_activity, activity: unit_activity.activity)}
-  let!(:activity_session) { create(:activity_session, :finished, user: student1, classroom_unit: classroom_unit, activity: unit_activity.activity) }
+  let!(:activity_session1) { create(:activity_session, :finished, user: student1, classroom_unit: classroom_unit, activity: unit_activity.activity) }
+  let!(:activity_session2) { create(:activity_session, :finished, user: student3, classroom_unit: classroom_unit, activity: unit_activity.activity) }
   let!(:concept) { create(:concept) }
   let!(:skill) { create(:skill, skill_group: skill_group_activity.skill_group) }
   let!(:skill_concept) { create(:skill_concept, concept: concept, skill: skill) }
-  let!(:correct_concept_result) { create(:concept_result, concept: concept, activity_session: activity_session, correct: true) }
-  let!(:incorrect_concept_result) { create(:concept_result, concept: concept, activity_session: activity_session, correct: false) }
+  let!(:correct_concept_result1) { create(:concept_result, concept: concept, activity_session: activity_session1, correct: true) }
+  let!(:correct_concept_result2) { create(:concept_result, concept: concept, activity_session: activity_session2, correct: true) }
+  let!(:incorrect_concept_result) { create(:concept_result, concept: concept, activity_session: activity_session1, correct: false) }
 
   describe '#results_summary' do
     it 'should return data with the student results and skill group summaries' do
@@ -28,7 +32,11 @@ describe ResultsSummary do
           {
             name: skill_group_activity.skill_group.name,
             description: skill_group_activity.skill_group.description,
-            not_yet_proficient_student_names: [student1.name]
+            not_yet_proficient_student_names: [student1.name],
+            proficiency_scores_by_student: {
+              student1.name => 0,
+              student3.name => 1.0
+            }
           }
         ],
         student_results: [
@@ -45,6 +53,7 @@ describe ResultsSummary do
                     skill: skill.name,
                     number_correct: 1,
                     number_incorrect: 1,
+                    proficiency_score: 0,
                     summary: ResultsSummary::PARTIALLY_CORRECT,
                   }
                 ],
@@ -56,11 +65,43 @@ describe ResultsSummary do
               }
             ],
             total_correct_skills_count: 0,
+            total_correct_skill_groups_count: 0,
             total_possible_skills_count: 1,
-            correct_skill_text: "0 of 1 skills correct"
+            correct_skill_text: "0 of 1 skills",
+            correct_skill_groups_text: "0 of 1 skill groups",
           },
           {
             name: student2.name
+          },
+          {
+            name: student3.name,
+            id: student3.id,
+            skill_groups: [
+              {
+                skill_group: skill_group_activity.skill_group.name,
+                description: skill_group_activity.skill_group.description,
+                skills: [
+                  {
+                    id: skill.id,
+                    skill: skill.name,
+                    number_correct: 1,
+                    number_incorrect: 0,
+                    proficiency_score: 1.0,
+                    summary: ResultsSummary::FULLY_CORRECT,
+                  }
+                ],
+                skill_ids: [skill.id],
+                correct_skill_ids: [skill.id],
+                number_of_correct_skills_text: "1 of 1 skills correct",
+                proficiency_text: ResultsSummary::PROFICIENCY,
+                id: skill_group_activity.skill_group.id
+              }
+            ],
+            total_correct_skills_count: 1,
+            total_correct_skill_groups_count: 1,
+            total_possible_skills_count: 1,
+            correct_skill_text: "1 of 1 skills",
+            correct_skill_groups_text: "1 of 1 skill groups",
           }
         ]
       })
@@ -73,12 +114,13 @@ describe ResultsSummary do
         {
           name: skill_group_activity.skill_group.name,
           description: skill_group_activity.skill_group.description,
-          not_yet_proficient_student_names: []
+          not_yet_proficient_student_names: [],
+          proficiency_scores_by_student: {}
         }
       ]
       @skill_groups = [skill_group_activity.skill_group]
       @assigned_students = [student1, student2]
-      @activity_sessions = [activity_session].map { |session| [session.user_id, session] }.to_h
+      @activity_sessions = [activity_session1].map { |session| [session.user_id, session] }.to_h
       expect(student_results).to eq(
         [
           {
@@ -94,6 +136,7 @@ describe ResultsSummary do
                     skill: skill.name,
                     number_correct: 1,
                     number_incorrect: 1,
+                    proficiency_score: 0,
                     summary: ResultsSummary::PARTIALLY_CORRECT,
                   }
                 ],
@@ -105,8 +148,10 @@ describe ResultsSummary do
               }
             ],
             total_correct_skills_count: 0,
+            total_correct_skill_groups_count: 0,
             total_possible_skills_count: 1,
-            correct_skill_text: "0 of 1 skills correct"
+            correct_skill_text: "0 of 1 skills",
+            correct_skill_groups_text: "0 of 1 skill groups",
           },
           {
             name: student2.name
@@ -122,10 +167,11 @@ describe ResultsSummary do
         {
           name: skill_group_activity.skill_group.name,
           description: skill_group_activity.skill_group.description,
-          not_yet_proficient_student_names: []
+          not_yet_proficient_student_names: [],
+          proficiency_scores_by_student: {}
         }
       ]
-      expect(skill_groups_for_session([skill_group_activity.skill_group], activity_session, student1.name)).to eq [
+      expect(skill_groups_for_session([skill_group_activity.skill_group], activity_session1, student1.name)).to eq [
         {
           skill_group: skill_group_activity.skill_group.name,
           description: skill_group_activity.skill_group.description,
@@ -135,6 +181,7 @@ describe ResultsSummary do
               skill: skill.name,
               number_correct: 1,
               number_incorrect: 1,
+              proficiency_score: 0,
               summary: ResultsSummary::PARTIALLY_CORRECT,
             }
           ],
@@ -152,10 +199,11 @@ describe ResultsSummary do
         {
           name: skill_group_activity.skill_group.name,
           description: skill_group_activity.skill_group.description,
-          not_yet_proficient_student_names: []
+          not_yet_proficient_student_names: [],
+          proficiency_scores_by_student: {}
         }
       ]
-      skill_groups_for_session([skill_group_activity.skill_group], activity_session, student1.name)
+      skill_groups_for_session([skill_group_activity.skill_group], activity_session1, student1.name)
       expect(@skill_group_summaries[0][:not_yet_proficient_student_names]).to eq [student1.name]
     end
 

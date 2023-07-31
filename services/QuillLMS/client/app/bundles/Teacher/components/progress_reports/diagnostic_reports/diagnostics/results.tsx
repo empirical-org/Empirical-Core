@@ -108,7 +108,7 @@ export const Results = ({ passedStudentResults, passedSkillGroupSummaries, match
         </section>
       )}
       {!!skillGroupSummaries.length && (<section className="student-results">
-        <StudentResultsTable openPopover={openPopover} responsesLink={responsesLink} setOpenPopover={setOpenPopover} skillGroupSummaries={skillGroupSummaries} studentResults={studentResults} />
+        <StudentResultsTable isPreTest={true} openPopover={openPopover} responsesLink={responsesLink} setOpenPopover={setOpenPopover} skillGroupSummaries={skillGroupSummaries} studentResults={studentResults} />
       </section>)}
     </main>
   )
