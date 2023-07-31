@@ -376,7 +376,7 @@ GEM
     jquery-turbolinks (2.1.0)
       railties (>= 3.1.0)
       turbolinks
-    jquery-ui-rails (6.0.1)
+    jquery-ui-rails (5.0.5)
       railties (>= 3.2.16)
     json (2.3.1)
     jsonapi-renderer (0.2.2)
@@ -866,7 +866,7 @@ DEPENDENCIES
   jbuilder
   jquery-rails
   jquery-turbolinks
-  jquery-ui-rails
+  jquery-ui-rails (~> 5.0.5)
   kaminari (~> 1.2.1)
   letter_opener
   lms-api

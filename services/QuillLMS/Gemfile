@@ -119,7 +119,7 @@ gem 'sass-rails'
 gem 'bootstrap-sass', '~> 3.4.1'
 
 gem 'jquery-rails'
-gem 'jquery-ui-rails'
+gem 'jquery-ui-rails', '~> 5.0.5'
 
 gem 'slim-rails'
 
