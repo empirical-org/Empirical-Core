@@ -20,7 +20,7 @@ namespace :local_data do
   # PROD_FOLLOWER_DB_HOST
   # PROD_FOLLOWER_DB_USER
   # You will be prompted for the password in the console when run
-  # If starting from a new database, run `bundle exec rake db:structure:load` first
+  # If starting from a new database, run `bundle exec rake db:schema:load` first
   # To Run: bundle exec rake local_data:reset_nonuser_data_from_follower
   desc "import non-user tables"
   task reset_nonuser_data_from_follower: :environment do
