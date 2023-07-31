@@ -37,6 +37,16 @@
     .filters {
       padding: 32px 24px 84px;
       min-height: calc(100% - 68px); // accounting for height of filter buttons
+      .filter-label {
+        display: flex;
+        align-items: center;
+        img {
+          margin-left: 8px;
+        }
+        .quill-tooltip-wrapper {
+          transform: translateX(-25%);
+        }
+      }
     }
     .filter-buttons {
       display: flex;
@@ -77,6 +87,26 @@
     h1 {
       font-weight: 700;
       font-size: 24px;
+      display: flex;
+      align-items: center;
+      a {
+        margin-left: 16px;
+        display: flex;
+        align-items: center;
+        color: #5C5C5C;
+        font-size: 14px;
+        font-style: normal;
+        font-weight: 400;
+        line-height: 20px; /* 142.857% */
+        img {
+          height: 20px;
+          width: 24px;
+          margin-right: 2px;
+        }
+        &:hover {
+          text-decoration: none;
+        }
+      }
     }
     .tabs {
       margin-top: 24px;
@@ -199,6 +229,12 @@
           align-items: center;
           img {
             margin-right: 4px;
+            &.small {
+              height: 26px;
+            }
+            &.medium {
+              height: 31px;
+            }
           }
         }
         &.snapshot-count {
@@ -238,10 +274,9 @@
           }
         }
         &.negative {
-          background: #FFEFEC;
           border: 1px solid #FFC0B3;
           .change {
-            color: #F65C3A;
+            color: #C97C00;
           }
         }
       }

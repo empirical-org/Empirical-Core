@@ -305,9 +305,9 @@ const UsageSnapshotsContainer = ({ adminInfo, accessType, }) => {
     customEndDate,
   }
 
-  if (accessType !== FULL) {
-    return restrictedPage
-  }
+  // if (accessType !== FULL) {
+  //   return restrictedPage
+  // }
 
   return (
     <div className="usage-snapshots-container white-background">
@@ -324,7 +324,13 @@ const UsageSnapshotsContainer = ({ adminInfo, accessType, }) => {
       />
       <main>
         <div className="header">
-          <h1>Usage Snapshot Report</h1>
+          <h1>
+            <span>Usage Snapshot Report</span>
+            <a href="https://support.quill.org/en/articles/1588988-how-do-i-navigate-the-premium-hub" rel="noopener noreferrer" target="_blank">
+              <img alt="" src={`${process.env.CDN_URL}/images/icons/file-document.svg`} />
+              <span>Guide</span>
+            </a>
+          </h1>
           <button className="quill-button contained primary medium focus-on-light" onClick={handleClickDownloadReport} type="button">Download Report</button>
         </div>
         <div aria-hidden={true} className="tabs">
