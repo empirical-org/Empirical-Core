@@ -18,6 +18,7 @@ describe DiagnosticReports do
         skill: skill_concept.skill.name,
         number_correct: 1,
         number_incorrect: 1,
+        proficiency_score: 0,
         summary: DiagnosticReports::PARTIALLY_CORRECT
       })
     end
@@ -38,6 +39,38 @@ describe DiagnosticReports do
 
     it 'should return PARTIALLY_CORRECT if neither number_correct nor number_incorrect is 0' do
       expect(summarize_correct_skills(1, 1)).to eq(DiagnosticReports::PARTIALLY_CORRECT)
+    end
+  end
+
+  describe '#calculate_proficiency_score' do
+    subject { calculate_proficiency_score(number_correct, number_incorrect) }
+
+    context 'undefined scores' do
+      let(:number_correct) { 0 }
+      let(:number_incorrect) { 0 }
+
+      it { expect(subject).to eq DiagnosticReports::NOT_PRESENT }
+    end
+
+    context 'zero correct' do
+      let(:number_correct) { 0 }
+      let(:number_incorrect) { 1 }
+
+      it { expect(subject).to eq 0 }
+    end
+
+    context 'zero incorrect' do
+      let(:number_correct) { 1 }
+      let(:number_incorrect) { 0 }
+
+      it { expect(subject).to eq 1 }
+    end
+
+    context 'nonzero correct and incorrect' do
+      let(:number_correct) { 1 }
+      let(:number_incorrect) { 1 }
+
+      it { expect(subject).to eq 0 }
     end
   end
 

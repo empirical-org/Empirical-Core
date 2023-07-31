@@ -2,7 +2,17 @@
 
 import * as React from 'react';
 
-const PercentageCircle = ({ percent, borderWidth, radius, bgcolor, color, children, textStyle, innerColor, }) => {
+interface PercentageCircleProps {
+  percent: number,
+  borderWidth: number,
+  radius: number,
+  bgcolor: string,
+  color: string,
+  children?: any,
+  textStyle?: string,
+  innerColor: string
+}
+const PercentageCircle = ({ percent, borderWidth, radius, bgcolor, color, children, textStyle, innerColor }: PercentageCircleProps) => {
 
   let leftTransformerDegree = '0deg';
   let rightTransformerDegree = '0deg';

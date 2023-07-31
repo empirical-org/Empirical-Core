@@ -97,32 +97,28 @@
     }
     span {
       font-size: 12px;
-      font-weight: 600;
+      font-weight: 700;
       font-stretch: normal;
       font-style: normal;
       line-height: 1;
       letter-spacing: normal;
     }
-    &.proficiency {
+    &.proficiency, &.maintained-proficiency {
       background-color: #b8db99;
       span {
         color: #2a5900;
       }
     }
-    &.partial-proficiency {
-      background-color: #ffd999;
-      span {
-        color: #995f00;
-      }
-    }
-    &.maintained-proficiency {
+    &.gained-some-proficiency {
       background-color: #e9f4e0;
+      border: 1px solid #2A5900;
       span {
         color: #367300;
       }
     }
-    &.no-proficiency {
+    &.no-proficiency, &.partial-proficiency {
       background-color: #fff3e0;
+      border: 1px solid #E3BB7A;
       span {
         color: #995f00;
       }
