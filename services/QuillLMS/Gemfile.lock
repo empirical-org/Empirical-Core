@@ -15,6 +15,7 @@ PATH
       hotwater (= 0.1.2)
       pragmatic_segmenter (~> 0.3.23)
       rails (= 7.0.6)
+      sprockets-rails
 
 GEM
   remote: https://gems.contribsys.com/
