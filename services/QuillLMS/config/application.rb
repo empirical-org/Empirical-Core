@@ -9,7 +9,6 @@ require "action_mailer/railtie"
 require "sprockets/railtie"
 require 'active_support/core_ext/hash/indifferent_access'
 
-
 # Require the gems listed in Gemfile, including any gems
 # you've limited to :test, :development, or :production.
 Bundler.require(:default, Rails.env)
@@ -19,10 +18,6 @@ module EmpiricalGrammar
     # Settings in config/environments/* take precedence over those specified here.
     # Application configuration should go into files in config/initializers
     # -- all .rb files in that directory are automatically loaded.
-
-    # load custom extensions
-    Dir[Rails.root.join("app/lib/extensions/**/*.rb")].sort.each { |f| require f }
-    require Rails.root.join("app/lib/constants.rb")
 
     config.cache_store = :redis_store, ENV["REDISCLOUD_URL"]
 
@@ -55,7 +50,6 @@ module EmpiricalGrammar
     # https://stackoverflow.com/questions/31953498/can-i-write-postgresql-functions-on-ruby-on-rails
     # Aug 21, 2018 Max Buck]
     config.active_record.schema_format = :sql
-
     config.active_record.legacy_connection_handling = false
 
     config.action_controller.always_permitted_parameters = %w(controller action format)
