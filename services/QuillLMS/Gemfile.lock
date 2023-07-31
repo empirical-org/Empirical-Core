@@ -919,7 +919,7 @@ DEPENDENCIES
   slim-rails
   spring
   spring-commands-rspec
-  sprockets (~> 3.7.2)
+  sprockets-rails
   stripe (~> 5.30)
   super_diff
   terminal-notifier-guard
