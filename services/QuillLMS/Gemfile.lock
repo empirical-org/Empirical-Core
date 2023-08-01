@@ -430,7 +430,7 @@ GEM
     multipart-post (2.3.0)
     nenv (0.3.0)
     nested_form (0.3.2)
-    newrelic_rpm (7.2.0)
+    newrelic_rpm (9.3.1)
     nio4r (2.5.8)
     nokogiri (1.13.8)
       mini_portile2 (~> 2.8.0)
@@ -852,7 +852,7 @@ DEPENDENCIES
   maxminddb
   memory_profiler
   mini_racer (= 0.4.0)
-  newrelic_rpm (~> 7.2)
+  newrelic_rpm (~> 9.3.1)
   nokogiri (>= 1.13.2)
   omniauth
   omniauth-canvas
