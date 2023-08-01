@@ -65,7 +65,7 @@ class SnapshotsController < ApplicationController
   end
 
   private def teacher_options
-    grades = option_params[:grades]
+    grades = option_params[:grades]&.map { |i| Utils::String.parse_null_to_nil(i) }
 
     teachers = User.distinct
       .joins(:schools_users)

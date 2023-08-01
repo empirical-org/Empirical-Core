@@ -393,6 +393,19 @@ describe SnapshotsController, type: :controller do
 
         expect(json_response['classrooms']).to eq([])
       end
+
+      context '"null" in grade params' do
+        let(:target_grade) { nil }
+
+        it 'should match teachers who teach nil grade classrooms' do
+
+          get :options, params: { grades: ["null"] }
+
+          json_response = JSON.parse(response.body)
+
+          expect(json_response['teachers']).to eq([{"id" => teacher.id, "name" => teacher.name}])
+        end
+      end
     end
   end
 end
