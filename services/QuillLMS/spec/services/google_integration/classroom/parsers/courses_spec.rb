@@ -30,7 +30,7 @@ describe 'GoogleIntegration::Classroom::Parsers::Courses' do
     course = response[:courses][0]
     [
       {
-        id: course[:id].to_i,
+        classroom_external_id: course[:id].to_i,
         name: course[:name],
         ownerId: course[:ownerId],
         alreadyImported: true,

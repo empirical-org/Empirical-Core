@@ -7,7 +7,7 @@ import UnitTemplateMini from './unit_template_mini'
 import UnitTemplateMinisTable from './unitTemplateMinisTable'
 
 import { DropdownInput } from '../../../../Shared/index'
-import AssignmentFlowNavigation from '../assignment_flow_navigation.tsx'
+import AssignmentFlowNavigation from '../assignment_flow_navigation'
 import { ACTIVITY_PACK_TYPES, CREATE_YOUR_OWN_ID, DAILY_PROOFREADING, DIAGNOSTIC, LANGUAGE_SKILLS, READING_TEXTS, WHOLE_CLASS_LESSONS } from '../assignmentFlowConstants'
 
 const ALL = 'All'

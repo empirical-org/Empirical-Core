@@ -177,7 +177,7 @@ class Subscription < ApplicationRecord
   end
 
   def expired?
-    expiration <= Date.current
+    expiration < Date.current
   end
 
   def check_if_purchaser_email_is_in_database

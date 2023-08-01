@@ -3,12 +3,17 @@
 require 'rails_helper'
 
 RSpec.describe CleverIntegration::TeacherImporter do
-  let(:clever_id) { 'abcdef123' }
-  let(:email) { 'teacher@email.com' }
-
-  let(:data) { { clever_id: clever_id, email: email } }
-
   subject { described_class.run(data) }
+
+  let(:user_external_id) { SecureRandom.hex(12) }
+  let(:email) { Faker::Internet.email }
+
+  let(:data) do
+    {
+      email: email,
+      user_external_id: user_external_id
+    }
+  end
 
   context 'teacher does not exist' do
     it { should_run_teacher_creator }
@@ -19,7 +24,7 @@ RSpec.describe CleverIntegration::TeacherImporter do
 
     context 'teacher is linked with clever' do
       let(:provider_trait) { :signed_up_with_clever }
-      let(:clever_id) { teacher.clever_id }
+      let(:user_external_id) { teacher.clever_id }
 
       it { should_run_teacher_updater }
     end

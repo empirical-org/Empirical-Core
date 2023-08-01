@@ -19,7 +19,7 @@ describe CanvasIntegration::UserImporter do
 
   let(:email) { Faker::Internet.email }
   let(:external_id) { Faker::Number.number }
-  let(:name) { Faker::Name.name }
+  let(:name) { Faker::Name.custom_name }
   let(:role) { User::TEACHER }
   let(:url) { canvas_instance.url }
 

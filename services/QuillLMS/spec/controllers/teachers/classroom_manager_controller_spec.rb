@@ -524,7 +524,6 @@ describe Teachers::ClassroomManagerController, type: :controller do
     end
   end
 
-
   describe '#teacher_dashboard_metrics' do
     let!(:teacher) { create(:teacher) }
 
@@ -657,36 +656,6 @@ describe Teachers::ClassroomManagerController, type: :controller do
     end
   end
 
-  describe '#retreive_google_clasrooms' do
-    let(:teacher) { create(:teacher) }
-
-    before do
-      allow(controller).to receive(:current_user) { teacher }
-      allow(GoogleIntegration::Classroom::Main).to receive(:pull_data) { "google response" }
-    end
-
-    it 'should render the id of the teacher if there is nothing else in the store' do
-      get :retrieve_google_classrooms
-      expect(response.body).to eq({id: teacher.id, quill_retrieval_processing: true}.to_json)
-    end
-  end
-
-  describe '#import_google_students' do
-    let(:teacher) { create(:teacher) }
-
-    before do
-      allow(controller).to receive(:current_user) { teacher }
-      allow(GoogleIntegration::Classroom::Main).to receive(:pull_data) { "google response" }
-    end
-
-    it 'should kick off the importer' do
-      create(:google_auth_credential, user: teacher)
-
-      expect(GoogleStudentImporterWorker).to receive(:perform_async)
-      put :import_google_students, params: { selected_classroom_ids: [1,2], as: :json }
-    end
-  end
-
   describe '#update_my_account' do
     let(:teacher) { create(:teacher) }
 
@@ -698,25 +667,6 @@ describe Teachers::ClassroomManagerController, type: :controller do
       expect(teacher).to receive(:update_teacher)
       put :update_my_account
     end
-  end
-
-  describe '#update_google_classrooms' do
-    let(:teacher) { create(:teacher) }
-    let(:google_classroom_id1) { 123 }
-    let(:google_classroom_id2) { 456 }
-
-    let(:selected_classrooms) { [{ id: google_classroom_id1 }, { id: google_classroom_id2 }] }
-
-    before { allow(controller).to receive(:current_user) { teacher } }
-
-    it 'should return an array with two classrooms' do
-     post :update_google_classrooms, params: { selected_classrooms: selected_classrooms }, as: :json
-
-     classrooms = JSON.parse(response.body).deep_symbolize_keys.fetch(:classrooms)
-
-     google_classroom_ids = classrooms.map { |classroom| classroom[:google_classroom_id] }.sort
-     expect(google_classroom_ids).to eq [google_classroom_id1, google_classroom_id2]
-   end
   end
 
   describe '#view_demo' do

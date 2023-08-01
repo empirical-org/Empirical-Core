@@ -3,6 +3,7 @@
 module CanvasIntegration
   class RestClient
     COURSES_PATH = 'courses'
+    SECTIONS_PATH = 'sections'
 
     attr_reader :canvas_auth_credential
 
@@ -10,8 +11,16 @@ module CanvasIntegration
       @canvas_auth_credential = canvas_auth_credential
     end
 
+    def classroom_students(section_id)
+      students_data(section_id).map { |student_data| StudentDataAdapter.run(canvas_instance.id, student_data) }
+    end
+
     def teacher_classrooms
-      { canvas_instance_id: canvas_instance.id, classrooms: classrooms }
+      courses_data.map do |course_data|
+        sections_data(course_data[:id]).map do |section_data|
+          ClassroomDataAdapter.run(canvas_instance.id, course_data, section_data)
+        end
+      end.flatten
     end
 
     private def api
@@ -30,26 +39,32 @@ module CanvasIntegration
       @canvas_instance ||= canvas_auth_credential.canvas_instance
     end
 
-    private def classrooms
-      courses_data.map do |course_data|
-        sections_data(course_data[:id]).map do |section_data|
-          ClassroomDataAdapter.run(course_data, section_data)
-        end
-      end.flatten
-    end
-
     private def courses_data
-      @courses_data ||= get_data(COURSES_PATH)
+      @courses_data ||= get_collection(COURSES_PATH)
     end
 
     private def get_data(path)
-      JSON
-        .parse(api.api_get_request(path).body)
-        .map(&:deep_symbolize_keys)
+      JSON.parse(api.api_get_request(path).body)
+    end
+
+    private def get_member(path)
+      get_data(path).deep_symbolize_keys
+    end
+
+    private def get_collection(path)
+      get_data(path).map(&:deep_symbolize_keys)
+    end
+
+    private def section_data(section_id)
+      get_member("#{SECTIONS_PATH}/#{section_id}?include[]=students")
     end
 
     private def sections_data(course_id)
-      get_data("#{COURSES_PATH}/#{course_id}/sections?include[]=students")
+      get_collection("#{COURSES_PATH}/#{course_id}/sections?include[]=students") || []
+    end
+
+    private def students_data(section_id)
+      section_data(section_id)[:students] || []
     end
   end
 end

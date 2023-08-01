@@ -1,7 +1,7 @@
 import { ContentState, EditorState } from 'draft-js';
 import * as React from 'react';
 import { connect } from 'react-redux';
-import SelectSearch, { fuzzySearch } from 'react-select-search';
+import SelectSearch from 'react-select-search';
 import {
   SortableList,
   TextEditor,
@@ -169,7 +169,6 @@ export class LessonForm extends React.Component<LessonFormProps, LessonFormState
       }
       return (
         <SelectSearch
-          filterOptions={fuzzySearch}
           id="all-questions"
           key={questionType}
           onChange={this.handleSearchChange}

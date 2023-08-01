@@ -24,10 +24,10 @@
 #
 FactoryBot.define do
   factory :provider_classroom do
-    external_id { Faker::Number.number(digits: 3) }
+    external_id { Faker::Number.number }
     classroom
 
-    factory :canvas_classsroom, parent: :provider_classroom, class: 'CanvasClassroom' do
+    factory :canvas_classroom, parent: :provider_classroom, class: 'CanvasClassroom' do
       canvas_instance
     end
   end

@@ -23,7 +23,7 @@ namespace :empirical do
     Rake::Task["db:create"].invoke
 
     puts "\n⚙️  Loading structure..."
-    Rake::Task['db:structure:load'].invoke
+    Rake::Task['db:schema:load'].invoke
 
     puts "\n📮 Starting Redis..."
     `redis-server --daemonize yes`

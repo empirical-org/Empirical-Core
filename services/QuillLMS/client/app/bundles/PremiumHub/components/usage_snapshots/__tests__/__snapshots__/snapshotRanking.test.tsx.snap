@@ -336,7 +336,7 @@ exports[`SnapshotRanking component when there is data  should match snapshot 1`]
               Comma Before Coordinating Conjunctions
             </td>
             <td>
-              3777
+              3,777
             </td>
           </tr>
           <tr
@@ -347,7 +347,7 @@ exports[`SnapshotRanking component when there is data  should match snapshot 1`]
               Compound Objects
             </td>
             <td>
-              3339
+              3,339
             </td>
           </tr>
           <tr
@@ -358,7 +358,7 @@ exports[`SnapshotRanking component when there is data  should match snapshot 1`]
               Subordinating Conjunction at the Beginning of a Sentence
             </td>
             <td>
-              2232
+              2,232
             </td>
           </tr>
         </table>

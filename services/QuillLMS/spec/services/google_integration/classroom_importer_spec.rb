@@ -7,7 +7,7 @@ RSpec.describe GoogleIntegration::ClassroomImporter do
 
   let(:data) do
     {
-      google_classroom_id: google_classroom_id,
+      classroom_external_id: classroom_external_id,
       name: 'Google classroom',
       teacher_id: teacher.id
     }
@@ -15,18 +15,18 @@ RSpec.describe GoogleIntegration::ClassroomImporter do
 
   subject { described_class.run(data) }
 
-  context 'classroom exists with google_classroom_id' do
-    let(:google_classroom_id) { 123456 }
+  context 'classroom exists with classroom_external_id' do
+    let(:classroom_external_id) { 123456 }
 
-    before { create(:classroom, google_classroom_id: google_classroom_id) }
+    before { create(:classroom, google_classroom_id: classroom_external_id) }
 
     it 'runs classroom updater' do
       expect { subject }.to_not change(Classroom, :count)
     end
   end
 
-  context 'classroom does not exist with google_classroom_id' do
-    let(:google_classroom_id) { 987654 }
+  context 'classroom does not exist with classroom_external_id' do
+    let(:classroom_external_id) { 987654 }
 
     it 'creates a new classroom' do
       expect { subject }.to change(Classroom, :count).from(0).to(1)

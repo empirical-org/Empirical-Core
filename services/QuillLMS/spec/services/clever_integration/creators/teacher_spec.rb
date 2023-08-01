@@ -46,8 +46,6 @@ describe CleverIntegration::Creators::Teacher do
     let!(:teacher) { create(:teacher, google_id: google_id) }
     let(:email) { teacher.email }
 
-
-
     before { allow(Analytics::SegmentAnalytics).to receive(:new) { analyzer } }
 
     context 'with no google_id' do

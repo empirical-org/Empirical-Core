@@ -4,7 +4,7 @@
   <div class="container">
     <section class="top-section">
       <%= render partial: 'quill_academy/availability_disclaimer' %>
-      <% if render_quill_academy_button?(current_user) %>
+      <% if current_user.learn_worlds_access? %>
         <%= button_to "/auth/learn_worlds/courses", method: "post", class: "interactive-wrapper quill-academy-button-or-info-section premium-user" do %>
           <img src='https://assets.quill.org/images/quill_academy/quill-academy-icon.svg'></img>
           <h2>Quill Academy</h2>
@@ -12,7 +12,12 @@
           <p class='quill-button primary contained medium focus-on-light'>Access my course library</p>
         <% end %>
       <% else %>
-        <%= render partial: 'quill_academy/info_section' %>
+        <div class='quill-academy-button-or-info-section'>
+          <img src='https://assets.quill.org/images/quill_academy/quill-academy-icon.svg'></img>
+          <h2>Quill Academy</h2>
+          <p class='subheader'>Access a growing library of self-paced training courses and resources to help you become a <u>Quill.org</u> expert and writing pedagogue.</p>
+          <a class='quill-button primary contained medium focus-on-light' href='/premium' tabIndex=0 target='_blank'>Learn more about Premium</a>
+        </div>
       <% end %>
     </section>
     <section class="middle-section">

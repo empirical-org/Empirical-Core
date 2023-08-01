@@ -36,6 +36,7 @@ interface StudentResultsTableProps {
   openPopover: OpenPopover;
   setOpenPopover: (popover: OpenPopover) => void;
   responsesLink: (id: number) => string;
+  isPreTest?: boolean;
 }
 
 interface PopoverProps {
@@ -97,22 +98,31 @@ const StudentResultCell = ({ skillGroup, studentResult, setOpenPopover, openPopo
 }
 
 const StudentRow = ({ studentResult, skillGroupSummaries, openPopover, setOpenPopover, responsesLink, }) => {
-  const { name, skill_groups, id, total_acquired_skills_count, correct_skill_text, } = studentResult
+  const { name, skill_groups, id, total_acquired_skills_count, total_acquired_skill_groups_count, correct_skill_text, correct_skill_groups_text } = studentResult
   const diagnosticNotCompletedMessage = <span className="name-section-subheader">Diagnostic not completed</span>
-  const skillsDelta = total_acquired_skills_count ? (<div className="skills-delta">
-    {lightGreenTriangleUpIcon}
-    <span className="skill-count">{total_acquired_skills_count}</span>
+  const tooltipText = "<b>Skill Groups:</b> The student either gained some or full proficiency in this group of skills, or the student maintained full proficiency from the pre to the post.<br/><br/><b>Skills:</b> The student demonstrated these skills correctly on every prompt.The arrow indicates the increase in skills demonstrated correctly from the pre - diagnostic."
+  const totalAcquiredSkillsCount = total_acquired_skills_count > 0 ? total_acquired_skills_count : 0;
+  const totalAcquiredSkillGroupsCount = total_acquired_skill_groups_count > 0 ? total_acquired_skill_groups_count : 0;
+  const skillsDelta = (<div className="skills-delta">
+    {totalAcquiredSkillsCount ? lightGreenTriangleUpIcon : null}
+    <span className="skill-count">{totalAcquiredSkillsCount ? totalAcquiredSkillsCount : null }</span>
     <Tooltip
-      tooltipText="This growth score is the total number of skills gained, or the number of skills that were not fully correct on the pre-test but were fully correct on the post-test. This growth score only counts each skill one time, even if the skill is part of more than one skill group."
+      tooltipText={tooltipText}
       tooltipTriggerText={<img alt={helpIcon.alt} src={helpIcon.src} />}
     />
-  </div>) : null
-  const subHeader = correct_skill_text ? <div className="name-section-subheader"><span className="correct-skill-text">{correct_skill_text}</span>{skillsDelta}</div> : diagnosticNotCompletedMessage
+  </div>)
+  const skillGroupsDelta = (<div className="skills-delta">
+    {totalAcquiredSkillGroupsCount ? lightGreenTriangleUpIcon : null}
+    <span className="skill-count">{totalAcquiredSkillGroupsCount ? totalAcquiredSkillGroupsCount : null }</span>
+  </div>)
+  const skillsSubHeader = correct_skill_text ? <div className="name-section-subheader"><span className="correct-skill-text">{correct_skill_text}</span>{skillsDelta}</div> : diagnosticNotCompletedMessage
+  const skillGroupsSubHeader = correct_skill_groups_text ? <div className="name-section-subheader"><span className="correct-skill-text">{correct_skill_groups_text}</span>{skillGroupsDelta}</div> : null
 
   const firstCell = (<th className="name-cell">
     <div>
       <StudentNameOrTooltip name={name} />
-      {subHeader}
+      {skillGroupsSubHeader}
+      {skillsSubHeader}
     </div>
   </th>)
 
@@ -132,7 +142,7 @@ const StudentRow = ({ studentResult, skillGroupSummaries, openPopover, setOpenPo
   return <tr id={id} key={name}>{firstCell}{skillGroupCells}</tr>
 }
 
-const StudentResultsTable = ({ skillGroupSummaries, studentResults, openPopover, setOpenPopover, responsesLink, }: StudentResultsTableProps) => {
+const StudentResultsTable = ({ isPreTest, skillGroupSummaries, studentResults, openPopover, setOpenPopover, responsesLink, isPostTest }: StudentResultsTableProps) => {
   const size = useWindowSize();
   const [isSticky, setIsSticky] = React.useState(false);
   const tableRef = React.useRef(null);
@@ -199,13 +209,14 @@ const StudentResultsTable = ({ skillGroupSummaries, studentResults, openPopover,
     const { name, description, not_yet_proficient_student_names, not_yet_proficient_in_post_test_student_names, } = skillGroupSummary
     const notYetProficientStudentCount = (not_yet_proficient_student_names || not_yet_proficient_in_post_test_student_names).length
     const proficientStudentCount = completedStudentCount - notYetProficientStudentCount
+    const label = isPreTest ? ' proficient' : ''
     return (
       <th className="skill-group-header" key={name}>
         <div className="name-and-tooltip">
           <span>{name}</span>
           <SkillGroupTooltip description={description} key={name} name={name} />
         </div>
-        {completedStudentCount && <span className="label">{proficientStudentCount} of {completedStudentCount} student{proficientStudentCount === 1 ? '' : 's'} proficient</span>}
+        {completedStudentCount && <span className="label">{proficientStudentCount} of {completedStudentCount} student{proficientStudentCount === 1 ? '' : 's'}{label}</span>}
       </th>
     )
   })
