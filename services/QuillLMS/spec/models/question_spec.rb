@@ -25,7 +25,7 @@
 require 'rails_helper'
 
 RSpec.describe Question, type: :model do
-  
+
   describe 'validations' do
     it { should belong_to(:skill_group) }
   end
