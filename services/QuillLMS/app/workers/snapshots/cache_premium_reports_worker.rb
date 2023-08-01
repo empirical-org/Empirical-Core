@@ -1,4 +1,5 @@
 # frozen_string_literal: true
+
 module Snapshots
   class CachePremiumReportsWorker
     include Sidekiq::Worker

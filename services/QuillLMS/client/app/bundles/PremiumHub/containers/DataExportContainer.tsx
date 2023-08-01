@@ -49,8 +49,6 @@ const DataExportContainer = ({ adminInfo, accessType, }) => {
   const [showCustomDateModal, setShowCustomDateModal] = React.useState(false)
   const [lastUsedTimeframe, setLastUsedTimeframe] = React.useState(null)
   const [showMobileFilterMenu, setShowMobileFilterMenu] = React.useState(false)
-  const [reportData, setReportData] = React.useState(null)
-  const [downloadStarted, setDownloadStarted] = React.useState(false)
 
   React.useEffect(() => {
     getFilters()
@@ -96,28 +94,11 @@ const DataExportContainer = ({ adminInfo, accessType, }) => {
     setSelectedTimeframe(lastUsedTimeframe)
   }, [showCustomDateModal])
 
-  React.useEffect(() => {
-    if(reportData) {
-      console.log('reportData in DataExportContainer', reportData)
-      setReportData(null)
-    }
-  },[reportData])
-
   function openMobileFilterMenu() { setShowMobileFilterMenu(true) }
 
   function closeMobileFilterMenu() { setShowMobileFilterMenu(false) }
 
-  function handleClickDownloadReport() {
-    setDownloadStarted(true)
-  }
-
-  function toggleDownloadStarted() {
-    setDownloadStarted(!downloadStarted)
-  }
-
-  function handleSetReportData(data) {
-    setReportData(data)
-  }
+  function handleClickDownloadReport() { window.print() }
 
   function handleSetSelectedTimeframe(timeframe) {
     setLastUsedTimeframe(selectedTimeframe)
@@ -288,14 +269,11 @@ const DataExportContainer = ({ adminInfo, accessType, }) => {
           adminId={adminInfo.id}
           customTimeframeEnd={customEndDate?.toDate()}
           customTimeframeStart={customStartDate?.toDate()}
-          downloadStarted={downloadStarted}
-          handleSetReportData={handleSetReportData}
-          handleToggleDownloadStarted={toggleDownloadStarted}
           queryKey="data-export"
+          selectedClassroomIds={selectedClassrooms.map(classroom => classroom.id)}
           selectedGrades={selectedGrades.map(grade => grade.value)}
           selectedSchoolIds={selectedSchools.map(school => school.id)}
           selectedTeacherIds={selectedTeachers.map(teacher => teacher.id)}
-          selectedClassroomIds={selectedClassrooms.map(classroom => classroom.id)}
           selectedTimeframe={selectedTimeframe.value}
         />
       </main>

@@ -28,7 +28,6 @@ module Snapshots
           classrooms.grade AS classroom_grade
       SQL
     end
-        # substring(users.name from (position(' ' in users.name) + 1) for (char_length(users.name))) || substring(users.name from (1) for (position(' ' in users.name))) AS sorting_name
 
     def from_and_join_clauses
       super + <<-SQL

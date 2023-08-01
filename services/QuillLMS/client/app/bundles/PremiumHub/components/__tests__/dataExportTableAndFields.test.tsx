@@ -18,7 +18,7 @@ describe('DataExportTableAndFields component', () => {
     handleToggleDownloadStarted: jest.fn(),
     handleSetReportData: jest.fn()
   }
-  const component = shallow(<DataExportTableAndFields {...mockProps } />);
+  const component = shallow(<DataExportTableAndFields {...mockProps} />);
 
   it('should match snapshot', () => {
     expect(component).toMatchSnapshot();

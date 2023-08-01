@@ -36,20 +36,7 @@ interface DataExportTableAndFieldsProps {
   selectedTimeframe: string;
 }
 
-const testData = [
-  { id: 1, student_name: "Billy Bob", student_email: "test@test.com", school_name: "Elk Neck Elementary", classroom_grade: "Kindergarten", teacher_name: "James Milloway", classroom_name: "English Fourth Period", completed_date: "4/5/2023", activity_pack: "Adjectives and Adverbs Pack", activity: "Using Adjectives with Animals", tool: "Connect", score: 0.75, standard: "1.1g. Conjunctions: And, But, Or, So", timespent: "3 minutes" },
-  { id: 2, student_name: "Billy Bob", student_email: "test@test.com", school_name: "Elk Neck Elementary", classroom_grade: "Kindergarten", teacher_name: "James Milloway", classroom_name: "English Fourth Period", completed_date: "4/5/2023", activity_pack: "Adjectives and Adverbs Pack", activity: "Using Adjectives with Animals", tool: "Connect", score: 0.75, standard: "1.1g. Conjunctions: And, But, Or, So", timespent: "3 minutes" },
-  { id: 3, student_name: "Billy Bob", student_email: "test@test.com", school_name: "Elk Neck Elementary", classroom_grade: "Kindergarten", teacher_name: "James Milloway", classroom_name: "English Fourth Period", completed_date: "4/5/2023", activity_pack: "Adjectives and Adverbs Pack", activity: "Using Adjectives with Animals", tool: "Connect", score: 0.75, standard: "1.1g. Conjunctions: And, But, Or, So", timespent: "3 minutes" },
-  { id: 4, student_name: "Billy Bob", student_email: "test@test.com", school_name: "Elk Neck Elementary", classroom_grade: "Kindergarten", teacher_name: "James Milloway", classroom_name: "English Fourth Period", completed_date: "4/5/2023", activity_pack: "Adjectives and Adverbs Pack", activity: "Using Adjectives with Animals", tool: "Connect", score: 0.75, standard: "1.1g. Conjunctions: And, But, Or, So", timespent: "3 minutes" },
-  { id: 5, student_name: "Billy Bob", student_email: "test@test.com", school_name: "Elk Neck Elementary", classroom_grade: "Kindergarten", teacher_name: "James Milloway", classroom_name: "English Fourth Period", completed_date: "4/5/2023", activity_pack: "Adjectives and Adverbs Pack", activity: "Using Adjectives with Animals", tool: "Connect", score: 0.75, standard: "1.1g. Conjunctions: And, But, Or, So", timespent: "3 minutes" },
-  { id: 6, student_name: "Billy Bob", student_email: "test@test.com", school_name: "Elk Neck Elementary", classroom_grade: "Kindergarten", teacher_name: "James Milloway", classroom_name: "English Fourth Period", completed_date: "4/5/2023", activity_pack: "Adjectives and Adverbs Pack", activity: "Using Adjectives with Animals", tool: "Connect", score: 0.75, standard: "1.1g. Conjunctions: And, But, Or, So", timespent: "3 minutes" },
-  { id: 7, student_name: "Billy Bob", student_email: "test@test.com", school_name: "Elk Neck Elementary", classroom_grade: "Kindergarten", teacher_name: "James Milloway", classroom_name: "English Fourth Period", completed_date: "4/5/2023", activity_pack: "Adjectives and Adverbs Pack", activity: "Using Adjectives with Animals", tool: "Connect", score: 0.75, standard: "1.1g. Conjunctions: And, But, Or, So", timespent: "3 minutes" },
-  { id: 8, student_name: "Billy Bob", student_email: "test@test.com", school_name: "Elk Neck Elementary", classroom_grade: "Kindergarten", teacher_name: "James Milloway", classroom_name: "English Fourth Period", completed_date: "4/5/2023", activity_pack: "Adjectives and Adverbs Pack", activity: "Using Adjectives with Animals", tool: "Connect", score: 0.75, standard: "1.1g. Conjunctions: And, But, Or, So", timespent: "3 minutes" },
-  { id: 9, student_name: "Billy Bob", student_email: "test@test.com", school_name: "Elk Neck Elementary", classroom_grade: "Kindergarten", teacher_name: "James Milloway", classroom_name: "English Fourth Period", completed_date: "4/5/2023", activity_pack: "Adjectives and Adverbs Pack", activity: "Using Adjectives with Animals", tool: "Connect", score: 0.75, standard: "1.1g. Conjunctions: And, But, Or, So", timespent: "3 minutes" },
-  { id: 10, student_name: "Billy Bob", student_email: "test@test.com", school_name: "Elk Neck Elementary", classroom_grade: "Kindergarten", teacher_name: "James Milloway", classroom_name: "English Fourth Period", completed_date: "4/5/2023", activity_pack: "Adjectives and Adverbs Pack", activity: "Using Adjectives with Animals", tool: "Connect", score: 0.75, standard: "1.1g. Conjunctions: And, But, Or, So", timespent: "3 minutes" }
-]
-
-export const DataExportTableAndFields = ({ queryKey, selectedGrades, selectedSchoolIds, selectedTeacherIds, selectedClassroomIds, selectedTimeframe, customTimeframeStart, customTimeframeEnd, adminId, downloadStarted, handleToggleDownloadStarted, handleSetReportData }: DataExportTableAndFieldsProps) => {
+export const DataExportTableAndFields = ({ queryKey, selectedGrades, selectedSchoolIds, selectedTeacherIds, selectedClassroomIds, selectedTimeframe, customTimeframeStart, customTimeframeEnd, adminId }: DataExportTableAndFieldsProps) => {
   const [showStudentEmail, setShowStudentEmail] = React.useState<boolean>(true);
   const [showSchool, setShowSchool] = React.useState<boolean>(true);
   const [showGrade, setShowGrade] = React.useState<boolean>(true);
@@ -133,22 +120,10 @@ export const DataExportTableAndFields = ({ queryKey, selectedGrades, selectedSch
   };
 
   React.useEffect(() => {
-    if (downloadStarted) {
-      const formattedData = formatDataForDownload()
-      handleSetReportData(formattedData)
-      handleToggleDownloadStarted()
-    }
-  }, [downloadStarted])
-
-  React.useEffect(() => {
     if (queryKey && selectedTimeframe && selectedSchoolIds) {
       getData()
     }
   }, [queryKey, selectedGrades, selectedSchoolIds, selectedTeacherIds, selectedClassroomIds, selectedTimeframe, customTimeframeStart, customTimeframeEnd])
-
-  function formatDataForDownload() {
-    return testData
-  }
 
   function getData() {
     initializePusher()
@@ -215,7 +190,7 @@ export const DataExportTableAndFields = ({ queryKey, selectedGrades, selectedSch
       const checkboxImg = selected ? <img alt="check" src={smallWhiteCheckIcon.src} /> : ""
       return (
         <div className="checkbox-container">
-          <div className={`quill-checkbox ${selectedClass}`} onClick={toggleCheckbox} id={fieldLabel}>{checkboxImg}</div>
+          <div className={`quill-checkbox ${selectedClass}`} id={fieldLabel} onClick={toggleCheckbox}>{checkboxImg}</div>
           <span>{fieldLabel}</span>
         </div>
       )
@@ -245,7 +220,7 @@ export const DataExportTableAndFields = ({ queryKey, selectedGrades, selectedSch
           <p>This preview is limited to the first 10 results. Your download will include all activities.</p>
         </div>
       </section>
-      {loading && <Spinner/>}
+      {loading && <Spinner />}
       {!loading && <DataTable
         className="data-export-table"
         defaultSortAttribute="name"
