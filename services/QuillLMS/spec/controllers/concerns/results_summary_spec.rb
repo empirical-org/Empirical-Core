@@ -86,7 +86,7 @@ describe ResultsSummary do
                     skill: skill.name,
                     number_correct: 1,
                     number_incorrect: 0,
-                    proficiency_score: 1.0,
+                    proficiency_score: "1.0",
                     summary: ResultsSummary::FULLY_CORRECT,
                   }
                 ],
@@ -181,7 +181,7 @@ describe ResultsSummary do
               skill: skill.name,
               number_correct: 1,
               number_incorrect: 1,
-              proficiency_score: 0,
+              proficiency_score: "0",
               summary: ResultsSummary::PARTIALLY_CORRECT,
             }
           ],
