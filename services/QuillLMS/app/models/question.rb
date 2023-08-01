@@ -4,17 +4,23 @@
 #
 # Table name: questions
 #
-#  id            :integer          not null, primary key
-#  data          :jsonb            not null
-#  question_type :string           not null
-#  uid           :string           not null
-#  created_at    :datetime         not null
-#  updated_at    :datetime         not null
+#  id             :integer          not null, primary key
+#  data           :jsonb            not null
+#  question_type  :string           not null
+#  uid            :string           not null
+#  created_at     :datetime         not null
+#  updated_at     :datetime         not null
+#  skill_group_id :bigint
 #
 # Indexes
 #
-#  index_questions_on_question_type  (question_type)
-#  index_questions_on_uid            (uid) UNIQUE
+#  index_questions_on_question_type   (question_type)
+#  index_questions_on_skill_group_id  (skill_group_id)
+#  index_questions_on_uid             (uid) UNIQUE
+#
+# Foreign Keys
+#
+#  fk_rails_...  (skill_group_id => skill_groups.id)
 #
 class Question < ApplicationRecord
   TYPES = [
@@ -50,7 +56,7 @@ class Question < ApplicationRecord
     TYPE_GRAMMAR_QUESTION => 'grammar_questions',
   }
 
-  has_many :diagnostic_question_skills
+  belongs_to :skill_group
 
   validates :data, presence: true
   validates :question_type, presence: true, inclusion: {in: TYPES}

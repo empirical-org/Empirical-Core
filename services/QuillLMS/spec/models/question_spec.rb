@@ -4,21 +4,32 @@
 #
 # Table name: questions
 #
-#  id            :integer          not null, primary key
-#  data          :jsonb            not null
-#  question_type :string           not null
-#  uid           :string           not null
-#  created_at    :datetime         not null
-#  updated_at    :datetime         not null
+#  id             :integer          not null, primary key
+#  data           :jsonb            not null
+#  question_type  :string           not null
+#  uid            :string           not null
+#  created_at     :datetime         not null
+#  updated_at     :datetime         not null
+#  skill_group_id :bigint
 #
 # Indexes
 #
-#  index_questions_on_question_type  (question_type)
-#  index_questions_on_uid            (uid) UNIQUE
+#  index_questions_on_question_type   (question_type)
+#  index_questions_on_skill_group_id  (skill_group_id)
+#  index_questions_on_uid             (uid) UNIQUE
+#
+# Foreign Keys
+#
+#  fk_rails_...  (skill_group_id => skill_groups.id)
 #
 require 'rails_helper'
 
 RSpec.describe Question, type: :model do
+  
+  describe 'validations' do
+    it { should belong_to(:skill_group) }
+  end
+
   let(:question) { create(:question) }
   let(:new_focus_point) do
     {

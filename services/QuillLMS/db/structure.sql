@@ -2380,39 +2380,6 @@ ALTER SEQUENCE public.csv_exports_id_seq OWNED BY public.csv_exports.id;
 
 
 --
--- Name: diagnostic_question_skills; Type: TABLE; Schema: public; Owner: -
---
-
-CREATE TABLE public.diagnostic_question_skills (
-    id bigint NOT NULL,
-    name character varying NOT NULL,
-    question_id bigint NOT NULL,
-    skill_group_id bigint NOT NULL,
-    created_at timestamp(6) without time zone NOT NULL,
-    updated_at timestamp(6) without time zone NOT NULL
-);
-
-
---
--- Name: diagnostic_question_skills_id_seq; Type: SEQUENCE; Schema: public; Owner: -
---
-
-CREATE SEQUENCE public.diagnostic_question_skills_id_seq
-    START WITH 1
-    INCREMENT BY 1
-    NO MINVALUE
-    NO MAXVALUE
-    CACHE 1;
-
-
---
--- Name: diagnostic_question_skills_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: -
---
-
-ALTER SEQUENCE public.diagnostic_question_skills_id_seq OWNED BY public.diagnostic_question_skills.id;
-
-
---
 -- Name: district_admins; Type: TABLE; Schema: public; Owner: -
 --
 
@@ -3675,7 +3642,8 @@ CREATE TABLE public.questions (
     data jsonb NOT NULL,
     created_at timestamp without time zone NOT NULL,
     updated_at timestamp without time zone NOT NULL,
-    question_type character varying NOT NULL
+    question_type character varying NOT NULL,
+    skill_group_id bigint
 );
 
 
@@ -5750,13 +5718,6 @@ ALTER TABLE ONLY public.csv_exports ALTER COLUMN id SET DEFAULT nextval('public.
 
 
 --
--- Name: diagnostic_question_skills id; Type: DEFAULT; Schema: public; Owner: -
---
-
-ALTER TABLE ONLY public.diagnostic_question_skills ALTER COLUMN id SET DEFAULT nextval('public.diagnostic_question_skills_id_seq'::regclass);
-
-
---
 -- Name: district_admins id; Type: DEFAULT; Schema: public; Owner: -
 --
 
@@ -6824,14 +6785,6 @@ ALTER TABLE ONLY public.criteria
 
 ALTER TABLE ONLY public.csv_exports
     ADD CONSTRAINT csv_exports_pkey PRIMARY KEY (id);
-
-
---
--- Name: diagnostic_question_skills diagnostic_question_skills_pkey; Type: CONSTRAINT; Schema: public; Owner: -
---
-
-ALTER TABLE ONLY public.diagnostic_question_skills
-    ADD CONSTRAINT diagnostic_question_skills_pkey PRIMARY KEY (id);
 
 
 --
@@ -8185,20 +8138,6 @@ CREATE INDEX index_criteria_on_recommendation_id ON public.criteria USING btree 
 
 
 --
--- Name: index_diagnostic_question_skills_on_question_id; Type: INDEX; Schema: public; Owner: -
---
-
-CREATE INDEX index_diagnostic_question_skills_on_question_id ON public.diagnostic_question_skills USING btree (question_id);
-
-
---
--- Name: index_diagnostic_question_skills_on_skill_group_id; Type: INDEX; Schema: public; Owner: -
---
-
-CREATE INDEX index_diagnostic_question_skills_on_skill_group_id ON public.diagnostic_question_skills USING btree (skill_group_id);
-
-
---
 -- Name: index_district_admins_on_district_id; Type: INDEX; Schema: public; Owner: -
 --
 
@@ -8497,6 +8436,13 @@ CREATE UNIQUE INDEX index_provider_type_and_classroom_id_and_user_id ON public.p
 --
 
 CREATE INDEX index_questions_on_question_type ON public.questions USING btree (question_type);
+
+
+--
+-- Name: index_questions_on_skill_group_id; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX index_questions_on_skill_group_id ON public.questions USING btree (skill_group_id);
 
 
 --
@@ -9264,6 +9210,14 @@ ALTER TABLE ONLY public.skills
 
 
 --
+-- Name: questions fk_rails_02f0d15b35; Type: FK CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY public.questions
+    ADD CONSTRAINT fk_rails_02f0d15b35 FOREIGN KEY (skill_group_id) REFERENCES public.skill_groups(id);
+
+
+--
 -- Name: district_subscriptions fk_rails_0494854b11; Type: FK CONSTRAINT; Schema: public; Owner: -
 --
 
@@ -9325,14 +9279,6 @@ ALTER TABLE ONLY public.evidence_prompt_healths
 
 ALTER TABLE ONLY public.canvas_instance_auth_credentials
     ADD CONSTRAINT fk_rails_26ff7f2393 FOREIGN KEY (auth_credential_id) REFERENCES public.auth_credentials(id);
-
-
---
--- Name: diagnostic_question_skills fk_rails_30c45cabf6; Type: FK CONSTRAINT; Schema: public; Owner: -
---
-
-ALTER TABLE ONLY public.diagnostic_question_skills
-    ADD CONSTRAINT fk_rails_30c45cabf6 FOREIGN KEY (skill_group_id) REFERENCES public.skill_groups(id);
 
 
 --
@@ -9669,14 +9615,6 @@ ALTER TABLE ONLY public.third_party_user_ids
 
 ALTER TABLE ONLY public.criteria
     ADD CONSTRAINT fk_rails_ada79930c6 FOREIGN KEY (concept_id) REFERENCES public.concepts(id);
-
-
---
--- Name: diagnostic_question_skills fk_rails_ae69c93feb; Type: FK CONSTRAINT; Schema: public; Owner: -
---
-
-ALTER TABLE ONLY public.diagnostic_question_skills
-    ADD CONSTRAINT fk_rails_ae69c93feb FOREIGN KEY (question_id) REFERENCES public.questions(id);
 
 
 --
@@ -10420,6 +10358,6 @@ INSERT INTO "schema_migrations" (version) VALUES
 ('20230710144829'),
 ('20230725175024'),
 ('20230728183700'),
-('20230731184420');
+('20230801123404');
 
 
