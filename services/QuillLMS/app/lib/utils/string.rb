@@ -7,4 +7,10 @@ module Utils::String
     first, last = first_name_last_name_string.split
     last || first
   end
+
+  def self.parse_null_to_nil(input)
+    return nil if input == 'null'
+
+    input
+  end
 end
