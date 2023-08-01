@@ -9,7 +9,7 @@ const STANDARDS_REPORTS = 'Standards Reports';
 const USAGE_SNAPSHOT_REPORT = 'Usage Snapshot Report'
 const DATA_EXPORT = 'Data Export'
 
-const tabsWithoutUsageSnapshotReport = {
+const tabsWithoutUsageSnapshotAndDataExportReport = {
   [OVERVIEW]: {
     label: OVERVIEW,
     url: '/teachers/premium_hub'
@@ -29,15 +29,15 @@ const tabsWithoutUsageSnapshotReport = {
   [STANDARDS_REPORTS]: {
     label: STANDARDS_REPORTS,
     url: '/teachers/premium_hub/district_standards_reports'
-  },
-  [DATA_EXPORT]: {
-    label: DATA_EXPORT,
-    url: '/teachers/premium_hub/data_export'
   }
 }
 
 const tabs = {
-  ...tabsWithoutUsageSnapshotReport,
+  ...tabsWithoutUsageSnapshotAndDataExportReport,
+  [DATA_EXPORT]: {
+    label: DATA_EXPORT,
+    url: '/teachers/premium_hub/data_export'
+  },
   [USAGE_SNAPSHOT_REPORT]: {
     label: USAGE_SNAPSHOT_REPORT,
     url: '/teachers/premium_hub/usage_snapshot_report'
@@ -96,7 +96,7 @@ export default class AdminSubnav extends React.Component<any, any> {
     const activeStates = [overview, schoolSubscriptions, activityScores, conceptReports, standardsReports, dataExport, usageSnapshotReport]
     const dropdownClass = dropdownOpen ? 'open' : '';
 
-    const tabsToShow = window.location.href.includes('usage_snapshot') ? tabs : tabsWithoutUsageSnapshotReport
+    const tabsToShow = window.location.href.includes('usage_snapshot') || window.location.href.includes('data_export') ? tabs : tabsWithoutUsageSnapshotAndDataExportReport
 
     return(
       <React.Fragment>

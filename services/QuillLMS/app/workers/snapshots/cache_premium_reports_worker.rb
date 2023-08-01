@@ -11,7 +11,6 @@ module Snapshots
 
     def perform(cache_key, query, user_id, timeframe, school_ids, filters)
       payload = generate_payload(query, timeframe, school_ids, filters)
-
       Rails.cache.write(cache_key, payload, expires_in: cache_expiry)
 
       PusherTrigger.run(user_id, PUSHER_EVENT,

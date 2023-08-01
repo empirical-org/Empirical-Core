@@ -98,7 +98,6 @@ const SnapshotRanking = ({ label, queryKey, headers, searchCount, selectedGrades
       classroom_ids: selectedClassroomIds,
       grades: selectedGrades
     }
-    console.log("🚀 ~ file: snapshotRanking.tsx:101 ~ getData ~ searchParams.selectedGrades:", selectedGrades)
 
     requestPost(`/snapshots/top_x`, searchParams, (body) => {
       if (!body.hasOwnProperty('results')) {

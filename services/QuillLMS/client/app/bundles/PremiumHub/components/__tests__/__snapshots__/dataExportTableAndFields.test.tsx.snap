@@ -1,0 +1,242 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`DataExportTableAndFields component should match snapshot 1`] = `
+<div
+  className="data-export-container"
+>
+  <section
+    className="fields-section"
+  >
+    <h3>
+      Fields
+    </h3>
+    <div
+      className="fields-container"
+    >
+      <div
+        className="checkbox-container"
+      >
+        <div
+          className="quill-checkbox selected"
+          id="Student Email"
+          onClick={[Function]}
+        >
+          <img
+            alt="check"
+            src="undefined/images/shared/check-small-white.svg"
+          />
+        </div>
+        <span>
+          Student Email
+        </span>
+      </div>
+      <div
+        className="checkbox-container"
+      >
+        <div
+          className="quill-checkbox selected"
+          id="School"
+          onClick={[Function]}
+        >
+          <img
+            alt="check"
+            src="undefined/images/shared/check-small-white.svg"
+          />
+        </div>
+        <span>
+          School
+        </span>
+      </div>
+      <div
+        className="checkbox-container"
+      >
+        <div
+          className="quill-checkbox selected"
+          id="Grade"
+          onClick={[Function]}
+        >
+          <img
+            alt="check"
+            src="undefined/images/shared/check-small-white.svg"
+          />
+        </div>
+        <span>
+          Grade
+        </span>
+      </div>
+      <div
+        className="checkbox-container"
+      >
+        <div
+          className="quill-checkbox selected"
+          id="Teacher"
+          onClick={[Function]}
+        >
+          <img
+            alt="check"
+            src="undefined/images/shared/check-small-white.svg"
+          />
+        </div>
+        <span>
+          Teacher
+        </span>
+      </div>
+      <div
+        className="checkbox-container"
+      >
+        <div
+          className="quill-checkbox selected"
+          id="Class"
+          onClick={[Function]}
+        >
+          <img
+            alt="check"
+            src="undefined/images/shared/check-small-white.svg"
+          />
+        </div>
+        <span>
+          Class
+        </span>
+      </div>
+      <div
+        className="checkbox-container"
+      >
+        <div
+          className="quill-checkbox selected"
+          id="Completed Date"
+          onClick={[Function]}
+        >
+          <img
+            alt="check"
+            src="undefined/images/shared/check-small-white.svg"
+          />
+        </div>
+        <span>
+          Completed Date
+        </span>
+      </div>
+      <div
+        className="checkbox-container"
+      >
+        <div
+          className="quill-checkbox selected"
+          id="Activity Pack"
+          onClick={[Function]}
+        >
+          <img
+            alt="check"
+            src="undefined/images/shared/check-small-white.svg"
+          />
+        </div>
+        <span>
+          Activity Pack
+        </span>
+      </div>
+      <div
+        className="checkbox-container"
+      >
+        <div
+          className="quill-checkbox selected"
+          id="Activity"
+          onClick={[Function]}
+        >
+          <img
+            alt="check"
+            src="undefined/images/shared/check-small-white.svg"
+          />
+        </div>
+        <span>
+          Activity
+        </span>
+      </div>
+      <div
+        className="checkbox-container"
+      >
+        <div
+          className="quill-checkbox selected"
+          id="Tool"
+          onClick={[Function]}
+        >
+          <img
+            alt="check"
+            src="undefined/images/shared/check-small-white.svg"
+          />
+        </div>
+        <span>
+          Tool
+        </span>
+      </div>
+      <div
+        className="checkbox-container"
+      >
+        <div
+          className="quill-checkbox selected"
+          id="Score"
+          onClick={[Function]}
+        >
+          <img
+            alt="check"
+            src="undefined/images/shared/check-small-white.svg"
+          />
+        </div>
+        <span>
+          Score
+        </span>
+      </div>
+      <div
+        className="checkbox-container"
+      >
+        <div
+          className="quill-checkbox selected"
+          id="Standard"
+          onClick={[Function]}
+        >
+          <img
+            alt="check"
+            src="undefined/images/shared/check-small-white.svg"
+          />
+        </div>
+        <span>
+          Standard
+        </span>
+      </div>
+      <div
+        className="checkbox-container"
+      >
+        <div
+          className="quill-checkbox selected"
+          id="Time Spent"
+          onClick={[Function]}
+        >
+          <img
+            alt="check"
+            src="undefined/images/shared/check-small-white.svg"
+          />
+        </div>
+        <span>
+          Time Spent
+        </span>
+      </div>
+    </div>
+  </section>
+  <section
+    className="preview-section"
+  >
+    <h3>
+      Preview
+    </h3>
+    <div
+      className="preview-disclaimer-container"
+    >
+      <img
+        alt="Information icon"
+        src="undefined/images/pages/evidence/icons-information-small.svg"
+      />
+      <p>
+        This preview is limited to the first 10 results. Your download will include all activities.
+      </p>
+    </div>
+  </section>
+  <Spinner />
+</div>
+`;

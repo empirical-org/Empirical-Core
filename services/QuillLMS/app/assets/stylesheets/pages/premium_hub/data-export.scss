@@ -45,6 +45,8 @@
     .data-export-table {
       border: 1px solid #E0E0E0;
       overflow: auto;
+      width: min-content;
+      max-width: 994px;
       .data-table-headers {
         background-color: #F8F8F8;
         min-height: 52px;
@@ -68,8 +70,14 @@
             max-width: 152px;
             white-space: break-spaces;
             padding-right: 24px;
+            margin-right: 24px !important;
             &:not(:last-child) {
               border-right: 1px solid #E0E0E0;
+            }
+            .quill-tooltip-trigger {
+              span {
+                padding-right: 24px;
+              }
             }
           }
         }

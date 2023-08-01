@@ -63,70 +63,70 @@ export const DataExportTableAndFields = ({ queryKey, selectedGrades, selectedSch
   const [showStandard, setShowStandard] = React.useState<boolean>(true);
   const [showTimeSpent, setShowTimeSpent] = React.useState<boolean>(true);
   const [loading, setLoading] = React.useState<boolean>(true);
-  const [data, setData] = React.useState<any>(testData);
+  const [data, setData] = React.useState<any>(null);
 
   const fields = {
     [STUDENT_NAME]: {
-      dataTableField: { name: STUDENT_NAME, attribute: "student_name", width: STANDARD_WIDTH, noTooltip: true },
+      dataTableField: { name: STUDENT_NAME, attribute: "student_name", width: STANDARD_WIDTH },
       checked: true
     },
     [STUDENT_EMAIL]: {
-      dataTableField: { name: STUDENT_EMAIL, attribute: "student_email", width: STANDARD_WIDTH, noTooltip: true },
+      dataTableField: { name: STUDENT_EMAIL, attribute: "student_email", width: STANDARD_WIDTH },
       setterFunction: setShowStudentEmail,
       checked: showStudentEmail
     },
     [SCHOOL]: {
-      dataTableField: { name: SCHOOL, attribute: "school_name", width: STANDARD_WIDTH, noTooltip: true },
+      dataTableField: { name: SCHOOL, attribute: "school_name", width: STANDARD_WIDTH },
       setterFunction: setShowSchool,
       checked: showSchool
     },
     [GRADE]: {
-      dataTableField: { name: GRADE, attribute: "classroom_grade", width: STANDARD_WIDTH, noTooltip: true },
+      dataTableField: { name: GRADE, attribute: "classroom_grade", width: STANDARD_WIDTH },
       setterFunction: setShowGrade,
       checked: showGrade
     },
     [TEACHER]: {
-      dataTableField: { name: TEACHER, attribute: "teacher_name", width: STANDARD_WIDTH, noTooltip: true },
+      dataTableField: { name: TEACHER, attribute: "teacher_name", width: STANDARD_WIDTH },
       setterFunction: setShowTeacher,
       checked: showTeacher
     },
     [CLASS]: {
-      dataTableField: { name: CLASS, attribute: "classroom_name", width: STANDARD_WIDTH, noTooltip: true },
+      dataTableField: { name: CLASS, attribute: "classroom_name", width: STANDARD_WIDTH },
       setterFunction: setShowClass,
       checked: showClass
     },
     [COMPLETED_DATE]: {
-      dataTableField: { name: COMPLETED_DATE, attribute: "completed_date", width: STANDARD_WIDTH, noTooltip: true },
+      dataTableField: { name: COMPLETED_DATE, attribute: "completed_date", width: STANDARD_WIDTH },
       setterFunction: setShowCompletedDate,
       checked: showCompletedDate
     },
     [ACTIVITY_PACK]: {
-      dataTableField: { name: ACTIVITY_PACK, attribute: "activity_pack", width: STANDARD_WIDTH, noTooltip: true },
+      dataTableField: { name: ACTIVITY_PACK, attribute: "activity_pack", width: STANDARD_WIDTH },
       setterFunction: setShowActivityPack,
       checked: showActivityPack
     },
     [ACTIVITY]: {
-      dataTableField: { name: ACTIVITY, attribute: "activity_name", width: STANDARD_WIDTH, noTooltip: true },
+      dataTableField: { name: ACTIVITY, attribute: "activity_name", width: STANDARD_WIDTH },
       setterFunction: setShowActivity,
       checked: showActivity
     },
     [TOOL]: {
-      dataTableField: { name: TOOL, attribute: "tool", width: STANDARD_WIDTH, noTooltip: true },
+      dataTableField: { name: TOOL, attribute: "tool", width: STANDARD_WIDTH },
       setterFunction: setShowTool,
       checked: showTool
     },
     [SCORE]: {
-      dataTableField: { name: SCORE, attribute: "score", width: STANDARD_WIDTH, noTooltip: true },
+      dataTableField: { name: SCORE, attribute: "score", width: STANDARD_WIDTH },
       setterFunction: setShowScore,
       checked: showScore
     },
     [STANDARD]: {
-      dataTableField: { name: STANDARD, attribute: "standard", width: STANDARD_WIDTH, noTooltip: true },
+      dataTableField: { name: STANDARD, attribute: "standard", width: STANDARD_WIDTH },
       setterFunction: setShowStandard,
       checked: showStandard
     },
     [TIME_SPENT]: {
-      dataTableField: { name: TIME_SPENT, attribute: "timespent", width: STANDARD_WIDTH, noTooltip: true },
+      dataTableField: { name: TIME_SPENT, attribute: "timespent", width: STANDARD_WIDTH },
       setterFunction: setShowTimeSpent,
       checked: showTimeSpent
     },
@@ -250,7 +250,7 @@ export const DataExportTableAndFields = ({ queryKey, selectedGrades, selectedSch
         className="data-export-table"
         defaultSortAttribute="name"
         headers={getHeaders()}
-        rows={testData}
+        rows={data || []}
       />}
     </div>
   )
