@@ -5,13 +5,12 @@
     width: 1014px;
     .upper-header-section {
       display: flex;
-      padding-bottom: 24px;
     }
     .lower-header-section {
       display: flex;
       align-items: center;
       border: 1px solid #E0E0E0;
-      padding: 16px;
+      padding: 40px 16px 16px;
       border-radius: 8px;
       .activity-name {
         font-weight: 700;

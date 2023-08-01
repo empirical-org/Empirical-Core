@@ -14,6 +14,7 @@ export const asteriskIcon = <img alt="Recommended asterisk icon" className="aste
 export const recommendedGlyph = <img alt="Recommended glyph" className="recommended-glyph" src={`${baseDiagnosticImageSrc}/recommended_glyph.svg`} />
 export const correctImage = <img alt="Correct check icon" src={`${baseDiagnosticImageSrc}/icons-check-small-green.svg`} />
 export const informationIcon = <img alt="Information icon" src={`${baseImageSrc}/icons/information.svg`} />
+export const timeRewindIllustration = <img alt="Illustration of a clock with an arrow pointing backwards" src={`${baseDiagnosticImageSrc}/time-rewind.svg`} />
 
 export function goToAssign(unitTemplateId, name, activityId) {
   const unitTemplateIdString = unitTemplateId.toString();

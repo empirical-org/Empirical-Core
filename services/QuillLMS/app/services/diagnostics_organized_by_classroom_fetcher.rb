@@ -2,6 +2,7 @@
 
 class DiagnosticsOrganizedByClassroomFetcher < ApplicationService
   attr_reader :user
+  attr_reader :is_demo
 
   ACTIVITY_IDS_TO_NAMES = {
     Activity::STARTER_DIAGNOSTIC_ACTIVITY_ID => 'Starter Diagnostic',
@@ -12,8 +13,9 @@ class DiagnosticsOrganizedByClassroomFetcher < ApplicationService
     Activity::ELL_ADVANCED_DIAGNOSTIC_ACTIVITY_ID => 'ELL Advanced Diagnostic'
   }.freeze
 
-  def initialize(user)
+  def initialize(user, is_demo=false)
     @user = user
+    @is_demo = is_demo
   end
 
   # rubocop:disable Metrics/CyclomaticComplexity
@@ -86,7 +88,7 @@ class DiagnosticsOrganizedByClassroomFetcher < ApplicationService
   # rubocop:enable Metrics/CyclomaticComplexity
 
   private def diagnostic_unit_records
-    @diagnostic_unit_records ||= DiagnosticUnitRecordsFetcher.run(user)
+    @diagnostic_unit_records ||= DiagnosticUnitRecordsFetcher.run(user, is_demo)
   end
 
   private def grouped_name(record)

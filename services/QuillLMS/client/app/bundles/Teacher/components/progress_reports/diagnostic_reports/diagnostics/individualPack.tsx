@@ -176,6 +176,12 @@ const IndividualPack = ({ classrooms, history, match, location, lessonsBannerIsS
     return false
   }
 
+  function eligibleForQuestionScoring() {
+    if (!activeDiagnostic) { return false }
+
+    return activeDiagnosticIsPost() ? activeDiagnostic.post.eligible_for_question_scoring : activeDiagnostic.pre.eligible_for_question_scoring
+  }
+
   function onClassesDropdownChange(e) {
     const newClassroom = classrooms.find(c => c.id === e.value)
     const parallelDiagnostic = diagnosticForClassroom(newClassroom)
@@ -223,7 +229,8 @@ const IndividualPack = ({ classrooms, history, match, location, lessonsBannerIsS
     mobileNavigation: (<section className="mobile-navigation hide-on-desktop">{classroomDropdown}{linkDropdown}</section>),
     lessonsBannerIsShowable,
     isPostDiagnostic: activeDiagnosticIsPost(),
-    postDiagnosticUnitTemplateId: activeDiagnostic.post?.unit_template_id
+    postDiagnosticUnitTemplateId: activeDiagnostic.post?.unit_template_id,
+    eligibleForQuestionScoring: eligibleForQuestionScoring()
   }
 
   return (

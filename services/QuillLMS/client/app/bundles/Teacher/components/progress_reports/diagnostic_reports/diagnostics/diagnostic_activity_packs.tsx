@@ -128,12 +128,12 @@ const Diagnostic = ({ diagnostic, }) => {
     if (post.assigned_count) {
       postAndGrowth = (<React.Fragment>
         <PostSection post={post} />
-        <GrowthSummarySection growthSummaryLink={growthSummaryLink} showGrowthSummary={true} skillsGrowth={classwideGrowthAverage} />
+        <GrowthSummarySection eligibleForQuestionScoring={post.eligible_for_question_scoring} growthSummaryLink={growthSummaryLink} showGrowthSummary={true} skillsGrowth={classwideGrowthAverage} />
       </React.Fragment>)
     } else {
       postAndGrowth = (<React.Fragment>
         <PostSection activityId={pre.post_test_id} name={name} unitTemplateId={post.unit_template_id} />
-        <GrowthSummarySection name={name} />
+        <GrowthSummarySection eligibleForQuestionScoring={post.eligible_for_question_scoring} name={name} />
       </React.Fragment>
       )
     }

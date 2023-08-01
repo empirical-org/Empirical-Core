@@ -64,9 +64,9 @@ describe ResultsSummary do
                 id: skill_group_activity.skill_group.id
               }
             ],
-            total_correct_skills_count: 0,
+            total_correct_questions_count: 0,
             total_correct_skill_groups_count: 0,
-            total_possible_skills_count: 1,
+            total_possible_questions_count: 1,
             correct_skill_text: "0 of 1 skills",
             correct_skill_groups_text: "0 of 1 skill groups",
           },
@@ -97,9 +97,9 @@ describe ResultsSummary do
                 id: skill_group_activity.skill_group.id
               }
             ],
-            total_correct_skills_count: 1,
+            total_correct_questions_count: 1,
             total_correct_skill_groups_count: 1,
-            total_possible_skills_count: 1,
+            total_possible_questions_count: 1,
             correct_skill_text: "1 of 1 skills",
             correct_skill_groups_text: "1 of 1 skill groups",
           }
@@ -147,9 +147,9 @@ describe ResultsSummary do
                 id: skill_group_activity.skill_group.id
               }
             ],
-            total_correct_skills_count: 0,
+            total_correct_questions_count: 0,
             total_correct_skill_groups_count: 0,
-            total_possible_skills_count: 1,
+            total_possible_questions_count: 1,
             correct_skill_text: "0 of 1 skills",
             correct_skill_groups_text: "0 of 1 skill groups",
           },

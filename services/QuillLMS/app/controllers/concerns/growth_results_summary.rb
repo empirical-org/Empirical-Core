@@ -32,23 +32,30 @@ module GrowthResultsSummary
       post_test_activity_session = @post_test_activity_sessions[assigned_student.id]
       pre_test_activity_session = @pre_test_activity_sessions[assigned_student.id]
       if post_test_activity_session && pre_test_activity_session
+
+        pre_test_concept_results_grouped_by_question = pre_test_activity_session.concept_results.group_by { |cr| cr.question_number }.values
+
+        post_test_concept_results_grouped_by_question = post_test_activity_session.concept_results.group_by { |cr| cr.question_number }.values
+
         skill_groups = skill_groups_for_session(@skill_groups, post_test_activity_session, pre_test_activity_session, assigned_student.name)
         total_acquired_skills_count = skill_groups.map { |sg| sg[:acquired_skill_ids] }.flatten.uniq.count
-        total_possible_skills_count = skill_groups.map { |sg| sg[:skill_ids] }.flatten.uniq.count
+        total_possible_questions_count = post_test_concept_results_grouped_by_question.count
+        total_pre_possible_questions_count = pre_test_concept_results_grouped_by_question.count
         total_pre_correct_skill_groups_count = skill_groups.select { |sg| sg[:pre_test_proficiency] == PROFICIENCY }.flatten.uniq.count
         total_correct_skill_groups_count = skill_groups.select { |sg| GROWTH_PROFICIENCY_TEXTS.include?(sg[:proficiency_text]) }.flatten.uniq.count
-        total_correct_skills_count = skill_groups.map { |sg| sg[:post_correct_skill_ids] }.flatten.uniq.count
-        total_pre_correct_skills_count = skill_groups.map { |sg| sg[:pre_correct_skill_ids] }.flatten.uniq.count
+        total_correct_questions_count = post_test_concept_results_grouped_by_question.reduce(0) { |sum, crs| sum += get_score_for_question(crs) > 0 ? 1 : 0 }
+        total_pre_correct_questions_count = pre_test_concept_results_grouped_by_question.reduce(0) { |sum, crs| sum += get_score_for_question(crs) > 0 ? 1 : 0 }
         {
           name: assigned_student.name,
           id: assigned_student.id,
           skill_groups: skill_groups,
           total_acquired_skills_count: total_acquired_skills_count,
-          total_correct_skills_count: total_correct_skills_count,
+          total_correct_questions_count: total_correct_questions_count,
           total_acquired_skill_groups_count: total_correct_skill_groups_count - total_pre_correct_skill_groups_count,
-          total_pre_correct_skills_count: total_pre_correct_skills_count,
-          total_possible_skills_count: total_possible_skills_count,
-          correct_skill_text: "#{total_correct_skills_count} of #{total_possible_skills_count} skills",
+          total_pre_correct_questions_count: total_pre_correct_questions_count,
+          total_possible_questions_count: total_possible_questions_count,
+          total_pre_possible_questions_count: total_pre_possible_questions_count,
+          correct_skill_text: "#{total_correct_questions_count} of #{total_possible_questions_count} skills",
           correct_skill_groups_text: "#{total_correct_skill_groups_count} of #{skill_groups.count} skill groups"
         }
       else
@@ -67,8 +74,8 @@ module GrowthResultsSummary
       end
       pre_correct_skills = skills.select { |skill| skill[:pre][:summary] == FULLY_CORRECT }
       post_correct_skills = skills.select { |skill| skill[:post][:summary] == FULLY_CORRECT }
-      pre_test_proficiency_score = skills.reduce(0) {|sum, skill| sum += skill[:pre][:proficiency_score]} / skills.length.to_f
-      post_test_proficiency_score = skills.reduce(0) {|sum, skill| sum += skill[:post][:proficiency_score]} / skills.length.to_f
+      pre_test_proficiency_score = skills.reduce(0) {|sum, skill| sum += skill[:pre][:proficiency_score] || 0} / skills.length.to_f
+      post_test_proficiency_score = skills.reduce(0) {|sum, skill| sum += skill[:post][:proficiency_score] || 0} / skills.length.to_f
       pre_correct_skill_ids = pre_correct_skills.map { |s| s[:pre][:id] }
       post_correct_skill_ids = post_correct_skills.map { |s| s[:post][:id] }
       pre_correct_skill_number = pre_correct_skills.count
