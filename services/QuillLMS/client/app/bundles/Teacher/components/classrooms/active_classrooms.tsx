@@ -72,7 +72,7 @@ const ActiveClassrooms = ({
     [googleProvider]: googleLink,
   }[provider]
 
-  const [classrooms, setClassrooms] = useState(initialClassrooms)
+  const [classrooms, setClassrooms] = useState(initialClassrooms.filter(classroom => classroom.visible))
   const [coteacherInvitations, setCoteacherInvitations] = useState(initialCoteacherInvitations)
   const [providerClassrooms, setProviderClassrooms] = useState([])
   const [providerClassroomsLoading, setProviderClassroomsLoading] = useState(false)
