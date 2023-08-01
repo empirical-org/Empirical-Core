@@ -1,17 +1,15 @@
 import * as React from 'react'
-import queryString from 'query-string';
-import * as Pusher from 'pusher-js';
 
-import { SMALL, POSITIVE, NEGATIVE, } from './shared'
+import { SMALL, POSITIVE, NEGATIVE, NONE, } from './shared'
 
 import { requestPost, } from './../../../../modules/request'
 import { ButtonLoadingSpinner, } from '../../../Shared/index'
 import { unorderedArraysAreEqual, } from '../../../../modules/unorderedArraysAreEqual'
 
-const smallArrowUpIcon = <img alt="Arrow pointing up" src={`${process.env.CDN_URL}/images/pages/administrator/small_arrow_up_icon.svg`} />
-const smallArrowDownIcon = <img alt="Arrow pointing down" src={`${process.env.CDN_URL}/images/pages/administrator/small_arrow_down_icon.svg`} />
-const mediumArrowUpIcon = <img alt="Arrow pointing up" src={`${process.env.CDN_URL}/images/pages/administrator/medium_arrow_up_icon.svg`} />
-const mediumArrowDownIcon = <img alt="Arrow pointing down" src={`${process.env.CDN_URL}/images/pages/administrator/medium_arrow_down_icon.svg`} />
+const smallArrowUpIcon = <img alt="Arrow pointing up" className="small" src={`${process.env.CDN_URL}/images/pages/administrator/usage_snapshot_report/arrow_up_icon.svg`} />
+const smallArrowDownIcon = <img alt="Arrow pointing down" className="small" src={`${process.env.CDN_URL}/images/pages/administrator/usage_snapshot_report/arrow_down_icon.svg`} />
+const mediumArrowUpIcon = <img alt="Arrow pointing up" className="medium" src={`${process.env.CDN_URL}/images/pages/administrator/usage_snapshot_report/arrow_up_icon.svg`} />
+const mediumArrowDownIcon = <img alt="Arrow pointing down" className="medium" src={`${process.env.CDN_URL}/images/pages/administrator/usage_snapshot_report/arrow_down_icon.svg`} />
 
 interface SnapshotCountProps {
   label: string;
@@ -23,22 +21,30 @@ interface SnapshotCountProps {
   selectedClassroomIds: Array<number>;
   selectedTeacherIds: Array<number>;
   selectedTimeframe: string;
-  adminId: number;
   customTimeframeStart?: any;
   customTimeframeEnd?: any;
   passedCount?: number;
   passedChange?: number;
-  passedChangeDirection?: 'negative'|'positive';
+  passedChangeDirection?: 'negative'|'positive'|'none';
   singularLabel?: string;
+  pusherChannel?: any;
 }
 
-const SnapshotCount = ({ label, size, queryKey, searchCount, selectedGrades, selectedSchoolIds, selectedTeacherIds, selectedClassroomIds, selectedTimeframe, customTimeframeStart, customTimeframeEnd, adminId, passedCount, passedChange, passedChangeDirection, singularLabel, }: SnapshotCountProps) => {
+const PUSHER_EVENT_KEY = 'admin-snapshot-count-cached'
+
+const SnapshotCount = ({ label, size, queryKey, searchCount, selectedGrades, selectedSchoolIds, selectedTeacherIds, selectedClassroomIds, selectedTimeframe, customTimeframeStart, customTimeframeEnd, passedCount, passedChange, passedChangeDirection, singularLabel, pusherChannel, }: SnapshotCountProps) => {
   const [count, setCount] = React.useState(passedCount || null)
   const [change, setChange] = React.useState(passedChange || 0)
   const [changeDirection, setChangeDirection] = React.useState(passedChangeDirection || null)
   const [loading, setLoading] = React.useState(false)
 
   React.useEffect(() => {
+    initializePusher()
+  }, [pusherChannel])
+
+  React.useEffect(() => {
+    initializePusher()
+
     resetToDefault()
 
     getData()
@@ -51,8 +57,6 @@ const SnapshotCount = ({ label, size, queryKey, searchCount, selectedGrades, sel
   }
 
   function getData() {
-    initializePusher()
-
     const searchParams = {
       query: queryKey,
       timeframe: selectedTimeframe,
@@ -76,7 +80,7 @@ const SnapshotCount = ({ label, size, queryKey, searchCount, selectedGrades, sel
         setCount(roundedCurrent)
 
         if (!previous) {
-          setChangeDirection(POSITIVE)
+          setChangeDirection(NONE)
           setLoading(false)
           return
         }
@@ -85,23 +89,25 @@ const SnapshotCount = ({ label, size, queryKey, searchCount, selectedGrades, sel
 
         const changeTotal = Math.round(((roundedCurrent - roundedPrevious) / (roundedPrevious || 1)) * 100)
         setChange(Math.abs(changeTotal))
-        setChangeDirection(changeTotal > 0 ? POSITIVE : NEGATIVE)
+        if (changeTotal) {
+          setChangeDirection(changeTotal > 0 ? POSITIVE : NEGATIVE)
+        } else {
+          setChangeDirection(NONE)
+        }
         setLoading(false)
       }
     })
   }
 
   function initializePusher() {
-    const pusher = new Pusher(process.env.PUSHER_KEY, { encrypted: true, });
-    const channel = pusher.subscribe(String(adminId));
-    channel.bind('admin-snapshot-count-cached', (body) => {
+    pusherChannel?.bind(PUSHER_EVENT_KEY, (body) => {
       const { message, } = body
 
       const queryKeysAreEqual = message.query === queryKey
       const timeframesAreEqual = message.timeframe === selectedTimeframe
-      const schoolIdsAreEqual = unorderedArraysAreEqual(message.school_ids, selectedSchoolIds.map(id => String(id)))
-      const teacherIdsAreEqual = unorderedArraysAreEqual(message.teacher_ids, selectedTeacherIds.map(id => String(id)))
-      const classroomIdsAreEqual = unorderedArraysAreEqual(message.classroom_ids, selectedClassroomIds.map(id => String(id)))
+      const schoolIdsAreEqual = unorderedArraysAreEqual(message.school_ids, selectedSchoolIds)
+      const teacherIdsAreEqual = unorderedArraysAreEqual(message.teacher_ids, selectedTeacherIds)
+      const classroomIdsAreEqual = unorderedArraysAreEqual(message.classroom_ids, selectedClassroomIds)
       const gradesAreEqual =  unorderedArraysAreEqual(message.grades, selectedGrades.map(grade => String(grade))) || (!message.grades && !selectedGrades.length)
 
       if (queryKeysAreEqual && timeframesAreEqual && schoolIdsAreEqual && gradesAreEqual && teacherIdsAreEqual && classroomIdsAreEqual) {

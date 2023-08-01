@@ -4,12 +4,6 @@ import { components } from 'react-select';
 const indeterminateSrc = 'https://assets.quill.org/images/icons/indeterminate.svg'
 const smallWhiteCheckSrc = 'https://assets.quill.org/images/shared/check-small-white.svg'
 
-const handleMouseEnter = (props) => {
-  const { options, selectProps, data, } = props
-  const index = options.findIndex(opt => opt.value === data.value)
-  return () => {selectProps.updateCursor(index)}
-}
-
 const renderCheckbox = (props) => {
   const { selectProps, } = props
   const { value, options, inputValue } = selectProps
@@ -35,7 +29,7 @@ export const CheckableDropdownOption = props => {
   passedProps.innerProps.id = data.value
 
   return (
-    <div className="checkable-dropdown-option" onFocus={handleMouseEnter(props)} onMouseOver={handleMouseEnter(props)}>
+    <div className="checkable-dropdown-option">
       <components.Option {...passedProps}>
         {renderCheckbox(props)}
         <span>{data.label}</span>

@@ -163,10 +163,14 @@ export class DropdownInput extends React.Component<DropdownInputProps, DropdownI
 
   handleInputChange = (inputValue, action) => {
     const { handleInputChange } = this.props;
-    if (action.action !== "input-blur" && action.action !== 'menu-close') {
-      this.setState({ inputValue });
+
+    if (action.action !== 'input-change') {
+      return
     }
-    if(handleInputChange && action.action === 'input-change') {
+
+    this.setState({ inputValue });
+
+    if (handleInputChange) {
       handleInputChange(inputValue);
     }
   }
