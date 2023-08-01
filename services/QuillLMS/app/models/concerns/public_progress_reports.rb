@@ -1,8 +1,10 @@
 # frozen_string_literal: true
 
 module PublicProgressReports
-  extend ActiveSupport::Concern
   include DiagnosticReports
+  include GetScoreForQuestion
+
+  extend ActiveSupport::Concern
 
   def last_completed_diagnostic
     diagnostic_activity_ids = Activity.diagnostic_activity_ids
@@ -246,14 +248,6 @@ module PublicProgressReports
     }
   end
   # rubocop:enable Metrics/CyclomaticComplexity
-
-  def get_score_for_question(concept_results)
-    if !concept_results.empty? && concept_results.first.question_score
-      concept_results.first.question_score * 100
-    else
-      concept_results.sort_by { |cr| cr.attempt_number }.last.correct ? 1 : 0
-    end
-  end
 
   def get_key_target_skill_concept_for_question(concept_results)
     default = {

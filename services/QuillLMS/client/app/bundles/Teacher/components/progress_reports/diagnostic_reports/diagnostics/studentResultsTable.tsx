@@ -1,7 +1,6 @@
 import * as React from 'react'
 import { Link, } from 'react-router-dom'
 
-import GrowthSkillsTable from './growthSkillsTable'
 import {
   OpenPopover,
   SkillGroup,
@@ -20,7 +19,6 @@ import {
   proficiencyTextToTag
 } from './shared'
 import SkillGroupTooltip from './skillGroupTooltip'
-import SkillsTable from './skillsTable'
 import StudentNameOrTooltip from './studentNameOrTooltip'
 
 import useWindowSize from '../../../../../Shared/hooks/useWindowSize'
@@ -63,7 +61,6 @@ const Popover = ({ studentResult, skillGroup, closePopover, responsesLink, }: Po
           <button className="interactive-wrapper focus-on-light" onClick={closePopover} type="button">{closeIcon}</button>
         </header>
         <p dangerouslySetInnerHTML={{ __html: skillGroup.description }} />
-        {skillGroup.skills[0].pre ? <GrowthSkillsTable skillGroup={skillGroup} /> : <SkillsTable skillGroup={skillGroup} />}
         <Link to={responsesLink(studentResult.id)}>{accountCommentIcon}<span>View {studentResult.name}&#39;s responses</span></Link>
       </section>
     </div>
@@ -101,11 +98,8 @@ const StudentRow = ({ studentResult, skillGroupSummaries, openPopover, setOpenPo
   const { name, skill_groups, id, total_acquired_skills_count, total_acquired_skill_groups_count, correct_skill_text, correct_skill_groups_text } = studentResult
   const diagnosticNotCompletedMessage = <span className="name-section-subheader">Diagnostic not completed</span>
   const tooltipText = "<b>Skill Groups:</b> The student either gained some or full proficiency in this group of skills, or the student maintained full proficiency from the pre to the post.<br/><br/><b>Skills:</b> The student demonstrated these skills correctly on every prompt.The arrow indicates the increase in skills demonstrated correctly from the pre - diagnostic."
-  const totalAcquiredSkillsCount = total_acquired_skills_count > 0 ? total_acquired_skills_count : 0;
   const totalAcquiredSkillGroupsCount = total_acquired_skill_groups_count > 0 ? total_acquired_skill_groups_count : 0;
   const skillsDelta = (<div className="skills-delta">
-    {totalAcquiredSkillsCount ? lightGreenTriangleUpIcon : null}
-    <span className="skill-count">{totalAcquiredSkillsCount ? totalAcquiredSkillsCount : null }</span>
     <Tooltip
       tooltipText={tooltipText}
       tooltipTriggerText={<img alt={helpIcon.alt} src={helpIcon.src} />}
