@@ -1,18 +1,19 @@
 import React from 'react'
 import queryString from 'query-string';
 import * as _ from 'lodash'
+import * as Pusher from 'pusher-js';
 
 import { FULL, restrictedPage, } from '../shared';
 import CustomDateModal from '../components/usage_snapshots/customDateModal'
 import SnapshotSection from '../components/usage_snapshots/snapshotSection'
 import Filters from '../components/usage_snapshots/filters'
-import { snapshotSections, TAB_NAMES, ALL, CUSTOM, } from '../components/usage_snapshots/shared'
+import { snapshotSections, TAB_NAMES, ALL, CUSTOM, SECTION_NAME_TO_ICON_URL, } from '../components/usage_snapshots/shared'
 import { Spinner, DropdownInput, } from '../../Shared/index'
 import useWindowSize from '../../Shared/hooks/useWindowSize';
 import { requestGet, } from '../../../modules/request'
 import { unorderedArraysAreEqual, } from '../../../modules/unorderedArraysAreEqual'
 
-const MAX_VIEW_WIDTH_FOR_MOBILE = 850
+const MAX_VIEW_WIDTH_FOR_MOBILE = 950
 
 const filterIconSrc = `${process.env.CDN_URL}/images/icons/icons-filter.svg`
 
@@ -24,7 +25,7 @@ const Tab = ({ section, setSelectedTab, selectedTab }) => {
     className += ' selected-tab'
   }
 
-  return <button className={className} onClick={handleSetSelectedTab} type="button">{section}</button>
+  return <button className={className} onClick={handleSetSelectedTab} type="button"><img alt="" src={SECTION_NAME_TO_ICON_URL[section]} /><span>{section}</span></button>
 }
 
 const UsageSnapshotsContainer = ({ adminInfo, accessType, }) => {
@@ -65,9 +66,15 @@ const UsageSnapshotsContainer = ({ adminInfo, accessType, }) => {
   const [lastUsedTimeframe, setLastUsedTimeframe] = React.useState(null)
   const [showMobileFilterMenu, setShowMobileFilterMenu] = React.useState(false)
 
+  const [pusherChannel, setPusherChannel] = React.useState(null)
+
   const size = useWindowSize()
 
   React.useEffect(() => {
+    const pusher = new Pusher(process.env.PUSHER_KEY, { encrypted: true, });
+    const channel = pusher.subscribe(String(adminInfo.id));
+    setPusherChannel(channel)
+
     getFilters()
   }, [])
 
@@ -103,7 +110,7 @@ const UsageSnapshotsContainer = ({ adminInfo, accessType, }) => {
 
     setHasAdjustedFiltersSinceLastSubmission(newValueForHasAdjustedFiltersSinceLastSubmission)
 
-  }, [selectedSchools, selectedGrades, selectedTeachers, selectedClassrooms, selectedTimeframe, customStartDate, customEndDate])
+  }, [selectedSchools, selectedGrades, selectedTeachers, selectedClassrooms, selectedTimeframe])
 
   React.useEffect(() => {
     if (showCustomDateModal || (customStartDate && customEndDate) || !lastUsedTimeframe) { return }
@@ -255,13 +262,14 @@ const UsageSnapshotsContainer = ({ adminInfo, accessType, }) => {
   const sectionsToShow = selectedTab === ALL ? snapshotSections : snapshotSections.filter(s => s.name === selectedTab)
   const snapshotSectionComponents = sectionsToShow.map(section => (
     <SnapshotSection
-      adminId={adminInfo.id}
+      active={section.name === selectedTab}
       className={section.className}
       customTimeframeEnd={customEndDate?.toDate()}
       customTimeframeStart={customStartDate?.toDate()}
       itemGroupings={section.itemGroupings}
       key={section.name}
       name={section.name}
+      pusherChannel={pusherChannel}
       searchCount={searchCount}
       selectedClassroomIds={selectedClassrooms.map(c => c.id)}
       selectedGrades={selectedGrades.map(g => g.value)}
@@ -316,7 +324,13 @@ const UsageSnapshotsContainer = ({ adminInfo, accessType, }) => {
       />
       <main>
         <div className="header">
-          <h1>Usage Snapshot Report</h1>
+          <h1>
+            <span>Usage Snapshot Report</span>
+            <a href="https://support.quill.org/en/articles/1588988-how-do-i-navigate-the-premium-hub" rel="noopener noreferrer" target="_blank">
+              <img alt="" src={`${process.env.CDN_URL}/images/icons/file-document.svg`} />
+              <span>Guide</span>
+            </a>
+          </h1>
           <button className="quill-button contained primary medium focus-on-light" onClick={handleClickDownloadReport} type="button">Download Report</button>
         </div>
         <div aria-hidden={true} className="tabs">
