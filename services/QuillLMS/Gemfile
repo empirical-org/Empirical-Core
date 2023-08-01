@@ -2,7 +2,7 @@
 
 source 'https://rubygems.org'
 
-ruby '2.7.8'
+ruby File.read('.ruby-version').chomp
 
 # CORE DEPS
 gem 'rails', '7.0.6'
