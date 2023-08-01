@@ -1,6 +1,7 @@
 # frozen_string_literal: true
 
 module DiagnosticReports
+  include PublicProgressReports
   extend ActiveSupport::Concern
 
   NOT_PRESENT = 'Not present'
@@ -16,12 +17,13 @@ module DiagnosticReports
   MAINTAINED_PROFICIENCY = 'Maintained Proficiency'
   GROWTH_PROFICIENCY_TEXTS = [GAINED_PROFICIENCY, GAINED_SOME_PROFICIENCY, MAINTAINED_PROFICIENCY]
 
-  def data_for_skill_by_activity_session(all_concept_results, skill)
-    concept_results = all_concept_results.select {|cr| cr.concept_id.in?(skill.concept_ids)}
-    number_correct = concept_results.select(&:correct).length
-    number_incorrect = concept_results.reject(&:correct).length
+  def data_for_question_by_activity_session(all_concept_results, question)
+    concept_results = all_concept_results.select { |cr| cr.extra_metadata['question_uid'] == question.uid }
+    optimal = get_score_for_question(concept_results) > 0 ? true : false
+    number_correct = optimal ? 1 : 0
+    number_incorrect = optimal ? 0 : 1
     {
-      id: skill.id,
+      id: question.id,
       skill: skill.name,
       number_correct: number_correct,
       number_incorrect: number_incorrect,

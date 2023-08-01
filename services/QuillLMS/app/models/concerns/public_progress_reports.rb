@@ -251,7 +251,7 @@ module PublicProgressReports
     if !concept_results.empty? && concept_results.first.question_score
       concept_results.first.question_score * 100
     else
-      concept_results.inject(0) {|sum, crs| sum + (crs.correct ? 1 : 0)} / concept_results.length * 100
+      concept_results.sort_by { |cr| cr.attempt_number }.last.correct ? 1 : 0
     end
   end
 

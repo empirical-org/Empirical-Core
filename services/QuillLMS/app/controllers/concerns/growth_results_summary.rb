@@ -59,10 +59,10 @@ module GrowthResultsSummary
 
   private def skill_groups_for_session(skill_groups, post_test_activity_session, pre_test_activity_session, student_name)
     skill_groups.map do |skill_group|
-      skills = skill_group.skills.map do |skill|
+      skills = skill_group.questions.map do |question|
         {
-          pre: data_for_skill_by_activity_session(pre_test_activity_session.concept_results, skill),
-          post: data_for_skill_by_activity_session(post_test_activity_session.concept_results, skill)
+          pre: data_for_question_by_activity_session(pre_test_activity_session.concept_results, question),
+          post: data_for_question_by_activity_session(post_test_activity_session.concept_results, question)
         }
       end
       pre_correct_skills = skills.select { |skill| skill[:pre][:summary] == FULLY_CORRECT }

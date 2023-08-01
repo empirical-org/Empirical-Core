@@ -106,14 +106,14 @@ class Teachers::ProgressReports::DiagnosticReportsController < Teachers::Progres
         }
         formatted_skills = skills.map do |skill|
           {
-            pre: data_for_skill_by_activity_session(pre_test_activity_session.concept_results, skill),
-            post: data_for_skill_by_activity_session(activity_session.concept_results, skill)
+            pre: data_for_question_by_activity_session(pre_test_activity_session.concept_results, skill),
+            post: data_for_question_by_activity_session(activity_session.concept_results, skill)
           }
         end
         skill_results = { skills: formatted_skills.uniq { |formatted_skill| formatted_skill[:pre][:skill] } }
       else
         concept_results = { questions: format_concept_results(activity_session, activity_session.concept_results.order("question_number::int")) }
-        skill_results = { skills: skills.map { |skill| data_for_skill_by_activity_session(activity_session.concept_results, skill) }.uniq { |formatted_skill| formatted_skill[:skill] } }
+        skill_results = { skills: skills.map { |skill| data_for_question_by_activity_session(activity_session.concept_results, skill) }.uniq { |formatted_skill| formatted_skill[:skill] } }
       end
       { concept_results: concept_results, skill_results: skill_results, name: student.name }
     end
