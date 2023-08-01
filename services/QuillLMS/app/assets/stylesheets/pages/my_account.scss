@@ -287,17 +287,30 @@
       margin-bottom: 71px;
     }
   }
+  .school-container {
+    margin-bottom: 40px;
+  }
   .school-container, .inactive-password-container {
     display: flex;
     align-items: center;
     justify-content: space-between;
-    .school, .not-a-password {
+    .not-a-password {
       input {
         border-bottom: none;
       }
     }
-    .school input {
-      width: max-content;
+    .school-name-container {
+      width: 80%;
+    }
+    .school-name-label {
+      font-size: 12px;
+      font-weight: 600;
+      color: #7f7f7f;
+      display: flex;
+      margin-bottom: 5px;
+    }
+    .school-name {
+      font-size: 16px;
     }
     .not-a-password input {
       max-width: 300px;
@@ -312,6 +325,9 @@
       cursor: pointer;
       background-color: transparent;
       border: none;
+    }
+    .change-school {
+      margin-top: 27px;
     }
   }
   .school-search-container {
