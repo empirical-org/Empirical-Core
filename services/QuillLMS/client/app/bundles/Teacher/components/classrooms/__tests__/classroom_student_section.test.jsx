@@ -1,6 +1,5 @@
-import { shallow } from 'enzyme';
+import { mount, shallow } from 'enzyme';
 import * as React from 'react';
-import { stripHtml } from "string-strip-html";
 
 import ClassroomStudentSection from '../classroom_student_section';
 import EditStudentAccountModal from '../edit_student_account_modal';
@@ -41,7 +40,7 @@ describe('ClassroomStudentSection component', () => {
 
   describe('with students', () => {
 
-    const wrapper = shallow(
+    const wrapper = mount(
       <ClassroomStudentSection
         classroom={classroomWithStudents}
         classrooms={classroomProps}
@@ -63,13 +62,15 @@ describe('ClassroomStudentSection component', () => {
       expect(wrapper.find(DataTable).exists()).toBe(true)
     })
 
-    it('should render the EditStudentAccountModal if showEditStudentAccountModal is true', () => {
-      wrapper.instance().editStudentAccount(classroomWithStudents.students[0].id)
+    it('should render the EditStudentAccountModal if actions button is selected followed by Edit account', () => {
+      wrapper.find('button.actions-button').at(0).simulate('click')
+      wrapper.find('button.action').filterWhere(n => n.text() === 'Edit account').simulate('click');
       expect(wrapper.find(EditStudentAccountModal).exists()).toBe(true)
     })
 
-    it('should render the ResetStudentPasswordModal if showResetStudentPasswordModal is true', () => {
-      wrapper.instance().resetStudentPassword(classroomWithStudents.students[0].id)
+    it('should render the ResetStudentPasswordModal if actions button is selected followed by Reset password', () => {
+      wrapper.find('button.actions-button').at(0).simulate('click')
+      wrapper.find('button.action').filterWhere(n => n.text() === 'Reset password').simulate('click');
       expect(wrapper.find(ResetStudentPasswordModal).exists()).toBe(true)
     })
 

@@ -233,13 +233,10 @@ export default class TeacherGeneralAccountInfo extends React.Component {
         schoolContainerClass += schoolSelectionReminderVisible && (!school || school.name === NO_SCHOOL_SELECTED) ? ' show-notification-badges' : ''
         return (
           <div className={schoolContainerClass}>
-            <Input
-              className="school"
-              disabled={true}
-              label="School"
-              type="text"
-              value={schoolNameValue}
-            />
+            <div className="school-name-container">
+              <label className="school-name-label">School</label>
+              <p className="school-name">{schoolNameValue}</p>
+            </div>
             <button className="change-school notification-badge-relative interactive-wrapper" onClick={this.showSchoolSelector} type="button">{buttonCopy}</button>
           </div>
         )

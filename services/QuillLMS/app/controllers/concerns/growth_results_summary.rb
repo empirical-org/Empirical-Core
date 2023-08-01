@@ -15,8 +15,8 @@ module GrowthResultsSummary
       {
         name: skill_group.name,
         description: skill_group.description,
-        not_yet_proficient_in_pre_test_student_names: [],
-        not_yet_proficient_in_post_test_student_names: []
+        not_yet_proficient_in_post_test_student_names: [],
+        proficiency_scores_by_student: {}
       }
     end
 
@@ -35,6 +35,8 @@ module GrowthResultsSummary
         skill_groups = skill_groups_for_session(@skill_groups, post_test_activity_session, pre_test_activity_session, assigned_student.name)
         total_acquired_skills_count = skill_groups.map { |sg| sg[:acquired_skill_ids] }.flatten.uniq.count
         total_possible_skills_count = skill_groups.map { |sg| sg[:skill_ids] }.flatten.uniq.count
+        total_pre_correct_skill_groups_count = skill_groups.select { |sg| sg[:pre_test_proficiency] == PROFICIENCY }.flatten.uniq.count
+        total_correct_skill_groups_count = skill_groups.select { |sg| GROWTH_PROFICIENCY_TEXTS.include?(sg[:proficiency_text]) }.flatten.uniq.count
         total_correct_skills_count = skill_groups.map { |sg| sg[:post_correct_skill_ids] }.flatten.uniq.count
         total_pre_correct_skills_count = skill_groups.map { |sg| sg[:pre_correct_skill_ids] }.flatten.uniq.count
         {
@@ -43,9 +45,11 @@ module GrowthResultsSummary
           skill_groups: skill_groups,
           total_acquired_skills_count: total_acquired_skills_count,
           total_correct_skills_count: total_correct_skills_count,
+          total_acquired_skill_groups_count: total_correct_skill_groups_count - total_pre_correct_skill_groups_count,
           total_pre_correct_skills_count: total_pre_correct_skills_count,
           total_possible_skills_count: total_possible_skills_count,
-          correct_skill_text: "#{total_correct_skills_count} of #{total_possible_skills_count} skills correct"
+          correct_skill_text: "#{total_correct_skills_count} of #{total_possible_skills_count} skills",
+          correct_skill_groups_text: "#{total_correct_skill_groups_count} of #{skill_groups.count} skill groups"
         }
       else
         { name: assigned_student.name }
@@ -63,20 +67,24 @@ module GrowthResultsSummary
       end
       pre_correct_skills = skills.select { |skill| skill[:pre][:summary] == FULLY_CORRECT }
       post_correct_skills = skills.select { |skill| skill[:post][:summary] == FULLY_CORRECT }
+      pre_test_proficiency_score = skills.reduce(0) {|sum, skill| sum += skill[:pre][:proficiency_score]} / skills.length.to_f
+      post_test_proficiency_score = skills.reduce(0) {|sum, skill| sum += skill[:post][:proficiency_score]} / skills.length.to_f
       pre_correct_skill_ids = pre_correct_skills.map { |s| s[:pre][:id] }
       post_correct_skill_ids = post_correct_skills.map { |s| s[:post][:id] }
       pre_correct_skill_number = pre_correct_skills.count
       pre_present_skill_number = skills.reduce(0) { |sum, skill| sum += skill[:pre][:summary] == NOT_PRESENT ? 0 : 1 }
       present_skill_number = skills.reduce(0) { |sum, skill| sum += skill[:post][:summary] == NOT_PRESENT ? 0 : 1 }
       correct_skill_number = post_correct_skills.count
-      proficiency_text = summarize_student_proficiency_for_skill_overall(present_skill_number, correct_skill_number, pre_correct_skill_number)
+      acquired_skills = !(post_correct_skill_ids - pre_correct_skill_ids).empty?
+      proficiency_text = summarize_student_proficiency_for_skill_overall(present_skill_number, correct_skill_number, pre_correct_skill_number, acquired_skills)
       post_test_proficiency = summarize_student_proficiency_for_skill_per_activity(present_skill_number, correct_skill_number)
       pre_test_proficiency = summarize_student_proficiency_for_skill_per_activity(pre_present_skill_number, pre_correct_skill_number)
       skill_group_summary_index = @skill_group_summaries.find_index { |sg| sg[:name] == skill_group.name }
-      @skill_group_summaries[skill_group_summary_index][:not_yet_proficient_in_post_test_student_names].push(student_name) unless post_test_proficiency == PROFICIENCY
+      @skill_group_summaries[skill_group_summary_index][:proficiency_scores_by_student][student_name] = { pre: nil, post: nil }
+      @skill_group_summaries[skill_group_summary_index][:not_yet_proficient_in_post_test_student_names].push(student_name) unless GROWTH_PROFICIENCY_TEXTS.include?(proficiency_text)
       @skill_group_summaries[skill_group_summary_index][:not_yet_proficient_in_post_test_student_names] =   @skill_group_summaries[skill_group_summary_index][:not_yet_proficient_in_post_test_student_names].uniq
-      @skill_group_summaries[skill_group_summary_index][:not_yet_proficient_in_pre_test_student_names].push(student_name) unless pre_test_proficiency == PROFICIENCY
-      @skill_group_summaries[skill_group_summary_index][:not_yet_proficient_in_pre_test_student_names] = @skill_group_summaries[skill_group_summary_index][:not_yet_proficient_in_pre_test_student_names].uniq
+      @skill_group_summaries[skill_group_summary_index][:proficiency_scores_by_student][student_name][:post] = post_test_proficiency_score
+      @skill_group_summaries[skill_group_summary_index][:proficiency_scores_by_student][student_name][:pre] = pre_test_proficiency_score
       {
         skill_group: skill_group.name,
         description: skill_group.description,
@@ -84,7 +92,9 @@ module GrowthResultsSummary
         number_of_correct_skills_text: "#{correct_skill_number} of #{present_skill_number} skills correct",
         proficiency_text: proficiency_text,
         pre_test_proficiency: pre_test_proficiency,
+        pre_test_proficiency_score: pre_test_proficiency_score,
         post_test_proficiency: post_test_proficiency,
+        post_test_proficiency_score: post_test_proficiency_score,
         id: skill_group.id,
         post_correct_skill_ids: post_correct_skill_ids,
         pre_correct_skill_ids: pre_correct_skill_ids,
@@ -95,14 +105,14 @@ module GrowthResultsSummary
   end
   # rubocop:enable Metrics/CyclomaticComplexity
 
-  private def summarize_student_proficiency_for_skill_overall(present_skill_number, correct_skill_number, pre_correct_skill_number)
+  private def summarize_student_proficiency_for_skill_overall(present_skill_number, correct_skill_number, pre_correct_skill_number, acquired_skills)
     case correct_skill_number
     when 0
       NO_PROFICIENCY
     when present_skill_number
       correct_skill_number > pre_correct_skill_number ? GAINED_PROFICIENCY : MAINTAINED_PROFICIENCY
     else
-      PARTIAL_PROFICIENCY
+      acquired_skills ? GAINED_SOME_PROFICIENCY : PARTIAL_PROFICIENCY
     end
   end
 

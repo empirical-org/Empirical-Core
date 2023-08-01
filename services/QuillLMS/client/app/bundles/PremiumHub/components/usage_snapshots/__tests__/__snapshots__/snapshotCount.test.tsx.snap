@@ -154,7 +154,8 @@ exports[`SnapshotCount component size medium when there is data with a negative 
     >
       <img
         alt="Arrow pointing down"
-        src="undefined/images/pages/administrator/medium_arrow_down_icon.svg"
+        className="medium"
+        src="undefined/images/pages/administrator/usage_snapshot_report/arrow_down_icon.svg"
       />
       <span>
         50
@@ -240,7 +241,8 @@ exports[`SnapshotCount component size medium when there is data with a positive 
     >
       <img
         alt="Arrow pointing up"
-        src="undefined/images/pages/administrator/medium_arrow_up_icon.svg"
+        className="medium"
+        src="undefined/images/pages/administrator/usage_snapshot_report/arrow_up_icon.svg"
       />
       <span>
         50
@@ -484,7 +486,8 @@ exports[`SnapshotCount component size small when there is data with a negative t
     >
       <img
         alt="Arrow pointing down"
-        src="undefined/images/pages/administrator/small_arrow_down_icon.svg"
+        className="small"
+        src="undefined/images/pages/administrator/usage_snapshot_report/arrow_down_icon.svg"
       />
       <span>
         50
@@ -570,7 +573,8 @@ exports[`SnapshotCount component size small when there is data with a positive t
     >
       <img
         alt="Arrow pointing up"
-        src="undefined/images/pages/administrator/small_arrow_up_icon.svg"
+        className="small"
+        src="undefined/images/pages/administrator/usage_snapshot_report/arrow_up_icon.svg"
       />
       <span>
         50

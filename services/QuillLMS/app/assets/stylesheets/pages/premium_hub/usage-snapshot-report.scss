@@ -37,6 +37,16 @@
     .filters {
       padding: 32px 24px 84px;
       min-height: calc(100% - 68px); // accounting for height of filter buttons
+      .filter-label {
+        display: flex;
+        align-items: center;
+        img {
+          margin-left: 8px;
+        }
+        .quill-tooltip-wrapper {
+          transform: translateX(-25%);
+        }
+      }
     }
     .filter-buttons {
       display: flex;
@@ -44,12 +54,14 @@
       justify-content: space-between;
       background-color: #E3F0EE;
       bottom: 0;
-      width: 317px;
+      width: 301px;
+      border-radius: 8px;
+      margin: 0px 8px 8px;
       &.fixed {
         position: fixed;
       }
       .quill-button {
-        width: 130px;
+        width: 122px;
       }
     }
     .dropdown-input-with-search-tokens-container {
@@ -75,30 +87,58 @@
     h1 {
       font-weight: 700;
       font-size: 24px;
+      display: flex;
+      align-items: center;
+      a {
+        margin-left: 16px;
+        display: flex;
+        align-items: center;
+        color: #5C5C5C;
+        font-size: 14px;
+        font-style: normal;
+        font-weight: 400;
+        line-height: 20px; /* 142.857% */
+        img {
+          height: 20px;
+          width: 24px;
+          margin-right: 2px;
+        }
+        &:hover {
+          text-decoration: none;
+        }
+      }
     }
     .tabs {
       margin-top: 24px;
       display: flex;
       .tab {
         padding: 0px 32px;
-        height: 40px;
+        height: 36px;
         background: #F7F5F5;
         border: 1px solid #D3D3D3;
         display: flex;
         align-items: center;
         border-right: none;
         font-weight: 600;
+        color: #373737;
+        line-height: 13px;
+        img {
+          margin-right: 4px;
+        }
         &.selected-tab {
           background: #06806B;
           color: white;
           border: 1px solid #06806B;
+          img {
+            filter: brightness(0) invert(1);
+          }
         }
         &:first-of-type {
-          border-radius: 4px 0px 0px 4px;
+          border-radius: 8px 0px 0px 8px;
         }
         &:last-of-type {
           border-right: 1px solid #D3D3D3;
-          border-radius: 0px 4px 4px 0px;
+          border-radius: 0px 8px 8px 0px;
         }
       }
       .dropdown-container {
@@ -125,18 +165,32 @@
         }
       }
     }
-    .snapshot-section {
-      box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.15);
-      border-radius: 8px;
-      margin-top: 24px;
-      padding: 24px;
+
+    .snapshot-section-wrapper {
+      margin-top: 32px;
+      padding: 0px;
       h2 {
         font-weight: 600;
         font-size: 20px;
         line-height: 32px;
         color: #373737;
         margin-bottom: 16px;
+        display: flex;
+        align-items: center;
+        img {
+          height: 24px;
+          margin-right: 8px;
+        }
       }
+      &:first-of-type {
+        margin-top: 36px;
+      }
+    }
+
+    .snapshot-section {
+      box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.15);
+      border-radius: 8px;
+      padding: 24px;
       .snapshot-item {
         background: #F8F8F8;
         border: 1px solid #E0E0E0;
@@ -175,6 +229,12 @@
           align-items: center;
           img {
             margin-right: 4px;
+            &.small {
+              height: 26px;
+            }
+            &.medium {
+              height: 31px;
+            }
           }
         }
         &.snapshot-count {
@@ -201,24 +261,21 @@
             line-height: 21px;
           }
         }
-        &.positive {
-          background: #F1FAF6;
-          border: 1px solid #B4E6D1;
+        &.positive, &.negative, &.none {
           .count {
             color: #373737;
           }
+        }
+        &.positive {
+          background: #F1FAF6;
+          border: 1px solid #B4E6D1;
           .change {
             color: #129E6C;
           }
         }
         &.negative {
-          background: #FFEFEC;
-          border: 1px solid #FFC0B3;
-          .count {
-            color: #373737;
-          }
           .change {
-            color: #F65C3A;
+            color: #C97C00;
           }
         }
       }
@@ -466,13 +523,13 @@
     }
   }
 
-  @media (min-width: 1135px) {
+  @media (min-width: 1266px) {
     .filter-container .top-section, main .filter-button-container {
       display: none;
     }
   }
 
-  @media (max-width: 1134px) {
+  @media (max-width: 1265px) {
     .filter-container {
       position: fixed;
       top: 0;

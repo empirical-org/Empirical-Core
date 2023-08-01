@@ -14,7 +14,8 @@ module ResultsSummary
       {
         name: skill_group.name,
         description: skill_group.description,
-        not_yet_proficient_student_names: []
+        not_yet_proficient_student_names: [],
+        proficiency_scores_by_student: {}
       }
     end
 
@@ -31,13 +32,16 @@ module ResultsSummary
         skill_groups = skill_groups_for_session(@skill_groups, activity_session, assigned_student.name)
         total_possible_skills_count = skill_groups.map { |sg| sg[:skill_ids] }.flatten.uniq.count
         total_correct_skills_count = skill_groups.map { |sg| sg[:correct_skill_ids] }.flatten.uniq.count
+        total_correct_skill_groups_count = skill_groups.select { |sg| sg[:correct_skill_ids].length == sg[:skill_ids].length }.flatten.uniq.count
         {
           name: assigned_student.name,
           id: assigned_student.id,
           skill_groups: skill_groups,
           total_correct_skills_count: total_correct_skills_count,
+          total_correct_skill_groups_count: total_correct_skill_groups_count,
           total_possible_skills_count: total_possible_skills_count,
-          correct_skill_text: "#{total_correct_skills_count} of #{total_possible_skills_count} skills correct"
+          correct_skill_text: "#{total_correct_skills_count} of #{total_possible_skills_count} skills",
+          correct_skill_groups_text: "#{total_correct_skill_groups_count} of #{skill_groups.count} skill groups"
         }
       else
         { name: assigned_student.name }
@@ -54,8 +58,13 @@ module ResultsSummary
       correct_skill_ids = correct_skills.map { |s| s[:id] }
       correct_skill_number = correct_skills.count
       proficiency_text = summarize_student_proficiency_for_skill_per_activity(present_skill_number, correct_skill_number)
+      average_proficiency_score = skills.reduce(0) do |sum, skill|
+        score = skill[:proficiency_score].is_a?(Integer) ? skill[:proficiency_score] : skill[:proficiency_score].to_i
+        sum += score
+      end / skills.length.to_f
+      skill_group_summary_index = @skill_group_summaries.find_index { |sg| sg[:name] == skill_group.name }
+      @skill_group_summaries[skill_group_summary_index][:proficiency_scores_by_student][student_name] = average_proficiency_score
       unless proficiency_text == PROFICIENCY
-        skill_group_summary_index = @skill_group_summaries.find_index { |sg| sg[:name] == skill_group.name }
         @skill_group_summaries[skill_group_summary_index][:not_yet_proficient_student_names].push(student_name)
         @skill_group_summaries[skill_group_summary_index][:not_yet_proficient_student_names] = @skill_group_summaries[skill_group_summary_index][:not_yet_proficient_student_names].uniq
       end

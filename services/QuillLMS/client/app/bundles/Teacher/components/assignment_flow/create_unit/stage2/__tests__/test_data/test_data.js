@@ -1,3 +1,5 @@
+import { userProps } from "../../../../../classrooms/__tests__/test_data/test_data"
+
 export const classroom = {
   id: 285380,
   name: "Ninth Grade English - 101 - B. Glover (Section 3)",
@@ -678,6 +680,11 @@ export const user = {
   title: null,
   time_zone: "Pacific/Tahiti",
   account_type: "unknown",
+}
+
+export const googleUser = {
+  ...userProps,
+  provider: 'Google'
 }
 
 export const activities = [

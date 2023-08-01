@@ -330,7 +330,6 @@ EmpiricalGrammar::Application.routes.draw do
       get 'students_by_classroom/u/:unit_id/a/:activity_id/c/:classroom_id' => 'diagnostic_reports#students_by_classroom'
       get 'recommendations_for_classroom/:classroom_id/activity/:activity_id' => 'diagnostic_reports#recommendations_for_classroom'
       get 'lesson_recommendations_for_classroom/:classroom_id/activity/:activity_id' => 'diagnostic_reports#lesson_recommendations_for_classroom'
-      get 'skills_growth/:classroom_id/post_test_activity_id/:post_test_activity_id/pre_test_activity_id/:pre_test_activity_id' => 'diagnostic_reports#skills_growth'
       get 'diagnostic_activity_ids' => 'diagnostic_reports#diagnostic_activity_ids'
       get 'activity_with_recommendations_ids' => 'diagnostic_reports#activity_with_recommendations_ids'
       get 'previously_assigned_recommendations/:classroom_id/activity/:activity_id' => 'diagnostic_reports#previously_assigned_recommendations'
@@ -363,8 +362,6 @@ EmpiricalGrammar::Application.routes.draw do
       post :create_students
       post :remove_students
 
-      put :import_google_students, controller: 'classroom_manager', action: 'import_google_students'
-
       collection do
         get :archived, action: 'index', as: :archived
         get :classrooms_i_teach
@@ -384,9 +381,6 @@ EmpiricalGrammar::Application.routes.draw do
         get 'classrooms_and_classroom_units_for_activity_share/:unit_id' => 'classroom_manager#classrooms_and_classroom_units_for_activity_share'
         get :invite_students, controller: 'classroom_manager', action: 'invite_students'
         get :google_sync, controller: 'classroom_manager', action: 'google_sync'
-        get :retrieve_google_classrooms, controller: 'classroom_manager', action: 'retrieve_google_classrooms'
-        post :update_google_classrooms, controller: 'classroom_manager', action: 'update_google_classrooms'
-        put :import_google_students, controller: 'classroom_manager', action: 'import_google_students'
 
         ##DASHBOARD ROUTES
         get :classroom_mini, controller: 'classroom_manager', action: 'classroom_mini'
@@ -602,9 +596,19 @@ EmpiricalGrammar::Application.routes.draw do
     get '/lti/launch_config.xml' => 'lti#launch_config'
     post '/lti/launch' => 'lti#launch'
     get '/lti/sso', to: 'lti#sso'
+
+    get '/teachers/retrieve_classrooms', to: 'teachers#retrieve_classrooms'
+    post '/teachers/import_classrooms', to: 'teachers#import_classrooms'
+    put '/teachers/import_students', to: 'teachers#import_students'
   end
 
   namespace :clever_integration do
+    get '/teachers/retrieve_classrooms', to: 'teachers#retrieve_classrooms'
+    post '/teachers/import_classrooms', to: 'teachers#import_classrooms'
+    put '/teachers/import_students', to: 'teachers#import_students'
+  end
+
+  namespace :google_integration do
     get '/teachers/retrieve_classrooms', to: 'teachers#retrieve_classrooms'
     post '/teachers/import_classrooms', to: 'teachers#import_classrooms'
     put '/teachers/import_students', to: 'teachers#import_students'

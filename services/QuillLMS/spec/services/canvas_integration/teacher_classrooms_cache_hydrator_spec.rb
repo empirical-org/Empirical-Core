@@ -3,8 +3,7 @@
 require 'rails_helper'
 
 describe CanvasIntegration::TeacherClassroomsCacheHydrator do
-  let(:classrooms) { ['classroom_data'] }
-  let(:data) { { classrooms: classrooms, canvas_instance_id: canvas_instance&.id }}
+  let(:data) { double(:data) }
 
   subject { described_class.run(user) }
 

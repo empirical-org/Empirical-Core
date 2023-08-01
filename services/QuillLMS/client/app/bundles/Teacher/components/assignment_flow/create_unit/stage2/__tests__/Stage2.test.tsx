@@ -30,6 +30,7 @@ describe('Stage2 component', () => {
     updateUnitName: jest.fn(),
     user: {}
   }
+
   it('buttonEnabled returns expected value', () => {
     let wrapper = mount(<Stage2 {...mockProps} />)
     expect(wrapper.instance().buttonEnabled()).toEqual(true)

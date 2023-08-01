@@ -24,11 +24,12 @@ import LoadingSpinner from '../../../shared/loading_indicator.jsx';
 const timeRewindIllustration = <img alt="Illustration of a clock with an arrow pointing backwards" src={`${baseDiagnosticImageSrc}/time-rewind.svg`} />
 
 const SkillGroupSummaryCard = ({ skillGroupSummary, completedStudentCount }) => {
-  const { name, description, not_yet_proficient_student_names, } = skillGroupSummary
+  const { name, description, not_yet_proficient_student_names, proficiency_scores_by_student } = skillGroupSummary
   let cardContent = noDataYet
   if (completedStudentCount) {
     const numberOfStudentsNeedingPractice = not_yet_proficient_student_names.length
-    const percentage = (numberOfStudentsNeedingPractice/completedStudentCount) * 100
+    const proficiencyScoresSum: any = Object.values(proficiency_scores_by_student).reduce((a: number, b: number) => a + b, 0)
+    const percentage = Math.round((proficiencyScoresSum/completedStudentCount) * 100)
     let needPracticeElement = <span className="need-practice-element no-practice-needed">No practice needed</span>
 
     if (numberOfStudentsNeedingPractice) {
@@ -40,7 +41,6 @@ const SkillGroupSummaryCard = ({ skillGroupSummary, completedStudentCount }) => 
         tooltipTriggerTextClass="need-practice-element"
       />)
     }
-
     cardContent = (<React.Fragment>
       <span className="percentage-circle-label">Proficient</span>
       <PercentageCircle
@@ -48,7 +48,7 @@ const SkillGroupSummaryCard = ({ skillGroupSummary, completedStudentCount }) => 
         borderWidth={8}
         color="#4ea500"
         innerColor="#ffffff"
-        percent={100 - Math.round(percentage)}
+        percent={percentage}
         radius={52}
       />
       {needPracticeElement}

@@ -19,7 +19,6 @@
 #
 # Indexes
 #
-#  index_unit_templates_on_activity_info              (activity_info)
 #  index_unit_templates_on_author_id                  (author_id)
 #  index_unit_templates_on_unit_template_category_id  (unit_template_category_id)
 #

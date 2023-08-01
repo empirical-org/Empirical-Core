@@ -1,6 +1,6 @@
 import * as React from 'react'
 
-import { DropdownInput, DropdownInputWithSearchTokens, } from '../../../Shared/index'
+import { DropdownInput, DropdownInputWithSearchTokens, Tooltip, helpIcon, } from '../../../Shared/index'
 import useWindowSize from '../../../Shared/hooks/useWindowSize';
 
 const closeIconSrc = `${process.env.CDN_URL}/images/icons/close.svg`
@@ -46,7 +46,13 @@ const Filters = ({ allTimeframes, allSchools, allGrades, allTeachers, allClassro
         </button>
       </div>
       <div className="filters">
-        <label className="filter-label" htmlFor="timeframe-filter">Timeframe</label>
+        <label className="filter-label" htmlFor="timeframe-filter">
+          <span>Timeframe</span>
+          <Tooltip
+            tooltipText="This report is updated nightly."
+            tooltipTriggerText={<img alt={helpIcon.alt} src={helpIcon.src} />}
+          />
+        </label>
         <DropdownInput
           handleChange={handleSetSelectedTimeframe}
           helperText={timeframeHelperText}

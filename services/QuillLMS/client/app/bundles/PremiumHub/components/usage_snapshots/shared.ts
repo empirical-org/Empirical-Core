@@ -26,6 +26,7 @@ export const MEDIUM = 'medium'
 // change directions
 export const POSITIVE = 'positive'
 export const NEGATIVE = 'negative'
+export const NONE = 'none'
 
 // snapshot item types
 export const COUNT = 'count'
@@ -44,6 +45,17 @@ const SCHOOLS = 'Schools'
 export const CUSTOM = 'custom'
 
 export const TAB_NAMES = [ALL, HIGHLIGHTS, USERS, PRACTICE, CLASSROOMS, SCHOOLS]
+
+const iconLinkBase = `${process.env.CDN_URL}/images/pages/administrator/usage_snapshot_report`
+
+export const SECTION_NAME_TO_ICON_URL = {
+  [ALL]: `${iconLinkBase}/outlined_star.svg`,
+  [HIGHLIGHTS]: `${iconLinkBase}/bulb.svg`,
+  [USERS]: `${iconLinkBase}/students.svg`,
+  [PRACTICE]: `${iconLinkBase}/pencil.svg`,
+  [CLASSROOMS]: `${iconLinkBase}/teacher.svg`,
+  [SCHOOLS]: `${iconLinkBase}/school.svg`
+}
 
 export const snapshotSections = [
   {

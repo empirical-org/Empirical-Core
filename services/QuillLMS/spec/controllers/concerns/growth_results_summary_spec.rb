@@ -35,8 +35,13 @@ describe GrowthResultsSummary do
           {
             name: pre_test_skill_group_activity.skill_group.name,
             description: pre_test_skill_group_activity.skill_group.description,
-            not_yet_proficient_in_pre_test_student_names: [student1.name],
-            not_yet_proficient_in_post_test_student_names: []
+            not_yet_proficient_in_post_test_student_names: [],
+            proficiency_scores_by_student: {
+              student1.name => {
+                pre: 0,
+                post: 1.0
+              }
+            }
           }
         ],
         student_results: [
@@ -54,6 +59,7 @@ describe GrowthResultsSummary do
                       skill: skill.name,
                       number_correct: 1,
                       number_incorrect: 1,
+                      proficiency_score: 0.0,
                       summary: GrowthResultsSummary::PARTIALLY_CORRECT,
                     },
                     post: {
@@ -61,6 +67,7 @@ describe GrowthResultsSummary do
                       skill: skill.name,
                       number_correct: 1,
                       number_incorrect: 0,
+                      proficiency_score: 1.0,
                       summary: GrowthResultsSummary::FULLY_CORRECT,
                     }
                   }
@@ -68,7 +75,9 @@ describe GrowthResultsSummary do
                 number_of_correct_skills_text: "1 of 1 skills correct",
                 proficiency_text: GrowthResultsSummary::GAINED_PROFICIENCY,
                 pre_test_proficiency: GrowthResultsSummary::NO_PROFICIENCY,
+                pre_test_proficiency_score: 0.0,
                 post_test_proficiency: GrowthResultsSummary::PROFICIENCY,
+                post_test_proficiency_score: 1.0,
                 id: pre_test_skill_group_activity.skill_group.id,
                 post_correct_skill_ids: [skill.id],
                 pre_correct_skill_ids: [],
@@ -77,10 +86,12 @@ describe GrowthResultsSummary do
               }
             ],
             total_acquired_skills_count: 1,
+            total_acquired_skill_groups_count: 1,
             total_correct_skills_count: 1,
             total_pre_correct_skills_count: 0,
             total_possible_skills_count: 1,
-            correct_skill_text: "1 of 1 skills correct"
+            correct_skill_text: "1 of 1 skills",
+            correct_skill_groups_text: "1 of 1 skill groups",
           },
           {
             name: student2.name
@@ -96,8 +107,8 @@ describe GrowthResultsSummary do
         {
           name: pre_test_skill_group_activity.skill_group.name,
           description: pre_test_skill_group_activity.skill_group.description,
-          not_yet_proficient_in_pre_test_student_names: [],
           not_yet_proficient_in_post_test_student_names: [],
+          proficiency_scores_by_student: {}
         }
       ]
       @skill_groups = [pre_test_skill_group_activity.skill_group]
@@ -121,6 +132,7 @@ describe GrowthResultsSummary do
                       skill: skill.name,
                       number_correct: 1,
                       number_incorrect: 1,
+                      proficiency_score: 0,
                       summary: GrowthResultsSummary::PARTIALLY_CORRECT,
                     },
                     post: {
@@ -128,6 +140,7 @@ describe GrowthResultsSummary do
                       skill: skill.name,
                       number_correct: 1,
                       number_incorrect: 0,
+                      proficiency_score: 1,
                       summary: GrowthResultsSummary::FULLY_CORRECT,
                     }
                   }
@@ -135,7 +148,9 @@ describe GrowthResultsSummary do
                 number_of_correct_skills_text: "1 of 1 skills correct",
                 proficiency_text: GrowthResultsSummary::GAINED_PROFICIENCY,
                 pre_test_proficiency: GrowthResultsSummary::NO_PROFICIENCY,
+                pre_test_proficiency_score: 0.0,
                 post_test_proficiency: GrowthResultsSummary::PROFICIENCY,
+                post_test_proficiency_score: 1.0,
                 id: pre_test_skill_group_activity.skill_group.id,
                 post_correct_skill_ids: [skill.id],
                 pre_correct_skill_ids: [],
@@ -144,10 +159,12 @@ describe GrowthResultsSummary do
               }
             ],
             total_acquired_skills_count: 1,
+            total_acquired_skill_groups_count: 1,
             total_correct_skills_count: 1,
             total_pre_correct_skills_count: 0,
             total_possible_skills_count: 1,
-            correct_skill_text: "1 of 1 skills correct"
+            correct_skill_text: "1 of 1 skills",
+            correct_skill_groups_text: "1 of 1 skill groups",
           },
           {
             name: student2.name
@@ -161,8 +178,8 @@ describe GrowthResultsSummary do
         {
           name: pre_test_skill_group_activity.skill_group.name,
           description: pre_test_skill_group_activity.skill_group.description,
-          not_yet_proficient_in_pre_test_student_names: [],
           not_yet_proficient_in_post_test_student_names: [],
+          proficiency_scores_by_student: {}
         }
       ]
       @skill_groups = [pre_test_skill_group_activity.skill_group]
@@ -187,8 +204,8 @@ describe GrowthResultsSummary do
         {
           name: pre_test_skill_group_activity.skill_group.name,
           description: pre_test_skill_group_activity.skill_group.description,
-          not_yet_proficient_in_pre_test_student_names: [],
           not_yet_proficient_in_post_test_student_names: [],
+          proficiency_scores_by_student: {}
         }
       ]
       expect(skill_groups_for_session([pre_test_skill_group_activity.skill_group], post_test_activity_session, pre_test_activity_session, student1.name)).to eq [
@@ -202,6 +219,7 @@ describe GrowthResultsSummary do
                 skill: skill.name,
                 number_correct: 1,
                 number_incorrect: 1,
+                proficiency_score: 0,
                 summary: GrowthResultsSummary::PARTIALLY_CORRECT,
               },
               post: {
@@ -209,6 +227,7 @@ describe GrowthResultsSummary do
                 skill: skill.name,
                 number_correct: 1,
                 number_incorrect: 0,
+                proficiency_score: 1.0,
                 summary: GrowthResultsSummary::FULLY_CORRECT,
               }
             }
@@ -216,7 +235,9 @@ describe GrowthResultsSummary do
           number_of_correct_skills_text: "1 of 1 skills correct",
           proficiency_text: GrowthResultsSummary::GAINED_PROFICIENCY,
           pre_test_proficiency: GrowthResultsSummary::NO_PROFICIENCY,
+          pre_test_proficiency_score: 0.0,
           post_test_proficiency: GrowthResultsSummary::PROFICIENCY,
+          post_test_proficiency_score: 1.0,
           id: pre_test_skill_group_activity.skill_group.id,
           post_correct_skill_ids: [skill.id],
           pre_correct_skill_ids: [],
@@ -226,17 +247,16 @@ describe GrowthResultsSummary do
       ]
     end
 
-    it 'should add the students name to the not_yet_proficient arrays for any skill group they are not proficient in' do
+    it 'should add the students name to the not_yet_proficient_in_post_test_student_names array for any skill group they are not proficient in' do
       @skill_group_summaries = [
         {
           name: pre_test_skill_group_activity.skill_group.name,
           description: pre_test_skill_group_activity.skill_group.description,
-          not_yet_proficient_in_pre_test_student_names: [],
           not_yet_proficient_in_post_test_student_names: [],
+          proficiency_scores_by_student: {}
         }
       ]
       skill_groups_for_session([pre_test_skill_group_activity.skill_group], post_test_activity_session, pre_test_activity_session, student1.name)
-      expect(@skill_group_summaries[0][:not_yet_proficient_in_pre_test_student_names]).to eq [student1.name]
       expect(@skill_group_summaries[0][:not_yet_proficient_in_post_test_student_names]).to eq []
     end
 

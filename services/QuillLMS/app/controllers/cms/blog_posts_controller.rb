@@ -8,16 +8,11 @@ class Cms::BlogPostsController < Cms::CmsController
 
   def index
     @blog_posts_name_and_id = BlogPost.all.map{|bp| bp.attributes.merge({'rating' => bp.average_rating})}
-    #cms/blog_posts/index.html.erb
   end
 
-  def new
-    #cms/blog_posts/new.html.erb
-  end
+  def new; end
 
-  def edit
-    #cms/blog_posts/edit.html.erb
-  end
+  def edit; end
 
   def create
     blog_post = BlogPost.create(blog_post_params)
