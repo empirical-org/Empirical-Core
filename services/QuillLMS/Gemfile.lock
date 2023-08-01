@@ -404,7 +404,6 @@ GEM
     lms-api (1.24.0)
       activesupport (>= 3.0)
       httparty
-    lockbox (1.2.0)
     lograge (0.10.0)
       actionpack (>= 4)
       activesupport (>= 4)
@@ -870,7 +869,6 @@ DEPENDENCIES
   kaminari (~> 1.2.1)
   letter_opener
   lms-api
-  lockbox
   lograge
   maxminddb
   memory_profiler

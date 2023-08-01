@@ -158,9 +158,6 @@ gem 'paperclip'
 gem 'rb-readline'
 gem 'awesome_print'
 
-# TODO: Remove this after migrating to Rails 7 encrypted attributes
-gem 'lockbox'
-
 gem 'capitalize-names', require: 'capitalize_names'
 
 group :production, :staging do
