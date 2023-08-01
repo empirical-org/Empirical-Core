@@ -17,14 +17,28 @@ module Snapshots
 
     def run
       {
-        'count': calculate_average
+        'count': display_average
       }
     end
 
+    def display_average
+      average = calculate_average
+
+      return 'N/A' if average.nil?
+
+      average
+    end
+
     def calculate_average
-      numerator = numerator_query.run(*params)[:count]
-      denominator = denominator_query.run(*params)[:count]
       Utils::Numeric.safe_division(numerator, denominator)
+    end
+
+    def numerator
+      numerator_query.run(*params)[:count]
+    end
+
+    def denominator
+      denominator_query.run(*params)[:count]
     end
 
     def numerator_query
