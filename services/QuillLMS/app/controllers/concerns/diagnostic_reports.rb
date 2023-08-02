@@ -20,7 +20,7 @@ module DiagnosticReports
   def data_for_question_by_activity_session(all_concept_results, diagnostic_question_skill)
     return {} if all_concept_results.any? { |cr| cr.extra_metadata.nil? }
 
-    concept_results = all_concept_results.select { |cr| cr.extra_metadata && cr.extra_metadata['question_uid'] == diagnostic_question_skill.question.uid }
+    concept_results = all_concept_results.select { |cr| cr.extra_metadata['question_uid'] == diagnostic_question_skill.question.uid }
 
     return nil if concept_results.empty?
 
