@@ -100,7 +100,7 @@ describe GrowthResultsSummary do
                       summary: GrowthResultsSummary::FULLY_CORRECT,
                     },
                     pre: nil
-                  },
+                  }
                 ],
                 number_of_correct_skills_text: "2 of 2 skills correct",
                 proficiency_text: GrowthResultsSummary::GAINED_PROFICIENCY,
@@ -198,7 +198,7 @@ describe GrowthResultsSummary do
                       summary: GrowthResultsSummary::FULLY_CORRECT,
                     },
                     pre: nil
-                  },
+                  }
                 ],
                 number_of_correct_skills_text: "2 of 2 skills correct",
                 proficiency_text: GrowthResultsSummary::GAINED_PROFICIENCY,
@@ -310,7 +310,7 @@ describe GrowthResultsSummary do
                 summary: GrowthResultsSummary::FULLY_CORRECT,
               },
               pre: nil
-            },
+            }
           ],
           number_of_correct_skills_text: "2 of 2 skills correct",
           proficiency_text: GrowthResultsSummary::GAINED_PROFICIENCY,
