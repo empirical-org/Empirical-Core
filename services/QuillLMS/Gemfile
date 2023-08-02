@@ -160,6 +160,9 @@ gem 'awesome_print'
 
 gem 'capitalize-names', require: 'capitalize_names'
 
+# required in Ruby 3
+gem 'rexml'
+
 group :production, :staging do
   gem 'rails-autoscale-web'
   gem 'rails-autoscale-sidekiq'

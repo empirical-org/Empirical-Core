@@ -932,6 +932,7 @@ DEPENDENCIES
   redis-rack-cache
   redis-rails
   responders
+  rexml
   rspec-rails
   rspec-redis_helper
   rspec-retry
