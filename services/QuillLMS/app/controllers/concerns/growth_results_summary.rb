@@ -73,18 +73,14 @@ module GrowthResultsSummary
       end
       pre_correct_skills = skills.select { |skill| skill[:pre] && skill[:pre][:summary] == FULLY_CORRECT }
       post_correct_skills = skills.select { |skill| skill[:post] && skill[:post][:summary] == FULLY_CORRECT }
-      pre_test_proficiency_score = skills.reduce(0) {|sum, skill| sum += skill[:pre] && skill[:pre][:proficiency_score] || 0} / skills.length.to_f
-      post_test_proficiency_score = skills.reduce(0) {|sum, skill| sum += skill[:post] && skill[:post][:proficiency_score] || 0} / skills.length.to_f
-      pre_correct_skill_ids = pre_correct_skills.map { |s| s[:pre][:id] }
-      post_correct_skill_ids = post_correct_skills.map { |s| s[:post][:id] }
+      pre_test_proficiency_score = skills.reduce(0) {|sum, skill| sum += (skill[:pre] && skill[:pre][:proficiency_score]) || 0} / skills.length.to_f
+      post_test_proficiency_score = skills.reduce(0) {|sum, skill| sum += (skill[:post] && skill[:post][:proficiency_score]) || 0} / skills.length.to_f
       pre_correct_skill_number = pre_correct_skills.count
       pre_present_skill_number = skills.reduce(0) { |sum, skill| sum += skill[:pre] && skill[:pre][:summary] != NOT_PRESENT ? 1 : 0 }
       present_skill_number = skills.reduce(0) { |sum, skill| sum += skill[:post] && skill[:post][:summary] != NOT_PRESENT ? 1 : 0 }
       correct_skill_number = post_correct_skills.count
       acquired_skills = (correct_skill_number / present_skill_number.to_f) > (pre_correct_skill_number / pre_present_skill_number.to_f)
       proficiency_text = summarize_student_proficiency_for_skill_overall(present_skill_number, correct_skill_number, pre_correct_skill_number, acquired_skills)
-      post_test_proficiency = summarize_student_proficiency_for_skill_per_activity(present_skill_number, correct_skill_number)
-      pre_test_proficiency = summarize_student_proficiency_for_skill_per_activity(pre_present_skill_number, pre_correct_skill_number)
       skill_group_summary_index = @skill_group_summaries.find_index { |sg| sg[:name] == skill_group.name }
       @skill_group_summaries[skill_group_summary_index][:proficiency_scores_by_student][student_name] = { pre: nil, post: nil }
       @skill_group_summaries[skill_group_summary_index][:not_yet_proficient_in_post_test_student_names].push(student_name) unless GROWTH_PROFICIENCY_TEXTS.include?(proficiency_text)
@@ -97,14 +93,13 @@ module GrowthResultsSummary
         skills: skills,
         number_of_correct_skills_text: "#{correct_skill_number} of #{present_skill_number} skills correct",
         proficiency_text: proficiency_text,
-        pre_test_proficiency: pre_test_proficiency,
+        pre_test_proficiency: summarize_student_proficiency_for_skill_per_activity(pre_present_skill_number, pre_correct_skill_number),
         pre_test_proficiency_score: pre_test_proficiency_score,
-        post_test_proficiency: post_test_proficiency,
+        post_test_proficiency: summarize_student_proficiency_for_skill_per_activity(present_skill_number, correct_skill_number),
         post_test_proficiency_score: post_test_proficiency_score,
         id: skill_group.id,
-        post_correct_skill_ids: post_correct_skill_ids,
-        pre_correct_skill_ids: pre_correct_skill_ids,
-        acquired_skill_ids: post_correct_skill_ids - pre_correct_skill_ids,
+        post_correct_skill_ids: post_correct_skills.map { |s| s[:post][:id] },
+        pre_correct_skill_ids: pre_correct_skills.map { |s| s[:pre][:id] },
         skill_ids: skills.map { |s| s[:post] && s[:post][:id] }.compact
       }
     end

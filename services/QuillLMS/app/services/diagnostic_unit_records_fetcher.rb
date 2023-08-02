@@ -1,12 +1,11 @@
 # frozen_string_literal: true
 
 class DiagnosticUnitRecordsFetcher < ApplicationService
-  attr_reader :user
-  attr_reader :is_demo
+  attr_reader :user, :is_demo
 
-  QUESTION_SCORING_ELIGIBILITY_CUTOFF_DATE = DateTime.new(2023, 07, 20, 0, 0, 0)
+  QUESTION_SCORING_ELIGIBILITY_CUTOFF_DATE = DateTime.new(2023, 7, 20, 0, 0, 0)
 
-  def initialize(user, is_demo=false)
+  def initialize(user, is_demo: false)
     @user = user
     @is_demo = is_demo
   end

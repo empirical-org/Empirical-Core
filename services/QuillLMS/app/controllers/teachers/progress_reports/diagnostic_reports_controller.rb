@@ -70,7 +70,6 @@ class Teachers::ProgressReports::DiagnosticReportsController < Teachers::Progres
     render json: data
   end
 
-  # rubocop:disable Metrics/CyclomaticComplexity
   private def fetch_individual_student_diagnostic_responses_cache
     activity_id = individual_student_diagnostic_responses_params[:activity_id]
     classroom_id = individual_student_diagnostic_responses_params[:classroom_id]
@@ -109,7 +108,6 @@ class Teachers::ProgressReports::DiagnosticReportsController < Teachers::Progres
       { concept_results: concept_results, name: student.name }
     end
   end
-  # rubocop:enable Metrics/CyclomaticComplexity
 
   def classrooms_with_students
     render json: fetch_classrooms_with_students_cache

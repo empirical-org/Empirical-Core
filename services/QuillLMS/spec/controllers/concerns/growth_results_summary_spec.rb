@@ -81,7 +81,6 @@ describe GrowthResultsSummary do
                 id: pre_test_skill_group_activity.skill_group.id,
                 post_correct_skill_ids: [skill.id],
                 pre_correct_skill_ids: [],
-                acquired_skill_ids: [skill.id],
                 skill_ids: [skill.id]
               }
             ],
@@ -154,7 +153,6 @@ describe GrowthResultsSummary do
                 id: pre_test_skill_group_activity.skill_group.id,
                 post_correct_skill_ids: [skill.id],
                 pre_correct_skill_ids: [],
-                acquired_skill_ids: [skill.id],
                 skill_ids: [skill.id]
               }
             ],
@@ -241,7 +239,6 @@ describe GrowthResultsSummary do
           id: pre_test_skill_group_activity.skill_group.id,
           post_correct_skill_ids: [skill.id],
           pre_correct_skill_ids: [],
-          acquired_skill_ids: [skill.id],
           skill_ids: [skill.id]
         }
       ]

@@ -24,7 +24,7 @@ module DiagnosticReports
 
     return nil if concept_results.empty?
 
-    optimal = get_score_for_question(concept_results) > 0 ? true : false
+    optimal = get_score_for_question(concept_results) > 0
     number_correct = optimal ? 1 : 0
     number_incorrect = optimal ? 0 : 1
     {

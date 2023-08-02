@@ -7,7 +7,7 @@ module GetScoreForQuestion
     if !concept_results.empty? && concept_results.first.question_score
       concept_results.first.question_score * 100
     else
-      concept_results.sort_by { |cr| cr.attempt_number }.last&.correct ? 1 : 0
+      concept_results.max_by { |cr| cr.attempt_number }&.correct ? 1 : 0
     end
   end
 

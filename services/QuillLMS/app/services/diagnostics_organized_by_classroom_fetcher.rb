@@ -1,8 +1,7 @@
 # frozen_string_literal: true
 
 class DiagnosticsOrganizedByClassroomFetcher < ApplicationService
-  attr_reader :user
-  attr_reader :is_demo
+  attr_reader :user, :is_demo
 
   ACTIVITY_IDS_TO_NAMES = {
     Activity::STARTER_DIAGNOSTIC_ACTIVITY_ID => 'Starter Diagnostic',
@@ -13,7 +12,7 @@ class DiagnosticsOrganizedByClassroomFetcher < ApplicationService
     Activity::ELL_ADVANCED_DIAGNOSTIC_ACTIVITY_ID => 'ELL Advanced Diagnostic'
   }.freeze
 
-  def initialize(user, is_demo=false)
+  def initialize(user, is_demo: false)
     @user = user
     @is_demo = is_demo
   end

@@ -68,7 +68,7 @@ const Popover = ({ studentResult, skillGroup, closePopover, responsesLink, }: Po
 }
 
 const StudentResultCell = ({ skillGroup, studentResult, setOpenPopover, openPopover, responsesLink, }: StudentResultCellProps) => {
-  const { proficiency_text, number_of_correct_skills_text, id, pre_test_proficiency, post_test_proficiency, acquired_skill_ids, } = skillGroup
+  const { proficiency_text, number_of_correct_skills_text, id, } = skillGroup
   function showPopover() {
     setOpenPopover({
       studentId: studentResult.id,
@@ -80,14 +80,11 @@ const StudentResultCell = ({ skillGroup, studentResult, setOpenPopover, openPopo
     setOpenPopover({})
   }
 
-  const skillsDelta = acquired_skill_ids && acquired_skill_ids.length ? <div className="skills-delta">{lightGreenTriangleUpIcon}<span className="skill-count">{acquired_skill_ids.length}</span></div> : null
-
-
   return (
     <td className="student-result-cell">
       <button className="interactive-wrapper" onClick={showPopover} type="button">
         {proficiencyTextToTag[proficiency_text]}
-        <div className="correct-skills-and-delta-wrapper"><span className="number-of-correct-skills-text">{number_of_correct_skills_text}</span>{skillsDelta}</div>
+        <div className="correct-skills-and-delta-wrapper"><span className="number-of-correct-skills-text">{number_of_correct_skills_text}</span></div>
       </button>
       {openPopover.studentId === studentResult.id && openPopover.skillGroupId === id && <Popover closePopover={closePopover} responsesLink={responsesLink} skillGroup={skillGroup} studentResult={studentResult} />}
     </td>
