@@ -47,18 +47,18 @@ class TeacherFixController < ApplicationController
   end
 
   def recover_unit_activities
-    user = User.find_by_email(params['email'])
+    user = User.find_by(email: params_email)
     if user&.teacher?
       units = Unit.where(user_id: user.id)
       TeacherFixes::recover_unit_activities_for_units(units)
       render json: {}, status: 200
     else
-      render json: {error: "Cannot find a teacher with the email #{params['email']}."}
+      render json: {error: "Cannot find a teacher with the email #{params_email}."}
     end
   end
 
   def recover_activity_sessions
-    user = User.find_by_email(params['email'])
+    user = User.find_by(email: params_email)
     if user&.teacher?
       unit = Unit.find_by(name: params['unit_name'], user_id: user.id)
       if unit
@@ -69,7 +69,7 @@ class TeacherFixController < ApplicationController
         render json: {error: "The user with the email #{user.email} does not have a unit named #{params['unit_name']}"}
       end
     else
-      render json: {error: "Cannot find a teacher with the email #{params['email']}."}
+      render json: {error: "Cannot find a teacher with the email #{params_email}."}
     end
   end
 
@@ -151,8 +151,8 @@ class TeacherFixController < ApplicationController
   end
 
   def google_unsync_account
-    original_email = params['original_email']
-    user = User.find_by_email(original_email)
+    original_email = params['original_email'].downcase
+    user = User.find_by(email: original_email)
     if user
       new_email = params['new_email']
       if new_email == ''
@@ -259,6 +259,10 @@ class TeacherFixController < ApplicationController
     teacher.classrooms_i_teach.each(&:save_user_pack_sequence_items)
 
     render json: {}, status: 200
+  end
+
+  private def params_email
+    params['email'].downcase
   end
 
   private def set_user
