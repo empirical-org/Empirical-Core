@@ -78,13 +78,13 @@ module GrowthResultsSummary
   private def format_data_for_skill_group(skill_group, skills, student_name)
     pre_correct_skills = skills.select { |skill| skill[:pre] && skill[:pre][:summary] == FULLY_CORRECT }
     post_correct_skills = skills.select { |skill| skill[:post] && skill[:post][:summary] == FULLY_CORRECT }
-    pre_test_proficiency_score = skills.reduce(0) {|sum, skill| sum += (skill[:pre] && skill[:pre][:proficiency_score]) || 0} / skills.length.to_f
-    post_test_proficiency_score = skills.reduce(0) {|sum, skill| sum += (skill[:post] && skill[:post][:proficiency_score]) || 0} / skills.length.to_f
     pre_correct_skill_number = pre_correct_skills.count
     pre_present_skill_number = skills.reduce(0) { |sum, skill| sum += skill[:pre] && skill[:pre][:summary] != NOT_PRESENT ? 1 : 0 }
     present_skill_number = skills.reduce(0) { |sum, skill| sum += skill[:post] && skill[:post][:summary] != NOT_PRESENT ? 1 : 0 }
     correct_skill_number = post_correct_skills.count
-    acquired_skills = (correct_skill_number / present_skill_number.to_f) > (pre_correct_skill_number / pre_present_skill_number.to_f)
+    pre_test_proficiency_score = pre_correct_skill_number / pre_present_skill_number.to_f
+    post_test_proficiency_score = correct_skill_number / present_skill_number.to_f
+    acquired_skills = post_test_proficiency_score > pre_test_proficiency_score
     proficiency_text = summarize_student_proficiency_for_skill_overall(present_skill_number, correct_skill_number, pre_correct_skill_number, acquired_skills)
     skill_group_summary_index = @skill_group_summaries.find_index { |sg| sg[:name] == skill_group.name }
     @skill_group_summaries[skill_group_summary_index][:proficiency_scores_by_student][student_name] = { pre: nil, post: nil }

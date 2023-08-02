@@ -3131,19 +3131,6 @@ exports[`StudentResultsTable component should render when there is student data 
                     >
                       1 of 1 skills correct
                     </span>
-                    <div
-                      className="skills-delta"
-                    >
-                      <img
-                        alt="Triangle up icon"
-                        src="undefined/images/pages/diagnostic_reports/icons-triangle-up-light-green.svg"
-                      />
-                      <span
-                        className="skill-count"
-                      >
-                        1
-                      </span>
-                    </div>
                   </div>
                 </button>
               </td>
@@ -4027,19 +4014,6 @@ exports[`StudentResultsTable component should render when there is student data 
                     >
                       5 of 6 skills correct
                     </span>
-                    <div
-                      className="skills-delta"
-                    >
-                      <img
-                        alt="Triangle up icon"
-                        src="undefined/images/pages/diagnostic_reports/icons-triangle-up-light-green.svg"
-                      />
-                      <span
-                        className="skill-count"
-                      >
-                        4
-                      </span>
-                    </div>
                   </div>
                 </button>
               </td>
@@ -4473,19 +4447,6 @@ exports[`StudentResultsTable component should render when there is student data 
                     >
                       2 of 3 skills correct
                     </span>
-                    <div
-                      className="skills-delta"
-                    >
-                      <img
-                        alt="Triangle up icon"
-                        src="undefined/images/pages/diagnostic_reports/icons-triangle-up-light-green.svg"
-                      />
-                      <span
-                        className="skill-count"
-                      >
-                        1
-                      </span>
-                    </div>
                   </div>
                 </button>
               </td>
@@ -4935,19 +4896,6 @@ exports[`StudentResultsTable component should render when there is student data 
                     >
                       4 of 4 skills correct
                     </span>
-                    <div
-                      className="skills-delta"
-                    >
-                      <img
-                        alt="Triangle up icon"
-                        src="undefined/images/pages/diagnostic_reports/icons-triangle-up-light-green.svg"
-                      />
-                      <span
-                        className="skill-count"
-                      >
-                        1
-                      </span>
-                    </div>
                   </div>
                 </button>
               </td>
@@ -5349,19 +5297,6 @@ exports[`StudentResultsTable component should render when there is student data 
                     >
                       1 of 1 skills correct
                     </span>
-                    <div
-                      className="skills-delta"
-                    >
-                      <img
-                        alt="Triangle up icon"
-                        src="undefined/images/pages/diagnostic_reports/icons-triangle-up-light-green.svg"
-                      />
-                      <span
-                        className="skill-count"
-                      >
-                        1
-                      </span>
-                    </div>
                   </div>
                 </button>
               </td>

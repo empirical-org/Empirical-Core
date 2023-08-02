@@ -18,9 +18,7 @@ exports[`GrowthSummarySection component should render showGrowthSummarySection i
           src="undefined/images/pages/diagnostic_reports/icons-bar-graph-increasing.svg"
         />
         <span>
-          To see how your students have grown, first assign the 
-          Diagnostic
-           (Post)
+          Not available for diagnostics completed before August 2023.
         </span>
       </p>
     </div>
@@ -48,22 +46,9 @@ exports[`GrowthSummarySection component should render showGrowthSummarySection i
           src="undefined/images/pages/diagnostic_reports/icons-bar-graph-increasing.svg"
         />
         <span>
-          Skills growth: 
-          <span
-            className="no-growth"
-          >
-            No growth yet
-          </span>
+          Not available for diagnostics completed before August 2023.
         </span>
       </p>
-    </div>
-    <div>
-      <a
-        className="diagnostic-reports-button quill-button fun secondary outlined unbolded focus-on-light"
-        href=""
-      >
-        View growth
-      </a>
     </div>
   </section>
 </GrowthSummarySection>
@@ -89,26 +74,9 @@ exports[`GrowthSummarySection component should render showGrowthSummarySection i
           src="undefined/images/pages/diagnostic_reports/icons-bar-graph-increasing.svg"
         />
         <span>
-          Skills growth: 
-          <span
-            className="growth"
-          >
-            <img
-              alt="Triangle up icon"
-              src="undefined/images/pages/diagnostic_reports/icons-triangle-up-green.svg"
-            />
-            18%
-          </span>
+          Not available for diagnostics completed before August 2023.
         </span>
       </p>
-    </div>
-    <div>
-      <a
-        className="diagnostic-reports-button quill-button fun secondary outlined unbolded focus-on-light"
-        href=""
-      >
-        View growth
-      </a>
     </div>
   </section>
 </GrowthSummarySection>
@@ -128,14 +96,15 @@ exports[`GrowthSummarySection component should render showGrowthSummarySection i
       <h4>
         Growth summary
       </h4>
-    </div>
-    <div>
-      <a
-        className="diagnostic-reports-button quill-button fun secondary outlined unbolded focus-on-light"
-        href=""
-      >
-        View growth
-      </a>
+      <p>
+        <img
+          alt="Bar chart growth icon"
+          src="undefined/images/pages/diagnostic_reports/icons-bar-graph-increasing.svg"
+        />
+        <span>
+          Not available for diagnostics completed before August 2023.
+        </span>
+      </p>
     </div>
   </section>
 </GrowthSummarySection>

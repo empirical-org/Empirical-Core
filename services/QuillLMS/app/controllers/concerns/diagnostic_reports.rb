@@ -28,7 +28,7 @@ module DiagnosticReports
     number_correct = optimal ? 1 : 0
     number_incorrect = optimal ? 0 : 1
     {
-      id: diagnostic_question_skill.question.id,
+      id: diagnostic_question_skill.id,
       name: diagnostic_question_skill.name,
       number_correct: number_correct,
       number_incorrect: number_incorrect,
@@ -61,14 +61,14 @@ module DiagnosticReports
       classroom_unit = ClassroomUnit.find_by(unit_id: unit_id, classroom_id: classroom_id)
       @assigned_students = User.where(id: classroom_unit.assigned_student_ids).sort_by { |u| u.last_name }
       @activity_sessions = ActivitySession
-        .includes(:concept_results, activity: {diagnostic_question_skills: :questions})
+        .includes(:concept_results, activity: {diagnostic_question_skills: :question})
         .where(classroom_unit: classroom_unit, is_final_score: true, user_id: classroom_unit.assigned_student_ids, activity_id: activity_id)
     else
       classroom_units = ClassroomUnit.where(classroom_id: classroom_id).joins(:unit, :unit_activities).where(unit: {unit_activities: {activity_id: activity_id}})
       assigned_student_ids = classroom_units.map { |cu| cu.assigned_student_ids }.flatten.uniq
       @assigned_students = User.where(id: assigned_student_ids).sort_by { |u| u.last_name }
       @activity_sessions = ActivitySession
-        .includes(:concept_results, activity: {diagnostic_question_skills: :questions})
+        .includes(:concept_results, activity: {diagnostic_question_skills: :question})
         .where(activity_id: activity_id, classroom_unit_id: classroom_units.ids, is_final_score: true, user_id: assigned_student_ids)
         .order(completed_at: :desc)
         .uniq { |activity_session| activity_session.user_id }
@@ -85,7 +85,7 @@ module DiagnosticReports
     assigned_student_ids = classroom_units.map { |cu| cu.assigned_student_ids }.flatten.uniq
     @pre_test_assigned_students = User.where(id: assigned_student_ids).sort_by { |u| u.last_name }
     @pre_test_activity_sessions = ActivitySession
-      .includes(:concept_results, activity: {diagnostic_question_skills: :questions})
+      .includes(:concept_results, activity: {diagnostic_question_skills: :question})
       .where(activity_id: activity_id, classroom_unit_id: classroom_units.ids, state: 'finished', user_id: assigned_student_ids)
       .order(completed_at: :desc)
       .uniq { |activity_session| activity_session.user_id }
