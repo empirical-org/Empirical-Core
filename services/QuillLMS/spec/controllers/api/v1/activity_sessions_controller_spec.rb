@@ -281,7 +281,7 @@ describe Api::V1::ActivitySessionsController, type: :controller do
 
     let!(:activity_session) { create(:proofreader_activity_session) }
 
-    it { expect { subject }.not_to change { ActivitySession.count } }
+    it { expect { subject }.not_to change(ActivitySession, :count) }
 
     context 'as staff' do
       let(:user) { create(:staff) }
