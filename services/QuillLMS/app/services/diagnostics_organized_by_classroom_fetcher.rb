@@ -12,7 +12,7 @@ class DiagnosticsOrganizedByClassroomFetcher < ApplicationService
     Activity::ELL_ADVANCED_DIAGNOSTIC_ACTIVITY_ID => 'ELL Advanced Diagnostic'
   }.freeze
 
-  def initialize(user, is_demo: false)
+  def initialize(user, is_demo)
     @user = user
     @is_demo = is_demo
   end

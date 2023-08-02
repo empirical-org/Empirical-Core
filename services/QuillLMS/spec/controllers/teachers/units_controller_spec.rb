@@ -165,7 +165,7 @@ describe Teachers::UnitsController, type: :controller do
     end
 
     it 'should successfully render both fresh data and cached data' do
-      expect(DiagnosticsOrganizedByClassroomFetcher).to receive(:run).once.with(teacher).and_call_original
+      expect(DiagnosticsOrganizedByClassroomFetcher).to receive(:run).once.with(teacher, false).and_call_original
 
       2.times do
         get :diagnostic_units

@@ -5,7 +5,7 @@ class DiagnosticUnitRecordsFetcher < ApplicationService
 
   QUESTION_SCORING_ELIGIBILITY_CUTOFF_DATE = DateTime.new(2023, 7, 20, 0, 0, 0)
 
-  def initialize(user, is_demo: false)
+  def initialize(user, is_demo)
     @user = user
     @is_demo = is_demo
   end
