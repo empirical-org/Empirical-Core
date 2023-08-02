@@ -491,8 +491,9 @@ EmpiricalGrammar::Application.routes.draw do
       resource :ping, controller: 'ping', only: [:create, :show, :update]
 
       post 'firebase_tokens/create_for_connect' => 'firebase_tokens#create_for_connect'
-      resource :firebase_tokens,          only: [:create]
-      resources :title_cards,             except: [:destroy]
+      resource :firebase_tokens, only: [:create]
+      resources :title_cards, only: [:index, :new, :create, :show, :edit, :update]
+
       get 'activities/:id/follow_up_activity_name_and_supporting_info' => 'activities#follow_up_activity_name_and_supporting_info'
       get 'activities/:id/supporting_info' => 'activities#supporting_info'
       get 'activities/:id/question_health' => 'activities#question_health'
@@ -511,6 +512,7 @@ EmpiricalGrammar::Application.routes.draw do
       get 'progress_reports/district_concept_reports' => 'progress_reports#district_concept_reports'
       get 'progress_reports/district_standards_reports' => 'progress_reports#district_standards_reports'
       get 'progress_reports/student_overview_data/:student_id/:classroom_id' => 'progress_reports#student_overview_data'
+
       resources :lessons do
         member do
           put 'add_question'
