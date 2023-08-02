@@ -67,8 +67,14 @@ module GrowthResultsSummary
       end
       pre_correct_skills = skills.select { |skill| skill[:pre][:summary] == FULLY_CORRECT }
       post_correct_skills = skills.select { |skill| skill[:post][:summary] == FULLY_CORRECT }
-      pre_test_proficiency_score = skills.reduce(0) {|sum, skill| sum += skill[:pre][:proficiency_score]} / skills.length.to_f
-      post_test_proficiency_score = skills.reduce(0) {|sum, skill| sum += skill[:post][:proficiency_score]} / skills.length.to_f
+      pre_test_proficiency_score = skills.reduce(0) do |sum, skill|
+        score = skill[:pre][:proficiency_score].is_a?(Integer) ? skill[:pre][:proficiency_score] : skill[:pre][:proficiency_score].to_i
+        sum += score
+      end / skills.length.to_f
+      post_test_proficiency_score = skills.reduce(0) do |sum, skill|
+        score = skill[:post][:proficiency_score].is_a?(Integer) ? skill[:post][:proficiency_score] : skill[:post][:proficiency_score].to_i
+        sum += score
+      end / skills.length.to_f
       pre_correct_skill_ids = pre_correct_skills.map { |s| s[:pre][:id] }
       post_correct_skill_ids = post_correct_skills.map { |s| s[:post][:id] }
       pre_correct_skill_number = pre_correct_skills.count
