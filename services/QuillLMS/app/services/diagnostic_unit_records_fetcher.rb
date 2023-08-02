@@ -3,7 +3,7 @@
 class DiagnosticUnitRecordsFetcher < ApplicationService
   attr_reader :user, :is_demo
 
-  QUESTION_SCORING_ELIGIBILITY_CUTOFF_DATE = DateTime.new(2023, 7, 19, 0, 0, 0)
+  QUESTION_SCORING_ELIGIBILITY_CUTOFF_DATE = DateTime.new(2023, 7, 19, 0, 0, 0) # the day after this PR: https://github.com/empirical-org/Empirical-Core/pull/10755 went out
 
   def initialize(user, is_demo)
     @user = user
