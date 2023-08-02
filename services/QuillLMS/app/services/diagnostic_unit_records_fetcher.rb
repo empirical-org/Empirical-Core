@@ -1,13 +1,10 @@
 # frozen_string_literal: true
 
 class DiagnosticUnitRecordsFetcher < ApplicationService
-  attr_reader :user, :is_demo
+  attr_reader :user
 
-  QUESTION_SCORING_ELIGIBILITY_CUTOFF_DATE = DateTime.new(2023, 7, 19, 0, 0, 0) # the day after this PR: https://github.com/empirical-org/Empirical-Core/pull/10755 went out
-
-  def initialize(user, is_demo)
+  def initialize(user)
     @user = user
-    @is_demo = is_demo
   end
 
   def run
@@ -46,8 +43,7 @@ class DiagnosticUnitRecordsFetcher < ApplicationService
         "assigned_date" => r['assigned_date'],
         "post_test_id" => r['post_test_id'],
         "classroom_unit_id" => r['classroom_unit_id'],
-        "unit_template_id" => r['unit_template_id'],
-        "eligible_for_question_scoring" => r['assigned_date'] > QUESTION_SCORING_ELIGIBILITY_CUTOFF_DATE && !is_demo
+        "unit_template_id" => r['unit_template_id']
       }
     end
   end

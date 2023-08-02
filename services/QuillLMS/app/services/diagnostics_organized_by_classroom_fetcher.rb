@@ -12,6 +12,8 @@ class DiagnosticsOrganizedByClassroomFetcher < ApplicationService
     Activity::ELL_ADVANCED_DIAGNOSTIC_ACTIVITY_ID => 'ELL Advanced Diagnostic'
   }.freeze
 
+  QUESTION_SCORING_ELIGIBILITY_CUTOFF_DATE = DateTime.new(2023, 7, 19, 0, 0, 0)
+
   def initialize(user, is_demo)
     @user = user
     @is_demo = is_demo
@@ -55,7 +57,7 @@ class DiagnosticsOrganizedByClassroomFetcher < ApplicationService
           nil
         )
       else
-        grouped_record[:pre]['completed_count'] =
+        completed_activity_sessions =
           ActivitySession
             .select(:user_id)
             .distinct
@@ -65,8 +67,10 @@ class DiagnosticsOrganizedByClassroomFetcher < ApplicationService
               state: 'finished',
               user_id: record['assigned_student_ids']
             )
-            .size
+            .order(completed_at: :desc)
 
+        grouped_record[:pre]['eligible_for_question_scoring'] = activity_sessions.first.completed_at > QUESTION_SCORING_ELIGIBILITY_CUTOFF_DATE && !is_demo
+        grouped_record[:pre]['completed_count'] = completed_activity_sessions.size
         grouped_record[:pre]['assigned_count'] = record['assigned_student_ids'].size
       end
 
@@ -87,7 +91,7 @@ class DiagnosticsOrganizedByClassroomFetcher < ApplicationService
   # rubocop:enable Metrics/CyclomaticComplexity
 
   private def diagnostic_unit_records
-    @diagnostic_unit_records ||= DiagnosticUnitRecordsFetcher.run(user, is_demo)
+    @diagnostic_unit_records ||= DiagnosticUnitRecordsFetcher.run(user)
   end
 
   private def grouped_name(record)
@@ -113,6 +117,7 @@ class DiagnosticsOrganizedByClassroomFetcher < ApplicationService
     record = records[0]
     return if !record
 
+    record['eligible_for_question_scoring'] = activity_sessions.first.completed_at > QUESTION_SCORING_ELIGIBILITY_CUTOFF_DATE && !is_demo
     record['completed_count'] = activity_sessions.size
     record['assigned_count'] = assigned_student_ids.size
     record.except('unit_id', 'unit_name', 'classroom_unit_id', 'assigned_student_ids')
