@@ -150,6 +150,7 @@ describe Teachers::UnitsController, type: :controller do
               post_test_id: diagnostic_activity.follow_up_activity_id,
               classroom_unit_id: classroom_unit.id,
               unit_template_id: unit.unit_template_id,
+              eligible_for_question_scoring: true,
               completed_count: 1,
               assigned_count: 1
             }
