@@ -3,7 +3,7 @@
 class DiagnosticUnitRecordsFetcher < ApplicationService
   attr_reader :user, :is_demo
 
-  QUESTION_SCORING_ELIGIBILITY_CUTOFF_DATE = DateTime.new(2023, 7, 20, 0, 0, 0)
+  QUESTION_SCORING_ELIGIBILITY_CUTOFF_DATE = DateTime.new(2023, 7, 13, 0, 0, 0)
 
   def initialize(user, is_demo)
     @user = user

@@ -63,7 +63,6 @@ module GrowthResultsSummary
     end
   end
 
-  # rubocop:disable Metrics/AbcSize
   private def skill_groups_for_session(skill_groups, post_test_activity_session, pre_test_activity_session, student_name)
     skill_groups.map do |skill_group|
       skills = skill_group.diagnostic_question_skills.map do |diagnostic_question_skill|
