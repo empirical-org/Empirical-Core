@@ -75,11 +75,11 @@ const SnapshotCount = ({ label, size, queryKey, searchCount, selectedGrades, sel
         const { results, } = body
         const { previous, current, } = results
 
-        const roundedCurrent = (current == 'N/A') ? current : Math.round(current || 0)
+        const roundedCurrent = (current === null) ? 'N/A' : Math.round(current || 0)
 
         setCount(roundedCurrent)
 
-        if (!previous || roundedCurrent == 'N/A') {
+        if (!previous || current === null) {
           setChangeDirection(NONE)
           setLoading(false)
           return

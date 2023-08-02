@@ -17,16 +17,8 @@ module Snapshots
 
     def run
       {
-        'count': display_average
+        'count': calculate_average
       }
-    end
-
-    def display_average
-      average = calculate_average
-
-      return 'N/A' if average.nil?
-
-      average
     end
 
     def calculate_average
