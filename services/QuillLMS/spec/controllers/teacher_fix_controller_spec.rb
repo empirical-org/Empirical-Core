@@ -338,8 +338,9 @@ describe TeacherFixController do
 
   describe '#google_unsync_account' do
     context 'when user exists' do
+      let(:user) { create(:student, :signed_up_with_google) }
+
       context 'when new email is not given' do
-        let!(:user) { create(:student, :signed_up_with_google) }
 
         it 'should reset the google id and set the signed up with google flag' do
           post :google_unsync_account, params: { original_email: user.email, password: "test123" }
@@ -349,14 +350,22 @@ describe TeacherFixController do
       end
 
       context 'when new email is given' do
-        let!(:user) { create(:student, :signed_up_with_google) }
-
         it 'should update the email, reset the google id and set the signed up with google flag' do
           post :google_unsync_account, params: { original_email: user.email, password: "test123", new_email: "new@email.com" }
           expect(user.reload.email).to eq "new@email.com"
           expect(user.reload.signed_up_with_google).to eq false
           expect(user.reload.google_id).to eq nil
         end
+      end
+
+      context 'when email is not downcased' do
+        it 'should update the email, reset the google id and set the signed up with google flag' do
+          post :google_unsync_account, params: { original_email: user.email.upcase, password: "test123", new_email: "new@email.com" }
+          expect(user.reload.email).to eq "new@email.com"
+          expect(user.reload.signed_up_with_google).to eq false
+          expect(user.reload.google_id).to eq nil
+        end
+
       end
     end
 
