@@ -57,6 +57,7 @@ module GrowthResultsSummary
     end
   end
 
+  # rubocop:disable Metrics/AbcSize
   private def skill_groups_for_session(skill_groups, post_test_activity_session, pre_test_activity_session, student_name)
     skill_groups.map do |skill_group|
       skills = skill_group.skills.map do |skill|
@@ -67,8 +68,14 @@ module GrowthResultsSummary
       end
       pre_correct_skills = skills.select { |skill| skill[:pre][:summary] == FULLY_CORRECT }
       post_correct_skills = skills.select { |skill| skill[:post][:summary] == FULLY_CORRECT }
-      pre_test_proficiency_score = skills.reduce(0) {|sum, skill| sum += skill[:pre][:proficiency_score]} / skills.length.to_f
-      post_test_proficiency_score = skills.reduce(0) {|sum, skill| sum += skill[:post][:proficiency_score]} / skills.length.to_f
+      pre_test_proficiency_score = skills.reduce(0) do |sum, skill|
+        score = skill[:pre][:proficiency_score].is_a?(Integer) ? skill[:pre][:proficiency_score] : skill[:pre][:proficiency_score].to_i
+        sum += score
+      end / skills.length.to_f
+      post_test_proficiency_score = skills.reduce(0) do |sum, skill|
+        score = skill[:post][:proficiency_score].is_a?(Integer) ? skill[:post][:proficiency_score] : skill[:post][:proficiency_score].to_i
+        sum += score
+      end / skills.length.to_f
       pre_correct_skill_ids = pre_correct_skills.map { |s| s[:pre][:id] }
       post_correct_skill_ids = post_correct_skills.map { |s| s[:post][:id] }
       pre_correct_skill_number = pre_correct_skills.count
@@ -103,6 +110,7 @@ module GrowthResultsSummary
       }
     end
   end
+  # rubocop:enable Metrics/AbcSize
   # rubocop:enable Metrics/CyclomaticComplexity
 
   private def summarize_student_proficiency_for_skill_overall(present_skill_number, correct_skill_number, pre_correct_skill_number, acquired_skills)
