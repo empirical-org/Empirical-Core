@@ -3,19 +3,16 @@
 require 'rails_helper'
 
 describe Api::V1::ActivitySessionsController, type: :controller do
-  describe '#update' do
+  let(:user) { create(:student) }
 
-    let(:token) { double :acceptable? => true, resource_owner_id: user.id }
-    let(:user) { create(:student) }
+  before { allow(controller).to receive(:current_user) { user } }
+
+  describe '#update' do
     let(:activity_classification) { create(:activity_classification) }
     let(:activity) { create(:activity, classification: activity_classification) }
     let!(:activity_session) { create(:activity_session, state: 'started', user: user, completed_at: nil, activity: activity) }
 
-    before { allow(controller).to receive(:doorkeeper_token) { token } }
-
     context 'default behavior' do
-      include_context "calling the api"
-
       before { put :update, params: { id: activity_session.uid }, as: :json }
 
       it 'responds with 200' do
@@ -199,8 +196,6 @@ describe Api::V1::ActivitySessionsController, type: :controller do
         create(:activity_session, state: 'finished', user: user, percentage: 1.0, completed_at: Time.current)
       end
 
-      before { allow(controller).to receive(:doorkeeper_token) {token} }
-
       it 'returns a 422 error if activity session is already saved' do
         put :update, params: { id: activity_session.uid }, as: :json
         parsed_body = JSON.parse(response.body)
@@ -282,16 +277,20 @@ describe Api::V1::ActivitySessionsController, type: :controller do
   end
 
   describe '#destroy' do
-    include_context "calling the api" #bypass doorkeeper
-    let!(:session) { create(:proofreader_activity_session) }
+    subject { delete :destroy, params: { id: activity_session.uid }, as: :json }
 
-    it 'destroys the activity session' do
-      delete :destroy, params: { id: session.uid }, as: :json
-      expect(JSON.parse(response.body)["meta"]).to eq({
-        "status" => "success",
-        "message" => "Activity Session Destroy Successful",
-        "errors" => nil
-      })
+    let!(:activity_session) { create(:proofreader_activity_session) }
+
+    it { expect { subject }.not_to change { ActivitySession.count } }
+
+    context 'as staff' do
+      let(:user) { create(:staff) }
+      let(:meta) { { "status" => "success", "message" => "Activity Session Destroy Successful", "errors" => nil } }
+      let(:parsed_body) { JSON.parse(response.body) }
+
+      before { subject }
+
+      it { expect(parsed_body["meta"]).to eq meta }
     end
   end
 end
