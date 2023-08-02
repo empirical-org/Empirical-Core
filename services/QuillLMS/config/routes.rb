@@ -13,7 +13,6 @@ EmpiricalGrammar::Application.routes.draw do
   post "/graphql", to: "graphql#execute"
 
   mount RailsAdmin::Engine => '/staff', as: 'rails_admin'
-  use_doorkeeper
 
   mount Sidekiq::Web => '/sidekiq', constraints: StaffConstraint.new
 
@@ -456,16 +455,16 @@ EmpiricalGrammar::Application.routes.draw do
       get 'activity_health' => 'rule_feedback_histories#activity_health'
       post 'email_csv_data' => 'session_feedback_histories#email_csv_data'
 
-      resources :activities,              except: [:index, :new, :edit]
-      resources :activity_flags,          only: [:index]
-      resources :activity_sessions,       except: [:index, :new, :edit]
-      resources :feedback_histories,      only: [:index, :show, :create]
-      resources :lessons_tokens,          only: [:create]
+      resources :activities, only: [:create, :show, :update]
+      resources :activity_flags, only: [:index]
+      resources :activity_sessions, only: [:create, :show, :update, :destroy]
+      resources :feedback_histories, only: [:index, :show, :create]
+      resources :lessons_tokens, only: [:create]
       resources :session_feedback_histories, only: [:index, :show]
-      resources :standard_levels,                only: [:index]
-      resources :standards,                  only: [:index]
-      resources :standard_categories,        only: [:index]
-      resources :concepts,                only: [:index, :create] do
+      resources :standard_levels, only: [:index]
+      resources :standards, only: [:index]
+      resources :standard_categories, only: [:index]
+      resources :concepts, only: [:index, :create] do
         collection do
           get 'level_zero_concepts_with_lineage'
         end
@@ -487,8 +486,10 @@ EmpiricalGrammar::Application.routes.draw do
           get 'classroom_teacher_and_coteacher_ids'
         end
       end
-      resource :me, controller: 'me',     except: [:index, :new, :edit, :destroy]
-      resource :ping, controller: 'ping', except: [:index, :new, :edit, :destroy]
+
+      resource :me, controller: 'me', only: [:create, :show, :update]
+      resource :ping, controller: 'ping', only: [:create, :show, :update]
+
       post 'firebase_tokens/create_for_connect' => 'firebase_tokens#create_for_connect'
       resource :firebase_tokens,          only: [:create]
       resources :title_cards,             except: [:destroy]
@@ -520,7 +521,7 @@ EmpiricalGrammar::Application.routes.draw do
         resources :concept_feedback
       end
 
-      resources :questions, except: [:destroy] do
+      resources :questions, only: [:index, :show, :new, :create, :edit, :update] do
         resources :focus_points do
           put :update_all, on: :collection
         end
@@ -543,17 +544,6 @@ EmpiricalGrammar::Application.routes.draw do
 
       mount Evidence::Engine => "/evidence", as: :evidence
     end
-
-    # Try to route any GET, DELETE, POST, PUT or PATCH to the proper controller.
-    # This converts requests like GET /v1/ping to /api/v1/ping, and also
-    # /ping to /api/v1/ping.
-    #
-    # These routes are lost since they are globs, and thus will match anything
-    # not previously matched.
-    # [:get, :delete, :post, :put, :patch].each do |method|
-    #   match 'v:api/*path', to: redirect("/api/v1/%{path}"), via: method
-    #   match '*path', to: redirect("/api/v1/%{path}"), via: method
-    # end
   end
 
   # for some reason, session_path with method :delete does not evaluate correctly in profiles/student.html.erb

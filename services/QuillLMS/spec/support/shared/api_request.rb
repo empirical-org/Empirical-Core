@@ -3,14 +3,9 @@
 require 'active_support/inflector'
 
 shared_context "calling the api" do
-
   let(:user) { create(:user) }
-  let(:token) { double :acceptable? => true }
 
-  before do
-    allow(controller).to receive(:doorkeeper_token) { token }
-    allow(token).to receive(:resource_owner_id) { user.id }
-  end
+  before { allow(controller).to receive(:current_user) { user } }
 end
 
 shared_examples "a simple api request" do
@@ -33,8 +28,6 @@ shared_examples "a simple api request" do
     expect(hash.keys).to match_array(['uid', 'name'])
   end
 end
-
-
 
 shared_examples "an api request" do
   context "has standard response items" do

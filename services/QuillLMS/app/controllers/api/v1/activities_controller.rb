@@ -3,8 +3,17 @@
 class Api::V1::ActivitiesController < Api::ApiController
   CLASSIFICATION_TO_TOOL = {:connect => "connect", :sentence => "grammar"}
 
-  before_action :doorkeeper_authorize!, only: [:create, :update, :destroy], unless: :staff?
-  before_action :find_activity, except: [:index, :create, :uids_and_flags, :published_edition, :activities_health, :diagnostic_activities]
+  before_action :staff!, only: [:create, :update, :destroy]
+
+  before_action :find_activity,
+    only: [
+      :destroy,
+      :follow_up_activity_name_and_supporting_info,
+      :question_health,
+      :show,
+      :supporting_info,
+      :update
+    ]
 
   def show
     render json: @activity, meta: {status: 'success', message: nil, errors: nil}, serializer: ActivitySerializer

@@ -14,7 +14,7 @@ describe Api::V1::ActivitiesController, type: :controller do
       @parsed_body = JSON.parse(response.body)
     end
 
-    # it_behaves_like "an api request"
+    it_behaves_like "an api request"
 
     it 'responds with 200' do
       expect(response.status).to eq(200)
@@ -24,14 +24,6 @@ describe Api::V1::ActivitiesController, type: :controller do
       get :show, params: { id: 'doesnotexist' }, as: :json
       expect(response.status).to eq(404)
     end
-
-    # it "should have an object at it's root" do
-    #   expect(@parsed_body.keys).to include('status')
-    # end
-    #
-    # it "should present a uid" do
-    #   expect(@parsed_body['object']['uid']).to eq(@activity1.uid)
-    # end
   end
 
   context 'PUT #update' do

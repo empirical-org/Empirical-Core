@@ -205,8 +205,6 @@ GEM
     date (3.3.3)
     debug_inspector (1.1.0)
     diff-lcs (1.5.0)
-    doorkeeper (5.0.3)
-      railties (>= 4.2)
     dotenv (2.7.6)
     dotenv-rails (2.7.6)
       dotenv (= 2.7.6)
@@ -840,7 +838,6 @@ DEPENDENCIES
   clever-ruby (~> 2.0.1)
   configs
   cypress-on-rails (~> 1.0)
-  doorkeeper (= 5.0.3)
   dotenv-rails (~> 2.6)
   es5-shim-rails
   evidence!
