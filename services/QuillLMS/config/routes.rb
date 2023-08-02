@@ -455,7 +455,7 @@ EmpiricalGrammar::Application.routes.draw do
       get 'activity_health' => 'rule_feedback_histories#activity_health'
       post 'email_csv_data' => 'session_feedback_histories#email_csv_data'
 
-      resources :activities, only: [:create, :show, :update]
+      resources :activities, only: [:create, :show, :update, :destroy]
       resources :activity_flags, only: [:index]
       resources :activity_sessions, only: [:create, :show, :update, :destroy]
       resources :feedback_histories, only: [:index, :show, :create]

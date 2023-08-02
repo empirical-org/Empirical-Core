@@ -53,12 +53,11 @@ class Api::V1::ActivitiesController < Api::ApiController
   end
 
   def destroy
-    if @activity.destroy!
+    if @activity.destroy
       render json: Activity.new, meta: {status: 'success', message: "Activity Destroy Successful", errors: nil}, serializer: ActivitySerializer
     else
       render json: @activity, meta: {status: 'failed', message: "Activity Destroy Failed", errors: @activity.errors}, serializer: ActivitySerializer
     end
-
   end
 
   def diagnostic_activities
