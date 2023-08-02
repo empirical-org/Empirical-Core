@@ -139,11 +139,12 @@ const UsageSnapshotsContainer = ({ adminInfo, accessType, }) => {
   }
 
   function getFilters() {
+    // The snapshot endpoints require school_ids in all cases, but can send null for other filter types to mean "all selected"
     const searchParams = {
       school_ids: selectedSchools?.map(s => s.id) || null,
-      teacher_ids: selectedTeachers?.map(t => t.id) || null,
-      classroom_ids: selectedClassrooms?.map(c => c.id) || null,
-      grades: selectedGrades?.map(g => g.value)
+      teacher_ids: unorderedArraysAreEqual(selectedTeachers, allTeachers) ? null : selectedTeachers?.map(t => t.id) || null,
+      classroom_ids: unorderedArraysAreEqual(selectedClassrooms, allClassrooms) ? null : selectedClassrooms?.map(c => c.id) || null,
+      grades: unorderedArraysAreEqual(selectedGrades, allGrades) ? null : selectedGrades?.map(g => g.value)
     }
 
     const requestUrl = queryString.stringifyUrl({ url: '/snapshots/options', query: searchParams }, { arrayFormat: 'bracket' })
