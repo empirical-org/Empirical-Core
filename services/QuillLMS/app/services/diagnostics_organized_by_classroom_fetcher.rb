@@ -69,7 +69,7 @@ class DiagnosticsOrganizedByClassroomFetcher < ApplicationService
             )
             .order(completed_at: :desc)
 
-        grouped_record[:pre]['eligible_for_question_scoring'] = activity_sessions.first.completed_at > QUESTION_SCORING_ELIGIBILITY_CUTOFF_DATE && !is_demo
+        grouped_record[:pre]['eligible_for_question_scoring'] = completed_activity_sessions.first.completed_at > QUESTION_SCORING_ELIGIBILITY_CUTOFF_DATE && !is_demo
         grouped_record[:pre]['completed_count'] = completed_activity_sessions.size
         grouped_record[:pre]['assigned_count'] = record['assigned_student_ids'].size
       end
