@@ -1028,10 +1028,10 @@ ALTER SEQUENCE public.canvas_accounts_id_seq OWNED BY public.canvas_accounts.id;
 CREATE TABLE public.canvas_configs (
     id bigint NOT NULL,
     canvas_instance_id bigint NOT NULL,
-    client_id_ciphertext text NOT NULL,
-    client_secret_ciphertext text NOT NULL,
     created_at timestamp(6) without time zone NOT NULL,
-    updated_at timestamp(6) without time zone NOT NULL
+    updated_at timestamp(6) without time zone NOT NULL,
+    client_id text NOT NULL,
+    client_secret text NOT NULL
 );
 
 
@@ -10420,6 +10420,6 @@ INSERT INTO "schema_migrations" (version) VALUES
 ('20230710144829'),
 ('20230725175024'),
 ('20230728183700'),
-('20230731184420');
-
-
+('20230731184420'),
+('20230801140455'),
+('20230801140522');
