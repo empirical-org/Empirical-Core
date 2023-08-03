@@ -1,8 +1,7 @@
 import * as React from 'react';
-import queryString from 'query-string';
 import * as Pusher from 'pusher-js';
 
-import { requestGet, } from '../../../modules/request'
+import { requestPost, } from '../../../modules/request'
 import { unorderedArraysAreEqual, } from '../../../modules/unorderedArraysAreEqual'
 import { DataTable, Spinner, informationIcon, smallWhiteCheckIcon } from '../../Shared';
 
@@ -139,9 +138,7 @@ export const DataExportTableAndFields = ({ queryKey, selectedGrades, selectedSch
       grades: selectedGrades
     }
 
-    const requestUrl = queryString.stringifyUrl({ url: '/snapshots/data_export', query: searchParams }, { arrayFormat: 'bracket' })
-
-    requestGet(`${requestUrl}`, (body) => {
+    requestPost('/snapshots/data_export', searchParams, (body) => {
       if (!body.hasOwnProperty('results')) {
         setLoading(true)
       } else {
@@ -185,15 +182,24 @@ export const DataExportTableAndFields = ({ queryKey, selectedGrades, selectedSch
     return Object.keys(fields).map((fieldLabel, i) => {
       // skip Student Name because we want this field to always be present
       if (i === 0) { return }
-      const selected = fields[fieldLabel].checked;
-      const selectedClass = selected ? "selected" : "unselected";
-      const checkboxImg = selected ? <img alt="check" src={smallWhiteCheckIcon.src} /> : ""
-      return (
+
+      let checkbox = (
         <div className="checkbox-container">
-          <div className={`quill-checkbox ${selectedClass}`} id={fieldLabel} onClick={toggleCheckbox}>{checkboxImg}</div>
-          <span>{fieldLabel}</span>
+          <button aria-label="Unchecked checkbox" className="quill-checkbox unselected" id={fieldLabel} onClick={toggleCheckbox} type="button" />
+          <label htmlFor={fieldLabel}>{fieldLabel}</label>
         </div>
       )
+      if (fields[fieldLabel].checked) {
+        checkbox = (
+          <div className="checkbox-container">
+            <button aria-label="Checked checkbox" className="quill-checkbox selected" id={fieldLabel} onClick={toggleCheckbox} type="button">
+              <img alt="Checked checkbox" src={smallWhiteCheckIcon.src} />
+            </button>
+            <label htmlFor={fieldLabel}>{fieldLabel}</label>
+          </div>
+        )
+      }
+      return checkbox;
     })
   }
 
