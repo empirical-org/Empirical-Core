@@ -30,7 +30,7 @@ FactoryBot.define do
     expires_at { 1.day.from_now }
     user
 
-    factory :canvas_auth_credential, parent: :auth_credential, class: :CanvasAuthCredential do
+    factory :canvas_auth_credential, parent: :auth_credential, class: CanvasAuthCredential do
       association :user, factory: [:teacher, :with_canvas_account]
 
       after(:create) do |auth_credential|
@@ -41,21 +41,21 @@ FactoryBot.define do
       end
     end
 
-    factory :canvas_auth_credential_without_canvas_instance_auth_credential, parent: :auth_credential, class: :CanvasAuthCredential do
+    factory :canvas_auth_credential_without_canvas_instance_auth_credential, parent: :auth_credential, class: CanvasAuthCredential do
       association :user, factory: [:teacher, :with_canvas_account]
     end
 
-    factory :clever_district_auth_credential, parent: :auth_credential, class: :CleverDistrictAuthCredential do
+    factory :clever_district_auth_credential, parent: :auth_credential, class: CleverDistrictAuthCredential do
       expires_at { CleverDistrictAuthCredential::EXPIRATION_DURATION.from_now }
       association :user, factory: [:teacher, :signed_up_with_clever]
     end
 
-    factory :clever_library_auth_credential, parent: :auth_credential, class: :CleverLibraryAuthCredential do
+    factory :clever_library_auth_credential, parent: :auth_credential, class: CleverLibraryAuthCredential do
       expires_at { CleverLibraryAuthCredential::EXPIRATION_DURATION.from_now }
       association :user, factory: [:teacher, :signed_up_with_clever]
     end
 
-    factory :google_auth_credential, parent: :auth_credential, class: :GoogleAuthCredential do
+    factory :google_auth_credential, parent: :auth_credential, class: GoogleAuthCredential do
       expires_at { GoogleAuthCredential::EXPIRATION_DURATION.from_now }
       association :user, factory: [:teacher, :signed_up_with_google]
 
