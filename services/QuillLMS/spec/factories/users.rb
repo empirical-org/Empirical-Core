@@ -56,34 +56,29 @@
 #  users_to_tsvector_idx5             (to_tsvector('english'::regconfig, split_part((ip_address)::text, '/'::text, 1))) USING gin
 #
 FactoryBot.define do
-  factory :simple_user, class: 'User' do
+  factory :simple_user do
     sequence(:id) { |n| n + User::UNIQUENESS_CONSTRAINT_MINIMUM_ID }
-    name 'Jane Doe'
-    email 'fake@example.com'
-    password 'password'
-    time_zone 'UTC'
+    name { 'Jane Doe'}
+    email { 'fake@example.com' }
+    password { 'password' }
+    time_zone { 'UTC' }
   end
 
   factory :user do
     sequence(:id) { |n| n + User::UNIQUENESS_CONSTRAINT_MINIMUM_ID }
     sequence(:name) { |n| "FirstName LastName #{n}" }
-    username   { name.gsub(' ', '-') }
-    password   { "password" }
-    email      { "#{name.gsub(' ', '.').downcase}@fake-email.com" }
-    ip_address { "192.168.0.0" }
-    flagset    { 'production' }
-    time_zone 'UTC'
+    username { name.gsub(' ', '-') }
+    password { 'password' }
+    email { "#{name.gsub(' ', '.').downcase}@fake-email.com" }
+    ip_address { '192.168.0.0' }
+    flagset { 'production' }
+    time_zone { 'UTC' }
 
-    factory :staff do
-      role 'staff'
-    end
-
-    factory :admin do
-      role User::ADMIN
-    end
+    factory(:staff) { role { User::STAFF } }
+    factory(:admin) { role { User::ADMIN } }
 
     factory :teacher do
-      role 'teacher'
+      role { User::TEACHER}
 
       factory :teacher_with_one_classroom do
         after(:create) do |teacher|
@@ -132,12 +127,10 @@ FactoryBot.define do
         end
       end
 
-      trait :has_a_stripe_customer_id do
-        stripe_customer_id 'fake_stripe_id'
-      end
+      trait(:has_a_stripe_customer_id) { stripe_customer_id { 'fake_stripe_id' } }
 
       trait :signed_up_with_google do
-        signed_up_with_google true
+        signed_up_with_google { true }
         google_id { (1..21).map{(1..9).to_a.sample}.join } # mock a google id
         password { nil }
         username { nil }
@@ -192,17 +185,15 @@ FactoryBot.define do
       end
 
       trait :premium do
-        after(:create) do |teacher|
-          create(:user_subscription, user_id: teacher.id)
-        end
+        after(:create) { |teacher| create(:user_subscription, user_id: teacher.id) }
       end
     end
 
     factory :student do
-      role 'student'
+      role { User::STUDENT}
 
       trait :signed_up_with_google do
-        signed_up_with_google true
+        signed_up_with_google { true }
         google_id { (1..21).map{(1..9).to_a.sample}.join }
         password { nil }
         username { "#{name}@student" }
@@ -220,9 +211,9 @@ FactoryBot.define do
 
       factory :student_with_many_activities do
         classrooms { [FactoryBot.create(:classroom)] }
-        transient do
-          activity_count 5
-        end
+
+        transient { activity_count { 5 } }
+
         after(:create) do |user, evaluator|
           create_list(:activity_session, evaluator.activity_count, user: user)
         end

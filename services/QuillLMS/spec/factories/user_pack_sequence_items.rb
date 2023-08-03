@@ -28,7 +28,7 @@ FactoryBot.define do
     user
     status { UserPackSequenceItem::LOCKED }
 
-    trait(:locked) { status UserPackSequenceItem::LOCKED }
-    trait(:unlocked) { status UserPackSequenceItem::UNLOCKED }
+    trait(:locked) { status { UserPackSequenceItem::LOCKED } }
+    trait(:unlocked) { status { UserPackSequenceItem::UNLOCKED } }
   end
 end

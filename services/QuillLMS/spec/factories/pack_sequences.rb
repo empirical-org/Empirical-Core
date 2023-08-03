@@ -26,6 +26,6 @@ FactoryBot.define do
   factory :pack_sequence do
     classroom
     association :diagnostic_activity, factory: :diagnostic_activity
-    release_method PackSequence::STAGGERED_RELEASE
+    release_method { PackSequence::STAGGERED_RELEASE }
   end
 end

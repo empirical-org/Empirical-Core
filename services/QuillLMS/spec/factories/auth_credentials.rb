@@ -25,9 +25,9 @@
 #
 FactoryBot.define do
   factory :auth_credential do
-    access_token 'fake_token'
-    refresh_token 'fake_refresh_token'
-    expires_at 1.day.from_now
+    access_token { 'fake_token' }
+    refresh_token { 'fake_refresh_token' }
+    expires_at { 1.day.from_now }
     user
 
     factory :canvas_auth_credential, parent: :auth_credential, class: :CanvasAuthCredential do
@@ -46,20 +46,20 @@ FactoryBot.define do
     end
 
     factory :clever_district_auth_credential, parent: :auth_credential, class: :CleverDistrictAuthCredential do
-      expires_at CleverDistrictAuthCredential::EXPIRATION_DURATION.from_now
+      expires_at { CleverDistrictAuthCredential::EXPIRATION_DURATION.from_now }
       association :user, factory: [:teacher, :signed_up_with_clever]
     end
 
     factory :clever_library_auth_credential, parent: :auth_credential, class: :CleverLibraryAuthCredential do
-      expires_at CleverLibraryAuthCredential::EXPIRATION_DURATION.from_now
+      expires_at { CleverLibraryAuthCredential::EXPIRATION_DURATION.from_now }
       association :user, factory: [:teacher, :signed_up_with_clever]
     end
 
     factory :google_auth_credential, parent: :auth_credential, class: :GoogleAuthCredential do
-      expires_at GoogleAuthCredential::EXPIRATION_DURATION.from_now
+      expires_at { GoogleAuthCredential::EXPIRATION_DURATION.from_now }
       association :user, factory: [:teacher, :signed_up_with_google]
 
-      trait(:expired) { expires_at GoogleAuthCredential::EXPIRATION_DURATION.ago }
+      trait(:expired) { expires_at { GoogleAuthCredential::EXPIRATION_DURATION.ago } }
     end
   end
 end

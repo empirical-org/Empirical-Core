@@ -2,7 +2,7 @@
 
 FactoryBot.define do
   factory :notification do
-    text 'text'
+    text { 'text' }
     association :user, factory: :simple_user
   end
 end

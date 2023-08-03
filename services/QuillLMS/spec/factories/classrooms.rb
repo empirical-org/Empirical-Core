@@ -25,9 +25,7 @@
 #  index_classrooms_on_grade_level          (grade_level)
 #
 FactoryBot.define do
-  factory :simple_classroom, class: Classroom do
-    name 'a'
-  end
+  factory(:simple_classroom) { name { 'a' } }
 
   factory :classroom do
     name  { "#{['Period', 'Block', 'Class', 'Classroom'].sample} #{(1..100).to_a.sample}#{('A'..'Z').to_a.sample}" }
@@ -109,9 +107,7 @@ FactoryBot.define do
       end
     end
 
-    trait :archived do
-      visible false
-    end
+    trait(:archived) { visible { false } }
 
     after(:create) do |classroom|
       if classroom.classrooms_teachers.none?

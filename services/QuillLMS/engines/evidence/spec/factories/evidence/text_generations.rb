@@ -12,6 +12,6 @@
 #
 FactoryBot.define do
   factory :evidence_text_generation, class: 'Evidence::TextGeneration' do
-    type  Evidence::TextGeneration::TYPE_ORIGINAL
+    type { Evidence::TextGeneration::TYPE_ORIGINAL }
   end
 end
