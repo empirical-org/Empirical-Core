@@ -303,7 +303,7 @@ GEM
     zeitwerk (2.6.11)
 
 PLATFORMS
-  x86_64-darwin-22
+  ruby
 
 DEPENDENCIES
   active_model_serializers (~> 0.10)

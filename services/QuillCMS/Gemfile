@@ -53,6 +53,7 @@ gem 'rubyzip', '~> 2.3'
 gem 'pusher', '~> 1.4.3'
 
 # HTTP
+gem 'faraday-httpclient', '~> 2.0', '>= 2.0.1'
 gem 'httparty', '~> 0.18'
 
 group :development do
