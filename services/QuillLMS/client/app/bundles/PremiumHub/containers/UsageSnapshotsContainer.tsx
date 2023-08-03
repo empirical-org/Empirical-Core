@@ -238,7 +238,7 @@ const UsageSnapshotsContainer = ({ adminInfo, accessType, }) => {
   function handleClickDownloadReport() { window.print() }
 
   function mapItemsIfNotAll(selectedItems, allItems, mapKey = 'id') {
-    if (unorderedArraysAreEqual(selectedItems, allItems)) return []
+    if (unorderedArraysAreEqual(selectedItems, allItems)) return null
 
     return selectedIds.map(i => i[mapKey])
   }
