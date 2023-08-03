@@ -138,10 +138,10 @@ const UsageSnapshotsContainer = ({ adminInfo, accessType, }) => {
     return timeframes?.find(timeframe => timeframe.default) || null
   }
 
-  unorderedArraysExistAndAreEqual(array1, array2) {
-    if (!(array1?.length > 0 && array2?.length > 0)) return false
+  function unorderedArraysExistAndAreEqual(array1, array2) {
+    if (!(array1 && array2)) return false
 
-    unorderedArraysAreEqual(array1, array2)
+    return unorderedArraysAreEqual(array1, array2)
   }
 
   function getFilters() {
