@@ -138,21 +138,19 @@ const UsageSnapshotsContainer = ({ adminInfo, accessType, }) => {
     return timeframes?.find(timeframe => timeframe.default) || null
   }
 
+  unorderedArraysExistAndAreEqual(array1, array2) {
+    if (!(array1?.length > 0 && array2?.length > 0)) return false
+
+    unorderedArraysAreEqual(array1, array2)
+  }
+
   function getFilters() {
-    console.log(selectedSchools)
-    console.log(allSchools)
-    console.log(selectedTeachers)
-    console.log(allTeachers)
-    console.log(selectedClassrooms)
-    console.log(allClassrooms)
-    console.log(selectedGrades)
-    console.log(allGrades)
     // The snapshot endpoints require school_ids in all cases, but can send null for other filter types to mean "all selected"
     const searchParams = {
       school_ids: selectedSchools?.map(s => s.id) || null,
-      teacher_ids: unorderedArraysAreEqual(selectedTeachers, allTeachers) ? null : selectedTeachers?.map(t => t.id) || null,
-      classroom_ids: unorderedArraysAreEqual(selectedClassrooms, allClassrooms) ? null : selectedClassrooms?.map(c => c.id) || null,
-      grades: unorderedArraysAreEqual(selectedGrades, allGrades) ? null : selectedGrades?.map(g => g.value)
+      teacher_ids: unorderedArraysExistAndAreEqual(selectedTeachers, allTeachers) ? null : selectedTeachers?.map(t => t.id) || null,
+      classroom_ids: unorderedArraysExistAndAreEqual(selectedClassrooms, allClassrooms) ? null : selectedClassrooms?.map(c => c.id) || null,
+      grades: unorderedArraysExistAndAreEqual(selectedGrades, allGrades) ? null : selectedGrades?.map(g => g.value)
     }
 
     const requestUrl = queryString.stringifyUrl({ url: '/snapshots/options', query: searchParams }, { arrayFormat: 'bracket' })
