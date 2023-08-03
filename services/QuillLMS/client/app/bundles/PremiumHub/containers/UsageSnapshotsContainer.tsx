@@ -240,7 +240,7 @@ const UsageSnapshotsContainer = ({ adminInfo, accessType, }) => {
   function mapItemsIfNotAll(selectedItems, allItems, mapKey = 'id') {
     if (unorderedArraysAreEqual(selectedItems, allItems)) return null
 
-    return selectedIds.map(i => i[mapKey])
+    return selectedItems.map(i => i[mapKey])
   }
 
   const tabs = TAB_NAMES.map(s => (
