@@ -11,7 +11,7 @@
 #  updated_at :datetime         not null
 #
 FactoryBot.define do
-  factory :evidence_text_generation, class: 'Evidence::TextGeneration' do
+  factory :evidence_text_generation do
     type { Evidence::TextGeneration::TYPE_ORIGINAL }
   end
 end

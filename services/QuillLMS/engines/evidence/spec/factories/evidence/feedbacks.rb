@@ -13,7 +13,7 @@
 #  updated_at  :datetime         not null
 #
 FactoryBot.define do
-  factory :evidence_feedback, class: 'Evidence::Feedback' do
+  factory :evidence_feedback do
     association :rule, factory: :evidence_rule
     text { "Here is some test feedback." }
     description { "Test description for test feedback record." }

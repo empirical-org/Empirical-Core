@@ -14,7 +14,7 @@
 #  name           :text
 #
 FactoryBot.define do
-  factory :evidence_hint, class: 'Evidence::Hint' do
+  factory :evidence_hint do
     name { "Hint Name" }
     explanation { "This is an explanation." }
     image_link { "https://quill.org" }
