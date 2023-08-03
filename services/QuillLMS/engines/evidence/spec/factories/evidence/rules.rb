@@ -19,7 +19,7 @@
 #  hint_id     :bigint
 #
 FactoryBot.define do
-  factory :evidence_rule do
+  factory :evidence_rule, class: 'Evidence::Rule' do
     uid { SecureRandom.uuid }
     name { "Test Rule" }
     note { "This rule is a test" }

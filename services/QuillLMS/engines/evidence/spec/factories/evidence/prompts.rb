@@ -16,7 +16,7 @@
 #  second_strong_example :string           default("")
 #
 FactoryBot.define do
-  factory :evidence_prompt do
+  factory :evidence_prompt, class: 'Evidence::Prompt' do
     association :activity, factory: :evidence_activity
     conjunction { "because" }
     text { "my text would go here." }

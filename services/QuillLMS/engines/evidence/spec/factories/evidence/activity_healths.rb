@@ -20,7 +20,7 @@
 #  updated_at            :datetime         not null
 #
 FactoryBot.define do
-  factory :evidence_activity_health do
+  factory :evidence_activity_health, class: 'Evidence::ActivityHealth' do
     name { "test name" }
     flag { "production" }
     activity_id { 1 }

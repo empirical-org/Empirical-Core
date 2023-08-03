@@ -15,7 +15,7 @@
 #  version            :integer          default(1), not null
 #
 FactoryBot.define do
-  factory :evidence_activity do
+  factory :evidence_activity, class: 'Evidence::Activity' do
     sequence(:title) {|n| "MyString #{n}" }
     sequence(:notes) {|n| "MyString #{n}" }
     target_level { 1 }

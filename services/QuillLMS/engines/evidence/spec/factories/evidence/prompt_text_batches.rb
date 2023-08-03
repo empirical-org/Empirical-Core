@@ -12,7 +12,7 @@
 #  updated_at :datetime         not null
 #
 FactoryBot.define do
-  factory :evidence_prompt_text_batch do
+  factory :evidence_prompt_text_batch, class: 'Evidence::PromptTextBatch' do
     association :prompt, factory: :evidence_prompt
 
     factory(:seed_prompt_text_batch) { type { Evidence::PromptTextBatch::TYPE_SEED } }

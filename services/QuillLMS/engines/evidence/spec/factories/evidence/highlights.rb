@@ -13,7 +13,7 @@
 #  updated_at     :datetime         not null
 #
 FactoryBot.define do
-  factory :evidence_highlight do
+  factory :evidence_highlight, class: 'Evidence::Highlight' do
     association :feedback, factory: :evidence_feedback
     text { "Highlight me" }
     highlight_type { "passage" }
