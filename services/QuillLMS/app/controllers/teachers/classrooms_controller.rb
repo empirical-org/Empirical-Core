@@ -227,7 +227,11 @@ class Teachers::ClassroomsController < ApplicationController
     return students unless classroom.provider?
 
     provider_classroom_delegator = ProviderClassroomDelegator.new(classroom)
-    students.map { |student| student.merge(synced: provider_classroom_delegator.synced_status(student)) }
+
+    students
+      .map { |student| student.merge(synced: provider_classroom_delegator.synced_status(student)) }
+      .map { |student| student.merge(provider: User.find(student['id']).provider) }
+
   end
   # rubocop:enable Metrics/CyclomaticComplexity
 

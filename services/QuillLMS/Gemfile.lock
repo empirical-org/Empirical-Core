@@ -205,8 +205,6 @@ GEM
     date (3.3.3)
     debug_inspector (1.1.0)
     diff-lcs (1.5.0)
-    doorkeeper (5.0.3)
-      railties (>= 4.2)
     dotenv (2.7.6)
     dotenv-rails (2.7.6)
       dotenv (= 2.7.6)
@@ -404,7 +402,6 @@ GEM
     lms-api (1.24.0)
       activesupport (>= 3.0)
       httparty
-    lockbox (1.2.0)
     lograge (0.10.0)
       actionpack (>= 4)
       activesupport (>= 4)
@@ -841,7 +838,6 @@ DEPENDENCIES
   clever-ruby (~> 2.0.1)
   configs
   cypress-on-rails (~> 1.0)
-  doorkeeper (= 5.0.3)
   dotenv-rails (~> 2.6)
   es5-shim-rails
   evidence!
@@ -870,7 +866,6 @@ DEPENDENCIES
   kaminari (~> 1.2.1)
   letter_opener
   lms-api
-  lockbox
   lograge
   maxminddb
   memory_profiler
