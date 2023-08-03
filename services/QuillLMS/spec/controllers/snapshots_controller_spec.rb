@@ -215,6 +215,35 @@ describe SnapshotsController, type: :controller do
           expect(json_response).to eq("message" => "Generating snapshot")
         end
 
+        it 'should trigger a job to cache data if the cache is empty for data_export' do
+          query_name = 'data-export'
+
+          allow(Snapshots::Timeframes).to receive(:calculate_timeframes).and_return([previous_timeframe, previous_end, current_timeframe, timeframe_end])
+          expect(Rails.cache).to receive(:read).with(cache_key).and_return(nil)
+          expect(Snapshots::CachePremiumReportsWorker).to receive(:perform_async).with(cache_key,
+            query_name,
+            user.id,
+            {
+              name: timeframe_name,
+              previous_start: previous_timeframe,
+              previous_end: previous_end,
+              current_start: current_timeframe,
+              current_end: timeframe_end
+            },
+            school_ids,
+            {
+              grades: nil,
+              teacher_ids: nil,
+              classroom_ids: nil
+            })c
+
+          get :data_export, params: { query: query_name, timeframe: timeframe_name, school_ids: school_ids }
+
+          json_response = JSON.parse(response.body)
+
+          expect(json_response).to eq("message" => "Generating snapshot")
+        end
+
         it 'should include school_ids and grades in the call to the cache worker if they are in params' do
           query_name = 'active-classrooms'
           grades = ["Kindergarten", "1", "2"]
