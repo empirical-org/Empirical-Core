@@ -23,7 +23,7 @@
 #  fk_rails_...  (unit_template_id => unit_templates.id)
 #
 FactoryBot.define do
-  factory :simple_unit
+  factory :simple_unit, class: Unit
 
   factory :unit do
     sequence(:name) { |i| "Unit #{i}" }

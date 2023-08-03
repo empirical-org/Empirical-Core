@@ -56,7 +56,7 @@
 #  users_to_tsvector_idx5             (to_tsvector('english'::regconfig, split_part((ip_address)::text, '/'::text, 1))) USING gin
 #
 FactoryBot.define do
-  factory :simple_user do
+  factory :simple_user, class: User do
     sequence(:id) { |n| n + User::UNIQUENESS_CONSTRAINT_MINIMUM_ID }
     name { 'Jane Doe'}
     email { 'fake@example.com' }

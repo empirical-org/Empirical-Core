@@ -25,7 +25,9 @@
 #  index_classrooms_on_grade_level          (grade_level)
 #
 FactoryBot.define do
-  factory(:simple_classroom) { name { 'a' } }
+  factory :simple_classroom, class: Classroom do
+    name { 'a' }
+  end
 
   factory :classroom do
     name  { "#{['Period', 'Block', 'Class', 'Classroom'].sample} #{(1..100).to_a.sample}#{('A'..'Z').to_a.sample}" }
