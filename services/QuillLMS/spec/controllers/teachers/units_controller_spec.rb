@@ -139,16 +139,12 @@ describe Teachers::UnitsController, type: :controller do
           diagnostics: [
             name: diagnostic_activity.name,
             pre: {
-              assigned_student_ids: classroom_unit.assigned_student_ids,
               classroom_name: classroom.name,
               activity_name: diagnostic_activity.name,
               activity_id: diagnostic_activity.id,
-              unit_id: unit.id,
-              unit_name: unit.name,
               classroom_id: classroom.id,
               assigned_date: unit_activity.created_at,
               post_test_id: diagnostic_activity.follow_up_activity_id,
-              classroom_unit_id: classroom_unit.id,
               unit_template_id: unit.unit_template_id,
               eligible_for_question_scoring: true,
               completed_count: 1,

@@ -27,7 +27,7 @@ module DiagnosticReports
     optimal = get_score_for_question(concept_results) > 0
     number_correct = optimal ? 1 : 0
     number_incorrect = optimal ? 0 : 1
-    
+
     {
       id: diagnostic_question_skill.id,
       name: diagnostic_question_skill.name,

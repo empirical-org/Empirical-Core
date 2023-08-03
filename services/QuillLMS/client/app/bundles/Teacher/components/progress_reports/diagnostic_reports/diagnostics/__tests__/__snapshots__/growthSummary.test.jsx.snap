@@ -18,7 +18,9 @@ exports[`GrowthSummarySection component should render showGrowthSummarySection i
           src="undefined/images/pages/diagnostic_reports/icons-bar-graph-increasing.svg"
         />
         <span>
-          Not available for diagnostics completed before August 2023.
+          To see how your students have grown, first assign the 
+          Diagnostic
+           (Post)
         </span>
       </p>
     </div>
