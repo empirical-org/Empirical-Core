@@ -18,7 +18,7 @@
 #  index_students_classrooms_on_student_id_and_classroom_id  (student_id,classroom_id) UNIQUE
 #
 FactoryBot.define do
-  factory :students_classrooms, class: StudentsClassrooms do
+  factory :students_classrooms do
     student { create(:student) }
     classroom { create(:classroom) }
   end

@@ -23,7 +23,7 @@
 #  index_unit_templates_on_unit_template_category_id  (unit_template_category_id)
 #
 FactoryBot.define do
-  factory :simple_unit_template, class: 'UnitTemplate'
+  factory :simple_unit_template, class: UnitTemplate
 
   factory :unit_template do
     sequence(:name) do |i|

@@ -50,6 +50,8 @@
 #  unique_index_schools_on_ppin     (ppin) UNIQUE WHERE ((ppin)::text <> ''::text)
 #
 FactoryBot.define do
+  factory :simple_school, class: School
+
   factory :school do
     sequence(:nces_id, 100000000000)
     mail_street { "123 Broadway" }
@@ -80,6 +82,4 @@ FactoryBot.define do
       ppin { "A1234567" }
     end
   end
-
-  factory :simple_school, class: 'School'
 end

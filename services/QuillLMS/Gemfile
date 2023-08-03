@@ -186,8 +186,8 @@ group :test, :development do
   gem 'pry-coolline'
   gem 'pry-rescue'
   gem 'pry-byebug'
-  gem 'rspec-rails', '~> 5.0'
-  gem 'factory_bot_rails', '~> 4.8.2', require: false
+  gem 'rspec-rails'
+  gem 'factory_bot_rails', require: false
   gem 'timecop'
   gem 'byebug'
   gem 'guard'

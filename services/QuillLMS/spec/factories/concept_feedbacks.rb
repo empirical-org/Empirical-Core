@@ -8,8 +8,8 @@ FactoryBot.define do
   }
 
   factory :concept_feedback do
-    uid                   SecureRandom.uuid
-    activity_type         'connect'
-    data                  data
+    uid { SecureRandom.uuid }
+    activity_type { 'connect' }
+    data { data }
   end
 end
