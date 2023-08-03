@@ -3,56 +3,48 @@
 require 'rails_helper'
 
 describe Api::V1::ActivitiesController, type: :controller do
+  let(:user) { create(:user) }
+  let(:parsed_body) { JSON.parse(response.body) }
+
+  before { allow(controller).to receive(:current_user) { user } }
 
   context 'GET #show' do
-    include_context "calling the api"
+    let(:parsed_body) { JSON.parse(response.body) }
 
-    before do
-      @activity1 = create(:activity)
+    before { get :show, params: { id: activity_id }, as: :json }
 
-      get :show, params: { id: @activity1.uid }, as: :json
-      @parsed_body = JSON.parse(response.body)
+    context 'valid activity' do
+      let(:activity_id) { create(:activity).uid  }
+
+      it_behaves_like 'an api request'
+
+      it  { expect(response.status).to eq(200) }
     end
 
-    # it_behaves_like "an api request"
+    context 'invalid activity' do
+      let(:activity_id) { 'doesnotexist' }
 
-    it 'responds with 200' do
-      expect(response.status).to eq(200)
+      it { expect(response).to be_not_found }
     end
-
-    it 'responds with 404 if activity does not exist' do
-      get :show, params: { id: 'doesnotexist' }, as: :json
-      expect(response.status).to eq(404)
-    end
-
-    # it "should have an object at it's root" do
-    #   expect(@parsed_body.keys).to include('status')
-    # end
-    #
-    # it "should present a uid" do
-    #   expect(@parsed_body['object']['uid']).to eq(@activity1.uid)
-    # end
   end
 
   context 'PUT #update' do
-    include_context "calling the api" # this handles the doorkeeper auth
+    let(:activity) { create(:activity) }
 
-    let!(:activity) { create(:activity) }
+    before { put :update, params: { id: activity.uid, name: 'foobar' }, as: :json }
 
-    before do
-      put :update, params: { id: activity.uid, name: 'foobar' }, as: :json
-      @parsed_body = JSON.parse(response.body)
-    end
+    it { expect(response).to be_redirect }
 
-    it_behaves_like 'an api request'
+    context 'as staff' do
+      let(:user) { create(:staff) }
 
-    it 'responds with 200' do
-      expect(response.status).to eq(200)
+      it_behaves_like 'an api request'
+
+      it { expect(response).to have_http_status(:ok) }
     end
   end
 
   context 'POST #create' do
-    include_context 'calling the api'
     let(:standard) { create(:standard) }
     let(:standard_level) { create(:standard_level) }
     let(:activity_classification) { create(:activity_classification) }
@@ -69,78 +61,78 @@ describe Api::V1::ActivitiesController, type: :controller do
     end
 
     describe 'general API behavior' do
-      before do
-        subject
-        @parsed_body = JSON.parse(response.body)
-      end
+      before { subject }
 
-      it_behaves_like 'an api request'
+      it { expect(response).to be_redirect }
+      it { expect(Activity.count).to eq 0 }
 
-      it 'allows setting the uid field on the activity' do
-        expect(@parsed_body['activity']['uid']).to eq('abcdef123')
-      end
+      context 'as staff' do
+        let(:user) { create(:staff) }
 
-      it 'flags activities as beta by default' do
-        expect(@parsed_body['activity']['flags']).to eq(['beta'])
-      end
+        it_behaves_like 'an api request'
 
-      describe 'handles uid information' do
-        let(:activity) { Activity.find_by_uid(@parsed_body['activity']['uid']) }
+        it { expect(Activity.count).to eq 1 }
 
-        it 'sets standard_id from standard_uid' do
-          expect(activity.standard).to be_present
+        it { expect(response).to have_http_status(:ok) }
+
+        it { expect(parsed_body['activity']['uid']).to eq('abcdef123') }
+        it { expect(parsed_body['activity']['flags']).to eq(['beta']) }
+
+        describe 'handles uid information' do
+          let(:activity) { Activity.find_by_uid(parsed_body['activity']['uid']) }
+
+          it { expect(activity).to be_present }
+          it { expect(activity.classification).to be_present }
         end
 
-        it 'sets activity_classification_id from activity_classification_uid' do
-          expect(activity.classification).to be_present
+        describe 'when there was an error creating the activity' do
+          # Try to create a duplicate
+          before { post :create, params: { uid: create(:activity).uid } }
+
+          it { expect(response).to have_http_status(:unprocessable_entity) }
         end
-      end
-    end
-
-    describe 'when the request is valid' do
-      it 'creates an activity' do
-        expect { subject }.to change(Activity, :count).by(1)
-      end
-
-      it 'responds with 200' do
-        expect(response.status).to eq(200)
-      end
-    end
-
-    describe 'when there was an error creating the activity' do
-      it 'responds with 422 Unprocessable Entity' do
-        # So far the only way to create an invalid activity
-        # is to give it a non-unique uid.
-        another_activity = create(:activity)
-        post :create, params: { foobar: 'whatever', uid: another_activity.uid }
-        expect(response.status).to eq(422)
       end
     end
   end
 
-  describe '#destroy' do
-    include_context "calling the api" # this handles the doorkeeper auth
+  describe 'DELETE #destroy' do
+    subject { delete :destroy, params: { id: activity.uid }, as: :json }
+
     let(:activity) { create(:activity) }
 
-    context 'when the destroy is successful' do
-      it 'should return the success json' do
-        get :destroy, params: { id: activity.uid }, as: :json
-        expect(JSON.parse(response.body)["meta"]).to eq({"status" => 'success', "message" => "Activity Destroy Successful", "errors" => nil})
-      end
+    context 'when not staff' do
+      before { subject }
+
+      it { expect(Activity.count).to eq 1 }
+      it { expect(response).to be_redirect }
     end
 
-    context 'when the destroy is not successful' do
-      before { allow_any_instance_of(Activity).to receive(:destroy!) { false } }
+    context 'when staff' do
+      let(:user) { create(:staff) }
 
-      it 'should return the failed json' do
-        get :destroy, params: { id: activity.uid }, as: :json
-        expect(JSON.parse(response.body)["meta"]).to eq({"status" => 'failed', "message" => "Activity Destroy Failed", "errors" => {}})
+      context 'when the destroy is successful' do
+        let(:meta) { { "status" => 'success', "message" => "Activity Destroy Successful", "errors" => nil } }
+
+        before { subject }
+
+        it { expect(parsed_body["meta"]).to eq meta }
+      end
+
+      context 'when the destroy is not successful' do
+        let(:meta) { { "status" => 'failed', "message" => "Activity Destroy Failed", "errors" => {} } }
+
+        before do
+          allow(activity).to receive(:destroy).and_return(false)
+          allow(Activity).to receive(:find_by_uid).with(activity.uid).and_return(activity)
+          subject
+        end
+
+        it { expect(parsed_body["meta"]).to eq meta }
       end
     end
   end
 
   describe '#follow_up_activity_name_and_supporting_info' do
-    include_context "calling the api" # this handles the doorkeeper auth
     let(:follow_up_activity) { create(:activity) }
     let(:activity) { create(:activity, follow_up_activity: follow_up_activity) }
 
@@ -168,7 +160,7 @@ describe Api::V1::ActivitiesController, type: :controller do
 
     it 'should render the correct json' do
       get :uids_and_flags, as: :json
-      expect(JSON.parse(response.body)).to eq({
+      expect(parsed_body).to eq({
         activity.uid => {
           "flag" => activity.flag.to_s
         },
@@ -202,7 +194,7 @@ describe Api::V1::ActivitiesController, type: :controller do
 
     it 'should return a list of diagnostic activities' do
       get :diagnostic_activities, as: :json
-      response_obj = JSON.parse(response.body)['diagnostics']
+      response_obj = parsed_body['diagnostics']
       expect(response_obj.size).to eq(2)
       expect([diagnostic_activity_one.id, diagnostic_activity_two.id]).to include(response_obj[0]["id"])
       expect([diagnostic_activity_one.id, diagnostic_activity_two.id]).to include(response_obj[1]["id"])
@@ -239,7 +231,7 @@ describe Api::V1::ActivitiesController, type: :controller do
       activity.update(data: {questions: [{key: question.uid}]})
       get :question_health, params: { id: activity.id }, as: :json
 
-      response_obj = JSON.parse(response.body)["question_health"]
+      response_obj = parsed_body["question_health"]
       expect(response_obj[0]["url"]).to eq("https://quill.org/connect/#/admin/questions/#{question.uid}/responses")
       expect(response_obj[0]["text"]).to eq(question.data['prompt'])
       expect(response_obj[0]["flag"]).to eq(question.data['flag'])
@@ -255,7 +247,7 @@ describe Api::V1::ActivitiesController, type: :controller do
       activity.update(data: {questions: [{key: question.uid}, {key: SecureRandom.uuid}]})
       get :question_health, params: { id: activity.id }, as: :json
       expect(response.status).to eq(200)
-      response_obj = JSON.parse(response.body)["question_health"]
+      response_obj = parsed_body["question_health"]
       expect(response_obj[1]).to eq({})
     end
   end
@@ -267,7 +259,7 @@ describe Api::V1::ActivitiesController, type: :controller do
     it 'should return a list of all activity healths with associated prompt health' do
       get :activities_health, as: :json
       expect(response.status).to eq(200)
-      response_obj = JSON.parse(response.body)["activities_health"]
+      response_obj = parsed_body["activities_health"]
       expect(response_obj[0]).to eq(ActivityHealth.first.as_json)
     end
 
@@ -275,27 +267,8 @@ describe Api::V1::ActivitiesController, type: :controller do
       ActivityHealth.destroy_all
       get :activities_health, as: :json
       expect(response.status).to eq(200)
-      response_obj = JSON.parse(response.body)["activities_health"]
+      response_obj = parsed_body["activities_health"]
       expect(response_obj).to eq([])
-    end
-  end
-
-  context 'when not authenticated via OAuth' do
-    it 'POST #create returns 401 Unauthorized' do
-      post :create, as: :json
-      expect(response.status).to eq(401)
-    end
-
-    it 'PUT #update returns 401 Unauthorized' do
-      activity = create(:activity)
-      put :update, params: { id: activity.uid }, as: :json
-      expect(response.status).to eq(401)
-    end
-
-    it 'DELETE #destroy returns 401 Unauthorized' do
-      activity = create(:activity)
-      delete :destroy, params: { id: activity.uid }, as: :json
-      expect(response.status).to eq(401)
     end
   end
 end
