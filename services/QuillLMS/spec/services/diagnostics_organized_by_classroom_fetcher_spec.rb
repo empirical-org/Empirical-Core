@@ -22,9 +22,7 @@ RSpec.describe DiagnosticsOrganizedByClassroomFetcher do
     let(:is_demo) { true }
 
     describe 'record_with_aggregated_activity_sessions' do
-      it 'should return the record with eligible_for_question_scoring = false' do
-        expect(subject.record_with_aggregated_activity_sessions(activity.id, classroom.id)['eligible_for_question_scoring']).to eq(false)
-      end
+      it { expect(subject.record_with_aggregated_activity_sessions(activity.id, classroom.id)['eligible_for_question_scoring']).to eq(false) }
     end
   end
 
@@ -34,25 +32,19 @@ RSpec.describe DiagnosticsOrganizedByClassroomFetcher do
     describe 'record_with_aggregated_activity_sessions' do
 
       context 'there are no completed activity sessions' do
-        it 'should return the record with eligible_for_question_scoring = true' do
-          expect(subject.record_with_aggregated_activity_sessions(activity.id, classroom.id)['eligible_for_question_scoring']).to eq(true)
-        end
+        it { expect(subject.record_with_aggregated_activity_sessions(activity.id, classroom.id)['eligible_for_question_scoring']).to eq(true) }
       end
 
       context 'all activity sessions were completed after the question scoring switchover date' do
         let!(:activity_session) { create(:activity_session, user: student1, activity: activity, classroom_unit: classroom_unit1, completed_at: date_after_question_switchover)}
 
-        it 'should return the record with eligible_for_question_scoring = true' do
-          expect(subject.record_with_aggregated_activity_sessions(activity.id, classroom.id)['eligible_for_question_scoring']).to eq(true)
-        end
+        it { expect(subject.record_with_aggregated_activity_sessions(activity.id, classroom.id)['eligible_for_question_scoring']).to eq(true) }
       end
 
       context 'all activity sessions were completed before the question scoring switchover date' do
         let!(:activity_session) { create(:activity_session, user: student1, activity: activity, classroom_unit: classroom_unit1, completed_at: date_before_question_switchover)}
 
-        it 'should return the record with eligible_for_question_scoring = false' do
-          expect(subject.record_with_aggregated_activity_sessions(activity.id, classroom.id)['eligible_for_question_scoring']).to eq(false)
-        end
+        it { expect(subject.record_with_aggregated_activity_sessions(activity.id, classroom.id)['eligible_for_question_scoring']).to eq(false) }
       end
 
       context 'every student who completed an activity session for the given activity and classroom before the switchover also completed one after' do
@@ -62,9 +54,7 @@ RSpec.describe DiagnosticsOrganizedByClassroomFetcher do
         let!(:activity_session1) { create(:activity_session, user: student1, activity: activity, classroom_unit: classroom_unit1, completed_at: date_after_question_switchover)}
         let!(:activity_session2) { create(:activity_session, user: student1, activity: activity, classroom_unit: classroom_unit2, completed_at: date_before_question_switchover)}
 
-        it 'should return the record with eligible_for_question_scoring = true' do
-          expect(subject.record_with_aggregated_activity_sessions(activity.id, classroom.id)['eligible_for_question_scoring']).to eq(true)
-        end
+        it { expect(subject.record_with_aggregated_activity_sessions(activity.id, classroom.id)['eligible_for_question_scoring']).to eq(true) }
       end
 
       context 'not every student who completed an activity session for the given activity and classroom before the switchover also completed one after' do
@@ -77,9 +67,7 @@ RSpec.describe DiagnosticsOrganizedByClassroomFetcher do
         let!(:activity_session2) { create(:activity_session, user: student1, activity: activity, classroom_unit: classroom_unit2, completed_at: date_before_question_switchover)}
         let!(:activity_session3) { create(:activity_session, user: student2, activity: activity, classroom_unit: classroom_unit2, completed_at: date_before_question_switchover)}
 
-        it 'should return the record with eligible_for_question_scoring = false' do
-          expect(subject.record_with_aggregated_activity_sessions(activity.id, classroom.id)['eligible_for_question_scoring']).to eq(false)
-        end
+        it { expect(subject.record_with_aggregated_activity_sessions(activity.id, classroom.id)['eligible_for_question_scoring']).to eq(false) }
       end
 
     end
