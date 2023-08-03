@@ -139,6 +139,14 @@ const UsageSnapshotsContainer = ({ adminInfo, accessType, }) => {
   }
 
   function getFilters() {
+    console.log(selectedSchools)
+    console.log(allSchools)
+    console.log(selectedTeachers)
+    console.log(allTeachers)
+    console.log(selectedClassrooms)
+    console.log(allClassrooms)
+    console.log(selectedGrades)
+    console.log(allGrades)
     // The snapshot endpoints require school_ids in all cases, but can send null for other filter types to mean "all selected"
     const searchParams = {
       school_ids: selectedSchools?.map(s => s.id) || null,
