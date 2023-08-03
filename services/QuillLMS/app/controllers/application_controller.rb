@@ -35,36 +35,6 @@ class ApplicationController < ActionController::Base
   before_action :confirm_valid_session
   before_action :set_default_cache_security_headers
 
-  def admin!
-    return if current_user.try(:admin?)
-
-    auth_failed
-  end
-
-  def staff!
-    return if current_user.try(:staff?)
-
-    auth_failed
-  end
-
-  def teacher_or_staff!
-    return if current_user.try(:teacher?)
-
-    staff!
-  end
-
-  def teacher!
-    return if current_user.try(:teacher?)
-
-    admin!
-  end
-
-  def student!
-    return if current_user.try(:student?)
-
-    auth_failed
-  end
-
   def show_errors
     status = env['PATH_INFO'][1..-1]
     render_error(status)
