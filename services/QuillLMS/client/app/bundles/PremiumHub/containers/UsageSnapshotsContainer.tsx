@@ -138,19 +138,12 @@ const UsageSnapshotsContainer = ({ adminInfo, accessType, }) => {
     return timeframes?.find(timeframe => timeframe.default) || null
   }
 
-  function unorderedArraysExistAndAreEqual(array1, array2) {
-    if (!(array1 && array2)) return false
-
-    return unorderedArraysAreEqual(array1, array2)
-  }
-
   function getFilters() {
-    // The snapshot endpoints require school_ids in all cases, but can send null for other filter types to mean "all selected"
     const searchParams = {
       school_ids: selectedSchools?.map(s => s.id) || null,
-      teacher_ids: unorderedArraysExistAndAreEqual(selectedTeachers, allTeachers) ? null : selectedTeachers?.map(t => t.id) || null,
-      classroom_ids: unorderedArraysExistAndAreEqual(selectedClassrooms, allClassrooms) ? null : selectedClassrooms?.map(c => c.id) || null,
-      grades: unorderedArraysExistAndAreEqual(selectedGrades, allGrades) ? null : selectedGrades?.map(g => g.value)
+      teacher_ids: selectedTeachers?.map(t => t.id) || null,
+      classroom_ids: selectedClassrooms?.map(c => c.id) || null,
+      grades: selectedGrades?.map(g => g.value)
     }
 
     const requestUrl = queryString.stringifyUrl({ url: '/snapshots/options', query: searchParams }, { arrayFormat: 'bracket' })
@@ -244,6 +237,12 @@ const UsageSnapshotsContainer = ({ adminInfo, accessType, }) => {
 
   function handleClickDownloadReport() { window.print() }
 
+  function mapItemsIfNotAll(selectedItems, allItems, mapKey = 'id') {
+    if (unorderedArraysAreEqual(selectedItems, allItems)) return []
+
+    return selectedIds.map(i => i[mapKey])
+  }
+
   const tabs = TAB_NAMES.map(s => (
     <Tab
       key={s}
@@ -278,10 +277,10 @@ const UsageSnapshotsContainer = ({ adminInfo, accessType, }) => {
       name={section.name}
       pusherChannel={pusherChannel}
       searchCount={searchCount}
-      selectedClassroomIds={selectedClassrooms.map(c => c.id)}
-      selectedGrades={selectedGrades.map(g => g.value)}
-      selectedSchoolIds={selectedSchools.map(s => s.id)}
-      selectedTeacherIds={selectedTeachers.map(t => t.id)}
+      selectedClassroomIds={mapItemsIfNotAll(selectedClassrooms, allClassrooms)}
+      selectedGrades={mapItemsIfNotAll(selectedGrades, allGrades, 'value')}
+      selectedSchoolIds={mapItemsIfNotAll(selectedSchools, allSchools)}
+      selectedTeacherIds={mapItemsIfNotAll(selectedTeachers, allTeachers)}
       selectedTimeframe={selectedTimeframe.value}
     />
   ))
