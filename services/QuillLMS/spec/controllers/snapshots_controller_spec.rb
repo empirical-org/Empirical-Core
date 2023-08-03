@@ -235,7 +235,7 @@ describe SnapshotsController, type: :controller do
               grades: nil,
               teacher_ids: nil,
               classroom_ids: nil
-            })c
+            })
 
           get :data_export, params: { query: query_name, timeframe: timeframe_name, school_ids: school_ids }
 
