@@ -14,7 +14,7 @@ interface GrowthSummaryProps {
 
 const GrowthSummarySection = ({ showGrowthSummary, skillsGrowth, name, growthSummaryLink, eligibleForQuestionScoring, }: GrowthSummaryProps) => {
 
-  if (!eligibleForQuestionScoring) {
+  if (!eligibleForQuestionScoring && showGrowthSummary) {
     return (
       <section className="growth-summary">
         <div>
@@ -23,7 +23,6 @@ const GrowthSummarySection = ({ showGrowthSummary, skillsGrowth, name, growthSum
         </div>
       </section>
     )
-
   } else if (showGrowthSummary) {
     const growth = skillsGrowth > 0 ? <span className="growth">{triangleUpIcon}{`${skillsGrowth}%`}</span> : <span className="no-growth">No growth yet</span>
     return (

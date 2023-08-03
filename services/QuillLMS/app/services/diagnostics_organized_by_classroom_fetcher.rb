@@ -30,48 +30,27 @@ class DiagnosticsOrganizedByClassroomFetcher < ApplicationService
       index_of_existing_classroom = classrooms.find_index { |c| c['id'] == record['classroom_id'] }
       name = grouped_name(record)
 
-      next if record['post_test_id'] &&
-              index_of_existing_classroom &&
+      next if index_of_existing_classroom &&
               classrooms[index_of_existing_classroom]['diagnostics'].find { |diagnostic| diagnostic[:name] == name }
 
       grouped_record = {
         name: name,
-        pre: record
+        pre: record_with_aggregated_activity_sessions(
+          record['activity_id'],
+          record['classroom_id']
+        )
       }
 
       if record['post_test_id']
         post_test = record_with_aggregated_activity_sessions(
           record['post_test_id'],
-          record['classroom_id'],
-          record['activity_id']
+          record['classroom_id']
         )
 
         grouped_record[:post] = post_test || {
           activity_name: Activity.find_by_id(record['post_test_id'])&.name,
           unit_template_id: ActivitiesUnitTemplate.find_by_activity_id(record['post_test_id'])&.unit_template_id
         }
-
-        grouped_record[:pre] = record_with_aggregated_activity_sessions(
-          record['activity_id'],
-          record['classroom_id'],
-          nil
-        )
-      else
-        completed_activity_sessions =
-          ActivitySession
-            .select(:user_id)
-            .distinct
-            .where(
-              activity_id: record['activity_id'],
-              classroom_unit_id: record['classroom_unit_id'],
-              state: 'finished',
-              user_id: record['assigned_student_ids']
-            )
-            .order(completed_at: :desc)
-
-        grouped_record[:pre]['eligible_for_question_scoring'] = completed_activity_sessions.first.completed_at > QUESTION_SCORING_ELIGIBILITY_CUTOFF_DATE && !is_demo
-        grouped_record[:pre]['completed_count'] = completed_activity_sessions.size
-        grouped_record[:pre]['assigned_count'] = record['assigned_student_ids'].size
       end
 
       if index_of_existing_classroom
@@ -99,7 +78,7 @@ class DiagnosticsOrganizedByClassroomFetcher < ApplicationService
   end
 
   # rubocop:disable Metrics/CyclomaticComplexity
-  private def record_with_aggregated_activity_sessions(activity_id, classroom_id, pre_test_activity_id)
+  def record_with_aggregated_activity_sessions(activity_id, classroom_id)
     records = diagnostic_unit_records.select do |record|
       record['activity_id'] == activity_id && record['classroom_id'] == classroom_id
     end
@@ -117,7 +96,7 @@ class DiagnosticsOrganizedByClassroomFetcher < ApplicationService
     record = records[0]
     return if !record
 
-    record['eligible_for_question_scoring'] = activity_sessions.first.completed_at > QUESTION_SCORING_ELIGIBILITY_CUTOFF_DATE && !is_demo
+    record['eligible_for_question_scoring'] = !is_demo && (activity_sessions.length.zero? || activity_sessions.last.completed_at  > QUESTION_SCORING_ELIGIBILITY_CUTOFF_DATE)
     record['completed_count'] = activity_sessions.size
     record['assigned_count'] = assigned_student_ids.size
     record.except('unit_id', 'unit_name', 'classroom_unit_id', 'assigned_student_ids')
