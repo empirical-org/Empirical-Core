@@ -187,7 +187,7 @@ group :test, :development do
   gem 'pry-rescue'
   gem 'pry-byebug'
   gem 'rspec-rails'
-  gem 'factory_bot_rails', '~> 4.8.2', require: false
+  gem 'factory_bot_rails', require: false
   gem 'timecop'
   gem 'byebug'
   gem 'guard'

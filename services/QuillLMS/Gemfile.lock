@@ -218,11 +218,11 @@ GEM
     excon (0.71.0)
     execjs (2.7.0)
     extlib (0.9.16)
-    factory_bot (4.8.2)
-      activesupport (>= 3.0.0)
-    factory_bot_rails (4.8.2)
-      factory_bot (~> 4.8.2)
-      railties (>= 3.0.0)
+    factory_bot (6.2.1)
+      activesupport (>= 5.0.0)
+    factory_bot_rails (6.2.0)
+      factory_bot (~> 6.2.0)
+      railties (>= 5.0.0)
     faker (1.9.3)
       i18n (>= 0.7)
     fakeredis (0.7.0)
@@ -843,7 +843,7 @@ DEPENDENCIES
   dotenv-rails (~> 2.6)
   es5-shim-rails
   evidence!
-  factory_bot_rails (~> 4.8.2)
+  factory_bot_rails
   faker
   fakeredis (~> 0.7.0)
   faraday_middleware
