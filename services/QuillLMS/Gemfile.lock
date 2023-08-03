@@ -592,9 +592,11 @@ GEM
     rails-autoscale-web (1.0.1)
       rails-autoscale-core
       railties
-    rails-controller-testing (0.0.3)
-      rails (>= 4.2)
-    rails-dom-testing (2.1.1)
+    rails-controller-testing (1.0.5)
+      actionpack (>= 5.0.1.rc1)
+      actionview (>= 5.0.1.rc1)
+      activesupport (>= 5.0.1.rc1)
+    rails-dom-testing (2.2.0)
       activesupport (>= 5.0.0)
       minitest
       nokogiri (>= 1.6)
@@ -804,7 +806,7 @@ GEM
     websocket-extensions (0.1.5)
     xpath (3.2.0)
       nokogiri (~> 1.8)
-    zeitwerk (2.6.10)
+    zeitwerk (2.6.11)
     ziptz (3.0.11)
 
 PLATFORMS
