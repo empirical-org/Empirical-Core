@@ -1,7 +1,7 @@
 # frozen_string_literal: true
 
 FactoryBot.define do
-  factory :feedback_history, class: 'FeedbackHistory' do
+  factory :feedback_history do
     feedback_session_uid { SecureRandom.uuid }
     concept_uid { SecureRandom.uuid.slice(0, 22) }
     attempt { 1 }
