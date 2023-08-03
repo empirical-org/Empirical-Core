@@ -279,7 +279,7 @@ const UsageSnapshotsContainer = ({ adminInfo, accessType, }) => {
       searchCount={searchCount}
       selectedClassroomIds={mapItemsIfNotAll(selectedClassrooms, allClassrooms)}
       selectedGrades={mapItemsIfNotAll(selectedGrades, allGrades, 'value')}
-      selectedSchoolIds={mapItemsIfNotAll(selectedSchools, allSchools)}
+      selectedSchoolIds={selectedSchools.map(s => s.id)}
       selectedTeacherIds={mapItemsIfNotAll(selectedTeachers, allTeachers)}
       selectedTimeframe={selectedTimeframe.value}
     />
