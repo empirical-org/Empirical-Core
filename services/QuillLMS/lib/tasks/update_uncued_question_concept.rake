@@ -18,6 +18,8 @@ namespace :update_uncued_question_concept do
       question.data["concept_uid"] = open_sentence_concept_uid if question.data["concept_uid"]
       question.data["conceptID"] = open_sentence_concept_uid if question.data["conceptID"]
       question.save(validate: false)
+      puts "Updating concept attached to Question #{question.id}"
     end
+    puts "Updated question IDs: #{question_ids}"
   end
 end
