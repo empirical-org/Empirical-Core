@@ -14,7 +14,7 @@ module CleverIntegration
         classroom_external_id: classroom_external_id,
         grade: data[:grade],
         name: data[:name],
-        studentCount: data[:students].count
+        studentCount: data[:students]&.count || 0,
       }
     end
 
