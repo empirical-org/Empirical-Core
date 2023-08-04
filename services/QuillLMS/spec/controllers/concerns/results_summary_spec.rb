@@ -66,7 +66,7 @@ describe ResultsSummary do
                 ],
                 skill_ids: [diagnostic_question_skill1.id, diagnostic_question_skill2.id],
                 correct_skill_ids: [diagnostic_question_skill1.id],
-                number_of_correct_skills_text: "1 of 2 skills correct",
+                number_of_correct_questions_text: "1 of 2 questions correct",
                 proficiency_text: ResultsSummary::PARTIAL_PROFICIENCY,
                 id: skill_group_activity.skill_group.id
               }
@@ -74,7 +74,7 @@ describe ResultsSummary do
             total_correct_questions_count: 1,
             total_correct_skill_groups_count: 0,
             total_possible_questions_count: 2,
-            correct_skill_text: "1 of 2 skills",
+            correct_question_text: "1 of 2 questions",
             correct_skill_groups_text: "0 of 1 skill groups",
           },
           {
@@ -99,7 +99,7 @@ describe ResultsSummary do
                 ],
                 skill_ids: [diagnostic_question_skill1.id],
                 correct_skill_ids: [diagnostic_question_skill1.id],
-                number_of_correct_skills_text: "1 of 1 skills correct",
+                number_of_correct_questions_text: "1 of 1 questions correct",
                 proficiency_text: ResultsSummary::PROFICIENCY,
                 id: skill_group_activity.skill_group.id
               }
@@ -107,7 +107,7 @@ describe ResultsSummary do
             total_correct_questions_count: 1,
             total_correct_skill_groups_count: 1,
             total_possible_questions_count: 1,
-            correct_skill_text: "1 of 1 skills",
+            correct_question_text: "1 of 1 questions",
             correct_skill_groups_text: "1 of 1 skill groups",
           }
         ]
@@ -158,7 +158,7 @@ describe ResultsSummary do
                 ],
                 skill_ids: [diagnostic_question_skill1.id, diagnostic_question_skill2.id],
                 correct_skill_ids: [diagnostic_question_skill1.id],
-                number_of_correct_skills_text: "1 of 2 skills correct",
+                number_of_correct_questions_text: "1 of 2 questions correct",
                 proficiency_text: ResultsSummary::PARTIAL_PROFICIENCY,
                 id: skill_group_activity.skill_group.id
               }
@@ -166,7 +166,7 @@ describe ResultsSummary do
             total_correct_questions_count: 1,
             total_correct_skill_groups_count: 0,
             total_possible_questions_count: 2,
-            correct_skill_text: "1 of 2 skills",
+            correct_question_text: "1 of 2 questions",
             correct_skill_groups_text: "0 of 1 skill groups",
           },
           {
@@ -211,7 +211,7 @@ describe ResultsSummary do
           ],
           skill_ids: [diagnostic_question_skill1.id, diagnostic_question_skill2.id],
           correct_skill_ids: [diagnostic_question_skill1.id],
-          number_of_correct_skills_text: "1 of 2 skills correct",
+          number_of_correct_questions_text: "1 of 2 questions correct",
           proficiency_text: ResultsSummary::PARTIAL_PROFICIENCY,
           id: skill_group_activity.skill_group.id
         }

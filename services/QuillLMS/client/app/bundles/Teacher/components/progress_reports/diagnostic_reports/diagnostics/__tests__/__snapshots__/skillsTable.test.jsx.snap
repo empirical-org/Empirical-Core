@@ -7,7 +7,7 @@ exports[`SkillsTable component should render when it is expandable 1`] = `
     Object {
       "description": "Students who show proficiency in this skill will correctly place a prepositional phrase, agree the subject to the verb with a prepositional phrase, and correctly place adjectives, adverbs, and prepositional phrases together.",
       "id": 66,
-      "number_of_correct_skills_text": "2 of 3 skills correct",
+      "number_of_correct_questions_text": "2 of 3 questions correct",
       "proficiency_text": "Partial proficiency",
       "skill_group": "Prepositional Phrases",
       "skills": Array [
@@ -156,7 +156,7 @@ exports[`SkillsTable component should render when it is not expandable 1`] = `
     Object {
       "description": "Students who show proficiency in this skill will correctly place a prepositional phrase, agree the subject to the verb with a prepositional phrase, and correctly place adjectives, adverbs, and prepositional phrases together.",
       "id": 66,
-      "number_of_correct_skills_text": "2 of 3 skills correct",
+      "number_of_correct_questions_text": "2 of 3 questions correct",
       "proficiency_text": "Partial proficiency",
       "skill_group": "Prepositional Phrases",
       "skills": Array [

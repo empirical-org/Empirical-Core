@@ -42,7 +42,7 @@ module ResultsSummary
           total_correct_questions_count: total_correct_questions_count,
           total_correct_skill_groups_count: total_correct_skill_groups_count,
           total_possible_questions_count: total_possible_questions_count,
-          correct_skill_text: "#{total_correct_questions_count} of #{total_possible_questions_count} skills",
+          correct_question_text: "#{total_correct_questions_count} of #{total_possible_questions_count} questions",
           correct_skill_groups_text: "#{total_correct_skill_groups_count} of #{skill_groups.count} skill groups"
         }
       else
@@ -78,7 +78,7 @@ module ResultsSummary
         skills: skills,
         skill_ids: skills.map { |s| s[:id] },
         correct_skill_ids: correct_skill_ids,
-        number_of_correct_skills_text: "#{correct_skill_number} of #{present_skill_number} skills correct",
+        number_of_correct_questions_text: "#{correct_skill_number} of #{present_skill_number} questions correct",
         proficiency_text: proficiency_text,
         id: skill_group.id
       }

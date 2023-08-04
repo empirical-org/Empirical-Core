@@ -1178,7 +1178,7 @@ exports[`StudentResultsTable component should render when there is student data 
               1,
             ],
             "id": 3,
-            "number_of_correct_skills_text": "1 of 1 skills correct",
+            "number_of_correct_questions_text": "1 of 1 questions correct",
             "post_test_proficiency": "Proficiency",
             "pre_test_proficiency": "No proficiency",
             "proficiency_text": "Gained proficiency",
@@ -1205,7 +1205,7 @@ exports[`StudentResultsTable component should render when there is student data 
           Object {
             "acquired_skill_ids": Array [],
             "id": 4,
-            "number_of_correct_skills_text": "0 of 1 skills correct",
+            "number_of_correct_questions_text": "0 of 1 questions correct",
             "post_test_proficiency": "No proficiency",
             "pre_test_proficiency": "No proficiency",
             "proficiency_text": "No proficiency",
@@ -1237,7 +1237,7 @@ exports[`StudentResultsTable component should render when there is student data 
               8,
             ],
             "id": 5,
-            "number_of_correct_skills_text": "5 of 6 skills correct",
+            "number_of_correct_questions_text": "5 of 6 questions correct",
             "post_test_proficiency": "Partial proficiency",
             "pre_test_proficiency": "Partial proficiency",
             "proficiency_text": "Partial proficiency",
@@ -1346,7 +1346,7 @@ exports[`StudentResultsTable component should render when there is student data 
               9,
             ],
             "id": 6,
-            "number_of_correct_skills_text": "2 of 3 skills correct",
+            "number_of_correct_questions_text": "2 of 3 questions correct",
             "post_test_proficiency": "Partial proficiency",
             "pre_test_proficiency": "Partial proficiency",
             "proficiency_text": "Partial proficiency",
@@ -1407,7 +1407,7 @@ exports[`StudentResultsTable component should render when there is student data 
               12,
             ],
             "id": 7,
-            "number_of_correct_skills_text": "4 of 4 skills correct",
+            "number_of_correct_questions_text": "4 of 4 questions correct",
             "post_test_proficiency": "Proficiency",
             "pre_test_proficiency": "Partial proficiency",
             "proficiency_text": "Gained proficiency",
@@ -1484,7 +1484,7 @@ exports[`StudentResultsTable component should render when there is student data 
               16,
             ],
             "id": 8,
-            "number_of_correct_skills_text": "1 of 1 skills correct",
+            "number_of_correct_questions_text": "1 of 1 questions correct",
             "post_test_proficiency": "Proficiency",
             "pre_test_proficiency": "No proficiency",
             "proficiency_text": "Gained proficiency",
@@ -2375,7 +2375,7 @@ exports[`StudentResultsTable component should render when there is student data 
                     1,
                   ],
                   "id": 3,
-                  "number_of_correct_skills_text": "1 of 1 skills correct",
+                  "number_of_correct_questions_text": "1 of 1 questions correct",
                   "post_test_proficiency": "Proficiency",
                   "pre_test_proficiency": "No proficiency",
                   "proficiency_text": "Gained proficiency",
@@ -2402,7 +2402,7 @@ exports[`StudentResultsTable component should render when there is student data 
                 Object {
                   "acquired_skill_ids": Array [],
                   "id": 4,
-                  "number_of_correct_skills_text": "0 of 1 skills correct",
+                  "number_of_correct_questions_text": "0 of 1 questions correct",
                   "post_test_proficiency": "No proficiency",
                   "pre_test_proficiency": "No proficiency",
                   "proficiency_text": "No proficiency",
@@ -2434,7 +2434,7 @@ exports[`StudentResultsTable component should render when there is student data 
                     8,
                   ],
                   "id": 5,
-                  "number_of_correct_skills_text": "5 of 6 skills correct",
+                  "number_of_correct_questions_text": "5 of 6 questions correct",
                   "post_test_proficiency": "Partial proficiency",
                   "pre_test_proficiency": "Partial proficiency",
                   "proficiency_text": "Partial proficiency",
@@ -2543,7 +2543,7 @@ exports[`StudentResultsTable component should render when there is student data 
                     9,
                   ],
                   "id": 6,
-                  "number_of_correct_skills_text": "2 of 3 skills correct",
+                  "number_of_correct_questions_text": "2 of 3 questions correct",
                   "post_test_proficiency": "Partial proficiency",
                   "pre_test_proficiency": "Partial proficiency",
                   "proficiency_text": "Partial proficiency",
@@ -2604,7 +2604,7 @@ exports[`StudentResultsTable component should render when there is student data 
                     12,
                   ],
                   "id": 7,
-                  "number_of_correct_skills_text": "4 of 4 skills correct",
+                  "number_of_correct_questions_text": "4 of 4 questions correct",
                   "post_test_proficiency": "Proficiency",
                   "pre_test_proficiency": "Partial proficiency",
                   "proficiency_text": "Gained proficiency",
@@ -2681,7 +2681,7 @@ exports[`StudentResultsTable component should render when there is student data 
                     16,
                   ],
                   "id": 8,
-                  "number_of_correct_skills_text": "1 of 1 skills correct",
+                  "number_of_correct_questions_text": "1 of 1 questions correct",
                   "post_test_proficiency": "Proficiency",
                   "pre_test_proficiency": "No proficiency",
                   "proficiency_text": "Gained proficiency",
@@ -2745,7 +2745,7 @@ exports[`StudentResultsTable component should render when there is student data 
                     1,
                   ],
                   "id": 3,
-                  "number_of_correct_skills_text": "1 of 1 skills correct",
+                  "number_of_correct_questions_text": "1 of 1 questions correct",
                   "post_test_proficiency": "Proficiency",
                   "pre_test_proficiency": "No proficiency",
                   "proficiency_text": "Gained proficiency",
@@ -2780,7 +2780,7 @@ exports[`StudentResultsTable component should render when there is student data 
                         1,
                       ],
                       "id": 3,
-                      "number_of_correct_skills_text": "1 of 1 skills correct",
+                      "number_of_correct_questions_text": "1 of 1 questions correct",
                       "post_test_proficiency": "Proficiency",
                       "pre_test_proficiency": "No proficiency",
                       "proficiency_text": "Gained proficiency",
@@ -2807,7 +2807,7 @@ exports[`StudentResultsTable component should render when there is student data 
                     Object {
                       "acquired_skill_ids": Array [],
                       "id": 4,
-                      "number_of_correct_skills_text": "0 of 1 skills correct",
+                      "number_of_correct_questions_text": "0 of 1 questions correct",
                       "post_test_proficiency": "No proficiency",
                       "pre_test_proficiency": "No proficiency",
                       "proficiency_text": "No proficiency",
@@ -2839,7 +2839,7 @@ exports[`StudentResultsTable component should render when there is student data 
                         8,
                       ],
                       "id": 5,
-                      "number_of_correct_skills_text": "5 of 6 skills correct",
+                      "number_of_correct_questions_text": "5 of 6 questions correct",
                       "post_test_proficiency": "Partial proficiency",
                       "pre_test_proficiency": "Partial proficiency",
                       "proficiency_text": "Partial proficiency",
@@ -2948,7 +2948,7 @@ exports[`StudentResultsTable component should render when there is student data 
                         9,
                       ],
                       "id": 6,
-                      "number_of_correct_skills_text": "2 of 3 skills correct",
+                      "number_of_correct_questions_text": "2 of 3 questions correct",
                       "post_test_proficiency": "Partial proficiency",
                       "pre_test_proficiency": "Partial proficiency",
                       "proficiency_text": "Partial proficiency",
@@ -3009,7 +3009,7 @@ exports[`StudentResultsTable component should render when there is student data 
                         12,
                       ],
                       "id": 7,
-                      "number_of_correct_skills_text": "4 of 4 skills correct",
+                      "number_of_correct_questions_text": "4 of 4 questions correct",
                       "post_test_proficiency": "Proficiency",
                       "pre_test_proficiency": "Partial proficiency",
                       "proficiency_text": "Gained proficiency",
@@ -3086,7 +3086,7 @@ exports[`StudentResultsTable component should render when there is student data 
                         16,
                       ],
                       "id": 8,
-                      "number_of_correct_skills_text": "1 of 1 skills correct",
+                      "number_of_correct_questions_text": "1 of 1 questions correct",
                       "post_test_proficiency": "Proficiency",
                       "pre_test_proficiency": "No proficiency",
                       "proficiency_text": "Gained proficiency",
@@ -3129,7 +3129,7 @@ exports[`StudentResultsTable component should render when there is student data 
                     <span
                       className="number-of-correct-skills-text"
                     >
-                      1 of 1 skills correct
+                      1 of 1 questions correct
                     </span>
                   </div>
                 </button>
@@ -3144,7 +3144,7 @@ exports[`StudentResultsTable component should render when there is student data 
                 Object {
                   "acquired_skill_ids": Array [],
                   "id": 4,
-                  "number_of_correct_skills_text": "0 of 1 skills correct",
+                  "number_of_correct_questions_text": "0 of 1 questions correct",
                   "post_test_proficiency": "No proficiency",
                   "pre_test_proficiency": "No proficiency",
                   "proficiency_text": "No proficiency",
@@ -3179,7 +3179,7 @@ exports[`StudentResultsTable component should render when there is student data 
                         1,
                       ],
                       "id": 3,
-                      "number_of_correct_skills_text": "1 of 1 skills correct",
+                      "number_of_correct_questions_text": "1 of 1 questions correct",
                       "post_test_proficiency": "Proficiency",
                       "pre_test_proficiency": "No proficiency",
                       "proficiency_text": "Gained proficiency",
@@ -3206,7 +3206,7 @@ exports[`StudentResultsTable component should render when there is student data 
                     Object {
                       "acquired_skill_ids": Array [],
                       "id": 4,
-                      "number_of_correct_skills_text": "0 of 1 skills correct",
+                      "number_of_correct_questions_text": "0 of 1 questions correct",
                       "post_test_proficiency": "No proficiency",
                       "pre_test_proficiency": "No proficiency",
                       "proficiency_text": "No proficiency",
@@ -3238,7 +3238,7 @@ exports[`StudentResultsTable component should render when there is student data 
                         8,
                       ],
                       "id": 5,
-                      "number_of_correct_skills_text": "5 of 6 skills correct",
+                      "number_of_correct_questions_text": "5 of 6 questions correct",
                       "post_test_proficiency": "Partial proficiency",
                       "pre_test_proficiency": "Partial proficiency",
                       "proficiency_text": "Partial proficiency",
@@ -3347,7 +3347,7 @@ exports[`StudentResultsTable component should render when there is student data 
                         9,
                       ],
                       "id": 6,
-                      "number_of_correct_skills_text": "2 of 3 skills correct",
+                      "number_of_correct_questions_text": "2 of 3 questions correct",
                       "post_test_proficiency": "Partial proficiency",
                       "pre_test_proficiency": "Partial proficiency",
                       "proficiency_text": "Partial proficiency",
@@ -3408,7 +3408,7 @@ exports[`StudentResultsTable component should render when there is student data 
                         12,
                       ],
                       "id": 7,
-                      "number_of_correct_skills_text": "4 of 4 skills correct",
+                      "number_of_correct_questions_text": "4 of 4 questions correct",
                       "post_test_proficiency": "Proficiency",
                       "pre_test_proficiency": "Partial proficiency",
                       "proficiency_text": "Gained proficiency",
@@ -3485,7 +3485,7 @@ exports[`StudentResultsTable component should render when there is student data 
                         16,
                       ],
                       "id": 8,
-                      "number_of_correct_skills_text": "1 of 1 skills correct",
+                      "number_of_correct_questions_text": "1 of 1 questions correct",
                       "post_test_proficiency": "Proficiency",
                       "pre_test_proficiency": "No proficiency",
                       "proficiency_text": "Gained proficiency",
@@ -3528,7 +3528,7 @@ exports[`StudentResultsTable component should render when there is student data 
                     <span
                       className="number-of-correct-skills-text"
                     >
-                      0 of 1 skills correct
+                      0 of 1 questions correct
                     </span>
                   </div>
                 </button>
@@ -3548,7 +3548,7 @@ exports[`StudentResultsTable component should render when there is student data 
                     8,
                   ],
                   "id": 5,
-                  "number_of_correct_skills_text": "5 of 6 skills correct",
+                  "number_of_correct_questions_text": "5 of 6 questions correct",
                   "post_test_proficiency": "Partial proficiency",
                   "pre_test_proficiency": "Partial proficiency",
                   "proficiency_text": "Partial proficiency",
@@ -3663,7 +3663,7 @@ exports[`StudentResultsTable component should render when there is student data 
                         1,
                       ],
                       "id": 3,
-                      "number_of_correct_skills_text": "1 of 1 skills correct",
+                      "number_of_correct_questions_text": "1 of 1 questions correct",
                       "post_test_proficiency": "Proficiency",
                       "pre_test_proficiency": "No proficiency",
                       "proficiency_text": "Gained proficiency",
@@ -3690,7 +3690,7 @@ exports[`StudentResultsTable component should render when there is student data 
                     Object {
                       "acquired_skill_ids": Array [],
                       "id": 4,
-                      "number_of_correct_skills_text": "0 of 1 skills correct",
+                      "number_of_correct_questions_text": "0 of 1 questions correct",
                       "post_test_proficiency": "No proficiency",
                       "pre_test_proficiency": "No proficiency",
                       "proficiency_text": "No proficiency",
@@ -3722,7 +3722,7 @@ exports[`StudentResultsTable component should render when there is student data 
                         8,
                       ],
                       "id": 5,
-                      "number_of_correct_skills_text": "5 of 6 skills correct",
+                      "number_of_correct_questions_text": "5 of 6 questions correct",
                       "post_test_proficiency": "Partial proficiency",
                       "pre_test_proficiency": "Partial proficiency",
                       "proficiency_text": "Partial proficiency",
@@ -3831,7 +3831,7 @@ exports[`StudentResultsTable component should render when there is student data 
                         9,
                       ],
                       "id": 6,
-                      "number_of_correct_skills_text": "2 of 3 skills correct",
+                      "number_of_correct_questions_text": "2 of 3 questions correct",
                       "post_test_proficiency": "Partial proficiency",
                       "pre_test_proficiency": "Partial proficiency",
                       "proficiency_text": "Partial proficiency",
@@ -3892,7 +3892,7 @@ exports[`StudentResultsTable component should render when there is student data 
                         12,
                       ],
                       "id": 7,
-                      "number_of_correct_skills_text": "4 of 4 skills correct",
+                      "number_of_correct_questions_text": "4 of 4 questions correct",
                       "post_test_proficiency": "Proficiency",
                       "pre_test_proficiency": "Partial proficiency",
                       "proficiency_text": "Gained proficiency",
@@ -3969,7 +3969,7 @@ exports[`StudentResultsTable component should render when there is student data 
                         16,
                       ],
                       "id": 8,
-                      "number_of_correct_skills_text": "1 of 1 skills correct",
+                      "number_of_correct_questions_text": "1 of 1 questions correct",
                       "post_test_proficiency": "Proficiency",
                       "pre_test_proficiency": "No proficiency",
                       "proficiency_text": "Gained proficiency",
@@ -4012,7 +4012,7 @@ exports[`StudentResultsTable component should render when there is student data 
                     <span
                       className="number-of-correct-skills-text"
                     >
-                      5 of 6 skills correct
+                      5 of 6 questions correct
                     </span>
                   </div>
                 </button>
@@ -4029,7 +4029,7 @@ exports[`StudentResultsTable component should render when there is student data 
                     9,
                   ],
                   "id": 6,
-                  "number_of_correct_skills_text": "2 of 3 skills correct",
+                  "number_of_correct_questions_text": "2 of 3 questions correct",
                   "post_test_proficiency": "Partial proficiency",
                   "pre_test_proficiency": "Partial proficiency",
                   "proficiency_text": "Partial proficiency",
@@ -4096,7 +4096,7 @@ exports[`StudentResultsTable component should render when there is student data 
                         1,
                       ],
                       "id": 3,
-                      "number_of_correct_skills_text": "1 of 1 skills correct",
+                      "number_of_correct_questions_text": "1 of 1 questions correct",
                       "post_test_proficiency": "Proficiency",
                       "pre_test_proficiency": "No proficiency",
                       "proficiency_text": "Gained proficiency",
@@ -4123,7 +4123,7 @@ exports[`StudentResultsTable component should render when there is student data 
                     Object {
                       "acquired_skill_ids": Array [],
                       "id": 4,
-                      "number_of_correct_skills_text": "0 of 1 skills correct",
+                      "number_of_correct_questions_text": "0 of 1 questions correct",
                       "post_test_proficiency": "No proficiency",
                       "pre_test_proficiency": "No proficiency",
                       "proficiency_text": "No proficiency",
@@ -4155,7 +4155,7 @@ exports[`StudentResultsTable component should render when there is student data 
                         8,
                       ],
                       "id": 5,
-                      "number_of_correct_skills_text": "5 of 6 skills correct",
+                      "number_of_correct_questions_text": "5 of 6 questions correct",
                       "post_test_proficiency": "Partial proficiency",
                       "pre_test_proficiency": "Partial proficiency",
                       "proficiency_text": "Partial proficiency",
@@ -4264,7 +4264,7 @@ exports[`StudentResultsTable component should render when there is student data 
                         9,
                       ],
                       "id": 6,
-                      "number_of_correct_skills_text": "2 of 3 skills correct",
+                      "number_of_correct_questions_text": "2 of 3 questions correct",
                       "post_test_proficiency": "Partial proficiency",
                       "pre_test_proficiency": "Partial proficiency",
                       "proficiency_text": "Partial proficiency",
@@ -4325,7 +4325,7 @@ exports[`StudentResultsTable component should render when there is student data 
                         12,
                       ],
                       "id": 7,
-                      "number_of_correct_skills_text": "4 of 4 skills correct",
+                      "number_of_correct_questions_text": "4 of 4 questions correct",
                       "post_test_proficiency": "Proficiency",
                       "pre_test_proficiency": "Partial proficiency",
                       "proficiency_text": "Gained proficiency",
@@ -4402,7 +4402,7 @@ exports[`StudentResultsTable component should render when there is student data 
                         16,
                       ],
                       "id": 8,
-                      "number_of_correct_skills_text": "1 of 1 skills correct",
+                      "number_of_correct_questions_text": "1 of 1 questions correct",
                       "post_test_proficiency": "Proficiency",
                       "pre_test_proficiency": "No proficiency",
                       "proficiency_text": "Gained proficiency",
@@ -4445,7 +4445,7 @@ exports[`StudentResultsTable component should render when there is student data 
                     <span
                       className="number-of-correct-skills-text"
                     >
-                      2 of 3 skills correct
+                      2 of 3 questions correct
                     </span>
                   </div>
                 </button>
@@ -4462,7 +4462,7 @@ exports[`StudentResultsTable component should render when there is student data 
                     12,
                   ],
                   "id": 7,
-                  "number_of_correct_skills_text": "4 of 4 skills correct",
+                  "number_of_correct_questions_text": "4 of 4 questions correct",
                   "post_test_proficiency": "Proficiency",
                   "pre_test_proficiency": "Partial proficiency",
                   "proficiency_text": "Gained proficiency",
@@ -4545,7 +4545,7 @@ exports[`StudentResultsTable component should render when there is student data 
                         1,
                       ],
                       "id": 3,
-                      "number_of_correct_skills_text": "1 of 1 skills correct",
+                      "number_of_correct_questions_text": "1 of 1 questions correct",
                       "post_test_proficiency": "Proficiency",
                       "pre_test_proficiency": "No proficiency",
                       "proficiency_text": "Gained proficiency",
@@ -4572,7 +4572,7 @@ exports[`StudentResultsTable component should render when there is student data 
                     Object {
                       "acquired_skill_ids": Array [],
                       "id": 4,
-                      "number_of_correct_skills_text": "0 of 1 skills correct",
+                      "number_of_correct_questions_text": "0 of 1 questions correct",
                       "post_test_proficiency": "No proficiency",
                       "pre_test_proficiency": "No proficiency",
                       "proficiency_text": "No proficiency",
@@ -4604,7 +4604,7 @@ exports[`StudentResultsTable component should render when there is student data 
                         8,
                       ],
                       "id": 5,
-                      "number_of_correct_skills_text": "5 of 6 skills correct",
+                      "number_of_correct_questions_text": "5 of 6 questions correct",
                       "post_test_proficiency": "Partial proficiency",
                       "pre_test_proficiency": "Partial proficiency",
                       "proficiency_text": "Partial proficiency",
@@ -4713,7 +4713,7 @@ exports[`StudentResultsTable component should render when there is student data 
                         9,
                       ],
                       "id": 6,
-                      "number_of_correct_skills_text": "2 of 3 skills correct",
+                      "number_of_correct_questions_text": "2 of 3 questions correct",
                       "post_test_proficiency": "Partial proficiency",
                       "pre_test_proficiency": "Partial proficiency",
                       "proficiency_text": "Partial proficiency",
@@ -4774,7 +4774,7 @@ exports[`StudentResultsTable component should render when there is student data 
                         12,
                       ],
                       "id": 7,
-                      "number_of_correct_skills_text": "4 of 4 skills correct",
+                      "number_of_correct_questions_text": "4 of 4 questions correct",
                       "post_test_proficiency": "Proficiency",
                       "pre_test_proficiency": "Partial proficiency",
                       "proficiency_text": "Gained proficiency",
@@ -4851,7 +4851,7 @@ exports[`StudentResultsTable component should render when there is student data 
                         16,
                       ],
                       "id": 8,
-                      "number_of_correct_skills_text": "1 of 1 skills correct",
+                      "number_of_correct_questions_text": "1 of 1 questions correct",
                       "post_test_proficiency": "Proficiency",
                       "pre_test_proficiency": "No proficiency",
                       "proficiency_text": "Gained proficiency",
@@ -4894,7 +4894,7 @@ exports[`StudentResultsTable component should render when there is student data 
                     <span
                       className="number-of-correct-skills-text"
                     >
-                      4 of 4 skills correct
+                      4 of 4 questions correct
                     </span>
                   </div>
                 </button>
@@ -4911,7 +4911,7 @@ exports[`StudentResultsTable component should render when there is student data 
                     16,
                   ],
                   "id": 8,
-                  "number_of_correct_skills_text": "1 of 1 skills correct",
+                  "number_of_correct_questions_text": "1 of 1 questions correct",
                   "post_test_proficiency": "Proficiency",
                   "pre_test_proficiency": "No proficiency",
                   "proficiency_text": "Gained proficiency",
@@ -4946,7 +4946,7 @@ exports[`StudentResultsTable component should render when there is student data 
                         1,
                       ],
                       "id": 3,
-                      "number_of_correct_skills_text": "1 of 1 skills correct",
+                      "number_of_correct_questions_text": "1 of 1 questions correct",
                       "post_test_proficiency": "Proficiency",
                       "pre_test_proficiency": "No proficiency",
                       "proficiency_text": "Gained proficiency",
@@ -4973,7 +4973,7 @@ exports[`StudentResultsTable component should render when there is student data 
                     Object {
                       "acquired_skill_ids": Array [],
                       "id": 4,
-                      "number_of_correct_skills_text": "0 of 1 skills correct",
+                      "number_of_correct_questions_text": "0 of 1 questions correct",
                       "post_test_proficiency": "No proficiency",
                       "pre_test_proficiency": "No proficiency",
                       "proficiency_text": "No proficiency",
@@ -5005,7 +5005,7 @@ exports[`StudentResultsTable component should render when there is student data 
                         8,
                       ],
                       "id": 5,
-                      "number_of_correct_skills_text": "5 of 6 skills correct",
+                      "number_of_correct_questions_text": "5 of 6 questions correct",
                       "post_test_proficiency": "Partial proficiency",
                       "pre_test_proficiency": "Partial proficiency",
                       "proficiency_text": "Partial proficiency",
@@ -5114,7 +5114,7 @@ exports[`StudentResultsTable component should render when there is student data 
                         9,
                       ],
                       "id": 6,
-                      "number_of_correct_skills_text": "2 of 3 skills correct",
+                      "number_of_correct_questions_text": "2 of 3 questions correct",
                       "post_test_proficiency": "Partial proficiency",
                       "pre_test_proficiency": "Partial proficiency",
                       "proficiency_text": "Partial proficiency",
@@ -5175,7 +5175,7 @@ exports[`StudentResultsTable component should render when there is student data 
                         12,
                       ],
                       "id": 7,
-                      "number_of_correct_skills_text": "4 of 4 skills correct",
+                      "number_of_correct_questions_text": "4 of 4 questions correct",
                       "post_test_proficiency": "Proficiency",
                       "pre_test_proficiency": "Partial proficiency",
                       "proficiency_text": "Gained proficiency",
@@ -5252,7 +5252,7 @@ exports[`StudentResultsTable component should render when there is student data 
                         16,
                       ],
                       "id": 8,
-                      "number_of_correct_skills_text": "1 of 1 skills correct",
+                      "number_of_correct_questions_text": "1 of 1 questions correct",
                       "post_test_proficiency": "Proficiency",
                       "pre_test_proficiency": "No proficiency",
                       "proficiency_text": "Gained proficiency",
@@ -5295,7 +5295,7 @@ exports[`StudentResultsTable component should render when there is student data 
                     <span
                       className="number-of-correct-skills-text"
                     >
-                      1 of 1 skills correct
+                      1 of 1 questions correct
                     </span>
                   </div>
                 </button>

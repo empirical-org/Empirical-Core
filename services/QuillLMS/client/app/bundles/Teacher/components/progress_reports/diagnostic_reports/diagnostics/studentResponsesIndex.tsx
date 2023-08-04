@@ -26,15 +26,15 @@ const preTestDesktopHeaders = (isSortable) => ([
   {
     name: 'Name',
     attribute: 'name',
-    width: '372px',
+    width: '362px',
     sortAttribute: 'alphabeticalName',
     isSortable: true
   },
   {
-    name: 'Pre - Skills',
+    name: 'Pre - Questions',
     attribute: 'activeDiagnosticSkillsCorrectElement',
     sortAttribute: 'totalCorrectSkillsCount',
-    width: '102px',
+    width: '112px',
     rowSectionClassName: 'score-section',
     headerClassName: 'score-header',
     noTooltip: true,
@@ -54,25 +54,25 @@ const postTestDesktopHeaders = (isSortable) => ([
   {
     name: 'Name',
     attribute: 'name',
-    width: '372px',
+    width: '346px',
     sortAttribute: 'alphabeticalName',
     isSortable: true
   },
   {
-    name: 'Pre - Skills',
+    name: 'Pre - Questions',
     attribute: 'preSkillsCorrectElement',
     sortAttribute: 'totalPreCorrectSkillsCount',
-    width: '102px',
+    width: '112px',
     rowSectionClassName: 'score-section',
     headerClassName: 'score-header',
     noTooltip: true,
     isSortable
   },
   {
-    name: 'Post - Skills',
+    name: 'Post - Questions',
     attribute: 'activeDiagnosticSkillsCorrectElement',
     sortAttribute: 'totalCorrectSkillsCount',
-    width: '102px',
+    width: '118',
     rowSectionClassName: 'score-section',
     headerClassName: 'score-header',
     noTooltip: true,
@@ -100,7 +100,7 @@ const mobileHeaders = (isSortable) => ([
     isSortable: true
   },
   {
-    name: 'Skills correct',
+    name: 'Questions correct',
     attribute: 'skillsCorrectElement',
     sortAttribute: 'totalCorrectSkillsCount',
     width: '102px',
