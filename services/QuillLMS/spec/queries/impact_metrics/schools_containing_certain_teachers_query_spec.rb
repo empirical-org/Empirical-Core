@@ -35,7 +35,11 @@ module ImpactMetrics
         ]
       }
 
-      it { expect(results).to match_array([chosen_school_one, chosen_school_two].map{ |s| {"free_lunches" => s.free_lunches, "id" => s.id}}) }
+      let(:expected_results) do
+        [chosen_school_one, chosen_school_two].map { |school| { free_lunches: school.free_lunches, id: school.id } }
+      end
+
+      it { expect(results).to match_array(expected_results) }
     end
   end
 end

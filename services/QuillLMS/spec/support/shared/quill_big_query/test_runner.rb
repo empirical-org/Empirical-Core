@@ -8,8 +8,8 @@ module QuillBigQuery
       @cte_records = cte_records
     end
 
-    def execute(query, **array_params)
-      QuillBigQuery::Runner.execute(translate_to_big_query_with_cte(query), **array_params)
+    def execute(query)
+      QuillBigQuery::Runner.execute(translate_to_big_query_with_cte(query))
     end
 
     private def translate_to_big_query_with_cte(query)
