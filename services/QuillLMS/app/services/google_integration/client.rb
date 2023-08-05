@@ -1,6 +1,6 @@
 # frozen_string_literal: true
 
-require 'google/api_client'
+# require 'google/api_client'
 
 module GoogleIntegration
   class Client
