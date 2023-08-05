@@ -18,12 +18,12 @@ module Snapshots
     def from_and_join_clauses
       <<-SQL
         FROM lms.classrooms
-          JOIN lms.classrooms_teachers
-            ON classrooms.id = classrooms_teachers.classroom_id
-          JOIN lms.schools_users
-            ON classrooms_teachers.user_id = schools_users.user_id
-          JOIN lms.schools
-            ON schools_users.school_id = schools.id
+        JOIN lms.classrooms_teachers
+          ON classrooms.id = classrooms_teachers.classroom_id
+        JOIN lms.schools_users
+          ON classrooms_teachers.user_id = schools_users.user_id
+        JOIN lms.schools
+          ON schools_users.school_id = schools.id
       SQL
     end
 

@@ -4,7 +4,7 @@ module Snapshots
   class CountQuery < PeriodQuery
     def run
       {
-        'count': run_query.first['count']
+        count: run_query.first[:count]
       }
     end
   end

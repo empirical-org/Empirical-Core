@@ -12,7 +12,7 @@ module Snapshots
     end
 
     def relevant_date_column
-      "activity_sessions.completed_at"
+      'activity_sessions.completed_at'
     end
   end
 end
