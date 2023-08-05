@@ -56,7 +56,7 @@ module QuillBigQuery
       if value.nil?
         "NULL"
       elsif value.is_a?(Array)
-        value.map { |v| attr_type_value(attr_type, v) }
+        "ARRAY#{value.map { |v| attr_type_value(attr_type, v) }}"
       else
         attr_type_value(attr_type, value)
       end
@@ -68,7 +68,7 @@ module QuillBigQuery
       when :inet then "'#{value}'"
       when :jsonb then "'#{value.to_json}'"
       when :string, :text then "\"#{value}\""
-      when :datetime then "'#{value&.to_fs(:db)}'"
+      when :datetime then "'#{value&.to_s(:db)}'"
       else
         raise "Error: value:'#{value}' type #{attr_type} not found"
       end
