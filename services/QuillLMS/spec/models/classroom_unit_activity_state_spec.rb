@@ -68,7 +68,7 @@ describe ClassroomUnitActivityState, type: :model, redis: true do
 
   describe 'caching lessons upon assignemnt' do
     before do
-      $redis.redis.flushdb
+      Rails.cache.redis.flushdb
       cua.save
     end
 

@@ -9,7 +9,7 @@ module Evidence
     context 'should #feedback_object' do
 
       it 'should return appropriate feedback attributes if there is plagiarism' do
-        $redis.redis.flushdb
+        Rails.cache.redis.flushdb
         entry = "these are s'',ome! r''esponse words to plagiarize and this is plagiarism"
         passage = "these are some res,,,,ponse,,,, words to plagiarize and this is plagiarism"
         feedback = "this is some standard plagiarism feedback"
