@@ -329,10 +329,10 @@ describe UnitTemplate, redis: true, type: :model do
     before do
       $redis.redis.flushdb
       $redis.multi{
-        $redis.set('beta_unit_templates', 'a')
-        $redis.set('production_unit_templates', 'a')
-        $redis.set('gamma_unit_templates', 'a')
-        $redis.set('alpha_unit_templates', 'a')
+        Rails.cache.write('beta_unit_templates', 'a')
+        Rails.cache.write('production_unit_templates', 'a')
+        Rails.cache.write('gamma_unit_templates', 'a')
+        Rails.cache.write('alpha_unit_templates', 'a')
       }
     end
 
@@ -346,7 +346,7 @@ describe UnitTemplate, redis: true, type: :model do
     end
 
     it "deletes the cache of the saved unit" do
-      $redis.set("unit_template_id:#{unit_template.id}_serialized", 'something')
+      Rails.cache.write("unit_template_id:#{unit_template.id}_serialized", 'something')
       expect($redis.exists("unit_template_id:#{unit_template.id}_serialized")).to eq(1)
       unit_template.update(name: 'something else')
       expect($redis.exists("unit_template_id:#{unit_template.id}_serialized")).to eq(0)
@@ -357,7 +357,7 @@ describe UnitTemplate, redis: true, type: :model do
       unit_template.update(flag: 'beta')
       expect(exist_count).to eq(0)
       expect($redis.exists('alpha_unit_templates')).to eq(0)
-      $redis.set('alpha_unit_templates', 'some test nonsense')
+      Rails.cache.write('alpha_unit_templates', 'some test nonsense')
       unit_template.update(flag: 'alpha')
       expect(exist_count).to eq(0)
     end
@@ -391,12 +391,12 @@ describe UnitTemplate, redis: true, type: :model do
     let(:template) { create(:unit_template) }
 
     it 'should clear the unit templates' do
-      $redis.set("unit_template_id:#{template.id}_serialized", "pretend")
-      $redis.set('production_unit_templates', "this")
-      $redis.set('beta_unit_templates', "is")
-      $redis.set('alpha_unit_templates', "real")
-      $redis.set('private_unit_templates', "data")
-      $redis.set('gamma_unit_templates', "same")
+      Rails.cache.write("unit_template_id:#{template.id}_serialized", "pretend")
+      Rails.cache.write('production_unit_templates', "this")
+      Rails.cache.write('beta_unit_templates', "is")
+      Rails.cache.write('alpha_unit_templates', "real")
+      Rails.cache.write('private_unit_templates', "data")
+      Rails.cache.write('gamma_unit_templates', "same")
       UnitTemplate.delete_all_caches
       expect($redis.get("unit_template_id:#{template.id}_serialized")).to eq nil
       expect($redis.get('production_unit_templates')).to eq nil

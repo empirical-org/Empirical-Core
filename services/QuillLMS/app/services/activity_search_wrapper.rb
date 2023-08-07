@@ -33,7 +33,7 @@ class ActivitySearchWrapper
   def self.search_cache_data(flagset = nil)
     substring = flagset ? "#{flagset}_" : ""
     activity_search_json = ActivitySearchWrapper.new(flagset).search.to_json
-    $redis.set("default_#{substring}activity_search", activity_search_json)
+    Rails.cache.write("default_#{substring}activity_search", activity_search_json)
     activity_search_json
   end
 

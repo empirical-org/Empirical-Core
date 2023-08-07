@@ -142,7 +142,7 @@ class UnitTemplate < ApplicationRecord
     unless serialized_unit_template
       serializable_unit_template = UnitTemplatePseudoSerializer.new(self, flag)
       serialized_unit_template = serializable_unit_template.data
-      $redis.set("unit_template_id:#{id}_serialized", serialized_unit_template.to_json, {ex: cache_expiration_time})
+      Rails.cache.write("unit_template_id:#{id}_serialized", serialized_unit_template.to_json, {ex: cache_expiration_time})
     end
     serialized_unit_template
   end

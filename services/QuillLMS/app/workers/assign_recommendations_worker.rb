@@ -67,9 +67,9 @@ class AssignRecommendationsWorker
     if elapsed_time > 10
       diagnostic_recommendations_over_ten_seconds_count = $redis.get("#{lesson_text}diagnostic_recommendations_over_ten_seconds_count")
       if diagnostic_recommendations_over_ten_seconds_count
-        $redis.set("#{lesson_text}diagnostic_recommendations_over_ten_seconds_count", diagnostic_recommendations_over_ten_seconds_count.to_i + 1)
+        Rails.cache.write("#{lesson_text}diagnostic_recommendations_over_ten_seconds_count", diagnostic_recommendations_over_ten_seconds_count.to_i + 1)
       else
-        $redis.set("#{lesson_text}diagnostic_recommendations_over_ten_seconds_count", 1)
+        Rails.cache.write("#{lesson_text}diagnostic_recommendations_over_ten_seconds_count", 1)
       end
       begin
         raise "#{elapsed_time} seconds for user #{teacher_id} to assign #{lesson_text} recommendations"
@@ -79,9 +79,9 @@ class AssignRecommendationsWorker
     else
       diagnostic_recommendations_under_ten_seconds_count = $redis.get("diagnostic_recommendations_under_ten_seconds_count")
       if diagnostic_recommendations_under_ten_seconds_count
-        $redis.set("#{lesson_text}diagnostic_recommendations_under_ten_seconds_count", diagnostic_recommendations_under_ten_seconds_count.to_i + 1)
+        Rails.cache.write("#{lesson_text}diagnostic_recommendations_under_ten_seconds_count", diagnostic_recommendations_under_ten_seconds_count.to_i + 1)
       else
-        $redis.set("#{lesson_text}diagnostic_recommendations_under_ten_seconds_count", 1)
+        Rails.cache.write("#{lesson_text}diagnostic_recommendations_under_ten_seconds_count", 1)
       end
     end
     $redis.del("user_id:#{teacher_id}_#{lesson_text}diagnostic_recommendations_start_time")

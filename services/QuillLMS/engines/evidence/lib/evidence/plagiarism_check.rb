@@ -34,11 +34,11 @@ module Evidence
     end
 
     private def optimal_rule_hash
-      cached = $redis.get(OPTIMAL_RULE_KEY)
+      cached = Rails.cache.read(OPTIMAL_RULE_KEY)
       serialized_optimal_rule = cached.nil? || cached&.blank? ? nil : JSON.parse(cached)
       unless serialized_optimal_rule
         serialized_optimal_rule = Evidence::Rule.find_by(optimal: true, rule_type: Rule::TYPE_PLAGIARISM).to_json
-        $redis.set(OPTIMAL_RULE_KEY, serialized_optimal_rule)
+        Rails.cache.write(OPTIMAL_RULE_KEY, serialized_optimal_rule)
       end
       serialized_optimal_rule || {}
     end

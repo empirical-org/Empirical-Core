@@ -76,7 +76,7 @@ describe Teachers::ClassroomUnitsController, type: :controller do
       before { allow(teacher).to receive(:set_and_return_lessons_cache_data) { { id: "not 10" } } }
 
       context 'when value is present in the cache' do
-        before { $redis.set("user_id:#{teacher.id}_lessons_array", { id: 10 }.to_json) }
+        before { Rails.cache.write("user_id:#{teacher.id}_lessons_array", { id: 10 }.to_json) }
 
         it 'should render the redis cache' do
           get :lessons_activities_cache, as: :json
@@ -92,7 +92,7 @@ describe Teachers::ClassroomUnitsController, type: :controller do
 
     describe '#lessons_units_and_activities' do
       before do
-        $redis.set("user_id:#{teacher.id}_lessons_array", [
+        Rails.cache.write("user_id:#{teacher.id}_lessons_array", [
           { activity_id: 10, activity_name: "some name", completed: false, visible: true },
           { activity_id: 11, activity_name: "bater papo", completed: false, visible: false }
         ].to_json)
