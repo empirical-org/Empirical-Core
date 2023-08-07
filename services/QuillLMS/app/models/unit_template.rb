@@ -43,6 +43,8 @@ class UnitTemplate < ApplicationRecord
   ALPHA = 'alpha'
   PRIVATE = 'private'
 
+  CACHED_EXPIRATION_TIME = 10.minutes
+
   scope :production, -> {where("unit_templates.flag IN('#{PRODUCTION}') OR unit_templates.flag IS null")}
   scope :gamma_user, -> { where("unit_templates.flag IN('#{PRODUCTION}','#{GAMMA}') OR unit_templates.flag IS null")}
   scope :beta_user, -> { where("unit_templates.flag IN('#{PRODUCTION}','#{GAMMA}','#{BETA}') OR unit_templates.flag IS null")}
@@ -136,13 +138,17 @@ class UnitTemplate < ApplicationRecord
   end
 
   def get_cached_serialized_unit_template(flag=nil)
-    cache_expiration_time = 600
     cached = Rails.cache.read("unit_template_id:#{id}_serialized")
     serialized_unit_template = cached.nil? || cached&.blank? ? nil : JSON.parse(cached)
     unless serialized_unit_template
       serializable_unit_template = UnitTemplatePseudoSerializer.new(self, flag)
       serialized_unit_template = serializable_unit_template.data
-      Rails.cache.write("unit_template_id:#{id}_serialized", serialized_unit_template.to_json, {ex: cache_expiration_time})
+
+      Rails.cache.write(
+        "unit_template_id:#{id}_serialized",
+        serialized_unit_template.to_json,
+        expires_in: CACHE_EXPIRATION_TIME
+      )
     end
     serialized_unit_template
   end

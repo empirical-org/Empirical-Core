@@ -4,7 +4,7 @@ class FindDistrictConceptReportsWorker
   include Sidekiq::Worker
   sidekiq_options queue: SidekiqQueue::CRITICAL, retry: 2
 
-  SERIALIZED_DISTRICT_CONCEPT_REPORTS_CACHE_LIFE = 25.hours.to_i
+  SERIALIZED_DISTRICT_CONCEPT_REPORTS_CACHE_LIFE = 25.hours
 
   def perform(admin_id)
     return unless admin_id

@@ -14,7 +14,7 @@ describe QuillStaffAccountsChangedWorker, type: :worker do
       expect(worker).to receive(:current_staff_account_data).and_return([staff_json])
       expect(worker).to receive(:cached_staff_account_data).and_return({})
       expect(worker).to receive(:notify_staff)
-      expect($redis).to receive(:set).with(QuillStaffAccountsChangedWorker::STAFF_ACCOUNTS_CACHE_KEY, [staff_json].to_json, ex: 25.hours.to_i)
+      expect(Rails.cache).to receive(:write).with(QuillStaffAccountsChangedWorker::STAFF_ACCOUNTS_CACHE_KEY, [staff_json].to_json, expires_in: 25.hours)
       worker.perform
     end
 
@@ -22,7 +22,7 @@ describe QuillStaffAccountsChangedWorker, type: :worker do
       expect(worker).to receive(:current_staff_account_data).and_return([staff_json])
       expect(worker).to receive(:cached_staff_account_data).and_return([staff_json])
       expect(worker).not_to receive(:notify_staff)
-      expect($redis).to receive(:set).with(QuillStaffAccountsChangedWorker::STAFF_ACCOUNTS_CACHE_KEY, [staff_json].to_json, ex: 25.hours.to_i)
+      expect(Rails.cache).to receive(:write).with(QuillStaffAccountsChangedWorker::STAFF_ACCOUNTS_CACHE_KEY, [staff_json].to_json, expires_in: 25.hours)
       worker.perform
     end
 
@@ -39,8 +39,8 @@ describe QuillStaffAccountsChangedWorker, type: :worker do
   end
 
   describe "#cached_staff_account_data" do
-    it "retrieves cached data from Redis" do
-      expect($redis).to receive(:get).with(QuillStaffAccountsChangedWorker::STAFF_ACCOUNTS_CACHE_KEY)
+    it "retrieves cached data" do
+      expect(Rails.cache).to receive(:read).with(QuillStaffAccountsChangedWorker::STAFF_ACCOUNTS_CACHE_KEY)
       worker.cached_staff_account_data
     end
   end

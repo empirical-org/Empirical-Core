@@ -6,6 +6,7 @@ module Teacher
   include CheckboxCallback
   include LessonsCache
 
+  MINIS_CACHE_EXPIRATION_TIME = 16.hours
   TRIAL_LIMIT = 250
   TRIAL_START_DATE = Date.parse('1-9-2015') # September 1st 2015
 
@@ -254,7 +255,7 @@ module Teacher
 
   def classroom_minis_cache=(info)
     # TODO: move this to background worker
-    Rails.cache.write("user_id:#{id}_classroom_minis", info.to_json, {ex: 16.hours} )
+    Rails.cache.write("user_id:#{id}_classroom_minis", info.to_json, expires_in: MINIS_CACHE_EXPIRATION_TIME)
   end
 
   def self.clear_classrooms_minis_cache(teacher_id)
