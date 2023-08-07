@@ -11,7 +11,7 @@ module GoogleIntegration
       @google_auth_credential = google_auth_credential
       @user_external_id = google_auth_credential.user.user_external_id
 
-      api.authorization = AuthorizationClient.run(google_auth_credential)
+      api.authorization = AuthorizationClientFetcher.run(google_auth_credential)
     end
 
     def classroom_students(course_id)
@@ -40,7 +40,7 @@ module GoogleIntegration
     end
 
     private def api
-      @api ||= Google::Apis::ClassroomV1::ClassroomService.new
+      @api ||= ::Google::Apis::ClassroomV1::ClassroomService.new
     end
 
     private def teacher_courses_data
