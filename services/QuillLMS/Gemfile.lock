@@ -264,6 +264,7 @@ GEM
     globalid (1.1.0)
       activesupport (>= 5.0)
     google-apis-bigquery_v2 (0.57.0)
+      google-apis-core (>= 0.11.0, < 2.a)
     google-apis-classroom_v1 (0.27.0)
       google-apis-core (>= 0.11.0, < 2.a)
     google-apis-core (0.11.1)
@@ -863,8 +864,8 @@ DEPENDENCIES
   foreman
   geocoder
   global
-  google-cloud-bigquery (~> 1.43.0)
   google-apis-classroom_v1 (~> 0.27.0)
+  google-cloud-bigquery (~> 1.43.0)
   graphiql-rails
   graphql
   guard
