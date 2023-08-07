@@ -10,7 +10,7 @@
 #
 require 'rails_helper'
 
-describe Author, type: :model, redis: true do
+RSpec.describe Author, type: :model, redis: true do
   it { should have_many(:unit_templates) }
   it { is_expected.to callback(:delete_relevant_caches).after(:commit) }
 

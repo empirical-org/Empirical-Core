@@ -147,7 +147,7 @@ class UnitTemplate < ApplicationRecord
       Rails.cache.write(
         "unit_template_id:#{id}_serialized",
         serialized_unit_template.to_json,
-        expires_in: CACHE_EXPIRATION_TIME
+        expires_in: CACHED_EXPIRATION_TIME
       )
     end
     serialized_unit_template

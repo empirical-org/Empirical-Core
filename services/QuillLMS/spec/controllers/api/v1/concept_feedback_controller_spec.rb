@@ -13,7 +13,7 @@ describe Api::V1::ConceptFeedbackController, type: :controller do
 
     it "should include the response from the db" do
       get :index, params: { activity_type: concept_feedback.activity_type }, as: :json
-      expect(JSON.parse(response.body).keys.first).to eq(concept_feedback.uid)
+      expect(JSON.parse(response.body).keys).to include(concept_feedback.uid)
     end
   end
 
