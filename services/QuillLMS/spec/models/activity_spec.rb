@@ -408,7 +408,7 @@ describe Activity, type: :model, redis: true do
     let!(:cache_activity) { create(:activity, :production) }
 
     it 'sets the default_activity_search for the cache' do
-      Rails.cache.redis.flushdb
+      Rails.cache.clear
       Activity.set_activity_search_cache
       expect(JSON.parse(Rails.cache.read('default_activity_search'))['activities'].first['uid']).to eq(cache_activity.uid)
     end
@@ -464,7 +464,7 @@ describe Activity, type: :model, redis: true do
     let!(:cache_activity) { create(:activity, :production) }
 
     it 'when cache is empty the result is the value of the search results' do
-      Rails.cache.redis.flushdb
+      Rails.cache.clear
       search_results = Activity.search_results(nil)
       results = ActivitySearchWrapper.search_cache_data(nil)
       expect(search_results).to eq(JSON.parse(results))
