@@ -21,7 +21,7 @@ module Evidence
     context 'should #feedback_object' do
 
       it 'should return optimal blank feedback when there is no regex match' do
-        $redis.redis.flushdb
+        Rails.cache.redis.flushdb
         optimal_rule = create(:evidence_rule, :rule_type => "rules-based-1", :optimal => true)
         entry = "this is not a good regex match"
         regex_check = Evidence::RegexCheck.new(entry, prompt, optimal_rule.rule_type)
