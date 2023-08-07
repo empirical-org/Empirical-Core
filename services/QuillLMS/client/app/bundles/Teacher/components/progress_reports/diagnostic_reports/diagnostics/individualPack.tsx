@@ -144,9 +144,9 @@ const IndividualPack = ({ classrooms, history, match, location, lessonsBannerIsS
   function diagnosticForClassroom(classroom) {
     return classroom.diagnostics.find(d => {
       const assignedDiagnosticAsEitherPreOrPost = (d.pre.activity_id === activityId) || (d.post && d.post.activity_id === activityId)
-      const preOrPostHasUnitId = d.pre.unit_id || d.post.unit_id
+      const preOrPostHasUnitId = d.pre.unit_id || d.post?.unit_id
       if (assignedDiagnosticAsEitherPreOrPost && unitId && preOrPostHasUnitId) {
-        return d.pre.unit_id === Number(unitId) || d.post && d.post.unit_id === Number(unitId)
+        return d.pre.unit_id === Number(unitId) || d.post?.unit_id === Number(unitId)
       }
       return assignedDiagnosticAsEitherPreOrPost
     })
@@ -174,6 +174,13 @@ const IndividualPack = ({ classrooms, history, match, location, lessonsBannerIsS
     }
 
     return false
+  }
+
+  function eligibleForQuestionScoring() {
+    if (!activeDiagnostic) { return false }
+
+    // we only care about whether or not the pre-diagnostic is eligible because even if the post- is, we can't compare the data and so need to keep the empty state
+    return activeDiagnostic.pre.eligible_for_question_scoring
   }
 
   function onClassesDropdownChange(e) {
@@ -223,7 +230,8 @@ const IndividualPack = ({ classrooms, history, match, location, lessonsBannerIsS
     mobileNavigation: (<section className="mobile-navigation hide-on-desktop">{classroomDropdown}{linkDropdown}</section>),
     lessonsBannerIsShowable,
     isPostDiagnostic: activeDiagnosticIsPost(),
-    postDiagnosticUnitTemplateId: activeDiagnostic.post?.unit_template_id
+    postDiagnosticUnitTemplateId: activeDiagnostic.post?.unit_template_id,
+    eligibleForQuestionScoring: eligibleForQuestionScoring()
   }
 
   return (

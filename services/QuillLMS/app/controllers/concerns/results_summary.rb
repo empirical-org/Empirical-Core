@@ -29,18 +29,20 @@ module ResultsSummary
     @assigned_students.map do |assigned_student|
       activity_session = @activity_sessions[assigned_student.id]
       if activity_session
-        skill_groups = skill_groups_for_session(@skill_groups, activity_session, assigned_student.name)
-        total_possible_skills_count = skill_groups.map { |sg| sg[:skill_ids] }.flatten.uniq.count
-        total_correct_skills_count = skill_groups.map { |sg| sg[:correct_skill_ids] }.flatten.uniq.count
+        concept_results = activity_session.concept_results
+        concept_results_grouped_by_question = concept_results.group_by { |cr| cr.question_number }.values
+        skill_groups = skill_groups_for_session(@skill_groups, concept_results, assigned_student.name)
+        total_possible_questions_count = concept_results_grouped_by_question.count
+        total_correct_questions_count = concept_results_grouped_by_question.reduce(0) { |sum, crs| sum += get_score_for_question(crs) > 0 ? 1 : 0 }
         total_correct_skill_groups_count = skill_groups.select { |sg| sg[:correct_skill_ids].length == sg[:skill_ids].length }.flatten.uniq.count
         {
           name: assigned_student.name,
           id: assigned_student.id,
           skill_groups: skill_groups,
-          total_correct_skills_count: total_correct_skills_count,
+          total_correct_questions_count: total_correct_questions_count,
           total_correct_skill_groups_count: total_correct_skill_groups_count,
-          total_possible_skills_count: total_possible_skills_count,
-          correct_skill_text: "#{total_correct_skills_count} of #{total_possible_skills_count} skills",
+          total_possible_questions_count: total_possible_questions_count,
+          correct_question_text: "#{total_correct_questions_count} of #{total_possible_questions_count} questions",
           correct_skill_groups_text: "#{total_correct_skill_groups_count} of #{skill_groups.count} skill groups"
         }
       else
@@ -50,9 +52,11 @@ module ResultsSummary
   end
 
   # rubocop:disable Metrics/CyclomaticComplexity
-  private def skill_groups_for_session(skill_groups, activity_session, student_name)
+  private def skill_groups_for_session(skill_groups, concept_results, student_name)
     skill_groups.map do |skill_group|
-      skills = skill_group.skills.map { |skill| data_for_skill_by_activity_session(activity_session.concept_results, skill) }
+      skills = skill_group.diagnostic_question_skills.map do |diagnostic_question_skill|
+        data_for_question_by_activity_session(concept_results, diagnostic_question_skill)
+      end.compact
       present_skill_number = skills.reduce(0) { |sum, skill| sum += skill[:summary] == NOT_PRESENT ? 0 : 1 }
       correct_skills = skills.select { |skill| skill[:summary] == FULLY_CORRECT }
       correct_skill_ids = correct_skills.map { |s| s[:id] }
@@ -74,7 +78,7 @@ module ResultsSummary
         skills: skills,
         skill_ids: skills.map { |s| s[:id] },
         correct_skill_ids: correct_skill_ids,
-        number_of_correct_skills_text: "#{correct_skill_number} of #{present_skill_number} skills correct",
+        number_of_correct_questions_text: "#{correct_skill_number} of #{present_skill_number} questions correct",
         proficiency_text: proficiency_text,
         id: skill_group.id
       }

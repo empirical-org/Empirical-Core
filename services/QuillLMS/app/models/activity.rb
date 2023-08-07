@@ -52,6 +52,7 @@ class Activity < ApplicationRecord
   has_many :activity_sessions
   has_many :skill_group_activities
   has_many :skill_groups, through: :skill_group_activities
+  has_many :diagnostic_question_skills, through: :skill_groups
   has_many :skills, through: :skill_groups
   has_many :unit_activities, dependent: :destroy
   has_many :units, through: :unit_activities

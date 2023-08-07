@@ -9,11 +9,21 @@ interface GrowthSummaryProps {
   skillsGrowth?: number;
   name?: string;
   growthSummaryLink?: string;
+  eligibleForQuestionScoring?: boolean,
 }
 
-const GrowthSummarySection = ({ showGrowthSummary, skillsGrowth, name, growthSummaryLink, }: GrowthSummaryProps) => {
+const GrowthSummarySection = ({ showGrowthSummary, skillsGrowth, name, growthSummaryLink, eligibleForQuestionScoring, }: GrowthSummaryProps) => {
 
-  if (showGrowthSummary) {
+  if (!eligibleForQuestionScoring && showGrowthSummary) {
+    return (
+      <section className="growth-summary">
+        <div>
+          <h4>Growth summary</h4>
+          <p>{barGraphIncreasingIcon}<span>Not available for diagnostics completed before August 2023.</span></p>
+        </div>
+      </section>
+    )
+  } else if (showGrowthSummary) {
     const growth = skillsGrowth > 0 ? <span className="growth">{triangleUpIcon}{`${skillsGrowth}%`}</span> : <span className="no-growth">No growth yet</span>
     return (
       <section className="growth-summary">
@@ -36,6 +46,7 @@ const GrowthSummarySection = ({ showGrowthSummary, skillsGrowth, name, growthSum
       </div>
     </section>
   )
+
 }
 
 export default GrowthSummarySection

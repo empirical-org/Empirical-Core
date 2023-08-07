@@ -6,6 +6,7 @@ import {
   StudentResult,
 } from './interfaces';
 import PercentageCircle from './percentageCircle';
+import IneligibleForQuestionScoring from './ineligibleForQuestionScoring';
 import {
   fileDocumentIcon,
   noDataYet,
@@ -96,7 +97,7 @@ const SkillGroupSummaryCard = ({ skillGroupSummary, completedStudentCount }: { s
   )
 }
 
-export const GrowthResults = ({ activityName, passedStudentResults, passedSkillGroupSummaries, match, mobileNavigation, }) => {
+export const GrowthResults = ({ activityName, passedStudentResults, passedSkillGroupSummaries, match, mobileNavigation, eligibleForQuestionScoring, }) => {
   const [loading, setLoading] = React.useState<boolean>(!passedStudentResults);
   const [studentResults, setStudentResults] = React.useState<StudentResult[]>(passedStudentResults || []);
   const [skillGroupSummaries, setSkillGroupSummaries] = React.useState<SkillGroupSummary[]>(passedSkillGroupSummaries || []);
@@ -106,12 +107,12 @@ export const GrowthResults = ({ activityName, passedStudentResults, passedSkillG
   const completedStudentCount = studentResults.filter(sr => sr.skill_groups).length
 
   React.useEffect(() => {
-    getResults()
-  }, [])
-
-  React.useEffect(() => {
-    setLoading(true)
-    getResults()
+    if (eligibleForQuestionScoring) {
+      setLoading(true)
+      getResults()
+    } else {
+      setLoading(false)
+    }
   }, [activityId, classroomId])
 
   React.useEffect(() => {
@@ -146,7 +147,6 @@ export const GrowthResults = ({ activityName, passedStudentResults, passedSkillG
 
   if (loading) { return <LoadingSpinner /> }
 
-
   const skillGroupSummaryCards = skillGroupSummaries.map(skillGroupSummary => <SkillGroupSummaryCard completedStudentCount={completedStudentCount} key={skillGroupSummary.name} skillGroupSummary={skillGroupSummary} />)
 
   return (
@@ -157,10 +157,10 @@ export const GrowthResults = ({ activityName, passedStudentResults, passedSkillG
           <h1>Class summary</h1>
           <a className="focus-on-light" href="https://support.quill.org/en/articles/5698227-how-do-i-read-the-growth-results-summary-report" rel="noopener noreferrer" target="_blank">{fileDocumentIcon}<span>Guide</span></a>
         </section>
-        {renderClasswideGrowthAverage()}
+        {eligibleForQuestionScoring && renderClasswideGrowthAverage()}
       </header>
       {mobileNavigation}
-      <section className="skill-group-summary-cards">{skillGroupSummaryCards}</section>
+      {eligibleForQuestionScoring ? <section className="skill-group-summary-cards">{skillGroupSummaryCards}</section> : <IneligibleForQuestionScoring pageName="class summary" />}
     </main>
   )
 }

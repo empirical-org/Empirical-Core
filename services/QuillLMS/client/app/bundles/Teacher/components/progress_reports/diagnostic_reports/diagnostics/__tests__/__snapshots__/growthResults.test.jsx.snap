@@ -80,17 +80,80 @@ exports[`GrowthResults component should render when there are no results 1`] = `
     ]
   }
 >
-  <_default>
-    <div
-      className="spinner-container"
+  <main
+    className="results-summary-container growth-results-summary-container"
+  >
+    <header
+      className="results-header"
     >
-      <img
-        alt=""
-        className="spinner"
-        src="/images/loader_still.svg"
-      />
-    </div>
-  </_default>
+      <h1>
+        Student results
+      </h1>
+      <a
+        className="focus-on-light"
+        href="https://support.quill.org/en/articles/5698227-how-do-i-read-the-growth-results-summary-report"
+        rel="noopener noreferrer"
+        target="_blank"
+      >
+        <img
+          alt="File document icon"
+          src="undefined/images/pages/diagnostic_reports/icons-file-document.svg"
+        />
+        <span>
+          Guide
+        </span>
+      </a>
+    </header>
+    <span />
+    <IneligibleForQuestionScoring
+      pageName="student results page"
+    >
+      <section
+        className="results-empty-state"
+      >
+        <img
+          alt="Illustration of a clock with an arrow pointing backwards"
+          src="undefined/images/pages/diagnostic_reports/time-rewind.svg"
+        />
+        <h2>
+          The 
+          student results page
+           is not available for diagnostics completed before August 2023.
+        </h2>
+        <p>
+          Due to a change in our system, we cannot show the 
+          student results page
+           for this diagnostic report. However, you can still:
+        </p>
+        <ol>
+          <li>
+            View the 
+            <b>
+              Practice Recommendations
+            </b>
+             to see each recommended practice activity.
+          </li>
+          <li>
+            View the 
+            <b>
+              Student Responses
+            </b>
+             page to see each student’s score on the diagnostic.
+          </li>
+          <li>
+             View the 
+            <b>
+              Question Analysis
+            </b>
+             page to see how the class performed on each question.
+          </li>
+        </ol>
+        <p>
+          If you have questions, please reach out to support@quill.org.
+        </p>
+      </section>
+    </IneligibleForQuestionScoring>
+  </main>
 </GrowthResults>
 `;
 
@@ -173,7 +236,7 @@ exports[`GrowthResults component should render when there are results 1`] = `
               1,
             ],
             "id": 3,
-            "number_of_correct_skills_text": "1 of 1 skills correct",
+            "number_of_correct_questions_text": "1 of 1 questions correct",
             "post_test_proficiency": "Proficiency",
             "pre_test_proficiency": "No proficiency",
             "proficiency_text": "Gained proficiency",
@@ -200,7 +263,7 @@ exports[`GrowthResults component should render when there are results 1`] = `
           Object {
             "acquired_skill_ids": Array [],
             "id": 4,
-            "number_of_correct_skills_text": "0 of 1 skills correct",
+            "number_of_correct_questions_text": "0 of 1 questions correct",
             "post_test_proficiency": "No proficiency",
             "pre_test_proficiency": "No proficiency",
             "proficiency_text": "No proficiency",
@@ -232,7 +295,7 @@ exports[`GrowthResults component should render when there are results 1`] = `
               8,
             ],
             "id": 5,
-            "number_of_correct_skills_text": "5 of 6 skills correct",
+            "number_of_correct_questions_text": "5 of 6 questions correct",
             "post_test_proficiency": "Partial proficiency",
             "pre_test_proficiency": "Partial proficiency",
             "proficiency_text": "Partial proficiency",
@@ -341,7 +404,7 @@ exports[`GrowthResults component should render when there are results 1`] = `
               9,
             ],
             "id": 6,
-            "number_of_correct_skills_text": "2 of 3 skills correct",
+            "number_of_correct_questions_text": "2 of 3 questions correct",
             "post_test_proficiency": "Partial proficiency",
             "pre_test_proficiency": "Partial proficiency",
             "proficiency_text": "Partial proficiency",
@@ -402,7 +465,7 @@ exports[`GrowthResults component should render when there are results 1`] = `
               12,
             ],
             "id": 7,
-            "number_of_correct_skills_text": "4 of 4 skills correct",
+            "number_of_correct_questions_text": "4 of 4 questions correct",
             "post_test_proficiency": "Proficiency",
             "pre_test_proficiency": "Partial proficiency",
             "proficiency_text": "Gained proficiency",
@@ -479,7 +542,7 @@ exports[`GrowthResults component should render when there are results 1`] = `
               16,
             ],
             "id": 8,
-            "number_of_correct_skills_text": "1 of 1 skills correct",
+            "number_of_correct_questions_text": "1 of 1 questions correct",
             "post_test_proficiency": "Proficiency",
             "pre_test_proficiency": "No proficiency",
             "proficiency_text": "Gained proficiency",
@@ -509,16 +572,79 @@ exports[`GrowthResults component should render when there are results 1`] = `
     ]
   }
 >
-  <_default>
-    <div
-      className="spinner-container"
+  <main
+    className="results-summary-container growth-results-summary-container"
+  >
+    <header
+      className="results-header"
     >
-      <img
-        alt=""
-        className="spinner"
-        src="/images/loader_still.svg"
-      />
-    </div>
-  </_default>
+      <h1>
+        Student results
+      </h1>
+      <a
+        className="focus-on-light"
+        href="https://support.quill.org/en/articles/5698227-how-do-i-read-the-growth-results-summary-report"
+        rel="noopener noreferrer"
+        target="_blank"
+      >
+        <img
+          alt="File document icon"
+          src="undefined/images/pages/diagnostic_reports/icons-file-document.svg"
+        />
+        <span>
+          Guide
+        </span>
+      </a>
+    </header>
+    <span />
+    <IneligibleForQuestionScoring
+      pageName="student results page"
+    >
+      <section
+        className="results-empty-state"
+      >
+        <img
+          alt="Illustration of a clock with an arrow pointing backwards"
+          src="undefined/images/pages/diagnostic_reports/time-rewind.svg"
+        />
+        <h2>
+          The 
+          student results page
+           is not available for diagnostics completed before August 2023.
+        </h2>
+        <p>
+          Due to a change in our system, we cannot show the 
+          student results page
+           for this diagnostic report. However, you can still:
+        </p>
+        <ol>
+          <li>
+            View the 
+            <b>
+              Practice Recommendations
+            </b>
+             to see each recommended practice activity.
+          </li>
+          <li>
+            View the 
+            <b>
+              Student Responses
+            </b>
+             page to see each student’s score on the diagnostic.
+          </li>
+          <li>
+             View the 
+            <b>
+              Question Analysis
+            </b>
+             page to see how the class performed on each question.
+          </li>
+        </ol>
+        <p>
+          If you have questions, please reach out to support@quill.org.
+        </p>
+      </section>
+    </IneligibleForQuestionScoring>
+  </main>
 </GrowthResults>
 `;
