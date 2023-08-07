@@ -20,13 +20,13 @@ class SchoolsController < ApplicationController
 
     school_ids = []
     if @lat.present? and @lng.present?
-      stored_school_ids = $redis.get("LAT_LNG_RADIUS_TO_SCHOOL_#{@lat}_#{@lng}_#{@radius}")
+      stored_school_ids = Rails.cache.read("LAT_LNG_RADIUS_TO_SCHOOL_#{@lat}_#{@lng}_#{@radius}")
       school_ids = stored_school_ids ? JSON.parse(stored_school_ids) : nil
     elsif @zipcode.present?
-      stored_school_ids = $redis.get("ZIPCODE_RADIUS_TO_SCHOOL_#{@zipcode}_#{@radius}")
+      stored_school_ids = Rails.cache.read("ZIPCODE_RADIUS_TO_SCHOOL_#{@zipcode}_#{@radius}")
       school_ids = stored_school_ids ? JSON.parse(stored_school_ids) : nil
     else
-      stored_school_ids = $redis.get("PREFIX_TO_SCHOOL_#{@prefix}")
+      stored_school_ids = Rails.cache.read("PREFIX_TO_SCHOOL_#{@prefix}")
       school_ids = stored_school_ids ? JSON.parse(stored_school_ids) : nil
       @schools = School.select("schools.id, name, zipcode, mail_zipcode, street, mail_street, city, mail_city, state, mail_state, COUNT(schools_users.id) AS number_of_teachers")
       .joins('LEFT JOIN schools_users ON schools_users.school_id = schools.id')
@@ -64,7 +64,7 @@ class SchoolsController < ApplicationController
          "lower(name) LIKE :prefix", prefix: "%#{@prefix.downcase}%"
          ).group("schools.id")
          .limit(@limit)
-        $redis.set("#{cache_id}_RADIUS_TO_SCHOOL_#{@lat}_#{@lng}_#{@radius}", @schools.map {|s| s.id}.to_json)
+        Rails.cache.write("#{cache_id}_RADIUS_TO_SCHOOL_#{@lat}_#{@lng}_#{@radius}", @schools.map {|s| s.id}.to_json)
          # short cache, highly specific
         $redis.expire("#{cache_id}_RADIUS_TO_SCHOOL_#{@lat}_#{@lng}_#{@radius}", 60*5)
       end
@@ -79,7 +79,7 @@ class SchoolsController < ApplicationController
          "lower(name) LIKE :prefix", prefix: "%#{@prefix.downcase}%"
        ).group("schools.id")
        .limit(@limit)
-      $redis.set("PREFIX_TO_SCHOOL_#{@prefix}", @schools.map {|s| s.id}.to_json)
+      Rails.cache.write("PREFIX_TO_SCHOOL_#{@prefix}", @schools.map {|s| s.id}.to_json)
       # longer cache, more general
       $redis.expire("PREFIX_TO_SCHOOL_#{@prefix}", 60*60)
     end

@@ -173,7 +173,7 @@ class GetConceptsInUseIndividualConceptWorker
           end
         end
       end
-      $redis.set("CONCEPTS_IN_USE", concepts_in_use.to_json)
+      Rails.cache.write("CONCEPTS_IN_USE", concepts_in_use.to_json)
       $redis.unwatch
     rescue => e
       set_concepts_in_use_cache

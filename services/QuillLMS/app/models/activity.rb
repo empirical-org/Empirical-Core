@@ -220,12 +220,15 @@ class Activity < ApplicationRecord
 
   def self.clear_activity_search_cache
     User::FLAGSETS.keys.map{|x| "#{x}_"}.push("").each do |flagset|
-      $redis.del("default_#{flagset}activity_search")
+      Rails.cache.delete("default_#{flagset}activity_search")
     end
   end
 
   def self.set_activity_search_cache
-    $redis.set('default_activity_search', ActivitySearchWrapper.new('production').search.to_json)
+    Rails.cache.set(
+      UserFlagset::DEFAULT_ACTIVITY_SEARCH_CACHE_KEY,
+      ActivitySearchWrapper.new(PRODUCTION).search.to_json
+    )
   end
 
   def lesson?
@@ -238,7 +241,7 @@ class Activity < ApplicationRecord
 
   def self.search_results(flagset)
     substring = flagset ? "#{flagset}_" : ""
-    activity_search_results = $redis.get("default_#{substring}activity_search")
+    activity_search_results = Rails.cache.read("default_#{substring}activity_search")
     activity_search_results ||= ActivitySearchWrapper.search_cache_data(flagset)
     JSON.parse(activity_search_results)
   end

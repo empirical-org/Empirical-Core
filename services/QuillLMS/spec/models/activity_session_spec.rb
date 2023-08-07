@@ -289,7 +289,7 @@ describe ActivitySession, type: :model, redis: true do
       let!(:activity_session){   create(:activity_session, classroom_unit: classroom_unit, state: 'not validated')}
 
       before do
-        $redis.set("classroom_id:#{student.classrooms.first.id}_completed_activity_count", 10)
+        Rails.cache.write("classroom_id:#{student.classrooms.first.id}_completed_activity_count", 10)
       end
 
       it "deletes redis cache when an activity with a classroom's state is finished" do

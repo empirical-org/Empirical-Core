@@ -381,22 +381,20 @@ describe Activity, type: :model, redis: true do
     let(:activity) { create(:activity) }
 
     it 'deletes the default_activity_search from the cache' do
-      $redis.set('default_activity_search', {something: 'something'})
+      Rails.cache.write(UserFlagset::DEFAULT_ACTIVITY_SEARCH_CACHE_KEY, something: 'something')
       Activity.clear_activity_search_cache
-      expect($redis.get('default_activity_search')).to eq nil
+      expect(Rails.cache.read(UserFlagset::DEFAULT_ACTIVITY_SEARCH_CACHE_KEY)).to eq nil
     end
 
     it 'deletes all redis keys as defined in UserFlagset' do
       UserFlagset::FLAGSETS.keys.map{|x| "#{x}_"}.push("").each do |flagset|
-        $redis.set("default_#{flagset}activity_search", {a_key: 'a_value'} )
+        Rails.cache.write("default_#{flagset}activity_search", a_key: 'a_value')
       end
 
       Activity.clear_activity_search_cache
 
       UserFlagset::FLAGSETS.keys.map{|x| "#{x}_"}.push("").each do |flagset|
-        expect(
-          $redis.del("default_#{flagset}activity_search")
-        ).to eq 0
+        expect(Rails.cache.delete("default_#{flagset}activity_search")).to be false
       end
     end
 
@@ -474,7 +472,7 @@ describe Activity, type: :model, redis: true do
 
     it 'when cache exists the result is the cached object' do
       results = '{"something": "something" }'
-      $redis.set('default_activity_search', results)
+      Rails.cache.write('default_activity_search', results)
       search_results = Activity.search_results(nil)
       expect(search_results).to eq(JSON.parse(results))
     end

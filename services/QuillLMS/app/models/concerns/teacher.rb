@@ -254,7 +254,7 @@ module Teacher
 
   def classroom_minis_cache=(info)
     # TODO: move this to background worker
-    $redis.set("user_id:#{id}_classroom_minis", info.to_json, {ex: 16.hours} )
+    Rails.cache.write("user_id:#{id}_classroom_minis", info.to_json, {ex: 16.hours} )
   end
 
   def self.clear_classrooms_minis_cache(teacher_id)
@@ -542,7 +542,7 @@ module Teacher
     if !lessons_data
       lessons_data = data_for_lessons_cache
     end
-    $redis.set("user_id:#{id}_lessons_array", lessons_data.to_json)
+    Rails.cache.write("user_id:#{id}_lessons_array", lessons_data.to_json)
   end
 
   def data_for_lessons_cache
