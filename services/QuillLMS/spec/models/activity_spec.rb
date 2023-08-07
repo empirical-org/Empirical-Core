@@ -381,9 +381,9 @@ describe Activity, type: :model, redis: true do
     let(:activity) { create(:activity) }
 
     it 'deletes the default_activity_search from the cache' do
-      Rails.cache.write(UserFlagset::DEFAULT_ACTIVITY_SEARCH_CACHE_KEY, something: 'something')
+      Rails.cache.write(described_class::DEFAULT_ACTIVITY_SEARCH_CACHE_KEY, something: 'something')
       Activity.clear_activity_search_cache
-      expect(Rails.cache.read(UserFlagset::DEFAULT_ACTIVITY_SEARCH_CACHE_KEY)).to eq nil
+      expect(Rails.cache.read(described_class::DEFAULT_ACTIVITY_SEARCH_CACHE_KEY)).to eq nil
     end
 
     it 'deletes all redis keys as defined in UserFlagset' do

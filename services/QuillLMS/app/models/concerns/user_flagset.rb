@@ -72,8 +72,6 @@ module UserFlagset
       },
     }
 
-    DEFAULT_ACTIVITY_SEARCH_CACHE_KEY = 'default_activity_search'
-
     validates :flagset, inclusion: { in: FLAGSETS.keys.map(&:to_s) }
   end
 

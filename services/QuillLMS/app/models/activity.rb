@@ -96,6 +96,8 @@ class Activity < ApplicationRecord
 
   FLAGS_ATTRIBUTE = 'flags'
 
+  DEFAULT_ACTIVITY_SEARCH_CACHE_KEY = 'default_activity_search'
+
   scope :gamma_user, -> { where("'#{GAMMA}' = ANY(activities.flags) OR '#{BETA}' = ANY(activities.flags) OR '#{PRODUCTION}' = ANY(activities.flags)")}
   scope :beta_user, -> { where("'#{BETA}' = ANY(activities.flags) OR '#{PRODUCTION}' = ANY(activities.flags)")}
   scope :alpha_user, -> { where("'#{ALPHA}' = ANY(activities.flags) OR '#{BETA}' = ANY(activities.flags) OR '#{GAMMA}' = ANY(activities.flags) OR '#{PRODUCTION}' = ANY(activities.flags)")}
@@ -226,7 +228,7 @@ class Activity < ApplicationRecord
 
   def self.set_activity_search_cache
     Rails.cache.write(
-      UserFlagset::DEFAULT_ACTIVITY_SEARCH_CACHE_KEY,
+      DEFAULT_ACTIVITY_SEARCH_CACHE_KEY,
       ActivitySearchWrapper.new(PRODUCTION).search.to_json
     )
   end
