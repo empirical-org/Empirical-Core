@@ -1,4 +1,3 @@
-import * as moment from 'moment';
 import * as React from 'react';
 
 import { useState } from 'react';
@@ -122,8 +121,7 @@ const ImportProviderClassroomsModal = ({classrooms: initialClassrooms, close, on
     if (!classrooms.length) { return }
 
     const rows = classrooms.map(classroom => {
-      const { name, username, classroom_external_id, creationTime, studentCount, checked, grade, error } = classroom
-      const year = moment(creationTime).format('YYYY')
+      const { name, username, classroom_external_id, year, studentCount, checked, grade, error } = classroom
       const gradeOption = GradeOptions.find(g => [grade, Number(grade)].includes(g.value))
       const gradeSelector = (
         <DropdownInput

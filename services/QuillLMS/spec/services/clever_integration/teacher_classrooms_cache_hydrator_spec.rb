@@ -3,9 +3,9 @@
 require 'rails_helper'
 
 describe CleverIntegration::TeacherClassroomsCacheHydrator do
-  let(:data) { ['classroom_data', 'classroom_data'] }
-
   subject { described_class.run(user) }
+
+  let(:data) { ['classroom_data', 'classroom_data'] }
 
   context 'teacher has clever auth_credential' do
     let(:user) { create(:clever_library_auth_credential).user }
