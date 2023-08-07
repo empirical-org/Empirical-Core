@@ -327,7 +327,7 @@ describe UnitTemplate, redis: true, type: :model do
   describe '#around_save callback' do
 
     before do
-      Rails.cache.redis.flushdb
+      Rails.cache.clear
 
       Rails.cache.redis.multi do |multi|
         multi.set('beta_unit_templates', 'a')
