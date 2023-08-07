@@ -5,12 +5,16 @@ module GoogleIntegration
     include Sidekiq::Worker
     sidekiq_options queue: SidekiqQueue::CRITICAL_EXTERNAL
 
+    class UserNotFoundError < StandardError; end
+
     def perform(user_id)
       user = ::User.find_by(id: user_id)
 
-      return unless user
-
-      StudentImportedClassroomsUpdater.run(user)
+      if user.nil?
+        ErrorNotifier.report(UserNotFoundError, user_id: user_id)
+      else
+        StudentImportedClassroomsUpdater.run(user)
+      end
     end
   end
 end

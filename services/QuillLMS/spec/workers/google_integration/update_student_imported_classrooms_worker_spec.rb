@@ -11,6 +11,7 @@ module GoogleIntegration
 
       it do
         expect(StudentImportedClassroomsUpdater).to_not receive(:run)
+        expect(ErrorNotifier).to receive(:report).with(described_class::UserNotFoundError, user_id: user_id)
         subject
       end
     end
