@@ -35,6 +35,10 @@ class AuthCredential < ApplicationRecord
 
   validates :type, inclusion: { in: TYPES }
 
+  def access_token_expired?
+    expires_at.nil? || (expires_at < Time.current)
+  end
+
   def canvas_authorized?
     false
   end
