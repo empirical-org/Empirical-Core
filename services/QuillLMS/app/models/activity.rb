@@ -225,7 +225,7 @@ class Activity < ApplicationRecord
   end
 
   def self.set_activity_search_cache
-    Rails.cache.set(
+    Rails.cache.write(
       UserFlagset::DEFAULT_ACTIVITY_SEARCH_CACHE_KEY,
       ActivitySearchWrapper.new(PRODUCTION).search.to_json
     )
