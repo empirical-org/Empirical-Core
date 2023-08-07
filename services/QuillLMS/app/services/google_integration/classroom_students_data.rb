@@ -4,25 +4,21 @@ module GoogleIntegration
   class ClassroomStudentsData
     include Enumerable
 
-    attr_reader :classroom, :classroom_students_client
+    attr_reader :classroom, :client
 
-    delegate :classroom_external_id, :google_classroom_id, to: :classroom
+    delegate :classroom_external_id, to: :classroom
 
-    def initialize(classroom, classroom_students_client)
+    def initialize(classroom, client)
       @classroom = classroom
-      @classroom_students_client = classroom_students_client
+      @client = client
     end
 
     def each
       students_data.each { |student_data| yield student_data.merge(classroom: classroom) }
     end
 
-    private def raw_students_data
-      classroom_students_client.call(google_classroom_id)
-    end
-
     private def students_data
-      GoogleIntegration::Classroom::Parsers::Students.run(raw_students_data)
+      client.classroom_students(classroom_external_id) || []
     end
   end
 end
