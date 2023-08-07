@@ -4,7 +4,7 @@ class FindDistrictActivityScoresWorker
   include Sidekiq::Worker
   sidekiq_options queue: SidekiqQueue::CRITICAL
 
-  SERIALIZED_DISTRICT_ACTIVITY_SCORES_CACHE_LIFE = 25.hours.to_i
+  SERIALIZED_DISTRICT_ACTIVITY_SCORES_CACHE_LIFE = 25.hours
 
   def perform(admin_id)
     serialized_district_activity_scores = ProgressReports::DistrictActivityScores.new(admin_id).results.to_json

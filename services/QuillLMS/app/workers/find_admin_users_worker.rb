@@ -4,7 +4,7 @@ class FindAdminUsersWorker
   include Sidekiq::Worker
   sidekiq_options queue: SidekiqQueue::CRITICAL
 
-  SERIALIZED_ADMIN_USERS_CACHE_LIFE = 25.hours.to_i
+  SERIALIZED_ADMIN_USERS_CACHE_LIFE = 25.hours
 
   def perform(admin_id)
     user = User.find_by_id(admin_id)

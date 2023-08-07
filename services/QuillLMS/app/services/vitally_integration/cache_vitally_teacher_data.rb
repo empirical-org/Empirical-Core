@@ -2,6 +2,8 @@
 
 module VitallyIntegration
   class CacheVitallyTeacherData
+    EXPIRATION = 1.year
+
     def self.cache_key(teacher_id, year)
       "teacher_id:#{teacher_id}_vitally_stats_for_year_#{year}"
     end
@@ -15,7 +17,7 @@ module VitallyIntegration
     end
 
     def self.set(teacher_id, year, data)
-      Rails.cache.write(cache_key(teacher_id, year), data, {ex: 1.year})
+      Rails.cache.write(cache_key(teacher_id, year), data, expires_in: EXPIRATION)
     end
   end
 end
