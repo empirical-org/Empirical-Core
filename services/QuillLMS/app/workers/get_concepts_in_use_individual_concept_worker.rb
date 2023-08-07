@@ -173,15 +173,15 @@ class GetConceptsInUseIndividualConceptWorker
   end
 
   def set_concepts_in_use_cache
-    Rails.cache.redis.watch('CONCEPTS_IN_USE') do
-      concepts_in_use = JSON.parse(Rails.cache.read('CONCEPTS_IN_USE'))
-      @organized_concepts.each do |oc|
-        concepts_in_use << CONCEPTS_IN_USE_HEADERS.map do |attr|
-          oc[attr].is_a?(Array) ? oc[attr].flatten.uniq.join(', ') : oc[attr]
-        end
+    $redis.watch('CONCEPTS_IN_USE')
+    concepts_in_use = JSON.parse(Rails.cache.read('CONCEPTS_IN_USE'))
+    @organized_concepts.each do |oc|
+      concepts_in_use << CONCEPTS_IN_USE_HEADERS.map do |attr|
+        oc[attr].is_a?(Array) ? oc[attr].flatten.uniq.join(', ') : oc[attr]
       end
-      Rails.cache.write("CONCEPTS_IN_USE", concepts_in_use.to_json)
     end
+    Rails.cache.write("CONCEPTS_IN_USE", concepts_in_use.to_json)
+    $redis.unwatch('CONCEPTS_IN_USE')
   rescue => e
     set_concepts_in_use_cache
   end
