@@ -328,13 +328,10 @@ describe UnitTemplate, redis: true, type: :model do
 
     before do
       Rails.cache.clear
-
-      Rails.cache.redis.multi do |multi|
-        multi.set('beta_unit_templates', 'a')
-        multi.set('production_unit_templates', 'a')
-        multi.set('gamma_unit_templates', 'a')
-        multi.set('alpha_unit_templates', 'a')
-      end
+      Rails.cache.write('beta_unit_templates', 'a')
+      Rails.cache.write('production_unit_templates', 'a')
+      Rails.cache.write('gamma_unit_templates', 'a')
+      Rails.cache.write('alpha_unit_templates', 'a')
     end
 
     def exist_count
@@ -359,7 +356,7 @@ describe UnitTemplate, redis: true, type: :model do
       expect(exist_count).to eq(4)
       unit_template.update(flag: 'beta')
       expect(exist_count).to eq(0)
-      expect(Rails.cache.exists?('alpha_unit_templates')).to eq false
+      expect(Rails.cache.exist?('alpha_unit_templates')).to eq false
       Rails.cache.write('alpha_unit_templates', 'some test nonsense')
       unit_template.update(flag: 'alpha')
       expect(exist_count).to eq(0)

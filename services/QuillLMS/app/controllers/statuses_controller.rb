@@ -25,7 +25,7 @@ class StatusesController < ApplicationController
   end
 
   def redis_cache
-    Rails.cache.redis.info
+    $redis.info
     render plain: 'OK'
   end
 
