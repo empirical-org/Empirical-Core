@@ -9,13 +9,23 @@ module GoogleIntegration
     context 'nil user_id' do
       let(:user_id) { nil }
 
-      it { should_not_run_service_objects }
+      it do
+        expect(ErrorNotifier).to receive(:report).with(described_class::UserNotFoundError, user_id: user_id)
+        expect(TeacherClassroomsCacheHydrator).to_not receive(:run)
+        expect(TeacherImportedClassroomsUpdater).to_not receive(:run)
+        subject
+      end
     end
 
     context 'user does not exist' do
       let(:user_id) { 0 }
 
-      it { should_not_run_service_objects }
+      it do
+        expect(ErrorNotifier).to receive(:report).with(described_class::UserNotFoundError, user_id: user_id)
+        expect(TeacherClassroomsCacheHydrator).to_not receive(:run)
+        expect(TeacherImportedClassroomsUpdater).to_not receive(:run)
+        subject
+      end
     end
 
     context 'user exists' do
@@ -24,20 +34,12 @@ module GoogleIntegration
 
       before { create(:google_auth_credential, user: user) }
 
-      it { should_run_service_objects }
-    end
-
-    def should_not_run_service_objects
-      expect(ErrorNotifier).to receive(:report).with(described_class::UserNotFoundError, user_id: user_id)
-      expect(TeacherClassroomsCacheHydrator).to_not receive(:run)
-      expect(TeacherImportedClassroomsUpdater).to_not receive(:run)
-      subject
-    end
-
-    def should_run_service_objects
-      expect(TeacherClassroomsCacheHydrator).to receive(:run).with(user)
-      expect(TeacherImportedClassroomsUpdater).to receive(:run).with(user)
-      subject
+      it do
+        expect(ErrorNotifier).not_to receive(:report)
+        expect(TeacherClassroomsCacheHydrator).to receive(:run).with(user)
+        expect(TeacherImportedClassroomsUpdater).to receive(:run).with(user)
+        subject
+      end
     end
   end
 end

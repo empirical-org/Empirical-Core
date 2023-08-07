@@ -10,7 +10,7 @@ module GoogleIntegration
     let(:students) { students_response.students }
 
     let(:already_imported) { false }
-    let(:classroom_external_id) { course.id }
+    let(:classroom_external_id) { course.id.to_i }
     let(:classroom_name) { course.name }
     let(:student_count) { Faker::Number.number(2) }
     let(:year) { course.creation_time&.to_date&.year }

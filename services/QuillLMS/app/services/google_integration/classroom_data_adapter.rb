@@ -24,7 +24,7 @@ module GoogleIntegration
     end
 
     private def classroom_external_id
-      course_data.id
+      course_data.id.to_i
     end
 
     private def name

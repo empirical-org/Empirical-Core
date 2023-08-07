@@ -17,7 +17,7 @@ module GoogleIntegration
     def classroom_students(course_id)
       CourseStudentsAggregator
         .run(api, course_id)
-        .each { |student_data| StudentDataAdapter.run(student_data) }
+        .map { |student_data| StudentDataAdapter.run(student_data) }
     end
 
     def student_classrooms
