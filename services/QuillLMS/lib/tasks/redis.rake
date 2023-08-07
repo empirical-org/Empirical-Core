@@ -4,7 +4,7 @@ namespace :redis do
   task :delete_keys => :environment do
     $redis.keys.each do |k|
       puts "deleting key #{k}"
-      $redis.del k
+      Rails.cache.delete k
     end
     puts 'finished'
   end
