@@ -22,18 +22,13 @@ module GoogleIntegration
       let(:user) { create(:teacher, :signed_up_with_google) }
       let(:user_id) { user.id }
 
-      context 'with no auth_credential' do
-        it { should_not_run_service_objects }
-      end
+      before { create(:google_auth_credential, user: user) }
 
-      context 'with auth_credential' do
-        before { create(:google_auth_credential, user: user) }
-
-        it { should_run_service_objects }
-      end
+      it { should_run_service_objects }
     end
 
     def should_not_run_service_objects
+      expect(ErrorNotifier).to receive(:report).with(described_class::UserNotFoundError, user_id: user_id)
       expect(TeacherClassroomsCacheHydrator).to_not receive(:run)
       expect(TeacherImportedClassroomsUpdater).to_not receive(:run)
       subject
