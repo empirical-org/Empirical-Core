@@ -248,7 +248,7 @@ module Teacher
 
 
   def classroom_minis_cache
-    cache = $redis.get("user_id:#{id}_classroom_minis")
+    cache = Rails.cache.read("user_id:#{id}_classroom_minis")
     cache ? JSON.parse(cache) : nil
   end
 
@@ -258,7 +258,7 @@ module Teacher
   end
 
   def self.clear_classrooms_minis_cache(teacher_id)
-    $redis.del("user_id:#{teacher_id}_classroom_minis")
+    Rails.cache.delete("user_id:#{teacher_id}_classroom_minis")
   end
 
   def classroom_minis_info

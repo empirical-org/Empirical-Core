@@ -79,6 +79,6 @@ class StudentsClassrooms < ApplicationRecord
   private def invalidate_classroom_minis
     return unless classroom&.owner.present?
 
-    $redis.del("user_id:#{classroom.owner.id}_classroom_minis")
+    Rails.cache.delete("user_id:#{classroom.owner.id}_classroom_minis")
   end
 end

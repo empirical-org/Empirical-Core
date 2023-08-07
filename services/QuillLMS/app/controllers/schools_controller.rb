@@ -64,9 +64,13 @@ class SchoolsController < ApplicationController
          "lower(name) LIKE :prefix", prefix: "%#{@prefix.downcase}%"
          ).group("schools.id")
          .limit(@limit)
-        Rails.cache.write("#{cache_id}_RADIUS_TO_SCHOOL_#{@lat}_#{@lng}_#{@radius}", @schools.map {|s| s.id}.to_json)
+
          # short cache, highly specific
-        $redis.expire("#{cache_id}_RADIUS_TO_SCHOOL_#{@lat}_#{@lng}_#{@radius}", 60*5)
+        Rails.cache.write(
+          "#{cache_id}_RADIUS_TO_SCHOOL_#{@lat}_#{@lng}_#{@radius}",
+          @schools.map {|s| s.id}.to_json,
+          expires_in: 5.minutes
+        )
       end
     end
 
@@ -79,9 +83,13 @@ class SchoolsController < ApplicationController
          "lower(name) LIKE :prefix", prefix: "%#{@prefix.downcase}%"
        ).group("schools.id")
        .limit(@limit)
-      Rails.cache.write("PREFIX_TO_SCHOOL_#{@prefix}", @schools.map {|s| s.id}.to_json)
+
       # longer cache, more general
-      $redis.expire("PREFIX_TO_SCHOOL_#{@prefix}", 60*60)
+      Rails.cache.write(
+        "PREFIX_TO_SCHOOL_#{@prefix}",
+        @schools.map {|s| s.id}.to_json,
+        expires_in: 60.minutes
+      )
     end
 
   end

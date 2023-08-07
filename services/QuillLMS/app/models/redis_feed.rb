@@ -55,7 +55,7 @@ class RedisFeed
 
   def reset!
     temp_ids = ids
-    $redis.del(redis_key)
+    Rails.cache.delete(redis_key)
     temp_ids
   end
 
@@ -80,6 +80,6 @@ class RedisFeed
 
   # used for testing
   private def delete_all
-    $redis.del(redis_key)
+    Rails.cache.delete(redis_key)
   end
 end

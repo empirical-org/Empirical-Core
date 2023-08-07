@@ -11,7 +11,7 @@ module VitallyIntegration
     end
 
     def self.del(school_id, year)
-      $redis.del(cache_key(school_id, year))
+      Rails.cache.delete(cache_key(school_id, year))
     end
 
     def self.set(school_id, year, data)

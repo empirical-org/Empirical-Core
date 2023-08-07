@@ -5,7 +5,7 @@ class ResetLessonCacheWorker
   sidekiq_options queue: SidekiqQueue::CRITICAL
 
   def perform(id)
-    $redis.del("user_id:#{id}_lessons_array")
+    Rails.cache.delete("user_id:#{id}_lessons_array")
     @user = User.find(id)
     @user.set_lessons_cache
   end

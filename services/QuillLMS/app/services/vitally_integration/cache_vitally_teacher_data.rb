@@ -7,11 +7,11 @@ module VitallyIntegration
     end
 
     def self.get(teacher_id, year)
-      $redis.get(cache_key(teacher_id, year))
+      Rails.cache.read(cache_key(teacher_id, year))
     end
 
     def self.del(teacher_id, year)
-      $redis.del(cache_key(teacher_id, year))
+      Rails.cache.delete(cache_key(teacher_id, year))
     end
 
     def self.set(teacher_id, year, data)
