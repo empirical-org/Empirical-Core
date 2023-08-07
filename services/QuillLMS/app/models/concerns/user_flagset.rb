@@ -6,7 +6,6 @@ module UserFlagset
 
   included do
     FLAGSETS = {
-
       production: {
         display_name: 'production',
         flags: {
@@ -71,7 +70,6 @@ module UserFlagset
           Flags::PRIVATE =>           { display_name: 'Private' }
         }
       },
-
     }
 
     validates :flagset, inclusion: { in: FLAGSETS.keys.map(&:to_s) }
@@ -85,6 +83,10 @@ module UserFlagset
     return nil unless flagset
 
     FLAGSETS[flagset.to_sym][:flags].keys.map{|k| "'#{k}'"}.join(',')
+  end
+
+  def self.default_flagset_cache_key(flagset)
+    "default_#{flagset}activity_search"
   end
 
   def activity_viewable?(activity)

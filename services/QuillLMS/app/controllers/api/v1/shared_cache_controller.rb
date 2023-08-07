@@ -4,10 +4,10 @@ class Api::V1::SharedCacheController < Api::ApiController
   before_action :set_custom_cache_key
 
   BASE_SHARED_CACHE_KEY = 'SHARED_CACHE'
-  SHARED_CACHE_EXPIRY = 300
+  SHARED_CACHE_EXPIRY = 5.minutes
 
   def show
-    cached_data = $redis.get(cache_key)
+    cached_data = Rails.cache.read(cache_key)
     if !cached_data
       return not_found
     end
@@ -17,12 +17,12 @@ class Api::V1::SharedCacheController < Api::ApiController
 
   def update
     data = params[:data]
-    $redis.set(cache_key, data.to_json, {ex: SHARED_CACHE_EXPIRY})
+    Rails.cache.write(cache_key, data.to_json, expires_in: SHARED_CACHE_EXPIRY)
     render(json: data)
   end
 
   def destroy
-    $redis.del(cache_key)
+    Rails.cache.delete(cache_key)
     render(plain: 'OK')
   end
 

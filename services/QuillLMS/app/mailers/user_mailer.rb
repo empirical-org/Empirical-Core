@@ -103,10 +103,10 @@ class UserMailer < ActionMailer::Base
   end
 
   def recommendations_assignment_report_email
-    @independent_less_than_ten_seconds = $redis.get("diagnostic_recommendations_under_ten_seconds_count") || 0
-    @group_less_than_ten_seconds = $redis.get("lesson_diagnostic_recommendations_under_ten_seconds_count") || 0
-    @independent_more_than_ten_seconds = $redis.get("diagnostic_recommendations_over_ten_seconds_count") || 0
-    @group_more_than_ten_seconds = $redis.get("lesson_diagnostic_recommendations_over_ten_seconds_count") || 0
+    @independent_less_than_ten_seconds = Rails.cache.read("diagnostic_recommendations_under_ten_seconds_count") || 0
+    @group_less_than_ten_seconds = Rails.cache.read("lesson_diagnostic_recommendations_under_ten_seconds_count") || 0
+    @independent_more_than_ten_seconds = Rails.cache.read("diagnostic_recommendations_over_ten_seconds_count") || 0
+    @group_more_than_ten_seconds = Rails.cache.read("lesson_diagnostic_recommendations_over_ten_seconds_count") || 0
     independent_total_recommendations = @independent_more_than_ten_seconds.to_i + @independent_less_than_ten_seconds.to_i
     group_total_recommendations = @group_more_than_ten_seconds.to_i + @group_less_than_ten_seconds.to_i
     @percentage_of_independent_less_than_ten_seconds = independent_total_recommendations > 0 ? (@independent_less_than_ten_seconds.to_f/independent_total_recommendations) * 100 : 100

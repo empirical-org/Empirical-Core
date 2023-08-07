@@ -112,7 +112,7 @@ class Teachers::ClassroomUnitsController < ApplicationController
   end
 
   private def lessons_cache
-    lessons_cache = $redis.get("user_id:#{current_user.id}_lessons_array")
+    lessons_cache = Rails.cache.read("user_id:#{current_user.id}_lessons_array")
     if lessons_cache
       JSON.parse(lessons_cache)
     else

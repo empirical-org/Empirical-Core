@@ -38,9 +38,7 @@
 #
 require 'rails_helper'
 
-
-describe ActivitySession, type: :model, redis: true do
-
+RSpec.describe ActivitySession, type: :model, redis: true do
   it { should belong_to(:classroom_unit).touch(true) }
   it { should belong_to(:activity) }
   it { should have_one(:classification).through(:activity) }
@@ -289,19 +287,19 @@ describe ActivitySession, type: :model, redis: true do
       let!(:activity_session){   create(:activity_session, classroom_unit: classroom_unit, state: 'not validated')}
 
       before do
-        $redis.set("classroom_id:#{student.classrooms.first.id}_completed_activity_count", 10)
+        Rails.cache.write("classroom_id:#{student.classrooms.first.id}_completed_activity_count", 10)
       end
 
       it "deletes redis cache when an activity with a classroom's state is finished" do
         activity_session.update(state: 'finished')
         activity_session.invalidate_activity_session_count_if_completed
-        expect($redis.get("classroom_id:#{student.classrooms.first.id}_completed_activity_count")).not_to be
+        expect(Rails.cache.read("classroom_id:#{student.classrooms.first.id}_completed_activity_count")).not_to be
       end
 
       it "does nothing to redis cache when any other classroom attribute changes" do
         activity_session.update(visible: false)
         activity_session.invalidate_activity_session_count_if_completed
-        expect($redis.get("classroom_id:#{student.classrooms.first.id}_completed_activity_count")).to eq('10')
+        expect(Rails.cache.read("classroom_id:#{student.classrooms.first.id}_completed_activity_count")).to eq(10)
       end
 
     end

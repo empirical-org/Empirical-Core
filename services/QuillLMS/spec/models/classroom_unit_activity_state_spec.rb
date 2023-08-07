@@ -68,12 +68,12 @@ describe ClassroomUnitActivityState, type: :model, redis: true do
 
   describe 'caching lessons upon assignemnt' do
     before do
-      $redis.redis.flushdb
+      Rails.cache.clear
       cua.save
     end
 
     it "creates a redis key for the user if there isn't one" do
-      expect($redis.get("user_id:#{classroom_unit.classroom.owner.id}_lessons_array")).to be
+      expect(Rails.cache.read("user_id:#{classroom_unit.classroom.owner.id}_lessons_array")).to be
     end
 
     it "caches data about the assignment" do
@@ -84,7 +84,7 @@ describe ClassroomUnitActivityState, type: :model, redis: true do
         "unit_id" => cua.classroom_unit.unit_id,
         "completed" => cua.completed,
         "visible" => cua.unit_activity.visible}
-      expect($redis.get("user_id:#{classroom_unit.classroom.owner.id}_lessons_array")).to eq([lesson_data].to_json)
+      expect(Rails.cache.read("user_id:#{classroom_unit.classroom.owner.id}_lessons_array")).to eq([lesson_data].to_json)
     end
 
     it "caches data about subsequent assignment" do
@@ -111,7 +111,7 @@ describe ClassroomUnitActivityState, type: :model, redis: true do
         "unit_id" => cua2.classroom_unit.unit_id,
         "completed" => cua2.completed,
         "visible" => unit_activity.visible}
-      expect($redis.get("user_id:#{classroom_unit2.classroom.owner.id}_lessons_array")).to eq([lesson_data, lesson2_data].to_json)
+      expect(Rails.cache.read("user_id:#{classroom_unit2.classroom.owner.id}_lessons_array")).to eq([lesson_data, lesson2_data].to_json)
     end
   end
 

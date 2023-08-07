@@ -2,7 +2,7 @@
 
 require 'rails_helper'
 
-describe SetImpactMetricsWorker do
+RSpec.describe SetImpactMetricsWorker do
   subject { described_class.new }
 
   context '#perform' do
@@ -37,27 +37,35 @@ describe SetImpactMetricsWorker do
 
     it 'should set the NUMBER_OF_SENTENCES redis value' do
       subject.perform
-      expect($redis.get(PagesController::NUMBER_OF_SENTENCES)).to eq((SetImpactMetricsWorker.round_to_ten_thousands(activity_sessions_payload.size) * SetImpactMetricsWorker::SENTENCES_PER_ACTIVITY_SESSION).to_s)
+
+      expect(Rails.cache.read(PagesController::NUMBER_OF_SENTENCES))
+        .to eq((SetImpactMetricsWorker.round_to_ten_thousands(activity_sessions_payload.size) * SetImpactMetricsWorker::SENTENCES_PER_ACTIVITY_SESSION))
     end
 
     it 'should set the NUMBER_OF_STUDENTS redis value' do
       subject.perform
-      expect($redis.get(PagesController::NUMBER_OF_STUDENTS)).to eq((SetImpactMetricsWorker.round_to_ten_thousands(activity_sessions_payload.count('DISTINCT(user_id)'))).to_s)
+
+      expect(Rails.cache.read(PagesController::NUMBER_OF_STUDENTS))
+        .to eq((SetImpactMetricsWorker.round_to_ten_thousands(activity_sessions_payload.count('DISTINCT(user_id)'))))
     end
 
     it 'should set the NUMBER_OF_TEACHERS redis value' do
       subject.perform
-      expect($redis.get(PagesController::NUMBER_OF_TEACHERS)).to eq(SetImpactMetricsWorker.round_to_hundreds(teachers.length).to_s)
+
+      expect(Rails.cache.read(PagesController::NUMBER_OF_TEACHERS))
+        .to eq(SetImpactMetricsWorker.round_to_hundreds(teachers.length))
     end
 
     it 'should set the NUMBER_OF_SCHOOLS redis value' do
       subject.perform
-      expect($redis.get(PagesController::NUMBER_OF_SCHOOLS)).to eq(schools_payload.length.to_s)
+      expect(Rails.cache.read(PagesController::NUMBER_OF_SCHOOLS)).to eq(schools_payload.length)
     end
 
     it 'should set the NUMBER_OF_LOW_INCOME_SCHOOLS redis value' do
       subject.perform
-      expect($redis.get(PagesController::NUMBER_OF_LOW_INCOME_SCHOOLS)).to eq(schools_payload.filter { |s| s["free_lunches"] > SetImpactMetricsWorker::FREE_LUNCH_MINIMUM}.length.to_s)
+
+      expect(Rails.cache.read(PagesController::NUMBER_OF_LOW_INCOME_SCHOOLS))
+        .to eq(schools_payload.filter { |s| s["free_lunches"] > SetImpactMetricsWorker::FREE_LUNCH_MINIMUM}.length)
     end
   end
 end
