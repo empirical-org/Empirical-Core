@@ -16,6 +16,7 @@ class SkillGroup < ApplicationRecord
   has_many :activities, through: :skill_group_activities
   has_many :skills
   has_many :diagnostic_question_skills
+  has_many :questions, through: :diagnostic_question_skills
 
   validates_presence_of :name
 end

@@ -55,9 +55,8 @@ export interface SkillResults {
 
 export interface SkillGroup {
   skills: Array<Skill>;
-  acquired_skill_ids: number[];
   id: number;
-  number_of_correct_skills_text: string;
+  number_of_correct_questions_text: string;
   post_test_proficiency: string;
   pre_test_proficiency: string;
   proficiency_text: string;

@@ -1,7 +1,6 @@
 import * as React from 'react'
 import { Link, } from 'react-router-dom'
 
-import GrowthSkillsTable from './growthSkillsTable'
 import {
   OpenPopover,
   SkillGroup,
@@ -20,7 +19,6 @@ import {
   proficiencyTextToTag
 } from './shared'
 import SkillGroupTooltip from './skillGroupTooltip'
-import SkillsTable from './skillsTable'
 import StudentNameOrTooltip from './studentNameOrTooltip'
 
 import useWindowSize from '../../../../../Shared/hooks/useWindowSize'
@@ -63,7 +61,6 @@ const Popover = ({ studentResult, skillGroup, closePopover, responsesLink, }: Po
           <button className="interactive-wrapper focus-on-light" onClick={closePopover} type="button">{closeIcon}</button>
         </header>
         <p dangerouslySetInnerHTML={{ __html: skillGroup.description }} />
-        {skillGroup.skills[0].pre ? <GrowthSkillsTable skillGroup={skillGroup} /> : <SkillsTable skillGroup={skillGroup} />}
         <Link to={responsesLink(studentResult.id)}>{accountCommentIcon}<span>View {studentResult.name}&#39;s responses</span></Link>
       </section>
     </div>
@@ -71,7 +68,7 @@ const Popover = ({ studentResult, skillGroup, closePopover, responsesLink, }: Po
 }
 
 const StudentResultCell = ({ skillGroup, studentResult, setOpenPopover, openPopover, responsesLink, }: StudentResultCellProps) => {
-  const { proficiency_text, number_of_correct_skills_text, id, pre_test_proficiency, post_test_proficiency, acquired_skill_ids, } = skillGroup
+  const { proficiency_text, number_of_correct_questions_text, id, } = skillGroup
   function showPopover() {
     setOpenPopover({
       studentId: studentResult.id,
@@ -83,14 +80,11 @@ const StudentResultCell = ({ skillGroup, studentResult, setOpenPopover, openPopo
     setOpenPopover({})
   }
 
-  const skillsDelta = acquired_skill_ids && acquired_skill_ids.length ? <div className="skills-delta">{lightGreenTriangleUpIcon}<span className="skill-count">{acquired_skill_ids.length}</span></div> : null
-
-
   return (
     <td className="student-result-cell">
       <button className="interactive-wrapper" onClick={showPopover} type="button">
         {proficiencyTextToTag[proficiency_text]}
-        <div className="correct-skills-and-delta-wrapper"><span className="number-of-correct-skills-text">{number_of_correct_skills_text}</span>{skillsDelta}</div>
+        <div className="correct-skills-and-delta-wrapper"><span className="number-of-correct-skills-text">{number_of_correct_questions_text}</span></div>
       </button>
       {openPopover.studentId === studentResult.id && openPopover.skillGroupId === id && <Popover closePopover={closePopover} responsesLink={responsesLink} skillGroup={skillGroup} studentResult={studentResult} />}
     </td>
@@ -98,14 +92,11 @@ const StudentResultCell = ({ skillGroup, studentResult, setOpenPopover, openPopo
 }
 
 const StudentRow = ({ studentResult, skillGroupSummaries, openPopover, setOpenPopover, responsesLink, }) => {
-  const { name, skill_groups, id, total_acquired_skills_count, total_acquired_skill_groups_count, correct_skill_text, correct_skill_groups_text } = studentResult
+  const { name, skill_groups, id, total_acquired_skills_count, total_acquired_skill_groups_count, correct_question_text, correct_skill_groups_text } = studentResult
   const diagnosticNotCompletedMessage = <span className="name-section-subheader">Diagnostic not completed</span>
   const tooltipText = "<b>Skill Groups:</b> The student either gained some or full proficiency in this group of skills, or the student maintained full proficiency from the pre to the post.<br/><br/><b>Skills:</b> The student demonstrated these skills correctly on every prompt.The arrow indicates the increase in skills demonstrated correctly from the pre - diagnostic."
-  const totalAcquiredSkillsCount = total_acquired_skills_count > 0 ? total_acquired_skills_count : 0;
   const totalAcquiredSkillGroupsCount = total_acquired_skill_groups_count > 0 ? total_acquired_skill_groups_count : 0;
   const skillsDelta = (<div className="skills-delta">
-    {totalAcquiredSkillsCount ? lightGreenTriangleUpIcon : null}
-    <span className="skill-count">{totalAcquiredSkillsCount ? totalAcquiredSkillsCount : null }</span>
     <Tooltip
       tooltipText={tooltipText}
       tooltipTriggerText={<img alt={helpIcon.alt} src={helpIcon.src} />}
@@ -115,7 +106,7 @@ const StudentRow = ({ studentResult, skillGroupSummaries, openPopover, setOpenPo
     {totalAcquiredSkillGroupsCount ? lightGreenTriangleUpIcon : null}
     <span className="skill-count">{totalAcquiredSkillGroupsCount ? totalAcquiredSkillGroupsCount : null }</span>
   </div>)
-  const skillsSubHeader = correct_skill_text ? <div className="name-section-subheader"><span className="correct-skill-text">{correct_skill_text}</span>{skillsDelta}</div> : diagnosticNotCompletedMessage
+  const skillsSubHeader = correct_question_text ? <div className="name-section-subheader"><span className="correct-skill-text">{correct_question_text}</span>{skillsDelta}</div> : diagnosticNotCompletedMessage
   const skillGroupsSubHeader = correct_skill_groups_text ? <div className="name-section-subheader"><span className="correct-skill-text">{correct_skill_groups_text}</span>{skillGroupsDelta}</div> : null
 
   const firstCell = (<th className="name-cell">
