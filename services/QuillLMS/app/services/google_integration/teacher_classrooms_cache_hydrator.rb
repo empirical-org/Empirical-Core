@@ -21,6 +21,10 @@ module GoogleIntegration
       TeacherClassroomsCache.write(user.id, serialized_teacher_classrooms)
     end
 
+    private def client
+      ClientFetcher.run(user)
+    end
+
     private def notify_pusher
       PusherTrigger.run(user.id, PUSHER_EVENT, pusher_message)
     end
@@ -30,8 +34,8 @@ module GoogleIntegration
     end
 
     private def serialized_teacher_classrooms
-      GoogleIntegration::Classroom::Main
-        .pull_data(user)
+      client
+        .teacher_classrooms
         .to_json
     end
   end

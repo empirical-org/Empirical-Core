@@ -4,17 +4,19 @@ module GoogleIntegration
   class ClassroomCreator < ApplicationService
     OWNER = ClassroomsTeacher::ROLE_TYPES[:owner].freeze
 
-    attr_reader :data, :classroom_external_id, :teacher_id
+    attr_reader :data, :classroom_external_id, :grade, :teacher_id
 
     def initialize(data)
       @data = data
       @classroom_external_id = data[:classroom_external_id]
+      @grade = data[:grade]
       @teacher_id = data[:teacher_id]
     end
 
     def run
       ::Classroom.create!(
         google_classroom_id: classroom_external_id,
+        grade: grade,
         name: name,
         synced_name: synced_name,
         classrooms_teachers_attributes: [

@@ -8,7 +8,7 @@ module Snapshots
     let(:test_period_query) do
       Class.new(described_class) do
         def run
-          run_query.map { |result| result['id'] }
+          run_query.pluck(:id)
         end
 
         def select_clause
