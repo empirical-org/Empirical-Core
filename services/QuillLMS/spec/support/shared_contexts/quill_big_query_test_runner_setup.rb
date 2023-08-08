@@ -2,5 +2,5 @@
 
 RSpec.shared_context 'QuillBigQuery TestRunner Setup' do
   let(:runner) { QuillBigQuery::TestRunner.new(cte_records) }
-  let(:results) { described_class.run(**query_args.merge(runner: runner)) }
+  let(:results) { described_class.run(**query_args, runner: runner) }
 end

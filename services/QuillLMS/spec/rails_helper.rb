@@ -97,8 +97,8 @@ RSpec.configure do |config|
     ActionController::Base.perform_caching = caching
   end
 
-  config.around(:each, :external_api) { |example| with_vcr_disabled { example.run } }
-  config.around(:each, :big_query_snapshot) { |example| with_vcr_disabled { example.run } }
+  config.around(:each, :external_api) { |example| VCR.turned_off { example.run } }
+  config.around(:each, :big_query_snapshot) { |example| VCR.turned_off { example.run } }
 
   if ENV.fetch('SUPPRESS_PUTS', false) == 'true'
     config.before do
@@ -106,10 +106,4 @@ RSpec.configure do |config|
       allow($stdout).to receive(:write)
     end
   end
-end
-
-private def with_vcr_disabled
-  VCR.configure { |c| c.allow_http_connections_when_no_cassette = true }
-  yield
-  VCR.configure { |c| c.allow_http_connections_when_no_cassette = false }
 end
