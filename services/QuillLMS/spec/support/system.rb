@@ -19,9 +19,7 @@ RSpec.configure do |config|
 
     Capybara::Selenium::Driver.new(
       app,
-      browser: :remote,
-      url: ENV.fetch('SELENIUM_DRIVER_URL'),
-      desired_capabilities: capabilities
+      **{browser: :remote, url: ENV.fetch('SELENIUM_DRIVER_URL'), desired_capabilities: capabilities}
     ).tap { |driver| driver.browser.manage.window.size = Selenium::WebDriver::Dimension.new(*SELENIUM_WINDOW_SIZE) }
   end
 
