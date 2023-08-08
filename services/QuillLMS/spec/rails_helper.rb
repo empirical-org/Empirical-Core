@@ -97,13 +97,21 @@ RSpec.configure do |config|
     ActionController::Base.perform_caching = caching
   end
 
-  config.around(:each, :external_api) { |example| VCR.turned_off { example.run } }
-  config.around(:each, :big_query_snapshot) { |example| VCR.turned_off { example.run } }
+  config.around(:each, :external_api) { |example| with_vcr_disabled { example.run } }
+  config.around(:each, :big_query_snapshot) { |example| with_vcr_disabled { example.run } }
 
   if ENV.fetch('SUPPRESS_PUTS', false) == 'true'
     config.before do
       allow($stdout).to receive(:puts)
       allow($stdout).to receive(:write)
     end
+  end
+end
+
+private def with_vcr_disabled
+  VCR.turned_off do
+    WebMock.allow_net_connect!
+    yield
+    WebMock.disable_net_connect!
   end
 end
