@@ -4,7 +4,7 @@ module Snapshots
   class AverageQuery < PeriodQuery
     attr_reader :params
 
-    def initialize(*params)
+    def initialize(**params)
       # We pull params here because we're going to do a naive pass-through to sibling queries below
       @params = params
 
@@ -22,8 +22,8 @@ module Snapshots
     end
 
     def calculate_average
-      numerator = numerator_query.run(*params)[:count]
-      denominator = denominator_query.run(*params)[:count]
+      numerator = numerator_query.run(**params)[:count]
+      denominator = denominator_query.run(**params)[:count]
       Utils::Numeric.safe_division(numerator, denominator)
     end
 
