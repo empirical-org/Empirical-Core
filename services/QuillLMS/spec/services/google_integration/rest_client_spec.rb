@@ -9,6 +9,9 @@ module GoogleIntegration
     let(:api) { instance_double(Google::Apis::ClassroomV1::ClassroomService) }
     let(:authorization_client) { instance_double(Signet::OAuth2::Client) }
 
+    let(:error400) { Google::Apis::ClientError.new('Bad Request', status_code: 400) }
+    let(:error403) { Google::Apis::ClientError.new('Forbidden', status_code: 403) }
+
     before do
       allow(api).to receive(:authorization=).with(authorization_client)
       allow(AuthorizationClientFetcher).to receive(:run).with(google_auth_credential).and_return(authorization_client)
@@ -26,6 +29,22 @@ module GoogleIntegration
       before { allow(CourseStudentsAggregator).to receive(:run).with(api, course_id).and_return(students_data) }
 
       it { expect(subject.count).to eq num_students }
+
+      context 'when a client error with status code 403 occurs' do
+        before { allow(CourseStudentsAggregator).to receive(:run).with(api, course_id).and_raise(error403) }
+
+        it { is_expected.to eq([]) }
+      end
+
+      context 'when a client error with a different status code occurs' do
+
+        before { allow(CourseStudentsAggregator).to receive(:run).with(api, course_id).and_raise(error400) }
+
+        it do
+          expect(ErrorNotifier).to receive(:report).with(error400, user_id: user.id)
+          subject
+        end
+      end
     end
 
     describe '#student_classrooms' do
@@ -51,6 +70,21 @@ module GoogleIntegration
 
         it { is_expected.to eq expected_results }
       end
+
+      context 'when a client error with status code 403 occurs' do
+        before { allow(api).to receive(:list_courses).and_raise(error403) }
+
+        it { is_expected.to eq([]) }
+      end
+
+      context 'when a client error with a different status code occurs' do
+        before { allow(api).to receive(:list_courses).and_raise(error400) }
+
+        it do
+          expect(ErrorNotifier).to receive(:report).with(error400, user_id: user.id)
+          subject
+        end
+      end
     end
 
     describe '#teacher_classrooms' do
@@ -70,6 +104,21 @@ module GoogleIntegration
       end
 
       it { is_expected.to eq classrooms_data }
+
+      context 'when a client error with status code 403 occurs' do
+        before { allow(api).to receive(:list_courses).and_raise(error403) }
+
+        it { is_expected.to eq([]) }
+      end
+
+      context 'when a client error with a different status code occurs' do
+        before { allow(api).to receive(:list_courses).and_raise(error400) }
+
+        it do
+          expect(ErrorNotifier).to receive(:report).with(error400, user_id: user.id)
+          subject
+        end
+      end
     end
   end
 end
