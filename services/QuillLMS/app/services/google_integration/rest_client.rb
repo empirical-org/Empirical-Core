@@ -21,10 +21,7 @@ module GoogleIntegration
     end
 
     def student_classrooms
-      api
-        .list_courses(course_states: [ACTIVE_STATE, ARCHIVED_STATE])
-        &.courses
-        &.select { |course_data| course_data.owner_id != user_external_id } || []
+      student_classrooms_data.map { |classroom_data| { classroom_external_id: classroom_data.id } }
     end
 
     def teacher_classrooms
@@ -41,6 +38,13 @@ module GoogleIntegration
 
     private def api
       @api ||= ::Google::Apis::ClassroomV1::ClassroomService.new
+    end
+
+    private def student_classrooms_data
+      api
+        .list_courses(course_states: [ACTIVE_STATE, ARCHIVED_STATE])
+        &.courses
+        &.select { |course_data| course_data.owner_id != user_external_id } || []
     end
 
     private def teacher_courses_data
