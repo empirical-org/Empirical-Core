@@ -34,5 +34,27 @@ describe AuthCredential, type: :model do
   it { is_expected.not_to be_google_authorized }
 
   it { should validate_inclusion_of(:type).in_array(AuthCredential::TYPES) }
+
+  describe '#access_token_expired?' do
+    let(:auth_credential) { create(:google_auth_credential, expires_at: expires_at) }
+
+    context 'nil expires_at' do
+      let(:expires_at) { nil }
+
+      it { expect(auth_credential).to be_access_token_expired }
+    end
+
+    context 'expired' do
+      let(:expires_at) { 1.day.ago }
+
+      it { expect(auth_credential).to be_access_token_expired }
+    end
+
+    context 'not expired' do
+      let(:expires_at) { 1.day.from_now }
+
+      it { expect(auth_credential).not_to be_access_token_expired }
+    end
+  end
 end
 
