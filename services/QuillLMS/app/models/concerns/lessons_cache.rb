@@ -28,7 +28,7 @@ module LessonsCache
 
     user_ids = ClassroomsTeacher.where(classroom_id: classroom_id).map(&:user_id)
     user_ids.each do |user_id|
-      lessons_cache = Rails.cache.read("user_id:#{user_id}_lessons_array")
+      lessons_cache = $redis.get("user_id:#{user_id}_lessons_array")
       if lessons_cache
         lessons_cache = JSON.parse(lessons_cache)
         formatted_lesson = lessons_cache_info_formatter(cua)

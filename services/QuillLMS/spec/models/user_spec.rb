@@ -484,7 +484,7 @@ describe User, type: :model do
     it 'should clear the class_room_minis cache' do
       $redis.set("user_id:#{user.id}_classroom_minis", "anything")
       user.delete_classroom_minis_cache
-      expect(Rails.cache.read("user_id:#{user.id}_classroom_minis")).to eq(nil)
+      expect($redis.get("user_id:#{user.id}_classroom_minis")).to eq(nil)
     end
   end
 
@@ -494,7 +494,7 @@ describe User, type: :model do
     it 'should clear the class_room_minis cache' do
       $redis.set("user_id:#{user.id}_struggling_students", "anything")
       user.delete_struggling_students_cache
-      expect(Rails.cache.read("user_id:#{user.id}_struggling_students")).to eq(nil)
+      expect($redis.get("user_id:#{user.id}_struggling_students")).to eq(nil)
     end
   end
 
@@ -575,7 +575,7 @@ describe User, type: :model do
     it 'should clear the class_room_minis cache' do
       $redis.set("user_id:#{user.id}_difficult_concepts", "anything")
       user.delete_difficult_concepts_cache
-      expect(Rails.cache.read("user_id:#{user.id}_difficult_concepts")).to eq(nil)
+      expect($redis.get("user_id:#{user.id}_difficult_concepts")).to eq(nil)
     end
   end
 

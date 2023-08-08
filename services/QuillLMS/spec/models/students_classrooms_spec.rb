@@ -82,7 +82,7 @@ describe StudentsClassrooms, type: :model, redis: true do
       it "should invalidate the classroom minis" do
         $redis.set("user_id:#{classrooms.classroom.owner.id}_classroom_minis", "something")
         classrooms.run_callbacks(:commit)
-        expect(Rails.cache.read("user_id:#{classrooms.classroom.owner.id}_classroom_minis")).to eq nil
+        expect($redis.get("user_id:#{classrooms.classroom.owner.id}_classroom_minis")).to eq nil
       end
     end
 
