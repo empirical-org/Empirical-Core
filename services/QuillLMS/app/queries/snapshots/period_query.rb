@@ -12,7 +12,7 @@ module Snapshots
       @teacher_ids = teacher_ids
       @classroom_ids = classroom_ids
 
-      super(options)
+      super(**options)
     end
 
     def from_and_join_clauses

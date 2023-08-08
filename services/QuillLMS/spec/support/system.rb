@@ -10,16 +10,16 @@ RSpec.configure do |config|
     )
 
     Capybara::Selenium::Driver
-      .new(app, browser: :chrome, options: options)
+      .new(app, **{browser: :chrome, options: options})
       .tap { |driver| driver.browser.manage.window.size = Selenium::WebDriver::Dimension.new(*SELENIUM_WINDOW_SIZE) }
   end
 
   Capybara.register_driver :remote_selenium_chrome do |app|
-    capabilities = Selenium::WebDriver::Remote::Capabilities.chrome(loggingPrefs: { browser: 'ALL'} )
+    capabilities = Selenium::WebDriver::Remote::Capabilities.new(browser_name: :chrome, loggingPrefs: { browser: 'ALL'} )
 
     Capybara::Selenium::Driver.new(
       app,
-      **{browser: :remote, url: ENV.fetch('SELENIUM_DRIVER_URL'), desired_capabilities: capabilities}
+      **{browser: :remote, url: ENV.fetch('SELENIUM_DRIVER_URL'), desired_capabilities: capabilities, options: {}}
     ).tap { |driver| driver.browser.manage.window.size = Selenium::WebDriver::Dimension.new(*SELENIUM_WINDOW_SIZE) }
   end
 
