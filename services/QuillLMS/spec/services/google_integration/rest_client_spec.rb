@@ -34,15 +34,22 @@ module GoogleIntegration
       let(:user) { create(:student, :signed_up_with_google) }
       let(:courses_data) { create_list(:google_classroom_api_course, num_courses) }
       let(:num_courses) { 3 }
+      let(:expected_results) { filtered_courses_data.map { |course_data| { classroom_external_id: course_data.id } } }
 
       before { allow(api).to receive(:list_courses).and_return(double(courses: courses_data)) }
 
-      it { is_expected.to eq courses_data }
+      context 'when user does not own any courses' do
+        let(:filtered_courses_data) { courses_data }
+
+        it { is_expected.to eq expected_results }
+      end
 
       context 'when user owns a course' do
+        let(:filtered_courses_data) { courses_data[1..-1] }
+
         before { courses_data.first.owner_id = user.user_external_id }
 
-        it { is_expected.to eq courses_data[1..-1] }
+        it { is_expected.to eq expected_results }
       end
     end
 
