@@ -30,7 +30,7 @@ module GoogleIntegration
           student_count = CourseStudentsAggregator.run(api, course_data.id).count
           classrooms_data << ClassroomDataAdapter.run(course_data, student_count)
         rescue => e
-          ::ErrorNotifier.notify(e, course_id: course_data.id, user_id: google_auth_credential.user_id)
+          ::ErrorNotifier.report(e, course_id: course_data.id, user_id: google_auth_credential.user_id)
           next
         end
       end
