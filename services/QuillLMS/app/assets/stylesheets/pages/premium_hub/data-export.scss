@@ -1,0 +1,105 @@
+.data-export-page-container {
+  main {
+    max-width: 1122px !important;
+  }
+  .data-export-container {
+    display: flex;
+    flex-direction: column;
+    section {
+      padding: 0;
+    }
+    .fields-section {
+      margin-top: 32px;
+      .fields-container {
+        display: flex;
+        flex-wrap: wrap;
+        margin: 16px 0px 32px 0px;
+        .checkbox-container {
+          display: flex;
+          flex: 1 0 16%;
+          max-width: 165px;
+          width: 165px;
+          padding: 8px;
+          align-items: center;
+          gap: 8px;
+          border-radius: 8px;
+          border: 1px solid #E0E0E0;
+          background: #F8F8F8;
+          margin: 0px 8px 8px 0px;
+          label {
+            font-weight: 400;
+            margin-bottom: 0;
+          }
+        }
+      }
+    }
+    .preview-section {
+      .preview-disclaimer-container {
+        display: flex;
+        padding: 16px;
+        border-radius: 8px;
+        border: 1px solid #E0E0E0;
+        background: #F4F4F4;
+        margin: 16px 0px 24px 0px;
+        img {
+          margin-right: 10px;
+        }
+      }
+    }
+    .data-export-table {
+      border: 1px solid #E0E0E0;
+      overflow: auto;
+      width: min-content;
+      max-width: 994px;
+      .data-table-headers {
+        background-color: #F8F8F8;
+        min-height: 52px;
+        th {
+          color: #373737;
+          font-weight: 700;
+          align-items: center;
+          min-height: 52px;
+          max-width: 152px;
+          &:not(:last-child) {
+            border-right: 1px solid #E0E0E0;
+          }
+        }
+      }
+      .data-table-body {
+        .data-table-row {
+          td {
+            display: flex;
+            align-items: center;
+            min-height: 52px;
+            max-width: 152px;
+            white-space: break-spaces;
+            padding-right: 24px;
+            margin-right: 24px !important;
+            &:not(:last-child) {
+              border-right: 1px solid #E0E0E0;
+            }
+            .quill-tooltip-trigger {
+              span {
+                padding-right: 24px;
+              }
+            }
+          }
+        }
+      }
+    }
+  }
+}
+
+@media (max-width: 600px) {
+  .data-export-page-container {
+    .data-export-container {
+      .fields-section {
+        .fields-container {
+          .checkbox-container {
+            flex: 1 0 35%;
+          }
+        }
+      }
+    }
+  }
+}

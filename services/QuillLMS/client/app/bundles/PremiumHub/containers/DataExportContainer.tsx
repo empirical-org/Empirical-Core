@@ -1,34 +1,19 @@
 import React from 'react'
 import queryString from 'query-string';
 import * as _ from 'lodash'
-import * as Pusher from 'pusher-js';
 
 import { FULL, restrictedPage, } from '../shared';
 import CustomDateModal from '../components/usage_snapshots/customDateModal'
-import SnapshotSection from '../components/usage_snapshots/snapshotSection'
 import Filters from '../components/usage_snapshots/filters'
-import { snapshotSections, TAB_NAMES, ALL, CUSTOM, SECTION_NAME_TO_ICON_URL, } from '../components/usage_snapshots/shared'
-import { Spinner, DropdownInput, } from '../../Shared/index'
-import useWindowSize from '../../Shared/hooks/useWindowSize';
+import { CUSTOM } from '../components/usage_snapshots/shared'
+import { Spinner } from '../../Shared/index'
 import { requestGet, } from '../../../modules/request'
 import { unorderedArraysAreEqual, } from '../../../modules/unorderedArraysAreEqual'
-
-const MAX_VIEW_WIDTH_FOR_MOBILE = 950
+import DataExportTableAndFields from '../components/dataExportTableAndFields';
 
 const filterIconSrc = `${process.env.CDN_URL}/images/icons/icons-filter.svg`
 
-const Tab = ({ section, setSelectedTab, selectedTab }) => {
-  function handleSetSelectedTab() { setSelectedTab(section) }
-
-  let className = 'tab'
-  if (section === selectedTab) {
-    className += ' selected-tab'
-  }
-
-  return <button className={className} onClick={handleSetSelectedTab} type="button"><img alt="" src={SECTION_NAME_TO_ICON_URL[section]} /><span>{section}</span></button>
-}
-
-const UsageSnapshotsContainer = ({ adminInfo, accessType, }) => {
+const DataExportContainer = ({ adminInfo, accessType, }) => {
   const [loadingFilters, setLoadingFilters] = React.useState(true)
 
   const [allTimeframes, setAllTimeframes] = React.useState(null)
@@ -61,20 +46,11 @@ const UsageSnapshotsContainer = ({ adminInfo, accessType, }) => {
   const [customStartDate, setCustomStartDate] = React.useState(null)
   const [customEndDate, setCustomEndDate] = React.useState(null)
   const [searchCount, setSearchCount] = React.useState(0)
-  const [selectedTab, setSelectedTab] = React.useState(ALL)
   const [showCustomDateModal, setShowCustomDateModal] = React.useState(false)
   const [lastUsedTimeframe, setLastUsedTimeframe] = React.useState(null)
   const [showMobileFilterMenu, setShowMobileFilterMenu] = React.useState(false)
 
-  const [pusherChannel, setPusherChannel] = React.useState(null)
-
-  const size = useWindowSize()
-
   React.useEffect(() => {
-    const pusher = new Pusher(process.env.PUSHER_KEY, { encrypted: true, });
-    const channel = pusher.subscribe(String(adminInfo.id));
-    setPusherChannel(channel)
-
     getFilters()
   }, [])
 
@@ -110,7 +86,7 @@ const UsageSnapshotsContainer = ({ adminInfo, accessType, }) => {
 
     setHasAdjustedFiltersSinceLastSubmission(newValueForHasAdjustedFiltersSinceLastSubmission)
 
-  }, [selectedSchools, selectedGrades, selectedTeachers, selectedClassrooms, selectedTimeframe])
+  }, [selectedSchools, selectedGrades, selectedTeachers, selectedClassrooms, selectedTimeframe, customStartDate, customEndDate])
 
   React.useEffect(() => {
     if (showCustomDateModal || (customStartDate && customEndDate) || !lastUsedTimeframe) { return }
@@ -121,6 +97,8 @@ const UsageSnapshotsContainer = ({ adminInfo, accessType, }) => {
   function openMobileFilterMenu() { setShowMobileFilterMenu(true) }
 
   function closeMobileFilterMenu() { setShowMobileFilterMenu(false) }
+
+  function handleClickDownloadReport() { window.print() }
 
   function handleSetSelectedTimeframe(timeframe) {
     setLastUsedTimeframe(selectedTimeframe)
@@ -140,7 +118,6 @@ const UsageSnapshotsContainer = ({ adminInfo, accessType, }) => {
 
   function getFilters() {
     const searchParams = {
-      timeframe: selectedTimeframe,
       school_ids: selectedSchools?.map(s => s.id) || null,
       teacher_ids: selectedTeachers?.map(t => t.id) || null,
       classroom_ids: selectedClassrooms?.map(c => c.id) || null,
@@ -161,7 +138,7 @@ const UsageSnapshotsContainer = ({ adminInfo, accessType, }) => {
       const timeframe = defaultTimeframe(timeframeOptions)
 
       if (allGrades?.length !== gradeOptions.length) { setAllGrades(gradeOptions) }
-      if (allTimeframes?.length !== timeframeOptions.length) { setAllTimeframes(timeframeOptions)}
+      if (allTimeframes?.length !== timeframeOptions.length) { setAllTimeframes(timeframeOptions) }
       if (allSchools?.length !== schoolOptions.length) { setAllSchools(schoolOptions) }
       if (allTeachers?.length !== teacherOptions.length) { setAllTeachers(teacherOptions) }
       if (allClassrooms?.length !== classroomOptions.length) { setAllClassrooms(classroomOptions) }
@@ -230,55 +207,9 @@ const UsageSnapshotsContainer = ({ adminInfo, accessType, }) => {
     applyFilters()
   }
 
-  function handleSetSelectedTabFromDropdown(option) { setSelectedTab(option.value) }
-
   if (loadingFilters) {
     return <Spinner />
   }
-
-  function handleClickDownloadReport() { window.print() }
-
-  const tabs = TAB_NAMES.map(s => (
-    <Tab
-      key={s}
-      section={s}
-      selectedTab={selectedTab}
-      setSelectedTab={setSelectedTab}
-    />
-  ))
-
-  const tabDropdownOptions = TAB_NAMES.map(tab => ({ value: tab, label: tab, }))
-
-  const tabDropdown = (
-    <DropdownInput
-      handleChange={handleSetSelectedTabFromDropdown}
-      id="tab-dropdown"
-      isSearchable={false}
-      label=""
-      options={tabDropdownOptions}
-      value={tabDropdownOptions.find(opt => opt.value === selectedTab)}
-    />
-  )
-
-  const sectionsToShow = selectedTab === ALL ? snapshotSections : snapshotSections.filter(s => s.name === selectedTab)
-  const snapshotSectionComponents = sectionsToShow.map(section => (
-    <SnapshotSection
-      active={section.name === selectedTab}
-      className={section.className}
-      customTimeframeEnd={customEndDate?.toDate()}
-      customTimeframeStart={customStartDate?.toDate()}
-      itemGroupings={section.itemGroupings}
-      key={section.name}
-      name={section.name}
-      pusherChannel={pusherChannel}
-      searchCount={searchCount}
-      selectedClassroomIds={selectedClassrooms.map(c => c.id)}
-      selectedGrades={selectedGrades.map(g => g.value)}
-      selectedSchoolIds={selectedSchools.map(s => s.id)}
-      selectedTeacherIds={selectedTeachers.map(t => t.id)}
-      selectedTimeframe={selectedTimeframe.value}
-    />
-  ))
 
   const filterProps = {
     allTimeframes,
@@ -311,7 +242,7 @@ const UsageSnapshotsContainer = ({ adminInfo, accessType, }) => {
   }
 
   return (
-    <div className="usage-snapshots-container white-background">
+    <div className="data-export-page-container white-background">
       {showCustomDateModal && (
         <CustomDateModal
           close={closeCustomDateModal}
@@ -325,17 +256,8 @@ const UsageSnapshotsContainer = ({ adminInfo, accessType, }) => {
       />
       <main>
         <div className="header">
-          <h1>
-            <span>Usage Snapshot Report</span>
-            <a href="https://support.quill.org/en/articles/1588988-how-do-i-navigate-the-premium-hub" rel="noopener noreferrer" target="_blank">
-              <img alt="" src={`${process.env.CDN_URL}/images/icons/file-document.svg`} />
-              <span>Guide</span>
-            </a>
-          </h1>
+          <h1>Data Export</h1>
           <button className="quill-button contained primary medium focus-on-light" onClick={handleClickDownloadReport} type="button">Download Report</button>
-        </div>
-        <div aria-hidden={true} className="tabs">
-          {size.width >= MAX_VIEW_WIDTH_FOR_MOBILE ? tabs : tabDropdown}
         </div>
         <div className="filter-button-container">
           <button className="interactive-wrapper focus-on-light" onClick={openMobileFilterMenu} type="button">
@@ -343,13 +265,20 @@ const UsageSnapshotsContainer = ({ adminInfo, accessType, }) => {
             Filters
           </button>
         </div>
-        <div className="sections">
-          {snapshotSectionComponents}
-        </div>
-        <div id="bottom-element" />
+        <DataExportTableAndFields
+          adminId={adminInfo.id}
+          customTimeframeEnd={customEndDate?.toDate()}
+          customTimeframeStart={customStartDate?.toDate()}
+          queryKey="data-export"
+          selectedClassroomIds={selectedClassrooms.map(classroom => classroom.id)}
+          selectedGrades={selectedGrades.map(grade => grade.value)}
+          selectedSchoolIds={selectedSchools.map(school => school.id)}
+          selectedTeacherIds={selectedTeachers.map(teacher => teacher.id)}
+          selectedTimeframe={selectedTimeframe.value}
+        />
       </main>
     </div>
   )
 }
 
-export default UsageSnapshotsContainer
+export default DataExportContainer
