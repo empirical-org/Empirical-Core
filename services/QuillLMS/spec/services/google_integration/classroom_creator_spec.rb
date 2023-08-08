@@ -4,18 +4,20 @@ require 'rails_helper'
 
 module GoogleIntegration
   RSpec.describe ClassroomCreator do
+    subject { described_class.run(data) }
+
     let(:teacher_id) { create(:teacher).id }
 
     let(:data) do
       {
         classroom_external_id: classroom_external_id,
+        grade: grade,
         name: name,
         teacher_id: teacher_id
       }
     end
 
-    subject { described_class.run(data) }
-
+    let(:grade) { 2 }
     let(:classroom_external_id) { 123456 }
 
     context 'name present' do

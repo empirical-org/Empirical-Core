@@ -9,6 +9,7 @@ module GoogleIntegration
     let(:data) do
       {
         classroom_external_id: classroom_external_id,
+        grade: 2,
         name: 'Google classroom',
         teacher_id: teacher.id
       }
