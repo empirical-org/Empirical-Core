@@ -88,7 +88,7 @@ describe RedisFeed, type: :model do
         end
 
         def delete_all
-          Rails.cache.delete(redis_key)
+          $redis.del(redis_key)
         end
       end
     end

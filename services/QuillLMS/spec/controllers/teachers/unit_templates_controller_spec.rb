@@ -2,7 +2,7 @@
 
 require 'rails_helper'
 
-RSpec.describe Teachers::UnitTemplatesController, type: :controller do
+describe Teachers::UnitTemplatesController, type: :controller do
   before do
     session[:user_id] = teacher.id
   end

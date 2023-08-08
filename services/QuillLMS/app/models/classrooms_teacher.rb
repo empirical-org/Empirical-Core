@@ -34,7 +34,7 @@ class ClassroomsTeacher < ApplicationRecord
 
   private def delete_classroom_minis_cache_for_each_teacher_of_this_classroom
     Classroom.unscoped.find(classroom_id).teachers.ids.each do |id|
-      Rails.cache.delete("user_id:#{id}_classroom_minis")
+      $redis.del("user_id:#{id}_classroom_minis")
     end
   end
 

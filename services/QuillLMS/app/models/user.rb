@@ -659,15 +659,15 @@ class User < ApplicationRecord
   end
 
   def delete_classroom_minis_cache
-    Rails.cache.delete("user_id:#{id}_classroom_minis")
+    $redis.del("user_id:#{id}_classroom_minis")
   end
 
   def delete_struggling_students_cache
-    Rails.cache.delete("user_id:#{id}_struggling_students")
+    $redis.del("user_id:#{id}_struggling_students")
   end
 
   def delete_difficult_concepts_cache
-    Rails.cache.delete("user_id:#{id}_difficult_concepts")
+    $redis.del("user_id:#{id}_difficult_concepts")
   end
 
   def coteacher_invitations

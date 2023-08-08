@@ -60,16 +60,16 @@ class AssignRecommendationsWorker
 
   def handle_error_tracking_for_diagnostic_recommendation_assignment_time(teacher_id, lesson)
     lesson_text = lesson ? "lesson_" : ''
-    start_time = Rails.cache.read("user_id:#{teacher_id}_#{lesson_text}diagnostic_recommendations_start_time")
+    start_time = $redis.get("user_id:#{teacher_id}_#{lesson_text}diagnostic_recommendations_start_time")
     return unless start_time
 
     elapsed_time = Time.current - start_time.to_time
     if elapsed_time > 10
-      diagnostic_recommendations_over_ten_seconds_count = Rails.cache.read("#{lesson_text}diagnostic_recommendations_over_ten_seconds_count")
+      diagnostic_recommendations_over_ten_seconds_count = $redis.get("#{lesson_text}diagnostic_recommendations_over_ten_seconds_count")
       if diagnostic_recommendations_over_ten_seconds_count
-        Rails.cache.write("#{lesson_text}diagnostic_recommendations_over_ten_seconds_count", diagnostic_recommendations_over_ten_seconds_count.to_i + 1)
+        $redis.set("#{lesson_text}diagnostic_recommendations_over_ten_seconds_count", diagnostic_recommendations_over_ten_seconds_count.to_i + 1)
       else
-        Rails.cache.write("#{lesson_text}diagnostic_recommendations_over_ten_seconds_count", 1)
+        $redis.set("#{lesson_text}diagnostic_recommendations_over_ten_seconds_count", 1)
       end
       begin
         raise "#{elapsed_time} seconds for user #{teacher_id} to assign #{lesson_text} recommendations"
@@ -77,13 +77,13 @@ class AssignRecommendationsWorker
         NewRelic::Agent.notice_error(e)
       end
     else
-      diagnostic_recommendations_under_ten_seconds_count = Rails.cache.read("diagnostic_recommendations_under_ten_seconds_count")
+      diagnostic_recommendations_under_ten_seconds_count = $redis.get("diagnostic_recommendations_under_ten_seconds_count")
       if diagnostic_recommendations_under_ten_seconds_count
-        Rails.cache.write("#{lesson_text}diagnostic_recommendations_under_ten_seconds_count", diagnostic_recommendations_under_ten_seconds_count.to_i + 1)
+        $redis.set("#{lesson_text}diagnostic_recommendations_under_ten_seconds_count", diagnostic_recommendations_under_ten_seconds_count.to_i + 1)
       else
-        Rails.cache.write("#{lesson_text}diagnostic_recommendations_under_ten_seconds_count", 1)
+        $redis.set("#{lesson_text}diagnostic_recommendations_under_ten_seconds_count", 1)
       end
     end
-    Rails.cache.delete("user_id:#{teacher_id}_#{lesson_text}diagnostic_recommendations_start_time")
+    $redis.del("user_id:#{teacher_id}_#{lesson_text}diagnostic_recommendations_start_time")
   end
 end

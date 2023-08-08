@@ -374,7 +374,7 @@ class ActivitySession < ApplicationRecord
     classroom_id = classroom_unit&.classroom_id
     return unless state == 'finished' && classroom_id
 
-    Rails.cache.delete("classroom_id:#{classroom_id}_completed_activity_count")
+    $redis.del("classroom_id:#{classroom_id}_completed_activity_count")
   end
 
   def self.save_concept_results(activity_sessions, concept_results)

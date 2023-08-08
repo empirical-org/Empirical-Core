@@ -81,7 +81,7 @@ class IndependentPracticePacksAssigner < ApplicationService
   end
 
   private def set_diagnostic_recommendations_start_time
-    Rails.cache.write("user_id:#{user.id}_diagnostic_recommendations_start_time", Time.current)
+    $redis.set("user_id:#{user.id}_diagnostic_recommendations_start_time", Time.current)
   end
 
   private def staggered_release?

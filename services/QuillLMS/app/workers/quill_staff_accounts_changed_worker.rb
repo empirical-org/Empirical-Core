@@ -14,7 +14,7 @@ class QuillStaffAccountsChangedWorker
     current_staff_accounts = current_staff_account_data
     previous_staff_accounts = cached_staff_account_data
     notify_staff(current_staff_accounts, previous_staff_accounts) unless current_staff_accounts == previous_staff_accounts
-    Rails.cache.write(STAFF_ACCOUNTS_CACHE_KEY, current_staff_accounts.to_json, expires_in: 25.hours)
+    $redis.set(STAFF_ACCOUNTS_CACHE_KEY, current_staff_accounts.to_json, ex: 25.hours.to_i)
   end
 
   def current_staff_account_data
@@ -28,7 +28,7 @@ class QuillStaffAccountsChangedWorker
   end
 
   def cached_staff_account_data
-    JSON.parse(Rails.cache.read(STAFF_ACCOUNTS_CACHE_KEY) || '[]')
+    JSON.parse($redis.get(STAFF_ACCOUNTS_CACHE_KEY) || '[]')
   end
 
   # rubocop:disable Metrics/CyclomaticComplexity

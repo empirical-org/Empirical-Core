@@ -43,8 +43,6 @@ class UnitTemplate < ApplicationRecord
   ALPHA = 'alpha'
   PRIVATE = 'private'
 
-  CACHED_EXPIRATION_TIME = 10.minutes
-
   scope :production, -> {where("unit_templates.flag IN('#{PRODUCTION}') OR unit_templates.flag IS null")}
   scope :gamma_user, -> { where("unit_templates.flag IN('#{PRODUCTION}','#{GAMMA}') OR unit_templates.flag IS null")}
   scope :beta_user, -> { where("unit_templates.flag IN('#{PRODUCTION}','#{GAMMA}','#{BETA}') OR unit_templates.flag IS null")}
@@ -138,25 +136,21 @@ class UnitTemplate < ApplicationRecord
   end
 
   def get_cached_serialized_unit_template(flag=nil)
-    cached = Rails.cache.read("unit_template_id:#{id}_serialized")
+    cache_expiration_time = 600
+    cached = $redis.get("unit_template_id:#{id}_serialized")
     serialized_unit_template = cached.nil? || cached&.blank? ? nil : JSON.parse(cached)
     unless serialized_unit_template
       serializable_unit_template = UnitTemplatePseudoSerializer.new(self, flag)
       serialized_unit_template = serializable_unit_template.data
-
-      Rails.cache.write(
-        "unit_template_id:#{id}_serialized",
-        serialized_unit_template.to_json,
-        expires_in: CACHED_EXPIRATION_TIME
-      )
+      $redis.set("unit_template_id:#{id}_serialized", serialized_unit_template.to_json, {ex: cache_expiration_time})
     end
     serialized_unit_template
   end
 
   def self.delete_all_caches
-    UnitTemplate.all.each { |ut| Rails.cache.delete("unit_template_id:#{ut.id}_serialized") }
+    UnitTemplate.all.each { |ut| $redis.del("unit_template_id:#{ut.id}_serialized") }
     %w(private_ production_ gamma_ beta_ alpha_).each do |flag|
-      Rails.cache.delete("#{flag}unit_templates")
+      $redis.del("#{flag}unit_templates")
     end
   end
 
@@ -196,19 +190,19 @@ class UnitTemplate < ApplicationRecord
   end
 
   private def delete_relevant_caches
-    Rails.cache.delete("unit_template_id:#{id}_serialized")
+    $redis.del("unit_template_id:#{id}_serialized")
     # We need to blow up caches for all flags because of cascading access:
     # setting a flag from 'production' to 'beta' should remove the UnitTemplate
     # from both the 'production' and 'gamma' caches while leaving it as-is in
     # 'beta'.  It's rare enough to make these changes that we should just flush
     # all the caches.
     %w(private_ production_ gamma_ beta_ alpha_).each do |flag|
-      Rails.cache.delete("#{flag}unit_templates")
+      $redis.del("#{flag}unit_templates")
     end
     yield
-    Rails.cache.delete("unit_template_id:#{id}_serialized")
+    $redis.del("unit_template_id:#{id}_serialized")
     %w(private_ production_ gamma_ beta_ alpha_).each do |flag|
-      Rails.cache.delete("#{flag}unit_templates")
+      $redis.del("#{flag}unit_templates")
     end
   end
 

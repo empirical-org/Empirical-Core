@@ -7,15 +7,15 @@ module VitallyIntegration
     end
 
     def self.get(school_id, year)
-      Rails.cache.read(cache_key(school_id, year))
+      $redis.get(cache_key(school_id, year))
     end
 
     def self.del(school_id, year)
-      Rails.cache.delete(cache_key(school_id, year))
+      $redis.del(cache_key(school_id, year))
     end
 
     def self.set(school_id, year, data)
-      Rails.cache.write(cache_key(school_id, year), data, expires_in: 1.year)
+      $redis.set(cache_key(school_id, year), data, {ex: 1.year})
     end
   end
 end

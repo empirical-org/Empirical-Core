@@ -43,7 +43,7 @@ module LessonsCache
       else
         lessons_cache = format_initial_lessons_cache(teacher)
       end
-      Rails.cache.write("user_id:#{user_id}_lessons_array", lessons_cache.to_json)
+      $redis.set("user_id:#{user_id}_lessons_array", lessons_cache.to_json)
     end
   end
   # rubocop:enable Metrics/CyclomaticComplexity

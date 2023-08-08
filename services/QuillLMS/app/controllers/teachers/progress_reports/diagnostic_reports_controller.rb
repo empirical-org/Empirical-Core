@@ -384,7 +384,7 @@ class Teachers::ProgressReports::DiagnosticReportsController < Teachers::Progres
   end
 
   private def set_lesson_diagnostic_recommendations_start_time
-    Rails.cache.write("user_id:#{current_user.id}_lesson_diagnostic_recommendations_start_time", Time.current)
+    $redis.set("user_id:#{current_user.id}_lesson_diagnostic_recommendations_start_time", Time.current)
   end
 
 end

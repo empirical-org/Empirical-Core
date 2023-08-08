@@ -24,7 +24,7 @@
 #
 require 'rails_helper'
 
-RSpec.describe UnitTemplate, redis: true, type: :model do
+describe UnitTemplate, redis: true, type: :model do
   let!(:unit_template) {create(:unit_template)}
 
   it { should belong_to(:unit_template_category) }
@@ -229,7 +229,7 @@ RSpec.describe UnitTemplate, redis: true, type: :model do
 
     it 'should save the serialized hash to the db and returns it' do
       unit_template1.get_cached_serialized_unit_template
-      serialized_template_from_db = JSON.parse(Rails.cache.read("unit_template_id:#{unit_template1.id}_serialized"))
+      serialized_template_from_db = JSON.parse($redis.get("unit_template_id:#{unit_template1.id}_serialized"))
       JSON.parse(json).each do |k, v|
         expect(serialized_template_from_db).to include(k)
         expect(serialized_template_from_db[k]).to eq(v)
@@ -327,37 +327,37 @@ RSpec.describe UnitTemplate, redis: true, type: :model do
   describe '#around_save callback' do
 
     before do
-      Rails.cache.clear
-      Rails.cache.write('beta_unit_templates', 'a')
-      Rails.cache.write('production_unit_templates', 'a')
-      Rails.cache.write('gamma_unit_templates', 'a')
-      Rails.cache.write('alpha_unit_templates', 'a')
+      $redis.redis.flushdb
+      $redis.multi{
+        $redis.set('beta_unit_templates', 'a')
+        $redis.set('production_unit_templates', 'a')
+        $redis.set('gamma_unit_templates', 'a')
+        $redis.set('alpha_unit_templates', 'a')
+      }
     end
 
     def exist_count
       flag_types = ['beta_unit_templates', 'production_unit_templates', 'gamma_unit_templates', 'alpha_unit_templates']
       exist_count = 0
       flag_types.each do |flag|
-        exist_count += Rails.cache.exist?(flag) ? 1 : 0
+        exist_count += $redis.exists(flag) == 1 ? 1 : 0
       end
       exist_count
     end
 
     it "deletes the cache of the saved unit" do
-      cache_key = "unit_template_id:#{unit_template.id}_serialized"
-
-      Rails.cache.write(cache_key, 'something')
-      expect(Rails.cache.exist?(cache_key)).to eq true
+      $redis.set("unit_template_id:#{unit_template.id}_serialized", 'something')
+      expect($redis.exists("unit_template_id:#{unit_template.id}_serialized")).to eq(1)
       unit_template.update(name: 'something else')
-      expect(Rails.cache.exist?(cache_key)).to eq false
+      expect($redis.exists("unit_template_id:#{unit_template.id}_serialized")).to eq(0)
     end
 
     it "deletes the cache of all flags before and after save" do
       expect(exist_count).to eq(4)
       unit_template.update(flag: 'beta')
       expect(exist_count).to eq(0)
-      expect(Rails.cache.exist?('alpha_unit_templates')).to eq false
-      Rails.cache.write('alpha_unit_templates', 'some test nonsense')
+      expect($redis.exists('alpha_unit_templates')).to eq(0)
+      $redis.set('alpha_unit_templates', 'some test nonsense')
       unit_template.update(flag: 'alpha')
       expect(exist_count).to eq(0)
     end
@@ -391,19 +391,19 @@ RSpec.describe UnitTemplate, redis: true, type: :model do
     let(:template) { create(:unit_template) }
 
     it 'should clear the unit templates' do
-      Rails.cache.write("unit_template_id:#{template.id}_serialized", "pretend")
-      Rails.cache.write('production_unit_templates', "this")
-      Rails.cache.write('beta_unit_templates', "is")
-      Rails.cache.write('alpha_unit_templates', "real")
-      Rails.cache.write('private_unit_templates', "data")
-      Rails.cache.write('gamma_unit_templates', "same")
+      $redis.set("unit_template_id:#{template.id}_serialized", "pretend")
+      $redis.set('production_unit_templates', "this")
+      $redis.set('beta_unit_templates', "is")
+      $redis.set('alpha_unit_templates', "real")
+      $redis.set('private_unit_templates', "data")
+      $redis.set('gamma_unit_templates', "same")
       UnitTemplate.delete_all_caches
-      expect(Rails.cache.read("unit_template_id:#{template.id}_serialized")).to eq nil
-      expect(Rails.cache.read('production_unit_templates')).to eq nil
-      expect(Rails.cache.read('gamma_unit_templates')).to eq nil
-      expect(Rails.cache.read('beta_unit_templates')).to eq nil
-      expect(Rails.cache.read('alpha_unit_templates')).to eq nil
-      expect(Rails.cache.read('private_unit_templates')).to eq nil
+      expect($redis.get("unit_template_id:#{template.id}_serialized")).to eq nil
+      expect($redis.get('production_unit_templates')).to eq nil
+      expect($redis.get('gamma_unit_templates')).to eq nil
+      expect($redis.get('beta_unit_templates')).to eq nil
+      expect($redis.get('alpha_unit_templates')).to eq nil
+      expect($redis.get('private_unit_templates')).to eq nil
     end
 
   end

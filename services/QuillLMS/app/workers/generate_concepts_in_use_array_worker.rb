@@ -39,13 +39,13 @@ class GenerateConceptsInUseArrayWorker
   end
 
   private def set_concepts_in_use
-    Rails.cache.write("CONCEPTS_IN_USE", CONCEPTS_IN_USE)
-    Rails.cache.write("NUMBER_OF_CONCEPTS_IN_USE_LAST_SET", Time.current)
+    $redis.set("CONCEPTS_IN_USE", CONCEPTS_IN_USE)
+    $redis.set("NUMBER_OF_CONCEPTS_IN_USE_LAST_SET", Time.current)
   end
 
   private def set_question_types
     REDIS_KEY_QUESTION_TYPES.each_pair do |redis_key, question_type|
-      Rails.cache.write(redis_key, question_response(question_type))
+      $redis.set(redis_key, question_response(question_type))
     end
   end
 end

@@ -2,44 +2,43 @@
 
 require 'rails_helper'
 
-RSpec.describe Api::V1::SharedCacheController, type: :controller do
-  let(:key) { 'test_shared_cache_key' }
-  let(:combined_key) { "#{Api::V1::SharedCacheController::BASE_SHARED_CACHE_KEY}_#{key}" }
+describe Api::V1::SharedCacheController, type: :controller do
+  KEY = "test_shared_cache_key"
+  COMBINED_KEY = "#{Api::V1::SharedCacheController::BASE_SHARED_CACHE_KEY}_#{KEY}"
 
   describe "#show" do
-    let(:cached_data) { {foo: 'bar'} }
-
     it "should return a 404 if the custom cache key isn't set" do
-      expect(Rails.cache).to receive(:read).with(combined_key).and_return(nil)
-      get :show, params: { id: key }, as: :json
+      expect($redis).to receive(:get).with(COMBINED_KEY).and_return(nil)
+      get :show, params: { id: KEY }, as: :json
       expect(response.status).to eq(404)
       expect(response.body).to include("The resource you were looking for does not exist")
     end
 
     it "should return the data in the cache if it is set" do
-      expect(Rails.cache).to receive(:read).with(combined_key).and_return(cached_data.to_json)
-      get :show, params: { id: key, data: cached_data }, as: :json
+      CACHED_DATA = {
+        foo: 'bar'
+      }
+      expect($redis).to receive(:get).with(COMBINED_KEY).and_return(CACHED_DATA.to_json)
+      get :show, params: { id: KEY, data: CACHED_DATA }, as: :json
       expect(response.status).to eq(200)
-      expect(response.body).to eq(cached_data.to_json)
+      expect(response.body).to eq(CACHED_DATA.to_json)
     end
   end
 
   describe "#update" do
-    let(:set_data) { {foo: 'bar'} }
-    let(:expires_in) { Api::V1::SharedCacheController::SHARED_CACHE_EXPIRY }
-
     it "should set the cache for the specified key" do
-      expect(Rails.cache).to receive(:write).with(combined_key, set_data.to_json, expires_in: expires_in)
-      put :update, params: { id: key, data: set_data }, as: :json
+      SET_DATA = {"foo" => "bar"}
+      expect($redis).to receive(:set).with(COMBINED_KEY, SET_DATA.to_json, {ex: Api::V1::SharedCacheController::SHARED_CACHE_EXPIRY})
+      put :update, params: { id: KEY, data: SET_DATA }, as: :json
       expect(response.status).to eq(200)
-      expect(response.body).to eq(set_data.to_json)
+      expect(response.body).to eq(SET_DATA.to_json)
     end
   end
 
   describe "#destroy" do
     it "should delete the existing record" do
-      expect(Rails.cache).to receive(:delete).with(combined_key)
-      delete :destroy, params: { id: key }, as: :json
+      expect($redis).to receive(:del).with(COMBINED_KEY)
+      delete :destroy, params: { id: KEY }, as: :json
       expect(response.status).to eq(200)
       expect(response.body).to eq("OK")
     end

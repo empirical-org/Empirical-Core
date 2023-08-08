@@ -5,7 +5,6 @@ class Api::V1::ConceptFeedbackController < Api::ApiController
   before_action :concept_feedback_by_uid, except: [:index, :create, :update]
 
   caches_action :index, format: 'json', expires_in: 1.hour
-
   def index
     all_concept_feedbacks = ConceptFeedback
       .where(activity_type: params[:activity_type])

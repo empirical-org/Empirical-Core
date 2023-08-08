@@ -4,28 +4,15 @@ class GetConceptsInUseIndividualConceptWorker
   include Sidekiq::Worker
   sidekiq_options queue: SidekiqQueue::LOW
 
-  CONCEPTS_IN_USE_HEADERS = %w[
-    name
-    uid
-    grades_proofreader_activities
-    grades_grammar_activities
-    grades_connect_activities
-    grades_diagnostic_activities
-    categorized_connect_questions
-    categorized_diagnostic_questions
-    part_of_diagnostic_recommendations
-    last_retrieved
-  ].freeze
-
-
   # rubocop:disable Metrics/CyclomaticComplexity
   def perform(id)
-    @sc_questions = JSON.parse(Rails.cache.read('SC_QUESTIONS'))
-    @fib_questions = JSON.parse(Rails.cache.read('FIB_QUESTIONS'))
-    @sf_questions = JSON.parse(Rails.cache.read('SF_QUESTIONS'))
-    @d_questions = JSON.parse(Rails.cache.read('D_QUESTIONS'))
-    @d_fib_questions = JSON.parse(Rails.cache.read('D_FIB_QUESTIONS'))
-    @d_sf_questions = JSON.parse(Rails.cache.read('D_SF_QUESTIONS'))
+    @sc_questions = JSON.parse($redis.get('SC_QUESTIONS'))
+    @fib_questions = JSON.parse($redis.get('FIB_QUESTIONS'))
+    @sf_questions = JSON.parse($redis.get('SF_QUESTIONS'))
+    @d_questions = JSON.parse($redis.get('D_QUESTIONS'))
+    @d_fib_questions = JSON.parse($redis.get('D_FIB_QUESTIONS'))
+    @d_sf_questions = JSON.parse($redis.get('D_SF_QUESTIONS'))
+
 
     activity_rows = get_activity_rows(id)
 
@@ -173,16 +160,24 @@ class GetConceptsInUseIndividualConceptWorker
   end
 
   def set_concepts_in_use_cache
-    $redis.watch('CONCEPTS_IN_USE')
-    concepts_in_use = JSON.parse(Rails.cache.read('CONCEPTS_IN_USE'))
-    @organized_concepts.each do |oc|
-      concepts_in_use << CONCEPTS_IN_USE_HEADERS.map do |attr|
-        oc[attr].is_a?(Array) ? oc[attr].flatten.uniq.join(', ') : oc[attr]
+    begin
+      $redis.watch('CONCEPTS_IN_USE')
+      concepts_in_use = JSON.parse($redis.get('CONCEPTS_IN_USE'))
+      headers = %w(name uid grades_proofreader_activities grades_grammar_activities grades_connect_activities grades_diagnostic_activities categorized_connect_questions categorized_diagnostic_questions part_of_diagnostic_recommendations last_retrieved)
+      @organized_concepts.each do |oc|
+        concepts_in_use << headers.map do |attr|
+          if oc[attr].is_a?(Array)
+            oc[attr].flatten.uniq.join(', ')
+          else
+            oc[attr]
+          end
+        end
       end
+      $redis.set("CONCEPTS_IN_USE", concepts_in_use.to_json)
+      $redis.unwatch
+    rescue => e
+      set_concepts_in_use_cache
     end
-    Rails.cache.write("CONCEPTS_IN_USE", concepts_in_use.to_json)
-    $redis.unwatch('CONCEPTS_IN_USE')
-  rescue => e
-    set_concepts_in_use_cache
   end
+
 end

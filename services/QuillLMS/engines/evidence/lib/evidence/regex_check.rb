@@ -27,11 +27,11 @@ module Evidence
     end
 
     private def optimal_rule_uid
-      cached = Rails.cache.read(OPTIMAL_RULE_KEY)
+      cached = $redis.get(OPTIMAL_RULE_KEY)
       optimal_rule_uid = cached.nil? || cached&.blank? ? nil : cached
       unless optimal_rule_uid
         optimal_rule_uid = Evidence::Rule.find_by(optimal: true, rule_type: @rule_type)&.uid
-        Rails.cache.write(OPTIMAL_RULE_KEY, optimal_rule_uid)
+        $redis.set(OPTIMAL_RULE_KEY, optimal_rule_uid)
       end
       optimal_rule_uid || ''
     end

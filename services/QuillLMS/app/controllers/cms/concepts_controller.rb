@@ -22,7 +22,7 @@ class Cms::ConceptsController < Cms::CmsController
   end
 
   def concepts_in_use
-    stored_concepts_in_use = Rails.cache.read('CONCEPTS_IN_USE')
+    stored_concepts_in_use = $redis.get('CONCEPTS_IN_USE')
     return unless stored_concepts_in_use
 
     concepts_in_use = JSON.parse(stored_concepts_in_use)

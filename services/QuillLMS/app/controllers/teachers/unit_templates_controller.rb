@@ -108,7 +108,7 @@ class Teachers::UnitTemplatesController < ApplicationController
 
   private def cached_formatted_unit_templates
     ut_cache_name = "#{related_models_flag}_unit_templates"
-    cached = Rails.cache.read(ut_cache_name)
+    cached = $redis.get(ut_cache_name)
     set_cache_if_necessary_and_return(cached, ut_cache_name)
   end
 
@@ -118,7 +118,7 @@ class Teachers::UnitTemplatesController < ApplicationController
       ut_cache
     else
       uts = unit_templates_by_user_testing_flag
-      Rails.cache.write(ut_cache_name, uts.to_json)
+      $redis.set(ut_cache_name, uts.to_json)
       uts
     end
   end

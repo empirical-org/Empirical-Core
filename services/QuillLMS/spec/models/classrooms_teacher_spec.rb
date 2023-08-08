@@ -63,9 +63,10 @@ RSpec.describe ClassroomsTeacher, type: :model, redis: true do
     let(:teacher) { classrooms_teacher.teacher }
 
     it 'should delete_classroom_minis_cache on create' do
-      Rails.cache.write("user_id:#{teacher.id}_classroom_minis", something: 'something')
+      $redis.set("user_id:#{teacher.id}_classroom_minis", {something: 'something'})
       classrooms_teacher.save
-      expect(Rails.cache.read("user_id:#{teacher.id}_classroom_minis")).to eq nil
+      expect($redis.get("user_id:#{teacher.id}_classroom_minis")).to eq nil
     end
   end
+
 end
