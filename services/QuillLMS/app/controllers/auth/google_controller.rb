@@ -51,7 +51,7 @@ class Auth::GoogleController < ApplicationController
     if @user.teacher?
       GoogleIntegration::UpdateTeacherImportedClassroomsWorker.perform_async(@user.id)
     elsif @user.student?
-      GoogleStudentClassroomWorker.perform_async(@user.id)
+      GoogleIntegration::UpdateStudentImportedClassroomsWorker.perform_async(@user.id)
     end
   end
 

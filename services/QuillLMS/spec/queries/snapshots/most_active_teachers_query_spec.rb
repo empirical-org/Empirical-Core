@@ -31,7 +31,7 @@ module Snapshots
 
       context 'all activity_sessions' do
         let(:expected_result) do
-          (0..9).map { |i| {"value"=>teachers[i].name, "count"=>activity_sessions[i].length} }
+          (0..9).map { |i| { count: activity_sessions[i].length, value: teachers[i].name } }
         end
         let(:cte_records) { [runner_context, activity_sessions] }
 
@@ -41,7 +41,7 @@ module Snapshots
       context 'limited activity_sessions' do
         let(:cte_records) { [runner_context, activity_sessions[0]] }
 
-        it { expect(results).to eq([{"value"=>teachers[0].name, "count"=>activity_sessions[0].length }]) }
+        it { expect(results).to eq([{ count: activity_sessions[0].length, value: teachers[0].name }]) }
       end
 
       context 'activity_sessions completed outside of timeframe' do

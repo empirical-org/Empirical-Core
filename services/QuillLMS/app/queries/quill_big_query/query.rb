@@ -19,11 +19,11 @@ module QuillBigQuery
     def query
       <<-SQL
         #{select_clause}
-          #{from_and_join_clauses}
-          #{where_clause}
-          #{group_by_clause}
-          #{order_by_clause}
-          #{limit_clause}
+        #{from_and_join_clauses}
+        #{where_clause}
+        #{group_by_clause}
+        #{order_by_clause}
+        #{limit_clause}
       SQL
     end
 

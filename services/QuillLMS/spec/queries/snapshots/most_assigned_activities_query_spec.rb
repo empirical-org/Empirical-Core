@@ -41,7 +41,7 @@ module Snapshots
 
       context 'query LIMITs and shape' do
         let(:expected_result) do
-          (0..9).map { |i| {"count"=>unit_activity_bundles[i].length, "value"=>activities[i].name} }
+          (0..9).map { |i| { count: unit_activity_bundles[i].length, value: activities[i].name} }
         end
 
         it { expect(results).to eq(expected_result) }
@@ -50,7 +50,7 @@ module Snapshots
       context 'multiple students assigned to activities' do
         let(:assigned_student_ids) { [1, 2] }
         let(:expected_result) do
-          (0..9).map { |i| {"count"=>unit_activity_bundles[i].length * assigned_student_ids.length, "value"=>activities[i].name} }
+          (0..9).map { |i| { count: unit_activity_bundles[i].length * assigned_student_ids.length, value: activities[i].name} }
         end
 
         it { expect(results).to eq(expected_result) }
