@@ -15,18 +15,6 @@ export default class ResultsPage extends React.Component {
     )
   }
 
-  coloredSquareClassName = (category) => {
-    const { resultCategoryNames, } = this.props
-    switch(category) {
-      case resultCategoryNames.PROFICIENT:
-        return 'proficient'
-      case resultCategoryNames.NEARLY_PROFICIENT:
-        return 'nearly-proficient'
-      default:
-        return 'not-yet-proficient'
-    }
-  }
-
   headerButton = () => {
     const { integrationPartnerName, integrationPartnerSessionId, anonymous, classroomId, } = this.props
     const buttonClassName = 'quill-button primary contained large focus-on-light'
@@ -82,10 +70,6 @@ export default class ResultsPage extends React.Component {
 
     return (
       <div className="result-section" key={category}>
-        <div className="result-section-header">
-          <div className={`colored-square ${this.coloredSquareClassName(category)}`} />
-          <span>{category}</span>
-        </div>
         <h2>{this.resultSectionDescription(category)}</h2>
         <ul>{results}</ul>
       </div>

@@ -21,11 +21,11 @@ describe TeacherActivityFeed, type: :model do
 
         expect(feed.first[:id]).to eq(activity_session2.id)
         expect(feed.first[:completed]).to eq("2 mins ago")
-        expect(feed.first[:score]).to eq("Nearly proficient")
+        expect(feed.first[:score]).to eq(ActivitySession::SOMETIMES_DEMONSTRATED_SKILL)
 
         expect(feed.last[:id]).to eq(activity_session.id)
         expect(feed.last[:completed]).to eq("5 mins ago")
-        expect(feed.last[:score]).to eq("Proficient")
+        expect(feed.last[:score]).to eq(ActivitySession::FREQUENTLY_DEMONSTRATED_SKILL)
       end
     end
 
@@ -44,7 +44,7 @@ describe TeacherActivityFeed, type: :model do
 
         expect(feed.first[:id]).to eq(activity_session.id)
         expect(feed.first[:completed]).to eq("5 mins ago")
-        expect(feed.first[:score]).to eq("Proficient")
+        expect(feed.first[:score]).to eq(ActivitySession::FREQUENTLY_DEMONSTRATED_SKILL)
       end
     end
   end
@@ -117,26 +117,26 @@ describe TeacherActivityFeed, type: :model do
     end
 
     context 'when the activity session percentage is at or above the proficiency cutoff' do
-      it "returns #{ActivitySession::PROFICIENT}" do
+      it "returns #{ActivitySession::FREQUENTLY_DEMONSTRATED_SKILL}" do
         text = feed.send(:text_for_score, proficient_activity_session.classification.key, proficient_activity_session.percentage)
 
-        expect(text).to eq(ActivitySession::PROFICIENT)
+        expect(text).to eq(ActivitySession::FREQUENTLY_DEMONSTRATED_SKILL)
       end
     end
 
     context 'when the activity session percentage is at or above the nearly proficient cutoff' do
-      it "returns #{ActivitySession::NEARLY_PROFICIENT}" do
+      it "returns #{ActivitySession::SOMETIMES_DEMONSTRATED_SKILL}" do
         text = feed.send(:text_for_score, nearly_proficient_activity_session.classification.key, nearly_proficient_activity_session.percentage)
 
-        expect(text).to eq(ActivitySession::NEARLY_PROFICIENT)
+        expect(text).to eq(ActivitySession::SOMETIMES_DEMONSTRATED_SKILL)
       end
     end
 
     context 'when the activity session percentage is below the nearly proficient cutoff' do
-      it "returns #{ActivitySession::NOT_YET_PROFICIENT}" do
+      it "returns #{ActivitySession::RARELY_DEMONSTRATED_SKILL}" do
         text = feed.send(:text_for_score, not_yet_proficient_activity_session.classification.key, not_yet_proficient_activity_session.percentage)
 
-        expect(text).to eq(ActivitySession::NOT_YET_PROFICIENT)
+        expect(text).to eq(ActivitySession::RARELY_DEMONSTRATED_SKILL)
       end
     end
 
