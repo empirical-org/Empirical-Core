@@ -3,8 +3,8 @@
 module ImpactMetrics
   class ActivitiesAllTimeQuery < ::QuillBigQuery::Query
 
-    def initialize(options: {})
-      super(options)
+    def initialize(options)
+      super(**options)
     end
 
     def run
