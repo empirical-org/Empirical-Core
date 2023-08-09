@@ -146,7 +146,7 @@ gem 'sentry-sidekiq'
 gem 'rack-heartbeat'
 
 # INTEGRATIONS
-gem 'clever-ruby', '~> 2.0.1'
+gem 'commonlit-clever-ruby'
 
 # Memory profiling
 gem 'puma_worker_killer'
