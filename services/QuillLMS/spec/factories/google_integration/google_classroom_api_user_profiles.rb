@@ -15,7 +15,7 @@ module GoogleIntegration
 
       transient do
         email { Faker::Internet.email }
-        user_id { Faker::Number.number(21) }
+        user_id { Faker::Number.number(digits: 21) }
         name { create(:google_classroom_api_name) }
       end
     end

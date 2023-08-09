@@ -12,7 +12,7 @@ describe Cms::AdminVerificationController do
       pending_requests = create_list(:admin_info, 3, approval_status: AdminInfo::PENDING, approver_role: User::STAFF)
       completed_requests = create_list(:admin_info, 10, approval_status: [AdminInfo::APPROVED, AdminInfo::DENIED].sample, approver_role: User::STAFF)
 
-      get :index, { format: 'json' }
+      get :index, format: 'json'
       parsed_response = JSON.parse(response.body)
 
       pending_results = parsed_response["pending"]
@@ -30,7 +30,7 @@ describe Cms::AdminVerificationController do
       user = create(:admin, ip_address: nil)
       create(:admin_info, user: user)
 
-      get :index, { format: 'json' }
+      get :index, format: 'json'
       expect(response).to have_http_status(:ok)
     end
   end

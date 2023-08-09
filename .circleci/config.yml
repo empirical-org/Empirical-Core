@@ -4,7 +4,7 @@ jobs:
     working_directory: ~/Empirical-Core
     parallelism: 6
     docker:
-      - image: cimg/ruby:2.7.8
+      - image: cimg/ruby:3.0.6
         environment:
           PG_DB: quill_test_db
           PG_USER: ubuntu
@@ -71,7 +71,7 @@ jobs:
     working_directory: ~/Empirical-Core
     parallelism: 1
     docker:
-      - image: cimg/ruby:2.7.8-node
+      - image: cimg/ruby:3.0.6-node
         environment:
           PG_DB: quill_test_db
           PG_USER: ubuntu
@@ -84,7 +84,7 @@ jobs:
           POSTGRES_DB: quill_test_db
           POSTGRES_USER: ubuntu
           POSTGRES_PASSWORD: password
-      - image: selenium/standalone-chrome:3.141.59
+      - image: selenium/standalone-chrome:4.11.0
     steps:
       - checkout
       - restore_cache:
@@ -149,7 +149,7 @@ jobs:
     working_directory: ~/Empirical-Core
     parallelism: 1
     docker:
-      - image: cimg/ruby:2.7.8
+      - image: cimg/ruby:3.0.6
         environment:
           PG_DB: quill_test_db
           PG_USER: ubuntu
@@ -313,17 +313,17 @@ jobs:
     working_directory: ~/Empirical-Core
     parallelism: 1
     docker:
-      - image: cimg/ruby:2.7.8
+      - image: cimg/ruby:3.0.6
         environment:
           PG_DB: quill_evidence_test_db
           PG_USER: ubuntu
           RAILS_ENV: test
           RACK_ENV: test
-      - image: postgres:10.5-alpine
+      - image: postgres:13.7-alpine
         environment:
           POSTGRES_USER: ubuntu
           POSTGRES_DB: quill_evidence_test_db
-          POSTGRES_PASSWORD: ""
+          POSTGRES_PASSWORD: password
       - image: circleci/redis:6.0.9
     steps:
       - checkout
@@ -383,7 +383,7 @@ jobs:
   rubocop_lint:
     working_directory: ~/Empirical-Core
     docker:
-      - image: cimg/ruby:2.7.8-node
+      - image: cimg/ruby:3.0.6-node
     steps:
       - checkout
       - run:
@@ -399,8 +399,6 @@ workflows:
           filters:
             branches:
               ignore: /^deploy-.*/
-      - lms_integration_build:
-          <<: *default_filter
       - lms_big_query_build:
           <<: *default_filter
       - lms_node_build:

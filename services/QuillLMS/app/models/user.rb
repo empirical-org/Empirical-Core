@@ -369,21 +369,21 @@ class User < ApplicationRecord
     subscriptions.active
   end
 
-  def create(*args)
+  def create(*args, **options)
     super
   rescue ActiveRecord::RecordNotUnique => e
     errors.add(:db_level, e)
     false
   end
 
-  def update(*args)
+  def update(*args, **options)
     super
   rescue ActiveRecord::RecordNotUnique => e
     errors.add(:db_level, e)
     false
   end
 
-  def create_or_update(*args)
+  def create_or_update(*args, **options)
     super
   rescue ActiveRecord::RecordNotUnique => e
     errors.add(:db_level, e)

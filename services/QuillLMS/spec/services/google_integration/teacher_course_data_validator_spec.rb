@@ -10,7 +10,7 @@ module GoogleIntegration
     let(:course_state) { RestClient::ACTIVE_STATE }
 
     context 'not owner' do
-      let(:user_external_id) { Faker::Number.number(21) }
+      let(:user_external_id) { Faker::Number.number(digits: 21) }
 
       it { is_expected.to eq false }
     end

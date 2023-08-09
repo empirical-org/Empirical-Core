@@ -33,7 +33,7 @@ module CanvasIntegration
       # build rather than create is used to satisfy requires_password validation on User
       user
         .canvas_accounts
-        .build(canvas_instance: canvas_instance, external_id: external_id)
+        .build({ canvas_instance: canvas_instance, external_id: external_id})
         .tap(&:save!)
         .user
     end
