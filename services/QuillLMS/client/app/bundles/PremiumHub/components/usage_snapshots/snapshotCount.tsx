@@ -102,11 +102,11 @@ const SnapshotCount = ({ label, size, queryKey, searchCount, selectedGrades, sel
   function selectionsEqual(firstSelection, secondSelection) {
     console.log(`${firstSelection} equals ${secondSelection}?`)
     console.log(
-      firstSelection === secondSelection ||
+      firstSelection == secondSelection ||
       unorderedArraysAreEqual(firstSelection, secondSelection)
     )
     return (
-      firstSelection === secondSelection ||
+      firstSelection == secondSelection ||
       unorderedArraysAreEqual(firstSelection, secondSelection)
     )
   }
