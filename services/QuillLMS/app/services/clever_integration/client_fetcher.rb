@@ -45,9 +45,5 @@ module CleverIntegration
     private def library_client
       LibraryClient.new(access_token)
     end
-
-    private def provider
-      auth_credential.provider
-    end
   end
 end

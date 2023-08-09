@@ -21,7 +21,7 @@ RSpec.describe CanvasIntegration::ClassroomDataAdapter do
       alreadyImported: already_imported,
       classroom_external_id: classroom_external_id,
       name: classroom_name,
-      students: students
+      studentCount: students.count,
     }
   end
 

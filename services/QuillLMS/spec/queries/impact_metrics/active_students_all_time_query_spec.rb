@@ -22,7 +22,7 @@ module ImpactMetrics
         ]
       }
 
-      it { expect(results).to eq([{"count" => students.length}]) }
+      it { expect(results).to eq [{ count: students.length }] }
     end
   end
 end

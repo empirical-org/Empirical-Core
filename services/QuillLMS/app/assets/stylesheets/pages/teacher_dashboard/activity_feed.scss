@@ -28,13 +28,13 @@
   .score-tag {
     border-radius: 4px;
     padding: 0 6px;
-    &.proficient {
+    &.frequently-demonstrated-skill {
       background-color: #dcedcc;
     }
-    &.nearly-proficient {
+    &.sometimes-demonstrated-skill {
       background-color: #ffeccc;
     }
-    &.not-yet-proficient {
+    &.rarely-demonstrated-skill {
       background-color: #ffe0e3;
     }
     &.completed {

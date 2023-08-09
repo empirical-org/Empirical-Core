@@ -9,10 +9,10 @@
       color: #000;
       max-width: 520px;
     }
-    p {
+    p, ol {
       font-size: 16px;
       color: #262626;
-      margin-top: 8px;
+      margin: 8px 0px;
       max-width: 460px;
     }
   }
@@ -352,8 +352,10 @@
         max-height: 100vh;
         overflow: scroll;
         header {
+          width: 512px;
           padding: 0px 20px;
           display: flex;
+          flex-direction: row;
           justify-content: space-between;
           align-items: center;
           h3 {

@@ -147,12 +147,12 @@ exports[`ActivityFeed component not on mobile should render when there are activ
           Object {
             "attribute": "activityName",
             "name": "Activity",
-            "width": "380px",
+            "width": "296px",
           },
           Object {
             "attribute": "scoreTag",
             "name": "Score",
-            "width": "124px",
+            "width": "210px",
           },
           Object {
             "attribute": "completed",
@@ -336,9 +336,9 @@ exports[`ActivityFeed component not on mobile should render when there are activ
             scope="col"
             style={
               Object {
-                "minWidth": "380px",
+                "minWidth": "296px",
                 "textAlign": "left",
-                "width": "380px",
+                "width": "296px",
               }
             }
           >
@@ -349,9 +349,9 @@ exports[`ActivityFeed component not on mobile should render when there are activ
             scope="col"
             style={
               Object {
-                "minWidth": "124px",
+                "minWidth": "210px",
                 "textAlign": "left",
-                "width": "124px",
+                "width": "210px",
               }
             }
           >
@@ -398,9 +398,9 @@ exports[`ActivityFeed component not on mobile should render when there are activ
                 key="activityName-33"
                 style={
                   Object {
-                    "minWidth": "380px",
+                    "minWidth": "296px",
                     "textAlign": "left",
-                    "width": "380px",
+                    "width": "296px",
                   }
                 }
               >
@@ -411,9 +411,9 @@ exports[`ActivityFeed component not on mobile should render when there are activ
                 key="scoreTag-33"
                 style={
                   Object {
-                    "minWidth": "124px",
+                    "minWidth": "210px",
                     "textAlign": "left",
-                    "width": "124px",
+                    "width": "210px",
                   }
                 }
               >
@@ -457,27 +457,79 @@ exports[`ActivityFeed component not on mobile should render when there are activ
               >
                 Angie Thomas
               </td>
-              <td
-                className="data-table-row-section undefined"
-                key="activityName-32"
-                style={
-                  Object {
-                    "minWidth": "380px",
-                    "textAlign": "left",
-                    "width": "380px",
+              <td>
+                <Tooltip
+                  isTabbable={true}
+                  key="activityName-32"
+                  tooltipText="Capitalize Names of People and the Pronoun \\"I\\""
+                  tooltipTriggerStyle={
+                    Object {
+                      "minWidth": "296px",
+                      "textAlign": "left",
+                      "width": "296px",
+                    }
                   }
-                }
-              >
-                Capitalize Names of People and the Pronoun "I"
+                  tooltipTriggerText="Capitalize Names of People and the Pronoun \\"I\\""
+                  tooltipTriggerTextClass="data-table-row-section undefined"
+                  tooltipTriggerTextStyle={
+                    Object {
+                      "minWidth": "296px",
+                      "textAlign": "left",
+                      "width": "296px",
+                    }
+                  }
+                >
+                  <span
+                    aria-hidden={false}
+                    className="quill-tooltip-trigger "
+                    role="tooltip"
+                    style={
+                      Object {
+                        "minWidth": "296px",
+                        "textAlign": "left",
+                        "width": "296px",
+                      }
+                    }
+                  >
+                    <span
+                      className="data-table-row-section undefined"
+                      onBlur={[Function]}
+                      onClick={[Function]}
+                      onFocus={[Function]}
+                      onKeyDown={[Function]}
+                      onMouseEnter={[Function]}
+                      onMouseLeave={[Function]}
+                      role="button"
+                      style={
+                        Object {
+                          "minWidth": "296px",
+                          "textAlign": "left",
+                          "width": "296px",
+                        }
+                      }
+                      tabIndex={0}
+                    >
+                      Capitalize Names of People and the Pronoun "I"
+                    </span>
+                    <span
+                      className="quill-tooltip-wrapper"
+                    >
+                      <span
+                        aria-live="polite"
+                        className="quill-tooltip"
+                      />
+                    </span>
+                  </span>
+                </Tooltip>
               </td>
               <td
                 className="data-table-row-section undefined"
                 key="scoreTag-32"
                 style={
                   Object {
-                    "minWidth": "124px",
+                    "minWidth": "210px",
                     "textAlign": "left",
-                    "width": "124px",
+                    "width": "210px",
                   }
                 }
               >
@@ -526,9 +578,9 @@ exports[`ActivityFeed component not on mobile should render when there are activ
                 key="activityName-29"
                 style={
                   Object {
-                    "minWidth": "380px",
+                    "minWidth": "296px",
                     "textAlign": "left",
-                    "width": "380px",
+                    "width": "296px",
                   }
                 }
               >
@@ -539,9 +591,9 @@ exports[`ActivityFeed component not on mobile should render when there are activ
                 key="scoreTag-29"
                 style={
                   Object {
-                    "minWidth": "124px",
+                    "minWidth": "210px",
                     "textAlign": "left",
-                    "width": "124px",
+                    "width": "210px",
                   }
                 }
               >
@@ -590,9 +642,9 @@ exports[`ActivityFeed component not on mobile should render when there are activ
                 key="activityName-28"
                 style={
                   Object {
-                    "minWidth": "380px",
+                    "minWidth": "296px",
                     "textAlign": "left",
-                    "width": "380px",
+                    "width": "296px",
                   }
                 }
               >
@@ -603,9 +655,9 @@ exports[`ActivityFeed component not on mobile should render when there are activ
                 key="scoreTag-28"
                 style={
                   Object {
-                    "minWidth": "124px",
+                    "minWidth": "210px",
                     "textAlign": "left",
-                    "width": "124px",
+                    "width": "210px",
                   }
                 }
               >
@@ -654,9 +706,9 @@ exports[`ActivityFeed component not on mobile should render when there are activ
                 key="activityName-27"
                 style={
                   Object {
-                    "minWidth": "380px",
+                    "minWidth": "296px",
                     "textAlign": "left",
-                    "width": "380px",
+                    "width": "296px",
                   }
                 }
               >
@@ -667,9 +719,9 @@ exports[`ActivityFeed component not on mobile should render when there are activ
                 key="scoreTag-27"
                 style={
                   Object {
-                    "minWidth": "124px",
+                    "minWidth": "210px",
                     "textAlign": "left",
-                    "width": "124px",
+                    "width": "210px",
                   }
                 }
               >
@@ -718,9 +770,9 @@ exports[`ActivityFeed component not on mobile should render when there are activ
                 key="activityName-26"
                 style={
                   Object {
-                    "minWidth": "380px",
+                    "minWidth": "296px",
                     "textAlign": "left",
-                    "width": "380px",
+                    "width": "296px",
                   }
                 }
               >
@@ -731,9 +783,9 @@ exports[`ActivityFeed component not on mobile should render when there are activ
                 key="scoreTag-26"
                 style={
                   Object {
-                    "minWidth": "124px",
+                    "minWidth": "210px",
                     "textAlign": "left",
-                    "width": "124px",
+                    "width": "210px",
                   }
                 }
               >
@@ -782,9 +834,9 @@ exports[`ActivityFeed component not on mobile should render when there are activ
                 key="activityName-25"
                 style={
                   Object {
-                    "minWidth": "380px",
+                    "minWidth": "296px",
                     "textAlign": "left",
-                    "width": "380px",
+                    "width": "296px",
                   }
                 }
               >
@@ -795,9 +847,9 @@ exports[`ActivityFeed component not on mobile should render when there are activ
                 key="scoreTag-25"
                 style={
                   Object {
-                    "minWidth": "124px",
+                    "minWidth": "210px",
                     "textAlign": "left",
-                    "width": "124px",
+                    "width": "210px",
                   }
                 }
               >
@@ -846,9 +898,9 @@ exports[`ActivityFeed component not on mobile should render when there are activ
                 key="activityName-24"
                 style={
                   Object {
-                    "minWidth": "380px",
+                    "minWidth": "296px",
                     "textAlign": "left",
-                    "width": "380px",
+                    "width": "296px",
                   }
                 }
               >
@@ -859,9 +911,9 @@ exports[`ActivityFeed component not on mobile should render when there are activ
                 key="scoreTag-24"
                 style={
                   Object {
-                    "minWidth": "124px",
+                    "minWidth": "210px",
                     "textAlign": "left",
-                    "width": "124px",
+                    "width": "210px",
                   }
                 }
               >
@@ -910,9 +962,9 @@ exports[`ActivityFeed component not on mobile should render when there are activ
                 key="activityName-23"
                 style={
                   Object {
-                    "minWidth": "380px",
+                    "minWidth": "296px",
                     "textAlign": "left",
-                    "width": "380px",
+                    "width": "296px",
                   }
                 }
               >
@@ -923,9 +975,9 @@ exports[`ActivityFeed component not on mobile should render when there are activ
                 key="scoreTag-23"
                 style={
                   Object {
-                    "minWidth": "124px",
+                    "minWidth": "210px",
                     "textAlign": "left",
-                    "width": "124px",
+                    "width": "210px",
                   }
                 }
               >
@@ -974,9 +1026,9 @@ exports[`ActivityFeed component not on mobile should render when there are activ
                 key="activityName-3"
                 style={
                   Object {
-                    "minWidth": "380px",
+                    "minWidth": "296px",
                     "textAlign": "left",
-                    "width": "380px",
+                    "width": "296px",
                   }
                 }
               >
@@ -987,9 +1039,9 @@ exports[`ActivityFeed component not on mobile should render when there are activ
                 key="scoreTag-3"
                 style={
                   Object {
-                    "minWidth": "124px",
+                    "minWidth": "210px",
                     "textAlign": "left",
-                    "width": "124px",
+                    "width": "210px",
                   }
                 }
               >
@@ -1038,9 +1090,9 @@ exports[`ActivityFeed component not on mobile should render when there are activ
                 key="activityName-2"
                 style={
                   Object {
-                    "minWidth": "380px",
+                    "minWidth": "296px",
                     "textAlign": "left",
-                    "width": "380px",
+                    "width": "296px",
                   }
                 }
               >
@@ -1051,9 +1103,9 @@ exports[`ActivityFeed component not on mobile should render when there are activ
                 key="scoreTag-2"
                 style={
                   Object {
-                    "minWidth": "124px",
+                    "minWidth": "210px",
                     "textAlign": "left",
-                    "width": "124px",
+                    "width": "210px",
                   }
                 }
               >

@@ -2,7 +2,6 @@ import qs from 'qs';
 import * as React from 'react';
 import { withRouter } from 'react-router-dom';
 
-import GrowthSkillsTable from './growthSkillsTable';
 import {
   ConceptResults,
   SkillResults,
@@ -12,7 +11,6 @@ import {
   correctImage,
   fileDocumentIcon,
 } from './shared';
-import SkillsTable from './skillsTable';
 
 import { requestGet } from '../../../../../../modules/request/index';
 import { DataTable, } from '../../../../../Shared/index';
@@ -38,7 +36,8 @@ const QuestionTable = ({ question, }) => {
     {
       name: "",
       attribute: 'conceptTag',
-      width: '83px'
+      width: '83px',
+      noTooltip: true
     },
     {
       name: "",
@@ -130,12 +129,6 @@ export const IndividualStudentResponses = ({ match, passedConceptResults, passed
 
   let conceptResultElements
 
-  let skillsSection
-
-  if (skillResults.skills && skillResults.skills.length) {
-    skillsSection = <div className="skills-table-container-wrapper">{skillResults.skills[0] && skillResults.skills[0].pre ? <GrowthSkillsTable isExpandable={true} skillGroup={skillResults} /> : <SkillsTable isExpandable={true} skillGroup={skillResults} />}</div>
-  }
-
   if (conceptResults.pre) {
     conceptResultElements = (<React.Fragment>
       <div className="tabs">
@@ -155,7 +148,6 @@ export const IndividualStudentResponses = ({ match, passedConceptResults, passed
         <a className="focus-on-light" href="https://support.quill.org/en/articles/5698167-how-do-i-read-the-student-responses-report" rel="noopener noreferrer" target="_blank">{fileDocumentIcon}<span>Guide</span></a>
       </header>
       {mobileNavigation}
-      {skillsSection}
       <section className="concept-results-container">{conceptResultElements}</section>
     </main>
   )

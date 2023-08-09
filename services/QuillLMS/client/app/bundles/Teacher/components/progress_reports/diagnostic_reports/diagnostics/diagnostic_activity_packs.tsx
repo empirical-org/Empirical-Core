@@ -125,15 +125,18 @@ const Diagnostic = ({ diagnostic, }) => {
   if (pre.post_test_id) {
     const growthSummaryLink = summaryLink(true, pre.post_test_id, pre.classroom_id, pre.unit_id)
 
+    // we only care about whether or not the pre-diagnostic is eligible because even if the post- is, we can't compare the data and so need to keep the empty state
+    const eligibleForQuestionScoring = pre.eligible_for_question_scoring
+
     if (post.assigned_count) {
       postAndGrowth = (<React.Fragment>
         <PostSection post={post} />
-        <GrowthSummarySection growthSummaryLink={growthSummaryLink} showGrowthSummary={true} skillsGrowth={classwideGrowthAverage} />
+        <GrowthSummarySection eligibleForQuestionScoring={eligibleForQuestionScoring} growthSummaryLink={growthSummaryLink} showGrowthSummary={true} skillsGrowth={classwideGrowthAverage} />
       </React.Fragment>)
     } else {
       postAndGrowth = (<React.Fragment>
         <PostSection activityId={pre.post_test_id} name={name} unitTemplateId={post.unit_template_id} />
-        <GrowthSummarySection name={name} />
+        <GrowthSummarySection eligibleForQuestionScoring={eligibleForQuestionScoring} name={name} />
       </React.Fragment>
       )
     }

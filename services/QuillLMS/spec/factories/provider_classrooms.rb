@@ -27,7 +27,7 @@ FactoryBot.define do
     external_id { Faker::Number.number }
     classroom
 
-    factory :canvas_classroom, parent: :provider_classroom, class: 'CanvasClassroom' do
+    factory :canvas_classroom, parent: :provider_classroom, class: CanvasClassroom do
       canvas_instance
     end
   end

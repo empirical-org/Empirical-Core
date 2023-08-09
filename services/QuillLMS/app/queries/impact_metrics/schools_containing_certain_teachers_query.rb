@@ -2,6 +2,7 @@
 
 module ImpactMetrics
   class SchoolsContainingCertainTeachersQuery < ::QuillBigQuery::Query
+    attr_reader :teacher_ids
 
     def initialize(teacher_ids:, options: {})
       @teacher_ids = teacher_ids
@@ -10,7 +11,7 @@ module ImpactMetrics
     end
 
     def run
-      runner.execute(query, {teacher_ids: @teacher_ids})
+      runner.execute(query)
     end
 
     def select_clause
@@ -28,7 +29,7 @@ module ImpactMetrics
 
     def where_clause
       <<-SQL
-        WHERE schools_users.user_id IN UNNEST(@teacher_ids)
+        WHERE schools_users.user_id IN (#{teacher_ids.join(', ')})
       SQL
     end
   end

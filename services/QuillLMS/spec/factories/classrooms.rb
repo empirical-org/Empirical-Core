@@ -26,7 +26,7 @@
 #
 FactoryBot.define do
   factory :simple_classroom, class: Classroom do
-    name 'a'
+    name { 'a' }
   end
 
   factory :classroom do
@@ -109,9 +109,7 @@ FactoryBot.define do
       end
     end
 
-    trait :archived do
-      visible false
-    end
+    trait(:archived) { visible { false } }
 
     after(:create) do |classroom|
       if classroom.classrooms_teachers.none?

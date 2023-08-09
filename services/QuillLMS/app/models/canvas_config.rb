@@ -4,12 +4,12 @@
 #
 # Table name: canvas_configs
 #
-#  id                       :bigint           not null, primary key
-#  client_id_ciphertext     :text             not null
-#  client_secret_ciphertext :text             not null
-#  created_at               :datetime         not null
-#  updated_at               :datetime         not null
-#  canvas_instance_id       :bigint           not null
+#  id                 :bigint           not null, primary key
+#  client_secret      :text             not null
+#  created_at         :datetime         not null
+#  updated_at         :datetime         not null
+#  canvas_instance_id :bigint           not null
+#  client_id          :text             not null
 #
 # Indexes
 #
@@ -20,7 +20,7 @@
 #  fk_rails_...  (canvas_instance_id => canvas_instances.id)
 #
 class CanvasConfig < ApplicationRecord
-  has_encrypted :client_id, :client_secret
+  encrypts :client_id, :client_secret
 
   belongs_to :canvas_instance
 end

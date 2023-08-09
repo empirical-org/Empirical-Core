@@ -21,7 +21,6 @@ gem 'atomic_arrays', '~> 1.1.0'
 
 # USER AUTH, ETC
 gem 'bcrypt', '~> 3.1.12'
-gem "doorkeeper", "5.0.3"
 gem 'omniauth'
 gem 'omniauth-canvas'
 gem 'omniauth-google-oauth2'
@@ -56,7 +55,8 @@ gem 'maxminddb'
 # OTHERS
 gem 'global'
 gem 'lms-api', require: 'lms_api'
-gem 'google-api-client', '0.8.6'
+gem 'google-cloud-bigquery', '~> 1.43.0'
+gem 'google-apis-classroom_v1', '~> 0.27.0'
 gem 'faraday_middleware'
 gem 'newrelic_rpm', '~> 7.2'
 gem 'stripe', '~> 5.30'
@@ -158,9 +158,6 @@ gem 'paperclip'
 gem 'rb-readline'
 gem 'awesome_print'
 
-# TODO: Remove this after migrating to Rails 7 encrypted attributes
-gem 'lockbox'
-
 gem 'capitalize-names', require: 'capitalize_names'
 
 group :production, :staging do
@@ -190,8 +187,8 @@ group :test, :development do
   gem 'pry-coolline'
   gem 'pry-rescue'
   gem 'pry-byebug'
-  gem 'rspec-rails', '~> 5.0'
-  gem 'factory_bot_rails', '~> 4.8.2', require: false
+  gem 'rspec-rails'
+  gem 'factory_bot_rails', require: false
   gem 'timecop'
   gem 'byebug'
   gem 'guard'

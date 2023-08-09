@@ -70,7 +70,6 @@ class Teachers::ProgressReports::DiagnosticReportsController < Teachers::Progres
     render json: data
   end
 
-  # rubocop:disable Metrics/CyclomaticComplexity
   private def fetch_individual_student_diagnostic_responses_cache
     activity_id = individual_student_diagnostic_responses_params[:activity_id]
     classroom_id = individual_student_diagnostic_responses_params[:classroom_id]
@@ -95,7 +94,6 @@ class Teachers::ProgressReports::DiagnosticReportsController < Teachers::Progres
       end
 
       student = User.find_by_id(student_id)
-      skills = Activity.find(activity_id).skills.distinct
       pre_test = Activity.find_by_follow_up_activity_id(activity_id)
       pre_test_activity_session = pre_test && find_activity_session_for_student_activity_and_classroom(student_id, pre_test.id, classroom_id, nil)
 
@@ -104,21 +102,12 @@ class Teachers::ProgressReports::DiagnosticReportsController < Teachers::Progres
           pre: { questions: format_concept_results(pre_test_activity_session, pre_test_activity_session.concept_results.order("question_number::int")) },
           post: { questions: format_concept_results(activity_session, activity_session.concept_results.order("question_number::int")) }
         }
-        formatted_skills = skills.map do |skill|
-          {
-            pre: data_for_skill_by_activity_session(pre_test_activity_session.concept_results, skill),
-            post: data_for_skill_by_activity_session(activity_session.concept_results, skill)
-          }
-        end
-        skill_results = { skills: formatted_skills.uniq { |formatted_skill| formatted_skill[:pre][:skill] } }
       else
         concept_results = { questions: format_concept_results(activity_session, activity_session.concept_results.order("question_number::int")) }
-        skill_results = { skills: skills.map { |skill| data_for_skill_by_activity_session(activity_session.concept_results, skill) }.uniq { |formatted_skill| formatted_skill[:skill] } }
       end
-      { concept_results: concept_results, skill_results: skill_results, name: student.name }
+      { concept_results: concept_results, name: student.name }
     end
   end
-  # rubocop:enable Metrics/CyclomaticComplexity
 
   def classrooms_with_students
     render json: fetch_classrooms_with_students_cache

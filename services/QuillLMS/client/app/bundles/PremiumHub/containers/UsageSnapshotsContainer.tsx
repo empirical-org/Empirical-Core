@@ -140,6 +140,7 @@ const UsageSnapshotsContainer = ({ adminInfo, accessType, }) => {
 
   function getFilters() {
     const searchParams = {
+      timeframe: selectedTimeframe,
       school_ids: selectedSchools?.map(s => s.id) || null,
       teacher_ids: selectedTeachers?.map(t => t.id) || null,
       classroom_ids: selectedClassrooms?.map(c => c.id) || null,

@@ -35,9 +35,7 @@
 #  fk_rails_...  (standard_id => standards.id)
 #
 FactoryBot.define do
-  data = {questionType: "questions", questions: [{key: 'fake_key'}]}
-
-  factory :simple_activity, class: 'Activity'
+  factory :simple_activity, class: Activity
 
   factory :activity do
     sequence(:name) do |n|
@@ -46,19 +44,20 @@ FactoryBot.define do
         break possible_name unless Activity.exists?(name: possible_name)
       end
     end
+
     description             { "This is the description for the '#{name}' activity." }
     uid                     { SecureRandom.urlsafe_base64 }
-    standard                   { Standard.first || create(:standard) }
+    standard                { Standard.first || create(:standard) }
     classification          { create(:classification) }
     activity_categories     { create_pair(:activity_category) }
     raw_score               { create(:raw_score) }
-    repeatable              true
-    data                    data
+    repeatable              { true }
+    data                    { { questionType: 'questions', questions: [{ key: 'fake_key' }] } }
 
     factory :diagnostic_activity do
       classification { ActivityClassification.find_by_key attributes_for(:diagnostic)[:key] || create(:diagnostic) }
       activity_classification_id { ActivityClassification.find_by_key(attributes_for(:diagnostic)[:key])&.id || create(:diagnostic).id }
-      repeatable false
+      repeatable { false }
     end
 
     factory :proofreader_activity do
@@ -79,7 +78,7 @@ FactoryBot.define do
     factory :lesson_activity do
       classification { ActivityClassification.find_by_key attributes_for(:lesson_classification)[:key] || create(:lesson_classification) }
       activity_classification_id { ActivityClassification.find_by_key(attributes_for(:lesson_classification)[:key])&.id || create(:lesson_classification).id }
-      repeatable false
+      repeatable { false }
       supporting_info { "https://www.example.com/example.pdf" }
 
       trait :with_follow_up do
@@ -93,15 +92,15 @@ FactoryBot.define do
     end
 
     trait :production do
-      flags ['production']
+      flags { ['production'] }
     end
 
     trait :archived do
-      flags ['archived']
+      flags { ['archived'] }
     end
 
     trait :alpha do
-      flags ['alpha']
+      flags { ['alpha'] }
     end
   end
 end

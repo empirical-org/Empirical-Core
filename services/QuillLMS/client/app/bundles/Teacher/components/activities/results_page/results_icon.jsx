@@ -8,7 +8,7 @@ export default class ResultsIcon extends React.Component {
     let color = '#4ea500';
     if (scoreColor === 'red-score-color') {
       color = '#e73030';
-    } else if (scoreColor === 'yellow-score-color') {
+    } else if (scoreColor === 'orange-score-color') {
       color = '#eb9911';
     }
     return { backgroundColor: color };
@@ -37,12 +37,12 @@ export default class ResultsIcon extends React.Component {
 
   text = () => {
     const { percentage, } = this.props
-    let text = 'Not yet proficient'
+    let text = 'Rarely demonstrated skill'
 
-    if (percentage > 0.8) {
-      text = 'Proficient'
-    } else if (percentage > 0.6) {
-      text = 'Nearly proficient'
+    if (percentage >= 0.83) {
+      text = 'Frequently demonstrated skill'
+    } else if (percentage >= 0.32) {
+      text = 'Sometimes demonstrated skill'
     }
 
     return text

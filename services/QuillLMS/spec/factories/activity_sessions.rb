@@ -37,7 +37,7 @@
 #  index_activity_sessions_on_user_id                (user_id)
 #
 FactoryBot.define do
-  factory :simple_activity_session, class: 'ActivitySession'
+  factory :simple_activity_session, class: ActivitySession
 
   # TODO: don't make all activity_sessions finished, used :finished trait
   factory :activity_session do
@@ -45,12 +45,12 @@ FactoryBot.define do
     uid                 { SecureRandom.urlsafe_base64 }
     percentage          { 0.50 }
     started_at          { created_at }
-    state               'finished'
+    state               { 'finished' }
     completed_at        { Time.current }
-    is_final_score      true
-    is_retry            false
-    temporary           false
-    visible             true
+    is_final_score      { true }
+    is_retry            { false }
+    temporary           { false }
+    visible             { true }
 
     before(:create) do |activity_session|
       if activity_session.user && !activity_session.classroom_unit
@@ -76,28 +76,28 @@ FactoryBot.define do
     end
 
     trait :retry do
-      is_retry true
+      is_retry { true }
     end
 
     trait :unstarted do
-      percentage {nil}
-      state 'unstarted'
-      completed_at {nil}
-      is_final_score false
+      percentage { nil }
+      state { 'unstarted' }
+      completed_at { nil }
+      is_final_score { false }
     end
 
     trait :started do
-      percentage {nil}
-      state 'started'
-      completed_at {nil}
-      is_final_score false
+      percentage { nil }
+      state { 'started' }
+      completed_at { nil }
+      is_final_score { false }
     end
 
     trait :finished do
       percentage {0.50}
-      state 'finished'
+      state { 'finished' }
       completed_at { Time.current }
-      is_final_score true
+      is_final_score { true }
     end
 
     factory :diagnostic_activity_session do

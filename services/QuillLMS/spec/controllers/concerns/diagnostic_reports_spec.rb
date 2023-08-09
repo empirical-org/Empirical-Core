@@ -5,21 +5,20 @@ require 'rails_helper'
 describe DiagnosticReports do
   include DiagnosticReports
 
-  describe '#data_for_skill_by_activity_session' do
-    let!(:activity_session) { create(:activity_session) }
-    let!(:concept) { create(:concept) }
-    let!(:skill_concept) { create(:skill_concept, concept: concept) }
-    let!(:correct_concept_result) { create(:concept_result, concept: concept, activity_session: activity_session, correct: true) }
-    let!(:incorrect_concept_result) { create(:concept_result, concept: concept, activity_session: activity_session, correct: false) }
+  describe '#data_for_question_by_activity_session' do
+    let!(:activity_session) { create(:activity_session_without_concept_results) }
+    let!(:skill_group_activity) { create(:skill_group_activity, activity: activity_session.activity)}
+    let!(:diagnostic_question_skill) { create(:diagnostic_question_skill, skill_group: skill_group_activity.skill_group) }
+    let!(:correct_concept_result) { create(:concept_result, activity_session: activity_session, correct: true, question_number: 1, extra_metadata: { question_uid: diagnostic_question_skill.question.uid } ) }
 
     it 'should return data with the name of the skill, number of correct concept results, number of incorrect concept results, and a summary' do
-      expect(data_for_skill_by_activity_session(activity_session.concept_results, skill_concept.skill)).to eq({
-        id: skill_concept.skill.id,
-        skill: skill_concept.skill.name,
+      expect(data_for_question_by_activity_session(activity_session.concept_results, diagnostic_question_skill)).to eq({
+        id: diagnostic_question_skill.id,
+        name: diagnostic_question_skill.name,
         number_correct: 1,
-        number_incorrect: 1,
-        proficiency_score: 0,
-        summary: DiagnosticReports::PARTIALLY_CORRECT
+        number_incorrect: 0,
+        proficiency_score: 1,
+        summary: DiagnosticReports::FULLY_CORRECT
       })
     end
   end

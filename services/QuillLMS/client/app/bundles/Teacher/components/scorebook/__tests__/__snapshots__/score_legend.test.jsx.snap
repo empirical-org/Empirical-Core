@@ -19,12 +19,12 @@ exports[`ScoreLegend component should render 1`] = `
         <p
           className="title"
         >
-          Proficient
+          Frequently demonstrated skill
         </p>
         <p
           className="explanation"
         >
-          83-100%
+          100%-83% of prompts
         </p>
       </div>
     </div>
@@ -40,12 +40,12 @@ exports[`ScoreLegend component should render 1`] = `
         <p
           className="title"
         >
-          Nearly proficient
+          Sometimes demonstrated skill
         </p>
         <p
           className="explanation"
         >
-          32-82%
+          82%-32% of prompts
         </p>
       </div>
     </div>
@@ -61,12 +61,12 @@ exports[`ScoreLegend component should render 1`] = `
         <p
           className="title"
         >
-          Not yet proficient
+          Rarely demonstrated skill
         </p>
         <p
           className="explanation"
         >
-          0-31%
+          31%-0% of prompts
         </p>
       </div>
     </div>
