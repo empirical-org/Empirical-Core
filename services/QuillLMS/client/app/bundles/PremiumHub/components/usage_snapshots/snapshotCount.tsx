@@ -99,16 +99,23 @@ const SnapshotCount = ({ label, size, queryKey, searchCount, selectedGrades, sel
     })
   }
 
+  function selectionsEqual(firstSelection, secondSelection) {
+    return (
+      firstSelection === secondSelection ||
+      unorderedArraysAreEqual(firstSelection, secondSelection)
+    )
+  }
+
   function initializePusher() {
     pusherChannel?.bind(PUSHER_EVENT_KEY, (body) => {
       const { message, } = body
 
       const queryKeysAreEqual = message.query === queryKey
       const timeframesAreEqual = message.timeframe === selectedTimeframe
-      const schoolIdsAreEqual = unorderedArraysAreEqual(message.school_ids, selectedSchoolIds)
-      const teacherIdsAreEqual = unorderedArraysAreEqual(message.teacher_ids, selectedTeacherIds)
-      const classroomIdsAreEqual = unorderedArraysAreEqual(message.classroom_ids, selectedClassroomIds)
-      const gradesAreEqual =  unorderedArraysAreEqual(message.grades, selectedGrades.map(grade => String(grade))) || (!message.grades && !selectedGrades.length)
+      const schoolIdsAreEqual = selectionsEqual(message.school_ids, selectedSchoolIds)
+      const teacherIdsAreEqual = selectionsEqual(message.teacher_ids, selectedTeacherIds)
+      const classroomIdsAreEqual = selectionsEqual(message.classroom_ids, selectedClassroomIds)
+      const gradesAreEqual =  selectionsEqual(message.grades, selectedGrades.map(grade => String(grade))) || (!message.grades && !selectedGrades.length)
 
       if (queryKeysAreEqual && timeframesAreEqual && schoolIdsAreEqual && gradesAreEqual && teacherIdsAreEqual && classroomIdsAreEqual) {
         getData()
