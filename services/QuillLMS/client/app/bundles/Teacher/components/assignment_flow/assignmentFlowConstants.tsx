@@ -88,7 +88,7 @@ export const ellStarterPreTest = {
   name: 'ELL Starter Baseline Diagnostic (Pre)',
   unitTemplateId: ELL_STARTER_DIAGNOSTIC_UNIT_TEMPLATE_ID,
   what: 'Simple verb conjugation, articles, subject-verb agreement, simple word order, singular and plural nouns, and adjective placement',
-  when: 'Your students are beginning English language learners who are working on foundational grammar skills.'
+  when: 'Your students are newcomer English language learners who are working on basic foundational grammar skills.'
 }
 
 export const ellStarterPostTest = {
@@ -105,7 +105,7 @@ export const ellIntermediatePreTest = {
   name: 'ELL Intermediate Baseline Diagnostic (Pre)',
   unitTemplateId: ELL_INTERMEDIATE_DIAGNOSTIC_UNIT_TEMPLATE_ID,
   what: 'Subject-verb agreement, possessives, prepositions, future tense, articles, and intermediate questions',
-  when: 'Your students are English language learners who have a foundational understanding of basic English grammar but need more practice with certain concepts.'
+  when: 'Your students are newcomer or beginner English language learners who have an understanding of simple sentence structure but need practice with tenses, prepositions, and other foundational skills.'
 }
 
 export const ellIntermediatePostTest = {
@@ -122,7 +122,7 @@ export const ellAdvancedPreTest = {
   name: 'ELL Advanced Baseline Diagnostic (Pre)',
   unitTemplateId: ELL_ADVANCED_DIAGNOSTIC_UNIT_TEMPLATE_ID,
   what: 'Regular and irregular past tense, progressive tenses, phrasal verbs, choosing between prepositions, responding to questions, and commonly confused words',
-  when: 'Your students are English language learners who need practice with more difficult ELL skills before moving on to the Starter Diagnostic.'
+  when: 'Your students are beginner or intermediate English language learners who have a foundational understanding of basic English grammar but need more practice with certain concepts.'
 }
 
 export const ellAdvancedPostTest = {
