@@ -234,7 +234,7 @@ export const StudentResponsesIndex = ({ passedStudents, match, mobileNavigation,
   }
 
   function renderPreToPostImprovedSkillsElement({total_correct_questions_count, total_acquired_skill_groups_count}) {
-    if (!total_correct_questions_count) { return diagnosticNotCompletedElement }
+    if (total_correct_questions_count === undefined) { return diagnosticNotCompletedElement }
 
     if (!total_acquired_skill_groups_count) { return NOT_AVAILABLE }
 
@@ -243,10 +243,10 @@ export const StudentResponsesIndex = ({ passedStudents, match, mobileNavigation,
     return total_acquired_skill_groups_count === 1 ? '+1 Improved Skill' : `+${total_acquired_skill_groups_count} Improved Skills`
   }
 
-  function renderPreSkillsCorrectElement({ total_pre_correct_questions_count, total_pre_possible_questions_count, total_possible_questions_count }) {
-    if (!total_possible_questions_count) {
-      return null
-    }
+  function renderPreSkillsCorrectElement({ total_correct_questions_count, total_pre_correct_questions_count, total_pre_possible_questions_count, total_possible_questions_count }) {
+    if (total_correct_questions_count === undefined) { return null }
+
+    if (!total_pre_correct_questions_count) { return NOT_AVAILABLE }
 
     return(
       <div className="skills-correct-element">
@@ -258,6 +258,8 @@ export const StudentResponsesIndex = ({ passedStudents, match, mobileNavigation,
 
   function renderPreSkillsProficient({ total_correct_questions_count, total_pre_correct_questions_count, skill_groups, total_correct_skill_groups_count, correct_skill_groups_text }) {
     if(total_correct_questions_count === undefined) { return null }
+
+    if(!total_correct_questions_count) { return NOT_AVAILABLE }
 
     if (total_pre_correct_questions_count) {
       const countOfPreSkillsProficienct = skill_groups.filter(skillGroup => skillGroup.pre_test_proficiency === PROFICIENCY).length
@@ -284,6 +286,8 @@ export const StudentResponsesIndex = ({ passedStudents, match, mobileNavigation,
 
     if (total_correct_questions_count === undefined) { return diagnosticNotCompletedElement }
 
+    if (!total_correct_questions_count) { return NOT_AVAILABLE }
+
     return(
       <div className="skills-correct-element">
         <p>{total_correct_questions_count} of {total_possible_questions_count} Questions</p>
@@ -293,7 +297,10 @@ export const StudentResponsesIndex = ({ passedStudents, match, mobileNavigation,
   }
 
   function renderPostSkillsImprovedOrMaintained({ total_pre_possible_questions_count, correct_skill_groups_text, total_acquired_skill_groups_count, total_maintained_skill_group_proficiency_count }) {
-    if (!total_pre_possible_questions_count) { return null }
+    if (total_pre_possible_questions_count === undefined) { return null }
+
+    if (!total_pre_possible_questions_count) { return NOT_AVAILABLE }
+
     const acquiredSkillsText = total_acquired_skill_groups_count === 1 ? '1 Improved Skill' : `${total_acquired_skill_groups_count} Improved Skills`
     const maintainedSkillsText = `${total_maintained_skill_group_proficiency_count} Maintained`
     return(
@@ -319,7 +326,7 @@ export const StudentResponsesIndex = ({ passedStudents, match, mobileNavigation,
   const desktopRows = students.map(student => {
     const { name, total_possible_questions_count, total_correct_questions_count, total_pre_correct_questions_count, total_pre_possible_questions_count, skill_groups, total_correct_skill_groups_count, correct_skill_groups_text, total_acquired_skill_groups_count, total_maintained_skill_group_proficiency_count, id } = student
     const totalAcquiredOrMaintainedSkillGroupsCount = total_acquired_skill_groups_count + total_maintained_skill_group_proficiency_count
-    console.log("🚀 ~ file: studentResponsesIndex.tsx:334 ~ desktopRows ~ student:", student)
+
     return {
       id: id || name,
       name,
@@ -331,7 +338,7 @@ export const StudentResponsesIndex = ({ passedStudents, match, mobileNavigation,
       totalAcquiredSkillGroupsCount: total_acquired_skill_groups_count,
       totalAcquiredOrMaintainedSkillGroupsCount: totalAcquiredOrMaintainedSkillGroupsCount > 0 ? totalAcquiredOrMaintainedSkillGroupsCount : 0,
       preSkillsProficientElement: renderPreSkillsProficient({ total_correct_questions_count, total_pre_correct_questions_count, skill_groups, total_correct_skill_groups_count, correct_skill_groups_text }),
-      preSkillsCorrectElement: renderPreSkillsCorrectElement({ total_pre_correct_questions_count, total_pre_possible_questions_count, total_possible_questions_count }),
+      preSkillsCorrectElement: renderPreSkillsCorrectElement({ total_correct_questions_count, total_pre_correct_questions_count, total_pre_possible_questions_count, total_possible_questions_count }),
       activeDiagnosticSkillsCorrectElement: renderActiveDiagnosticSkillsCorrectElement({ total_correct_questions_count, total_possible_questions_count }),
       postSkillsImprovedOrMaintained: renderPostSkillsImprovedOrMaintained({ total_pre_possible_questions_count, correct_skill_groups_text, total_acquired_skill_groups_count, total_maintained_skill_group_proficiency_count }),
       individualResponsesLink: renderIndividualResponsesLink({ total_correct_questions_count, id })
