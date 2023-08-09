@@ -84,7 +84,7 @@ export const noDataYet = (<div className="no-data-yet">
 export const PRE = 'pre'
 export const POST = 'post'
 
-const PROFICIENCY = 'Full Proficiency'
+export const PROFICIENCY = 'Full Proficiency'
 const PARTIAL_PROFICIENCY = 'Partial Proficiency'
 const NO_PROFICIENCY = 'No Proficiency'
 const MAINTAINED_PROFICIENCY = 'Maintained Proficiency'

@@ -12,10 +12,17 @@
     }
     &.hide-on-mobile {
       &.pre-test {
-        width: 650px;
+        width: min-content;
       }
       &.post-test {
-        width: 770px;
+        width: min-content;
+      }
+      .data-table-body {
+        .data-table-row {
+          .data-table-row-section {
+            font-size: 12px;
+          }
+        }
       }
     }
     .individual-responses-header {

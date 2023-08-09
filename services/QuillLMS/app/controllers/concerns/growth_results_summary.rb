@@ -56,8 +56,8 @@ module GrowthResultsSummary
           total_possible_questions_count: total_possible_questions_count,
           total_pre_possible_questions_count: total_pre_possible_questions_count,
           total_maintained_skill_group_proficiency_count: total_maintained_skill_group_proficiency_count,
-          correct_question_text: "#{total_correct_questions_count} of #{total_possible_questions_count} questions correct",
-          correct_skill_groups_text: "#{total_correct_skill_groups_count} of #{skill_groups.count} skill groups"
+          correct_question_text: "#{total_correct_questions_count} of #{total_possible_questions_count} Questions Correct",
+          correct_skill_groups_text: "#{total_correct_skill_groups_count} of #{skill_groups.count} Skills"
         }
       else
         { name: assigned_student.name }
@@ -98,7 +98,7 @@ module GrowthResultsSummary
       skill_group: skill_group.name,
       description: skill_group.description,
       skills: skills,
-      number_of_correct_questions_text: "#{correct_skill_number} of #{present_skill_number} questions correct",
+      number_of_correct_questions_text: "#{correct_skill_number} of #{present_skill_number} Questions Correct",
       proficiency_text: proficiency_text,
       pre_test_proficiency: summarize_student_proficiency_for_skill_per_activity(pre_present_skill_number, pre_correct_skill_number),
       pre_test_proficiency_score: pre_test_proficiency_score,

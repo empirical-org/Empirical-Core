@@ -4,13 +4,11 @@ import { Link, withRouter, } from 'react-router-dom';
 
 import {
   fileDocumentIcon,
+  PROFICIENCY
 } from './shared';
 
 import { requestGet } from '../../../../../../modules/request/index';
-import {
-  DataTable,
-  expandIcon,
-} from '../../../../../Shared/index';
+import { DataTable } from '../../../../../Shared/index';
 import LoadingSpinner from '../../../shared/loading_indicator.jsx';
 
 interface Student {
@@ -20,30 +18,45 @@ interface Student {
   total_correct_questions_count: number;
   total_pre_correct_questions_count: number;
   total_pre_possible_questions_count: number;
+  skill_groups: any[];
+  total_correct_skill_groups_count: number;
+  total_acquired_skill_groups_count: number;
+  total_maintained_skill_group_proficiency_count: number;
+  correct_skill_groups_text: string;
 }
+
+const STANDARD_CELL_WIDTH = '184px'
+const NOT_AVAILABLE = 'Not available'
 
 const preTestDesktopHeaders = (isSortable) => ([
   {
     name: 'Name',
     attribute: 'name',
-    width: '362px',
+    width: STANDARD_CELL_WIDTH,
     sortAttribute: 'alphabeticalName',
     isSortable: true
   },
   {
-    name: 'Pre - Questions',
+    name: 'Pre: Questions Correct',
     attribute: 'activeDiagnosticSkillsCorrectElement',
     sortAttribute: 'totalCorrectSkillsCount',
-    width: '112px',
+    width: STANDARD_CELL_WIDTH,
     rowSectionClassName: 'score-section',
     headerClassName: 'score-header',
     noTooltip: true,
     isSortable
   },
   {
+    name: 'Pre: Skills Proficient',
+    attribute: 'preSkillsProficientElement',
+    width: STANDARD_CELL_WIDTH,
+    isSortable: false,
+    noTooltip: true
+  },
+  {
     name: 'Responses',
     attribute: 'individualResponsesLink',
-    width: '84px',
+    width: STANDARD_CELL_WIDTH,
     noTooltip: true,
     rowSectionClassName: 'individual-responses-link',
     headerClassName: 'individual-responses-header'
@@ -54,34 +67,55 @@ const postTestDesktopHeaders = (isSortable) => ([
   {
     name: 'Name',
     attribute: 'name',
-    width: '346px',
+    width: STANDARD_CELL_WIDTH,
     sortAttribute: 'alphabeticalName',
     isSortable: true
   },
   {
-    name: 'Pre - Questions',
+    name: 'Pre to Post: Improved Skills',
+    attribute: 'preToPostImprovedSkills',
+    width: '184px',
+    isSortable: false,
+    noTooltip: true
+  },
+  {
+    name: 'Pre: Questions Correct',
     attribute: 'preSkillsCorrectElement',
     sortAttribute: 'totalPreCorrectSkillsCount',
-    width: '112px',
+    width: STANDARD_CELL_WIDTH,
     rowSectionClassName: 'score-section',
     headerClassName: 'score-header',
     noTooltip: true,
     isSortable
   },
   {
-    name: 'Post - Questions',
+    name: 'Pre: Skills Proficient',
+    attribute: 'preSkillsProficientElement',
+    width: STANDARD_CELL_WIDTH,
+    isSortable: false,
+    noTooltip: true
+  },
+  {
+    name: 'Post: Questions Correct',
     attribute: 'activeDiagnosticSkillsCorrectElement',
     sortAttribute: 'totalCorrectSkillsCount',
-    width: '118',
+    width: STANDARD_CELL_WIDTH,
     rowSectionClassName: 'score-section',
     headerClassName: 'score-header',
     noTooltip: true,
     isSortable
+  },
+  {
+    name: 'Post: Skills Improved or Maintained',
+    attribute: 'postSkillsImprovedOrMaintained',
+    width: '184px',
+    isSortable: false,
+    noTooltip: true
   },
   {
     name: 'Responses',
     attribute: 'individualResponsesLink',
-    width: '84px',
+    width: '210px',
     noTooltip: true,
     rowSectionClassName: 'individual-responses-link',
     headerClassName: 'individual-responses-header'
@@ -124,7 +158,6 @@ function alphabeticalName(name) {
 export const StudentResponsesIndex = ({ passedStudents, match, mobileNavigation, location, isPostDiagnostic, }) => {
   const [loading, setLoading] = React.useState<boolean>(!passedStudents);
   const [students, setStudents] = React.useState<Student[]>(passedStudents || []);
-  const [scoringExplanationIsOpen, setScoringExplanationIsOpen] = React.useState<boolean>(false);
 
   const { activityId, classroomId, } = match.params
   const unitId = qs.parse(location.search.replace('?', '')).unit
@@ -150,7 +183,76 @@ export const StudentResponsesIndex = ({ passedStudents, match, mobileNavigation,
     )
   }
 
-  function handleToggleExplanation() { setScoringExplanationIsOpen(!scoringExplanationIsOpen) }
+  function renderPreToPostImprovedSkillsElement(total_acquired_skill_groups_count) {
+    if (!total_acquired_skill_groups_count) { return NOT_AVAILABLE }
+
+    if (total_acquired_skill_groups_count === 0) { return '0 Improved Skills' }
+
+    return total_acquired_skill_groups_count === 1 ? '+1 Improved Skill' : `+${total_acquired_skill_groups_count} Improved Skills`
+  }
+
+  function renderPreSkillsCorrectElement({ total_pre_correct_questions_count, total_pre_possible_questions_count, total_possible_questions_count }) {
+    if(!total_pre_correct_questions_count) { return null }
+
+    return(
+      <div className="skills-correct-element">
+        <p>{total_pre_correct_questions_count} of {total_pre_possible_questions_count} Questions</p>
+        <p>({(calculateSkillsPercentage(total_pre_correct_questions_count, total_possible_questions_count))}%)</p>
+      </div>
+    )
+  }
+
+  function renderPreSkillsProficient({ total_correct_questions_count, total_pre_correct_questions_count, skill_groups, total_correct_skill_groups_count, correct_skill_groups_text }) {
+    if(total_correct_questions_count === undefined) { return null }
+
+    if (total_pre_correct_questions_count) {
+      const countOfPreSkillsProficienct = skill_groups.filter(skillGroup => skillGroup.pre_test_proficiency === PROFICIENCY).length
+      const countOfSkillsToPractice = skill_groups.length - countOfPreSkillsProficienct
+      return (
+        <div className="skills-correct-element">
+          <p>{countOfPreSkillsProficienct} of {skill_groups.length} skills</p>
+          {!!countOfSkillsToPractice && <p>({countOfSkillsToPractice} skills to practice)</p>}
+        </div>
+      )
+    }
+
+    const countOfSkillsToPractice = skill_groups.length - total_correct_skill_groups_count
+    return(
+      <div className="skills-correct-element">
+        <p>{correct_skill_groups_text}</p>
+        {!!countOfSkillsToPractice && <p>({countOfSkillsToPractice} skills to practice)</p>}
+      </div>
+    )
+  }
+
+  function renderActiveDiagnosticSkillsCorrectElement({ total_correct_questions_count, total_possible_questions_count }) {
+    if (total_correct_questions_count === undefined) { return null }
+
+    return(
+      <div className="skills-correct-element">
+        <p>{total_correct_questions_count} of {total_possible_questions_count} Questions</p>
+        <p>({calculateSkillsPercentage(total_correct_questions_count, total_possible_questions_count)}%)</p>
+      </div>
+    )
+  }
+
+  function renderPostSkillsImprovedOrMaintained({ total_pre_possible_questions_count, correct_skill_groups_text, total_acquired_skill_groups_count, total_maintained_skill_group_proficiency_count }) {
+    if (!total_pre_possible_questions_count) { return null }
+    const acquiredSkillsText = total_acquired_skill_groups_count === 1 ? '1 Improved Skill' : `${total_acquired_skill_groups_count} Improved Skills`
+    const maintainedSkillsText = `${total_maintained_skill_group_proficiency_count} Maintained`
+    return(
+      <div className="skills-correct-element">
+        <p>{correct_skill_groups_text}</p>
+        <p>{acquiredSkillsText}, {maintainedSkillsText}</p>
+      </div>
+    )
+  }
+
+  function renderIndividualResponsesLink({total_correct_questions_count, id}) {
+    if (total_correct_questions_count === undefined) { return <span className="name-section-subheader">Diagnostic not completed</span> }
+
+    return <Link className="quill-button fun secondary outlined focus-on-light" to={responsesLink(id)}>View</Link>
+  }
 
   const responsesLink = (studentId: number) => unitId ? `/diagnostics/${activityId}/classroom/${classroomId}/responses/${studentId}?unit=${unitId}` : `/diagnostics/${activityId}/classroom/${classroomId}/responses/${studentId}`
 
@@ -159,17 +261,21 @@ export const StudentResponsesIndex = ({ passedStudents, match, mobileNavigation,
   const worthSorting = students.filter(s => s.total_correct_questions_count).length
 
   const desktopRows = students.map(student => {
-    const { name, total_possible_questions_count, total_correct_questions_count, total_pre_correct_questions_count, total_pre_possible_questions_count, id, } = student
+    const { name, total_possible_questions_count, total_correct_questions_count, total_pre_correct_questions_count, total_pre_possible_questions_count, skill_groups, total_correct_skill_groups_count, correct_skill_groups_text, total_acquired_skill_groups_count, total_maintained_skill_group_proficiency_count, id } = student
+    console.log("🚀 ~ file: studentResponsesIndex.tsx:243 ~ desktopRows ~ student:", student)
 
     return {
       id: id || name,
       name,
       alphabeticalName: alphabeticalName(name),
+      preToPostImprovedSkills: renderPreToPostImprovedSkillsElement(total_acquired_skill_groups_count),
       totalCorrectSkillsCount: total_correct_questions_count,
       totalPreCorrectSkillsCount: total_pre_correct_questions_count,
-      preSkillsCorrectElement: total_pre_correct_questions_count ? <div className="skills-correct-element">{total_pre_correct_questions_count} of {total_pre_possible_questions_count} ({calculateSkillsPercentage(total_pre_correct_questions_count, total_possible_questions_count)}%)</div> : null,
-      activeDiagnosticSkillsCorrectElement: total_correct_questions_count !== undefined ? <div className="skills-correct-element">{total_correct_questions_count} of {total_possible_questions_count} ({calculateSkillsPercentage(total_correct_questions_count, total_possible_questions_count)}%)</div> : null,
-      individualResponsesLink: total_correct_questions_count !== undefined ? <Link className="quill-button fun secondary outlined focus-on-light" to={responsesLink(id)}>View</Link> : <span className="name-section-subheader">Diagnostic not completed</span>
+      preSkillsProficientElement: renderPreSkillsProficient({ total_correct_questions_count, total_pre_correct_questions_count, skill_groups, total_correct_skill_groups_count, correct_skill_groups_text }),
+      preSkillsCorrectElement: renderPreSkillsCorrectElement({ total_pre_correct_questions_count, total_pre_possible_questions_count, total_possible_questions_count }),
+      activeDiagnosticSkillsCorrectElement: renderActiveDiagnosticSkillsCorrectElement({ total_correct_questions_count, total_possible_questions_count }),
+      postSkillsImprovedOrMaintained: renderPostSkillsImprovedOrMaintained({ total_pre_possible_questions_count, correct_skill_groups_text, total_acquired_skill_groups_count, total_maintained_skill_group_proficiency_count }),
+      individualResponsesLink: renderIndividualResponsesLink({ total_correct_questions_count, id })
     }
   })
 

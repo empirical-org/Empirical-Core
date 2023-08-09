@@ -121,7 +121,7 @@ describe GrowthResultsSummary do
             total_maintained_skill_group_proficiency_count: 0,
             total_possible_questions_count: 2,
             correct_question_text: "2 of 2 questions correct",
-            correct_skill_groups_text: "1 of 1 skill groups",
+            correct_skill_groups_text: "1 of 1 skills",
           },
           {
             name: student2.name
@@ -220,7 +220,7 @@ describe GrowthResultsSummary do
             total_pre_possible_questions_count: 2,
             total_possible_questions_count: 2,
             correct_question_text: "2 of 2 questions correct",
-            correct_skill_groups_text: "1 of 1 skill groups",
+            correct_skill_groups_text: "1 of 1 skills",
           },
           {
             name: student2.name
